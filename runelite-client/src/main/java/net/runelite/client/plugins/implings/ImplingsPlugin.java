@@ -30,7 +30,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -53,8 +55,15 @@ import net.runelite.client.util.QueryRunner;
 )
 public class ImplingsPlugin extends Plugin
 {
+	private static final int DYNAMIC_SPAWN_NATURE_DRAGON = 1618;
+	private static final int DYNAMIC_SPAWN_ECLECTIC = 1633;
+	private static final int DYNAMIC_SPAWN_BABY_ESSENCE = 1634;
+
 	@Getter(AccessLevel.PACKAGE)
 	private final List<NPC> implings = new ArrayList<>();
+
+	@Getter(AccessLevel.PACKAGE)
+	private Map<Integer, String> dynamicSpawns = new HashMap<>();
 
 	@Inject
 	private ImplingsOverlay overlay;
@@ -78,6 +87,14 @@ public class ImplingsPlugin extends Plugin
 	public Collection<Overlay> getOverlays()
 	{
 		return Arrays.asList(overlay, minimapOverlay);
+	}
+
+	@Override
+	protected void startUp() throws Exception
+	{
+		dynamicSpawns.put(DYNAMIC_SPAWN_NATURE_DRAGON, "T3 Nature-Lucky Dynamic");
+		dynamicSpawns.put(DYNAMIC_SPAWN_ECLECTIC, "T2 Eclectic Dynamic");
+		dynamicSpawns.put(DYNAMIC_SPAWN_BABY_ESSENCE, "T1 Baby-Essence Dynamic");
 	}
 
 	@Subscribe
