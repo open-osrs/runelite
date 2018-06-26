@@ -40,10 +40,11 @@ import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.ProgressBarComponent;
 import net.runelite.client.ui.overlay.components.SplitComponent;
+import net.runelite.client.util.StackFormatter;
 
 public class XpInfoBoxOverlay extends Overlay
 {
-	private static final int PANEL_PREFERRED_WIDTH = 160;
+	private static final int PANEL_PREFERRED_WIDTH = 155;
 	private static final int BORDER_SIZE = 7;
 	private static final int GAP_SIZE = 5;
 
@@ -75,12 +76,12 @@ public class XpInfoBoxOverlay extends Overlay
 
 		LineComponent xpLeft = LineComponent.builder()
 			.left("Xp Gained:")
-			.right(String.valueOf(snapshot.getXpGainedInSession()))
+			.right(StackFormatter.quantityToRSDecimalStack(snapshot.getXpGainedInSession()))
 			.build();
 
 		LineComponent xpHour = LineComponent.builder()
 			.left("Xp/Hour:")
-			.right(String.valueOf(snapshot.getXpPerHour()))
+			.right(StackFormatter.quantityToRSDecimalStack(snapshot.getXpPerHour()))
 			.build();
 
 		SplitComponent xpSplit = SplitComponent.builder()
@@ -90,7 +91,6 @@ public class XpInfoBoxOverlay extends Overlay
 			.build();
 
 		ImageComponent imageComponent = new ImageComponent(icon);
-
 		SplitComponent iconSplit = SplitComponent.builder()
 			.first(imageComponent)
 			.second(xpSplit)
