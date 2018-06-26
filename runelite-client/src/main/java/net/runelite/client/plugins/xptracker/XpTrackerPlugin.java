@@ -49,6 +49,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import static net.runelite.client.plugins.xptracker.XpWorldType.NORMAL;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.PluginToolbar;
+import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldClient;
 import net.runelite.http.api.worlds.WorldResult;
@@ -61,25 +62,21 @@ import net.runelite.http.api.xp.XpClient;
 @Slf4j
 public class XpTrackerPlugin extends Plugin
 {
+	private final XpState xpState = new XpState();
+	private final XpClient xpClient = new XpClient();
 	@Inject
 	private PluginToolbar pluginToolbar;
-
 	@Inject
 	private Client client;
-
 	@Inject
 	private SkillIconManager skillIconManager;
-
+	@Inject
+	private OverlayManager overlayManager;
 	private NavigationButton navButton;
 	private XpPanel xpPanel;
-
-	private final XpState xpState = new XpState();
-
 	private WorldResult worlds;
 	private XpWorldType lastWorldType;
 	private String lastUsername;
-
-	private final XpClient xpClient = new XpClient();
 
 	@Override
 	public void configure(Binder binder)
@@ -200,6 +197,25 @@ public class XpTrackerPlugin extends Plugin
 	}
 
 	/**
+	 * Adds an overlay to the canvas for tracking a specific skill.
+	 * @param skill the skill for which the overlay should be added
+	 */
+	public void addOverlay(Skill skill)
+	{
+		removeOverlay(skill);
+		overlayManager.add(new XpInfoBoxOverlay(this, skill, skillIconManager.getSkillImage(skill)));
+	}
+
+	/**
+	 * Removes an overlay from the overlayManager if it's present.
+	 * @param skill the skill for which the overlay should be removed.
+	 */
+	public void removeOverlay(Skill skill)
+	{
+		overlayManager.removeIf(e -> e instanceof XpInfoBoxOverlay && ((XpInfoBoxOverlay) e).getSkill() == skill);
+	}
+
+	/**
 	 * Reset internal state and re-initialize all skills with XP currently cached by the RS client
 	 * This is called by the user manually clicking resetSkillState in the UI.
 	 * It reloads the current skills from the client after resetting internal state.
@@ -212,6 +228,7 @@ public class XpTrackerPlugin extends Plugin
 		{
 			int currentXp = client.getSkillExperience(skill);
 			xpState.initializeSkill(skill, currentXp);
+			removeOverlay(skill);
 		}
 	}
 
@@ -229,6 +246,7 @@ public class XpTrackerPlugin extends Plugin
 	/**
 	 * Reset an individual skill with the client's current known state of the skill
 	 * Will also clear the skill from the UI.
+	 *
 	 * @param skill Skill to reset
 	 */
 	public void resetSkillState(Skill skill)
@@ -238,10 +256,12 @@ public class XpTrackerPlugin extends Plugin
 		xpState.recalculateTotal();
 		xpPanel.resetSkill(skill);
 		xpPanel.updateTotal(xpState.getTotalSnapshot());
+		removeOverlay(skill);
 	}
 
 	/**
 	 * Reset all skills except for the one provided
+	 *
 	 * @param skill Skill to ignore during reset
 	 */
 	public void resetOtherSkillState(Skill skill)
@@ -251,6 +271,7 @@ public class XpTrackerPlugin extends Plugin
 			if (skill != s)
 			{
 				resetSkillState(s);
+				removeOverlay(s);
 			}
 		}
 	}

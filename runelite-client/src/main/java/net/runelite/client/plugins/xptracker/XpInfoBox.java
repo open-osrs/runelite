@@ -54,26 +54,23 @@ import net.runelite.client.util.SwingUtil;
 @Slf4j
 class XpInfoBox extends JPanel
 {
+	final JMenuItem removeFromGame = new JMenuItem("Remove from canvas");
 	private final JPanel panel;
-
 	@Getter(AccessLevel.PACKAGE)
 	private final Skill skill;
-
 	/* The tracker's wrapping container */
 	private final JPanel container = new JPanel();
-
 	/* Contains the skill icon and the stats panel */
 	private final JPanel headerPanel = new JPanel();
-
 	/* Contains all the skill information (exp gained, per hour, etc) */
 	private final JPanel statsPanel = new JPanel();
-
 	private final ProgressBar progressBar = new ProgressBar();
-
 	private final JLabel expGained = new JLabel();
 	private final JLabel expHour = new JLabel();
 	private final JLabel expLeft = new JLabel();
 	private final JLabel actionsLeft = new JLabel();
+	private final JPopupMenu popupMenu = new JPopupMenu();
+	private final JMenuItem addToGame = new JMenuItem("Add to canvas");
 
 	XpInfoBox(XpTrackerPlugin xpTrackerPlugin, Client client, JPanel panel, Skill skill, SkillIconManager iconManager) throws IOException
 	{
@@ -96,14 +93,29 @@ class XpInfoBox extends JPanel
 
 		// Create reset others menu
 		final JMenuItem resetOthers = new JMenuItem("Reset others");
-		resetOthers.addActionListener(e -> xpTrackerPlugin.resetOtherSkillState(skill));
 
 		// Create popup menu
-		final JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		popupMenu.add(openXpTracker);
 		popupMenu.add(reset);
 		popupMenu.add(resetOthers);
+		popupMenu.add(addToGame);
+
+		addToGame.addActionListener(e ->
+		{
+			xpTrackerPlugin.addOverlay(skill);
+			popupMenu.remove(addToGame);
+			popupMenu.add(removeFromGame);
+		});
+
+		removeFromGame.addActionListener(e ->
+		{
+			xpTrackerPlugin.removeOverlay(skill);
+			popupMenu.remove(removeFromGame);
+			popupMenu.add(addToGame);
+		});
+
+		resetOthers.addActionListener(e -> xpTrackerPlugin.resetOtherSkillState(skill));
 
 		JLabel skillIcon = new JLabel(new ImageIcon(iconManager.getSkillImage(skill)));
 		skillIcon.setHorizontalAlignment(SwingConstants.CENTER);
@@ -152,6 +164,9 @@ class XpInfoBox extends JPanel
 
 	void reset()
 	{
+		popupMenu.remove(removeFromGame);
+		popupMenu.remove(addToGame);
+		popupMenu.add(addToGame);
 		container.remove(statsPanel);
 		panel.remove(this);
 		panel.revalidate();
