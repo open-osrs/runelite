@@ -32,6 +32,7 @@ import net.runelite.api.Client;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.components.ComponentOrientation;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
@@ -50,7 +51,7 @@ class BlastFurnaceOverlay extends Overlay
 		this.plugin = plugin;
 		this.client = client;
 		setPosition(OverlayPosition.TOP_LEFT);
-		imagePanelComponent.setOrientation(PanelComponent.Orientation.HORIZONTAL);
+		imagePanelComponent.setOrientation(ComponentOrientation.HORIZONTAL);
 	}
 
 	@Override

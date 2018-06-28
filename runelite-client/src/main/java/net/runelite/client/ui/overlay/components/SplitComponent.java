@@ -39,7 +39,7 @@ public class SplitComponent implements LayoutableRenderableEntity
 	@Builder.Default
 	private Dimension preferredSize = new Dimension(ComponentConstants.STANDARD_WIDTH, 0);
 	@Builder.Default
-	private Orientation orientation = Orientation.VERTICAL;
+	private ComponentOrientation orientation = ComponentOrientation.VERTICAL;
 	@Builder.Default
 	private Point gap = new Point(0, 0);
 
@@ -57,7 +57,7 @@ public class SplitComponent implements LayoutableRenderableEntity
 		Dimension firstDimenson = first.render(graphics);
 		int x = 0, y = 0;
 
-		if (orientation == Orientation.VERTICAL)
+		if (orientation == ComponentOrientation.VERTICAL)
 		{
 			y = firstDimenson.height + gap.y;
 		}
@@ -76,7 +76,7 @@ public class SplitComponent implements LayoutableRenderableEntity
 		Dimension secondDimension = second.render(graphics);
 		int totalWidth, totalHeight;
 
-		if (orientation == Orientation.VERTICAL)
+		if (orientation == ComponentOrientation.VERTICAL)
 		{
 			totalWidth = Math.max(firstDimenson.width, secondDimension.width);
 			totalHeight = y + secondDimension.height;
@@ -89,12 +89,5 @@ public class SplitComponent implements LayoutableRenderableEntity
 
 		graphics.translate(-preferredLocation.x, -preferredLocation.y);
 		return new Dimension(totalWidth, totalHeight);
-	}
-
-	//Basically copied from PanelComponent.. not sure if that's okay?
-	public enum Orientation
-	{
-		HORIZONTAL,
-		VERTICAL
 	}
 }

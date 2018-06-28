@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.components.ComponentOrientation;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
@@ -49,7 +50,7 @@ public class CerberusOverlay extends Overlay
 		this.plugin = plugin;
 		this.iconManager = iconManager;
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
-		panelComponent.setOrientation(PanelComponent.Orientation.HORIZONTAL);
+		panelComponent.setOrientation(ComponentOrientation.HORIZONTAL);
 	}
 
 	@Override

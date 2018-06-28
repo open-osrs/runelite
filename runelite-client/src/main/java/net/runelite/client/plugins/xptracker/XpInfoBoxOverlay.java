@@ -35,6 +35,7 @@ import lombok.Getter;
 import net.runelite.api.Skill;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.components.ComponentOrientation;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -87,14 +88,14 @@ public class XpInfoBoxOverlay extends Overlay
 		SplitComponent xpSplit = SplitComponent.builder()
 			.first(xpLeft)
 			.second(xpHour)
-			.orientation(SplitComponent.Orientation.VERTICAL)
+			.orientation(ComponentOrientation.VERTICAL)
 			.build();
 
 		ImageComponent imageComponent = new ImageComponent(icon);
 		SplitComponent iconSplit = SplitComponent.builder()
 			.first(imageComponent)
 			.second(xpSplit)
-			.orientation(SplitComponent.Orientation.HORIZONTAL)
+			.orientation(ComponentOrientation.HORIZONTAL)
 			.gap(new Point(GAP_SIZE, 0))
 			.build();
 

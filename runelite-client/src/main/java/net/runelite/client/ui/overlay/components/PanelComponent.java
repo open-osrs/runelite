@@ -37,12 +37,6 @@ import lombok.Setter;
 
 public class PanelComponent implements LayoutableRenderableEntity
 {
-	public enum Orientation
-	{
-		HORIZONTAL,
-		VERTICAL;
-	}
-
 	@Setter
 	@Nullable
 	private Color backgroundColor = ComponentConstants.STANDARD_BACKGROUND_COLOR;
@@ -57,7 +51,7 @@ public class PanelComponent implements LayoutableRenderableEntity
 	private List<LayoutableRenderableEntity> children = new ArrayList<>();
 
 	@Setter
-	private Orientation orientation = Orientation.VERTICAL;
+	private ComponentOrientation orientation = ComponentOrientation.VERTICAL;
 
 	@Setter
 	private int wrapping = -1;
