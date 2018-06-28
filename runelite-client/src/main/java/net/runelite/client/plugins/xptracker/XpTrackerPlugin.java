@@ -64,12 +64,16 @@ public class XpTrackerPlugin extends Plugin
 {
 	private final XpState xpState = new XpState();
 	private final XpClient xpClient = new XpClient();
+
 	@Inject
 	private PluginToolbar pluginToolbar;
+
 	@Inject
 	private Client client;
+
 	@Inject
 	private SkillIconManager skillIconManager;
+
 	@Inject
 	private OverlayManager overlayManager;
 	private NavigationButton navButton;
@@ -198,6 +202,7 @@ public class XpTrackerPlugin extends Plugin
 
 	/**
 	 * Adds an overlay to the canvas for tracking a specific skill.
+	 *
 	 * @param skill the skill for which the overlay should be added
 	 */
 	public void addOverlay(Skill skill)
@@ -208,6 +213,7 @@ public class XpTrackerPlugin extends Plugin
 
 	/**
 	 * Removes an overlay from the overlayManager if it's present.
+	 *
 	 * @param skill the skill for which the overlay should be removed.
 	 */
 	public void removeOverlay(Skill skill)

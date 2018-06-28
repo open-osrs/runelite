@@ -54,7 +54,7 @@ public class SplitComponent implements LayoutableRenderableEntity
 		first.setPreferredSize(preferredSize);
 		first.setPreferredLocation(new Point(0, 0));
 
-		Dimension firstDimenson = first.render(graphics);
+		final Dimension firstDimenson = first.render(graphics);
 		int x = 0, y = 0;
 
 		if (orientation == ComponentOrientation.VERTICAL)
@@ -67,13 +67,13 @@ public class SplitComponent implements LayoutableRenderableEntity
 		}
 
 		second.setPreferredLocation(new Point(x, y));
-		//Make the second component fit to whatever size is left after the first component is rendered
+		// Make the second component fit to whatever size is left after the first component is rendered
 		second.setPreferredSize(new Dimension(preferredSize.width - x, preferredSize.height - y));
 
-		//The total width/height need to be determined as they are now always the same as the
-		//individual width/height (for example image width/height will just be the height of the image
-		//and not the height of the area the image is in
-		Dimension secondDimension = second.render(graphics);
+		// The total width/height need to be determined as they are now always the same as the
+		// individual width/height (for example image width/height will just be the height of the image
+		// and not the height of the area the image is in
+		final Dimension secondDimension = second.render(graphics);
 		int totalWidth, totalHeight;
 
 		if (orientation == ComponentOrientation.VERTICAL)

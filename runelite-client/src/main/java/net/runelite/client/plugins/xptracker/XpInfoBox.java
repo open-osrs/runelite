@@ -57,6 +57,7 @@ class XpInfoBox extends JPanel
 	private static final String REMOVE_STATE = "Remove from canvas";
 	private static final String ADD_STATE = "Add to canvas";
 	private final JPanel panel;
+
 	@Getter(AccessLevel.PACKAGE)
 	private final Skill skill;
 	/* The tracker's wrapping container */
@@ -93,6 +94,7 @@ class XpInfoBox extends JPanel
 
 		// Create reset others menu
 		final JMenuItem resetOthers = new JMenuItem("Reset others");
+		resetOthers.addActionListener(e -> xpTrackerPlugin.resetOtherSkillState(skill));
 
 		// Create popup menu
 		final JPopupMenu popupMenu = new JPopupMenu();
@@ -115,8 +117,6 @@ class XpInfoBox extends JPanel
 				canvasItem.setText(REMOVE_STATE);
 			}
 		});
-
-		resetOthers.addActionListener(e -> xpTrackerPlugin.resetOtherSkillState(skill));
 
 		JLabel skillIcon = new JLabel(new ImageIcon(iconManager.getSkillImage(skill)));
 		skillIcon.setHorizontalAlignment(SwingConstants.CENTER);

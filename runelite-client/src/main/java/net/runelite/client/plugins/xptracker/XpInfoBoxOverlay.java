@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.xptracker;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -43,7 +42,7 @@ import net.runelite.client.ui.overlay.components.ProgressBarComponent;
 import net.runelite.client.ui.overlay.components.SplitComponent;
 import net.runelite.client.util.StackFormatter;
 
-public class XpInfoBoxOverlay extends Overlay
+class XpInfoBoxOverlay extends Overlay
 {
 	private static final int PANEL_PREFERRED_WIDTH = 155;
 	private static final int BORDER_SIZE = 7;
@@ -51,11 +50,12 @@ public class XpInfoBoxOverlay extends Overlay
 
 	private final PanelComponent panel = new PanelComponent();
 	private final XpTrackerPlugin plugin;
+
 	@Getter(AccessLevel.PACKAGE)
 	private final Skill skill;
 	private final BufferedImage icon;
 
-	public XpInfoBoxOverlay(XpTrackerPlugin plugin, Skill skill, BufferedImage icon)
+	XpInfoBoxOverlay(XpTrackerPlugin plugin, Skill skill, BufferedImage icon)
 	{
 		this.plugin = plugin;
 		this.skill = skill;
@@ -69,44 +69,41 @@ public class XpInfoBoxOverlay extends Overlay
 	public Dimension render(Graphics2D graphics)
 	{
 		//Setting the font to rs small font so that the overlay isn't huge
-		Font previousFont = graphics.getFont();
 		graphics.setFont(FontManager.getRunescapeSmallFont());
 
-		XpSnapshotSingle snapshot = plugin.getSkillSnapshot(skill);
+		final XpSnapshotSingle snapshot = plugin.getSkillSnapshot(skill);
 		panel.getChildren().clear();
 
-		LineComponent xpLeft = LineComponent.builder()
+		final LineComponent xpLeft = LineComponent.builder()
 			.left("Xp Gained:")
 			.right(StackFormatter.quantityToRSDecimalStack(snapshot.getXpGainedInSession()))
 			.build();
 
-		LineComponent xpHour = LineComponent.builder()
+		final LineComponent xpHour = LineComponent.builder()
 			.left("Xp/Hour:")
 			.right(StackFormatter.quantityToRSDecimalStack(snapshot.getXpPerHour()))
 			.build();
 
-		SplitComponent xpSplit = SplitComponent.builder()
+		final SplitComponent xpSplit = SplitComponent.builder()
 			.first(xpLeft)
 			.second(xpHour)
 			.orientation(ComponentOrientation.VERTICAL)
 			.build();
 
-		ImageComponent imageComponent = new ImageComponent(icon);
-		SplitComponent iconSplit = SplitComponent.builder()
+		final ImageComponent imageComponent = new ImageComponent(icon);
+		final SplitComponent iconSplit = SplitComponent.builder()
 			.first(imageComponent)
 			.second(xpSplit)
 			.orientation(ComponentOrientation.HORIZONTAL)
 			.gap(new Point(GAP_SIZE, 0))
 			.build();
 
-		ProgressBarComponent progressBarComponent = new ProgressBarComponent();
+		final ProgressBarComponent progressBarComponent = new ProgressBarComponent();
 		progressBarComponent.setValue(snapshot.getSkillProgressToGoal());
 
 		panel.getChildren().add(iconSplit);
 		panel.getChildren().add(progressBarComponent);
 
-		Dimension rendered = panel.render(graphics);
-		graphics.setFont(previousFont);
-		return rendered;
+		return panel.render(graphics);
 	}
 }
