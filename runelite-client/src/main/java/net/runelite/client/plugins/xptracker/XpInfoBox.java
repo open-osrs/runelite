@@ -95,7 +95,7 @@ class XpInfoBox extends JPanel
 		final JMenuItem resetOthers = new JMenuItem("Reset others");
 
 		// Create popup menu
-		JPopupMenu popupMenu = new JPopupMenu();
+		final JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		popupMenu.add(openXpTracker);
 		popupMenu.add(reset);
