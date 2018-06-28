@@ -46,7 +46,6 @@ public class SplitComponent implements LayoutableRenderableEntity
 	private LayoutableRenderableEntity first;
 	private LayoutableRenderableEntity second;
 
-
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{

@@ -76,6 +76,7 @@ public class XpTrackerPlugin extends Plugin
 
 	@Inject
 	private OverlayManager overlayManager;
+
 	private NavigationButton navButton;
 	private XpPanel xpPanel;
 	private WorldResult worlds;
@@ -222,15 +223,6 @@ public class XpTrackerPlugin extends Plugin
 	}
 
 	/**
-	 * Removes all instances of XpInfoBoxOverlay.
-	 * This is called when the plugin is reset to prevent the overlays from persisting.
-	 */
-	private void removeAllOverlays()
-	{
-		overlayManager.removeIf(e -> e instanceof XpInfoBoxOverlay);
-	}
-
-	/**
 	 * Reset internal state and re-initialize all skills with XP currently cached by the RS client
 	 * This is called by the user manually clicking resetSkillState in the UI.
 	 * It reloads the current skills from the client after resetting internal state.
@@ -256,7 +248,7 @@ public class XpTrackerPlugin extends Plugin
 		xpState.reset();
 		xpPanel.resetAllInfoBoxes();
 		xpPanel.updateTotal(XpSnapshotTotal.zero());
-		removeAllOverlays();
+		overlayManager.removeIf(e -> e instanceof XpInfoBoxOverlay);
 	}
 
 	/**
