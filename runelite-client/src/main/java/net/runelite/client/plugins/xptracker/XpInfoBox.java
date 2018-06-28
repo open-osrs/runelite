@@ -70,7 +70,7 @@ class XpInfoBox extends JPanel
 	private final JLabel expHour = new JLabel();
 	private final JLabel expLeft = new JLabel();
 	private final JLabel actionsLeft = new JLabel();
-	private final JMenuItem canvasItem = new JMenuItem("Add to canvas");
+	private final JMenuItem canvasItem = new JMenuItem(ADD_STATE);
 
 	XpInfoBox(XpTrackerPlugin xpTrackerPlugin, Client client, JPanel panel, Skill skill, SkillIconManager iconManager) throws IOException
 	{
