@@ -109,12 +109,12 @@ class XpInfoBox extends JPanel
 			if (canvasItem.getText().equals(REMOVE_STATE))
 			{
 				xpTrackerPlugin.removeOverlay(skill);
-				canvasItem.setText(ADD_STATE);
+				setCanvasState(false);
 			}
 			else
 			{
 				xpTrackerPlugin.addOverlay(skill);
-				canvasItem.setText(REMOVE_STATE);
+				setCanvasState(true);
 			}
 		});
 
@@ -165,10 +165,22 @@ class XpInfoBox extends JPanel
 
 	void reset()
 	{
-		canvasItem.setText(ADD_STATE);
+		setCanvasState(false);
 		container.remove(statsPanel);
 		panel.remove(this);
 		panel.revalidate();
+	}
+
+	void setCanvasState(boolean added)
+	{
+		if (added)
+		{
+			canvasItem.setText(REMOVE_STATE);
+		}
+		else
+		{
+			canvasItem.setText(ADD_STATE);
+		}
 	}
 
 	void update(boolean updated, XpSnapshotSingle xpSnapshotSingle)

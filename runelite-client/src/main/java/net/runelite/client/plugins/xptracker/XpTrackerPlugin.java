@@ -205,7 +205,7 @@ public class XpTrackerPlugin extends Plugin
 	 *
 	 * @param skill the skill for which the overlay should be added
 	 */
-	public void addOverlay(Skill skill)
+	void addOverlay(Skill skill)
 	{
 		removeOverlay(skill);
 		overlayManager.add(new XpInfoBoxOverlay(this, skill, skillIconManager.getSkillImage(skill)));
@@ -216,9 +216,18 @@ public class XpTrackerPlugin extends Plugin
 	 *
 	 * @param skill the skill for which the overlay should be removed.
 	 */
-	public void removeOverlay(Skill skill)
+	void removeOverlay(Skill skill)
 	{
 		overlayManager.removeIf(e -> e instanceof XpInfoBoxOverlay && ((XpInfoBoxOverlay) e).getSkill() == skill);
+	}
+
+	/**
+	 * Removes all instances of XpInfoBoxOverlay.
+	 * This is called when the plugin is reset to prevent the overlays from persisting.
+	 */
+	private void removeAllOverlays()
+	{
+		overlayManager.removeIf(e -> e instanceof XpInfoBoxOverlay);
 	}
 
 	/**
@@ -247,6 +256,7 @@ public class XpTrackerPlugin extends Plugin
 		xpState.reset();
 		xpPanel.resetAllInfoBoxes();
 		xpPanel.updateTotal(XpSnapshotTotal.zero());
+		removeAllOverlays();
 	}
 
 	/**
