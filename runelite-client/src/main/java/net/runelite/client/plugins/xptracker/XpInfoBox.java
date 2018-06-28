@@ -54,7 +54,8 @@ import net.runelite.client.util.SwingUtil;
 @Slf4j
 class XpInfoBox extends JPanel
 {
-	final JMenuItem removeFromGame = new JMenuItem("Remove from canvas");
+	private static final String REMOVE_STATE = "Remove from canvas";
+	private static final String ADD_STATE = "Add to canvas";
 	private final JPanel panel;
 	@Getter(AccessLevel.PACKAGE)
 	private final Skill skill;
@@ -69,8 +70,7 @@ class XpInfoBox extends JPanel
 	private final JLabel expHour = new JLabel();
 	private final JLabel expLeft = new JLabel();
 	private final JLabel actionsLeft = new JLabel();
-	private final JPopupMenu popupMenu = new JPopupMenu();
-	private final JMenuItem addToGame = new JMenuItem("Add to canvas");
+	private final JMenuItem canvasItem = new JMenuItem("Add to canvas");
 
 	XpInfoBox(XpTrackerPlugin xpTrackerPlugin, Client client, JPanel panel, Skill skill, SkillIconManager iconManager) throws IOException
 	{
@@ -95,24 +95,25 @@ class XpInfoBox extends JPanel
 		final JMenuItem resetOthers = new JMenuItem("Reset others");
 
 		// Create popup menu
+		JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		popupMenu.add(openXpTracker);
 		popupMenu.add(reset);
 		popupMenu.add(resetOthers);
-		popupMenu.add(addToGame);
+		popupMenu.add(canvasItem);
 
-		addToGame.addActionListener(e ->
+		canvasItem.addActionListener(e ->
 		{
-			xpTrackerPlugin.addOverlay(skill);
-			popupMenu.remove(addToGame);
-			popupMenu.add(removeFromGame);
-		});
-
-		removeFromGame.addActionListener(e ->
-		{
-			xpTrackerPlugin.removeOverlay(skill);
-			popupMenu.remove(removeFromGame);
-			popupMenu.add(addToGame);
+			if (canvasItem.getText().equals(REMOVE_STATE))
+			{
+				xpTrackerPlugin.removeOverlay(skill);
+				canvasItem.setText(ADD_STATE);
+			}
+			else
+			{
+				xpTrackerPlugin.addOverlay(skill);
+				canvasItem.setText(REMOVE_STATE);
+			}
 		});
 
 		resetOthers.addActionListener(e -> xpTrackerPlugin.resetOtherSkillState(skill));
@@ -164,9 +165,7 @@ class XpInfoBox extends JPanel
 
 	void reset()
 	{
-		popupMenu.remove(removeFromGame);
-		popupMenu.remove(addToGame);
-		popupMenu.add(addToGame);
+		canvasItem.setText(ADD_STATE);
 		container.remove(statsPanel);
 		panel.remove(this);
 		panel.revalidate();
