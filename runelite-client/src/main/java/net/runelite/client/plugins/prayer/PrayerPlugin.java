@@ -71,6 +71,9 @@ public class PrayerPlugin extends Plugin
 	private PrayerDoseOverlay doseOverlay;
 
 	@Inject
+	private PrayerPotionAlerterOverlay prayerPotionAlerterOverlay;
+
+	@Inject
 	private PrayerConfig config;
 
 	@Provides
@@ -84,6 +87,7 @@ public class PrayerPlugin extends Plugin
 	{
 		overlayManager.add(flickOverlay);
 		overlayManager.add(doseOverlay);
+		overlayManager.add(prayerPotionAlerterOverlay);
 	}
 
 	@Override
@@ -91,6 +95,7 @@ public class PrayerPlugin extends Plugin
 	{
 		overlayManager.remove(flickOverlay);
 		overlayManager.remove(doseOverlay);
+		overlayManager.remove(prayerPotionAlerterOverlay);
 		removeIndicators();
 	}
 
