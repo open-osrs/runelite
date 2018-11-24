@@ -1,0 +1,622 @@
+.id                 1601
+.int_stack_count    4
+.string_stack_count 2
+.int_var_count      13
+.string_var_count   3
+   sload                  1
+   load_int               262167
+   widget_put_text_widget
+   load_int               0
+   istore                 4
+   load_int               0
+   istore                 5
+   load_int               -1
+   istore                 6
+   load_int               0
+   istore                 7
+   load_string            ""
+   sstore                 2
+   load_int               0
+   istore                 8
+   load_int               0
+   istore                 9
+   load_int               0
+   istore                 10
+   iload                  1
+   array_initialize       111
+   load_int               0
+   istore                 11
+   load_int               0
+   istore                 12
+   iload                  0
+   load_int               0
+   if_icmpeq              LABEL29
+   jump                   LABEL517
+LABEL29:
+   load_int               93
+   load_int               13190
+   get_itemcontainer_stacksizes_total
+   load_int               0
+   if_icmpgt              LABEL40
+   load_int               93
+   load_int               13192
+   get_itemcontainer_stacksizes_total
+   load_int               0
+   if_icmpgt              LABEL40
+   jump                   LABEL42
+LABEL40:
+   load_int               1
+   istore                 9
+LABEL42:
+   iload                  10
+   iload                  1
+   if_icmplt              LABEL46
+   jump                   LABEL82
+LABEL46:
+   load_int               584
+   iload                  10
+   get_itemcontainer_itemid
+   istore                 6
+   iload                  6
+   load_int               -1
+   if_icmpne              LABEL54
+   jump                   LABEL79
+LABEL54:
+   load_int               584
+   iload                  10
+   get_itemcontainer_stacksize
+   istore                 7
+LABEL58:
+   iload                  10
+   iload                  1
+   if_icmplt              LABEL62
+   jump                   LABEL78
+LABEL62:
+   iload                  7
+   load_int               0
+   if_icmpgt              LABEL66
+   jump                   LABEL78
+LABEL66:
+   iload                  10
+   iload                  6
+   array_store           
+   iload                  7
+   load_int               1
+   isub                  
+   istore                 7
+   iload                  10
+   load_int               1
+   iadd                  
+   istore                 10
+   jump                   LABEL58
+LABEL78:
+   jump                   LABEL81
+LABEL79:
+   iload                  1
+   istore                 10
+LABEL81:
+   jump                   LABEL42
+LABEL82:
+   iload                  4
+   iload                  1
+   if_icmplt              LABEL86
+   jump                   LABEL141
+LABEL86:
+   load_int               262162
+   load_int               5
+   iload                  4
+   widget_create_child   
+   load_int               36
+   load_int               32
+   load_int               0
+   load_int               0
+   widget_put_size       
+   load_int               5
+   iload                  4
+   load_int               40
+   imul                  
+   iadd                  
+   load_int               25
+   load_int               0
+   load_int               0
+   widget_put_position   
+   iload                  4
+   array_load            
+   istore                 6
+   iload                  6
+   load_int               -1
+   if_icmpne              LABEL111
+   jump                   LABEL138
+LABEL111:
+   iload                  6
+   load_int               1
+   1200                  
+   load_string            "<col=ff981f>"
+   iload                  6
+   get_item_name         
+   string_append          2
+   widget_put_name       
+   load_int               1
+   load_string            "Item:"
+   widget_put_action     
+   load_int               1603
+   load_int               1
+   load_int               1
+   iload                  6
+   get_item_name         
+   load_string            "1is"
+   widget_put_option_click_listener
+   load_int               1118481
+   widget_put_sprite2    
+   load_int               1
+   widget_put_borderthickness
+   iload                  4
+   load_int               1
+   iadd                  
+   istore                 4
+   jump                   LABEL140
+LABEL138:
+   iload                  1
+   istore                 4
+LABEL140:
+   jump                   LABEL82
+LABEL141:
+   load_int               0
+   istore                 4
+LABEL143:
+   iload                  4
+   load_int               468
+   get_inventory_size    
+   if_icmplt              LABEL148
+   jump                   LABEL342
+LABEL148:
+   load_int               468
+   iload                  4
+   get_itemcontainer_itemid
+   istore                 6
+   iload                  6
+   load_int               -1
+   if_icmpne              LABEL156
+   jump                   LABEL337
+LABEL156:
+   load_int               262165
+   load_int               5
+   iload                  5
+   widget_create_child   
+   load_int               36
+   load_int               32
+   load_int               0
+   load_int               0
+   widget_put_size       
+   load_int               5
+   iload                  5
+   load_int               8
+   modulo                
+   load_int               38
+   imul                  
+   iadd                  
+   load_int               25
+   load_int               38
+   iload                  5
+   load_int               8
+   idiv                  
+   imul                  
+   iadd                  
+   load_int               0
+   load_int               0
+   widget_put_position   
+   iload                  6
+   load_int               468
+   iload                  4
+   get_itemcontainer_stacksize
+   1200                  
+   load_string            "<col=ff981f>"
+   iload                  6
+   get_item_name         
+   string_append          2
+   widget_put_name       
+   load_int               1
+   load_string            "Item:"
+   widget_put_action     
+   load_int               1603
+   load_int               0
+   load_int               468
+   iload                  4
+   get_itemcontainer_stacksize
+   iload                  6
+   get_item_name         
+   load_string            "1is"
+   widget_put_option_click_listener
+   load_int               1118481
+   widget_put_sprite2    
+   load_int               111
+   load_int               49
+   load_int               879
+   iload                  6
+   get_enum_value        
+   load_int               1
+   if_icmpeq              LABEL214
+   jump                   LABEL219
+LABEL214:
+   load_int               2
+   widget_put_borderthickness
+   load_int               1
+   istore                 8
+   jump                   LABEL221
+LABEL219:
+   load_int               1
+   widget_put_borderthickness
+LABEL221:
+   iload                  5
+   load_int               1
+   iadd                  
+   istore                 5
+   iload                  6
+   get_item_stackable    
+   load_int               1
+   if_icmpeq              LABEL230
+   jump                   LABEL337
+LABEL230:
+   load_int               0
+   istore                 10
+   load_int               0
+   istore                 12
+LABEL234:
+   iload                  10
+   iload                  1
+   if_icmplt              LABEL238
+   jump                   LABEL252
+LABEL238:
+   iload                  10
+   array_load            
+   iload                  6
+   if_icmpeq              LABEL243
+   jump                   LABEL247
+LABEL243:
+   iload                  12
+   load_int               1
+   iadd                  
+   istore                 12
+LABEL247:
+   iload                  10
+   load_int               1
+   iadd                  
+   istore                 10
+   jump                   LABEL234
+LABEL252:
+   load_int               2147483647
+   load_int               94
+   iload                  6
+   get_itemcontainer_stacksizes_total
+   isub                  
+   load_int               93
+   iload                  6
+   get_itemcontainer_stacksizes_total
+   isub                  
+   iload                  12
+   iadd                  
+   istore                 11
+   load_int               0
+   iload                  11
+   isub                  
+   istore                 11
+   iload                  11
+   load_int               0
+   if_icmpgt              LABEL272
+   jump                   LABEL337
+LABEL272:
+   load_int               262165
+   load_int               5
+   iload                  5
+   widget_create_child   
+   load_int               36
+   load_int               32
+   load_int               0
+   load_int               0
+   widget_put_size       
+   load_int               5
+   iload                  5
+   load_int               8
+   modulo                
+   load_int               38
+   imul                  
+   iadd                  
+   load_int               25
+   load_int               38
+   iload                  5
+   load_int               8
+   idiv                  
+   imul                  
+   iadd                  
+   load_int               0
+   load_int               0
+   widget_put_position   
+   iload                  6
+   iload                  11
+   1200                  
+   load_string            "<col=ff981f>"
+   iload                  6
+   get_item_name         
+   string_append          2
+   widget_put_name       
+   load_int               1
+   load_string            "Item:"
+   widget_put_action     
+   load_int               1603
+   load_int               0
+   iload                  11
+   iload                  6
+   get_item_name         
+   load_string            "1is"
+   widget_put_option_click_listener
+   load_int               1118481
+   widget_put_sprite2    
+   load_int               111
+   load_int               49
+   load_int               879
+   iload                  6
+   get_enum_value        
+   load_int               1
+   if_icmpeq              LABEL326
+   jump                   LABEL331
+LABEL326:
+   load_int               2
+   widget_put_borderthickness
+   load_int               1
+   istore                 8
+   jump                   LABEL333
+LABEL331:
+   load_int               1
+   widget_put_borderthickness
+LABEL333:
+   iload                  5
+   load_int               1
+   iadd                  
+   istore                 5
+LABEL337:
+   iload                  4
+   load_int               1
+   iadd                  
+   istore                 4
+   jump                   LABEL143
+LABEL342:
+   load_string            "The normal amount of items kept is "
+   load_string            "three"
+   load_string            "."
+   load_string            "<br>"
+   load_string            "<br>"
+   string_append          5
+   sstore                 2
+   iload                  3
+   load_int               1
+   if_icmpeq              LABEL353
+   jump                   LABEL363
+LABEL353:
+   sload                  2
+   load_string            "You're an "
+   load_string            "<col=ff3333>"
+   load_string            "Ultimate Iron Man"
+   load_string            "<col=ff981f>"
+   load_string            ", so you will always keep zero items."
+   string_append          5
+   concat_string         
+   sstore                 2
+   jump                   LABEL426
+LABEL363:
+   iload                  1
+   load_int               0
+   if_icmpeq              LABEL367
+   jump                   LABEL379
+LABEL367:
+   sload                  2
+   load_string            "You're marked with a "
+   load_string            "<col=ff3333>"
+   load_string            "PK skull"
+   load_string            "<col=ff981f>"
+   load_string            ". This reduces the items you keep from "
+   load_string            "three"
+   load_string            " to zero!"
+   string_append          7
+   concat_string         
+   sstore                 2
+   jump                   LABEL426
+LABEL379:
+   iload                  1
+   load_int               1
+   if_icmpeq              LABEL383
+   jump                   LABEL402
+LABEL383:
+   sload                  2
+   load_string            "You're marked with a "
+   load_string            "<col=ff3333>"
+   load_string            "PK skull"
+   load_string            "<col=ff981f>"
+   load_string            ". This reduces the items you keep from "
+   load_string            "three"
+   load_string            " to zero!"
+   load_string            "<br>"
+   load_string            "<br>"
+   load_string            "However, you also have the "
+   load_string            "<col=ff3333>"
+   load_string            "Protect Items"
+   load_string            "<col=ff981f>"
+   load_string            " prayer active, which saves you one extra item!"
+   string_append          14
+   concat_string         
+   sstore                 2
+   jump                   LABEL426
+LABEL402:
+   iload                  1
+   load_int               3
+   if_icmpeq              LABEL406
+   jump                   LABEL411
+LABEL406:
+   sload                  2
+   load_string            "You have no factors affecting the items you keep."
+   concat_string         
+   sstore                 2
+   jump                   LABEL426
+LABEL411:
+   iload                  1
+   load_int               3
+   load_int               1
+   iadd                  
+   if_icmpeq              LABEL417
+   jump                   LABEL426
+LABEL417:
+   sload                  2
+   load_string            "You have the "
+   load_string            "<col=ff3333>"
+   load_string            "Protect Items"
+   load_string            "<col=ff981f>"
+   load_string            " prayer active, which saves you one extra item!"
+   string_append          5
+   concat_string         
+   sstore                 2
+LABEL426:
+   iload                  8
+   load_int               1
+   if_icmpeq              LABEL433
+   iload                  9
+   load_int               1
+   if_icmpeq              LABEL433
+   jump                   LABEL484
+LABEL433:
+   iload                  8
+   load_int               1
+   if_icmpeq              LABEL437
+   jump                   LABEL458
+LABEL437:
+   iload                  9
+   load_int               1
+   if_icmpeq              LABEL441
+   jump                   LABEL458
+LABEL441:
+   sload                  2
+   load_string            "<br>"
+   load_string            "<br>"
+   load_string            "Items with a "
+   load_string            "<col=ffffff>"
+   load_string            "white outline"
+   load_string            "<col=ff981f>"
+   load_string            " will always be lost."
+   load_string            "<br>"
+   load_string            "<col=00ff00>"
+   load_string            "Bonds"
+   load_string            "</col>"
+   load_string            " are always protected."
+   string_append          12
+   concat_string         
+   sstore                 2
+   jump                   LABEL484
+LABEL458:
+   iload                  8
+   load_int               1
+   if_icmpeq              LABEL462
+   jump                   LABEL474
+LABEL462:
+   sload                  2
+   load_string            "<br>"
+   load_string            "<br>"
+   load_string            "Items with a "
+   load_string            "<col=ffffff>"
+   load_string            "white outline"
+   load_string            "<col=ff981f>"
+   load_string            " will always be lost."
+   string_append          7
+   concat_string         
+   sstore                 2
+   jump                   LABEL484
+LABEL474:
+   sload                  2
+   load_string            "<br>"
+   load_string            "<br>"
+   load_string            "<col=00ff00>"
+   load_string            "Bonds"
+   load_string            "</col>"
+   load_string            " are always protected, so are not shown here."
+   string_append          6
+   concat_string         
+   sstore                 2
+LABEL484:
+   sload                  2
+   load_int               262173
+   widget_put_text_widget
+   load_string            "<col=ffcc33>"
+   load_string            "Max items kept on death :"
+   load_string            "<br>"
+   load_string            "<br>"
+   load_string            "<col=ffcc33>"
+   load_string            "~ "
+   iload                  1
+   int_to_string         
+   load_string            " ~"
+   string_append          8
+   load_int               262174
+   widget_put_text_widget
+   iload                  2
+   load_int               0
+   if_icmpgt              LABEL503
+   jump                   LABEL510
+LABEL503:
+   load_string            "Items you will keep on death:"
+   load_int               262161
+   widget_put_text_widget
+   load_string            "Items you will lose on death:"
+   load_int               262164
+   widget_put_text_widget
+   jump                   LABEL516
+LABEL510:
+   load_string            "Items you will keep on death if not skulled:"
+   load_int               262161
+   widget_put_text_widget
+   load_string            "Items you will lose on death if not skulled:"
+   load_int               262164
+   widget_put_text_widget
+LABEL516:
+   jump                   LABEL557
+LABEL517:
+   load_int               1
+   load_int               262165
+   widget_put_hidden_widget
+   load_int               1
+   load_int               262162
+   widget_put_hidden_widget
+   load_int               0
+   load_int               262175
+   widget_put_hidden_widget
+   sload                  0
+   load_int               262176
+   widget_put_text_widget
+   load_string            "The normal amount of items kept is "
+   load_string            "three"
+   load_string            "."
+   load_string            "<br>"
+   load_string            "<br>"
+   string_append          5
+   sstore                 2
+   sload                  2
+   load_string            "You're in a "
+   load_string            "<col=ff3333>"
+   load_string            "safe area"
+   load_string            "<col=ff981f>"
+   load_string            ". See information to the left for a more detailed description."
+   string_append          5
+   concat_string         
+   sstore                 2
+   sload                  2
+   load_int               262173
+   widget_put_text_widget
+   load_string            "<col=ffcc33>"
+   load_string            "Max items kept on death :"
+   load_string            "<br>"
+   load_string            "<br>"
+   load_string            "<col=ffcc33>"
+   load_string            "All items!"
+   string_append          6
+   load_int               262174
+   widget_put_text_widget
+LABEL557:
+   load_string            "deathKeepBuild"   ; push event name
+   runelite_callback                         ; invoke callback
+   return                

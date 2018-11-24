@@ -68,6 +68,16 @@ public final class ScriptID
 	public static final int CLEAR_CHATBOX_PANEL = 677;
 
 	/**
+	 * Displays the game messages when clicking on an item inside the Items Kept on Death interface
+	 * <ul>
+	 * <li> int (boolean) Item kept on death </li>
+	 * <li> int Item Quantity </li>
+	 * <li> String Item Name </li>
+	 * </ul>
+	 */
+	public static final int KEPT_LOST_ITEM_EXAMINE = 1603;
+
+	/**
 	 * Updates the Diary/Quest interface's scrollbar
 	 * <ul>
 	 * <li> int (boolean) Reset scroll position </li>
