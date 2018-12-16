@@ -256,19 +256,8 @@ public class KeptOnDeathPlugin extends Plugin
 					continue;
 				}
 
-				Widget itemWidget = client.createWidget();
-				itemWidget.setType(WidgetType.GRAPHIC);
-				itemWidget.setItemId(i.getId());
-				itemWidget.setItemQuantity(i.getQuantity());
-				itemWidget.setHasListener(true);
-				itemWidget.setIsIf3(true);
-				itemWidget.setOriginalWidth(ORIGINAL_WIDTH);
-				itemWidget.setOriginalHeight(ORIGINAL_HEIGHT);
-				itemWidget.setBorderType(1);
-
 				ItemComposition c = itemManager.getItemComposition(i.getId());
-				itemWidget.setAction(1, String.format(ACTION_TEXT, c.getName()));
-				itemWidget.setOnOpListener(SCRIPT_ID, 1, i.getQuantity(), c.getName());
+				Widget itemWidget = createItemWidget(i.getQuantity(), c);
 
 				// Bonds are always kept and do not count towards the limit.
 				if (id == ItemID.OLD_SCHOOL_BOND || id == ItemID.OLD_SCHOOL_BOND_UNTRADEABLE)
@@ -292,10 +281,26 @@ public class KeptOnDeathPlugin extends Plugin
 					}
 				}
 
-				if (keepCount > 0 || (!checkTradeable(i.getId(), c) && wildyLevel < 21))
+				// Keep most valuable items regardless of trade-ability.
+				if (keepCount > 0)
 				{
-					keepCount = keepCount < 0 ? -1 : keepCount - 1;
+					if (i.getQuantity() > keepCount)
+					{
+						keptItems.add(createItemWidget(keepCount, c));
+						itemWidget.setItemQuantity(i.getQuantity() - keepCount);
+						keepCount = 0;
+					}
+					else
+					{
+						keptItems.add(itemWidget);
+						keepCount -= i.getQuantity();
+						continue;
+					}
+				}
 
+
+				if (!checkTradeable(i.getId(), c) && wildyLevel < 21)
+				{
 					// Certain items are turned into broken variants inside the wilderness.
 					if (BrokenOnDeathItem.check(i.getId()))
 					{
@@ -304,7 +309,7 @@ public class KeptOnDeathPlugin extends Plugin
 					}
 
 					// Ignore all non tradeables in wildy except for the above case(s).
-					if (wildyLevel > 0 && keepCount == -1)
+					if (wildyLevel > 0)
 					{
 						lostItems.add(itemWidget);
 						continue;
@@ -582,5 +587,29 @@ public class KeptOnDeathPlugin extends Plugin
 		}
 
 		recreateItemsKeptOnDeathWidget();
+	}
+
+	/**
+	 * Creates an Item Widget for use inside the Kept on Death Interface
+	 * @param qty Amount of item
+	 * @param c Items Composition
+	 * @return
+	 */
+	private Widget createItemWidget(int qty, ItemComposition c)
+	{
+		Widget itemWidget = client.createWidget();
+		itemWidget.setType(WidgetType.GRAPHIC);
+		itemWidget.setItemId(c.getId());
+		itemWidget.setItemQuantity(qty);
+		itemWidget.setHasListener(true);
+		itemWidget.setIsIf3(true);
+		itemWidget.setOriginalWidth(ORIGINAL_WIDTH);
+		itemWidget.setOriginalHeight(ORIGINAL_HEIGHT);
+		itemWidget.setBorderType(1);
+
+		itemWidget.setAction(1, String.format(ACTION_TEXT, c.getName()));
+		itemWidget.setOnOpListener(SCRIPT_ID, 1, qty, c.getName());
+
+		return itemWidget;
 	}
 }
