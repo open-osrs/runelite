@@ -156,7 +156,6 @@ public class KeptOnDeathPlugin extends Plugin
 		if (client.getVar(Varbits.IN_WILDERNESS) != 1)
 		{
 			// if they are in a PvP world and not in a safe zone act like in lvl 1 wildy
-			// if they are in wildy and in PvP world let normal wildy code execute.
 			if (isInPvpWorld() && !isInPvPSafeZone())
 			{
 				wildyLevel = 1;
@@ -536,20 +535,8 @@ public class KeptOnDeathPlugin extends Plugin
 
 	private void createButton(String name, int spriteID, boolean startingFlag)
 	{
-		WidgetButton button = new WidgetButton(name, spriteID, startingFlag, createRunnable(name), client);
+		WidgetButton button = new WidgetButton(name, spriteID, startingFlag, this::buttonCallback, client);
 		buttonMap.put(name, button);
-	}
-
-	private WidgetButtonRunnable createRunnable(String name)
-	{
-		return new WidgetButtonRunnable(name)
-		{
-			@Override
-			public void run(boolean selected)
-			{
-				buttonCallback(this.getName(), selected);
-			}
-		};
 	}
 
 	private void buttonCallback(String name, boolean selected)

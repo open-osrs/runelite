@@ -44,6 +44,14 @@ public class WidgetButton
 	private static final int PADDING = 5;
 	private static final int ICON_PADDING = (BACKGROUND_HEIGHT - ICON_HEIGHT) / 2;
 
+	private static final int BACKGROUND_SPRITE_ID = SpriteID.EQUIPMENT_SLOT_TILE;
+	private static final int SELECTED_BACKGROUND_SPRITE_ID = SpriteID.EQUIPMENT_SLOT_SELECTED;
+
+	public interface WidgetButtonCallback
+	{
+		void run(String name, boolean newState);
+	}
+
 	private String name;
 	private int spriteID;
 	@Getter
@@ -51,24 +59,16 @@ public class WidgetButton
 	@Getter
 	private Widget background;
 	private boolean selected;
-	private WidgetButtonRunnable callback;
+	private WidgetButtonCallback callback;
 
-	private int backgroundSpriteId = SpriteID.EQUIPMENT_SLOT_TILE;
-	private int selectedBackgroundSpriteId = SpriteID.EQUIPMENT_SLOT_SELECTED;
-
-	WidgetButton(String name, int spriteID, boolean selectedStartState, Client client)
+	WidgetButton(String name, int spriteID, boolean selectedStartState, WidgetButtonCallback callback, Client client)
 	{
 		this.name = name;
 		this.spriteID = spriteID;
 		this.selected = selectedStartState;
+		this.callback = callback;
 		createBackgroundWidget(client);
 		createIconWidget(client);
-	}
-
-	WidgetButton(String name, int spriteID, boolean selectedStartState, WidgetButtonRunnable callback, Client client)
-	{
-		this(name, spriteID, selectedStartState, client);
-		this.callback = callback;
 	}
 
 	private void createBackgroundWidget(Client client)
@@ -83,7 +83,7 @@ public class WidgetButton
 	{
 		icon = createWidget(client);
 		icon.setAction(1, "Toggle:");
-		icon.setOnOpListener((JavaScriptCallback) ev -> toggleSelected());
+		icon.setOnOpListener((JavaScriptCallback) ev -> onButtonClicked());
 		icon.setHasListener(true);
 		icon.setSpriteId(spriteID);
 	}
@@ -99,35 +99,22 @@ public class WidgetButton
 		return w;
 	}
 
-	private void syncBackgroundSprite()
-	{
-		background.setSpriteId(selected ? selectedBackgroundSpriteId : backgroundSpriteId);
-	}
-
-	private void toggleSelected()
-	{
-		setSelected(!selected);
-		callback.run(selected);
-	}
-
 	public void setSelected(boolean selected)
 	{
 		this.selected = selected;
 		syncBackgroundSprite();
 	}
 
-	public void setBackgroundSpriteId(int id)
+	private void syncBackgroundSprite()
 	{
-		backgroundSpriteId = id;
-		syncBackgroundSprite();
+		background.setSpriteId(selected ? SELECTED_BACKGROUND_SPRITE_ID : BACKGROUND_SPRITE_ID);
 	}
 
-	public void setSelectedBackgroundSpriteId(int id)
-	{
-		selectedBackgroundSpriteId = id;
-		syncBackgroundSprite();
-	}
-
+	/**
+	 * Adds the collection of WidgetButtons to the container overriding any existing children.
+	 * @param container Widget to add buttons too
+	 * @param buttons buttons to add
+	 */
 	static void addButtonsToContainerWidget(Widget container, Collection<WidgetButton> buttons)
 	{
 		Widget[] children = container.getChildren();
@@ -178,5 +165,11 @@ public class WidgetButton
 		w.revalidate();
 
 		return w;
+	}
+
+	private void onButtonClicked()
+	{
+		setSelected(!selected);
+		callback.run(name, selected);
 	}
 }
