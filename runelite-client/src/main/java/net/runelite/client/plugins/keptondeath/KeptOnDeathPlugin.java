@@ -129,8 +129,8 @@ public class KeptOnDeathPlugin extends Plugin
 			// The script in charge of building the Items Kept on Death interface has finished running.
 			// Make all necessary changes now.
 
-			// Players inside Safe Areas (POH/Clan Wars) see the default interface
-			if (isInSafeArea())
+			// Players inside Safe Areas (POH/Clan Wars) & playing DMM see the default interface
+			if (isInSafeArea() || client.getWorldType().contains(WorldType.DEADMAN))
 			{
 				return;
 			}
@@ -187,7 +187,6 @@ public class KeptOnDeathPlugin extends Plugin
 
 	private boolean isInSafeArea()
 	{
-		// We must check last child since checking for the widget via client.getWidget doesn't work as expected
 		Widget w = client.getWidget(WidgetInfo.ITEMS_KEPT_SAFE_ZONE_CONTAINER);
 		return w != null && !w.isHidden();
 	}
@@ -199,16 +198,11 @@ public class KeptOnDeathPlugin extends Plugin
 
 	private int getDefaultItemsKept()
 	{
-		int count = 3;
-
-		if (isSkulled)
-		{
-			count -= 3;
-		}
+		int count = isSkulled ? 0 : 3;
 
 		if (protectingItem)
 		{
-			count += 1;
+			count++;
 		}
 
 		return count;
@@ -451,7 +445,7 @@ public class KeptOnDeathPlugin extends Plugin
 		max.setText(String.format(MAX_KEPT_ITEMS_FORMAT, kept.getChildren().length));
 	}
 
-	// isTradeable actually checks if they are traded on the grand exchange, some items are trade-able but not via GE
+	// isTradeable checks if they are traded on the grand exchange, some items are trade-able but not via GE
 	private boolean checkTradeable(int id, ItemComposition c)
 	{
 		// If the item is a note check the unnoted variants trade ability
