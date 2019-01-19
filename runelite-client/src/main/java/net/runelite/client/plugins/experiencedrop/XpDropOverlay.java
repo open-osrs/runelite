@@ -22,38 +22,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.attackstyles;
+package net.runelite.client.plugins.experiencedrop;
 
-import net.runelite.api.Skill;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
 
-public enum AttackStyle
+import net.runelite.api.Actor;
+import net.runelite.api.Point;
+import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.OverlayUtil;
+
+class XpDropOverlay extends Overlay
 {
-	ACCURATE("Accurate", Skill.ATTACK),
-	AGGRESSIVE("Aggressive", Skill.STRENGTH),
-	DEFENSIVE("Defensive", Skill.DEFENCE),
-	CONTROLLED("Controlled", Skill.ATTACK, Skill.STRENGTH, Skill.DEFENCE),
-	RANGING("Ranging", Skill.RANGED),
-	LONGRANGE("Longrange", Skill.RANGED, Skill.DEFENCE),
-	CASTING("Casting", Skill.MAGIC),
-	DEFENSIVE_CASTING("Defensive Casting", Skill.MAGIC, Skill.DEFENCE),
-	OTHER("Other");
+	private final XpDropPlugin plugin;
+	private final XpDropConfig config;
 
-	private final String name;
-	private final Skill[] skills;
-
-	AttackStyle(String name, Skill... skills)
+	@Inject
+	private XpDropOverlay(XpDropPlugin plugin, XpDropConfig config)
 	{
-		this.name = name;
-		this.skills = skills;
+		this.plugin = plugin;
+		this.config = config;
+		setPosition(OverlayPosition.DYNAMIC);
+		setPriority(OverlayPriority.MED);
 	}
 
-	public String getName()
+	@Override
+	public Dimension render(Graphics2D graphics)
 	{
-		return name;
-	}
+		if (config.showDamage())
+		{
+			final Actor opponent = plugin.getLastOpponent();
+			if (opponent != null)
+			{
+				int offset = opponent.getLogicalHeight() + 40;
+				String damageStr = String.valueOf(this.plugin.getDamage());
+				Point textLocation = opponent.getCanvasTextLocation(graphics, damageStr, offset);
 
-	public Skill[] getSkills()
-	{
-		return skills;
+				if (textLocation != null)
+				{
+					OverlayUtil.renderTextLocation(graphics, textLocation, damageStr, Color.RED);
+				}
+			}
+		}
+
+		return null;
 	}
 }

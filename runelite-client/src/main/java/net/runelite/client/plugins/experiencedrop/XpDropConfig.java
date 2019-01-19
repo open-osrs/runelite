@@ -87,4 +87,15 @@ public interface XpDropConfig extends Config
 		return 0;
 	}
 
+	@ConfigItem(
+			keyName = "showDamage",
+			name = "Show damage on XP drop",
+			description = "Show what you hit next to the XP drop",
+			position = 5
+	)
+	default boolean showDamage()
+	{
+		return false;
+	}
+
 }
