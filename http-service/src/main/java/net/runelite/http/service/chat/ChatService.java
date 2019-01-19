@@ -25,20 +25,20 @@
 package net.runelite.http.service.chat;
 
 import java.time.Duration;
+import net.runelite.http.service.util.redis.RedisPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 @Service
 public class ChatService
 {
 	private static final Duration EXPIRE = Duration.ofMinutes(2);
 
-	private final JedisPool jedisPool;
+	private final RedisPool jedisPool;
 
 	@Autowired
-	public ChatService(JedisPool jedisPool)
+	public ChatService(RedisPool jedisPool)
 	{
 		this.jedisPool = jedisPool;
 	}
