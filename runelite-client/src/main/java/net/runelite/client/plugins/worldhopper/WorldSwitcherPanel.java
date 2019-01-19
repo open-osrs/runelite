@@ -95,7 +95,8 @@ class WorldSwitcherPanel extends PluginPanel
 		
 		// Clear history button
 		JButton resetBtn = new JButton("Clear History");
-		resetBtn.addActionListener(e -> {
+		resetBtn.addActionListener(e ->
+		{
 			plugin.clearHistory();
 			plugin.addToHistory();
 			updateList();

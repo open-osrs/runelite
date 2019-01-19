@@ -268,7 +268,8 @@ public class WorldHopperPlugin extends Plugin
 		configManager.setConfiguration(WorldHopperConfig.GROUP, "history", history);
 	}
 
-	void addToHistory() {
+	void addToHistory()
+	{
 		addToHistory(client.getWorld());
 	}
 
