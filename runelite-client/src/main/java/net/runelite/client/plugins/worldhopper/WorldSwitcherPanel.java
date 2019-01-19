@@ -121,18 +121,21 @@ class WorldSwitcherPanel extends PluginPanel
 		worldTabs.addTab("History", histPanel);
 
 		// This is a fix for preventing stretching of WorldTableRows
-		worldTabs.addChangeListener(e -> {
+		worldTabs.addChangeListener(e ->
+		{
 			switch (worldTabs.getSelectedIndex())
 			{
 				case 0:
 					histPanel.remove(histContainer);
-					if (worldPanel.getComponentCount() < 2) {
+					if (worldPanel.getComponentCount() < 2)
+					{
 						worldPanel.add(listContainer, listConst);
 					}
 					break;
 				case 1:
 					worldPanel.remove(listContainer);
-					if (histPanel.getComponentCount() < 3) {
+					if (histPanel.getComponentCount() < 3)
+					{
 						histPanel.add(histContainer, listConst);
 					}
 					break;
@@ -318,7 +321,8 @@ class WorldSwitcherPanel extends PluginPanel
 		// Add matched rows to history list
 		Iterator it = matchedHist.entrySet().iterator();
 		int histRowCount = 0;
-		while (it.hasNext()) {
+		while (it.hasNext())
+		{
 			Map.Entry pair = (Map.Entry)it.next();
 			for (WorldTableRow r : rows)
 			{
