@@ -47,11 +47,16 @@ import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.game.HiscoreManager;
+import net.runelite.client.game.NPCManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.attackstyles.AttackStyle;
 import net.runelite.client.plugins.attackstyles.WeaponType;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.Text;
+import net.runelite.http.api.hiscore.HiscoreEndpoint;
+import net.runelite.http.api.hiscore.HiscoreResult;
 
 @PluginDescriptor(
 	name = "XP Drop",
@@ -71,6 +76,7 @@ public class XpDropPlugin extends Plugin
 
 	private int tickCounter = 0;
 	private int previousExpGained;
+	private boolean hasHit = false;
 	private boolean hasDropped = false;
 	private boolean correctPrayer;
 	private Skill lastSkill = null;
@@ -80,8 +86,11 @@ public class XpDropPlugin extends Plugin
 	private int attackStyleVarbit = -1;
 	private int equippedWeaponTypeVarbit = -1;
 	private int castingModeVarbit = -1;
-	private AttackStyle[] offensiveStyles = {ACCURATE, AGGRESSIVE, DEFENSIVE, CONTROLLED, RANGING, LONGRANGE, CASTING, DEFENSIVE_CASTING};
+	private int opponentHealth = -1;
 	private int xpGains = 0;
+	private AttackStyle[] offensiveStyles = {ACCURATE, AGGRESSIVE, DEFENSIVE, CONTROLLED, RANGING, LONGRANGE, CASTING, DEFENSIVE_CASTING};
+
+	@Getter(AccessLevel.PACKAGE)
 	private int damage = 0;
 
 	@Getter(AccessLevel.PACKAGE)
@@ -94,6 +103,12 @@ public class XpDropPlugin extends Plugin
 
 	@Inject
 	private XpDropOverlay overlay;
+
+	@Inject
+	private NPCManager npcManager;
+
+	@Inject
+	private HiscoreManager hiscoreManager;
 
 	@Provides
 	XpDropConfig provideConfig(ConfigManager configManager)
@@ -243,14 +258,20 @@ public class XpDropPlugin extends Plugin
 		return null;
 	}
 
-	public int getDamage()
-	{
-		return this.damage;
-	}
-
 	@Subscribe
 	public void onGameTick(GameTick tick)
 	{
+		// Detect hitting a 0
+		if (lastOpponent != null)
+		{
+			int health = calculateHealth(lastOpponent);
+			if (health != -1 && opponentHealth != -1 && health == opponentHealth && hasHit)
+			{
+				damage = 0;
+				hasHit = false;
+			}
+		}
+
 		// Handle getting XP gains
 		if (hasDropped)
 		{
@@ -267,10 +288,8 @@ public class XpDropPlugin extends Plugin
 			hasDropped = false;
 		}
 
-		// Get opponent
-		if (lastOpponent != null
-				&& lastTime != null
-				&& client.getLocalPlayer().getInteracting() == null)
+		// Clear opponent
+		if (lastOpponent != null && lastTime != null && client.getLocalPlayer().getInteracting() == null)
 		{
 			if (Duration.between(lastTime, Instant.now()).compareTo(WAIT) > 0)
 			{
@@ -315,6 +334,7 @@ public class XpDropPlugin extends Plugin
 		Integer previous = previousSkillExpTable.put(skill, xp);
 		if (previous != null)
 		{
+			opponentHealth = calculateHealth(lastOpponent);
 			previousExpGained = xp - previous;
 			if (skill != Skill.HITPOINTS && Arrays.stream(offensiveStyles).anyMatch(attackStyle::equals))
 			{
@@ -322,6 +342,7 @@ public class XpDropPlugin extends Plugin
 			}
 
 			hasDropped = true;
+			hasHit = true;
 		}
 	}
 
@@ -358,7 +379,46 @@ public class XpDropPlugin extends Plugin
 			return;
 		}
 
+		damage = 0;
 		lastOpponent = opponent;
+		opponentHealth = calculateHealth(opponent);
+	}
+
+	private int calculateHealth(Actor target)
+	{
+		if (target == null || target.getName() == null)
+		{
+			return -1;
+		}
+
+		final int healthScale = target.getHealth();
+		final int healthRatio = target.getHealthRatio();
+		final String targetName = Text.removeTags(target.getName());
+
+		Integer maxHealth = -1;
+		if (target instanceof NPC)
+		{
+			maxHealth = npcManager.getHealth(targetName, target.getCombatLevel());
+		}
+		else if (target instanceof Player)
+		{
+			final HiscoreResult hiscoreResult = hiscoreManager.lookupAsync(targetName, HiscoreEndpoint.NORMAL);
+			if (hiscoreResult != null)
+			{
+				final int hp = hiscoreResult.getHitpoints().getLevel();
+				if (hp > 0)
+				{
+					maxHealth = hp;
+				}
+			}
+		}
+
+		if (healthRatio < 0 || healthScale <= 0 || maxHealth == null)
+		{
+			return -1;
+		}
+
+		return (int)((maxHealth * healthRatio / healthScale) + 0.5f);
 	}
 
 	@Subscribe

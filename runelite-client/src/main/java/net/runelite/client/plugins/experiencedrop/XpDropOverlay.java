@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.experiencedrop;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
@@ -58,13 +57,13 @@ class XpDropOverlay extends Overlay
 			final Actor opponent = plugin.getLastOpponent();
 			if (opponent != null)
 			{
-				int offset = opponent.getLogicalHeight() + 40;
+				int offset = opponent.getLogicalHeight() + 50;
 				String damageStr = String.valueOf(this.plugin.getDamage());
 				Point textLocation = opponent.getCanvasTextLocation(graphics, damageStr, offset);
 
-				if (textLocation != null)
+				if (textLocation != null &&  this.plugin.getDamage() != 0)
 				{
-					OverlayUtil.renderTextLocation(graphics, textLocation, damageStr, Color.RED);
+					OverlayUtil.renderTextLocation(graphics, textLocation, damageStr, config.getDamageColor());
 				}
 			}
 		}
