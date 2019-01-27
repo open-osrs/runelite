@@ -8,3 +8,13 @@ project.properties
 .project
 .settings/
 .classpath
+cache/dependency-reduced-pom.xml
+cache-client/dependency-reduced-pom.xml
+cache-updater/dependency-reduced-pom.xml
+http-api/dependency-reduced-pom.xml
+http-service/dependency-reduced-pom.xml
+protocol/dependency-reduced-pom.xml
+protocol-api/dependency-reduced-pom.xml
+runelite-api/dependency-reduced-pom.xml
+runelite-script-assembler-plugin/dependency-reduced-pom.xml
+runescape-api/dependency-reduced-pom.xml
