@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2018 AWPH-I
+ * Copyright (c) 2019 Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,6 +29,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.Map;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
@@ -39,6 +42,8 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
 
 class InventoryViewerOverlay extends Overlay
 {
@@ -49,11 +54,12 @@ class InventoryViewerOverlay extends Overlay
 
 	private final Client client;
 	private final ItemManager itemManager;
+	private final InventoryViewerConfig config;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private InventoryViewerOverlay(Client client, ItemManager itemManager)
+	private InventoryViewerOverlay(Client client, ItemManager itemManager, InventoryViewerConfig config)
 	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 		panelComponent.setWrapping(4);
@@ -61,6 +67,7 @@ class InventoryViewerOverlay extends Overlay
 		panelComponent.setOrientation(PanelComponent.Orientation.HORIZONTAL);
 		this.itemManager = itemManager;
 		this.client = client;
+		this.config = config;
 	}
 
 	@Override
@@ -76,6 +83,24 @@ class InventoryViewerOverlay extends Overlay
 		panelComponent.getChildren().clear();
 
 		final Item[] items = itemContainer.getItems();
+
+		if (config.viewerMode() == InventoryViewerMode.GROUPED)
+		{
+			final Map<Integer, Integer> totals = Arrays.stream(items)
+				.filter(p -> p.getId() != -1)
+				.collect(groupingBy(Item::getId, summingInt(Item::getQuantity)));
+
+			for (Map.Entry<Integer, Integer> cursor : totals.entrySet())
+			{
+				final BufferedImage image = itemManager.getImage(cursor.getKey(), cursor.getValue(), true);
+				if (image != null)
+				{
+					panelComponent.getChildren().add(new ImageComponent(image));
+				}
+			}
+
+			return panelComponent.render(graphics);
+		}
 
 		for (int i = 0; i < INVENTORY_SIZE; i++)
 		{
