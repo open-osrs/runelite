@@ -26,6 +26,8 @@ package net.runelite.client.plugins.raids;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
@@ -49,6 +51,13 @@ public class RaidsPointsOverlay extends Overlay
 
 	private final PanelComponent panel = new PanelComponent();
 
+	private static final NumberFormat UNIQUE_FORMAT = NumberFormat.getPercentInstance(Locale.ENGLISH);
+	static
+	{
+		UNIQUE_FORMAT.setMaximumFractionDigits(2);
+		UNIQUE_FORMAT.setMinimumFractionDigits(2);
+	}
+
 	@Inject
 	private RaidsPointsOverlay(RaidsPlugin plugin)
 	{
@@ -69,6 +78,7 @@ public class RaidsPointsOverlay extends Overlay
 		int totalPoints = client.getVar(Varbits.TOTAL_POINTS);
 		int personalPoints = client.getVar(Varbits.PERSONAL_POINTS);
 		int partySize = client.getVar(Varbits.RAID_PARTY_SIZE);
+		double uniqueChance = totalPoints / 867500f;
 
 		panel.getChildren().clear();
 		panel.getChildren().add(LineComponent.builder()
@@ -81,11 +91,27 @@ public class RaidsPointsOverlay extends Overlay
 			.right(POINTS_FORMAT.format(personalPoints))
 			.build());
 
+
 		if (partySize > 1)
 		{
 			panel.getChildren().add(LineComponent.builder()
 				.left("Party size:")
 				.right(String.valueOf(partySize))
+				.build());
+		}
+
+		panel.getChildren().add(LineComponent.builder()
+			.left("Unique:")
+			.right(UNIQUE_FORMAT.format(uniqueChance))
+			.build());
+
+		if (partySize > 1)
+		{
+			double personalChance = uniqueChance * (personalPoints / totalPoints);
+
+			panel.getChildren().add(LineComponent.builder()
+				.left("Personal:")
+				.right(UNIQUE_FORMAT.format(personalChance))
 				.build());
 		}
 
