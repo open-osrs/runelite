@@ -45,6 +45,23 @@ public class AmmoCounter extends Counter
 	}
 
 	@Override
+	public String getText()
+	{
+		int count = getCount();
+		if (count >= 1000000)
+		{
+			count /= 1000000;
+			return Integer.toString(count) + "M";
+		}
+		else if (count >= 10000)
+		{
+			count /= 1000;
+			return Integer.toString(count) + "K";
+		}
+		return Integer.toString(count);
+	}
+
+	@Override
 	public String getTooltip()
 	{
 		return name;
