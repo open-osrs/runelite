@@ -49,7 +49,7 @@ cache:
 
 validate:jdk11:
   <<: *validate
-  image: maven:3.8.0-jdk 11
+  image: maven:3.8.0-jdk-11
 
 # Validate merge requests using JDK8
 validate:jdk8:
@@ -58,7 +58,7 @@ validate:jdk8:
 
 validate:jdk11:
   <<: *validate
-  image: maven:3.8.0-jdk11
+  image: maven:3.8.0-jdk-11
 # Verify merge requests using JDK8
 verify:jdk8:
   <<: *verify
