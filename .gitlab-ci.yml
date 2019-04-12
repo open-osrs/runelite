@@ -1,0 +1,2 @@
+maven-package:
+  script: "mvn install -Dskip-tests"
