@@ -96,4 +96,7 @@ public interface RSProjectile extends RSRenderable, Projectile
 	@Import("velocityZ")
 	@Override
 	double getVelocityZ();
+
+	@Import("targetId")
+	int getTargetId();
 }

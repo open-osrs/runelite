@@ -57,6 +57,13 @@ public interface Player extends Actor
 	int getTeam();
 
 	/**
+	 * Checks whether the player is in multi combat or not.
+	 *
+	 * @return true if in multi combat, false otherwise
+	 */
+	boolean multiCombat();
+
+	/**
 	 * Checks whether this player is a member of the same clan as
 	 * the local player.
 	 *
@@ -80,10 +87,11 @@ public interface Player extends Actor
 
 	/**
 	 * Gets the displayed skull icon of the player.
-	 * Only works on the local player.
+	 * Only works on the local player. lol j/k
 	 *
 	 * @return the skull icon
 	 */
-	@Nullable
 	SkullIcon getSkullIcon();
+	
+	int getHeadIconPk();
 }

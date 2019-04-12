@@ -53,12 +53,12 @@
 		</license>
 	</licenses>
 
-	<inceptionYear>2014</inceptionYear>
+	<inceptionYear>2018</inceptionYear>
 
 	<scm>
-		<url>https://github.com/runelite/runelite</url>
-		<connection>scm:git:git://github.com/runelite/runelite</connection>
-		<developerConnection>scm:git:git@github.com:runelite/runelite</developerConnection>
+		<url>https://github.com/pklite/pklite</url>
+		<connection>scm:git:git://github.com/pklite/pklite</connection>
+		<developerConnection>scm:git:git@github.com:pklite/pklite</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -72,13 +72,8 @@
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/runelite/runelite/issues</url>
+		<url>https://github.com/pklite/pklite/issues</url>
 	</issueManagement>
-
-	<ciManagement>
-		<system>Travis CI</system>
-		<url>https://travis-ci.org/runelite/runelite</url>
-	</ciManagement>
 
 	<repositories>
 		<repository>
@@ -93,6 +88,15 @@
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
+		</repository>
+		<repository>
+			<id>thatgamerblue</id>
+			<name>ThatGamerBlue Maven</name>
+			<url>https://gitlab.com/ThatGamerBlue/maven/raw/master/</url>
+		</repository>
+		<repository>
+			<id>jcenter</id>
+			<url>https://jcenter.bintray.com/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
@@ -225,20 +229,6 @@
 					<sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
 					<includeTestSourceDirectory>true</includeTestSourceDirectory>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>io.github.zlika</groupId>
-				<artifactId>reproducible-build-maven-plugin</artifactId>
-				<version>0.7</version>
-				<executions>
-					<execution>
-						<!-- Move from pre-integration-test to place before jarsigning -->
-						<phase>package</phase>
-						<goals>
-							<goal>strip-jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>
