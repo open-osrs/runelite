@@ -1,5 +1,5 @@
 @echo off
-git checkout master
+git checkout runelite
 git pull https://github.com/runelite/runelite.git master
 echo Please check for merge conflicts now
 echo Please check for merge conflicts now
