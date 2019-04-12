@@ -35,19 +35,22 @@ public class SafeSpotOverlay extends Overlay
 	{
 		if (safeSpotPlugin.isSafeSpotsRenderable())
 		{
-			if (safeSpotPlugin.getSafeSpotList().size() > 0)
+			if(safeSpotPlugin.getSafeSpotList() != null)
 			{
-				safeSpotPlugin.getSafeSpotList().forEach(tile ->
+				if (safeSpotPlugin.getSafeSpotList().size() > 0)
 				{
-					if (tile != null && tile.getLocalLocation() != null)
+					safeSpotPlugin.getSafeSpotList().forEach(tile ->
 					{
-						final Polygon poly = Perspective.getCanvasTilePoly(client, tile.getLocalLocation());
-						if (poly != null)
+						if (tile != null && tile.getLocalLocation() != null)
 						{
-							OverlayUtil.renderPolygon(graphics, poly, config.tileColor());
+							final Polygon poly = Perspective.getCanvasTilePoly(client, tile.getLocalLocation());
+							if (poly != null)
+							{
+								OverlayUtil.renderPolygon(graphics, poly, config.tileColor());
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 		}
 		return null;
