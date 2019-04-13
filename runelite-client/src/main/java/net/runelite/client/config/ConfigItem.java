@@ -46,6 +46,7 @@ public @interface ConfigItem
 	String warning() default "";
 
 	boolean secret() default false;
-	
+
 	String group() default "";
+
 }
