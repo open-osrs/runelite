@@ -100,6 +100,8 @@ public class BoostsPlugin extends Plugin
 	private int lastChangeUp = -1;
 	private boolean preserveBeenActive = false;
 	private long lastTickMillis;
+	private int boostedSkillsChanged = 0;
+	private String lastBoostedSkillChanged;
 
 	@Provides
 	BoostsConfig provideConfig(ConfigManager configManager)
@@ -213,7 +215,15 @@ public class BoostsPlugin extends Plugin
 			int boost = cur - real;
 			if (boost <= boostThreshold && boostThreshold < lastBoost)
 			{
-				notifier.notify(skill.getName() + " level is getting low!");
+				if (config.groupNotifications())
+				{
+					boostedSkillsChanged++;
+					lastBoostedSkillChanged = skill.getName();
+				}
+				else
+				{
+					notifier.notify(skill.getName() + " level is getting low!");
+				}
 			}
 		}
 	}
@@ -222,6 +232,20 @@ public class BoostsPlugin extends Plugin
 	public void onGameTick(GameTick event)
 	{
 		lastTickMillis = System.currentTimeMillis();
+
+		if (config.groupNotifications())
+		{
+			if (boostedSkillsChanged == 1)
+			{
+				notifier.notify(lastBoostedSkillChanged + " level is getting low!");
+				boostedSkillsChanged = 0;
+			}
+			else if (boostedSkillsChanged > 1)
+			{
+				notifier.notify("Multiple skills are getting low!");
+				boostedSkillsChanged = 0;
+			}
+		}
 
 		if (getChangeUpTicks() <= 0)
 		{
