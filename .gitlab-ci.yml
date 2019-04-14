@@ -1,0 +1,28 @@
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+cache:
+  paths:
+    - .m2/repository
+    
+.validate: &validate
+  stage: build
+  script:
+    - 'mvn $MAVEN_CLI_OPTS install -DskipTests'
+
+# Validate merge requests using JDK11
+validate:jdk11:
+  <<: *validate
+  image: maven:3-jdk-11
+
+build:
+  image: maven:3-jdk-11
+  only:
+    refs:
+      - master
+  script:
+    - 'mvn $MVN_CLI_OPTS install -DskipTests'
+  artifacts:
+    paths:
+      - "runelite-client/target/client-*-shaded.jar"

@@ -30,18 +30,21 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
+import net.runelite.client.util.PvPUtil;
 
 @Singleton
 public class PlayerIndicatorsService
 {
 	private final Client client;
 	private final PlayerIndicatorsConfig config;
+	private final PlayerIndicatorsPlugin playerIndicatorsPlugin;
 
 	@Inject
-	private PlayerIndicatorsService(Client client, PlayerIndicatorsConfig config)
+	private PlayerIndicatorsService(Client client, PlayerIndicatorsConfig config, PlayerIndicatorsPlugin plugin)
 	{
 		this.config = config;
 		this.client = client;
+		this.playerIndicatorsPlugin = plugin;
 	}
 
 	public void forEachPlayer(final BiConsumer<Player, Color> consumer)
@@ -85,6 +88,26 @@ public class PlayerIndicatorsService
 			else if (config.highlightNonClanMembers() && !isClanMember)
 			{
 				consumer.accept(player, config.getNonClanMemberColor());
+			}
+			else if (config.highlightTargets() && PvPUtil.isAttackable(client, player) && !client.isFriended(player.getName(), false) &&
+					!player.isClanMember())
+			{
+			    if (config.skulledTargetsOnly() && player.getSkullIcon() != null)
+                {
+                    consumer.accept(player, config.getTargetColor());
+                }
+			    else if (!config.skulledTargetsOnly())
+                {
+                    consumer.accept(player, config.getTargetColor());
+                }
+			}
+			if (config.highlightCallers() && config.callers() != null && playerIndicatorsPlugin.isCaller(player))
+			{
+				consumer.accept(player, config.callerColor());
+			}
+			if (config.highlightPile() && PvPUtil.isAttackable(client, player) && playerIndicatorsPlugin.isPile(player) && !player.isClanMember())
+			{
+				consumer.accept(player, config.pileColor());
 			}
 		}
 	}

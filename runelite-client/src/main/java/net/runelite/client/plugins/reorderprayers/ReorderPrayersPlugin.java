@@ -55,7 +55,8 @@ import net.runelite.client.plugins.PluginDescriptor;
 
 @PluginDescriptor(
 	name = "Reorder Prayers",
-	description = "Reorder the prayers displayed on the Prayer panel"
+	description = "Reorder the prayers displayed on the Prayer panel",
+	tags = {"pray", "pklite"}
 )
 public class ReorderPrayersPlugin extends Plugin
 {

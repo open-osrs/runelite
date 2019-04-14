@@ -112,13 +112,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 	@Override
 	public SkullIcon getSkullIcon()
 	{
-		if (this != client.getLocalPlayer())
-		{
-			// prevent seeing skulls of other players.
-			return null;
-		}
-
-		switch (getRsSkullIcon())
+		switch (getHeadIconPk())
 		{
 			case 0:
 				return SKULL;

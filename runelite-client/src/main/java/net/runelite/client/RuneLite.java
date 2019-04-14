@@ -159,6 +159,7 @@ public class RuneLite
 		final OptionParser parser = new OptionParser();
 		parser.accepts("developer-mode", "Enable developer tools");
 		parser.accepts("debug", "Show extra debugging output");
+		parser.accepts("dump-classes", "Should we dump game classes?");
 
 		final ArgumentAcceptingOptionSpec<ClientUpdateCheckMode> updateMode = parser
 			.accepts("rs", "Select client type")
@@ -183,7 +184,8 @@ public class RuneLite
 			System.exit(0);
 		}
 
-		final boolean developerMode = options.has("developer-mode") && RuneLiteProperties.getLauncherVersion() == null;
+		final boolean dumpClasses = options.has("dump-classes");
+		final boolean developerMode = options.has("developer-mode");
 
 		if (developerMode)
 		{
@@ -216,7 +218,8 @@ public class RuneLite
 
 		injector = Guice.createInjector(new RuneLiteModule(
 			options.valueOf(updateMode),
-			developerMode));
+			developerMode,
+			dumpClasses));
 
 		injector.getInstance(RuneLite.class).start();
 

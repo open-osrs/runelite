@@ -25,9 +25,12 @@
 package net.runelite.client.plugins.playerindicators;
 
 import java.awt.Color;
+
+import net.runelite.api.ClanMemberRank;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 
 @ConfigGroup("playerindicators")
 public interface PlayerIndicatorsConfig extends Config
@@ -196,4 +199,217 @@ public interface PlayerIndicatorsConfig extends Config
 	{
 		return true;
 	}
+
+	@ConfigItem(
+			position = 15,
+			keyName = "highlightTargets",
+			name = "Highlight attackable players in wilderness on the minimap",
+			description = "Highlights players on the minimap that the current player can attack based on combat/wilderness levels",
+			group = "Target Indicator"
+	)
+	default boolean highlightTargets()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			position = 16,
+			keyName = "highlightOverheadTargets",
+			name = "Highlights attackable players over their head",
+			description = "Highlights players over their head that the current player can attack based on combat/wilderness levels",
+			group = "Target Indicator"
+	)
+	default boolean highlightOverheadTargets()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			position = 17,
+			keyName = "targetColor",
+			name = "Target color",
+			description = "Color of attackable targets",
+			group = "Target Indicator"
+	)
+	default Color getTargetColor()
+	{
+		return Color.RED;
+	}
+
+	@ConfigItem(
+			position = 18,
+			keyName = "showCombat",
+			name = "Show Combat Levels",
+			description = "Show the combat level of attackable players next to their name.",
+			group = "Target Indicator"
+	)
+	default boolean showCombatLevel()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			position = 19,
+			keyName = "playerSkull",
+			name = "Show Skull Information",
+			description = "Indicate of the player is skulled.",
+			group = "Target Indicator"
+	)
+	default boolean playerSkull()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 19,
+		keyName = "minimapSkullLocation",
+		name = "Skull Icon Location",
+		description = "The location of the skull icon for skulled players",
+		group = "Target Indicator"
+	)
+	default PlayerIndicatorsPlugin.minimapSkullLocations skullLocation()
+	{
+		return PlayerIndicatorsPlugin.minimapSkullLocations.AFTER_NAME;
+	}
+
+	@ConfigItem(
+			position = 19,
+			keyName = "skulledTargetsOnly",
+			name = "Tag Skulls Only",
+			description = "Only indicate skulled targets (which are also attackable)",
+			group = "Target Indicator"
+	)
+	default boolean skulledTargetsOnly()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			position = 19,
+			keyName = "targetRisk",
+			name = "Indicate Target Risk",
+			description = "Indicates the risk (in K GP) of the target",
+			group = "Target Indicator"
+	)
+	default boolean targetRisk()
+	{
+		return false;
+	}
+	
+	@ConfigItem(
+			position = 23,
+			keyName = "rightClickOverhead",
+			name = "Add Overheads to Right Click Menu",
+			description = "Feature shows a player's overhead prayer in the right click menu. Useful for DDs, or extremely crowded areas."
+	)
+	default boolean rightClickOverhead()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "useClanchatRanks",
+			name = "Use Ranks as Callers",
+			description = "Uses clanchat ranks as the list of callers",
+			group = "Callers",
+			position = 24
+	)
+	default boolean useClanchatRanks()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "callerRank",
+			name = "Minimum rank for Clan Caller",
+			description = "Chooses the minimum rank to use as clanchat callers.",
+			group = "Callers",
+			position = 25
+	)
+	default ClanMemberRank callerRank()
+	{
+		return ClanMemberRank.CAPTAIN;
+	}
+
+	@ConfigItem(
+			keyName = "callers",
+			name = "List of callers to highlight",
+			description = "Highlights callers, only highlights one at a time. Separate each entry with a comma and enter" +
+					" in the order you want them highlighted.",
+			group = "Callers"
+	)
+	default String callers()
+	{
+		return " ";
+	}
+	@ConfigItem(
+			keyName = "highlightCallers",
+			name = "Highlight Callers",
+			description = "Highlights Callers Onscreen",
+			group = "Callers"
+	)
+	default boolean highlightCallers()
+	{
+		return true;
+	}
+	@ConfigItem(
+			position = 26,
+			keyName = "callerColor",
+			name = "Caller Color",
+			description = "Color of Indicated Callers",
+			group = "Callers"
+	)
+	default Color callerColor()
+	{
+		return Color.WHITE;
+	}
+	@ConfigItem(
+			position = 27,
+			keyName = "highlightPile",
+			name = "Highlight Pile",
+			description = "Highlights Pile Onscreen",
+			group = "Callers"
+	)
+	default boolean highlightPile()
+	{
+		return false;
+	}
+	@ConfigItem(
+			position = 29,
+			keyName = "drawPileHull",
+			name = "Draws the hull of the pile.",
+			description = "Draws the hull of the pile for best visibility.",
+			group = "Callers"
+	)
+	default boolean drawPileHull()
+	{
+		return false;
+	}
+
+	@Range(
+			min = 1,
+			max = 10
+	)
+	@ConfigItem(
+			position = 30,
+			keyName = "pileColor",
+			name = "Pile Color",
+			description = "Color of Indicated Pile",
+			group = "Callers"
+	)
+	default Color pileColor()
+	{
+		return Color.WHITE;
+	}
+	@ConfigItem(
+			position = 27,
+			keyName = "unchargedGlory",
+			name = "Uncharged Glory Indication",
+			description = "Indicates if players have an uncharged glory"
+	)
+	default boolean unchargedGlory()
+	{
+		return false;
+	}
+	
 }

@@ -106,7 +106,7 @@ public class DiscordService implements AutoCloseable
 		discordEventHandlers.joinGame = this::joinGame;
 		discordEventHandlers.spectateGame = this::spectateGame;
 		discordEventHandlers.joinRequest = this::joinRequest;
-		discordRPC.Discord_Initialize(runeLiteProperties.getDiscordAppId(), discordEventHandlers, true, null);
+		discordRPC.Discord_Initialize("565193793499037725", discordEventHandlers, true, null);
 		executorService.scheduleAtFixedRate(discordRPC::Discord_RunCallbacks, 0, 2, TimeUnit.SECONDS);
 	}
 
@@ -146,9 +146,7 @@ public class DiscordService implements AutoCloseable
 		discordRichPresence.endTimestamp = discordPresence.getEndTimestamp() != null
 			? discordPresence.getEndTimestamp().getEpochSecond()
 			: 0;
-		discordRichPresence.largeImageKey = Strings.isNullOrEmpty(discordPresence.getLargeImageKey())
-			? "default"
-			: discordPresence.getLargeImageKey();
+		discordRichPresence.largeImageKey = "pklite";
 		discordRichPresence.largeImageText = discordPresence.getLargeImageText();
 
 		if (!Strings.isNullOrEmpty(discordPresence.getSmallImageKey()))
