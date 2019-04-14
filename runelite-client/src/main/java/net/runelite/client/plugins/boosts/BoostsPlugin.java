@@ -26,8 +26,10 @@ package net.runelite.client.plugins.boosts;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -100,8 +102,7 @@ public class BoostsPlugin extends Plugin
 	private int lastChangeUp = -1;
 	private boolean preserveBeenActive = false;
 	private long lastTickMillis;
-	private int boostedSkillsChanged = 0;
-	private String lastBoostedSkillChanged;
+	private List<String> boostedSkillsChanged = new ArrayList<>();
 
 	@Provides
 	BoostsConfig provideConfig(ConfigManager configManager)
@@ -217,8 +218,7 @@ public class BoostsPlugin extends Plugin
 			{
 				if (config.groupNotifications())
 				{
-					boostedSkillsChanged++;
-					lastBoostedSkillChanged = skill.getName();
+					boostedSkillsChanged.add(skill.getName());
 				}
 				else
 				{
@@ -233,18 +233,36 @@ public class BoostsPlugin extends Plugin
 	{
 		lastTickMillis = System.currentTimeMillis();
 
-		if (config.groupNotifications())
+		if (config.groupNotifications() && !boostedSkillsChanged.isEmpty())
 		{
-			if (boostedSkillsChanged == 1)
+			if (boostedSkillsChanged.size() == 1)
 			{
-				notifier.notify(lastBoostedSkillChanged + " level is getting low!");
-				boostedSkillsChanged = 0;
+				notifier.notify(boostedSkillsChanged.get(0) + " level is getting low!");
 			}
-			else if (boostedSkillsChanged > 1)
+			else
 			{
-				notifier.notify("Multiple skills are getting low!");
-				boostedSkillsChanged = 0;
+				String notification = "";
+				int i = 1;
+				for (final String skill : boostedSkillsChanged)
+				{
+					if (i == 1)
+					{
+						notification = skill;
+						i++;
+					}
+					else if (i < boostedSkillsChanged.size())
+					{
+						notification = notification + ", " + skill;
+						i++;
+					}
+					else
+					{
+						notification = notification + " and " + skill + " levels are getting low!";
+						notifier.notify(notification);
+					}
+				}
 			}
+			boostedSkillsChanged.clear();
 		}
 
 		if (getChangeUpTicks() <= 0)
