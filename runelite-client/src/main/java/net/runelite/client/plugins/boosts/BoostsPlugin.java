@@ -242,22 +242,19 @@ public class BoostsPlugin extends Plugin
 			else
 			{
 				String notification = "";
-				int i = 1;
-				for (final String skill : boostedSkillsChanged)
+				for (int i = 0; i < boostedSkillsChanged.size(); i++)
 				{
-					if (i == 1)
+					if (i == 0)
 					{
-						notification = skill;
-						i++;
+						notification = boostedSkillsChanged.get(i);
 					}
-					else if (i < boostedSkillsChanged.size())
+					else if (i < boostedSkillsChanged.size() - 1)
 					{
-						notification = notification + ", " + skill;
-						i++;
+						notification = notification + ", " + boostedSkillsChanged.get(i);
 					}
 					else
 					{
-						notification = notification + " and " + skill + " levels are getting low!";
+						notification = notification + " and " + boostedSkillsChanged.get(i) + " levels are getting low!";
 						notifier.notify(notification);
 					}
 				}
