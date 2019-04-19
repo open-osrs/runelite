@@ -202,7 +202,7 @@ public class DamageCounterPlugin extends Plugin
 
     @Subscribe
     //will add the damage that you have taken from the current boss fight
-    private void DamageTakenCounter(HitsplatApplied Hit)
+    private void onHitsplatApplied(HitsplatApplied Hit)
     {
         if (Hit.getActor().equals(client.getLocalPlayer()))
         {
