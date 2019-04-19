@@ -257,7 +257,7 @@ public class ClientLoader
 				finalClasses.mkdirs();
 				patchesFolder.mkdirs();
 				
-				downloadFile("https://gitlab.com/pklitedev/bootstrap/raw/bleeding/patches.jar", patchesJar);
+				downloadFile("https://gitlab.com/pklitedev/bootstrap/raw/master/patches.jar", patchesJar);
 				
 				ZipFile zF = new ZipFile(patchesJar);
 				zF.extractAll(patchesFolder.getAbsolutePath());
