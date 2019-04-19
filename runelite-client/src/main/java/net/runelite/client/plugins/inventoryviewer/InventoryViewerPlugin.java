@@ -55,12 +55,6 @@ public class InventoryViewerPlugin extends Plugin
 		return configManager.getConfig(InventoryViewerConfig.class);
 	}
 
-	@Provides
-	InventoryViewerConfig provideConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(InventoryViewerConfig.class);
-	}
-
 	@Override
 	public void startUp()
 	{
