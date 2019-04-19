@@ -287,6 +287,11 @@
 			<version>1.1.1</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-all</artifactId>
+			<version>6.0_BETA</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -330,8 +335,6 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<minimizeJar>true</minimizeJar>
-
 							<shadedArtifactAttached>true</shadedArtifactAttached>
 							<shadedClassifierName>shaded</shadedClassifierName>
 
