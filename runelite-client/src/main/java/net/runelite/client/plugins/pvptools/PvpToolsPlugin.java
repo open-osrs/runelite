@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -430,7 +431,8 @@ public class PvpToolsPlugin extends Plugin
 				}
 				final String option = Text.removeTags(menuEntryAdded.getOption()).toLowerCase();
 				final String mtarget = Text.removeTags(menuEntryAdded.getTarget()).toLowerCase();
-				if (attackHotKeyPressed && config.attackOptionsClan() || config.attackOptionsFriend() || config.levelRangeAttackOptions())
+				if (attackHotKeyPressed && config.attackOptionsClan() || config.attackOptionsFriend() ||
+					config.levelRangeAttackOptions())
 				{
 					if (config.attackOptionsFriend() && player.isFriend())
 					{
@@ -448,6 +450,7 @@ public class PvpToolsPlugin extends Plugin
 			}
 		}
 	}
+
 
 	private void moveEntry(String mtarget)
 	{
@@ -472,12 +475,16 @@ public class PvpToolsPlugin extends Plugin
 		}
 		if (lastEntry.getOption().contains("attack".toLowerCase()))
 		{
-			menuEntries = ArrayUtils.remove(menuEntries, menuEntries.length - 1);
+			ArrayUtils.shift(menuEntries, 1);
+			//ArrayUtils.add(menuEntries, menuEntries.length - 2);
+			//menuEntries = ArrayUtils.remove(menuEntries, menuEntries.length - 1);
 			//menuEntrySwapperPlugin.swap("attack", option, mtarget, false);
 		}
 		if (lastEntry.getOption().equals("Attack"))
 		{
-			menuEntries = ArrayUtils.remove(menuEntries, menuEntries.length - 1);
+			ArrayUtils.shift(menuEntries, 1);
+
+			//menuEntries = ArrayUtils.sremove(menuEntries, menuEntries.length - 1);
 			//menuEntrySwapperPlugin.swap("attack", option, mtarget, false);
 		}
 		client.setMenuEntries(menuEntries);

@@ -66,8 +66,8 @@ public interface PvpToolsConfig extends Config
 
 	@ConfigItem(
 		keyName = "attackOptionsClan",
-		name = "Hide CC Attack Option",
-		description = "Hides the attack option for people in the same CC",
+		name = "Move CC Attack Option",
+		description = "Moves the attack option for people in the same CC",
 		position = 7,
 		group = "Right-Click Attack Options"
 	)
@@ -78,8 +78,8 @@ public interface PvpToolsConfig extends Config
 
 	@ConfigItem(
 		keyName = "attackOptionsFriend",
-		name = "Hide Friend Attack Options",
-		description = "Hides the attack option for people on your friends list",
+		name = "Move Friend Attack Options",
+		description = "Moves the attack option for people on your friends list",
 		position = 8,
 		group = "Right-Click Attack Options"
 	)
@@ -102,8 +102,8 @@ public interface PvpToolsConfig extends Config
 
 	@ConfigItem(
 			keyName = "levelRangeAttackOptions",
-			name = "Hide Other Attack Options",
-			description = "Hides the attack option for people that are outside your level range",
+			name = "Moves Other Attack Options",
+			description = "Moves the attack option for people that are outside your level range",
 			position = 9,
 			group = "Right-Click Attack Options"
 	)
