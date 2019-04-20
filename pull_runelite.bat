@@ -9,5 +9,5 @@ echo Please check for merge conflicts now
 pause
 git add .
 git commit -m "Merge runelite/runelite master"
-git push origin master
+git push origin runelite
 pause
