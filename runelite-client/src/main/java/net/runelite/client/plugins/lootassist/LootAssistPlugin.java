@@ -1,11 +1,13 @@
 package net.runelite.client.plugins.lootassist;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
 import net.runelite.api.Actor;
 import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -30,7 +32,7 @@ public class LootAssistPlugin extends Plugin
 	LootAssistOverlay lootAssistOverlay;
 
 
-	public static CopyOnWriteArrayList<LootPile> lootPiles = new CopyOnWriteArrayList<>();
+	public static ConcurrentHashMap<LocalPoint, LootPile> lootPiles = new ConcurrentHashMap<>();
 
 	@Override
 	protected void startUp() throws Exception
@@ -50,7 +52,8 @@ public class LootAssistPlugin extends Plugin
 		final Actor actor = event.getActor();
 		if (actor.getAnimation() == AnimationID.DEATH && actor instanceof Player)
 		{
-			lootPiles.add(new LootPile(actor.getLocalLocation(), actor.getName()));
+			LootPile pile = new LootPile(actor.getLocalLocation(), actor.getName());
+			lootPiles.put(pile.getLocation(), pile);
 		}
 	}
 

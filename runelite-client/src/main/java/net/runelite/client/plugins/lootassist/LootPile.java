@@ -1,11 +1,12 @@
 package net.runelite.client.plugins.lootassist;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.runelite.api.coords.LocalPoint;
 
 public class LootPile
 {
-	private static final long TIME_UNTIL_VISIBLE = 120000;
+	private static final long TIME_UNTIL_VISIBLE = 60000;
 	private final long timeCreated;
 	@Getter
 	private final long timeAppearing;
@@ -13,6 +14,8 @@ public class LootPile
 	private final LocalPoint location;
 	@Getter
 	private final String playerName;
+	@Getter @Setter
+	private boolean beingRendered = false;
 
 	public LootPile(LocalPoint location, String playerName)
 	{
