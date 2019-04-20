@@ -14,8 +14,7 @@ import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("Theatre")
 
-public interface TheatreConfig extends Config
-{
+public interface TheatreConfig extends Config {
     @ConfigItem(
             position = 0,
             keyName = "MaidenBlood",
@@ -134,7 +133,9 @@ public interface TheatreConfig extends Config
             name = "Xarpus Tick",
             description = ""
     )
-    default boolean XarpusTick(){ return false; }
+    default boolean XarpusTick() {
+        return false;
+    }
 
     @ConfigItem(
             position = 12,
@@ -152,7 +153,9 @@ public interface TheatreConfig extends Config
             name = "Verzik Projectile Markers",
             description = ""
     )
-    default boolean VerzikCupcakes(){ return false; }
+    default boolean VerzikCupcakes() {
+        return false;
+    }
 
     @ConfigItem(
             position = 14,
@@ -160,7 +163,9 @@ public interface TheatreConfig extends Config
             name = "Verzik P3 Tick",
             description = ""
     )
-    default boolean VerzikTick(){ return false; }
+    default boolean VerzikTick() {
+        return false;
+    }
 
     @ConfigItem(
             position = 15,
@@ -168,7 +173,9 @@ public interface TheatreConfig extends Config
             name = "Verzik P3 Melee Range",
             description = ""
     )
-    default boolean VerzikMelee(){ return false; }
+    default boolean VerzikMelee() {
+        return false;
+    }
 
     @ConfigItem(
             position = 16,
@@ -176,7 +183,9 @@ public interface TheatreConfig extends Config
             name = "Verzik Yellow Timing",
             description = ""
     )
-    default boolean VerzikYellow(){ return false; }
+    default boolean VerzikYellow() {
+        return false;
+    }
 
     @ConfigItem(
             position = 17,
