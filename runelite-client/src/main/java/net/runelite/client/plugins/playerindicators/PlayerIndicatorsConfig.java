@@ -315,7 +315,7 @@ public interface PlayerIndicatorsConfig extends Config
 	)
 	default boolean limitLevel()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
