@@ -19,20 +19,16 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class LootAssistOverlay extends Overlay
 {
 
-	private final LootPileService pileService;
 
-	@Inject
-	private LootAssistPlugin plugin;
-
-	@Inject
+	private  LootAssistPlugin plugin;
 	private Client client;
-
 	public static HashMap<LocalPoint, LootPile> current = new HashMap<>();
 
 	@Inject
-	public LootAssistOverlay(LootPileService pileService)
+	public LootAssistOverlay(Client client, LootAssistPlugin plugin)
 	{
-		this.pileService = pileService;
+		this.plugin = plugin;
+		this.client = client;
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);
@@ -41,7 +37,7 @@ public class LootAssistOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		pileService.forEachLootPile(pile ->
+		LootAssistPlugin.lootPiles.forEach(pile ->
 		{
 			int x = pile.getLocation().getSceneX();
 			int y = pile.getLocation().getSceneY();
@@ -60,9 +56,6 @@ public class LootAssistOverlay extends Overlay
 				}
 			}
 		});
-		{
-
-		}
 		return null;
 	}
 }
