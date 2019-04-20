@@ -50,6 +50,24 @@ public interface ProfilesConfig extends Config
 		description = ""
 	)
 	void profilesData(String str);
+	
+	@ConfigItem(
+			keyName = "salt",
+			name = "",
+			description = "",
+			hidden = true
+	)
+	default String salt()
+	{
+		return "";
+	}
+	
+	@ConfigItem(
+			keyName = "salt",
+			name = "",
+			description = ""
+	)
+	void salt(String key);
 
 	@ConfigItem(
 		keyName = "rememberPassword",
@@ -78,6 +96,6 @@ public interface ProfilesConfig extends Config
 	)
 	default boolean switchPanel()
 	{
-		return true;
+		return false;
 	}
 }

@@ -69,13 +69,6 @@ public class ProfilesPlugin extends Plugin
 	private ProfilesPanel panel;
 	private NavigationButton navButton;
 
-	String text = "Hello World";
-
-
-	private static String key = "Bar12345Bar12345"; // 128 bit key
-	// Create key and cipher
-	private static Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
-
 
 	@Provides
 	ProfilesConfig getConfig(ConfigManager configManager)
@@ -131,91 +124,6 @@ public class ProfilesPlugin extends Plugin
 				this.startUp();
 			}
 		}
-	}
-
-	/**
-	 * decrypts saved login info
-	 * @param text text to decrypt
-	 * @return the decrypted text
-	 */
-	public static String decryptText(String text)
-	{
-		byte[] bb = new byte[text.length()];
-		for (int i = 0; i < text.length(); i++)
-		{
-			bb[i] = (byte) text.charAt(i);
-		}
-
-		Cipher cipher = null;
-		try
-		{
-			cipher = Cipher.getInstance("AES");
-		}
-		catch (NoSuchAlgorithmException | NoSuchPaddingException e)
-		{
-			e.printStackTrace();
-		}
-		try
-		{
-			cipher.init(Cipher.DECRYPT_MODE, aesKey);
-		}
-		catch (InvalidKeyException e)
-		{
-			e.printStackTrace();
-		}
-		try
-		{
-			Logger.getLogger("EncryptionLogger").info("Decrypted " + text + " to " + new String(cipher.doFinal(bb)));
-			return new String(cipher.doFinal(bb));
-		}
-		catch (IllegalBlockSizeException | BadPaddingException e)
-		{
-			e.printStackTrace();
-		}
-		return "";
-	}
-
-	/**
-	 * Encrypts login info
-	 * @param text text to encrypt
-	 * @return encrypted string
-	 */
-	public static String encryptText(String text)
-	{
-		try
-		{
-			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.ENCRYPT_MODE, aesKey);
-			byte[] encrypted = cipher.doFinal(text.getBytes());
-			StringBuilder sb = new StringBuilder();
-			for (byte b: encrypted)
-			{
-				sb.append((char)b);
-			}
-			Logger.getLogger("EncryptionLogger").info("Encrypted " + text +" to " + sb.toString());
-			return sb.toString();
-		}
-		catch (NoSuchAlgorithmException e)
-		{
-			e.printStackTrace();
-		}
-		catch (NoSuchPaddingException e)
-		{
-			e.printStackTrace();
-		}
-		catch (BadPaddingException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalBlockSizeException e)
-		{
-			e.printStackTrace();
-		}
-		catch (InvalidKeyException e)
-		{
-			e.printStackTrace();
-		}
-		return "";
 	}
 
 }
