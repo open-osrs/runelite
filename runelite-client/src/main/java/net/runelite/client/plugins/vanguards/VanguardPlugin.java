@@ -1,20 +1,16 @@
 
 package net.runelite.client.plugins.vanguards;
 
-
-import com.google.inject.Provides;
 import javax.inject.Inject;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.client.plugins.opponentinfo.OpponentInfoPlugin;
-//import net.runelite.client.plugins.opponentinfo.OpponentInfoOverlay;
-
 
 @PluginDescriptor(
         name= "Vanguard HP Overlay",
         description= "tracks HP of all three vanguards",
-        tags= {"overlay", "vangs", "cox"}
+        tags= {"overlay", "vangs", "cox"},
+        enabledByDefault = false
 )
 public class VanguardPlugin extends Plugin {
     private static final int MAGE_VANGUARD_ID = 7526; //i think
