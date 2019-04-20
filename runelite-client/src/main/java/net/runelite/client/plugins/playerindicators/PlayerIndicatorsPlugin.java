@@ -53,10 +53,12 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.InteractChanged;
 import net.runelite.client.util.WildcardMatcher;
 
+
 @PluginDescriptor(
 	name = "Player Indicators",
 	description = "Highlight players on-screen and/or on the minimap",
-	tags = {"highlight", "minimap", "overlay", "players"}
+	tags = {"highlight", "minimap", "overlay", "players"},
+	type = "utility"
 )
 public class PlayerIndicatorsPlugin extends Plugin
 {

@@ -10,7 +10,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
         name= "Vanguard HP Overlay",
         description= "tracks HP of all three vanguards",
         tags= {"overlay", "vangs", "cox"},
-        enabledByDefault = false
+        enabledByDefault = false,
+        type = "PVM"
 )
 public class VanguardPlugin extends Plugin {
     private static final int MAGE_VANGUARD_ID = 7526; //i think
