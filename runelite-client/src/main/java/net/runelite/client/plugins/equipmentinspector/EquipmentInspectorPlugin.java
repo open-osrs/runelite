@@ -3,7 +3,10 @@ package net.runelite.client.plugins.equipmentinspector;
 
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.Client;
+import net.runelite.api.ItemComposition;
+import net.runelite.api.Player;
 import net.runelite.api.events.PlayerMenuOptionClicked;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.chat.ChatColorType;
@@ -18,11 +21,10 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
+import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
-import net.runelite.http.api.item.ItemPrice;
 
 import javax.annotation.Nullable;
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -33,7 +35,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 @PluginDescriptor(
 		name = "Equipment Inspector",
-		description = "Inspects enemy equipment",
 		enabledByDefault = false,
 		type = "utility"
 )
@@ -90,11 +91,10 @@ public class EquipmentInspectorPlugin extends Plugin {
 			menuManager.addPlayerMenuItem(INSPECT_EQUIPMENT);
 		}
 
-		BufferedImage icon;
-		synchronized (ImageIO.class)
-		{
-			icon = ImageIO.read(getClass().getResourceAsStream("normal.png"));
-		}
+		//synchronized (ImageIO.class)
+		//{
+		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(this.getClass(), "normal.png");
+		//}
 
 		navButton = NavigationButton.builder()
 				.tooltip("Equipment Inspector")
@@ -189,7 +189,7 @@ public class EquipmentInspectorPlugin extends Plugin {
 					}
 					int IgnoredItems = config.protecteditems();
 					if (IgnoredItems != 0 && IgnoredItems != 1 && IgnoredItems != 2 && IgnoredItems != 3) {
-							IgnoredItems = 4;
+						IgnoredItems = 4;
 
 					}
 					if (config.ShowValue()) {

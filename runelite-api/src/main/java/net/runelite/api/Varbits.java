@@ -493,8 +493,8 @@ public enum Varbits
 	TREK_POINTS(1955),
 	TREK_STARTED(1956),
 	TREK_EVENT(1958),
-	TREK_STATUS(6719);
-
+    TREK_STATUS(6719),
+    BLOAT_ENTERED_ROOM(6447);
 
 	/**
 	 * The raw varbit ID.
