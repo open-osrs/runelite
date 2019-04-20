@@ -50,4 +50,14 @@ public interface InventoryViewerConfig extends Config
 	{
 		return false;
 	}
+
+    @ConfigItem(
+            keyName = "hideWhenInvOpen",
+            name = "Hide when inventory is open",
+            description = "Hide the inventory viewer when the player's inventory is open"
+    )
+    default boolean hideWhenInvOpen()
+    {
+        return false;
+    }
 }

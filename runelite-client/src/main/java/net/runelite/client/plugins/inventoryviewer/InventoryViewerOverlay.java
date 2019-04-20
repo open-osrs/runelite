@@ -38,6 +38,7 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.VarClientInt;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -92,6 +93,12 @@ class InventoryViewerOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
+		if (config.hideWhenInvOpen()
+			&& client.getVar(VarClientInt.PLAYER_INVENTORY_OPENED) == 3)
+		{
+			return null;
+		}
+
 		final ItemContainer itemContainer = client.getItemContainer(InventoryID.INVENTORY);
 
 		if (itemContainer == null)
