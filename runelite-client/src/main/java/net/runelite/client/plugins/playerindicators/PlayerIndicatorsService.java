@@ -32,6 +32,8 @@ import net.runelite.api.Client;
 import net.runelite.api.Player;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.api.Varbits;
+
 
 import static net.runelite.client.plugins.playerindicators.PlayerIndicatorsPlugin.calculateWildernessLevel;
 
@@ -47,6 +49,12 @@ public class PlayerIndicatorsService {
 	}
 
 	public void forEachPlayer(final BiConsumer<Player, Color> consumer) {
+
+		if (config.showInWildernessOnly() && client.getVar(Varbits.IN_THE_WILDERNESS) != 1)
+		{
+			return;
+		}
+
 		if (!config.highlightOwnPlayer() && !config.drawClanMemberNames()
 				&& !config.highlightFriends() && !config.highlightNonClanMembers()
 				&& !config.highlightAttackablePlayers() && !config.highlightAttackerPlayers()) {

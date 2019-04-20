@@ -189,7 +189,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 107,
+		position = 15,
 		keyName = "drawOverheadPlayerNames",
 		name = "Draw names above players",
 		description = "Configures whether or not player names should be drawn above players"
@@ -200,7 +200,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 106,
+		position = 16,
 		keyName = "drawOverheadLevels",
 		name = "Draw combat levels above players",
 		description = "Configures whether or not combat levels should be drawn above players"
@@ -211,7 +211,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 15,
+		position = 17,
 		keyName = "drawMinimapNames",
 		name = "Draw names on minimap",
 		description = "Configures whether or not minimap names for players with rendered names should be drawn"
@@ -222,7 +222,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 105,
+		position = 18,
 		keyName = "colorPlayerMenu",
 		name = "Colorize player menu",
 		description = "Color right click menu for players"
@@ -233,6 +233,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
+	    position = 19,
 		keyName = "clanMenuIcons",
 		name = "Show clan ranks",
 		description = "Add clan rank to right click menu and next to player names"
@@ -242,18 +243,19 @@ public interface PlayerIndicatorsConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(
-			keyName = "showOfflineFriends",
-			name = "Show offline friends",
-			description = "Draw friends names even if they're offline"
-	)
-	default boolean showOfflineFriends()
-	{
-		return true;
-	}
+    @ConfigItem(
+            position = 20,
+            keyName = "showOfflineFriends",
+            name = "Show offline friends",
+            description = "Draw friends names even if they're offline"
+    )
+    default boolean showOfflineFriends()
+    {
+        return true;
+    }
 
 	@ConfigItem(
-			position = 16,
+			position = 21,
 			keyName = "drawHighlightedNames",
 			name = "Draw highlighted player names",
 			description = "Configures whether or not highlighted player names should be drawn"
@@ -284,7 +286,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 98,
+            position = 22,
 			keyName = "drawHighlightedTargetNames",
 			name = "Draw highlighted target names",
 			description = "Configures whether or not highlighted target names should be drawn"
@@ -295,7 +297,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 99,
+			position = 23,
 			keyName = "highlightedTargetColor",
 			name = "Highlighted target color",
 			description = "Color of highlighted target names"
@@ -306,7 +308,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 100,
+			position = 24,
 			keyName = "limitLevel",
 			name = "Limit Level",
 			description = "Limit the players to show +-x your level. Useful for BH"
@@ -317,7 +319,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 101,
+			position = 25,
 			keyName = "level",
 			name = "Level",
 			description = "The level to limit players shown +-x"
@@ -327,10 +329,22 @@ public interface PlayerIndicatorsConfig extends Config
 		return 5;
 	}
 
+    @ConfigItem(
+            position = 26,
+            keyName = "wildernessOnly",
+            name = "Show only in wilderness",
+            description = "Toggle whether or not to only show player indicators in the wilderness"
+    )
+    default boolean showInWildernessOnly()
+    {
+        return false;
+    }
+
 	@ConfigItem(
-			position=102,
+			position = 27,
 			keyName="rightClickOverhead",
 			name="Add Overheads to Right Click Menu",
 			description="Feature shows a player's overhead prayer in the right click menu. Useful for DDs, or extremely crowded areas.")
-	default public boolean rightClickOverhead() { return false; }
+
+	default boolean rightClickOverhead() { return false; }
 }

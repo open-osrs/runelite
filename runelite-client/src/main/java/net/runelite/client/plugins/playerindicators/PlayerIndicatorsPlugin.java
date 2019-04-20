@@ -27,12 +27,12 @@ package net.runelite.client.plugins.playerindicators;
 import com.google.inject.Provides;
 import java.awt.Color;
 import javax.inject.Inject;
-import net.runelite.api.ClanMemberRank;
+
+import net.runelite.api.*;
+
 import static net.runelite.api.ClanMemberRank.UNRANKED;
-import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.*;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.Player;
+
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.widgets.Widget;
@@ -48,11 +48,10 @@ import com.google.common.base.Splitter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import net.runelite.api.Actor;
+
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.InteractChanged;
 import net.runelite.client.util.WildcardMatcher;
-import net.runelite.api.HeadIcon;
 
 @PluginDescriptor(
 	name = "Player Indicators",
@@ -158,6 +157,10 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded menuEntryAdded)
 	{
+		if (config.showInWildernessOnly() && client.getVar(Varbits.IN_THE_WILDERNESS) != 1)
+		{
+			return;
+		}
 		int type = menuEntryAdded.getType();
 
 		if (type >= 2000)
@@ -233,7 +236,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 			{
 				color = config.getAttackablePlayerColor();
 			}
-			if (this.config.rightClickOverhead() && !player.isClanMember() && player.getOverheadIcon() != null) {
+			if (this.config.rightClickOverhead() && !player.isClanMember() && player.getOverheadIcon() != null) { // NEEDS TESTING
 				if (player.getOverheadIcon().equals((Object)HeadIcon.MAGIC)) {
 					image = 29;
 				} else if (player.getOverheadIcon().equals((Object)HeadIcon.RANGED)) {
