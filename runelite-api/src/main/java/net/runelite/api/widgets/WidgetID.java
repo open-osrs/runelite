@@ -864,6 +864,9 @@ static final int WIND_STRIKE = 5;
 
 	static class Pvp
 	{
+		static final int PVP_WIDGET_CONTAINER = 54;  // OUTDATED?
+		static final int SKULL = 56;  // OUTDATED?
+		static final int ATTACK_RANGE = 59;  // OUTDATED?
 		static final int BOUNTY_HUNTER_INFO = 19;
 		static final int KILLDEATH_RATIO = 15;
 		static final int SKULL_CONTAINER = 62;
