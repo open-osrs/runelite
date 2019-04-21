@@ -8,6 +8,7 @@ import javassist.NotFoundException;
 import net.runelite.client.RuneLite;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.bytecode.transformers.ActorTransform;
+import net.runelite.client.rs.bytecode.transformers.BlackjackTransform;
 import net.runelite.client.rs.bytecode.transformers.PlayerTransform;
 import net.runelite.client.rs.bytecode.transformers.ProjectileTransform;
 import net.runelite.http.api.RuneLiteAPI;
@@ -53,6 +54,11 @@ public class ByteCodePatcher {
                 transformProjectile(projectileClass);
                 Class playerClass = Class.forName(hooks.playerClass, false, child);
                 transformPlayer(playerClass);
+
+                //experimental
+                Class clientClass = Class.forName("client", false, child);
+                transformBlackjack(clientClass);
+
                 ByteCodeUtils.updateHijackedJar();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -182,5 +188,12 @@ public class ByteCodePatcher {
         PlayerTransform pt = new PlayerTransform();
         pt.modify(player);
     }
+
+    public static void transformBlackjack(Class clazz) {
+        System.out.println("[RuneLit] Transforming Blackjack at class: "+clazz.getName());
+        BlackjackTransform bt = new BlackjackTransform();
+        bt.modify(clazz);
+    }
+
 
 }
