@@ -133,10 +133,10 @@ public class BlackjackTransform implements Transform {
 							"for (int m = 0 ; m < paramArrayOfMenuEntry.length ; m++) {" +
 								"net.runelite.api.MenuEntry menuEntry = paramArrayOfMenuEntry[m];" +
 
-							//everything here on out should be easy. foreach loops break CtNewMethod
+								//everything here on out should be easy. foreach loops break CtNewMethod
 
-							"}" +
-						"}"
+								"}" +
+							"}"
 					, ct);
 			ct.addMethod(setMenuEntries);
 		} catch (Exception e) {
