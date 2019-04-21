@@ -12,13 +12,15 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.api.NPC;
 import net.runelite.api.Client;
+import net.runelite.client.plugins.PluginType;
+
 import javax.inject.Inject;
 
 @PluginDescriptor(
         name = "Kitten Notifier",
         description = "Sends a notification when your kitten needs food, attention, or is grown.",
         tags = {"kitten, notifications"},
-        type = "utility"
+        type = PluginType.UTILITY
 )
 public class KittenNotifierPlugin extends Plugin{
 

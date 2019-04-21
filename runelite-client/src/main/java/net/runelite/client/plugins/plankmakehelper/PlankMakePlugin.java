@@ -3,6 +3,7 @@ package net.runelite.client.plugins.plankmakehelper;
 import net.runelite.api.Client;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 import javax.inject.Inject;
@@ -11,7 +12,7 @@ import javax.inject.Inject;
 		name = "Plank Make Helper",
 		description = "Highlights planks and plank make spell",
 		tags = {"overlay", "plankmaking", "lunar", "money", "moneymaking", "gp"},
-		type = "utility"
+		type = PluginType.UTILITY
 )
 
 public class PlankMakePlugin extends Plugin {

@@ -39,13 +39,14 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
 	name = "Temple Trekking",
 	description = "Helpers for the Temple Trek minigame",
 	tags = {"minigame", "overlay", "temple trek"},
-	type = "utility"
+	type = PluginType.UTILITY
 )
 public class TempleTrekPlugin extends Plugin
 {

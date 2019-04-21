@@ -34,6 +34,7 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.ColorUtil;
 
 import javax.inject.Inject;
@@ -43,7 +44,7 @@ import java.awt.Color;
         name = "Stronghold",
         description = "Highlights the correct answer to Stronghold of Security questions",
         tags = {"stronghold", "security", "overlay", "answer", "highlight"},
-		type = "utility"
+		type = PluginType.UTILITY
 )
 @Slf4j
 public class StrongholdPlugin extends Plugin {

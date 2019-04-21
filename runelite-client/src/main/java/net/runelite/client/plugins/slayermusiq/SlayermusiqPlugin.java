@@ -69,6 +69,7 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.Text;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -79,7 +80,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 	name = "Slayermusiq1 Guides",
 	description = "Adds a right-click option to go to Slayermusiq1's guides from the quest tab",
 	tags = {"quest", "guide", "slayermusiq"},
-		type = "utility"
+	type = PluginType.UTILITY
 )
 @Slf4j
 public class SlayermusiqPlugin extends Plugin

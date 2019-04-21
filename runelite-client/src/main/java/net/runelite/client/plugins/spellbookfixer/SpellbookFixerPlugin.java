@@ -14,6 +14,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 
 import javax.inject.Inject;
 
@@ -22,7 +23,7 @@ import javax.inject.Inject;
         name = "Spellbook Fixer",
         description = "Resize and filter spellbook for PKing",
         tags = {"resize", "spellbook", "magic", "spell", "pk", "book", "filter", "bogla"},
-        type = "PVP"
+        type = PluginType.PVP
 )
 @Slf4j
 public class SpellbookFixerPlugin extends Plugin
