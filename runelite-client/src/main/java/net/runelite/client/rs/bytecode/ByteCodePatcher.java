@@ -8,23 +8,19 @@ import javassist.NotFoundException;
 import net.runelite.client.RuneLite;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.bytecode.transformers.ActorTransform;
-import net.runelite.client.rs.bytecode.transformers.BlackjackTransform;
+import net.runelite.client.rs.bytecode.transformers.ClientTransform;
 import net.runelite.client.rs.bytecode.transformers.PlayerTransform;
 import net.runelite.client.rs.bytecode.transformers.ProjectileTransform;
 import net.runelite.http.api.RuneLiteAPI;
 import org.xeustechnologies.jcl.JarClassLoader;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -191,7 +187,7 @@ public class ByteCodePatcher {
 
 	public static void transformBlackjack(Class clazz) {
 		System.out.println("[RuneLit] Transforming Blackjack at class: "+clazz.getName());
-		BlackjackTransform bt = new BlackjackTransform();
+		ClientTransform bt = new ClientTransform();
 		bt.modify(clazz);
 	}
 
