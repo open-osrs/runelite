@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Frosty Fridge <https://github.com/frostyfridge>
+ * Copyright (c) 2019, Stephen <stepzhu@umich.edu>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,47 +22,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.templetrek;
+package net.runelite.client.plugins.smelting;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import javax.inject.Inject;
-import net.runelite.api.GroundObject;
-import net.runelite.client.ui.overlay.Overlay;
-import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.ui.overlay.OverlayUtil;
+import java.time.Instant;
 
-public class TempleTrekBogOverlay extends Overlay
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+class SmeltingSession
 {
-	private final TempleTrekConfig config;
-	private final TempleTrekPlugin plugin;
+	@Getter(AccessLevel.PACKAGE)
+	@Setter
+	private Instant lastItemSmelted;
 
-	private static final Color GREEN = new Color(0, 200, 83);
+	@Getter(AccessLevel.PACKAGE)
+	private int barsSmelted;
 
-	@Inject
-	private TempleTrekBogOverlay(TempleTrekConfig config, TempleTrekPlugin plugin)
+	@Getter(AccessLevel.PACKAGE)
+	private int cannonBallsSmelted;
+
+	void increaseBarsSmelted()
 	{
-		super(plugin);
-		this.config = config;
-		this.plugin = plugin;
-		setPosition(OverlayPosition.DYNAMIC);
-		setPriority(OverlayPriority.LOW);
+		barsSmelted++;
 	}
 
-	@Override
-	public Dimension render(Graphics2D graphics)
+	void increaseCannonBallsSmelted()
 	{
-		if (config.bogMapActive())
-		{
-			for (GroundObject bog : plugin.getBogList())
-			{
-				Polygon bogPoly = bog.getCanvasTilePoly();
-				OverlayUtil.renderPolygon(graphics, bogPoly, GREEN);
-			}
-		}
-		return null;
+		cannonBallsSmelted += 4;
 	}
 }

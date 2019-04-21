@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Frosty Fridge <https://github.com/frostyfridge>
+ * Copyright (c) 2019, Stephen <stepzhu@umich.edu>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,34 +22,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.templetrek;
+package net.runelite.client.plugins.smelting;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("templetrek")
-public interface TempleTrekConfig extends Config
+@ConfigGroup("smelting")
+public interface SmeltingConfig extends Config
 {
 	@ConfigItem(
-		keyName = "bogMapActive",
-		name = "Bog Map",
-		description = "Marks out a safe route through the bog event",
-		position = 0
+			position = 1,
+			keyName = "statTimeout",
+			name = "Reset stats (minutes)",
+			description = "The time it takes for the current smelting session to be reset"
 	)
-	default boolean bogMapActive()
+	default int statTimeout()
 	{
-		return true;
+		return 5;
 	}
 
-	@ConfigItem(
-		keyName = "pointTrackerActive",
-		name = "Point Tracker",
-		description = "Track your Temple Trek reward points, which determine the size of your reward.",
-		position = 1
-	)
-	default boolean pointTrackerActive()
-	{
-		return true;
-	}
 }

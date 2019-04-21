@@ -61,6 +61,7 @@ import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.rs.ClientUpdateCheckMode;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.DrawManager;
+import net.runelite.client.ui.RuneLiteSplashScreen;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.WidgetOverlay;
@@ -75,12 +76,15 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class RuneLite
 {
+	public static final String RUNELIT_VERSION = "0.1.0";
 	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".runelite");
 	public static final File PROFILES_DIR = new File(RUNELITE_DIR, "profiles");
 	public static final File PLUGIN_DIR = new File(RUNELITE_DIR, "plugins");
 	public static final File SCREENSHOT_DIR = new File(RUNELITE_DIR, "screenshots");
+    private static final RuneLiteSplashScreen splashScreen = new RuneLiteSplashScreen();
 
-	@Getter
+
+    @Getter
 	private static Injector injector;
 
 	@Inject
@@ -160,6 +164,7 @@ public class RuneLite
 		final OptionParser parser = new OptionParser();
 		parser.accepts("developer-mode", "Enable developer tools");
 		parser.accepts("debug", "Show extra debugging output");
+		parser.accepts("no-splash", "Do not show the splash screen");
 
 		final ArgumentAcceptingOptionSpec<ClientUpdateCheckMode> updateMode = parser
 			.accepts("rs", "Select client type")
@@ -213,6 +218,14 @@ public class RuneLite
 			}
 		});
 
+		if (!options.has("no-splash"))
+		{
+			splashScreen.open(4);
+		}
+
+		// The submessage is shown in case the connection is slow
+		splashScreen.setMessage("Loading client", "And checking for updates...");
+
 		final long start = System.currentTimeMillis();
 
 		injector = Guice.createInjector(new RuneLiteModule(
@@ -239,6 +252,7 @@ public class RuneLite
 		}
 
 		// Load user configuration
+		splashScreen.setMessage("Loading configuration");
 		configManager.load();
 
 		// Load the session, including saved configuration
@@ -252,6 +266,7 @@ public class RuneLite
 
 		// Load the plugins, but does not start them yet.
 		// This will initialize configuration
+		splashScreen.setMessage("Loading plugins and patches", "Starting session...");
 		pluginManager.loadCorePlugins();
 
 		// Plugins have provided their config, so set default config
@@ -261,8 +276,14 @@ public class RuneLite
 		// Start client session
 		clientSessionManager.start();
 
+		// Load the session, including saved configuration
+		splashScreen.setMessage("Loading interface");
+
 		// Initialize UI
 		clientUI.open(this);
+
+		// Close the splash screen
+		splashScreen.close();
 
 		// Initialize Discord service
 		discordService.init();
