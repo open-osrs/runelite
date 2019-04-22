@@ -19,6 +19,7 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
@@ -36,7 +37,7 @@ import java.util.concurrent.ScheduledExecutorService;
 @PluginDescriptor(
         name = "Equipment Inspector",
         enabledByDefault = false,
-        type = "utility"
+        type = PluginType.PVP
 )
 
 @Slf4j
@@ -149,6 +150,9 @@ public class EquipmentInspectorPlugin extends Plugin {
                     Map<KitType, ItemComposition> playerEquipment = new HashMap<>();
 
                     for (KitType kitType : KitType.values()) {
+                        if (kitType == KitType.RING) continue; //prevents the equipment inspector from breaking
+                        if (kitType == KitType.AMMUNITION) continue;
+
                         int itemId = p.getPlayerComposition().getEquipmentId(kitType);
                         if (itemId != -1) {
                             ItemComposition itemComposition = client.getItemDefinition(itemId);

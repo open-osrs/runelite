@@ -292,6 +292,7 @@ public enum Varbits {
      */
     NMZ_ABSORPTION(3956),
     NMZ_POINTS(3949),
+    NMZ_OVERLOAD(3955),
 
     /**
      * Blast Furnace
@@ -372,6 +373,7 @@ public enum Varbits {
     DAILY_ESSENCE_COLLECTED(4547),
     DAILY_RUNES_COLLECTED(4540),
     DAILY_SAND_COLLECTED(4549),
+    DAILY_ARROWS_STATE(4563),
     DAILY_FLAX_STATE(4559),
     /**
      * This varbit tracks how much bonemeal has been redeemed from Robin
@@ -480,6 +482,14 @@ public enum Varbits {
      * 1 = sell
      */
     GE_OFFER_CREATION_TYPE(4397),
+
+
+    /*
+     * Spells being auto-casted
+     *
+     * */
+    AUTO_CAST_SPELL(276),
+
 
     /**
      * The active tab within the quest interface
