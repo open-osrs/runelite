@@ -292,4 +292,15 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return true;
 	}
+	
+	@ConfigItem(
+			keyName = "swapRogueschests",
+			name = "Rogueschests",
+			description = "Swap Rogueschests from open to Search for traps"
+	)
+	default boolean swapRogueschests()
+	{
+		return true;
+	}
+}
 }
