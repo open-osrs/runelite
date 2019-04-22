@@ -38,6 +38,7 @@ public enum AlwaysLostItem
 {
 	RUNE_POUCH(ItemID.RUNE_POUCH, true),
 	LOOTING_BAG(ItemID.LOOTING_BAG, false),
+	LOOTING_BAG_22586(ItemID.LOOTING_BAG_22586, false),
 	CLUE_BOX(ItemID.CLUE_BOX, false);
 
 	private final int itemID;
