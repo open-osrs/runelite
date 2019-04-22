@@ -470,12 +470,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			swap("harpoon", option, target, true);
 		}
-		
 		else if (config.rockCake() && option.equals("eat"))
 		{ 
 			swap("guzzle", option, target, true); 
 		}
-		
 		else if (config.swapHomePortal() != HouseMode.ENTER && option.equals("enter"))
 		{
 			switch (config.swapHomePortal())
@@ -549,6 +547,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		else if (config.swapPick() && option.equals("pick"))
 		{
 			swap("pick-lots", option, target, true);
+		}
+		else if (config.swapRogueschests() && target.contains("chest"))
+		{
+			swap("search for traps", option, target, true);
 		}
 		else if (config.shiftClickCustomization() && shiftModifier && !option.equals("use"))
 		{
