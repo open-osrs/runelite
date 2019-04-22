@@ -85,6 +85,7 @@ import net.runelite.client.util.HotkeyListener;
 	name = "Chambers Of Xeric",
 	description = "Show helpful information for the Chambers of Xeric raid",
 	tags = {"combat", "raid", "overlay", "pve", "pvm", "bosses", "cox", "olm"}
+	type = "PVM"
 )
 @Slf4j
 public class RaidsPlugin extends Plugin
