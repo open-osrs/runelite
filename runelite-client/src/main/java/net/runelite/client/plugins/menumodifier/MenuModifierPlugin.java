@@ -29,7 +29,7 @@ import java.util.List;
         description = "Changes right click menu for players",
         tags = { "menu", "modifier", "right", "click", "pk", "bogla" },
         enabledByDefault = false,
-        type = "utility"
+        type = "PVP"
 )
 public class MenuModifierPlugin extends Plugin
 {
