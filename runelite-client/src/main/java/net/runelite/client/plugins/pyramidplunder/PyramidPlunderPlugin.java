@@ -58,7 +58,7 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 	name = "Pyramid Plunder",
 	description = "Highlights doors and spear traps in pyramid plunder and adds a numerical timer",
 	tags = {"pyramidplunder", "pyramid", "plunder", "overlay", "skilling", "thieving"},
-	type = "utility"
+	type = "utility",
 	enabledByDefault = false
 )
 
