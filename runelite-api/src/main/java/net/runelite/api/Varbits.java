@@ -481,6 +481,14 @@ public enum Varbits {
      */
     GE_OFFER_CREATION_TYPE(4397),
 
+
+    /*
+     * Spells being auto-casted
+     *
+     * */
+    AUTO_CAST_SPELL(276),
+
+
     /**
      * The active tab within the quest interface
      */
