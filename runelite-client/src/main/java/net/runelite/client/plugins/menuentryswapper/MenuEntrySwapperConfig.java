@@ -272,16 +272,6 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return true;
 	}
-	
-	@ConfigItem(
-			keyName = "rockCake",
-			name = "Rock Cake Guzzle",
-			description = "Enables Left Click Guzzle to Rock Cake"
-	)
-	default boolean rockCake() 
-	{ 
-		return false; 
-	}
 
 	@ConfigItem(
 		keyName = "swapTravel",
@@ -291,6 +281,16 @@ public interface MenuEntrySwapperConfig extends Config
 	default boolean swapTravel()
 	{
 		return true;
+	}
+	
+	@ConfigItem(
+		keyName = "rockCake",
+		name = "Rock Cake Guzzle",
+		description = "Enables Left Click Guzzle to Rock Cake"
+	)
+	default boolean rockCake() 
+	{ 
+		return false; 
 	}
 
 	@ConfigItem(
