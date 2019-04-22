@@ -470,6 +470,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			swap("harpoon", option, target, true);
 		}
+		
+		else if (config.rockCake() && option.equals("eat"))
+		{ 
+			swap("guzzle", option, target, true); 
+		}
+		
 		else if (config.swapHomePortal() != HouseMode.ENTER && option.equals("enter"))
 		{
 			switch (config.swapHomePortal())
