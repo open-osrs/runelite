@@ -25,9 +25,15 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 
-@PluginDescriptor(name="Account Switcher", description="Allow for a allows you to easily switch between multiple OSRS Accounts", tags={"profile", "account", "login", "log in"})
+@PluginDescriptor(name="Account Switcher", 
+        description="Allow for a allows you to easily switch between multiple OSRS Accounts", 
+        tags={"profile", "account", "login", "log in"},
+        type ="utility"
+)
+
 public class ProfilesPlugin
-extends Plugin {
+    
+    extends Plugin {
     @Inject
     private ClientToolbar clientToolbar;
     @Inject
