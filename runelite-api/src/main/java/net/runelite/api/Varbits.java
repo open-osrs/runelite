@@ -372,6 +372,7 @@ public enum Varbits {
     DAILY_ESSENCE_COLLECTED(4547),
     DAILY_RUNES_COLLECTED(4540),
     DAILY_SAND_COLLECTED(4549),
+    DAILY_ARROWS_STATE(4563),
     DAILY_FLAX_STATE(4559),
     /**
      * This varbit tracks how much bonemeal has been redeemed from Robin
