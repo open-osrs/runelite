@@ -40,7 +40,6 @@ import javax.swing.Box;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javafx.util.Pair;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -56,6 +55,8 @@ import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.IconTextField;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 class SkillCalculator extends JPanel
 {
@@ -289,7 +290,7 @@ class SkillCalculator extends JPanel
 		uiOption.add(uiLabel, BorderLayout.WEST);
 		bonusCheckBoxes.add(uiCheckbox);
 
-		return new Pair<>(uiOption, uiCheckBoxList);
+		return new ImmutablePair<>(uiOption, uiCheckBoxList);
 	}
 
 	private void renderActionSlots()
