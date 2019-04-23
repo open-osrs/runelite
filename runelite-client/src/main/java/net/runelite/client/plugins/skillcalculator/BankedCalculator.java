@@ -280,9 +280,6 @@ public class BankedCalculator extends JPanel
 				}
 			}
 		}
-
-		log.info("Critical Map: {}", criticalMap);
-		log.info("Linked Map: {}", linkedMap);
 	}
 
 	/**
@@ -534,7 +531,6 @@ public class BankedCalculator extends JPanel
 	 */
 	void updateBankMap(Map<Integer, Integer> map)
 	{
-		log.info("Bank Map Updated while open");
 		boolean oldMapFlag = (bankMap.size() <= 0);
 		bankMap = map;
 		// Refresh entire panel if old map was empty
