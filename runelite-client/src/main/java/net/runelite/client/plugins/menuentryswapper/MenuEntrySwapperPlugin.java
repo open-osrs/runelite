@@ -544,10 +544,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			swap("pick-lots", option, target, true);
 		}
-		else if (config.swapRogueschests() && target.contains("chest"))
-		{
-			swap("search for traps", option, target, true);
-		}
 		else if (config.shiftClickCustomization() && shiftModifier && !option.equals("use"))
 		{
 			Integer customOption = getSwapConfig(eventId);
@@ -556,6 +552,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			{
 				swap("use", option, target, true);
 			}
+		}
+		else if (config.swapRogueschests() && target.contains("chest"))
+		{
+			swap("search for traps", option, target, true);
 		}
 		// Put all item-related swapping after shift-click
 		else if (config.swapTeleportItem() && option.equals("wear"))
