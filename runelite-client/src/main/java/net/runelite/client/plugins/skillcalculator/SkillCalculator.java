@@ -123,6 +123,10 @@ class SkillCalculator extends JPanel
 		targetLevel = enforceSkillBounds(currentLevel + 1);
 		targetXP = Experience.getXpForLevel(targetLevel);
 
+		// BankedCalculator prevents these from being editable so just ensure they are editable.
+		uiInput.getUiFieldTargetLevel().setEditable(true);
+		uiInput.getUiFieldTargetXP().setEditable(true);
+
 		// Remove all components (action slots) from this panel.
 		removeAll();
 
