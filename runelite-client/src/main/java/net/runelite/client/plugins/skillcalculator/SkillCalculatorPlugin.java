@@ -38,6 +38,7 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -100,7 +101,7 @@ public class SkillCalculatorPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "calc.png");
-		uiPanel = new SkillCalculatorPanel(skillIconManager, client, skillCalculatorConfig, spriteManager, itemManager);
+		this.uiPanel = new SkillCalculatorPanel(skillIconManager, client, skillCalculatorConfig, spriteManager, itemManager);
 
 		uiNavigationButton = NavigationButton.builder()
 			.tooltip("Skill Calculator")
@@ -211,5 +212,11 @@ public class SkillCalculatorPlugin extends Plugin
 		}
 
 		return new HashMap<>();
+	}
+
+	@Subscribe
+	public void onExperienceChanged(ExperienceChanged changeEvent)
+	{
+		uiPanel.updateSkillCalculator(changeEvent.getSkill());
 	}
 }

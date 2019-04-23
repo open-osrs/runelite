@@ -34,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JCheckBox;
@@ -44,6 +45,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
+import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.skillcalculator.beans.SkillData;
@@ -80,6 +82,7 @@ class SkillCalculator extends JPanel
 	private int targetXP = Experience.getXpForLevel(targetLevel);
 	private float xpFactor = 1.0f;
 	private float lastBonus = 0.0f;
+	private CalculatorType calculatorType;
 
 	SkillCalculator(Client client, UICalculatorInputArea uiInput, SpriteManager spriteManager, ItemManager itemManager)
 	{
@@ -117,6 +120,8 @@ class SkillCalculator extends JPanel
 
 	void openCalculator(CalculatorType calculatorType)
 	{
+		this.calculatorType = calculatorType;
+
 		// Load the skill data.
 		skillData = cacheSkillData.getSkillData(calculatorType.getDataFile());
 
@@ -124,10 +129,7 @@ class SkillCalculator extends JPanel
 		xpFactor = 1.0f;
 
 		// Update internal skill/XP values.
-		currentXP = client.getSkillExperience(calculatorType.getSkill());
-		currentLevel = Experience.getLevelForXp(currentXP);
-		targetLevel = enforceSkillBounds(currentLevel + 1);
-		targetXP = Experience.getXpForLevel(targetLevel);
+		updateInternalValues();
 
 		// BankedCalculator prevents these from being editable so just ensure they are editable.
 		uiInput.getUiFieldTargetLevel().setEditable(true);
@@ -156,6 +158,23 @@ class SkillCalculator extends JPanel
 
 		// Update the input fields.
 		updateInputFields();
+	}
+
+	private void updateInternalValues()
+	{
+		updateCurrentValues();
+		updateTargetValues();
+	}
+
+	private void updateCurrentValues()
+	{
+		currentXP = client.getSkillExperience(calculatorType.getSkill());
+		currentLevel = Experience.getLevelForXp(currentXP);
+	}
+	private void updateTargetValues()
+	{
+		targetLevel = enforceSkillBounds(currentLevel + 1);
+		targetXP = Experience.getXpForLevel(targetLevel);
 	}
 
 	private void updateCombinedAction()
@@ -443,4 +462,25 @@ class SkillCalculator extends JPanel
 		return slot.getAction().getName().toLowerCase().contains(text.toLowerCase());
 	}
 
+	/**
+	 * Updates the current skill calculator (if present)
+	 * <p>
+	 * This method is invoked by the {@link SkillCalculatorPlugin} event subscriber
+	 * when an {@link ExperienceChanged} object is posted to the event bus
+	 */
+	void updateSkillCalculator(Skill skill)
+	{
+		// If the user has selected a calculator, update its fields
+		Optional.ofNullable(calculatorType).ifPresent(calc ->
+		{
+			if (skill.equals(calculatorType.getSkill()))
+			{
+				// Update our model "current" values
+				updateCurrentValues();
+
+				// Update the UI to reflect our new model
+				updateInputFields();
+			}
+		});
+	}
 }
