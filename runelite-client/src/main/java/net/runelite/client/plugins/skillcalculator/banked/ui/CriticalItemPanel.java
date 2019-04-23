@@ -62,7 +62,6 @@ import net.runelite.client.ui.components.materialtabs.MaterialTabGroup;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 import net.runelite.client.util.StackFormatter;
 
-@Slf4j
 public class CriticalItemPanel extends JPanel
 {
 	private static final Dimension ICON_SIZE = new Dimension(36, 36);
@@ -346,7 +345,6 @@ public class CriticalItemPanel extends JPanel
 			// Add click event handler now to prevent above code from triggering it.
 			matTab.setOnSelectEvent(() ->
 			{
-				log.info("Changed to option: {}", option);
 				bankedCalculator.activitySelected(item, option);
 				return true;
 			});
