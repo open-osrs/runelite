@@ -268,28 +268,32 @@ public class SuppliesTrackerPlugin extends Plugin
 	 */
 	private void checkUsedRunes(ItemContainer itemContainer, Item[] oldInv)
 	{
-		for (int i = 0; i < itemContainer.getItems().length; i++)
+		try
 		{
-			Item newItem = itemContainer.getItems()[i];
-			Item oldItem = oldInv[i];
-			boolean isRune = false;
-			for (int j = 0; j < RUNE_IDS.length; j++)
+			for (int i = 0; i < itemContainer.getItems().length; i++)
 			{
-				if (oldItem.getId() == RUNE_IDS[j])
+				Item newItem = itemContainer.getItems()[i];
+				Item oldItem = oldInv[i];
+				boolean isRune = false;
+				for (int j = 0; j < RUNE_IDS.length; j++)
 				{
-					isRune = true;
+					if (oldItem.getId() == RUNE_IDS[j])
+					{
+						isRune = true;
+					}
 				}
-			}
-			if (isRune && (newItem.getId() != oldItem.getId() || newItem.getQuantity() != oldItem.getQuantity()))
-			{
-				int quantity = oldItem.getQuantity();
-				if (newItem.getId() == oldItem.getId())
+				if (isRune && (newItem.getId() != oldItem.getId() || newItem.getQuantity() != oldItem.getQuantity()))
 				{
-					quantity -= newItem.getQuantity();
+					int quantity = oldItem.getQuantity();
+					if (newItem.getId() == oldItem.getId())
+					{
+						quantity -= newItem.getQuantity();
+					}
+					buildEntries(oldItem.getId(), quantity);
 				}
-				buildEntries(oldItem.getId(), quantity);
 			}
 		}
+		catch (IndexOutOfBoundsException ignored) {}
 	}
 
 	@Subscribe
