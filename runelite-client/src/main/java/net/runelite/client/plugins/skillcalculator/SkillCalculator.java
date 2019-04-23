@@ -139,6 +139,9 @@ class SkillCalculator extends JPanel
 		// Clear the search bar
 		searchBar.setText(null);
 
+		// Clear the search bar
+		searchBar.setText(null);
+
 		// Add in checkboxes for available skill bonuses.
 		renderBonusOptions();
 
