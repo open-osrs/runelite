@@ -73,7 +73,7 @@ public class PlayerIndicatorsService
 					consumer.accept(player, config.getOwnPlayerColor());
 				}
 			}
-			else if (config.highlightFriends() && player.isFriend())
+			else if (config.highlightFriends() && client.isFriended(player.getName(), false))
 			{
 				consumer.accept(player, config.getFriendColor());
 			}
