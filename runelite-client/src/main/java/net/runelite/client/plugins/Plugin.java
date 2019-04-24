@@ -28,15 +28,10 @@ import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-import java.io.File;
-
 public abstract class Plugin implements Module
 {
 	protected Injector injector;
-	
-	public File file;
-	public PluginClassLoader loader;
-	
+
 	@Override
 	public void configure(Binder binder)
 	{
