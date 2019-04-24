@@ -57,30 +57,34 @@ public class LootAssistOverlay extends Overlay
 				String timeOverlay = d.format((pile.getTimeAppearing() - System.currentTimeMillis()) / 1000f);
 				if (WorldPoint.isInScene(client, WorldPoint.fromLocal(client, pile.getLocation()).getX(), WorldPoint.fromLocal(client, pile.getLocation()).getY()))
 				{
-					if (client.getScene().getTiles()[client.getPlane()][x][y] != null)
+					if (WorldPoint.fromLocal(client, pile.getLocation()).isInScene(client))
 					{
-						final Polygon poly = Perspective.getCanvasTilePoly(client,
-							client.getScene().getTiles()[client.getPlane()][x][y].getLocalLocation());
-						if (poly != null)
+
+						if (client.getScene().getTiles()[client.getPlane()][x][y] != null)
 						{
-							Point textLoc = Perspective.getCanvasTextLocation(client, graphics, pile.getLocation(),
-								nameOverlay, graphics.getFontMetrics().getHeight() * 7);
-							Point timeLoc = Perspective.getCanvasTextLocation(client, graphics, pile.getLocation(),
-								timeOverlay, graphics.getFontMetrics().getHeight());
-							OverlayUtil.renderPolygon(graphics, poly, Color.WHITE);
-							if (timeRemaining < 5)
+							final Polygon poly = Perspective.getCanvasTilePoly(client,
+								client.getScene().getTiles()[client.getPlane()][x][y].getLocalLocation());
+							if (poly != null)
 							{
-								OverlayUtil.renderTextLocation(graphics, timeLoc, timeOverlay, Color.RED);
-								OverlayUtil.renderTextLocation(graphics, textLoc, nameOverlay, Color.RED);
-							}
-							if (timeRemaining < 2)
-							{
-								client.setHintArrow(WorldPoint.fromLocal(client, pile.getLocation()));
-							}
-							else
-							{
-								OverlayUtil.renderTextLocation(graphics, timeLoc, timeOverlay, Color.WHITE);
-								OverlayUtil.renderTextLocation(graphics, textLoc, nameOverlay, Color.WHITE);
+								Point textLoc = Perspective.getCanvasTextLocation(client, graphics, pile.getLocation(),
+									nameOverlay, graphics.getFontMetrics().getHeight() * 7);
+								Point timeLoc = Perspective.getCanvasTextLocation(client, graphics, pile.getLocation(),
+									timeOverlay, graphics.getFontMetrics().getHeight());
+								OverlayUtil.renderPolygon(graphics, poly, Color.WHITE);
+								if (timeRemaining < 5)
+								{
+									OverlayUtil.renderTextLocation(graphics, timeLoc, timeOverlay, Color.RED);
+									OverlayUtil.renderTextLocation(graphics, textLoc, nameOverlay, Color.RED);
+								}
+								if (timeRemaining < 2)
+								{
+									client.setHintArrow(WorldPoint.fromLocal(client, pile.getLocation()));
+								}
+								else
+								{
+									OverlayUtil.renderTextLocation(graphics, timeLoc, timeOverlay, Color.WHITE);
+									OverlayUtil.renderTextLocation(graphics, textLoc, nameOverlay, Color.WHITE);
+								}
 							}
 						}
 					}
