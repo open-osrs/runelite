@@ -30,6 +30,18 @@ import net.runelite.api.Constants;
 @ConfigGroup("runelite")
 public interface RuneLiteConfig extends Config
 {
+	
+	@ConfigItem(
+			keyName = "enablePlugins",
+			name = "Enable loading of external plugins",
+			description = "Enable loading of external plugins",
+			position = 7
+	)
+	default boolean enablePlugins()
+	{
+		return true;
+	}
+	
 	@ConfigItem(
 		keyName = "gameSize",
 		name = "Game size",
