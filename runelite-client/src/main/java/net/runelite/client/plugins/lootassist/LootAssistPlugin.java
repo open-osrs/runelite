@@ -8,6 +8,7 @@ import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -32,7 +33,7 @@ public class LootAssistPlugin extends Plugin
 	LootAssistOverlay lootAssistOverlay;
 
 
-	public static ConcurrentHashMap<LocalPoint, LootPile> lootPiles = new ConcurrentHashMap<>();
+	public static ConcurrentHashMap<WorldPoint, LootPile> lootPiles = new ConcurrentHashMap<>();
 
 	@Override
 	protected void startUp() throws Exception
@@ -43,6 +44,7 @@ public class LootAssistPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		lootPiles.clear();
 		overlayManager.remove(lootAssistOverlay);
 	}
 
@@ -52,7 +54,7 @@ public class LootAssistPlugin extends Plugin
 		final Actor actor = event.getActor();
 		if (actor.getAnimation() == AnimationID.DEATH && actor instanceof Player)
 		{
-			LootPile pile = new LootPile(actor.getLocalLocation(), actor.getName());
+			LootPile pile = new LootPile(actor.getWorldLocation(), actor.getName());
 			lootPiles.put(pile.getLocation(), pile);
 		}
 	}

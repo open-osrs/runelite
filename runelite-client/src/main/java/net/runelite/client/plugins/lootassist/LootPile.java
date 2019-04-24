@@ -3,6 +3,7 @@ package net.runelite.client.plugins.lootassist;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
 
 public class LootPile
 {
@@ -11,13 +12,13 @@ public class LootPile
 	@Getter
 	private final long timeAppearing;
 	@Getter
-	private final LocalPoint location;
+	private final WorldPoint location;
 	@Getter
 	private final String playerName;
 	@Getter @Setter
 	private boolean beingRendered = false;
 
-	public LootPile(LocalPoint location, String playerName)
+	public LootPile(WorldPoint location, String playerName)
 	{
 		this.timeCreated = System.currentTimeMillis();
 		this.location = location;
