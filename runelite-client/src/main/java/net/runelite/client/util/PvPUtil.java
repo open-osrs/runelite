@@ -17,6 +17,8 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.Player;
+import net.runelite.api.Varbits;
+import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.game.ItemManager;
 import static net.runelite.client.util.StackFormatter.quantityToRSDecimalStack;
@@ -46,14 +48,27 @@ public class PvPUtil
 
 	/**
 	 * Determines if another player is attackable based off of wilderness level and combat levels
-	 * @param c The client of the local player
-	 * @param p the player to determine attackability
+	 * @param client The client of the local player
+	 * @param player the player to determine attackability
 	 * @return returns true if the player is attackable, false otherwise
 	 */
-	public static boolean isAttackable(Client c, Player p)
+	public static boolean isAttackable(Client client, Player player)
 	{
-		return Math.abs(c.getLocalPlayer().getCombatLevel() - p.getCombatLevel())
-			< getWildernessLevelFrom(c.getLocalPlayer().getWorldLocation());
+		int wildernessLevel = 0;
+		if (!(client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isPvpWorld(client.getWorldType())))
+		{
+			return false;
+		}
+		if (WorldType.isPvpWorld(client.getWorldType()))
+		{
+			if (client.getVar(Varbits.IN_WILDERNESS) != 1)
+			{
+				return Math.abs(client.getLocalPlayer().getCombatLevel() - player.getCombatLevel()) <= 15;
+			}
+			wildernessLevel = 15;
+		}
+		return Math.abs(client.getLocalPlayer().getCombatLevel() - player.getCombatLevel())
+			< (getWildernessLevelFrom(client.getLocalPlayer().getWorldLocation())+ wildernessLevel);
 	}
 
 	public static int calculateRisk(Client client, ItemManager itemManager)

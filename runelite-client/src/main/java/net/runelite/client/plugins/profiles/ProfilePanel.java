@@ -30,6 +30,8 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -57,10 +59,12 @@ class ProfilePanel extends JPanel
 	}
 
 	private final String loginText;
+	private final ProfilesPanel parent;
 	private String password = null;
 
-	ProfilePanel(final Client client, String data, ProfilesConfig config)
+	ProfilePanel(final Client client, String data, ProfilesConfig config, ProfilesPanel parent)
 	{
+		this.parent = parent;
 		String[] parts = data.split(":");
 		this.loginText = parts[1];
 		if (parts.length == 3)
@@ -93,7 +97,14 @@ class ProfilePanel extends JPanel
 			public void mousePressed(MouseEvent e)
 			{
 				panel.getParent().remove(panel);
-				ProfilesPanel.removeProfile(data);
+				try
+				{
+					parent.removeProfile(data);
+				}
+				catch (InvalidKeySpecException | NoSuchAlgorithmException ex)
+				{
+					ex.printStackTrace();
+				}
 			}
 
 			@Override
