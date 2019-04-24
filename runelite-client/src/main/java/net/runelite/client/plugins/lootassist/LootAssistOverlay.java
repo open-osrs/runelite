@@ -18,7 +18,6 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
-import org.apache.commons.lang3.ObjectUtils;
 
 public class LootAssistOverlay extends Overlay
 {
@@ -26,7 +25,6 @@ public class LootAssistOverlay extends Overlay
 
 	private  LootAssistPlugin plugin;
 	private Client client;
-	public static HashMap<LocalPoint, LootPile> currentPiles = new HashMap<>();
 	private DecimalFormat d = new DecimalFormat("##.#");
 
 	@Inject
@@ -79,9 +77,11 @@ public class LootAssistOverlay extends Overlay
 							client.getScene().getTiles()[client.getPlane()][x][y].getLocalLocation());
 						if (poly != null)
 						{
-							Point textLoc = Perspective.getCanvasTextLocation(client, graphics, LocalPoint.fromWorld(client, pile.getLocation()),
+							Point textLoc = Perspective.getCanvasTextLocation(client, graphics,
+								LocalPoint.fromWorld(client, pile.getLocation()),
 								nameOverlay, graphics.getFontMetrics().getHeight() * 7);
-							Point timeLoc = Perspective.getCanvasTextLocation(client, graphics, LocalPoint.fromWorld(client, pile.getLocation()),
+							Point timeLoc = Perspective.getCanvasTextLocation(client, graphics,
+								LocalPoint.fromWorld(client, pile.getLocation()),
 								timeOverlay, graphics.getFontMetrics().getHeight());
 							OverlayUtil.renderPolygon(graphics, poly, Color.WHITE);
 							if (timeRemaining < 5)
@@ -91,7 +91,8 @@ public class LootAssistOverlay extends Overlay
 							}
 							if (timeRemaining < 2)
 							{
-								client.setHintArrow(WorldPoint.fromLocal(client, LocalPoint.fromWorld(client, pile.getLocation())));
+								client.setHintArrow(WorldPoint.fromLocal(client,
+									LocalPoint.fromWorld(client, pile.getLocation())));
 							}
 							else
 							{
