@@ -11,6 +11,7 @@ import net.runelite.api.Player;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -18,9 +19,10 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "LootAssistPlugin",
-	description = "",
-	tags = {}
+	name = "Loot Assist Plugin",
+	description = "Creates a tile overlay with a timer that counts down to when the loot will appear to you",
+	tags = {"pklite", "loot", "looting", "loot assist", "assist", "loot assist"},
+	enabledByDefault = false
 )
 public class LootAssistPlugin extends Plugin
 {
@@ -57,6 +59,12 @@ public class LootAssistPlugin extends Plugin
 	{
 		lootPiles.clear();
 		overlayManager.remove(lootAssistOverlay);
+	}
+
+	@Subscribe
+	public void onGameStateChanged(GameStateChanged event)
+	{
+		lootPiles.clear();
 	}
 
 	@Subscribe
