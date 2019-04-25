@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.inject.Inject;
+
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Varbits;
@@ -19,74 +20,62 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.WildernessLocation;
 
 @PluginDescriptor(
-	name = "Wild Locations",
-	description = "Indicates the players current location in the wild",
-	tags = {"Wildy,", "Wilderness Location", "location", "loc", "pvp", "pklite"}
+		name = "Wild Locations",
+		description = "Indicates the players current location in the wild",
+		tags = {"Wildy", "Wilderness Location", "location", "loc", "pvp", "pklite"}
 )
 public class WildernessLocationsPlugin extends Plugin
 {
-
+	
 	@Inject
 	private Client client;
-
+	
 	@Inject
 	OverlayManager overlayManager;
-
+	
 	@Inject
 	private WildernessLocationsOverlay overlay = new WildernessLocationsOverlay(this.client, this);
-
+	
 	private final HashMap<WorldArea, String> wildLocs = getLocationMap();
 	@Getter
 	private boolean renderLocation;
 	@Getter
 	private String locationString = "";
 	private WorldPoint worldPoint = null;
-	private static int UPDATE_INTERVAL = 3;
-
-
-
-
+	
+	
 	@Override
 	protected void startUp() throws Exception
 	{
 		overlayManager.add(overlay);
 	}
-
+	
 	@Override
 	protected void shutDown() throws Exception
 	{
-		overlayManager.add(overlay);
+		overlayManager.remove(overlay);
 	}
-
+	
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (UPDATE_INTERVAL > 0)
+		renderLocation = client.getVar(Varbits.IN_WILDERNESS) == 1;
+		if (renderLocation)
 		{
-			UPDATE_INTERVAL--;
-			return;
+			if (client.getLocalPlayer().getWorldLocation() != worldPoint)
+			{
+				locationString = location();
+				worldPoint = client.getLocalPlayer().getWorldLocation();
+			}
 		}
 		else
 		{
-			renderLocation = client.getVar(Varbits.IN_WILDERNESS) == 1;
-			if (renderLocation)
-			{
-				if (client.getLocalPlayer().getWorldLocation() != worldPoint)
-				{
-					locationString = location();
-					worldPoint = client.getLocalPlayer().getWorldLocation();
-				}
-			}
-			else
-			{
-				worldPoint = null;
-				locationString = "";
-			}
-			UPDATE_INTERVAL = 3;
+			worldPoint = null;
+			locationString = "";
 		}
 	}
-
-
+	
+	
 	private String location()
 	{
 		int dist = 10000;
@@ -95,7 +84,7 @@ public class WildernessLocationsPlugin extends Plugin
 		for (Map.Entry<WorldArea, String> entry : wildLocs.entrySet())
 		{
 			WorldArea worldArea = entry.getKey();
-
+			
 			if (worldArea.toWorldPointList().contains(client.getLocalPlayer().getWorldLocation()))
 			{
 				s = entry.getValue();
@@ -108,7 +97,8 @@ public class WildernessLocationsPlugin extends Plugin
 				closestArea = worldArea;
 			}
 		}
-		if (client.getLocalPlayer().getWorldLocation().getY() > (Objects.requireNonNull(closestArea).toWorldPoint().getY() + closestArea.getHeight()))
+		if (client.getLocalPlayer().getWorldLocation().getY() >
+				(Objects.requireNonNull(closestArea).toWorldPoint().getY() + closestArea.getHeight()))
 		{
 			s = s + "N";
 		}
@@ -120,7 +110,8 @@ public class WildernessLocationsPlugin extends Plugin
 		{
 			s = s + "W";
 		}
-		if (client.getLocalPlayer().getWorldLocation().getX() > (closestArea.toWorldPoint().getX() + closestArea.getWidth()))
+		if (client.getLocalPlayer().getWorldLocation().getX() >
+				(closestArea.toWorldPoint().getX() + closestArea.getWidth()))
 		{
 			s = s + "E";
 		}
@@ -132,12 +123,12 @@ public class WildernessLocationsPlugin extends Plugin
 		}
 		return s;
 	}
-
+	
 	private static HashMap<WorldArea, String> getLocationMap()
 	{
 		HashMap<WorldArea, String> hashMap = new HashMap<>();
 		Arrays.stream(WildernessLocation.values()).forEach(wildernessLocation ->
-			hashMap.put(wildernessLocation.getWorldArea(), wildernessLocation.getName()));
+				hashMap.put(wildernessLocation.getWorldArea(), wildernessLocation.getName()));
 		return hashMap;
 	}
 }
