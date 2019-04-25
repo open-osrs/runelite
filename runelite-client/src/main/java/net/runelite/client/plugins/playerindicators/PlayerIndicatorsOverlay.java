@@ -77,6 +77,10 @@ public class PlayerIndicatorsOverlay extends Overlay
 
 		String namee = actor.getName().replace('\u00A0', ' ');
 		String combatLevel = Integer.toString(actor.getCombatLevel());
+		if (config.showCombatLevels())
+		{
+			name = name + " (" + combatLevel + ")";
+		}
 		String playerInfo = "";
 		Point minimapLocation = actor.getMinimapLocation();
 
