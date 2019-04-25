@@ -161,6 +161,7 @@ public class RuneLite
 		parser.accepts("developer-mode", "Enable developer tools");
 		parser.accepts("debug", "Show extra debugging output");
 		parser.accepts("dump-classes", "Should we dump game classes?");
+		parser.accepts("penguin", "Enables penguin mode");
 
 		final ArgumentAcceptingOptionSpec<ClientUpdateCheckMode> updateMode = parser
 			.accepts("rs", "Select client type")
@@ -187,6 +188,7 @@ public class RuneLite
 
 		final boolean dumpClasses = options.has("dump-classes");
 		final boolean developerMode = options.has("developer-mode");
+		DiscordService.penguin = options.has("penguin");
 
 		if (developerMode)
 		{
