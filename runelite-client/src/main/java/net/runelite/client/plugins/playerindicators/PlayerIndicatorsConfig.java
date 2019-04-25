@@ -347,15 +347,4 @@ public interface PlayerIndicatorsConfig extends Config
 			description="Feature shows a player's overhead prayer in the right click menu. Useful for DDs, or extremely crowded areas.")
 
 	default boolean rightClickOverhead() { return false; }
-
-	@ConfigItem(
-			position = 28,
-			keyName = "showCombatLevels",
-			name = "Show combat levels",
-			description = "Add combat level to overhead name"
-	)
-	default boolean showCombatLevels()
-	{
-		return true;
-	}
 }

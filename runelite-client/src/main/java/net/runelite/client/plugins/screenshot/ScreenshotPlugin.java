@@ -44,8 +44,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -70,6 +72,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.LocalPlayerDeath;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.Varbits;
 import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetID.BARROWS_REWARD_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.CHAMBERS_OF_XERIC_REWARD_GROUP_ID;
@@ -188,6 +191,8 @@ public class ScreenshotPlugin extends Plugin
 
 	@Getter(AccessLevel.PACKAGE)
 	private BufferedImage reportButton;
+
+	private List<Player> dying = new ArrayList<Player>();
 
 	private NavigationButton titleBarButton;
 

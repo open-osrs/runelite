@@ -75,12 +75,8 @@ public class PlayerIndicatorsOverlay extends Overlay
 			return;
 		}
 
-		String namee = actor.getName().replace('\u00A0', ' ');
+		String Name = actor.getName().replace('\u00A0', ' ');
 		String combatLevel = Integer.toString(actor.getCombatLevel());
-		if (config.showCombatLevels())
-		{
-			name = name + " (" + combatLevel + ")";
-		}
 		String playerInfo = "";
 		Point minimapLocation = actor.getMinimapLocation();
 
@@ -89,7 +85,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 
 		if (config.drawOverheadPlayerNames())
 		{
-			playerInfo = namee;
+			playerInfo = Name;
 		}
 
 		if (config.drawOverheadLevels())
