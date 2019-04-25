@@ -12,7 +12,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
         name = "Prayer Alerter",
         description = "Alert the player when prayer is low",
         tags = {"prayer", "overlay"},
-        type = PluginType.UTILITY
+        type = PluginType.UTILITY,
+        enabledByDefault = false
 )
 public class PrayerAlertPlugin extends Plugin
 {
