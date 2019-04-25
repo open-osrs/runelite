@@ -398,7 +398,7 @@ class ProfilesPanel extends PluginPanel
 		profilesPanel.removeAll();
 		c.gridy = 0;
 		addAccounts(getProfileData());
-		
+
 		revalidate();
 		repaint();
 	}
@@ -434,7 +434,9 @@ class ProfilesPanel extends PluginPanel
 	{
 		setProfileData(
 				getProfileData().replaceAll(data + "\\n", ""));
-		redrawProfiles();
+		revalidate();
+		repaint();
+
 	}
 	
 	void setSalt(byte[] bytes)
