@@ -1,4 +1,4 @@
-# PKLite  [![Discord](https://img.shields.io/discord/510866403545317376.svg)](https://discord.gg/Dp3HuFM) [![pipeline status](https://gitlab.com/pklitedev/pklite/badges/master/pipeline.svg)](https://gitlab.com/pklitedev/pklite/commits/master)
+# PKLite  [![Discord](https://img.shields.io/discord/510866403545317376.svg?logo=discord&logoColor=white)](https://discord.gg/Dp3HuFM) [![Build Status](https://img.shields.io/gitlab/pipeline/pklitedev/pklite.svg?logo=gitlab)](https://gitlab.com/pklitedev/pklite/commits/master)
 
 
 PKLite is a free, open source, PvP oriented OldSchool RuneScape client based off of [RuneLite](https://github.com/runelite/runelite).
