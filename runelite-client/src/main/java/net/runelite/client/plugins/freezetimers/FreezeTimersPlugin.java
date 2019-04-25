@@ -12,6 +12,7 @@ package net.runelite.client.plugins.freezetimers;
 import net.runelite.api.events.*;
 import net.runelite.client.eventbus.Subscribe;
 import com.google.inject.Provides;
+
 import javax.inject.Inject;
 import java.awt.*;
 import java.awt.image.*;
@@ -31,57 +32,57 @@ import net.runelite.client.util.ImageUtil;
 import org.slf4j.Logger;
 
 @PluginDescriptor(
-	name = "Freeze Timers",
-	description = "PVP Freeze Timers",
-	tags = {"PvP", "Freeze", "Timers", "pklite"}
+		name = "Freeze Timers",
+		description = "PVP Freeze Timers",
+		tags = {"PvP", "Freeze", "Timers", "pklite"}
 )
 public class FreezeTimersPlugin extends Plugin
 {
 	@Inject
 	private OverlayManager overlayManager;
-
+	
 	@Inject
 	private FreezeTimersConfig config;
-
+	
 	@Inject
 	private FreezeTimersOverlay FreezeTimersOverlay;
-
+	
 	@Inject
 	private FreezeTimersTileOverlay FreezeTimersTileOverlay;
-
+	
 	@Inject
 	private Client client;
-
+	
 	@Inject
 	private SpriteManager spriteManager;
-
+	
 	@Provides
 	FreezeTimersConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(FreezeTimersConfig.class);
 	}
-
+	
 	private static final int[] FREEZE_ICONS =
-		{
-			SpriteID.SPELL_BIND,
-			SpriteID.SPELL_SNARE,
-			SpriteID.SPELL_ENTANGLE,
-			SpriteID.SPELL_ICE_RUSH,
-			SpriteID.SPELL_ICE_BURST,
-			SpriteID.SPELL_ICE_BLITZ,
-			SpriteID.SPELL_ICE_BARRAGE,
-			SpriteID.SPELL_BIND,
-			SpriteID.SPELL_SNARE,
-			SpriteID.SPELL_ENTANGLE,
-			SpriteID.SPELL_TELE_BLOCK
-		};
-
+			{
+					SpriteID.SPELL_BIND,
+					SpriteID.SPELL_SNARE,
+					SpriteID.SPELL_ENTANGLE,
+					SpriteID.SPELL_ICE_RUSH,
+					SpriteID.SPELL_ICE_BURST,
+					SpriteID.SPELL_ICE_BLITZ,
+					SpriteID.SPELL_ICE_BARRAGE,
+					SpriteID.SPELL_BIND,
+					SpriteID.SPELL_SNARE,
+					SpriteID.SPELL_ENTANGLE,
+					SpriteID.SPELL_TELE_BLOCK
+			};
+	
 	private static final Dimension FREEZE_ICON_DIMENSION = new Dimension(17, 17);
 	private static final Color FREEZE_ICON_OUTLINE_COLOR = new Color(33, 33, 33);
 	private final BufferedImage[] FreezeIcons = new BufferedImage[FREEZE_ICONS.length];
-
+	
 	private final int SPLASH_ID = 85;
-
+	
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
@@ -90,14 +91,14 @@ public class FreezeTimersPlugin extends Plugin
 			loadFreezeIcons();
 		}
 	}
-
+	
 	@Override
 	protected void startUp() throws Exception
 	{
 		overlayManager.add(FreezeTimersOverlay);
 		overlayManager.add(FreezeTimersTileOverlay);
 	}
-
+	
 	@Override
 	protected void shutDown() throws Exception
 	{
@@ -106,20 +107,20 @@ public class FreezeTimersPlugin extends Plugin
 		frozenthings.clear();
 		frozenthingpoints.clear();
 	}
-
+	
 	Map<String, Spell> testMap = new HashMap<>();
 	Map<String, Long> frozenthings = new HashMap<>();
 	Map<String, WorldPoint> frozenthingpoints = new HashMap<>();
 	Map<String, Integer> freezetype = new HashMap<>();
-
-
+	
+	
 	Map<Integer, Integer> magexp = new HashMap<>();
 	int lastxp;
 	int ticks;
 	int currticks;
 	String currtarget;
 	String spell;
-
+	
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
@@ -131,15 +132,18 @@ public class FreezeTimersPlugin extends Plugin
 			final Matcher pmatch = ppattern.matcher(event.getMenuTarget());
 			smatch.find();
 			pmatch.find();
-			if (smatch.group(1) != null && pmatch.group(1) != null)
+			if (smatch.groupCount() > 0 && pmatch.groupCount() > 0)
 			{
-				currticks = ticks;
-				spell = smatch.group(1);
-				currtarget = pmatch.group(1).replace(" ", " ");
+				if (smatch.group(1) != null && pmatch.group(1) != null)
+				{
+					currticks = ticks;
+					spell = smatch.group(1);
+					currtarget = pmatch.group(1).replace(" ", " ");
+				}
 			}
 		}
 	}
-
+	
 	@Subscribe
 	public void onExperienceChanged(ExperienceChanged event)
 	{
@@ -155,14 +159,14 @@ public class FreezeTimersPlugin extends Plugin
 			}
 		}
 	}
-
+	
 	@Subscribe
 	private void onAnimationChanged(AnimationChanged event)
 	{
 		Logger l = client.getLogger();
 		final Actor subject = event.getActor();
 		final Actor target = subject.getInteracting();
-
+		
 		if (subject.getAnimation() == 1979)
 		{
 			try
@@ -179,7 +183,7 @@ public class FreezeTimersPlugin extends Plugin
 				freezetype.put(target.getName(), 7);
 				frozenthings.put(target.getName(), System.currentTimeMillis());
 				frozenthingpoints.put(target.getName(), target.getWorldLocation());
-
+				
 			}
 			catch (NullPointerException e)
 			{
@@ -187,8 +191,8 @@ public class FreezeTimersPlugin extends Plugin
 			}
 		}
 	}
-
-
+	
+	
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
@@ -313,7 +317,7 @@ public class FreezeTimersPlugin extends Plugin
 		}
 		ticks++;
 	}
-
+	
 	public long opponentfreezetime(String name)
 	{
 		if (frozenthings.containsKey(name))
@@ -322,7 +326,7 @@ public class FreezeTimersPlugin extends Plugin
 		}
 		return 0;
 	}
-
+	
 	public WorldPoint playerpos(String name)
 	{
 		if (frozenthingpoints.containsKey(name))
@@ -331,7 +335,7 @@ public class FreezeTimersPlugin extends Plugin
 		}
 		return null;
 	}
-
+	
 	public void updatePosition(String name, WorldPoint point)
 	{
 		if (frozenthingpoints.containsKey(name))
@@ -340,7 +344,7 @@ public class FreezeTimersPlugin extends Plugin
 			frozenthingpoints.put(name, point);
 		}
 	}
-
+	
 	public int freezetype(String name)
 	{
 		if (freezetype.containsKey(name))
@@ -349,7 +353,7 @@ public class FreezeTimersPlugin extends Plugin
 		}
 		return 0;
 	}
-
+	
 	public void deleteopponent(String name)
 	{
 		if (frozenthings.containsKey(name))
@@ -365,13 +369,13 @@ public class FreezeTimersPlugin extends Plugin
 			freezetype.remove(name);
 		}
 	}
-
+	
 	private void loadFreezeIcons()
 	{
 		final IndexedSprite[] freezeIcons = {};
 		final IndexedSprite[] newfreezeIcons = Arrays.copyOf(freezeIcons, FREEZE_ICONS.length);
 		int curPosition = 0;
-
+		
 		for (int i = 0; i < FREEZE_ICONS.length; i++, curPosition++)
 		{
 			final int resource = FREEZE_ICONS[i];
@@ -379,17 +383,17 @@ public class FreezeTimersPlugin extends Plugin
 			newfreezeIcons[curPosition] = createIndexedSprite(client, FreezeIcons[i]);
 		}
 	}
-
+	
 	private static IndexedSprite createIndexedSprite(final Client client, final BufferedImage bufferedImage)
 	{
 		final IndexColorModel indexedCM = (IndexColorModel) bufferedImage.getColorModel();
-
+		
 		final int width = bufferedImage.getWidth();
 		final int height = bufferedImage.getHeight();
 		final byte[] pixels = ((DataBufferByte) bufferedImage.getRaster().getDataBuffer()).getData();
 		final int[] palette = new int[indexedCM.getMapSize()];
 		indexedCM.getRGBs(palette);
-
+		
 		final IndexedSprite newIndexedSprite = client.createIndexedSprite();
 		newIndexedSprite.setPixels(pixels);
 		newIndexedSprite.setPalette(palette);
@@ -401,17 +405,17 @@ public class FreezeTimersPlugin extends Plugin
 		newIndexedSprite.setOffsetY(0);
 		return newIndexedSprite;
 	}
-
+	
 	private static BufferedImage rgbaToIndexedBufferedImage(final BufferedImage sourceBufferedImage)
 	{
 		final BufferedImage indexedImage = new BufferedImage(
-			sourceBufferedImage.getWidth(),
-			sourceBufferedImage.getHeight(),
-			BufferedImage.TYPE_BYTE_INDEXED);
-
+				sourceBufferedImage.getWidth(),
+				sourceBufferedImage.getHeight(),
+				BufferedImage.TYPE_BYTE_INDEXED);
+		
 		final ColorModel cm = indexedImage.getColorModel();
 		final IndexColorModel icm = (IndexColorModel) cm;
-
+		
 		final int size = icm.getMapSize();
 		final byte[] reds = new byte[size];
 		final byte[] greens = new byte[size];
@@ -419,21 +423,23 @@ public class FreezeTimersPlugin extends Plugin
 		icm.getReds(reds);
 		icm.getGreens(greens);
 		icm.getBlues(blues);
-
+		
 		final WritableRaster raster = indexedImage.getRaster();
 		final int pixel = raster.getSample(0, 0, 0);
 		final IndexColorModel resultIcm = new IndexColorModel(8, size, reds, greens, blues, pixel);
-		final BufferedImage resultIndexedImage = new BufferedImage(resultIcm, raster, sourceBufferedImage.isAlphaPremultiplied(), null);
+		final BufferedImage resultIndexedImage =
+				new BufferedImage(resultIcm, raster, sourceBufferedImage.isAlphaPremultiplied(), null);
 		resultIndexedImage.getGraphics().drawImage(sourceBufferedImage, 0, 0, null);
 		return resultIndexedImage;
 	}
-
+	
 	private static BufferedImage FreezeIconFromSprite(final BufferedImage freezeSprite)
 	{
-		final BufferedImage freezeCanvas = ImageUtil.resizeCanvas(freezeSprite, FREEZE_ICON_DIMENSION.width, FREEZE_ICON_DIMENSION.height);
+		final BufferedImage freezeCanvas =
+				ImageUtil.resizeCanvas(freezeSprite, FREEZE_ICON_DIMENSION.width, FREEZE_ICON_DIMENSION.height);
 		return ImageUtil.outlineImage(freezeCanvas, FREEZE_ICON_OUTLINE_COLOR);
 	}
-
+	
 	BufferedImage GetFreezeIcon(int id)
 	{
 		return FreezeIcons[id];
