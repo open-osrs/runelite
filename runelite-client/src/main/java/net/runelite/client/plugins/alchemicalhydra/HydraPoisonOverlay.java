@@ -37,6 +37,7 @@ import net.runelite.api.Client;
 import static net.runelite.api.Perspective.getCanvasTileAreaPoly;
 import net.runelite.api.Projectile;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -111,29 +112,30 @@ class HydraPoisonOverlay extends Overlay
 			return;
 		}
 
-		LocalPoint fountainPoint = null;
-
+		WorldPoint wp = null;
 		for (WorldPoint p : fountainWorldPoint) // this
 		{
-			fountainPoint = LocalPoint.fromWorld(client, p); // trash
+			wp = p;
 		}
 
-		if (fountainPoint == null || hydra.isWeakened())
+		LocalPoint fountainPoint = wp == null ? null : LocalPoint.fromWorld(client, wp); // trash
+
+		if (fountainPoint == null || hydra.isWeakened()) // I
 		{
 			return;
 		}
 
-		final Polygon poly = getCanvasTileAreaPoly(client, fountainPoint, 3);
+		final Polygon poly = getCanvasTileAreaPoly(client, fountainPoint, 3); // don't
 
 		if (poly == null)
 		{
 			return;
 		}
 
-		Color color = new Color(255, 0, 0, 100);
+		Color color = new Color(255, 0, 0, 100); // like
 
-		if (poly.getBounds().intersects(hydra.getNpc().getCanvasTilePoly().getBounds()))
-		{
+		if (hydra.getNpc().getWorldArea().intersectsWith(new WorldArea(wp.getX() - 1, wp.getY() - 1, 3, 3, wp.getPlane()))) 	// coords
+		{																														// WHICH FUCKING RETARD DID X, Y, dX, dY, Z???? IT'S XYZdXdY REEEEEEEEEE
 			color = new Color(0, 255, 0, 100);
 		}
 
