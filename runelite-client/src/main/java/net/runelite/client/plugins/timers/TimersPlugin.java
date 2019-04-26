@@ -46,10 +46,12 @@ import net.runelite.api.Player;
 import net.runelite.api.Prayer;
 import net.runelite.api.SkullIcon;
 import net.runelite.api.VarPlayer;
+import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.BoostedLevelChanged;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
@@ -98,6 +100,7 @@ public class TimersPlugin extends Plugin
 	private static final String GOD_WARS_ALTAR_MESSAGE = "you recharge your prayer.";
 	private static final String HALF_TELEBLOCK_MESSAGE = "<col=4f006f>A teleblock spell has been cast on you. It will expire in 2 minutes, 30 seconds.</col>";
 	private static final String IMBUED_HEART_READY_MESSAGE = "<col=ef1020>Your imbued heart has regained its magical power.</col>";
+	private static final String IMBUED_HEART_NOTREADY_MESSAGE = "The heart is still drained of its power.";
 	private static final String MAGIC_IMBUE_EXPIRED_MESSAGE = "Your Magic Imbue charge has ended.";
 	private static final String MAGIC_IMBUE_MESSAGE = "You are charged to combine runes!";
 	private static final String STAFF_OF_THE_DEAD_SPEC_EXPIRED_MESSAGE = "Your protection fades away";
@@ -125,6 +128,7 @@ public class TimersPlugin extends Plugin
 	private boolean loggedInRace;
 	private boolean widgetHiddenChangedOnPvpWorld;
 	private boolean skulledLastTick = false;
+	private boolean imbuedHeartClicked;
 
 	@Inject
 	private ItemManager itemManager;
@@ -159,6 +163,7 @@ public class TimersPlugin extends Plugin
 		widgetHiddenChangedOnPvpWorld = false;
 		lastPoisonVarp = 0;
 		nextPoisonTick = 0;
+		imbuedHeartClicked = false;
 	}
 
 	@Subscribe
@@ -411,6 +416,13 @@ public class TimersPlugin extends Plugin
 		{
 			lastTeleportClicked = teleportWidget;
 		}
+
+		if (config.showImbuedHeart()
+			&& event.getMenuOption().contains("Invigorate"))
+		{
+			// Needs a hook as there's a few cases where potions boost the same amount as the heart
+			imbuedHeartClicked = true;
+		}
 	}
 
 	@Subscribe
@@ -523,6 +535,12 @@ public class TimersPlugin extends Plugin
 		if (config.showAntiFire() && event.getMessage().equals(SUPER_ANTIFIRE_EXPIRED_MESSAGE))
 		{
 			removeGameTimer(SUPERANTIFIRE);
+		}
+
+		if (config.showImbuedHeart() && event.getMessage().contains(IMBUED_HEART_NOTREADY_MESSAGE))
+		{
+			imbuedHeartClicked = false;
+			return;
 		}
 
 		if (config.showImbuedHeart() && event.getMessage().equals(IMBUED_HEART_READY_MESSAGE))
@@ -829,6 +847,29 @@ public class TimersPlugin extends Plugin
 	public void onLocalPlayerDeath(LocalPlayerDeath event)
 	{
 		infoBoxManager.removeIf(t -> t instanceof TimerTimer && ((TimerTimer) t).getTimer().isRemovedOnDeath());
+	}
+
+	@Subscribe
+	public void onBoostedLevelChanged(BoostedLevelChanged event)
+	{
+		Skill skill = event.getSkill();
+
+		if (skill != Skill.MAGIC || !config.showImbuedHeart() || !imbuedHeartClicked)
+		{
+			return;
+		}
+
+		int magicLvl = client.getRealSkillLevel(skill);
+		int magicBoost = client.getBoostedSkillLevel(skill);
+		int heartBoost = 1 + (int) (magicLvl * 0.1);
+
+		if (magicBoost - magicLvl != heartBoost)
+		{
+			return;
+		}
+
+		imbuedHeartClicked = false;
+		createGameTimer(IMBUEDHEART);
 	}
 
 	private TimerTimer createGameTimer(final GameTimer timer)
