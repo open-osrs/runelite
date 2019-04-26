@@ -101,7 +101,7 @@ public class PlayerInfoCustomIndicator extends InfoBox
 			case SPECIAL:
 				currLvl = client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT) / 1000.0F;
 			case WORLD:
-				currLvl = client.getBoostedSkillLevel(Skill.HITPOINTS); // hacky
+				currLvl = 1000; // hacky
 		}
 
 		if (currLvl > 1.0)
