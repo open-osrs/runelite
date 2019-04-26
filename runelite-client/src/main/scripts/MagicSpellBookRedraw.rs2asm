@@ -360,7 +360,7 @@ LABEL316:
    istore                 23
    iload                  12
    istore                 24
-   iload                  10
+   iconst                 1                    ; yes
    iconst                 1
    if_icmpeq              LABEL332
    jump                   LABEL422
