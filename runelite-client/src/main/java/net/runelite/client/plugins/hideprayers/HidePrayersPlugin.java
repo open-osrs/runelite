@@ -19,7 +19,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@PluginDescriptor(name = "!Hide Prayers", description = "Hides specific Prayers in the Prayer tab.")
+@PluginDescriptor(
+		name = "Hide Prayers",
+		description = "Hide specific Prayers in the Prayer tab.",
+		tags = {"prayer", "pk", "pklite"}
+		)
 public class HidePrayersPlugin extends Plugin {
 	private static final int PRAYER_COUNT = Prayer.values().length;
 
