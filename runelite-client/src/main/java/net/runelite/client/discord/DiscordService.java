@@ -107,7 +107,7 @@ public class DiscordService implements AutoCloseable
 		discordEventHandlers.joinGame = this::joinGame;
 		discordEventHandlers.spectateGame = this::spectateGame;
 		discordEventHandlers.joinRequest = this::joinRequest;
-		discordRPC.Discord_Initialize(penguin ? "560962933182562314" : "565193793499037725", discordEventHandlers, true
+		discordRPC.Discord_Initialize(penguin ? "571703479207460877" : "565193793499037725", discordEventHandlers, true
 				, null);
 		executorService.scheduleAtFixedRate(discordRPC::Discord_RunCallbacks, 0, 2, TimeUnit.SECONDS);
 	}
@@ -140,8 +140,8 @@ public class DiscordService implements AutoCloseable
 		}
 
 		final DiscordRichPresence discordRichPresence = new DiscordRichPresence();
-		discordRichPresence.state = discordPresence.getState();
-		discordRichPresence.details = discordPresence.getDetails();
+		discordRichPresence.state = penguin ? "Meeting New Friends" : discordPresence.getState();
+		discordRichPresence.details = penguin ? "Waddling Around" : discordPresence.getDetails();
 		discordRichPresence.startTimestamp = discordPresence.getStartTimestamp() != null
 			? discordPresence.getStartTimestamp().getEpochSecond()
 			: 0;
@@ -149,14 +149,14 @@ public class DiscordService implements AutoCloseable
 			? discordPresence.getEndTimestamp().getEpochSecond()
 			: 0;
 		discordRichPresence.largeImageKey = "pklite";
-		discordRichPresence.largeImageText = discordPresence.getLargeImageText();
+		discordRichPresence.largeImageText = penguin ? "Waddling Around" : discordPresence.getLargeImageText();
 
 		if (!Strings.isNullOrEmpty(discordPresence.getSmallImageKey()))
 		{
 			discordRichPresence.smallImageKey = discordPresence.getSmallImageKey();
 		}
 
-		discordRichPresence.smallImageText = discordPresence.getSmallImageText();
+		discordRichPresence.smallImageText = penguin ? "Waddling Around" : discordPresence.getSmallImageText();
 		discordRichPresence.partyId = discordPresence.getPartyId();
 		discordRichPresence.partySize = discordPresence.getPartySize();
 		discordRichPresence.partyMax = discordPresence.getPartyMax();
