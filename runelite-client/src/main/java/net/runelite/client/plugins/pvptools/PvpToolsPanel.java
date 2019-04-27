@@ -43,7 +43,6 @@ public class PvpToolsPanel extends PluginPanel
 	public JLabel biggestItemLabel = new JLabel("Protected Item: ");
 	public JButton missingPlayers = new JButton("Show missing CC members");
 	public JButton currentPlayers = new JButton("Show current CC members");
-	public JLabel numBrews = new JLabel();
 	@Inject
 	private JPanel pvpToolsPanel = new JPanel(new GridLayout(11, 1));
 	private JPanel missingPlayersPanel = new JPanel();
@@ -77,7 +76,6 @@ public class PvpToolsPanel extends PluginPanel
 
 		numCC.setText(htmlLabel("Friendly Player Count: ", "0"));
 		numOther.setText(htmlLabel("Other Player Count: ", "0"));
-		numBrews.setText(htmlLabel("Player brew count: ", "0"));
 		numMageJLabel.setText(htmlLabel("Enemies Praying Mage: ", "0"));
 		numMageJLabel.setFont(FontManager.getRunescapeFont());
 		numRangeJLabel.setText(htmlLabel("Enemies Praying Range: ", "0"));
@@ -109,7 +107,6 @@ public class PvpToolsPanel extends PluginPanel
 
 		versionPanel.add(numCC);
 		versionPanel.add(numOther);
-		versionPanel.add(numBrews);
 		versionPanel.add(numMageJLabel);
 		versionPanel.add(numRangeJLabel);
 		versionPanel.add(numMeleeJLabel);
