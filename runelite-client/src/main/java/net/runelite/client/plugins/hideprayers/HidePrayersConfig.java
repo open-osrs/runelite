@@ -9,25 +9,25 @@ public interface HidePrayersConfig extends Config
 {
     @ConfigItem(
             position = 0,
-            keyName = "pk prayers",
-            name = "Hides none pk prayers",
-            description = "Hides widget icons."
+            keyName = "PVP Prayer Only",
+            name = "Hides non-PVP related prayer",
+            description = "Hides widget icons for non-PVP related prayers"
     )
     default boolean showPrayers() { return false; }
     
     @ConfigItem(
     	position = 1,
     	keyName = "eagle/mystic",
-    	name = "Shows eagle/mystic prayers not rigour/augury",
-    	description = "Hides widget icons."
+    	name = "Eagle/Mystic (not Rigour/Augury)",
+    	description = "Shows Eagle Eye and Mystic Might instead of Rigour and Augury."
     )
     default boolean showEagleMystic() { return false; }
 
     @ConfigItem(
             position = 2,
             keyName = "Ultimate Strength",
-            name = "Shows Ultimate Strength prayers not Piety",
-            description = "Hides widget icons."
+            name = "Ultimate Strength (not Piety)",
+            description = "Shows Ultimate Strength and not Piety"
     )
     default boolean showUltStrength() { return false; }
 }
