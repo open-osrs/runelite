@@ -124,6 +124,10 @@ public class LocationChatterPlugin extends Plugin
 	
 	private void sendLocToCC()
 	{
+		if (currentCooldown != 0)
+		{
+			return;
+		}
 		String location = wildyLocsPlugin.getLocationString();
 		if (location.equals(""))
 		{

@@ -969,4 +969,7 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("healthbarCache")
 	@Override
 	RSNodeCache getHealthBarCache();
+	
+	@Import("renderSelf")
+	void toggleRenderSelf();
 }
