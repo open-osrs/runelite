@@ -1,170 +1,170 @@
-/*
- * Copyright (c) 2019. PKLite  - All Rights Reserved
- * Unauthorized modification, distribution, or possession of this source file, via any medium is strictly prohibited.
- * Proprietary and confidential. Refer to PKLite License file for more information on
- * full terms of this copyright and to determine what constitutes authorized use.
- * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
- *
- */
-
 package net.runelite.client.plugins.freezetimers;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.font.TextLayout;
-import java.awt.image.*;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import net.runelite.api.*;
-import net.runelite.client.game.SpriteManager;
+import net.runelite.api.Actor;
+import net.runelite.api.Client;
+import net.runelite.api.GraphicID;
+import net.runelite.api.Player;
+import net.runelite.api.Point;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
+import net.runelite.client.util.ImageUtil;
 
-@Singleton
+import javax.inject.Inject;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+
+import static java.awt.Color.RED;
+import static java.awt.Color.WHITE;
+import static java.awt.Color.green;
+
 public class FreezeTimersOverlay extends Overlay
 {
-	private final FreezeTimersService FreezeTimersService;
-	private final FreezeTimersConfig config;
-	private final FreezeTimersPlugin plugin;
-	private final SpriteManager spriteManager;
-	private final Client client;
-
+	
 	@Inject
-	private FreezeTimersOverlay(FreezeTimersConfig config, FreezeTimersService FreezeTimersService, FreezeTimersPlugin plugin, Client client, SpriteManager spriteManager)
+	private Timers timers;
+	
+	private final FreezeTimersConfig config;
+	private final Client client;
+	private final Font timerFont = FontManager.getRunescapeBoldFont().deriveFont(14.0f);
+	private final BufferedImage FREEZE_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "freeze.png");
+	private final BufferedImage TB_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "teleblock.png");
+	private final BufferedImage VENG_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "veng.png");
+	
+	@Inject
+	public FreezeTimersOverlay(FreezeTimersConfig config, Client client)
 	{
 		this.config = config;
-		this.FreezeTimersService = FreezeTimersService;
-		this.plugin = plugin;
 		this.client = client;
-		this.spriteManager = spriteManager;
+		setPriority(OverlayPriority.HIGHEST);
 		setPosition(OverlayPosition.DYNAMIC);
-		setPriority(OverlayPriority.MED);
+		setLayer(OverlayLayer.UNDER_WIDGETS);
 	}
-
+	
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.EnableFreezeTimers())
+		if (config.showPlayers())
 		{
-			return null;
+			client.getPlayers().forEach((p) -> renderOverlayFor(graphics, p));
 		}
-		FreezeTimersService.forEachPlayer((player, color) -> renderPlayerOverlay(graphics, player, color));
+		if (config.showNpcs())
+		{
+			client.getNpcs().forEach((npc) -> renderOverlayFor(graphics, npc));
+		}
 		return null;
 	}
-
-	private void renderPlayerOverlay(Graphics2D graphics, Player actor, Color color)
+	
+	private void renderOverlayFor(Graphics2D g, Actor actor)
 	{
-		int timer = 0;
-		String name = actor.getName();
-		int freezetype = plugin.freezetype(name);
-		int offset = 5;
-		long dtime = plugin.opponentfreezetime(name);
-		Point textLocation = null;
-		HeadIcon headIcon = actor.getOverheadIcon();
-		int freezetime = 0;
-		if (freezetype == 1 || freezetype == 4)
+		if (timers.areAllTimersZero(actor))
 		{
-			freezetime = 5000;
+			return;
 		}
-		else if (freezetype == 2 || freezetype == 5)
+		
+		int overlaysDrawn = 0;
+		
+		if (drawFreezeOverlay(g, actor, overlaysDrawn))
 		{
-			freezetime = 10000;
+			overlaysDrawn++;
 		}
-		else if (freezetype == 3 || freezetype == 6)
+		if (drawTBOverlay(g, actor, overlaysDrawn))
 		{
-			freezetime = 15000;
+			overlaysDrawn++;
 		}
-		else if (freezetype == 7)
+		if (drawVengOverlay(g, actor, overlaysDrawn))
 		{
-			freezetime = 20000;
+			overlaysDrawn++;
 		}
-		else if (freezetype == 8)
+	}
+	
+	private boolean drawFreezeOverlay(Graphics2D g, Actor actor, int overlaysDrawn)
+	{
+		long currentTick = System.currentTimeMillis();
+		if (timers.getTimerEnd(actor, TimerType.FREEZE) <= currentTick)
 		{
-			freezetime = 2500;
+			return false;
 		}
-		else if (freezetype == 9)
+		long finishedAt = timers.getTimerEnd(actor, TimerType.FREEZE);
+		
+		String text = processTickCounter(finishedAt);
+		
+		renderActorText(g, actor, text, overlaysDrawn, FREEZE_IMAGE);
+		return true;
+	}
+	
+	private boolean drawTBOverlay(Graphics2D g, Actor actor, int overlaysDrawn)
+	{
+		long currentTick = System.currentTimeMillis();
+		if (timers.getTimerEnd(actor, TimerType.TELEBLOCK) <= currentTick)
 		{
-			freezetime = 5000;
+			return false;
 		}
-		else if (freezetype == 10)
+		long finishedAt = timers.getTimerEnd(actor, TimerType.TELEBLOCK);
+		
+		String text = processTickCounter(finishedAt);
+		
+		renderActorText(g, actor, text, overlaysDrawn, TB_IMAGE);
+		return true;
+	}
+	
+	private boolean drawVengOverlay(Graphics2D g, Actor actor, int overlaysDrawn)
+	{
+		long currentTick = System.currentTimeMillis();
+		if (timers.getTimerEnd(actor, TimerType.VENG) <= currentTick)
 		{
-			freezetime = 7500;
+			return false;
 		}
-
-		long currenttime = System.currentTimeMillis();
-		long timediff = currenttime - dtime;
-		timer = (freezetime - (int) timediff) / 1000;
-
-		if (timediff < freezetime)
+		long finishedAt = timers.getTimerEnd(actor, TimerType.VENG);
+		
+		String text = processTickCounter(finishedAt);
+		
+		renderActorText(g, actor, text, overlaysDrawn, VENG_IMAGE);
+		if (actor.getGraphic() == GraphicID.VENGEANCE || actor.getGraphic() == GraphicID.VENGEANCE_OTHER)
 		{
-			// if the freezetimer is still active. . .
-			textLocation = actor.getCanvasTextLocation(graphics, String.valueOf((timer)), offset);
-			textLocation = new Point(textLocation.getX() + 10, textLocation.getY() + 5);
-		}
-		else
-		{
-			if (timediff < freezetime + 3000)
+			
+			g.setColor(RED);
+			Polygon poly = actor.getCanvasTilePoly();
+			if (poly != null)
 			{
-				timer = Math.abs(timer);
-				timer += 1;
-				if (config.refreezeTimer())
-				{
-					textLocation = actor.getCanvasTextLocation(graphics, String.valueOf((timer)), offset);
-					textLocation = new Point(textLocation.getX() + 10, textLocation.getY() + 5);
-					graphics.setFont(FontManager.getRunescapeBoldFont());
-					if (headIcon != null)
-					{
-						textLocation = new Point(textLocation.getX() + 10, textLocation.getY() + 5);
-					}
-					OverlayUtil.renderTextLocation(graphics, textLocation, String.valueOf((timer)), config.RefreezeTimerColor());
-					return;
-				}
+				OverlayUtil.renderPolygon(g, poly, RED);
 			}
-			else
-			{
-				plugin.deleteopponent(name);
-			}
+			OverlayUtil.renderTextLocation(g, new Point((int)poly.getBounds2D().getCenterX(),
+					(int)poly.getBounds2D().getCenterY()), actor.getName(), RED);
 		}
-
-		if (textLocation != null)
+		return true;
+	}
+	
+	private void renderActorText(Graphics2D g, Actor actor, String text, int overlaysDrawn, BufferedImage image)
+	{
+		int yOffset = (overlaysDrawn * 18);
+		g.setFont(timerFont);
+		g.setColor(WHITE);
+		Rectangle rect = actor.getConvexHull().getBounds();
+		int xOffset = (int) rect.getWidth();
+		OverlayUtil.renderActorTextAndImage(g, actor, text, Color.WHITE, image, yOffset,
+				xOffset);
+		g.setColor(RED);
+		g.draw(actor.getConvexHull().getBounds());
+	}
+	
+	private String processTickCounter(long finishedAt)
+	{
+		long currentTick = System.currentTimeMillis();
+		long tickDifference = finishedAt - currentTick;
+		long seconds = tickDifference / 1000;
+		seconds++;
+		int minutes = (int) (seconds / 60);
+		seconds = seconds % 60;
+		String text = seconds > 9 ? seconds + "" : "0" + seconds;
+		if (minutes > 0)
 		{
-			BufferedImage clanchatImage = plugin.GetFreezeIcon(freezetype - 1);
-
-			if (clanchatImage != null)
-			{
-				int width = clanchatImage.getWidth();
-				int textHeight = graphics.getFontMetrics().getHeight() - graphics.getFontMetrics().getMaxDescent();
-				Point imageLocation = new Point(textLocation.getX() - width, ((textLocation.getY() -
-					graphics.getFontMetrics().getHeight()) + 10));
-				graphics.setFont(FontManager.getRunescapeFont());
-				graphics.setStroke(new BasicStroke(3));
-
-				if (config.spellIcon())
-				{
-					graphics.drawOval(imageLocation.getX(), imageLocation.getY(), clanchatImage.getWidth(),
-						clanchatImage.getHeight());
-					OverlayUtil.renderImageLocation(graphics, imageLocation, clanchatImage);
-					OverlayUtil.renderTextLocation(graphics, textLocation, String.valueOf(timer), color);
-
-				}
-				else
-				{
-					graphics.setColor(Color.cyan);
-					graphics.drawOval(textLocation.getX() - 3, textLocation.getY() - 15, clanchatImage.getWidth(),
-						graphics.getFontMetrics().getHeight());
-					graphics.setColor(Color.blue);
-					graphics.fillOval(textLocation.getX() - 3, textLocation.getY() - 15, clanchatImage.getWidth(),
-						graphics.getFontMetrics().getHeight());
-
-					OverlayUtil.renderTextLocation(graphics, textLocation, String.valueOf(timer), Color.WHITE);
-				}
-			}
+			text = minutes + ":" + text;
 		}
+		return text + "";
 	}
 }
