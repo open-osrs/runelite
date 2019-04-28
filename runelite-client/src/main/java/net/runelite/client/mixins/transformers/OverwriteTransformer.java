@@ -1,5 +1,6 @@
 package net.runelite.client.mixins.transformers;
 
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.util.RefUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -8,6 +9,9 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
+import java.util.Arrays;
+
+@Slf4j
 public class OverwriteTransformer extends ClassVisitor
 {
 	
@@ -20,6 +24,7 @@ public class OverwriteTransformer extends ClassVisitor
 		super(Opcodes.ASM6, classVisitor);
 		this.patch = patch;
 		this.node = node;
+		this.className = node.name;
 	}
 	
 	@Override
@@ -62,6 +67,9 @@ public class OverwriteTransformer extends ClassVisitor
 					mv.visitCode();
 					patchMethod.accept(new MethodReflector(mv));
 					mv.visitEnd();
+					String s = String.format("%s %s %s %s", className, patchMethod.name,
+							patchMethod.desc, patchMethod.access);
+					OverwriteSanityCheck.methodsUsed.add(s);
 					return mv;
 				}
 			}

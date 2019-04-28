@@ -26,6 +26,7 @@ public class MixinRunner
 	throws InstantiationException, IllegalAccessException, NoSuchMethodException, IOException, InvocationTargetException
 	{
 		runVisitor(OverwriteTransformer.class);
+		runSanityChecker(OverwriteSanityCheck.class);
 		runVisitor(InjectTransformer.class);
 		runVisitor(AppendTransformer.class); // append has to come before prepend or append does nothing
 		// (test method:    Projectile.rl$$init()V    )
@@ -87,6 +88,27 @@ public class MixinRunner
 			cr.accept(inst, 0);
 			
 			entry.setValue(cw.toByteArray());
+		}
+	}
+	
+	private void runSanityChecker(Class<? extends SanityChecker> clazz)
+	throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, IOException
+	{
+		runSanityChecker(clazz, 1);
+	}
+	
+	private void runSanityChecker(Class<? extends SanityChecker> clazz, int flags)
+	throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, IOException
+	{
+		for (File patchF : patchesFolder.listFiles())
+		{
+			ClassReader cr = new ClassReader(Files.readAllBytes(patchF.toPath()));
+			ClassWriter cw = new ClassWriter(cr, flags);
+			ClassNode node = new ClassNode();
+			cr.accept(node, 0);
+			SanityChecker inst = clazz.getConstructor(ClassVisitor.class, ClassNode.class).newInstance(cw, node);
+			cr.accept(inst, 0);
+			inst.run();
 		}
 	}
 	

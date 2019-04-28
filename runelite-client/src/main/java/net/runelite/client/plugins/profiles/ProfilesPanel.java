@@ -73,7 +73,7 @@ class ProfilesPanel extends PluginPanel
 		"field then press Load Accounts. You can now add as many accounts as you would like. The next time you restart" +
 		" PKLite, enter your encryption password and click load accounts to see the accounts you entered";
 	private static final Dimension PREFERRED_SIZE = new Dimension(PluginPanel.PANEL_WIDTH - 20, 30);
-	private static final Dimension HELP_PREFERRED_SIZE = new Dimension(PluginPanel.PANEL_WIDTH - 20, 130);
+	private static final Dimension HELP_PREFERRED_SIZE = new Dimension(PluginPanel.PANEL_WIDTH - 20, 110);
 
 	private static final Dimension MINIMUM_SIZE = new Dimension(0, 30);
 	
@@ -109,16 +109,14 @@ class ProfilesPanel extends PluginPanel
 		c.insets = new Insets(0, 0, 4, 0);
 
 		helpPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		JLabel helpLabel = new JLabel("<html> <p>" + HELP + "</p></html>");
+		JLabel helpLabel = new JLabel("<html><p>" + HELP + "</p></html>");
 		helpLabel.setFont(FontManager.getRunescapeSmallFont());
-		helpPanel.setPreferredSize(HELP_PREFERRED_SIZE);
-		//helpPanel.setSize(MINIMUM_SIZE);
+		helpPanel.setPreferredSize(new Dimension(HELP_PREFERRED_SIZE.width,
+				helpLabel.getFontMetrics(FontManager.getRunescapeSmallFont()).getHeight() * 8));
 		helpPanel.add(helpLabel, BorderLayout.NORTH);
 
 		add(helpPanel);
-		c.gridy = c.gridy + 3;
-		c.gridy++;
-
+		c.gridy += 4;
 
 		txtDecryptPassword.setEchoChar((char) 0);
 		txtDecryptPassword.setPreferredSize(PREFERRED_SIZE);
