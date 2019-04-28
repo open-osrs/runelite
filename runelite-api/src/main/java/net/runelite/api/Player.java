@@ -84,8 +84,6 @@ public interface Player extends Actor
 	 * @return the overhead icon
 	 */
 	HeadIcon getOverheadIcon();
-	
-	int getRsOverheadIcon();
 
 	/**
 	 * Gets the displayed skull icon of the player.
