@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Cameron <https://github.com/noremac201>
+ * Copyright (c) 2018, Devin French <https://github.com/devinfrench>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,63 +22,47 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.batools;
+package net.runelite.client.plugins.zulrah.rotation;
 
-import java.util.HashMap;
-import java.util.Map;
+import net.runelite.client.plugins.zulrah.phase.SafeLocation;
+import net.runelite.client.plugins.zulrah.phase.ZulrahLocation;
+import net.runelite.client.plugins.zulrah.phase.ZulrahPhase;
+import net.runelite.client.plugins.zulrah.phase.ZulrahType;
 
-public enum Calls
+import java.util.ArrayList;
+import java.util.List;
+
+public class ZulrahRotation
 {
-	//Attacker Calls
-	RED_EGG("Red egg", "Tell-red"),
-	GREEN_EGG("Green egg", "Tell-green"),
-	BLUE_EGG("Blue egg", "Tell-blue"),
-	//Collector Calls
-	CONTROLLED("Controlled/Bullet/Wind", "Tell-controlled"),
-	ACCURATE("Accurate/Field/Water", "Tell-accurate"),
-	AGGRESSIVE("Aggressive/Blunt/Earth", "Tell-aggressive"),
-	DEFENSIVE("Defensive/Barbed/Fire", "Tell-defensive"),
-	//Healer Calls
-	TOFU("Tofu", "Tell-tofu"),
-	CRACKERS("Crackers", "Tell-crackers"),
-	WORMS("Worms", "Tell-worms"),
-	//Defender Calls
-	POIS_WORMS("Pois. Worms", "Tell-worms"),
-	POIS_TOFU("Pois. Tofu", "Tell-tofu"),
-	POIS_MEAT("Pois. Meat", "Tell-meat");
+	private List<ZulrahPhase> rotation = new ArrayList<>();
 
-	private final String call;
-	private final String option;
-
-	private static final Map<String, String> CALL_MENU = new HashMap<>();
-
-	static
+	public void add(ZulrahLocation zulrahLocation, ZulrahType type, boolean jad, SafeLocation safeLocation)
 	{
-		for (Calls s : values())
+		rotation.add(new ZulrahPhase(zulrahLocation, type, jad, safeLocation));
+	}
+
+	public void add(ZulrahLocation zulrahLocation, ZulrahType type, SafeLocation safeLocation)
+	{
+		add(zulrahLocation, type, false, safeLocation);
+	}
+
+	public ZulrahPhase getPhase(int stage)
+	{
+		if (stage >= rotation.size())
 		{
-			CALL_MENU.put(s.getCall(), s.getOption());
+			return null;
 		}
+		return rotation.get(stage);
 	}
 
-	Calls(String call, String option)
+	public boolean stageEquals(int stage, ZulrahPhase phase)
 	{
-		this.call = call;
-		this.option = option;
+
+		return phase != null && phase.equals(getPhase(stage));
 	}
 
-	public String getCall()
+	public boolean canReset(int stage)
 	{
-		return call;
+		return stage >= rotation.size();
 	}
-
-	public String getOption()
-	{
-		return option;
-	}
-
-	public static String getOption(String call)
-	{
-		return CALL_MENU.get(call);
-	}
-
 }

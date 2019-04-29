@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Cameron <https://github.com/noremac201>
+ * Copyright (c) 2018, Devin French <https://github.com/devinfrench>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,63 +22,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.batools;
+package net.runelite.client.plugins.zulrah.phase;
 
-import java.util.HashMap;
-import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.NPC;
+import net.runelite.api.coords.WorldPoint;
 
-public enum Calls
+@Slf4j
+public enum ZulrahLocation
 {
-	//Attacker Calls
-	RED_EGG("Red egg", "Tell-red"),
-	GREEN_EGG("Green egg", "Tell-green"),
-	BLUE_EGG("Blue egg", "Tell-blue"),
-	//Collector Calls
-	CONTROLLED("Controlled/Bullet/Wind", "Tell-controlled"),
-	ACCURATE("Accurate/Field/Water", "Tell-accurate"),
-	AGGRESSIVE("Aggressive/Blunt/Earth", "Tell-aggressive"),
-	DEFENSIVE("Defensive/Barbed/Fire", "Tell-defensive"),
-	//Healer Calls
-	TOFU("Tofu", "Tell-tofu"),
-	CRACKERS("Crackers", "Tell-crackers"),
-	WORMS("Worms", "Tell-worms"),
-	//Defender Calls
-	POIS_WORMS("Pois. Worms", "Tell-worms"),
-	POIS_TOFU("Pois. Tofu", "Tell-tofu"),
-	POIS_MEAT("Pois. Meat", "Tell-meat");
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST;
 
-	private final String call;
-	private final String option;
-
-	private static final Map<String, String> CALL_MENU = new HashMap<>();
-
-	static
+	public static ZulrahLocation valueOf(WorldPoint start, NPC zulrah)
 	{
-		for (Calls s : values())
+		WorldPoint current = zulrah.getWorldLocation();
+		int dx = start.getX() - current.getX();
+		int dy = start.getY() - current.getY();
+		if (dx == -10 && dy == 2)
 		{
-			CALL_MENU.put(s.getCall(), s.getOption());
+			return ZulrahLocation.EAST;
+		}
+		else if (dx == 10 && dy == 2)
+		{
+			return ZulrahLocation.WEST;
+		}
+		else if (dx == 0 && dy == 11)
+		{
+			return ZulrahLocation.SOUTH;
+		}
+		else if (dx == 0 && dy == 0)
+		{
+			return ZulrahLocation.NORTH;
+		}
+		else
+		{
+			log.debug("Unknown Zulrah location dx: {}, dy: {}", dx, dy);
+			return null;
 		}
 	}
-
-	Calls(String call, String option)
-	{
-		this.call = call;
-		this.option = option;
-	}
-
-	public String getCall()
-	{
-		return call;
-	}
-
-	public String getOption()
-	{
-		return option;
-	}
-
-	public static String getOption(String call)
-	{
-		return CALL_MENU.get(call);
-	}
-
 }
