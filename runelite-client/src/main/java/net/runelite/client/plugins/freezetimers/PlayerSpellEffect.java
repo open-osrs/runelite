@@ -1,41 +1,44 @@
-/*
- * Copyright (c) 2019. PKLite  - All Rights Reserved
- * Unauthorized modification, distribution, or possession of this source file, via any medium is strictly prohibited.
- * Proprietary and confidential. Refer to PKLite License file for more information on
- * full terms of this copyright and to determine what constitutes authorized use.
- * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
- *
- */
-
 package net.runelite.client.plugins.freezetimers;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
-public enum  PlayerSpellEffect
+@AllArgsConstructor
+public enum PlayerSpellEffect
 {
-
-
-	BARRAGE("Ice Barrage", 20000, false),
-	BLITZ("Ice Blitz", 15000, false);
-
+	BIND("Bind", 181,5000, true, 0, TimerType.FREEZE),
+	SNARE("Snare", 180, 10000, true, 1, TimerType.FREEZE),
+	ENTANGLE("Entangle", 179, 15000, true, 2, TimerType.FREEZE),
+	RUSH("Ice Rush", 361, 5000, false, 3, TimerType.FREEZE),
+	BURST("Ice Burst", 363, 10000, false, 4, TimerType.FREEZE),
+	BLITZ("Ice Blitz", 367, 15000, false, 5, TimerType.FREEZE),
+	BARRAGE("Ice Barrage", 369, 20000, false, 6, TimerType.FREEZE),
+	TELEBLOCK("Teleblock", 345, 300000, true, 7, TimerType.TELEBLOCK),
+	VENG("Vengeance", 726, 30000, false, 8, TimerType.VENG),
+	VENG_OTHER("Vengeance Other", 725, 30000, false, 9, TimerType.VENG),
+	NONE("Nothing", -69, 420, true, 9999, TimerType.THIS_SHIT_BROKE);
+	
 	@Getter
-	private final String SPELL_NAME;
+	private final String name;
 	@Getter
-	private long startTime;
+	private final int spotAnimId;
 	@Getter
-	private int duration;
+	private final int timerLengthTicks;
 	@Getter
 	private boolean halvable;
-	//private final BufferedImage SPELL_ICON;
-
-
+	@Getter
+	private final int spriteIdx;
+	@Getter
+	private final TimerType type;
 	
-	PlayerSpellEffect(String name, int duration, boolean halvable)
+	public static PlayerSpellEffect getFromSpotAnim(int spotAnim)
 	{
-		this.SPELL_NAME = name;
-		this.duration = duration;
-		this.halvable = halvable;
-		this.startTime = System.currentTimeMillis();
+		for(PlayerSpellEffect effect : values())
+		{
+			if(effect.getSpotAnimId() == spotAnim)
+				return effect;
+		}
+		return NONE;
 	}
+	
 }
