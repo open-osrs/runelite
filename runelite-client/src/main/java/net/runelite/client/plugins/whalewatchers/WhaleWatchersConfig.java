@@ -32,17 +32,6 @@ public interface WhaleWatchersConfig extends Config
 		return true;
 	}
 
-	@Alpha
-	@ConfigItem(
-		position = 3,
-		keyName = "damageBackgroundColor",
-		name = "Counter Background Color",
-		description = "The background color for the damage counter overlay"
-	)
-	default Color damageBackgroundColor()
-	{
-		return Color.darkGray;
-	}
 
 	@ConfigItem(
 		position = 4,
