@@ -38,6 +38,7 @@ import net.runelite.api.coords.WorldPoint;
  */
 public interface Actor extends Renderable
 {
+
 	/**
 	 * Gets the combat level of the actor.
 	 *
