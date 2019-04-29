@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2019. PKLite
+ *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the following authors:
+ *
+ *   PKLite discord: https://discord.gg/Dp3HuFM
+ *   Written by PKLite(ST0NEWALL, others) <stonewall@stonewall@pklite.xyz>, 2019
+ *
+ ******************************************************************************/
+
 package net.runelite.client.plugins.whalewatchers;
 
 import com.google.inject.Provides;
@@ -7,19 +17,18 @@ import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuAction;
-import net.runelite.api.Player;
 import net.runelite.api.Skill;
 import net.runelite.api.SkullIcon;
+import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import static net.runelite.api.WorldType.HIGH_RISK;
 import static net.runelite.api.WorldType.PVP;
 import static net.runelite.api.WorldType.isPvpWorld;
-import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
-import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -32,11 +41,7 @@ import org.apache.commons.lang3.ObjectUtils;
 @PluginDescriptor(
 	name = "Whale Watchers",
 	description = "A Plugin to save help whales in the wild",
-	tags = {"whale watchers", "whale", "protect item", "warning", "pklite"},
-	enabledByDefault = true,
-	hidden = false,
-	developerPlugin = false,
-	loadWhenOutdated = false
+	tags = {"whale watchers", "whale", "protect item", "warning", "pklite"}
 )
 public class WhaleWatchersPlugin extends Plugin
 {
@@ -113,18 +118,22 @@ public class WhaleWatchersPlugin extends Plugin
 	{
 		if (config.showDamageCounter())
 		{
-			if (!(event.getActor() == client.getLocalPlayer() ||
-				event.getActor().getInteracting() == client.getLocalPlayer()))
+			if (!(event.getActor() == client.getLocalPlayer() |
+				event.getActor() == client.getLocalPlayer().getInteracting()))
 			{
 				return;
 			}
-			if (event.getActor() == client.getLocalPlayer())
+			if (isAttackingPlayer() || inCombat)
 			{
-				damageTaken += event.getHitsplat().getAmount();
-			}
-			if (event.getActor() == client.getLocalPlayer().getInteracting())
-			{
-				damageDone += event.getHitsplat().getAmount();
+				inCombat = true;
+				if (event.getActor() == client.getLocalPlayer())
+				{
+					damageTaken += event.getHitsplat().getAmount();
+				}
+				if (event.getActor() == client.getLocalPlayer().getInteracting())
+				{
+					damageDone += event.getHitsplat().getAmount();
+				}
 			}
 		}
 	}
@@ -152,19 +161,6 @@ public class WhaleWatchersPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onExperienceChanged(ExperienceChanged event)
-	{
-		final Skill skill = event.getSkill();
-		final Player player = client.getLocalPlayer();
-		if (skill.equals(Skill.HITPOINTS))
-		{
-			if (player.getInteracting() instanceof Player)
-			{
-				inCombat = true;
-			}
-		}
-	}
 
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
@@ -176,25 +172,16 @@ public class WhaleWatchersPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onInteractingChanged(InteractingChanged event)
+	public void onVarbitChanged(VarbitChanged event)
 	{
-		if (event.getSource() != client.getLocalPlayer() || event.getTarget() != client.getLocalPlayer())
-		{
-			return;
-		}
-		if (!(event.getTarget() instanceof Player) && !(event.getSource() instanceof Player))
-		{
-			return;
-		}
-		if (client.getLocalPlayer().getInteracting() == null)
-		{
-			inCombat = false;
-		}
 		if (config.showDamageCounter())
 		{
-			if (!inCombat)
+			if (client.getVar(VarPlayer.ATTACKING_PLAYER) == -1)
 			{
-				inCombat = true;
+				if (inCombat)
+				{
+					tickCountdown = 10;
+				}
 			}
 		}
 
@@ -232,21 +219,13 @@ public class WhaleWatchersPlugin extends Plugin
 	{
 		if (config.showDamageCounter())
 		{
-
-			if (client.getLocalPlayer().getInteracting()
-				!= null && client.getLocalPlayer().getInteracting() instanceof Player)
-			{
-				inCombat = true;
-			}
-
 			if (tickCountdown > 0 && tickCountdown < 11)
 			{
 				tickCountdown--;
 				if (tickCountdown == 1)
 				{
 					inCombat = false;
-					damageDone = 0;
-					damageTaken = 0;
+					resetDamageCounter();
 					return;
 				}
 			}
@@ -257,14 +236,7 @@ public class WhaleWatchersPlugin extends Plugin
 			{
 				final int currentHealth = client.getLocalPlayer().getHealth();
 				final int currentPrayer = client.getBoostedSkillLevel(Skill.PRAYER);
-				if (currentPrayer <= (Math.ceil(currentHealth / 4)))
-				{
-					displaySmiteOverlay = true;
-				}
-				else
-				{
-					displaySmiteOverlay = false;
-				}
+				displaySmiteOverlay = currentPrayer <= (Math.ceil(currentHealth / 4));
 			}
 			else
 			{
@@ -275,6 +247,20 @@ public class WhaleWatchersPlugin extends Plugin
 		{
 			displaySmiteOverlay = false;
 		}
+	}
+
+	/**
+	 * Checks to see if client is attacking another player
+	 * @return returns true if they are, false otherwise
+	 */
+	private boolean isAttackingPlayer()
+	{
+		if (client.getVar(Varbits.IN_WILDERNESS) == 1 && client.getLocalPlayer().getInteracting() != null)
+		{
+			return true;
+		}
+		int varp = client.getVar(VarPlayer.ATTACKING_PLAYER);
+		return varp != -1;
 	}
 
 	private void resetDamageCounter()

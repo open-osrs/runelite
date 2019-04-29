@@ -1,11 +1,18 @@
+/*******************************************************************************
+ * Copyright (c) 2019. PKLite
+ *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the following authors:
+ *
+ *   PKLite discord: https://discord.gg/Dp3HuFM
+ *   Written by PKLite(ST0NEWALL, others) <stonewall@stonewall@pklite.xyz>, 2019
+ *
+ ******************************************************************************/
+
 package net.runelite.client.plugins.whalewatchers;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
-import javax.swing.BorderFactory;
-import javax.swing.border.BevelBorder;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.client.ui.overlay.Overlay;
@@ -16,6 +23,9 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
+/**
+ * The overlay for the Damage Counter
+ */
 public class WhaleWatchersOverlay extends Overlay
 {
 	private Client client;
@@ -76,6 +86,7 @@ public class WhaleWatchersOverlay extends Overlay
 		else
 		{
 			panelComponent.getChildren().clear();
+
 		}
 		return panelComponent.render(graphics);
 	}
