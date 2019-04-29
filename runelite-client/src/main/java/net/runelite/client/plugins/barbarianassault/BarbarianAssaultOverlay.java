@@ -130,7 +130,32 @@ class BarbarianAssaultOverlay extends Overlay
 			// Always show yellow eggs
 			renderEggLocations(graphics, yellowEggMap, Color.YELLOW);
 		}
+		if (role == Role.HEALER)
+		{
+			for (HealerTeam teammate : HealerTeam.values())
+			{
+				Widget widget = client.getWidget(teammate.getTeammate());
+				if (widget == null)
+				{
+					continue;
+				}
 
+				String[] teammateHealth = widget.getText().split(" / ");
+				final int curHealth = Integer.parseInt(teammateHealth[0]);
+				final int maxHealth = Integer.parseInt(teammateHealth[1]);
+
+				int width = teammate.getWidth();
+				final int filledWidth = getBarWidth(maxHealth, curHealth, width);
+
+				int offsetX = teammate.getOffset().getX();
+				int offsetY = teammate.getOffset().getY();
+				int x = widget.getCanvasLocation().getX() - offsetX;
+				int y = widget.getCanvasLocation().getY() - offsetY;
+
+				graphics.setColor(HEALTH_BAR_COLOR);
+				graphics.fillRect(x, y, filledWidth, HEALTH_BAR_HEIGHT);
+			}
+		}
 		return null;
 	}
 
