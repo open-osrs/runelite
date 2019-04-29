@@ -22,20 +22,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.zulrah.overlays;
+package net.runelite.client.plugins.zulrah;
 
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.Perspective;
+import net.runelite.api.*;
 import net.runelite.api.Point;
-import net.runelite.api.Prayer;
-import net.runelite.api.SpriteID;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.game.SpriteManager;
-import net.runelite.client.plugins.zulrah.ZulrahInstance;
-import net.runelite.client.plugins.zulrah.ZulrahPlugin;
 import net.runelite.client.plugins.zulrah.phase.ZulrahPhase;
 import net.runelite.client.plugins.zulrah.phase.ZulrahType;
 import net.runelite.client.ui.overlay.Overlay;
@@ -43,17 +38,9 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-import javax.imageio.ImageIO;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.Stroke;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 @Slf4j
 public class ZulrahTileOverlay extends Overlay

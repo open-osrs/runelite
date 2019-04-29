@@ -22,19 +22,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.zulrah.overlays;
+package net.runelite.client.plugins.zulrah;
 
 import com.google.inject.Inject;
-import net.runelite.client.plugins.zulrah.ZulrahInstance;
-import net.runelite.client.plugins.zulrah.ZulrahPlugin;
 import net.runelite.client.plugins.zulrah.rotation.ZulrahRotation;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class ZulrahRotationOverlay extends Overlay
 {
