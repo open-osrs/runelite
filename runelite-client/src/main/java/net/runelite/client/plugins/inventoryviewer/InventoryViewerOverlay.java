@@ -1,6 +1,5 @@
 /*
  * Copyright (c) 2018 AWPH-I
- * Copyright (c) 2019 Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,27 +24,19 @@
  */
 package net.runelite.client.plugins.inventoryviewer;
 
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
-import net.runelite.api.VarClientInt;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.components.ComponentConstants;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
-import net.runelite.client.ui.overlay.components.TitleComponent;
 
 class InventoryViewerOverlay extends Overlay
 {
@@ -56,49 +47,22 @@ class InventoryViewerOverlay extends Overlay
 
 	private final Client client;
 	private final ItemManager itemManager;
-	private final InventoryViewerConfig config;
 
-	private final PanelComponent wrapperComponent = new PanelComponent();
-	private final PanelComponent inventoryComponent = new PanelComponent();
-	private final TitleComponent freeSlotsComponent = TitleComponent.builder().build();
+	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private InventoryViewerOverlay(Client client, ItemManager itemManager, InventoryViewerConfig config)
+	private InventoryViewerOverlay(Client client, ItemManager itemManager)
 	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
-
-		inventoryComponent.setWrapping(4);
-		inventoryComponent.setGap(new Point(6, 4));
-		inventoryComponent.setOrientation(PanelComponent.Orientation.HORIZONTAL);
-		inventoryComponent.setBackgroundColor(null);
-		inventoryComponent.setBorder(new Rectangle(
-			0,
-			ComponentConstants.STANDARD_BORDER,
-			0,
-			ComponentConstants.STANDARD_BORDER));
-
-		wrapperComponent.setOrientation(PanelComponent.Orientation.VERTICAL);
-		wrapperComponent.setWrapping(2);
-		wrapperComponent.setBorder(new Rectangle(
-			ComponentConstants.STANDARD_BORDER * 2,
-			ComponentConstants.STANDARD_BORDER,
-			ComponentConstants.STANDARD_BORDER * 2,
-			ComponentConstants.STANDARD_BORDER));
-
+		panelComponent.setWrapping(4);
+		panelComponent.setOrientation(PanelComponent.Orientation.HORIZONTAL);
 		this.itemManager = itemManager;
 		this.client = client;
-		this.config = config;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.hideWhenInvOpen()
-			&& client.getVar(VarClientInt.PLAYER_INVENTORY_OPENED) == 3)
-		{
-			return null;
-		}
-
 		final ItemContainer itemContainer = client.getItemContainer(InventoryID.INVENTORY);
 
 		if (itemContainer == null)
@@ -106,49 +70,9 @@ class InventoryViewerOverlay extends Overlay
 			return null;
 		}
 
-		inventoryComponent.getChildren().clear();
-		wrapperComponent.getChildren().clear();
+		panelComponent.getChildren().clear();
 
 		final Item[] items = itemContainer.getItems();
-
-		if (config.viewerMode() == InventoryViewerMode.GROUPED)
-		{
-			Multiset<Integer> totals = HashMultiset.create();
-			for (Item item : items)
-			{
-				if (item.getId() != -1)
-				{
-					totals.add(item.getId(), item.getQuantity());
-				}
-			}
-
-			final long remaining = INVENTORY_SIZE - totals.size();
-			if (remaining == INVENTORY_SIZE)
-			{
-				return null;
-			}
-
-			for (Multiset.Entry<Integer> cursor : totals.entrySet())
-			{
-				final BufferedImage image = itemManager.getImage(cursor.getElement(), cursor.getCount(), true);
-				if (image != null)
-				{
-					inventoryComponent.getChildren().add(new ImageComponent(image));
-				}
-			}
-			wrapperComponent.getChildren().add(inventoryComponent);
-
-			if (config.showFreeSlots())
-			{
-				freeSlotsComponent.setText(remaining + " free");
-				wrapperComponent.setPreferredSize(new Dimension(Math.min(totals.elementSet().size(), 4) * (PLACEHOLDER_WIDTH + 6) + ComponentConstants.STANDARD_BORDER * 2, 0));
-				wrapperComponent.getChildren().add(freeSlotsComponent);
-			}
-
-			return wrapperComponent.render(graphics);
-		}
-
-		int remaining = 28;
 
 		for (int i = 0; i < INVENTORY_SIZE; i++)
 		{
@@ -157,35 +81,24 @@ class InventoryViewerOverlay extends Overlay
 				final Item item = items[i];
 				if (item.getQuantity() > 0)
 				{
-					remaining -= 1;
 					final BufferedImage image = getImage(item);
 					if (image != null)
 					{
-						inventoryComponent.getChildren().add(new ImageComponent(image));
+						panelComponent.getChildren().add(new ImageComponent(image));
 						continue;
 					}
 				}
 			}
 
 			// put a placeholder image so each item is aligned properly and the panel is not resized
-			inventoryComponent.getChildren().add(PLACEHOLDER_IMAGE);
+			panelComponent.getChildren().add(PLACEHOLDER_IMAGE);
 		}
 
-		wrapperComponent.getChildren().add(inventoryComponent);
-
-		if (config.showFreeSlots())
-		{
-			freeSlotsComponent.setText(remaining + " free");
-			wrapperComponent.setPreferredSize(new Dimension(4 * (PLACEHOLDER_WIDTH + 6) + ComponentConstants.STANDARD_BORDER * 2, 0));
-			wrapperComponent.getChildren().add(freeSlotsComponent);
-		}
-
-		return wrapperComponent.render(graphics);
+		return panelComponent.render(graphics);
 	}
 
 	private BufferedImage getImage(Item item)
 	{
-		ItemComposition itemComposition = itemManager.getItemComposition(item.getId());
-		return itemManager.getImage(item.getId(), item.getQuantity(), itemComposition.isStackable());
+		return itemManager.getImage(item.getId(), item.getQuantity(), item.getQuantity() > 1);
 	}
 }
