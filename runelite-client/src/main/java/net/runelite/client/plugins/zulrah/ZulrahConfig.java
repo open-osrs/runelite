@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Devin French <https://github.com/devinfrench>
+ * Copyright (c) 2018, https://runelitepl.us
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,19 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.zulrah.phase;
+package net.runelite.client.plugins.zulrah;
 
-public enum SafeLocation
-{
-	WEST,
-	EAST,
-	SOUTH,
-	SOUTH_WEST,
-	SOUTH_EAST,
-	TOP_EAST,
-	TOP_WEST,
-	PILLAR_WEST_INSIDE,
-	PILLAR_WEST_OUTSIDE,
-	PILLAR_EAST_INSIDE,
-	PILLAR_EAST_OUTSIDE
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+
+@ConfigGroup("zulrah")
+public interface ZulrahConfig extends Config {
+	@ConfigItem(
+		position = 0,
+		keyName = "zulrahenable",
+		name = "Enable Zulrah Helper",
+		description = "Configures whether or not to enable Zulrah Helper."
+	)
+	default boolean EnableZulrah() { return true; }
+
+	@ConfigItem(
+			position = 1,
+			keyName = "zulrahprayenable",
+			name = "Show Prayer Helper",
+			description = "Configures whether or not to show when to pray at Zulrah."
+	)
+	default boolean EnableZulrahPrayerHelper() { return true; }
 }
