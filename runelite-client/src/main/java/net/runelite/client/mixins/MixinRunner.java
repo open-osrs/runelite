@@ -25,6 +25,7 @@ public class MixinRunner
 	public Map<String, byte[]> run()
 	throws InstantiationException, IllegalAccessException, NoSuchMethodException, IOException, InvocationTargetException
 	{
+		runVisitor(InterfaceTransformer.class);
 		runVisitor(OverwriteTransformer.class);
 		runSanityChecker(OverwriteSanityCheck.class);
 		runVisitor(InjectTransformer.class);

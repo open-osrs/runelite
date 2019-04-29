@@ -1606,4 +1606,6 @@ public interface Client extends GameEngine
 	NodeCache getHealthBarCache();
 	
 	void toggleRenderSelf();
+
+	MouseRecorder getMouseRecorder();
 }

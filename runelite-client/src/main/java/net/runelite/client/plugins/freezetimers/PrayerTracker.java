@@ -44,7 +44,8 @@ public class PrayerTracker
 		}
 		if (actor instanceof Player)
 		{
-			newTick.get(actor).put("PrayerIcon", ((Player) actor).getOverheadIcon().ordinal());
+			newTick.get(actor).put("PrayerIcon", ((Player) actor).getOverheadIcon() == null ? 0 :
+					((Player) actor).getOverheadIcon().ordinal());
 		}
 		newTick.get(actor).put("SpotAnim", actor.getGraphic());
 	}
