@@ -82,13 +82,7 @@ class TaskBox extends JPanel
 
 		SwingUtilities.invokeLater(() -> {
 			BufferedImage taskImg = slayerPlugin.getImageForTask(Task.getTask(taskData.getTaskName()));
-			JLabel taskIcon = new JLabel();
-
-			if (taskImg != null)
-			{
-				taskIcon = new JLabel(new ImageIcon(taskImg));
-			}
-
+			JLabel taskIcon = new JLabel(new ImageIcon(taskImg));
 			taskIcon.setHorizontalAlignment(SwingConstants.CENTER);
 			taskIcon.setVerticalAlignment(SwingConstants.CENTER);
 			taskIcon.setPreferredSize(new Dimension(35, 35));
