@@ -361,13 +361,13 @@ public class ClientTransform implements Transform {
 					"        int n15 = "+ByteCodePatcher.clientInstance+".get3dZoom();" +
 					"        int n16 = (n13 - n11) * 50 / n15;" +
 					"        int n17 = (n14 - n12) * 50 / n15;" +
-					"        int n18 = (n13 - n11) * 3500 / n15;" +
-					"        int n19 = (n14 - n12) * 3500 / n15;" +
+					"        int n18 = (n13 - n11) * 10000 / n15;" +
+					"        int n19 = (n14 - n12) * 10000 / n15;" +
 					"        int n20 = client.rl$rot1(n17, 50, n8, n7);" +
 					"        int n21 = client.rl$rot2(n17, 50, n8, n7);" +
 					"        n17 = n20;" +
-					"        n20 = client.rl$rot1(n19, 3500, n8, n7);" +
-					"        int n22 = client.rl$rot2(n19, 3500, n8, n7);" +
+					"        n20 = client.rl$rot1(n19, 10000, n8, n7);" +
+					"        int n22 = client.rl$rot2(n19, 10000, n8, n7);" +
 					"        n19 = n20;" +
 					"        n20 = client.rl$rot3(n16, n21, n10, n9);" +
 					"        n21 = client.rl$rot4(n16, n21, n10, n9);" +
@@ -432,7 +432,7 @@ public class ClientTransform implements Transform {
 								"        				boolean bl3 = "+ByteCodePatcher.clientInstance+".getViewportContainsMouse();" +
 								"        				if (!bl2) return;" +
 								"        					if (!bl3) return;" +
-								"        					boolean bl4 = this.boundingboxCheck((net.runelite.api.Model)rSModel, n7, n8, n9);" +
+								"        					boolean bl4 = this.boundingboxCheck2((net.runelite.api.Model)rSModel, n7, n8, n9);" +
 								"        					if (!bl4) {" +
 								"            					return;" +
 								"        					}" +
