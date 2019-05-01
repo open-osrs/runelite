@@ -241,7 +241,7 @@ public class SlayerPlugin extends Plugin
 	private List<NPCPresence> lingeringPresences = new ArrayList<>();
 	private SlayerXpDropLookup slayerXpDropLookup = null;
 
-	private SlayerTaskPanel panel;
+	private SlayerTaskPanel panel = new SlayerTaskPanel(this);
 	private NavigationButton navButton;
 	private long lastTickMillis = 0;
 
@@ -265,7 +265,6 @@ public class SlayerPlugin extends Plugin
 			slayerXpDropLookup = new SlayerXpDropLookup();
 		}
 
-		panel = new SlayerTaskPanel(this);
 		spriteManager.getSpriteAsync(SpriteID.SKILL_SLAYER, 0, panel::loadHeaderIcon);
 
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "panel_icon.png");
@@ -1027,10 +1026,8 @@ public class SlayerPlugin extends Plugin
 			return;
 		}
 
-		if (task == null || task.getTask() == null && TASK_STRING_VALIDATION.matcher(task.getTask()).find() ||
-			task.getTask().length() > TASK_STRING_MAX_LENGTH ||
-			TASK_STRING_VALIDATION.matcher(task.getLocation()).find() ||
-			task.getLocation().length() > TASK_STRING_MAX_LENGTH)
+		if (TASK_STRING_VALIDATION.matcher(task.getTask()).find() || task.getTask().length() > TASK_STRING_MAX_LENGTH ||
+			TASK_STRING_VALIDATION.matcher(task.getLocation()).find() || task.getLocation().length() > TASK_STRING_MAX_LENGTH)
 		{
 			log.debug("Validation failed for task name or location: {}", task);
 			return;
