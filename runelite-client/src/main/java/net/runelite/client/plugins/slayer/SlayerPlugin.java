@@ -241,7 +241,7 @@ public class SlayerPlugin extends Plugin
 	private List<NPCPresence> lingeringPresences = new ArrayList<>();
 	private SlayerXpDropLookup slayerXpDropLookup = null;
 
-	private SlayerTaskPanel panel = new SlayerTaskPanel(this);
+	private SlayerTaskPanel panel;
 	private NavigationButton navButton;
 	private long lastTickMillis = 0;
 
@@ -264,6 +264,8 @@ public class SlayerPlugin extends Plugin
 			// create this in startup since it needs to pull files during creation
 			slayerXpDropLookup = new SlayerXpDropLookup();
 		}
+
+		panel = new SlayerTaskPanel(this);
 
 		spriteManager.getSpriteAsync(SpriteID.SKILL_SLAYER, 0, panel::loadHeaderIcon);
 
@@ -925,7 +927,10 @@ public class SlayerPlugin extends Plugin
 			isNewAssignment ? 0 : currentTask.getElapsedXp(),
 			amt, initAmt, lastCertainAmt, location, name,
 			isNewAssignment ? true : currentTask.isPaused());
-		panel.updateCurrentTask(true, currentTask.isPaused(), currentTask, isNewAssignment);
+		if (panel != null)
+		{
+			panel.updateCurrentTask(true, currentTask.isPaused(), currentTask, isNewAssignment);
+		}
 
 		save();
 		removeCounter();
