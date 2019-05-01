@@ -143,7 +143,9 @@ public class SpellbookPlugin extends Plugin
 		saveSpells();
 		config.canDrag(false);
 		mouseManager.unregisterMouseListener(mouseListener);
+
 		mouseManager.unregisterMouseWheelListener(mouseListener);
+
 		mouseListener = null;
 	}
 
