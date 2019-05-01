@@ -175,7 +175,7 @@ public class SpellbookPlugin extends Plugin
 			loadFilter();
 		}
 
-		runRebuild();
+		clientThread.invokeLater(this::runRebuild);
 	}
 
 	@Subscribe
