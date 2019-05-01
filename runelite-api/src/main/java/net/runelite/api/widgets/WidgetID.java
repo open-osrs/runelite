@@ -838,10 +838,8 @@ public class WidgetID
 		static final int EARTH_SURGE = 71;
 		static final int LVL_7_ENCHANT = 72;
 		static final int FIRE_SURGE = 73;
-  
 
 		// ANCIENT SPELLS
-											   
 		static final int ICE_RUSH = 74;
 		static final int ICE_BLITZ = 75;
 		static final int ICE_BURST = 76;
@@ -867,10 +865,8 @@ public class WidgetID
 		static final int ANNAKARL_TELEPORT = 96;
 		static final int GHORROCK_TELEPORT = 97;
 		static final int EDGEVILLE_HOME_TELEPORT = 98;
-  
 
 		// LUNAR SPELLS
-											   
 		static final int LUNAR_HOME_TELEPORT = 99;
 		static final int BAKE_PIE = 100;
 		static final int CURE_PLANT = 101;
@@ -915,11 +911,9 @@ public class WidgetID
 		static final int GEOMANCY = 140;
 		static final int SPIN_FLAX = 141;
 		static final int OURANIA_TELEPORT = 142;
-  
 
 		// ARCEUUS SPELLS
-  
-		static final int ARCEUUS_HOME_TELEPORT = 143;
+  		static final int ARCEUUS_HOME_TELEPORT = 143;
 	}
 
 	static class Pvp
