@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kruithne <kruithne@gmail.com>
+ * Copyright (c) 2019, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,60 +22,65 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.customcursor;
+package net.runelite.client.plugins.itemidentification;
 
-import com.google.inject.Provides;
-import javax.inject.Inject;
-import net.runelite.api.events.ConfigChanged;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.ClientUI;
+import java.awt.Color;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-@PluginDescriptor(
-	name = "Custom Cursor",
-	description = "Replaces your mouse cursor image",
-	enabledByDefault = false
-)
-public class CustomCursorPlugin extends Plugin
+@ConfigGroup("itemidentification")
+public interface ItemIdentificationConfig extends Config
 {
-	@Inject
-	private ClientUI clientUI;
-
-	@Inject
-	private CustomCursorConfig config;
-
-	@Provides
-	CustomCursorConfig provideConfig(ConfigManager configManager)
+	@ConfigItem(
+		keyName = "identificationType",
+		name = "Identification Type",
+		position = -4,
+		description = "How much to show of the item name"
+	)
+	default ItemIdentificationMode identificationType()
 	{
-		return configManager.getConfig(CustomCursorConfig.class);
+		return ItemIdentificationMode.SHORT;
 	}
 
-	@Override
-	protected void startUp()
+	@ConfigItem(
+		keyName = "textColor",
+		name = "Color",
+		position = -3,
+		description = "The colour of the identification text"
+	)
+	default Color textColor()
 	{
-		updateCursor();
+		return Color.WHITE;
 	}
 
-	@Override
-	protected void shutDown()
+	@ConfigItem(
+		keyName = "showSeeds",
+		name = "Seeds",
+		description = "Show identification on Seeds"
+	)
+	default boolean showSeeds()
 	{
-		clientUI.resetCursor();
+		return true;
 	}
 
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	@ConfigItem(
+		keyName = "showHerbs",
+		name = "Herbs",
+		description = "Show identification on Herbs"
+	)
+	default boolean showHerbs()
 	{
-		if (event.getGroup().equals("customcursor") && event.getKey().equals("cursorStyle"))
-		{
-			updateCursor();
-		}
+		return false;
 	}
 
-	private void updateCursor()
+	@ConfigItem(
+		keyName = "showSaplings",
+		name = "Saplings",
+		description = "Show identification on Saplings and Seedlings"
+	)
+	default boolean showSaplings()
 	{
-		CustomCursor selectedCursor = config.selectedCursor();
-		clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
+		return true;
 	}
 }

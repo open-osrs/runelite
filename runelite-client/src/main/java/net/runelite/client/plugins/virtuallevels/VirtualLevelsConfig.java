@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kruithne <kruithne@gmail.com>
+ * Copyright (c) 2019, Beau Mitchell <beaumitch@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,60 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.customcursor;
+package net.runelite.client.plugins.virtuallevels;
 
-import com.google.inject.Provides;
-import javax.inject.Inject;
-import net.runelite.api.events.ConfigChanged;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.ClientUI;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-@PluginDescriptor(
-	name = "Custom Cursor",
-	description = "Replaces your mouse cursor image",
-	enabledByDefault = false
-)
-public class CustomCursorPlugin extends Plugin
+@ConfigGroup("virtuallevels")
+public interface VirtualLevelsConfig extends Config
 {
-	@Inject
-	private ClientUI clientUI;
-
-	@Inject
-	private CustomCursorConfig config;
-
-	@Provides
-	CustomCursorConfig provideConfig(ConfigManager configManager)
+	@ConfigItem(
+		keyName = "virtualTotalLevel",
+		name = "Virtual Total Level",
+		description = "Count virtual levels towards total level",
+		position = 0
+	)
+	default boolean virtualTotalLevel()
 	{
-		return configManager.getConfig(CustomCursorConfig.class);
-	}
-
-	@Override
-	protected void startUp()
-	{
-		updateCursor();
-	}
-
-	@Override
-	protected void shutDown()
-	{
-		clientUI.resetCursor();
-	}
-
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("customcursor") && event.getKey().equals("cursorStyle"))
-		{
-			updateCursor();
-		}
-	}
-
-	private void updateCursor()
-	{
-		CustomCursor selectedCursor = config.selectedCursor();
-		clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
+		return true;
 	}
 }
