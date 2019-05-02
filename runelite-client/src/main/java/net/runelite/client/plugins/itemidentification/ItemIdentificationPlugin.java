@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kruithne <kruithne@gmail.com>
+ * Copyright (c) 2019, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,60 +22,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.customcursor;
+package net.runelite.client.plugins.itemidentification;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.ui.ClientUI;
+import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Custom Cursor",
-	description = "Replaces your mouse cursor image",
+	name = "Item Identification",
+	description = "Show identifying text over items with difficult to distinguish sprites",
 	enabledByDefault = false
 )
-public class CustomCursorPlugin extends Plugin
+public class ItemIdentificationPlugin extends Plugin
 {
 	@Inject
-	private ClientUI clientUI;
+	private OverlayManager overlayManager;
 
 	@Inject
-	private CustomCursorConfig config;
+	private ItemIdentificationOverlay overlay;
 
 	@Provides
-	CustomCursorConfig provideConfig(ConfigManager configManager)
+	ItemIdentificationConfig getConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(CustomCursorConfig.class);
+		return configManager.getConfig(ItemIdentificationConfig.class);
 	}
 
 	@Override
 	protected void startUp()
 	{
-		updateCursor();
+		overlayManager.add(overlay);
 	}
 
 	@Override
 	protected void shutDown()
 	{
-		clientUI.resetCursor();
-	}
-
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("customcursor") && event.getKey().equals("cursorStyle"))
-		{
-			updateCursor();
-		}
-	}
-
-	private void updateCursor()
-	{
-		CustomCursor selectedCursor = config.selectedCursor();
-		clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
+		overlayManager.remove(overlay);
 	}
 }
