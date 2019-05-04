@@ -99,7 +99,12 @@ public enum AoeProjectileInfo
 	/**
 	 * AOE of Xarpus throwing poison
 	 */
-	XARPUS_POISON_AOE(ProjectileID.XARPUS_ACID, 4000, 3);
+	XARPUS_POISON_AOE(ProjectileID.XARPUS_ACID, 4000, 3),
+
+	/**
+	 * Aoe of Addy Drags
+	 */
+	ADDY_DRAG_POISON(1486, 2400, 1);
 
 	/**
 	 * The id of the projectile to trigger this AoE warning
