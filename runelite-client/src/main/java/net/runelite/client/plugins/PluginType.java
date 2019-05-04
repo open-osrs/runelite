@@ -4,6 +4,7 @@ public enum PluginType {
 
 	PVM,
 	PVP,
+    EASYSCAPE,
 
 	UTILITY,
 	GENERAL_USE,

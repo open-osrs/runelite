@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -91,16 +90,6 @@ public interface MenuEntrySwapperConfig extends Config
 	default boolean swapBones()
 	{
 		return false;
-	}
-
-	@ConfigItem(
-		keyName = "swapContract",
-		name = "Contract",
-		description = "Swap Talk-to with Contract on Guildmaster Jane"
-	)
-	default boolean swapContract()
-	{
-		return true; 
 	}
 
 	@ConfigItem(
@@ -206,7 +195,7 @@ public interface MenuEntrySwapperConfig extends Config
 	@ConfigItem(
 		keyName = "swapPrivate",
 		name = "Private",
-		description = "Swap Shared with Private on the Chambers of Xeric storage units."
+		description = "Swap Shared with Private on the Chamber of Xeric storage units."
 	)
 	default boolean swapPrivate()
 	{
@@ -214,19 +203,9 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "swapPick",
-		name = "Pick",
-		description = "Swap Pick with Pick-lots of the Gourd tree in the Chambers of Xeric"
-	)
-	default boolean swapPick()
-	{
-		return false;
-	}
-
-	@ConfigItem(
 		keyName = "swapQuick",
 		name = "Quick Pass/Open/Start/Travel",
-		description = "Swap Pass with Quick-Pass, Open with Quick-Open, Ring with Quick-Start and Talk-to with Quick-Travel"
+		description = "Swap Pass with Quick-Pass, Open with Quick-open, Ring with Quick-Start and Talk-to with Quick-Travel"
 	)
 	default boolean swapQuick()
 	{
@@ -282,23 +261,82 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return true;
 	}
-	
+
 	@ConfigItem(
-		keyName = "rockCake",
-		name = "Rock Cake Guzzle",
-		description = "Enables Left Click Guzzle to Rock Cake"
+		keyName = "walkHere",
+		name = "Walk Here",
+		description = "Will only display Walk here when shift is held."
 	)
-	default boolean rockCake() 
-	{ 
+	default boolean walkHere() 
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "zmirunning",
+		name = "Offer all Pure essence",
+		description = "Will swap stuff for ZMI running"
+	)
+	default boolean zmirunning()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			keyName = "construction",
+			name = "Build/Remove (Will break normal doors)",
+			description = "Will swap stuff for construction"
+	)
+	default boolean construction()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "swapRogueschests",
-		name = "Rogueschests",
-		description = "Swap Rogueschests from open to Search for traps"
+		keyName = "swapPick",
+		name = "Pick",
+		description = "Swap Pick with Pick-lots of the Gourd tree in the Chambers of Xeric"
 	)
-	default boolean swapRogueschests()
+	default boolean swapPick()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+            keyName = "depositX",
+            name = "Deposit X",
+            description = "Swap Deposit-1 with saved Deposit-X amount when shift is held"
+    )
+    default boolean depositX() 
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "withdrawX",
+            name = "Withdraw X",
+            description = "Swap Withdraw-1 with saved Withdraw-X amount when Shift is held"
+    )
+    default boolean withdrawX()
+    {
+        return true;
+    }
+	@ConfigItem(
+			keyName = "swapContract",
+			name = "Contract",
+			description = "Swap Talk-to with Contract on Guildmaster Jane"
+	)
+	default boolean swapContract()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			keyName = "swapLavaAltar",
+			name = "Craft-rune",
+			description = "Removes craft-rune option cause fuck runecrafting right?"
+	)
+	default boolean swapLavaAltar()
 	{
 		return true;
 	}

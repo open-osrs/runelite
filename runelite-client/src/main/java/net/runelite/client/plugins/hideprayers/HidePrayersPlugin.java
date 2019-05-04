@@ -151,6 +151,9 @@ public class HidePrayersPlugin extends Plugin {
 					} else {
 						prayerWidgets.get(Prayer.values()[26].ordinal()).setHidden(false);// piety
 					}
+					if (config.showRedemption()) {
+                        prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(false);// Redemption
+                    }
 				}
 				if (config.showEagleMystic()) {
 					prayerWidget.setHidden(true);

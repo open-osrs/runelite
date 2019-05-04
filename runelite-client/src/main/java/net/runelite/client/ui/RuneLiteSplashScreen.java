@@ -71,7 +71,7 @@ public class RuneLiteSplashScreen
 		SwingUtil.setupRuneLiteLookAndFeel();
 
 		// init fields with updated swing look and feel
-		frame = new JFrame("RuneLitePlus Loading");
+		frame = new JFrame("CCClient Loading");
 		messageLabel = new JLabel("Loading...");
 		subMessageLabel = new JLabel();
 		progressBar.setUI(new BasicProgressBarUI());
@@ -112,7 +112,7 @@ public class RuneLiteSplashScreen
 		}
 
 		// runelite title
-		final JLabel title = new JLabel("RuneLitePlus");
+		final JLabel title = new JLabel("CCClient");
 		final GridBagConstraints titleConstraints = new GridBagConstraints();
 		titleConstraints.gridy = 1;
 		panel.add(title, titleConstraints);
@@ -127,7 +127,7 @@ public class RuneLiteSplashScreen
 		panel.add(version, versionConstraints);
 
 		// version
-		final JLabel litVersion = new JLabel("Plus Version : PRE-" + RuneLite.RUNELIT_VERSION);
+		final JLabel litVersion = new JLabel("CCC Ver-" + RuneLite.RUNELIT_VERSION);
 		litVersion.setForeground(Color.GREEN);
 		litVersion.setFont(FontManager.getRunescapeSmallFont());
 		litVersion.setForeground(litVersion.getForeground().darker());

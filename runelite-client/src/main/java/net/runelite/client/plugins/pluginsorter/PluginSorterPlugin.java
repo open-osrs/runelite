@@ -113,6 +113,9 @@ public class PluginSorterPlugin extends Plugin {
 					case UTILITY:
 						pli.nameLabel.setForeground(config.utilityColor());
 						break;
+                    case EASYSCAPE:
+                        pli.nameLabel.setForeground(config.easyscapeColor());
+                        break;
 					default:
 						pli.nameLabel.setForeground(Color.WHITE);
 						break;
@@ -131,6 +134,7 @@ public class PluginSorterPlugin extends Plugin {
 					case PVM:
 					case PVP:
 					case UTILITY:
+                    case EASYSCAPE:
 					case EXTERNAL:
 						iter.remove();
 						removedPlugins.add(pli);

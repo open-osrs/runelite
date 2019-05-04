@@ -92,4 +92,15 @@ public interface PluginSorterConfig extends Config {
         return Color.CYAN;
     }
 
+    @ConfigItem(
+            position = 5,
+            keyName = "easyscapeColor",
+            name = "Easyscape color",
+            description = "Configure the color of the Easyscape plugins"
+    )
+    default Color easyscapeColor()
+    {
+        return Color.GREEN;
+    }
+
 }

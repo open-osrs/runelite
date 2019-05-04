@@ -44,8 +44,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -56,18 +58,8 @@ import javax.swing.SwingUtilities;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.Player;
-import net.runelite.api.Point;
-import net.runelite.api.SpriteID;
-import net.runelite.api.WorldType;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.LocalPlayerDeath;
-import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.*;
+import net.runelite.api.events.*;
 import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetID.BARROWS_REWARD_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.CHAMBERS_OF_XERIC_REWARD_GROUP_ID;
@@ -187,6 +179,8 @@ public class ScreenshotPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private BufferedImage reportButton;
 
+    private List<Player> dying = new ArrayList<Player>();
+
 	private NavigationButton titleBarButton;
 
 	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> config.hotkey())
@@ -258,6 +252,22 @@ public class ScreenshotPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
+        if(config.screenshotFriendDeath()) {
+            for (Player p : dying) {
+                Actor rsp = p;
+                //double checking animation in case I did a fucky wucky
+                //in case the action frame is wrong the checking if higher than or equal to
+                //not sure where exactly player lay down, from the limited testing I've done (me lazy) it's frame 8/9ish
+                if (rsp.getActionFrame() >= 8 && rsp.getAnimation() == 836) {
+                    takeScreenshot(p.getName() + "ded " + format(new Date()));
+                    dying.remove(p);
+                }
+                //if they get out of range or something, they'll still get removed
+
+                if (rsp.getAnimation() != 836)
+                    dying.remove(rsp);
+            }
+        }
 		if (!shouldTakeScreenshot)
 		{
 			return;
@@ -287,6 +297,27 @@ public class ScreenshotPlugin extends Plugin
 		}
 	}
 
+    @Subscribe
+    public void onAnimationChanged(AnimationChanged e) {
+        if(!config.screenshotFriendDeath())
+            return;
+
+        if (!(e.getActor() instanceof Player))
+            return;
+        Player p = (Player) e.getActor();
+
+        if(p.getName().equals(client.getLocalPlayer().getName()))
+            return;
+        if(p.getAnimation() != 836) {
+            return;
+        }
+        int tob = client.getVar(Varbits.THEATRE_OF_BLOOD);
+
+        if(client.getVar(Varbits.IN_RAID) == 1 || tob == 2 || tob == 3 || p.isFriend()) {
+            //this is the same as the tick counter had, just want to make ss at right timing
+            dying.add(p);
+        }
+    }
 	@Subscribe
 	public void onLocalPlayerDeath(LocalPlayerDeath death)
 	{

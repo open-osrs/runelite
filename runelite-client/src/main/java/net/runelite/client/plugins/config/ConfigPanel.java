@@ -283,6 +283,26 @@ public class ConfigPanel extends PluginPanel
 		for (PluginListItem plugin : utilPlugins)
 			pluginList.add(plugin);
 
+        List<PluginListItem> easyPlugins = new ArrayList<>();
+        // populate pluginList with all Easyscape Plugins
+        pluginManager.getPlugins().stream()
+                .filter(plugin -> plugin.getClass().getAnnotation(PluginDescriptor.class).type().equals(PluginType.EASYSCAPE))
+                .forEach(plugin ->
+                {
+                    final PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
+                    final Config config = pluginManager.getPluginConfigProxy(plugin);
+                    final ConfigDescriptor configDescriptor = config == null ? null : configManager.getConfigDescriptor(config);
+
+                    final PluginListItem listItem = new PluginListItem(this, configManager, plugin, descriptor, config, configDescriptor);
+                    System.out.println("Started "+listItem.getName());
+                    listItem.setPinned(pinnedPlugins.contains(listItem.getName()));
+                    easyPlugins.add(listItem);
+                });
+
+        easyPlugins.sort(Comparator.comparing(PluginListItem::getName));
+        for (PluginListItem plugin : easyPlugins)
+            pluginList.add(plugin);
+
 		// populate pluginList with all vanilla RL plugins
 		List<PluginListItem> vanillaPlugins = new ArrayList<>();
 		pluginManager.getPlugins().stream()
