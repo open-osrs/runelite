@@ -25,15 +25,14 @@
 package net.runelite.client.plugins.olmcrippletimer;
 
 
-import java.awt.*;
-import java.util.*;
-import java.util.List;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import javax.inject.Inject;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.NPC;
 import net.runelite.api.Point;
-import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.coords.WorldArea;
-import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -63,7 +62,7 @@ public class OlmCrippleTimerOverlay extends Overlay {
             NPC olmHand = plugin.getHand();
             final String tickStr = String.valueOf(tick);
             Point canvasPoint = olmHand.getCanvasTextLocation(graphics, tickStr, 50);
-            renderTextLocation(graphics, tickStr, 12 , Font.BOLD, Color.GRAY, canvasPoint);
+			renderTextLocation(graphics, tickStr, 12, Font.BOLD, Color.CYAN, canvasPoint);
         }
 
 
