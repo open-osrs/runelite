@@ -99,10 +99,10 @@ public class RuneLiteSplashScreen
 		{
 			try
 			{
-				final BufferedImage logo = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/KappaLite+.png"));
+				final BufferedImage logo = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/runeliteplus.png"));
 				frame.setIconImage(logo);
 
-				final BufferedImage logoTransparent = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/KappaLite+_transparent.png"));
+				final BufferedImage logoTransparent = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/runeliteplus_transparent.png"));
 				final GridBagConstraints logoConstraints = new GridBagConstraints();
 				logoConstraints.anchor = GridBagConstraints.SOUTH;
 				panel.add(new JLabel(new ImageIcon(logoTransparent.getScaledInstance(96, 96, Image.SCALE_SMOOTH))), logoConstraints);
