@@ -24,11 +24,10 @@
  */
 package net.runelite.client.plugins.aoewarnings;
 
-import net.runelite.api.ProjectileID;
-
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import net.runelite.api.ProjectileID;
 
 public enum AoeProjectileInfo
 {
@@ -104,11 +103,11 @@ public enum AoeProjectileInfo
 	 */
     ADDY_DRAG_POISON(ProjectileID.ADDY_DRAG_POISON, 2400, 1),
 
-    /**
-     * the Breath of the Drake
-     */
+	/**
+	 * the Breath of the Drake
+	 */
 
-    DRAKE_BREATH(ProjectileID.DRAKE_BREATH, 2800, 1);
+	DRAKE_BREATH(ProjectileID.DRAKE_BREATH, 2800, 1);
 
 	private static final Map<Integer, AoeProjectileInfo> map = new HashMap<>();
 
