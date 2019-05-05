@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import java.awt.*;
 import java.time.Instant;
+import java.time.Duration;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -85,7 +86,7 @@ public class AoeWarningOverlay extends Overlay
 		{
 			AoeProjectile aoeProjectile = it.next();
 
-			if (now.isAfter(aoeProjectile.getStartTime().plus(aoeProjectile.getAoeProjectileInfo().getLifeTime())))
+			if (now.isAfter(aoeProjectile.getStartTime().plus(Duration.ofMillis(aoeProjectile.getProjectileLifetime()))))
 			{
 				it.remove();
 				continue;
@@ -98,7 +99,7 @@ public class AoeWarningOverlay extends Overlay
 			}
 
 			// how far through the projectiles lifetime between 0-1.
-			double progress = (System.currentTimeMillis() - aoeProjectile.getStartTime().toEpochMilli()) / (double) aoeProjectile.getAoeProjectileInfo().getLifeTime().toMillis();
+			double progress = (System.currentTimeMillis() - aoeProjectile.getStartTime().toEpochMilli()) / (double) aoeProjectile.getProjectileLifetime();
 
 			int fillAlpha, outlineAlpha;
 			if (config.isFadeEnabled())

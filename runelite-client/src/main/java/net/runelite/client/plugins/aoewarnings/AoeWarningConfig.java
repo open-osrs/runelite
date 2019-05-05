@@ -259,4 +259,13 @@ public interface AoeWarningConfig extends Config
     default boolean isDrakeEnabled() {
         return true;
     }
+
+	@ConfigItem(
+		keyName = "delay",
+		name = "Fade delay",
+		description = "Configures the amount of time in milliseconds that the warning lingers for after the projectile has touched the ground"
+	)
+	default int delay() {
+		return 300;
+	}
 }
