@@ -62,20 +62,18 @@ import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 import java.util.logging.Logger;
+import javassist.ClassPool;
+import javassist.NotFoundException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-
-import javassist.ClassPool;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.RuneLite;
 import static net.runelite.client.rs.ClientUpdateCheckMode.AUTO;
 import static net.runelite.client.rs.ClientUpdateCheckMode.NONE;
 import static net.runelite.client.rs.ClientUpdateCheckMode.VANILLA;
-
-import net.runelite.client.RuneLite;
-import net.runelite.client.rs.bytecode.ByteCodeUtils;
 import net.runelite.client.rs.bytecode.ByteCodePatcher;
+import net.runelite.client.rs.bytecode.ByteCodeUtils;
 import net.runelite.client.rs.bytecode.Hooks;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Request;
@@ -184,7 +182,7 @@ public class ClientLoader
 						if (!file.getValue().equals(ourHash))
 						{
 							if (hijackedClientFile.exists()) {
-								Logger.getAnonymousLogger().warning("[RuneLitePlus] Hash checking / Client patching skipped due to hijacked client.");
+								Logger.getAnonymousLogger().warning("[KappaLite+] Hash checking / Client patching skipped due to hijacked client.");
 								updateCheckMode = VANILLA;
 								break;
 							} else {
@@ -240,18 +238,18 @@ public class ClientLoader
 						hooks.projectileClass.equals("") ||
 						hooks.actorClass.equals("") ||
 							hooks.playerClass.equals("")) {
-							System.out.println("[RuneLitePlus] Bad hooks, re-scraping.");
+						System.out.println("[KappaLite+] Bad hooks, re-scraping.");
 						stepCount = getStepCount(ByteCodeUtils.injectedClientFile.getPath());
 						ByteCodePatcher.clientInstance = initHookScrape(ByteCodeUtils.injectedClientFile.getPath());
 						ByteCodePatcher.findHooks(injectedClientFile.getPath());
 					} else {
 						ByteCodePatcher.clientInstance = hooks.clientInstance;
 						ByteCodePatcher.applyHooks(ByteCodeUtils.injectedClientFile, hooks);
-						System.out.println("[RuneLitePlus] Loaded hooks");
+						System.out.println("[KappaLite+] Loaded hooks");
 					}
 
 				} else {
-					System.out.println("[RuneLitePlus] Hooks file not found, scraping hooks.");
+					System.out.println("[KappaLite+] Hooks file not found, scraping hooks.");
 					stepCount = getStepCount(ByteCodeUtils.injectedClientFile.getPath());
 					ByteCodePatcher.clientInstance = initHookScrape(ByteCodeUtils.injectedClientFile.getPath());
 					ByteCodePatcher.hooks.protectedStuff = preotectedStuffs;

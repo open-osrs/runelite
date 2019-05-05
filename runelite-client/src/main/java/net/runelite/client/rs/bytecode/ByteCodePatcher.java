@@ -2,20 +2,6 @@ package net.runelite.client.rs.bytecode;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.NotFoundException;
-import net.runelite.client.RuneLite;
-import net.runelite.client.rs.ClientLoader;
-import net.runelite.client.rs.bytecode.transformers.ActorTransform;
-import net.runelite.client.rs.bytecode.transformers.ClientTransform;
-import net.runelite.client.rs.bytecode.transformers.ErrorTransform;
-import net.runelite.client.rs.bytecode.transformers.PlayerTransform;
-import net.runelite.client.rs.bytecode.transformers.ProjectileTransform;
-import net.runelite.http.api.RuneLiteAPI;
-import org.xeustechnologies.jcl.JarClassLoader;
-
-import javax.swing.*;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
+import net.runelite.client.RuneLite;
+import net.runelite.client.rs.ClientLoader;
+import net.runelite.client.rs.bytecode.transformers.ActorTransform;
+import net.runelite.client.rs.bytecode.transformers.ClientTransform;
+import net.runelite.client.rs.bytecode.transformers.ErrorTransform;
+import net.runelite.client.rs.bytecode.transformers.PlayerTransform;
+import net.runelite.client.rs.bytecode.transformers.ProjectileTransform;
+import net.runelite.http.api.RuneLiteAPI;
+import org.xeustechnologies.jcl.JarClassLoader;
 
 public class ByteCodePatcher {
 
@@ -155,10 +153,10 @@ public class ByteCodePatcher {
 
 	public static void checkActor(Class current) {
 		try {
-			Method method = current.getDeclaredMethod("setCombatInfo", new Class[] { int.class, int.class, int.class, int.class, int.class, int.class });
+			Method method = current.getDeclaredMethod("setCombatInfo", int.class, int.class, int.class, int.class, int.class, int.class);
 			if (method!=null) {
 				hooks.actorClass = current.getName();
-				System.out.println("[RuneLitePlus] Transforming Actor at class: "+current.getName());
+				System.out.println("[KappaLite+] Transforming Actor at class: " + current.getName());
 				ActorTransform at = new ActorTransform();
 				at.modify(current);
 			}
@@ -170,17 +168,17 @@ public class ByteCodePatcher {
 	}
 
 	public static void transformActor(Class actor) {
-		System.out.println("[RuneLitePlus] Transforming Actor at class: "+actor.getName());
+		System.out.println("[KappaLite+] Transforming Actor at class: " + actor.getName());
 		ActorTransform at = new ActorTransform();
 		at.modify(actor);
 	}
 
 	public static void checkProjectile(Class current) {
 		try {
-			Method method = current.getDeclaredMethod("projectileMoved", new Class[] { int.class, int.class, int.class, int.class});
+			Method method = current.getDeclaredMethod("projectileMoved", int.class, int.class, int.class, int.class);
 			if (method!=null) {
 				hooks.projectileClass = current.getName();
-				System.out.println("[RuneLitePlus] Transforming Projectile at class: "+current.getName());
+				System.out.println("[KappaLite+] Transforming Projectile at class: " + current.getName());
 				ProjectileTransform pt = new ProjectileTransform();
 				pt.modify(current);
 			}
@@ -192,7 +190,7 @@ public class ByteCodePatcher {
 	}
 
 	public static void transformProjectile(Class projectile) {
-		System.out.println("[RuneLitePlus] Transforming Projectile at class: "+projectile.getName());
+		System.out.println("[KappaLite+] Transforming Projectile at class: " + projectile.getName());
 		ProjectileTransform pt = new ProjectileTransform();
 		pt.modify(projectile);
 	}
@@ -202,7 +200,7 @@ public class ByteCodePatcher {
 			Method method = current.getDeclaredMethod("getSkullIcon");
 			if (method!=null) {
 				hooks.playerClass = current.getName();
-				System.out.println("[RuneLitePlus] Transforming Player at class: "+current.getName());
+				System.out.println("[KappaLite+] Transforming Player at class: " + current.getName());
 				PlayerTransform pt = new PlayerTransform();
 				pt.modify(current);
 			}
@@ -214,13 +212,13 @@ public class ByteCodePatcher {
 	}
 
 	public static void transformPlayer(Class player) {
-		System.out.println("[RuneLitePlus] Transforming Player at class: "+player.getName());
+		System.out.println("[KappaLite+] Transforming Player at class: " + player.getName());
 		PlayerTransform pt = new PlayerTransform();
 		pt.modify(player);
 	}
 
 	public static void transformClient(Class clazz) {
-		System.out.println("[RuneLitePlus] Transforming Client");
+		System.out.println("[KappaLite+] Transforming Client");
 		ClientTransform bt = new ClientTransform();
 		bt.modify(clazz);
 	}

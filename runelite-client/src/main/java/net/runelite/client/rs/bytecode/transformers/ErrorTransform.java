@@ -18,7 +18,7 @@ public class ErrorTransform implements Transform {
     @Override
     public void modify(Class clazz) {
         try {
-            System.out.println("[RuneLitePlus] Transforming error method at class: "+ERROR_INSTANCE_CLASS);
+			System.out.println("[KappaLite+] Transforming error method at class: " + ERROR_INSTANCE_CLASS);
 
 			ct = ByteCodePatcher.classPool.get(ERROR_INSTANCE_CLASS);
             transformError();
@@ -37,7 +37,7 @@ public class ErrorTransform implements Transform {
 		error = CtMethod.make(
 			"public static void a(String string, Throwable throwable, byte by) {"+
 				"throwable.printStackTrace();"+
-				"System.out.println(\"[RuneLitePlus] Prevented preceeding stack trace from being sent to Jagex\");}", ct);
+				"System.out.println(\"[KappaLite+] Prevented preceeding stack trace from being sent to Jagex\");}", ct);
 		ct.addMethod(error);
 	}
 }

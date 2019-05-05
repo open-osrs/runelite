@@ -24,7 +24,10 @@
  */
 package net.runelite.client.ui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -36,7 +39,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicProgressBarUI;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.RuneLiteProperties;
@@ -71,7 +73,7 @@ public class RuneLiteSplashScreen
 		SwingUtil.setupRuneLiteLookAndFeel();
 
 		// init fields with updated swing look and feel
-		frame = new JFrame("RuneLitePlus Loading");
+		frame = new JFrame("KappaLite+ Loading");
 		messageLabel = new JLabel("Loading...");
 		subMessageLabel = new JLabel();
 		progressBar.setUI(new BasicProgressBarUI());
@@ -97,10 +99,10 @@ public class RuneLiteSplashScreen
 		{
 			try
 			{
-				final BufferedImage logo = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/runeliteplus.png"));
+				final BufferedImage logo = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/KappaLite+.png"));
 				frame.setIconImage(logo);
 
-				final BufferedImage logoTransparent = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/runeliteplus_transparent.png"));
+				final BufferedImage logoTransparent = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/KappaLite+_transparent.png"));
 				final GridBagConstraints logoConstraints = new GridBagConstraints();
 				logoConstraints.anchor = GridBagConstraints.SOUTH;
 				panel.add(new JLabel(new ImageIcon(logoTransparent.getScaledInstance(96, 96, Image.SCALE_SMOOTH))), logoConstraints);
@@ -112,7 +114,7 @@ public class RuneLiteSplashScreen
 		}
 
 		// runelite title
-		final JLabel title = new JLabel("RuneLitePlus");
+		final JLabel title = new JLabel("KappaLite+");
 		final GridBagConstraints titleConstraints = new GridBagConstraints();
 		titleConstraints.gridy = 1;
 		panel.add(title, titleConstraints);
