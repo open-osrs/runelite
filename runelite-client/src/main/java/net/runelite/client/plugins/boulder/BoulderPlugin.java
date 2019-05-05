@@ -21,6 +21,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 
@@ -29,7 +30,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Raid Shortcuts",
 	description = "Highlights Raid Shortcuts",
 	tags = {"boulder", "cox", "raids", "highlight"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	type = PluginType.UTILITY
 )
 public class BoulderPlugin extends Plugin
 {
