@@ -33,14 +33,12 @@ public class AoeProjectile
 	private final Instant startTime;
 	private final LocalPoint targetPoint;
 	private final AoeProjectileInfo aoeProjectileInfo;
-	private final int projectileLifetime;
 
-	public AoeProjectile(Instant startTime, LocalPoint targetPoint, AoeProjectileInfo aoeProjectileInfo, int projectileLifetime)
+	public AoeProjectile(Instant startTime, LocalPoint targetPoint, AoeProjectileInfo aoeProjectileInfo)
 	{
 		this.startTime = startTime;
 		this.targetPoint = targetPoint;
 		this.aoeProjectileInfo = aoeProjectileInfo;
-		this.projectileLifetime = projectileLifetime;
 	}
 
 	public Instant getStartTime()
@@ -56,9 +54,5 @@ public class AoeProjectile
 	public AoeProjectileInfo getAoeProjectileInfo()
 	{
 		return aoeProjectileInfo;
-	}
-
-	public int getProjectileLifetime() {
-		return projectileLifetime;
 	}
 }

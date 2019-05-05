@@ -116,12 +116,11 @@ public class AoeWarningPlugin extends Plugin
 		Projectile projectile = event.getProjectile();
 
 		int projectileId = projectile.getId();
-		int projectileLifetime = config.delay() + (projectile.getRemainingCycles() * 20);
 		AoeProjectileInfo aoeProjectileInfo = AoeProjectileInfo.getById(projectileId);
 		if (aoeProjectileInfo != null && isConfigEnabledForProjectileId(projectileId))
 		{
 			LocalPoint targetPoint = event.getPosition();
-			AoeProjectile aoeProjectile = new AoeProjectile(Instant.now(), targetPoint, aoeProjectileInfo, projectileLifetime);
+			AoeProjectile aoeProjectile = new AoeProjectile(Instant.now(), targetPoint, aoeProjectileInfo);
 			projectiles.put(projectile, aoeProjectile);
 		}
 	}

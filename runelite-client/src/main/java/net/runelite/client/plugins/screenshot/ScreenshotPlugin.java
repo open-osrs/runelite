@@ -254,17 +254,18 @@ public class ScreenshotPlugin extends Plugin
 	{
         if(config.screenshotFriendDeath()) {
             for (Player p : dying) {
+                Actor rsp = p;
                 //double checking animation in case I did a fucky wucky
                 //in case the action frame is wrong the checking if higher than or equal to
                 //not sure where exactly player lay down, from the limited testing I've done (me lazy) it's frame 8/9ish
-                if (p.getActionFrame() >= 8 && p.getAnimation() == 836) {
+                if (rsp.getActionFrame() >= 8 && rsp.getAnimation() == 836) {
                     takeScreenshot(p.getName() + "ded " + format(new Date()));
                     dying.remove(p);
                 }
                 //if they get out of range or something, they'll still get removed
 
-                if (p.getAnimation() != 836)
-                    dying.remove(p);
+                if (rsp.getAnimation() != 836)
+                    dying.remove(rsp);
             }
         }
 		if (!shouldTakeScreenshot)
@@ -305,23 +306,11 @@ public class ScreenshotPlugin extends Plugin
             return;
         Player p = (Player) e.getActor();
 
-
-        if(p.getAnimation() != 836)
-        {
+        if(p.getName().equals(client.getLocalPlayer().getName()))
+            return;
+        if(p.getAnimation() != 836) {
             return;
         }
-        if(p.getName().equals(client.getLocalPlayer().getName()))
-		{
-			if (config.screenshotPlayerDeath())
-			{
-				dying.add(p);
-			}
-			else
-			{
-				return;
-			}
-		}
-
         int tob = client.getVar(Varbits.THEATRE_OF_BLOOD);
 
         if(client.getVar(Varbits.IN_RAID) == 1 || tob == 2 || tob == 3 || p.isFriend()) {
@@ -329,6 +318,14 @@ public class ScreenshotPlugin extends Plugin
             dying.add(p);
         }
     }
+	@Subscribe
+	public void onLocalPlayerDeath(LocalPlayerDeath death)
+	{
+		if (config.screenshotPlayerDeath())
+		{
+			takeScreenshot("Death " + format(new Date()));
+		}
+	}
 
 	@Subscribe
 	public void onPlayerLootReceived(final PlayerLootReceived playerLootReceived)
