@@ -53,7 +53,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.Text;
 
 @PluginDescriptor(
-        name = "Theater of Blood",
+        name = "Theatre of Blood",
         description = "All-in-one plugin for Theatre of Blood",
 	tags = {"ToB", "theatre", "blood"},
         enabledByDefault = false,
@@ -580,7 +580,7 @@ public class TheatrePlugin extends Plugin {
     public void onAnimationChanged(AnimationChanged event) {
         if (runVerzik) {
             if (event.getActor().getAnimation() == 8117) {
-                redCrabsTimer = 11;
+                redCrabsTimer = 12;
             }
         }
     }

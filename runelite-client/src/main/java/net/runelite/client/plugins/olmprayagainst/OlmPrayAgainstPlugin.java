@@ -49,7 +49,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Olm Pray Against",
 	description = "Tells you what to pray against Olm",
 	tags = {"prayer", "olm", "raids", "pray against", "cox"},
-	type = PluginType.PVM
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Slf4j
 @Singleton

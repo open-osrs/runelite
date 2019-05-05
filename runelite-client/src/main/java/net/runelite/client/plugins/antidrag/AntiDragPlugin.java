@@ -23,51 +23,28 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.runelite.client.plugins.antidrag;
-/*
- * Copyright (c) 2018, https://runelitepl.us
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import java.awt.event.KeyEvent;
 import net.runelite.api.Client;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 
 @PluginDescriptor(
-	name = "Shift Anti Drag",
-	description = "Prevent dragging an item for a specified delay",
-	tags = {"antidrag", "delay", "inventory", "items"},
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Anti Drag",
+		description = "Prevent dragging an item for a specified delay",
+		tags = {"antidrag", "delay", "inventory", "items"},
+		enabledByDefault = false
 )
-public class AntiDragPlugin extends Plugin
+public class AntiDragPlugin extends Plugin implements KeyListener
 {
 	private static final int DEFAULT_DELAY = 5;
 	private boolean toggleDrag;
@@ -97,7 +74,8 @@ public class AntiDragPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		keyManager.registerKeyListener(hotkeyListener);
-		toggleDrag = false;
+		keyManager.registerKeyListener(this);
+		toggleDrag = config.defaultOn();
 
 	}
 
@@ -106,9 +84,36 @@ public class AntiDragPlugin extends Plugin
 	{
 		client.setInventoryDragDelay(DEFAULT_DELAY);
 		keyManager.unregisterKeyListener(hotkeyListener);
+		keyManager.registerKeyListener(this);
 		toggleDrag = false;
 		overlayManager.remove(overlay);
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e)
+	{
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT && config.shiftAlways())
+		{
+			client.setInventoryDragDelay(config.dragDelay());
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT && !toggleDrag)
+		{
+			client.setInventoryDragDelay(DEFAULT_DELAY);
+		}
+	}
+
+
 
 	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> config.key())
 	{
@@ -132,6 +137,8 @@ public class AntiDragPlugin extends Plugin
 			}
 		}
 	};
+
+
 
 	@Subscribe
 	public void onFocusChanged(FocusChanged focusChanged)

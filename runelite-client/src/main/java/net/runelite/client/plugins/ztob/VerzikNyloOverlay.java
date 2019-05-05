@@ -57,7 +57,7 @@ public class VerzikNyloOverlay extends Overlay {
 							if (npc.getInteracting().getName().toLowerCase().equals(client.getLocalPlayer().getName().toLowerCase()))
 							{
 								point = npc.getCanvasTextLocation(graphics, client.getLocalPlayer().getName(), 0);
-                                renderText = "YOU NIGGA RUN!";
+                                renderText = "YOU!";
 
 							}
 							else if (npc.getInteracting().getName().toLowerCase().equals("afyy"))
@@ -65,7 +65,7 @@ public class VerzikNyloOverlay extends Overlay {
 								point = npc.getCanvasTextLocation(graphics, "Ricecup", 0);
                                 renderText = "Ricecup";
                             }
-							if (renderText.equals("YOU NIGGA RUN!"))
+							if (renderText.equals("YOU!"))
 							{
                                 renderTextLocation(graphics, renderText, 12, Font.BOLD, Color.RED, point);
 							}

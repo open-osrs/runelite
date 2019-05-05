@@ -83,6 +83,7 @@ public class TickCounterPlugin extends Plugin {
 					delta = 2;
 				}
 				break;
+			case 2075: // karils xbow
 			case 2323: // rpg
 			case 7618: // chin
 				delta = 3;
@@ -102,7 +103,13 @@ public class TickCounterPlugin extends Plugin {
 			case 1062: // dds spec
 			case 1067: // claw stab
 			case 1074: // msb spec
-			case 1167: // trident cast
+			case 1167: // trident cast or wave spell
+				//Weapons in order, Trident of the swamp (e), sang staff, trident of the seas, trident of the seas (full)
+				//trident of the seas (e), trident of the swamp, Dawnbringer
+				if(!(weapon ==22292 || weapon == 22323 || weapon == 11907 || weapon == 11905 || weapon == 22288 || weapon == 12899 || weapon == 22516)) {
+					delta = 5;
+					break;
+				}
 			case 1658: // whip
 			case 2890: // arclight spec
 			case 3294: // abby dagger slash
@@ -119,7 +126,8 @@ public class TickCounterPlugin extends Plugin {
 				delta = 4;
 				break;
 			case 393: // staff bash
-				if (weapon == 13652) { // claw scratch
+				if (weapon == 13652) // claw scratch
+				{
 					delta = 4;
 					break;
 				}
@@ -136,6 +144,8 @@ public class TickCounterPlugin extends Plugin {
 			case 401:
 				if (weapon == 13576) // dwh bop
 					delta = 6;
+				if (weapon == 23360) // ham joint
+					delta = 3;
 				else // used by pickaxe and axe
 					delta = 5;
 				break;
@@ -158,9 +168,9 @@ public class TickCounterPlugin extends Plugin {
 			case 1203: // chally spec
 				delta = 7;
 				break;
-		case -1:
-			blowpiping.remove(p);
-			break;
+			case -1:
+				blowpiping.remove(p);
+				break;
 		}
 		if (delta > 0) {
 			String name = p.getName();

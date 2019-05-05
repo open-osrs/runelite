@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, https://runelitepl.us
+ * Copyright (c) 2018, DennisDeV <https://github.com/DevDennis>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,10 +37,10 @@ import net.runelite.client.config.ModifierlessKeybind;
 public interface AntiDragConfig extends Config
 {
 	@ConfigItem(
-		keyName = "dragDelay",
-		name = "Drag Delay",
-		description = "Configures the inventory drag delay in client ticks (20ms)",
-		position = 1
+			keyName = "dragDelay",
+			name = "Drag Delay",
+			description = "Configures the inventory drag delay in client ticks (20ms)",
+			position = 1
 	)
 	default int dragDelay()
 	{
@@ -48,10 +48,10 @@ public interface AntiDragConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "keybind",
-		name = "keybind",
-		description = "The keybind you want to use for antidrag",
-		position = 2
+			keyName = "keybind",
+			name = "Keybind",
+			description = "The keybind you want to use for antidrag",
+			position = 2
 	)
 	default Keybind key()
 	{
@@ -59,10 +59,10 @@ public interface AntiDragConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "reqfocus",
-		name = "Reset on focus loss",
-		description = "Disable antidrag when losing focus (like alt tabbing)",
-		position = 3
+			keyName = "reqfocus",
+			name = "Reset on focus loss",
+			description = "Disable antidrag when losing focus (like alt tabbing)",
+			position = 3
 	)
 	default boolean reqfocus()
 	{
@@ -70,25 +70,47 @@ public interface AntiDragConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "overlay",
-		name = "Enable overlay",
-		description = "Do you really need a description?",
-		position = 4
+			keyName = "overlay",
+			name = "Enable overlay",
+			description = "Adds an overlay letting you know whether the antidrag is enabled",
+			position = 4
 	)
 	default boolean overlay()
 	{
 		return true;
 	}
 
+	@ConfigItem(
+			keyName = "shiftAlways",
+			name = "Shift Always Anti-Drag",
+			description = "Makes it so that regardless of whether antidrag is toggled, shift clicking will always anti-drag",
+			position = 5
+	)
+	default boolean shiftAlways()
+	{
+		return true;
+	}
+
 	@Alpha
 	@ConfigItem(
-		keyName = "color",
-		name = "Overlay color",
-		description = "Change the overlay color, duh",
-		position = 5
+			keyName = "color",
+			name = "Overlay color",
+			description = "Change the overlay color, duh",
+			position = 6
 	)
 	default Color color()
 	{
 		return new Color(255, 0, 0, 30);
+	}
+
+	@ConfigItem(
+		keyName = "defaultOn",
+		name = "Enabled by default",
+		description = "Anti drag on by default when you load the client",
+		position = 7
+	)
+	default boolean defaultOn()
+	{
+		return false;
 	}
 }
