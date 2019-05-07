@@ -294,6 +294,26 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "depositAll",
+		name = "Deposit X",
+		description = "Swap Deposit-1 with saved Deposit-All amount when shift is held"
+	)
+	default boolean depositAll()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "withdrawAll",
+		name = "Withdraw X",
+		description = "Swap Withdraw-1 with saved Withdraw-All amount when Shift is held"
+	)
+	default boolean withdrawAll()
+	{
+		return true;
+	}
+
+	@ConfigItem(
 		keyName = "swapRogueschests",
 		name = "Rogueschests",
 		description = "Swap Rogueschests from open to Search for traps"

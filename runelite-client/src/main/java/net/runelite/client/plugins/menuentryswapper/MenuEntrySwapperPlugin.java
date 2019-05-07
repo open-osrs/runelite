@@ -28,6 +28,8 @@ package net.runelite.client.plugins.menuentryswapper;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -518,61 +520,70 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			swap("lay", option, target, true);
 		}
-		
+
+		else if (config.depositAll() && option.equals("deposit-1") && shiftModifier)
+		{
+			swap("(deposit-(?!1$|5$|10$)[0-9]*)", "(deposit-1)", target);
+		}
+		else if (config.withdrawAll() && option.equals("withdraw-1") && shiftModifier)
+		{
+			swap("(withdraw-(?!1$|5$|10$)[0-9]*)", "(withdraw-1)", target);
+		}
+
 		else if (config.swapChase() && option.equals("pick-up"))
 		{
 			swap("chase", option, target, true);
 		}
-		
+
 		else if (config.swapBirdhouseEmpty() && option.equals("interact") && target.contains("birdhouse"))
 		{
 			swap("empty", option, target, true);
 		}
-		
+
 		else if (config.swapQuick() && option.equals("ring"))
 		{
 			swap("quick-start", option, target, true);
 		}
-		
+
 		else if (config.swapQuick() && option.equals("pass"))
 		{
 			swap("quick-pass", option, target, true);
 			swap("quick pass", option, target, true);
 		}
-		
+
 		else if (config.swapQuick() && option.equals("open"))
 		{
 			swap("quick-open", option, target, true);
 		}
-		
+
 		else if (config.swapAdmire() && option.equals("admire"))
 		{
 			swap("teleport", option, target, true);
 			swap("spellbook", option, target, true);
 			swap("perks", option, target, true);
 		}
-		
+
 		else if (config.swapPrivate() && option.equals("shared"))
 		{
 			swap("private", option, target, true);
 		}
-		
+
 		else if (config.swapPick() && option.equals("pick"))
 		{
 			swap("pick-lots", option, target, true);
 		}
-		
+
 		else if (config.swapRogueschests() && target.contains("chest"))
 		{
 			swap("search for traps", option, target, true);
 		}
-		
+
 		else if (config.rockCake() && option.equals("eat"))
 		{
-			swap("guzzle", option, target, true); 
+			swap("guzzle", option, target, true);
 		}
-		
-		
+
+
 		else if (config.shiftClickCustomization() && shiftModifier && !option.equals("use"))
 		{
 			Integer customOption = getSwapConfig(eventId);
@@ -582,7 +593,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				swap("use", option, target, true);
 			}
 		}
-		
+
 		// Put all item-related swapping after shift-click
 		else if (config.swapTeleportItem() && option.equals("wear"))
 		{
@@ -667,6 +678,40 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
+	private int searchIndex(MenuEntry[] entries, String regex, String target)
+	{
+		Pattern pattern = Pattern.compile(regex);
+		for (int i = entries.length - 1; i >= 0; i--)
+		{
+			MenuEntry entry = entries[i];
+			String entryOption = Text.removeTags(entry.getOption()).toLowerCase();
+			String entryTarget = Text.removeTags(entry.getTarget()).toLowerCase();
+			Matcher matcher = pattern.matcher(entryOption);
+			if (matcher.matches() && entryTarget.equals(target))
+			{
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	private void swap(String regexA, String regexB, String target)
+	{
+		MenuEntry[] entries = client.getMenuEntries();
+
+		int idxA = searchIndex(entries, regexA, target);
+		int idxB = searchIndex(entries, regexB, target);
+
+		if (idxA >= 0 && idxB >= 0)
+		{
+			MenuEntry entry = entries[idxA];
+			entries[idxA] = entries[idxB];
+			entries[idxB] = entry;
+
+			client.setMenuEntries(entries);
+		}
+	}
 	private void removeShiftClickCustomizationMenus()
 	{
 		menuManager.removeManagedCustomMenu(FIXED_INVENTORY_TAB_CONFIGURE);
