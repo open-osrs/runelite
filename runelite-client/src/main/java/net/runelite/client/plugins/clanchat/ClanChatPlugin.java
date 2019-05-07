@@ -33,11 +33,13 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
 import net.runelite.api.ChatLineBuffer;
@@ -47,7 +49,9 @@ import net.runelite.api.ClanMemberRank;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.MessageNode;
+import net.runelite.api.Opcodes;
 import net.runelite.api.Player;
+import net.runelite.api.Script;
 import net.runelite.api.ScriptID;
 import net.runelite.api.SpriteID;
 import net.runelite.api.VarClientStr;
@@ -61,7 +65,10 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
+import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarClientStrChanged;
+import net.runelite.api.events.WidgetMenuOptionClicked;
+import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetType;
@@ -71,6 +78,8 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.game.SpriteManager;
+import net.runelite.client.menus.MenuManager;
+import net.runelite.client.menus.WidgetMenuOption;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import static net.runelite.client.ui.JagexColors.CHAT_CLAN_NAME_OPAQUE_BACKGROUND;
@@ -87,7 +96,7 @@ import net.runelite.client.util.Text;
 )
 public class ClanChatPlugin extends Plugin
 {
-	private static final int MAX_CHATS = 10;
+	private static final int MAX_CHATS = 20;
 	private static final String CLAN_CHAT_TITLE = "CC";
 	private static final String RECENT_TITLE = "Recent CCs";
 	private static final int JOIN_LEAVE_DURATION = 20;
@@ -111,6 +120,9 @@ public class ClanChatPlugin extends Plugin
 	@Inject
 	private ClientThread clientThread;
 
+	@Inject
+	private MenuManager menuManager;
+
 	private List<String> chats = new ArrayList<>();
 	
 	public static CopyOnWriteArrayList<Player> getClanMembers()
@@ -126,6 +138,8 @@ public class ClanChatPlugin extends Plugin
 	private final Deque<ClanJoinMessage> clanJoinMessages = new ArrayDeque<>();
 	private Map<String, ClanMemberActivity> activityBuffer = new HashMap<>();
 	private int clanJoinedTick;
+
+	private ConcurrentHashMap<Widget, WidgetMenuOption> ccWidgetMap = new ConcurrentHashMap<Widget, WidgetMenuOption>();
 
 	@Provides
 	ClanChatConfig getConfig(ConfigManager configManager)
@@ -525,6 +539,7 @@ public class ClanChatPlugin extends Plugin
 		}
 	}
 
+
 	private void resetClanChats()
 	{
 		Widget clanChatList = client.getWidget(WidgetInfo.CLAN_CHAT_LIST);
@@ -546,6 +561,8 @@ public class ClanChatPlugin extends Plugin
 	private void loadClanChats()
 	{
 		Widget clanChatList = client.getWidget(WidgetInfo.CLAN_CHAT_LIST);
+		clanChatList.setScrollHeight( 14 * chats.size());
+		clanChatList.revalidateScroll();
 		if (clanChatList == null)
 		{
 			return;
@@ -557,8 +574,14 @@ public class ClanChatPlugin extends Plugin
 		{
 			Widget widget = clanChatList.createChild(-1, WidgetType.TEXT);
 			widget.setFontId(494);
+			widget.setHasListener(true);
+
 			widget.setTextColor(0xffffff);
 			widget.setText(chat);
+			widget.setTextShadowed(true);
+			widget.setBorderType(1);
+			widget.setAction(0, "Join");
+			widget.setOnOpListener(ScriptID.FORCE_JOIN_CC, widget.getText());
 			widget.setOriginalHeight(14);
 			widget.setOriginalWidth(142);
 			widget.setOriginalY(y);
@@ -567,6 +590,7 @@ public class ClanChatPlugin extends Plugin
 
 			y += 14;
 		}
+		clanChatList.revalidateScroll();
 	}
 
 	private void updateRecentChat(String s)
