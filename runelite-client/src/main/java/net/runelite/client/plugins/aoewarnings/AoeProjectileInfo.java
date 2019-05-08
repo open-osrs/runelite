@@ -110,8 +110,12 @@ public enum AoeProjectileInfo
     /**
      * the Breath of the Drake
      */
+	DRAKE_BREATH(ProjectileID.DRAKE_BREATH, 1),
 
-	DRAKE_BREATH(ProjectileID.DRAKE_BREATH, 1);
+	/**
+	 * Cerbs fire
+	 */
+	CERB_FIRE(ProjectileID.CERB_FIRE, 2);
 
 	private static final Map<Integer, AoeProjectileInfo> map = new HashMap<>();
 
