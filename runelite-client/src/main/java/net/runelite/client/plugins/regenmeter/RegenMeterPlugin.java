@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2019, Sean Dewar <https://github.com/seandewar>
+ * Copyright (c) 2018, Abex
  * Copyright (c) 2018, Zimaya <https://github.com/Zimaya>
  * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -37,6 +38,7 @@ import net.runelite.api.VarPlayer;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -46,18 +48,22 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @PluginDescriptor(
 	name = "Regeneration Meter",
 	description = "Track and show the hitpoints and special attack regeneration timers",
-	tags = {"combat", "health", "hitpoints", "special", "attack", "overlay"}
+	tags = {"combat", "health", "hitpoints", "special", "attack", "overlay", "notifications"}
 )
 public class RegenMeterPlugin extends Plugin
 {
 	private static final int SPEC_REGEN_TICKS = 50;
 	private static final int NORMAL_HP_REGEN_TICKS = 100;
+	private static final double HP_REGEN_TICK_LENGTH = 0.6;
 
 	@Inject
 	private Client client;
 
 	@Inject
 	private OverlayManager overlayManager;
+
+	@Inject
+	private Notifier notifier;
 
 	@Inject
 	private RegenMeterOverlay overlay;
@@ -149,5 +155,18 @@ public class RegenMeterPlugin extends Plugin
 			// Show it going down
 			hitpointsPercentage = 1 - hitpointsPercentage;
 		}
+
+		if (config.getNotifyBeforeHpRegenSeconds() > 0 && currentHP < maxHP && shouldNotifyHpRegenThisTick(ticksPerHPRegen))
+		{
+			notifier.notify("[" + client.getLocalPlayer().getName() + "] regenerates their next hitpoint soon!");
+		}
+	}
+
+	private boolean shouldNotifyHpRegenThisTick(int ticksPerHPRegen)
+	{
+		// if the configured duration lies between two ticks, choose the earlier tick
+		final int ticksBeforeHPRegen = ticksPerHPRegen - ticksSinceHPRegen;
+		final int notifyTick = (int) Math.ceil(config.getNotifyBeforeHpRegenSeconds() / HP_REGEN_TICK_LENGTH);
+		return ticksBeforeHPRegen == notifyTick;
 	}
 }
