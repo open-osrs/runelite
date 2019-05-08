@@ -78,6 +78,8 @@ public class ProjectileID
 
 	public static final int XARPUS_ACID = 1555;
 
+	public static final int CERB_FIRE = 1247;
+
 	/**
 	 * missing: marble gargoyle, superior dark beast
 	 */

@@ -263,6 +263,16 @@ public interface AoeWarningConfig extends Config
     }
 
 	@ConfigItem(
+		keyName = "cerbFire",
+		name = "Cerberus Fire",
+		description = "Configures if Cerberus fire tile markers are displayed"
+	)
+	default boolean isCerbFireEnabled()
+	{
+		return true;
+	}
+
+	@ConfigItem(
 		keyName = "delay",
 		name = "Fade delay",
 		description = "Configures the amount of time in milliseconds that the warning lingers for after the projectile has touched the ground"
