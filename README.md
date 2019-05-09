@@ -26,7 +26,7 @@ We've set up a separate document for our [contribution guidelines](https://githu
 
 ## How do I know the .jar you provide is safe?
 
-The .jar file we provide is the same .jar file you would receive if you compiled the client from our repog. You can verify authenticity by manually building the .jar and comparing MD5 hashes.
+The .jar file we provide is the same .jar file you would receive if you compiled the client from our repository. You can verify authenticity by manually building the .jar and comparing MD5 hashes.
 
 The current MD5 checksum hash of RuneLitePlus is: 06F03248F379917715DDDE16B8A6BC11
 The current SHA1 checksum hash of RuneLitePlus is:1D9AB0900CA8394A80273739D11556CEC1109920
