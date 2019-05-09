@@ -23,3 +23,11 @@ RuneLitePlus is licensed under the BSD 2-clause license. See the license header 
 ## Contribute and Develop
 
 We've set up a separate document for our [contribution guidelines](https://github.com/runelite-extended/runelite/blob/master/.github/CONTRIBUTING.md).
+
+## How do I know the .jar you provide is safe?
+
+The .jar file we provide is the same .jar file you would receive if you compiled the client from our repog. You can verify authenticity by manually building the .jar and comparing MD5 hashes.
+
+The current MD5 checksum hash of RuneLitePlus is: 06F03248F379917715DDDE16B8A6BC11
+The current SHA1 checksum hash of RuneLitePlus is:1D9AB0900CA8394A80273739D11556CEC1109920
+The current SHA-256 checksum hash of RuneLitePlus is:3DA50838268BA360B98E870C56A580F8ADBE1619D6DE7B68C2478DA47545A553
