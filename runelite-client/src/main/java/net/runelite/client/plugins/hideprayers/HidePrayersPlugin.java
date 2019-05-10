@@ -210,132 +210,132 @@ public class HidePrayersPlugin extends Plugin
 				
 				if (config.showPrayers()) 
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[10].ordinal()).setHidden(false);// protect item
-					prayerWidgets.get(Prayer.values()[16].ordinal()).setHidden(false);// mage
-					prayerWidgets.get(Prayer.values()[17].ordinal()).setHidden(false);// range
-					prayerWidgets.get(Prayer.values()[18].ordinal()).setHidden(false);// melee
-					prayerWidgets.get(Prayer.values()[23].ordinal()).setHidden(false);// smite
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[10].ordinal()).setHidden(false);// protect item
+				prayerWidgets.get(Prayer.values()[16].ordinal()).setHidden(false);// mage
+				prayerWidgets.get(Prayer.values()[17].ordinal()).setHidden(false);// range
+				prayerWidgets.get(Prayer.values()[18].ordinal()).setHidden(false);// melee
+				prayerWidgets.get(Prayer.values()[23].ordinal()).setHidden(false);// smite
 
-					if (config.showEagle())
-					{
-					prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(true);// rigour
-					} 
-					else 
-					{
-						prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(false);// rigour
-					}
-
-					if (config.showMystic()) 
-					{
-					prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(true);// augury
-					} 
-					else 
-					{
-						prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(false);// augury
-					}
-
-					if (config.showUltStrength()) 
-					{
-					prayerWidgets.get(Prayer.values()[26].ordinal()).setHidden(true);// piety
-					} 
-					else 
-					{
-						prayerWidgets.get(Prayer.values()[26].ordinal()).setHidden(false);// piety
-					}
-
-					if (config.showPreserve()) 
-					{
-					prayerWidgets.get(Prayer.values()[24].ordinal()).setHidden(true);// Preserve
-					} 
-					else 
-					{
-						prayerWidgets.get(Prayer.values()[24].ordinal()).setHidden(false);// Preserve
-					}
-
-					if (config.showRedemption()) 
-					{
-					prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(true);// Redemption
-					} 
-					else 
-					{
-						prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(false);// Redemption
-					}
-
-					if (config.showRapidRestore()) 
-					{
-					prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);// Rapid Restore
-					} 
-					else 
-					{
-						prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);// Rapid Restore
-					}
-
-					if (config.showRapidHeal()) 
-					{
-					prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);// Rapid Heal
-					} 
-					else 
-					{
-						prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);// Rapid Heal
-					}
-				}
-
-				if (config.showEagle()) 
+				if (config.showEagle())
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[19].ordinal()).setHidden(false);// eagle
-					prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(true);// rigour
+				prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(true);// rigour
+				} 
+				else 
+				{
+				prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(false);// rigour
 				}
 
 				if (config.showMystic()) 
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[20].ordinal()).setHidden(false);// mystic
-					prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(true);// augury
+				prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(true);// augury
+				} 
+				else 
+				{
+				prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(false);// augury
 				}
 
 				if (config.showUltStrength()) 
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[13].ordinal()).setHidden(false);// Steel Skin
-					prayerWidgets.get(Prayer.values()[14].ordinal()).setHidden(false);// Ult Strength
-					prayerWidgets.get(Prayer.values()[15].ordinal()).setHidden(false);// Incredible Reflexes
-					prayerWidgets.get(Prayer.values()[26].ordinal()).setHidden(true);// piety
+				prayerWidgets.get(Prayer.values()[26].ordinal()).setHidden(true);// piety
+				} 
+				else 
+				{
+				prayerWidgets.get(Prayer.values()[26].ordinal()).setHidden(false);// piety
 				}
 
 				if (config.showPreserve()) 
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[24].ordinal()).setHidden(false);// Preserve
+				prayerWidgets.get(Prayer.values()[24].ordinal()).setHidden(true);// Preserve
+				} 
+				else 
+				{
+				prayerWidgets.get(Prayer.values()[24].ordinal()).setHidden(false);// Preserve
 				}
 
 				if (config.showRedemption()) 
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(false);// Redemption
+				prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(true);// Redemption
+				} 
+				else 
+				{
+				prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(false);// Redemption
 				}
 
 				if (config.showRapidRestore()) 
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);// Rapid Restore
+				prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);// Rapid Restore
+				} 
+				else 
+				{
+				prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);// Rapid Restore
 				}
 
 				if (config.showRapidHeal()) 
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);// Rapid Heal
+				prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);// Rapid Heal
+				} 
+				else 
+				{
+				prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);// Rapid Heal
+				}
+			}
+
+				if (config.showEagle()) 
+				{
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[19].ordinal()).setHidden(false);// eagle
+				prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(true);// rigour
+				}
+
+				if (config.showMystic()) 
+				{
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[20].ordinal()).setHidden(false);// mystic
+				prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(true);// augury
+				}
+
+				if (config.showUltStrength()) 
+				{
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[13].ordinal()).setHidden(false);// Steel Skin
+				prayerWidgets.get(Prayer.values()[14].ordinal()).setHidden(false);// Ult Strength
+				prayerWidgets.get(Prayer.values()[15].ordinal()).setHidden(false);// Incredible Reflexes
+				prayerWidgets.get(Prayer.values()[26].ordinal()).setHidden(true);// piety
+				}
+
+				if (config.showPreserve()) 
+				{
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[24].ordinal()).setHidden(false);// Preserve
+				}
+
+				if (config.showRedemption()) 
+				{
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(false);// Redemption
+				}
+
+				if (config.showRapidRestore()) 
+				{
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);// Rapid Restore
+				}
+
+				if (config.showRapidHeal()) 
+				{
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);// Rapid Heal
 				}
 
 				if (config.showZulrah())
 				{
-					prayerWidget.setHidden(true);
-					prayerWidgets.get(Prayer.values()[16].ordinal()).setHidden(false);// Protect from Magic
-					prayerWidgets.get(Prayer.values()[17].ordinal()).setHidden(false);// Protect from Range
-					prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(false);// Redemption
-					prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(false);// Rigour
-					prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(false);// Augury
+				prayerWidget.setHidden(true);
+				prayerWidgets.get(Prayer.values()[16].ordinal()).setHidden(false);// Protect from Magic
+				prayerWidgets.get(Prayer.values()[17].ordinal()).setHidden(false);// Protect from Range
+				prayerWidgets.get(Prayer.values()[22].ordinal()).setHidden(false);// Redemption
+				prayerWidgets.get(Prayer.values()[27].ordinal()).setHidden(false);// Rigour
+				prayerWidgets.get(Prayer.values()[28].ordinal()).setHidden(false);// Augury
 				}
 			}
 		}
