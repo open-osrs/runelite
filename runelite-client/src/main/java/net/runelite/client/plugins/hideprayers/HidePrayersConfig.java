@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 package net.runelite.client.plugins.hideprayers;
 
 import net.runelite.client.config.Config;
@@ -32,99 +32,111 @@ import net.runelite.client.config.ConfigItem;
 @ConfigGroup("hideprayers")
 public interface HidePrayersConfig extends Config
 {
-    @ConfigItem
-	(
-		position = 0,
-		keyName = "pk prayers",
-		name = "Hides none pk prayers",
-		description = "Hides widget icons."
-    )
-    default boolean showPrayers() 
-	{ 
-		return false; 
-	}
-    
-    @ConfigItem
-	(
-    	position = 1,
-    	keyName = "eagle",
-    	name = "Shows Eagle Eye Prayer",
-    	description = "Hides widget icons."
-    )
-    default boolean showEagle() 
-	{ 
-		return false;
-	}
-	
 	@ConfigItem
-	(
-    	position = 2,
-    	keyName = "mystic",
-    	name = "Shows Mystic Might Prayer",
-    	description = "Hides widget icons."
-    )
-    default boolean showMystic() 
-	{ 
+			(
+					position = 0,
+					keyName = "pk prayers",
+					name = "Hide/Show none pk prayers",
+					description = "Hide/Show PK Prayers."
+			)
+	default boolean showPrayers()
+	{
 		return false;
 	}
 
 	@ConfigItem
-	(
-		position = 3,
-		keyName = "ultstr",
-		name = "Shows Ultimate Strength/Incredible Reflex/Steel Skin",
-		description = "Hides widget icons."
-	)
-	default boolean showUltStrength() 
-	{ 
-		return false; 
-	}
-	
-	@ConfigItem
-	(
-		position = 4,
-		keyName = "preserve",
-		name = "Shows Preserve",
-		description = "unides widget icons."
-	)
-	default boolean showPreserve() 
-	{ 
-		return false; 
-	}
-	
-	@ConfigItem
-	(
-		position = 5,
-		keyName = "redemption",
-		name = "Shows Redemption",
-		description = "unides widget icons."
-	)
-	default boolean showRedemption() 
-	{ 
-		return false; 
+			(
+					position = 1,
+					keyName = "eagle",
+					name = "Hide/Show Eagle Eye",
+					description = "Hide/Show Eagle Eye"
+			)
+	default boolean showEagle()
+	{
+		return false;
 	}
 
 	@ConfigItem
-	(
-		position = 6,
-		keyName = "rapidheal",
-		name = "Shows Rapid Heal",
-		description = "unides widget icons."
-	)
-	default boolean showRapidHeal() 
-	{ 
-		return false; 
+			(
+					position = 2,
+					keyName = "mystic",
+					name = "Hide/Show Mystic Might",
+					description = "Hide/Show Mystic Might"
+			)
+	default boolean showMystic()
+	{
+		return false;
 	}
-	
+
 	@ConfigItem
-	(
-		position = 7,
-		keyName = "rapidRestore",
-		name = "Shows Rapid restore",
-		description = "unides widget icons."
-	)
-	default boolean showRapidRestore() 
-	{ 
-		return false; 
-		}
+			(
+					position = 3,
+					keyName = "ultstr",
+					name = "Hide/Show Ultimate Strength/Incredible Reflex/Steel Skin",
+					description = "Hide/Show Ultimate strength, Incredible Reflex, and Steel skin"
+			)
+	default boolean showUltStrength()
+	{
+		return false;
+	}
+
+	@ConfigItem
+			(
+					position = 4,
+					keyName = "preserve",
+					name = "Hide/Show Preserve",
+					description = "Hide/Show Preserve"
+			)
+	default boolean showPreserve()
+	{
+		return false;
+	}
+
+	@ConfigItem
+			(
+					position = 5,
+					keyName = "redemption",
+					name = "Hide/Show Redemption",
+					description = "Hide/Show Redemption"
+			)
+	default boolean showRedemption()
+	{
+		return false;
+	}
+
+	@ConfigItem
+			(
+					position = 6,
+					keyName = "rapidheal",
+					name = "Hide/Show Rapid Heal",
+					description = "Hide/Show Rapid Heal"
+			)
+	default boolean showRapidHeal()
+	{
+		return false;
+	}
+
+	@ConfigItem
+			(
+					position = 7,
+					keyName = "rapidRestore",
+					name = "Hide/Show Rapid Restore",
+					description = "Hide/Show Rapid Restore"
+			)
+	default boolean showRapidRestore()
+	{
+		return false;
+	}
+
+	@ConfigItem
+			(
+					position = 8,
+					keyName = "zulrah",
+					name = "Hide/Show Zulrah Prayers",
+					description = "Shows prayers needed for Zulrah"
+			)
+	default boolean showZulrah()
+	{
+		return false;
+	}
 }
