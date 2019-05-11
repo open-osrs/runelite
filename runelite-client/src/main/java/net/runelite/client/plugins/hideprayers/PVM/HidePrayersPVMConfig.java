@@ -81,5 +81,4 @@ public interface HidePrayersPVMConfig extends Config
 	{
 		return false;
 	}
-
 }
