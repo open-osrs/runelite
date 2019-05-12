@@ -144,7 +144,7 @@ public interface BAToolsConfig extends Config
 	@ConfigItem(
 			keyName = "attackStyles",
 			name = "Attack Styles",
-			description = "asd"
+			description = "Hide attack styles depending on weapon."
 	)
 	default boolean attackStyles()
 	{
