@@ -43,15 +43,14 @@ import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "Smelting",
-		description = "Show Smelting stats",
-		tags = {"overlay", "skilling"},
-		type = PluginType.UTILITY
+	name = "Smelting",
+	description = "Show Smelting stats",
+	tags = {"overlay", "skilling"},
+    type = PluginType.UTILITY
 )
 @PluginDependency(XpTrackerPlugin.class)
 public class SmeltingPlugin extends Plugin
 {
-
 	@Inject
 	private SmeltingConfig config;
 
@@ -71,14 +70,14 @@ public class SmeltingPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		session = null;
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		overlayManager.remove(overlay);
 		session = null;
@@ -92,40 +91,37 @@ public class SmeltingPlugin extends Plugin
 			return;
 		}
 
-		if (event.getMessage().contains("You retrieve a bar of"))
+		if (event.getMessage().startsWith("You retrieve a bar of"))
 		{
 			if (session == null)
 			{
 				session = new SmeltingSession();
 			}
-			session.setLastItemSmelted(Instant.now());
 			session.increaseBarsSmelted();
 		}
-		else if (event.getMessage().contains("You remove the cannonballs from the mould"))
+		else if (event.getMessage().startsWith("You remove the cannonballs from the mould"))
 		{
 			if (session == null)
 			{
 				session = new SmeltingSession();
 			}
-			session.setLastItemSmelted(Instant.now());
 			session.increaseCannonBallsSmelted();
-
 		}
 	}
 
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (session!=null)
-		if (session.getLastItemSmelted() != null)
+		if (session != null)
 		{
 			final Duration statTimeout = Duration.ofMinutes(config.statTimeout());
 			final Duration sinceCaught = Duration.between(session.getLastItemSmelted(), Instant.now());
 
 			if (sinceCaught.compareTo(statTimeout) >= 0)
 			{
-				session.setLastItemSmelted(null);
+				session = null;
 			}
 		}
 	}
 }
+

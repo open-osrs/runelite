@@ -59,6 +59,7 @@ import static net.runelite.client.plugins.xptracker.XpWorldType.NORMAL;
 import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
+import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.http.api.worlds.World;
@@ -151,6 +152,7 @@ public class XpTrackerPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		overlayManager.removeIf(e -> e instanceof XpInfoBoxOverlay);
 		xpState.reset();
 		clientToolbar.removeNavigation(navButton);
 	}
@@ -225,7 +227,7 @@ public class XpTrackerPlugin extends Plugin
 	void addOverlay(Skill skill)
 	{
 		removeOverlay(skill);
-		overlayManager.add(new XpInfoBoxOverlay(this, skill, skillIconManager.getSkillImage(skill)));
+        overlayManager.add(new XpInfoBoxOverlay(this, xpTrackerConfig, skill, skillIconManager.getSkillImage(skill)));
 	}
 
 	/**
@@ -306,7 +308,6 @@ public class XpTrackerPlugin extends Plugin
 			}
 		}
 	}
-
 
 	@Subscribe
 	public void onExperienceChanged(ExperienceChanged event)

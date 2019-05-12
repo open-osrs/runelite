@@ -63,11 +63,11 @@ class XpInfoBox extends JPanel
 
 	// Templates
 	private static final String HTML_TOOL_TIP_TEMPLATE =
-		"<html>%s %s done<br/>"
-			+ "%s %s/hr<br/>"
-			+ "%s till goal lvl</html>";
+			"<html>%s %s done<br/>"
+					+ "%s %s/hr<br/>"
+					+ "%s till goal lvl</html>";
 	private static final String HTML_LABEL_TEMPLATE =
-		"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
+			"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
 
 	// Instance members
 	private final JPanel panel;
@@ -228,8 +228,8 @@ class XpInfoBox extends JPanel
 			progressBar.setCenterLabel(TWO_DECIMAL_FORMAT.format(xpSnapshotSingle.getSkillProgressToGoal()) + "%");
 			progressBar.setLeftLabel("Lvl. " + xpSnapshotSingle.getStartLevel());
 			progressBar.setRightLabel(xpSnapshotSingle.getEndGoalXp() == Experience.MAX_SKILL_XP
-				? "200M"
-				: "Lvl. " + xpSnapshotSingle.getEndLevel());
+					? "200M"
+					: "Lvl. " + xpSnapshotSingle.getEndLevel());
 
 			// Add intermediate level positions to progressBar
 			if (xpTrackerConfig.showIntermediateLevels() && xpSnapshotSingle.getEndLevel() - xpSnapshotSingle.getStartLevel() > 1)
@@ -252,12 +252,12 @@ class XpInfoBox extends JPanel
 			}
 
 			progressBar.setToolTipText(String.format(
-				HTML_TOOL_TIP_TEMPLATE,
-				xpSnapshotSingle.getActionsInSession(),
-				xpSnapshotSingle.getActionType().getLabel(),
-				xpSnapshotSingle.getActionsPerHour(),
-				xpSnapshotSingle.getActionType().getLabel(),
-				xpSnapshotSingle.getTimeTillGoal()));
+					HTML_TOOL_TIP_TEMPLATE,
+					xpSnapshotSingle.getActionsInSession(),
+					xpSnapshotSingle.getActionType().getLabel(),
+					xpSnapshotSingle.getActionsPerHour(),
+					xpSnapshotSingle.getActionType().getLabel(),
+					xpSnapshotSingle.getTimeTillGoal()));
 
 			progressBar.setDimmed(skillPaused);
 
