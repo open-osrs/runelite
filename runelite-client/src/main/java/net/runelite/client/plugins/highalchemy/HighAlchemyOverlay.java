@@ -46,7 +46,6 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 public class HighAlchemyOverlay extends Overlay
 {
 	private Client client;
-	private final QueryRunner queryRunner;
 	private final ItemManager itemManager;
 	private final HighAlchemyConfig config;
 	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
