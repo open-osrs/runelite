@@ -61,10 +61,6 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.http.api.worlds.World;
-import net.runelite.http.api.worlds.WorldClient;
-import net.runelite.http.api.worlds.WorldResult;
 import net.runelite.http.api.xp.XpClient;
 
 @PluginDescriptor(
@@ -88,9 +84,6 @@ public class XpTrackerPlugin extends Plugin
 		Skill.HITPOINTS,
 		Skill.MAGIC);
 
-	private final XpState xpState = new XpState();
-	private final XpClient xpClient = new XpClient();
-
 	@Inject
 	private ClientToolbar clientToolbar;
 
@@ -111,13 +104,14 @@ public class XpTrackerPlugin extends Plugin
 
 	private NavigationButton navButton;
 	private XpPanel xpPanel;
-	private WorldResult worlds;
 	private XpWorldType lastWorldType;
 	private String lastUsername;
 	private long lastTickMillis = 0;
 	private boolean fetchXp;
 	private long lastXp = 0;
 
+	private final XpClient xpClient = new XpClient();
+	private final XpState xpState = new XpState();
 	private final XpPauseState xpPauseState = new XpPauseState();
 
 	@Provides
@@ -227,7 +221,7 @@ public class XpTrackerPlugin extends Plugin
 	void addOverlay(Skill skill)
 	{
 		removeOverlay(skill);
-        overlayManager.add(new XpInfoBoxOverlay(this, xpTrackerConfig, skill, skillIconManager.getSkillImage(skill)));
+		overlayManager.add(new XpInfoBoxOverlay(this, xpTrackerConfig, skill, skillIconManager.getSkillImage(skill)));
 	}
 
 	/**
@@ -288,7 +282,6 @@ public class XpTrackerPlugin extends Plugin
 		int currentXp = client.getSkillExperience(skill);
 		xpState.resetSkill(skill, currentXp);
 		xpPanel.resetSkill(skill);
-		xpPanel.updateTotal(xpState.getTotalSnapshot());
 		removeOverlay(skill);
 	}
 
@@ -304,7 +297,6 @@ public class XpTrackerPlugin extends Plugin
 			if (skill != s && s != Skill.OVERALL)
 			{
 				resetSkillState(s);
-				removeOverlay(s);
 			}
 		}
 	}

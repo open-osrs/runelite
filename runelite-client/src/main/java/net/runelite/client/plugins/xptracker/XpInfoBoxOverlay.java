@@ -56,117 +56,117 @@ class XpInfoBoxOverlay extends Overlay
 	private static final int XP_AND_ICON_GAP = 4;
 	private static final Rectangle XP_AND_ICON_COMPONENT_BORDER = new Rectangle(2, 1, 4, 0);
 
-    private final PanelComponent panel = new PanelComponent();
-    private final PanelComponent iconXpSplitPanel = new PanelComponent();
-    private final XpTrackerPlugin plugin;
-    private final XpTrackerConfig config;
+	private final PanelComponent panel = new PanelComponent();
+	private final PanelComponent iconXpSplitPanel = new PanelComponent();
+	private final XpTrackerPlugin plugin;
+	private final XpTrackerConfig config;
 
-    @Getter(AccessLevel.PACKAGE)
-    private final Skill skill;
-    private final BufferedImage icon;
+	@Getter(AccessLevel.PACKAGE)
+	private final Skill skill;
+	private final BufferedImage icon;
 
-    XpInfoBoxOverlay(
-            XpTrackerPlugin plugin,
-            XpTrackerConfig config,
-            Skill skill,
-            BufferedImage icon)
-    {
-        super(plugin);
-        this.plugin = plugin;
-        this.config = config;
-        this.skill = skill;
-        this.icon = icon;
-        panel.setBorder(new Rectangle(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
-        panel.setGap(new Point(0, XP_AND_PROGRESS_BAR_GAP));
-        panel.setPreferredSize(new Dimension(PANEL_PREFERRED_WIDTH, 0));
-        iconXpSplitPanel.setBorder(XP_AND_ICON_COMPONENT_BORDER);
-        iconXpSplitPanel.setBackgroundColor(null);
-        iconXpSplitPanel.setPreferredSize(new Dimension(PANEL_PREFERRED_WIDTH, 0));
-        getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "XP Tracker overlay"));
-    }
+	XpInfoBoxOverlay(
+		XpTrackerPlugin plugin,
+		XpTrackerConfig config,
+		Skill skill,
+		BufferedImage icon)
+	{
+		super(plugin);
+		this.plugin = plugin;
+		this.config = config;
+		this.skill = skill;
+		this.icon = icon;
+		panel.setBorder(new Rectangle(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
+		panel.setGap(new Point(0, XP_AND_PROGRESS_BAR_GAP));
+		panel.setPreferredSize(new Dimension(PANEL_PREFERRED_WIDTH, 0));
+		iconXpSplitPanel.setBorder(XP_AND_ICON_COMPONENT_BORDER);
+		iconXpSplitPanel.setBackgroundColor(null);
+		iconXpSplitPanel.setPreferredSize(new Dimension(PANEL_PREFERRED_WIDTH, 0));
+		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "XP Tracker overlay"));
+	}
 
-    @Override
-    public Dimension render(Graphics2D graphics)
-    {
-        panel.getChildren().clear();
-        iconXpSplitPanel.getChildren().clear();
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		panel.getChildren().clear();
+		iconXpSplitPanel.getChildren().clear();
 
-        //Setting the font to rs small font so that the overlay isn't huge
-        graphics.setFont(FontManager.getRunescapeSmallFont());
+		//Setting the font to rs small font so that the overlay isn't huge
+		graphics.setFont(FontManager.getRunescapeSmallFont());
 
-        final XpSnapshotSingle snapshot = plugin.getSkillSnapshot(skill);
+		final XpSnapshotSingle snapshot = plugin.getSkillSnapshot(skill);
 
-        final String leftStr;
-        final int rightNum;
+		final String leftStr;
+		final int rightNum;
 
-        switch (config.onScreenDisplayMode())
-        {
-            case ACTIONS_DONE:
-                leftStr = snapshot.getActionType().getLabel() + " Done";
-                rightNum = snapshot.getActionsInSession();
-                break;
-            case ACTIONS_LEFT:
-                leftStr = snapshot.getActionType().getLabel() + " Left";
-                rightNum = snapshot.getActionsRemainingToGoal();
-                break;
-            case XP_LEFT:
-                leftStr = config.onScreenDisplayMode().toString();
-                rightNum = snapshot.getXpRemainingToGoal();
-                break;
-            case XP_GAINED:
-            default:
-                leftStr = config.onScreenDisplayMode().toString();
-                rightNum = snapshot.getXpGainedInSession();
-                break;
-        }
+		switch (config.onScreenDisplayMode())
+		{
+			case ACTIONS_DONE:
+				leftStr = snapshot.getActionType().getLabel() + " Done";
+				rightNum = snapshot.getActionsInSession();
+				break;
+			case ACTIONS_LEFT:
+				leftStr = snapshot.getActionType().getLabel() + " Left";
+				rightNum = snapshot.getActionsRemainingToGoal();
+				break;
+			case XP_LEFT:
+				leftStr = config.onScreenDisplayMode().toString();
+				rightNum = snapshot.getXpRemainingToGoal();
+				break;
+			case XP_GAINED:
+			default:
+				leftStr = config.onScreenDisplayMode().toString();
+				rightNum = snapshot.getXpGainedInSession();
+				break;
+		}
 
-        final LineComponent xpLine = LineComponent.builder()
-                .left(leftStr + ":")
-                .right(StackFormatter.quantityToRSDecimalStack(rightNum, true))
-                .build();
+		final LineComponent xpLine = LineComponent.builder()
+			.left(leftStr + ":")
+			.right(StackFormatter.quantityToRSDecimalStack(rightNum, true))
+			.build();
 
-        final LineComponent xpHour = LineComponent.builder()
-                .left("XP/Hour:")
-                .right(StackFormatter.quantityToRSDecimalStack(snapshot.getXpPerHour(), true))
-                .build();
+		final LineComponent xpHour = LineComponent.builder()
+				.left("XP/Hour:")
+				.right(StackFormatter.quantityToRSDecimalStack(snapshot.getXpPerHour(), true))
+				.build();
 
-        final SplitComponent xpSplit = SplitComponent.builder()
-                .first(xpLine)
-                .second(xpHour)
-                .orientation(ComponentOrientation.VERTICAL)
-                .build();
+		final SplitComponent xpSplit = SplitComponent.builder()
+				.first(xpLine)
+				.second(xpHour)
+				.orientation(ComponentOrientation.VERTICAL)
+				.build();
 
-        final ImageComponent imageComponent = new ImageComponent(icon);
-        final SplitComponent iconXpSplit = SplitComponent.builder()
-                .first(imageComponent)
-                .second(xpSplit)
-                .orientation(ComponentOrientation.HORIZONTAL)
-                .gap(new Point(XP_AND_ICON_GAP, 0))
-                .build();
+		final ImageComponent imageComponent = new ImageComponent(icon);
+		final SplitComponent iconXpSplit = SplitComponent.builder()
+				.first(imageComponent)
+				.second(xpSplit)
+				.orientation(ComponentOrientation.HORIZONTAL)
+				.gap(new Point(XP_AND_ICON_GAP, 0))
+				.build();
 
-        iconXpSplitPanel.getChildren().add(iconXpSplit);
+		iconXpSplitPanel.getChildren().add(iconXpSplit);
 
-        final ProgressBarComponent progressBarComponent = new ProgressBarComponent();
+		final ProgressBarComponent progressBarComponent = new ProgressBarComponent();
 
-        progressBarComponent.setBackgroundColor(new Color(61, 56, 49));
-        progressBarComponent.setForegroundColor(SkillColor.find(skill).getColor());
+		progressBarComponent.setBackgroundColor(new Color(61, 56, 49));
+		progressBarComponent.setForegroundColor(SkillColor.find(skill).getColor());
 
-        progressBarComponent.setLeftLabel(String.valueOf(snapshot.getStartLevel()));
-        progressBarComponent.setRightLabel(snapshot.getEndGoalXp() == Experience.MAX_SKILL_XP
-                ? "200M"
-                : String.valueOf(snapshot.getEndLevel()));
+		progressBarComponent.setLeftLabel(String.valueOf(snapshot.getStartLevel()));
+		progressBarComponent.setRightLabel(snapshot.getEndGoalXp() == Experience.MAX_SKILL_XP
+			? "200M"
+			: String.valueOf(snapshot.getEndLevel()));
 
-        progressBarComponent.setValue(snapshot.getSkillProgressToGoal());
+		progressBarComponent.setValue(snapshot.getSkillProgressToGoal());
 
-        panel.getChildren().add(iconXpSplitPanel);
-        panel.getChildren().add(progressBarComponent);
+		panel.getChildren().add(iconXpSplitPanel);
+		panel.getChildren().add(progressBarComponent);
 
-        return panel.render(graphics);
-    }
+		return panel.render(graphics);
+	}
 
-    @Override
-    public String getName()
-    {
-        return super.getName() + skill.getName();
-    }
+	@Override
+	public String getName()
+	{
+		return super.getName() + skill.getName();
+	}
 }

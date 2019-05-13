@@ -62,9 +62,4 @@ public interface XpTrackerService
 	 * Get the amount of XP left until goal level
 	 */
 	int getEndGoalXp(Skill skill);
-
-	/**
-	 * Get the amount of time left until goal level
-	 */
-	String getTimeTillGoal(Skill skill);
 }
