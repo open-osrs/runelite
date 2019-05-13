@@ -50,11 +50,11 @@ import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 
 class XpInfoBoxOverlay extends Overlay
 {
-    private static final int PANEL_PREFERRED_WIDTH = 150;
-    private static final int BORDER_SIZE = 2;
-    private static final int XP_AND_PROGRESS_BAR_GAP = 2;
-    private static final int XP_AND_ICON_GAP = 4;
-    private static final Rectangle XP_AND_ICON_COMPONENT_BORDER = new Rectangle(2, 1, 4, 0);
+	private static final int PANEL_PREFERRED_WIDTH = 150;
+	private static final int BORDER_SIZE = 2;
+	private static final int XP_AND_PROGRESS_BAR_GAP = 2;
+	private static final int XP_AND_ICON_GAP = 4;
+	private static final Rectangle XP_AND_ICON_COMPONENT_BORDER = new Rectangle(2, 1, 4, 0);
 
     private final PanelComponent panel = new PanelComponent();
     private final PanelComponent iconXpSplitPanel = new PanelComponent();

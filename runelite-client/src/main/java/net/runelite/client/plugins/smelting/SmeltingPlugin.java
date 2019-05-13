@@ -38,15 +38,13 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
 	name = "Smelting",
 	description = "Show Smelting stats",
-	tags = {"overlay", "skilling"},
-    type = PluginType.UTILITY
+	tags = {"overlay", "skilling"}
 )
 @PluginDependency(XpTrackerPlugin.class)
 public class SmeltingPlugin extends Plugin

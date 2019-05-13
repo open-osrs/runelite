@@ -46,90 +46,90 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 
 class SmeltingOverlay extends Overlay
 {
-    private static final int SMELT_TIMEOUT = 5;
+	private static final int SMELT_TIMEOUT = 5;
 
-    private final Client client;
-    private final SmeltingPlugin plugin;
-    private final XpTrackerService xpTrackerService;
+	private final Client client;
+	private final SmeltingPlugin plugin;
+	private final XpTrackerService xpTrackerService;
 
-    private final PanelComponent panelComponent = new PanelComponent();
+	private final PanelComponent panelComponent = new PanelComponent();
 
-    @Inject
-    SmeltingOverlay(Client client, SmeltingPlugin plugin, XpTrackerService xpTrackerService)
-    {
-        super(plugin);
-        this.client = client;
-        this.plugin = plugin;
-        this.xpTrackerService = xpTrackerService;
-        setPosition(OverlayPosition.TOP_LEFT);
-        getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Smelting overlay"));
-    }
+	@Inject
+	SmeltingOverlay(Client client, SmeltingPlugin plugin, XpTrackerService xpTrackerService)
+	{
+		super(plugin);
+		this.client = client;
+		this.plugin = plugin;
+		this.xpTrackerService = xpTrackerService;
+		setPosition(OverlayPosition.TOP_LEFT);
+		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Smelting overlay"));
+	}
 
-    @Override
-    public Dimension render(Graphics2D graphics)
-    {
-        SmeltingSession session = plugin.getSession();
-        if (session == null)
-        {
-            return null;
-        }
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		SmeltingSession session = plugin.getSession();
+		if (session == null)
+		{
+			return null;
+		}
 
-        panelComponent.getChildren().clear();
+		panelComponent.getChildren().clear();
 
-        if (isSmelting() || Duration.between(session.getLastItemSmelted(), Instant.now()).getSeconds() < SMELT_TIMEOUT)
-        {
-            panelComponent.getChildren().add(TitleComponent.builder()
-                    .text("Smelting")
-                    .color(Color.GREEN)
-                    .build());
-        }
-        else
-        {
-            panelComponent.getChildren().add(TitleComponent.builder()
-                    .text("NOT smelting")
-                    .color(Color.RED)
-                    .build());
-        }
+		if (isSmelting() || Duration.between(session.getLastItemSmelted(), Instant.now()).getSeconds() < SMELT_TIMEOUT)
+		{
+			panelComponent.getChildren().add(TitleComponent.builder()
+					.text("Smelting")
+					.color(Color.GREEN)
+					.build());
+		}
+		else
+		{
+			panelComponent.getChildren().add(TitleComponent.builder()
+					.text("NOT smelting")
+					.color(Color.RED)
+					.build());
+		}
 
-        int actions = xpTrackerService.getActions(Skill.SMITHING);
-        if (actions > 0)
-        {
-            if (plugin.getSession().getBarsSmelted() > 0)
-            {
-                panelComponent.getChildren().add(LineComponent.builder()
-                        .left("Bars:")
-                        .right(Integer.toString(session.getBarsSmelted()))
-                        .build());
-            }
-            if (plugin.getSession().getCannonBallsSmelted() > 0)
-            {
-                panelComponent.getChildren().add(LineComponent.builder()
-                        .left("Cannonballs:")
-                        .right(Integer.toString(session.getCannonBallsSmelted()))
-                        .build());
-            }
-            if (actions > 2)
-            {
-                panelComponent.getChildren().add(LineComponent.builder()
-                        .left("Actions/hr:")
-                        .right(Integer.toString(xpTrackerService.getActionsHr(Skill.SMITHING)))
-                        .build());
-            }
-        }
+		int actions = xpTrackerService.getActions(Skill.SMITHING);
+		if (actions > 0)
+		{
+			if (plugin.getSession().getBarsSmelted() > 0)
+			{
+				panelComponent.getChildren().add(LineComponent.builder()
+						.left("Bars:")
+						.right(Integer.toString(session.getBarsSmelted()))
+						.build());
+			}
+			if (plugin.getSession().getCannonBallsSmelted() > 0)
+			{
+				panelComponent.getChildren().add(LineComponent.builder()
+						.left("Cannonballs:")
+						.right(Integer.toString(session.getCannonBallsSmelted()))
+						.build());
+			}
+			if (actions > 2)
+			{
+				panelComponent.getChildren().add(LineComponent.builder()
+						.left("Actions/hr:")
+						.right(Integer.toString(xpTrackerService.getActionsHr(Skill.SMITHING)))
+						.build());
+			}
+		}
 
-        return panelComponent.render(graphics);
+		return panelComponent.render(graphics);
 
-    }
+	}
 
-    private boolean isSmelting()
-    {
-        switch (client.getLocalPlayer().getAnimation())
-        {
-            case SMITHING_SMELTING:
-            case SMITHING_CANNONBALL:
-                return true;
-            default:
-                return false;
-        }
-    }
+	private boolean isSmelting()
+	{
+		switch (client.getLocalPlayer().getAnimation())
+		{
+			case SMITHING_SMELTING:
+			case SMITHING_CANNONBALL:
+				return true;
+			default:
+				return false;
+		}
+	}
 }
