@@ -34,9 +34,6 @@ import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
-import net.runelite.api.Query;
-import net.runelite.api.queries.BankItemQuery;
-import net.runelite.api.queries.InventoryWidgetItemQuery;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
@@ -45,7 +42,6 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.util.QueryRunner;
 
 public class HighAlchemyOverlay extends Overlay
 {
@@ -56,7 +52,7 @@ public class HighAlchemyOverlay extends Overlay
 	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 
 	@Inject
-	public HighAlchemyOverlay(QueryRunner queryRunner, ItemManager itemManager, HighAlchemyPlugin plugin, Client client, HighAlchemyConfig config)
+	public HighAlchemyOverlay(ItemManager itemManager, HighAlchemyPlugin plugin, Client client, HighAlchemyConfig config)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
@@ -65,22 +61,20 @@ public class HighAlchemyOverlay extends Overlay
 		this.queryRunner = queryRunner;
 		this.itemManager = itemManager;
 		this.config = config;
+		showOnBank();
+		showOnInventory();
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
+	public Dimension render(Graphics2D graphics, WidgetItem itemWidget)
 	{
 		if (config.showBank())
 		{
-			final Query bankQuery = new BankItemQuery();
-			final WidgetItem[] bankWidgetItems = queryRunner.runQuery(bankQuery);
-			highlightWidgetItems(bankWidgetItems, graphics);
+			showOnBank();
 		}
 		if (config.showInventory())
 		{
-			final Query inventoryQuery = new InventoryWidgetItemQuery();
-			final WidgetItem[] inventoryWidgetItems = queryRunner.runQuery(inventoryQuery);
-			highlightWidgetItems(inventoryWidgetItems, graphics);
+			showOnInventory();
 		}
 		/*if (config.showTooltip())
 		{
