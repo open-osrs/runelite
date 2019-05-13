@@ -589,8 +589,8 @@ public class SpellbookPlugin extends Plugin
 			return;
 		}
 
-		clickedSpell.setX(clickedSpell.getX() + trueSize(clickedSpell) / 4);
-		clickedSpell.setY(clickedSpell.getY() + trueSize(clickedSpell) / 4);
+		clickedSpell.setX(clickedSpell.getX() + oldSize);
+		clickedSpell.setY(clickedSpell.getY() + oldSize);
 		clickedSpell.setSize(0);
 
 		tmp.put(clickedWidgetId, clickedSpell);
