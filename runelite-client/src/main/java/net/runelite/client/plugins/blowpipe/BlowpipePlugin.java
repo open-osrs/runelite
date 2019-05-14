@@ -25,6 +25,7 @@
  */
 package net.runelite.client.plugins.blowpipe;
 
+import net.runelite.client.plugins.PluginType;
 import org.slf4j.LoggerFactory;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.NpcActionChanged;
@@ -59,7 +60,12 @@ import org.slf4j.Logger;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.Plugin;
 
-@PluginDescriptor(name = "Blowpipe Helper", description = "Show various helpful utitiles during the Vorkath fight", tags = { "bosses", "combat", "minigame", "overlay", "prayer", "pve", "pvm" })
+@PluginDescriptor(
+        name = "Blowpipe Helper",
+        description = "Show various helpful utitiles during the Vorkath fight",
+        tags = { "bosses", "combat", "minigame", "overlay", "prayer", "pve", "pvm" },
+        type = PluginType.PVM
+        )
 public class BlowpipePlugin extends Plugin
 {
     private static final Logger log = LoggerFactory.getLogger(BlowpipePlugin.class);
