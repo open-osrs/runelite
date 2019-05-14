@@ -2,6 +2,7 @@
  * Copyright (c) 2019 Ahmad Issa
  * Copyright (c) 2019 Owain		<https://github.com/sdburns1998>
  * Copyright (c) 2019 Kyle 		<https://github.com/Kyleeld>
+ * Copyright (c) 2019, Lucas <https://github.com/Lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,6 +48,8 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 	private final ItemManager itemManager;
 	private final HighAlchemyConfig config;
 	private final HighAlchemyPlugin plugin;
+	private final int alchPrice;
+	private final int alchPriceNoStaff;
 	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 
 	@Inject
@@ -55,6 +58,10 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 		this.itemManager = itemManager;
 		this.config = config;
 		this.plugin = plugin;
+
+		int natPrice = itemManager.getItemPrice(ItemID.NATURE_RUNE);
+		this.alchPrice = natPrice;
+		this.alchPriceNoStaff = natPrice + 5 * itemManager.getItemPrice(ItemID.FIRE_RUNE);
 
 		showOnBank();
 		showOnInventory();
@@ -74,7 +81,7 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 		final int id = getNotedId(itemId);
 		final int gePrice = getGEPrice(id);
 		final int haPrice = getHAPrice(id);
-		final int materialCost = getAlchCost();
+		final int materialCost = config.usingFireRunes() ? alchPriceNoStaff : alchPrice;
 		final int desiredProfit = config.minProfit();
 		final int haProfit = getHAProfit(haPrice, gePrice, materialCost);
 
@@ -110,18 +117,6 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 	private int getHAProfit(int haPrice, int gePrice, int alchCost)
 	{
 		return haPrice - gePrice - alchCost;
-	}
-
-	private int getAlchCost()
-	{
-		int natureRunePrice = itemManager.getItemPrice(ItemID.NATURE_RUNE);
-		// int natureRunePrice = 0;
-		if (config.usingFireRunes())
-		{
-			int fireRunePrice = itemManager.getItemPrice(ItemID.FIRE_RUNE) * 5;
-			return natureRunePrice + fireRunePrice;
-		}
-		return natureRunePrice;
 	}
 
 	// Checks if item is noted, if not returns id
