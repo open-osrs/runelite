@@ -33,6 +33,7 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
+import javax.inject.Inject;
 
 public class BlowpipeInfoOverlay extends Overlay
 {
@@ -42,6 +43,7 @@ public class BlowpipeInfoOverlay extends Overlay
     private final ItemManager itemManager;
     private final int MAX_CHARGE_TOXIC_BLOWPIPE = 16383;
 
+    @Inject
     private BlowpipeInfoOverlay(final Client client, final BlowpipePlugin plugin, final ItemManager itemManager) {
         this.panelComponent = new PanelComponent();
         this.setPosition(OverlayPosition.TOP_LEFT);
@@ -51,7 +53,6 @@ public class BlowpipeInfoOverlay extends Overlay
         this.panelComponent.setPreferredSize(new Dimension(200, 0));
     }
 
-    @Override
     public Dimension render(final Graphics2D graphics) {
         panelComponent.getChildren().clear();
         if (plugin.isShow()) {
