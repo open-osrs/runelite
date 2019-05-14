@@ -114,8 +114,8 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 
 	private int getAlchCost()
 	{
-		// int natureRunePrice = itemManager.getItemPrice(ItemID.NATURE_RUNE);
-		int natureRunePrice = 0;
+		int natureRunePrice = itemManager.getItemPrice(ItemID.NATURE_RUNE);
+		// int natureRunePrice = 0;
 		if (config.usingFireRunes())
 		{
 			int fireRunePrice = itemManager.getItemPrice(ItemID.FIRE_RUNE) * 5;
@@ -124,7 +124,7 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 		return natureRunePrice;
 	}
 
-	//Checks if item is noted, if not returns id
+	// Checks if item is noted, if not returns id
 	private int getNotedId(int id)
 	{
 		int noteID = id;
