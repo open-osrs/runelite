@@ -40,6 +40,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.hideprayers.util.PrayerTabStates;
 import javax.inject.Inject;
@@ -98,6 +99,9 @@ public class HidePrayersINDIVIDUALPlugin extends Plugin
 	@Inject
 	private HidePrayersINDIVIDUALConfig config;
 
+	@Inject
+	private ConfigManager configManager;
+
 	@Provides
 	HidePrayersINDIVIDUALConfig provideConfig(ConfigManager configManager)
 	{
@@ -108,6 +112,8 @@ public class HidePrayersINDIVIDUALPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		hidePrayers();
+		configManager.setConfiguration("runelite", "hideprayerspvmplugin", false);
+		configManager.setConfiguration("runelite", "hideprayerspvpplugin", false);
 	}
 
 	@Override
