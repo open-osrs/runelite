@@ -98,6 +98,9 @@ public class HidePrayersPVPPlugin extends Plugin
 	@Inject
 	private HidePrayersPVPConfig config;
 
+	@Inject
+	private ConfigManager configManager;
+
 	@Provides
 	HidePrayersPVPConfig provideConfig(ConfigManager configManager)
 	{
@@ -108,6 +111,8 @@ public class HidePrayersPVPPlugin extends Plugin
 	protected void startUp() throws Exception 
 	{
 		hidePrayers();
+		configManager.setConfiguration("runelite", "hideprayerspvmplugin", false);
+		configManager.setConfiguration("runelite", "hideprayersindividualplugin", false);
 	}
 
 	@Override
