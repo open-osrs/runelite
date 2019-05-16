@@ -89,6 +89,17 @@ public interface FreezeTimersConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "xoffset",
+		name = "X Offset",
+		description = "Increasing this will push further away from model. Does not apply to text timers.",
+		position = 8
+	)
+	default int offset()
+	{
+		return 20;
+	}
+
+	@ConfigItem(
 		keyName = "noImage",
 		name = "Text Timers",
 		description = "Remove Images from Timers",

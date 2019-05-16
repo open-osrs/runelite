@@ -239,8 +239,9 @@ public class FreezeTimersOverlay extends Overlay
 		int yOffset = (overlaysDrawn * 18);
 		g.setFont(timerFont);
 		g.setColor(WHITE);
-		OverlayUtil.renderActorTextAndImage(g, actor, text, Color.WHITE, image, yOffset,
-			0);
+		int xOffset = config.offset();
+		renderActorTextAndImage(g, actor, text, Color.WHITE, image, yOffset,
+			xOffset);
 	}
 
 	private void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint)
@@ -257,6 +258,27 @@ public class FreezeTimersOverlay extends Overlay
 			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
 			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
 		}
+	}
+
+	public void renderImageLocation(Graphics2D graphics, Point imgLoc, BufferedImage image)
+	{
+		int x = imgLoc.getX();
+		int y = imgLoc.getY();
+
+		graphics.drawImage(image, x, y, null);
+	}
+
+	public void renderActorTextAndImage(Graphics2D graphics, Actor actor, String text, Color color,
+										BufferedImage image, int yOffset, int xOffset)
+	{
+		Point textLocation = new Point(actor.getCanvasImageLocation(image, 0).getX() + xOffset,
+			actor.getCanvasImageLocation(image, 0).getY() + yOffset);
+
+		renderImageLocation(graphics, textLocation, image);
+		xOffset = image.getWidth() + 1;
+		yOffset = (image.getHeight() - (int) graphics.getFontMetrics().getStringBounds(text, graphics).getHeight());
+		textLocation = new Point(textLocation.getX() + xOffset, textLocation.getY() + image.getHeight() - yOffset);
+		net.runelite.client.ui.overlay.OverlayUtil.renderTextLocation(graphics, textLocation, text, color);
 	}
 
 	private String processTickCounter(long finishedAt)
