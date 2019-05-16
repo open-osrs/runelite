@@ -287,7 +287,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 		{
 			color = config.getTargetColor();
 		}
-			if (config.rightClickOverhead() && !player.isClanMember() && player.getOverheadIcon() != null)
+/*			if (config.rightClickOverhead() && !player.isClanMember() && player.getOverheadIcon() != null)
 			{
 				if (player.getOverheadIcon().equals(HeadIcon.MAGIC))
 				{
@@ -313,8 +313,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 				{
 					image = 34;
 				}
-				
-			}
+			}*/
 			if (config.playerSkull() && !player.isClanMember() && player.getSkullIcon() != null)
 			{
 				image2 = 35;
