@@ -92,7 +92,7 @@ public interface FreezeTimersConfig extends Config
 		keyName = "xoffset",
 		name = "X Offset",
 		description = "Increasing this will push further away from model. Does not apply to text timers.",
-		position = 8
+		position = 6
 	)
 	default int offset()
 	{
@@ -103,7 +103,7 @@ public interface FreezeTimersConfig extends Config
 		keyName = "noImage",
 		name = "Text Timers",
 		description = "Remove Images from Timers",
-		position = 6
+		position = 7
 	)
 	default boolean noImage()
 	{
@@ -114,7 +114,7 @@ public interface FreezeTimersConfig extends Config
 		keyName = "fontStyle",
 		name = "Font Style",
 		description = "Bold/Italics/Plain",
-		position = 7
+		position = 8
 	)
 	default FontStyle fontStyle()
 	{
@@ -129,7 +129,7 @@ public interface FreezeTimersConfig extends Config
 		keyName = "textSize",
 		name = "Text Size",
 		description = "Text Size for Timers.",
-		position = 8
+		position = 9
 	)
 	default int textSize()
 	{
