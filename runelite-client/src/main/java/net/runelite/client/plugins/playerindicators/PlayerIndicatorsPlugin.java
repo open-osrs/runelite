@@ -345,10 +345,10 @@ public class PlayerIndicatorsPlugin extends Plugin
 					lastEntry.setTarget(ColorUtil.prependColorTag(target, color));
 				}
 				
-				if (image != -1 && config.showClanRanks() || image != -1 && config.rightClickOverhead())
+/*				if (image != -1 && config.showClanRanks() || image != -1 && config.rightClickOverhead())
 				{
 					lastEntry.setTarget(lastEntry.getTarget() + "<img=" + image + ">");
-				}
+				}*/
 				if (image2 != -1 && config.playerSkull())
 				{
 					lastEntry.setTarget("<img=" + image2 + ">" + lastEntry.getTarget());
