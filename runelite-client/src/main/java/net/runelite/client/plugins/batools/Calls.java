@@ -32,45 +32,55 @@ import lombok.Getter;
 public enum Calls
 {
 	//Attacker Calls
-	RED_EGG("Red egg", "Tell-red"),
-	GREEN_EGG("Green egg", "Tell-green"),
-	BLUE_EGG("Blue egg", "Tell-blue"),
+	RED_EGG("Red egg", "Tell-red", "Attacker horn"),
+	GREEN_EGG("Green egg", "Tell-green", "Attacker horn"),
+	BLUE_EGG("Blue egg", "Tell-blue", "Attacker horn"),
 	//Collector Calls
-	CONTROLLED("Controlled/Bullet/Wind", "Tell-controlled"),
-	ACCURATE("Accurate/Field/Water", "Tell-accurate"),
-	AGGRESSIVE("Aggressive/Blunt/Earth", "Tell-aggressive"),
-	DEFENSIVE("Defensive/Barbed/Fire", "Tell-defensive"),
+	CONTROLLED("Controlled/Bullet/Wind", "Tell-controlled", "Collector horn"),
+	ACCURATE("Accurate/Field/Water", "Tell-accurate", "Collector horn"),
+	AGGRESSIVE("Aggressive/Blunt/Earth", "Tell-aggressive", "Collector horn"),
+	DEFENSIVE("Defensive/Barbed/Fire", "Tell-defensive", "Collector horn"),
 	//Healer Calls
-	TOFU("Tofu", "Tell-tofu"),
-	CRACKERS("Crackers", "Tell-crackers"),
-	WORMS("Worms", "Tell-worms"),
+	TOFU("Tofu", "Tell-tofu", "Healer horn"),
+	CRACKERS("Crackers", "Tell-crackers", "Healer horn"),
+	WORMS("Worms", "Tell-worms", "Healer horn"),
 	//Defender Calls
-	POIS_WORMS("Pois. Worms", "Tell-worms"),
-	POIS_TOFU("Pois. Tofu", "Tell-tofu"),
-	POIS_MEAT("Pois. Meat", "Tell-meat");
+	POIS_WORMS("Pois. Worms", "Tell-worms", "Defender horn"),
+	POIS_TOFU("Pois. Tofu", "Tell-tofu", "Defender horn"),
+	POIS_MEAT("Pois. Meat", "Tell-meat", "Defender horn");
 
 	private final String call;
 	private final String option;
+	private final String horn;
 
+	// TODO: Make maps immutablemaps
 	private static final Map<String, String> CALL_MENU = new HashMap<>();
+	private static final Map<String, String> HORNS = new HashMap<>();
 
 	static
 	{
 		for (Calls s : values())
 		{
 			CALL_MENU.put(s.getCall(), s.getOption());
+			HORNS.put(s.getCall(), s.getHorn());
 		}
 	}
 
-	Calls(String call, String option)
+	Calls(String call, String option, String horn)
 	{
 		this.call = call;
 		this.option = option;
+		this.horn = horn;
 	}
 
 	public static String getOption(String call)
 	{
 		return CALL_MENU.get(call);
+	}
+
+	public static String getHorn(String call)
+	{
+		return HORNS.get(call);
 	}
 
 }

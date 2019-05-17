@@ -68,6 +68,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
+import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -95,7 +96,8 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 	private HashMap<Integer, Instant> foodPressed = new HashMap<>();
 	private CycleCounter counter;
 	private Actor lastInteracted;
-
+	private String lastCall; // Also current call
+	private String horn; // Horn for your current rank
 	private boolean shiftDown;
 
 	@Inject
@@ -125,6 +127,8 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 	@Inject
 	private KeyManager keyManager;
 
+	@Inject
+	private MenuManager menuManager;
 
 	@Provides
 	BAToolsConfig provideConfig(ConfigManager configManager)
@@ -185,6 +189,16 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 			if (callWidget.getTextColor() != pastCall && callWidget.getTextColor() == 16316664)
 			{
 				tickNum = 0;
+
+				menuManager.removePriorityEntry(lastCall, horn);
+
+				if (config.calls())
+				{
+					lastCall = Calls.getOption(callWidget.getText());
+					horn = Calls.getHorn(callWidget.getText());
+
+					menuManager.addPriorityEntry(lastCall, horn);
+				}
 			}
 			pastCall = callWidget.getTextColor();
 		}
@@ -305,19 +319,19 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 
 		if (inGameBit != inGame)
 		{
-			if (inGameBit == 1)
+			inGameBit = inGame;
+			if (inGameBit == 0) // Not in game anymore
 			{
 				pastCall = 0;
 				removeCounter();
 				foodPressed.clear();
+				menuManager.removePriorityEntry(lastCall, horn);
 			}
 			else
 			{
 				addCounter();
 			}
 		}
-
-		inGameBit = inGame;
 	}
 
 	@Subscribe
@@ -401,34 +415,6 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (config.calls() && getWidget() != null && event.getTarget().endsWith("horn") && !event.getTarget().contains("Unicorn"))
-		{
-			MenuEntry[] menuEntries = client.getMenuEntries();
-			Widget callWidget = getWidget();
-			String call = Calls.getOption(callWidget.getText());
-			MenuEntry correctCall = null;
-
-			entries.clear();
-			for (MenuEntry entry : menuEntries)
-			{
-				String option = entry.getOption();
-				if (option.equals(call))
-				{
-					correctCall = entry;
-				}
-				else if (!option.startsWith("Tell-"))
-				{
-					entries.add(entry);
-				}
-			}
-
-			if (correctCall != null) //&& callWidget.getTextColor()==16316664)
-			{
-				entries.add(correctCall);
-				client.setMenuEntries(entries.toArray(new MenuEntry[0]));
-			}
-		}
-
 		final int itemId = event.getIdentifier();
 		String option = Text.removeTags(event.getOption()).toLowerCase();
 		String target = Text.removeTags(event.getTarget()).toLowerCase();
@@ -667,6 +653,11 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 		if (config.antiDrag())
 		{
 			client.setInventoryDragDelay(config.antiDragDelay());
+		}
+
+		if (!config.calls())
+		{
+			menuManager.removePriorityEntry(lastCall, horn);
 		}
 	}
 
