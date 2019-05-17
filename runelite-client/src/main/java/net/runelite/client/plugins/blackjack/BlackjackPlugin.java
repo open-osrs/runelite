@@ -30,9 +30,11 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
+import static net.runelite.api.Varbits.QUEST_THE_FEUD;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
@@ -67,6 +69,7 @@ public class BlackjackPlugin extends Plugin
 
 	private int lastKnockout;
 	private boolean pickpocketing;
+	private boolean ableToBlackJack;
 
 	@Override
 	public void configure(Binder binder)
@@ -99,7 +102,7 @@ public class BlackjackPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick gameTick)
 	{
-		if (pickpocketing && client.getTickCount() >= lastKnockout + 4)
+		if (ableToBlackJack && pickpocketing && client.getTickCount() >= lastKnockout + 4)
 		{
 			pickpocketing = false;
 
@@ -139,6 +142,24 @@ public class BlackjackPlugin extends Plugin
 				lastKnockout = client.getTickCount();
 				pickpocketing = true;
 			}
+		}
+	}
+
+	@Subscribe
+	public void onVarbitChanged(VarbitChanged event)
+	{
+		ableToBlackJack = client.getVar(QUEST_THE_FEUD) >= 13;
+
+		if (!ableToBlackJack)
+		{
+			menuManager.removePriorityEntry(LURE, BANDIT);
+			menuManager.removePriorityEntry(LURE, MENAPHITE);
+
+			menuManager.removePriorityEntry(KNOCK_OUT, BANDIT);
+			menuManager.removePriorityEntry(KNOCK_OUT, MENAPHITE);
+
+			menuManager.removePriorityEntry(PICKPOCKET, BANDIT);
+			menuManager.removePriorityEntry(PICKPOCKET, MENAPHITE);
 		}
 	}
 }
