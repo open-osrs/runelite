@@ -174,6 +174,12 @@ public class MenuManager
 						return false;
 					}
 
+					// Gets overridden by actor names
+					if (opt.equals("walk here"))
+					{
+						return true;
+					}
+
 					return priorityEntries.get(opt).contains(tgt);
 				}).toArray(MenuEntry[]::new));
 		}
