@@ -29,7 +29,7 @@ import net.runelite.client.config.ConfigGroup;
 // import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("shiftwalkhere")
-interface ShiftWalkerConfig extends Config
+public interface ShiftWalkerConfig extends Config
 {
 /*
 
