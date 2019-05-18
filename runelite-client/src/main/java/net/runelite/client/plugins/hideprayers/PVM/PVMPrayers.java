@@ -31,19 +31,31 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Cerberus
-{
-	DISABLED("Disabled"),
-	CERBERUS_CHEAP("Low LVL Melee"),
-	CERBERUS_EXPENSIVE("Melee Piety"),
-	CERBERUS_CHEAP_RANGE("Range Eagle Eye"),
-	CERBERUS_EXPENSIVE_RANGE("Range Rigour");
+public enum PVMPrayers {
+    DISABLED("Disabled"),
+    ARMADYL_CHEAP("Eagle eye"),
+    ARMADYL_EXPENSIVE("Rigour"),
+    BANDOS_CHEAP("Low LVL Melee"),
+    BANDOS_EXPENSIVE("Piety"),
+    BARROWS_CHEAP("Eagle/Mystic"),
+    BARROWS_EXPENSIVE("Augury/Rigour"),
+    CERBERUS_CHEAP("Low LVL Melee"),
+    CERBERUS_EXPENSIVE("Melee Piety"),
+    CERBERUS_CHEAP_RANGE("Range Eagle Eye"),
+    CERBERUS_EXPENSIVE_RANGE("Range Rigour"),
+    SARADOMIN_CHEAP("Melee/Eagle"),
+    SARADOMIN_EXPENSIVE("Piety/Rigour"),
+    VORKATH_CHEAP("Eagle Eye"),
+    VORKATH_EXPENSIVE("Rigour"),
+    ZAMORAK_CHEAP("Low LVL Melee"),
+    ZAMORAK_EXPENSIVE("Piety"),
+    ZULRAH_CHEAP("Eagle/Mystic"),
+    ZULRAH_EXPENSIVE("Augury/Rigour");
 
-	private String name;
+    private String name;
 
-	@Override
-	public String toString()
-	{
-		return getName();
-	}
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
