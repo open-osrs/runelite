@@ -34,13 +34,15 @@ import net.runelite.client.config.ConfigItem;
 @ConfigGroup("hideprayersPVM")
 public interface HidePrayersPVMConfig extends Config
 {
-	@ConfigItem(
-			position = 0,
-			keyName = "PVMPrayers",
-			name = "PVM Prayers",
-			description = "Shows prayers based on prayer build"
+	@ConfigItem
+	(
+		position = 0,
+		keyName = "PVMPrayers",
+		name = "PVM Prayers",
+		description = "Shows prayers based on prayer build"
 	)
-	default PVMPrayers PVMPrayers() {
+	default PVMPrayers PVMPrayers() 
+	{
 		return PVMPrayers.DISABLED;
 	}
 }
