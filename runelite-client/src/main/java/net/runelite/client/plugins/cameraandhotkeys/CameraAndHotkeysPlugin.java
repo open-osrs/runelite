@@ -55,7 +55,7 @@ import net.runelite.client.util.ColorUtil;
 	description = "Allows remapping of the Camera and Function Keys",
 	tags = {"wasd", "camera", "hotkeys"},
 	enabledByDefault = false,
-	type = PluginType.PVM
+	type = PluginType.GENERAL_USE // first plugin to use GENERAL_USE? epic
 )
 
 public class CameraAndHotkeysPlugin extends Plugin
