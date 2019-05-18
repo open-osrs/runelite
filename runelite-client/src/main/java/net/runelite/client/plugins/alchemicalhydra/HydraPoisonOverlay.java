@@ -140,6 +140,7 @@ class HydraPoisonOverlay extends Overlay
 		}
 
 		graphics.setColor(color);
+		graphics.setStroke(new BasicStroke(3));
 		graphics.draw(poly);
 	}
 }
