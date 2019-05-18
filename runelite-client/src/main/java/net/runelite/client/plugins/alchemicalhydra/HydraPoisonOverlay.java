@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.alchemicalhydra;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
