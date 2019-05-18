@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2018, gregg1494 <https://github.com/gregg1494>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
