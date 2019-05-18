@@ -255,7 +255,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -269,7 +270,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -286,7 +288,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -307,7 +310,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -328,7 +332,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -349,7 +354,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -372,7 +378,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -396,7 +403,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -418,7 +426,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -440,7 +449,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
@@ -462,7 +472,8 @@ public class HidePrayersPVPPlugin extends Plugin
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(true);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(true);    // Rapid Heal
-						} else
+						}
+						else
 						{
 							prayerWidgets.get(Prayer.values()[8].ordinal()).setHidden(false);    // Rapid Restore
 							prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
