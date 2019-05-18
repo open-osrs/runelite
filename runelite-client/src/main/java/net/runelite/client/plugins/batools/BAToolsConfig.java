@@ -74,7 +74,7 @@ public interface BAToolsConfig extends Config
 	@ConfigItem(
 		keyName = "healerMenuOption",
 		name = "Healer menu options",
-		description = "asd"
+		description = "Healer menu options"
 	)
 	default boolean healerMenuOption()
 	{
@@ -84,7 +84,7 @@ public interface BAToolsConfig extends Config
 	@ConfigItem(
 		keyName = "antiDrag",
 		name = "Anti Drag",
-		description = "asd"
+		description = "Anti Drag"
 	)
 	default boolean antiDrag()
 	{
@@ -94,7 +94,7 @@ public interface BAToolsConfig extends Config
 	@ConfigItem(
 		keyName = "antiDragDelay",
 		name = "Anti Drag Delay",
-		description = "asd"
+		description = "Anti Drag Delay"
 	)
 	default int antiDragDelay()
 	{
@@ -104,7 +104,7 @@ public interface BAToolsConfig extends Config
 	@ConfigItem(
 		keyName = "eggBoi",
 		name = "Collector helper",
-		description = "asd"
+		description = "Helper for collecting"
 	)
 	default boolean eggBoi()
 	{
@@ -114,7 +114,7 @@ public interface BAToolsConfig extends Config
 	@ConfigItem(
 		keyName = "osHelp",
 		name = "Shift OS",
-		description = "asd"
+		description = "Shift Os helper"
 	)
 	default boolean osHelp()
 	{
@@ -124,7 +124,7 @@ public interface BAToolsConfig extends Config
 	@ConfigItem(
 		keyName = "prayerMetronome",
 		name = "Prayer Metronome",
-		description = "asd"
+		description = "Prayer Metronome"
 	)
 	default boolean prayerMetronome()
 	{
