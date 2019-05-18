@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2019, gregg1494 <https://github.com/gregg1494>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -78,6 +79,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.worldhopper.ping.Ping;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
+import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ExecutorServiceExceptionLogger;
 import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.Text;
@@ -100,12 +102,16 @@ public class WorldHopperPlugin extends Plugin
 	private static final int REFRESH_THROTTLE = 60_000;  // ms
 	private static final int TICK_THROTTLE = (int) Duration.ofMinutes(10).toMillis();
 
+	public static final int CURR_WORLD_PING_TIMER = 1;
+
 	private static final int DISPLAY_SWITCHER_MAX_ATTEMPTS = 3;
 
 	private static final String HOP_TO = "Hop-to";
 	private static final String KICK_OPTION = "Kick";
 	private static final ImmutableList<String> BEFORE_OPTIONS = ImmutableList.of("Add friend", "Remove friend", KICK_OPTION);
 	private static final ImmutableList<String> AFTER_OPTIONS = ImmutableList.of("Message");
+
+	private int currentPing;
 
 	@Inject
 	private Client client;
@@ -131,6 +137,12 @@ public class WorldHopperPlugin extends Plugin
 	@Inject
 	private WorldHopperConfig config;
 
+	@Inject
+	private OverlayManager overlayManager;
+
+	@Inject
+	private WorldHopperOverlay worldHopperOverlay;
+
 	private ScheduledExecutorService hopperExecutorService;
 
 	private NavigationButton navButton;
@@ -144,7 +156,7 @@ public class WorldHopperPlugin extends Plugin
 
 	private int favoriteWorld1, favoriteWorld2;
 
-	private ScheduledFuture<?> worldResultFuture, pingFuture;
+	private ScheduledFuture<?> worldResultFuture, pingFuture, currPingFuture;
 	private WorldResult worldResult;
 	private Instant lastFetch;
 	private boolean firstRun;
@@ -200,11 +212,18 @@ public class WorldHopperPlugin extends Plugin
 			clientToolbar.addNavigation(navButton);
 		}
 
+		if (config.displayPing())
+		{
+			overlayManager.add(worldHopperOverlay);
+		}
+
 		panel.setFilterMode(config.subscriptionFilter());
 		worldResultFuture = executorService.scheduleAtFixedRate(this::tick, 0, WORLD_FETCH_TIMER, TimeUnit.MINUTES);
 
 		hopperExecutorService = new ExecutorServiceExceptionLogger(Executors.newSingleThreadScheduledExecutor());
 		pingFuture = hopperExecutorService.scheduleAtFixedRate(this::pingWorlds, WORLD_PING_TIMER, WORLD_PING_TIMER, TimeUnit.MINUTES);
+
+		currPingFuture = executorService.scheduleAtFixedRate(this::pingWorld, 0, CURR_WORLD_PING_TIMER, TimeUnit.SECONDS);
 	}
 
 	@Override
@@ -212,6 +231,11 @@ public class WorldHopperPlugin extends Plugin
 	{
 		pingFuture.cancel(true);
 		pingFuture = null;
+
+		currPingFuture.cancel(true);
+		currPingFuture = null;
+
+		overlayManager.remove(worldHopperOverlay);
 
 		keyManager.unregisterKeyListener(previousKeyListener);
 		keyManager.unregisterKeyListener(nextKeyListener);
@@ -258,6 +282,16 @@ public class WorldHopperPlugin extends Plugin
 					panel.setFilterMode(config.subscriptionFilter());
 					updateList();
 					break;
+				case "displayPing":
+					if (config.displayPing())
+					{
+						overlayManager.add(worldHopperOverlay);
+					}
+					else
+					{
+						overlayManager.remove(worldHopperOverlay);
+					}
+					break;
 			}
 		}
 	}
@@ -288,6 +322,11 @@ public class WorldHopperPlugin extends Plugin
 	int getCurrentWorld()
 	{
 		return client.getWorld();
+	}
+
+	public int getCurrentPing()
+	{
+		return currentPing;
 	}
 
 	void hopTo(World world)
@@ -417,6 +456,17 @@ public class WorldHopperPlugin extends Plugin
 				panel.switchCurrentHighlight(newWorld, lastWorld);
 				lastWorld = newWorld;
 			}
+		}
+
+		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)
+		{
+			pingFuture.cancel(true);
+			return;
+		}
+
+		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
+		{
+			currPingFuture = executorService.scheduleAtFixedRate(this::pingWorld, 0, CURR_WORLD_PING_TIMER, TimeUnit.SECONDS);
 		}
 	}
 
@@ -768,5 +818,20 @@ public class WorldHopperPlugin extends Plugin
 		stopwatch.stop();
 
 		log.debug("Done pinging worlds in {}", stopwatch.elapsed());
+	}
+
+	private void pingWorld()
+	{
+		if (worldResult == null || !config.displayPing())
+		{
+			return;
+		}
+
+		World currentWorld = worldResult.findWorld(client.getWorld());
+		currentPing = Ping.ping(currentWorld);
+
+		SwingUtilities.invokeLater(() -> panel.updatePing(currentWorld.getId(), currentPing));
+
+		log.debug("Ping is {} ms", currentPing);
 	}
 }

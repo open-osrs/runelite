@@ -112,4 +112,15 @@ public interface WorldHopperConfig extends Config
 	{
 		return SubscriptionFilterMode.BOTH;
 	}
+
+	@ConfigItem(
+		keyName = "displayPing",
+		name = "Display current ping",
+		description = "Displays ping to current game world",
+		position = 7
+	)
+	default boolean displayPing()
+	{
+		return false;
+	}
 }
