@@ -460,7 +460,7 @@ public class WorldHopperPlugin extends Plugin
 
 		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)
 		{
-			pingFuture.cancel(true);
+			currPingFuture.cancel(true);
 			return;
 		}
 
@@ -831,7 +831,5 @@ public class WorldHopperPlugin extends Plugin
 		currentPing = Ping.ping(currentWorld);
 
 		SwingUtilities.invokeLater(() -> panel.updatePing(currentWorld.getId(), currentPing));
-
-		log.debug("Ping is {} ms", currentPing);
 	}
 }
