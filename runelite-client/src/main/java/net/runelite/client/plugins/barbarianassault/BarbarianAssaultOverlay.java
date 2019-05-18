@@ -31,8 +31,8 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-import java.awt.image.BufferedImage;
 import java.util.Map;
+import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,7 +55,6 @@ import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
-
 
 class BarbarianAssaultOverlay extends Overlay
 {
@@ -124,8 +123,7 @@ class BarbarianAssaultOverlay extends Overlay
 			graphics.drawImage(plugin.getClockImage(), spriteBounds.x, spriteBounds.y, null);
 		}
 
-		if (role == Role.COLLECTOR && config.highlightCollectorEggs())
-		{
+		if (role == Role.COLLECTOR && config.highlightCollectorEggs()) {
 			String heardCall = plugin.getCollectorHeardCall();
 			Color highlightColor = BarbarianAssaultPlugin.getEggColor(heardCall);
 			Map<WorldPoint, Integer> calledEggMap = plugin.getCalledEggMap();

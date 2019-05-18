@@ -34,22 +34,17 @@ import net.runelite.api.Constants;
 class Round
 {
 	private final Instant roundStartTime;
-
 	@Getter
 	private final Role roundRole;
-
 	@Getter
 	@Setter
 	private boolean runnersKilled;
-
 	@Getter
 	@Setter
 	private boolean rangersKilled;
-
 	@Getter
 	@Setter
 	private boolean healersKilled;
-
 	@Getter
 	@Setter
 	private boolean fightersKilled;
@@ -61,7 +56,12 @@ class Round
 		this.roundStartTime = Instant.now().plusMillis(2 * Constants.GAME_TICK_LENGTH);
 	}
 
-	long getTimeToChange()
+	public long getRoundTime()
+	{
+		return Duration.between(roundStartTime, Instant.now()).getSeconds();
+	}
+
+	public long getTimeToChange()
 	{
 		return 30 + (Duration.between(Instant.now(), roundStartTime).getSeconds() % 30);
 	}

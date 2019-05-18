@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, https://runelitepl.us
+ * Copyright (c) 2018, Cameron <https://github.com/noremac201>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,13 +36,10 @@ enum Role
 
 	@Getter
 	private final WidgetInfo listen;
-
 	@Getter
 	private final WidgetInfo call;
-
 	@Getter
 	private final WidgetInfo roleText;
-
 	@Getter
 	private final WidgetInfo roleSprite;
 

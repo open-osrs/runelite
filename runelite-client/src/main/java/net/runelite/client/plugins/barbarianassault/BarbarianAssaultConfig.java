@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2018, https://runelitepl.us
+ * Copyright (c) 2018, Cameron <https://github.com/noremac201>
+ * Copyright (c) 2018, Jacob M <https://github.com/jacoblairm>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -163,4 +164,14 @@ public interface BarbarianAssaultConfig extends Config
 	{
 		return Color.GREEN;
 	}
+
+//	@ConfigItem(
+//		keyName = "testing",
+//		name = "Testing",
+//		description = "enables 'testing' keyword"
+//	)
+//	default boolean testing()
+//	{
+//		return false;
+//	}
 }
