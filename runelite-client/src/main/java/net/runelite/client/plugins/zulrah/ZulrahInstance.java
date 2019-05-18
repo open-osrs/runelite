@@ -43,21 +43,24 @@ public class ZulrahInstance
 		ZulrahType.MAGIC,
 		false,
 		StandLocation.PILLAR_WEST_OUTSIDE,
-		Prayer.PROTECT_FROM_MAGIC
+		Prayer.PROTECT_FROM_MAGIC,
+		-1
 	);
 	private static final ZulrahPhase NO_PATTERN_RANGE_PHASE = new ZulrahPhase(
 		ZulrahLocation.NORTH,
 		ZulrahType.RANGE,
 		false,
 		StandLocation.TOP_EAST,
-		Prayer.PROTECT_FROM_MISSILES
+		Prayer.PROTECT_FROM_MISSILES,
+		-1
 	);
 	private static final ZulrahPhase PATTERN_A_OR_B_RANGE_PHASE = new ZulrahPhase(
 		ZulrahLocation.NORTH,
 		ZulrahType.RANGE,
 		false,
 		StandLocation.PILLAR_WEST_OUTSIDE,
-		Prayer.PROTECT_FROM_MISSILES
+		Prayer.PROTECT_FROM_MISSILES,
+		-1
 	);
 
 	private final LocalPoint startLocation;

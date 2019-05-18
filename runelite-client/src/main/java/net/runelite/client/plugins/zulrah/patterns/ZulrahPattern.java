@@ -39,19 +39,19 @@ public abstract class ZulrahPattern
 {
 	private final List<ZulrahPhase> pattern = new ArrayList<>();
 
-	protected final void add(ZulrahLocation loc, ZulrahType type, StandLocation standLocation, Prayer prayer)
+	protected final void add(ZulrahLocation loc, ZulrahType type, StandLocation standLocation, Prayer prayer, Integer ticks)
 	{
-		add(loc, type, standLocation, false, prayer);
+		add(loc, type, standLocation, false, prayer, ticks);
 	}
 
-	protected final void addJad(ZulrahLocation loc, ZulrahType type, StandLocation standLocation, Prayer prayer)
+	protected final void addJad(ZulrahLocation loc, ZulrahType type, StandLocation standLocation, Prayer prayer, Integer ticks)
 	{
-		add(loc, type, standLocation, true, prayer);
+		add(loc, type, standLocation, true, prayer, ticks);
 	}
 
-	private void add(ZulrahLocation loc, ZulrahType type, StandLocation standLocation, boolean jad, Prayer prayer)
+	private void add(ZulrahLocation loc, ZulrahType type, StandLocation standLocation, boolean jad, Prayer prayer, Integer ticks)
 	{
-		pattern.add(new ZulrahPhase(loc, type, jad, standLocation, prayer));
+		pattern.add(new ZulrahPhase(loc, type, jad, standLocation, prayer, ticks));
 	}
 
 	public ZulrahPhase get(int index)

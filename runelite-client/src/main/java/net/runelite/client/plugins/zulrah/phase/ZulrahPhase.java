@@ -42,14 +42,16 @@ public class ZulrahPhase
 	private final boolean jad;
 	private final StandLocation standLocation;
 	private final Prayer prayer;
+	private final Integer ticks;
 
-	public ZulrahPhase(ZulrahLocation zulrahLocation, ZulrahType type, boolean jad, StandLocation standLocation, Prayer prayer)
+	public ZulrahPhase(ZulrahLocation zulrahLocation, ZulrahType type, boolean jad, StandLocation standLocation, Prayer prayer, Integer ticks)
 	{
 		this.zulrahLocation = zulrahLocation;
 		this.type = type;
 		this.jad = jad;
 		this.standLocation = standLocation;
 		this.prayer = prayer;
+		this.ticks = ticks;
 	}
 
 	public static ZulrahPhase valueOf(NPC zulrah, LocalPoint start)
@@ -62,7 +64,8 @@ public class ZulrahPhase
 		}
 		StandLocation standLocation = zulrahType == ZulrahType.MAGIC ? StandLocation.PILLAR_WEST_OUTSIDE : StandLocation.TOP_EAST;
 		Prayer prayer = zulrahType == ZulrahType.MAGIC ? Prayer.PROTECT_FROM_MAGIC : null;
-		return new ZulrahPhase(zulrahLocation, zulrahType, false, standLocation, prayer);
+		Integer ticks = -1;
+		return new ZulrahPhase(zulrahLocation, zulrahType, false, standLocation, prayer, ticks);
 	}
 
 	@Override
@@ -74,6 +77,7 @@ public class ZulrahPhase
 			", jad=" + jad +
 			", standLocation=" + standLocation +
 			", prayer=" + prayer +
+			", ticks=" + ticks +
 			'}';
 	}
 
@@ -150,6 +154,11 @@ public class ZulrahPhase
 		return prayer;
 	}
 
+	public Integer getTicks()
+	{
+		return ticks;
+	}
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -162,7 +171,7 @@ public class ZulrahPhase
 			return false;
 		}
 		ZulrahPhase other = (ZulrahPhase) obj;
-		return this.jad == other.jad && this.zulrahLocation == other.zulrahLocation && this.type == other.type;
+		return this.jad == other.jad && this.zulrahLocation == other.zulrahLocation && this.type == other.type && this.ticks.equals(other.ticks);
 	}
 
 	public Color getColor()
