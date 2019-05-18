@@ -138,7 +138,7 @@ class Wave
 			}
 		}
 		wavePoints[5] = 0;
-		for (int i = 0; i < wavePoints.length -1; i++)
+		for (int i = 0; i < wavePoints.length - 1; i++)
 		{
 			wavePoints[5] += wavePoints[i];
 		}
