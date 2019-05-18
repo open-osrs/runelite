@@ -434,6 +434,10 @@ import static net.runelite.api.ItemID.WARRIOR_RING_I;
 import static net.runelite.api.ItemID.ZAMORAK_GODSWORD;
 import static net.runelite.api.ItemID.ZAMORAK_GODSWORD_OR;
 import static net.runelite.api.ItemID.ZAMORAK_GODSWORD_ORNAMENT_KIT;
+import static net.runelite.api.ItemID.TORMENTED_BRACELET;
+import static net.runelite.api.ItemID.TORMENTED_ORNAMENT_KIT;
+import static net.runelite.api.ItemID.TORMENTED_BRACELET_OR;
+
 
 /**
  * Converts untradeable items to it's tradeable counterparts
@@ -507,6 +511,8 @@ public enum ItemMapping
 	ITEM_OCCULT_ORNAMENT_KIT(OCCULT_ORNAMENT_KIT, OCCULT_NECKLACE_OR),
 	ITE_AMULET_OF_FURY(AMULET_OF_FURY, AMULET_OF_FURY_OR),
 	ITE_FURY_ORNAMENT_KIT(FURY_ORNAMENT_KIT, AMULET_OF_FURY_OR),
+	ITEM_TORMENTED_BRACELET(TORMENTED_BRACELET, TORMENTED_BRACELET_OR),
+	ITEM_TORMENTED_ORNAMENT_KIT(TORMENTED_ORNAMENT_KIT, TORMENTED_BRACELET_OR),
 
 	// Ensouled heads
 	ITEM_ENSOULED_GOBLIN_HEAD(ENSOULED_GOBLIN_HEAD_13448, ENSOULED_GOBLIN_HEAD),
