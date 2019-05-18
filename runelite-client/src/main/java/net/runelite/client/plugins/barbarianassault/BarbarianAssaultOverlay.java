@@ -123,7 +123,8 @@ class BarbarianAssaultOverlay extends Overlay
 			graphics.drawImage(plugin.getClockImage(), spriteBounds.x, spriteBounds.y, null);
 		}
 
-		if (role == Role.COLLECTOR && config.highlightCollectorEggs()) {
+		if (role == Role.COLLECTOR && config.highlightCollectorEggs())
+		{
 			String heardCall = plugin.getCollectorHeardCall();
 			Color highlightColor = BarbarianAssaultPlugin.getEggColor(heardCall);
 			Map<WorldPoint, Integer> calledEggMap = plugin.getCalledEggMap();
