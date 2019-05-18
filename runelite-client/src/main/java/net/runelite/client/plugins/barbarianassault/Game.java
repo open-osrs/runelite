@@ -93,7 +93,8 @@ public class Game
 			amountsList = w.getWaveAmounts();
 			pointsList = w.getWavePoints();
 			otherRolesPointsList = w.getOtherRolesPointsList();
-			for (int j = 0; j < totalAmounts.length; j++) {
+			for (int j = 0; j < totalAmounts.length; j++)
+			{
 				totalAmounts[j] += amountsList[j];
 			}
 			for (int k = 0; k < totalPoints.length; k++)
