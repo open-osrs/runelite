@@ -112,7 +112,7 @@ public class HidePrayersPVMPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		hidePrayers();
-		configManager.setConfiguration("runelite", "hideprayerspvmplugin", false);
+		configManager.setConfiguration("runelite", "hideprayersindividualplugin", false);
 		configManager.setConfiguration("runelite", "hideprayerspvpplugin", false);
 	}
 
