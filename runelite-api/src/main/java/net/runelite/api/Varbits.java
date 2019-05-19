@@ -628,7 +628,12 @@ public enum Varbits
 	/**
 	 * Spellbook filtering (1 = unfiltered, 0 = filtered)
 	 */
-	FILTER_SPELLBOOK(6718);
+	FILTER_SPELLBOOK(6718),
+
+	/**
+	 * POH Building mode (1 = yes, 0 = no)
+	 */
+	BUILDING_MODE(2176);
 
 	/**
 	 * The raw varbit ID.
