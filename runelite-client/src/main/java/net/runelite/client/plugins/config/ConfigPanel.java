@@ -780,6 +780,11 @@ public class ConfigPanel extends PluginPanel
 			HotkeyButton hotkeyButton = (HotkeyButton) component;
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), hotkeyButton.getValue());
 		}
+		else if (component instanceof JSlider)
+		{
+			JSlider slider = (JSlider) component;
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), slider.getValue());
+		}
 	}
 
 	void startPlugin(Plugin plugin, PluginListItem listItem)
