@@ -57,6 +57,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -494,14 +495,32 @@ public class ConfigPanel extends PluginPanel
 					// Config may previously have been out of range
 					value = Ints.constrainToRange(value, min, max);
 
-					SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
-					JSpinner spinner = new JSpinner(model);
-					Component editor = spinner.getEditor();
-					JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
-					spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
-					spinner.addChangeListener(ce -> changeConfiguration(listItem, config, spinner, cd, cid));
+					if (max < Integer.MAX_VALUE)
+					{
+						JSlider slider = new JSlider(min, max, value);
+						configEntryName.setText(name.concat(": ").concat(String.valueOf(slider.getValue())));
+						slider.setPreferredSize(new Dimension(topPanel.getPreferredSize().width, slider.getHeight()));
+						String finalName = name;
+						slider.addChangeListener((l) ->
+							{
+								configEntryName.setText(finalName.concat(": ").concat(String.valueOf(slider.getValue())));
+								if (!slider.getValueIsAdjusting())
+									changeConfiguration(listItem, config, slider, cd, cid);
+							}
+						);
+						item.add(slider, BorderLayout.EAST);
+					}
+					else
+					{
+						SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
+						JSpinner spinner = new JSpinner(model);
+						Component editor = spinner.getEditor();
+						JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+						spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
+						spinner.addChangeListener(ce -> changeConfiguration(listItem, config, spinner, cd, cid));
 
-					item.add(spinner, BorderLayout.EAST);
+						item.add(spinner, BorderLayout.EAST);
+					}
 				}
 
 				if (cid.getType() == String.class)
