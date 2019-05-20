@@ -35,7 +35,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Actor;
 import net.runelite.api.Client;
+import net.runelite.api.GraphicID;
 import net.runelite.api.GraphicsObject;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
@@ -46,6 +48,7 @@ import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.ProjectileMoved;
@@ -90,6 +93,12 @@ public class CoxPlugin extends Plugin
 	private boolean HandCripple;
 	@Getter(AccessLevel.PACKAGE)
 	private int timer = 45;
+	@Getter(AccessLevel.PACKAGE)
+	private int burnTicks = 41;
+	@Getter(AccessLevel.PACKAGE)
+	private int acidTicks = 25;
+	@Getter(AccessLevel.PACKAGE)
+	private int teleportTicks = 10;
 	@Getter(AccessLevel.PACKAGE)
 	private NPC hand;
 	@Inject
@@ -163,11 +172,24 @@ public class CoxPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private List<WorldPoint> Olm_PSN = new ArrayList<>();
 
+	@Getter(AccessLevel.PACKAGE)
+	private List<Actor> burnTarget = new ArrayList<>();
+
+	@Getter(AccessLevel.PACKAGE)
+	private List<Actor> teleportTarget = new ArrayList<>();
+
+	@Getter(AccessLevel.PACKAGE)
+	private Actor acidTarget;
+
+
 	@Inject
 	private ChatMessageManager chatMessageManager;
 
 	@Inject
 	private CoxOverlay overlay;
+
+	@Inject
+	private TimersOverlay timersOverlay;
 
 	@Inject
 	private CoxConfig config;
@@ -184,6 +206,7 @@ public class CoxPlugin extends Plugin
 		overlayManager.add(overlay);
 		overlayManager.add(olmCrippleTimerOverlay);
 		overlayManager.add(prayAgainstOverlay);
+		overlayManager.add(timersOverlay);
 	}
 
 	@Override
@@ -192,8 +215,14 @@ public class CoxPlugin extends Plugin
 		overlayManager.remove(overlay);
 		overlayManager.remove(olmCrippleTimerOverlay);
 		overlayManager.remove(prayAgainstOverlay);
+		overlayManager.remove(timersOverlay);
 		HandCripple = false;
+		acidTarget = null;
+		teleportTarget.clear();
+		burnTarget.clear();
 		timer = 45;
+		burnTicks = 40;
+		acidTicks = 25;
 		hand = null;
 	}
 
@@ -272,15 +301,34 @@ public class CoxPlugin extends Plugin
 		Projectile projectile = event.getProjectile();
 		if (projectile.getId() == ProjectileID.OLM_MAGE_ATTACK)
 		{
-			log.debug("Mage Detected");
 			prayAgainstOlm = PrayAgainst.MAGIC;
 			lastPrayTime = System.currentTimeMillis();
 		}
 		if (projectile.getId() == ProjectileID.OLM_RANGE_ATTACK)
 		{
-			log.debug("Range Detected");
 			prayAgainstOlm = PrayAgainst.RANGED;
 			lastPrayTime = System.currentTimeMillis();
+		}
+		if (projectile.getId() == ProjectileID.OLM_ACID_TRAIL)
+		{
+			acidTarget = projectile.getInteracting();
+		}
+	}
+
+	@Subscribe
+	public void onGraphicChanged(GraphicChanged graphicChanged)
+	{
+		Actor actor = graphicChanged.getActor();
+
+		if (actor.getGraphic() == GraphicID.OLM_BURN)
+		{
+			System.out.println("Burn Victim Detected");
+			burnTarget.add(actor);
+		}
+		if (actor.getGraphic() == GraphicID.OLM_TELEPORT)
+		{
+			System.out.println("Teleport Victims found.");
+			teleportTarget.add(actor);
 		}
 	}
 
@@ -379,6 +427,35 @@ public class CoxPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
+		if (acidTarget != null)
+		{
+			acidTicks--;
+			if (acidTicks <= 0)
+			{
+				acidTarget = null;
+				acidTicks = 25;
+			}
+		}
+		if (teleportTarget.size() > 0)
+		{
+			teleportTicks--;
+			if (teleportTicks <= 0)
+			{
+				teleportTarget.clear();
+				teleportTicks = 10;
+			}
+		}
+		if (burnTarget.size() > 0)
+		{
+			System.out.println("Burn Victim Detected on tick");
+			burnTicks--;
+			if (burnTicks <= 0)
+			{
+				System.out.println("Burn Victim Doused, ticks reset to 40");
+				burnTarget.clear();
+				burnTicks = 41;
+			}
+		}
 
 		if (client.getVar(Varbits.IN_RAID) == 0)
 		{
