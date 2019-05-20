@@ -302,6 +302,7 @@ public class GroundItemsPlugin extends Plugin
 
 		Collection<ItemStack> items = npcLootReceived.getItems();
 		lootReceived(items);
+		lootNotifier(items);
 	}
 
 	@Subscribe
@@ -309,6 +310,47 @@ public class GroundItemsPlugin extends Plugin
 	{
 		Collection<ItemStack> items = playerLootReceived.getItems();
 		lootReceived(items);
+		lootNotifier(items);
+	}
+
+	private void lootNotifier(Collection<ItemStack> items)
+	{
+		ItemComposition composition;
+		for (ItemStack is : items)
+		{
+			composition = itemManager.getItemComposition(is.getId());
+			Color itemColor = getHighlighted(composition.getName(), itemManager.getItemPrice(is.getId()) * is.getQuantity(), Math.round(composition.getPrice() * HIGH_ALCHEMY_CONSTANT) * is.getQuantity());
+			if (itemColor != null)
+			{
+				if (config.notifyHighlightedDrops() && itemColor.equals(config.highlightedColor()))
+				{
+					sendLootNotification(composition.getName(), "highlighted");
+				}
+				else if (config.notifyLowValueDrops() && itemColor.equals(config.lowValueColor()))
+				{
+					sendLootNotification(composition.getName(), "low value");
+				}
+				else if (config.notifyMediumValueDrops() && itemColor.equals(config.mediumValueColor()))
+				{
+					sendLootNotification(composition.getName(), "medium value");
+				}
+				else if (config.notifyHighValueDrops() && itemColor.equals(config.highValueColor()))
+				{
+					sendLootNotification(composition.getName(), "high value");
+				}
+				else if (config.notifyInsaneValueDrops() && itemColor.equals(config.insaneValueColor()))
+				{
+					sendLootNotification(composition.getName(), "insane value");
+				}
+			}
+		}
+	}
+
+	private  void sendLootNotification(String itemName, String message)
+	{
+		String notification = "[" + client.getLocalPlayer().getName() + "] " +
+			"Received a " + message + " item: " + itemName;
+		notifier.notify(notification);
 	}
 
 	@Subscribe
