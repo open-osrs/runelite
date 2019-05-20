@@ -68,6 +68,28 @@ public interface CoxConfig extends Config
 
 	@ConfigItem(
 		position = 3,
+		keyName = "prayAgainstOlm",
+		name = "Olm Show Prayer",
+		description = "Shows what prayer to use during olm."
+	)
+	default boolean prayAgainstOlm()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 3,
+		keyName = "timers",
+		name = "Olm Show Burn/Acid Timers",
+		description = "Shows tick timers for burns/acids."
+	)
+	default boolean timers()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "OlmSpec",
 		name = "Olm Next Spec",
 		description = ""

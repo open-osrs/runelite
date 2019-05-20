@@ -22,13 +22,15 @@ public class TimersOverlay extends Overlay
 {
 
 	private CoxPlugin plugin;
+	private CoxConfig config;
 	private Client client;
 	private Color tickcolor = new Color(255, 255, 255, 255);
 
 	@Inject
-	TimersOverlay(CoxPlugin plugin, Client client)
+	TimersOverlay(CoxPlugin plugin, CoxConfig config, Client client)
 	{
 		this.plugin = plugin;
+		this.config = config;
 		this.client = client;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGHEST);
@@ -38,42 +40,44 @@ public class TimersOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (plugin.getBurnTarget().size() > 0)
+		if (config.timers())
 		{
-			for (Actor actor : plugin.getBurnTarget())
+			if (plugin.getBurnTarget().size() > 0)
 			{
-				renderNpcOverlay(graphics, actor, new Color(255, 100, 0, 255), 2, 100, 10);
-				final int ticksLeft = plugin.getBurnTicks();
-				String ticksLeftStr = String.valueOf(ticksLeft);
-				if (ticksLeft >= 0)
+				for (Actor actor : plugin.getBurnTarget())
 				{
-					if (ticksLeft == 34 ||
-						ticksLeft == 33 ||
-						ticksLeft == 26 ||
-						ticksLeft == 25 ||
-						ticksLeft == 18 ||
-						ticksLeft == 17 ||
-						ticksLeft == 10 ||
-						ticksLeft == 9 ||
-						ticksLeft == 2 ||
-						ticksLeft == 1)
+					renderNpcOverlay(graphics, actor, new Color(255, 100, 0, 255), 2, 100, 10);
+					final int ticksLeft = plugin.getBurnTicks();
+					String ticksLeftStr = String.valueOf(ticksLeft);
+					if (ticksLeft >= 0)
 					{
-						tickcolor = new Color(255, 0, 0, 255);
-						ticksLeftStr = "GAP";
+						if (ticksLeft == 34 ||
+							ticksLeft == 33 ||
+							ticksLeft == 26 ||
+							ticksLeft == 25 ||
+							ticksLeft == 18 ||
+							ticksLeft == 17 ||
+							ticksLeft == 10 ||
+							ticksLeft == 9 ||
+							ticksLeft == 2 ||
+							ticksLeft == 1)
+						{
+							tickcolor = new Color(255, 0, 0, 255);
+							ticksLeftStr = "GAP";
+						}
+						else
+						{
+							tickcolor = new Color(255, 255, 255, 255);
+						}
+						Point canvasPoint = actor.getCanvasTextLocation(graphics, ticksLeftStr, 0);
+						renderTextLocation(graphics, ticksLeftStr, 14, Font.BOLD, tickcolor, canvasPoint);
 					}
-					else
-					{
-						tickcolor = new Color(255, 255, 255, 255);
-					}
-					Point canvasPoint = actor.getCanvasTextLocation(graphics, ticksLeftStr, 0);
-					renderTextLocation(graphics, ticksLeftStr, 14, Font.BOLD, tickcolor, canvasPoint);
 				}
 			}
-		}
 
-		if (plugin.getAcidTarget() != null)
-		{
-			Actor actor = plugin.getAcidTarget();
+			if (plugin.getAcidTarget() != null)
+			{
+				Actor actor = plugin.getAcidTarget();
 				renderNpcOverlay(graphics, actor, new Color(69, 241, 44, 255), 2, 100, 10);
 				final int ticksLeft = plugin.getAcidTicks();
 				if (ticksLeft > 0)
@@ -91,12 +95,16 @@ public class TimersOverlay extends Overlay
 					renderTextLocation(graphics, ticksLeftStr, 14, Font.BOLD, tickcolor, canvasPoint);
 				}
 			}
+		}
 
-		if (plugin.getTeleportTarget().size() > 0)
+		if (config.tpOverlay())
 		{
-			for (Actor actor : plugin.getTeleportTarget())
+			if (plugin.getTeleportTarget().size() > 0)
 			{
-				renderNpcOverlay(graphics, actor, new Color(193, 255, 245, 255), 2, 100, 10);
+				for (Actor actor : plugin.getTeleportTarget())
+				{
+					renderNpcOverlay(graphics, actor, new Color(193, 255, 245, 255), 2, 100, 10);
+				}
 			}
 		}
 
