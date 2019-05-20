@@ -32,6 +32,7 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.plugins.grounditems.config.ItemHighlightMode;
 import net.runelite.client.plugins.grounditems.config.MenuHighlightMode;
 import net.runelite.client.plugins.grounditems.config.PriceDisplayMode;
+import net.runelite.client.plugins.grounditems.config.TimerDisplayMode;
 import net.runelite.client.plugins.grounditems.config.ValueCalculationMode;
 
 @ConfigGroup("grounditems")
@@ -379,5 +380,16 @@ public interface GroundItemsConfig extends Config
 	default boolean toggleOutline()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+		keyName = "showGroundItemDuration",
+		name = "Show time remaining",
+		description = "Turn on a countdown timer to show how long an item will remain on the ground",
+		position = 30
+	)
+	default TimerDisplayMode showGroundItemDuration()
+	{
+		return TimerDisplayMode.HOTKEY_PRESSED;
 	}
 }
