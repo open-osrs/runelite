@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package net.runelite.client.plugins.zcox;
+package net.runelite.client.plugins.coxhelper;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -170,21 +170,6 @@ public class CoxOverlay extends Overlay
 		if (plugin.isRunOlm())
 		{
 			NPC boss = plugin.getOlm_NPC();
-			if (config.OlmCrystals())
-			{
-				for (WorldPoint p : plugin.getOlm_Crystals())
-				{
-					drawTile(graphics, p, Color.RED, 1, 255, 0);
-				}
-				for (WorldPoint p : plugin.getOlm_Heal())
-				{
-					drawTile(graphics, p, Color.BLUE, 3, 255, 0);
-				}
-				for (WorldPoint p : plugin.getOlm_PSN())
-				{
-					drawTile(graphics, p, Color.GREEN, 3, 255, 0);
-				}
-			}
 
 			if (config.OlmTick())
 			{

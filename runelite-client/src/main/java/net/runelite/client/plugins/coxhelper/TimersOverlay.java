@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.zcox;
+package net.runelite.client.plugins.coxhelper;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

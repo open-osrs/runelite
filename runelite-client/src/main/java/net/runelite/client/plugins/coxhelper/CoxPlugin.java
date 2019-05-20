@@ -24,7 +24,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package net.runelite.client.plugins.zcox;
+package net.runelite.client.plugins.coxhelper;
 
 import com.google.inject.Provides;
 import java.util.ArrayList;
@@ -582,12 +582,8 @@ public class CoxPlugin extends Plugin
 						for (int y = -1; y <= 1; y++)
 						{
 							newloc = WorldPoint.fromLocal(client, o.getLocation());
-
-							if (config.LargeCrystals())
-							{
-								newloc = newloc.dx(x);
-								newloc = newloc.dy(y);
-							}
+							newloc = newloc.dx(x);
+							newloc = newloc.dy(y);
 							Olm_Crystals.add(newloc);
 						}
 					}
