@@ -102,7 +102,7 @@ public class WorldHopperPlugin extends Plugin
 	private static final int REFRESH_THROTTLE = 60_000;  // ms
 	private static final int TICK_THROTTLE = (int) Duration.ofMinutes(10).toMillis();
 
-	public static final int CURR_WORLD_PING_TIMER = 1;
+	public static final int CURRENT_WORLD_PING_TIMER = 1;
 
 	private static final int DISPLAY_SWITCHER_MAX_ATTEMPTS = 3;
 
@@ -223,7 +223,7 @@ public class WorldHopperPlugin extends Plugin
 		hopperExecutorService = new ExecutorServiceExceptionLogger(Executors.newSingleThreadScheduledExecutor());
 		pingFuture = hopperExecutorService.scheduleAtFixedRate(this::pingWorlds, WORLD_PING_TIMER, WORLD_PING_TIMER, TimeUnit.MINUTES);
 
-		currPingFuture = executorService.scheduleAtFixedRate(this::pingWorld, 0, CURR_WORLD_PING_TIMER, TimeUnit.SECONDS);
+		currPingFuture = executorService.scheduleAtFixedRate(this::pingWorld, 0, CURRENT_WORLD_PING_TIMER, TimeUnit.SECONDS);
 	}
 
 	@Override
@@ -466,7 +466,7 @@ public class WorldHopperPlugin extends Plugin
 
 		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
 		{
-			currPingFuture = executorService.scheduleAtFixedRate(this::pingWorld, 0, CURR_WORLD_PING_TIMER, TimeUnit.SECONDS);
+			currPingFuture = executorService.scheduleAtFixedRate(this::pingWorld, 0, CURRENT_WORLD_PING_TIMER, TimeUnit.SECONDS);
 		}
 	}
 

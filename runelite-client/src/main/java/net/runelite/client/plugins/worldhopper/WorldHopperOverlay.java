@@ -40,7 +40,7 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class WorldHopperOverlay extends Overlay
 {
 	private static final int Y_OFFSET = 11;
-	private static final int VALUE_X_OFFSET = 1;
+	private static final int X_OFFSET = 1;
 	private static final String PING_STRING = " ms";
 
 	private final Client client;
@@ -64,7 +64,7 @@ public class WorldHopperOverlay extends Overlay
 		final int textHeight = graphics.getFontMetrics().getAscent() - graphics.getFontMetrics().getDescent();
 
 		final int width = (int) client.getRealDimensions().getWidth();
-		final Point point = new Point(width - textWidth - VALUE_X_OFFSET, textHeight + Y_OFFSET);
+		final Point point = new Point(width - textWidth - X_OFFSET, textHeight + Y_OFFSET);
 		OverlayUtil.renderTextLocation(graphics, point, text, Color.yellow);
 
 		return null;
