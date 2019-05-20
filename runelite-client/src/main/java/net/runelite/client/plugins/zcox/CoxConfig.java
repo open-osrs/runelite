@@ -28,16 +28,28 @@ package net.runelite.client.plugins.zcox;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Stub;
 
 @ConfigGroup("Cox")
 
 public interface CoxConfig extends Config
 {
 	@ConfigItem(
-		position = 0,
+		keyName = "muttadileStub",
+		name = "Muttadile",
+		description = "",
+		position = 1
+	)
+	default Stub muttadileStub()
+	{
+		return new Stub();
+	}
+	@ConfigItem(
+		position = 2,
 		keyName = "Muttadile",
 		name = "Muttadile Marker",
-		description = ""
+		description = "",
+		parent = "muttadileStub"
 	)
 	default boolean Muttadile()
 	{
@@ -45,10 +57,22 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 1,
+		keyName = "tektonStub",
+		name = "Tekton",
+		description = "",
+		position = 3
+	)
+	default Stub tektonStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 4,
 		keyName = "Tekton",
 		name = "Tekton Marker",
-		description = ""
+		description = "",
+		parent = "tektonStub"
 	)
 	default boolean Tekton()
 	{
@@ -56,10 +80,22 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		keyName = "guardiansStub",
+		name = "Guardians",
+		description = "",
+		position = 5
+	)
+	default Stub guardiansStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 6,
 		keyName = "Guardians",
 		name = "Guardians timing",
-		description = ""
+		description = "",
+		parent = "guardiansStub"
 	)
 	default boolean Guardians()
 	{
@@ -67,10 +103,22 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+		keyName = "olmStub",
+		name = "Olm",
+		description = "",
+		position = 7
+	)
+	default Stub olmStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 8,
 		keyName = "OlmSpec",
 		name = "Olm Next Spec",
-		description = ""
+		description = "",
+		parent = "olmStub"
 	)
 	default boolean OlmSpec()
 	{
@@ -78,10 +126,11 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 9,
 		keyName = "OlmTick",
 		name = "Olm Tick Counter",
-		description = ""
+		description = "",
+		parent = "olmStub"
 	)
 	default boolean OlmTick()
 	{
@@ -89,10 +138,23 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		keyName = "aoeStub",
+		name = "AoE",
+		description = "",
+		position = 4,
+		parent = "olmStub"
+	)
+	default Stub aoeStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 10,
 		keyName = "OlmCrystals",
 		name = "Olm AoE Indicator",
-		description = ""
+		description = "",
+		parent = "aoeStub"
 	)
 	default boolean OlmCrystals()
 	{
@@ -103,7 +165,8 @@ public interface CoxConfig extends Config
 		position = 6,
 		keyName = "LargeCrystals",
 		name = "Mark Large AoE Crystals rather then small ones",
-		description = ""
+		description = "",
+		parent = "aoeStub"
 	)
 	default boolean LargeCrystals()
 	{
