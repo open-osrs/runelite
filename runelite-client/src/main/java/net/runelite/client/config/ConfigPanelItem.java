@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kamiel
+ * Copyright (c) 2018, Craftiii4 <craftiii4@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,48 +22,70 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.menuentryswapper;
+package net.runelite.client.config;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
-import net.runelite.client.input.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AccessLevel;
+import lombok.Getter;
 
-public class ShiftClickInputListener implements KeyListener
+public class ConfigPanelItem
 {
-	@Inject
-	private MenuEntrySwapperPlugin plugin;
 
-	@Override
-	public void keyTyped(KeyEvent event)
+	@Getter(AccessLevel.PUBLIC)
+	private ConfigPanelItem parent;
+
+	@Getter(AccessLevel.PUBLIC)
+	private List<ConfigPanelItem> children;
+
+	@Getter(AccessLevel.PUBLIC)
+	private ConfigItemDescriptor item;
+
+	public ConfigPanelItem(ConfigPanelItem parent, ConfigItemDescriptor item)
 	{
+		this.parent = parent;
+		this.children = new ArrayList<>();
+		this.item = item;
+	}
+
+	public List<ConfigPanelItem> getItemsAsList()
+	{
+		List<ConfigPanelItem> items = new ArrayList<>();
+
+		items.add(this);
+
+		for (ConfigPanelItem child : children)
+		{
+			items.addAll(child.getItemsAsList());
+		}
+		return items;
+	}
+
+	public int getDepth()
+	{
+		return (parent == null ? 0 : parent.getDepth() + 1);
+	}
+
+	public boolean addChildIfMatchParent(ConfigItemDescriptor cid)
+	{
+
+		if (item != null && item.getItem().keyName().equals(cid.getItem().parent()))
+		{
+			children.add(new ConfigPanelItem(this, cid));
+			return true;
+		}
+		else
+		{
+			for (ConfigPanelItem child : children)
+			{
+				if (child.addChildIfMatchParent(cid))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 
 	}
 
-	@Override
-	public void keyPressed(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(true);
-			plugin.startShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.startControl();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(false);
-			plugin.stopShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.stopControl();
-		}
-	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kamiel
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,48 +22,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.menuentryswapper;
+package net.runelite.client.plugins.worldhopper.ping;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
-import net.runelite.client.input.KeyListener;
+import com.sun.jna.Library;
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
 
-public class ShiftClickInputListener implements KeyListener
+interface IPHlpAPI extends Library
 {
-	@Inject
-	private MenuEntrySwapperPlugin plugin;
+	IPHlpAPI INSTANCE = Native.loadLibrary("IPHlpAPI", IPHlpAPI.class);
 
-	@Override
-	public void keyTyped(KeyEvent event)
-	{
+	Pointer IcmpCreateFile();
 
-	}
+	boolean IcmpCloseHandle(Pointer handle);
 
-	@Override
-	public void keyPressed(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(true);
-			plugin.startShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.startControl();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(false);
-			plugin.stopShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.stopControl();
-		}
-	}
+	int IcmpSendEcho(Pointer IcmpHandle, int DestinationAddress, Pointer RequestData, short RequestSize, Pointer RequestOptions, IcmpEchoReply ReplyBuffer, int ReplySize, int Timeout);
 }

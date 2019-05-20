@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kamiel
+ * Copyright (c) 2018, TheStonedTurtle <https://github.com/TheStonedTurtle>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,48 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.menuentryswapper;
+package net.runelite.client.plugins.groundmarkers;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
-import net.runelite.client.input.KeyListener;
+import lombok.Value;
+import net.runelite.api.coords.WorldPoint;
 
-public class ShiftClickInputListener implements KeyListener
+@Value
+public class GroundMarkerWorldPoint
 {
-	@Inject
-	private MenuEntrySwapperPlugin plugin;
-
-	@Override
-	public void keyTyped(KeyEvent event)
-	{
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(true);
-			plugin.startShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.startControl();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(false);
-			plugin.stopShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.stopControl();
-		}
-	}
+	private GroundMarkerPoint groundMarkerPoint;
+	private WorldPoint worldPoint;
 }

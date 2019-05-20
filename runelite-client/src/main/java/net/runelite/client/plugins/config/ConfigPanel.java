@@ -64,6 +64,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -75,13 +77,15 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigDescriptor;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigItemsGroup;
 import net.runelite.client.config.ConfigItemDescriptor;
+import net.runelite.client.config.ConfigItemsGroup;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.config.ConfigPanelItem;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.ModifierlessKeybind;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.RuneLiteConfig;
+import net.runelite.client.config.Stub;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
@@ -419,6 +423,9 @@ public class ConfigPanel extends PluginPanel
 
 		for (ConfigItemsGroup cig : cd.getItemGroups())
 		{
+			ConfigPanelItem mainParent = new ConfigPanelItem(null, null);
+			List<ConfigItemDescriptor> allItems = new ArrayList<>();
+
 			boolean collapsed = false;
 			if (!cig.getGroup().equals(""))
 			{
@@ -430,11 +437,13 @@ public class ConfigPanel extends PluginPanel
 
 				JLabel headerLabel = new JLabel(header);
 				headerLabel.setForeground(Color.ORANGE);
-				headerLabel.setPreferredSize(new Dimension(PANEL_WIDTH, (int)headerLabel.getPreferredSize().getHeight()));
+				headerLabel.setPreferredSize(new Dimension(PANEL_WIDTH, (int) headerLabel.getPreferredSize().getHeight()));
 				String sCollapsed = configManager.getConfiguration(cd.getGroup().value(), cig.getGroup() + "_collapse");
 
 				if (sCollapsed != null)
+				{
 					collapsed = Boolean.parseBoolean(sCollapsed);
+				}
 
 				JButton collapse = new JButton(collapsed ? "+" : "-");
 				collapse.setPreferredSize(new Dimension(20, 20));
@@ -451,24 +460,100 @@ public class ConfigPanel extends PluginPanel
 			}
 
 			if (collapsed)
-				continue;
-
-			for (ConfigItemDescriptor cid : cig.getItems())
 			{
+				continue;
+			}
+
+			allItems.addAll(cig.getItems());
+
+			int maxDepth = 3;
+			do
+			{
+				for (ConfigItemDescriptor cid : new ArrayList<>(allItems))
+				{
+
+					String parent = cid.getItem().parent();
+
+					if (parent.equals(""))
+					{
+						mainParent.getChildren().add(new ConfigPanelItem(mainParent, cid));
+						allItems.remove(cid);
+					}
+					else
+					{
+						if (mainParent.addChildIfMatchParent(cid))
+						{
+							allItems.remove(cid);
+						}
+					}
+
+				}
+
+				maxDepth--;
+
+			} while (allItems.size() > 0 && maxDepth > 0);
+
+			List<ConfigPanelItem> orderedList = mainParent.getItemsAsList();
+
+			for (ConfigPanelItem cpi : orderedList)
+			{
+				ConfigItemDescriptor cid = cpi.getItem();
+
+				if (cid == null)
+				{
+					continue; // Ignore main 'parent'
+				}
+
 				if (cid.getItem().hidden())
 				{
-					continue;
+					boolean show = false;
+					String unhideat = cid.getItem().unhide();
+
+					for (ConfigItemDescriptor cid2 : cd.getItems())
+					{
+
+						if (cid2.getItem().keyName().equals(unhideat))
+						{
+							if (cid2.getType() == boolean.class)
+							{
+								show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+							}
+						}
+					}
+
+					if (!show)
+					{
+						continue;
+					}
 				}
 
 				JPanel item = new JPanel();
 				item.setLayout(new BorderLayout());
 				item.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
 				name = cid.getItem().name();
+
+				StringBuilder depthOffset = new StringBuilder();
+				for (int depth = 1; depth < cpi.getDepth(); depth++)
+				{
+					depthOffset.append("   ");
+				}
+
+				name = depthOffset + name;
+
 				JLabel configEntryName = new JLabel(name);
-				configEntryName.setPreferredSize(new Dimension(PANEL_WIDTH, (int)configEntryName.getPreferredSize().getHeight()));
+				configEntryName.setPreferredSize(new Dimension(PANEL_WIDTH, (int) configEntryName.getPreferredSize().getHeight()));
 				configEntryName.setForeground(Color.WHITE);
 				configEntryName.setToolTipText("<html>" + name + ":<br>" + cid.getItem().description() + "</html>");
 				item.add(configEntryName, BorderLayout.CENTER);
+
+				if (cid.getType() == Stub.class)
+				{
+					Border border = item.getBorder();
+					Border margin = new EmptyBorder(10, 0, 0, 0);
+					item.setBorder(new CompoundBorder(border, margin));
+
+					configEntryName.setForeground(Color.ORANGE);
+				}
 
 				if (cid.getType() == boolean.class)
 				{
@@ -499,13 +584,15 @@ public class ConfigPanel extends PluginPanel
 					{
 						JSlider slider = new JSlider(min, max, value);
 						configEntryName.setText(name.concat(": ").concat(String.valueOf(slider.getValue())));
-						slider.setPreferredSize(new Dimension(topPanel.getPreferredSize().width, slider.getHeight()));
+						slider.setPreferredSize(new Dimension(85, 25));
 						String finalName = name;
 						slider.addChangeListener((l) ->
 							{
 								configEntryName.setText(finalName.concat(": ").concat(String.valueOf(slider.getValue())));
 								if (!slider.getValueIsAdjusting())
+								{
 									changeConfiguration(listItem, config, slider, cd, cid);
+								}
 							}
 						);
 						item.add(slider, BorderLayout.EAST);
@@ -726,7 +813,9 @@ public class ConfigPanel extends PluginPanel
 			boolean collapse = true;
 
 			if (sCollapsed != null)
+			{
 				collapse = !Boolean.parseBoolean(sCollapsed);
+			}
 
 			configManager.setConfiguration(cd.getGroup().value(), cig.getGroup() + "_collapse", collapse);
 			openGroupConfigPanel(listItem, config, cd);
@@ -754,6 +843,18 @@ public class ConfigPanel extends PluginPanel
 		{
 			JCheckBox checkbox = (JCheckBox) component;
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), "" + checkbox.isSelected());
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				if (cid2.getItem().hidden())
+				{
+					if (cid2.getItem().unhide().equals(cid.getItem().keyName()))
+					{ // If another options visibility changes depending on the value of this checkbox, then render the entire menu again
+						openGroupConfigPanel(listItem, config, cd);
+						return;
+					}
+				}
+			}
 		}
 		else if (component instanceof JSpinner)
 		{

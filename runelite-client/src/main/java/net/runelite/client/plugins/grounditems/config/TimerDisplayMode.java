@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kamiel
+ * Copyright (c) 2018 Matthew Smith <https://github.com/ms813>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,48 +22,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.menuentryswapper;
+package net.runelite.client.plugins.grounditems.config;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
-import net.runelite.client.input.KeyListener;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-public class ShiftClickInputListener implements KeyListener
+@Getter
+@RequiredArgsConstructor
+public enum TimerDisplayMode
 {
-	@Inject
-	private MenuEntrySwapperPlugin plugin;
+	ALWAYS("Always"),
+	HOTKEY_PRESSED("When Hotkey Pressed"),
+	NEVER("Never");
+
+	private final String name;
 
 	@Override
-	public void keyTyped(KeyEvent event)
+	public String toString()
 	{
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(true);
-			plugin.startShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.startControl();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(false);
-			plugin.stopShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.stopControl();
-		}
+		return name;
 	}
 }
