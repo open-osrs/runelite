@@ -157,17 +157,11 @@ public class RunecraftPlugin extends Plugin
 		{
 			if (config.essPouch())
 			{
-				{
-					menuManager.addSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
-				}
-				else
-				{
-					menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
-				}
+				menuManager.addSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
 			}
-			 if (option.equals("fill") && id != 9)
+			else
 			{
-				swap(client, "empty", option, target);
+				menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
 			}
 		}
 
@@ -194,12 +188,12 @@ public class RunecraftPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded entry)
 	{
+		final String option = Text.removeTags(entry.getOption()).toLowerCase();
+		final String target = Text.removeTags(entry.getTarget()).toLowerCase();
+		final int id = entry.getIdentifier();
+
 		if (wearingCape || wearingTiara)
 		{
-			final String option = Text.removeTags(entry.getOption()).toLowerCase();
-			final String target = Text.removeTags(entry.getTarget()).toLowerCase();
-			final int id = entry.getIdentifier();
-
 			if (target.contains("ring of dueling") && option.contains("remove"))
 			{
 				if (client.getLocalPlayer().getWorldLocation().getRegionID() != 10315)
@@ -223,11 +217,16 @@ public class RunecraftPlugin extends Plugin
 			{
 				hide(option, target, true);
 			}
-			else if (target.contains("pure") && option.contains("use")) // Don't accidentally use pure essence on altar
-			{
-				hide("use", target, true);
-				hide("drop", target, true);
-			}
+		}
+		if (target.contains("pure") && option.contains("use")) // Don't accidentally use pure essence on altar
+		{
+			hide("use", target, true);
+			hide("drop", target, true);
+		}
+
+		if (option.equals("fill") && id != 9)
+		{
+			swap(client, "empty", option, target);
 		}
 	}
 	
