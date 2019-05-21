@@ -218,12 +218,16 @@ public class RunecraftPlugin extends Plugin
 				hide(option, target, true);
 			}
 		}
-		if (target.contains("pure") && option.contains("use")) // Don't accidentally use pure essence on altar
+		
+		if (config.swapEss)
 		{
-			hide("use", target, true);
-			hide("drop", target, true);
+			if (target.contains("pure") && option.contains("use")) // Don't accidentally use pure essence on altar
+			{
+				hide("use", target, true);
+				hide("drop", target, true);
+			}
 		}
-
+		
 		if (option.equals("fill") && id != 9)
 		{
 			swap(client, "empty", option, target);
