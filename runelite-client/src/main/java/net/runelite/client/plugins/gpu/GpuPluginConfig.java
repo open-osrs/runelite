@@ -41,10 +41,13 @@ public interface GpuPluginConfig extends Config
 		description = "",
 		position = 1
 	)
-	default Stub drawingStub() { return new Stub(); }
+	default Stub drawingStub()
+	{
+		return new Stub();
+	}
 
 	@Range(
-		min= 20,
+		min = 20,
 		max = 100
 	)
 	@ConfigItem(
@@ -77,7 +80,10 @@ public interface GpuPluginConfig extends Config
 		description = "",
 		position = 4
 	)
-	default Stub ppStub() { return new Stub(); }
+	default Stub ppStub()
+	{
+		return new Stub();
+	}
 
 	@ConfigItem(
 		keyName = "antiAliasingMode",
@@ -109,7 +115,10 @@ public interface GpuPluginConfig extends Config
 		description = "",
 		position = 7
 	)
-	default Stub fogStub() { return new Stub(); }
+	default Stub fogStub()
+	{
+		return new Stub();
+	}
 
 	@ConfigItem(
 		keyName = "fogDepth",

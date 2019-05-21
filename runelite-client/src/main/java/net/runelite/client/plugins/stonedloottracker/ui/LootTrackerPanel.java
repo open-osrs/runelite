@@ -27,16 +27,12 @@ package net.runelite.client.plugins.stonedloottracker.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -350,7 +346,9 @@ public class LootTrackerPanel extends PluginPanel
 	private void playbackLoot()
 	{
 		if (lootPanel == null)
+		{
 			return;
+		}
 
 		if (lootPanel.isPlaybackPlaying())
 		{

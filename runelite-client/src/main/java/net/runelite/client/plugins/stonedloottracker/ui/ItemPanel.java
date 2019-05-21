@@ -82,7 +82,8 @@ class ItemPanel extends JPanel
 
 		String gpLabel = StackFormatter.quantityToStackSize(this.record.getTotal()) + " gp";
 
-		if (this.record.getHaTotal() > 0 && this.record.getHaPrice() > 1) {
+		if (this.record.getHaTotal() > 0 && this.record.getHaPrice() > 1)
+		{
 			gpLabel += " (HA: " + StackFormatter.quantityToStackSize(this.record.getHaTotal()) + " gp)";
 		}
 

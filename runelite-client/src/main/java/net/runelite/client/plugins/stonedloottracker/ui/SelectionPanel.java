@@ -137,7 +137,8 @@ public class SelectionPanel extends JPanel
 		return p;
 	}
 
-	static GridBagConstraints constrains() {
+	static GridBagConstraints constrains()
+	{
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;

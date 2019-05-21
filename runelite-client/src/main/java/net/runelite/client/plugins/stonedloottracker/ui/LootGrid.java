@@ -103,6 +103,6 @@ class LootGrid extends JPanel
 
 		return "<html>" + name + " x " + StackFormatter.formatNumber(quantity)
 			+ "<br/>Price: " + StackFormatter.quantityToStackSize(price)
-			+ "<br/>Total: " + StackFormatter.quantityToStackSize(quantity * price) +	"</html";
+			+ "<br/>Total: " + StackFormatter.quantityToStackSize(quantity * price) + "</html";
 	}
 }

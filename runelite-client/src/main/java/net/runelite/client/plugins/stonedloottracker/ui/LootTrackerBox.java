@@ -103,16 +103,6 @@ class LootTrackerBox extends JPanel
 	}
 
 	/**
-	 * Adds an record's data into a loot box.
-	 * This will add new items to the list, re-calculating price and kill count.
-	 */
-	void combine(final LootRecordCustom record)
-	{
-		records.add(record);
-		buildItems();
-	}
-
-	/**
 	 * This method creates stacked items from the item list, calculates total price and then
 	 * displays all the items in the UI.
 	 */
@@ -192,7 +182,8 @@ class LootTrackerBox extends JPanel
 		repaint();
 	}
 
-	static ArrayList<LootTrackerItemEntry> dedupeClues(List<LootTrackerItemEntry> items) {
+	static ArrayList<LootTrackerItemEntry> dedupeClues(List<LootTrackerItemEntry> items)
+	{
 		final ArrayList<LootTrackerItemEntry> newItems = new ArrayList<>();
 
 		int eliteClues = 0;
@@ -207,7 +198,8 @@ class LootTrackerBox extends JPanel
 		LootTrackerItemEntry easyClue = null;
 		LootTrackerItemEntry beginnerClue = null;
 
-		for (LootTrackerItemEntry lootEntry: items) {
+		for (LootTrackerItemEntry lootEntry : items)
+		{
 			if (lootEntry == null)
 			{
 				continue;
@@ -215,20 +207,30 @@ class LootTrackerBox extends JPanel
 
 			String name = lootEntry.getName();
 
-			if (lootEntry.getName().contains("Clue scroll (")) {
-				if (name.contains("elite")) {
+			if (lootEntry.getName().contains("Clue scroll ("))
+			{
+				if (name.contains("elite"))
+				{
 					eliteClues += lootEntry.getQuantity();
 					eliteClue = lootEntry;
-				} else if (name.contains("hard")) {
+				}
+				else if (name.contains("hard"))
+				{
 					hardClues += lootEntry.getQuantity();
 					hardClue = lootEntry;
-				} else if (name.contains("medium")) {
+				}
+				else if (name.contains("medium"))
+				{
 					mediumClues += lootEntry.getQuantity();
 					mediumClue = lootEntry;
-				} else if (name.contains("easy")) {
+				}
+				else if (name.contains("easy"))
+				{
 					easyClues += lootEntry.getQuantity();
 					easyClue = lootEntry;
-				} else if (name.contains("beginner")) {
+				}
+				else if (name.contains("beginner"))
+				{
 					beginnerClues += lootEntry.getQuantity();
 					beginnerClue = lootEntry;
 				}
@@ -242,8 +244,10 @@ class LootTrackerBox extends JPanel
 		LootTrackerItemEntry[] clueArray = {beginnerClue, easyClue, mediumClue, hardClue, eliteClue};
 		int[] clueAmountArray = {beginnerClues, easyClues, mediumClues, hardClues, eliteClues};
 
-		for (int i = 0; i < 4 ; i++) {
-			if (clueAmountArray[i] > 0) {
+		for (int i = 0; i < 4; i++)
+		{
+			if (clueAmountArray[i] > 0)
+			{
 				newItems.add(createNewLootEntry(Objects.requireNonNull(clueArray[i]), clueAmountArray[i]));
 			}
 		}
@@ -251,7 +255,8 @@ class LootTrackerBox extends JPanel
 		return newItems;
 	}
 
-	private static LootTrackerItemEntry createNewLootEntry(LootTrackerItemEntry item, int amount) {
+	private static LootTrackerItemEntry createNewLootEntry(LootTrackerItemEntry item, int amount)
+	{
 		return new LootTrackerItemEntry(
 			item.getName(),
 			item.getId(),
@@ -262,16 +267,19 @@ class LootTrackerBox extends JPanel
 		);
 	}
 
-	static int rowSize(int items) {
+	static int rowSize(int items)
+	{
 		return ((items % ITEMS_PER_ROW == 0) ? 0 : 1) + items / ITEMS_PER_ROW;
 	}
 
-	static void resetContainer(JPanel itemContainer, int rowSize) {
+	private static void resetContainer(JPanel itemContainer, int rowSize)
+	{
 		itemContainer.removeAll();
 		itemContainer.setLayout(new GridLayout(rowSize, ITEMS_PER_ROW, 1, 1));
 	}
 
-	static JLabel buildimageLabel(ItemManager itemManager, LootTrackerItemEntry item) {
+	private static JLabel buildimageLabel(ItemManager itemManager, LootTrackerItemEntry item)
+	{
 		final JLabel imageLabel = new JLabel();
 		imageLabel.setToolTipText(UniqueItemPanel.tooltipText(item.getPrice(), item.getHaPrice(), item.getQuantity(), item.getName()));
 		imageLabel.setVerticalAlignment(SwingConstants.CENTER);

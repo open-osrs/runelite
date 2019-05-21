@@ -216,13 +216,15 @@ class LootPanel extends JPanel
 		}
 
 		// Only add the total value element if it has something useful to display
-		if (totalValue > 0) {
+		if (totalValue > 0)
+		{
 			c.gridy = totalValueIndex;
 			TextPanel totalPanel = new TextPanel("Total Value:", totalValue);
 			this.add(totalPanel, c);
 		}
 
-		if (totalHaValue > 0) {
+		if (totalHaValue > 0)
+		{
 			c.gridy = totalValueIndex + 1;
 			TextPanel totalHaPanel = new TextPanel("Total HA Value:", totalHaValue);
 			this.add(totalHaPanel, c);

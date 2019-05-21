@@ -107,20 +107,25 @@ class UniqueItemPanel extends JPanel
 		this.add(panel, BorderLayout.NORTH);
 	}
 
-	static String tooltipText(long price, long haPrice, int quantity, String name) {
+	static String tooltipText(long price, long haPrice, int quantity, String name)
+	{
 		String tooltipText = "<html>" + name;
-		if (quantity > 1) {
+		if (quantity > 1)
+		{
 			tooltipText += "<br/>Price: " + StackFormatter.quantityToStackSize(price);
 
-			if (haPrice > 0) {
+			if (haPrice > 0)
+			{
 				tooltipText += " (HA: " + StackFormatter.quantityToStackSize(haPrice) + ")";
 			}
 		}
 
-		if (quantity > 0) {
+		if (quantity > 0)
+		{
 			tooltipText += "<br/>Total: " + StackFormatter.quantityToStackSize(quantity * price);
 
-			if (haPrice > 0) {
+			if (haPrice > 0)
+			{
 				tooltipText += " (HA: " + StackFormatter.quantityToStackSize(quantity * haPrice) + ")";
 			}
 		}

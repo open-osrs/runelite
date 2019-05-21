@@ -237,7 +237,8 @@ public class StonedLootTrackerPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onNpcLootReceived(final NpcLootReceived npcLootReceived) {
+	public void onNpcLootReceived(final NpcLootReceived npcLootReceived)
+	{
 		final NPC npc = npcLootReceived.getNpc();
 		final Collection<ItemStack> items = npcLootReceived.getItems();
 		final String name = npc.getName().toLowerCase().contains("vet'ion reborn") ? "Vet'ion" : npc.getName();
@@ -245,11 +246,15 @@ public class StonedLootTrackerPlugin extends Plugin
 		final int killCount = killCountMap.getOrDefault(name.toUpperCase(), -1);
 		final LootTrackerItemEntry[] entries = buildEntries(items);
 
-		if (gotPet) {
+		if (gotPet)
+		{
 			ItemStack pet = handlePet(name);
-			if (pet == null) {
+			if (pet == null)
+			{
 				log.warn("Error finding pet for npc name: {}", name);
-			} else {
+			}
+			else
+			{
 				items.add(pet);
 			}
 		}
@@ -299,7 +304,7 @@ public class StonedLootTrackerPlugin extends Plugin
 				// Clue Scrolls use same InventoryID as Barrows
 				container = client.getItemContainer(InventoryID.BARROWS_REWARD);
 				break;
-			// Unsired redemption tracking
+				// Unsired redemption tracking
 			case (WidgetID.DIALOG_SPRITE_GROUP_ID):
 				Widget text = client.getWidget(WidgetInfo.DIALOG_SPRITE_TEXT);
 				if ("you place the unsired into the font of consumption...".equals(text.getText().toLowerCase()))
@@ -330,11 +335,12 @@ public class StonedLootTrackerPlugin extends Plugin
 
 		final LootTrackerItemEntry[] entries = buildEntries(items);
 		final int killCount = killCountMap.getOrDefault(eventType.toUpperCase(), -1);
-		LootRecordCustom rec =  new LootRecordCustom(-1, eventType, -1, killCount, Arrays.asList(entries));
+		LootRecordCustom rec = new LootRecordCustom(-1, eventType, -1, killCount, Arrays.asList(entries));
 		addLog(eventType, rec);
 	}
 
-	private void addLog(String name, LootRecordCustom record) {
+	private void addLog(String name, LootRecordCustom record)
+	{
 		lootRecordMultimap.put(name, record);
 		writer.addLootTrackerRecord(record);
 	}
@@ -622,6 +628,7 @@ public class StonedLootTrackerPlugin extends Plugin
 
 	private boolean unsiredThreadRunning = false;
 	private int unsiredThreadTries = 0;
+
 	// Handles checking for unsired loot reclamation
 	private void checkUnsiredWidget()
 	{
