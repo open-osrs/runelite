@@ -3,6 +3,7 @@ package net.runelite.client.plugins.inventoryhighlight;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Stub;
 
 @ConfigGroup("inventoryHighlight")
 public interface InventoryHighlightConfig extends Config
@@ -18,9 +19,21 @@ public interface InventoryHighlightConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "gridStub",
+		name = "Grid",
+		description = "",
+		position = 1
+	)
+	default Stub gridStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
 		keyName = "showGrid",
 		name = "Show a grid",
-		description = "Show a grid on the inventory while dragging"
+		description = "Show a grid on the inventory while dragging",
+		parent = "gridStub"
 	)
 	default boolean showGrid()
 	{
@@ -30,7 +43,8 @@ public interface InventoryHighlightConfig extends Config
 	@ConfigItem(
 		keyName = "showHighlight",
 		name = "Show background highlight",
-		description = "Show a green background highlight in the new slot"
+		description = "Show a green background highlight in the new slot",
+		parent = "gridStub"
 	)
 	default boolean showHighlight()
 	{
