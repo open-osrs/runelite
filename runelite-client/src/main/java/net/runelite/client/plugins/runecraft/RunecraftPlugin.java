@@ -163,6 +163,10 @@ public class RunecraftPlugin extends Plugin
 			{
 				menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
 			}
+			else if (option.equals("fill") && id != 9)
+			{
+				swap(client, "empty", option, target);
+			}
 		}
 
 		abyssOverlay.updateConfig();
@@ -222,10 +226,7 @@ public class RunecraftPlugin extends Plugin
 				hide("use", target, true);
 				hide("drop", target, true);
 			}
-			else if (option.equals("fill") && id != 9)
-			{
-				swap(client, "empty", option, target);
-			}
+
 		}
 	}
 	
