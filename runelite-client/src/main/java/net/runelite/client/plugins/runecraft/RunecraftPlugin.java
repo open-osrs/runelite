@@ -133,6 +133,11 @@ public class RunecraftPlugin extends Plugin
 		overlayManager.add(abyssOverlay);
 		abyssOverlay.updateConfig();
 		overlayManager.add(runecraftOverlay);
+
+		if (config.essPouch())
+		{
+			menuManager.addSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+		}
 	}
 
 	@Override
@@ -143,6 +148,11 @@ public class RunecraftPlugin extends Plugin
 		darkMage = null;
 		degradedPouchInInventory = false;
 		overlayManager.remove(runecraftOverlay);
+
+		if (config.essPouch())
+		{
+			menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+		}
 	}
 
 	@Subscribe
@@ -188,12 +198,11 @@ public class RunecraftPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded entry)
 	{
+		final String option = Text.removeTags(entry.getOption()).toLowerCase();
+		final String target = Text.removeTags(entry.getTarget()).toLowerCase();
+
 		if (wearingCape || wearingTiara)
 		{
-			final String option = Text.removeTags(entry.getOption()).toLowerCase();
-			final String target = Text.removeTags(entry.getTarget()).toLowerCase();
-			final int id = entry.getIdentifier();
-
 			if (target.contains("ring of dueling") && option.contains("remove"))
 			{
 				if (client.getLocalPlayer().getWorldLocation().getRegionID() != 10315)
@@ -221,10 +230,6 @@ public class RunecraftPlugin extends Plugin
 			{
 				hide("use", target, true);
 				hide("drop", target, true);
-			}
-			else if (option.equals("fill") && id != 9)
-			{
-				swap(client, "empty", option, target);
 			}
 		}
 	}
