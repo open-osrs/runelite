@@ -157,11 +157,13 @@ public class RunecraftPlugin extends Plugin
 		{
 			if (config.essPouch())
 			{
-				menuManager.addSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
-			}
-			else
-			{
-				menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+				{
+					menuManager.addSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+				}
+				else
+				{
+					menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+				}
 			}
 			else if (option.equals("fill") && id != 9)
 			{
