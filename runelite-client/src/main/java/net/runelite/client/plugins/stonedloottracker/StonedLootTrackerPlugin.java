@@ -149,7 +149,7 @@ public class StonedLootTrackerPlugin extends Plugin
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
-		if (event.getGroup().equals("loottracker"))
+		if (event.getGroup().equals("stonedloottracker"))
 		{
 			panel.refreshUI();
 		}
