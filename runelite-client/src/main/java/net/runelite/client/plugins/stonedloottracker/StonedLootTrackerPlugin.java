@@ -75,6 +75,7 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemStack;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.stonedloottracker.data.LootRecordCustom;
 import net.runelite.client.plugins.stonedloottracker.data.LootRecordWriter;
 import net.runelite.client.plugins.stonedloottracker.data.LootTrackerItemEntry;
@@ -93,7 +94,8 @@ import net.runelite.client.util.Text;
 	name = "Stoned Loot Tracker",
 	description = "Tracks loot from monsters and minigames",
 	tags = {"drops"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	type = PluginType.UTILITY
 )
 @Slf4j
 public class StonedLootTrackerPlugin extends Plugin
