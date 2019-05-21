@@ -179,7 +179,6 @@ public class RunecraftPlugin extends Plugin
 		{
 			final String option = Text.removeTags(entry.getOption()).toLowerCase();
 			final String target = Text.removeTags(entry.getTarget()).toLowerCase();
-			final int id = entry.getIdentifier();
 
 			if (target.contains("ring of dueling") && option.contains("remove")) // Incompatible with easyscape
 			{
@@ -200,10 +199,6 @@ public class RunecraftPlugin extends Plugin
 			{
 				hide("use", target);
 				hide("drop", target);
-			}
-			else if (option.equals("fill") && id != 9)
-			{
-				swap(client, "empty", option, target);
 			}
 		}
 	}
@@ -331,15 +326,18 @@ public class RunecraftPlugin extends Plugin
 		if (config.essPouch())
 		{
 			menuManager.addSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+			menuManager.addSwap("fill", "pouch", "empty", "pouch", true, false);
 		}
 		else
 		{
 			menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+			menuManager.removeSwap("fill", "pouch", "empty", "pouch", true, false);
 		}
 	}
 
 	private void removeSwaps()
 	{
 		menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+		menuManager.removeSwap("fill", "pouch", "empty", "pouch", true, false);
 	}
 }
