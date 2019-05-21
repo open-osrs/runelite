@@ -226,7 +226,6 @@ public class RunecraftPlugin extends Plugin
 				hide("use", target, true);
 				hide("drop", target, true);
 			}
-
 		}
 	}
 	
