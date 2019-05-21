@@ -165,7 +165,7 @@ public class RunecraftPlugin extends Plugin
 					menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
 				}
 			}
-			else if (option.equals("fill") && id != 9)
+			 if (option.equals("fill") && id != 9)
 			{
 				swap(client, "empty", option, target);
 			}
