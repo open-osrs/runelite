@@ -245,7 +245,7 @@ public interface RunecraftConfig extends Config
 		keyName = "swapess",
 		name = "Swap essence",
 		description = "Makes essence options",
-		position = 19
+		position = 20
 	)
 	default boolean swapEss()
 	{
