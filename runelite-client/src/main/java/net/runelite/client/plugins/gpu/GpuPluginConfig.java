@@ -29,6 +29,8 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Stub;
+import static net.runelite.client.plugins.gpu.GpuPlugin.MAX_DISTANCE;
+import static net.runelite.client.plugins.gpu.GpuPlugin.MAX_FOG_DEPTH;
 import net.runelite.client.plugins.gpu.config.AnisotropicFilteringMode;
 import net.runelite.client.plugins.gpu.config.AntiAliasingMode;
 
@@ -48,7 +50,7 @@ public interface GpuPluginConfig extends Config
 
 	@Range(
 		min = 20,
-		max = 100
+		max = MAX_DISTANCE
 	)
 	@ConfigItem(
 		keyName = "drawDistance",
@@ -120,6 +122,9 @@ public interface GpuPluginConfig extends Config
 		return new Stub();
 	}
 
+	@Range(
+		max = MAX_FOG_DEPTH
+	)
 	@ConfigItem(
 		keyName = "fogDepth",
 		name = "Depth",
@@ -132,6 +137,9 @@ public interface GpuPluginConfig extends Config
 		return 30;
 	}
 
+	@Range(
+		max = MAX_FOG_DEPTH
+	)
 	@ConfigItem(
 		keyName = "fogCircularity",
 		name = "Roundness",
@@ -144,6 +152,9 @@ public interface GpuPluginConfig extends Config
 		return 30;
 	}
 
+	@Range(
+		max = MAX_FOG_DEPTH
+	)
 	@ConfigItem(
 		keyName = "fogDensity",
 		name = "Density",
