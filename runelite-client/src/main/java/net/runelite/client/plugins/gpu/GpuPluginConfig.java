@@ -28,21 +28,31 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
-import static net.runelite.client.plugins.gpu.GpuPlugin.MAX_DISTANCE;
-import static net.runelite.client.plugins.gpu.GpuPlugin.MAX_FOG_DEPTH;
+import net.runelite.client.config.Stub;
+import net.runelite.client.plugins.gpu.config.AnisotropicFilteringMode;
 import net.runelite.client.plugins.gpu.config.AntiAliasingMode;
 
 @ConfigGroup("gpu")
 public interface GpuPluginConfig extends Config
 {
+	@ConfigItem(
+		keyName = "drawingStub",
+		name = "Drawing",
+		description = "",
+		position = 1
+	)
+	default Stub drawingStub() { return new Stub(); }
+
 	@Range(
-		max = MAX_DISTANCE
+		min= 20,
+		max = 100
 	)
 	@ConfigItem(
 		keyName = "drawDistance",
 		name = "Draw Distance",
 		description = "Draw distance",
-		position = 1
+		position = 2,
+		parent = "drawingStub"
 	)
 	default int drawDistance()
 	{
@@ -53,7 +63,8 @@ public interface GpuPluginConfig extends Config
 		keyName = "smoothBanding",
 		name = "Remove Color Banding",
 		description = "Smooths out the color banding that is present in the CPU renderer",
-		position = 2
+		position = 3,
+		parent = "drawingStub"
 	)
 	default boolean smoothBanding()
 	{
@@ -61,27 +72,78 @@ public interface GpuPluginConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "ppStub",
+		name = "Post processing",
+		description = "",
+		position = 4
+	)
+	default Stub ppStub() { return new Stub(); }
+
+	@ConfigItem(
 		keyName = "antiAliasingMode",
 		name = "Anti Aliasing",
 		description = "Configures the anti-aliasing mode",
-		position = 3
+		position = 5,
+		parent = "ppStub"
 	)
 	default AntiAliasingMode antiAliasingMode()
 	{
 		return AntiAliasingMode.DISABLED;
 	}
 
-	@Range(
-		max = MAX_FOG_DEPTH
+	@ConfigItem(
+		keyName = "anisotropicFilteringMode",
+		name = "Anisotropic Filtering",
+		description = "Configures the anisotropic filtering mode",
+		position = 6,
+		parent = "ppStub"
 	)
+	default AnisotropicFilteringMode anisotropicFilteringMode()
+	{
+		return AnisotropicFilteringMode.DISABLED;
+	}
+
+	@ConfigItem(
+		keyName = "fogStub",
+		name = "Fog",
+		description = "",
+		position = 7
+	)
+	default Stub fogStub() { return new Stub(); }
+
 	@ConfigItem(
 		keyName = "fogDepth",
-		name = "Fog depth",
+		name = "Depth",
 		description = "Distance from the scene edge the fog starts",
-		position = 4
+		position = 8,
+		parent = "fogStub"
 	)
 	default int fogDepth()
 	{
-		return 0;
+		return 30;
+	}
+
+	@ConfigItem(
+		keyName = "fogCircularity",
+		name = "Roundness",
+		description = "Fog circularity in %",
+		position = 9,
+		parent = "fogStub"
+	)
+	default int fogCircularity()
+	{
+		return 30;
+	}
+
+	@ConfigItem(
+		keyName = "fogDensity",
+		name = "Density",
+		description = "Relative fog thickness",
+		position = 10,
+		parent = "fogStub"
+	)
+	default int fogDensity()
+	{
+		return 10;
 	}
 }
