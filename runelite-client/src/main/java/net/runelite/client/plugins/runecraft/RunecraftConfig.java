@@ -243,7 +243,7 @@ public interface RunecraftConfig extends Config
 	
 	@ConfigItem(
 		keyName = "swapess",
-		name = "Swap essence ",
+		name = "Swap essence",
 		description = "Makes essence options",
 		position = 19
 	)
