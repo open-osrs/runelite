@@ -35,13 +35,15 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
 	name = "Inventory Highlight",
 	description = "Shows a preview of where items will be dragged",
 	tags = {"items", "overlay"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	type = PluginType.UTILITY
 )
 public class InventoryHighlightPlugin extends Plugin
 {
