@@ -66,12 +66,14 @@ public interface StonedLootTrackerConfig extends Config
 		return new Stub();
 	}
 
+	// TODO Option is not working will look into it later
 	@ConfigItem(
 		position = 4,
 		keyName = "hideUniques",
 		name = "Hide uniques",
 		description = "Hides unique items from the item breakdown",
-		parent = "itemsStub"
+		parent = "itemsStub",
+		hidden = true
 	)
 	default boolean hideUniques()
 	{
