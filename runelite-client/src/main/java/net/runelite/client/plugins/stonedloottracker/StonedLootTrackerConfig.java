@@ -27,15 +27,51 @@ package net.runelite.client.plugins.stonedloottracker;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Stub;
 
 @ConfigGroup("stonedloottracker")
 public interface StonedLootTrackerConfig extends Config
 {
 	@ConfigItem(
-		position = 0,
+		keyName = "mainStub",
+		name = "Main panel",
+		description = "",
+		position = 1
+	)
+	default Stub mainStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 2,
+		keyName = "bossButtons",
+		name = "Show boss icons",
+		description = "Toggles whether the selection screen will use the boss icons",
+		parent = "mainStub"
+	)
+	default boolean bossButtons()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "itemsStub",
+		name = "Items",
+		description = "",
+		position = 3
+	)
+	default Stub itemsStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 4,
 		keyName = "hideUniques",
 		name = "Hide uniques",
-		description = "Hides unique items from the item breakdown"
+		description = "Hides unique items from the item breakdown",
+		parent = "itemsStub"
 	)
 	default boolean hideUniques()
 	{
@@ -43,10 +79,11 @@ public interface StonedLootTrackerConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 1,
+		position = 5,
 		keyName = "itemSortType",
 		name = "Sort Items by",
-		description = "Sorts items by the requested value inside the UI. (Doesn't effect session/box view)"
+		description = "Sorts items by the requested value inside the UI. (Doesn't effect session/box view)",
+		parent = "itemsStub"
 	)
 	default ItemSortTypes itemSortType()
 	{
@@ -54,23 +91,13 @@ public interface StonedLootTrackerConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		position = 6,
 		keyName = "itemBreakdown",
 		name = "Breakdown individual items",
-		description = "Toggles whether the Individual item UI should be used inside npc-specific tabs"
+		description = "Toggles whether the Individual item UI should be used inside npc-specific tabs",
+		parent = "itemsStub"
 	)
 	default boolean itemBreakdown()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		position = 3,
-		keyName = "bossButtons",
-		name = "Show boss icons",
-		description = "Toggles whether the selection screen will use the boss icons"
-	)
-	default boolean bossButtons()
 	{
 		return true;
 	}
