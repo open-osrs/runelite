@@ -144,8 +144,6 @@ class BankCalculation
 				continue;
 			}
 
-			final ItemComposition itemComposition = itemManager.getItemComposition(item.getId());
-
 			if (config.showGE())
 			{
 				itemIds.add(item.getId());
@@ -153,12 +151,11 @@ class BankCalculation
 
 			if (config.showHA())
 			{
-				int price = itemComposition.getPrice();
+				long alchValue = itemManager.getAlchValue(item.getId());
 
-				if (price > 0)
+				if (alchValue  > 0)
 				{
-					haPrice += (long) Math.round(price * HIGH_ALCHEMY_CONSTANT) *
-						(long) quantity;
+					haPrice += alchValue * quantity;
 				}
 			}
 		}
