@@ -84,7 +84,7 @@ public interface PluginSorterConfig extends Config
 		name = "Skilling color",
 		description = "Configure the color of Skilling related plugins"
 	)
-	default Color SkillingColor()
+	default Color skillingColor()
 	{
 		return Color.YELLOW;
 	}
