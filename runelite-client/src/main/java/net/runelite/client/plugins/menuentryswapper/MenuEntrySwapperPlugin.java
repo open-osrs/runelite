@@ -543,7 +543,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("venerate"))
 		{
-			switch(config.swapOccult())
+			switch (config.swapOccult())
 			{
 				case VENERATE:
 					swap(client, "Venerate", option, target, true);
@@ -706,6 +706,7 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 		{
 			swap(client, "use", option, target, true);
 		}
+	}
 
 	@Subscribe
 	public void onPostItemComposition(PostItemComposition event)
