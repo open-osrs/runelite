@@ -77,12 +77,23 @@ public interface PluginSorterConfig extends Config
 	{
 		return Color.RED;
 	}
-
+	
 	@ConfigItem(
 		position = 4,
+		keyName = "skillingColor",
+		name = "Skilling color",
+		description = "Configure the color of Skilling related plugins"
+	)
+	default Color SkillingColor()
+	{
+		return Color.YELLOW;
+	}
+
+	@ConfigItem(
+		position = 5,
 		keyName = "utilityColor",
 		name = "Utility color",
-		description = "Configure the color of utility related plugins"
+		description = "Configure the color of Utility related plugins"
 	)
 	default Color utilityColor()
 	{
