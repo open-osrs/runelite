@@ -707,20 +707,6 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 			swap(client, "use", option, target, true);
 		}
 
-		else if (config.swapNexus() && target.equals("portal nexus") && option.equals("examine")) //examine is added last
-		{
-			MenuEntry[] entries = client.getMenuEntries();
-			int teleMenuIdx = searchIndex(entries, "teleport menu", target, true);
-			int examineIdx = searchIndex(entries, option, target, true);
-
-			if (teleMenuIdx + 2 == examineIdx)
-			{
-				String optionToSwap = Text.removeTags(entries[examineIdx].getOption()).toLowerCase();
-				swap(client, "teleport menu", optionToSwap, target, true);
-			}
-		}
-	}
-
 	@Subscribe
 	public void onPostItemComposition(PostItemComposition event)
 	{
