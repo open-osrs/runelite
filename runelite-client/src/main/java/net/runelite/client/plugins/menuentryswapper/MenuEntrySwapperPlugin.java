@@ -706,6 +706,7 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 		{
 			swap(client, "use", option, target, true);
 		}
+	}
 
 	@Subscribe
 	public void onPostItemComposition(PostItemComposition event)
