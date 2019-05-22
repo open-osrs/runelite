@@ -3,6 +3,7 @@
  * Copyright (c) 2018, https://runelitepl.us
  * Copyright (c) 2018, Kyle <https://github.com/kyleeld>
  * Copyright (c) 2018, Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Ganom <https://github.com/Ganom>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,7 +51,6 @@ import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import static net.runelite.client.util.MenuUtil.swap;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -127,8 +127,8 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Withdraw-1", option, target);
-						swap(client, "Deposit-1", option, target);
+						menuManager.addPriorityEntry("Withdraw-1", target);
+						menuManager.addPriorityEntry("Deposit-1", target);
 					}
 				}
 			}
@@ -139,8 +139,8 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Withdraw-5", option, target);
-						swap(client, "Deposit-5", option, target);
+						menuManager.addPriorityEntry("Withdraw-5", target);
+						menuManager.addPriorityEntry("Deposit-5", target);
 					}
 				}
 			}
@@ -151,8 +151,8 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Withdraw-10", option, target);
-						swap(client, "Deposit-10", option, target);
+						menuManager.addPriorityEntry("Withdraw-10", target);
+						menuManager.addPriorityEntry("Deposit-10", target);
 					}
 				}
 			}
@@ -163,8 +163,8 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Withdraw-" + config.getWithdrawXAmount(), option, target);
-						swap(client, "Deposit-" + config.getWithdrawXAmount(), option, target);
+						menuManager.addPriorityEntry("Withdraw-" + config.getWithdrawXAmount(), target);
+						menuManager.addPriorityEntry("Deposit-" + config.getWithdrawXAmount(), target);
 					}
 				}
 			}
@@ -175,8 +175,8 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Withdraw-All", option, target);
-						swap(client, "Deposit-All", option, target);
+						menuManager.addPriorityEntry("Withdraw-All", target);
+						menuManager.addPriorityEntry("Deposit-All", target);
 					}
 				}
 			}
@@ -190,7 +190,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 1", option, target);
+						menuManager.addPriorityEntry("buy 1", item);
 					}
 				}
 			}
@@ -201,7 +201,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 5", option, target);
+						menuManager.addPriorityEntry("buy 5", item);
 					}
 				}
 			}
@@ -212,7 +212,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 10", option, target);
+						menuManager.addPriorityEntry("buy 10", item);
 					}
 				}
 			}
@@ -223,7 +223,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 50", option, target);
+						menuManager.addPriorityEntry("buy 50", item);
 					}
 				}
 			}
@@ -236,7 +236,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 1", option, target);
+						menuManager.addPriorityEntry("sell 1", item);
 					}
 				}
 			}
@@ -247,7 +247,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 5", option, target);
+						menuManager.addPriorityEntry("sell 5", item);
 					}
 				}
 			}
@@ -258,7 +258,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 10", option, target);
+						menuManager.addPriorityEntry("sell 10", item);
 					}
 				}
 			}
@@ -269,7 +269,7 @@ public class EasyscapePlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 50", option, target);
+						menuManager.addPriorityEntry("sell 50", item);
 					}
 				}
 			}
@@ -310,11 +310,11 @@ public class EasyscapePlugin extends Plugin
 			}
 			else if (option.equalsIgnoreCase("examine"))
 			{
-				swap(client, "push-through", option, target);
+				menuManager.addPriorityEntry("push-through", target);
 			}
 			else if (option.equalsIgnoreCase("use"))
 			{
-				swap(client, "escape", option, target);
+				menuManager.addPriorityEntry("escape", target);
 			}
 		}
 
@@ -322,58 +322,58 @@ public class EasyscapePlugin extends Plugin
 		{
 			if (option.equalsIgnoreCase("Smith 1"))
 			{
-				swap(client, "Smith All", option, target);
+				menuManager.addPriorityEntry("Smith All", target);
 			}
 			else if (option.equalsIgnoreCase("Smith 1 Set"))
 			{
-				swap(client, "Smith All Sets", option, target);
+				menuManager.addPriorityEntry("Smith All Sets", target);
 			}
 		}
 
 		else if (config.getSwapTanning() && option.equalsIgnoreCase("Tan 1"))
 		{
-			swap(client, "Tan All", option, target);
+			menuManager.addPriorityEntry("Tan All", target);
 		}
 
 		else if (config.getSwapSawmill() && target.equalsIgnoreCase("Sawmill operator"))
 		{
-			swap(client, "Buy-plank", option, target);
+			menuManager.addPriorityEntry("Buy-plank", target);
 		}
 
 		else if (config.getSwapSawmillPlanks() && option.equalsIgnoreCase("Buy 1"))
 		{
-			swap(client, "Buy All", option, target);
+			menuManager.addPriorityEntry("Buy All", target);
 		}
 
 		else if (option.equalsIgnoreCase("Clear-All") && target.equalsIgnoreCase("Bank Filler"))
 		{
-			swap(client, "Clear", option, target);
+			menuManager.addPriorityEntry("Clear", target);
 		}
 
 		else if (target.contains("ardougne cloak") && config.getSwapArdougneCape())
 		{
-			swap(client, "Kandarin Monastery", option, target);
-			swap(client, "Monastery Teleport", option, target);
+			menuManager.addPriorityEntry("Kandarin Monastery", target);
+			menuManager.addPriorityEntry("Monastery Teleport", target);
 		}
-		
+
 		else if (target.contains("crafting cape") && config.getSwapCraftingCape())
 		{
-			swap(client, "Teleport", option, target);
+			menuManager.addPriorityEntry("Teleport", target);
 		}
 
 		else if (target.contains("construct. cape") && config.getSwapConstructionCape())
 		{
-			swap(client, "Tele to poh", option, target);
+			menuManager.addPriorityEntry("Tele to poh", target);
 		}
 
 		else if (target.contains("magic cape") && config.getSwapMagicCape())
 		{
-			swap(client, "Spellbook", option, target);
+			menuManager.addPriorityEntry("Spellbook", target);
 		}
 
 		else if (target.contains("explorer's ring") && config.getSwapExplorersRing())
 		{
-			swap(client, "Teleport", option, target);
+			menuManager.addPriorityEntry("Teleport", target);
 		}
 	}
 
@@ -425,27 +425,27 @@ public class EasyscapePlugin extends Plugin
 
 		if (config.getNecklaceofPassage())
 		{
-			menuManager.addSwap("remove", "necklace of passage", config.getNecklaceofPassageMode().toString(),  "necklace of passage", true, false);
+			menuManager.addSwap("remove", "necklace of passage", config.getNecklaceofPassageMode().toString(), "necklace of passage", true, false);
 		}
 
 		if (config.getDigsitePendant())
 		{
-			menuManager.addSwap("remove", "digsite pendant", config.getDigsitePendantMode().toString(),  "digsite pendant", true, false);
+			menuManager.addSwap("remove", "digsite pendant", config.getDigsitePendantMode().toString(), "digsite pendant", true, false);
 		}
 
 		if (config.getSlayerRing())
 		{
-			menuManager.addSwap("remove", "slayer ring", config.getSlayerRingMode().toString(),  "slayer ring", true, false);
+			menuManager.addSwap("remove", "slayer ring", config.getSlayerRingMode().toString(), "slayer ring", true, false);
 		}
 
 		else if (config.getXericsTalisman())
 		{
-			menuManager.addSwap("remove", "xeric's talisman", config.getXericsTalismanMode().toString(),  "xeric's talisman", true, false);
+			menuManager.addSwap("remove", "xeric's talisman", config.getXericsTalismanMode().toString(), "xeric's talisman", true, false);
 		}
 
 		if (config.getRingofWealth())
 		{
-			menuManager.addSwap("remove", "ring of wealth", config.getRingofWealthMode().toString(),  "ring of wealth", true, false);
+			menuManager.addSwap("remove", "ring of wealth", config.getRingofWealthMode().toString(), "ring of wealth", true, false);
 		}
 
 		if (config.swapMax())
