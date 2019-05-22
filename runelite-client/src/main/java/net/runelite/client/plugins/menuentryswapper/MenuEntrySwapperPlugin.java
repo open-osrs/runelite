@@ -60,7 +60,6 @@ import net.runelite.client.menus.MenuManager;
 import net.runelite.client.menus.WidgetMenuOption;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import static net.runelite.client.util.MenuUtil.swap;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -396,149 +395,149 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (config.swapPickpocket() && target.contains("h.a.m."))
 			{
-				swap(client, "pickpocket", option, target, true);
+				menuManager.addPriorityEntry("pickpocket", target);
 			}
 
 			if (config.swapAbyssTeleport() && target.contains("mage of zamorak"))
 			{
-				swap(client, "teleport", option, target, true);
+				menuManager.addPriorityEntry("teleport", target);
 			}
 
 			if (config.swapHardWoodGrove() && target.contains("rionasta"))
 			{
-				swap(client, "send-parcel", option, target, true);
+				menuManager.addPriorityEntry("send-parcel", target);
 			}
 			if (config.swapBank())
 			{
-				swap(client, "bank", option, target, true);
+				menuManager.addPriorityEntry("bank", target);
 			}
 
 			if (config.swapContract())
 			{
-				swap(client, "contract", option, target, true);
+				menuManager.addPriorityEntry("contract", target);
 			}
 
 			if (config.swapExchange())
 			{
-				swap(client, "exchange", option, target, true);
+				menuManager.addPriorityEntry("exchange", target);
 			}
 
 			if (config.swapDarkMage())
 			{
-				swap(client, "repairs", option, target, true);
+				menuManager.addPriorityEntry("repairs", target);
 			}
 
 			// make sure assignment swap is higher priority than trade swap for slayer masters
 			if (config.swapAssignment())
 			{
-				swap(client, "assignment", option, target, true);
+				menuManager.addPriorityEntry("assignment", target);
 			}
 			
 			if (config.swapPlank())
 			{
-				swap(client, "buy-plank", option, target, true);
+				menuManager.addPriorityEntry("buy-plank", target);
 			}
 
 			if (config.swapTrade())
 			{
-				swap(client, "trade", option, target, true);
-				swap(client, "trade-with", option, target, true);
+				menuManager.addPriorityEntry("trade", target);
+				menuManager.addPriorityEntry("trade-with", target);
 			}
 
 			if (config.claimSlime() && target.equals("robin"))
 			{
-				swap(client, "claim-slime", option, target, true);
+				menuManager.addPriorityEntry("claim-slime", target);
 			}
 			
 			if (config.claimDynamite() && target.contains("Thirus"))
 			{
-				swap(client, "claim-dynamite", option, target, true);
+				menuManager.addPriorityEntry("claim-dynamite", target);
 			}
 
 			if (config.swapTravel())
 			{
-				swap(client, "travel", option, target, true);
-				swap(client, "pay-fare", option, target, true);
-				swap(client, "charter", option, target, true);
-				swap(client, "take-boat", option, target, true);
-				swap(client, "fly", option, target, true);
-				swap(client, "jatizso", option, target, true);
-				swap(client, "neitiznot", option, target, true);
-				swap(client, "rellekka", option, target, true);
-				swap(client, "follow", option, target, true);
-				swap(client, "transport", option, target, true);
+				menuManager.addPriorityEntry("travel", target);
+				menuManager.addPriorityEntry("pay-fare", target);
+				menuManager.addPriorityEntry("charter", target);
+				menuManager.addPriorityEntry("take-boat", target);
+				menuManager.addPriorityEntry("fly", target);
+				menuManager.addPriorityEntry("jatizso", target);
+				menuManager.addPriorityEntry("neitiznot", target);
+				menuManager.addPriorityEntry("rellekka", target);
+				menuManager.addPriorityEntry("follow", target);
+				menuManager.addPriorityEntry("transport", target);
 			}
 
 			if (config.swapPay())
 			{
-				swap(client, "pay", option, target, true);
-				swap(client, "pay (", option, target, false);
+				menuManager.addPriorityEntry("pay", target);
+				menuManager.addPriorityEntry("pay (", target);
 			}
 
 			if (config.swapDream())
 			{
-				swap(client, "dream", option, target, true);
+				menuManager.addPriorityEntry("dream", target);
 			}
 
 			if (config.swapDecant())
 			{
-				swap(client, "decant", option, target, true);
+				menuManager.addPriorityEntry("decant", target);
 			}
 
 			if (config.swapQuick())
 			{
-				swap(client, "quick-travel", option, target, true);
+				menuManager.addPriorityEntry("quick-travel", target);
 			}
 			
 			if (config.swapStory())
 			{
-				swap(client, "story", option, target, true);
+				menuManager.addPriorityEntry("story", target);
 			}
 
 			if (config.swapEscort())
 			{
-				swap(client, "escort", option, target, true);
+				menuManager.addPriorityEntry("escort", target);
 			}
 		}
 
 		else if (config.swapWildernessLever() && target.equals("lever") && option.equals("ardougne"))
 		{
-			swap(client, "edgeville", option, target, true);
+			menuManager.addPriorityEntry("edgeville", target);
 		}
 		
 		else if (config.swapMetamorphosis() && target.contains("baby chinchompa"))
 		{
-			swap(client, "metamorphosis", option, target, true);
+			menuManager.addPriorityEntry("metamorphosis", target);
 		}
 
 		else if (config.swapStun() && target.contains("hoop snake"))
 		{
-			swap(client, "stun", option, target, true);
+			menuManager.addPriorityEntry("stun", target);
 		}
 		
 		else if (config.swapTravel() && option.equals("pass") && target.equals("energy barrier"))
 		{
-			swap(client, "pay-toll(2-ecto)", option, target, true);
+			menuManager.addPriorityEntry("pay-toll(2-ecto)", target);
 		}
 
 		else if (config.swapTravel() && option.equals("open") && target.equals("gate"))
 		{
-			swap(client, "pay-toll(10gp)", option, target, true);
+			menuManager.addPriorityEntry("pay-toll(10gp)", target);
 		}
 
 		else if (config.swapTravel() && option.equals("inspect") && target.equals("trapdoor"))
 		{
-			swap(client, "travel", option, target, true);
+			menuManager.addPriorityEntry("travel", target);
 		}
 
 		else if (config.swapHarpoon() && option.equals("cage"))
 		{
-			swap(client, "harpoon", option, target, true);
+			menuManager.addPriorityEntry("harpoon", target);
 		}
 
 		else if (config.swapHarpoon() && (option.equals("big net") || option.equals("net")))
 		{
-			swap(client, "harpoon", option, target, true);
+			menuManager.addPriorityEntry("harpoon", target);
 		}
 
 else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("venerate"))
@@ -546,16 +545,16 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 			switch (config.swapOccult())
 			{
 				case VENERATE:
-					swap(client, "Venerate", option, target, true);
+					menuManager.addPriorityEntry("Venerate", target);
 				break;
 				case ANCIENT:
-					swap(client, "Ancient", option, target, true);
+					menuManager.addPriorityEntry("Ancient", target);
 				break;
 				case LUNAR:
-				swap(client, "Lunar", option, target, true);
+				menuManager.addPriorityEntry("Lunar", target);
 				break;
 				case ARCEUUS:
-				swap(client, "Arceuus", option, target, true);
+				menuManager.addPriorityEntry("Arceuus", target);
 			}
 				
 		}
@@ -565,13 +564,13 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 			switch (config.swapObelisk())
 			{
 				case ACTIVATE:
-					swap(client, "activate", option, target, true);
+					menuManager.addPriorityEntry("activate", target);
 				break;
 				case SET_DESTINATION:
-					swap(client, "set destination", option, target, true);
+					menuManager.addPriorityEntry("set destination", target);
 				break;
 				case TELEPORT_TO_DESTINATION:
-					swap(client, "teleport to destination", option, target, true);
+					menuManager.addPriorityEntry("teleport to destination", target);
 				break;
 			}
 		}
@@ -581,13 +580,13 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 			switch (config.swapHomePortal())
 			{
 				case HOME:
-					swap(client, "home", option, target, true);
+					menuManager.addPriorityEntry("home", target);
 					break;
 				case BUILD_MODE:
-					swap(client, "build mode", option, target, true);
+					menuManager.addPriorityEntry("build mode", target);
 					break;
 				case FRIENDS_HOUSE:
-					swap(client, "friend's house", option, target, true);
+					menuManager.addPriorityEntry("friend's house", target);
 					break;
 			}
 		}
@@ -596,86 +595,86 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 		{
 			if (config.swapFairyRing() == FairyRingMode.LAST_DESTINATION)
 			{
-				swap(client, "last-destination", option, target, false);
+				menuManager.addPriorityEntry("last-destination", target);
 			}
 			else if (config.swapFairyRing() == FairyRingMode.CONFIGURE)
 			{
-				swap(client, "configure", option, target, false);
+				menuManager.addPriorityEntry("configure", target);
 			}
 		}
 
 		else if (config.swapFairyRing() == FairyRingMode.ZANARIS && option.equals("tree"))
 		{
-			swap(client, "zanaris", option, target, false);
+			menuManager.addPriorityEntry("zanaris", target);
 		}
 
 		else if (config.swapBoxTrap() && (option.equals("check") || option.equals("dismantle")))
 		{
-			swap(client, "reset", option, target, true);
+			menuManager.addPriorityEntry("reset", target);
 		}
 
 		else if (config.swapBoxTrap() && option.equals("take"))
 		{
-			swap(client, "lay", option, target, true);
-			swap(client, "activate", option, target, true);
+			menuManager.addPriorityEntry("lay", target);
+			menuManager.addPriorityEntry("activate", target);
 		}
 
 		else if (config.swapChase() && option.equals("pick-up"))
 		{
-			swap(client, "chase", option, target, true);
+			menuManager.addPriorityEntry("chase", target);
 		}
 
 		else if (config.swapBirdhouseEmpty() && option.equals("interact") && target.contains("birdhouse"))
 		{
-			swap(client, "empty", option, target, true);
+			menuManager.addPriorityEntry("empty", target);
 		}
 
 		else if (config.swapQuick() && option.equals("ring"))
 		{
-			swap(client, "quick-start", option, target, true);
+			menuManager.addPriorityEntry("quick-start", target);
 		}
 
 		else if (config.swapQuick() && option.equals("pass"))
 		{
-			swap(client, "quick-pass", option, target, true);
-			swap(client, "quick pass", option, target, true);
+			menuManager.addPriorityEntry("quick-pass", target);
+			menuManager.addPriorityEntry("quick pass", target);
 		}
 
 		else if (config.swapQuick() && option.equals("open"))
 		{
-			swap(client, "quick-open", option, target, true);
+			menuManager.addPriorityEntry("quick-open", target);
 		}
 
 		else if (config.swapAdmire() && option.equals("admire"))
 		{
-			swap(client, "teleport", option, target, true);
-			swap(client, "spellbook", option, target, true);
-			swap(client, "perks", option, target, true);
+			menuManager.addPriorityEntry("teleport", target);
+			menuManager.addPriorityEntry("spellbook", target);
+			menuManager.addPriorityEntry("perks", target);
 		}
 
 		else if (config.swapPrivate() && option.equals("shared"))
 		{
-			swap(client, "private", option, target, true);
+			menuManager.addPriorityEntry("private", target);
 		}
 
 		else if (config.swapPick() && option.equals("pick"))
 		{
-			swap(client, "pick-lots", option, target, true);
+			menuManager.addPriorityEntry("pick-lots", target);
 		}
 
 		else if (config.swapSearch() && (option.equals("close") || option.equals("shut")))
 		{
-			swap(client, "search", option, target, true);
+			menuManager.addPriorityEntry("search", target);
 		}
 		
 		else if (config.swapRogueschests() && target.contains("chest"))
 		{
-			swap(client, "search for traps", option, target, true);
+			menuManager.addPriorityEntry("search for traps", target);
 		}
 
 		else if (config.rockCake() && option.equals("eat"))
 		{
-			swap(client, "guzzle", option, target, true);
+			menuManager.addPriorityEntry("guzzle", target);
 		}
 
 
@@ -685,30 +684,30 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 
 			if (customOption != null && customOption == -1)
 			{
-				swap(client, "use", option, target, true);
+				menuManager.addPriorityEntry("use", target);
 			}
 		}
 
 		// Put all item-related swapping after shift-click
 		else if (config.swapTeleportItem() && option.equals("wear"))
 		{
-			swap(client, "rub", option, target, true);
-			swap(client, "teleport", option, target, true);
+			menuManager.addPriorityEntry("rub", target);
+			menuManager.addPriorityEntry("teleport", target);
 		}
 		else if (option.equals("wield"))
 		{
 			if (config.swapTeleportItem())
 			{
-				swap(client, "teleport", option, target, true);
+				menuManager.addPriorityEntry("teleport", target);
 			}
 		}
 		else if (config.swapBones() && option.equals("bury"))
 		{
-			swap(client, "use", option, target, true);
+			menuManager.addPriorityEntry("use", target);
 		}
 		else if (config.swapNexus() && target.contains("portal nexus"))
 		{
-			swap(client, "teleport menu", option, target, true);
+			menuManager.addPriorityEntry("teleport menu", target);
 		}
 	}
 
