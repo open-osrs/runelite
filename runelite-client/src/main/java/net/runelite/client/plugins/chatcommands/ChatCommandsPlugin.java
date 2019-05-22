@@ -41,6 +41,7 @@ import net.runelite.api.IconID;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.MessageNode;
 import net.runelite.api.VarPlayer;
+import net.runelite.api.Varbits;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
@@ -70,6 +71,8 @@ import net.runelite.http.api.hiscore.HiscoreSkill;
 import net.runelite.http.api.hiscore.SingleHiscoreSkillResult;
 import net.runelite.http.api.hiscore.Skill;
 import net.runelite.http.api.item.ItemPrice;
+import net.runelite.http.api.osbuddy.OSBGrandExchangeClient;
+import net.runelite.http.api.osbuddy.OSBGrandExchangeResult;
 import org.apache.commons.text.WordUtils;
 
 @PluginDescriptor(
@@ -80,7 +83,6 @@ import org.apache.commons.text.WordUtils;
 @Slf4j
 public class ChatCommandsPlugin extends Plugin
 {
-	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 	private static final Pattern KILLCOUNT_PATTERN = Pattern.compile("Your (.+) (?:kill|harvest) count is: <col=ff0000>(\\d+)</col>");
 	private static final Pattern RAIDS_PATTERN = Pattern.compile("Your completed (.+) count is: <col=ff0000>(\\d+)</col>");
 	private static final Pattern WINTERTODT_PATTERN = Pattern.compile("Your subdued Wintertodt count is: <col=ff0000>(\\d+)</col>");
@@ -94,10 +96,12 @@ public class ChatCommandsPlugin extends Plugin
 	private static final String KILLCOUNT_COMMAND_STRING = "!kc";
 	private static final String CMB_COMMAND_STRING = "!cmb";
 	private static final String QP_COMMAND_STRING = "!qp";
+	private static final String GC_COMMAND_STRING = "!gc";
 	private static final String PB_COMMAND = "!pb";
 
 	private final HiscoreClient hiscoreClient = new HiscoreClient();
 	private final ChatClient chatClient = new ChatClient();
+	private final OSBGrandExchangeClient CLIENT = new OSBGrandExchangeClient();
 
 	private boolean logKills;
 	private HiscoreEndpoint hiscoreEndpoint; // hiscore endpoint for current player
@@ -142,6 +146,7 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.registerCommandAsync(CLUES_COMMAND_STRING, this::clueLookup);
 		chatCommandManager.registerCommandAsync(KILLCOUNT_COMMAND_STRING, this::killCountLookup, this::killCountSubmit);
 		chatCommandManager.registerCommandAsync(QP_COMMAND_STRING, this::questPointsLookup, this::questPointsSubmit);
+		chatCommandManager.registerCommandAsync(GC_COMMAND_STRING, this::gambleCountLookup, this::gambleCountSubmit);
 		chatCommandManager.registerCommandAsync(PB_COMMAND, this::personalBestLookup, this::personalBestSubmit);
 	}
 
@@ -160,6 +165,7 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.unregisterCommand(KILLCOUNT_COMMAND_STRING);
 		chatCommandManager.unregisterCommand(QP_COMMAND_STRING);
 		chatCommandManager.unregisterCommand(PB_COMMAND);
+		chatCommandManager.unregisterCommand(GC_COMMAND_STRING);
 	}
 
 	@Provides
@@ -481,6 +487,77 @@ public class ChatCommandsPlugin extends Plugin
 		return true;
 	}
 
+	private void gambleCountLookup(ChatMessage chatMessage, String message)
+	{
+		if (!config.gc())
+		{
+			return;
+		}
+
+		ChatMessageType type = chatMessage.getType();
+
+		final String player;
+		if (type.equals(ChatMessageType.PRIVATECHAT))
+		{
+			player = client.getLocalPlayer().getName();
+		}
+		else
+		{
+			player = sanitize(chatMessage.getName());
+		}
+
+		int gc;
+		try
+		{
+			gc = chatClient.getGc(player);
+			log.info("gc lookup");
+		}
+		catch (IOException ex)
+		{
+			log.debug("unable to lookup gamble count", ex);
+			log.info("gc lookup error");
+			return;
+		}
+
+		String response = new ChatMessageBuilder()
+			.append(ChatColorType.NORMAL)
+			.append("Barbarian Assault High-level gambles: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(Integer.toString(gc))
+			.build();
+
+		log.debug("Setting response {}", response);
+		final MessageNode messageNode = chatMessage.getMessageNode();
+		messageNode.setRuneLiteFormatMessage(response);
+		chatMessageManager.update(messageNode);
+		client.refreshChat();
+	}
+
+	private boolean gambleCountSubmit(ChatInput chatInput, String value)
+	{
+		final int gc = client.getVar(Varbits.BA_GC);
+		final String playerName = client.getLocalPlayer().getName();
+
+		executor.execute(() ->
+		{
+			try
+			{
+				chatClient.submitGc(playerName, gc);
+			}
+			catch (Exception ex)
+			{
+				log.warn("unable to submit gamble count", ex);
+			}
+			finally
+			{
+				chatInput.resume();
+			}
+		});
+
+		return true;
+	}
+
+
 	private void personalBestLookup(ChatMessage chatMessage, String message)
 	{
 		if (!config.pb())
@@ -575,7 +652,7 @@ public class ChatCommandsPlugin extends Plugin
 	 * response.
 	 *
 	 * @param chatMessage The chat message containing the command.
-	 * @param message    The chat message
+	 * @param message     The chat message
 	 */
 	private void itemPriceLookup(ChatMessage chatMessage, String message)
 	{
@@ -597,24 +674,36 @@ public class ChatCommandsPlugin extends Plugin
 		if (!results.isEmpty())
 		{
 			ItemPrice item = retrieveFromList(results, search);
+			OSBGrandExchangeResult osbresult = new OSBGrandExchangeResult();
+			try
+			{
+				osbresult = CLIENT.lookupItem(item.getId());
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 
 			int itemId = item.getId();
-			int itemPrice = item.getPrice();
+			int itemPrice = itemManager.getItemPrice(itemId);
 
-			final ChatMessageBuilder builder = new ChatMessageBuilder()
-				.append(ChatColorType.NORMAL)
-				.append("Price of ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(item.getName())
-				.append(ChatColorType.NORMAL)
-				.append(": GE average ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(StackFormatter.formatNumber(itemPrice));
+			final ChatMessageBuilder builder = new ChatMessageBuilder();
+			builder.append(ChatColorType.NORMAL);
+			builder.append(ChatColorType.HIGHLIGHT);
+			builder.append(item.getName());
+			builder.append(ChatColorType.NORMAL);
+			builder.append(": GE ");
+			builder.append(ChatColorType.HIGHLIGHT);
+			builder.append(StackFormatter.formatNumber(itemPrice));
+			builder.append(ChatColorType.NORMAL);
+			builder.append(": OSB ");
+			builder.append(ChatColorType.HIGHLIGHT);
+			builder.append(StackFormatter.formatNumber(osbresult.getOverall_average()));
 
 			ItemComposition itemComposition = itemManager.getItemComposition(itemId);
 			if (itemComposition != null)
 			{
-				int alchPrice = Math.round(itemComposition.getPrice() * HIGH_ALCHEMY_CONSTANT);
+				int alchPrice = itemManager.getAlchValue(itemId);
 				builder
 					.append(ChatColorType.NORMAL)
 					.append(" HA value ")
@@ -636,7 +725,7 @@ public class ChatCommandsPlugin extends Plugin
 	 * response.
 	 *
 	 * @param chatMessage The chat message containing the command.
-	 * @param message    The chat message
+	 * @param message     The chat message
 	 */
 	private void playerSkillLookup(ChatMessage chatMessage, String message)
 	{

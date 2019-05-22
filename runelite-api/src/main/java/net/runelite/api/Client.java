@@ -492,6 +492,12 @@ public interface Client extends GameEngine
 	int[] getWidgetPositionsY();
 
 	/**
+	 * Creates a new widget element
+	 * @return
+	 */
+	Widget createWidget();
+
+	/**
 	 * Gets the current run energy of the logged in player.
 	 *
 	 * @return the run energy
@@ -1385,6 +1391,7 @@ public interface Client extends GameEngine
 	 */
 	void setClanMatesHidden(boolean state);
 
+
 	/**
 	 * Sets whether the local player is hidden.
 	 *
@@ -1604,4 +1611,24 @@ public interface Client extends GameEngine
 	void draw2010Menu();
 
 	NodeCache getHealthBarCache();
+	
+	void toggleRenderSelf();
+
+	/**
+	 *
+	 * @param param0 This is SceneX for gameObject, index for items, and 0 for npc.
+	 * @param param1 This is SceneY for gameObject, static for items, and 0 for npc.
+	 * @param type Menu entry Action type.
+	 * @param id Targets ID
+	 * @param menuEntry Do these actually matter?
+	 * @param targetString Do these actually matter?
+	 * @param canvasX Canvas X Point
+	 * @param canvasY Canvas Y Point
+	 */
+	void invokeMenuAction(int param0, int param1, int type, int id, String menuEntry, String targetString, int canvasX, int canvasY);
+	
+	MouseRecorder getMouseRecorder();
+	
+	void setPrintMenuActions(boolean b);
+	
 }

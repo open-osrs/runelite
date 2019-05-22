@@ -45,13 +45,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.HyperlinkEvent;
 import net.runelite.api.Client;
-import net.runelite.client.events.SessionClose;
-import net.runelite.client.events.SessionOpen;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.account.SessionManager;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.SessionClose;
+import net.runelite.client.events.SessionOpen;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
@@ -176,10 +176,10 @@ public class InfoPanel extends PluginPanel
 			}
 		});
 
-		actionsContainer.add(buildLinkPanel(GITHUB_ICON, "Report an issue or", "make a suggestion", runeLiteProperties.getGithubLink()));
-		actionsContainer.add(buildLinkPanel(DISCORD_ICON, "Talk to us on our", "discord server", runeLiteProperties.getDiscordInvite()));
-		actionsContainer.add(buildLinkPanel(PATREON_ICON, "Become a patron to", "help support RuneLite", runeLiteProperties.getPatreonLink()));
-		actionsContainer.add(buildLinkPanel(WIKI_ICON, "Information about", "RuneLite and plugins", runeLiteProperties.getWikiLink()));
+		actionsContainer.add(buildLinkPanel(GITHUB_ICON, "License info", "for distribution", "https://github.com/runelite-extended/runelite/blob/master/LICENSE"));
+		actionsContainer.add(buildLinkPanel(DISCORD_ICON, "Talk to us on our", "discord server", "https://discord.gg/s2fzu5U"));
+		actionsContainer.add(buildLinkPanel(PATREON_ICON, "Patreon to support", "the RuneLitePlus devs", runeLiteProperties.getPatreonLink()));
+		/*		actionsContainer.add(buildLinkPanel(WIKI_ICON, "Information about", "RuneLite and plugins", runeLiteProperties.getWikiLink()));*/
 
 		add(versionPanel, BorderLayout.NORTH);
 		add(actionsContainer, BorderLayout.CENTER);
@@ -285,9 +285,9 @@ public class InfoPanel extends PluginPanel
 		}
 		else
 		{
-			emailLabel.setContentType("text/html");
-			emailLabel.setText("<a href=\"" + RUNELITE_LOGIN + "\">Login</a> to sync settings to the cloud.");
-			loggedLabel.setText("Not logged in");
+			//emailLabel.setContentType("text/html");
+			//emailLabel.setText("<a href=\"" + RUNELITE_LOGIN + "\">Login</a> to sync settings to the cloud.");
+			//loggedLabel.setText("Not logged in");
 			actionsContainer.remove(syncPanel);
 		}
 	}

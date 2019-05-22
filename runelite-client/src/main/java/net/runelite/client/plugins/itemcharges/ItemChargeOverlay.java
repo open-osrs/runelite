@@ -76,6 +76,24 @@ class ItemChargeOverlay extends WidgetItemOverlay
 
 			charges = config.dodgyNecklace();
 		}
+		else if (itemId == ItemID.BRACELET_OF_SLAUGHTER)
+		{
+			if (!config.showSlayerBracelets())
+			{
+				return;
+			}
+
+			charges = config.slaughter();
+		}
+		else if (itemId == ItemID.EXPEDITIOUS_BRACELET)
+		{
+			if (!config.showSlayerBracelets())
+			{
+				return;
+			}
+
+			charges = config.expeditious();
+		}
 		else if (itemId == ItemID.BINDING_NECKLACE)
 		{
 			if (!config.showBindingNecklaceCharges())
@@ -85,6 +103,7 @@ class ItemChargeOverlay extends WidgetItemOverlay
 
 			charges = config.bindingNecklace();
 		}
+
 		else if (itemId >= ItemID.EXPLORERS_RING_1 && itemId <= ItemID.EXPLORERS_RING_4)
 		{
 			if (!config.showExplorerRingCharges())
@@ -93,8 +112,33 @@ class ItemChargeOverlay extends WidgetItemOverlay
 			}
 
 			charges = config.explorerRing();
+
+		else if (itemId == ItemID.XERICS_TALISMAN)
+		{
+			if (!config.showXericTalismanCharges())
+			{
+				return;
+			}
+			charges = config.xericTalisman();
+		}
+		else if (itemId == ItemID.SOUL_BEARER)
+		{
+			if (!config.showSoulBearerCharges())
+			{
+				return;
+			}
+			charges = config.soulBearer();
+		}
+		else if (itemId == ItemID.CHRONICLE)
+		{
+			if (!config.showChronicleCharges())
+			{
+				return;
+			}
+			charges = config.chronicle();
 		}
 		else
+
 		{
 			ItemWithCharge chargeItem = ItemWithCharge.findItem(itemId);
 			if (chargeItem == null)
@@ -119,7 +163,9 @@ class ItemChargeOverlay extends WidgetItemOverlay
 
 		final Rectangle bounds = itemWidget.getCanvasBounds();
 		final TextComponent textComponent = new TextComponent();
-		textComponent.setPosition(new Point(bounds.x, bounds.y + 16));
+		textComponent.setPosition(new
+
+			Point(bounds.x, bounds.y + 16));
 		textComponent.setText(charges < 0 ? "?" : String.valueOf(charges));
 		textComponent.setColor(itemChargePlugin.getColor(charges));
 		textComponent.render(graphics);

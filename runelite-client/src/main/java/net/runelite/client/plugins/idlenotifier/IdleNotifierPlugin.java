@@ -26,14 +26,102 @@
 package net.runelite.client.plugins.idlenotifier;
 
 import com.google.inject.Provides;
+import java.awt.TrayIcon;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import javax.inject.Inject;
 import net.runelite.api.Actor;
 import net.runelite.api.AnimationID;
-import static net.runelite.api.AnimationID.*;
+import static net.runelite.api.AnimationID.COOKING_FIRE;
+import static net.runelite.api.AnimationID.COOKING_RANGE;
+import static net.runelite.api.AnimationID.COOKING_WINE;
+import static net.runelite.api.AnimationID.CRAFTING_BATTLESTAVES;
+import static net.runelite.api.AnimationID.CRAFTING_GLASSBLOWING;
+import static net.runelite.api.AnimationID.CRAFTING_LEATHER;
+import static net.runelite.api.AnimationID.CRAFTING_POTTERS_WHEEL;
+import static net.runelite.api.AnimationID.CRAFTING_POTTERY_OVEN;
+import static net.runelite.api.AnimationID.CRAFTING_SPINNING;
+import static net.runelite.api.AnimationID.DENSE_ESSENCE_CHIPPING;
+import static net.runelite.api.AnimationID.DENSE_ESSENCE_CHISELING;
+import static net.runelite.api.AnimationID.FARMING_MIX_ULTRACOMPOST;
+import static net.runelite.api.AnimationID.FISHING_CRUSHING_INFERNAL_EELS;
+import static net.runelite.api.AnimationID.FISHING_CUTTING_SACRED_EELS;
+import static net.runelite.api.AnimationID.FLETCHING_BOW_CUTTING;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_MAGIC_LONGBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_MAGIC_SHORTBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_MAPLE_LONGBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_MAPLE_SHORTBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_NORMAL_LONGBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_NORMAL_SHORTBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_OAK_LONGBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_OAK_SHORTBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_WILLOW_LONGBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_WILLOW_SHORTBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_YEW_LONGBOW;
+import static net.runelite.api.AnimationID.FLETCHING_STRING_YEW_SHORTBOW;
+import static net.runelite.api.AnimationID.GEM_CUTTING_AMETHYST;
+import static net.runelite.api.AnimationID.GEM_CUTTING_DIAMOND;
+import static net.runelite.api.AnimationID.GEM_CUTTING_EMERALD;
+import static net.runelite.api.AnimationID.GEM_CUTTING_JADE;
+import static net.runelite.api.AnimationID.GEM_CUTTING_OPAL;
+import static net.runelite.api.AnimationID.GEM_CUTTING_REDTOPAZ;
+import static net.runelite.api.AnimationID.GEM_CUTTING_RUBY;
+import static net.runelite.api.AnimationID.GEM_CUTTING_SAPPHIRE;
+import static net.runelite.api.AnimationID.HERBLORE_MAKE_TAR;
+import static net.runelite.api.AnimationID.HERBLORE_PESTLE_AND_MORTAR;
+import static net.runelite.api.AnimationID.HERBLORE_POTIONMAKING;
+import static net.runelite.api.AnimationID.HOME_MAKE_TABLET;
+import static net.runelite.api.AnimationID.IDLE;
+import static net.runelite.api.AnimationID.MAGIC_CHARGING_ORBS;
+import static net.runelite.api.AnimationID.MAGIC_ENCHANTING_AMULET_1;
+import static net.runelite.api.AnimationID.MAGIC_ENCHANTING_AMULET_2;
+import static net.runelite.api.AnimationID.MAGIC_ENCHANTING_AMULET_3;
+import static net.runelite.api.AnimationID.MAGIC_ENCHANTING_JEWELRY;
+import static net.runelite.api.AnimationID.MAGIC_LUNAR_PLANK_MAKE;
+import static net.runelite.api.AnimationID.MAGIC_LUNAR_SHARED;
+import static net.runelite.api.AnimationID.MAGIC_LUNAR_STRING_JEWELRY;
+import static net.runelite.api.AnimationID.MAGIC_MAKE_TABLET;
+import static net.runelite.api.AnimationID.MINING_3A_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_ADAMANT_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_BLACK_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_BRONZE_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_DRAGON_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_DRAGON_PICKAXE_ORN;
+import static net.runelite.api.AnimationID.MINING_INFERNAL_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_IRON_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_MITHRIL_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_3A;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_ADAMANT;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_BLACK;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_BRONZE;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_DRAGON;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_DRAGON_ORN;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_INFERNAL;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_IRON;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_MITHRIL;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_RUNE;
+import static net.runelite.api.AnimationID.MINING_MOTHERLODE_STEEL;
+import static net.runelite.api.AnimationID.MINING_RUNE_PICKAXE;
+import static net.runelite.api.AnimationID.MINING_STEEL_PICKAXE;
+import static net.runelite.api.AnimationID.PISCARILIUS_CRANE_REPAIR;
+import static net.runelite.api.AnimationID.SAND_COLLECTION;
+import static net.runelite.api.AnimationID.SMITHING_ANVIL;
+import static net.runelite.api.AnimationID.SMITHING_CANNONBALL;
+import static net.runelite.api.AnimationID.SMITHING_SMELTING;
+import static net.runelite.api.AnimationID.USING_GILDED_ALTAR;
+import static net.runelite.api.AnimationID.WOODCUTTING_3A_AXE;
+import static net.runelite.api.AnimationID.WOODCUTTING_ADAMANT;
+import static net.runelite.api.AnimationID.WOODCUTTING_BLACK;
+import static net.runelite.api.AnimationID.WOODCUTTING_BRONZE;
+import static net.runelite.api.AnimationID.WOODCUTTING_DRAGON;
+import static net.runelite.api.AnimationID.WOODCUTTING_INFERNAL;
+import static net.runelite.api.AnimationID.WOODCUTTING_IRON;
+import static net.runelite.api.AnimationID.WOODCUTTING_MITHRIL;
+import static net.runelite.api.AnimationID.WOODCUTTING_RUNE;
+import static net.runelite.api.AnimationID.WOODCUTTING_STEEL;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.GameState;
@@ -43,24 +131,28 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
+import net.runelite.api.SkullIcon;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
+import net.runelite.api.WorldType;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.events.HitsplatApplied;
 import net.runelite.api.events.InteractingChanged;
+import net.runelite.api.events.PlayerSpawned;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.util.PvPUtil;
 
 @PluginDescriptor(
 	name = "Idle Notifier",
 	description = "Send a notification when going idle, or when HP/Prayer reaches a threshold",
-	tags = {"health", "hitpoints", "notifications", "prayer"}
+	tags = {"health", "hitpoints", "notifications", "prayer", "pvp", "pker"}
 )
 public class IdleNotifierPlugin extends Plugin
 {
@@ -98,6 +190,8 @@ public class IdleNotifierPlugin extends Plugin
 	private Instant sixHourWarningTime;
 	private boolean ready;
 	private boolean lastInteractWasCombat;
+	private SkullIcon lastTickSkull = null;
+	private boolean isFirstTick = true;
 
 	@Provides
 	IdleNotifierConfig provideConfig(ConfigManager configManager)
@@ -134,11 +228,11 @@ public class IdleNotifierPlugin extends Plugin
 			case WOODCUTTING_DRAGON:
 			case WOODCUTTING_INFERNAL:
 			case WOODCUTTING_3A_AXE:
-			/* Cooking(Fire, Range) */
+				/* Cooking(Fire, Range) */
 			case COOKING_FIRE:
 			case COOKING_RANGE:
 			case COOKING_WINE:
-			/* Crafting(Gem Cutting, Glassblowing, Spinning, Battlestaves, Pottery) */
+				/* Crafting(Gem Cutting, Glassblowing, Spinning, Battlestaves, Pottery) */
 			case GEM_CUTTING_OPAL:
 			case GEM_CUTTING_JADE:
 			case GEM_CUTTING_REDTOPAZ:
@@ -153,7 +247,7 @@ public class IdleNotifierPlugin extends Plugin
 			case CRAFTING_LEATHER:
 			case CRAFTING_POTTERS_WHEEL:
 			case CRAFTING_POTTERY_OVEN:
-			/* Fletching(Cutting, Stringing) */
+				/* Fletching(Cutting, Stringing) */
 			case FLETCHING_BOW_CUTTING:
 			case FLETCHING_STRING_NORMAL_SHORTBOW:
 			case FLETCHING_STRING_OAK_SHORTBOW:
@@ -167,14 +261,14 @@ public class IdleNotifierPlugin extends Plugin
 			case FLETCHING_STRING_MAPLE_LONGBOW:
 			case FLETCHING_STRING_YEW_LONGBOW:
 			case FLETCHING_STRING_MAGIC_LONGBOW:
-			/* Smithing(Anvil, Furnace, Cannonballs */
+				/* Smithing(Anvil, Furnace, Cannonballs */
 			case SMITHING_ANVIL:
 			case SMITHING_SMELTING:
 			case SMITHING_CANNONBALL:
-			/* Fishing */
+				/* Fishing */
 			case FISHING_CRUSHING_INFERNAL_EELS:
 			case FISHING_CUTTING_SACRED_EELS:
-			/* Mining(Normal) */
+				/* Mining(Normal) */
 			case MINING_BRONZE_PICKAXE:
 			case MINING_IRON_PICKAXE:
 			case MINING_STEEL_PICKAXE:
@@ -188,7 +282,7 @@ public class IdleNotifierPlugin extends Plugin
 			case MINING_3A_PICKAXE:
 			case DENSE_ESSENCE_CHIPPING:
 			case DENSE_ESSENCE_CHISELING:
-			/* Mining(Motherlode) */
+				/* Mining(Motherlode) */
 			case MINING_MOTHERLODE_BRONZE:
 			case MINING_MOTHERLODE_IRON:
 			case MINING_MOTHERLODE_STEEL:
@@ -200,11 +294,11 @@ public class IdleNotifierPlugin extends Plugin
 			case MINING_MOTHERLODE_DRAGON_ORN:
 			case MINING_MOTHERLODE_INFERNAL:
 			case MINING_MOTHERLODE_3A:
-			/* Herblore */
+				/* Herblore */
 			case HERBLORE_PESTLE_AND_MORTAR:
 			case HERBLORE_POTIONMAKING:
 			case HERBLORE_MAKE_TAR:
-			/* Magic */
+				/* Magic */
 			case MAGIC_CHARGING_ORBS:
 			case MAGIC_LUNAR_PLANK_MAKE:
 			case MAGIC_LUNAR_STRING_JEWELRY:
@@ -213,11 +307,11 @@ public class IdleNotifierPlugin extends Plugin
 			case MAGIC_ENCHANTING_AMULET_1:
 			case MAGIC_ENCHANTING_AMULET_2:
 			case MAGIC_ENCHANTING_AMULET_3:
-			/* Prayer */
+				/* Prayer */
 			case USING_GILDED_ALTAR:
-			/* Farming */
+				/* Farming */
 			case FARMING_MIX_ULTRACOMPOST:
-			/* Misc */
+				/* Misc */
 			case PISCARILIUS_CRANE_REPAIR:
 			case HOME_MAKE_TABLET:
 			case SAND_COLLECTION:
@@ -240,6 +334,29 @@ public class IdleNotifierPlugin extends Plugin
 				// On unknown animation simply assume the animation is invalid and dont throw notification
 				lastAnimation = IDLE;
 				lastAnimating = null;
+		}
+	}
+
+	@Subscribe
+	private void onPlayerSpawned(PlayerSpawned event)
+	{
+		final Player p = event.getPlayer();
+		if (config.notifyPkers())
+		{
+			if (p != null)
+			{
+				if (p != client.getLocalPlayer())
+				{
+					if (PvPUtil.isAttackable(client, p) && !client.isFriended(p.getName(), false)
+						&& !client.isClanMember(p.getName()))
+					{
+						String playerName = p.getName();
+						int combat = p.getCombatLevel();
+						notifier.notify("PK'er warning! A level " + combat + " player named " + playerName +
+							" appeared!", TrayIcon.MessageType.WARNING);
+					}
+				}
+			}
 		}
 	}
 
@@ -305,9 +422,13 @@ public class IdleNotifierPlugin extends Plugin
 		{
 			case LOGIN_SCREEN:
 				resetTimers();
+				isFirstTick = true;
+				break;
+			case HOPPING:
+				isFirstTick = true;
+				ready = true;
 				break;
 			case LOGGING_IN:
-			case HOPPING:
 			case CONNECTION_LOST:
 				ready = true;
 				break;
@@ -359,6 +480,8 @@ public class IdleNotifierPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
+		skullNotifier();
+
 		final Player local = client.getLocalPlayer();
 		final Duration waitDuration = Duration.ofMillis(config.getIdleNotificationDelay());
 		lastCombatCountdown = Math.max(lastCombatCountdown - 1, 0);
@@ -642,6 +765,33 @@ public class IdleNotifierPlugin extends Plugin
 		if (client.getGameState() == GameState.LOGIN_SCREEN || local == null || local.getInteracting() != lastInteract)
 		{
 			lastInteract = null;
+		}
+	}
+
+	private void skullNotifier()
+	{
+		final Player local = client.getLocalPlayer();
+		SkullIcon currentTickSkull = local.getSkullIcon();
+		EnumSet worldTypes = client.getWorldType();
+		if (!(worldTypes.contains(WorldType.DEADMAN) || worldTypes.contains(WorldType.SEASONAL_DEADMAN)))
+		{
+			if (!isFirstTick)
+			{
+				if (config.showSkullNotification() && lastTickSkull == null && currentTickSkull == SkullIcon.SKULL)
+				{
+					notifier.notify("[" + local.getName() + "] is now skulled!");
+				}
+				else if (config.showUnskullNotification() && lastTickSkull == SkullIcon.SKULL && currentTickSkull == null)
+				{
+					notifier.notify("[" + local.getName() + "] is now unskulled!");
+				}
+			}
+			else
+			{
+				isFirstTick = false;
+			}
+
+			lastTickSkull = currentTickSkull;
 		}
 	}
 }

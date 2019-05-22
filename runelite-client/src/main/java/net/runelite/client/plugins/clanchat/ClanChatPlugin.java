@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
 import net.runelite.api.ChatLineBuffer;
 import net.runelite.api.ChatMessageType;
@@ -86,7 +87,7 @@ import net.runelite.client.util.Text;
 )
 public class ClanChatPlugin extends Plugin
 {
-	private static final int MAX_CHATS = 10;
+	private static final int MAX_CHATS = 20;
 	private static final String CLAN_CHAT_TITLE = "CC";
 	private static final String RECENT_TITLE = "Recent CCs";
 	private static final int JOIN_LEAVE_DURATION = 20;
@@ -111,7 +112,13 @@ public class ClanChatPlugin extends Plugin
 	private ClientThread clientThread;
 
 	private List<String> chats = new ArrayList<>();
-	private List<Player> clanMembers = new ArrayList<>();
+
+	public static CopyOnWriteArrayList<Player> getClanMembers()
+	{
+		return (CopyOnWriteArrayList<Player>) clanMembers.clone();
+	}
+
+	private static CopyOnWriteArrayList<Player> clanMembers = new CopyOnWriteArrayList<>();
 	private ClanChatIndicator clanMemberCounter;
 	/**
 	 * queue of temporary messages added to the client
@@ -518,6 +525,7 @@ public class ClanChatPlugin extends Plugin
 		}
 	}
 
+
 	private void resetClanChats()
 	{
 		Widget clanChatList = client.getWidget(WidgetInfo.CLAN_CHAT_LIST);
@@ -544,14 +552,23 @@ public class ClanChatPlugin extends Plugin
 			return;
 		}
 
+		clanChatList.setScrollHeight(14 * chats.size());
+		clanChatList.revalidateScroll();
+
 		int y = 2;
 		clanChatList.setChildren(null);
 		for (String chat : Lists.reverse(chats))
 		{
 			Widget widget = clanChatList.createChild(-1, WidgetType.TEXT);
 			widget.setFontId(494);
+			widget.setHasListener(true);
+
 			widget.setTextColor(0xffffff);
 			widget.setText(chat);
+			widget.setTextShadowed(true);
+			widget.setBorderType(1);
+			widget.setAction(0, "Join");
+			widget.setOnOpListener(ScriptID.CUSTOM_JOIN_CLAN, widget.getText());
 			widget.setOriginalHeight(14);
 			widget.setOriginalWidth(142);
 			widget.setOriginalY(y);
@@ -560,6 +577,7 @@ public class ClanChatPlugin extends Plugin
 
 			y += 14;
 		}
+		clanChatList.revalidateScroll();
 	}
 
 	private void updateRecentChat(String s)

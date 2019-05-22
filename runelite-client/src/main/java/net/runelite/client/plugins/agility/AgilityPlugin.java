@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.agility;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,6 +38,8 @@ import net.runelite.api.Client;
 import net.runelite.api.Item;
 import net.runelite.api.ItemID;
 import static net.runelite.api.ItemID.AGILITY_ARENA_TICKET;
+import net.runelite.api.MenuAction;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
 import static net.runelite.api.Skill.AGILITY;
@@ -59,6 +62,7 @@ import net.runelite.api.events.GroundObjectDespawned;
 import net.runelite.api.events.GroundObjectSpawned;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
+import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.WallObjectChanged;
 import net.runelite.api.events.WallObjectDespawned;
 import net.runelite.api.events.WallObjectSpawned;
@@ -71,6 +75,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
+import net.runelite.client.util.ColorUtil;
 
 @PluginDescriptor(
 	name = "Agility",
@@ -418,6 +423,40 @@ public class AgilityPlugin extends Plugin
 			if (closestShortcut != null)
 			{
 				obstacles.put(newObject, new Obstacle(tile, closestShortcut));
+			}
+		}
+	}
+
+	@Subscribe
+	public void onMenuEntryAdded(MenuEntryAdded event)
+	{
+		if (!config.showShortcutLevel())
+		{
+			return;
+		}
+
+		//Guarding against non-first option because agility shortcuts are always that type of event.
+		if (event.getType() != MenuAction.GAME_OBJECT_FIRST_OPTION.getId())
+		{
+			return;
+		}
+
+		final int entryId = event.getIdentifier();
+		MenuEntry[] menuEntries = client.getMenuEntries();
+
+		for (Obstacle nearbyObstacle : getObstacles().values())
+		{
+			AgilityShortcut shortcut = nearbyObstacle.getShortcut();
+			if (shortcut != null && Arrays.stream(shortcut.getObstacleIds()).anyMatch(i -> i == entryId))
+			{
+				MenuEntry entry = menuEntries[menuEntries.length - 1];
+				int level = shortcut.getLevel();
+				Color color = level <= getAgilityLevel() ? Color.GREEN : Color.RED;
+				String requirementText = " (level-" + level + ")";
+
+				entry.setTarget(event.getTarget() + ColorUtil.prependColorTag(requirementText, color));
+				client.setMenuEntries(menuEntries);
+				return;
 			}
 		}
 	}

@@ -46,4 +46,12 @@ public @interface ConfigItem
 	String warning() default "";
 
 	boolean secret() default false;
+
+	String group() default "";
+
+	String unhide() default "";
+
+	String hide() default "";
+
+	String parent() default "";
 }

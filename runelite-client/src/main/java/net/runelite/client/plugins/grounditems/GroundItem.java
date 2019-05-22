@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.grounditems;
 
+import java.time.Instant;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
@@ -31,6 +32,7 @@ import net.runelite.api.coords.WorldPoint;
 
 @Data
 @Builder
+public
 class GroundItem
 {
 	private int id;
@@ -44,6 +46,10 @@ class GroundItem
 	private int offset;
 	private boolean tradeable;
 	private boolean isMine;
+	private int durationMillis;
+	private boolean isAlwaysPrivate;
+	private boolean isOwnedByPlayer;
+	private Instant droppedInstant;
 
 	int getHaPrice()
 	{

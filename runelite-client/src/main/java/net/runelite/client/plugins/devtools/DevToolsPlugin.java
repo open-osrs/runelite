@@ -71,7 +71,7 @@ import org.slf4j.LoggerFactory;
 public class DevToolsPlugin extends Plugin
 {
 	private static final List<MenuAction> EXAMINE_MENU_ACTIONS = ImmutableList.of(MenuAction.EXAMINE_ITEM,
-			MenuAction.EXAMINE_ITEM_GROUND, MenuAction.EXAMINE_NPC, MenuAction.EXAMINE_OBJECT);
+		MenuAction.EXAMINE_ITEM_GROUND, MenuAction.EXAMINE_NPC, MenuAction.EXAMINE_OBJECT);
 
 	@Inject
 	private Client client;
@@ -119,13 +119,14 @@ public class DevToolsPlugin extends Plugin
 	private DevToolsButton validMovement;
 	private DevToolsButton lineOfSight;
 	private DevToolsButton cameraPosition;
-	private DevToolsButton worldMapLocation ;
+	private DevToolsButton worldMapLocation;
 	private DevToolsButton tileLocation;
 	private DevToolsButton interacting;
 	private DevToolsButton examine;
 	private DevToolsButton detachedCamera;
 	private DevToolsButton widgetInspector;
 	private DevToolsButton varInspector;
+	private DevToolsButton logMenuActions;
 	private NavigationButton navButton;
 
 	@Provides
@@ -173,6 +174,8 @@ public class DevToolsPlugin extends Plugin
 		overlayManager.add(cameraOverlay);
 		overlayManager.add(worldMapLocationOverlay);
 		overlayManager.add(mapRegionOverlay);
+
+		logMenuActions = new DevToolsButton("Menu Actions");
 
 		final DevToolsPanel panel = injector.getInstance(DevToolsPanel.class);
 

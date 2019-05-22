@@ -71,7 +71,7 @@ class BlastMineOreCountOverlay extends Overlay
 		{
 			return null;
 		}
-		
+
 		panelComponent.getChildren().clear();
 
 		if (config.showOreOverlay())

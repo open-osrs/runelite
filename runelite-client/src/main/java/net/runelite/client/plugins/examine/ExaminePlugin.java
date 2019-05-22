@@ -26,6 +26,7 @@ package net.runelite.client.plugins.examine;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -54,6 +55,8 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.StackFormatter;
 import net.runelite.http.api.examine.ExamineClient;
+import net.runelite.http.api.osbuddy.OSBGrandExchangeClient;
+import net.runelite.http.api.osbuddy.OSBGrandExchangeResult;
 
 /**
  * Submits examine info to the api
@@ -68,10 +71,10 @@ import net.runelite.http.api.examine.ExamineClient;
 @Slf4j
 public class ExaminePlugin extends Plugin
 {
-	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 	private static final Pattern X_PATTERN = Pattern.compile("^\\d+ x ");
 
 	private final Deque<PendingExamine> pending = new ArrayDeque<>();
+	private final OSBGrandExchangeClient CLIENT = new OSBGrandExchangeClient();
 	private final Cache<CacheKey, Boolean> cache = CacheBuilder.newBuilder()
 		.maximumSize(128L)
 		.build();
@@ -319,7 +322,7 @@ public class ExaminePlugin extends Plugin
 		quantity = Math.max(1, quantity);
 		int itemCompositionPrice = itemComposition.getPrice();
 		final int gePrice = itemManager.getItemPrice(id);
-		final int alchPrice = itemCompositionPrice <= 0 ? 0 : Math.round(itemCompositionPrice * HIGH_ALCHEMY_CONSTANT);
+		final int alchPrice = itemCompositionPrice <= 0 ? 0 : itemManager.getAlchValue(id);
 
 		if (gePrice > 0 || alchPrice > 0)
 		{
@@ -342,11 +345,29 @@ public class ExaminePlugin extends Plugin
 
 			if (gePrice > 0)
 			{
+				OSBGrandExchangeResult osbresult = new OSBGrandExchangeResult();
+				try
+				{
+					osbresult = CLIENT.lookupItem(id);
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 				message
 					.append(ChatColorType.NORMAL)
-					.append(" GE average ")
+					.append(" GE  ")
 					.append(ChatColorType.HIGHLIGHT)
 					.append(StackFormatter.formatNumber(gePrice * quantity));
+
+				if (osbresult != null)
+				{
+					message
+						.append(ChatColorType.NORMAL)
+						.append(" OSB  ")
+						.append(ChatColorType.HIGHLIGHT)
+						.append(StackFormatter.formatNumber(osbresult.getOverall_average() * quantity));
+				}
 
 				if (quantity > 1)
 				{

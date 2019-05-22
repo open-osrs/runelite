@@ -34,6 +34,8 @@ import net.runelite.api.EquipmentInventorySlot;
 enum ItemWithSlot
 {
 	ABYSSAL_BRACELET(ItemChargeType.ABYSSAL_BRACELET, EquipmentInventorySlot.GLOVES),
+	BRACELET_OF_SLAUGHTER(ItemChargeType.BRACELET_OF_SLAUGHTER, EquipmentInventorySlot.GLOVES),
+	EXPEDITIOUS_BRACELET(ItemChargeType.EXPEDITIOUS_BRACELET, EquipmentInventorySlot.GLOVES),
 	DODGY_NECKLACE(ItemChargeType.DODGY_NECKLACE, EquipmentInventorySlot.AMULET),
 	BINDING_NECKLACE(ItemChargeType.BINDING_NECKLACE, EquipmentInventorySlot.AMULET),
 	EXPLORER_RING(ItemChargeType.EXPLORER_RING, EquipmentInventorySlot.RING),

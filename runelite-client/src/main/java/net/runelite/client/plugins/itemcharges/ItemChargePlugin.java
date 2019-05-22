@@ -32,16 +32,22 @@ import java.awt.image.BufferedImage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import lombok.AccessLevel;
+import lombok.Getter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
+import net.runelite.api.GraphicID;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
 import net.runelite.api.Varbits;
+import static net.runelite.api.ItemID.RING_OF_RECOIL;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarbitChanged;
@@ -55,6 +61,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
+import net.runelite.client.util.Text;
 
 @PluginDescriptor(
 	name = "Item Charges",
@@ -65,22 +72,69 @@ public class ItemChargePlugin extends Plugin
 {
 	private static final Pattern DODGY_CHECK_PATTERN = Pattern.compile(
 		"Your dodgy necklace has (\\d+) charges? left\\.");
+	private static final Pattern SLAUGHTER_CHECK_PATTERN = Pattern.compile(
+		"Your bracelet of slaughter has (\\d{1,2}) charge[s]? left.");
+	private static final Pattern EXPEDITIOUS_CHECK_PATTERN = Pattern.compile(
+		"Your expeditious bracelet has (\\d{1,2}) charge[s]? left.");
 	private static final Pattern DODGY_PROTECT_PATTERN = Pattern.compile(
 		"Your dodgy necklace protects you\\..*It has (\\d+) charges? left\\.");
+	private static final Pattern SLAUGHTER_ACTIVATE_PATTERN = Pattern.compile(
+		"Your bracelet of slaughter prevents your slayer count decreasing. It has (\\d{1,2}) charge[s]? left.");
+	private static final Pattern EXPEDITIOUS_ACTIVATE_PATTERN = Pattern.compile(
+		"Your expeditious bracelet helps you progress your slayer (?:task )?faster. It has (\\d{1,2}) charge[s]? left.");
 	private static final Pattern DODGY_BREAK_PATTERN = Pattern.compile(
 		"Your dodgy necklace protects you\\..*It then crumbles to dust\\.");
 	private static final String RING_OF_RECOIL_BREAK_MESSAGE = "<col=7f007f>Your Ring of Recoil has shattered.</col>";
-	private static final Pattern BINDING_CHECK_PATTERN = Pattern.compile(
-		"You have ([0-9]+|one) charges? left before your Binding necklace disintegrates\\.");
+	private static Pattern BINDING_CHECK_PATTERN = Pattern.compile(
+		"You have ([0-9]+|one) charges? left before your Binding necklace disintegrates.");
 	private static final Pattern BINDING_USED_PATTERN = Pattern.compile(
 		"You bind the temple's power into (mud|lava|steam|dust|smoke|mist) runes\\.");
 	private static final String BINDING_BREAK_TEXT = "Your Binding necklace has disintegrated.";
+	private static final Pattern XERIC_CHECK_CHARGE_PATTERN = Pattern.compile(
+		"talisman has (\\d+|one) charges?");
+	private static final Pattern XERIC_RECHARGEWIDGET_PATTERN = Pattern.compile(
+		"Your talisman now has (\\d+|one) charges?\\.");
+	private static final Pattern XERIC_OUT_OF_CHARGES = Pattern.compile(
+		"Your talisman has run out of charges");
+	private static final Pattern XERIC_UNCHARGE_PATTERN = Pattern.compile(
+		"lizard fangs? from your talisman\\.");
+	private static final Pattern SOULBEARER_RECHARGE_PATTERN = Pattern.compile(
+		"You add (\\d+|a) charges? to your soul bearer.It now has (\\d+) charges\\.");
+	private static final Pattern SOULBEARER_RECHARGE_PATTERN2 = Pattern.compile(
+		"Your soul bearer now has one charge\\.");
+	private static final Pattern SOULBEARER_CHECK_CHARGE_PATTERN = Pattern.compile(
+		"soul bearer has (\\d+|one) charges?\\.");
+	private static final Pattern SOULBEARER_UNCHARGE_PATTERN = Pattern.compile(
+		"You remove the runes from the soul bearer\\.");
+	private static final Pattern SOULBEARER_BANKHEADS_PATTERN = Pattern.compile(
+		"Your soul bearer carries the ensouled heads? to your ?bank\\. It has (\\d+|one) charges? left\\.");
+	private static final Pattern SOULBEARER_OUT_OF_CHARGES = Pattern.compile(
+		"Your soul bearer carries the ensouled heads? to (.+)\\. It has run out of charges\\.");
+	private static final Pattern CHRONICLE_CHECK_CHARGE_PATTERN = Pattern.compile(
+		"Your book has (\\d+) charges left\\.");
+	private static final Pattern CHRONICLE_ADD_CHARGE_PATTERN = Pattern.compile(
+		"You add (\\d+|a single) charges? to your book. It now has (\\d+) charges\\.");
+	private static final Pattern CHRONICLE_LAST_CHARGE_PATTERN = Pattern.compile(
+		"You have one charge left in your book\\.");
+	private static final Pattern CHRONICLE_OUT_OF_CHARGES_PATTERN = Pattern.compile(
+		"Your book has run out of charges\\.");
 
 	private static final int MAX_DODGY_CHARGES = 10;
+	private static final int MAX_SLAUGHTER_CHARGES = 30;
+	private static final int MAX_EXPEDITIOUS_CHARGES = 30;
 	private static final int MAX_BINDING_CHARGES = 16;
 	private static final int MAX_EXPLORER_RING_CHARGES = 30;
 
 	private int lastExplorerRingCharge = -1;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean ringOfRecoilAvailable = false;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean ringOfRecoilEquipped = false;
+
+	@Getter(AccessLevel.PACKAGE)
+	private BufferedImage recoilRingImage;
 
 	@Inject
 	private Client client;
@@ -90,6 +144,9 @@ public class ItemChargePlugin extends Plugin
 
 	@Inject
 	private ItemChargeOverlay overlay;
+
+	@Inject
+	private ItemRecoilOverlay recoilOverlay;
 
 	@Inject
 	private ItemManager itemManager;
@@ -116,12 +173,15 @@ public class ItemChargePlugin extends Plugin
 	protected void startUp()
 	{
 		overlayManager.add(overlay);
+		overlayManager.add(recoilOverlay);
+		recoilRingImage = itemManager.getImage(RING_OF_RECOIL);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(overlay);
+		overlayManager.remove(recoilOverlay);
 		infoBoxManager.removeIf(ItemChargeInfobox.class::isInstance);
 		lastCheckTick = -1;
 	}
@@ -155,6 +215,12 @@ public class ItemChargePlugin extends Plugin
 			removeInfobox(ItemWithSlot.DODGY_NECKLACE);
 		}
 
+		if (!config.showSlayerBracelets())
+		{
+			removeInfobox(ItemWithSlot.BRACELET_OF_SLAUGHTER);
+			removeInfobox(ItemWithSlot.EXPEDITIOUS_BRACELET);
+		}
+
 		if (!config.showBindingNecklaceCharges())
 		{
 			removeInfobox(ItemWithSlot.BINDING_NECKLACE);
@@ -171,16 +237,51 @@ public class ItemChargePlugin extends Plugin
 	{
 		String message = event.getMessage();
 		Matcher dodgyCheckMatcher = DODGY_CHECK_PATTERN.matcher(message);
+		Matcher slaughterCheckMatcher = SLAUGHTER_CHECK_PATTERN.matcher(message);
+		Matcher expeditiousCheckMatcher = EXPEDITIOUS_CHECK_PATTERN.matcher(message);
 		Matcher dodgyProtectMatcher = DODGY_PROTECT_PATTERN.matcher(message);
+		Matcher slaughterActivateMatcher = SLAUGHTER_ACTIVATE_PATTERN.matcher(message);
+		Matcher expeditiousActivateMatcher = EXPEDITIOUS_ACTIVATE_PATTERN.matcher(message);
 		Matcher dodgyBreakMatcher = DODGY_BREAK_PATTERN.matcher(message);
 		Matcher bindingNecklaceCheckMatcher = BINDING_CHECK_PATTERN.matcher(event.getMessage());
 		Matcher bindingNecklaceUsedMatcher = BINDING_USED_PATTERN.matcher(event.getMessage());
+		Matcher xericRechargeMatcher = XERIC_CHECK_CHARGE_PATTERN.matcher(message);
+		Matcher xericOutOfChargesMatcher = XERIC_OUT_OF_CHARGES.matcher(message);
+		Matcher soulbearerCheckMatcher = SOULBEARER_CHECK_CHARGE_PATTERN.matcher(message);
+		Matcher chronicleCheckMatcher = CHRONICLE_CHECK_CHARGE_PATTERN.matcher(message);
+		Matcher chronicleRechargeMatcher = CHRONICLE_ADD_CHARGE_PATTERN.matcher(message);
+		Matcher chronicleLastChargeMatcher = CHRONICLE_LAST_CHARGE_PATTERN.matcher(message);
+		Matcher chronicleOutOfChargesMatcher = CHRONICLE_OUT_OF_CHARGES_PATTERN.matcher(message);
 
 		if (event.getType() == ChatMessageType.GAMEMESSAGE || event.getType() == ChatMessageType.SPAM)
 		{
 			if (config.recoilNotification() && message.contains(RING_OF_RECOIL_BREAK_MESSAGE))
 			{
 				notifier.notify("Your Ring of Recoil has shattered");
+			}
+			else if (dodgyCheckMatcher.find())
+			{
+				updateDodgyNecklaceCharges(Integer.parseInt(dodgyCheckMatcher.group(1)));
+			}
+			else if (slaughterCheckMatcher.find())
+			{
+				updateBraceletOfSlaughterCharges(Integer.parseInt(slaughterCheckMatcher.group(1)));
+			}
+			else if (expeditiousCheckMatcher.find())
+			{
+				updateExpeditiousCharges(Integer.parseInt(expeditiousCheckMatcher.group(1)));
+			}
+			else if (dodgyProtectMatcher.find())
+			{
+				updateDodgyNecklaceCharges(Integer.parseInt(dodgyProtectMatcher.group(1)));
+			}
+			else if (slaughterActivateMatcher.find())
+			{
+				updateBraceletOfSlaughterCharges(Integer.parseInt(slaughterActivateMatcher.group(1)));
+			}
+			else if (expeditiousActivateMatcher.find())
+			{
+				updateExpeditiousCharges(Integer.parseInt(expeditiousActivateMatcher.group(1)));
 			}
 			else if (dodgyBreakMatcher.find())
 			{
@@ -190,14 +291,6 @@ public class ItemChargePlugin extends Plugin
 				}
 
 				updateDodgyNecklaceCharges(MAX_DODGY_CHARGES);
-			}
-			else if (dodgyCheckMatcher.find())
-			{
-				updateDodgyNecklaceCharges(Integer.parseInt(dodgyCheckMatcher.group(1)));
-			}
-			else if (dodgyProtectMatcher.find())
-			{
-				updateDodgyNecklaceCharges(Integer.parseInt(dodgyProtectMatcher.group(1)));
 			}
 			else if (message.contains(BINDING_BREAK_TEXT))
 			{
@@ -224,6 +317,41 @@ public class ItemChargePlugin extends Plugin
 				}
 
 				updateBindingNecklaceCharges(charges);
+			}
+			else if (xericRechargeMatcher.find())
+			{
+				final int xericCharges = xericRechargeMatcher.group(1).equals("one") ? 1 : (Integer.parseInt(xericRechargeMatcher.group(1)));
+				updateXericCharges(xericCharges);
+			}
+			else if (xericOutOfChargesMatcher.find())
+			{
+				final int xericCharges = 0;
+				updateXericCharges(xericCharges);
+			}
+			else if (soulbearerCheckMatcher.find())
+			{
+				final int soulbearerCharges = soulbearerCheckMatcher.group(1).equals("one") ? 1 : (Integer.parseInt(soulbearerCheckMatcher.group(1)));
+				updateSoulBearerCharges(soulbearerCharges);
+			}
+			else if (chronicleCheckMatcher.find())
+			{
+				final int chronicleCharges = chronicleCheckMatcher.group(1).equals("one") ? 1 : (Integer.parseInt(chronicleCheckMatcher.group(1)));
+				updateChronicleCharges(chronicleCharges);
+			}
+			else if (chronicleRechargeMatcher.find())
+			{
+				final int chronicleCharges = chronicleRechargeMatcher.group(2).equals("one") ? 1 : (Integer.parseInt(chronicleRechargeMatcher.group(2)));
+				updateChronicleCharges(chronicleCharges);
+			}
+			else if (chronicleLastChargeMatcher.find())
+			{
+				final int chronicleCharges = 1;
+				updateChronicleCharges(chronicleCharges);
+			}
+			else if (chronicleOutOfChargesMatcher.find())
+			{
+				final int chronicleCharges = 0;
+				updateChronicleCharges(chronicleCharges);
 			}
 		}
 	}
@@ -253,6 +381,12 @@ public class ItemChargePlugin extends Plugin
 			updateJewelleryInfobox(ItemWithSlot.ABYSSAL_BRACELET, items);
 		}
 
+		if (config.showSlayerBracelets())
+		{
+			updateJewelleryInfobox(ItemWithSlot.BRACELET_OF_SLAUGHTER, items);
+			updateJewelleryInfobox(ItemWithSlot.EXPEDITIOUS_BRACELET, items);
+		}
+
 		if (config.showBindingNecklaceCharges())
 		{
 			updateJewelleryInfobox(ItemWithSlot.BINDING_NECKLACE, items);
@@ -261,6 +395,119 @@ public class ItemChargePlugin extends Plugin
 		if (config.showExplorerRingCharges())
 		{
 			updateJewelleryInfobox(ItemWithSlot.EXPLORER_RING, items);
+		}
+	}
+
+	@Subscribe
+	public void onGameTick(GameTick event)
+	{
+		Widget braceletBreakWidget = client.getWidget(WidgetInfo.DIALOG_SPRITE_TEXT);
+
+		if (braceletBreakWidget != null)
+		{
+			String braceletText = Text.removeTags(braceletBreakWidget.getText()); //remove color and linebreaks
+			if (braceletText.contains("bracelet of slaughter"))
+			{
+				config.slaughter(MAX_SLAUGHTER_CHARGES);
+			}
+			else if (braceletText.contains("expeditious bracelet"))
+			{
+				config.expeditious(MAX_EXPEDITIOUS_CHARGES);
+			}
+		}
+
+		ItemContainer equipment = client.getItemContainer(InventoryID.EQUIPMENT);
+		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
+		ringOfRecoilAvailable = false;
+		ringOfRecoilEquipped = false;
+
+		Item ring = null;
+		if (equipment != null && equipment.getItems().length >= EquipmentInventorySlot.RING.getSlotIdx())
+		{
+			ring = equipment.getItems()[EquipmentInventorySlot.RING.getSlotIdx()];
+		}
+		if (ring != null && ring.getId() == RING_OF_RECOIL)
+		{
+			ringOfRecoilEquipped = true;
+			ringOfRecoilAvailable = true;
+		}
+		Item[] items = new Item[0];
+		if (inventory != null)
+		{
+			items = inventory.getItems();
+		}
+		for (Item item : items)
+		{
+			if (item.getId() == RING_OF_RECOIL)
+			{
+				ringOfRecoilAvailable = true;
+				break;
+			}
+		}
+
+		Widget dialog1 = client.getWidget(WidgetInfo.DIALOG_SPRITE_TEXT);
+		Widget dialog2 = client.getWidget(WidgetInfo.DIALOG2_SPRITE_TEXT);
+
+		if (dialog1 != null)
+		{
+			String widgetText = Text.removeTags(dialog1.getText());
+			Matcher xericRechargeMatcher = XERIC_RECHARGEWIDGET_PATTERN.matcher(widgetText);
+			Matcher soulbearerRechargeMatcher = SOULBEARER_RECHARGE_PATTERN.matcher(widgetText);
+			Matcher soulbearerRecharge2Matcher = SOULBEARER_RECHARGE_PATTERN2.matcher(widgetText);
+
+			if (xericRechargeMatcher.find())
+			{
+				final int xericCharges = xericRechargeMatcher.group(1).equals("one") ? 1 : (Integer.parseInt(xericRechargeMatcher.group(1)));
+				updateXericCharges(xericCharges);
+			}
+			else if (soulbearerRechargeMatcher.find())
+			{
+				final int soulbearerCharges = soulbearerRechargeMatcher.group(2).equals("one") ? 1 : (Integer.parseInt(soulbearerRechargeMatcher.group(2)));
+				updateSoulBearerCharges(soulbearerCharges);
+			}
+			else if (soulbearerRecharge2Matcher.find())
+			{
+				final int soulbearerCharges = 1;
+				updateSoulBearerCharges(soulbearerCharges);
+			}
+		}
+
+		if (dialog2 != null)
+		{
+			String widgetText = Text.removeTags(dialog2.getText());
+			Matcher xericUnchargeMatcher = XERIC_UNCHARGE_PATTERN.matcher(widgetText);
+			Matcher soulbearerUnchargeMatcher = SOULBEARER_UNCHARGE_PATTERN.matcher(widgetText);
+			Matcher soulbearerBankHeadsMatcher = SOULBEARER_BANKHEADS_PATTERN.matcher(widgetText);
+			Matcher soulbearerOutOfCharges = SOULBEARER_OUT_OF_CHARGES.matcher(widgetText);
+
+			if (xericUnchargeMatcher.find())
+			{
+				final int xericCharges = 0;
+				updateXericCharges(xericCharges);
+			}
+			else if (soulbearerUnchargeMatcher.find() || soulbearerOutOfCharges.find())
+			{
+				final int soulbearerCharges = 0;
+				updateSoulBearerCharges(soulbearerCharges);
+			}
+			else if (soulbearerBankHeadsMatcher.find())
+			{
+				final int soulbearerCharges = soulbearerBankHeadsMatcher.group(1).equals("one") ? 1 : (Integer.parseInt(soulbearerBankHeadsMatcher.group(1)));
+				updateSoulBearerCharges(soulbearerCharges);
+			}
+		}
+	}
+
+	@Subscribe
+	public void onGraphicChanged(GraphicChanged event)
+	{
+		if (event.getActor() == client.getLocalPlayer())
+		{
+			if (client.getLocalPlayer().getGraphic() == GraphicID.XERIC_TELEPORT)
+			{
+				final int xericCharges = Math.max(config.xericTalisman() - 1, 0);
+				updateXericCharges(xericCharges);
+			}
 		}
 	}
 
@@ -306,6 +553,40 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	private void updateBraceletOfSlaughterCharges(final int value)
+	{
+		config.slaughter(value);
+
+		if (config.showInfoboxes() && config.showSlayerBracelets())
+		{
+			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
+
+			if (itemContainer == null)
+			{
+				return;
+			}
+
+			updateJewelleryInfobox(ItemWithSlot.BRACELET_OF_SLAUGHTER, itemContainer.getItems());
+		}
+	}
+
+	private void updateExpeditiousCharges(final int value)
+	{
+		config.expeditious(value);
+
+		if (config.showInfoboxes() && config.showSlayerBracelets())
+		{
+			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
+
+			if (itemContainer == null)
+			{
+				return;
+			}
+
+			updateJewelleryInfobox(ItemWithSlot.EXPEDITIOUS_BRACELET, itemContainer.getItems());
+		}
+	}
+
 	private void updateBindingNecklaceCharges(final int value)
 	{
 		config.bindingNecklace(value);
@@ -339,6 +620,19 @@ public class ItemChargePlugin extends Plugin
 
 			updateJewelleryInfobox(ItemWithSlot.EXPLORER_RING, itemContainer.getItems());
 		}
+	private void updateXericCharges(int xericCharges)
+	{
+		config.xericTalisman(xericCharges);
+	}
+
+	private void updateSoulBearerCharges(int soulBearerCharges)
+	{
+		config.soulBearer(soulBearerCharges);
+	}
+
+	private void updateChronicleCharges(int chronicleCharges)
+	{
+		config.chronicle(chronicleCharges);
 	}
 
 	private void checkDestroyWidget()
@@ -399,6 +693,14 @@ public class ItemChargePlugin extends Plugin
 			{
 				charges = config.dodgyNecklace();
 			}
+			else if (id == ItemID.BRACELET_OF_SLAUGHTER && type == ItemWithSlot.BRACELET_OF_SLAUGHTER)
+			{
+				charges = config.slaughter();
+			}
+			else if (id == ItemID.EXPEDITIOUS_BRACELET && type == ItemWithSlot.EXPEDITIOUS_BRACELET)
+			{
+				charges = config.expeditious();
+			}
 			else if (id == ItemID.BINDING_NECKLACE && type == ItemWithSlot.BINDING_NECKLACE)
 			{
 				charges = config.bindingNecklace();
@@ -438,7 +740,7 @@ public class ItemChargePlugin extends Plugin
 				return false;
 			}
 
-			final ItemChargeInfobox i = (ItemChargeInfobox)t;
+			final ItemChargeInfobox i = (ItemChargeInfobox) t;
 			return i.getItem() == item && i.getSlot() == slot;
 		});
 	}

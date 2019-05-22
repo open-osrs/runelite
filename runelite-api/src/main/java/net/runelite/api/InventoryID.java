@@ -54,6 +54,10 @@ public enum InventoryID
 	 */
 	MONKEY_MADNESS_PUZZLE_BOX(221),
 	/**
+	 * Looting Bag inventory
+	 */
+	LOOTING_BAG(516),
+	/**
 	 * Chambers of Xeric chest inventory.
 	 */
 	CHAMBERS_OF_XERIC_CHEST(581),

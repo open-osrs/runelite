@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.config;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -40,6 +39,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigDescriptor;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.PluginPanel;
@@ -47,9 +47,10 @@ import net.runelite.client.ui.components.IconButton;
 import net.runelite.client.util.ImageUtil;
 import org.apache.commons.text.similarity.JaroWinklerDistance;
 
-class PluginListItem extends JPanel
+public class PluginListItem extends JPanel
 {
 	private static final JaroWinklerDistance DISTANCE = new JaroWinklerDistance();
+	public JLabel nameLabel;
 
 	private static final ImageIcon CONFIG_ICON;
 	private static final ImageIcon CONFIG_ICON_HOVER;
@@ -59,6 +60,7 @@ class PluginListItem extends JPanel
 	private static final ImageIcon OFF_STAR;
 
 	private final ConfigPanel configPanel;
+	public final ConfigManager configManager;
 
 	@Getter
 	@Nullable
@@ -70,7 +72,7 @@ class PluginListItem extends JPanel
 
 	@Nullable
 	@Getter(AccessLevel.PACKAGE)
-	private final ConfigDescriptor configDescriptor;
+	public final ConfigDescriptor configDescriptor;
 
 	@Getter
 	private final String name;
@@ -120,26 +122,27 @@ class PluginListItem extends JPanel
 	 * Note that {@code config} and {@code configDescriptor} can be {@code null}
 	 * if there is no configuration associated with the plugin.
 	 */
-	PluginListItem(ConfigPanel configPanel, Plugin plugin, PluginDescriptor descriptor,
-		@Nullable Config config, @Nullable ConfigDescriptor configDescriptor)
+	PluginListItem(ConfigPanel configPanel, ConfigManager configManager, Plugin plugin, PluginDescriptor descriptor,
+				@Nullable Config config, @Nullable ConfigDescriptor configDescriptor)
 	{
-		this(configPanel, plugin, config, configDescriptor,
+		this(configPanel, configManager, plugin, config, configDescriptor,
 			descriptor.name(), descriptor.description(), descriptor.tags());
 	}
 
 	/**
 	 * Creates a new {@code PluginListItem} for a core configuration.
 	 */
-	PluginListItem(ConfigPanel configPanel, Config config, ConfigDescriptor configDescriptor,
-		String name, String description, String... tags)
+	PluginListItem(ConfigPanel configPanel, ConfigManager configManager, Config config, ConfigDescriptor configDescriptor,
+				String name, String description, String... tags)
 	{
-		this(configPanel, null, config, configDescriptor, name, description, tags);
+		this(configPanel, configManager, null, config, configDescriptor, name, description, tags);
 	}
 
-	private PluginListItem(ConfigPanel configPanel, @Nullable Plugin plugin, @Nullable Config config,
-		@Nullable ConfigDescriptor configDescriptor, String name, String description, String... tags)
+	private PluginListItem(ConfigPanel configPanel, ConfigManager configManager, @Nullable Plugin plugin, @Nullable Config config,
+						@Nullable ConfigDescriptor configDescriptor, String name, String description, String... tags)
 	{
 		this.configPanel = configPanel;
+		this.configManager = configManager;
 		this.plugin = plugin;
 		this.config = config;
 		this.configDescriptor = configDescriptor;
@@ -152,8 +155,7 @@ class PluginListItem extends JPanel
 		setLayout(new BorderLayout(3, 0));
 		setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH, 20));
 
-		JLabel nameLabel = new JLabel(name);
-		nameLabel.setForeground(Color.WHITE);
+		nameLabel = new JLabel(name);
 
 		if (!description.isEmpty())
 		{
@@ -171,6 +173,7 @@ class PluginListItem extends JPanel
 			configPanel.savePinnedPlugins();
 			configPanel.openConfigList();
 		});
+
 
 		final JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1, 2));
@@ -195,6 +198,12 @@ class PluginListItem extends JPanel
 
 		toggleButton.setPreferredSize(new Dimension(25, 0));
 		attachToggleButtonListener(toggleButton);
+
+		if (name.equals("RuneLitePlus"))
+		{
+			toggleButton.setVisible(false);
+		}
+
 		buttonPanel.add(toggleButton);
 	}
 
@@ -253,6 +262,7 @@ class PluginListItem extends JPanel
 
 	/**
 	 * Checks if all the search terms in the given list matches at least one keyword.
+	 *
 	 * @return true if all search terms matches at least one keyword, or false if otherwise.
 	 */
 	boolean matchesSearchTerms(String[] searchTerms)

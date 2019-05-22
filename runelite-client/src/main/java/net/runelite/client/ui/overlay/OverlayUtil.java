@@ -76,7 +76,7 @@ public class OverlayUtil
 		graphics.setColor(color);
 		graphics.rotate(angle, center.getX(), center.getY());
 		graphics.drawRect(center.getX() - width / 2, center.getY() - height / 2, width, height);
-		graphics.rotate(-angle , center.getX(), center.getY());
+		graphics.rotate(-angle, center.getX(), center.getY());
 	}
 
 	public static void renderTextLocation(Graphics2D graphics, Point txtLoc, String text, Color color)
@@ -257,5 +257,18 @@ public class OverlayUtil
 		}
 
 		return result;
+	}
+
+	public static void renderActorTextAndImage(Graphics2D graphics, Actor actor, String text, Color color,
+											BufferedImage image, int yOffset, int xOffset)
+	{
+		Point textLocation = new Point(actor.getConvexHull().getBounds().x + xOffset,
+			actor.getConvexHull().getBounds().y + yOffset);
+
+		renderImageLocation(graphics, textLocation, image);
+		xOffset = image.getWidth() + 1;
+		yOffset = (image.getHeight() - (int) graphics.getFontMetrics().getStringBounds(text, graphics).getHeight());
+		textLocation = new Point(textLocation.getX() + xOffset, textLocation.getY() + image.getHeight() - yOffset);
+		renderTextLocation(graphics, textLocation, text, color);
 	}
 }

@@ -37,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
@@ -45,8 +46,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+import java.util.jar.Manifest;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -54,6 +57,7 @@ import lombok.extern.slf4j.Slf4j;
 import static net.runelite.client.rs.ClientUpdateCheckMode.AUTO;
 import static net.runelite.client.rs.ClientUpdateCheckMode.NONE;
 import static net.runelite.client.rs.ClientUpdateCheckMode.VANILLA;
+import net.runelite.client.rs.mixins.MixinRunner;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -84,6 +88,8 @@ public class ClientLoader
 
 		try
 		{
+			Manifest manifest = new Manifest();
+			manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
 			RSConfig config = clientConfigLoader.fetch();
 
 			Map<String, byte[]> zipFile = new HashMap<>();
@@ -98,8 +104,9 @@ public class ClientLoader
 
 				try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
 				{
-					JarInputStream jis = new JarInputStream(response.body().byteStream());
+					JarInputStream jis;
 
+					jis = new JarInputStream(response.body().byteStream());
 					byte[] tmp = new byte[4096];
 					ByteArrayOutputStream buffer = new ByteArrayOutputStream(756 * 1024);
 					for (; ; )
@@ -162,7 +169,8 @@ public class ClientLoader
 
 					if (!file.getValue().equals(ourHash))
 					{
-						log.debug("{} had a hash mismatch; falling back to vanilla. {} != {}", file.getKey(), file.getValue(), ourHash);
+						log.info("{} had a hash mismatch; falling back to vanilla. {} != {}", file.getKey(),
+							file.getValue(), ourHash);
 						log.info("Client is outdated!");
 						updateCheckMode = VANILLA;
 						break;
@@ -195,7 +203,35 @@ public class ClientLoader
 					++patchCount;
 				}
 
-				log.debug("Patched {} classes", patchCount);
+				log.info("Patched {} classes", patchCount);
+			}
+
+			log.info("Patching for RuneLitePlus");
+
+			if (updateCheckMode == AUTO)
+			{
+
+				HashMap<String, byte[]> patches = new HashMap<>();
+
+				for (Map.Entry<String, byte[]> file : zipFile.entrySet())
+				{
+					byte[] patchClass;
+					try (InputStream is = ClientLoader.class.getResourceAsStream("/extended-mixins/" + file.getKey()))
+					{
+						if (is == null)
+						{
+							continue;
+						}
+
+						patchClass = ByteStreams.toByteArray(is);
+					}
+
+					patches.put(file.getKey(), patchClass);
+
+				}
+
+				new MixinRunner(zipFile, patches).run();
+
 			}
 
 			String initialClass = config.getInitialClass();
@@ -222,9 +258,7 @@ public class ClientLoader
 			rs.setStub(new RSAppletStub(config));
 			return rs;
 		}
-		catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException
-			| CompressorException | InvalidHeaderException | CertificateException | VerificationException
-			| SecurityException e)
+		catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | CompressorException | InvalidHeaderException | SecurityException | NoSuchMethodException | InvocationTargetException | CertificateException | VerificationException e)
 		{
 			if (e instanceof ClassNotFoundException)
 			{
@@ -242,6 +276,6 @@ public class ClientLoader
 	{
 		CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
 		Collection<? extends Certificate> certificates = certificateFactory.generateCertificates(ClientLoader.class.getResourceAsStream("jagex.crt"));
-		return certificates.toArray(new Certificate[certificates.size()]);
+		return certificates.toArray(new Certificate[0]);
 	}
 }

@@ -63,6 +63,7 @@ public class DailyTasksPlugin extends Plugin
 	private static final String SAND_MESSAGE = "You have sand waiting to be collected from Bert.";
 	private static final int SAND_QUEST_COMPLETE = 160;
 	private static final String FLAX_MESSAGE = "You have bowstrings waiting to be converted from flax from the Flax keeper.";
+	private static final String ARROWS_MESSAGE = "You have ogre arrows waiting to be collected from Rantz.";
 	private static final String BONEMEAL_MESSAGE = "You have bonemeal and slime waiting to be collected from Robin.";
 	private static final int BONEMEAL_PER_DIARY = 13;
 	private static final String DYNAMITE_MESSAGE = "You have dynamite waiting to be collected from Thirus.";
@@ -154,16 +155,21 @@ public class DailyTasksPlugin extends Plugin
 				checkBonemeal(dailyReset);
 			}
 
+			if (config.showArrows())
+			{
+				checkArrows(dailyReset);
+			}
+
 			if (config.showDynamite())
 			{
 				checkDynamite(dailyReset);
 			}
-
 		}
 	}
 
 	private void checkHerbBoxes(boolean dailyReset)
 	{
+
 		if (client.getAccountType() == AccountType.NORMAL
 			&& client.getVar(VarPlayer.NMZ_REWARD_POINTS) >= HERB_BOX_COST
 			&& (client.getVar(Varbits.DAILY_HERB_BOXES_COLLECTED) < HERB_BOX_MAX
@@ -215,11 +221,19 @@ public class DailyTasksPlugin extends Plugin
 
 	private void checkFlax(boolean dailyReset)
 	{
-		if (client.getVar(Varbits.DIARY_KANDARIN_EASY) == 1
-			&& (client.getVar(Varbits.DAILY_FLAX_STATE) == 0
-			|| dailyReset))
+		if ((client.getVar(Varbits.DIARY_KANDARIN_EASY) == 1)
+			&& (dailyReset || client.getVar(Varbits.DAILY_FLAX_STATE) == 0))
 		{
 			sendChatMessage(FLAX_MESSAGE);
+		}
+	}
+
+	private void checkArrows(boolean dailyReset)
+	{
+		if ((client.getVar(Varbits.DIARY_WESTERN_EASY) == 1)
+			&& (dailyReset || client.getVar(Varbits.DAILY_ARROWS_STATE) == 0))
+		{
+			sendChatMessage(ARROWS_MESSAGE);
 		}
 	}
 
@@ -237,7 +251,7 @@ public class DailyTasksPlugin extends Plugin
 					max += BONEMEAL_PER_DIARY;
 				}
 			}
-			if (collected < max || dailyReset)
+			if (dailyReset || collected < max)
 			{
 				sendChatMessage(BONEMEAL_MESSAGE);
 			}
