@@ -33,7 +33,7 @@ import java.text.DecimalFormat;
 import javax.inject.Inject;
 import static net.runelite.api.AnimationID.THIEVING_STALL;
 import static net.runelite.api.AnimationID.PICKPOCKET_SUCCESS;
-import static net.runelite.api.AnimationID.PICKPOCKET_FAIL;
+import static net.runelite.api.AnimationID.BLOCK_UNARMED;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
@@ -124,7 +124,7 @@ public class ThievingOverlay extends Overlay
 	{
 		switch (client.getLocalPlayer().getAnimation())
 		{
-			case PICKPOCKET_FAIL:
+			case BLOCK_UNARMED:
 				return true;
 			default:
 				return false;
