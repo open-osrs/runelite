@@ -155,7 +155,10 @@ public final class AnimationID
 	public static final int SAND_COLLECTION = 895;
 	public static final int PISCARILIUS_CRANE_REPAIR = 7199;
 	public static final int HOME_MAKE_TABLET = 4067;
-
+	public static final int THIEVING_STALL = 832;
+	public static final int PICKPOCKET_SUCCESS = 881;
+	public static final int PICKPOCKET_FAIL = 424;
+	
 	//block animations for players and perhaps npcs as well?
 	public static final int BLOCK_DEFENDER = 4177;
 	public static final int BLOCK_NO_SHIELD = 420;
