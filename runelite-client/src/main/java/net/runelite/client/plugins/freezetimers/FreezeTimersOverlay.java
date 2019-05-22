@@ -95,7 +95,7 @@ public class FreezeTimersOverlay extends Overlay
 	{
 		final Player player = playerDespawned.getPlayer();
 		// All despawns ok: death, teleports, log out, runs away from screen
-		if (config.showPlayers() | config.showNpcs() | config.FreezeTimers() | config.Veng() | config.TB())
+		if (config.showPlayers() | config.showNpcs() | config.FreezeTimers() | config.Veng())
 		{
 			this.remove(player);
 		}
