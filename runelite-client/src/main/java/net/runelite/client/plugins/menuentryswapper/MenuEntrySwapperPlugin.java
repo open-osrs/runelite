@@ -706,6 +706,10 @@ else if (config.swapOccult() != OccultAltarMode.VENERATE && option.equals("vener
 		{
 			swap(client, "use", option, target, true);
 		}
+		else if (config.swapNexus() && target.contains("portal nexus")
+		{
+			swap(client, "teleport menu", option, target, true);
+		}
 	}
 
 	@Subscribe
