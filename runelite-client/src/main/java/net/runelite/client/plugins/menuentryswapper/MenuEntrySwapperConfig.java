@@ -452,7 +452,7 @@ public interface MenuEntrySwapperConfig extends Config
 		description = "Makes the teleport menu have priority over the left click destination on the portal nexus",
 		group = "Swap Teleport"
 	)
-	default boolean swapNexus()
+	default boolean swapNexuas()
 	{
 		return true;
 	}
@@ -473,6 +473,16 @@ public interface MenuEntrySwapperConfig extends Config
 		description =  "Swap Quick-Pay(100) and Send-Parcel at Hardwood Grove"
 	)
 	default boolean swapHardWoodGrove()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			keyName = "swapImps",
+			name = "Impling Jars",
+			description = "Don't open implings if bank has a clue"
+	)
+	default boolean swapImps()
 	{
 		return true;
 	}
