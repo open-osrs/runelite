@@ -28,7 +28,6 @@ package net.runelite.client.plugins.menuentryswapper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
-
 import java.util.*;
 import javax.inject.Inject;
 import joptsimple.internal.Strings;
