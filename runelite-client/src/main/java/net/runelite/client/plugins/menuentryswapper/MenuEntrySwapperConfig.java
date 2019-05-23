@@ -452,7 +452,7 @@ public interface MenuEntrySwapperConfig extends Config
 		description = "Makes the teleport menu have priority over the left click destination on the portal nexus",
 		group = "Swap Teleport"
 	)
-	default boolean swapNexuas()
+	default boolean swapNexus()
 	{
 		return true;
 	}
