@@ -6,47 +6,46 @@ import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("banlist")
 
-public interface BanListConfig extends Config {
+public interface BanListConfig extends Config
+{
+	@ConfigItem(
+		keyName = "bannedPlayers",
+		name = "Banned Players List",
+		description = "right now this is useless, manual entry doesn't work",
+		position = 0
 
-    @ConfigItem(
-            keyName = "bannedPlayers",
-            name = "Banned Players List",
-            description = "right now this is useless, manual entry doesn't work",
-            position = 0
+	)
+	default String getBannedPlayers()
+	{
+		return "";
+	}
 
-    )
-    default String getBannedPlayers()
-    {
-        return "";
-    }
+	@ConfigItem(
+		keyName = "bannedPlayers",
+		name = "",
+		description = ""
+	)
+	void setBannedPlayers(String key);
 
-    @ConfigItem(
-            keyName = "bannedPlayers",
-            name = "",
-            description = ""
-    )
-    void setBannedPlayers(String key);
+	@ConfigItem(
+		position = 1,
+		keyName = "enableWDR",
+		name = "use WDR list",
+		description = "Incorporate WDR ban list"
+	)
+	default boolean enableWDR()
+	{
+		return true;
+	}
 
-    @ConfigItem(
-            position = 1,
-            keyName = "enableWDR",
-            name = "use WDR list",
-            description = "Incorporate WDR ban list"
-    )
-    default boolean enableWDR()
-    {
-        return true;
-    }
-
-    @ConfigItem(
-            position = 2,
-            keyName = "enableRuneWatch",
-            name = "use RuneWatch list",
-            description = "Incorporate RuneWatch Ban list"
-    )
-    default boolean enableRuneWatch()
-    {
-        return true;
-    }
-
+	@ConfigItem(
+		position = 2,
+		keyName = "enableRuneWatch",
+		name = "use RuneWatch list",
+		description = "Incorporate RuneWatch Ban list"
+	)
+	default boolean enableRuneWatch()
+	{
+		return true;
+	}
 }
