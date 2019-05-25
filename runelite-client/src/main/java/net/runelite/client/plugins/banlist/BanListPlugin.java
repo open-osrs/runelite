@@ -43,7 +43,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.Text;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
@@ -55,8 +54,7 @@ import okhttp3.Response;
 		name = "Ban List",
 		description = "Displays warning in chat when you join a" +
 				"clan chat/new member join your clan chat and he is in a WDR/RuneWatch List",
-		tags = {"PVM", "WDR", "RuneWatch"},
-		type = PluginType.UTILITY
+		tags = {"PVM", "WDR", "RuneWatch"}
 )
 public class BanListPlugin extends Plugin
 {
@@ -69,9 +67,9 @@ public class BanListPlugin extends Plugin
 	@Inject
 	private ChatMessageManager chatMessageManager;
 
-	private ArrayList<String> wdrArrayList = new ArrayList<>();
-	private ArrayList<String> runeWatchArrayList = new ArrayList<>();
-	private ArrayList<String> manualBans = new ArrayList<>();
+	private ArrayList<String> wdrArrayList;
+	private ArrayList<String> runeWatchArrayList;
+	private ArrayList<String> manualBans;
 
 	@Provides
 	BanListConfig getConfig(ConfigManager configManager)
@@ -84,6 +82,7 @@ public class BanListPlugin extends Plugin
 	{
 		wdrArrayList = new ArrayList<>();
 		runeWatchArrayList = new ArrayList<>();
+		manualBans = new ArrayList<>();
 		manualBans.addAll(Text.fromCSV(config.getBannedPlayers()));
 		fetchFromWebsites();
 	}
@@ -110,7 +109,7 @@ public class BanListPlugin extends Plugin
 		{
 			if (!manualBans.contains(manual))
 			{
-				manualBans.add(manual);
+				manualBans.add(Text.standardize(manual));
 			}
 		}
 	}
@@ -119,7 +118,7 @@ public class BanListPlugin extends Plugin
 	{
 		if (client.getClanMembers() != null)
 		{
-			if (wdrArrayList.size() > 1 && config.enableWDR())
+			if (wdrArrayList.size() > 0 && config.enableWDR())
 			{
 				if (wdrArrayList.stream().anyMatch(nameToBeChecked::equalsIgnoreCase))
 				{
@@ -127,7 +126,7 @@ public class BanListPlugin extends Plugin
 				}
 			}
 
-			if (runeWatchArrayList.size() > 1 && config.enableRuneWatch())
+			if (runeWatchArrayList.size() > 0 && config.enableRuneWatch())
 			{
 				if (runeWatchArrayList.stream().anyMatch(nameToBeChecked::equalsIgnoreCase))
 				{
@@ -135,7 +134,7 @@ public class BanListPlugin extends Plugin
 				}
 			}
 
-			if (manualBans.size() > 1)
+			if (manualBans.size() > 0)
 			{
 				if (manualBans.stream().anyMatch(nameToBeChecked::equalsIgnoreCase))
 				{
