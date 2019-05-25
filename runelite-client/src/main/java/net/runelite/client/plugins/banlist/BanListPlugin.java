@@ -43,6 +43,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.Text;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
@@ -54,7 +55,8 @@ import okhttp3.Response;
 		name = "Ban List",
 		description = "Displays warning in chat when you join a" +
 				"clan chat/new member join your clan chat and he is in a WDR/RuneWatch List",
-		tags = {"PVM", "WDR", "RuneWatch"}
+		tags = {"PVM", "WDR", "RuneWatch"},
+		type = PluginType.UTILITY
 )
 public class BanListPlugin extends Plugin
 {
