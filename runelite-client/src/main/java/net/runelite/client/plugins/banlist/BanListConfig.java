@@ -12,7 +12,7 @@ public interface BanListConfig extends Config
 	@ConfigItem(
 			keyName = "bannedPlayers",
 			name = "Banned Players List",
-			description = "right now this is useless, manual entry doesn't work",
+			description = "manual entry ",
 			position = 0
 
 	)
