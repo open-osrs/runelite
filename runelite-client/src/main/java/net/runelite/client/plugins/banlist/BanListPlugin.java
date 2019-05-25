@@ -24,12 +24,15 @@
  */
 package net.runelite.client.plugins.banlist;
 
-
 import com.google.inject.Provides;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.inject.Inject;
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
-import net.runelite.api.events.ClanChanged;
 import net.runelite.api.events.ClanMemberJoined;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
@@ -46,19 +49,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
-import javax.inject.Inject;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @PluginDescriptor(
 	name = "Ban List",
-	description = "Displays warning in chat when you join a clan chat/new member join your clan chat and he is in a WDR/RuneWatch List",
-	tags = {"PVM","WDR","RuneWatch"},
+	description = "Displays warning in chat when you join a" +
+		"clan chat/new member join your clan chat and he is in a WDR/RuneWatch List",
+	tags = {"PVM", "WDR", "RuneWatch"},
 	type = PluginType.UTILITY
-
 )
 public class BanListPlugin extends Plugin
 {
@@ -71,138 +68,123 @@ public class BanListPlugin extends Plugin
 	@Inject
 	private ChatMessageManager chatMessageManager;
 
+	private ArrayList<String> wdrArrayList = new ArrayList<>();
+	private ArrayList<String> runeWatchArrayList = new ArrayList<>();
+
 	@Provides
-    BanListConfig getConfig(ConfigManager configManager)
+	BanListConfig getConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(BanListConfig.class);
 	}
 
-	private ArrayList<String> wdrArrayList = new ArrayList<>();
-	private ArrayList<String> runeWatchArrayList = new ArrayList<>();
-
-
-
-
-
 	@Override
-	protected void shutDown() throws Exception {
+	protected void shutDown() throws Exception
+	{
 		wdrArrayList = null;
 		runeWatchArrayList = null;
-
 	}
 
 	@Override
-	protected void startUp() throws Exception {
+	protected void startUp() throws Exception
+	{
 		wdrArrayList = new ArrayList<>();
 		runeWatchArrayList = new ArrayList<>();
 
 		fetchFromWebsites();
-
 	}
-
-
-
 
 	@Subscribe
 	public void onClanMemberJoined(ClanMemberJoined event)
 	{
 		// this event is fired when someone joins your cc, if you however join a cc, it will fire for every single member in your cc
 		ClanMember member = event.getMember();
-
 		checkBanList(Text.standardize(member.getUsername())); //
-
 	}
 
 	private void checkBanList(String nameToBeChecked)
 	{
-
-		if(client.getClanMembers() != null )
+		if (client.getClanMembers() != null)
 		{
+			if (wdrArrayList.size() > 1 && config.enableWDR())
+			{
+				if (wdrArrayList.stream().anyMatch(nameToBeChecked::equalsIgnoreCase))
+				{
+					sendWarning(nameToBeChecked, 1);
+				}
 
-					if(wdrArrayList.size()>1 && config.enableWDR()){
+			}
 
-						if(wdrArrayList.stream().anyMatch(nameToBeChecked::equalsIgnoreCase))
-						{
-							sendWarning(nameToBeChecked,1);
+			if (runeWatchArrayList.size() > 1 && config.enableRuneWatch())
+			{
 
-
-						}
-
-					}
-
-					if(runeWatchArrayList.size()>1 && config.enableRuneWatch()) {
-
-						if (runeWatchArrayList.stream().anyMatch(nameToBeChecked::equalsIgnoreCase)) {
-							sendWarning(nameToBeChecked, 2);
-						}
-
-
-					}
-
+				if (runeWatchArrayList.stream().anyMatch(nameToBeChecked::equalsIgnoreCase))
+				{
+					sendWarning(nameToBeChecked, 2);
+				}
+			}
 		}
-
-
 	}
 
 	private void sendWarning(String playerName, int list)
 	{
-		if(list == 1)
+		if (list == 1)
 		{
 			// on wdr list
 			final String message = new ChatMessageBuilder()
-					.append(ChatColorType.HIGHLIGHT)
-					.append("Warning! " + playerName + " is on WDR ban List")
-					.build();
+				.append(ChatColorType.HIGHLIGHT)
+				.append("Warning! " + playerName + " is on WDR ban List")
+				.build();
 
 			chatMessageManager.queue(
-					QueuedMessage.builder()
-							.type(ChatMessageType.CONSOLE)
-							.runeLiteFormattedMessage(message)
-							.build());
+				QueuedMessage.builder()
+					.type(ChatMessageType.CONSOLE)
+					.runeLiteFormattedMessage(message)
+					.build());
 
 
 		}
-		else if(list == 2)
+		else if (list == 2)
 		{
 			// on runewatch list
 			final String message = new ChatMessageBuilder()
-					.append(ChatColorType.HIGHLIGHT)
-					.append("Warning! " + playerName + " is on Runewatch ban List")
-					.build();
+				.append(ChatColorType.HIGHLIGHT)
+				.append("Warning! " + playerName + " is on Runewatch ban List")
+				.build();
 
 			chatMessageManager.queue(
-					QueuedMessage.builder()
-							.type(ChatMessageType.CONSOLE)
-							.runeLiteFormattedMessage(message)
-							.build());
+				QueuedMessage.builder()
+					.type(ChatMessageType.CONSOLE)
+					.runeLiteFormattedMessage(message)
+					.build());
 
 		}
-
 	}
-
 
 
 	private void fetchFromWebsites()
 	{
 		Request request = new Request.Builder()
-				.url("https://wdrdev.github.io/index")
-				.build();
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
+			.url("https://wdrdev.github.io/index")
+			.build();
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		{
 			@Override
-			public void onFailure(Call call, IOException e) {
+			public void onFailure(Call call, IOException e)
+			{
 				log.println("error retrieving names from wdr");
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) throws IOException {
+			public void onResponse(Call call, Response response) throws IOException
+			{
 				String text = response.body().string();
-				text = text.substring(text.indexOf("<p>")+3,text.indexOf("</p>"));
-				text = text.replace("/",",");
+				text = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
+				text = text.replace("/", ",");
 				text = text.replace(", $", "");
 
 				ArrayList<String> wdrList = new ArrayList<>(Arrays.asList(text.split(",")));
 				ArrayList<String> wdrList2 = new ArrayList<>();
-				wdrList.forEach( (name) -> wdrList2.add(Text.standardize(name)));
+				wdrList.forEach((name) -> wdrList2.add(Text.standardize(name)));
 
 				wdrArrayList.addAll(wdrList2);
 
@@ -211,48 +193,35 @@ public class BanListPlugin extends Plugin
 
 
 		Request secondRequest = new Request.Builder()
-				.url("https://runewatch.com/incident-index-page/")
-				.build();
-		RuneLiteAPI.CLIENT.newCall(secondRequest).enqueue(new Callback() {
+			.url("https://runewatch.com/incident-index-page/")
+			.build();
+		RuneLiteAPI.CLIENT.newCall(secondRequest).enqueue(new Callback()
+		{
 			@Override
-			public void onFailure(Call call, IOException e) {
+			public void onFailure(Call call, IOException e)
+			{
 				log.println("error retrieving names from runewatch");
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) throws IOException {
+			public void onResponse(Call call, Response response) throws IOException
+			{
 				String text = response.body().string();
-				String mytext = text.substring(text.indexOf("lcp_instance_0"),text.indexOf("strong>Evidence Quality Suggestion"));
-				mytext.replace("</a>","");
-				mytext.replace("<div class=\"su-tabs-pane su-clearfix\">","");
+				String mytext = text.substring(text.indexOf("lcp_instance_0"), text.indexOf("strong>Evidence Quality Suggestion"));
+				mytext.replace("</a>", "");
+				mytext.replace("<div class=\"su-tabs-pane su-clearfix\">", "");
 				mytext.replace(", $", "");
 				String[] split = mytext.split("href=");
-				for(String x: split)
+				for (String x : split)
 				{
-
-					if(x.contains("title")){
-						x = x.substring(x.indexOf("title"),x.indexOf(">"));
-						x = x.substring(x.indexOf("=")+2,x.length()-1);
+					if (x.contains("title"))
+					{
+						x = x.substring(x.indexOf("title"), x.indexOf(">"));
+						x = x.substring(x.indexOf("=") + 2, x.length() - 1);
 						runeWatchArrayList.add(Text.standardize(x));
-
 					}
-
-
 				}
-
-
 			}
 		});
-
-
 	}
-
-
-
-
-
-
-
-
-
 }
