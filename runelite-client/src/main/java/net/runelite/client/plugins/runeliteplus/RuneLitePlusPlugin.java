@@ -299,7 +299,9 @@ public class RuneLitePlusPlugin extends Plugin
 		}
 
 		Widget w = buttonMap.get(c);
-
+//todo once bytecodes work again, re-enable
+/*
 		client.invokeMenuAction(0, w.getId(), MenuAction.WIDGET_DEFAULT.getId(), 1, "Select", "", w.getCanvasLocation().getX() + 32, w.getCanvasLocation().getY() + 32);
+*/
 	}
 }
