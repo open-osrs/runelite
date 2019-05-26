@@ -66,6 +66,9 @@ import net.runelite.client.plugins.PluginType;
 )
 @Slf4j
 public class KeptOnDeathPlugin extends Plugin
+{}
+//todo once bytecodes work again, re-enable
+/*
 {
 	// Handles Clicking on items in Kept on Death Interface
 	private static final int SCRIPT_ID = ScriptID.KEPT_LOST_ITEM_EXAMINE;
@@ -330,13 +333,15 @@ public class KeptOnDeathPlugin extends Plugin
 		}
 	}
 
-	/**
+	*/
+/**
 	 * Wrapper for widget.setChildren() but updates the child index and original positions
 	 * Used for Items Kept and Lost containers
 	 *
 	 * @param parent  Widget to override children
 	 * @param widgets Children to set on parent
-	 */
+	 *//*
+
 	private void setWidgetChildren(Widget parent, List<Widget> widgets)
 	{
 		Widget[] children = parent.getChildren();
@@ -371,9 +376,11 @@ public class KeptOnDeathPlugin extends Plugin
 		parent.revalidate();
 	}
 
-	/**
+	*/
+/**
 	 * Creates the text to be displayed in the right side of the interface based on current selections
-	 */
+	 *//*
+
 	private String getUpdatedInfoText()
 	{
 		String textToAdd = DEFAULT;
@@ -413,9 +420,11 @@ public class KeptOnDeathPlugin extends Plugin
 		return textToAdd;
 	}
 
-	/**
+	*/
+/**
 	 * Corrects the Information panel based on the item containers
-	 */
+	 *//*
+
 	private void updateKeptWidgetInfoText()
 	{
 		// Add Information text widget
@@ -572,13 +581,15 @@ public class KeptOnDeathPlugin extends Plugin
 		recreateItemsKeptOnDeathWidget();
 	}
 
-	/**
+	*/
+/**
 	 * Creates an Item Widget for use inside the Kept on Death Interface
 	 *
 	 * @param qty Amount of item
 	 * @param c   Items Composition
 	 * @return
-	 */
+	 *//*
+
 	private Widget createItemWidget(int qty, ItemComposition c)
 	{
 		Widget itemWidget = client.createWidget();
@@ -596,4 +607,4 @@ public class KeptOnDeathPlugin extends Plugin
 
 		return itemWidget;
 	}
-}
+}*/
