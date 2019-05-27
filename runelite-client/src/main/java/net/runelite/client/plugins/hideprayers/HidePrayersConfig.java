@@ -25,14 +25,14 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package net.runelite.client.plugins.hideprayers.INDIVIDUAL;
+package net.runelite.client.plugins.hideprayers;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("hideprayersINDIVIDUAL")
-public interface HidePrayersINDIVIDUALConfig extends Config
+@ConfigGroup("hideprayers")
+public interface HidePrayersConfig extends Config
 {
 	@ConfigItem
 		(
