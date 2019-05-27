@@ -79,7 +79,15 @@ enum Emoji
 	PARTY_POPPER("@@@"),
 	EYES("O.O"),
 	SWEAT(";;"),
-	PILE_OF_POO("~@~");
+	PILE_OF_POO("~@~"),
+	MONKASHEET(":monkasheet:"),
+	CCCPEPEHANDS(":cccpepehands:"),
+	CCCWAITWHAT(":cccwaitwhat:"),
+	CCCOOL(":cccool:"),
+	MONKAN(":monkan:"),
+	CCC(":ccc:"),
+	TRICAT(":tricat:"),
+	TRICATCOOL(":tricatcool:");
 
 	private static final Map<String, Emoji> emojiMap;
 
