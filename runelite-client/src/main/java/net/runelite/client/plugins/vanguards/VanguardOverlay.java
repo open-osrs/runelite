@@ -6,10 +6,10 @@
  * modification, are permitted provided that the following conditions are met:
  *
  * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ *	list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
+ *	this list of conditions and the following disclaimer in the documentation
+ *	and/or other materials provided with the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -43,74 +43,74 @@ import net.runelite.client.util.Text;
 public class VanguardOverlay extends Overlay
 {
 
-    private final PanelComponent panelComponent = new PanelComponent();
+	private final PanelComponent panelComponent = new PanelComponent();
 
-    private static final int MAGE_VANGUARD_ID = 7529;
-    private static final int RANGE_VANGUARD_ID = 7528;
-    private static final int MELEE_VANGUARD_ID = 7527;
+	private static final int MAGE_VANGUARD_ID = 7529;
+	private static final int RANGE_VANGUARD_ID = 7528;
+	private static final int MELEE_VANGUARD_ID = 7527;
 
-    String right_mage_str, right_range_str, right_melee_str = "";
+	String right_mage_str, right_range_str, right_melee_str = "";
 
-    @Inject
-    private Client client;
+	@Inject
+	private Client client;
 
 
-    @Inject
-    public VanguardOverlay(VanguardPlugin plugin)
-    {
-        super(plugin);//?
+	@Inject
+	public VanguardOverlay(VanguardPlugin plugin)
+	{
+		super(plugin);//?
 
-        setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
-    }
+		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
+	}
 
-    @Override
-    public Dimension render(Graphics2D graphics)
-    {
-        Player p = client.getLocalPlayer();
-        Actor opponent = p.getInteracting();
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		Player p = client.getLocalPlayer();
+		Actor opponent = p.getInteracting();
 
-        if (opponent instanceof NPC)
-        {
-            int id = ((NPC) opponent).getId();
+		if (opponent instanceof NPC)
+		{
+			int id = ((NPC) opponent).getId();
 
-            if (!Text.standardize(opponent.getName()).contains("vanguard"))
-            {
-                return null;
-            }
+			if (!Text.standardize(opponent.getName()).contains("vanguard"))
+			{
+				return null;
+			}
 
-            if (id == MAGE_VANGUARD_ID)
-            {
-                float magePercent = (float) opponent.getHealthRatio() / opponent.getHealth() * 100;
-                int mageHp = (int) magePercent;
-                right_mage_str = Integer.toString(mageHp);
-            }
-            else if (id == RANGE_VANGUARD_ID)
-            {
-                float rangePercent = (float) opponent.getHealthRatio() / opponent.getHealth() * 100;
-                int rangeHp = (int) rangePercent;
-                right_range_str = Integer.toString(rangeHp);
-            }
-            else if (id == MELEE_VANGUARD_ID)
-            {
-                float meleePercent = (float) opponent.getHealthRatio() / opponent.getHealth() * 100;
-                int meleeHp = (int) meleePercent;
-                right_melee_str = Integer.toString(meleeHp);
-            }
-        }
+			if (id == MAGE_VANGUARD_ID)
+			{
+				float magePercent = (float) opponent.getHealthRatio() / opponent.getHealth() * 100;
+				int mageHp = (int) magePercent;
+				right_mage_str = Integer.toString(mageHp);
+			}
+			else if (id == RANGE_VANGUARD_ID)
+			{
+				float rangePercent = (float) opponent.getHealthRatio() / opponent.getHealth() * 100;
+				int rangeHp = (int) rangePercent;
+				right_range_str = Integer.toString(rangeHp);
+			}
+			else if (id == MELEE_VANGUARD_ID)
+			{
+				float meleePercent = (float) opponent.getHealthRatio() / opponent.getHealth() * 100;
+				int meleeHp = (int) meleePercent;
+				right_melee_str = Integer.toString(meleeHp);
+			}
+		}
 
-        panelComponent.getChildren().clear();
-        String overlayTitle = "Vanguard HP";
+		panelComponent.getChildren().clear();
+		String overlayTitle = "Vanguard HP";
 
-        panelComponent.getChildren().add(TitleComponent.builder().text(overlayTitle).color(Color.RED).build());
+		panelComponent.getChildren().add(TitleComponent.builder().text(overlayTitle).color(Color.RED).build());
 
-        panelComponent.setPreferredSize(new Dimension(graphics.getFontMetrics().stringWidth(overlayTitle) + 30, 0));
+		panelComponent.setPreferredSize(new Dimension(graphics.getFontMetrics().stringWidth(overlayTitle) + 30, 0));
 
-        panelComponent.getChildren().add(LineComponent.builder().left("Mage:").right(right_mage_str).build());
+		panelComponent.getChildren().add(LineComponent.builder().left("Mage:").right(right_mage_str).build());
 
-        panelComponent.getChildren().add(LineComponent.builder().left("Range:").right(right_range_str).build());
+		panelComponent.getChildren().add(LineComponent.builder().left("Range:").right(right_range_str).build());
 
-        panelComponent.getChildren().add(LineComponent.builder().left("Melee:").right(right_melee_str).build());
+		panelComponent.getChildren().add(LineComponent.builder().left("Melee:").right(right_melee_str).build());
 
-        return panelComponent.render(graphics);
-    }
+		return panelComponent.render(graphics);
+	}
 }

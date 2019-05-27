@@ -6,10 +6,10 @@
  * modification, are permitted provided that the following conditions are met:
  *
  * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
+ *	list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
+ *	this list of conditions and the following disclaimer in the documentation
+ *	and/or other materials provided with the distribution.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -31,39 +31,39 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-        name = "Vanguard HP Overlay",
-        description = "tracks HP of all three vanguards",
-        tags = {"overlay", "vangs", "cox"},
-        enabledByDefault = false,
-        type = PluginType.PVM
+		name = "Vanguard HP Overlay",
+		description = "tracks HP of all three vanguards",
+		tags = {"overlay", "vangs", "cox"},
+		enabledByDefault = false,
+		type = PluginType.PVM
 )
 public class VanguardPlugin extends Plugin
 {
-    private static final int MAGE_VANGUARD_ID = 7526; //i think
-    private static final int RANGE_VANGUARD_ID = 7527;
-    private static final int MELEE_VANGUARD_ID = 7528;
+	private static final int MAGE_VANGUARD_ID = 7526; //i think
+	private static final int RANGE_VANGUARD_ID = 7527;
+	private static final int MELEE_VANGUARD_ID = 7528;
 
 
-    @Inject
-    private OverlayManager overlayManager;
+	@Inject
+	private OverlayManager overlayManager;
 
-    @Inject
-    private VanguardOverlay overlay;
+	@Inject
+	private VanguardOverlay overlay;
 
-    @Override
-    protected void startUp() throws Exception
-    {
-        overlayManager.add(overlay);
-    }
+	@Override
+	protected void startUp() throws Exception
+	{
+		overlayManager.add(overlay);
+	}
 
-    @Override
-    protected void shutDown() throws Exception
-    {
-        overlayManager.remove(overlay);
-        overlay.right_mage_str = "-";
-        overlay.right_range_str = "-";
-        overlay.right_melee_str = "-";
-    }
+	@Override
+	protected void shutDown() throws Exception
+	{
+		overlayManager.remove(overlay);
+		overlay.right_mage_str = "-";
+		overlay.right_range_str = "-";
+		overlay.right_melee_str = "-";
+	}
 
 
 }
