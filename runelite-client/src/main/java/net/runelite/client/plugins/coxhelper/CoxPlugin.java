@@ -243,7 +243,6 @@ public class CoxPlugin extends Plugin
 		burnTicks = 40;
 		acidTicks = 25;
 		hand = null;
-		partySize = -1;
 	}
 
 
