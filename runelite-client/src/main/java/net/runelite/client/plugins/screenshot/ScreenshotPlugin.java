@@ -45,7 +45,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -263,18 +267,22 @@ public class ScreenshotPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if(config.screenshotFriendDeath() ) {
-            for (Iterator<Player> it = dying.keySet().iterator(); it.hasNext(); ) {
-                Player key = it.next();
-                if (key.getAnimation() != 836) {
-                    it.remove();
-                }
-                dying.replace(key, dying.get(key) - 1);
-                if (dying.get(key) == 0) {
-                    takeScreenshot(key.getName() + " ded " + format(new Date()), "Deaths");
-                    it.remove();
-                }
-            }
+		if (config.screenshotFriendDeath())
+		{
+			for (Iterator<Player> it = dying.keySet().iterator(); it.hasNext();)
+			{
+				Player key = it.next();
+				if (key.getAnimation() != 836)
+				{
+					it.remove();
+				}
+				dying.replace(key, dying.get(key) - 1);
+				if (dying.get(key) == 0)
+				{
+					takeScreenshot(key.getName() + " ded " + format(new Date()), "Deaths");
+					it.remove();
+				}
+			}
 		}
 		if (!shouldTakeScreenshot)
 		{
@@ -306,9 +314,10 @@ public class ScreenshotPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onAnimationChanged(AnimationChanged e) {
+	public void onAnimationChanged(AnimationChanged e)
+	{
 		//this got refactored somewhere, but some things were missing
-		if(!config.screenshotFriendDeath() || !config.screenshotPlayerDeath())
+		if (!config.screenshotFriendDeath() || !config.screenshotPlayerDeath())
 			return;
 
 		if (!(e.getActor() instanceof Player))
@@ -316,11 +325,11 @@ public class ScreenshotPlugin extends Plugin
 		Player p = (Player) e.getActor();
 
 
-		if(p.getAnimation() != 836)
+		if (p.getAnimation() != 836)
 		{
 			return;
 		}
-		if(p.getName().equals(client.getLocalPlayer().getName()))
+		if (p.getName().equals(client.getLocalPlayer().getName()))
 		{
 
 			if (config.screenshotPlayerDeath())
@@ -333,10 +342,12 @@ public class ScreenshotPlugin extends Plugin
 				return;
 			}
 		}
-		if(config.screenshotFriendDeath()) {
+		if (config.screenshotFriendDeath())
+		{
 			int tob = client.getVar(Varbits.THEATRE_OF_BLOOD);
 
-			if (client.getVar(Varbits.IN_RAID) == 1 || tob == 2 || tob == 3 || p.isFriend()) {
+			if (client.getVar(Varbits.IN_RAID) == 1 || tob == 2 || tob == 3 || p.isFriend())
+			{
 				//this is the same as the tick counter had, just want to make ss at right timing
 				dying.put(p, 3);
 			}
@@ -723,7 +734,8 @@ public class ScreenshotPlugin extends Plugin
 
 		playerFolder.mkdirs();
 
-		if(subdirectory != null){
+		if (subdirectory != null)
+		{
 			//uhh just tried to do this as workaround, not sure if it's the best idea tho
 			File actualplayerFolder = new File(playerFolder, subdirectory);
 			actualplayerFolder.mkdir();
