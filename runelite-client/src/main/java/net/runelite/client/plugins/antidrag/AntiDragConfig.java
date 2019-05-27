@@ -73,10 +73,20 @@ public interface AntiDragConfig extends Config
 	@ConfigItem(
 		keyName = "overlay",
 		name = "Enable overlay",
-		description = "Do you really need a description?",
+		description = "Adds an overlay around your cursor letting you know whether the antidrag is enabled",
 		position = 4
 	)
 	default boolean overlay()
+	{
+		return true;
+	}
+	@ConfigItem(
+		keyName = "shiftAlways",
+		name = "Shift Always Anti-Drag",
+		description = "Makes it so that regardless of whether antidrag is toggled, shift clicking will always anti-drag",
+		position = 5
+	)
+	default boolean shiftAlways()
 	{
 		return true;
 	}
@@ -86,7 +96,7 @@ public interface AntiDragConfig extends Config
 		keyName = "color",
 		name = "Overlay color",
 		description = "Change the overlay color, duh",
-		position = 5
+		position = 6
 	)
 	default Color color()
 	{
