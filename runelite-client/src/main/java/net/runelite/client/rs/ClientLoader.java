@@ -26,18 +26,15 @@
  */
 package net.runelite.client.rs;
 
-import com.google.common.hash.Hashing;
 import com.google.common.io.ByteStreams;
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
 import io.sigpipe.jbsdiff.InvalidHeaderException;
 import io.sigpipe.jbsdiff.Patch;
 import java.applet.Applet;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
@@ -56,9 +53,8 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import static net.runelite.client.rs.ClientUpdateCheckMode.AUTO;
+import static net.runelite.client.rs.ClientUpdateCheckMode.CUSTOM;
 import static net.runelite.client.rs.ClientUpdateCheckMode.NONE;
-import static net.runelite.client.rs.ClientUpdateCheckMode.VANILLA;
-import net.runelite.client.rs.mixins.MixinRunner;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -68,6 +64,7 @@ import org.apache.commons.compress.compressors.CompressorException;
 @Singleton
 public class ClientLoader
 {
+	private static final File CUSTOMFILE = new File("replace me!");
 	private final ClientConfigLoader clientConfigLoader;
 	private ClientUpdateCheckMode updateCheckMode;
 
@@ -148,36 +145,6 @@ public class ClientLoader
 				}
 			}
 
-			if (updateCheckMode == AUTO)
-			{
-				Map<String, String> hashes;
-				try (InputStream is = ClientLoader.class.getResourceAsStream("/patch/hashes.json"))
-				{
-					hashes = new Gson().fromJson(new InputStreamReader(is), new TypeToken<HashMap<String, String>>()
-					{
-					}.getType());
-				}
-
-				for (Map.Entry<String, String> file : hashes.entrySet())
-				{
-					byte[] bytes = zipFile.get(file.getKey());
-
-					String ourHash = null;
-					if (bytes != null)
-					{
-						ourHash = Hashing.sha512().hashBytes(bytes).toString();
-					}
-
-					if (!file.getValue().equals(ourHash))
-					{
-						log.info("{} had a hash mismatch; falling back to vanilla. {} != {}", file.getKey(),
-							file.getValue(), ourHash);
-						log.info("Client is outdated!");
-						updateCheckMode = VANILLA;
-						break;
-					}
-				}
-			}
 
 			if (updateCheckMode == AUTO)
 			{
@@ -207,32 +174,31 @@ public class ClientLoader
 				log.info("Patched {} classes", patchCount);
 			}
 
-			log.info("Patching for RuneLitePlus");
-
-			if (updateCheckMode == AUTO)
+			if (updateCheckMode == CUSTOM)
 			{
-
-				HashMap<String, byte[]> patches = new HashMap<>();
-
-				for (Map.Entry<String, byte[]> file : zipFile.entrySet())
+				JarInputStream fis = new JarInputStream(new FileInputStream(CUSTOMFILE));
+				byte[] tmp = new byte[4096];
+				ByteArrayOutputStream buffer = new ByteArrayOutputStream(756 * 1024);
+				for (; ; )
 				{
-					byte[] patchClass;
-					try (InputStream is = ClientLoader.class.getResourceAsStream("/extended-mixins/" + file.getKey()))
+					JarEntry metadata = fis.getNextJarEntry();
+					if (metadata == null)
 					{
-						if (is == null)
-						{
-							continue;
-						}
-
-						patchClass = ByteStreams.toByteArray(is);
+						break;
 					}
 
-					patches.put(file.getKey(), patchClass);
-
+					buffer.reset();
+					for (; ; )
+					{
+						int n = fis.read(tmp);
+						if (n <= -1)
+						{
+							break;
+						}
+						buffer.write(tmp, 0, n);
+					}
+					zipFile.replace(metadata.getName(), buffer.toByteArray());
 				}
-
-				new MixinRunner(zipFile, patches).run();
-
 			}
 
 			String initialClass = config.getInitialClass();
@@ -265,7 +231,7 @@ public class ClientLoader
 
 			return rs;
 		}
-		catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | CompressorException | InvalidHeaderException | SecurityException | NoSuchMethodException | InvocationTargetException | CertificateException | VerificationException e)
+		catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | SecurityException | VerificationException | CertificateException | CompressorException | InvalidHeaderException e)
 		{
 			if (e instanceof ClassNotFoundException)
 			{

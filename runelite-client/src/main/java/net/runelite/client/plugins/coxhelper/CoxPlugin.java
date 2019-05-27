@@ -29,6 +29,8 @@ package net.runelite.client.plugins.coxhelper;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -36,12 +38,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GraphicID;
 import net.runelite.api.GraphicsObject;
-import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
+import net.runelite.api.Player;
 import net.runelite.api.Projectile;
 import net.runelite.api.ProjectileID;
 import net.runelite.api.Varbits;
@@ -77,6 +80,7 @@ public class CoxPlugin extends Plugin
 	private static final int GRAPHICSOBJECT_ID_HEAL = 1363;
 	private static final int ANIMATION_ID_G1 = 430;
 	private static final String OLM_HAND_CRIPPLE = "The Great Olm\'s left claw clenches to protect itself temporarily.";
+	private static final Pattern TP_REGEX = Pattern.compile("<col\\b[^>]*>(.*?)</col>");
 	private int sleepcount = 0;
 	private boolean needOlm = false;
 
@@ -172,7 +176,7 @@ public class CoxPlugin extends Plugin
 	private List<Actor> burnTarget = new ArrayList<>();
 
 	@Getter(AccessLevel.PACKAGE)
-	private List<Actor> teleportTarget = new ArrayList<>();
+	private Actor teleportTarget;
 
 	@Getter(AccessLevel.PACKAGE)
 	private Actor acidTarget;
@@ -231,7 +235,7 @@ public class CoxPlugin extends Plugin
 		overlayManager.remove(timersOverlay);
 		HandCripple = false;
 		acidTarget = null;
-		teleportTarget.clear();
+		teleportTarget = null;
 		burnTarget.clear();
 		timer = 45;
 		burnTicks = 40;
@@ -243,62 +247,79 @@ public class CoxPlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage)
 	{
-		MessageNode messageNode = chatMessage.getMessageNode();
+		final Matcher tpMatcher = TP_REGEX.matcher(chatMessage.getMessage());
+		String msg = chatMessage.getMessageNode().getValue();
+		if (chatMessage.getType() == ChatMessageType.GAMEMESSAGE)
+		{
+			if (msg.toLowerCase().contains("The Great Olm rises with the power of".toLowerCase()))
+			{
+				if (!runOlm)
+				{
+					Olm_ActionCycle = -1;
+					Olm_TicksUntilAction = 4;
+				}
+				else
+				{
+					Olm_ActionCycle = -1;
+					Olm_TicksUntilAction = 3;
+				}
+				OlmPhase = 0;
+				runOlm = true;
+				needOlm = true;
+				Olm_NextSpec = -1;
+			}
 
-		if (messageNode.getValue().toLowerCase().contains("The Great Olm rises with the power of".toLowerCase()) || messageNode.getValue().toLowerCase().contains("!olm".toLowerCase()))
-		{
-			if (!runOlm)
+			if (msg.toLowerCase().contains("The Great Olm is giving its all. this is its final stand"))
 			{
-				Olm_ActionCycle = -1;
-				Olm_TicksUntilAction = 4;
+				if (!runOlm)
+				{
+					Olm_ActionCycle = -1;
+					Olm_TicksUntilAction = 4;
+				}
+				else
+				{
+					Olm_ActionCycle = -1;
+					Olm_TicksUntilAction = 3;
+				}
+				OlmPhase = 1;
+				runOlm = true;
+				needOlm = true;
+				Olm_NextSpec = -1;
 			}
-			else
+			if (msg.startsWith(OLM_HAND_CRIPPLE))
 			{
-				Olm_ActionCycle = -1;
-				Olm_TicksUntilAction = 3;
+				HandCripple = true;
+				timer = 45;
 			}
-			OlmPhase = 0;
-			runOlm = true;
-			needOlm = true;
-			Olm_NextSpec = -1;
-		}
-
-		if (messageNode.getValue().toLowerCase().contains("The Great Olm is giving its all. this is its final stand".toLowerCase()))
-		{
-			if (!runOlm)
+			if (msg.toLowerCase().contains("aggression"))
 			{
-				Olm_ActionCycle = -1;
-				Olm_TicksUntilAction = 4;
+				prayAgainstOlm = PrayAgainst.MELEE;
+				lastPrayTime = System.currentTimeMillis();
 			}
-			else
+			if (msg.toLowerCase().contains("of magical power"))
 			{
-				Olm_ActionCycle = -1;
-				Olm_TicksUntilAction = 3;
+				prayAgainstOlm = PrayAgainst.MAGIC;
+				lastPrayTime = System.currentTimeMillis();
 			}
-			OlmPhase = 1;
-			runOlm = true;
-			needOlm = true;
-			Olm_NextSpec = -1;
-		}
-		if (messageNode.getValue().startsWith(OLM_HAND_CRIPPLE))
-		{
-			HandCripple = true;
-			timer = 45;
-		}
-		if (messageNode.getValue().toLowerCase().contains("aggression"))
-		{
-			prayAgainstOlm = PrayAgainst.MELEE;
-			lastPrayTime = System.currentTimeMillis();
-		}
-		if (messageNode.getValue().toLowerCase().contains("of magical power"))
-		{
-			prayAgainstOlm = PrayAgainst.MAGIC;
-			lastPrayTime = System.currentTimeMillis();
-		}
-		if (messageNode.getValue().toLowerCase().contains("accuracy and dexterity"))
-		{
-			prayAgainstOlm = PrayAgainst.RANGED;
-			lastPrayTime = System.currentTimeMillis();
+			if (msg.toLowerCase().contains("accuracy and dexterity"))
+			{
+				prayAgainstOlm = PrayAgainst.RANGED;
+				lastPrayTime = System.currentTimeMillis();
+			}
+			if (msg.toLowerCase().startsWith("You have been paired with"))
+			{
+				if (!tpMatcher.matches())
+				{
+					return;
+				}
+				for (Actor actor : client.getPlayers())
+				{
+					if (actor.getName().equals((tpMatcher.group(1))))
+					{
+						teleportTarget = actor;
+					}
+				}
+			}
 		}
 	}
 
@@ -318,7 +339,7 @@ public class CoxPlugin extends Plugin
 		}
 		if (projectile.getId() == ProjectileID.OLM_ACID_TRAIL)
 		{
-			acidTarget = projectile.getInteracting();
+			/*acidTarget = projectile.getInteracting();*/
 		}
 	}
 
@@ -330,10 +351,6 @@ public class CoxPlugin extends Plugin
 		if (actor.getGraphic() == GraphicID.OLM_BURN)
 		{
 			burnTarget.add(actor);
-		}
-		if (actor.getGraphic() == GraphicID.OLM_TELEPORT)
-		{
-			teleportTarget.add(actor);
 		}
 	}
 
@@ -441,12 +458,15 @@ public class CoxPlugin extends Plugin
 				acidTicks = 25;
 			}
 		}
-		if (teleportTarget.size() > 0)
+		if (teleportTarget != null)
 		{
+			Player target = (Player) teleportTarget;
+			client.setHintArrow(target);
 			teleportTicks--;
 			if (teleportTicks <= 0)
 			{
-				teleportTarget.clear();
+				client.clearHintArrow();
+				teleportTarget = null;
 				teleportTicks = 10;
 			}
 		}

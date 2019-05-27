@@ -1089,7 +1089,7 @@ public interface MenuEntrySwapperConfig extends Config
 	@ConfigItem(
 			keyName = "swapMetamorphosis",
 			name = "Metamorphosis",
-			description = "Swap 'Talk-t'o with 'Metamorphosis' for Baby Chinchompa pet.",
+			description = "Swap 'Talk-to' with 'Metamorphosis' for Baby Chinchompa pet.",
 			position = 82,
 			group = "Talk-To"
 	)
@@ -1530,18 +1530,6 @@ public interface MenuEntrySwapperConfig extends Config
 			group = "Right Click Options"
 	)
 	default boolean hideBait()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-			keyName = "swapImps",
-			name = "Impling Jars",
-			description = "Don't open implings if bank has a clue.",
-			position = 117,
-			group = "Miscellaneous"
-	)
-	default boolean swapImps()
 	{
 		return false;
 	}
