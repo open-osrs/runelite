@@ -208,6 +208,8 @@ public class CoxPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private int Olm_NextSpec = -1; // 1= crystals 2=lightnig 3=portals 4= heal hand if p4
 
+	private GraphicsObject teleportObject;
+
 	@Getter(AccessLevel.PACKAGE)
 	protected long lastPrayTime;
 
@@ -241,6 +243,7 @@ public class CoxPlugin extends Plugin
 		burnTicks = 40;
 		acidTicks = 25;
 		hand = null;
+		partySize = -1;
 	}
 
 
@@ -449,6 +452,28 @@ public class CoxPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
+		if (client.getVar(Varbits.IN_RAID) == 0)
+		{
+			runOlm = false;
+			runGuard = false;
+			runMutta = false;
+			runTekton = false;
+			needOlm = false;
+			OlmPhase = 0;
+			sleepcount = 0;
+			Olm_Heal.clear();
+		}
+
+		if (client.getVar(Varbits.RAID_PARTY_SIZE) == 1 && client.getVar(Varbits.IN_RAID) != 0)
+		{
+			for (GraphicsObject obj : client.getGraphicsObjects())
+			{
+				if (obj.getId() == 1359)
+				{
+					teleportObject = obj;
+				}
+			}
+		}
 		if (acidTarget != null)
 		{
 			acidTicks--;
@@ -470,6 +495,27 @@ public class CoxPlugin extends Plugin
 				teleportTicks = 10;
 			}
 		}
+		if (teleportObject != null)
+		{
+			teleportTicks--;
+			WorldPoint newloc;
+			for (int x = -1; x <= 1; x++)
+			{
+				for (int y = -1; y <= 1; y++)
+				{
+					newloc = WorldPoint.fromLocal(client, teleportObject.getLocation());
+					newloc = newloc.dx(x);
+					newloc = newloc.dy(y);
+					client.setHintArrow(newloc);
+				}
+			}
+			if (teleportTicks <= 0)
+			{
+				client.clearHintArrow();
+				teleportObject = null;
+				teleportTicks = 10;
+			}
+		}
 		if (burnTarget.size() > 0)
 		{
 			burnTicks--;
@@ -480,17 +526,6 @@ public class CoxPlugin extends Plugin
 			}
 		}
 
-		if (client.getVar(Varbits.IN_RAID) == 0)
-		{
-			runOlm = false;
-			runGuard = false;
-			runMutta = false;
-			runTekton = false;
-			needOlm = false;
-			OlmPhase = 0;
-			sleepcount = 0;
-			Olm_Heal.clear();
-		}
 
 		if (HandCripple)
 		{
