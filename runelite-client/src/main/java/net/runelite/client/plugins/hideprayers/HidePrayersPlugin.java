@@ -240,8 +240,7 @@ public class HidePrayersPlugin extends Plugin
 				&& !config.getvorkathprayers()
 				&& !config.getzamorakprayers()
 				&& !config.getzulrahprayers()
-				&& !config.getpvpprayers()
-				&& !config.HideRapidHealRestore())
+				&& !config.getpvpprayers())
 			{
 				restorePrayers();
 				return;
