@@ -200,7 +200,8 @@ public class ConfigPanel extends PluginPanel
 
 	}
 
-	static class configTextArea extends JTextArea {
+	static class configTextArea extends JTextArea
+	{
 		@Override
 		public void scrollRectToVisible(final Rectangle aRect)
 		{
