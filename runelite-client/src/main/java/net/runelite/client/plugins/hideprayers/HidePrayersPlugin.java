@@ -48,14 +48,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.plugins.hideprayers.util.Armadyl;
-import net.runelite.client.plugins.hideprayers.util.Bandos;
-import net.runelite.client.plugins.hideprayers.util.Barrows;
 import net.runelite.client.plugins.hideprayers.util.PrayerTabStates;
-import net.runelite.client.plugins.hideprayers.util.Saradomin;
-import net.runelite.client.plugins.hideprayers.util.Vorkath;
-import net.runelite.client.plugins.hideprayers.util.Zamorak;
-import net.runelite.client.plugins.hideprayers.util.Zulrah;
 
 @PluginDescriptor
 	(
@@ -67,8 +60,7 @@ import net.runelite.client.plugins.hideprayers.util.Zulrah;
 
 public class HidePrayersPlugin extends Plugin
 {
-	private static final List<WidgetInfo> PRAYER_WIDGET_INFO_LIST = ImmutableList.of
-		(
+	private static final List<WidgetInfo> PRAYER_WIDGET_INFO_LIST = ImmutableList.of(
 			WidgetInfo.PRAYER_THICK_SKIN, //0
 			WidgetInfo.PRAYER_BURST_OF_STRENGTH, //1
 			WidgetInfo.PRAYER_CLARITY_OF_THOUGHT, //2
@@ -292,68 +284,74 @@ public class HidePrayersPlugin extends Plugin
 
 			else if (config.getarmadylprayers())
 			{
-				Armadyl armadyl = config.armadyl();
-				if (armadyl == Armadyl.ARMADYL_CHEAP)
+				switch (config.armadyl())
 				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(19).setHidden(false);    // eagle eye
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-				}
-				else if (armadyl == Armadyl.ARMADYL_EXPENSIVE)
-				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-					prayerWidgets.get(27).setHidden(false);    // Rigour
+					case DISABLED:
+						break;
+					case ARMADYL_CHEAP:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(19).setHidden(false);    // eagle eye
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						break;
+					case ARMADYL_EXPENSIVE:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						prayerWidgets.get(27).setHidden(false);    // Rigour
+						break;
 				}
 			}
 
 			else if (config.getbandosprayers())
 			{
-				Bandos bandos = config.bandos();
-				if (bandos == Bandos.BANDOS_CHEAP)
+				switch (config.bandos())
 				{
-					prayerWidgets.get(13).setHidden(false);    // Steel Skin
-					prayerWidgets.get(14).setHidden(false);    // Ultimate Strength
-					prayerWidgets.get(15).setHidden(false);    // Incredible Reflex
-					prayerWidgets.get(18).setHidden(false);    // Protect from Melee
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-				}
-				else if (bandos == Bandos.BANDOS_EXPENSIVE)
-				{
-					prayerWidgets.get(18).setHidden(false);    // Protect from Melee
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-					prayerWidgets.get(26).setHidden(false);    // Piety
+					case DISABLED:
+						break;
+					case BANDOS_CHEAP:
+						prayerWidgets.get(13).setHidden(false);    // Steel Skin
+						prayerWidgets.get(14).setHidden(false);    // Ultimate Strength
+						prayerWidgets.get(15).setHidden(false);    // Incredible Reflex
+						prayerWidgets.get(18).setHidden(false);    // Protect from Melee
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						break;
+					case BANDOS_EXPENSIVE:
+						prayerWidgets.get(18).setHidden(false);    // Protect from Melee
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						prayerWidgets.get(26).setHidden(false);    // Piety
+						break;
 				}
 			}
 
 			else if (config.getbarrowsprayers())
 			{
-				Barrows barrows = config.barrows();
-				if (barrows == Barrows.BARROWS_CHEAP)
+				switch (config.barrows())
 				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(18).setHidden(false);    // Protect from Melee
-					prayerWidgets.get(19).setHidden(false);    // eagle eye
-					prayerWidgets.get(20).setHidden(false);    // mystic might
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-				}
-				else if (barrows == Barrows.BARROWS_EXPENSIVE)
-				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(18).setHidden(false);    // Protect from Melee
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-					prayerWidgets.get(27).setHidden(false);    // Rigour
-					prayerWidgets.get(28).setHidden(false);    // Augury
+					case DISABLED:
+						break;
+					case BARROWS_CHEAP:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(18).setHidden(false);    // Protect from Melee
+						prayerWidgets.get(19).setHidden(false);    // eagle eye
+						prayerWidgets.get(20).setHidden(false);    // mystic might
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						break;
+					case BARROWS_EXPENSIVE:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(18).setHidden(false);    // Protect from Melee
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						prayerWidgets.get(27).setHidden(false);    // Rigour
+						prayerWidgets.get(28).setHidden(false);    // Augury
+						break;
 				}
 			}
 
@@ -362,7 +360,6 @@ public class HidePrayersPlugin extends Plugin
 				switch (config.cerberus())
 				{
 					case DISABLED:
-						// yes
 						break;
 					case CERBERUS_CHEAP:
 						prayerWidgets.get(13).setHidden(false);    // Steel Skin
@@ -403,90 +400,98 @@ public class HidePrayersPlugin extends Plugin
 
 			else if (config.getsaradominprayers())
 			{
-				Saradomin saradomin = config.saradomin();
-				if (saradomin == Saradomin.SARDOMIN_CHEAP)
+				switch (config.saradomin())
 				{
-					prayerWidgets.get(13).setHidden(false);    // Steel Skin
-					prayerWidgets.get(14).setHidden(false);    // Ultimate Strength
-					prayerWidgets.get(15).setHidden(false);    // Incredible Reflex
-					prayerWidgets.get(16).setHidden(false);    // Protect from magic
-					prayerWidgets.get(19).setHidden(false);    // eagle eye
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-				}
-				else if (saradomin == Saradomin.SARADOMIN_EXPENSIVE)
-				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-					prayerWidgets.get(26).setHidden(false);    // Piety
-					prayerWidgets.get(27).setHidden(false);    // Rigour
+					case DISABLED:
+						break;
+					case SARDOMIN_CHEAP:
+						prayerWidgets.get(13).setHidden(false);    // Steel Skin
+						prayerWidgets.get(14).setHidden(false);    // Ultimate Strength
+						prayerWidgets.get(15).setHidden(false);    // Incredible Reflex
+						prayerWidgets.get(16).setHidden(false);    // Protect from magic
+						prayerWidgets.get(19).setHidden(false);    // eagle eye
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						break;
+					case SARADOMIN_EXPENSIVE:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						prayerWidgets.get(26).setHidden(false);    // Piety
+						prayerWidgets.get(27).setHidden(false);    // Rigour
+						break;
 				}
 			}
 			else if (config.getvorkathprayers())
 			{
-				Vorkath vorkath = config.vorkath();
-				if (vorkath == Vorkath.VORKATH_CHEAP)
+				switch (config.vorkath())
 				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(19).setHidden(false);    // eagle eye
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-				}
-				else if (vorkath == Vorkath.VORKATH_EXPENSIVE)
-				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-					prayerWidgets.get(27).setHidden(false);    // Rigour
+					case DISABLED:
+						break;
+					case VORKATH_CHEAP:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(19).setHidden(false);    // eagle eye
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						break;
+					case VORKATH_EXPENSIVE:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						prayerWidgets.get(27).setHidden(false);    // Rigour
+						break;
 				}
 			}
 			
 			else if (config.getzamorakprayers())
 			{
-				Zamorak zamorak = config.zamorak();
-				if (zamorak == Zamorak.ZAMORAK_CHEAP)
+				switch (config.zamorak())
 				{
-					prayerWidgets.get(13).setHidden(false);    // Steel Skin
-					prayerWidgets.get(14).setHidden(false);    // Ultimate Strength
-					prayerWidgets.get(15).setHidden(false);    // Incredible Reflex
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(18).setHidden(false);    // Protect from Melee
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-				}
-				else if (zamorak == Zamorak.ZAMORAK_EXPENSIVE)
-				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(18).setHidden(false);    // Protect from Melee
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-					prayerWidgets.get(26).setHidden(false);    // Piety
+					case DISABLED:
+						break;
+					case ZAMORAK_CHEAP:
+						prayerWidgets.get(13).setHidden(false);    // Steel Skin
+						prayerWidgets.get(14).setHidden(false);    // Ultimate Strength
+						prayerWidgets.get(15).setHidden(false);    // Incredible Reflex
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(18).setHidden(false);    // Protect from Melee
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						break;
+					case ZAMORAK_EXPENSIVE:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(18).setHidden(false);    // Protect from Melee
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						prayerWidgets.get(26).setHidden(false);    // Piety
+						break;
 				}
 			}
 
 			else if (config.getzulrahprayers())
 			{
-				Zulrah zulrah = config.zulrah();
-				if (zulrah == Zulrah.ZULRAH_CHEAP)
+				switch (config.zulrah())
 				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(19).setHidden(false);    // eagle eye
-					prayerWidgets.get(20).setHidden(false);    // mystic might
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-				}
-				else if (zulrah == Zulrah.ZULRAH_EXPENSIVE)
-				{
-					prayerWidgets.get(16).setHidden(false);    // Protect from Magic
-					prayerWidgets.get(17).setHidden(false);    // Protect from Range
-					prayerWidgets.get(22).setHidden(false);    // Redemption
-					prayerWidgets.get(24).setHidden(false);    // Preserve
-					prayerWidgets.get(27).setHidden(false);    // Rigour
-					prayerWidgets.get(28).setHidden(false);    // Augury
+					case DISABLED:
+						break;
+					case ZULRAH_CHEAP:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(19).setHidden(false);    // eagle eye
+						prayerWidgets.get(20).setHidden(false);    // mystic might
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						break;
+					case ZULRAH_EXPENSIVE:
+						prayerWidgets.get(16).setHidden(false);    // Protect from Magic
+						prayerWidgets.get(17).setHidden(false);    // Protect from Range
+						prayerWidgets.get(22).setHidden(false);    // Redemption
+						prayerWidgets.get(24).setHidden(false);    // Preserve
+						prayerWidgets.get(27).setHidden(false);    // Rigour
+						prayerWidgets.get(28).setHidden(false);    // Augury
+						break;
 				}
 			}
 
@@ -497,7 +502,8 @@ public class HidePrayersPlugin extends Plugin
 					prayerWidgets.get(8).setHidden(true);    // Rapid Restore
 					prayerWidgets.get(9).setHidden(true);    // Rapid Heal
 				}
-				else {
+				else
+				{
 					prayerWidgets.get(8).setHidden(false);    // Rapid Restore
 					prayerWidgets.get(9).setHidden(false);    // Rapid Heal
 				}
@@ -505,7 +511,7 @@ public class HidePrayersPlugin extends Plugin
 				switch (config.pvpprayers())
 				{
 					case DISABLED:
-						// yes
+						break;
 					case PRAY1:
 						prayerWidgets.get(0).setHidden(false);    // Thick Skin
 						break;
