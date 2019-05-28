@@ -226,7 +226,7 @@ public class HidePrayersPlugin extends Plugin
 				Prayer prayer = Prayer.values()[index];
 				Widget prayerWidget = prayerWidgets.get(prayer.ordinal());
 
-				if ( !config.showINDIVIDUALPrayers()
+				if ( !config.showindividualprayers()
 					&& !config.HideTHICK_SKIN()
 					&& !config.HideBURST_OF_STRENGTH()
 					&& !config.HideCLARITY_OF_THOUGHT()
@@ -256,31 +256,31 @@ public class HidePrayersPlugin extends Plugin
 					&& !config.HidePiety()
 					&& !config.HideRigour()
 					&& !config.HideAugury()
-					&& !config.getArmadylPrayers()
-					&& config.Armadyl() != Armadyl.DISABLED
-					&& !config.getBarrowsPrayers()
-					&& config.Barrows() != Barrows.DISABLED
-					&& !config.getBandosPrayers()
-					&& config.Bandos() != Bandos.DISABLED
-					&& !config.getCerberusPrayers()
-					&& config.Cerberus() != Cerberus.DISABLED
-					&& !config.getSaradominPrayers()
-					&& config.Saradomin() != Saradomin.DISABLED
-					&& !config.getVorkathPrayers()
-					&& config.Vorkath() != Vorkath.DISABLED
-					&& !config.getZamorakPrayers()
-					&& config.Zamorak() != Zamorak.DISABLED
-					&& !config.getZulrahPrayers()
-					&& config.Zulrah() != Zulrah.DISABLED
-					&& !config.getPVPPrayers()
-					&& config.PVPPrayers() != PVPPrayers.DISABLED
+					&& !config.getarmadylprayers()
+					&& config.armadyl() != Armadyl.DISABLED
+					&& !config.getbarrowsprayers()
+					&& config.barrows() != Barrows.DISABLED
+					&& !config.getbandosprayers()
+					&& config.bandos() != Bandos.DISABLED
+					&& !config.getcerberusprayers()
+					&& config.cerberus() != Cerberus.DISABLED
+					&& !config.getsaradominprayers()
+					&& config.saradomin() != Saradomin.DISABLED
+					&& !config.getvorkathprayers()
+					&& config.vorkath() != Vorkath.DISABLED
+					&& !config.getzamorakprayers()
+					&& config.zamorak() != Zamorak.DISABLED
+					&& !config.getzulrahprayers()
+					&& config.zulrah() != Zulrah.DISABLED
+					&& !config.getpvpprayers()
+					&& config.pvpprayers() != PVPPrayers.DISABLED
 					&& !config.HideRapidHealRestore()
 				)
 				{
 					prayerWidget.setHidden(false);
 				}
 
-				if (config.showINDIVIDUALPrayers())
+				if (config.showindividualprayers())
 				{
 					prayerWidget.setHidden(true);
 					prayerWidgets.get(0).setHidden(config.HideTHICK_SKIN());	// Thick Skin
@@ -314,9 +314,9 @@ public class HidePrayersPlugin extends Plugin
 					prayerWidgets.get(28).setHidden(config.HideAugury());	// Augury
 				}
 
-				if (config.getArmadylPrayers())
+				if (config.getarmadylprayers())
 				{
-					switch (config.Armadyl())
+					switch (config.armadyl())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -340,9 +340,9 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getBandosPrayers())
+				if (config.getbandosprayers())
 				{
-					switch (config.Bandos())
+					switch (config.bandos())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -366,9 +366,9 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getBarrowsPrayers())
+				if (config.getbarrowsprayers())
 				{
-					switch (config.Barrows())
+					switch (config.barrows())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -396,9 +396,9 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getCerberusPrayers())
+				if (config.getcerberusprayers())
 				{
-					switch (config.Cerberus())
+					switch (config.cerberus())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -444,9 +444,9 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getSaradominPrayers())
+				if (config.getsaradominprayers())
 				{
-					switch (config.Saradomin())
+					switch (config.saradomin())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -472,9 +472,9 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getVorkathPrayers())
+				if (config.getvorkathprayers())
 				{
-					switch (config.Vorkath())
+					switch (config.vorkath())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -498,9 +498,9 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getZamorakPrayers())
+				if (config.getzamorakprayers())
 				{
-					switch (config.Zamorak())
+					switch (config.zamorak())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -526,9 +526,9 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getZulrahPrayers())
+				if (config.getzulrahprayers())
 				{
-					switch (config.Zulrah())
+					switch (config.zulrah())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
@@ -554,7 +554,7 @@ public class HidePrayersPlugin extends Plugin
 					}
 				}
 
-				if (config.getPVPPrayers())
+				if (config.getpvpprayers())
 				{
 					if (config.HideRapidHealRestore())
 					{
@@ -567,7 +567,7 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(Prayer.values()[9].ordinal()).setHidden(false);    // Rapid Heal
 					}
 
-					switch (config.PVPPrayers())
+					switch (config.pvpprayers())
 					{
 						case DISABLED:
 							prayerWidget.setHidden(false);
