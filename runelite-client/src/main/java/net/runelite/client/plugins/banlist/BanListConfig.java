@@ -56,7 +56,10 @@ public interface BanListConfig extends Config
 			name = "Highlight red in Clan Chat",
 			description = "Highlights Scammer\'s name in your current clan chat."
 	)
-	default boolean highlightInClan() { return true; }
+	default boolean highlightInClan()
+	{
+		return true;
+	}
 
 	@ConfigItem(
 			position = 4,
@@ -64,6 +67,9 @@ public interface BanListConfig extends Config
 			name = "Highlight red in trade screen",
 			description = "Highlights Scammer\'s name in your trade window"
 	)
-	default boolean highlightInTrade() { return true; }
+	default boolean highlightInTrade()
+	{
+		return true;
+	}
 
 }
