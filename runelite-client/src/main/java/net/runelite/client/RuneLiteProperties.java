@@ -67,7 +67,7 @@ public class RuneLiteProperties
 	{
 		final StringBuilder sb = new StringBuilder(properties.getProperty(RUNELITE_TITLE));
 		String proxy;
-		if((proxy = System.getProperty("socksProxyHost")) != null)
+		if ((proxy = System.getProperty("socksProxyHost")) != null)
 		{
 			sb.append(String.format(" (%s)", proxy));
 		}
