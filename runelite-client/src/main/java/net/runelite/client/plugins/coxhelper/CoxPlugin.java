@@ -83,8 +83,7 @@ public class CoxPlugin extends Plugin
 	private static final int GRAPHICSOBJECT_ID_HEAL = 1363;
 	private static final int ANIMATION_ID_G1 = 430;
 	private static final String OLM_HAND_CRIPPLE = "The Great Olm\'s left claw clenches to protect itself temporarily.";
-	private static final Pattern TP_REGEX = Pattern.compile("<col=ff0000>(.*)</col>");
-	private static final Pattern TEST_REGEX = Pattern.compile("You have been paired with <col=ff0000>(.*)</col>! The magical power will enact soon...");
+	private static final Pattern TP_REGEX = Pattern.compile("You have been paired with <col=ff0000>(.*)</col>! The magical power will enact soon...");
 	private int sleepcount = 0;
 	private boolean needOlm = false;
 	private GraphicsObject teleportObject;
@@ -300,7 +299,7 @@ public class CoxPlugin extends Plugin
 		{
 			if (chatMessage.getType() == ChatMessageType.GAMEMESSAGE)
 			{
-				Matcher tpMatcher = TEST_REGEX.matcher(chatMessage.getMessage());
+				Matcher tpMatcher = TP_REGEX.matcher(chatMessage.getMessage());
 				if (tpMatcher.matches())
 				{
 					log.info("TP Matcher has found a match");
