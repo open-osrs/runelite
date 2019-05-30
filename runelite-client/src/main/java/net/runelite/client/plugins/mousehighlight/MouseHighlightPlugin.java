@@ -43,7 +43,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @PluginDescriptor(
 	name = "Mouse Tooltips",
 	description = "Render default actions as a tooltip",
-	tags = {"actions", "overlay","tooltip","hide"}
+	tags = {"actions", "overlay", "tooltip", "hide"}
 )
 public class MouseHighlightPlugin extends Plugin
 {
@@ -82,14 +82,18 @@ public class MouseHighlightPlugin extends Plugin
 	public void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
+		{
 			adjustTips();
+		}
 	}
 
 	@Subscribe
 	public void onWidgetLoaded(WidgetLoaded event)
 	{
 		if (event.getGroupId() == WidgetID.SPELLBOOK_GROUP_ID || event.getGroupId() == WidgetID.COMBAT_GROUP_ID)
+		{
 			adjustTips();
+		}
 	}
 
 	@Subscribe
@@ -101,7 +105,9 @@ public class MouseHighlightPlugin extends Plugin
 	private void adjustTips()
 	{
 		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
+		}
 
 		try
 		{
@@ -119,7 +125,9 @@ public class MouseHighlightPlugin extends Plugin
 	private void resetTips()
 	{
 		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
+		}
 
 		try
 		{
@@ -137,7 +145,9 @@ public class MouseHighlightPlugin extends Plugin
 		Widget widget = client.getWidget(widgetInfo);
 
 		if (widget == null)
+		{
 			return;
+		}
 
 		widget.setHidden(hidden);
 	}
