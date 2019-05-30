@@ -64,5 +64,4 @@ public interface MouseHighlightConfig extends Config
 	{
 		return false;
 	}
-
 }
