@@ -69,7 +69,7 @@ public class OlmCrippleTimerOverlay extends Overlay
 			NPC olmHand = plugin.getHand();
 			final String tickStr = String.valueOf(tick);
 			Point canvasPoint = olmHand.getCanvasTextLocation(graphics, tickStr, 50);
-			renderTextLocation(graphics, tickStr, 12, config.fontStyle().getFont(), Color.GRAY, canvasPoint);
+			renderTextLocation(graphics, tickStr, config.textSize(), config.fontStyle().getFont(), Color.GRAY, canvasPoint);
 		}
 
 
