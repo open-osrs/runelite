@@ -58,8 +58,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ImageUtil;
 
 @PluginDescriptor(
-	name = "Zulrah",
-	description = "Zulrah Helper",
+	name = "Zulrah Helper",
+	description = "Shows tiles on where to stand during the phases.",
 	tags = {"Zulrah", "Helper"},
 	type = PluginType.PVM
 )

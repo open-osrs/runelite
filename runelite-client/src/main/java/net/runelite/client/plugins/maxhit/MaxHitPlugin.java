@@ -45,7 +45,7 @@ import javax.inject.Inject;
 
 @PluginDescriptor(
 	name = "Max Hit",
-	description = "Max Hit Calculator",
+	description = "Adds max hit to the equipment and stats widget",
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
