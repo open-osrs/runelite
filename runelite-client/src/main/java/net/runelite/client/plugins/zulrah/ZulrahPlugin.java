@@ -59,7 +59,7 @@ import net.runelite.client.util.ImageUtil;
 
 @PluginDescriptor(
 	name = "Zulrah Helper",
-	description = "Shows tiles on where to stand during the phases.",
+	description = "Shows tiles on where to stand during the phases and what prayer to use.",
 	tags = {"Zulrah", "Helper"},
 	type = PluginType.PVM
 )
