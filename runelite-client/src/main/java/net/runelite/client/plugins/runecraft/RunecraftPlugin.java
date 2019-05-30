@@ -40,7 +40,6 @@ import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
@@ -57,10 +56,13 @@ import net.runelite.api.events.NpcSpawned;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
+import static net.runelite.client.util.MenuUtil.swap;
 import net.runelite.client.util.Text;
+
 
 @PluginDescriptor(
 	name = "Runecraft",
@@ -69,6 +71,7 @@ import net.runelite.client.util.Text;
 )
 public class RunecraftPlugin extends Plugin
 {
+	private static final int FIRE_ALTAR = 10315;
 	private static final String POUCH_DECAYED_NOTIFICATION_MESSAGE = "Your rune pouch has decayed.";
 	private static final String POUCH_DECAYED_MESSAGE = "Your pouch has decayed through use.";
 	private static final List<Integer> DEGRADED_POUCHES = ImmutableList.of(
@@ -76,13 +79,9 @@ public class RunecraftPlugin extends Plugin
 		ItemID.LARGE_POUCH_5513,
 		ItemID.GIANT_POUCH_5515
 	);
-	private static final List<Integer> POUCHES = ImmutableList.of(
-		ItemID.SMALL_POUCH,
-		ItemID.MEDIUM_POUCH,
-		ItemID.LARGE_POUCH,
-		ItemID.GIANT_POUCH
-	);
+
 	private boolean wearingTiara;
+	private boolean wearingCape;
 
 	@Getter(AccessLevel.PACKAGE)
 	private final Set<DecorativeObject> abyssObjects = new HashSet<>();
@@ -103,10 +102,16 @@ public class RunecraftPlugin extends Plugin
 	private AbyssOverlay abyssOverlay;
 
 	@Inject
+	private RunecraftOverlay runecraftOverlay;
+
+	@Inject
 	private RunecraftConfig config;
 
 	@Inject
 	private Notifier notifier;
+
+	@Inject
+	private MenuManager menuManager;
 
 	@Provides
 	RunecraftConfig getConfig(ConfigManager configManager)
@@ -119,6 +124,8 @@ public class RunecraftPlugin extends Plugin
 	{
 		overlayManager.add(abyssOverlay);
 		abyssOverlay.updateConfig();
+		overlayManager.add(runecraftOverlay);
+		addSwaps();
 	}
 
 	@Override
@@ -128,11 +135,23 @@ public class RunecraftPlugin extends Plugin
 		abyssObjects.clear();
 		darkMage = null;
 		degradedPouchInInventory = false;
+		overlayManager.remove(runecraftOverlay);
+		removeSwaps();
 	}
 
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
+		if (!event.getGroup().equals("runecraft"))
+		{
+			return;
+		}
+
+		if (event.getKey().equals("essPouch"))
+		{
+			addSwaps();
+		}
+
 		abyssOverlay.updateConfig();
 	}
 
@@ -156,77 +175,38 @@ public class RunecraftPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded entry)
 	{
-		if (!wearingTiara)
+		if (wearingCape || wearingTiara)
 		{
-			return;
-		}
+			final String option = Text.removeTags(entry.getOption()).toLowerCase();
+			final String target = Text.removeTags(entry.getTarget()).toLowerCase();
 
-		final String option = Text.removeTags(entry.getOption()).toLowerCase();
-		final String target = Text.removeTags(entry.getTarget()).toLowerCase();
-		final int id = entry.getIdentifier();
-		final int type = entry.getType();
-
-		if (target.contains("pouch") && !target.startsWith("rune"))
-		{
-			if (option.equals("deposit-all") && type == 57 && id == 2)
+			if (target.contains("ring of dueling") && option.contains("remove")) // Incompatible with easyscape
 			{
-				swap("fill", option, target);
-				swap("cancel", option, "", target);
+				if (client.getLocalPlayer().getWorldLocation().getRegionID() != FIRE_ALTAR)
+				{ //changes duel ring teleport options based on location
+					swap(client, "duel arena", option, target);
+				}
+				else if (client.getLocalPlayer().getWorldLocation().getRegionID() == FIRE_ALTAR)
+				{
+					swap(client, "castle wars", option, target);
+				}
 			}
-			else  if (option.equals("fill") && id != 9)
+			else if (target.contains("altar") && option.contains("craft")) // Don't accidentally click the altar to craft
 			{
-				swap("empty", option, target);
+				hide(option, target);
 			}
-		}
-
-		else if (target.contains("ring of dueling") && option.contains("remove"))
-		{
-			if (target.contains("7") || target.contains("5") || target.contains("3") || target.contains("1"))
+			else if (target.contains("pure") && option.contains("use")) // Don't accidentally use pure essence on altar
 			{
-				swap("castle wars", option, target);
+				hide("use", target);
+				hide("drop", target);
 			}
-			else if (wearingBindingNeck())
-			{
-				swap("duel arena", option, target);
-			}
-		}
-
-		else if (target.contains("altar") && option.contains("craft")) // Don't accidentally click the altar to craft
-		{
-			hide(option, target, true);
-		}
-		else if (target.contains("pure") && option.contains("use")) // Don't accidentally use pure essence on altar
-		{
-			hide(option, target, true);
 		}
 	}
-
-	private void swap(String opA, String opB, String target)
-	{
-		swap(opA, opB, target, target);
-	}
-
-	private void swap(String opA, String opB, String targetA, String targetB)
-	{
-		MenuEntry[] entries = client.getMenuEntries();
-
-		int idxA = searchIndex(entries, opA, targetA);
-		int idxB = searchIndex(entries, opB, targetB);
-
-		if (idxA >= 0 && idxB >= 0)
-		{
-			MenuEntry entry = entries[idxA];
-			entries[idxA] = entries[idxB];
-			entries[idxB] = entry;
-
-			client.setMenuEntries(entries);
-		}
-	}
-
-	private void hide(String option, String target, boolean contains)
+	
+	private void hide(String option, String target)
 	{
 		final MenuEntry[] entries = client.getMenuEntries();
-		int index = searchIndex(entries, option, target, contains);
+		int index = searchIndex(entries, option, target);
 		if (index < 0)
 		{
 			return;
@@ -251,10 +231,6 @@ public class RunecraftPlugin extends Plugin
 
 	private int searchIndex(MenuEntry[] entries, String option, String target)
 	{
-		return searchIndex(entries, option, target, false);
-	}
-	private int searchIndex(MenuEntry[] entries, String option, String target, boolean contains)
-	{
 		for (int i = entries.length - 1; i >= 0; i--)
 		{
 			MenuEntry entry = entries[i];
@@ -262,7 +238,7 @@ public class RunecraftPlugin extends Plugin
 			String entryTarget = Text.removeTags(entry.getTarget()).toLowerCase();
 
 			if (entryOption.contains(option.toLowerCase())
-				&& (entryTarget.equals(target) || (entryTarget.contains(target) && contains)))
+				&& (entryTarget.contains(target)))
 			{
 				return i;
 			}
@@ -270,6 +246,7 @@ public class RunecraftPlugin extends Plugin
 
 		return -1;
 	}
+
 
 	@Subscribe
 	public void onDecorativeObjectSpawned(DecorativeObjectSpawned event)
@@ -311,13 +288,14 @@ public class RunecraftPlugin extends Plugin
 		if (event.getItemContainer() == client.getItemContainer(InventoryID.INVENTORY))
 		{
 
-		final Item[] items = event.getItemContainer().getItems();
-		degradedPouchInInventory = Stream.of(items).anyMatch(i -> DEGRADED_POUCHES.contains(i.getId()));
-	}
+			final Item[] items = event.getItemContainer().getItems();
+			degradedPouchInInventory = Stream.of(items).anyMatch(i -> DEGRADED_POUCHES.contains(i.getId()));
+		}
 		else if (event.getItemContainer() == client.getItemContainer(InventoryID.EQUIPMENT))
 		{
 			final Item[] items = event.getItemContainer().getItems();
-			wearingTiara = config.opLavas() && items[EquipmentInventorySlot.HEAD.getSlotIdx()].getId() == ItemID.FIRE_TIARA;
+			wearingTiara = config.Lavas() && items[EquipmentInventorySlot.HEAD.getSlotIdx()].getId() == ItemID.FIRE_TIARA;
+			wearingCape = config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.RUNECRAFT_CAPE || config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.RUNECRAFT_CAPET || config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.MAX_CAPE_13342;
 		}
 	}
 
@@ -340,14 +318,24 @@ public class RunecraftPlugin extends Plugin
 			darkMage = null;
 		}
 	}
-	private boolean wearingBindingNeck()
-	{
-		final ItemContainer worn = client.getItemContainer(InventoryID.EQUIPMENT);
-		if (worn == null)
-		{
-			return false;
-		}
 
-		return worn.getItems()[EquipmentInventorySlot.AMULET.getSlotIdx()].getId() == ItemID.BINDING_NECKLACE;
+	private void addSwaps()
+	{
+		if (config.essPouch())
+		{
+			menuManager.addSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+			menuManager.addSwap("fill", "pouch", "empty", "pouch", true, false);
+		}
+		else
+		{
+			menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+			menuManager.removeSwap("fill", "pouch", "empty", "pouch", true, false);
+		}
+	}
+
+	private void removeSwaps()
+	{
+		menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
+		menuManager.removeSwap("fill", "pouch", "empty", "pouch", true, false);
 	}
 }

@@ -155,13 +155,15 @@ public final class AnimationID
 	public static final int SAND_COLLECTION = 895;
 	public static final int PISCARILIUS_CRANE_REPAIR = 7199;
 	public static final int HOME_MAKE_TABLET = 4067;
-
+	public static final int THIEVING_STALL = 832;
+	public static final int PICKPOCKET_SUCCESS = 881;
+	
 	//block animations for players and perhaps npcs as well?
 	public static final int BLOCK_DEFENDER = 4177;
 	public static final int BLOCK_NO_SHIELD = 420;
 	public static final int BLOCK_SHIELD = 1156;
 	public static final int BLOCK_SWORD = 388;
-	public static final int BLOCK_UNARMED = 424;
+	public static final int BLOCK_UNARMED = 424; // Same Animation as failed pickpocked
 
 	// NPC animations
 	public static final int TZTOK_JAD_MAGIC_ATTACK = 2656;
@@ -175,7 +177,7 @@ public final class AnimationID
 	public static final int VORKATH_ACID_ATTACK = 7957;
 	public static final int BLACKJACK_KO = 838;
 	public static final int VETION_EARTHQUAKE = 5507;
-	public static final int ZULRAH_DEATH = 5804;										 
+	public static final int ZULRAH_DEATH = 5804;
 
 	// Farming
 	public static final int FARMING_HARVEST_FRUIT_TREE = 2280;
@@ -214,8 +216,19 @@ public final class AnimationID
 	// POH Animations
 	public static final int INCENSE_BURNER = 3687;
 	public static final int LOW_LEVEL_MAGIC_ATTACK = 1162;
-    public static final int HIGH_LEVEL_MAGIC_ATTACK = 1167;
-    public static final int BLOWPIPE_ATTACK = 5061;
+	public static final int HIGH_LEVEL_MAGIC_ATTACK = 1167;
+	public static final int BLOWPIPE_ATTACK = 5061;
+
+	// Tekton
+	public static final int TEKTON_ANVIL = 7475;
+	public static final int TEKTON_AUTO1 = 7482;
+	public static final int TEKTON_AUTO2 = 7483;
+	public static final int TEKTON_AUTO3 = 7484;
+	public static final int TEKTON_FAST_AUTO1 = 7478;
+	public static final int TEKTON_FAST_AUTO2 = 7488;
+	public static final int TEKTON_ENRAGE_AUTO1 = 7492;
+	public static final int TEKTON_ENRAGE_AUTO2 = 7493;
+	public static final int TEKTON_ENRAGE_AUTO3 = 7494;
 
 	// Hydra
 	public static final int HYDRA_POISON_1 = 8234;

@@ -6,13 +6,12 @@
  * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
  *
  */
- 
+
 package net.runelite.client.plugins.wildernesslocations;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
-import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -23,19 +22,18 @@ public class WildernessLocationsOverlay extends Overlay
 {
 	private final WildernessLocationsPlugin plugin;
 	private TextComponent textComponent;
-	
+
 	@Inject
 	private WildernessLocationsConfig wildyConfig;
 
 	@Inject
-	public WildernessLocationsOverlay(Client client, WildernessLocationsPlugin plugin)
+	public WildernessLocationsOverlay(WildernessLocationsPlugin plugin)
 	{
 		this.plugin = plugin;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPriority(OverlayPriority.HIGH);
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 		textComponent = new TextComponent();
-
 	}
 
 	@Override

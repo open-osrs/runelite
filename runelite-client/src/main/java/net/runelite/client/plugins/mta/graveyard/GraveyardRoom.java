@@ -54,13 +54,12 @@ public class GraveyardRoom extends MTARoom
 	private final MTAPlugin plugin;
 	private final ItemManager itemManager;
 	private final InfoBoxManager infoBoxManager;
-	private int score;
 
 	private GraveyardCounter counter;
 
 	@Inject
 	private GraveyardRoom(MTAConfig config, Client client, MTAPlugin plugin,
-		ItemManager itemManager, InfoBoxManager infoBoxManager)
+						ItemManager itemManager, InfoBoxManager infoBoxManager)
 	{
 		super(config);
 		this.client = client;
@@ -102,7 +101,7 @@ public class GraveyardRoom extends MTARoom
 
 		if (container == client.getItemContainer(InventoryID.INVENTORY))
 		{
-			this.score = score(container.getItems());
+			int score = score(container.getItems());
 
 			if (counter == null)
 			{

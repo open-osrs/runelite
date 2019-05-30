@@ -29,18 +29,56 @@ package net.runelite.client.plugins.runeliteplus;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-
-import java.awt.*;
+import net.runelite.client.config.Range;
 
 @ConfigGroup("runeliteplus")
 public interface RuneLitePlusConfig extends Config
 {
-    @ConfigItem(
-            position = 0,
-            keyName = "customPresence",
-            name = "RL+ Presence",
-            description = "Represent RL+ with a custom icon and discord presence."
-    )
-    default boolean customPresence() { return false; }
+	@ConfigItem(
+		position = 0,
+		keyName = "customPresence",
+		name = "RL+ Presence",
+		description = "Represent RL+ with a custom icon and discord presence."
+	)
+	default boolean customPresence()
+	{
+		return false;
+	}
 
+	@ConfigItem(
+		keyName = "enableOpacity",
+		name = "Enable opacity",
+		description = "Enables opacity for the whole window.<br>NOTE: This only stays enabled if your pc supports this!",
+		position = 1
+	)
+	default boolean enableOpacity()
+	{
+		return false;
+	}
+
+	@Range(
+		min = 15,
+		max = 100
+	)
+	@ConfigItem(
+		keyName = "opacityPercentage",
+		name = "Opacity percentage",
+		description = "Changes the opacity of the window if opacity is enabled",
+		position = 2
+	)
+	default int opacityPercentage()
+	{
+		return 100;
+	}
+
+	@ConfigItem(
+		keyName = "keyboardPin",
+		name = "Keyboard bank pin",
+		description = "Enables you to type your bank pin",
+		position = 3
+	)
+	default boolean keyboardPin()
+	{
+		return false;
+	}
 }

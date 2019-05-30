@@ -117,6 +117,10 @@ public class SlayerPlugin extends Plugin
 	private static final String CHAT_SUPERIOR_MESSAGE = "A superior foe has appeared...";
 	private static final Pattern COMBAT_BRACELET_TASK_UPDATE_MESSAGE = Pattern.compile("^You still need to kill (\\d+) monsters to complete your current Slayer assignment");
 
+	private static final String CHAT_BRACELET_SLAUGHTER = "Your bracelet of slaughter prevents your slayer";
+	private static final String CHAT_BRACELET_EXPEDITIOUS = "Your expeditious bracelet helps you progress your";
+
+
 	//NPC messages
 	private static final Pattern NPC_ASSIGN_MESSAGE = Pattern.compile(".*(?:Your new task is to kill|You are to bring balance to)\\s*(?<amount>\\d+) (?<name>.+?)(?: (?:in|on|south of) (?:the )?(?<location>.+))?\\.");
 	private static final Pattern NPC_ASSIGN_BOSS_MESSAGE = Pattern.compile("^Excellent. You're now assigned to kill (?:the )?(.*) (\\d+) times.*Your reward point tally is (.*)\\.$");
@@ -136,29 +140,29 @@ public class SlayerPlugin extends Plugin
 	// Superiors
 	@VisibleForTesting
 	static List<String> SUPERIOR_SLAYER_MONSTERS = Arrays.asList(
-			"crushing hand",
-			"chasm crawler",
-			"screaming banshee",
-			"screaming twisted banshee",
-			"giant rockslug",
-			"cockathrice",
-			"flaming pyrelord",
-			"monstrous basilisk",
-			"malevolent mage",
-			"insatiable bloodveld",
-			"insatiable mutated bloodveld",
-			"vitreous jelly",
-			"vitreous warped jelly",
-			"cave abomination",
-			"abhorrent spectre",
-			"repugnant spectre",
-			"choke devil",
-			"king kurask",
-			"marble gargoyle",
-			"nechryarch",
-			"greater abyssal demon",
-			"night beast",
-			"nuclear smoke devil");
+		"crushing hand",
+		"chasm crawler",
+		"screaming banshee",
+		"screaming twisted banshee",
+		"giant rockslug",
+		"cockathrice",
+		"flaming pyrelord",
+		"monstrous basilisk",
+		"malevolent mage",
+		"insatiable bloodveld",
+		"insatiable mutated bloodveld",
+		"vitreous jelly",
+		"vitreous warped jelly",
+		"cave abomination",
+		"abhorrent spectre",
+		"repugnant spectre",
+		"choke devil",
+		"king kurask",
+		"marble gargoyle",
+		"nechryarch",
+		"greater abyssal demon",
+		"night beast",
+		"nuclear smoke devil");
 
 	@Inject
 	private ClientToolbar clientToolbar;
@@ -343,7 +347,7 @@ public class SlayerPlugin extends Plugin
 		{
 			highlightedTargets.add(npc);
 			NPCPresence newPresence = NPCPresence.buildPresence(npc);
-			log.debug("New presence of " + newPresence.toString());
+			// log.debug("New presence of " + newPresence.toString());
 		}
 	}
 
@@ -356,7 +360,7 @@ public class SlayerPlugin extends Plugin
 		{
 			NPCPresence lingeringPresence = NPCPresence.buildPresence(npc);
 			lingeringPresences.add(lingeringPresence);
-			log.debug("Presence of " + lingeringPresence.toString() + " now lingering");
+			// log.debug("Presence of " + lingeringPresence.toString() + " now lingering");
 		}
 	}
 
@@ -397,14 +401,13 @@ public class SlayerPlugin extends Plugin
 			return 0;
 		}
 
-		StringBuilder debugString = new StringBuilder();
-		for (NPCPresence presence : potentialKills)
-		{
-			debugString.append(presence.toString());
-			debugString.append(", ");
-		}
-		log.debug("Estimating kc of xp drop " + gains + " for presences {" +
-				debugString.toString() + "}");
+		//StringBuilder debugString = new StringBuilder();
+		//for (NPCPresence presence : potentialKills)
+		//{
+		//	debugString.append(presence.toString());
+		//	debugString.append(", ");
+		//}
+		// log.debug("Estimating kc of xp drop " + gains + " for presences {" + debugString.toString() + "}");
 
 		// first determine potential xp drops given by all npcs that died this tick by grabbing the slayer xp
 		// info from the map made out of the data in slayer_xp.json
@@ -418,14 +421,13 @@ public class SlayerPlugin extends Plugin
 			}
 		}
 
-		debugString = new StringBuilder();
-		for (Double drop : potentialXpDrops)
-		{
-			debugString.append(drop);
-			debugString.append(", ");
-		}
-		log.debug("Determined xp drop " + gains + " can be made of {" + debugString.toString()
-				+ "}");
+		//debugString = new StringBuilder();
+		//for (Double drop : potentialXpDrops)
+		//{
+		//	debugString.append(drop);
+		//	debugString.append(", ");
+		//}
+		// log.debug("Determined xp drop " + gains + " can be made of {" + debugString.toString() + "}");
 
 		// we can attempt to determine exactly how many npcs died to give this amount of xp
 		// by using a solver for the knapsack problem
@@ -439,8 +441,8 @@ public class SlayerPlugin extends Plugin
 		// and xp drops can have a single number after the decimal point
 		int tenFudgedGains = fudgedGains * 10;
 		List<Integer> potentialXpDropsAsInts = potentialXpDrops.stream()
-				.map(xpDrop -> (int) (xpDrop * 10))
-				.collect(Collectors.toCollection(ArrayList::new));
+			.map(xpDrop -> (int) (xpDrop * 10))
+			.collect(Collectors.toCollection(ArrayList::new));
 
 		KnapsackSolver solver = new KnapsackSolver();
 
@@ -481,7 +483,7 @@ public class SlayerPlugin extends Plugin
 			presence.tickExistence();
 			if (!presence.shouldExist())
 			{
-				log.debug("Lingering presence of " + presence.toString() + " expired");
+				// log.debug("Lingering presence of " + presence.toString() + " expired");
 				presenceIterator.remove();
 			}
 		}
@@ -589,7 +591,7 @@ public class SlayerPlugin extends Plugin
 			log.debug("Last certain amount was " + currentTask.getLastCertainAmount() +
 				" so error rate is " + currentTask.getAmount() + " in " + currentTask.getLastCertainAmount());
 
-			setTask("", 0, 0, true,  0);
+			setTask("", 0, 0, true, 0);
 			return;
 		}
 
@@ -621,10 +623,20 @@ public class SlayerPlugin extends Plugin
 		if (bracerProgress.find())
 		{
 			final int taskAmount = Integer.parseInt(bracerProgress.group(1));
-			setTask(currentTask.getTaskName(), taskAmount, currentTask.getInitialAmount(), false,  taskAmount);
+			setTask(currentTask.getTaskName(), taskAmount, currentTask.getInitialAmount(), false, taskAmount);
 
 			// Avoid race condition (combat brace message goes through first before XP drop)
 			currentTask.setAmount(currentTask.getAmount() + 1);
+		}
+
+		if (chatMsg.startsWith(CHAT_BRACELET_SLAUGHTER))
+		{
+			currentTask.setAmount(currentTask.getAmount() + 1);
+		}
+
+		if (chatMsg.startsWith(CHAT_BRACELET_EXPEDITIOUS))
+		{
+			currentTask.setAmount(currentTask.getAmount() - 1);
 		}
 	}
 
@@ -648,29 +660,29 @@ public class SlayerPlugin extends Plugin
 			// this is not the initial xp sent on login so these are new xp gains
 			int gains = slayerExp - cachedXp;
 
-			log.debug("Slayer xp drop received");
+			//log.debug("Slayer xp drop received");
 
-			StringBuilder debugString = new StringBuilder();
+			//StringBuilder debugString = new StringBuilder();
 
 			// potential npcs to give xp drop are current highlighted npcs and the lingering presences
 			List<NPCPresence> potentialNPCs = new ArrayList<>();
-			debugString.append("Lingering presences {");
+			//debugString.append("Lingering presences {");
 			for (NPCPresence presence : lingeringPresences)
 			{
 				potentialNPCs.add(presence);
-				debugString.append(presence.toString());
-				debugString.append(", ");
+			//	debugString.append(presence.toString());
+			//	debugString.append(", ");
 			}
-			debugString.append("}\nCurrent presences {");
+			//debugString.append("}\nCurrent presences {");
 			for (NPC npc : highlightedTargets)
 			{
 				NPCPresence currentPresence = NPCPresence.buildPresence(npc);
 				potentialNPCs.add(currentPresence);
-				debugString.append(currentPresence.toString());
-				debugString.append(", ");
+			//	debugString.append(currentPresence.toString());
+			//	debugString.append(", ");
 			}
-			debugString.append("}");
-			log.debug(debugString.toString());
+			//debugString.append("}");
+			//log.debug(debugString.toString());
 
 			int killCount = estimateKillCount(potentialNPCs, gains);
 			for (int i = 0; i < killCount; i++)
@@ -686,13 +698,14 @@ public class SlayerPlugin extends Plugin
 	@Subscribe
 	public void onInteractingChanged(InteractingChanged event)
 	{
-		if (client.getLocalPlayer() == null) {
+		if (client.getLocalPlayer() == null)
+		{
 			return;
 		}
 		final Actor interacting = client.getLocalPlayer().getInteracting();
 		weaknessTask = null;
 
-		if (interacting == null || !(interacting instanceof NPC))
+		if (!(interacting instanceof NPC))
 		{
 			return;
 		}
@@ -766,7 +779,7 @@ public class SlayerPlugin extends Plugin
 	private boolean doubleTroubleExtraKill()
 	{
 		return WorldPoint.fromLocalInstance(client, client.getLocalPlayer().getLocalLocation()).getRegionID() == GROTESQUE_GUARDIANS_REGION &&
-				SlayerUnlock.GROTESQUE_GARDIAN_DOUBLE_COUNT.isEnabled(client);
+			SlayerUnlock.GROTESQUE_GARDIAN_DOUBLE_COUNT.isEnabled(client);
 	}
 
 	// checks if any contiguous subsequence of seq0 exactly matches the String toMatch
@@ -776,11 +789,12 @@ public class SlayerPlugin extends Plugin
 		{
 			for (int j = i; j < seq0.length; j++)
 			{
-				String sub0 = "";
+				StringBuilder sub0Builder = new StringBuilder();
 				for (int k = i; k <= j; k++)
 				{
-					sub0 += seq0[k] + " ";
+					sub0Builder.append(seq0[k]).append(" ");
 				}
+				String sub0 = sub0Builder.toString();
 				sub0 = sub0.substring(0, sub0.length() - 1); // remove extra space
 				if (sub0.equals(toMatch))
 				{
@@ -796,10 +810,8 @@ public class SlayerPlugin extends Plugin
 		if (composition != null)
 		{
 			List<String> actions = Arrays.asList(composition.getActions());
-			if (actions.contains("Attack") || actions.contains("Pick") || actions.contains("Poke")) //Pick action is for zygomite-fungi
-			{
-				return true;
-			}
+			//Pick action is for zygomite-fungi
+			return actions.contains("Attack") || actions.contains("Pick") || actions.contains("Poke");
 		}
 
 		return false;
@@ -926,7 +938,7 @@ public class SlayerPlugin extends Plugin
 			isNewAssignment ? 0 : currentTask.getElapsedKills(),
 			isNewAssignment ? 0 : currentTask.getElapsedXp(),
 			amt, initAmt, lastCertainAmt, location, name,
-			isNewAssignment ? true : currentTask.isPaused());
+			isNewAssignment || currentTask.isPaused());
 		if (panel != null)
 		{
 			panel.updateCurrentTask(true, currentTask.isPaused(), currentTask, isNewAssignment);
@@ -980,7 +992,7 @@ public class SlayerPlugin extends Plugin
 		{
 			taskTooltip += "</br>"
 				+ ColorUtil.wrapWithColorTag("Start:", Color.YELLOW)
-				+ " " + currentTask.getInitialAmount() ;
+				+ " " + currentTask.getInitialAmount();
 		}
 
 		counter = new TaskCounter(taskImg, this, currentTask.getAmount());

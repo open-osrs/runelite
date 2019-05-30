@@ -119,6 +119,19 @@ class DevToolsPanel extends PluginPanel
 			}
 		});
 
+		container.add(plugin.getLogMenuActions());
+		plugin.getLogMenuActions().addActionListener((ev) ->
+		{
+			if (plugin.getLogMenuActions().isActive())
+			{
+				client.setPrintMenuActions(false);
+			}
+			else
+			{
+				client.setPrintMenuActions(true);
+			}
+		});
+
 		return container;
 	}
 }

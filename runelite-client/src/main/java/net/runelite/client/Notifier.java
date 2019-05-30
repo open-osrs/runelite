@@ -100,7 +100,7 @@ public class Notifier
 		// First check if we are running in launcher
 		this.terminalNotifierAvailable =
 			!Strings.isNullOrEmpty(RuneLiteProperties.getLauncherVersion())
-			&& isTerminalNotifierAvailable();
+				&& isTerminalNotifierAvailable();
 
 		storeIcon();
 	}
@@ -150,6 +150,8 @@ public class Notifier
 		{
 			flashStart = Instant.now();
 		}
+
+		log.debug(message);
 	}
 
 	public void processFlash(final Graphics2D graphics)

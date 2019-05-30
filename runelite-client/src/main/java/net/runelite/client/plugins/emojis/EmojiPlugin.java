@@ -26,6 +26,7 @@ package net.runelite.client.plugins.emojis;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
@@ -33,20 +34,20 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.MessageNode;
+import net.runelite.api.Player;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.OverheadTextChanged;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.ImageUtil;
 
 @PluginDescriptor(
 	name = "Emojis",
 	description = "Replaces common emoticons such as :) with their corresponding emoji in the chat",
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+	enabledByDefault = false
 )
 @Slf4j
 public class EmojiPlugin extends Plugin
@@ -62,18 +63,13 @@ public class EmojiPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-	}
-
-	@Override
-	protected void shutDown()
-	{
+		loadEmojiIcons();
 	}
 
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN
-			&& modIconsStart == -1)
+		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
 		{
 			loadEmojiIcons();
 		}
@@ -81,9 +77,13 @@ public class EmojiPlugin extends Plugin
 
 	private void loadEmojiIcons()
 	{
-		final Emoji[] emojis = Emoji.values();
-
 		final IndexedSprite[] modIcons = client.getModIcons();
+		if (modIconsStart != -1 || modIcons == null)
+		{
+			return;
+		}
+
+		final Emoji[] emojis = Emoji.values();
 		final IndexedSprite[] newModIcons = Arrays.copyOf(modIcons, modIcons.length + emojis.length);
 		modIconsStart = modIcons.length;
 
@@ -103,13 +103,14 @@ public class EmojiPlugin extends Plugin
 			}
 		}
 
+		log.debug("Adding emoji icons");
 		client.setModIcons(newModIcons);
 	}
 
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage)
 	{
-		if (client.getGameState() != GameState.LOGGED_IN)
+		if (client.getGameState() != GameState.LOGGED_IN || modIconsStart == -1)
 		{
 			return;
 		}
@@ -121,12 +122,48 @@ public class EmojiPlugin extends Plugin
 			case FRIENDSCHAT:
 			case PRIVATECHAT:
 			case PRIVATECHATOUT:
+			case MODPRIVATECHAT:
 				break;
 			default:
 				return;
 		}
 
 		final String message = chatMessage.getMessage();
+		final String updatedMessage = updateMessage(message);
+
+		if (updatedMessage == null)
+		{
+			return;
+		}
+
+		final MessageNode messageNode = chatMessage.getMessageNode();
+		messageNode.setRuneLiteFormatMessage(updatedMessage);
+		chatMessageManager.update(messageNode);
+		client.refreshChat();
+	}
+
+	@Subscribe
+	public void onOverheadTextChanged(final OverheadTextChanged event)
+	{
+		if (!(event.getActor() instanceof Player))
+		{
+			return;
+		}
+
+		final String message = event.getOverheadText();
+		final String updatedMessage = updateMessage(message);
+
+		if (updatedMessage == null)
+		{
+			return;
+		}
+
+		event.getActor().setOverheadText(updatedMessage);
+	}
+
+	@Nullable
+	private String updateMessage(final String message)
+	{
 		final String[] messageWords = message.split(" ");
 
 		boolean editedMessage = false;
@@ -148,14 +185,9 @@ public class EmojiPlugin extends Plugin
 		// If we haven't edited the message any, don't update it.
 		if (!editedMessage)
 		{
-			return;
+			return null;
 		}
 
-		final String newMessage = Strings.join(messageWords, " ");
-
-		final MessageNode messageNode = chatMessage.getMessageNode();
-		messageNode.setRuneLiteFormatMessage(newMessage);
-		chatMessageManager.update(messageNode);
-		client.refreshChat();
+		return Strings.join(messageWords, " ");
 	}
 }

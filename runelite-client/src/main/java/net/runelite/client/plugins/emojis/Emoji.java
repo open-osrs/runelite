@@ -24,12 +24,12 @@
  */
 package net.runelite.client.plugins.emojis;
 
+import com.google.common.collect.ImmutableMap;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.Map;
 import net.runelite.client.util.ImageUtil;
 
-public enum Emoji
+enum Emoji
 {
 	SLIGHT_SMILE(":)"),
 	JOY("=')"),
@@ -76,20 +76,25 @@ public enum Emoji
 	CRAB("V(;,;)V"),
 	FORK_AND_KNIFE("--E"),
 	COOKING("--(o)"),
-	PARTY_POPPER("@@@");
+	PARTY_POPPER("@@@"),
+	EYES("O.O"),
+	SWEAT(";;"),
+	PILE_OF_POO("~@~");
 
-	private static final Map<String, Emoji> emojiMap = new HashMap<>();
+	private static final Map<String, Emoji> emojiMap;
 
 	private final String trigger;
 
 	static
 	{
-		final Emoji[] emojis = values();
+		ImmutableMap.Builder<String, Emoji> builder = new ImmutableMap.Builder<>();
 
-		for (final Emoji emoji : emojis)
+		for (final Emoji emoji : values())
 		{
-			emojiMap.put(emoji.trigger, emoji);
+			builder.put(emoji.trigger, emoji);
 		}
+
+		emojiMap = builder.build();
 	}
 
 	Emoji(String trigger)
@@ -97,13 +102,13 @@ public enum Emoji
 		this.trigger = trigger;
 	}
 
-	public static Emoji getEmoji(String trigger)
-	{
-		return emojiMap.get(trigger);
-	}
-
-	public BufferedImage loadImage()
+	BufferedImage loadImage()
 	{
 		return ImageUtil.getResourceStreamFromClass(getClass(), this.name().toLowerCase() + ".png");
+	}
+
+	static Emoji getEmoji(String trigger)
+	{
+		return emojiMap.get(trigger);
 	}
 }

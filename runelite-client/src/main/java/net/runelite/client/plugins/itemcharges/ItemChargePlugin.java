@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2017, Seth <Sethtroll3@gmail.com>
  * Copyright (c) 2018, Hydrox6 <ikada@protonmail.ch>
+ * Copyright (c) 2019, Aleios <https://github.com/aleios>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,6 +32,8 @@ import java.awt.image.BufferedImage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import lombok.AccessLevel;
+import lombok.Getter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
@@ -39,12 +42,14 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
+import net.runelite.api.Varbits;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.Notifier;
@@ -56,6 +61,8 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.Text;
+
+import static net.runelite.api.ItemID.RING_OF_RECOIL;
 
 @PluginDescriptor(
 	name = "Item Charges",
@@ -117,6 +124,18 @@ public class ItemChargePlugin extends Plugin
 	private static final int MAX_SLAUGHTER_CHARGES = 30;
 	private static final int MAX_EXPEDITIOUS_CHARGES = 30;
 	private static final int MAX_BINDING_CHARGES = 16;
+	private static final int MAX_EXPLORER_RING_CHARGES = 30;
+
+	private int lastExplorerRingCharge = -1;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean ringOfRecoilAvailable = false;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean ringOfRecoilEquipped = false;
+
+	@Getter(AccessLevel.PACKAGE)
+	private BufferedImage recoilRingImage;
 
 	@Inject
 	private Client client;
@@ -126,6 +145,9 @@ public class ItemChargePlugin extends Plugin
 
 	@Inject
 	private ItemChargeOverlay overlay;
+
+	@Inject
+	private ItemRecoilOverlay recoilOverlay;
 
 	@Inject
 	private ItemManager itemManager;
@@ -152,12 +174,15 @@ public class ItemChargePlugin extends Plugin
 	protected void startUp()
 	{
 		overlayManager.add(overlay);
+		overlayManager.add(recoilOverlay);
+		recoilRingImage = itemManager.getImage(RING_OF_RECOIL);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(overlay);
+		overlayManager.remove(recoilOverlay);
 		infoBoxManager.removeIf(ItemChargeInfobox.class::isInstance);
 		lastCheckTick = -1;
 	}
@@ -200,6 +225,11 @@ public class ItemChargePlugin extends Plugin
 		if (!config.showBindingNecklaceCharges())
 		{
 			removeInfobox(ItemWithSlot.BINDING_NECKLACE);
+		}
+
+		if (!config.showExplorerRingCharges())
+		{
+			removeInfobox(ItemWithSlot.EXPLORER_RING);
 		}
 	}
 
@@ -362,6 +392,11 @@ public class ItemChargePlugin extends Plugin
 		{
 			updateJewelleryInfobox(ItemWithSlot.BINDING_NECKLACE, items);
 		}
+
+		if (config.showExplorerRingCharges())
+		{
+			updateJewelleryInfobox(ItemWithSlot.EXPLORER_RING, items);
+		}
 	}
 
 	@Subscribe
@@ -379,6 +414,35 @@ public class ItemChargePlugin extends Plugin
 			else if (braceletText.contains("expeditious bracelet"))
 			{
 				config.expeditious(MAX_EXPEDITIOUS_CHARGES);
+			}
+		}
+
+		ItemContainer equipment = client.getItemContainer(InventoryID.EQUIPMENT);
+		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
+		ringOfRecoilAvailable = false;
+		ringOfRecoilEquipped = false;
+
+		Item ring = null;
+		if (equipment != null && equipment.getItems().length >= EquipmentInventorySlot.RING.getSlotIdx())
+		{
+			ring = equipment.getItems()[EquipmentInventorySlot.RING.getSlotIdx()];
+		}
+		if (ring != null && ring.getId() == RING_OF_RECOIL)
+		{
+			ringOfRecoilEquipped = true;
+			ringOfRecoilAvailable = true;
+		}
+		Item[] items = new Item[0];
+		if (inventory != null)
+		{
+			items = inventory.getItems();
+		}
+		for (Item item : items)
+		{
+			if (item.getId() == RING_OF_RECOIL)
+			{
+				ringOfRecoilAvailable = true;
+				break;
 			}
 		}
 
@@ -463,6 +527,16 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	@Subscribe
+	private void onVarbitChanged(VarbitChanged event)
+	{
+		int explorerRingCharge = client.getVar(Varbits.EXPLORER_RING_ALCHS);
+		if (lastExplorerRingCharge != explorerRingCharge)
+		{
+			updateExplorerRingCharges(explorerRingCharge);
+		}
+	}
+
 	private void updateDodgyNecklaceCharges(final int value)
 	{
 		config.dodgyNecklace(value);
@@ -530,7 +604,7 @@ public class ItemChargePlugin extends Plugin
 			updateJewelleryInfobox(ItemWithSlot.BINDING_NECKLACE, itemContainer.getItems());
 		}
 	}
-
+	
 	private void updateXericCharges(int xericCharges)
 	{
 		config.xericTalisman(xericCharges);
@@ -544,6 +618,24 @@ public class ItemChargePlugin extends Plugin
 	private void updateChronicleCharges(int chronicleCharges)
 	{
 		config.chronicle(chronicleCharges);
+	}
+	
+	private void updateExplorerRingCharges(final int value)
+	{
+		// Note: Varbit counts upwards. We count down from the maximum charges.
+		config.explorerRing(MAX_EXPLORER_RING_CHARGES - value);
+
+		if (config.showInfoboxes() && config.showExplorerRingCharges())
+		{
+			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
+
+			if (itemContainer == null)
+			{
+				return;
+			}
+
+			updateJewelleryInfobox(ItemWithSlot.EXPLORER_RING, itemContainer.getItems());
+		}
 	}
 
 	private void checkDestroyWidget()
@@ -616,6 +708,10 @@ public class ItemChargePlugin extends Plugin
 			{
 				charges = config.bindingNecklace();
 			}
+			else if ((id >= ItemID.EXPLORERS_RING_1 && id <= ItemID.EXPLORERS_RING_4) && type == ItemWithSlot.EXPLORER_RING)
+			{
+				charges = config.explorerRing();
+			}
 		}
 		else if (itemWithCharge.getType() == type.getType())
 		{
@@ -647,7 +743,7 @@ public class ItemChargePlugin extends Plugin
 				return false;
 			}
 
-			final ItemChargeInfobox i = (ItemChargeInfobox)t;
+			final ItemChargeInfobox i = (ItemChargeInfobox) t;
 			return i.getItem() == item && i.getSlot() == slot;
 		});
 	}

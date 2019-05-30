@@ -32,8 +32,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.HashSet;
-import java.util.Set;
 import javax.inject.Inject;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
@@ -50,7 +48,6 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 	private final HighAlchemyPlugin plugin;
 	private final int alchPrice;
 	private final int alchPriceNoStaff;
-	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 
 	@Inject
 	public HighAlchemyOverlay(ItemManager itemManager, HighAlchemyPlugin plugin, HighAlchemyConfig config)
@@ -109,9 +106,8 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 		{
 			return 0;
 		}
-		ItemComposition itemComp = itemManager.getItemComposition(id);
-		float haValue = itemComp.getPrice() * HIGH_ALCHEMY_CONSTANT;
-		return Math.round(haValue);
+
+		return itemManager.getAlchValue(id);
 	}
 
 	private int getHAProfit(int haPrice, int gePrice, int alchCost)

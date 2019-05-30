@@ -83,7 +83,6 @@ import org.apache.commons.text.WordUtils;
 @Slf4j
 public class ChatCommandsPlugin extends Plugin
 {
-	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 	private static final Pattern KILLCOUNT_PATTERN = Pattern.compile("Your (.+) (?:kill|harvest) count is: <col=ff0000>(\\d+)</col>");
 	private static final Pattern RAIDS_PATTERN = Pattern.compile("Your completed (.+) count is: <col=ff0000>(\\d+)</col>");
 	private static final Pattern WINTERTODT_PATTERN = Pattern.compile("Your subdued Wintertodt count is: <col=ff0000>(\\d+)</col>");
@@ -653,7 +652,7 @@ public class ChatCommandsPlugin extends Plugin
 	 * response.
 	 *
 	 * @param chatMessage The chat message containing the command.
-	 * @param message    The chat message
+	 * @param message     The chat message
 	 */
 	private void itemPriceLookup(ChatMessage chatMessage, String message)
 	{
@@ -686,25 +685,25 @@ public class ChatCommandsPlugin extends Plugin
 			}
 
 			int itemId = item.getId();
-			int itemPrice = item.getPrice();
+			int itemPrice = itemManager.getItemPrice(itemId);
 
 			final ChatMessageBuilder builder = new ChatMessageBuilder();
-				builder.append(ChatColorType.NORMAL);
-				builder.append(ChatColorType.HIGHLIGHT);
-				builder.append(item.getName());
-				builder.append(ChatColorType.NORMAL);
-				builder.append(": GE ");
-				builder.append(ChatColorType.HIGHLIGHT);
-				builder.append(StackFormatter.formatNumber(itemPrice));
-				builder.append(ChatColorType.NORMAL);
-				builder.append(": OSB ");
-				builder.append(ChatColorType.HIGHLIGHT);
-				builder.append(StackFormatter.formatNumber(osbresult.getOverall_average()));
+			builder.append(ChatColorType.NORMAL);
+			builder.append(ChatColorType.HIGHLIGHT);
+			builder.append(item.getName());
+			builder.append(ChatColorType.NORMAL);
+			builder.append(": GE ");
+			builder.append(ChatColorType.HIGHLIGHT);
+			builder.append(StackFormatter.formatNumber(itemPrice));
+			builder.append(ChatColorType.NORMAL);
+			builder.append(": OSB ");
+			builder.append(ChatColorType.HIGHLIGHT);
+			builder.append(StackFormatter.formatNumber(osbresult.getOverall_average()));
 
 			ItemComposition itemComposition = itemManager.getItemComposition(itemId);
 			if (itemComposition != null)
 			{
-				int alchPrice = Math.round(itemComposition.getPrice() * HIGH_ALCHEMY_CONSTANT);
+				int alchPrice = itemManager.getAlchValue(itemId);
 				builder
 					.append(ChatColorType.NORMAL)
 					.append(" HA value ")
@@ -726,7 +725,7 @@ public class ChatCommandsPlugin extends Plugin
 	 * response.
 	 *
 	 * @param chatMessage The chat message containing the command.
-	 * @param message    The chat message
+	 * @param message     The chat message
 	 */
 	private void playerSkillLookup(ChatMessage chatMessage, String message)
 	{

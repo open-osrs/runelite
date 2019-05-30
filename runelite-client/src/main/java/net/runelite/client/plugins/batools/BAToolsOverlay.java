@@ -25,43 +25,32 @@
 package net.runelite.client.plugins.batools;
 
 import java.awt.Color;
+import static java.awt.Color.GREEN;
+import static java.awt.Color.RED;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import net.runelite.api.NPCComposition;
-import javax.inject.Inject;
-import net.runelite.api.Client;
-import net.runelite.client.ui.overlay.OverlayUtil;
-import net.runelite.client.ui.overlay.Overlay;
 import java.time.Duration;
 import java.time.Instant;
+import javax.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.ui.overlay.OverlayUtil;
+
 @Slf4j
 
 public class BAToolsOverlay extends Overlay
 {
-	private static final Color RED = new Color(221, 44, 0);
-	private static final Color GREEN = new Color(0, 200, 83);
-	private static final Color ORANGE = new Color(255, 109, 0);
-	private static final Color YELLOW = new Color(255, 214, 0);
-	private static final Color CYAN = new Color(0, 184, 212);
-	private static final Color BLUE = new Color(41, 98, 255);
-	private static final Color DEEP_PURPLE = new Color(98, 0, 234);
-	private static final Color PURPLE = new Color(170, 0, 255);
-	private static final Color GRAY = new Color(158, 158, 158);
-
 	private final BAToolsConfig config;
-	private Client client;
 	private BAToolsPlugin plugin;
 
 	@Inject
-	public BAToolsOverlay(Client client, BAToolsPlugin plugin, BAToolsConfig config)
+	public BAToolsOverlay(BAToolsPlugin plugin, BAToolsConfig config)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.config = config;
-		this.client = client;
 		this.plugin = plugin;
 	}
 
@@ -69,37 +58,24 @@ public class BAToolsOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if(!config.healerCodes())
+		if (!config.healerCodes())
 		{
 			return null;
 		}
 
 		for (Healer healer : plugin.getHealers().values())
 		{
-			NPCComposition composition = healer.getNpc().getComposition();
-			Color color = composition.getCombatLevel() > 1 ? YELLOW : ORANGE;
-			if (composition.getConfigs() != null)
-			{
-				NPCComposition transformedComposition = composition.transform();
-				if (transformedComposition == null)
-				{
-					color = GRAY;
-				}
-				else
-				{
-					composition = transformedComposition;
-				}
-			}
-			int timeLeft = healer.getLastFoodTime() - (int)Duration.between(plugin.getWave_start(), Instant.now()).getSeconds();
+			Color color;
+			int timeLeft = healer.getLastFoodTime() - (int) Duration.between(plugin.getWave_start(), Instant.now()).getSeconds();
 			timeLeft = timeLeft < 1 ? 0 : timeLeft;
 
-			if(healer.getFoodRemaining() > 1)
+			if (healer.getFoodRemaining() > 1)
 			{
 				color = GREEN;
 			}
-			else if(healer.getFoodRemaining() == 1)
+			else if (healer.getFoodRemaining() == 1)
 			{
-				if(timeLeft > 0)
+				if (timeLeft > 0)
 				{
 					color = RED;
 				}
@@ -116,7 +92,6 @@ public class BAToolsOverlay extends Overlay
 			String text = String.format("%d  %d",
 				healer.getFoodRemaining(),
 				timeLeft);
-
 
 
 			OverlayUtil.renderActorOverlay(graphics, healer.getNpc(), text, color);

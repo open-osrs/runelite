@@ -1,75 +1,95 @@
+/*
+ * Copyright (c) 2018, James Munson <https://github.com/james-munson>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package net.runelite.client.plugins.tickcounter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import com.google.inject.Provides;
-import net.runelite.api.Actor;
-import net.runelite.api.Client;
-import net.runelite.api.Player;
-import net.runelite.api.events.AnimationChanged;
-import net.runelite.api.events.ClientTick;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.kit.KitType;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(name = "Tick Counter",
-		description = "Counts combat activity for nearby players",
-		enabledByDefault = false,
-		type = PluginType.PVP
+	description = "Counts combat activity for nearby players",
+	enabledByDefault = false,
+	type = PluginType.PVP
 )
-public class TickCounterPlugin extends Plugin {
-
+public class TickCounterPlugin extends Plugin
+{
+	//todo once bytecodes work again, re-enable
+/*
 	@Inject
 	private OverlayManager overlayManager;
+
 	@Inject
 	private TickCounterConfig config;
+
 	@Inject
 	private Client client;
+
 	@Provides
 	TickCounterConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(TickCounterConfig.class);
 	}
+
 	@Inject
 	private TickCounterOverlay overlay;
 
 	Map<String, Integer> activity = new HashMap<>();
 
 	private List<Player> blowpiping = new ArrayList<>();
-	boolean instanced = false;
-	boolean prevInstance = false;
+	private boolean instanced = false;
 
 	@Override
-	protected void startUp() throws Exception {
+	protected void startUp() throws Exception
+	{
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() throws Exception {
+	protected void shutDown() throws Exception
+	{
 		overlayManager.remove(overlay);
 		activity.clear();
 	}
 
 	@Subscribe
-	public void onAnimationChanged(AnimationChanged e) {
+	public void onAnimationChanged(AnimationChanged e)
+	{
 		if (!(e.getActor() instanceof Player))
+		{
 			return;
+		}
 		Player p = (Player) e.getActor();
 		int weapon = -1;
 		if (p.getPlayerComposition() != null)
+		{
 			weapon = p.getPlayerComposition().getEquipmentId(KitType.WEAPON);
+		}
 		int delta = 0;
-		switch (p.getAnimation()) {
+		switch (p.getAnimation())
+		{
 			case 7617: // rune knife
 			case 8194: // dragon knife
 			case 8291: // dragon knife spec
@@ -89,9 +109,13 @@ public class TickCounterPlugin extends Plugin {
 				break;
 			case 426: // bow shoot
 				if (weapon == 20997) // twisted bow
+				{
 					delta = 5;
+				}
 				else // shortbow
+				{
 					delta = 3;
+				}
 				break;
 			case 376: // dds poke
 			case 377: // dds slash
@@ -119,7 +143,8 @@ public class TickCounterPlugin extends Plugin {
 				delta = 4;
 				break;
 			case 393: // staff bash
-				if (weapon == 13652) { // claw scratch
+				if (weapon == 13652)
+				{ // claw scratch
 					delta = 4;
 					break;
 				}
@@ -135,9 +160,13 @@ public class TickCounterPlugin extends Plugin {
 				break;
 			case 401:
 				if (weapon == 13576) // dwh bop
+				{
 					delta = 6;
+				}
 				else // used by pickaxe and axe
+				{
 					delta = 5;
+				}
 				break;
 			case 1378:
 			case 7045:
@@ -158,38 +187,47 @@ public class TickCounterPlugin extends Plugin {
 			case 1203: // chally spec
 				delta = 7;
 				break;
-		case -1:
-			blowpiping.remove(p);
-			break;
+			case -1:
+				blowpiping.remove(p);
+				break;
 		}
-		if (delta > 0) {
+		if (delta > 0)
+		{
 			String name = p.getName();
 			this.activity.put(name, this.activity.getOrDefault(name, 0) + delta);
 		}
 	}
 
 	@Subscribe
-	public void onClientTick(ClientTick e) {
-		/*
-		 * Hack for blowpipe since the AnimationChanged event doesn't fire when using a
-		 * blowpipe because of its speed. If blowpipe animation restarts, then add 2
-		 */
-		for (Player p : blowpiping) {
-			Actor rsp = p;
-			if (rsp.getActionFrame() == 0 && rsp.getActionFrameCycle() == 1) {
+	public void onClientTick(ClientTick e)
+	{
+		*//*
+ * Hack for blowpipe since the AnimationChanged event doesn't fire when using a
+ * blowpipe because of its speed. If blowpipe animation restarts, then add 2
+ *//*
+		for (Player p : blowpiping)
+		{
+			if (p.getActionFrame() == 0 && p.getActionFrameCycle() == 1)
+			{
 				String name = p.getName();
-				int activity = this.activity.getOrDefault(name, 0).intValue();
+				int activity = this.activity.getOrDefault(name, 0);
 				this.activity.put(name, activity + 2);
 			}
 		}
 	}
+
 	@Subscribe
-	public void onGameTick(GameTick tick){
-		if(!config.instance())return;
-		prevInstance = instanced;
+	public void onGameTick(GameTick tick)
+	{
+		if (!config.instance())
+		{
+			return;
+		}
+		boolean prevInstance = instanced;
 		instanced = client.isInInstancedRegion();
-		if(!prevInstance && instanced){
+		if (!prevInstance && instanced)
+		{
 			activity.clear();
 		}
-	}
+	}*/
 }

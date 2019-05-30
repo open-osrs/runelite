@@ -31,6 +31,7 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.Rectangle;
 import static java.lang.Boolean.TRUE;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,6 +42,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -95,10 +98,17 @@ import net.runelite.client.util.Text;
 )
 public class GroundItemsPlugin extends Plugin
 {
-	// Used when getting High Alchemy value - multiplied by general store price.
-	private static final float HIGH_ALCHEMY_CONSTANT = 0.6f;
 	// ItemID for coins
 	private static final int COINS = ItemID.COINS_995;
+
+	// items stay on the ground for 30 mins in an instance
+	private static final int INSTANCE_DURATION_MILLIS = 45 * 60 * 1000;
+	//untradeables stay on the ground for 150 seconds (http://oldschoolrunescape.wikia.com/wiki/Item#Dropping_and_Destroying)
+	private static final int UNTRADEABLE_DURATION_MILLIS = 150 * 1000;
+	//items stay on the ground for 1 hour after death
+	private static final int DEATH_DURATION_MILLIS = 60 * 60 * 1000;
+	private static final int NORMAL_DURATION_MILLIS = 60 * 1000;
+
 	// Ground item menu options
 	private static final int FIRST_OPTION = MenuAction.GROUND_ITEM_FIRST_OPTION.getId();
 	private static final int SECOND_OPTION = MenuAction.GROUND_ITEM_SECOND_OPTION.getId();
@@ -106,6 +116,7 @@ public class GroundItemsPlugin extends Plugin
 	private static final int FOURTH_OPTION = MenuAction.GROUND_ITEM_FOURTH_OPTION.getId();
 	private static final int FIFTH_OPTION = MenuAction.GROUND_ITEM_FIFTH_OPTION.getId();
 	private static final int EXAMINE_ITEM = MenuAction.EXAMINE_ITEM_GROUND.getId();
+	private static final int WALK = MenuAction.WALK.getId();
 
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
@@ -280,8 +291,19 @@ public class GroundItemsPlugin extends Plugin
 	@Subscribe
 	public void onNpcLootReceived(NpcLootReceived npcLootReceived)
 	{
+		npcLootReceived.getItems().forEach(item ->
+			{
+				GroundItem.GroundItemKey groundItemKey = new GroundItem.GroundItemKey(item.getId(), npcLootReceived.getNpc().getWorldLocation());
+				if (collectedGroundItems.containsKey(groundItemKey))
+				{
+					collectedGroundItems.get(groundItemKey).setOwnedByPlayer(true);
+				}
+			}
+		);
+
 		Collection<ItemStack> items = npcLootReceived.getItems();
 		lootReceived(items);
+		lootNotifier(items);
 	}
 
 	@Subscribe
@@ -289,16 +311,52 @@ public class GroundItemsPlugin extends Plugin
 	{
 		Collection<ItemStack> items = playerLootReceived.getItems();
 		lootReceived(items);
+		lootNotifier(items);
+	}
+
+	private void lootNotifier(Collection<ItemStack> items)
+	{
+		ItemComposition composition;
+		for (ItemStack is : items)
+		{
+			composition = itemManager.getItemComposition(is.getId());
+			Color itemColor = getHighlighted(composition.getName(), itemManager.getItemPrice(is.getId()) * is.getQuantity(), itemManager.getAlchValue(is.getId()) * is.getQuantity());
+			if (itemColor != null)
+			{
+				if (config.notifyHighlightedDrops() && itemColor.equals(config.highlightedColor()))
+				{
+					sendLootNotification(composition.getName(), "highlighted");
+				}
+				else if (config.notifyLowValueDrops() && itemColor.equals(config.lowValueColor()))
+				{
+					sendLootNotification(composition.getName(), "low value");
+				}
+				else if (config.notifyMediumValueDrops() && itemColor.equals(config.mediumValueColor()))
+				{
+					sendLootNotification(composition.getName(), "medium value");
+				}
+				else if (config.notifyHighValueDrops() && itemColor.equals(config.highValueColor()))
+				{
+					sendLootNotification(composition.getName(), "high value");
+				}
+				else if (config.notifyInsaneValueDrops() && itemColor.equals(config.insaneValueColor()))
+				{
+					sendLootNotification(composition.getName(), "insane value");
+				}
+			}
+		}
+	}
+
+	private  void sendLootNotification(String itemName, String message)
+	{
+		String notification = "[" + client.getLocalPlayer().getName() + "] " +
+			"Received a " + message + " item: " + itemName;
+		notifier.notify(notification);
 	}
 
 	@Subscribe
 	public void onClientTick(ClientTick event)
 	{
-		if (!config.collapseEntries())
-		{
-			return;
-		}
-
 		final MenuEntry[] menuEntries = client.getMenuEntries();
 		final List<MenuEntryWithCount> newEntries = new ArrayList<>(menuEntries.length);
 
@@ -307,16 +365,19 @@ public class GroundItemsPlugin extends Plugin
 		{
 			MenuEntry menuEntry = menuEntries[i];
 
-			int menuType = menuEntry.getType();
-			if (menuType == FIRST_OPTION || menuType == SECOND_OPTION || menuType == THIRD_OPTION
-				|| menuType == FOURTH_OPTION || menuType == FIFTH_OPTION || menuType == EXAMINE_ITEM)
+			if (config.collapseEntries())
 			{
-				for (MenuEntryWithCount entryWCount : newEntries)
+				int menuType = menuEntry.getType();
+				if (menuType == FIRST_OPTION || menuType == SECOND_OPTION || menuType == THIRD_OPTION
+						|| menuType == FOURTH_OPTION || menuType == FIFTH_OPTION || menuType == EXAMINE_ITEM)
 				{
-					if (entryWCount.getEntry().equals(menuEntry))
+					for (MenuEntryWithCount entryWCount : newEntries)
 					{
-						entryWCount.increment();
-						continue outer;
+						if (entryWCount.getEntry().equals(menuEntry))
+						{
+							entryWCount.increment();
+							continue outer;
+						}
 					}
 				}
 			}
@@ -326,13 +387,64 @@ public class GroundItemsPlugin extends Plugin
 
 		Collections.reverse(newEntries);
 
+		newEntries.sort((a, b) ->
+		{
+			final int aMenuType = a.getEntry().getType();
+			if (aMenuType == FIRST_OPTION || aMenuType == SECOND_OPTION || aMenuType == THIRD_OPTION
+					|| aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM
+					|| aMenuType == WALK)
+			{ // only check for item related menu types, so we don't sort other stuff
+				final int bMenuType = b.getEntry().getType();
+				if (bMenuType == FIRST_OPTION || bMenuType == SECOND_OPTION || bMenuType == THIRD_OPTION
+						|| bMenuType == FOURTH_OPTION || bMenuType == FIFTH_OPTION || bMenuType == EXAMINE_ITEM
+						|| bMenuType == WALK)
+				{
+					final MenuEntry aEntry = a.getEntry();
+					final int aId = aEntry.getIdentifier();
+					final boolean aHidden = isItemIdHidden(aId);
+					final int aQuantity = getCollapsedItemQuantity(aId, aEntry.getTarget());
+
+					final MenuEntry bEntry = b.getEntry();
+					final int bId = bEntry.getIdentifier();
+					final boolean bHidden = isItemIdHidden(bId);
+					final int bQuantity = getCollapsedItemQuantity(bId, bEntry.getTarget());
+
+					// only put items below walk if the config is set for it
+					if (config.rightClickHidden())
+					{
+						if (aHidden && bMenuType == WALK)
+							return -1;
+						if (bHidden && aMenuType == WALK)
+							return 1;
+					}
+
+					// sort hidden items below non-hidden items
+					if (aHidden && !bHidden && bMenuType != WALK)
+						return -1;
+					if (bHidden && !aHidden && aMenuType != WALK)
+						return 1;
+
+
+					// RS sorts by alch price by default, so no need to sort if config not set
+					if (config.sortByGEPrice())
+						return (getGePriceFromItemId(aId) * aQuantity) - (getGePriceFromItemId(bId) * bQuantity);
+				}
+			}
+
+			return 0;
+		});
+
 		client.setMenuEntries(newEntries.stream().map(e ->
 		{
 			final MenuEntry entry = e.getEntry();
-			final int count = e.getCount();
-			if (count > 1)
+
+			if (config.collapseEntries())
 			{
-				entry.setTarget(entry.getTarget() + " x " + count);
+				final int count = e.getCount();
+				if (count > 1)
+				{
+					entry.setTarget(entry.getTarget() + " x " + count);
+				}
 			}
 
 			return entry;
@@ -369,7 +481,22 @@ public class GroundItemsPlugin extends Plugin
 		final int itemId = item.getId();
 		final ItemComposition itemComposition = itemManager.getItemComposition(itemId);
 		final int realItemId = itemComposition.getNote() != -1 ? itemComposition.getLinkedNoteId() : itemId;
-		final int alchPrice = Math.round(itemComposition.getPrice() * HIGH_ALCHEMY_CONSTANT);
+		final int alchPrice = itemManager.getAlchValue(realItemId);
+		int durationMillis;
+		if (client.isInInstancedRegion())
+		{
+			durationMillis = INSTANCE_DURATION_MILLIS;
+		}
+		else if (!itemComposition.isTradeable() && realItemId != COINS)
+		{
+			durationMillis = UNTRADEABLE_DURATION_MILLIS;
+		}
+		else
+		{
+			durationMillis = NORMAL_DURATION_MILLIS;
+		}
+
+		WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
 
 		final GroundItem groundItem = GroundItem.builder()
 			.id(itemId)
@@ -378,8 +505,12 @@ public class GroundItemsPlugin extends Plugin
 			.quantity(item.getQuantity())
 			.name(itemComposition.getName())
 			.haPrice(alchPrice)
-			.height(tile.getItemLayer().getHeight())
+			.height(-1)
 			.tradeable(itemComposition.isTradeable())
+			.droppedInstant(Instant.now())
+			.durationMillis(durationMillis)
+			.isAlwaysPrivate(client.isInInstancedRegion() || (!itemComposition.isTradeable() && realItemId != COINS))
+			.isOwnedByPlayer(tile.getWorldLocation().equals(playerLocation))
 			.build();
 
 
@@ -481,7 +612,7 @@ public class GroundItemsPlugin extends Plugin
 			final int realItemId = itemComposition.getNote() != -1 ? itemComposition.getLinkedNoteId() : itemComposition.getId();
 			final int itemPrice = itemManager.getItemPrice(realItemId);
 			final int price = itemPrice <= 0 ? itemComposition.getPrice() : itemPrice;
-			final int haPrice = Math.round(itemComposition.getPrice() * HIGH_ALCHEMY_CONSTANT) * quantity;
+			final int haPrice = itemManager.getAlchValue(realItemId);
 			final int gePrice = quantity * price;
 			final Color hidden = getHidden(itemComposition.getName(), gePrice, haPrice, itemComposition.isTradeable());
 			final Color highlighted = getHighlighted(itemComposition.getName(), gePrice, haPrice);
@@ -509,7 +640,7 @@ public class GroundItemsPlugin extends Plugin
 				lastEntry.setTarget(lastEntry.getTarget() + " (" + quantity + ")");
 			}
 
-			if(config.removeIgnored() && event.getOption().equals("Take") && hiddenItemList.contains(Text.removeTags(event.getTarget())))
+			if (config.removeIgnored() && event.getOption().equals("Take") && hiddenItemList.contains(Text.removeTags(event.getTarget())))
 			{
 				menuEntries = removeOption(event.getOption(), event.getTarget());
 			}
@@ -522,7 +653,7 @@ public class GroundItemsPlugin extends Plugin
 	{
 		MenuEntry[] entries = client.getMenuEntries();
 		int j = 0;
-		if(entries.length > 1)
+		if (entries.length > 1)
 		{
 			MenuEntry[] newEntries = new MenuEntry[entries.length - 1];
 			for (int i = 0; i < entries.length; ++i)
@@ -539,8 +670,6 @@ public class GroundItemsPlugin extends Plugin
 		{
 			return entries;
 		}
-
-
 	}
 
 	void updateList(String item, boolean hiddenList)
@@ -620,8 +749,46 @@ public class GroundItemsPlugin extends Plugin
 
 		// Explicit highlight takes priority over implicit hide
 		return isExplicitHidden || (!isExplicitHighlight && canBeHidden && underGe && underHa)
-			? config.hiddenColor()
-			: null;
+				? config.hiddenColor()
+				: null;
+	}
+
+	private int getGePriceFromItemId(int itemId)
+	{
+		final ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		final int realItemId = itemComposition.getNote() != -1 ? itemComposition.getLinkedNoteId() : itemId;
+
+		return itemManager.getItemPrice(realItemId);
+	}
+
+	private boolean isItemIdHidden(int itemId)
+	{
+		final ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		final int realItemId = itemComposition.getNote() != -1 ? itemComposition.getLinkedNoteId() : itemId;
+		final int alchPrice = itemManager.getAlchValue(realItemId);
+		final int gePrice = itemManager.getItemPrice(realItemId);
+
+		return getHidden(itemComposition.getName(), gePrice, alchPrice, itemComposition.isTradeable()) != null;
+	}
+
+	private int getCollapsedItemQuantity(int itemId, String item)
+	{
+		final ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		final boolean itemNameIncludesQuantity = Pattern.compile("\\(\\d+\\)").matcher(itemComposition.getName()).find();
+
+		Matcher matcher = Pattern.compile("\\((\\d+)\\)").matcher(item);
+		int matches = 0;
+		String lastMatch = "1";
+		while (matcher.find())
+		{
+			// so that "Prayer Potion (4)" returns 1 instead of 4 and "Coins (25)" returns 25 instead of 1
+			if (!itemNameIncludesQuantity || matches >= 1)
+				lastMatch = matcher.group(1);
+
+			matches++;
+		}
+
+		return Integer.parseInt(lastMatch);
 	}
 
 	Color getItemColor(Color highlighted, Color hidden)

@@ -24,6 +24,18 @@
  */
 package net.runelite.client.plugins.aoewarnings;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.Instant;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -31,20 +43,11 @@ import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.client.plugins.aoewarnings.CrystalBomb;
-import net.runelite.client.ui.overlay.*;
-import javax.inject.Inject;
-import java.awt.Graphics2D;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Polygon;
-import java.awt.BasicStroke;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.Instant;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
+import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Slf4j
 public class BombOverlay extends Overlay
@@ -70,7 +73,7 @@ public class BombOverlay extends Overlay
 
 	//Utilized from the npc highlight code for formatting text being displayed on the client canvas.
 	private static final NumberFormat TIME_LEFT_FORMATTER =
-			DecimalFormat.getInstance(Locale.US);
+		DecimalFormat.getInstance(Locale.US);
 
 	static
 	{
@@ -154,22 +157,22 @@ public class BombOverlay extends Overlay
 
 		Instant now = Instant.now();
 		double timeLeft = ((BOMB_DETONATE_TIME - (client.getTickCount() -
-				bomb.getTickStarted())) * ESTIMATED_TICK_LENGTH) -
-				(now.toEpochMilli() - bomb.getLastClockUpdate().toEpochMilli()) / 1000.0;
-				//divided by 1000.00 because of milliseconds :)
+			bomb.getTickStarted())) * ESTIMATED_TICK_LENGTH) -
+			(now.toEpochMilli() - bomb.getLastClockUpdate().toEpochMilli()) / 1000.0;
+		//divided by 1000.00 because of milliseconds :)
 
 		timeLeft = Math.max(0.0, timeLeft);
 		String bombTimerString = TIME_LEFT_FORMATTER.format(timeLeft);
 		int textWidth = graphics.getFontMetrics().stringWidth(bombTimerString);
 		int textHeight = graphics.getFontMetrics().getAscent();
 		Point canvasPoint = Perspective.localToCanvas(client, localLoc.getX(),
-				localLoc.getY(), bomb.getWorldLocation().getPlane());
+			localLoc.getY(), bomb.getWorldLocation().getPlane());
 
 		if (canvasPoint != null)
 		{
 			Point canvasCenterPoint = new Point(
-					canvasPoint.getX() - textWidth / 2,
-					canvasPoint.getY() + textHeight / 2);
+				canvasPoint.getX() - textWidth / 2,
+				canvasPoint.getY() + textHeight / 2);
 			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint, bombTimerString, color_code);
 		}
 

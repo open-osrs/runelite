@@ -29,7 +29,7 @@
 	<parent>
 		<groupId>net.runelite</groupId>
 		<artifactId>runelite-parent</artifactId>
-		<version>1.5.23-SNAPSHOT</version>
+		<version>1.5.25-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>client</artifactId>
@@ -194,15 +194,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>net.runelite.rs</groupId>
-			<artifactId>runescape-api</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.runelite</groupId>
+			<groupId>net.runelit</groupId>
 			<artifactId>client-patch</artifactId>
-			<version>${project.version}</version>
+			<version>1.5.25.2</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -221,7 +215,11 @@
 			<version>1.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>net.runelite</groupId>
+			<artifactId>extended-mixins</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -272,6 +270,11 @@
             <artifactId>naturalmouse</artifactId>
             <version>[1.0.0,)</version>
         </dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-all</artifactId>
+			<version>6.0_BETA</version>
+		</dependency>
     </dependencies>
 
 	<build>
@@ -315,7 +318,6 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
-							<minimizeJar>true</minimizeJar>
 
 							<shadedArtifactAttached>true</shadedArtifactAttached>
 							<shadedClassifierName>shaded</shadedClassifierName>
@@ -324,13 +326,14 @@
 								<!-- include runtime apis -->
 								<filter>
 									<!-- net.runelite:client-patch and net.runelite:api -->
-									<artifact>net.runelite:*</artifact>
+									<artifact>net.runelite:api</artifact>
 									<includes>
 										<include>**</include>
 									</includes>
 								</filter>
 								<filter>
-									<artifact>net.runelite.rs:runescape-api</artifact>
+									<!-- net.runelit:client-patch -->
+									<artifact>net.runelit:client-patch</artifact>
 									<includes>
 										<include>**</include>
 									</includes>

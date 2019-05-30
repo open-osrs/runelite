@@ -28,7 +28,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
@@ -87,14 +87,16 @@ public class BoostsPlugin extends Plugin
 	@Inject
 	private BoostsOverlay boostsOverlay;
 
+	//made this a LinkedHashSet so the order stays consistent for my OCD
+	@Getter
+	private final Set<Skill> shownSkills = new LinkedHashSet<>();
 	@Inject
 	private BoostsConfig config;
 
 	@Inject
 	private SkillIconManager skillIconManager;
-
-	@Getter
-	private final Set<Skill> shownSkills = new HashSet<>();
+	@Inject
+	private CombatIconsOverlay combatIconsOverlay;
 
 	private boolean isChangedDown = false;
 	private boolean isChangedUp = false;
@@ -115,7 +117,7 @@ public class BoostsPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		overlayManager.add(boostsOverlay);
-
+		overlayManager.add(combatIconsOverlay);
 		updateShownSkills();
 		updateBoostedStats();
 		Arrays.fill(lastSkillLevels, -1);
@@ -137,6 +139,7 @@ public class BoostsPlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(boostsOverlay);
+		overlayManager.remove(combatIconsOverlay);
 		infoBoxManager.removeIf(t -> t instanceof BoostIndicator || t instanceof StatChangeIndicator);
 		preserveBeenActive = false;
 		lastChangeDown = -1;
@@ -356,7 +359,7 @@ public class BoostsPlugin extends Plugin
 	 * section it will "activate" adding an additional 15 second section
 	 * to the boost timing. If again the preserve prayer is active for that
 	 * entire section a second 15 second section will be added.
-	 *
+	 * <p>
 	 * Preserve is only required to be on for the 4th and 5th sections of the boost timer
 	 * to gain full effect (seconds 45-75).
 	 *
@@ -365,8 +368,8 @@ public class BoostsPlugin extends Plugin
 	int getChangeDownTicks()
 	{
 		if (lastChangeDown == -1 ||
-				config.displayNextBuffChange() == BoostsConfig.DisplayChangeMode.NEVER ||
-				(config.displayNextBuffChange() == BoostsConfig.DisplayChangeMode.BOOSTED && !isChangedUp))
+			config.displayNextBuffChange() == BoostsConfig.DisplayChangeMode.NEVER ||
+			(config.displayNextBuffChange() == BoostsConfig.DisplayChangeMode.BOOSTED && !isChangedUp))
 		{
 			return -1;
 		}
@@ -393,8 +396,8 @@ public class BoostsPlugin extends Plugin
 	int getChangeUpTicks()
 	{
 		if (lastChangeUp == -1 ||
-				config.displayNextDebuffChange() == BoostsConfig.DisplayChangeMode.NEVER ||
-				(config.displayNextDebuffChange() == BoostsConfig.DisplayChangeMode.BOOSTED && !isChangedDown))
+			config.displayNextDebuffChange() == BoostsConfig.DisplayChangeMode.NEVER ||
+			(config.displayNextDebuffChange() == BoostsConfig.DisplayChangeMode.BOOSTED && !isChangedDown))
 		{
 			return -1;
 		}
@@ -406,12 +409,13 @@ public class BoostsPlugin extends Plugin
 
 	/**
 	 * Converts tick-based time to accurate second time
+	 *
 	 * @param time tick-based time
 	 * @return second-based time
 	 */
 	int getChangeTime(final int time)
 	{
 		final long diff = System.currentTimeMillis() - lastTickMillis;
-		return time != -1 ? (int)((time * Constants.GAME_TICK_LENGTH - diff) / 1000d) : time;
+		return time != -1 ? (int) ((time * Constants.GAME_TICK_LENGTH - diff) / 1000d) : time;
 	}
 }

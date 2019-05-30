@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.maxhit;
 
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -41,11 +42,9 @@ import net.runelite.client.plugins.maxhit.calculators.MagicMaxHitCalculator;
 import net.runelite.client.plugins.maxhit.calculators.MeleeMaxHitCalculator;
 import net.runelite.client.plugins.maxhit.calculators.RangeMaxHitCalculator;
 
-import javax.inject.Inject;
-
 @PluginDescriptor(
 	name = "Max Hit",
-	description = "Adds max hit to the equipment and stats widget",
+	description = "Adds the max hit of the equipped weapon to the equipment and stats widget",
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
@@ -135,5 +134,4 @@ public class MaxHitPlugin extends Plugin
 			return maxMagicHit;
 		}
 	}
-
 }
