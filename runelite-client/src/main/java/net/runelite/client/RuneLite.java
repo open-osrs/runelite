@@ -209,13 +209,13 @@ public class RuneLite
 		{
 			String[] proxy = options.valueOf(proxyInfo).split(":");
 			
-			if(proxy.length >= 2)
+			if (proxy.length >= 2)
 			{
 				System.setProperty("socksProxyHost", proxy[0]);
 				System.setProperty("socksProxyPort", proxy[1]);
 			}
 
-			if(proxy.length >= 4)
+			if (proxy.length >= 4)
 			{
 				System.setProperty("java.net.socks.username", proxy[2]);
 				System.setProperty("java.net.socks.password", proxy[3]);
