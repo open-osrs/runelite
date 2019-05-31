@@ -45,7 +45,6 @@ import joptsimple.OptionSet;
 import joptsimple.util.EnumConverter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import io.sentry.Sentry;
 import net.runelite.api.Client;
 import net.runelite.client.account.SessionManager;
 import net.runelite.client.chat.ChatMessageManager;
@@ -179,7 +178,6 @@ public class RuneLite
 	public static void main(String[] args) throws Exception
 	{
 		Locale.setDefault(Locale.ENGLISH);
-		Sentry.init("https://f0ed76be2fe847f8b9eb3620fa55d729@sentry.io/1468399");
 
 		final OptionParser parser = new OptionParser();
 		parser.accepts("developer-mode", "Enable developer tools");
