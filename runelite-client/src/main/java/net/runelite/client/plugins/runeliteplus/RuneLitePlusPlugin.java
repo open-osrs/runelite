@@ -160,7 +160,7 @@ public class RuneLitePlusPlugin extends Plugin
 
 		if (config.logOpt())
 		{
-			Sentry.init("https://f0ed76be2fe847f8b9eb3620fa55d729@sentry.io/1468399?servername=USER&stacktrace.app.packages=net.runelite.client");
+			Sentry.init("https://f0ed76be2fe847f8b9eb3620fa55d729@sentry.io/1468399?stacktrace.app.packages=net.runelite.client");
 		}
 
 		if (config.customPresence())
