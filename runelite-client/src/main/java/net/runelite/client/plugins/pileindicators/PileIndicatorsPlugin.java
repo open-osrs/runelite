@@ -86,7 +86,7 @@ public class PileIndicatorsPlugin extends Plugin
 		overlayManager.remove(overlay);
 	}
 
-	protected ArrayList<ArrayList<Actor>> getPlayerStacks()
+	protected ArrayList<ArrayList<Actor>> getStacks()
 	{
 		ArrayList<ArrayList<Actor>> outerArrayList = new ArrayList<>();
 

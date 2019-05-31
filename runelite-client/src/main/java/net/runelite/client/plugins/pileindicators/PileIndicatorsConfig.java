@@ -120,4 +120,16 @@ public interface PileIndicatorsConfig extends Config
 	{
 		return 2;
 	}
+
+	@ConfigItem(
+			position = 7,
+			keyName = "numberOnly",
+			name = "Display Number Only",
+			description = "Shorten \"PILE SIZE: 1\" to \"1\"",
+			group = "5. Miscellaneous"
+	)
+	default boolean numberOnly()
+	{
+		return false;
+	}
 }

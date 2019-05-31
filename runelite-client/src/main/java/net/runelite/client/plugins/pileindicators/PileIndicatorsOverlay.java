@@ -56,7 +56,7 @@ public class PileIndicatorsOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		ArrayList<ArrayList<Actor>> stackList = plugin.getPlayerStacks();
+		ArrayList<ArrayList<Actor>> stackList = plugin.getStacks();
 
 		if (stackList != null)
 		{
@@ -66,10 +66,19 @@ public class PileIndicatorsOverlay extends Overlay
 				Color pileColor = plugin.getColorByPileType(pileType);
 
 				try {
-					Actor playerToRender = actorArrayList.get(0); //guaranteed to have at least two players
-					final String text = "PILE SIZE: " + actorArrayList.size();
-					OverlayUtil.renderPolygon(graphics, playerToRender.getCanvasTilePoly(), pileColor);
-					OverlayUtil.renderTextLocation(graphics, playerToRender.getCanvasTextLocation(graphics, text, 40), text, pileColor);
+					Actor actorToRender = actorArrayList.get(0); //guaranteed to have at least two players
+					final String text;
+					if (config.numberOnly())
+					{
+						text = "" + actorArrayList.size();
+					}
+					else
+					{
+						text = "PILE SIZE: " + actorArrayList.size();
+					}
+
+					OverlayUtil.renderPolygon(graphics, actorToRender.getCanvasTilePoly(), pileColor);
+					OverlayUtil.renderTextLocation(graphics, actorToRender.getCanvasTextLocation(graphics, text, 40), text, pileColor);
 				} catch (Exception ignored) {
 				}
 			}
