@@ -65,7 +65,8 @@ public class PileIndicatorsOverlay extends Overlay
 				PileType pileType = plugin.getPileType(actorArrayList);
 				Color pileColor = plugin.getColorByPileType(pileType);
 
-				try {
+				try 
+				{
 					Actor actorToRender = actorArrayList.get(0); //guaranteed to have at least two players
 					final String text;
 					if (config.numberOnly())
@@ -79,7 +80,9 @@ public class PileIndicatorsOverlay extends Overlay
 
 					OverlayUtil.renderPolygon(graphics, actorToRender.getCanvasTilePoly(), pileColor);
 					OverlayUtil.renderTextLocation(graphics, actorToRender.getCanvasTextLocation(graphics, text, 40), text, pileColor);
-				} catch (Exception ignored) {
+				} 
+				catch (Exception ignored)
+				{
 				}
 			}
 		}
