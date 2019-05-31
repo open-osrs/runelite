@@ -26,6 +26,7 @@ package net.runelite.client.plugins.freezetimers;
 
 import com.google.inject.Provides;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import net.runelite.api.Actor;
@@ -115,7 +116,13 @@ public class FreezeTimersPlugin extends Plugin
 	{
 		timers.gameTick();
 		prayerTracker.gameTick();
-		for (Actor actor : client.getPlayers())
+		postGraphicCallback(client.getPlayers());
+		postGraphicCallback(client.getNpcs());
+	}
+
+	private void postGraphicCallback(List<? extends Actor> actors)
+	{
+		for (Actor actor : actors)
 		{
 			if (prayerTracker.getSpotanimLastTick(actor) != actor.getGraphic())
 			{
