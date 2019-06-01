@@ -184,7 +184,7 @@ public class BarbarianAssaultPlugin extends Plugin
 		switch (event.getGroupId())
 		{
 			case WidgetID.BA_REWARD_GROUP_ID:
-				{
+			{
 				Wave wave = new Wave(client);
 				Widget rewardWidget = client.getWidget(WidgetInfo.BA_REWARD_TEXT);
 				if (rewardWidget != null && rewardWidget.getText().contains(ENDGAME_REWARD_NEEDLE_TEXT) && gameTime != null)
