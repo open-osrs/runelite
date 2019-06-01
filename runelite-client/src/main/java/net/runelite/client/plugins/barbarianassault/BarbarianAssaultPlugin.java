@@ -207,6 +207,8 @@ public class BarbarianAssaultPlugin extends Plugin
 					game.getWaves().add(wave);
 					announceSomething(wave.getWaveSummary());
 				}
+
+				break;
 			}
 			case WidgetID.BA_ATTACKER_GROUP_ID:
 			{
