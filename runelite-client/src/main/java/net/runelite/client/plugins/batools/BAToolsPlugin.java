@@ -449,7 +449,7 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 
 		if (config.swapLadder() && option.equals("climb-down") && target.equals("ladder"))
 		{
-			menuManager.addPriorityEntry("Quick-start",  target);
+			menuManager.addSwap("Quick-start", option, target);
 		}
 		else if (config.removeBA() && client.getVar(Varbits.IN_GAME_BA) == 1 && !option.contains("tell-"))//if in barbarian assault and menu isnt from a horn
 		{
