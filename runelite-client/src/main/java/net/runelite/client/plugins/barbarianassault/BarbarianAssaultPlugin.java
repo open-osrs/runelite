@@ -185,7 +185,24 @@ public class BarbarianAssaultPlugin extends Plugin
 	@Subscribe
 	public void onWidgetLoaded(WidgetLoaded event)
 	{
-		if (event.getGroupId() == WidgetID.BA_REWARD_GROUP_ID)
+		int groupId = event.getGroupId();
+		if(groupId == WidgetID.BA_ATTACKER_GROUP_ID)
+		{
+			overlay.setCurrentRound(new Round(Role.ATTACKER));
+		}
+		else if(groupId == WidgetID.BA_DEFENDER_GROUP_ID)
+		{
+			overlay.setCurrentRound(new Round(Role.DEFENDER));
+		}
+		else if(groupId == WidgetID.BA_HEALER_GROUP_ID)
+		{
+			overlay.setCurrentRound(new Round(Role.HEALER));
+		}
+		else if(groupId == WidgetID.BA_COLLECTOR_GROUP_ID)
+		{
+			overlay.setCurrentRound(new Round(Role.COLLECTOR));
+		}
+		else if (groupId == WidgetID.BA_REWARD_GROUP_ID)
 		{
 			Wave wave = new Wave(client);
 			Widget rewardWidget = client.getWidget(WidgetInfo.BA_REWARD_TEXT);
@@ -292,44 +309,6 @@ public class BarbarianAssaultPlugin extends Plugin
 		{
 			messageNode.setValue(recolored);
 			chatMessageManager.update(messageNode);
-		}
-	}
-
-	@Subscribe
-	public void onItemContainerChanged(final ItemContainerChanged event)
-	{
-		if (event.getItemContainer() != client.getItemContainer(InventoryID.EQUIPMENT))
-		{
-			return;
-		}
-
-		if (overlay.getCurrentRound() != null)
-		{
-			return;
-		}
-
-		final Item[] items = event.getItemContainer().getItems();
-
-		// Check that the local player is wearing enough items to be wearing a cape.
-		if (items == null || items.length <= EquipmentInventorySlot.CAPE.getSlotIdx())
-		{
-			return;
-		}
-
-		switch (items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId())
-		{
-			case ItemID.ATTACKER_ICON:
-				overlay.setCurrentRound(new Round(Role.ATTACKER));
-				break;
-			case ItemID.COLLECTOR_ICON:
-				overlay.setCurrentRound(new Round(Role.COLLECTOR));
-				break;
-			case ItemID.DEFENDER_ICON:
-				overlay.setCurrentRound(new Round(Role.DEFENDER));
-				break;
-			case ItemID.HEALER_ICON:
-				overlay.setCurrentRound(new Round(Role.HEALER));
-				break;
 		}
 	}
 
