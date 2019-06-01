@@ -37,10 +37,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
-import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.GameState;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MessageNode;
@@ -50,7 +47,6 @@ import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.MenuEntryAdded;
@@ -186,19 +182,19 @@ public class BarbarianAssaultPlugin extends Plugin
 	public void onWidgetLoaded(WidgetLoaded event)
 	{
 		int groupId = event.getGroupId();
-		if(groupId == WidgetID.BA_ATTACKER_GROUP_ID)
+		if (groupId == WidgetID.BA_ATTACKER_GROUP_ID)
 		{
 			overlay.setCurrentRound(new Round(Role.ATTACKER));
 		}
-		else if(groupId == WidgetID.BA_DEFENDER_GROUP_ID)
+		else if (groupId == WidgetID.BA_DEFENDER_GROUP_ID)
 		{
 			overlay.setCurrentRound(new Round(Role.DEFENDER));
 		}
-		else if(groupId == WidgetID.BA_HEALER_GROUP_ID)
+		else if (groupId == WidgetID.BA_HEALER_GROUP_ID)
 		{
 			overlay.setCurrentRound(new Round(Role.HEALER));
 		}
-		else if(groupId == WidgetID.BA_COLLECTOR_GROUP_ID)
+		else if (groupId == WidgetID.BA_COLLECTOR_GROUP_ID)
 		{
 			overlay.setCurrentRound(new Round(Role.COLLECTOR));
 		}
