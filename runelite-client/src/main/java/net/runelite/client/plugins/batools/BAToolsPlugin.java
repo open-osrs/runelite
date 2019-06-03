@@ -439,12 +439,12 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 
 		if (config.swapDestroyEggs() & (target.equals("red egg") || target.equals("green egg") || target.equals("blue egg")))
 		{
-			menuManager.addSwap("destroy", option, target, false);
+			menuManager.addSwap("destroy", option, target);
 		}
 
 		if (config.swapCollectorBag() & target.equals("collection bag"))
 		{
-			menuManager.addSwap("empty", option, target, false);
+			menuManager.addSwap("empty", option, target);
 		}
 
 		if (config.swapLadder() && option.equals("climb-down") && target.equals("ladder"))
@@ -524,11 +524,11 @@ public class BAToolsPlugin extends Plugin implements KeyListener
 			}
 			else if ((option.equals("fix")) && client.getWidget(WidgetInfo.BA_DEF_ROLE_TEXT) == null)//if not defender
 			{
-				menuManager.removeSwap(option, target, true);
+				remove(option, target);
 			}
 			else if ((option.equals("block") && target.equals("penance cave") && config.removePenanceCave()))
 			{
-				menuManager.removeSwap(option, target, true);
+				remove(option, target);
 			}
 
 			else if ((option.equals("load")) && client.getWidget(BA_COLL_ROLE_TEXT) == null)//if not collector, remove hopper options

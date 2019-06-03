@@ -657,11 +657,6 @@ public class MenuManager
 		addSwap(option, target, option2, target, true, false);
 	}
 
-	public void addSwap(String optionA, String optionB, String target, boolean strict)
-	{
-		addSwap(optionA, target, optionB, target, strict, false);
-	}
-
 
 	/**
 	 * Adds to the map of swaps.
@@ -793,12 +788,6 @@ public class MenuManager
 		{
 			swaps.remove(entry);
 		}
-	}
-
-
-	public void removeSwap(String optionA, String target, boolean strict)
-	{
-		removeSwap(optionA, target, false);
 	}
 
 
