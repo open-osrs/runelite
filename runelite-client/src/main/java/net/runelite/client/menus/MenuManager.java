@@ -657,7 +657,6 @@ public class MenuManager
 		addSwap(option, target, option2, target, true, false);
 	}
 
-
 	/**
 	 * Adds to the map of swaps.
 	 */
@@ -789,7 +788,6 @@ public class MenuManager
 			swaps.remove(entry);
 		}
 	}
-
 
 	/**
 	 * Removes all swaps with target
