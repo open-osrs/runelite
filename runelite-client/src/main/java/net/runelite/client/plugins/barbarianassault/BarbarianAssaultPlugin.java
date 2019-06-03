@@ -185,8 +185,8 @@ public class BarbarianAssaultPlugin extends Plugin
 		{
 			case WidgetID.BA_REWARD_GROUP_ID:
 			{
-				Widget pointsWidget = client.getWidget(WidgetInfo.BA_RUNNERS_PASSED);
 				Widget rewardWidget = client.getWidget(WidgetInfo.BA_REWARD_TEXT);
+				Widget pointsWidget = client.getWidget(WidgetInfo.BA_RUNNERS_PASSED);
 				if (!rewardWidget.getText().contains(ENDGAME_REWARD_NEEDLE_TEXT) && pointsWidget != null
 						&& !hasAnnounced && client.getVar(Varbits.IN_GAME_BA) == 0)
 				{
