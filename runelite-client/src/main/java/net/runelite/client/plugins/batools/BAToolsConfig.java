@@ -203,7 +203,7 @@ public interface BAToolsConfig extends Config
 
 	@ConfigItem(
 			keyName = "removePenanceCave",
-			name = "Remove 'Block' Penance Cave",
+			name = "Remove Block Penance Cave",
 			description = "Removes unnecessary menu option, however Moon wanted it back"
 	)
 	default boolean removePenanceCave()
