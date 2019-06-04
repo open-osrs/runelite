@@ -542,7 +542,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		final NPC hintArrowNpc = client.getHintArrowNpc();
 		entries = client.getMenuEntries();
 
-		if (option.contains("withdraw") || option.contains("deposit"))
+		if ((option.contains("withdraw") || option.contains("deposit")) && (config.shiftWithdrawal() && shiftModifier))
 		{
 			if (config.getWithdrawOne())
 			{
