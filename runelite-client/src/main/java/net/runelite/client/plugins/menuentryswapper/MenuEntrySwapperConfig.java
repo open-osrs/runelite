@@ -55,7 +55,7 @@ public interface MenuEntrySwapperConfig extends Config
 	@ConfigItem(
 		keyName = "shiftBanking",
 		name = "Only When Holding Shift",
-		description = "Only use withdraw/deposit",
+		description = "Only swap withdraw/deposit options when holding shift",
 		position = 0,
 		group = "Banking"
 	)
@@ -78,7 +78,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "withdrawOneItems",
-		name = "Items",
+		name = "Withdraw/Deposit One Item List",
 		description = "",
 		position = 2,
 		group = "Banking",
@@ -104,7 +104,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "withdrawFiveItems",
-		name = "Items",
+		name = "Withdraw/Deposit Five Item List",
 		description = "",
 		position = 4,
 		group = "Banking",
@@ -130,7 +130,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "withdrawTenItems",
-		name = "Items",
+		name = "Withdraw/Deposit Ten Item List",
 		description = "",
 		position = 6,
 		group = "Banking",
@@ -156,7 +156,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "withdrawXAmount",
-		name = "Amount",
+		name = "Withdraw/Deposit X Amount",
 		description = "",
 		position = 8,
 		group = "Banking",
@@ -170,7 +170,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "withdrawXItems",
-		name = "Items",
+		name = "Withdraw/Deposit X Item List",
 		description = "",
 		position = 9,
 		group = "Banking",
@@ -196,7 +196,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "withdrawAllItems",
-		name = "Items",
+		name = "Withdraw/Deposit All Item List",
 		description = "",
 		position = 11,
 		group = "Banking",
@@ -215,7 +215,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swap Max Cape",
 		description = "Enables swapping max cape options in worn interface.",
 		position = 12,
-		group = "Equipment swapper"
+		group = "Equipment Swapper"
 	)
 	default boolean swapMax()
 	{
@@ -227,7 +227,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Mode",
 		description = "",
 		position = 13,
-		group = "Equipment swapper",
+		group = "Equipment Swapper",
 		hidden = true,
 		unhide = "swapMax"
 	)
@@ -241,7 +241,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swap Ardougne Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 14,
-		group = "Equipment swapper"
+		group = "Equipment Swapper"
 	)
 	default boolean getSwapArdougneCape()
 	{
@@ -253,7 +253,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swap Construction Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 15,
-		group = "Equipment swapper"
+		group = "Equipment Swapper"
 	)
 	default boolean getSwapConstructionCape()
 	{
@@ -265,7 +265,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swap Crafting Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 16,
-		group = "Equipment swapper"
+		group = "Equipment Swapper"
 	)
 	default boolean getSwapCraftingCape()
 	{
@@ -277,7 +277,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swap Magic Cape",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
 		position = 17,
-		group = "Equipment swapper"
+		group = "Equipment Swapper"
 	)
 	default boolean getSwapMagicCape()
 	{
@@ -289,7 +289,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swap Explorer's Ring",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
 		position = 18,
-		group = "Equipment swapper"
+		group = "Equipment Swapper"
 	)
 	default boolean getSwapExplorersRing()
 	{
@@ -301,7 +301,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Admire",
 		description = "Swap 'Admire' with 'Teleport', 'Spellbook' and 'Perks' (max cape) for mounted skill capes.",
 		position = 19,
-		group = "Equipment swapper"
+		group = "Equipment Swapper"
 	)
 	default boolean swapAdmire()
 	{
@@ -643,7 +643,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Only When Holding Shift",
 		description = "Only swap buy/sell options when holding shift",
 		position = 44,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean shiftShopping()
 	{
@@ -655,7 +655,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Buy One",
 		description = "",
 		position = 45,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapBuyOne()
 	{
@@ -664,9 +664,9 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "buyOneItems",
-		name = "Items",
+		name = "Buy One Item List",
 		description = "",
-		group = "Shop / stores",
+		group = "Shopping",
 		position = 46,
 		hidden = true,
 		unhide = "swapBuyOne"
@@ -681,7 +681,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Buy Five",
 		description = "",
 		position = 47,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapBuyFive()
 	{
@@ -690,10 +690,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "buyFiveItems",
-		name = "Items",
+		name = "Buy Five Item List",
 		description = "",
 		position = 48,
-		group = "Shop / stores",
+		group = "Shopping",
 		hidden = true,
 		unhide = "swapBuyFive"
 	)
@@ -707,7 +707,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Buy Ten",
 		description = "",
 		position = 49,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapBuyTen()
 	{
@@ -716,10 +716,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "buyTenItems",
-		name = "Items",
+		name = "Buy Ten Item List",
 		description = "",
 		position = 50,
-		group = "Shop / stores",
+		group = "Shopping",
 		hidden = true,
 		unhide = "swapBuyTen"
 	)
@@ -733,7 +733,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Buy Fifty",
 		description = "",
 		position = 51,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapBuyFifty()
 	{
@@ -742,10 +742,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "buyFiftyItems",
-		name = "Items",
+		name = "Buy Fifty Item List",
 		description = "",
 		position = 52,
-		group = "Shop / stores",
+		group = "Shopping",
 		hidden = true,
 		unhide = "swapBuyFifty"
 	)
@@ -759,7 +759,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Sell One",
 		description = "",
 		position = 53,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapSellOne()
 	{
@@ -768,10 +768,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "sellOneItems",
-		name = "Items",
+		name = "Sell One Item List",
 		description = "",
 		position = 54,
-		group = "Shop / stores",
+		group = "Shopping",
 		hidden = true,
 		unhide = "swapSellOne"
 	)
@@ -785,7 +785,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Sell Five",
 		description = "",
 		position = 55,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapSellFive()
 	{
@@ -794,10 +794,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "sellFiveItems",
-		name = "Items",
+		name = "Sell Five Item List",
 		description = "",
 		position = 56,
-		group = "Shop / stores",
+		group = "Shopping",
 		hidden = true,
 		unhide = "swapSellFive"
 	)
@@ -811,7 +811,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Sell Ten",
 		description = "",
 		position = 57,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapSellTen()
 	{
@@ -820,10 +820,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "sellTenItems",
-		name = "Items",
+		name = "Sell Ten Item List",
 		description = "",
 		position = 58,
-		group = "Shop / stores",
+		group = "Shopping",
 		hidden = true,
 		unhide = "swapSellTen"
 	)
@@ -837,7 +837,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Swappable Sell Fifty",
 		description = "",
 		position = 59,
-		group = "Shop / stores"
+		group = "Shopping"
 	)
 	default boolean getSwapSellFifty()
 	{
@@ -846,10 +846,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "sellFiftyItems",
-		name = "Items",
+		name = "Sell Fifty Item List",
 		description = "",
 		position = 60,
-		group = "Shop / stores",
+		group = "Shopping",
 		hidden = true,
 		unhide = "swapSellFifty"
 	)
