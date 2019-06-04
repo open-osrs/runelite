@@ -792,4 +792,9 @@ public class MenuManager
 	{
 		hiddenEntries.remove(entry);
 	}
+
+	public void clearSwaps()
+	{
+		swaps.clear();
+	}
 }

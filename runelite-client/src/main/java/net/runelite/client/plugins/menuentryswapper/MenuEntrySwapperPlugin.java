@@ -612,7 +612,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 1", option, target);
+						menuManager.addSwap("Value", target, "Buy 1", target, true, false);
 					}
 				}
 			}
@@ -623,7 +623,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 5", option, target);
+						menuManager.addSwap("Value", target, "Buy 5", target, true, false);
 					}
 				}
 			}
@@ -634,7 +634,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 10", option, target);
+						menuManager.addSwap("Value", target, "Buy 10", target, true, false);
 					}
 				}
 			}
@@ -645,7 +645,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Buy 50", option, target);
+						menuManager.addSwap("Value", target, "Buy 50", target, true, false);
 					}
 				}
 			}
@@ -658,7 +658,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 1", option, target);
+						menuManager.addSwap("Value", target, "Sell 1", target, true, false);
 					}
 				}
 			}
@@ -669,7 +669,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 5", option, target);
+						menuManager.addSwap("Value", target, "Sell 5", target, true, false);
 					}
 				}
 			}
@@ -680,7 +680,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 10", option, target);
+						menuManager.addSwap("Value", target, "Sell 10", target, true, false);
 					}
 				}
 			}
@@ -691,10 +691,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Sell 50", option, target);
+						menuManager.addSwap("Value", target, "Sell 50", target, true, false);
 					}
 				}
 			}
+		} else if ((option.contains("buy") && (config.shiftShopping() && !shiftModifier))
+			|| option.contains("sell") && (config.shiftShopping() && !shiftModifier)) {
+			removeSwaps();
+			addSwaps();
 		}
 
 		if (config.getRemoveObjects() && !config.getRemovedObjects().equals(""))
@@ -1443,7 +1447,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removeSwaps("ring of wealth");
 		menuManager.removeSwaps("max cape");
 		menuManager.removeSwaps("quest point cape");
-		
+		menuManager.clearSwaps();
 	}
 
 	private void delete(int target)
