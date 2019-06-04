@@ -541,7 +541,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		final NPC hintArrowNpc = client.getHintArrowNpc();
 		entries = client.getMenuEntries();
 
-		if ((option.contains("withdraw") || option.contains("deposit")) && (config.shiftWithdrawal() && shiftModifier))
+		if ((option.contains("withdraw") || option.contains("deposit")) &&
+			(!config.shiftWithdrawal() || config.shiftWithdrawal() && shiftModifier))
 		{
 			if (config.getWithdrawOne())
 			{
@@ -604,7 +605,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		}
 
-		if (option.contains("buy"))
+		if (option.contains("buy") && (!config.shiftShopping() || config.shiftShopping() && shiftModifier))
 		{
 			if (config.getSwapBuyOne() && !config.getBuyOneItems().equals(""))
 			{
@@ -650,7 +651,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 		}
-		else if (option.contains("sell"))
+		else if (option.contains("sell") && (!config.shiftShopping() || config.shiftShopping() && shiftModifier))
 		{
 			if (config.getSwapSellOne() && !config.getSellOneItems().equals(""))
 			{
@@ -695,8 +696,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 					}
 				}
 			}
-		} else if ((option.contains("buy") && (config.shiftShopping() && !shiftModifier))
-			|| option.contains("sell") && (config.shiftShopping() && !shiftModifier)) {
+		}
+		else if ((option.contains("buy") && (config.shiftShopping() && !shiftModifier))
+			|| option.contains("sell") && (config.shiftShopping() && !shiftModifier))
+		{
 			menuManager.clearSwaps();
 			addSwaps();
 		}
