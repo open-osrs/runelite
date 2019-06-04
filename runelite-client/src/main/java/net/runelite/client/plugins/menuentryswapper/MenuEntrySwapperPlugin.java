@@ -199,7 +199,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		//todo re-enable when fixed.
 		/*loadConstructionIDs("");*/
 		loadCustomSwaps(""); // Removes all custom swaps
-		removeSwaps();
+		menuManager.clearSwaps();
 	}
 
 	@Subscribe
@@ -212,7 +212,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		//todo re-enable when fixed.
 
 		/*loadConstructionIDs(config.getConstructionItems());*/
-		removeSwaps();
+		menuManager.clearSwaps();
 		addSwaps();
 
 		if (!CONFIG_GROUP.equals(event.getGroup()))
@@ -697,7 +697,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		} else if ((option.contains("buy") && (config.shiftShopping() && !shiftModifier))
 			|| option.contains("sell") && (config.shiftShopping() && !shiftModifier)) {
-			removeSwaps();
+			menuManager.clearSwaps();
 			addSwaps();
 		}
 
@@ -1429,25 +1429,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			menuManager.addSwap("remove", "quest point cape", config.questCapeMode().toString());
 		}
-	}
-
-	private void removeSwaps()
-	{
-		menuManager.removeSwaps("burning amulet");
-		menuManager.removeSwaps("combat bracelet");
-		menuManager.removeSwaps("games necklace");
-		menuManager.removeSwaps("ring of dueling");
-		menuManager.removeSwaps("amulet of glory");
-		menuManager.removeSwaps("amulet of eternal glory");
-		menuManager.removeSwaps("skills necklace");
-		menuManager.removeSwaps("necklace of passage");
-		menuManager.removeSwaps("digsite pendant");
-		menuManager.removeSwaps("slayer ring");
-		menuManager.removeSwaps("xeric's talisman");
-		menuManager.removeSwaps("ring of wealth");
-		menuManager.removeSwaps("max cape");
-		menuManager.removeSwaps("quest point cape");
-		menuManager.clearSwaps();
 	}
 
 	private void delete(int target)
