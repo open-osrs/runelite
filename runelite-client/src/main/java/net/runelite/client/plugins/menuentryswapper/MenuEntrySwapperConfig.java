@@ -1587,13 +1587,25 @@ public interface MenuEntrySwapperConfig extends Config
 		return false;
 	}
 
+	@ConfigItem(
+			keyName = "hideDestroyHerbsack",
+			name = "Hide Destroy on Herb sack",
+			description = "Hides the 'Destroy' option when right clicking a Herb sack.",
+			position = 119,
+			group = "Right Click Options"
+	)
+	default boolean hideDestroyHerbsack()
+	{
+		return false;
+	}
+
 	//------------------------------------------------------------//
 
 	@ConfigItem(
 			keyName = "swapImps",
 			name = "Impling Jars",
 			description = "Don't open implings if bank has a clue.",
-			position = 119,
+			position = 120,
 			group = "Miscellaneous"
 	)
 	default boolean swapImps()
