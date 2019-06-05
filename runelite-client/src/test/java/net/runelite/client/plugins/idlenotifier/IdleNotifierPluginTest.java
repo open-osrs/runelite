@@ -73,6 +73,10 @@ public class IdleNotifierPluginTest
 	@Mock
 	@Bind
 	private Notifier notifier;
+	
+	@Mock
+	@Bind
+	ChatColorConfig chatColorConfig;
 
 	@Inject
 	private IdleNotifierPlugin plugin;
