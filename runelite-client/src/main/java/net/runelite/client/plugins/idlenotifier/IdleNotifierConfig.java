@@ -153,5 +153,53 @@ public interface IdleNotifierConfig extends Config
 	{
 		return false;
 	}
+	
+	@ConfigItem(
+		keyName = "friends",
+		name = "Friends Notifer",
+		position = 10,
+		description = "Configures whether or not friends trigger a notification",
+		group = "PvP"
+	)
+	default boolean notifyFriends()
+	{
+		return false;
+	}
 
+	@ConfigItem(
+		keyName = "clan",
+		name = "Clan Notifier",
+		position = 11,
+		description = "Configures whether or not clan members trigger a notification",
+		group = "PvP"
+	)
+	default boolean notifyClan()
+	{
+		return false;
+	}
+
+
+	@ConfigItem(
+		keyName = "Beep",
+		name = "Warning Notification",
+		position = 11,
+		description = "Configures whether or not to trigger a beeping warning sound",
+		group = "PvP"
+	)
+	default boolean notifyWarningSound()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "Arrow",
+		name = "Draw Arrow",
+		position = 11,
+		description = "Configures whether or not to draw an arrow on new people who have spawned",
+		group = "PvP"
+	)
+	default boolean notifyArrow()
+	{
+		return false;
+	}
 }
