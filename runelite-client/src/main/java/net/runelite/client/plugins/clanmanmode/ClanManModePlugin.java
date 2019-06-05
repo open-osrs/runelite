@@ -142,7 +142,7 @@ public class ClanManModePlugin extends Plugin
 		}
 		else if (!config.hideAtkOpt())
 		{
-			menuManager.addPriorityEntry(WALK_HERE);
+			menuManager.removePriorityEntry(WALK_HERE);
 		}
 
 		final String option = Text.removeTags(event.getOption()).toLowerCase();
