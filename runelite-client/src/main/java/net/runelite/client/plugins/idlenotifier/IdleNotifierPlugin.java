@@ -399,7 +399,7 @@ public class IdleNotifierPlugin extends Plugin
 
 			if (config.notifyArrow())
 			{
-				WorldPoint hint = new WorldPoint(spawned.getWorldLocation().getX(),spawned.getWorldLocation().getY(),spawned.getWorldLocation().getPlane());
+				WorldPoint hint = new WorldPoint(spawned.getWorldLocation().getX(), spawned.getWorldLocation().getY(), spawned.getWorldLocation().getPlane());
 
 					client.setHintArrow(hint);
 			}
@@ -420,7 +420,7 @@ public class IdleNotifierPlugin extends Plugin
 				}
 
 				String chatMessage = new ChatMessageBuilder()
-						.append(spawned.getName() + " (" + spawnedLevel + ") - " + distance/128 + " tiles away! ")
+						.append(spawned.getName() + " (" + spawnedLevel + ") - " + distance / 128 + " tiles away! ")
 						.build();
 
 				chatMessageManager.queue(QueuedMessage.builder()
