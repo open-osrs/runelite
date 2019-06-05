@@ -181,6 +181,9 @@ public class IdleNotifierPlugin extends Plugin
 
 	@Inject
 	private Client client;
+	
+	@Inject
+	private ChatMessageManager chatMessageManager;
 
 	@Inject
 	private IdleNotifierConfig config;
