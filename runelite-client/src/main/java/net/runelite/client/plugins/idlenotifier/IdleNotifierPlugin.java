@@ -122,6 +122,7 @@ import static net.runelite.api.AnimationID.WOODCUTTING_IRON;
 import static net.runelite.api.AnimationID.WOODCUTTING_MITHRIL;
 import static net.runelite.api.AnimationID.WOODCUTTING_RUNE;
 import static net.runelite.api.AnimationID.WOODCUTTING_STEEL;
+import net.runelite.api.ChatMessageType
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.coords.WorldPoint;
@@ -371,7 +372,7 @@ public class IdleNotifierPlugin extends Plugin
 			}
 		}
 		
-		Player spawned = playerSpawned.getPlayer();
+		Player spawned = event.getPlayer();
 		if (!config.notifyClan())
 		{
 			if (spawned.isClanMember())
