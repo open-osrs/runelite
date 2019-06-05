@@ -44,6 +44,7 @@ import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.client.Notifier;
+import net.runelite.client.config.ChatColorConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -85,6 +86,10 @@ public class IdleNotifierPluginTest
 
 	@Mock
 	private Player player;
+
+	@Mock
+	@Bind
+	private ChatColorConfig chatColorConfig;
 
 	@Before
 	public void setUp()
