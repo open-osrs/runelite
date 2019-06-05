@@ -167,15 +167,4 @@ public class ClanManModePlugin extends Plugin
 		}	
 
 	}
-
-	void startPrioritizing()
-	{
-		menuManager.addPriorityEntry(WALK_HERE);
-	}
-
-	void stopPrioritizing()
-	{
-		menuManager.removePriorityEntry(WALK_HERE);
-	}
-
 }
