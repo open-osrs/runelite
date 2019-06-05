@@ -142,6 +142,20 @@ public class ClanManModePlugin extends Plugin
 		{
 			return;
 		}
+		
+		Player[] players = client.getCachedPlayers();
+		Player player = null;
+		int identifier = event.getIdentifier();
+
+		if (identifier >= 0 && identifier < players.length)
+		{
+			player = players[identifier];
+		}
+
+		if (player == null)
+		{
+			return;
+		}
 
 		final String pOptionToReplace = Text.removeTags(event.getOption()).toUpperCase();
 
@@ -151,7 +165,9 @@ public class ClanManModePlugin extends Plugin
 			return;
 		}
 
-		if (config.hideAtkOpt() && ATTACK_OPTIONS_KEYWORDS.contains(pOptionToReplace))
+		if (config.hideAtkOpt()
+				&& ATTACK_OPTIONS_KEYWORDS.contains(pOptionToReplace)
+				&&  (player.isFriend() || player.isClanMember()))
 		{
 			swap(pOptionToReplace);
 		}
