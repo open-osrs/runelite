@@ -19,6 +19,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ClanManager;
+import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -36,6 +37,9 @@ import org.apache.commons.lang3.ArrayUtils;
 
 public class ClanManModePlugin extends Plugin
 {
+
+	private static final String WALK_HERE = "Walk here";
+
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -50,6 +54,9 @@ public class ClanManModePlugin extends Plugin
 
 	@Inject
 	private ClanManModeMinimapOverlay ClanManModeMinimapOverlay;
+
+	@Inject
+	private MenuManager menuManager;	
 
 	@Inject
 	private Client client;
@@ -125,13 +132,17 @@ public class ClanManModePlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!config.hideAtkOpt())
-		{
-			return;
-		}
 		if (client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
+		}
+		if (config.hideAtkOpt())
+		{
+			menuManager.addPriorityEntry(WALK_HERE);
+		}
+		else if (!config.hideAtkOpt())
+		{
+			menuManager.addPriorityEntry(WALK_HERE);
 		}
 
 		final String option = Text.removeTags(event.getOption()).toLowerCase();
@@ -153,7 +164,18 @@ public class ClanManModePlugin extends Plugin
 					}
 				}
 			}
-		}
+		}	
+
+	}
+
+	void startPrioritizing()
+	{
+		menuManager.addPriorityEntry(WALK_HERE);
+	}
+
+	void stopPrioritizing()
+	{
+		menuManager.removePriorityEntry(WALK_HERE);
 	}
 
 }
