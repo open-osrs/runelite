@@ -18,12 +18,15 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
 	name = "Inferno",
 	description = "Inferno helper",
-	tags = {"combat", "overlay", "pve", "pvm"}
+	tags = {"inferno","combat", "overlay", "pve", "pvm"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 public class InfernoPlugin extends Plugin
 {
