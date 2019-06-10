@@ -170,10 +170,12 @@ public class PvpToolsPlugin extends Plugin
 	};
 
 	private final HotkeyListener renderselfHotkeyListener = new HotkeyListener(() -> config.renderSelf())
-	{ //TODO FIX
+	{
 		public void hotkeyPressed()
 		{
-			//client.toggleRenderSelf();
+			// Making the assumption here the player wants both 2D and 3D hidden
+			// This will not change the
+			client.setLocalPlayerHidden(!client.isLocalPlayerHidden());
 		}
 	};
 

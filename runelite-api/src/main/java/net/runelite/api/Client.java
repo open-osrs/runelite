@@ -1412,6 +1412,11 @@ public interface Client extends GameShell
 	void setLocalPlayerHidden(boolean state);
 
 	/**
+	 * Returns true if the local player is hidden.
+	 */
+	boolean isLocalPlayerHidden();
+
+	/**
 	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
 	 * the local player are hidden.
 	 *

@@ -108,6 +108,13 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
+	public boolean isLocalPlayerHidden()
+	{
+		return hideLocalPlayer;
+	}
+
+	@Inject
+	@Override
 	public void setLocalPlayerHidden2D(boolean state)
 	{
 		hideLocalPlayer2D = state;
