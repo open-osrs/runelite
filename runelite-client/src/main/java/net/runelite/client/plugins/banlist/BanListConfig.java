@@ -58,7 +58,7 @@ public interface BanListConfig extends Config
 	)
 	default boolean highlightInClan()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
