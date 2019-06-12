@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Cameron <https://github.com/noremac201>
+ * Copyright (c) 2018, https://runelitepl.us
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,50 +24,51 @@
  */
 package net.runelite.client.plugins.barbarianassault;
 
+import lombok.Getter;
+
 import java.time.Duration;
 import java.time.Instant;
-import javax.inject.Inject;
-import lombok.Getter;
-import lombok.Setter;
-import net.runelite.api.Constants;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-class Round
+class Timer
 {
-	private final Instant roundStartTime;
-
 	@Getter
-	private final Role roundRole;
+	private final Instant startTime;
 
-	@Getter
-	@Setter
-	private boolean runnersKilled;
-
-	@Getter
-	@Setter
-	private boolean rangersKilled;
-
-	@Getter
-	@Setter
-	private boolean healersKilled;
-
-	@Getter
-	@Setter
-	private boolean fightersKilled;
-
-	@Inject
-	public Round(Role role)
+	Timer()
 	{
-		this.roundRole = role;
-		this.roundStartTime = Instant.now().plusMillis(2 * Constants.GAME_TICK_LENGTH);
+		this.startTime = Instant.now();
 	}
 
-	public long getRoundTime()
+	Timer(Instant startTime)
 	{
-		return Duration.between(roundStartTime, Instant.now()).getSeconds();
+		this.startTime = startTime;
 	}
 
-	long getTimeToChange()
+	long getElapsedTime()
 	{
-		return 30 + (Duration.between(Instant.now(), roundStartTime).getSeconds() % 30);
+		return Duration.between(startTime, Instant.now()).getSeconds();
+	}
+
+	String getElapsedTimeFormatted()
+	{
+		return formatTime(LocalTime.ofSecondOfDay(getElapsedTime()));
+	}
+
+	private static String formatTime(LocalTime time)
+	{
+		if (time.getHour() > 0)
+		{
+			return time.format(DateTimeFormatter.ofPattern("HH:mm"));
+		}
+		else if (time.getMinute() > 9)
+		{
+			return time.format(DateTimeFormatter.ofPattern("mm:ss"));
+		}
+		else
+		{
+			return time.format(DateTimeFormatter.ofPattern("m:ss"));
+		}
 	}
 }

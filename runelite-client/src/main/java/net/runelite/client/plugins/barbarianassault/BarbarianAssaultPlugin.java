@@ -24,34 +24,25 @@
  */
 package net.runelite.client.plugins.barbarianassault;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.inject.Provides;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
 import javax.inject.Inject;
-import lombok.AccessLevel;
+
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.ItemID;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.MessageNode;
-import net.runelite.api.Player;
-import net.runelite.api.Tile;
-import net.runelite.api.Varbits;
+
+import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.ItemDespawned;
-import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.VarbitChanged;
-import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.events.*;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -61,69 +52,46 @@ import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
+
+import static net.runelite.api.widgets.WidgetInfo.*;
+
 
 @Slf4j
 
 
 @PluginDescriptor(
-	name = "Barbarian Assault+",
-	description = "Custom barbarian assault plugin, use along with BA Tools",
-	tags = {"minigame", "overlay", "timer"},
-	type = PluginType.PVM // don't remove this, added this because our barbarian assault plugin is big time modified
+		name = "Barbarian Assault+",
+		description = "Custom barbarian assault plugin, use along with BA Tools",
+		tags = {"minigame", "overlay", "timer"},
+		type = PluginType.PVM // don't remove this, added this because our barbarian assault plugin is big time modified
 )
-public class BarbarianAssaultPlugin extends Plugin
+public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 {
-	private static final int BA_WAVE_NUM_INDEX = 2;
-	private static final String START_WAVE = "1";
 	private static final String ENDGAME_REWARD_NEEDLE_TEXT = "<br>5";
 
-	@Getter
-	private int collectedEggCount = 0;
+	private static final WorldPoint healerSpawnPoint = new WorldPoint(1898, 1586, 0);
 
-	@Getter
-	private int positiveEggCount = 0;
+	private static final List REGIONS = ImmutableList.of(10322, 7509, 7508);
 
-	@Getter
-	private int wrongEggs = 0;
+	private static final String[] STYLES = {"Defensive", "Aggressive", "Controlled", "Accurate"};
 
-	@Getter
-	private int HpHealed = 0;
+	private static final int COLOR_CALL_UPDATED = 16316664;
 
-	@Getter
-	private int totalCollectedEggCount = 0;
+	private static final int LEAVE_EARLY_WIDGET_ID = 14352385;
 
-	@Getter
-	private int totalHpHealed = 0;
-
-	private boolean hasAnnounced;
-	private Font font;
-	private final Image clockImage = ImageUtil.getResourceStreamFromClass(getClass(), "clock.png");
-	private int inGameBit = 0;
-	private String currentWave = START_WAVE;
-	private GameTimer gameTime;
-
-	@Getter(AccessLevel.PACKAGE)
-	private final HashMap<WorldPoint, Integer> redEggs = new HashMap<>();
-
-	@Getter(AccessLevel.PACKAGE)
-	private final HashMap<WorldPoint, Integer> greenEggs = new HashMap<>();
-
-	@Getter(AccessLevel.PACKAGE)
-	private final HashMap<WorldPoint, Integer> blueEggs = new HashMap<>();
-
-	@Getter(AccessLevel.PACKAGE)
-	private final HashMap<WorldPoint, Integer> yellowEggs = new HashMap<>();
+	private static final int BA_WAVE_NUM_INDEX = 2;
 
 	@Inject
-	@Getter
 	private Client client;
 
 	@Inject
@@ -136,7 +104,83 @@ public class BarbarianAssaultPlugin extends Plugin
 	private BarbarianAssaultConfig config;
 
 	@Inject
-	private BarbarianAssaultOverlay overlay;
+	private AboveWidgetsOverlay widgetsOverlay;
+
+	@Inject
+	private AboveSceneOverlay sceneOverlay;
+
+	@Inject
+	private BarbarianAssaultMenu menu;
+
+	@Inject
+	private ItemManager itemManager;
+
+	@Inject
+	private InfoBoxManager infoBoxManager;
+
+	@Getter
+	private boolean inGame = false;
+
+	@Getter
+	private Wave wave = null;
+
+	@Getter
+	private Role role = null;
+
+	@Getter
+	private Scorecard scorecard = null;
+
+	@Getter
+	private Timer gameTimer = null;
+
+	@Getter
+	private int stage = -1;
+
+	@Getter
+	private Image clockImage;
+
+	@Getter
+	private Font font;
+
+	@Getter
+	private final HashMap<WorldPoint, Integer> redEggs = new HashMap<>();
+
+	@Getter
+	private final HashMap<WorldPoint, Integer> greenEggs = new HashMap<>();
+
+	@Getter
+	private final HashMap<WorldPoint, Integer> blueEggs = new HashMap<>();
+
+	@Getter
+	private final HashMap<WorldPoint, Integer> yellowEggs = new HashMap<>();
+
+	@Getter
+	private final Map<NPC, Healer> healers = new HashMap<>();
+
+	private final HashMap<Integer, Instant> foodPressed = new HashMap<>();
+
+	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles;
+
+	private int lastCallColor = -1;
+
+	private String lastCallText = null;
+
+	private String lastListenText = null;
+
+	private int tickNum;
+
+	private boolean tickReset;
+
+	private CycleCounter counter;
+
+	private Actor lastInteracted;
+
+	private int lastHealer;
+
+	private boolean shiftDown;
+
+	private boolean ctrlDown;
+
 
 	@Provides
 	BarbarianAssaultConfig provideConfig(ConfigManager configManager)
@@ -144,29 +188,109 @@ public class BarbarianAssaultPlugin extends Plugin
 		return configManager.getConfig(BarbarianAssaultConfig.class);
 	}
 
-	private Game game;
-	private Wave wave;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		overlayManager.add(overlay);
-		font = FontManager.getRunescapeFont()
-			.deriveFont(Font.BOLD, 24);
+		font = FontManager.getRunescapeFont().deriveFont(Font.BOLD, 24);
+		clockImage = ImageUtil.getResourceStreamFromClass(getClass(), "clock.png");
+		overlayManager.add(widgetsOverlay);
+		overlayManager.add(sceneOverlay);
+		validateRole();
+		menu.enableSwaps();
+		menu.validateHiddenMenus(getRole());
+		//inGame = client.getVar(Varbits.IN_GAME_BA) == 1;
+		//clientThread.invoke(() -> inGame = client.getVar(Varbits.IN_GAME_BA) == 1);
+
+
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		overlayManager.remove(overlay);
-		gameTime = null;
-		currentWave = START_WAVE;
-		inGameBit = 0;
-		collectedEggCount = 0;
-		positiveEggCount = 0;
-		wrongEggs = 0;
-		HpHealed = 0;
-		clearAllEggMaps();
+		overlayManager.remove(widgetsOverlay);
+		overlayManager.remove(sceneOverlay);
+		menu.disableSwaps();
+		menu.clearHiddenMenus();
+		resetWave();
+		font = null;
+		clockImage = null;
+		scorecard = null;
+		gameTimer = null;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e)
+	{
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT)
+		{
+			shiftDown = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
+		{
+			ctrlDown = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT)
+		{
+			shiftDown = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
+		{
+			ctrlDown = false;
+		}
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged configChanged)
+	{
+		if (!configChanged.getGroup().equals("barbarianAssault"))
+		{
+			return;
+		}
+
+		switch (configChanged.getKey())
+		{
+			case "swapLadder":
+			case "swapCollectorBag":
+			case "swapDestroyEggs":
+				if (Boolean.valueOf(configChanged.getNewValue()))
+				{
+					menu.enableSwaps();
+				}
+				else
+				{
+					menu.disableSwaps();
+				}
+				break;
+
+			case "defTimer":
+				if (Boolean.valueOf(configChanged.getNewValue()))
+				{
+					addTickTimer();
+				}
+				else
+				{
+					removeTickTimer();
+				}
+				break;
+
+			case "removePenanceCave":
+			case "removeIncorrectEggs":
+			case "removeUnusedMenus":
+			case "removeWrongPoison":
+				menu.validateHiddenMenus(getRole());
+				break;
+		}
 	}
 
 	@Subscribe
@@ -185,50 +309,80 @@ public class BarbarianAssaultPlugin extends Plugin
 		{
 			case WidgetID.BA_REWARD_GROUP_ID:
 			{
-				Widget rewardWidget = client.getWidget(WidgetInfo.BA_REWARD_TEXT);
-				Widget pointsWidget = client.getWidget(WidgetInfo.BA_RUNNERS_PASSED);
-				if (!rewardWidget.getText().contains(ENDGAME_REWARD_NEEDLE_TEXT) && pointsWidget != null
-					&& !hasAnnounced && client.getVar(Varbits.IN_GAME_BA) == 0)
+				announceWaveTime();
+
+				Widget rewardWidget = client.getWidget(BA_REWARD_TEXT);
+				if (rewardWidget == null)
 				{
-					wave = new Wave(client);
-					wave.setWaveAmounts();
-					wave.setWavePoints();
-					game.getWaves().add(wave);
-					if (config.showSummaryOfPoints())
+					break;
+				}
+
+				Widget pointsWidget = client.getWidget(BA_REWARD_TEXT);
+				if (!rewardWidget.getText().contains(ENDGAME_REWARD_NEEDLE_TEXT))
+				{
+					if (config.showTotalRewards() && pointsWidget != null && wave != null)
 					{
-						announceSomething(wave.getWaveSummary());
+						wave.setAmounts();
+						wave.setPoints();
+
+						announce(wave.getSummary());
+
+						//The scorecard will be null if the plugin was not enabled for any part of the entire game
+						if (scorecard != null)
+						{
+							scorecard.addWave(wave);
+						}
 					}
 				}
-				if (config.waveTimes() && rewardWidget != null && rewardWidget.getText().contains(ENDGAME_REWARD_NEEDLE_TEXT) && gameTime != null)
+				else
 				{
-					announceTime("Game finished, duration: ", gameTime.getTime(false));
-					gameTime = null;
-					if (config.showTotalRewards())
+					announceGameTime();
+
+					if (config.showTotalRewards() && scorecard != null)
 					{
-						announceSomething(game.getGameSummary());
+						announce(scorecard.getGameSummary());
 					}
 				}
 
+				resetWave();
+				break;
 			}
-			break;
+			case WidgetID.DIALOG_MINIGAME_GROUP_ID:
+			{
+				Widget dialogTextWidget = client.getWidget(MINIGAME_DIALOG_TEXT);
+				if (!isInGame() || dialogTextWidget == null)
+				{
+					break;
+				}
+
+				if (dialogTextWidget.getText().startsWith("The game ended"))
+				{
+					resetWave();
+				}
+				break;
+			}
 			case WidgetID.BA_ATTACKER_GROUP_ID:
 			{
-				setOverlayRound(Role.ATTACKER);
+				startWave(Role.ATTACKER);
+				menu.validateHiddenMenus(Role.ATTACKER);
 				break;
 			}
 			case WidgetID.BA_DEFENDER_GROUP_ID:
 			{
-				setOverlayRound(Role.DEFENDER);
+				startWave(Role.DEFENDER);
+				menu.validateHiddenMenus(Role.DEFENDER);
 				break;
 			}
 			case WidgetID.BA_HEALER_GROUP_ID:
 			{
-				setOverlayRound(Role.HEALER);
+				startWave(Role.HEALER);
+				menu.validateHiddenMenus(Role.HEALER);
 				break;
 			}
 			case WidgetID.BA_COLLECTOR_GROUP_ID:
 			{
-				setOverlayRound(Role.COLLECTOR);
+				startWave(Role.COLLECTOR);
+				menu.validateHiddenMenus(Role.COLLECTOR);
 				break;
 			}
 		}
@@ -237,122 +391,63 @@ public class BarbarianAssaultPlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage)
 	{
-		if (chatMessage.getMessage().toLowerCase().contains("testing"))
-		{
-			ArrayList<Wave> waves = new ArrayList<>();
-			for (int i = 0; i < 1; i++)
-			{
-				Wave wave1 = new Wave(client);
-				int[] amounts = {4, 0, 30, 10, 1, 38};
-				int[] points = {-3, -2, 6, -4, -8, -11};
-				int[] otherPoints = {38, 35, 33, 30};
-				wave1.setWaveAmounts(amounts);
-				wave1.setWavePoints(points, otherPoints);
-				waves.add(wave1);
-				announceSomething(wave1.getWaveSummary());
-			}
-			Game game1 = new Game(client, waves);
-			announceSomething(game1.getGameSummary());
-		}
-		if (chatMessage.getMessage().toLowerCase().startsWith("wave points"))
-		{
-			hasAnnounced = true;
-		}
 		if (!chatMessage.getType().equals(ChatMessageType.GAMEMESSAGE))
 		{
 			return;
 		}
-		int inGame = client.getVar(Varbits.IN_GAME_BA);
-		if (inGameBit != inGame)
+
+		final String message = chatMessage.getMessage();
+		if (message.startsWith("---- Wave:"))
 		{
-			return;
-		}
-		final String message = chatMessage.getMessage().toLowerCase();
-		final MessageNode messageNode = chatMessage.getMessageNode();
-		final String nodeValue = Text.removeTags(messageNode.getValue());
-		String recolored = null;
-		if (chatMessage.getMessage().startsWith("---- Wave:"))
-		{
-			String[] tempMessage = chatMessage.getMessage().split(" ");
-			currentWave = tempMessage[BA_WAVE_NUM_INDEX];
-			collectedEggCount = 0;
-			HpHealed = 0;
-			positiveEggCount = 0;
-			wrongEggs = 0;
-			if (currentWave.equals(START_WAVE))
+			stage = Integer.parseInt(message.split(" ")[BA_WAVE_NUM_INDEX]);
+			if (stage == 1)
 			{
-				gameTime = new GameTimer();
-				totalHpHealed = 0;
-				totalCollectedEggCount = 0;
-				game = new Game(client);
-			}
-			else if (gameTime != null)
-			{
-				gameTime.setWaveStartTime();
+				scorecard = new Scorecard(this);
+				gameTimer = new Timer();
 			}
 		}
-		if (chatMessage.getMessage().contains("exploded"))
+		else if (message.startsWith("The game ended early"))
 		{
-			wrongEggs++;
-			positiveEggCount--;
+			resetWave();
 		}
-		if (chatMessage.getMessage().contains("You healed"))
+		else if (isInGame())
 		{
-			String[] tokens = message.split(" ");
-			if (Integer.parseInt(tokens[2]) > 0)
+			if (message.contains("exploded") && wave != null)
 			{
-				int Hp = Integer.parseInt(tokens[2]);
-				HpHealed += Hp;
+				wave.setWrongEggs(wave.getWrongEggs() + 1);
+				wave.setPositiveEggCount(wave.getPositiveEggCount() - 1);
 			}
-		}
-
-		if (message.contains("the wrong type of poisoned food to use"))
-		{
-			recolored = ColorUtil.wrapWithColorTag(nodeValue, config.wrongPoisonFoodTextColor());
-		}
-		if (recolored != null)
-		{
-			messageNode.setValue(recolored);
-			chatMessageManager.update(messageNode);
-		}
-	}
-
-	@Subscribe
-	public void onVarbitChanged(VarbitChanged event)
-	{
-		int inGame = client.getVar(Varbits.IN_GAME_BA);
-
-		if (inGameBit != inGame)
-		{
-			if (inGameBit == 1)
+			else if (message.contains("You healed") && wave != null)
 			{
-				overlay.setCurrentRound(null);
-
-				// Use an instance check to determine if this is exiting a game or a tutorial
-				// After exiting tutorials there is a small delay before changing IN_GAME_BA back to
-				// 0 whereas when in a real wave it changes while still in the instance.
-				if (config.waveTimes() && gameTime != null && client.isInInstancedRegion())
+				String[] tokens = message.split(" ");
+				if (Integer.parseInt(tokens[2]) > 0)
 				{
-					announceTime("Wave " + currentWave + " duration: ", gameTime.getTime(true));
+					int health = Integer.parseInt(tokens[2]);
+					wave.setHpHealed(wave.getHpHealed() + health);
 				}
 			}
-			else
+			else if (message.contains("the wrong type of poisoned food to use"))
 			{
-				hasAnnounced = false;
+				final MessageNode messageNode = chatMessage.getMessageNode();
+				final String nodeValue = Text.removeTags(messageNode.getValue());
+				messageNode.setValue(ColorUtil.wrapWithColorTag(nodeValue, config.wrongPoisonFoodTextColor()));
+				chatMessageManager.update(messageNode);
 			}
 		}
-
-		inGameBit = inGame;
 	}
 
 	@Subscribe
 	public void onItemSpawned(ItemSpawned itemSpawned)
 	{
-		int itemId = itemSpawned.getItem().getId();
-		WorldPoint worldPoint = itemSpawned.getTile().getWorldLocation();
-		HashMap<WorldPoint, Integer> eggMap = getEggMap(itemId);
+		if (!isInGame())
+		{
+			return;
+		}
+
+		HashMap<WorldPoint, Integer> eggMap = getEggMap(itemSpawned.getItem().getId());
 		if (eggMap != null)
 		{
+			WorldPoint worldPoint = itemSpawned.getTile().getWorldLocation();
 			Integer existingQuantity = eggMap.putIfAbsent(worldPoint, 1);
 			if (existingQuantity != null)
 			{
@@ -364,176 +459,370 @@ public class BarbarianAssaultPlugin extends Plugin
 	@Subscribe
 	public void onItemDespawned(ItemDespawned itemDespawned)
 	{
-		int itemId = itemDespawned.getItem().getId();
-		WorldPoint worldPoint = itemDespawned.getTile().getWorldLocation();
-		HashMap<WorldPoint, Integer> eggMap = getEggMap(itemId);
-
-		if (eggMap != null && eggMap.containsKey(worldPoint))
-		{
-			int quantity = eggMap.get(worldPoint);
-			if (quantity > 1)
-			{
-				eggMap.put(worldPoint, quantity - 1);
-			}
-			else
-			{
-				eggMap.remove(worldPoint);
-			}
-		}
-		if (client.getVar(Varbits.IN_GAME_BA) == 0 || !isEgg(itemDespawned.getItem().getId()))
+		if (!isInGame())
 		{
 			return;
 		}
-		if (isUnderPlayer(itemDespawned.getTile()))
+
+		int itemId = itemDespawned.getItem().getId();
+
+		if (!isItemEgg(itemId))
 		{
-			if (overlay.getCurrentRound().getRoundRole() == Role.COLLECTOR)
+			return;
+		}
+
+		// Note: if an egg despawns due to time and the collector is standing over it,
+		// a point will added as if the player picked it up
+		HashMap<WorldPoint, Integer> eggMap = getEggMap(itemId);
+		if (eggMap != null)
+		{
+			WorldPoint worldPoint = itemDespawned.getTile().getWorldLocation();
+			if (eggMap.containsKey(worldPoint))
 			{
-				positiveEggCount++;
-				if (positiveEggCount > 60)
+				int quantity = eggMap.get(worldPoint);
+
+				if (quantity > 1)
 				{
-					positiveEggCount = 60;
+					eggMap.put(worldPoint, quantity - 1);
 				}
-				collectedEggCount = positiveEggCount - wrongEggs; //true positive - negative egg count
+				else
+				{
+					eggMap.remove(worldPoint);
+				}
 			}
+		}
+
+		if (getRole() == Role.COLLECTOR
+				&& wave != null
+				&& itemDespawned.getTile().getWorldLocation().equals(client.getLocalPlayer().getWorldLocation()))
+		{
+			wave.setPositiveEggCount(wave.getPositiveEggCount() + 1);
+
+			if (wave.getPositiveEggCount() > 60)
+			{
+				wave.setPositiveEggCount(60);
+			}
+
+			wave.setCollectedEggCount(wave.getPositiveEggCount() - wave.getWrongEggs());
+		}
+	}
+
+	@Subscribe
+	public void onGameTick(GameTick event)
+	{
+		// Keep in mind isInGame is delayed by a tick when a wave ends
+		if (!isInGame() || getRole() == null)
+		{
+			return;
+		}
+
+		if (tickNum > 9 || tickReset)
+		{
+			tickNum = 0;
+			tickReset = false;
+		}
+
+		if (counter != null)
+		{
+			counter.setCount(tickNum);
+		}
+
+		tickNum++;
+
+		Widget weapon = client.getWidget(593, 1);
+
+		if (config.attackStyles()
+				&& isInGame()
+				&& getRole() == Role.ATTACKER
+				&& weapon != null
+				&& (weapon.getText().contains("Crystal halberd") || weapon.getText().contains("Dragon claws")))
+		{
+			if (originalAttackStyles == null)
+			{
+				ImmutableMap.Builder<WidgetInfo, Boolean> builder = new ImmutableMap.Builder<>();
+
+				builder.put(COMBAT_STYLE_ONE, client.getWidget(COMBAT_STYLE_ONE).isHidden());
+				builder.put(COMBAT_STYLE_TWO, client.getWidget(COMBAT_STYLE_TWO).isHidden());
+				builder.put(COMBAT_STYLE_THREE, client.getWidget(COMBAT_STYLE_THREE).isHidden());
+				builder.put(COMBAT_STYLE_FOUR, client.getWidget(COMBAT_STYLE_FOUR).isHidden());
+
+				originalAttackStyles = builder.build();
+			}
+			String style = client.getWidget(Role.ATTACKER.getListen()).getText();
+			int i;
+			for (i = 0; i < STYLES.length; i++)
+			{
+				if (style.contains(STYLES[i]))
+				{
+					break;
+				}
+			}
+			switch (i)
+			{
+				case 0: //Defensive
+					client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
+					client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
+					client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
+					break;
+				case 1: // Aggressive
+					client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
+					client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
+					client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
+					break;
+				case 2: // Controlled
+					if (weapon.getText().contains("Crystal halberd"))
+					{
+						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
+						client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
+					}
+					else
+					{
+						client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
+						client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
+					}
+					client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
+					break;
+				case 3: // Accurate
+					if (weapon.getText().contains("Dragon claws"))
+					{
+						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
+						client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
+						client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
+					}
+					else
+					{
+						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
+						client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
+						client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
+					}
+					break;
+				default:
+					client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
+					client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
+					client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
+					break;
+			}
+		}
+		else if (originalAttackStyles != null)
+		{
+			originalAttackStyles.forEach((w, b) -> client.getWidget(w).setHidden(b));
+		}
+
+		if (config.prayerMetronome() && isAnyPrayerActive())
+		{
+			for (int i = 0; i < config.prayerMetronomeVolume(); i++)
+			{
+				client.playSoundEffect(SoundEffectID.GE_INCREMENT_PLOP);
+			}
+		}
+	}
+
+	@Subscribe
+	public void onNpcSpawned(NpcSpawned event)
+	{
+		if (!isInGame())
+		{
+			return;
+		}
+
+		NPC npc = event.getNpc();
+
+		// TODO wave null check needed, will healers spawn if game if stalled
+		if (npc != null)
+		{
+			System.out.println(event.getNpc().getName() + " : " + isNpcHealer(npc.getId()));
+		}
+
+		if (isInGame() && wave != null && npc != null && isNpcHealer(npc.getId()))
+		{
+			if (checkNewSpawn(npc) || Duration.between(wave.getWaveTimer().getStartTime(), Instant.now()).getSeconds() < 16)
+			{
+				int spawnNumber = healers.size();
+				healers.put(npc, new Healer(npc, spawnNumber, stage));
+			}
+		}
+	}
+
+	@Subscribe
+	public void onNpcDespawned(NpcDespawned event)
+	{
+		if (!isInGame())
+		{
+			return;
+		}
+		healers.remove(event.getNpc());
+	}
+
+	@Subscribe
+	public void onInteractingChanged(InteractingChanged event)
+	{
+		if (!isInGame())
+		{
+			return;
+		}
+		Actor opponent = event.getTarget();
+
+		if (opponent instanceof NPC && isNpcHealer(((NPC) opponent).getId()) && event.getSource() != client.getLocalPlayer())
+		{
+			lastInteracted = opponent;
+		}
+	}
+
+	@Subscribe
+	public void onHitsplatApplied(HitsplatApplied hitsplatApplied)
+	{
+		if (!isInGame())
+		{
+			return;
+		}
+
+		Actor actor = hitsplatApplied.getActor();
+
+		if (healers.isEmpty() && !(actor instanceof NPC) && lastInteracted == null)
+		{
+			return;
+		}
+
+		for (Healer healer : healers.values())
+		{
+			if (healer.getNpc() == actor && actor == lastInteracted)
+			{
+				healer.setFoodRemaining(healer.getFoodRemaining() - 1);
+			}
+		}
+	}
+
+	@Subscribe
+	public void onBeforeRender(BeforeRender event)
+	{
+		Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
+		String newCallText = callWidget == null ? null : callWidget.getText();
+		int newCallColor = callWidget == null ? -1 : callWidget.getTextColor();
+		Widget listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
+		String newListenText = listenWidget == null ? null : listenWidget.getText();
+
+		boolean rebuild = false;
+		if (!Objects.equals(newCallText, lastCallText) || newCallColor != lastCallColor)
+		{
+			if (newCallColor == COLOR_CALL_UPDATED)
+			{
+				if (getWave() != null)
+				{
+					getWave().resetCallTimer();
+				}
+				tickReset = true;
+				menu.setHornUpdated(false);
+			}
+			rebuild = true;
+			lastCallText = newCallText;
+			lastCallColor = newCallColor;
+		}
+
+		if (!Objects.equals(newListenText, lastListenText))
+		{
+			rebuild = true;
+			lastListenText = newListenText;
+		}
+
+		if (rebuild || menu.isRebuildForced())
+		{
+			menu.setRebuildForced(false);
+			menu.validateHiddenMenus(role);
 		}
 	}
 
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!config.highlightCollectorEggs())
-		{
-			return;
-		}
-		if (overlay.getCurrentRound() == null)
-		{
-			return;
-		}
-		if (overlay.getCurrentRound().getRoundRole() != Role.COLLECTOR)
-		{
-			return;
-		}
 
-		String calledEgg = getCollectorHeardCall();
-		String target = event.getTarget();
-		String option = event.getOption();
-		String targetClean = target.substring(target.indexOf('>') + 1);
-		String optionClean = option.substring(option.indexOf('>') + 1);
-
-		if ("Take".equals(optionClean))
+		// Still testing how I want to deprioritize eggs
+		if (!true)
 		{
-			Color highlightColor = null;
+			//TODO add deprioritized entries for when incorrect calls happen
+			// This can probably be done in MenuManager
+			final List<MenuEntry> newMenu = new ArrayList<>();
+			MenuEntry selected = null;
+			MenuEntry walk = null;
 
-			if (calledEgg != null && calledEgg.startsWith(targetClean))
+
+			for (MenuEntry entry : client.getMenuEntries())
 			{
-				highlightColor = getEggColor(targetClean);
-			}
-			else if ("Yellow egg".equals(targetClean))
-			{
-				// Always show yellow egg
-				highlightColor = Color.YELLOW;
+				String option = Text.removeTags(entry.getOption()).toLowerCase();
+				String target = Text.removeTags(entry.getTarget()).toLowerCase();
+
+				if (option.equals("walk here"))
+				{
+					walk = entry;
+				}
+				else if (option.equals("yellow egg"))
+				{
+					selected = entry;
+					continue;
+				}
+
+				newMenu.add(entry);
 			}
 
-			if (highlightColor != null)
+			if (selected != null)
 			{
-				MenuEntry[] menuEntries = client.getMenuEntries();
-				MenuEntry last = menuEntries[menuEntries.length - 1];
-				last.setTarget(ColorUtil.prependColorTag(targetClean, highlightColor));
-				client.setMenuEntries(menuEntries);
+				if (walk != null)
+				{
+					newMenu.remove(walk);
+					newMenu.add(walk);
+				}
+				newMenu.add(selected);
 			}
+
+
 		}
+
+		//client.setMenuEntries(newMenu.toArray(new MenuEntry[0]));
+
+		//INW
+		for (MenuEntry entry : client.getMenuEntries())
+		{
+			String option = Text.removeTags(entry.getOption()).toLowerCase();
+			String target = Text.removeTags(entry.getTarget()).toLowerCase();
+
+
+
+
+		}
+
 	}
 
-	private void setOverlayRound(Role role)
+	@Subscribe
+	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (overlay.getCurrentRound() != null)
+		if (isInGame() && event.getWidgetId() == LEAVE_EARLY_WIDGET_ID)
 		{
+			resetWave();
 			return;
 		}
 
-		overlay.setCurrentRound(new Round(role));
-	}
+		String target = event.getMenuTarget();
 
-	private void announceSomething(final ChatMessageBuilder chatMessage)
-	{
-		chatMessageManager.queue(QueuedMessage.builder()
-			.type(ChatMessageType.CONSOLE)
-			.runeLiteFormattedMessage(chatMessage.build())
-			.build());
-	}
-
-	String getCollectorHeardCall()
-	{
-		Widget widget = client.getWidget(WidgetInfo.BA_COLL_LISTEN_TEXT);
-		String call = null;
-
-		if (widget != null)
+		if (config.tagging() && (event.getMenuTarget().contains("Penance Ranger") || event.getMenuTarget().contains("Penance Fighter")))
 		{
-			call = widget.getText();
+			if (event.getMenuOption().contains("Attack"))
+			{
+				foodPressed.put(event.getId(), Instant.now());
+			}
+			log.info(target);
 		}
 
-		return call;
-	}
-
-	Map<WorldPoint, Integer> getCalledEggMap()
-	{
-		Map<WorldPoint, Integer> map;
-		String calledEgg = getCollectorHeardCall();
-
-		if (calledEgg == null)
+		if (config.healerMenuOption() && target.contains("Penance Healer") && target.contains("<col=ff9040>Poisoned") && target.contains("->"))
 		{
-			return null;
+			foodPressed.put(event.getId(), Instant.now());
+			lastHealer = event.getId();
+			log.info("Last healer changed: " + lastHealer);
 		}
-
-		switch (calledEgg)
-		{
-			case "Red eggs":
-				map = redEggs;
-				break;
-			case "Green eggs":
-				map = greenEggs;
-				break;
-			case "Blue eggs":
-				map = blueEggs;
-				break;
-			default:
-				map = null;
-		}
-
-		return map;
-	}
-
-	static Color getEggColor(String str)
-	{
-		Color color;
-
-		if (str == null)
-		{
-			return null;
-		}
-
-		if (str.startsWith("Red"))
-		{
-			color = Color.RED;
-		}
-		else if (str.startsWith("Green"))
-		{
-			color = Color.GREEN;
-		}
-		else if (str.startsWith("Blue"))
-		{
-			color = Color.CYAN;
-		}
-		else if (str.startsWith("Yellow"))
-		{
-			color = Color.YELLOW;
-		}
-		else
-		{
-			color = null;
-		}
-
-		return color;
 	}
 
 	private HashMap<WorldPoint, Integer> getEggMap(int itemID)
@@ -542,48 +831,162 @@ public class BarbarianAssaultPlugin extends Plugin
 		{
 			case ItemID.RED_EGG:
 				return redEggs;
+
 			case ItemID.GREEN_EGG:
 				return greenEggs;
+
 			case ItemID.BLUE_EGG:
 				return blueEggs;
+
 			case ItemID.YELLOW_EGG:
 				return yellowEggs;
-			default:
-				return null;
+		}
+
+		return null;
+	}
+
+	private boolean checkNewSpawn(NPC npc)
+	{
+		for (WorldPoint p : WorldPoint.toLocalInstance(client, healerSpawnPoint))
+		{
+			if (p.distanceTo(npc.getWorldLocation()) < 5)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isAnyPrayerActive()
+	{
+		for (Prayer pray : Prayer.values())
+		{
+			if (client.isPrayerActive(pray))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private void startWave(Role role)
+	{
+		if (this.wave != null)
+		{
+			return;
+		}
+		inGame = true;
+		this.role = role;
+		wave = new Wave(client);
+		tickNum = 0;
+		if (config.defTimer())
+		{
+			addTickTimer();
 		}
 	}
 
+	// no horn option if you leave a game and start a new one
+	// caused by game not being reset, unknown what to watch
+	// for when that happens. possibly onmenuoptionclicked?
+	private void resetWave()
+	{
+		inGame = false;
+		removeTickTimer();
+		foodPressed.clear();
+		clearAllEggMaps();
+		healers.clear();
+		wave = null;
+		role = null;
+		lastListenText = null;
+		lastCallText = null;
+		lastCallColor = -1;
+		menu.setHornUpdated(false);
+	}
+
+	private void validateRole()
+	{
+		if (client.getWidget(Role.ATTACKER.getCall()) != null)
+		{
+			role = Role.ATTACKER;
+		}
+		else if (client.getWidget(Role.HEALER.getCall()) != null)
+		{
+			role = Role.HEALER;
+		}
+		else if (client.getWidget(Role.DEFENDER.getCall()) != null)
+		{
+			role = Role.DEFENDER;
+		}
+		else if (client.getWidget(Role.COLLECTOR.getCall()) != null)
+		{
+			role = Role.COLLECTOR;
+		}
+		else
+		{
+			role = null;
+		}
+	}
+
+	private void addTickTimer()
+	{
+		if (counter == null)
+		{
+			int itemSpriteId = ItemID.FIGHTER_TORSO;
+
+			BufferedImage taskImg = itemManager.getImage(itemSpriteId);
+			counter = new CycleCounter(taskImg, this, tickNum);
+
+			infoBoxManager.addInfoBox(counter);
+		}
+	}
+
+	private void removeTickTimer()
+	{
+		if (counter != null)
+		{
+			infoBoxManager.removeInfoBox(counter);
+			counter = null;
+		}
+	}
+
+	private void announce(final ChatMessageBuilder chatMessage)
+	{
+		chatMessageManager.queue(QueuedMessage.builder()
+				.type(ChatMessageType.CONSOLE)
+				.runeLiteFormattedMessage(chatMessage.build())
+				.build());
+	}
 
 	private void announceTime(String preText, String time)
 	{
 		final String chatMessage = new ChatMessageBuilder()
-			.append(ChatColorType.NORMAL)
-			.append(preText)
-			.append(ChatColorType.HIGHLIGHT)
-			.append(time)
-			.build();
+				.append(ChatColorType.NORMAL)
+				.append(preText)
+				.append(ChatColorType.HIGHLIGHT)
+				.append(time)
+				.build();
 
 		chatMessageManager.queue(QueuedMessage.builder()
-			.type(ChatMessageType.CONSOLE)
-			.runeLiteFormattedMessage(chatMessage)
-			.build());
+				.type(ChatMessageType.CONSOLE)
+				.runeLiteFormattedMessage(chatMessage)
+				.build());
 	}
 
-	private boolean isEgg(int itemID)
+	private void announceWaveTime()
 	{
-		return itemID == ItemID.RED_EGG || itemID == ItemID.GREEN_EGG
-			|| itemID == ItemID.BLUE_EGG || itemID == ItemID.YELLOW_EGG;
-	}
-
-	private boolean isUnderPlayer(Tile tile)
-	{
-		Player local = client.getLocalPlayer();
-		if (local == null)
+		if (config.waveTimes() && wave != null)
 		{
-			return false;
+			announceTime("Wave " + getStage() + " duration: ", wave.getWaveTimer().getElapsedTimeFormatted());
 		}
+	}
 
-		return (tile.getWorldLocation().equals(local.getWorldLocation()));
+	private void announceGameTime()
+	{
+		if (config.waveTimes() && gameTimer != null)
+		{
+			announceTime("Game finished, duration: ", gameTimer.getElapsedTimeFormatted());
+		}
 	}
 
 	private void clearAllEggMaps()
@@ -594,39 +997,26 @@ public class BarbarianAssaultPlugin extends Plugin
 		yellowEggs.clear();
 	}
 
-	public Font getFont()
+	private static boolean isItemEgg(int itemId)
 	{
-		return font;
+		return itemId == ItemID.RED_EGG ||
+				itemId == ItemID.GREEN_EGG ||
+				itemId == ItemID.BLUE_EGG ||
+				itemId == ItemID.YELLOW_EGG;
 	}
 
-	Image getClockImage()
+	private static boolean isNpcHealer(int npcId)
 	{
-		return clockImage;
+		return npcId == NpcID.PENANCE_HEALER ||
+				npcId == NpcID.PENANCE_HEALER_5766 ||
+				npcId == NpcID.PENANCE_HEALER_5767 ||
+				npcId == NpcID.PENANCE_HEALER_5768 ||
+				npcId == NpcID.PENANCE_HEALER_5769 ||
+				npcId == NpcID.PENANCE_HEALER_5770 ||
+				npcId == NpcID.PENANCE_HEALER_5771 ||
+				npcId == NpcID.PENANCE_HEALER_5772 ||
+				npcId == NpcID.PENANCE_HEALER_5773 ||
+				npcId == NpcID.PENANCE_HEALER_5774;
 	}
 
-	int getListenItemId(WidgetInfo listenInfo)
-	{
-		Widget listenWidget = client.getWidget(listenInfo);
-
-		if (listenWidget != null)
-		{
-			switch (listenWidget.getText())
-			{
-				case "Tofu":
-					return ItemID.TOFU;
-				case "Crackers":
-					return ItemID.CRACKERS;
-				case "Worms":
-					return ItemID.WORMS;
-				case "Pois. Worms":
-					return ItemID.POISONED_WORMS;
-				case "Pois. Tofu":
-					return ItemID.POISONED_TOFU;
-				case "Pois. Meat":
-					return ItemID.POISONED_MEAT;
-			}
-		}
-
-		return -1;
-	}
 }

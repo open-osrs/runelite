@@ -22,42 +22,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.batools;
+package net.runelite.client.plugins.barbarianassault;
 
-
+import com.google.common.collect.ImmutableList;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 import net.runelite.api.NPC;
 
+import java.util.List;
 
+
+@Data
 class Healer
 {
+	@Getter(AccessLevel.NONE)
+	private static final List<List<int[]>> CODES = ImmutableList.of(
+			// ImmutableList.of(firstCallFood, secondCallFood, lastFoodTime),
+			ImmutableList.of(new int[]{1, 1}, new int[]{0, 0}, new int[]{0, 0}),
+			ImmutableList.of(new int[]{1, 1, 2}, new int[]{0, 0, 0}, new int[]{0, 0, 21}),
+			ImmutableList.of(new int[]{1, 6, 2}, new int[]{0, 0, 0}, new int[]{0, 0, 0}),
+			ImmutableList.of(new int[]{2, 5, 2, 0}, new int[]{0, 0, 7, 10}, new int[]{0, 0, 0, 0}),
+			ImmutableList.of(new int[]{2, 5, 2, 3, 0}, new int[]{0, 0, 0, 0, 7}, new int[]{0, 0, 21, 30, 0}),
+			ImmutableList.of(new int[]{3, 5, 2, 2, 0, 0}, new int[]{0, 0, 0, 2, 9, 10}, new int[]{12, 18, 21, 0, 0, 0}),
+			ImmutableList.of(new int[]{3, 7, 1, 1, 0, 0, 0}, new int[]{2, 0, 1, 1, 2, 4, 10}, new int[]{0, 21, 0, 0, 30, 45, 0}),
+			ImmutableList.of(new int[]{1, 9, 1, 1, 0, 0, 0}, new int[]{1, 0, 1, 1, 2, 2, 10}, new int[]{0, 0, 0, 0, 33, 42, 0}),
+			ImmutableList.of(new int[]{2, 8, 1, 1, 0, 0, 0, 0}, new int[]{1, 0, 1, 1, 2, 1, 1, 10}, new int[]{0, 21, 0, 0, 0, 0, 0, 0, 0}),
+			ImmutableList.of(new int[]{2, 5, 1, 1, 0, 0, 0}, new int[]{1, 0, 1, 1, 4, 4, 8}, new int[]{21, 33, 0, 33, 30, 45, 0}));
 
-	@Getter
-	private NPC npc;
+	private final NPC npc;
 
-	@Getter
-	@Setter
 	private int wave;
 
-	@Getter
-	@Setter
 	private int spawnNumber;
 
-	@Getter
-	@Setter
 	private int foodRemaining;
 
-	@Getter
-	@Setter
 	private int lastFoodTime;
 
-	@Getter
-	@Setter
 	private int firstCallFood;
 
-	@Getter
-	@Setter
 	private int secondCallFood;
 
 	Healer(NPC npc, int spawnNumber, int wave)
@@ -65,38 +69,10 @@ class Healer
 		this.npc = npc;
 		this.wave = wave;
 		this.spawnNumber = spawnNumber;
-		this.firstCallFood = getCode(wave).getFirstCallFood()[spawnNumber];
-		this.secondCallFood = getCode(wave).getSecondCallFood()[spawnNumber];
+		List<int[]> code = CODES.get(wave - 1);
+		this.firstCallFood = code.get(0)[spawnNumber];
+		this.secondCallFood = code.get(1)[spawnNumber];
+		this.lastFoodTime = code.get(2)[spawnNumber];
 		this.foodRemaining = firstCallFood + secondCallFood;
-		this.lastFoodTime = getCode(wave).getSpacing()[spawnNumber];
-	}
-
-	private HealerCode getCode(int wave)
-	{
-		switch (wave)
-		{
-			case 1:
-				return HealerCode.WAVEONE;
-			case 2:
-				return HealerCode.WAVETWO;
-			case 3:
-				return HealerCode.WAVETHREE;
-			case 4:
-				return HealerCode.WAVEFOUR;
-			case 5:
-				return HealerCode.WAVEFIVE;
-			case 6:
-				return HealerCode.WAVESIX;
-			case 7:
-				return HealerCode.WAVESEVEN;
-			case 8:
-				return HealerCode.WAVEEIGHT;
-			case 9:
-				return HealerCode.WAVENINE;
-			case 10:
-				return HealerCode.WAVETEN;
-			default:
-				return null;
-		}
 	}
 }
