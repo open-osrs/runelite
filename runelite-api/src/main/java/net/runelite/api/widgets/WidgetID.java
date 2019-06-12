@@ -57,7 +57,7 @@ public class WidgetID
 	public static final int PEST_CONTROL_BOAT_GROUP_ID = 407;
 	public static final int PEST_CONTROL_GROUP_ID = 408;
 	public static final int PEST_CONTROL_EXCHANGE_WINDOW_GROUP_ID = 243;
-	public static final int PEST_CONTROL_DIALOG_GROUP_ID = 229;
+	public static final int DIALOG_MINIGAME_GROUP_ID = 229;
 	public static final int CLAN_CHAT_GROUP_ID = 7;
 	public static final int MINIMAP_GROUP_ID = 160;
 	public static final int LOGIN_CLICK_TO_PLAY_GROUP_ID = 378;
@@ -192,7 +192,7 @@ public class WidgetID
 		static final int CONFIRM_BUTTON = 6;
 	}
 
-	static class PestControlDialog
+	static class MinigameDialog
 	{
 		static final int TEXT = 1;
 		static final int CONTINUE = 2;
