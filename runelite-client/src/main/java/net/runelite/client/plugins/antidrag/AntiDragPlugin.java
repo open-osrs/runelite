@@ -28,6 +28,7 @@ package net.runelite.client.plugins.antidrag;
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -35,7 +36,6 @@ import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.plugins.customcursor.CustomCursorConfig;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
@@ -95,6 +95,7 @@ public class AntiDragPlugin extends Plugin
 		keyManager.unregisterKeyListener(hotkeyListener);
 		toggleDrag = false;
 		overlayManager.remove(overlay);
+		clientUI.resetCursor();
 	}
 
 	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> config.key())
@@ -123,8 +124,7 @@ public class AntiDragPlugin extends Plugin
 				client.setInventoryDragDelay(DEFAULT_DELAY);
 				if (config.changeCursor())
 				{
-					net.runelite.client.plugins.customcursor.CustomCursor selectedCursor = configManager.getConfig(CustomCursorConfig.class).selectedCursor();
-					clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
+					clientUI.resetCursor();
 				}
 			}
 		}
@@ -139,4 +139,20 @@ public class AntiDragPlugin extends Plugin
 			overlayManager.remove(overlay);
 		}
 	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged configChanged)
+	{
+		if (configChanged.getGroup().equals("antiDrag"))
+		{
+			if (configChanged.getKey().equals("changeCursor"))
+			{
+				if (!config.changeCursor())
+				{
+					clientUI.resetCursor();
+				}
+			}
+		}
+	}
+
 }
