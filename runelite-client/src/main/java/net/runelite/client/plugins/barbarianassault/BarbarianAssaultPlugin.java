@@ -529,7 +529,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 		tickNum++;
 
-		Widget weapon = client.getWidget(593, 1);
+		Widget weapon = client.getWidget(WidgetInfo.COMBAT_WEAPON);
 
 		if (config.attackStyles()
 				&& isInGame()
@@ -886,9 +886,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	// no horn option if you leave a game and start a new one
-	// caused by game not being reset, unknown what to watch
-	// for when that happens. possibly onmenuoptionclicked?
 	private void resetWave()
 	{
 		inGame = false;
