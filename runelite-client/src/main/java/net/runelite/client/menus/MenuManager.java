@@ -793,8 +793,9 @@ public class MenuManager
 		hiddenEntries.remove(entry);
 	}
 
-	public void clearSwaps()
+	public void clearAllSwaps()
 	{
+		priorityEntries.clear();
 		swaps.clear();
 	}
 }

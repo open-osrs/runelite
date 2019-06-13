@@ -2,6 +2,7 @@
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * Copyright (c) 2018, Kyle <https://github.com/kyleeld>
  * Copyright (c) 2018, lucouswin <https://github.com/lucouswin>
+ * Copyright (c) 2019 Infinitay <https://github.com/Infinitay>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,151 +60,151 @@ public interface MenuEntrySwapperConfig extends Config
 		position = 0,
 		group = "Banking"
 	)
-	default boolean shiftWithdrawal()
+	default boolean shiftBanking()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "withdrawOne",
+		keyName = "bankOne",
 		name = "Withdraw/Deposit One",
 		description = "",
 		position = 1,
 		group = "Banking"
 	)
-	default boolean getWithdrawOne()
+	default boolean getBankOne()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "withdrawOneItems",
+		keyName = "bankOneItems",
 		name = "Withdraw/Deposit One Item List",
 		description = "",
 		position = 2,
 		group = "Banking",
 		hidden = true,
-		unhide = "withdrawOne"
+		unhide = "bankOne"
 	)
-	default String getWithdrawOneItems()
+	default String getBankOneItems()
 	{
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "withdrawFive",
+		keyName = "bankFive",
 		name = "Withdraw/Deposit Five",
 		description = "",
 		position = 3,
 		group = "Banking"
 	)
-	default boolean getWithdrawFive()
+	default boolean getBankFive()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "withdrawFiveItems",
+		keyName = "bankFiveItems",
 		name = "Withdraw/Deposit Five Item List",
 		description = "",
 		position = 4,
 		group = "Banking",
 		hidden = true,
-		unhide = "withdrawFive"
+		unhide = "bankFive"
 	)
-	default String getWithdrawFiveItems()
+	default String getBankFiveItems()
 	{
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "withdrawTen",
+		keyName = "bankTen",
 		name = "Withdraw/Deposit Ten",
 		description = "",
 		position = 5,
 		group = "Banking"
 	)
-	default boolean getWithdrawTen()
+	default boolean getBankTen()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "withdrawTenItems",
+		keyName = "bankTenItems",
 		name = "Withdraw/Deposit Ten Item List",
 		description = "",
 		position = 6,
 		group = "Banking",
 		hidden = true,
-		unhide = "withdrawTen"
+		unhide = "bankTen"
 	)
-	default String getWithdrawTenItems()
+	default String getBankTenItems()
 	{
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "withdrawX",
+		keyName = "bankX",
 		name = "Withdraw/Deposit X",
 		description = "",
 		position = 7,
 		group = "Banking"
 	)
-	default boolean getWithdrawX()
+	default boolean getBankX()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "withdrawXAmount",
+		keyName = "bankXAmount",
 		name = "Withdraw/Deposit X Amount",
 		description = "",
 		position = 8,
 		group = "Banking",
 		hidden = true,
-		unhide = "withdrawX"
+		unhide = "bankX"
 	)
-	default String getWithdrawXAmount()
+	default String getBankXAmount()
 	{
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "withdrawXItems",
+		keyName = "bankXItems",
 		name = "Withdraw/Deposit X Item List",
 		description = "",
 		position = 9,
 		group = "Banking",
 		hidden = true,
-		unhide = "withdrawX"
+		unhide = "bankX"
 	)
-	default String getWithdrawXItems()
+	default String getBankXItems()
 	{
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "withdrawAll",
+		keyName = "bankAll",
 		name = "Withdraw/Deposit All",
 		description = "",
 		position = 10,
 		group = "Banking"
 	)
-	default boolean getWithdrawAll()
+	default boolean getBankAll()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "withdrawAllItems",
+		keyName = "bankAllItems",
 		name = "Withdraw/Deposit All Item List",
 		description = "",
 		position = 11,
 		group = "Banking",
 		hidden = true,
-		unhide = "withdrawAll"
+		unhide = "bankAll"
 	)
-	default String getWithdrawAllItems()
+	default String getBankAllItems()
 	{
 		return "";
 	}
@@ -1618,11 +1619,11 @@ public interface MenuEntrySwapperConfig extends Config
 	//----------------------Untradeables---------------------------//
 
 	@ConfigItem(
-			keyName = "hideDestroyRunepouch",
-			name = "Hide Destroy on Rune Pouch",
-			description = "Hides the 'Destroy' option when right clicking a Rune pouch.",
-			position = 119,
-			group = "Untradeables"
+		keyName = "hideDestroyRunepouch",
+		name = "Hide Destroy on Rune Pouch",
+		description = "Hides the 'Destroy' option when right clicking a Rune pouch.",
+		position = 119,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyRunepouch()
 	{
@@ -1630,11 +1631,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "hideDestroyCoalbag",
-			name = "Hide Destroy on Coal bag",
-			description = "Hides the 'Destroy' option when right clicking a Coal bag.",
-			position = 120,
-			group = "Untradeables"
+		keyName = "hideDestroyCoalbag",
+		name = "Hide Destroy on Coal bag",
+		description = "Hides the 'Destroy' option when right clicking a Coal bag.",
+		position = 120,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyCoalbag()
 	{
@@ -1642,11 +1643,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "hideDestroyHerbsack",
-			name = "Hide Destroy on Herb sack",
-			description = "Hides the 'Destroy' option when right clicking a Herb sack.",
-			position = 121,
-			group = "Untradeables"
+		keyName = "hideDestroyHerbsack",
+		name = "Hide Destroy on Herb sack",
+		description = "Hides the 'Destroy' option when right clicking a Herb sack.",
+		position = 121,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyHerbsack()
 	{
@@ -1654,11 +1655,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "hideDestroyBoltpouch",
-			name = "Hide Destroy on Bolt pouch",
-			description = "Hides the 'Destroy' option when right clicking a Bolt pouch.",
-			position = 122,
-			group = "Untradeables"
+		keyName = "hideDestroyBoltpouch",
+		name = "Hide Destroy on Bolt pouch",
+		description = "Hides the 'Destroy' option when right clicking a Bolt pouch.",
+		position = 122,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyBoltpouch()
 	{
@@ -1666,11 +1667,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "hideDestroyGembag",
-			name = "Hide Destroy on Gem bag",
-			description = "Hides the 'Destroy' option when right clicking a Gem bag.",
-			position = 123,
-			group = "Untradeables"
+		keyName = "hideDestroyGembag",
+		name = "Hide Destroy on Gem bag",
+		description = "Hides the 'Destroy' option when right clicking a Gem bag.",
+		position = 123,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyGembag()
 	{
@@ -1678,11 +1679,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "hideDropRunecraftingPouch",
-			name = "Hide Drop on RC pouches",
-			description = "Hides the 'Drop' option when right clicking a Small, Medium, Large, or Giant pouch.",
-			position = 124,
-			group = "Untradeables"
+		keyName = "hideDropRunecraftingPouch",
+		name = "Hide Drop on RC pouches",
+		description = "Hides the 'Drop' option when right clicking a Small, Medium, Large, or Giant pouch.",
+		position = 124,
+		group = "Untradeables"
 	)
 	default boolean hideDropRunecraftingPouch()
 	{

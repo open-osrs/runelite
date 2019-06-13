@@ -3,6 +3,7 @@
  * Copyright (c) 2018, Kamiel
  * Copyright (c) 2018, Kyle <https://github.com/kyleeld>
  * Copyright (c) 2018, lucouswin <https://github.com/lucouswin>
+ * Copyright (c) 2019 Infinitay <https://github.com/Infinitay>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,6 +42,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
@@ -92,7 +94,7 @@ import org.apache.commons.lang3.ArrayUtils;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Slf4j
 public class MenuEntrySwapperPlugin extends Plugin
 {
 	private static final String CONFIGURE = "Configure";
@@ -190,6 +192,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 
 		loadCustomSwaps(config.customSwaps());
+
+		// Mitigate old items for bank swaps to the new config
+		// todo Remove after some time as there is no need to keep calling this
+		mitigateBankSwap();
 	}
 
 	@Override
@@ -199,7 +205,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		//todo re-enable when fixed.
 		/*loadConstructionIDs("");*/
 		loadCustomSwaps(""); // Removes all custom swaps
-		menuManager.clearSwaps();
+		menuManager.clearAllSwaps();
 	}
 
 	@Subscribe
@@ -212,7 +218,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		//todo re-enable when fixed.
 
 		/*loadConstructionIDs(config.getConstructionItems());*/
-		menuManager.clearSwaps();
+		menuManager.clearAllSwaps();
 		addSwaps();
 
 		if (!CONFIG_GROUP.equals(event.getGroup()))
@@ -395,10 +401,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			if (option.contains("drop"))
 			{
 				if (config.hideDropRunecraftingPouch() && (
-						entry.getTarget().contains("Small pouch")
-								|| entry.getTarget().contains("Medium pouch")
-								|| entry.getTarget().contains("Large pouch")
-								|| entry.getTarget().contains("Giant pouch")))
+					entry.getTarget().contains("Small pouch")
+						|| entry.getTarget().contains("Medium pouch")
+						|| entry.getTarget().contains("Large pouch")
+						|| entry.getTarget().contains("Giant pouch")))
 				{
 					continue;
 				}
@@ -542,11 +548,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		entries = client.getMenuEntries();
 
 		if ((option.contains("withdraw") || option.contains("deposit")) &&
-			(!config.shiftWithdrawal() || config.shiftWithdrawal() && shiftModifier))
+			(!config.shiftBanking() || config.shiftBanking() && shiftModifier))
 		{
-			if (config.getWithdrawOne())
+			if (config.getBankOne())
 			{
-				for (String item : Text.fromCSV(config.getWithdrawOneItems()))
+				for (String item : Text.fromCSV(config.getBankOneItems()))
 				{
 					if (target.equals(Text.standardize(item)))
 					{
@@ -556,9 +562,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 
-			if (config.getWithdrawFive())
+			if (config.getBankFive())
 			{
-				for (String item : Text.fromCSV(config.getWithdrawFiveItems()))
+				for (String item : Text.fromCSV(config.getBankFiveItems()))
 				{
 					if (target.equals(Text.standardize(item)))
 					{
@@ -568,9 +574,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 
-			if (config.getWithdrawTen())
+			if (config.getBankTen())
 			{
-				for (String item : Text.fromCSV(config.getWithdrawTenItems()))
+				for (String item : Text.fromCSV(config.getBankTenItems()))
 				{
 					if (target.equals(Text.standardize(item)))
 					{
@@ -580,29 +586,54 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 
-			if (config.getWithdrawX())
+			/*
+			 * Unlike the other swaps, we have to handle bank-x and bank-all differently.
+			 * Before this change, the swaps were handled like the previous banking swaps,
+			 * swapping withdraw and deposit without checking the actual option.
+			 * Checking the option and swapping it accordingly mitigates the issue of
+			 * these particular swaps not working.
+			 */
+
+			if (config.getBankX())
 			{
-				for (String item : Text.fromCSV(config.getWithdrawXItems()))
+				for (String item : Text.fromCSV(config.getBankXItems()))
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Withdraw-" + config.getWithdrawXAmount(), option, target);
-						swap(client, "Deposit-" + config.getWithdrawXAmount(), option, target);
+						if (Text.standardize(option).startsWith("withdraw"))
+						{
+							menuManager.addSwap(option, target, "Withdraw-" + config.getBankXAmount());
+						}
+						else if (Text.standardize(option).startsWith("deposit"))
+						{
+							menuManager.addSwap(option, target, "Deposit-" + config.getBankXAmount());
+						}
 					}
 				}
 			}
 
-			if (config.getWithdrawAll())
+			if (config.getBankAll())
 			{
-				for (String item : Text.fromCSV(config.getWithdrawAllItems()))
+				for (String item : Text.fromCSV(config.getBankAllItems()))
 				{
 					if (target.equals(Text.standardize(item)))
 					{
-						swap(client, "Withdraw-All", option, target);
-						swap(client, "Deposit-All", option, target);
+						if (Text.standardize(option).startsWith("withdraw"))
+						{
+							menuManager.addSwap(option, target, "Withdraw-All");
+						}
+						else if (Text.standardize(option).startsWith("deposit"))
+						{
+							menuManager.addSwap(option, target, "Deposit-All");
+						}
 					}
 				}
 			}
+		}
+		else if ((option.contains("withdraw") || option.contains("deposit")) && (config.shiftBanking() && !shiftModifier))
+		{
+			menuManager.clearAllSwaps();
+			addSwaps();
 		}
 
 		if (option.contains("buy") && (!config.shiftShopping() || config.shiftShopping() && shiftModifier))
@@ -700,7 +731,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		else if ((option.contains("buy") && (config.shiftShopping() && !shiftModifier))
 			|| option.contains("sell") && (config.shiftShopping() && !shiftModifier))
 		{
-			menuManager.clearSwaps();
+			menuManager.clearAllSwaps();
 			addSwaps();
 		}
 
@@ -1532,5 +1563,45 @@ public class MenuEntrySwapperPlugin extends Plugin
 	void stopControl()
 	{
 		menuManager.removePriorityEntry("climb-down");
+	}
+
+	private void mitigateBankSwap()
+	{
+		if (config.getBankOneItems().isEmpty())
+		{
+			final String oldItems = configManager.getConfiguration("menuentryswapper", "withdrawOneItems");
+			log.info("Mitigating Deposit/Withdraw One Items: {}", oldItems);
+			configManager.setConfiguration("menuentryswapper", "bankOneItems", oldItems);
+		}
+		if (config.getBankFiveItems().isEmpty())
+		{
+			final String oldItems = configManager.getConfiguration("menuentryswapper", "withdrawFiveItems");
+			log.info("Mitigating Deposit/Withdraw Five Items: {}", oldItems);
+			configManager.setConfiguration("menuentryswapper", "bankFiveItems", oldItems);
+		}
+		if (config.getBankTenItems().isEmpty())
+		{
+			final String oldItems = configManager.getConfiguration("menuentryswapper", "withdrawTenItems");
+			log.info("Mitigating Deposit/Withdraw Ten Items: {}", oldItems);
+			configManager.setConfiguration("menuentryswapper", "bankTenItems", oldItems);
+		}
+		if (config.getBankXAmount().isEmpty())
+		{
+			final String oldAmount = configManager.getConfiguration("menuentryswapper", "withdrawXAmount");
+			log.info("Mitigating Deposit/Withdraw X Amount: {}", oldAmount);
+			configManager.setConfiguration("menuentryswapper", "bankXAmount", oldAmount);
+		}
+		if (config.getBankXItems().isEmpty())
+		{
+			final String oldItems = configManager.getConfiguration("menuentryswapper", "withdrawXItems");
+			log.info("Mitigating Deposit/Withdraw X Items: {}", oldItems);
+			configManager.setConfiguration("menuentryswapper", "bankXItems", oldItems);
+		}
+		if (config.getBankAllItems().isEmpty())
+		{
+			final String oldItems = configManager.getConfiguration("menuentryswapper", "withdrawAllItems");
+			log.info("Mitigating Deposit/Withdraw All Items: {}", oldItems);
+			configManager.setConfiguration("menuentryswapper", "bankAllItems", oldItems);
+		}
 	}
 }
