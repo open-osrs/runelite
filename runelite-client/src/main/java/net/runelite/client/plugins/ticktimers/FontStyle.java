@@ -1,7 +1,5 @@
 /*
- * Copyright (c) 2017, Aria <aria@ar1as.space>
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
- * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
+ * Copyright (c) 2019, ganom <https://github.com/Ganom>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -12,7 +10,6 @@
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,34 +21,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.ticktimers;
 
-package net.runelite.client.plugins.zulrah;
+import java.awt.Font;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-
-@ConfigGroup("zulrah")
-
-public interface ZulrahConfig extends Config
+@Getter
+@AllArgsConstructor
+public enum FontStyle
 {
-	@ConfigItem(
-		keyName = "enabled",
-		name = "Enabled",
-		description = "Configures whether or not zulrah overlays are displayed"
-	)
-	default boolean enabled()
-	{
-		return true;
-	}
+	BOLD("Bold", Font.BOLD),
+	ITALIC("Italic", Font.ITALIC),
+	PLAIN("Plain", Font.PLAIN);
 
-	@ConfigItem(
-			keyName = "sounds",
-			name = "Sounds Enabled",
-			description = "Configures whether client sounds are enabled for zulrah"
-	)
-	default boolean sounds()
+	private String name;
+	private int font;
+
+	@Override
+	public String toString()
 	{
-		return true;
+		return getName();
 	}
 }

@@ -1,7 +1,5 @@
 /*
- * Copyright (c) 2017, Aria <aria@ar1as.space>
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
- * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
+ * Copyright (c) 2019, ganom <https://github.com/Ganom>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -12,7 +10,6 @@
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -24,34 +21,88 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-package net.runelite.client.plugins.zulrah;
+package net.runelite.client.plugins.ticktimers;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Stub;
 
-@ConfigGroup("zulrah")
-
-public interface ZulrahConfig extends Config
+@ConfigGroup("TickTimers")
+public interface TickTimersConfig extends Config
 {
 	@ConfigItem(
-		keyName = "enabled",
-		name = "Enabled",
-		description = "Configures whether or not zulrah overlays are displayed"
+		position = 0,
+		keyName = "bosses",
+		name = "Bosses",
+		description = ""
 	)
-	default boolean enabled()
+	default Stub bosses()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 1,
+		keyName = "graardor",
+		name = "General Graardor",
+		description = "Show tick timers for General Graardor",
+		parent = "bosses"
+	)
+	default boolean graardor()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "sounds",
-			name = "Sounds Enabled",
-			description = "Configures whether client sounds are enabled for zulrah"
+		position = 22,
+		keyName = "text",
+		name = "Text",
+		description = ""
 	)
-	default boolean sounds()
+	default Stub text()
 	{
-		return true;
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 23,
+		keyName = "fontStyle",
+		name = "Font Style",
+		description = "Plain | Bold | Italics",
+		parent = "text"
+	)
+	default FontStyle fontStyle()
+	{
+		return FontStyle.PLAIN;
+	}
+
+	@Range(
+		min = 14,
+		max = 40
+	)
+	@ConfigItem(
+		position = 24,
+		keyName = "textSize",
+		name = "Text Size",
+		description = "Text Size for Timers.",
+		parent = "text"
+	)
+	default int textSize()
+	{
+		return 32;
+	}
+
+	@ConfigItem(
+		position = 25,
+		keyName = "shadows",
+		name = "Shadows",
+		description = "Adds Shadows to text.",
+		parent = "text"
+	)
+	default boolean shadows()
+	{
+		return false;
 	}
 }

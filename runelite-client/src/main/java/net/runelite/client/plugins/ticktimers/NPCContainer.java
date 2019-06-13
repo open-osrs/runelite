@@ -1,7 +1,6 @@
 /*
- * Copyright (c) 2017, Aria <aria@ar1as.space>
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
- * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
+ * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2019, Ganom <https://github.com/Ganom>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,34 +23,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.ticktimers;
 
-package net.runelite.client.plugins.zulrah;
+import lombok.Getter;
+import lombok.Setter;
+import net.runelite.api.Actor;
+import net.runelite.api.NPC;
+import net.runelite.api.NPCDefinition;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-
-@ConfigGroup("zulrah")
-
-public interface ZulrahConfig extends Config
+class NPCContainer
 {
-	@ConfigItem(
-		keyName = "enabled",
-		name = "Enabled",
-		description = "Configures whether or not zulrah overlays are displayed"
-	)
-	default boolean enabled()
-	{
-		return true;
-	}
 
-	@ConfigItem(
-			keyName = "sounds",
-			name = "Sounds Enabled",
-			description = "Configures whether client sounds are enabled for zulrah"
-	)
-	default boolean sounds()
+	@Getter
+	private NPC npc;
+
+	@Getter
+	private int npcIndex;
+
+	@Getter
+	private String npcName;
+
+	@Getter
+	private int npcSize;
+
+	@Setter
+	@Getter
+	private int TicksUntilAttack;
+
+	@Setter
+	@Getter
+	private int npcSpeed;
+
+	@Setter
+	@Getter
+	private Actor npcInteracting;
+
+
+	NPCContainer(NPC npc)
 	{
-		return true;
+		this.npc = npc;
+		this.npcName = npc.getName();
+		this.npcIndex = npc.getIndex();
+		this.npcInteracting = npc.getInteracting();
+		this.npcSpeed = 0;
+		this.TicksUntilAttack = 0;
+		final NPCDefinition composition = npc.getTransformedDefinition();
+
+		if (composition != null)
+		{
+			this.npcSize = composition.getSize();
+		}
 	}
 }
