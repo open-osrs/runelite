@@ -106,6 +106,7 @@ class AboveSceneOverlay extends Overlay
 		return null;
 	}
 
+	//TODO add poison color change or low health color change
 	private void renderHealthBars(Graphics2D graphics)
 	{
 		for (Map.Entry<WidgetInfo, Point> teammate : TEAMMATES.entrySet())

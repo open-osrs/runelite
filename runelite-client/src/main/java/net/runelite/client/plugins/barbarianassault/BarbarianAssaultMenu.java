@@ -34,10 +34,11 @@ class BarbarianAssaultMenu
 
 	private boolean isHornOptionHidden(String option)
 	{
-		if (game.getRole() != null && game.getRole().getTell(client).toLowerCase().equals(option))
+		if (game.isInGame() && game.getRole() != null && game.getRole().getTell(client).toLowerCase().equals(option))
 		{
 			// This will force the menu to be rebuilt after the correct tell is found
 			// medic will be added to the menu if it wasn't there before
+			// TODO this check messes up spamming horn at start?!?!?!
 			if (!hornUpdated)
 			{
 				rebuildForced = true;
@@ -74,6 +75,7 @@ class BarbarianAssaultMenu
 	//TODO healing vial on objects?
 	//TODO remove hiding healers with wrong food. I think the highlighting is enough,
 	// slow calls tend to be very annoying
+	// egg launcher is an npc!
 	void validateHiddenMenus(Role role)
 	{
 		clearHiddenMenus();

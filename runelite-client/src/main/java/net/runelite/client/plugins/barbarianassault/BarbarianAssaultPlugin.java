@@ -32,17 +32,40 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import net.runelite.api.*;
+import net.runelite.api.Actor;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.ItemID;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.MessageNode;
+import net.runelite.api.NPC;
+import net.runelite.api.Prayer;
+import net.runelite.api.SoundEffectID;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.*;
+import net.runelite.api.events.BeforeRender;
+import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.InteractingChanged;
+import net.runelite.api.events.ItemDespawned;
+import net.runelite.api.events.ItemSpawned;
+import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.NpcDespawned;
+import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -62,6 +85,7 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
+import org.apache.commons.lang3.StringUtils;
 
 import static net.runelite.api.widgets.WidgetInfo.*;
 
@@ -157,7 +181,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Getter
 	private final Map<NPC, Healer> healers = new HashMap<>();
 
-	private final HashMap<Integer, Instant> foodPressed = new HashMap<>();
+	//private final HashMap<Integer, Instant> foodPressed = new HashMap<>();
+
+	private String foodUsed = "";
 
 	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles;
 
@@ -173,9 +199,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private CycleCounter counter;
 
-	private Actor lastInteracted;
-
-	private int lastHealer;
+	private NPC lastInteracted;
 
 	private boolean shiftDown;
 
@@ -633,19 +657,18 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 		NPC npc = event.getNpc();
 
-		// TODO wave null check needed, will healers spawn if game if stalled
-		if (npc != null)
+		if (wave != null && npc != null && npc.getName().equals("Penance Healer"))
 		{
-			System.out.println(event.getNpc().getName() + " : " + isNpcHealer(npc.getId()));
-		}
-
-		if (isInGame() && wave != null && npc != null && isNpcHealer(npc.getId()))
-		{
+			if (!healers.containsKey(npc))
+			{
+				healers.put(npc, new Healer(npc, healers.size(), stage));
+			}
+			/*
 			if (checkNewSpawn(npc) || Duration.between(wave.getWaveTimer().getStartTime(), Instant.now()).getSeconds() < 16)
 			{
 				int spawnNumber = healers.size();
 				healers.put(npc, new Healer(npc, spawnNumber, stage));
-			}
+			}*/
 		}
 	}
 
@@ -657,45 +680,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			return;
 		}
 		healers.remove(event.getNpc());
-	}
-
-	@Subscribe
-	public void onInteractingChanged(InteractingChanged event)
-	{
-		if (!isInGame())
-		{
-			return;
-		}
-		Actor opponent = event.getTarget();
-
-		if (opponent instanceof NPC && isNpcHealer(((NPC) opponent).getId()) && event.getSource() != client.getLocalPlayer())
-		{
-			lastInteracted = opponent;
-		}
-	}
-
-	@Subscribe
-	public void onHitsplatApplied(HitsplatApplied hitsplatApplied)
-	{
-		if (!isInGame())
-		{
-			return;
-		}
-
-		Actor actor = hitsplatApplied.getActor();
-
-		if (healers.isEmpty() && !(actor instanceof NPC) && lastInteracted == null)
-		{
-			return;
-		}
-
-		for (Healer healer : healers.values())
-		{
-			if (healer.getNpc() == actor && actor == lastInteracted)
-			{
-				healer.setFoodRemaining(healer.getFoodRemaining() - 1);
-			}
-		}
 	}
 
 	@Subscribe
@@ -716,9 +700,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				{
 					getWave().resetCallTimer();
 				}
+
 				tickReset = true;
 				menu.setHornUpdated(false);
 			}
+
 			rebuild = true;
 			lastCallText = newCallText;
 			lastCallColor = newCallColor;
@@ -791,8 +777,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			String target = Text.removeTags(entry.getTarget()).toLowerCase();
 
 
-
-
 		}
 
 	}
@@ -806,22 +790,64 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		String target = event.getMenuTarget();
+		String target = Text.removeTags(event.getMenuTarget()).toLowerCase();
 
-		if (config.tagging() && (event.getMenuTarget().contains("Penance Ranger") || event.getMenuTarget().contains("Penance Fighter")))
+		if (getRole() == Role.ATTACKER)
 		{
-			if (event.getMenuOption().contains("Attack"))
+			if (config.tagging() && (event.getMenuTarget().contains("penance ranger") || event.getMenuTarget().contains("penance fighter")))
 			{
-				foodPressed.put(event.getId(), Instant.now());
+				if (event.getMenuOption().contains("attack"))
+				{
+					//TODO make new map for attacker
+					//foodPressed.put(event.getId(), Instant.now());
+				}
 			}
-			log.info(target);
+		}
+		else if (getRole() == Role.HEALER)
+		{
+			if (target.startsWith("poisoned") && target.endsWith("penance healer") && target.contains("->"))
+			{
+				foodUsed = StringUtils.substringBefore(target.replace("oned", "."), " ->");
+			}
+		}
+	}
+
+	// Not sure if this is the best way of checking if poison was used.
+	// Interacting changed is delayed after the hitsplat
+	@Subscribe
+	public void onInteractingChanged(InteractingChanged event)
+	{
+		if (!isInGame() || getRole() != Role.HEALER)
+		{
+			return;
 		}
 
-		if (config.healerMenuOption() && target.contains("Penance Healer") && target.contains("<col=ff9040>Poisoned") && target.contains("->"))
+		Actor opponent = event.getTarget();
+
+		if (event.getSource() != client.getLocalPlayer())
 		{
-			foodPressed.put(event.getId(), Instant.now());
-			lastHealer = event.getId();
-			log.info("Last healer changed: " + lastHealer);
+			return;
+		}
+
+		if (opponent == null)
+		{
+			if (lastInteracted != null)
+			{
+				Widget listen = client.getWidget(getRole().getListen());
+				if (listen != null && Objects.equals(foodUsed, listen.getText().toLowerCase()) && healers.containsKey(lastInteracted))
+				{
+					Healer healer = healers.get(lastInteracted);
+					healer.setFoodRemaining(healer.getFoodRemaining() - 1);
+					// TODO add timer for healer as well
+				}
+			}
+
+			lastInteracted = null;
+			foodUsed = "";
+		}
+		else if (Objects.equals(opponent.getName(), "Penance Healer"))
+		{
+			lastInteracted = (NPC)opponent;
 		}
 	}
 
@@ -843,18 +869,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 
 		return null;
-	}
-
-	private boolean checkNewSpawn(NPC npc)
-	{
-		for (WorldPoint p : WorldPoint.toLocalInstance(client, healerSpawnPoint))
-		{
-			if (p.distanceTo(npc.getWorldLocation()) < 5)
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private boolean isAnyPrayerActive()
@@ -889,8 +903,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	private void resetWave()
 	{
 		inGame = false;
+		menu.setHornUpdated(false);
+		menu.setRebuildForced(false);
 		removeTickTimer();
-		foodPressed.clear();
+		//foodPressed.clear();
 		clearAllEggMaps();
 		healers.clear();
 		wave = null;
@@ -898,7 +914,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		lastListenText = null;
 		lastCallText = null;
 		lastCallColor = -1;
-		menu.setHornUpdated(false);
+		lastInteracted = null;
+		foodUsed = "";
 	}
 
 	private void validateRole()
@@ -1001,19 +1018,4 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				itemId == ItemID.BLUE_EGG ||
 				itemId == ItemID.YELLOW_EGG;
 	}
-
-	private static boolean isNpcHealer(int npcId)
-	{
-		return npcId == NpcID.PENANCE_HEALER ||
-				npcId == NpcID.PENANCE_HEALER_5766 ||
-				npcId == NpcID.PENANCE_HEALER_5767 ||
-				npcId == NpcID.PENANCE_HEALER_5768 ||
-				npcId == NpcID.PENANCE_HEALER_5769 ||
-				npcId == NpcID.PENANCE_HEALER_5770 ||
-				npcId == NpcID.PENANCE_HEALER_5771 ||
-				npcId == NpcID.PENANCE_HEALER_5772 ||
-				npcId == NpcID.PENANCE_HEALER_5773 ||
-				npcId == NpcID.PENANCE_HEALER_5774;
-	}
-
 }

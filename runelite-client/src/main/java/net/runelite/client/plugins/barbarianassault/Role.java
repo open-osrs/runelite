@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.Client;
+import net.runelite.api.ItemID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 
@@ -40,16 +41,16 @@ enum Role
 			.put("Pois. Meat", "Tell-meat")
 			.build();
 	private static final ImmutableMap<String, Integer> ITEMS = ImmutableMap.<String, Integer>builder()
-			.put("Tofu", 10514)
-			.put("Crackers", 10513)
-			.put("Worms", 10515)
-			.put("Pois. Worms", 10540)
-			.put("Pois. Tofu", 10539)
-			.put("Pois. Meat", 10541)
-			.put("Barbed/Fire", 22230)
-			.put("Blunt/Earth", 22229)
-			.put("Field/Water", 22228)
-			.put("Bullet/Wind", 22227)
+			.put("Tofu", ItemID.TOFU)
+			.put("Crackers", ItemID.CRACKERS)
+			.put("Worms", ItemID.WORMS)
+			.put("Pois. Worms", ItemID.POISONED_WORMS)
+			.put("Pois. Tofu", ItemID.POISONED_TOFU)
+			.put("Pois. Meat", ItemID.POISONED_MEAT)
+			.put("Barbed/Fire", ItemID.BARBED_ARROW)
+			.put("Blunt/Earth", ItemID.BLUNT_ARROW)
+			.put("Field/Water", ItemID.FIELD_ARROW)
+			.put("Bullet/Wind", ItemID.BULLET_ARROW)
 			.build();
 
 
