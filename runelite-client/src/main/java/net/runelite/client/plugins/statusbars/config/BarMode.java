@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Hydrox6 <ikada@protonmail.ch>
+ * Copyright (c) 2018, Lotto <https://github.com/devLotto>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,67 +22,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.poison;
+package net.runelite.client.plugins.statusbars.config;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@ConfigGroup(PoisonConfig.GROUP)
-public interface PoisonConfig extends Config
+@Getter
+@RequiredArgsConstructor
+public enum BarMode
 {
-	String GROUP = "poison";
+	DISABLED("Disabled"),
+	HITPOINTS("Hitpoints"),
+	PRAYER("Prayer"),
+	RUN_ENERGY("Run Energy"),
+	SPECIAL_ATTACK("Special Attack");
 
-	@ConfigItem(
-		keyName = "showInfoboxes",
-		name = "Show Infoboxes",
-		description = "Configures whether to show the infoboxes"
-	)
-	default boolean showInfoboxes()
-	{
-		return false;
-	}
+	private final String name;
 
-	@ConfigItem(
-		keyName = "changeHealthIcon",
-		name = "Change HP Orb Icon",
-		description = "Configures whether the hp orb icon should change color to match poison/disease"
-	)
-	default boolean changeHealthIcon()
+	@Override
+	public String toString()
 	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "showPlayers",
-		name = "Show for players",
-		description = "Show poison timers for other players",
-		position = 1
-	)
-	default boolean showForPlayers()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		keyName = "showNpcs",
-		name = "Show for NPCs",
-		description = "Show poison timers for NPCs",
-		position = 2
-	)
-	default boolean showForNpcs()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		keyName = "fontsize",
-		name = "Font size",
-		description = "The size the time left text for other players/npc's will be",
-		position = 3
-	)
-	default int fontSize()
-	{
-		return 8;
+		return name;
 	}
 }
