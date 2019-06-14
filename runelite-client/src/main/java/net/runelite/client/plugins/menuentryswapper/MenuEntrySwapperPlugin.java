@@ -31,6 +31,7 @@ package net.runelite.client.plugins.menuentryswapper;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -101,30 +103,20 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private static final String SAVE = "Save";
 	private static final String RESET = "Reset";
 	private static final String MENU_TARGET = "Shift-click";
-	private List<String> bankItemNames = new ArrayList<>();
 	private static final String CONFIG_GROUP = "shiftclick";
 	private static final String ITEM_KEY_PREFIX = "item_";
 	private static final int PURO_PURO_REGION_ID = 10307;
 
-	private MenuEntry[] entries;
-	private final Set<Integer> leftClickConstructionIDs = new HashSet<>();
-	private boolean buildingMode;
-
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
 		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
-
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
 		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
-
 	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
 		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
-
 	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
 		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
-
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
 		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
-
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
 		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
 
@@ -140,8 +132,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		.on("\n")
 		.omitEmptyStrings()
 		.trimResults();
-
-	private final Map<ComparableEntry, ComparableEntry> customSwaps = new HashMap<>();
 
 	@Inject
 	private Client client;
@@ -173,6 +163,17 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Setter
 	private boolean shiftModifier = false;
 
+	private final Map<ComparableEntry, ComparableEntry> customSwaps = new HashMap<>();
+	// config keyname, set of regex for item list
+	private final Map<String, Set<Pattern>> itemRegexMap = new HashMap<>();
+	private final Set<Integer> leftClickConstructionIDs = new HashSet<>();
+
+	private MenuEntry[] entries;
+
+	private List<String> bankItemNames = new ArrayList<>();
+
+	private boolean buildingMode;
+
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
 	{
@@ -196,6 +197,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		// Mitigate old items for bank swaps to the new config
 		// todo Remove after some time as there is no need to keep calling this
 		mitigateBankSwap();
+
+		initializeRegexMap();
 	}
 
 	@Override
@@ -226,6 +229,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			if (event.getKey().equals("customSwaps"))
 			{
 				loadCustomSwaps(config.customSwaps());
+			}
+			else if (event.getKey().endsWith("Items"))
+			{
+				updateRegexMap(event.getKey(), event.getNewValue());
 			}
 
 			return;
@@ -552,9 +559,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (config.getBankOne())
 			{
-				for (String item : Text.fromCSV(config.getBankOneItems()))
+				for (Pattern regex : itemRegexMap.get("bankOneItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						swap(client, "Withdraw-1", option, target);
 						swap(client, "Deposit-1", option, target);
@@ -564,9 +571,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getBankFive())
 			{
-				for (String item : Text.fromCSV(config.getBankFiveItems()))
+				for (Pattern regex : itemRegexMap.get("bankFiveItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						swap(client, "Withdraw-5", option, target);
 						swap(client, "Deposit-5", option, target);
@@ -576,9 +583,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getBankTen())
 			{
-				for (String item : Text.fromCSV(config.getBankTenItems()))
+				for (Pattern regex : itemRegexMap.get("bankTenItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						swap(client, "Withdraw-10", option, target);
 						swap(client, "Deposit-10", option, target);
@@ -596,9 +603,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getBankX())
 			{
-				for (String item : Text.fromCSV(config.getBankXItems()))
+				for (Pattern regex : itemRegexMap.get("bankXItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						if (Text.standardize(option).startsWith("withdraw"))
 						{
@@ -614,9 +621,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getBankAll())
 			{
-				for (String item : Text.fromCSV(config.getBankAllItems()))
+				for (Pattern regex : itemRegexMap.get("bankAllItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						if (Text.standardize(option).startsWith("withdraw"))
 						{
@@ -640,9 +647,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (config.getSwapBuyOne() && !config.getBuyOneItems().equals(""))
 			{
-				for (String item : Text.fromCSV(config.getBuyOneItems()))
+				for (Pattern regex : itemRegexMap.get("buyOneItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Buy 1", target, true, false);
 					}
@@ -651,9 +658,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getSwapBuyFive() && !config.getBuyFiveItems().equals(""))
 			{
-				for (String item : Text.fromCSV(config.getBuyFiveItems()))
+				for (Pattern regex : itemRegexMap.get("buyFiveItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Buy 5", target, true, false);
 					}
@@ -662,9 +669,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getSwapBuyTen() && !config.getBuyTenItems().equals(""))
 			{
-				for (String item : Text.fromCSV(config.getBuyTenItems()))
+				for (Pattern regex : itemRegexMap.get("buyTenItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Buy 10", target, true, false);
 					}
@@ -673,9 +680,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getSwapBuyFifty() && !config.getBuyFiftyItems().equals(""))
 			{
-				for (String item : Text.fromCSV(config.getBuyFiftyItems()))
+				for (Pattern regex : itemRegexMap.get("buyFiftyItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Buy 50", target, true, false);
 					}
@@ -684,11 +691,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 		else if (option.contains("sell") && (!config.shiftShopping() || config.shiftShopping() && shiftModifier))
 		{
-			if (config.getSwapSellOne() && !config.getSellOneItems().equals(""))
+			if (config.getSwapSellOne() && !Strings.isNullOrEmpty(config.getSellOneItems()))
 			{
-				for (String item : Text.fromCSV(config.getSellOneItems()))
+				for (Pattern regex : itemRegexMap.get("sellOneItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Sell 1", target, true, false);
 					}
@@ -697,9 +704,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getSwapSellFive() && !Strings.isNullOrEmpty(config.getSellFiveItems()))
 			{
-				for (String item : Text.fromCSV(config.getSellFiveItems()))
+				for (Pattern regex : itemRegexMap.get("sellFiveItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Sell 5", target, true, false);
 					}
@@ -708,9 +715,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getSwapSellTen() && !Strings.isNullOrEmpty(config.getSellTenItems()))
 			{
-				for (String item : Text.fromCSV(config.getSellTenItems()))
+				for (Pattern regex : itemRegexMap.get("sellTenItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Sell 10", target, true, false);
 					}
@@ -719,9 +726,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 			if (config.getSwapSellFifty() && !Strings.isNullOrEmpty(config.getSellFiftyItems()))
 			{
-				for (String item : Text.fromCSV(config.getSellFiftyItems()))
+				for (Pattern regex : itemRegexMap.get("sellFiftyItems"))
 				{
-					if (target.equals(Text.standardize(item)))
+					if (regex.matcher(target).matches())
 					{
 						menuManager.addSwap("Value", target, "Sell 50", target, true, false);
 					}
@@ -1603,5 +1610,44 @@ public class MenuEntrySwapperPlugin extends Plugin
 			log.info("Mitigating Deposit/Withdraw All Items: {}", oldItems);
 			configManager.setConfiguration("menuentryswapper", "bankAllItems", oldItems);
 		}
+	}
+
+	private void initializeRegexMap()
+	{
+		for (String keyName : configManager.getConfigurationKeys("menuentryswapper"))
+		{
+			if (keyName.endsWith("Items"))
+			{
+				// [group, keyname]
+				final String[] configItem = keyName.split("\\.");
+				final String configValue = configManager.getConfiguration(configItem[0], configItem[1]);
+				log.debug("{}'s Value: {}", keyName, Text.fromCSV(configValue));
+				// Also clears any existing regex Set
+				itemRegexMap.put(configItem[1], Sets.newHashSet());
+				final Set<Pattern> itemRegexSet = itemRegexMap.get(configItem[1]);
+				for (String regex : Text.fromCSV(configValue))
+				{
+					itemRegexSet.add(Pattern.compile(sanitizeRegex(Text.standardize(regex)), Pattern.CASE_INSENSITIVE));
+				}
+			}
+		}
+	}
+
+	private void updateRegexMap(String keyName, String keyValue)
+	{
+		// Also clears any existing regex Set
+		itemRegexMap.put(keyName, Sets.newHashSet());
+		final Set<Pattern> itemRegexSet = itemRegexMap.get(keyName);
+
+		for (String regex : Text.fromCSV(keyValue))
+		{
+			itemRegexSet.add(Pattern.compile(sanitizeRegex(Text.standardize(regex)), Pattern.CASE_INSENSITIVE));
+		}
+		log.debug("Updated {} regex Set: {}", keyName, itemRegexMap.get(keyName));
+	}
+
+	private String sanitizeRegex(String regex)
+	{
+		return !regex.contains(".*") && regex.contains("*") ? regex.replace("*", ".*") : regex;
 	}
 }
