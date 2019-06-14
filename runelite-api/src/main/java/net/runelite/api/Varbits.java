@@ -642,7 +642,18 @@ public enum Varbits
 	/**
 	 * POH Building mode (1 = yes, 0 = no)
 	 */
-	BUILDING_MODE(2176);
+	BUILDING_MODE(2176),
+
+	/**
+	 * Loading screen when entering a player owned house
+	 * 0 = Not on loading screen
+	 * 2 = On loading screen
+	 */
+	HOUSE_LOADING_SCREEN(6719),
+	/**
+	 * 1 in building mode, otherwise 0
+	 */
+	HOUSE_BUILDING_MODE(2176);
 
 	/**
 	 * The raw varbit ID.
