@@ -1360,38 +1360,76 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		if (config.getBurningAmulet())
 		{
-			menuManager.addSwap("remove", "burning amulet", config.getBurningAmuletMode().toString());
+			menuManager.addSwap("remove", "burning amulet (1)", config.getBurningAmuletMode().toString());
+			menuManager.addSwap("remove", "burning amulet (2)", config.getBurningAmuletMode().toString());
+			menuManager.addSwap("remove", "burning amulet (3)", config.getBurningAmuletMode().toString());
+			menuManager.addSwap("remove", "burning amulet (4)", config.getBurningAmuletMode().toString());
+			menuManager.addSwap("remove", "burning amulet (5)", config.getBurningAmuletMode().toString());
 		}
 
 		if (config.getCombatBracelet())
 		{
-			menuManager.addSwap("remove", "combat bracelet", config.getCombatBraceletMode().toString());
+			menuManager.addSwap("remove", "combat bracelet (1)", config.getCombatBraceletMode().toString());
+			menuManager.addSwap("remove", "combat bracelet (2)", config.getCombatBraceletMode().toString());
+			menuManager.addSwap("remove", "combat bracelet (3)", config.getCombatBraceletMode().toString());
+			menuManager.addSwap("remove", "combat bracelet (4)", config.getCombatBraceletMode().toString());
+			menuManager.addSwap("remove", "combat bracelet (5)", config.getCombatBraceletMode().toString());
+			menuManager.addSwap("remove", "combat bracelet (6)", config.getCombatBraceletMode().toString());
 		}
 
 		if (config.getGamesNecklace())
 		{
-			menuManager.addSwap("remove", "games necklace", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (1)", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (2)", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (3)", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (4)", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (5)", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (6)", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (7)", config.getGamesNecklaceMode().toString());
+			menuManager.addSwap("remove", "games necklace (8)", config.getGamesNecklaceMode().toString());
 		}
 
 		if (config.getDuelingRing())
 		{
-			menuManager.addSwap("remove", "ring of dueling", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (1)", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (2)", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (3)", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (4)", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (5)", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (6)", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (7)", config.getDuelingRingMode().toString());
+			menuManager.addSwap("remove", "ring of dueling (8)", config.getDuelingRingMode().toString());
 		}
 
 		if (config.getGlory())
 		{
-			menuManager.addSwap("remove", "amulet of glory", config.getGloryMode().toString());
+			menuManager.addSwap("remove", "amulet of glory (1)", config.getGloryMode().toString());
+			menuManager.addSwap("remove", "amulet of glory (2)", config.getGloryMode().toString());
+			menuManager.addSwap("remove", "amulet of glory (3)", config.getGloryMode().toString());
+			menuManager.addSwap("remove", "amulet of glory (4)", config.getGloryMode().toString());
+			menuManager.addSwap("remove", "amulet of glory (5)", config.getGloryMode().toString());
+			menuManager.addSwap("remove", "amulet of glory (6)", config.getGloryMode().toString());
 			menuManager.addSwap("remove", "amulet of eternal glory", config.getGloryMode().toString());
 		}
 
 		if (config.getSkillsNecklace())
 		{
-			menuManager.addSwap("remove", "skills necklace", config.getSkillsNecklaceMode().toString());
+			menuManager.addSwap("remove", "skills necklace (1)", config.getSkillsNecklaceMode().toString());
+			menuManager.addSwap("remove", "skills necklace (2)", config.getSkillsNecklaceMode().toString());
+			menuManager.addSwap("remove", "skills necklace (3)", config.getSkillsNecklaceMode().toString());
+			menuManager.addSwap("remove", "skills necklace (4)", config.getSkillsNecklaceMode().toString());
+			menuManager.addSwap("remove", "skills necklace (5)", config.getSkillsNecklaceMode().toString());
+			menuManager.addSwap("remove", "skills necklace (6)", config.getSkillsNecklaceMode().toString());
+
 		}
 
 		if (config.getNecklaceofPassage())
 		{
-			menuManager.addSwap("remove", "necklace of passage", config.getNecklaceofPassageMode().toString());
+			menuManager.addSwap("remove", "necklace of passage (1)", config.getNecklaceofPassageMode().toString());
+			menuManager.addSwap("remove", "necklace of passage (2)", config.getNecklaceofPassageMode().toString());
+			menuManager.addSwap("remove", "necklace of passage (3)", config.getNecklaceofPassageMode().toString());
+			menuManager.addSwap("remove", "necklace of passage (4)", config.getNecklaceofPassageMode().toString());
+			menuManager.addSwap("remove", "necklace of passage (5)", config.getNecklaceofPassageMode().toString());
 		}
 
 		if (config.getDigsitePendant())
@@ -1412,7 +1450,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (config.getRingofWealth())
 		{
-			menuManager.addSwap("remove", "ring of wealth", config.getRingofWealthMode().toString());
+			menuManager.addSwap("remove", "ring of wealth (1)", config.getRingofWealthMode().toString());
+			menuManager.addSwap("remove", "ring of wealth (2)", config.getRingofWealthMode().toString());
+			menuManager.addSwap("remove", "ring of wealth (3)", config.getRingofWealthMode().toString());
+			menuManager.addSwap("remove", "ring of wealth (4)", config.getRingofWealthMode().toString());
+			menuManager.addSwap("remove", "ring of wealth (5)", config.getRingofWealthMode().toString());
 		}
 
 		if (config.swapMax())
@@ -1423,18 +1465,60 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void removeSwaps()
 	{
-		menuManager.removeSwaps("burning amulet");
-		menuManager.removeSwaps("combat bracelet");
-		menuManager.removeSwaps("games necklace");
-		menuManager.removeSwaps("ring of dueling");
-		menuManager.removeSwaps("amulet of glory");
+		menuManager.removeSwaps("burning amulet (1)");
+		menuManager.removeSwaps("burning amulet (2)");
+		menuManager.removeSwaps("burning amulet (3)");
+		menuManager.removeSwaps("burning amulet (4)");
+		menuManager.removeSwaps("burning amulet (5)");
+		menuManager.removeSwaps("combat bracelet (1)");
+		menuManager.removeSwaps("combat bracelet (2)");
+		menuManager.removeSwaps("combat bracelet (3)");
+		menuManager.removeSwaps("combat bracelet (4)");
+		menuManager.removeSwaps("combat bracelet (5)");
+		menuManager.removeSwaps("combat bracelet (6)");
+		menuManager.removeSwaps("games necklace (1)");
+		menuManager.removeSwaps("games necklace (2)");
+		menuManager.removeSwaps("games necklace (3)");
+		menuManager.removeSwaps("games necklace (4)");
+		menuManager.removeSwaps("games necklace (5)");
+		menuManager.removeSwaps("games necklace (6)");
+		menuManager.removeSwaps("games necklace (7)");
+		menuManager.removeSwaps("games necklace (8)");
+		menuManager.removeSwaps("ring of dueling (1)");
+		menuManager.removeSwaps("ring of dueling (2)");
+		menuManager.removeSwaps("ring of dueling (3)");
+		menuManager.removeSwaps("ring of dueling (4)");
+		menuManager.removeSwaps("ring of dueling (5)");
+		menuManager.removeSwaps("ring of dueling (6)");
+		menuManager.removeSwaps("ring of dueling (7)");
+		menuManager.removeSwaps("ring of dueling (8)");
+		menuManager.removeSwaps("amulet of glory (1)");
+		menuManager.removeSwaps("amulet of glory (2)");
+		menuManager.removeSwaps("amulet of glory (3)");
+		menuManager.removeSwaps("amulet of glory (4)");
+		menuManager.removeSwaps("amulet of glory (5)");
+		menuManager.removeSwaps("amulet of glory (6)");
+		menuManager.removeSwaps("skills necklace (1)");
+		menuManager.removeSwaps("skills necklace (2)");
+		menuManager.removeSwaps("skills necklace (3)");
+		menuManager.removeSwaps("skills necklace (4)");
+		menuManager.removeSwaps("skills necklace (5)");
+		menuManager.removeSwaps("skills necklace (6)");
+		menuManager.removeSwaps("necklace of passage (1)");
+		menuManager.removeSwaps("necklace of passage (2)");
+		menuManager.removeSwaps("necklace of passage (3)");
+		menuManager.removeSwaps("necklace of passage (4)");
+		menuManager.removeSwaps("necklace of passage (5)");
+		menuManager.removeSwaps("necklace of passage (6)");
+		menuManager.removeSwaps("ring of wealth (1)");
+		menuManager.removeSwaps("ring of wealth (2)");
+		menuManager.removeSwaps("ring of wealth (3)");
+		menuManager.removeSwaps("ring of wealth (4)");
+		menuManager.removeSwaps("ring of wealth (5)");
 		menuManager.removeSwaps("amulet of eternal glory");
-		menuManager.removeSwaps("skills necklace");
-		menuManager.removeSwaps("necklace of passage");
 		menuManager.removeSwaps("digsite pendant");
 		menuManager.removeSwaps("slayer ring");
 		menuManager.removeSwaps("xeric's talisman");
-		menuManager.removeSwaps("ring of wealth");
 	}
 
 	private void delete(int target)
