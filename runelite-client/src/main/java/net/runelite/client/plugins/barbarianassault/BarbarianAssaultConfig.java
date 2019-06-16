@@ -211,7 +211,7 @@ public interface BarbarianAssaultConfig extends Config
 	@ConfigItem(
 		keyName = "defTimer",
 		name = "Show defender tick timer",
-		description = "Shows the current cycle tick of runners.",
+		description = "Shows the current cycle tick of runners",
 		position = 2,
 		group = "Defender"
 	)
@@ -221,10 +221,22 @@ public interface BarbarianAssaultConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "deprioritizeBait",
+			name = "Deprioritize bait",
+			description = "Shifts any type of bait below 'Walk Here'",
+			position = 3,
+			group = "Defender"
+	)
+	default boolean deprioritizeBait()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "removePenanceCave",
 		name = "Remove penance cave",
 		description = "Removes block menu option from penance cave",
-		position = 3,
+		position = 4,
 		group = "Defender"
 	)
 	default boolean removePenanceCave()
@@ -401,13 +413,13 @@ public interface BarbarianAssaultConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "removeIncorrectEggs",
-		name = "Remove incorrect eggs",
-		description = "Removes take option from incorrect eggs",
+		keyName = "deprioritizeIncorrectEggs",
+		name = "Deprioritize incorrect eggs",
+		description = "Shifts incorrect eggs below 'Walk Here'",
 		position = 3,
 		group = "Collector"
 	)
-	default boolean removeIncorrectEggs()
+	default boolean deprioritizeIncorrectEggs()
 	{
 		return false;
 	}

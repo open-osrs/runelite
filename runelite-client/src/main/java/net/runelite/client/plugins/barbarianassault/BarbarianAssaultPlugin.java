@@ -685,6 +685,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onBeforeRender(BeforeRender event)
 	{
+		// TODO add an inGame check
 		Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
 		String newCallText = callWidget == null ? null : callWidget.getText();
 		int newCallColor = callWidget == null ? -1 : callWidget.getTextColor();
@@ -723,62 +724,77 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
+	//It'd be nice to update MenuManager so that this wouldn't be needed
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-
-		// Still testing how I want to deprioritize eggs
-		if (!true)
+		if (!isInGame() || (getRole() != Role.COLLECTOR && getRole() != Role.DEFENDER))
 		{
-			//TODO add deprioritized entries for when incorrect calls happen
-			// This can probably be done in MenuManager
-			final List<MenuEntry> newMenu = new ArrayList<>();
-			MenuEntry selected = null;
-			MenuEntry walk = null;
-
-
-			for (MenuEntry entry : client.getMenuEntries())
-			{
-				String option = Text.removeTags(entry.getOption()).toLowerCase();
-				String target = Text.removeTags(entry.getTarget()).toLowerCase();
-
-				if (option.equals("walk here"))
-				{
-					walk = entry;
-				}
-				else if (option.equals("yellow egg"))
-				{
-					selected = entry;
-					continue;
-				}
-
-				newMenu.add(entry);
-			}
-
-			if (selected != null)
-			{
-				if (walk != null)
-				{
-					newMenu.remove(walk);
-					newMenu.add(walk);
-				}
-				newMenu.add(selected);
-			}
-
-
+			return;
 		}
 
-		//client.setMenuEntries(newMenu.toArray(new MenuEntry[0]));
+		final List<MenuEntry> menu = new ArrayList<>();
+		final List<MenuEntry> selected = new ArrayList<>();
+		final List<MenuEntry> priority = new ArrayList<>();
+		MenuEntry walk = null;
+		boolean prioritizeWalk = false;
 
-		//INW
 		for (MenuEntry entry : client.getMenuEntries())
 		{
 			String option = Text.removeTags(entry.getOption()).toLowerCase();
 			String target = Text.removeTags(entry.getTarget()).toLowerCase();
 
+			if (option.equals("walk here"))
+			{
+				walk = entry;
+				continue;
+			}
 
+			if (getRole() == Role.COLLECTOR)
+			{
+				if (target.equals("yellow egg"))
+				{
+					priority.add(entry);
+					continue;
+				}
+				else if (option.equals("take") && (target.equals("blue egg") || target.equals("green egg") || target.equals("red egg")))
+				{
+					if (config.deprioritizeIncorrectEggs() && lastListenText.toLowerCase().startsWith(target))
+					{
+						selected.add(entry);
+						continue;
+					}
+					prioritizeWalk = true;
+				}
+			}
+			else
+			{
+				if (option.equals("take") && (target.equals("logs") || target.equals("hammer")))
+				{
+					priority.add(entry);
+					continue;
+				}
+				else if (config.deprioritizeBait() && option.equals("take") && (target.equals("tofu") || target.equals("crackers") || target.equals("worms")))
+				{
+					prioritizeWalk = true;
+				}
+			}
+
+			menu.add(entry);
 		}
 
+		if (!priority.isEmpty() || !selected.isEmpty() || prioritizeWalk)
+		{
+			if (walk != null)
+			{
+				menu.add(walk);
+			}
+
+			menu.addAll(selected);
+			menu.addAll(priority);
+
+			client.setMenuEntries(menu.toArray(new MenuEntry[0]));
+		}
 	}
 
 	@Subscribe
@@ -813,7 +829,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	}
 
 	// Not sure if this is the best way of checking if poison was used.
-	// Interacting changed is delayed after the hitsplat
+	// Interacting changed is delayed until after the hitsplat
 	@Subscribe
 	public void onInteractingChanged(InteractingChanged event)
 	{

@@ -96,6 +96,7 @@ class BarbarianAssaultMenu
 				case GET_SPIKES_PETRIFIED_MUSHROOM:
 				case TAKE_ATTACKER_ITEM_MACHINE:
 					return role != Role.ATTACKER && config.removeUnusedMenus();
+
 				case TELL_BLUE_ATTACKER_HORN:
 				case TELL_GREEN_ATTACKER_HORN:
 				case TELL_RED_ATTACKER_HORN:
@@ -124,14 +125,11 @@ class BarbarianAssaultMenu
 				// Collector role options
 				case CONVERT_COLLECTOR_CONVERTER:
 				case LOAD_EGG_HOPPER:
-				case TAKE_YELLOW_EGG:
-					return role != Role.COLLECTOR && config.removeUnusedMenus();
-
 				case TAKE_BLUE_EGG:
 				case TAKE_GREEN_EGG:
 				case TAKE_RED_EGG:
-					return (role != Role.COLLECTOR && config.removeUnusedMenus())
-							|| (role == Role.COLLECTOR && config.removeIncorrectEggs() && isEggHidden(entry.getTarget()));
+				case TAKE_YELLOW_EGG:
+					return role != Role.COLLECTOR && config.removeUnusedMenus();
 
 				case TELL_ACCURATE_COLLECTOR_HORN:
 				case TELL_AGGRESSIVE_COLLECTOR_HORN:
