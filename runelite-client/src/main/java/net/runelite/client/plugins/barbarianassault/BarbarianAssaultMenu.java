@@ -103,7 +103,7 @@ class BarbarianAssaultMenu
 							|| (role == Role.DEFENDER && config.removePenanceCave());
 
 				case DUNK_LAVA_CRATER:
-				case FIX_RUNNER_TRAP:
+				case FIX:
 				case STOCK_UP_DEFENDER_ITEM_MACHINE:
 				case TAKE_DEFENDER_ITEM_MACHINE:
 				case TAKE_HAMMER:

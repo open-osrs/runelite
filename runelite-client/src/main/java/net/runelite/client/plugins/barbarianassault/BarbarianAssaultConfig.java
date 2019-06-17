@@ -28,6 +28,7 @@ import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 
 @ConfigGroup("barbarianAssault")
 public interface BarbarianAssaultConfig extends Config
@@ -87,6 +88,10 @@ public interface BarbarianAssaultConfig extends Config
 		return false;
 	}
 
+	@Range(
+			min = 1,
+			max = 50
+	)
 	@ConfigItem(
 		keyName = "prayerMetronomeVolume",
 		name = "Metronome volume",
@@ -97,7 +102,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default int prayerMetronomeVolume()
 	{
-		return 1;
+		return 10;
 	}
 
 	@ConfigItem(

@@ -49,6 +49,7 @@ import net.runelite.api.ItemID;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
+import net.runelite.api.Player;
 import net.runelite.api.Prayer;
 import net.runelite.api.SoundEffectID;
 import net.runelite.api.coords.WorldPoint;
@@ -730,7 +731,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	// This can be added to MenuManager if some changes are made to allow it to work
+	// onMenuEntry added is only being used for conditional entry changes, all other
+	// changes use MenuManager in the BarbarianAssaultMenu/Menus classes
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
@@ -759,6 +761,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				switch (getRole())
 				{
 					case COLLECTOR:
+						// Take option for yellow eggs should always be the first option
 						if (target.equals("yellow egg"))
 						{
 							priority.add(entry);
@@ -766,52 +769,78 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 						}
 						else if (config.deprioritizeIncorrectEggs()
 								&& option.equals("take")
-								&& (target.equals("blue egg")
-								|| target.equals("green egg")
-								|| target.equals("red egg")))
+								&& (target.equals("blue egg") || target.equals("green egg") || target.equals("red egg")))
 						{
+							prioritizeWalk = true;
+
 							if (lastListenText.toLowerCase().startsWith(target))
 							{
 								selected.add(entry);
 								continue;
 							}
-
-							prioritizeWalk = true;
 						}
 
 						break;
 					case DEFENDER:
+						// Take option for logs and hammer should always be the first option
 						if (option.equals("take")
-								&& (target.equals("logs")
-								|| target.equals("hammer")))
+								&& (target.equals("logs") || target.equals("hammer")))
 						{
 							priority.add(entry);
 							continue;
 						}
 						else if (config.deprioritizeBait()
 								&& option.equals("take")
-								&& (target.equals("tofu")
-								|| target.equals("crackers")
-								|| target.equals("worms")))
+								&& (target.equals("tofu") || target.equals("crackers") || target.equals("worms")))
 						{
 							prioritizeWalk = true;
 						}
 
 						break;
 					case HEALER:
-						if (config.removeUnusedMenus()
-								&& (target.startsWith("poisoned meat")
-								|| target.startsWith("poisoned tofu")
-								|| target.startsWith("poisoned worms"))
-								&& target.contains("->"))
+						int identifier = entry.getIdentifier();
+
+						if ((target.startsWith("poisoned meat ->") || target.startsWith("poisoned tofu ->") || target.startsWith("poisoned worms ->")))
 						{
-							if (!target.endsWith("penance healer"))
+							// Poison should only be used on healers
+							if (config.removeUnusedMenus() && !target.endsWith("penance healer"))
 							{
 								continue;
 							}
-							else if (ctrlDown && entry.getIdentifier() == lastHealerPoisoned)
+							else if (config.ctrlHealer() && ctrlDown && identifier == lastHealerPoisoned)
 							{
 								selected.add(entry);
+								continue;
+							}
+						}
+
+						if (config.removeUnusedMenus())
+						{
+							// Vials that are empty should only be used on spring
+							if (target.startsWith("healing vial ->") && !target.endsWith("healer spring"))
+							{
+								continue;
+							}
+							// Vials that are full should only be used on players
+							else if (target.startsWith("healing vial(4) ->"))
+							{
+								Player[] players = client.getCachedPlayers();
+
+								if (!(identifier >= 0 && identifier < players.length && players[identifier] != null))
+								{
+									continue;
+								}
+							}
+							// Vials that are not full or empty can be used on either players or spring
+							else if (target.startsWith("healing vial(") && target.contains("->"))
+							{
+								Player[] players = client.getCachedPlayers();
+
+								if ((!(identifier >= 0 && identifier < players.length && players[identifier] != null))
+										&& !target.endsWith("healer spring"))
+								{
+									continue;
+								}
 							}
 						}
 
@@ -822,15 +851,19 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			menu.add(entry);
 		}
 
-		if (!priority.isEmpty() || !selected.isEmpty() || prioritizeWalk)
+		if (prioritizeWalk && walk != null)
 		{
-			if (walk != null)
-			{
-				menu.remove(walk);
-				menu.add(walk);
-			}
+			menu.remove(walk);
+			menu.add(walk);
+		}
 
+		if (!selected.isEmpty())
+		{
 			menu.addAll(selected);
+		}
+
+		if (!priority.isEmpty())
+		{
 			menu.addAll(priority);
 		}
 

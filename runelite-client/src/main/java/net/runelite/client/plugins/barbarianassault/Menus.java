@@ -19,7 +19,7 @@ public enum Menus
 
 	BLOCK_PENANCE_CAVE(Role.DEFENDER, new ComparableEntry("block", "penance cave", -1, -1, true, true)),
 	DUNK_LAVA_CRATER(Role.DEFENDER, new ComparableEntry("dunk", "lava crater", -1, -1, true, true)),
-	FIX_RUNNER_TRAP(Role.DEFENDER, new ComparableEntry("fix", "runner trap", -1, -1, true, false)),
+	FIX(Role.DEFENDER, new ComparableEntry("fix", "", -1, -1, true, false)),
 	STOCK_UP_DEFENDER_ITEM_MACHINE(Role.DEFENDER, new ComparableEntry("stock-up", "defender item machine", -1, -1, true, true)),
 	TAKE_DEFENDER_ITEM_MACHINE(Role.DEFENDER, new ComparableEntry("take", "defender item machine", -1, -1, false, true)),
 	TAKE_HAMMER(Role.DEFENDER, new ComparableEntry("take", "hammer", -1, -1, true, true)),
@@ -36,7 +36,6 @@ public enum Menus
 	TELL_TOFU_HEALER_HORN(Role.HEALER, new ComparableEntry("tell-tofu", "healer horn", -1, -1, true, true)),
 	TELL_CRACKERS_HEALER_HORN(Role.HEALER, new ComparableEntry("tell-crackers", "healer horn", -1, -1, true, true)),
 	TELL_WORMS_HEALER_HORN(Role.HEALER, new ComparableEntry("tell-worms", "healer horn", -1, -1, true, true)),
-	//USE_VIAL_GAME(Role.HEALER, new ComparableEntry("use", "healing vial", -1, MenuAction.ITEM_USE_ON_GAME_OBJECT.getId(), true, false)),
 	USE_VIAL_GROUND(Role.HEALER, new ComparableEntry("use", "healing vial", -1, MenuAction.ITEM_USE_ON_GROUND_ITEM.getId(), true, false)),
 	USE_VIAL_ITEM(Role.HEALER, new ComparableEntry("use", "healing vial", -1, MenuAction.ITEM_USE_ON_WIDGET_ITEM.getId(), true, false)),
 	USE_VIAL_NPC(Role.HEALER, new ComparableEntry("use", "healing vial", -1, MenuAction.ITEM_USE_ON_NPC.getId(), true, false)),
