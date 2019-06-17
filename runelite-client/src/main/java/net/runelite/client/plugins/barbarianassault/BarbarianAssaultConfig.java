@@ -45,7 +45,7 @@ public interface BarbarianAssaultConfig extends Config
 	@ConfigItem(
 		keyName = "showTimer",
 		name = "Show call change timer",
-		description = "Show time to next call change",
+		description = "Shows time to next call change",
 		position = 1
 	)
 	default boolean showTimer()
@@ -56,19 +56,19 @@ public interface BarbarianAssaultConfig extends Config
 	@ConfigItem(
 		keyName = "removeIncorrectCalls",
 		name = "Remove incorrect calls",
-		description = "Remove incorrect calls",
+		description = "Removes incorrect 'Tell' menu options from horn",
 		position = 2
 	)
 	default boolean removeIncorrectCalls()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
 		keyName = "removeUnusedMenus",
 		name = "Remove unused menus",
-		description = "Remove unnecessary menu options in Barbarian Assault depending on role" +
-			"<br>Examples: Remove attack options when not attacker",
+		description = "Removes unnecessary menu options" +
+			"<br>Example: Attack options are removed when not attacker",
 		position = 3
 	)
 	default boolean removeUnusedMenus()
@@ -136,7 +136,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean highlightArrows()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -191,7 +191,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean highlightBait()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -217,31 +217,31 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean defTimer()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
-			keyName = "deprioritizeBait",
-			name = "Deprioritize bait",
-			description = "Shifts any type of bait below 'Walk Here'",
-			position = 3,
-			group = "Defender"
+		keyName = "deprioritizeBait",
+		name = "Deprioritize bait",
+		description = "Moves 'Take' menu option for all bait below 'Walk Here'",
+		position = 3,
+		group = "Defender"
 	)
 	default boolean deprioritizeBait()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
 		keyName = "removePenanceCave",
 		name = "Remove penance cave",
-		description = "Removes block menu option from penance cave",
+		description = "Removes 'Block' menu option from penance cave",
 		position = 4,
 		group = "Defender"
 	)
 	default boolean removePenanceCave()
 	{
-		return false;
+		return true;
 	}
 
 
@@ -258,7 +258,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean highlightPoison()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -284,19 +284,19 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean showHpCountOverlay()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
 		keyName = "showTeammateHealthbars",
 		name = "Show health bars",
-		description = "Display a health bar where a teammate's remaining health is located",
+		description = "Displays a health bar where a teammate's remaining health is located",
 		position = 3,
 		group = "Healer"
 	)
 	default boolean showTeammateHealthbars()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -338,7 +338,7 @@ public interface BarbarianAssaultConfig extends Config
 	@ConfigItem(
 		keyName = "removeWrongHealFood",
 		name = "Remove wrong heal food ",
-		description = "Remove option to use wrong type of food on healer",
+		description = "Removes option to use wrong type of food on healer",
 		position = 7,
 		group = "Healer"
 	)
@@ -385,7 +385,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean swapCollectorBag()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -397,7 +397,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean swapDestroyEggs()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -409,19 +409,19 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean highlightCollectorEggs()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
 		keyName = "deprioritizeIncorrectEggs",
 		name = "Deprioritize incorrect eggs",
-		description = "Shifts incorrect eggs below 'Walk Here'",
+		description = "Moves 'Take' menu option for incorrect eggs below 'Walk Here'",
 		position = 3,
 		group = "Collector"
 	)
 	default boolean deprioritizeIncorrectEggs()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -433,6 +433,6 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean showEggCountOverlay()
 	{
-		return false;
+		return true;
 	}
 }

@@ -30,7 +30,6 @@ import com.google.inject.Provides;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,6 +75,8 @@ import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.input.KeyListener;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -142,6 +143,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Inject
 	private InfoBoxManager infoBoxManager;
 
+	@Inject
+	private KeyManager keyManager;
+
 	@Getter
 	private boolean inGame = false;
 
@@ -201,6 +205,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private NPC lastInteracted;
 
+	private int lastHealerPoisoned;
+
 	private boolean shiftDown;
 
 	private boolean ctrlDown;
@@ -220,13 +226,12 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		clockImage = ImageUtil.getResourceStreamFromClass(getClass(), "clock.png");
 		overlayManager.add(widgetsOverlay);
 		overlayManager.add(sceneOverlay);
+		keyManager.registerKeyListener(this);
 		validateRole();
 		menu.enableSwaps();
 		menu.validateHiddenMenus(getRole());
 		//inGame = client.getVar(Varbits.IN_GAME_BA) == 1;
 		//clientThread.invoke(() -> inGame = client.getVar(Varbits.IN_GAME_BA) == 1);
-
-
 	}
 
 	@Override
@@ -241,6 +246,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		clockImage = null;
 		scorecard = null;
 		gameTimer = null;
+		shiftDown = false;
+		ctrlDown = false;
 	}
 
 	@Override
@@ -309,7 +316,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				break;
 
 			case "removePenanceCave":
-			case "removeIncorrectEggs":
 			case "removeUnusedMenus":
 			case "removeWrongPoison":
 				menu.validateHiddenMenus(getRole());
@@ -495,7 +501,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		// Note: if an egg despawns due to time and the collector is standing over it,
+		// If an egg despawns due to time and the collector is standing over it,
 		// a point will added as if the player picked it up
 		HashMap<WorldPoint, Integer> eggMap = getEggMap(itemId);
 		if (eggMap != null)
@@ -724,11 +730,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	//It'd be nice to update MenuManager so that this wouldn't be needed
+	// This can be added to MenuManager if some changes are made to allow it to work
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!isInGame() || (getRole() != Role.COLLECTOR && getRole() != Role.DEFENDER))
+		if (!isInGame() || (getRole() == Role.ATTACKER))
 		{
 			return;
 		}
@@ -747,36 +753,69 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			if (option.equals("walk here"))
 			{
 				walk = entry;
-				continue;
-			}
-
-			if (getRole() == Role.COLLECTOR)
-			{
-				if (target.equals("yellow egg"))
-				{
-					priority.add(entry);
-					continue;
-				}
-				else if (option.equals("take") && (target.equals("blue egg") || target.equals("green egg") || target.equals("red egg")))
-				{
-					if (config.deprioritizeIncorrectEggs() && lastListenText.toLowerCase().startsWith(target))
-					{
-						selected.add(entry);
-						continue;
-					}
-					prioritizeWalk = true;
-				}
 			}
 			else
 			{
-				if (option.equals("take") && (target.equals("logs") || target.equals("hammer")))
+				switch (getRole())
 				{
-					priority.add(entry);
-					continue;
-				}
-				else if (config.deprioritizeBait() && option.equals("take") && (target.equals("tofu") || target.equals("crackers") || target.equals("worms")))
-				{
-					prioritizeWalk = true;
+					case COLLECTOR:
+						if (target.equals("yellow egg"))
+						{
+							priority.add(entry);
+							continue;
+						}
+						else if (config.deprioritizeIncorrectEggs()
+								&& option.equals("take")
+								&& (target.equals("blue egg")
+								|| target.equals("green egg")
+								|| target.equals("red egg")))
+						{
+							if (lastListenText.toLowerCase().startsWith(target))
+							{
+								selected.add(entry);
+								continue;
+							}
+
+							prioritizeWalk = true;
+						}
+
+						break;
+					case DEFENDER:
+						if (option.equals("take")
+								&& (target.equals("logs")
+								|| target.equals("hammer")))
+						{
+							priority.add(entry);
+							continue;
+						}
+						else if (config.deprioritizeBait()
+								&& option.equals("take")
+								&& (target.equals("tofu")
+								|| target.equals("crackers")
+								|| target.equals("worms")))
+						{
+							prioritizeWalk = true;
+						}
+
+						break;
+					case HEALER:
+						if (config.removeUnusedMenus()
+								&& (target.startsWith("poisoned meat")
+								|| target.startsWith("poisoned tofu")
+								|| target.startsWith("poisoned worms"))
+								&& target.contains("->"))
+						{
+							if (!target.endsWith("penance healer"))
+							{
+								continue;
+							}
+							else if (ctrlDown && entry.getIdentifier() == lastHealerPoisoned)
+							{
+								selected.add(entry);
+							}
+						}
+
+						break;
 				}
 			}
 
@@ -787,32 +826,38 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			if (walk != null)
 			{
+				menu.remove(walk);
 				menu.add(walk);
 			}
 
 			menu.addAll(selected);
 			menu.addAll(priority);
-
-			client.setMenuEntries(menu.toArray(new MenuEntry[0]));
 		}
+
+		client.setMenuEntries(menu.toArray(new MenuEntry[0]));
 	}
 
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (isInGame() && event.getWidgetId() == LEAVE_EARLY_WIDGET_ID)
+		if (!isInGame())
+		{
+			return;
+		}
+		else if (event.getWidgetId() == LEAVE_EARLY_WIDGET_ID)
 		{
 			resetWave();
 			return;
 		}
 
 		String target = Text.removeTags(event.getMenuTarget()).toLowerCase();
+		String option = Text.removeTags(event.getMenuTarget()).toLowerCase();
 
 		if (getRole() == Role.ATTACKER)
 		{
-			if (config.tagging() && (event.getMenuTarget().contains("penance ranger") || event.getMenuTarget().contains("penance fighter")))
+			if (config.tagging() && (target.contains("penance ranger") || target.contains("penance fighter")))
 			{
-				if (event.getMenuOption().contains("attack"))
+				if (option.contains("attack"))
 				{
 					//TODO make new map for attacker
 					//foodPressed.put(event.getId(), Instant.now());
@@ -821,8 +866,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 		else if (getRole() == Role.HEALER)
 		{
-			if (target.startsWith("poisoned") && target.endsWith("penance healer") && target.contains("->"))
+			if (target.equals("poisoned meat -> penance healer")
+				|| target.equals("poisoned tofu -> penance healer")
+				|| target.equals("poisoned worms -> penance healer"))
 			{
+				lastHealerPoisoned = event.getId();
 				foodUsed = StringUtils.substringBefore(target.replace("oned", "."), " ->");
 			}
 		}

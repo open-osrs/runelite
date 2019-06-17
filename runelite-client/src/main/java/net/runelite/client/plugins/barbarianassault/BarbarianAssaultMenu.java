@@ -49,12 +49,6 @@ class BarbarianAssaultMenu
 		return true;
 	}
 
-	private boolean isEggHidden(String egg)
-	{
-		Widget listen = client.getWidget(game.getRole().getListen());
-		return listen != null && !listen.getText().toLowerCase().startsWith(egg);
-	}
-
 	private boolean isPoisonHidden(String poison)
 	{
 		Widget listen = client.getWidget(game.getRole().getListen());
@@ -151,45 +145,12 @@ class BarbarianAssaultMenu
 				case TELL_WORMS_HEALER_HORN:
 					return (role == Role.HEALER || role == null) && config.removeIncorrectCalls() && isHornOptionHidden(entry.getOption());
 
-				case USE_MEAT_FIGHTER:
-				case USE_MEAT_GAME:
-				case USE_MEAT_GROUND:
-				case USE_MEAT_ITEM:
-				case USE_MEAT_PLAYER:
-				case USE_MEAT_RANGER:
-				case USE_MEAT_RUNNER:
-				case USE_MEAT_WIDGET:
-				case USE_TOFU_FIGHTER:
-				case USE_TOFU_GAME:
-				case USE_TOFU_GROUND:
-				case USE_TOFU_ITEM:
-				case USE_TOFU_PLAYER:
-				case USE_TOFU_RANGER:
-				case USE_TOFU_RUNNER:
-				case USE_TOFU_WIDGET:
 				//case USE_VIAL_GAME:
 				case USE_VIAL_GROUND:
 				case USE_VIAL_ITEM:
 				case USE_VIAL_NPC:
 				case USE_VIAL_WIDGET:
-				case USE_WORMS_FIGHTER:
-				case USE_WORMS_GAME:
-				case USE_WORMS_GROUND:
-				case USE_WORMS_ITEM:
-				case USE_WORMS_PLAYER:
-				case USE_WORMS_RANGER:
-				case USE_WORMS_RUNNER:
-				case USE_WORMS_WIDGET:
 					return role == Role.HEALER && config.removeUnusedMenus();
-
-				case USE_MEAT_HEALER:
-					return role == Role.HEALER && config.removeWrongPoison() && isPoisonHidden("pois. worms");
-
-				case USE_TOFU_HEALER:
-					return role == Role.HEALER && config.removeWrongPoison() && isPoisonHidden("pois. tofu");
-
-				case USE_WORMS_HEALER:
-					return role == Role.HEALER && config.removeWrongPoison() && isPoisonHidden("pois. meat");
 
 
 				// Any role options
