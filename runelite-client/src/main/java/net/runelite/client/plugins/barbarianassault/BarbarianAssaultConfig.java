@@ -80,7 +80,7 @@ public interface BarbarianAssaultConfig extends Config
 	@ConfigItem(
 		keyName = "prayerMetronome",
 		name = "Enable prayer metronome",
-		description = "Turns on a metronome sync'd to the game's tick rate",
+		description = "Turns on a metronome sync'd to the game's tick rate when any prayer is active",
 		position = 4
 	)
 	default boolean prayerMetronome()
@@ -146,7 +146,7 @@ public interface BarbarianAssaultConfig extends Config
 
 	@ConfigItem(
 		keyName = "highlightArrowColor",
-		name = "Highlight color",
+		name = "Arrow color",
 		description = "Configures the color to highlight the called arrows",
 		position = 1,
 		group = "Attacker",
@@ -201,7 +201,7 @@ public interface BarbarianAssaultConfig extends Config
 
 	@ConfigItem(
 		keyName = "highlightBaitColor",
-		name = "Highlight color",
+		name = "Bait color",
 		description = "Configures the color to highlight the called bait",
 		position = 1,
 		group = "Defender",
@@ -268,7 +268,7 @@ public interface BarbarianAssaultConfig extends Config
 
 	@ConfigItem(
 		keyName = "highlightPoisonColor",
-		name = "Highlight color",
+		name = "Poison color",
 		description = "Configures the color to highlight the called poison",
 		position = 1,
 		group = "Healer",
@@ -281,10 +281,36 @@ public interface BarbarianAssaultConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "highlightNotification",
+			name = "Highlight incorrect notification",
+			description = "Highlights chat notification for incorrect poison used",
+			position = 2,
+			group = "Healer"
+	)
+	default boolean highlightNotification()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			keyName = "highlightNotificationColor",
+			name = "Notification color",
+			description = "Configures the color to highlight the notification text",
+			position = 3,
+			group = "Healer",
+			hidden = true,
+			unhide = "highlightNotification"
+	)
+	default Color highlightNotificationColor()
+	{
+		return Color.RED;
+	}
+
+	@ConfigItem(
 		keyName = "showHpCountOverlay",
 		name = "Show number of hitpoints healed",
 		description = "Displays current number of hitpoints healed",
-		position = 2,
+		position = 4,
 		group = "Healer"
 	)
 	default boolean showHpCountOverlay()
@@ -296,7 +322,7 @@ public interface BarbarianAssaultConfig extends Config
 		keyName = "showTeammateHealthbars",
 		name = "Show health bars",
 		description = "Displays a health bar where a teammate's remaining health is located",
-		position = 3,
+		position = 5,
 		group = "Healer"
 	)
 	default boolean showTeammateHealthbars()
@@ -308,7 +334,7 @@ public interface BarbarianAssaultConfig extends Config
 		keyName = "healerCodes",
 		name = "Show healer codes",
 		description = "Overlay to show healer codes",
-		position = 4,
+		position = 6,
 		group = "Healer"
 	)
 	default boolean healerCodes()
@@ -320,7 +346,7 @@ public interface BarbarianAssaultConfig extends Config
 		keyName = "healerMenuOption",
 		name = "Show healer menu options",
 		description = "Shows tick count in healer menu options",
-		position = 5,
+		position = 7,
 		group = "Healer"
 	)
 	default boolean healerMenuOption()
@@ -329,49 +355,25 @@ public interface BarbarianAssaultConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "osHelp",
+		keyName = "shiftOverstock",
 		name = "Enable shift overstock",
 		description = "Enables overstocking by pressing shift",
-		position = 6,
-		group = "Healer"
-	)
-	default boolean osHelp()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		keyName = "removeWrongHealFood",
-		name = "Remove wrong heal food ",
-		description = "Removes option to use wrong type of food on healer",
-		position = 7,
-		group = "Healer"
-	)
-	default boolean removeWrongPoison()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		keyName = "wrongPoisonFoodTextColor",
-		name = "Healer wrong poison pack color",
-		description = "Change healer wrong poison pack color",
 		position = 8,
 		group = "Healer"
 	)
-	default Color wrongPoisonFoodTextColor()
+	default boolean shiftOverstock()
 	{
-		return Color.BLACK;
+		return false;
 	}
 
 	@ConfigItem(
-		keyName = "ctrlHealer",
+		keyName = "controlHealer",
 		name = "Control Healer",
 		description = "Hold ctrl to put last healer clicked on top",
 		position = 9,
 		group = "Healer"
 	)
-	default boolean ctrlHealer()
+	default boolean controlHealer()
 	{
 		return false;
 	}

@@ -9,7 +9,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.chat.ChatMessageBuilder;
 
-import java.awt.*;
+import java.awt.Color;
 
 
 @Data

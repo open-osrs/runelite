@@ -28,6 +28,7 @@ import java.awt.image.BufferedImage;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.Counter;
 
+
 class CycleCounter extends Counter
 {
 	CycleCounter(BufferedImage img, Plugin plugin, int tick)

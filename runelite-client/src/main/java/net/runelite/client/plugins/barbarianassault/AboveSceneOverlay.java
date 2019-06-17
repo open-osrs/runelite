@@ -32,7 +32,10 @@ import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.client.ui.overlay.*;
+import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
 import javax.inject.Inject;
 import java.awt.Color;
@@ -42,7 +45,6 @@ import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.util.Map;
 
-import static java.awt.Color.*;
 
 class AboveSceneOverlay extends Overlay
 {
@@ -145,13 +147,13 @@ class AboveSceneOverlay extends Overlay
 		for (Healer healer : game.getHealers().values())
 		{
 			NPCDefinition composition = healer.getNpc().getDefinition();
-			Color color = composition.getCombatLevel() > 1 ? YELLOW : ORANGE;
+			Color color = composition.getCombatLevel() > 1 ? Color.YELLOW : Color.ORANGE;
 			if (composition.getConfigs() != null)
 			{
 				NPCDefinition transformedComposition = composition.transform();
 				if (transformedComposition == null)
 				{
-					color = GRAY;
+					color = Color.GRAY;
 				}
 				else
 				{
@@ -163,17 +165,17 @@ class AboveSceneOverlay extends Overlay
 
 			if (healer.getFoodRemaining() > 1)
 			{
-				color = GREEN;
+				color = Color.GREEN;
 			}
 			else if (healer.getFoodRemaining() == 1)
 			{
 				if (timeLeft > 0)
 				{
-					color = RED;
+					color = Color.RED;
 				}
 				else
 				{
-					color = GREEN;
+					color = Color.GREEN;
 				}
 			}
 			else
@@ -203,21 +205,21 @@ class AboveSceneOverlay extends Overlay
 			switch (listen.getText())
 			{
 				case "Red eggs":
-					graphics.setColor(new Color(RED.getRed(), RED.getGreen(), RED.getBlue(), 150));
+					graphics.setColor(new Color(Color.RED.getRed(), Color.RED.getGreen(), Color.RED.getBlue(), 150));
 					game.getRedEggs().forEach((point, quantity) ->
 					{
 						drawCircle(graphics, LocalPoint.fromWorld(client, point));
 					});
 					break;
 				case "Green eggs":
-					graphics.setColor(new Color(GREEN.getRed(), GREEN.getGreen(), GREEN.getBlue(), 150));
+					graphics.setColor(new Color(Color.GREEN.getRed(), Color.GREEN.getGreen(), Color.GREEN.getBlue(), 150));
 					game.getGreenEggs().forEach((point, quantity) ->
 					{
 						drawCircle(graphics, LocalPoint.fromWorld(client, point));
 					});
 					break;
 				case "Blue eggs":
-					graphics.setColor(new Color(BLUE.getRed(), BLUE.getGreen(), BLUE.getBlue(), 150));
+					graphics.setColor(new Color(Color.BLUE.getRed(), Color.BLUE.getGreen(), Color.BLUE.getBlue(), 150));
 					game.getBlueEggs().forEach((point, quantity) ->
 					{
 						drawCircle(graphics, LocalPoint.fromWorld(client, point));
@@ -225,7 +227,7 @@ class AboveSceneOverlay extends Overlay
 					break;
 			}
 		}
-		graphics.setColor(new Color(YELLOW.getRed(), YELLOW.getGreen(), YELLOW.getBlue(), 150));
+		graphics.setColor(new Color(Color.YELLOW.getRed(), Color.YELLOW.getGreen(), Color.YELLOW.getBlue(), 150));
 		game.getYellowEggs().forEach((point, quantity) ->
 		{
 			drawCircle(graphics, LocalPoint.fromWorld(client, point));

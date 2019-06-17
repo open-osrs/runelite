@@ -89,12 +89,15 @@ import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
-import static net.runelite.api.widgets.WidgetInfo.*;
+import static net.runelite.api.widgets.WidgetInfo.BA_REWARD_TEXT;
+import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_FOUR;
+import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_ONE;
+import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_THREE;
+import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_TWO;
+import static net.runelite.api.widgets.WidgetInfo.MINIGAME_DIALOG_TEXT;
 
 
 @Slf4j
-
-
 @PluginDescriptor(
 		name = "Barbarian Assault+",
 		description = "Custom barbarian assault plugin, use along with BA Tools",
@@ -104,8 +107,6 @@ import static net.runelite.api.widgets.WidgetInfo.*;
 public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 {
 	private static final String ENDGAME_REWARD_NEEDLE_TEXT = "<br>5";
-
-	private static final WorldPoint healerSpawnPoint = new WorldPoint(1898, 1586, 0);
 
 	private static final List REGIONS = ImmutableList.of(10322, 7509, 7508);
 
@@ -210,7 +211,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private boolean shiftDown;
 
-	private boolean ctrlDown;
+	private boolean controlDown;
 
 
 	@Provides
@@ -240,6 +241,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	{
 		overlayManager.remove(widgetsOverlay);
 		overlayManager.remove(sceneOverlay);
+		keyManager.unregisterKeyListener(this);
 		menu.disableSwaps();
 		menu.clearHiddenMenus();
 		resetWave();
@@ -248,7 +250,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		scorecard = null;
 		gameTimer = null;
 		shiftDown = false;
-		ctrlDown = false;
+		controlDown = false;
 	}
 
 	@Override
@@ -265,7 +267,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
 		{
-			ctrlDown = true;
+			controlDown = true;
 		}
 	}
 
@@ -278,7 +280,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
 		{
-			ctrlDown = false;
+			controlDown = false;
 		}
 	}
 
@@ -457,11 +459,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 					wave.setHpHealed(wave.getHpHealed() + health);
 				}
 			}
-			else if (message.contains("the wrong type of poisoned food to use"))
+			else if (message.contains("the wrong type of poisoned food to use") && config.highlightNotification())
 			{
 				final MessageNode messageNode = chatMessage.getMessageNode();
 				final String nodeValue = Text.removeTags(messageNode.getValue());
-				messageNode.setValue(ColorUtil.wrapWithColorTag(nodeValue, config.wrongPoisonFoodTextColor()));
+				messageNode.setValue(ColorUtil.wrapWithColorTag(nodeValue, config.highlightNotificationColor()));
 				chatMessageManager.update(messageNode);
 			}
 		}
@@ -594,13 +596,13 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 					client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
 					client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
 					client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
-					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
+					client.getWidget(COMBAT_STYLE_FOUR).setHidden(false);
 					break;
 				case 1: // Aggressive
 					client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
 					client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
 					client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
-					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
+					client.getWidget(COMBAT_STYLE_FOUR).setHidden(true);
 					break;
 				case 2: // Controlled
 					if (weapon.getText().contains("Crystal halberd"))
@@ -614,7 +616,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 						client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
 					}
 					client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
-					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
+					client.getWidget(COMBAT_STYLE_FOUR).setHidden(true);
 					break;
 				case 3: // Accurate
 					if (weapon.getText().contains("Dragon claws"))
@@ -622,21 +624,21 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
 						client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
 						client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
-						client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
+						client.getWidget(COMBAT_STYLE_FOUR).setHidden(true);
 					}
 					else
 					{
 						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
 						client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
 						client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
-						client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
+						client.getWidget(COMBAT_STYLE_FOUR).setHidden(false);
 					}
 					break;
 				default:
 					client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
 					client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
 					client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
-					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
+					client.getWidget(COMBAT_STYLE_FOUR).setHidden(false);
 					break;
 			}
 		}
@@ -731,8 +733,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	// onMenuEntry added is only being used for conditional entry changes, all other
-	// changes use MenuManager in the BarbarianAssaultMenu/Menus classes
+	// onMenuEntryAdded is being used for conditional entry changes that are not
+	// easily achievable using MenuManager, all other changes use MenuManager in
+	// the BarbarianAssaultMenu/Menus classes
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
@@ -746,6 +749,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		final List<MenuEntry> priority = new ArrayList<>();
 		MenuEntry walk = null;
 		boolean prioritizeWalk = false;
+
+		String listen = lastListenText != null ? StringUtils.remove(lastListenText, "Pois. ").toLowerCase() : "";
 
 		for (MenuEntry entry : client.getMenuEntries())
 		{
@@ -773,7 +778,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 						{
 							prioritizeWalk = true;
 
-							if (lastListenText.toLowerCase().startsWith(target))
+							if (listen.startsWith(target))
 							{
 								selected.add(entry);
 								continue;
@@ -807,14 +812,21 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 							{
 								continue;
 							}
-							else if (config.ctrlHealer() && ctrlDown && identifier == lastHealerPoisoned)
+							else if (config.controlHealer() && controlDown && identifier == lastHealerPoisoned && target.endsWith("penance healer"))
 							{
 								selected.add(entry);
 								continue;
 							}
 						}
-
-						if (config.removeUnusedMenus())
+						else if (target.equals("healer item machine") && config.shiftOverstock() && shiftDown)
+						{
+							if (option.contains(listen))
+							{
+								selected.add(entry);
+								continue;
+							}
+						}
+						else if (config.removeUnusedMenus())
 						{
 							// Vials that are empty should only be used on spring
 							if (target.startsWith("healing vial ->") && !target.endsWith("healer spring"))

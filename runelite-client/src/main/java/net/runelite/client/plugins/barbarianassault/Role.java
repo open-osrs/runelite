@@ -8,6 +8,7 @@ import net.runelite.api.ItemID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 
+
 @AllArgsConstructor
 enum Role
 {
