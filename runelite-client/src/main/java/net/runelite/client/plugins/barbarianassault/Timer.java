@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, https://runelitepl.us
+ * Copyright (c) 2019, https://runelitepl.us
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,11 +39,6 @@ class Timer
 	Timer()
 	{
 		this.startTime = Instant.now();
-	}
-
-	Timer(Instant startTime)
-	{
-		this.startTime = startTime;
 	}
 
 	long getElapsedTime()

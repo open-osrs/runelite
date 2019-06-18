@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2018, https://runelitepl.us
+ * Copyright (c) 2019, 7ate9 <https://github.com/se7enAte9>
+ * Copyright (c) 2019, https://runelitepl.us
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -106,10 +107,34 @@ public interface BarbarianAssaultConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "showDeathTimes",
+			name = "Show death times",
+			description = "Shows the time all penance monsters of a certain type are killed in the chat box, an info box, or both",
+			position = 6
+	)
+	default boolean showDeathTimes()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			keyName = "showDeathTimesMode",
+			name = "Mode",
+			description = "",
+			position = 7,
+			hidden = true,
+			unhide = "showDeathTimes"
+	)
+	default DeathTimesMode showDeathTimesMode()
+	{
+		return DeathTimesMode.BOTH;
+	}
+
+	@ConfigItem(
 		keyName = "waveTimes",
 		name = "Show wave and game duration",
 		description = "Displays wave duration after each wave and total game time after wave 10",
-		position = 6
+		position = 8
 	)
 	default boolean waveTimes()
 	{
@@ -120,11 +145,11 @@ public interface BarbarianAssaultConfig extends Config
 		keyName = "showTotalRewards",
 		name = "Summarize total reward points",
 		description = "Gives summary of advanced points breakdown in chat log",
-		position = 7
+		position = 9
 	)
 	default boolean showTotalRewards()
 	{
-		return false;
+		return true;
 	}
 
 
@@ -214,13 +239,13 @@ public interface BarbarianAssaultConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "defTimer",
+		keyName = "showDefTimer",
 		name = "Show defender tick timer",
 		description = "Shows the current cycle tick of runners",
 		position = 2,
 		group = "Defender"
 	)
-	default boolean defTimer()
+	default boolean showDefTimer()
 	{
 		return true;
 	}
@@ -283,7 +308,7 @@ public interface BarbarianAssaultConfig extends Config
 	@ConfigItem(
 			keyName = "highlightNotification",
 			name = "Highlight incorrect notification",
-			description = "Highlights chat notification for incorrect poison used",
+			description = "Highlights incorrect poison chat notification",
 			position = 2,
 			group = "Healer"
 	)
@@ -363,7 +388,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean shiftOverstock()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(
@@ -375,7 +400,7 @@ public interface BarbarianAssaultConfig extends Config
 	)
 	default boolean controlHealer()
 	{
-		return false;
+		return true;
 	}
 
 

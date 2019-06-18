@@ -1,5 +1,8 @@
 /*
- * Copyright (c) 2018, https://runelitepl.us
+ * Copyright (c) 2018, Cameron <https://github.com/noremac201>
+ * Copyright (c) 2018, Jacob M <https://github.com/jacoblairm>
+ * Copyright (c) 2019, 7ate9 <https://github.com/se7enAte9>
+ * Copyright (c) 2019, https://runelitepl.us
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,11 +27,10 @@
  */
 package net.runelite.client.plugins.barbarianassault;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Provides;
+
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -83,23 +85,17 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.ui.overlay.infobox.Counter;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
-import static net.runelite.api.widgets.WidgetInfo.BA_REWARD_TEXT;
-import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_FOUR;
-import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_ONE;
-import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_THREE;
-import static net.runelite.api.widgets.WidgetInfo.COMBAT_STYLE_TWO;
-import static net.runelite.api.widgets.WidgetInfo.MINIGAME_DIALOG_TEXT;
-
 
 @Slf4j
 @PluginDescriptor(
-		name = "Barbarian Assault+",
+		name = "Barbarian Assault",
 		description = "Custom barbarian assault plugin, use along with BA Tools",
 		tags = {"minigame", "overlay", "timer"},
 		type = PluginType.PVM // don't remove this, added this because our barbarian assault plugin is big time modified
@@ -108,12 +104,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 {
 	private static final String ENDGAME_REWARD_NEEDLE_TEXT = "<br>5";
 
-	private static final List REGIONS = ImmutableList.of(10322, 7509, 7508);
-
 	private static final String[] STYLES = {"Defensive", "Aggressive", "Controlled", "Accurate"};
 
 	private static final int COLOR_CALL_UPDATED = 16316664;
 
+	// Don't know how likely the widget ID is to change from an update
 	private static final int LEAVE_EARLY_WIDGET_ID = 14352385;
 
 	private static final int BA_WAVE_NUM_INDEX = 2;
@@ -167,10 +162,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	private int stage = -1;
 
 	@Getter
-	private Image clockImage;
+	private BufferedImage clockImage;
 
 	@Getter
-	private Font font;
+	private Font font = null;
 
 	@Getter
 	private final HashMap<WorldPoint, Integer> redEggs = new HashMap<>();
@@ -189,9 +184,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	//private final HashMap<Integer, Instant> foodPressed = new HashMap<>();
 
-	private String foodUsed = "";
+	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles = null;
 
-	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles;
+	private String foodUsed = null;
 
 	private int lastCallColor = -1;
 
@@ -199,19 +194,23 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private String lastListenText = null;
 
-	private int tickNum;
+	private BufferedImage fighterImage, healerImage, rangerImage, runnerImage;
 
-	private boolean tickReset;
+	private Counter tickCounter;
 
-	private CycleCounter counter;
+	private HashMap<Counter, Boolean> deathTimes = new HashMap<>();
 
-	private NPC lastInteracted;
+	private int tickNum = 0;
 
-	private int lastHealerPoisoned;
+	private boolean tickReset = false;
 
-	private boolean shiftDown;
+	private NPC lastInteracted = null;
 
-	private boolean controlDown;
+	private int lastHealerPoisoned = -1;
+
+	private boolean shiftDown = false;
+
+	private boolean controlDown = false;
 
 
 	@Provides
@@ -226,6 +225,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	{
 		font = FontManager.getRunescapeFont().deriveFont(Font.BOLD, 24);
 		clockImage = ImageUtil.getResourceStreamFromClass(getClass(), "clock.png");
+		fighterImage = ImageUtil.getResourceStreamFromClass(getClass(), "fighter.png");
+		healerImage = ImageUtil.getResourceStreamFromClass(getClass(), "healer.png");
+		rangerImage = ImageUtil.getResourceStreamFromClass(getClass(), "ranger.png");
+		runnerImage = ImageUtil.getResourceStreamFromClass(getClass(), "runner.png");
 		overlayManager.add(widgetsOverlay);
 		overlayManager.add(sceneOverlay);
 		keyManager.registerKeyListener(this);
@@ -246,9 +249,13 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		menu.clearHiddenMenus();
 		resetWave();
 		font = null;
-		clockImage = null;
 		scorecard = null;
 		gameTimer = null;
+		clockImage = null;
+		fighterImage = null;
+		healerImage = null;
+		rangerImage = null;
+		runnerImage = null;
 		shiftDown = false;
 		controlDown = false;
 	}
@@ -307,14 +314,28 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				}
 				break;
 
-			case "defTimer":
-				if (Boolean.valueOf(configChanged.getNewValue()))
+			case "showDefTimer":
+				if (config.showDefTimer())
 				{
 					addTickTimer();
 				}
 				else
 				{
 					removeTickTimer();
+				}
+				break;
+
+			case "showDeathTimes":
+			case "showDeathTimesMode":
+				if (config.showDeathTimes()
+					&& (config.showDeathTimesMode() == DeathTimesMode.INFO_BOX
+					|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
+				{
+					addDeathTimes();
+				}
+				else
+				{
+					removeDeathTimes();
 				}
 				break;
 
@@ -344,13 +365,13 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			{
 				announceWaveTime();
 
-				Widget rewardWidget = client.getWidget(BA_REWARD_TEXT);
+				Widget rewardWidget = client.getWidget(WidgetInfo.BA_REWARD_TEXT);
 				if (rewardWidget == null)
 				{
 					break;
 				}
 
-				Widget pointsWidget = client.getWidget(BA_REWARD_TEXT);
+				Widget pointsWidget = client.getWidget(WidgetInfo.BA_REWARD_TEXT);
 				if (!rewardWidget.getText().contains(ENDGAME_REWARD_NEEDLE_TEXT))
 				{
 					if (config.showTotalRewards() && pointsWidget != null && wave != null)
@@ -382,7 +403,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			}
 			case WidgetID.DIALOG_MINIGAME_GROUP_ID:
 			{
-				Widget dialogTextWidget = client.getWidget(MINIGAME_DIALOG_TEXT);
+				Widget dialogTextWidget = client.getWidget(WidgetInfo.MINIGAME_DIALOG_TEXT);
 				if (!isInGame() || dialogTextWidget == null)
 				{
 					break;
@@ -465,6 +486,48 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				final String nodeValue = Text.removeTags(messageNode.getValue());
 				messageNode.setValue(ColorUtil.wrapWithColorTag(nodeValue, config.highlightNotificationColor()));
 				chatMessageManager.update(messageNode);
+			}
+			else if (message.startsWith("All of the Penance") && wave != null)
+			{
+				String[] tokens = message.split(" ");
+
+				switch (tokens[4])
+				{
+					case "Fighters":
+						deathTimes.put(new Counter(fighterImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+
+						break;
+					case "Healers":
+						deathTimes.put(new Counter(healerImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+
+						break;
+					case "Rangers":
+						deathTimes.put(new Counter(rangerImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+
+						break;
+					case "Runners":
+						deathTimes.put(new Counter(runnerImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+
+						break;
+				}
+
+				if (config.showDeathTimes()
+						&& (config.showDeathTimesMode() == DeathTimesMode.INFO_BOX
+						|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
+				{
+					addDeathTimes();
+				}
+
+				if (config.showDeathTimes()
+						&& (config.showDeathTimesMode() == DeathTimesMode.CHAT_BOX
+						|| config.showDeathTimesMode() == DeathTimesMode.BOTH)
+						&& wave != null)
+				{
+					final MessageNode node = chatMessage.getMessageNode();
+					final String nodeValue = Text.removeTags(node.getValue());
+					node.setValue(nodeValue + " (<col=ff0000>" + wave.getWaveTimer().getElapsedTime() + "s<col=000000>)");
+					chatMessageManager.update(node);
+				}
 			}
 		}
 	}
@@ -555,9 +618,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			tickReset = false;
 		}
 
-		if (counter != null)
+		if (tickCounter != null)
 		{
-			counter.setCount(tickNum);
+			tickCounter.setCount(tickNum);
 		}
 
 		tickNum++;
@@ -574,10 +637,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			{
 				ImmutableMap.Builder<WidgetInfo, Boolean> builder = new ImmutableMap.Builder<>();
 
-				builder.put(COMBAT_STYLE_ONE, client.getWidget(COMBAT_STYLE_ONE).isHidden());
-				builder.put(COMBAT_STYLE_TWO, client.getWidget(COMBAT_STYLE_TWO).isHidden());
-				builder.put(COMBAT_STYLE_THREE, client.getWidget(COMBAT_STYLE_THREE).isHidden());
-				builder.put(COMBAT_STYLE_FOUR, client.getWidget(COMBAT_STYLE_FOUR).isHidden());
+				builder.put(WidgetInfo.COMBAT_STYLE_ONE, client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).isHidden());
+				builder.put(WidgetInfo.COMBAT_STYLE_TWO, client.getWidget(WidgetInfo.COMBAT_STYLE_TWO).isHidden());
+				builder.put(WidgetInfo.COMBAT_STYLE_THREE, client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).isHidden());
+				builder.put(WidgetInfo.COMBAT_STYLE_FOUR, client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).isHidden());
 
 				originalAttackStyles = builder.build();
 			}
@@ -593,52 +656,52 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			switch (i)
 			{
 				case 0: //Defensive
-					client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
-					client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
-					client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
-					client.getWidget(COMBAT_STYLE_FOUR).setHidden(false);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_TWO).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
 					break;
 				case 1: // Aggressive
-					client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
-					client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
-					client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
-					client.getWidget(COMBAT_STYLE_FOUR).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_TWO).setHidden(false);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
 					break;
 				case 2: // Controlled
 					if (weapon.getText().contains("Crystal halberd"))
 					{
-						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
-						client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).setHidden(true);
 					}
 					else
 					{
-						client.getWidget(COMBAT_STYLE_ONE).setHidden(true);
-						client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).setHidden(true);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).setHidden(false);
 					}
-					client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
-					client.getWidget(COMBAT_STYLE_FOUR).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_TWO).setHidden(true);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
 					break;
 				case 3: // Accurate
 					if (weapon.getText().contains("Dragon claws"))
 					{
-						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
-						client.getWidget(COMBAT_STYLE_TWO).setHidden(true);
-						client.getWidget(COMBAT_STYLE_THREE).setHidden(true);
-						client.getWidget(COMBAT_STYLE_FOUR).setHidden(true);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_TWO).setHidden(true);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).setHidden(true);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(true);
 					}
 					else
 					{
-						client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
-						client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
-						client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
-						client.getWidget(COMBAT_STYLE_FOUR).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_TWO).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).setHidden(false);
+						client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
 					}
 					break;
 				default:
-					client.getWidget(COMBAT_STYLE_ONE).setHidden(false);
-					client.getWidget(COMBAT_STYLE_TWO).setHidden(false);
-					client.getWidget(COMBAT_STYLE_THREE).setHidden(false);
-					client.getWidget(COMBAT_STYLE_FOUR).setHidden(false);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_ONE).setHidden(false);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_TWO).setHidden(false);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_THREE).setHidden(false);
+					client.getWidget(WidgetInfo.COMBAT_STYLE_FOUR).setHidden(false);
 					break;
 			}
 		}
@@ -818,7 +881,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 								continue;
 							}
 						}
-						else if (target.equals("healer item machine") && config.shiftOverstock() && shiftDown)
+						else if (config.shiftOverstock() && target.equals("healer item machine") && shiftDown)
 						{
 							if (option.contains(listen))
 							{
@@ -921,8 +984,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	// Not sure if this is the best way of checking if poison was used.
-	// Interacting changed is delayed until after the hitsplat
+	// Interacting changed has a slight delay until after the hitsplat is applied
 	@Subscribe
 	public void onInteractingChanged(InteractingChanged event)
 	{
@@ -952,7 +1014,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			}
 
 			lastInteracted = null;
-			foodUsed = "";
+			foodUsed = null;
 		}
 		else if (Objects.equals(opponent.getName(), "Penance Healer"))
 		{
@@ -1003,7 +1065,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		this.role = role;
 		wave = new Wave(client);
 		tickNum = 0;
-		if (config.defTimer())
+		if (config.showDefTimer())
 		{
 			addTickTimer();
 		}
@@ -1015,6 +1077,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		menu.setHornUpdated(false);
 		menu.setRebuildForced(false);
 		removeTickTimer();
+		removeDeathTimes();
+		deathTimes.clear();
 		//foodPressed.clear();
 		clearAllEggMaps();
 		healers.clear();
@@ -1024,7 +1088,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		lastCallText = null;
 		lastCallColor = -1;
 		lastInteracted = null;
-		foodUsed = "";
+		foodUsed = null;
 	}
 
 	private void validateRole()
@@ -1053,23 +1117,47 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private void addTickTimer()
 	{
-		if (counter == null)
+		if (tickCounter == null)
 		{
 			int itemSpriteId = ItemID.FIGHTER_TORSO;
 
 			BufferedImage taskImg = itemManager.getImage(itemSpriteId);
-			counter = new CycleCounter(taskImg, this, tickNum);
+			tickCounter = new Counter(taskImg, this, tickNum);
 
-			infoBoxManager.addInfoBox(counter);
+			infoBoxManager.addInfoBox(tickCounter);
 		}
 	}
 
 	private void removeTickTimer()
 	{
-		if (counter != null)
+		if (tickCounter != null)
 		{
-			infoBoxManager.removeInfoBox(counter);
-			counter = null;
+			infoBoxManager.removeInfoBox(tickCounter);
+			tickCounter = null;
+		}
+	}
+
+	private void addDeathTimes()
+	{
+		for (Map.Entry<Counter, Boolean> counter : deathTimes.entrySet())
+		{
+			if (!counter.getValue())
+			{
+				infoBoxManager.addInfoBox(counter.getKey());
+				counter.setValue(true);
+			}
+		}
+	}
+
+	private void removeDeathTimes()
+	{
+		for (Map.Entry<Counter, Boolean> counter : deathTimes.entrySet())
+		{
+			if (counter.getValue())
+			{
+				infoBoxManager.removeInfoBox(counter.getKey());
+				counter.setValue(false);
+			}
 		}
 	}
 

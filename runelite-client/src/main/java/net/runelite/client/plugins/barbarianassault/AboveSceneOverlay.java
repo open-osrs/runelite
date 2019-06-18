@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2018, https://runelitepl.us
+ * Copyright (c) 2018, Jacob M <https://github.com/jacoblairm>
+ * Copyright (c) 2019, 7ate9 <https://github.com/se7enAte9>
+ * Copyright (c) 2019, https://runelitepl.us
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +53,7 @@ class AboveSceneOverlay extends Overlay
 	private static final int HEALTH_BAR_HEIGHT = 20;
 	private static final int HEALTH_BAR_WIDTH = 115;
 	private static final int CENTER_OFFSET = Perspective.LOCAL_HALF_TILE_SIZE / 8;
-	private static final int EGG_DIAMETER = Perspective.LOCAL_HALF_TILE_SIZE / 3;
+	private static final int EGG_DIAMETER = Perspective.LOCAL_HALF_TILE_SIZE / 4;
 	private static final Color HEALTH_BAR_COLOR = new Color(225, 35, 0, 125);
 	private static final ImmutableMap<WidgetInfo, Point> TEAMMATES = ImmutableMap.of(
 			WidgetInfo.BA_HEAL_TEAMMATE1, new Point(28, 2),
