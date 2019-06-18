@@ -32,6 +32,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -604,7 +605,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		}
 
-		if (option.contains("buy"))
+		if ((option.contains("buy") || option.contains("value")) && Arrays.stream(entries).anyMatch(menuEntry ->
+		{
+			return menuEntry.getOption().toLowerCase().contains("buy");
+		}))
 		{
 			if (config.getSwapBuyOne() && !config.getBuyOneItems().equals(""))
 			{
@@ -650,7 +654,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 		}
-		else if (option.contains("sell"))
+		else if ((option.contains("sell") || option.contains("value")) && Arrays.stream(entries).anyMatch(menuEntry ->
+		{
+			return menuEntry.getOption().toLowerCase().contains("sell");
+		}))
 		{
 			if (config.getSwapSellOne() && !config.getSellOneItems().equals(""))
 			{
@@ -727,8 +734,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (event.getType() == WALK.getId())
 			{
-				MenuEntry menuEntry = entries[entries.length - 1];
+				MenuEntry[] menuEntries = client.getMenuEntries();
+				MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
 				menuEntry.setType(MenuAction.WALK.getId() + MENU_ACTION_DEPRIORITIZE_OFFSET);
+				client.setMenuEntries(menuEntries);
 			}
 			else if (option.equalsIgnoreCase("examine"))
 			{
@@ -938,6 +947,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 				swap(client, "buy-plank", option, target, true);
 			}
 
+			if (config.claimDynamite() && target.equals("thirus"))
+			{
+				swap(client, "claim", option, target, true);
+			}
+
 			if (config.swapTrade())
 			{
 				swap(client, "trade", option, target, true);
@@ -948,11 +962,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			if (config.claimSlime() && target.equals("robin"))
 			{
 				swap(client, "claim-slime", option, target, true);
-			}
-
-			if (config.claimDynamite() && target.contains("Thirus"))
-			{
-				swap(client, "claim-dynamite", option, target, true);
 			}
 
 			if (config.swapTravel())
