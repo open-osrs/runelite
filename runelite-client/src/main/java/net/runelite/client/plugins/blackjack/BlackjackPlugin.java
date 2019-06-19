@@ -64,7 +64,6 @@ public class BlackjackPlugin extends Plugin
 	private Client client;
 	@Inject
 	private MenuManager menuManager;
-	private boolean isKnockedOut = false;
 	private long nextKnockOutTick = 0;
 
 	@Subscribe
@@ -79,7 +78,7 @@ public class BlackjackPlugin extends Plugin
 
 		String option = Text.removeTags(event.getOption().toLowerCase());
 		String target = Text.removeTags(event.getTarget().toLowerCase());
-		if (isKnockedOut && nextKnockOutTick >= client.getTickCount())
+		if (nextKnockOutTick >= client.getTickCount())
 		{
 			MenuUtil.swap(client, "pickpocket", option, target);
 		}
@@ -94,9 +93,10 @@ public class BlackjackPlugin extends Plugin
 	{
 		if (event.getType() == ChatMessageType.SPAM)
 		{
-			if (event.getMessage().equals("You smack the bandit over the head and render them unconscious."))
+			final String msg1 = "You smack the bandit over the head and render them unconscious.";
+			final String msg2 = "Your blow only glances off the bandit's head.";
+			if (event.getMessage().equals(msg1) || event.getMessage().equals(msg2))
 			{
-				isKnockedOut = true;
 				nextKnockOutTick = client.getTickCount() + RandomUtils.nextInt(3, 4);
 			}
 		}
