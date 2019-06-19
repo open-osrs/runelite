@@ -53,6 +53,7 @@ import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.Prayer;
+import net.runelite.api.Projectile;
 import net.runelite.api.SoundEffectID;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.BeforeRender;
@@ -67,6 +68,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.ProjectileSpawned;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
@@ -200,6 +202,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private HashMap<Counter, Boolean> deathTimes = new HashMap<>();
 
+	private HashMap<Integer, Projectile> projectiles = new HashMap<>();
+
 	private int tickNum = 0;
 
 	private boolean tickReset = false;
@@ -218,7 +222,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	{
 		return configManager.getConfig(BarbarianAssaultConfig.class);
 	}
-
 
 	@Override
 	protected void startUp() throws Exception
@@ -239,6 +242,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		//clientThread.invoke(() -> inGame = client.getVar(Varbits.IN_GAME_BA) == 1);
 	}
 
+	//TODO remove clock and reset role sprite
 	@Override
 	protected void shutDown() throws Exception
 	{
@@ -350,9 +354,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onGameStateChanged(final GameStateChanged event)
 	{
-		if (event.getGameState() == GameState.LOADING)
+		GameState state = event.getGameState();
+		if (state == GameState.LOGIN_SCREEN || state == GameState.LOGIN_SCREEN_AUTHENTICATOR || state == GameState.HOPPING)
 		{
-			clearAllEggMaps();
+			resetWave();
 		}
 	}
 
@@ -520,8 +525,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 				if (config.showDeathTimes()
 						&& (config.showDeathTimesMode() == DeathTimesMode.CHAT_BOX
-						|| config.showDeathTimesMode() == DeathTimesMode.BOTH)
-						&& wave != null)
+						|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
 				{
 					final MessageNode node = chatMessage.getMessageNode();
 					final String nodeValue = Text.removeTags(node.getValue());
@@ -603,6 +607,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
+	// TODO add region check to end game if a dc happens
+	// also do this in game state change
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
@@ -616,6 +622,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			tickNum = 0;
 			tickReset = false;
+			projectiles.entrySet().removeIf(projectile -> projectile.getValue().getRemainingCycles() < 1);
 		}
 
 		if (tickCounter != null)
@@ -729,7 +736,14 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 		NPC npc = event.getNpc();
 
-		if (wave != null && npc != null && npc.getName().equals("Penance Healer"))
+		if (npc == null)
+		{
+			return;
+		}
+
+		String name = event.getNpc().getName();
+
+		if (wave != null && name.equals("Penance Healer"))
 		{
 			if (!healers.containsKey(npc))
 			{
@@ -802,7 +816,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!isInGame() || (getRole() == Role.ATTACKER))
+		if (!isInGame())
 		{
 			return;
 		}
@@ -819,6 +833,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			String option = Text.removeTags(entry.getOption()).toLowerCase();
 			String target = Text.removeTags(entry.getTarget()).toLowerCase();
+			int identifier = entry.getIdentifier();
 
 			if (option.equals("walk here"))
 			{
@@ -828,9 +843,40 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			{
 				switch (getRole())
 				{
+					case ATTACKER:
+						if (config.tagging() && option.equals("attack") && (target.startsWith("penance fighter") || target.startsWith("penance ranger")))
+						{
+							String tag = StringUtils.substringBefore(entry.getTarget(), ")");
+
+							NPC[] npcs = client.getCachedNPCs();
+
+							if (identifier >= 0 && identifier < npcs.length)
+							{
+								NPC npc = npcs[identifier];
+								if (npc != null)
+								{
+									if (npc.getInteracting() == null && projectiles.get(identifier) == null)
+									{
+										entry.setTarget((tag + ") (" + (10 - (tickNum + 1)) + ")").replace("<col=ffff00>", "<col=2bff63>"));
+										selected.add(entry);
+										continue;
+									}
+									else if (npc.getInteracting() == client.getLocalPlayer())
+									{
+										entry.setTarget((tag + ") (" + (10 - (tickNum + 1)) + ")").replace("<col=ffff00>", "<col=0000ff>"));
+									}
+									else
+									{
+										entry.setTarget((tag + ") (" + (10 - (tickNum + 1)) + ")").replace("<col=ffff00>", "<col=ff0000>"));
+									}
+								}
+							}
+						}
+
+						break;
 					case COLLECTOR:
 						// Take option for yellow eggs should always be the first option
-						if (target.equals("yellow egg"))
+						if (option.equals("take") && target.equals("yellow egg"))
 						{
 							priority.add(entry);
 							continue;
@@ -866,8 +912,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 						break;
 					case HEALER:
-						int identifier = entry.getIdentifier();
-
 						if ((target.startsWith("poisoned meat ->") || target.startsWith("poisoned tofu ->") || target.startsWith("poisoned worms ->")))
 						{
 							// Poison should only be used on healers
@@ -963,7 +1007,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 		if (getRole() == Role.ATTACKER)
 		{
-			if (config.tagging() && (target.contains("penance ranger") || target.contains("penance fighter")))
+			if ((target.contains("penance ranger") || target.contains("penance fighter")))
 			{
 				if (option.contains("attack"))
 				{
@@ -988,37 +1032,57 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onInteractingChanged(InteractingChanged event)
 	{
-		if (!isInGame() || getRole() != Role.HEALER)
+		if (!isInGame() || (getRole() != Role.HEALER && getRole() != Role.ATTACKER))
 		{
 			return;
 		}
 
+		Actor source = event.getSource();
 		Actor opponent = event.getTarget();
 
-		if (event.getSource() != client.getLocalPlayer())
+		if (getRole() == Role.HEALER || source != client.getLocalPlayer() )
+		{
+			if (opponent == null)
+			{
+				if (lastInteracted != null)
+				{
+					Widget listen = client.getWidget(getRole().getListen());
+					if (listen != null && Objects.equals(foodUsed, listen.getText().toLowerCase()) && healers.containsKey(lastInteracted))
+					{
+						Healer healer = healers.get(lastInteracted);
+						healer.setFoodRemaining(healer.getFoodRemaining() - 1);
+						// TODO add timer for healer as well
+					}
+				}
+
+				lastInteracted = null;
+				foodUsed = null;
+			}
+			else if (Objects.equals(opponent.getName(), "Penance Healer"))
+			{
+				lastInteracted = (NPC)opponent;
+			}
+		}
+	}
+
+	@Subscribe
+	public void onProjectileSpawned(ProjectileSpawned event)
+	{
+		if (!isInGame())
 		{
 			return;
 		}
 
-		if (opponent == null)
+		Actor target = event.getProjectile().getInteracting();
+		if (target == null)
 		{
-			if (lastInteracted != null)
-			{
-				Widget listen = client.getWidget(getRole().getListen());
-				if (listen != null && Objects.equals(foodUsed, listen.getText().toLowerCase()) && healers.containsKey(lastInteracted))
-				{
-					Healer healer = healers.get(lastInteracted);
-					healer.setFoodRemaining(healer.getFoodRemaining() - 1);
-					// TODO add timer for healer as well
-				}
-			}
-
-			lastInteracted = null;
-			foodUsed = null;
+			return;
 		}
-		else if (Objects.equals(opponent.getName(), "Penance Healer"))
+
+		String name = target.getName();
+		if ("Penance Fighter".equals(name) || "Penance Ranger".equals(name))
 		{
-			lastInteracted = (NPC)opponent;
+			projectiles.put(((NPC)target).getIndex(), event.getProjectile());
 		}
 	}
 
@@ -1071,6 +1135,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
+	// TODO if a teammate dc's this is never called?
 	private void resetWave()
 	{
 		inGame = false;
@@ -1079,7 +1144,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		removeTickTimer();
 		removeDeathTimes();
 		deathTimes.clear();
-		//foodPressed.clear();
+		projectiles.clear();
 		clearAllEggMaps();
 		healers.clear();
 		wave = null;
