@@ -184,8 +184,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Getter
 	private final Map<NPC, Healer> healers = new HashMap<>();
 
-	//private final HashMap<Integer, Instant> foodPressed = new HashMap<>();
-
 	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles = null;
 
 	private String foodUsed = null;
@@ -608,7 +606,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	}
 
 	// TODO add region check to end game if a dc happens
-	// also do this in game state change
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
@@ -1125,6 +1122,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			return;
 		}
+		resetWave();
 		inGame = true;
 		this.role = role;
 		wave = new Wave(client);
@@ -1151,9 +1149,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		role = null;
 		lastListenText = null;
 		lastCallText = null;
-		lastCallColor = -1;
 		lastInteracted = null;
 		foodUsed = null;
+		lastCallColor = -1;
+		lastHealerPoisoned = -1;
 	}
 
 	private void validateRole()
