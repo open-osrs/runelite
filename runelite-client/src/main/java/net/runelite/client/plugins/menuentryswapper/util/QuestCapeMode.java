@@ -7,7 +7,7 @@ public enum QuestCapeMode
 
 	private final String name;
 
-	MaxCapeMode(String name)
+	QuestCapeMode(String name)
 	{
 		this.name = name;
 	}
