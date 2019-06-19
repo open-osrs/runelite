@@ -1430,7 +1430,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 		if (config.swapQuestCape())
 		{
-			menuManager.addSwap("remove", "burning amulet", config.questCapeMode().toString());
+			menuManager.addSwap("remove", "quest point cape", config.questCapeMode().toString());
 		}
 	}
 
