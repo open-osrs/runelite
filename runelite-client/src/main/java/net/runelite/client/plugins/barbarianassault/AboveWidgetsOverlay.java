@@ -114,31 +114,25 @@ class AboveWidgetsOverlay extends Overlay
 		Widget roleText = client.getWidget(role.getRoleText());
 		Widget roleSprite = client.getWidget(role.getRoleSprite());
 
-		if (game.getWave() == null || roleText == null || roleSprite == null)
+		if (roleText == null || roleSprite == null)
 		{
 			return;
 		}
 
-		long timeLeft = game.getWave().getTimeToChange();
-		if (timeLeft < 0)
+		if (role == Role.COLLECTOR && config.showEggCountOverlay() && game.getWave() != null)
 		{
-			timeLeft = 0;
+			roleText.setText("(" + game.getWave().getCollectedEggCount() + ") " + formatClock());
 		}
-
-		if (role == Role.COLLECTOR && config.showEggCountOverlay())
+		else if (role == Role.HEALER && config.showHpCountOverlay() && game.getWave() != null)
 		{
-			roleText.setText(String.format("(%d) 00:%02d", game.getWave().getCollectedEggCount(), timeLeft));
-		}
-		else if (role == Role.HEALER && config.showHpCountOverlay())
-		{
-			roleText.setText(String.format("(%d) 00:%02d", game.getWave().getHpHealed(), timeLeft));
+			roleText.setText("(" + game.getWave().getHpHealed() + ") " + formatClock());
 		}
 		else
 		{
-			roleText.setText(String.format("00:%02d", timeLeft));
+			roleText.setText(formatClock());
 		}
+
 		Rectangle spriteBounds = roleSprite.getBounds();
-		roleSprite.setHidden(true);
 		graphics.drawImage(game.getClockImage(), spriteBounds.x, spriteBounds.y, null);
 	}
 
@@ -165,6 +159,26 @@ class AboveWidgetsOverlay extends Overlay
 							new Point(item.getCanvasLocation().getX() + OFFSET_X_TEXT_QUANTITY, item.getCanvasLocation().getY() + OFFSET_Y_TEXT_QUANTITY),
 							String.valueOf(item.getQuantity()), Color.YELLOW);
 				}
+			}
+		}
+	}
+
+	private String formatClock()
+	{
+		if (game.getCallTimer() == null)
+		{
+			return "- - -";
+		}
+		else
+		{
+			long timeLeft = game.getTimeToChange();
+			if (timeLeft < 0)
+			{
+				return "00:00";
+			}
+			else
+			{
+				return String.format("00:%02d", timeLeft);
 			}
 		}
 	}

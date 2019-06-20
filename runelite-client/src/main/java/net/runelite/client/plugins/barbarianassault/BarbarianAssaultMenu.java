@@ -208,12 +208,23 @@ class BarbarianAssaultMenu
 		}
 	}
 
-	void disableSwaps()
+	void disableSwaps(boolean force)
 	{
-		menuManager.removeSwap("climb-down", "ladder", "quick-start", "ladder");
-		menuManager.removeSwap("look-in", "collection bag", "empty", "collection bag");
-		menuManager.removeSwap("use", "blue egg", "destroy", "blue egg");
-		menuManager.removeSwap("use", "green egg", "destroy", "green egg");
-		menuManager.removeSwap("use", "red egg", "destroy", "red egg");
+		if (!config.swapLadder() || force)
+		{
+			menuManager.removeSwap("climb-down", "ladder", "quick-start", "ladder");
+		}
+
+		if (!config.swapCollectorBag() || force)
+		{
+			menuManager.removeSwap("look-in", "collection bag", "empty", "collection bag");
+		}
+
+		if (!config.swapDestroyEggs() || force)
+		{
+			menuManager.removeSwap("use", "blue egg", "destroy", "blue egg");
+			menuManager.removeSwap("use", "green egg", "destroy", "green egg");
+			menuManager.removeSwap("use", "red egg", "destroy", "red egg");
+		}
 	}
 }

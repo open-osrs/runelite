@@ -75,8 +75,6 @@ public class Wave
 
 	private final Timer waveTimer;
 
-	private Timer callTimer;
-
 	private boolean runnersKilled;
 
 	private boolean rangersKilled;
@@ -113,13 +111,6 @@ public class Wave
 	{
 		this.client = client;
 		this.waveTimer = new Timer();
-		this.callTimer = new Timer();
-
-	}
-
-	long getTimeToChange()
-	{
-		return 30 - callTimer.getElapsedTime();
 	}
 
 	void setAmounts(int[] amounts)
@@ -131,11 +122,6 @@ public class Wave
 	{
 		System.arraycopy(points, 0, points, 0, points.length);
 		System.arraycopy(otherRolesPoints, 0, otherRolesPointsList, 0, otherRolesPoints.length);
-	}
-
-	void resetCallTimer()
-	{
-		callTimer = new Timer();
 	}
 
 	void setAmounts()

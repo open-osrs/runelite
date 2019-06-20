@@ -82,6 +82,11 @@ public class Scorecard
 		this.waves.add(wave);
 	}
 
+	int getNumberOfWaves()
+	{
+		return waves.size();
+	}
+
 	ChatMessageBuilder getGameSummary()
 	{
 		int[] amountsList;
