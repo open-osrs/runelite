@@ -554,6 +554,10 @@ public class PvpToolsPlugin extends Plugin
 			{
 				if (Objects.nonNull(p))
 				{
+					if (p.equals(client.getLocalPlayer()))
+					{
+						continue;
+					}
 					if (PvPUtil.isAttackable(client, p))
 					{
 						if (p.isClanMember())
