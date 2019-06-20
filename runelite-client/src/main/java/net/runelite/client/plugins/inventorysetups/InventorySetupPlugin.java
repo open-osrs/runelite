@@ -129,11 +129,9 @@ public class InventorySetupPlugin extends Plugin
 		// load all the inventory setups from the config file
 		clientThread.invokeLater(() ->
 		{
-			switch (client.getGameState())
+			if (client.getGameState() != GameState.LOGIN_SCREEN)
 			{
-				case STARTING:
-				case UNKNOWN:
-					return false;
+				return false;
 			}
 
 			loadConfig();
@@ -297,7 +295,7 @@ public class InventorySetupPlugin extends Plugin
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
 
-		if (!highlightDifference)
+		if (!highlightDifference || client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
 		}
