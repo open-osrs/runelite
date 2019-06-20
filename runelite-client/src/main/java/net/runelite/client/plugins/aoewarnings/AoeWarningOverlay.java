@@ -117,13 +117,6 @@ public class AoeWarningOverlay extends Overlay
 
 			int tickProgress = aoeProjectile.getFinalTick() - client.getTickCount();
 
-			System.out.println("-----------------------------------------");
-			System.out.println("Progress: " + progress);
-			System.out.println("Tick Progress: " + tickProgress);
-			System.out.println("Game Tick Count: " + client.getTickCount());
-			System.out.println("Proj Tick Count: " + aoeProjectile.getFinalTick());
-			System.out.println("-----------------------------------------");
-
 			int fillAlpha, outlineAlpha;
 			if (config.isFadeEnabled())
 			{
