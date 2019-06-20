@@ -26,17 +26,37 @@
 package net.runelite.client.plugins.coxhelper;
 
 import java.awt.Color;
+import java.awt.Font;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Stub;
-import net.runelite.client.plugins.coxhelper.utils.FontStyle;
 
 @ConfigGroup("Cox")
 
 public interface CoxConfig extends Config
 {
+	@Getter
+	@AllArgsConstructor
+	public enum FontStyle
+	{
+		BOLD("Bold", Font.BOLD),
+		ITALIC("Italic", Font.ITALIC),
+		PLAIN("Plain", Font.PLAIN);
+
+		private String name;
+		private int font;
+
+		@Override
+		public String toString()
+		{
+			return getName();
+		}
+	}
+
 	@ConfigItem(
 		position = 1,
 		keyName = "muttadileStub",
