@@ -31,6 +31,7 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Stub;
+import net.runelite.client.plugins.coxhelper.utils.FontStyle;
 
 @ConfigGroup("Cox")
 
@@ -48,12 +49,12 @@ public interface CoxConfig extends Config
 	}
 	@ConfigItem(
 		position = 2,
-		keyName = "Muttadile",
+		keyName = "muttadile",
 		name = "Muttadile Marker",
 		description = "Places an overlay around muttadiles showing their melee range.",
 		parent = "muttadileStub"
 	)
-	default boolean Muttadile()
+	default boolean muttadile()
 	{
 		return true;
 	}
@@ -71,12 +72,12 @@ public interface CoxConfig extends Config
 
 	@ConfigItem(
 		position = 4,
-		keyName = "Tekton",
+		keyName = "tekton",
 		name = "Tekton Marker",
 		description = "Places an overlay around Tekton showing his melee range.",
 		parent = "tektonStub"
 	)
-	default boolean Tekton()
+	default boolean tekton()
 	{
 		return true;
 	}
@@ -106,12 +107,24 @@ public interface CoxConfig extends Config
 
 	@ConfigItem(
 		position = 6,
-		keyName = "Guardians",
-		name = "Guardians timing",
+		keyName = "guardians",
+		name = "Guardians Overlay",
 		description = "Places an overlay near Guardians showing safespot.",
 		parent = "guardiansStub"
 	)
-	default boolean Guardians()
+	default boolean guardians()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 6,
+		keyName = "guardinTickCounter",
+		name = "Guardians Tick Timing",
+		description = "Places an overlay on Guardians showing attack tick timers.",
+		parent = "guardiansStub"
+	)
+	default boolean guardinTickCounter()
 	{
 		return true;
 	}
@@ -200,12 +213,12 @@ public interface CoxConfig extends Config
 
 	@ConfigItem(
 		position = 14,
-		keyName = "OlmTick",
+		keyName = "olmTick",
 		name = "Olm Tick Counter",
 		description = "Show Tick Counter on Olm",
 		parent = "olmStub"
 	)
-	default boolean OlmTick()
+	default boolean olmTick()
 	{
 		return true;
 	}
