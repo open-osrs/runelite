@@ -84,6 +84,7 @@ public class WidgetID
 	public static final int BA_DEFENDER_GROUP_ID = 487;
 	public static final int BA_HEALER_GROUP_ID = 488;
 	public static final int BA_REWARD_GROUP_ID = 497;
+	public static final int BA_HORN_OF_GLORY = 484;
 	public static final int LEVEL_UP_GROUP_ID = 233;
 	public static final int DIALOG_SPRITE_GROUP_ID = 193;
 	public static final int QUEST_COMPLETED_GROUP_ID = 277;
@@ -602,6 +603,13 @@ public class WidgetID
 			static final int TEAMMATE2 = 22;
 			static final int TEAMMATE3 = 26;
 			static final int TEAMMATE4 = 30;
+		}
+		static class HORN_GLORY
+		{
+			static final int ATTACKER = 5;
+			static final int DEFENDER = 6;
+			static final int COLLECTOR = 7;
+			static final int HEALER = 8;
 		}
 		static class REWARD_VALUES
 		{

@@ -27,14 +27,18 @@
  */
 package net.runelite.client.plugins.barbarianassault;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -73,6 +77,7 @@ import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
@@ -108,8 +113,16 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	private static final String[] STYLES = {"Defensive", "Aggressive", "Controlled", "Accurate"};
 
 	private static final int COLOR_CALL_UPDATED = 16316664;
+	private static final int COLOR_CALL_CALLED = 16291864;
 
 	private static final int BA_WAVE_NUM_INDEX = 2;
+
+	private static final List REGIONS = ImmutableList.of(10322, 7509, 7508);
+
+	private static final HashSet<Integer> HORNS = Sets.newHashSet(ItemID.ATTACKER_HORN, ItemID.COLLECTOR_HORN,
+			ItemID.DEFENDER_HORN, ItemID.HEALER_HORN, ItemID.ATTACKER_HORN_10517, ItemID.ATTACKER_HORN_10518,
+			ItemID.ATTACKER_HORN_10519, ItemID.ATTACKER_HORN_10520, ItemID.HEALER_HORN_10527, ItemID.HEALER_HORN_10528,
+			ItemID.HEALER_HORN_10529, ItemID.HEALER_HORN_10530);
 
 	@Inject
 	private Client client;
@@ -205,6 +218,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private boolean tickReset = false;
 
+	private boolean hornCalled = false;
+
 	private NPC lastInteracted = null;
 
 	private int lastHealerPoisoned = -1;
@@ -242,8 +257,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			tickCounter.setInSync(false);
 		}
-		//inGame = client.getVar(Varbits.IN_GAME_BA) == 1;
-		//clientThread.invoke(() -> inGame = client.getVar(Varbits.IN_GAME_BA) == 1);
+
+		inGameBit = isInGame() ? 1 : 0;
 	}
 
 	@Override
@@ -264,6 +279,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		shiftDown = false;
 		controlDown = false;
 		resetWave();
+		wave = null;
 	}
 
 	@Override
@@ -370,7 +386,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		switch (event.getGroupId())
 		{
 			case WidgetID.BA_REWARD_GROUP_ID:
-			{
 				announceWaveTime();
 
 				Widget rewardWidget = client.getWidget(WidgetInfo.BA_REWARD_TEXT);
@@ -412,33 +427,27 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 						announce(scorecard.getGameSummary());
 					}
 				}
-
 				break;
-			}
+
 			case WidgetID.BA_ATTACKER_GROUP_ID:
-			{
 				startWave(Role.ATTACKER);
 				menu.validateHiddenMenus(Role.ATTACKER);
 				break;
-			}
+
 			case WidgetID.BA_DEFENDER_GROUP_ID:
-			{
 				startWave(Role.DEFENDER);
 				menu.validateHiddenMenus(Role.DEFENDER);
 				break;
-			}
+
 			case WidgetID.BA_HEALER_GROUP_ID:
-			{
 				startWave(Role.HEALER);
 				menu.validateHiddenMenus(Role.HEALER);
 				break;
-			}
+
 			case WidgetID.BA_COLLECTOR_GROUP_ID:
-			{
 				startWave(Role.COLLECTOR);
 				menu.validateHiddenMenus(Role.COLLECTOR);
 				break;
-			}
 		}
 	}
 
@@ -758,36 +767,67 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		healers.remove(event.getNpc());
 	}
 
+
+	// So this is a mess, but it works and the horn of glory doesn't mess up anything.
+	// This was almost certainly a waste of time to get working, because almost nobody
+	// actually uses the horn of glory. At least now there shouldn't be anyone complaining
+	// about the horn of glory breaking anything and everything that should never break.
 	@Subscribe
 	public void onBeforeRender(BeforeRender event)
 	{
 		// TODO add an inGame check
-		Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
-		String newCallText = callWidget == null ? null : callWidget.getText();
-		int newCallColor = callWidget == null ? -1 : callWidget.getTextColor();
-		Widget listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
-		String newListenText = listenWidget == null ? null : listenWidget.getText();
 
 		boolean rebuild = false;
+
+		Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getGloryCall());
+		if (callWidget == null)
+		{
+			callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
+		}
+
+		String newCallText = getRole() == null ? lastCallText : getRole().getCall(client);
+		int newCallColor = callWidget == null ? lastCallColor : callWidget.getTextColor();
+
+		Widget listenWidget = getRole() == null ? null : client.getWidget(getRole().getGloryListen());
+		if (listenWidget == null)
+		{
+			listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
+		}
+
+		String newListenText = getRole() == null ? lastListenText : getRole().getListen(client);
+
 		if (!Objects.equals(newCallText, lastCallText))
 		{
 			rebuild = true;
 			lastCallText = newCallText;
+			callTimer = new Timer();
+			tickReset = true;
+			hornCalled = false;
+			menu.setHornUpdated(false);
+
+			if (tickCounter != null)
+			{
+				tickCounter.setInSync(true);
+			}
 		}
 
+		// Horn of glory will switch text back to white color before call change
 		if (newCallColor != lastCallColor)
 		{
-			if (newCallColor == COLOR_CALL_UPDATED)
+			if (newCallColor == COLOR_CALL_CALLED)
 			{
-				callTimer = new Timer();
-				tickReset = true;
-				menu.setHornUpdated(false);
-
-				if (tickCounter != null)
+				hornCalled = true;
+				rebuild = true;
+			}
+			else if (hornCalled)
+			{
+				newCallColor = COLOR_CALL_CALLED;
+				if (callWidget != null)
 				{
-					tickCounter.setInSync(true);
+					callWidget.setTextColor(newCallColor);
 				}
 			}
+
 			lastCallColor = newCallColor;
 		}
 
@@ -860,11 +900,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 									// Possibly just add it to a list when the projectile is spawned
 									else if (npc.getInteracting() == client.getLocalPlayer() || (projectile != null && projectile.getInteracting() == npc))
 									{
-										entry.setTarget((tag + ") (" + (10 - (tickNum + 1)) + ")").replace("<col=ffff00>", "<col=0000ff>"));
+										entry.setTarget((tag + ") (" + (10 - (tickNum)) + ")").replace("<col=ffff00>", "<col=0000ff>"));
 									}
 									else
 									{
-										entry.setTarget((tag + ") (" + (10 - (tickNum + 1)) + ")").replace("<col=ffff00>", "<col=ff0000>"));
+										entry.setTarget((tag + ") (" + (10 - (tickNum)) + ")").replace("<col=ffff00>", "<col=ff0000>"));
 									}
 								}
 							}
@@ -1097,7 +1137,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		clearAllEggMaps();
 		healers.clear();
 		role = null;
-		wave = null;
 		callTimer = null;
 		lastListenText = null;
 		lastCallText = null;
@@ -1106,35 +1145,50 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		lastCallColor = -1;
 		lastHealerPoisoned = -1;
 		tickNum = 0;
+		hornCalled = false;
 	}
 
 	private void startWave(Role role)
 	{
 		inGame = true;
 		this.role = role;
-		tickNum = 0;
 
 		validateWidgets();
 	}
 
+	// Role widgets are not accurate if a player is using horn of glory
 	private void validateGame()
 	{
 		Role role = null;
-		if (client.getWidget(Role.ATTACKER.getCall()) != null)
+
+		Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
+
+		if (inventory != null)
 		{
-			role = Role.ATTACKER;
-		}
-		else if (client.getWidget(Role.HEALER.getCall()) != null)
-		{
-			role = Role.HEALER;
-		}
-		else if (client.getWidget(Role.DEFENDER.getCall()) != null)
-		{
-			role = Role.DEFENDER;
-		}
-		else if (client.getWidget(Role.COLLECTOR.getCall()) != null)
-		{
-			role = Role.COLLECTOR;
+			Collection<WidgetItem> items = inventory.getWidgetItems();
+
+			for (WidgetItem item : items)
+			{
+				int id = item.getId();
+				if (id == ItemID.COLLECTOR_HORN)
+				{
+					role = Role.COLLECTOR;
+				}
+				else if (id == ItemID.DEFENDER_HORN)
+				{
+					role = Role.DEFENDER;
+				}
+				else if (id == ItemID.ATTACKER_HORN || id == ItemID.ATTACKER_HORN_10517 || id == ItemID.ATTACKER_HORN_10518
+						|| id == ItemID.ATTACKER_HORN_10519 || id == ItemID.ATTACKER_HORN_10520)
+				{
+					role = Role.ATTACKER;
+				}
+				else if (id == ItemID.HEALER_HORN || id == ItemID.HEALER_HORN_10527 || id == ItemID.HEALER_HORN_10528
+						|| id == ItemID.HEALER_HORN_10529 || id == ItemID.HEALER_HORN_10530)
+				{
+					role = Role.HEALER;
+				}
+			}
 		}
 
 		if (role != null)
@@ -1143,10 +1197,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			this.role = role;
 
 			Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
-			Widget listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
+			//Widget listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
 			lastCallText = callWidget == null ? null : callWidget.getText();
-			lastCallColor = callWidget == null ? -1 : callWidget.getTextColor();
-			lastCallText = listenWidget == null ? null : listenWidget.getText();
+			//lastCallColor = callWidget == null ? -1 : callWidget.getTextColor();
+			//lastCallText = listenWidget == null ? null : listenWidget.getText();
 		}
 
 		validateWidgets();

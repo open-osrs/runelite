@@ -38,23 +38,37 @@ import net.runelite.api.widgets.WidgetInfo;
 @AllArgsConstructor
 enum Role
 {
-	ATTACKER(WidgetInfo.BA_ATK_WAVE_TEXT, WidgetInfo.BA_ATK_LISTEN_TEXT, WidgetInfo.BA_ATK_CALL_TEXT, WidgetInfo.BA_ATK_ROLE_TEXT, WidgetInfo.BA_ATK_ROLE_SPRITE),
-	DEFENDER(WidgetInfo.BA_DEF_WAVE_TEXT, WidgetInfo.BA_DEF_LISTEN_TEXT, WidgetInfo.BA_DEF_CALL_TEXT, WidgetInfo.BA_DEF_ROLE_TEXT, WidgetInfo.BA_DEF_ROLE_SPRITE),
-	COLLECTOR(WidgetInfo.BA_COLL_WAVE_TEXT, WidgetInfo.BA_COLL_LISTEN_TEXT, WidgetInfo.BA_COLL_CALL_TEXT, WidgetInfo.BA_COLL_ROLE_TEXT, WidgetInfo.BA_COLL_ROLE_SPRITE),
-	HEALER(WidgetInfo.BA_HEAL_WAVE_TEXT, WidgetInfo.BA_HEAL_LISTEN_TEXT, WidgetInfo.BA_HEAL_CALL_TEXT, WidgetInfo.BA_HEAL_ROLE_TEXT, WidgetInfo.BA_HEAL_ROLE_SPRITE);
+	ATTACKER(WidgetInfo.BA_ATK_WAVE_TEXT, WidgetInfo.BA_ATK_LISTEN_TEXT, WidgetInfo.BA_ATK_HORN_LISTEN_TEXT,
+			WidgetInfo.BA_ATK_CALL_TEXT, WidgetInfo.BA_COLL_HORN_LISTEN_TEXT, WidgetInfo.BA_ATK_ROLE_TEXT,
+			WidgetInfo.BA_ATK_ROLE_SPRITE),
+	DEFENDER(WidgetInfo.BA_DEF_WAVE_TEXT, WidgetInfo.BA_DEF_LISTEN_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT,
+			WidgetInfo.BA_DEF_CALL_TEXT, WidgetInfo.BA_HEAL_HORN_LISTEN_TEXT, WidgetInfo.BA_DEF_ROLE_TEXT,
+			WidgetInfo.BA_DEF_ROLE_SPRITE),
+	COLLECTOR(WidgetInfo.BA_COLL_WAVE_TEXT, WidgetInfo.BA_COLL_LISTEN_TEXT, WidgetInfo.BA_COLL_HORN_LISTEN_TEXT,
+			WidgetInfo.BA_COLL_CALL_TEXT, WidgetInfo.BA_ATK_HORN_LISTEN_TEXT, WidgetInfo.BA_COLL_ROLE_TEXT,
+			WidgetInfo.BA_COLL_ROLE_SPRITE),
+	HEALER(WidgetInfo.BA_HEAL_WAVE_TEXT, WidgetInfo.BA_HEAL_LISTEN_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT,
+			WidgetInfo.BA_HEAL_CALL_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT, WidgetInfo.BA_HEAL_ROLE_TEXT,
+			WidgetInfo.BA_HEAL_ROLE_SPRITE);
 
 	@Getter
 	private final WidgetInfo wave;
 	@Getter
 	private final WidgetInfo listen;
 	@Getter
+	private final WidgetInfo gloryListen;
+	@Getter
 	private final WidgetInfo call;
+	@Getter
+	private final WidgetInfo gloryCall;
 	@Getter
 	private final WidgetInfo roleText;
 	@Getter
 	private final WidgetInfo roleSprite;
 
-	private static final ImmutableMap<String, String> CALLS = ImmutableMap.<String, String>builder()
+	// Duplicate* entries are to catch instances where the horn of glory has
+	// text different than the normal horn
+	private static final ImmutableMap<String, String> TELLS = ImmutableMap.<String, String>builder()
 			.put("Red egg", "Tell-red")
 			.put("Green egg", "Tell-green")
 			.put("Blue egg", "Tell-blue")
@@ -65,9 +79,27 @@ enum Role
 			.put("Tofu", "Tell-tofu")
 			.put("Crackers", "Tell-crackers")
 			.put("Worms", "Tell-worms")
+			.put("Poison Worms", "Tell-worms")
 			.put("Pois. Worms", "Tell-worms")
+			.put("Poison Tofu", "Tell-tofu")
 			.put("Pois. Tofu", "Tell-tofu")
+			.put("Poison Meat", "Tell-meat")
 			.put("Pois. Meat", "Tell-meat")
+			.build();
+	private static final ImmutableMap<String, String> GLORY_CALLS = ImmutableMap.<String, String>builder()
+			.put("Controlled/Bullet/Wind", "Bullet/Wind")
+			.put("Accurate/Field/Water", "Field/Water")
+			.put("Aggressive/Blunt/Earth", "Blunt/Earth")
+			.put("Defensive/Barbed/Fire", "Barbed/Fire")
+			.put("Tofu", "Tofu")
+			.put("Crackers", "Crackers")
+			.put("Worms", "Worms")
+			.put("Poison worms", "Pois. Worms")
+			.put("Poison tofu", "Pois. Tofu")
+			.put("Poison meat", "Pois. Meat")
+			.put("Red egg", "Red egg")
+			.put("Green egg", "Green egg")
+			.put("Blue egg", "Blue egg")
 			.build();
 	private static final ImmutableMap<String, Integer> ITEMS = ImmutableMap.<String, Integer>builder()
 			.put("Tofu", ItemID.TOFU)
@@ -85,7 +117,7 @@ enum Role
 
 	int getListenItem(Client client)
 	{
-		Widget listenWidget = client.getWidget(this.getListen());
+		Widget listenWidget = client.getWidget(getListen());
 		if (listenWidget == null)
 		{
 			return -1;
@@ -96,13 +128,54 @@ enum Role
 
 	String getTell(Client client)
 	{
-		Widget callWidget = client.getWidget(this.getCall());
+		Widget callWidget = client.getWidget(getCall());
 		if (callWidget == null)
 		{
-			return "";
+			callWidget = client.getWidget(getGloryCall());
+			if (callWidget == null)
+			{
+				return "";
+			}
 		}
 
-		return CALLS.getOrDefault(callWidget.getText(), "");
+		return TELLS.getOrDefault(callWidget.getText(), "");
 	}
 
+	String getCall(Client client)
+	{
+		// Do not reverse these if statements to be more efficient
+		// The normal widgets are no longer null/hidden after you
+		// click one time in the horn, and the values are incorrect
+		Widget callWidget = client.getWidget(getGloryCall());
+		if (callWidget != null && !callWidget.isHidden())
+		{
+			return GLORY_CALLS.get(callWidget.getText());
+		}
+
+		callWidget = client.getWidget(getCall());
+		if (callWidget != null)
+		{
+			return callWidget.getText();
+		}
+
+		return null;
+	}
+
+	String getListen(Client client)
+	{
+		// See the comment in getCall(Client client), before editing
+		Widget listenWidget = client.getWidget(getGloryListen());
+		if (listenWidget != null && !listenWidget.isHidden())
+		{
+			return GLORY_CALLS.get(listenWidget.getText());
+		}
+
+		listenWidget = client.getWidget(getListen());
+		if (listenWidget != null)
+		{
+			return listenWidget.getText();
+		}
+
+		return null;
+	}
 }

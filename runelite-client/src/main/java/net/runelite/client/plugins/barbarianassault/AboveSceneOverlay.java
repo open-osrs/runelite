@@ -125,8 +125,8 @@ class AboveSceneOverlay extends Overlay
 			String[] teammateHealth = widget.getText().split(" / ");
 
 			graphics.setColor(HEALTH_BAR_COLOR);
-			graphics.fillRect((int)(widget.getCanvasLocation().getX() - teammate.getValue().getX()),
-					(int)(widget.getCanvasLocation().getY() - teammate.getValue().getY()),
+			graphics.fillRect((widget.getCanvasLocation().getX() - teammate.getValue().getX()),
+					(widget.getCanvasLocation().getY() - teammate.getValue().getY()),
 					getBarWidth(Integer.parseInt(teammateHealth[1]), Integer.parseInt(teammateHealth[0]), HEALTH_BAR_WIDTH),
 					HEALTH_BAR_HEIGHT);
 		}
