@@ -129,9 +129,11 @@ public class InventorySetupPlugin extends Plugin
 		// load all the inventory setups from the config file
 		clientThread.invokeLater(() ->
 		{
-			if (client.getGameState() != GameState.LOGIN_SCREEN)
+			switch (client.getGameState())
 			{
-				return false;
+				case STARTING:
+				case UNKNOWN:
+					return false;
 			}
 
 			loadConfig();
@@ -289,14 +291,13 @@ public class InventorySetupPlugin extends Plugin
 			panel.addInventorySetup(key);
 		}
 
-		highlightDifference = false;
 	}
 
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
 
-		if (!highlightDifference || client.getGameState() != GameState.LOGGED_IN)
+		if (!highlightDifference)
 		{
 			return;
 		}
@@ -334,17 +335,20 @@ public class InventorySetupPlugin extends Plugin
 			// set the highlighting off if login screen shows up
 			case LOGIN_SCREEN:
 				highlightDifference = false;
-				final String setupName = panel.getSelectedInventorySetup();
-				if (!setupName.isEmpty())
-				{
-					panel.setCurrentInventorySetup(setupName);
-				}
 				break;
 
 			// set highlighting
 			case LOGGED_IN:
 				highlightDifference = config.getHighlightDifferences();
 				break;
+
+			default:
+				return;
+		}
+		final String setupName = panel.getSelectedInventorySetup();
+		if (!setupName.isEmpty())
+		{
+			panel.setCurrentInventorySetup(setupName);
 		}
 	}
 
