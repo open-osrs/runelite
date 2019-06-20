@@ -163,8 +163,7 @@ public class InventorySetupPlugin extends Plugin
 			return;
 		}
 
-		Boolean setupNameCheck = inventorySetups.containsKey(name);
-		if (setupNameCheck == null || setupNameCheck)
+		if (inventorySetups.containsKey(name))
 		{
 			String builder = "The setup " + name + " already exists. " +
 				"Would you like to replace it with the current setup?";
