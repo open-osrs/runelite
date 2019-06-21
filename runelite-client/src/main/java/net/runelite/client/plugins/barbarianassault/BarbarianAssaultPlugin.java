@@ -35,6 +35,7 @@ import com.google.inject.Provides;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -195,7 +196,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	private final HashMap<WorldPoint, Integer> yellowEggs = new HashMap<>();
 
 	@Getter
-	private final Map<NPC, Healer> healers = new HashMap<>();
+	private final Map<Integer, Healer> healers = new HashMap<>();
 
 	@Getter
 	private String lastCallText = null;
@@ -205,7 +206,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private int lastCallColor = -1;
 
-	private NPC lastInteracted = null;
+	private int lastInteracted = -1;
 
 	private int lastHealerPoisoned = -1;
 
@@ -301,6 +302,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			shiftDown = true;
 		}
+
 		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
 		{
 			controlDown = true;
@@ -314,6 +316,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			shiftDown = false;
 		}
+
 		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
 		{
 			controlDown = false;
@@ -407,7 +410,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 					if (config.showTotalRewards() && pointsWidget != null)
 					{
 						// The wave will be null if the plugin is disabled mid game, but
-						// the points will still be accurate if it is re-enabled
+						// the wave points will still be accurate if it is re-enabled
 						if (wave == null)
 						{
 							wave = new Wave(client);
@@ -530,9 +533,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				{
 					final MessageNode node = chatMessage.getMessageNode();
 					final String nodeValue = Text.removeTags(node.getValue());
-					// TODO use correct chat color for last parenthesis
-					System.out.println(node.getRuneLiteFormatMessage());
-					node.setValue(nodeValue + " (<col=ff0000>" + wave.getWaveTimer().getElapsedTime() + "s<col=000000>)");
+					node.setValue(nodeValue + " (<col=ff0000>" + wave.getWaveTimer().getElapsedTime() + "s</col>)");
 					chatMessageManager.update(node);
 				}
 			}
@@ -746,16 +747,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 		if (wave != null && name.equals("Penance Healer"))
 		{
-			if (!healers.containsKey(npc))
+			if (!healers.containsKey(npc.getIndex()))
 			{
-				healers.put(npc, new Healer(npc, healers.size(), stage));
+				healers.put(npc.getIndex(), new Healer(npc, healers.size(), stage));
 			}
-			/*
-			if (checkNewSpawn(npc) || Duration.between(wave.getWaveTimer().getStartTime(), Instant.now()).getSeconds() < 16)
-			{
-				int spawnNumber = healers.size();
-				healers.put(npc, new Healer(npc, spawnNumber, stage));
-			}*/
 		}
 	}
 
@@ -766,7 +761,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			return;
 		}
-		healers.remove(event.getNpc());
+		healers.remove(event.getNpc().getIndex());
 	}
 
 
@@ -777,7 +772,12 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onBeforeRender(BeforeRender event)
 	{
-		// TODO add an inGame check
+		// TODO uncomment inGame check
+
+		//if (!isInGame())
+		//{
+			//return;
+		//}
 
 		boolean rebuild = false;
 		boolean gloryHornOpen = false;
@@ -930,6 +930,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 									}
 									// TODO add check to see if other attacker is attacking fighter/ranger
 									// Possibly just add it to a list when the projectile is spawned
+									// Also maybe add order by health option
 									else if (npc.getInteracting() == client.getLocalPlayer() || (projectile != null && projectile.getInteracting() == npc))
 									{
 										entry.setTarget((tag + ") (" + (10 - (tickNum)) + ")").replace("<col=ffff00>", "<col=0000ff>"));
@@ -981,14 +982,24 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 						break;
 
 					case HEALER:
+						if (config.healerMenuOption() && target.contains("penance healer") && healers.containsKey(identifier))
+						{
+							String tag = StringUtils.substringBefore(entry.getTarget(), " (");
+
+							entry.setTarget(tag + " (" + (healers.get(identifier).timeToPoison()) + ")");
+
+							target = Text.removeTags(entry.getTarget()).toLowerCase();
+
+						}
+
 						if ((target.startsWith("poisoned meat ->") || target.startsWith("poisoned tofu ->") || target.startsWith("poisoned worms ->")))
 						{
 							// Poison should only be used on healers
-							if (config.removeUnusedMenus() && !target.endsWith("penance healer"))
+							if (config.removeUnusedMenus() && !target.contains("penance healer"))
 							{
 								continue;
 							}
-							else if (config.controlHealer() && controlDown && identifier == lastHealerPoisoned && target.endsWith("penance healer"))
+							else if (config.controlHealer() && controlDown && identifier == lastHealerPoisoned && target.contains("penance healer"))
 							{
 								selected.add(entry);
 								continue;
@@ -1069,9 +1080,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 		if (getRole() == Role.HEALER)
 		{
-			if (target.equals("poisoned meat -> penance healer")
-					|| target.equals("poisoned tofu -> penance healer")
-					|| target.equals("poisoned worms -> penance healer"))
+			if (target.startsWith("poisoned meat -> penance healer")
+					|| target.startsWith("poisoned tofu -> penance healer")
+					|| target.startsWith("poisoned worms -> penance healer"))
 			{
 				lastHealerPoisoned = event.getId();
 				poisonUsed = StringUtils.substringBefore(target.replace("oned", "."), " ->");
@@ -1083,37 +1094,40 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onInteractingChanged(InteractingChanged event)
 	{
-		if (!isInGame() || (getRole() != Role.HEALER && getRole() != Role.ATTACKER))
+		if (!isInGame() || getRole() != Role.HEALER)
 		{
 			return;
 		}
 
 		Actor source = event.getSource();
+
+		if (source != client.getLocalPlayer() )
+		{
+			return;
+		}
+
 		Actor opponent = event.getTarget();
 
-		if (getRole() == Role.HEALER || source != client.getLocalPlayer() )
+		if (opponent == null)
 		{
-			if (opponent == null)
+			if (lastInteracted != -1)
 			{
-				if (lastInteracted != null)
+				if (StringUtils.equalsIgnoreCase(poisonUsed, getRole().getListen(client)) && healers.containsKey(lastInteracted))
 				{
-					Widget listen = client.getWidget(getRole().getListen());
-					if (listen != null && Objects.equals(poisonUsed, listen.getText().toLowerCase()) && healers.containsKey(lastInteracted))
-					{
-						Healer healer = healers.get(lastInteracted);
-						healer.setFoodRemaining(healer.getFoodRemaining() - 1);
-						// TODO add timer for healer as well
-					}
+					Healer healer = healers.get(lastInteracted);
+					healer.setFoodRemaining(healer.getFoodRemaining() - 1);
+					healer.setTimeLastPoisoned(Instant.now());
 				}
+			}
 
-				lastInteracted = null;
-				poisonUsed = null;
-			}
-			else if (Objects.equals(opponent.getName(), "Penance Healer"))
-			{
-				lastInteracted = (NPC)opponent;
-			}
+			lastInteracted = -1;
+			poisonUsed = null;
 		}
+		else if (StringUtils.equals(opponent.getName(), "Penance Healer"))
+		{
+			lastInteracted = ((NPC)opponent).getIndex();
+		}
+
 	}
 
 	@Subscribe
@@ -1174,7 +1188,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		clearAllEggMaps();
 		healers.clear();
 		role = null;
-		lastInteracted = null;
+		lastInteracted = -1;
 		poisonUsed = null;
 		lastHealerPoisoned = -1;
 		tickNum = 0;

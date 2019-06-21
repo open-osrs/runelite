@@ -31,6 +31,8 @@ import lombok.Data;
 import lombok.Getter;
 import net.runelite.api.NPC;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 
@@ -65,6 +67,8 @@ class Healer
 
 	private int secondCallFood;
 
+	private Instant timeLastPoisoned = null;
+
 	Healer(NPC npc, int spawnNumber, int wave)
 	{
 		this.npc = npc;
@@ -75,5 +79,15 @@ class Healer
 		this.secondCallFood = code.get(1)[spawnNumber];
 		this.lastFoodTime = code.get(2)[spawnNumber];
 		this.foodRemaining = firstCallFood + secondCallFood;
+	}
+
+	int timeToPoison()
+	{
+		long time = 0;
+		if (timeLastPoisoned != null)
+		{
+			time = Duration.between(timeLastPoisoned, Instant.now()).getSeconds();
+		}
+		return time > 20 ? 0 : (int)(20 - time);
 	}
 }

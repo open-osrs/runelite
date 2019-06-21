@@ -28,7 +28,6 @@ package net.runelite.client.plugins.barbarianassault;
 
 import com.google.common.collect.ImmutableMap;
 import net.runelite.api.Client;
-import net.runelite.api.NPCDefinition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
@@ -148,47 +147,27 @@ class AboveSceneOverlay extends Overlay
 	{
 		for (Healer healer : game.getHealers().values())
 		{
-			NPCDefinition composition = healer.getNpc().getDefinition();
-			Color color = composition.getCombatLevel() > 1 ? Color.YELLOW : Color.ORANGE;
-			if (composition.getConfigs() != null)
+			Color color = Color.GREEN;
+			int timeLeft = 0;
+
+			if (game.getWave() != null)
 			{
-				NPCDefinition transformedComposition = composition.transform();
-				if (transformedComposition == null)
-				{
-					color = Color.GRAY;
-				}
-				else
-				{
-					composition = transformedComposition;
-				}
+				timeLeft = healer.getLastFoodTime() - (int) game.getWave().getWaveTimer().getElapsedTime();
 			}
-			int timeLeft = healer.getLastFoodTime() - (int) game.getWave().getWaveTimer().getElapsedTime();
+
 			timeLeft = timeLeft < 1 ? 0 : timeLeft;
 
-			if (healer.getFoodRemaining() > 1)
+			if (healer.getFoodRemaining() != 1)
 			{
-				color = Color.GREEN;
-			}
-			else if (healer.getFoodRemaining() == 1)
-			{
-				if (timeLeft > 0)
-				{
-					color = Color.RED;
-				}
-				else
-				{
-					color = Color.GREEN;
-				}
-			}
-			else
-			{
-				continue;
+				//continue;
 			}
 
-			String text = String.format("%d  %d",
-					healer.getFoodRemaining(),
-					timeLeft);
+			if (timeLeft > 0)
+			{
+				color = Color.RED;
+			}
 
+			String text = String.format("%d  %d", healer.getFoodRemaining(), timeLeft);
 
 			OverlayUtil.renderActorOverlay(graphics, healer.getNpc(), text, color);
 		}
