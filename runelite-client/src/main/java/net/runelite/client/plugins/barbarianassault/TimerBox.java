@@ -39,7 +39,7 @@ public class TimerBox extends InfoBox
 
 	private boolean inSync = true;
 
-	public TimerBox(BufferedImage image, Plugin plugin, int count)
+	TimerBox(BufferedImage image, Plugin plugin, int count)
 	{
 		super(image, plugin);
 		this.count = count;
@@ -48,6 +48,10 @@ public class TimerBox extends InfoBox
 	@Override
 	public String getText()
 	{
+		if (count == -1)
+		{
+			return "";
+		}
 		return Integer.toString(getCount());
 	}
 
@@ -61,6 +65,23 @@ public class TimerBox extends InfoBox
 		else
 		{
 			return Color.RED;
+		}
+	}
+
+	@Override
+	public String getTooltip()
+	{
+		if (count == -1)
+		{
+			return "";
+		}
+		else if (inSync)
+		{
+			return "<col=00FF00>Valid";
+		}
+		else
+		{
+			return "<col=FF0000>Invalid";
 		}
 	}
 }

@@ -125,30 +125,14 @@ enum Role
 			.build();
 
 
-	int getListenItem(Client client)
+	int getListenItem(String listen)
 	{
-		Widget listenWidget = client.getWidget(getListen());
-		if (listenWidget == null)
-		{
-			return -1;
-		}
-
-		return ITEMS.getOrDefault(listenWidget.getText(), -1);
+		return ITEMS.getOrDefault(listen, -1);
 	}
 
-	String getTell(Client client)
+	String getTell(String call)
 	{
-		Widget callWidget = client.getWidget(getCall());
-		if (callWidget == null)
-		{
-			callWidget = client.getWidget(getGloryCall());
-			if (callWidget == null)
-			{
-				return "";
-			}
-		}
-
-		return TELLS.getOrDefault(callWidget.getText(), "");
+		return TELLS.getOrDefault(call, "");
 	}
 
 	String getCall(Client client)
@@ -157,7 +141,7 @@ enum Role
 		// The normal widgets are no longer null/hidden after you
 		// click one time in the horn, and the values are incorrect
 		Widget callWidget = client.getWidget(getGloryCall());
-		if (callWidget != null && !callWidget.isHidden())
+		if (callWidget != null)
 		{
 			return GLORY_CALLS.get(callWidget.getText());
 		}
@@ -175,7 +159,7 @@ enum Role
 	{
 		// See the comment in getCall(Client client), before editing
 		Widget listenWidget = client.getWidget(getGloryListen());
-		if (listenWidget != null && !listenWidget.isHidden())
+		if (listenWidget != null)
 		{
 			return GLORY_CALLS.get(listenWidget.getText());
 		}

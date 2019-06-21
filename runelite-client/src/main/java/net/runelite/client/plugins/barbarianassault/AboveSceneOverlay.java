@@ -198,13 +198,13 @@ class AboveSceneOverlay extends Overlay
 	{
 		final Color color = graphics.getColor();
 		final Stroke originalStroke = graphics.getStroke();
-		Widget listen = client.getWidget(WidgetInfo.BA_COLL_LISTEN_TEXT);
-		if (listen != null)
+		String listen = game.getLastListenText();
+		if (listen != null && !listen.equals("- - -"))
 		{
 			graphics.setStroke(new BasicStroke(2));
 			//TODO Render quantity text as well
 			//TODO add config options for overlay colors
-			switch (listen.getText())
+			switch (listen)
 			{
 				case "Red eggs":
 					graphics.setColor(new Color(Color.RED.getRed(), Color.RED.getGreen(), Color.RED.getBlue(), 150));

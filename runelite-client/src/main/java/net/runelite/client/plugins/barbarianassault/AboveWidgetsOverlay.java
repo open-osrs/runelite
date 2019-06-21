@@ -85,21 +85,21 @@ class AboveWidgetsOverlay extends Overlay
 			case ATTACKER:
 				if (config.highlightArrows())
 				{
-					renderInventoryHighlights(graphics, game.getRole().getListenItem(client), config.highlightArrowColor());
+					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), config.highlightArrowColor());
 				}
 				break;
 
 			case DEFENDER:
 				if (config.highlightBait())
 				{
-					renderInventoryHighlights(graphics, game.getRole().getListenItem(client), config.highlightBaitColor());
+					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), config.highlightBaitColor());
 				}
 				break;
 
 			case HEALER:
 				if (config.highlightPoison())
 				{
-					renderInventoryHighlights(graphics, game.getRole().getListenItem(client), config.highlightPoisonColor());
+					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), config.highlightPoisonColor());
 				}
 		}
 		return null;

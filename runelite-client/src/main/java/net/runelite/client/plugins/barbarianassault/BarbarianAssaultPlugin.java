@@ -92,6 +92,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
@@ -196,35 +197,41 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Getter
 	private final Map<NPC, Healer> healers = new HashMap<>();
 
+	@Getter
+	private String lastCallText = null;
+
+	@Getter
+	private String lastListenText = null;
+
+	private int lastCallColor = -1;
+
+	private NPC lastInteracted = null;
+
+	private int lastHealerPoisoned = -1;
+
 	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles = null;
 
 	private String poisonUsed = null;
 
-	private int lastCallColor = -1;
-
-	private String lastCallText = null;
-
-	private String lastListenText = null;
-
-	private BufferedImage fighterImage, healerImage, rangerImage, runnerImage;
+	private BufferedImage torsoImage, fighterImage, healerImage, rangerImage, runnerImage;
 
 	private TimerBox tickCounter;
 
-	private HashMap<TimerBox, Boolean> deathTimes = new HashMap<>();
+	private ArrayList<TimerBox> deathTimes = new ArrayList<>();
 
 	private HashMap<Integer, Projectile> projectiles = new HashMap<>();
 
 	private int tickNum = 0;
+
+	private int gameTick = -1;
+
+	private boolean syncd = true;
 
 	private boolean tickReset = false;
 
 	private boolean hornCalled = false;
 
 	private boolean hornListened = false;
-
-	private NPC lastInteracted = null;
-
-	private int lastHealerPoisoned = -1;
 
 	private boolean shiftDown = false;
 
@@ -243,6 +250,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	protected void startUp() throws Exception
 	{
 		font = FontManager.getRunescapeFont().deriveFont(Font.BOLD, 24);
+		torsoImage = itemManager.getImage(ItemID.FIGHTER_TORSO);
 		clockImage = ImageUtil.getResourceStreamFromClass(getClass(), "clock.png");
 		fighterImage = ImageUtil.getResourceStreamFromClass(getClass(), "fighter.png");
 		healerImage = ImageUtil.getResourceStreamFromClass(getClass(), "healer.png");
@@ -255,11 +263,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		menu.enableSwaps();
 		menu.validateHiddenMenus(getRole());
 
-		if (isInGame() && tickCounter != null)
-		{
-			tickCounter.setInSync(false);
-		}
-
 		inGameBit = isInGame() ? 1 : 0;
 	}
 
@@ -269,10 +272,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		overlayManager.remove(widgetsOverlay);
 		overlayManager.remove(sceneOverlay);
 		keyManager.unregisterKeyListener(this);
-		menu.disableSwaps(true);
-		menu.clearHiddenMenus();
 		showRoleSprite();
 		font = null;
+		torsoImage = null;
 		clockImage = null;
 		fighterImage = null;
 		healerImage = null;
@@ -282,6 +284,9 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		controlDown = false;
 		resetWave();
 		wave = null;
+		gameTick = client.getTickCount();
+		menu.disableSwaps(true);
+		menu.clearHiddenMenus();
 	}
 
 	@Override
@@ -363,14 +368,14 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			case "showDeathTimes":
 			case "showDeathTimesMode":
 				if (config.showDeathTimes()
-					&& (config.showDeathTimesMode() == DeathTimesMode.INFO_BOX
-					|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
+						&& (config.showDeathTimesMode() == DeathTimesMode.INFO_BOX
+						|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
 				{
-					addDeathTimes();
+					addAllDeathTimes();
 				}
 				else
 				{
-					removeDeathTimes();
+					removeAllDeathTimes(false);
 				}
 				break;
 
@@ -494,44 +499,39 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				messageNode.setValue(ColorUtil.wrapWithColorTag(nodeValue, config.highlightNotificationColor()));
 				chatMessageManager.update(messageNode);
 			}
-			else if (message.startsWith("All of the Penance") && wave != null)
+			else if (message.startsWith("All of the Penance"))
 			{
 				String[] tokens = message.split(" ");
+
+				int time = wave == null ? -1 : (int)wave.getWaveTimer().getElapsedTime();
 
 				switch (tokens[4])
 				{
 					case "Fighters":
-						deathTimes.put(new TimerBox(fighterImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+						addDeathTimes(new TimerBox(fighterImage, this, time));
 						break;
 
 					case "Healers":
-						deathTimes.put(new TimerBox(healerImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+						addDeathTimes(new TimerBox(healerImage, this, time));
 						break;
 
 					case "Rangers":
-						deathTimes.put(new TimerBox(rangerImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+						addDeathTimes(new TimerBox(rangerImage, this, time));
 						break;
 
 					case "Runners":
-						deathTimes.put(new TimerBox(runnerImage, this, (int)wave.getWaveTimer().getElapsedTime()), false);
+						addDeathTimes(new TimerBox(runnerImage, this, time));
 						break;
 				}
 
-				if (config.showDeathTimes()
-						&& (config.showDeathTimesMode() == DeathTimesMode.INFO_BOX
-						|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
-				{
-					addDeathTimes();
-				}
-
-				if (config.showDeathTimes()
+				if (config.showDeathTimes() && wave != null
 						&& (config.showDeathTimesMode() == DeathTimesMode.CHAT_BOX
 						|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
 				{
 					final MessageNode node = chatMessage.getMessageNode();
 					final String nodeValue = Text.removeTags(node.getValue());
 					// TODO use correct chat color for last parenthesis
-					System.out.println(node.getValue());
+					System.out.println(node.getRuneLiteFormatMessage());
 					node.setValue(nodeValue + " (<col=ff0000>" + wave.getWaveTimer().getElapsedTime() + "s<col=000000>)");
 					chatMessageManager.update(node);
 				}
@@ -812,6 +812,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			hornCalled = false;
 			hornListened = false;
 			menu.setHornUpdated(false);
+			syncd = true;
 
 			if (tickCounter != null)
 			{
@@ -830,18 +831,15 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			{
 				newListenText = lastListenText;
 
-				// Attacker has two widgets for it's listen text, the bottom widget is the one that is kept track of
-				if (getRole() == Role.ATTACKER && !gloryHornOpen)
+				if (listenWidget != null && !gloryHornOpen)
 				{
-					if (listenWidget != null)
+					// Attacker has two widgets for it's listen text, the top widget is the one that is kept track of
+					if (getRole() == Role.ATTACKER)
 					{
 						listenWidget.setText(newListenText);
 						client.getWidget(WidgetInfo.BA_ATK_LISTEN_BOTTOM_TEXT).setText(Role.ATTACKER.getMissingListen(newListenText));
 					}
-				}
-				else
-				{
-					if (listenWidget != null && !gloryHornOpen)
+					else
 					{
 						listenWidget.setText(newListenText);
 					}
@@ -1072,8 +1070,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		if (getRole() == Role.HEALER)
 		{
 			if (target.equals("poisoned meat -> penance healer")
-				|| target.equals("poisoned tofu -> penance healer")
-				|| target.equals("poisoned worms -> penance healer"))
+					|| target.equals("poisoned tofu -> penance healer")
+					|| target.equals("poisoned worms -> penance healer"))
 			{
 				lastHealerPoisoned = event.getId();
 				poisonUsed = StringUtils.substringBefore(target.replace("oned", "."), " ->");
@@ -1149,6 +1147,12 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			if (newInGameBit == 0)
 			{
 				resetWave();
+				callTimer = null;
+				hornCalled = false;
+				hornListened = false;
+				lastListenText = null;
+				lastCallText = null;
+				lastCallColor = -1;
 			}
 			else
 			{
@@ -1165,26 +1169,19 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		menu.setHornUpdated(false);
 		menu.setRebuildForced(false);
 		removeTickTimer();
-		removeDeathTimes();
-		deathTimes.clear();
+		removeAllDeathTimes(true);
 		projectiles.clear();
 		clearAllEggMaps();
 		healers.clear();
 		role = null;
-		callTimer = null;
-		lastListenText = null;
-		lastCallText = null;
 		lastInteracted = null;
 		poisonUsed = null;
-		lastCallColor = -1;
 		lastHealerPoisoned = -1;
 		tickNum = 0;
 	}
 
 	private void startWave(Role role)
 	{
-		hornCalled = false;
-		hornListened = false;
 		inGame = true;
 		this.role = role;
 
@@ -1233,6 +1230,45 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 			lastCallText = role.getCall(client);
 			lastListenText = role.getListen(client);
+
+			if (callTimer != null && callTimer.getElapsedTime() > 30)
+			{
+				callTimer = null;
+
+			}
+
+			gameTick = (client.getTickCount() - gameTick) % 10;
+
+			syncd = false;
+
+			if (tickCounter != null)
+			{
+				tickCounter.setInSync(false);
+			}
+
+			// If the horn is currently called, or if the call timer is still in sync
+			// the text will be updated to the last called color
+			Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getGloryCall());
+			if (callWidget == null)
+			{
+				callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
+			}
+
+			int newCallColor = callWidget == null ? lastCallColor : callWidget.getTextColor();
+
+			if (newCallColor == COLOR_CALL_CALLED)
+			{
+				lastCallColor = COLOR_CALL_CALLED;
+			}
+			else if (callTimer == null)
+			{
+				lastCallColor = COLOR_CALL_UPDATED;
+			}
+
+			if (callWidget != null)
+			{
+				callWidget.setTextColor(lastCallColor);
+			}
 		}
 
 		validateWidgets();
@@ -1262,11 +1298,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 				&& (config.showDeathTimesMode() == DeathTimesMode.INFO_BOX
 				|| config.showDeathTimesMode() == DeathTimesMode.BOTH))
 		{
-			addDeathTimes();
+			addAllDeathTimes();
 		}
 		else
 		{
-			removeDeathTimes();
+			removeAllDeathTimes(false);
 		}
 	}
 
@@ -1277,12 +1313,15 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		int itemSpriteId = ItemID.FIGHTER_TORSO;
+		tickCounter = new TimerBox(torsoImage, this, tickNum);
 
-		BufferedImage taskImg = itemManager.getImage(itemSpriteId);
-		tickCounter = new TimerBox(taskImg, this, tickNum);
+		tickCounter.setInSync(syncd);
+
+		removeAllDeathTimes(false);
 
 		infoBoxManager.addInfoBox(tickCounter);
+
+		addAllDeathTimes();
 	}
 
 	private void removeTickTimer()
@@ -1294,32 +1333,51 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	private void addDeathTimes()
+	private void addDeathTimes(TimerBox box)
 	{
 		if (!isInGame())
 		{
 			return;
 		}
 
-		for (Map.Entry<TimerBox, Boolean> timerBox : deathTimes.entrySet())
+		deathTimes.add(box);
+
+		if (config.showDeathTimes() && (config.showDeathTimesMode() == DeathTimesMode.INFO_BOX || config.showDeathTimesMode() == DeathTimesMode.BOTH))
 		{
-			if (!timerBox.getValue())
+			infoBoxManager.addInfoBox(box);
+		}
+	}
+
+	private void addAllDeathTimes()
+	{
+		if (!isInGame())
+		{
+			return;
+		}
+
+		List<InfoBox> boxes = infoBoxManager.getInfoBoxes();
+
+		for (TimerBox box : deathTimes)
+		{
+			if (!boxes.contains(box))
 			{
-				infoBoxManager.addInfoBox(timerBox.getKey());
-				timerBox.setValue(true);
+				infoBoxManager.addInfoBox(box);
 			}
 		}
 	}
 
-	private void removeDeathTimes()
+	private void removeAllDeathTimes(boolean clear)
 	{
-		for (Map.Entry<TimerBox, Boolean> timerBox : deathTimes.entrySet())
+		for (InfoBox box : infoBoxManager.getInfoBoxes().toArray(new InfoBox[0]))
 		{
-			if (timerBox.getValue())
+			if (box instanceof TimerBox && box.getImage() != torsoImage)
 			{
-				infoBoxManager.removeInfoBox(timerBox.getKey());
-				timerBox.setValue(false);
+				infoBoxManager.removeInfoBox(box);
 			}
+		}
+		if (clear)
+		{
+			deathTimes.clear();
 		}
 	}
 
