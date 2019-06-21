@@ -38,7 +38,7 @@ import net.runelite.api.widgets.WidgetInfo;
 @AllArgsConstructor
 enum Role
 {
-	ATTACKER(WidgetInfo.BA_ATK_WAVE_TEXT, WidgetInfo.BA_ATK_LISTEN_TEXT, WidgetInfo.BA_ATK_HORN_LISTEN_TEXT,
+	ATTACKER(WidgetInfo.BA_ATK_WAVE_TEXT, WidgetInfo.BA_ATK_LISTEN_TOP_TEXT, WidgetInfo.BA_ATK_HORN_LISTEN_TEXT,
 			WidgetInfo.BA_ATK_CALL_TEXT, WidgetInfo.BA_COLL_HORN_LISTEN_TEXT, WidgetInfo.BA_ATK_ROLE_TEXT,
 			WidgetInfo.BA_ATK_ROLE_SPRITE),
 	DEFENDER(WidgetInfo.BA_DEF_WAVE_TEXT, WidgetInfo.BA_DEF_LISTEN_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT,
@@ -87,10 +87,10 @@ enum Role
 			.put("Pois. Meat", "Tell-meat")
 			.build();
 	private static final ImmutableMap<String, String> GLORY_CALLS = ImmutableMap.<String, String>builder()
-			.put("Controlled/Bullet/Wind", "Bullet/Wind")
-			.put("Accurate/Field/Water", "Field/Water")
-			.put("Aggressive/Blunt/Earth", "Blunt/Earth")
-			.put("Defensive/Barbed/Fire", "Barbed/Fire")
+			.put("Controlled/Bullet/Wind", "Controlled/")
+			.put("Accurate/Field/Water", "Accurate/")
+			.put("Aggressive/Blunt/Earth", "Aggressive/")
+			.put("Defensive/Barbed/Fire", "Defensive/")
 			.put("Tofu", "Tofu")
 			.put("Crackers", "Crackers")
 			.put("Worms", "Worms")
@@ -108,10 +108,20 @@ enum Role
 			.put("Pois. Worms", ItemID.POISONED_WORMS)
 			.put("Pois. Tofu", ItemID.POISONED_TOFU)
 			.put("Pois. Meat", ItemID.POISONED_MEAT)
-			.put("Barbed/Fire", ItemID.BARBED_ARROW)
-			.put("Blunt/Earth", ItemID.BLUNT_ARROW)
-			.put("Field/Water", ItemID.FIELD_ARROW)
-			.put("Bullet/Wind", ItemID.BULLET_ARROW)
+			.put("Defensive/", ItemID.BARBED_ARROW)
+			.put("Aggressive/", ItemID.BLUNT_ARROW)
+			.put("Accurate/", ItemID.FIELD_ARROW)
+			.put("Controlled/", ItemID.BULLET_ARROW)
+			.build();
+	private static final ImmutableMap<String, String> SPLIT_LISTENS = ImmutableMap.<String, String>builder()
+			.put("Controlled/", "Bullet/Wind")
+			.put("Bullet/Wind", "Controlled/")
+			.put("Accurate/", "Field/Water")
+			.put("Field/Water", "Accurate/")
+			.put("Aggressive/", "Blunt/Earth")
+			.put("Blunt/Earth", "Aggressive/")
+			.put("Defensive/", "Barbed/Fire")
+			.put("Barbed/Fire", "Defensive/")
 			.build();
 
 
@@ -178,4 +188,10 @@ enum Role
 
 		return null;
 	}
+
+	String getMissingListen(String listen)
+	{
+		return SPLIT_LISTENS.getOrDefault(listen, "- - -");
+	}
+
 }

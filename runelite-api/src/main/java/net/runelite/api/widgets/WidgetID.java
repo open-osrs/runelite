@@ -591,7 +591,8 @@ public class WidgetID
 	{
 		static class ATK
 		{
-			static final int LISTEN = 8;
+			static final int LISTEN_TOP = 7;
+			static final int LISTEN_BOTTOM = 8;
 			static final int TO_CALL_WIDGET = 9;
 			static final int TO_CALL = 10;
 			static final int ROLE_SPRITE = 11;

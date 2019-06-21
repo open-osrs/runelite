@@ -220,6 +220,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private boolean hornCalled = false;
 
+	private boolean hornListened = false;
+
 	private NPC lastInteracted = null;
 
 	private int lastHealerPoisoned = -1;
@@ -778,6 +780,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		// TODO add an inGame check
 
 		boolean rebuild = false;
+		boolean gloryHornOpen = false;
 
 		Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getGloryCall());
 		if (callWidget == null)
@@ -793,6 +796,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
 		}
+		else
+		{
+			gloryHornOpen = true;
+		}
 
 		String newListenText = getRole() == null ? lastListenText : getRole().getListen(client);
 
@@ -803,12 +810,45 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			callTimer = new Timer();
 			tickReset = true;
 			hornCalled = false;
+			hornListened = false;
 			menu.setHornUpdated(false);
 
 			if (tickCounter != null)
 			{
 				tickCounter.setInSync(true);
 			}
+		}
+
+		if (!Objects.equals(newListenText, lastListenText))
+		{
+			if (newListenText != null && !newListenText.equals("- - -"))
+			{
+				hornListened = true;
+				rebuild = true;
+			}
+			else if (hornListened)
+			{
+				newListenText = lastListenText;
+
+				// Attacker has two widgets for it's listen text, the bottom widget is the one that is kept track of
+				if (getRole() == Role.ATTACKER && !gloryHornOpen)
+				{
+					if (listenWidget != null)
+					{
+						listenWidget.setText(newListenText);
+						client.getWidget(WidgetInfo.BA_ATK_LISTEN_BOTTOM_TEXT).setText(Role.ATTACKER.getMissingListen(newListenText));
+					}
+				}
+				else
+				{
+					if (listenWidget != null && !gloryHornOpen)
+					{
+						listenWidget.setText(newListenText);
+					}
+				}
+			}
+
+			lastListenText = newListenText;
 		}
 
 		// Horn of glory will switch text back to white color before call change
@@ -829,12 +869,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			}
 
 			lastCallColor = newCallColor;
-		}
-
-		if (!Objects.equals(newListenText, lastListenText))
-		{
-			rebuild = true;
-			lastListenText = newListenText;
 		}
 
 		if (rebuild || menu.isRebuildForced())
@@ -1145,11 +1179,12 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		lastCallColor = -1;
 		lastHealerPoisoned = -1;
 		tickNum = 0;
-		hornCalled = false;
 	}
 
 	private void startWave(Role role)
 	{
+		hornCalled = false;
+		hornListened = false;
 		inGame = true;
 		this.role = role;
 
@@ -1196,11 +1231,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			inGame = true;
 			this.role = role;
 
-			Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
-			//Widget listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
-			lastCallText = callWidget == null ? null : callWidget.getText();
-			//lastCallColor = callWidget == null ? -1 : callWidget.getTextColor();
-			//lastCallText = listenWidget == null ? null : listenWidget.getText();
+			lastCallText = role.getCall(client);
+			lastListenText = role.getListen(client);
 		}
 
 		validateWidgets();
