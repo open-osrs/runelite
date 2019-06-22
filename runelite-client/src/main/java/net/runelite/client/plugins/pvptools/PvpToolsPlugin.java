@@ -1,10 +1,12 @@
 /*
- * Copyright (c) 2019. PKLite  - All Rights Reserved
- * Unauthorized modification, distribution, or possession of this source file, via any medium is strictly prohibited.
- * Proprietary and confidential. Refer to PKLite License file for more information on
- * full terms of this copyright and to determine what constitutes authorized use.
- * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
- *
+ * ******************************************************************************
+ *  * Copyright (c) 2019 RuneLitePlus
+ *  *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ *  *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
+ *  *  ST0NEWALL#9112
+ *  *   RuneLitePlus Discord: https://discord.gg/Q7wFtCe
+ *  *   RuneLitePlus website: https://runelitepl.us
+ *  *****************************************************************************
  */
 
 package net.runelite.client.plugins.pvptools;
@@ -36,6 +38,9 @@ import net.runelite.api.ItemDefinition;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.Player;
 import net.runelite.api.SkullIcon;
+import net.runelite.api.Varbits;
+import net.runelite.api.WorldType;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
@@ -44,8 +49,12 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
+import net.runelite.client.chat.ChatMessageBuilder;
+import net.runelite.client.chat.ChatMessageManager;
+import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.PlayerLootReceived;
 import net.runelite.client.game.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.input.KeyManager;
@@ -60,6 +69,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.PvPUtil;
+import net.runelite.client.util.StackFormatter;
 import static net.runelite.client.util.StackFormatter.quantityToRSDecimalStack;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
@@ -103,6 +113,9 @@ public class PvpToolsPlugin extends Plugin
 
 	@Inject
 	private ItemManager itemManager;
+
+	@Inject
+	private ChatMessageManager chatMessageManager;
 
 	private PvpToolsPlugin uhPvpToolsPlugin = this;
 
@@ -507,6 +520,23 @@ public class PvpToolsPlugin extends Plugin
 		if (!focusChanged.isFocused())
 		{
 			setAttackHotKeyPressed(false);
+		}
+	}
+
+	@Subscribe
+	public void onPlayerLootReceived(PlayerLootReceived event)
+	{
+		if (!config.sendLootValueMessages())
+		{
+			return;
+		}
+		if (WorldType.isPvpWorld(client.getWorldType()) || client.getVar(Varbits.IN_WILDERNESS) == 1)
+		{
+			final String totalValue = StackFormatter.quantityToRSStackSize(event.getItems().stream().mapToInt(itemStack ->
+				itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity()).sum());
+
+			chatMessageManager.queue(QueuedMessage.builder().runeLiteFormattedMessage(
+				new ChatMessageBuilder().append("The total value of your loot is " + totalValue + " GP.").build()).build());
 		}
 	}
 
