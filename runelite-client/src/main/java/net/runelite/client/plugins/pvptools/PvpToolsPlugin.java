@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -535,7 +536,7 @@ public class PvpToolsPlugin extends Plugin
 			final String totalValue = StackFormatter.quantityToRSStackSize(event.getItems().stream().mapToInt(itemStack ->
 				itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity()).sum());
 
-			chatMessageManager.queue(QueuedMessage.builder().runeLiteFormattedMessage(
+			chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
 				new ChatMessageBuilder().append("The total value of your loot is " + totalValue + " GP.").build()).build());
 		}
 	}
