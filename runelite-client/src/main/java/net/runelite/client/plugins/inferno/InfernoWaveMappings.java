@@ -119,7 +119,7 @@ class InfernoWaveMappings
 		ImmutableMap.Builder<Integer, String> nameMapBuilder = new ImmutableMap.Builder<>();
 
 		nameMapBuilder.put(32, "Jal-Nib - Level 32");
-		nameMapBuilder.put(85, " Jal-MejRah - Level 85");
+		nameMapBuilder.put(85, "Jal-MejRah - Level 85");
 		nameMapBuilder.put(165, "Jal-Ak - Level 165");
 		nameMapBuilder.put(240, "Jal-ImKot - Level 240");
 		nameMapBuilder.put(370, "Jal-Xil - Level 370");
@@ -134,6 +134,11 @@ class InfernoWaveMappings
 	{
 		int[] monsters = waveMapping.get(wave);
 
+		if (monsters == null)
+		{
+			return;
+		}
+
 		panelComponent.getChildren()
 			.add(TitleComponent.builder()
 				.text(header)
@@ -142,19 +147,19 @@ class InfernoWaveMappings
 			);
 
 
-		for (int i = 1; i < monsters.length; i++)
+		for (int i = 0; i < monsters.length; i++)
 		{
 			int monsterType = monsters[i];
 			int count = 1;
 
-			for (; i < monsters.length - 1 && monsters[i + 1] != monsterType; i++)
+			for (; i < monsters.length - 1 && monsters[i + 1] == monsterType; i++)
 			{
 				count++;
 			}
 
 			TitleComponent.TitleComponentBuilder builder = TitleComponent.builder();
 
-			builder.text(count + " x " + npcNameMapping.get(monsterType));
+			builder.text(count + "x " + npcNameMapping.get(monsterType));
 			builder.color(color);
 
 			panelComponent.getChildren().add(builder.build());

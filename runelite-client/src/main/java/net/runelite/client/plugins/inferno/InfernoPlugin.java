@@ -117,9 +117,6 @@ public class InfernoPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private int currentWaveNumber;
 
-	@Getter(AccessLevel.PACKAGE)
-	private int nextWaveNumber;
-
 	private List<Actor> waveMonsters;
 
 	public InfernoPlugin()
@@ -136,6 +133,8 @@ public class InfernoPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		waveOverlay.setDisplayMode(config.waveDisplay());
+
 		if (isInInferno())
 		{
 			overlayManager.add(infernoOverlay);
@@ -149,6 +148,9 @@ public class InfernoPlugin extends Plugin
 
 			overlayManager.add(jadOverlay);
 		}
+
+		waveOverlay.setWaveHeaderColor(config.getWaveOverlayHeaderColor());
+		waveOverlay.setWaveTextColor(config.getWaveTextColor());
 
 		monsters = new HashMap<>();
 		monsterCurrentAttackMap = new HashMap<>(6);
@@ -174,7 +176,6 @@ public class InfernoPlugin extends Plugin
 		attack = null;
 		monsters = null;
 		currentWaveNumber = -1;
-		nextWaveNumber = -1;
 	}
 	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
@@ -192,6 +193,8 @@ public class InfernoPlugin extends Plugin
 		else if ("waveDisplay".equals(event.getKey()))
 		{
 			overlayManager.remove(waveOverlay);
+
+			waveOverlay.setDisplayMode(config.waveDisplay());
 
 			if (isInInferno() && config.waveDisplay() != InfernoWaveDisplayMode.NONE)
 			{
@@ -280,6 +283,7 @@ public class InfernoPlugin extends Plugin
 		}
 		else if (currentWaveNumber == -1)
 		{
+			currentWaveNumber = 1;
 			overlayManager.add(infernoOverlay);
 			overlayManager.add(infernoInfobox);
 			overlayManager.add(nibblerOverlay);
@@ -307,7 +311,6 @@ public class InfernoPlugin extends Plugin
 		{
 			message = message.substring(message.indexOf(": ") + 2);
 			currentWaveNumber = Integer.parseInt(message.substring(0, message.indexOf("<")));
-			nextWaveNumber = ((currentWaveNumber < 69) ? (currentWaveNumber + 1) : -1);
 		}
 	}
 
@@ -465,5 +468,10 @@ public class InfernoPlugin extends Plugin
 	List<Actor> getWaveMonsters()
 	{
 		return waveMonsters;
+	}
+
+	int getNextWaveNumber()
+	{
+		return currentWaveNumber == -1 || currentWaveNumber == 69 ? -1 : currentWaveNumber + 1;
 	}
 }

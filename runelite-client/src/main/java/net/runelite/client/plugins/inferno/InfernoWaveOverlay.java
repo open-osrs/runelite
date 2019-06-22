@@ -14,7 +14,6 @@ import net.runelite.client.ui.overlay.Overlay;
 public class InfernoWaveOverlay extends Overlay
 	{
 	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
 	private final PanelComponent panelComponent;
 
 	@Setter
@@ -23,24 +22,26 @@ public class InfernoWaveOverlay extends Overlay
 	@Setter
 	private Color waveTextColor;
 
+	@Setter
+	private InfernoWaveDisplayMode displayMode;
+
 	@Inject
-	InfernoWaveOverlay(final InfernoPlugin plugin, final InfernoConfig config)
+	InfernoWaveOverlay(final InfernoPlugin plugin)
 	{
 		this.panelComponent = new PanelComponent();
 		this.setPosition(OverlayPosition.TOP_RIGHT);
 		this.setPriority(OverlayPriority.HIGH);
 		this.plugin = plugin;
-		this.config = config;
 
-		panelComponent.setPreferredSize(new Dimension(150, 0));
+		panelComponent.setPreferredSize(new Dimension(160, 0));
 	}
 
 	public Dimension render(final Graphics2D graphics)
 	{
 		panelComponent.getChildren().clear();
 
-		if (config.waveDisplay() == InfernoWaveDisplayMode.CURRENT
-				|| config.waveDisplay() == InfernoWaveDisplayMode.BOTH)
+		if (displayMode == InfernoWaveDisplayMode.CURRENT ||
+			displayMode == InfernoWaveDisplayMode.BOTH)
 		{
 			addWaveComponent(
 				panelComponent,
@@ -51,13 +52,12 @@ public class InfernoWaveOverlay extends Overlay
 			);
 		}
 
-		if ((config.waveDisplay() == InfernoWaveDisplayMode.NEXT
-				|| config.waveDisplay() == InfernoWaveDisplayMode.BOTH)
-				&& plugin.isNotFinalWave())
+		if (displayMode == InfernoWaveDisplayMode.NEXT ||
+			displayMode == InfernoWaveDisplayMode.BOTH)
 		{
 			addWaveComponent(
 				panelComponent,
-				"Next Wave (Wave " + plugin.getNextWaveNumber()  + ")",
+				"Next Wave (Wave " + plugin.getNextWaveNumber() + ")",
 				plugin.getNextWaveNumber(),
 				waveHeaderColor,
 				waveTextColor
