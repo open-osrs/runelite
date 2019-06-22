@@ -83,11 +83,14 @@ class Healer
 
 	int timeToPoison()
 	{
-		long time = 0;
-		if (timeLastPoisoned != null)
+		if (timeLastPoisoned == null)
 		{
-			time = Duration.between(timeLastPoisoned, Instant.now()).getSeconds();
+			return -1;
 		}
-		return time > 20 ? 0 : (int)(20 - time);
+		else
+		{
+			long time = Duration.between(timeLastPoisoned, Instant.now()).getSeconds();
+			return time > 20 ? 0 : (int)(20 - time);
+		}
 	}
 }

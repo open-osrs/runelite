@@ -79,7 +79,7 @@ class AboveSceneOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!game.isInGame() || game.getRole() == null || client.getWidget(game.getRole().getGloryListen()) != null)
+		if (!game.isInGame() || game.getRole() == null || game.isUsingGloryHorn())
 		{
 			return null;
 		}
@@ -126,21 +126,21 @@ class AboveSceneOverlay extends Overlay
 			graphics.setColor(HEALTH_BAR_COLOR);
 			graphics.fillRect((widget.getCanvasLocation().getX() - teammate.getValue().getX()),
 					(widget.getCanvasLocation().getY() - teammate.getValue().getY()),
-					getBarWidth(Integer.parseInt(teammateHealth[1]), Integer.parseInt(teammateHealth[0]), HEALTH_BAR_WIDTH),
+					getBarWidth(Integer.parseInt(teammateHealth[1]), Integer.parseInt(teammateHealth[0])),
 					HEALTH_BAR_HEIGHT);
 		}
 	}
 
-	private int getBarWidth(int base, int current, int size)
+	private int getBarWidth(int base, int current)
 	{
 		final double ratio = (double) current / base;
 
 		if (ratio >= 1)
 		{
-			return size;
+			return HEALTH_BAR_WIDTH;
 		}
 
-		return (int) Math.round(ratio * size);
+		return (int) Math.round(ratio * HEALTH_BAR_WIDTH);
 	}
 
 	private void renderHealerCodes(Graphics2D graphics)
@@ -156,11 +156,6 @@ class AboveSceneOverlay extends Overlay
 			}
 
 			timeLeft = timeLeft < 1 ? 0 : timeLeft;
-
-			if (healer.getFoodRemaining() != 1)
-			{
-				//continue;
-			}
 
 			if (timeLeft > 0)
 			{
@@ -187,32 +182,20 @@ class AboveSceneOverlay extends Overlay
 			{
 				case "Red eggs":
 					graphics.setColor(new Color(Color.RED.getRed(), Color.RED.getGreen(), Color.RED.getBlue(), 150));
-					game.getRedEggs().forEach((point, quantity) ->
-					{
-						drawCircle(graphics, LocalPoint.fromWorld(client, point));
-					});
+					game.getRedEggs().forEach((point, quantity) -> drawCircle(graphics, LocalPoint.fromWorld(client, point)));
 					break;
 				case "Green eggs":
 					graphics.setColor(new Color(Color.GREEN.getRed(), Color.GREEN.getGreen(), Color.GREEN.getBlue(), 150));
-					game.getGreenEggs().forEach((point, quantity) ->
-					{
-						drawCircle(graphics, LocalPoint.fromWorld(client, point));
-					});
+					game.getGreenEggs().forEach((point, quantity) -> drawCircle(graphics, LocalPoint.fromWorld(client, point)));
 					break;
 				case "Blue eggs":
 					graphics.setColor(new Color(Color.BLUE.getRed(), Color.BLUE.getGreen(), Color.BLUE.getBlue(), 150));
-					game.getBlueEggs().forEach((point, quantity) ->
-					{
-						drawCircle(graphics, LocalPoint.fromWorld(client, point));
-					});
+					game.getBlueEggs().forEach((point, quantity) -> drawCircle(graphics, LocalPoint.fromWorld(client, point)));
 					break;
 			}
 		}
 		graphics.setColor(new Color(Color.YELLOW.getRed(), Color.YELLOW.getGreen(), Color.YELLOW.getBlue(), 150));
-		game.getYellowEggs().forEach((point, quantity) ->
-		{
-			drawCircle(graphics, LocalPoint.fromWorld(client, point));
-		});
+		game.getYellowEggs().forEach((point, quantity) -> drawCircle(graphics, LocalPoint.fromWorld(client, point)));
 		graphics.setColor(color);
 		graphics.setStroke(originalStroke);
 	}
@@ -231,9 +214,6 @@ class AboveSceneOverlay extends Overlay
 		}
 
 		//TODO rendering a model would be better / more accurate
-		graphics.fillOval(canvasPoint.getX() - CENTER_OFFSET,
-				canvasPoint.getY() - CENTER_OFFSET,
-				EGG_DIAMETER,
-				EGG_DIAMETER);
+		graphics.fillOval(canvasPoint.getX() - CENTER_OFFSET, canvasPoint.getY() - CENTER_OFFSET, EGG_DIAMETER, EGG_DIAMETER);
 	}
 }

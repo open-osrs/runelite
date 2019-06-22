@@ -53,18 +53,18 @@ public class Wave
 
 	@Getter(AccessLevel.NONE)
 	private static final ImmutableList<WidgetInfo> POINTSWIDGETS = ImmutableList.of(
-			//base
+			//Base
 			WidgetInfo.BA_BASE_POINTS,
-			//att
+			//Attacker
 			WidgetInfo.BA_FAILED_ATTACKER_ATTACKS_POINTS,
 			WidgetInfo.BA_RANGERS_KILLED,
 			WidgetInfo.BA_FIGHTERS_KILLED,
-			//def
+			//Defender
 			WidgetInfo.BA_RUNNERS_PASSED_POINTS,
 			WidgetInfo.BA_RUNNERS_KILLED,
-			//coll
+			//Collector
 			WidgetInfo.BA_EGGS_COLLECTED_POINTS,
-			//heal
+			//Healer
 			WidgetInfo.BA_HEALERS_KILLED,
 			WidgetInfo.BA_HITPOINTS_REPLENISHED_POINTS,
 			WidgetInfo.BA_WRONG_POISON_PACKS_POINTS
@@ -111,17 +111,6 @@ public class Wave
 	{
 		this.client = client;
 		this.waveTimer = new Timer();
-	}
-
-	void setAmounts(int[] amounts)
-	{
-		System.arraycopy(amounts, 0, amounts, 0, amounts.length);
-	}
-
-	void setPoints(int[] points, int[] otherRolesPoints)
-	{
-		System.arraycopy(points, 0, points, 0, points.length);
-		System.arraycopy(otherRolesPoints, 0, otherRolesPointsList, 0, otherRolesPoints.length);
 	}
 
 	void setAmounts()

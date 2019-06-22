@@ -27,9 +27,7 @@
  */
 package net.runelite.client.plugins.barbarianassault;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 
 import java.awt.Font;
@@ -39,7 +37,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -79,6 +76,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
@@ -115,19 +113,16 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	private static final String[] STYLES = {"Defensive", "Aggressive", "Controlled", "Accurate"};
 
 	private static final int COLOR_CALL_UPDATED = 16316664;
+
 	private static final int COLOR_CALL_CALLED = 16291864;
 
 	private static final int BA_WAVE_NUM_INDEX = 2;
 
-	private static final List REGIONS = ImmutableList.of(10322, 7509, 7508);
-
-	private static final HashSet<Integer> HORNS = Sets.newHashSet(ItemID.ATTACKER_HORN, ItemID.COLLECTOR_HORN,
-			ItemID.DEFENDER_HORN, ItemID.HEALER_HORN, ItemID.ATTACKER_HORN_10517, ItemID.ATTACKER_HORN_10518,
-			ItemID.ATTACKER_HORN_10519, ItemID.ATTACKER_HORN_10520, ItemID.HEALER_HORN_10527, ItemID.HEALER_HORN_10528,
-			ItemID.HEALER_HORN_10529, ItemID.HEALER_HORN_10530);
-
 	@Inject
 	private Client client;
+
+	@Inject
+	private ClientThread clientThread;
 
 	@Inject
 	private ChatMessageManager chatMessageManager;
@@ -210,21 +205,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private int lastHealerPoisoned = -1;
 
-	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles = null;
-
-	private String poisonUsed = null;
-
-	private BufferedImage torsoImage, fighterImage, healerImage, rangerImage, runnerImage;
-
-	private TimerBox tickCounter;
-
-	private ArrayList<TimerBox> deathTimes = new ArrayList<>();
-
-	private HashMap<Integer, Projectile> projectiles = new HashMap<>();
-
 	private int tickNum = 0;
 
 	private int gameTick = -1;
+
+	private int inGameBit = 0;
 
 	private boolean syncd = true;
 
@@ -234,11 +219,24 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 	private boolean hornListened = false;
 
+	@Getter
+	private boolean usingGloryHorn = false;
+
 	private boolean shiftDown = false;
 
 	private boolean controlDown = false;
 
-	private int inGameBit = 0;
+	private BufferedImage torsoImage, fighterImage, healerImage, rangerImage, runnerImage;
+
+	private ImmutableMap<WidgetInfo, Boolean> originalAttackStyles = null;
+
+	private ArrayList<TimerBox> deathTimes = new ArrayList<>();
+
+	private HashMap<Integer, Projectile> projectiles = new HashMap<>();
+
+	private TimerBox tickCounter;
+
+	private String poisonUsed = null;
 
 
 	@Provides
@@ -261,10 +259,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		overlayManager.add(sceneOverlay);
 		keyManager.registerKeyListener(this);
 		validateGame();
-		menu.enableSwaps();
-		menu.validateHiddenMenus(getRole());
-
-		inGameBit = isInGame() ? 1 : 0;
 	}
 
 	@Override
@@ -284,7 +278,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		shiftDown = false;
 		controlDown = false;
 		resetWave();
-		wave = null;
 		gameTick = client.getTickCount();
 		menu.disableSwaps(true);
 		menu.clearHiddenMenus();
@@ -326,6 +319,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onConfigChanged(ConfigChanged configChanged)
 	{
+		//not client thread be careful
 		if (!configChanged.getGroup().equals("barbarianAssault"))
 		{
 			return;
@@ -385,7 +379,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			case "removePenanceCave":
 			case "removeUnusedMenus":
 			case "removeWrongPoison":
-				menu.validateHiddenMenus(getRole());
+				clientThread.invoke(() -> menu.validateHiddenMenus(getRole()));
 				break;
 		}
 	}
@@ -620,6 +614,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			return;
 		}
 
+		tickNum++;
+
 		if (tickNum > 9 || tickReset)
 		{
 			tickNum = 0;
@@ -631,8 +627,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		{
 			tickCounter.setCount(tickNum);
 		}
-
-		tickNum++;
 
 		Widget weapon = client.getWidget(WidgetInfo.COMBAT_WEAPON);
 
@@ -653,11 +647,10 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 				originalAttackStyles = builder.build();
 			}
-			String style = client.getWidget(Role.ATTACKER.getListen()).getText();
 			int i;
 			for (i = 0; i < STYLES.length; i++)
 			{
-				if (style.contains(STYLES[i]))
+				if (lastListenText.contains(STYLES[i]))
 				{
 					break;
 				}
@@ -745,7 +738,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 
 		String name = event.getNpc().getName();
 
-		if (wave != null && name.equals("Penance Healer"))
+		if (name.equals("Penance Healer"))
 		{
 			if (!healers.containsKey(npc.getIndex()))
 			{
@@ -772,15 +765,12 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onBeforeRender(BeforeRender event)
 	{
-		// TODO uncomment inGame check
-
-		//if (!isInGame())
-		//{
-			//return;
-		//}
+		if (!isInGame())
+		{
+			return;
+		}
 
 		boolean rebuild = false;
-		boolean gloryHornOpen = false;
 
 		Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getGloryCall());
 		if (callWidget == null)
@@ -795,10 +785,11 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		if (listenWidget == null)
 		{
 			listenWidget = getRole() == null ? null : client.getWidget(getRole().getListen());
+			usingGloryHorn = false;
 		}
 		else
 		{
-			gloryHornOpen = true;
+			usingGloryHorn = true;
 		}
 
 		String newListenText = getRole() == null ? lastListenText : getRole().getListen(client);
@@ -831,7 +822,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			{
 				newListenText = lastListenText;
 
-				if (listenWidget != null && !gloryHornOpen)
+				if (listenWidget != null && !usingGloryHorn)
 				{
 					// Attacker has two widgets for it's listen text, the top widget is the one that is kept track of
 					if (getRole() == Role.ATTACKER)
@@ -985,11 +976,13 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 						if (config.healerMenuOption() && target.contains("penance healer") && healers.containsKey(identifier))
 						{
 							String tag = StringUtils.substringBefore(entry.getTarget(), " (");
+							int time = healers.get(identifier).timeToPoison();
 
-							entry.setTarget(tag + " (" + (healers.get(identifier).timeToPoison()) + ")");
-
-							target = Text.removeTags(entry.getTarget()).toLowerCase();
-
+							if (time != -1)
+							{
+								entry.setTarget(tag + " (" + (healers.get(identifier).timeToPoison()) + ")");
+								target = Text.removeTags(entry.getTarget()).toLowerCase();
+							}
 						}
 
 						if ((target.startsWith("poisoned meat ->") || target.startsWith("poisoned tofu ->") || target.startsWith("poisoned worms ->")))
@@ -1188,10 +1181,13 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		clearAllEggMaps();
 		healers.clear();
 		role = null;
+		wave = null;
 		lastInteracted = -1;
 		poisonUsed = null;
 		lastHealerPoisoned = -1;
 		tickNum = 0;
+		usingGloryHorn = false;
+		menu.validateHiddenMenus(null);
 	}
 
 	private void startWave(Role role)
@@ -1205,87 +1201,101 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	// Role widgets are not accurate if a player is using horn of glory
 	private void validateGame()
 	{
-		Role role = null;
-
-		Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
-
-		if (inventory != null)
+		clientThread.invoke(() ->
 		{
-			Collection<WidgetItem> items = inventory.getWidgetItems();
+			Role role = null;
 
-			for (WidgetItem item : items)
+			Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
+
+			if (inventory != null)
 			{
-				int id = item.getId();
-				if (id == ItemID.COLLECTOR_HORN)
+				Collection<WidgetItem> items = inventory.getWidgetItems();
+
+				for (WidgetItem item : items)
 				{
-					role = Role.COLLECTOR;
+					int id = item.getId();
+					if (id == ItemID.COLLECTOR_HORN)
+					{
+						role = Role.COLLECTOR;
+					}
+					else if (id == ItemID.DEFENDER_HORN)
+					{
+						role = Role.DEFENDER;
+					}
+					else if (id == ItemID.ATTACKER_HORN || id == ItemID.ATTACKER_HORN_10517 || id == ItemID.ATTACKER_HORN_10518
+							|| id == ItemID.ATTACKER_HORN_10519 || id == ItemID.ATTACKER_HORN_10520)
+					{
+						role = Role.ATTACKER;
+					}
+					else if (id == ItemID.HEALER_HORN || id == ItemID.HEALER_HORN_10527 || id == ItemID.HEALER_HORN_10528
+							|| id == ItemID.HEALER_HORN_10529 || id == ItemID.HEALER_HORN_10530)
+					{
+						role = Role.HEALER;
+					}
 				}
-				else if (id == ItemID.DEFENDER_HORN)
+			}
+
+			if (role != null)
+			{
+				inGame = true;
+				this.role = role;
+
+				inGameBit = 1;
+
+				usingGloryHorn = client.getWidget(role.getGloryListen()) != null;
+
+				lastCallText = role.getCall(client);
+				lastListenText = role.getListen(client);
+
+				if (callTimer != null && callTimer.getElapsedTime() > 30)
 				{
-					role = Role.DEFENDER;
+					callTimer = null;
+
 				}
-				else if (id == ItemID.ATTACKER_HORN || id == ItemID.ATTACKER_HORN_10517 || id == ItemID.ATTACKER_HORN_10518
-						|| id == ItemID.ATTACKER_HORN_10519 || id == ItemID.ATTACKER_HORN_10520)
+
+				tickNum = (client.getTickCount() - gameTick) % 10;
+
+				syncd = false;
+
+				if (tickCounter != null)
 				{
-					role = Role.ATTACKER;
+					tickCounter.setInSync(false);
 				}
-				else if (id == ItemID.HEALER_HORN || id == ItemID.HEALER_HORN_10527 || id == ItemID.HEALER_HORN_10528
-						|| id == ItemID.HEALER_HORN_10529 || id == ItemID.HEALER_HORN_10530)
+
+				// If the horn is currently called, or if the call timer is still in sync
+				// the text will be updated to the last called color
+				Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getGloryCall());
+				if (callWidget == null)
 				{
-					role = Role.HEALER;
+					callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
+				}
+
+				int newCallColor = callWidget == null ? lastCallColor : callWidget.getTextColor();
+
+				if (newCallColor == COLOR_CALL_CALLED)
+				{
+					lastCallColor = COLOR_CALL_CALLED;
+				}
+				else if (callTimer == null)
+				{
+					lastCallColor = COLOR_CALL_UPDATED;
+				}
+
+				if (callWidget != null)
+				{
+					callWidget.setTextColor(lastCallColor);
 				}
 			}
-		}
-
-		if (role != null)
-		{
-			inGame = true;
-			this.role = role;
-
-			lastCallText = role.getCall(client);
-			lastListenText = role.getListen(client);
-
-			if (callTimer != null && callTimer.getElapsedTime() > 30)
+			else
 			{
-				callTimer = null;
-
+				inGameBit = 0;
 			}
 
-			gameTick = (client.getTickCount() - gameTick) % 10;
+			validateWidgets();
 
-			syncd = false;
-
-			if (tickCounter != null)
-			{
-				tickCounter.setInSync(false);
-			}
-
-			// If the horn is currently called, or if the call timer is still in sync
-			// the text will be updated to the last called color
-			Widget callWidget = getRole() == null ? null : client.getWidget(getRole().getGloryCall());
-			if (callWidget == null)
-			{
-				callWidget = getRole() == null ? null : client.getWidget(getRole().getCall());
-			}
-
-			int newCallColor = callWidget == null ? lastCallColor : callWidget.getTextColor();
-
-			if (newCallColor == COLOR_CALL_CALLED)
-			{
-				lastCallColor = COLOR_CALL_CALLED;
-			}
-			else if (callTimer == null)
-			{
-				lastCallColor = COLOR_CALL_UPDATED;
-			}
-
-			if (callWidget != null)
-			{
-				callWidget.setTextColor(lastCallColor);
-			}
-		}
-
-		validateWidgets();
+			menu.enableSwaps();
+			menu.validateHiddenMenus(getRole());
+		});
 	}
 
 	private void validateWidgets()
@@ -1330,6 +1340,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		tickCounter = new TimerBox(torsoImage, this, tickNum);
 
 		tickCounter.setInSync(syncd);
+
+		tickCounter.setTooltipEnabled(true);
 
 		removeAllDeathTimes(false);
 

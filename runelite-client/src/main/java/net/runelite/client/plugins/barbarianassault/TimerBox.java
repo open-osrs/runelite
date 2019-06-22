@@ -39,6 +39,8 @@ public class TimerBox extends InfoBox
 
 	private boolean inSync = true;
 
+	private boolean tooltipEnabled = false;
+
 	TimerBox(BufferedImage image, Plugin plugin, int count)
 	{
 		super(image, plugin);
@@ -71,7 +73,7 @@ public class TimerBox extends InfoBox
 	@Override
 	public String getTooltip()
 	{
-		if (count == -1)
+		if (!tooltipEnabled)
 		{
 			return "";
 		}

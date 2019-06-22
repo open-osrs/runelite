@@ -68,7 +68,7 @@ class AboveWidgetsOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!game.isInGame() || game.getRole() == null || client.getWidget(game.getRole().getGloryListen()) != null)
+		if (!game.isInGame() || game.getRole() == null || game.isUsingGloryHorn())
 		{
 			return null;
 		}
