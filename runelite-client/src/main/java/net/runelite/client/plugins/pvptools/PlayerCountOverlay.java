@@ -55,7 +55,8 @@ public class PlayerCountOverlay extends Overlay
 		if (config.countPlayers())
 		{
 			if ((client.getVar(Varbits.IN_WILDERNESS) == 1) || WorldType.isPvpWorld(client.getWorldType())
-				|| ArrayUtils.contains(CLAN_WARS_REGIONS, client.getMapRegions()[0]))
+				|| ArrayUtils.contains(CLAN_WARS_REGIONS, client.getMapRegions()[0]) ||
+				WorldType.isDeadmanWorld(client.getWorldType()))
 			{
 				// Make this stop showing up when its not relevant
 				TableComponent tableComponent = new TableComponent();
