@@ -159,7 +159,7 @@ public interface InfernoConfig extends Config
 
 	@Getter
 	@AllArgsConstructor
-	public enum FontStyle
+	enum FontStyle
 	{
 		BOLD("Bold", Font.BOLD),
 		ITALIC("Italic", Font.ITALIC),
@@ -176,7 +176,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@RequiredArgsConstructor
-	public enum InfernoWaveDisplayMode
+	enum InfernoWaveDisplayMode
 	{
 		CURRENT("Current wave"),
 		NEXT("Next wave"),

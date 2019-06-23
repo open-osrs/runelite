@@ -31,9 +31,10 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import javax.inject.Inject;
+import lombok.AccessLevel;
+import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
-import net.runelite.api.widgets.Widget;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -44,14 +45,22 @@ public class InfernoOverlay extends Overlay
 {
 	private InfernoPlugin plugin;
 	private Client client;
-	private InfernoConfig config;
+	private int font;
+
+	@Setter(AccessLevel.PACKAGE)
+	private boolean shadows;
+
+	@Setter(AccessLevel.PACKAGE)
+	private boolean showPrayerWidgetHelper;
+
+	@Setter(AccessLevel.PACKAGE)
+	private int textSize;
 
 	@Inject
-	InfernoOverlay(InfernoPlugin plugin, Client client, InfernoConfig config)
+	InfernoOverlay(InfernoPlugin plugin, Client client)
 	{
 		this.plugin = plugin;
 		this.client = client;
-		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGHEST);
 		setLayer(OverlayLayer.ALWAYS_ON_TOP);
@@ -69,24 +78,45 @@ public class InfernoOverlay extends Overlay
 				continue;
 			}
 
-			String ticksLeftStr = String.valueOf(ticksLeft);
-			NPCContainer.Attackstyle attackStyle = npc.getAttackStyle();
-			Color color = (ticksLeft <= 1 ? Color.WHITE : attackStyle.getColor());
+			final String ticksLeftStr = String.valueOf(ticksLeft);
+			final NPCContainer.Attackstyle attackStyle = npc.getAttackStyle();
+			final Color color = (ticksLeft <= 1 ? Color.WHITE : attackStyle.getColor());
 
-			if (attackStyle.getPrayer() != null)
+			if (showPrayerWidgetHelper && attackStyle.getPrayer() != null)
 			{
-				Widget widget = client.getWidget(attackStyle.getPrayer().getWidgetInfo());
-				if (widget != null && config.showPrayerWidgetHelper())
+				Rectangle bounds = OverlayUtil.renderPrayerOverlay(
+					graphics,
+					client,
+					attackStyle.getPrayer(),
+					color
+				);
+
+				if (bounds != null)
 				{
-					OverlayUtil.renderWidgetToClick(graphics, widget, attackStyle.getPrayer(), color);
-					OverlayUtil.renderTextLocation(graphics, ticksLeftStr, 8, config.fontStyle().getFont(),
-						color, centerPoint(widget.getBounds()), config.shadows(), 0);
+					OverlayUtil.renderTextLocation(
+						graphics,
+						ticksLeftStr,
+						8,
+						font,
+						color,
+						centerPoint(bounds),
+						shadows,
+						0
+					);
 				}
 			}
 
 			Point canvasPoint = npc.getNpc().getCanvasTextLocation(graphics, ticksLeftStr, 0);
-			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, config.textSize(),
-				config.fontStyle().getFont(), color, canvasPoint, config.shadows(), 0);
+			OverlayUtil.renderTextLocation(
+				graphics,
+				ticksLeftStr,
+				textSize,
+				font,
+				color,
+				canvasPoint,
+				shadows,
+				0
+			);
 		}
 		return null;
 	}
@@ -96,5 +126,10 @@ public class InfernoOverlay extends Overlay
 		int x = (int) (rect.getX() + rect.getWidth() / 2);
 		int y = (int) (rect.getY() + rect.getHeight() / 2);
 		return new Point(x, y);
+	}
+
+	void setFont(InfernoConfig.FontStyle fontStyle)
+	{
+		font = fontStyle.getFont();
 	}
 }

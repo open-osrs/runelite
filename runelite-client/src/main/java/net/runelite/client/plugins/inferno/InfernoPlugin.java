@@ -44,6 +44,7 @@ import net.runelite.api.HeadIcon;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
@@ -65,28 +66,40 @@ import org.apache.commons.lang3.ArrayUtils;
 public class InfernoPlugin extends Plugin
 {
 	private static final int INFERNO_REGION = 9043;
+
 	@Inject
 	private Client client;
+
 	@Inject
 	private InfernoConfig config;
+
 	@Inject
 	private OverlayManager overlayManager;
+
 	@Inject
 	private InfernoOverlay infernoOverlay;
+
 	@Inject
 	private InfernoWaveOverlay waveOverlay;
+
 	@Inject
 	private InfernoInfobox infernoInfobox;
+
 	@Inject
 	private InfernoNibblerOverlay nibblerOverlay;
+
 	@Getter(AccessLevel.PACKAGE)
 	private Set<NPCContainer> npcContainer = new HashSet<>();
+
 	@Getter(AccessLevel.PACKAGE)
 	private Map<Integer, ArrayList<NPCContainer>> npcCurrentAttackMap = new HashMap<>(6);
+
 	@Getter(AccessLevel.PACKAGE)
 	private NPCContainer[] priorityNPC;
+
 	@Getter(AccessLevel.PACKAGE)
 	private List<NPC> nibblers;
+
 	@Getter(AccessLevel.PACKAGE)
 	private int currentWaveNumber;
 
@@ -100,20 +113,77 @@ public class InfernoPlugin extends Plugin
 	public void startUp()
 	{
 		waveOverlay.setDisplayMode(config.waveDisplay());
+		waveOverlay.setWaveHeaderColor(config.getWaveOverlayHeaderColor());
+		waveOverlay.setWaveTextColor(config.getWaveTextColor());
 
-		if (inInferno())
+		if (isInInferno())
 		{
 			addOverlays();
 		}
-
-		waveOverlay.setWaveHeaderColor(config.getWaveOverlayHeaderColor());
-		waveOverlay.setWaveTextColor(config.getWaveTextColor());
 
 		nibblers = new ArrayList<>();
 		priorityNPC = new NPCContainer[4];
 		for (int i = 1; i <= 6; i++)
 		{
 			npcCurrentAttackMap.put(i, new ArrayList<>());
+		}
+	}
+
+	@Subscribe
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!"inferno".equals(event.getGroup()))
+		{
+			return;
+		}
+
+		if (event.getKey().endsWith("color"))
+		{
+			waveOverlay.setWaveHeaderColor(config.getWaveOverlayHeaderColor());
+			waveOverlay.setWaveTextColor(config.getWaveTextColor());
+			return;
+		}
+
+		switch (event.getKey())
+		{
+			case "waveDisplay":
+				overlayManager.remove(waveOverlay);
+
+				waveOverlay.setDisplayMode(config.waveDisplay());
+
+				if (isInInferno() && config.waveDisplay() != InfernoConfig.InfernoWaveDisplayMode.NONE)
+				{
+					overlayManager.add(waveOverlay);
+				}
+				break;
+			case "nibblerOverlay":
+				overlayManager.remove(nibblerOverlay);
+
+				if (isInInferno() && config.displayNibblerOverlay())
+				{
+					overlayManager.add(nibblerOverlay);
+				}
+				break;
+			case "prayerHelper":
+				overlayManager.remove(infernoInfobox);
+
+				if (isInInferno() && config.showPrayerHelp())
+				{
+					overlayManager.add(infernoInfobox);
+				}
+				break;
+			case "shadows":
+				infernoOverlay.setShadows(config.shadows());
+				break;
+			case "textSize":
+				infernoOverlay.setTextSize(config.textSize());
+				break;
+			case "fontStyle":
+				infernoOverlay.setFont(config.fontStyle());
+				break;
+			case "prayerWidgetHelper":
+				infernoOverlay.setShowPrayerWidgetHelper(config.showPrayerWidgetHelper());
+				break;
 		}
 	}
 
@@ -125,7 +195,7 @@ public class InfernoPlugin extends Plugin
 			return;
 		}
 
-		if (!inInferno())
+		if (!isInInferno())
 		{
 			currentWaveNumber = -1;
 		}
@@ -134,7 +204,7 @@ public class InfernoPlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage event)
 	{
-		if (!inInferno() || event.getType() != ChatMessageType.GAMEMESSAGE)
+		if (!isInInferno() || event.getType() != ChatMessageType.GAMEMESSAGE)
 		{
 			return;
 		}
@@ -151,7 +221,7 @@ public class InfernoPlugin extends Plugin
 	@Subscribe
 	public void onNpcSpawned(NpcSpawned event)
 	{
-		if (!inInferno())
+		if (!isInInferno())
 		{
 			return;
 		}
@@ -178,7 +248,7 @@ public class InfernoPlugin extends Plugin
 	@Subscribe
 	public void onNpcDespawned(NpcDespawned event)
 	{
-		if (!inInferno())
+		if (!isInInferno())
 		{
 			return;
 		}
@@ -205,7 +275,7 @@ public class InfernoPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (!inInferno())
+		if (!isInInferno())
 		{
 			return;
 		}
@@ -357,7 +427,7 @@ public class InfernoPlugin extends Plugin
 		}
 	}
 
-	private boolean inInferno()
+	private boolean isInInferno()
 	{
 		return ArrayUtils.contains(client.getMapRegions(), INFERNO_REGION);
 	}

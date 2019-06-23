@@ -319,13 +319,18 @@ public class OverlayUtil
 		graphics.fill(poly);
 	}
 
-	public static void renderWidgetToClick(Graphics2D graphics, Widget widget, Prayer prayer, Color color)
+	public static Rectangle renderPrayerOverlay(Graphics2D graphics, Client client, Prayer prayer, Color color)
 	{
-		if (widget.isHidden())
+		Widget widget = client.getWidget(prayer.getWidgetInfo());
+
+		if (widget == null || widget.isHidden())
 		{
-			return;
+			return null;
 		}
-		renderPolygon(graphics, rectangleToPolygon(widget.getBounds()), color);
+
+		Rectangle bounds = widget.getBounds();
+		renderPolygon(graphics, rectangleToPolygon(bounds), color);
+		return bounds;
 	}
 
 	public static void renderTicksOnPoint(Graphics2D graphics, int ticksLeft, int fontSize, int fontStyle, Color color, Color colorValid, Point canvasPoint, Boolean shadows, int yOffset)
