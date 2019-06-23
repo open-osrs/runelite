@@ -34,6 +34,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 
 import javax.inject.Inject;
 import java.io.BufferedWriter;
@@ -45,7 +46,9 @@ import java.util.HashMap;
 @PluginDescriptor(
 	name = "GE Logger",
 	description = "Logs all your activities in GE",
-	tags = {"grand", "exchange", "log"}
+	tags = {"grand", "exchange", "log"},
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 public class GELoggerPlugin extends Plugin
 {
@@ -78,7 +81,7 @@ public class GELoggerPlugin extends Plugin
 	public void onGrandExchangeOfferChanged(GrandExchangeOfferChanged offerEvent)
 	{
 		GrandExchangeOffer offer = offerEvent.getOffer();
-		ItemComposition offerItem = itemManager.getItemComposition(offer.getItemId());
+		ItemDefinition offerItem = itemManager.getItemDefinition(offer.getItemId());
 		boolean buying = offer.getState() == GrandExchangeOfferState.BOUGHT
 				|| offer.getState() == GrandExchangeOfferState.BUYING
 				|| offer.getState() == GrandExchangeOfferState.CANCELLED_BUY;
@@ -129,7 +132,7 @@ public class GELoggerPlugin extends Plugin
 			this.total_price = total_price;
 			this.amount = amount;
 		}
-
+ 		// TODO: STRING AS JSON / SAVE AS JSON
 		@Override public String toString()
 		{
 			String res = Integer.toString(itemid) + "\t";
