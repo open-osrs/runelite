@@ -264,8 +264,7 @@ public class OverlayUtil
 		return result;
 	}
 
-	public static void renderActorTextAndImage(Graphics2D graphics, Actor actor, String text, Color color,
-											   BufferedImage image, int yOffset, int xOffset)
+	public static void renderActorTextAndImage(Graphics2D graphics, Actor actor, String text, Color color, BufferedImage image, int yOffset, int xOffset)
 	{
 		Point textLocation = new Point(actor.getConvexHull().getBounds().x + xOffset,
 			actor.getConvexHull().getBounds().y + yOffset);
