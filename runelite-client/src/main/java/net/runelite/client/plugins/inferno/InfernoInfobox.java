@@ -1,5 +1,7 @@
 /*
  * Copyright (c) 2019, Jacky <liangj97@gmail.com>
+ * Copyright (c) 2019, Ganom <https://github.com/ganom>
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,26 +29,20 @@ package net.runelite.client.plugins.inferno;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
-import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
-import net.runelite.client.ui.overlay.components.PanelComponent;
 
 public class InfernoInfobox extends Overlay
 {
-	private final Client client;
 	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
-
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public InfernoInfobox(Client client, InfernoConfig config, InfernoPlugin plugin)
+	public InfernoInfobox(InfernoPlugin plugin)
 	{
-		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.TOP_LEFT);
 	}
@@ -54,21 +50,21 @@ public class InfernoInfobox extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showPrayerHelp() || client.getMapRegions()[0] != 9043) return null;
-
 		panelComponent.getChildren().clear();
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		for (int i = plugin.getPriorityNPC().length; i > 0; i--)
+		final NPCContainer[] priorityNPCs = plugin.getPriorityNPC();
+
+		for (int i = priorityNPCs.length; i > 0; i--)
 		{
-			if (plugin.getPriorityNPC()[i - 1] == null)
+			if (priorityNPCs[i - 1] == null)
 			{
 				tableComponent.addRow(Integer.toString(i), "-");
 			}
 			else
 			{
-				tableComponent.addRow(plugin.getPriorityNPC()[i - 1].getName(), plugin.getPriorityNPC()[i - 1 ].getAttackstyle().getName());
+				tableComponent.addRow(priorityNPCs[i - 1].getNpcName(), priorityNPCs[i - 1].getAttackStyle().getName());
 			}
 		}
 

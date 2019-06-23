@@ -1,5 +1,7 @@
 /*
  * Copyright (c) 2019, Jacky <liangj97@gmail.com>
+ * Copyright (c) 2019, Ganom <https://github.com/ganom>
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,85 +26,75 @@
  */
 package net.runelite.client.plugins.inferno;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import javax.inject.Inject;
 import net.runelite.api.Client;
-import net.runelite.api.NPC;
-import net.runelite.api.Perspective;
 import net.runelite.api.Point;
-import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.widgets.Widget;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.components.PanelComponent;
+import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
 public class InfernoOverlay extends Overlay
 {
-	private final Client client;
-	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
-	private final PanelComponent panelComponent = new PanelComponent();
+	private InfernoPlugin plugin;
+	private Client client;
+	private InfernoConfig config;
 
 	@Inject
-	public InfernoOverlay(Client client, InfernoConfig config, InfernoPlugin plugin)
+	InfernoOverlay(InfernoPlugin plugin, Client client, InfernoConfig config)
 	{
-		setPosition(OverlayPosition.DYNAMIC);
-		setLayer(OverlayLayer.ABOVE_SCENE);
+		this.plugin = plugin;
 		this.client = client;
 		this.config = config;
-		this.plugin = plugin;
+		setPosition(OverlayPosition.DYNAMIC);
+		setPriority(OverlayPriority.HIGHEST);
+		setLayer(OverlayLayer.ALWAYS_ON_TOP);
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!client.isInInstancedRegion() || client.getMapRegions()[0] != 9043) return null;
-
-		for (InfernoNPC monster : plugin.getMonsters().values())
+		for (NPCContainer npcs : plugin.getNpcContainer().values())
 		{
-			NPC npc = monster.getNpc();
-			//if (npc == null || !config.showPrayer()) return;
-			LocalPoint lp = npc.getLocalLocation();
-			if (lp != null)
+			int ticksLeft = npcs.getTicksUntilAttack();
+
+			if (ticksLeft <= 0)
 			{
-				Point point = Perspective.localToCanvas(client, lp, client.getPlane(), npc.getLogicalHeight());
-				if (point != null)
+				continue;
+			}
+
+			String ticksLeftStr = String.valueOf(ticksLeft);
+			NPCContainer.Attackstyle attackStyle = npcs.getAttackStyle();
+			Color color = (ticksLeft <= 1 ? Color.WHITE : attackStyle.getColor());
+
+			if (attackStyle.getPrayer() != null)
+			{
+				Widget widget = client.getWidget(attackStyle.getPrayer().getWidgetInfo());
+				if (widget != null)
 				{
-					if (monster.getTicksTillAttack() == 1 || (monster.getName().equals("blob") && monster.getTicksTillAttack() <= 3))
-					{
-						renderTextLocation(graphics, monster, monster.info(), Color.GREEN);
-					}
-					else
-					{
-						renderTextLocation(graphics, monster, monster.info(), Color.RED);
-					}
+					OverlayUtil.renderWidgetToClick(graphics, widget, attackStyle.getPrayer(), color);
+					OverlayUtil.renderTextLocation(graphics, ticksLeftStr, 8, config.fontStyle().getFont(),
+						color, centerPoint(widget.getBounds()), config.shadows(), 0);
 				}
 			}
+
+			Point canvasPoint = npcs.getNpc().getCanvasTextLocation(graphics, ticksLeftStr, 0);
+			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, config.textSize(),
+				config.fontStyle().getFont(), color, canvasPoint, config.shadows(), 0);
 		}
 		return null;
 	}
 
-	// renders text location
-	public static void renderTextLocation(Graphics2D graphics, InfernoNPC actor, String text, Color color)
+	private Point centerPoint(Rectangle rect)
 	{
-		graphics.setFont(new Font("Arial", Font.BOLD, 15));
-		Point textLocation = actor.getNpc().getCanvasTextLocation(graphics, text, actor.textLocHeight + 40);
-		if (Strings.isNullOrEmpty(text))
-		{
-			return;
-		}
-
-		int x = textLocation.getX();
-		int y = textLocation.getY();
-
-		graphics.setColor(Color.BLACK);
-		graphics.drawString(text, x + 1, y + 1);
-
-		graphics.setColor(color);
-		graphics.drawString(text, x, y);
+		int x = (int) (rect.getX() + rect.getWidth() / 2);
+		int y = (int) (rect.getY() + rect.getHeight() / 2);
+		return new Point(x, y);
 	}
 }

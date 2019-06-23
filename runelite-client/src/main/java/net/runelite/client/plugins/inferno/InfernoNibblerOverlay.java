@@ -1,5 +1,7 @@
 /*
  * Copyright (c) 2019, Jacky <liangj97@gmail.com>
+ * Copyright (c) 2019, Ganom <https://github.com/ganom>
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,7 +29,6 @@ package net.runelite.client.plugins.inferno;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
-import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -36,17 +37,13 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 public class InfernoNibblerOverlay extends Overlay
 {
-	private final Client client;
 	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public InfernoNibblerOverlay(Client client, InfernoConfig config, InfernoPlugin plugin)
+	public InfernoNibblerOverlay(InfernoPlugin plugin)
 	{
-		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.TOP_LEFT);
 	}
@@ -55,14 +52,16 @@ public class InfernoNibblerOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.displayNibblerOverlay() || plugin.getNibblers().size() == 0 || client.getMapRegions()[0] != 9043)
-		return null;
+		if (plugin.getNibblers().isEmpty())
+		{
+			return null;
+		}
 
 		panelComponent.getChildren().clear();
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		tableComponent.addRow("Nibblers Left: ", Integer.toString(plugin.getNibblers().size()));
+		tableComponent.addRow("Nibblers Left: " + plugin.getNibblers().size());
 
 		panelComponent.getChildren().add(tableComponent);
 

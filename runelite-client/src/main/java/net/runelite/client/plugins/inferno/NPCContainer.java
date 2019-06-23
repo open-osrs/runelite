@@ -1,4 +1,6 @@
 /*
+ * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2019, Ganom <https://github.com/Ganom>
  * Copyright (c) 2019, Jacky <liangj97@gmail.com>
  * All rights reserved.
  *
@@ -25,52 +27,44 @@
 package net.runelite.client.plugins.inferno;
 
 import java.awt.Color;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.Actor;
 import net.runelite.api.NPC;
+import net.runelite.api.NPCDefinition;
 import net.runelite.api.NpcID;
+import net.runelite.api.Prayer;
 
-public class InfernoNPC
+class NPCContainer
 {
-	public enum Attackstyle
-	{
-		MAGE("Mage", Color.CYAN),
-		RANGE("Range", Color.GREEN),
-		MELEE("Melee", Color.WHITE),
-		RANDOM("Random", Color.ORANGE);
-
-		@Getter
-		private String name = "";
-
-		@Getter
-		private Color color;
-
-		Attackstyle(String s, Color c)
-		{
-			this.name = s;
-			this.color = c;
-		}
-	}
-
 	@Getter
 	private NPC npc;
 
 	@Getter
-	private String name;
+	private int npcIndex;
 
 	@Getter
+	private String npcName;
+
+	@Getter
+	private int npcSize;
+
 	@Setter
-	private Attackstyle attackstyle;
-
 	@Getter
-	private int attackTicks;
+	private int ticksUntilAttack;
 
-	@Getter
-	private int priority;
-
-	@Getter
 	@Setter
-	private int ticksTillAttack = -1;
+	@Getter
+	private int npcSpeed;
+
+	@Setter
+	@Getter
+	private Actor npcInteracting;
+
+	@Setter
+	@Getter
+	private Attackstyle attackStyle;
 
 	@Getter
 	@Setter
@@ -86,100 +80,98 @@ public class InfernoNPC
 	@Setter
 	private int distanceToPlayer = 0;
 
+	@Setter
 	@Getter
-	int textLocHeight;
+	private int priority;
 
-	public InfernoNPC(NPC npc)
+
+	NPCContainer(NPC npc)
 	{
 		this.npc = npc;
-		textLocHeight = npc.getLogicalHeight() + 40;
+		this.npcName = npc.getName();
+		this.npcIndex = npc.getIndex();
+		this.npcInteracting = npc.getInteracting();
+		this.npcSpeed = 0;
+		this.ticksUntilAttack = 0;
+		this.priority = 0;
+		this.attackStyle = Attackstyle.UNKNOWN;
+		final NPCDefinition composition = npc.getTransformedDefinition();
+
 		switch (npc.getId())
 		{
 			case NpcID.JALAKREKKET:
-				attackTicks = 4;
-				name = "lil mel";
-				attackAnimation = 7582;
-				attackstyle = Attackstyle.MELEE;
+				attackStyle = Attackstyle.MELEE;
 				priority = 7;
 				break;
 
 			case NpcID.JALAKREKXIL:
-				attackTicks = 4;
-				name = "lil range";
+				ticksUntilAttack = 4;
 				attackAnimation = 7583;
-				attackstyle = Attackstyle.RANGE;
+				attackStyle = Attackstyle.RANGE;
 				priority = 6;
 				break;
 
 			case NpcID.JALAKREKMEJ:
-				attackTicks = 4;
-				name = "lil mage";
+				ticksUntilAttack = 4;
 				attackAnimation = 7581;
-				attackstyle = Attackstyle.MAGE;
+				attackStyle = Attackstyle.MAGE;
 				priority = 5;
 				break;
 
 			case NpcID.JALMEJRAH:
-				attackTicks = 3;
-				name = "bat";
+				ticksUntilAttack = 3;
 				attackAnimation = 7578;
-				attackstyle = Attackstyle.RANGE;
+				attackStyle = Attackstyle.RANGE;
 				priority = 4;
 				break;
 
 			case NpcID.JALAK:
-				attackTicks = 6;
-				name = "blob";
+				ticksUntilAttack = 6;
 				attackAnimation = 7583; // also 7581
-				attackstyle = Attackstyle.RANDOM;
 				priority = 3;
 				break;
 
 			case NpcID.JALIMKOT:
-				attackTicks = 4;
-				name = "meleer";
+				ticksUntilAttack = 4;
 				attackAnimation = 7597;
-				attackstyle = Attackstyle.MELEE;
+				attackStyle = Attackstyle.MELEE;
 				priority = 2;
 				break;
 
 			case NpcID.JALXIL:
-				attackTicks = 4;
-				name = "ranger";
+				ticksUntilAttack = 4;
 				attackAnimation = 7605;
-				attackstyle = Attackstyle.RANGE;
+				attackStyle = Attackstyle.RANGE;
 				priority = 1;
 				break;
 
 			case NpcID.JALZEK:
-				attackTicks = 4;
-				name = "mager";
+				ticksUntilAttack = 4;
 				attackAnimation = 7610;
-				attackstyle = Attackstyle.MAGE;
+				attackStyle = Attackstyle.MAGE;
 				priority = 0;
 				break;
-
 			default:
-				attackTicks = 0;
+				ticksUntilAttack = 0;
 		}
-	}
 
-	public String info()
-	{
-		String info = "";
-
-		if (attacking)
+		if (composition != null)
 		{
-			info += ticksTillAttack;
+			this.npcSize = composition.getSize();
 		}
-		//info += " D: " + distanceToPlayer;
-
-		return info;
 	}
 
-	public void attacked()
+	@AllArgsConstructor
+	@Getter
+	public enum Attackstyle
 	{
-		ticksTillAttack = attackTicks;
-		attacking = true;
+		MAGE("Mage", Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
+		RANGE("Range", Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
+		MELEE("Melee", Color.RED, Prayer.PROTECT_FROM_MELEE),
+		UNKNOWN("Unknown", Color.WHITE, null);
+
+		private String name = "";
+		private Color color;
+		private Prayer prayer;
 	}
 }

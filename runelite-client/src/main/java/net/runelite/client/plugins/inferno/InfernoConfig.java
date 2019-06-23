@@ -1,5 +1,7 @@
 /*
  * Copyright (c) 2019, Jacky <liangj97@gmail.com>
+ * Copyright (c) 2019, Ganom <https://github.com/ganom>
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,66 +26,158 @@
  */
 package net.runelite.client.plugins.inferno;
 
+import java.awt.Color;
+import java.awt.Font;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-import java.awt.Color;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Stub;
 
-@ConfigGroup("inferno")
+@ConfigGroup("InfernoPlugin")
 public interface InfernoConfig extends Config
-	{
+{
 	@ConfigItem(
-			position = 0,
-			keyName = "Nibbler Overlay",
-			name = "Nibbler Overlay",
-			description = "Shows if there are any Nibblers left"
+		position = 0,
+		keyName = "nibblerOverlay",
+		name = "Nibbler Overlay",
+		description = "Shows if there are any Nibblers left"
 	)
 	default boolean displayNibblerOverlay()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "Prayer Helper",
-			name = "Prayer Helper",
-			description = "Tells you what to flick in how many ticks"
+		position = 1,
+		keyName = "prayerHelper",
+		name = "Prayer Helper",
+		description = "Tells you what to flick in how many ticks"
 	)
 	default boolean showPrayerHelp()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "waveDisplay",
-			name = "Wave display",
-			description = "Shows monsters that will spawn on the selected wave(s)."
+		position = 2,
+		keyName = "waveDisplay",
+		name = "Wave display",
+		description = "Shows monsters that will spawn on the selected wave(s)."
 	)
 	default InfernoWaveDisplayMode waveDisplay()
-		{
-			return InfernoWaveDisplayMode.BOTH;
-		}
+	{
+		return InfernoWaveDisplayMode.BOTH;
+	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "getWaveOverlayHeaderColor",
-			name = "Wave Header",
-			description = "Color for Wave Header"
+		position = 3,
+		keyName = "getWaveOverlayHeaderColor",
+		name = "Wave Header",
+		description = "Color for Wave Header"
 	)
 	default Color getWaveOverlayHeaderColor()
-		{
-			return Color.ORANGE;
-		}
+	{
+		return Color.ORANGE;
+	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "getWaveTextColor",
-			name = "Wave Text Color",
-			description = "Color for Wave Texts"
+		position = 4,
+		keyName = "getWaveTextColor",
+		name = "Wave Text Color",
+		description = "Color for Wave Texts"
 	)
 	default Color getWaveTextColor()
+	{
+		return Color.WHITE;
+	}
+
+	@ConfigItem(
+		position = 22,
+		keyName = "text",
+		name = "Text",
+		description = ""
+	)
+	default Stub text()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 23,
+		keyName = "fontStyle",
+		name = "Font Style",
+		description = "Plain | Bold | Italics",
+		parent = "text"
+	)
+	default FontStyle fontStyle()
+	{
+		return FontStyle.PLAIN;
+	}
+
+	@Range(
+		min = 14,
+		max = 40
+	)
+	@ConfigItem(
+		position = 24,
+		keyName = "textSize",
+		name = "Text Size",
+		description = "Text Size for Timers.",
+		parent = "text"
+	)
+	default int textSize()
+	{
+		return 32;
+	}
+
+	@ConfigItem(
+		position = 25,
+		keyName = "shadows",
+		name = "Shadows",
+		description = "Adds Shadows to text.",
+		parent = "text"
+	)
+	default boolean shadows()
+	{
+		return false;
+	}
+
+	@Getter
+	@AllArgsConstructor
+	public enum FontStyle
+	{
+		BOLD("Bold", Font.BOLD),
+		ITALIC("Italic", Font.ITALIC),
+		PLAIN("Plain", Font.PLAIN);
+
+		private String name;
+		private int font;
+
+		@Override
+		public String toString()
 		{
-			return Color.WHITE;
+			return getName();
 		}
 	}
+
+	@RequiredArgsConstructor
+	public enum InfernoWaveDisplayMode
+	{
+		CURRENT("Current wave"),
+		NEXT("Next wave"),
+		BOTH("Both"),
+		NONE("None");
+
+		private final String name;
+
+		@Override
+		public String toString()
+		{
+			return name;
+		}
+	}
+}
