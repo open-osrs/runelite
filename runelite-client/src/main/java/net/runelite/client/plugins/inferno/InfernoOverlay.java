@@ -60,9 +60,9 @@ public class InfernoOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		for (NPCContainer npcs : plugin.getNpcContainer().values())
+		for (NPCContainer npc : plugin.getNpcContainer())
 		{
-			int ticksLeft = npcs.getTicksUntilAttack();
+			int ticksLeft = npc.getTicksUntilAttack();
 
 			if (ticksLeft <= 0)
 			{
@@ -70,7 +70,7 @@ public class InfernoOverlay extends Overlay
 			}
 
 			String ticksLeftStr = String.valueOf(ticksLeft);
-			NPCContainer.Attackstyle attackStyle = npcs.getAttackStyle();
+			NPCContainer.Attackstyle attackStyle = npc.getAttackStyle();
 			Color color = (ticksLeft <= 1 ? Color.WHITE : attackStyle.getColor());
 
 			if (attackStyle.getPrayer() != null)
@@ -84,7 +84,7 @@ public class InfernoOverlay extends Overlay
 				}
 			}
 
-			Point canvasPoint = npcs.getNpc().getCanvasTextLocation(graphics, ticksLeftStr, 0);
+			Point canvasPoint = npc.getNpc().getCanvasTextLocation(graphics, ticksLeftStr, 0);
 			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, config.textSize(),
 				config.fontStyle().getFont(), color, canvasPoint, config.shadows(), 0);
 		}

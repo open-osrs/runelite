@@ -26,62 +26,53 @@
  */
 package net.runelite.client.plugins.inferno;
 
+import com.google.common.collect.ImmutableMap;
 import java.awt.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.runelite.api.Actor;
+import net.runelite.api.AnimationID;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.NpcID;
 import net.runelite.api.Prayer;
 
+@Getter
 class NPCContainer
 {
-	@Getter
 	private NPC npc;
 
-	@Getter
 	private int npcIndex;
 
-	@Getter
 	private String npcName;
 
-	@Getter
 	private int npcSize;
 
 	@Setter
-	@Getter
 	private int ticksUntilAttack;
 
 	@Setter
-	@Getter
 	private int npcSpeed;
 
 	@Setter
-	@Getter
 	private Actor npcInteracting;
 
 	@Setter
-	@Getter
 	private Attackstyle attackStyle;
 
-	@Getter
 	@Setter
 	private boolean attacking = false;
 
-	@Getter
 	private int attackAnimation;
 
-	@Getter
 	private boolean isMidAttack = false;
 
-	@Getter
 	@Setter
 	private int distanceToPlayer = 0;
 
 	@Setter
-	@Getter
 	private int priority;
 
 
@@ -92,72 +83,62 @@ class NPCContainer
 		this.npcIndex = npc.getIndex();
 		this.npcInteracting = npc.getInteracting();
 		this.npcSpeed = 0;
-		this.ticksUntilAttack = 0;
-		this.priority = 0;
-		this.attackStyle = Attackstyle.UNKNOWN;
 		final NPCDefinition composition = npc.getTransformedDefinition();
 
-		switch (npc.getId())
+		InfernoMonster monster = InfernoMonster.of(npc.getId());
+
+		if (monster == null)
 		{
-			case NpcID.JALAKREKKET:
-				attackStyle = Attackstyle.MELEE;
-				priority = 7;
-				break;
-
-			case NpcID.JALAKREKXIL:
-				ticksUntilAttack = 4;
-				attackAnimation = 7583;
-				attackStyle = Attackstyle.RANGE;
-				priority = 6;
-				break;
-
-			case NpcID.JALAKREKMEJ:
-				ticksUntilAttack = 4;
-				attackAnimation = 7581;
-				attackStyle = Attackstyle.MAGE;
-				priority = 5;
-				break;
-
-			case NpcID.JALMEJRAH:
-				ticksUntilAttack = 3;
-				attackAnimation = 7578;
-				attackStyle = Attackstyle.RANGE;
-				priority = 4;
-				break;
-
-			case NpcID.JALAK:
-				ticksUntilAttack = 6;
-				attackAnimation = 7583; // also 7581
-				priority = 3;
-				break;
-
-			case NpcID.JALIMKOT:
-				ticksUntilAttack = 4;
-				attackAnimation = 7597;
-				attackStyle = Attackstyle.MELEE;
-				priority = 2;
-				break;
-
-			case NpcID.JALXIL:
-				ticksUntilAttack = 4;
-				attackAnimation = 7605;
-				attackStyle = Attackstyle.RANGE;
-				priority = 1;
-				break;
-
-			case NpcID.JALZEK:
-				ticksUntilAttack = 4;
-				attackAnimation = 7610;
-				attackStyle = Attackstyle.MAGE;
-				priority = 0;
-				break;
-			default:
-				ticksUntilAttack = 0;
+			throw new IllegalStateException();
 		}
+
+		this.ticksUntilAttack = monster.ticksUntilAttack;
+		this.attackAnimation = monster.attackAnimationID;
+		this.attackStyle = monster.attackstyle;
+		this.priority = monster.priority;
 
 		if (composition != null)
 		{
 			this.npcSize = composition.getSize();
+		}
+	}
+
+	@RequiredArgsConstructor
+	enum InfernoMonster
+	{
+		// TODO: Check if next is correct
+		JALAKREKKET(NpcID.JALAKREKKET, 4, AnimationID.JAL_AK_MELEE_ATTACK, Attackstyle.MELEE, 7),
+		JALAKREKXIL(NpcID.JALAKREKXIL, 4, AnimationID.JAL_AK_MAGIC_ATTACK, Attackstyle.RANGE, 6),
+		JALAKREKMEJ(NpcID.JALAKREKMEJ, 4, AnimationID.JAL_AK_RANGE_ATTACK, Attackstyle.MAGE, 5),
+		JALMEJRAH(NpcID.JALMEJRAH, 3, AnimationID.JAL_MEJRAH, Attackstyle.RANGE, 4),
+		JALAK(NpcID.JALAK, 6, AnimationID.JAL_AK_MAGIC_ATTACK, Attackstyle.UNKNOWN, 3),
+		JALIMKOT(NpcID.JALIMKOT, 4, AnimationID.JAL_IMKOT, Attackstyle.MELEE, 2),
+		JALXIL(NpcID.JALXIL, 4, AnimationID.JAL_XIL_RANGE_ATTACK, Attackstyle.RANGE, 1),
+		JALZEK(NpcID.JALZEK, 4, AnimationID.JAL_ZEK_MAGE_ATTACK, Attackstyle.MAGE, 0);
+
+		private final int npcID;
+		private final int ticksUntilAttack;
+		private final int attackAnimationID;
+		private final Attackstyle attackstyle;
+		private final int priority;
+
+		private static ImmutableMap<Integer, InfernoMonster> idMap;
+
+		static
+		{
+			ImmutableMap.Builder<Integer, InfernoMonster> builder = ImmutableMap.builder();
+
+			for (InfernoMonster monster : values())
+			{
+				builder.put(monster.npcID, monster);
+			}
+
+			idMap = builder.build();
+		}
+
+		static InfernoMonster of(int npcID)
+		{
+			return idMap.get(npcID);
 		}
 	}
 
@@ -170,7 +151,7 @@ class NPCContainer
 		MELEE("Melee", Color.RED, Prayer.PROTECT_FROM_MELEE),
 		UNKNOWN("Unknown", Color.WHITE, null);
 
-		private String name = "";
+		private String name;
 		private Color color;
 		private Prayer prayer;
 	}

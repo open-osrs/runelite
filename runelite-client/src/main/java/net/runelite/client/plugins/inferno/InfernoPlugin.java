@@ -29,8 +29,10 @@ package net.runelite.client.plugins.inferno;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -78,7 +80,7 @@ public class InfernoPlugin extends Plugin
 	@Inject
 	private InfernoNibblerOverlay nibblerOverlay;
 	@Getter(AccessLevel.PACKAGE)
-	private Map<NPC, NPCContainer> npcContainer = new HashMap<>();
+	private Set<NPCContainer> npcContainer = new HashSet<>();
 	@Getter(AccessLevel.PACKAGE)
 	private Map<Integer, ArrayList<NPCContainer>> npcCurrentAttackMap = new HashMap<>(6);
 	@Getter(AccessLevel.PACKAGE)
@@ -165,7 +167,7 @@ public class InfernoPlugin extends Plugin
 			case NpcID.JALZEK:
 			case NpcID.JALTOKJAD:
 			case NpcID.JALTOKJAD_7704:
-				npcContainer.put(npc, new NPCContainer(npc));
+				npcContainer.add(new NPCContainer(npc));
 				break;
 			case NpcID.JALNIB:
 				nibblers.add(npc);
@@ -192,10 +194,7 @@ public class InfernoPlugin extends Plugin
 			case NpcID.JALZEK:
 			case NpcID.JALTOKJAD:
 			case NpcID.JALTOKJAD_7704:
-				if (npcContainer.remove(npc) != null && !npcContainer.isEmpty())
-				{
-					npcContainer.remove(npc);
-				}
+				npcContainer.removeIf(c -> c.getNpc() == npc);
 				break;
 			case NpcID.JALNIB:
 				nibblers.remove(npc);
@@ -213,7 +212,7 @@ public class InfernoPlugin extends Plugin
 
 		clearMapAndPriority();
 
-		for (NPCContainer npcs : getNpcContainer().values())
+		for (NPCContainer npcs : getNpcContainer())
 		{
 			npcs.setTicksUntilAttack(npcs.getTicksUntilAttack() - 1);
 			calculateDistanceToPlayer(npcs);
