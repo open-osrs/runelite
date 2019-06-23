@@ -61,7 +61,8 @@ public class RuneLiteAPI
 	
 	private static final String BASE = "https://api.runelite.net";
 	private static final String XTEA_BASE = "https://api.runelitepl.us";
-	private static final String MAVEN_METADATA = "http://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
+	private static final String MAVEN_METADATA =
+			"http://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
 	private static final String RLPLUS = "https://session.runelitepl.us";
 	private static final String WSBASE = "https://api.runelite.net/ws";
 	private static final String STATICBASE = "https://static.runelite.net";
@@ -85,10 +86,10 @@ public class RuneLiteAPI
 				DocumentBuilder builder = factory.newDocumentBuilder();
 				Document doc = builder.parse(fis);
 				NodeList versionList = doc.getElementsByTagName("version");
-				for(int i = 0; i != versionList.getLength(); i++)
+				for (int i = 0; i != versionList.getLength(); i++)
 				{
 					Node node = versionList.item(i);
-					if(node.getTextContent() != null)
+					if (node.getTextContent() != null)
 					{
 						version = node.getTextContent();
 					}
