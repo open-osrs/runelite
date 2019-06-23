@@ -93,6 +93,7 @@ public interface LootTrackerConfig extends Config
 	{
 		return true;
 	}
+
 	@ConfigItem(
 		keyName = "sortType",
 		name = "Sorting",
@@ -102,17 +103,20 @@ public interface LootTrackerConfig extends Config
 	{
 		return LootRecordSortType.TIMESTAMP;
 	}
+
 	@ConfigItem(
-		keyName =  "whitelistEnabled",
+		keyName = "whitelistEnabled",
 		name = "NPC Whitelist",
 		description = "Only track drops from specific NPCs",
 		position = 1,
 		group = "Filters",
 		disabledBy = "blacklistEnabled"
 	)
-	default boolean whitelistEnabled() {
+	default boolean whitelistEnabled()
+	{
 		return false;
 	}
+
 	@ConfigItem(
 		keyName = "getWhitelist",
 		name = "Whitelist",
@@ -126,17 +130,20 @@ public interface LootTrackerConfig extends Config
 	{
 		return "";
 	}
+
 	@ConfigItem(
-		keyName =  "blacklistEnabled",
+		keyName = "blacklistEnabled",
 		name = "NPC Blacklist",
 		description = "Track drops from all NPCs except for specified ones",
 		position = 3,
 		group = "Filters",
 		disabledBy = "whitelistEnabled"
 	)
-	default boolean blacklistEnabled() {
+	default boolean blacklistEnabled()
+	{
 		return false;
 	}
+
 	@ConfigItem(
 		keyName = "getBlacklist",
 		name = "Blacklist",
