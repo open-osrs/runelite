@@ -124,7 +124,7 @@ public class XteaClient
 
 	public XteaKey get(int region) throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
+		HttpUrl url = RuneLiteAPI.getRlpBase().newBuilder()
 			.addPathSegment("xtea")
 			.addPathSegment(Integer.toString(region))
 			.build();

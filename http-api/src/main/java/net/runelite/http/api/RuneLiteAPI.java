@@ -60,10 +60,10 @@ public class RuneLiteAPI
 	public static String userAgent;
 	
 	private static final String BASE = "https://api.runelite.net";
-	private static final String XTEA_BASE = "https://api.runelitepl.us";
+	private static final String RLP_BASE = "https://api.runelitepl.us";
 	private static final String MAVEN_METADATA =
 			"http://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
-	private static final String RLPLUS = "https://session.runelitepl.us";
+	private static final String RLPLUS_SESSION = "https://session.runelitepl.us";
 	private static final String WSBASE = "https://api.runelite.net/ws";
 	private static final String STATICBASE = "https://static.runelite.net";
 	private static final Properties properties = new Properties();
@@ -144,7 +144,7 @@ public class RuneLiteAPI
 	
 	public static HttpUrl getRuneLitePlusSessionBase()
 	{
-		return HttpUrl.parse(RLPLUS);
+		return HttpUrl.parse(RLPLUS_SESSION);
 	}
 	
 	public static HttpUrl getApiBase()
@@ -159,9 +159,9 @@ public class RuneLiteAPI
 		return HttpUrl.parse(BASE + "/runelite-" + getVersion());
 	}
 	
-	public static HttpUrl getXteaBase()
+	public static HttpUrl getRlpBase()
 	{
-		return HttpUrl.parse(XTEA_BASE + "/runelite-" + getXteaVersion());
+		return HttpUrl.parse(RLP_BASE + "/runelite-" + getXteaVersion());
 	}
 	
 	public static HttpUrl getStaticBase()
