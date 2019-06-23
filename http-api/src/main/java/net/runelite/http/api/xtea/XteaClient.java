@@ -66,7 +66,7 @@ public class XteaClient
 		{
 			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
 			{
-				logger.debug("xtea response "+response.code());
+				logger.debug("xtea response " + response.code());
 			}
 		}
 		catch (IOException e)
@@ -113,7 +113,9 @@ public class XteaClient
 		{
 			InputStream in = response.body().byteStream();
 			// CHECKSTYLE:OFF
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<List<XteaKey>>() { }.getType());
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<List<XteaKey>>()
+			{
+			}.getType());
 			// CHECKSTYLE:ON
 		}
 		catch (JsonParseException ex)
