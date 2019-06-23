@@ -64,6 +64,17 @@ public interface InfernoConfig extends Config
 
 	@ConfigItem(
 		position = 2,
+		keyName = "prayerWidgetHelper",
+		name = "Prayer Widget Helper",
+		description = "Shows you which prayer to click and the time until click."
+	)
+	default boolean showPrayerWidgetHelper()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "waveDisplay",
 		name = "Wave display",
 		description = "Shows monsters that will spawn on the selected wave(s)."
@@ -74,7 +85,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+		position = 4,
 		keyName = "getWaveOverlayHeaderColor",
 		name = "Wave Header",
 		description = "Color for Wave Header"
@@ -85,7 +96,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 5,
 		keyName = "getWaveTextColor",
 		name = "Wave Text Color",
 		description = "Color for Wave Texts"
@@ -96,7 +107,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 22,
+		position = 6,
 		keyName = "text",
 		name = "Text",
 		description = ""
@@ -107,7 +118,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 23,
+		position = 7,
 		keyName = "fontStyle",
 		name = "Font Style",
 		description = "Plain | Bold | Italics",
@@ -123,7 +134,7 @@ public interface InfernoConfig extends Config
 		max = 40
 	)
 	@ConfigItem(
-		position = 24,
+		position = 8,
 		keyName = "textSize",
 		name = "Text Size",
 		description = "Text Size for Timers.",
@@ -135,7 +146,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 25,
+		position = 9,
 		keyName = "shadows",
 		name = "Shadows",
 		description = "Adds Shadows to text.",

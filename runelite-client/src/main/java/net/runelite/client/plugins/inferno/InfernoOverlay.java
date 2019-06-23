@@ -76,7 +76,7 @@ public class InfernoOverlay extends Overlay
 			if (attackStyle.getPrayer() != null)
 			{
 				Widget widget = client.getWidget(attackStyle.getPrayer().getWidgetInfo());
-				if (widget != null)
+				if (widget != null && config.showPrayerWidgetHelper())
 				{
 					OverlayUtil.renderWidgetToClick(graphics, widget, attackStyle.getPrayer(), color);
 					OverlayUtil.renderTextLocation(graphics, ticksLeftStr, 8, config.fontStyle().getFont(),
