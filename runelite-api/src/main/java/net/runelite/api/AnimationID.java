@@ -157,7 +157,7 @@ public final class AnimationID
 	public static final int HOME_MAKE_TABLET = 4067;
 	public static final int THIEVING_STALL = 832;
 	public static final int PICKPOCKET_SUCCESS = 881;
-	
+
 	//block animations for players and perhaps npcs as well?
 	public static final int BLOCK_DEFENDER = 4177;
 	public static final int BLOCK_NO_SHIELD = 420;
@@ -252,13 +252,13 @@ public final class AnimationID
 	public static final int HYDRA_RANGED_4 = 8255;
 	public static final int HYDRA_4_1 = 8257;
 	public static final int HYDRA_4_2 = 8258;
-	
+
 	// INFERNO animations
 	public static final int JAL_NIB = 7574;
 	public static final int JAL_MEJRAH = 7578;
-	public static final int JAL_AK_RANGE_ATTACK = 7581;
+	public static final int JAL_AK_MAGIC_ATTACK = 7581;
 	public static final int JAL_AK_MELEE_ATTACK = 7582;
-	public static final int JAL_AK_MAGIC_ATTACK = 7583;
+	public static final int JAL_AK_RANGE_ATTACK = 7583;
 	public static final int JAL_IMKOT = 7597;
 	public static final int JAL_XIL_MELEE_ATTACK = 7604;
 	public static final int JAL_XIL_RANGE_ATTACK = 7605;
