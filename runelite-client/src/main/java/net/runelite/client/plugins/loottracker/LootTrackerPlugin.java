@@ -104,6 +104,7 @@ import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.StackFormatter;
 import net.runelite.client.util.Text;
+import static net.runelite.client.util.Text.fromCSV;
 import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.loottracker.GameItem;
 import net.runelite.http.api.loottracker.LootRecord;
@@ -260,7 +261,7 @@ public class LootTrackerPlugin extends Plugin
 		{
 			if (event.getKey().equals("ignoredItems"))
 			{
-				ignoredItems = Text.fromCSV(config.getIgnoredItems());
+				ignoredItems = fromCSV(config.getIgnoredItems());
 				SwingUtilities.invokeLater(panel::updateIgnoredRecords);
 			}
 			if (event.getKey().equals("sortType"))
@@ -275,7 +276,7 @@ public class LootTrackerPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		ignoredItems = Text.fromCSV(config.getIgnoredItems());
+		ignoredItems = fromCSV(config.getIgnoredItems());
 		panel = new LootTrackerPanel(this, itemManager, config);
 		spriteManager.getSpriteAsync(SpriteID.TAB_INVENTORY, 0, panel::loadHeaderIcon);
 
@@ -370,6 +371,21 @@ public class LootTrackerPlugin extends Plugin
 		final int combat = npc.getCombatLevel();
 		final LootTrackerItem[] entries = buildEntries(stack(items));
 		String localUsername = client.getLocalPlayer().getName();
+
+		if (config.whitelistEnabled()) {
+			final String configNpcs = config.getWhitelist().toLowerCase();
+			List<String> whitelist = Text.fromCSV(configNpcs);
+			if (!whitelist.contains(name.toLowerCase())) {
+				return;
+			}
+		} else if (config.blacklistEnabled()) {
+			final String configNpcs = config.getBlacklist().toLowerCase();
+			List<String> blacklist = Text.fromCSV(configNpcs);
+			if (blacklist.contains(name.toLowerCase())) {
+				return;
+			}
+		}
+
 		SwingUtilities.invokeLater(() -> panel.add(name, localUsername, combat, entries));
 		LootRecord lootRecord = new LootRecord( name, localUsername, LootRecordType.NPC,
 			toGameItems(items), Instant.now());
