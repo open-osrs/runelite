@@ -104,7 +104,6 @@ import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.StackFormatter;
 import net.runelite.client.util.Text;
-import static net.runelite.client.util.Text.fromCSV;
 import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.loottracker.GameItem;
 import net.runelite.http.api.loottracker.LootRecord;
@@ -261,7 +260,7 @@ public class LootTrackerPlugin extends Plugin
 		{
 			if (event.getKey().equals("ignoredItems"))
 			{
-				ignoredItems = fromCSV(config.getIgnoredItems());
+				ignoredItems = Text.fromCSV(config.getIgnoredItems());
 				SwingUtilities.invokeLater(panel::updateIgnoredRecords);
 			}
 			if (event.getKey().equals("sortType"))
@@ -276,7 +275,7 @@ public class LootTrackerPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		ignoredItems = fromCSV(config.getIgnoredItems());
+		ignoredItems = Text.fromCSV(config.getIgnoredItems());
 		panel = new LootTrackerPanel(this, itemManager, config);
 		spriteManager.getSpriteAsync(SpriteID.TAB_INVENTORY, 0, panel::loadHeaderIcon);
 
