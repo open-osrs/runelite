@@ -73,6 +73,7 @@ public class XteaClient
 		{
 			e.printStackTrace();
 		}
+
 		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
 		{
 			@Override
