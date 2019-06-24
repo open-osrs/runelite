@@ -46,7 +46,7 @@ import net.runelite.client.plugins.menuentryswapper.util.RingOfWealthMode;
 import net.runelite.client.plugins.menuentryswapper.util.SkillsNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
-
+import net.runelite.client.plugins.menuentryswapper.util.teleEquippedMode;
 
 
 @ConfigGroup("menuentryswapper")
@@ -211,6 +211,32 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "teleEquippedCape",
+			name = "Teleport Equipped Cape",
+			description = "Makes Teleport/Tele to POH the left click option on equip screen",
+			position = 11,
+			group = "Equipment swapper"
+	)
+	default boolean teleEquippedCape()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "telecapeMode",
+			name = "ModeTeleCape",
+			description = "",
+			position = 12,
+			group = "Equipment swapper",
+			hidden = true,
+			unhide = "teleEquippedCape"
+	)
+	default teleEquippedMode telecapeMode()
+	{
+		return teleEquippedMode.TELEPORT;
+	}
+
+	@ConfigItem(
 		keyName = "maxMode",
 		name = "Mode",
 		description = "",
@@ -347,6 +373,16 @@ public interface MenuEntrySwapperConfig extends Config
 		group = "Miscellaneous"
 	)
 	default boolean shiftClickCustomization()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			keyName = "swapCoalBag",
+			name = "Swap Coal Bag Empty",
+			description = "Makes Empty the left click option when in a bank"
+	)
+	default boolean swapCoalBag()
 	{
 		return true;
 	}
@@ -964,13 +1000,13 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "swapBanker",
-		name = "Bank",
-		description = "Swap 'Talk-to' with 'Bank' on Bank NPCs.<br>Example: Banker.",
+		keyName = "swapBankExchange",
+		name = "Bank/Exchange",
+		description = "Swap Talk-to with Bank or Exchange on NPC<br>Example: Banker, Grand Exchange Clerk, Tool Leprechaun, Void Knight",
 		position = 67,
 		group = "Talk-To"
 	)
-	default boolean swapBank()
+	default boolean swapBankExchange()
 	{
 		return true;
 	}
@@ -987,70 +1023,23 @@ public interface MenuEntrySwapperConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(
-		keyName = "claimDynamite",
-		name = "Claim Dynamite",
-		description = "Swap 'Talk-to' with 'Claim Dynamite' on Thirus.",
-		position = 69,
-		group = "Talk-To"
-	)
-	default boolean claimDynamite()
-	{
-		return true;
-	}
 
 	@ConfigItem(
-		keyName = "claimSlime",
-		name = "Claim Slime",
-		description = "Swap 'Talk-to' with 'Claim Slime' from Morytania diaries.",
-		position = 70,
-		group = "Talk-To"
-	)
-	default boolean claimSlime()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "swapDarkMage",
-		name = "Repairs",
-		description = "Swap 'Talk-to' with 'Repairs' for Dark Mage.",
-		position = 71,
-		group = "Talk-To"
-	)
-	default boolean swapDarkMage()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "swapDecant",
-		name = "Decant",
-		description = "Swap 'Talk-to' with 'Decant' for Bob Barter and Murky Matt at the Grand Exchange.",
+		keyName = "swapInteract",
+		name = "Interact",
+		description = "Swap options for generic interactions on NPCs<br>Example: Decant for Bob Barter, Repairs for Dark Mage, Claim Slime for Robin, Claim Dynamite",
 		position = 72,
 		group = "Talk-To"
 	)
-	default boolean swapDecant()
+	default boolean swapInteract()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "swapExchange",
-		name = "Exchange",
-		description = "Swap 'Talk-to' with 'Exchange' on various NPCs.<br>Example: Grand Exchange Clerk, Tool Leprechaun, Void Knight.",
-		position = 73,
-		group = "Talk-To"
-	)
-	default boolean swapExchange()
-	{
-		return true;
-	}
-
-	@ConfigItem(
 		keyName = "swapPickpocket",
-		name = "Pickpocket on H.A.M.",
-		description = "Swap 'Talk-to' with 'Pickpocket' on H.A.M members.",
+		name = "Pickpocket",
+		description = "Swap Talk-to with Pickpocket on NPC<br>Example: Man, Woman",
 		position = 74,
 		group = "Talk-To"
 	)
@@ -1108,25 +1097,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "swapDream",
-		name = "Dream",
-		description = "Swap 'Talk-to' with 'Dream' for Dominic Onion.",
-		position = 79,
-		group = "Talk-To"
+			keyName = "swapMinigame",
+			name = "Minigames",
+			description = "Swap Talk-to with Start-Minigame, Story, Dream on NPC<br>Example: Guardian mummy, Juna, Dominic Onion"
 	)
-	default boolean swapDream()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "swapStory",
-		name = "Story",
-		description = "Swap 'Talk-to' with 'Story' for Juna at Tears of Guthix.",
-		position = 80,
-		group = "Talk-To"
-	)
-	default boolean swapStory()
+	default boolean swapMinigame()
 	{
 		return true;
 	}
@@ -1153,18 +1128,6 @@ public interface MenuEntrySwapperConfig extends Config
 	default boolean swapMetamorphosis()
 	{
 		return false;
-	}
-
-	@ConfigItem(
-		keyName = "swapEscort",
-		name = "Escort",
-		description = "Swap 'Talk-to' with 'Escort' for the Temple Trekking mini-game.",
-		position = 83,
-		group = "Talk-To"
-	)
-	default boolean swapEscort()
-	{
-		return true;
 	}
 
 	//------------------------------------------------------------//
