@@ -31,6 +31,7 @@ import net.runelite.api.Client;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -83,6 +84,7 @@ public class AntiDragPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		client.setInventoryDragDelay(config.dragDelay());
 		keyManager.registerKeyListener(hotkeyListener);
 		toggleDrag = false;
 
@@ -129,6 +131,15 @@ public class AntiDragPlugin extends Plugin
 			}
 		}
 	};
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getKey().equals("dragDelay"))
+		{
+			client.setInventoryDragDelay(config.dragDelay());
+		}
+	}
 
 	@Subscribe
 	public void onFocusChanged(FocusChanged focusChanged)
