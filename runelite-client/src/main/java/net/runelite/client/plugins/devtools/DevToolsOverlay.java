@@ -63,7 +63,6 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -95,7 +94,6 @@ class DevToolsOverlay extends Overlay
 	private final Client client;
 	private final DevToolsPlugin plugin;
 	private final TooltipManager toolTipManager;
-	private final ModelOutlineRenderer modelOutliner;
 
 	@Setter
 	@Getter
@@ -105,14 +103,13 @@ class DevToolsOverlay extends Overlay
 	private int itemIndex = -1;
 
 	@Inject
-	private DevToolsOverlay(Client client, DevToolsPlugin plugin, TooltipManager toolTipManager, ModelOutlineRenderer modelOutliner)
+	private DevToolsOverlay(Client client, DevToolsPlugin plugin, TooltipManager toolTipManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_MAP);
 		this.client = client;
 		this.plugin = plugin;
 		this.toolTipManager = toolTipManager;
-		this.modelOutliner = modelOutliner;
 	}
 
 	@Override
@@ -322,7 +319,14 @@ class DevToolsOverlay extends Overlay
 						{
 							OverlayUtil.renderTileOverlay(graphics, gameObject, "ID: " + gameObject.getId(), GREEN);
 						}
-						modelOutliner.drawOutline(gameObject, 1, Color.WHITE);
+					}
+
+					// Draw a polygon around the convex hull
+					// of the model vertices
+					Polygon p = gameObject.getConvexHull();
+					if (p != null)
+					{
+						graphics.drawPolygon(p);
 					}
 				}
 			}
@@ -361,7 +365,18 @@ class DevToolsOverlay extends Overlay
 			if (player.getLocalLocation().distanceTo(decorObject.getLocalLocation()) <= MAX_DISTANCE)
 			{
 				OverlayUtil.renderTileOverlay(graphics, decorObject, "ID: " + decorObject.getId(), DEEP_PURPLE);
-				modelOutliner.drawOutline(decorObject, 1, Color.WHITE);
+			}
+
+			Polygon p = decorObject.getConvexHull();
+			if (p != null)
+			{
+				graphics.drawPolygon(p);
+			}
+
+			p = decorObject.getConvexHull2();
+			if (p != null)
+			{
+				graphics.drawPolygon(p);
 			}
 		}
 	}
@@ -401,6 +416,17 @@ class DevToolsOverlay extends Overlay
 
 		for (Projectile projectile : projectiles)
 		{
+			int originX = projectile.getX1();
+			int originY = projectile.getY1();
+
+			LocalPoint tilePoint = new LocalPoint(originX, originY);
+			Polygon poly = Perspective.getCanvasTilePoly(client, tilePoint);
+
+			if (poly != null)
+			{
+				OverlayUtil.renderPolygon(graphics, poly, Color.RED);
+			}
+
 			int projectileId = projectile.getId();
 			Actor projectileInteracting = projectile.getInteracting();
 
@@ -419,32 +445,16 @@ class DevToolsOverlay extends Overlay
 
 			if (projectileInteracting != null)
 			{
-				int originX = projectile.getX1();
-				int originY = projectile.getY1();
-
-				LocalPoint tilePoint = new LocalPoint(originX, originY);
-				Polygon poly = Perspective.getCanvasTilePoly(client, tilePoint);
-
-				if (poly != null)
-				{
-					OverlayUtil.renderPolygon(graphics, poly, Color.RED);
-				}
-
 				OverlayUtil.renderActorOverlay(graphics, projectile.getInteracting(), infoString, Color.RED);
 			}
 			else
 			{
-				int x = (int)projectile.getX();
-				int y = (int)projectile.getY();
-				int z = (int)projectile.getZ();
-				int textWidth = graphics.getFontMetrics().stringWidth(infoString);
-				Point p = Perspective.localToCanvas(client, new LocalPoint(x, y), 0,
-						Perspective.getTileHeight(client, new LocalPoint(x, y), projectile.getFloor()) - z);
-				if (p != null)
+				LocalPoint projectilePoint = new LocalPoint((int) projectile.getX(), (int) projectile.getY());
+				Point textLocation = Perspective.getCanvasTextLocation(client, graphics, projectilePoint, infoString, 0);
+
+				if (textLocation != null)
 				{
-					p = new Point(p.getX() - textWidth / 2, p.getY() - 25);
-					OverlayUtil.renderTextLocation(graphics, p, infoString, RED);
-					modelOutliner.drawOutline(projectile, 1, Color.WHITE);
+					OverlayUtil.renderTextLocation(graphics, textLocation, infoString, Color.RED);
 				}
 			}
 		}

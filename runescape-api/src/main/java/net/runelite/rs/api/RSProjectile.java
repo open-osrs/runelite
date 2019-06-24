@@ -103,8 +103,4 @@ public interface RSProjectile extends RSEntity, Projectile
 	@Import("speedZ")
 	@Override
 	double getVelocityZ();
-
-	@Import("yaw")
-	@Override
-	int getOrientation();
 }

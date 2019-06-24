@@ -978,22 +978,6 @@ public class ModelOutlineRenderer
 		}
 	}
 
-	public void drawOutline(Projectile projectile,
-							int outlineWidth, Color color)
-	{
-		drawOutline(projectile, outlineWidth, color, color);
-	}
-
-	public void drawOutline(Projectile projectile,
-							int outlineWidth, Color innerColor, Color outerColor)
-	{
-		final int localX = (int)projectile.getX();
-		final int localY = (int)projectile.getY();
-		final int localZ = (int)projectile.getZ();
-		drawModelOutline(projectile.getModel(), localX, localY, localZ,
-				projectile.getOrientation(), outlineWidth, innerColor, outerColor);
-	}
-
 	private void drawOutline(GameObject gameObject,
 							 int outlineWidth, Color innerColor, Color outerColor)
 	{
