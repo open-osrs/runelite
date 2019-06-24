@@ -345,6 +345,13 @@ public class InfernoPlugin extends Plugin
 					}
 					break;
 				case NpcID.JALAK:
+					if (anim == npcs.getAttackAnimation())
+					{
+						if (npcs.getTicksUntilAttack() < 1)
+						{
+							npcs.setTicksUntilAttack(6);
+						}
+					}
 					if (npcs.getDistanceToPlayer() <= 15)
 					{
 						if (client.getLocalPlayer().getOverheadIcon() == null)
