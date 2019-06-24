@@ -47,6 +47,7 @@ import net.runelite.client.plugins.menuentryswapper.util.SkillsNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
 import net.runelite.client.plugins.menuentryswapper.util.teleEquippedMode;
+import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 
 
 @ConfigGroup("menuentryswapper")
@@ -1644,6 +1645,18 @@ public interface MenuEntrySwapperConfig extends Config
 	default boolean swapImps()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+		keyName = "charterOption",
+		name = "Trader Crew",
+		description = "Configure whether you want Charter or Trade to be the first option of Trader Crewmembers.",
+		position = 133,
+		group = "Miscellaneous"
+	)
+	default CharterOption charterOption()
+	{
+		return CharterOption.TRADE;
 	}
 
 	//------------------------------------------------------------//

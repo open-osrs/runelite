@@ -81,6 +81,7 @@ import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
 import net.runelite.client.plugins.menuentryswapper.util.ObeliskMode;
 import net.runelite.client.plugins.menuentryswapper.util.OccultAltarMode;
+import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 import static net.runelite.client.util.MenuUtil.swap;
 import net.runelite.client.util.MiscUtils;
 import net.runelite.client.util.Text;
@@ -943,7 +944,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				swap(client, "buy-plank", option, target, true);
 			}
 
-			if (config.swapTrade())
+			if (config.swapTrade() && (!(target.equals("trader crewmember") || target.equals("trader stan")) || config.charterOption().equals(CharterOption.TRADE)))
 			{
 				swap(client, "trade", option, target, true);
 				swap(client, "trade-with", option, target, true);
@@ -974,6 +975,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 				if (config.swapAbyssTeleport() && target.contains("mage of zamorak"))
 				{
 					swap(client, "teleport", option, target, true);
+				}
+
+				if (!(target.equals("trader crewmember") || target.equals("trader stan")) || config.charterOption().equals(CharterOption.CHARTER))
+				{
+					swap(client,"charter", option, target, true);
 				}
 			}
 
