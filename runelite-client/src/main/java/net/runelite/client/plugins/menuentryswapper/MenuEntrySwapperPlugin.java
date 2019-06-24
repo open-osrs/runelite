@@ -904,7 +904,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (config.swapPickpocket())
 			{
-				swap(client,"pickpocket", option, target, true);
+				swap(client, "pickpocket", option, target, true);
 			}
 
 			if (config.swapHardWoodGrove() && target.contains("rionasta"))
@@ -1130,7 +1130,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 		else if (config.swapQuick() && option.equals("leave tomb"))
 		{
-			swap(client,"quick-leave", option, target, true);
+			swap(client, "quick-leave", option, target, true);
 		}
 		else if (config.swapAdmire() && option.equals("admire"))
 		{
@@ -1183,7 +1183,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 		else if (config.swapCoalBag() && option.contains("deposit") && target.equals("coal bag"))
 		{
-			swap(client,"empty", option, target, true);
+			swap(client, "empty", option, target, true);
 		}
 		else if (config.swapBones() && option.equals("bury"))
 		{
