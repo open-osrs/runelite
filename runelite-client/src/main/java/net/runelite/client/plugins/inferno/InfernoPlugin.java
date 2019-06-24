@@ -199,6 +199,10 @@ public class InfernoPlugin extends Plugin
 		{
 			currentWaveNumber = -1;
 		}
+		else
+		{
+			addOverlays();
+		}
 	}
 
 	@Subscribe
