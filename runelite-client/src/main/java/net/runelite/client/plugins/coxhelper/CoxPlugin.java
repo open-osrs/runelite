@@ -243,6 +243,18 @@ public class CoxPlugin extends Plugin
 						prayAgainstOlm = PrayAgainst.RANGED;
 						lastPrayTime = System.currentTimeMillis();
 						break;
+					case "the great olm fires a sphere of aggression your way.":
+						prayAgainstOlm = PrayAgainst.MELEE;
+						lastPrayTime = System.currentTimeMillis();
+						break;
+					case "the great olm fires a sphere of magical power your way.":
+						prayAgainstOlm = PrayAgainst.MAGIC;
+						lastPrayTime = System.currentTimeMillis();
+						break;
+					case "the great olm fires a sphere of accuracy and dexterity your way.":
+						prayAgainstOlm = PrayAgainst.RANGED;
+						lastPrayTime = System.currentTimeMillis();
+						break;
 
 				}
 			}
