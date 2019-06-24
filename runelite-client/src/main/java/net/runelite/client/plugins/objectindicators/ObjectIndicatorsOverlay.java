@@ -34,6 +34,7 @@ import net.runelite.api.Client;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.TileObject;
+import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -44,13 +45,15 @@ class ObjectIndicatorsOverlay extends Overlay
 	private final Client client;
 	private final ObjectIndicatorsConfig config;
 	private final ObjectIndicatorsPlugin plugin;
+	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	private ObjectIndicatorsOverlay(Client client, ObjectIndicatorsConfig config, ObjectIndicatorsPlugin plugin)
+	private ObjectIndicatorsOverlay(Client client, ObjectIndicatorsConfig config, ObjectIndicatorsPlugin plugin, ModelOutlineRenderer modelOutliner)
 	{
 		this.client = client;
 		this.config = config;
 		this.plugin = plugin;
+		this.modelOutliner = modelOutliner;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -66,32 +69,7 @@ class ObjectIndicatorsOverlay extends Overlay
 				continue;
 			}
 
-			final Polygon polygon;
-			Polygon polygon2 = null;
-
-			if (object instanceof GameObject)
-			{
-				polygon = ((GameObject) object).getConvexHull();
-			}
-			else if (object instanceof DecorativeObject)
-			{
-				polygon = ((DecorativeObject) object).getConvexHull();
-				polygon2 = ((DecorativeObject) object).getConvexHull2();
-			}
-			else
-			{
-				polygon = object.getCanvasTilePoly();
-			}
-
-			if (polygon != null)
-			{
-				renderPoly(graphics, polygon, config.markerColor(), config.stroke(), config.alpha());
-			}
-
-			if (polygon2 != null)
-			{
-				renderPoly(graphics, polygon2, config.markerColor(), config.stroke(), config.alpha());
-			}
+			modelOutliner.drawOutline(object, 2, config.markerColor());
 		}
 
 		return null;
