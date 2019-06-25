@@ -3462,7 +3462,8 @@ public class MapLocations
 			int levelTiles = level == 1 ? 3 : 8;
 			// only draw every 2 levels, otherwise lines on two adjacent levels will collide
 			// and it will not show up
-			if (level % 2 != 0) {
+			if (level % 2 != 0)
+			{
 				addPolygonTo(WILDERNESS_LEVEL_LINES,
 					wildyLeftX, wildyBottomY + accumulatedY,
 					wildyRightX, wildyBottomY + accumulatedY,
