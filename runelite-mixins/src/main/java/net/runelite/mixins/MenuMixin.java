@@ -124,9 +124,9 @@ public abstract class MenuMixin implements RSClient
 		boolean[] menuShiftClick = getMenuForceLeftClick();
 
 		int tmp;
-		for(int i = 0; i < count; ++i)
+		for (int i = 0; i < count; ++i)
 		{
-			if(menuOpcodes[i] < 1000 && menuOpcodes[i + 1] > 1000)
+			if (menuOpcodes[i] < 1000 && menuOpcodes[i + 1] > 1000)
 			{
 				String var3 = menuTargetNames[i];
 				menuTargetNames[i] = menuTargetNames[i + 1];
