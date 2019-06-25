@@ -181,7 +181,7 @@ public class PvpToolsPlugin extends Plugin
 	{ 
 		public void hotkeyPressed()
 		{
-			client.setRenderSelf();
+			client.setRenderSelf(true);
 		}
 	};
 
@@ -249,7 +249,7 @@ public class PvpToolsPlugin extends Plugin
 	{
 		overlayManager.add(pvpToolsOverlay);
 		overlayManager.add(playerCountOverlay);
-
+		client.setRenderSelf(false);
 		keyManager.registerKeyListener(fallinHotkeyListener);
 		keyManager.registerKeyListener(renderselfHotkeyListener);
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "skull.png");
@@ -287,6 +287,7 @@ public class PvpToolsPlugin extends Plugin
 	{
 		overlayManager.remove(pvpToolsOverlay);
 		overlayManager.remove(playerCountOverlay);
+		client.setRenderSelf(false);
 		keyManager.unregisterKeyListener(fallinHotkeyListener);
 		keyManager.unregisterKeyListener(renderselfHotkeyListener);
 		clientToolbar.removeNavigation(navButton);
