@@ -1667,4 +1667,9 @@ public interface Client extends GameShell
 	String getSelectedSpellName();
 	
 	boolean getIsSpellSelected();
+
+	/**
+	 * Set whether or not player attack options will be hidden for clanmembers/friends
+	 */
+	void setHideFriendAttackOptions(boolean yes);
 }
