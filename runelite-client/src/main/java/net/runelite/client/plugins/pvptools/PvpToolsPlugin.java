@@ -29,7 +29,6 @@ import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -39,9 +38,6 @@ import net.runelite.api.ItemDefinition;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.Player;
 import net.runelite.api.SkullIcon;
-import net.runelite.api.Varbits;
-import net.runelite.api.WorldType;
-import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
@@ -50,12 +46,9 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
-import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
-import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.PlayerLootReceived;
 import net.runelite.client.game.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.input.KeyManager;
@@ -70,7 +63,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.PvPUtil;
-import net.runelite.client.util.StackFormatter;
 import static net.runelite.client.util.StackFormatter.quantityToRSDecimalStack;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
@@ -524,22 +516,6 @@ public class PvpToolsPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onPlayerLootReceived(PlayerLootReceived event)
-	{
-		if (!config.sendLootValueMessages())
-		{
-			return;
-		}
-		if (WorldType.isPvpWorld(client.getWorldType()) || client.getVar(Varbits.IN_WILDERNESS) == 1)
-		{
-			final String totalValue = StackFormatter.quantityToRSStackSize(event.getItems().stream().mapToInt(itemStack ->
-				itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity()).sum());
-
-			chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
-				new ChatMessageBuilder().append("The total value of your loot is " + totalValue + " GP.").build()).build());
-		}
-	}
 
 	/**
 	 * Enables or disables the fall in helper feature

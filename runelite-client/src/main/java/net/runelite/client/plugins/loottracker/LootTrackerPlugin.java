@@ -418,6 +418,18 @@ public class LootTrackerPlugin extends Plugin
 	@Subscribe
 	public void onPlayerLootReceived(final PlayerLootReceived playerLootReceived)
 	{
+		if (config.sendLootValueMessages())
+		{
+			if (WorldType.isPvpWorld(client.getWorldType()) || client.getVar(Varbits.IN_WILDERNESS) == 1)
+			{
+				final String totalValue = StackFormatter.quantityToRSStackSize(playerLootReceived.getItems().stream()
+					.mapToInt(itemStack -> itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity()).sum());
+
+				chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
+					new ChatMessageBuilder().append("The total value of your loot is " + totalValue + " GP.")
+						.build()).build());
+			}
+		}
 		final Player player = playerLootReceived.getPlayer();
 		final Collection<ItemStack> items = playerLootReceived.getItems();
 		final String name = player.getName();
