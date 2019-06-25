@@ -979,7 +979,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 				if (!(target.equals("trader crewmember") || target.equals("trader stan")) || config.charterOption().equals(CharterOption.CHARTER))
 				{
-					swap(client,"charter", option, target, true);
+					swap(client, "charter", option, target, true);
 				}
 			}
 
@@ -992,6 +992,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 			if (config.swapQuick())
 			{
 				swap(client, "quick-travel", option, target, true);
+			}
+
+			if (config.swapEnchant())
+			{
+				swap(client, "enchant", option, target, true);
 			}
 
 		}
@@ -1133,6 +1138,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		else if (config.swapQuick() && option.equals("open"))
 		{
 			swap(client, "quick-open", option, target, true);
+		}
+		else if (config.swapQuick() && option.equals("enter"))
+		{
+			swap(client, "quick-enter", option, target, true);
 		}
 		else if (config.swapQuick() && option.equals("leave tomb"))
 		{

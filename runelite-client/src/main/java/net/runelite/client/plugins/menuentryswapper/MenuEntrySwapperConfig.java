@@ -1135,6 +1135,18 @@ public interface MenuEntrySwapperConfig extends Config
 		return false;
 	}
 
+	@ConfigItem(
+		keyName = "swapEnchant",
+		name = "Enchant",
+		description = "Swap Talk-to with Enchant for Eluned",
+		position = 82,
+		group = "Talk-To"
+	)
+	default boolean swapEnchant()
+	{
+		return true;
+	}
+
 	//------------------------------------------------------------//
 
 	@ConfigItem(
