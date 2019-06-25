@@ -122,6 +122,7 @@ public class HidePrayersPlugin extends Plugin
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
 		{
+			reallyHidePrayers();
 			hidePrayers();
 		}
 	}
