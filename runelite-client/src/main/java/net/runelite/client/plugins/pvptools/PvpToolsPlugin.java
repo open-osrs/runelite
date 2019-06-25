@@ -86,6 +86,7 @@ public class PvpToolsPlugin extends Plugin
 	private MissingPlayersJFrame missingPlayersJFrame;
 	private CurrentPlayersJFrame currentPlayersJFrame;
 	private NavigationButton navButton;
+	private boolean renderselfEnabled;
 
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
@@ -181,7 +182,7 @@ public class PvpToolsPlugin extends Plugin
 	{ 
 		public void hotkeyPressed()
 		{
-			client.setRenderSelf(true);
+			client.setRenderSelf(renderselfEnabled);
 		}
 	};
 
@@ -250,6 +251,7 @@ public class PvpToolsPlugin extends Plugin
 		overlayManager.add(pvpToolsOverlay);
 		overlayManager.add(playerCountOverlay);
 		client.setRenderSelf(false);
+		renderselfEnabled = false;
 		keyManager.registerKeyListener(fallinHotkeyListener);
 		keyManager.registerKeyListener(renderselfHotkeyListener);
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "skull.png");
@@ -288,6 +290,7 @@ public class PvpToolsPlugin extends Plugin
 		overlayManager.remove(pvpToolsOverlay);
 		overlayManager.remove(playerCountOverlay);
 		client.setRenderSelf(false);
+		renderselfEnabled = false;
 		keyManager.unregisterKeyListener(fallinHotkeyListener);
 		keyManager.unregisterKeyListener(renderselfHotkeyListener);
 		clientToolbar.removeNavigation(navButton);
