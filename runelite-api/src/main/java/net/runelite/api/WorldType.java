@@ -63,6 +63,19 @@ public enum WorldType
 		SEASONAL_DEADMAN
 	);
 
+	private static final EnumSet<WorldType> DEADMAN_WORLD_TYPES = EnumSet.of(
+		DEADMAN,
+		DEADMAN_TOURNAMENT,
+		SEASONAL_DEADMAN
+	);
+
+	private static final EnumSet<WorldType> HIGHRISK_WORLD_TYPES = EnumSet.of(
+		DEADMAN,
+		DEADMAN_TOURNAMENT,
+		HIGH_RISK,
+		SEASONAL_DEADMAN
+	);	
+
 	/**
 	 * Create enum set of world types from mask.
 	 *
@@ -121,6 +134,16 @@ public enum WorldType
 	 */
 	public static boolean isDeadmanWorld(final Collection<WorldType> worldTypes)
 	{
-		return worldTypes.stream().anyMatch(EnumSet.of(DEADMAN, DEADMAN_TOURNAMENT, SEASONAL_DEADMAN)::contains);
+		return worldTypes.stream().anyMatch(DEADMAN_WORLD_TYPES::contains);
+	}
+	
+	/**
+	 * Checks to see if a collection of WorlTypes is a Deadman Mode World
+	 * @param worldTypes The List of world types for a world
+	 * @return true if it is deadman, false otherwise
+	 */
+	public static boolean isHighRiskWorld(final Collection<WorldType> worldTypes)
+	{
+		return worldTypes.stream().anyMatch(HIGHRISK_WORLD_TYPES::contains);
 	}
 }
