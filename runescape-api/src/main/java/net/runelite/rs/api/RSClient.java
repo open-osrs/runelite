@@ -143,6 +143,9 @@ public interface RSClient extends RSGameShell, Client
 	@Import("gameState")
 	int getRSGameState();
 
+	@Import("updateGameState")
+	void setGameState(int gameState);
+
 	@Import("checkClick")
 	@Override
 	void setCheckClick(boolean checkClick);
@@ -295,6 +298,7 @@ public interface RSClient extends RSGameShell, Client
 	boolean isCheckClick();
 
 	@Import("menuOptionsCount")
+	@Override
 	int getMenuOptionCount();
 
 	@Import("menuOptionsCount")

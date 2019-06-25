@@ -128,6 +128,13 @@ public interface Client extends GameShell
 	GameState getGameState();
 
 	/**
+	 * Sets the current game state.
+	 *
+	 * @param gameState new game state
+	 */
+	void setGameState(int gameState);
+
+	/**
 	 * Gets the current logged in username.
 	 *
 	 * @return the logged in username
@@ -562,6 +569,11 @@ public interface Client extends GameShell
 	 * @return array of open menu entries
 	 */
 	MenuEntry[] getMenuEntries();
+
+	/**
+	 * @return amount of menu entries the client has (same as client.getMenuEntries().size())
+	 */
+	int getMenuOptionCount();
 
 	/**
 	 * Sets the array of open menu entries.
