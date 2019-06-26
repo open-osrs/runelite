@@ -1,16 +1,20 @@
-/*******************************************************************************
- * Copyright (c) 2019. PKLite
- *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
- *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the following authors:
- *
- *   PKLite discord: https://discord.gg/Dp3HuFM
- *   Written by PKLite(ST0NEWALL, others) <stonewall@stonewall@pklite.xyz>, 2019
- *
- ******************************************************************************/
+
+/*
+ * ******************************************************************************
+ *  * Copyright (c) 2019 RuneLitePlus
+ *  *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ *  *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
+ *  *  ST0NEWALL#9112
+ *  *   RuneLitePlus Discord: https://discord.gg/Q7wFtCe
+ *  *   RuneLitePlus website: https://runelitepl.us
+ *  *****************************************************************************
+ */
 
 package net.runelite.client.plugins.whalewatchers;
 
 import com.google.inject.Provides;
+import java.util.EnumSet;
+import java.util.Objects;
 import javax.inject.Inject;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -21,8 +25,7 @@ import net.runelite.api.Skill;
 import net.runelite.api.SkullIcon;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
-import static net.runelite.api.WorldType.HIGH_RISK;
-import static net.runelite.api.WorldType.PVP;
+import net.runelite.api.WorldType;
 import static net.runelite.api.WorldType.isPvpWorld;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
@@ -83,11 +86,7 @@ public class WhaleWatchersPlugin extends Plugin
 	@Subscribe
 	public void onOverlayMenuClicked(OverlayMenuClicked event)
 	{
-		if (!event.getOverlay().equals(overlay))
-		{
-			return;
-		}
-		else
+		if (event.getOverlay().equals(overlay))
 		{
 			if (event.getEntry().getOption().equals("Reset"))
 			{
@@ -186,28 +185,32 @@ public class WhaleWatchersPlugin extends Plugin
 		{
 			try
 			{
-				if (client.getLocalPlayer().getSkullIcon() == (SkullIcon.SKULL))
+				final SkullIcon skullIcon = Objects.requireNonNull(client.getLocalPlayer().getSkullIcon());
+				final EnumSet worldTypes = client.getWorldType();
+				if (WorldType.isHighRiskWorld(worldTypes))
 				{
-					if (client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 0 && client.getVar(Varbits.IN_WILDERNESS) == 1 ||
-						client.getWorldType().contains(PVP))
+					enableOverlay = false;
+					return;
+				}
+				if (skullIcon.equals(SkullIcon.SKULL))
+				{
+					if (WorldType.isPvpWorld(worldTypes) || WorldType.isDeadmanWorld(worldTypes) ||
+						client.getVar(Varbits.IN_WILDERNESS) == 1)
 					{
-						enableOverlay = true;
+						enableOverlay = client.getRealSkillLevel(Skill.PRAYER) > 25 &&
+							client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 0;
 					}
-					if (client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 1 || client.getVar(Varbits.IN_WILDERNESS) == 0 ||
-						client.getWorldType().contains(HIGH_RISK) || client.getWorld() == 365)
+					else
 					{
 						enableOverlay = false;
 					}
 				}
-				else
-				{
-					enableOverlay = false;
-				}
 			}
 			catch (NullPointerException e)
 			{
-
+				// local player isn't skulled
 			}
+
 		}
 	}
 
