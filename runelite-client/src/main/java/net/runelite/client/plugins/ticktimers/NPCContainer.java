@@ -28,7 +28,6 @@ package net.runelite.client.plugins.ticktimers;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import java.awt.Color;
-import javax.inject.Inject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +38,6 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.NpcID;
 import net.runelite.api.Prayer;
-import net.runelite.client.game.NPCManager;
 
 @Getter
 class NPCContainer
@@ -56,8 +54,6 @@ class NPCContainer
 	private Actor npcInteracting;
 	@Setter
 	private Attackstyle attackStyle;
-	@Inject
-	private NPCManager npcManager;
 
 	NPCContainer(NPC npc, Integer attackSpeed)
 	{
