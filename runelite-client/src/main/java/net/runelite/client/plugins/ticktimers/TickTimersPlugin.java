@@ -62,6 +62,7 @@ public class TickTimersPlugin extends Plugin
 	private static final int ARMA_REGION = 11346;
 	private static final int SARA_REGION = 11601;
 	private static final int ZAMMY_REGION = 11603;
+	private static final int WATERBITH_REGION = 11589;
 
 	@Inject
 	private Client client;
@@ -230,7 +231,7 @@ public class TickTimersPlugin extends Plugin
 	private boolean isValidRegion()
 	{
 		return Arrays.stream(client.getMapRegions()).anyMatch(
-			x -> x == ARMA_REGION || x == GENERAL_REGION || x == ZAMMY_REGION || x == SARA_REGION
+			x -> x == ARMA_REGION || x == GENERAL_REGION || x == ZAMMY_REGION || x == SARA_REGION || x == WATERBITH_REGION
 		);
 	}
 }
