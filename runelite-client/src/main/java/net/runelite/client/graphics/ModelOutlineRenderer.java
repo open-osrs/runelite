@@ -44,7 +44,6 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Player;
-import net.runelite.api.Projectile;
 import net.runelite.api.TileObject;
 import net.runelite.api.WallObject;
 import net.runelite.api.coords.LocalPoint;
@@ -158,8 +157,8 @@ public class ModelOutlineRenderer
 	private static boolean cullFace(int x1, int y1, int x2, int y2, int x3, int y3)
 	{
 		return
-				(y2 - y1) * (x3 - x2) -
-						(x2 - x1) * (y3 - y2) < 0;
+			(y2 - y1) * (x3 - x2) -
+				(x2 - x1) * (y3 - y2) < 0;
 	}
 
 	/**
@@ -198,7 +197,7 @@ public class ModelOutlineRenderer
 				}
 
 				int outerAlpha = outlineWidth == 1 ? 255 // For preventing division by 0
-						: (int)(255 * (dist - 1) / (outlineWidth - 1));
+					: (int) (255 * (dist - 1) / (outlineWidth - 1));
 				ps.add(new PixelDistanceAlpha(outerAlpha, x + y * outlineArrayWidth));
 			}
 		}
@@ -213,7 +212,7 @@ public class ModelOutlineRenderer
 	 * amount of elements. This is used to reduce the amount of if checks needed
 	 * when adding elements to outlinePixels.
 	 *
-	 * @param distArrayPos The position in the array
+	 * @param distArrayPos          The position in the array
 	 * @param additionalMinimumSize The additional minimum size required
 	 */
 	private void ensureMinimumOutlineQueueSize(int distArrayPos, int additionalMinimumSize)
@@ -223,7 +222,7 @@ public class ModelOutlineRenderer
 		{
 			int[] newArr = new int[nextPowerOfTwo(minimumSize)];
 			System.arraycopy(outlinePixels[distArrayPos], 0, newArr, 0,
-					outlinePixels[distArrayPos].length);
+				outlinePixels[distArrayPos].length);
 			outlinePixels[distArrayPos] = newArr;
 		}
 	}
@@ -282,11 +281,11 @@ public class ModelOutlineRenderer
 	 * and to the right to the outline queue if they are within the clip area.
 	 *
 	 * @param pixelPos The pixel position in the line where x == 0
-	 * @param x1 The starting x position
-	 * @param x2 The ending x position
+	 * @param x1       The starting x position
+	 * @param x2       The ending x position
 	 */
 	private void simulateHorizontalLineRasterizationForOutline(
-			int pixelPos, int x1, int x2)
+		int pixelPos, int x1, int x2)
 	{
 		if (x2 > clipX2)
 		{
@@ -339,13 +338,13 @@ public class ModelOutlineRenderer
 	 * where the x positions of the lines intersect.
 	 *
 	 * @param pixelPos The pixel position at x == 0 of the second line
-	 * @param x1 The starting x position of the first line
-	 * @param x2 The ending x position of the first line
-	 * @param x3 The starting x position of the second line
-	 * @param x4 The ending x position of the second line
+	 * @param x1       The starting x position of the first line
+	 * @param x2       The ending x position of the first line
+	 * @param x3       The starting x position of the second line
+	 * @param x4       The ending x position of the second line
 	 */
 	private void outlineAroundHorizontalLine(
-			int pixelPos, int x1, int x2, int x3, int x4)
+		int pixelPos, int x1, int x2, int x3, int x4)
 	{
 		if (x1 < clipX1)
 		{
@@ -428,7 +427,7 @@ public class ModelOutlineRenderer
 	 * @param y3 The y position of the third vertex in the triangle
 	 */
 	private void simulateTriangleRasterizationForOutline(
-			int x1, int y1, int x2, int y2, int x3, int y3)
+		int x1, int y1, int x2, int y2, int x3, int y3)
 	{
 		// Swap vertices so y1 <= y2 <= y3 using bubble sort
 		if (y1 > y2)
@@ -616,9 +615,9 @@ public class ModelOutlineRenderer
 	/**
 	 * Translates the vertices 3D points to the screen canvas 2D points
 	 *
-	 * @param localX The local x position of the vertices
-	 * @param localY The local y position of the vertices
-	 * @param localZ The local z position of the vertices
+	 * @param localX            The local x position of the vertices
+	 * @param localY            The local y position of the vertices
+	 * @param localZ            The local z position of the vertices
 	 * @param vertexOrientation The orientation of the vertices
 	 * @return Returns true if any of them are inside the clip area, otherwise false
 	 */
@@ -690,8 +689,8 @@ public class ModelOutlineRenderer
 
 				projectedVerticesRenderable[i] = true;
 				anyVisible |=
-						projectedVerticesX[i] >= clipX1 && projectedVerticesX[i] < clipX2 &&
-								projectedVerticesY[i] >= clipY1 && projectedVerticesY[i] < clipY2;
+					projectedVerticesX[i] >= clipX1 && projectedVerticesX[i] < clipX2 &&
+						projectedVerticesY[i] >= clipY1 && projectedVerticesY[i] < clipY2;
 			}
 			else
 			{
@@ -717,10 +716,10 @@ public class ModelOutlineRenderer
 		for (int i = 0; i < triangleCount; i++)
 		{
 			if (projectedVerticesRenderable[indices1[i]] &&
-					projectedVerticesRenderable[indices2[i]] &&
-					projectedVerticesRenderable[indices3[i]] &&
-					// 254 and 255 counts as fully transparent
-					(triangleTransparencies == null || (triangleTransparencies[i] & 255) < 254))
+				projectedVerticesRenderable[indices2[i]] &&
+				projectedVerticesRenderable[indices3[i]] &&
+				// 254 and 255 counts as fully transparent
+				(triangleTransparencies == null || (triangleTransparencies[i] & 255) < 254))
 			{
 				final int index1 = indices1[i];
 				final int index2 = indices2[i];
@@ -735,7 +734,7 @@ public class ModelOutlineRenderer
 				if (!cullFace(v1x, v1y, v2x, v2y, v3x, v3y))
 				{
 					simulateTriangleRasterizationForOutline(
-							v1x, v1y, v2x, v2y, v3x, v3y);
+						v1x, v1y, v2x, v2y, v3x, v3y);
 				}
 			}
 		}
@@ -744,10 +743,10 @@ public class ModelOutlineRenderer
 	/**
 	 * Draws an outline of the pixels in the outline queue to an image
 	 *
-	 * @param image The image to draw the outline to
+	 * @param image        The image to draw the outline to
 	 * @param outlineWidth The width of the outline
-	 * @param innerColor The color of the pixels of the outline closest to the model
-	 * @param outerColor The color of the pixels of the outline furthest away from the model
+	 * @param innerColor   The color of the pixels of the outline closest to the model
+	 * @param outerColor   The color of the pixels of the outline furthest away from the model
 	 */
 	private void renderOutline(BufferedImage image, int outlineWidth,
 							   Color innerColor, Color outerColor)
@@ -762,9 +761,9 @@ public class ModelOutlineRenderer
 			if (outlineWidth == 1)
 			{
 				color =
-						((innerColor.getRed() + outerColor.getRed()) << 15) |
-								((innerColor.getGreen() + outerColor.getGreen() << 7)) |
-								((innerColor.getBlue() + outerColor.getBlue() >> 1));
+					((innerColor.getRed() + outerColor.getRed()) << 15) |
+						((innerColor.getGreen() + outerColor.getGreen() << 7)) |
+						((innerColor.getBlue() + outerColor.getBlue() >> 1));
 				alpha = (innerColor.getAlpha() + outerColor.getAlpha()) >> 1;
 			}
 			else
@@ -777,12 +776,12 @@ public class ModelOutlineRenderer
 				if (alpha != 0)
 				{
 					color =
-							((innerColor.getRed() * innerAlphaFraction +
-									outerColor.getRed() * outerAlphaFraction) / alpha << 16) |
-									((innerColor.getGreen() * innerAlphaFraction +
-											outerColor.getGreen() * outerAlphaFraction) / alpha << 8) |
-									((innerColor.getBlue() * innerAlphaFraction +
-											outerColor.getBlue() * outerAlphaFraction) / alpha);
+						((innerColor.getRed() * innerAlphaFraction +
+							outerColor.getRed() * outerAlphaFraction) / alpha << 16) |
+							((innerColor.getGreen() * innerAlphaFraction +
+								outerColor.getGreen() * outerAlphaFraction) / alpha << 8) |
+							((innerColor.getBlue() * innerAlphaFraction +
+								outerColor.getBlue() * outerAlphaFraction) / alpha);
 				}
 				else
 				{
@@ -808,8 +807,8 @@ public class ModelOutlineRenderer
 						int x = pixelPos % imageWidth;
 						int y = pixelPos / imageWidth;
 						if (x < clipX1 || x >= clipX2 ||
-								y < clipY1 || y >= clipY2 ||
-								visited[pixelPos] == currentVisitedNumber)
+							y < clipY1 || y >= clipY2 ||
+							visited[pixelPos] == currentVisitedNumber)
 						{
 							continue;
 						}
@@ -825,8 +824,8 @@ public class ModelOutlineRenderer
 						int x = pixelPos % imageWidth;
 						int y = pixelPos / imageWidth;
 						if (x < clipX1 || x >= clipX2 ||
-								y < clipY1 || y >= clipY2 ||
-								visited[pixelPos] == currentVisitedNumber)
+							y < clipY1 || y >= clipY2 ||
+							visited[pixelPos] == currentVisitedNumber)
 						{
 							continue;
 						}
@@ -855,17 +854,17 @@ public class ModelOutlineRenderer
 					int x = pixelPos % imageWidth;
 					int y = pixelPos / imageWidth;
 					if (x < clipX1 || x >= clipX2 ||
-							y < clipY1 || y >= clipY2 ||
-							visited[pixelPos] == currentVisitedNumber)
+						y < clipY1 || y >= clipY2 ||
+						visited[pixelPos] == currentVisitedNumber)
 					{
 						continue;
 					}
 					visited[pixelPos] = currentVisitedNumber;
 
 					imageData[pixelPos] =
-							((((color & 0xFF0000) * alpha + (imageData[pixelPos] & 0xFF0000) * (255 - alpha)) / 255) & 0xFF0000) +
-									((((color & 0xFF00) * alpha + (imageData[pixelPos] & 0xFF00) * (255 - alpha)) / 255) & 0xFF00) +
-									((((color & 0xFF) * alpha + (imageData[pixelPos] & 0xFF) * (255 - alpha)) / 255) & 0xFF);
+						((((color & 0xFF0000) * alpha + (imageData[pixelPos] & 0xFF0000) * (255 - alpha)) / 255) & 0xFF0000) +
+							((((color & 0xFF00) * alpha + (imageData[pixelPos] & 0xFF00) * (255 - alpha)) / 255) & 0xFF00) +
+							((((color & 0xFF) * alpha + (imageData[pixelPos] & 0xFF) * (255 - alpha)) / 255) & 0xFF);
 
 					if (pixelPos % imageWidth != 0)
 					{
@@ -885,13 +884,13 @@ public class ModelOutlineRenderer
 	/**
 	 * Draws an outline around a model to an image
 	 *
-	 * @param localX The local x position of the model
-	 * @param localY The local y position of the model
-	 * @param localZ The local z position of the model
-	 * @param orientation The orientation of the model
+	 * @param localX       The local x position of the model
+	 * @param localY       The local y position of the model
+	 * @param localZ       The local z position of the model
+	 * @param orientation  The orientation of the model
 	 * @param outlineWidth The width of the outline
-	 * @param innerColor The color of the pixels of the outline closest to the model
-	 * @param outerColor The color of the pixels of the outline furthest away from the model
+	 * @param innerColor   The color of the pixels of the outline closest to the model
+	 * @param outerColor   The color of the pixels of the outline furthest away from the model
 	 */
 	private void drawModelOutline(Model model,
 								  int localX, int localY, int localZ, int orientation,
@@ -920,7 +919,7 @@ public class ModelOutlineRenderer
 		resetOutline(outlineWidth);
 
 		if (!projectVertices(model,
-				localX, localY, localZ, orientation))
+			localX, localY, localZ, orientation))
 		{
 			// No vertex of the model is visible on the screen, so we can
 			// assume there are no parts of the model to outline.
@@ -956,8 +955,8 @@ public class ModelOutlineRenderer
 			final LocalPoint northEastLp = new LocalPoint(northEastX, northEastY);
 
 			drawModelOutline(npc.getModel(), lp.getX(), lp.getY(),
-					Perspective.getTileHeight(client, northEastLp, client.getPlane()),
-					npc.getOrientation(), outlineWidth, innerColor, outerColor);
+				Perspective.getTileHeight(client, northEastLp, client.getPlane()),
+				npc.getOrientation(), outlineWidth, innerColor, outerColor);
 		}
 	}
 
@@ -973,8 +972,8 @@ public class ModelOutlineRenderer
 		if (lp != null)
 		{
 			drawModelOutline(player.getModel(), lp.getX(), lp.getY(),
-					Perspective.getTileHeight(client, lp, client.getPlane()),
-					player.getOrientation(), outlineWidth, innerColor, outerColor);
+				Perspective.getTileHeight(client, lp, client.getPlane()),
+				player.getOrientation(), outlineWidth, innerColor, outerColor);
 		}
 	}
 
@@ -985,8 +984,8 @@ public class ModelOutlineRenderer
 		if (lp != null)
 		{
 			drawModelOutline(gameObject.getModel(), lp.getX(), lp.getY(),
-					Perspective.getTileHeight(client, lp, gameObject.getPlane()),
-					gameObject.getRsOrientation(), outlineWidth, innerColor, outerColor);
+				Perspective.getTileHeight(client, lp, gameObject.getPlane()),
+				gameObject.getRsOrientation(), outlineWidth, innerColor, outerColor);
 		}
 	}
 
@@ -997,8 +996,8 @@ public class ModelOutlineRenderer
 		if (lp != null)
 		{
 			drawModelOutline(groundObject.getModel(), lp.getX(), lp.getY(),
-					Perspective.getTileHeight(client, lp, client.getPlane()),
-					0, outlineWidth, innerColor, outerColor);
+				Perspective.getTileHeight(client, lp, client.getPlane()),
+				0, outlineWidth, innerColor, outerColor);
 		}
 	}
 
@@ -1012,24 +1011,24 @@ public class ModelOutlineRenderer
 			if (model != null)
 			{
 				drawModelOutline(model, lp.getX(), lp.getY(),
-						Perspective.getTileHeight(client, lp, itemLayer.getPlane()),
-						0, outlineWidth, innerColor, outerColor);
+					Perspective.getTileHeight(client, lp, itemLayer.getPlane()),
+					0, outlineWidth, innerColor, outerColor);
 			}
 
 			model = itemLayer.getModelMiddle();
 			if (model != null)
 			{
 				drawModelOutline(model, lp.getX(), lp.getY(),
-						Perspective.getTileHeight(client, lp, itemLayer.getPlane()),
-						0, outlineWidth, innerColor, outerColor);
+					Perspective.getTileHeight(client, lp, itemLayer.getPlane()),
+					0, outlineWidth, innerColor, outerColor);
 			}
 
 			model = itemLayer.getModelTop();
 			if (model != null)
 			{
 				drawModelOutline(model, lp.getX(), lp.getY(),
-						Perspective.getTileHeight(client, lp, itemLayer.getPlane()),
-						0, outlineWidth, innerColor, outerColor);
+					Perspective.getTileHeight(client, lp, itemLayer.getPlane()),
+					0, outlineWidth, innerColor, outerColor);
 			}
 		}
 	}
@@ -1044,10 +1043,10 @@ public class ModelOutlineRenderer
 			if (model != null)
 			{
 				drawModelOutline(model,
-						lp.getX() + decorativeObject.getXOffset(),
-						lp.getY() + decorativeObject.getYOffset(),
-						Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
-						decorativeObject.getOrientation(), outlineWidth, innerColor, outerColor);
+					lp.getX() + decorativeObject.getXOffset(),
+					lp.getY() + decorativeObject.getYOffset(),
+					Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
+					decorativeObject.getOrientation(), outlineWidth, innerColor, outerColor);
 			}
 
 			model = decorativeObject.getModel2();
@@ -1055,8 +1054,8 @@ public class ModelOutlineRenderer
 			{
 				// Offset is not used for the second model
 				drawModelOutline(model, lp.getX(), lp.getY(),
-						Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
-						decorativeObject.getOrientation(), outlineWidth, innerColor, outerColor);
+					Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
+					decorativeObject.getOrientation(), outlineWidth, innerColor, outerColor);
 			}
 		}
 	}
@@ -1071,16 +1070,16 @@ public class ModelOutlineRenderer
 			if (model != null)
 			{
 				drawModelOutline(model, lp.getX(), lp.getY(),
-						Perspective.getTileHeight(client, lp, wallObject.getPlane()),
-						wallObject.getOrientationA(), outlineWidth, innerColor, outerColor);
+					Perspective.getTileHeight(client, lp, wallObject.getPlane()),
+					wallObject.getOrientationA(), outlineWidth, innerColor, outerColor);
 			}
 
 			model = wallObject.getModelB();
 			if (model != null)
 			{
 				drawModelOutline(model, lp.getX(), lp.getY(),
-						Perspective.getTileHeight(client, lp, wallObject.getPlane()),
-						wallObject.getOrientationB(), outlineWidth, innerColor, outerColor);
+					Perspective.getTileHeight(client, lp, wallObject.getPlane()),
+					wallObject.getOrientationB(), outlineWidth, innerColor, outerColor);
 			}
 		}
 	}
@@ -1096,23 +1095,23 @@ public class ModelOutlineRenderer
 	{
 		if (tileObject instanceof GameObject)
 		{
-			drawOutline((GameObject)tileObject, outlineWidth, innerColor, outerColor);
+			drawOutline((GameObject) tileObject, outlineWidth, innerColor, outerColor);
 		}
 		else if (tileObject instanceof GroundObject)
 		{
-			drawOutline((GroundObject)tileObject, outlineWidth, innerColor, outerColor);
+			drawOutline((GroundObject) tileObject, outlineWidth, innerColor, outerColor);
 		}
 		else if (tileObject instanceof ItemLayer)
 		{
-			drawOutline((ItemLayer)tileObject, outlineWidth, innerColor, outerColor);
+			drawOutline((ItemLayer) tileObject, outlineWidth, innerColor, outerColor);
 		}
 		else if (tileObject instanceof DecorativeObject)
 		{
-			drawOutline((DecorativeObject)tileObject, outlineWidth, innerColor, outerColor);
+			drawOutline((DecorativeObject) tileObject, outlineWidth, innerColor, outerColor);
 		}
 		else if (tileObject instanceof WallObject)
 		{
-			drawOutline((WallObject)tileObject, outlineWidth, innerColor, outerColor);
+			drawOutline((WallObject) tileObject, outlineWidth, innerColor, outerColor);
 		}
 	}
 }
