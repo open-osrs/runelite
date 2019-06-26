@@ -105,9 +105,9 @@ class NPCContainer
 		WINGMAN_SKREE(NpcID.WINGMAN_SKREE, Attackstyle.RANGE, ImmutableSet.of(AnimationID.SKREE_AUTO)),
 		KREEARRA(NpcID.KREEARRA, Attackstyle.RANGE, ImmutableSet.of(AnimationID.KREE_RANGED)),
 
-		DAGANNOTH_REX(NpcID.DAGANNOTH_REX, Attackstyle.MAGE, ImmutableSet.of(AnimationID.GEERIN_AUTO)),
-		DAGANNOTH_SUPREME(NpcID.DAGANNOTH_SUPREME, Attackstyle.RANGE, ImmutableSet.of(AnimationID.SKREE_AUTO)),
-		DAGANNOTH_PRIME(NpcID.DAGANNOTH_PRIME, Attackstyle.MAGE, ImmutableSet.of(AnimationID.KREE_RANGED));
+		DAGANNOTH_REX(NpcID.DAGANNOTH_REX, Attackstyle.MAGE, ImmutableSet.of(AnimationID.DAG_REX)),
+		DAGANNOTH_SUPREME(NpcID.DAGANNOTH_SUPREME, Attackstyle.RANGE, ImmutableSet.of(AnimationID.DAG_SUPREME)),
+		DAGANNOTH_PRIME(NpcID.DAGANNOTH_PRIME, Attackstyle.MAGE, ImmutableSet.of(AnimationID.DAG_PRIME));
 
 		private static ImmutableMap<Integer, BossMonsters> idMap;
 
