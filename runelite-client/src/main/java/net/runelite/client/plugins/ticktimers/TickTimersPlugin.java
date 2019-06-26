@@ -214,7 +214,7 @@ public class TickTimersPlugin extends Plugin
 				npcs.setTicksUntilAttack(npcs.getTicksUntilAttack() - 1);
 			}
 
-			for (Integer anims : npcs.getAnimations())
+			for (int anims : npcs.getAnimations())
 			{
 				if (anims == npcs.getNpc().getAnimation())
 				{

@@ -47,7 +47,7 @@ class NPCContainer
 	private String npcName;
 	private int npcSize;
 	private ImmutableSet<Integer> animations;
-	private Integer attackSpeed;
+	private int attackSpeed;
 	@Setter
 	private int ticksUntilAttack;
 	@Setter
@@ -55,7 +55,7 @@ class NPCContainer
 	@Setter
 	private Attackstyle attackStyle;
 
-	NPCContainer(NPC npc, Integer attackSpeed)
+	NPCContainer(NPC npc, int attackSpeed)
 	{
 		this.npc = npc;
 		this.npcName = npc.getName();
