@@ -200,6 +200,16 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
+	private static boolean hideFriendAttackOptions;
+
+	@Inject
+	@Override
+	public void setHideFriendAttackOptions(boolean yes)
+	{
+		hideFriendAttackOptions = yes;
+	}
+
+	@Inject
 	public RSClientMixin()
 	{
 	}
@@ -645,12 +655,15 @@ public abstract class RSClientMixin implements RSClient
 		if (newCount == oldCount + 1)
 		{
 			MenuEntryAdded event = new MenuEntryAdded(
-				client.getMenuOptions()[newCount - 1],
-				client.getMenuTargets()[newCount - 1],
-				client.getMenuTypes()[newCount - 1],
-				client.getMenuIdentifiers()[newCount - 1],
-				client.getMenuActionParams0()[newCount - 1],
-				client.getMenuActionParams1()[newCount - 1]
+				new MenuEntry(
+					client.getMenuOptions()[oldCount],
+					client.getMenuTargets()[oldCount],
+					client.getMenuTypes()[oldCount],
+					client.getMenuIdentifiers()[oldCount],
+					client.getMenuActionParams0()[oldCount],
+					client.getMenuActionParams1()[oldCount],
+					client.getMenuForceLeftClick()[oldCount]
+				)
 			);
 
 			client.getCallbacks().post(event);
@@ -1240,13 +1253,18 @@ public abstract class RSClientMixin implements RSClient
 			menuAction -= 2000;
 		}
 
-		final MenuOptionClicked menuOptionClicked = new MenuOptionClicked();
-		menuOptionClicked.setActionParam(actionParam);
-		menuOptionClicked.setMenuOption(menuOption);
-		menuOptionClicked.setMenuTarget(menuTarget);
-		menuOptionClicked.setMenuAction(MenuAction.of(menuAction));
-		menuOptionClicked.setId(id);
-		menuOptionClicked.setWidgetId(widgetId);
+		final MenuOptionClicked menuOptionClicked = new MenuOptionClicked(
+			new MenuEntry(
+				menuOption,
+				menuTarget,
+				id,
+				menuAction,
+				actionParam,
+				widgetId,
+				false
+			)
+		);
+
 		client.getCallbacks().post(menuOptionClicked);
 
 		if (menuOptionClicked.isConsumed())
@@ -1561,5 +1579,11 @@ public abstract class RSClientMixin implements RSClient
 	{
 		getHealthBarCache().reset();
 		getHealthBarSpriteCache().reset();
+	}
+
+	@Inject
+	static boolean shouldHideAttackOptionFor(RSPlayer p)
+	{
+		return hideFriendAttackOptions && p.isFriended() || p.isClanMember();
 	}
 }
