@@ -95,6 +95,7 @@ public class TickTimersPlugin extends Plugin
 	{
 		npcContainer.clear();
 		overlayManager.remove(timersOverlay);
+		validRegion = false;
 	}
 
 	@Subscribe
@@ -105,7 +106,7 @@ public class TickTimersPlugin extends Plugin
 			return;
 		}
 
-		if (isValidRegion())
+		if (regionCheck())
 		{
 			validRegion = true;
 			overlayManager.add(timersOverlay);
@@ -206,10 +207,10 @@ public class TickTimersPlugin extends Plugin
 			return;
 		}
 
-		bosshandler();
+		handleBosses();
 	}
 
-	private void bosshandler()
+	private void handleBosses()
 	{
 		for (NPCContainer npcs : getNpcContainer())
 		{
@@ -231,7 +232,7 @@ public class TickTimersPlugin extends Plugin
 		}
 	}
 
-	private boolean isValidRegion()
+	private boolean regionCheck()
 	{
 		return Arrays.stream(client.getMapRegions()).anyMatch(
 			x -> x == ARMA_REGION || x == GENERAL_REGION || x == ZAMMY_REGION || x == SARA_REGION || x == WATERBITH_REGION
