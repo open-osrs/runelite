@@ -173,9 +173,64 @@ enum Role
 		return null;
 	}
 
-	String getMissingListen(String listen)
+	static String getMissingListen(String listen)
 	{
 		return SPLIT_LISTENS.getOrDefault(listen, "- - -");
 	}
 
+	// I call it "Switchception" :wutwedoin:
+	// Should probably switch to using an interface instead of an enum at this point
+	String getCallFromTell(String listen)
+	{
+		switch (this)
+		{
+			case COLLECTOR:
+				switch (listen)
+				{
+					case "Tell-controlled":
+						return "Controlled/";
+					case "Tell-accurate":
+						return "Accurate/";
+					case "Tell-aggressive":
+						return "Aggressive/";
+					case "Tell-defensive":
+						return "Defensive/";
+				}
+				break;
+			case ATTACKER:
+				switch (listen)
+				{
+					case "Tell-red":
+						return "Red egg";
+					case "Tell-green":
+						return "Green egg";
+					case "Tell-blue":
+						return "Blue egg";
+				}
+				break;
+			case HEALER:
+				switch (listen)
+				{
+					case "Tell-tofu":
+						return "Tofu";
+					case "Tell-crackers":
+						return "Crackers";
+					case "Tell-worms":
+						return "Worms";
+				}
+				break;
+			case DEFENDER:
+				switch (listen)
+				{
+					case "Tell-meat":
+						return "Pois. Meat";
+					case "Tell-tofu":
+						return "Pois. Tofu";
+					case "Tell-worms":
+						return "Pois. Worms";
+				}
+				break;
+		}
+		return null;
+	}
 }

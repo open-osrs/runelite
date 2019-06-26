@@ -28,7 +28,6 @@ package net.runelite.client.plugins.barbarianassault;
 import com.google.common.collect.Sets;
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.api.Client;
 import net.runelite.client.menus.ComparableEntry;
 import net.runelite.client.menus.MenuManager;
 
@@ -39,7 +38,6 @@ import java.util.Iterator;
 
 class BarbarianAssaultMenu
 {
-	private final Client client;
 	private final MenuManager menuManager;
 	private final BarbarianAssaultPlugin game;
 	private final BarbarianAssaultConfig config;
@@ -50,9 +48,8 @@ class BarbarianAssaultMenu
 	private boolean rebuildForced = false;
 
 	@Inject
-	BarbarianAssaultMenu(Client client, MenuManager menuManager, BarbarianAssaultPlugin game, BarbarianAssaultConfig config)
+	BarbarianAssaultMenu(MenuManager menuManager, BarbarianAssaultPlugin game, BarbarianAssaultConfig config)
 	{
-		this.client = client;
 		this.menuManager = menuManager;
 		this.game = game;
 		this.config = config;
