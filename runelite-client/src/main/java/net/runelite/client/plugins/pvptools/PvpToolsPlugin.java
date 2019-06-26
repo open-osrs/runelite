@@ -78,6 +78,9 @@ public class PvpToolsPlugin extends Plugin
 	@Inject
 	PvpToolsOverlay pvpToolsOverlay;
 
+	@Inject
+	PlayerCountOverlay playerCountOverlay;
+
 	boolean fallinHelperEnabled = false;
 	private PvpToolsPanel panel;
 	private MissingPlayersJFrame missingPlayersJFrame;
@@ -105,10 +108,12 @@ public class PvpToolsPlugin extends Plugin
 
 	private static final String WALK_HERE = "WALK HERE";
 	private static final String CANCEL = "CANCEL";
+	private static final String CAST = "CAST";
 	private static final String ATTACK_OPTIONS_ATTACK = "ATTACK";
 	public static final HashSet<String> ATTACK_OPTIONS_KEYWORDS = new HashSet<>();
 		static
 		{
+			ATTACK_OPTIONS_KEYWORDS.add(CAST);
 			ATTACK_OPTIONS_KEYWORDS.add(ATTACK_OPTIONS_ATTACK);
 		}
 
@@ -173,16 +178,20 @@ public class PvpToolsPlugin extends Plugin
 	};
 
 	private final HotkeyListener renderselfHotkeyListener = new HotkeyListener(() -> config.renderSelf())
-	{ //TODO FIX
+	{
 		public void hotkeyPressed()
 		{
-			//client.toggleRenderSelf();
+			client.setRenderSelf(!client.getRenderSelf());
 		}
 	};
 
 	private int[] overheadCount = new int[]{0, 0, 0};
 
 	private List ignoredSpells = new ArrayList();
+	@Getter
+	private int enemyPlayerCount = 0;
+	@Getter
+	private int friendlyPlayerCount = 0;
 
 	private List<String> getMissingMembers()
 	{
@@ -239,6 +248,7 @@ public class PvpToolsPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		overlayManager.add(pvpToolsOverlay);
+		overlayManager.add(playerCountOverlay);
 
 		keyManager.registerKeyListener(fallinHotkeyListener);
 		keyManager.registerKeyListener(renderselfHotkeyListener);
@@ -276,6 +286,7 @@ public class PvpToolsPlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(pvpToolsOverlay);
+		overlayManager.remove(playerCountOverlay);
 		keyManager.unregisterKeyListener(fallinHotkeyListener);
 		keyManager.unregisterKeyListener(renderselfHotkeyListener);
 		clientToolbar.removeNavigation(navButton);
@@ -532,35 +543,37 @@ public class PvpToolsPlugin extends Plugin
 		panel.numMeleeJLabel.repaint();
 	}
 
-	/**
-	 *
-	 */
+
 	private void updatePlayers()
 	{
+		friendlyPlayerCount = 0;
+		enemyPlayerCount = 0;
 		if (config.countPlayers())
 		{
-			int cc = 0;
-			int other = 0;
 			for (Player p : client.getPlayers())
 			{
 				if (Objects.nonNull(p))
 				{
+					if (p.equals(client.getLocalPlayer()))
+					{
+						continue;
+					}
 					if (PvPUtil.isAttackable(client, p))
 					{
 						if (p.isClanMember())
 						{
-							cc++;
+							friendlyPlayerCount++;
 						}
 						else
 						{
-							other++;
+							enemyPlayerCount++;
 						}
 					}
 				}
 			}
 
-			panel.numOther.setText(htmlLabel("Other Player Count: ", String.valueOf(other)));
-			panel.numCC.setText(htmlLabel("Friendly Player Count: ", String.valueOf(cc)));
+			panel.numOther.setText(htmlLabel("Other Player Count: ", String.valueOf(enemyPlayerCount)));
+			panel.numCC.setText(htmlLabel("Friendly Player Count: ", String.valueOf(friendlyPlayerCount)));
 			panel.numCC.repaint();
 			panel.numOther.repaint();
 		}

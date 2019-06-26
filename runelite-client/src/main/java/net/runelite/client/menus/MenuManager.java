@@ -39,13 +39,14 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
+import static net.runelite.api.MenuAction.GAME_OBJECT_FIRST_OPTION;
+import static net.runelite.api.MenuAction.WIDGET_DEFAULT;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPCDefinition;
-import net.runelite.api.ObjectDefinition;
+import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcActionChanged;
@@ -95,8 +96,7 @@ public class MenuManager
 	private final Set<ComparableEntry> hiddenEntries = new HashSet<>();
 
 	private final Map<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
-	private final Set<MenuEntry> originalTypes = new HashSet<>();
-	private final Set<Integer> leftClickObjects = new HashSet<>();
+	private final Map<MenuEntry, Integer> originalTypes = new HashMap<>();
 
 	@Inject
 	private MenuManager(Client client, EventBus eventBus)
@@ -149,14 +149,6 @@ public class MenuManager
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 		MenuEntry[] menuEntries = client.getMenuEntries();
 
-		if (menuEntries.length == 1)
-		{
-			// Menu entries reset, so priority entries should reset as well
-			currentPriorityEntries.clear();
-
-			originalTypes.clear();
-		}
-
 		for (WidgetMenuOption currentMenu : options)
 		{
 			if (!menuContainsCustomMenu(currentMenu))//Don't add if we have already added it to this widget
@@ -175,20 +167,12 @@ public class MenuManager
 
 		final MenuEntry newestEntry = menuEntries[menuEntries.length - 1];
 
-		boolean isPrio = false;
 		for (ComparableEntry p : priorityEntries)
 		{
 			if (p.matches(newestEntry))
 			{
-				isPrio = true;
-				break;
+				currentPriorityEntries.add(newestEntry);
 			}
-		}
-
-		// If the last entry was a priority entry, keep track of it
-		if (isPrio)
-		{
-			currentPriorityEntries.add(newestEntry);
 		}
 
 		// Make a copy of the menu entries, cause you can't remove from Arrays.asList()
@@ -199,57 +183,26 @@ public class MenuManager
 		{
 			copy.retainAll(currentPriorityEntries);
 
-			copy.add(0, CANCEL());
-		}
-
-		// Find the current entry in the swaps map
-		ComparableEntry swapEntry = null;
-		for (ComparableEntry e : swaps.keySet())
-		{
-			if (e.matches(newestEntry))
+			// This is because players existing changes walk-here target
+			// so without this we lose track of em
+			if (copy.size() != currentPriorityEntries.size())
 			{
-				swapEntry = e;
-				break;
-			}
-		}
-
-		if (swapEntry != null)
-		{
-			ComparableEntry swapTarget = swaps.get(swapEntry);
-
-			// Find the target for the swap in current menu entries
-			MenuEntry foundSwap = null;
-			for (MenuEntry entry : Lists.reverse(copy))
-			{
-				if (swapTarget.matches(entry))
+				for (MenuEntry e : currentPriorityEntries)
 				{
-					foundSwap = entry;
-					break;
+					if (copy.contains(e))
+					{
+						continue;
+					}
+
+					for (MenuEntry e2 : client.getMenuEntries())
+					{
+						if (e.getType() == e2.getType())
+						{
+							e.setTarget(e2.getTarget());
+							copy.add(e);
+						}
+					}
 				}
-			}
-
-			if (foundSwap != null)
-			{
-				// This is the menu entry added last's type
-				final int otherType = foundSwap.getType();
-
-				// MenuActions with an id of over 1000 get shifted to the back of the menu entry array
-				// They have different id's in the packet buffer though, so we got to modify them back on click
-				// I couldn't get this to work with objects, so we're using modified objectcomposition for that
-				final boolean shouldModifyType = otherType == MenuAction.EXAMINE_ITEM_BANK_EQ.getId();
-
-				if (shouldModifyType)
-				{
-					foundSwap.setType(MenuAction.WIDGET_DEFAULT.getId());
-					originalTypes.add(foundSwap);
-				}
-
-				// Swap
-				int index = copy.indexOf(foundSwap);
-				int newIndex = copy.indexOf(newestEntry);
-
-				copy.set(index, newestEntry);
-				copy.set(newIndex, foundSwap);
 			}
 		}
 
@@ -269,6 +222,69 @@ public class MenuManager
 		}
 
 		client.setMenuEntries(copy.toArray(new MenuEntry[0]));
+	}
+
+	@Subscribe
+	private void onClientTick(ClientTick event)
+	{
+		originalTypes.clear();
+		client.sortMenuEntries();
+
+		final MenuEntry[] oldentries = client.getMenuEntries();
+		MenuEntry[] newEntries;
+
+		if (!currentPriorityEntries.isEmpty())
+		{
+			newEntries = new MenuEntry[client.getMenuOptionCount() + 1];
+			newEntries[0] = CANCEL();
+
+			System.arraycopy(oldentries, 0, newEntries, 1, oldentries.length);
+		}
+		else
+		{
+			newEntries = Arrays.copyOf(oldentries, client.getMenuOptionCount());
+		}
+
+		MenuEntry leftClickEntry = newEntries[newEntries.length - 1];
+
+
+		for (ComparableEntry src : swaps.keySet())
+		{
+			if (!src.matches(leftClickEntry))
+			{
+				continue;
+			}
+
+			ComparableEntry tgt = swaps.get(src);
+
+			for (int i = newEntries.length - 2; i > 0; i--)
+			{
+				MenuEntry e = newEntries[i];
+
+				if (tgt.matches(e))
+				{
+					newEntries[newEntries.length - 1] = e;
+					newEntries[i] = leftClickEntry;
+
+					int type = e.getType();
+
+					if (type >= 1000)
+					{
+						int newType = getLeftClickType(type);
+						if (newType != -1 && newType != type)
+						{
+							e.setType(newType);
+							originalTypes.put(e, type);
+						}
+					}
+
+					break;
+				}
+			}
+		}
+
+		client.setMenuEntries(newEntries);
+		currentPriorityEntries.clear();
 	}
 
 	public void addPlayerMenuItem(String menuText)
@@ -295,86 +311,6 @@ public class MenuManager
 				break;
 			}
 		}
-	}
-
-	public boolean toggleLeftClick(String menuText, int objectID, boolean reset)
-	{
-		Preconditions.checkNotNull(menuText);
-
-		if (client == null)
-		{
-			return false;
-		}
-
-		ObjectDefinition oc = client.getObjectDefinition(objectID);
-
-		if (oc == null)
-		{
-			return false;
-		}
-
-		ObjectDefinition impostor = oc.getImpostorIds() != null ? oc.getImpostor() : null;
-
-		if (impostor != null)
-		{
-			if (toggleLeftClick(menuText, impostor.getId(), reset))
-			{
-				// Sorry about this
-				leftClickObjects.remove(impostor.getId());
-
-				if (reset)
-				{
-					leftClickObjects.remove(objectID);
-				}
-				else
-				{
-					leftClickObjects.add(objectID);
-				}
-
-				return true;
-			}
-		}
-
-		String[] options = oc.getActions();
-
-		if (options == null)
-		{
-			return false;
-		}
-
-		boolean hasOption5 = !Strings.isNullOrEmpty(options[options.length - 1]);
-		boolean hasOption1 = !Strings.isNullOrEmpty(options[0]);
-
-		if (hasOption5 || hasOption1)
-		{
-			String option1 = options[0];
-			String option5 = options[options.length - 1];
-
-			if (reset && !hasOption1 // Won't have to reset anything cause
-				|| reset && !menuText.equalsIgnoreCase(option1) // theres nothing to reset
-				|| hasOption5 && !menuText.equalsIgnoreCase(option5))
-			{
-				return false;
-			}
-
-			options[0] = option5;
-			options[options.length - 1] = option1;
-		}
-		else
-		{
-			return false;
-		}
-
-		if (reset)
-		{
-			leftClickObjects.remove(objectID);
-		}
-		else
-		{
-			leftClickObjects.add(objectID);
-		}
-
-		return true;
 	}
 
 	@Subscribe
@@ -409,6 +345,24 @@ public class MenuManager
 		for (String npcOption : npcMenuOptions)
 		{
 			addNpcOption(composition, npcOption);
+		}
+	}
+
+	private int getLeftClickType(int oldType)
+	{
+		if (oldType > 2000)
+		{
+			oldType -= 2000;
+		}
+
+		switch (MenuAction.of(oldType))
+		{
+			case GAME_OBJECT_FIFTH_OPTION:
+				return GAME_OBJECT_FIRST_OPTION.getId();
+			case EXAMINE_ITEM_BANK_EQ:
+				return WIDGET_DEFAULT.getId();
+			default:
+				return oldType;
 		}
 	}
 
@@ -455,70 +409,17 @@ public class MenuManager
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (!event.getMenuTarget().equals("do not edit") &&
-			!originalTypes.isEmpty() &&
-			event.getMenuAction() == MenuAction.WIDGET_DEFAULT)
-		{
-			for (MenuEntry e : originalTypes)
-			{
-				// Honestly, I was about to write a huge ass rant about
-				// how I hate whoever wrote the menuoptionclicked class
-				// but I decided that that'd be un-nice to them, and they
-				// probably spent over 24 hours writing it. Not because
-				// it was that difficult to write, of course, but because
-				// they must have the fucking iq of a retarded, under developed,
-				// braindead, basically good-for-nothing, idiotic chimp.
-				//
-				// Just kidding, of course, that would be too big of an
-				// insult towards those poor chimps. It's not their fault
-				// some dumbass is the way they are, right? Why should they
-				// feel bad for something they can't do anything about?
-				//
-				// Whoever wrote that class though, should actually feel
-				// 100% terrible. If they aren't depressed, I really wish
-				// they become depressed very, very soon. What the fuck
-				// were they even thinking.
-				if (event.getMenuAction().getId() != e.getType()
-					|| event.getId() != e.getIdentifier()
-					|| !event.getMenuOption().equals(e.getOption()))
-				{
-					continue;
-				}
-
-				event.consume();
-
-				client.invokeMenuAction(
-					event.getActionParam(),
-					event.getWidgetId(),
-					MenuAction.EXAMINE_ITEM_BANK_EQ.getId(),
-					event.getId(),
-					event.getMenuOption(),
-					"do not edit",
-					client.getMouseCanvasPosition().getX(),
-					client.getMouseCanvasPosition().getY()
-				);
-
-				break;
-			}
-		}
-
-		if (!event.getMenuTarget().equals("do not edit") &&
-			!leftClickObjects.isEmpty() &&
-			event.getMenuAction() == MenuAction.GAME_OBJECT_FIRST_OPTION && (
-				leftClickObjects.contains(event.getId()) ||
-					client.getObjectDefinition(event.getId()) != null &&
-					client.getObjectDefinition(event.getId()).getImpostorIds() != null &&
-					client.getObjectDefinition(event.getId()).getImpostor() != null &&
-					client.getObjectDefinition(event.getId()).getImpostor().getId() == event.getId()))
+		if (originalTypes.containsKey(event.getMenuEntry()) &&
+			!event.getTarget().equals("do not edit"))
 		{
 			event.consume();
 
 			client.invokeMenuAction(
-				event.getActionParam(),
-				event.getWidgetId(),
-				MenuAction.GAME_OBJECT_FIFTH_OPTION.getId(),
-				event.getId(),
-				event.getMenuOption(),
+				event.getActionParam0(),
+				event.getActionParam1(),
+				originalTypes.get(event.getMenuEntry()),
+				event.getIdentifier(),
+				event.getOption(),
 				"do not edit",
 				client.getMouseCanvasPosition().getX(),
 				client.getMouseCanvasPosition().getY()
@@ -530,31 +431,31 @@ public class MenuManager
 			return; // not a player menu
 		}
 
-		int widgetId = event.getWidgetId();
+		int widgetId = event.getActionParam1();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 
 		for (WidgetMenuOption curMenuOption : options)
 		{
-			if (curMenuOption.getMenuTarget().equals(event.getMenuTarget())
-				&& curMenuOption.getMenuOption().equals(event.getMenuOption()))
+			if (curMenuOption.getMenuTarget().equals(event.getTarget())
+				&& curMenuOption.getMenuOption().equals(event.getOption()))
 			{
 				WidgetMenuOptionClicked customMenu = new WidgetMenuOptionClicked();
-				customMenu.setMenuOption(event.getMenuOption());
-				customMenu.setMenuTarget(event.getMenuTarget());
+				customMenu.setMenuOption(event.getOption());
+				customMenu.setMenuTarget(event.getTarget());
 				customMenu.setWidget(curMenuOption.getWidget());
 				eventBus.post(customMenu);
 				return; // don't continue because it's not a player option
 			}
 		}
 
-		String target = event.getMenuTarget();
+		String target = event.getTarget();
 
 		// removes tags and level from player names for example:
 		// <col=ffffff>username<col=40ff00>  (level-42) or <col=ffffff><img=2>username</col>
 		String username = Text.removeTags(target).split("[(]")[0].trim();
 
 		PlayerMenuOptionClicked playerMenuOptionClicked = new PlayerMenuOptionClicked();
-		playerMenuOptionClicked.setMenuOption(event.getMenuOption());
+		playerMenuOptionClicked.setMenuOption(event.getOption());
 		playerMenuOptionClicked.setMenuTarget(username);
 
 		eventBus.post(playerMenuOptionClicked);

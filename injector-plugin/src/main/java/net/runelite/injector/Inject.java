@@ -48,6 +48,8 @@ import net.runelite.deob.deobfuscators.arithmetic.DMath;
 import net.runelite.injector.raw.ClearColorBuffer;
 import net.runelite.injector.raw.DrawAfterWidgets;
 import net.runelite.injector.raw.DrawMenu;
+import net.runelite.injector.raw.HidePlayerAttacks;
+import net.runelite.injector.raw.Occluder;
 import net.runelite.injector.raw.RasterizerHook;
 import net.runelite.injector.raw.RenderDraw;
 import net.runelite.injector.raw.ScriptVM;
@@ -76,6 +78,8 @@ public class Inject
 	private final ScriptVM scriptVM = new ScriptVM(this);
 	private final ClearColorBuffer clearColorBuffer = new ClearColorBuffer(this);
 	private final RenderDraw renderDraw = new RenderDraw(this);
+	private final Occluder occluder = new Occluder(this);
+	private final HidePlayerAttacks hidePlayerAttacks = new HidePlayerAttacks(this);
 
 	// deobfuscated contains exports etc to apply to vanilla
 	private final ClassGroup deobfuscated, vanilla;
@@ -334,6 +338,8 @@ public class Inject
 		clearColorBuffer.inject();
 		renderDraw.inject();
 		drawMenu.inject();
+		occluder.inject();
+		hidePlayerAttacks.inject();
 	}
 
 	private java.lang.Class injectInterface(ClassFile cf, ClassFile other)

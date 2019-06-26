@@ -1101,7 +1101,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		String target = Text.removeTags(event.getMenuTarget()).toLowerCase();
+		String target = Text.removeTags(event.getTarget()).toLowerCase();
 
 		if (getRole() == Role.HEALER)
 		{
@@ -1109,7 +1109,7 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 					|| target.startsWith("poisoned tofu -> penance healer")
 					|| target.startsWith("poisoned worms -> penance healer"))
 			{
-				lastHealerPoisoned = event.getId();
+				lastHealerPoisoned = event.getIdentifier();
 				poisonUsed = StringUtils.substringBefore(target.replace("oned", "."), " ->");
 				return;
 			}
