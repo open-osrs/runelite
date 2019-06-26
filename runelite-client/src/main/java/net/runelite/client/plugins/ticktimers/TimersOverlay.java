@@ -70,7 +70,7 @@ public class TimersOverlay extends Overlay
 
 			int ticksLeft = npc.getTicksUntilAttack();
 			final List<WorldPoint> hitSquares = getHitSquares(npc.getNpc().getWorldLocation(), npc.getNpcSize(), 1, false);
-			final NPCContainer.Attackstyle attackStyle = npc.getAttackStyle();
+			final NPCContainer.AttackStyle attackStyle = npc.getAttackStyle();
 
 			if (config.showHitSquares() && attackStyle.getName().equals("Melee"))
 			{

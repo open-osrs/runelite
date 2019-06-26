@@ -53,7 +53,7 @@ class NPCContainer
 	@Setter
 	private Actor npcInteracting;
 	@Setter
-	private Attackstyle attackStyle;
+	private AttackStyle attackStyle;
 
 	NPCContainer(NPC npc, int attackSpeed)
 	{
@@ -61,7 +61,7 @@ class NPCContainer
 		this.npcName = npc.getName();
 		this.npcIndex = npc.getIndex();
 		this.npcInteracting = npc.getInteracting();
-		this.attackStyle = Attackstyle.UNKNOWN;
+		this.attackStyle = AttackStyle.UNKNOWN;
 		this.attackSpeed = attackSpeed;
 		this.ticksUntilAttack = -1;
 		final NPCDefinition composition = npc.getTransformedDefinition();
@@ -74,7 +74,7 @@ class NPCContainer
 		}
 
 		this.animations = monster.animations;
-		this.attackStyle = monster.attackstyle;
+		this.attackStyle = monster.attackStyle;
 
 		if (composition != null)
 		{
@@ -85,29 +85,29 @@ class NPCContainer
 	@RequiredArgsConstructor
 	enum BossMonsters
 	{
-		SERGEANT_STRONGSTACK(NpcID.SERGEANT_STRONGSTACK, Attackstyle.MELEE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
-		SERGEANT_STEELWILL(NpcID.SERGEANT_STEELWILL, Attackstyle.MAGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
-		SERGEANT_GRIMSPIKE(NpcID.SERGEANT_GRIMSPIKE, Attackstyle.RANGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO4)),
-		GENERAL_GRAARDOR(NpcID.GENERAL_GRAARDOR, Attackstyle.MELEE, ImmutableSet.of(AnimationID.GENERAL_AUTO1, AnimationID.GENERAL_AUTO2, AnimationID.GENERAL_AUTO3)),
+		SERGEANT_STRONGSTACK(NpcID.SERGEANT_STRONGSTACK, AttackStyle.MELEE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
+		SERGEANT_STEELWILL(NpcID.SERGEANT_STEELWILL, AttackStyle.MAGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
+		SERGEANT_GRIMSPIKE(NpcID.SERGEANT_GRIMSPIKE, AttackStyle.RANGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO4)),
+		GENERAL_GRAARDOR(NpcID.GENERAL_GRAARDOR, AttackStyle.MELEE, ImmutableSet.of(AnimationID.GENERAL_AUTO1, AnimationID.GENERAL_AUTO2, AnimationID.GENERAL_AUTO3)),
 
-		TSTANON_KARLAK(NpcID.TSTANON_KARLAK, Attackstyle.MELEE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO)),
-		BALFRUG_KREEYATH(NpcID.BALFRUG_KREEYATH, Attackstyle.MAGE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO, AnimationID.BALFRUG_AUTO)),
-		ZAKLN_GRITCH(NpcID.ZAKLN_GRITCH, Attackstyle.RANGE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO, AnimationID.ZAKL_AUTO)),
-		KRIL_TSUTSAROTH(NpcID.KRIL_TSUTSAROTH, Attackstyle.UNKNOWN, ImmutableSet.of(AnimationID.KRIL_SPEC, AnimationID.KRIL_AUTO)),
+		TSTANON_KARLAK(NpcID.TSTANON_KARLAK, AttackStyle.MELEE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO)),
+		BALFRUG_KREEYATH(NpcID.BALFRUG_KREEYATH, AttackStyle.MAGE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO, AnimationID.BALFRUG_AUTO)),
+		ZAKLN_GRITCH(NpcID.ZAKLN_GRITCH, AttackStyle.RANGE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO, AnimationID.ZAKL_AUTO)),
+		KRIL_TSUTSAROTH(NpcID.KRIL_TSUTSAROTH, AttackStyle.UNKNOWN, ImmutableSet.of(AnimationID.KRIL_SPEC, AnimationID.KRIL_AUTO)),
 
-		STARLIGHT(NpcID.STARLIGHT, Attackstyle.MELEE, ImmutableSet.of(AnimationID.STARLIGHT_AUTO)),
-		GROWLER(NpcID.GROWLER, Attackstyle.MAGE, ImmutableSet.of(AnimationID.GROWLER_AUTO)),
-		BREE(NpcID.BREE, Attackstyle.RANGE, ImmutableSet.of(AnimationID.BREE_AUTO)),
-		COMMANDER_ZILYANA(NpcID.COMMANDER_ZILYANA, Attackstyle.UNKNOWN, ImmutableSet.of(AnimationID.ZILYANA_AUTO, AnimationID.ZILYANA_MELEE_AUTO, AnimationID.ZILYANA_SPEC)),
+		STARLIGHT(NpcID.STARLIGHT, AttackStyle.MELEE, ImmutableSet.of(AnimationID.STARLIGHT_AUTO)),
+		GROWLER(NpcID.GROWLER, AttackStyle.MAGE, ImmutableSet.of(AnimationID.GROWLER_AUTO)),
+		BREE(NpcID.BREE, AttackStyle.RANGE, ImmutableSet.of(AnimationID.BREE_AUTO)),
+		COMMANDER_ZILYANA(NpcID.COMMANDER_ZILYANA, AttackStyle.UNKNOWN, ImmutableSet.of(AnimationID.ZILYANA_AUTO, AnimationID.ZILYANA_MELEE_AUTO, AnimationID.ZILYANA_SPEC)),
 
-		FLIGHT_KILISA(NpcID.FLIGHT_KILISA, Attackstyle.MELEE, ImmutableSet.of(AnimationID.KILISA_AUTO)),
-		FLOCKLEADER_GEERIN(NpcID.FLOCKLEADER_GEERIN, Attackstyle.MAGE, ImmutableSet.of(AnimationID.GEERIN_AUTO, AnimationID.GEERIN_FLINCH)),
-		WINGMAN_SKREE(NpcID.WINGMAN_SKREE, Attackstyle.RANGE, ImmutableSet.of(AnimationID.SKREE_AUTO)),
-		KREEARRA(NpcID.KREEARRA, Attackstyle.RANGE, ImmutableSet.of(AnimationID.KREE_RANGED)),
+		FLIGHT_KILISA(NpcID.FLIGHT_KILISA, AttackStyle.MELEE, ImmutableSet.of(AnimationID.KILISA_AUTO)),
+		FLOCKLEADER_GEERIN(NpcID.FLOCKLEADER_GEERIN, AttackStyle.MAGE, ImmutableSet.of(AnimationID.GEERIN_AUTO, AnimationID.GEERIN_FLINCH)),
+		WINGMAN_SKREE(NpcID.WINGMAN_SKREE, AttackStyle.RANGE, ImmutableSet.of(AnimationID.SKREE_AUTO)),
+		KREEARRA(NpcID.KREEARRA, AttackStyle.RANGE, ImmutableSet.of(AnimationID.KREE_RANGED)),
 
-		DAGANNOTH_REX(NpcID.DAGANNOTH_REX, Attackstyle.MAGE, ImmutableSet.of(AnimationID.DAG_REX)),
-		DAGANNOTH_SUPREME(NpcID.DAGANNOTH_SUPREME, Attackstyle.RANGE, ImmutableSet.of(AnimationID.DAG_SUPREME)),
-		DAGANNOTH_PRIME(NpcID.DAGANNOTH_PRIME, Attackstyle.MAGE, ImmutableSet.of(AnimationID.DAG_PRIME));
+		DAGANNOTH_REX(NpcID.DAGANNOTH_REX, AttackStyle.MAGE, ImmutableSet.of(AnimationID.DAG_REX)),
+		DAGANNOTH_SUPREME(NpcID.DAGANNOTH_SUPREME, AttackStyle.RANGE, ImmutableSet.of(AnimationID.DAG_SUPREME)),
+		DAGANNOTH_PRIME(NpcID.DAGANNOTH_PRIME, AttackStyle.MAGE, ImmutableSet.of(AnimationID.DAG_PRIME));
 
 		private static ImmutableMap<Integer, BossMonsters> idMap;
 
@@ -124,7 +124,7 @@ class NPCContainer
 		}
 
 		private final int npcID;
-		private final Attackstyle attackstyle;
+		private final AttackStyle attackStyle;
 		private final ImmutableSet<Integer> animations;
 
 		static BossMonsters of(int npcID)
@@ -135,7 +135,7 @@ class NPCContainer
 
 	@AllArgsConstructor
 	@Getter
-	public enum Attackstyle
+	public enum AttackStyle
 	{
 		MAGE("Mage", Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
 		RANGE("Range", Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
