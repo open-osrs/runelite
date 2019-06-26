@@ -76,6 +76,7 @@ public class TickTimersPlugin extends Plugin
 	private NPCManager npcManager;
 	@Getter(AccessLevel.PACKAGE)
 	private Set<NPCContainer> npcContainer = new HashSet<>();
+	private boolean validRegion;
 
 	@Provides
 	TickTimersConfig getConfig(ConfigManager configManager)
@@ -103,16 +104,16 @@ public class TickTimersPlugin extends Plugin
 		{
 			return;
 		}
+
+		if (isValidRegion())
+		{
+			validRegion = true;
+			overlayManager.add(timersOverlay);
+		}
 		else
 		{
-			if (isValidRegion())
-			{
-				overlayManager.add(timersOverlay);
-			}
-			else
-			{
-				overlayManager.remove(timersOverlay);
-			}
+			validRegion = false;
+			overlayManager.remove(timersOverlay);
 		}
 		npcContainer.clear();
 	}
@@ -120,12 +121,13 @@ public class TickTimersPlugin extends Plugin
 	@Subscribe
 	public void onNpcSpawned(NpcSpawned event)
 	{
-		if (!isValidRegion())
+		if (!validRegion)
 		{
 			return;
 		}
 
 		NPC npc = event.getNpc();
+
 		switch (npc.getId())
 		{
 			case NpcID.SERGEANT_STRONGSTACK:
@@ -163,12 +165,13 @@ public class TickTimersPlugin extends Plugin
 	@Subscribe
 	public void onNpcDespawned(NpcDespawned event)
 	{
-		if (!isValidRegion())
+		if (!validRegion)
 		{
 			return;
 		}
 
 		NPC npc = event.getNpc();
+
 		switch (npc.getId())
 		{
 			case NpcID.SERGEANT_STRONGSTACK:
@@ -198,7 +201,7 @@ public class TickTimersPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick Event)
 	{
-		if (!isValidRegion())
+		if (!validRegion)
 		{
 			return;
 		}

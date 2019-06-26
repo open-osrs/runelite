@@ -61,7 +61,6 @@ public class TimersOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-
 		for (NPCContainer npc : plugin.getNpcContainer())
 		{
 			if (npc.getNpc() == null)
