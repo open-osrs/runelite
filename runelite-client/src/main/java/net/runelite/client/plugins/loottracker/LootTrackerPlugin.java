@@ -411,8 +411,7 @@ public class LootTrackerPlugin extends Plugin
 	{
 		if (config.sendLootValueMessages())
 		{
-			if (WorldType.isDeadmanWorld(client.getWorldType()) || WorldType.isPvpWorld(client.getWorldType()) ||
-				client.getVar(Varbits.IN_WILDERNESS) == 1)
+			if (WorldType.isDeadmanWorld(client.getWorldType()) || WorldType.isHighRiskWorld(client.getWorldType()) || WorldType.isPvpWorld(client.getWorldType()) || client.getVar(Varbits.IN_WILDERNESS) == 1)
 			{
 				final String totalValue = StackFormatter.quantityToRSStackSize(playerLootReceived.getItems().stream()
 					.mapToInt(itemStack -> itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity()).sum());
