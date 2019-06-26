@@ -86,6 +86,23 @@ public class NPCManager
 	}
 
 	/**
+	 * Returns the attack speed for target NPC ID.
+	 * @param npcId NPC id
+	 * @return attack speed in game ticks for NPC ID.
+	 */
+	@Nullable
+	public Integer getAttackSpeed(final int npcId)
+	{
+		final NPCStats s = statsMap.get(npcId);
+		if (s == null || s.getAttackSpeed() == -1)
+		{
+			return null;
+		}
+
+		return s.getAttackSpeed();
+	}
+
+	/**
 	 * Returns the exp modifier for target NPC ID based on its stats.
 	 * @param npcId NPC id
 	 * @return npcs exp modifier. Assumes default xp rate if npc stats are unknown (returns 1)

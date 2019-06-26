@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
  * Copyright (c) 2019, Ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,47 +25,60 @@
  */
 package net.runelite.client.plugins.ticktimers;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import java.awt.Color;
+import javax.inject.Inject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.runelite.api.Actor;
+import net.runelite.api.AnimationID;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
+import net.runelite.api.NpcID;
+import net.runelite.api.Prayer;
+import net.runelite.client.game.NPCManager;
 
+@Getter
 class NPCContainer
 {
-	@Getter
 	private NPC npc;
-	@Getter
 	private int npcIndex;
-	@Getter
 	private String npcName;
-	@Getter
 	private int npcSize;
+	private ImmutableSet<Integer> animations;
+	private Integer attackSpeed;
 	@Setter
-	@Getter
-	private int TicksUntilAttack;
+	private int ticksUntilAttack;
 	@Setter
-	@Getter
-	private int npcSpeed;
-	@Setter
-	@Getter
 	private Actor npcInteracting;
 	@Setter
-	@Getter
 	private Attackstyle attackStyle;
+	@Inject
+	private NPCManager npcManager;
 
-	NPCContainer(NPC npc)
+	NPCContainer(NPC npc, Integer attackSpeed)
 	{
 		this.npc = npc;
 		this.npcName = npc.getName();
 		this.npcIndex = npc.getIndex();
 		this.npcInteracting = npc.getInteracting();
-		this.npcSpeed = 0;
 		this.attackStyle = Attackstyle.UNKNOWN;
-		this.TicksUntilAttack = 0;
+		this.attackSpeed = attackSpeed;
+		this.ticksUntilAttack = -1;
 		final NPCDefinition composition = npc.getTransformedDefinition();
+
+		BossMonsters monster = BossMonsters.of(npc.getId());
+
+		if (monster == null)
+		{
+			throw new IllegalStateException();
+		}
+
+		this.animations = monster.animations;
+		this.attackStyle = monster.attackstyle;
 
 		if (composition != null)
 		{
@@ -73,17 +86,68 @@ class NPCContainer
 		}
 	}
 
+	@RequiredArgsConstructor
+	enum BossMonsters
+	{
+		SERGEANT_STRONGSTACK(NpcID.SERGEANT_STRONGSTACK, Attackstyle.MELEE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
+		SERGEANT_STEELWILL(NpcID.SERGEANT_STEELWILL, Attackstyle.MAGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
+		SERGEANT_GRIMSPIKE(NpcID.SERGEANT_GRIMSPIKE, Attackstyle.RANGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO4)),
+		GENERAL_GRAARDOR(NpcID.GENERAL_GRAARDOR, Attackstyle.MELEE, ImmutableSet.of(AnimationID.GENERAL_AUTO1, AnimationID.GENERAL_AUTO2, AnimationID.GENERAL_AUTO3)),
+
+		TSTANON_KARLAK(NpcID.TSTANON_KARLAK, Attackstyle.MELEE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO)),
+		BALFRUG_KREEYATH(NpcID.BALFRUG_KREEYATH, Attackstyle.MAGE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO, AnimationID.BALFRUG_AUTO)),
+		ZAKLN_GRITCH(NpcID.ZAKLN_GRITCH, Attackstyle.RANGE, ImmutableSet.of(AnimationID.ZAMMY_GENERIC_AUTO, AnimationID.ZAKL_AUTO)),
+		KRIL_TSUTSAROTH(NpcID.KRIL_TSUTSAROTH, Attackstyle.UNKNOWN, ImmutableSet.of(AnimationID.KRIL_SPEC, AnimationID.KRIL_AUTO)),
+
+		STARLIGHT(NpcID.STARLIGHT, Attackstyle.MELEE, ImmutableSet.of(AnimationID.STARLIGHT_AUTO)),
+		GROWLER(NpcID.GROWLER, Attackstyle.MAGE, ImmutableSet.of(AnimationID.GROWLER_AUTO)),
+		BREE(NpcID.BREE, Attackstyle.RANGE, ImmutableSet.of(AnimationID.BREE_AUTO)),
+		COMMANDER_ZILYANA(NpcID.COMMANDER_ZILYANA, Attackstyle.UNKNOWN, ImmutableSet.of(AnimationID.ZILYANA_AUTO, AnimationID.ZILYANA_MELEE_AUTO, AnimationID.ZILYANA_SPEC)),
+
+		FLIGHT_KILISA(NpcID.FLIGHT_KILISA, Attackstyle.MELEE, ImmutableSet.of(AnimationID.KILISA_AUTO)),
+		FLOCKLEADER_GEERIN(NpcID.FLOCKLEADER_GEERIN, Attackstyle.MAGE, ImmutableSet.of(AnimationID.GEERIN_AUTO, AnimationID.GEERIN_FLINCH)),
+		WINGMAN_SKREE(NpcID.WINGMAN_SKREE, Attackstyle.RANGE, ImmutableSet.of(AnimationID.SKREE_AUTO)),
+		KREEARRA(NpcID.KREEARRA, Attackstyle.RANGE, ImmutableSet.of(AnimationID.KREE_RANGED)),
+
+		DAGANNOTH_REX(NpcID.DAGANNOTH_REX, Attackstyle.MAGE, ImmutableSet.of(AnimationID.GEERIN_AUTO)),
+		DAGANNOTH_SUPREME(NpcID.DAGANNOTH_SUPREME, Attackstyle.RANGE, ImmutableSet.of(AnimationID.SKREE_AUTO)),
+		DAGANNOTH_PRIME(NpcID.DAGANNOTH_PRIME, Attackstyle.MAGE, ImmutableSet.of(AnimationID.KREE_RANGED));
+
+		private static ImmutableMap<Integer, BossMonsters> idMap;
+
+		static
+		{
+			ImmutableMap.Builder<Integer, BossMonsters> builder = ImmutableMap.builder();
+
+			for (BossMonsters monster : values())
+			{
+				builder.put(monster.npcID, monster);
+			}
+
+			idMap = builder.build();
+		}
+
+		private final int npcID;
+		private final Attackstyle attackstyle;
+		private final ImmutableSet<Integer> animations;
+
+		static BossMonsters of(int npcID)
+		{
+			return idMap.get(npcID);
+		}
+	}
 
 	@AllArgsConstructor
 	@Getter
 	public enum Attackstyle
 	{
-		MAGE("Mage", Color.CYAN),
-		RANGE("Range", Color.GREEN),
-		MELEE("Melee", Color.RED),
-		UNKNOWN("Unknown", Color.WHITE);
+		MAGE("Mage", Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
+		RANGE("Range", Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
+		MELEE("Melee", Color.RED, Prayer.PROTECT_FROM_MELEE),
+		UNKNOWN("Unknown", Color.WHITE, null);
 
-		private String name = "";
+		private String name;
 		private Color color;
+		private Prayer prayer;
 	}
 }
