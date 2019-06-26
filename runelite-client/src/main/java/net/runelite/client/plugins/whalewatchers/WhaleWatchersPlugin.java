@@ -27,6 +27,7 @@ import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
 import static net.runelite.api.WorldType.isPvpWorld;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
 import net.runelite.api.events.ItemContainerChanged;
@@ -53,7 +54,9 @@ import org.apache.commons.lang3.ObjectUtils;
 public class WhaleWatchersPlugin extends Plugin
 {
 
-	public boolean enableOverlay = false;
+	private static final String CONFIG_GROUP_NAME = "WhaleWatchers";
+
+	public boolean protectItemOverlay = false;
 	public int damageDone = 0;
 	public int damageTaken = 0;
 	public boolean inCombat = false;
@@ -113,6 +116,28 @@ public class WhaleWatchersPlugin extends Plugin
 		overlayManager.remove(whaleWatchersSmiteableOverlay);
 		overlayManager.remove(whaleWatchersGloryOverlay);
 		resetDamageCounter();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals(CONFIG_GROUP_NAME))
+		{
+			return;
+		}
+
+		if (!config.protectItemWarning())
+		{
+			protectItemOverlay = false;
+		}
+		if (!config.gloryWarning())
+		{
+			displayGloryOverlay = false;
+		}
+		if (!config.smiteableWarning())
+		{
+			displaySmiteOverlay = false;
+		}
 	}
 
 
@@ -189,7 +214,7 @@ public class WhaleWatchersPlugin extends Plugin
 				final EnumSet worldTypes = client.getWorldType();
 				if (WorldType.isHighRiskWorld(worldTypes))
 				{
-					enableOverlay = false;
+					protectItemOverlay = false;
 					return;
 				}
 				if (skullIcon.equals(SkullIcon.SKULL))
@@ -197,12 +222,12 @@ public class WhaleWatchersPlugin extends Plugin
 					if (WorldType.isPvpWorld(worldTypes) || WorldType.isDeadmanWorld(worldTypes) ||
 						client.getVar(Varbits.IN_WILDERNESS) == 1)
 					{
-						enableOverlay = client.getRealSkillLevel(Skill.PRAYER) > 25 &&
+						protectItemOverlay = client.getRealSkillLevel(Skill.PRAYER) > 25 &&
 							client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 0;
 					}
 					else
 					{
-						enableOverlay = false;
+						protectItemOverlay = false;
 					}
 				}
 			}

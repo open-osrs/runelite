@@ -51,7 +51,7 @@ public class WhaleWatchersProtOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (plugin.enableOverlay && config.protectItemWarning())
+		if (plugin.protectItemOverlay && config.protectItemWarning())
 		{
 			Rectangle rectangle = new Rectangle();
 			rectangle.setBounds(client.getCanvas().getBounds());
