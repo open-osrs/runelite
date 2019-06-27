@@ -509,7 +509,7 @@ public class HidePrayersPlugin extends Plugin
 					prayerWidgets.get(9).setHidden(false);    // Rapid Heal
 				}
 
-				if (WorldType.isHighRiskWorld(client.getWorldType()) || WorldType.isDeadmanWorld(client.getWorldType()) || client.getRealSkillLevel(Skill.PRAYER) <= 24)
+				if (WorldType.isAllHighRiskWorld(client.getWorldType()) || client.getRealSkillLevel(Skill.PRAYER) <= 24)
 				{
 					prayerWidgets.get(10).setHidden(true);    // Protect Item
 				}
