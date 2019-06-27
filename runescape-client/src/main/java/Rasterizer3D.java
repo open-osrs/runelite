@@ -7,16 +7,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Rasterizer3D")
 public class Rasterizer3D extends Rasterizer2D {
    @ObfuscatedName("m")
-   @Export("__et_m")
    static boolean __et_m;
    @ObfuscatedName("f")
-   @Export("__et_f")
    static boolean __et_f;
    @ObfuscatedName("q")
    @Export("Rasterizer3D_isLowDetailTexture")
    static boolean Rasterizer3D_isLowDetailTexture;
    @ObfuscatedName("w")
-   @Export("__et_w")
    public static boolean __et_w;
    @ObfuscatedName("o")
    @Export("Rasterizer3D_alpha")
@@ -61,10 +58,8 @@ public class Rasterizer3D extends Rasterizer2D {
    @Export("Rasterizer3D_textureLoader")
    public static TextureLoader Rasterizer3D_textureLoader;
    @ObfuscatedName("r")
-   @Export("__et_r")
    static int[] __et_r;
    @ObfuscatedName("p")
-   @Export("__et_p")
    static int[] __et_p;
    @ObfuscatedName("v")
    @Export("Rasterizer3D_sine")
@@ -3428,22 +3423,26 @@ public class Rasterizer3D extends Rasterizer2D {
    }
 
    @ObfuscatedName("p")
-   static final int method3005(int var0, int var1, int var2, int var3) {
+   @Export("rot3")
+   static final int rot3(int var0, int var1, int var2, int var3) {
       return var0 * var2 - var3 * var1 >> 16;
    }
 
    @ObfuscatedName("v")
-   static final int method3006(int var0, int var1, int var2, int var3) {
+   @Export("rot4")
+   static final int rot4(int var0, int var1, int var2, int var3) {
       return var3 * var0 + var2 * var1 >> 16;
    }
 
    @ObfuscatedName("ag")
-   static final int method3007(int var0, int var1, int var2, int var3) {
+   @Export("rot1")
+   static final int rot1(int var0, int var1, int var2, int var3) {
       return var0 * var2 + var3 * var1 >> 16;
    }
 
    @ObfuscatedName("aq")
-   static final int method3008(int var0, int var1, int var2, int var3) {
+   @Export("rot2")
+   static final int rot2(int var0, int var1, int var2, int var3) {
       return var2 * var1 - var3 * var0 >> 16;
    }
 }

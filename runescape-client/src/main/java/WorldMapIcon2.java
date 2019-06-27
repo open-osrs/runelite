@@ -13,19 +13,16 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
    @ObfuscatedGetter(
       intValue = -985436813
    )
-   @Export("__m")
    final int __m;
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lav;"
    )
-   @Export("__f")
    final WorldMapRegion __f;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = -25914375
    )
-   @Export("__q")
    int __q;
    @ObfuscatedName("w")
    @ObfuscatedSignature(
@@ -37,13 +34,11 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
    @ObfuscatedGetter(
       intValue = 927871683
    )
-   @Export("__o")
    int __o;
    @ObfuscatedName("u")
    @ObfuscatedGetter(
       intValue = -1431936619
    )
-   @Export("__u")
    int __u;
 
    @ObfuscatedSignature(
@@ -97,7 +92,6 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
       signature = "(I)V",
       garbageValue = "-806344204"
    )
-   @Export("__z_27")
    void __z_27() {
       this.__q = class50.getObjectDefinition(this.__m).transform().mapIconId;
       this.label0 = this.__f.__ab_56(ViewportMouse.getWorldMapElement(this.__q));
@@ -180,12 +174,12 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
       if(var4 >= var6 && var4 < 104 - var6 && var5 >= var6 && var5 < 104 - var6) {
          if(var1 >= var6 && var1 < 104 - var6 && var2 >= var6 && var2 < 104 - var6) {
             int var9 = var0.transformedSize();
-            Client.field895.field2120 = var1;
-            Client.field895.field2121 = var2;
-            Client.field895.field2122 = 1;
-            Client.field895.field2123 = 1;
+            Client.field895.approxDestinationX = var1;
+            Client.field895.approxDestinationY = var2;
+            Client.field895.approxDestinationSizeX = 1;
+            Client.field895.approxDestinationSizeY = 1;
             class65 var10 = Client.field895;
-            int var11 = NetSocket.method3571(var4, var5, var9, var10, Client.collisionMaps[var0.plane], true, Client.__client_tp, Client.__client_th);
+            int var11 = NetSocket.calculateRoute(var4, var5, var9, var10, Client.collisionMaps[var0.plane], true, Client.__client_tp, Client.__client_th);
             if(var11 >= 1) {
                for(int var12 = 0; var12 < var11 - 1; ++var12) {
                   var0.__a_131(Client.__client_tp[var12], Client.__client_th[var12], var3);

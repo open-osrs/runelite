@@ -25,6 +25,8 @@
  */
 package net.runelite.client.plugins.raids;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.google.inject.Binder;
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
@@ -33,9 +35,10 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
@@ -46,8 +49,10 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InstanceTemplates;
 import net.runelite.api.ItemID;
+import net.runelite.api.MenuAction;
 import net.runelite.api.NullObjectID;
 import static net.runelite.api.Perspective.SCENE_SIZE;
+import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.SpriteID;
 import static net.runelite.api.SpriteID.TAB_QUESTS_BROWN_RAIDING_PARTY;
@@ -68,9 +73,9 @@ import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SpriteManager;
-import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -78,9 +83,9 @@ import net.runelite.client.plugins.raids.solver.Layout;
 import net.runelite.client.plugins.raids.solver.LayoutSolver;
 import net.runelite.client.plugins.raids.solver.RotationSolver;
 import net.runelite.client.ui.ClientToolbar;
-import net.runelite.client.ui.DrawManager;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.WidgetOverlay;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
@@ -90,9 +95,9 @@ import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @PluginDescriptor(
-	name = "Chambers Of Xeric",
+	name = "CoX Scouter",
 	description = "Show helpful information for the Chambers of Xeric raid",
-	tags = {"combat", "raid", "overlay", "pve", "pvm", "bosses", "cox", "olm"},
+	tags = {"combat", "raid", "overlay", "pve", "pvm", "bosses", "cox", "olm", "scout"},
 	type = PluginType.PVM,
 	enabledByDefault = false
 )
@@ -100,94 +105,107 @@ import org.apache.commons.lang3.StringUtils;
 @Slf4j
 public class RaidsPlugin extends Plugin
 {
+	static final DecimalFormat POINTS_FORMAT = new DecimalFormat("#,###");
 	private static final int LOBBY_PLANE = 3;
 	private static final String RAID_START_MESSAGE = "The raid has begun!";
 	private static final String LEVEL_COMPLETE_MESSAGE = "level complete!";
 	private static final String RAID_COMPLETE_MESSAGE = "Congratulations - your raid is complete!";
-	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###.##");
-	static final DecimalFormat POINTS_FORMAT = new DecimalFormat("#,###");
 	private static final String SPLIT_REGEX = "\\s*,\\s*";
+	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###.##");
 	private static final Pattern ROTATION_REGEX = Pattern.compile("\\[(.*?)]");
-	private static final int LINE_COMPONENT_HEIGHT = 16;
-
-	@Inject
-	private ItemManager itemManager;
-	private static final Pattern LEVEL_COMPLETE_REGEX = Pattern.compile("(.+) level complete! Duration: ([0-9:]+)");
 	private static final Pattern RAID_COMPLETE_REGEX = Pattern.compile("Congratulations - your raid is complete! Duration: ([0-9:]+)");
-
-	@Inject
-	private ChatMessageManager chatMessageManager;
-
-	@Inject
-	private InfoBoxManager infoBoxManager;
-
-	@Inject
-	private Client client;
-
-	@Inject
-	private DrawManager drawManager;
-
-	@Inject
-	private ScheduledExecutorService executor;
-
-	@Inject
-	private RaidsConfig config;
-
-	@Inject
-	private OverlayManager overlayManager;
-
-	@Inject
-	private RaidsOverlay overlay;
-
-	@Inject
-	private RaidsPointsOverlay pointsOverlay;
-
-	@Inject
-	private LayoutSolver layoutSolver;
-
-	@Inject
-	private SpriteManager spriteManager;
-
-	@Inject
-	private ClientThread clientThread;
-
-	@Inject
-	private KeyManager keyManager;
-
-	@Inject
-	private TooltipManager tooltipManager;
-
+	private static final ImmutableSet<String> GOOD_CRABS_FIRST = ImmutableSet.of(
+		"FSCCP.PCSCF - #WNWSWN#ESEENW", //both good crabs
+		"SCSPF.CCSPF - #ESWWNW#ESENES", //both good crabs
+		"SPCFC.CSPCF - #WWNEEE#WSWNWS", //both good crabs
+		"SCFCP.CSCFS - #ENEESW#ENWWSW", //good crabs
+		"SCPFC.CCSSF - #NEESEN#WSWWNE", //good crabs
+		"SCFPC.CSPCF - #WSWWNE#WSEENE" //good crabs first rare crabs second
+	);
+	private static final ImmutableSet<String> GOOD_CRABS_SECOND = ImmutableSet.of(
+		"SCFCP.CCSPF - #ESEENW#ESWWNW", //bad crabs first good crabs second
+		"SCPFC.CSPSF - #WWSEEE#NWSWWN", //bad crabs first good crabs second
+		"SFCCS.PCPSF - #ENWWSW#ENESEN", //bad crabs first good crabs second
+		"SPCFC.SCCPF - #ESENES#WWWNEE", //bad crabs first good crabs second
+		"SPSFP.CCCSF - #NWSWWN#ESEENW", //bad crabs first good crabs second
+		"FSCCP.PCSCF - #ENWWWS#NEESEN" //bad crabs first good crabs second
+	);
+	private static final ImmutableSet<String> RARE_CRABS_FIRST = ImmutableSet.of(
+		"SCPFC.CSPCF - #NEEESW#WWNEEE", //rare crabs first good crabs second
+		"SCPFC.PCSCF - #WNEEES#NWSWNW", //rare crabs first bad crabs second
+		"SCPFC.CCPSF - #NWWWSE#WNEESE" //both rare crabs
+	);
+	private static final ImmutableSet<String> RARE_CRABS_SECOND = ImmutableSet.of(
+		"FSCPC.CSCPF - #WNWWSE#EENWWW", //bad crabs first rare crabs second
+		"SCFPC.PCCSF - #WSEENE#WWWSEE", //bad crabs first rare crabs second
+		"SCFPC.SCPCF - #NESENE#WSWWNE", //bad crabs first rare crabs second
+		"SFCCP.CSCPF - #WNEESE#NWSWWN", //bad crabs first rare crabs second
+		"SCFPC.CSPCF - #WSWWNE#WSEENE" //good crabs first rare crabs second
+	);
+	private static final String TRIPLE_PUZZLE = "SFCCPC.PCSCPF - #WSEENES#WWWNEEE"; //good crabs first rare crabs second rare crabs third
+	private static final Pattern PUZZLES = Pattern.compile("Puzzle - (\\w+)");
 	@Getter
 	private final ArrayList<String> roomWhitelist = new ArrayList<>();
-
 	@Getter
 	private final ArrayList<String> roomBlacklist = new ArrayList<>();
-
 	@Getter
 	private final ArrayList<String> rotationWhitelist = new ArrayList<>();
-
 	@Getter
 	private final ArrayList<String> layoutWhitelist = new ArrayList<>();
-
 	@Getter
 	private final Map<String, List<Integer>> recommendedItemsList = new HashMap<>();
-
-	@Getter
-	private Raid raid;
-
-	@Getter
-	private boolean inRaidChambers;
-
+	@Inject
+	private ChatMessageManager chatMessageManager;
+	@Inject
+	private InfoBoxManager infoBoxManager;
+	@Inject
+	private Client client;
+	@Inject
+	private RaidsConfig config;
+	@Inject
+	private OverlayManager overlayManager;
+	@Inject
+	private RaidsOverlay overlay;
+	@Inject
+	private RaidsPointsOverlay pointsOverlay;
+	@Inject
+	private RaidsPartyOverlay partyOverlay;
+	@Inject
+	private LayoutSolver layoutSolver;
+	@Inject
+	private SpriteManager spriteManager;
+	@Inject
+	private ClientThread clientThread;
+	@Inject
+	private TooltipManager tooltipManager;
 	@Inject
 	private ClientToolbar clientToolbar;
-	private RaidsPanel panel;
+	@Inject
+	private ItemManager itemManager;
+	@Getter
+	private Raid raid;
+	@Getter
+	private boolean inRaidChambers;
+	@Getter
+	private String goodCrabs;
+	@Getter
+	private int startPlayerCount;
+	@Getter
+	private List<String> partyMembers = new ArrayList<>();
+	@Getter
+	private List<String> startingPartyMembers = new ArrayList<>();
+	@Getter
+	private Set<String> missingPartyMembers = new HashSet<>();
+	@Getter
+	private String layoutFullCode;
+	@Getter
+	private boolean raidStarted;
 	private int upperTime = -1;
 	private int middleTime = -1;
 	private int lowerTime = -1;
 	private int raidTime = -1;
 	private WidgetOverlay widgetOverlay;
 	private String tooltip;
-	public boolean canShow;
 	private NavigationButton navButton;
 	private RaidsTimer timer;
 
@@ -208,10 +226,14 @@ public class RaidsPlugin extends Plugin
 	{
 		overlayManager.add(overlay);
 		overlayManager.add(pointsOverlay);
+		if (config.partyDisplay())
+		{
+			overlayManager.add(partyOverlay);
+		}
 		updateLists();
 		clientThread.invokeLater(() -> checkRaidPresence(true));
 		widgetOverlay = overlayManager.getWidgetOverlay(WidgetInfo.RAIDS_POINTS_INFOBOX);
-		panel = injector.getInstance(RaidsPanel.class);
+		RaidsPanel panel = injector.getInstance(RaidsPanel.class);
 		panel.init(config);
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(this.getClass(), "instancereloadhelper.png");
 		navButton = NavigationButton.builder()
@@ -229,12 +251,11 @@ public class RaidsPlugin extends Plugin
 		overlayManager.remove(overlay);
 		overlayManager.remove(pointsOverlay);
 		clientToolbar.removeNavigation(navButton);
+		if (config.partyDisplay())
+		{
+			overlayManager.remove(partyOverlay);
+		}
 		infoBoxManager.removeInfoBox(timer);
-		inRaidChambers = false;
-		widgetOverlay = null;
-		raid = null;
-		timer = null;
-
 		final Widget widget = client.getWidget(WidgetInfo.RAIDS_POINTS_INFOBOX);
 		if (widget != null)
 		{
@@ -255,6 +276,18 @@ public class RaidsPlugin extends Plugin
 		{
 			updateInfoBoxState();
 			return;
+		}
+
+		if (event.getKey().equals("partyDisplay"))
+		{
+			if (config.partyDisplay())
+			{
+				overlayManager.add(partyOverlay);
+			}
+			else
+			{
+				overlayManager.remove(partyOverlay);
+			}
 		}
 
 		updateLists();
@@ -281,6 +314,10 @@ public class RaidsPlugin extends Plugin
 	public void onVarbitChanged(VarbitChanged event)
 	{
 		checkRaidPresence(false);
+		if (config.partyDisplay())
+		{
+			updatePartyMembers(false);
+		}
 	}
 
 	@Subscribe
@@ -291,10 +328,28 @@ public class RaidsPlugin extends Plugin
 			String message = Text.removeTags(event.getMessage());
 			Matcher matcher;
 
-			if (config.raidsTimer() && message.startsWith(RAID_START_MESSAGE))
+			if (message.startsWith(RAID_START_MESSAGE))
 			{
-				timer = new RaidsTimer(spriteManager.getSprite(TAB_QUESTS_BROWN_RAIDING_PARTY, 0), this, Instant.now());
-				infoBoxManager.addInfoBox(timer);
+				if (config.raidsTimer())
+				{
+					timer = new RaidsTimer(spriteManager.getSprite(TAB_QUESTS_BROWN_RAIDING_PARTY, 0), this, Instant.now());
+					infoBoxManager.addInfoBox(timer);
+					raidStarted = true;
+				}
+				if (config.partyDisplay())
+				{
+					// Base this on visible players since party size shows people outside the lobby
+					// and they did not get to come on the raid
+					List<Player> players = client.getPlayers();
+					startPlayerCount = players.size();
+
+					partyMembers.clear();
+					startingPartyMembers.clear();
+					missingPartyMembers.clear();
+
+					startingPartyMembers.addAll(Lists.transform(players, Player::getName));
+					partyMembers.addAll(startingPartyMembers);
+				}
 			}
 
 			if (timer != null && message.contains(LEVEL_COMPLETE_MESSAGE))
@@ -415,7 +470,95 @@ public class RaidsPlugin extends Plugin
 		}
 	}
 
-	public void checkRaidPresence(boolean force)
+	@Subscribe
+	public void onOverlayMenuClicked(OverlayMenuClicked event)
+	{
+		OverlayMenuEntry entry = event.getEntry();
+		if (entry.getMenuAction() == MenuAction.RUNELITE_OVERLAY &&
+			entry.getTarget().equals("Raids party overlay"))
+		{
+			switch (entry.getOption())
+			{
+				case RaidsPartyOverlay.PARTY_OVERLAY_RESET:
+					startingPartyMembers.clear();
+					updatePartyMembers(true);
+					missingPartyMembers.clear();
+					break;
+				case RaidsPartyOverlay.PARTY_OVERLAY_REFRESH:
+					updatePartyMembers(true);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+	private void updatePartyMembers(boolean force)
+	{
+		int partySize = client.getVar(Varbits.RAID_PARTY_SIZE);
+		if (partySize <= 0)
+		{
+			return;
+		}
+
+		if (startingPartyMembers.size() == partySize && !force)
+		{
+			// Skip update if the part is as big as when we started
+			missingPartyMembers.clear(); // Clear missing members in case someone came back
+			return;
+		}
+
+		// Only update while in raid
+		if (client.getVar(VarPlayer.IN_RAID_PARTY) == -1 || force)
+		{
+			Widget[] widgets;
+			try
+			{
+				widgets = client.getWidget(WidgetInfo.RAIDING_PARTY).getStaticChildren()[2].getStaticChildren()[3].getDynamicChildren();
+			}
+			catch (NullPointerException e)
+			{
+				return; // Raid widget not loaded
+			}
+
+			partyMembers.clear();
+			for (Widget widget : widgets)
+			{
+				if (widget == null || widget.getText() == null)
+				{
+					continue;
+				}
+
+				String name = widget.getName();
+
+				if (name.length() > 1)
+				{
+					partyMembers.add(name.substring(name.indexOf('>') + 1, name.indexOf('<', 1)));
+				}
+			}
+
+			// If we don't have any starting members, update starting members
+			if (startingPartyMembers.size() == 0 || force)
+			{
+				missingPartyMembers.clear();
+				startingPartyMembers.clear();
+				startingPartyMembers.addAll(partyMembers);
+			}
+			else
+			{
+
+				// Check if anyone left
+				if (startingPartyMembers.size() > partyMembers.size())
+				{
+					missingPartyMembers.clear();
+					missingPartyMembers.addAll(startingPartyMembers);
+					missingPartyMembers.removeAll(partyMembers);
+				}
+			}
+		}
+	}
+
+	void checkRaidPresence(boolean force)
 	{
 		if (client.getGameState() != GameState.LOGGED_IN)
 		{
@@ -447,21 +590,44 @@ public class RaidsPlugin extends Plugin
 					return;
 				}
 
+				layoutFullCode = layout.getCode();
 				raid.updateLayout(layout);
 				RotationSolver.solve(raid.getCombatRooms());
-				overlay.setScoutOverlayShown(true);
+				setOverlayStatus(true);
 				sendRaidLayoutMessage();
+				Matcher puzzleMatch = PUZZLES.matcher(raid.getFullRotationString());
+				final List<String> puzzles = new ArrayList<>();
+				while (puzzleMatch.find())
+				{
+					puzzles.add(puzzleMatch.group());
+				}
+				if (raid.getFullRotationString().contains("Crabs"))
+				{
+					switch (puzzles.size())
+					{
+						case 1:
+							goodCrabs = handleCrabs(puzzles.get(0));
+							break;
+						case 2:
+							goodCrabs = handleCrabs(puzzles.get(0), puzzles.get(1));
+							break;
+						case 3:
+							goodCrabs = handleCrabs(puzzles.get(0), puzzles.get(1), puzzles.get(2));
+							break;
+					}
+				}
 			}
 			else if (!config.scoutOverlayAtBank())
 			{
-				overlay.setScoutOverlayShown(false);
+				setOverlayStatus(false);
 			}
 		}
 
 		// If we left party raid was started or we left raid
 		if (client.getVar(VarPlayer.IN_RAID_PARTY) == -1 && (!inRaidChambers || !config.scoutOverlayInRaid()))
 		{
-			overlay.setScoutOverlayShown(false);
+			setOverlayStatus(false);
+			raidStarted = false;
 		}
 	}
 
@@ -485,6 +651,25 @@ public class RaidsPlugin extends Plugin
 				.append(raidData)
 				.build())
 			.build());
+
+		if (recordRaid() != null)
+		{
+			chatMessageManager.queue(QueuedMessage.builder()
+				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+				.runeLiteFormattedMessage(new ChatMessageBuilder()
+					.append(ChatColorType.HIGHLIGHT)
+					.append("You have scouted a record raid, whilst this is a very good raid to do you will probably end up profiting more by selling this raid to a team looking for it.")
+					.build())
+				.build());
+
+			chatMessageManager.queue(QueuedMessage.builder()
+				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+				.runeLiteFormattedMessage(new ChatMessageBuilder()
+					.append(ChatColorType.HIGHLIGHT)
+					.append("The following are some places you can sell this raid: Scout Trading in We do Raids discord, and Buying Cox Rotations in Oblivion discord.")
+					.build())
+				.build());
+		}
 	}
 
 	private void updateInfoBoxState()
@@ -832,6 +1017,10 @@ public class RaidsPlugin extends Plugin
 		lowerTime = -1;
 		raidTime = -1;
 		tooltip = null;
+		inRaidChambers = false;
+		widgetOverlay = null;
+		raidStarted = false;
+		timer = null;
 	}
 
 	private int timeToSeconds(String s)
@@ -912,5 +1101,75 @@ public class RaidsPlugin extends Plugin
 		}
 		builder.append("</br>Olm: ").append(secondsToTime(raidTime - lowerTime));
 		tooltip = builder.toString();
+	}
+
+	private String handleCrabs(String firstGroup)
+	{
+		if (firstGroup.contains("Crabs") && GOOD_CRABS_FIRST.contains(layoutFullCode))
+		{
+			return "Good Crabs";
+		}
+		if (firstGroup.contains("Crabs") && RARE_CRABS_FIRST.contains(layoutFullCode))
+		{
+			return "Rare Crabs";
+		}
+		return null;
+	}
+
+	private String handleCrabs(String firstGroup, String secondGroup)
+	{
+		if (firstGroup.contains("Crabs") && GOOD_CRABS_FIRST.contains(layoutFullCode))
+		{
+			return "Good Crabs";
+		}
+		if (secondGroup.contains("Crabs") && GOOD_CRABS_SECOND.contains(layoutFullCode))
+		{
+			return "Good Crabs";
+		}
+		if (firstGroup.contains("Crabs") && RARE_CRABS_FIRST.contains(layoutFullCode))
+		{
+			return "Rare Crabs";
+		}
+		if (secondGroup.contains("Crabs") && RARE_CRABS_SECOND.contains(layoutFullCode))
+		{
+			return "Rare Crabs";
+		}
+		return null;
+	}
+
+	private String handleCrabs(String firstGroup, String secondGroup, String thirdGroup)
+	{
+		if (firstGroup.contains("Crabs"))
+		{
+			return "Good Crabs";
+		}
+		if (secondGroup.contains("Crabs"))
+		{
+			return "Rare Crabs";
+		}
+		if (thirdGroup.contains("Crabs"))
+		{
+			return "Rare Crabs";
+		}
+		return null;
+	}
+
+	String recordRaid()
+	{
+		if (raid.getRotationString().toLowerCase().equals("vasa,tekton,vespula")
+			&& raid.getFullRotationString().toLowerCase().contains("crabs")
+			&& raid.getFullRotationString().toLowerCase().contains("tightrope"))
+		{
+			if (goodCrabs != null)
+			{
+				return goodCrabs;
+			}
+		}
+		return null;
+	}
+
+	private void setOverlayStatus(boolean bool)
+	{
+		overlay.setScoutOverlayShown(bool);
 	}
 }

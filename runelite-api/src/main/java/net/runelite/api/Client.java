@@ -128,6 +128,13 @@ public interface Client extends GameShell
 	GameState getGameState();
 
 	/**
+	 * Sets the current game state.
+	 *
+	 * @param gameState new game state
+	 */
+	void setGameState(int gameState);
+
+	/**
 	 * Gets the current logged in username.
 	 *
 	 * @return the logged in username
@@ -242,13 +249,11 @@ public interface Client extends GameShell
 
 	/**
 	 * Gets the canvas height
-	 * @return
 	 */
 	int getCanvasHeight();
 
 	/**
 	 * Gets the canvas width
-	 * @return
 	 */
 	int getCanvasWidth();
 
@@ -407,23 +412,6 @@ public interface Client extends GameShell
 	int getMouseCurrentButton();
 
 	/**
-	 * Schedules checking of current region tile for next frame, so ${@link Client#getSelectedSceneTile()} ()} will
-	 * return actual value.
-	 *
-	 * @param checkClick when true next frame selected region tile will be updated
-	 */
-	void setCheckClick(boolean checkClick);
-
-	/**
-	 * Sets current mouse hover position. This value is automatically updated only when right-clicking in game.
-	 * Setting this value together with ${@link Client#setCheckClick(boolean)} will update ${@link Client#getSelectedSceneTile()} ()}
-	 * for next frame.
-	 *
-	 * @param position current mouse hover position
-	 */
-	void setMouseCanvasHoverPosition(Point position);
-
-	/**
 	 * Gets the currently selected tile (ie. last right clicked tile).
 	 *
 	 * @return the selected tile
@@ -562,6 +550,11 @@ public interface Client extends GameShell
 	 * @return array of open menu entries
 	 */
 	MenuEntry[] getMenuEntries();
+
+	/**
+	 * @return amount of menu entries the client has (same as client.getMenuEntries().size())
+	 */
+	int getMenuOptionCount();
 
 	/**
 	 * Sets the array of open menu entries.
@@ -712,7 +705,7 @@ public interface Client extends GameShell
 	 * @param varps passed varbits
 	 * @param varbitId the variable ID
 	 * @return the value
-	 * @see Varbits#id
+	 * @see Varbits
 	 */
 	int getVarbitValue(int[] varps, int varbitId);
 
@@ -742,7 +735,7 @@ public interface Client extends GameShell
 	 * @param varps passed varbits
 	 * @param varbit the variable
 	 * @param value the value
-	 * @see Varbits#id
+	 * @see Varbits
 	 */
 	void setVarbitValue(int[] varps, int varbit, int value);
 
@@ -786,8 +779,6 @@ public interface Client extends GameShell
 
 	/**
 	 * Get the total experience of the player
-	 *
-	 * @return
 	 */
 	long getOverallExperience();
 
@@ -934,7 +925,7 @@ public interface Client extends GameShell
 	 *
 	 * @return all projectiles
 	 */
-	java.util.List<Projectile> getProjectiles();
+	List<Projectile> getProjectiles();
 
 	/**
 	 * Gets a list of all graphics objects currently drawn.
@@ -964,6 +955,28 @@ public interface Client extends GameShell
 	 * from
 	 */
 	void playSoundEffect(int id, int x, int y, int range);
+
+	/**
+	 * Play a sound effect from some point in the world.
+	 *
+	 * @param id the ID of the sound to play. Any int is allowed, but see
+	 * {@link SoundEffectID} for some common ones
+	 * @param x the ground coordinate on the x axis
+	 * @param y the ground coordinate on the y axis
+	 * @param range the number of tiles away that the sound can be heard
+	 * from
+	 * @param delay the amount of frames before the sound starts playing
+	 */
+	void playSoundEffect(int id, int x, int y, int range, int delay);
+
+	/**
+	 * Plays a sound effect, even if the player's sound effect volume is muted.
+	 *
+	 * @param id     the ID of the sound effect - {@link SoundEffectID}
+	 * @param volume the volume to play the sound effect at, see {@link SoundEffectVolume} for values used
+	 *               in the settings interface. if the sound effect volume is not muted, uses the set volume
+	 */
+	void playSoundEffect(int id, int volume);
 
 	/**
 	 * Gets the clients graphic buffer provider.
@@ -1066,15 +1079,11 @@ public interface Client extends GameShell
 
 	/**
 	 * Gets the clan owner of the currently joined clan chat
-	 *
-	 * @return
 	 */
 	String getClanOwner();
 
 	/**
 	 * Gets the clan chat name of the currently joined clan chat
-	 *
-	 * @return
 	 */
 	String getClanChatName();
 
@@ -1087,22 +1096,16 @@ public interface Client extends GameShell
 
 	/**
 	 * Gets the number of friends on the friends list.
-	 *
-	 * @return
 	 */
 	int getFriendsCount();
 
 	/**
 	 * Gets an array of players on the ignore list.
-	 *
-	 * @return
 	 */
 	Ignore[] getIgnores();
 
 	/**
 	 * Gets the number of ignored players on the ignore list.
-	 *
-	 * @return
 	 */
 	int getIgnoreCount();
 
@@ -1427,6 +1430,13 @@ public interface Client extends GameShell
 	void setNPCsHidden(boolean state);
 
 	/**
+	 * Sets which NPCs are hidden
+	 *
+	 * @param names the names of the npcs seperated by ','
+	 */
+	void setNPCsNames(String names);
+
+	/**
 	 * Sets whether 2D sprites (ie. overhead prayers) related to
 	 * the NPCs are hidden.
 	 *
@@ -1495,14 +1505,6 @@ public interface Client extends GameShell
 	 * @return the cache
 	 */
 	NodeCache getWidgetSpriteCache();
-
-	/**
-	 * Overrides health bar sprites with the sprites from the specified override.
-	 * Pass in {@code null} to revert the health bars back to their default.
-	 *
-	 * @param override the health bar override
-	 */
-	void setHealthBarOverride(HealthBarOverride override);
 
 	/**
 	 * Gets the current server tick count.
@@ -1607,14 +1609,11 @@ public interface Client extends GameShell
 
 	/**
 	 * Get the if1 widget whose item is being dragged
-	 *
-	 * @return
 	 */
 	Widget getIf1DraggedWidget();
 
 	/**
 	 * Get the item index of the item being dragged on an if1 widget
-	 * @return
 	 */
 	int getIf1DraggedItemIndex();
 
@@ -1632,7 +1631,9 @@ public interface Client extends GameShell
 
 	void draw2010Menu();
 
-	NodeCache getHealthBarCache();
+	void resetHealthBarCaches();
+
+	boolean getRenderSelf();
 
 	void setRenderSelf(boolean enabled);
 
@@ -1656,4 +1657,16 @@ public interface Client extends GameShell
 	String getSelectedSpellName();
 	
 	boolean getIsSpellSelected();
+
+	/**
+	 * Set whether or not player attack options will be hidden for clanmembers/friends
+	 */
+	void setHideFriendAttackOptions(boolean yes);
+	
+	/**
+	 * Sorts the current menu entries in the same way the client does this.
+	 * The last entry will be the left click one after this.
+	 */
+	void sortMenuEntries();
+
 }

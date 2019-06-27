@@ -32,6 +32,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -473,20 +474,20 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getMenuAction() != MenuAction.RUNELITE || event.getWidgetId() != WidgetInfo.INVENTORY.getId())
+		if (event.getMenuAction() != MenuAction.RUNELITE || event.getActionParam1() != WidgetInfo.INVENTORY.getId())
 		{
 			return;
 		}
 
-		int itemId = event.getId();
+		int itemId = event.getIdentifier();
 
 		if (itemId == -1)
 		{
 			return;
 		}
 
-		String option = event.getMenuOption();
-		String target = event.getMenuTarget();
+		String option = event.getOption();
+		String target = event.getTarget();
 		ItemDefinition itemComposition = client.getItemDefinition(itemId);
 
 		if (option.equals(RESET) && target.equals(MENU_TARGET))
@@ -604,7 +605,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		}
 
-		if (option.contains("buy"))
+		if ((option.contains("buy") || option.contains("value")) && Arrays.stream(entries).anyMatch(menuEntry ->
+		{
+			return menuEntry.getOption().toLowerCase().contains("buy");
+		}))
 		{
 			if (config.getSwapBuyOne() && !config.getBuyOneItems().equals(""))
 			{
@@ -650,7 +654,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 		}
-		else if (option.contains("sell"))
+		else if ((option.contains("sell") || option.contains("value")) && Arrays.stream(entries).anyMatch(menuEntry ->
+		{
+			return menuEntry.getOption().toLowerCase().contains("sell");
+		}))
 		{
 			if (config.getSwapSellOne() && !config.getSellOneItems().equals(""))
 			{
@@ -727,8 +734,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (event.getType() == WALK.getId())
 			{
-				MenuEntry menuEntry = entries[entries.length - 1];
+				MenuEntry[] menuEntries = client.getMenuEntries();
+				MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
 				menuEntry.setType(MenuAction.WALK.getId() + MENU_ACTION_DEPRIORITIZE_OFFSET);
+				client.setMenuEntries(menuEntries);
 			}
 			else if (option.equalsIgnoreCase("examine"))
 			{
@@ -853,7 +862,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 					}
 				}
 			}
-			else if (target.equals("magpie impling jar") || (target.equals("nature impling jar")))
+			else if (target.equals("magpie impling jar") || (target.equals("nature impling jar")) || (target.equals("ninja impling jar")))
 			{
 				if (client.getItemContainer(InventoryID.INVENTORY) != null)
 				{
@@ -938,6 +947,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 				swap(client, "buy-plank", option, target, true);
 			}
 
+			if (config.claimDynamite() && target.equals("thirus"))
+			{
+				swap(client, "claim", option, target, true);
+			}
+
 			if (config.swapTrade())
 			{
 				swap(client, "trade", option, target, true);
@@ -948,11 +962,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			if (config.claimSlime() && target.equals("robin"))
 			{
 				swap(client, "claim-slime", option, target, true);
-			}
-
-			if (config.claimDynamite() && target.contains("Thirus"))
-			{
-				swap(client, "claim-dynamite", option, target, true);
 			}
 
 			if (config.swapTravel())
@@ -1300,7 +1309,17 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (!Strings.isNullOrEmpty(config))
 		{
-			Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(config);
+			StringBuilder sb = new StringBuilder();
+
+			for (String str : config.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
+					sb.append(str + "\n");
+				}
+			}
+
+			Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
 
 			for (Map.Entry<String, String> entry : split.entrySet())
 			{
@@ -1419,6 +1438,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			menuManager.addSwap("remove", "max cape", config.maxMode().toString());
 		}
+		if (config.swapQuestCape())
+		{
+			menuManager.addSwap("remove", "quest point cape", config.questCapeMode().toString());
+		}
 	}
 
 	private void removeSwaps()
@@ -1435,6 +1458,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removeSwaps("slayer ring");
 		menuManager.removeSwaps("xeric's talisman");
 		menuManager.removeSwaps("ring of wealth");
+		menuManager.removeSwaps("max cape");
+		menuManager.removeSwaps("quest point cape");
+		
 	}
 
 	private void delete(int target)

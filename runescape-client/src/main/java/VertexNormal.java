@@ -8,37 +8,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("VertexNormal")
 public class VertexNormal {
    @ObfuscatedName("pe")
-   @Export("__dq_pe")
    static boolean __dq_pe;
    @ObfuscatedName("rq")
    @ObfuscatedGetter(
       intValue = 1351620693
    )
-   @Export("__dq_rq")
    static int __dq_rq;
    @ObfuscatedName("m")
    @ObfuscatedGetter(
       intValue = 1414310131
    )
-   @Export("__m")
    int __m;
    @ObfuscatedName("f")
    @ObfuscatedGetter(
       intValue = -1493845293
    )
-   @Export("__f")
    int __f;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = 1575149515
    )
-   @Export("__q")
    int __q;
    @ObfuscatedName("w")
    @ObfuscatedGetter(
       intValue = -487323631
    )
-   @Export("__w")
    int __w;
 
    VertexNormal() {
@@ -67,10 +61,10 @@ public class VertexNormal {
       } else if(var0.length == 30000 && ByteArrayPool.ByteArrayPool_largeCount < 50) {
          ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0;
       } else {
-         if(class179.__fe_e != null) {
+         if(RouteStrategy.__fe_e != null) {
             for(int var1 = 0; var1 < ByteArrayPool.__gi_g.length; ++var1) {
-               if(var0.length == ByteArrayPool.__gi_g[var1] && WorldMapSection2.__ah_l[var1] < class179.__fe_e[var1].length) {
-                  class179.__fe_e[var1][WorldMapSection2.__ah_l[var1]++] = var0;
+               if(var0.length == ByteArrayPool.__gi_g[var1] && WorldMapSection2.__ah_l[var1] < RouteStrategy.__fe_e[var1].length) {
+                  RouteStrategy.__fe_e[var1][WorldMapSection2.__ah_l[var1]++] = var0;
                   return;
                }
             }

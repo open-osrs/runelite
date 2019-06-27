@@ -12,7 +12,6 @@ final class TotalQuantityComparator implements Comparator {
       signature = "(Ll;Ll;I)I",
       garbageValue = "-573736433"
    )
-   @Export("__m_5")
    int __m_5(GrandExchangeEvent var1, GrandExchangeEvent var2) {
       return var1.grandExchangeOffer.totalQuantity < var2.grandExchangeOffer.totalQuantity?-1:(var2.grandExchangeOffer.totalQuantity == var1.grandExchangeOffer.totalQuantity?0:1);
    }
@@ -23,7 +22,6 @@ final class TotalQuantityComparator implements Comparator {
       return this.__m_5((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
    }
 
-   @Export("__equals_7")
    @ObfuscatedName("equals")
    public boolean __equals_7(Object var1) {
       return super.equals(var1);
@@ -164,10 +162,10 @@ final class TotalQuantityComparator implements Comparator {
 
             int var10;
             if(Client.isItemSelected == 1) {
-               Tiles.method1106("Use", Client.selectedItemName + " " + "->" + " " + BufferedFile.colorStartTag(16777215) + var4, 14, var1, var2, var3);
+               Tiles.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + BufferedFile.colorStartTag(16777215) + var4, 14, var1, var2, var3);
             } else if(Client.isSpellSelected) {
                if((FloorDecoration.selectedSpellFlags & 8) == 8) {
-                  Tiles.method1106(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + BufferedFile.colorStartTag(16777215) + var4, 15, var1, var2, var3);
+                  Tiles.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + BufferedFile.colorStartTag(16777215) + var4, 15, var1, var2, var3);
                }
             } else {
                for(var10 = 7; var10 >= 0; --var10) {
@@ -195,7 +193,7 @@ final class TotalQuantityComparator implements Comparator {
 
                      boolean var12 = false;
                      var7 = Client.playerMenuOpcodes[var10] + var11;
-                     Tiles.method1106(Client.playerMenuActions[var10], BufferedFile.colorStartTag(16777215) + var4, var7, var1, var2, var3);
+                     Tiles.insertMenuItemNoShift(Client.playerMenuActions[var10], BufferedFile.colorStartTag(16777215) + var4, var7, var1, var2, var3);
                   }
                }
             }

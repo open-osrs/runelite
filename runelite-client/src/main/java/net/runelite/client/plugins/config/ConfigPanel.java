@@ -75,6 +75,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.config.ChatColorConfig;
@@ -632,6 +633,26 @@ public class ConfigPanel extends PluginPanel
 							{
 								show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
 							}
+							else if (cid2.getType().isEnum())
+							{
+								Class<? extends Enum> type = (Class<? extends Enum>) cid2.getType();
+								try
+								{
+									Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+									if (!cid.getItem().unhideValue().equals(""))
+									{
+										show = selectedItem.toString().equals(cid.getItem().unhideValue());
+									}
+									else if (!cid.getItem().hideValue().equals(""))
+									{
+										show = !selectedItem.toString().equals(cid.getItem().hideValue());
+									}
+								}
+								catch (IllegalArgumentException ex)
+								{
+									log.info("So bad, so sad: {}", ex.toString());
+								}
+							}
 						}
 
 						if (show)
@@ -702,20 +723,66 @@ public class ConfigPanel extends PluginPanel
 
 					if (max < Integer.MAX_VALUE)
 					{
+						JLabel sliderValueLabel = new JLabel();
 						JSlider slider = new JSlider(min, max, value);
-						configEntryName.setText(name.concat(": ").concat(String.valueOf(slider.getValue())));
+						sliderValueLabel.setText(String.valueOf(slider.getValue()));
 						slider.setPreferredSize(new Dimension(85, 25));
-						String finalName = name;
 						slider.addChangeListener((l) ->
 							{
-								configEntryName.setText(finalName.concat(": ").concat(String.valueOf(slider.getValue())));
+								sliderValueLabel.setText(String.valueOf(slider.getValue()));
 								if (!slider.getValueIsAdjusting())
 								{
 									changeConfiguration(listItem, config, slider, cd, cid);
 								}
 							}
 						);
-						item.add(slider, BorderLayout.EAST);
+
+						SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
+						JSpinner spinner = new JSpinner(model);
+						Component editor = spinner.getEditor();
+						JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+						spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
+						spinner.setUI(new BasicSpinnerUI()
+						{
+							protected Component createNextButton()
+							{
+								return null;
+							}
+
+							protected Component createPreviousButton()
+							{
+								return null;
+							}
+						});
+						spinner.addChangeListener((ce) ->
+						{
+							changeConfiguration(listItem, config, spinner, cd, cid);
+							spinner.setVisible(false);
+							sliderValueLabel.setText(String.valueOf(spinner.getValue()));
+							sliderValueLabel.setVisible(true);
+							slider.setValue((Integer) spinner.getValue());
+							slider.setVisible(true);
+						});
+						spinner.setVisible(false);
+
+						sliderValueLabel.addMouseListener(new MouseAdapter()
+						{
+							public void mouseClicked(MouseEvent e)
+							{
+								spinner.setValue(slider.getValue());
+								spinner.setVisible(true);
+								sliderValueLabel.setVisible(false);
+								slider.setVisible(false);
+							}
+						});
+
+						JPanel subPanel = new JPanel();
+
+						subPanel.add(spinner);
+						subPanel.add(sliderValueLabel);
+						subPanel.add(slider);
+
+						item.add(subPanel, BorderLayout.EAST);
 					}
 					else
 					{
@@ -770,7 +837,7 @@ public class ConfigPanel extends PluginPanel
 							}
 						}
 					});
-					
+
 					if (cid.getItem().parse())
 					{
 						JLabel parsingLabel = new JLabel();
@@ -1020,8 +1087,8 @@ public class ConfigPanel extends PluginPanel
 						.splitToList(String.format("%s || %s", cid2.getItem().unhide(), cid2.getItem().hide()));
 
 					if (itemHide.contains(cid.getItem().keyName()))
-					{ // If another options visibility changes depending on the value of this checkbox, then render the entire menu again
-
+					{
+						// If another options visibility changes depending on the value of this checkbox, then render the entire menu again
 						reloadPluginlist(listItem, config, cd);
 					}
 				}
@@ -1060,6 +1127,36 @@ public class ConfigPanel extends PluginPanel
 		{
 			JComboBox jComboBox = (JComboBox) component;
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), ((Enum) jComboBox.getSelectedItem()).name());
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				if (cid2.getItem().hidden() || !cid2.getItem().hide().isEmpty())
+				{
+					List<String> itemHide = Splitter
+						.onPattern("\\|\\|")
+						.trimResults()
+						.omitEmptyStrings()
+						.splitToList(String.format("%s || %s", cid2.getItem().unhide(), cid2.getItem().hide()));
+
+					if (itemHide.contains(cid.getItem().keyName()))
+					{
+						reloadPluginlist(listItem, config, cd);
+					}
+
+					String changedVal = ((Enum) jComboBox.getSelectedItem()).name();
+
+					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
+					{
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+						reloadPluginlist(listItem, config, cd);
+					}
+					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()) && cid2.getItem().disabledByValue().equals(changedVal))
+					{
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+						reloadPluginlist(listItem, config, cd);
+					}
+				}
+			}
 		}
 		else if (component instanceof HotkeyButton)
 		{

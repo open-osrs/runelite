@@ -57,7 +57,7 @@ public class WidgetID
 	public static final int PEST_CONTROL_BOAT_GROUP_ID = 407;
 	public static final int PEST_CONTROL_GROUP_ID = 408;
 	public static final int PEST_CONTROL_EXCHANGE_WINDOW_GROUP_ID = 243;
-	public static final int PEST_CONTROL_DIALOG_GROUP_ID = 229;
+	public static final int DIALOG_MINIGAME_GROUP_ID = 229;
 	public static final int CLAN_CHAT_GROUP_ID = 7;
 	public static final int MINIMAP_GROUP_ID = 160;
 	public static final int LOGIN_CLICK_TO_PLAY_GROUP_ID = 378;
@@ -84,6 +84,7 @@ public class WidgetID
 	public static final int BA_DEFENDER_GROUP_ID = 487;
 	public static final int BA_HEALER_GROUP_ID = 488;
 	public static final int BA_REWARD_GROUP_ID = 497;
+	public static final int BA_HORN_OF_GLORY = 484;
 	public static final int LEVEL_UP_GROUP_ID = 233;
 	public static final int DIALOG_SPRITE_GROUP_ID = 193;
 	public static final int QUEST_COMPLETED_GROUP_ID = 277;
@@ -91,6 +92,7 @@ public class WidgetID
 	public static final int BARROWS_REWARD_GROUP_ID = 155;
 	public static final int RAIDS_GROUP_ID = 513;
 	public static final int MOTHERLODE_MINE_GROUP_ID = 382;
+	public static final int MOTHERLODE_MINE_FULL_INVENTORY_GROUP_ID = 229;
 	public static final int EXPERIENCE_DROP_GROUP_ID = 122;
 	public static final int PUZZLE_BOX_GROUP_ID = 306;
 	public static final int LIGHT_BOX_GROUP_ID = 322;
@@ -114,7 +116,7 @@ public class WidgetID
 	public static final int VARROCK_MUSEUM_QUIZ_GROUP_ID = 533;
 	public static final int KILL_LOGS_GROUP_ID = 549;
 	public static final int DIARY_QUEST_GROUP_ID = 119;
-	public static final int THEATRE_OF_BLOOD_GROUP_ID = 23;
+	public static final int THEATRE_OF_BLOOD_GROUP_ID = 28;
 	public static final int WORLD_SWITCHER_GROUP_ID = 69;
 	public static final int DIALOG_OPTION_GROUP_ID = 219;
 	public static final int DIALOG_PLAYER_GROUP_ID = 217;
@@ -122,6 +124,8 @@ public class WidgetID
 	public static final int MINIGAME_TAB_ID = 76;
 	public static final int SPELLBOOK_GROUP_ID = 218;
 	public static final int PVP_GROUP_ID = 90;
+	public static final int PERFORMERS_FOR_THE_THEATRE_GROUPS_GROUP_ID = 364;
+	public static final int PERFORMERS_FOR_THE_THEATRE_PLAYERS_GROUP_ID = 50;
 	public static final int FISHING_TRAWLER_GROUP_ID = 366;
 	public static final int ZEAH_MESS_HALL_GROUP_ID = 235;
 	public static final int KOUREND_FAVOUR_GROUP_ID = 246;
@@ -146,6 +150,7 @@ public class WidgetID
 	public static final int BEGINNER_CLUE_MAP_NORTH_OF_FALADOR = 351;
 	public static final int BEGINNER_CLUE_MAP_WIZARDS_TOWER = 356;
 	public static final int SEED_BOX_GROUP_ID = 128;
+	public static final int ITEMS_KEPT_ON_DEATH_GROUP_ID = 4;
 
 	static class WorldMap
 	{
@@ -193,7 +198,7 @@ public class WidgetID
 		static final int CONFIRM_BUTTON = 6;
 	}
 
-	static class PestControlDialog
+	static class MinigameDialog
 	{
 		static final int TEXT = 1;
 		static final int CONTINUE = 2;
@@ -591,7 +596,8 @@ public class WidgetID
 	{
 		static class ATK
 		{
-			static final int LISTEN = 8;
+			static final int LISTEN_TOP = 7;
+			static final int LISTEN_BOTTOM = 8;
 			static final int TO_CALL_WIDGET = 9;
 			static final int TO_CALL = 10;
 			static final int ROLE_SPRITE = 11;
@@ -603,6 +609,13 @@ public class WidgetID
 			static final int TEAMMATE2 = 22;
 			static final int TEAMMATE3 = 26;
 			static final int TEAMMATE4 = 30;
+		}
+		static class HORN_GLORY
+		{
+			static final int ATTACKER = 5;
+			static final int DEFENDER = 6;
+			static final int COLLECTOR = 7;
+			static final int HEALER = 8;
 		}
 		static class REWARD_VALUES
 		{
@@ -649,6 +662,12 @@ public class WidgetID
 	static class Raids
 	{
 		static final int POINTS_INFOBOX = 6;
+	}
+
+	static class TheatreOfBlood
+	{
+		static final int ORB_BOX = 10;
+		static final int BOSS_HEALTH_BAR = 35;
 	}
 
 	static class ExperienceDrop
@@ -954,9 +973,9 @@ public class WidgetID
 		static final int ATTACK_RANGE = 59;  // OUTDATED?
 		static final int BOUNTY_HUNTER_INFO = 19;
 		static final int KILLDEATH_RATIO = 15;
-		static final int SKULL_CONTAINER = 62;
-		static final int SAFE_ZONE = 64;
-		static final int WILDERNESS_LEVEL = 67; // this can also be the Deadman Mode "Protection" text
+		static final int SKULL_CONTAINER = 61;
+		static final int SAFE_ZONE = 63;
+		static final int WILDERNESS_LEVEL = 66; // this can also be the Deadman Mode "Protection" text
 	}
 
 	static class KourendFavour
@@ -1039,12 +1058,13 @@ public class WidgetID
 	static class KeptOnDeath
 	{
 		static final int KEPT_ITEMS_CONTAINER = 18;
+		static final int KEPT_ITEMS_TEXT = 17;
+		static final int LOST_ITEMS_TEXT = 20;
 		static final int LOST_ITEMS_CONTAINER = 21;
 		static final int LOST_ITEMS_VALUE = 23;
 		static final int INFORMATION_CONTAINER = 29;
 		static final int MAX_ITEMS_KEPT_ON_DEATH = 30;
 		static final int SAFE_ZONE_CONTAINER = 31;
-
 		static final int CUSTOM_TEXT_CONTAINER = 33;
 	}
 

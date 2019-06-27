@@ -143,8 +143,10 @@ public interface RSClient extends RSGameShell, Client
 	@Import("gameState")
 	int getRSGameState();
 
+	@Import("updateGameState")
+	void setGameState(int gameState);
+
 	@Import("checkClick")
-	@Override
 	void setCheckClick(boolean checkClick);
 
 	@Import("Scene_selectedScreenX")
@@ -295,6 +297,7 @@ public interface RSClient extends RSGameShell, Client
 	boolean isCheckClick();
 
 	@Import("menuOptionsCount")
+	@Override
 	int getMenuOptionCount();
 
 	@Import("menuOptionsCount")
@@ -559,8 +562,8 @@ public interface RSClient extends RSGameShell, Client
 	@Import("soundLocations")
 	int[] getSoundLocations();
 
-	@Import("unknownSoundValues1")
-	int[] getUnknownSoundValues1();
+	@Import("queuedSoundEffectLoops")
+	int[] getQueuedSoundEffectLoops();
 
 	@Import("queuedSoundEffectDelays")
 	int[] getQueuedSoundEffectDelays();
@@ -570,6 +573,9 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("soundEffectCount")
 	void setQueuedSoundEffectCount(int queuedSoundEffectCount);
+
+	@Import("queueSoundEffect")
+	void queueSoundEffect(int id, int numLoops, int delay);
 
 	@Import("rasterProvider")
 	@Override
@@ -986,8 +992,14 @@ public interface RSClient extends RSGameShell, Client
 	void rasterizerDrawCircle(int x, int y, int r, int rgb);
 
 	@Import("HealthBarDefinition_cached")
-	@Override
 	RSEvictingDualNodeHashTable getHealthBarCache();
+
+	@Import("HealthBarDefinition_cachedSprites")
+	RSEvictingDualNodeHashTable getHealthBarSpriteCache();
+
+	@Import("renderSelf")
+	@Override
+	boolean getRenderSelf();
 
 	@Import("renderSelf")
 	@Override
@@ -995,10 +1007,31 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("mouseRecorder")
 	RSMouseRecorder getMouseRecorder();
-		
+
 	@Import("selectedSpellName")
 	String getSelectedSpellName();
-	
+
 	@Import("isSpellSelected")
 	boolean getIsSpellSelected();
+
+	@Import("readSoundEffect")
+	RSSoundEffect getTrack(RSAbstractIndexCache indexData, int id, int var0);
+
+	@Import("createRawPcmStream")
+	RSRawPcmStream createRawPcmStream(RSRawSound audioNode, int var0, int volume);
+
+	@Import("pcmStreamMixer")
+	RSPcmStreamMixer getSoundEffectAudioQueue();
+
+	@Import("indexCache4")
+	RSAbstractIndexCache getIndexCache4();
+
+	@Import("decimator")
+	RSDecimator getSoundEffectResampler();
+
+	@Import("soundEffectVolume")
+	int getSoundEffectVolume();
+
+	@Import("viewportWalking")
+	void setViewportWalking(boolean viewportWalking);
 }

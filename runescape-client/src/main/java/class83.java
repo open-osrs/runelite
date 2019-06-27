@@ -9,16 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("cm")
 public class class83 {
    @ObfuscatedName("m")
-   @Export("__cm_m")
    static final BigInteger __cm_m;
    @ObfuscatedName("f")
-   @Export("__cm_f")
    static final BigInteger __cm_f;
    @ObfuscatedName("e")
    @ObfuscatedGetter(
       intValue = 533653621
    )
-   @Export("__cm_e")
    public static int __cm_e;
 
    static {
@@ -60,6 +57,6 @@ public class class83 {
       garbageValue = "1413048059"
    )
    public static IndexedSprite method2028(AbstractIndexCache var0, int var1) {
-      return !class179.method3643(var0, var1)?null:ServerPacket.method3663();
+      return !RouteStrategy.loadSpriteFlat(var0, var1)?null:ServerPacket.createIndexedSprite();
    }
 }

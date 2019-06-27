@@ -5,7 +5,6 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ay")
 public class class32 {
    @ObfuscatedName("u")
-   @Export("__ay_u")
    static byte[][][] __ay_u;
    @ObfuscatedName("gj")
    @ObfuscatedSignature(
@@ -23,7 +22,7 @@ public class class32 {
       Widget var3;
       if(var0 >= 2000) {
          var0 -= 1000;
-         var3 = Huffman.getWidget(Interpreter.Interpreter_intStack[--class179.Interpreter_intStackSize]);
+         var3 = Huffman.getWidget(Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize]);
       } else {
          var3 = var2?WorldMapIcon1.__t_i:class12.__n_n;
       }
@@ -32,7 +31,7 @@ public class class32 {
       if(var0 != 1200 && var0 != 1205 && var0 != 1212) {
          if(var0 == 1201) {
             var3.modelType = 2;
-            var3.modelId = Interpreter.Interpreter_intStack[--class179.Interpreter_intStackSize];
+            var3.modelId = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
             return 1;
          } else if(var0 == 1202) {
             var3.modelType = 3;
@@ -42,9 +41,9 @@ public class class32 {
             return 2;
          }
       } else {
-         class179.Interpreter_intStackSize -= 2;
-         int var4 = Interpreter.Interpreter_intStack[class179.Interpreter_intStackSize];
-         int var5 = Interpreter.Interpreter_intStack[class179.Interpreter_intStackSize + 1];
+         RouteStrategy.Interpreter_intStackSize -= 2;
+         int var4 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
+         int var5 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
          var3.itemId = var4;
          var3.itemQuantity = var5;
          ItemDefinition var6 = Skills.getItemDefinition(var4);

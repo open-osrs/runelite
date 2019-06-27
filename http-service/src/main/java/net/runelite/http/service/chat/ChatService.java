@@ -24,13 +24,11 @@
  */
 package net.runelite.http.service.chat;
 
-import com.google.common.collect.ImmutableMap;
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
+import net.runelite.http.api.chat.ChatClient;
 import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.chat.House;
-import net.runelite.http.api.chat.Task;
 import net.runelite.http.service.util.redis.RedisPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +40,8 @@ public class ChatService
 	private static final Duration EXPIRE = Duration.ofMinutes(2);
 
 	private final RedisPool jedisPool;
+	private final ChatClient chatClient = new ChatClient();
+
 
 	@Autowired
 	public ChatService(RedisPool jedisPool)
@@ -49,115 +49,26 @@ public class ChatService
 		this.jedisPool = jedisPool;
 	}
 
-	public Integer getKc(String name, String boss)
+	public String getLayout(String name)
 	{
 		String value;
 		try (Jedis jedis = jedisPool.getResource())
 		{
-			value = jedis.get("kc." + name + "." + boss);
+			value = jedis.get("layout." + name);
 		}
-		return value == null ? null : Integer.parseInt(value);
+		return value;
 	}
 
-	public void setKc(String name, String boss, int kc)
+	public void setLayout(String name, String layout)
 	{
-		try (Jedis jedis = jedisPool.getResource())
+		if (!chatClient.testLayout(layout))
 		{
-			jedis.setex("kc." + name + "." + boss, (int) EXPIRE.getSeconds(), Integer.toString(kc));
+			throw new IllegalArgumentException(layout);
 		}
-	}
-
-	public Integer getQp(String name)
-	{
-		String value;
-		try (Jedis jedis = jedisPool.getResource())
-		{
-			value = jedis.get("qp." + name);
-		}
-		return value == null ? null : Integer.parseInt(value);
-	}
-
-	public void setQp(String name, int qp)
-	{
-		try (Jedis jedis = jedisPool.getResource())
-		{
-			jedis.setex("qp." + name, (int) EXPIRE.getSeconds(), Integer.toString(qp));
-		}
-	}
-
-	public Integer getGc(String name)
-	{
-		String value;
-		try (Jedis jedis = jedisPool.getResource())
-		{
-			value = jedis.get("gc." + name);
-		}
-		return value == null ? null : Integer.parseInt(value);
-	}
-
-	public void setGc(String name, int gc)
-	{
-		try (Jedis jedis = jedisPool.getResource())
-		{
-			jedis.setex("gc." + name, (int) EXPIRE.getSeconds(), Integer.toString(gc));
-		}
-	}
-
-	public Task getTask(String name)
-	{
-		Map<String, String> map;
 
 		try (Jedis jedis = jedisPool.getResource())
 		{
-			map = jedis.hgetAll("task." + name);
-		}
-
-		if (map.isEmpty())
-		{
-			return null;
-		}
-
-		Task task = new Task();
-		task.setTask(map.get("task"));
-		task.setAmount(Integer.parseInt(map.get("amount")));
-		task.setInitialAmount(Integer.parseInt(map.get("initialAmount")));
-		task.setLocation(map.get("location"));
-		return task;
-	}
-
-	public void setTask(String name, Task task)
-	{
-		Map<String, String> taskMap = ImmutableMap.<String, String>builderWithExpectedSize(4)
-			.put("task", task.getTask())
-			.put("amount", Integer.toString(task.getAmount()))
-			.put("initialAmount", Integer.toString(task.getInitialAmount()))
-			.put("location", task.getLocation())
-			.build();
-
-		String key = "task." + name;
-
-		try (Jedis jedis = jedisPool.getResource())
-		{
-			jedis.hmset(key, taskMap);
-			jedis.expire(key, (int) EXPIRE.getSeconds());
-		}
-	}
-
-	public Integer getPb(String name, String boss)
-	{
-		String value;
-		try (Jedis jedis = jedisPool.getResource())
-		{
-			value = jedis.get("pb." + boss + "." + name);
-		}
-		return value == null ? null : Integer.parseInt(value);
-	}
-
-	public void setPb(String name, String boss, int pb)
-	{
-		try (Jedis jedis = jedisPool.getResource())
-		{
-			jedis.setex("pb." + boss + "." + name, (int) EXPIRE.getSeconds(), Integer.toString(pb));
+			jedis.setex("layout." + name, (int) EXPIRE.getSeconds(), layout);
 		}
 	}
 

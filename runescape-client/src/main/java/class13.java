@@ -6,7 +6,6 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("i")
 public class class13 {
    @ObfuscatedName("x")
-   @Export("__i_x")
    static int[] __i_x;
    @ObfuscatedName("k")
    @ObfuscatedSignature(
@@ -18,8 +17,8 @@ public class class13 {
    @ObfuscatedGetter(
       intValue = -1810047523
    )
-   @Export("__i_af")
-   static int __i_af;
+   @Export("otpInt")
+   static int otpInt;
 
    @ObfuscatedName("f")
    @ObfuscatedSignature(

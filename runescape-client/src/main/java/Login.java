@@ -9,26 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Login")
 public class Login {
    @ObfuscatedName("f")
-   @Export("__cu_f")
    static boolean __cu_f;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = 1606541885
    )
-   @Export("__cu_q")
-   static int __cu_q;
+   @Export("xPadding")
+   static int xPadding;
    @ObfuscatedName("o")
    @ObfuscatedSignature(
       signature = "Llq;"
    )
-   @Export("__cu_o")
-   static IndexedSprite __cu_o;
+   @Export("titleboxSprite")
+   static IndexedSprite titleboxSprite;
    @ObfuscatedName("g")
    @ObfuscatedSignature(
       signature = "Lln;"
    )
-   @Export("__cu_g")
-   static Sprite __cu_g;
+   @Export("leftTitleSprite")
+   static Sprite leftTitleSprite;
    @ObfuscatedName("e")
    @ObfuscatedGetter(
       intValue = -184301597
@@ -39,14 +38,14 @@ public class Login {
    @ObfuscatedSignature(
       signature = "Llq;"
    )
-   @Export("__cu_d")
-   static IndexedSprite __cu_d;
+   @Export("options_buttons_0Sprite")
+   static IndexedSprite options_buttons_0Sprite;
    @ObfuscatedName("y")
    @ObfuscatedGetter(
       intValue = 932541923
    )
-   @Export("__cu_y")
-   static int __cu_y;
+   @Export("loginBoxX")
+   static int loginBoxX;
    @ObfuscatedName("b")
    @ObfuscatedGetter(
       intValue = -504870061
@@ -60,13 +59,11 @@ public class Login {
    @ObfuscatedGetter(
       intValue = 1077910071
    )
-   @Export("__cu_aj")
    static int __cu_aj;
    @ObfuscatedName("ac")
    @ObfuscatedGetter(
       intValue = 1677133239
    )
-   @Export("__cu_ac")
    static int __cu_ac;
    @ObfuscatedName("aw")
    @ObfuscatedGetter(
@@ -93,16 +90,13 @@ public class Login {
    @Export("Login_password")
    static String Login_password;
    @ObfuscatedName("aa")
-   @Export("__cu_aa")
    static boolean __cu_aa;
    @ObfuscatedName("ax")
-   @Export("__cu_ax")
    static boolean __cu_ax;
    @ObfuscatedName("ai")
    @Export("otp")
    static String otp;
    @ObfuscatedName("ba")
-   @Export("__cu_ba")
    static boolean __cu_ba;
    @ObfuscatedName("bb")
    @ObfuscatedGetter(
@@ -111,37 +105,35 @@ public class Login {
    @Export("currentLoginField")
    static int currentLoginField;
    @ObfuscatedName("bk")
-   @Export("__cu_bk")
-   static boolean __cu_bk;
+   @Export("worldSelectOpen")
+   static boolean worldSelectOpen;
    @ObfuscatedName("bl")
    @ObfuscatedGetter(
       intValue = 1431381579
    )
-   @Export("__cu_bl")
-   static int __cu_bl;
+   @Export("hoveredWorldIndex")
+   static int hoveredWorldIndex;
    @ObfuscatedName("br")
    @ObfuscatedGetter(
       intValue = -376233039
    )
-   @Export("__cu_br")
-   static int __cu_br;
+   @Export("worldSelectPage")
+   static int worldSelectPage;
    @ObfuscatedName("bj")
    @ObfuscatedGetter(
       intValue = 1548722671
    )
-   @Export("__cu_bj")
-   static int __cu_bj;
+   @Export("worldSelectPagesCount")
+   static int worldSelectPagesCount;
    @ObfuscatedName("bi")
    @ObfuscatedGetter(
       longValue = 803647694904294325L
    )
-   @Export("__cu_bi")
    static long __cu_bi;
    @ObfuscatedName("bz")
    @ObfuscatedGetter(
       longValue = -3234258972092460093L
    )
-   @Export("__cu_bz")
    static long __cu_bz;
    @ObfuscatedName("do")
    @ObfuscatedSignature(
@@ -151,8 +143,8 @@ public class Login {
    static IndexCache indexCache11;
 
    static {
-      __cu_q = 0;
-      __cu_y = __cu_q + 202;
+      xPadding = 0;
+      loginBoxX = xPadding + 202;
       Login_loadingPercent = 10;
       Login_loadingText = "";
       __cu_aj = -1;
@@ -168,10 +160,10 @@ public class Login {
       __cu_ax = false;
       __cu_ba = true;
       currentLoginField = 0;
-      __cu_bk = false;
-      __cu_bl = -1;
-      __cu_br = 0;
-      __cu_bj = 0;
+      worldSelectOpen = false;
+      hoveredWorldIndex = -1;
+      worldSelectPage = 0;
+      worldSelectPagesCount = 0;
       new DecimalFormat("##0.00");
       new class161();
       __cu_bi = -1L;

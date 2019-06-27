@@ -11,13 +11,11 @@ public class SpriteIds {
    @ObfuscatedGetter(
       intValue = 1673796151
    )
-   @Export("__m")
    public int __m;
    @ObfuscatedName("f")
    @ObfuscatedGetter(
       intValue = 159591367
    )
-   @Export("__f")
    public int __f;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
@@ -130,7 +128,7 @@ public class SpriteIds {
       garbageValue = "195396240"
    )
    public static Font method5823(AbstractIndexCache var0, AbstractIndexCache var1, int var2, int var3) {
-      if(!SpriteMask.method4392(var0, var2, var3)) {
+      if(!SpriteMask.loadSprite(var0, var2, var3)) {
          return null;
       } else {
          byte[] var5 = var1.takeRecord(var2, var3);

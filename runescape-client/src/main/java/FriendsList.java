@@ -17,7 +17,6 @@ public class FriendsList extends UserList {
    @ObfuscatedGetter(
       intValue = -217526077
    )
-   @Export("__x")
    int __x;
    @ObfuscatedName("d")
    @ObfuscatedSignature(
@@ -41,6 +40,7 @@ public class FriendsList extends UserList {
       signature = "(I)Ljs;",
       garbageValue = "-2063112195"
    )
+   @Export("newInstance")
    User newInstance() {
       return new Friend();
    }
@@ -50,6 +50,7 @@ public class FriendsList extends UserList {
       signature = "(II)[Ljs;",
       garbageValue = "861814350"
    )
+   @Export("newTypedArray")
    User[] newTypedArray(int var1) {
       return new Friend[var1];
    }
@@ -108,7 +109,7 @@ public class FriendsList extends UserList {
                      boolean var14 = true;
 
                      for(FriendLoginUpdate var13 = (FriendLoginUpdate)this.friendLoginUpdates.__f_438(); var13 != null; var13 = (FriendLoginUpdate)this.friendLoginUpdates.__q_439()) {
-                        if(var13.username.__equals_466(var4)) {
+                        if(var13.username.equals(var4)) {
                            if(var6 != 0 && var13.world == 0) {
                               var13.remove();
                               var14 = false;

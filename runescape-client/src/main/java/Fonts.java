@@ -14,25 +14,22 @@ public class Fonts {
    @Export("indexStore255")
    static IndexStore indexStore255;
    @ObfuscatedName("o")
-   @Export("__kz_o")
    static byte[][][] __kz_o;
    @ObfuscatedName("l")
    @ObfuscatedSignature(
       signature = "Lln;"
    )
-   @Export("__kz_l")
-   static Sprite __kz_l;
+   @Export("rightTitleSprite")
+   static Sprite rightTitleSprite;
    @ObfuscatedName("m")
    @ObfuscatedSignature(
       signature = "Lir;"
    )
-   @Export("__m")
    AbstractIndexCache __m;
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lir;"
    )
-   @Export("__f")
    AbstractIndexCache __f;
    @ObfuscatedName("q")
    @Export("map")

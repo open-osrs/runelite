@@ -1,10 +1,12 @@
 /*
- * Copyright (c) 2019. PKLite  - All Rights Reserved
- * Unauthorized modification, distribution, or possession of this source file, via any medium is strictly prohibited.
- * Proprietary and confidential. Refer to PKLite License file for more information on
- * full terms of this copyright and to determine what constitutes authorized use.
- * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
- *
+ * ******************************************************************************
+ *  * Copyright (c) 2019 RuneLitePlus
+ *  *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ *  *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
+ *  *  ST0NEWALL#9112
+ *  *   RuneLitePlus Discord: https://discord.gg/Q7wFtCe
+ *  *   RuneLitePlus website: https://runelitepl.us
+ *  *****************************************************************************
  */
 
 package net.runelite.client.plugins.pvptools;
@@ -44,6 +46,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
+import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.AsyncBufferedImage;
@@ -78,6 +81,9 @@ public class PvpToolsPlugin extends Plugin
 	@Inject
 	PvpToolsOverlay pvpToolsOverlay;
 
+	@Inject
+	PlayerCountOverlay playerCountOverlay;
+
 	boolean fallinHelperEnabled = false;
 	private PvpToolsPanel panel;
 	private MissingPlayersJFrame missingPlayersJFrame;
@@ -101,14 +107,19 @@ public class PvpToolsPlugin extends Plugin
 	@Inject
 	private ItemManager itemManager;
 
+	@Inject
+	private ChatMessageManager chatMessageManager;
+
 	private PvpToolsPlugin uhPvpToolsPlugin = this;
 
 	private static final String WALK_HERE = "WALK HERE";
 	private static final String CANCEL = "CANCEL";
+	private static final String CAST = "CAST";
 	private static final String ATTACK_OPTIONS_ATTACK = "ATTACK";
 	public static final HashSet<String> ATTACK_OPTIONS_KEYWORDS = new HashSet<>();
 		static
 		{
+			ATTACK_OPTIONS_KEYWORDS.add(CAST);
 			ATTACK_OPTIONS_KEYWORDS.add(ATTACK_OPTIONS_ATTACK);
 		}
 
@@ -173,16 +184,20 @@ public class PvpToolsPlugin extends Plugin
 	};
 
 	private final HotkeyListener renderselfHotkeyListener = new HotkeyListener(() -> config.renderSelf())
-	{ //TODO FIX
+	{
 		public void hotkeyPressed()
 		{
-			//client.toggleRenderSelf();
+			client.setRenderSelf(!client.getRenderSelf());
 		}
 	};
 
 	private int[] overheadCount = new int[]{0, 0, 0};
 
 	private List ignoredSpells = new ArrayList();
+	@Getter
+	private int enemyPlayerCount = 0;
+	@Getter
+	private int friendlyPlayerCount = 0;
 
 	private List<String> getMissingMembers()
 	{
@@ -239,6 +254,7 @@ public class PvpToolsPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		overlayManager.add(pvpToolsOverlay);
+		overlayManager.add(playerCountOverlay);
 
 		keyManager.registerKeyListener(fallinHotkeyListener);
 		keyManager.registerKeyListener(renderselfHotkeyListener);
@@ -276,6 +292,7 @@ public class PvpToolsPlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(pvpToolsOverlay);
+		overlayManager.remove(playerCountOverlay);
 		keyManager.unregisterKeyListener(fallinHotkeyListener);
 		keyManager.unregisterKeyListener(renderselfHotkeyListener);
 		clientToolbar.removeNavigation(navButton);
@@ -499,6 +516,7 @@ public class PvpToolsPlugin extends Plugin
 		}
 	}
 
+
 	/**
 	 * Enables or disables the fall in helper feature
 	 */
@@ -532,35 +550,37 @@ public class PvpToolsPlugin extends Plugin
 		panel.numMeleeJLabel.repaint();
 	}
 
-	/**
-	 *
-	 */
+
 	private void updatePlayers()
 	{
+		friendlyPlayerCount = 0;
+		enemyPlayerCount = 0;
 		if (config.countPlayers())
 		{
-			int cc = 0;
-			int other = 0;
 			for (Player p : client.getPlayers())
 			{
 				if (Objects.nonNull(p))
 				{
+					if (p.equals(client.getLocalPlayer()))
+					{
+						continue;
+					}
 					if (PvPUtil.isAttackable(client, p))
 					{
 						if (p.isClanMember())
 						{
-							cc++;
+							friendlyPlayerCount++;
 						}
 						else
 						{
-							other++;
+							enemyPlayerCount++;
 						}
 					}
 				}
 			}
 
-			panel.numOther.setText(htmlLabel("Other Player Count: ", String.valueOf(other)));
-			panel.numCC.setText(htmlLabel("Friendly Player Count: ", String.valueOf(cc)));
+			panel.numOther.setText(htmlLabel("Other Player Count: ", String.valueOf(enemyPlayerCount)));
+			panel.numCC.setText(htmlLabel("Friendly Player Count: ", String.valueOf(friendlyPlayerCount)));
 			panel.numCC.repaint();
 			panel.numOther.repaint();
 		}

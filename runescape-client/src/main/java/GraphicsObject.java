@@ -11,14 +11,13 @@ public final class GraphicsObject extends Entity {
    @ObfuscatedGetter(
       intValue = -1807262579
    )
-   @Export("__bw_d")
    static int __bw_d;
    @ObfuscatedName("k")
    @ObfuscatedSignature(
       signature = "Llq;"
    )
-   @Export("__bw_k")
-   static IndexedSprite __bw_k;
+   @Export("options_buttons_4Sprite")
+   static IndexedSprite options_buttons_4Sprite;
    @ObfuscatedName("fr")
    @ObfuscatedGetter(
       intValue = -438288575
@@ -130,6 +129,7 @@ public final class GraphicsObject extends Entity {
       signature = "(I)Ldu;",
       garbageValue = "-2134947096"
    )
+   @Export("getModel")
    protected final Model getModel() {
       SpotAnimationDefinition var1 = class50.getSpotAnimationDefinition(this.id);
       Model var2;

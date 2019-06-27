@@ -7,7 +7,6 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("fs")
 public class class168 {
    @ObfuscatedName("o")
-   @Export("__fs_o")
    public static File __fs_o;
    @ObfuscatedName("u")
    @ObfuscatedGetter(
@@ -37,8 +36,8 @@ public class class168 {
    @ObfuscatedGetter(
       intValue = 1181569415
    )
-   @Export("__fs_au")
-   static int __fs_au;
+   @Export("optionButtonSpriteSubWidth")
+   static int optionButtonSpriteSubWidth;
 
    static {
       randomDat = null;

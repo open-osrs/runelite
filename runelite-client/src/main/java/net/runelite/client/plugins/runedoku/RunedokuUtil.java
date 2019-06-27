@@ -1,3 +1,27 @@
+/*
+ * Copyright (c) 2019, gazivodag <https://github.com/gazivodag>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package net.runelite.client.plugins.runedoku;
 
 import java.awt.Color;
@@ -138,7 +162,14 @@ class RunedokuUtil
 				item = sudokuScreen.getWidgetItem(myIndex);
 				if (item != null)
 				{
-					myArr[i][ii] = RunedokuPiece.getById(item.getId()).getPieceForSudoku();
+					if (item.getId() != -1)
+					{
+						myArr[i][ii] = RunedokuPiece.getById(item.getId()).getPieceForSudoku();
+					}
+					else
+					{
+						myArr[i][ii] = 0;
+					}
 				}
 				else
 				{
@@ -147,6 +178,43 @@ class RunedokuUtil
 			}
 		}
 		return myArr;
+	}
+
+	/**
+	 * @param client
+	 * @return
+	 */
+	int getSelectedPiece(Client client)
+	{
+		for (int i = 91; i < 100; i++)
+		{
+			Widget selectedPieceWidget = client.getWidget(288, i);
+			if (!selectedPieceWidget.isHidden())
+			{
+				switch (i)
+				{
+					case 91:
+						return 8;
+					case 92:
+						return 6;
+					case 93:
+						return 4;
+					case 94:
+						return 2;
+					case 95:
+						return 1;
+					case 96:
+						return 3;
+					case 97:
+						return 5;
+					case 98:
+						return 7;
+					case 99:
+						return 9;
+				}
+			}
+		}
+		return -1;
 	}
 
 }

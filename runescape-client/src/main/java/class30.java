@@ -9,7 +9,6 @@ public class class30 {
    @ObfuscatedGetter(
       intValue = -1555836449
    )
-   @Export("__ar_qw")
    static int __ar_qw;
    @ObfuscatedName("m")
    @ObfuscatedSignature(
@@ -34,8 +33,8 @@ public class class30 {
    @ObfuscatedSignature(
       signature = "[Lln;"
    )
-   @Export("__ar_bd")
-   static Sprite[] __ar_bd;
+   @Export("worldSelectBackSprites")
+   static Sprite[] worldSelectBackSprites;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = -1474464623
@@ -65,7 +64,8 @@ public class class30 {
       signature = "(B)V",
       garbageValue = "49"
    )
-   static void method569() {
+   @Export("resetMenuEntries")
+   static void resetMenuEntries() {
       Client.menuOptionsCount = 0;
       Client.isMenuOpen = false;
       Client.menuActions[0] = "Cancel";
