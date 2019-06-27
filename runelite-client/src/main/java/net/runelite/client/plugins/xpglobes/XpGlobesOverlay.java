@@ -278,6 +278,16 @@ public class XpGlobesOverlay extends Overlay
 				String xpHrString = decimalFormat.format(xpHr);
 				tableComponent.addRow(ColorUtil.prependColorTag("XP per hour:", Color.ORANGE), xpHrString);
 			}
+			
+			if (config.enableTimeToLevel())
+			{
+				String timeLeft = xpTrackerService.getTimeTillGoal(mouseOverSkill.getSkill());
+				xpTooltip.getChildren().add(LineComponent.builder()
+					.left("Time left:")
+					.leftColor(Color.ORANGE)
+					.right(timeLeft)
+					.build());
+			}
 		}
 
 		xpTooltip.getChildren().add(tableComponent);
