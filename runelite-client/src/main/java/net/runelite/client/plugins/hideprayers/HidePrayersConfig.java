@@ -65,7 +65,7 @@ public interface HidePrayersConfig extends Config
 		hidden = true,
 		unhide = "showindividualprayers"
 	)
-	default boolean HideTHICK_SKIN()
+	default boolean ShowTHICK_SKIN()
 	{
 		return false;
 	}
@@ -93,7 +93,7 @@ public interface HidePrayersConfig extends Config
 		hidden = true,
 		unhide = "Showindividualprayers"
 	)
-	default boolean HideCLARITY_OF_THOUGHT()
+	default boolean ShowCLARITY_OF_THOUGHT()
 	{
 		return false;
 	}
