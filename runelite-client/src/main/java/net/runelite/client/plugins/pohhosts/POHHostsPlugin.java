@@ -271,7 +271,10 @@ public class POHHostsPlugin extends Plugin
 					house.setOccultAltarPresent(true);
 				}
 				// TODO: Get Spirit Tree ID
-				// TODO: Get Fairy Ring ID
+				if (obj.getId() == 29228)
+				{
+					house.setFairyRingPresent(true);
+				}
 				if (obj.getId() == SPIRITUAL_FAIRY_TREE)
 				{
 					house.setSpiritTreePresent(true);
