@@ -251,6 +251,8 @@ public class CoxPlugin extends Plugin
 						prayAgainstOlm = PrayAgainst.RANGED;
 						lastPrayTime = System.currentTimeMillis();
 						break;
+					case "the great olm's left claw clenches to protect itself temporarily.":
+						HandCripple = true;
 
 				}
 			}
