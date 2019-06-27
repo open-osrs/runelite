@@ -1142,7 +1142,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			swap(client, "empty", option, target, true);
 		}
 
-		else if (config.swapQuick() && option.equals("ring"))
+		else if (config.swapQuick() && (option.equals("ring") || option.equals("climb-down")))
 		{
 			swap(client, "quick-start", option, target, true);
 		}
@@ -1157,7 +1157,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			swap(client, "quick-open", option, target, true);
 		}
-
+		
 		else if (config.swapAdmire() && option.equals("admire"))
 		{
 			swap(client, "teleport", option, target, true);
