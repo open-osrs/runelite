@@ -538,7 +538,8 @@ public class ServerPacket {
       signature = "(I)Llq;",
       garbageValue = "2048918805"
    )
-   static IndexedSprite method3663() {
+   @Export("createIndexedSprite")
+   static IndexedSprite createIndexedSprite() {
       IndexedSprite var0 = new IndexedSprite();
       var0.width = class328.indexedSpriteWidth;
       var0.height = class328.indexedSpriteHeight;
@@ -553,7 +554,7 @@ public class ServerPacket {
       VarbitDefinition.indexedSpriteWidths = null;
       SecureRandomCallable.indexedSpriteHeights = null;
       class328.indexedSpritePalette = null;
-      class328.spritePixels = (byte[][])null;
+      class328.spritePixels = null;
       return var0;
    }
 
