@@ -94,7 +94,7 @@ public enum WorldType
 		DEADMAN_TOURNAMENT,
 		PVP,
 		SEASONAL_DEADMAN,
-		BOUNTY,
+		BOUNTY
 	);	
 
 	/**
