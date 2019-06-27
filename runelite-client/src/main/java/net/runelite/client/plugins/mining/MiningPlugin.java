@@ -215,8 +215,8 @@ public class MiningPlugin extends Plugin
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-
-		if (event.getWidget() != WidgetInfo.INVENTORY.getId() || event.getMenuAction() == MenuAction.RUNELITE)
+		//TODO: should work hopefully
+		if (event.getMenuAction() != MenuAction.RUNELITE || event.getActionParam1() != WidgetInfo.INVENTORY.getId())
 		{
 			return;
 		}
@@ -224,7 +224,7 @@ public class MiningPlugin extends Plugin
 		ItemContainer inventoryItemContainer = client.getItemContainer(InventoryID.INVENTORY);
 		Item[] inventoryItems = inventoryItemContainer.getItems();
 
-		switch (event.getMenuOption().toLowerCase())
+		switch (event.getOption().toLowerCase())
 		{
 			case FILL_OPTION:
 				int coalInInventoryCount = (int) Arrays.stream(inventoryItems).filter(i -> i.getId() == ItemID.COAL).count();
