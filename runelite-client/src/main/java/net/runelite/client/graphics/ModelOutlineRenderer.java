@@ -284,8 +284,7 @@ public class ModelOutlineRenderer
 	 * @param x1       The starting x position
 	 * @param x2       The ending x position
 	 */
-	private void simulateHorizontalLineRasterizationForOutline(
-		int pixelPos, int x1, int x2)
+	private void simulateHorizontalLineRasterizationForOutline(int pixelPos, int x1, int x2)
 	{
 		if (x2 > clipX2)
 		{
@@ -343,8 +342,7 @@ public class ModelOutlineRenderer
 	 * @param x3       The starting x position of the second line
 	 * @param x4       The ending x position of the second line
 	 */
-	private void outlineAroundHorizontalLine(
-		int pixelPos, int x1, int x2, int x3, int x4)
+	private void outlineAroundHorizontalLine(int pixelPos, int x1, int x2, int x3, int x4)
 	{
 		if (x1 < clipX1)
 		{
@@ -426,8 +424,7 @@ public class ModelOutlineRenderer
 	 * @param x3 The x position of the third vertex in the triangle
 	 * @param y3 The y position of the third vertex in the triangle
 	 */
-	private void simulateTriangleRasterizationForOutline(
-		int x1, int y1, int x2, int y2, int x3, int y3)
+	private void simulateTriangleRasterizationForOutline(int x1, int y1, int x2, int y2, int x3, int y3)
 	{
 		// Swap vertices so y1 <= y2 <= y3 using bubble sort
 		if (y1 > y2)
@@ -621,8 +618,7 @@ public class ModelOutlineRenderer
 	 * @param vertexOrientation The orientation of the vertices
 	 * @return Returns true if any of them are inside the clip area, otherwise false
 	 */
-	private boolean projectVertices(Model model,
-									final int localX, final int localY, final int localZ, final int vertexOrientation)
+	private boolean projectVertices(Model model, final int localX, final int localY, final int localZ, final int vertexOrientation)
 	{
 		final int cameraX = client.getCameraX();
 		final int cameraY = client.getCameraY();
@@ -748,8 +744,7 @@ public class ModelOutlineRenderer
 	 * @param innerColor   The color of the pixels of the outline closest to the model
 	 * @param outerColor   The color of the pixels of the outline furthest away from the model
 	 */
-	private void renderOutline(BufferedImage image, int outlineWidth,
-							   Color innerColor, Color outerColor)
+	private void renderOutline(BufferedImage image, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		int[] imageData = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		List<PixelDistanceAlpha> ps = getPriorityList(outlineWidth);
@@ -892,9 +887,7 @@ public class ModelOutlineRenderer
 	 * @param innerColor   The color of the pixels of the outline closest to the model
 	 * @param outerColor   The color of the pixels of the outline furthest away from the model
 	 */
-	private void drawModelOutline(Model model,
-								  int localX, int localY, int localZ, int orientation,
-								  int outlineWidth, Color innerColor, Color outerColor)
+	private void drawModelOutline(Model model, int localX, int localY, int localZ, int orientation, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		if (outlineWidth <= 0)
 		{
@@ -936,8 +929,7 @@ public class ModelOutlineRenderer
 		drawOutline(npc, outlineWidth, color, color);
 	}
 
-	public void drawOutline(NPC npc, int outlineWidth,
-							Color innerColor, Color outerColor)
+	public void drawOutline(NPC npc, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		int size = 1;
 		NPCDefinition composition = npc.getTransformedDefinition();
@@ -965,8 +957,7 @@ public class ModelOutlineRenderer
 		drawOutline(player, outlineWidth, color, color);
 	}
 
-	public void drawOutline(Player player, int outlineWidth,
-							Color innerColor, Color outerColor)
+	public void drawOutline(Player player, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = player.getLocalLocation();
 		if (lp != null)
@@ -977,8 +968,7 @@ public class ModelOutlineRenderer
 		}
 	}
 
-	private void drawOutline(GameObject gameObject,
-							 int outlineWidth, Color innerColor, Color outerColor)
+	private void drawOutline(GameObject gameObject, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = gameObject.getLocalLocation();
 		if (lp != null)
@@ -989,8 +979,7 @@ public class ModelOutlineRenderer
 		}
 	}
 
-	private void drawOutline(GroundObject groundObject,
-							 int outlineWidth, Color innerColor, Color outerColor)
+	private void drawOutline(GroundObject groundObject,  int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = groundObject.getLocalLocation();
 		if (lp != null)
@@ -1001,8 +990,7 @@ public class ModelOutlineRenderer
 		}
 	}
 
-	private void drawOutline(ItemLayer itemLayer,
-							 int outlineWidth, Color innerColor, Color outerColor)
+	private void drawOutline(ItemLayer itemLayer, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = itemLayer.getLocalLocation();
 		if (lp != null)
@@ -1033,8 +1021,7 @@ public class ModelOutlineRenderer
 		}
 	}
 
-	private void drawOutline(DecorativeObject decorativeObject,
-							 int outlineWidth, Color innerColor, Color outerColor)
+	private void drawOutline(DecorativeObject decorativeObject, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = decorativeObject.getLocalLocation();
 		if (lp != null)
@@ -1060,8 +1047,7 @@ public class ModelOutlineRenderer
 		}
 	}
 
-	private void drawOutline(WallObject wallObject,
-							 int outlineWidth, Color innerColor, Color outerColor)
+	private void drawOutline(WallObject wallObject, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = wallObject.getLocalLocation();
 		if (lp != null)
@@ -1084,8 +1070,7 @@ public class ModelOutlineRenderer
 		}
 	}
 
-	public void drawOutline(TileObject tileObject,
-							int outlineWidth, Color color)
+	public void drawOutline(TileObject tileObject, int outlineWidth, Color color)
 	{
 		drawOutline(tileObject, outlineWidth, color, color);
 	}
