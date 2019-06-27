@@ -39,6 +39,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
@@ -96,7 +97,7 @@ public class MenuManager
 	private final Set<ComparableEntry> hiddenEntries = new HashSet<>();
 
 	private final Map<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
-	private final Map<MenuEntry, Integer> originalTypes = new HashMap<>();
+	private EntryTypeMapping originalType;
 
 	@Inject
 	private MenuManager(Client client, EventBus eventBus)
@@ -169,12 +170,11 @@ public class MenuManager
 	@Subscribe
 	private void onClientTick(ClientTick event)
 	{
-		originalTypes.clear();
+		originalType = null;
 		currentPriorityEntries.clear();
 		client.sortMenuEntries();
 
 		MenuEntry[] oldEntries = client.getMenuEntries();
-
 		List<MenuEntry> newEntries = Lists.newArrayList(oldEntries);
 
 		for (MenuEntry entry : oldEntries)
@@ -188,7 +188,7 @@ public class MenuManager
 			}
 
 			// If there are entries we want to prioritize, we have to remove the rest
-			if (!currentPriorityEntries.isEmpty())
+			if (!currentPriorityEntries.isEmpty() && !client.isMenuOpen())
 			{
 				newEntries.retainAll(currentPriorityEntries);
 
@@ -203,7 +203,7 @@ public class MenuManager
 							continue;
 						}
 
-						for (MenuEntry e2 : oldEntries)
+						for (MenuEntry e2 : client.getMenuEntries())
 						{
 							if (e.getType() == e2.getType())
 							{
@@ -231,7 +231,7 @@ public class MenuManager
 			}
 		}
 
-		if (!currentPriorityEntries.isEmpty())
+		if (!currentPriorityEntries.isEmpty() && !client.isMenuOpen())
 		{
 			newEntries.add(0, CANCEL());
 		}
@@ -263,8 +263,9 @@ public class MenuManager
 						int newType = getLeftClickType(type);
 						if (newType != -1 && newType != type)
 						{
+							MenuEntry original = MenuEntry.copy(e);
 							e.setType(newType);
-							originalTypes.put(e, type);
+							originalType = new EntryTypeMapping(new ComparableEntry(e), original);
 						}
 					}
 
@@ -398,18 +399,18 @@ public class MenuManager
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (originalTypes.containsKey(event.getMenuEntry()) &&
-			!event.getTarget().equals("do not edit"))
+		// Type is changed in check
+		if (originalType != null && originalType.check(event))
 		{
 			event.consume();
 
 			client.invokeMenuAction(
 				event.getActionParam0(),
 				event.getActionParam1(),
-				originalTypes.get(event.getMenuEntry()),
+				event.getType(),
 				event.getIdentifier(),
-				event.getOption(),
 				"do not edit",
+				event.getTarget(),
 				client.getMouseCanvasPosition().getX(),
 				client.getMouseCanvasPosition().getY()
 			);
@@ -737,5 +738,25 @@ public class MenuManager
 	public void removeHiddenEntry(ComparableEntry entry)
 	{
 		hiddenEntries.remove(entry);
+	}
+
+	@AllArgsConstructor
+	private class EntryTypeMapping
+	{
+		private final ComparableEntry comparable;
+		private final MenuEntry target;
+
+		private boolean check(MenuOptionClicked event)
+		{
+			MenuEntry entry = event.getMenuEntry();
+
+			if (!entry.getTarget().equals(entry.getOption()) && !comparable.matches(entry))
+			{
+				return false;
+			}
+
+			event.setMenuEntry(target);
+			return true;
+		}
 	}
 }
