@@ -11,27 +11,32 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_m;
+   @Export("rebuildNormal")
+   public static final ServerPacket rebuildNormal;
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_f;
+   @Export("logoutFull")
+   public static final ServerPacket logoutFull;
    @ObfuscatedName("q")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_q;
+   @Export("cameraReset")
+   public static final ServerPacket cameraReset;
    @ObfuscatedName("w")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_w;
+   @Export("gameMessage")
+   public static final ServerPacket gameMessage;
    @ObfuscatedName("o")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_o;
+   @Export("varpLarge")
+   public static final ServerPacket varpLarge;
    @ObfuscatedName("u")
    @ObfuscatedSignature(
       signature = "Lge;"
@@ -41,7 +46,8 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_g;
+   @Export("locAdd")
+   public static final ServerPacket locAdd;
    @ObfuscatedName("l")
    @ObfuscatedSignature(
       signature = "Lge;"
@@ -51,42 +57,50 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_e;
+   @Export("mapAnimation")
+   public static final ServerPacket mapAnimation;
    @ObfuscatedName("x")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_x;
+   @Export("closeSub")
+   public static final ServerPacket closeSub;
    @ObfuscatedName("d")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_d;
+   @Export("privateMessage")
+   public static final ServerPacket privateMessage;
    @ObfuscatedName("k")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_k;
+   @Export("mapProjectile")
+   public static final ServerPacket mapProjectile;
    @ObfuscatedName("n")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_n;
+   @Export("soundArea")
+   public static final ServerPacket soundArea;
    @ObfuscatedName("i")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_i;
+   @Export("locDel")
+   public static final ServerPacket locDel;
    @ObfuscatedName("a")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_a;
+   @Export("objDel")
+   public static final ServerPacket objDel;
    @ObfuscatedName("z")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_z;
+   @Export("objCount")
+   public static final ServerPacket objCount;
    @ObfuscatedName("j")
    @ObfuscatedSignature(
       signature = "Lge;"
@@ -96,52 +110,62 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_s;
+   @Export("updateZonePartialEnclosed")
+   public static final ServerPacket updateZonePartialEnclosed;
    @ObfuscatedName("t")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_t;
+   @Export("urlOpen")
+   public static final ServerPacket urlOpen;
    @ObfuscatedName("y")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_y;
+   @Export("setText")
+   public static final ServerPacket setText;
    @ObfuscatedName("h")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_h;
+   @Export("setObject")
+   public static final ServerPacket setObject;
    @ObfuscatedName("b")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_b;
+   @Export("setHide")
+   public static final ServerPacket setHide;
    @ObfuscatedName("c")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_c;
+   @Export("updateStat")
+   public static final ServerPacket updateStat;
    @ObfuscatedName("r")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_r;
+   @Export("midiSong")
+   public static final ServerPacket midiSong;
    @ObfuscatedName("p")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_p;
+   @Export("setColor")
+   public static final ServerPacket setColor;
    @ObfuscatedName("v")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_v;
+   @Export("updateZoneFullFollows")
+   public static final ServerPacket updateZoneFullFollows;
    @ObfuscatedName("ag")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ag;
+   @Export("objAdd")
+   public static final ServerPacket objAdd;
    @ObfuscatedName("aq")
    @ObfuscatedSignature(
       signature = "Lge;"
@@ -151,32 +175,38 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_aj;
+   @Export("resetAnimationsPacket")
+   public static final ServerPacket resetAnimationsPacket;
    @ObfuscatedName("av")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_av;
+   @Export("friendsListLoaded")
+   public static final ServerPacket friendsListLoaded;
    @ObfuscatedName("ar")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ar;
+   @Export("setPlayerHead")
+   public static final ServerPacket setPlayerHead;
    @ObfuscatedName("ac")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ac;
+   @Export("setModel")
+   public static final ServerPacket setModel;
    @ObfuscatedName("ay")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ay;
+   @Export("updateIgnoreList")
+   public static final ServerPacket updateIgnoreList;
    @ObfuscatedName("ah")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ah;
+   @Export("npcInfoSmall")
+   public static final ServerPacket npcInfoSmall;
    @ObfuscatedName("ak")
    @ObfuscatedSignature(
       signature = "Lge;"
@@ -186,32 +216,38 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_aw;
+   @Export("setNpcHead")
+   public static final ServerPacket setNpcHead;
    @ObfuscatedName("al")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_al;
+   @Export("updateHintArrow")
+   public static final ServerPacket updateHintArrow;
    @ObfuscatedName("ab")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ab;
+   @Export("updateSiteSettings")
+   public static final ServerPacket updateSiteSettings;
    @ObfuscatedName("ae")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ae;
+   @Export("privateMessageEcho")
+   public static final ServerPacket privateMessageEcho;
    @ObfuscatedName("at")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_at;
+   @Export("cameraShake")
+   public static final ServerPacket cameraShake;
    @ObfuscatedName("ad")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ad;
+   @Export("midiJingle")
+   public static final ServerPacket midiJingle;
    @ObfuscatedName("ap")
    @ObfuscatedSignature(
       signature = "Lge;"
@@ -221,67 +257,80 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_as;
+   @Export("locGraphic")
+   public static final ServerPacket locGraphic;
    @ObfuscatedName("am")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_am;
+   @Export("updateFriendsChatFull")
+   public static final ServerPacket updateFriendsChatFull;
    @ObfuscatedName("an")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_an;
+   @Export("updateInventoryPartial")
+   public static final ServerPacket updateInventoryPartial;
    @ObfuscatedName("az")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_az;
+   @Export("updateFriendsChatSingleUser")
+   public static final ServerPacket updateFriendsChatSingleUser;
    @ObfuscatedName("au")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_au;
+   @Export("updateInventoryStopTransmit")
+   public static final ServerPacket updateInventoryStopTransmit;
    @ObfuscatedName("ao")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ao;
+   @Export("logoutTransfer")
+   public static final ServerPacket logoutTransfer;
    @ObfuscatedName("aa")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_aa;
+   @Export("setEvents")
+   public static final ServerPacket setEvents;
    @ObfuscatedName("ax")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ax;
+   @Export("updateDecorationAtTile")
+   public static final ServerPacket updateDecorationAtTile;
    @ObfuscatedName("af")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_af;
+   @Export("setAngle")
+   public static final ServerPacket setAngle;
    @ObfuscatedName("ai")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ai;
+   @Export("rebuildRegion")
+   public static final ServerPacket rebuildRegion;
    @ObfuscatedName("ba")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ba;
+   @Export("triggerOnDialogAbort")
+   public static final ServerPacket triggerOnDialogAbort;
    @ObfuscatedName("bb")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bb;
+   @Export("reflectionCheck")
+   public static final ServerPacket reflectionCheck;
    @ObfuscatedName("bs")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bs;
+   @Export("friendsChatMessage")
+   public static final ServerPacket friendsChatMessage;
    @ObfuscatedName("bq")
    @ObfuscatedSignature(
       signature = "Lge;"
@@ -296,142 +345,170 @@ public class ServerPacket {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bk;
+   @Export("updateUid")
+   public static final ServerPacket updateUid;
    @ObfuscatedName("bd")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bd;
+   @Export("updateFriendsList")
+   public static final ServerPacket updateFriendsList;
    @ObfuscatedName("bc")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bc;
+   @Export("setPosition")
+   public static final ServerPacket setPosition;
    @ObfuscatedName("bo")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bo;
+   @Export("updatePlayerRunEnergy")
+   public static final ServerPacket updatePlayerRunEnergy;
    @ObfuscatedName("bx")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bx;
+   @Export("setAnimation")
+   public static final ServerPacket setAnimation;
    @ObfuscatedName("by")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_by;
+   @Export("runClientScript")
+   public static final ServerPacket runClientScript;
    @ObfuscatedName("bu")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bu;
+   @Export("varpSmall")
+   public static final ServerPacket varpSmall;
    @ObfuscatedName("bm")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bm;
+   @Export("updateZonePartialFollows")
+   public static final ServerPacket updateZonePartialFollows;
    @ObfuscatedName("bl")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bl;
+   @Export("synthSound")
+   public static final ServerPacket synthSound;
    @ObfuscatedName("br")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_br;
+   @Export("setPlayerOps")
+   public static final ServerPacket setPlayerOps;
    @ObfuscatedName("bj")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bj;
+   @Export("updateDestination")
+   public static final ServerPacket updateDestination;
    @ObfuscatedName("bi")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bi;
+   @Export("setPrivateChatFilter")
+   public static final ServerPacket setPrivateChatFilter;
    @ObfuscatedName("bz")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bz;
+   @Export("pingStatisticsRequest")
+   public static final ServerPacket pingStatisticsRequest;
    @ObfuscatedName("bg")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bg;
+   @Export("updateInventoryFull")
+   public static final ServerPacket updateInventoryFull;
    @ObfuscatedName("bt")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bt;
+   @Export("updatePlayerWeight")
+   public static final ServerPacket updatePlayerWeight;
    @ObfuscatedName("bp")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bp;
+   @Export("updateRebootTimer")
+   public static final ServerPacket updateRebootTimer;
    @ObfuscatedName("bf")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bf;
+   @Export("syncClientVarcache")
+   public static final ServerPacket syncClientVarcache;
    @ObfuscatedName("bh")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bh;
+   @Export("minimapToggleRender")
+   public static final ServerPacket minimapToggleRender;
    @ObfuscatedName("be")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_be;
+   @Export("setCameraPosForCutscene")
+   public static final ServerPacket setCameraPosForCutscene;
    @ObfuscatedName("bv")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bv;
+   @Export("setScrollPosition")
+   public static final ServerPacket setScrollPosition;
    @ObfuscatedName("bw")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_bw;
+   @Export("openSub")
+   public static final ServerPacket openSub;
    @ObfuscatedName("cr")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_cr;
+   @Export("resetClientVarcache")
+   public static final ServerPacket resetClientVarcache;
    @ObfuscatedName("cv")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_cv;
+   @Export("playerInfo")
+   public static final ServerPacket playerInfo;
    @ObfuscatedName("ce")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_ce;
+   @Export("setChatFilter")
+   public static final ServerPacket setChatFilter;
    @ObfuscatedName("cy")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_cy;
+   @Export("updateNpcsPacket")
+   public static final ServerPacket updateNpcsPacket;
    @ObfuscatedName("cs")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_cs;
+   @Export("moveSub")
+   public static final ServerPacket moveSub;
    @ObfuscatedName("cm")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_cm;
+   @Export("cameraLookAt")
+   public static final ServerPacket cameraLookAt;
    @ObfuscatedName("cj")
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   public static final ServerPacket __ge_cj;
+   @Export("openTop")
+   public static final ServerPacket openTop;
    @ObfuscatedName("ix")
    @ObfuscatedGetter(
       intValue = -1645409107
@@ -451,94 +528,6 @@ public class ServerPacket {
    @Export("length")
    public final int length;
 
-   static {
-      __ge_m = new ServerPacket(0, -2);
-      __ge_f = new ServerPacket(1, 0);
-      __ge_q = new ServerPacket(2, 0);
-      __ge_w = new ServerPacket(3, -1);
-      __ge_o = new ServerPacket(4, 6);
-      __ge_u = new ServerPacket(5, 4);
-      __ge_g = new ServerPacket(6, 4);
-      __ge_l = new ServerPacket(7, 4);
-      __ge_e = new ServerPacket(8, 6);
-      __ge_x = new ServerPacket(9, 4);
-      __ge_d = new ServerPacket(10, -2);
-      __ge_k = new ServerPacket(11, 15);
-      __ge_n = new ServerPacket(12, 5);
-      __ge_i = new ServerPacket(13, 2);
-      __ge_a = new ServerPacket(14, 3);
-      __ge_z = new ServerPacket(15, 7);
-      __ge_j = new ServerPacket(16, 1);
-      __ge_s = new ServerPacket(17, -2);
-      __ge_t = new ServerPacket(18, -2);
-      __ge_y = new ServerPacket(19, -2);
-      __ge_h = new ServerPacket(20, 10);
-      __ge_b = new ServerPacket(21, 5);
-      __ge_c = new ServerPacket(22, 6);
-      __ge_r = new ServerPacket(23, 2);
-      __ge_p = new ServerPacket(24, 6);
-      __ge_v = new ServerPacket(25, 2);
-      __ge_ag = new ServerPacket(26, 5);
-      __ge_aq = new ServerPacket(27, -2);
-      __ge_aj = new ServerPacket(28, 0);
-      __ge_av = new ServerPacket(29, 0);
-      __ge_ar = new ServerPacket(30, 4);
-      __ge_ac = new ServerPacket(31, 6);
-      __ge_ay = new ServerPacket(32, -2);
-      __ge_ah = new ServerPacket(33, -2);
-      __ge_ak = new ServerPacket(34, 1);
-      __ge_aw = new ServerPacket(35, 6);
-      __ge_al = new ServerPacket(36, 6);
-      __ge_ab = new ServerPacket(37, -1);
-      __ge_ae = new ServerPacket(38, -2);
-      __ge_at = new ServerPacket(39, 4);
-      __ge_ad = new ServerPacket(40, 5);
-      __ge_ap = new ServerPacket(41, 8);
-      __ge_as = new ServerPacket(42, 14);
-      __ge_am = new ServerPacket(43, -2);
-      __ge_an = new ServerPacket(44, -2);
-      __ge_az = new ServerPacket(45, -1);
-      __ge_au = new ServerPacket(46, 2);
-      __ge_ao = new ServerPacket(47, -1);
-      __ge_aa = new ServerPacket(48, 12);
-      __ge_ax = new ServerPacket(49, 4);
-      __ge_af = new ServerPacket(50, 10);
-      __ge_ai = new ServerPacket(51, -2);
-      __ge_ba = new ServerPacket(52, 0);
-      __ge_bb = new ServerPacket(53, -2);
-      __ge_bs = new ServerPacket(54, -1);
-      __ge_bq = new ServerPacket(55, 20);
-      __ge_bn = new ServerPacket(56, -2);
-      __ge_bk = new ServerPacket(57, 28);
-      __ge_bd = new ServerPacket(58, -2);
-      __ge_bc = new ServerPacket(59, 8);
-      __ge_bo = new ServerPacket(60, 1);
-      __ge_bx = new ServerPacket(61, 6);
-      __ge_by = new ServerPacket(62, -2);
-      __ge_bu = new ServerPacket(63, 3);
-      __ge_bm = new ServerPacket(64, 2);
-      __ge_bl = new ServerPacket(65, 5);
-      __ge_br = new ServerPacket(66, -1);
-      __ge_bj = new ServerPacket(67, 2);
-      __ge_bi = new ServerPacket(68, 1);
-      __ge_bz = new ServerPacket(69, 8);
-      __ge_bg = new ServerPacket(70, -2);
-      __ge_bt = new ServerPacket(71, 2);
-      __ge_bp = new ServerPacket(72, 2);
-      __ge_bf = new ServerPacket(73, 0);
-      __ge_bh = new ServerPacket(74, 1);
-      __ge_be = new ServerPacket(75, 6);
-      __ge_bv = new ServerPacket(76, 6);
-      __ge_bw = new ServerPacket(77, 7);
-      __ge_cr = new ServerPacket(78, 0);
-      __ge_cv = new ServerPacket(79, -2);
-      __ge_ce = new ServerPacket(80, 2);
-      __ge_cy = new ServerPacket(81, -2);
-      __ge_cs = new ServerPacket(82, 8);
-      __ge_cm = new ServerPacket(83, 6);
-      __ge_cj = new ServerPacket(84, 2);
-   }
-
    ServerPacket(int var1, int var2) {
       this.id = var1;
       this.length = var2;
@@ -549,8 +538,7 @@ public class ServerPacket {
       signature = "(I)Llq;",
       garbageValue = "2048918805"
    )
-   @Export("createIndexedSprite")
-   static IndexedSprite createIndexedSprite() {
+   static IndexedSprite method3663() {
       IndexedSprite var0 = new IndexedSprite();
       var0.width = class328.indexedSpriteWidth;
       var0.height = class328.indexedSpriteHeight;
@@ -565,7 +553,7 @@ public class ServerPacket {
       VarbitDefinition.indexedSpriteWidths = null;
       SecureRandomCallable.indexedSpriteHeights = null;
       class328.indexedSpritePalette = null;
-      class328.spritePixels = null;
+      class328.spritePixels = (byte[][])null;
       return var0;
    }
 
@@ -602,46 +590,134 @@ public class ServerPacket {
             int var20 = var18 & 3;
             if(var17 == var4 && var16 >= var5 && var16 < var5 + 8 && var15 >= var6 && var15 < var6 + 8) {
                ObjectDefinition var21 = class50.getObjectDefinition(var11);
-               int var24 = var16 & 7;
-               int var25 = var15 & 7;
-               int var27 = var21.sizeX;
-               int var28 = var21.sizeY;
-               int var29;
+               int var22 = var16 & 7;
+               int var23 = var15 & 7;
+               int var24 = var21.sizeX;
+               int var25 = var21.sizeY;
+               int var26;
                if((var20 & 1) == 1) {
-                  var29 = var27;
-                  var27 = var28;
-                  var28 = var29;
+                  var26 = var24;
+                  var24 = var25;
+                  var25 = var26;
                }
 
-               int var26 = var7 & 3;
-               int var23;
-               if(var26 == 0) {
-                  var23 = var24;
-               } else if(var26 == 1) {
-                  var23 = var25;
-               } else if(var26 == 2) {
-                  var23 = 7 - var24 - (var27 - 1);
+               int var27 = var7 & 3;
+               int var28;
+               if(var27 == 0) {
+                  var28 = var22;
+               } else if(var27 == 1) {
+                  var28 = var23;
+               } else if(var27 == 2) {
+                  var28 = 7 - var22 - (var24 - 1);
                } else {
-                  var23 = 7 - var25 - (var28 - 1);
+                  var28 = 7 - var23 - (var25 - 1);
                }
 
-               var29 = var2 + var23;
-               int var30 = var3 + class171.method3496(var16 & 7, var15 & 7, var7, var21.sizeX, var21.sizeY, var20);
-               if(var29 > 0 && var30 > 0 && var29 < 103 && var30 < 103) {
-                  int var31 = var1;
-                  if((Tiles.Tiles_renderFlags[1][var29][var30] & 2) == 2) {
-                     var31 = var1 - 1;
+               var26 = var2 + var28;
+               int var29 = var3 + class171.method3496(var16 & 7, var15 & 7, var7, var21.sizeX, var21.sizeY, var20);
+               if(var26 > 0 && var29 > 0 && var26 < 103 && var29 < 103) {
+                  int var30 = var1;
+                  if((Tiles.Tiles_renderFlags[1][var26][var29] & 2) == 2) {
+                     var30 = var1 - 1;
                   }
 
-                  CollisionMap var32 = null;
-                  if(var31 >= 0) {
-                     var32 = var9[var31];
+                  CollisionMap var31 = null;
+                  if(var30 >= 0) {
+                     var31 = var9[var30];
                   }
 
-                  class227.method4446(var1, var29, var30, var11, var20 + var7 & 3, var19, var8, var32);
+                  class227.method4446(var1, var26, var29, var11, var20 + var7 & 3, var19, var8, var31);
                }
             }
          }
       }
+   }
+
+   static {
+      rebuildNormal = new ServerPacket(0, -2);
+      logoutFull = new ServerPacket(1, 0);
+      cameraReset = new ServerPacket(2, 0);
+      gameMessage = new ServerPacket(3, -1);
+      varpLarge = new ServerPacket(4, 6);
+      __ge_u = new ServerPacket(5, 4);
+      locAdd = new ServerPacket(6, 4);
+      __ge_l = new ServerPacket(7, 4);
+      mapAnimation = new ServerPacket(8, 6);
+      closeSub = new ServerPacket(9, 4);
+      privateMessage = new ServerPacket(10, -2);
+      mapProjectile = new ServerPacket(11, 15);
+      soundArea = new ServerPacket(12, 5);
+      locDel = new ServerPacket(13, 2);
+      objDel = new ServerPacket(14, 3);
+      objCount = new ServerPacket(15, 7);
+      __ge_j = new ServerPacket(16, 1);
+      updateZonePartialEnclosed = new ServerPacket(17, -2);
+      urlOpen = new ServerPacket(18, -2);
+      setText = new ServerPacket(19, -2);
+      setObject = new ServerPacket(20, 10);
+      setHide = new ServerPacket(21, 5);
+      updateStat = new ServerPacket(22, 6);
+      midiSong = new ServerPacket(23, 2);
+      setColor = new ServerPacket(24, 6);
+      updateZoneFullFollows = new ServerPacket(25, 2);
+      objAdd = new ServerPacket(26, 5);
+      __ge_aq = new ServerPacket(27, -2);
+      resetAnimationsPacket = new ServerPacket(28, 0);
+      friendsListLoaded = new ServerPacket(29, 0);
+      setPlayerHead = new ServerPacket(30, 4);
+      setModel = new ServerPacket(31, 6);
+      updateIgnoreList = new ServerPacket(32, -2);
+      npcInfoSmall = new ServerPacket(33, -2);
+      __ge_ak = new ServerPacket(34, 1);
+      setNpcHead = new ServerPacket(35, 6);
+      updateHintArrow = new ServerPacket(36, 6);
+      updateSiteSettings = new ServerPacket(37, -1);
+      privateMessageEcho = new ServerPacket(38, -2);
+      cameraShake = new ServerPacket(39, 4);
+      midiJingle = new ServerPacket(40, 5);
+      __ge_ap = new ServerPacket(41, 8);
+      locGraphic = new ServerPacket(42, 14);
+      updateFriendsChatFull = new ServerPacket(43, -2);
+      updateInventoryPartial = new ServerPacket(44, -2);
+      updateFriendsChatSingleUser = new ServerPacket(45, -1);
+      updateInventoryStopTransmit = new ServerPacket(46, 2);
+      logoutTransfer = new ServerPacket(47, -1);
+      setEvents = new ServerPacket(48, 12);
+      updateDecorationAtTile = new ServerPacket(49, 4);
+      setAngle = new ServerPacket(50, 10);
+      rebuildRegion = new ServerPacket(51, -2);
+      triggerOnDialogAbort = new ServerPacket(52, 0);
+      reflectionCheck = new ServerPacket(53, -2);
+      friendsChatMessage = new ServerPacket(54, -1);
+      __ge_bq = new ServerPacket(55, 20);
+      __ge_bn = new ServerPacket(56, -2);
+      updateUid = new ServerPacket(57, 28);
+      updateFriendsList = new ServerPacket(58, -2);
+      setPosition = new ServerPacket(59, 8);
+      updatePlayerRunEnergy = new ServerPacket(60, 1);
+      setAnimation = new ServerPacket(61, 6);
+      runClientScript = new ServerPacket(62, -2);
+      varpSmall = new ServerPacket(63, 3);
+      updateZonePartialFollows = new ServerPacket(64, 2);
+      synthSound = new ServerPacket(65, 5);
+      setPlayerOps = new ServerPacket(66, -1);
+      updateDestination = new ServerPacket(67, 2);
+      setPrivateChatFilter = new ServerPacket(68, 1);
+      pingStatisticsRequest = new ServerPacket(69, 8);
+      updateInventoryFull = new ServerPacket(70, -2);
+      updatePlayerWeight = new ServerPacket(71, 2);
+      updateRebootTimer = new ServerPacket(72, 2);
+      syncClientVarcache = new ServerPacket(73, 0);
+      minimapToggleRender = new ServerPacket(74, 1);
+      setCameraPosForCutscene = new ServerPacket(75, 6);
+      setScrollPosition = new ServerPacket(76, 6);
+      openSub = new ServerPacket(77, 7);
+      resetClientVarcache = new ServerPacket(78, 0);
+      playerInfo = new ServerPacket(79, -2);
+      setChatFilter = new ServerPacket(80, 2);
+      updateNpcsPacket = new ServerPacket(81, -2);
+      moveSub = new ServerPacket(82, 8);
+      cameraLookAt = new ServerPacket(83, 6);
+      openTop = new ServerPacket(84, 2);
    }
 }
