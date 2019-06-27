@@ -282,11 +282,7 @@ public class XpGlobesOverlay extends Overlay
 			if (config.enableTimeToLevel())
 			{
 				String timeLeft = xpTrackerService.getTimeTillGoal(mouseOverSkill.getSkill());
-				xpTooltip.getChildren().add(LineComponent.builder()
-					.left("Time left:")
-					.leftColor(Color.ORANGE)
-					.right(timeLeft)
-					.build());
+				tableComponent.addRow(ColorUtil.prependColorTag("TimeLeft:", Color.ORANGE), timeleft);
 			}
 		}
 
