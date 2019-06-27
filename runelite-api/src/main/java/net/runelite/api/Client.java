@@ -362,7 +362,7 @@ public interface Client extends GameShell
 	 * @param scale the scale of the sprite
 	 * @return the created sprite
 	 */
-	Sprite createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale);
+	SpritePixels createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale);
 
 	/**
 	 * Loads and creates the sprite images of the passed archive and file IDs.
@@ -372,7 +372,7 @@ public interface Client extends GameShell
 	 * @param fileId the sprites file ID
 	 * @return the sprite image of the file
 	 */
-	Sprite[] getSprites(IndexDataBase source, int archiveId, int fileId);
+	SpritePixels[] getSprites(IndexDataBase source, int archiveId, int fileId);
 
 	/**
 	 * Gets the sprite index.
@@ -862,7 +862,7 @@ public interface Client extends GameShell
 	 *
 	 * @return all mini-map dots
 	 */
-	Sprite[] getMapDots();
+	SpritePixels[] getMapDots();
 
 	/**
 	 * Gets the local clients game cycle.
@@ -878,7 +878,7 @@ public interface Client extends GameShell
 	 *
 	 * @return the map icons
 	 */
-	Sprite[] getMapIcons();
+	SpritePixels[] getMapIcons();
 
 	/**
 	 * Gets an array of mod icon sprites.
@@ -910,7 +910,7 @@ public interface Client extends GameShell
 	 * @param height the height
 	 * @return the sprite image
 	 */
-	Sprite createSprite(int[] pixels, int width, int height);
+	SpritePixels createSpritePixels(int[] pixels, int width, int height);
 
 	/**
 	 * Gets the location of the local player.
@@ -1236,7 +1236,7 @@ public interface Client extends GameShell
 	 * @param z the plane
 	 * @return the map sprite
 	 */
-	Sprite drawInstanceMap(int z);
+	SpritePixels drawInstanceMap(int z);
 
 	/**
 	 * Executes a client script from the cache
@@ -1482,7 +1482,7 @@ public interface Client extends GameShell
 	 * The key value in the map corresponds to the ID of the sprite,
 	 * and the value the sprite to replace it with.
 	 */
-	Map<Integer, Sprite> getSpriteOverrides();
+	Map<Integer, SpritePixels> getSpriteOverrides();
 
 	/**
 	 * Gets a mapping of widget sprites to override.
@@ -1490,14 +1490,14 @@ public interface Client extends GameShell
 	 * The key value in the map corresponds to the packed widget ID,
 	 * and the value the sprite to replace the widgets sprite with.
 	 */
-	Map<Integer, Sprite> getWidgetSpriteOverrides();
+	Map<Integer, SpritePixels> getWidgetSpriteOverrides();
 
 	/**
 	 * Sets the compass sprite.
 	 *
 	 * @param Sprite the new sprite
 	 */
-	void setCompass(Sprite Sprite);
+	void setCompass(SpritePixels SpritePixels);
 
 	/**
 	 * Returns widget sprite cache, to be used with {@link Client#getSpriteOverrides()}
