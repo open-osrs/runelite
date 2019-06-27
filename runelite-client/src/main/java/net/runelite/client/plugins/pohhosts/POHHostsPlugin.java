@@ -39,7 +39,6 @@ import net.runelite.api.GraphicsObject;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
-import static net.runelite.api.ObjectID.*;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.LocalPoint;
@@ -60,6 +59,13 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.Text;
 import net.runelite.http.api.chat.ChatClient;
 import net.runelite.http.api.chat.House;
+import static net.runelite.api.ObjectID.ARMOUR_REPAIR_STAND;
+import static net.runelite.api.ObjectID.ALTAR_13197;
+import static net.runelite.api.ObjectID.ALTAR_OF_THE_OCCULT;
+import static net.runelite.api.ObjectID.SPIRITUAL_FAIRY_TREE;
+import static net.runelite.api.ObjectID.OBELISK_31554;
+import static net.runelite.api.ObjectID.COMBAT_DUMMY;
+import static net.runelite.api.ObjectID.UNDEAD_COMBAT_DUMMY;
 
 @PluginDescriptor(
 	name = "POH Hosts",
