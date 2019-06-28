@@ -97,7 +97,10 @@ public class ShiftWalkerPlugin extends Plugin
 			menuManager.addPriorityEntry(TAKE);
 		}
 		
-		menuManager.addPriorityEntry(WALK_HERE);
+		if (config.shiftWalk())
+		{
+			menuManager.addPriorityEntry(WALK_HERE);
+		}	
 	}
 
 	void stopPrioritizing()
