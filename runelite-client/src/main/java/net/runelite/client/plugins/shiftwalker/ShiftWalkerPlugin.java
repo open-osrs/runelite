@@ -92,7 +92,7 @@ public class ShiftWalkerPlugin extends Plugin
 
 	void startPrioritizing()
 	{
-		if(config.shiftLoot())
+		if (config.shiftLoot())
 		{
 			menuManager.addPriorityEntry(TAKE);
 		}
