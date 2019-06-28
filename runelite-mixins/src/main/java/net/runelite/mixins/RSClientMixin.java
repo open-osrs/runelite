@@ -1035,9 +1035,9 @@ public abstract class RSClientMixin implements RSClient
 		}
 		if (player != null)
 		{
-			PlayerDespawned playerDespawned = PlayerDespawned.INSTANCE;
-			playerDespawned.setPlayer(player);
-			client.getCallbacks().postDeferred(playerDespawned);
+			PlayerSpawned playerSpawned = PlayerSpawned.INSTANCE;
+			playerSpawned.setPlayer(player);
+			client.getCallbacks().postDeferred(playerSpawned);
 		}
 	}
 
