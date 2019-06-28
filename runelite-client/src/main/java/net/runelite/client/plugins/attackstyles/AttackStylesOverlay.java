@@ -39,16 +39,14 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 class AttackStylesOverlay extends Overlay
 {
 	private final AttackStylesPlugin plugin;
-	private final AttackStylesConfig config;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private AttackStylesOverlay(AttackStylesPlugin plugin, AttackStylesConfig config)
+	private AttackStylesOverlay(AttackStylesPlugin plugin)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
 		this.plugin = plugin;
-		this.config = config;
 		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Attack style overlay"));
 	}
 
@@ -58,7 +56,7 @@ class AttackStylesOverlay extends Overlay
 		panelComponent.getChildren().clear();
 		boolean warnedSkillSelected = plugin.isWarnedSkillSelected();
 
-		if (warnedSkillSelected || config.alwaysShowStyle())
+		if (warnedSkillSelected || plugin.isAlwaysShowStyle())
 		{
 			final String attackStyleString = plugin.getAttackStyle().getName();
 
