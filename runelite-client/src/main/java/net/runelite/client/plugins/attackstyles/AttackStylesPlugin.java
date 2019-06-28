@@ -190,7 +190,7 @@ public class AttackStylesPlugin extends Plugin
 				hideWidget(client.getWidget(widgetKey), widgetsToHide.get(equippedWeaponType, widgetKey));
 			}
 		}
-		hideWidget(client.getWidget(WidgetInfo.COMBAT_AUTO_RETALIATE), config.hideAutoRetaliate());
+		hideWidget(client.getWidget(WidgetInfo.COMBAT_AUTO_RETALIATE), this.hideAutoRetaliate);
 	}
 
 	@Subscribe
