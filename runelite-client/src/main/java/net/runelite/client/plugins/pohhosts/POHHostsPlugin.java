@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.inject.Inject;
@@ -140,12 +141,13 @@ public class POHHostsPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick tick)
 	{
-		IntStream stream = IntStream.of(client.getMapRegions());
-		if (stream.anyMatch(id -> id == RIMMINGTON_REGION_ID))
+		//IntStream stream = IntStream.of(client.getMapRegions());
+		Supplier<IntStream> streamSupplier = () -> IntStream.of(client.getMapRegions());
+		if (streamSupplier.get().anyMatch(id -> id == RIMMINGTON_REGION_ID))
 		{
 			houseLocation = HouseLocation.RIMMINGTON;
 		}
-		else if (stream.anyMatch(id -> id == YANILLE_REGION_ID))
+		else if (streamSupplier.get().anyMatch(id -> id == YANILLE_REGION_ID))
 		{
 			houseLocation = HouseLocation.YANILLE;
 		}
@@ -154,7 +156,7 @@ public class POHHostsPlugin extends Plugin
 			houseLocation = null;
 		}
 
-		boolean playerInHouseNew = stream.anyMatch(id -> id == HOUSE_REGION_ID);
+		boolean playerInHouseNew = streamSupplier.get().anyMatch(id -> id == HOUSE_REGION_ID);
 
 		int houseLoadingScreen = client.getVar(Varbits.HOUSE_LOADING_SCREEN);
 		if (houseState == 0 && houseLoadingScreen == 2)

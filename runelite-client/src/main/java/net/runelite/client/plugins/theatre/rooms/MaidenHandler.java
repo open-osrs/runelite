@@ -20,7 +20,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaidenHandler extends RoomHandler 
+public class MaidenHandler extends RoomHandler
 {
 
 	@Getter(AccessLevel.PACKAGE)
@@ -40,13 +40,13 @@ public class MaidenHandler extends RoomHandler
 	private int wave = 1;
 	private long startTime = 0;
 
-	public MaidenHandler(Client client, TheatrePlugin plugin, TheatreConfig config) 
+	public MaidenHandler(Client client, TheatrePlugin plugin, TheatreConfig config)
 	{
 		super(client, plugin, config);
 	}
 
 	@Override
-	public void onStart() 
+	public void onStart()
 	{
 		if (this.plugin.getRoom() == TheatreRoom.MAIDEN)
 			return;
@@ -59,14 +59,14 @@ public class MaidenHandler extends RoomHandler
 	}
 
 	@Override
-	public void onStop() 
+	public void onStop()
 	{
 		this.reset();
 		this.plugin.setRoom(TheatreRoom.UNKNOWN);
 		System.out.println("Stopping Maiden Room");
 	}
 
-	public void reset() 
+	public void reset()
 	{
 		this.bloodThrows.clear();
 		this.bloodSpawns.clear();
@@ -79,84 +79,84 @@ public class MaidenHandler extends RoomHandler
 		this.wave = 1;
 	}
 
-	public void render(Graphics2D graphics) 
+	public void render(Graphics2D graphics)
 	{
-		if (config.showMaidenBloodToss()) 
+		if (config.showMaidenBloodToss())
 		{
-			for (WorldPoint point : bloodThrows) 
+			for (WorldPoint point : bloodThrows)
 			{
 				drawTile(graphics, point, new Color(36, 248, 229), 2, 150, 10);
 			}
 		}
 
-		if (config.showMaidenBloodSpawns()) 
+		if (config.showMaidenBloodSpawns())
 		{
-			for (WorldPoint point : bloodSpawnLocation) 
+			for (WorldPoint point : bloodSpawnLocation)
 			{
 				drawTile(graphics, point, new Color(36, 248, 229), 2, 180, 20);
 			}
 
-			for (WorldPoint point : bloodSpawnTarget) 
+			for (WorldPoint point : bloodSpawnTarget)
 			{
 				drawTile(graphics, point, new Color(36, 248, 229), 1, 120, 10);
 			}
 		}
 	}
 
-	public void onNpcSpawned(NpcSpawned event) 
+	public void onNpcSpawned(NpcSpawned event)
 	{
 		NPC npc = event.getNpc();
 		String name = npc.getName();
 		int id = npc.getId();
 
-		if (npc.getName() != null && name.equals("The Maiden of Sugadinti")) 
+		if (npc.getName() != null && name.equals("The Maiden of Sugadinti"))
 		{
 			this.onStart();
-		} 
-		else if (plugin.getRoom() == TheatreRoom.MAIDEN) 
+		}
+		else if (plugin.getRoom() == TheatreRoom.MAIDEN)
 		{
-			if (id == NpcID.BLOOD_SPAWN) 
+			if (id == NpcID.BLOOD_SPAWN)
 			{
 				if (!bloodSpawns.contains(npc))
 					bloodSpawns.add(npc);
-			} 
-			else if (name != null && name.equalsIgnoreCase("Nylocas Matomenos")) 
+			}
+			else if (name != null && name.equalsIgnoreCase("Nylocas Matomenos"))
 			{
 				this.healers.add(npc);
 			}
 		}
 	}
 
-	public void onNpcDespawned(NpcDespawned event) 
+	public void onNpcDespawned(NpcDespawned event)
 	{
 		NPC npc = event.getNpc();
 		String name = npc.getName();
 		int id = npc.getId();
 
-		if (npc.getName() != null && name.equals("The Maiden of Sugadinti")) 
+		if (npc.getName() != null && name.equals("The Maiden of Sugadinti"))
 		{
 			this.onStop();
 		}
-		else if (plugin.getRoom() == TheatreRoom.MAIDEN) 
+		else if (plugin.getRoom() == TheatreRoom.MAIDEN)
 		{
-			if (id == NpcID.BLOOD_SPAWN) 
+			if (id == NpcID.BLOOD_SPAWN)
 			{
 				bloodSpawns.remove(npc);
 			}
 		}
 	}
 
-	public void onGameTick() 
+	public void onGameTick()
 	{
-		if (plugin.getRoom() != TheatreRoom.MAIDEN) 
+		if (plugin.getRoom() != TheatreRoom.MAIDEN)
 		{
 			return;
 		}
 
 		bloodThrows.clear();
-		for (GraphicsObject o : client.getGraphicsObjects()) 
+		for (GraphicsObject o : client.getGraphicsObjects())
 		{
-			if (o.getId() == TheatreConstant.MAIDEN_BLOOD_THROW) 
+			if (o.getId() == TheatreConstant.MAIDEN_BLOOD_THROW)
 			{
 				bloodThrows.add(WorldPoint.fromLocal(client, o.getLocation()));
 			}
@@ -164,12 +164,12 @@ public class MaidenHandler extends RoomHandler
 
 		bloodSpawnLocation = new ArrayList<>(bloodSpawnTarget);
 		bloodSpawnTarget.clear();
-		for (NPC spawn : bloodSpawns) 
+		for (NPC spawn : bloodSpawns)
 		{
 			bloodSpawnTarget.add(spawn.getWorldLocation());
 		}
 
-		if (this.healerCount != this.healers.size()) 
+		if (this.healerCount != this.healers.size())
 		{
 			this.healerCount = this.healers.size();
 
@@ -181,7 +181,7 @@ public class MaidenHandler extends RoomHandler
 
 			int percentage = 70 - (20 * ((wave++) - 1));
 			if (config.extraTimers())
-			this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'The Maiden of Sugadinti - " + percentage + "%' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
+				this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'The Maiden of Sugadinti - " + percentage + "%' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
 		}
 	}
 }
