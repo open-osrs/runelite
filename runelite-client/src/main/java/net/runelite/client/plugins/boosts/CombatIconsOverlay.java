@@ -19,6 +19,7 @@ import net.runelite.client.ui.overlay.components.ComponentOrientation;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
+import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 
@@ -51,6 +52,7 @@ class CombatIconsOverlay extends Overlay
 			return null;
 		}
 
+		graphics.setFont(FontManager.getRunescapeBoldFont());
 		panelComponent.getChildren().clear();
 		panelComponent.setPreferredSize(new Dimension(28, 0));
 		panelComponent.setWrapping(2);
