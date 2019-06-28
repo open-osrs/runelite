@@ -56,6 +56,7 @@ import net.runelite.client.util.HotkeyListener;
 public class AntiDragPlugin extends Plugin
 {
 	private static final int DEFAULT_DELAY = 5;
+
 	private boolean toggleDrag;
 
 	@Inject
@@ -85,23 +86,27 @@ public class AntiDragPlugin extends Plugin
 		return configManager.getConfig(AntiDragConfig.class);
 	}
 
-	// Config values
-	private int dragDelay;
+	private boolean alwaysOn;
+	private boolean keybind;
 	private Keybind key;
+	private int dragDelay;
 	private boolean reqfocus;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean configOverlay;
 	@Getter(AccessLevel.PACKAGE)
 	private Color color;
 	private boolean changeCursor;
-	private CustomCursor configSelectedCursor;
+	private CustomCursor selectedCursor;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		keyManager.registerKeyListener(hotkeyListener);
-		toggleDrag = false;
 		updateConfig();
+		if (this.keybind)
+		{
+			keyManager.registerKeyListener(hotkeyListener);
+		}
+		client.setInventoryDragDelay(this.alwaysOn ? this.dragDelay : DEFAULT_DELAY);
 	}
 
 	@Override
@@ -113,68 +118,89 @@ public class AntiDragPlugin extends Plugin
 		overlayManager.remove(overlay);
 	}
 
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("antiDrag"))
+		{
+			updateConfig();
+
+			if (event.getKey().equals("keybind"))
+			{
+				if (this.keybind)
+				{
+					keyManager.registerKeyListener(hotkeyListener);
+				}
+				else
+				{
+					keyManager.unregisterKeyListener(hotkeyListener);
+				}
+			}
+			if (event.getKey().equals("alwaysOn"))
+			{
+				client.setInventoryDragDelay(this.alwaysOn ? this.dragDelay : DEFAULT_DELAY);
+			}
+		}
+	}
+
+	public void updateConfig()
+	{
+		this.alwaysOn = config.alwaysOn();
+		this.keybind = config.keybind();
+		this.key = config.key();
+		this.dragDelay = config.dragDelay();
+		this.reqfocus = config.reqfocus();
+		this.configOverlay = config.overlay();
+		this.color = config.color();
+		this.changeCursor = config.changeCursor();
+		this.selectedCursor = config.selectedCursor();
+	}
+
+	@Subscribe
+	public void onFocusChanged(FocusChanged focusChanged)
+	{
+		if (!this.alwaysOn)
+		{
+			if (!focusChanged.isFocused() && this.reqfocus)
+			{
+				client.setInventoryDragDelay(DEFAULT_DELAY);
+				overlayManager.remove(overlay);
+			}
+		}
+	}
+
 	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> this.key)
 	{
 		@Override
 		public void hotkeyPressed()
 		{
-			toggleDrag = !toggleDrag;
-			if (toggleDrag)
+			if (!alwaysOn)
 			{
-				if (configOverlay)
+				toggleDrag = !toggleDrag;
+				if (toggleDrag)
 				{
-					overlayManager.add(overlay);
-				}
-				if (changeCursor)
-				{
-					CustomCursor selectedCursor = configSelectedCursor;
-					clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
-				}
+					if (configOverlay)
+					{
+						overlayManager.add(overlay);
+					}
+					if (changeCursor)
+					{
+						clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
+					}
 
-				client.setInventoryDragDelay(dragDelay);
-			}
-			else
-			{
-				overlayManager.remove(overlay);
-				client.setInventoryDragDelay(DEFAULT_DELAY);
-				if (changeCursor)
+					client.setInventoryDragDelay(dragDelay);
+				}
+				else
 				{
-					net.runelite.client.plugins.customcursor.CustomCursor selectedCursor = configManager.getConfig(CustomCursorConfig.class).selectedCursor();
-					clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
+					overlayManager.remove(overlay);
+					client.setInventoryDragDelay(DEFAULT_DELAY);
+					if (changeCursor)
+					{
+						net.runelite.client.plugins.customcursor.CustomCursor selectedCursor = configManager.getConfig(CustomCursorConfig.class).selectedCursor();
+						clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
+					}
 				}
 			}
 		}
 	};
-
-	@Subscribe
-	public void onFocusChanged(FocusChanged focusChanged)
-	{
-		if (!focusChanged.isFocused() && this.reqfocus)
-		{
-			client.setInventoryDragDelay(DEFAULT_DELAY);
-			overlayManager.remove(overlay);
-		}
-	}
-
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("antiDrag"))
-		{
-			return;
-		}
-
-		updateConfig();
-	}
-
-	public void updateConfig()
-	{
-		this.dragDelay = config.dragDelay();
-		this.key = config.key();
-		this.reqfocus = config.reqfocus();
-		this.configOverlay = config.overlay();
-		this.color = config.color();
-		this.changeCursor = config.changeCursor();
-		this.configSelectedCursor = config.selectedCursor();
-	}
 }
