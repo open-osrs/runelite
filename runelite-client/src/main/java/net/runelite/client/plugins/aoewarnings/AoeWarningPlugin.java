@@ -28,6 +28,7 @@ package net.runelite.client.plugins.aoewarnings;
 
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +49,7 @@ import net.runelite.api.Projectile;
 import net.runelite.api.Tile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameStateChanged;
@@ -118,6 +120,65 @@ public class AoeWarningPlugin extends Plugin
 		return projectiles;
 	}
 
+	// Config values
+	private boolean aoeNotifyAll;
+	@Getter(AccessLevel.PACKAGE)
+	private Color overlayColor;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean configOutlineEnabled;
+	private int delay;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean configFadeEnabled;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean tickTimers;
+	@Getter(AccessLevel.PACKAGE)
+	private AoeWarningConfig.FontStyle fontStyle;
+	@Getter(AccessLevel.PACKAGE)
+	private int textSize;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean shadows;
+	private boolean configShamansEnabled;
+	private boolean configShamansNotifyEnabled;
+	private boolean configArchaeologistEnabled;
+	private boolean configArchaeologistNotifyEnabled;
+	private boolean configIceDemonEnabled;
+	private boolean configIceDemonNotifyEnabled;
+	private boolean configVasaEnabled;
+	private boolean configVasaNotifyEnabled;
+	private boolean configTektonEnabled;
+	private boolean configTektonNotifyEnabled;
+	private boolean configVorkathEnabled;
+	private boolean configVorkathNotifyEnabled;
+	private boolean configGalvekEnabled;
+	private boolean configGalvekNotifyEnabled;
+	private boolean configGargBossEnabled;
+	private boolean configGargBossNotifyEnabled;
+	private boolean configVetionEnabled;
+	private boolean configVetionNotifyEnabled;
+	private boolean configChaosFanaticEnabled;
+	private boolean configChaosFanaticNotifyEnabled;
+	private boolean configOlmEnabled;
+	private boolean configOlmNotifyEnabled;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean configbombDisplay;
+	private boolean configbombDisplayNotifyEnabled;
+	private boolean configLightningTrail;
+	private boolean configLightningTrailNotifyEnabled;
+	private boolean configCorpEnabled;
+	private boolean configCorpNotifyEnabled;
+	private boolean configWintertodtEnabled;
+	private boolean configWintertodtNotifyEnabled;
+	private boolean configXarpusEnabled;
+	private boolean configXarpusNotifyEnabled;
+	private boolean configaddyDrags;
+	private boolean configaddyDragsNotifyEnabled;
+	private boolean configDrakeEnabled;
+	private boolean configDrakeNotifyEnabled;
+	private boolean configCerbFireEnabled;
+	private boolean configCerbFireNotifyEnabled;
+	private boolean configDemonicGorillaEnabled;
+	private boolean configDemonicGorillaNotifyEnabled;
+
 	@Override
 	protected void startUp() throws Exception
 	{
@@ -127,6 +188,7 @@ public class AoeWarningPlugin extends Plugin
 		AcidTrail.clear();
 		CrystalSpike.clear();
 		WintertodtSnowFall.clear();
+		updateConfig();
 	}
 
 	@Override
@@ -146,7 +208,7 @@ public class AoeWarningPlugin extends Plugin
 		Projectile projectile = event.getProjectile();
 
 		int projectileId = projectile.getId();
-		int projectileLifetime = config.delay() + (projectile.getRemainingCycles() * 20);
+		int projectileLifetime = this.delay + (projectile.getRemainingCycles() * 20);
 		int ticksRemaining = projectile.getRemainingCycles() / 30;
 		if (!isTickTimersEnabledForProjectileID(projectileId))
 		{
@@ -161,7 +223,7 @@ public class AoeWarningPlugin extends Plugin
 			AoeProjectile aoeProjectile = new AoeProjectile(Instant.now(), targetPoint, aoeProjectileInfo, projectileLifetime, tickCycle);
 			projectiles.put(projectile, aoeProjectile);
 
-			if (config.aoeNotifyAll() || isConfigEnabledForProjectileId(projectileId, true))
+			if (this.aoeNotifyAll || isConfigEnabledForProjectileId(projectileId, true))
 			{
 				notifier.notify("AoE attack detected!");
 			}
@@ -179,7 +241,7 @@ public class AoeWarningPlugin extends Plugin
 			case ObjectID.CRYSTAL_BOMB:
 				bombs.put(bombLocation, new CrystalBomb(gameObject, client.getTickCount()));
 
-				if (config.aoeNotifyAll() || config.bombDisplayNotifyEnabled())
+				if (this.aoeNotifyAll || this.configbombDisplayNotifyEnabled)
 				{
 					notifier.notify("Bomb!");
 				}
@@ -193,11 +255,11 @@ public class AoeWarningPlugin extends Plugin
 				break;
 			case NullObjectID.NULL_26690:
 				//Wintertodt Snowfall
-				if (config.isWintertodtEnabled())
+				if (this.configWintertodtEnabled)
 				{
 					WintertodtSnowFall.add(bombLocation);
 
-					if (config.aoeNotifyAll() || config.isWintertodtNotifyEnabled())
+					if (this.aoeNotifyAll || this.configWintertodtNotifyEnabled)
 					{
 						notifier.notify("Snow Fall!");
 					}
@@ -226,7 +288,7 @@ public class AoeWarningPlugin extends Plugin
 				break;
 			case NullObjectID.NULL_26690:
 				//Wintertodt Snowfall
-				if (config.isWintertodtEnabled())
+				if (this.configWintertodtEnabled)
 				{
 					WintertodtSnowFall.remove(bombLocation);
 				}
@@ -246,7 +308,7 @@ public class AoeWarningPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (config.LightningTrail())
+		if (this.configLightningTrail)
 		{
 			LightningTrail.clear();
 			for (GraphicsObject o : client.getGraphicsObjects())
@@ -255,7 +317,7 @@ public class AoeWarningPlugin extends Plugin
 				{
 					LightningTrail.add(WorldPoint.fromLocal(client, o.getLocation()));
 
-					if (config.aoeNotifyAll() || config.LightningTrailNotifyEnabled())
+					if (this.aoeNotifyAll || this.configLightningTrailNotifyEnabled)
 					{
 						notifier.notify("Lightning!");
 					}
@@ -334,7 +396,7 @@ public class AoeWarningPlugin extends Plugin
 			return false;
 		}
 
-		if (notify && config.aoeNotifyAll())
+		if (notify && this.aoeNotifyAll)
 		{
 			return true;
 		}
@@ -342,53 +404,117 @@ public class AoeWarningPlugin extends Plugin
 		switch (projectileInfo)
 		{
 			case LIZARDMAN_SHAMAN_AOE:
-				return notify ? config.isShamansNotifyEnabled() : config.isShamansEnabled();
+				return notify ? this.configShamansNotifyEnabled : this.configShamansEnabled;
 			case CRAZY_ARCHAEOLOGIST_AOE:
-				return notify ? config.isArchaeologistNotifyEnabled() : config.isArchaeologistEnabled();
+				return notify ? this.configArchaeologistNotifyEnabled : this.configArchaeologistEnabled;
 			case ICE_DEMON_RANGED_AOE:
 			case ICE_DEMON_ICE_BARRAGE_AOE:
-				return notify ? config.isIceDemonNotifyEnabled() : config.isIceDemonEnabled();
+				return notify ? this.configIceDemonNotifyEnabled : this.configIceDemonEnabled;
 			case VASA_AWAKEN_AOE:
 			case VASA_RANGED_AOE:
-				return notify ? config.isVasaNotifyEnabled() : config.isVasaEnabled();
+				return notify ? this.configVasaNotifyEnabled : this.configVasaEnabled;
 			case TEKTON_METEOR_AOE:
-				return notify ? config.isTektonNotifyEnabled() : config.isTektonEnabled();
+				return notify ? this.configTektonNotifyEnabled : this.configTektonEnabled;
 			case VORKATH_BOMB:
 			case VORKATH_POISON_POOL:
 			case VORKATH_SPAWN:
 			case VORKATH_TICK_FIRE:
-				return notify ? config.isVorkathNotifyEnabled() : config.isVorkathEnabled();
+				return notify ? this.configVorkathNotifyEnabled : this.configVorkathEnabled;
 			case VETION_LIGHTNING:
-				return notify ? config.isVetionNotifyEnabled() : config.isVetionEnabled();
+				return notify ? this.configVetionNotifyEnabled : this.configVetionEnabled;
 			case CHAOS_FANATIC:
-				return notify ? config.isChaosFanaticNotifyEnabled() : config.isChaosFanaticEnabled();
+				return notify ? this.configChaosFanaticNotifyEnabled : this.configChaosFanaticEnabled;
 			case GALVEK_BOMB:
 			case GALVEK_MINE:
-				return notify ? config.isGalvekNotifyEnabled() : config.isGalvekEnabled();
+				return notify ? this.configGalvekNotifyEnabled : this.configGalvekEnabled;
 			case DAWN_FREEZE:
 			case DUSK_CEILING:
-				return notify ? config.isGargBossNotifyEnabled() : config.isGargBossEnabled();
+				return notify ? this.configGargBossNotifyEnabled : this.configGargBossEnabled;
 			case OLM_FALLING_CRYSTAL:
 			case OLM_BURNING:
 			case OLM_FALLING_CRYSTAL_TRAIL:
 			case OLM_ACID_TRAIL:
 			case OLM_FIRE_LINE:
-				return notify ? config.isOlmNotifyEnabled() : config.isOlmEnabled();
+				return notify ? this.configOlmNotifyEnabled : this.configOlmEnabled;
 			case CORPOREAL_BEAST:
 			case CORPOREAL_BEAST_DARK_CORE:
-				return notify ? config.isCorpNotifyEnabled() : config.isCorpEnabled();
+				return notify ? this.configCorpNotifyEnabled : this.configCorpEnabled;
 			case XARPUS_POISON_AOE:
-				return notify ? config.isXarpusNotifyEnabled() : config.isXarpusEnabled();
+				return notify ? this.configXarpusNotifyEnabled : this.configXarpusEnabled;
 			case ADDY_DRAG_POISON:
-				return notify ? config.addyDragsNotifyEnabled() : config.addyDrags();
+				return notify ? this.configaddyDragsNotifyEnabled : this.configaddyDrags;
 			case DRAKE_BREATH:
-				return notify ? config.isDrakeNotifyEnabled() : config.isDrakeEnabled();
+				return notify ? this.configDrakeNotifyEnabled : this.configDrakeEnabled;
 			case CERB_FIRE:
-				return notify ? config.isCerbFireNotifyEnabled() : config.isCerbFireEnabled();
+				return notify ? this.configCerbFireNotifyEnabled : this.configCerbFireEnabled;
 			case DEMONIC_GORILLA_BOULDER:
-				return notify ? config.isDemonicGorillaNotifyEnabled() : config.isDemonicGorillaEnabled();
+				return notify ? this.configDemonicGorillaNotifyEnabled : this.configDemonicGorillaEnabled;
 		}
 
 		return false;
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("aoe"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
+	public void updateConfig()
+	{
+		this.aoeNotifyAll = config.aoeNotifyAll();
+		this.overlayColor = config.overlayColor();
+		this.configOutlineEnabled = config.isOutlineEnabled();
+		this.delay = config.delay();
+		this.configFadeEnabled = config.isFadeEnabled();
+		this.tickTimers = config.tickTimers();
+		this.fontStyle = config.fontStyle();
+		this.textSize = config.textSize();
+		this.shadows = config.shadows();
+		this.configShamansEnabled = config.isShamansEnabled();
+		this.configShamansNotifyEnabled = config.isShamansNotifyEnabled();
+		this.configArchaeologistEnabled = config.isArchaeologistEnabled();
+		this.configArchaeologistNotifyEnabled = config.isArchaeologistNotifyEnabled();
+		this.configIceDemonEnabled = config.isIceDemonEnabled();
+		this.configIceDemonNotifyEnabled = config.isIceDemonNotifyEnabled();
+		this.configVasaEnabled = config.isVasaEnabled();
+		this.configVasaNotifyEnabled = config.isVasaNotifyEnabled();
+		this.configTektonEnabled = config.isTektonEnabled();
+		this.configTektonNotifyEnabled = config.isTektonNotifyEnabled();
+		this.configVorkathEnabled = config.isVorkathEnabled();
+		this.configVorkathNotifyEnabled = config.isVorkathNotifyEnabled();
+		this.configGalvekEnabled = config.isGalvekEnabled();
+		this.configGalvekNotifyEnabled = config.isGalvekNotifyEnabled();
+		this.configGargBossEnabled = config.isGargBossEnabled();
+		this.configGargBossNotifyEnabled = config.isGargBossNotifyEnabled();
+		this.configVetionEnabled = config.isVetionEnabled();
+		this.configVetionNotifyEnabled = config.isVetionNotifyEnabled();
+		this.configChaosFanaticEnabled = config.isChaosFanaticEnabled();
+		this.configChaosFanaticNotifyEnabled = config.isChaosFanaticNotifyEnabled();
+		this.configOlmEnabled = config.isOlmEnabled();
+		this.configOlmNotifyEnabled = config.isOlmNotifyEnabled();
+		this.configbombDisplay = config.bombDisplay();
+		this.configbombDisplayNotifyEnabled = config.bombDisplayNotifyEnabled();
+		this.configLightningTrail = config.LightningTrail();
+		this.configLightningTrailNotifyEnabled = config.LightningTrailNotifyEnabled();
+		this.configCorpEnabled = config.isCorpEnabled();
+		this.configCorpNotifyEnabled = config.isCorpNotifyEnabled();
+		this.configWintertodtEnabled = config.isWintertodtEnabled();
+		this.configWintertodtNotifyEnabled = config.isWintertodtNotifyEnabled();
+		this.configXarpusEnabled = config.isXarpusEnabled();
+		this.configXarpusNotifyEnabled = config.isXarpusNotifyEnabled();
+		this.configaddyDrags = config.addyDrags();
+		this.configaddyDragsNotifyEnabled = config.addyDragsNotifyEnabled();
+		this.configDrakeEnabled = config.isDrakeEnabled();
+		this.configDrakeNotifyEnabled = config.isDrakeNotifyEnabled();
+		this.configCerbFireEnabled = config.isCerbFireEnabled();
+		this.configCerbFireNotifyEnabled = config.isCerbFireNotifyEnabled();
+		this.configDemonicGorillaEnabled = config.isDemonicGorillaEnabled();
+		this.configDemonicGorillaNotifyEnabled = config.isDemonicGorillaNotifyEnabled();
 	}
 }

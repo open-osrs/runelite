@@ -81,15 +81,13 @@ public class BombOverlay extends Overlay
 	}
 
 	private final Client client;
-	private final AoeWarningConfig config;
 	private final AoeWarningPlugin plugin;
 
 	@Inject
-	public BombOverlay(Client client, AoeWarningPlugin plugin, AoeWarningConfig config)
+	public BombOverlay(Client client, AoeWarningPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		setPriority(OverlayPriority.MED);
@@ -98,7 +96,7 @@ public class BombOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.bombDisplay())
+		if (plugin.isConfigbombDisplay())
 		{
 			drawBombs(graphics);
 		}

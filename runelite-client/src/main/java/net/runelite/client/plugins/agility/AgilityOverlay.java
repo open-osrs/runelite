@@ -62,7 +62,6 @@ class AgilityOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		LocalPoint playerLocation = client.getLocalPlayer().getLocalLocation();
 		Point mousePosition = client.getMouseCanvasPosition();
 		final List<Tile> marksOfGrace = plugin.getMarksOfGrace();
 		plugin.getObstacles().forEach((object, obstacle) ->

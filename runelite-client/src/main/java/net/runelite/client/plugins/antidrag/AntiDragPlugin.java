@@ -156,8 +156,6 @@ public class AntiDragPlugin extends Plugin
 		}
 	}
 
-
-
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{

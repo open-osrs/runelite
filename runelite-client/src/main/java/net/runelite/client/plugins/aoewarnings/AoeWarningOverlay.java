@@ -59,16 +59,14 @@ public class AoeWarningOverlay extends Overlay
 
 	private final Client client;
 	private final AoeWarningPlugin plugin;
-	private final AoeWarningConfig config;
 
 	@Inject
-	public AoeWarningOverlay(@Nullable Client client, AoeWarningPlugin plugin, AoeWarningConfig config)
+	public AoeWarningOverlay(@Nullable Client client, AoeWarningPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.UNDER_WIDGETS);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 	}
 
 	@Override
@@ -118,7 +116,7 @@ public class AoeWarningOverlay extends Overlay
 			int tickProgress = aoeProjectile.getFinalTick() - client.getTickCount();
 
 			int fillAlpha, outlineAlpha;
-			if (config.isFadeEnabled())
+			if (plugin.isConfigFadeEnabled())
 			{
 				fillAlpha = (int) ((1 - progress) * FILL_START_ALPHA);//alpha drop off over lifetime
 				outlineAlpha = (int) ((1 - progress) * OUTLINE_START_ALPHA);
@@ -155,19 +153,19 @@ public class AoeWarningOverlay extends Overlay
 				outlineAlpha = 255;
 			}
 
-			if (config.isOutlineEnabled())
+			if (plugin.isConfigOutlineEnabled())
 			{
-				graphics.setColor(new Color(setAlphaComponent(config.overlayColor().getRGB(), outlineAlpha), true));
+				graphics.setColor(new Color(setAlphaComponent(plugin.getOverlayColor().getRGB(), outlineAlpha), true));
 				graphics.drawPolygon(tilePoly);
 			}
-			if (config.tickTimers())
+			if (plugin.isTickTimers())
 			{
 				if (tickProgress >= 0)
 				{
-					renderTextLocation(graphics, Integer.toString(tickProgress), config.textSize(), config.fontStyle().getFont(), color, centerPoint(tilePoly.getBounds()));
+					renderTextLocation(graphics, Integer.toString(tickProgress), plugin.getTextSize(), plugin.getFontStyle().getFont(), color, centerPoint(tilePoly.getBounds()));
 				}
 			}
-			graphics.setColor(new Color(setAlphaComponent(config.overlayColor().getRGB(), fillAlpha), true));
+			graphics.setColor(new Color(setAlphaComponent(plugin.getOverlayColor().getRGB(), fillAlpha), true));
 			graphics.fillPolygon(tilePoly);
 		}
 		return null;
@@ -209,7 +207,7 @@ public class AoeWarningOverlay extends Overlay
 			final Point canvasCenterPoint_shadow = new Point(
 				canvasPoint.getX() + 1,
 				canvasPoint.getY() + 1);
-			if (config.shadows())
+			if (plugin.isShadows())
 			{
 				OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
 			}
