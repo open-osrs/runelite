@@ -32,6 +32,16 @@ import net.runelite.client.config.ConfigItem;
 public interface ShiftWalkerConfig extends Config
 {
 	@ConfigItem(
+		keyName = "shiftWalk",
+		name = "Shift to Walk",
+		description = "For when you want Walk here as a priority"
+	)
+	default boolean shiftLoot()
+	{
+		return false;
+	}
+	
+	@ConfigItem(
 		keyName = "shiftLoot",
 		name = "Shift to Loot",
 		description = "For when people stand on your loot"
