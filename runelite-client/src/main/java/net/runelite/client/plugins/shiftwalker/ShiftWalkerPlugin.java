@@ -50,7 +50,7 @@ public class ShiftWalkerPlugin extends Plugin
 {
 
 	private static final String WALK_HERE = "Walk here";
-
+	private static final String TAKE = "Take";
 	@Inject
 	private ShiftWalkerConfig config;
 
@@ -92,11 +92,16 @@ public class ShiftWalkerPlugin extends Plugin
 
 	void startPrioritizing()
 	{
+		if(config.shiftLoot())
+		{
+			menuManager.addPriorityEntry(TAKE);
+		}
 		menuManager.addPriorityEntry(WALK_HERE);
 	}
 
 	void stopPrioritizing()
 	{
+		menuManager.removePriorityEntry(TAKE);
 		menuManager.removePriorityEntry(WALK_HERE);
 	}
 }

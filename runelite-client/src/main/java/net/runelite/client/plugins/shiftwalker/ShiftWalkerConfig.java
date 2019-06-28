@@ -26,11 +26,20 @@ package net.runelite.client.plugins.shiftwalker;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
-// import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("shiftwalkhere")
 public interface ShiftWalkerConfig extends Config
 {
+	@ConfigItem(
+		keyName = "shiftLoot",
+		name = "Shift to Loot",
+		description = "For when people stand on your loot"
+	)
+	default boolean shiftLoot()
+	{
+		return true;
+	}
 /*
 
 	@ConfigItem(
