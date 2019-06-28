@@ -36,7 +36,7 @@ public interface ShiftWalkerConfig extends Config
 		name = "Shift to Walk",
 		description = "For when you want Walk here as a priority"
 	)
-	default boolean shiftLoot()
+	default boolean shiftWalk()
 	{
 		return false;
 	}
