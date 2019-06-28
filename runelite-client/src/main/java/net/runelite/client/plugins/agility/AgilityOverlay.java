@@ -35,7 +35,6 @@ import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
-import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.game.AgilityShortcut;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;

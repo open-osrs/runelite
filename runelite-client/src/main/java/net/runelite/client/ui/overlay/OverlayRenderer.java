@@ -119,7 +119,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
-		if(event.getGroup().equals("runelite"))
+		if (event.getGroup().equals("runelite"))
 		{
 			updateConfig();
 		}

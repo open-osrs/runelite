@@ -54,9 +54,11 @@ public class RegenMeterOverlay extends Overlay
 	private RegenMeterPlugin plugin;
 	private RegenMeterConfig config;
 
-	private Rectangle getBounds(WidgetInfo widgetInfo){
+	private Rectangle getBounds(WidgetInfo widgetInfo)
+	{
 		Widget widget = client.getWidget(widgetInfo);
-		if (widget == null || widget.isHidden()) {
+		if (widget == null || widget.isHidden())
+		{
 			return null;
 		}
 		return widget.getBounds();
