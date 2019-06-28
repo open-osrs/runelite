@@ -51,8 +51,12 @@ class CombatIconsOverlay extends Overlay
 		{
 			return null;
 		}
-
-		graphics.setFont(FontManager.getRunescapeBoldFont());
+		
+		if (config.boldIconFont())
+		{
+			graphics.setFont(FontManager.getRunescapeBoldFont());
+		}
+		
 		panelComponent.getChildren().clear();
 		panelComponent.setPreferredSize(new Dimension(28, 0));
 		panelComponent.setWrapping(2);
