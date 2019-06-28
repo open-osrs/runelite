@@ -40,9 +40,15 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class ChatMessage
 {
+	public static final ChatMessage INSTANCE = new ChatMessage();
+
+	private ChatMessage()
+	{
+		// noop
+	}
+
 	/**
 	 * The underlying MessageNode for the message.
 	 */
