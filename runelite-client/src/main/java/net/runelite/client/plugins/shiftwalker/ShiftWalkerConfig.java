@@ -38,7 +38,7 @@ public interface ShiftWalkerConfig extends Config
 	)
 	default boolean shiftLoot()
 	{
-		return true;
+		return false;
 	}
 /*
 
