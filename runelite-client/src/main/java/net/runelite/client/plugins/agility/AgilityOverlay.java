@@ -48,17 +48,15 @@ class AgilityOverlay extends Overlay
 
 	private final Client client;
 	private final AgilityPlugin plugin;
-	private final AgilityConfig config;
 
 	@Inject
-	private AgilityOverlay(Client client, AgilityPlugin plugin, AgilityConfig config)
+	private AgilityOverlay(Client client, AgilityPlugin plugin)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 	}
 
 	@Override
@@ -69,8 +67,8 @@ class AgilityOverlay extends Overlay
 		final List<Tile> marksOfGrace = plugin.getMarksOfGrace();
 		plugin.getObstacles().forEach((object, obstacle) ->
 		{
-			if (Obstacles.SHORTCUT_OBSTACLE_IDS.containsKey(object.getId()) && !config.highlightShortcuts() ||
-				Obstacles.TRAP_OBSTACLE_IDS.contains(object.getId()) && !config.showTrapOverlay())
+			if (Obstacles.SHORTCUT_OBSTACLE_IDS.containsKey(object.getId()) && !plugin.isHighlightShortcuts() ||
+				Obstacles.TRAP_OBSTACLE_IDS.contains(object.getId()) && !plugin.isShowTrapOverlay())
 			{
 				return;
 			}
@@ -84,7 +82,7 @@ class AgilityOverlay extends Overlay
 					Polygon polygon = object.getCanvasTilePoly();
 					if (polygon != null)
 					{
-						OverlayUtil.renderPolygon(graphics, polygon, config.getTrapColor());
+						OverlayUtil.renderPolygon(graphics, polygon, plugin.getTrapColor());
 					}
 					return;
 				}
@@ -92,10 +90,10 @@ class AgilityOverlay extends Overlay
 				if (objectClickbox != null)
 				{
 					AgilityShortcut agilityShortcut = obstacle.getShortcut();
-					Color configColor = agilityShortcut == null || agilityShortcut.getLevel() <= plugin.getAgilityLevel() ? config.getOverlayColor() : SHORTCUT_HIGH_LEVEL_COLOR;
-					if (config.highlightMarks() && !marksOfGrace.isEmpty())
+					Color configColor = agilityShortcut == null || agilityShortcut.getLevel() <= plugin.getAgilityLevel() ? plugin.getOverlayColor() : SHORTCUT_HIGH_LEVEL_COLOR;
+					if (plugin.isHighlightMarks() && !marksOfGrace.isEmpty())
 					{
-						configColor = config.getMarkColor();
+						configColor = plugin.getMarkColor();
 					}
 
 					if (objectClickbox.contains(mousePosition.getX(), mousePosition.getY()))
@@ -115,7 +113,7 @@ class AgilityOverlay extends Overlay
 
 		});
 
-		if (config.highlightMarks() && !marksOfGrace.isEmpty())
+		if (plugin.isHighlightMarks() && !marksOfGrace.isEmpty())
 		{
 			for (Tile markOfGraceTile : marksOfGrace)
 			{
@@ -128,7 +126,7 @@ class AgilityOverlay extends Overlay
 						continue;
 					}
 
-					OverlayUtil.renderPolygon(graphics, poly, config.getMarkColor());
+					OverlayUtil.renderPolygon(graphics, poly, plugin.getMarkColor());
 				}
 			}
 		}
