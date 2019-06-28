@@ -51,8 +51,6 @@ class AboveWidgetsOverlay extends Overlay
 
 	private final Client client;
 	private final BarbarianAssaultPlugin game;
-	private final BarbarianAssaultConfig config;
-
 
 	@Inject
 	private AboveWidgetsOverlay(Client client, BarbarianAssaultPlugin game, BarbarianAssaultConfig config)
@@ -62,7 +60,6 @@ class AboveWidgetsOverlay extends Overlay
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
 		this.game = game;
-		this.config = config;
 	}
 
 	@Override
@@ -75,7 +72,7 @@ class AboveWidgetsOverlay extends Overlay
 
 		Role role = game.getRole();
 
-		if (config.showTimer())
+		if (game.isShowTimer())
 		{
 			renderTimer(graphics, role);
 		}
@@ -83,23 +80,23 @@ class AboveWidgetsOverlay extends Overlay
 		switch (role)
 		{
 			case ATTACKER:
-				if (config.highlightArrows())
+				if (game.isHighlightArrows())
 				{
-					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), config.highlightArrowColor());
+					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), game.getHighlightArrowColor());
 				}
 				break;
 
 			case DEFENDER:
-				if (config.highlightBait())
+				if (game.isHighlightBait())
 				{
-					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), config.highlightBaitColor());
+					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), game.getHighlightBaitColor());
 				}
 				break;
 
 			case HEALER:
-				if (config.highlightPoison())
+				if (game.isHighlightPoison())
 				{
-					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), config.highlightPoisonColor());
+					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), game.getHighlightPoisonColor());
 				}
 		}
 		return null;
@@ -115,11 +112,11 @@ class AboveWidgetsOverlay extends Overlay
 			return;
 		}
 
-		if (role == Role.COLLECTOR && config.showEggCountOverlay() && game.getWave() != null)
+		if (role == Role.COLLECTOR && game.isShowEggCountOverlay() && game.getWave() != null)
 		{
 			roleText.setText("(" + game.getWave().getCollectedEggCount() + ") " + formatClock());
 		}
-		else if (role == Role.HEALER && config.showHpCountOverlay() && game.getWave() != null)
+		else if (role == Role.HEALER && game.isShowHpCountOverlay() && game.getWave() != null)
 		{
 			roleText.setText("(" + game.getWave().getHpHealed() + ") " + formatClock());
 		}

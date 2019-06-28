@@ -62,7 +62,6 @@ class AboveSceneOverlay extends Overlay
 
 	private final Client client;
 	private final BarbarianAssaultPlugin game;
-	private final BarbarianAssaultConfig config;
 
 
 	@Inject
@@ -73,7 +72,6 @@ class AboveSceneOverlay extends Overlay
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
 		this.game = game;
-		this.config = config;
 	}
 
 	@Override
@@ -88,11 +86,11 @@ class AboveSceneOverlay extends Overlay
 		{
 
 			case HEALER:
-				if (config.showTeammateHealthbars())
+				if (game.isShowTeammateHealthbars())
 				{
 					renderHealthBars(graphics);
 				}
-				if (config.healerCodes())
+				if (game.isHealerCodes())
 				{
 					renderHealerCodes(graphics);
 				}
@@ -100,7 +98,7 @@ class AboveSceneOverlay extends Overlay
 
 
 			case COLLECTOR:
-				if (config.highlightCollectorEggs())
+				if (game.isHighlightCollectorEggs())
 				{
 					renderEggs(graphics);
 				}
