@@ -56,8 +56,7 @@ public class TargetClickboxOverlay extends Overlay
 	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	TargetClickboxOverlay(Client client, SlayerConfig config, SlayerPlugin plugin,
-						  ModelOutlineRenderer modelOutlineRenderer)
+	TargetClickboxOverlay(Client client, SlayerConfig config, SlayerPlugin plugin, ModelOutlineRenderer modelOutlineRenderer)
 	{
 		this.client = client;
 		this.config = config;
