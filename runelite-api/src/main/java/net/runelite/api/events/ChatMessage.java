@@ -28,6 +28,7 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.MessageNode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * An event where a new chat message is received.
