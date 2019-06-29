@@ -1538,7 +1538,7 @@ public abstract class RSClientMixin implements RSClient
 			return true;
 		}
 
-		MenuShouldLeftClick menuShouldLeftClick = MenuShouldLeftClick.INSTANCE;
+		MenuShouldLeftClick menuShouldLeftClick = new MenuShouldLeftClick();
 		client.getCallbacks().post(menuShouldLeftClick);
 
 		if (menuShouldLeftClick.isForceRightClick())
