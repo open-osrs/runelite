@@ -52,1644 +52,1644 @@ import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 
 @ConfigGroup("menuentryswapper")
 public interface MenuEntrySwapperConfig extends Config
-	{
+{
 	//------------------------------------------------------------//
 	// Banking
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "withdrawOne",
-			name = "Withdraw/Deposit One",
-			description = "",
-			position = 0,
-			group = "Banking"
+		keyName = "withdrawOne",
+		name = "Withdraw/Deposit One",
+		description = "",
+		position = 0,
+		group = "Banking"
 	)
 	default boolean getWithdrawOne()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "withdrawOneItems",
-			name = "Items",
-			description = "",
-			position = 1,
-			group = "Banking",
-			hidden = true,
-			unhide = "withdrawOne"
+		keyName = "withdrawOneItems",
+		name = "Items",
+		description = "",
+		position = 1,
+		group = "Banking",
+		hidden = true,
+		unhide = "withdrawOne"
 	)
 	default String getWithdrawOneItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "withdrawFive",
-			name = "Withdraw/Deposit Five",
-			description = "",
-			position = 2,
-			group = "Banking"
+		keyName = "withdrawFive",
+		name = "Withdraw/Deposit Five",
+		description = "",
+		position = 2,
+		group = "Banking"
 	)
 	default boolean getWithdrawFive()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "withdrawFiveItems",
-			name = "Items",
-			description = "",
-			position = 3,
-			group = "Banking",
-			hidden = true,
-			unhide = "withdrawFive"
+		keyName = "withdrawFiveItems",
+		name = "Items",
+		description = "",
+		position = 3,
+		group = "Banking",
+		hidden = true,
+		unhide = "withdrawFive"
 	)
 	default String getWithdrawFiveItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "withdrawTen",
-			name = "Withdraw/Deposit Ten",
-			description = "",
-			position = 4,
-			group = "Banking"
+		keyName = "withdrawTen",
+		name = "Withdraw/Deposit Ten",
+		description = "",
+		position = 4,
+		group = "Banking"
 	)
 	default boolean getWithdrawTen()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "withdrawTenItems",
-			name = "Items",
-			description = "",
-			position = 5,
-			group = "Banking",
-			hidden = true,
-			unhide = "withdrawTen"
+		keyName = "withdrawTenItems",
+		name = "Items",
+		description = "",
+		position = 5,
+		group = "Banking",
+		hidden = true,
+		unhide = "withdrawTen"
 	)
 	default String getWithdrawTenItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "withdrawX",
-			name = "Withdraw/Deposit X",
-			description = "",
-			position = 6,
-			group = "Banking"
+		keyName = "withdrawX",
+		name = "Withdraw/Deposit X",
+		description = "",
+		position = 6,
+		group = "Banking"
 	)
 	default boolean getWithdrawX()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "withdrawXAmount",
-			name = "Amount",
-			description = "",
-			position = 7,
-			group = "Banking",
-			hidden = true,
-			unhide = "withdrawX"
+		keyName = "withdrawXAmount",
+		name = "Amount",
+		description = "",
+		position = 7,
+		group = "Banking",
+		hidden = true,
+		unhide = "withdrawX"
 	)
 	default String getWithdrawXAmount()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "withdrawXItems",
-			name = "Items",
-			description = "",
-			position = 8,
-			group = "Banking",
-			hidden = true,
-			unhide = "withdrawX"
+		keyName = "withdrawXItems",
+		name = "Items",
+		description = "",
+		position = 8,
+		group = "Banking",
+		hidden = true,
+		unhide = "withdrawX"
 	)
 	default String getWithdrawXItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "withdrawAll",
-			name = "Withdraw/Deposit All",
-			description = "",
-			position = 9,
-			group = "Banking"
+		keyName = "withdrawAll",
+		name = "Withdraw/Deposit All",
+		description = "",
+		position = 9,
+		group = "Banking"
 	)
 	default boolean getWithdrawAll()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "withdrawAllItems",
-			name = "Items",
-			description = "",
-			position = 10,
-			group = "Banking",
-			hidden = true,
-			unhide = "withdrawAll"
+		keyName = "withdrawAllItems",
+		name = "Items",
+		description = "",
+		position = 10,
+		group = "Banking",
+		hidden = true,
+		unhide = "withdrawAll"
 	)
 	default String getWithdrawAllItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	//------------------------------------------------------------//
 	// Equipment Swapper
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "swapMax",
-			name = "Swap Max Cape",
-			description = "Enables swapping max cape options in worn interface.",
-			position = 0,
-			group = "Equipment swapper"
+		keyName = "swapMax",
+		name = "Swap Max Cape",
+		description = "Enables swapping max cape options in worn interface.",
+		position = 0,
+		group = "Equipment swapper"
 	)
 	default boolean swapMax()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "teleEquippedCape",
-			name = "Teleport Equipped Cape",
-			description = "Makes Teleport/Tele to POH the left click option on equip screen",
-			position = 1,
-			group = "Equipment swapper"
+		keyName = "teleEquippedCape",
+		name = "Teleport Equipped Cape",
+		description = "Makes Teleport/Tele to POH the left click option on equip screen",
+		position = 1,
+		group = "Equipment swapper"
 	)
 	default boolean teleEquippedCape()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "telecapeMode",
-			name = "ModeTeleCape",
-			description = "",
-			position = 2,
-			group = "Equipment swapper",
-			hidden = true,
-			unhide = "teleEquippedCape"
+		keyName = "telecapeMode",
+		name = "ModeTeleCape",
+		description = "",
+		position = 2,
+		group = "Equipment swapper",
+		hidden = true,
+		unhide = "teleEquippedCape"
 	)
 	default teleEquippedMode telecapeMode()
-		{
-			return teleEquippedMode.TELEPORT;
-		}
+	{
+		return teleEquippedMode.TELEPORT;
+	}
 
 	@ConfigItem(
-			keyName = "maxMode",
-			name = "Mode",
-			description = "",
-			position = 3,
-			group = "Equipment swapper",
-			hidden = true,
-			unhide = "swapMax"
+		keyName = "maxMode",
+		name = "Mode",
+		description = "",
+		position = 3,
+		group = "Equipment swapper",
+		hidden = true,
+		unhide = "swapMax"
 	)
 	default MaxCapeMode maxMode()
-		{
-			return MaxCapeMode.CRAFTING_GUILD;
-		}
+	{
+		return MaxCapeMode.CRAFTING_GUILD;
+	}
 
 	@ConfigItem(
-			keyName = "swapArdougneCape",
-			name = "Swap Ardougne Cape",
-			description = "Enables swapping of 'Teleport' and 'Wear'.",
-			position = 4,
-			group = "Equipment swapper"
+		keyName = "swapArdougneCape",
+		name = "Swap Ardougne Cape",
+		description = "Enables swapping of 'Teleport' and 'Wear'.",
+		position = 4,
+		group = "Equipment swapper"
 	)
 	default boolean getSwapArdougneCape()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapConstructionCape",
-			name = "Swap Construction Cape",
-			description = "Enables swapping of 'Teleport' and 'Wear'.",
-			position = 5,
-			group = "Equipment swapper"
+		keyName = "swapConstructionCape",
+		name = "Swap Construction Cape",
+		description = "Enables swapping of 'Teleport' and 'Wear'.",
+		position = 5,
+		group = "Equipment swapper"
 	)
 	default boolean getSwapConstructionCape()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapCraftingCape",
-			name = "Swap Crafting Cape",
-			description = "Enables swapping of 'Teleport' and 'Wear'.",
-			position = 6,
-			group = "Equipment swapper"
+		keyName = "swapCraftingCape",
+		name = "Swap Crafting Cape",
+		description = "Enables swapping of 'Teleport' and 'Wear'.",
+		position = 6,
+		group = "Equipment swapper"
 	)
 	default boolean getSwapCraftingCape()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapMagicCape",
-			name = "Swap Magic Cape",
-			description = "Enables swapping of 'Spellbook' and 'Wear'.",
-			position = 7,
-			group = "Equipment swapper"
+		keyName = "swapMagicCape",
+		name = "Swap Magic Cape",
+		description = "Enables swapping of 'Spellbook' and 'Wear'.",
+		position = 7,
+		group = "Equipment swapper"
 	)
 	default boolean getSwapMagicCape()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapExplorersRing",
-			name = "Swap Explorer's Ring",
-			description = "Enables swapping of 'Spellbook' and 'Wear'.",
-			position = 8,
-			group = "Equipment swapper"
+		keyName = "swapExplorersRing",
+		name = "Swap Explorer's Ring",
+		description = "Enables swapping of 'Spellbook' and 'Wear'.",
+		position = 8,
+		group = "Equipment swapper"
 	)
 	default boolean getSwapExplorersRing()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapAdmire",
-			name = "Admire",
-			description = "Swap 'Admire' with 'Teleport', 'Spellbook' and 'Perks' (max cape) for mounted skill capes.",
-			position = 9,
-			group = "Equipment swapper"
+		keyName = "swapAdmire",
+		name = "Admire",
+		description = "Swap 'Admire' with 'Teleport', 'Spellbook' and 'Perks' (max cape) for mounted skill capes.",
+		position = 9,
+		group = "Equipment swapper"
 	)
 	default boolean swapAdmire()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapQuestCape",
-			name = "Swap Quest Cape",
-			description = "Enables swapping Quest cape options in worn interface.",
-			position = 10,
-			group = "Equipment swapper"
+		keyName = "swapQuestCape",
+		name = "Swap Quest Cape",
+		description = "Enables swapping Quest cape options in worn interface.",
+		position = 10,
+		group = "Equipment swapper"
 	)
 	default boolean swapQuestCape()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "questCapeMode",
-			name = "Mode",
-			description = "",
-			position = 11,
-			group = "Equipment swapper",
-			hidden = true,
-			unhide = "swapQuestCape"
+		keyName = "questCapeMode",
+		name = "Mode",
+		description = "",
+		position = 11,
+		group = "Equipment swapper",
+		hidden = true,
+		unhide = "swapQuestCape"
 	)
 	default QuestCapeMode questCapeMode()
-		{
-			return QuestCapeMode.TELEPORT;
-		}
+	{
+		return QuestCapeMode.TELEPORT;
+	}
 
 	//------------------------------------------------------------//
 	// Miscellaneous
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "customSwaps",
-			name = "Custom Swaps",
-			description = "Add custom swaps here, 1 per line. Syntax: option, target : option, target<br>Note that the first entry should be the left click one!",
-			position = 0,
-			group = "Miscellaneous",
-			parse = true,
-			clazz = Parse.class,
-			method = "parse"
+		keyName = "customSwaps",
+		name = "Custom Swaps",
+		description = "Add custom swaps here, 1 per line. Syntax: option, target : option, target<br>Note that the first entry should be the left click one!",
+		position = 0,
+		group = "Miscellaneous",
+		parse = true,
+		clazz = Parse.class,
+		method = "parse"
 	)
 	default String customSwaps()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "shiftClickCustomization",
-			name = "Customizable Shift-click",
-			description = "Allows customization of shift-clicks on items.",
-			position = 1,
-			group = "Miscellaneous"
+		keyName = "shiftClickCustomization",
+		name = "Customizable Shift-click",
+		description = "Allows customization of shift-clicks on items.",
+		position = 1,
+		group = "Miscellaneous"
 	)
 	default boolean shiftClickCustomization()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapCoalBag",
-			name = "Swap Coal Bag Empty",
-			description = "Makes Empty the left click option when in a bank",
-			position = 2,
-			group = "Miscellaneous"
+		keyName = "swapCoalBag",
+		name = "Swap Coal Bag Empty",
+		description = "Makes Empty the left click option when in a bank",
+		position = 2,
+		group = "Miscellaneous"
 	)
 	default boolean swapCoalBag()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapBirdhouseEmpty",
-			name = "Birdhouse",
-			description = "Swap 'Interact' with 'Empty' for birdhouses on Fossil Island.",
-			position = 3,
-			group = "Miscellaneous"
+		keyName = "swapBirdhouseEmpty",
+		name = "Birdhouse",
+		description = "Swap 'Interact' with 'Empty' for birdhouses on Fossil Island.",
+		position = 3,
+		group = "Miscellaneous"
 	)
 	default boolean swapBirdhouseEmpty()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapBones",
-			name = "Bury",
-			description = "Swap 'Bury' with 'Use' on Bones.",
-			position = 4,
-			group = "Miscellaneous"
+		keyName = "swapBones",
+		name = "Bury",
+		description = "Swap 'Bury' with 'Use' on Bones.",
+		position = 4,
+		group = "Miscellaneous"
 	)
 	default boolean swapBones()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapChase",
-			name = "Chase",
-			description = "Allows to left click your cat to chase rats.",
-			position = 5,
-			group = "Miscellaneous"
+		keyName = "swapChase",
+		name = "Chase",
+		description = "Allows to left click your cat to chase rats.",
+		position = 5,
+		group = "Miscellaneous"
 	)
 	default boolean swapChase()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapHarpoon",
-			name = "Harpoon",
-			description = "Swap 'Cage', 'Big Net' with 'Harpoon' on Fishing spots.",
-			position = 6,
-			group = "Miscellaneous"
+		keyName = "swapHarpoon",
+		name = "Harpoon",
+		description = "Swap 'Cage', 'Big Net' with 'Harpoon' on Fishing spots.",
+		position = 6,
+		group = "Miscellaneous"
 	)
 	default boolean swapHarpoon()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapOccult",
-			name = "Occult Altar",
-			description = "Swap 'Venerate' with 'Ancient', 'Lunar', or 'Arceuus' on an Altar of the Occult.",
-			position = 7,
-			group = "Miscellaneous"
+		keyName = "swapOccult",
+		name = "Occult Altar",
+		description = "Swap 'Venerate' with 'Ancient', 'Lunar', or 'Arceuus' on an Altar of the Occult.",
+		position = 7,
+		group = "Miscellaneous"
 	)
 	default boolean swapOccult()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "occultalter",
-			name = "Mode",
-			description = "",
-			position = 8,
-			group = "Miscellaneous",
-			hidden = true,
-			unhide = "swapOccult"
+		keyName = "occultalter",
+		name = "Mode",
+		description = "",
+		position = 8,
+		group = "Miscellaneous",
+		hidden = true,
+		unhide = "swapOccult"
 	)
 	default OccultAltarMode swapOccultMode()
-		{
-			return OccultAltarMode.VENERATE;
-		}
+	{
+		return OccultAltarMode.VENERATE;
+	}
 
 	@ConfigItem(
-			keyName = "swapHomePortal",
-			name = "Home",
-			description = "Swap 'Enter' with 'Home', 'Build' or 'Friend's house' on Portal.",
-			position = 9,
-			group = "Miscellaneous"
+		keyName = "swapHomePortal",
+		name = "Home",
+		description = "Swap 'Enter' with 'Home', 'Build' or 'Friend's house' on Portal.",
+		position = 9,
+		group = "Miscellaneous"
 	)
 	default boolean swapHomePortal()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "home",
-			name = "Mode",
-			description = "",
-			position = 10,
-			group = "Miscellaneous",
-			hidden = true,
-			unhide = "swapHomePortal"
+		keyName = "home",
+		name = "Mode",
+		description = "",
+		position = 10,
+		group = "Miscellaneous",
+		hidden = true,
+		unhide = "swapHomePortal"
 	)
 	default HouseMode swapHomePortalMode()
-		{
-			return HouseMode.HOME;
-		}
+	{
+		return HouseMode.HOME;
+	}
 
 	@ConfigItem(
-			keyName = "swapPrivate",
-			name = "Private",
-			description = "Swap 'Shared' with 'Private' on the Chambers of Xeric storage units.",
-			position = 11,
-			group = "Miscellaneous"
+		keyName = "swapPrivate",
+		name = "Private",
+		description = "Swap 'Shared' with 'Private' on the Chambers of Xeric storage units.",
+		position = 11,
+		group = "Miscellaneous"
 	)
 	default boolean swapPrivate()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapPick",
-			name = "Pick",
-			description = "Swap 'Pick' with 'Pick-lots' of the Gourd tree in the Chambers of Xeric.",
-			position = 12,
-			group = "Miscellaneous"
+		keyName = "swapPick",
+		name = "Pick",
+		description = "Swap 'Pick' with 'Pick-lots' of the Gourd tree in the Chambers of Xeric.",
+		position = 12,
+		group = "Miscellaneous"
 	)
 	default boolean swapPick()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapQuick",
-			name = "Quick Pass/Open/Start/Travel",
-			description = "Swap 'Pass' with 'Quick-Pass', 'Open' with 'Quick-Open', 'Ring' with 'Quick-Start' and 'Talk-to' with 'Quick-Travel'.",
-			position = 13,
-			group = "Miscellaneous"
+		keyName = "swapQuick",
+		name = "Quick Pass/Open/Start/Travel",
+		description = "Swap 'Pass' with 'Quick-Pass', 'Open' with 'Quick-Open', 'Ring' with 'Quick-Start' and 'Talk-to' with 'Quick-Travel'.",
+		position = 13,
+		group = "Miscellaneous"
 	)
 	default boolean swapQuick()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapBoxTrap",
-			name = "Reset",
-			description = "Swap 'Check' with 'Reset' on box traps.",
-			position = 14,
-			group = "Miscellaneous"
+		keyName = "swapBoxTrap",
+		name = "Reset",
+		description = "Swap 'Check' with 'Reset' on box traps.",
+		position = 14,
+		group = "Miscellaneous"
 	)
 	default boolean swapBoxTrap()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "rockCake",
-			name = "Rock Cake Guzzle",
-			description = "Enables Left Click 'Guzzle' on the Dwarven Rock Cake.",
-			position = 15,
-			group = "Miscellaneous"
+		keyName = "rockCake",
+		name = "Rock Cake Guzzle",
+		description = "Enables Left Click 'Guzzle' on the Dwarven Rock Cake.",
+		position = 15,
+		group = "Miscellaneous"
 	)
 	default boolean rockCake()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapRogueschests",
-			name = "Rogues Chests",
-			description = "Swap Rogues Chests from 'Open' to 'Search for traps'.",
-			position = 16,
-			group = "Miscellaneous"
+		keyName = "swapRogueschests",
+		name = "Rogues Chests",
+		description = "Swap Rogues Chests from 'Open' to 'Search for traps'.",
+		position = 16,
+		group = "Miscellaneous"
 	)
 	default boolean swapRogueschests()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapClimbUpDown",
-			name = "Climb",
-			description = "Swap 'Climb-Up'/'Climb-Down' depending on Shift or Control key.",
-			position = 17,
-			group = "Miscellaneous"
+		keyName = "swapClimbUpDown",
+		name = "Climb",
+		description = "Swap 'Climb-Up'/'Climb-Down' depending on Shift or Control key.",
+		position = 17,
+		group = "Miscellaneous"
 	)
 	default boolean swapClimbUpDown()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapStun",
-			name = "Stun Hoop Snakes",
-			description = "Swap 'Attack' with 'Stun'.",
-			position = 18,
-			group = "Miscellaneous"
+		keyName = "swapStun",
+		name = "Stun Hoop Snakes",
+		description = "Swap 'Attack' with 'Stun'.",
+		position = 18,
+		group = "Miscellaneous"
 	)
 	default boolean swapStun()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapSearch",
-			name = "Search",
-			description = "Swap 'Close', 'Shut' with 'Search' on chests, cupboards, etc.",
-			position = 19,
-			group = "Miscellaneous"
+		keyName = "swapSearch",
+		name = "Search",
+		description = "Swap 'Close', 'Shut' with 'Search' on chests, cupboards, etc.",
+		position = 19,
+		group = "Miscellaneous"
 	)
 	default boolean swapSearch()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapHardWoodGrove",
-			name = "Hardwood Grove",
-			description = "Swap 'Quick-Pay(100)' and 'Send-Parcel' at Hardwood Grove.",
-			position = 20,
-			group = "Miscellaneous"
+		keyName = "swapHardWoodGrove",
+		name = "Hardwood Grove",
+		description = "Swap 'Quick-Pay(100)' and 'Send-Parcel' at Hardwood Grove.",
+		position = 20,
+		group = "Miscellaneous"
 	)
 	default boolean swapHardWoodGrove()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 
 	@ConfigItem(
-			keyName = "removeObjects",
-			name = "Remove Objects",
-			description = "Removes interaction with the listed objects.",
-			position = 21,
-			group = "Miscellaneous"
+		keyName = "removeObjects",
+		name = "Remove Objects",
+		description = "Removes interaction with the listed objects.",
+		position = 21,
+		group = "Miscellaneous"
 	)
 	default boolean getRemoveObjects()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "removedObjects",
-			name = "Objects",
-			description = "Objects listed here will have all interaction be removed.",
-			position = 22,
-			group = "Miscellaneous",
-			hidden = true,
-			unhide = "removeObjects"
+		keyName = "removedObjects",
+		name = "Objects",
+		description = "Objects listed here will have all interaction be removed.",
+		position = 22,
+		group = "Miscellaneous",
+		hidden = true,
+		unhide = "removeObjects"
 	)
 	default String getRemovedObjects()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapImps",
-			name = "Impling Jars",
-			description = "Don't open implings if bank has a clue.",
-			position = 23,
-			group = "Miscellaneous"
+		keyName = "swapImps",
+		name = "Impling Jars",
+		description = "Don't open implings if bank has a clue.",
+		position = 23,
+		group = "Miscellaneous"
 	)
 	default boolean swapImps()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "charterOption",
-			name = "Trader Crew",
-			description = "Configure whether you want Charter or Trade to be the first option of Trader Crewmembers.",
-			position = 24,
-			group = "Miscellaneous"
+		keyName = "charterOption",
+		name = "Trader Crew",
+		description = "Configure whether you want Charter or Trade to be the first option of Trader Crewmembers.",
+		position = 24,
+		group = "Miscellaneous"
 	)
 	default CharterOption charterOption()
-		{
-			return CharterOption.TRADE;
-		}
+	{
+		return CharterOption.TRADE;
+	}
 
 	//------------------------------------------------------------//
 	// Shop / Stores
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "swapBuyOne",
-			name = "Swappable Buy One",
-			description = "",
-			position = 0,
-			group = "Shop / stores"
+		keyName = "swapBuyOne",
+		name = "Swappable Buy One",
+		description = "",
+		position = 0,
+		group = "Shop / stores"
 	)
 	default boolean getSwapBuyOne()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "buyOneItems",
-			name = "Items",
-			description = "",
-			group = "Shop / stores",
-			position = 1,
-			hidden = true,
-			unhide = "swapBuyOne"
+		keyName = "buyOneItems",
+		name = "Items",
+		description = "",
+		group = "Shop / stores",
+		position = 1,
+		hidden = true,
+		unhide = "swapBuyOne"
 	)
 	default String getBuyOneItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapBuyFive",
-			name = "Swappable Buy Five",
-			description = "",
-			position = 2,
-			group = "Shop / stores"
+		keyName = "swapBuyFive",
+		name = "Swappable Buy Five",
+		description = "",
+		position = 2,
+		group = "Shop / stores"
 	)
 	default boolean getSwapBuyFive()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "buyFiveItems",
-			name = "Items",
-			description = "",
-			position = 3,
-			group = "Shop / stores",
-			hidden = true,
-			unhide = "swapBuyFive"
+		keyName = "buyFiveItems",
+		name = "Items",
+		description = "",
+		position = 3,
+		group = "Shop / stores",
+		hidden = true,
+		unhide = "swapBuyFive"
 	)
 	default String getBuyFiveItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapBuyTen",
-			name = "Swappable Buy Ten",
-			description = "",
-			position = 4,
-			group = "Shop / stores"
+		keyName = "swapBuyTen",
+		name = "Swappable Buy Ten",
+		description = "",
+		position = 4,
+		group = "Shop / stores"
 	)
 	default boolean getSwapBuyTen()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "buyTenItems",
-			name = "Items",
-			description = "",
-			position = 5,
-			group = "Shop / stores",
-			hidden = true,
-			unhide = "swapBuyTen"
+		keyName = "buyTenItems",
+		name = "Items",
+		description = "",
+		position = 5,
+		group = "Shop / stores",
+		hidden = true,
+		unhide = "swapBuyTen"
 	)
 	default String getBuyTenItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapBuyFifty",
-			name = "Swappable Buy Fifty",
-			description = "",
-			position = 6,
-			group = "Shop / stores"
+		keyName = "swapBuyFifty",
+		name = "Swappable Buy Fifty",
+		description = "",
+		position = 6,
+		group = "Shop / stores"
 	)
 	default boolean getSwapBuyFifty()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "buyFiftyItems",
-			name = "Items",
-			description = "",
-			position = 7,
-			group = "Shop / stores",
-			hidden = true,
-			unhide = "swapBuyFifty"
+		keyName = "buyFiftyItems",
+		name = "Items",
+		description = "",
+		position = 7,
+		group = "Shop / stores",
+		hidden = true,
+		unhide = "swapBuyFifty"
 	)
 	default String getBuyFiftyItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapSellOne",
-			name = "Swappable Sell One",
-			description = "",
-			position = 8,
-			group = "Shop / stores"
+		keyName = "swapSellOne",
+		name = "Swappable Sell One",
+		description = "",
+		position = 8,
+		group = "Shop / stores"
 	)
 	default boolean getSwapSellOne()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "sellOneItems",
-			name = "Items",
-			description = "",
-			position = 9,
-			group = "Shop / stores",
-			hidden = true,
-			unhide = "swapSellOne"
+		keyName = "sellOneItems",
+		name = "Items",
+		description = "",
+		position = 9,
+		group = "Shop / stores",
+		hidden = true,
+		unhide = "swapSellOne"
 	)
 	default String getSellOneItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapSellFive",
-			name = "Swappable Sell Five",
-			description = "",
-			position = 10,
-			group = "Shop / stores"
+		keyName = "swapSellFive",
+		name = "Swappable Sell Five",
+		description = "",
+		position = 10,
+		group = "Shop / stores"
 	)
 	default boolean getSwapSellFive()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "sellFiveItems",
-			name = "Items",
-			description = "",
-			position = 11,
-			group = "Shop / stores",
-			hidden = true,
-			unhide = "swapSellFive"
+		keyName = "sellFiveItems",
+		name = "Items",
+		description = "",
+		position = 11,
+		group = "Shop / stores",
+		hidden = true,
+		unhide = "swapSellFive"
 	)
 	default String getSellFiveItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapSellTen",
-			name = "Swappable Sell Ten",
-			description = "",
-			position = 12,
-			group = "Shop / stores"
+		keyName = "swapSellTen",
+		name = "Swappable Sell Ten",
+		description = "",
+		position = 12,
+		group = "Shop / stores"
 	)
 	default boolean getSwapSellTen()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "sellTenItems",
-			name = "Items",
-			description = "",
-			position = 13,
-			group = "Shop / stores",
-			hidden = true,
-			unhide = "swapSellTen"
+		keyName = "sellTenItems",
+		name = "Items",
+		description = "",
+		position = 13,
+		group = "Shop / stores",
+		hidden = true,
+		unhide = "swapSellTen"
 	)
 	default String getSellTenItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapSellFifty",
-			name = "Swappable Sell Fifty",
-			description = "",
-			position = 14,
-			group = "Shop / stores"
+		keyName = "swapSellFifty",
+		name = "Swappable Sell Fifty",
+		description = "",
+		position = 14,
+		group = "Shop / stores"
 	)
 	default boolean getSwapSellFifty()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "sellFiftyItems",
-			name = "Items",
-			description = "",
-			position = 15,
-			group = "Shop / stores",
-			hidden = true,
-			unhide = "swapSellFifty"
+		keyName = "sellFiftyItems",
+		name = "Items",
+		description = "",
+		position = 15,
+		group = "Shop / stores",
+		hidden = true,
+		unhide = "swapSellFifty"
 	)
 	default String getSellFiftyItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	//------------------------------------------------------------//
 	// Skilling
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "getEasyConstruction",
-			name = "Easy Construction",
-			description = "Makes 'Remove'/'Build' the default option for listed items.",
-			position = 0,
-			group = "Skilling"
+		keyName = "getEasyConstruction",
+		name = "Easy Construction",
+		description = "Makes 'Remove'/'Build' the default option for listed items.",
+		position = 0,
+		group = "Skilling"
 	)
 
 	default boolean getEasyConstruction()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "getEasyConstructionItems",
-			name = "Build Items",
-			description = "",
-			position = 1,
-			group = "Skilling",
-			hidden = true,
-			unhide = "getEasyConstruction"
+		keyName = "getEasyConstructionItems",
+		name = "Build Items",
+		description = "",
+		position = 1,
+		group = "Skilling",
+		hidden = true,
+		unhide = "getEasyConstruction"
 	)
 	default String getEasyConstructionItems()
-		{
-			return "";
-		}
+	{
+		return "";
+	}
 
 	@ConfigItem(
-			keyName = "swapSmithing",
-			name = "Swap Smithing",
-			description = "Enables swapping of 'Smith-1' and 'Smith-all' options.",
-			position = 2,
-			group = "Skilling"
+		keyName = "swapSmithing",
+		name = "Swap Smithing",
+		description = "Enables swapping of 'Smith-1' and 'Smith-all' options.",
+		position = 2,
+		group = "Skilling"
 	)
 	default boolean getSwapSmithing()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapTanning",
-			name = "Swap Tanning",
-			description = "Enables swapping of 'Tan-1' and 'Tan-all' options.",
-			position = 3,
-			group = "Skilling"
+		keyName = "swapTanning",
+		name = "Swap Tanning",
+		description = "Enables swapping of 'Tan-1' and 'Tan-all' options.",
+		position = 3,
+		group = "Skilling"
 	)
 	default boolean getSwapTanning()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapSawmill",
-			name = "Swap Sawmill Operator",
-			description = "Makes 'Buy-plank' the default option on the Sawmill Operator.",
-			position = 4,
-			group = "Skilling"
+		keyName = "swapSawmill",
+		name = "Swap Sawmill Operator",
+		description = "Makes 'Buy-plank' the default option on the Sawmill Operator.",
+		position = 4,
+		group = "Skilling"
 	)
 	default boolean getSwapSawmill()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapSawmillPlanks",
-			name = "Swap Buy Planks",
-			description = "Makes 'Buy All' the default option when buying planks.",
-			position = 5,
-			group = "Skilling"
+		keyName = "swapSawmillPlanks",
+		name = "Swap Buy Planks",
+		description = "Makes 'Buy All' the default option when buying planks.",
+		position = 5,
+		group = "Skilling"
 	)
 	default boolean getSwapSawmillPlanks()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapPuroPuro",
-			name = "Swap Puro-Puro Wheat",
-			description = "",
-			position = 6,
-			group = "Skilling"
+		keyName = "swapPuroPuro",
+		name = "Swap Puro-Puro Wheat",
+		description = "",
+		position = 6,
+		group = "Skilling"
 	)
 	default boolean getSwapPuro()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	//------------------------------------------------------------//
 	// Talk-To
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "swapAssignment",
-			name = "Assignment",
-			description = "Swap 'Talk-to' with 'Assignment' for Slayer Masters. This will take priority over swapping Trade.",
-			position = 0,
-			group = "Talk-To"
+		keyName = "swapAssignment",
+		name = "Assignment",
+		description = "Swap 'Talk-to' with 'Assignment' for Slayer Masters. This will take priority over swapping Trade.",
+		position = 0,
+		group = "Talk-To"
 	)
 	default boolean swapAssignment()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapBankExchange",
-			name = "Bank/Exchange",
-			description = "Swap Talk-to with Bank or Exchange on NPC<br>Example: Banker, Grand Exchange Clerk, Tool Leprechaun, Void Knight",
-			position = 1,
-			group = "Talk-To"
+		keyName = "swapBankExchange",
+		name = "Bank/Exchange",
+		description = "Swap Talk-to with Bank or Exchange on NPC<br>Example: Banker, Grand Exchange Clerk, Tool Leprechaun, Void Knight",
+		position = 1,
+		group = "Talk-To"
 	)
 	default boolean swapBankExchange()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapContract",
-			name = "Contract",
-			description = "Swap 'Talk-to' with 'Contract' on Guildmaster Jane.",
-			position = 2,
-			group = "Talk-To"
+		keyName = "swapContract",
+		name = "Contract",
+		description = "Swap 'Talk-to' with 'Contract' on Guildmaster Jane.",
+		position = 2,
+		group = "Talk-To"
 	)
 	default boolean swapContract()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 
 	@ConfigItem(
-			keyName = "swapInteract",
-			name = "Interact",
-			description = "Swap options for generic interactions on NPCs<br>Example: Decant for Bob Barter, Repairs for Dark Mage, Claim Slime for Robin, Claim Dynamite",
-			position = 3,
-			group = "Talk-To"
+		keyName = "swapInteract",
+		name = "Interact",
+		description = "Swap options for generic interactions on NPCs<br>Example: Decant for Bob Barter, Repairs for Dark Mage, Claim Slime for Robin, Claim Dynamite",
+		position = 3,
+		group = "Talk-To"
 	)
 	default boolean swapInteract()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapPickpocket",
-			name = "Pickpocket",
-			description = "Swap Talk-to with Pickpocket on NPC<br>Example: Man, Woman",
-			position = 4,
-			group = "Talk-To"
+		keyName = "swapPickpocket",
+		name = "Pickpocket",
+		description = "Swap Talk-to with Pickpocket on NPC<br>Example: Man, Woman",
+		position = 4,
+		group = "Talk-To"
 	)
 	default boolean swapPickpocket()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapPay",
-			name = "Pay",
-			description = "Swap 'Talk-to' with 'Pay' on various NPCs.<br>Example: Elstan, Heskel, Fayeth.",
-			position = 5,
-			group = "Talk-To"
+		keyName = "swapPay",
+		name = "Pay",
+		description = "Swap 'Talk-to' with 'Pay' on various NPCs.<br>Example: Elstan, Heskel, Fayeth.",
+		position = 5,
+		group = "Talk-To"
 	)
 	default boolean swapPay()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapAbyssTeleport",
-			name = "Teleport to Abyss",
-			description = "Swap 'Talk-to' with 'Teleport' for the Mage of Zamorak.",
-			position = 6,
-			group = "Talk-To"
+		keyName = "swapAbyssTeleport",
+		name = "Teleport to Abyss",
+		description = "Swap 'Talk-to' with 'Teleport' for the Mage of Zamorak.",
+		position = 6,
+		group = "Talk-To"
 	)
 	default boolean swapAbyssTeleport()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapTrade",
-			name = "Trade",
-			description = "Swap 'Talk-to' with 'Trade' on various NPCs.<br>Example: Shop keeper, Shop assistant.",
-			position = 7,
-			group = "Talk-To"
+		keyName = "swapTrade",
+		name = "Trade",
+		description = "Swap 'Talk-to' with 'Trade' on various NPCs.<br>Example: Shop keeper, Shop assistant.",
+		position = 7,
+		group = "Talk-To"
 	)
 	default boolean swapTrade()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapTravel",
-			name = "Travel",
-			description = "Swap 'Talk-to' with 'Travel', 'Take-boat', 'Pay-fare', 'Charter' on various NPCs.<br>Example: Squire, Monk of Entrana, Customs officer, Trader Crewmember.",
-			position = 8,
-			group = "Talk-To"
+		keyName = "swapTravel",
+		name = "Travel",
+		description = "Swap 'Talk-to' with 'Travel', 'Take-boat', 'Pay-fare', 'Charter' on various NPCs.<br>Example: Squire, Monk of Entrana, Customs officer, Trader Crewmember.",
+		position = 8,
+		group = "Talk-To"
 	)
 	default boolean swapTravel()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapMinigame",
-			name = "Minigames",
-			description = "Swap Talk-to with Start-Minigame, Story, Dream on NPC<br>Example: Guardian mummy, Juna, Dominic Onion",
-			position = 9,
-			group = "Talk-To"
+		keyName = "swapMinigame",
+		name = "Minigames",
+		description = "Swap Talk-to with Start-Minigame, Story, Dream on NPC<br>Example: Guardian mummy, Juna, Dominic Onion",
+		position = 9,
+		group = "Talk-To"
 	)
 	default boolean swapMinigame()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapPlank",
-			name = "Buy Planks",
-			description = "Swap 'Talk-to' with 'Buy-planks' at the Lumber Yard.",
-			position = 10,
-			group = "Talk-To"
+		keyName = "swapPlank",
+		name = "Buy Planks",
+		description = "Swap 'Talk-to' with 'Buy-planks' at the Lumber Yard.",
+		position = 10,
+		group = "Talk-To"
 	)
 	default boolean swapPlank()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapMetamorphosis",
-			name = "Metamorphosis",
-			description = "Swap 'Talk-to' with 'Metamorphosis' for Baby Chinchompa pet.",
-			position = 11,
-			group = "Talk-To"
+		keyName = "swapMetamorphosis",
+		name = "Metamorphosis",
+		description = "Swap 'Talk-to' with 'Metamorphosis' for Baby Chinchompa pet.",
+		position = 11,
+		group = "Talk-To"
 	)
 	default boolean swapMetamorphosis()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapEnchant",
-			name = "Enchant",
-			description = "Swap Talk-to with Enchant for Eluned",
-			position = 12,
-			group = "Talk-To"
+		keyName = "swapEnchant",
+		name = "Enchant",
+		description = "Swap Talk-to with Enchant for Eluned",
+		position = 12,
+		group = "Talk-To"
 	)
 	default boolean swapEnchant()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	//------------------------------------------------------------//
 	// Teleportation
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "swapFairyRing",
-			name = "Fairy Ring",
-			description = "Swap 'Zanaris' with 'Last-destination' or 'Configure' on Fairy rings.",
-			position = 0,
-			group = "Teleportation"
+		keyName = "swapFairyRing",
+		name = "Fairy Ring",
+		description = "Swap 'Zanaris' with 'Last-destination' or 'Configure' on Fairy rings.",
+		position = 0,
+		group = "Teleportation"
 	)
 	default boolean swapFairyRing()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "fairyring",
-			name = "Mode",
-			description = "",
-			position = 1,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapFairyRing"
+		keyName = "fairyring",
+		name = "Mode",
+		description = "",
+		position = 1,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapFairyRing"
 	)
 	default FairyRingMode swapFairyRingMode()
-		{
-			return FairyRingMode.LAST_DESTINATION;
-		}
+	{
+		return FairyRingMode.LAST_DESTINATION;
+	}
 
 	@ConfigItem(
-			keyName = "swapObelisk",
-			name = "Obelisk",
-			description = "Swap the options on wilderness obelisks between 'Activate', 'Set destination' or 'Teleport to destination'.",
-			position = 2,
-			group = "Teleportation"
+		keyName = "swapObelisk",
+		name = "Obelisk",
+		description = "Swap the options on wilderness obelisks between 'Activate', 'Set destination' or 'Teleport to destination'.",
+		position = 2,
+		group = "Teleportation"
 	)
 	default boolean swapObelisk()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "obelisk",
-			name = "Mode",
-			description = "",
-			position = 3,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapObelisk"
+		keyName = "obelisk",
+		name = "Mode",
+		description = "",
+		position = 3,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapObelisk"
 	)
 	default ObeliskMode swapObeliskMode()
-		{
-			return ObeliskMode.ACTIVATE;
-		}
+	{
+		return ObeliskMode.ACTIVATE;
+	}
 
 	@ConfigItem(
-			keyName = "swapTeleportItem",
-			name = "Teleport Items",
-			description = "Swap 'Wear' or 'Wield' with 'Rub' or 'Teleport' on teleport items.<br>Example: Amulet of glory, Explorer's ring, Chronicle.",
-			position = 4,
-			group = "Teleportation"
+		keyName = "swapTeleportItem",
+		name = "Teleport Items",
+		description = "Swap 'Wear' or 'Wield' with 'Rub' or 'Teleport' on teleport items.<br>Example: Amulet of glory, Explorer's ring, Chronicle.",
+		position = 4,
+		group = "Teleportation"
 	)
 	default boolean swapTeleportItem()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "swapWildernessLever",
-			name = "Wilderness Lever",
-			description = "Swap the wilderness lever left click to be Edgeville/Ardougne.",
-			position = 5,
-			group = "Teleportation"
+		keyName = "swapWildernessLever",
+		name = "Wilderness Lever",
+		description = "Swap the wilderness lever left click to be Edgeville/Ardougne.",
+		position = 5,
+		group = "Teleportation"
 	)
 	default boolean swapWildernessLever()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapNexus",
-			name = "Portal Nexus",
-			description = "Makes the teleport menu have priority over the left click destination on the portal nexus.",
-			position = 6,
-			group = "Teleportation"
+		keyName = "swapNexus",
+		name = "Portal Nexus",
+		description = "Makes the teleport menu have priority over the left click destination on the portal nexus.",
+		position = 6,
+		group = "Teleportation"
 	)
 	default boolean swapNexus()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "swapGamesNecklace",
-			name = "Swap Games Necklace",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Games Necklace.",
-			position = 7,
-			group = "Teleportation"
+		keyName = "swapGamesNecklace",
+		name = "Swap Games Necklace",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Games Necklace.",
+		position = 7,
+		group = "Teleportation"
 	)
 	default boolean getGamesNecklace()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "gamesNecklaceMode",
-			name = "Mode",
-			description = "",
-			position = 8,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapGamesNecklace"
+		keyName = "gamesNecklaceMode",
+		name = "Mode",
+		description = "",
+		position = 8,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapGamesNecklace"
 	)
 	default GamesNecklaceMode getGamesNecklaceMode()
-		{
-			return GamesNecklaceMode.BURTHORPE;
-		}
+	{
+		return GamesNecklaceMode.BURTHORPE;
+	}
 
 	@ConfigItem(
-			keyName = "swapDuelingRing",
-			name = "Swap Dueling Ring",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Ring of Dueling.",
-			position = 9,
-			group = "Teleportation"
+		keyName = "swapDuelingRing",
+		name = "Swap Dueling Ring",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Ring of Dueling.",
+		position = 9,
+		group = "Teleportation"
 	)
 	default boolean getDuelingRing()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "duelingRingMode",
-			name = "Mode",
-			description = "",
-			position = 10,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapDuelingRing"
+		keyName = "duelingRingMode",
+		name = "Mode",
+		description = "",
+		position = 10,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapDuelingRing"
 	)
 	default DuelingRingMode getDuelingRingMode()
-		{
-			return DuelingRingMode.DUEL_ARENA;
-		}
+	{
+		return DuelingRingMode.DUEL_ARENA;
+	}
 
 	@ConfigItem(
-			keyName = "swapGlory",
-			name = "Swap Glory",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Amulet of Glory / Amulet of Eternal Glory.",
-			position = 11,
-			group = "Teleportation"
+		keyName = "swapGlory",
+		name = "Swap Glory",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Amulet of Glory / Amulet of Eternal Glory.",
+		position = 11,
+		group = "Teleportation"
 	)
 	default boolean getGlory()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "gloryMode",
-			name = "Mode",
-			description = "",
-			position = 12,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapGlory"
+		keyName = "gloryMode",
+		name = "Mode",
+		description = "",
+		position = 12,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapGlory"
 	)
 	default GloryMode getGloryMode()
-		{
-			return GloryMode.EDGEVILLE;
-		}
+	{
+		return GloryMode.EDGEVILLE;
+	}
 
 	@ConfigItem(
-			keyName = "swapSkill",
-			name = "Swap Skill",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Skills Necklace.",
-			position = 13,
-			group = "Teleportation"
+		keyName = "swapSkill",
+		name = "Swap Skill",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Skills Necklace.",
+		position = 13,
+		group = "Teleportation"
 	)
 	default boolean getSkillsNecklace()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "skillsnecklacemode",
-			name = "Mode",
-			description = "",
-			position = 14,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapSkill"
+		keyName = "skillsnecklacemode",
+		name = "Mode",
+		description = "",
+		position = 14,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapSkill"
 	)
 	default SkillsNecklaceMode getSkillsNecklaceMode()
-		{
-			return SkillsNecklaceMode.FARMING_GUILD;
-		}
+	{
+		return SkillsNecklaceMode.FARMING_GUILD;
+	}
 
 	@ConfigItem(
-			keyName = "swapPassage",
-			name = "Swap Passage",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Necklace of Passage.",
-			position = 15,
-			group = "Teleportation"
+		keyName = "swapPassage",
+		name = "Swap Passage",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Necklace of Passage.",
+		position = 15,
+		group = "Teleportation"
 	)
 	default boolean getNecklaceofPassage()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "necklaceofpassagemode",
-			name = "Mode",
-			description = "",
-			position = 16,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapPassage"
+		keyName = "necklaceofpassagemode",
+		name = "Mode",
+		description = "",
+		position = 16,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapPassage"
 	)
 	default NecklaceOfPassageMode getNecklaceofPassageMode()
-		{
-			return NecklaceOfPassageMode.WIZARDS_TOWER;
-		}
+	{
+		return NecklaceOfPassageMode.WIZARDS_TOWER;
+	}
 
 	@ConfigItem(
-			keyName = "swapDigsite",
-			name = "Swap Digsite",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Digsite Pendant.",
-			position = 17,
-			group = "Teleportation"
+		keyName = "swapDigsite",
+		name = "Swap Digsite",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Digsite Pendant.",
+		position = 17,
+		group = "Teleportation"
 	)
 	default boolean getDigsitePendant()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "digsitependantmode",
-			name = "Mode",
-			description = "",
-			position = 18,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapDigsite"
+		keyName = "digsitependantmode",
+		name = "Mode",
+		description = "",
+		position = 18,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapDigsite"
 	)
 	default DigsitePendantMode getDigsitePendantMode()
-		{
-			return DigsitePendantMode.FOSSIL_ISLAND;
-		}
+	{
+		return DigsitePendantMode.FOSSIL_ISLAND;
+	}
 
 	@ConfigItem(
-			keyName = "swapCombat",
-			name = "Swap Combat",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Combat Bracelet.",
-			position = 19,
-			group = "Teleportation"
+		keyName = "swapCombat",
+		name = "Swap Combat",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Combat Bracelet.",
+		position = 19,
+		group = "Teleportation"
 	)
 	default boolean getCombatBracelet()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "combatbraceletmode",
-			name = "Mode",
-			description = "",
-			position = 20,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapCombat"
+		keyName = "combatbraceletmode",
+		name = "Mode",
+		description = "",
+		position = 20,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapCombat"
 	)
 	default CombatBraceletMode getCombatBraceletMode()
-		{
-			return CombatBraceletMode.WARRIORS_GUILD;
-		}
+	{
+		return CombatBraceletMode.WARRIORS_GUILD;
+	}
 
 	@ConfigItem(
-			keyName = "swapburning",
-			name = "Swap Burning",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Burning Amulet.",
-			position = 21,
-			group = "Teleportation"
+		keyName = "swapburning",
+		name = "Swap Burning",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Burning Amulet.",
+		position = 21,
+		group = "Teleportation"
 	)
 	default boolean getBurningAmulet()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "burningamuletmode",
-			name = "Mode",
-			description = "",
-			position = 22,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapburning"
+		keyName = "burningamuletmode",
+		name = "Mode",
+		description = "",
+		position = 22,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapburning"
 	)
 	default BurningAmuletMode getBurningAmuletMode()
-		{
-			return BurningAmuletMode.BANDIT_CAMP;
-		}
+	{
+		return BurningAmuletMode.BANDIT_CAMP;
+	}
 
 	@ConfigItem(
-			keyName = "swapxeric",
-			name = "Swap Xeric's",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Xeric's Talisman.",
-			position = 23,
-			group = "Teleportation"
+		keyName = "swapxeric",
+		name = "Swap Xeric's",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Xeric's Talisman.",
+		position = 23,
+		group = "Teleportation"
 	)
 	default boolean getXericsTalisman()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "xericstalismanmode",
-			name = "Mode",
-			description = "",
-			position = 24,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapxeric"
+		keyName = "xericstalismanmode",
+		name = "Mode",
+		description = "",
+		position = 24,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapxeric"
 	)
 	default XericsTalismanMode getXericsTalismanMode()
-		{
-			return XericsTalismanMode.XERICS_LOOKOUT;
-		}
+	{
+		return XericsTalismanMode.XERICS_LOOKOUT;
+	}
 
 	@ConfigItem(
-			keyName = "swapwealth",
-			name = "Swap Wealth",
-			description = "Swap the left click 'remove' option with the desired teleport location on a worn Ring of Wealth.",
-			position = 25,
-			group = "Teleportation"
+		keyName = "swapwealth",
+		name = "Swap Wealth",
+		description = "Swap the left click 'remove' option with the desired teleport location on a worn Ring of Wealth.",
+		position = 25,
+		group = "Teleportation"
 	)
 	default boolean getRingofWealth()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "ringofwealthmode",
-			name = "Mode",
-			description = "",
-			position = 26,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapwealth"
+		keyName = "ringofwealthmode",
+		name = "Mode",
+		description = "",
+		position = 26,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapwealth"
 	)
 	default RingOfWealthMode getRingofWealthMode()
-		{
-			return RingOfWealthMode.GRAND_EXCHANGE;
-		}
+	{
+		return RingOfWealthMode.GRAND_EXCHANGE;
+	}
 
 	@ConfigItem(
-			keyName = "swapslayer",
-			name = "Swap Slayer Ring",
-			description = "",
-			position = 27,
-			group = "Teleportation"
+		keyName = "swapslayer",
+		name = "Swap Slayer Ring",
+		description = "",
+		position = 27,
+		group = "Teleportation"
 	)
 	default boolean getSlayerRing()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "slayerringmode",
-			name = "Mode",
-			description = "",
-			position = 28,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapslayer"
+		keyName = "slayerringmode",
+		name = "Mode",
+		description = "",
+		position = 28,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapslayer"
 	)
 	default SlayerRingMode getSlayerRingMode()
-		{
-			return SlayerRingMode.CHECK;
-		}
+	{
+		return SlayerRingMode.CHECK;
+	}
 
 	//------------------------------------------------------------//
 	// Right Click Options
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "hideExamine",
-			name = "Hide Examine",
-			description = "Hides the 'Examine' option from the right click menu.",
-			position = 0,
-			group = "Right Click Options"
+		keyName = "hideExamine",
+		name = "Hide Examine",
+		description = "Hides the 'Examine' option from the right click menu.",
+		position = 0,
+		group = "Right Click Options"
 	)
 	default boolean hideExamine()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideTradeWith",
-			name = "Hide Trade With",
-			description = "Hides the 'Trade with' option from the right click menu.",
-			position = 1,
-			group = "Right Click Options"
+		keyName = "hideTradeWith",
+		name = "Hide Trade With",
+		description = "Hides the 'Trade with' option from the right click menu.",
+		position = 1,
+		group = "Right Click Options"
 	)
 	default boolean hideTradeWith()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideReport",
-			name = "Hide Report",
-			description = "Hides the 'Report' option from the right click menu.",
-			position = 2,
-			group = "Right Click Options"
+		keyName = "hideReport",
+		name = "Hide Report",
+		description = "Hides the 'Report' option from the right click menu.",
+		position = 2,
+		group = "Right Click Options"
 	)
 	default boolean hideReport()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideLookup",
-			name = "Hide Lookup",
-			description = "Hides the 'Lookup' option from the right click menu.",
-			position = 3,
-			group = "Right Click Options"
+		keyName = "hideLookup",
+		name = "Hide Lookup",
+		description = "Hides the 'Lookup' option from the right click menu.",
+		position = 3,
+		group = "Right Click Options"
 	)
 	default boolean hideLookup()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideNet",
-			name = "Hide Net",
-			description = "Hides the 'Net' option from the right click menu.",
-			position = 4,
-			group = "Right Click Options"
+		keyName = "hideNet",
+		name = "Hide Net",
+		description = "Hides the 'Net' option from the right click menu.",
+		position = 4,
+		group = "Right Click Options"
 	)
 	default boolean hideNet()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideBait",
-			name = "Hide Bait",
-			description = "Hides the 'Bait' option from the right click menu.",
-			position = 5,
-			group = "Right Click Options"
+		keyName = "hideBait",
+		name = "Hide Bait",
+		description = "Hides the 'Bait' option from the right click menu.",
+		position = 5,
+		group = "Right Click Options"
 	)
 	default boolean hideBait()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	//------------------------------------------------------------//
 	// Untradeables
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "hideDestroyRunepouch",
-			name = "Hide Destroy on Rune Pouch",
-			description = "Hides the 'Destroy' option when right clicking a Rune pouch.",
-			position = 0,
-			group = "Untradeables"
+		keyName = "hideDestroyRunepouch",
+		name = "Hide Destroy on Rune Pouch",
+		description = "Hides the 'Destroy' option when right clicking a Rune pouch.",
+		position = 0,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyRunepouch()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideDestroyCoalbag",
-			name = "Hide Destroy on Coal bag",
-			description = "Hides the 'Destroy' option when right clicking a Coal bag.",
-			position = 1,
-			group = "Untradeables"
+		keyName = "hideDestroyCoalbag",
+		name = "Hide Destroy on Coal bag",
+		description = "Hides the 'Destroy' option when right clicking a Coal bag.",
+		position = 1,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyCoalbag()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideDestroyHerbsack",
-			name = "Hide Destroy on Herb sack",
-			description = "Hides the 'Destroy' option when right clicking a Herb sack.",
-			position = 2,
-			group = "Untradeables"
+		keyName = "hideDestroyHerbsack",
+		name = "Hide Destroy on Herb sack",
+		description = "Hides the 'Destroy' option when right clicking a Herb sack.",
+		position = 2,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyHerbsack()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideDestroyBoltpouch",
-			name = "Hide Destroy on Bolt pouch",
-			description = "Hides the 'Destroy' option when right clicking a Bolt pouch.",
-			position = 3,
-			group = "Untradeables"
+		keyName = "hideDestroyBoltpouch",
+		name = "Hide Destroy on Bolt pouch",
+		description = "Hides the 'Destroy' option when right clicking a Bolt pouch.",
+		position = 3,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyBoltpouch()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideDestroyGembag",
-			name = "Hide Destroy on Gem bag",
-			description = "Hides the 'Destroy' option when right clicking a Gem bag.",
-			position = 4,
-			group = "Untradeables"
+		keyName = "hideDestroyGembag",
+		name = "Hide Destroy on Gem bag",
+		description = "Hides the 'Destroy' option when right clicking a Gem bag.",
+		position = 4,
+		group = "Untradeables"
 	)
 	default boolean hideDestroyGembag()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
-			keyName = "hideDropRunecraftingPouch",
-			name = "Hide Drop on RC pouches",
-			description = "Hides the 'Drop' option when right clicking a Small, Medium, Large, or Giant pouch.",
-			position = 5,
-			group = "Untradeables"
+		keyName = "hideDropRunecraftingPouch",
+		name = "Hide Drop on RC pouches",
+		description = "Hides the 'Drop' option when right clicking a Small, Medium, Large, or Giant pouch.",
+		position = 5,
+		group = "Untradeables"
 	)
 	default boolean hideDropRunecraftingPouch()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	//------------------------------------------------------------//
 	// PVM
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-			keyName = "removeFreezePlayerToB",
-			name = "Remove freeze in ToB",
-			description = "Removes the freeze option for ice barrage, ice blitz, entangle etc. in ToB",
-			position = 0,
-			group = "PVM"
+		keyName = "removeFreezePlayerToB",
+		name = "Remove freeze in ToB",
+		description = "Removes the freeze option for ice barrage, ice blitz, entangle etc. in ToB",
+		position = 0,
+		group = "PVM"
 	)
 
 	default boolean getRemoveFreezePlayerToB()
-		{
-			return true;
-		}
+	{
+		return true;
+	}
 
 	@ConfigItem(
-			keyName = "removeFreezePlayerCoX",
-			name = "Remove freeze in CoX",
-			description = "Removes the freeze option for ice barrage, ice blitz, entangle etc. in CoX",
-			position = 1,
-			group = "PVM"
+		keyName = "removeFreezePlayerCoX",
+		name = "Remove freeze in CoX",
+		description = "Removes the freeze option for ice barrage, ice blitz, entangle etc. in CoX",
+		position = 1,
+		group = "PVM"
 	)
 
 	default boolean getRemoveFreezePlayerCoX()
-		{
-			return true;
-		}
+	{
+		return true;
 	}
+}
