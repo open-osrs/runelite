@@ -36,5 +36,8 @@ public interface NpcStatusConfig extends Config
 			name = "NPC Attack range",
 			description = "The attack range of the NPC"
 	)
-	default int getRange() { return 1;}
+	default int getRange()
+	{
+		return 1;
+	}
 }

@@ -36,42 +36,42 @@ import net.runelite.api.Actor;
 class MemorizedNPC
 {
 	private NPC npc;
-    private int npcIndex;
-    private String npcName;
-    private int attackSpeed;
-    @Setter
-    private int combatTimerEnd;
-    @Setter
+	private int npcIndex;
+	private String npcName;
+	private int attackSpeed;
+	@Setter
+	private int combatTimerEnd;
+	@Setter
 	private int timeLeft;
-    @Setter
-    private int flinchTimerEnd;
-    @Setter
-    private Status status;
-    @Setter
-    private WorldArea lastnpcarea;
-    @Setter
-    private Actor lastinteracted;
-    @Setter
-    private int lastspotanimation;
+	@Setter
+	private int flinchTimerEnd;
+	@Setter
+	private Status status;
+	@Setter
+	private WorldArea lastnpcarea;
+	@Setter
+	private Actor lastinteracted;
+	@Setter
+	private int lastspotanimation;
 
-    MemorizedNPC(NPC npc, int attackSpeed, WorldArea worldArea)
-    {
-    	this.npc = npc;
+	MemorizedNPC(NPC npc, int attackSpeed, WorldArea worldArea)
+	{
+		this.npc = npc;
 		this.npcIndex = npc.getIndex();
-        this.npcName = npc.getName();
-        this.attackSpeed = attackSpeed;
-        this.combatTimerEnd = -1;
-        this.flinchTimerEnd = -1;
-        this.timeLeft = 0;
-        this.status = Status.OUT_OF_COMBAT;
-        this.lastnpcarea = worldArea;
-        this.lastinteracted = null;
-        this.lastspotanimation = -1;
-    }
+		this.npcName = npc.getName();
+		this.attackSpeed = attackSpeed;
+		this.combatTimerEnd = -1;
+		this.flinchTimerEnd = -1;
+		this.timeLeft = 0;
+		this.status = Status.OUT_OF_COMBAT;
+		this.lastnpcarea = worldArea;
+		this.lastinteracted = null;
+		this.lastspotanimation = -1;
+	}
 
-    @Getter
-    @AllArgsConstructor
-    enum Status
+	@Getter
+	@AllArgsConstructor
+	enum Status
 	{
 		FLINCHING("Flinching", Color.GREEN),
 		IN_COMBAT_DELAY("In Combat Delay", Color.ORANGE),
