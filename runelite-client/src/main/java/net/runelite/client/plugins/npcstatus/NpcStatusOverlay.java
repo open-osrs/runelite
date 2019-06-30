@@ -49,45 +49,43 @@ public class NpcStatusOverlay extends Overlay
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
+
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		for (NPC npc : plugin.getTimedNPCs())
+		for (MemorizedNPC npc : plugin.getMemorizedNPCs())
 		{
-			if (npc.getInteracting()==client.getLocalPlayer() || client.getLocalPlayer().getInteracting()==npc)
+			if (npc.getNpc().getInteracting() == null)
 			{
-				renderTimer(graphics, npc);
+				continue;
+			}
+			if (npc.getNpc().getInteracting() == client.getLocalPlayer() || client.getLocalPlayer().getInteracting() == npc.getNpc())
+			{
+				switch (npc.getStatus())
+				{
+					case FLINCHING:
+						npc.setTimeLeft(Math.max(0, npc.getFlinchTimerEnd() - client.getTickCount()));
+						break;
+					case IN_COMBAT_DELAY:
+						npc.setTimeLeft(Math.max(0, npc.getCombatTimerEnd() - client.getTickCount() - 7));
+						break;
+					case IN_COMBAT:
+						npc.setTimeLeft(Math.max(0, npc.getCombatTimerEnd() - client.getTickCount()));
+						break;
+					case OUT_OF_COMBAT:
+					default:
+						npc.setTimeLeft(0);
+						break;
+				}
+
+				Point textLocation = npc.getNpc().getCanvasTextLocation(graphics, Integer.toString(npc.getTimeLeft()), npc.getNpc().getLogicalHeight() + 40);
+
+				if (textLocation != null)
+				{
+					OverlayUtil.renderTextLocation(graphics, textLocation, Integer.toString(npc.getTimeLeft()), npc.getStatus().getColor());
+				}
 			}
 		}
 		return null;
-	}
-	private void renderTimer(final Graphics2D graphics, NPC actor)
-	{
-		final MemorizedNPC mn = plugin.getMemorizedNPC().get(actor.getIndex());
-		Color color;
-		int timeLeft;
-		switch (mn.getStatus()) {
-			case "Flinching":
-				color = Color.green;
-				timeLeft = Math.max(0, mn.getFlinchTimerEnd() - client.getTickCount());
-				break;
-			case "InCombatDelay":
-				color = Color.orange;
-				timeLeft = Math.max(0, mn.getCombatTimerEnd() - client.getTickCount()-7);
-				break;
-			case "InCombat":
-				color = Color.red;
-				timeLeft = Math.max(0, mn.getCombatTimerEnd() - client.getTickCount());
-				break;
-			case "OutOfCombat":
-			default:
-				color = Color.blue;
-				timeLeft = 0;
-		}
-		Point textLocation = actor.getCanvasTextLocation(graphics, Integer.toString(timeLeft), actor.getLogicalHeight() + 40);
-		if (textLocation != null)
-		{
-			OverlayUtil.renderTextLocation(graphics, textLocation, Integer.toString(timeLeft), color);
-		}
 	}
 }

@@ -32,21 +32,9 @@ import net.runelite.client.config.ConfigItem;
 public interface NpcStatusConfig extends Config
 {
 	@ConfigItem(
-			keyName = "AttackDelay",
-			name = "NPC attack delay",
-			description = "Time between 2 NPC attacks in ticks",
-			position = 1
-	)
-	default int getAttackDelay()
-	{
-		return 6;
-	}
-
-	@ConfigItem(
 			keyName = "AttackRange",
 			name = "NPC Attack range",
-			description = "The attack range of the NPC",
-			position = 3
+			description = "The attack range of the NPC"
 	)
-	default int getRange() { return 15;}
+	default int getRange() { return 1;}
 }

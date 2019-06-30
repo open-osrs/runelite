@@ -198,7 +198,7 @@ public class WorldArea
 			Point p1 = this.getComparisonPoint(other);
 			Point p2 = other.getComparisonPoint(this);
 			WorldArea w1 = new WorldArea(p1.getX(), p1.getY() , 1, 1, this.getPlane());
-			return (w1.canTravelInDirection(client, p2.getX()-p1.getX(), p2.getY()-p1.getY()));
+			return (w1.canTravelInDirection(client, p2.getX() - p1.getX(), p2.getY() - p1.getY()));
 		}
 		return false;
 	}

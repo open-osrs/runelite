@@ -24,58 +24,61 @@
  */
 package net.runelite.client.plugins.npcstatus;
 
+import java.awt.Color;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.NPC;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.Actor;
 
+@Getter
 class MemorizedNPC
 {
-    @Getter
+	private NPC npc;
     private int npcIndex;
-
-    @Getter
     private String npcName;
-
-    @Getter
+    private int attackSpeed;
     @Setter
     private int combatTimerEnd;
-
-    @Getter
+    @Setter
+	private int timeLeft;
     @Setter
     private int flinchTimerEnd;
-
-    @Getter
     @Setter
-    private String status;
-
-    @Getter
+    private Status status;
     @Setter
     private WorldArea lastnpcarea;
-
-    @Getter
     @Setter
     private Actor lastinteracted;
-
-    @Getter
     @Setter
     private int lastspotanimation;
 
-    @Getter
-    @Setter
-    private Boolean outofcombatlasttick;
-
-    MemorizedNPC(NPC npc)
+    MemorizedNPC(NPC npc, int attackSpeed, WorldArea worldArea)
     {
+    	this.npc = npc;
+		this.npcIndex = npc.getIndex();
         this.npcName = npc.getName();
-        this.npcIndex = npc.getIndex();
+        this.attackSpeed = attackSpeed;
         this.combatTimerEnd = -1;
         this.flinchTimerEnd = -1;
-        this.status = "OutOfCombat"; // "OutOfCombat" or "Flinching" or "InCombat" or "InCombatDelay"
-        this.lastnpcarea = null;
+        this.timeLeft = 0;
+        this.status = Status.OUT_OF_COMBAT;
+        this.lastnpcarea = worldArea;
         this.lastinteracted = null;
         this.lastspotanimation = -1;
-        this.outofcombatlasttick = true;
     }
+
+    @Getter
+    @AllArgsConstructor
+    enum Status
+	{
+		FLINCHING("Flinching", Color.GREEN),
+		IN_COMBAT_DELAY("In Combat Delay", Color.ORANGE),
+		IN_COMBAT("In Combat", Color.RED),
+		OUT_OF_COMBAT("Out of Combat", Color.BLUE);
+
+		private String name;
+		private Color color;
+	}
 }
