@@ -100,5 +100,6 @@ public class ProjectileID
 	public static final int HYDRA_POISON = 1644;
 	public static final int HYDRA_LIGHTNING = 1664;
 	public static final int HYDRA_LIGHTNING_2 = 1665;
+	public static final int HYDRA_FIRE = 1667;
 	public static final int DRAKE_BREATH = 1637;
 }
