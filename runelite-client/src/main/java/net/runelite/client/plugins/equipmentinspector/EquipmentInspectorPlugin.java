@@ -43,6 +43,7 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.Player;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.PlayerMenuOptionClicked;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.chat.ChatColorType;
@@ -100,6 +101,10 @@ public class EquipmentInspectorPlugin extends Plugin
 	private int Prot3 = 0;
 	private int Prot4 = 0;
 
+	private boolean ShowValue;
+	private int protecteditems;
+	private boolean ExactValue;
+
 	@Provides
 	EquipmentInspectorConfig provideConfig(ConfigManager configManager)
 	{
@@ -109,6 +114,7 @@ public class EquipmentInspectorPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 
 		equipmentInspectorPanel = injector.getInstance(EquipmentInspectorPanel.class);
 		if (client != null)
@@ -166,10 +172,18 @@ public class EquipmentInspectorPlugin extends Plugin
 				// The player menu uses a non-breaking space in the player name, we need to replace this to compare
 				// against the playerName in the player cache.
 				String finalPlayerName = playerName.replace('\u00A0', ' ');
-				List<Player> players = client.getPlayers();
-				Optional<Player> targetPlayer = players.stream()
-					.filter(Objects::nonNull)
-					.filter(p -> p.getName().equals(finalPlayerName)).findFirst();
+				List<Player> players = null;
+				if (client != null)
+				{
+					players = client.getPlayers();
+				}
+				Optional<Player> targetPlayer = Optional.empty();
+				if (players != null)
+				{
+					targetPlayer = players.stream()
+						.filter(Objects::nonNull)
+						.filter(p -> p.getName().equals(finalPlayerName)).findFirst();
+				}
 
 				if (targetPlayer.isPresent())
 				{
@@ -224,13 +238,13 @@ public class EquipmentInspectorPlugin extends Plugin
 							}
 						}
 					}
-					int IgnoredItems = config.protecteditems();
+					int IgnoredItems = this.protecteditems;
 					if (IgnoredItems != 0 && IgnoredItems != 1 && IgnoredItems != 2 && IgnoredItems != 3)
 					{
 						IgnoredItems = 4;
 
 					}
-					if (config.ShowValue())
+					if (this.ShowValue)
 					{
 						switch (IgnoredItems)
 						{
@@ -255,13 +269,13 @@ public class EquipmentInspectorPlugin extends Plugin
 								break;
 						}
 						String StringPrice = "";
-						if (!config.ExactValue())
+						if (!this.ExactValue)
 						{
 							TotalPrice = TotalPrice / 1000;
 							StringPrice = NumberFormat.getIntegerInstance().format(TotalPrice);
 							StringPrice = StringPrice + 'K';
 						}
-						if (config.ExactValue())
+						if (this.ExactValue)
 						{
 							StringPrice = NumberFormat.getIntegerInstance().format(TotalPrice);
 						}
@@ -280,5 +294,21 @@ public class EquipmentInspectorPlugin extends Plugin
 				}
 			});
 		}
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equalsIgnoreCase("equipmentinspector"))
+		{
+			updateConfig();
+		}
+	}
+
+	public void updateConfig()
+	{
+		this.ShowValue = config.ShowValue();
+		this.protecteditems = config.protecteditems();
+		this.ExactValue = config.ExactValue();
 	}
 }
