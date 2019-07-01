@@ -51,17 +51,15 @@ public class CoxInfoBox extends Overlay
 {
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 	private final CoxPlugin plugin;
-	private final CoxConfig config;
 	private final Client client;
 	private final SpriteManager spriteManager;
 	private final PanelComponent prayAgainstPanel = new PanelComponent();
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	CoxInfoBox(CoxPlugin plugin, CoxConfig config, Client client, SpriteManager spriteManager)
+	CoxInfoBox(CoxPlugin plugin, Client client, SpriteManager spriteManager)
 	{
 		this.plugin = plugin;
-		this.config = config;
 		this.client = client;
 		this.spriteManager = spriteManager;
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
@@ -79,7 +77,7 @@ public class CoxInfoBox extends Overlay
 
 			final PrayAgainst prayAgainst = plugin.getPrayAgainstOlm();
 
-			if (plugin.getPrayAgainstOlm() == null && !config.prayAgainstOlm())
+			if (plugin.getPrayAgainstOlm() == null && !plugin.isConfigPrayAgainstOlm())
 			{
 				return null;
 			}
@@ -105,7 +103,7 @@ public class CoxInfoBox extends Overlay
 				plugin.setPrayAgainstOlm(null);
 			}
 
-			if (config.vangHealth() && plugin.getVanguards() > 0)
+			if (plugin.isVangHealth() && plugin.getVanguards() > 0)
 			{
 				panelComponent.getChildren().add(TitleComponent.builder()
 					.text("Vanguards")

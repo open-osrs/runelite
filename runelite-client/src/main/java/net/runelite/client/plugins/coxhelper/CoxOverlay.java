@@ -54,14 +54,12 @@ public class CoxOverlay extends Overlay
 {
 	private final Client client;
 	private final CoxPlugin plugin;
-	private final CoxConfig config;
 
 	@Inject
-	private CoxOverlay(Client client, CoxPlugin plugin, CoxConfig config)
+	private CoxOverlay(Client client, CoxPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -72,13 +70,13 @@ public class CoxOverlay extends Overlay
 	{
 		for (WorldPoint point : plugin.getOlm_Heal())
 		{
-			drawTile(graphics, point, config.tpColor(), 2, 150, 50);
+			drawTile(graphics, point, plugin.getTpColor(), 2, 150, 50);
 		}
 
 		for (WorldPoint point : plugin.getOlm_TP())
 		{
 			client.setHintArrow(point);
-			drawTile(graphics, point, config.tpColor(), 2, 150, 50);
+			drawTile(graphics, point, plugin.getTpColor(), 2, 150, 50);
 		}
 
 		if (plugin.inRaid())
@@ -96,14 +94,14 @@ public class CoxOverlay extends Overlay
 					case NpcID.TEKTON_7545:
 					case NpcID.TEKTON_ENRAGED:
 					case NpcID.TEKTON_ENRAGED_7544:
-						if (config.tekton())
+						if (plugin.isTekton())
 						{
 							hitSquares = getHitSquares(npcs.getNpc().getWorldLocation(), npcs.getNpcSize(), 1, false);
 							for (WorldPoint p : hitSquares)
 							{
-								drawTile(graphics, p, config.tektonColor(), 0, 0, 50);
+								drawTile(graphics, p, plugin.getTektonColor(), 0, 0, 50);
 							}
-							if (config.tektonTickCounter())
+							if (plugin.isTektonTickCounter())
 							{
 								ticksLeft = npcs.getTicksUntilAttack();
 								int attackTicksleft = plugin.getTektonAttackTicks();
@@ -119,10 +117,10 @@ public class CoxOverlay extends Overlay
 									}
 									final String ticksLeftStr = String.valueOf(ticksLeft);
 									Point canvasPoint = npcs.getNpc().getCanvasTextLocation(graphics, ticksLeftStr, 0);
-									renderTextLocation(graphics, ticksLeftStr, config.textSize(), config.fontStyle().getFont(), color, canvasPoint);
+									renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), color, canvasPoint);
 								}
 							}
-							if (config.tektonTickCounter())
+							if (plugin.isTektonTickCounter())
 							{
 								final int attackTicksleft = plugin.getTektonAttackTicks();
 								String attacksLeftStr;
@@ -143,7 +141,7 @@ public class CoxOverlay extends Overlay
 									if (npcs.getNpc() != null)
 									{
 										Point canvasPoint = npcs.getNpc().getCanvasTextLocation(graphics, attacksLeftStr, 0);
-										renderTextLocationAbove(graphics, attacksLeftStr, config.textSize(), config.fontStyle().getFont(), attackcolor, canvasPoint);
+										renderTextLocationAbove(graphics, attacksLeftStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), attackcolor, canvasPoint);
 									}
 								}
 							}
@@ -152,12 +150,12 @@ public class CoxOverlay extends Overlay
 					case NpcID.MUTTADILE:
 					case NpcID.MUTTADILE_7562:
 					case NpcID.MUTTADILE_7563:
-						if (config.muttadile())
+						if (plugin.isMuttadile())
 						{
 							hitSquares = getHitSquares(npcs.getNpc().getWorldLocation(), npcs.getNpcSize(), 1, false);
 							for (WorldPoint p : hitSquares)
 							{
-								drawTile(graphics, p, config.muttaColor(), 0, 0, 50);
+								drawTile(graphics, p, plugin.getMuttaColor(), 0, 0, 50);
 							}
 						}
 						break;
@@ -165,15 +163,15 @@ public class CoxOverlay extends Overlay
 					case NpcID.GUARDIAN_7570:
 					case NpcID.GUARDIAN_7571:
 					case NpcID.GUARDIAN_7572:
-						if (config.guardians())
+						if (plugin.isGuardians())
 						{
 							hitSquares = getHitSquares(npcs.getNpc().getWorldLocation(), npcs.getNpcSize(), 2, true);
 							for (WorldPoint p : hitSquares)
 							{
-								drawTile(graphics, p, config.guardColor(), 0, 0, 50);
+								drawTile(graphics, p, plugin.getGuardColor(), 0, 0, 50);
 							}
 						}
-						if (config.guardinTickCounter())
+						if (plugin.isGuardinTickCounter())
 						{
 							ticksLeft = npcs.getTicksUntilAttack();
 							if (ticksLeft > 0)
@@ -188,7 +186,7 @@ public class CoxOverlay extends Overlay
 								}
 								final String ticksLeftStr = String.valueOf(ticksLeft);
 								Point canvasPoint = npcs.getNpc().getCanvasTextLocation(graphics, ticksLeftStr, 0);
-								renderTextLocation(graphics, ticksLeftStr, config.textSize(), config.fontStyle().getFont(), color, canvasPoint);
+								renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), color, canvasPoint);
 							}
 						}
 						break;
@@ -196,7 +194,7 @@ public class CoxOverlay extends Overlay
 					case NpcID.VANGUARD_7527:
 					case NpcID.VANGUARD_7528:
 					case NpcID.VANGUARD_7529:
-						if (config.vangHighlight())
+						if (plugin.isVangHighlight())
 						{
 							OverlayUtil.renderPolygon(graphics, npcs.getNpc().getConvexHull(), npcs.getAttackStyle().getColor());
 						}
@@ -210,10 +208,10 @@ public class CoxOverlay extends Overlay
 				NPC olmHand = plugin.getHand();
 				final String tickStr = String.valueOf(tick);
 				Point canvasPoint = olmHand.getCanvasTextLocation(graphics, tickStr, 50);
-				renderTextLocation(graphics, tickStr, config.textSize(), config.fontStyle().getFont(), Color.GRAY, canvasPoint);
+				renderTextLocation(graphics, tickStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.GRAY, canvasPoint);
 			}
 
-			if (config.timers())
+			if (plugin.isTimers())
 			{
 				if (plugin.getBurnTarget().size() > 0)
 				{
@@ -221,7 +219,7 @@ public class CoxOverlay extends Overlay
 					{
 						final int ticksLeft = plugin.getBurnTicks();
 						String ticksLeftStr = String.valueOf(ticksLeft);
-						Color tickcolor = new Color(255, 255, 255, 255);
+						Color tickcolor;
 						if (ticksLeft >= 0)
 						{
 							if (ticksLeft == 34 ||
@@ -243,7 +241,7 @@ public class CoxOverlay extends Overlay
 								tickcolor = new Color(255, 255, 255, 255);
 							}
 							Point canvasPoint = actor.getCanvasTextLocation(graphics, ticksLeftStr, 0);
-							renderTextLocation(graphics, ticksLeftStr, config.textSize(), config.fontStyle().getFont(), tickcolor, canvasPoint);
+							renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), tickcolor, canvasPoint);
 						}
 					}
 				}
@@ -251,9 +249,9 @@ public class CoxOverlay extends Overlay
 				if (plugin.getAcidTarget() != null)
 				{
 					Actor actor = plugin.getAcidTarget();
-					renderActorOverlay(graphics, actor, config.acidColor(), 2, 100, 10);
+					renderActorOverlay(graphics, actor, plugin.getAcidColor(), 2, 100, 10);
 					final int ticksLeft = plugin.getAcidTicks();
-					Color tickcolor = new Color(255, 255, 255, 255);
+					Color tickcolor;
 					if (ticksLeft > 0)
 					{
 						if (ticksLeft > 1)
@@ -266,12 +264,12 @@ public class CoxOverlay extends Overlay
 						}
 						final String ticksLeftStr = String.valueOf(ticksLeft);
 						Point canvasPoint = actor.getCanvasTextLocation(graphics, ticksLeftStr, 0);
-						renderTextLocation(graphics, ticksLeftStr, config.textSize(), config.fontStyle().getFont(), tickcolor, canvasPoint);
+						renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), tickcolor, canvasPoint);
 					}
 				}
 			}
 
-			if (config.tpOverlay())
+			if (plugin.isTpOverlay())
 			{
 				if (plugin.getTeleportTarget() != null)
 				{
@@ -283,7 +281,7 @@ public class CoxOverlay extends Overlay
 			{
 				NPC boss = plugin.getOlm_NPC();
 
-				if (config.olmTick())
+				if (plugin.isOlmTick())
 				{
 					if (boss != null)
 					{
@@ -329,7 +327,7 @@ public class CoxOverlay extends Overlay
 						}
 						final String combinedStr = cycleStr + ":" + tickStr;
 						Point canvasPoint = boss.getCanvasTextLocation(graphics, combinedStr, 130);
-						renderTextLocation(graphics, combinedStr, config.textSize(), config.fontStyle().getFont(), Color.WHITE, canvasPoint);
+						renderTextLocation(graphics, combinedStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.WHITE, canvasPoint);
 					}
 				}
 			}
@@ -412,7 +410,7 @@ public class CoxOverlay extends Overlay
 			final Point canvasCenterPoint_shadow = new Point(
 				canvasPoint.getX() + 1,
 				canvasPoint.getY() + 1);
-			if (config.shadows())
+			if (plugin.isShadows())
 			{
 				OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
 			}
@@ -431,7 +429,7 @@ public class CoxOverlay extends Overlay
 			final Point canvasCenterPoint_shadow = new Point(
 				canvasPoint.getX() + 1,
 				canvasPoint.getY() + 21);
-			if (config.shadows())
+			if (plugin.isShadows())
 			{
 				OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
 			}
@@ -445,14 +443,7 @@ public class CoxOverlay extends Overlay
 		List<WorldPoint> big = new WorldArea(npcLoc.getX() - thickness, npcLoc.getY() - thickness, npcSize + (thickness * 2), npcSize + (thickness * 2), npcLoc.getPlane()).toWorldPointList();
 		if (!includeUnder)
 		{
-			for (Iterator<WorldPoint> it = big.iterator(); it.hasNext(); )
-			{
-				WorldPoint p = it.next();
-				if (little.contains(p))
-				{
-					it.remove();
-				}
-			}
+			big.removeIf(little::contains);
 		}
 		return big;
 	}
