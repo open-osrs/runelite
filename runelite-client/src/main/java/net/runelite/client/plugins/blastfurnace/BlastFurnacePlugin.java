@@ -37,6 +37,7 @@ import net.runelite.api.GameState;
 import static net.runelite.api.NullObjectID.NULL_9092;
 import static net.runelite.api.ObjectID.CONVEYOR_BELT;
 import net.runelite.api.Skill;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameStateChanged;
@@ -91,9 +92,19 @@ public class BlastFurnacePlugin extends Plugin
 	@Inject
 	private InfoBoxManager infoBoxManager;
 
+	@Inject
+	private BlastFurnaceConfig config;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showConveyorBelt;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showBarDispenser;
+
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+
 		overlayManager.add(overlay);
 		overlayManager.add(cofferOverlay);
 		overlayManager.add(clickBoxOverlay);
@@ -115,6 +126,15 @@ public class BlastFurnacePlugin extends Plugin
 	BlastFurnaceConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(BlastFurnaceConfig.class);
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("blastfurnace"))
+		{
+			updateConfig();
+		}
 	}
 
 	@Subscribe
@@ -186,5 +206,11 @@ public class BlastFurnacePlugin extends Plugin
 				infoBoxManager.addInfoBox(foremanTimer);
 			}
 		}
+	}
+
+	public void updateConfig()
+	{
+		this.showBarDispenser = config.showBarDispenser();
+		this.showConveyorBelt = config.showConveyorBelt();
 	}
 }
