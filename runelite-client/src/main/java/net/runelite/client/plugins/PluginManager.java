@@ -570,7 +570,8 @@ public class PluginManager
 
 		dependencyCount.entrySet().stream()
 			.sorted(Map.Entry.comparingByValue())
-			.forEach(entry -> {
+			.forEach(entry ->
+			{
 				if (entry.getValue() != curGroup[0])
 				{
 					curGroup[0] = entry.getValue();
