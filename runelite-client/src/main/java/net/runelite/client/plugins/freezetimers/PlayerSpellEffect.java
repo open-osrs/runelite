@@ -55,7 +55,7 @@ public enum PlayerSpellEffect
 	@Getter
 	private final TimerType type;
 
-	public static PlayerSpellEffect getFromSpotAnim(int spotAnim)
+	static PlayerSpellEffect getFromSpotAnim(int spotAnim)
 	{
 		for (PlayerSpellEffect effect : values())
 		{

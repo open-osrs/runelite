@@ -48,7 +48,7 @@ import net.runelite.client.util.ImageUtil;
 
 public class FreezeTimersOverlay extends Overlay
 {
-	private final FreezeTimersConfig config;
+	private final FreezeTimersPlugin plugin;
 	private final Client client;
 	private final Font timerFont = FontManager.getRunescapeBoldFont().deriveFont(14.0f);
 	private final BufferedImage FREEZE_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "freeze.png");
@@ -60,9 +60,9 @@ public class FreezeTimersOverlay extends Overlay
 
 
 	@Inject
-	public FreezeTimersOverlay(FreezeTimersConfig config, Client client, Timers timers)
+	public FreezeTimersOverlay(FreezeTimersPlugin plugin, Client client, Timers timers)
 	{
-		this.config = config;
+		this.plugin = plugin;
 		this.client = client;
 		this.timers = timers;
 		setPriority(OverlayPriority.HIGHEST);
@@ -73,11 +73,11 @@ public class FreezeTimersOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.showPlayers())
+		if (plugin.isShowPlayers())
 		{
 			client.getPlayers().forEach((p) -> renderOverlayFor(graphics, p));
 		}
-		if (config.showNpcs())
+		if (plugin.isShowNpcs())
 		{
 			client.getNpcs().forEach((npc) -> renderOverlayFor(graphics, npc));
 		}
@@ -93,15 +93,15 @@ public class FreezeTimersOverlay extends Overlay
 
 		int overlaysDrawn = 0;
 
-		if (drawFreezeOverlay(g, actor, overlaysDrawn) && config.FreezeTimers())
+		if (drawFreezeOverlay(g, actor, overlaysDrawn) && plugin.isFreezeTimers())
 		{
 			overlaysDrawn++;
 		}
-		if (drawTBOverlay(g, actor, overlaysDrawn) && config.TB())
+		if (drawTBOverlay(g, actor, overlaysDrawn) && plugin.isTB())
 		{
 			overlaysDrawn++;
 		}
-		if (drawVengOverlay(g, actor, overlaysDrawn) && config.Veng())
+		if (drawVengOverlay(g, actor, overlaysDrawn) && plugin.isVeng())
 		{
 			overlaysDrawn++;
 		}
@@ -127,15 +127,15 @@ public class FreezeTimersOverlay extends Overlay
 
 		Point FixedPoint = new Point(poi.getX(), poi.getY());
 
-		if (config.noImage())
+		if (plugin.isNoImage())
 		{
 			if (test > 3)
 			{
-				OverlayUtil.renderTextLocation(g, text, config.textSize(), config.fontStyle().getFont(), Color.WHITE, FixedPoint, false, 0);
+				OverlayUtil.renderTextLocation(g, text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.WHITE, FixedPoint, false, 0);
 			}
 			else
 			{
-				OverlayUtil.renderTextLocation(g, text, config.textSize(), config.fontStyle().getFont(), Color.YELLOW, FixedPoint, false, 0);
+				OverlayUtil.renderTextLocation(g, text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.YELLOW, FixedPoint, false, 0);
 			}
 		}
 		else
@@ -148,7 +148,7 @@ public class FreezeTimersOverlay extends Overlay
 	private boolean drawTBOverlay(Graphics2D g, Actor actor, int overlaysDrawn)
 	{
 		long currentTick = System.currentTimeMillis();
-		if (!config.TB())
+		if (!plugin.isTB())
 		{
 			return false;
 		}
@@ -167,19 +167,19 @@ public class FreezeTimersOverlay extends Overlay
 		}
 
 		Point FixedPoint = new Point(poi.getX() + 20, poi.getY());
-		if (config.noImage())
+		if (plugin.isNoImage())
 		{
 			if (timers.getTimerEnd(actor, TimerType.FREEZE) <= currentTick)
 			{
-				OverlayUtil.renderTextLocation(g, text, config.textSize(), config.fontStyle().getFont(), Color.CYAN, poi, false, 0);
+				OverlayUtil.renderTextLocation(g, text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.CYAN, poi, false, 0);
 			}
 			if (timers.getTimerEnd(actor, TimerType.FREEZE) >= currentTick)
 			{
-				OverlayUtil.renderTextLocation(g, " | " + text, config.textSize(), config.fontStyle().getFont(), Color.CYAN, FixedPoint, false, 0);
+				OverlayUtil.renderTextLocation(g, " | " + text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.CYAN, FixedPoint, false, 0);
 			}
 			if (timers.getTimerEnd(actor, TimerType.VENG) >= currentTick)
 			{
-				OverlayUtil.renderTextLocation(g, " | " + text, config.textSize(), config.fontStyle().getFont(), Color.CYAN, FixedPoint, false, 0);
+				OverlayUtil.renderTextLocation(g, " | " + text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.CYAN, FixedPoint, false, 0);
 			}
 		}
 		else
@@ -192,7 +192,7 @@ public class FreezeTimersOverlay extends Overlay
 	private boolean drawVengOverlay(Graphics2D g, Actor actor, int overlaysDrawn)
 	{
 		long currentTick = System.currentTimeMillis();
-		if (!config.Veng())
+		if (!plugin.isVeng())
 		{
 			return false;
 		}
@@ -211,19 +211,19 @@ public class FreezeTimersOverlay extends Overlay
 		}
 
 		Point FixedPoint = new Point(poi.getX() - 20, poi.getY());
-		if (config.noImage())
+		if (plugin.isNoImage())
 		{
 			if (timers.getTimerEnd(actor, TimerType.FREEZE) <= currentTick)
 			{
-				OverlayUtil.renderTextLocation(g, text, config.textSize(), config.fontStyle().getFont(), Color.RED, poi, false, 0);
+				OverlayUtil.renderTextLocation(g, text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.RED, poi, false, 0);
 			}
 			if (timers.getTimerEnd(actor, TimerType.FREEZE) >= currentTick)
 			{
-				OverlayUtil.renderTextLocation(g, text + " | ", config.textSize(), config.fontStyle().getFont(), Color.RED, FixedPoint, false, 0);
+				OverlayUtil.renderTextLocation(g, text + " | ", plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.RED, FixedPoint, false, 0);
 			}
 			if (timers.getTimerEnd(actor, TimerType.TELEBLOCK) >= currentTick)
 			{
-				OverlayUtil.renderTextLocation(g, text + " | ", config.textSize(), config.fontStyle().getFont(), Color.RED, FixedPoint, false, 0);
+				OverlayUtil.renderTextLocation(g, text + " | ", plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.RED, FixedPoint, false, 0);
 			}
 		}
 		else
@@ -253,7 +253,7 @@ public class FreezeTimersOverlay extends Overlay
 		int yOffset = (overlaysDrawn * 18);
 		g.setFont(timerFont);
 		g.setColor(WHITE);
-		int xOffset = config.offset();
+		int xOffset = plugin.getOffset();
 		renderActorTextAndImage(g, actor, text, Color.WHITE, image, yOffset,
 			xOffset);
 	}
