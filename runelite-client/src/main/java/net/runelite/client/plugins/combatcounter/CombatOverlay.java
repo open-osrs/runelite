@@ -48,10 +48,9 @@ class CombatOverlay extends Overlay
 	private final Client client;
 	private final CombatCounter plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
-	private final CombatCounterConfig config;
 
 	@Inject
-	public CombatOverlay(Client client, CombatCounter plugin, CombatCounterConfig config)
+	public CombatOverlay(Client client, CombatCounter plugin)
 	{
 		super(plugin);
 
@@ -59,7 +58,6 @@ class CombatOverlay extends Overlay
 		setPosition(OverlayPosition.DETACHED);
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 
-		this.config = config;
 		this.client = client;
 		this.plugin = plugin;
 
@@ -69,7 +67,7 @@ class CombatOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.showTickCounter())
+		if (plugin.isShowTickCounter())
 		{
 			panelComponent.getChildren().clear();
 
@@ -78,8 +76,8 @@ class CombatOverlay extends Overlay
 			{
 				return null;
 			}
-			panelComponent.setBackgroundColor(config.bgColor());
-			panelComponent.getChildren().add(TitleComponent.builder().text("Tick Counter").color(config.titleColor()).build());
+			panelComponent.setBackgroundColor(plugin.getBgColor());
+			panelComponent.getChildren().add(TitleComponent.builder().text("Tick Counter").color(plugin.getTitleColor()).build());
 			int total = 0;
 
 			TableComponent tableComponent = new TableComponent();
@@ -101,22 +99,22 @@ class CombatOverlay extends Overlay
 				{
 					if (client.getLocalPlayer().getName().contains(name))
 					{
-						tableComponent.addRow(ColorUtil.prependColorTag(name, config.selfColor()), ColorUtil.prependColorTag(Long.toString(map.get(name)), config.selfColor()));
+						tableComponent.addRow(ColorUtil.prependColorTag(name, plugin.getSelfColor()), ColorUtil.prependColorTag(Long.toString(map.get(name)), plugin.getSelfColor()));
 					}
 					else
 					{
-						tableComponent.addRow(ColorUtil.prependColorTag(name, config.otherColor()), ColorUtil.prependColorTag(Long.toString(map.get(name)), config.otherColor()));
+						tableComponent.addRow(ColorUtil.prependColorTag(name, plugin.getOtherColor()), ColorUtil.prependColorTag(Long.toString(map.get(name)), plugin.getOtherColor()));
 					}
 					total += map.get(name);
 				}
 
 				if (!map.containsKey(local.getName()))
 				{
-					tableComponent.addRow(ColorUtil.prependColorTag(local.getName(), config.selfColor()), ColorUtil.prependColorTag("0", config.selfColor()));
+					tableComponent.addRow(ColorUtil.prependColorTag(local.getName(), plugin.getSelfColor()), ColorUtil.prependColorTag("0", plugin.getSelfColor()));
 				}
 			}
 
-			tableComponent.addRow(ColorUtil.prependColorTag("Total:", config.totalColor()), ColorUtil.prependColorTag(String.valueOf(total), config.totalColor()));
+			tableComponent.addRow(ColorUtil.prependColorTag("Total:", plugin.getTotalColor()), ColorUtil.prependColorTag(String.valueOf(total), plugin.getTotalColor()));
 
 			if (!tableComponent.isEmpty())
 			{

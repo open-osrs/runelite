@@ -25,6 +25,8 @@
 package net.runelite.client.plugins.combatcounter;
 
 import com.google.inject.Provides;
+import java.awt.Color;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.Actor;
@@ -35,6 +37,7 @@ import net.runelite.api.NPCDefinition;
 import net.runelite.api.Player;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
 import net.runelite.api.kit.KitType;
@@ -87,6 +90,22 @@ public class CombatCounter extends Plugin
 
 	private Map<NPC, NPCDamageCounter> npcDamageMap = new HashMap<>();
 	Map<String, Double> playerDamage = new HashMap<>();
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showTickCounter;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showDamageCounter;
+	private boolean resetOnNewInstance;
+	@Getter(AccessLevel.PACKAGE)
+	private Color selfColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color totalColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color otherColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color bgColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color titleColor;
 
 	@Provides
 	CombatCounterConfig provideConfig(ConfigManager configManager)
@@ -222,6 +241,8 @@ public class CombatCounter extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+
 		overlayManager.add(tickOverlay);
 		overlayManager.add(damageOverlay);
 
@@ -386,7 +407,7 @@ public class CombatCounter extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (config.resetOnNewInstance())
+		if (this.resetOnNewInstance)
 		{
 			boolean prevInstance = instanced;
 			instanced = client.isInInstancedRegion();
@@ -597,5 +618,26 @@ public class CombatCounter extends Plugin
 	private int calculateRangedDelay(double distance)
 	{
 		return 2 + (int) Math.floor((3d + distance) / 6d);
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("combatcounter"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.showTickCounter = config.showTickCounter();
+		this.showDamageCounter = config.showDamageCounter();
+		this.resetOnNewInstance = config.resetOnNewInstance();
+		this.selfColor = config.selfColor();
+		this.totalColor = config.totalColor();
+		this.otherColor = config.otherColor();
+		this.bgColor = config.bgColor();
+		this.titleColor = config.titleColor();
 	}
 }
