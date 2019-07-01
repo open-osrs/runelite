@@ -49,7 +49,6 @@ public class CannonSpotOverlay extends Overlay
 
 	private final Client client;
 	private final CannonPlugin plugin;
-	private final CannonConfig config;
 
 	@Inject
 	private ItemManager itemManager;
@@ -58,18 +57,17 @@ public class CannonSpotOverlay extends Overlay
 	private boolean hidden;
 
 	@Inject
-	CannonSpotOverlay(Client client, CannonPlugin plugin, CannonConfig config)
+	CannonSpotOverlay(Client client, CannonPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (hidden || !config.showCannonSpots() || plugin.isCannonPlaced())
+		if (hidden || !plugin.isShowCannonSpots() || plugin.isCannonPlaced())
 		{
 			return null;
 		}

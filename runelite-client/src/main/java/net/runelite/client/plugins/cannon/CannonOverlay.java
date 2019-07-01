@@ -45,17 +45,15 @@ class CannonOverlay extends Overlay
 	private static final int MAX_DISTANCE = 2500;
 
 	private final Client client;
-	private final CannonConfig config;
 	private final CannonPlugin plugin;
 	private final TextComponent textComponent = new TextComponent();
 
 	@Inject
-	CannonOverlay(Client client, CannonConfig config, CannonPlugin plugin)
+	CannonOverlay(Client client, CannonPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 	}
 
@@ -91,9 +89,9 @@ class CannonOverlay extends Overlay
 				textComponent.render(graphics);
 			}
 
-			if (config.showDoubleHitSpot())
+			if (plugin.isShowDoubleHitSpot())
 			{
-				Color color = config.highlightDoubleHitColor();
+				Color color = plugin.getHighlightDoubleHitColor();
 				drawDoubleHitSpots(graphics, cannonPoint, color);
 			}
 		}
