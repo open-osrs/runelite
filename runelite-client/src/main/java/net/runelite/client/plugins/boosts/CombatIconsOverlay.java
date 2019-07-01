@@ -26,18 +26,16 @@ import net.runelite.client.util.ImageUtil;
 class CombatIconsOverlay extends Overlay
 {
 	private final Client client;
-	private final BoostsConfig config;
 	private final PanelComponent panelComponent = new PanelComponent();
 	private final SkillIconManager iconManager;
 	private final BoostsPlugin plugin;
 
 	@Inject
-	private CombatIconsOverlay(Client client, BoostsConfig config, BoostsPlugin plugin, SkillIconManager iconManager)
+	private CombatIconsOverlay(Client client, BoostsPlugin plugin, SkillIconManager iconManager)
 	{
 		super(plugin);
 		this.plugin = plugin;
 		this.client = client;
-		this.config = config;
 		this.iconManager = iconManager;
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.MED);
@@ -47,12 +45,12 @@ class CombatIconsOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.displayInfoboxes() || !config.displayIcons())
+		if (plugin.isDisplayInfoboxes() || !plugin.isDisplayIcons())
 		{
 			return null;
 		}
 		
-		if (config.boldIconFont())
+		if (plugin.isBoldIconFont())
 		{
 			graphics.setFont(FontManager.getRunescapeBoldFont());
 		}
@@ -79,7 +77,7 @@ class CombatIconsOverlay extends Overlay
 				final Color strColor = getTextColor(boost);
 				String str;
 
-				if (config.useRelativeBoost())
+				if (plugin.isUseRelativeBoost())
 				{
 					str = String.valueOf(boost);
 					if (boost > 0)
@@ -137,7 +135,7 @@ class CombatIconsOverlay extends Overlay
 			return new Color(238, 51, 51);
 		}
 
-		return boost <= config.boostThreshold() ? Color.YELLOW : Color.GREEN;
+		return boost <= plugin.getBoostThreshold() ? Color.YELLOW : Color.GREEN;
 
 	}
 }
