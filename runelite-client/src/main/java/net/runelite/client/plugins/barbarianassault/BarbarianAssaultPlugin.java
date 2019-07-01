@@ -306,6 +306,8 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+
 		font = FontManager.getRunescapeFont().deriveFont(Font.BOLD, 24);
 		torsoImage = itemManager.getImage(ItemID.FIGHTER_TORSO);
 		clockImage = ImageUtil.getResourceStreamFromClass(getClass(), "clock.png");
@@ -317,7 +319,6 @@ public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 		overlayManager.add(sceneOverlay);
 		keyManager.registerKeyListener(this);
 		clientThread.invoke(this::validateGame);
-		updateConfig();
 	}
 
 	@Override

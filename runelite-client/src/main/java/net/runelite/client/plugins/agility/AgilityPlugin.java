@@ -161,11 +161,11 @@ public class AgilityPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+
 		overlayManager.add(agilityOverlay);
 		overlayManager.add(lapCounterOverlay);
 		agilityLevel = client.getBoostedSkillLevel(Skill.AGILITY);
-
-		updateConfig();
 	}
 
 	@Override

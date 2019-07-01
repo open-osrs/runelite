@@ -107,9 +107,9 @@ public class AttackStylesPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		overlayManager.add(overlay);
-
 		updateConfig();
+
+		overlayManager.add(overlay);
 
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{

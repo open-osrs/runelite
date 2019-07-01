@@ -161,9 +161,9 @@ public class BarrowsPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 		overlayManager.add(barrowsOverlay);
 		overlayManager.add(brotherOverlay);
-		updateConfig();
 	}
 
 	@Override

@@ -77,6 +77,7 @@ public class AoeWarningPlugin extends Plugin
 {
 	@Getter
 	private final Map<WorldPoint, CrystalBomb> bombs = new HashMap<>();
+	@Getter
 	private final Map<Projectile, AoeProjectile> projectiles = new HashMap<>();
 	@Inject
 	public AoeWarningConfig config;
@@ -103,11 +104,6 @@ public class AoeWarningPlugin extends Plugin
 	AoeWarningConfig getConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(AoeWarningConfig.class);
-	}
-
-	Map<Projectile, AoeProjectile> getProjectiles()
-	{
-		return projectiles;
 	}
 
 	// Config values
@@ -172,10 +168,11 @@ public class AoeWarningPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+
 		overlayManager.add(coreOverlay);
 		overlayManager.add(bombOverlay);
-		updateConfig();
-		reset(true);
+		reset();
 	}
 
 	@Override
@@ -183,7 +180,7 @@ public class AoeWarningPlugin extends Plugin
 	{
 		overlayManager.remove(coreOverlay);
 		overlayManager.remove(bombOverlay);
-		reset(false);
+		reset();
 	}
 
 	@Subscribe
@@ -505,7 +502,7 @@ public class AoeWarningPlugin extends Plugin
 		this.configDemonicGorillaNotifyEnabled = config.isDemonicGorillaNotifyEnabled();
 	}
 
-	private void reset(boolean setConfig)
+	private void reset()
 	{
 		LightningTrail.clear();
 		AcidTrail.clear();
@@ -513,12 +510,5 @@ public class AoeWarningPlugin extends Plugin
 		WintertodtSnowFall.clear();
 		bombs.clear();
 		projectiles.clear();
-
-		if (setConfig)
-		{
-			fontStyle = config.fontStyle().getFont();
-			textSize = config.textSize();
-			shadows = config.shadows();
-		}
 	}
 }

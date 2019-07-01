@@ -103,9 +103,9 @@ public class BanListPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 		manualBans.addAll(Text.fromCSV(config.getBannedPlayers()));
 		fetchFromWebsites();
-		updateConfig();
 	}
 
 	@Override
