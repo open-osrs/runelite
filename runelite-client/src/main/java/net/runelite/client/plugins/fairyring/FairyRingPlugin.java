@@ -43,6 +43,7 @@ import net.runelite.api.ScriptID;
 import net.runelite.api.SoundEffectID;
 import net.runelite.api.SpriteID;
 import net.runelite.api.Varbits;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
@@ -93,6 +94,8 @@ public class FairyRingPlugin extends Plugin
 	private Widget searchBtn;
 	private Collection<CodeWidgets> codes = null;
 
+	boolean autoOpen;
+
 	@Data
 	private static class CodeWidgets
 	{
@@ -104,6 +107,23 @@ public class FairyRingPlugin extends Plugin
 		private Widget code;
 
 		private Widget description;
+	}
+
+	@Override
+	protected void startUp() throws Exception
+	{
+		this.autoOpen = config.autoOpen();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("fairyrings"))
+		{
+			return;
+		}
+
+		this.autoOpen = config.autoOpen();
 	}
 
 	@Provides
@@ -142,7 +162,7 @@ public class FairyRingPlugin extends Plugin
 
 				codes = null;
 
-				if (config.autoOpen())
+				if (this.autoOpen)
 				{
 					openSearch();
 				}
