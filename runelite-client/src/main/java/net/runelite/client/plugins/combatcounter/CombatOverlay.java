@@ -49,7 +49,6 @@ class CombatOverlay extends Overlay
 	private final CombatCounter plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 	private final CombatCounterConfig config;
-	private HashMap<String, Long> ticks = new HashMap<>();
 
 	@Inject
 	public CombatOverlay(Client client, CombatCounter plugin, CombatCounterConfig config)

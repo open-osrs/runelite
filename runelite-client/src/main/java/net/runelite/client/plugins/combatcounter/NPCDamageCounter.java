@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class NPCDamageCounter 
+class NPCDamageCounter
 {
 
-	public Map<Integer, List<String>> attackers;
+	Map<Integer, List<String>> attackers;
 
-	public List<Integer> damage;
+	List<Integer> damage;
 
-	public NPCDamageCounter()
+	NPCDamageCounter()
 	{
-		this.attackers = new TreeMap<Integer, List<String>>();
-		this.damage = new ArrayList<Integer>();
+		this.attackers = new TreeMap<>();
+		this.damage = new ArrayList<>();
 	}
 }
