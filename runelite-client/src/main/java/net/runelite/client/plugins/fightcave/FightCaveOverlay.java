@@ -47,16 +47,14 @@ import net.runelite.client.util.ImageUtil;
 public class FightCaveOverlay extends Overlay
 {
 	private FightCavePlugin plugin;
-	private FightCaveConfig config;
 	private Client client;
 	private SpriteManager spriteManager;
 
 	@Inject
-	FightCaveOverlay(Client client, FightCavePlugin plugin, FightCaveConfig config, SpriteManager spriteManager)
+	FightCaveOverlay(Client client, FightCavePlugin plugin, SpriteManager spriteManager)
 	{
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		this.spriteManager = spriteManager;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGHEST);
@@ -82,8 +80,8 @@ public class FightCaveOverlay extends Overlay
 			}
 
 			final String ticksLeftStr = String.valueOf(ticksLeft);
-			final int font = config.fontStyle().getFont();
-			final boolean shadows = config.shadows();
+			final int font = plugin.getFontStyle().getFont();
+			final boolean shadows = plugin.isShadows();
 			Color color = (ticksLeft <= 1 ? Color.WHITE : attackStyle.getColor());
 			final Point canvasPoint = npc.getNpc().getCanvasTextLocation(graphics, Integer.toString(ticksLeft), 0);
 
@@ -101,10 +99,10 @@ public class FightCaveOverlay extends Overlay
 				renderImageLocation(graphics, npc.getNpc().getCanvasImageLocation(ImageUtil.resizeImage(pray, 36, 36), 0), pray, 12, 30);
 			}
 
-			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, config.textSize(), font, color, canvasPoint, shadows, 0);
+			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), font, color, canvasPoint, shadows, 0);
 		}
 
-		if (config.tickTimersWidget())
+		if (plugin.isTickTimersWidget())
 		{
 
 			if (!plugin.getMageTicks().isEmpty())
@@ -113,7 +111,7 @@ public class FightCaveOverlay extends Overlay
 					Prayer.PROTECT_FROM_MAGIC,
 					plugin.getMageTicks().get(0) == 1 ? Color.WHITE : Color.CYAN,
 					Integer.toString(plugin.getMageTicks().get(0)),
-					config.shadows()
+					plugin.isShadows()
 				);
 			}
 			if (!plugin.getRangedTicks().isEmpty())
@@ -122,7 +120,7 @@ public class FightCaveOverlay extends Overlay
 					Prayer.PROTECT_FROM_MISSILES,
 					plugin.getRangedTicks().get(0) == 1 ? Color.WHITE : Color.GREEN,
 					Integer.toString(plugin.getRangedTicks().get(0)),
-					config.shadows()
+					plugin.isShadows()
 				);
 			}
 			if (!plugin.getMeleeTicks().isEmpty())
@@ -131,7 +129,7 @@ public class FightCaveOverlay extends Overlay
 					Prayer.PROTECT_FROM_MELEE,
 					plugin.getMeleeTicks().get(0) == 1 ? Color.WHITE : Color.RED,
 					Integer.toString(plugin.getMeleeTicks().get(0)),
-					config.shadows()
+					plugin.isShadows()
 				);
 			}
 		}
@@ -146,7 +144,7 @@ public class FightCaveOverlay extends Overlay
 
 			if (bounds != null)
 			{
-				renderTextLocation(graphics, ticks, 16, config.fontStyle().getFont(), color, centerPoint(bounds), shadows);
+				renderTextLocation(graphics, ticks, 16, plugin.getFontStyle().getFont(), color, centerPoint(bounds), shadows);
 			}
 		}
 	}

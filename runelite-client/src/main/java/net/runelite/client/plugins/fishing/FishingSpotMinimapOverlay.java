@@ -40,18 +40,16 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 class FishingSpotMinimapOverlay extends Overlay
 {
 	private final FishingPlugin plugin;
-	private final FishingConfig config;
 
 	@Setter(AccessLevel.PACKAGE)
 	private boolean hidden;
 
 	@Inject
-	public FishingSpotMinimapOverlay(FishingPlugin plugin, FishingConfig config)
+	public FishingSpotMinimapOverlay(FishingPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.plugin = plugin;
-		this.config = config;
 	}
 
 	@Override
@@ -71,7 +69,7 @@ class FishingSpotMinimapOverlay extends Overlay
 				continue;
 			}
 
-			if (config.onlyCurrentSpot() && plugin.getCurrentSpot() != null && plugin.getCurrentSpot() != spot)
+			if (plugin.isOnlyCurrentSpot() && plugin.getCurrentSpot() != null && plugin.getCurrentSpot() != spot)
 			{
 				continue;
 			}
