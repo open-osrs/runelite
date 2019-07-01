@@ -62,20 +62,18 @@ public class BlastMineRockOverlay extends Overlay
 
 	private final Client client;
 	private final BlastMinePlugin plugin;
-	private final BlastMinePluginConfig config;
 
 	private final BufferedImage chiselIcon;
 	private final BufferedImage dynamiteIcon;
 	private final BufferedImage tinderboxIcon;
 
 	@Inject
-	private BlastMineRockOverlay(Client client, BlastMinePlugin plugin, BlastMinePluginConfig config, ItemManager itemManager)
+	private BlastMineRockOverlay(Client client, BlastMinePlugin plugin, ItemManager itemManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		chiselIcon = itemManager.getImage(ItemID.CHISEL);
 		dynamiteIcon = itemManager.getImage(ItemID.DYNAMITE);
 		tinderboxIcon = itemManager.getImage(ItemID.TINDERBOX);
@@ -114,8 +112,8 @@ public class BlastMineRockOverlay extends Overlay
 					drawIconOnRock(graphics, rock, tinderboxIcon);
 					break;
 				case LIT:
-					drawTimerOnRock(graphics, rock, config.getTimerColor());
-					drawAreaWarning(graphics, rock, config.getWarningColor(), tiles);
+					drawTimerOnRock(graphics, rock, plugin.getTimerColor());
+					drawAreaWarning(graphics, rock, plugin.getWarningColor(), tiles);
 					break;
 			}
 		}
@@ -125,7 +123,7 @@ public class BlastMineRockOverlay extends Overlay
 
 	private void drawIconOnRock(Graphics2D graphics, BlastMineRock rock, BufferedImage icon)
 	{
-		if (!config.showRockIconOverlay())
+		if (!plugin.isShowRockIconOverlay())
 		{
 			return;
 		}
@@ -140,7 +138,7 @@ public class BlastMineRockOverlay extends Overlay
 
 	private void drawTimerOnRock(Graphics2D graphics, BlastMineRock rock, Color color)
 	{
-		if (!config.showTimerOverlay())
+		if (!plugin.isShowTimerOverlay())
 		{
 			return;
 		}
@@ -161,7 +159,7 @@ public class BlastMineRockOverlay extends Overlay
 
 	private void drawAreaWarning(Graphics2D graphics, BlastMineRock rock, Color color, Tile[][][] tiles)
 	{
-		if (!config.showWarningOverlay())
+		if (!plugin.isShowWarningOverlay())
 		{
 			return;
 		}
