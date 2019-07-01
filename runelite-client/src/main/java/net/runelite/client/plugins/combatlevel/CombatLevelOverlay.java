@@ -44,14 +44,14 @@ class CombatLevelOverlay extends Overlay
 	private static final Color COMBAT_LEVEL_COLOUR = new Color(0xff981f);
 
 	private final Client client;
-	private final CombatLevelConfig config;
+	private final CombatLevelPlugin plugin;
 	private final TooltipManager tooltipManager;
 
 	@Inject
-	private CombatLevelOverlay(Client client, CombatLevelConfig config, TooltipManager tooltipManager)
+	private CombatLevelOverlay(Client client, CombatLevelPlugin plugin, TooltipManager tooltipManager)
 	{
 		this.client = client;
-		this.config = config;
+		this.plugin = plugin;
 		this.tooltipManager = tooltipManager;
 	}
 
@@ -59,7 +59,7 @@ class CombatLevelOverlay extends Overlay
 	public Dimension render(Graphics2D graphics)
 	{
 		Widget combatLevelWidget = client.getWidget(WidgetInfo.COMBAT_LEVEL);
-		if (!config.showLevelsUntil()
+		if (!plugin.isShowLevelsUntil()
 			|| client.getLocalPlayer().getCombatLevel() == Experience.MAX_COMBAT_LEVEL
 			|| combatLevelWidget == null || combatLevelWidget.isHidden())
 		{
