@@ -179,7 +179,7 @@ public class ScreenshotPluginTest
 		event.setGroupId(LEVEL_UP_GROUP_ID);
 		screenshotPlugin.onWidgetLoaded(event);
 
-		GameTick tick = new GameTick();
+		GameTick tick = GameTick.INSTANCE;
 		screenshotPlugin.onGameTick(tick);
 
 		verify(drawManager).requestNextFrameListener(Matchers.any(Consumer.class));
@@ -202,7 +202,7 @@ public class ScreenshotPluginTest
 		event.setGroupId(LEVEL_UP_GROUP_ID);
 		screenshotPlugin.onWidgetLoaded(event);
 
-		GameTick tick = new GameTick();
+		GameTick tick = GameTick.INSTANCE;
 		screenshotPlugin.onGameTick(tick);
 
 		verify(drawManager).requestNextFrameListener(Matchers.any(Consumer.class));
@@ -225,7 +225,7 @@ public class ScreenshotPluginTest
 		event.setGroupId(LEVEL_UP_GROUP_ID);
 		screenshotPlugin.onWidgetLoaded(event);
 
-		GameTick tick = new GameTick();
+		GameTick tick = GameTick.INSTANCE;
 		screenshotPlugin.onGameTick(tick);
 
 		verify(drawManager).requestNextFrameListener(Matchers.any(Consumer.class));
@@ -248,7 +248,7 @@ public class ScreenshotPluginTest
 		event.setGroupId(DIALOG_SPRITE_GROUP_ID);
 		screenshotPlugin.onWidgetLoaded(event);
 
-		GameTick tick = new GameTick();
+		GameTick tick = GameTick.INSTANCE;
 		screenshotPlugin.onGameTick(tick);
 
 		verify(drawManager).requestNextFrameListener(Matchers.any(Consumer.class));
