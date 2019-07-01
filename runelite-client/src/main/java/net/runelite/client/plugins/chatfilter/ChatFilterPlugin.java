@@ -34,6 +34,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.inject.Inject;
+import lombok.AccessLevel;
+import lombok.Setter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.MessageNode;
@@ -71,10 +73,15 @@ public class ChatFilterPlugin extends Plugin
 	@Inject
 	private ChatFilterConfig config;
 
+	@Setter(AccessLevel.PACKAGE)
 	private ChatFilterType filterType;
+	@Setter(AccessLevel.PACKAGE)
 	private String filteredWords;
+	@Setter(AccessLevel.PACKAGE)
 	private String filteredRegex;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean filterFriends;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean filterClan;
 
 	@Provides
