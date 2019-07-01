@@ -65,6 +65,7 @@ import net.runelite.api.SceneTileModel;
 import net.runelite.api.SceneTilePaint;
 import net.runelite.api.Texture;
 import net.runelite.api.TextureProvider;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.client.callback.ClientThread;
@@ -227,9 +228,38 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	private int uniBlockMain;
 	private int uniSmoothBanding;
 
+	private int drawDistance;
+	private boolean smoothBanding;
+	private AntiAliasingMode antiAliasingMode;
+	private AnisotropicFilteringMode anisotropicFilteringMode;
+	private int fogDepth;
+	private int fogCircularity;
+	private int fogDensity;
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("gpu"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.drawDistance = config.drawDistance();
+		this.smoothBanding = config.smoothBanding();
+		this.antiAliasingMode = config.antiAliasingMode();
+		this.anisotropicFilteringMode = config.anisotropicFilteringMode();
+		this.fogDepth = config.fogDepth();
+		this.fogCircularity = config.fogCircularity();
+		this.fogDensity = config.fogDensity();
+	}
+
 	@Override
 	protected void startUp()
 	{
+		updateConfig();
 		clientThread.invoke(() ->
 		{
 			try
@@ -704,7 +734,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		centerY = client.getCenterY();
 
 		final Scene scene = client.getScene();
-		final int drawDistance = Math.max(0, Math.min(MAX_DISTANCE, config.drawDistance()));
+		final int drawDistance = Math.max(0, Math.min(MAX_DISTANCE, this.drawDistance));
 		scene.setDrawDistance(drawDistance);
 	}
 
@@ -794,7 +824,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		}
 
 		// Setup anti-aliasing
-		final AntiAliasingMode antiAliasingMode = config.antiAliasingMode();
+		final AntiAliasingMode antiAliasingMode = this.antiAliasingMode;
 		final boolean aaEnabled = antiAliasingMode != AntiAliasingMode.DISABLED;
 
 		if (aaEnabled)
@@ -977,7 +1007,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			int renderViewportWidth = viewportWidth;
 
 			// Setup anisotropic filtering
-			final AnisotropicFilteringMode anisotropicFilteringMode = config.anisotropicFilteringMode();
+			final AnisotropicFilteringMode anisotropicFilteringMode = this.anisotropicFilteringMode;
 			final boolean afEnabled = anisotropicFilteringMode != anisotropicFilteringMode.DISABLED;
 
 			if (lastAnisotropicFilteringMode != anisotropicFilteringMode)
@@ -1034,19 +1064,19 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 
 			gl.glUseProgram(glProgram);
 
-			final int drawDistance = Math.max(0, Math.min(MAX_DISTANCE, config.drawDistance()));
-			final int fogDepth = config.fogDepth();
+			final int drawDistance = Math.max(0, Math.min(MAX_DISTANCE, this.drawDistance));
+			final int fogDepth = this.fogDepth;
 			float effectiveDrawDistance = Perspective.LOCAL_TILE_SIZE * Math.min(Constants.SCENE_SIZE / 2, drawDistance);
 			gl.glUniform1i(uniUseFog, fogDepth > 0 ? 1 : 0);
 			gl.glUniform4f(uniFogColor, (sky >> 16 & 0xFF) / 255f, (sky >> 8 & 0xFF) / 255f, (sky & 0xFF) / 255f, 1f);
-			gl.glUniform1f(uniFogDepth, config.fogDepth() * 0.01f * effectiveDrawDistance);
-			gl.glUniform1f(uniFogCornerRadius, config.fogCircularity() * 0.01f * effectiveDrawDistance);
-			gl.glUniform1f(uniFogDensity, config.fogDensity() * 0.1f);
+			gl.glUniform1f(uniFogDepth, this.fogDepth * 0.01f * effectiveDrawDistance);
+			gl.glUniform1f(uniFogCornerRadius, this.fogCircularity * 0.01f * effectiveDrawDistance);
+			gl.glUniform1f(uniFogDensity, this.fogDensity * 0.1f);
 			gl.glUniform1i(uniDrawDistance, drawDistance * Perspective.LOCAL_TILE_SIZE);
 
 			// Brightness happens to also be stored in the texture provider, so we use that
 			gl.glUniform1f(uniBrightness, (float) textureProvider.getBrightness());
-			gl.glUniform1f(uniSmoothBanding, config.smoothBanding() ? 0f : 1f);
+			gl.glUniform1f(uniSmoothBanding, this.smoothBanding ? 0f : 1f);
 
 			for (int id = 0; id < textures.length; ++id)
 			{
