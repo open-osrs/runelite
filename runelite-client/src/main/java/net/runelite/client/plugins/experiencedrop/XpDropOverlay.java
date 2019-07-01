@@ -37,13 +37,11 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 class XpDropOverlay extends Overlay
 {
 	private final XpDropPlugin plugin;
-	private final XpDropConfig config;
 
 	@Inject
-	private XpDropOverlay(XpDropPlugin plugin, XpDropConfig config)
+	private XpDropOverlay(XpDropPlugin plugin)
 	{
 		this.plugin = plugin;
-		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);
 	}
@@ -57,12 +55,12 @@ class XpDropOverlay extends Overlay
 			if (opponent != null)
 			{
 				int offset = opponent.getLogicalHeight() + 50;
-				String damageStr = String.valueOf(this.plugin.getDamage());
+				String damageStr = String.valueOf(plugin.getDamage());
 				Point textLocation = opponent.getCanvasTextLocation(graphics, damageStr, offset);
 
-				if (textLocation != null && this.plugin.getDamage() != 0)
+				if (textLocation != null && plugin.getDamage() != 0)
 				{
-					OverlayUtil.renderTextLocation(graphics, textLocation, damageStr, config.getDamageColor());
+					OverlayUtil.renderTextLocation(graphics, textLocation, damageStr, plugin.getDamageColor());
 				}
 			}
 		}

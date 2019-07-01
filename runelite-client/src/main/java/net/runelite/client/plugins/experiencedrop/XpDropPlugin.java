@@ -27,6 +27,7 @@
 package net.runelite.client.plugins.experiencedrop;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
@@ -104,6 +105,15 @@ public class XpDropPlugin extends Plugin
 	private PrayerType currentTickPrayer;
 	private XpDropConfig.DamageMode damageMode;
 
+	private boolean hideSkillIcons;
+	private Color getMeleePrayerColor;
+	private Color getRangePrayerColor;
+	private Color getMagePrayerColor;
+	private int fakeXpDropDelay;
+	private XpDropConfig.DamageMode showdamagedrops;
+	@Getter(AccessLevel.PACKAGE)
+	private Color damageColor;
+
 	@Provides
 	XpDropConfig provideConfig(ConfigManager configManager)
 	{
@@ -113,6 +123,8 @@ public class XpDropPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+
 		damageMode = config.showdamagedrops();
 
 		if (damageMode == XpDropConfig.DamageMode.ABOVE_OPPONENT)
@@ -135,10 +147,11 @@ public class XpDropPlugin extends Plugin
 			return;
 		}
 
+		updateConfig();
 
 		if (damageMode != XpDropConfig.DamageMode.ABOVE_OPPONENT)
 		{
-			damageMode = config.showdamagedrops();
+			damageMode = this.showdamagedrops;
 
 			if (damageMode == XpDropConfig.DamageMode.ABOVE_OPPONENT)
 			{
@@ -147,7 +160,7 @@ public class XpDropPlugin extends Plugin
 		}
 		else
 		{
-			damageMode = config.showdamagedrops();
+			damageMode = this.showdamagedrops;
 
 			if (damageMode != XpDropConfig.DamageMode.ABOVE_OPPONENT)
 			{
@@ -180,7 +193,7 @@ public class XpDropPlugin extends Plugin
 			return;
 		}
 
-		if (config.hideSkillIcons())
+		if (this.hideSkillIcons)
 		{
 			if (widget.getSpriteId() > 0)
 			{
@@ -245,21 +258,21 @@ public class XpDropPlugin extends Plugin
 						id == SpriteID.SKILL_ATTACK || id == SpriteID.SKILL_STRENGTH || id == SpriteID.SKILL_DEFENCE
 							|| correctPrayer))
 					{
-						color = config.getMeleePrayerColor().getRGB();
+						color = this.getMeleePrayerColor.getRGB();
 						correctPrayer = true;
 					}
 					break;
 				case RANGE:
 					if (spriteIDs.anyMatch(id -> id == SpriteID.SKILL_RANGED || correctPrayer))
 					{
-						color = config.getRangePrayerColor().getRGB();
+						color = this.getRangePrayerColor.getRGB();
 						correctPrayer = true;
 					}
 					break;
 				case MAGIC:
 					if (spriteIDs.anyMatch(id -> id == SpriteID.SKILL_MAGIC || correctPrayer))
 					{
-						color = config.getMagePrayerColor().getRGB();
+						color = this.getMagePrayerColor.getRGB();
 						correctPrayer = true;
 					}
 					break;
@@ -301,7 +314,7 @@ public class XpDropPlugin extends Plugin
 		currentTickPrayer = getActivePrayerType();
 		correctPrayer = false;
 
-		final int fakeTickDelay = config.fakeXpDropDelay();
+		final int fakeTickDelay = this.fakeXpDropDelay;
 
 		if (fakeTickDelay == 0 || lastSkill == null)
 		{
@@ -343,7 +356,7 @@ public class XpDropPlugin extends Plugin
 	@Subscribe
 	public void onScriptCallbackEvent(ScriptCallbackEvent e)
 	{
-		if (config.showdamagedrops() == XpDropConfig.DamageMode.NONE)
+		if (this.showdamagedrops == XpDropConfig.DamageMode.NONE)
 		{
 			return;
 		}
@@ -388,7 +401,7 @@ public class XpDropPlugin extends Plugin
 
 			StringBuilder builder = new StringBuilder()
 				.append(stringStack[stringStackSize - 1])
-				.append(ColorUtil.colorTag(config.getDamageColor()))
+				.append(ColorUtil.colorTag(this.damageColor))
 				.append(" (").append(damage).append(")");
 
 			stringStack[stringStackSize - 1] = builder.toString();
@@ -429,5 +442,16 @@ public class XpDropPlugin extends Plugin
 		NPC target = (NPC) a;
 		damage = (int) Math.rint(damageDealt / npcManager.getXpModifier(target.getId()));
 		tickShow = 3;
+	}
+
+	private void updateConfig()
+	{
+		this.hideSkillIcons = config.hideSkillIcons();
+		this.getMeleePrayerColor = config.getMeleePrayerColor();
+		this.getRangePrayerColor = config.getRangePrayerColor();
+		this.getMagePrayerColor = config.getMagePrayerColor();
+		this.fakeXpDropDelay = config.fakeXpDropDelay();
+		this.showdamagedrops = config.showdamagedrops();
+		this.damageColor = config.getDamageColor();
 	}
 }
