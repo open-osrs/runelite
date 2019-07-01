@@ -5,6 +5,7 @@ import com.google.common.collect.ObjectArrays;
 import com.google.inject.Provides;
 import net.runelite.api.*;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.PlayerMenuOptionClicked;
 import net.runelite.api.widgets.Widget;
@@ -55,6 +56,12 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	@Inject
 	private ChatTranslationConfig config;
 
+	private boolean publicChat;
+	private boolean translateOptionVisable;
+	private Languages publicTargetLanguage;
+	private boolean playerChat;
+	private Languages playerTargetLanguage;
+
 	@Provides
 	ChatTranslationConfig provideConfig(ConfigManager configManager)
 	{
@@ -64,9 +71,11 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+
 		if (client != null)
 		{
-			if (config.translateOptionVisable())
+			if (this.translateOptionVisable)
 			{
 				menuManager.get().addPlayerMenuItem(TRANSLATE);
 			}
@@ -79,7 +88,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	{
 		if (client != null)
 		{
-			if (config.translateOptionVisable())
+			if (this.translateOptionVisable)
 			{
 				menuManager.get().removePlayerMenuItem(TRANSLATE);
 			}
@@ -99,7 +108,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!config.translateOptionVisable())
+		if (!this.translateOptionVisable)
 		{
 			return;
 		}
@@ -142,7 +151,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 		{
 			case PUBLICCHAT:
 			case MODCHAT:
-				if (!config.publicChat())
+				if (!this.publicChat)
 				{
 					return;
 				}
@@ -158,7 +167,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 		try
 		{
 			//Automatically check language of message and translate to selected language.
-			String translation = translator.translate("auto", config.publicTargetLanguage().toString(), message);
+			String translation = translator.translate("auto", this.publicTargetLanguage.toString(), message);
 			if (translation != null)
 			{
 				final MessageNode messageNode = chatMessage.getMessageNode();
@@ -182,7 +191,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		if (!config.playerChat())
+		if (!this.playerChat)
 		{
 			return;
 		}
@@ -201,7 +210,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 				try
 				{
 					//Automatically check language of message and translate to selected language.
-					String translation = translator.translate("auto", config.playerTargetLanguage().toString(), message);
+					String translation = translator.translate("auto", this.playerTargetLanguage.toString(), message);
 					if (translation != null)
 					{
 						client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, translation);
@@ -233,4 +242,21 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 		// Nothing.
 	}
 
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("chattranslation"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.publicChat = config.publicChat();
+		this.translateOptionVisable = config.translateOptionVisable();
+		this.publicTargetLanguage = config.publicTargetLanguage();
+		this.playerChat = config.playerChat();
+		this.playerTargetLanguage = config.playerTargetLanguage();
+	}
 }
