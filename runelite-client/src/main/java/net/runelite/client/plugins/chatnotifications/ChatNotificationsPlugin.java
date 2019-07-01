@@ -82,6 +82,14 @@ public class ChatNotificationsPlugin extends Plugin
 	// Private message cache used to avoid duplicate notifications from ChatHistory.
 	private Set<Integer> privateMessageHashes = new HashSet<>();
 
+	private boolean highlightOwnName;
+	private String highlightWordsString;
+	private boolean notifyOnOwnName;
+	private boolean notifyOnHighlight;
+	private boolean notifyOnTrade;
+	private boolean notifyOnDuel;
+	private boolean notifyOnPm;
+
 	@Provides
 	ChatNotificationsConfig provideConfig(ConfigManager configManager)
 	{
@@ -91,6 +99,7 @@ public class ChatNotificationsPlugin extends Plugin
 	@Override
 	public void startUp()
 	{
+		updateConfig();
 		updateHighlights();
 	}
 
@@ -117,6 +126,7 @@ public class ChatNotificationsPlugin extends Plugin
 	{
 		if (event.getGroup().equals("chatnotification"))
 		{
+			updateConfig();
 			updateHighlights();
 		}
 	}
@@ -125,9 +135,9 @@ public class ChatNotificationsPlugin extends Plugin
 	{
 		highlightMatcher = null;
 
-		if (!config.highlightWordsString().trim().equals(""))
+		if (!this.highlightWordsString.trim().equals(""))
 		{
-			List<String> items = Text.fromCSV(config.highlightWordsString());
+			List<String> items = Text.fromCSV(this.highlightWordsString);
 			String joined = items.stream()
 				.map(Text::escapeJagex) // we compare these strings to the raw Jagex ones
 				.map(Pattern::quote)
@@ -147,13 +157,13 @@ public class ChatNotificationsPlugin extends Plugin
 		switch (chatMessage.getType())
 		{
 			case TRADEREQ:
-				if (chatMessage.getMessage().contains("wishes to trade with you.") && config.notifyOnTrade())
+				if (chatMessage.getMessage().contains("wishes to trade with you.") && this.notifyOnTrade)
 				{
 					notifier.notify(chatMessage.getMessage());
 				}
 				break;
 			case CHALREQ_TRADE:
-				if (chatMessage.getMessage().contains("wishes to duel with you.") && config.notifyOnDuel())
+				if (chatMessage.getMessage().contains("wishes to duel with you.") && this.notifyOnDuel)
 				{
 					notifier.notify(chatMessage.getMessage());
 				}
@@ -167,7 +177,7 @@ public class ChatNotificationsPlugin extends Plugin
 				break;
 			case PRIVATECHAT:
 			case MODPRIVATECHAT:
-				if (config.notifyOnPm())
+				if (this.notifyOnPm)
 				{
 					int messageHash = this.buildMessageHash(chatMessage);
 					if (this.privateMessageHashes.contains(messageHash))
@@ -187,7 +197,7 @@ public class ChatNotificationsPlugin extends Plugin
 			usernameReplacer = "<col" + ChatColorType.HIGHLIGHT.name() + "><u>" + username + "</u><col" + ChatColorType.NORMAL.name() + ">";
 		}
 
-		if (config.highlightOwnName() && usernameMatcher != null)
+		if (this.highlightOwnName && usernameMatcher != null)
 		{
 			Matcher matcher = usernameMatcher.matcher(messageNode.getValue());
 			if (matcher.find())
@@ -195,7 +205,7 @@ public class ChatNotificationsPlugin extends Plugin
 				messageNode.setValue(matcher.replaceAll(usernameReplacer));
 				update = true;
 
-				if (config.notifyOnOwnName())
+				if (this.notifyOnOwnName)
 				{
 					sendNotification(chatMessage);
 				}
@@ -222,7 +232,7 @@ public class ChatNotificationsPlugin extends Plugin
 				matcher.appendTail(stringBuffer);
 				messageNode.setValue(stringBuffer.toString());
 
-				if (config.notifyOnHighlight())
+				if (this.notifyOnHighlight)
 				{
 					sendNotification(chatMessage);
 				}
@@ -260,5 +270,16 @@ public class ChatNotificationsPlugin extends Plugin
 		stringBuilder.append(Text.removeTags(message.getMessage()));
 		String notification = stringBuilder.toString();
 		notifier.notify(notification);
+	}
+
+	private void updateConfig()
+	{
+		this.highlightOwnName = config.highlightOwnName();
+		this.highlightWordsString = config.highlightWordsString();
+		this.notifyOnOwnName = config.notifyOnOwnName();
+		this.notifyOnHighlight = config.notifyOnHighlight();
+		this.notifyOnTrade = config.notifyOnTrade();
+		this.notifyOnDuel = config.notifyOnDuel();
+		this.notifyOnPm = config.notifyOnPm();
 	}
 }
