@@ -50,12 +50,11 @@ class CorpDamageOverlay extends Overlay
 {
 	private final Client client;
 	private final CorpPlugin corpPlugin;
-	private final CorpConfig config;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private CorpDamageOverlay(Client client, CorpPlugin corpPlugin, CorpConfig config)
+	private CorpDamageOverlay(Client client, CorpPlugin corpPlugin)
 	{
 		super(corpPlugin);
 		setPosition(OverlayPosition.TOP_LEFT);
@@ -63,7 +62,6 @@ class CorpDamageOverlay extends Overlay
 		setPriority(OverlayPriority.LOW);
 		this.client = client;
 		this.corpPlugin = corpPlugin;
-		this.config = config;
 		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Corp overlay"));
 	}
 
@@ -121,7 +119,7 @@ class CorpDamageOverlay extends Overlay
 			}
 		}
 
-		if (config.showDamage())
+		if (corpPlugin.isShowDamage())
 		{
 			panelComponent.getChildren().add(LineComponent.builder()
 				.left("Your damage")
