@@ -45,11 +45,15 @@ import net.runelite.api.GameState;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
+import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Stub;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.NPCManager;
 import net.runelite.client.plugins.Plugin;
@@ -146,6 +150,18 @@ public class FightCavePlugin extends Plugin
 		return String.format("%dx %s", quantity, monster);
 	}
 
+
+	@Getter(AccessLevel.PACKAGE)
+	private WaveDisplayMode waveDisplay;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean tickTimersWidget;
+	@Getter(AccessLevel.PACKAGE)
+	private FightCaveConfig.FontStyle fontStyle;
+	@Getter(AccessLevel.PACKAGE)
+	private int textSize;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean shadows;
+
 	@Provides
 	FightCaveConfig provideConfig(ConfigManager configManager)
 	{
@@ -155,6 +171,8 @@ public class FightCavePlugin extends Plugin
 	@Override
 	public void startUp()
 	{
+		updateConfig();
+
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			if (regionCheck())
@@ -172,6 +190,17 @@ public class FightCavePlugin extends Plugin
 		overlayManager.remove(waveOverlay);
 		overlayManager.remove(fightCaveOverlay);
 		currentWave = -1;
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("fightcave"))
+		{
+			return;
+		}
+
+		updateConfig();
 	}
 
 	@Subscribe
@@ -345,5 +374,14 @@ public class FightCavePlugin extends Plugin
 	private boolean regionCheck()
 	{
 		return ArrayUtils.contains(client.getMapRegions(), FIGHT_CAVE_REGION);
+	}
+
+	private void updateConfig()
+	{
+		this.waveDisplay = config.waveDisplay();
+		this.tickTimersWidget = config.tickTimersWidget();
+		this.fontStyle = config.fontStyle();
+		this.textSize = config.textSize();
+		this.shadows = config.shadows();
 	}
 }
