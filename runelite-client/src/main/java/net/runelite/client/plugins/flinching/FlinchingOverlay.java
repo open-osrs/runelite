@@ -45,7 +45,6 @@ public class FlinchingOverlay extends Overlay
 {
 	private final Client client;
 	private final FlinchingPlugin plugin;
-	private final FlinchingConfig config;
 
 	private Color color;
 	private Color borderColor;
@@ -53,15 +52,14 @@ public class FlinchingOverlay extends Overlay
 	private int overlaySize;
 
 	@Inject
-	FlinchingOverlay(Client client, FlinchingPlugin plugin, FlinchingConfig config)
+	FlinchingOverlay(Client client, FlinchingPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
-		this.config = config;
 		this.client = client;
 
-		overlaySize = this.config.getFlinchOverlaySize();
+		overlaySize = this.plugin.getFlinchOverlaySize();
 	}
 
 	@Override
@@ -73,10 +71,10 @@ public class FlinchingOverlay extends Overlay
 
 	public void updateConfig()
 	{
-		borderColor = config.getFlinchOverlayColor();
+		borderColor = plugin.getFlinchOverlayColor();
 		color = new Color(borderColor.getRed(), borderColor.getGreen(), borderColor.getBlue(), 100);
 
-		overlaySize = config.getFlinchOverlaySize();
+		overlaySize = plugin.getFlinchOverlaySize();
 	}
 
 	private void drawOverlays(Graphics2D graphics)
