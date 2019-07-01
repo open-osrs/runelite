@@ -132,6 +132,17 @@ public class ClanChatPlugin extends Plugin
 	private Map<String, ClanMemberActivity> activityBuffer = new HashMap<>();
 	private int clanJoinedTick;
 
+	private boolean clanChatIcons;
+	private boolean recentChats;
+	private boolean showClanCounter;
+	private String chatsData;
+	private boolean showJoinLeave;
+	private ClanMemberRank joinLeaveRank;
+	private boolean privateMessageIcons;
+	private boolean publicChatIcons;
+	private boolean clanTabChat;
+	private String clanname;
+
 	@Provides
 	ClanChatConfig getConfig(ConfigManager configManager)
 	{
@@ -141,6 +152,7 @@ public class ClanChatPlugin extends Plugin
 	@Override
 	public void startUp()
 	{
+		updateConfig();
 		chats = new ArrayList<>(Text.fromCSV(config.chatsData()));
 	}
 
@@ -157,12 +169,14 @@ public class ClanChatPlugin extends Plugin
 	{
 		if (configChanged.getGroup().equals("clanchat"))
 		{
-			if (!config.recentChats())
+			updateConfig();
+
+			if (!this.recentChats)
 			{
 				resetClanChats();
 			}
 
-			if (config.showClanCounter())
+			if (this.showClanCounter)
 			{
 				clientThread.invoke(this::addClanCounter);
 			}
@@ -200,8 +214,8 @@ public class ClanChatPlugin extends Plugin
 			return;
 		}
 
-		if (!config.showJoinLeave() ||
-			member.getRank().getValue() < config.joinLeaveRank().getValue())
+		if (!this.showJoinLeave ||
+			member.getRank().getValue() < this.joinLeaveRank.getValue())
 		{
 			return;
 		}
@@ -245,8 +259,8 @@ public class ClanChatPlugin extends Plugin
 			}
 		}
 
-		if (!config.showJoinLeave() ||
-			member.getRank().getValue() < config.joinLeaveRank().getValue())
+		if (!this.showJoinLeave ||
+			member.getRank().getValue() < this.joinLeaveRank.getValue())
 		{
 			return;
 		}
@@ -271,7 +285,7 @@ public class ClanChatPlugin extends Plugin
 			return;
 		}
 
-		client.setVar(VarClientStr.RECENT_CLAN_CHAT, config.clanname());
+		client.setVar(VarClientStr.RECENT_CLAN_CHAT, this.clanname);
 
 		Widget clanChatTitleWidget = client.getWidget(WidgetInfo.CLAN_CHAT_TITLE);
 		if (clanChatTitleWidget != null)
@@ -282,7 +296,7 @@ public class ClanChatPlugin extends Plugin
 			{
 				clanChatTitleWidget.setText(CLAN_CHAT_TITLE + " (" + client.getClanChatCount() + "/100)");
 			}
-			else if (config.recentChats() && clanChatList.getChildren() == null && !Strings.isNullOrEmpty(owner.getText()))
+			else if (this.recentChats && clanChatList.getChildren() == null && !Strings.isNullOrEmpty(owner.getText()))
 			{
 				clanChatTitleWidget.setText(RECENT_TITLE);
 
@@ -290,7 +304,7 @@ public class ClanChatPlugin extends Plugin
 			}
 		}
 
-		if (!config.showJoinLeave())
+		if (!this.showJoinLeave)
 		{
 			return;
 		}
@@ -373,7 +387,7 @@ public class ClanChatPlugin extends Plugin
 			channelColor = CHAT_CLAN_NAME_TRANSPARENT_BACKGROUND;
 		}
 
-		if (config.clanChatIcons() && rank != null && rank != ClanMemberRank.UNRANKED)
+		if (this.clanChatIcons && rank != null && rank != ClanMemberRank.UNRANKED)
 		{
 			rankIcon = clanManager.getIconNumber(rank);
 		}
@@ -405,7 +419,7 @@ public class ClanChatPlugin extends Plugin
 	@Subscribe
 	public void onVarClientStrChanged(VarClientStrChanged strChanged)
 	{
-		if (strChanged.getIndex() == VarClientStr.RECENT_CLAN_CHAT.getIndex() && config.recentChats())
+		if (strChanged.getIndex() == VarClientStr.RECENT_CLAN_CHAT.getIndex() && this.recentChats)
 		{
 			updateRecentChat(client.getVar(VarClientStr.RECENT_CLAN_CHAT));
 		}
@@ -428,20 +442,20 @@ public class ClanChatPlugin extends Plugin
 		{
 			case PRIVATECHAT:
 			case MODPRIVATECHAT:
-				if (!config.privateMessageIcons())
+				if (!this.privateMessageIcons)
 				{
 					return;
 				}
 				break;
 			case PUBLICCHAT:
 			case MODCHAT:
-				if (!config.publicChatIcons())
+				if (!this.publicChatIcons)
 				{
 					return;
 				}
 				break;
 			case FRIENDSCHAT:
-				if (!config.clanChatIcons())
+				if (!this.clanChatIcons)
 				{
 					return;
 				}
@@ -515,7 +529,7 @@ public class ClanChatPlugin extends Plugin
 
 		final int[] intStack = client.getIntStack();
 		final int size = client.getIntStackSize();
-		intStack[size - 1] = config.clanTabChat() ? 1 : 0;
+		intStack[size - 1] = this.clanTabChat ? 1 : 0;
 	}
 
 	int getClanAmount()
@@ -617,7 +631,10 @@ public class ClanChatPlugin extends Plugin
 			chats.remove(0);
 		}
 
-		config.chatsData(Text.toCSV(chats));
+		String csvText = Text.toCSV(chats);
+
+		config.chatsData(csvText);
+		this.chatsData = csvText;
 	}
 
 	private void removeClanCounter()
@@ -628,7 +645,7 @@ public class ClanChatPlugin extends Plugin
 
 	private void addClanCounter()
 	{
-		if (!config.showClanCounter() || clanMemberCounter != null || clanMembers.isEmpty())
+		if (!this.showClanCounter || clanMemberCounter != null || clanMembers.isEmpty())
 		{
 			return;
 		}
@@ -636,5 +653,19 @@ public class ClanChatPlugin extends Plugin
 		final BufferedImage image = spriteManager.getSprite(SpriteID.TAB_CLAN_CHAT, 0);
 		clanMemberCounter = new ClanChatIndicator(image, this);
 		infoBoxManager.addInfoBox(clanMemberCounter);
+	}
+
+	private void updateConfig()
+	{
+		this.clanChatIcons = config.clanChatIcons();
+		this.recentChats = config.recentChats();
+		this.showClanCounter = config.showClanCounter();
+		this.chatsData = config.chatsData();
+		this.showJoinLeave= config.showJoinLeave();
+		this.joinLeaveRank = config.joinLeaveRank();
+		this.privateMessageIcons = config.privateMessageIcons();
+		this.publicChatIcons = config.publicChatIcons();
+		this.clanTabChat = config.clanTabChat();
+		this.clanname = config.clanname();
 	}
 }
