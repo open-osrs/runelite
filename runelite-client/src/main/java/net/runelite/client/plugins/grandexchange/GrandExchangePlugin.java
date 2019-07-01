@@ -173,6 +173,11 @@ public class GrandExchangePlugin extends Plugin
 		configManager.unsetConfiguration("geoffer." + client.getUsername().toLowerCase(), Integer.toString(slot));
 	}
 
+	private boolean quickLookup;
+	private boolean enableNotifications;
+	private boolean enableOsbPrices;
+	private boolean enableGELimits;
+
 	@Provides
 	GrandExchangeConfig provideConfig(ConfigManager configManager)
 	{
@@ -182,6 +187,8 @@ public class GrandExchangePlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		updateConfig();
+
 		itemGELimits = loadGELimits();
 		panel = injector.getInstance(GrandExchangePanel.class);
 		panel.setGELimits(itemGELimits);
@@ -197,7 +204,7 @@ public class GrandExchangePlugin extends Plugin
 
 		clientToolbar.addNavigation(button);
 
-		if (config.quickLookup())
+		if (this.quickLookup)
 		{
 			mouseManager.registerMouseListener(inputListener);
 			keyManager.registerKeyListener(inputListener);
@@ -236,6 +243,14 @@ public class GrandExchangePlugin extends Plugin
 		}
 	}
 
+	private void updateConfig()
+	{
+		this.quickLookup = config.quickLookup();
+		this.enableNotifications = config.enableNotifications();
+		this.enableOsbPrices = config.enableOsbPrices();
+		this.enableGELimits = config.enableGELimits();
+	}
+
 	@Subscribe
 	public void onSessionClose(SessionClose sessionClose)
 	{
@@ -247,9 +262,10 @@ public class GrandExchangePlugin extends Plugin
 	{
 		if (event.getGroup().equals("grandexchange"))
 		{
+			updateConfig();
 			if (event.getKey().equals("quickLookup"))
 			{
-				if (config.quickLookup())
+				if (this.quickLookup)
 				{
 					mouseManager.registerMouseListener(inputListener);
 					keyManager.registerKeyListener(inputListener);
@@ -344,7 +360,7 @@ public class GrandExchangePlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage event)
 	{
-		if (!this.config.enableNotifications() || event.getType() != ChatMessageType.GAMEMESSAGE)
+		if (!this.enableNotifications || event.getType() != ChatMessageType.GAMEMESSAGE)
 		{
 			return;
 		}
@@ -446,7 +462,7 @@ public class GrandExchangePlugin extends Plugin
 			return;
 		}
 
-		if (config.enableGELimits() && itemGELimits != null && !geTextString.contains(BUY_LIMIT_GE_TEXT))
+		if (this.enableGELimits && itemGELimits != null && !geTextString.contains(BUY_LIMIT_GE_TEXT))
 		{
 			final Integer itemLimit = itemGELimits.get(itemId);
 
@@ -458,7 +474,7 @@ public class GrandExchangePlugin extends Plugin
 			}
 		}
 
-		if (!config.enableOsbPrices() || geTextString.contains(OSB_GE_TEXT))
+		if (!this.enableOsbPrices || geTextString.contains(OSB_GE_TEXT))
 		{
 			// OSB prices are disabled or price was already looked up, so no need to set it again
 			return;
