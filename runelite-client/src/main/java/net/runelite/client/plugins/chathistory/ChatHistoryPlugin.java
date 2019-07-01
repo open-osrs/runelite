@@ -38,6 +38,7 @@ import net.runelite.api.ScriptID;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.vars.InputType;
 import net.runelite.client.callback.ClientThread;
@@ -82,6 +83,9 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 	@Inject
 	private ChatMessageManager chatMessageManager;
 
+	private boolean retainChatHistory;
+	private boolean pmTargetCycling;
+
 	@Provides
 	ChatHistoryConfig getConfig(ConfigManager configManager)
 	{
@@ -91,6 +95,8 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 	@Override
 	protected void startUp()
 	{
+		updateConfig();
+
 		messageQueue = EvictingQueue.create(100);
 		friends = new ArrayDeque<>(FRIENDS_MAX_SIZE + 1);
 		keyManager.registerKeyListener(this);
@@ -113,7 +119,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 		// of information that chat history was reset
 		if (chatMessage.getMessage().equals(WELCOME_MESSAGE))
 		{
-			if (!config.retainChatHistory())
+			if (!this.retainChatHistory)
 			{
 				return;
 			}
@@ -204,7 +210,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-		if (e.getKeyCode() != CYCLE_HOTKEY || !config.pmTargetCycling())
+		if (e.getKeyCode() != CYCLE_HOTKEY || !this.pmTargetCycling)
 		{
 			return;
 		}
@@ -259,5 +265,22 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 		}
 
 		return friends.getLast();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!"chathistory".equals(event.getGroup()))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
+	private void updateConfig()
+	{
+		this.retainChatHistory = config.retainChatHistory();
+		this.pmTargetCycling = config.pmTargetCycling();
 	}
 }
