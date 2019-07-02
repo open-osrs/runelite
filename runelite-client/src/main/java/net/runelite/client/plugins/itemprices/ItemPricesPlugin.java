@@ -26,7 +26,11 @@ package net.runelite.client.plugins.itemprices;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import lombok.AccessLevel;
+import lombok.Getter;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -45,6 +49,20 @@ public class ItemPricesPlugin extends Plugin
 	@Inject
 	private ItemPricesOverlay overlay;
 
+	@Inject
+	private ItemPricesConfig config;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showGEPrice;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showHAValue;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showEA;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean hideInventory;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showAlchProfit;
+
 	@Provides
 	ItemPricesConfig getConfig(ConfigManager configManager)
 	{
@@ -54,6 +72,7 @@ public class ItemPricesPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 		overlayManager.add(overlay);
 	}
 
@@ -61,5 +80,25 @@ public class ItemPricesPlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(overlay);
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("itemprices"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
+	private void updateConfig()
+	{
+		this.showGEPrice = config.showGEPrice();
+		this.showHAValue = config.showHAValue();
+		this.showEA = config.showEA();
+		this.hideInventory = config.hideInventory();
+		this.showAlchProfit = config.showAlchProfit();
 	}
 }
