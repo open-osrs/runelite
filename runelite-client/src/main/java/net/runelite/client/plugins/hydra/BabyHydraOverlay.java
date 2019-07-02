@@ -40,17 +40,14 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 public class BabyHydraOverlay extends Overlay
 {
-	private final BabyHydraConfig config;
 	private final BabyHydraPlugin plugin;
-
 
 	@Inject
 	private Client client;
 
 	@Inject
-	private BabyHydraOverlay(BabyHydraConfig config, BabyHydraPlugin plugin)
+	private BabyHydraOverlay(BabyHydraPlugin plugin)
 	{
-		this.config = config;
 		this.plugin = plugin;
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		setPosition(OverlayPosition.DYNAMIC);
@@ -73,7 +70,7 @@ public class BabyHydraOverlay extends Overlay
 					int val = plugin.getHydras().get(hydra.getIndex());
 					if (val != 0)
 					{
-						if (config.BoldText())
+						if (plugin.isBoldText())
 						{
 							graphics.setFont(FontManager.getRunescapeBoldFont());
 						}
