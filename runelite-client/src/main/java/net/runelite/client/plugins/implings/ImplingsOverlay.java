@@ -50,15 +50,13 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class ImplingsOverlay extends Overlay
 {
 	private final Client client;
-	private final ImplingsConfig config;
 	private final ImplingsPlugin plugin;
 
 	@Inject
-	private ImplingsOverlay(Client client, ImplingsConfig config, ImplingsPlugin plugin)
+	private ImplingsOverlay(Client client, ImplingsPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
-		this.config = config;
 		this.client = client;
 		this.plugin = plugin;
 	}
@@ -76,7 +74,7 @@ public class ImplingsOverlay extends Overlay
 		for (NPC imp : implings)
 		{
 			Color color = plugin.npcToColor(imp);
-			if (!plugin.showNpc(imp) || color == null)
+			if (plugin.showNpc(imp) || color == null)
 			{
 				continue;
 			}
@@ -85,7 +83,7 @@ public class ImplingsOverlay extends Overlay
 		}
 
 		//Draw static spawns
-		if (config.showSpawn())
+		if (plugin.isShowSpawn())
 		{
 			for (ImplingSpawn spawn : ImplingSpawn.values())
 			{
@@ -95,14 +93,14 @@ public class ImplingsOverlay extends Overlay
 				}
 
 				String impName = spawn.getType().getName();
-				drawSpawn(graphics, spawn.getSpawnLocation(), impName, config.getSpawnColor());
+				drawSpawn(graphics, spawn.getSpawnLocation(), impName, plugin.getGetSpawnColor());
 			}
 
 			//Draw dynamic spawns
 			Map<Integer, String> dynamicSpawns = plugin.getDynamicSpawns();
 			for (Map.Entry<Integer, String> dynamicSpawn : dynamicSpawns.entrySet())
 			{
-				drawDynamicSpawn(graphics, dynamicSpawn.getKey(), dynamicSpawn.getValue(), config.getDynamicSpawnColor());
+				drawDynamicSpawn(graphics, dynamicSpawn.getKey(), dynamicSpawn.getValue(), plugin.getGetDynamicSpawnColor());
 
 			}
 		}
