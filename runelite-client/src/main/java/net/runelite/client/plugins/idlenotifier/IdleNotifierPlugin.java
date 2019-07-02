@@ -36,6 +36,7 @@ import java.util.List;
 import javax.inject.Inject;
 //import javax.sound.sampled.LineUnavailableException;
 //import javax.sound.sampled.UnsupportedAudioFileException;
+import net.runelite.api.events.ConfigChanged;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -195,6 +196,25 @@ public class IdleNotifierPlugin extends Plugin
 	private SkullIcon lastTickSkull = null;
 	private boolean isFirstTick = true;
 
+	private boolean animationIdle;
+	private boolean animationIdleSound;
+	private boolean interactionIdle;
+	private boolean interactionIdleSound;
+	private boolean logoutIdle;
+	private boolean outOfCombatSound;
+	private boolean showSkullNotification;
+	private boolean showUnskullNotification;
+	private int getIdleNotificationDelay;
+	private int getHitpointsThreshold;
+	private boolean getPlayHealthSound;
+	private int getPrayerThreshold;
+	private boolean getPlayPrayerSound;
+	private int getOxygenThreshold;
+	private int getSpecEnergyThreshold;
+	private boolean getSpecSound;
+	private boolean getOverSpecEnergy;
+	private boolean notifyPkers;
+
 	@Provides
 	IdleNotifierConfig provideConfig(ConfigManager configManager)
 	{
@@ -331,7 +351,7 @@ public class IdleNotifierPlugin extends Plugin
 	private void onPlayerSpawned(PlayerSpawned event)
 	{
 		final Player p = event.getPlayer();
-		if (config.notifyPkers())
+		if (this.notifyPkers)
 		{
 			if (p != null)
 			{
@@ -473,7 +493,7 @@ public class IdleNotifierPlugin extends Plugin
 		skullNotifier();
 
 		final Player local = client.getLocalPlayer();
-		final Duration waitDuration = Duration.ofMillis(config.getIdleNotificationDelay());
+		final Duration waitDuration = Duration.ofMillis(this.getIdleNotificationDelay);
 		lastCombatCountdown = Math.max(lastCombatCountdown - 1, 0);
 
 		if (client.getGameState() != GameState.LOGGED_IN
@@ -486,7 +506,7 @@ public class IdleNotifierPlugin extends Plugin
 			return;
 		}
 
-		if (config.logoutIdle() && checkIdleLogout())
+		if (this.logoutIdle && checkIdleLogout())
 		{
 			notifier.notify("[" + local.getName() + "] is about to log out from idling too long!");
 		}
@@ -496,20 +516,20 @@ public class IdleNotifierPlugin extends Plugin
 			notifier.notify("[" + local.getName() + "] is about to log out from being online for 6 hours!");
 		}
 
-		if (config.animationIdle() && checkAnimationIdle(waitDuration, local))
+		if (this.animationIdle && checkAnimationIdle(waitDuration, local))
 		{
 			notifier.notify("[" + local.getName() + "] is now idle!");
-			if (config.animationIdleSound())
+			if (this.animationIdleSound)
 			{
 				soundManager.playSound(Sound.IDLE);
 			}
 		}
-		if (config.interactionIdle() && checkInteractionIdle(waitDuration, local))
+		if (this.interactionIdle && checkInteractionIdle(waitDuration, local))
 		{
 			if (lastInteractWasCombat)
 			{
 				notifier.notify("[" + local.getName() + "] is now out of combat!");
-				if (config.outOfCombatSound())
+				if (this.outOfCombatSound)
 				{
 					soundManager.playSound(Sound.OUT_OF_COMBAT);
 				}
@@ -517,7 +537,7 @@ public class IdleNotifierPlugin extends Plugin
 			else
 			{
 				notifier.notify("[" + local.getName() + "] is now idle!");
-				if (config.interactionIdleSound())
+				if (this.interactionIdleSound)
 				{
 					soundManager.playSound(Sound.IDLE);
 				}
@@ -527,7 +547,7 @@ public class IdleNotifierPlugin extends Plugin
 		if (checkLowHitpoints())
 		{
 			notifier.notify("[" + local.getName() + "] has low hitpoints!");
-			if (config.getPlayHealthSound())
+			if (this.getPlayHealthSound)
 			{
 				soundManager.playSound(Sound.LOW_HEATLH);
 			}
@@ -536,7 +556,7 @@ public class IdleNotifierPlugin extends Plugin
 		if (checkLowPrayer())
 		{
 			notifier.notify("[" + local.getName() + "] has low prayer!");
-			if (config.getPlayPrayerSound())
+			if (this.getPlayPrayerSound)
 			{
 				soundManager.playSound(Sound.LOW_PRAYER);
 			}
@@ -550,7 +570,7 @@ public class IdleNotifierPlugin extends Plugin
 		if (checkFullSpecEnergy())
 		{
 			notifier.notify("[" + local.getName() + "] has restored spec energy!");
-			if (config.getSpecSound())
+			if (this.getSpecSound)
 			{
 				soundManager.playSound(Sound.RESTORED_SPECIAL_ATTACK);
 			}
@@ -561,7 +581,7 @@ public class IdleNotifierPlugin extends Plugin
 	{
 		int currentSpecEnergy = client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT);
 
-		int threshold = config.getSpecEnergyThreshold() * 10;
+		int threshold = this.getSpecEnergyThreshold * 10;
 		if (threshold == 0)
 		{
 			lastSpecEnergy = currentSpecEnergy;
@@ -572,7 +592,7 @@ public class IdleNotifierPlugin extends Plugin
 		// regen was small enough.
 		boolean notify = lastSpecEnergy < threshold && currentSpecEnergy >= threshold && currentSpecEnergy - lastSpecEnergy <= 100;
 
-		notify = (notify) || ((config.getOverSpecEnergy()) && (currentSpecEnergy >= threshold) && (currentSpecEnergy != lastSpecEnergy) && (currentSpecEnergy - lastSpecEnergy <= 100));
+		notify = (notify) || ((this.getOverSpecEnergy) && (currentSpecEnergy >= threshold) && (currentSpecEnergy != lastSpecEnergy) && (currentSpecEnergy - lastSpecEnergy <= 100));
 
 		lastSpecEnergy = currentSpecEnergy;
 		return notify;
@@ -580,11 +600,11 @@ public class IdleNotifierPlugin extends Plugin
 
 	private boolean checkLowOxygen()
 	{
-		if (config.getOxygenThreshold() == 0)
+		if (this.getOxygenThreshold == 0)
 		{
 			return false;
 		}
-		if (config.getOxygenThreshold() >= client.getVar(Varbits.OXYGEN_LEVEL) * 0.1)
+		if (this.getOxygenThreshold >= client.getVar(Varbits.OXYGEN_LEVEL) * 0.1)
 		{
 			if (!notifyOxygen)
 			{
@@ -601,13 +621,13 @@ public class IdleNotifierPlugin extends Plugin
 
 	private boolean checkLowHitpoints()
 	{
-		if (config.getHitpointsThreshold() == 0)
+		if (this.getHitpointsThreshold == 0)
 		{
 			return false;
 		}
-		if (client.getRealSkillLevel(Skill.HITPOINTS) > config.getHitpointsThreshold())
+		if (client.getRealSkillLevel(Skill.HITPOINTS) > this.getHitpointsThreshold)
 		{
-			if (client.getBoostedSkillLevel(Skill.HITPOINTS) + client.getVar(Varbits.NMZ_ABSORPTION) <= config.getHitpointsThreshold())
+			if (client.getBoostedSkillLevel(Skill.HITPOINTS) + client.getVar(Varbits.NMZ_ABSORPTION) <= this.getHitpointsThreshold)
 			{
 				if (!notifyHitpoints)
 				{
@@ -626,13 +646,13 @@ public class IdleNotifierPlugin extends Plugin
 
 	private boolean checkLowPrayer()
 	{
-		if (config.getPrayerThreshold() == 0)
+		if (this.getPrayerThreshold == 0)
 		{
 			return false;
 		}
-		if (client.getRealSkillLevel(Skill.PRAYER) > config.getPrayerThreshold())
+		if (client.getRealSkillLevel(Skill.PRAYER) > this.getPrayerThreshold)
 		{
-			if (client.getBoostedSkillLevel(Skill.PRAYER) <= config.getPrayerThreshold())
+			if (client.getBoostedSkillLevel(Skill.PRAYER) <= this.getPrayerThreshold)
 			{
 				if (!notifyPrayer)
 				{
@@ -792,11 +812,11 @@ public class IdleNotifierPlugin extends Plugin
 		{
 			if (!isFirstTick)
 			{
-				if (config.showSkullNotification() && lastTickSkull == null && currentTickSkull == SkullIcon.SKULL)
+				if (this.showSkullNotification && lastTickSkull == null && currentTickSkull == SkullIcon.SKULL)
 				{
 					notifier.notify("[" + local.getName() + "] is now skulled!");
 				}
-				else if (config.showUnskullNotification() && lastTickSkull == SkullIcon.SKULL && currentTickSkull == null)
+				else if (this.showUnskullNotification && lastTickSkull == SkullIcon.SKULL && currentTickSkull == null)
 				{
 					notifier.notify("[" + local.getName() + "] is now unskulled!");
 				}
@@ -808,5 +828,44 @@ public class IdleNotifierPlugin extends Plugin
 
 			lastTickSkull = currentTickSkull;
 		}
+	}
+
+	@Override
+	protected void startUp() throws Exception
+	{
+		updateConfig();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("idlenotifier"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
+	private void updateConfig()
+	{
+		this.animationIdle = config.animationIdle();
+		this.animationIdleSound = config.animationIdleSound();
+		this.interactionIdle = config.interactionIdle();
+		this.interactionIdleSound = config.interactionIdleSound();
+		this.logoutIdle = config.logoutIdle();
+		this.outOfCombatSound = config.outOfCombatSound();
+		this.showSkullNotification = config.showSkullNotification();
+		this.showUnskullNotification = config.showUnskullNotification();
+		this.getIdleNotificationDelay = config.getIdleNotificationDelay();
+		this.getHitpointsThreshold = config.getHitpointsThreshold();
+		this.getPlayHealthSound = config.getPlayHealthSound();
+		this.getPrayerThreshold = config.getPrayerThreshold();
+		this.getPlayPrayerSound = config.getPlayPrayerSound();
+		this.getOxygenThreshold = config.getOxygenThreshold();
+		this.getSpecEnergyThreshold = config.getSpecEnergyThreshold();
+		this.getSpecSound = config.getSpecSound();
+		this.getOverSpecEnergy = config.getOverSpecEnergy();
+		this.notifyPkers = config.notifyPkers();
 	}
 }
