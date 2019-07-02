@@ -31,6 +31,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.AnimationID;
 import net.runelite.api.ChatMessageType;
@@ -101,6 +103,10 @@ public class KourendLibraryPlugin extends Plugin
 	private WorldPoint lastBookcaseAnimatedOn = null;
 	private EnumSet<Book> playerBooks = null;
 
+	private boolean hideButton;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean hideDuplicateBook;
+
 	@Provides
 	KourendLibraryConfig provideConfig(ConfigManager configManager)
 	{
@@ -110,6 +116,9 @@ public class KourendLibraryPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		hideButton = config.hideButton();
+		hideDuplicateBook = config.hideDuplicateBook();
+
 		Book.fillImages(itemManager);
 
 		panel = injector.getInstance(KourendLibraryPanel.class);
@@ -128,7 +137,7 @@ public class KourendLibraryPlugin extends Plugin
 
 		updatePlayerBooks();
 
-		if (!config.hideButton())
+		if (!this.hideButton)
 		{
 			clientToolbar.addNavigation(navButton);
 		}
@@ -154,9 +163,12 @@ public class KourendLibraryPlugin extends Plugin
 			return;
 		}
 
+		this.hideButton = config.hideButton();
+		this.hideDuplicateBook = config.hideDuplicateBook();
+
 		SwingUtilities.invokeLater(() ->
 		{
-			if (!config.hideButton())
+			if (!this.hideButton)
 			{
 				clientToolbar.addNavigation(navButton);
 			}
@@ -213,7 +225,7 @@ public class KourendLibraryPlugin extends Plugin
 	public void onGameTick(GameTick tick)
 	{
 		boolean inRegion = client.getLocalPlayer().getWorldLocation().getRegionID() == REGION;
-		if (config.hideButton() && inRegion != buttonAttached)
+		if (this.hideButton && inRegion != buttonAttached)
 		{
 			SwingUtilities.invokeLater(() ->
 			{

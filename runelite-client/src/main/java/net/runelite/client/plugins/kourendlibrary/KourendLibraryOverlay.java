@@ -55,18 +55,16 @@ class KourendLibraryOverlay extends Overlay
 	private final static int MAXIMUM_DISTANCE = 24;
 	private final Library library;
 	private final Client client;
-	private final KourendLibraryConfig config;
 	private final KourendLibraryPlugin plugin;
 
 	@Setter(AccessLevel.PACKAGE)
 	private boolean hidden;
 
 	@Inject
-	private KourendLibraryOverlay(Library library, Client client, KourendLibraryConfig config, KourendLibraryPlugin plugin)
+	private KourendLibraryOverlay(Library library, Client client, KourendLibraryPlugin plugin)
 	{
 		this.library = library;
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 
 		setPosition(OverlayPosition.DYNAMIC);
@@ -238,7 +236,7 @@ class KourendLibraryOverlay extends Overlay
 
 	private boolean shouldHideOverlayIfDuplicateBook(@Nullable Book book)
 	{
-		return config.hideDuplicateBook()
+		return plugin.isHideDuplicateBook()
 			&& book != null
 			&& !book.isDarkManuscript()
 			&& plugin.doesPlayerContainBook(book);
