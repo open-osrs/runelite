@@ -44,16 +44,14 @@ import net.runelite.client.ui.overlay.WidgetItemOverlay;
 public class HighAlchemyOverlay extends WidgetItemOverlay
 {
 	private final ItemManager itemManager;
-	private final HighAlchemyConfig config;
 	private final HighAlchemyPlugin plugin;
 	private final int alchPrice;
 	private final int alchPriceNoStaff;
 
 	@Inject
-	public HighAlchemyOverlay(ItemManager itemManager, HighAlchemyPlugin plugin, HighAlchemyConfig config)
+	public HighAlchemyOverlay(ItemManager itemManager, HighAlchemyPlugin plugin)
 	{
 		this.itemManager = itemManager;
-		this.config = config;
 		this.plugin = plugin;
 
 		int natPrice = itemManager.getItemPrice(ItemID.NATURE_RUNE);
@@ -78,13 +76,13 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 		final int id = getNotedId(itemId);
 		final int gePrice = getGEPrice(id);
 		final int haPrice = getHAPrice(id);
-		final int materialCost = config.usingFireRunes() ? alchPriceNoStaff : alchPrice;
-		final int desiredProfit = config.minProfit();
+		final int materialCost = plugin.isUsingFireRunes() ? alchPriceNoStaff : alchPrice;
+		final int desiredProfit = plugin.getMinProfit();
 		final int haProfit = getHAProfit(haPrice, gePrice, materialCost);
 
 		if (gePrice > 0 && haPrice > 0 && haProfit >= desiredProfit)
 		{
-			final Color color = config.getHighlightColor();
+			final Color color = plugin.getGetHighlightColor();
 
 			if (color != null)
 			{
