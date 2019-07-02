@@ -50,16 +50,16 @@ class InventoryGridOverlay extends Overlay
 	private static final Color HIGHLIGHT = new Color(0, 255, 0, 45);
 	private static final Color GRID = new Color(255, 255, 255, 45);
 
-	private final InventoryGridConfig config;
+	private final InventoryGridPlugin plugin;
 	private final Client client;
 	private final ItemManager itemManager;
 
 	@Inject
-	private InventoryGridOverlay(InventoryGridConfig config, Client client, ItemManager itemManager)
+	private InventoryGridOverlay(InventoryGridPlugin plugin, Client client, ItemManager itemManager)
 	{
 		this.itemManager = itemManager;
 		this.client = client;
-		this.config = config;
+		this.plugin = plugin;
 
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -72,7 +72,7 @@ class InventoryGridOverlay extends Overlay
 		final Widget inventoryWidget = client.getWidget(WidgetInfo.INVENTORY);
 
 		if (if1DraggingWidget == null || if1DraggingWidget != inventoryWidget
-			|| client.getItemPressedDuration() < config.dragDelay() / Constants.CLIENT_TICK_LENGTH)
+			|| client.getItemPressedDuration() < plugin.getDragDelay() / Constants.CLIENT_TICK_LENGTH)
 		{
 			return null;
 		}
@@ -87,7 +87,7 @@ class InventoryGridOverlay extends Overlay
 			final Rectangle bounds = widgetItem.getCanvasBounds();
 			boolean inBounds = bounds.contains(mousePoint);
 
-			if (config.showItem() && inBounds)
+			if (plugin.isShowItem() && inBounds)
 			{
 				final WidgetItem draggedItem = inventoryWidget.getWidgetItem(client.getIf1DraggedItemIndex());
 				final BufferedImage draggedItemImage = itemManager.getImage(draggedItem.getId());
@@ -99,12 +99,12 @@ class InventoryGridOverlay extends Overlay
 				graphics.setComposite(AlphaComposite.SrcOver);
 			}
 
-			if (config.showHighlight() && inBounds)
+			if (plugin.isShowHighlight() && inBounds)
 			{
 				graphics.setColor(HIGHLIGHT);
 				graphics.fill(bounds);
 			}
-			else if (config.showGrid())
+			else if (plugin.isShowGrid())
 			{
 				graphics.setColor(GRID);
 				graphics.fill(bounds);
