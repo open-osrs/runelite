@@ -32,10 +32,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
-import net.runelite.api.Client;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -51,7 +51,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.PVM,
 	enabledByDefault = false
 )
-
 @Slf4j
 public class LizardmenShamanPlugin extends Plugin
 {
@@ -73,8 +72,8 @@ public class LizardmenShamanPlugin extends Plugin
 	@Inject
 	private Notifier notifier;
 
-	@Inject
-	private Client client;
+	private boolean showTimer;
+	private boolean notifyOnSpawn;
 
 	@Provides
 	LizardmenShamanConfig getConfig(ConfigManager configManager)
@@ -85,6 +84,9 @@ public class LizardmenShamanPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		this.showTimer = config.showTimer();
+		this.notifyOnSpawn = config.notifyOnSpawn();
+
 		overlayManager.add(overlay);
 	}
 
@@ -98,7 +100,7 @@ public class LizardmenShamanPlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage event)
 	{
-		if (config.notifyOnSpawn())
+		if (this.notifyOnSpawn)
 		{
 			if (event.getMessage().contains(MESSAGE))
 			{
@@ -118,10 +120,22 @@ public class LizardmenShamanPlugin extends Plugin
 
 		if (actor.getName().equals(SHAMAN) && actor.getAnimation() == 7157)
 		{
-			if (config.showTimer())
+			if (this.showTimer)
 			{
 				spawns.put(event.getActor().getLocalLocation(), new LizardmenShamanSpawn(8.4, null));
 			}
 		}
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("shaman"))
+		{
+			return;
+		}
+
+		this.showTimer = config.showTimer();
+		this.notifyOnSpawn = config.notifyOnSpawn();
 	}
 }
