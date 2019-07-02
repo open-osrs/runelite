@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.WidgetMenuOptionClicked;
@@ -103,6 +104,11 @@ public class InventoryTagsPlugin extends Plugin
 
 	private boolean editorMode;
 
+	private Color group1Color;
+	private Color group2Color;
+	private Color group3Color;
+	private Color group4Color;
+
 	@Provides
 	InventoryTagsConfig provideConfig(ConfigManager configManager)
 	{
@@ -133,6 +139,7 @@ public class InventoryTagsPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 		refreshInventoryMenuOptions();
 		overlayManager.add(overlay);
 	}
@@ -227,13 +234,13 @@ public class InventoryTagsPlugin extends Plugin
 		switch (name)
 		{
 			case SETNAME_GROUP_1:
-				return config.getGroup1Color();
+				return this.group1Color;
 			case SETNAME_GROUP_2:
-				return config.getGroup2Color();
+				return this.group2Color;
 			case SETNAME_GROUP_3:
-				return config.getGroup3Color();
+				return this.group3Color;
 			case SETNAME_GROUP_4:
-				return config.getGroup4Color();
+				return this.group4Color;
 		}
 
 		return null;
@@ -264,5 +271,23 @@ public class InventoryTagsPlugin extends Plugin
 			menuManager.addManagedCustomMenu(RESIZABLE_INVENTORY_TAB_CONFIGURE);
 			menuManager.addManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE);
 		}
+	}
+
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("inventorytags"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.group1Color = config.getGroup1Color();
+		this.group2Color = config.getGroup2Color();
+		this.group3Color = config.getGroup3Color();
+		this.group4Color = config.getGroup4Color();
 	}
 }
