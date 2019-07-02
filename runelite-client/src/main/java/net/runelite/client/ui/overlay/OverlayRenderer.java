@@ -116,7 +116,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 	private void updateConfig()
 	{
-		this.clientFont = (runeLiteConfig.clientFont();
+		this.clientFont = runeLiteConfig.clientFont();
 		this.standardFont = FontManager.getFontFromType(this.clientFont, runeLiteConfig.fontType());
 		this.tooltipFont = FontManager.getFontFromType(this.clientFont, runeLiteConfig.tooltipFontType());
 		this.interfaceFont = FontManager.getFontFromType(this.clientFont, runeLiteConfig.interfaceFontType());
