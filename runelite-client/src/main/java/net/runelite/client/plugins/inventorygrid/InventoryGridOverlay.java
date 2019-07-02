@@ -27,7 +27,6 @@ package net.runelite.client.plugins.inventorygrid;
 
 import com.google.inject.Inject;
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -46,9 +45,6 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 class InventoryGridOverlay extends Overlay
 {
 	private static final int INVENTORY_SIZE = 28;
-
-	private static final Color HIGHLIGHT = new Color(0, 255, 0, 45);
-	private static final Color GRID = new Color(255, 255, 255, 45);
 
 	private final InventoryGridPlugin plugin;
 	private final Client client;
@@ -101,12 +97,12 @@ class InventoryGridOverlay extends Overlay
 
 			if (plugin.isShowHighlight() && inBounds)
 			{
-				graphics.setColor(HIGHLIGHT);
+				graphics.setColor(plugin.getHighlightColor());
 				graphics.fill(bounds);
 			}
 			else if (plugin.isShowGrid())
 			{
-				graphics.setColor(GRID);
+				graphics.setColor(plugin.getGridColor());
 				graphics.fill(bounds);
 			}
 		}

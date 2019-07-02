@@ -27,6 +27,7 @@ package net.runelite.client.plugins.inventorygrid;
 
 import com.google.inject.Inject;
 import com.google.inject.Provides;
+import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -61,6 +62,10 @@ public class InventoryGridPlugin extends Plugin
 	private boolean showHighlight;
 	@Getter(AccessLevel.PACKAGE)
 	private int dragDelay;
+	@Getter(AccessLevel.PACKAGE)
+	private Color gridColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color highlightColor;
 
 	@Override
 	public void startUp()
@@ -96,5 +101,7 @@ public class InventoryGridPlugin extends Plugin
 		this.showGrid = config.showGrid();
 		this.showHighlight = config.showHighlight();
 		this.dragDelay = config.dragDelay();
+		this.gridColor = config.gridColor();
+		this.highlightColor = config.highlightColor();
 	}
 }
