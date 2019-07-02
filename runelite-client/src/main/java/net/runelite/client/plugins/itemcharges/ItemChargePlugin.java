@@ -850,8 +850,6 @@ public class ItemChargePlugin extends Plugin
 		this.showWateringCanCharges = config.showWateringCanCharges();
 		this.showWaterskinCharges = config.showWaterskinCharges();
 		this.showBellowCharges = config.showBellowCharges();
-		this.showBasketCharges = config.showBasketCharges();
-		this.showSackCharges = config.showSackCharges();
 		this.showAbyssalBraceletCharges = config.showAbyssalBraceletCharges();
 		this.recoilNotification = config.recoilNotification();
 		this.showBindingNecklaceCharges = config.showBindingNecklaceCharges();
