@@ -43,17 +43,15 @@ public class MotherlodeGemOverlay extends Overlay
 {
 	private final MotherlodePlugin plugin;
 	private final MotherlodeSession motherlodeSession;
-	private final MotherlodeConfig config;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	MotherlodeGemOverlay(MotherlodePlugin plugin, MotherlodeSession motherlodeSession, MotherlodeConfig config)
+	MotherlodeGemOverlay(MotherlodePlugin plugin, MotherlodeSession motherlodeSession)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.plugin = plugin;
 		this.motherlodeSession = motherlodeSession;
-		this.config = config;
 		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Gem overlay"));
 	}
 
@@ -62,12 +60,12 @@ public class MotherlodeGemOverlay extends Overlay
 	{
 		MotherlodeSession session = motherlodeSession;
 
-		if (session.getLastGemFound() == null || !plugin.isInMlm() || !config.showGemsFound())
+		if (session.getLastGemFound() == null || !plugin.isInMlm() || !plugin.isShowGemsFound())
 		{
 			return null;
 		}
 
-		Duration statTimeout = Duration.ofMinutes(config.statTimeout());
+		Duration statTimeout = Duration.ofMinutes(plugin.getStatTimeout());
 		Duration sinceCut = Duration.between(session.getLastGemFound(), Instant.now());
 
 		if (sinceCut.compareTo(statTimeout) >= 0)

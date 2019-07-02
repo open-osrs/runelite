@@ -80,6 +80,7 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameObjectChanged;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
@@ -188,6 +189,28 @@ public class MotherlodePlugin extends Plugin
 	private int lastAnimation = AnimationID.IDLE;
 	private Instant lastAnimating;
 
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showVeins;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showRockFalls;
+	@Getter(AccessLevel.PACKAGE)
+	private int statTimeout;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showSack;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showMiningStats;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showDepositsLeft;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showMiningState;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showGemsFound;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showOresFound;
+	private boolean notifyOnIdle;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showTargetVein;
+
 	@Provides
 	MotherlodeConfig getConfig(ConfigManager configManager)
 	{
@@ -197,6 +220,8 @@ public class MotherlodePlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		updateConfig();
+
 		overlayManager.add(overlay);
 		overlayManager.add(rocksOverlay);
 		overlayManager.add(motherlodeGemOverlay);
@@ -311,7 +336,7 @@ public class MotherlodePlugin extends Plugin
 		}
 
 		// reset recentPayDirtMined if you haven't mined anything recently
-		Duration statTimeout = Duration.ofMinutes(config.statTimeout());
+		Duration statTimeout = Duration.ofMinutes(this.statTimeout);
 		Duration sinceMined = Duration.between(lastPayDirtMined, Instant.now());
 
 		if (sinceMined.compareTo(statTimeout) >= 0)
@@ -467,7 +492,7 @@ public class MotherlodePlugin extends Plugin
 
 	private void sendIdleNotification()
 	{
-		if (!config.notifyOnIdle())
+		if (!this.notifyOnIdle)
 		{
 			return;
 		}
@@ -702,5 +727,31 @@ public class MotherlodePlugin extends Plugin
 	boolean isUpstairs(LocalPoint localPoint)
 	{
 		return Perspective.getTileHeight(client, localPoint, 0) < UPPER_FLOOR_HEIGHT;
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("motherlode"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
+	private void updateConfig()
+	{
+		this.showVeins = config.showVeins();
+		this.showRockFalls = config.showRockFalls();
+		this.statTimeout = config.statTimeout();
+		this.showSack = config.showSack();
+		this.showMiningStats = config.showMiningStats();
+		this.showDepositsLeft = config.showDepositsLeft();
+		this.showMiningState = config.showMiningState();
+		this.showGemsFound = config.showGemsFound();
+		this.showOresFound = config.showOresFound();
+		this.notifyOnIdle = config.notifyOnIdle();
+		this.showTargetVein = config.showTargetVein();
 	}
 }

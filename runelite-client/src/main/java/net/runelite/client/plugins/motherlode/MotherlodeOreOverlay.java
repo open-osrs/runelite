@@ -38,7 +38,6 @@ public class MotherlodeOreOverlay extends Overlay
 {
 	private final MotherlodePlugin plugin;
 	private final MotherlodeSession motherlodeSession;
-	private final MotherlodeConfig config;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
@@ -47,13 +46,12 @@ public class MotherlodeOreOverlay extends Overlay
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.plugin = plugin;
 		this.motherlodeSession = motherlodeSession;
-		this.config = config;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!plugin.isInMlm() || !config.showOresFound())
+		if (!plugin.isInMlm() || !plugin.isShowOresFound())
 		{
 			return null;
 		}

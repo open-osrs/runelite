@@ -54,7 +54,6 @@ class MotherlodeRocksOverlay extends Overlay
 
 	private final Client client;
 	private final MotherlodePlugin plugin;
-	private final MotherlodeConfig config;
 
 	private final BufferedImage miningIcon;
 	private final BufferedImage targetMiningIcon;
@@ -62,13 +61,12 @@ class MotherlodeRocksOverlay extends Overlay
 	private static final Color miningIconNewColor = new Color(0, 150, 0);
 
 	@Inject
-	MotherlodeRocksOverlay(Client client, MotherlodePlugin plugin, MotherlodeConfig config, SkillIconManager iconManager)
+	MotherlodeRocksOverlay(Client client, MotherlodePlugin plugin, SkillIconManager iconManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 
 		miningIcon = iconManager.getSkillImage(Skill.MINING);
 		targetMiningIcon = ImageUtil.recolorImage(miningIcon, miningIconNewColor, Color -> Color.getRGB() == miningIconOldColor.getRGB());
@@ -77,7 +75,7 @@ class MotherlodeRocksOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if ((!config.showVeins() && !config.showRockFalls()) || !plugin.isInMlm())
+		if ((!plugin.isShowVeins() && !plugin.isShowRockFalls()) || !plugin.isInMlm())
 		{
 			return null;
 		}
@@ -92,7 +90,7 @@ class MotherlodeRocksOverlay extends Overlay
 	private void renderTiles(Graphics2D graphics, Player local)
 	{
 		LocalPoint localLocation = local.getLocalLocation();
-		if (config.showVeins())
+		if (plugin.isShowVeins())
 		{
 			for (WallObject vein : plugin.getVeins())
 			{
@@ -104,7 +102,7 @@ class MotherlodeRocksOverlay extends Overlay
 					{
 						if (WorldPoint.fromLocal(client, location).equals(plugin.getTargetVeinLocation())
 							&& plugin.isMining()
-							&& config.showTargetVein())
+							&& plugin.isShowTargetVein())
 						{
 							renderVein(graphics, vein, true);
 						}
@@ -117,7 +115,7 @@ class MotherlodeRocksOverlay extends Overlay
 			}
 		}
 
-		if (config.showRockFalls())
+		if (plugin.isShowRockFalls())
 		{
 			for (GameObject rock : plugin.getRocks())
 			{
