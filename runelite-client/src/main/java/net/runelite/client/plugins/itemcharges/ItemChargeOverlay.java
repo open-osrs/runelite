@@ -46,14 +46,12 @@ import net.runelite.client.ui.overlay.components.TextComponent;
 
 class ItemChargeOverlay extends WidgetItemOverlay
 {
-	private final ItemChargePlugin itemChargePlugin;
-	private final ItemChargeConfig config;
+	private final ItemChargePlugin plugin;
 
 	@Inject
-	ItemChargeOverlay(ItemChargePlugin itemChargePlugin, ItemChargeConfig config)
+	ItemChargeOverlay(ItemChargePlugin itemChargePlugin)
 	{
-		this.itemChargePlugin = itemChargePlugin;
-		this.config = config;
+		this.plugin = itemChargePlugin;
 		showOnInventory();
 		showOnEquipment();
 	}
@@ -71,72 +69,72 @@ class ItemChargeOverlay extends WidgetItemOverlay
 		int charges;
 		if (itemId == ItemID.DODGY_NECKLACE)
 		{
-			if (!config.showDodgyCount())
+			if (!plugin.isShowDodgyCount())
 			{
 				return;
 			}
 
-			charges = config.dodgyNecklace();
+			charges = plugin.getDodgyNecklace();
 		}
 		else if (itemId == ItemID.BRACELET_OF_SLAUGHTER)
 		{
-			if (!config.showSlayerBracelets())
+			if (!plugin.isShowSlayerBracelets())
 			{
 				return;
 			}
 
-			charges = config.slaughter();
+			charges = plugin.getSlaughter();
 		}
 		else if (itemId == ItemID.EXPEDITIOUS_BRACELET)
 		{
-			if (!config.showSlayerBracelets())
+			if (!plugin.isShowSlayerBracelets())
 			{
 				return;
 			}
 
-			charges = config.expeditious();
+			charges = plugin.getExpeditious();
 		}
 		else if (itemId == ItemID.BINDING_NECKLACE)
 		{
-			if (!config.showBindingNecklaceCharges())
+			if (!plugin.isShowBindingNecklaceCharges())
 			{
 				return;
 			}
 
-			charges = config.bindingNecklace();
+			charges = plugin.getBindingNecklace();
 		}
 		else if (itemId == ItemID.XERICS_TALISMAN)
 		{
-			if (!config.showXericTalismanCharges())
+			if (!plugin.isShowXericTalismanCharges())
 			{
 				return;
 			}
-			charges = config.xericTalisman();
+			charges = plugin.getXericTalisman();
 		}
 		else if (itemId == ItemID.SOUL_BEARER)
 		{
-			if (!config.showSoulBearerCharges())
+			if (!plugin.isShowSoulBearerCharges())
 			{
 				return;
 			}
-			charges = config.soulBearer();
+			charges = plugin.getSoulBearer();
 		}
 		else if (itemId == ItemID.CHRONICLE)
 		{
-			if (!config.showChronicleCharges())
+			if (!plugin.isShowChronicleCharges())
 			{
 				return;
 			}
-			charges = config.chronicle();
+			charges = plugin.getChronicle();
 		}
 		else if (itemId >= ItemID.EXPLORERS_RING_1 && itemId <= ItemID.EXPLORERS_RING_4)
 		{
-			if (!config.showExplorerRingCharges())
+			if (!plugin.isShowExplorerRingCharges())
 			{
 				return;
 			}
 
-			charges = config.explorerRing();
+			charges = plugin.getExplorerRing();
 		}
 		else
 
@@ -148,15 +146,15 @@ class ItemChargeOverlay extends WidgetItemOverlay
 			}
 
 			ItemChargeType type = chargeItem.getType();
-			if ((type == TELEPORT && !config.showTeleportCharges())
-				|| (type == FUNGICIDE_SPRAY && !config.showFungicideCharges())
-				|| (type == IMPBOX && !config.showImpCharges())
-				|| (type == WATERCAN && !config.showWateringCanCharges())
-				|| (type == WATERSKIN && !config.showWaterskinCharges())
-				|| (type == BELLOWS && !config.showBellowCharges())
-				|| (type == FRUIT_BASKET && !config.showBasketCharges())
-				|| (type == SACK && !config.showSackCharges())
-				|| (type == ABYSSAL_BRACELET && !config.showAbyssalBraceletCharges()))
+			if ((type == TELEPORT && !plugin.isShowTeleportCharges())
+				|| (type == FUNGICIDE_SPRAY && !plugin.isShowFungicideCharges())
+				|| (type == IMPBOX && !plugin.isShowImpCharges())
+				|| (type == WATERCAN && !plugin.isShowWateringCanCharges())
+				|| (type == WATERSKIN && !plugin.isShowWaterskinCharges())
+				|| (type == BELLOWS && !plugin.isShowBellowCharges())
+				|| (type == FRUIT_BASKET && !plugin.isShowBasketCharges())
+				|| (type == SACK && !plugin.isShowSackCharges())
+				|| (type == ABYSSAL_BRACELET && !plugin.isShowAbyssalBraceletCharges()))
 			{
 				return;
 			}
@@ -168,15 +166,15 @@ class ItemChargeOverlay extends WidgetItemOverlay
 		final TextComponent textComponent = new TextComponent();
 		textComponent.setPosition(new Point(bounds.x, bounds.y + 1 + graphics.getFontMetrics().getMaxAscent() - graphics.getFontMetrics().getMaxDescent()));
 		textComponent.setText(charges < 0 ? "?" : String.valueOf(charges));
-		textComponent.setColor(itemChargePlugin.getColor(charges));
+		textComponent.setColor(plugin.getColor(charges));
 		textComponent.render(graphics);
 	}
 
 	private boolean displayOverlay()
 	{
-		return config.showTeleportCharges() || config.showDodgyCount() || config.showFungicideCharges()
-			|| config.showImpCharges() || config.showWateringCanCharges() || config.showWaterskinCharges()
-			|| config.showBellowCharges() || config.showBasketCharges() || config.showSackCharges()
-			|| config.showAbyssalBraceletCharges() || config.showExplorerRingCharges();
+		return plugin.isShowTeleportCharges() || plugin.isShowDodgyCount() || plugin.isShowFungicideCharges()
+			|| plugin.isShowImpCharges() || plugin.isShowWateringCanCharges() || plugin.isShowWaterskinCharges()
+			|| plugin.isShowBellowCharges() || plugin.isShowBasketCharges() || plugin.isShowSackCharges()
+			|| plugin.isShowAbyssalBraceletCharges() || plugin.isShowExplorerRingCharges();
 	}
 }
