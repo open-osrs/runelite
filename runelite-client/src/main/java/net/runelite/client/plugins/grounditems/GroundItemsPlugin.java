@@ -232,6 +232,8 @@ public class GroundItemsPlugin extends Plugin
 	private boolean toggleOutline;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean showTimer;
+	@Getter(AccessLevel.PACKAGE)
+	private Color bordercolor;
 
 	@Provides
 	GroundItemsConfig provideConfig(ConfigManager configManager)
@@ -965,5 +967,6 @@ public class GroundItemsPlugin extends Plugin
 		this.doubleTapDelay = config.doubleTapDelay();
 		this.toggleOutline = config.toggleOutline();
 		this.showTimer = config.showTimer();
+		this.bordercolor = config.bordercolor();
 	}
 }

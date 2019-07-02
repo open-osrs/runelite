@@ -374,7 +374,7 @@ public class GroundItemsOverlay extends Overlay
 
 			if (plugin.isToggleOutline())
 			{
-				final Color bordercolor = config.bordercolor();
+				final Color bordercolor = plugin.getBordercolor();
 				graphics.setColor(bordercolor);
 				graphics.drawString(itemString, textX + 1, textY + 1);
 				graphics.drawString(itemString, textX - 1, textY - 1);
