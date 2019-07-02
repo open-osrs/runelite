@@ -29,7 +29,7 @@ package net.runelite.client.plugins.groundmarkers;
 import lombok.Value;
 
 @Value
-public class GroundMarkerPoint
+class GroundMarkerPoint
 {
 	private int regionId;
 	private int regionX;

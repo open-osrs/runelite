@@ -51,6 +51,7 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.Tile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.MenuEntryAdded;
@@ -137,6 +138,19 @@ public class GroundMarkerPlugin extends Plugin
 	private static class GroundMarkerListTypeToken extends TypeToken<List<GroundMarkerPoint>>
 	{
 	}
+
+	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor2;
+	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor3;
+	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor4;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showMinimap;
+	@Getter(AccessLevel.PACKAGE)
+	private int minimapOverlayOpacity;
 
 	@Provides
 	GroundMarkerConfig provideConfig(ConfigManager configManager)
@@ -348,13 +362,15 @@ public class GroundMarkerPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		updateConfig();
+
 		overlayManager.remove(overlay);
 		overlayManager.remove(minimapOverlay);
 		keyManager.unregisterKeyListener(inputListener);
 		points.clear();
 	}
 
-	protected void markTile(LocalPoint localPoint, int group)
+	private void markTile(LocalPoint localPoint, int group)
 	{
 		if (localPoint == null)
 		{
@@ -390,19 +406,38 @@ public class GroundMarkerPlugin extends Plugin
 
 	private Color getColor(int group)
 	{
-		Color color = config.markerColor();
+		Color color = this.markerColor;
 		switch (group)
 		{
 			case 2:
-				color = config.markerColor2();
+				color = this.markerColor2;
 				break;
 			case 3:
-				color = config.markerColor3();
+				color = this.markerColor3;
 				break;
 			case 4:
-				color = config.markerColor4();
+				color = this.markerColor4;
 		}
 
 		return color;
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("groundMarker"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.markerColor = config.markerColor();
+		this.markerColor2= config.markerColor2();
+		this.markerColor3 = config.markerColor3();
+		this.markerColor4 = config.markerColor4();
+		this.showMinimap = config.showMinimap();
+		this.minimapOverlayOpacity = config.minimapOverlayOpacity();
 	}
 }

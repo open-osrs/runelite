@@ -48,14 +48,12 @@ class GroundMarkerMinimapOverlay extends Overlay
 	private static final int TILE_HEIGHT = 4;
 
 	private final Client client;
-	private final GroundMarkerConfig config;
 	private final GroundMarkerPlugin plugin;
 
 	@Inject
-	private GroundMarkerMinimapOverlay(Client client, GroundMarkerConfig config, GroundMarkerPlugin plugin)
+	private GroundMarkerMinimapOverlay(Client client, GroundMarkerPlugin plugin)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
@@ -65,7 +63,7 @@ class GroundMarkerMinimapOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showMinimap())
+		if (!plugin.isShowMinimap())
 		{
 			return null;
 		}
@@ -79,20 +77,20 @@ class GroundMarkerMinimapOverlay extends Overlay
 				continue;
 			}
 
-			Color color = config.markerColor();
+			Color color = plugin.getMarkerColor();
 			switch (point.getGroundMarkerPoint().getGroup())
 			{
 				case 2:
-					color = config.markerColor2();
+					color = plugin.getMarkerColor2();
 					break;
 				case 3:
-					color = config.markerColor3();
+					color = plugin.getMarkerColor3();
 					break;
 				case 4:
-					color = config.markerColor4();
+					color = plugin.getMarkerColor4();
 			}
 
-			int opacity = (int) floor(config.minimapOverlayOpacity() * 2.55);
+			int opacity = (int) floor(plugin.getMinimapOverlayOpacity() * 2.55);
 			Color tileColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
 
 			drawOnMinimap(graphics, worldPoint, tileColor);

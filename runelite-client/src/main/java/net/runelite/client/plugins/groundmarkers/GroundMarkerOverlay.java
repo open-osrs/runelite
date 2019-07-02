@@ -44,14 +44,12 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class GroundMarkerOverlay extends Overlay
 {
 	private final Client client;
-	private final GroundMarkerConfig config;
 	private final GroundMarkerPlugin plugin;
 
 	@Inject
-	private GroundMarkerOverlay(Client client, GroundMarkerConfig config, GroundMarkerPlugin plugin)
+	private GroundMarkerOverlay(Client client, GroundMarkerPlugin plugin)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
@@ -78,8 +76,6 @@ public class GroundMarkerOverlay extends Overlay
 			return;
 		}
 
-		WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
-
 		LocalPoint lp = LocalPoint.fromWorld(client, point);
 		if (lp == null)
 		{
@@ -92,17 +88,17 @@ public class GroundMarkerOverlay extends Overlay
 			return;
 		}
 
-		Color color = config.markerColor();
+		Color color = plugin.getMarkerColor();
 		switch (groundMarkerWorldPoint.getGroundMarkerPoint().getGroup())
 		{
 			case 2:
-				color = config.markerColor2();
+				color = plugin.getMarkerColor2();
 				break;
 			case 3:
-				color = config.markerColor3();
+				color = plugin.getMarkerColor3();
 				break;
 			case 4:
-				color = config.markerColor4();
+				color = plugin.getMarkerColor4();
 		}
 		OverlayUtil.renderPolygon(graphics, poly, color);
 	}
