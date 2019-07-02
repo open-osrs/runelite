@@ -434,7 +434,7 @@ public class GroundMarkerPlugin extends Plugin
 	private void updateConfig()
 	{
 		this.markerColor = config.markerColor();
-		this.markerColor2= config.markerColor2();
+		this.markerColor2 = config.markerColor2();
 		this.markerColor3 = config.markerColor3();
 		this.markerColor4 = config.markerColor4();
 		this.showMinimap = config.showMinimap();
