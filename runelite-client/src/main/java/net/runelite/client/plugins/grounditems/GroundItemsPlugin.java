@@ -177,7 +177,7 @@ public class GroundItemsPlugin extends Plugin
 	@Inject
 	private Notifier notifier;
 
-	@Getter(AccessLevel.PACKAGE)
+	@Getter(AccessLevel.PUBLIC)
 	public static final Map<GroundItem.GroundItemKey, GroundItem> collectedGroundItems = new LinkedHashMap<>();
 	private final Map<Integer, Color> priceChecks = new LinkedHashMap<>();
 	private LoadingCache<String, Boolean> highlightedItems;
