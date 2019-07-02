@@ -58,14 +58,14 @@ class InventoryViewerOverlay extends Overlay
 
 	private final Client client;
 	private final ItemManager itemManager;
-	private final InventoryViewerConfig config;
+	private final InventoryViewerPlugin plugin;
 
 	private final PanelComponent wrapperComponent = new PanelComponent();
 	private final PanelComponent inventoryComponent = new PanelComponent();
 	private final TitleComponent freeSlotsComponent = TitleComponent.builder().build();
 
 	@Inject
-	private InventoryViewerOverlay(Client client, ItemManager itemManager, InventoryViewerConfig config)
+	private InventoryViewerOverlay(Client client, ItemManager itemManager, InventoryViewerPlugin plugin)
 	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 
@@ -89,13 +89,13 @@ class InventoryViewerOverlay extends Overlay
 
 		this.itemManager = itemManager;
 		this.client = client;
-		this.config = config;
+		this.plugin = plugin;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.hideWhenInvOpen()
+		if (plugin.isHideWhenInvOpen()
 			&& client.getVar(VarClientInt.PLAYER_INVENTORY_OPENED) == 3)
 		{
 			return null;
@@ -113,7 +113,7 @@ class InventoryViewerOverlay extends Overlay
 
 		final Item[] items = itemContainer.getItems();
 
-		if (config.viewerMode() == InventoryViewerMode.GROUPED)
+		if (plugin.getViewerMode() == InventoryViewerMode.GROUPED)
 		{
 			Multiset<Integer> totals = HashMultiset.create();
 			for (Item item : items)
@@ -140,7 +140,7 @@ class InventoryViewerOverlay extends Overlay
 			}
 			wrapperComponent.getChildren().add(inventoryComponent);
 
-			if (config.showFreeSlots())
+			if (plugin.isShowFreeSlots())
 			{
 				freeSlotsComponent.setText(remaining + " free");
 				wrapperComponent.setPreferredSize(new Dimension(Math.min(totals.elementSet().size(), 4) * (PLACEHOLDER_WIDTH + 6) + ComponentConstants.STANDARD_BORDER * 2, 0));
@@ -175,7 +175,7 @@ class InventoryViewerOverlay extends Overlay
 
 		wrapperComponent.getChildren().add(inventoryComponent);
 
-		if (config.showFreeSlots())
+		if (plugin.isShowFreeSlots())
 		{
 			freeSlotsComponent.setText(remaining + " free");
 			wrapperComponent.setPreferredSize(new Dimension(4 * (PLACEHOLDER_WIDTH + 6) + ComponentConstants.STANDARD_BORDER * 2, 0));

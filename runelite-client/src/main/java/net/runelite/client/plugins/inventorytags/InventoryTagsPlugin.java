@@ -273,7 +273,6 @@ public class InventoryTagsPlugin extends Plugin
 		}
 	}
 
-
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
