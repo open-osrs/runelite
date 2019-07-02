@@ -172,7 +172,7 @@ class BarbarianAssaultMenu
 					return game.isRemoveIncorrectCalls() && !hornUpdated;
 
 				default:
-					return game.isRemoveUnusedMenus();
+					return role != null && game.isRemoveUnusedMenus();
 			}
 		});
 
