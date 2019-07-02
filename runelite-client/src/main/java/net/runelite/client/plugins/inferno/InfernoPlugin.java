@@ -25,7 +25,7 @@
 package net.runelite.client.plugins.inferno;
 
 import com.google.inject.Provides;
-
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,10 +58,10 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-		name = "Inferno",
-		description = "Inferno helper",
-		tags = {"combat", "overlay", "pve", "pvm"},
-		type = PluginType.PVM
+	name = "Inferno",
+	description = "Inferno helper",
+	tags = {"combat", "overlay", "pve", "pvm"},
+	type = PluginType.PVM
 )
 @Slf4j
 public class InfernoPlugin extends Plugin
@@ -107,7 +107,6 @@ public class InfernoPlugin extends Plugin
 	@Getter
 	private InfernoNPC[] priorityNPC;
 
-
 	@Getter(AccessLevel.PACKAGE)
 	@Nullable
 	private InfernoJadAttack attack;
@@ -119,21 +118,30 @@ public class InfernoPlugin extends Plugin
 
 	private List<Actor> waveMonsters;
 
-	public InfernoPlugin()
-		{
-			waveMonsters = new ArrayList<>();
-		}
+	InfernoPlugin()
+	{
+		waveMonsters = new ArrayList<>();
+	}
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean displayNibblerOverlay;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showPrayerHelp;
+	private InfernoWaveDisplayMode waveDisplay;
+	private Color getWaveOverlayHeaderColor;
+	private Color getWaveTextColor;
 
 	@Provides
 	InfernoConfig provideConfig(ConfigManager configManager)
-		{
-			return configManager.getConfig(InfernoConfig.class);
-		}
+	{
+		return configManager.getConfig(InfernoConfig.class);
+	}
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		waveOverlay.setDisplayMode(config.waveDisplay());
+		updateConfig();
+		waveOverlay.setDisplayMode(this.waveDisplay);
 
 		if (isInInferno())
 		{
@@ -141,7 +149,7 @@ public class InfernoPlugin extends Plugin
 			overlayManager.add(infernoInfobox);
 			overlayManager.add(nibblerOverlay);
 
-			if (config.waveDisplay() != InfernoWaveDisplayMode.NONE)
+			if (this.waveDisplay != InfernoWaveDisplayMode.NONE)
 			{
 				overlayManager.add(waveOverlay);
 			}
@@ -149,8 +157,8 @@ public class InfernoPlugin extends Plugin
 			overlayManager.add(jadOverlay);
 		}
 
-		waveOverlay.setWaveHeaderColor(config.getWaveOverlayHeaderColor());
-		waveOverlay.setWaveTextColor(config.getWaveTextColor());
+		waveOverlay.setWaveHeaderColor(this.getWaveOverlayHeaderColor);
+		waveOverlay.setWaveTextColor(this.getWaveTextColor);
 
 		monsters = new HashMap<>();
 		monsterCurrentAttackMap = new HashMap<>(6);
@@ -177,6 +185,7 @@ public class InfernoPlugin extends Plugin
 		monsters = null;
 		currentWaveNumber = -1;
 	}
+
 	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
@@ -185,18 +194,20 @@ public class InfernoPlugin extends Plugin
 			return;
 		}
 
+		updateConfig();
+
 		if (event.getKey().endsWith("color"))
 		{
-			waveOverlay.setWaveHeaderColor(config.getWaveOverlayHeaderColor());
-			waveOverlay.setWaveTextColor(config.getWaveTextColor());
+			waveOverlay.setWaveHeaderColor(this.getWaveOverlayHeaderColor);
+			waveOverlay.setWaveTextColor(this.getWaveTextColor);
 		}
 		else if ("waveDisplay".equals(event.getKey()))
 		{
 			overlayManager.remove(waveOverlay);
 
-			waveOverlay.setDisplayMode(config.waveDisplay());
+			waveOverlay.setDisplayMode(this.waveDisplay);
 
-			if (isInInferno() && config.waveDisplay() != InfernoWaveDisplayMode.NONE)
+			if (isInInferno() && this.waveDisplay != InfernoWaveDisplayMode.NONE)
 			{
 				overlayManager.add(waveOverlay);
 			}
@@ -205,40 +216,46 @@ public class InfernoPlugin extends Plugin
 
 	@Subscribe
 	public void onNpcSpawned(NpcSpawned event)
+	{
+		if (client.getMapRegions()[0] != 9043)
 		{
-			if (client.getMapRegions()[0] != 9043) return;
-
-			NPC npc = event.getNpc();
-			if (isValidInfernoMob(npc))
-			{
-				monsters.put(npc, new InfernoNPC(npc));
-				log.debug(String.valueOf(monsters.size()));
-			}
-
-			if (npc.getId() == NpcID.JALNIB)
-			{
-				nibblers.add(npc);
-			}
-
-			final int id = event.getNpc().getId();
-
-			if (id == NpcID.JALTOKJAD || id == NpcID.JALTOKJAD_7704)
-			{
-				jad = event.getNpc();
-			}
-
-			final Actor actor = event.getActor();
-
-			if (actor != null)
-			{
-				waveMonsters.add(actor);
-			}
+			return;
 		}
+
+		NPC npc = event.getNpc();
+		if (isValidInfernoMob(npc))
+		{
+			monsters.put(npc, new InfernoNPC(npc));
+			log.debug(String.valueOf(monsters.size()));
+		}
+
+		if (npc.getId() == NpcID.JALNIB)
+		{
+			nibblers.add(npc);
+		}
+
+		final int id = event.getNpc().getId();
+
+		if (id == NpcID.JALTOKJAD || id == NpcID.JALTOKJAD_7704)
+		{
+			jad = event.getNpc();
+		}
+
+		final Actor actor = event.getActor();
+
+		if (actor != null)
+		{
+			waveMonsters.add(actor);
+		}
+	}
 
 	@Subscribe
 	public void onNpcDespawned(NpcDespawned event)
 	{
-		if (client.getMapRegions()[0] != 9043) return;
+		if (client.getMapRegions()[0] != 9043)
+		{
+			return;
+		}
 
 		NPC npc = event.getNpc();
 		if (monsters.containsKey(npc))
@@ -288,7 +305,7 @@ public class InfernoPlugin extends Plugin
 			overlayManager.add(infernoInfobox);
 			overlayManager.add(nibblerOverlay);
 
-			if (config.waveDisplay() != InfernoWaveDisplayMode.NONE)
+			if (this.waveDisplay != InfernoWaveDisplayMode.NONE)
 			{
 				overlayManager.add(waveOverlay);
 			}
@@ -317,7 +334,10 @@ public class InfernoPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (client.getMapRegions()[0] != 9043) return;
+		if (client.getMapRegions()[0] != 9043)
+		{
+			return;
+		}
 
 		clearMapAndPriority();
 
@@ -405,7 +425,10 @@ public class InfernoPlugin extends Plugin
 		{
 			ArrayList<InfernoNPC> monsters = monsterCurrentAttackMap.get(i + 1);
 
-			if (monsters.size() == 0) continue;
+			if (monsters.size() == 0)
+			{
+				continue;
+			}
 
 			int priority = monsters.get(0).getPriority();
 
@@ -473,5 +496,14 @@ public class InfernoPlugin extends Plugin
 	int getNextWaveNumber()
 	{
 		return currentWaveNumber == -1 || currentWaveNumber == 69 ? -1 : currentWaveNumber + 1;
+	}
+
+	private void updateConfig()
+	{
+		this.displayNibblerOverlay = config.displayNibblerOverlay();
+		this.showPrayerHelp = config.showPrayerHelp();
+		this.waveDisplay = config.waveDisplay();
+		this.getWaveOverlayHeaderColor = config.getWaveOverlayHeaderColor();
+		this.getWaveTextColor = config.getWaveTextColor();
 	}
 }

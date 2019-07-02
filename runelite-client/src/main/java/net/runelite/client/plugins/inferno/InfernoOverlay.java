@@ -38,29 +38,28 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.components.PanelComponent;
 
 public class InfernoOverlay extends Overlay
 {
 	private final Client client;
 	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
-	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public InfernoOverlay(Client client, InfernoConfig config, InfernoPlugin plugin)
+	public InfernoOverlay(Client client, InfernoPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!client.isInInstancedRegion() || client.getMapRegions()[0] != 9043) return null;
+		if (!client.isInInstancedRegion() || client.getMapRegions()[0] != 9043)
+		{
+			return null;
+		}
 
 		for (InfernoNPC monster : plugin.getMonsters().values())
 		{
@@ -96,13 +95,16 @@ public class InfernoOverlay extends Overlay
 			return;
 		}
 
-		int x = textLocation.getX();
-		int y = textLocation.getY();
+		if (textLocation != null)
+		{
+			int x = textLocation.getX();
+			int y = textLocation.getY();
 
-		graphics.setColor(Color.BLACK);
-		graphics.drawString(text, x + 1, y + 1);
+			graphics.setColor(Color.BLACK);
+			graphics.drawString(text, x + 1, y + 1);
 
-		graphics.setColor(color);
-		graphics.drawString(text, x, y);
+			graphics.setColor(color);
+			graphics.drawString(text, x, y);
+		}
 	}
 }

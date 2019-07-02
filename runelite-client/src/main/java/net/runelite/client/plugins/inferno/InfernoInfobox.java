@@ -30,23 +30,21 @@ import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
-import net.runelite.client.ui.overlay.components.PanelComponent;
 
 public class InfernoInfobox extends Overlay
 {
 	private final Client client;
 	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public InfernoInfobox(Client client, InfernoConfig config, InfernoPlugin plugin)
+	public InfernoInfobox(Client client, InfernoPlugin plugin)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.TOP_LEFT);
 	}
@@ -54,7 +52,10 @@ public class InfernoInfobox extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showPrayerHelp() || client.getMapRegions()[0] != 9043) return null;
+		if (!plugin.isShowPrayerHelp() || client.getMapRegions()[0] != 9043)
+		{
+			return null;
+		}
 
 		panelComponent.getChildren().clear();
 		TableComponent tableComponent = new TableComponent();
@@ -68,7 +69,7 @@ public class InfernoInfobox extends Overlay
 			}
 			else
 			{
-				tableComponent.addRow(plugin.getPriorityNPC()[i - 1].getName(), plugin.getPriorityNPC()[i - 1 ].getAttackstyle().getName());
+				tableComponent.addRow(plugin.getPriorityNPC()[i - 1].getName(), plugin.getPriorityNPC()[i - 1].getAttackstyle().getName());
 			}
 		}
 

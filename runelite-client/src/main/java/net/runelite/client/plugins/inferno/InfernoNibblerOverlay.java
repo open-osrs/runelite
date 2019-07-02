@@ -38,25 +38,24 @@ public class InfernoNibblerOverlay extends Overlay
 {
 	private final Client client;
 	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public InfernoNibblerOverlay(Client client, InfernoConfig config, InfernoPlugin plugin)
+	public InfernoNibblerOverlay(Client client, InfernoPlugin plugin)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.TOP_LEFT);
 	}
 
-
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.displayNibblerOverlay() || plugin.getNibblers().size() == 0 || client.getMapRegions()[0] != 9043)
-		return null;
+		if (!plugin.isDisplayNibblerOverlay() || plugin.getNibblers().size() == 0 || client.getMapRegions()[0] != 9043)
+		{
+			return null;
+		}
 
 		panelComponent.getChildren().clear();
 		TableComponent tableComponent = new TableComponent();
