@@ -43,15 +43,15 @@ class MouseHighlightOverlay extends Overlay
 {
 	private final TooltipManager tooltipManager;
 	private final Client client;
-	private final MouseHighlightConfig config;
+	private final MouseHighlightPlugin plugin;
 
 	@Inject
-	MouseHighlightOverlay(Client client, TooltipManager tooltipManager, MouseHighlightConfig config)
+	MouseHighlightOverlay(Client client, TooltipManager tooltipManager, MouseHighlightPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;
 		this.tooltipManager = tooltipManager;
-		this.config = config;
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -105,12 +105,12 @@ class MouseHighlightOverlay extends Overlay
 		final int childId = WidgetInfo.TO_CHILD(widgetId);
 		final Widget widget = client.getWidget(groupId, childId);
 
-		if (!config.uiTooltip() && widget != null)
+		if (!plugin.isUiTooltip() && widget != null)
 		{
 			return null;
 		}
 
-		if (!config.chatboxTooltip() && groupId == WidgetInfo.CHATBOX.getGroupId())
+		if (!plugin.isChatboxTooltip() && groupId == WidgetInfo.CHATBOX.getGroupId())
 		{
 			return null;
 		}
@@ -125,7 +125,7 @@ class MouseHighlightOverlay extends Overlay
 			}
 		}
 
-		if (widget == null && !config.mainTooltip())
+		if (widget == null && !plugin.isMainTooltip())
 		{
 			return null;
 		}
@@ -144,7 +144,7 @@ class MouseHighlightOverlay extends Overlay
 	private boolean shouldNotRenderMenuAction(int type)
 	{
 		return type == MenuAction.RUNELITE_OVERLAY.getId()
-				|| (!config.isRightClickTooltipEnabled() && isMenuActionRightClickOnly(type));
+				|| (!plugin.isRightClickTooltipEnabled() && isMenuActionRightClickOnly(type));
 	}
 
 	private boolean isMenuActionRightClickOnly(int type)
