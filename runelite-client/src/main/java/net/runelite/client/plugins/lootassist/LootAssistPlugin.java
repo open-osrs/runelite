@@ -34,12 +34,6 @@ public class LootAssistPlugin extends Plugin
 
 	static ConcurrentHashMap<WorldPoint, LootPile> lootPiles = new ConcurrentHashMap<>();
 
-	@Provides
-	LootAssitConfig getConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(LootAssitConfig.class);
-	}
-
 	@Override
 	protected void startUp() throws Exception
 	{
