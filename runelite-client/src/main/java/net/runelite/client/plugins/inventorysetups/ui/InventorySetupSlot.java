@@ -32,11 +32,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import net.runelite.client.game.AsyncBufferedImage;
 
-public class InventorySetupSlot extends JPanel
+class InventorySetupSlot extends JPanel
 {
 	private final JLabel imageLabel;
 
-	public InventorySetupSlot(Color color)
+	InventorySetupSlot(Color color)
 	{
 		imageLabel = new JLabel();
 		imageLabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -46,7 +46,7 @@ public class InventorySetupSlot extends JPanel
 
 	}
 
-	public void setImageLabel(String toolTip, AsyncBufferedImage itemImage)
+	void setImageLabel(String toolTip, AsyncBufferedImage itemImage)
 	{
 		if (itemImage == null || toolTip == null)
 		{
