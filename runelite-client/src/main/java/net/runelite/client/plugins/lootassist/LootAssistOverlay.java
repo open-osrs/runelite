@@ -41,15 +41,17 @@ public class LootAssistOverlay extends Overlay
 			LootPile pile = entry.getValue();
 			int x;
 			int y;
-			try
+			LocalPoint lp = LocalPoint.fromWorld(client, pile.getLocation());
+			if (lp != null)
 			{
-				x = LocalPoint.fromWorld(client, pile.getLocation()).getSceneX();
-				y = LocalPoint.fromWorld(client, pile.getLocation()).getSceneY();
+				x = lp.getSceneX();
+				y = lp.getSceneY();
 			}
-			catch (NullPointerException e)
+			else
 			{
 				continue;
 			}
+
 			if (!localPoint.isInScene(client))
 			{
 				continue;
@@ -70,11 +72,9 @@ public class LootAssistOverlay extends Overlay
 					client.getScene().getTiles()[client.getPlane()][x][y].getLocalLocation());
 				if (poly != null)
 				{
-					Point textLoc = Perspective.getCanvasTextLocation(client, graphics,
-						LocalPoint.fromWorld(client, pile.getLocation()),
+					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, lp,
 						nameOverlay, graphics.getFontMetrics().getHeight() * 7);
-					Point timeLoc = Perspective.getCanvasTextLocation(client, graphics,
-						LocalPoint.fromWorld(client, pile.getLocation()),
+					Point timeLoc = Perspective.getCanvasTextLocation(client, graphics, lp,
 						timeOverlay, graphics.getFontMetrics().getHeight());
 					OverlayUtil.renderPolygon(graphics, poly, Color.WHITE);
 					if (timeRemaining < 5)
@@ -84,8 +84,7 @@ public class LootAssistOverlay extends Overlay
 					}
 					if (timeRemaining < 2)
 					{
-						client.setHintArrow(WorldPoint.fromLocal(client,
-							LocalPoint.fromWorld(client, pile.getLocation())));
+						client.setHintArrow(WorldPoint.fromLocal(client, lp));
 					}
 					else
 					{
