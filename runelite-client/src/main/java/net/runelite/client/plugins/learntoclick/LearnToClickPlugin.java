@@ -29,7 +29,6 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import org.apache.commons.lang3.ArrayUtils;
 
-
 @PluginDescriptor(
 	name = "Learn to Click",
 	description = "A few modifications to prevent misclicks",
@@ -37,7 +36,6 @@ import org.apache.commons.lang3.ArrayUtils;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
 @Slf4j
 public class LearnToClickPlugin extends Plugin
 {
@@ -50,6 +48,12 @@ public class LearnToClickPlugin extends Plugin
 	@Inject
 	private Client client;
 
+	private boolean shouldBlockCompass;
+	private boolean shouldRightClickMap;
+	private boolean shouldRightClickXp;
+	private boolean shouldRightClickRetaliate;
+	private boolean hideOrbs;
+
 	@Provides
 	LearnToClickConfig provideConfig(ConfigManager configManager)
 	{
@@ -59,6 +63,7 @@ public class LearnToClickPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 	}
 
 	@Override
@@ -71,11 +76,14 @@ public class LearnToClickPlugin extends Plugin
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
-		if (!event.getGroup().equals("learntoclick") && !event.getKey().equals("hideOrbs"))
+		if (!event.getGroup().equals("learntoclick"))
 		{
 			return;
 		}
-		if (config.hideOrbs())
+
+		updateConfig();
+
+		if (this.hideOrbs)
 		{
 			hideOrbWidgets(true);
 		}
@@ -89,7 +97,7 @@ public class LearnToClickPlugin extends Plugin
 	@Subscribe
 	public void onWidgetLoaded(WidgetLoaded event)
 	{
-		if (!config.hideOrbs())
+		if (!this.hideOrbs)
 		{
 			return;
 		}
@@ -110,10 +118,10 @@ public class LearnToClickPlugin extends Plugin
 		MenuEntry[] menuEntries = client.getMenuEntries();
 		for (MenuEntry entry : menuEntries)
 		{
-			if ((entry.getOption().equals("Floating") && config.shouldRightClickMap()) ||
-				(entry.getOption().equals("Hide") && config.shouldRightClickXp()) || (entry.getOption().equals("Show")
-				&& config.shouldRightClickXp()) || (entry.getOption().equals("Auto retaliate")
-				&& config.shouldRightClickRetaliate()))
+			if ((entry.getOption().equals("Floating") && this.shouldRightClickMap) ||
+				(entry.getOption().equals("Hide") && this.shouldRightClickXp) || (entry.getOption().equals("Show")
+				&& this.shouldRightClickXp) || (entry.getOption().equals("Auto retaliate")
+				&& this.shouldRightClickRetaliate))
 			{
 				event.setForceRightClick(true);
 				return;
@@ -124,14 +132,14 @@ public class LearnToClickPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if ((event.getOption().equals("Floating") && config.shouldRightClickMap()) || (event.getOption().equals("Hide")
-			&& config.shouldRightClickXp()) || (event.getOption().equals("Show") && config.shouldRightClickXp()) ||
-			(event.getOption().equals("Auto retaliate") && config.shouldRightClickRetaliate()))
+		if ((event.getOption().equals("Floating") && this.shouldRightClickMap) || (event.getOption().equals("Hide")
+			&& this.shouldRightClickXp) || (event.getOption().equals("Show") && this.shouldRightClickXp) ||
+			(event.getOption().equals("Auto retaliate") && this.shouldRightClickRetaliate))
 		{
 			forceRightClickFlag = true;
 		}
 		MenuEntry[] entries = client.getMenuEntries();
-		if (config.shouldBlockCompass())
+		if (this.shouldBlockCompass)
 		{
 			for (int i = entries.length - 1; i >= 0; i--)
 			{
@@ -152,5 +160,14 @@ public class LearnToClickPlugin extends Plugin
 	private void hideOrbWidgets(boolean hidden)
 	{
 		ORB_WIDGETS.forEach(widgetInfo -> client.getWidget(widgetInfo).setHidden(hidden));
+	}
+
+	private void updateConfig()
+	{
+		this.shouldBlockCompass = config.shouldBlockCompass();
+		this.shouldRightClickMap = config.shouldRightClickMap();
+		this.shouldRightClickXp = config.shouldRightClickXp();
+		this.shouldRightClickRetaliate = config.shouldRightClickRetaliate();
+		this.hideOrbs = config.hideOrbs();
 	}
 }
