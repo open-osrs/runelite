@@ -91,7 +91,7 @@ public class ShortcutPlugin extends Plugin
 		shortcut.removeIf(object -> object.getCanvasLocation() == null);
 	}
 
-	Subscribe
+	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("shortcut"))
