@@ -34,12 +34,14 @@ import com.google.common.collect.Multimap;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -86,7 +88,8 @@ public class MenuManager
 	private final Set<String> npcMenuOptions = new HashSet<>();
 
 	private final HashSet<ComparableEntry> priorityEntries = new HashSet<>();
-	private HashSet<MenuEntry> currentPriorityEntries = new HashSet<>();
+	private HashMap<MenuEntry, ComparableEntry> currentPriorityEntries = new HashMap<>();
+	private final ConcurrentHashMap<MenuEntry, ComparableEntry> safeCurrentPriorityEntries = new ConcurrentHashMap<>();
 	private final HashSet<ComparableEntry> hiddenEntries = new HashSet<>();
 	private HashSet<MenuEntry> currentHiddenEntries = new HashSet<>();
 	private final HashMap<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
@@ -177,7 +180,7 @@ public class MenuManager
 					{
 						shouldDeprioritize = true;
 					}
-					currentPriorityEntries.add(entry);
+					currentPriorityEntries.put(entry, p);
 					newEntries.remove(entry);
 					continue prioritizer;
 				}
@@ -235,9 +238,12 @@ public class MenuManager
 			}
 		}
 
-		if (!priorityEntries.isEmpty())
+		if (!currentPriorityEntries.isEmpty())
 		{
-			newEntries.addAll(currentPriorityEntries);
+			newEntries.addAll(currentPriorityEntries.entrySet().stream()
+				.sorted(Comparator.comparingInt(e -> e.getValue().getPriority()))
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toList()));
 		}
 
 		MenuEntry[] arrayEntries = newEntries.toArray(new MenuEntry[0]);
@@ -497,7 +503,7 @@ public class MenuManager
 	/**
 	 * Adds to the set of menu entries which when present, will remove all entries except for this one
 	 */
-	public void addPriorityEntry(String option, String target)
+	public ComparableEntry addPriorityEntry(String option, String target)
 	{
 		option = Text.standardize(option);
 		target = Text.standardize(target);
@@ -505,6 +511,8 @@ public class MenuManager
 		ComparableEntry entry = new ComparableEntry(option, target);
 
 		priorityEntries.add(entry);
+
+		return entry;
 	}
 
 	public void removePriorityEntry(String option, String target)
@@ -522,13 +530,15 @@ public class MenuManager
 	 * Adds to the set of menu entries which when present, will remove all entries except for this one
 	 * This method will add one with strict option, but not-strict target (contains for target, equals for option)
 	 */
-	public void addPriorityEntry(String option)
+	public ComparableEntry addPriorityEntry(String option)
 	{
 		option = Text.standardize(option);
 
 		ComparableEntry entry = new ComparableEntry(option, "", false);
 
 		priorityEntries.add(entry);
+
+		return entry;
 	}
 
 	public void removePriorityEntry(String option)
@@ -767,19 +777,26 @@ public class MenuManager
 		}).collect(Collectors.toCollection(HashSet::new));
 	}
 
+	// This could use some optimization
 	private void indexPriorityEntries(Set<MenuEntry> entries)
 	{
-		leftClickEntry = entries.parallelStream().filter(entry ->
+		safeCurrentPriorityEntries.clear();
+		entries.parallelStream().forEach(entry ->
 		{
 			for (ComparableEntry p : priorityEntries)
 			{
 				if (p.matches(entry))
 				{
-					return true;
+					safeCurrentPriorityEntries.put(entry, p);
+					break;
 				}
 			}
-			return false;
-		}).findFirst().orElse(null);
+		});
+
+		leftClickEntry = Iterables.getLast(safeCurrentPriorityEntries.entrySet().stream()
+			.sorted(Comparator.comparingInt(e -> e.getValue().getPriority()))
+			.map(Map.Entry::getKey)
+			.collect(Collectors.toList()));
 	}
 
 	private void indexSwapEntries(Set<MenuEntry>  entries)
