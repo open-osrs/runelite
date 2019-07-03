@@ -38,14 +38,11 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class PlayerIndicatorsTileOverlay extends Overlay
 {
 	private final PlayerIndicatorsService playerIndicatorsService;
-	private final PlayerIndicatorsConfig config;
 	private final PlayerIndicatorsPlugin playerIndicatorsPlugin;
 
 	@Inject
-	private PlayerIndicatorsTileOverlay(PlayerIndicatorsConfig config,
-										PlayerIndicatorsService playerIndicatorsService, PlayerIndicatorsPlugin plugin)
+	private PlayerIndicatorsTileOverlay(PlayerIndicatorsService playerIndicatorsService, PlayerIndicatorsPlugin plugin)
 	{
-		this.config = config;
 		this.playerIndicatorsService = playerIndicatorsService;
 		this.playerIndicatorsPlugin = plugin;
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -56,11 +53,11 @@ public class PlayerIndicatorsTileOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.drawTiles() /*&& !config.drawPlayerHull()*/)
+		if (!playerIndicatorsPlugin.isDrawTiles() /*&& !config.drawPlayerHull()*/)
 		{
 			return null;
 		}
-		else if (config.drawTiles())
+		else
 		{
 			playerIndicatorsService.forEachPlayer((player, color) ->
 			{
