@@ -48,15 +48,13 @@ class ObjectIndicatorsOverlay extends Overlay
 	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
 	private final Client client;
-	private final ObjectIndicatorsConfig config;
 	private final ObjectIndicatorsPlugin plugin;
 	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	private ObjectIndicatorsOverlay(Client client, ObjectIndicatorsConfig config, ObjectIndicatorsPlugin plugin, ModelOutlineRenderer modelOutliner)
+	private ObjectIndicatorsOverlay(Client client, ObjectIndicatorsPlugin plugin, ModelOutlineRenderer modelOutliner)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		this.modelOutliner = modelOutliner;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -74,14 +72,14 @@ class ObjectIndicatorsOverlay extends Overlay
 				continue;
 			}
 
-			Color color = config.objectMarkerColor();
-			int opacity = (int) floor(config.objectMarkerAlpha() * 2.55);
+			Color color = plugin.getObjectMarkerColor();
+			int opacity = (int) floor(plugin.getObjectMarkerAlpha() * 2.55);
 			Color objectColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
 
-			switch (config.objectMarkerRenderStyle())
+			switch (plugin.getObjectMarkerRenderStyle())
 			{
 				case OUTLINE:
-					switch (config.objectMarkerOutlineRenderStyle())
+					switch (plugin.getObjectMarkerOutlineRenderStyle())
 					{
 						case THIN_OUTLINE:
 							modelOutliner.drawOutline(object, 1, objectColor);
