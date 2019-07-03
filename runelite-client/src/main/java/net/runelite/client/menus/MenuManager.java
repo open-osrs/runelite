@@ -219,8 +219,8 @@ public class MenuManager
 						}
 					}
 
-					// Do not need to swap with itself
-					if (swapFrom != null && swapFrom != entry)
+					// Do not need to swap with itself or if the swapFrom is already the first entry
+					if (swapFrom != null && swapFrom != entry && swapFrom != Iterables.getLast(newEntries))
 					{
 						// Deprioritize entries if the swaps are not in similar type groups
 						if ((swapFrom.getType() >= 1000 && entry.getType() < 1000) || (entry.getType() >= 1000 && swapFrom.getType() < 1000) && !shouldDeprioritize)
