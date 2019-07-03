@@ -54,16 +54,14 @@ public class PohOverlay extends Overlay
 	private final List<PohIcons> iconList = new ArrayList<>();
 
 	private final Client client;
-	private final PohConfig config;
 	private final PohPlugin plugin;
 
 	@Inject
-	public PohOverlay(Client client, PohConfig config, PohPlugin plugin)
+	public PohOverlay(Client client, PohPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 	}
 
@@ -96,51 +94,51 @@ public class PohOverlay extends Overlay
 	public void updateConfig()
 	{
 		iconList.clear();
-		if (config.showPortals())
+		if (plugin.isShowPortals())
 		{
 			Collections.addAll(iconList, PORTALS);
 		}
-		if (config.showAltar())
+		if (plugin.isShowAltar())
 		{
 			iconList.add(PohIcons.ALTAR);
 		}
-		if (config.showGlory())
+		if (plugin.isShowGlory())
 		{
 			iconList.add(PohIcons.GLORY);
 		}
-		if (config.showRepairStand())
+		if (plugin.isShowRepairStand())
 		{
 			iconList.add(PohIcons.REPAIR);
 		}
-		if (config.showPools())
+		if (plugin.isShowPools())
 		{
 			iconList.add(PohIcons.POOLS);
 		}
-		if (config.showExitPortal())
+		if (plugin.isShowExitPortal())
 		{
 			iconList.add(PohIcons.EXITPORTAL);
 		}
-		if (config.showSpellbook())
+		if (plugin.isShowSpellbook())
 		{
 			iconList.add(PohIcons.SPELLBOOKALTAR);
 		}
-		if (config.showJewelleryBox())
+		if (plugin.isShowJewelleryBox())
 		{
 			iconList.add(PohIcons.JEWELLERYBOX);
 		}
-		if (config.showMagicTravel())
+		if (plugin.isShowMagicTravel())
 		{
 			iconList.add(PohIcons.MAGICTRAVEL);
 		}
-		if (config.showPortalNexus())
+		if (plugin.isShowPortalNexus())
 		{
 			iconList.add(PohIcons.PORTALNEXUS);
 		}
-		if (config.showDigsitePendant())
+		if (plugin.isShowDigsitePendant())
 		{
 			iconList.add(PohIcons.DIGSITEPENDANT);
 		}
-		if (config.showXericsTalisman())
+		if (plugin.isShowXericsTalisman())
 		{
 			iconList.add(PohIcons.XERICSTALISMAN);
 		}

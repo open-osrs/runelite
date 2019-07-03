@@ -41,23 +41,21 @@ import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 class BurnerOverlay extends Overlay
 {
 	private final Client client;
-	private final PohConfig config;
 	private final PohPlugin plugin;
 
 	@Inject
-	private BurnerOverlay(Client client, PohConfig config, PohPlugin plugin)
+	private BurnerOverlay(Client client, PohPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showBurner())
+		if (!plugin.isShowBurner())
 		{
 			return null;
 		}
