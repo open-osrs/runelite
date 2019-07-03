@@ -45,15 +45,13 @@ class PrayAgainstPlayerOverlayPrayerTab extends Overlay
 {
 
 	private final PrayAgainstPlayerPlugin plugin;
-	private final PrayAgainstPlayerConfig config;
 	private final Client client;
 
 	@Inject
-	private PrayAgainstPlayerOverlayPrayerTab(PrayAgainstPlayerPlugin plugin, PrayAgainstPlayerConfig config, Client client)
+	private PrayAgainstPlayerOverlayPrayerTab(PrayAgainstPlayerPlugin plugin, Client client)
 	{
 		super(plugin);
 		this.plugin = plugin;
-		this.config = config;
 		this.client = client;
 
 		setPosition(OverlayPosition.DETACHED);
@@ -76,7 +74,7 @@ class PrayAgainstPlayerOverlayPrayerTab extends Overlay
 						if (plugin.getPlayersAttackingMe() != null && plugin.getPlayersAttackingMe().size() > 0)
 						{
 							// no reason to show you what prayers to pray in your prayer tab if multiple people are attacking you
-							if ((plugin.getPlayersAttackingMe().size() == 1) && (config.drawTargetPrayAgainstPrayerTab()))
+							if ((plugin.getPlayersAttackingMe().size() == 1) && (plugin.isDrawTargetPrayAgainstPrayerTab()))
 							{
 								renderPrayerToClick(graphics, container.getPlayer());
 							}
