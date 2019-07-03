@@ -39,6 +39,7 @@ import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Skill;
 import net.runelite.api.WorldType;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
@@ -119,6 +120,8 @@ public class PerformanceStatsPlugin extends Plugin
 	private boolean hopping;
 	private int pausedTicks = 0;
 
+	private int submitTimeout;
+
 	// Party System
 	@Getter
 	private final Map<UUID, Performance> partyDataMap = Collections.synchronizedMap(new HashMap<>());
@@ -132,6 +135,8 @@ public class PerformanceStatsPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		this.submitTimeout = config.submitTimeout();
+
 		overlayManager.add(performanceTrackerOverlay);
 		wsClient.registerMessage(Performance.class);
 	}
@@ -266,7 +271,7 @@ public class PerformanceStatsPlugin extends Plugin
 		performance.incrementTicksSpent();
 		hopping = false;
 
-		final int timeout = config.submitTimeout();
+		final int timeout = this.submitTimeout;
 		if (timeout > 0)
 		{
 			final double tickTimeout = timeout / GAME_TICK_SECONDS;
@@ -449,4 +454,14 @@ public class PerformanceStatsPlugin extends Plugin
 		partyDataMap.clear();
 	}
 
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("performancestats"))
+		{
+			return;
+		}
+
+		this.submitTimeout = config.submitTimeout();
+	}
 }
