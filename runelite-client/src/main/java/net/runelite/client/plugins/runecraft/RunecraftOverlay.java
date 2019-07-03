@@ -14,14 +14,12 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 public class RunecraftOverlay extends Overlay
 {
 	private final RunecraftPlugin plugin;
-	private final Client client;
 	private final PanelComponent panel = new PanelComponent();
 
 	@Inject
-	RunecraftOverlay(RunecraftPlugin plugin, Client client)
+	RunecraftOverlay(RunecraftPlugin plugin)
 	{
 		this.plugin = plugin;
-		this.client = client;
 		setPosition(OverlayPosition.CANVAS_TOP_RIGHT);
 		panel.setOrientation(ComponentOrientation.VERTICAL);
 	}

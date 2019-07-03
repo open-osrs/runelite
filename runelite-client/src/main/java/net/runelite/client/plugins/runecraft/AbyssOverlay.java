@@ -68,25 +68,23 @@ class AbyssOverlay extends Overlay
 
 	private final Client client;
 	private final RunecraftPlugin plugin;
-	private final RunecraftConfig config;
 
 	@Inject
 	private ItemManager itemManager;
 
 	@Inject
-	AbyssOverlay(Client client, RunecraftPlugin plugin, RunecraftConfig config)
+	AbyssOverlay(Client client, RunecraftPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.showRifts())
+		if (plugin.isShowRifts())
 		{
 			for (DecorativeObject object : plugin.getAbyssObjects())
 			{
@@ -94,7 +92,7 @@ class AbyssOverlay extends Overlay
 			}
 		}
 
-		if (config.hightlightDarkMage())
+		if (plugin.isHightlightDarkMage())
 		{
 			highlightDarkMage(graphics);
 		}
@@ -132,7 +130,7 @@ class AbyssOverlay extends Overlay
 			return;
 		}
 
-		if (config.showClickBox())
+		if (plugin.isShowClickBox())
 		{
 			//Draw clickbox
 			Point mousePosition = client.getMouseCanvasPosition();
@@ -185,55 +183,55 @@ class AbyssOverlay extends Overlay
 	public void updateConfig()
 	{
 		rifts.clear();
-		if (config.showAir())
+		if (plugin.isShowAir())
 		{
 			rifts.add(AIR_RIFT);
 		}
-		if (config.showBlood())
+		if (plugin.isShowBlood())
 		{
 			rifts.add(BLOOD_RIFT);
 		}
-		if (config.showBody())
+		if (plugin.isShowBody())
 		{
 			rifts.add(BODY_RIFT);
 		}
-		if (config.showChaos())
+		if (plugin.isShowChaos())
 		{
 			rifts.add(CHAOS_RIFT);
 		}
-		if (config.showCosmic())
+		if (plugin.isShowCosmic())
 		{
 			rifts.add(COSMIC_RIFT);
 		}
-		if (config.showDeath())
+		if (plugin.isShowDeath())
 		{
 			rifts.add(DEATH_RIFT);
 		}
-		if (config.showEarth())
+		if (plugin.isShowEarth())
 		{
 			rifts.add(EARTH_RIFT);
 		}
-		if (config.showFire())
+		if (plugin.isShowFire())
 		{
 			rifts.add(FIRE_RIFT);
 		}
-		if (config.showLaw())
+		if (plugin.isShowLaw())
 		{
 			rifts.add(LAW_RIFT);
 		}
-		if (config.showMind())
+		if (plugin.isShowMind())
 		{
 			rifts.add(MIND_RIFT);
 		}
-		if (config.showNature())
+		if (plugin.isShowNature())
 		{
 			rifts.add(NATURE_RIFT);
 		}
-		if (config.showSoul())
+		if (plugin.isShowSoul())
 		{
 			rifts.add(SOUL_RIFT);
 		}
-		if (config.showWater())
+		if (plugin.isShowWater())
 		{
 			rifts.add(WATER_RIFT);
 		}
