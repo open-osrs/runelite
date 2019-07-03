@@ -33,15 +33,13 @@ public class PlayerCountOverlay extends Overlay
 	private static int[] CLAN_WARS_REGIONS = {9520, 13135, 13134, 13133, 13131, 13130, 13387, 13386};
 
 	private final PvpToolsPlugin pvpToolsPlugin;
-	private final PvpToolsConfig config;
 	private final Client client;
 
 
 	@Inject
-	public PlayerCountOverlay(PvpToolsPlugin pvpToolsPlugin, PvpToolsConfig pvpToolsConfig, Client client)
+	public PlayerCountOverlay(PvpToolsPlugin pvpToolsPlugin, Client client)
 	{
 		this.pvpToolsPlugin = pvpToolsPlugin;
-		this.config = pvpToolsConfig;
 		this.client = client;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPriority(OverlayPriority.HIGHEST);
@@ -52,7 +50,7 @@ public class PlayerCountOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.countPlayers())
+		if (pvpToolsPlugin.isCountPlayers())
 		{
 			if ((client.getVar(Varbits.IN_WILDERNESS) == 1) || WorldType.isPvpWorld(client.getWorldType())
 				|| ArrayUtils.contains(CLAN_WARS_REGIONS, client.getMapRegions()[0]) ||
