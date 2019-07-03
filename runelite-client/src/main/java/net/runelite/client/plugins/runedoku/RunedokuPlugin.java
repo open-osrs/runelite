@@ -107,6 +107,7 @@ public class RunedokuPlugin extends Plugin
 	{
 		overlayManager.remove(runedokuOverlay);
 	}
+
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
