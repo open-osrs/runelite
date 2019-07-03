@@ -126,6 +126,12 @@ public class PoisonPlugin extends Plugin
 	@Getter
 	private Map<Actor, ActorPoisonInfo> poisonedActors = new HashMap<>();
 
+	private boolean showInfoboxes;
+	private boolean changeHealthIcon;
+	private boolean showForPlayers;
+	private boolean showForNpcs;
+	private int fontSize;
+
 	@Provides
 	PoisonConfig getConfig(ConfigManager configManager)
 	{
@@ -135,10 +141,12 @@ public class PoisonPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		actorOverlay.setFontSize(config.fontSize());
+		updateConfig();
+
+		actorOverlay.setFontSize(this.fontSize);
 		overlayManager.add(poisonOverlay);
 
-		if (config.showForNpcs() || config.showForPlayers())
+		if (this.showForNpcs || this.showForPlayers)
 		{
 			overlayManager.add(actorOverlay);
 		}
@@ -188,7 +196,7 @@ public class PoisonPlugin extends Plugin
 			final int damage = nextDamage(poisonValue);
 			this.lastDamage = damage;
 
-			if (config.showInfoboxes())
+			if (this.showInfoboxes)
 			{
 				if (infobox != null)
 				{
@@ -232,8 +240,8 @@ public class PoisonPlugin extends Plugin
 		Actor actor = event.getActor();
 
 		if (actor == client.getLocalPlayer() ||
-			actor instanceof NPC && !config.showForNpcs() ||
-			actor instanceof Player && !config.showForPlayers())
+			actor instanceof NPC && !this.showForNpcs ||
+			actor instanceof Player && !this.showForPlayers)
 		{
 			return;
 		}
@@ -313,13 +321,15 @@ public class PoisonPlugin extends Plugin
 			return;
 		}
 
-		if (!config.showInfoboxes() && infobox != null)
+		updateConfig();
+
+		if (!this.showInfoboxes && infobox != null)
 		{
 			infoBoxManager.removeInfoBox(infobox);
 			infobox = null;
 		}
 
-		if (config.changeHealthIcon())
+		if (this.changeHealthIcon)
 		{
 			clientThread.invoke(this::checkHealthIcon);
 		}
@@ -332,18 +342,18 @@ public class PoisonPlugin extends Plugin
 		{
 			overlayManager.remove(actorOverlay);
 
-			if (!config.showForPlayers() && !config.showForNpcs())
+			if (!this.showForPlayers && !this.showForNpcs)
 			{
 				poisonedActors.clear();
 			}
 			else
 			{
-				if (!config.showForNpcs())
+				if (!this.showForNpcs)
 				{
 					poisonedActors.entrySet().removeIf(a -> a instanceof NPC);
 				}
 
-				if (!config.showForPlayers())
+				if (!this.showForPlayers)
 				{
 					poisonedActors.entrySet().removeIf(a -> a instanceof Player);
 				}
@@ -354,7 +364,7 @@ public class PoisonPlugin extends Plugin
 
 		if (event.getKey().equals("fontsize"))
 		{
-			actorOverlay.setFontSize(config.fontSize());
+			actorOverlay.setFontSize(this.fontSize);
 		}
 	}
 
@@ -449,7 +459,7 @@ public class PoisonPlugin extends Plugin
 
 	private void checkHealthIcon()
 	{
-		if (!config.changeHealthIcon())
+		if (!this.changeHealthIcon)
 		{
 			return;
 		}
@@ -494,5 +504,14 @@ public class PoisonPlugin extends Plugin
 		client.getWidgetSpriteCache().reset();
 		client.getSpriteOverrides().remove(SpriteID.MINIMAP_ORB_HITPOINTS_ICON);
 		heart = null;
+	}
+
+	private void updateConfig()
+	{
+		this.showInfoboxes = config.showInfoboxes();
+		this.changeHealthIcon = config.changeHealthIcon();
+		this.showForPlayers = config.showForPlayers();
+		this.showForNpcs = config.showForNpcs();
+		this.fontSize = config.fontSize();
 	}
 }
