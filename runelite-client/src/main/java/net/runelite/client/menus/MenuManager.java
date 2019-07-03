@@ -40,7 +40,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -91,12 +90,10 @@ public class MenuManager
 	private final HashSet<ComparableEntry> hiddenEntries = new HashSet<>();
 	private HashSet<MenuEntry> currentHiddenEntries = new HashSet<>();
 	private final HashMap<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
-	private ConcurrentHashMap<ComparableEntry, MenuEntry> currentSwaps = new ConcurrentHashMap<>();
 
 	private final LinkedHashSet<MenuEntry> entries = Sets.newLinkedHashSet();
 
 	private MenuEntry leftClickEntry = null;
-	private int leftClickType = -1;
 
 	@Inject
 	private MenuManager(Client client, EventBus eventBus)
@@ -151,7 +148,6 @@ public class MenuManager
 		MenuEntry[] oldEntries = event.getMenuEntries();
 
 		leftClickEntry = null;
-		leftClickType = -1;
 
 		client.sortMenuEntries();
 
@@ -279,7 +275,6 @@ public class MenuManager
 	public void onBeforeRender(BeforeRender event)
 	{
 		leftClickEntry = null;
-		leftClickType = -1;
 
 		if (client.isMenuOpen())
 		{
@@ -307,58 +302,21 @@ public class MenuManager
 
 		if (!priorityEntries.isEmpty())
 		{
-			currentPriorityEntries.clear();
 			indexPriorityEntries(entries);
-
-			if (!currentPriorityEntries.isEmpty())
-			{
-				for (MenuEntry entry : currentPriorityEntries)
-				{
-					if (entries.contains(entry))
-					{
-						leftClickEntry = entry;
-						leftClickType = leftClickEntry.getType();
-						entries.remove(leftClickEntry);
-						leftClickEntry.setType(MenuAction.WIDGET_DEFAULT.getId());
-						entries.add(leftClickEntry);
-						break;
-					}
-				}
-			}
 		}
 
-		// This builds a list of all swaps in the menu and checks if any swap should be the first entry.
-		// The CPU uses a decent amount of resources to perform this operation.
 		if (leftClickEntry == null && !swaps.isEmpty())
 		{
-			currentSwaps.clear();
 			indexSwapEntries(entries);
-
-			if (!currentSwaps.isEmpty())
-			{
-				MenuEntry first = Iterables.getLast(entries);
-
-				for (ComparableEntry swap : currentSwaps.keySet())
-				{
-					if (swap.matches(first))
-					{
-						leftClickEntry = currentSwaps.get(swap);
-						leftClickType = leftClickEntry.getType();
-						entries.remove(leftClickEntry);
-						leftClickEntry.setType(MenuAction.WIDGET_DEFAULT.getId());
-						entries.add(leftClickEntry);
-						break;
-					}
-				}
-			}
 		}
 
 		if (leftClickEntry != null)
 		{
+			entries.remove(leftClickEntry);
+			entries.add(leftClickEntry);
 			client.setMenuEntries(entries.toArray(new MenuEntry[0]));
 		}
 	}
-
 
 	public void addPlayerMenuItem(String menuText)
 	{
@@ -464,12 +422,10 @@ public class MenuManager
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (!client.isMenuOpen() && leftClickEntry != null && leftClickType != -1)
+		if (!client.isMenuOpen() && leftClickEntry != null)
 		{
-			leftClickEntry.setType(leftClickType);
 			event.setMenuEntry(leftClickEntry);
 			leftClickEntry = null;
-			leftClickType = -1;
 		}
 
 		if (event.getMenuAction() != MenuAction.RUNELITE)
@@ -813,7 +769,7 @@ public class MenuManager
 
 	private void indexPriorityEntries(Set<MenuEntry> entries)
 	{
-		currentPriorityEntries = entries.parallelStream().filter(entry ->
+		leftClickEntry = entries.parallelStream().filter(entry ->
 		{
 			for (ComparableEntry p : priorityEntries)
 			{
@@ -823,20 +779,23 @@ public class MenuManager
 				}
 			}
 			return false;
-		}).collect(Collectors.toCollection(HashSet::new));
+		}).findFirst().orElse(null);
 	}
 
 	private void indexSwapEntries(Set<MenuEntry>  entries)
 	{
-		entries.parallelStream().forEach(entry ->
+		MenuEntry first = Iterables.getLast(entries);
+
+		leftClickEntry = entries.parallelStream().filter(entry ->
 		{
 			for (Map.Entry<ComparableEntry, ComparableEntry> p : swaps.entrySet())
 			{
-				if (p.getValue().matches(entry))
+				if (p.getKey().matches(first) && p.getValue().matches(entry))
 				{
-					currentSwaps.put(p.getKey(), entry);
+					return true;
 				}
 			}
-		});
+			return false;
+		}).findFirst().orElse(null);
 	}
 }
