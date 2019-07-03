@@ -36,12 +36,12 @@ import net.runelite.api.widgets.WidgetItem;
 class RunedokuUtil
 {
 
-	private final RunedokuConfig config;
+	private final RunedokuPlugin plugin;
 
 	@Inject
-	RunedokuUtil(final RunedokuConfig config)
+	RunedokuUtil(final RunedokuPlugin plugin)
 	{
-		this.config = config;
+		this.plugin = plugin;
 	}
 
 	Color sudokuPieceToColor(int i)
@@ -49,23 +49,23 @@ class RunedokuUtil
 		switch (i)
 		{
 			case 1:
-				return config.mindRuneColor();
+				return plugin.getMindRuneColor();
 			case 2:
-				return config.fireRuneColor();
+				return plugin.getFireRuneColor();
 			case 3:
-				return config.bodyRuneColor();
+				return plugin.getBodyRuneColor();
 			case 4:
-				return config.airRuneColor();
+				return plugin.getAirRuneColor();
 			case 5:
-				return config.deathRuneColor();
+				return plugin.getDeathRuneColor();
 			case 6:
-				return config.waterRuneColor();
+				return plugin.getWaterRuneColor();
 			case 7:
-				return config.chaosRuneColor();
+				return plugin.getChaosRuneColor();
 			case 8:
-				return config.earthRuneColor();
+				return plugin.getEarthRuneColor();
 			case 9:
-				return config.lawRuneColor();
+				return plugin.getLawRuneColor();
 			default:
 				return Color.RED;
 		}
@@ -76,23 +76,23 @@ class RunedokuUtil
 		switch (i)
 		{
 			case 121: //earth
-				return config.earthRuneColor();
+				return plugin.getEarthRuneColor();
 			case 122: //water
-				return config.waterRuneColor();
+				return plugin.getWaterRuneColor();
 			case 123: //air
-				return config.airRuneColor();
+				return plugin.getAirRuneColor();
 			case 124: //mind
-				return config.mindRuneColor();
+				return plugin.getMindRuneColor();
 			case 125: //fire
-				return config.fireRuneColor();
+				return plugin.getFireRuneColor();
 			case 126: //body
-				return config.bodyRuneColor();
+				return plugin.getBodyRuneColor();
 			case 127: //death
-				return config.deathRuneColor();
+				return plugin.getDeathRuneColor();
 			case 128: //chaos
-				return config.chaosRuneColor();
-			case 129: //law
-				return config.lawRuneColor();
+				return plugin.getChaosRuneColor();
+			case 129: //plugin
+				return plugin.getLawRuneColor();
 			default:
 				return Color.RED;
 		}

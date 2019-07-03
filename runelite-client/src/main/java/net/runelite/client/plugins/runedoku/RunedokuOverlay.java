@@ -47,17 +47,15 @@ class RunedokuOverlay extends Overlay
 	private final RunedokuPlugin plugin;
 	private final Client client;
 	private final RunedokuUtil util;
-	private final RunedokuConfig config;
 
 
 	@Inject
-	private RunedokuOverlay(final RunedokuPlugin plugin, final Client client, final RunedokuUtil util, final RunedokuConfig config)
+	private RunedokuOverlay(final RunedokuPlugin plugin, final Client client, final RunedokuUtil util)
 	{
 		super(plugin);
 		this.plugin = plugin;
 		this.client = client;
 		this.util = util;
-		this.config = config;
 
 		setPosition(OverlayPosition.DETACHED);
 		setLayer(OverlayLayer.ALWAYS_ON_TOP);
@@ -140,7 +138,7 @@ class RunedokuOverlay extends Overlay
 				}
 				else
 				{
-					if (!config.onlyHighlightSelectedPiece() ^ (config.onlyHighlightSelectedPiece() && util.getSelectedPiece(client) == simpleArr.get(iteration)))
+					if (!plugin.isOnlyHighlightSelectedPiece() ^ (plugin.isOnlyHighlightSelectedPiece() && util.getSelectedPiece(client) == simpleArr.get(iteration)))
 					{
 						OverlayUtil.renderPolygon(graphics, RunedokuUtil.rectangleToPolygon(squareToHighlight.getBounds()), util.sudokuPieceToColor(simpleArr.get(iteration)));
 					}
