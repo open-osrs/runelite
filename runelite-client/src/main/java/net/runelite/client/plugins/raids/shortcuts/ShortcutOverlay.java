@@ -20,17 +20,15 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 public class ShortcutOverlay extends Overlay
 {
 	private final Client client;
-	private final ShortcutConfig config;
 	private final ShortcutPlugin plugin;
 	private final BufferedImage treeIcon;
 	private final BufferedImage strengthIcon;
 	private final BufferedImage miningIcon;
 
 	@Inject
-	ShortcutOverlay(Client client, ShortcutConfig config, ShortcutPlugin plugin, SkillIconManager iconManager)
+	ShortcutOverlay(Client client, ShortcutPlugin plugin, SkillIconManager iconManager)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
@@ -76,7 +74,7 @@ public class ShortcutOverlay extends Overlay
 						default:
 							name = "null";
 					}
-					if (config.highlightShortcuts())
+					if (plugin.isHighlightShortcuts())
 					{
 						if (name.equals("Tree"))
 						{
