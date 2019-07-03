@@ -40,6 +40,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
+import static net.runelite.client.util.ColorUtil.setAlphaComponent;
 
 /**
  * Represents the overlay that shows timers on traps that are placed by the
@@ -50,15 +51,13 @@ public class ChestOverlay extends Overlay
 
 	private final Client client;
 	private final RaidsThievingPlugin plugin;
-	private final RaidsThievingConfig config;
 
 	@Inject
-	ChestOverlay(Client client, RaidsThievingPlugin plugin, RaidsThievingConfig config)
+	ChestOverlay(Client client, RaidsThievingPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
-		this.config = config;
 		this.client = client;
 	}
 
@@ -97,16 +96,13 @@ public class ChestOverlay extends Overlay
 				{
 					if (shouldDrawChest(pos))
 					{
-						Color drawColor = new Color(config.getPotentialBatColor().getRed(),
-							config.getPotentialBatColor().getGreen(),
-							config.getPotentialBatColor().getBlue(),
-							getChestOpacity(pos));
+						Color drawColor = new Color(setAlphaComponent(plugin.getGetPotentialBatColor().getRGB(), getChestOpacity(pos)));
 						drawCircleOnTrap(graphics, chest, drawColor);
 					}
 				}
 				if (chest.isPoison())
 				{
-					drawCircleOnTrap(graphics, chest, config.getPoisonTrapColor());
+					drawCircleOnTrap(graphics, chest, plugin.getGetPoisonTrapColor());
 				}
 			}
 		}
