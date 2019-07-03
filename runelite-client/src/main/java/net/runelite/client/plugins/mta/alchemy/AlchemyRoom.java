@@ -58,6 +58,7 @@ import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
@@ -97,6 +98,8 @@ public class AlchemyRoom extends MTARoom
 	private AlchemyItem best;
 	private Cupboard suggestion;
 
+	private boolean alchemy;
+
 	@Inject
 	private AlchemyRoom(Client client, MTAConfig config, MTAPlugin plugin, ItemManager itemManager, InfoBoxManager infoBoxManager)
 	{
@@ -105,12 +108,14 @@ public class AlchemyRoom extends MTARoom
 		this.plugin = plugin;
 		this.itemManager = itemManager;
 		this.infoBoxManager = infoBoxManager;
+
+		this.alchemy = config.alchemy();
 	}
 
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (!inside() || !config.alchemy())
+		if (!inside() || !this.alchemy)
 		{
 			return;
 		}
@@ -270,6 +275,17 @@ public class AlchemyRoom extends MTARoom
 				clicked.alchemyItem = AlchemyItem.EMPTY;
 			}
 		}
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("mta") || !event.getKey().equals("alchemy"))
+		{
+			return;
+		}
+
+		this.alchemy = config.alchemy();
 	}
 
 

@@ -35,6 +35,7 @@ import static net.runelite.api.ItemID.ANIMALS_BONES_6905;
 import static net.runelite.api.ItemID.ANIMALS_BONES_6906;
 import static net.runelite.api.ItemID.ANIMALS_BONES_6907;
 import net.runelite.api.Player;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.eventbus.Subscribe;
@@ -57,6 +58,8 @@ public class GraveyardRoom extends MTARoom
 
 	private GraveyardCounter counter;
 
+	private boolean graveyard;
+
 	@Inject
 	private GraveyardRoom(MTAConfig config, Client client, MTAPlugin plugin,
 						ItemManager itemManager, InfoBoxManager infoBoxManager)
@@ -66,6 +69,8 @@ public class GraveyardRoom extends MTARoom
 		this.plugin = plugin;
 		this.itemManager = itemManager;
 		this.infoBoxManager = infoBoxManager;
+
+		this.graveyard = config.graveyard();
 	}
 
 	@Override
@@ -79,7 +84,7 @@ public class GraveyardRoom extends MTARoom
 	@Subscribe
 	public void onGameTick(GameTick tick)
 	{
-		if (!inside() || !config.graveyard())
+		if (!inside() || !this.graveyard)
 		{
 			if (this.counter != null)
 			{
@@ -111,6 +116,17 @@ public class GraveyardRoom extends MTARoom
 			}
 			counter.setCount(score);
 		}
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("mta") || !event.getKey().equals("graveyard"))
+		{
+			return;
+		}
+
+		this.graveyard = config.graveyard();
 	}
 
 	private int score(Item[] items)
