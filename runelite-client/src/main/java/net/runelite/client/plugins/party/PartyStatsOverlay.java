@@ -51,7 +51,6 @@ public class PartyStatsOverlay extends Overlay
 
 	private final PartyPlugin plugin;
 	private final PartyService party;
-	private final PartyConfig config;
 	private final PanelComponent body = new PanelComponent();
 
 	@Inject
@@ -60,7 +59,6 @@ public class PartyStatsOverlay extends Overlay
 		super(plugin);
 		this.plugin = plugin;
 		this.party = party;
-		this.config = config;
 		body.setBorder(new Rectangle());
 		body.setGap(new Point(0, ComponentConstants.STANDARD_BORDER / 2));
 		getMenuEntries().add(new OverlayMenuEntry(MenuAction.RUNELITE_OVERLAY, "Leave", "Party"));
@@ -69,7 +67,7 @@ public class PartyStatsOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.stats())
+		if (!plugin.isStats())
 		{
 			return null;
 		}
@@ -107,7 +105,7 @@ public class PartyStatsOverlay extends Overlay
 
 				final TitleComponent name = TitleComponent.builder()
 					.text(v.getName())
-					.color(config.recolorNames() ? v.getColor() : Color.WHITE)
+					.color(plugin.isRecolorNames() ? v.getColor() : Color.WHITE)
 					.build();
 
 				panel.getChildren().add(name);
