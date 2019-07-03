@@ -50,7 +50,6 @@ public class PortalWeaknessOverlay extends Overlay
 {
 	private int zOffset = 100;
 
-	private final PestControlConfig config;
 	private final PestControlPlugin plugin;
 	private final Client client;
 
@@ -62,14 +61,12 @@ public class PortalWeaknessOverlay extends Overlay
 
 	@Inject
 	PortalWeaknessOverlay(
-		PestControlConfig config,
 		PestControlPlugin plugin,
 		Client client,
 		ItemManager itemManager,
 		SkillIconManager skillIconManager
 	)
 	{
-		this.config = config;
 		this.plugin = plugin;
 		this.client = client;
 

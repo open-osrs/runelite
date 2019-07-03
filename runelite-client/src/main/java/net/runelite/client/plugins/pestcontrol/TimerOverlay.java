@@ -40,14 +40,12 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 public class TimerOverlay extends Overlay
 {
-	private final PestControlConfig config;
 	private final PestControlPlugin plugin;
 	private final Client client;
 
 	@Inject
-	TimerOverlay(PestControlConfig config, PestControlPlugin plugin, Client client)
+	TimerOverlay(PestControlPlugin plugin, Client client)
 	{
-		this.config = config;
 		this.plugin = plugin;
 		this.client = client;
 

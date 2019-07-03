@@ -45,16 +45,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 
 public class RepairOverlay extends Overlay
 {
-	private final PestControlConfig config;
 	private final PestControlPlugin plugin;
 	private final Client client;
 
 	private static final int MAX_DISTANCE = 2400;
 
 	@Inject
-	RepairOverlay(PestControlConfig config, PestControlPlugin plugin, Client client)
+	RepairOverlay(PestControlPlugin plugin, Client client)
 	{
-		this.config = config;
 		this.plugin = plugin;
 		this.client = client;
 
@@ -72,7 +70,7 @@ public class RepairOverlay extends Overlay
 
 		Point mousePosition = client.getMouseCanvasPosition();
 		Scene scene = client.getScene();
-		Color color = config.repairableColor();
+		Color color = plugin.getRepairableColor();
 		Tile[][][] tiles = scene.getTiles();
 		int z = client.getPlane();
 
@@ -119,11 +117,6 @@ public class RepairOverlay extends Overlay
 				GroundObject groundObject = tile.getGroundObject();
 				if (groundObject != null)
 				{
-					if (groundObject == null)
-					{
-						continue;
-					}
-
 					if (PestControlRepairObject.isRepairableId(groundObject.getId()))
 					{
 
@@ -138,11 +131,6 @@ public class RepairOverlay extends Overlay
 				WallObject wallObject = tile.getWallObject();
 				if (wallObject != null)
 				{
-					if (wallObject == null)
-					{
-						continue;
-					}
-
 					if (PestControlRepairObject.isRepairableId(wallObject.getId()))
 					{
 

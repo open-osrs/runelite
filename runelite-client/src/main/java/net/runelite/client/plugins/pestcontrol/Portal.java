@@ -25,12 +25,13 @@
  */
 package net.runelite.client.plugins.pestcontrol;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.coords.WorldPoint;
 
-@Getter
-@Setter
+@Getter(AccessLevel.PACKAGE)
+@Setter(AccessLevel.PACKAGE)
 class Portal
 {
 	private PortalColor color;
@@ -39,7 +40,7 @@ class Portal
 
 	private PortalState portalState = PortalState.SHIELDED;
 
-	public Portal(PortalColor color, WidgetPortal widget)
+	Portal(PortalColor color, WidgetPortal widget)
 	{
 		this.color = color;
 		this.widget = widget;

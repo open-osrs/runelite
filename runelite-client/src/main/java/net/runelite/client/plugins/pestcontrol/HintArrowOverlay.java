@@ -39,14 +39,12 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 
 public class HintArrowOverlay extends Overlay
 {
-	private final PestControlConfig config;
 	private final PestControlPlugin plugin;
 	private final Client client;
 
 	@Inject
-	HintArrowOverlay(PestControlConfig config, PestControlPlugin plugin, Client client)
+	HintArrowOverlay(PestControlPlugin plugin, Client client)
 	{
-		this.config = config;
 		this.plugin = plugin;
 		this.client = client;
 

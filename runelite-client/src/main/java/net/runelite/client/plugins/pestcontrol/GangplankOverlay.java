@@ -46,14 +46,12 @@ import net.runelite.client.util.ColorUtil;
 public class GangplankOverlay extends Overlay
 {
 	private final Client client;
-	private final PestControlConfig config;
 	private final PestControlPlugin plugin;
 	private final TooltipManager tooltipManager;
 
 	@Inject
-	GangplankOverlay(Client client, PestControlConfig config, PestControlPlugin plugin, TooltipManager toolTipManager)
+	GangplankOverlay(Client client, PestControlPlugin plugin, TooltipManager toolTipManager)
 	{
-		this.config = config;
 		this.plugin = plugin;
 		this.client = client;
 		this.tooltipManager = toolTipManager;

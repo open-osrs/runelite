@@ -57,7 +57,7 @@ public class WidgetOverlay extends Overlay
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
 
-	public Integer getPortalHitpoints(PortalColor color)
+	Integer getPortalHitpoints(PortalColor color)
 	{
 		if (plugin.getGame() == null)
 		{
