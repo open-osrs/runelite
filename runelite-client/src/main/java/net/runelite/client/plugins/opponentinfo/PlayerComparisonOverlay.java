@@ -82,17 +82,15 @@ class PlayerComparisonOverlay extends Overlay
 
 	private final Client client;
 	private final OpponentInfoPlugin opponentInfoPlugin;
-	private final OpponentInfoConfig config;
 	private final HiscoreManager hiscoreManager;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private PlayerComparisonOverlay(Client client, OpponentInfoPlugin opponentInfoPlugin, OpponentInfoConfig config, HiscoreManager hiscoreManager)
+	private PlayerComparisonOverlay(Client client, OpponentInfoPlugin opponentInfoPlugin, HiscoreManager hiscoreManager)
 	{
 		super(opponentInfoPlugin);
 		this.client = client;
 		this.opponentInfoPlugin = opponentInfoPlugin;
-		this.config = config;
 		this.hiscoreManager = hiscoreManager;
 
 		setPosition(OverlayPosition.BOTTOM_LEFT);
@@ -103,7 +101,7 @@ class PlayerComparisonOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.lookupOnInteraction())
+		if (!opponentInfoPlugin.isLookupOnInteraction())
 		{
 			return null;
 		}

@@ -59,7 +59,6 @@ class OpponentInfoOverlay extends Overlay
 
 	private final Client client;
 	private final OpponentInfoPlugin opponentInfoPlugin;
-	private final OpponentInfoConfig opponentInfoConfig;
 	private final HiscoreManager hiscoreManager;
 	private final NPCManager npcManager;
 
@@ -75,14 +74,12 @@ class OpponentInfoOverlay extends Overlay
 	private OpponentInfoOverlay(
 		Client client,
 		OpponentInfoPlugin opponentInfoPlugin,
-		OpponentInfoConfig opponentInfoConfig,
 		HiscoreManager hiscoreManager,
 		NPCManager npcManager)
 	{
 		super(opponentInfoPlugin);
 		this.client = client;
 		this.opponentInfoPlugin = opponentInfoPlugin;
-		this.opponentInfoConfig = opponentInfoConfig;
 		this.hiscoreManager = hiscoreManager;
 		this.npcManager = npcManager;
 
@@ -164,7 +161,7 @@ class OpponentInfoOverlay extends Overlay
 			progressBarComponent.setBackgroundColor(HP_RED);
 			progressBarComponent.setForegroundColor(HP_GREEN);
 
-			final HitpointsDisplayStyle displayStyle = opponentInfoConfig.hitpointsDisplayStyle();
+			final HitpointsDisplayStyle displayStyle = opponentInfoPlugin.getHitpointsDisplayStyle();
 
 			if ((displayStyle == HitpointsDisplayStyle.HITPOINTS || displayStyle == HitpointsDisplayStyle.BOTH)
 				&& lastMaxHealth != -1)
@@ -219,7 +216,7 @@ class OpponentInfoOverlay extends Overlay
 		}
 
 		// Opponents opponent
-		if (opponentsOpponentName != null && opponentInfoConfig.showOpponentsOpponent())
+		if (opponentsOpponentName != null && opponentInfoPlugin.isShowOpponentsOpponent())
 		{
 			textWidth = Math.max(textWidth, fontMetrics.stringWidth(opponentsOpponentName));
 			panelComponent.setPreferredSize(new Dimension(textWidth, 0));
