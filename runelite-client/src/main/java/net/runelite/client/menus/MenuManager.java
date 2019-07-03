@@ -40,8 +40,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -78,7 +79,6 @@ public class MenuManager
 
 	private final Client client;
 	private final EventBus eventBus;
-	private final Prioritizer prioritizer;
 
 	//Maps the indexes that are being used to the menu option.
 	private final Map<Integer, String> playerMenuIndexMap = new HashMap<>();
@@ -86,12 +86,12 @@ public class MenuManager
 	private final Multimap<Integer, WidgetMenuOption> managedMenuOptions = HashMultimap.create();
 	private final Set<String> npcMenuOptions = new HashSet<>();
 
-	private final Set<ComparableEntry> priorityEntries = new HashSet<>();
-	private final Set<MenuEntry> currentPriorityEntries = new HashSet<>();
-	private final Set<ComparableEntry> hiddenEntries = new HashSet<>();
-	private final Set<MenuEntry> currentHiddenEntries = new HashSet<>();
-	private final Map<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
-	private final Map<ComparableEntry, MenuEntry> currentSwaps = new HashMap<>();
+	private final HashSet<ComparableEntry> priorityEntries = new HashSet<>();
+	private HashSet<MenuEntry> currentPriorityEntries = new HashSet<>();
+	private final HashSet<ComparableEntry> hiddenEntries = new HashSet<>();
+	private HashSet<MenuEntry> currentHiddenEntries = new HashSet<>();
+	private final HashMap<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
+	private ConcurrentHashMap<ComparableEntry, MenuEntry> currentSwaps = new ConcurrentHashMap<>();
 
 	private final LinkedHashSet<MenuEntry> entries = Sets.newLinkedHashSet();
 
@@ -103,7 +103,6 @@ public class MenuManager
 	{
 		this.client = client;
 		this.eventBus = eventBus;
-		this.prioritizer = new Prioritizer();
 	}
 
 	/**
@@ -147,7 +146,6 @@ public class MenuManager
 	public void onMenuOpened(MenuOpened event)
 	{
 		currentPriorityEntries.clear();
-		currentHiddenEntries.clear();
 
 		// Need to reorder the list to normal, then rebuild with swaps
 		MenuEntry[] oldEntries = event.getMenuEntries();
@@ -282,8 +280,6 @@ public class MenuManager
 		}
 	}
 
-
-
 	@Subscribe
 	public void onBeforeRender(BeforeRender event)
 	{
@@ -296,7 +292,6 @@ public class MenuManager
 		}
 
 		entries.clear();
-
 		entries.addAll(Arrays.asList(client.getMenuEntries()));
 
 		if (entries.size() < 2)
@@ -304,53 +299,69 @@ public class MenuManager
 			return;
 		}
 
-		currentPriorityEntries.clear();
-		currentHiddenEntries.clear();
-		currentSwaps.clear();
-
-		prioritizer.prioritize();
-
-		while (prioritizer.isRunning())
+		if (!hiddenEntries.isEmpty())
 		{
-			// wait
-		}
+			currentHiddenEntries.clear();
+			indexHiddenEntries(entries);
 
-		entries.removeAll(currentHiddenEntries);
-
-
-		for (MenuEntry entry : currentPriorityEntries)
-		{
-			if (entries.contains(entry))
+			if (!currentHiddenEntries.isEmpty())
 			{
-				leftClickEntry = entry;
-				leftClickType = entry.getType();
-				entries.remove(leftClickEntry);
-				leftClickEntry.setType(MenuAction.WIDGET_DEFAULT.getId());
-				entries.add(leftClickEntry);
-				break;
+				entries.removeAll(currentHiddenEntries);
 			}
 		}
 
-
-		if (leftClickEntry == null)
+		if (!priorityEntries.isEmpty())
 		{
-			MenuEntry first = Iterables.getLast(entries);
+			currentPriorityEntries.clear();
+			indexPriorityEntries(entries);
 
-			for (ComparableEntry swap : currentSwaps.keySet())
+			if (!currentPriorityEntries.isEmpty())
 			{
-				if (swap.matches(first))
+				for (MenuEntry entry : currentPriorityEntries)
 				{
-					leftClickEntry = currentSwaps.get(swap);
-					leftClickType = leftClickEntry.getType();
-					entries.remove(leftClickEntry);
-					leftClickEntry.setType(MenuAction.WIDGET_DEFAULT.getId());
-					entries.add(leftClickEntry);
-					break;
+					if (entries.contains(entry))
+					{
+						leftClickEntry = entry;
+						leftClickType = leftClickEntry.getType();
+						entries.remove(leftClickEntry);
+						leftClickEntry.setType(MenuAction.WIDGET_DEFAULT.getId());
+						entries.add(leftClickEntry);
+						break;
+					}
 				}
 			}
 		}
 
-		client.setMenuEntries(entries.toArray(new MenuEntry[0]));
+		// This builds a list of all swaps in the menu and checks if any swap should be the first entry.
+		// The CPU uses a decent amount of resources to perform this operation.
+		if (leftClickEntry == null && !swaps.isEmpty())
+		{
+			currentSwaps.clear();
+			indexSwapEntries(entries);
+
+			if (!currentSwaps.isEmpty())
+			{
+				MenuEntry first = Iterables.getLast(entries);
+
+				for (ComparableEntry swap : currentSwaps.keySet())
+				{
+					if (swap.matches(first))
+					{
+						leftClickEntry = currentSwaps.get(swap);
+						leftClickType = leftClickEntry.getType();
+						entries.remove(leftClickEntry);
+						leftClickEntry.setType(MenuAction.WIDGET_DEFAULT.getId());
+						entries.add(leftClickEntry);
+						break;
+					}
+				}
+			}
+		}
+
+		if (leftClickEntry != null)
+		{
+			client.setMenuEntries(entries.toArray(new MenuEntry[0]));
+		}
 	}
 
 
@@ -789,115 +800,47 @@ public class MenuManager
 		hiddenEntries.remove(entry);
 	}
 
-	private class Prioritizer
+	private void indexHiddenEntries(Set<MenuEntry> entries)
 	{
-		private MenuEntry[] entries;
-		private AtomicInteger state = new AtomicInteger(0);
-
-		boolean isRunning()
+		currentHiddenEntries = entries.parallelStream().filter(entry ->
 		{
-			return state.get() != 0;
-		}
-
-		void prioritize()
-		{
-			if (state.get() != 0)
+			for (ComparableEntry p : hiddenEntries)
 			{
-				return;
-			}
-
-			entries = client.getMenuEntries();
-
-			state.set(3);
-
-			if (!hiddenEntries.isEmpty())
-			{
-				hiddenFinder.run();
-			}
-			else
-			{
-				state.decrementAndGet();
-			}
-
-			if (!priorityEntries.isEmpty())
-			{
-				priorityFinder.run();
-			}
-			else
-			{
-				state.decrementAndGet();
-			}
-
-			if (!swaps.isEmpty())
-			{
-				swapFinder.run();
-			}
-			else
-			{
-				state.decrementAndGet();
-			}
-		}
-
-		private Thread hiddenFinder = new Thread()
-		{
-			@Override
-			public void run()
-			{
-				Arrays.stream(entries).parallel().forEach(entry ->
+				if (p.matches(entry))
 				{
-					for (ComparableEntry p : hiddenEntries)
-					{
-						if (p.matches(entry))
-						{
-							currentHiddenEntries.add(entry);
-							return;
-						}
-					}
-				});
-				state.decrementAndGet();
+					return true;
+				}
 			}
-		};
+			return false;
+		}).collect(Collectors.toCollection(HashSet::new));
+	}
 
-		private Thread priorityFinder = new Thread()
+	private void indexPriorityEntries(Set<MenuEntry> entries)
+	{
+		currentPriorityEntries = entries.parallelStream().filter(entry ->
 		{
-			@Override
-			public void run()
+			for (ComparableEntry p : priorityEntries)
 			{
-				Arrays.stream(entries).parallel().forEach(entry ->
+				if (p.matches(entry))
 				{
-					for (ComparableEntry p : priorityEntries)
-					{
-						if (p.matches(entry))
-						{
-							currentPriorityEntries.add(entry);
-							return;
-						}
-					}
-				});
-
-				state.decrementAndGet();
+					return true;
+				}
 			}
-		};
+			return false;
+		}).collect(Collectors.toCollection(HashSet::new));
+	}
 
-		private Thread swapFinder = new Thread()
+	private void indexSwapEntries(Set<MenuEntry>  entries)
+	{
+		entries.parallelStream().forEach(entry ->
 		{
-			@Override
-			public void run()
+			for (Map.Entry<ComparableEntry, ComparableEntry> p : swaps.entrySet())
 			{
-				Arrays.stream(entries).parallel().forEach(entry ->
+				if (p.getValue().matches(entry))
 				{
-					for (Map.Entry<ComparableEntry, ComparableEntry> p : swaps.entrySet())
-					{
-						if (p.getValue().matches(entry))
-						{
-							currentSwaps.put(p.getKey(), entry);
-							return;
-						}
-					}
-				});
-
-				state.decrementAndGet();
+					currentSwaps.put(p.getKey(), entry);
+				}
 			}
-		};
+		});
 	}
 }
