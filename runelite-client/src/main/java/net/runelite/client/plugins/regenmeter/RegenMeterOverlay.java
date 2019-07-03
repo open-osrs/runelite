@@ -52,7 +52,6 @@ public class RegenMeterOverlay extends Overlay
 
 	private final Client client;
 	private RegenMeterPlugin plugin;
-	private RegenMeterConfig config;
 
 	private Rectangle getBounds(WidgetInfo widgetInfo)
 	{
@@ -72,13 +71,12 @@ public class RegenMeterOverlay extends Overlay
 	}
 
 	@Inject
-	public RegenMeterOverlay(Client client, RegenMeterPlugin plugin, RegenMeterConfig config)
+	public RegenMeterOverlay(Client client, RegenMeterPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 	}
 
 	@Override
@@ -86,12 +84,12 @@ public class RegenMeterOverlay extends Overlay
 	{
 		g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
-		if (config.showHitpoints())
+		if (plugin.isShowHitpoints())
 		{
 			renderRegen(g, WidgetInfo.MINIMAP_HEALTH_ORB, plugin.getHitpointsPercentage(), HITPOINTS_COLOR);
 		}
 
-		if (config.showSpecial())
+		if (plugin.isShowSpecial())
 		{
 			if (client.getVar(VarPlayer.SPECIAL_ATTACK_ENABLED) == 1)
 			{

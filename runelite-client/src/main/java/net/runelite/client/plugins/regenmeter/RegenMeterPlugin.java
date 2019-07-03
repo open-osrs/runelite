@@ -29,6 +29,7 @@ package net.runelite.client.plugins.regenmeter;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
@@ -36,6 +37,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.Prayer;
 import net.runelite.api.Skill;
 import net.runelite.api.VarPlayer;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
@@ -71,15 +73,22 @@ public class RegenMeterPlugin extends Plugin
 	@Inject
 	private RegenMeterConfig config;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private double hitpointsPercentage;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private double specialPercentage;
 
 	private int ticksSinceSpecRegen;
 	private int ticksSinceHPRegen;
 	private boolean wasRapidHeal;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showHitpoints;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showSpecial;
+	private boolean showWhenNoChange;
+	private int getNotifyBeforeHpRegenSeconds;
 
 	@Provides
 	RegenMeterConfig provideConfig(ConfigManager configManager)
@@ -90,6 +99,7 @@ public class RegenMeterPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 		overlayManager.add(overlay);
 	}
 
@@ -146,7 +156,7 @@ public class RegenMeterPlugin extends Plugin
 
 		int currentHP = client.getBoostedSkillLevel(Skill.HITPOINTS);
 		int maxHP = client.getRealSkillLevel(Skill.HITPOINTS);
-		if (currentHP == maxHP && !config.showWhenNoChange())
+		if (currentHP == maxHP && !this.showWhenNoChange)
 		{
 			hitpointsPercentage = 0;
 		}
@@ -156,7 +166,7 @@ public class RegenMeterPlugin extends Plugin
 			hitpointsPercentage = 1 - hitpointsPercentage;
 		}
 
-		if (config.getNotifyBeforeHpRegenSeconds() > 0 && currentHP < maxHP && shouldNotifyHpRegenThisTick(ticksPerHPRegen))
+		if (this.getNotifyBeforeHpRegenSeconds > 0 && currentHP < maxHP && shouldNotifyHpRegenThisTick(ticksPerHPRegen))
 		{
 			notifier.notify("[" + client.getLocalPlayer().getName() + "] regenerates their next hitpoint soon!");
 		}
@@ -166,7 +176,24 @@ public class RegenMeterPlugin extends Plugin
 	{
 		// if the configured duration lies between two ticks, choose the earlier tick
 		final int ticksBeforeHPRegen = ticksPerHPRegen - ticksSinceHPRegen;
-		final int notifyTick = (int) Math.ceil(config.getNotifyBeforeHpRegenSeconds() * 1000d / Constants.GAME_TICK_LENGTH);
+		final int notifyTick = (int) Math.ceil(this.getNotifyBeforeHpRegenSeconds * 1000d / Constants.GAME_TICK_LENGTH);
 		return ticksBeforeHPRegen == notifyTick;
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("regenmeter"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.showHitpoints = config.showHitpoints();
+		this.showSpecial = config.showSpecial();
+		this.showWhenNoChange = config.showWhenNoChange();
+		this.getNotifyBeforeHpRegenSeconds = config.getNotifyBeforeHpRegenSeconds();
 	}
 }
