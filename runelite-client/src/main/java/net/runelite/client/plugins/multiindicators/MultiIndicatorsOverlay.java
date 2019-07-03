@@ -53,9 +53,6 @@ public class MultiIndicatorsOverlay extends Overlay
 	private MultiIndicatorsPlugin plugin;
 
 	@Inject
-	private MultiIndicatorsConfig config;
-
-	@Inject
 	public MultiIndicatorsOverlay()
 	{
 		setPosition(OverlayPosition.DYNAMIC);
@@ -101,17 +98,17 @@ public class MultiIndicatorsOverlay extends Overlay
 		GeneralPath pvpPath = plugin.getPvpPathToDisplay()[client.getPlane()];
 		GeneralPath wildernessLevelLinesPath = plugin.getWildernessLevelLinesPathToDisplay()[client.getPlane()];
 
-		if (config.multicombatZoneVisibility() != ZoneVisibility.HIDE && multicombatPath != null)
+		if (plugin.getMulticombatZoneVisibility() != ZoneVisibility.HIDE && multicombatPath != null)
 		{
-			renderPath(graphics, multicombatPath, getTransparentColorVersion(config.multicombatColor()));
+			renderPath(graphics, multicombatPath, getTransparentColorVersion(plugin.getMulticombatColor()));
 		}
-		if ((config.showPvpSafeZones() || config.showDeadmanSafeZones()) && pvpPath != null)
+		if ((plugin.isShowPvpSafeZones() || plugin.isShowDeadmanSafeZones()) && pvpPath != null)
 		{
-			renderPath(graphics, pvpPath, getTransparentColorVersion(config.safeZoneColor()));
+			renderPath(graphics, pvpPath, getTransparentColorVersion(plugin.getSafeZoneColor()));
 		}
-		if (config.showWildernessLevelLines() && wildernessLevelLinesPath != null)
+		if (plugin.isShowWildernessLevelLines() && wildernessLevelLinesPath != null)
 		{
-			renderPath(graphics, wildernessLevelLinesPath, getTransparentColorVersion(config.wildernessLevelLinesColor()));
+			renderPath(graphics, wildernessLevelLinesPath, getTransparentColorVersion(plugin.getWildernessLevelLinesColor()));
 		}
 
 		return null;
