@@ -86,6 +86,23 @@ public class PrayerPlugin extends Plugin
 	@Inject
 	private PrayerConfig config;
 
+	@Getter(AccessLevel.PACKAGE)
+	private PrayerFlickLocation prayerFlickLocation;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean prayerFlickAlwaysOn;
+	private boolean prayerIndicator;
+	private boolean prayerIndicatorOverheads;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showPrayerDoseIndicator;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showPrayerStatistics;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showPrayerBar;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean hideIfNotPraying;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean hideIfOutOfCombat;
+
 	@Provides
 	PrayerConfig provideConfig(ConfigManager configManager)
 	{
@@ -95,6 +112,7 @@ public class PrayerPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		updateConfig();
 		overlayManager.add(flickOverlay);
 		overlayManager.add(doseOverlay);
 		overlayManager.add(barOverlay);
@@ -114,11 +132,12 @@ public class PrayerPlugin extends Plugin
 	{
 		if (event.getGroup().equals("prayer"))
 		{
-			if (!config.prayerIndicator())
+			updateConfig();
+			if (!this.prayerIndicator)
 			{
 				removeIndicators();
 			}
-			else if (!config.prayerIndicatorOverheads())
+			else if (!this.prayerIndicatorOverheads)
 			{
 				removeOverheadsIndicators();
 			}
@@ -156,22 +175,22 @@ public class PrayerPlugin extends Plugin
 	{
 		prayersActive = isAnyPrayerActive();
 
-		if (!config.prayerFlickLocation().equals(PrayerFlickLocation.NONE))
+		if (!this.prayerFlickLocation.equals(PrayerFlickLocation.NONE))
 		{
 			startOfLastTick = Instant.now();
 		}
 
-		if (config.showPrayerDoseIndicator())
+		if (this.showPrayerDoseIndicator)
 		{
 			doseOverlay.onTick();
 		}
 
-		if (config.showPrayerBar())
+		if (this.showPrayerBar)
 		{
 			barOverlay.onTick();
 		}
 
-		if (!config.prayerIndicator())
+		if (!this.prayerIndicator)
 		{
 			return;
 		}
@@ -183,7 +202,7 @@ public class PrayerPlugin extends Plugin
 
 			if (client.isPrayerActive(prayer))
 			{
-				if (prayerType.isOverhead() && !config.prayerIndicatorOverheads())
+				if (prayerType.isOverhead() && !this.prayerIndicatorOverheads)
 				{
 					continue;
 				}
@@ -295,5 +314,18 @@ public class PrayerPlugin extends Plugin
 	{
 		infoBoxManager.removeIf(entry -> entry instanceof PrayerCounter
 			&& ((PrayerCounter) entry).getPrayerType().isOverhead());
+	}
+
+	private void updateConfig()
+	{
+		this.prayerFlickLocation = config.prayerFlickLocation();
+		this.prayerFlickAlwaysOn = config.prayerFlickAlwaysOn();
+		this.prayerIndicator = config.prayerIndicator();
+		this.prayerIndicatorOverheads = config.prayerIndicatorOverheads();
+		this.showPrayerDoseIndicator = config.showPrayerDoseIndicator();
+		this.showPrayerStatistics = config.showPrayerStatistics();
+		this.showPrayerBar = config.showPrayerBar();
+		this.hideIfNotPraying = config.hideIfNotPraying();
+		this.hideIfOutOfCombat = config.hideIfOutOfCombat();
 	}
 }

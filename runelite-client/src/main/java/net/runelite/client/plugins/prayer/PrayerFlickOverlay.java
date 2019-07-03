@@ -39,16 +39,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 class PrayerFlickOverlay extends Overlay
 {
 	private final Client client;
-	private final PrayerConfig config;
 	private final PrayerPlugin plugin;
 
 	@Inject
-	private PrayerFlickOverlay(Client client, PrayerConfig config, PrayerPlugin plugin)
+	private PrayerFlickOverlay(Client client, PrayerPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 	}
 
@@ -56,9 +54,9 @@ class PrayerFlickOverlay extends Overlay
 	public Dimension render(Graphics2D graphics)
 	{
 		// If there are no prayers active or flick location is set to the prayer bar we don't require the flick helper
-		if ((!plugin.isPrayersActive() && !config.prayerFlickAlwaysOn())
-			|| config.prayerFlickLocation().equals(PrayerFlickLocation.NONE)
-			|| config.prayerFlickLocation().equals(PrayerFlickLocation.PRAYER_BAR))
+		if ((!plugin.isPrayersActive() && !plugin.isPrayerFlickAlwaysOn())
+			|| plugin.getPrayerFlickLocation().equals(PrayerFlickLocation.NONE)
+			|| plugin.getPrayerFlickLocation().equals(PrayerFlickLocation.PRAYER_BAR))
 		{
 			return null;
 		}
