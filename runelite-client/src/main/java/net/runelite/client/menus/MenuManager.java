@@ -150,15 +150,6 @@ public class MenuManager
 		// Need to reorder the list to normal, then rebuild with swaps
 		MenuEntry[] oldEntries = event.getMenuEntries();
 
-		for (MenuEntry entry : oldEntries)
-		{
-			if (entry == leftClickEntry)
-			{
-				entry.setType(leftClickType);
-				break;
-			}
-		}
-
 		leftClickEntry = null;
 		leftClickType = -1;
 
@@ -253,7 +244,11 @@ public class MenuManager
 			newEntries.addAll(currentPriorityEntries);
 		}
 
-		event.setMenuEntries(newEntries.toArray(new MenuEntry[0]));
+		MenuEntry[] arrayEntries = newEntries.toArray(new MenuEntry[0]);
+
+		// Need to set the event entries to prevent conflicts
+		event.setMenuEntries(arrayEntries);
+		client.setMenuEntries(arrayEntries);
 	}
 
 	@Subscribe
@@ -469,11 +464,12 @@ public class MenuManager
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (leftClickEntry != null && leftClickType != -1)
+		if (!client.isMenuOpen() && leftClickEntry != null && leftClickType != -1)
 		{
 			leftClickEntry.setType(leftClickType);
 			event.setMenuEntry(leftClickEntry);
 			leftClickEntry = null;
+			leftClickType = -1;
 		}
 
 		if (event.getMenuAction() != MenuAction.RUNELITE)
