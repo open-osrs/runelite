@@ -63,7 +63,6 @@ public class PyramidPlunderOverlay extends Overlay
 	private static final Color COLOR_SPEAR_TRAP = Color.ORANGE;
 
 	private final Client client;
-	private final PyramidPlunderConfig config;
 	private final PyramidPlunderPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
@@ -78,11 +77,10 @@ public class PyramidPlunderOverlay extends Overlay
 	}
 
 	@Inject
-	private PyramidPlunderOverlay(Client client, PyramidPlunderConfig config, PyramidPlunderPlugin plugin)
+	private PyramidPlunderOverlay(Client client, PyramidPlunderPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
@@ -104,7 +102,7 @@ public class PyramidPlunderOverlay extends Overlay
 			Tile tile = entry.getValue();
 
 			if (tile.getPlane() == client.getPlane() &&
-					object.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
+				object.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
 			{
 				int objectID = object.getId();
 				if (object.getId() == CLOSED_DOOR || object.getId() == OPENED_DOOR)
@@ -154,39 +152,39 @@ public class PyramidPlunderOverlay extends Overlay
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		if (config.showPlunderStatus())
+		if (plugin.isShowPlunderStatus())
 		{
-				final Widget widget = client.getWidget(WidgetInfo.PYRAMID_PLUNDER_DATA);
-				if (widget == null)
-				{
-					return null;
-				}
-
-				toggleDefaultWidget(config.hideWidget());
-
-				panelComponent.getChildren().clear();
-
-				panelComponent.getChildren().add(TitleComponent.builder()
-						.text("Pyramid Plunder")
-						.build());
-
-				//Calculate time based on current pp timer tick
-				final int currentTick = client.getVar(Varbits.PYRAMID_PLUNDER_TIMER);
-				final double baseTick = (MAX_TICK_COUNT - currentTick) * TICK_LENGTH;
-				final double timeLeft = Math.max(0.0, baseTick);
-				final String timeLeftStr = TIME_LEFT_FORMATTER.format(timeLeft);
-
-				tableComponent.addRow("Time left:", ColorUtil.prependColorTag(timeLeftStr, getColor(currentTick)));
-				tableComponent.addRow("Room:", client.getVar(Varbits.PYRAMID_PLUNDER_ROOM) + "/8");
-
-				panelComponent.getChildren().add(tableComponent);
-
-				return panelComponent.render(graphics);
+			final Widget widget = client.getWidget(WidgetInfo.PYRAMID_PLUNDER_DATA);
+			if (widget == null)
+			{
+				return null;
 			}
+
+			toggleDefaultWidget(plugin.isHideWidget());
+
+			panelComponent.getChildren().clear();
+
+			panelComponent.getChildren().add(TitleComponent.builder()
+				.text("Pyramid Plunder")
+				.build());
+
+			//Calculate time based on current pp timer tick
+			final int currentTick = client.getVar(Varbits.PYRAMID_PLUNDER_TIMER);
+			final double baseTick = (MAX_TICK_COUNT - currentTick) * TICK_LENGTH;
+			final double timeLeft = Math.max(0.0, baseTick);
+			final String timeLeftStr = TIME_LEFT_FORMATTER.format(timeLeft);
+
+			tableComponent.addRow("Time left:", ColorUtil.prependColorTag(timeLeftStr, getColor(currentTick)));
+			tableComponent.addRow("Room:", client.getVar(Varbits.PYRAMID_PLUNDER_ROOM) + "/8");
+
+			panelComponent.getChildren().add(tableComponent);
+
+			return panelComponent.render(graphics);
+		}
 		return null;
 	}
 
-	void toggleDefaultWidget(boolean hide)
+	private void toggleDefaultWidget(boolean hide)
 	{
 		final Widget widget = client.getWidget(WidgetInfo.PYRAMID_PLUNDER_DATA);
 
@@ -200,11 +198,11 @@ public class PyramidPlunderOverlay extends Overlay
 
 	private Color getColor(int timeLeft)
 	{
-		if (timeLeft < config.secondWarningTime())
+		if (timeLeft < plugin.getSecondWarningTime())
 		{
 			return Color.RED;
 		}
-		else if (timeLeft < config.firstWarningTime())
+		else if (timeLeft < plugin.getFirstWarningTime())
 		{
 			return Color.YELLOW;
 		}
