@@ -125,6 +125,7 @@ public class SmeltingPlugin extends Plugin
 			}
 		}
 	}
+
 	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
