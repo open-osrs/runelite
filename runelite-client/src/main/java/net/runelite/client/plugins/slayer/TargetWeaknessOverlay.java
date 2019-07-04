@@ -43,16 +43,14 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 class TargetWeaknessOverlay extends Overlay
 {
 	private final Client client;
-	private final SlayerConfig config;
 	private final SlayerPlugin plugin;
 	private final ItemManager itemManager;
 	private final NPCManager npcManager;
 
 	@Inject
-	private TargetWeaknessOverlay(Client client, SlayerConfig config, SlayerPlugin plugin, ItemManager itemManager, NPCManager npcManager)
+	private TargetWeaknessOverlay(Client client, SlayerPlugin plugin, ItemManager itemManager, NPCManager npcManager)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		this.itemManager = itemManager;
 		this.npcManager = npcManager;
@@ -63,7 +61,7 @@ class TargetWeaknessOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.weaknessPrompt())
+		if (!plugin.isWeaknessPrompt())
 		{
 			return null;
 		}

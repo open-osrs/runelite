@@ -51,15 +51,13 @@ public class TargetClickboxOverlay extends Overlay
 	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
 	private final Client client;
-	private final SlayerConfig config;
 	private final SlayerPlugin plugin;
 	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	TargetClickboxOverlay(Client client, SlayerConfig config, SlayerPlugin plugin, ModelOutlineRenderer modelOutlineRenderer)
+	TargetClickboxOverlay(Client client, SlayerPlugin plugin, ModelOutlineRenderer modelOutlineRenderer)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		this.modelOutliner = modelOutlineRenderer;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -69,7 +67,7 @@ public class TargetClickboxOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.highlightTargets())
+		if (plugin.isHighlightTargets())
 		{
 			Set<NPC> targets = plugin.getHighlightedTargets();
 			for (NPC target : targets)
@@ -79,11 +77,11 @@ public class TargetClickboxOverlay extends Overlay
 					continue;
 				}
 
-				Color coloration = config.getTargetColor();
+				Color coloration = plugin.getGetTargetColor();
 
 				if (plugin.isSuperior(target.getName()))
 				{
-					coloration = config.getSuperiorColor();
+					coloration = plugin.getGetSuperiorColor();
 				}
 
 				renderNpcOverlay(graphics, target, coloration);
@@ -95,7 +93,7 @@ public class TargetClickboxOverlay extends Overlay
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color)
 	{
-		switch (config.renderStyle())
+		switch (plugin.getRenderStyle())
 		{
 			case SOUTH_WEST_TILE:
 				LocalPoint lp1 = LocalPoint.fromWorld(client, actor.getWorldLocation());
@@ -168,7 +166,7 @@ public class TargetClickboxOverlay extends Overlay
 				break;
 		}
 
-		if (config.drawNames())
+		if (plugin.isDrawNames())
 		{
 			String npcName = Text.removeTags(actor.getName());
 			Point textLocation = actor.getCanvasTextLocation(graphics, npcName, actor.getLogicalHeight() + 40);
