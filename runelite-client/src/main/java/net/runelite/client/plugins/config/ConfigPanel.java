@@ -124,6 +124,7 @@ public class ConfigPanel extends PluginPanel
 	private static final String RUNELITE_GROUP_NAME = RuneLiteConfig.class.getAnnotation(ConfigGroup.class).value();
 	private static final String PINNED_PLUGINS_CONFIG_KEY = "pinnedPlugins";
 	private static final String RUNELITE_PLUGIN = "RuneLite";
+	private static final String RUNELITEPLUS_PLUGIN = "RuneLitePlus";
 	private static final String CHAT_COLOR_PLUGIN = "Chat Color";
 	private final PluginManager pluginManager;
 	private final ConfigManager configManager;
@@ -258,6 +259,14 @@ public class ConfigPanel extends PluginPanel
 		runeLite.setPinned(pinnedPlugins.contains(RUNELITE_PLUGIN));
 		runeLite.nameLabel.setForeground(Color.WHITE);
 		pluginList.add(runeLite);
+		
+		// set RuneLitePlus config on top, as it should always have been
+		final PluginListItem runeLite = new PluginListItem(this, configManager, runeLiteConfig,
+			configManager.getConfigDescriptor(runeLiteConfig),
+			RUNELITEPLUS_PLUGIN, "RuneLitePlus client settings", "client");
+		runeLite.setPinned(pinnedPlugins.contains(RUNELITEPLUS_PLUGIN));
+		runeLite.nameLabel.setForeground(Color.WHITE);
+		pluginList.add(RuneLitePlus);
 
 		List<PluginListItem> externalPlugins = new ArrayList<>();
 		// populate pluginList with all external Plugins
@@ -520,11 +529,6 @@ public class ConfigPanel extends PluginPanel
 		topPanelBackButton.addActionListener(e -> openConfigList());
 		topPanelBackButton.setToolTipText("Back");
 		topPanel.add(topPanelBackButton, BorderLayout.WEST);
-
-		if (!listItem.getName().equals("RuneLitePlus"))
-		{
-			topPanel.add(listItem.createToggleButton(), BorderLayout.EAST);
-		}
 
 		String name = listItem.getName();
 		JLabel title = new JLabel(name);

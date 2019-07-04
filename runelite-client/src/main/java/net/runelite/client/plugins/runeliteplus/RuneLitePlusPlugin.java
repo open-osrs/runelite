@@ -53,13 +53,15 @@ import net.runelite.client.ui.ClientUI;
 		loadWhenOutdated = true, // prevent users from disabling
 		hidden = true, // prevent users from disabling
 		name = "RuneLitePlus",
-		description = "Configures various aspects of RuneLitePlus",
-		type = PluginType.EXTERNAL
+		description = "Configures various aspects of RuneLitePlus"
 )
 
 @Slf4j
 public class RuneLitePlusPlugin extends Plugin
 {
+	public static final File RUNELITEPLUS_DIR = new File(System.getProperty("user.home"), ".runelite");
+	public static final File PLUGIN_DIR = new File(RUNELITEPLUS_DIR, "plugins");
+		
 	private class RuneLitePlusKeyListener implements KeyListener
 	{
 		private int lastKeyCycle;
