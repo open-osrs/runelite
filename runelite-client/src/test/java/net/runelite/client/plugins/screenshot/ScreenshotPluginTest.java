@@ -101,10 +101,10 @@ public class ScreenshotPluginTest
 	public void before()
 	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
-		when(screenshotConfig.screenshotRewards()).thenReturn(true);
-		when(screenshotConfig.screenshotLevels()).thenReturn(true);
-		when(screenshotConfig.screenshotValuableDrop()).thenReturn(true);
-		when(screenshotConfig.screenshotUntradeableDrop()).thenReturn(true);
+		screenshotPlugin.setScreenshotRewards(true);
+		screenshotPlugin.setScreenshotLevels(true);
+		screenshotPlugin.setScreenshotValuableDrop(true);
+		screenshotPlugin.setScreenshotUntradeableDrop(true);
 	}
 
 	@Test

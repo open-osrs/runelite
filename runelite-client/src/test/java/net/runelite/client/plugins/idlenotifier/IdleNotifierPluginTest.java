@@ -114,12 +114,12 @@ public class IdleNotifierPluginTest
 		when(client.getLocalPlayer()).thenReturn(player);
 
 		// Mock config
-		when(config.logoutIdle()).thenReturn(true);
-		when(config.animationIdle()).thenReturn(true);
-		when(config.interactionIdle()).thenReturn(true);
-		when(config.getIdleNotificationDelay()).thenReturn(0);
-		when(config.getHitpointsThreshold()).thenReturn(42);
-		when(config.getPrayerThreshold()).thenReturn(42);
+		plugin.setLogoutIdle(true);
+		plugin.setAnimationIdle(true);
+		plugin.setInteractionIdle(true);
+		plugin.setGetIdleNotificationDelay(0);
+		plugin.setGetHitpointsThreshold(42);
+		plugin.setGetPrayerThreshold(42);
 
 		// Mock client
 		when(client.getGameState()).thenReturn(GameState.LOGGED_IN);
@@ -270,7 +270,7 @@ public class IdleNotifierPluginTest
 	@Test
 	public void testSpecRegen()
 	{
-		when(config.getSpecEnergyThreshold()).thenReturn(50);
+		plugin.setGetSpecEnergyThreshold(50);
 
 		when(client.getVar(Matchers.eq(VarPlayer.SPECIAL_ATTACK_PERCENT))).thenReturn(400); // 40%
 		plugin.onGameTick(GameTick.INSTANCE); // once to set lastSpecEnergy to 400

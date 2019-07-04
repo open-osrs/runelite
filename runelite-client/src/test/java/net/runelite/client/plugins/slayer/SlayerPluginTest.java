@@ -387,11 +387,11 @@ public class SlayerPluginTest
 	{
 		ChatMessage chatMessageEvent = new ChatMessage(null, GAMEMESSAGE, "Superior", SUPERIOR_MESSAGE, null, 0);
 
-		when(slayerConfig.showSuperiorNotification()).thenReturn(true);
+		slayerPlugin.setShowSuperiorNotification(true);
 		slayerPlugin.onChatMessage(chatMessageEvent);
 		verify(notifier).notify(SUPERIOR_MESSAGE);
 
-		when(slayerConfig.showSuperiorNotification()).thenReturn(false);
+		slayerPlugin.setShowSuperiorNotification(false);
 		slayerPlugin.onChatMessage(chatMessageEvent);
 		verifyNoMoreInteractions(notifier);
 	}
@@ -405,7 +405,7 @@ public class SlayerPluginTest
 		task.setAmount(42);
 		task.setInitialAmount(42);
 
-		when(slayerConfig.taskCommand()).thenReturn(true);
+		slayerPlugin.setTaskCommand(true);
 		when(chatClient.getTask(anyString())).thenReturn(task);
 
 		ChatMessage setMessage = new ChatMessage();

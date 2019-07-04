@@ -31,6 +31,8 @@ import java.awt.image.BufferedImage;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.AccessLevel;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
 import net.runelite.api.AnimationID;
@@ -195,6 +197,7 @@ public class TimersPlugin extends Plugin
 	private boolean showImbuedHeart;
 	private boolean showVengeance;
 	private boolean showVengeanceActive;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean showTeleblock;
 	private boolean showFreezes;
 	private boolean showGodWarsAltar;

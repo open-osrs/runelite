@@ -37,6 +37,8 @@ import javax.inject.Inject;
 //import javax.sound.sampled.LineUnavailableException;
 //import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.inject.Singleton;
+import lombok.AccessLevel;
+import lombok.Setter;
 import net.runelite.api.events.ConfigChanged;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -198,20 +200,27 @@ public class IdleNotifierPlugin extends Plugin
 	private SkullIcon lastTickSkull = null;
 	private boolean isFirstTick = true;
 
+	@Setter(AccessLevel.PACKAGE)
 	private boolean animationIdle;
 	private boolean animationIdleSound;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean interactionIdle;
 	private boolean interactionIdleSound;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean logoutIdle;
 	private boolean outOfCombatSound;
 	private boolean showSkullNotification;
 	private boolean showUnskullNotification;
+	@Setter(AccessLevel.PACKAGE)
 	private int getIdleNotificationDelay;
+	@Setter(AccessLevel.PACKAGE)
 	private int getHitpointsThreshold;
 	private boolean getPlayHealthSound;
+	@Setter(AccessLevel.PACKAGE)
 	private int getPrayerThreshold;
 	private boolean getPlayPrayerSound;
 	private int getOxygenThreshold;
+	@Setter(AccessLevel.PACKAGE)
 	private int getSpecEnergyThreshold;
 	private boolean getSpecSound;
 	private boolean getOverSpecEnergy;

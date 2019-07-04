@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GraphicID;
@@ -83,6 +84,7 @@ public class CookingPlugin extends Plugin
 	private CookingSession session;
 
 	private int statTimeout;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean fermentTimer;
 
 	@Provides

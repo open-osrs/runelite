@@ -184,6 +184,7 @@ public class NpcIndicatorsPlugin extends Plugin
 
 	@Getter(AccessLevel.PACKAGE)
 	private RenderStyle renderStyle;
+	@Setter(AccessLevel.PACKAGE)
 	private String getNpcToHighlight;
 	@Getter(AccessLevel.PACKAGE)
 	private Color getHighlightColor;

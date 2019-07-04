@@ -61,6 +61,7 @@ import javax.swing.SwingUtilities;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -212,9 +213,12 @@ public class ScreenshotPlugin extends Plugin
 	};
 
 	private boolean includeFrame;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean displayDate;
 	private boolean notifyWhenTaken;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean screenshotRewards;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean screenshotLevels;
 	private boolean screenshotKingdom;
 	private boolean screenshotPet;
@@ -224,7 +228,9 @@ public class ScreenshotPlugin extends Plugin
 	private boolean screenshotFriendDeath;
 	private boolean screenshotPlayerDeath;
 	private boolean screenshotDuels;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean screenshotValuableDrop;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean screenshotUntradeableDrop;
 	private Keybind hotkey;
 

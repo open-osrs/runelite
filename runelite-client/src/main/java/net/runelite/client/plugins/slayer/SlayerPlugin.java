@@ -259,6 +259,7 @@ public class SlayerPlugin extends Plugin
 	private boolean showInfobox;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean showItemOverlay;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean showSuperiorNotification;
 	private int statTimeout;
 	@Getter(AccessLevel.PACKAGE)
@@ -275,6 +276,7 @@ public class SlayerPlugin extends Plugin
 	private boolean drawMinimapNames;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean weaknessPrompt;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean taskCommand;
 	private String taskName;
 	private String taskLocation;
