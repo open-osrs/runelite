@@ -45,14 +45,12 @@ public class TimersOverlay extends Overlay
 {
 	private TickTimersPlugin plugin;
 	private Client client;
-	private TickTimersConfig config;
 
 	@Inject
-	TimersOverlay(TickTimersPlugin plugin, Client client, TickTimersConfig config)
+	TimersOverlay(TickTimersPlugin plugin, Client client)
 	{
 		this.plugin = plugin;
 		this.client = client;
-		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGHEST);
 		setLayer(OverlayLayer.ALWAYS_ON_TOP);
@@ -72,7 +70,7 @@ public class TimersOverlay extends Overlay
 			final List<WorldPoint> hitSquares = getHitSquares(npc.getNpc().getWorldLocation(), npc.getNpcSize(), 1, false);
 			final NPCContainer.AttackStyle attackStyle = npc.getAttackStyle();
 
-			if (config.showHitSquares() && attackStyle.getName().equals("Melee"))
+			if (plugin.isShowHitSquares() && attackStyle.getName().equals("Melee"))
 			{
 				for (WorldPoint p : hitSquares)
 				{
@@ -86,26 +84,26 @@ public class TimersOverlay extends Overlay
 			}
 
 			final String ticksLeftStr = String.valueOf(ticksLeft);
-			final int font = config.fontStyle().getFont();
-			final boolean shadows = config.shadows();
+			final int font = plugin.getFontStyle().getFont();
+			final boolean shadows = plugin.isShadows();
 			Color color = (ticksLeft <= 1 ? Color.WHITE : attackStyle.getColor());
 
-			if (!config.changeTickColor())
+			if (!plugin.isChangeTickColor())
 			{
 				color = attackStyle.getColor();
 			}
 
 			final Point canvasPoint = npc.getNpc().getCanvasTextLocation(graphics, Integer.toString(ticksLeft), 0);
 
-			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, config.textSize(), font, color, canvasPoint, shadows, 0);
+			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), font, color, canvasPoint, shadows, 0);
 
-			if (config.showPrayerWidgetHelper() && attackStyle.getPrayer() != null)
+			if (plugin.isShowPrayerWidgetHelper() && attackStyle.getPrayer() != null)
 			{
 				Rectangle bounds = OverlayUtil.renderPrayerOverlay(graphics, client, attackStyle.getPrayer(), color);
 
 				if (bounds != null)
 				{
-					renderTextLocation(graphics, ticksLeftStr, 16, config.fontStyle().getFont(), color, centerPoint(bounds), shadows);
+					renderTextLocation(graphics, ticksLeftStr, 16, plugin.getFontStyle().getFont(), color, centerPoint(bounds), shadows);
 				}
 			}
 		}
