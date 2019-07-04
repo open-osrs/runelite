@@ -25,16 +25,19 @@
 package net.runelite.client.plugins.xpglobes;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.Skill;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
@@ -74,6 +77,25 @@ public class XpGlobesPlugin extends Plugin
 	@Inject
 	private XpGlobesOverlay overlay;
 
+	@Getter(AccessLevel.PACKAGE)
+	private boolean enableTooltips;
+	private boolean hideMaxed;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean enableTimeToLevel;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean enableCustomArcColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color progressArcColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color progressOrbOutLineColor;
+	@Getter(AccessLevel.PACKAGE)
+	private Color progressOrbBackgroundColor;
+	@Getter(AccessLevel.PACKAGE)
+	private int progressArcStrokeWidth;
+	@Getter(AccessLevel.PACKAGE)
+	private int xpOrbSize;
+	private int xpOrbDuration;
+
 	@Provides
 	XpGlobesConfig getConfig(ConfigManager configManager)
 	{
@@ -83,6 +105,7 @@ public class XpGlobesPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 		overlayManager.add(overlay);
 	}
 
@@ -107,7 +130,7 @@ public class XpGlobesPlugin extends Plugin
 			return;
 		}
 
-		if (config.hideMaxed() && currentLevel >= Experience.MAX_REAL_LEVEL)
+		if (this.hideMaxed && currentLevel >= Experience.MAX_REAL_LEVEL)
 		{
 			return;
 		}
@@ -156,7 +179,7 @@ public class XpGlobesPlugin extends Plugin
 			{
 				XpGlobe globe = it.next();
 				Instant globeCreationTime = globe.getTime();
-				if (currentTime.isBefore(globeCreationTime.plusSeconds(config.xpOrbDuration())))
+				if (currentTime.isBefore(globeCreationTime.plusSeconds(this.xpOrbDuration)))
 				{
 					//if a globe is not expired, stop checking newer globes
 					return;
@@ -184,4 +207,31 @@ public class XpGlobesPlugin extends Plugin
 		}
 	}
 
+
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("xpglobes"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
+	private void updateConfig()
+	{
+		this.enableTooltips = config.enableTooltips();
+		this.hideMaxed = config.hideMaxed();
+		this.enableTimeToLevel = config.enableTimeToLevel();
+		this.enableCustomArcColor = config.enableCustomArcColor();
+		this.progressArcColor = config.progressArcColor();
+		this.progressOrbOutLineColor = config.progressOrbOutLineColor();
+		this.progressOrbBackgroundColor = config.progressOrbBackgroundColor();
+		this.progressArcStrokeWidth = config.progressArcStrokeWidth();
+		this.xpOrbSize = config.xpOrbSize();
+		this.xpOrbDuration = config.xpOrbDuration();
+
+	}
 }
