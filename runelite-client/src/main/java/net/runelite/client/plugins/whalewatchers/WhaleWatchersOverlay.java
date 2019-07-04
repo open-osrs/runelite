@@ -30,20 +30,18 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 public class WhaleWatchersOverlay extends Overlay
 {
 	private Client client;
-	private final WhaleWatchersConfig config;
 	private WhaleWatchersPlugin plugin;
 	private PanelComponent panelComponent;
 	private String lastOpponent = "-";
-	private final OverlayMenuEntry resetMenuEntry = new OverlayMenuEntry(MenuAction.RUNELITE_OVERLAY,
-		"Reset", "Damage Counter");
 
 
 	@Inject
-	public WhaleWatchersOverlay(WhaleWatchersConfig config, Client client, WhaleWatchersPlugin plugin)
+	public WhaleWatchersOverlay(Client client, WhaleWatchersPlugin plugin)
 	{
+		OverlayMenuEntry resetMenuEntry = new OverlayMenuEntry(MenuAction.RUNELITE_OVERLAY,
+			"Reset", "Damage Counter");
 		this.getMenuEntries().add(resetMenuEntry);
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPriority(OverlayPriority.HIGHEST);
@@ -57,14 +55,13 @@ public class WhaleWatchersOverlay extends Overlay
 	{
 		panelComponent.getChildren().clear();
 
-		if (plugin.inCombat && config.showDamageCounter())
+		if (plugin.inCombat && plugin.isShowDamageCounter())
 		{
 			panelComponent.setOrientation(ComponentOrientation.HORIZONTAL);
 			panelComponent.setWrapping(5);
-			String opp = client.getLocalPlayer().getInteracting() != null ?
-				client.getLocalPlayer().getInteracting().getName() : lastOpponent;
 
-			lastOpponent = opp;
+			lastOpponent = client.getLocalPlayer().getInteracting() != null ?
+				client.getLocalPlayer().getInteracting().getName() : lastOpponent;
 
 			String damageTaken = "Damage Taken: " + plugin.damageTaken;
 			String damageDealt = "Damage Dealt: " + plugin.damageDone;

@@ -34,14 +34,12 @@ public class WhaleWatchersProtOverlay extends Overlay
 {
 
 	private Client client;
-	private final WhaleWatchersConfig config;
 	private WhaleWatchersPlugin plugin;
 
 	@Inject
-	public WhaleWatchersProtOverlay(WhaleWatchersConfig config, Client client, WhaleWatchersPlugin plugin)
+	public WhaleWatchersProtOverlay(Client client, WhaleWatchersPlugin plugin)
 	{
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPriority(OverlayPriority.HIGH);
@@ -51,7 +49,7 @@ public class WhaleWatchersProtOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (plugin.protectItemOverlay && config.protectItemWarning())
+		if (plugin.protectItemOverlay && plugin.isProtectItemWarning())
 		{
 			Rectangle rectangle = new Rectangle();
 			rectangle.setBounds(client.getCanvas().getBounds());

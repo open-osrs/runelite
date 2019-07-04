@@ -27,8 +27,6 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 
 public class WhaleWatchersGloryOverlay extends Overlay
 {
-	private Client client;
-	private final WhaleWatchersConfig config;
 	private WhaleWatchersPlugin plugin;
 	private PanelComponent panelComponent;
 
@@ -36,10 +34,8 @@ public class WhaleWatchersGloryOverlay extends Overlay
 	private ItemManager itemManager;
 
 	@Inject
-	public WhaleWatchersGloryOverlay(WhaleWatchersConfig config, Client client, WhaleWatchersPlugin plugin)
+	public WhaleWatchersGloryOverlay(WhaleWatchersPlugin plugin)
 	{
-		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPriority(OverlayPriority.HIGH);
