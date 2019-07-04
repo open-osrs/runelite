@@ -44,17 +44,15 @@ public class TitheFarmPlantOverlay extends Overlay
 {
 	private final Client client;
 	private final TitheFarmPlugin plugin;
-	private final TitheFarmPluginConfig config;
 	private final Map<TitheFarmPlantState, Color> borders = new HashMap<>();
 	private final Map<TitheFarmPlantState, Color> fills = new HashMap<>();
 
 	@Inject
-	TitheFarmPlantOverlay(Client client, TitheFarmPlugin plugin, TitheFarmPluginConfig config)
+	TitheFarmPlantOverlay(Client client, TitheFarmPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
-		this.config = config;
 		this.client = client;
 	}
 
@@ -66,17 +64,17 @@ public class TitheFarmPlantOverlay extends Overlay
 		borders.clear();
 		fills.clear();
 
-		final Color colorUnwateredBorder = config.getColorUnwatered();
+		final Color colorUnwateredBorder = plugin.getGetColorUnwatered();
 		final Color colorUnwatered = new Color(colorUnwateredBorder.getRed(), colorUnwateredBorder.getGreen(), colorUnwateredBorder.getBlue(), 100);
 		borders.put(TitheFarmPlantState.UNWATERED, colorUnwateredBorder);
 		fills.put(TitheFarmPlantState.UNWATERED, colorUnwatered);
 
-		final Color colorWateredBorder = config.getColorWatered();
+		final Color colorWateredBorder = plugin.getGetColorWatered();
 		final Color colorWatered = new Color(colorWateredBorder.getRed(), colorWateredBorder.getGreen(), colorWateredBorder.getBlue(), 100);
 		borders.put(TitheFarmPlantState.WATERED, colorWateredBorder);
 		fills.put(TitheFarmPlantState.WATERED, colorWatered);
 
-		final Color colorGrownBorder = config.getColorGrown();
+		final Color colorGrownBorder = plugin.getGetColorGrown();
 		final Color colorGrown = new Color(colorGrownBorder.getRed(), colorGrownBorder.getGreen(), colorGrownBorder.getBlue(), 100);
 		borders.put(TitheFarmPlantState.GROWN, colorGrownBorder);
 		fills.put(TitheFarmPlantState.GROWN, colorGrown);
