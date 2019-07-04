@@ -93,6 +93,7 @@ import net.runelite.client.config.ModifierlessKeybind;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.config.Stub;
+import net.runelite.client.plugins.runeliteplus.RuneLitePlusConfig;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
@@ -130,6 +131,7 @@ public class ConfigPanel extends PluginPanel
 	private final ConfigManager configManager;
 	private final ScheduledExecutorService executorService;
 	private final RuneLiteConfig runeLiteConfig;
+	private final RuneLitePlusConfig runeLitePlusConfig;
 	private final ChatColorConfig chatColorConfig;
 	public static List<PluginListItem> pluginList = new ArrayList<>();
 
@@ -261,12 +263,12 @@ public class ConfigPanel extends PluginPanel
 		pluginList.add(runeLite);
 		
 		// set RuneLitePlus config on top, as it should always have been
-		final PluginListItem runeLite = new PluginListItem(this, configManager, runeLiteConfig,
-			configManager.getConfigDescriptor(runeLiteConfig),
+		final PluginListItem runeLitePlus = new PluginListItem(this, configManager, runeLitePlusConfig,
+			configManager.getConfigDescriptor(runeLitePlusConfig),
 			RUNELITEPLUS_PLUGIN, "RuneLitePlus client settings", "client");
-		runeLite.setPinned(pinnedPlugins.contains(RUNELITEPLUS_PLUGIN));
-		runeLite.nameLabel.setForeground(Color.WHITE);
-		pluginList.add(RuneLitePlus);
+		runeLitePlus.setPinned(pinnedPlugins.contains(RUNELITEPLUS_PLUGIN));
+		runeLitePlus.nameLabel.setForeground(Color.WHITE);
+		pluginList.add(runeLitePlus);
 
 		List<PluginListItem> externalPlugins = new ArrayList<>();
 		// populate pluginList with all external Plugins
