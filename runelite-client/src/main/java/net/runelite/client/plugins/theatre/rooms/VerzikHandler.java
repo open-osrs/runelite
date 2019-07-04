@@ -43,15 +43,13 @@ public class VerzikHandler extends RoomHandler
 	@Getter(AccessLevel.PUBLIC)
 	private NPC npc;
 	private int lastId = -1;
-	private int autosSinceYellows;
 	private int yellows;
 	private boolean tornados;
-	private int attackTick = -1;
 	private long startTime = 0;
 
-	public VerzikHandler(Client client, TheatrePlugin plugin, TheatreConfig config)
+	public VerzikHandler(Client client, TheatrePlugin plugin)
 	{
-		super(client, plugin, config);
+		super(client, plugin);
 	}
 
 	@Override
@@ -83,7 +81,6 @@ public class VerzikHandler extends RoomHandler
 		this.attacksLeft = 0;
 		this.npc = null;
 		this.yellows = 0;
-		this.autosSinceYellows = 0;
 		this.lastId = -1;
 		this.tornados = false;
 		this.startTime = 0;
@@ -97,19 +94,19 @@ public class VerzikHandler extends RoomHandler
 		}
 
 		int id = npc.getId();
-		if (config.verzikRangeAttacks())
+		if (plugin.isVerzikRangeAttacks())
 		{
 			for (WorldPoint p : getVerzik_RangeProjectiles().values())
 			{
 				drawTile(graphics, p, Color.RED, 2, 180, 50);
 			}
 		}
-		if (config.showVerzikAttacks())
+		if (plugin.isShowVerzikAttacks())
 		{
 
 			if (id == TheatreConstant.VERZIK_ID_P1)
 			{
-				if (config.p1attacks())
+				if (plugin.isP1attacks())
 				{
 					if (this.versikCounter >= 0)
 					{
@@ -124,7 +121,7 @@ public class VerzikHandler extends RoomHandler
 			}
 			else if (id == TheatreConstant.VERZIK_ID_P2)
 			{
-				if (config.p2attacks())
+				if (plugin.isP2attacks())
 				{
 					if (this.versikCounter >= 0)
 					{
@@ -140,7 +137,7 @@ public class VerzikHandler extends RoomHandler
 
 			else if (id == TheatreConstant.VERZIK_ID_P3)
 			{
-				if (config.p3attacks())
+				if (plugin.isP3attacks())
 				{
 					Model model = npc.getModel();
 					if (versikCounter > 0 && versikCounter < 8)
@@ -156,7 +153,7 @@ public class VerzikHandler extends RoomHandler
 			}
 		}
 
-		if (config.VerzikTankTile())
+		if (plugin.isVerzikTankTile())
 		{
 			if (id == TheatreConstant.VERZIK_ID_P3)
 			{
@@ -167,7 +164,7 @@ public class VerzikHandler extends RoomHandler
 
 		}
 
-		if (config.showVerzikYellows())
+		if (plugin.isShowVerzikYellows())
 		{
 			if (this.yellows > 0)
 			{
@@ -186,7 +183,7 @@ public class VerzikHandler extends RoomHandler
 			}
 		}
 
-		if (config.showCrabTargets())
+		if (plugin.isShowCrabTargets())
 		{
 			Player local = client.getLocalPlayer();
 			if (local != null && local.getName() != null)
@@ -330,7 +327,6 @@ public class VerzikHandler extends RoomHandler
 				{
 					this.yellows = 14;
 //						this.versikCounter = 22;
-					this.autosSinceYellows = 0;
 					System.out.println("Yellows have spawned.");
 					break;
 				}
@@ -400,7 +396,7 @@ public class VerzikHandler extends RoomHandler
 
 				long minutes = seconds / 60L;
 				seconds = seconds % 60;
-				if (config.extraTimers())
+				if (plugin.isExtraTimers())
 				{
 					this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'The Final Challenge - Part 1' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
 				}
@@ -413,10 +409,10 @@ public class VerzikHandler extends RoomHandler
 				long minutes = seconds / 60L;
 				seconds = seconds % 60;
 
-				this.attackTick = this.client.getTickCount() - 4;
+				int attackTick = this.client.getTickCount() - 4;
 				this.versikCounter = -1;
 				this.attacksLeft = 9;
-				if (config.extraTimers())
+				if (plugin.isExtraTimers())
 				{
 					this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'The Final Challenge - Part 2' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
 				}

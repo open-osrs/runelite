@@ -20,18 +20,12 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 
 public class TheatreOverlay extends Overlay
 {
-	private final Client client;
 	private final TheatrePlugin plugin;
-	private final TheatreConfig config;
-	private final ModelOutlineRenderer modelOutline;
 
 	@Inject
-	private TheatreOverlay(Client client, TheatrePlugin plugin, TheatreConfig config, ModelOutlineRenderer modelOutline)
+	private TheatreOverlay(TheatrePlugin plugin)
 	{
-		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
-		this.modelOutline = modelOutline;
 
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);

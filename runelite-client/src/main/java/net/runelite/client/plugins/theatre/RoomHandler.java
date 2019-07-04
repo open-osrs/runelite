@@ -22,13 +22,11 @@ public abstract class RoomHandler
 
 	protected final Client client;
 	protected final TheatrePlugin plugin;
-	protected final TheatreConfig config;
 
-	public RoomHandler(Client client, TheatrePlugin plugin, TheatreConfig config)
+	public RoomHandler(Client client, TheatrePlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 	}
 
 	public abstract void onStart();
@@ -64,11 +62,8 @@ public abstract class RoomHandler
 
 	protected void renderProjectiles(Graphics2D graphics, Map<Projectile, String> projectiles)
 	{
-
-		Iterator<Map.Entry<Projectile, String>> itr = projectiles.entrySet().iterator();
-		while (itr.hasNext())
+		for (Map.Entry<Projectile, String> entry : projectiles.entrySet())
 		{
-			Map.Entry<Projectile, String> entry = itr.next();
 			int projectileId = entry.getKey().getId();
 			String text = entry.getValue();
 			int x = (int) entry.getKey().getX();
