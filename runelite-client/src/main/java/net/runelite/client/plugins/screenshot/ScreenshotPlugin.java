@@ -71,6 +71,7 @@ import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.WidgetLoaded;
@@ -87,6 +88,7 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.Notifier;
 import static net.runelite.client.RuneLite.SCREENSHOT_DIR;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.config.Keybind;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PlayerLootReceived;
 import net.runelite.client.game.SpriteManager;
@@ -198,7 +200,7 @@ public class ScreenshotPlugin extends Plugin
 
 	private NavigationButton titleBarButton;
 
-	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> config.hotkey())
+	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> this.hotkey)
 	{
 		@Override
 		public void hotkeyPressed()
@@ -206,6 +208,23 @@ public class ScreenshotPlugin extends Plugin
 			takeScreenshot(format(new Date()));
 		}
 	};
+
+	private boolean includeFrame;
+	private boolean displayDate;
+	private boolean notifyWhenTaken;
+	private boolean screenshotRewards;
+	private boolean screenshotLevels;
+	private boolean screenshotKingdom;
+	private boolean screenshotPet;
+	private boolean uploadScreenshot;
+	private boolean screenshotKills;
+	private boolean screenshotBossKills;
+	private boolean screenshotFriendDeath;
+	private boolean screenshotPlayerDeath;
+	private boolean screenshotDuels;
+	private boolean screenshotValuableDrop;
+	private boolean screenshotUntradeableDrop;
+	private Keybind hotkey;
 
 	@Provides
 	ScreenshotConfig getConfig(ConfigManager configManager)
@@ -216,6 +235,8 @@ public class ScreenshotPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+		
 		overlayManager.add(screenshotOverlay);
 		SCREENSHOT_DIR.mkdirs();
 		keyManager.registerKeyListener(hotkeyListener);
@@ -267,7 +288,7 @@ public class ScreenshotPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (config.screenshotFriendDeath())
+		if (this.screenshotFriendDeath)
 		{
 			for (Iterator<Player> it = dying.keySet().iterator(); it.hasNext();)
 			{
@@ -317,7 +338,7 @@ public class ScreenshotPlugin extends Plugin
 	public void onAnimationChanged(AnimationChanged e)
 	{
 		//this got refactored somewhere, but some things were missing
-		if (!config.screenshotFriendDeath() || !config.screenshotPlayerDeath())
+		if (!this.screenshotFriendDeath || !this.screenshotPlayerDeath)
 			return;
 
 		if (!(e.getActor() instanceof Player))
@@ -332,7 +353,7 @@ public class ScreenshotPlugin extends Plugin
 		if (p.getName().equals(client.getLocalPlayer().getName()))
 		{
 
-			if (config.screenshotPlayerDeath())
+			if (this.screenshotPlayerDeath)
 			{
 				dying.put(p, 3);
 				return;
@@ -342,7 +363,7 @@ public class ScreenshotPlugin extends Plugin
 				return;
 			}
 		}
-		if (config.screenshotFriendDeath())
+		if (this.screenshotFriendDeath)
 		{
 			int tob = client.getVar(Varbits.THEATRE_OF_BLOOD);
 
@@ -357,7 +378,7 @@ public class ScreenshotPlugin extends Plugin
 	@Subscribe
 	public void onPlayerLootReceived(final PlayerLootReceived playerLootReceived)
 	{
-		if (config.screenshotKills())
+		if (this.screenshotKills)
 		{
 			final Player player = playerLootReceived.getPlayer();
 			final String name = player.getName();
@@ -427,13 +448,13 @@ public class ScreenshotPlugin extends Plugin
 			}
 		}
 
-		if (config.screenshotPet() && PET_MESSAGES.stream().anyMatch(chatMessage::contains))
+		if (this.screenshotPet && PET_MESSAGES.stream().anyMatch(chatMessage::contains))
 		{
 			String fileName = "Pet " + format(new Date());
 			takeScreenshot(fileName);
 		}
 
-		if (config.screenshotBossKills() )
+		if (this.screenshotBossKills )
 		{
 			Matcher m = BOSSKILL_MESSAGE_PATTERN.matcher(chatMessage);
 			if (m.matches())
@@ -445,7 +466,7 @@ public class ScreenshotPlugin extends Plugin
 			}
 		}
 
-		if (config.screenshotValuableDrop())
+		if (this.screenshotValuableDrop)
 		{
 			Matcher m = VALUABLE_DROP_PATTERN.matcher(chatMessage);
 			if (m.matches())
@@ -456,7 +477,7 @@ public class ScreenshotPlugin extends Plugin
 			}
 		}
 
-		if (config.screenshotUntradeableDrop())
+		if (this.screenshotUntradeableDrop)
 		{
 			Matcher m = UNTRADEABLE_DROP_PATTERN.matcher(chatMessage);
 			if (m.matches())
@@ -467,7 +488,7 @@ public class ScreenshotPlugin extends Plugin
 			}
 		}
 
-		if (config.screenshotDuels())
+		if (this.screenshotDuels)
 		{
 			Matcher m = DUEL_END_PATTERN.matcher(chatMessage);
 			if (m.find())
@@ -493,20 +514,20 @@ public class ScreenshotPlugin extends Plugin
 			case CHAMBERS_OF_XERIC_REWARD_GROUP_ID:
 			case THEATRE_OF_BLOOD_REWARD_GROUP_ID:
 			case BARROWS_REWARD_GROUP_ID:
-				if (!config.screenshotRewards())
+				if (!this.screenshotRewards)
 				{
 					return;
 				}
 				break;
 			case LEVEL_UP_GROUP_ID:
 			case DIALOG_SPRITE_GROUP_ID:
-				if (!config.screenshotLevels())
+				if (!this.screenshotLevels)
 				{
 					return;
 				}
 				break;
 			case KINGDOM_GROUP_ID:
-				if (!config.screenshotKingdom())
+				if (!this.screenshotKingdom)
 				{
 					return;
 				}
@@ -637,7 +658,7 @@ public class ScreenshotPlugin extends Plugin
 			executor.submit(() -> takeScreenshot(fileName, img, null));
 		};
 
-		if (config.displayDate())
+		if (this.displayDate)
 		{
 			screenshotOverlay.queueForTimestamp(imageCallback);
 		}
@@ -670,7 +691,7 @@ public class ScreenshotPlugin extends Plugin
 
 		};
 
-		if (config.displayDate())
+		if (this.displayDate)
 		{
 			screenshotOverlay.queueForTimestamp(imageCallback);
 		}
@@ -681,7 +702,7 @@ public class ScreenshotPlugin extends Plugin
 	}
 	private void takeScreenshot(String fileName, Image image, @Nullable String subdirectory)
 	{
-		BufferedImage screenshot = config.includeFrame()
+		BufferedImage screenshot = this.includeFrame
 				? new BufferedImage(clientUi.getWidth(), clientUi.getHeight(), BufferedImage.TYPE_INT_ARGB)
 				: new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
@@ -690,7 +711,7 @@ public class ScreenshotPlugin extends Plugin
 		int gameOffsetX = 0;
 		int gameOffsetY = 0;
 
-		if (config.includeFrame())
+		if (this.includeFrame)
 		{
 			// Draw the client frame onto the screenshot
 			try
@@ -748,11 +769,11 @@ public class ScreenshotPlugin extends Plugin
 
 			ImageIO.write(screenshot, "PNG", screenshotFile);
 
-			if (config.uploadScreenshot())
+			if (this.uploadScreenshot)
 			{
 				uploadScreenshot(screenshotFile);
 			}
-			else if (config.notifyWhenTaken())
+			else if (this.notifyWhenTaken)
 			{
 				notifier.notify("A screenshot was saved to " + screenshotFile, TrayIcon.MessageType.INFO);
 			}
@@ -804,7 +825,7 @@ public class ScreenshotPlugin extends Plugin
 						Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 						clipboard.setContents(selection, selection);
 
-						if (config.notifyWhenTaken())
+						if (notifyWhenTaken)
 						{
 							notifier.notify("A screenshot was uploaded and inserted into your clipboard!", TrayIcon.MessageType.INFO);
 						}
@@ -848,5 +869,36 @@ public class ScreenshotPlugin extends Plugin
 	int gettheatreOfBloodNumber()
 	{
 		return theatreOfBloodNumber;
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("screenshot"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+	
+	private void updateConfig()
+	{
+		this.includeFrame = config.includeFrame();
+		this.displayDate = config.displayDate();
+		this.notifyWhenTaken = config.notifyWhenTaken();
+		this.screenshotRewards = config.screenshotRewards();
+		this.screenshotLevels = config.screenshotLevels();
+		this.screenshotKingdom = config.screenshotKingdom();
+		this.screenshotPet = config.screenshotPet();
+		this.uploadScreenshot = config.uploadScreenshot();
+		this.screenshotKills = config.screenshotKills();
+		this.screenshotBossKills = config.screenshotBossKills();
+		this.screenshotFriendDeath = config.screenshotFriendDeath();
+		this.screenshotPlayerDeath = config.screenshotPlayerDeath();
+		this.screenshotDuels = config.screenshotDuels();
+		this.screenshotValuableDrop = config.screenshotValuableDrop();
+		this.screenshotUntradeableDrop = config.screenshotUntradeableDrop();
+		this.hotkey = config.hotkey();
 	}
 }
