@@ -192,7 +192,7 @@ public class SafeSpotPlugin extends Plugin
 	private void updateConfig()
 	{
 		this.playerSafeSpots = config.playerSafeSpots();
-		this.npcSafeSpots= config.npcSafeSpots();
+		this.npcSafeSpots = config.npcSafeSpots();
 		this.tileColor = config.tileColor();
 	}
 }
