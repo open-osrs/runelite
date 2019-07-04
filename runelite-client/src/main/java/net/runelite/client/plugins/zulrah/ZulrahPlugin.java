@@ -126,7 +126,7 @@ public class ZulrahPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (!config.enabled() || client.getGameState() != GameState.LOGGED_IN)
+		if (client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
 		}

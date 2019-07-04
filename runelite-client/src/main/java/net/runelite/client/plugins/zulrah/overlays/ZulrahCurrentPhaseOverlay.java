@@ -38,12 +38,10 @@ import net.runelite.client.plugins.zulrah.phase.ZulrahPhase;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.ui.overlay.components.PanelComponent;
 
 public class ZulrahCurrentPhaseOverlay extends Overlay
 {
 	private final ZulrahPlugin plugin;
-	private final PanelComponent imagePanelComponent = new PanelComponent();
 
 	@Inject
 	ZulrahCurrentPhaseOverlay(ZulrahPlugin plugin)

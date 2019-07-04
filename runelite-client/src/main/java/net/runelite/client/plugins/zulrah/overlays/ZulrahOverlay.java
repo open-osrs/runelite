@@ -121,10 +121,10 @@ public class ZulrahOverlay extends Overlay
 		}
 		if (nextPhase.isJad())
 		{
-			Image jadPrayerImg = ZulrahImageManager.getProtectionPrayerBufferedImage(nextPhase.getPrayer());
+			BufferedImage jadPrayerImg = ZulrahImageManager.getProtectionPrayerBufferedImage(nextPhase.getPrayer());
 			if (jadPrayerImg != null)
 			{
-				Point imageLoc = Perspective.getCanvasImageLocation(client, localTile, (BufferedImage) jadPrayerImg, 0);
+				Point imageLoc = Perspective.getCanvasImageLocation(client, localTile, jadPrayerImg, 0);
 				if (imageLoc != null)
 				{
 					graphics.drawImage(jadPrayerImg, imageLoc.getX(), imageLoc.getY(), null);
@@ -165,10 +165,10 @@ public class ZulrahOverlay extends Overlay
 
 		if (phase.isJad())
 		{
-			Image jadPrayerImg = ZulrahImageManager.getProtectionPrayerBufferedImage(phase.getPrayer());
+			BufferedImage jadPrayerImg = ZulrahImageManager.getProtectionPrayerBufferedImage(phase.getPrayer());
 			if (jadPrayerImg != null)
 			{
-				Point imageLoc = Perspective.getCanvasImageLocation(client, localTile, (BufferedImage) jadPrayerImg, 0);
+				Point imageLoc = Perspective.getCanvasImageLocation(client, localTile, jadPrayerImg, 0);
 				if (imageLoc != null)
 				{
 					graphics.drawImage(jadPrayerImg, imageLoc.getX(), imageLoc.getY(), null);
