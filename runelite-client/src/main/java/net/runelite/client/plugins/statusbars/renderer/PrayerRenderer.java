@@ -27,16 +27,15 @@
 
 package net.runelite.client.plugins.statusbars.renderer;
 
+import java.awt.Color;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 import net.runelite.client.game.SkillIconManager;
-import net.runelite.client.plugins.statusbars.StatusBarsConfig;
 import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
+import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 import net.runelite.client.util.ImageUtil;
-
-import javax.inject.Inject;
-import java.awt.Color;
 
 public class PrayerRenderer extends BarRenderer
 {
@@ -45,9 +44,9 @@ public class PrayerRenderer extends BarRenderer
 	private static final int SIZE = 17;
 
 	@Inject
-	public PrayerRenderer(StatusBarsConfig config, SkillIconManager iconManager)
+	public PrayerRenderer(StatusBarsPlugin plugin, SkillIconManager iconManager)
 	{
-		super(config);
+		super(plugin);
 		icon = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.PRAYER, true), SIZE, SIZE);
 		restoreColor = new Color(57, 255, 186, 75);
 	}

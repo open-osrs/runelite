@@ -53,17 +53,15 @@ public class StatusBarsOverlay extends Overlay
 
 	private final Client client;
 	private final StatusBarsPlugin plugin;
-	private final StatusBarsConfig config;
 	private final ItemStatChangesService itemStatService;
 
 	@Inject
-	private StatusBarsOverlay(Client client, StatusBarsPlugin plugin, StatusBarsConfig config, ItemStatChangesService itemstatservice)
+	private StatusBarsOverlay(Client client, StatusBarsPlugin plugin, ItemStatChangesService itemstatservice)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		this.itemStatService = itemstatservice;
 	}
 
@@ -117,8 +115,8 @@ public class StatusBarsOverlay extends Overlay
 			offsetRightBarY = (location.getY() - offsetRight.getY());
 		}
 
-		BarRenderer left = plugin.getBarRenderers().get(config.leftBarMode());
-		BarRenderer right = plugin.getBarRenderers().get(config.rightBarMode());
+		BarRenderer left = plugin.getBarRenderers().get(plugin.getLeftBarMode());
+		BarRenderer right = plugin.getBarRenderers().get(plugin.getRightBarMode());
 
 		if (left != null)
 		{
