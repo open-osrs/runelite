@@ -42,8 +42,7 @@ class PendingGorillaAttack
 	@Getter(AccessLevel.PACKAGE)
 	private int finishesOnTick;
 
-	PendingGorillaAttack(DemonicGorilla attacker, DemonicGorilla.AttackStyle attackStyle,
-						 Player target, int finishesOnTick)
+	PendingGorillaAttack(final DemonicGorilla attacker, final DemonicGorilla.AttackStyle attackStyle, final Player target, final int finishesOnTick)
 	{
 		this.attacker = attacker;
 		this.attackStyle = attackStyle;
