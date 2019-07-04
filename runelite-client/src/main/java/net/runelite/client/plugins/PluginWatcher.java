@@ -42,7 +42,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.RuneLite;
+import net.runelite.client.plugins.runeliteplus.RuneLitePlusPlugin;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.plugins.runeliteplus.RuneLitePlusConfig;
@@ -96,7 +96,7 @@ public class PluginWatcher extends Thread
 				WatchKey key = watchService.take();
 				Thread.sleep(50);
 
-				if (!runeliteConfig.enablePlugins())
+				if (!runeliteplusConfig.enablePlugins())
 				{
 					key.reset();
 					continue;
