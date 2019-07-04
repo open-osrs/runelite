@@ -45,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.plugins.RuneLitePlusConfig;
+import net.runelite.client.plugins.runeliteplus.RuneLitePlusConfig;
 
 @Singleton
 @Slf4j
