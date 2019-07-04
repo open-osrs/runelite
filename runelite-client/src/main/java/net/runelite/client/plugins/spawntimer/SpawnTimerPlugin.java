@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.GameState;
@@ -32,7 +33,7 @@ import net.runelite.client.util.Text;
 	type = PluginType.PVM,
 	enabledByDefault = false
 )
-
+@Singleton
 public class SpawnTimerPlugin extends Plugin
 {
 	@Inject

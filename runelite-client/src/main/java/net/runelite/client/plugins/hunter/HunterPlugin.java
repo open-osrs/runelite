@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show the state of your traps",
 	tags = {"overlay", "skilling", "timers"}
 )
+@Singleton
 public class HunterPlugin extends Plugin
 {
 	@Inject

@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -47,6 +48,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show Smelting stats",
 	tags = {"overlay", "skilling"}
 )
+@Singleton
 @PluginDependency(XpTrackerPlugin.class)
 public class SmeltingPlugin extends Plugin
 {

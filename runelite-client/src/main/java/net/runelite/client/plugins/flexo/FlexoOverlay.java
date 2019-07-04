@@ -35,17 +35,19 @@ import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 public class FlexoOverlay extends Overlay
 {
 	@Inject
 	private FlexoPlugin plugin;
 
 	@Inject
-	public FlexoOverlay(FlexoPlugin plugin)
+	public FlexoOverlay(final FlexoPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);

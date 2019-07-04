@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show timers for the farming patches within the Tithe Farm minigame",
 	tags = {"farming", "minigame", "overlay", "skilling", "timers"}
 )
+@Singleton
 public class TitheFarmPlugin extends Plugin
 {
 	@Inject

@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ClanMember;
@@ -68,6 +69,7 @@ import net.runelite.client.util.PvPUtil;
 	description = "Highlight players on-screen and/or on the minimap",
 	tags = {"highlight", "minimap", "overlay", "players", "pklite"}
 )
+@Singleton
 public class PlayerIndicatorsPlugin extends Plugin
 {
 	@Inject

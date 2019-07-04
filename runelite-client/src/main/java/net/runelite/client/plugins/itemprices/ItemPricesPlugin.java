@@ -26,6 +26,7 @@ package net.runelite.client.plugins.itemprices;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"bank", "inventory", "overlay", "high", "alchemy", "grand", "exchange", "tooltips"},
 	enabledByDefault = false
 )
+@Singleton
 public class ItemPricesPlugin extends Plugin
 {
 	@Inject

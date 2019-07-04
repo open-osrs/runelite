@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -43,6 +44,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class CannonSpotOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2350;
@@ -57,7 +59,7 @@ public class CannonSpotOverlay extends Overlay
 	private boolean hidden;
 
 	@Inject
-	CannonSpotOverlay(Client client, CannonPlugin plugin)
+	CannonSpotOverlay(final Client client, final CannonPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;

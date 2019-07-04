@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.Skill;
@@ -39,6 +40,7 @@ import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ColorUtil;
 
+@Singleton
 class CombatLevelOverlay extends Overlay
 {
 	private static final Color COMBAT_LEVEL_COLOUR = new Color(0xff981f);
@@ -48,7 +50,7 @@ class CombatLevelOverlay extends Overlay
 	private final TooltipManager tooltipManager;
 
 	@Inject
-	private CombatLevelOverlay(Client client, CombatLevelPlugin plugin, TooltipManager tooltipManager)
+	private CombatLevelOverlay(final Client client, final CombatLevelPlugin plugin, final TooltipManager tooltipManager)
 	{
 		this.client = client;
 		this.plugin = plugin;

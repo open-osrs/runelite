@@ -37,6 +37,7 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -90,6 +91,7 @@ import net.runelite.http.api.osbuddy.OSBGrandExchangeResult;
 	tags = {"external", "integration", "notifications", "panel", "prices", "trade"}
 )
 @Slf4j
+@Singleton
 public class GrandExchangePlugin extends Plugin
 {
 	private static final int OFFER_CONTAINER_ITEM = 21;

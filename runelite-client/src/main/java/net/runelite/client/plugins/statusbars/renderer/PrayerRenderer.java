@@ -29,6 +29,7 @@ package net.runelite.client.plugins.statusbars.renderer;
 
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
@@ -37,6 +38,7 @@ import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 import net.runelite.client.util.ImageUtil;
 
+@Singleton
 public class PrayerRenderer extends BarRenderer
 {
 	private static final Color COLOR_STANDARD = new Color(50, 200, 200, 175);
@@ -44,7 +46,7 @@ public class PrayerRenderer extends BarRenderer
 	private static final int SIZE = 17;
 
 	@Inject
-	public PrayerRenderer(StatusBarsPlugin plugin, SkillIconManager iconManager)
+	public PrayerRenderer(final StatusBarsPlugin plugin, final SkillIconManager iconManager)
 	{
 		super(plugin);
 		icon = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.PRAYER, true), SIZE, SIZE);

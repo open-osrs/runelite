@@ -50,7 +50,6 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
 @Singleton
 public class PlayerInfoPlugin extends Plugin
 {

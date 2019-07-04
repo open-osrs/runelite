@@ -41,8 +41,8 @@ public class NyloHandler extends RoomHandler
 	private Map<NPC, Integer> pillars = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
 	private Map<NPC, Integer> spiders = new HashMap<>();
-	@Getter
-	@Setter
+	@Getter(AccessLevel.PACKAGE)
+	@Setter(AccessLevel.PACKAGE)
 	private int wave = 0;
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
@@ -50,7 +50,7 @@ public class NyloHandler extends RoomHandler
 	private Point west = new Point(49, 56);
 	private Point east = new Point(78, 56);
 
-	public NyloHandler(Client client, TheatrePlugin plugin)
+	public NyloHandler(final Client client, final TheatrePlugin plugin)
 	{
 		super(client, plugin);
 	}

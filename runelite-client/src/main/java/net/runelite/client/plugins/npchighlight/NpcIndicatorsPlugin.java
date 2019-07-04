@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -79,6 +80,7 @@ import net.runelite.client.util.WildcardMatcher;
 	tags = {"highlight", "minimap", "npcs", "overlay", "respawn", "tags"}
 )
 @Slf4j
+@Singleton
 public class NpcIndicatorsPlugin extends Plugin
 {
 	private static final int MAX_ACTOR_VIEW_RANGE = 15;

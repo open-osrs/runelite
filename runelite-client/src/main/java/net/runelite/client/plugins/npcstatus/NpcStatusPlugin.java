@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +60,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"flinch", "npc"},
 	enabledByDefault = false
 )
+@Singleton
 public class NpcStatusPlugin extends Plugin
 {
 	@Getter(AccessLevel.PACKAGE)

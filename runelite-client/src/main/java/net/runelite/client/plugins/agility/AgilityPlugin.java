@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -84,14 +85,15 @@ import net.runelite.client.util.ColorUtil;
 	tags = {"grace", "marks", "overlay", "shortcuts", "skilling", "traps"}
 )
 @Slf4j
+@Singleton
 public class AgilityPlugin extends Plugin
 {
 	private static final int AGILITY_ARENA_REGION_ID = 11157;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final Map<TileObject, Obstacle> obstacles = new HashMap<>();
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final List<Tile> marksOfGrace = new ArrayList<>();
 
 	@Inject
@@ -118,13 +120,13 @@ public class AgilityPlugin extends Plugin
 	@Inject
 	private ItemManager itemManager;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private AgilitySession session;
 
 	private int lastAgilityXp;
 	private WorldPoint lastArenaTicketPosition;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private int agilityLevel;
 
 	@Provides

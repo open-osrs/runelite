@@ -32,6 +32,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.Prayer;
@@ -44,6 +45,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
 
+@Singleton
 public class FightCaveOverlay extends Overlay
 {
 	private FightCavePlugin plugin;
@@ -51,7 +53,7 @@ public class FightCaveOverlay extends Overlay
 	private SpriteManager spriteManager;
 
 	@Inject
-	FightCaveOverlay(Client client, FightCavePlugin plugin, SpriteManager spriteManager)
+	FightCaveOverlay(final Client client, final FightCavePlugin plugin, final SpriteManager spriteManager)
 	{
 		this.client = client;
 		this.plugin = plugin;

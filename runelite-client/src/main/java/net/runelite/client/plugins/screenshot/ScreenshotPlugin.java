@@ -56,6 +56,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 
 import lombok.AccessLevel;
@@ -121,6 +122,7 @@ import org.jetbrains.annotations.Nullable;
 		tags = {"external", "images", "imgur", "integration", "notifications"}
 )
 @Slf4j
+@Singleton
 public class ScreenshotPlugin extends Plugin
 {
 	private static final String IMGUR_CLIENT_ID = "30d71e5f6860809";
@@ -139,7 +141,7 @@ public class ScreenshotPlugin extends Plugin
 			"You feel something weird sneaking into your backpack",
 			"You have a funny feeling like you would have been followed");
 
-	static String format(Date date)
+	private static String format(Date date)
 	{
 		synchronized (TIME_FORMAT)
 		{
@@ -196,7 +198,7 @@ public class ScreenshotPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private BufferedImage reportButton;
 
-	private Map<Player, Integer> dying = new HashMap<Player, Integer>();
+	private Map<Player, Integer> dying = new HashMap<>();
 
 	private NavigationButton titleBarButton;
 
@@ -795,44 +797,51 @@ public class ScreenshotPlugin extends Plugin
 	{
 		String json = RuneLiteAPI.GSON.toJson(new ImageUploadRequest(screenshotFile));
 
-		Request request = new Request.Builder()
-				.url(IMGUR_IMAGE_UPLOAD_URL)
-				.addHeader("Authorization", "Client-ID " + IMGUR_CLIENT_ID)
-				.post(RequestBody.create(JSON, json))
-				.build();
-
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		Request request = null;
+		if (IMGUR_IMAGE_UPLOAD_URL != null)
 		{
-			@Override
-			public void onFailure(Call call, IOException ex)
-			{
-				log.warn("error uploading screenshot", ex);
-			}
+			request = new Request.Builder()
+					.url(IMGUR_IMAGE_UPLOAD_URL)
+					.addHeader("Authorization", "Client-ID " + IMGUR_CLIENT_ID)
+					.post(RequestBody.create(JSON, json))
+					.build();
+		}
 
-			@Override
-			public void onResponse(Call call, Response response) throws IOException
+		if (request != null)
+		{
+			RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
 			{
-				try (InputStream in = response.body().byteStream())
+				@Override
+				public void onFailure(Call call, IOException ex)
 				{
-					ImageUploadResponse imageUploadResponse = RuneLiteAPI.GSON
-							.fromJson(new InputStreamReader(in), ImageUploadResponse.class);
+					log.warn("error uploading screenshot", ex);
+				}
 
-					if (imageUploadResponse.isSuccess())
+				@Override
+				public void onResponse(Call call, Response response) throws IOException
+				{
+					try (InputStream in = response.body().byteStream())
 					{
-						String link = imageUploadResponse.getData().getLink();
+						ImageUploadResponse imageUploadResponse = RuneLiteAPI.GSON
+								.fromJson(new InputStreamReader(in), ImageUploadResponse.class);
 
-						StringSelection selection = new StringSelection(link);
-						Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-						clipboard.setContents(selection, selection);
-
-						if (notifyWhenTaken)
+						if (imageUploadResponse.isSuccess())
 						{
-							notifier.notify("A screenshot was uploaded and inserted into your clipboard!", TrayIcon.MessageType.INFO);
+							String link = imageUploadResponse.getData().getLink();
+
+							StringSelection selection = new StringSelection(link);
+							Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+							clipboard.setContents(selection, selection);
+
+							if (notifyWhenTaken)
+							{
+								notifier.notify("A screenshot was uploaded and inserted into your clipboard!", TrayIcon.MessageType.INFO);
+							}
 						}
 					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	@VisibleForTesting

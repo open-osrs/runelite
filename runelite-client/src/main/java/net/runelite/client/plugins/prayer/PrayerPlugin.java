@@ -29,6 +29,7 @@ import com.google.inject.Provides;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -53,6 +54,7 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 	description = "Show various information related to prayer",
 	tags = {"combat", "flicking", "overlay"}
 )
+@Singleton
 public class PrayerPlugin extends Plugin
 {
 	private final PrayerCounter[] prayerCounter = new PrayerCounter[PrayerType.values().length];

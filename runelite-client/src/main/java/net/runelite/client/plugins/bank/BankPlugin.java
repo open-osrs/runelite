@@ -28,6 +28,7 @@ package net.runelite.client.plugins.bank;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -49,6 +50,7 @@ import net.runelite.client.util.StackFormatter;
 	description = "Modifications to the banking interface",
 	tags = {"grand", "exchange", "high", "alchemy", "prices", "deposit"}
 )
+@Singleton
 public class BankPlugin extends Plugin
 {
 	private static final String DEPOSIT_WORN = "Deposit worn items";

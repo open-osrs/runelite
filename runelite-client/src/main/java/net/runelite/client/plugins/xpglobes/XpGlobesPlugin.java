@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -55,6 +56,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"experience", "levels", "overlay"},
 	enabledByDefault = false
 )
+@Singleton
 @PluginDependency(XpTrackerPlugin.class)
 public class XpGlobesPlugin extends Plugin
 {

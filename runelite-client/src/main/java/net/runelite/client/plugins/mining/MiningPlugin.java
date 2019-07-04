@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +73,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"overlay", "skilling", "timers", "coal", "coalbag", "coal bag"},
 	enabledByDefault = false
 )
+@Singleton
 public class MiningPlugin extends Plugin
 {
 	private static final int ROCK_DISTANCE = 14;

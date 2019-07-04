@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
@@ -123,7 +124,7 @@ class RunedokuUtil
 	 * @param rect
 	 * @return
 	 */
-	public static Polygon rectangleToPolygon(Rectangle rect)
+	static Polygon rectangleToPolygon(Rectangle rect)
 	{
 		int[] xpoints = {rect.x, rect.x + rect.width, rect.x + rect.width, rect.x};
 		int[] ypoints = {rect.y, rect.y, rect.y + rect.height, rect.y + rect.height};
@@ -164,7 +165,7 @@ class RunedokuUtil
 				{
 					if (item.getId() != -1)
 					{
-						myArr[i][ii] = RunedokuPiece.getById(item.getId()).getPieceForSudoku();
+						myArr[i][ii] = Objects.requireNonNull(RunedokuPiece.getById(item.getId())).getPieceForSudoku();
 					}
 					else
 					{

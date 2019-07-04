@@ -27,6 +27,7 @@ package net.runelite.client.plugins.metronome;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.SoundEffectVolume;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -50,6 +51,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 	tags = {"skilling", "tick", "timers"},
 	enabledByDefault = false
 )
+@Singleton
 public class MetronomePlugin extends Plugin
 {
 	@Inject

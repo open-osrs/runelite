@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -40,6 +41,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
+@Singleton
 public class TitheFarmPlantOverlay extends Overlay
 {
 	private final Client client;
@@ -48,7 +50,7 @@ public class TitheFarmPlantOverlay extends Overlay
 	private final Map<TitheFarmPlantState, Color> fills = new HashMap<>();
 
 	@Inject
-	TitheFarmPlantOverlay(Client client, TitheFarmPlugin plugin)
+	TitheFarmPlantOverlay(final Client client, final TitheFarmPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

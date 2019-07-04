@@ -27,18 +27,20 @@ package net.runelite.client.plugins.mining;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ItemID;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
+@Singleton
 public class MiningCoalBagOverlay extends WidgetItemOverlay
 {
 	private final MiningPlugin plugin;
 
 	@Inject
-	MiningCoalBagOverlay(MiningPlugin plugin)
+	MiningCoalBagOverlay(final MiningPlugin plugin)
 	{
 		showOnInventory();
 		this.plugin = plugin;

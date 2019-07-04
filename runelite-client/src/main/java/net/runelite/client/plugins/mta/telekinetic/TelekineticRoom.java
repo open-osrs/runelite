@@ -88,7 +88,7 @@ public class TelekineticRoom extends MTARoom
 	private boolean telekinetic;
 
 	@Inject
-	private TelekineticRoom(MTAConfig config, Client client)
+	private TelekineticRoom(final MTAConfig config, final Client client)
 	{
 		super(config);
 		this.client = client;

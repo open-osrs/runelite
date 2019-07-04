@@ -31,6 +31,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldArea;
@@ -41,13 +42,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class TimersOverlay extends Overlay
 {
 	private TickTimersPlugin plugin;
 	private Client client;
 
 	@Inject
-	TimersOverlay(TickTimersPlugin plugin, Client client)
+	TimersOverlay(final TickTimersPlugin plugin, final Client client)
 	{
 		this.plugin = plugin;
 		this.client = client;

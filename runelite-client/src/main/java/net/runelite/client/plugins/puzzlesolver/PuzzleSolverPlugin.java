@@ -29,6 +29,7 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.Arrays;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -68,6 +69,7 @@ import net.runelite.client.util.Text;
 	tags = {"clues", "scrolls", "overlay"}
 )
 @Slf4j
+@Singleton
 public class PuzzleSolverPlugin extends Plugin
 {
 	private static final Color CORRECT_MUSEUM_PUZZLE_ANSWER_COLOR = new Color(0, 248, 128);

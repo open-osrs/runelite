@@ -81,19 +81,19 @@ public class CannonPlugin extends Plugin
 	private CannonCounter counter;
 	private boolean skipProjectileCheckThisTick;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private int cballsLeft;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean cannonPlaced;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private WorldPoint cannonPosition;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private GameObject cannon;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private List<WorldPoint> spotPoints = new ArrayList<>();
 
 	@Inject

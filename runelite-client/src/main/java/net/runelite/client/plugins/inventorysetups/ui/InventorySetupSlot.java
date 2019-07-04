@@ -27,11 +27,13 @@ package net.runelite.client.plugins.inventorysetups.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.inject.Singleton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import net.runelite.client.game.AsyncBufferedImage;
 
+@Singleton
 class InventorySetupSlot extends JPanel
 {
 	private final JLabel imageLabel;

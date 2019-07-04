@@ -125,7 +125,7 @@ public class Game
 
 	private void lowerPortalShield(Portal portal)
 	{
-		if (!portal.isShielded())
+		if (portal.isNotShielded())
 		{
 			return;
 		}

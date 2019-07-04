@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -39,13 +40,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class TileIndicatorsOverlay extends Overlay
 {
 	private final Client client;
 	private final TileIndicatorsPlugin plugin;
 
 	@Inject
-	private TileIndicatorsOverlay(Client client, TileIndicatorsPlugin plugin)
+	private TileIndicatorsOverlay(final Client client, final TileIndicatorsPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

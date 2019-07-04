@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -69,6 +70,7 @@ import static net.runelite.api.ItemID.RING_OF_RECOIL;
 	description = "Show number of item charges remaining",
 	tags = {"inventory", "notifications", "overlay"}
 )
+@Singleton
 public class ItemChargePlugin extends Plugin
 {
 	private static final Pattern DODGY_CHECK_PATTERN = Pattern.compile(
@@ -125,8 +127,6 @@ public class ItemChargePlugin extends Plugin
 	private static final int MAX_EXPEDITIOUS_CHARGES = 30;
 	private static final int MAX_BINDING_CHARGES = 16;
 	private static final int MAX_EXPLORER_RING_CHARGES = 30;
-
-	private int lastExplorerRingCharge = -1;
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean ringOfRecoilAvailable = false;
@@ -596,6 +596,7 @@ public class ItemChargePlugin extends Plugin
 	private void onVarbitChanged(VarbitChanged event)
 	{
 		int explorerRingCharge = client.getVar(Varbits.EXPLORER_RING_ALCHS);
+		int lastExplorerRingCharge = -1;
 		if (lastExplorerRingCharge != explorerRingCharge)
 		{
 			updateExplorerRingCharges(explorerRingCharge);

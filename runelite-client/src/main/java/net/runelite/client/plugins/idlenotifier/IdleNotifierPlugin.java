@@ -36,6 +36,7 @@ import java.util.List;
 import javax.inject.Inject;
 //import javax.sound.sampled.LineUnavailableException;
 //import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.inject.Singleton;
 import net.runelite.api.events.ConfigChanged;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,6 +153,7 @@ import net.runelite.client.util.PvPUtil;
 	description = "Send a notification when going idle, or when HP/Prayer reaches a threshold",
 	tags = {"health", "hitpoints", "notifications", "prayer", "pvp", "pker"}
 )
+@Singleton
 public class IdleNotifierPlugin extends Plugin
 {
 	private static final Logger logger = LoggerFactory.getLogger(IdleNotifierPlugin.class);

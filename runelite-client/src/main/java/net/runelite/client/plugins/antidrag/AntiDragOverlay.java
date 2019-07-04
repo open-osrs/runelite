@@ -42,11 +42,11 @@ public class AntiDragOverlay extends Overlay
 {
 	private static final int RADIUS = 20;
 
-	private Client client;
-	private AntiDragPlugin plugin;
+	private final Client client;
+	private final AntiDragPlugin plugin;
 
 	@Inject
-	private AntiDragOverlay(Client client, AntiDragPlugin plugin)
+	private AntiDragOverlay(final Client client, final AntiDragPlugin plugin)
 	{
 		this.plugin = plugin;
 		this.client = client;

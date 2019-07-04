@@ -32,6 +32,7 @@ import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.ItemID;
@@ -49,6 +50,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
+@Singleton
 public class BlastMineRockOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 16;
@@ -68,7 +70,7 @@ public class BlastMineRockOverlay extends Overlay
 	private final BufferedImage tinderboxIcon;
 
 	@Inject
-	private BlastMineRockOverlay(Client client, BlastMinePlugin plugin, ItemManager itemManager)
+	private BlastMineRockOverlay(final Client client, final BlastMinePlugin plugin, final ItemManager itemManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

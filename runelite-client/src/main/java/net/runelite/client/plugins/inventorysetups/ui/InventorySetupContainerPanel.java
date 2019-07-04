@@ -28,6 +28,7 @@ package net.runelite.client.plugins.inventorysetups.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.inject.Singleton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.runelite.client.game.AsyncBufferedImage;
@@ -37,6 +38,7 @@ import net.runelite.client.plugins.inventorysetups.InventorySetupItem;
 import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
 import net.runelite.client.ui.ColorScheme;
 
+@Singleton
 public abstract class InventorySetupContainerPanel extends JPanel
 {
 	protected ItemManager itemManager;

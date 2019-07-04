@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.npcunaggroarea;
 
 import java.awt.Color;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import net.runelite.api.geometry.Geometry;
 import com.google.common.base.Splitter;
@@ -71,6 +72,7 @@ import net.runelite.client.util.WildcardMatcher;
 	tags = {"highlight", "lines", "unaggro", "aggro", "aggressive", "npcs", "area", "slayer"},
 	enabledByDefault = false
 )
+@Singleton
 public class NpcAggroAreaPlugin extends Plugin
 {
 	/*

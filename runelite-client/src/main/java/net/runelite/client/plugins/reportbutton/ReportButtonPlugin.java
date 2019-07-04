@@ -36,6 +36,7 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
@@ -54,6 +55,7 @@ import net.runelite.client.task.Schedule;
 	description = "Replace the text on the Report button with the current time",
 	tags = {"time", "utc"}
 )
+@Singleton
 public class ReportButtonPlugin extends Plugin
 {
 	private static final ZoneId UTC = ZoneId.of("UTC");

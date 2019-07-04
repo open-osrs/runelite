@@ -12,7 +12,9 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -41,7 +43,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Singleton
 public class SafeSpotPlugin extends Plugin
 {
 	@Inject
@@ -159,11 +161,19 @@ public class SafeSpotPlugin extends Plugin
 			LocalPoint toPoint = LocalPoint.fromWorld(client, w);
 			Tile fromTile = tiles[client.getPlane()][actor.getLocalLocation().getSceneX()]
 				[actor.getLocalLocation().getSceneY()];
-			Tile toTile = tiles[client.getPlane()][toPoint.getSceneX()]
-				[toPoint.getSceneY()];
+			Tile toTile = null;
+			if (toPoint != null)
+			{
+				toTile = tiles[client.getPlane()][toPoint.getSceneX()]
+					[toPoint.getSceneY()];
+			}
 			final int plane = client.getLocalPlayer().getWorldArea().getPlane();
-			int bit = client.getCollisionMaps()[plane].getFlags()[toPoint.getSceneX()][toPoint.getSceneY()];
-			if (toTile.hasLineOfSightTo(fromTile) && !fromTile.hasLineOfSightTo(toTile))
+			int bit = 0;
+			if (toPoint != null)
+			{
+				bit = Objects.requireNonNull(client.getCollisionMaps())[plane].getFlags()[toPoint.getSceneX()][toPoint.getSceneY()];
+			}
+			if (toTile != null && toTile.hasLineOfSightTo(fromTile) && !fromTile.hasLineOfSightTo(toTile))
 			{
 				if (!((bit & CollisionDataFlag.BLOCK_MOVEMENT_OBJECT) == CollisionDataFlag.BLOCK_MOVEMENT_OBJECT ||
 					(bit & CollisionDataFlag.BLOCK_MOVEMENT_FLOOR_DECORATION)

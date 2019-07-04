@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.itemidentification;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -38,12 +39,13 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
+@Singleton
 class ItemIdentificationOverlay extends WidgetItemOverlay
 {
 	private final ItemIdentificationPlugin plugin;
 
 	@Inject
-	ItemIdentificationOverlay(ItemIdentificationPlugin plugin)
+	ItemIdentificationOverlay(final ItemIdentificationPlugin plugin)
 	{
 		this.plugin = plugin;
 		showOnInventory();

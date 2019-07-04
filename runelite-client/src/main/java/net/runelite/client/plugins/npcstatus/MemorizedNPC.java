@@ -55,7 +55,7 @@ class MemorizedNPC
 	@Setter(AccessLevel.PACKAGE)
 	private int lastspotanimation;
 
-	MemorizedNPC(NPC npc, int attackSpeed, WorldArea worldArea)
+	MemorizedNPC(final NPC npc, final int attackSpeed, final WorldArea worldArea)
 	{
 		this.npc = npc;
 		this.npcIndex = npc.getIndex();

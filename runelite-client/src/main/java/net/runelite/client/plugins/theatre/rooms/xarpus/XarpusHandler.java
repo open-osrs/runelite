@@ -8,6 +8,7 @@ import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -35,19 +36,19 @@ public class XarpusHandler extends RoomHandler
 	private boolean staring;
 	private int ticksUntilShoot = 8;
 
-	@Getter
+	@Getter(AccessLevel.PUBLIC)
 	private NPC npc;
 
 	private long startTime = 0;
 	private boolean up = false;
 
-	@Getter
+	@Getter(AccessLevel.PUBLIC)
 	private int exhumesCount;
 	private boolean xarpusFlag;
 
 	private XarpusCounter overlay = null;
 
-	public XarpusHandler(Client client, TheatrePlugin plugin)
+	public XarpusHandler(final Client client, final TheatrePlugin plugin)
 	{
 		super(client, plugin);
 	}

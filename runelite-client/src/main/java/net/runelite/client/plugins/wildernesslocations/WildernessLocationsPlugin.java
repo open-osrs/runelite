@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +50,7 @@ import net.runelite.client.util.WildernessLocation;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 public class WildernessLocationsPlugin extends Plugin
 {
 

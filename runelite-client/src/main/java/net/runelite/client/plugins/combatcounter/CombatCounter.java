@@ -26,6 +26,7 @@ package net.runelite.client.plugins.combatcounter;
 
 import com.google.inject.Provides;
 import java.awt.Color;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -62,7 +63,7 @@ import java.util.Map;
 		type = PluginType.UTILITY,
 		enabledByDefault = false
 )
-
+@Singleton
 public class CombatCounter extends Plugin 
 {
 
@@ -82,8 +83,8 @@ public class CombatCounter extends Plugin
 	private CombatCounterConfig config;
 
 	private boolean instanced = false;
-	@Setter
-	@Getter
+	@Setter(AccessLevel.PACKAGE)
+	@Getter(AccessLevel.PACKAGE)
 	private Map<String, Long> counter = new HashMap<>();
 
 	private Map<String, Long> blowpipe = new HashMap<>();

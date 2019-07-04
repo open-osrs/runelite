@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -51,7 +52,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.PVM,
 	enabledByDefault = false
 )
-
+@Singleton
 public class BabyHydraPlugin extends Plugin
 {
 	@Inject

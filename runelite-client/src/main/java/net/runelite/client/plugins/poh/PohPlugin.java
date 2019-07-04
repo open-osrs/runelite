@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -71,6 +72,7 @@ import net.runelite.http.api.hiscore.Skill;
 	tags = {"construction", "poh", "minimap", "overlay"}
 )
 @Slf4j
+@Singleton
 public class PohPlugin extends Plugin
 {
 	static final Set<Integer> BURNER_UNLIT = Sets.newHashSet(ObjectID.INCENSE_BURNER, ObjectID.INCENSE_BURNER_13210, ObjectID.INCENSE_BURNER_13212);

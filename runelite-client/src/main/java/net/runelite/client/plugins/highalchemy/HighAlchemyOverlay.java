@@ -33,6 +33,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
 import net.runelite.api.widgets.Widget;
@@ -41,6 +42,7 @@ import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
+@Singleton
 public class HighAlchemyOverlay extends WidgetItemOverlay
 {
 	private final ItemManager itemManager;
@@ -49,7 +51,7 @@ public class HighAlchemyOverlay extends WidgetItemOverlay
 	private final int alchPriceNoStaff;
 
 	@Inject
-	public HighAlchemyOverlay(ItemManager itemManager, HighAlchemyPlugin plugin)
+	public HighAlchemyOverlay(final ItemManager itemManager, final HighAlchemyPlugin plugin)
 	{
 		this.itemManager = itemManager;
 		this.plugin = plugin;

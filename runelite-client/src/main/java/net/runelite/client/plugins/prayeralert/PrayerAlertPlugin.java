@@ -18,6 +18,7 @@ package net.runelite.client.plugins.prayeralert;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -35,7 +36,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Singleton
 public class PrayerAlertPlugin extends Plugin
 {
 	@Inject

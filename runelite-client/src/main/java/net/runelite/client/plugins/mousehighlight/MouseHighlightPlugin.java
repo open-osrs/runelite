@@ -26,6 +26,7 @@ package net.runelite.client.plugins.mousehighlight;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -48,6 +49,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Render default actions as a tooltip",
 	tags = {"actions", "overlay", "tooltip", "hide"}
 )
+@Singleton
 public class MouseHighlightPlugin extends Plugin
 {
 	@Inject

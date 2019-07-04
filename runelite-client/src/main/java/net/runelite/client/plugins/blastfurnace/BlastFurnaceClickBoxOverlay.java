@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.GameObject;
@@ -42,6 +43,7 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 class BlastFurnaceClickBoxOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2350;
@@ -50,7 +52,7 @@ class BlastFurnaceClickBoxOverlay extends Overlay
 	private final BlastFurnacePlugin plugin;
 
 	@Inject
-	private BlastFurnaceClickBoxOverlay(Client client, BlastFurnacePlugin plugin)
+	private BlastFurnaceClickBoxOverlay(final Client client, final BlastFurnacePlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;

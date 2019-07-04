@@ -30,6 +30,7 @@ import java.awt.Color;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,7 @@ import net.runelite.client.util.ColorUtil;
 	tags = {"minigame", "firemaking", "boss"}
 )
 @Slf4j
+@Singleton
 public class WintertodtPlugin extends Plugin
 {
 	private static final int WINTERTODT_REGION = 6462;

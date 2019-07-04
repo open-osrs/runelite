@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -51,9 +52,10 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show helpful information for the Blast Mine minigame",
 	tags = {"explode", "explosive", "mining", "minigame", "skilling"}
 )
+@Singleton
 public class BlastMinePlugin extends Plugin
 {
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final Map<WorldPoint, BlastMineRock> rocks = new HashMap<>();
 
 	@Inject

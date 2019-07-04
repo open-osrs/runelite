@@ -26,6 +26,7 @@ import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -75,7 +76,7 @@ import org.apache.commons.lang3.StringUtils;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 public class PvpToolsPlugin extends Plugin
 {
 	@Inject
@@ -113,7 +114,7 @@ public class PvpToolsPlugin extends Plugin
 	private static final String CANCEL = "CANCEL";
 	private static final String CAST = "CAST";
 	private static final String ATTACK_OPTIONS_ATTACK = "ATTACK";
-	public static final HashSet<String> ATTACK_OPTIONS_KEYWORDS = new HashSet<>();
+	private static final HashSet<String> ATTACK_OPTIONS_KEYWORDS = new HashSet<>();
 		static
 		{
 			ATTACK_OPTIONS_KEYWORDS.add(CAST);

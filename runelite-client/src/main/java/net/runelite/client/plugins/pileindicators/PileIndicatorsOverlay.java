@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -36,6 +37,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class PileIndicatorsOverlay extends Overlay
 {
 	private final PileIndicatorsPlugin plugin;
@@ -50,7 +52,6 @@ public class PileIndicatorsOverlay extends Overlay
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 	}
-
 
 	@Override
 	public Dimension render(Graphics2D graphics)

@@ -28,6 +28,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -37,6 +38,7 @@ import net.runelite.api.GameState;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
 
+@Singleton
 class RaidsPanel extends PluginPanel
 {
 	@Inject

@@ -43,6 +43,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -103,7 +104,7 @@ import org.apache.commons.lang3.StringUtils;
 	type = PluginType.PVM,
 	enabledByDefault = false
 )
-
+@Singleton
 @Slf4j
 public class RaidsPlugin extends Plugin
 {

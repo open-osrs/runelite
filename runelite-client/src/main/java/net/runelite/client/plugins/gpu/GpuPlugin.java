@@ -48,6 +48,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.function.Function;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import jogamp.nativewindow.SurfaceScaleUtils;
 import jogamp.nativewindow.jawt.x11.X11JAWTWindow;
 import jogamp.newt.awt.NewtFactoryAWT;
@@ -89,6 +90,7 @@ import net.runelite.client.util.OSType;
 	tags = {"fog", "draw distance"}
 )
 @Slf4j
+@Singleton
 public class GpuPlugin extends Plugin implements DrawCallbacks
 {
 	// This is the maximum number of triangles the compute shaders support
@@ -843,7 +845,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			{
 				shutdownSceneFbo();
 
-				final int maxSamples = glGetInteger(gl, gl.GL_MAX_SAMPLES);
+				final int maxSamples = glGetInteger(gl);
 				final int samples = Math.min(antiAliasingMode.getSamples(), maxSamples);
 
 				initSceneFbo(stretchedCanvasWidth, stretchedCanvasHeight, samples);
@@ -1008,7 +1010,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 
 			// Setup anisotropic filtering
 			final AnisotropicFilteringMode anisotropicFilteringMode = this.anisotropicFilteringMode;
-			final boolean afEnabled = anisotropicFilteringMode != anisotropicFilteringMode.DISABLED;
+			final boolean afEnabled = anisotropicFilteringMode != AnisotropicFilteringMode.DISABLED;
 
 			if (lastAnisotropicFilteringMode != anisotropicFilteringMode)
 			{
@@ -1023,7 +1025,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 							gl.glTexParameteri(gl.GL_TEXTURE_2D_ARRAY, gl.GL_TEXTURE_MIN_FILTER, gl.GL_LINEAR_MIPMAP_LINEAR);
 							break;
 						default:
-							final float maxSamples = glGetFloat(gl, gl.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+							final float maxSamples = glGetFloat(gl);
 							final float samples = Math.min(anisotropicFilteringMode.getSamples(), maxSamples);
 							gl.glTexParameteri(gl.GL_TEXTURE_2D_ARRAY, gl.GL_TEXTURE_MIN_FILTER, gl.GL_LINEAR_MIPMAP_LINEAR);
 							gl.glTexParameterf(gl.GL_TEXTURE_2D_ARRAY, gl.GL_TEXTURE_MAX_ANISOTROPY_EXT, samples);
@@ -1333,7 +1335,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	/**
 	 * Check is a model is visible and should be drawn.
 	 */
-	private boolean isVisible(Model model, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int _x, int _y, int _z, long hash)
+	private boolean isNotVisible(Model model, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int _x, int _y, int _z, long hash)
 	{
 		final int XYZMag = model.getXYZMag();
 		final int zoom = client.get3dZoom();
@@ -1364,12 +1366,12 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 					{
 						int var21 = (pitchCos * modelHeight >> 16) + var19;
 						int var22 = (var18 - var21) * zoom;
-						return var22 / var14 < Rasterizer3D_clipMidY2;
+						return var22 / var14 >= Rasterizer3D_clipMidY2;
 					}
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	/**
@@ -1397,7 +1399,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			model.calculateBoundsCylinder();
 			model.calculateExtreme(orientation);
 
-			if (!isVisible(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash))
+			if (isNotVisible(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash))
 			{
 				return;
 			}
@@ -1461,7 +1463,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 				model.calculateBoundsCylinder();
 				model.calculateExtreme(orientation);
 
-				if (!isVisible(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash))
+				if (isNotVisible(model, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash))
 				{
 					return;
 				}

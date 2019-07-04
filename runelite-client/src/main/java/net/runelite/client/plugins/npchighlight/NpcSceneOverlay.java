@@ -35,6 +35,7 @@ import java.text.NumberFormat;
 import java.time.Instant;
 import java.util.Locale;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.NPC;
@@ -50,6 +51,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.Text;
 
+@Singleton
 public class NpcSceneOverlay extends Overlay
 {
 	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
@@ -70,7 +72,7 @@ public class NpcSceneOverlay extends Overlay
 	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	NpcSceneOverlay(Client client, NpcIndicatorsPlugin plugin, ModelOutlineRenderer modelOutliner)
+	NpcSceneOverlay(final Client client, final NpcIndicatorsPlugin plugin, final ModelOutlineRenderer modelOutliner)
 	{
 		this.client = client;
 		this.plugin = plugin;

@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Skill;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
+@Singleton
 class BoostsOverlay extends Overlay
 {
 	private final Client client;
@@ -48,7 +50,7 @@ class BoostsOverlay extends Overlay
 	private final BoostsPlugin plugin;
 
 	@Inject
-	private BoostsOverlay(Client client, BoostsPlugin plugin)
+	private BoostsOverlay(final Client client, final BoostsPlugin plugin)
 	{
 		super(plugin);
 		this.plugin = plugin;

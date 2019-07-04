@@ -38,6 +38,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.AnimationID;
@@ -111,6 +112,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"pay", "dirt", "mining", "mlm", "skilling", "overlay"},
 	enabledByDefault = false
 )
+@Singleton
 public class MotherlodePlugin extends Plugin
 {
 	private static final Set<Integer> MOTHERLODE_MAP_REGIONS = ImmutableSet.of(14679, 14680, 14681, 14935, 14936, 14937, 15191, 15192, 15193);

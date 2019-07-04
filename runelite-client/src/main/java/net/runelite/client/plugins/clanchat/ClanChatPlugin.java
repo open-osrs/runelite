@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ChatLineBuffer;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
@@ -86,6 +87,7 @@ import net.runelite.client.util.Text;
 	description = "Add rank icons to users talking in clan chat",
 	tags = {"icons", "rank", "recent"}
 )
+@Singleton
 public class ClanChatPlugin extends Plugin
 {
 	private static final int MAX_CHATS = 20;

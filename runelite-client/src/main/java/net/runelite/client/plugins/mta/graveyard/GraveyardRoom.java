@@ -61,8 +61,7 @@ public class GraveyardRoom extends MTARoom
 	private boolean graveyard;
 
 	@Inject
-	private GraveyardRoom(MTAConfig config, Client client, MTAPlugin plugin,
-						ItemManager itemManager, InfoBoxManager infoBoxManager)
+	private GraveyardRoom(final MTAConfig config, final Client client, final MTAPlugin plugin, final ItemManager itemManager, final InfoBoxManager infoBoxManager)
 	{
 		super(config);
 		this.client = client;

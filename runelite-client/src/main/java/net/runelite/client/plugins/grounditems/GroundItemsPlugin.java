@@ -46,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -101,6 +102,7 @@ import net.runelite.client.util.Text;
 	description = "Highlight ground items and/or show price information",
 	tags = {"grand", "exchange", "high", "alchemy", "prices", "highlight", "overlay"}
 )
+@Singleton
 public class GroundItemsPlugin extends Plugin
 {
 	// ItemID for coins

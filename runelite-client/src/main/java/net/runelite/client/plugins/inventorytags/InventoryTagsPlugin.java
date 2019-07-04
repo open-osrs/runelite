@@ -30,6 +30,7 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
@@ -54,6 +55,7 @@ import net.runelite.client.util.Text;
 	tags = {"highlight", "items", "overlay", "tagging"},
 	enabledByDefault = false
 )
+@Singleton
 public class InventoryTagsPlugin extends Plugin
 {
 	private static final String ITEM_KEY_PREFIX = "item_";

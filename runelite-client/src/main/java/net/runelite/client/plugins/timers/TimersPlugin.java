@@ -30,6 +30,7 @@ import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
 import net.runelite.api.AnimationID;
@@ -118,6 +119,7 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 	tags = {"combat", "items", "magic", "potions", "prayer", "overlay", "abyssal", "sire"}
 )
 @Slf4j
+@Singleton
 public class TimersPlugin extends Plugin
 {
 	private static final String ANTIFIRE_DRINK_MESSAGE = "You drink some of your antifire potion.";

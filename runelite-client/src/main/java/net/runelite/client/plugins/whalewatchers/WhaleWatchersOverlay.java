@@ -12,6 +12,7 @@ package net.runelite.client.plugins.whalewatchers;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.client.ui.overlay.Overlay;
@@ -27,6 +28,7 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
  * The overlay for the Damage Counter
  */
 
+@Singleton
 public class WhaleWatchersOverlay extends Overlay
 {
 	private Client client;
@@ -36,7 +38,7 @@ public class WhaleWatchersOverlay extends Overlay
 
 
 	@Inject
-	public WhaleWatchersOverlay(Client client, WhaleWatchersPlugin plugin)
+	public WhaleWatchersOverlay(final Client client, final WhaleWatchersPlugin plugin)
 	{
 		OverlayMenuEntry resetMenuEntry = new OverlayMenuEntry(MenuAction.RUNELITE_OVERLAY,
 			"Reset", "Damage Counter");

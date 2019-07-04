@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
@@ -49,6 +50,7 @@ import net.runelite.client.util.Text;
 import net.runelite.http.api.hiscore.HiscoreResult;
 import net.runelite.http.api.hiscore.HiscoreSkill;
 
+@Singleton
 class PlayerComparisonOverlay extends Overlay
 {
 	private static final Color HIGHER_STAT_TEXT_COLOR = Color.GREEN;
@@ -86,7 +88,7 @@ class PlayerComparisonOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private PlayerComparisonOverlay(Client client, OpponentInfoPlugin opponentInfoPlugin, HiscoreManager hiscoreManager)
+	private PlayerComparisonOverlay(final Client client, final OpponentInfoPlugin opponentInfoPlugin, final HiscoreManager hiscoreManager)
 	{
 		super(opponentInfoPlugin);
 		this.client = client;

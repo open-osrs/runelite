@@ -33,6 +33,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -49,13 +50,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class CoxOverlay extends Overlay
 {
 	private final Client client;
 	private final CoxPlugin plugin;
 
 	@Inject
-	private CoxOverlay(Client client, CoxPlugin plugin)
+	private CoxOverlay(final Client client, final CoxPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

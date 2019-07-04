@@ -47,7 +47,7 @@ public class VerzikHandler extends RoomHandler
 	private boolean tornados;
 	private long startTime = 0;
 
-	public VerzikHandler(Client client, TheatrePlugin plugin)
+	public VerzikHandler(final Client client, final TheatrePlugin plugin)
 	{
 		super(client, plugin);
 	}

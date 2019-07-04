@@ -27,6 +27,7 @@
 package net.runelite.client.plugins.barbarianassault;
 
 import com.google.common.collect.ImmutableMap;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -46,7 +47,7 @@ import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.util.Map;
 
-
+@Singleton
 class AboveSceneOverlay extends Overlay
 {
 	private static final int HEALTH_BAR_HEIGHT = 20;
@@ -65,7 +66,7 @@ class AboveSceneOverlay extends Overlay
 
 
 	@Inject
-	private AboveSceneOverlay(Client client, BarbarianAssaultPlugin game, BarbarianAssaultConfig config)
+	private AboveSceneOverlay(final Client client, final BarbarianAssaultPlugin game)
 	{
 		super(game);
 		setPosition(OverlayPosition.DYNAMIC);

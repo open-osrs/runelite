@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -48,6 +49,7 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 import net.runelite.client.util.ImageUtil;
 
+@Singleton
 class FishingSpotOverlay extends Overlay
 {
 	private static final Duration MINNOW_MOVE = Duration.ofSeconds(15);
@@ -62,7 +64,7 @@ class FishingSpotOverlay extends Overlay
 	private boolean hidden;
 
 	@Inject
-	private FishingSpotOverlay(FishingPlugin plugin, Client client, ItemManager itemManager)
+	private FishingSpotOverlay(final FishingPlugin plugin, final Client client, final ItemManager itemManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

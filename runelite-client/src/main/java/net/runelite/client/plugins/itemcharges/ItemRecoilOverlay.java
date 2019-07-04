@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ImageComponent;
@@ -37,6 +38,7 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+@Singleton
 class ItemRecoilOverlay extends Overlay
 {
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
@@ -45,7 +47,7 @@ class ItemRecoilOverlay extends Overlay
 	private final PanelComponent imagePanelComponent = new PanelComponent();
 
 	@Inject
-	public ItemRecoilOverlay(ItemChargePlugin plugin)
+	public ItemRecoilOverlay(final ItemChargePlugin plugin)
 	{
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.plugin = plugin;

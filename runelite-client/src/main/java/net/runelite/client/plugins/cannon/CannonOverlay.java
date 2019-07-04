@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import static net.runelite.api.Perspective.LOCAL_TILE_SIZE;
@@ -40,6 +41,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
+@Singleton
 class CannonOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2500;
@@ -49,7 +51,7 @@ class CannonOverlay extends Overlay
 	private final TextComponent textComponent = new TextComponent();
 
 	@Inject
-	CannonOverlay(Client client, CannonPlugin plugin)
+	CannonOverlay(final Client client, final CannonPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);

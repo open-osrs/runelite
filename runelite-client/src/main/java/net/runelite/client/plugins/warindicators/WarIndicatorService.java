@@ -38,7 +38,7 @@ public class WarIndicatorService
 	private final WarIndicatorPlugin plugin;
 
 	@Inject
-	private WarIndicatorService(Client client, WarIndicatorPlugin plugin)
+	private WarIndicatorService(final Client client, final WarIndicatorPlugin plugin)
 	{
 		this.plugin = plugin;
 		this.client = client;

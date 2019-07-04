@@ -34,6 +34,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.inject.Inject;
 
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.ObjectDefinition;
 import net.runelite.api.Point;
@@ -56,6 +57,7 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.util.ColorUtil;
 
+@Singleton
 public class PyramidPlunderOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2400;
@@ -77,7 +79,7 @@ public class PyramidPlunderOverlay extends Overlay
 	}
 
 	@Inject
-	private PyramidPlunderOverlay(Client client, PyramidPlunderPlugin plugin)
+	private PyramidPlunderOverlay(final Client client, final PyramidPlunderPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

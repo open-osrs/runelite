@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.Perspective;
@@ -17,6 +18,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+@Singleton
 public class ShortcutOverlay extends Overlay
 {
 	private final Client client;
@@ -26,7 +28,7 @@ public class ShortcutOverlay extends Overlay
 	private final BufferedImage miningIcon;
 
 	@Inject
-	ShortcutOverlay(Client client, ShortcutPlugin plugin, SkillIconManager iconManager)
+	ShortcutOverlay(final Client client, final ShortcutPlugin plugin, final SkillIconManager iconManager)
 	{
 		this.client = client;
 		this.plugin = plugin;

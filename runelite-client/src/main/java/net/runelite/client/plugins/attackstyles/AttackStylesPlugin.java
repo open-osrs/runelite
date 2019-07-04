@@ -31,6 +31,7 @@ import com.google.inject.Provides;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -62,6 +63,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show your current attack style as an overlay",
 	tags = {"combat", "defence", "magic", "overlay", "ranged", "strength", "warn", "pure"}
 )
+@Singleton
 public class AttackStylesPlugin extends Plugin
 {
 	private int attackStyleVarbit = -1;
@@ -149,7 +151,7 @@ public class AttackStylesPlugin extends Plugin
 		return attackStyle;
 	}
 
-	public boolean isWarnedSkillSelected()
+	boolean isWarnedSkillSelected()
 	{
 		return warnedSkillSelected;
 	}

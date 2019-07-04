@@ -31,6 +31,7 @@ import java.awt.Polygon;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -47,13 +48,14 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 /**
  * @author robin
  */
+@Singleton
 public class ImplingsOverlay extends Overlay
 {
 	private final Client client;
 	private final ImplingsPlugin plugin;
 
 	@Inject
-	private ImplingsOverlay(Client client, ImplingsPlugin plugin)
+	private ImplingsOverlay(final Client client, final ImplingsPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

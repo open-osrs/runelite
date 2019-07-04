@@ -30,6 +30,7 @@ import java.util.EnumSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -67,6 +68,7 @@ import net.runelite.client.util.ImageUtil;
 	tags = {"arceuus", "magic", "runecrafting", "overlay", "panel"}
 )
 @Slf4j
+@Singleton
 public class KourendLibraryPlugin extends Plugin
 {
 	private static final Pattern BOOK_EXTRACTOR = Pattern.compile("'<col=0000ff>(.*)</col>'");

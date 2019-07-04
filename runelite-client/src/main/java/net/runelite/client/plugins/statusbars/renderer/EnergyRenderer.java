@@ -29,18 +29,20 @@ package net.runelite.client.plugins.statusbars.renderer;
 
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.SpriteID;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 
+@Singleton
 public class EnergyRenderer extends BarRenderer
 {
 	private final SpriteManager spriteManager;
 
 	@Inject
-	public EnergyRenderer(StatusBarsPlugin plugin, SpriteManager spriteManager)
+	public EnergyRenderer(final StatusBarsPlugin plugin, final SpriteManager spriteManager)
 	{
 		super(plugin);
 		maximumValue = 100;

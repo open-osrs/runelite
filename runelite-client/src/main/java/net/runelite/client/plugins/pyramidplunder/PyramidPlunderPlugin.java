@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -80,7 +81,7 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Singleton
 public class PyramidPlunderPlugin extends Plugin
 {
 	private static final int PYRAMID_PLUNDER_REGION_ID = 7749;

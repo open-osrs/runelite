@@ -48,7 +48,7 @@ public class RaidsTimer extends InfoBox
 	@Setter(AccessLevel.PACKAGE)
 	private boolean stopped;
 
-	RaidsTimer(BufferedImage image, Plugin plugin, Instant startTime)
+	RaidsTimer(final BufferedImage image, final Plugin plugin, final Instant startTime)
 	{
 		super(image, plugin);
 		this.startTime = startTime;

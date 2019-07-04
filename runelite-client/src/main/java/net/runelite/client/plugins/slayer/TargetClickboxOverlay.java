@@ -32,6 +32,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
@@ -46,6 +47,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.Text;
 
+@Singleton
 public class TargetClickboxOverlay extends Overlay
 {
 	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
@@ -55,7 +57,7 @@ public class TargetClickboxOverlay extends Overlay
 	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	TargetClickboxOverlay(Client client, SlayerPlugin plugin, ModelOutlineRenderer modelOutlineRenderer)
+	TargetClickboxOverlay(final Client client, final SlayerPlugin plugin, final ModelOutlineRenderer modelOutlineRenderer)
 	{
 		this.client = client;
 		this.plugin = plugin;

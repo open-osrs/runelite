@@ -45,6 +45,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import joptsimple.internal.Strings;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -107,6 +108,7 @@ import net.runelite.http.api.chat.ChatClient;
 )
 @PluginDependency(XpTrackerPlugin.class)
 @Slf4j
+@Singleton
 public class SlayerPlugin extends Plugin
 {
 	//Chat messages

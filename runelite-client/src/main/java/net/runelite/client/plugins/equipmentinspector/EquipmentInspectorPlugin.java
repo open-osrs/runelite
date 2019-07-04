@@ -37,6 +37,7 @@ import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
@@ -67,7 +68,7 @@ import net.runelite.client.util.Text;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 @Slf4j
 public class EquipmentInspectorPlugin extends Plugin
 {

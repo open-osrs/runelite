@@ -68,7 +68,7 @@ public class MaidenHandler extends RoomHandler
 	private long startTime = 0;
 	private ModelOutlineRenderer modelOutline;
 
-	public MaidenHandler(Client client, TheatrePlugin plugin, ModelOutlineRenderer modelOutline)
+	public MaidenHandler(final Client client, final TheatrePlugin plugin, final ModelOutlineRenderer modelOutline)
 	{
 		super(client, plugin);
 		this.modelOutline = modelOutline;

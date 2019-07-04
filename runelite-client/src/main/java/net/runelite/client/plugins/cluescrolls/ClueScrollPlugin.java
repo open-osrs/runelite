@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
@@ -108,6 +109,7 @@ import net.runelite.client.util.Text;
 	tags = {"arrow", "hints", "world", "map", "coordinates", "emotes"}
 )
 @Slf4j
+@Singleton
 public class ClueScrollPlugin extends Plugin
 {
 	private static final Color HIGHLIGHT_BORDER_COLOR = Color.ORANGE;

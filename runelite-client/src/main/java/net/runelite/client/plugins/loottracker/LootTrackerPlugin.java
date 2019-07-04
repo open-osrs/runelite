@@ -57,6 +57,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -117,6 +118,7 @@ import net.runelite.http.api.loottracker.LootTrackerClient;
 	enabledByDefault = false
 )
 @Slf4j
+@Singleton
 public class LootTrackerPlugin extends Plugin
 {
 	// Activity/Event loot handling

@@ -26,6 +26,7 @@
 
 package net.runelite.client.plugins.dailytaskindicators;
 
+import javax.inject.Singleton;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.vars.AccountType;
 import com.google.inject.Provides;
@@ -51,6 +52,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 	name = "Daily Task Indicator",
 	description = "Show chat notifications for daily tasks upon login"
 )
+@Singleton
 public class DailyTasksPlugin extends Plugin
 {
 	private static final int ONE_DAY = 86400000;

@@ -32,6 +32,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.Widget;
@@ -43,7 +44,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
 
-
+@Singleton
 class AboveWidgetsOverlay extends Overlay
 {
 	private static final int OFFSET_X_TEXT_QUANTITY = 0;
@@ -53,7 +54,7 @@ class AboveWidgetsOverlay extends Overlay
 	private final BarbarianAssaultPlugin game;
 
 	@Inject
-	private AboveWidgetsOverlay(Client client, BarbarianAssaultPlugin game, BarbarianAssaultConfig config)
+	private AboveWidgetsOverlay(final Client client, final BarbarianAssaultPlugin game)
 	{
 		super(game);
 		setPosition(OverlayPosition.DYNAMIC);

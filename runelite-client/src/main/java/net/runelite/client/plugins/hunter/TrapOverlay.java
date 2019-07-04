@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -42,6 +43,7 @@ import net.runelite.client.ui.overlay.components.ProgressPieComponent;
  * Represents the overlay that shows timers on traps that are placed by the
  * player.
  */
+@Singleton
 public class TrapOverlay extends Overlay
 {
 	/**
@@ -58,7 +60,7 @@ public class TrapOverlay extends Overlay
 	private Color colorTrans, colorTransBorder;
 
 	@Inject
-	TrapOverlay(Client client, HunterPlugin plugin)
+	TrapOverlay(final Client client, final HunterPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

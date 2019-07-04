@@ -28,6 +28,7 @@ package net.runelite.client.plugins.keyremapping;
 import com.google.inject.Provides;
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -57,6 +58,7 @@ import net.runelite.client.util.ColorUtil;
 	tags = {"enter", "chat", "wasd", "camera"},
 	enabledByDefault = false
 )
+@Singleton
 public class KeyRemappingPlugin extends Plugin
 {
 	private static final String PRESS_ENTER_TO_CHAT = "Press Enter to Chat...";

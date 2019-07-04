@@ -37,6 +37,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
@@ -69,6 +70,7 @@ import net.runelite.client.util.ImageUtil;
 	description = "Tracks current damage values for Poison and Venom",
 	tags = {"combat", "poison", "venom", "heart", "hp"}
 )
+@Singleton
 public class PoisonPlugin extends Plugin
 {
 	private static final int POISON_TICK_MILLIS = 18000;

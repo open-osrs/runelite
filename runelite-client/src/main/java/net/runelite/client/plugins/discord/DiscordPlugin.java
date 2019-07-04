@@ -28,6 +28,7 @@ package net.runelite.client.plugins.discord;
 import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,9 +83,10 @@ import okhttp3.Response;
 	tags = {"action", "activity", "external", "integration", "status"}
 )
 @Slf4j
+@Singleton
 public class DiscordPlugin extends Plugin
 {
-	public static boolean discordEnabled = false;
+	private static boolean discordEnabled = false;
 
 	@Inject
 	private Client client;

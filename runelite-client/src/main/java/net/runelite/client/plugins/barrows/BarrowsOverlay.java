@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.NPC;
@@ -44,6 +45,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 class BarrowsOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2350;
@@ -52,7 +54,7 @@ class BarrowsOverlay extends Overlay
 	private final BarrowsPlugin plugin;
 
 	@Inject
-	private BarrowsOverlay(Client client, BarrowsPlugin plugin, BarrowsConfig config)
+	private BarrowsOverlay(final Client client, final BarrowsPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);

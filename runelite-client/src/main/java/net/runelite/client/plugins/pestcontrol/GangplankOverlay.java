@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,6 +44,7 @@ import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ColorUtil;
 
 @Slf4j
+@Singleton
 public class GangplankOverlay extends Overlay
 {
 	private final Client client;
@@ -50,7 +52,7 @@ public class GangplankOverlay extends Overlay
 	private final TooltipManager tooltipManager;
 
 	@Inject
-	GangplankOverlay(Client client, PestControlPlugin plugin, TooltipManager toolTipManager)
+	GangplankOverlay(final Client client, final PestControlPlugin plugin, final TooltipManager toolTipManager)
 	{
 		this.plugin = plugin;
 		this.client = client;

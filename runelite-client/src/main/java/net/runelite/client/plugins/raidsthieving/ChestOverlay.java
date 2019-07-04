@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.util.Map;
 import java.util.TreeSet;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -46,6 +47,7 @@ import static net.runelite.client.util.ColorUtil.setAlphaComponent;
  * Represents the overlay that shows timers on traps that are placed by the
  * player.
  */
+@Singleton
 public class ChestOverlay extends Overlay
 {
 
@@ -53,7 +55,7 @@ public class ChestOverlay extends Overlay
 	private final RaidsThievingPlugin plugin;
 
 	@Inject
-	ChestOverlay(Client client, RaidsThievingPlugin plugin)
+	ChestOverlay(final Client client, final RaidsThievingPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

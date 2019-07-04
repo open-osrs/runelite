@@ -4,6 +4,7 @@ import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"boulder", "cox", "raids", "highlight"}
 )
 @Slf4j
+@Singleton
 public class ShortcutPlugin extends Plugin
 {
 	private final List<TileObject> shortcut = new ArrayList<>();

@@ -23,7 +23,7 @@ public abstract class RoomHandler
 	protected final Client client;
 	protected final TheatrePlugin plugin;
 
-	public RoomHandler(Client client, TheatrePlugin plugin)
+	public RoomHandler(final Client client, final TheatrePlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

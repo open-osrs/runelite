@@ -26,6 +26,7 @@ package net.runelite.client.plugins.playerinfo;
 
 import java.awt.Color;
 import java.awt.Image;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -37,7 +38,7 @@ import net.runelite.client.util.ColorUtil;
 public class PlayerInfoCustomIndicator extends InfoBox
 {
 	@AllArgsConstructor
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	enum IndicatorType
 	{
 		HEALTH("Current Hitpoints"),
@@ -53,7 +54,7 @@ public class PlayerInfoCustomIndicator extends InfoBox
 	private final Client client;
 	private final IndicatorType type;
 
-	PlayerInfoCustomIndicator(Image image, PlayerInfoPlugin plugin, Client client, IndicatorType type)
+	PlayerInfoCustomIndicator(final Image image, final PlayerInfoPlugin plugin, final Client client, final IndicatorType type)
 	{
 		super(image, plugin);
 		this.plugin = plugin;

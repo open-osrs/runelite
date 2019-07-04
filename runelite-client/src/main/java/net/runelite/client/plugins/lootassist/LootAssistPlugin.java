@@ -2,6 +2,7 @@ package net.runelite.client.plugins.lootassist;
 
 import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.AnimationID;
 import net.runelite.api.Player;
@@ -21,7 +22,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 public class LootAssistPlugin extends Plugin
 {
 	@Inject

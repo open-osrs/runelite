@@ -30,6 +30,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -59,6 +60,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show woodcutting statistics and/or bird nest notifications",
 	tags = {"birds", "nest", "notifications", "overlay", "skilling", "wc"}
 )
+@Singleton
 @PluginDependency(XpTrackerPlugin.class)
 public class WoodcuttingPlugin extends Plugin
 {

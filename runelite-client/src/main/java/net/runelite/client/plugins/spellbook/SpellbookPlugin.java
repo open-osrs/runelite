@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -70,7 +71,7 @@ import net.runelite.client.util.Text;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Singleton
 @Slf4j
 public class SpellbookPlugin extends Plugin
 {
@@ -518,7 +519,7 @@ public class SpellbookPlugin extends Plugin
 		return WordFilterMode.CONTAINS; // but probably null soz
 	}
 
-	boolean isOnSpellWidget(java.awt.Point point)
+	boolean isNotOnSpellWidget(java.awt.Point point)
 	{
 		Widget boundsWidget = client.getWidget(WidgetInfo.SPELLBOOK_FILTERED_BOUNDS);
 		if (client.getVar(VarClientInt.INVENTORY_TAB) != 6
@@ -526,10 +527,10 @@ public class SpellbookPlugin extends Plugin
 			|| boundsWidget == null
 			|| !boundsWidget.getBounds().contains(point))
 		{
-			return false;
+			return true;
 		}
 
-		return currentWidget(point) != null;
+		return currentWidget(point) == null;
 	}
 
 	private void loadFilter()

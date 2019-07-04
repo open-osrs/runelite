@@ -44,6 +44,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -93,6 +94,7 @@ import org.apache.commons.lang3.ArrayUtils;
 	description = "Allows you to quickly hop worlds"
 )
 @Slf4j
+@Singleton
 public class WorldHopperPlugin extends Plugin
 {
 	private static final int WORLD_FETCH_TIMER = 10;

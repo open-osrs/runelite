@@ -40,6 +40,7 @@ import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Point;
@@ -57,6 +58,7 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
+@Singleton
 public class XpGlobesOverlay extends Overlay
 {
 	private static final int MINIMUM_STEP = 10;
@@ -73,10 +75,10 @@ public class XpGlobesOverlay extends Overlay
 
 	@Inject
 	private XpGlobesOverlay(
-		Client client,
-		XpGlobesPlugin plugin,
-		XpTrackerService xpTrackerService,
-		SkillIconManager iconManager)
+		final Client client,
+		final XpGlobesPlugin plugin,
+		final XpTrackerService xpTrackerService,
+		final SkillIconManager iconManager)
 	{
 		super(plugin);
 		this.iconManager = iconManager;

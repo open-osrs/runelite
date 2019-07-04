@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Player;
@@ -60,6 +61,7 @@ import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 import net.runelite.client.ui.overlay.components.TextComponent;
 import net.runelite.client.util.StackFormatter;
 
+@Singleton
 public class GroundItemsOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2500;
@@ -90,7 +92,7 @@ public class GroundItemsOverlay extends Overlay
 	private final Map<WorldPoint, Integer> offsetMap = new HashMap<>();
 
 	@Inject
-	private GroundItemsOverlay(Client client, GroundItemsPlugin plugin)
+	private GroundItemsOverlay(final Client client, final GroundItemsPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

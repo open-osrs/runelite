@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -37,6 +38,7 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
+@Singleton
 class PrayerAlertOverlay extends Overlay
 {
 	private final Client client;
@@ -47,7 +49,7 @@ class PrayerAlertOverlay extends Overlay
 	private final Stat prayer = Stats.PRAYER;
 
 	@Inject
-	private PrayerAlertOverlay(Client client, PrayerAlertPlugin plugin, ItemManager itemManager)
+	private PrayerAlertOverlay(final Client client, final PrayerAlertPlugin plugin, final ItemManager itemManager)
 	{
 		setPosition(OverlayPosition.TOP_RIGHT);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);

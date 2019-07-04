@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 
 @Slf4j
+@Singleton
 @PluginDescriptor(
 	name = "Flinching Timer",
 	description = "Time your attacks while flinching",

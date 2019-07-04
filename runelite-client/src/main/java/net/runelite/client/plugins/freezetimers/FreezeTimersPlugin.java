@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -51,11 +52,10 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 public class FreezeTimersPlugin extends Plugin
 {
 	private final Map<String, FreezeInfo> freezes = new HashMap<>();
-	private Actor player;
 
 	@Inject
 	private Client client;

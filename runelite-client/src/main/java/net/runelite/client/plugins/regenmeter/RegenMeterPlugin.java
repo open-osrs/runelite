@@ -29,6 +29,7 @@ package net.runelite.client.plugins.regenmeter;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -53,6 +54,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Track and show the hitpoints and special attack regeneration timers",
 	tags = {"combat", "health", "hitpoints", "special", "attack", "overlay", "notifications"}
 )
+@Singleton
 public class RegenMeterPlugin extends Plugin
 {
 	private static final int SPEC_REGEN_TICKS = 50;

@@ -28,6 +28,7 @@ import com.google.common.base.Strings;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
@@ -39,6 +40,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 
+@Singleton
 class MouseHighlightOverlay extends Overlay
 {
 	private final TooltipManager tooltipManager;
@@ -46,7 +48,7 @@ class MouseHighlightOverlay extends Overlay
 	private final MouseHighlightPlugin plugin;
 
 	@Inject
-	MouseHighlightOverlay(Client client, TooltipManager tooltipManager, MouseHighlightPlugin plugin)
+	MouseHighlightOverlay(final Client client, final TooltipManager tooltipManager, final MouseHighlightPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;

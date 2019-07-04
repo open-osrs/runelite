@@ -28,6 +28,7 @@ package net.runelite.client.plugins.antidrag;
 import com.google.inject.Provides;
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -52,7 +53,7 @@ import net.runelite.client.util.HotkeyListener;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Singleton
 public class AntiDragPlugin extends Plugin
 {
 	private static final int DEFAULT_DELAY = 5;

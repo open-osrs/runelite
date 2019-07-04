@@ -32,6 +32,7 @@ import java.awt.geom.GeneralPath;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -64,7 +65,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 public class MultiIndicatorsPlugin extends Plugin
 {
 	@Inject
@@ -186,8 +187,11 @@ public class MultiIndicatorsPlugin extends Plugin
 	private void transformWorldToLocal(float[] coords)
 	{
 		LocalPoint lp = LocalPoint.fromWorld(client, (int) coords[0], (int) coords[1]);
-		coords[0] = lp.getX() - Perspective.LOCAL_TILE_SIZE / 2;
-		coords[1] = lp.getY() - Perspective.LOCAL_TILE_SIZE / 2;
+		if (lp != null)
+		{
+			coords[0] = lp.getX() - Perspective.LOCAL_TILE_SIZE / 2;
+			coords[1] = lp.getY() - Perspective.LOCAL_TILE_SIZE / 2;
+		}
 	}
 
 	private boolean isOpenableAt(WorldPoint wp)

@@ -30,6 +30,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.VarClientStr;
@@ -39,6 +40,7 @@ import net.runelite.client.config.ModifierlessKeybind;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseAdapter;
 
+@Singleton
 class KeyRemappingListener extends MouseAdapter implements KeyListener
 {
 	private static final Keybind ONE = new ModifierlessKeybind(KeyEvent.VK_1, 0);

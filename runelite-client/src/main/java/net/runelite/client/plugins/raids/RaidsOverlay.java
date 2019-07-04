@@ -35,6 +35,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -60,6 +62,7 @@ import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
 
+@Singleton
 public class RaidsOverlay extends Overlay
 {
 	private static final int OLM_PLANE = 0;
@@ -74,20 +77,20 @@ public class RaidsOverlay extends Overlay
 	private final PanelComponent panelImages = new PanelComponent();
 	private Client client;
 	private RaidsPlugin plugin;
-	@Setter
+	@Setter(AccessLevel.PACKAGE)
 	private boolean sharable = false;
-	@Getter
-	@Setter
+	@Getter(AccessLevel.PACKAGE)
+	@Setter(AccessLevel.PACKAGE)
 	private boolean scoutOverlayShown = false;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean scouterActive = false;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private int width;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private int height;
 
 	@Inject
-	private RaidsOverlay(Client client, RaidsPlugin plugin, ItemManager itemManager, SpriteManager spriteManager)
+	private RaidsOverlay(final Client client, final RaidsPlugin plugin, final ItemManager itemManager, final SpriteManager spriteManager)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);

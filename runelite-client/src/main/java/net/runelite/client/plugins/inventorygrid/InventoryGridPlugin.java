@@ -27,6 +27,7 @@ package net.runelite.client.plugins.inventorygrid;
 
 import com.google.inject.Inject;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -43,6 +44,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"items", "overlay"},
 	enabledByDefault = false
 )
+@Singleton
 public class InventoryGridPlugin extends Plugin
 {
 	@Inject

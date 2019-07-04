@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -67,6 +68,7 @@ import net.runelite.client.util.Text;
 	description = "Show the location of the fairy ring teleport",
 	tags = {"teleportation"}
 )
+@Singleton
 public class FairyRingPlugin extends Plugin
 {
 	private static final String[] leftDial = new String[]{"A", "D", "C", "B"};
@@ -94,7 +96,7 @@ public class FairyRingPlugin extends Plugin
 	private Widget searchBtn;
 	private Collection<CodeWidgets> codes = null;
 
-	boolean autoOpen;
+	private boolean autoOpen;
 
 	@Data
 	private static class CodeWidgets

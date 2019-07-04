@@ -30,6 +30,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -56,6 +57,7 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 	description = "Show cooking statistics",
 	tags = {"overlay", "skilling", "cook"}
 )
+@Singleton
 @PluginDependency(XpTrackerPlugin.class)
 public class CookingPlugin extends Plugin
 {

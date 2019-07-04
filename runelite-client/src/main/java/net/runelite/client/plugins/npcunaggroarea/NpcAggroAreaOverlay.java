@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.npcunaggroarea;
 
+import javax.inject.Singleton;
 import net.runelite.api.geometry.Geometry;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -42,6 +43,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+@Singleton
 class NpcAggroAreaOverlay extends Overlay
 {
 	private static final int MAX_LOCAL_DRAW_LENGTH = 20 * Perspective.LOCAL_TILE_SIZE;
@@ -50,7 +52,7 @@ class NpcAggroAreaOverlay extends Overlay
 	private final NpcAggroAreaPlugin plugin;
 
 	@Inject
-	private NpcAggroAreaOverlay(Client client, NpcAggroAreaPlugin plugin)
+	private NpcAggroAreaOverlay(final Client client, final NpcAggroAreaPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

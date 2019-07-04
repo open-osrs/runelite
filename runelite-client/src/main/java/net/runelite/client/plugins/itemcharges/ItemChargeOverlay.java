@@ -29,6 +29,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ItemID;
 import net.runelite.api.widgets.WidgetItem;
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.ABYSSAL_BRACELET;
@@ -42,12 +43,13 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
+@Singleton
 class ItemChargeOverlay extends WidgetItemOverlay
 {
 	private final ItemChargePlugin plugin;
 
 	@Inject
-	ItemChargeOverlay(ItemChargePlugin itemChargePlugin)
+	ItemChargeOverlay(final ItemChargePlugin itemChargePlugin)
 	{
 		this.plugin = itemChargePlugin;
 		showOnInventory();

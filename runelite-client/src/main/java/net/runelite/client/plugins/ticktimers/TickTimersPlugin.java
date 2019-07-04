@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +56,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	enabledByDefault = false,
 	type = PluginType.PVM
 )
-
+@Singleton
 @Slf4j
 public class TickTimersPlugin extends Plugin
 {

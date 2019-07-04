@@ -16,6 +16,7 @@ import com.google.inject.Provides;
 import java.util.EnumSet;
 import java.util.Objects;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -51,7 +52,7 @@ import org.apache.commons.lang3.ObjectUtils;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 public class WhaleWatchersPlugin extends Plugin
 {
 

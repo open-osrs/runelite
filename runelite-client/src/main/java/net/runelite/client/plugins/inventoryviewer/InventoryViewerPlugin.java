@@ -26,6 +26,7 @@ package net.runelite.client.plugins.inventoryviewer;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"alternate", "items", "overlay", "second"},
 	enabledByDefault = false
 )
+@Singleton
 public class InventoryViewerPlugin extends Plugin
 {
 	static final String CONFIG_GROUP_KEY = "inventoryviewer";

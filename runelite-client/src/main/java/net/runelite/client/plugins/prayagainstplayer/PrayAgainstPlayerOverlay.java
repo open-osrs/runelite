@@ -31,6 +31,7 @@ import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.util.ConcurrentModificationException;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.Player;
@@ -43,6 +44,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.Text;
 
+@Singleton
 class PrayAgainstPlayerOverlay extends Overlay
 {
 
@@ -50,7 +52,7 @@ class PrayAgainstPlayerOverlay extends Overlay
 	private final Client client;
 
 	@Inject
-	private PrayAgainstPlayerOverlay(PrayAgainstPlayerPlugin plugin, Client client)
+	private PrayAgainstPlayerOverlay(final PrayAgainstPlayerPlugin plugin, final Client client)
 	{
 		super(plugin);
 		this.plugin = plugin;

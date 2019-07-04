@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Player;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
+@Singleton
 class CombatOverlay extends Overlay
 {
 
@@ -49,7 +51,7 @@ class CombatOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public CombatOverlay(Client client, CombatCounter plugin)
+	public CombatOverlay(final Client client, final CombatCounter plugin)
 	{
 		super(plugin);
 

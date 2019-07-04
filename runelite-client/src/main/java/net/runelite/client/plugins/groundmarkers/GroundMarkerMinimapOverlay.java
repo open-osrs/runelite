@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import static java.lang.Math.floor;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 class GroundMarkerMinimapOverlay extends Overlay
 {
 	private static final int MAX_DRAW_DISTANCE = 16;
@@ -51,7 +53,7 @@ class GroundMarkerMinimapOverlay extends Overlay
 	private final GroundMarkerPlugin plugin;
 
 	@Inject
-	private GroundMarkerMinimapOverlay(Client client, GroundMarkerPlugin plugin)
+	private GroundMarkerMinimapOverlay(final Client client, final GroundMarkerPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

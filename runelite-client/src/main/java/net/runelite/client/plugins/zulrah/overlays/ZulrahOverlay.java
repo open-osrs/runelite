@@ -36,6 +36,7 @@ import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -48,6 +49,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Slf4j
+@Singleton
 public class ZulrahOverlay extends Overlay
 {
 	private static final Color TILE_BORDER_COLOR = new Color(0, 0, 0, 100);
@@ -57,7 +59,7 @@ public class ZulrahOverlay extends Overlay
 	private final ZulrahPlugin plugin;
 
 	@Inject
-	ZulrahOverlay(@Nullable Client client, ZulrahPlugin plugin)
+	ZulrahOverlay(final @Nullable Client client, final ZulrahPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;

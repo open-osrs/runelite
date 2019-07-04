@@ -29,6 +29,7 @@ package net.runelite.client.plugins.statusbars.renderer;
 
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.SpriteID;
 import net.runelite.api.VarPlayer;
@@ -36,12 +37,13 @@ import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 
+@Singleton
 public class SpecialAttackRenderer extends BarRenderer
 {
 	private final SpriteManager spriteManager;
 
 	@Inject
-	public SpecialAttackRenderer(StatusBarsPlugin plugin, SpriteManager spriteManager)
+	public SpecialAttackRenderer(final StatusBarsPlugin plugin, final SpriteManager spriteManager)
 	{
 		super(plugin);
 		maximumValue = 100;

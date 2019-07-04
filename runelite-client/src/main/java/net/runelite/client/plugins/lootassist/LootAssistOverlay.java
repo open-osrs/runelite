@@ -7,6 +7,7 @@ import java.awt.Polygon;
 import java.text.DecimalFormat;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -18,13 +19,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class LootAssistOverlay extends Overlay
 {
 	private Client client;
 	private DecimalFormat d = new DecimalFormat("##.#");
 
 	@Inject
-	public LootAssistOverlay(Client client)
+	public LootAssistOverlay(final Client client)
 	{
 		this.client = client;
 		setLayer(OverlayLayer.ABOVE_SCENE);

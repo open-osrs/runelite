@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import net.runelite.api.Point;
@@ -44,6 +45,7 @@ import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ColorUtil;
 
+@Singleton
 public class RunepouchOverlay extends WidgetItemOverlay
 {
 	private static final Varbits[] AMOUNT_VARBITS =
@@ -64,7 +66,7 @@ public class RunepouchOverlay extends WidgetItemOverlay
 	private ItemManager itemManager;
 
 	@Inject
-	RunepouchOverlay(Client client, RunepouchPlugin plugin, TooltipManager tooltipManager)
+	RunepouchOverlay(final Client client, final RunepouchPlugin plugin, final TooltipManager tooltipManager)
 	{
 		this.tooltipManager = tooltipManager;
 		this.client = client;

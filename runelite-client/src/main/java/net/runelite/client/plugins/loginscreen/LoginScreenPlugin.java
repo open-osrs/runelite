@@ -32,6 +32,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -51,6 +52,7 @@ import net.runelite.client.util.OSType;
 	description = "Provides various enhancements for login screen"
 )
 @Slf4j
+@Singleton
 public class LoginScreenPlugin extends Plugin implements KeyListener
 {
 	private static final int MAX_USERNAME_LENGTH = 254;

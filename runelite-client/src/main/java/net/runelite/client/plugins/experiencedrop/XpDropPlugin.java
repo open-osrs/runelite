@@ -33,6 +33,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -66,6 +67,7 @@ import net.runelite.client.util.ColorUtil;
 	description = "Enable customization of the way XP drops are displayed",
 	tags = {"experience", "levels", "tick"}
 )
+@Singleton
 public class XpDropPlugin extends Plugin
 {
 	private static final int XPDROP_PADDING = 2; // space between xp drop icons

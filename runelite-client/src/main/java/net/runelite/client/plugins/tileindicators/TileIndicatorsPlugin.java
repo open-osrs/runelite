@@ -27,6 +27,7 @@ package net.runelite.client.plugins.tileindicators;
 import com.google.inject.Provides;
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -42,6 +43,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"highlight", "overlay"},
 	enabledByDefault = false
 )
+@Singleton
 public class TileIndicatorsPlugin extends Plugin
 {
 	@Inject

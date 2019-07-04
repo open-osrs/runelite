@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.herbiboars;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -37,12 +38,13 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 class HerbiboarOverlay extends Overlay
 {
 	private final HerbiboarPlugin plugin;
 
 	@Inject
-	public HerbiboarOverlay(HerbiboarPlugin plugin)
+	public HerbiboarOverlay(final HerbiboarPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

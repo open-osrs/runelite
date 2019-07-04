@@ -13,6 +13,7 @@ package net.runelite.client.plugins.learntoclick;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
@@ -37,6 +38,7 @@ import org.apache.commons.lang3.ArrayUtils;
 	enabledByDefault = false
 )
 @Slf4j
+@Singleton
 public class LearnToClickPlugin extends Plugin
 {
 	private static final ImmutableList<WidgetInfo> ORB_WIDGETS = ImmutableList.of(WidgetInfo.MINIMAP_WORLDMAP_ORB,

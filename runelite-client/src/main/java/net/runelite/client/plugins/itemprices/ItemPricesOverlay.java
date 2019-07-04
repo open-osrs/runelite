@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.InventoryID;
@@ -47,6 +48,7 @@ import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.StackFormatter;
 
+@Singleton
 class ItemPricesOverlay extends Overlay
 {
 	private static final int INVENTORY_ITEM_WIDGETID = WidgetInfo.INVENTORY.getPackedId();
@@ -62,7 +64,7 @@ class ItemPricesOverlay extends Overlay
 	ItemManager itemManager;
 
 	@Inject
-	ItemPricesOverlay(Client client, ItemPricesPlugin plugin, TooltipManager tooltipManager)
+	ItemPricesOverlay(final Client client, final ItemPricesPlugin plugin, final TooltipManager tooltipManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;

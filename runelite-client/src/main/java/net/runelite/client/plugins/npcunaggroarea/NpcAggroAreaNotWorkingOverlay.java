@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.npcunaggroarea;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import net.runelite.client.ui.overlay.Overlay;
@@ -33,13 +34,14 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
+@Singleton
 class NpcAggroAreaNotWorkingOverlay extends Overlay
 {
 	private final NpcAggroAreaPlugin plugin;
 	private final PanelComponent panelComponent;
 
 	@Inject
-	private NpcAggroAreaNotWorkingOverlay(NpcAggroAreaPlugin plugin)
+	private NpcAggroAreaNotWorkingOverlay(final NpcAggroAreaPlugin plugin)
 	{
 		this.plugin = plugin;
 

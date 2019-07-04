@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.client.ui.overlay.Overlay;
@@ -21,6 +22,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class SafeSpotOverlay extends Overlay
 {
 
@@ -28,7 +30,7 @@ public class SafeSpotOverlay extends Overlay
 	private final SafeSpotPlugin safeSpotPlugin;
 
 	@Inject
-	public SafeSpotOverlay(Client client, SafeSpotPlugin safeSpotPlugin)
+	public SafeSpotOverlay(final Client client, final SafeSpotPlugin safeSpotPlugin)
 	{
 		this.client = client;
 		this.safeSpotPlugin = safeSpotPlugin;

@@ -34,6 +34,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.GraphicID;
@@ -45,7 +46,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
-
+@Singleton
 public class FreezeTimersOverlay extends Overlay
 {
 	private final FreezeTimersPlugin plugin;
@@ -55,12 +56,10 @@ public class FreezeTimersOverlay extends Overlay
 	private final BufferedImage TB_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "teleblock.png");
 	private final BufferedImage VENG_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "veng.png");
 	private Timers timers;
-	private boolean lock;
-	private long finishedAtTest;
 
 
 	@Inject
-	public FreezeTimersOverlay(FreezeTimersPlugin plugin, Client client, Timers timers)
+	public FreezeTimersOverlay(final FreezeTimersPlugin plugin, final Client client, final Timers timers)
 	{
 		this.plugin = plugin;
 		this.client = client;

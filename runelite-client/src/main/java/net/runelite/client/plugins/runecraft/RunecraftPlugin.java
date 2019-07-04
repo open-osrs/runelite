@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -69,6 +70,7 @@ import net.runelite.client.util.Text;
 	description = "Show minimap icons and clickboxes for abyssal rifts",
 	tags = {"abyssal", "minimap", "overlay", "rifts", "rc", "runecrafting"}
 )
+@Singleton
 public class RunecraftPlugin extends Plugin
 {
 	private static final int FIRE_ALTAR = 10315;

@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.GameState;
@@ -54,13 +55,14 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Highlight nearby implings on the minimap and on-screen",
 	tags = {"hunter", "minimap", "overlay"}
 )
+@Singleton
 public class ImplingsPlugin extends Plugin
 {
 	private static final int DYNAMIC_SPAWN_NATURE_DRAGON = 1618;
 	private static final int DYNAMIC_SPAWN_ECLECTIC = 1633;
 	private static final int DYNAMIC_SPAWN_BABY_ESSENCE = 1634;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Map<ImplingType, Integer> implingCounterMap = new HashMap<>();
 
 	@Getter(AccessLevel.PACKAGE)
@@ -257,7 +259,7 @@ public class ImplingsPlugin extends Plugin
 		return typeToColor(impling.getImplingType());
 	}
 
-	Color typeToColor(ImplingType type)
+	private Color typeToColor(ImplingType type)
 	{
 		switch (type)
 		{

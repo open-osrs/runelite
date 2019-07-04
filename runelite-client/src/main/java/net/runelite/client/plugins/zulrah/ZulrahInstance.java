@@ -65,7 +65,7 @@ public class ZulrahInstance
 	private int stage;
 	private ZulrahPhase phase;
 
-	ZulrahInstance(NPC zulrah)
+	ZulrahInstance(final NPC zulrah)
 	{
 		this.startLocation = zulrah.getLocalLocation();
 	}

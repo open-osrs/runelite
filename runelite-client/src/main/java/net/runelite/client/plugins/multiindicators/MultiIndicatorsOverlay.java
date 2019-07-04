@@ -32,6 +32,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.geometry.Geometry;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -42,6 +43,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+@Singleton
 public class MultiIndicatorsOverlay extends Overlay
 {
 	private final static int MAX_LOCAL_DRAW_LENGTH = 20 * Perspective.LOCAL_TILE_SIZE;

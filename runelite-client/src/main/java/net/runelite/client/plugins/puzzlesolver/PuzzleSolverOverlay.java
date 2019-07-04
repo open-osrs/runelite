@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
@@ -62,6 +63,7 @@ import net.runelite.client.ui.overlay.components.BackgroundComponent;
 import net.runelite.client.ui.overlay.components.TextComponent;
 import net.runelite.client.util.ImageUtil;
 
+@Singleton
 public class PuzzleSolverOverlay extends Overlay
 {
 	private static final int INFO_BOX_WIDTH = 100;
@@ -86,7 +88,7 @@ public class PuzzleSolverOverlay extends Overlay
 	private BufferedImage rightArrow;
 
 	@Inject
-	public PuzzleSolverOverlay(Client client, PuzzleSolverPlugin plugin, ScheduledExecutorService executorService, SpriteManager spriteManager)
+	public PuzzleSolverOverlay(final Client client, final PuzzleSolverPlugin plugin, final ScheduledExecutorService executorService, final SpriteManager spriteManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);

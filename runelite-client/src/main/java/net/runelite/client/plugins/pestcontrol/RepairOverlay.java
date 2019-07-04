@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,6 +44,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 public class RepairOverlay extends Overlay
 {
 	private final PestControlPlugin plugin;
@@ -51,7 +53,7 @@ public class RepairOverlay extends Overlay
 	private static final int MAX_DISTANCE = 2400;
 
 	@Inject
-	RepairOverlay(PestControlPlugin plugin, Client client)
+	RepairOverlay(final PestControlPlugin plugin, final Client client)
 	{
 		this.plugin = plugin;
 		this.client = client;

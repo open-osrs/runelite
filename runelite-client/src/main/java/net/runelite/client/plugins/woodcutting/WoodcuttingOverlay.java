@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Skill;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+@Singleton
 class WoodcuttingOverlay extends Overlay
 {
 	private final Client client;
@@ -49,7 +51,7 @@ class WoodcuttingOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private WoodcuttingOverlay(Client client, WoodcuttingPlugin plugin, XpTrackerService xpTrackerService)
+	private WoodcuttingOverlay(final Client client, final WoodcuttingPlugin plugin, final XpTrackerService xpTrackerService)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);

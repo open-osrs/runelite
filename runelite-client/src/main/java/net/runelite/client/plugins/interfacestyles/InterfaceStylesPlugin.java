@@ -29,6 +29,7 @@ package net.runelite.client.plugins.interfacestyles;
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -57,6 +58,7 @@ import net.runelite.client.util.ImageUtil;
 	tags = {"2005", "2010", "skin", "theme", "ui"},
 	enabledByDefault = false
 )
+@Singleton
 public class InterfaceStylesPlugin extends Plugin
 {
 	@Inject

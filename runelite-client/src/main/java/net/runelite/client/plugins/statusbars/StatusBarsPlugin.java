@@ -28,6 +28,7 @@ import javax.inject.Inject;
 
 import com.google.common.collect.Maps;
 import com.google.inject.Provides;
+import javax.inject.Singleton;
 import lombok.Getter;
 import java.time.Duration;
 import java.time.Instant;
@@ -62,6 +63,7 @@ import java.util.Map;
 	description = "Draws status bars next to players inventory showing currentValue and restore amounts",
 	enabledByDefault = false
 )
+@Singleton
 @PluginDependency(ItemStatPlugin.class)
 public class StatusBarsPlugin extends Plugin
 {
@@ -95,15 +97,15 @@ public class StatusBarsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private Instant lastCombatAction;
 
-	@Getter
+	@Getter(AccessLevel.PUBLIC)
 	private boolean enableCounter;
-	@Getter
+	@Getter(AccessLevel.PUBLIC)
 	private boolean enableSkillIcon;
-	@Getter
+	@Getter(AccessLevel.PUBLIC)
 	private boolean enableRestorationBars;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private BarMode leftBarMode;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private BarMode rightBarMode;
 	private boolean toggleRestorationBars;
 	private int hideStatusBarDelay;

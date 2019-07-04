@@ -39,6 +39,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,6 +72,7 @@ import net.runelite.client.util.Text;
 	description = "Enable marking of tiles using the Shift key",
 	tags = {"overlay", "tiles"}
 )
+@Singleton
 public class GroundMarkerPlugin extends Plugin
 {
 	private static final String CONFIG_GROUP = "groundMarker";

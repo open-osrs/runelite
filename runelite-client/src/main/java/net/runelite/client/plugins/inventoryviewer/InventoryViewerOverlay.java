@@ -33,6 +33,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.InventoryID;
@@ -50,6 +51,7 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
+@Singleton
 class InventoryViewerOverlay extends Overlay
 {
 	private static final int INVENTORY_SIZE = 28;
@@ -65,7 +67,7 @@ class InventoryViewerOverlay extends Overlay
 	private final TitleComponent freeSlotsComponent = TitleComponent.builder().build();
 
 	@Inject
-	private InventoryViewerOverlay(Client client, ItemManager itemManager, InventoryViewerPlugin plugin)
+	private InventoryViewerOverlay(final Client client, final ItemManager itemManager, final InventoryViewerPlugin plugin)
 	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 

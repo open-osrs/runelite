@@ -52,7 +52,7 @@ class NyloOverlay extends Overlay
 
 	private NyloHandler nylohandler;
 
-	NyloOverlay(Client client, TheatrePlugin plugin, NyloHandler nylohandler)
+	NyloOverlay(final Client client, final TheatrePlugin plugin, final NyloHandler nylohandler)
 	{
 		super(plugin);
 

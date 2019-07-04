@@ -33,6 +33,7 @@ import java.awt.image.IndexColorModel;
 import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.AnimationID;
@@ -67,6 +68,7 @@ import net.runelite.client.util.ImageUtil;
  * I am fully aware that there is plenty of overhead and is a MESS!
  * If you'd like to contribute please do!
  */
+@Singleton
 public class PrayAgainstPlayerPlugin extends Plugin
 {
 

@@ -34,7 +34,7 @@ public class BloatHandler extends RoomHandler
 	@Getter(AccessLevel.PUBLIC)
 	private BloatState bloatState;
 
-	public BloatHandler(Client client, TheatrePlugin plugin)
+	public BloatHandler(final Client client, final TheatrePlugin plugin)
 	{
 		super(client, plugin);
 	}

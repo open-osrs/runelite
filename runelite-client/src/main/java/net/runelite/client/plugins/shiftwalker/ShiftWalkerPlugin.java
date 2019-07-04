@@ -26,6 +26,7 @@ package net.runelite.client.plugins.shiftwalker;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.client.config.ConfigManager;
@@ -46,7 +47,7 @@ import net.runelite.client.plugins.PluginType;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Singleton
 public class ShiftWalkerPlugin extends Plugin
 {
 

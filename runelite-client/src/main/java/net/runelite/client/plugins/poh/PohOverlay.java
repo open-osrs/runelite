@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -38,6 +40,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 public class PohOverlay extends Overlay
 {
 	private static final PohIcons[] PORTALS = new PohIcons[]
@@ -50,14 +53,14 @@ public class PohOverlay extends Overlay
 
 	private static final int MAX_DISTANCE = 2350;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final List<PohIcons> iconList = new ArrayList<>();
 
 	private final Client client;
 	private final PohPlugin plugin;
 
 	@Inject
-	public PohOverlay(Client client, PohPlugin plugin)
+	public PohOverlay(final Client client, final PohPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);

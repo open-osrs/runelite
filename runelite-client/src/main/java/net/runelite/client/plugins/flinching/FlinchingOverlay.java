@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -40,7 +41,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
-
+@Singleton
 public class FlinchingOverlay extends Overlay
 {
 	private final Client client;

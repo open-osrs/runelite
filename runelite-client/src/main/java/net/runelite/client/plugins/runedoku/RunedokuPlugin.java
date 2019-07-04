@@ -31,7 +31,6 @@ import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -52,13 +51,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @Singleton
 public class RunedokuPlugin extends Plugin
 {
-
-	@Inject
-	private Client client;
-
-	@Inject
-	RunedokuUtil util;
-
 	@Inject
 	private OverlayManager overlayManager;
 

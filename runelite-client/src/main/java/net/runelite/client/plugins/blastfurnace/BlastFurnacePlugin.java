@@ -29,6 +29,7 @@ import com.google.inject.Provides;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -58,6 +59,7 @@ import net.runelite.client.util.Text;
 	description = "Show helpful information for the Blast Furnace minigame",
 	tags = {"minigame", "overlay", "skilling", "smithing"}
 )
+@Singleton
 public class BlastFurnacePlugin extends Plugin
 {
 	private static final int BAR_DISPENSER = NULL_9092;

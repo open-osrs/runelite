@@ -35,7 +35,7 @@ public enum InfernoJadAttack
 	private final int animation;
 	private final Prayer prayer;
 
-	InfernoJadAttack(int animation, Prayer prayer)
+	InfernoJadAttack(final int animation, final Prayer prayer)
 	{
 		this.animation = animation;
 		this.prayer = prayer;

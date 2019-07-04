@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -13,12 +14,13 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.WildcardMatcher;
 
+@Singleton
 public class SpawnTimerOverlay extends Overlay
 {
 	private final SpawnTimerPlugin plugin;
 
 	@Inject
-	SpawnTimerOverlay(SpawnTimerPlugin plugin)
+	SpawnTimerOverlay(final SpawnTimerPlugin plugin)
 	{
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);

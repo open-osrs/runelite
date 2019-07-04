@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.client.ui.overlay.Overlay;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
@@ -36,13 +37,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
+@Singleton
 class AttackStylesOverlay extends Overlay
 {
 	private final AttackStylesPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private AttackStylesOverlay(AttackStylesPlugin plugin)
+	private AttackStylesOverlay(final AttackStylesPlugin plugin)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);

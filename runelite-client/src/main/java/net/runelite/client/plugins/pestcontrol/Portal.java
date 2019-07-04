@@ -40,15 +40,15 @@ class Portal
 
 	private PortalState portalState = PortalState.SHIELDED;
 
-	Portal(PortalColor color, WidgetPortal widget)
+	Portal(final PortalColor color, final WidgetPortal widget)
 	{
 		this.color = color;
 		this.widget = widget;
 	}
 
-	public boolean isShielded()
+	boolean isNotShielded()
 	{
-		return portalState == PortalState.SHIELDED;
+		return portalState != PortalState.SHIELDED;
 	}
 
 	public boolean isDead()
@@ -58,6 +58,6 @@ class Portal
 
 	public boolean isActive()
 	{
-		return (!isShielded() && !isDead());
+		return (isNotShielded() && !isDead());
 	}
 }

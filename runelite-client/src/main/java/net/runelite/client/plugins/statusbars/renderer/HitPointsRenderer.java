@@ -29,6 +29,7 @@ package net.runelite.client.plugins.statusbars.renderer;
 
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.api.VarPlayer;
@@ -36,6 +37,7 @@ import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 
+@Singleton
 public class HitPointsRenderer extends BarRenderer
 {
 	private static final Color COLOR_STANDARD = new Color(225, 35, 0, 125);
@@ -43,7 +45,7 @@ public class HitPointsRenderer extends BarRenderer
 	private static final Color COLOR_VENOM = new Color(0, 65, 0, 150);
 
 	@Inject
-	public HitPointsRenderer(StatusBarsPlugin plugin, SkillIconManager iconManager)
+	public HitPointsRenderer(final StatusBarsPlugin plugin, final SkillIconManager iconManager)
 	{
 		super(plugin);
 		icon = iconManager.getSkillImage(Skill.HITPOINTS, true);

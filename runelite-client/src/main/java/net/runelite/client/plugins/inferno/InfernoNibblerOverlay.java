@@ -27,6 +27,7 @@ package net.runelite.client.plugins.inferno;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -34,6 +35,7 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+@Singleton
 public class InfernoNibblerOverlay extends Overlay
 {
 	private final Client client;
@@ -42,7 +44,7 @@ public class InfernoNibblerOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public InfernoNibblerOverlay(Client client, InfernoPlugin plugin)
+	public InfernoNibblerOverlay(final Client client, final InfernoPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

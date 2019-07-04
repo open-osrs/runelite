@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.Arrays;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -51,6 +52,7 @@ import net.runelite.client.util.Text;
 	description = "Show NMZ points/absorption and/or notify about expiring potions",
 	tags = {"combat", "nmz", "minigame", "notifications"}
 )
+@Singleton
 public class NightmareZonePlugin extends Plugin
 {
 	private static final int[] NMZ_MAP_REGION = {9033};
@@ -135,7 +137,7 @@ public class NightmareZonePlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (!isInNightmareZone())
+		if (isNotInNightmareZone())
 		{
 			if (!absorptionNotificationSend)
 			{
@@ -155,7 +157,7 @@ public class NightmareZonePlugin extends Plugin
 	public void onChatMessage(ChatMessage event)
 	{
 		if (event.getType() != ChatMessageType.GAMEMESSAGE
-			|| !isInNightmareZone())
+			|| isNotInNightmareZone())
 		{
 			return;
 		}
@@ -222,9 +224,9 @@ public class NightmareZonePlugin extends Plugin
 		}
 	}
 
-	boolean isInNightmareZone()
+	boolean isNotInNightmareZone()
 	{
-		return Arrays.equals(client.getMapRegions(), NMZ_MAP_REGION);
+		return !Arrays.equals(client.getMapRegions(), NMZ_MAP_REGION);
 	}
 
 	private void updateConfig()

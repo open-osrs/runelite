@@ -46,7 +46,7 @@ public class WarIndicatorOverlay extends Overlay
 	private final WarIndicatorPlugin plugin;
 
 	@Inject
-	private WarIndicatorOverlay(WarIndicatorPlugin plugin, WarIndicatorService warIndicatorService)
+	private WarIndicatorOverlay(final WarIndicatorPlugin plugin, final WarIndicatorService warIndicatorService)
 	{
 		this.plugin = plugin;
 		this.warIndicatorService = warIndicatorService;

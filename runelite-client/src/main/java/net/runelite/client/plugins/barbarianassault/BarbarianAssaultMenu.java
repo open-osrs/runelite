@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.barbarianassault;
 
 import com.google.common.collect.Sets;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.menus.ComparableEntry;
@@ -41,13 +42,15 @@ class BarbarianAssaultMenu
 	private final MenuManager menuManager;
 	private final BarbarianAssaultPlugin game;
 	private final ArrayList<ComparableEntry> tracker = new ArrayList<>();
-	@Getter @Setter
+	@Getter(AccessLevel.PACKAGE)
+	@Setter(AccessLevel.PACKAGE)
 	private boolean hornUpdated = false;
-	@Getter @Setter
+	@Getter(AccessLevel.PACKAGE)
+	@Setter(AccessLevel.PACKAGE)
 	private boolean rebuildForced = false;
 
 	@Inject
-	BarbarianAssaultMenu(MenuManager menuManager, BarbarianAssaultPlugin game, BarbarianAssaultConfig config)
+	BarbarianAssaultMenu(final MenuManager menuManager, final BarbarianAssaultPlugin game)
 	{
 		this.menuManager = menuManager;
 		this.game = game;

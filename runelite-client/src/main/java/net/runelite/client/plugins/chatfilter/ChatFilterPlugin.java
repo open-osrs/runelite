@@ -34,6 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.ChatMessageType;
@@ -55,6 +56,7 @@ import org.apache.commons.lang3.StringUtils;
 	description = "Censor user configurable words or patterns from chat",
 	enabledByDefault = false
 )
+@Singleton
 public class ChatFilterPlugin extends Plugin
 {
 	private static final Splitter NEWLINE_SPLITTER = Splitter

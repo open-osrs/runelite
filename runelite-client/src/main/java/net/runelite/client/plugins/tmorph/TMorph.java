@@ -25,6 +25,7 @@ package net.runelite.client.plugins.tmorph;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
@@ -47,7 +48,7 @@ import org.apache.commons.lang3.ObjectUtils;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
-
+@Singleton
 public class TMorph extends Plugin
 {
 	@Inject

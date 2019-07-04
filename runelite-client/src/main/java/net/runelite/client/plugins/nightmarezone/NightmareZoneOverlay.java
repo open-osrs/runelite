@@ -27,6 +27,7 @@ package net.runelite.client.plugins.nightmarezone;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
@@ -46,6 +47,7 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.StackFormatter;
 
+@Singleton
 class NightmareZoneOverlay extends Overlay
 {
 	private final Client client;
@@ -58,10 +60,10 @@ class NightmareZoneOverlay extends Overlay
 
 	@Inject
 	NightmareZoneOverlay(
-		Client client,
-		NightmareZonePlugin plugin,
-		InfoBoxManager infoBoxManager,
-		ItemManager itemManager)
+		final Client client,
+		final NightmareZonePlugin plugin,
+		final InfoBoxManager infoBoxManager,
+		final ItemManager itemManager)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
@@ -76,7 +78,7 @@ class NightmareZoneOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!plugin.isInNightmareZone() || !plugin.isMoveOverlay())
+		if (plugin.isNotInNightmareZone() || !plugin.isMoveOverlay())
 		{
 			if (absorptionCounter != null)
 			{

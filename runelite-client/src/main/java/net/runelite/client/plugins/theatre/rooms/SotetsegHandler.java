@@ -47,7 +47,7 @@ public class SotetsegHandler extends RoomHandler
 	private Map<Projectile, WorldPoint> soteyProjectiles = new HashMap<>();
 	private NPC npc;
 
-	public SotetsegHandler(Client client, TheatrePlugin plugin)
+	public SotetsegHandler(final Client client, final TheatrePlugin plugin)
 	{
 		super(client, plugin);
 	}

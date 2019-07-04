@@ -27,6 +27,7 @@ package net.runelite.client.plugins.itemidentification;
 import com.google.inject.Provides;
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show identifying text over items with difficult to distinguish sprites",
 	enabledByDefault = false
 )
+@Singleton
 public class ItemIdentificationPlugin extends Plugin
 {
 	@Inject

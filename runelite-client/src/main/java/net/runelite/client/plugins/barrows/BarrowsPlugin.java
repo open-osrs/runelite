@@ -32,6 +32,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -78,6 +79,7 @@ import net.runelite.client.util.StackFormatter;
 	description = "Show helpful information for the Barrows minigame",
 	tags = {"combat", "minigame", "minimap", "bosses", "pve", "pvm"}
 )
+@Singleton
 public class BarrowsPlugin extends Plugin
 {
 	@Getter(AccessLevel.PACKAGE)

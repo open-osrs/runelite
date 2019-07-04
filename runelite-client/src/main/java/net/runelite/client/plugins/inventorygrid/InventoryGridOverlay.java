@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.inventorygrid;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -42,6 +43,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 class InventoryGridOverlay extends Overlay
 {
 	private static final int INVENTORY_SIZE = 28;
@@ -51,7 +53,7 @@ class InventoryGridOverlay extends Overlay
 	private final ItemManager itemManager;
 
 	@Inject
-	private InventoryGridOverlay(InventoryGridPlugin plugin, Client client, ItemManager itemManager)
+	private InventoryGridOverlay(final InventoryGridPlugin plugin, final Client client, final ItemManager itemManager)
 	{
 		this.itemManager = itemManager;
 		this.client = client;

@@ -32,6 +32,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
@@ -52,6 +53,7 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.util.Text;
 import net.runelite.http.api.hiscore.HiscoreResult;
 
+@Singleton
 class OpponentInfoOverlay extends Overlay
 {
 	private static final Color HP_GREEN = new Color(0, 146, 54, 230);
@@ -72,10 +74,10 @@ class OpponentInfoOverlay extends Overlay
 
 	@Inject
 	private OpponentInfoOverlay(
-		Client client,
-		OpponentInfoPlugin opponentInfoPlugin,
-		HiscoreManager hiscoreManager,
-		NPCManager npcManager)
+		final Client client,
+		final OpponentInfoPlugin opponentInfoPlugin,
+		final HiscoreManager hiscoreManager,
+		final NPCManager npcManager)
 	{
 		super(opponentInfoPlugin);
 		this.client = client;

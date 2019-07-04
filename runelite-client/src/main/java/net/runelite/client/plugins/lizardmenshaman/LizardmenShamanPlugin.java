@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	enabledByDefault = false
 )
 @Slf4j
+@Singleton
 public class LizardmenShamanPlugin extends Plugin
 {
 	private static final String SHAMAN = "Lizardman shaman";

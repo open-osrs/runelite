@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.runecraft;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -59,6 +60,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 class AbyssOverlay extends Overlay
 {
 	private static final Dimension IMAGE_SIZE = new Dimension(15, 14);
@@ -73,7 +75,7 @@ class AbyssOverlay extends Overlay
 	private ItemManager itemManager;
 
 	@Inject
-	AbyssOverlay(Client client, RunecraftPlugin plugin)
+	AbyssOverlay(final Client client, final RunecraftPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);

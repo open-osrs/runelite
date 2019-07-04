@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import lombok.AccessLevel;
@@ -73,6 +74,7 @@ import net.runelite.client.util.ImageUtil;
 )
 
 @Slf4j
+@Singleton
 public class InventorySetupPlugin extends Plugin
 {
 	private static final String CONFIG_GROUP = "inventorysetups";

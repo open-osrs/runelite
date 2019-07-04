@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,7 @@ import org.apache.commons.lang3.ArrayUtils;
 	type = PluginType.PVM
 )
 @Slf4j
+@Singleton
 public class InfernoPlugin extends Plugin
 {
 	private static final int INFERNO_REGION = 9043;
@@ -92,19 +94,19 @@ public class InfernoPlugin extends Plugin
 	@Inject
 	private InfernoConfig config;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private int currentWave = -1;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Map<NPC, InfernoNPC> monsters;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Map<Integer, ArrayList<InfernoNPC>> monsterCurrentAttackMap;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private List<NPC> nibblers;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private InfernoNPC[] priorityNPC;
 
 	@Getter(AccessLevel.PACKAGE)

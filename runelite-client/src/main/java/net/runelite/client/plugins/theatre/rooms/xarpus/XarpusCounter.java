@@ -21,7 +21,7 @@ public class XarpusCounter extends Overlay
 	private PanelComponent panelComponent = new PanelComponent();
 	private XarpusHandler xarpusHandler;
 
-	XarpusCounter(TheatrePlugin plugin, XarpusHandler xarpushandler)
+	XarpusCounter(final TheatrePlugin plugin, final XarpusHandler xarpushandler)
 	{
 		super(plugin);
 		this.xarpusHandler = xarpushandler;

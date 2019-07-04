@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -78,6 +79,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	tags = {"overlay", "objects", "mark", "marker"},
 	enabledByDefault = false
 )
+@Singleton
 public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 {
 	private static final String CONFIG_GROUP = "objectindicators";

@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -66,6 +67,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Highlight starting rocks, trails, and the objects to search at the end of each trail",
 	tags = {"herblore", "hunter", "skilling", "overlay"}
 )
+@Singleton
 public class HerbiboarPlugin extends Plugin
 {
 	private static final List<WorldPoint> END_LOCATIONS = Arrays.asList(

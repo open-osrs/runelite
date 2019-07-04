@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
@@ -43,6 +44,7 @@ import net.runelite.client.ui.overlay.components.ComponentOrientation;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
+@Singleton
 class BlastMineOreCountOverlay extends Overlay
 {
 	private final Client client;
@@ -51,7 +53,7 @@ class BlastMineOreCountOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private BlastMineOreCountOverlay(BlastMinePlugin plugin, Client client, ItemManager itemManager)
+	private BlastMineOreCountOverlay(final BlastMinePlugin plugin, final Client client, final ItemManager itemManager)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);

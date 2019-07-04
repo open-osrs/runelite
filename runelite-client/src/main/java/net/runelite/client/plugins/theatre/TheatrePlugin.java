@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +55,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.PVM,
 	enabledByDefault = false
 )
-
+@Singleton
 @Slf4j
 public class TheatrePlugin extends Plugin
 {

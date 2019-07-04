@@ -16,6 +16,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Arrays;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
@@ -28,6 +29,7 @@ import net.runelite.client.ui.overlay.components.table.TableElement;
 import net.runelite.client.ui.overlay.components.table.TableRow;
 import org.apache.commons.lang3.ArrayUtils;
 
+@Singleton
 public class PlayerCountOverlay extends Overlay
 {
 	private static int[] CLAN_WARS_REGIONS = {9520, 13135, 13134, 13133, 13131, 13130, 13387, 13386};
@@ -37,7 +39,7 @@ public class PlayerCountOverlay extends Overlay
 
 
 	@Inject
-	public PlayerCountOverlay(PvpToolsPlugin pvpToolsPlugin, Client client)
+	public PlayerCountOverlay(final PvpToolsPlugin pvpToolsPlugin, final Client client)
 	{
 		this.pvpToolsPlugin = pvpToolsPlugin;
 		this.client = client;

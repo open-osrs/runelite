@@ -101,7 +101,7 @@ public class AlchemyRoom extends MTARoom
 	private boolean alchemy;
 
 	@Inject
-	private AlchemyRoom(Client client, MTAConfig config, MTAPlugin plugin, ItemManager itemManager, InfoBoxManager infoBoxManager)
+	private AlchemyRoom(final Client client, final MTAConfig config, final MTAPlugin plugin, final ItemManager itemManager, final InfoBoxManager infoBoxManager)
 	{
 		super(config);
 		this.client = client;

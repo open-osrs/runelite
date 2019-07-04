@@ -29,6 +29,7 @@ package net.runelite.client.plugins.thieving;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import com.google.inject.Provides;
@@ -53,7 +54,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.SKILLING,
 	enabledByDefault = false
 )
-
+@Singleton
 @PluginDependency(XpTrackerPlugin.class)
 public class ThievingPlugin extends Plugin
 {

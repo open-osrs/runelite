@@ -27,6 +27,7 @@ package net.runelite.client.plugins.runepouch;
 import com.google.inject.Provides;
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -42,6 +43,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show the contents of your rune pouch",
 	tags = {"combat", "magic", "overlay"}
 )
+@Singleton
 public class RunepouchPlugin extends Plugin
 {
 	@Inject

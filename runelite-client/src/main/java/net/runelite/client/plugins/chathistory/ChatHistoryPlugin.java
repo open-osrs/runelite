@@ -32,6 +32,7 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.Queue;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
@@ -57,6 +58,7 @@ import net.runelite.client.util.Text;
 	description = "Retain your chat history when logging in/out or world hopping",
 	tags = {"chat", "history", "retain", "cycle", "pm"}
 )
+@Singleton
 public class ChatHistoryPlugin extends Plugin implements KeyListener
 {
 	private static final String WELCOME_MESSAGE = "Welcome to Old School RuneScape.";

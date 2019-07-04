@@ -30,6 +30,7 @@ import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -54,6 +55,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	description = "Show a more accurate combat level in Combat Options panel and other combat level functions",
 	tags = {"wilderness", "attack", "range"}
 )
+@Singleton
 public class CombatLevelPlugin extends Plugin
 {
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.###");

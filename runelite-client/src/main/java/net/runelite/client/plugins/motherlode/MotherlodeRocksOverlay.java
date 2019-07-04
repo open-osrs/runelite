@@ -32,6 +32,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.Perspective;
@@ -48,6 +49,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
 
+@Singleton
 class MotherlodeRocksOverlay extends Overlay
 {
 	private static final int MAX_DISTANCE = 2350;
@@ -61,7 +63,7 @@ class MotherlodeRocksOverlay extends Overlay
 	private static final Color miningIconNewColor = new Color(0, 150, 0);
 
 	@Inject
-	MotherlodeRocksOverlay(Client client, MotherlodePlugin plugin, SkillIconManager iconManager)
+	MotherlodeRocksOverlay(final Client client, final MotherlodePlugin plugin, final SkillIconManager iconManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

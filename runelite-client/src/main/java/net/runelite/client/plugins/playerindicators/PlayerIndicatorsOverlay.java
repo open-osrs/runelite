@@ -69,8 +69,8 @@ public class PlayerIndicatorsOverlay extends Overlay
 	private ItemManager itemManager;
 
 	@Inject
-	private PlayerIndicatorsOverlay(PlayerIndicatorsPlugin plugin, PlayerIndicatorsService playerIndicatorsService,
-									ClanManager clanManager)
+	private PlayerIndicatorsOverlay(final PlayerIndicatorsPlugin plugin, final PlayerIndicatorsService playerIndicatorsService,
+									final ClanManager clanManager)
 	{
 		this.plugin = plugin;
 		this.playerIndicatorsService = playerIndicatorsService;

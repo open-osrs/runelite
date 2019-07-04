@@ -27,6 +27,7 @@ package net.runelite.client.plugins.warindicators;
 import com.google.inject.Provides;
 import java.awt.Color;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -61,7 +62,7 @@ import org.apache.commons.lang3.ArrayUtils;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
-
+@Singleton
 public class WarIndicatorPlugin extends Plugin
 {
 	@Inject

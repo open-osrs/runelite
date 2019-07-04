@@ -39,7 +39,7 @@ public class PlayerIndicatorsService
 	private final PlayerIndicatorsPlugin plugin;
 
 	@Inject
-	private PlayerIndicatorsService(Client client, PlayerIndicatorsPlugin plugin)
+	private PlayerIndicatorsService(final Client client, final PlayerIndicatorsPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

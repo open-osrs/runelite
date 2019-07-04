@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
@@ -39,13 +40,14 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 public class InfernoOverlay extends Overlay
 {
 	private final Client client;
 	private final InfernoPlugin plugin;
 
 	@Inject
-	public InfernoOverlay(Client client, InfernoPlugin plugin)
+	public InfernoOverlay(final Client client, final InfernoPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);

@@ -3,6 +3,7 @@ package net.runelite.client.plugins.chattranslation;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ObjectArrays;
 import com.google.inject.Provides;
+import javax.inject.Singleton;
 import net.runelite.api.*;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 	tags = {"translate", "language", "english", "spanish", "dutch", "french"},
 	type = PluginType.UTILITY
 )
+@Singleton
 public class ChatTranslationPlugin extends Plugin implements KeyListener
 {
 

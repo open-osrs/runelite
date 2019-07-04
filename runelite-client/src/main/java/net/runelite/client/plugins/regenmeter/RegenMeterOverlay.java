@@ -33,6 +33,7 @@ import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.Arc2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.widgets.Widget;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+@Singleton
 public class RegenMeterOverlay extends Overlay
 {
 	private static final Color HITPOINTS_COLOR = brighter(0x9B0703);
@@ -71,7 +73,7 @@ public class RegenMeterOverlay extends Overlay
 	}
 
 	@Inject
-	public RegenMeterOverlay(Client client, RegenMeterPlugin plugin)
+	public RegenMeterOverlay(final Client client, final RegenMeterPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);

@@ -32,6 +32,7 @@ import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
 import javax.inject.Inject;
 
+import javax.inject.Singleton;
 import net.runelite.api.geometry.Geometry;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -42,6 +43,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+@Singleton
 public class MultiIndicatorsMinimapOverlay extends Overlay
 {
 	private final static int MAX_LOCAL_DRAW_LENGTH = 20 * Perspective.LOCAL_TILE_SIZE;
@@ -83,8 +85,11 @@ public class MultiIndicatorsMinimapOverlay extends Overlay
 		path = Geometry.transformPath(path, coords ->
 		{
 			Point point = Perspective.localToMinimap(client, new LocalPoint((int) coords[0], (int) coords[1]));
-			coords[0] = point.getX();
-			coords[1] = point.getY();
+			if (point != null)
+			{
+				coords[0] = point.getX();
+				coords[1] = point.getY();
+			}
 		});
 
 		graphics.draw(path);

@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.client.ui.FontManager;
@@ -29,7 +30,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-
+@Singleton
 public class WhaleWatchersProtOverlay extends Overlay
 {
 
@@ -37,7 +38,7 @@ public class WhaleWatchersProtOverlay extends Overlay
 	private WhaleWatchersPlugin plugin;
 
 	@Inject
-	public WhaleWatchersProtOverlay(Client client, WhaleWatchersPlugin plugin)
+	public WhaleWatchersProtOverlay(final Client client, final WhaleWatchersPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;

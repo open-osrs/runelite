@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 import static java.util.regex.Pattern.quote;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.MessageNode;
 import net.runelite.api.events.ChatMessage;
@@ -57,6 +58,7 @@ import net.runelite.client.util.Text;
 	tags = {"duel", "messages", "notifications", "trade", "username"},
 	enabledByDefault = false
 )
+@Singleton
 public class ChatNotificationsPlugin extends Plugin
 {
 	@Inject

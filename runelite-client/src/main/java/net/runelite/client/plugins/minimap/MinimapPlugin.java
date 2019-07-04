@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.Arrays;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Sprite;
@@ -46,6 +47,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 	description = "Customize the color of minimap dots",
 	tags = {"items", "npcs", "players"}
 )
+@Singleton
 public class MinimapPlugin extends Plugin
 {
 	private static final int NUM_MAPDOTS = 6;

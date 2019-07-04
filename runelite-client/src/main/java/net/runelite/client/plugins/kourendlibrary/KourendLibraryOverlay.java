@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.kourendlibrary;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -50,6 +51,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 class KourendLibraryOverlay extends Overlay
 {
 	private final static int MAXIMUM_DISTANCE = 24;
@@ -61,7 +63,7 @@ class KourendLibraryOverlay extends Overlay
 	private boolean hidden;
 
 	@Inject
-	private KourendLibraryOverlay(Library library, Client client, KourendLibraryPlugin plugin)
+	private KourendLibraryOverlay(final Library library, final Client client, final KourendLibraryPlugin plugin)
 	{
 		this.library = library;
 		this.client = client;

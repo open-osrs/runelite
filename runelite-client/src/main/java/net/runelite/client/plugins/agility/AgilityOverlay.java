@@ -32,6 +32,7 @@ import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
@@ -41,6 +42,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 class AgilityOverlay extends Overlay
 {
 	private static final Color SHORTCUT_HIGH_LEVEL_COLOR = Color.ORANGE;
@@ -49,7 +51,7 @@ class AgilityOverlay extends Overlay
 	private final AgilityPlugin plugin;
 
 	@Inject
-	private AgilityOverlay(Client client, AgilityPlugin plugin)
+	private AgilityOverlay(final Client client, final AgilityPlugin plugin)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.DYNAMIC);

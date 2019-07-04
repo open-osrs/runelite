@@ -32,6 +32,7 @@ import java.awt.Rectangle;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -49,6 +50,7 @@ import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ColorUtil;
 import org.apache.commons.lang3.StringUtils;
 
+@Singleton
 class PrayerDoseOverlay extends Overlay
 {
 	private static final float PULSE_TIME = 2f * Constants.GAME_TICK_LENGTH;

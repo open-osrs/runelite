@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -36,12 +37,13 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class NpcMinimapOverlay extends Overlay
 {
 	private final NpcIndicatorsPlugin plugin;
 
 	@Inject
-	NpcMinimapOverlay(NpcIndicatorsPlugin plugin)
+	NpcMinimapOverlay(final NpcIndicatorsPlugin plugin)
 	{
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);

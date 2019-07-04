@@ -4,12 +4,14 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
+@Singleton
 public class ImplingCounterOverlay extends Overlay
 {
 	private final ImplingsPlugin plugin;
@@ -17,7 +19,7 @@ public class ImplingCounterOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public ImplingCounterOverlay(ImplingsPlugin plugin)
+	public ImplingCounterOverlay(final ImplingsPlugin plugin)
 	{
 		this.plugin = plugin;
 		setPosition(OverlayPosition.TOP_LEFT);

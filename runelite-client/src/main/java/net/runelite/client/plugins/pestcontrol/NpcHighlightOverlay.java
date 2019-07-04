@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,13 +44,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Slf4j
+@Singleton
 public class NpcHighlightOverlay extends Overlay
 {
 	private final PestControlPlugin plugin;
 	private final Client client;
 
 	@Inject
-	NpcHighlightOverlay(PestControlPlugin plugin, Client client)
+	NpcHighlightOverlay(final PestControlPlugin plugin, final Client client)
 	{
 		this.plugin = plugin;
 		this.client = client;

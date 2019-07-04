@@ -27,6 +27,7 @@ package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ import net.runelite.client.util.Text;
 	description = "Show helpful information for the Pest Control minigame",
 	tags = {"minigame", "overlay"}
 )
+@Singleton
 public class PestControlPlugin extends Plugin
 {
 	private static final int VOID_KNIGHTS_OUTPOST = 10537;

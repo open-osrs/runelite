@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.Objects;
 import javax.inject.Inject;
 
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -110,6 +111,7 @@ import org.apache.commons.lang3.StringUtils;
 	tags = {"minigame", "overlay", "timer"},
 	type = PluginType.PVM // don't remove this, added this because our barbarian assault plugin is big time modified
 )
+@Singleton
 public class BarbarianAssaultPlugin extends Plugin implements KeyListener
 {
 	private static final String ENDGAME_REWARD_NEEDLE_TEXT = "<br>5";

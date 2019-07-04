@@ -50,7 +50,7 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay
 		"skull.png");
 
 	@Inject
-	private PlayerIndicatorsMinimapOverlay(PlayerIndicatorsPlugin plugin, PlayerIndicatorsService playerIndicatorsService)
+	private PlayerIndicatorsMinimapOverlay(final PlayerIndicatorsPlugin plugin, final PlayerIndicatorsService playerIndicatorsService)
 	{
 		this.plugin = plugin;
 		this.playerIndicatorsService = playerIndicatorsService;

@@ -37,6 +37,7 @@ import java.time.Instant;
 import java.util.Iterator;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -48,6 +49,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import static net.runelite.client.util.ColorUtil.setAlphaComponent;
 
+@Singleton
 public class AoeWarningOverlay extends Overlay
 {
 	private static final int FILL_START_ALPHA = 25;
@@ -57,7 +59,7 @@ public class AoeWarningOverlay extends Overlay
 	private final AoeWarningPlugin plugin;
 
 	@Inject
-	public AoeWarningOverlay(Client client, AoeWarningPlugin plugin, AoeWarningConfig config)
+	public AoeWarningOverlay(final Client client, final AoeWarningPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.UNDER_WIDGETS);

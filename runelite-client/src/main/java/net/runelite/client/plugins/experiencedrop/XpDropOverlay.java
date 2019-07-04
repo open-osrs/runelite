@@ -27,6 +27,7 @@ package net.runelite.client.plugins.experiencedrop;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -34,12 +35,13 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 class XpDropOverlay extends Overlay
 {
 	private final XpDropPlugin plugin;
 
 	@Inject
-	private XpDropOverlay(XpDropPlugin plugin)
+	private XpDropOverlay(final XpDropPlugin plugin)
 	{
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);

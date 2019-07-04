@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.SpriteID;
 import net.runelite.client.game.SpriteManager;
@@ -39,6 +40,7 @@ import net.runelite.client.ui.overlay.components.ComponentConstants;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
+@Singleton
 public class InfernoJadOverlay extends Overlay
 {
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
@@ -48,7 +50,7 @@ public class InfernoJadOverlay extends Overlay
 	private final PanelComponent imagePanelComponent = new PanelComponent();
 
 	@Inject
-	private InfernoJadOverlay(Client client, InfernoPlugin plugin, SpriteManager spriteManager)
+	private InfernoJadOverlay(final Client client, final InfernoPlugin plugin, final SpriteManager spriteManager)
 	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 		setPriority(OverlayPriority.HIGH);

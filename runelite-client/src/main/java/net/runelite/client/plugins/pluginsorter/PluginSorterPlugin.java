@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
@@ -47,6 +48,7 @@ import net.runelite.client.plugins.config.PluginListItem;
 	tags = {"plugins", "organizer"},
 	type = PluginType.PLUGIN_ORGANIZER
 )
+@Singleton
 public class PluginSorterPlugin extends Plugin
 {
 	//Cache the hidden plugins

@@ -30,6 +30,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.EnumSet;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -52,6 +53,7 @@ import net.runelite.http.api.hiscore.HiscoreEndpoint;
 	description = "Show name and hitpoints information about the NPC you are fighting",
 	tags = {"combat", "health", "hitpoints", "npcs", "overlay"}
 )
+@Singleton
 public class OpponentInfoPlugin extends Plugin
 {
 	private static final Duration WAIT = Duration.ofSeconds(5);

@@ -36,6 +36,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -71,13 +72,13 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	type = PluginType.PVM,
 	enabledByDefault = false
 )
-
+@Singleton
 @Slf4j
 public class AoeWarningPlugin extends Plugin
 {
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final Map<WorldPoint, CrystalBomb> bombs = new HashMap<>();
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final Map<Projectile, AoeProjectile> projectiles = new HashMap<>();
 	@Inject
 	public AoeWarningConfig config;

@@ -29,19 +29,21 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+@Singleton
 public class PlayerIndicatorsTileOverlay extends Overlay
 {
 	private final PlayerIndicatorsService playerIndicatorsService;
 	private final PlayerIndicatorsPlugin playerIndicatorsPlugin;
 
 	@Inject
-	private PlayerIndicatorsTileOverlay(PlayerIndicatorsService playerIndicatorsService, PlayerIndicatorsPlugin plugin)
+	private PlayerIndicatorsTileOverlay(final PlayerIndicatorsService playerIndicatorsService, final PlayerIndicatorsPlugin plugin)
 	{
 		this.playerIndicatorsService = playerIndicatorsService;
 		this.playerIndicatorsPlugin = plugin;

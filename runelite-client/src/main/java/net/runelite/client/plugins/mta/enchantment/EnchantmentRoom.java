@@ -55,7 +55,7 @@ public class EnchantmentRoom extends MTARoom
 	private boolean enchantment;
 
 	@Inject
-	private EnchantmentRoom(MTAConfig config, Client client)
+	private EnchantmentRoom(final MTAConfig config, final Client client)
 	{
 		super(config);
 		this.client = client;

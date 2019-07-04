@@ -32,10 +32,10 @@ import java.awt.Polygon;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.Instant;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -50,6 +50,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Slf4j
+@Singleton
 public class BombOverlay extends Overlay
 {
 
@@ -84,7 +85,7 @@ public class BombOverlay extends Overlay
 	private final AoeWarningPlugin plugin;
 
 	@Inject
-	public BombOverlay(Client client, AoeWarningPlugin plugin)
+	public BombOverlay(final Client client, final AoeWarningPlugin plugin)
 	{
 		this.client = client;
 		this.plugin = plugin;
@@ -106,10 +107,8 @@ public class BombOverlay extends Overlay
 	private void drawBombs(Graphics2D graphics)
 	//I can condense drawDangerZone into this. Ambivalent though.
 	{
-		Iterator<Map.Entry<WorldPoint, CrystalBomb>> it = plugin.getBombs().entrySet().iterator();
-		while (it.hasNext())
+		for (Map.Entry<WorldPoint, CrystalBomb> entry : plugin.getBombs().entrySet())
 		{
-			Map.Entry<WorldPoint, CrystalBomb> entry = it.next();
 			CrystalBomb bomb = entry.getValue();
 			drawDangerZone(graphics, bomb);
 		}
