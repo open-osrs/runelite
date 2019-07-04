@@ -42,13 +42,13 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class TileIndicatorsOverlay extends Overlay
 {
 	private final Client client;
-	private final TileIndicatorsConfig config;
+	private final TileIndicatorsPlugin plugin;
 
 	@Inject
-	private TileIndicatorsOverlay(Client client, TileIndicatorsConfig config)
+	private TileIndicatorsOverlay(Client client, TileIndicatorsPlugin plugin)
 	{
 		this.client = client;
-		this.config = config;
+		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		setPriority(OverlayPriority.MED);
@@ -57,21 +57,21 @@ public class TileIndicatorsOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (config.highlightHoveredTile())
+		if (plugin.isHighlightHoveredTile())
 		{
 			// If we have tile "selected" render it
 			if (client.getSelectedSceneTile() != null)
 			{
-				renderTile(graphics, client.getSelectedSceneTile().getLocalLocation(), config.highlightHoveredColor());
+				renderTile(graphics, client.getSelectedSceneTile().getLocalLocation(), plugin.getHighlightHoveredColor());
 			}
 		}
 
-		if (config.highlightDestinationTile())
+		if (plugin.isHighlightDestinationTile())
 		{
-			renderTile(graphics, client.getLocalDestinationLocation(), config.highlightDestinationColor());
+			renderTile(graphics, client.getLocalDestinationLocation(), plugin.getHighlightDestinationColor());
 		}
 
-		if (config.highlightCurrentTile())
+		if (plugin.isHighlightCurrentTile())
 		{
 			final WorldPoint playerPos = client.getLocalPlayer().getWorldLocation();
 			if (playerPos == null)
@@ -85,7 +85,7 @@ public class TileIndicatorsOverlay extends Overlay
 				return null;
 			}
 
-			renderTile(graphics, playerPosLocal, config.highlightCurrentColor());
+			renderTile(graphics, playerPosLocal, plugin.getHighlightCurrentColor());
 		}
 
 		return null;
