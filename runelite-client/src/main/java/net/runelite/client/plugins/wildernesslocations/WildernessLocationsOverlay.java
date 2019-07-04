@@ -24,9 +24,6 @@ public class WildernessLocationsOverlay extends Overlay
 	private TextComponent textComponent;
 
 	@Inject
-	private WildernessLocationsConfig wildyConfig;
-
-	@Inject
 	public WildernessLocationsOverlay(WildernessLocationsPlugin plugin)
 	{
 		this.plugin = plugin;
@@ -39,7 +36,7 @@ public class WildernessLocationsOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (plugin.isRenderLocation() && wildyConfig.drawOverlay())
+		if (plugin.isRenderLocation() && plugin.isDrawOverlay())
 		{
 			textComponent.setText(plugin.getLocationString());
 			return textComponent.render(graphics);
