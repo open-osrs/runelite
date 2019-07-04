@@ -30,7 +30,7 @@ import com.google.inject.Provides;
 
 import java.awt.event.KeyEvent;
 import javax.inject.Inject;
-
+import java.io.File;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.events.ConfigChanged;
