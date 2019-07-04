@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.wintertodt;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
@@ -44,6 +45,7 @@ import net.runelite.api.MessageNode;
 import net.runelite.api.Player;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.Notifier;
@@ -52,6 +54,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.wintertodt.config.WintertodtNotifyMode;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 
@@ -100,6 +103,9 @@ public class WintertodtPlugin extends Plugin
 
 	private Instant lastActionTime;
 
+	private WintertodtNotifyMode notifyCondition;
+	private Color damageNotificationColor;
+
 	@Provides
 	WintertodtConfig getConfig(ConfigManager configManager)
 	{
@@ -109,6 +115,9 @@ public class WintertodtPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		this.notifyCondition = config.notifyCondition();
+		this.damageNotificationColor = config.damageNotificationColor();
+
 		reset();
 		overlayManager.add(overlay);
 	}
@@ -118,6 +127,18 @@ public class WintertodtPlugin extends Plugin
 	{
 		overlayManager.remove(overlay);
 		reset();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("wintertodt"))
+		{
+			return;
+		}
+
+		this.notifyCondition = config.notifyCondition();
+		this.damageNotificationColor = config.damageNotificationColor();
 	}
 
 	private void reset()
@@ -253,7 +274,7 @@ public class WintertodtPlugin extends Plugin
 				wasDamaged = true;
 
 				// Recolor message for damage notification
-				messageNode.setRuneLiteFormatMessage(ColorUtil.wrapWithColorTag(messageNode.getValue(), config.damageNotificationColor()));
+				messageNode.setRuneLiteFormatMessage(ColorUtil.wrapWithColorTag(messageNode.getValue(), this.damageNotificationColor));
 				chatMessageManager.update(messageNode);
 				client.refreshChat();
 
@@ -280,7 +301,7 @@ public class WintertodtPlugin extends Plugin
 		{
 			boolean shouldNotify = false;
 
-			switch (config.notifyCondition())
+			switch (this.notifyCondition)
 			{
 				case ONLY_WHEN_INTERRUPTED:
 					if (wasInterrupted)
