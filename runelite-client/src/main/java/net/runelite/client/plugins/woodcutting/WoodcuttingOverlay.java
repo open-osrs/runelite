@@ -45,18 +45,16 @@ class WoodcuttingOverlay extends Overlay
 {
 	private final Client client;
 	private final WoodcuttingPlugin plugin;
-	private final WoodcuttingConfig config;
 	private final XpTrackerService xpTrackerService;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private WoodcuttingOverlay(Client client, WoodcuttingPlugin plugin, WoodcuttingConfig config, XpTrackerService xpTrackerService)
+	private WoodcuttingOverlay(Client client, WoodcuttingPlugin plugin, XpTrackerService xpTrackerService)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
 		this.plugin = plugin;
-		this.config = config;
 		this.xpTrackerService = xpTrackerService;
 		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Woodcutting overlay"));
 	}
@@ -64,7 +62,7 @@ class WoodcuttingOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showWoodcuttingStats())
+		if (!plugin.isShowWoodcuttingStats())
 		{
 			return null;
 		}

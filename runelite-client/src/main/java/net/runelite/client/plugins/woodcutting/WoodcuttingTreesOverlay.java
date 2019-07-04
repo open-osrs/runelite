@@ -39,15 +39,13 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 class WoodcuttingTreesOverlay extends Overlay
 {
 	private final Client client;
-	private final WoodcuttingConfig config;
 	private final ItemManager itemManager;
 	private final WoodcuttingPlugin plugin;
 
 	@Inject
-	private WoodcuttingTreesOverlay(final Client client, final WoodcuttingConfig config, final ItemManager itemManager, final WoodcuttingPlugin plugin)
+	private WoodcuttingTreesOverlay(final Client client, final ItemManager itemManager, final WoodcuttingPlugin plugin)
 	{
 		this.client = client;
-		this.config = config;
 		this.itemManager = itemManager;
 		this.plugin = plugin;
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -57,7 +55,7 @@ class WoodcuttingTreesOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (plugin.getSession() == null || !config.showRedwoodTrees())
+		if (plugin.getSession() == null || !plugin.isShowRedwoodTrees())
 		{
 			return null;
 		}
