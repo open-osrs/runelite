@@ -9,9 +9,11 @@
 package net.runelite.client.plugins.safespot;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
@@ -22,6 +24,7 @@ import net.runelite.api.Tile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.client.config.ConfigManager;
@@ -50,14 +53,19 @@ public class SafeSpotPlugin extends Plugin
 	@Inject
 	private SafeSpotConfig config;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private ArrayList<Tile> safeSpotList;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean safeSpotsRenderable = false;
 
 	private SafeSpotOverlay safeSpotOverlay;
 	private int tickCount = 0;
+
+	private boolean playerSafeSpots;
+	private boolean npcSafeSpots;
+	@Getter(AccessLevel.PACKAGE)
+	private Color tileColor;
 
 	@Provides
 	SafeSpotConfig config(ConfigManager configManager)
@@ -68,7 +76,9 @@ public class SafeSpotPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		safeSpotOverlay = new SafeSpotOverlay(client, this, config);
+		updateConfig();
+
+		safeSpotOverlay = new SafeSpotOverlay(client, this);
 		overlayManager.add(safeSpotOverlay);
 	}
 
@@ -85,7 +95,7 @@ public class SafeSpotPlugin extends Plugin
 		{
 			return;
 		}
-		if (event.getTarget() == null && (config.npcSafeSpots() || config.playerSafeSpots()))
+		if (event.getTarget() == null && (this.npcSafeSpots || this.playerSafeSpots))
 		{
 			tickCount = 10;
 		}
@@ -96,12 +106,12 @@ public class SafeSpotPlugin extends Plugin
 	{
 		if (client.getLocalPlayer().getInteracting() != null)
 		{
-			if (client.getLocalPlayer().getInteracting() instanceof Player && config.playerSafeSpots())
+			if (client.getLocalPlayer().getInteracting() instanceof Player && this.playerSafeSpots)
 			{
 				safeSpotsRenderable = true;
 				updateSafeSpots();
 			}
-			if (client.getLocalPlayer().getInteracting() instanceof NPC && config.npcSafeSpots())
+			if (client.getLocalPlayer().getInteracting() instanceof NPC && this.npcSafeSpots)
 			{
 				safeSpotsRenderable = true;
 				updateSafeSpots();
@@ -166,5 +176,23 @@ public class SafeSpotPlugin extends Plugin
 			}
 		}
 		return safeSpotList;
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("safespot"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
+	private void updateConfig()
+	{
+		this.playerSafeSpots = config.playerSafeSpots();
+		this.npcSafeSpots= config.npcSafeSpots();
+		this.tileColor = config.tileColor();
 	}
 }

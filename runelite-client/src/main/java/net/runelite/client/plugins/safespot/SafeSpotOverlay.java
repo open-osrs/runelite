@@ -26,14 +26,12 @@ public class SafeSpotOverlay extends Overlay
 
 	private final Client client;
 	private final SafeSpotPlugin safeSpotPlugin;
-	private final SafeSpotConfig config;
 
 	@Inject
-	public SafeSpotOverlay(Client client, SafeSpotPlugin safeSpotPlugin, SafeSpotConfig config)
+	public SafeSpotOverlay(Client client, SafeSpotPlugin safeSpotPlugin)
 	{
 		this.client = client;
 		this.safeSpotPlugin = safeSpotPlugin;
-		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.LOW);
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -55,7 +53,7 @@ public class SafeSpotOverlay extends Overlay
 							final Polygon poly = Perspective.getCanvasTilePoly(client, tile.getLocalLocation());
 							if (poly != null)
 							{
-								OverlayUtil.renderPolygon(graphics, poly, config.tileColor());
+								OverlayUtil.renderPolygon(graphics, poly, safeSpotPlugin.getTileColor());
 							}
 						}
 					});
