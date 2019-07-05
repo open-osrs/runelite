@@ -196,7 +196,7 @@ public class InfoPanel extends PluginPanel
 	/**
 	 * Builds a link panel with a given icon, text and directory to open.
 	 */
-	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, File dir)
+	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, File dir)
 	{
 		return buildLinkPanel(icon, topText, bottomText, () -> {
 			try
@@ -212,7 +212,7 @@ public class InfoPanel extends PluginPanel
 	/**
 	 * Builds a link panel with a given icon, text and url to redirect to.
 	 */
-	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, String url)
+	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, String url)
 	{
 		return buildLinkPanel(icon, topText, bottomText, () -> LinkBrowser.browse(url));
 	}
@@ -220,7 +220,7 @@ public class InfoPanel extends PluginPanel
 	/**
 	 * Builds a link panel with a given icon, text and callable to call.
 	 */
-	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, Runnable callback)
+	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, Runnable callback)
 	{
 		JPanel container = new JPanel();
 		container.setBackground(ColorScheme.DARKER_GRAY_COLOR);
@@ -274,11 +274,11 @@ public class InfoPanel extends PluginPanel
 
 		JLabel topLine = new JLabel(topText);
 		topLine.setForeground(Color.WHITE);
-		topLine.setFont(FontManager.getRunescapeSmallFont());
+		topLine.setFont(FontManager.getSmallFont(getFont()));
 
 		JLabel bottomLine = new JLabel(bottomText);
 		bottomLine.setForeground(Color.WHITE);
-		bottomLine.setFont(FontManager.getRunescapeSmallFont());
+		bottomLine.setFont(FontManager.getSmallFont(getFont()));
 
 		textContainer.add(topLine);
 		textContainer.add(bottomLine);
