@@ -284,7 +284,18 @@
 			<artifactId>asm-all</artifactId>
 			<version>6.0_BETA</version>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.9</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<resources>
