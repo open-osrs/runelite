@@ -198,7 +198,8 @@ public class InfoPanel extends PluginPanel
 	 */
 	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, File dir)
 	{
-		return buildLinkPanel(icon, topText, bottomText, () -> {
+		return buildLinkPanel(icon, topText, bottomText, () ->
+		{
 			try
 			{
 				Desktop.getDesktop().open(dir);
