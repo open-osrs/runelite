@@ -117,7 +117,7 @@ public class InfoPanel extends PluginPanel
 		JPanel versionPanel = new JPanel();
 		versionPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		versionPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		versionPanel.setLayout(new GridLayout(4, 1));
+		versionPanel.setLayout(new GridLayout(0, 1));
 
 		final Font smallFont = FontManager.getSmallFont(getFont());
 
