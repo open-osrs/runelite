@@ -313,6 +313,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		String target = event.getMenuTarget();
 		ItemComposition itemComposition = client.getItemDefinition(itemId);
 
+		System.out.println(target);
+
 		if (option.equals(RESET) && target.equals(MENU_TARGET))
 		{
 			unsetSwapConfig(itemId);
@@ -345,6 +347,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		}
 
+		System.out.println(valid);
+
 		if (valid)
 		{
 			setSwapConfig(itemId, index);
@@ -371,8 +375,39 @@ public class MenuEntrySwapperPlugin extends Plugin
 			return;
 		}
 
+		if (target.contains("man"))
+		{
+			System.out.println(target + " " + option);
+			if (!option.equals("pickpocket"))
+			{
+				swap("pickpocket", option, target, true);
+			}
+
+			return;
+		}
+
+		if (target.contains("bandit"))
+		{
+			System.out.println(target + " " + option);
+			swap("knock-out", option, target, true);
+			return;
+		}
+
+		if (target.contains("menaphite thug"))
+		{
+			System.out.println(target + " " + option);
+			swap("knock-out", option, target, true);
+			return;
+		}
+
 		if (option.equals("talk-to"))
 		{
+
+			if (target.contains("hans"))
+			{
+				swap("age", option, target, true);
+			}
+
 			if (config.swapPickpocket() && target.contains("h.a.m."))
 			{
 				swap("pickpocket", option, target, true);
