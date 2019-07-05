@@ -148,6 +148,8 @@ public class PvpToolsPlugin extends Plugin
 	private boolean riskCalculatorEnabled;
 	private boolean missingPlayersEnabled;
 	private boolean currentPlayersEnabled;
+	private boolean hideAttack;
+	private boolean hideCast;
 
 	@Inject
 	private ClientToolbar clientToolbar;
@@ -242,8 +244,8 @@ public class PvpToolsPlugin extends Plugin
 
 		overlayManager.add(pvpToolsOverlay);
 		overlayManager.add(playerCountOverlay);
-		client.setHideFriendAttackOptions(config.hideAttack());
-		client.setHideFriendCastOptions(config.hideCast());
+		client.setHideFriendAttackOptions(this.hideAttack);
+		client.setHideFriendCastOptions(this.hideCast);
 		keyManager.registerKeyListener(fallinHotkeyListener);
 		keyManager.registerKeyListener(renderselfHotkeyListener);
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "skull.png");
@@ -294,8 +296,8 @@ public class PvpToolsPlugin extends Plugin
 		{
 			return;
 		}
-		client.setHideFriendAttackOptions(config.hideAttack());
-		client.setHideFriendCastOptions(config.hideCast());
+		client.setHideFriendAttackOptions(this.hideAttack);
+		client.setHideFriendCastOptions(this.hideCast);
 
 		if (configChanged.getGroup().equals("pvptools"))
 		{
@@ -603,5 +605,7 @@ public class PvpToolsPlugin extends Plugin
 		this.riskCalculatorEnabled = config.riskCalculatorEnabled();
 		this.missingPlayersEnabled = config.missingPlayersEnabled();
 		this.currentPlayersEnabled = config.currentPlayersEnabled();
+		this.hideAttack = config.hideAttack();
+		this.hideCast = config.hideCast();
 	}
 }
