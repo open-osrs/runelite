@@ -31,11 +31,10 @@ import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
-import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.PluginChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -84,16 +83,23 @@ public class PluginSorterPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onGameStateChanged(GameStateChanged gameStateChanged)
+	public void onPluginChanged(PluginChanged pluginChanged)
 	{
-		if (gameStateChanged.getGameState() == GameState.LOGIN_SCREEN)
+		validatePlugins();
+	}
+
+	private void validatePlugins()
+	{
+		if (this.hidePlugins)
 		{
-			if (this.hidePlugins)
-			{
-				hidePlugins();
-			}
-			updateColors();
+			hidePlugins();
 		}
+		else
+		{
+			showPlugins();
+		}
+
+		updateColors();
 	}
 
 	@Subscribe
@@ -108,16 +114,8 @@ public class PluginSorterPlugin extends Plugin
 
 		if (configChanged.getKey().equals("hidePlugins"))
 		{
-			if (this.hidePlugins)
-			{
-				hidePlugins();
-			}
-			else
-			{
-				showPlugins();
-			}
+			validatePlugins();
 		}
-		updateColors();
 	}
 
 	private void updateColors()
@@ -179,9 +177,15 @@ public class PluginSorterPlugin extends Plugin
 
 	private void showPlugins()
 	{
-		List<PluginListItem> tempList = new ArrayList<>();
-		tempList.addAll(ConfigPanel.pluginList);
-		tempList.addAll(1, removedPlugins);
+		List<PluginListItem> tempList = new ArrayList<>(ConfigPanel.pluginList);
+		if (tempList.size() > 0)
+		{
+			tempList.addAll(1, removedPlugins);
+		}
+		else
+		{
+			tempList.addAll(removedPlugins);
+		}
 		ConfigPanel.pluginList = tempList;
 	}
 

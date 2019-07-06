@@ -287,6 +287,11 @@ public class MenuManager
 			return;
 		}
 
+		rebuildLeftClickMenu();
+	}
+
+	private void rebuildLeftClickMenu()
+	{
 		entries.clear();
 		entries.addAll(Arrays.asList(client.getMenuEntries()));
 
@@ -320,8 +325,13 @@ public class MenuManager
 		{
 			entries.remove(leftClickEntry);
 			entries.add(leftClickEntry);
-			client.setMenuEntries(entries.toArray(new MenuEntry[0]));
 		}
+		else if (!currentHiddenEntries.isEmpty())
+		{
+			leftClickEntry = Iterables.getLast(entries, null);
+		}
+
+		client.setMenuEntries(entries.toArray(new MenuEntry[0]));
 	}
 
 	public void addPlayerMenuItem(String menuText)
@@ -428,10 +438,15 @@ public class MenuManager
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (!client.isMenuOpen() && leftClickEntry != null)
+		if (!client.isMenuOpen())
 		{
-			event.setMenuEntry(leftClickEntry);
-			leftClickEntry = null;
+			rebuildLeftClickMenu();
+
+			if (leftClickEntry != null)
+			{
+				event.setMenuEntry(leftClickEntry);
+				leftClickEntry = null;
+			}
 		}
 
 		if (event.getMenuAction() != MenuAction.RUNELITE)
