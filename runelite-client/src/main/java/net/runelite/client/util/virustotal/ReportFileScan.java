@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright 2012, 2013 Mauricio Pampim Correa
+ * Copyright 2019 Ian William O'Neill <iano2k4@hotmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,12 +23,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.cache.definitions.sound;
+package net.runelite.client.util.virustotal;
 
-public class SoundEffect3Definition
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+public class ReportFileScan
 {
-	public int[][][] field1154 = new int[2][2][4];
-	public int[] field1155 = new int[2];
-	public int[] field1156 = new int[2];
-	public int[][][] field1159 = new int[2][2][4];
+	@Setter(AccessLevel.PACKAGE)
+	@Getter(AccessLevel.PACKAGE)
+	String permaLink;
+
+	@Setter(AccessLevel.PACKAGE)
+	@Getter(AccessLevel.PACKAGE)
+	String responseCode;
 }

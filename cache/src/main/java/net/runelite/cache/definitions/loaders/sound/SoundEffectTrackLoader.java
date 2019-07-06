@@ -24,39 +24,39 @@
  */
 package net.runelite.cache.definitions.loaders.sound;
 
-import net.runelite.cache.definitions.sound.SoundEffect2Definition;
+import net.runelite.cache.definitions.sound.SoundEffectTrackDefinition;
+import net.runelite.cache.definitions.sound.InstrumentDefinition;
 import net.runelite.cache.io.InputStream;
 
-public class SoundEffect2Loader
+public class SoundEffectTrackLoader
 {
-	public SoundEffect2Definition load(InputStream in)
+	public SoundEffectTrackDefinition load(byte[] b)
 	{
-		SoundEffect2Definition se = new SoundEffect2Definition();
+		SoundEffectTrackDefinition soundEffect = new SoundEffectTrackDefinition();
+		InputStream in = new InputStream(b);
 
-		load(se, in);
+		load(soundEffect, in);
 
-		return se;
+		return soundEffect;
 	}
 
-	private void load(SoundEffect2Definition se, InputStream var1)
+	private void load(SoundEffectTrackDefinition soundEffect, InputStream in)
 	{
-		se.field1087 = var1.readUnsignedByte();
-		se.field1088 = var1.readInt();
-		se.field1089 = var1.readInt();
-		this.method1144(se, var1);
-	}
-
-	final void method1144(SoundEffect2Definition se, InputStream var1)
-	{
-		se.field1092 = var1.readUnsignedByte();
-		se.field1086 = new int[se.field1092];
-		se.field1090 = new int[se.field1092];
-
-		for (int var2 = 0; var2 < se.field1092; ++var2)
+		for (int i = 0; i < 10; ++i)
 		{
-			se.field1086[var2] = var1.readUnsignedShort();
-			se.field1090[var2] = var1.readUnsignedShort();
+			int volume = in.readUnsignedByte();
+			if (volume != 0)
+			{
+				in.setOffset(in.getOffset() - 1);
+
+				InstrumentLoader instrumentLoader = new InstrumentLoader();
+				InstrumentDefinition instrument = instrumentLoader.load(in);
+
+				soundEffect.instruments[i] = instrument;
+			}
 		}
 
+		soundEffect.start = in.readUnsignedShort();
+		soundEffect.end = in.readUnsignedShort();
 	}
 }
