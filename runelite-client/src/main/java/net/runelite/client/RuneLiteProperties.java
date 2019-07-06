@@ -37,7 +37,6 @@ import net.runelite.client.config.RuneLitePlusConfig;
 @Slf4j
 public class RuneLiteProperties
 {
-	public static String discordAppID = "409416265891971072";
 	private static final String RUNELITE_TITLE = "runelite.title";
 	private static final String RUNELITE_VERSION = "runelite.version";
 	private static final String RUNELIT_VERSION = "runelit.version";
