@@ -117,14 +117,16 @@ public class RuneLitePlusPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		RuneLiteProperties.discordAppID = runeLiteProperties.getDiscordAppId();
+
 		if (config.customPresence())
 		{
 			ClientUI.currentPresenceName = ("RuneLitePlus");
 			ClientUI.frame.setTitle(ClientUI.currentPresenceName);
-			RuneLiteProperties.discordAppID = runeLiteProperties.getDiscordAppId();
-			discordService.close();
-			discordService.init();
 		}
+
+		discordService.close();
+		discordService.init();
 
 		entered = -1;
 		enterIdx = 0;
