@@ -413,15 +413,18 @@ public class ConfigPanel extends PluginPanel
 
 	void refreshPluginList()
 	{
-		// update enabled / disabled status of all items
-		pluginList.forEach(listItem ->
+		if (pluginManager != null)
 		{
-			final Plugin plugin = listItem.getPlugin();
-			if (plugin != null)
+			// update enabled / disabled status of all items
+			pluginList.forEach(listItem ->
 			{
-				listItem.setPluginEnabled(pluginManager.isPluginEnabled(plugin));
-			}
-		});
+				final Plugin plugin = listItem.getPlugin();
+				if (plugin != null)
+				{
+					listItem.setPluginEnabled(pluginManager.isPluginEnabled(plugin));
+				}
+			});
+		}
 
 		if (showingPluginList)
 		{
