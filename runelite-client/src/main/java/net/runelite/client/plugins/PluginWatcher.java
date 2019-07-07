@@ -41,11 +41,14 @@ import java.nio.file.WatchService;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.swing.*;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLitePlusConfig;
+import net.runelite.client.util.virustotal.VirusTotal;
 
 @Singleton
 @Slf4j
@@ -155,8 +158,65 @@ public class PluginWatcher extends Thread
 				continue;
 			}
 
-			log.info("Loading plugin from {}", file);
-			load(file);
+			try
+			{
+				VirusTotal virusTotal = new VirusTotal();
+				String sha256 = virusTotal.getPluginSHA256(file.getAbsolutePath());
+				String responseCode = virusTotal.getResponseCodeReport(sha256);
+
+				if (responseCode != null)
+				{
+					/**
+					 * Response code 0
+					 * File has yet to be analysed.
+					 */
+					if (responseCode.equals("0"))
+					{
+						//TODO: Popup: info message - one or more of your external
+						// plugins have yet to be analysed by VirusTotal and will
+						// not be available, try again later.
+
+						log.info("External plugin {} has yet to be analysed on VirusTotal. Please try again soon.", file.getName());
+						virusTotal.sendFileScan(file.getAbsolutePath());
+						log.info("External plugin {} has been sent too VirusTotal.", file.getName());
+						continue;
+					}
+
+					/**
+					 * Response code -2
+					 * File is still being or is queued for analysis.
+					 */
+					if (responseCode.equals("-2"))
+					{
+						//TODO: Popup: info message - one or more of your external
+						// plugins are queued for VirusTotal and will not be available,
+						// try again later.
+						log.info("External plugin {} is queued for analysis on VirusTotal. Please try again soon.", file.getName());
+						continue;
+					}
+
+					/**
+					 * Response code 1
+					 * File has been analysed.
+					 */
+					if (responseCode.equals("1"))
+					{
+						if (virusTotal.scanReport(sha256).toString().contains("detected=true"))
+						{
+							//TODO: Popup: warning message - threat detected in external plugins,
+							// it will not be available.
+							continue;
+						}
+					}
+
+					log.info("Loading plugin from {}", file);
+					load(file);
+				}
+			}
+			catch (Exception exception)
+			{
+				exception.printStackTrace();
+			}
 		}
 	}
 

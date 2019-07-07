@@ -52,7 +52,7 @@ import java.util.ArrayList;
 public class VirusTotalAPI
 {
 	@Setter (AccessLevel.PACKAGE)
-	String KEY = "874edff74c0ff56ae0e2008383675c28dc894264f35826e6ace95ee55d7603bf";
+	String KEY = "NEED-SHARED_OR_PREMIUM-API_KEY-HERE";
 
 	@Setter (AccessLevel.PACKAGE)
 	String SHA256 = null;

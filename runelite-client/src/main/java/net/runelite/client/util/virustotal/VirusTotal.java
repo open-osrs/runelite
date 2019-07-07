@@ -41,21 +41,9 @@ public class VirusTotal
 	@Inject
 	ConfigManager configManager;
 
-	public VirusTotal(String file)
+	public VirusTotal()
 	{
-		if (configManager.getConfiguration("runelite", "enablePlugins").equals("true"))
-		{
-			// TODO: Check "%user.home%/.runelite/plugins/" for viruses when External Plugins are enabled!!
-			System.out.println("Testing.");
-		}
-
-		Set<ReportFileScan> reportFile = sendFileScan(file);
-
-		for (ReportFileScan report : reportFile)
-		{
-			System.out.println("URL: " + report.getPermaLink() + " Response code: " + report.getResponseCode());
-		}
-
+		//
 	}
 
 	public String getPluginSHA256(String fileName) throws Exception
@@ -84,7 +72,7 @@ public class VirusTotal
 		return stringBuffer.toString();
 	}
 
-	public Set reportScan(String sha256)
+	public Set scanReport(String sha256)
 	{
 		Set reports = new HashSet();
 		VirusTotalAPI virusTotal = new VirusTotalAPI();
@@ -94,8 +82,8 @@ public class VirusTotal
 		ParseReport parser = new ParseReport(report);
 		String parsed = parser.getNodeData("scans");
 
-		ArrayList Vendors = parser.getNodeNames(parsed);
-		Iterator it = Vendors.iterator();
+		ArrayList vendors = parser.getNodeNames(parsed); // Null here after api limit.
+		Iterator it = vendors.iterator();
 
 		while (it.hasNext())
 		{
@@ -157,6 +145,7 @@ public class VirusTotal
 		scanDate = parser.getNodeData("scan_date");
 		return scanDate;
 	}
+
 
 	public String getResponseCodeReport(String sha256)
 	{
