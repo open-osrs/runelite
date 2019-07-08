@@ -231,8 +231,6 @@ public class BanListPlugin extends Plugin
 				}
 			});
 		}
-
-
 	}
 
 
@@ -240,44 +238,43 @@ public class BanListPlugin extends Plugin
 	public void onGameTick(GameTick event)
 	{
 
-		if (client.getWidget(28, 9) != null)
+		if (client.getWidget(WidgetInfo.THEATRE_OF_BLOOD_RAIDING_PARTY) == null)
 		{
-			Widget raidingParty = client.getWidget(28, 9);
+			return;
+		}
 
-			String allNames = raidingParty.getText();
-			if (!allNames.equalsIgnoreCase(tobNames))
+		Widget raidingParty = client.getWidget(WidgetInfo.THEATRE_OF_BLOOD_RAIDING_PARTY);
+		String allNames = raidingParty.getText();
+
+		if (!allNames.equalsIgnoreCase(tobNames))
+		{
+			return;
+		}
+
+		tobNames = allNames;
+
+		String[] split = allNames.split("<br>");
+
+		for (int i = 0; i < 5; i++)
+		{
+			String name = split[i];
+			if (!name.equalsIgnoreCase("-"))
 			{
-				tobNames = allNames;
-				String[] split = allNames.split("<br>");
-				for (int i = 0; i < 5; i++)
+				ListType scamList = checkScamList(Text.standardize(name));
+
+				if (scamList != null)
 				{
-					String name = split[i];
-					if (!name.equalsIgnoreCase("-"))
-					{
-						ListType scamList = checkScamList(Text.standardize(name));
+					sendWarning(name, scamList);
 
-						if (scamList != null)
-						{
-							sendWarning(name, scamList);
-
-						}
-						ListType toxicList = checkToxicList(Text.standardize(name));
-						if (toxicList != null)
-						{
-							sendWarning(name, toxicList);
-
-						}
-
-
-					}
-
+				}
+				ListType toxicList = checkToxicList(Text.standardize(name));
+				if (toxicList != null)
+				{
+					sendWarning(name, toxicList);
 
 				}
 			}
-
-
 		}
-
 	}
 
 
