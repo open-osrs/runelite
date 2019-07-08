@@ -43,7 +43,7 @@ public class VirusTotal
 
 	public VirusTotal()
 	{
-		//
+		// Nothing.
 	}
 
 	public String getPluginSHA256(String fileName) throws Exception

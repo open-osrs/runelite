@@ -172,13 +172,22 @@ public class PluginWatcher extends Thread
 					 */
 					if (responseCode.equals("0"))
 					{
-						//TODO: Popup: info message - one or more of your external
-						// plugins have yet to be analysed by VirusTotal and will
-						// not be available, try again later.
+						SwingUtilities.invokeLater(() ->
+						{
+							if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null,
+									"One or more of your External Plugins are yet to be queued for \n" +
+											"anaylysis by VirusTotal and will not be available this session \n" +
+											"please wait around 45 seconds and reload the client to try again.",
+									file.getName() + " plugin not analysed.",
+									JOptionPane.OK_CANCEL_OPTION))
+							{
+								log.info("External plugin {} has yet to be analysed on VirusTotal.", file.getName());
 
-						log.info("External plugin {} has yet to be analysed on VirusTotal. Please try again soon.", file.getName());
-						virusTotal.sendFileScan(file.getAbsolutePath());
-						log.info("External plugin {} has been sent too VirusTotal.", file.getName());
+								virusTotal.sendFileScan(file.getAbsolutePath());
+
+								log.info("External plugin {} has been sent too VirusTotal for analysis.", file.getName());
+							}
+						});
 						continue;
 					}
 
@@ -188,10 +197,18 @@ public class PluginWatcher extends Thread
 					 */
 					if (responseCode.equals("-2"))
 					{
-						//TODO: Popup: info message - one or more of your external
-						// plugins are queued for VirusTotal and will not be available,
-						// try again later.
-						log.info("External plugin {} is queued for analysis on VirusTotal. Please try again soon.", file.getName());
+						SwingUtilities.invokeLater(() ->
+						{
+							if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null,
+									"One or more of your External Plugins are currently queued for \n" +
+											"anaylysis by VirusTotal and will not be available this session \n" +
+											"please wait around 30 seconds and reload the client to try again.",
+									file.getName() + " plugin currently in queue.",
+									JOptionPane.OK_CANCEL_OPTION))
+							{
+								log.info("External plugin {} is queued for analysis on VirusTotal.", file.getName());
+							}
+						});
 						continue;
 					}
 
@@ -201,10 +218,22 @@ public class PluginWatcher extends Thread
 					 */
 					if (responseCode.equals("1"))
 					{
-						if (virusTotal.scanReport(sha256).toString().contains("detected=true"))
+						String scanReport = virusTotal.scanReport(sha256).toString();
+						if (scanReport.contains("detected=true"))
 						{
-							//TODO: Popup: warning message - threat detected in external plugins,
-							// it will not be available.
+							SwingUtilities.invokeLater(() ->
+							{
+								if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null,
+										"VirusTotal has detected malware in the " + file.getName() + " plugin,\n" +
+												"please report this incident to the RuneLitePlus team on the Github or Discord.\n\n" +
+												"Provide the RuneLitePlus team your Logs found at \n" +
+												RuneLite.LOGS_DIR,
+										"Warning: Malware detected!!",
+										JOptionPane.OK_CANCEL_OPTION))
+								{
+									// Nothing.
+								}
+							});
 							continue;
 						}
 					}
