@@ -28,7 +28,6 @@ package net.runelite.client.plugins.banlist;
 
 import com.google.common.base.Splitter;
 import com.google.inject.Provides;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,14 +36,19 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
-import net.runelite.api.events.*;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.ClanMember;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.Varbits;
+import net.runelite.api.events.ClanMemberJoined;
+import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.WidgetHiddenChanged;
+import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.Widget;
-
 import static net.runelite.api.widgets.WidgetID.TRADING_SCREEN;
-
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.chat.ChatColorType;
@@ -64,35 +68,35 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @PluginDescriptor(
-		name = "Ban List",
-		description = "Displays warning in chat when you join a" +
-				"clan chat/new member join your clan chat and he is in a WDR/RuneWatch/Manual List",
-		tags = {"PVM", "WDR", "RuneWatch"},
-		type = PluginType.UTILITY,
-		enabledByDefault = false
+	name = "Ban List",
+	description = "Displays warning in chat when you join a" +
+		"clan chat/new member join your clan chat and he is in a WDR/RuneWatch/Manual List",
+	tags = {"PVM", "WDR", "RuneWatch"},
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Singleton
 @Slf4j
 public class BanListPlugin extends Plugin
 {
-	@Inject
-	private Client client;
-
-	@Inject
-	private ClientThread clientThread;
-
-	@Inject
-	private BanListConfig config;
-
-	@Inject
-	private ChatMessageManager chatMessageManager;
-
 	private final Set<String> wdrScamSet = new HashSet<>();
 	private final Set<String> wdrToxicSet = new HashSet<>();
 	private final Set<String> runeWatchSet = new HashSet<>();
 	private final Set<String> manualBans = new HashSet<>();
-
+	@Inject
+	private Client client;
+	@Inject
+	private ClientThread clientThread;
+	@Inject
+	private BanListConfig config;
+	@Inject
+	private ChatMessageManager chatMessageManager;
 	private String tobNames = "";
+	private boolean enableWDRScam;
+	private boolean enableWDRToxic;
+	private boolean enableRuneWatch;
+	private boolean highlightInClan;
+	private boolean highlightInTrade;
 
 	@Provides
 	BanListConfig getConfig(ConfigManager configManager)
@@ -100,22 +104,15 @@ public class BanListPlugin extends Plugin
 		return configManager.getConfig(BanListConfig.class);
 	}
 
-	// save config values
-	private boolean enableWDRScam;
-	private boolean enableWDRToxic;
-	private boolean enableRuneWatch;
-	private boolean highlightInClan;
-	private boolean highlightInTrade;
-
 	@Override
 	protected void startUp() throws Exception
 	{
 		updateConfig();
 		List<String> bannedPlayers = Splitter
-				.on(",")
-				.trimResults()
-				.omitEmptyStrings()
-				.splitToList(config.getBannedPlayers());
+			.on(",")
+			.trimResults()
+			.omitEmptyStrings()
+			.splitToList(config.getBannedPlayers());
 		manualBans.addAll(bannedPlayers);
 		fetchFromWebsites();
 	}
@@ -135,10 +132,10 @@ public class BanListPlugin extends Plugin
 		if (event.getGroup().equals("banlist") && event.getKey().equals("bannedPlayers"))
 		{
 			List<String> bannedPlayers = Splitter
-					.on(",")
-					.trimResults()
-					.omitEmptyStrings()
-					.splitToList(config.getBannedPlayers());
+				.on(",")
+				.trimResults()
+				.omitEmptyStrings()
+				.splitToList(config.getBannedPlayers());
 
 			for (String bannedPlayer : bannedPlayers)
 			{
@@ -166,10 +163,10 @@ public class BanListPlugin extends Plugin
 	public void onWidgetHiddenChanged(WidgetHiddenChanged widgetHiddenChanged)
 	{
 		if (client.getGameState() != GameState.LOGGED_IN
-				|| client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN) != null
-				|| client.getViewportWidget() == null
-				|| client.getWidget(WidgetInfo.CLAN_CHAT) == null
-				|| !this.highlightInClan)
+			|| client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN) != null
+			|| client.getViewportWidget() == null
+			|| client.getWidget(WidgetInfo.CLAN_CHAT) == null
+			|| !this.highlightInClan)
 		{
 			return;
 		}
@@ -333,53 +330,53 @@ public class BanListPlugin extends Plugin
 		{
 			case WEDORAIDSSCAM_LIST:
 				final String wdr__scam_message = new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append("Warning! " + playerName + " is on WeDoRaids\' scammer list!")
-						.build();
+					.append(ChatColorType.HIGHLIGHT)
+					.append("Warning! " + playerName + " is on WeDoRaids\' scammer list!")
+					.build();
 
 				chatMessageManager.queue(
-						QueuedMessage.builder()
-								.type(ChatMessageType.CONSOLE)
-								.runeLiteFormattedMessage(wdr__scam_message)
-								.build());
+					QueuedMessage.builder()
+						.type(ChatMessageType.CONSOLE)
+						.runeLiteFormattedMessage(wdr__scam_message)
+						.build());
 				break;
 
 			case WEDORAIDSTOXIC_LIST:
 				final String wdr__toxic_message = new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append("Warning! " + playerName + " is on WeDoRaids\' toxic list!")
-						.build();
+					.append(ChatColorType.HIGHLIGHT)
+					.append("Warning! " + playerName + " is on WeDoRaids\' toxic list!")
+					.build();
 
 				chatMessageManager.queue(
-						QueuedMessage.builder()
-								.type(ChatMessageType.CONSOLE)
-								.runeLiteFormattedMessage(wdr__toxic_message)
-								.build());
+					QueuedMessage.builder()
+						.type(ChatMessageType.CONSOLE)
+						.runeLiteFormattedMessage(wdr__toxic_message)
+						.build());
 				break;
 
 			case RUNEWATCH_LIST:
 				final String rw_message = new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append("Warning! " + playerName + " is on the Runewatch\'s potential scammer list!")
-						.build();
+					.append(ChatColorType.HIGHLIGHT)
+					.append("Warning! " + playerName + " is on the Runewatch\'s potential scammer list!")
+					.build();
 
 				chatMessageManager.queue(
-						QueuedMessage.builder()
-								.type(ChatMessageType.CONSOLE)
-								.runeLiteFormattedMessage(rw_message)
-								.build());
+					QueuedMessage.builder()
+						.type(ChatMessageType.CONSOLE)
+						.runeLiteFormattedMessage(rw_message)
+						.build());
 				break;
 			case MANUAL_LIST:
 				final String manual_message = new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append("Warning! " + playerName + " is on your manual scammer list!")
-						.build();
+					.append(ChatColorType.HIGHLIGHT)
+					.append("Warning! " + playerName + " is on your manual scammer list!")
+					.build();
 
 				chatMessageManager.queue(
-						QueuedMessage.builder()
-								.type(ChatMessageType.CONSOLE)
-								.runeLiteFormattedMessage(manual_message)
-								.build());
+					QueuedMessage.builder()
+						.type(ChatMessageType.CONSOLE)
+						.runeLiteFormattedMessage(manual_message)
+						.build());
 				break;
 		}
 	}
@@ -390,8 +387,8 @@ public class BanListPlugin extends Plugin
 	private void fetchFromWebsites()
 	{
 		Request request = new Request.Builder()
-				.url("https://wdrdev.github.io/index")
-				.build();
+			.url("https://wdrdev.github.io/index")
+			.build();
 		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
 		{
 			@Override
@@ -418,8 +415,8 @@ public class BanListPlugin extends Plugin
 
 
 		Request secondRequest = new Request.Builder()
-				.url("https://runewatch.com/incident-index-page/")
-				.build();
+			.url("https://runewatch.com/incident-index-page/")
+			.build();
 		RuneLiteAPI.CLIENT.newCall(secondRequest).enqueue(new Callback()
 		{
 			@Override
@@ -447,8 +444,8 @@ public class BanListPlugin extends Plugin
 		});
 
 		Request thirdRequest = new Request.Builder()
-				.url("https://wdrdev.github.io/toxic")
-				.build();
+			.url("https://wdrdev.github.io/toxic")
+			.build();
 		RuneLiteAPI.CLIENT.newCall(thirdRequest).enqueue(new Callback()
 		{
 			@Override
