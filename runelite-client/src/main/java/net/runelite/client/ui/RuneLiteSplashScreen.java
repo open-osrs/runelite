@@ -40,6 +40,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.RuneLite;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.util.SwingUtil;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
@@ -52,13 +53,13 @@ import org.pushingpixels.substance.internal.SubstanceSynapse;
 @Singleton
 public class RuneLiteSplashScreen
 {
-	private RuneLiteProperties runeLiteProperties = new RuneLiteProperties();
+	private final RuneLiteProperties runeLiteProperties = new RuneLiteProperties();
 
-	public JFrame frame;
-	public JPanel panel = new JPanel();
+	private JFrame frame;
+	private final JPanel panel = new JPanel();
 	private JLabel messageLabel;
 	private JLabel subMessageLabel;
-	private JProgressBar progressBar = new JProgressBar();
+	private final JProgressBar progressBar = new JProgressBar();
 
 	/**
 	 * This is not done in the constructor in order to avoid processing in case the user chooses to not load
@@ -127,7 +128,7 @@ public class RuneLiteSplashScreen
 		panel.add(version, versionConstraints);
 
 		// version
-		final JLabel litVersion = new JLabel("Plus Version : " + runeLiteProperties.getRunelitVersion());
+		final JLabel litVersion = new JLabel("Plus Version : " + RuneLite.RUNELIT_VERSION);
 		litVersion.setForeground(Color.GREEN);
 		litVersion.setFont(FontManager.getRunescapeSmallFont());
 		litVersion.setForeground(litVersion.getForeground().darker());
