@@ -27,13 +27,13 @@ package net.runelite.api.events;
 import lombok.Value;
 
 /**
- * An event where a request to add a friend is sent to the server.
+ * An event where a request to remove a friend is sent to the server.
  */
 @Value
-public class AddedFriend
+public class FriendRemoved
 {
 	/**
-	 * The name of the added friend.
+	 * The name of the removed friend.
 	 */
 	private final String name;
 }
