@@ -246,7 +246,7 @@ public class BanListPlugin extends Plugin
 		Widget raidingParty = client.getWidget(WidgetInfo.THEATRE_OF_BLOOD_RAIDING_PARTY);
 		String allNames = raidingParty.getText();
 
-		if (!allNames.equalsIgnoreCase(tobNames))
+		if (allNames.equalsIgnoreCase(tobNames))
 		{
 			return;
 		}
@@ -265,13 +265,13 @@ public class BanListPlugin extends Plugin
 				if (scamList != null)
 				{
 					sendWarning(name, scamList);
-
 				}
+
 				ListType toxicList = checkToxicList(Text.standardize(name));
+
 				if (toxicList != null)
 				{
 					sendWarning(name, toxicList);
-
 				}
 			}
 		}
