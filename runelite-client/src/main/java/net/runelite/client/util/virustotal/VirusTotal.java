@@ -25,6 +25,7 @@
  */
 package net.runelite.client.util.virustotal;
 
+import lombok.Cleanup;
 import net.runelite.client.config.ConfigManager;
 
 import javax.inject.Inject;
@@ -51,7 +52,7 @@ public class VirusTotal
 		MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 		try
 		{
-			FileInputStream file = new FileInputStream(fileName);
+			@Cleanup FileInputStream file = new FileInputStream(fileName);
 			byte[] dataBytes = new byte[1024];
 			int nread;
 			while ((nread = file.read(dataBytes)) != -1)

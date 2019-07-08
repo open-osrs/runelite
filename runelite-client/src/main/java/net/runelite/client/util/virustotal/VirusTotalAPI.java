@@ -26,6 +26,7 @@
 package net.runelite.client.util.virustotal;
 
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -78,11 +79,11 @@ public class VirusTotalAPI
 			connection.setDoOutput(true);
 			connection.setUseCaches(false);
 
-			OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
+			@Cleanup OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
 			wr.write(data);
 			wr.flush();
 
-			BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			@Cleanup BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
 			for (String line; (line = rd.readLine()) != null; report = report + line)
 			{
