@@ -106,7 +106,7 @@ public class BoostsPlugin extends Plugin
 	private int lastChangeUp = -1;
 	private boolean preserveBeenActive = false;
 	private long lastTickMillis;
-	private List<String> boostedSkillsChanged = new ArrayList<>();
+	private final List<String> boostedSkillsChanged = new ArrayList<>();
 
 	private boolean enableSkill;
 	@Getter(AccessLevel.PACKAGE)
@@ -445,7 +445,7 @@ public class BoostsPlugin extends Plugin
 		this.displayInfoboxes = config.displayInfoboxes();
 		this.displayIcons = config.displayIcons();
 		this.boldIconFont = config.boldIconFont();
-		this.displayNextBuffChange = config.displayNextDebuffChange();
+		this.displayNextBuffChange = config.displayNextBuffChange();
 		this.displayNextDebuffChange = config.displayNextDebuffChange();
 		this.boostThreshold = config.boostThreshold();
 		this.groupNotifications = config.groupNotifications();

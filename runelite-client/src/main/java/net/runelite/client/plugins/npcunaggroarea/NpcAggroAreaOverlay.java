@@ -86,6 +86,10 @@ class NpcAggroAreaOverlay extends Overlay
 				outlineColor.getBlue(),
 				100);
 		}
+		else
+		{
+			plugin.doNotification();
+		}
 
 		renderPath(graphics, lines, outlineColor);
 		return null;
@@ -110,8 +114,11 @@ class NpcAggroAreaOverlay extends Overlay
 		path = Geometry.transformPath(path, coords ->
 		{
 			Point point = Perspective.localToCanvas(client, new LocalPoint((int) coords[0], (int) coords[1]), client.getPlane());
-			coords[0] = point.getX();
-			coords[1] = point.getY();
+			if (point != null)
+			{
+				coords[0] = point.getX();
+				coords[1] = point.getY();
+			}
 		});
 
 		graphics.draw(path);

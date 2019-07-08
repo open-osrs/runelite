@@ -51,6 +51,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.NPCManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @Slf4j
@@ -58,6 +59,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "NPC Status Timer",
 	description = "Adds a timer on NPC's for their attacks and flinching.",
 	tags = {"flinch", "npc"},
+	type = PluginType.PVM,
 	enabledByDefault = false
 )
 @Singleton
@@ -146,21 +148,19 @@ public class NpcStatusPlugin extends Plugin
 			return;
 		}
 		final Hitsplat hitsplat = event.getHitsplat();
-		if (hitsplat.getHitsplatType() == Hitsplat.HitsplatType.DAMAGE || hitsplat.getHitsplatType() == Hitsplat.HitsplatType.BLOCK)
+		if ((hitsplat.getHitsplatType() == Hitsplat.HitsplatType.DAMAGE || hitsplat.getHitsplatType() == Hitsplat.HitsplatType.BLOCK) && event.getActor() instanceof NPC)
 		{
-			if (event.getActor() instanceof NPC)
+			for (MemorizedNPC mn : memorizedNPCs)
 			{
-				for (MemorizedNPC mn : memorizedNPCs)
+				if (mn.getStatus() == MemorizedNPC.Status.OUT_OF_COMBAT || (mn.getStatus() == MemorizedNPC.Status.IN_COMBAT && mn.getCombatTimerEnd() - client.getTickCount() < 1) || mn.getLastinteracted() == null)
 				{
-					if (mn.getStatus() == MemorizedNPC.Status.OUT_OF_COMBAT || (mn.getStatus() == MemorizedNPC.Status.IN_COMBAT && mn.getCombatTimerEnd() - client.getTickCount() < 1) || mn.getLastinteracted() == null)
-					{
-						mn.setStatus(MemorizedNPC.Status.FLINCHING);
-						mn.setCombatTimerEnd(-1);
-						mn.setFlinchTimerEnd(client.getTickCount() + mn.getAttackSpeed() / 2 + 1);
-					}
+					mn.setStatus(MemorizedNPC.Status.FLINCHING);
+					mn.setCombatTimerEnd(-1);
+					mn.setFlinchTimerEnd(client.getTickCount() + mn.getAttackSpeed() / 2 + 1);
 				}
 			}
 		}
+
 	}
 
 	private void checkStatus()
