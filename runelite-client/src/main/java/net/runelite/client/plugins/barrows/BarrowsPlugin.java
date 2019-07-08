@@ -306,35 +306,7 @@ public class BarrowsPlugin extends Plugin
 	@Subscribe
 	public void onWidgetLoaded(WidgetLoaded event)
 	{
-		if (event.getGroupId() == WidgetID.BARROWS_REWARD_GROUP_ID && this.showChestValue)
-		{
-			ItemContainer barrowsRewardContainer = client.getItemContainer(InventoryID.BARROWS_REWARD);
-			Item[] items = new Item[0];
-			if (barrowsRewardContainer != null)
-			{
-				items = barrowsRewardContainer.getItems();
-			}
-			long chestPrice = 0;
-
-			for (Item item : items)
-			{
-				long itemStack = (long) itemManager.getItemPrice(item.getId()) * (long) item.getQuantity();
-				chestPrice += itemStack;
-			}
-
-			final ChatMessageBuilder message = new ChatMessageBuilder()
-				.append(ChatColorType.HIGHLIGHT)
-				.append("Your chest is worth around ")
-				.append(StackFormatter.formatNumber(chestPrice))
-				.append(" coins.")
-				.append(ChatColorType.NORMAL);
-
-			chatMessageManager.queue(QueuedMessage.builder()
-				.type(ChatMessageType.ITEM_EXAMINE)
-				.runeLiteFormattedMessage(message.build())
-				.build());
-		}
-		else if (event.getGroupId() == WidgetID.BARROWS_PUZZLE_GROUP_ID)
+		if (event.getGroupId() == WidgetID.BARROWS_PUZZLE_GROUP_ID)
 		{
 			final int answer = client.getWidget(WidgetInfo.BARROWS_FIRST_PUZZLE).getModelId() - 3;
 			puzzleAnswer = null;
