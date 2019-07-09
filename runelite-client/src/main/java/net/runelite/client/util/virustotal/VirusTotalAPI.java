@@ -42,7 +42,12 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.OutputStreamWriter;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -53,7 +58,7 @@ import java.util.ArrayList;
 public class VirusTotalAPI
 {
 	@Setter (AccessLevel.PACKAGE)
-	String KEY = "API_KEY_HERE";
+	String KEY = "874edff74c0ff56ae0e2008383675c28dc894264f35826e6ace95ee55d7603bf";
 
 	@Setter (AccessLevel.PACKAGE)
 	String SHA256 = null;

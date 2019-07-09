@@ -41,7 +41,8 @@ import java.nio.file.WatchService;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
@@ -183,6 +184,9 @@ public class PluginWatcher extends Thread
 							{
 								log.info("External plugin {} has yet to be analysed on VirusTotal.", file.getName());
 
+								/**
+								 * send this file to VirusTotal for analysis.
+								 */
 								virusTotal.sendFileScan(file.getAbsolutePath());
 
 								log.info("External plugin {} has been sent too VirusTotal for analysis.", file.getName());
@@ -231,7 +235,7 @@ public class PluginWatcher extends Thread
 										"Warning: Malware detected!!",
 										JOptionPane.OK_CANCEL_OPTION))
 								{
-									// Nothing.
+									log.info("Malware found in plugin {} refer to {}", file.getName(), virusTotal.getReportURL(sha256));
 								}
 							});
 							continue;
