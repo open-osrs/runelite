@@ -25,6 +25,7 @@
 package net.runelite.mixins;
 
 import java.util.HashSet;
+import java.util.Set;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.ClanMember;
 import net.runelite.api.EnumDefinition;
@@ -86,6 +87,7 @@ import net.runelite.api.events.ResizeableChanged;
 import net.runelite.api.events.UsernameChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.events.WidgetPressed;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.vars.AccountType;
@@ -207,7 +209,7 @@ public abstract class RSClientMixin implements RSClient
 	private static boolean hideFriendCastOptions = false;
 
 	@Inject
-	private static HashSet<String> unhiddenCasts = new HashSet<String>();
+	private static Set<String> unhiddenCasts = new HashSet<String>();
 
 	@Inject
 	@Override
@@ -225,7 +227,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public void setUnhiddenCasts(HashSet<String> casts)
+	public void setUnhiddenCasts(Set<String> casts)
 	{
 		unhiddenCasts = casts;
 	}
@@ -671,8 +673,8 @@ public abstract class RSClientMixin implements RSClient
 				new MenuEntry(
 					client.getMenuOptions()[oldCount],
 					client.getMenuTargets()[oldCount],
-					client.getMenuTypes()[oldCount],
 					client.getMenuIdentifiers()[oldCount],
+					client.getMenuTypes()[oldCount],
 					client.getMenuActionParams0()[oldCount],
 					client.getMenuActionParams1()[oldCount],
 					client.getMenuForceLeftClick()[oldCount]
@@ -1302,6 +1304,16 @@ public abstract class RSClientMixin implements RSClient
 	public void invokeMenuAction(int actionParam, int widgetId, int menuAction, int id, String menuOption, String menuTarget, int var6, int var7)
 	{
 		client.sendMenuAction(actionParam, widgetId, menuAction, id, menuOption, "!AUTHENTIC" + menuTarget, var6, var7);
+	}
+
+	@Inject
+	@FieldHook("tempMenuAction")
+	public static void onTempMenuActionChanged(int idx)
+	{
+		if (client.getTempMenuAction() != null)
+		{
+			client.getCallbacks().post(WidgetPressed.INSTANCE);
+		}
 	}
 
 	@FieldHook("Login_username")
