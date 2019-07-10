@@ -480,7 +480,7 @@ public interface RSWidget extends Widget
 	//@Import("animFrame")
 	//int getAnimFrame();
 
-	// TODO: MAP/FIND
+	// TODO: FIND / MAP
 	@Import("animFrameCycle")
 	int getAnimFrameCycle();
 }
