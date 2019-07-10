@@ -475,4 +475,12 @@ public interface RSWidget extends Widget
 	@Import("noScrollThrough")
 	@Override
 	void setNoScrollThrough(boolean noScrollThrough);
+
+	// seems used is this even needed?
+	//@Import("animFrame")
+	//int getAnimFrame();
+
+	// TODO: MAP/FIND
+	@Import("animFrameCycle")
+	int getAnimFrameCycle();
 }
