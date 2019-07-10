@@ -205,10 +205,10 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 		return animatedModel;
 	}
 
-	@Copy("transformWidgetModel")
+	@Copy("animateWidget")
 	public abstract RSModel rs$transformWidgetModel(RSModel model, int frame);
 
-	@Replace("transformWidgetModel")
+	@Replace("animateWidget")
 	public RSModel rl$transformWidgetModel(RSModel model, int frame)
 	{
 		// check if the frame has not been modified
