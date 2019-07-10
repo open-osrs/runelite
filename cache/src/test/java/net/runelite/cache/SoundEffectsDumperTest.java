@@ -28,7 +28,12 @@ import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.*;
+
+import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
 import net.runelite.cache.definitions.loaders.sound.SoundEffectTrackLoader;
 import net.runelite.cache.definitions.sound.SoundEffectTrackDefinition;
