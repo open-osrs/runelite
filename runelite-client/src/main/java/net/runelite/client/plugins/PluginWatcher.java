@@ -41,16 +41,12 @@ import java.nio.file.WatchService;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLitePlusConfig;
-import net.runelite.client.plugins.config.ConfigPlugin;
-import net.runelite.client.util.virustotal.VirusTotal;
 
 @Singleton
 @Slf4j
@@ -65,8 +61,6 @@ public class PluginWatcher extends Thread
 
 	@Inject
 	private ConfigManager configManager;
-
-	private ConfigPlugin configPlugin;
 
 	@Inject
 	public PluginWatcher(RuneLitePlusConfig runelitePlusConfig, PluginManager pluginManager) throws IOException
@@ -161,119 +155,8 @@ public class PluginWatcher extends Thread
 			{
 				continue;
 			}
-
-			try
-			{
-				VirusTotal virusTotal = new VirusTotal();
-				String sha256 = virusTotal.getPluginSHA256(file.getAbsolutePath());
-				String responseCode = virusTotal.getResponseCodeReport(sha256);
-
-				if (responseCode != null)
-				{
-					/**
-					 * Response code 0
-					 * File has yet to be analysed.
-					 */
-					if (responseCode.equals("0"))
-					{
-						SwingUtilities.invokeLater(() ->
-						{
-							if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null,
-									"One or more of your External Plugins are yet to be queued for \n" +
-											"anaylysis by VirusTotal and will not be available this session \n" +
-											"please wait around 45 seconds and reload the client to try again.",
-									file.getName() + " plugin not analysed.",
-									JOptionPane.OK_CANCEL_OPTION))
-							{
-								log.info("External plugin {} has yet to be analysed on VirusTotal.", file.getName());
-
-								/**
-								 * send this file to VirusTotal for analysis.
-								 */
-								virusTotal.sendFileScan(file.getAbsolutePath());
-
-								log.info("External plugin {} has been sent too VirusTotal for analysis.", file.getName());
-							}
-						});
-						continue;
-					}
-
-					/**
-					 * Response code -2
-					 * File is still being or is queued for analysis.
-					 */
-					if (responseCode.equals("-2"))
-					{
-						SwingUtilities.invokeLater(() ->
-						{
-							if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null,
-									"One or more of your External Plugins are currently queued for \n" +
-											"anaylysis by VirusTotal and will not be available this session \n" +
-											"please wait around 30 seconds and reload the client to try again.",
-									file.getName() + " plugin currently in queue.",
-									JOptionPane.OK_CANCEL_OPTION))
-							{
-								log.info("External plugin {} is queued for analysis on VirusTotal.", file.getName());
-							}
-						});
-						continue;
-					}
-
-					/**
-					 * Response code 1
-					 * File has been analysed.
-					 */
-					if (responseCode.equals("1"))
-					{
-						// Place the Scan Report from VirusTotal into a String.
-						String scanReport = virusTotal.scanReport(sha256).toString();
-
-						// Check the String for any detections
-						if (scanReport.contains("detected=true"))
-						{
-							// Create a dialogue to warn the user of the suspicious plugin.
-							// Ask the user to report the plugin.
-							SwingUtilities.invokeLater(() ->
-							{
-								if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null,
-										"VirusTotal has detected malware in the " + file.getName() + " plugin,\n" +
-												"please report this incident to the RuneLitePlus team on the Github or Discord.\n\n" +
-												"Provide the RuneLitePlus team your Logs found at \n" +
-												RuneLite.LOGS_DIR,
-										"Warning: Malware detected!!",
-										JOptionPane.OK_CANCEL_OPTION))
-								{
-									// Add the plugin name and the VirusTotal Report URL to the users logs.
-									log.warn("Malware found in plugin {} refer to {}", file.getName(), virusTotal.getReportURL(sha256));
-								}
-							});
-							// Skip the plugin and continue to scan for other plugins.
-							continue;
-						}
-						// No detections found.
-						// Continue to load the plugin.
-					}
-
-					log.info("Loading plugin from {}", file);
-					load(file);
-				}
-
-				/**
-				 * TODO: Figure this out.
-				 * VT want's us to only use 4rpm
-				 * and say we should slow our requests to fit that scenario
-				 * we use at least 2 rpm per plugin, 3 when a problem is found.
-				 *
-				 * If we slow down the requests the plugins load but don't show
-				 * in the plugin list.
-				 */
-				Thread.sleep(30_000);
-
-			}
-			catch (Exception exception)
-			{
-				exception.printStackTrace();
-			}
+			log.info("Loading plugin from {}", file);
+			load(file);
 		}
 	}
 
