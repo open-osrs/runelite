@@ -49,6 +49,7 @@ import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLitePlusConfig;
+import net.runelite.client.plugins.config.ConfigPlugin;
 import net.runelite.client.util.virustotal.VirusTotal;
 
 @Singleton
@@ -64,6 +65,8 @@ public class PluginWatcher extends Thread
 
 	@Inject
 	private ConfigManager configManager;
+
+	private ConfigPlugin configPlugin;
 
 	@Inject
 	public PluginWatcher(RuneLitePlusConfig runelitePlusConfig, PluginManager pluginManager) throws IOException
@@ -222,9 +225,14 @@ public class PluginWatcher extends Thread
 					 */
 					if (responseCode.equals("1"))
 					{
+						// Place the Scan Report from VirusTotal into a String.
 						String scanReport = virusTotal.scanReport(sha256).toString();
+
+						// Check the String for any detections
 						if (scanReport.contains("detected=true"))
 						{
+							// Create a dialogue to warn the user of the suspicious plugin.
+							// Ask the user to report the plugin.
 							SwingUtilities.invokeLater(() ->
 							{
 								if (JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(null,
@@ -235,16 +243,32 @@ public class PluginWatcher extends Thread
 										"Warning: Malware detected!!",
 										JOptionPane.OK_CANCEL_OPTION))
 								{
-									log.info("Malware found in plugin {} refer to {}", file.getName(), virusTotal.getReportURL(sha256));
+									// Add the plugin name and the VirusTotal Report URL to the users logs.
+									log.warn("Malware found in plugin {} refer to {}", file.getName(), virusTotal.getReportURL(sha256));
 								}
 							});
+							// Skip the plugin and continue to scan for other plugins.
 							continue;
 						}
+						// No detections found.
+						// Continue to load the plugin.
 					}
 
 					log.info("Loading plugin from {}", file);
 					load(file);
 				}
+
+				/**
+				 * TODO: Figure this out.
+				 * VT want's us to only use 4rpm
+				 * and say we should slow our requests to fit that scenario
+				 * we use at least 2 rpm per plugin, 3 when a problem is found.
+				 *
+				 * If we slow down the requests the plugins load but don't show
+				 * in the plugin list.
+				 */
+				Thread.sleep(30_000);
+
 			}
 			catch (Exception exception)
 			{
