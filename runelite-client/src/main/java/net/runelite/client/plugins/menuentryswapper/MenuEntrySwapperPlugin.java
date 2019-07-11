@@ -30,6 +30,7 @@ package net.runelite.client.plugins.menuentryswapper;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,6 +80,7 @@ import net.runelite.client.menus.MenuManager;
 import net.runelite.client.menus.WidgetMenuOption;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
 import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
@@ -100,6 +102,9 @@ import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
 import net.runelite.client.plugins.menuentryswapper.util.teleEquippedMode;
 import static net.runelite.client.util.MenuUtil.swap;
+
+import net.runelite.client.plugins.pvptools.PvpToolsConfig;
+import net.runelite.client.plugins.pvptools.PvpToolsPlugin;
 import net.runelite.client.util.MiscUtils;
 import net.runelite.client.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
@@ -177,6 +182,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	@Inject
 	private ConfigManager configManager;
+
+	@Inject
+	private PluginManager pluginManager;
 
 	@Inject
 	private KeyManager keyManager;
@@ -314,8 +322,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean hideDestroyBoltpouch;
 	private boolean hideDestroyGembag;
 	private boolean hideDropRunecraftingPouch;
-	private boolean getRemoveFreezePlayerToB;
-	private boolean getRemoveFreezePlayerCoX;
+	private boolean hideCastToB;
+	private Set<String> hideCastIgnoredToB;
+	private boolean hideCastCoX;
+	private Set<String> hideCastIgnoredCoX;
 
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
@@ -329,8 +339,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		updateConfig();
 		addSwaps();
 		loadConstructionItems(config.getEasyConstructionItems());
-		client.setHideFriendCastOptions(config.getRemoveFreezePlayerToB());
-		client.setHideFriendCastOptions(config.getRemoveFreezePlayerCoX());
 
 		if (config.shiftClickCustomization())
 		{
@@ -338,16 +346,25 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 
 		loadCustomSwaps(config.customSwaps());
+
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
+			setCastOptions();
+		}
 	}
 
 	@Override
 	public void shutDown()
 	{
-		client.setHideFriendCastOptions(false);
 		disableCustomization();
 		loadConstructionItems("");
 		loadCustomSwaps(""); // Removes all custom swaps
 		removeSwaps();
+
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
+			resetCastOptions();
+		}
 	}
 
 	@Subscribe
@@ -357,7 +374,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			return;
 		}
-		
+
 		updateConfig();
 
 		loadConstructionItems(this.getEasyConstructionItems);
@@ -370,8 +387,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			{
 				loadCustomSwaps(this.configCustomSwaps);
 			}
-
-			return;
 		}
 
 		if (event.getKey().equals("shiftClickCustomization"))
@@ -392,14 +407,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (event.getKey().equals("removeFreezePlayerToB") && inTobRaid)
 		{
-			client.setHideFriendCastOptions(this.getRemoveFreezePlayerToB);
-			client.setHideClanmateCastOptions(this.getRemoveFreezePlayerToB);
+			client.setHideFriendCastOptions(this.hideCastToB);
+			client.setHideClanmateCastOptions(this.hideCastToB);
 		}
 
 		if (event.getKey().equals("removeFreezePlayerCoX") && inCoxRaid)
 		{
-			client.setHideFriendCastOptions(this.getRemoveFreezePlayerCoX);
-			client.setHideClanmateCastOptions(this.getRemoveFreezePlayerCoX);
+			client.setHideFriendCastOptions(this.hideCastCoX);
+			client.setHideClanmateCastOptions(this.hideCastCoX);
 		}
 	}
 
@@ -476,23 +491,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		buildingMode = client.getVar(BUILDING_MODE) == 1;
 
-		boolean tmpInCoxRaid = client.getVar(Varbits.IN_RAID) == 1;
-		if (tmpInCoxRaid != inCoxRaid)
-		{
-			client.setHideFriendCastOptions(this.getRemoveFreezePlayerCoX);
-			client.setHideClanmateCastOptions(this.getRemoveFreezePlayerCoX);
-			inCoxRaid = tmpInCoxRaid;
-		}
-		else
-		{
-			boolean tmpInTobRaid = client.getVar(Varbits.THEATRE_OF_BLOOD) == 2;
-			if (tmpInTobRaid != inTobRaid)
-			{
-				client.setHideFriendCastOptions(this.getRemoveFreezePlayerToB);
-				client.setHideClanmateCastOptions(this.getRemoveFreezePlayerToB);
-				inTobRaid = tmpInTobRaid;
-			}
-		}
+		setCastOptions();
 	}
 
 	@Subscribe
@@ -1710,6 +1709,66 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("climb-down");
 	}
 
+	private void setCastOptions()
+	{
+		clientThread.invoke(() ->
+		{
+			boolean tmpInCoxRaid = client.getVar(Varbits.IN_RAID) == 1;
+			if (tmpInCoxRaid != inCoxRaid)
+			{
+				if (tmpInCoxRaid)
+				{
+					client.setHideFriendCastOptions(this.hideCastCoX);
+					client.setHideClanmateCastOptions(this.hideCastCoX);
+					client.setUnhiddenCasts(this.hideCastIgnoredCoX);
+				}
+				else
+				{
+					resetCastOptions();
+				}
+				inCoxRaid = tmpInCoxRaid;
+			}
+			else
+			{
+				boolean tmpInTobRaid = client.getVar(Varbits.THEATRE_OF_BLOOD) == 2;
+				if (tmpInTobRaid != inTobRaid)
+				{
+					if (tmpInTobRaid)
+					{
+						client.setHideFriendCastOptions(this.hideCastToB);
+						client.setHideClanmateCastOptions(this.hideCastToB);
+						client.setUnhiddenCasts(this.hideCastIgnoredToB);
+					}
+					else
+					{
+						resetCastOptions();
+					}
+					inTobRaid = tmpInTobRaid;
+				}
+			}
+		});
+	}
+
+	private void resetCastOptions()
+	{
+		Plugin pvpTools = pluginManager.getPlugins().stream().filter(plugin ->
+			plugin.getClass().getSimpleName().equals("PvpToolsPlugin")).findFirst().orElse(null);
+		if (pvpTools != null && pluginManager.isPluginEnabled(pvpTools))
+		{
+			PvpToolsConfig pvpToolsConfig = configManager.getConfig(PvpToolsConfig.class);
+			if (pvpToolsConfig.hideCast())
+			{
+				((PvpToolsPlugin)pvpTools).hideCastOptions(pvpToolsConfig.hideCastMode());
+				client.setUnhiddenCasts(Sets.newHashSet(Text.fromCSV(pvpToolsConfig.hideCastIgnored().toLowerCase())));
+			}
+		}
+		else
+		{
+			client.setHideFriendCastOptions(false);
+			client.setHideClanmateCastOptions(false);
+		}
+	}
+
 	private void updateConfig()
 	{
 		this.getWithdrawOne = config.getWithdrawOne();
@@ -1833,7 +1892,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.hideDestroyBoltpouch = config.hideDestroyBoltpouch();
 		this.hideDestroyGembag = config.hideDestroyGembag();
 		this.hideDropRunecraftingPouch = config.hideDropRunecraftingPouch();
-		this.getRemoveFreezePlayerToB = config.getRemoveFreezePlayerToB();
-		this.getRemoveFreezePlayerCoX = config.getRemoveFreezePlayerCoX();
+		this.hideCastToB = config.hideCastToB();
+		this.hideCastIgnoredToB = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredToB().toLowerCase()));
+		this.hideCastCoX = config.hideCastCoX();
+		this.hideCastIgnoredCoX = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredCoX().toLowerCase()));
 	}
 }
