@@ -11,51 +11,55 @@ import net.runelite.rs.ScriptOpcodes;
 @Implements("WorldMapAreaData")
 public class WorldMapAreaData extends WorldMapArea {
    @ObfuscatedName("n")
-   HashSet field1016;
+   @Export("worldMapData0Set")
+   HashSet worldMapData0Set;
    @ObfuscatedName("i")
-   HashSet field1017;
+   @Export("worldMapData1Set")
+   HashSet worldMapData1Set;
    @ObfuscatedName("a")
-   List field1018;
+   @Export("iconList")
+   List iconList;
 
    @ObfuscatedName("ce")
    @ObfuscatedSignature(
       signature = "(Lgr;Lgr;IZI)V",
       garbageValue = "-1999841505"
    )
-   void method387(Buffer var1, Buffer var2, int var3, boolean var4) {
-      this.read(var1, var3);
-      int var5 = var2.readUnsignedShort();
-      this.field1016 = new HashSet(var5);
+   @Export("init")
+   void init(Buffer detailsBuffer, Buffer compositeBuffer, int fileId, boolean membersWorld) {
+      this.read(detailsBuffer, fileId);
+      int var5 = compositeBuffer.readUnsignedShort();
+      this.worldMapData0Set = new HashSet(var5);
 
       int var6;
       for (var6 = 0; var6 < var5; ++var6) {
-         class15 var7 = new class15();
+         WorldMapData_0 var7 = new WorldMapData_0();
 
          try {
-            var7.method173(var2);
+            var7.init(compositeBuffer);
          } catch (IllegalStateException var11) {
             continue;
          }
 
-         this.field1016.add(var7);
+         this.worldMapData0Set.add(var7);
       }
 
-      var6 = var2.readUnsignedShort();
-      this.field1017 = new HashSet(var6);
+      var6 = compositeBuffer.readUnsignedShort();
+      this.worldMapData1Set = new HashSet(var6);
 
       for (int var12 = 0; var12 < var6; ++var12) {
-         class39 var8 = new class39();
+         WorldMapData_1 var8 = new WorldMapData_1();
 
          try {
-            var8.method714(var2);
+            var8.init(compositeBuffer);
          } catch (IllegalStateException var10) {
             continue;
          }
 
-         this.field1017.add(var8);
+         this.worldMapData1Set.add(var8);
       }
 
-      this.method388(var2, var4);
+      this.initIconsList(compositeBuffer, membersWorld);
    }
 
    @ObfuscatedName("cy")
@@ -63,16 +67,17 @@ public class WorldMapAreaData extends WorldMapArea {
       signature = "(Lgr;ZB)V",
       garbageValue = "48"
    )
-   void method388(Buffer var1, boolean var2) {
-      this.field1018 = new LinkedList();
+   @Export("initIconsList")
+   void initIconsList(Buffer var1, boolean membersWorld) {
+      this.iconList = new LinkedList();
       int var3 = var1.readUnsignedShort();
 
       for (int var4 = 0; var4 < var3; ++var4) {
          int var5 = var1.method51();
          Coord var6 = new Coord(var1.readInt());
          boolean var7 = var1.readUnsignedByte() == 1;
-         if (var2 || !var7) {
-            this.field1018.add(new WorldMapIcon1((Coord)null, var6, var5, (WorldMapLabel)null));
+         if (membersWorld || !var7) {
+            this.iconList.add(new WorldMapIcon_0((Coord)null, var6, var5, (WorldMapLabel)null));
          }
       }
 
@@ -132,7 +137,7 @@ public class WorldMapAreaData extends WorldMapArea {
          var4 = Huffman.getWidget(Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize]);
          var3 = false;
       } else {
-         var4 = var2 ? WorldMapIcon1.field1030 : GrandExchangeOfferAgeComparator.field1111;
+         var4 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
       }
 
       int var5;
@@ -207,14 +212,14 @@ public class WorldMapAreaData extends WorldMapArea {
                   --RouteStrategy.Interpreter_intStackSize;
                   var5 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize] - 1;
                   if (var5 >= 0 && var5 <= 9) {
-                     WorldMapSection1.method345(var4, var5);
+                     WorldMapSection2.method345(var4, var5);
                      return 1;
                   } else {
                      throw new RuntimeException();
                   }
                } else if (var0 == ScriptOpcodes.CC_SETOPTKEYIGNOREHELD) {
                   var11 = 10;
-                  WorldMapSection1.method345(var4, var11);
+                  WorldMapSection2.method345(var4, var11);
                   return 1;
                } else {
                   return 2;

@@ -95,9 +95,9 @@ public class SoundCache {
       } else if (var3 != null && var3[0] <= 0) {
          return null;
       } else {
-         MusicSample var8 = (MusicSample)this.musicSamples.get(var5);
+         VorbisSample var8 = (VorbisSample)this.musicSamples.get(var5);
          if (var8 == null) {
-            var8 = MusicSample.readMusicSample(this.musicSampleIndex, var1, var2);
+            var8 = VorbisSample.readMusicSample(this.musicSampleIndex, var1, var2);
             if (var8 == null) {
                return null;
             }

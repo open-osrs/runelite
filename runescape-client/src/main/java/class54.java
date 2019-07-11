@@ -42,7 +42,7 @@ public final class class54 {
       if (!Login.worldSelectOpen) {
          if ((MouseHandler.MouseHandler_lastButton == 1 || !AbstractRasterProvider.mouseCam && MouseHandler.MouseHandler_lastButton == 4) && MouseHandler.MouseHandler_lastPressedX >= Login.xPadding + 765 - 50 && MouseHandler.MouseHandler_lastPressedY >= 453) {
             ReflectionCheck.clientPreferences.titleMusicDisabled = !ReflectionCheck.clientPreferences.titleMusicDisabled;
-            WorldMapSection3.savePreferences();
+            WorldMapSection0.savePreferences();
             if (!ReflectionCheck.clientPreferences.titleMusicDisabled) {
                class204.method4011(UserComparator3.archive6, "scape main", "", 255, false);
             } else {
@@ -203,7 +203,7 @@ public final class class54 {
                            }
 
                            setLoginResponseString("", "Connecting to server...", "");
-                           class15.method184(false);
+                           WorldMapData_0.method184(false);
                            GameShell.updateGameState(20);
                            return;
                         }
@@ -225,7 +225,7 @@ public final class class54 {
                            Client.Login_isUsernameRemembered = !Client.Login_isUsernameRemembered;
                            if (!Client.Login_isUsernameRemembered && ReflectionCheck.clientPreferences.rememberedUsername != null) {
                               ReflectionCheck.clientPreferences.rememberedUsername = null;
-                              WorldMapSection3.savePreferences();
+                              WorldMapSection0.savePreferences();
                            }
                         }
 
@@ -240,7 +240,7 @@ public final class class54 {
                               class196.method3740();
                            }
 
-                           WorldMapSection3.savePreferences();
+                           WorldMapSection0.savePreferences();
                         }
 
                         while (true) {
@@ -295,7 +295,7 @@ public final class class54 {
                                     }
 
                                     setLoginResponseString("", "Connecting to server...", "");
-                                    class15.method184(false);
+                                    WorldMapData_0.method184(false);
                                     GameShell.updateGameState(20);
                                     return;
                                  }
@@ -338,7 +338,7 @@ public final class class54 {
 
                               class13.otpInt = Integer.parseInt(Login.otp);
                               Login.otp = "";
-                              class15.method184(true);
+                              WorldMapData_0.method184(true);
                               setLoginResponseString("", "Connecting to server...", "");
                               GameShell.updateGameState(20);
                               return;
@@ -391,7 +391,7 @@ public final class class54 {
 
                                     class13.otpInt = Integer.parseInt(Login.otp);
                                     Login.otp = "";
-                                    class15.method184(true);
+                                    WorldMapData_0.method184(true);
                                     setLoginResponseString("", "Connecting to server...", "");
                                     GameShell.updateGameState(20);
                                     return;
@@ -580,7 +580,7 @@ public final class class54 {
                               FontName.closeWorldSelect();
                            } else if (Login.hoveredWorldIndex != -1) {
                               World var5 = ItemContainer.worlds[Login.hoveredWorldIndex];
-                              class31.changeWorld(var5);
+                              WorldMapID.changeWorld(var5);
                               FontName.closeWorldSelect();
                            } else {
                               if (Login.worldSelectPage > 0 && SecureRandomFuture.worldSelectLeftSprite != null && MouseHandler.MouseHandler_lastPressedX >= 0 && MouseHandler.MouseHandler_lastPressedX <= SecureRandomFuture.worldSelectLeftSprite.subWidth && MouseHandler.MouseHandler_lastPressedY >= Huffman.canvasHeight / 2 - 50 && MouseHandler.MouseHandler_lastPressedY <= Huffman.canvasHeight / 2 + 50) {
@@ -647,7 +647,7 @@ public final class class54 {
             String var14 = "";
             var4 = BufferedFile.getWorldMap().getMapArea(var3);
             if (var4 != null) {
-               var14 = var4.getName();
+               var14 = var4.getExternalName();
             }
 
             Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var14;
@@ -661,7 +661,7 @@ public final class class54 {
             return 1;
          } else if (var0 == ScriptOpcodes.WORLDMAP_SETZOOM) {
             var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-            BufferedFile.getWorldMap().setZoomLevel(var3);
+            BufferedFile.getWorldMap().setZoomPercentage(var3);
             return 1;
          } else if (var0 == ScriptOpcodes.WORLDMAP_ISLOADED) {
             Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = BufferedFile.getWorldMap().isCacheLoaded() ? 1 : 0;
@@ -696,7 +696,7 @@ public final class class54 {
                   if (var6 == null) {
                      Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 0;
                   } else {
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.origin().packed();
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.getOrigin().packed();
                   }
 
                   return 1;
@@ -707,8 +707,8 @@ public final class class54 {
                      Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 0;
                      Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 0;
                   } else {
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = (var6.maxX() - var6.minX() + 1) * 64;
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = (var6.maxY() - var6.minY() + 1) * 64;
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = (var6.getRegionHighX() - var6.getRegionLowX() + 1) * 64;
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = (var6.getRegionHighY() - var6.getRegionLowY() + 1) * 64;
                   }
 
                   return 1;
@@ -721,10 +721,10 @@ public final class class54 {
                      Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 0;
                      Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 0;
                   } else {
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.minX() * 64;
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.minY() * 64;
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.maxX() * 64 + 64 - 1;
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.maxY() * 64 + 64 - 1;
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.getRegionLowX() * 64;
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.getRegionLowY() * 64;
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.getRegionHighX() * 64 + 64 - 1;
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.getRegionHighY() * 64 + 64 - 1;
                   }
 
                   return 1;
@@ -734,7 +734,7 @@ public final class class54 {
                   if (var6 == null) {
                      Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = -1;
                   } else {
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.zoom();
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.getZoom();
                   }
 
                   return 1;
@@ -861,7 +861,7 @@ public final class class54 {
                            return 1;
                         } else if (var0 == ScriptOpcodes.WORLDMAP_DISABLEELEMENTS) {
                            var9 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
-                           BufferedFile.getWorldMap().setElementsEnabled(var9);
+                           BufferedFile.getWorldMap().setElementsDisabled(var9);
                            return 1;
                         } else {
                            boolean var10;
@@ -875,10 +875,10 @@ public final class class54 {
                               RouteStrategy.Interpreter_intStackSize -= 2;
                               var3 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
                               var10 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1] == 1;
-                              BufferedFile.getWorldMap().disableCategory(var3, var10);
+                              BufferedFile.getWorldMap().setCategoryDisabled(var3, var10);
                               return 1;
                            } else if (var0 == ScriptOpcodes.WORLDMAP_GETDISABLEELEMENTS) {
-                              Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = BufferedFile.getWorldMap().getElementsEnabled() ? 1 : 0;
+                              Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = BufferedFile.getWorldMap().getElementsDisabled() ? 1 : 0;
                               return 1;
                            } else if (var0 == ScriptOpcodes.WORLDMAP_GETDISABLEELEMENT) {
                               var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
@@ -962,13 +962,13 @@ public final class class54 {
 
                                     return 1;
                                  } else if (var0 == ScriptOpcodes.WORLDMAP_ELEMENT) {
-                                    Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = class15.worldMapEvent.mapElement;
+                                    Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapData_0.worldMapEvent.mapElement;
                                     return 1;
                                  } else if (var0 == 6698) {
-                                    Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = class15.worldMapEvent.coord1.packed();
+                                    Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapData_0.worldMapEvent.coord1.packed();
                                     return 1;
                                  } else if (var0 == ScriptOpcodes.WORLDMAP_ELEMENTCOORD) {
-                                    Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = class15.worldMapEvent.coord2.packed();
+                                    Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapData_0.worldMapEvent.coord2.packed();
                                     return 1;
                                  } else {
                                     return 2;

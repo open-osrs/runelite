@@ -43,17 +43,18 @@ public class SoundSystem implements Runnable {
       signature = "(II)Lcg;",
       garbageValue = "1479630296"
    )
-   static Script method2451(int var0) {
-      Script var1 = (Script)Script.Script_cached.get((long)var0);
+   @Export("getScript")
+   static Script getScript(int scriptID) {
+      Script var1 = (Script)Script.Script_cached.get((long)scriptID);
       if (var1 != null) {
          return var1;
       } else {
-         byte[] var2 = Formatting.archive12.takeFile(var0, 0);
+         byte[] var2 = Formatting.archive12.takeFile(scriptID, 0);
          if (var2 == null) {
             return null;
          } else {
             var1 = Occluder.newScript(var2);
-            Script.Script_cached.put(var1, (long)var0);
+            Script.Script_cached.put(var1, (long)scriptID);
             return var1;
          }
       }
@@ -64,7 +65,8 @@ public class SoundSystem implements Runnable {
       signature = "(B)V",
       garbageValue = "20"
    )
-   static void method2456() {
-      WorldMapRegion.field1051.clear();
+   @Export("WorldMapRegion_clearCachedSprites")
+   static void WorldMapRegion_clearCachedSprites() {
+      WorldMapRegion.WorldMapRegion_cachedSprites.clear();
    }
 }

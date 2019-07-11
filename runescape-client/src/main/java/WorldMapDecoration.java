@@ -95,7 +95,7 @@ public class WorldMapDecoration {
       if (var4 != null && var4.onTargetEnter != null) {
          ScriptEvent var5 = new ScriptEvent();
          var5.widget = var4;
-         var5.args0 = var4.onTargetEnter;
+         var5.args = var4.onTargetEnter;
          AbstractArchive.runScript(var5);
       }
 

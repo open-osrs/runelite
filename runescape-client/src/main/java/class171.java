@@ -104,19 +104,19 @@ public class class171 {
          AbstractArchive.archive0 = WorldMapRectangle.newArchive(0, false, true, true);
          Skeleton.archive1 = WorldMapRectangle.newArchive(1, false, true, true);
          ObjectSound.archive2 = WorldMapRectangle.newArchive(2, true, false, true);
-         WorldMapIcon1.archive3 = WorldMapRectangle.newArchive(3, false, true, true);
+         WorldMapIcon_0.archive3 = WorldMapRectangle.newArchive(3, false, true, true);
          WorldMapDecoration.archive4 = WorldMapRectangle.newArchive(4, false, true, true);
          SecureRandomFuture.archive5 = WorldMapRectangle.newArchive(5, true, true, true);
          UserComparator3.archive6 = WorldMapRectangle.newArchive(6, true, true, true);
          class40.archive7 = WorldMapRectangle.newArchive(7, false, true, true);
-         WorldMapSection1.archive8 = WorldMapRectangle.newArchive(8, false, true, true);
+         WorldMapSection2.archive8 = WorldMapRectangle.newArchive(8, false, true, true);
          class238.archive9 = WorldMapRectangle.newArchive(9, false, true, true);
          class16.archive10 = WorldMapRectangle.newArchive(10, false, true, true);
          Login.archive11 = WorldMapRectangle.newArchive(11, false, true, true);
          Formatting.archive12 = WorldMapRectangle.newArchive(12, false, true, true);
          ByteArrayPool.archive13 = WorldMapRectangle.newArchive(13, true, false, true);
          class2.archive14 = WorldMapRectangle.newArchive(14, false, true, true);
-         WorldMapSection2.archive15 = WorldMapRectangle.newArchive(15, false, true, true);
+         WorldMapSection3.archive15 = WorldMapRectangle.newArchive(15, false, true, true);
          WorldMapRectangle.archive17 = WorldMapRectangle.newArchive(17, true, true, true);
          WorldMapLabelSize.archive18 = WorldMapRectangle.newArchive(18, false, true, true);
          ItemContainer.archive19 = WorldMapRectangle.newArchive(19, false, true, true);
@@ -129,19 +129,19 @@ public class class171 {
          var0 = var1 + AbstractArchive.archive0.percentage() * 4 / 100;
          var0 += Skeleton.archive1.percentage() * 4 / 100;
          var0 += ObjectSound.archive2.percentage() * 2 / 100;
-         var0 += WorldMapIcon1.archive3.percentage() * 2 / 100;
+         var0 += WorldMapIcon_0.archive3.percentage() * 2 / 100;
          var0 += WorldMapDecoration.archive4.percentage() * 6 / 100;
          var0 += SecureRandomFuture.archive5.percentage() * 4 / 100;
          var0 += UserComparator3.archive6.percentage() * 2 / 100;
          var0 += class40.archive7.percentage() * 56 / 100;
-         var0 += WorldMapSection1.archive8.percentage() * 2 / 100;
+         var0 += WorldMapSection2.archive8.percentage() * 2 / 100;
          var0 += class238.archive9.percentage() * 2 / 100;
          var0 += class16.archive10.percentage() * 2 / 100;
          var0 += Login.archive11.percentage() * 2 / 100;
          var0 += Formatting.archive12.percentage() * 2 / 100;
          var0 += ByteArrayPool.archive13.percentage() * 2 / 100;
          var0 += class2.archive14.percentage() * 2 / 100;
-         var0 += WorldMapSection2.archive15.percentage() * 2 / 100;
+         var0 += WorldMapSection3.archive15.percentage() * 2 / 100;
          var0 += ItemContainer.archive19.percentage() / 100;
          var0 += WorldMapLabelSize.archive18.percentage() / 100;
          var0 += AbstractByteArrayCopier.archive20.percentage() / 100;
@@ -159,10 +159,10 @@ public class class171 {
             AbstractWorldMapIcon.method625(SecureRandomFuture.archive5, "Maps");
             AbstractWorldMapIcon.method625(UserComparator3.archive6, "Music Tracks");
             AbstractWorldMapIcon.method625(class40.archive7, "Models");
-            AbstractWorldMapIcon.method625(WorldMapSection1.archive8, "Sprites");
+            AbstractWorldMapIcon.method625(WorldMapSection2.archive8, "Sprites");
             AbstractWorldMapIcon.method625(Login.archive11, "Music Jingles");
             AbstractWorldMapIcon.method625(class2.archive14, "Music Samples");
-            AbstractWorldMapIcon.method625(WorldMapSection2.archive15, "Music Patches");
+            AbstractWorldMapIcon.method625(WorldMapSection3.archive15, "Music Patches");
             AbstractWorldMapIcon.method625(ItemContainer.archive19, "World Map");
             AbstractWorldMapIcon.method625(WorldMapLabelSize.archive18, "World Map Geography");
             AbstractWorldMapIcon.method625(AbstractByteArrayCopier.archive20, "World Map Ground");
@@ -178,7 +178,7 @@ public class class171 {
          var28.method174(9, 128);
          WorldMapCacheName.pcmPlayer0 = Players.newPcmPlayer(GameShell.taskHandler, 0, 22050);
          WorldMapCacheName.pcmPlayer0.setStream(var28);
-         NetSocket.setAudioArchives(WorldMapSection2.archive15, class2.archive14, WorldMapDecoration.archive4, var28);
+         NetSocket.setAudioArchives(WorldMapSection3.archive15, class2.archive14, WorldMapDecoration.archive4, var28);
          AbstractArchive.pcmPlayer1 = Players.newPcmPlayer(GameShell.taskHandler, 1, 2048);
          TaskHandler.pcmStreamMixer = new PcmStreamMixer();
          AbstractArchive.pcmPlayer1.setStream(TaskHandler.pcmStreamMixer);
@@ -186,7 +186,7 @@ public class class171 {
          Login.Login_loadingText = "Prepared sound engine";
          Login.Login_loadingPercent = 35;
          Client.titleLoadingStage = 50;
-         WorldMapElement.WorldMapElement_fonts = new Fonts(WorldMapSection1.archive8, ByteArrayPool.archive13);
+         WorldMapElement.WorldMapElement_fonts = new Fonts(WorldMapSection2.archive8, ByteArrayPool.archive13);
       } else {
          int var29;
          if (Client.titleLoadingStage == 50) {
@@ -208,7 +208,7 @@ public class class171 {
                Client.titleLoadingStage = 60;
             }
          } else if (Client.titleLoadingStage == 60) {
-            var0 = FloorDecoration.method2853(class16.archive10, WorldMapSection1.archive8);
+            var0 = FloorDecoration.method2853(class16.archive10, WorldMapSection2.archive8);
             var29 = class3.method36();
             if (var0 < var29) {
                Login.Login_loadingText = "Loading title screen - " + var0 * 100 / var29 + "%";
@@ -260,14 +260,14 @@ public class class171 {
                   Archive var14 = ObjectSound.archive2;
                   VarpDefinition.VarpDefinition_archive = var14;
                   VarpDefinition.VarpDefinition_fileCount = VarpDefinition.VarpDefinition_archive.getGroupFileCount(16);
-                  Archive var15 = WorldMapIcon1.archive3;
+                  Archive var15 = WorldMapIcon_0.archive3;
                   Archive var16 = class40.archive7;
-                  Archive var17 = WorldMapSection1.archive8;
+                  Archive var17 = WorldMapSection2.archive8;
                   Archive var18 = ByteArrayPool.archive13;
                   Widget.Widget_archive = var15;
                   BufferedSource.Widget_modelsArchive = var16;
                   Widget.Widget_spritesArchive = var17;
-                  class27.Widget_fontsArchive = var18;
+                  WorldMapSprite.Widget_fontsArchive = var18;
                   Widget.interfaceComponents = new Widget[Widget.Widget_archive.getGroupCount()][];
                   Widget.loadedInterfaces = new boolean[Widget.Widget_archive.getGroupCount()];
                   Archive var19 = ObjectSound.archive2;
@@ -278,13 +278,13 @@ public class class171 {
                   Archive var21 = ObjectSound.archive2;
                   ParamDefinition.ParamDefinition_archive = var21;
                   class196.varcs = new Varcs();
-                  class60.setHitSplatDefinitionArchives(ObjectSound.archive2, WorldMapSection1.archive8, ByteArrayPool.archive13);
+                  class60.setHitSplatDefinitionArchives(ObjectSound.archive2, WorldMapSection2.archive8, ByteArrayPool.archive13);
                   Archive var22 = ObjectSound.archive2;
-                  Archive var23 = WorldMapSection1.archive8;
+                  Archive var23 = WorldMapSection2.archive8;
                   HealthBarDefinition.HealthBarDefinition_archive = var22;
                   HealthBarDefinition.HealthBarDefinition_spritesArchive = var23;
                   Archive var24 = ObjectSound.archive2;
-                  Archive var25 = WorldMapSection1.archive8;
+                  Archive var25 = WorldMapSection2.archive8;
                   WorldMapElement.WorldMapElement_archive = var25;
                   if (var24.isFullyLoaded()) {
                      UserComparator4.WorldMapElement_count = var24.getGroupFileCount(35);
@@ -307,13 +307,13 @@ public class class171 {
             } else if (Client.titleLoadingStage == 80) {
                var0 = 0;
                if (GrandExchangeOfferUnitPriceComparator.compass == null) {
-                  GrandExchangeOfferUnitPriceComparator.compass = class322.readSprite(WorldMapSection1.archive8, Calendar.spriteIds.compass, 0);
+                  GrandExchangeOfferUnitPriceComparator.compass = class322.readSprite(WorldMapSection2.archive8, Calendar.spriteIds.compass, 0);
                } else {
                   ++var0;
                }
 
                if (FaceNormal.redHintArrowSprite == null) {
-                  FaceNormal.redHintArrowSprite = class322.readSprite(WorldMapSection1.archive8, Calendar.spriteIds.redHintArrow, 0);
+                  FaceNormal.redHintArrowSprite = class322.readSprite(WorldMapSection2.archive8, Calendar.spriteIds.redHintArrow, 0);
                } else {
                   ++var0;
                }
@@ -321,7 +321,7 @@ public class class171 {
                IndexedSprite[] var32;
                int var34;
                if (class192.mapSceneSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.mapScenes;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var32 = null;
@@ -335,8 +335,8 @@ public class class171 {
                }
 
                Sprite[] var35;
-               if (class15.headIconPkSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+               if (WorldMapData_0.headIconPkSprites == null) {
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.headIconsPk;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var35 = null;
@@ -344,13 +344,13 @@ public class class171 {
                      var35 = UserComparator9.createSpriteArray();
                   }
 
-                  class15.headIconPkSprites = var35;
+                  WorldMapData_0.headIconPkSprites = var35;
                } else {
                   ++var0;
                }
 
                if (ClientPreferences.headIconPrayerSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.headIconsPrayer;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var35 = null;
@@ -364,7 +364,7 @@ public class class171 {
                }
 
                if (Player.headIconHintSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.headIconsHint;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var35 = null;
@@ -378,7 +378,7 @@ public class class171 {
                }
 
                if (class16.mapMarkerSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.mapMarkers;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var35 = null;
@@ -392,7 +392,7 @@ public class class171 {
                }
 
                if (KeyHandler.crossSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.crosses;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var35 = null;
@@ -405,8 +405,8 @@ public class class171 {
                   ++var0;
                }
 
-               if (class39.mapDotSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+               if (WorldMapData_1.mapDotSprites == null) {
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.mapDots;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var35 = null;
@@ -414,13 +414,13 @@ public class class171 {
                      var35 = UserComparator9.createSpriteArray();
                   }
 
-                  class39.mapDotSprites = var35;
+                  WorldMapData_1.mapDotSprites = var35;
                } else {
                   ++var0;
                }
 
                if (class32.scrollBarSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.scrollBars;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var32 = null;
@@ -434,7 +434,7 @@ public class class171 {
                }
 
                if (WorldMapSectionType.modIconSprites == null) {
-                  var30 = WorldMapSection1.archive8;
+                  var30 = WorldMapSection2.archive8;
                   var34 = Calendar.spriteIds.modIcons;
                   if (!SpriteMask.loadSprite(var30, var34, 0)) {
                      var32 = null;
@@ -467,7 +467,7 @@ public class class171 {
                   Login.Login_loadingText = "Loading textures - 0%";
                   Login.Login_loadingPercent = 90;
                } else {
-                  SecureRandomFuture.textureProvider = new TextureProvider(class238.archive9, WorldMapSection1.archive8, 20, 0.8D, Client.isLowDetail ? 64 : 128);
+                  SecureRandomFuture.textureProvider = new TextureProvider(class238.archive9, WorldMapSection2.archive8, 20, 0.8D, Client.isLowDetail ? 64 : 128);
                   Rasterizer3D.Rasterizer3D_setTextureLoader(SecureRandomFuture.textureProvider);
                   Rasterizer3D.Rasterizer3D_setBrightness(0.8D);
                   Client.titleLoadingStage = 100;
@@ -500,8 +500,8 @@ public class class171 {
                   Client.titleLoadingStage = 130;
                }
             } else if (Client.titleLoadingStage == 130) {
-               if (!WorldMapIcon1.archive3.isFullyLoaded()) {
-                  Login.Login_loadingText = "Loading interfaces - " + WorldMapIcon1.archive3.loadPercent() * 4 / 5 + "%";
+               if (!WorldMapIcon_0.archive3.isFullyLoaded()) {
+                  Login.Login_loadingText = "Loading interfaces - " + WorldMapIcon_0.archive3.loadPercent() * 4 / 5 + "%";
                   Login.Login_loadingPercent = 96;
                } else if (!Formatting.archive12.isFullyLoaded()) {
                   Login.Login_loadingText = "Loading interfaces - " + (80 + Formatting.archive12.loadPercent() / 6) + "%";
@@ -548,7 +548,7 @@ public class class171 {
             var6.widget = var5;
             var6.opIndex = var0;
             var6.targetName = var4;
-            var6.args0 = var5.onOp;
+            var6.args = var5.onOp;
             AbstractArchive.runScript(var6);
          }
 

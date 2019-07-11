@@ -713,7 +713,7 @@ public final class Sprite extends Rasterizer2D {
 
    @ObfuscatedName("ay")
    @Export("drawRotatedMaskedCenteredAround")
-   public void drawRotatedMaskedCenteredAround(int x, int y, int maskWidth, int maskHeight, int spriteWidth, int spriteHeight, int rotation, int var8, int[] maskXStarts, int[] maskXWidths) {
+   public void drawRotatedMaskedCenteredAround(int x, int y, int maskWidth, int maskHeight, int spriteWidth, int spriteHeight, int rotation, int var8, int[] maskStartXs, int[] maskXWidths) {
       try {
          int var11 = -maskWidth / 2;
          int var12 = -maskHeight / 2;
@@ -726,7 +726,7 @@ public final class Sprite extends Rasterizer2D {
          int var17 = x + y * Rasterizer2D.Rasterizer2D_width;
 
          for (y = 0; y < maskHeight; ++y) {
-            int var18 = maskXStarts[y];
+            int var18 = maskStartXs[y];
             int var19 = var17 + var18;
             int var20 = var15 + var14 * var18;
             int var21 = var16 - var13 * var18;

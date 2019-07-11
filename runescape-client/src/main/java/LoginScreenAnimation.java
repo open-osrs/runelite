@@ -175,7 +175,8 @@ public class LoginScreenAnimation {
       signature = "(III)V",
       garbageValue = "-1684910110"
    )
-   void method1782(int var1, int var2) {
+   @Export("draw")
+   void draw(int var1, int var2) {
       if (this.field1011 == null) {
          this.method1772();
       }

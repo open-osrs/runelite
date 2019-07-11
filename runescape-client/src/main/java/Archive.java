@@ -84,9 +84,10 @@ public class Archive extends AbstractArchive {
       signature = "(II)V",
       garbageValue = "2102142648"
    )
-   void vmethod129(int var1) {
+   @Export("loadRegionFromGroup")
+   void loadRegionFromGroup(int group) {
       int var2 = this.index;
-      long var3 = (long)((var2 << 16) + var1);
+      long var3 = (long)((var2 << 16) + group);
       NetFileRequest var5 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var3);
       if (var5 != null) {
          NetCache.NetCache_pendingWritesQueue.addLast(var5);

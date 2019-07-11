@@ -4,42 +4,53 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cd")
-@Implements("MusicSample")
-public class MusicSample extends Node {
+@Implements("VorbisSample")
+public class VorbisSample extends Node {
    @ObfuscatedName("g")
-   static byte[] field603;
+   @Export("VorbisSample_bytes")
+   static byte[] VorbisSample_bytes;
    @ObfuscatedName("l")
-   static int field604;
+   @Export("VorbisSample_byteOffset")
+   static int VorbisSample_byteOffset;
    @ObfuscatedName("e")
-   static int field605;
+   @Export("VorbisSample_bitOffset")
+   static int VorbisSample_bitOffset;
    @ObfuscatedName("x")
-   static int field606;
+   @Export("VorbisSample_blockSize0")
+   static int VorbisSample_blockSize0;
    @ObfuscatedName("d")
-   static int field607;
+   @Export("VorbisSample_blockSize1")
+   static int VorbisSample_blockSize1;
    @ObfuscatedName("k")
    @ObfuscatedSignature(
       signature = "[Lcc;"
    )
-   static class98[] field1323;
+   @Export("VorbisSample_codebooks")
+   static VorbisCodebook[] VorbisSample_codebooks;
    @ObfuscatedName("n")
    @ObfuscatedSignature(
       signature = "[Lca;"
    )
-   static class102[] field1324;
+   @Export("VorbisSample_floors")
+   static VorbisFloor[] VorbisSample_floors;
    @ObfuscatedName("i")
    @ObfuscatedSignature(
       signature = "[Lda;"
    )
-   static class109[] field1344;
+   @Export("VorbisSample_residues")
+   static VorbisResidue[] VorbisSample_residues;
    @ObfuscatedName("a")
    @ObfuscatedSignature(
       signature = "[Ldg;"
    )
-   static class114[] field1326;
+   @Export("VorbisSample_mappings")
+   static VorbisMapping[] VorbisSample_mappings;
    @ObfuscatedName("z")
-   static boolean[] field608;
+   @Export("VorbisSample_blockFlags")
+   static boolean[] VorbisSample_blockFlags;
    @ObfuscatedName("j")
-   static int[] field609;
+   @Export("VorbisSample_mapping")
+   static int[] VorbisSample_mapping;
    @ObfuscatedName("s")
    static boolean field610;
    @ObfuscatedName("c")
@@ -92,7 +103,7 @@ public class MusicSample extends Node {
    @ObfuscatedName("ah")
    int field627;
 
-   MusicSample(byte[] var1) {
+   VorbisSample(byte[] var1) {
       this.read(var1);
    }
 
@@ -130,16 +141,16 @@ public class MusicSample extends Node {
 
    @ObfuscatedName("g")
    float[] method225(int var1) {
-      method2337(this.field620[var1], 0);
-      method2338();
-      int var2 = method2352(WorldMapCacheName.method634(field609.length - 1));
-      boolean var3 = field608[var2];
-      int var4 = var3 ? field607 : field606;
+      VorbisSample_setData(this.field620[var1], 0);
+      readBit();
+      int var2 = readBits(WorldMapCacheName.iLog(VorbisSample_mapping.length - 1));
+      boolean var3 = VorbisSample_blockFlags[var2];
+      int var4 = var3 ? VorbisSample_blockSize1 : VorbisSample_blockSize0;
       boolean var5 = false;
       boolean var6 = false;
       if (var3) {
-         var5 = method2338() != 0;
-         var6 = method2338() != 0;
+         var5 = readBit() != 0;
+         var6 = readBit() != 0;
       }
 
       int var7 = var4 >> 1;
@@ -147,9 +158,9 @@ public class MusicSample extends Node {
       int var9;
       int var10;
       if (var3 && !var5) {
-         var8 = (var4 >> 2) - (field606 >> 2);
-         var9 = (field606 >> 2) + (var4 >> 2);
-         var10 = field606 >> 1;
+         var8 = (var4 >> 2) - (VorbisSample_blockSize0 >> 2);
+         var9 = (VorbisSample_blockSize0 >> 2) + (var4 >> 2);
+         var10 = VorbisSample_blockSize0 >> 1;
       } else {
          var8 = 0;
          var9 = var7;
@@ -160,33 +171,33 @@ public class MusicSample extends Node {
       int var12;
       int var13;
       if (var3 && !var6) {
-         var11 = var4 - (var4 >> 2) - (field606 >> 2);
-         var12 = (field606 >> 2) + (var4 - (var4 >> 2));
-         var13 = field606 >> 1;
+         var11 = var4 - (var4 >> 2) - (VorbisSample_blockSize0 >> 2);
+         var12 = (VorbisSample_blockSize0 >> 2) + (var4 - (var4 >> 2));
+         var13 = VorbisSample_blockSize0 >> 1;
       } else {
          var11 = var7;
          var12 = var4;
          var13 = var4 >> 1;
       }
 
-      class114 var14 = field1326[field609[var2]];
-      int var15 = var14.field1454;
-      int var16 = var14.field1452[var15];
-      boolean var17 = !field1324[var16].method2367();
+      VorbisMapping var14 = VorbisSample_mappings[VorbisSample_mapping[var2]];
+      int var15 = var14.mappingMux;
+      int var16 = var14.submapFloor[var15];
+      boolean var17 = !VorbisSample_floors[var16].readSubmapFloor();
       boolean var18 = var17;
 
       float[] var20;
-      for (var16 = 0; var16 < var14.field1453; ++var16) {
-         class109 var19 = field1344[var14.field1455[var16]];
+      for (var16 = 0; var16 < var14.submaps; ++var16) {
+         VorbisResidue var19 = VorbisSample_residues[var14.submapResidue[var16]];
          var20 = field611;
          var19.method2473(var20, var4 >> 1, var18);
       }
 
       int var48;
       if (!var17) {
-         var16 = var14.field1454;
-         var48 = var14.field1452[var16];
-         field1324[var48].method2375(field611, var4 >> 1);
+         var16 = var14.mappingMux;
+         var48 = var14.submapFloor[var16];
+         VorbisSample_floors[var48].method2375(field611, var4 >> 1);
       }
 
       int var21;
@@ -244,7 +255,7 @@ public class MusicSample extends Node {
             var20[var27 * 4 + 1] = (var29 - var31) * var32 + (var28 - var30) * var33;
          }
 
-         var27 = WorldMapCacheName.method634(var4 - 1);
+         var27 = WorldMapCacheName.iLog(var4 - 1);
 
          int var34;
          int var35;
@@ -394,7 +405,7 @@ public class MusicSample extends Node {
       } else {
          if (this.samples == null) {
             this.field623 = 0;
-            this.field622 = new float[field607];
+            this.field622 = new float[VorbisSample_blockSize1];
             this.samples = new byte[this.sampleCount];
             this.field626 = 0;
             this.field627 = 0;
@@ -438,10 +449,11 @@ public class MusicSample extends Node {
    }
 
    @ObfuscatedName("m")
-   static float method2357(int var0) {
-      int var1 = var0 & 2097151;
+   @Export("float32Unpack")
+   static float float32Unpack(int var0) {
+      int var1 = var0 & 0x1fffff;
       int var2 = var0 & Integer.MIN_VALUE;
-      int var3 = (var0 & 2145386496) >> 21;
+      int var3 = (var0 & 0x7fe00000) >> 21;
       if (var2 != 0) {
          var1 = -var1;
       }
@@ -450,40 +462,43 @@ public class MusicSample extends Node {
    }
 
    @ObfuscatedName("f")
-   static void method2337(byte[] var0, int var1) {
-      field603 = var0;
-      field604 = var1;
-      field605 = 0;
+   @Export("VorbisSample_setData")
+   static void VorbisSample_setData(byte[] bytes, int offset) {
+      VorbisSample.VorbisSample_bytes = bytes;
+      VorbisSample.VorbisSample_byteOffset = offset;
+      VorbisSample_bitOffset = 0;
    }
 
    @ObfuscatedName("q")
-   static int method2338() {
-      int var0 = field603[field604] >> field605 & 1;
-      ++field605;
-      field604 += field605 >> 3;
-      field605 &= 7;
+   @Export("readBit")
+   static int readBit() {
+      int var0 = VorbisSample_bytes[VorbisSample_byteOffset] >> VorbisSample_bitOffset & 1;
+      ++VorbisSample_bitOffset;
+      VorbisSample_byteOffset += VorbisSample_bitOffset >> 3;
+      VorbisSample_bitOffset &= 7;
       return var0;
    }
 
    @ObfuscatedName("w")
-   static int method2352(int var0) {
+   @Export("readBits")
+   static int readBits(int var0) {
       int var1 = 0;
 
       int var2;
       int var3;
-      for (var2 = 0; var0 >= 8 - field605; var0 -= var3) {
-         var3 = 8 - field605;
+      for (var2 = 0; var0 >= 8 - VorbisSample_bitOffset; var0 -= var3) {
+         var3 = 8 - VorbisSample_bitOffset;
          int var4 = (1 << var3) - 1;
-         var1 += (field603[field604] >> field605 & var4) << var2;
-         field605 = 0;
-         ++field604;
+         var1 += (VorbisSample_bytes[VorbisSample_byteOffset] >> VorbisSample_bitOffset & var4) << var2;
+         VorbisSample_bitOffset = 0;
+         ++VorbisSample_byteOffset;
          var2 += var3;
       }
 
       if (var0 > 0) {
          var3 = (1 << var0) - 1;
-         var1 += (field603[field604] >> field605 & var3) << var2;
-         field605 += var0;
+         var1 += (VorbisSample_bytes[VorbisSample_byteOffset] >> VorbisSample_bitOffset & var3) << var2;
+         VorbisSample_bitOffset += var0;
       }
 
       return var1;
@@ -491,10 +506,10 @@ public class MusicSample extends Node {
 
    @ObfuscatedName("u")
    static void method2341(byte[] var0) {
-      method2337(var0, 0);
-      field606 = 1 << method2352(4);
-      field607 = 1 << method2352(4);
-      field611 = new float[field607];
+      VorbisSample_setData(var0, 0);
+      VorbisSample_blockSize0 = 1 << readBits(4);
+      VorbisSample_blockSize1 = 1 << readBits(4);
+      field611 = new float[VorbisSample_blockSize1];
 
       int var1;
       int var2;
@@ -502,7 +517,7 @@ public class MusicSample extends Node {
       int var4;
       int var5;
       for (var1 = 0; var1 < 2; ++var1) {
-         var2 = var1 != 0 ? field607 : field606;
+         var2 = var1 != 0 ? VorbisSample_blockSize1 : VorbisSample_blockSize0;
          var3 = var2 >> 1;
          var4 = var2 >> 2;
          var5 = var2 >> 3;
@@ -528,7 +543,7 @@ public class MusicSample extends Node {
          }
 
          int[] var15 = new int[var5];
-         int var10 = WorldMapCacheName.method634(var5 - 1);
+         int var10 = WorldMapCacheName.iLog(var5 - 1);
 
          for (int var11 = 0; var11 < var5; ++var11) {
             var15[var11] = GrandExchangeEvent.method87(var11, var10);
@@ -547,49 +562,49 @@ public class MusicSample extends Node {
          }
       }
 
-      var1 = method2352(8) + 1;
-      field1323 = new class98[var1];
+      var1 = readBits(8) + 1;
+      VorbisSample_codebooks = new VorbisCodebook[var1];
 
       for (var2 = 0; var2 < var1; ++var2) {
-         field1323[var2] = new class98();
+         VorbisSample_codebooks[var2] = new VorbisCodebook();
       }
 
-      var2 = method2352(6) + 1;
+      var2 = readBits(6) + 1;
 
       for (var3 = 0; var3 < var2; ++var3) {
-         method2352(16);
+         readBits(16);
       }
 
-      var2 = method2352(6) + 1;
-      field1324 = new class102[var2];
+      var2 = readBits(6) + 1;
+      VorbisSample_floors = new VorbisFloor[var2];
 
       for (var3 = 0; var3 < var2; ++var3) {
-         field1324[var3] = new class102();
+         VorbisSample_floors[var3] = new VorbisFloor();
       }
 
-      var3 = method2352(6) + 1;
-      field1344 = new class109[var3];
+      var3 = readBits(6) + 1;
+      VorbisSample_residues = new VorbisResidue[var3];
 
       for (var4 = 0; var4 < var3; ++var4) {
-         field1344[var4] = new class109();
+         VorbisSample_residues[var4] = new VorbisResidue();
       }
 
-      var4 = method2352(6) + 1;
-      field1326 = new class114[var4];
+      var4 = readBits(6) + 1;
+      VorbisSample_mappings = new VorbisMapping[var4];
 
       for (var5 = 0; var5 < var4; ++var5) {
-         field1326[var5] = new class114();
+         VorbisSample_mappings[var5] = new VorbisMapping();
       }
 
-      var5 = method2352(6) + 1;
-      field608 = new boolean[var5];
-      field609 = new int[var5];
+      var5 = readBits(6) + 1;
+      VorbisSample_blockFlags = new boolean[var5];
+      VorbisSample_mapping = new int[var5];
 
       for (int var12 = 0; var12 < var5; ++var12) {
-         field608[var12] = method2338() != 0;
-         method2352(16);
-         method2352(16);
-         field609[var12] = method2352(8);
+         VorbisSample_blockFlags[var12] = readBit() != 0;
+         readBits(16);
+         readBits(16);
+         VorbisSample_mapping[var12] = readBits(8);
       }
 
    }
@@ -617,13 +632,13 @@ public class MusicSample extends Node {
       signature = "(Lir;II)Lcd;"
    )
    @Export("readMusicSample")
-   static MusicSample readMusicSample(AbstractArchive var0, int var1, int var2) {
+   static VorbisSample readMusicSample(AbstractArchive var0, int var1, int var2) {
       if (!method2343(var0)) {
          var0.tryLoadFile(var1, var2);
          return null;
       } else {
          byte[] var3 = var0.takeFile(var1, var2);
-         return var3 == null ? null : new MusicSample(var3);
+         return var3 == null ? null : new VorbisSample(var3);
       }
    }
 

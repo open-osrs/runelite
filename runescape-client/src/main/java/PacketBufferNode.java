@@ -11,23 +11,26 @@ public class PacketBufferNode extends Node {
    @ObfuscatedSignature(
       signature = "[Lgg;"
    )
-   @Export("packetBufferNodes")
-   public static PacketBufferNode[] packetBufferNodes;
+   @Export("PacketBufferNode_packetBufferNodes")
+   public static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
    @ObfuscatedName("u")
    @ObfuscatedGetter(
       intValue = -1583654139
    )
-   public static int field668;
+   @Export("PacketBufferNode_packetBufferNodeCount")
+   public static int PacketBufferNode_packetBufferNodeCount;
    @ObfuscatedName("m")
    @ObfuscatedSignature(
       signature = "Lgs;"
    )
-   public ClientPacket field669;
+   @Export("clientPacket")
+   public ClientPacket clientPacket;
    @ObfuscatedName("f")
    @ObfuscatedGetter(
       intValue = 1433542775
    )
-   public int field670;
+   @Export("clientPacketLength")
+   public int clientPacketLength;
    @ObfuscatedName("q")
    @ObfuscatedSignature(
       signature = "Lhx;"
@@ -38,7 +41,8 @@ public class PacketBufferNode extends Node {
    @ObfuscatedGetter(
       intValue = -2051819203
    )
-   public int field671;
+   @Export("index")
+   public int index;
 
    @ObfuscatedName("f")
    @ObfuscatedSignature(
@@ -46,8 +50,8 @@ public class PacketBufferNode extends Node {
       garbageValue = "-1987685511"
    )
    public void method238() {
-      if (field668 < packetBufferNodes.length) {
-         packetBufferNodes[++field668 - 1] = this;
+      if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) {
+         PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this;
       }
 
    }
@@ -63,7 +67,7 @@ public class PacketBufferNode extends Node {
    }
 
    static {
-      packetBufferNodes = new PacketBufferNode[300];
-      field668 = 0;
+      PacketBufferNode_packetBufferNodes = new PacketBufferNode[300];
+      PacketBufferNode_packetBufferNodeCount = 0;
    }
 }

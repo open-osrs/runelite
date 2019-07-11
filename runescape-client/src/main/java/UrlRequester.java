@@ -160,15 +160,15 @@ public class UrlRequester implements Runnable {
             var10 = Client.npcs[Client.npcIndices[var9 - var7]];
          }
 
-         class39.drawActor2d((Actor)var10, var9, var0, var1, var2, var3);
+         WorldMapData_1.drawActor2d((Actor)var10, var9, var0, var1, var2, var3);
       }
 
       if (Client.renderSelf && var6 != -1) {
-         class39.drawActor2d(Canvas.localPlayer, var6, var0, var1, var2, var3);
+         WorldMapData_1.drawActor2d(Canvas.localPlayer, var6, var0, var1, var2, var3);
       }
 
       if (var4) {
-         class39.drawActor2d(Client.players[Client.combatTargetPlayerIndex], var5, var0, var1, var2, var3);
+         WorldMapData_1.drawActor2d(Client.players[Client.combatTargetPlayerIndex], var5, var0, var1, var2, var3);
       }
 
       for (var9 = 0; var9 < Client.overheadTextCount; ++var9) {

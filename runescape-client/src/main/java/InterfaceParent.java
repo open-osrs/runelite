@@ -43,12 +43,13 @@ public class InterfaceParent extends Node {
       signature = "(IIB)Lcg;",
       garbageValue = "1"
    )
-   static Script method1175(int var0, int var1) {
-      Script var2 = (Script)Script.Script_cached.get((long)(var0 << 16));
+   @Export("getWorldMapScript")
+   static Script getWorldMapScript(int scriptID, int type) {
+      Script var2 = (Script)Script.Script_cached.get((long)(scriptID << 16));
       if (var2 != null) {
          return var2;
       } else {
-         String var3 = String.valueOf(var0);
+         String var3 = String.valueOf(scriptID);
          int var4 = Formatting.archive12.getGroupId(var3);
          if (var4 == -1) {
             return null;
@@ -61,7 +62,7 @@ public class InterfaceParent extends Node {
 
                var2 = Occluder.newScript(var5);
                if (var2 != null) {
-                  Script.Script_cached.put(var2, (long)(var0 << 16));
+                  Script.Script_cached.put(var2, (long)(scriptID << 16));
                   return var2;
                }
             }

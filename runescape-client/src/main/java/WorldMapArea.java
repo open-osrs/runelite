@@ -28,52 +28,53 @@ public class WorldMapArea {
    @Export("id")
    int id;
    @ObfuscatedName("f")
-   @Export("archiveName")
-   String archiveName;
+   @Export("internalName")
+   String internalName;
    @ObfuscatedName("q")
-   @Export("name")
-   String name;
+   @Export("externalName")
+   String externalName;
    @ObfuscatedName("w")
    @ObfuscatedGetter(
       intValue = 986239133
    )
-   int field1015;
+   @Export("backGroundColor")
+   int backGroundColor;
    @ObfuscatedName("o")
    @ObfuscatedGetter(
       intValue = 196514055
    )
-   @Export("zoom0")
-   int zoom0;
+   @Export("zoom")
+   int zoom;
    @ObfuscatedName("u")
    @ObfuscatedSignature(
       signature = "Lhu;"
    )
-   @Export("origin0")
-   Coord origin0;
+   @Export("origin")
+   Coord origin;
    @ObfuscatedName("g")
    @ObfuscatedGetter(
       intValue = 1238532539
    )
-   @Export("minX0")
-   int minX0;
+   @Export("regionLowX")
+   int regionLowX;
    @ObfuscatedName("l")
    @ObfuscatedGetter(
       intValue = 225384859
    )
-   @Export("maxX0")
-   int maxX0;
+   @Export("regionHighX")
+   int regionHighX;
    @ObfuscatedName("e")
    @ObfuscatedGetter(
       intValue = 963380367
    )
-   @Export("minY0")
-   int minY0;
+   @Export("regionLowY")
+   int regionLowY;
    @ObfuscatedName("x")
    @ObfuscatedGetter(
       intValue = 1025105175
    )
-   @Export("maxY0")
-   int maxY0;
+   @Export("regionHighY")
+   int regionHighY;
    @ObfuscatedName("d")
    @Export("isMain")
    boolean isMain;
@@ -83,13 +84,13 @@ public class WorldMapArea {
 
    public WorldMapArea() {
       this.id = -1;
-      this.field1015 = -1;
-      this.zoom0 = -1;
-      this.origin0 = null;
-      this.minX0 = Integer.MAX_VALUE;
-      this.maxX0 = 0;
-      this.minY0 = Integer.MAX_VALUE;
-      this.maxY0 = 0;
+      this.backGroundColor = -1;
+      this.zoom = -1;
+      this.origin = null;
+      this.regionLowX = Integer.MAX_VALUE;
+      this.regionHighX = 0;
+      this.regionLowY = Integer.MAX_VALUE;
+      this.regionHighY = 0;
       this.isMain = false;
    }
 
@@ -99,20 +100,20 @@ public class WorldMapArea {
       garbageValue = "1854512327"
    )
    @Export("read")
-   public void read(Buffer var1, int fileId) {
+   public void read(Buffer detailsBuffer, int fileId) {
       this.id = fileId;
-      this.archiveName = var1.readStringCp1252NullTerminated();
-      this.name = var1.readStringCp1252NullTerminated();
-      this.origin0 = new Coord(var1.readInt());
-      this.field1015 = var1.readInt();
-      var1.readUnsignedByte();
-      this.isMain = var1.readUnsignedByte() == 1;
-      this.zoom0 = var1.readUnsignedByte();
-      int var3 = var1.readUnsignedByte();
+      this.internalName = detailsBuffer.readStringCp1252NullTerminated();
+      this.externalName = detailsBuffer.readStringCp1252NullTerminated();
+      this.origin = new Coord(detailsBuffer.readInt());
+      this.backGroundColor = detailsBuffer.readInt();
+      detailsBuffer.readUnsignedByte();
+      this.isMain = detailsBuffer.readUnsignedByte() == 1;
+      this.zoom = detailsBuffer.readUnsignedByte();
+      int var3 = detailsBuffer.readUnsignedByte();
       this.sections = new LinkedList();
 
       for (int var4 = 0; var4 < var3; ++var4) {
-         this.sections.add(this.readWorldMapSection(var1));
+         this.sections.add(this.readWorldMapSection(detailsBuffer));
       }
 
       this.setBounds();
@@ -124,29 +125,29 @@ public class WorldMapArea {
       garbageValue = "-13154"
    )
    @Export("readWorldMapSection")
-   WorldMapSection readWorldMapSection(Buffer var1) {
-      int var2 = var1.readUnsignedByte();
+   WorldMapSection readWorldMapSection(Buffer detailsBuffer) {
+      int var2 = detailsBuffer.readUnsignedByte();
       WorldMapSectionType[] var3 = new WorldMapSectionType[]{WorldMapSectionType.WORLDMAPSECTIONTYPE1, WorldMapSectionType.WORLDMAPSECTIONTYPE3, WorldMapSectionType.WORLDMAPSECTIONTYPE0, WorldMapSectionType.WORLDMAPSECTIONTYPE2};
       WorldMapSectionType var4 = (WorldMapSectionType)ScriptFrame.findEnumerated(var3, var2);
       Object var5 = null;
       switch(var4.type) {
       case 0:
-         var5 = new WorldMapSection0();
-         break;
-      case 1:
          var5 = new WorldMapSection1();
          break;
-      case 2:
+      case 1:
          var5 = new WorldMapSection2();
          break;
-      case 3:
+      case 2:
          var5 = new WorldMapSection3();
+         break;
+      case 3:
+         var5 = new WorldMapSection0();
          break;
       default:
          throw new IllegalStateException("");
       }
 
-      ((WorldMapSection)var5).read(var1);
+      ((WorldMapSection)var5).read(detailsBuffer);
       return (WorldMapSection)var5;
    }
 
@@ -159,16 +160,14 @@ public class WorldMapArea {
    public boolean containsCoord(int plane, int x, int y) {
       Iterator var4 = this.sections.iterator();
 
-      WorldMapSection var5;
-      do {
-         if (!var4.hasNext()) {
-            return false;
+      while (var4.hasNext()) {
+         WorldMapSection var5 = (WorldMapSection)var4.next();
+         if (var5.containsCoord(plane, x, y)) {
+            return true;
          }
+      }
 
-         var5 = (WorldMapSection)var4.next();
-      } while(!var5.containsCoord(plane, x, y));
-
-      return true;
+      return false;
    }
 
    @ObfuscatedName("w")
@@ -180,20 +179,18 @@ public class WorldMapArea {
    public boolean containsPosition(int x, int y) {
       int var3 = x / 64;
       int var4 = y / 64;
-      if (var3 >= this.minX0 && var3 <= this.maxX0) {
-         if (var4 >= this.minY0 && var4 <= this.maxY0) {
+      if (var3 >= this.regionLowX && var3 <= this.regionHighX) {
+         if (var4 >= this.regionLowY && var4 <= this.regionHighY) {
             Iterator var5 = this.sections.iterator();
 
-            WorldMapSection var6;
-            do {
-               if (!var5.hasNext()) {
-                  return false;
+            while (var5.hasNext()) {
+               WorldMapSection var6 = (WorldMapSection)var5.next();
+               if (var6.containsPosition(x, y)) {
+                  return true;
                }
+            }
 
-               var6 = (WorldMapSection)var5.next();
-            } while(!var6.containsPosition(x, y));
-
-            return true;
+            return false;
          } else {
             return false;
          }
@@ -211,16 +208,14 @@ public class WorldMapArea {
    public int[] position(int plane, int x, int y) {
       Iterator var4 = this.sections.iterator();
 
-      WorldMapSection var5;
-      do {
-         if (!var4.hasNext()) {
-            return null;
+      while (var4.hasNext()) {
+         WorldMapSection var5 = (WorldMapSection)var4.next();
+         if (var5.containsCoord(plane, x, y)) {
+            return var5.getBorderTileLengths(plane, x, y);
          }
+      }
 
-         var5 = (WorldMapSection)var4.next();
-      } while(!var5.containsCoord(plane, x, y));
-
-      return var5.position(plane, x, y);
+      return null;
    }
 
    @ObfuscatedName("u")
@@ -232,16 +227,14 @@ public class WorldMapArea {
    public Coord coord(int x, int y) {
       Iterator var3 = this.sections.iterator();
 
-      WorldMapSection var4;
-      do {
-         if (!var3.hasNext()) {
-            return null;
+      while (var3.hasNext()) {
+         WorldMapSection var4 = (WorldMapSection)var3.next();
+         if (var4.containsPosition(x, y)) {
+            return var4.coord(x, y);
          }
+      }
 
-         var4 = (WorldMapSection)var3.next();
-      } while(!var4.containsPosition(x, y));
-
-      return var4.coord(x, y);
+      return null;
    }
 
    @ObfuscatedName("g")
@@ -285,9 +278,9 @@ public class WorldMapArea {
       signature = "(B)Ljava/lang/String;",
       garbageValue = "-65"
    )
-   @Export("getArchiveName")
-   public String getArchiveName() {
-      return this.archiveName;
+   @Export("getInternalName")
+   public String getInternalName() {
+      return this.internalName;
    }
 
    @ObfuscatedName("d")
@@ -295,9 +288,9 @@ public class WorldMapArea {
       signature = "(B)Ljava/lang/String;",
       garbageValue = "-66"
    )
-   @Export("getName")
-   public String getName() {
-      return this.name;
+   @Export("getExternalName")
+   public String getExternalName() {
+      return this.externalName;
    }
 
    @ObfuscatedName("a")
@@ -305,8 +298,9 @@ public class WorldMapArea {
       signature = "(I)I",
       garbageValue = "-1657905623"
    )
-   int method386() {
-      return this.field1015;
+   @Export("getBackGroundColor")
+   int getBackGroundColor() {
+      return this.backGroundColor;
    }
 
    @ObfuscatedName("z")
@@ -314,9 +308,9 @@ public class WorldMapArea {
       signature = "(I)I",
       garbageValue = "-641284417"
    )
-   @Export("zoom")
-   public int zoom() {
-      return this.zoom0;
+   @Export("getZoom")
+   public int getZoom() {
+      return this.zoom;
    }
 
    @ObfuscatedName("j")
@@ -324,9 +318,9 @@ public class WorldMapArea {
       signature = "(B)I",
       garbageValue = "-18"
    )
-   @Export("minX")
-   public int minX() {
-      return this.minX0;
+   @Export("getRegionLowX")
+   public int getRegionLowX() {
+      return this.regionLowX;
    }
 
    @ObfuscatedName("s")
@@ -334,9 +328,9 @@ public class WorldMapArea {
       signature = "(B)I",
       garbageValue = "0"
    )
-   @Export("maxX")
-   public int maxX() {
-      return this.maxX0;
+   @Export("getRegionHighX")
+   public int getRegionHighX() {
+      return this.regionHighX;
    }
 
    @ObfuscatedName("t")
@@ -344,9 +338,9 @@ public class WorldMapArea {
       signature = "(I)I",
       garbageValue = "272992390"
    )
-   @Export("minY")
-   public int minY() {
-      return this.minY0;
+   @Export("getRegionLowY")
+   public int getRegionLowY() {
+      return this.regionLowY;
    }
 
    @ObfuscatedName("y")
@@ -354,9 +348,9 @@ public class WorldMapArea {
       signature = "(I)I",
       garbageValue = "-1621710159"
    )
-   @Export("maxY")
-   public int maxY() {
-      return this.maxY0;
+   @Export("getRegionHighY")
+   public int getRegionHighY() {
+      return this.regionHighY;
    }
 
    @ObfuscatedName("h")
@@ -364,9 +358,9 @@ public class WorldMapArea {
       signature = "(B)I",
       garbageValue = "5"
    )
-   @Export("originX")
-   public int originX() {
-      return this.origin0.x;
+   @Export("getOriginX")
+   public int getOriginX() {
+      return this.origin.x;
    }
 
    @ObfuscatedName("b")
@@ -374,9 +368,9 @@ public class WorldMapArea {
       signature = "(I)I",
       garbageValue = "-1875921633"
    )
-   @Export("originPlane")
-   public int originPlane() {
-      return this.origin0.plane;
+   @Export("getOriginPlane")
+   public int getOriginPlane() {
+      return this.origin.plane;
    }
 
    @ObfuscatedName("c")
@@ -384,9 +378,9 @@ public class WorldMapArea {
       signature = "(I)I",
       garbageValue = "-135283879"
    )
-   @Export("originY")
-   public int originY() {
-      return this.origin0.y;
+   @Export("getOriginY")
+   public int getOriginY() {
+      return this.origin.y;
    }
 
    @ObfuscatedName("p")
@@ -394,9 +388,9 @@ public class WorldMapArea {
       signature = "(I)Lhu;",
       garbageValue = "-1411761003"
    )
-   @Export("origin")
-   public Coord origin() {
-      return new Coord(this.origin0);
+   @Export("getOrigin")
+   public Coord getOrigin() {
+      return new Coord(this.origin);
    }
 
    @ObfuscatedName("m")

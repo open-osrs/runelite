@@ -20,8 +20,9 @@ public class SecureRandomCallable implements Callable {
       signature = "([BB)Laq;",
       garbageValue = "64"
    )
-   static class27 method1145(byte[] var0) {
-      return var0 == null ? new class27() : new class27(class27.convertJpgToSprite(var0).pixels);
+   @Export("getWorldMapSprite")
+   static WorldMapSprite getWorldMapSprite(byte[] var0) {
+      return var0 == null ? new WorldMapSprite() : new WorldMapSprite(WorldMapSprite.convertJpgToSprite(var0).pixels);
    }
 
    @ObfuscatedName("m")
@@ -130,8 +131,8 @@ public class SecureRandomCallable implements Callable {
       GameShell.menuY = var13;
       class214.menuWidth = var7;
       AbstractWorldMapIcon.menuHeight = Client.menuOptionsCount * 15 + 22;
-      class39.revalidateWidgetScroll(Widget.interfaceComponents[var0 >> 16], var4, false);
-      WorldMapSection1.runWidgetOnLoadListener(var1);
+      WorldMapData_1.revalidateWidgetScroll(Widget.interfaceComponents[var0 >> 16], var4, false);
+      WorldMapSection2.runWidgetOnLoadListener(var1);
       if (Client.rootInterface != -1) {
          GrandExchangeEvents.method74(Client.rootInterface, 1);
       }

@@ -1291,7 +1291,7 @@ public abstract class Actor extends Entity {
                                  if (opcode == 1005) {
                                     var13 = Huffman.getWidget(argument2);
                                     if (var13 != null && var13.itemQuantities[argument1] >= 100000) {
-                                       WorldMapIcon1.addGameMessage(27, "", var13.itemQuantities[argument1] + " x " + Skills.getItemDefinition(argument0).name);
+                                       WorldMapIcon_0.addGameMessage(27, "", var13.itemQuantities[argument1] + " x " + Skills.getItemDefinition(argument0).name);
                                     } else {
                                        var9 = Interpreter.method1915(ClientPacket.field246, Client.packetWriter.isaacCipher);
                                        var9.packetBuffer.writeShortLE(argument0);

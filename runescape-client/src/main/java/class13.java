@@ -25,8 +25,9 @@ public class class13 {
       signature = "(IIII)Lln;",
       garbageValue = "862375604"
    )
-   static Sprite method164(int var0, int var1, int var2) {
-      return (Sprite)WorldMapRegion.field1051.get(MouseHandler.method1083(var0, var1, var2));
+   @Export("getWorldMapRegionCachedSprite")
+   static Sprite getWorldMapRegionCachedSprite(int regionX, int regionY, int pixelsPerTile) {
+      return (Sprite)WorldMapRegion.WorldMapRegion_cachedSprites.get(MouseHandler.getWorldMapSpriteHash(regionX, regionY, pixelsPerTile));
    }
 
    @ObfuscatedName("fm")

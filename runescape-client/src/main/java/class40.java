@@ -18,12 +18,14 @@ public class class40 {
    @ObfuscatedGetter(
       intValue = 1443846573
    )
-   int field326;
+   @Export("pixelsPerTile")
+   int pixelsPerTile;
    @ObfuscatedName("f")
-   byte[][][] field329;
+   @Export("tileTemplates")
+   byte[][][] tileTemplates;
 
    class40(int var1) {
-      this.field326 = var1;
+      this.pixelsPerTile = var1;
    }
 
    @ObfuscatedName("m")
@@ -31,11 +33,11 @@ public class class40 {
       signature = "(IIIIIIIIB)V",
       garbageValue = "125"
    )
-   void method743(int x, int y, int var3, int var4, int width, int height, int var7, int var8) {
-      if (var7 != 0 && this.field326 != 0 && this.field329 != null) {
+   void method743(int minPixelX, int minPixelY, int var3, int var4, int width, int height, int var7, int var8) {
+      if (var7 != 0 && this.pixelsPerTile != 0 && this.tileTemplates != null) {
          var8 = this.method744(var8, var7);
          var7 = this.method774(var7);
-         Rasterizer2D.raster2d7(x, y, width, height, var3, var4, this.field329[var7 - 1][var8], this.field326);
+         Rasterizer2D.raster2d7(minPixelX, minPixelY, width, height, var3, var4, this.tileTemplates[var7 - 1][var8], this.pixelsPerTile);
       }
 
    }
@@ -75,17 +77,18 @@ public class class40 {
       signature = "(I)V",
       garbageValue = "1551779144"
    )
-   void method763() {
-      if (this.field329 == null) {
-         this.field329 = new byte[8][4][];
-         this.method745();
-         this.method748();
-         this.method751();
-         this.method750();
-         this.method762();
-         this.method752();
-         this.method753();
-         this.method754();
+   @Export("init")
+   void init() {
+      if (this.tileTemplates == null) {
+         this.tileTemplates = new byte[8][4][];
+         this.init0();
+         this.init1();
+         this.init2();
+         this.init3();
+         this.init4();
+         this.init5();
+         this.init6();
+         this.init7();
       }
 
    }
@@ -95,14 +98,15 @@ public class class40 {
       signature = "(I)V",
       garbageValue = "196149319"
    )
-   void method745() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init0")
+   void init0() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var2 = 0;
 
       int var3;
       int var4;
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 <= var3) {
                var1[var2] = -1;
             }
@@ -111,12 +115,12 @@ public class class40 {
          }
       }
 
-      this.field329[0][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[0][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 <= var3) {
                var1[var2] = -1;
             }
@@ -125,12 +129,12 @@ public class class40 {
          }
       }
 
-      this.field329[0][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[0][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 >= var3) {
                var1[var2] = -1;
             }
@@ -139,12 +143,12 @@ public class class40 {
          }
       }
 
-      this.field329[0][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[0][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 >= var3) {
                var1[var2] = -1;
             }
@@ -153,7 +157,7 @@ public class class40 {
          }
       }
 
-      this.field329[0][3] = var1;
+      this.tileTemplates[0][3] = var1;
    }
 
    @ObfuscatedName("u")
@@ -161,14 +165,15 @@ public class class40 {
       signature = "(I)V",
       garbageValue = "1590087827"
    )
-   void method748() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init1")
+   void init1() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var2 = 0;
 
       int var3;
       int var4;
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 <= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -177,12 +182,12 @@ public class class40 {
          }
       }
 
-      this.field329[1][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[1][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var2 >= 0 && var2 < var1.length) {
                if (var4 >= var3 << 1) {
                   var1[var2] = -1;
@@ -195,12 +200,12 @@ public class class40 {
          }
       }
 
-      this.field329[1][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[1][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 <= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -209,12 +214,12 @@ public class class40 {
          }
       }
 
-      this.field329[1][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[1][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 >= var3 << 1) {
                var1[var2] = -1;
             }
@@ -223,7 +228,7 @@ public class class40 {
          }
       }
 
-      this.field329[1][3] = var1;
+      this.tileTemplates[1][3] = var1;
    }
 
    @ObfuscatedName("g")
@@ -231,14 +236,15 @@ public class class40 {
       signature = "(I)V",
       garbageValue = "530017326"
    )
-   void method751() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init2")
+   void init2() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var2 = 0;
 
       int var3;
       int var4;
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 <= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -247,12 +253,12 @@ public class class40 {
          }
       }
 
-      this.field329[2][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[2][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 >= var3 << 1) {
                var1[var2] = -1;
             }
@@ -261,12 +267,12 @@ public class class40 {
          }
       }
 
-      this.field329[2][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[2][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 <= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -275,12 +281,12 @@ public class class40 {
          }
       }
 
-      this.field329[2][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[2][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 >= var3 << 1) {
                var1[var2] = -1;
             }
@@ -289,7 +295,7 @@ public class class40 {
          }
       }
 
-      this.field329[2][3] = var1;
+      this.tileTemplates[2][3] = var1;
    }
 
    @ObfuscatedName("l")
@@ -297,14 +303,15 @@ public class class40 {
       signature = "(B)V",
       garbageValue = "-40"
    )
-   void method750() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init3")
+   void init3() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var2 = 0;
 
       int var3;
       int var4;
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 >= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -313,12 +320,12 @@ public class class40 {
          }
       }
 
-      this.field329[3][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[3][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 <= var3 << 1) {
                var1[var2] = -1;
             }
@@ -327,12 +334,12 @@ public class class40 {
          }
       }
 
-      this.field329[3][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[3][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 >= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -341,12 +348,12 @@ public class class40 {
          }
       }
 
-      this.field329[3][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[3][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 <= var3 << 1) {
                var1[var2] = -1;
             }
@@ -355,7 +362,7 @@ public class class40 {
          }
       }
 
-      this.field329[3][3] = var1;
+      this.tileTemplates[3][3] = var1;
    }
 
    @ObfuscatedName("e")
@@ -363,14 +370,15 @@ public class class40 {
       signature = "(I)V",
       garbageValue = "-545325116"
    )
-   void method762() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init4")
+   void init4() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var2 = 0;
 
       int var3;
       int var4;
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 >= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -379,12 +387,12 @@ public class class40 {
          }
       }
 
-      this.field329[4][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[4][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = this.field326 - 1; var3 >= 0; --var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = this.pixelsPerTile - 1; var3 >= 0; --var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 <= var3 << 1) {
                var1[var2] = -1;
             }
@@ -393,12 +401,12 @@ public class class40 {
          }
       }
 
-      this.field329[4][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[4][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = 0; var4 < this.field326; ++var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
             if (var4 >= var3 >> 1) {
                var1[var2] = -1;
             }
@@ -407,12 +415,12 @@ public class class40 {
          }
       }
 
-      this.field329[4][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[4][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var2 = 0;
 
-      for (var3 = 0; var3 < this.field326; ++var3) {
-         for (var4 = this.field326 - 1; var4 >= 0; --var4) {
+      for (var3 = 0; var3 < this.pixelsPerTile; ++var3) {
+         for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
             if (var4 <= var3 << 1) {
                var1[var2] = -1;
             }
@@ -421,7 +429,7 @@ public class class40 {
          }
       }
 
-      this.field329[4][3] = var1;
+      this.tileTemplates[4][3] = var1;
    }
 
    @ObfuscatedName("x")
@@ -429,17 +437,18 @@ public class class40 {
       signature = "(I)V",
       garbageValue = "-2005544109"
    )
-   void method752() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init5")
+   void init5() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       boolean var2 = false;
-      var1 = new byte[this.field326 * this.field326];
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var3 = 0;
 
       int var4;
       int var5;
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var5 <= this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var5 <= this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -447,13 +456,13 @@ public class class40 {
          }
       }
 
-      this.field329[5][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[5][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var4 <= this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var4 <= this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -461,13 +470,13 @@ public class class40 {
          }
       }
 
-      this.field329[5][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[5][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var5 >= this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var5 >= this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -475,13 +484,13 @@ public class class40 {
          }
       }
 
-      this.field329[5][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[5][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var4 >= this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var4 >= this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -489,7 +498,7 @@ public class class40 {
          }
       }
 
-      this.field329[5][3] = var1;
+      this.tileTemplates[5][3] = var1;
    }
 
    @ObfuscatedName("d")
@@ -497,17 +506,18 @@ public class class40 {
       signature = "(B)V",
       garbageValue = "-105"
    )
-   void method753() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init6")
+   void init6() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       boolean var2 = false;
-      var1 = new byte[this.field326 * this.field326];
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var3 = 0;
 
       int var4;
       int var5;
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var5 <= var4 - this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var5 <= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -515,13 +525,13 @@ public class class40 {
          }
       }
 
-      this.field329[6][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[6][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = this.field326 - 1; var4 >= 0; --var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var5 <= var4 - this.field326 / 2) {
+      for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var5 <= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -529,13 +539,13 @@ public class class40 {
          }
       }
 
-      this.field329[6][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[6][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = this.field326 - 1; var4 >= 0; --var4) {
-         for (var5 = this.field326 - 1; var5 >= 0; --var5) {
-            if (var5 <= var4 - this.field326 / 2) {
+      for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
+         for (var5 = this.pixelsPerTile - 1; var5 >= 0; --var5) {
+            if (var5 <= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -543,13 +553,13 @@ public class class40 {
          }
       }
 
-      this.field329[6][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[6][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = this.field326 - 1; var5 >= 0; --var5) {
-            if (var5 <= var4 - this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = this.pixelsPerTile - 1; var5 >= 0; --var5) {
+            if (var5 <= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -557,7 +567,7 @@ public class class40 {
          }
       }
 
-      this.field329[6][3] = var1;
+      this.tileTemplates[6][3] = var1;
    }
 
    @ObfuscatedName("a")
@@ -565,17 +575,18 @@ public class class40 {
       signature = "(I)V",
       garbageValue = "2013517896"
    )
-   void method754() {
-      byte[] var1 = new byte[this.field326 * this.field326];
+   @Export("init7")
+   void init7() {
+      byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       boolean var2 = false;
-      var1 = new byte[this.field326 * this.field326];
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       int var3 = 0;
 
       int var4;
       int var5;
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var5 >= var4 - this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var5 >= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -583,13 +594,13 @@ public class class40 {
          }
       }
 
-      this.field329[7][0] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[7][0] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = this.field326 - 1; var4 >= 0; --var4) {
-         for (var5 = 0; var5 < this.field326; ++var5) {
-            if (var5 >= var4 - this.field326 / 2) {
+      for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
+         for (var5 = 0; var5 < this.pixelsPerTile; ++var5) {
+            if (var5 >= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -597,13 +608,13 @@ public class class40 {
          }
       }
 
-      this.field329[7][1] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[7][1] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = this.field326 - 1; var4 >= 0; --var4) {
-         for (var5 = this.field326 - 1; var5 >= 0; --var5) {
-            if (var5 >= var4 - this.field326 / 2) {
+      for (var4 = this.pixelsPerTile - 1; var4 >= 0; --var4) {
+         for (var5 = this.pixelsPerTile - 1; var5 >= 0; --var5) {
+            if (var5 >= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -611,13 +622,13 @@ public class class40 {
          }
       }
 
-      this.field329[7][2] = var1;
-      var1 = new byte[this.field326 * this.field326];
+      this.tileTemplates[7][2] = var1;
+      var1 = new byte[this.pixelsPerTile * this.pixelsPerTile];
       var3 = 0;
 
-      for (var4 = 0; var4 < this.field326; ++var4) {
-         for (var5 = this.field326 - 1; var5 >= 0; --var5) {
-            if (var5 >= var4 - this.field326 / 2) {
+      for (var4 = 0; var4 < this.pixelsPerTile; ++var4) {
+         for (var5 = this.pixelsPerTile - 1; var5 >= 0; --var5) {
+            if (var5 >= var4 - this.pixelsPerTile / 2) {
                var1[var3] = -1;
             }
 
@@ -625,7 +636,7 @@ public class class40 {
          }
       }
 
-      this.field329[7][3] = var1;
+      this.tileTemplates[7][3] = var1;
    }
 
    @ObfuscatedName("gf")
@@ -755,10 +766,10 @@ public class class40 {
             var11 = var19;
          }
 
-         WorldMapSection2.cameraX = var6 - var11;
+         WorldMapSection3.cameraX = var6 - var11;
          GrandExchangeEvents.cameraY = var14 - var12;
          GrandExchangeOfferNameComparator.cameraZ = var15 - var16;
-         WorldMapIcon1.cameraPitch = var4;
+         WorldMapIcon_0.cameraPitch = var4;
          MusicPatchNode.cameraYaw = var13;
          if (Client.oculusOrbState == 1 && Client.staffModLevel >= 2 && Client.cycle % 50 == 0 && (MouseHandler.oculusOrbFocalPointX >> 7 != Canvas.localPlayer.x >> 7 || ScriptEvent.oculusOrbFocalPointY >> 7 != Canvas.localPlayer.y >> 7)) {
             var17 = Canvas.localPlayer.plane;
@@ -779,17 +790,17 @@ public class class40 {
          var4 = Login.method2061();
       }
 
-      var13 = WorldMapSection2.cameraX;
+      var13 = WorldMapSection3.cameraX;
       var6 = GrandExchangeEvents.cameraY;
       var14 = GrandExchangeOfferNameComparator.cameraZ;
-      var15 = WorldMapIcon1.cameraPitch;
+      var15 = WorldMapIcon_0.cameraPitch;
       var22 = MusicPatchNode.cameraYaw;
 
       for (var24 = 0; var24 < 5; ++var24) {
          if (Client.field139[var24]) {
             var9 = (int)(Math.random() * (double)(Client.field141[var24] * 2 + 1) - (double)Client.field141[var24] + Math.sin((double)Client.field144[var24] * ((double)Client.field143[var24] / 100.0D)) * (double)Client.field142[var24]);
             if (var24 == 0) {
-               WorldMapSection2.cameraX += var9;
+               WorldMapSection3.cameraX += var9;
             }
 
             if (var24 == 1) {
@@ -805,13 +816,13 @@ public class class40 {
             }
 
             if (var24 == 4) {
-               WorldMapIcon1.cameraPitch += var9;
-               if (WorldMapIcon1.cameraPitch < 128) {
-                  WorldMapIcon1.cameraPitch = 128;
+               WorldMapIcon_0.cameraPitch += var9;
+               if (WorldMapIcon_0.cameraPitch < 128) {
+                  WorldMapIcon_0.cameraPitch = 128;
                }
 
-               if (WorldMapIcon1.cameraPitch > 383) {
-                  WorldMapIcon1.cameraPitch = 383;
+               if (WorldMapIcon_0.cameraPitch > 383) {
+                  WorldMapIcon_0.cameraPitch = 383;
                }
             }
          }
@@ -842,7 +853,7 @@ public class class40 {
       class13.playPcmPlayers();
       var10 = Rasterizer3D.Rasterizer3D_zoom;
       Rasterizer3D.Rasterizer3D_zoom = Client.viewportZoom;
-      class65.scene.draw(WorldMapSection2.cameraX, GrandExchangeEvents.cameraY, GrandExchangeOfferNameComparator.cameraZ, WorldMapIcon1.cameraPitch, MusicPatchNode.cameraYaw, var4);
+      class65.scene.draw(WorldMapSection3.cameraX, GrandExchangeEvents.cameraY, GrandExchangeOfferNameComparator.cameraZ, WorldMapIcon_0.cameraPitch, MusicPatchNode.cameraYaw, var4);
       Rasterizer3D.Rasterizer3D_zoom = var10;
       class13.playPcmPlayers();
       class65.scene.clearTempGameObjects();
@@ -864,10 +875,10 @@ public class class40 {
          Client.field208 = 0;
       }
 
-      WorldMapSection2.cameraX = var13;
+      WorldMapSection3.cameraX = var13;
       GrandExchangeEvents.cameraY = var6;
       GrandExchangeOfferNameComparator.cameraZ = var14;
-      WorldMapIcon1.cameraPitch = var15;
+      WorldMapIcon_0.cameraPitch = var15;
       MusicPatchNode.cameraYaw = var22;
       if (Client.isLoading) {
          byte var25 = 0;

@@ -35,8 +35,8 @@ public interface WorldMapSection {
       signature = "(IIII)[I",
       garbageValue = "1545934424"
    )
-   @Export("position")
-   int[] position(int plane, int x, int y);
+   @Export("getBorderTileLengths")
+   int[] getBorderTileLengths(int plane, int x, int y);
 
    @ObfuscatedName("o")
    @ObfuscatedSignature(

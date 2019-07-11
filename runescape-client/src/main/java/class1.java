@@ -85,7 +85,7 @@ final class class1 implements class0 {
          var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
          var4 = Huffman.getWidget(var3);
       } else {
-         var4 = var2 ? WorldMapIcon1.field1030 : GrandExchangeOfferAgeComparator.field1111;
+         var4 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
       }
 
       if (var0 == ScriptOpcodes.CC_SETPOSITION) {
@@ -97,7 +97,7 @@ final class class1 implements class0 {
          WorldMapRectangle.method295(var4);
          TextureProvider.client.alignWidget(var4);
          if (var3 != -1 && var4.type == 0) {
-            class39.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
+            WorldMapData_1.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
          }
 
          return 1;
@@ -110,7 +110,7 @@ final class class1 implements class0 {
          WorldMapRectangle.method295(var4);
          TextureProvider.client.alignWidget(var4);
          if (var3 != -1 && var4.type == 0) {
-            class39.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
+            WorldMapData_1.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
          }
 
          return 1;
@@ -229,7 +229,7 @@ final class class1 implements class0 {
                String var7 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
                var4 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
                class50.findItemDefinitions(var7, var4 == 1);
-               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapSection3.foundItemIdCount;
+               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapSection0.foundItemIdCount;
                return 1;
             } else if (var0 != ScriptOpcodes.OC_FINDNEXT) {
                if (var0 == ScriptOpcodes.OC_FINDRESET) {
@@ -239,7 +239,7 @@ final class class1 implements class0 {
                   return 2;
                }
             } else {
-               if (AttackOption.foundItemIds != null && WorldMapDecorationType.foundItemIndex < WorldMapSection3.foundItemIdCount) {
+               if (AttackOption.foundItemIds != null && WorldMapDecorationType.foundItemIndex < WorldMapSection0.foundItemIdCount) {
                   Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = AttackOption.foundItemIds[++WorldMapDecorationType.foundItemIndex - 1] & '\uffff';
                } else {
                   Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = -1;

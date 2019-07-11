@@ -182,7 +182,7 @@ public class Skeleton extends Node {
                      }
                   }
 
-                  class21.method293(var0);
+                  AbstractWorldMapData.method293(var0);
                   if (var0.index - var2 != var1) {
                      throw new RuntimeException(var0.index - var2 + " " + var1);
                   }

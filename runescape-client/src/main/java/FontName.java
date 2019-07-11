@@ -112,7 +112,7 @@ public class FontName {
          if (var0 == ScriptOpcodes.FRIEND_GETNAME) {
             var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
             if (WorldMapArea.friendSystem.method99() && var3 >= 0 && var3 < WorldMapArea.friendSystem.friendsList.size()) {
-               Friend var6 = (Friend)WorldMapArea.friendSystem.friendsList.get(var3);
+               Friend var6 = (Friend) WorldMapArea.friendSystem.friendsList.get(var3);
                Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var6.getName();
                Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var6.getPreviousName();
             } else {
@@ -124,7 +124,7 @@ public class FontName {
          } else if (var0 == ScriptOpcodes.FRIEND_GETWORLD) {
             var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
             if (WorldMapArea.friendSystem.method99() && var3 >= 0 && var3 < WorldMapArea.friendSystem.friendsList.size()) {
-               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = ((Buddy)WorldMapArea.friendSystem.friendsList.get(var3)).world;
+               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = ((Buddy) WorldMapArea.friendSystem.friendsList.get(var3)).world;
             } else {
                Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 0;
             }
@@ -133,7 +133,7 @@ public class FontName {
          } else if (var0 == ScriptOpcodes.FRIEND_GETRANK) {
             var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
             if (WorldMapArea.friendSystem.method99() && var3 >= 0 && var3 < WorldMapArea.friendSystem.friendsList.size()) {
-               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = ((Buddy)WorldMapArea.friendSystem.friendsList.get(var3)).rank;
+               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = ((Buddy) WorldMapArea.friendSystem.friendsList.get(var3)).rank;
             } else {
                Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 0;
             }
@@ -222,7 +222,7 @@ public class FontName {
                return 1;
             } else if (var0 == ScriptOpcodes.CLAN_JOINCHAT) {
                var4 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
-               class31.method574(var4);
+               WorldMapID.method574(var4);
                return 1;
             } else if (var0 == ScriptOpcodes.CLAN_LEAVECHAT) {
                GrandExchangeOfferAgeComparator.method158();
@@ -238,7 +238,7 @@ public class FontName {
             } else if (var0 == ScriptOpcodes.IGNORE_GETNAME) {
                var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
                if (WorldMapArea.friendSystem.method99() && var3 >= 0 && var3 < WorldMapArea.friendSystem.ignoreList.size()) {
-                  Ignored var7 = (Ignored)WorldMapArea.friendSystem.ignoreList.get(var3);
+                  Ignored var7 = (Ignored) WorldMapArea.friendSystem.ignoreList.get(var3);
                   Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var7.getName();
                   Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var7.getPreviousName();
                } else {
@@ -480,12 +480,12 @@ public class FontName {
       Script.Script_cached.clear();
       AbstractArchive.archive0.clearFiles();
       Skeleton.archive1.clearFiles();
-      WorldMapIcon1.archive3.clearFiles();
+      WorldMapIcon_0.archive3.clearFiles();
       WorldMapDecoration.archive4.clearFiles();
       SecureRandomFuture.archive5.clearFiles();
       UserComparator3.archive6.clearFiles();
       class40.archive7.clearFiles();
-      WorldMapSection1.archive8.clearFiles();
+      WorldMapSection2.archive8.clearFiles();
       class238.archive9.clearFiles();
       class16.archive10.clearFiles();
       Login.archive11.clearFiles();

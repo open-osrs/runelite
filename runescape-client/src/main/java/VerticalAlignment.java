@@ -11,17 +11,20 @@ public enum VerticalAlignment implements Enumerated {
    @ObfuscatedSignature(
       signature = "Lip;"
    )
-   field3277(0, 0),
+   @Export("VerticalAlignment_topToBottom")
+   VerticalAlignment_topToBottom(0, 0),
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lip;"
    )
-   field3273(1, 1),
+   @Export("VerticalAlignment_centered")
+   VerticalAlignment_centered(1, 1),
    @ObfuscatedName("q")
    @ObfuscatedSignature(
       signature = "Lip;"
    )
-   field3274(2, 2);
+   @Export("VerticalAlignment_bottomToTop")
+   VerticalAlignment_bottomToTop(2, 2);
 
    @ObfuscatedName("w")
    @ObfuscatedGetter(

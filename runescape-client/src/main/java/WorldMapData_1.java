@@ -1,10 +1,12 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("at")
-public class class39 extends class21 {
+@Implements("WorldMapData_1")
+public class WorldMapData_1 extends AbstractWorldMapData {
    @ObfuscatedName("gu")
    @ObfuscatedSignature(
       signature = "[Lln;"
@@ -15,45 +17,50 @@ public class class39 extends class21 {
    @ObfuscatedGetter(
       intValue = -521428531
    )
-   int field318;
+   @Export("chunkXLow")
+   int chunkXLow;
    @ObfuscatedName("j")
    @ObfuscatedGetter(
       intValue = 686082379
    )
-   int field319;
+   @Export("chunkYLow")
+   int chunkYLow;
    @ObfuscatedName("s")
    @ObfuscatedGetter(
       intValue = 1610203543
    )
-   int field321;
+   @Export("chunkX")
+   int chunkX;
    @ObfuscatedName("t")
    @ObfuscatedGetter(
       intValue = 2053974369
    )
-   int field323;
+   @Export("chunkY")
+   int chunkY;
 
    @ObfuscatedName("m")
    @ObfuscatedSignature(
       signature = "(Lgr;I)V",
       garbageValue = "101973298"
    )
-   void method714(Buffer var1) {
+   @Export("init")
+   void init(Buffer var1) {
       int var2 = var1.readUnsignedByte();
-      if (var2 != class31.field254.field255) {
+      if (var2 != WorldMapID.WorldMapID_1.value) {
          throw new IllegalStateException("");
       } else {
-         super.field148 = var1.readUnsignedByte();
-         super.field156 = var1.readUnsignedByte();
-         super.field149 = var1.readUnsignedShort();
-         super.field146 = var1.readUnsignedShort();
-         this.field318 = var1.readUnsignedByte();
-         this.field319 = var1.readUnsignedByte();
-         super.field159 = var1.readUnsignedShort();
-         super.field147 = var1.readUnsignedShort();
-         this.field321 = var1.readUnsignedByte();
-         this.field323 = var1.readUnsignedByte();
-         super.field150 = var1.method51();
-         super.field152 = var1.method51();
+         super.minPlane = var1.readUnsignedByte();
+         super.planes = var1.readUnsignedByte();
+         super.regionXLow = var1.readUnsignedShort();
+         super.regionYLow = var1.readUnsignedShort();
+         this.chunkXLow = var1.readUnsignedByte();
+         this.chunkYLow = var1.readUnsignedByte();
+         super.regionX = var1.readUnsignedShort();
+         super.regionY = var1.readUnsignedShort();
+         this.chunkX = var1.readUnsignedByte();
+         this.chunkY = var1.readUnsignedByte();
+         super.groupId = var1.method51();
+         super.fileId = var1.method51();
       }
    }
 
@@ -62,25 +69,26 @@ public class class39 extends class21 {
       signature = "(Lgr;I)V",
       garbageValue = "1937224298"
    )
-   void vmethod715(Buffer var1) {
-      super.field156 = Math.min(super.field156, 4);
-      super.field151 = new short[1][64][64];
-      super.field145 = new short[super.field156][64][64];
-      super.field154 = new byte[super.field156][64][64];
-      super.field155 = new byte[super.field156][64][64];
-      super.decorations = new WorldMapDecoration[super.field156][64][64][];
+   @Export("readGeography")
+   void readGeography(Buffer var1) {
+      super.planes = Math.min(super.planes, 4);
+      super.floorUnderlayIds = new short[1][64][64];
+      super.floorOverlayIds = new short[super.planes][64][64];
+      super.field154 = new byte[super.planes][64][64];
+      super.field155 = new byte[super.planes][64][64];
+      super.decorations = new WorldMapDecoration[super.planes][64][64][];
       int var2 = var1.readUnsignedByte();
-      if (var2 != class30.field247.field248) {
+      if (var2 != class30.class30_something1.value) {
          throw new IllegalStateException("");
       } else {
          int var3 = var1.readUnsignedByte();
          int var4 = var1.readUnsignedByte();
          int var5 = var1.readUnsignedByte();
          int var6 = var1.readUnsignedByte();
-         if (var3 == super.field159 && var4 == super.field147 && var5 == this.field321 && var6 == this.field323) {
+         if (var3 == super.regionX && var4 == super.regionY && var5 == this.chunkX && var6 == this.chunkY) {
             for (int var7 = 0; var7 < 8; ++var7) {
                for (int var8 = 0; var8 < 8; ++var8) {
-                  this.method259(var7 + this.field321 * 8, var8 + this.field323 * 8, var1);
+                  this.readTile(var7 + this.chunkX * 8, var8 + this.chunkY * 8, var1);
                }
             }
 
@@ -95,8 +103,9 @@ public class class39 extends class21 {
       signature = "(I)I",
       garbageValue = "-2074777367"
    )
-   int method717() {
-      return this.field318;
+   @Export("getChunkXLow")
+   int getChunkXLow() {
+      return this.chunkXLow;
    }
 
    @ObfuscatedName("w")
@@ -104,8 +113,9 @@ public class class39 extends class21 {
       signature = "(I)I",
       garbageValue = "-914799830"
    )
-   int method718() {
-      return this.field319;
+   @Export("getChunkYLow")
+   int getChunkYLow() {
+      return this.chunkYLow;
    }
 
    @ObfuscatedName("o")
@@ -113,8 +123,9 @@ public class class39 extends class21 {
       signature = "(B)I",
       garbageValue = "20"
    )
-   int method719() {
-      return this.field321;
+   @Export("getChunkX")
+   int getChunkX() {
+      return this.chunkX;
    }
 
    @ObfuscatedName("au")
@@ -122,20 +133,21 @@ public class class39 extends class21 {
       signature = "(I)I",
       garbageValue = "793815646"
    )
-   int method720() {
-      return this.field323;
+   @Export("getChunkY")
+   int getChunkY() {
+      return this.chunkY;
    }
 
    public int hashCode() {
-      return super.field159 | super.field147 << 8 | this.field321 << 16 | this.field323 << 24;
+      return super.regionX | super.regionY << 8 | this.chunkX << 16 | this.chunkY << 24;
    }
 
    public boolean equals(Object var1) {
-      if (!(var1 instanceof class39)) {
+      if (!(var1 instanceof WorldMapData_1)) {
          return false;
       } else {
-         class39 var2 = (class39)var1;
-         return var2.field159 == super.field159 && var2.field147 == super.field147 ? this.field321 == var2.field321 && var2.field323 == this.field323 : false;
+         WorldMapData_1 var2 = (WorldMapData_1)var1;
+         return var2.regionX == super.regionX && var2.regionY == super.regionY ? this.chunkX == var2.chunkX && var2.chunkY == this.chunkY : false;
       }
    }
 
@@ -304,7 +316,7 @@ public class class39 extends class21 {
                if (Client.viewportTempX > -1) {
                   if (var9.headIconPk != -1) {
                      var78 += 25;
-                     class15.headIconPkSprites[var9.headIconPk].drawAt2(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var78);
+                     WorldMapData_0.headIconPkSprites[var9.headIconPk].drawAt2(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var78);
                   }
 
                   if (var9.headIconPrayer != -1) {

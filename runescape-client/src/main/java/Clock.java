@@ -69,7 +69,7 @@ public abstract class Clock {
       garbageValue = "-1555959688"
    )
    static void method3533(String var0) {
-      class21.field1123 = var0;
+      AbstractWorldMapData.field1123 = var0;
 
       try {
          String var1 = TextureProvider.client.getParameter(ClientParameter.field334.id);

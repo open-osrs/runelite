@@ -301,7 +301,7 @@ public class class248 {
                } else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERAGE) {
                   var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
                   var6 = (GrandExchangeEvent)FloorDecoration.grandExchangeEvents.events.get(var3);
-                  long var7 = class203.currentTimeMs() - class15.field1113 - var6.field370;
+                  long var7 = class203.currentTimeMs() - WorldMapData_0.field1113 - var6.field370;
                   int var9 = (int)(var7 / 3600000L);
                   int var10 = (int)((var7 - (long)(var9 * 3600000)) / 60000L);
                   int var11 = (int)((var7 - (long)(var9 * 3600000) - (long)(var10 * 60000)) / 1000L);

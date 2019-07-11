@@ -159,8 +159,8 @@ public class WorldMapLabel {
       signature = "(III)I",
       garbageValue = "823291412"
    )
-   static int method442(int var0, int var1) {
-      ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+   static int method442(int itemContainerID, int var1) {
+      ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)itemContainerID);
       return var2 == null ? 0 : (var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0);
    }
 
@@ -239,11 +239,11 @@ public class WorldMapLabel {
    static final void worldToScreen(int var0, int var1, int var2) {
       if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) {
          int var3 = class32.getTileHeight(var0, var1, SoundSystem.plane) - var2;
-         var0 -= WorldMapSection2.cameraX;
+         var0 -= WorldMapSection3.cameraX;
          var3 -= GrandExchangeEvents.cameraY;
          var1 -= GrandExchangeOfferNameComparator.cameraZ;
-         int var4 = Rasterizer3D.Rasterizer3D_sine[WorldMapIcon1.cameraPitch];
-         int var5 = Rasterizer3D.Rasterizer3D_cosine[WorldMapIcon1.cameraPitch];
+         int var4 = Rasterizer3D.Rasterizer3D_sine[WorldMapIcon_0.cameraPitch];
+         int var5 = Rasterizer3D.Rasterizer3D_cosine[WorldMapIcon_0.cameraPitch];
          int var6 = Rasterizer3D.Rasterizer3D_sine[MusicPatchNode.cameraYaw];
          int var7 = Rasterizer3D.Rasterizer3D_cosine[MusicPatchNode.cameraYaw];
          int var8 = var0 * var7 + var6 * var1 >> 16;

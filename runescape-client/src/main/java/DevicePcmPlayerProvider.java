@@ -150,8 +150,8 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
       garbageValue = "-1516599170"
    )
    @Export("drawInterface")
-   static final void drawInterface(Widget[] components, int interfaceID, int xStart, int yStart, int xEnd, int yEnd, int var6, int var7, int rootIndex) {
-      Rasterizer2D.Rasterizer2D_setClip(xStart, yStart, xEnd, yEnd);
+   static final void drawInterface(Widget[] components, int interfaceID, int startX, int startY, int endX, int endY, int var6, int var7, int rootIndex) {
+      Rasterizer2D.Rasterizer2D_setClip(startX, startY, endX, endY);
       Rasterizer3D.Rasterizer3D_setClipFromRasterizer2D();
 
       for (int var9 = 0; var9 < components.length; ++var9) {
@@ -172,7 +172,7 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
             var10.cycle = Client.cycle;
             if (!var10.isIf3 || !PacketBufferNode.isComponentHidden(var10)) {
                if (var10.contentType > 0) {
-                  class15.method186(var10);
+                  WorldMapData_0.method186(var10);
                }
 
                int var12 = var10.x + var6;
@@ -225,10 +225,10 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
                int var21;
                int var22;
                if (var10.type == 2) {
-                  var15 = xStart;
-                  var16 = yStart;
-                  var17 = xEnd;
-                  var18 = yEnd;
+                  var15 = startX;
+                  var16 = startY;
+                  var17 = endX;
+                  var18 = endY;
                } else if (var10.type == 9) {
                   var22 = var12;
                   var19 = var13;
@@ -246,17 +246,17 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
 
                   ++var20;
                   ++var21;
-                  var15 = var22 > xStart ? var22 : xStart;
-                  var16 = var19 > yStart ? var19 : yStart;
-                  var17 = var20 < xEnd ? var20 : xEnd;
-                  var18 = var21 < yEnd ? var21 : yEnd;
+                  var15 = var22 > startX ? var22 : startX;
+                  var16 = var19 > startY ? var19 : startY;
+                  var17 = var20 < endX ? var20 : endX;
+                  var18 = var21 < endY ? var21 : endY;
                } else {
                   var22 = var12 + var10.width;
                   var19 = var13 + var10.height;
-                  var15 = var12 > xStart ? var12 : xStart;
-                  var16 = var13 > yStart ? var13 : yStart;
-                  var17 = var22 < xEnd ? var22 : xEnd;
-                  var18 = var19 < yEnd ? var19 : yEnd;
+                  var15 = var12 > startX ? var12 : startX;
+                  var16 = var13 > startY ? var13 : startY;
+                  var17 = var22 < endX ? var22 : endX;
+                  var18 = var19 < endY ? var19 : endY;
                }
 
                if (!var10.isIf3 || var15 < var17 && var16 < var18) {
@@ -284,19 +284,19 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
                         Client.field217 = var13;
                         class40.drawEntities(var12, var13, var10.width, var10.height);
                         Client.field100[var10.rootIndex] = true;
-                        Rasterizer2D.Rasterizer2D_setClip(xStart, yStart, xEnd, yEnd);
+                        Rasterizer2D.Rasterizer2D_setClip(startX, startY, endX, endY);
                         continue;
                      }
 
                      if (var10.contentType == 1338) {
                         MouseRecorder.drawMinimap(var10, var12, var13, var11);
-                        Rasterizer2D.Rasterizer2D_setClip(xStart, yStart, xEnd, yEnd);
+                        Rasterizer2D.Rasterizer2D_setClip(startX, startY, endX, endY);
                         continue;
                      }
 
                      if (var10.contentType == 1339) {
-                        WorldMapRectangle.method296(var10, var12, var13, var11);
-                        Rasterizer2D.Rasterizer2D_setClip(xStart, yStart, xEnd, yEnd);
+                        WorldMapRectangle.drawCompass(var10, var12, var13, var11);
+                        Rasterizer2D.Rasterizer2D_setClip(startX, startY, endX, endY);
                         continue;
                      }
 
@@ -309,7 +309,7 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
                      }
 
                      if (var10.contentType == 1402) {
-                        class16.loginScreenRunesAnimation.method1782(var12, Client.cycle);
+                        class16.loginScreenRunesAnimation.draw(var12, Client.cycle);
                      }
                   }
 
@@ -338,7 +338,7 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
                         Interpreter.drawWidgets(var23.group, var15, var16, var17, var18, var12, var13, var11);
                      }
 
-                     Rasterizer2D.Rasterizer2D_setClip(xStart, yStart, xEnd, yEnd);
+                     Rasterizer2D.Rasterizer2D_setClip(startX, startY, endX, endY);
                      Rasterizer3D.Rasterizer3D_setClipFromRasterizer2D();
                   }
 
@@ -377,7 +377,7 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
                                     boolean var35 = false;
                                     boolean var46 = false;
                                     var25 = var10.itemIds[var22] - 1;
-                                    if (var21 + 32 > xStart && var21 < xEnd && var26 + 32 > yStart && var26 < yEnd || var10 == dragInventoryWidget && var22 == Client.dragItemSlotSource) {
+                                    if (var21 + 32 > startX && var21 < endX && var26 + 32 > startY && var26 < endY || var10 == dragInventoryWidget && var22 == Client.dragItemSlotSource) {
                                        Sprite var42;
                                        if (Client.isItemSelected == 1 && var22 == HealthBarDefinition.selectedItemSlot && var10.id == ServerPacket.selectedItemWidget) {
                                           var42 = class226.getItemSprite(var25, var10.itemQuantities[var22], 2, 0, 2, false);
@@ -583,7 +583,7 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
                                           }
                                        }
 
-                                       Rasterizer2D.Rasterizer2D_setClip(xStart, yStart, xEnd, yEnd);
+                                       Rasterizer2D.Rasterizer2D_setClip(startX, startY, endX, endY);
                                     }
                                  }
                               }
@@ -717,12 +717,12 @@ public class DevicePcmPlayerProvider implements PcmPlayerProvider {
                                        var33 = var12 + 5;
                                     }
 
-                                    if (var22 + var33 > xEnd) {
-                                       var33 = xEnd - var22;
+                                    if (var22 + var33 > endX) {
+                                       var33 = endX - var22;
                                     }
 
-                                    if (var24 + var19 > yEnd) {
-                                       var24 = yEnd - var19;
+                                    if (var24 + var19 > endY) {
+                                       var24 = endY - var19;
                                     }
 
                                     Rasterizer2D.Rasterizer2D_fillRectangle(var33, var24, var22, var19, 16777120);

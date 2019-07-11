@@ -42,14 +42,15 @@ public class FaceNormal {
       signature = "(IIII)Lcg;",
       garbageValue = "-1788849120"
    )
-   static Script method3236(int var0, int var1, int var2) {
-      int var3 = GrandExchangeOfferUnitPriceComparator.method125(var1, var0);
-      Script var4 = InterfaceParent.method1175(var3, var0);
+   @Export("getWorldMapScript")
+   static Script getWorldMapScript(int type, int objectId, int elementCategory) {
+      int var3 = GrandExchangeOfferUnitPriceComparator.getWorldMapScriptId(objectId, type);
+      Script var4 = InterfaceParent.getWorldMapScript(var3, type);
       if (var4 != null) {
          return var4;
       } else {
-         var3 = PacketBuffer.method4081(var2, var0);
-         var4 = InterfaceParent.method1175(var3, var0);
+         var3 = PacketBuffer.getWorldMapScriptIdCategory(elementCategory, type);
+         var4 = InterfaceParent.getWorldMapScript(var3, type);
          return var4 != null ? var4 : null;
       }
    }

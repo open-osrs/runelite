@@ -1,57 +1,69 @@
 import java.util.LinkedList;
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("b")
-public abstract class class21 {
+@Implements("AbstractWorldMapData")
+public abstract class AbstractWorldMapData {
    @ObfuscatedName("by")
    static String field1123;
    @ObfuscatedName("m")
    @ObfuscatedGetter(
       intValue = -474193537
    )
-   int field149;
+   @Export("regionXLow")
+   int regionXLow;
    @ObfuscatedName("f")
    @ObfuscatedGetter(
       intValue = 1952285401
    )
-   int field146;
+   @Export("regionYLow")
+   int regionYLow;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = -1560078681
    )
-   int field159;
+   @Export("regionX")
+   int regionX;
    @ObfuscatedName("w")
    @ObfuscatedGetter(
       intValue = 549708301
    )
-   int field147;
+   @Export("regionY")
+   int regionY;
    @ObfuscatedName("o")
    @ObfuscatedGetter(
       intValue = -814742029
    )
-   int field148;
+   @Export("minPlane")
+   int minPlane;
    @ObfuscatedName("u")
    @ObfuscatedGetter(
       intValue = 2075507241
    )
-   int field156;
+   @Export("planes")
+   int planes;
    @ObfuscatedName("g")
    @ObfuscatedGetter(
       intValue = -1715718119
    )
-   int field150;
+   @Export("groupId")
+   int groupId;
    @ObfuscatedName("l")
    @ObfuscatedGetter(
       intValue = -2119420619
    )
-   int field152;
+   @Export("fileId")
+   int fileId;
    @ObfuscatedName("e")
-   short[][][] field151;
+   @Export("floorUnderlayIds")
+   short[][][] floorUnderlayIds;
    @ObfuscatedName("x")
-   short[][][] field145;
+   @Export("floorOverlayIds")
+   short[][][] floorOverlayIds;
    @ObfuscatedName("d")
    byte[][][] field154;
    @ObfuscatedName("k")
@@ -67,9 +79,9 @@ public abstract class class21 {
    @ObfuscatedName("a")
    boolean field153;
 
-   class21() {
-      this.field150 = -1;
-      this.field152 = -1;
+   AbstractWorldMapData() {
+      this.groupId = -1;
+      this.fileId = -1;
       new LinkedList();
       this.field157 = false;
       this.field153 = false;
@@ -80,14 +92,16 @@ public abstract class class21 {
       signature = "(Lgr;I)V",
       garbageValue = "1937224298"
    )
-   abstract void vmethod715(Buffer var1);
+   @Export("readGeography")
+   abstract void readGeography(Buffer var1);
 
    @ObfuscatedName("l")
    @ObfuscatedSignature(
       signature = "(I)Z",
       garbageValue = "-947070877"
    )
-   boolean method271() {
+   @Export("isFullyLoaded")
+   boolean isFullyLoaded() {
       return this.field157 && this.field153;
    }
 
@@ -96,11 +110,12 @@ public abstract class class21 {
       signature = "(Lir;B)V",
       garbageValue = "-108"
    )
-   void method263(AbstractArchive var1) {
-      if (!this.method271()) {
-         byte[] var2 = var1.takeFile(this.field150, this.field152);
+   @Export("loadGeography")
+   void loadGeography(AbstractArchive var1) {
+      if (!this.isFullyLoaded()) {
+         byte[] var2 = var1.takeFile(this.groupId, this.fileId);
          if (var2 != null) {
-            this.vmethod715(new Buffer(var2));
+            this.readGeography(new Buffer(var2));
             this.field157 = true;
             this.field153 = true;
          }
@@ -113,12 +128,13 @@ public abstract class class21 {
       signature = "(I)V",
       garbageValue = "-2111523326"
    )
-   void method282() {
-      this.field151 = ((short[][][])null);
-      this.field145 = ((short[][][])null);
-      this.field154 = ((byte[][][])null);
-      this.field155 = ((byte[][][])null);
-      this.decorations = ((WorldMapDecoration[][][][])null);
+   @Export("reset")
+   void reset() {
+      this.floorUnderlayIds =(short[][][])null;
+      this.floorOverlayIds = (short[][][])null;
+      this.field154 =(byte[][][])null;
+      this.field155 =(byte[][][])null;
+      this.decorations = (WorldMapDecoration[][][][])null;
       this.field157 = false;
       this.field153 = false;
    }
@@ -128,7 +144,8 @@ public abstract class class21 {
       signature = "(IILgr;I)V",
       garbageValue = "-1039890176"
    )
-   void method259(int var1, int var2, Buffer var3) {
+   @Export("readTile")
+   void readTile(int var1, int var2, Buffer var3) {
       int var4 = var3.readUnsignedByte();
       if (var4 != 0) {
          if ((var4 & 1) != 0) {
@@ -148,10 +165,10 @@ public abstract class class21 {
    void method260(int var1, int var2, Buffer var3, int var4) {
       boolean var5 = (var4 & 2) != 0;
       if (var5) {
-         this.field145[0][var1][var2] = (short)var3.readUnsignedByte();
+         this.floorOverlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
       }
 
-      this.field151[0][var1][var2] = (short)var3.readUnsignedByte();
+      this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
    }
 
    @ObfuscatedName("z")
@@ -159,11 +176,11 @@ public abstract class class21 {
       signature = "(IILgr;II)V",
       garbageValue = "1538895535"
    )
-   void method257(int var1, int var2, Buffer var3, int var4) {
-      int var5 = ((var4 & 24) >> 3) + 1;
-      boolean var6 = (var4 & 2) != 0;
-      boolean var7 = (var4 & 4) != 0;
-      this.field151[0][var1][var2] = (short)var3.readUnsignedByte();
+   void method257(int x, int y, Buffer var3, int tileSettings) {
+      int var5 = ((tileSettings & 24) >> 3) + 1;
+      boolean var6 = (tileSettings & 2) != 0;
+      boolean var7 = (tileSettings & 4) != 0;
+      this.floorUnderlayIds[0][x][y] = (short)var3.readUnsignedByte();
       int var8;
       int var9;
       int var10;
@@ -173,10 +190,10 @@ public abstract class class21 {
          for (var9 = 0; var9 < var8; ++var9) {
             int var11 = var3.readUnsignedByte();
             if (var11 != 0) {
-               this.field145[var9][var1][var2] = (short)var11;
+               this.floorOverlayIds[var9][x][y] = (short)var11;
                var10 = var3.readUnsignedByte();
-               this.field154[var9][var1][var2] = (byte)(var10 >> 2);
-               this.field155[var9][var1][var2] = (byte)(var10 & 3);
+               this.field154[var9][x][y] = (byte)(var10 >> 2);
+               this.field155[var9][x][y] = (byte)(var10 & 3);
             }
          }
       }
@@ -185,7 +202,7 @@ public abstract class class21 {
          for (var8 = 0; var8 < var5; ++var8) {
             var9 = var3.readUnsignedByte();
             if (var9 != 0) {
-               WorldMapDecoration[] var14 = this.decorations[var8][var1][var2] = new WorldMapDecoration[var9];
+               WorldMapDecoration[] var14 = this.decorations[var8][x][y] = new WorldMapDecoration[var9];
 
                for (var10 = 0; var10 < var9; ++var10) {
                   int var12 = var3.method51();
@@ -203,8 +220,9 @@ public abstract class class21 {
       signature = "(I)I",
       garbageValue = "1061931388"
    )
-   int method256() {
-      return this.field159;
+   @Export("getRegionX")
+   int getRegionX() {
+      return this.regionX;
    }
 
    @ObfuscatedName("s")
@@ -212,8 +230,9 @@ public abstract class class21 {
       signature = "(B)I",
       garbageValue = "-128"
    )
-   int method264() {
-      return this.field147;
+   @Export("getRegionY")
+   int getRegionY() {
+      return this.regionY;
    }
 
    @ObfuscatedName("u")
@@ -329,9 +348,9 @@ public abstract class class21 {
             var3.overheadText = var0.readStringCp1252NullTerminated();
             if (var3.overheadText.charAt(0) == '~') {
                var3.overheadText = var3.overheadText.substring(1);
-               WorldMapIcon1.addGameMessage(2, var3.username.getName(), var3.overheadText);
+               WorldMapIcon_0.addGameMessage(2, var3.username.getName(), var3.overheadText);
             } else if (var3 == Canvas.localPlayer) {
-               WorldMapIcon1.addGameMessage(2, var3.username.getName(), var3.overheadText);
+               WorldMapIcon_0.addGameMessage(2, var3.username.getName(), var3.overheadText);
             }
 
             var3.isAutoChatting = false;
@@ -398,9 +417,9 @@ public abstract class class21 {
                   }
 
                   if (var17.modIcon != -1) {
-                     WorldMapIcon1.addGameMessage(var10, ItemContainer.method1170(var17.modIcon) + var3.username.getName(), var14);
+                     WorldMapIcon_0.addGameMessage(var10, ItemContainer.method1170(var17.modIcon) + var3.username.getName(), var14);
                   } else {
-                     WorldMapIcon1.addGameMessage(var10, var3.username.getName(), var14);
+                     WorldMapIcon_0.addGameMessage(var10, var3.username.getName(), var14);
                   }
                }
             }

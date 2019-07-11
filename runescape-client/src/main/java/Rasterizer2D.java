@@ -48,46 +48,46 @@ public class Rasterizer2D extends DualNode {
 
    @ObfuscatedName("di")
    @Export("Rasterizer2D_setClip")
-   public static void Rasterizer2D_setClip(int xStart, int yStart, int xEnd, int yEnd) {
-      if (xStart < 0) {
-         xStart = 0;
+   public static void Rasterizer2D_setClip(int startX, int startY, int endX, int endY) {
+      if (startX < 0) {
+         startX = 0;
       }
 
-      if (yStart < 0) {
-         yStart = 0;
+      if (startY < 0) {
+         startY = 0;
       }
 
-      if (xEnd > Rasterizer2D_width) {
-         xEnd = Rasterizer2D_width;
+      if (endX > Rasterizer2D_width) {
+         endX = Rasterizer2D_width;
       }
 
-      if (yEnd > Rasterizer2D_height) {
-         yEnd = Rasterizer2D_height;
+      if (endY > Rasterizer2D_height) {
+         endY = Rasterizer2D_height;
       }
 
-      Rasterizer2D_xClipStart = xStart;
-      Rasterizer2D_yClipStart = yStart;
-      Rasterizer2D_xClipEnd = xEnd;
-      Rasterizer2D_yClipEnd = yEnd;
+      Rasterizer2D_xClipStart = startX;
+      Rasterizer2D_yClipStart = startY;
+      Rasterizer2D_xClipEnd = endX;
+      Rasterizer2D_yClipEnd = endY;
    }
 
    @ObfuscatedName("dc")
    @Export("Rasterizer2D_expandClip")
-   public static void Rasterizer2D_expandClip(int xStart, int yStart, int xEnd, int yEnd) {
-      if (Rasterizer2D_xClipStart < xStart) {
-         Rasterizer2D_xClipStart = xStart;
+   public static void Rasterizer2D_expandClip(int startX, int startY, int endX, int endY) {
+      if (Rasterizer2D_xClipStart < startX) {
+         Rasterizer2D_xClipStart = startX;
       }
 
-      if (Rasterizer2D_yClipStart < yStart) {
-         Rasterizer2D_yClipStart = yStart;
+      if (Rasterizer2D_yClipStart < startY) {
+         Rasterizer2D_yClipStart = startY;
       }
 
-      if (Rasterizer2D_xClipEnd > xEnd) {
-         Rasterizer2D_xClipEnd = xEnd;
+      if (Rasterizer2D_xClipEnd > endX) {
+         Rasterizer2D_xClipEnd = endX;
       }
 
-      if (Rasterizer2D_yClipEnd > yEnd) {
-         Rasterizer2D_yClipEnd = yEnd;
+      if (Rasterizer2D_yClipEnd > endY) {
+         Rasterizer2D_yClipEnd = endY;
       }
 
    }
@@ -808,14 +808,15 @@ public class Rasterizer2D extends DualNode {
    }
 
    @ObfuscatedName("ek")
-   public static void method5948(int var0, int var1, int var2, int[] var3, int[] var4) {
-      int var5 = var0 + Rasterizer2D_width * var1;
+   @Export("Rasterizer2D_fillMaskedRectangle")
+   public static void Rasterizer2D_fillMaskedRectangle(int x, int y, int color, int[] xStarts, int[] xWidths) {
+      int var5 = x + Rasterizer2D_width * y;
 
-      for (var1 = 0; var1 < var3.length; ++var1) {
-         int var6 = var5 + var3[var1];
+      for (y = 0; y < xStarts.length; ++y) {
+         int var6 = var5 + xStarts[y];
 
-         for (var0 = -var4[var1]; var0 < 0; ++var0) {
-            Rasterizer2D_pixels[var6++] = var2;
+         for (x = -xWidths[y]; x < 0; ++x) {
+            Rasterizer2D_pixels[var6++] = color;
          }
 
          var5 += Rasterizer2D_width;

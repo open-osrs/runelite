@@ -72,22 +72,25 @@ public abstract class AbstractWorldMapIcon {
       signature = "(B)I",
       garbageValue = "75"
    )
-   abstract int vmethod397();
+   @Export("getSubWidth")
+   abstract int getSubWidth();
 
    @ObfuscatedName("w")
    @ObfuscatedSignature(
       signature = "(I)I",
       garbageValue = "-1558233611"
    )
-   abstract int vmethod398();
+   @Export("getSubHeight")
+   abstract int getSubHeight();
 
    @ObfuscatedName("y")
    @ObfuscatedSignature(
       signature = "(IIB)Z",
       garbageValue = "-63"
    )
-   boolean method18(int var1, int var2) {
-      return this.method20(var1, var2) ? true : this.method21(var1, var2);
+   @Export("fitsScreen")
+   boolean fitsScreen(int x, int y) {
+      return this.elementFitsScreen(x, y) ? true : this.labelFitsScreen(x, y);
    }
 
    @ObfuscatedName("h")
@@ -95,7 +98,8 @@ public abstract class AbstractWorldMapIcon {
       signature = "(I)Z",
       garbageValue = "1150380891"
    )
-   boolean method19() {
+   @Export("hasValidElement")
+   boolean hasValidElement() {
       return this.getElement() >= 0;
    }
 
@@ -104,45 +108,46 @@ public abstract class AbstractWorldMapIcon {
       signature = "(III)Z",
       garbageValue = "484201257"
    )
-   boolean method20(int var1, int var2) {
-      if (!this.method19()) {
+   @Export("elementFitsScreen")
+   boolean elementFitsScreen(int x, int y) {
+      if (!this.hasValidElement()) {
          return false;
       } else {
          WorldMapElement var3 = ViewportMouse.getWorldMapElement(this.getElement());
-         int var4 = this.vmethod397();
-         int var5 = this.vmethod398();
+         int var4 = this.getSubWidth();
+         int var5 = this.getSubHeight();
          switch(var3.horizontalAlignment.value) {
          case 0:
-            if (var1 >= this.screenX - var4 / 2 && var1 <= var4 / 2 + this.screenX) {
+            if (x >= this.screenX - var4 / 2 && x <= var4 / 2 + this.screenX) {
                break;
             }
 
             return false;
          case 1:
-            if (var1 >= this.screenX && var1 < var4 + this.screenX) {
+            if (x >= this.screenX && x < var4 + this.screenX) {
                break;
             }
 
             return false;
          case 2:
-            if (var1 <= this.screenX - var4 || var1 > this.screenX) {
+            if (x <= this.screenX - var4 || x > this.screenX) {
                return false;
             }
          }
 
          switch(var3.verticalAlignment.value) {
          case 0:
-            if (var2 <= this.screenY - var5 || var2 > this.screenY) {
+            if (y <= this.screenY - var5 || y > this.screenY) {
                return false;
             }
             break;
          case 1:
-            if (var2 < this.screenY - var5 / 2 || var2 > var5 / 2 + this.screenY) {
+            if (y < this.screenY - var5 / 2 || y > var5 / 2 + this.screenY) {
                return false;
             }
             break;
          case 2:
-            if (var2 < this.screenY || var2 >= var5 + this.screenY) {
+            if (y < this.screenY || y >= var5 + this.screenY) {
                return false;
             }
          }
@@ -156,9 +161,10 @@ public abstract class AbstractWorldMapIcon {
       signature = "(III)Z",
       garbageValue = "1201712205"
    )
-   boolean method21(int var1, int var2) {
+   @Export("labelFitsScreen")
+   boolean labelFitsScreen(int x, int y) {
       WorldMapLabel var3 = this.getLabel();
-      return var3 == null ? false : (var1 >= this.screenX - var3.width / 2 && var1 <= var3.width / 2 + this.screenX ? var2 >= this.screenY && var2 <= var3.height + this.screenY : false);
+      return var3 == null ? false : (x >= this.screenX - var3.width / 2 && x <= var3.width / 2 + this.screenX ? y >= this.screenY && y <= var3.height + this.screenY : false);
    }
 
    @ObfuscatedName("es")

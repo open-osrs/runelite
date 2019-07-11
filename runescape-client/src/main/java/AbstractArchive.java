@@ -240,7 +240,8 @@ public abstract class AbstractArchive {
       signature = "(II)V",
       garbageValue = "2102142648"
    )
-   void vmethod129(int var1) {
+   @Export("loadRegionFromGroup")
+   void loadRegionFromGroup(int var1) {
    }
 
    @ObfuscatedName("q")
@@ -689,11 +690,12 @@ public abstract class AbstractArchive {
       signature = "(Ljava/lang/String;B)V",
       garbageValue = "40"
    )
-   public void method10(String var1) {
+   @Export("loadRegionFromName")
+   public void loadRegionFromName(String var1) {
       var1 = var1.toLowerCase();
       int var2 = this.groupNameHashTable.get(Client.hashString(var1));
       if (var2 >= 0) {
-         this.vmethod129(var2);
+         this.loadRegionFromGroup(var2);
       }
 
    }

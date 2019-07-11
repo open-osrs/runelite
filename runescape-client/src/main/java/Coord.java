@@ -29,25 +29,25 @@ public class Coord {
    @ObfuscatedSignature(
       signature = "(Lhu;)V"
    )
-   public Coord(Coord var1) {
-      this.plane = var1.plane;
-      this.x = var1.x;
-      this.y = var1.y;
+   public Coord(Coord copy) {
+      this.plane = copy.plane;
+      this.x = copy.x;
+      this.y = copy.y;
    }
 
-   public Coord(int var1, int var2, int var3) {
-      this.plane = var1;
-      this.x = var2;
-      this.y = var3;
+   public Coord(int plane, int x, int y) {
+      this.plane = plane;
+      this.x = x;
+      this.y = y;
    }
 
-   public Coord(int var1) {
-      if (var1 == -1) {
+   public Coord(int packed) {
+      if (packed == -1) {
          this.plane = -1;
       } else {
-         this.plane = var1 >> 28 & 3;
-         this.x = var1 >> 14 & 16383;
-         this.y = var1 & 16383;
+         this.plane = packed >> 28 & 3;
+         this.x = packed >> 14 & 16383;
+         this.y = packed & 16383;
       }
 
    }

@@ -6,8 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("c")
 @Implements("WorldMapRectangle")
-public final class WorldMapRectangle
-{
+public final class WorldMapRectangle {
    @ObfuscatedName("z")
    @ObfuscatedSignature(
       signature = "Lgr;"
@@ -30,26 +29,26 @@ public final class WorldMapRectangle
    @ObfuscatedGetter(
       intValue = 1976624405
    )
-   @Export("worldMapRegionWidth")
-   int worldMapRegionWidth;
+   @Export("width")
+   int width;
    @ObfuscatedName("f")
    @ObfuscatedGetter(
       intValue = -698663527
    )
-   @Export("worldMapRegionHeight")
-   int worldMapRegionHeight;
+   @Export("height")
+   int height;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = 1588021801
    )
-   @Export("worldMapRegionX")
-   int worldMapRegionX;
+   @Export("x")
+   int x;
    @ObfuscatedName("w")
    @ObfuscatedGetter(
       intValue = 2138505015
    )
-   @Export("worldMapRegionY")
-   int worldMapRegionY;
+   @Export("y")
+   int y;
    @ObfuscatedSignature(
       signature = "Lal;"
    )
@@ -80,7 +79,7 @@ public final class WorldMapRectangle
       StringBuilder var1 = (new StringBuilder()).append(var0);
       Object var2 = null;
       String var3 = var1.append(" is already on your ignore list").toString();
-      WorldMapIcon1.addGameMessage(30, "", var3);
+      WorldMapIcon_0.addGameMessage(30, "", var3);
    }
 
    @ObfuscatedName("fw")
@@ -115,13 +114,14 @@ public final class WorldMapRectangle
       signature = "(Lho;IIII)V",
       garbageValue = "1417616898"
    )
-   static final void method296(Widget var0, int var1, int var2, int var3) {
-      SpriteMask var4 = var0.getSpriteMask(false);
+   @Export("drawCompass")
+   static final void drawCompass(Widget compass, int x, int y, int unused) {
+      SpriteMask var4 = compass.getSpriteMask(false);
       if (var4 != null) {
          if (Client.minimapState < 3) {
-            GrandExchangeOfferUnitPriceComparator.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
+            GrandExchangeOfferUnitPriceComparator.compass.drawRotatedMaskedCenteredAround(x, y, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
          } else {
-            Rasterizer2D.method5948(var1, var2, 0, var4.xStarts, var4.xWidths);
+            Rasterizer2D.Rasterizer2D_fillMaskedRectangle(x, y, 0, var4.xStarts, var4.xWidths);
          }
       }
 

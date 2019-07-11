@@ -1,11 +1,13 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("z")
-public class class15 extends class21 {
+@Implements("WorldMapData_0")
+public class WorldMapData_0 extends AbstractWorldMapData {
    @ObfuscatedName("si")
    @ObfuscatedGetter(
       longValue = 3423502126894795079L
@@ -35,19 +37,20 @@ public class class15 extends class21 {
       signature = "(Lgr;I)V",
       garbageValue = "962518033"
    )
-   void method173(Buffer var1) {
+   @Export("init")
+   void init(Buffer var1) {
       int var2 = var1.readUnsignedByte();
-      if (var2 != class31.field259.field255) {
+      if (var2 != WorldMapID.WorldMapID_0.value) {
          throw new IllegalStateException("");
       } else {
-         super.field148 = var1.readUnsignedByte();
-         super.field156 = var1.readUnsignedByte();
-         super.field149 = var1.readUnsignedShort();
-         super.field146 = var1.readUnsignedShort();
-         super.field159 = var1.readUnsignedShort();
-         super.field147 = var1.readUnsignedShort();
-         super.field150 = var1.method51();
-         super.field152 = var1.method51();
+         super.minPlane = var1.readUnsignedByte();
+         super.planes = var1.readUnsignedByte();
+         super.regionXLow = var1.readUnsignedShort();
+         super.regionYLow = var1.readUnsignedShort();
+         super.regionX = var1.readUnsignedShort();
+         super.regionY = var1.readUnsignedShort();
+         super.groupId = var1.method51();
+         super.fileId = var1.method51();
       }
    }
 
@@ -56,23 +59,24 @@ public class class15 extends class21 {
       signature = "(Lgr;I)V",
       garbageValue = "1937224298"
    )
-   void vmethod715(Buffer var1) {
-      super.field156 = Math.min(super.field156, 4);
-      super.field151 = new short[1][64][64];
-      super.field145 = new short[super.field156][64][64];
-      super.field154 = new byte[super.field156][64][64];
-      super.field155 = new byte[super.field156][64][64];
-      super.decorations = new WorldMapDecoration[super.field156][64][64][];
+   @Export("readGeography")
+   void readGeography(Buffer var1) {
+      super.planes = Math.min(super.planes, 4);
+      super.floorUnderlayIds = new short[1][64][64];
+      super.floorOverlayIds = new short[super.planes][64][64];
+      super.field154 = new byte[super.planes][64][64];
+      super.field155 = new byte[super.planes][64][64];
+      super.decorations = new WorldMapDecoration[super.planes][64][64][];
       int var2 = var1.readUnsignedByte();
-      if (var2 != class30.field246.field248) {
+      if (var2 != class30.class30_something0.value) {
          throw new IllegalStateException("");
       } else {
          int var3 = var1.readUnsignedByte();
          int var4 = var1.readUnsignedByte();
-         if (var3 == super.field159 && var4 == super.field147) {
+         if (var3 == super.regionX && var4 == super.regionY) {
             for (int var5 = 0; var5 < 64; ++var5) {
                for (int var6 = 0; var6 < 64; ++var6) {
-                  this.method259(var5, var6, var1);
+                  this.readTile(var5, var6, var1);
                }
             }
 
@@ -83,16 +87,16 @@ public class class15 extends class21 {
    }
 
    public boolean equals(Object var1) {
-      if (!(var1 instanceof class15)) {
+      if (!(var1 instanceof WorldMapData_0)) {
          return false;
       } else {
-         class15 var2 = (class15)var1;
-         return super.field159 == var2.field159 && super.field147 == var2.field147;
+         WorldMapData_0 var2 = (WorldMapData_0)var1;
+         return super.regionX == var2.regionX && super.regionY == var2.regionY;
       }
    }
 
    public int hashCode() {
-      return super.field159 | super.field147 << 8;
+      return super.regionX | super.regionY << 8;
    }
 
    @ObfuscatedName("z")

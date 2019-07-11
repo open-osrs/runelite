@@ -21,8 +21,8 @@ public class ScriptEvent extends Node {
    @Export("oculusOrbFocalPointY")
    static int oculusOrbFocalPointY;
    @ObfuscatedName("m")
-   @Export("args0")
-   Object[] args0;
+   @Export("args")
+   Object[] args;
    @ObfuscatedName("f")
    @Export("boolean1")
    boolean boolean1;
@@ -80,11 +80,11 @@ public class ScriptEvent extends Node {
    @ObfuscatedGetter(
       intValue = -161292529
    )
-   @Export("type0")
-   int type0;
+   @Export("type")
+   int type;
 
    public ScriptEvent() {
-      this.type0 = 76;
+      this.type = 76;
    }
 
    @ObfuscatedName("m")
@@ -94,7 +94,7 @@ public class ScriptEvent extends Node {
    )
    @Export("setArgs")
    public void setArgs(Object[] args) {
-      this.args0 = args;
+      this.args = args;
    }
 
    @ObfuscatedName("f")
@@ -104,7 +104,7 @@ public class ScriptEvent extends Node {
    )
    @Export("setType")
    public void setType(int type) {
-      this.type0 = type;
+      this.type = type;
    }
 
    @ObfuscatedName("j")
@@ -113,7 +113,7 @@ public class ScriptEvent extends Node {
       garbageValue = "0"
    )
    static int method1185(int var0, Script var1, boolean var2) {
-      Widget var3 = var2 ? WorldMapIcon1.field1030 : GrandExchangeOfferAgeComparator.field1111;
+      Widget var3 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
       if (var0 == ScriptOpcodes.CC_GETSCROLLX) {
          Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3.scrollX;
          return 1;

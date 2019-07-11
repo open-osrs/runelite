@@ -29,7 +29,8 @@ public class WorldMapElement extends DualNode {
    @ObfuscatedGetter(
       intValue = -1579051565
    )
-   public final int field1020;
+   @Export("objectId")
+   public final int objectId;
    @ObfuscatedName("u")
    @ObfuscatedGetter(
       intValue = 2012857993
@@ -116,10 +117,10 @@ public class WorldMapElement extends DualNode {
       this.field1025 = Integer.MAX_VALUE;
       this.field1026 = Integer.MIN_VALUE;
       this.field1027 = Integer.MIN_VALUE;
-      this.horizontalAlignment = HorizontalAlignment.field3527;
-      this.verticalAlignment = VerticalAlignment.field3273;
+      this.horizontalAlignment = HorizontalAlignment.HorizontalAlignment_centered;
+      this.verticalAlignment = VerticalAlignment.VerticalAlignment_centered;
       this.category = -1;
-      this.field1020 = var1;
+      this.objectId = var1;
    }
 
    @ObfuscatedName("f")
@@ -217,10 +218,10 @@ public class WorldMapElement extends DualNode {
             } else if (opcode == 28) {
                buffer.readUnsignedByte();
             } else if (opcode == 29) {
-               HorizontalAlignment[] var6 = new HorizontalAlignment[]{HorizontalAlignment.field3527, HorizontalAlignment.field3526, HorizontalAlignment.field3529};
+               HorizontalAlignment[] var6 = new HorizontalAlignment[]{HorizontalAlignment.HorizontalAlignment_centered, HorizontalAlignment.HorizontalAlignment_leftToRight, HorizontalAlignment.HorizontalAlignment_rightToLeft};
                this.horizontalAlignment = (HorizontalAlignment)ScriptFrame.findEnumerated(var6, buffer.readUnsignedByte());
             } else if (opcode == 30) {
-               this.verticalAlignment = (VerticalAlignment)ScriptFrame.findEnumerated(FloorUnderlayDefinition.method4839(), buffer.readUnsignedByte());
+               this.verticalAlignment = (VerticalAlignment)ScriptFrame.findEnumerated(FloorUnderlayDefinition.VerticalAlignment_values(), buffer.readUnsignedByte());
             }
          }
       }
@@ -256,10 +257,10 @@ public class WorldMapElement extends DualNode {
       signature = "(ZI)Lln;",
       garbageValue = "628564789"
    )
-   @Export("getSprite")
-   public Sprite getSprite(boolean var1) {
+   @Export("getSpriteBool")
+   public Sprite getSpriteBool(boolean unused) {
       int var2 = this.sprite1;
-      return this.getSprite0(var2);
+      return this.getSprite(var2);
    }
 
    @ObfuscatedName("u")
@@ -267,8 +268,8 @@ public class WorldMapElement extends DualNode {
       signature = "(IB)Lln;",
       garbageValue = "-34"
    )
-   @Export("getSprite0")
-   Sprite getSprite0(int var1) {
+   @Export("getSprite")
+   Sprite getSprite(int var1) {
       if (var1 < 0) {
          return null;
       } else {
@@ -291,8 +292,9 @@ public class WorldMapElement extends DualNode {
       signature = "(I)I",
       garbageValue = "821701099"
    )
-   public int method390() {
-      return this.field1020;
+   @Export("getObjectId")
+   public int getObjectId() {
+      return this.objectId;
    }
 
    @ObfuscatedName("m")

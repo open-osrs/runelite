@@ -303,7 +303,7 @@ public class MouseRecorder implements Runnable {
                         if (var14 != null && var14.drawMapDot && var14.isInteractable) {
                            var11 = var17.x / 32 - Canvas.localPlayer.x / 32;
                            var12 = var17.y / 32 - Canvas.localPlayer.y / 32;
-                           NetFileRequest.drawSpriteOnMinimap(x, y, var11, var12, class39.mapDotSprites[1], var4);
+                           NetFileRequest.drawSpriteOnMinimap(x, y, var11, var12, WorldMapData_1.mapDotSprites[1], var4);
                         }
                      }
                   }
@@ -323,13 +323,13 @@ public class MouseRecorder implements Runnable {
                         }
 
                         if (var19.isFriend()) {
-                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, class39.mapDotSprites[3], var4);
+                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, WorldMapData_1.mapDotSprites[3], var4);
                         } else if (var16) {
-                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, class39.mapDotSprites[4], var4);
+                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, WorldMapData_1.mapDotSprites[4], var4);
                         } else if (var19.isClanMember()) {
-                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, class39.mapDotSprites[5], var4);
+                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, WorldMapData_1.mapDotSprites[5], var4);
                         } else {
-                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, class39.mapDotSprites[2], var4);
+                           NetFileRequest.drawSpriteOnMinimap(x, y, var12, var15, WorldMapData_1.mapDotSprites[2], var4);
                         }
                      }
                   }
@@ -377,14 +377,14 @@ public class MouseRecorder implements Runnable {
                   if (var13 != null) {
                      var11 = var8 * 4 + 2 - Canvas.localPlayer.x / 32;
                      var12 = var9 * 4 + 2 - Canvas.localPlayer.y / 32;
-                     NetFileRequest.drawSpriteOnMinimap(x, y, var11, var12, class39.mapDotSprites[0], var4);
+                     NetFileRequest.drawSpriteOnMinimap(x, y, var11, var12, WorldMapData_1.mapDotSprites[0], var4);
                   }
                }
 
                ++var8;
             }
          } else {
-            Rasterizer2D.method5948(x, y, 0, var4.xStarts, var4.xWidths);
+            Rasterizer2D.Rasterizer2D_fillMaskedRectangle(x, y, 0, var4.xStarts, var4.xWidths);
          }
 
          Client.field102[rootIndex] = true;

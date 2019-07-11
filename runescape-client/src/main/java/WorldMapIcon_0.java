@@ -6,8 +6,8 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("t")
-@Implements("WorldMapIcon1")
-public class WorldMapIcon1 extends AbstractWorldMapIcon {
+@Implements("WorldMapIcon_0")
+public class WorldMapIcon_0 extends AbstractWorldMapIcon {
    @ObfuscatedName("i")
    @ObfuscatedSignature(
       signature = "Lho;"
@@ -44,28 +44,30 @@ public class WorldMapIcon1 extends AbstractWorldMapIcon {
    @ObfuscatedGetter(
       intValue = 364253793
    )
-   final int field1032;
+   @Export("subWidth")
+   final int subWidth;
    @ObfuscatedName("w")
    @ObfuscatedGetter(
       intValue = -362031241
    )
-   final int field1033;
+   @Export("subHeight")
+   final int subHeight;
 
    @ObfuscatedSignature(
       signature = "(Lhu;Lhu;ILaj;)V"
    )
-   WorldMapIcon1(Coord var1, Coord var2, int var3, WorldMapLabel var4) {
+   WorldMapIcon_0(Coord var1, Coord var2, int element, WorldMapLabel label) {
       super(var1, var2);
-      this.element = var3;
-      this.label = var4;
+      this.element = element;
+      this.label = label;
       WorldMapElement var5 = ViewportMouse.getWorldMapElement(this.getElement());
-      Sprite var6 = var5.getSprite(false);
+      Sprite var6 = var5.getSpriteBool(false);
       if (var6 != null) {
-         this.field1032 = var6.subWidth;
-         this.field1033 = var6.subHeight;
+         this.subWidth = var6.subWidth;
+         this.subHeight = var6.subHeight;
       } else {
-         this.field1032 = 0;
-         this.field1033 = 0;
+         this.subWidth = 0;
+         this.subHeight = 0;
       }
 
    }
@@ -95,8 +97,9 @@ public class WorldMapIcon1 extends AbstractWorldMapIcon {
       signature = "(B)I",
       garbageValue = "75"
    )
-   int vmethod397() {
-      return this.field1032;
+   @Export("getSubWidth")
+   int getSubWidth() {
+      return this.subWidth;
    }
 
    @ObfuscatedName("w")
@@ -104,8 +107,9 @@ public class WorldMapIcon1 extends AbstractWorldMapIcon {
       signature = "(I)I",
       garbageValue = "-1558233611"
    )
-   int vmethod398() {
-      return this.field1033;
+   @Export("getSubHeight")
+   int getSubHeight() {
+      return this.subHeight;
    }
 
    @ObfuscatedName("m")

@@ -23,8 +23,8 @@ public class FloorOverlayDefinition extends DualNode {
    @ObfuscatedGetter(
       intValue = -111851793
    )
-   @Export("rgb")
-   public int rgb;
+   @Export("primaryRgb")
+   public int primaryRgb;
    @ObfuscatedName("w")
    @ObfuscatedGetter(
       intValue = 733377225
@@ -32,13 +32,14 @@ public class FloorOverlayDefinition extends DualNode {
    @Export("texture")
    public int texture;
    @ObfuscatedName("o")
-   public boolean field665;
+   @Export("hideUnderlay")
+   public boolean hideUnderlay;
    @ObfuscatedName("u")
    @ObfuscatedGetter(
       intValue = 528865753
    )
-   @Export("rgb2")
-   public int rgb2;
+   @Export("secondaryRgb")
+   public int secondaryRgb;
    @ObfuscatedName("g")
    @ObfuscatedGetter(
       intValue = 2013422835
@@ -61,26 +62,26 @@ public class FloorOverlayDefinition extends DualNode {
    @ObfuscatedGetter(
       intValue = -122393061
    )
-   @Export("hue2")
-   public int hue2;
+   @Export("secondaryHue")
+   public int secondaryHue;
    @ObfuscatedName("d")
    @ObfuscatedGetter(
       intValue = 1514187401
    )
-   @Export("saturation2")
-   public int saturation2;
+   @Export("secondarySaturation")
+   public int secondarySaturation;
    @ObfuscatedName("k")
    @ObfuscatedGetter(
       intValue = 127639041
    )
-   @Export("lightness2")
-   public int lightness2;
+   @Export("secondaryLightness")
+   public int secondaryLightness;
 
    public FloorOverlayDefinition() {
-      this.rgb = 0;
+      this.primaryRgb = 0;
       this.texture = -1;
-      this.field665 = true;
-      this.rgb2 = -1;
+      this.hideUnderlay = true;
+      this.secondaryRgb = -1;
    }
 
    @ObfuscatedName("f")
@@ -90,14 +91,14 @@ public class FloorOverlayDefinition extends DualNode {
    )
    @Export("postDecode")
    public void postDecode() {
-      if (this.rgb2 != -1) {
-         this.setHsl(this.rgb2);
-         this.hue2 = this.hue;
-         this.saturation2 = this.saturation;
-         this.lightness2 = this.lightness;
+      if (this.secondaryRgb != -1) {
+         this.setHsl(this.secondaryRgb);
+         this.secondaryHue = this.hue;
+         this.secondarySaturation = this.saturation;
+         this.secondaryLightness = this.lightness;
       }
 
-      this.setHsl(this.rgb);
+      this.setHsl(this.primaryRgb);
    }
 
    @ObfuscatedName("q")
@@ -125,13 +126,13 @@ public class FloorOverlayDefinition extends DualNode {
    @Export("decodeNext")
    void decodeNext(Buffer var1, int var2, int var3) {
       if (var2 == 1) {
-         this.rgb = var1.readMedium();
+         this.primaryRgb = var1.readMedium();
       } else if (var2 == 2) {
          this.texture = var1.readUnsignedByte();
       } else if (var2 == 5) {
-         this.field665 = false;
+         this.hideUnderlay = false;
       } else if (var2 == 7) {
-         this.rgb2 = var1.readMedium();
+         this.secondaryRgb = var1.readMedium();
       } else if (var2 == 8) {
       }
 

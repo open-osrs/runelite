@@ -220,8 +220,9 @@ public final class PacketBuffer extends Buffer {
       signature = "(III)I",
       garbageValue = "587268539"
    )
-   public static int method4081(int var0, int var1) {
-      return (var0 + 40000 << 8) + var1;
+   @Export("getWorldMapScriptIdCategory")
+   public static int getWorldMapScriptIdCategory(int category, int type) {
+      return (category + 40000 << 8) + type;
    }
 
    static {

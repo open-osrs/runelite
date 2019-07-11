@@ -1,29 +1,34 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ac")
-public class class31 {
+@Implements("WorldMapID")
+public class WorldMapID {
    @ObfuscatedName("m")
    @ObfuscatedSignature(
       signature = "Lac;"
    )
-   static final class31 field259;
+   @Export("WorldMapID_0")
+   static final WorldMapID WorldMapID_0;
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lac;"
    )
-   static final class31 field254;
+   @Export("WorldMapID_1")
+   static final WorldMapID WorldMapID_1;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = 214832375
    )
-   final int field255;
+   @Export("value")
+   final int value;
 
-   class31(int var1) {
-      this.field255 = var1;
+   WorldMapID(int mapID) {
+      this.value = mapID;
    }
 
    @ObfuscatedName("a")
@@ -266,7 +271,7 @@ public class class31 {
    }
 
    static {
-      field259 = new class31(0);
-      field254 = new class31(1);
+      WorldMapID_0 = new WorldMapID(0);
+      WorldMapID_1 = new WorldMapID(1);
    }
 }

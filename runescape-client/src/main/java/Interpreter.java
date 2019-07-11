@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Calendar;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -46,7 +45,7 @@ public class Interpreter {
    static ScriptFrame[] Interpreter_frames;
    @ObfuscatedName("a")
    @Export("Interpreter_calendar")
-   static Calendar Interpreter_calendar;
+   static java.util.Calendar Interpreter_calendar;
    @ObfuscatedName("z")
    @Export("Interpreter_MONTHS")
    static final String[] Interpreter_MONTHS;
@@ -69,29 +68,29 @@ public class Interpreter {
    )
    public static PacketBufferNode method1915(ClientPacket var0, IsaacCipher var1) {
       PacketBufferNode var2;
-      if (PacketBufferNode.field668 == 0) {
+      if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) {
          var2 = new PacketBufferNode();
       } else {
-         var2 = PacketBufferNode.packetBufferNodes[--PacketBufferNode.field668];
+         var2 = PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount];
       }
 
-      var2.field669 = var0;
-      var2.field670 = var0.length;
-      if (var2.field670 == -1) {
+      var2.clientPacket = var0;
+      var2.clientPacketLength = var0.length;
+      if (var2.clientPacketLength == -1) {
          var2.packetBuffer = new PacketBuffer(260);
-      } else if (var2.field670 == -2) {
+      } else if (var2.clientPacketLength == -2) {
          var2.packetBuffer = new PacketBuffer(10000);
-      } else if (var2.field670 <= 18) {
+      } else if (var2.clientPacketLength <= 18) {
          var2.packetBuffer = new PacketBuffer(20);
-      } else if (var2.field670 <= 98) {
+      } else if (var2.clientPacketLength <= 98) {
          var2.packetBuffer = new PacketBuffer(100);
       } else {
          var2.packetBuffer = new PacketBuffer(260);
       }
 
       var2.packetBuffer.setIsaacCipher(var1);
-      var2.packetBuffer.writeByteIsaac(var2.field669.id);
-      var2.field671 = 0;
+      var2.packetBuffer.writeByteIsaac(var2.clientPacket.id);
+      var2.index = 0;
       return var2;
    }
 
@@ -150,15 +149,15 @@ public class Interpreter {
    )
    public static void method1976() {
       try {
-         File var0 = new File(WorldMapSection2.userHomeDirectory, "random.dat");
+         File var0 = new File(WorldMapSection3.userHomeDirectory, "random.dat");
          int var1;
          if (var0.exists()) {
             class168.randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0);
          } else {
             label34:
             for (int var2 = 0; var2 < Canvas.field94.length; ++var2) {
-               for (var1 = 0; var1 < WorldMapSection0.cacheDirectoryLocations.length; ++var1) {
-                  File var3 = new File(WorldMapSection0.cacheDirectoryLocations[var1] + Canvas.field94[var2] + File.separatorChar + "random.dat");
+               for (var1 = 0; var1 < WorldMapSection1.cacheDirectoryLocations.length; ++var1) {
+                  File var3 = new File(WorldMapSection1.cacheDirectoryLocations[var1] + Canvas.field94[var2] + File.separatorChar + "random.dat");
                   if (var3.exists()) {
                      class168.randomDat = new BufferedFile(new AccessFile(var3, "rw", 25L), 24, 0);
                      break label34;
@@ -187,12 +186,12 @@ public class Interpreter {
       garbageValue = "-10"
    )
    @Export("drawWidgets")
-   static final void drawWidgets(int interfaceID, int xStart, int yStart, int xEnd, int yEnd, int var5, int var6, int var7) {
+   static final void drawWidgets(int interfaceID, int startX, int startY, int endX, int endY, int var5, int var6, int var7) {
       if (GroundItemPile.loadInterface(interfaceID)) {
          class279.field1145 = null;
-         DevicePcmPlayerProvider.drawInterface(Widget.interfaceComponents[interfaceID], -1, xStart, yStart, xEnd, yEnd, var5, var6, var7);
+         DevicePcmPlayerProvider.drawInterface(Widget.interfaceComponents[interfaceID], -1, startX, startY, endX, endY, var5, var6, var7);
          if (class279.field1145 != null) {
-            DevicePcmPlayerProvider.drawInterface(class279.field1145, -1412584499, xStart, yStart, xEnd, yEnd, class54.field1161, BuddyRankComparator.field1114, var7);
+            DevicePcmPlayerProvider.drawInterface(class279.field1145, -1412584499, startX, startY, endX, endY, class54.field1161, BuddyRankComparator.field1114, var7);
             class279.field1145 = null;
          }
       } else if (var7 != -1) {
@@ -212,7 +211,7 @@ public class Interpreter {
       Interpreter_stringStack = new String[1000];
       Interpreter_frameDepth = 0;
       Interpreter_frames = new ScriptFrame[50];
-      Interpreter_calendar = Calendar.getInstance();
+      Interpreter_calendar = java.util.Calendar.getInstance();
       Interpreter_MONTHS = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
       field423 = false;
       field424 = false;

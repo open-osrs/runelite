@@ -138,7 +138,7 @@ public class ClanChat extends UserList {
             var13.set(var10, ++this.field97 - 1);
             var13.rank = buffer.readByte();
             buffer.readStringCp1252NullTerminated();
-            this.method79(var13);
+            this.isLocalPlayer(var13);
          }
       }
 
@@ -181,7 +181,7 @@ public class ClanChat extends UserList {
 
          var6.set(var3, ++this.field97 - 1);
          var6.rank = var4;
-         this.method79(var6);
+         this.isLocalPlayer(var6);
       }
 
    }
@@ -217,7 +217,8 @@ public class ClanChat extends UserList {
       signature = "(Ljk;I)V",
       garbageValue = "-128608554"
    )
-   final void method79(ClanMate var1) {
+   @Export("isLocalPlayer")
+   final void isLocalPlayer(ClanMate var1) {
       if (var1.getUsername().equals(this.localUser.username())) {
          this.rank = var1.rank;
       }

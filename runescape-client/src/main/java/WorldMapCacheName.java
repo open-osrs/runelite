@@ -61,7 +61,7 @@ public class WorldMapCacheName {
    public static void method633(int[] var0, int[] var1) {
       if (var0 != null && var1 != null) {
          ByteArrayPool.field55 = var0;
-         WorldMapSection0.field1082 = new int[var0.length];
+         WorldMapSection1.field1082 = new int[var0.length];
          RouteStrategy.field760 = new byte[var0.length][][];
 
          for (int var2 = 0; var2 < ByteArrayPool.field55.length; ++var2) {
@@ -69,7 +69,7 @@ public class WorldMapCacheName {
          }
       } else {
          ByteArrayPool.field55 = null;
-         WorldMapSection0.field1082 = null;
+         WorldMapSection1.field1082 = null;
          RouteStrategy.field760 = ((byte[][][])null);
       }
 
@@ -109,7 +109,8 @@ public class WorldMapCacheName {
       signature = "(II)I",
       garbageValue = "199373952"
    )
-   public static int method634(int var0) {
+   @Export("iLog")
+   public static int iLog(int var0) {
       int var1 = 0;
       if (var0 < 0 || var0 >= 65536) {
          var0 >>>= 16;

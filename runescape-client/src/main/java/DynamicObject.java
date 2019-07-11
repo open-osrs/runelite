@@ -628,7 +628,7 @@ public class DynamicObject extends Entity {
 
          Client.soundEffectCount = 0;
          Client.isCameraLocked = false;
-         WorldMapSection2.cameraX -= var5 << 7;
+         WorldMapSection3.cameraX -= var5 << 7;
          GrandExchangeOfferNameComparator.cameraZ -= var6 << 7;
          MouseHandler.oculusOrbFocalPointX -= var5 << 7;
          ScriptEvent.oculusOrbFocalPointY -= var6 << 7;

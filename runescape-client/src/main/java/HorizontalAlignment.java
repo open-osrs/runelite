@@ -11,17 +11,20 @@ public enum HorizontalAlignment implements Enumerated {
    @ObfuscatedSignature(
       signature = "Lju;"
    )
-   field3529(2, 0),
+   @Export("HorizontalAlignment_rightToLeft")
+   HorizontalAlignment_rightToLeft(2, 0),
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lju;"
    )
-   field3527(0, 1),
+   @Export("HorizontalAlignment_centered")
+   HorizontalAlignment_centered(0, 1),
    @ObfuscatedName("q")
    @ObfuscatedSignature(
       signature = "Lju;"
    )
-   field3526(1, 2);
+   @Export("HorizontalAlignment_leftToRight")
+   HorizontalAlignment_leftToRight(1, 2);
 
    @ObfuscatedName("b")
    @Export("osName")

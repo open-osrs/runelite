@@ -422,7 +422,7 @@ public class Message extends DualNode {
                   int var9 = HitSplatDefinition.method4972(var7);
                   int var10 = class50.getObjectDefinition(var9).mapIconId;
                   if (var10 >= 0) {
-                     Client.mapIcons[Client.mapIconCount] = ViewportMouse.getWorldMapElement(var10).getSprite(false);
+                     Client.mapIcons[Client.mapIconCount] = ViewportMouse.getWorldMapElement(var10).getSpriteBool(false);
                      Client.mapIconXs[Client.mapIconCount] = var5;
                      Client.mapIconYs[Client.mapIconCount] = var6;
                      ++Client.mapIconCount;
@@ -456,8 +456,8 @@ public class Message extends DualNode {
       }
 
       String var3 = "";
-      if (class21.field1123 != null) {
-         var3 = "/p=" + class21.field1123;
+      if (AbstractWorldMapData.field1123 != null) {
+         var3 = "/p=" + AbstractWorldMapData.field1123;
       }
 
       String var4 = "runescape.com";

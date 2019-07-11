@@ -79,16 +79,16 @@ public class GrandExchangeEvent {
    )
    @Export("runScript0")
    static void runScript0(ScriptEvent scriptEvent, int var1) {
-      Object[] var2 = scriptEvent.args0;
+      Object[] var2 = scriptEvent.args;
       Script var3;
       int var4;
-      if (GrandExchangeOfferAgeComparator.method162(scriptEvent.type0)) {
-         class15.worldMapEvent = (WorldMapEvent)var2[0];
-         WorldMapElement var5 = ViewportMouse.getWorldMapElement(class15.worldMapEvent.mapElement);
-         var3 = FaceNormal.method3236(scriptEvent.type0, var5.field1020, var5.category);
+      if (GrandExchangeOfferAgeComparator.isWorldMapEvent(scriptEvent.type)) {
+         WorldMapData_0.worldMapEvent = (WorldMapEvent)var2[0];
+         WorldMapElement var5 = ViewportMouse.getWorldMapElement(WorldMapData_0.worldMapEvent.mapElement);
+         var3 = FaceNormal.getWorldMapScript(scriptEvent.type, var5.objectId, var5.category);
       } else {
          var4 = (Integer)var2[0];
-         var3 = SoundSystem.method2451(var4);
+         var3 = SoundSystem.getScript(var4);
       }
 
       if (var3 != null) {
@@ -238,7 +238,7 @@ public class GrandExchangeEvent {
                      Interpreter.Interpreter_stringLocals = var30.stringLocals;
                   } else if (var13 == ScriptOpcodes.GET_VARBIT) {
                      var11 = var6[var4];
-                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapSection0.getVarbit(var11);
+                     Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapSection1.getVarbit(var11);
                   } else if (var13 == ScriptOpcodes.SET_VARBIT) {
                      var11 = var6[var4];
                      PendingSpawn.method1695(var11, Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize]);
@@ -337,7 +337,7 @@ public class GrandExchangeEvent {
                         }
                      } else {
                         var11 = var6[var4];
-                        Script var16 = SoundSystem.method2451(var11);
+                        Script var16 = SoundSystem.getScript(var11);
                         int[] var17 = new int[var16.localIntCount];
                         String[] var18 = new String[var16.localStringCount];
 

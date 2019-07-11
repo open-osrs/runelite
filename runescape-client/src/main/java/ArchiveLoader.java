@@ -95,7 +95,7 @@ public class ArchiveLoader {
       boolean var11;
       if (Login.worldSelectOpen) {
          if (class30.worldSelectBackSprites == null) {
-            class30.worldSelectBackSprites = class2.method20(WorldMapSection1.archive8, "sl_back", "");
+            class30.worldSelectBackSprites = class2.method20(WorldMapSection2.archive8, "sl_back", "");
          }
 
          Archive var12;
@@ -103,7 +103,7 @@ public class ArchiveLoader {
          int var14;
          IndexedSprite[] var15;
          if (Frames.worldSelectFlagSprites == null) {
-            var12 = WorldMapSection1.archive8;
+            var12 = WorldMapSection2.archive8;
             var14 = var12.getGroupId("sl_flags");
             var13 = var12.getFileId(var14, "");
             if (!SpriteMask.loadSprite(var12, var14, var13)) {
@@ -116,7 +116,7 @@ public class ArchiveLoader {
          }
 
          if (AttackOption.worldSelectArrows == null) {
-            var12 = WorldMapSection1.archive8;
+            var12 = WorldMapSection2.archive8;
             var14 = var12.getGroupId("sl_arrows");
             var13 = var12.getFileId(var14, "");
             if (!SpriteMask.loadSprite(var12, var14, var13)) {
@@ -129,7 +129,7 @@ public class ArchiveLoader {
          }
 
          if (UrlRequest.worldSelectStars == null) {
-            var12 = WorldMapSection1.archive8;
+            var12 = WorldMapSection2.archive8;
             var14 = var12.getGroupId("sl_stars");
             var13 = var12.getFileId(var14, "");
             if (!SpriteMask.loadSprite(var12, var14, var13)) {
@@ -142,11 +142,11 @@ public class ArchiveLoader {
          }
 
          if (SecureRandomFuture.worldSelectLeftSprite == null) {
-            SecureRandomFuture.worldSelectLeftSprite = MenuAction.loadIndexedSpriteByName(WorldMapSection1.archive8, "leftarrow", "");
+            SecureRandomFuture.worldSelectLeftSprite = MenuAction.loadIndexedSpriteByName(WorldMapSection2.archive8, "leftarrow", "");
          }
 
          if (NetSocket.worldSelectRightSprite == null) {
-            NetSocket.worldSelectRightSprite = MenuAction.loadIndexedSpriteByName(WorldMapSection1.archive8, "rightarrow", "");
+            NetSocket.worldSelectRightSprite = MenuAction.loadIndexedSpriteByName(WorldMapSection2.archive8, "rightarrow", "");
          }
 
          Rasterizer2D.Rasterizer2D_fillRectangle(Login.xPadding, 23, 765, 480, 0);
@@ -683,8 +683,8 @@ public class ArchiveLoader {
             int[] var38 = new int[4];
             Rasterizer2D.Rasterizer2D_getClipArray(var38);
             Rasterizer2D.Rasterizer2D_setClip(Login.xPadding, 0, Login.xPadding + 765, Huffman.canvasHeight);
-            class16.loginScreenRunesAnimation.method1782(Login.xPadding - 22, Client.cycle);
-            class16.loginScreenRunesAnimation.method1782(Login.xPadding + 22 + 765 - 128, Client.cycle);
+            class16.loginScreenRunesAnimation.draw(Login.xPadding - 22, Client.cycle);
+            class16.loginScreenRunesAnimation.draw(Login.xPadding + 22 + 765 - 128, Client.cycle);
             Rasterizer2D.Rasterizer2D_setClipArray(var38);
          }
 
@@ -703,7 +703,7 @@ public class ArchiveLoader {
                   var1.drawCentered("Click to switch", var39 / 2 + var10, var41 / 2 + var34 + 12, 16777215, 0);
                }
             } else {
-               class277.field1144 = MenuAction.loadIndexedSpriteByName(WorldMapSection1.archive8, "sl_button", "");
+               class277.field1144 = MenuAction.loadIndexedSpriteByName(WorldMapSection2.archive8, "sl_button", "");
             }
          }
       }

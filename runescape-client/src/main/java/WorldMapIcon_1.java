@@ -7,18 +7,20 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("r")
-@Implements("WorldMapIcon2")
-public class WorldMapIcon2 extends AbstractWorldMapIcon {
+@Implements("WorldMapIcon_1")
+public class WorldMapIcon_1 extends AbstractWorldMapIcon {
    @ObfuscatedName("m")
    @ObfuscatedGetter(
       intValue = -985436813
    )
-   final int field1034;
+   @Export("objectDefId")
+   final int objectDefId;
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lav;"
    )
-   final WorldMapRegion field1035;
+   @Export("region")
+   final WorldMapRegion region;
    @ObfuscatedName("q")
    @ObfuscatedGetter(
       intValue = -25914375
@@ -35,21 +37,23 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
    @ObfuscatedGetter(
       intValue = 927871683
    )
-   int field1037;
+   @Export("subWidth")
+   int subWidth;
    @ObfuscatedName("u")
    @ObfuscatedGetter(
       intValue = -1431936619
    )
-   int field1038;
+   @Export("subHeight")
+   int subHeight;
 
    @ObfuscatedSignature(
       signature = "(Lhu;Lhu;ILav;)V"
    )
-   WorldMapIcon2(Coord var1, Coord var2, int var3, WorldMapRegion var4) {
-      super(var1, var2);
-      this.field1034 = var3;
-      this.field1035 = var4;
-      this.method399();
+   WorldMapIcon_1(Coord chunkCoord, Coord tileCoord, int objectDefId, WorldMapRegion region) {
+      super(chunkCoord, tileCoord);
+      this.objectDefId = objectDefId;
+      this.region = region;
+      this.init();
    }
 
    @ObfuscatedName("m")
@@ -77,8 +81,9 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
       signature = "(B)I",
       garbageValue = "75"
    )
-   int vmethod397() {
-      return this.field1037;
+   @Export("getSubWidth")
+   int getSubWidth() {
+      return this.subWidth;
    }
 
    @ObfuscatedName("w")
@@ -86,8 +91,9 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
       signature = "(I)I",
       garbageValue = "-1558233611"
    )
-   int vmethod398() {
-      return this.field1038;
+   @Export("getSubHeight")
+   int getSubHeight() {
+      return this.subHeight;
    }
 
    @ObfuscatedName("z")
@@ -95,17 +101,18 @@ public class WorldMapIcon2 extends AbstractWorldMapIcon {
       signature = "(I)V",
       garbageValue = "-806344204"
    )
-   void method399() {
-      this.element = class50.getObjectDefinition(this.field1034).transform().mapIconId;
-      this.label = this.field1035.createMapLabel(ViewportMouse.getWorldMapElement(this.element));
+   @Export("init")
+   void init() {
+      this.element = class50.getObjectDefinition(this.objectDefId).transform().mapIconId;
+      this.label = this.region.createMapLabel(ViewportMouse.getWorldMapElement(this.element));
       WorldMapElement var1 = ViewportMouse.getWorldMapElement(this.getElement());
-      Sprite var2 = var1.getSprite(false);
+      Sprite var2 = var1.getSpriteBool(false);
       if (var2 != null) {
-         this.field1037 = var2.subWidth;
-         this.field1038 = var2.subHeight;
+         this.subWidth = var2.subWidth;
+         this.subHeight = var2.subHeight;
       } else {
-         this.field1037 = 0;
-         this.field1038 = 0;
+         this.subWidth = 0;
+         this.subHeight = 0;
       }
 
    }

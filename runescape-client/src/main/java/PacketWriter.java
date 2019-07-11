@@ -53,14 +53,14 @@ public class PacketWriter {
    @ObfuscatedSignature(
       signature = "Lge;"
    )
-   @Export("serverPacket0")
-   ServerPacket serverPacket0;
+   @Export("serverPacket")
+   ServerPacket serverPacket;
    @ObfuscatedName("l")
    @ObfuscatedGetter(
       intValue = -1986766063
    )
-   @Export("serverPacket0Length")
-   int serverPacket0Length;
+   @Export("serverPacketLength")
+   int serverPacketLength;
    @ObfuscatedName("e")
    boolean field673;
    @ObfuscatedName("x")
@@ -94,8 +94,8 @@ public class PacketWriter {
       this.field672 = 0;
       this.buffer = new Buffer(5000);
       this.packetBuffer = new PacketBuffer(40000);
-      this.serverPacket0 = null;
-      this.serverPacket0Length = 0;
+      this.serverPacket = null;
+      this.serverPacketLength = 0;
       this.field673 = true;
       this.field674 = 0;
       this.field675 = 0;
@@ -122,14 +122,14 @@ public class PacketWriter {
 
          while (true) {
             PacketBufferNode var1 = (PacketBufferNode)this.packetBufferNodes.last();
-            if (var1 == null || var1.field671 > this.buffer.array.length - this.buffer.index) {
+            if (var1 == null || var1.index > this.buffer.array.length - this.buffer.index) {
                this.socket.write(this.buffer.array, 0, this.buffer.index);
                this.field675 = 0;
                break;
             }
 
-            this.buffer.writeBytes(var1.packetBuffer.array, 0, var1.field671);
-            this.field672 -= var1.field671;
+            this.buffer.writeBytes(var1.packetBuffer.array, 0, var1.index);
+            this.field672 -= var1.index;
             var1.remove();
             var1.packetBuffer.method36();
             var1.method238();
@@ -145,9 +145,9 @@ public class PacketWriter {
    )
    public final void method241(PacketBufferNode var1) {
       this.packetBufferNodes.addFirst(var1);
-      var1.field671 = var1.packetBuffer.index;
+      var1.index = var1.packetBuffer.index;
       var1.packetBuffer.index = 0;
-      this.field672 += var1.field671;
+      this.field672 += var1.index;
    }
 
    @ObfuscatedName("w")

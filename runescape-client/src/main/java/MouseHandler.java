@@ -221,8 +221,9 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
       signature = "(IIII)J",
       garbageValue = "1909006131"
    )
-   static long method1083(int var0, int var1, int var2) {
-      return (long)(var2 << 16 | var0 << 8 | var1);
+   @Export("getWorldMapSpriteHash")
+   static long getWorldMapSpriteHash(int regionX, int regionY, int pixelsPerTile) {
+      return (long)(pixelsPerTile << 16 | regionX << 8 | regionY);
    }
 
    @ObfuscatedName("w")

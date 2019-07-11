@@ -176,8 +176,9 @@ public class FloorUnderlayDefinition extends DualNode {
       signature = "(I)[Lip;",
       garbageValue = "618327716"
    )
-   static VerticalAlignment[] method4839() {
-      return new VerticalAlignment[]{VerticalAlignment.field3277, VerticalAlignment.field3273, VerticalAlignment.field3274};
+   @Export("VerticalAlignment_values")
+   static VerticalAlignment[] VerticalAlignment_values() {
+      return new VerticalAlignment[]{VerticalAlignment.VerticalAlignment_topToBottom, VerticalAlignment.VerticalAlignment_centered, VerticalAlignment.VerticalAlignment_bottomToTop};
    }
 
    static {

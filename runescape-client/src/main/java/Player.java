@@ -453,7 +453,7 @@ public final class Player extends Actor {
       if (var1 >= 0 && var1 < 104 && var2 >= 0 && var2 < 104) {
          if (super.pathX[0] >= 0 && super.pathX[0] < 104 && super.pathY[0] >= 0 && super.pathY[0] < 104) {
             if (var3 == 2) {
-               WorldMapIcon2.method316(this, var1, var2, (byte)2);
+               WorldMapIcon_1.method316(this, var1, var2, (byte)2);
             }
 
             this.method255(var1, var2, var3);
@@ -525,7 +525,7 @@ public final class Player extends Actor {
          if (var0 != null && var0.onTargetLeave != null) {
             ScriptEvent var1 = new ScriptEvent();
             var1.widget = var0;
-            var1.args0 = var0.onTargetLeave;
+            var1.args = var0.onTargetLeave;
             AbstractArchive.runScript(var1);
          }
 

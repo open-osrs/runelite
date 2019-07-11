@@ -78,7 +78,7 @@ public class LoginPacket implements ClientPacketMarker {
          var4 = "_wip";
       }
 
-      File var5 = new File(WorldMapSection2.userHomeDirectory, "jagex_" + var1 + "_preferences" + var0 + var4 + ".dat");
+      File var5 = new File(WorldMapSection3.userHomeDirectory, "jagex_" + var1 + "_preferences" + var0 + var4 + ".dat");
       AccessFile var6;
       if (!var2 && var5.exists()) {
          try {
@@ -103,7 +103,7 @@ public class LoginPacket implements ClientPacketMarker {
       field476 = new LoginPacket(18, -2);
       field477 = new LoginPacket(27, 0);
       LoginPacket_indexedValues = new LoginPacket[32];
-      LoginPacket[] var0 = WorldMapIcon2.LoginPacket_values();
+      LoginPacket[] var0 = WorldMapIcon_1.LoginPacket_values();
 
       for (int var1 = 0; var1 < var0.length; ++var1) {
          LoginPacket_indexedValues[var0[var1].id] = var0[var1];

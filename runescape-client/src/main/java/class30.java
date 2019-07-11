@@ -14,12 +14,12 @@ public class class30 {
    @ObfuscatedSignature(
       signature = "Lar;"
    )
-   static final class30 field246;
+   static final class30 class30_something0;
    @ObfuscatedName("f")
    @ObfuscatedSignature(
       signature = "Lar;"
    )
-   static final class30 field247;
+   static final class30 class30_something1;
    @ObfuscatedName("g")
    @ObfuscatedGetter(
       intValue = -18917723
@@ -39,10 +39,11 @@ public class class30 {
    @ObfuscatedGetter(
       intValue = -1474464623
    )
-   final int field248;
+   @Export("value")
+   final int value;
 
    class30(int var1) {
-      this.field248 = var1;
+      this.value = var1;
    }
 
    @ObfuscatedName("at")
@@ -94,7 +95,7 @@ public class class30 {
             if (var1 == 0 && var3.onDialogAbort != null) {
                var6 = new ScriptEvent();
                var6.widget = var3;
-               var6.args0 = var3.onDialogAbort;
+               var6.args = var3.onDialogAbort;
                AbstractArchive.runScript(var6);
             }
 
@@ -108,7 +109,7 @@ public class class30 {
 
                var6 = new ScriptEvent();
                var6.widget = var3;
-               var6.args0 = var3.onSubChange;
+               var6.args = var3.onSubChange;
                AbstractArchive.runScript(var6);
             }
          }
@@ -117,7 +118,7 @@ public class class30 {
    }
 
    static {
-      field246 = new class30(0);
-      field247 = new class30(1);
+      class30_something0 = new class30(0);
+      class30_something1 = new class30(1);
    }
 }

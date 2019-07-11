@@ -76,15 +76,15 @@ public class Rasterizer3D extends Rasterizer2D {
 
    @ObfuscatedName("f")
    @Export("Rasterizer3D_setClip")
-   static final void Rasterizer3D_setClip(int xStart, int yStart, int xEnd, int yEnd) {
-      Rasterizer3D_clipWidth = xEnd - xStart;
-      Rasterizer3D_clipHeight = yEnd - yStart;
+   static final void Rasterizer3D_setClip(int startX, int startY, int endX, int endY) {
+      Rasterizer3D_clipWidth = endX - startX;
+      Rasterizer3D_clipHeight = endY - startY;
       Rasterizer3D_method3();
       if (Rasterizer3D_rowOffsets.length < Rasterizer3D_clipHeight) {
          Rasterizer3D_rowOffsets = new int[World.method1759(Rasterizer3D_clipHeight)];
       }
 
-      int var4 = xStart + Rasterizer2D.Rasterizer2D_width * yStart;
+      int var4 = startX + Rasterizer2D.Rasterizer2D_width * startY;
 
       for (int var5 = 0; var5 < Rasterizer3D_clipHeight; ++var5) {
          Rasterizer3D_rowOffsets[var5] = var4;

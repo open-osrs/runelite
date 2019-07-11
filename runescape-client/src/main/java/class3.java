@@ -232,7 +232,7 @@ public class class3 implements Enumerated {
          }
 
          int var13;
-         while (var1.bitsRemaining(Client.packetWriter.serverPacket0Length) >= 27) {
+         while (var1.bitsRemaining(Client.packetWriter.serverPacketLength) >= 27) {
             var13 = var1.readBits(15);
             if (var13 == 32767) {
                break;
@@ -310,8 +310,8 @@ public class class3 implements Enumerated {
             }
          }
 
-         if (var1.index != Client.packetWriter.serverPacket0Length) {
-            throw new RuntimeException(var1.index + "," + Client.packetWriter.serverPacket0Length);
+         if (var1.index != Client.packetWriter.serverPacketLength) {
+            throw new RuntimeException(var1.index + "," + Client.packetWriter.serverPacketLength);
          } else {
             for (var13 = 0; var13 < Client.npcCount; ++var13) {
                if (Client.npcs[Client.npcIndices[var13]] == null) {

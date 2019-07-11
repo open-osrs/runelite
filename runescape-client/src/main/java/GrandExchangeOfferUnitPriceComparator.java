@@ -53,8 +53,9 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
       signature = "(III)I",
       garbageValue = "1500839037"
    )
-   public static int method125(int var0, int var1) {
-      return (var0 << 8) + var1;
+   @Export("getWorldMapScriptId")
+   public static int getWorldMapScriptId(int identifier, int type) {
+      return (identifier << 8) + type;
    }
 
    @ObfuscatedName("f")
@@ -72,7 +73,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
          return SoundSystem.plane;
       } else {
          int var0 = 3;
-         if (WorldMapIcon1.cameraPitch < 310) {
+         if (WorldMapIcon_0.cameraPitch < 310) {
             int var1;
             int var2;
             if (Client.oculusOrbState == 1) {
@@ -83,7 +84,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
                var2 = Canvas.localPlayer.y >> 7;
             }
 
-            int var3 = WorldMapSection2.cameraX >> 7;
+            int var3 = WorldMapSection3.cameraX >> 7;
             int var4 = GrandExchangeOfferNameComparator.cameraZ >> 7;
             if (var3 < 0 || var4 < 0 || var3 >= 104 || var4 >= 104) {
                return SoundSystem.plane;

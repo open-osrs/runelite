@@ -44,7 +44,8 @@ final class class4 implements class0 {
       signature = "(I)[Lji;",
       garbageValue = "253581236"
    )
-   public static ClientParameter[] method47() {
+   @Export("ClientParameter_values")
+   public static ClientParameter[] ClientParameter_values() {
       return new ClientParameter[]{ClientParameter.field330, ClientParameter.field322, ClientParameter.field328, ClientParameter.field332, ClientParameter.field327, ClientParameter.field326, ClientParameter.field333, ClientParameter.field338, ClientParameter.field324, ClientParameter.field337, ClientParameter.field334, ClientParameter.field336, ClientParameter.field340, ClientParameter.field325, ClientParameter.field335, ClientParameter.field339, ClientParameter.field331, ClientParameter.field323, ClientParameter.field329};
    }
 
@@ -66,7 +67,7 @@ final class class4 implements class0 {
       String var3;
       if (var0 == ScriptOpcodes.MES) {
          var3 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
-         WorldMapIcon1.addGameMessage(0, "", var3);
+         WorldMapIcon_0.addGameMessage(0, "", var3);
          return 1;
       } else if (var0 == ScriptOpcodes.ANIM) {
          RouteStrategy.Interpreter_intStackSize -= 2;
@@ -112,7 +113,7 @@ final class class4 implements class0 {
             if (var0 == ScriptOpcodes.OPPLAYER) {
                var7 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
                var6 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
-               WorldMapSection0.method583(var7, var6);
+               WorldMapSection1.method583(var7, var6);
                return 1;
             } else if (var0 == ScriptOpcodes.IF_DRAGPICKUP) {
                RouteStrategy.Interpreter_intStackSize -= 3;
@@ -126,7 +127,7 @@ final class class4 implements class0 {
                RouteStrategy.Interpreter_intStackSize -= 2;
                var7 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
                var4 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
-               Widget var12 = var2 ? WorldMapIcon1.field1030 : GrandExchangeOfferAgeComparator.field1111;
+               Widget var12 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
                Players.clickWidget(var12, var7, var4);
                return 1;
             } else if (var0 == ScriptOpcodes.MOUSECAM) {
@@ -137,7 +138,7 @@ final class class4 implements class0 {
                return 1;
             } else if (var0 == ScriptOpcodes.SETREMOVEROOFS) {
                ReflectionCheck.clientPreferences.roofsHidden = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
-               WorldMapSection3.savePreferences();
+               WorldMapSection0.savePreferences();
                return 1;
             } else {
                boolean var8;
@@ -265,12 +266,12 @@ final class class4 implements class0 {
                   return 1;
                } else if (var0 == 3140) {
                   Client.field151 = 3;
-                  Client.field153 = var2 ? WorldMapIcon1.field1030.id : GrandExchangeOfferAgeComparator.field1111.id;
+                  Client.field153 = var2 ? WorldMapIcon_0.field1030.id : GrandExchangeOfferAgeComparator.field1111.id;
                   return 1;
                } else if (var0 == ScriptOpcodes.SETHIDEUSERNAME) {
                   var8 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
                   ReflectionCheck.clientPreferences.hideUsername = var8;
-                  WorldMapSection3.savePreferences();
+                  WorldMapSection0.savePreferences();
                   return 1;
                } else if (var0 == ScriptOpcodes.GETHIDEUSERNAME) {
                   Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = ReflectionCheck.clientPreferences.hideUsername ? 1 : 0;
@@ -280,7 +281,7 @@ final class class4 implements class0 {
                   Client.Login_isUsernameRemembered = var8;
                   if (!var8) {
                      ReflectionCheck.clientPreferences.rememberedUsername = "";
-                     WorldMapSection3.savePreferences();
+                     WorldMapSection0.savePreferences();
                   }
 
                   return 1;
@@ -293,7 +294,7 @@ final class class4 implements class0 {
                   var8 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
                   if (var8 == ReflectionCheck.clientPreferences.titleMusicDisabled) {
                      ReflectionCheck.clientPreferences.titleMusicDisabled = !var8;
-                     WorldMapSection3.savePreferences();
+                     WorldMapSection0.savePreferences();
                   }
 
                   return 1;

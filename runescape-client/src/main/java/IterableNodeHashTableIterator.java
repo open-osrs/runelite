@@ -54,17 +54,16 @@ public class IterableNodeHashTableIterator implements Iterator {
          this.last = var1;
          return var1;
       } else {
-         do {
-            if (this.index >= this.hashTable.size) {
-               return null;
-            }
-
+         while (this.index < this.hashTable.size) {
             var1 = this.hashTable.buckets[this.index++].previous;
-         } while(var1 == this.hashTable.buckets[this.index - 1]);
+            if (var1 != this.hashTable.buckets[this.index - 1]) {
+               this.head = var1.previous;
+               this.last = var1;
+               return var1;
+            }
+         }
 
-         this.head = var1.previous;
-         this.last = var1;
-         return var1;
+         return null;
       }
    }
 

@@ -55,6 +55,11 @@ public class ParameterRenamer
 				if (sourceM.getName().equals("<init>"))
 				{
 					ClassFile destCF = (ClassFile) mapping.get(sourceCF);
+					if (destCF == null)
+					{
+						continue;
+					}
+
 					destM = destCF.findMethod("<init>", sourceM.getDescriptor());
 				}
 				else

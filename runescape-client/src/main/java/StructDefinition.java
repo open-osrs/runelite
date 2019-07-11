@@ -111,7 +111,7 @@ public class StructDefinition extends DualNode {
          var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
          var4 = Huffman.getWidget(var3);
       } else {
-         var4 = var2 ? WorldMapIcon1.field1030 : GrandExchangeOfferAgeComparator.field1111;
+         var4 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
       }
 
       if (var0 == ScriptOpcodes.CC_SETSCROLLPOS) {
@@ -240,7 +240,7 @@ public class StructDefinition extends DualNode {
             var4.scrollHeight = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
             WorldMapRectangle.method295(var4);
             if (var3 != -1 && var4.type == 0) {
-               class39.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
+               WorldMapData_1.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
             }
 
             return 1;

@@ -148,7 +148,7 @@ public final class Canvas extends java.awt.Canvas {
                var10.isIf3 = true;
                var5.children[var9] = var10;
                if (var2) {
-                  WorldMapIcon1.field1030 = var10;
+                  WorldMapIcon_0.field1030 = var10;
                } else {
                   GrandExchangeOfferAgeComparator.field1111 = var10;
                }
@@ -160,7 +160,7 @@ public final class Canvas extends java.awt.Canvas {
       } else {
          Widget var6;
          if (var0 == ScriptOpcodes.CC_DELETE) {
-            var6 = var2 ? WorldMapIcon1.field1030 : GrandExchangeOfferAgeComparator.field1111;
+            var6 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
             var5 = Huffman.getWidget(var6.id);
             var5.children[var6.childIndex] = null;
             WorldMapRectangle.method295(var5);
@@ -176,7 +176,7 @@ public final class Canvas extends java.awt.Canvas {
                if (var6 != null) {
                   Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 1;
                   if (var2) {
-                     WorldMapIcon1.field1030 = var6;
+                     WorldMapIcon_0.field1030 = var6;
                   } else {
                      GrandExchangeOfferAgeComparator.field1111 = var6;
                   }
@@ -196,7 +196,7 @@ public final class Canvas extends java.awt.Canvas {
             if (var5 != null && var4 != -1) {
                Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = 1;
                if (var2) {
-                  WorldMapIcon1.field1030 = var5;
+                  WorldMapIcon_0.field1030 = var5;
                } else {
                   GrandExchangeOfferAgeComparator.field1111 = var5;
                }
