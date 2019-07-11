@@ -11,15 +11,18 @@
 
 package net.runelite.client.plugins.pvptools;
 
+import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NavigableMap;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
@@ -149,7 +152,10 @@ public class PvpToolsPlugin extends Plugin
 	private boolean missingPlayersEnabled;
 	private boolean currentPlayersEnabled;
 	private boolean hideAttack;
+	private AttackMode hideAttackMode;
 	private boolean hideCast;
+	private AttackMode hideCastMode;
+	private Set<String> unhiddenCasts = new HashSet<>();
 
 	@Inject
 	private ClientToolbar clientToolbar;
@@ -238,8 +244,6 @@ public class PvpToolsPlugin extends Plugin
 
 		overlayManager.add(pvpToolsOverlay);
 		overlayManager.add(playerCountOverlay);
-		client.setHideFriendAttackOptions(this.hideAttack);
-		client.setHideFriendCastOptions(this.hideCast);
 		keyManager.registerKeyListener(fallinHotkeyListener);
 		keyManager.registerKeyListener(renderselfHotkeyListener);
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "skull.png");
@@ -269,6 +273,27 @@ public class PvpToolsPlugin extends Plugin
 			panel.currentPlayers.setVisible(true);
 		}
 
+		if (this.hideAttack)
+		{
+			hideAttackOptions(this.hideAttackMode);
+		}
+		else
+		{
+			client.setHideFriendAttackOptions(false);
+			client.setHideClanmateAttackOptions(false);
+		}
+
+		if (this.hideCast)
+		{
+			hideCastOptions(this.hideCastMode);
+		}
+		else
+		{
+			client.setHideFriendCastOptions(false);
+			client.setHideClanmateCastOptions(false);
+		}
+
+		client.setUnhiddenCasts(this.unhiddenCasts);
 	}
 
 	@Override
@@ -290,60 +315,82 @@ public class PvpToolsPlugin extends Plugin
 		{
 			return;
 		}
-		client.setHideFriendAttackOptions(this.hideAttack);
-		client.setHideFriendCastOptions(this.hideCast);
 
-		if (configChanged.getGroup().equals("pvptools"))
+		updateConfig();
+
+		switch (configChanged.getKey())
 		{
-			updateConfig();
-
-			switch (configChanged.getKey())
-			{
-				case "countPlayers":
-					if (this.countPlayers)
-					{
-						updatePlayers();
-					}
-					if (!this.countPlayers)
-					{
-						panel.disablePlayerCount();
-					}
-					break;
-				case "countOverHeads":
-					if (this.countOverHeads)
-					{
-						countOverHeads();
-					}
-					if (!this.countOverHeads)
-					{
-						panel.disablePrayerCount();
-					}
-					break;
-				case "riskCalculator":
-					if (this.riskCalculatorEnabled)
-					{
-						getCarriedWealth();
-					}
-					if (!this.riskCalculatorEnabled)
-					{
-						panel.disableRiskCalculator();
-					}
-					break;
-				case "missingPlayers":
-					if (this.missingPlayersEnabled)
-					{
-						panel.missingPlayers.setVisible(true);
-					}
-					break;
-				case "currentPlayers":
-					if (this.currentPlayersEnabled)
-					{
-						panel.currentPlayers.setVisible(true);
-					}
-					break;
-				default:
-					break;
-			}
+			case "countPlayers":
+				if (this.countPlayers)
+				{
+					updatePlayers();
+				}
+				if (!this.countPlayers)
+				{
+					panel.disablePlayerCount();
+				}
+				break;
+			case "countOverHeads":
+				if (this.countOverHeads)
+				{
+					countOverHeads();
+				}
+				if (!this.countOverHeads)
+				{
+					panel.disablePrayerCount();
+				}
+				break;
+			case "riskCalculator":
+				if (this.riskCalculatorEnabled)
+				{
+					getCarriedWealth();
+				}
+				if (!this.riskCalculatorEnabled)
+				{
+					panel.disableRiskCalculator();
+				}
+				break;
+			case "missingPlayers":
+				if (this.missingPlayersEnabled)
+				{
+					panel.missingPlayers.setVisible(true);
+				}
+				break;
+			case "currentPlayers":
+				if (this.currentPlayersEnabled)
+				{
+					panel.currentPlayers.setVisible(true);
+				}
+				break;
+			case "hideAttack":
+			case "hideAttackMode":
+				if (this.hideAttack)
+				{
+					hideAttackOptions(this.hideAttackMode);
+				}
+				else
+				{
+					client.setHideFriendAttackOptions(false);
+					client.setHideClanmateAttackOptions(false);
+				}
+				break;
+			case "hideCast":
+			case "hideCastMode":
+				if (this.hideCast)
+				{
+					hideCastOptions(this.hideCastMode);
+				}
+				else
+				{
+					client.setHideFriendCastOptions(false);
+					client.setHideClanmateCastOptions(false);
+				}
+				break;
+			case "hideCastIgnored":
+				client.setUnhiddenCasts(this.unhiddenCasts);
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -577,6 +624,51 @@ public class PvpToolsPlugin extends Plugin
 		panel.biggestItemLabel.repaint();
 	}
 
+	/**
+	 * Given an AttackMode, hides the appropriate attack options.
+	 * @param mode The {@link AttackMode} specifying clanmates, friends, or both.
+	 */
+	private void hideAttackOptions(AttackMode mode)
+	{
+		switch (mode)
+		{
+			case CLAN:
+				client.setHideClanmateAttackOptions(true);
+				client.setHideFriendAttackOptions(false);
+				break;
+			case FRIENDS:
+				client.setHideFriendAttackOptions(true);
+				client.setHideClanmateAttackOptions(false);
+				break;
+			case BOTH:
+				client.setHideClanmateAttackOptions(true);
+				client.setHideFriendAttackOptions(true);
+				break;
+		}
+	}
+
+	/**
+	 * Given an AttackMode, hides the appropriate cast options.
+	 * @param mode The {@link AttackMode} specifying clanmates, friends, or both.
+	 */
+	private void hideCastOptions(AttackMode mode)
+	{
+		switch (mode)
+		{
+			case CLAN:
+				client.setHideClanmateCastOptions(true);
+				client.setHideFriendCastOptions(false);
+				break;
+			case FRIENDS:
+				client.setHideFriendCastOptions(true);
+				client.setHideClanmateCastOptions(false);
+				break;
+			case BOTH:
+				client.setHideClanmateCastOptions(true);
+				client.setHideFriendCastOptions(true);
+				break;
+		}
+	}
 
 	private void updateConfig()
 	{
@@ -589,6 +681,9 @@ public class PvpToolsPlugin extends Plugin
 		this.missingPlayersEnabled = config.missingPlayersEnabled();
 		this.currentPlayersEnabled = config.currentPlayersEnabled();
 		this.hideAttack = config.hideAttack();
+		this.hideAttackMode = config.hideAttackMode();
 		this.hideCast = config.hideCast();
+		this.hideCastMode = config.hideCastMode();
+		this.unhiddenCasts = Sets.newHashSet(Text.fromCSV(config.hideCastIgnored().toLowerCase()));
 	}
 }
