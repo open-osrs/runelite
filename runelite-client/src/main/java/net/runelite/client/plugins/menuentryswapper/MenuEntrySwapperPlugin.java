@@ -127,6 +127,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private MenuEntry[] entries;
 	private final Set<String> leftClickConstructionItems = new HashSet<>();
 	private boolean buildingMode;
+	private boolean inTobRaid;
+	private boolean inCoxRaid;
 
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
 		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
@@ -388,20 +390,16 @@ public class MenuEntrySwapperPlugin extends Plugin
 			clientThread.invoke(this::resetItemDefinitionCache);
 		}
 
-		if (event.getKey().equals("removeFreezePlayerToB"))
+		if (event.getKey().equals("removeFreezePlayerToB") && inTobRaid)
 		{
-			if (this.getRemoveFreezePlayerToB && client.getVar(Varbits.THEATRE_OF_BLOOD) == 2)
-			{
-				client.setHideFriendCastOptions(config.getRemoveFreezePlayerToB());
-			}
+			client.setHideFriendCastOptions(this.getRemoveFreezePlayerToB);
+			client.setHideClanmateCastOptions(this.getRemoveFreezePlayerToB);
 		}
 
-		if (event.getKey().equals("removeFreezePlayerCoX"))
+		if (event.getKey().equals("removeFreezePlayerCoX") && inCoxRaid)
 		{
-			if (this.getRemoveFreezePlayerCoX && client.getVar(Varbits.IN_RAID) == 1)
-			{
-				client.setHideFriendCastOptions(config.getRemoveFreezePlayerCoX());
-			}
+			client.setHideFriendCastOptions(this.getRemoveFreezePlayerCoX);
+			client.setHideClanmateCastOptions(this.getRemoveFreezePlayerCoX);
 		}
 	}
 
@@ -477,6 +475,24 @@ public class MenuEntrySwapperPlugin extends Plugin
 	public void onVarbitChanged(VarbitChanged event)
 	{
 		buildingMode = client.getVar(BUILDING_MODE) == 1;
+
+		boolean tmpInCoxRaid = client.getVar(Varbits.IN_RAID) == 1;
+		if (tmpInCoxRaid != inCoxRaid)
+		{
+			client.setHideFriendCastOptions(this.getRemoveFreezePlayerCoX);
+			client.setHideClanmateCastOptions(this.getRemoveFreezePlayerCoX);
+			inCoxRaid = tmpInCoxRaid;
+		}
+		else
+		{
+			boolean tmpInTobRaid = client.getVar(Varbits.THEATRE_OF_BLOOD) == 2;
+			if (tmpInTobRaid != inTobRaid)
+			{
+				client.setHideFriendCastOptions(this.getRemoveFreezePlayerToB);
+				client.setHideClanmateCastOptions(this.getRemoveFreezePlayerToB);
+				inTobRaid = tmpInTobRaid;
+			}
+		}
 	}
 
 	@Subscribe
