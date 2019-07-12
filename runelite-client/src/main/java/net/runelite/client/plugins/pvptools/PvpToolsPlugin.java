@@ -39,6 +39,7 @@ import net.runelite.api.ItemDefinition;
 import net.runelite.api.Player;
 import net.runelite.api.SkullIcon;
 import net.runelite.api.Varbits;
+import net.runelite.api.WorldType;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
@@ -663,7 +664,8 @@ public class PvpToolsPlugin extends Plugin
 	{
 		clientThread.invoke(() ->
 		{
-			if (client.getVar(Varbits.IN_RAID) == 1 || client.getVar(Varbits.THEATRE_OF_BLOOD) == 2)
+			if ((client.getVar(Varbits.IN_RAID) == 1 || client.getVar(Varbits.THEATRE_OF_BLOOD) == 2)
+				|| (client.getVar(Varbits.IN_WILDERNESS) != 1 && !WorldType.isAllPvpWorld(client.getWorldType())))
 			{
 				return;
 			}
