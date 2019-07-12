@@ -79,6 +79,7 @@ import net.runelite.client.menus.ComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.menus.WidgetMenuOption;
 import net.runelite.client.plugins.Plugin;
+import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
@@ -117,6 +118,7 @@ import org.apache.commons.lang3.ArrayUtils;
 	enabledByDefault = false
 )
 @Singleton
+@PluginDependency(PvpToolsPlugin.class)
 public class MenuEntrySwapperPlugin extends Plugin
 {
 	private static final String CONFIGURE = "Configure";
@@ -194,6 +196,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	@Inject
 	private ItemManager itemManager;
+
+	@Inject
+	private PvpToolsPlugin pvpTools;
+
+	@Inject
+	private PvpToolsConfig pvpToolsConfig;
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean configuringShiftClick = false;
@@ -1751,14 +1759,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void resetCastOptions()
 	{
-		Plugin pvpTools = pluginManager.getPlugins().stream().filter(plugin ->
-			plugin.getClass().getSimpleName().equals("PvpToolsPlugin")).findFirst().orElse(null);
-		if (pvpTools != null && pluginManager.isPluginEnabled(pvpTools))
+		if (pluginManager.isPluginEnabled(pvpTools))
 		{
-			PvpToolsConfig pvpToolsConfig = configManager.getConfig(PvpToolsConfig.class);
 			if (pvpToolsConfig.hideCast())
 			{
-				((PvpToolsPlugin)pvpTools).hideCastOptions(pvpToolsConfig.hideCastMode());
+				pvpTools.hideCastOptions(pvpToolsConfig.hideCastMode());
 				client.setUnhiddenCasts(Sets.newHashSet(Text.fromCSV(pvpToolsConfig.hideCastIgnored().toLowerCase())));
 			}
 		}
