@@ -122,7 +122,8 @@ public class VorkathPlugin extends Plugin
 	}
 
 	@Provides
-	VorkathConfig provideConfig(ConfigManager configManager) {
+	VorkathConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(VorkathConfig.class);
 	}
 
@@ -453,8 +454,8 @@ public class VorkathPlugin extends Plugin
 					// Positive X (first iteration) or positive Y (second iteration)
 					for (int i = 1; i < 25; i++)
 					{
-						WorldPoint testingLocation = new WorldPoint(baseLocation.getX() + i*directions[d][0][0],
-								baseLocation.getY() + i*directions[d][0][1], baseLocation.getPlane());
+						WorldPoint testingLocation = new WorldPoint(baseLocation.getX() + i * directions[d][0][0],
+								baseLocation.getY() + i * directions[d][0][1], baseLocation.getPlane());
 
 						if (acidSpots.contains(testingLocation) || testingLocation.getY() < minY || testingLocation.getY() > maxY
 								|| testingLocation.getX() < minX || testingLocation.getX() > maxX)
@@ -468,8 +469,8 @@ public class VorkathPlugin extends Plugin
 					// Negative X (first iteration) or positive Y (second iteration)
 					for (int i = 1; i < 25; i++)
 					{
-						WorldPoint testingLocation = new WorldPoint(baseLocation.getX() + i*directions[d][1][0],
-								baseLocation.getY() + i*directions[d][1][1], baseLocation.getPlane());
+						WorldPoint testingLocation = new WorldPoint(baseLocation.getX() + i * directions[d][1][0],
+								baseLocation.getY() + i * directions[d][1][1], baseLocation.getPlane());
 
 						if (acidSpots.contains(testingLocation) || testingLocation.getY() < minY || testingLocation.getY() > maxY
 								|| testingLocation.getX() < minX || testingLocation.getX() > maxX)
@@ -560,7 +561,7 @@ public class VorkathPlugin extends Plugin
 			height++;
 		}
 		int x = (int) Math.floor(screen.getX() + width / 2.0);
-		int y = (int) Math.floor(screen.getY() + screen.getHeight() - 2*height);
+		int y = (int) Math.floor(screen.getY() + screen.getHeight() - 2 * height);
 		wooxWalkBar = new Rectangle(x, y, width, height);
 	}
 }
