@@ -33,11 +33,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
+@ToString
 public class DiscordMessage
 {
 	String username;
@@ -46,7 +48,7 @@ public class DiscordMessage
 	String avatarUrl;
 	@SerializedName("tts")
 	boolean textToSpeech;
-	List<DiscordEmbed> embeds = new ArrayList<DiscordEmbed>();
+	List<DiscordEmbed> embeds = new ArrayList<>();
 
 	public DiscordMessage()
 	{
@@ -80,7 +82,7 @@ public class DiscordMessage
 
 	public static class DiscordMessageBuilder
 	{
-		List<DiscordEmbed> embeds = new ArrayList<DiscordEmbed>();
+		List<DiscordEmbed> embeds = new ArrayList<>();
 
 		public DiscordMessageBuilder embed(DiscordEmbed embed)
 		{

@@ -32,6 +32,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.runelite.http.api.discord.embed.AuthorEmbed;
 import net.runelite.http.api.discord.embed.FieldEmbed;
 import net.runelite.http.api.discord.embed.FooterEmbed;
@@ -44,6 +45,7 @@ import net.runelite.http.api.discord.embed.VideoEmbed;
 @Setter
 @Builder
 @AllArgsConstructor
+@ToString
 public class DiscordEmbed
 {
 	String title;
@@ -52,14 +54,14 @@ public class DiscordEmbed
 	String url;
 	String timestamp;
 	String iconurl;
-	int color;
+	String color;
 	FooterEmbed footer;
 	ImageEmbed image;
 	ThumbnailEmbed thumbnail;
 	VideoEmbed video;
 	ProviderEmbed provider;
 	AuthorEmbed author;
-	List<FieldEmbed> fields = new ArrayList<FieldEmbed>();
+	List<FieldEmbed> fields = new ArrayList<>();
 
 	public DiscordEmbed()
 	{
@@ -80,14 +82,12 @@ public class DiscordEmbed
 
 	public static DiscordMessage toDiscordMessage(DiscordEmbed embed, String username, String avatarURL)
 	{
-		DiscordMessage dm = DiscordMessage.builder()
+		return DiscordMessage.builder()
 			.username(username)
 			.avatarUrl(avatarURL)
 			.content("")
 			.embed(embed)
 			.build();
-
-		return dm;
 	}
 
 	public DiscordMessage toDiscordMessage(String username, String avatarUrl)
@@ -97,7 +97,7 @@ public class DiscordEmbed
 
 	public static class DiscordEmbedBuilder
 	{
-		List<FieldEmbed> fields = new ArrayList<FieldEmbed>();
+		List<FieldEmbed> fields = new ArrayList<>();
 
 		public DiscordEmbedBuilder field(FieldEmbed field)
 		{

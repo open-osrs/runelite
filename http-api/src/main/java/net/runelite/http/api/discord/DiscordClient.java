@@ -28,6 +28,7 @@ package net.runelite.http.api.discord;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,15 +40,15 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class DiscordClient
 {
 	public static final Gson gson = new Gson();
 	private static final MediaType JSON = MediaType.parse("application/json");
 
-	private static final Logger logger = LoggerFactory.getLogger(DiscordClient.class);
-
 	public void message(HttpUrl url, DiscordMessage discordMessage)
 	{
+		log.info("Message being sent");
 		message(url, discordMessage, 0, 5);
 	}
 
@@ -58,13 +59,15 @@ public class DiscordClient
 			.url(url)
 			.build();
 
+		log.info("Attempting to message with {}", discordMessage);
+
 		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
 		{
 
 			@Override
 			public void onFailure(Call call, IOException e)
 			{
-				logger.warn("unable to submit discord post", e);
+				log.warn("Unable to submit discord post.", e);
 				if (retryAttempt < maxAttempts)
 				{
 					message(url, discordMessage, retryAttempt + 1, maxAttempts);
@@ -76,16 +79,21 @@ public class DiscordClient
 			{
 				try
 				{
+					if (response.body() == null)
+					{
+						log.error("API Call - Reponse was null.");
+						return;
+					}
 					if (response.body().string().contains("You are being rate limited") && retryAttempt < maxAttempts)
 					{
-						logger.debug("you are being rate limited, retrying...");
+						log.error("You are being rate limited, retrying...");
 						message(url, discordMessage, retryAttempt + 1, maxAttempts);
 					}
 				}
 				finally
 				{
 					response.close();
-					logger.debug("submitted discord log record");
+					log.debug("Submitted discord log record");
 				}
 			}
 		});

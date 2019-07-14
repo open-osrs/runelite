@@ -26,20 +26,26 @@
 
 package net.runelite.http.api.discord.embed;
 
+import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class FieldEmbed
 {
+	@NonNull
 	String name;
+	@NonNull
 	String value;
 	boolean inline;
 }
