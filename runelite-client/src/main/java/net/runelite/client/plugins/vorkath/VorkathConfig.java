@@ -32,32 +32,34 @@ import net.runelite.client.config.ConfigItem;
 public interface VorkathConfig extends Config
 {
 	@ConfigItem(
-			keyName = "indicateAcidPools",
-			name = "Acid Pools",
-			description = "Indicate the acid pools",
-			position = 0
+		keyName = "indicateAcidPools",
+		name = "Acid Pools",
+		description = "Indicate the acid pools",
+		position = 0
 	)
-	default boolean indicateAcidPoolsEnabled()
+	default boolean indicateAcidPools()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "indicateAcidFreePath",
-			name = "Acid Free Path",
-			description = "Indicate the most efficient acid free path",
-			position = 1
+		keyName = "indicateAcidFreePath",
+		name = "Acid Free Path",
+		description = "Indicate the most efficient acid free path",
+		position = 1
 	)
-	default boolean indicateAcidFreePathEnabled()
+	default boolean indicateAcidFreePath()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "acidFreePathMinLength",
-			name = "Minimum Length Acid Free Path",
-			description = "The minimum length of an acid free path",
-			position = 2
+		keyName = "acidFreePathMinLength",
+		name = "Minimum Length Acid Free Path",
+		description = "The minimum length of an acid free path",
+		position = 2,
+		hidden = true,
+		unhide = "indicateAcidFreePath"
 	)
 	default int acidFreePathLength()
 	{
@@ -65,23 +67,23 @@ public interface VorkathConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "indicateWooxWalkPath",
-			name = "WooxWalk Path",
-			description = "Indicate the closest WooxWalk path",
-			position = 3
+		keyName = "indicateWooxWalkPath",
+		name = "WooxWalk Path",
+		description = "Indicate the closest WooxWalk path",
+		position = 3
 	)
-	default boolean indicateWooxWalkPathEnabled()
+	default boolean indicateWooxWalkPath()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "indicateWooxWalkTick",
-			name = "WooxWalk Tick",
-			description = "Indicate on which tile to click during each game tick",
-			position = 4
+		keyName = "indicateWooxWalkTick",
+		name = "WooxWalk Tick",
+		description = "Indicate on which tile to click during each game tick",
+		position = 4
 	)
-	default boolean indicateWooxWalkTickEnabled()
+	default boolean indicateWooxWalkTick()
 	{
 		return true;
 	}
