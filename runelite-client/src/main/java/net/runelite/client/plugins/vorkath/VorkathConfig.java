@@ -28,7 +28,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("pkhelper")
+@ConfigGroup("vorkath")
 public interface VorkathConfig extends Config
 {
 	@ConfigItem(
@@ -37,7 +37,7 @@ public interface VorkathConfig extends Config
 			description = "Indicate the acid pools",
 			position = 0
 	)
-	default boolean indicateAcidPools()
+	default boolean indicateAcidPoolsEnabled()
 	{
 		return false;
 	}
@@ -48,7 +48,7 @@ public interface VorkathConfig extends Config
 			description = "Indicate the most efficient acid free path",
 			position = 1
 	)
-	default boolean indicateAcidFreePath()
+	default boolean indicateAcidFreePathEnabled()
 	{
 		return true;
 	}
@@ -70,7 +70,7 @@ public interface VorkathConfig extends Config
 			description = "Indicate the closest WooxWalk path",
 			position = 3
 	)
-	default boolean indicateWooxWalkPath()
+	default boolean indicateWooxWalkPathEnabled()
 	{
 		return true;
 	}
@@ -81,7 +81,7 @@ public interface VorkathConfig extends Config
 			description = "Indicate on which tile to click during each game tick",
 			position = 4
 	)
-	default boolean indicateWooxWalkTick()
+	default boolean indicateWooxWalkTickEnabled()
 	{
 		return true;
 	}

@@ -34,6 +34,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -44,6 +45,7 @@ import net.runelite.api.ProjectileID;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ClientTick;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameTick;
@@ -91,27 +93,27 @@ public class VorkathPlugin extends Plugin
 	@Inject
 	private VorkathConfig config;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Vorkath vorkath;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private NPC zombifiedSpawn;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private List<WorldPoint> acidSpots = new ArrayList<WorldPoint>();
 
 	private int lastAcidSpotsSize = 0;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private List<WorldPoint> acidFreePath = new ArrayList<WorldPoint>();
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private WorldPoint[] wooxWalkPath = new WorldPoint[2];
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private long wooxWalkTimer = -1;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Rectangle wooxWalkBar;
 
 	/**
@@ -138,6 +140,34 @@ public class VorkathPlugin extends Plugin
 		return configManager.getConfig(VorkathConfig.class);
 	}
 
+	// Config values
+	@Getter(AccessLevel.PACKAGE)
+	private boolean configIndicateAcidPoolsEnabled;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean configIndicateAcidFreePathEnabled;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean configIndicateWooxWalkPathEnabled;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean configIndicateWooxWalkTickEnabled;
+	private int configAcidFreePathLength;
+
+	@Override
+	protected void startUp() throws Exception
+	{
+		updateConfig();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("vorkath"))
+		{
+			return;
+		}
+
+		updateConfig();
+	}
+
 	@Subscribe
 	public void onNpcSpawned(NpcSpawned event)
 	{
@@ -160,24 +190,21 @@ public class VorkathPlugin extends Plugin
 	@Subscribe
 	public void onNpcDespawned(NpcDespawned event)
 	{
-		if (isAtVorkath())
+		if (isVorkath(event.getNpc().getId()))
 		{
-			if (isVorkath(event.getNpc().getId()))
-			{
-				vorkath = null;
-				lastProjectileCycle = -1;
-				overlayManager.remove(overlay);
-				overlayManager.remove(acidPathOverlay);
-				acidSpots.clear();
-				acidFreePath.clear();
-				Arrays.fill(wooxWalkPath, null);
-				wooxWalkTimer = -1;
-			}
-			else if (isZombifiedSpawn(event.getNpc().getId()))
-			{
-				zombifiedSpawn = null;
-				overlayManager.remove(spawnOverlay);
-			}
+			overlayManager.remove(overlay);
+			overlayManager.remove(acidPathOverlay);
+			vorkath = null;
+			lastProjectileCycle = -1;
+			acidSpots.clear();
+			acidFreePath.clear();
+			Arrays.fill(wooxWalkPath, null);
+			wooxWalkTimer = -1;
+		}
+		else if (isZombifiedSpawn(event.getNpc().getId()))
+		{
+			overlayManager.remove(spawnOverlay);
+			zombifiedSpawn = null;
 		}
 	}
 
@@ -302,13 +329,13 @@ public class VorkathPlugin extends Plugin
 		}
 
 		// Update the acid free path every tick to account for player movement
-		if (config.indicateAcidFreePath() && !acidSpots.isEmpty())
+		if (this.configIndicateAcidFreePathEnabled && !acidSpots.isEmpty())
 		{
 			calculateAcidFreePath();
 		}
 
 		// Start the timer when the player walks into the WooxWalk zone
-		if (config.indicateWooxWalkPath() && config.indicateWooxWalkTick()
+		if (this.configIndicateWooxWalkPathEnabled && this.configIndicateWooxWalkTickEnabled
 				&& wooxWalkPath[0] != null && wooxWalkPath[1] != null)
 		{
 			WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
@@ -333,6 +360,36 @@ public class VorkathPlugin extends Plugin
 			{
 				wooxWalkTimer = -1;
 			}
+		}
+	}
+
+	@Subscribe
+	private void onClientTick(ClientTick event)
+	{
+		if (acidSpots.size() != lastAcidSpotsSize)
+		{
+			if (acidSpots.size() == 0)
+			{
+				overlayManager.remove(acidPathOverlay);
+				acidFreePath.clear();
+				Arrays.fill(wooxWalkPath, null);
+				wooxWalkTimer = -1;
+			}
+			else
+			{
+				if (this.configIndicateAcidFreePathEnabled)
+				{
+					calculateAcidFreePath();
+				}
+				if (this.configIndicateWooxWalkPathEnabled)
+				{
+					calculateWooxWalkPath();
+				}
+
+				overlayManager.add(acidPathOverlay);
+			}
+
+			lastAcidSpotsSize = acidSpots.size();
 		}
 	}
 
@@ -374,36 +431,6 @@ public class VorkathPlugin extends Plugin
 		if (!acidSpots.contains(acidSpotLocation))
 		{
 			acidSpots.add(acidSpotLocation);
-		}
-	}
-
-	@Subscribe
-	private void onClientTick(ClientTick event)
-	{
-		if (acidSpots.size() != lastAcidSpotsSize)
-		{
-			if (acidSpots.size() == 0)
-			{
-				overlayManager.remove(acidPathOverlay);
-				acidFreePath.clear();
-				Arrays.fill(wooxWalkPath, null);
-				wooxWalkTimer = -1;
-			}
-			else
-			{
-				if (config.indicateAcidFreePath())
-				{
-					calculateAcidFreePath();
-				}
-				if (config.indicateWooxWalkPath())
-				{
-					calculateWooxWalkPath();
-				}
-
-				overlayManager.add(acidPathOverlay);
-			}
-
-			lastAcidSpotsSize = acidSpots.size();
 		}
 	}
 
@@ -492,7 +519,7 @@ public class VorkathPlugin extends Plugin
 						currentPath.add(testingLocation);
 					}
 
-					if (currentPath.size() >= config.acidFreePathLength()
+					if (currentPath.size() >= this.configAcidFreePathLength
 							&& currentClicksRequired < bestClicksRequired
 							|| (currentClicksRequired == bestClicksRequired && currentPath.size() > bestPath.size()))
 					{
@@ -574,5 +601,14 @@ public class VorkathPlugin extends Plugin
 		int x = (int) Math.floor(screen.getX() + width / 2.0);
 		int y = (int) Math.floor(screen.getY() + screen.getHeight() - 2 * height);
 		wooxWalkBar = new Rectangle(x, y, width, height);
+	}
+
+	private void updateConfig()
+	{
+		this.configIndicateAcidPoolsEnabled = config.indicateAcidPoolsEnabled();
+		this.configIndicateAcidFreePathEnabled = config.indicateAcidFreePathEnabled();
+		this.configIndicateWooxWalkPathEnabled = config.indicateWooxWalkPathEnabled();
+		this.configIndicateWooxWalkTickEnabled = config.indicateWooxWalkTickEnabled();
+		this.configAcidFreePathLength = config.acidFreePathLength();
 	}
 }
