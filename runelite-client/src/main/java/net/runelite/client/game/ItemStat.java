@@ -1,6 +1,5 @@
 package net.runelite.client.game;
 
-import lombok.Builder;
 import lombok.Value;
 
 @Value
