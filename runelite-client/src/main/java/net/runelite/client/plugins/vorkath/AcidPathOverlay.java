@@ -30,6 +30,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -38,7 +39,6 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
-import javax.inject.Inject;
 
 public class AcidPathOverlay extends Overlay
 {
@@ -46,8 +46,7 @@ public class AcidPathOverlay extends Overlay
 	private static final Color ACID_FREE_PATH_COLOR = Color.PINK;
 	private static final Color WOOXWALK_ATTACK_SPOT_COLOR = Color.YELLOW;
 	private static final Color WOOXWALK_OUT_OF_REACH_SPOT_COLOR = Color.RED;
-
-	private final int BAR_INDICATOR_SPACER = 5;
+	private static final int BAR_INDICATOR_SPACER = 5;
 
 	private final Client client;
 	private final VorkathPlugin plugin;
@@ -70,7 +69,7 @@ public class AcidPathOverlay extends Overlay
 			return null;
 		}
 
-		if (plugin.isConfigIndicateAcidPoolsEnabled() && plugin.getAcidSpots() != null
+		if (plugin.isIndicateAcidPools() && plugin.getAcidSpots() != null
 				&& !plugin.getAcidSpots().isEmpty())
 		{
 			for (WorldPoint acidWorldPoint : plugin.getAcidSpots())
@@ -85,7 +84,7 @@ public class AcidPathOverlay extends Overlay
 			}
 		}
 
-		if (plugin.isConfigIndicateAcidFreePathEnabled() && plugin.getAcidFreePath() != null
+		if (plugin.isIndicateAcidFreePath() && plugin.getAcidFreePath() != null
 				&& !plugin.getAcidFreePath().isEmpty())
 		{
 			for (WorldPoint acidFreeWorldPoint : plugin.getAcidFreePath())
@@ -101,7 +100,7 @@ public class AcidPathOverlay extends Overlay
 			}
 		}
 
-		if (plugin.isConfigIndicateWooxWalkPathEnabled() && plugin.getWooxWalkPath()[0] != null
+		if (plugin.isIndicateWooxWalkPath() && plugin.getWooxWalkPath()[0] != null
 				&& plugin.getWooxWalkPath()[1] != null)
 		{
 			LocalPoint attackLocalPoint = LocalPoint.fromWorld(client, plugin.getWooxWalkPath()[0]);
@@ -114,7 +113,7 @@ public class AcidPathOverlay extends Overlay
 				OverlayUtil.renderPolygon(graphics, Perspective.getCanvasTilePoly(client,
 					outOfReachLocalPoint), Color.RED);
 
-				if (plugin.isConfigIndicateWooxWalkTickEnabled() && plugin.getWooxWalkBar() != null
+				if (plugin.isIndicateWooxWalkTick() && plugin.getWooxWalkBar() != null
 					&& plugin.getWooxWalkTimer() != -1)
 				{
 					int[] xpointsAttack = {
