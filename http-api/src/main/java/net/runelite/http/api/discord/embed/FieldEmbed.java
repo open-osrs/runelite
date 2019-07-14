@@ -26,7 +26,6 @@
 
 package net.runelite.http.api.discord.embed;
 
-import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
