@@ -70,8 +70,8 @@ public class PartyService
 		this.sessionManager = sessionManager;
 		this.eventBus = eventBus;
 
-		eventBus.subscribe(UserJoin.class, this, o -> this.onUserJoin((UserJoin) o));
-		eventBus.subscribe(UserPart.class, this, o -> this.onUserPart((UserPart) o));
+		eventBus.subscribe(UserJoin.class, this, event -> this.onUserJoin((UserJoin) event));
+		eventBus.subscribe(UserPart.class, this, event -> this.onUserPart((UserPart) event));
 	}
 
 	public void changeParty(UUID newParty)

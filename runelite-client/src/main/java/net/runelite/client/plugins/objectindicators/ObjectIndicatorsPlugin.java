@@ -150,15 +150,15 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 
 	private void addSubscriptions()
 	{
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
-		eventbus.subscribe(FocusChanged.class, this, o -> this.onFocusChanged((FocusChanged) o));
-		eventbus.subscribe(GameObjectSpawned.class, this, o -> this.onGameObjectSpawned((GameObjectSpawned) o));
-		eventbus.subscribe(DecorativeObjectSpawned.class, this, o -> this.onDecorativeObjectSpawned((DecorativeObjectSpawned) o));
-		eventbus.subscribe(GameObjectDespawned.class, this, o -> this.onGameObjectDespawned((GameObjectDespawned) o));
-		eventbus.subscribe(DecorativeObjectDespawned.class, this, o -> this.onDecorativeObjectDespawned((DecorativeObjectDespawned) o));
-		eventbus.subscribe(GameStateChanged.class, this, o -> this.onGameStateChanged((GameStateChanged) o));
-		eventbus.subscribe(MenuOptionClicked.class, this, o -> this.onMenuOptionClicked((MenuOptionClicked) o));
-		eventbus.subscribe(MenuEntryAdded.class, this, o -> this.onMenuEntryAdded((MenuEntryAdded) o));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
+		eventbus.subscribe(FocusChanged.class, this, event -> this.onFocusChanged((FocusChanged) event));
+		eventbus.subscribe(GameObjectSpawned.class, this, event -> this.onGameObjectSpawned((GameObjectSpawned) event));
+		eventbus.subscribe(DecorativeObjectSpawned.class, this, event -> this.onDecorativeObjectSpawned((DecorativeObjectSpawned) event));
+		eventbus.subscribe(GameObjectDespawned.class, this, event -> this.onGameObjectDespawned((GameObjectDespawned) event));
+		eventbus.subscribe(DecorativeObjectDespawned.class, this, event -> this.onDecorativeObjectDespawned((DecorativeObjectDespawned) event));
+		eventbus.subscribe(GameStateChanged.class, this, event -> this.onGameStateChanged((GameStateChanged) event));
+		eventbus.subscribe(MenuOptionClicked.class, this, event -> this.onMenuOptionClicked((MenuOptionClicked) event));
+		eventbus.subscribe(MenuEntryAdded.class, this, event -> this.onMenuEntryAdded((MenuEntryAdded) event));
 	}
 
 	@Override

@@ -175,12 +175,12 @@ public class CannonPlugin extends Plugin
 
 	private void addSubscriptions()
 	{
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
-		eventbus.subscribe(ItemContainerChanged.class, this, o -> this.onItemContainerChanged((ItemContainerChanged) o));
-		eventbus.subscribe(GameObjectSpawned.class, this, o -> this.onGameObjectSpawned((GameObjectSpawned) o));
-		eventbus.subscribe(ProjectileMoved.class, this, o -> this.onProjectileMoved((ProjectileMoved) o));
-		eventbus.subscribe(ChatMessage.class, this, o -> this.onChatMessage((ChatMessage) o));
-		eventbus.subscribe(GameTick.class, this, o -> this.onGameTick((GameTick) o));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
+		eventbus.subscribe(ItemContainerChanged.class, this, event -> this.onItemContainerChanged((ItemContainerChanged) event));
+		eventbus.subscribe(GameObjectSpawned.class, this, event -> this.onGameObjectSpawned((GameObjectSpawned) event));
+		eventbus.subscribe(ProjectileMoved.class, this, event -> this.onProjectileMoved((ProjectileMoved) event));
+		eventbus.subscribe(ChatMessage.class, this, event -> this.onChatMessage((ChatMessage) event));
+		eventbus.subscribe(GameTick.class, this, event -> this.onGameTick((GameTick) event));
 	}
 
 	private void onItemContainerChanged(ItemContainerChanged event)

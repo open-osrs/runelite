@@ -446,8 +446,8 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	private void addSubscriptions()
 	{
 
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
-		eventbus.subscribe(GameStateChanged.class, this, o -> this.onGameStateChanged((GameStateChanged) o));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
+		eventbus.subscribe(GameStateChanged.class, this, event -> this.onGameStateChanged((GameStateChanged) event));
 	}
 
 	@Provides

@@ -54,7 +54,7 @@ public class InfoBoxManager
 	{
 		this.runeLiteConfig = runeLiteConfig;
 
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
 	}
 
 	private void onConfigChanged(ConfigChanged event)

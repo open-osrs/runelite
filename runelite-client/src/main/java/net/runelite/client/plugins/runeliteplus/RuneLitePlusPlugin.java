@@ -179,8 +179,8 @@ public class RuneLitePlusPlugin extends Plugin
 
 	private void addSubscriptions()
 	{
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
-		eventbus.subscribe(ScriptCallbackEvent.class, this, o -> this.onScriptCallbackEvent((ScriptCallbackEvent) o));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
+		eventbus.subscribe(ScriptCallbackEvent.class, this, event -> this.onScriptCallbackEvent((ScriptCallbackEvent) event));
 	}
 
 	private void onScriptCallbackEvent(ScriptCallbackEvent e)

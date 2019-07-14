@@ -79,11 +79,11 @@ public class ChatMessageManager
 		this.chatColorConfig = chatColorConfig;
 		this.clientThread = clientThread;
 
-		eventbus.subscribe(VarbitChanged.class, this, o -> this.onVarbitChanged((VarbitChanged) o));
-		eventbus.subscribe(ResizeableChanged.class, this, o -> this.onResizeableChanged((ResizeableChanged) o));
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
-		eventbus.subscribe(ChatMessage.class, this, o -> this.onChatMessage((ChatMessage) o));
-		eventbus.subscribe(ScriptCallbackEvent.class, this, o -> this.onScriptCallbackEvent((ScriptCallbackEvent) o));
+		eventbus.subscribe(VarbitChanged.class, this, event -> this.onVarbitChanged((VarbitChanged) event));
+		eventbus.subscribe(ResizeableChanged.class, this, event -> this.onResizeableChanged((ResizeableChanged) event));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
+		eventbus.subscribe(ChatMessage.class, this, event -> this.onChatMessage((ChatMessage) event));
+		eventbus.subscribe(ScriptCallbackEvent.class, this, event -> this.onScriptCallbackEvent((ScriptCallbackEvent) event));
 	}
 
 	private void onVarbitChanged(VarbitChanged event)

@@ -169,10 +169,10 @@ public class ClientUI
 		this.configManager = configManager;
 		this.clientThreadProvider = clientThreadProvider;
 
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
-		eventbus.subscribe(NavigationButtonAdded.class, this, o -> this.onNavigationButtonAdded((NavigationButtonAdded) o));
-		eventbus.subscribe(NavigationButtonRemoved.class, this, o -> this.onNavigationButtonRemoved((NavigationButtonRemoved) o));
-		eventbus.subscribe(GameStateChanged.class, this, o -> this.onGameStateChanged((GameStateChanged) o));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
+		eventbus.subscribe(NavigationButtonAdded.class, this, event -> this.onNavigationButtonAdded((NavigationButtonAdded) event));
+		eventbus.subscribe(NavigationButtonRemoved.class, this, event -> this.onNavigationButtonRemoved((NavigationButtonRemoved) event));
+		eventbus.subscribe(GameStateChanged.class, this, event -> this.onGameStateChanged((GameStateChanged) event));
 	}
 
 	private void onConfigChanged(ConfigChanged event)

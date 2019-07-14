@@ -81,13 +81,13 @@ public class LootManager
 		this.eventBus = eventBus;
 		this.client = client;
 
-		eventBus.subscribe(GameTick.class, this, o -> this.onGameTick((GameTick) o));
-		eventBus.subscribe(NpcDespawned.class, this, o -> this.onNpcDespawned((NpcDespawned) o));
-		eventBus.subscribe(PlayerDespawned.class, this, o -> this.onPlayerDespawned((PlayerDespawned) o));
-		eventBus.subscribe(ItemSpawned.class, this, o -> this.onItemSpawned((ItemSpawned) o));
-		eventBus.subscribe(ItemDespawned.class, this, o -> this.onItemDespawned((ItemDespawned) o));
-		eventBus.subscribe(ItemQuantityChanged.class, this, o -> this.onItemQuantityChanged((ItemQuantityChanged) o));
-		eventBus.subscribe(AnimationChanged.class, this, o -> this.onAnimationChanged((AnimationChanged) o));
+		eventBus.subscribe(GameTick.class, this, event -> this.onGameTick((GameTick) event));
+		eventBus.subscribe(NpcDespawned.class, this, event -> this.onNpcDespawned((NpcDespawned) event));
+		eventBus.subscribe(PlayerDespawned.class, this, event -> this.onPlayerDespawned((PlayerDespawned) event));
+		eventBus.subscribe(ItemSpawned.class, this, event -> this.onItemSpawned((ItemSpawned) event));
+		eventBus.subscribe(ItemDespawned.class, this, event -> this.onItemDespawned((ItemDespawned) event));
+		eventBus.subscribe(ItemQuantityChanged.class, this, event -> this.onItemQuantityChanged((ItemQuantityChanged) event));
+		eventBus.subscribe(AnimationChanged.class, this, event -> this.onAnimationChanged((AnimationChanged) event));
 	}
 
 	private void onNpcDespawned(NpcDespawned npcDespawned)

@@ -106,8 +106,8 @@ public class ClanManager
 		this.client = client;
 		this.spriteManager = spriteManager;
 
-		eventbus.subscribe(GameStateChanged.class, this, o -> this.onGameStateChanged((GameStateChanged) o));
-		eventbus.subscribe(ClanChanged.class, this, o -> this.onClanChanged((ClanChanged) o));
+		eventbus.subscribe(GameStateChanged.class, this, event -> this.onGameStateChanged((GameStateChanged) event));
+		eventbus.subscribe(ClanChanged.class, this, event -> this.onClanChanged((ClanChanged) event));
 	}
 
 	public ClanMemberRank getRank(String playerName)

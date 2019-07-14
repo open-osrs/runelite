@@ -111,10 +111,10 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		keyManager.registerKeyListener(this);
 		mouseManager.registerMouseListener(this);
 
-		eventbus.subscribe(ConfigChanged.class, this, o -> this.onConfigChanged((ConfigChanged) o));
-		eventbus.subscribe(FocusChanged.class, this, o -> this.onFocusChanged((FocusChanged) o));
-		eventbus.subscribe(ClientTick.class, this, o -> this.onClientTick((ClientTick) o));
-		eventbus.subscribe(BeforeRender.class, this, o -> this.onBeforeRender((BeforeRender) o));
+		eventbus.subscribe(ConfigChanged.class, this, event -> this.onConfigChanged((ConfigChanged) event));
+		eventbus.subscribe(FocusChanged.class, this, event -> this.onFocusChanged((FocusChanged) event));
+		eventbus.subscribe(ClientTick.class, this, event -> this.onClientTick((ClientTick) event));
+		eventbus.subscribe(BeforeRender.class, this, event -> this.onBeforeRender((BeforeRender) event));
 	}
 
 	private void updateConfig()

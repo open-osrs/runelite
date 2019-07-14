@@ -107,13 +107,13 @@ public class MenuManager
 		this.eventBus = eventBus;
 
 
-		eventBus.subscribe(MenuOpened.class, this, o -> this.onMenuOpened((MenuOpened) o));
-		eventBus.subscribe(MenuEntryAdded.class, this, o -> this.onMenuEntryAdded((MenuEntryAdded) o));
-		eventBus.subscribe(BeforeRender.class, this, o -> this.onBeforeRender((BeforeRender) o));
-		eventBus.subscribe(PlayerMenuOptionsChanged.class, this, o -> this.onPlayerMenuOptionsChanged((PlayerMenuOptionsChanged) o));
-		eventBus.subscribe(NpcActionChanged.class, this, o -> this.onNpcActionChanged((NpcActionChanged) o));
-		eventBus.subscribe(WidgetPressed.class, this, o -> this.onWidgetPressed((WidgetPressed) o));
-		eventBus.subscribe(MenuOptionClicked.class, this, o -> this.onMenuOptionClicked((MenuOptionClicked) o));
+		eventBus.subscribe(MenuOpened.class, this, event -> this.onMenuOpened((MenuOpened) event));
+		eventBus.subscribe(MenuEntryAdded.class, this, event -> this.onMenuEntryAdded((MenuEntryAdded) event));
+		eventBus.subscribe(BeforeRender.class, this, event -> this.onBeforeRender((BeforeRender) event));
+		eventBus.subscribe(PlayerMenuOptionsChanged.class, this, event -> this.onPlayerMenuOptionsChanged((PlayerMenuOptionsChanged) event));
+		eventBus.subscribe(NpcActionChanged.class, this, event -> this.onNpcActionChanged((NpcActionChanged) event));
+		eventBus.subscribe(WidgetPressed.class, this, event -> this.onWidgetPressed((WidgetPressed) event));
+		eventBus.subscribe(MenuOptionClicked.class, this, event -> this.onMenuOptionClicked((MenuOptionClicked) event));
 	}
 
 	/**

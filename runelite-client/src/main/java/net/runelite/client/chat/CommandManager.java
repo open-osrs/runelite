@@ -67,7 +67,7 @@ public class CommandManager
 		this.eventBus = eventBus;
 		this.clientThread = clientThread;
 
-		eventBus.subscribe(ScriptCallbackEvent.class, this, o -> this.onScriptCallbackEvent((ScriptCallbackEvent) o));
+		eventBus.subscribe(ScriptCallbackEvent.class, this, event -> this.onScriptCallbackEvent((ScriptCallbackEvent) event));
 	}
 
 	public void register(ChatboxInputListener chatboxInputListener)
