@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, Hydrox6 <ikada@protonmail.ch>
+ * Copyright (c) 2018, Jordan Atwood <jordan.atwood423@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,85 +22,69 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.itemidentification;
+package net.runelite.client.plugins.vorkath;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("itemidentification")
-public interface ItemIdentificationConfig extends Config
+@ConfigGroup("vorkath")
+public interface VorkathConfig extends Config
 {
 	@ConfigItem(
-		keyName = "identificationType",
-		name = "Identification Type",
-		position = -4,
-		description = "How much to show of the item name"
+		keyName = "indicateAcidPools",
+		name = "Acid Pools",
+		description = "Indicate the acid pools",
+		position = 0
 	)
-	default ItemIdentificationMode identificationType()
+	default boolean indicateAcidPools()
 	{
-		return ItemIdentificationMode.SHORT;
+		return false;
 	}
 
 	@ConfigItem(
-		keyName = "textColor",
-		name = "Color",
-		position = -3,
-		description = "The colour of the identification text"
+		keyName = "indicateAcidFreePath",
+		name = "Acid Free Path",
+		description = "Indicate the most efficient acid free path",
+		position = 1
 	)
-	default Color textColor()
-	{
-		return Color.WHITE;
-	}
-
-	@ConfigItem(
-		keyName = "showSeeds",
-		name = "Seeds",
-		description = "Show identification on Seeds"
-	)
-	default boolean showSeeds()
+	default boolean indicateAcidFreePath()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showHerbs",
-		name = "Herbs",
-		description = "Show identification on Herbs"
+		keyName = "acidFreePathMinLength",
+		name = "Minimum Length Acid Free Path",
+		description = "The minimum length of an acid free path",
+		position = 2,
+		hidden = true,
+		unhide = "indicateAcidFreePath"
 	)
-	default boolean showHerbs()
+	default int acidFreePathLength()
 	{
-		return false;
+		return 5;
 	}
 
 	@ConfigItem(
-		keyName = "showSaplings",
-		name = "Saplings",
-		description = "Show identification on Saplings and Seedlings"
+		keyName = "indicateWooxWalkPath",
+		name = "WooxWalk Path",
+		description = "Indicate the closest WooxWalk path",
+		position = 3
 	)
-	default boolean showSaplings()
+	default boolean indicateWooxWalkPath()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showOres",
-		name = "Ores",
-		description = "Show identification on Ores"
+		keyName = "indicateWooxWalkTick",
+		name = "WooxWalk Tick",
+		description = "Indicate on which tile to click during each game tick",
+		position = 4
 	)
-	default boolean showOres()
+	default boolean indicateWooxWalkTick()
 	{
-		return false;
-	}
-
-	@ConfigItem(
-		keyName = "showGems",
-		name = "Gems",
-		description = "Show identification on Gems"
-	)
-	default boolean showGems()
-	{
-		return false;
+		return true;
 	}
 }
