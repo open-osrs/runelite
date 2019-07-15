@@ -1707,7 +1707,7 @@ default CharterOption charterOption()
 	{
 		return true;
 	}
-    
+
 	@ConfigItem(
 		keyName = "hideCastIgnoredCoX",
 		name = "Ignored spells",
