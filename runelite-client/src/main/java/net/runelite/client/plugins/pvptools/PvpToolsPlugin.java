@@ -660,7 +660,7 @@ public class PvpToolsPlugin extends Plugin
 		}
 	}
 
-	private void setCastOptions()
+	public void setCastOptions()
 	{
 		clientThread.invoke(() ->
 		{

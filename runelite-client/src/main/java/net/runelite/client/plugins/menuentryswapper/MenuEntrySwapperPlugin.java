@@ -58,6 +58,8 @@ import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.Varbits;
 import static net.runelite.api.Varbits.BUILDING_MODE;
+
+import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
@@ -134,8 +136,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private MenuEntry[] entries;
 	private final Set<String> leftClickConstructionItems = new HashSet<>();
 	private boolean buildingMode;
-	private boolean inTobRaid;
-	private boolean inCoxRaid;
+	private boolean inTobRaid = false;
+	private boolean inCoxRaid = false;
 
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
 		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
@@ -357,7 +359,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
-			setCastOptions();
+			setCastOptions(true);
 		}
 	}
 
@@ -413,16 +415,28 @@ public class MenuEntrySwapperPlugin extends Plugin
 			clientThread.invoke(this::resetItemDefinitionCache);
 		}
 
-		if (event.getKey().equals("removeFreezePlayerToB") && inTobRaid)
+		else if ((event.getKey().equals("hideCastToB") || event.getKey().equals("hideCastIgnoredToB")))
 		{
-			client.setHideFriendCastOptions(this.hideCastToB);
-			client.setHideClanmateCastOptions(this.hideCastToB);
+			if (this.hideCastToB)
+			{
+				setCastOptions(true);
+			}
+			else
+			{
+				resetCastOptions();
+			}
 		}
 
-		if (event.getKey().equals("removeFreezePlayerCoX") && inCoxRaid)
+		else if ((event.getKey().equals("hideCastCoX") || event.getKey().equals("hideCastIgnoredCoX")))
 		{
-			client.setHideFriendCastOptions(this.hideCastCoX);
-			client.setHideClanmateCastOptions(this.hideCastCoX);
+			if (this.hideCastCoX)
+			{
+				setCastOptions(true);
+			}
+			else
+			{
+				resetCastOptions();
+			}
 		}
 	}
 
@@ -499,7 +513,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		buildingMode = client.getVar(BUILDING_MODE) == 1;
 
-		setCastOptions();
+		setCastOptions(false);
 	}
 
 	@Subscribe
@@ -1717,61 +1731,57 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("climb-down");
 	}
 
-	private void setCastOptions()
+	private void setCastOptions(boolean force)
 	{
 		clientThread.invoke(() ->
 		{
 			boolean tmpInCoxRaid = client.getVar(Varbits.IN_RAID) == 1;
-			if (tmpInCoxRaid != inCoxRaid)
+			if (tmpInCoxRaid != inCoxRaid || force)
 			{
-				if (tmpInCoxRaid)
+				if (tmpInCoxRaid && this.hideCastCoX)
 				{
-					client.setHideFriendCastOptions(this.hideCastCoX);
-					client.setHideClanmateCastOptions(this.hideCastCoX);
+					client.setHideFriendCastOptions(true);
+					client.setHideClanmateCastOptions(true);
 					client.setUnhiddenCasts(this.hideCastIgnoredCoX);
 				}
-				else
-				{
-					resetCastOptions();
-				}
+
 				inCoxRaid = tmpInCoxRaid;
 			}
-			else
+
+			boolean tmpInTobRaid = client.getVar(Varbits.THEATRE_OF_BLOOD) == 2;
+			if (tmpInTobRaid != inTobRaid || force)
 			{
-				boolean tmpInTobRaid = client.getVar(Varbits.THEATRE_OF_BLOOD) == 2;
-				if (tmpInTobRaid != inTobRaid)
+				if (tmpInTobRaid && this.hideCastToB)
 				{
-					if (tmpInTobRaid)
-					{
-						client.setHideFriendCastOptions(this.hideCastToB);
-						client.setHideClanmateCastOptions(this.hideCastToB);
-						client.setUnhiddenCasts(this.hideCastIgnoredToB);
-					}
-					else
-					{
-						resetCastOptions();
-					}
-					inTobRaid = tmpInTobRaid;
+					client.setHideFriendCastOptions(true);
+					client.setHideClanmateCastOptions(true);
+					client.setUnhiddenCasts(this.hideCastIgnoredToB);
 				}
+
+				inTobRaid = tmpInTobRaid;
+			}
+
+			if (!inCoxRaid && !inTobRaid)
+			{
+				resetCastOptions();
 			}
 		});
 	}
 
 	private void resetCastOptions()
 	{
-		if (pluginManager.isPluginEnabled(pvpTools))
+		clientThread.invoke(() ->
 		{
-			if (pvpToolsConfig.hideCast())
+			if (client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isAllPvpWorld(client.getWorldType()) && pluginManager.isPluginEnabled(pvpTools) && pvpToolsConfig.hideCast())
 			{
-				pvpTools.hideCastOptions(pvpToolsConfig.hideCastMode());
-				client.setUnhiddenCasts(Sets.newHashSet(Text.fromCSV(pvpToolsConfig.hideCastIgnored().toLowerCase())));
+				pvpTools.setCastOptions();
 			}
-		}
-		else
-		{
-			client.setHideFriendCastOptions(false);
-			client.setHideClanmateCastOptions(false);
-		}
+			else
+			{
+				client.setHideFriendCastOptions(false);
+				client.setHideClanmateCastOptions(false);
+			}
+		});
 	}
 
 	private void updateConfig()
