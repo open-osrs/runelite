@@ -4,10 +4,10 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ki")
 public class class303 {
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "Lgd;"
-   )
-   @Export("huffman")
-   public static Huffman huffman;
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "Lgd;"
+	)
+	@Export("huffman")
+	public static Huffman huffman;
 }

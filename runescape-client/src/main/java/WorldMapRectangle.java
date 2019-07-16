@@ -7,123 +7,123 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("c")
 @Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
-   @ObfuscatedName("z")
-   @ObfuscatedSignature(
-      signature = "Lgr;"
-   )
-   @Export("NetCache_responseArchiveBuffer")
-   public static Buffer NetCache_responseArchiveBuffer;
-   @ObfuscatedName("bn")
-   @ObfuscatedSignature(
-      signature = "Lis;"
-   )
-   @Export("studioGame")
-   static StudioGame studioGame;
-   @ObfuscatedName("eb")
-   @ObfuscatedSignature(
-      signature = "Lit;"
-   )
-   @Export("archive17")
-   static Archive archive17;
-   @ObfuscatedName("m")
-   @ObfuscatedGetter(
-      intValue = 1976624405
-   )
-   @Export("width")
-   int width;
-   @ObfuscatedName("f")
-   @ObfuscatedGetter(
-      intValue = -698663527
-   )
-   @Export("height")
-   int height;
-   @ObfuscatedName("q")
-   @ObfuscatedGetter(
-      intValue = 1588021801
-   )
-   @Export("x")
-   int x;
-   @ObfuscatedName("w")
-   @ObfuscatedGetter(
-      intValue = 2138505015
-   )
-   @Export("y")
-   int y;
-   @ObfuscatedSignature(
-      signature = "Lal;"
-   )
-   final WorldMapManager this$0;
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		signature = "Lgr;"
+	)
+	@Export("NetCache_responseArchiveBuffer")
+	public static Buffer NetCache_responseArchiveBuffer;
+	@ObfuscatedName("bn")
+	@ObfuscatedSignature(
+		signature = "Lis;"
+	)
+	@Export("studioGame")
+	static StudioGame studioGame;
+	@ObfuscatedName("eb")
+	@ObfuscatedSignature(
+		signature = "Lit;"
+	)
+	@Export("archive17")
+	static Archive archive17;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = 1976624405
+	)
+	@Export("width")
+	int width;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = -698663527
+	)
+	@Export("height")
+	int height;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 1588021801
+	)
+	@Export("x")
+	int x;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 2138505015
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedSignature(
+		signature = "Lal;"
+	)
+	final WorldMapManager this$0;
 
-   @ObfuscatedSignature(
-      signature = "(Lal;)V"
-   )
-   WorldMapRectangle(WorldMapManager var1) {
-      this.this$0 = var1;
-   }
+	@ObfuscatedSignature(
+		signature = "(Lal;)V"
+	)
+	WorldMapRectangle(WorldMapManager var1) {
+		this.this$0 = var1;
+	}
 
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(I)I",
-      garbageValue = "-1573773621"
-   )
-   public static int method297() {
-      return ++MouseHandler.MouseHandler_idleCycles - 1;
-   }
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(I)I",
+		garbageValue = "-1573773621"
+	)
+	public static int method297() {
+		return ++MouseHandler.MouseHandler_idleCycles - 1;
+	}
 
-   @ObfuscatedName("d")
-   @ObfuscatedSignature(
-      signature = "(Ljava/lang/String;B)V",
-      garbageValue = "61"
-   )
-   static final void method294(String var0) {
-      StringBuilder var1 = (new StringBuilder()).append(var0);
-      Object var2 = null;
-      String var3 = var1.append(" is already on your ignore list").toString();
-      WorldMapIcon_0.addGameMessage(30, "", var3);
-   }
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/String;B)V",
+		garbageValue = "61"
+	)
+	static final void method294(String var0) {
+		StringBuilder var1 = (new StringBuilder()).append(var0);
+		Object var2 = null;
+		String var3 = var1.append(" is already on your ignore list").toString();
+		WorldMapIcon_0.addGameMessage(30, "", var3);
+	}
 
-   @ObfuscatedName("fw")
-   @ObfuscatedSignature(
-      signature = "(IZZZB)Lit;",
-      garbageValue = "-15"
-   )
-   @Export("newArchive")
-   static Archive newArchive(int index, boolean releaseGroups, boolean shallowFiles, boolean var3) {
-      ArchiveDisk var4 = null;
-      if (class168.dat2File != null) {
-         var4 = new ArchiveDisk(index, class168.dat2File, ArchiveDiskAction.idxFiles[index], 1000000);
-      }
+	@ObfuscatedName("fw")
+	@ObfuscatedSignature(
+		signature = "(IZZZB)Lit;",
+		garbageValue = "-15"
+	)
+	@Export("newArchive")
+	static Archive newArchive(int index, boolean releaseGroups, boolean shallowFiles, boolean var3) {
+		ArchiveDisk var4 = null;
+		if (class168.dat2File != null) {
+			var4 = new ArchiveDisk(index, class168.dat2File, ArchiveDiskAction.idxFiles[index], 1000000);
+		}
 
-      return new Archive(var4, Fonts.masterDisk, index, releaseGroups, shallowFiles, var3);
-   }
+		return new Archive(var4, Fonts.masterDisk, index, releaseGroups, shallowFiles, var3);
+	}
 
-   @ObfuscatedName("jp")
-   @ObfuscatedSignature(
-      signature = "(Lho;I)V",
-      garbageValue = "1002272291"
-   )
-   static void method295(Widget var0) {
-      if (var0.cycle == Client.field98) {
-         Client.field100[var0.rootIndex] = true;
-      }
+	@ObfuscatedName("jp")
+	@ObfuscatedSignature(
+		signature = "(Lho;I)V",
+		garbageValue = "1002272291"
+	)
+	static void method295(Widget var0) {
+		if (var0.cycle == Client.field98) {
+			Client.field100[var0.rootIndex] = true;
+		}
 
-   }
+	}
 
-   @ObfuscatedName("jo")
-   @ObfuscatedSignature(
-      signature = "(Lho;IIII)V",
-      garbageValue = "1417616898"
-   )
-   @Export("drawCompass")
-   static final void drawCompass(Widget compass, int x, int y, int unused) {
-      SpriteMask var4 = compass.getSpriteMask(false);
-      if (var4 != null) {
-         if (Client.minimapState < 3) {
-            GrandExchangeOfferUnitPriceComparator.compass.drawRotatedMaskedCenteredAround(x, y, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
-         } else {
-            Rasterizer2D.Rasterizer2D_fillMaskedRectangle(x, y, 0, var4.xStarts, var4.xWidths);
-         }
-      }
+	@ObfuscatedName("jo")
+	@ObfuscatedSignature(
+		signature = "(Lho;IIII)V",
+		garbageValue = "1417616898"
+	)
+	@Export("drawCompass")
+	static final void drawCompass(Widget compass, int x, int y, int unused) {
+		SpriteMask var4 = compass.getSpriteMask(false);
+		if (var4 != null) {
+			if (Client.minimapState < 3) {
+				GrandExchangeOfferUnitPriceComparator.compass.drawRotatedMaskedCenteredAround(x, y, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
+			} else {
+				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(x, y, 0, var4.xStarts, var4.xWidths);
+			}
+		}
 
-   }
+	}
 }

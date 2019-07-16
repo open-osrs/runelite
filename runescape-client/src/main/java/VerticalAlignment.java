@@ -7,50 +7,50 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ip")
 @Implements("VerticalAlignment")
 public enum VerticalAlignment implements Enumerated {
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "Lip;"
-   )
-   @Export("VerticalAlignment_topToBottom")
-   VerticalAlignment_topToBottom(0, 0),
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "Lip;"
-   )
-   @Export("VerticalAlignment_centered")
-   VerticalAlignment_centered(1, 1),
-   @ObfuscatedName("q")
-   @ObfuscatedSignature(
-      signature = "Lip;"
-   )
-   @Export("VerticalAlignment_bottomToTop")
-   VerticalAlignment_bottomToTop(2, 2);
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "Lip;"
+	)
+	@Export("VerticalAlignment_topToBottom")
+	VerticalAlignment_topToBottom(0, 0),
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "Lip;"
+	)
+	@Export("VerticalAlignment_centered")
+	VerticalAlignment_centered(1, 1),
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		signature = "Lip;"
+	)
+	@Export("VerticalAlignment_bottomToTop")
+	VerticalAlignment_bottomToTop(2, 2);
 
-   @ObfuscatedName("w")
-   @ObfuscatedGetter(
-      intValue = 2070321655
-   )
-   @Export("value")
-   public final int value;
-   @ObfuscatedName("o")
-   @ObfuscatedGetter(
-      intValue = 1686539261
-   )
-   @Export("id")
-   final int id;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 2070321655
+	)
+	@Export("value")
+	public final int value;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 1686539261
+	)
+	@Export("id")
+	final int id;
 
-   private VerticalAlignment(int var3, int var4) {
-      this.value = var3;
-      this.id = var4;
-   }
+	private VerticalAlignment(int var3, int var4) {
+		this.value = var3;
+		this.id = var4;
+	}
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(B)I",
-      garbageValue = "83"
-   )
-   @Export("rsOrdinal")
-   public int rsOrdinal() {
-      return this.id;
-   }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(B)I",
+		garbageValue = "83"
+	)
+	@Export("rsOrdinal")
+	public int rsOrdinal() {
+		return this.id;
+	}
 }

@@ -7,32 +7,32 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("gv")
 @Implements("DirectByteArrayCopier")
 public class DirectByteArrayCopier extends AbstractByteArrayCopier {
-   @ObfuscatedName("m")
-   @Export("directBuffer")
-   ByteBuffer directBuffer;
+	@ObfuscatedName("m")
+	@Export("directBuffer")
+	ByteBuffer directBuffer;
 
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(I)[B",
-      garbageValue = "-1219910462"
-   )
-   @Export("get")
-   byte[] get() {
-      byte[] var1 = new byte[this.directBuffer.capacity()];
-      this.directBuffer.position(0);
-      this.directBuffer.get(var1);
-      return var1;
-   }
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(I)[B",
+		garbageValue = "-1219910462"
+	)
+	@Export("get")
+	byte[] get() {
+		byte[] var1 = new byte[this.directBuffer.capacity()];
+		this.directBuffer.position(0);
+		this.directBuffer.get(var1);
+		return var1;
+	}
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "([BI)V",
-      garbageValue = "-2034091753"
-   )
-   @Export("set")
-   void set(byte[] array) {
-      this.directBuffer = ByteBuffer.allocateDirect(array.length);
-      this.directBuffer.position(0);
-      this.directBuffer.put(array);
-   }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "([BI)V",
+		garbageValue = "-2034091753"
+	)
+	@Export("set")
+	void set(byte[] array) {
+		this.directBuffer = ByteBuffer.allocateDirect(array.length);
+		this.directBuffer.position(0);
+		this.directBuffer.put(array);
+	}
 }

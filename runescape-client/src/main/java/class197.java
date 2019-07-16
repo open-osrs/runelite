@@ -4,10 +4,10 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gz")
 public class class197 {
-   @ObfuscatedName("ad")
-   @ObfuscatedSignature(
-      signature = "Llp;"
-   )
-   @Export("rasterProvider")
-   public static AbstractRasterProvider rasterProvider;
+	@ObfuscatedName("ad")
+	@ObfuscatedSignature(
+		signature = "Llp;"
+	)
+	@Export("rasterProvider")
+	public static AbstractRasterProvider rasterProvider;
 }

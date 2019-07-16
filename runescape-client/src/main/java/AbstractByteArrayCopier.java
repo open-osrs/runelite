@@ -6,100 +6,99 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("gu")
 @Implements("AbstractByteArrayCopier")
 public abstract class AbstractByteArrayCopier {
-   @ObfuscatedName("f")
-   @Export("directBufferUnavailable")
-   static boolean directBufferUnavailable;
-   @ObfuscatedName("et")
-   @ObfuscatedSignature(
-      signature = "Lit;"
-   )
-   @Export("archive20")
-   static Archive archive20;
+	@ObfuscatedName("f")
+	@Export("directBufferUnavailable")
+	static boolean directBufferUnavailable;
+	@ObfuscatedName("et")
+	@ObfuscatedSignature(
+		signature = "Lit;"
+	)
+	@Export("archive20")
+	static Archive archive20;
 
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(I)[B",
-      garbageValue = "-1219910462"
-   )
-   @Export("get")
-   abstract byte[] get();
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(I)[B",
+		garbageValue = "-1219910462"
+	)
+	@Export("get")
+	abstract byte[] get();
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "([BI)V",
-      garbageValue = "-2034091753"
-   )
-   @Export("set")
-   abstract void set(byte[] array);
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "([BI)V",
+		garbageValue = "-2034091753"
+	)
+	@Export("set")
+	abstract void set(byte[] array);
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(II)Liw;",
-      garbageValue = "1102198559"
-   )
-   @Export("getVarcInt")
-   public static VarcInt getVarcInt(int var0) {
-      VarcInt var1 = (VarcInt)VarcInt.VarcInt_cached.get((long)var0);
-      if (var1 != null) {
-         return var1;
-      } else {
-         byte[] var2 = VarcInt.VarcInt_archive.takeFile(19, var0);
-         var1 = new VarcInt();
-         if (var2 != null) {
-            var1.method354(new Buffer(var2));
-         }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(II)Liw;",
+		garbageValue = "1102198559"
+	)
+	@Export("getVarcInt")
+	public static VarcInt getVarcInt(int var0) {
+		VarcInt var1 = (VarcInt)VarcInt.VarcInt_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		}
+		byte[] var2 = VarcInt.VarcInt_archive.takeFile(19, var0);
+		var1 = new VarcInt();
+		if (var2 != null) {
+			var1.method354(new Buffer(var2));
+		}
 
-         VarcInt.VarcInt_cached.put(var1, (long)var0);
-         return var1;
-      }
-   }
+		VarcInt.VarcInt_cached.put(var1, (long)var0);
+		return var1;
+	}
 
-   @ObfuscatedName("w")
-   @ObfuscatedSignature(
-      signature = "(II)V",
-      garbageValue = "-1941491045"
-   )
-   @Export("unloadInterface")
-   public static void unloadInterface(int var0) {
-      if (var0 != -1 && Widget.loadedInterfaces[var0]) {
-         Widget.Widget_archive.clearFilesGroup(var0);
-         if (Widget.interfaceComponents[var0] != null) {
-            boolean var1 = true;
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		signature = "(II)V",
+		garbageValue = "-1941491045"
+	)
+	@Export("unloadInterface")
+	public static void unloadInterface(int var0) {
+		if (var0 != -1 && Widget.loadedInterfaces[var0]) {
+			Widget.Widget_archive.clearFilesGroup(var0);
+			if (Widget.Widget_interfaceComponents[var0] != null) {
+				boolean var1 = true;
 
-            for (int var2 = 0; var2 < Widget.interfaceComponents[var0].length; ++var2) {
-               if (Widget.interfaceComponents[var0][var2] != null) {
-                  if (Widget.interfaceComponents[var0][var2].type != 2) {
-                     Widget.interfaceComponents[var0][var2] = null;
-                  } else {
-                     var1 = false;
-                  }
-               }
-            }
+				for (int var2 = 0; var2 < Widget.Widget_interfaceComponents[var0].length; ++var2) {
+					if (Widget.Widget_interfaceComponents[var0][var2] != null) {
+						if (Widget.Widget_interfaceComponents[var0][var2].type != 2) {
+							Widget.Widget_interfaceComponents[var0][var2] = null;
+						} else {
+							var1 = false;
+						}
+					}
+				}
 
-            if (var1) {
-               Widget.interfaceComponents[var0] = null;
-            }
+				if (var1) {
+					Widget.Widget_interfaceComponents[var0] = null;
+				}
 
-            Widget.loadedInterfaces[var0] = false;
-         }
-      }
+				Widget.loadedInterfaces[var0] = false;
+			}
+		}
 
-   }
+	}
 
-   @ObfuscatedName("gb")
-   @ObfuscatedSignature(
-      signature = "(I)V",
-      garbageValue = "-1256278627"
-   )
-   static void method4024() {
-      PacketBufferNode var0 = Interpreter.method1915(ClientPacket.field257, Client.packetWriter.isaacCipher);
-      var0.packetBuffer.writeByte(SpotAnimationDefinition.getWindowedMode());
-      var0.packetBuffer.writeShort(SoundCache.canvasWidth);
-      var0.packetBuffer.writeShort(Huffman.canvasHeight);
-      Client.packetWriter.method241(var0);
-   }
+	@ObfuscatedName("gb")
+	@ObfuscatedSignature(
+		signature = "(I)V",
+		garbageValue = "-1256278627"
+	)
+	static void method4024() {
+		PacketBufferNode var0 = Interpreter.method1915(ClientPacket.field257, Client.packetWriter.isaacCipher);
+		var0.packetBuffer.writeByte(SpotAnimationDefinition.getWindowedMode());
+		var0.packetBuffer.writeShort(SoundCache.canvasWidth);
+		var0.packetBuffer.writeShort(Huffman.canvasHeight);
+		Client.packetWriter.method241(var0);
+	}
 
-   static {
-      directBufferUnavailable = false;
-   }
+	static {
+		directBufferUnavailable = false;
+	}
 }

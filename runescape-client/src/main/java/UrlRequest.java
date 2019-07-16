@@ -7,53 +7,53 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ey")
 @Implements("UrlRequest")
 public class UrlRequest {
-   @ObfuscatedName("bx")
-   @ObfuscatedSignature(
-      signature = "[Llq;"
-   )
-   @Export("worldSelectStars")
-   static IndexedSprite[] worldSelectStars;
-   @ObfuscatedName("m")
-   @Export("url")
-   final URL url;
-   @ObfuscatedName("f")
-   @Export("isDone0")
-   volatile boolean isDone0;
-   @ObfuscatedName("q")
-   @Export("response0")
-   volatile byte[] response0;
+	@ObfuscatedName("bx")
+	@ObfuscatedSignature(
+		signature = "[Llq;"
+	)
+	@Export("worldSelectStars")
+	static IndexedSprite[] worldSelectStars;
+	@ObfuscatedName("m")
+	@Export("url")
+	final URL url;
+	@ObfuscatedName("f")
+	@Export("isDone0")
+	volatile boolean isDone0;
+	@ObfuscatedName("q")
+	@Export("response0")
+	volatile byte[] response0;
 
-   UrlRequest(URL var1) {
-      this.url = var1;
-   }
+	UrlRequest(URL var1) {
+		this.url = var1;
+	}
 
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(I)Z",
-      garbageValue = "1588021801"
-   )
-   @Export("isDone")
-   public boolean isDone() {
-      return this.isDone0;
-   }
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(I)Z",
+		garbageValue = "1588021801"
+	)
+	@Export("isDone")
+	public boolean isDone() {
+		return this.isDone0;
+	}
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(B)[B",
-      garbageValue = "-25"
-   )
-   @Export("getResponse")
-   public byte[] getResponse() {
-      return this.response0;
-   }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(B)[B",
+		garbageValue = "-25"
+	)
+	@Export("getResponse")
+	public byte[] getResponse() {
+		return this.response0;
+	}
 
-   @ObfuscatedName("x")
-   @ObfuscatedSignature(
-      signature = "(CI)Z",
-      garbageValue = "-476632347"
-   )
-   @Export("isCharAlphabetic")
-   public static boolean isCharAlphabetic(char var0) {
-      return var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z';
-   }
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		signature = "(CI)Z",
+		garbageValue = "-476632347"
+	)
+	@Export("isCharAlphabetic")
+	public static boolean isCharAlphabetic(char var0) {
+		return var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z';
+	}
 }

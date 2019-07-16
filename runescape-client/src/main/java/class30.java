@@ -5,120 +5,120 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ar")
 public class class30 {
-   @ObfuscatedName("qw")
-   @ObfuscatedGetter(
-      intValue = -1555836449
-   )
-   static int field1148;
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "Lar;"
-   )
-   static final class30 class30_something0;
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "Lar;"
-   )
-   static final class30 class30_something1;
-   @ObfuscatedName("g")
-   @ObfuscatedGetter(
-      intValue = -18917723
-   )
-   @Export("musicTrackGroupId")
-   public static int musicTrackGroupId;
-   @ObfuscatedName("l")
-   @Export("inMembersWorld")
-   public static boolean inMembersWorld;
-   @ObfuscatedName("bd")
-   @ObfuscatedSignature(
-      signature = "[Lln;"
-   )
-   @Export("worldSelectBackSprites")
-   static Sprite[] worldSelectBackSprites;
-   @ObfuscatedName("q")
-   @ObfuscatedGetter(
-      intValue = -1474464623
-   )
-   @Export("value")
-   final int value;
+	@ObfuscatedName("qw")
+	@ObfuscatedGetter(
+		intValue = -1555836449
+	)
+	static int field1148;
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "Lar;"
+	)
+	static final class30 class30_something0;
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "Lar;"
+	)
+	static final class30 class30_something1;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -18917723
+	)
+	@Export("musicTrackGroupId")
+	public static int musicTrackGroupId;
+	@ObfuscatedName("l")
+	@Export("inMembersWorld")
+	public static boolean inMembersWorld;
+	@ObfuscatedName("bd")
+	@ObfuscatedSignature(
+		signature = "[Lln;"
+	)
+	@Export("worldSelectBackSprites")
+	static Sprite[] worldSelectBackSprites;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = -1474464623
+	)
+	@Export("value")
+	final int value;
 
-   class30(int var1) {
-      this.value = var1;
-   }
+	class30(int var1) {
+		this.value = var1;
+	}
 
-   @ObfuscatedName("at")
-   @ObfuscatedSignature(
-      signature = "(II)I",
-      garbageValue = "2127022463"
-   )
-   static int method571(int var0) {
-      return (int)((Math.log((double)var0) / Interpreter.field426 - 7.0D) * 256.0D);
-   }
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		signature = "(II)I",
+		garbageValue = "2127022463"
+	)
+	static int method571(int var0) {
+		return (int)((Math.log((double)var0) / Interpreter.field426 - 7.0D) * 256.0D);
+	}
 
-   @ObfuscatedName("hp")
-   @ObfuscatedSignature(
-      signature = "(B)V",
-      garbageValue = "49"
-   )
-   @Export("resetMenuEntries")
-   static void resetMenuEntries() {
-      Client.menuOptionsCount = 0;
-      Client.isMenuOpen = false;
-      Client.menuActions[0] = "Cancel";
-      Client.menuTargetNames[0] = "";
-      Client.menuOpcodes[0] = 1006;
-      Client.menuShiftClick[0] = false;
-      Client.menuOptionsCount = 1;
-   }
+	@ObfuscatedName("hp")
+	@ObfuscatedSignature(
+		signature = "(B)V",
+		garbageValue = "49"
+	)
+	@Export("resetMenuEntries")
+	static void resetMenuEntries() {
+		Client.menuOptionsCount = 0;
+		Client.isMenuOpen = false;
+		Client.menuActions[0] = "Cancel";
+		Client.menuTargetNames[0] = "";
+		Client.menuOpcodes[0] = 1006;
+		Client.menuShiftClick[0] = false;
+		Client.menuOptionsCount = 1;
+	}
 
-   @ObfuscatedName("jz")
-   @ObfuscatedSignature(
-      signature = "([Lho;II)V",
-      garbageValue = "-1070833742"
-   )
-   static final void method570(Widget[] var0, int var1) {
-      for (int var2 = 0; var2 < var0.length; ++var2) {
-         Widget var3 = var0[var2];
-         if (var3 != null) {
-            if (var3.type == 0) {
-               if (var3.children != null) {
-                  method570(var3.children, var1);
-               }
+	@ObfuscatedName("jz")
+	@ObfuscatedSignature(
+		signature = "([Lho;II)V",
+		garbageValue = "-1070833742"
+	)
+	static final void method570(Widget[] var0, int var1) {
+		for (int var2 = 0; var2 < var0.length; ++var2) {
+			Widget var3 = var0[var2];
+			if (var3 != null) {
+				if (var3.type == 0) {
+					if (var3.children != null) {
+						method570(var3.children, var1);
+					}
 
-               InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
-               if (var4 != null) {
-                  GrandExchangeEvents.method74(var4.group, var1);
-               }
-            }
+					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
+					if (var4 != null) {
+						GrandExchangeEvents.method74(var4.group, var1);
+					}
+				}
 
-            ScriptEvent var6;
-            if (var1 == 0 && var3.onDialogAbort != null) {
-               var6 = new ScriptEvent();
-               var6.widget = var3;
-               var6.args = var3.onDialogAbort;
-               AbstractArchive.runScript(var6);
-            }
+				ScriptEvent var6;
+				if (var1 == 0 && var3.onDialogAbort != null) {
+					var6 = new ScriptEvent();
+					var6.widget = var3;
+					var6.args = var3.onDialogAbort;
+					AbstractArchive.runScriptEvent(var6);
+				}
 
-            if (var1 == 1 && var3.onSubChange != null) {
-               if (var3.childIndex >= 0) {
-                  Widget var5 = Huffman.getWidget(var3.id);
-                  if (var5 == null || var5.children == null || var3.childIndex >= var5.children.length || var3 != var5.children[var3.childIndex]) {
-                     continue;
-                  }
-               }
+				if (var1 == 1 && var3.onSubChange != null) {
+					if (var3.childIndex >= 0) {
+						Widget var5 = Huffman.getWidget(var3.id);
+						if (var5 == null || var5.children == null || var3.childIndex >= var5.children.length || var3 != var5.children[var3.childIndex]) {
+							continue;
+						}
+					}
 
-               var6 = new ScriptEvent();
-               var6.widget = var3;
-               var6.args = var3.onSubChange;
-               AbstractArchive.runScript(var6);
-            }
-         }
-      }
+					var6 = new ScriptEvent();
+					var6.widget = var3;
+					var6.args = var3.onSubChange;
+					AbstractArchive.runScriptEvent(var6);
+				}
+			}
+		}
 
-   }
+	}
 
-   static {
-      class30_something0 = new class30(0);
-      class30_something1 = new class30(1);
-   }
+	static {
+		class30_something0 = new class30(0);
+		class30_something1 = new class30(1);
+	}
 }

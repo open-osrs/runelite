@@ -10,152 +10,153 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("bf")
 @Implements("ClientPreferences")
 public class ClientPreferences {
-   @ObfuscatedName("m")
-   @ObfuscatedGetter(
-      intValue = 1548448409
-   )
-   static int field342;
-   @ObfuscatedName("gr")
-   @ObfuscatedSignature(
-      signature = "[Lln;"
-   )
-   @Export("headIconPrayerSprites")
-   static Sprite[] headIconPrayerSprites;
-   @ObfuscatedName("q")
-   @Export("roofsHidden")
-   boolean roofsHidden;
-   @ObfuscatedName("w")
-   @Export("titleMusicDisabled")
-   boolean titleMusicDisabled;
-   @ObfuscatedName("o")
-   @ObfuscatedGetter(
-      intValue = -359530975
-   )
-   @Export("windowMode")
-   int windowMode;
-   @ObfuscatedName("u")
-   @Export("rememberedUsername")
-   String rememberedUsername;
-   @ObfuscatedName("g")
-   @Export("hideUsername")
-   boolean hideUsername;
-   @ObfuscatedName("l")
-   @Export("parameters")
-   LinkedHashMap parameters;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = 1548448409
+	)
+	@Export("ClientPreferences_optionCount")
+	static int ClientPreferences_optionCount;
+	@ObfuscatedName("gr")
+	@ObfuscatedSignature(
+		signature = "[Lln;"
+	)
+	@Export("headIconPrayerSprites")
+	static Sprite[] headIconPrayerSprites;
+	@ObfuscatedName("q")
+	@Export("roofsHidden")
+	boolean roofsHidden;
+	@ObfuscatedName("w")
+	@Export("titleMusicDisabled")
+	boolean titleMusicDisabled;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = -359530975
+	)
+	@Export("windowMode")
+	int windowMode;
+	@ObfuscatedName("u")
+	@Export("rememberedUsername")
+	String rememberedUsername;
+	@ObfuscatedName("g")
+	@Export("hideUsername")
+	boolean hideUsername;
+	@ObfuscatedName("l")
+	@Export("parameters")
+	LinkedHashMap parameters;
 
-   ClientPreferences() {
-      this.windowMode = 1;
-      this.rememberedUsername = null;
-      this.hideUsername = false;
-      this.parameters = new LinkedHashMap();
-      this.method89(true);
-   }
+	ClientPreferences() {
+		this.windowMode = 1;
+		this.rememberedUsername = null;
+		this.hideUsername = false;
+		this.parameters = new LinkedHashMap();
+		this.method89(true);
+	}
 
-   @ObfuscatedSignature(
-      signature = "(Lgr;)V"
-   )
-   ClientPreferences(Buffer var1) {
-      this.windowMode = 1;
-      this.rememberedUsername = null;
-      this.hideUsername = false;
-      this.parameters = new LinkedHashMap();
-      if (var1 != null && var1.array != null) {
-         int var2 = var1.readUnsignedByte();
-         if (var2 >= 0 && var2 <= field342) {
-            if (var1.readUnsignedByte() == 1) {
-               this.roofsHidden = true;
-            }
+	@ObfuscatedSignature(
+		signature = "(Lgr;)V"
+	)
+	ClientPreferences(Buffer buffer) {
+		this.windowMode = 1;
+		this.rememberedUsername = null;
+		this.hideUsername = false;
+		this.parameters = new LinkedHashMap();
+		if (buffer != null && buffer.array != null) {
+			int var2 = buffer.readUnsignedByte();
+			if (var2 >= 0 && var2 <= ClientPreferences_optionCount) {
+				if (buffer.readUnsignedByte() == 1) {
+					this.roofsHidden = true;
+				}
 
-            if (var2 > 1) {
-               this.titleMusicDisabled = var1.readUnsignedByte() == 1;
-            }
+				if (var2 > 1) {
+					this.titleMusicDisabled = buffer.readUnsignedByte() == 1;
+				}
 
-            if (var2 > 3) {
-               this.windowMode = var1.readUnsignedByte();
-            }
+				if (var2 > 3) {
+					this.windowMode = buffer.readUnsignedByte();
+				}
 
-            if (var2 > 2) {
-               int var3 = var1.readUnsignedByte();
+				if (var2 > 2) {
+					int var3 = buffer.readUnsignedByte();
 
-               for (int var4 = 0; var4 < var3; ++var4) {
-                  int var5 = var1.readInt();
-                  int var6 = var1.readInt();
-                  this.parameters.put(var5, var6);
-               }
-            }
+					for (int var4 = 0; var4 < var3; ++var4) {
+						int var5 = buffer.readInt();
+						int var6 = buffer.readInt();
+						this.parameters.put(var5, var6);
+					}
+				}
 
-            if (var2 > 4) {
-               this.rememberedUsername = var1.readStringCp1252NullTerminatedOrNull();
-            }
+				if (var2 > 4) {
+					this.rememberedUsername = buffer.readStringCp1252NullTerminatedOrNull();
+				}
 
-            if (var2 > 5) {
-               this.hideUsername = var1.readBoolean();
-            }
-         } else {
-            this.method89(true);
-         }
-      } else {
-         this.method89(true);
-      }
+				if (var2 > 5) {
+					this.hideUsername = buffer.readBoolean();
+				}
+			} else {
+				this.method89(true);
+			}
+		} else {
+			this.method89(true);
+		}
 
-   }
+	}
 
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(ZI)V",
-      garbageValue = "1213718182"
-   )
-   void method89(boolean var1) {
-   }
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(ZI)V",
+		garbageValue = "1213718182"
+	)
+	void method89(boolean var1) {
+	}
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(I)Lgr;",
-      garbageValue = "-469810794"
-   )
-   @Export("toBuffer")
-   Buffer toBuffer() {
-      Buffer var1 = new Buffer(100);
-      var1.writeByte(field342);
-      var1.writeByte(this.roofsHidden ? 1 : 0);
-      var1.writeByte(this.titleMusicDisabled ? 1 : 0);
-      var1.writeByte(this.windowMode);
-      var1.writeByte(this.parameters.size());
-      Iterator var2 = this.parameters.entrySet().iterator();
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(I)Lgr;",
+		garbageValue = "-469810794"
+	)
+	@Export("toBuffer")
+	Buffer toBuffer() {
+		Buffer var1 = new Buffer(100);
+		var1.writeByte(ClientPreferences_optionCount);
+		var1.writeByte(this.roofsHidden ? 1 : 0);
+		var1.writeByte(this.titleMusicDisabled ? 1 : 0);
+		var1.writeByte(this.windowMode);
+		var1.writeByte(this.parameters.size());
+		Iterator var2 = this.parameters.entrySet().iterator();
 
-      while (var2.hasNext()) {
-         Entry var3 = (Entry)var2.next();
-         var1.writeInt((Integer)var3.getKey());
-         var1.writeInt((Integer)var3.getValue());
-      }
+		while (var2.hasNext()) {
+			Entry var3 = (Entry)var2.next();
+			var1.writeInt((Integer)var3.getKey());
+			var1.writeInt((Integer)var3.getValue());
+		}
 
-      var1.writeStringCp1252NullTerminated(this.rememberedUsername != null ? this.rememberedUsername : "");
-      var1.writeBoolean(this.hideUsername);
-      return var1;
-   }
+		var1.writeStringCp1252NullTerminated(this.rememberedUsername != null ? this.rememberedUsername : "");
+		var1.writeBoolean(this.hideUsername);
+		return var1;
+	}
 
-   @ObfuscatedName("w")
-   @ObfuscatedSignature(
-      signature = "(IB)I",
-      garbageValue = "-1"
-   )
-   public static int method1808(int var0) {
-      return HitSplatDefinition.method4972(ViewportMouse.ViewportMouse_entityTags[var0]);
-   }
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		signature = "(IB)I",
+		garbageValue = "-1"
+	)
+	public static int method1808(int var0) {
+		return HitSplatDefinition.method4972(ViewportMouse.ViewportMouse_entityTags[var0]);
+	}
 
-   @ObfuscatedName("jl")
-   @ObfuscatedSignature(
-      signature = "(IB)V",
-      garbageValue = "0"
-   )
-   static final void method1809(int var0) {
-      if (GroundItemPile.loadInterface(var0)) {
-         NetFileRequest.method4555(Widget.interfaceComponents[var0], -1);
-      }
+	@ObfuscatedName("jl")
+	@ObfuscatedSignature(
+		signature = "(IB)V",
+		garbageValue = "0"
+	)
+	static final void method1809(int var0) {
+		if (GroundItemPile.loadInterface(var0)) {
+			NetFileRequest.method4555(Widget.Widget_interfaceComponents[var0], -1);
+		}
 
-   }
+	}
 
-   static {
-      field342 = 6;
-   }
+	static {
+		ClientPreferences_optionCount = 6;
+	}
 }

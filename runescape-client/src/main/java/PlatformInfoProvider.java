@@ -6,11 +6,11 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("lm")
 @Implements("PlatformInfoProvider")
 public interface PlatformInfoProvider {
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(I)Llb;",
-      garbageValue = "-843739713"
-   )
-   @Export("get")
-   PlatformInfo get();
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(I)Llb;",
+		garbageValue = "-843739713"
+	)
+	@Export("get")
+	PlatformInfo get();
 }

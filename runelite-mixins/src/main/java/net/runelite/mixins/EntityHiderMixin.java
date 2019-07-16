@@ -68,7 +68,7 @@ public abstract class EntityHiderMixin implements RSScene
 	private static boolean hideNPCs;
 
 	@Shadow("hideNPCsNames")
-	private  static String hideNPCsNames;
+	private static String hideNPCsNames;
 
 	@Shadow("hideNPCs2D")
 	private static boolean hideNPCs2D;

@@ -4,7 +4,7 @@ import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("lc")
 public class class337 {
-   @ObfuscatedName("w")
-   @Export("clDat")
-   public static File clDat;
+	@ObfuscatedName("w")
+	@Export("clDat")
+	public static File clDat;
 }

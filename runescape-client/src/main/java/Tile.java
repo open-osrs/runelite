@@ -7,277 +7,278 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("dj")
 @Implements("Tile")
 public final class Tile extends Node {
-   @ObfuscatedName("m")
-   @ObfuscatedGetter(
-      intValue = 1065165981
-   )
-   @Export("plane")
-   int plane;
-   @ObfuscatedName("f")
-   @ObfuscatedGetter(
-      intValue = 103024387
-   )
-   @Export("x")
-   int x;
-   @ObfuscatedName("q")
-   @ObfuscatedGetter(
-      intValue = -561562755
-   )
-   @Export("y")
-   int y;
-   @ObfuscatedName("w")
-   @ObfuscatedGetter(
-      intValue = 1476296141
-   )
-   @Export("originalPlane")
-   int originalPlane;
-   @ObfuscatedName("o")
-   @ObfuscatedSignature(
-      signature = "Leb;"
-   )
-   @Export("paint")
-   TilePaint paint;
-   @ObfuscatedName("u")
-   @ObfuscatedSignature(
-      signature = "Ldv;"
-   )
-   @Export("model")
-   TileModel model;
-   @ObfuscatedName("g")
-   @ObfuscatedSignature(
-      signature = "Lej;"
-   )
-   @Export("boundaryObject")
-   BoundaryObject boundaryObject;
-   @ObfuscatedName("l")
-   @ObfuscatedSignature(
-      signature = "Leq;"
-   )
-   @Export("wallDecoration")
-   WallDecoration wallDecoration;
-   @ObfuscatedName("e")
-   @ObfuscatedSignature(
-      signature = "Ldo;"
-   )
-   @Export("floorDecoration")
-   FloorDecoration floorDecoration;
-   @ObfuscatedName("x")
-   @ObfuscatedSignature(
-      signature = "Ldr;"
-   )
-   @Export("groundItemPile")
-   GroundItemPile groundItemPile;
-   @ObfuscatedName("d")
-   @ObfuscatedGetter(
-      intValue = -792635627
-   )
-   @Export("gameObjectsCount")
-   int gameObjectsCount;
-   @ObfuscatedName("k")
-   @ObfuscatedSignature(
-      signature = "[Leh;"
-   )
-   @Export("gameObjects")
-   GameObject[] gameObjects;
-   @ObfuscatedName("n")
-   @Export("gameObjectEdgeMasks")
-   int[] gameObjectEdgeMasks;
-   @ObfuscatedName("i")
-   @ObfuscatedGetter(
-      intValue = 1192947815
-   )
-   @Export("gameObjectsEdgeMask")
-   int gameObjectsEdgeMask;
-   @ObfuscatedName("a")
-   @ObfuscatedGetter(
-      intValue = -1078135311
-   )
-   @Export("minPlane")
-   int minPlane;
-   @ObfuscatedName("z")
-   @Export("drawPrimary")
-   boolean drawPrimary;
-   @ObfuscatedName("j")
-   @Export("drawSecondary")
-   boolean drawSecondary;
-   @ObfuscatedName("s")
-   @Export("drawGameObjects")
-   boolean drawGameObjects;
-   @ObfuscatedName("t")
-   @ObfuscatedGetter(
-      intValue = 769252193
-   )
-   @Export("drawGameObjectEdges")
-   int drawGameObjectEdges;
-   @ObfuscatedName("y")
-   @ObfuscatedGetter(
-      intValue = 1724493981
-   )
-   int field897;
-   @ObfuscatedName("h")
-   @ObfuscatedGetter(
-      intValue = -172066661
-   )
-   int field898;
-   @ObfuscatedName("b")
-   @ObfuscatedGetter(
-      intValue = 2030010491
-   )
-   int field899;
-   @ObfuscatedName("c")
-   @ObfuscatedSignature(
-      signature = "Ldj;"
-   )
-   @Export("linkedBelowTile")
-   Tile linkedBelowTile;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = 1065165981
+	)
+	@Export("plane")
+	int plane;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 103024387
+	)
+	@Export("x")
+	int x;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = -561562755
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 1476296141
+	)
+	@Export("originalPlane")
+	int originalPlane;
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "Leb;"
+	)
+	@Export("paint")
+	TilePaint paint;
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		signature = "Ldv;"
+	)
+	@Export("model")
+	TileModel model;
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		signature = "Lej;"
+	)
+	@Export("boundaryObject")
+	BoundaryObject boundaryObject;
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		signature = "Leq;"
+	)
+	@Export("wallDecoration")
+	WallDecoration wallDecoration;
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		signature = "Ldo;"
+	)
+	@Export("floorDecoration")
+	FloorDecoration floorDecoration;
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		signature = "Ldr;"
+	)
+	@Export("groundItemPile")
+	GroundItemPile groundItemPile;
+	@ObfuscatedName("d")
+	@ObfuscatedGetter(
+		intValue = -792635627
+	)
+	@Export("gameObjectsCount")
+	int gameObjectsCount;
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		signature = "[Leh;"
+	)
+	@Export("gameObjects")
+	GameObject[] gameObjects;
+	@ObfuscatedName("n")
+	@Export("gameObjectEdgeMasks")
+	int[] gameObjectEdgeMasks;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = 1192947815
+	)
+	@Export("gameObjectsEdgeMask")
+	int gameObjectsEdgeMask;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = -1078135311
+	)
+	@Export("minPlane")
+	int minPlane;
+	@ObfuscatedName("z")
+	@Export("drawPrimary")
+	boolean drawPrimary;
+	@ObfuscatedName("j")
+	@Export("drawSecondary")
+	boolean drawSecondary;
+	@ObfuscatedName("s")
+	@Export("drawGameObjects")
+	boolean drawGameObjects;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = 769252193
+	)
+	@Export("drawGameObjectEdges")
+	int drawGameObjectEdges;
+	@ObfuscatedName("y")
+	@ObfuscatedGetter(
+		intValue = 1724493981
+	)
+	int field897;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = -172066661
+	)
+	int field898;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = 2030010491
+	)
+	int field899;
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		signature = "Ldj;"
+	)
+	@Export("linkedBelowTile")
+	Tile linkedBelowTile;
 
-   Tile(int var1, int var2, int var3) {
-      this.gameObjects = new GameObject[5];
-      this.gameObjectEdgeMasks = new int[5];
-      this.gameObjectsEdgeMask = 0;
-      this.originalPlane = this.plane = var1;
-      this.x = var2;
-      this.y = var3;
-   }
+	Tile(int var1, int var2, int var3) {
+		this.gameObjects = new GameObject[5];
+		this.gameObjectEdgeMasks = new int[5];
+		this.gameObjectsEdgeMask = 0;
+		this.originalPlane = this.plane = var1;
+		this.x = var2;
+		this.y = var3;
+	}
 
-   @ObfuscatedName("g")
-   @ObfuscatedSignature(
-      signature = "(I)V",
-      garbageValue = "-1899580455"
-   )
-   public static void method2867() {
-      FloorUnderlayDefinition.FloorUnderlayDefinition_cached.clear();
-   }
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		signature = "(I)V",
+		garbageValue = "-1899580455"
+	)
+	@Export("FloorUnderlayDefinition_clearCached")
+	public static void FloorUnderlayDefinition_clearCached() {
+		FloorUnderlayDefinition.FloorUnderlayDefinition_cached.clear();
+	}
 
-   @ObfuscatedName("is")
-   @ObfuscatedSignature(
-      signature = "(Ljz;IIIB)V",
-      garbageValue = "117"
-   )
-   @Export("addNpcToMenu")
-   static final void addNpcToMenu(NPCDefinition npc, int menuArg0, int menuArg1, int menuArg2) {
-      if (Client.menuOptionsCount < 400) {
-         if (npc.transforms != null) {
-            npc = npc.transform();
-         }
+	@ObfuscatedName("is")
+	@ObfuscatedSignature(
+		signature = "(Ljz;IIIB)V",
+		garbageValue = "117"
+	)
+	@Export("addNpcToMenu")
+	static final void addNpcToMenu(NPCDefinition npc, int menuArg0, int menuArg1, int menuArg2) {
+		if (Client.menuOptionsCount < 400) {
+			if (npc.transforms != null) {
+				npc = npc.transform();
+			}
 
-         if (npc != null && npc.isInteractable && (!npc.isFollower || Client.followerIndex == menuArg0)) {
-            String var4 = npc.name;
-            int var5;
-            int var6;
-            int var7;
-            if (npc.combatLevel != 0) {
-               var5 = npc.combatLevel;
-               var6 = Canvas.localPlayer.combatLevel;
-               var7 = var6 - var5;
-               String var8;
-               if (var7 < -9) {
-                  var8 = BufferedFile.colorStartTag(16711680);
-               } else if (var7 < -6) {
-                  var8 = BufferedFile.colorStartTag(16723968);
-               } else if (var7 < -3) {
-                  var8 = BufferedFile.colorStartTag(16740352);
-               } else if (var7 < 0) {
-                  var8 = BufferedFile.colorStartTag(16756736);
-               } else if (var7 > 9) {
-                  var8 = BufferedFile.colorStartTag(65280);
-               } else if (var7 > 6) {
-                  var8 = BufferedFile.colorStartTag(4259584);
-               } else if (var7 > 3) {
-                  var8 = BufferedFile.colorStartTag(8453888);
-               } else if (var7 > 0) {
-                  var8 = BufferedFile.colorStartTag(12648192);
-               } else {
-                  var8 = BufferedFile.colorStartTag(16776960);
-               }
+			if (npc != null && npc.isInteractable && (!npc.isFollower || Client.followerIndex == menuArg0)) {
+				String var4 = npc.name;
+				int var5;
+				int var6;
+				int var7;
+				if (npc.combatLevel != 0) {
+					var5 = npc.combatLevel;
+					var6 = Canvas.localPlayer.combatLevel;
+					var7 = var6 - var5;
+					String var8;
+					if (var7 < -9) {
+						var8 = BufferedFile.colorStartTag(16711680);
+					} else if (var7 < -6) {
+						var8 = BufferedFile.colorStartTag(16723968);
+					} else if (var7 < -3) {
+						var8 = BufferedFile.colorStartTag(16740352);
+					} else if (var7 < 0) {
+						var8 = BufferedFile.colorStartTag(16756736);
+					} else if (var7 > 9) {
+						var8 = BufferedFile.colorStartTag(65280);
+					} else if (var7 > 6) {
+						var8 = BufferedFile.colorStartTag(4259584);
+					} else if (var7 > 3) {
+						var8 = BufferedFile.colorStartTag(8453888);
+					} else if (var7 > 0) {
+						var8 = BufferedFile.colorStartTag(12648192);
+					} else {
+						var8 = BufferedFile.colorStartTag(16776960);
+					}
 
-               var4 = var4 + var8 + "  (level-" + npc.combatLevel + ")";
-            }
+					var4 = var4 + var8 + "  (level-" + npc.combatLevel + ")";
+				}
 
-            if (npc.isFollower && Client.followerOpsLowPriority) {
-               Tiles.insertMenuItemNoShift("Examine", BufferedFile.colorStartTag(16776960) + var4, 1003, menuArg0, menuArg1, menuArg2);
-            }
+				if (npc.isFollower && Client.followerOpsLowPriority) {
+					Tiles.insertMenuItemNoShift("Examine", BufferedFile.colorStartTag(16776960) + var4, 1003, menuArg0, menuArg1, menuArg2);
+				}
 
-            if (Client.isItemSelected == 1) {
-               Tiles.insertMenuItemNoShift("Use", Client.selectedItemName + " -> " + BufferedFile.colorStartTag(16776960) + var4, 7, menuArg0, menuArg1, menuArg2);
-            } else if (Client.isSpellSelected) {
-               if ((FloorDecoration.selectedSpellFlags & 2) == 2) {
-                  Tiles.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " -> " + BufferedFile.colorStartTag(16776960) + var4, 8, menuArg0, menuArg1, menuArg2);
-               }
-            } else {
-               var7 = npc.isFollower && Client.followerOpsLowPriority ? 2000 : 0;
-               String[] var10 = npc.actions;
-               if (var10 != null) {
-                  for (var5 = 4; var5 >= 0; --var5) {
-                     if (var10[var5] != null && !var10[var5].equalsIgnoreCase("Attack")) {
-                        var6 = 0;
-                        if (var5 == 0) {
-                           var6 = var7 + 9;
-                        }
+				if (Client.isItemSelected == 1) {
+					Tiles.insertMenuItemNoShift("Use", Client.selectedItemName + " -> " + BufferedFile.colorStartTag(16776960) + var4, 7, menuArg0, menuArg1, menuArg2);
+				} else if (Client.isSpellSelected) {
+					if ((FloorDecoration.selectedSpellFlags & 2) == 2) {
+						Tiles.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " -> " + BufferedFile.colorStartTag(16776960) + var4, 8, menuArg0, menuArg1, menuArg2);
+					}
+				} else {
+					var7 = npc.isFollower && Client.followerOpsLowPriority ? 2000 : 0;
+					String[] var10 = npc.actions;
+					if (var10 != null) {
+						for (var5 = 4; var5 >= 0; --var5) {
+							if (var10[var5] != null && !var10[var5].equalsIgnoreCase("Attack")) {
+								var6 = 0;
+								if (var5 == 0) {
+									var6 = var7 + 9;
+								}
 
-                        if (var5 == 1) {
-                           var6 = var7 + 10;
-                        }
+								if (var5 == 1) {
+									var6 = var7 + 10;
+								}
 
-                        if (var5 == 2) {
-                           var6 = var7 + 11;
-                        }
+								if (var5 == 2) {
+									var6 = var7 + 11;
+								}
 
-                        if (var5 == 3) {
-                           var6 = var7 + 12;
-                        }
+								if (var5 == 3) {
+									var6 = var7 + 12;
+								}
 
-                        if (var5 == 4) {
-                           var6 = var7 + 13;
-                        }
+								if (var5 == 4) {
+									var6 = var7 + 13;
+								}
 
-                        Tiles.insertMenuItemNoShift(var10[var5], BufferedFile.colorStartTag(16776960) + var4, var6, menuArg0, menuArg1, menuArg2);
-                     }
-                  }
-               }
+								Tiles.insertMenuItemNoShift(var10[var5], BufferedFile.colorStartTag(16776960) + var4, var6, menuArg0, menuArg1, menuArg2);
+							}
+						}
+					}
 
-               if (var10 != null) {
-                  for (var5 = 4; var5 >= 0; --var5) {
-                     if (var10[var5] != null && var10[var5].equalsIgnoreCase("Attack")) {
-                        short var9 = 0;
-                        if (AttackOption.AttackOption_hidden != Client.npcAttackOption) {
-                           if (AttackOption.AttackOption_alwaysRightClick == Client.npcAttackOption || Client.npcAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && npc.combatLevel > Canvas.localPlayer.combatLevel) {
-                              var9 = 2000;
-                           }
+					if (var10 != null) {
+						for (var5 = 4; var5 >= 0; --var5) {
+							if (var10[var5] != null && var10[var5].equalsIgnoreCase("Attack")) {
+								short var9 = 0;
+								if (AttackOption.AttackOption_hidden != Client.npcAttackOption) {
+									if (AttackOption.AttackOption_alwaysRightClick == Client.npcAttackOption || Client.npcAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && npc.combatLevel > Canvas.localPlayer.combatLevel) {
+										var9 = 2000;
+									}
 
-                           var6 = 0;
-                           if (var5 == 0) {
-                              var6 = var9 + 9;
-                           }
+									var6 = 0;
+									if (var5 == 0) {
+										var6 = var9 + 9;
+									}
 
-                           if (var5 == 1) {
-                              var6 = var9 + 10;
-                           }
+									if (var5 == 1) {
+										var6 = var9 + 10;
+									}
 
-                           if (var5 == 2) {
-                              var6 = var9 + 11;
-                           }
+									if (var5 == 2) {
+										var6 = var9 + 11;
+									}
 
-                           if (var5 == 3) {
-                              var6 = var9 + 12;
-                           }
+									if (var5 == 3) {
+										var6 = var9 + 12;
+									}
 
-                           if (var5 == 4) {
-                              var6 = var9 + 13;
-                           }
+									if (var5 == 4) {
+										var6 = var9 + 13;
+									}
 
-                           Tiles.insertMenuItemNoShift(var10[var5], BufferedFile.colorStartTag(16776960) + var4, var6, menuArg0, menuArg1, menuArg2);
-                        }
-                     }
-                  }
-               }
+									Tiles.insertMenuItemNoShift(var10[var5], BufferedFile.colorStartTag(16776960) + var4, var6, menuArg0, menuArg1, menuArg2);
+								}
+							}
+						}
+					}
 
-               if (!npc.isFollower || !Client.followerOpsLowPriority) {
-                  Tiles.insertMenuItemNoShift("Examine", BufferedFile.colorStartTag(16776960) + var4, 1003, menuArg0, menuArg1, menuArg2);
-               }
-            }
-         }
-      }
+					if (!npc.isFollower || !Client.followerOpsLowPriority) {
+						Tiles.insertMenuItemNoShift("Examine", BufferedFile.colorStartTag(16776960) + var4, 1003, menuArg0, menuArg1, menuArg2);
+					}
+				}
+			}
+		}
 
-   }
+	}
 }

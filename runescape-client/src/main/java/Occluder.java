@@ -7,184 +7,183 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ee")
 @Implements("Occluder")
 public final class Occluder {
-   @ObfuscatedName("m")
-   @ObfuscatedGetter(
-      intValue = -691483983
-   )
-   @Export("minTileX")
-   int minTileX;
-   @ObfuscatedName("f")
-   @ObfuscatedGetter(
-      intValue = -13700523
-   )
-   @Export("maxTileX")
-   int maxTileX;
-   @ObfuscatedName("q")
-   @ObfuscatedGetter(
-      intValue = 768402657
-   )
-   @Export("minTileY")
-   int minTileY;
-   @ObfuscatedName("w")
-   @ObfuscatedGetter(
-      intValue = 1501977891
-   )
-   @Export("maxTileY")
-   int maxTileY;
-   @ObfuscatedName("o")
-   @ObfuscatedGetter(
-      intValue = -806776509
-   )
-   @Export("type")
-   int type;
-   @ObfuscatedName("u")
-   @ObfuscatedGetter(
-      intValue = -1824663821
-   )
-   @Export("minX")
-   int minX;
-   @ObfuscatedName("g")
-   @ObfuscatedGetter(
-      intValue = -2141305127
-   )
-   @Export("maxX")
-   int maxX;
-   @ObfuscatedName("l")
-   @ObfuscatedGetter(
-      intValue = -41239751
-   )
-   @Export("minZ")
-   int minZ;
-   @ObfuscatedName("e")
-   @ObfuscatedGetter(
-      intValue = -1805075909
-   )
-   @Export("maxZ")
-   int maxZ;
-   @ObfuscatedName("x")
-   @ObfuscatedGetter(
-      intValue = 842961497
-   )
-   @Export("minY")
-   int minY;
-   @ObfuscatedName("d")
-   @ObfuscatedGetter(
-      intValue = -1114046315
-   )
-   @Export("maxY")
-   int maxY;
-   @ObfuscatedName("k")
-   @ObfuscatedGetter(
-      intValue = 826041747
-   )
-   int field656;
-   @ObfuscatedName("n")
-   @ObfuscatedGetter(
-      intValue = -407777817
-   )
-   int field657;
-   @ObfuscatedName("i")
-   @ObfuscatedGetter(
-      intValue = 1324959981
-   )
-   int field658;
-   @ObfuscatedName("a")
-   @ObfuscatedGetter(
-      intValue = -1527021367
-   )
-   int field659;
-   @ObfuscatedName("z")
-   @ObfuscatedGetter(
-      intValue = -570391007
-   )
-   int field660;
-   @ObfuscatedName("j")
-   @ObfuscatedGetter(
-      intValue = -373839103
-   )
-   int field661;
-   @ObfuscatedName("s")
-   @ObfuscatedGetter(
-      intValue = -1334433969
-   )
-   int field662;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -691483983
+	)
+	@Export("minTileX")
+	int minTileX;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = -13700523
+	)
+	@Export("maxTileX")
+	int maxTileX;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 768402657
+	)
+	@Export("minTileY")
+	int minTileY;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 1501977891
+	)
+	@Export("maxTileY")
+	int maxTileY;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = -806776509
+	)
+	@Export("type")
+	int type;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = -1824663821
+	)
+	@Export("minX")
+	int minX;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -2141305127
+	)
+	@Export("maxX")
+	int maxX;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -41239751
+	)
+	@Export("minZ")
+	int minZ;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = -1805075909
+	)
+	@Export("maxZ")
+	int maxZ;
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = 842961497
+	)
+	@Export("minY")
+	int minY;
+	@ObfuscatedName("d")
+	@ObfuscatedGetter(
+		intValue = -1114046315
+	)
+	@Export("maxY")
+	int maxY;
+	@ObfuscatedName("k")
+	@ObfuscatedGetter(
+		intValue = 826041747
+	)
+	int field656;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -407777817
+	)
+	int field657;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = 1324959981
+	)
+	int field658;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = -1527021367
+	)
+	int field659;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = -570391007
+	)
+	int field660;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = -373839103
+	)
+	int field661;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -1334433969
+	)
+	int field662;
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(IB)Lia;",
-      garbageValue = "16"
-   )
-   @Export("getVarbitDefinition")
-   public static VarbitDefinition getVarbitDefinition(int var0) {
-      VarbitDefinition var1 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0);
-      if (var1 != null) {
-         return var1;
-      } else {
-         byte[] var2 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0);
-         var1 = new VarbitDefinition();
-         if (var2 != null) {
-            var1.decode(new Buffer(var2));
-         }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(IB)Lia;",
+		garbageValue = "16"
+	)
+	@Export("getVarbitDefinition")
+	public static VarbitDefinition getVarbitDefinition(int var0) {
+		VarbitDefinition var1 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		}
+		byte[] var2 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0);
+		var1 = new VarbitDefinition();
+		if (var2 != null) {
+			var1.decode(new Buffer(var2));
+		}
 
-         VarbitDefinition.VarbitDefinition_cached.put(var1, (long)var0);
-         return var1;
-      }
-   }
+		VarbitDefinition.VarbitDefinition_cached.put(var1, (long)var0);
+		return var1;
+	}
 
-   @ObfuscatedName("w")
-   @ObfuscatedSignature(
-      signature = "([BI)Lcg;",
-      garbageValue = "-1164060583"
-   )
-   @Export("newScript")
-   static Script newScript(byte[] bytes) {
-      Script var1 = new Script();
-      Buffer var2 = new Buffer(bytes);
-      var2.index = var2.array.length - 2;
-      int var3 = var2.readUnsignedShort();
-      int var4 = var2.array.length - 2 - var3 - 12;
-      var2.index = var4;
-      int var5 = var2.readInt();
-      var1.localIntCount = var2.readUnsignedShort();
-      var1.localStringCount = var2.readUnsignedShort();
-      var1.intArgumentCount = var2.readUnsignedShort();
-      var1.stringArgumentCount = var2.readUnsignedShort();
-      int var6 = var2.readUnsignedByte();
-      int var7;
-      int var8;
-      if (var6 > 0) {
-         var1.switches = var1.method302(var6);
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		signature = "([BI)Lcg;",
+		garbageValue = "-1164060583"
+	)
+	@Export("newScript")
+	static Script newScript(byte[] bytes) {
+		Script var1 = new Script();
+		Buffer var2 = new Buffer(bytes);
+		var2.offset = var2.array.length - 2;
+		int var3 = var2.readUnsignedShort();
+		int var4 = var2.array.length - 2 - var3 - 12;
+		var2.offset = var4;
+		int var5 = var2.readInt();
+		var1.localIntCount = var2.readUnsignedShort();
+		var1.localStringCount = var2.readUnsignedShort();
+		var1.intArgumentCount = var2.readUnsignedShort();
+		var1.stringArgumentCount = var2.readUnsignedShort();
+		int var6 = var2.readUnsignedByte();
+		int var7;
+		int var8;
+		if (var6 > 0) {
+			var1.switches = var1.method302(var6);
 
-         for (var7 = 0; var7 < var6; ++var7) {
-            var8 = var2.readUnsignedShort();
-            IterableNodeHashTable var9 = new IterableNodeHashTable(var8 > 0 ? World.method1759(var8) : 1);
-            var1.switches[var7] = var9;
+			for (var7 = 0; var7 < var6; ++var7) {
+				var8 = var2.readUnsignedShort();
+				IterableNodeHashTable var9 = new IterableNodeHashTable(var8 > 0 ? World.method1759(var8) : 1);
+				var1.switches[var7] = var9;
 
-            while (var8-- > 0) {
-               int var10 = var2.readInt();
-               int var11 = var2.readInt();
-               var9.put(new IntegerNode(var11), (long)var10);
-            }
-         }
-      }
+				while (var8-- > 0) {
+					int var10 = var2.readInt();
+					int var11 = var2.readInt();
+					var9.put(new IntegerNode(var11), (long)var10);
+				}
+			}
+		}
 
-      var2.index = 0;
-      var2.readStringCp1252NullTerminatedOrNull();
-      var1.opcodes = new int[var5];
-      var1.intOperands = new int[var5];
-      var1.stringOperands = new String[var5];
+		var2.offset = 0;
+		var2.readStringCp1252NullTerminatedOrNull();
+		var1.opcodes = new int[var5];
+		var1.intOperands = new int[var5];
+		var1.stringOperands = new String[var5];
 
-      for (var7 = 0; var2.index < var4; var1.opcodes[var7++] = var8) {
-         var8 = var2.readUnsignedShort();
-         if (var8 == 3) {
-            var1.stringOperands[var7] = var2.readStringCp1252NullTerminated();
-         } else if (var8 < 100 && var8 != 21 && var8 != 38 && var8 != 39) {
-            var1.intOperands[var7] = var2.readInt();
-         } else {
-            var1.intOperands[var7] = var2.readUnsignedByte();
-         }
-      }
+		for (var7 = 0; var2.offset < var4; var1.opcodes[var7++] = var8) {
+			var8 = var2.readUnsignedShort();
+			if (var8 == 3) {
+				var1.stringOperands[var7] = var2.readStringCp1252NullTerminated();
+			} else if (var8 < 100 && var8 != 21 && var8 != 38 && var8 != 39) {
+				var1.intOperands[var7] = var2.readInt();
+			} else {
+				var1.intOperands[var7] = var2.readUnsignedByte();
+			}
+		}
 
-      return var1;
-   }
+		return var1;
+	}
 }

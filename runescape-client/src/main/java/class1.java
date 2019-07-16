@@ -5,275 +5,283 @@ import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("f")
 final class class1 implements class0 {
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "Lir;"
-   )
-   @Export("musicPatchesArchive")
-   public static AbstractArchive musicPatchesArchive;
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "Lir;"
+	)
+	@Export("musicPatchesArchive")
+	public static AbstractArchive musicPatchesArchive;
 
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(Ljava/lang/Object;Lgr;I)V",
-      garbageValue = "-223205903"
-   )
-   public void vmethod44(Object var1, Buffer var2) {
-      this.method6((Integer)var1, var2);
-   }
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/Object;Lgr;I)V",
+		garbageValue = "-223205903"
+	)
+	public void vmethod44(Object var1, Buffer var2) {
+		this.method6((Integer)var1, var2);
+	}
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(Lgr;I)Ljava/lang/Object;",
-      garbageValue = "704451908"
-   )
-   public Object vmethod46(Buffer var1) {
-      return var1.readInt();
-   }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(Lgr;I)Ljava/lang/Object;",
+		garbageValue = "704451908"
+	)
+	public Object vmethod46(Buffer var1) {
+		return var1.readInt();
+	}
 
-   @ObfuscatedName("g")
-   @ObfuscatedSignature(
-      signature = "(Ljava/lang/Integer;Lgr;I)V",
-      garbageValue = "-254123307"
-   )
-   void method6(Integer var1, Buffer var2) {
-      var2.writeInt(var1);
-   }
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/Integer;Lgr;I)V",
+		garbageValue = "-254123307"
+	)
+	void method6(Integer var1, Buffer var2) {
+		var2.writeInt(var1);
+	}
 
-   @ObfuscatedName("q")
-   @ObfuscatedSignature(
-      signature = "(II)Z",
-      garbageValue = "553036714"
-   )
-   public static boolean method19(int var0) {
-      return var0 == WorldMapDecorationType.field2819.id;
-   }
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		signature = "(II)Z",
+		garbageValue = "553036714"
+	)
+	public static boolean method19(int var0) {
+		return var0 == WorldMapDecorationType.field2819.id;
+	}
 
-   @ObfuscatedName("q")
-   @ObfuscatedSignature(
-      signature = "(III)I",
-      garbageValue = "644743473"
-   )
-   static int method18(int var0, int var1) {
-      ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-      if (var2 == null) {
-         return 0;
-      } else if (var1 == -1) {
-         return 0;
-      } else {
-         int var3 = 0;
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		signature = "(III)I",
+		garbageValue = "644743473"
+	)
+	static int method18(int var0, int var1) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var2 == null) {
+			return 0;
+		}
+		if (var1 == -1) {
+			return 0;
+		}
+		int var3 = 0;
 
-         for (int var4 = 0; var4 < var2.quantities.length; ++var4) {
-            if (var2.ids[var4] == var1) {
-               var3 += var2.quantities[var4];
-            }
-         }
+		for (int var4 = 0; var4 < var2.quantities.length; ++var4) {
+			if (var2.ids[var4] == var1) {
+				var3 += var2.quantities[var4];
+			}
+		}
 
-         return var3;
-      }
-   }
+		return var3;
+	}
 
-   @ObfuscatedName("o")
-   @ObfuscatedSignature(
-      signature = "(ILcg;ZB)I",
-      garbageValue = "-91"
-   )
-   static int method8(int var0, Script var1, boolean var2) {
-      int var3 = -1;
-      Widget var4;
-      if (var0 >= 2000) {
-         var0 -= 1000;
-         var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-         var4 = Huffman.getWidget(var3);
-      } else {
-         var4 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
-      }
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "(ILcg;ZB)I",
+		garbageValue = "-91"
+	)
+	static int method8(int var0, Script var1, boolean var2) {
+		int var3 = -1;
+		Widget var4;
+		if (var0 >= 2000) {
+			var0 -= 1000;
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			var4 = Huffman.getWidget(var3);
+		} else {
+			var4 = var2 ? WorldMapIcon_0.field1030 : GrandExchangeOfferAgeComparator.field1111;
+		}
 
-      if (var0 == ScriptOpcodes.CC_SETPOSITION) {
-         RouteStrategy.Interpreter_intStackSize -= 4;
-         var4.rawX = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
-         var4.rawY = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
-         var4.xAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 2];
-         var4.yAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 3];
-         WorldMapRectangle.method295(var4);
-         TextureProvider.client.alignWidget(var4);
-         if (var3 != -1 && var4.type == 0) {
-            WorldMapData_1.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
-         }
+		if (var0 == ScriptOpcodes.CC_SETPOSITION) {
+			RouteStrategy.Interpreter_intStackSize -= 4;
+			var4.rawX = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
+			var4.rawY = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
+			var4.xAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 2];
+			var4.yAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 3];
+			WorldMapRectangle.method295(var4);
+			TextureProvider.client.alignWidget(var4);
+			if (var3 != -1 && var4.type == 0) {
+				WorldMapData_1.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
+			}
 
-         return 1;
-      } else if (var0 == ScriptOpcodes.CC_SETSIZE) {
-         RouteStrategy.Interpreter_intStackSize -= 4;
-         var4.rawWidth = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
-         var4.rawHeight = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
-         var4.widthAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 2];
-         var4.heightAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 3];
-         WorldMapRectangle.method295(var4);
-         TextureProvider.client.alignWidget(var4);
-         if (var3 != -1 && var4.type == 0) {
-            WorldMapData_1.revalidateWidgetScroll(Widget.interfaceComponents[var3 >> 16], var4, false);
-         }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CC_SETSIZE) {
+			RouteStrategy.Interpreter_intStackSize -= 4;
+			var4.rawWidth = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
+			var4.rawHeight = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
+			var4.widthAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 2];
+			var4.heightAlignment = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 3];
+			WorldMapRectangle.method295(var4);
+			TextureProvider.client.alignWidget(var4);
+			if (var3 != -1 && var4.type == 0) {
+				WorldMapData_1.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
+			}
 
-         return 1;
-      } else if (var0 == ScriptOpcodes.CC_SETHIDE) {
-         boolean var5 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
-         if (var5 != var4.isHidden) {
-            var4.isHidden = var5;
-            WorldMapRectangle.method295(var4);
-         }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CC_SETHIDE) {
+			boolean var5 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
+			if (var5 != var4.isHidden) {
+				var4.isHidden = var5;
+				WorldMapRectangle.method295(var4);
+			}
 
-         return 1;
-      } else if (var0 == ScriptOpcodes.CC_SETNOCLICKTHROUGH) {
-         var4.noClickThrough = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
-         return 1;
-      } else if (var0 == ScriptOpcodes.CC_SETNOSCROLLTHROUGH) {
-         var4.noScrollThrough = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
-         return 1;
-      } else {
-         return 2;
-      }
-   }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CC_SETNOCLICKTHROUGH) {
+			var4.noClickThrough = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CC_SETNOSCROLLTHROUGH) {
+			var4.noScrollThrough = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize] == 1;
+			return 1;
+		}
+		return 2;
+	}
 
-   @ObfuscatedName("ah")
-   @ObfuscatedSignature(
-      signature = "(ILcg;ZB)I",
-      garbageValue = "-82"
-   )
-   static int method16(int var0, Script var1, boolean var2) {
-      int var3;
-      if (var0 == ScriptOpcodes.OC_NAME) {
-         var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-         Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = Skills.getItemDefinition(var3).name;
-         return 1;
-      } else {
-         int var4;
-         ItemDefinition var5;
-         if (var0 == ScriptOpcodes.OC_OP) {
-            RouteStrategy.Interpreter_intStackSize -= 2;
-            var3 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
-            var4 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
-            var5 = Skills.getItemDefinition(var3);
-            if (var4 >= 1 && var4 <= 5 && var5.groundActions[var4 - 1] != null) {
-               Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var5.groundActions[var4 - 1];
-            } else {
-               Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
-            }
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		signature = "(ILcg;ZB)I",
+		garbageValue = "-82"
+	)
+	static int method16(int var0, Script var1, boolean var2) {
+		int var3;
+		if (var0 == ScriptOpcodes.OC_NAME) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = Skills.getItemDefinition(var3).name;
+			return 1;
+		}
+		int var4;
+		ItemDefinition var5;
+		if (var0 == ScriptOpcodes.OC_OP) {
+			RouteStrategy.Interpreter_intStackSize -= 2;
+			var3 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
+			var4 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
+			var5 = Skills.getItemDefinition(var3);
+			if (var4 >= 1 && var4 <= 5 && var5.groundActions[var4 - 1] != null) {
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var5.groundActions[var4 - 1];
+			} else {
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
+			}
 
-            return 1;
-         } else if (var0 == ScriptOpcodes.OC_IOP) {
-            RouteStrategy.Interpreter_intStackSize -= 2;
-            var3 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
-            var4 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
-            var5 = Skills.getItemDefinition(var3);
-            if (var4 >= 1 && var4 <= 5 && var5.inventoryActions[var4 - 1] != null) {
-               Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var5.inventoryActions[var4 - 1];
-            } else {
-               Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
-            }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_IOP) {
+			RouteStrategy.Interpreter_intStackSize -= 2;
+			var3 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize];
+			var4 = Interpreter.Interpreter_intStack[RouteStrategy.Interpreter_intStackSize + 1];
+			var5 = Skills.getItemDefinition(var3);
+			if (var4 >= 1 && var4 <= 5 && var5.inventoryActions[var4 - 1] != null) {
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var5.inventoryActions[var4 - 1];
+			} else {
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
+			}
 
-            return 1;
-         } else if (var0 == ScriptOpcodes.OC_COST) {
-            var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-            Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = Skills.getItemDefinition(var3).price;
-            return 1;
-         } else if (var0 == ScriptOpcodes.OC_STACKABLE) {
-            var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-            Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = Skills.getItemDefinition(var3).isStackable == 1 ? 1 : 0;
-            return 1;
-         } else {
-            ItemDefinition var6;
-            if (var0 == ScriptOpcodes.OC_CERT) {
-               var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-               var6 = Skills.getItemDefinition(var3);
-               if (var6.noteTemplate == -1 && var6.note >= 0) {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.note;
-               } else {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
-               }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_COST) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = Skills.getItemDefinition(var3).price;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_STACKABLE) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = Skills.getItemDefinition(var3).isStackable == 1 ? 1 : 0;
+			return 1;
+		}
+		ItemDefinition var6;
+		if (var0 == ScriptOpcodes.OC_CERT) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			var6 = Skills.getItemDefinition(var3);
+			if (var6.noteTemplate == -1 && var6.note >= 0) {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.note;
+			} else {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
+			}
 
-               return 1;
-            } else if (var0 == ScriptOpcodes.OC_UNCERT) {
-               var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-               var6 = Skills.getItemDefinition(var3);
-               if (var6.noteTemplate >= 0 && var6.note >= 0) {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.note;
-               } else {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
-               }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_UNCERT) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			var6 = Skills.getItemDefinition(var3);
+			if (var6.noteTemplate >= 0 && var6.note >= 0) {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.note;
+			} else {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
+			}
 
-               return 1;
-            } else if (var0 == ScriptOpcodes.OC_MEMBERS) {
-               var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = Skills.getItemDefinition(var3).isMembersOnly ? 1 : 0;
-               return 1;
-            } else if (var0 == ScriptOpcodes.OC_PLACEHOLDER) {
-               var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-               var6 = Skills.getItemDefinition(var3);
-               if (var6.placeholderTemplate == -1 && var6.placeholder >= 0) {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.placeholder;
-               } else {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
-               }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_MEMBERS) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = Skills.getItemDefinition(var3).isMembersOnly ? 1 : 0;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_PLACEHOLDER) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			var6 = Skills.getItemDefinition(var3);
+			if (var6.placeholderTemplate == -1 && var6.placeholder >= 0) {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.placeholder;
+			} else {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
+			}
 
-               return 1;
-            } else if (var0 == ScriptOpcodes.OC_UNPLACEHOLDER) {
-               var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-               var6 = Skills.getItemDefinition(var3);
-               if (var6.placeholderTemplate >= 0 && var6.placeholder >= 0) {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.placeholder;
-               } else {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
-               }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_UNPLACEHOLDER) {
+			var3 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			var6 = Skills.getItemDefinition(var3);
+			if (var6.placeholderTemplate >= 0 && var6.placeholder >= 0) {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var6.placeholder;
+			} else {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = var3;
+			}
 
-               return 1;
-            } else if (var0 == ScriptOpcodes.OC_FIND) {
-               String var7 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
-               var4 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
-               class50.findItemDefinitions(var7, var4 == 1);
-               Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapSection0.foundItemIdCount;
-               return 1;
-            } else if (var0 != ScriptOpcodes.OC_FINDNEXT) {
-               if (var0 == ScriptOpcodes.OC_FINDRESET) {
-                  WorldMapDecorationType.foundItemIndex = 0;
-                  return 1;
-               } else {
-                  return 2;
-               }
-            } else {
-               if (AttackOption.foundItemIds != null && WorldMapDecorationType.foundItemIndex < WorldMapSection0.foundItemIdCount) {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = AttackOption.foundItemIds[++WorldMapDecorationType.foundItemIndex - 1] & '\uffff';
-               } else {
-                  Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = -1;
-               }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_FIND) {
+			String var7 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
+			var4 = Interpreter.Interpreter_intStack[--RouteStrategy.Interpreter_intStackSize];
+			class50.findItemDefinitions(var7, var4 == 1);
+			Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = WorldMapSection0.foundItemIdCount;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_FINDNEXT) {
+			if (AttackOption.foundItemIds != null && WorldMapDecorationType.foundItemIndex < WorldMapSection0.foundItemIdCount) {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = AttackOption.foundItemIds[++WorldMapDecorationType.foundItemIndex - 1] & '\uffff';
+			} else {
+				Interpreter.Interpreter_intStack[++RouteStrategy.Interpreter_intStackSize - 1] = -1;
+			}
 
-               return 1;
-            }
-         }
-      }
-   }
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_FINDRESET) {
+			WorldMapDecorationType.foundItemIndex = 0;
+			return 1;
+		}
+		return 2;
+	}
 
-   @ObfuscatedName("jv")
-   @ObfuscatedSignature(
-      signature = "(II)Z",
-      garbageValue = "-370289311"
-   )
-   static boolean method15(int var0) {
-      for (int var1 = 0; var1 < Client.field137; ++var1) {
-         if (Client.field145[var1] == var0) {
-            return true;
-         }
-      }
+	@ObfuscatedName("jv")
+	@ObfuscatedSignature(
+		signature = "(II)Z",
+		garbageValue = "-370289311"
+	)
+	static boolean method15(int var0) {
+		for (int var1 = 0; var1 < Client.field137; ++var1) {
+			if (Client.field145[var1] == var0) {
+				return true;
+			}
+		}
 
-      return false;
-   }
+		return false;
+	}
 
-   @ObfuscatedName("kp")
-   @ObfuscatedSignature(
-      signature = "(Lho;I)I",
-      garbageValue = "1809366429"
-   )
-   @Export("getWidgetClickMask")
-   static int getWidgetClickMask(Widget component) {
-      IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.get(((long)component.id << 32) + (long)component.childIndex);
-      return var1 != null ? var1.integer : component.clickMask;
-   }
+	@ObfuscatedName("kp")
+	@ObfuscatedSignature(
+		signature = "(Lho;I)I",
+		garbageValue = "1809366429"
+	)
+	@Export("getWidgetClickMask")
+	static int getWidgetClickMask(Widget component) {
+		IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.get(((long)component.id << 32) + (long)component.childIndex);
+		return var1 != null ? var1.integer : component.clickMask;
+	}
 }

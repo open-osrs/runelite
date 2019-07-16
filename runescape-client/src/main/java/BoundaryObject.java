@@ -7,129 +7,129 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ej")
 @Implements("BoundaryObject")
 public final class BoundaryObject {
-   @ObfuscatedName("jv")
-   @ObfuscatedSignature(
-      signature = "Lho;"
-   )
-   static Widget field40;
-   @ObfuscatedName("m")
-   @ObfuscatedGetter(
-      intValue = -9307913
-   )
-   @Export("tileHeight")
-   int tileHeight;
-   @ObfuscatedName("f")
-   @ObfuscatedGetter(
-      intValue = 860688417
-   )
-   @Export("x")
-   int x;
-   @ObfuscatedName("q")
-   @ObfuscatedGetter(
-      intValue = -260081891
-   )
-   @Export("y")
-   int y;
-   @ObfuscatedName("w")
-   @ObfuscatedGetter(
-      intValue = 1724480965
-   )
-   @Export("orientationA")
-   int orientationA;
-   @ObfuscatedName("o")
-   @ObfuscatedGetter(
-      intValue = -969316473
-   )
-   @Export("orientationB")
-   int orientationB;
-   @ObfuscatedName("u")
-   @ObfuscatedSignature(
-      signature = "Lex;"
-   )
-   @Export("entity1")
-   public Entity entity1;
-   @ObfuscatedName("g")
-   @ObfuscatedSignature(
-      signature = "Lex;"
-   )
-   @Export("entity2")
-   public Entity entity2;
-   @ObfuscatedName("l")
-   @ObfuscatedGetter(
-      longValue = -4401157754236673285L
-   )
-   @Export("tag")
-   public long tag;
-   @ObfuscatedName("e")
-   @ObfuscatedGetter(
-      intValue = -693868549
-   )
-   @Export("flags")
-   int flags;
+	@ObfuscatedName("jv")
+	@ObfuscatedSignature(
+		signature = "Lho;"
+	)
+	static Widget field40;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -9307913
+	)
+	@Export("tileHeight")
+	int tileHeight;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 860688417
+	)
+	@Export("x")
+	int x;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = -260081891
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 1724480965
+	)
+	@Export("orientationA")
+	int orientationA;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = -969316473
+	)
+	@Export("orientationB")
+	int orientationB;
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		signature = "Lex;"
+	)
+	@Export("entity1")
+	public Entity entity1;
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		signature = "Lex;"
+	)
+	@Export("entity2")
+	public Entity entity2;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		longValue = -4401157754236673285L
+	)
+	@Export("tag")
+	public long tag;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = -693868549
+	)
+	@Export("flags")
+	int flags;
 
-   BoundaryObject() {
-      this.tag = 0L;
-      this.flags = 0;
-   }
+	BoundaryObject() {
+		this.tag = 0L;
+		this.flags = 0;
+	}
 
-   @ObfuscatedName("fr")
-   @ObfuscatedSignature(
-      signature = "(Ljava/lang/String;B)V",
-      garbageValue = "103"
-   )
-   @Export("doCheat")
-   static final void doCheat(String var0) {
-      if (var0.equalsIgnoreCase("toggleroof")) {
-         ReflectionCheck.clientPreferences.roofsHidden = !ReflectionCheck.clientPreferences.roofsHidden;
-         WorldMapSection0.savePreferences();
-         if (ReflectionCheck.clientPreferences.roofsHidden) {
-            WorldMapIcon_0.addGameMessage(99, "", "Roofs are now all hidden");
-         } else {
-            WorldMapIcon_0.addGameMessage(99, "", "Roofs will only be removed selectively");
-         }
-      }
+	@ObfuscatedName("fr")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/String;B)V",
+		garbageValue = "103"
+	)
+	@Export("doCheat")
+	static final void doCheat(String var0) {
+		if (var0.equalsIgnoreCase("toggleroof")) {
+			ReflectionCheck.clientPreferences.roofsHidden = !ReflectionCheck.clientPreferences.roofsHidden;
+			WorldMapSection0.savePreferences();
+			if (ReflectionCheck.clientPreferences.roofsHidden) {
+				WorldMapIcon_0.addGameMessage(99, "", "Roofs are now all hidden");
+			} else {
+				WorldMapIcon_0.addGameMessage(99, "", "Roofs will only be removed selectively");
+			}
+		}
 
-      if (var0.equalsIgnoreCase("displayfps")) {
-         Client.displayFps = !Client.displayFps;
-      }
+		if (var0.equalsIgnoreCase("displayfps")) {
+			Client.displayFps = !Client.displayFps;
+		}
 
-      if (var0.equalsIgnoreCase("renderself")) {
-         Client.renderSelf = !Client.renderSelf;
-      }
+		if (var0.equalsIgnoreCase("renderself")) {
+			Client.renderSelf = !Client.renderSelf;
+		}
 
-      if (var0.equalsIgnoreCase("mouseovertext")) {
-         Client.showMouseOverText = !Client.showMouseOverText;
-      }
+		if (var0.equalsIgnoreCase("mouseovertext")) {
+			Client.showMouseOverText = !Client.showMouseOverText;
+		}
 
-      if (Client.staffModLevel >= 2) {
-         if (var0.equalsIgnoreCase("errortest")) {
-            throw new RuntimeException();
-         }
+		if (Client.staffModLevel >= 2) {
+			if (var0.equalsIgnoreCase("errortest")) {
+				throw new RuntimeException();
+			}
 
-         if (var0.equalsIgnoreCase("showcoord")) {
-            class60.worldMap.showCoord = !class60.worldMap.showCoord;
-         }
+			if (var0.equalsIgnoreCase("showcoord")) {
+				class60.worldMap.showCoord = !class60.worldMap.showCoord;
+			}
 
-         if (var0.equalsIgnoreCase("fpson")) {
-            Client.displayFps = true;
-         }
+			if (var0.equalsIgnoreCase("fpson")) {
+				Client.displayFps = true;
+			}
 
-         if (var0.equalsIgnoreCase("fpsoff")) {
-            Client.displayFps = false;
-         }
+			if (var0.equalsIgnoreCase("fpsoff")) {
+				Client.displayFps = false;
+			}
 
-         if (var0.equalsIgnoreCase("gc")) {
-            System.gc();
-         }
+			if (var0.equalsIgnoreCase("gc")) {
+				System.gc();
+			}
 
-         if (var0.equalsIgnoreCase("clientdrop")) {
-            class48.method868();
-         }
-      }
+			if (var0.equalsIgnoreCase("clientdrop")) {
+				class48.method868();
+			}
+		}
 
-      PacketBufferNode var1 = Interpreter.method1915(ClientPacket.field282, Client.packetWriter.isaacCipher);
-      var1.packetBuffer.writeByte(var0.length() + 1);
-      var1.packetBuffer.writeStringCp1252NullTerminated(var0);
-      Client.packetWriter.method241(var1);
-   }
+		PacketBufferNode var1 = Interpreter.method1915(ClientPacket.field282, Client.packetWriter.isaacCipher);
+		var1.packetBuffer.writeByte(var0.length() + 1);
+		var1.packetBuffer.writeStringCp1252NullTerminated(var0);
+		Client.packetWriter.method241(var1);
+	}
 }

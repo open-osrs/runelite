@@ -7,52 +7,52 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("fp")
 @Implements("NanoClock")
 public class NanoClock extends Clock {
-   @ObfuscatedName("m")
-   @ObfuscatedGetter(
-      longValue = 7586221391557635221L
-   )
-   @Export("lastTimeNano")
-   long lastTimeNano;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		longValue = 7586221391557635221L
+	)
+	@Export("lastTimeNano")
+	long lastTimeNano;
 
-   public NanoClock() {
-      this.lastTimeNano = System.nanoTime();
-   }
+	public NanoClock() {
+		this.lastTimeNano = System.nanoTime();
+	}
 
-   @ObfuscatedName("m")
-   @ObfuscatedSignature(
-      signature = "(B)V",
-      garbageValue = "61"
-   )
-   @Export("mark")
-   public void mark() {
-      this.lastTimeNano = System.nanoTime();
-   }
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(B)V",
+		garbageValue = "61"
+	)
+	@Export("mark")
+	public void mark() {
+		this.lastTimeNano = System.nanoTime();
+	}
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(III)I",
-      garbageValue = "-126803683"
-   )
-   @Export("wait")
-   public int wait(int cycleMs, int minSleepMs) {
-      long var3 = 1000000L * (long)minSleepMs;
-      long var5 = this.lastTimeNano - System.nanoTime();
-      if (var5 < var3) {
-         var5 = var3;
-      }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(III)I",
+		garbageValue = "-126803683"
+	)
+	@Export("wait")
+	public int wait(int cycleMs, int minSleepMs) {
+		long var3 = 1000000L * (long)minSleepMs;
+		long var5 = this.lastTimeNano - System.nanoTime();
+		if (var5 < var3) {
+			var5 = var3;
+		}
 
-      class203.method4010(var5 / 1000000L);
-      long var7 = System.nanoTime();
+		class203.method4010(var5 / 1000000L);
+		long var7 = System.nanoTime();
 
-      int var9;
-      for (var9 = 0; var9 < 10 && (var9 < 1 || this.lastTimeNano < var7); this.lastTimeNano += 1000000L * (long)cycleMs) {
-         ++var9;
-      }
+		int var9;
+		for (var9 = 0; var9 < 10 && (var9 < 1 || this.lastTimeNano < var7); this.lastTimeNano += 1000000L * (long)cycleMs) {
+			++var9;
+		}
 
-      if (this.lastTimeNano < var7) {
-         this.lastTimeNano = var7;
-      }
+		if (this.lastTimeNano < var7) {
+			this.lastTimeNano = var7;
+		}
 
-      return var9;
-   }
+		return var9;
+	}
 }

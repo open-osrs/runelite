@@ -6,55 +6,54 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("id")
 @Implements("Strings")
 public class Strings {
-   @ObfuscatedName("bq")
-   public static String field880;
-   @ObfuscatedName("cp")
-   public static String field881;
-   @ObfuscatedName("jr")
-   public static String field882;
-   @ObfuscatedName("jv")
-   public static String field883;
-   @ObfuscatedName("ju")
-   public static String field884;
+	@ObfuscatedName("bq")
+	public static String field880;
+	@ObfuscatedName("cp")
+	public static String field881;
+	@ObfuscatedName("jr")
+	public static String field882;
+	@ObfuscatedName("jv")
+	public static String field883;
+	@ObfuscatedName("ju")
+	public static String field884;
 
-   @ObfuscatedName("ay")
-   @ObfuscatedSignature(
-      signature = "([BI)[B",
-      garbageValue = "274331764"
-   )
-   @Export("decompressBytes")
-   static final byte[] decompressBytes(byte[] var0) {
-      Buffer var1 = new Buffer(var0);
-      int var2 = var1.readUnsignedByte();
-      int var3 = var1.readInt();
-      if (var3 < 0 || AbstractArchive.field1 != 0 && var3 > AbstractArchive.field1) {
-         throw new RuntimeException();
-      } else if (var2 == 0) {
-         byte[] var6 = new byte[var3];
-         var1.readBytes(var6, 0, var3);
-         return var6;
-      } else {
-         int var4 = var1.readInt();
-         if (var4 < 0 || AbstractArchive.field1 != 0 && var4 > AbstractArchive.field1) {
-            throw new RuntimeException();
-         } else {
-            byte[] var5 = new byte[var4];
-            if (var2 == 1) {
-               Bzip2Decompressor.Bzip2Decompressor_decompress(var5, var4, var0, var3, 9);
-            } else {
-               AbstractArchive.gzipDecompressor.decompress(var1, var5);
-            }
+	@ObfuscatedName("ay")
+	@ObfuscatedSignature(
+		signature = "([BI)[B",
+		garbageValue = "274331764"
+	)
+	@Export("decompressBytes")
+	static final byte[] decompressBytes(byte[] var0) {
+		Buffer var1 = new Buffer(var0);
+		int var2 = var1.readUnsignedByte();
+		int var3 = var1.readInt();
+		if (var3 < 0 || AbstractArchive.field1 != 0 && var3 > AbstractArchive.field1) {
+			throw new RuntimeException();
+		}
+		if (var2 == 0) {
+			byte[] var6 = new byte[var3];
+			var1.readBytes(var6, 0, var3);
+			return var6;
+		}
+		int var4 = var1.readInt();
+		if (var4 < 0 || AbstractArchive.field1 != 0 && var4 > AbstractArchive.field1) {
+			throw new RuntimeException();
+		}
+		byte[] var5 = new byte[var4];
+		if (var2 == 1) {
+			BZip2Decompressor.BZip2Decompressor_decompress(var5, var4, var0, var3, 9);
+		} else {
+			AbstractArchive.gzipDecompressor.decompress(var1, var5);
+		}
 
-            return var5;
-         }
-      }
-   }
+		return var5;
+	}
 
-   static {
-      field880 = "Please visit the support page for assistance.";
-      field881 = "Please visit the support page for assistance.";
-      field882 = "";
-      field883 = "Page has opened in a new window.";
-      field884 = "(Please check your popup blocker.)";
-   }
+	static {
+		field880 = "Please visit the support page for assistance.";
+		field881 = "Please visit the support page for assistance.";
+		field882 = "";
+		field883 = "Page has opened in a new window.";
+		field884 = "(Please check your popup blocker.)";
+	}
 }

@@ -9,175 +9,178 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("cq")
 @Implements("Players")
 public class Players {
-   @ObfuscatedName("q")
-   static byte[] field731;
-   @ObfuscatedName("w")
-   static byte[] field732;
-   @ObfuscatedName("o")
-   @ObfuscatedSignature(
-      signature = "[Lgr;"
-   )
-   static Buffer[] field733;
-   @ObfuscatedName("u")
-   @ObfuscatedGetter(
-      intValue = -766468303
-   )
-   @Export("Players_count")
-   static int Players_count;
-   @ObfuscatedName("g")
-   @Export("Players_indices")
-   static int[] Players_indices;
-   @ObfuscatedName("l")
-   @ObfuscatedGetter(
-      intValue = 945250525
-   )
-   static int field734;
-   @ObfuscatedName("e")
-   static int[] field735;
-   @ObfuscatedName("x")
-   @Export("Players_regions")
-   static int[] Players_regions;
-   @ObfuscatedName("d")
-   @Export("Players_orientations")
-   static int[] Players_orientations;
-   @ObfuscatedName("k")
-   @Export("Players_targetIndices")
-   static int[] Players_targetIndices;
-   @ObfuscatedName("n")
-   @ObfuscatedGetter(
-      intValue = -22568397
-   )
-   static int field736;
-   @ObfuscatedName("i")
-   static int[] field737;
-   @ObfuscatedName("a")
-   @ObfuscatedSignature(
-      signature = "Lgr;"
-   )
-   static Buffer field738;
-   @ObfuscatedName("y")
-   @ObfuscatedSignature(
-      signature = "Lgr;"
-   )
-   @Export("NetCache_reference")
-   public static Buffer NetCache_reference;
+	@ObfuscatedName("q")
+	static byte[] field731;
+	@ObfuscatedName("w")
+	static byte[] field732;
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "[Lgr;"
+	)
+	static Buffer[] field733;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = -766468303
+	)
+	@Export("Players_count")
+	static int Players_count;
+	@ObfuscatedName("g")
+	@Export("Players_indices")
+	static int[] Players_indices;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 945250525
+	)
+	@Export("Players_emptyIdxCount")
+	static int Players_emptyIdxCount;
+	@ObfuscatedName("e")
+	@Export("Players_emptyIndices")
+	static int[] Players_emptyIndices;
+	@ObfuscatedName("x")
+	@Export("Players_regions")
+	static int[] Players_regions;
+	@ObfuscatedName("d")
+	@Export("Players_orientations")
+	static int[] Players_orientations;
+	@ObfuscatedName("k")
+	@Export("Players_targetIndices")
+	static int[] Players_targetIndices;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -22568397
+	)
+	@Export("Players_pendingUpdateCount")
+	static int Players_pendingUpdateCount;
+	@ObfuscatedName("i")
+	@Export("Players_pendingUpdateIndices")
+	static int[] Players_pendingUpdateIndices;
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		signature = "Lgr;"
+	)
+	static Buffer field738;
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		signature = "Lgr;"
+	)
+	@Export("NetCache_reference")
+	public static Buffer NetCache_reference;
 
-   @ObfuscatedName("f")
-   @ObfuscatedSignature(
-      signature = "(Ljava/lang/Throwable;Ljava/lang/String;)Lfx;"
-   )
-   public static RunException method2120(Throwable var0, String var1) {
-      RunException var2;
-      if (var0 instanceof RunException) {
-         var2 = (RunException)var0;
-         var2.string = var2.string + ' ' + var1;
-      } else {
-         var2 = new RunException(var0, var1);
-      }
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/Throwable;Ljava/lang/String;)Lfx;"
+	)
+	public static RunException method2120(Throwable var0, String var1) {
+		RunException var2;
+		if (var0 instanceof RunException) {
+			var2 = (RunException)var0;
+			var2.string = var2.string + ' ' + var1;
+		} else {
+			var2 = new RunException(var0, var1);
+		}
 
-      return var2;
-   }
+		return var2;
+	}
 
-   @ObfuscatedName("aj")
-   @ObfuscatedSignature(
-      signature = "(Lfz;III)Lco;",
-      garbageValue = "-1237576843"
-   )
-   @Export("newPcmPlayer")
-   public static final PcmPlayer newPcmPlayer(TaskHandler var0, int var1, int var2) {
-      if (var1 >= 0 && var1 < 2) {
-         if (var2 < 256) {
-            var2 = 256;
-         }
+	@ObfuscatedName("aj")
+	@ObfuscatedSignature(
+		signature = "(Lfz;III)Lco;",
+		garbageValue = "-1237576843"
+	)
+	@Export("newPcmPlayer")
+	public static final PcmPlayer newPcmPlayer(TaskHandler var0, int var1, int var2) {
+		if (var1 >= 0 && var1 < 2) {
+			if (var2 < 256) {
+				var2 = 256;
+			}
 
-         try {
-            PcmPlayer var3 = class65.pcmPlayerProvider.player();
-            var3.samples = new int[(PcmPlayer.isStereo ? 2 : 1) * 256];
-            var3.frequency = var2;
-            var3.init();
-            var3.capacity = (var2 & -1024) + 1024;
-            if (var3.capacity > 16384) {
-               var3.capacity = 16384;
-            }
+			try {
+				PcmPlayer var3 = class65.pcmPlayerProvider.player();
+				var3.samples = new int[(PcmPlayer.isStereo ? 2 : 1) * 256];
+				var3.frequency = var2;
+				var3.init();
+				var3.capacity = (var2 & -1024) + 1024;
+				if (var3.capacity > 16384) {
+					var3.capacity = 16384;
+				}
 
-            var3.open(var3.capacity);
-            if (Login.pcmPlayerCount > 0 && Messages.soundSystem == null) {
-               Messages.soundSystem = new SoundSystem();
-               Friend.soundSystemExecutor = Executors.newScheduledThreadPool(1);
-               Friend.soundSystemExecutor.scheduleAtFixedRate(Messages.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS);
-            }
+				var3.open(var3.capacity);
+				if (Login.pcmPlayerCount > 0 && Messages.soundSystem == null) {
+					Messages.soundSystem = new SoundSystem();
+					Friend.soundSystemExecutor = Executors.newScheduledThreadPool(1);
+					Friend.soundSystemExecutor.scheduleAtFixedRate(Messages.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS);
+				}
 
-            if (Messages.soundSystem != null) {
-               if (Messages.soundSystem.players[var1] != null) {
-                  throw new IllegalArgumentException();
-               }
+				if (Messages.soundSystem != null) {
+					if (Messages.soundSystem.players[var1] != null) {
+						throw new IllegalArgumentException();
+					}
 
-               Messages.soundSystem.players[var1] = var3;
-            }
+					Messages.soundSystem.players[var1] = var3;
+				}
 
-            return var3;
-         } catch (Throwable var4) {
-            return new PcmPlayer();
-         }
-      } else {
-         throw new IllegalArgumentException();
-      }
-   }
+				return var3;
+			} catch (Throwable var4) {
+				return new PcmPlayer();
+			}
+		}
+		throw new IllegalArgumentException();
+	}
 
-   @ObfuscatedName("hu")
-   @ObfuscatedSignature(
-      signature = "(IIIII)V",
-      garbageValue = "46802049"
-   )
-   static final void method2112(int var0, int var1, int var2, int var3) {
-      for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) {
-         if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetHeights[var4] + Client.rootWidgetYs[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) {
-            Client.field100[var4] = true;
-         }
-      }
+	@ObfuscatedName("hu")
+	@ObfuscatedSignature(
+		signature = "(IIIII)V",
+		garbageValue = "46802049"
+	)
+	static final void method2112(int var0, int var1, int var2, int var3) {
+		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) {
+			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetHeights[var4] + Client.rootWidgetYs[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) {
+				Client.field100[var4] = true;
+			}
+		}
 
-   }
+	}
 
-   @ObfuscatedName("jf")
-   @ObfuscatedSignature(
-      signature = "(Lho;III)V",
-      garbageValue = "-1991202495"
-   )
-   @Export("clickWidget")
-   static final void clickWidget(Widget component, int x, int y) {
-      if (Client.clickedWidget == null && !Client.isMenuOpen && component != null && class48.method869(component) != null) {
-         Client.clickedWidget = component;
-         Client.clickedWidgetParent = class48.method869(component);
-         Client.widgetClickX = x;
-         Client.widgetClickY = y;
-         MouseRecorder.widgetDragDuration = 0;
-         Client.isDraggingWidget = false;
-         int var3 = Client.menuOptionsCount - 1;
-         if (var3 != -1) {
-            GrandExchangeOfferUnitPriceComparator.tempMenuAction = new MenuAction();
-            GrandExchangeOfferUnitPriceComparator.tempMenuAction.argument1 = Client.menuArguments1[var3];
-            GrandExchangeOfferUnitPriceComparator.tempMenuAction.argument2 = Client.menuArguments2[var3];
-            GrandExchangeOfferUnitPriceComparator.tempMenuAction.opcode = Client.menuOpcodes[var3];
-            GrandExchangeOfferUnitPriceComparator.tempMenuAction.argument0 = Client.menuArguments0[var3];
-            GrandExchangeOfferUnitPriceComparator.tempMenuAction.action = Client.menuActions[var3];
-         }
-      }
+	@ObfuscatedName("jf")
+	@ObfuscatedSignature(
+		signature = "(Lho;III)V",
+		garbageValue = "-1991202495"
+	)
+	@Export("clickWidget")
+	static final void clickWidget(Widget component, int x, int y) {
+		if (Client.clickedWidget == null && !Client.isMenuOpen && component != null && class48.method869(component) != null) {
+			Client.clickedWidget = component;
+			Client.clickedWidgetParent = class48.method869(component);
+			Client.widgetClickX = x;
+			Client.widgetClickY = y;
+			MouseRecorder.widgetDragDuration = 0;
+			Client.isDraggingWidget = false;
+			int var3 = Client.menuOptionsCount - 1;
+			if (var3 != -1) {
+				GrandExchangeOfferUnitPriceComparator.tempMenuAction = new MenuAction();
+				GrandExchangeOfferUnitPriceComparator.tempMenuAction.argument1 = Client.menuArguments1[var3];
+				GrandExchangeOfferUnitPriceComparator.tempMenuAction.argument2 = Client.menuArguments2[var3];
+				GrandExchangeOfferUnitPriceComparator.tempMenuAction.opcode = Client.menuOpcodes[var3];
+				GrandExchangeOfferUnitPriceComparator.tempMenuAction.argument0 = Client.menuArguments0[var3];
+				GrandExchangeOfferUnitPriceComparator.tempMenuAction.action = Client.menuActions[var3];
+			}
+		}
 
-   }
+	}
 
-   static {
-      field731 = new byte[2048];
-      field732 = new byte[2048];
-      field733 = new Buffer[2048];
-      Players_count = 0;
-      Players_indices = new int[2048];
-      field734 = 0;
-      field735 = new int[2048];
-      Players_regions = new int[2048];
-      Players_orientations = new int[2048];
-      Players_targetIndices = new int[2048];
-      field736 = 0;
-      field737 = new int[2048];
-      field738 = new Buffer(new byte[5000]);
-   }
+	static {
+		field731 = new byte[2048];
+		field732 = new byte[2048];
+		field733 = new Buffer[2048];
+		Players_count = 0;
+		Players_indices = new int[2048];
+		Players_emptyIdxCount = 0;
+		Players_emptyIndices = new int[2048];
+		Players_regions = new int[2048];
+		Players_orientations = new int[2048];
+		Players_targetIndices = new int[2048];
+		Players_pendingUpdateCount = 0;
+		Players_pendingUpdateIndices = new int[2048];
+		field738 = new Buffer(new byte[5000]);
+	}
 }
