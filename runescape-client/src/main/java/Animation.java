@@ -58,49 +58,50 @@ public class Animation {
 		int var8;
 		for (var8 = 0; var8 < var5; ++var8) {
 			int var9 = var3.readUnsignedByte();
-			if (var9 > 0) {
-				if (this.skeleton.transformTypes[var8] != 0) {
-					for (int var10 = var8 - 1; var10 > var6; --var10) {
-						if (this.skeleton.transformTypes[var10] == 0) {
-							field26[var7] = var10;
-							field27[var7] = 0;
-							field28[var7] = 0;
-							field29[var7] = 0;
-							++var7;
-							break;
-						}
+			if (var9 <= 0) {
+				continue;
+			}
+			if (this.skeleton.transformTypes[var8] != 0) {
+				for (int var10 = var8 - 1; var10 > var6; --var10) {
+					if (this.skeleton.transformTypes[var10] == 0) {
+						field26[var7] = var10;
+						field27[var7] = 0;
+						field28[var7] = 0;
+						field29[var7] = 0;
+						++var7;
+						break;
 					}
 				}
+			}
 
-				field26[var7] = var8;
-				short var11 = 0;
-				if (this.skeleton.transformTypes[var8] == 3) {
-					var11 = 128;
-				}
+			field26[var7] = var8;
+			short var11 = 0;
+			if (this.skeleton.transformTypes[var8] == 3) {
+				var11 = 128;
+			}
 
-				if ((var9 & 1) != 0) {
-					field27[var7] = var4.readShortSmart();
-				} else {
-					field27[var7] = var11;
-				}
+			if ((var9 & 1) != 0) {
+				field27[var7] = var4.readShortSmart();
+			} else {
+				field27[var7] = var11;
+			}
 
-				if ((var9 & 2) != 0) {
-					field28[var7] = var4.readShortSmart();
-				} else {
-					field28[var7] = var11;
-				}
+			if ((var9 & 2) != 0) {
+				field28[var7] = var4.readShortSmart();
+			} else {
+				field28[var7] = var11;
+			}
 
-				if ((var9 & 4) != 0) {
-					field29[var7] = var4.readShortSmart();
-				} else {
-					field29[var7] = var11;
-				}
+			if ((var9 & 4) != 0) {
+				field29[var7] = var4.readShortSmart();
+			} else {
+				field29[var7] = var11;
+			}
 
-				var6 = var8;
-				++var7;
-				if (this.skeleton.transformTypes[var8] == 5) {
-					this.hasAlphaTransform = true;
-				}
+			var6 = var8;
+			++var7;
+			if (this.skeleton.transformTypes[var8] == 5) {
+				this.hasAlphaTransform = true;
 			}
 		}
 

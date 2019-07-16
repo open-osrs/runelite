@@ -129,17 +129,19 @@ public class ClanChat extends UserList {
 		this.method76(var6);
 		this.minKick = buffer.readByte();
 		var7 = buffer.readUnsignedByte();
-		if (var7 != 255) {
-			this.clear();
+		if (var7 == 255) {
+			return;
+		}
 
-			for (int var12 = 0; var12 < var7; ++var12) {
-				ClanMate var13 = (ClanMate)this.addLastNoPreviousUsername(new Username(buffer.readStringCp1252NullTerminated(), this.loginType));
-				int var10 = buffer.readUnsignedShort();
-				var13.set(var10, ++this.field97 - 1);
-				var13.rank = buffer.readByte();
-				buffer.readStringCp1252NullTerminated();
-				this.isLocalPlayer(var13);
-			}
+		this.clear();
+
+		for (int var12 = 0; var12 < var7; ++var12) {
+			ClanMate var13 = (ClanMate)this.addLastNoPreviousUsername(new Username(buffer.readStringCp1252NullTerminated(), this.loginType));
+			int var10 = buffer.readUnsignedShort();
+			var13.set(var10, ++this.field97 - 1);
+			var13.rank = buffer.readByte();
+			buffer.readStringCp1252NullTerminated();
+			this.isLocalPlayer(var13);
 		}
 
 	}
@@ -168,21 +170,22 @@ public class ClanChat extends UserList {
 			if (var6 != null && var6.getWorld() == var3) {
 				this.remove(var6);
 			}
-		} else {
-			var1.readStringCp1252NullTerminated();
-			var6 = (ClanMate)this.getByCurrentUsername(var2);
-			if (var6 == null) {
-				if (this.getSize() > super.capacity) {
-					return;
-				}
+			return;
+		}
 
-				var6 = (ClanMate)this.addLastNoPreviousUsername(var2);
+		var1.readStringCp1252NullTerminated();
+		var6 = (ClanMate)this.getByCurrentUsername(var2);
+		if (var6 == null) {
+			if (this.getSize() > super.capacity) {
+				return;
 			}
 
-			var6.set(var3, ++this.field97 - 1);
-			var6.rank = var4;
-			this.isLocalPlayer(var6);
+			var6 = (ClanMate)this.addLastNoPreviousUsername(var2);
 		}
+
+		var6.set(var3, ++this.field97 - 1);
+		var6.rank = var4;
+		this.isLocalPlayer(var6);
 
 	}
 

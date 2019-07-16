@@ -339,7 +339,7 @@ public class LoginScreenAnimation {
 	)
 	final int method1765(int var1, int var2, int var3) {
 		int var4 = 256 - var3;
-		return (var4 * (var1 & 65280) + var3 * (var2 & 65280) & 16711680) + (var4 * (var1 & 16711935) + var3 * (var2 & 16711935) & -16711936) >> 8;
+      return (var4 * (var1 & 0xff00) + var3 * (var2 & 0xff00) & 0xff0000) + (var4 * (var1 & 0xff00ff) + var3 * (var2 & 0xff00ff) & 0xff00ff00) >> 8;
 	}
 
 	@ObfuscatedName("u")
@@ -569,37 +569,38 @@ public class LoginScreenAnimation {
 
 			do {
 				var13 = var18.read(var9.array, var9.offset, 1000 - var9.offset);
-				if (var13 == -1) {
-					var17.close();
-					var18.close();
-					String var19 = new String(var9.array);
-					if (var19.startsWith("OFFLINE")) {
-						return 4;
-					}
-					if (var19.startsWith("WRONG")) {
-						return 7;
-					}
-					if (var19.startsWith("RELOAD")) {
-						return 3;
-					}
-					if (var19.startsWith("Not permitted for social network accounts.")) {
-						return 6;
-					}
-					var9.xteaDecryptAll(var6);
+				if (var13 != -1) {
+					var9.offset += var13;
+					continue;
+				}
+				var17.close();
+				var18.close();
+				String var19 = new String(var9.array);
+				if (var19.startsWith("OFFLINE")) {
+					return 4;
+				}
+				if (var19.startsWith("WRONG")) {
+					return 7;
+				}
+				if (var19.startsWith("RELOAD")) {
+					return 3;
+				}
+				if (var19.startsWith("Not permitted for social network accounts.")) {
+					return 6;
+				}
+				var9.xteaDecryptAll(var6);
 
-					while (var9.offset > 0 && var9.array[var9.offset - 1] == 0) {
-						--var9.offset;
-					}
-
-					var19 = new String(var9.array, 0, var9.offset);
-					if (class83.method2026(var19)) {
-						WorldMapCacheName.openURL(var19, true, false);
-						return 2;
-					}
-					return 5;
+				while (var9.offset > 0 && var9.array[var9.offset - 1] == 0) {
+					--var9.offset;
 				}
 
-				var9.offset += var13;
+				var19 = new String(var9.array, 0, var9.offset);
+				if (class83.method2026(var19)) {
+					WorldMapCacheName.openURL(var19, true, false);
+					return 2;
+				}
+				return 5;
+
 			} while(var9.offset < 1000);
 
 			return 5;

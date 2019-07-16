@@ -89,13 +89,14 @@ public class ArchiveDiskActionHandler implements Runnable {
 	)
 	@Export("clanKickUser")
 	static final void clanKickUser(String var0) {
-		if (PacketWriter.clanChat != null) {
-			PacketBufferNode var1 = Interpreter.method1915(ClientPacket.field235, Client.packetWriter.isaacCipher);
-			var1.packetBuffer.writeByte(WorldMapRegion.stringCp1252NullTerminatedByteSize(var0));
-			var1.packetBuffer.writeStringCp1252NullTerminated(var0);
-			Client.packetWriter.method241(var1);
+		if (PacketWriter.clanChat == null) {
+			return;
 		}
 
+		PacketBufferNode var1 = Interpreter.method1915(ClientPacket.field235, Client.packetWriter.isaacCipher);
+		var1.packetBuffer.writeByte(WorldMapRegion.stringCp1252NullTerminatedByteSize(var0));
+		var1.packetBuffer.writeStringCp1252NullTerminated(var0);
+		Client.packetWriter.method241(var1);
 	}
 
 	static {

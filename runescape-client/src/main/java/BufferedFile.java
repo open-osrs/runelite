@@ -341,40 +341,41 @@ public class BufferedFile {
 	)
 	@Export("flush")
 	void flush() throws IOException {
-		if (this.writeBufferOffset != -1L) {
-			if (this.writeBufferOffset != this.fileOffset) {
-				this.accessFile.seek(this.writeBufferOffset);
-				this.fileOffset = this.writeBufferOffset;
-			}
-
-			this.accessFile.write(this.writeBuffer, 0, this.writeBufferLength);
-			this.fileOffset += (long)(this.writeBufferLength * 1290782301) * -1558233611L;
-			if (this.fileOffset > this.fileLength) {
-				this.fileLength = this.fileOffset;
-			}
-
-			long var1 = -1L;
-			long var3 = -1L;
-			if (this.writeBufferOffset >= this.readBufferOffset && this.writeBufferOffset < (long)this.readBufferLength + this.readBufferOffset) {
-				var1 = this.writeBufferOffset;
-			} else if (this.readBufferOffset >= this.writeBufferOffset && this.readBufferOffset < this.writeBufferOffset + (long)this.writeBufferLength) {
-				var1 = this.readBufferOffset;
-			}
-
-			if (this.writeBufferOffset + (long)this.writeBufferLength > this.readBufferOffset && this.writeBufferOffset + (long)this.writeBufferLength <= this.readBufferOffset + (long)this.readBufferLength) {
-				var3 = this.writeBufferOffset + (long)this.writeBufferLength;
-			} else if ((long)this.readBufferLength + this.readBufferOffset > this.writeBufferOffset && (long)this.readBufferLength + this.readBufferOffset <= (long)this.writeBufferLength + this.writeBufferOffset) {
-				var3 = this.readBufferOffset + (long)this.readBufferLength;
-			}
-
-			if (var1 > -1L && var3 > var1) {
-				int var5 = (int)(var3 - var1);
-				System.arraycopy(this.writeBuffer, (int)(var1 - this.writeBufferOffset), this.readBuffer, (int)(var1 - this.readBufferOffset), var5);
-			}
-
-			this.writeBufferOffset = -1L;
-			this.writeBufferLength = 0;
+		if (this.writeBufferOffset == -1L) {
+			return;
 		}
+		if (this.writeBufferOffset != this.fileOffset) {
+			this.accessFile.seek(this.writeBufferOffset);
+			this.fileOffset = this.writeBufferOffset;
+		}
+
+		this.accessFile.write(this.writeBuffer, 0, this.writeBufferLength);
+		this.fileOffset += (long)(this.writeBufferLength * 1290782301) * -1558233611L;
+		if (this.fileOffset > this.fileLength) {
+			this.fileLength = this.fileOffset;
+		}
+
+		long var1 = -1L;
+		long var3 = -1L;
+		if (this.writeBufferOffset >= this.readBufferOffset && this.writeBufferOffset < (long)this.readBufferLength + this.readBufferOffset) {
+			var1 = this.writeBufferOffset;
+		} else if (this.readBufferOffset >= this.writeBufferOffset && this.readBufferOffset < this.writeBufferOffset + (long)this.writeBufferLength) {
+			var1 = this.readBufferOffset;
+		}
+
+		if (this.writeBufferOffset + (long)this.writeBufferLength > this.readBufferOffset && this.writeBufferOffset + (long)this.writeBufferLength <= this.readBufferOffset + (long)this.readBufferLength) {
+			var3 = this.writeBufferOffset + (long)this.writeBufferLength;
+		} else if ((long)this.readBufferLength + this.readBufferOffset > this.writeBufferOffset && (long)this.readBufferLength + this.readBufferOffset <= (long)this.writeBufferLength + this.writeBufferOffset) {
+			var3 = this.readBufferOffset + (long)this.readBufferLength;
+		}
+
+		if (var1 > -1L && var3 > var1) {
+			int var5 = (int)(var3 - var1);
+			System.arraycopy(this.writeBuffer, (int)(var1 - this.writeBufferOffset), this.readBuffer, (int)(var1 - this.readBufferOffset), var5);
+		}
+
+		this.writeBufferOffset = -1L;
+		this.writeBufferLength = 0;
 
 	}
 

@@ -1376,841 +1376,839 @@ public final class Client extends GameShell implements Usernamed {
 			class54.method1092(this);
 			class171.load();
 			GrandExchangeOfferNameComparator.method145();
-		} else if (gameState != 10 && gameState != 11) {
-			if (gameState == 20) {
-				class54.method1092(this);
-				this.doCycleLoggedOut();
-			} else if (gameState == 25) {
-				// XXX flush
-				UserComparator10.method3352(false);
-				field177 = 0;
-				boolean var3 = true;
+		} else if (gameState == 10 || gameState == 11) {
+			class54.method1092(this);
+		} else if (gameState == 20) {
+			class54.method1092(this);
+			this.doCycleLoggedOut();
+		} else if (gameState == 25) {
+			// XXX flush
+			UserComparator10.method3352(false);
+			field177 = 0;
+			boolean var3 = true;
 
-				int var4;
-				for (var4 = 0; var4 < class40.regionLandArchives.length; ++var4) {
-					if (ArchiveLoader.regionMapArchiveIds[var4] != -1 && class40.regionLandArchives[var4] == null) {
-						class40.regionLandArchives[var4] = SecureRandomFuture.archive5.takeFile(ArchiveLoader.regionMapArchiveIds[var4], 0);
-						if (class40.regionLandArchives[var4] == null) {
-							var3 = false;
-							++field177;
-						}
+			int var4;
+			for (var4 = 0; var4 < class40.regionLandArchives.length; ++var4) {
+				if (ArchiveLoader.regionMapArchiveIds[var4] != -1 && class40.regionLandArchives[var4] == null) {
+					class40.regionLandArchives[var4] = SecureRandomFuture.archive5.takeFile(ArchiveLoader.regionMapArchiveIds[var4], 0);
+					if (class40.regionLandArchives[var4] == null) {
+						var3 = false;
+						++field177;
 					}
+				}
 
-					if (MouseHandler.regionLandArchiveIds[var4] != -1 && HealthBarUpdate.regionMapArchives[var4] == null) {
-						HealthBarUpdate.regionMapArchives[var4] = SecureRandomFuture.archive5.takeFileEncrypted(MouseHandler.regionLandArchiveIds[var4], 0, class190.xteaKeys[var4]);
-						if (HealthBarUpdate.regionMapArchives[var4] == null) {
-							var3 = false;
-							++field177;
+				if (MouseHandler.regionLandArchiveIds[var4] != -1 && HealthBarUpdate.regionMapArchives[var4] == null) {
+					HealthBarUpdate.regionMapArchives[var4] = SecureRandomFuture.archive5.takeFileEncrypted(MouseHandler.regionLandArchiveIds[var4], 0, class190.xteaKeys[var4]);
+					if (HealthBarUpdate.regionMapArchives[var4] == null) {
+						var3 = false;
+						++field177;
+					}
+				}
+			}
+
+			if (!var3) {
+				field181 = 1;
+			} else {
+				field179 = 0;
+				var3 = true;
+
+				int var5;
+				int var6;
+				for (var4 = 0; var4 < class40.regionLandArchives.length; ++var4) {
+					byte[] var7 = HealthBarUpdate.regionMapArchives[var4];
+					if (var7 != null) {
+						var5 = (class308.regions[var4] >> 8) * 64 - class50.baseX;
+						var6 = (class308.regions[var4] & 255) * 64 - GraphicsObject.baseY;
+						if (isInInstance) {
+							var5 = 10;
+							var6 = 10;
 						}
+
+						var3 &= TextureProvider.method2774(var7, var5, var6);
 					}
 				}
 
 				if (!var3) {
-					field181 = 1;
+					field181 = 2;
 				} else {
-					field179 = 0;
-					var3 = true;
+					if (field181 != 0) {
+						PendingSpawn.drawLoadingMessage("Loading - please wait.<br> (100%)", true);
+					}
 
-					int var5;
-					int var6;
-					for (var4 = 0; var4 < class40.regionLandArchives.length; ++var4) {
-						byte[] var7 = HealthBarUpdate.regionMapArchives[var4];
-						if (var7 != null) {
-							var5 = (class308.regions[var4] >> 8) * 64 - class50.baseX;
-							var6 = (class308.regions[var4] & 255) * 64 - GraphicsObject.baseY;
-							if (isInInstance) {
-								var5 = 10;
-								var6 = 10;
+					class13.playPcmPlayers();
+					class65.scene.clear();
+
+					for (var4 = 0; var4 < 4; ++var4) {
+						collisionMaps[var4].clear();
+					}
+
+					int var56;
+					for (var4 = 0; var4 < 4; ++var4) {
+						for (var56 = 0; var56 < 104; ++var56) {
+							for (var5 = 0; var5 < 104; ++var5) {
+								Tiles.Tiles_renderFlags[var4][var56][var5] = 0;
 							}
-
-							var3 &= TextureProvider.method2774(var7, var5, var6);
 						}
 					}
 
-					if (!var3) {
-						field181 = 2;
-					} else {
-						if (field181 != 0) {
-							PendingSpawn.drawLoadingMessage("Loading - please wait.<br> (100%)", true);
-						}
-
-						class13.playPcmPlayers();
-						class65.scene.clear();
-
-						for (var4 = 0; var4 < 4; ++var4) {
-							collisionMaps[var4].clear();
-						}
-
-						int var56;
-						for (var4 = 0; var4 < 4; ++var4) {
-							for (var56 = 0; var56 < 104; ++var56) {
-								for (var5 = 0; var5 < 104; ++var5) {
-									Tiles.Tiles_renderFlags[var4][var56][var5] = 0;
-								}
+					class13.playPcmPlayers();
+					Tiles.Tiles_minPlane = 99;
+					Tiles.field908 = new byte[4][104][104];
+					Fonts.field350 = new byte[4][104][104];
+					class32.field1157 = new byte[4][104][104];
+					class307.field1155 = new byte[4][104][104];
+					Tiles.field910 = new int[4][105][105];
+					Tiles.field909 = new byte[4][105][105];
+					Huffman.field398 = new int[105][105];
+					class13.field1112 = new int[104];
+					Formatting.field353 = new int[104];
+					class214.field1131 = new int[104];
+					WorldMapSectionType.field1104 = new int[104];
+					Message.field490 = new int[104];
+					var4 = class40.regionLandArchives.length;
+					SpriteMask.method4390();
+					UserComparator10.method3352(true);
+					int var8;
+					int var9;
+					int var10;
+					int var11;
+					int var12;
+					int var13;
+					int var14;
+					int var15;
+					int var16;
+					int var17;
+					int var18;
+					int var19;
+					int var20;
+					int var21;
+					if (!isInInstance) {
+						byte[] var22;
+						for (var56 = 0; var56 < var4; ++var56) {
+							var5 = (class308.regions[var56] >> 8) * 64 - class50.baseX;
+							var6 = (class308.regions[var56] & 255) * 64 - GraphicsObject.baseY;
+							var22 = class40.regionLandArchives[var56];
+							if (var22 != null) {
+								class13.playPcmPlayers();
+								Varcs.method2166(var22, var5, var6, GameObject.field359 * 8 - 48, WorldMapLabelSize.field1041 * 8 - 48, collisionMaps);
 							}
 						}
 
-						class13.playPcmPlayers();
-						Tiles.Tiles_minPlane = 99;
-						Tiles.field908 = new byte[4][104][104];
-						Fonts.field350 = new byte[4][104][104];
-						class32.field1157 = new byte[4][104][104];
-						class307.field1155 = new byte[4][104][104];
-						Tiles.field910 = new int[4][105][105];
-						Tiles.field909 = new byte[4][105][105];
-						Huffman.field398 = new int[105][105];
-						class13.field1112 = new int[104];
-						Formatting.field353 = new int[104];
-						class214.field1131 = new int[104];
-						WorldMapSectionType.field1104 = new int[104];
-						Message.field490 = new int[104];
-						var4 = class40.regionLandArchives.length;
-						SpriteMask.method4390();
+						for (var56 = 0; var56 < var4; ++var56) {
+							var5 = (class308.regions[var56] >> 8) * 64 - class50.baseX;
+							var6 = (class308.regions[var56] & 255) * 64 - GraphicsObject.baseY;
+							var22 = class40.regionLandArchives[var56];
+							if (var22 == null && WorldMapLabelSize.field1041 < 800) {
+								class13.playPcmPlayers();
+								UserComparator6.method3390(var5, var6, 64, 64);
+							}
+						}
+
 						UserComparator10.method3352(true);
-						int var8;
-						int var9;
-						int var10;
-						int var11;
-						int var12;
-						int var13;
-						int var14;
-						int var15;
-						int var16;
-						int var17;
-						int var18;
-						int var19;
-						int var20;
-						int var21;
-						if (!isInInstance) {
-							byte[] var22;
-							for (var56 = 0; var56 < var4; ++var56) {
-								var5 = (class308.regions[var56] >> 8) * 64 - class50.baseX;
-								var6 = (class308.regions[var56] & 255) * 64 - GraphicsObject.baseY;
-								var22 = class40.regionLandArchives[var56];
-								if (var22 != null) {
-									class13.playPcmPlayers();
-									Varcs.method2166(var22, var5, var6, GameObject.field359 * 8 - 48, WorldMapLabelSize.field1041 * 8 - 48, collisionMaps);
-								}
-							}
 
-							for (var56 = 0; var56 < var4; ++var56) {
-								var5 = (class308.regions[var56] >> 8) * 64 - class50.baseX;
-								var6 = (class308.regions[var56] & 255) * 64 - GraphicsObject.baseY;
-								var22 = class40.regionLandArchives[var56];
-								if (var22 == null && WorldMapLabelSize.field1041 < 800) {
-									class13.playPcmPlayers();
-									UserComparator6.method3390(var5, var6, 64, 64);
-								}
-							}
+						for (var56 = 0; var56 < var4; ++var56) {
+							byte[] var23 = HealthBarUpdate.regionMapArchives[var56];
+							if (var23 != null) {
+								var6 = (class308.regions[var56] >> 8) * 64 - class50.baseX;
+								var21 = (class308.regions[var56] & 255) * 64 - GraphicsObject.baseY;
+								class13.playPcmPlayers();
+								Scene var24 = class65.scene;
+								CollisionMap[] var25 = collisionMaps;
+								Buffer var26 = new Buffer(var23);
+								var8 = -1;
 
-							UserComparator10.method3352(true);
+								while (true) {
+									var9 = var26.method49();
+									if (var9 == 0) {
+										break;
+									}
 
-							for (var56 = 0; var56 < var4; ++var56) {
-								byte[] var23 = HealthBarUpdate.regionMapArchives[var56];
-								if (var23 != null) {
-									var6 = (class308.regions[var56] >> 8) * 64 - class50.baseX;
-									var21 = (class308.regions[var56] & 255) * 64 - GraphicsObject.baseY;
-									class13.playPcmPlayers();
-									Scene var24 = class65.scene;
-									CollisionMap[] var25 = collisionMaps;
-									Buffer var26 = new Buffer(var23);
-									var8 = -1;
+									var8 += var9;
+									var10 = 0;
 
 									while (true) {
-										var9 = var26.method49();
-										if (var9 == 0) {
+										var11 = var26.readUShortSmart();
+										if (var11 == 0) {
 											break;
 										}
 
-										var8 += var9;
-										var10 = 0;
+										var10 += var11 - 1;
+										var12 = var10 & 63;
+										var13 = var10 >> 6 & 63;
+										var14 = var10 >> 12;
+										var15 = var26.readUnsignedByte();
+										var16 = var15 >> 2;
+										var17 = var15 & 3;
+										var18 = var6 + var13;
+										var19 = var12 + var21;
+										if (var18 > 0 && var19 > 0 && var18 < 103 && var19 < 103) {
+											var20 = var14;
+											if ((Tiles.Tiles_renderFlags[1][var18][var19] & 2) == 2) {
+												var20 = var14 - 1;
+											}
 
-										while (true) {
-											var11 = var26.readUShortSmart();
-											if (var11 == 0) {
+											CollisionMap var27 = null;
+											if (var20 >= 0) {
+												var27 = var25[var20];
+											}
+
+											class227.method4446(var14, var18, var19, var8, var17, var16, var24, var27);
+										}
+									}
+								}
+							}
+						}
+					}
+
+					int var57;
+					int var58;
+					int var59;
+					if (isInInstance) {
+						var56 = 0;
+
+						label998:
+						while (true) {
+							if (var56 >= 4) {
+								for (var56 = 0; var56 < 13; ++var56) {
+									for (var5 = 0; var5 < 13; ++var5) {
+										var6 = instanceChunkTemplates[0][var56][var5];
+										if (var6 == -1) {
+											UserComparator6.method3390(var56 * 8, var5 * 8, 8, 8);
+										}
+									}
+								}
+
+								UserComparator10.method3352(true);
+								var56 = 0;
+
+								while (true) {
+									if (var56 >= 4) {
+										break label998;
+									}
+
+									class13.playPcmPlayers();
+
+									for (var5 = 0; var5 < 13; ++var5) {
+										for (var6 = 0; var6 < 13; ++var6) {
+											var21 = instanceChunkTemplates[var56][var5][var6];
+											if (var21 != -1) {
+												var57 = var21 >> 24 & 3;
+												var58 = var21 >> 1 & 3;
+												var59 = var21 >> 14 & 1023;
+												var8 = var21 >> 3 & 2047;
+												var9 = (var59 / 8 << 8) + var8 / 8;
+
+												for (var10 = 0; var10 < class308.regions.length; ++var10) {
+													if (class308.regions[var10] == var9 && HealthBarUpdate.regionMapArchives[var10] != null) {
+														ServerPacket.method3662(HealthBarUpdate.regionMapArchives[var10], var56, var5 * 8, var6 * 8, var57, (var59 & 7) * 8, (var8 & 7) * 8, var58, class65.scene, collisionMaps);
+														break;
+													}
+												}
+											}
+										}
+									}
+
+									++var56;
+								}
+							}
+
+							class13.playPcmPlayers();
+
+							for (var5 = 0; var5 < 13; ++var5) {
+								for (var6 = 0; var6 < 13; ++var6) {
+									boolean var60 = false;
+									var57 = instanceChunkTemplates[var56][var5][var6];
+									if (var57 != -1) {
+										var58 = var57 >> 24 & 3;
+										var59 = var57 >> 1 & 3;
+										var8 = var57 >> 14 & 1023;
+										var9 = var57 >> 3 & 2047;
+										var10 = (var8 / 8 << 8) + var9 / 8;
+
+										for (var11 = 0; var11 < class308.regions.length; ++var11) {
+											if (class308.regions[var11] == var10 && class40.regionLandArchives[var11] != null) {
+												class204.method4013(class40.regionLandArchives[var11], var56, var5 * 8, var6 * 8, var58, (var8 & 7) * 8, (var9 & 7) * 8, var59, collisionMaps);
+												var60 = true;
 												break;
 											}
-
-											var10 += var11 - 1;
-											var12 = var10 & 63;
-											var13 = var10 >> 6 & 63;
-											var14 = var10 >> 12;
-											var15 = var26.readUnsignedByte();
-											var16 = var15 >> 2;
-											var17 = var15 & 3;
-											var18 = var6 + var13;
-											var19 = var12 + var21;
-											if (var18 > 0 && var19 > 0 && var18 < 103 && var19 < 103) {
-												var20 = var14;
-												if ((Tiles.Tiles_renderFlags[1][var18][var19] & 2) == 2) {
-													var20 = var14 - 1;
-												}
-
-												CollisionMap var27 = null;
-												if (var20 >= 0) {
-													var27 = var25[var20];
-												}
-
-												class227.method4446(var14, var18, var19, var8, var17, var16, var24, var27);
-											}
-										}
-									}
-								}
-							}
-						}
-
-						int var57;
-						int var58;
-						int var59;
-						if (isInInstance) {
-							var56 = 0;
-
-							label998:
-							while (true) {
-								if (var56 >= 4) {
-									for (var56 = 0; var56 < 13; ++var56) {
-										for (var5 = 0; var5 < 13; ++var5) {
-											var6 = instanceChunkTemplates[0][var56][var5];
-											if (var6 == -1) {
-												UserComparator6.method3390(var56 * 8, var5 * 8, 8, 8);
-											}
 										}
 									}
 
-									UserComparator10.method3352(true);
-									var56 = 0;
+									if (!var60) {
+										var58 = var56;
+										var59 = var5 * 8;
+										var8 = var6 * 8;
 
-									while (true) {
-										if (var56 >= 4) {
-											break label998;
-										}
-
-										class13.playPcmPlayers();
-
-										for (var5 = 0; var5 < 13; ++var5) {
-											for (var6 = 0; var6 < 13; ++var6) {
-												var21 = instanceChunkTemplates[var56][var5][var6];
-												if (var21 != -1) {
-													var57 = var21 >> 24 & 3;
-													var58 = var21 >> 1 & 3;
-													var59 = var21 >> 14 & 1023;
-													var8 = var21 >> 3 & 2047;
-													var9 = (var59 / 8 << 8) + var8 / 8;
-
-													for (var10 = 0; var10 < class308.regions.length; ++var10) {
-														if (class308.regions[var10] == var9 && HealthBarUpdate.regionMapArchives[var10] != null) {
-															ServerPacket.method3662(HealthBarUpdate.regionMapArchives[var10], var56, var5 * 8, var6 * 8, var57, (var59 & 7) * 8, (var8 & 7) * 8, var58, class65.scene, collisionMaps);
-															break;
-														}
-													}
-												}
+										for (var9 = 0; var9 < 8; ++var9) {
+											for (var10 = 0; var10 < 8; ++var10) {
+												Tiles.Tiles_heights[var58][var9 + var59][var10 + var8] = 0;
 											}
 										}
 
-										++var56;
-									}
-								}
-
-								class13.playPcmPlayers();
-
-								for (var5 = 0; var5 < 13; ++var5) {
-									for (var6 = 0; var6 < 13; ++var6) {
-										boolean var60 = false;
-										var57 = instanceChunkTemplates[var56][var5][var6];
-										if (var57 != -1) {
-											var58 = var57 >> 24 & 3;
-											var59 = var57 >> 1 & 3;
-											var8 = var57 >> 14 & 1023;
-											var9 = var57 >> 3 & 2047;
-											var10 = (var8 / 8 << 8) + var9 / 8;
-
-											for (var11 = 0; var11 < class308.regions.length; ++var11) {
-												if (class308.regions[var11] == var10 && class40.regionLandArchives[var11] != null) {
-													class204.method4013(class40.regionLandArchives[var11], var56, var5 * 8, var6 * 8, var58, (var8 & 7) * 8, (var9 & 7) * 8, var59, collisionMaps);
-													var60 = true;
-													break;
-												}
+										if (var59 > 0) {
+											for (var9 = 1; var9 < 8; ++var9) {
+												Tiles.Tiles_heights[var58][var59][var8 + var9] = Tiles.Tiles_heights[var58][var59 - 1][var8 + var9];
 											}
 										}
 
-										if (!var60) {
-											var58 = var56;
-											var59 = var5 * 8;
-											var8 = var6 * 8;
-
-											for (var9 = 0; var9 < 8; ++var9) {
-												for (var10 = 0; var10 < 8; ++var10) {
-													Tiles.Tiles_heights[var58][var9 + var59][var10 + var8] = 0;
-												}
-											}
-
-											if (var59 > 0) {
-												for (var9 = 1; var9 < 8; ++var9) {
-													Tiles.Tiles_heights[var58][var59][var8 + var9] = Tiles.Tiles_heights[var58][var59 - 1][var8 + var9];
-												}
-											}
-
-											if (var8 > 0) {
-												for (var9 = 1; var9 < 8; ++var9) {
-													Tiles.Tiles_heights[var58][var59 + var9][var8] = Tiles.Tiles_heights[var58][var59 + var9][var8 - 1];
-												}
-											}
-
-											if (var59 > 0 && Tiles.Tiles_heights[var58][var59 - 1][var8] != 0) {
-												Tiles.Tiles_heights[var58][var59][var8] = Tiles.Tiles_heights[var58][var59 - 1][var8];
-											} else if (var8 > 0 && Tiles.Tiles_heights[var58][var59][var8 - 1] != 0) {
-												Tiles.Tiles_heights[var58][var59][var8] = Tiles.Tiles_heights[var58][var59][var8 - 1];
-											} else if (var59 > 0 && var8 > 0 && Tiles.Tiles_heights[var58][var59 - 1][var8 - 1] != 0) {
-												Tiles.Tiles_heights[var58][var59][var8] = Tiles.Tiles_heights[var58][var59 - 1][var8 - 1];
+										if (var8 > 0) {
+											for (var9 = 1; var9 < 8; ++var9) {
+												Tiles.Tiles_heights[var58][var59 + var9][var8] = Tiles.Tiles_heights[var58][var59 + var9][var8 - 1];
 											}
 										}
-									}
-								}
 
-								++var56;
-							}
-						}
-
-						UserComparator10.method3352(true);
-						class13.playPcmPlayers();
-						Scene var61 = class65.scene;
-						CollisionMap[] var62 = collisionMaps;
-
-						for (var6 = 0; var6 < 4; ++var6) {
-							for (var21 = 0; var21 < 104; ++var21) {
-								for (var57 = 0; var57 < 104; ++var57) {
-									if ((Tiles.Tiles_renderFlags[var6][var21][var57] & 1) == 1) {
-										var58 = var6;
-										if ((Tiles.Tiles_renderFlags[1][var21][var57] & 2) == 2) {
-											var58 = var6 - 1;
-										}
-
-										if (var58 >= 0) {
-											var62[var58].method92(var21, var57);
-										}
-									}
-								}
-							}
-						}
-
-						Tiles.field917 += (int)(Math.random() * 5.0D) - 2;
-						if (Tiles.field917 < -8) {
-							Tiles.field917 = -8;
-						}
-
-						if (Tiles.field917 > 8) {
-							Tiles.field917 = 8;
-						}
-
-						Tiles.field918 += (int)(Math.random() * 5.0D) - 2;
-						if (Tiles.field918 < -16) {
-							Tiles.field918 = -16;
-						}
-
-						if (Tiles.field918 > 16) {
-							Tiles.field918 = 16;
-						}
-
-						int[] var63;
-						for (var6 = 0; var6 < 4; ++var6) {
-							byte[][] var28 = Tiles.field909[var6];
-							var10 = (int)Math.sqrt(5100.0D);
-							var11 = var10 * 768 >> 8;
-
-							int var29;
-							for (var12 = 1; var12 < 103; ++var12) {
-								for (var13 = 1; var13 < 103; ++var13) {
-									var14 = Tiles.Tiles_heights[var6][var13 + 1][var12] - Tiles.Tiles_heights[var6][var13 - 1][var12];
-									var15 = Tiles.Tiles_heights[var6][var13][var12 + 1] - Tiles.Tiles_heights[var6][var13][var12 - 1];
-									var16 = (int)Math.sqrt((double)(var15 * var15 + var14 * var14 + 65536));
-									var17 = (var14 << 8) / var16;
-									var18 = 65536 / var16;
-									var19 = (var15 << 8) / var16;
-									var20 = (var19 * -50 + var17 * -50 + var18 * -10) / var11 + 96;
-									var29 = (var28[var13 - 1][var12] >> 2) + (var28[var13][var12 - 1] >> 2) + (var28[var13 + 1][var12] >> 3) + (var28[var13][var12 + 1] >> 3) + (var28[var13][var12] >> 1);
-									Huffman.field398[var13][var12] = var20 - var29;
-								}
-							}
-
-							for (var12 = 0; var12 < 104; ++var12) {
-								class13.field1112[var12] = 0;
-								Formatting.field353[var12] = 0;
-								class214.field1131[var12] = 0;
-								WorldMapSectionType.field1104[var12] = 0;
-								Message.field490[var12] = 0;
-							}
-
-							for (var12 = -5; var12 < 109; ++var12) {
-								for (var13 = 0; var13 < 104; ++var13) {
-									var14 = var12 + 5;
-									int var10003;
-									FloorUnderlayDefinition var31;
-									if (var14 >= 0 && var14 < 104) {
-										var15 = Tiles.field908[var6][var14][var13] & 255;
-										if (var15 > 0) {
-											var31 = StudioGame.method4550(var15 - 1);
-											var63 = class13.field1112;
-											var63[var13] += var31.hue;
-											var63 = Formatting.field353;
-											var63[var13] += var31.saturation;
-											var63 = class214.field1131;
-											var63[var13] += var31.lightness;
-											var63 = WorldMapSectionType.field1104;
-											var63[var13] += var31.hueMultiplier;
-											var10003 = Message.field490[var13]++;
-										}
-									}
-
-									var15 = var12 - 5;
-									if (var15 >= 0 && var15 < 104) {
-										var16 = Tiles.field908[var6][var15][var13] & 255;
-										if (var16 > 0) {
-											var31 = StudioGame.method4550(var16 - 1);
-											var63 = class13.field1112;
-											var63[var13] -= var31.hue;
-											var63 = Formatting.field353;
-											var63[var13] -= var31.saturation;
-											var63 = class214.field1131;
-											var63[var13] -= var31.lightness;
-											var63 = WorldMapSectionType.field1104;
-											var63[var13] -= var31.hueMultiplier;
-											var10003 = Message.field490[var13]--;
-										}
-									}
-								}
-
-								if (var12 >= 1 && var12 < 103) {
-									var13 = 0;
-									var14 = 0;
-									var15 = 0;
-									var16 = 0;
-									var17 = 0;
-
-									for (var18 = -5; var18 < 109; ++var18) {
-										var19 = var18 + 5;
-										if (var19 >= 0 && var19 < 104) {
-											var13 += class13.field1112[var19];
-											var14 += Formatting.field353[var19];
-											var15 += class214.field1131[var19];
-											var16 += WorldMapSectionType.field1104[var19];
-											var17 += Message.field490[var19];
-										}
-
-										var20 = var18 - 5;
-										if (var20 >= 0 && var20 < 104) {
-											var13 -= class13.field1112[var20];
-											var14 -= Formatting.field353[var20];
-											var15 -= class214.field1131[var20];
-											var16 -= WorldMapSectionType.field1104[var20];
-											var17 -= Message.field490[var20];
-										}
-
-										if (var18 >= 1 && var18 < 103 && (!isLowDetail || (Tiles.Tiles_renderFlags[0][var12][var18] & 2) != 0 || (Tiles.Tiles_renderFlags[var6][var12][var18] & 16) == 0)) {
-											if (var6 < Tiles.Tiles_minPlane) {
-												Tiles.Tiles_minPlane = var6;
-											}
-
-											var29 = Tiles.field908[var6][var12][var18] & 255;
-											int var30 = Fonts.field350[var6][var12][var18] & 255;
-											if (var29 > 0 || var30 > 0) {
-												int var66 = Tiles.Tiles_heights[var6][var12][var18];
-												int var32 = Tiles.Tiles_heights[var6][var12 + 1][var18];
-												int var33 = Tiles.Tiles_heights[var6][var12 + 1][var18 + 1];
-												int var34 = Tiles.Tiles_heights[var6][var12][var18 + 1];
-												int var35 = Huffman.field398[var12][var18];
-												int var36 = Huffman.field398[var12 + 1][var18];
-												int var37 = Huffman.field398[var12 + 1][var18 + 1];
-												int var38 = Huffman.field398[var12][var18 + 1];
-												int var39 = -1;
-												int var40 = -1;
-												int var41;
-												int var42;
-												int var43;
-												if (var29 > 0) {
-													var41 = var13 * 256 / var16;
-													var42 = var14 / var17;
-													var43 = var15 / var17;
-													var39 = WorldMapAreaData.hslToRgb(var41, var42, var43);
-													var41 = var41 + Tiles.field917 & 255;
-													var43 += Tiles.field918;
-													if (var43 < 0) {
-														var43 = 0;
-													} else if (var43 > 255) {
-														var43 = 255;
-													}
-
-													var40 = WorldMapAreaData.hslToRgb(var41, var42, var43);
-												}
-
-												FloorOverlayDefinition var44;
-												if (var6 > 0) {
-													boolean var45 = true;
-													if (var29 == 0 && class32.field1157[var6][var12][var18] != 0) {
-														var45 = false;
-													}
-
-													if (var30 > 0) {
-														var43 = var30 - 1;
-														var44 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var43);
-														FloorOverlayDefinition var46;
-														if (var44 != null) {
-															var46 = var44;
-														} else {
-															byte[] var47 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var43);
-															var44 = new FloorOverlayDefinition();
-															if (var47 != null) {
-																var44.decode(new Buffer(var47), var43);
-															}
-
-															var44.postDecode();
-															FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var44, (long)var43);
-															var46 = var44;
-														}
-
-														if (!var46.hideUnderlay) {
-															var45 = false;
-														}
-													}
-
-													if (var45 && var66 == var32 && var66 == var33 && var34 == var66) {
-														var63 = Tiles.field910[var6][var12];
-														var63[var18] |= 2340;
-													}
-												}
-
-												var41 = 0;
-												if (var40 != -1) {
-													var41 = Rasterizer3D.Rasterizer3D_colorPalette[WorldMapData_0.method183(var40, 96)];
-												}
-
-												if (var30 == 0) {
-													var61.addTile(var6, var12, var18, 0, 0, -1, var66, var32, var33, var34, WorldMapData_0.method183(var39, var35), WorldMapData_0.method183(var39, var36), WorldMapData_0.method183(var39, var37), WorldMapData_0.method183(var39, var38), 0, 0, 0, 0, var41, 0);
-												} else {
-													var42 = class32.field1157[var6][var12][var18] + 1;
-													byte var67 = class307.field1155[var6][var12][var18];
-													int var68 = var30 - 1;
-													FloorOverlayDefinition var69 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var68);
-													if (var69 != null) {
-														var44 = var69;
-													} else {
-														byte[] var48 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var68);
-														var69 = new FloorOverlayDefinition();
-														if (var48 != null) {
-															var69.decode(new Buffer(var48), var68);
-														}
-
-														var69.postDecode();
-														FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var69, (long)var68);
-														var44 = var69;
-													}
-
-													int var70 = var44.texture;
-													int var49;
-													int var50;
-													int var51;
-													int var52;
-													if (var70 >= 0) {
-														var50 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var70);
-														var49 = -1;
-													} else if (var44.primaryRgb == 16711935) {
-														var49 = -2;
-														var70 = -1;
-														var50 = -2;
-													} else {
-														var49 = WorldMapAreaData.hslToRgb(var44.hue, var44.saturation, var44.lightness);
-														var51 = var44.hue + Tiles.field917 & 255;
-														var52 = var44.lightness + Tiles.field918;
-														if (var52 < 0) {
-															var52 = 0;
-														} else if (var52 > 255) {
-															var52 = 255;
-														}
-
-														var50 = WorldMapAreaData.hslToRgb(var51, var44.saturation, var52);
-													}
-
-													var51 = 0;
-													if (var50 != -2) {
-														var51 = Rasterizer3D.Rasterizer3D_colorPalette[WorldMapDecoration.method348(var50, 96)];
-													}
-
-													if (var44.secondaryRgb != -1) {
-														var52 = var44.secondaryHue + Tiles.field917 & 255;
-														int var53 = var44.secondaryLightness + Tiles.field918;
-														if (var53 < 0) {
-															var53 = 0;
-														} else if (var53 > 255) {
-															var53 = 255;
-														}
-
-														var50 = WorldMapAreaData.hslToRgb(var52, var44.secondarySaturation, var53);
-														var51 = Rasterizer3D.Rasterizer3D_colorPalette[WorldMapDecoration.method348(var50, 96)];
-													}
-
-													var61.addTile(var6, var12, var18, var42, var67, var70, var66, var32, var33, var34, WorldMapData_0.method183(var39, var35), WorldMapData_0.method183(var39, var36), WorldMapData_0.method183(var39, var37), WorldMapData_0.method183(var39, var38), WorldMapDecoration.method348(var49, var35), WorldMapDecoration.method348(var49, var36), WorldMapDecoration.method348(var49, var37), WorldMapDecoration.method348(var49, var38), var41, var51);
-												}
-											}
+										if (var59 > 0 && Tiles.Tiles_heights[var58][var59 - 1][var8] != 0) {
+											Tiles.Tiles_heights[var58][var59][var8] = Tiles.Tiles_heights[var58][var59 - 1][var8];
+										} else if (var8 > 0 && Tiles.Tiles_heights[var58][var59][var8 - 1] != 0) {
+											Tiles.Tiles_heights[var58][var59][var8] = Tiles.Tiles_heights[var58][var59][var8 - 1];
+										} else if (var59 > 0 && var8 > 0 && Tiles.Tiles_heights[var58][var59 - 1][var8 - 1] != 0) {
+											Tiles.Tiles_heights[var58][var59][var8] = Tiles.Tiles_heights[var58][var59 - 1][var8 - 1];
 										}
 									}
 								}
 							}
 
-							for (var12 = 1; var12 < 103; ++var12) {
-								for (var13 = 1; var13 < 103; ++var13) {
-									if ((Tiles.Tiles_renderFlags[var6][var13][var12] & 8) != 0) {
-										var18 = 0;
-									} else if (var6 > 0 && (Tiles.Tiles_renderFlags[1][var13][var12] & 2) != 0) {
-										var18 = var6 - 1;
-									} else {
-										var18 = var6;
-									}
-
-									var61.setTileMinPlane(var6, var13, var12, var18);
-								}
-							}
-
-							Tiles.field908[var6] = ((byte[][])null);
-							Fonts.field350[var6] = ((byte[][])null);
-							class32.field1157[var6] = ((byte[][])null);
-							class307.field1155[var6] = ((byte[][])null);
-							Tiles.field909[var6] = ((byte[][])null);
+							++var56;
 						}
+					}
 
-						var61.method293(-50, -10, -50);
+					UserComparator10.method3352(true);
+					class13.playPcmPlayers();
+					Scene var61 = class65.scene;
+					CollisionMap[] var62 = collisionMaps;
 
-						for (var6 = 0; var6 < 104; ++var6) {
-							for (var21 = 0; var21 < 104; ++var21) {
-								if ((Tiles.Tiles_renderFlags[1][var6][var21] & 2) == 2) {
-									var61.setLinkBelow(var6, var21);
-								}
-							}
-						}
-
-						var6 = 1;
-						var21 = 2;
-						var57 = 4;
-
-						for (var58 = 0; var58 < 4; ++var58) {
-							if (var58 > 0) {
-								var6 <<= 3;
-								var21 <<= 3;
-								var57 <<= 3;
-							}
-
-							for (var59 = 0; var59 <= var58; ++var59) {
-								for (var8 = 0; var8 <= 104; ++var8) {
-									for (var9 = 0; var9 <= 104; ++var9) {
-										short var64;
-										if ((Tiles.field910[var59][var9][var8] & var6) != 0) {
-											var10 = var8;
-											var11 = var8;
-											var12 = var59;
-
-											for (var13 = var59; var10 > 0 && (Tiles.field910[var59][var9][var10 - 1] & var6) != 0; --var10) {
-											}
-
-											while (var11 < 104 && (Tiles.field910[var59][var9][var11 + 1] & var6) != 0) {
-												++var11;
-											}
-
-											label649:
-											while (var12 > 0) {
-												for (var14 = var10; var14 <= var11; ++var14) {
-													if ((Tiles.field910[var12 - 1][var9][var14] & var6) == 0) {
-														break label649;
-													}
-												}
-
-												--var12;
-											}
-
-											label638:
-											while (var13 < var58) {
-												for (var14 = var10; var14 <= var11; ++var14) {
-													if ((Tiles.field910[var13 + 1][var9][var14] & var6) == 0) {
-														break label638;
-													}
-												}
-
-												++var13;
-											}
-
-											var14 = (var11 - var10 + 1) * (var13 + 1 - var12);
-											if (var14 >= 8) {
-												var64 = 240;
-												var16 = Tiles.Tiles_heights[var13][var9][var10] - var64;
-												var17 = Tiles.Tiles_heights[var12][var9][var10];
-												Scene.Scene_addOccluder(var58, 1, var9 * 128, var9 * 128, var10 * 128, var11 * 128 + 128, var16, var17);
-
-												for (var18 = var12; var18 <= var13; ++var18) {
-													for (var19 = var10; var19 <= var11; ++var19) {
-														var63 = Tiles.field910[var18][var9];
-														var63[var19] &= ~var6;
-													}
-												}
-											}
-										}
-
-										if ((Tiles.field910[var59][var9][var8] & var21) != 0) {
-											var10 = var9;
-											var11 = var9;
-											var12 = var59;
-
-											for (var13 = var59; var10 > 0 && (Tiles.field910[var59][var10 - 1][var8] & var21) != 0; --var10) {
-											}
-
-											while (var11 < 104 && (Tiles.field910[var59][var11 + 1][var8] & var21) != 0) {
-												++var11;
-											}
-
-											label702:
-											while (var12 > 0) {
-												for (var14 = var10; var14 <= var11; ++var14) {
-													if ((Tiles.field910[var12 - 1][var14][var8] & var21) == 0) {
-														break label702;
-													}
-												}
-
-												--var12;
-											}
-
-											label691:
-											while (var13 < var58) {
-												for (var14 = var10; var14 <= var11; ++var14) {
-													if ((Tiles.field910[var13 + 1][var14][var8] & var21) == 0) {
-														break label691;
-													}
-												}
-
-												++var13;
-											}
-
-											var14 = (var11 - var10 + 1) * (var13 + 1 - var12);
-											if (var14 >= 8) {
-												var64 = 240;
-												var16 = Tiles.Tiles_heights[var13][var10][var8] - var64;
-												var17 = Tiles.Tiles_heights[var12][var10][var8];
-												Scene.Scene_addOccluder(var58, 2, var10 * 128, var11 * 128 + 128, var8 * 128, var8 * 128, var16, var17);
-
-												for (var18 = var12; var18 <= var13; ++var18) {
-													for (var19 = var10; var19 <= var11; ++var19) {
-														var63 = Tiles.field910[var18][var19];
-														var63[var8] &= ~var21;
-													}
-												}
-											}
-										}
-
-										if ((Tiles.field910[var59][var9][var8] & var57) != 0) {
-											var10 = var9;
-											var11 = var9;
-											var12 = var8;
-
-											for (var13 = var8; var12 > 0 && (Tiles.field910[var59][var9][var12 - 1] & var57) != 0; --var12) {
-											}
-
-											while (var13 < 104 && (Tiles.field910[var59][var9][var13 + 1] & var57) != 0) {
-												++var13;
-											}
-
-											label755:
-											while (var10 > 0) {
-												for (var14 = var12; var14 <= var13; ++var14) {
-													if ((Tiles.field910[var59][var10 - 1][var14] & var57) == 0) {
-														break label755;
-													}
-												}
-
-												--var10;
-											}
-
-											label744:
-											while (var11 < 104) {
-												for (var14 = var12; var14 <= var13; ++var14) {
-													if ((Tiles.field910[var59][var11 + 1][var14] & var57) == 0) {
-														break label744;
-													}
-												}
-
-												++var11;
-											}
-
-											if ((var13 - var12 + 1) * (var11 - var10 + 1) >= 4) {
-												var14 = Tiles.Tiles_heights[var59][var10][var12];
-												Scene.Scene_addOccluder(var58, 4, var10 * 128, var11 * 128 + 128, var12 * 128, var13 * 128 + 128, var14, var14);
-
-												for (var15 = var10; var15 <= var11; ++var15) {
-													for (var16 = var12; var16 <= var13; ++var16) {
-														var63 = Tiles.field910[var59][var15];
-														var63[var16] &= ~var57;
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-
-						UserComparator10.method3352(true);
-						var6 = Tiles.Tiles_minPlane;
-						if (var6 > SoundSystem.plane) {
-							var6 = SoundSystem.plane;
-						}
-
-						if (var6 < SoundSystem.plane - 1) {
-							var6 = SoundSystem.plane - 1;
-						}
-
-						if (isLowDetail) {
-							class65.scene.init(Tiles.Tiles_minPlane);
-						} else {
-							class65.scene.init(0);
-						}
-
+					for (var6 = 0; var6 < 4; ++var6) {
 						for (var21 = 0; var21 < 104; ++var21) {
 							for (var57 = 0; var57 < 104; ++var57) {
-								TilePaint.updateItemPile(var21, var57);
+								if ((Tiles.Tiles_renderFlags[var6][var21][var57] & 1) == 1) {
+									var58 = var6;
+									if ((Tiles.Tiles_renderFlags[1][var21][var57] & 2) == 2) {
+										var58 = var6 - 1;
+									}
+
+									if (var58 >= 0) {
+										var62[var58].method92(var21, var57);
+									}
+								}
+							}
+						}
+					}
+
+					Tiles.field917 += (int) (Math.random() * 5.0D) - 2;
+					if (Tiles.field917 < -8) {
+						Tiles.field917 = -8;
+					}
+
+					if (Tiles.field917 > 8) {
+						Tiles.field917 = 8;
+					}
+
+					Tiles.field918 += (int) (Math.random() * 5.0D) - 2;
+					if (Tiles.field918 < -16) {
+						Tiles.field918 = -16;
+					}
+
+					if (Tiles.field918 > 16) {
+						Tiles.field918 = 16;
+					}
+
+					int[] var63;
+					for (var6 = 0; var6 < 4; ++var6) {
+						byte[][] var28 = Tiles.field909[var6];
+						var10 = (int) Math.sqrt(5100.0D);
+						var11 = var10 * 768 >> 8;
+
+						int var29;
+						for (var12 = 1; var12 < 103; ++var12) {
+							for (var13 = 1; var13 < 103; ++var13) {
+								var14 = Tiles.Tiles_heights[var6][var13 + 1][var12] - Tiles.Tiles_heights[var6][var13 - 1][var12];
+								var15 = Tiles.Tiles_heights[var6][var13][var12 + 1] - Tiles.Tiles_heights[var6][var13][var12 - 1];
+								var16 = (int) Math.sqrt((double) (var15 * var15 + var14 * var14 + 65536));
+								var17 = (var14 << 8) / var16;
+								var18 = 65536 / var16;
+								var19 = (var15 << 8) / var16;
+								var20 = (var19 * -50 + var17 * -50 + var18 * -10) / var11 + 96;
+								var29 = (var28[var13 - 1][var12] >> 2) + (var28[var13][var12 - 1] >> 2) + (var28[var13 + 1][var12] >> 3) + (var28[var13][var12 + 1] >> 3) + (var28[var13][var12] >> 1);
+								Huffman.field398[var13][var12] = var20 - var29;
 							}
 						}
 
-						class13.playPcmPlayers();
-						ScriptEvent.method1179();
-						ObjectDefinition.ObjectDefinition_cachedModelData.clear();
-						PacketBufferNode var65;
-						if (TextureProvider.client.hasFrame()) {
-							var65 = Interpreter.method1915(ClientPacket.field231, packetWriter.isaacCipher);
-							var65.packetBuffer.writeInt(1057001181);
-							packetWriter.method241(var65);
+						for (var12 = 0; var12 < 104; ++var12) {
+							class13.field1112[var12] = 0;
+							Formatting.field353[var12] = 0;
+							class214.field1131[var12] = 0;
+							WorldMapSectionType.field1104[var12] = 0;
+							Message.field490[var12] = 0;
 						}
 
-						if (!isInInstance) {
-							var21 = (GameObject.field359 - 6) / 8;
-							var57 = (GameObject.field359 + 6) / 8;
-							var58 = (WorldMapLabelSize.field1041 - 6) / 8;
-							var59 = (WorldMapLabelSize.field1041 + 6) / 8;
+						for (var12 = -5; var12 < 109; ++var12) {
+							for (var13 = 0; var13 < 104; ++var13) {
+								var14 = var12 + 5;
+								int var10003;
+								FloorUnderlayDefinition var31;
+								if (var14 >= 0 && var14 < 104) {
+									var15 = Tiles.field908[var6][var14][var13] & 255;
+									if (var15 > 0) {
+										var31 = StudioGame.method4550(var15 - 1);
+										var63 = class13.field1112;
+										var63[var13] += var31.hue;
+										var63 = Formatting.field353;
+										var63[var13] += var31.saturation;
+										var63 = class214.field1131;
+										var63[var13] += var31.lightness;
+										var63 = WorldMapSectionType.field1104;
+										var63[var13] += var31.hueMultiplier;
+										var10003 = Message.field490[var13]++;
+									}
+								}
 
-							for (var8 = var21 - 1; var8 <= var57 + 1; ++var8) {
-								for (var9 = var58 - 1; var9 <= var59 + 1; ++var9) {
-									if (var8 < var21 || var8 > var57 || var9 < var58 || var9 > var59) {
-										SecureRandomFuture.archive5.loadRegionFromName("m" + var8 + "_" + var9);
-										SecureRandomFuture.archive5.loadRegionFromName("l" + var8 + "_" + var9);
+								var15 = var12 - 5;
+								if (var15 >= 0 && var15 < 104) {
+									var16 = Tiles.field908[var6][var15][var13] & 255;
+									if (var16 > 0) {
+										var31 = StudioGame.method4550(var16 - 1);
+										var63 = class13.field1112;
+										var63[var13] -= var31.hue;
+										var63 = Formatting.field353;
+										var63[var13] -= var31.saturation;
+										var63 = class214.field1131;
+										var63[var13] -= var31.lightness;
+										var63 = WorldMapSectionType.field1104;
+										var63[var13] -= var31.hueMultiplier;
+										var10003 = Message.field490[var13]--;
+									}
+								}
+							}
+
+							if (var12 >= 1 && var12 < 103) {
+								var13 = 0;
+								var14 = 0;
+								var15 = 0;
+								var16 = 0;
+								var17 = 0;
+
+								for (var18 = -5; var18 < 109; ++var18) {
+									var19 = var18 + 5;
+									if (var19 >= 0 && var19 < 104) {
+										var13 += class13.field1112[var19];
+										var14 += Formatting.field353[var19];
+										var15 += class214.field1131[var19];
+										var16 += WorldMapSectionType.field1104[var19];
+										var17 += Message.field490[var19];
+									}
+
+									var20 = var18 - 5;
+									if (var20 >= 0 && var20 < 104) {
+										var13 -= class13.field1112[var20];
+										var14 -= Formatting.field353[var20];
+										var15 -= class214.field1131[var20];
+										var16 -= WorldMapSectionType.field1104[var20];
+										var17 -= Message.field490[var20];
+									}
+
+									if (var18 >= 1 && var18 < 103 && (!isLowDetail || (Tiles.Tiles_renderFlags[0][var12][var18] & 2) != 0 || (Tiles.Tiles_renderFlags[var6][var12][var18] & 16) == 0)) {
+										if (var6 < Tiles.Tiles_minPlane) {
+											Tiles.Tiles_minPlane = var6;
+										}
+
+										var29 = Tiles.field908[var6][var12][var18] & 255;
+										int var30 = Fonts.field350[var6][var12][var18] & 255;
+										if (var29 > 0 || var30 > 0) {
+											int var66 = Tiles.Tiles_heights[var6][var12][var18];
+											int var32 = Tiles.Tiles_heights[var6][var12 + 1][var18];
+											int var33 = Tiles.Tiles_heights[var6][var12 + 1][var18 + 1];
+											int var34 = Tiles.Tiles_heights[var6][var12][var18 + 1];
+											int var35 = Huffman.field398[var12][var18];
+											int var36 = Huffman.field398[var12 + 1][var18];
+											int var37 = Huffman.field398[var12 + 1][var18 + 1];
+											int var38 = Huffman.field398[var12][var18 + 1];
+											int var39 = -1;
+											int var40 = -1;
+											int var41;
+											int var42;
+											int var43;
+											if (var29 > 0) {
+												var41 = var13 * 256 / var16;
+												var42 = var14 / var17;
+												var43 = var15 / var17;
+												var39 = WorldMapAreaData.hslToRgb(var41, var42, var43);
+												var41 = var41 + Tiles.field917 & 255;
+												var43 += Tiles.field918;
+												if (var43 < 0) {
+													var43 = 0;
+												} else if (var43 > 255) {
+													var43 = 255;
+												}
+
+												var40 = WorldMapAreaData.hslToRgb(var41, var42, var43);
+											}
+
+											FloorOverlayDefinition var44;
+											if (var6 > 0) {
+												boolean var45 = true;
+												if (var29 == 0 && class32.field1157[var6][var12][var18] != 0) {
+													var45 = false;
+												}
+
+												if (var30 > 0) {
+													var43 = var30 - 1;
+													var44 = (FloorOverlayDefinition) FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long) var43);
+													FloorOverlayDefinition var46;
+													if (var44 != null) {
+														var46 = var44;
+													} else {
+														byte[] var47 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var43);
+														var44 = new FloorOverlayDefinition();
+														if (var47 != null) {
+															var44.decode(new Buffer(var47), var43);
+														}
+
+														var44.postDecode();
+														FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var44, (long) var43);
+														var46 = var44;
+													}
+
+													if (!var46.hideUnderlay) {
+														var45 = false;
+													}
+												}
+
+												if (var45 && var66 == var32 && var66 == var33 && var34 == var66) {
+													var63 = Tiles.field910[var6][var12];
+													var63[var18] |= 2340;
+												}
+											}
+
+											var41 = 0;
+											if (var40 != -1) {
+												var41 = Rasterizer3D.Rasterizer3D_colorPalette[WorldMapData_0.method183(var40, 96)];
+											}
+
+											if (var30 == 0) {
+												var61.addTile(var6, var12, var18, 0, 0, -1, var66, var32, var33, var34, WorldMapData_0.method183(var39, var35), WorldMapData_0.method183(var39, var36), WorldMapData_0.method183(var39, var37), WorldMapData_0.method183(var39, var38), 0, 0, 0, 0, var41, 0);
+											} else {
+												var42 = class32.field1157[var6][var12][var18] + 1;
+												byte var67 = class307.field1155[var6][var12][var18];
+												int var68 = var30 - 1;
+												FloorOverlayDefinition var69 = (FloorOverlayDefinition) FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long) var68);
+												if (var69 != null) {
+													var44 = var69;
+												} else {
+													byte[] var48 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var68);
+													var69 = new FloorOverlayDefinition();
+													if (var48 != null) {
+														var69.decode(new Buffer(var48), var68);
+													}
+
+													var69.postDecode();
+													FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var69, (long) var68);
+													var44 = var69;
+												}
+
+												int var70 = var44.texture;
+												int var49;
+												int var50;
+												int var51;
+												int var52;
+												if (var70 >= 0) {
+													var50 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var70);
+													var49 = -1;
+												} else if (var44.primaryRgb == 16711935) {
+													var49 = -2;
+													var70 = -1;
+													var50 = -2;
+												} else {
+													var49 = WorldMapAreaData.hslToRgb(var44.hue, var44.saturation, var44.lightness);
+													var51 = var44.hue + Tiles.field917 & 255;
+													var52 = var44.lightness + Tiles.field918;
+													if (var52 < 0) {
+														var52 = 0;
+													} else if (var52 > 255) {
+														var52 = 255;
+													}
+
+													var50 = WorldMapAreaData.hslToRgb(var51, var44.saturation, var52);
+												}
+
+												var51 = 0;
+												if (var50 != -2) {
+													var51 = Rasterizer3D.Rasterizer3D_colorPalette[WorldMapDecoration.method348(var50, 96)];
+												}
+
+												if (var44.secondaryRgb != -1) {
+													var52 = var44.secondaryHue + Tiles.field917 & 255;
+													int var53 = var44.secondaryLightness + Tiles.field918;
+													if (var53 < 0) {
+														var53 = 0;
+													} else if (var53 > 255) {
+														var53 = 255;
+													}
+
+													var50 = WorldMapAreaData.hslToRgb(var52, var44.secondarySaturation, var53);
+													var51 = Rasterizer3D.Rasterizer3D_colorPalette[WorldMapDecoration.method348(var50, 96)];
+												}
+
+												var61.addTile(var6, var12, var18, var42, var67, var70, var66, var32, var33, var34, WorldMapData_0.method183(var39, var35), WorldMapData_0.method183(var39, var36), WorldMapData_0.method183(var39, var37), WorldMapData_0.method183(var39, var38), WorldMapDecoration.method348(var49, var35), WorldMapDecoration.method348(var49, var36), WorldMapDecoration.method348(var49, var37), WorldMapDecoration.method348(var49, var38), var41, var51);
+											}
+										}
 									}
 								}
 							}
 						}
 
-						GameShell.updateGameState(30);
-						class13.playPcmPlayers();
-						BufferedSink.method3603();
-						var65 = Interpreter.method1915(ClientPacket.field298, packetWriter.isaacCipher);
-						packetWriter.method241(var65);
-						GrandExchangeOfferNameComparator.method145();
+						for (var12 = 1; var12 < 103; ++var12) {
+							for (var13 = 1; var13 < 103; ++var13) {
+								if ((Tiles.Tiles_renderFlags[var6][var13][var12] & 8) != 0) {
+									var18 = 0;
+								} else if (var6 > 0 && (Tiles.Tiles_renderFlags[1][var13][var12] & 2) != 0) {
+									var18 = var6 - 1;
+								} else {
+									var18 = var6;
+								}
+
+								var61.setTileMinPlane(var6, var13, var12, var18);
+							}
+						}
+
+						Tiles.field908[var6] = ((byte[][]) null);
+						Fonts.field350[var6] = ((byte[][]) null);
+						class32.field1157[var6] = ((byte[][]) null);
+						class307.field1155[var6] = ((byte[][]) null);
+						Tiles.field909[var6] = ((byte[][]) null);
 					}
+
+					var61.method293(-50, -10, -50);
+
+					for (var6 = 0; var6 < 104; ++var6) {
+						for (var21 = 0; var21 < 104; ++var21) {
+							if ((Tiles.Tiles_renderFlags[1][var6][var21] & 2) == 2) {
+								var61.setLinkBelow(var6, var21);
+							}
+						}
+					}
+
+					var6 = 1;
+					var21 = 2;
+					var57 = 4;
+
+					for (var58 = 0; var58 < 4; ++var58) {
+						if (var58 > 0) {
+							var6 <<= 3;
+							var21 <<= 3;
+							var57 <<= 3;
+						}
+
+						for (var59 = 0; var59 <= var58; ++var59) {
+							for (var8 = 0; var8 <= 104; ++var8) {
+								for (var9 = 0; var9 <= 104; ++var9) {
+									short var64;
+									if ((Tiles.field910[var59][var9][var8] & var6) != 0) {
+										var10 = var8;
+										var11 = var8;
+										var12 = var59;
+
+										for (var13 = var59; var10 > 0 && (Tiles.field910[var59][var9][var10 - 1] & var6) != 0; --var10) {
+										}
+
+										while (var11 < 104 && (Tiles.field910[var59][var9][var11 + 1] & var6) != 0) {
+											++var11;
+										}
+
+										label649:
+										while (var12 > 0) {
+											for (var14 = var10; var14 <= var11; ++var14) {
+												if ((Tiles.field910[var12 - 1][var9][var14] & var6) == 0) {
+													break label649;
+												}
+											}
+
+											--var12;
+										}
+
+										label638:
+										while (var13 < var58) {
+											for (var14 = var10; var14 <= var11; ++var14) {
+												if ((Tiles.field910[var13 + 1][var9][var14] & var6) == 0) {
+													break label638;
+												}
+											}
+
+											++var13;
+										}
+
+										var14 = (var11 - var10 + 1) * (var13 + 1 - var12);
+										if (var14 >= 8) {
+											var64 = 240;
+											var16 = Tiles.Tiles_heights[var13][var9][var10] - var64;
+											var17 = Tiles.Tiles_heights[var12][var9][var10];
+											Scene.Scene_addOccluder(var58, 1, var9 * 128, var9 * 128, var10 * 128, var11 * 128 + 128, var16, var17);
+
+											for (var18 = var12; var18 <= var13; ++var18) {
+												for (var19 = var10; var19 <= var11; ++var19) {
+													var63 = Tiles.field910[var18][var9];
+													var63[var19] &= ~var6;
+												}
+											}
+										}
+									}
+
+									if ((Tiles.field910[var59][var9][var8] & var21) != 0) {
+										var10 = var9;
+										var11 = var9;
+										var12 = var59;
+
+										for (var13 = var59; var10 > 0 && (Tiles.field910[var59][var10 - 1][var8] & var21) != 0; --var10) {
+										}
+
+										while (var11 < 104 && (Tiles.field910[var59][var11 + 1][var8] & var21) != 0) {
+											++var11;
+										}
+
+										label702:
+										while (var12 > 0) {
+											for (var14 = var10; var14 <= var11; ++var14) {
+												if ((Tiles.field910[var12 - 1][var14][var8] & var21) == 0) {
+													break label702;
+												}
+											}
+
+											--var12;
+										}
+
+										label691:
+										while (var13 < var58) {
+											for (var14 = var10; var14 <= var11; ++var14) {
+												if ((Tiles.field910[var13 + 1][var14][var8] & var21) == 0) {
+													break label691;
+												}
+											}
+
+											++var13;
+										}
+
+										var14 = (var11 - var10 + 1) * (var13 + 1 - var12);
+										if (var14 >= 8) {
+											var64 = 240;
+											var16 = Tiles.Tiles_heights[var13][var10][var8] - var64;
+											var17 = Tiles.Tiles_heights[var12][var10][var8];
+											Scene.Scene_addOccluder(var58, 2, var10 * 128, var11 * 128 + 128, var8 * 128, var8 * 128, var16, var17);
+
+											for (var18 = var12; var18 <= var13; ++var18) {
+												for (var19 = var10; var19 <= var11; ++var19) {
+													var63 = Tiles.field910[var18][var19];
+													var63[var8] &= ~var21;
+												}
+											}
+										}
+									}
+
+									if ((Tiles.field910[var59][var9][var8] & var57) != 0) {
+										var10 = var9;
+										var11 = var9;
+										var12 = var8;
+
+										for (var13 = var8; var12 > 0 && (Tiles.field910[var59][var9][var12 - 1] & var57) != 0; --var12) {
+										}
+
+										while (var13 < 104 && (Tiles.field910[var59][var9][var13 + 1] & var57) != 0) {
+											++var13;
+										}
+
+										label755:
+										while (var10 > 0) {
+											for (var14 = var12; var14 <= var13; ++var14) {
+												if ((Tiles.field910[var59][var10 - 1][var14] & var57) == 0) {
+													break label755;
+												}
+											}
+
+											--var10;
+										}
+
+										label744:
+										while (var11 < 104) {
+											for (var14 = var12; var14 <= var13; ++var14) {
+												if ((Tiles.field910[var59][var11 + 1][var14] & var57) == 0) {
+													break label744;
+												}
+											}
+
+											++var11;
+										}
+
+										if ((var13 - var12 + 1) * (var11 - var10 + 1) >= 4) {
+											var14 = Tiles.Tiles_heights[var59][var10][var12];
+											Scene.Scene_addOccluder(var58, 4, var10 * 128, var11 * 128 + 128, var12 * 128, var13 * 128 + 128, var14, var14);
+
+											for (var15 = var10; var15 <= var11; ++var15) {
+												for (var16 = var12; var16 <= var13; ++var16) {
+													var63 = Tiles.field910[var59][var15];
+													var63[var16] &= ~var57;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+
+					UserComparator10.method3352(true);
+					var6 = Tiles.Tiles_minPlane;
+					if (var6 > SoundSystem.plane) {
+						var6 = SoundSystem.plane;
+					}
+
+					if (var6 < SoundSystem.plane - 1) {
+						var6 = SoundSystem.plane - 1;
+					}
+
+					if (isLowDetail) {
+						class65.scene.init(Tiles.Tiles_minPlane);
+					} else {
+						class65.scene.init(0);
+					}
+
+					for (var21 = 0; var21 < 104; ++var21) {
+						for (var57 = 0; var57 < 104; ++var57) {
+							TilePaint.updateItemPile(var21, var57);
+						}
+					}
+
+					class13.playPcmPlayers();
+					ScriptEvent.method1179();
+					ObjectDefinition.ObjectDefinition_cachedModelData.clear();
+					PacketBufferNode var65;
+					if (TextureProvider.client.hasFrame()) {
+						var65 = Interpreter.method1915(ClientPacket.field231, packetWriter.isaacCipher);
+						var65.packetBuffer.writeInt(1057001181);
+						packetWriter.method241(var65);
+					}
+
+					if (!isInInstance) {
+						var21 = (GameObject.field359 - 6) / 8;
+						var57 = (GameObject.field359 + 6) / 8;
+						var58 = (WorldMapLabelSize.field1041 - 6) / 8;
+						var59 = (WorldMapLabelSize.field1041 + 6) / 8;
+
+						for (var8 = var21 - 1; var8 <= var57 + 1; ++var8) {
+							for (var9 = var58 - 1; var9 <= var59 + 1; ++var9) {
+								if (var8 < var21 || var8 > var57 || var9 < var58 || var9 > var59) {
+									SecureRandomFuture.archive5.loadRegionFromName("m" + var8 + "_" + var9);
+									SecureRandomFuture.archive5.loadRegionFromName("l" + var8 + "_" + var9);
+								}
+							}
+						}
+					}
+
+					GameShell.updateGameState(30);
+					class13.playPcmPlayers();
+					BufferedSink.method3603();
+					var65 = Interpreter.method1915(ClientPacket.field298, packetWriter.isaacCipher);
+					packetWriter.method241(var65);
+					GrandExchangeOfferNameComparator.method145();
 				}
 			}
-		} else {
-			class54.method1092(this);
 		}
 
 		if (gameState == 30) {

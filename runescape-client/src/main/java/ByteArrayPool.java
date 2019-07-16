@@ -102,38 +102,35 @@ public class ByteArrayPool {
 	)
 	@Export("intToString")
 	public static String intToString(int value, boolean addPlus) {
-		if (addPlus && value >= 0) {
-			int var2 = value;
-			String var3;
-			if (addPlus && value >= 0) {
-				int var4 = 2;
-
-				for (int var5 = value / 10; var5 != 0; ++var4) {
-					var5 /= 10;
-				}
-
-				char[] var9 = new char[var4];
-				var9[0] = '+';
-
-				for (int var6 = var4 - 1; var6 > 0; --var6) {
-					int var7 = var2;
-					var2 /= 10;
-					int var8 = var7 - var2 * 10;
-					if (var8 >= 10) {
-						var9[var6] = (char)(var8 + 87);
-					} else {
-						var9[var6] = (char)(var8 + 48);
-					}
-				}
-
-				var3 = new String(var9);
-			} else {
-				var3 = Integer.toString(value, 10);
-			}
-
-			return var3;
+		if (!addPlus || value < 0) {
+			return Integer.toString(value);
 		}
-		return Integer.toString(value);
+
+		int var2 = value;
+		String var3;
+		int var4 = 2;
+
+		for (int var5 = value / 10; var5 != 0; ++var4) {
+			var5 /= 10;
+		}
+
+		char[] var9 = new char[var4];
+		var9[0] = '+';
+
+		for (int var6 = var4 - 1; var6 > 0; --var6) {
+			int var7 = var2;
+			var2 /= 10;
+			int var8 = var7 - var2 * 10;
+			if (var8 >= 10) {
+				var9[var6] = (char)(var8 + 87);
+			} else {
+				var9[var6] = (char)(var8 + 48);
+			}
+		}
+
+		var3 = new String(var9);
+
+		return var3;
 	}
 
 	static {

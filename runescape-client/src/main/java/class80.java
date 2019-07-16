@@ -15,26 +15,28 @@ public class class80 {
 		garbageValue = "1844169387"
 	)
 	static void method2015() {
-		if (Login.field465) {
-			Login.titleboxSprite = null;
-			ArchiveLoader.titlebuttonSprite = null;
-			WorldMapEvent.runesSprite = null;
-			Login.leftTitleSprite = null;
-			Fonts.rightTitleSprite = null;
-			WorldMapSectionType.logoSprite = null;
-			KeyHandler.title_muteSprite = null;
-			Login.options_buttons_0Sprite = null;
-			class308.options_buttons_2Sprite = null;
-			class30.worldSelectBackSprites = null;
-			Frames.worldSelectFlagSprites = null;
-			AttackOption.worldSelectArrows = null;
-			UrlRequest.worldSelectStars = null;
-			class277.field1144 = null;
-			class16.loginScreenRunesAnimation.method1762();
-			AbstractSocket.method3488(2);
-			UserComparator9.method3343(true);
-			Login.field465 = false;
+		if (!Login.field465) {
+			return;
 		}
+
+		Login.titleboxSprite = null;
+		ArchiveLoader.titlebuttonSprite = null;
+		WorldMapEvent.runesSprite = null;
+		Login.leftTitleSprite = null;
+		Fonts.rightTitleSprite = null;
+		WorldMapSectionType.logoSprite = null;
+		KeyHandler.title_muteSprite = null;
+		Login.options_buttons_0Sprite = null;
+		class308.options_buttons_2Sprite = null;
+		class30.worldSelectBackSprites = null;
+		Frames.worldSelectFlagSprites = null;
+		AttackOption.worldSelectArrows = null;
+		UrlRequest.worldSelectStars = null;
+		class277.field1144 = null;
+		class16.loginScreenRunesAnimation.method1762();
+		AbstractSocket.method3488(2);
+		UserComparator9.method3343(true);
+		Login.field465 = false;
 
 	}
 

@@ -119,46 +119,48 @@ public class class3 implements Enumerated {
 	)
 	@Export("doWorldSorting")
 	static void doWorldSorting(int lowestUnsorted, int highestUnsorted, int primaryMode, boolean primaryReversed, int secondaryMode, boolean secondaryReversed) {
-		if (lowestUnsorted < highestUnsorted) {
-			int var6 = (lowestUnsorted + highestUnsorted) / 2;
-			int var7 = lowestUnsorted;
-			World var8 = ItemContainer.worlds[var6];
-			ItemContainer.worlds[var6] = ItemContainer.worlds[highestUnsorted];
-			ItemContainer.worlds[highestUnsorted] = var8;
+		if (lowestUnsorted >= highestUnsorted) {
+			return;
+		}
 
-			for (int var9 = lowestUnsorted; var9 < highestUnsorted; ++var9) {
-				World var10 = ItemContainer.worlds[var9];
-				int var11 = WorldMapLabel.compareWorlds(var10, var8, primaryMode, primaryReversed);
-				int var12;
-				if (var11 != 0) {
-					if (primaryReversed) {
-						var12 = -var11;
-					} else {
-						var12 = var11;
-					}
-				} else if (secondaryMode == -1) {
-					var12 = 0;
+		int var6 = (lowestUnsorted + highestUnsorted) / 2;
+		int var7 = lowestUnsorted;
+		World var8 = ItemContainer.worlds[var6];
+		ItemContainer.worlds[var6] = ItemContainer.worlds[highestUnsorted];
+		ItemContainer.worlds[highestUnsorted] = var8;
+
+		for (int var9 = lowestUnsorted; var9 < highestUnsorted; ++var9) {
+			World var10 = ItemContainer.worlds[var9];
+			int var11 = WorldMapLabel.compareWorlds(var10, var8, primaryMode, primaryReversed);
+			int var12;
+			if (var11 != 0) {
+				if (primaryReversed) {
+					var12 = -var11;
 				} else {
-					int var13 = WorldMapLabel.compareWorlds(var10, var8, secondaryMode, secondaryReversed);
-					if (secondaryReversed) {
-						var12 = -var13;
-					} else {
-						var12 = var13;
-					}
+					var12 = var11;
 				}
-
-				if (var12 <= 0) {
-					World var14 = ItemContainer.worlds[var9];
-					ItemContainer.worlds[var9] = ItemContainer.worlds[var7];
-					ItemContainer.worlds[var7++] = var14;
+			} else if (secondaryMode == -1) {
+				var12 = 0;
+			} else {
+				int var13 = WorldMapLabel.compareWorlds(var10, var8, secondaryMode, secondaryReversed);
+				if (secondaryReversed) {
+					var12 = -var13;
+				} else {
+					var12 = var13;
 				}
 			}
 
-			ItemContainer.worlds[highestUnsorted] = ItemContainer.worlds[var7];
-			ItemContainer.worlds[var7] = var8;
-			doWorldSorting(lowestUnsorted, var7 - 1, primaryMode, primaryReversed, secondaryMode, secondaryReversed);
-			doWorldSorting(var7 + 1, highestUnsorted, primaryMode, primaryReversed, secondaryMode, secondaryReversed);
+			if (var12 <= 0) {
+				World var14 = ItemContainer.worlds[var9];
+				ItemContainer.worlds[var9] = ItemContainer.worlds[var7];
+				ItemContainer.worlds[var7++] = var14;
+			}
 		}
+
+		ItemContainer.worlds[highestUnsorted] = ItemContainer.worlds[var7];
+		ItemContainer.worlds[var7] = var8;
+		doWorldSorting(lowestUnsorted, var7 - 1, primaryMode, primaryReversed, secondaryMode, secondaryReversed);
+		doWorldSorting(var7 + 1, highestUnsorted, primaryMode, primaryReversed, secondaryMode, secondaryReversed);
 
 	}
 

@@ -58,26 +58,26 @@ public class class204 {
 		for (var9 = 0; var9 < 4; ++var9) {
 			for (int var19 = 0; var19 < 64; ++var19) {
 				for (int var12 = 0; var12 < 64; ++var12) {
-					if (var9 == var4 && var19 >= var5 && var19 < var5 + 8 && var12 >= var6 && var12 < var6 + 8) {
-						int var13 = var2 + CollisionMap.method3632(var19 & 7, var12 & 7, var7);
-						int var14 = var19 & 7;
-						int var15 = var12 & 7;
-						int var16 = var7 & 3;
-						int var17;
-						if (var16 == 0) {
-							var17 = var15;
-						} else if (var16 == 1) {
-							var17 = 7 - var14;
-						} else if (var16 == 2) {
-							var17 = 7 - var15;
-						} else {
-							var17 = var14;
-						}
-
-						GrandExchangeOfferTotalQuantityComparator.loadTerrain(var18, var1, var13, var3 + var17, 0, 0, var7);
-					} else {
+					if (var9 != var4 || var19 < var5 || var19 >= var5 + 8 || var12 < var6 || var12 >= var6 + 8) {
 						GrandExchangeOfferTotalQuantityComparator.loadTerrain(var18, 0, -1, -1, 0, 0, 0);
+						continue;
 					}
+					int var13 = var2 + CollisionMap.method3632(var19 & 7, var12 & 7, var7);
+					int var14 = var19 & 7;
+					int var15 = var12 & 7;
+					int var16 = var7 & 3;
+					int var17;
+					if (var16 == 0) {
+						var17 = var15;
+					} else if (var16 == 1) {
+						var17 = 7 - var14;
+					} else if (var16 == 2) {
+						var17 = 7 - var15;
+					} else {
+						var17 = var14;
+					}
+
+					GrandExchangeOfferTotalQuantityComparator.loadTerrain(var18, var1, var13, var3 + var17, 0, 0, var7);
 				}
 			}
 		}

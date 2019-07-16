@@ -61,21 +61,21 @@ public class BufferedSink implements Runnable {
 	)
 	@Export("isClosed")
 	boolean isClosed() {
-		if (this.closed) {
-			try {
-				this.outputStream.close();
-				if (this.exception == null) {
-					this.exception = new IOException("");
-				}
-			} catch (IOException var2) {
-				if (this.exception == null) {
-					this.exception = new IOException(var2);
-				}
-			}
-
-			return true;
+		if (!this.closed) {
+			return false;
 		}
-		return false;
+		try {
+			this.outputStream.close();
+			if (this.exception == null) {
+				this.exception = new IOException("");
+			}
+		} catch (IOException var2) {
+			if (this.exception == null) {
+				this.exception = new IOException(var2);
+			}
+		}
+
+		return true;
 	}
 
 	@ObfuscatedName("f")
@@ -85,34 +85,34 @@ public class BufferedSink implements Runnable {
 	)
 	@Export("write")
 	void write(byte[] src, int srcIndex, int length) throws IOException {
-		if (length >= 0 && srcIndex >= 0 && length + srcIndex <= src.length) {
-			synchronized(this) {
-				if (this.exception != null) {
-					throw new IOException(this.exception.toString());
-				}
-				int var5;
-				if (this.position <= this.limit) {
-					var5 = this.capacity - this.limit + this.position - 1;
-				} else {
-					var5 = this.position - this.limit - 1;
-				}
-
-				if (var5 < length) {
-					throw new IOException("");
-				}
-				if (length + this.limit <= this.capacity) {
-					System.arraycopy(src, srcIndex, this.buffer, this.limit, length);
-				} else {
-					int var6 = this.capacity - this.limit;
-					System.arraycopy(src, srcIndex, this.buffer, this.limit, var6);
-					System.arraycopy(src, var6 + srcIndex, this.buffer, 0, length - var6);
-				}
-
-				this.limit = (length + this.limit) % this.capacity;
-				this.notifyAll();
-			}
-		} else {
+		if (length < 0 || srcIndex < 0 || length + srcIndex > src.length) {
 			throw new IOException();
+		}
+
+		synchronized(this) {
+			if (this.exception != null) {
+				throw new IOException(this.exception.toString());
+			}
+			int var5;
+			if (this.position <= this.limit) {
+				var5 = this.capacity - this.limit + this.position - 1;
+			} else {
+				var5 = this.position - this.limit - 1;
+			}
+
+			if (var5 < length) {
+				throw new IOException("");
+			}
+			if (length + this.limit <= this.capacity) {
+				System.arraycopy(src, srcIndex, this.buffer, this.limit, length);
+			} else {
+				int var6 = this.capacity - this.limit;
+				System.arraycopy(src, srcIndex, this.buffer, this.limit, var6);
+				System.arraycopy(src, var6 + srcIndex, this.buffer, 0, length - var6);
+			}
+
+			this.limit = (length + this.limit) % this.capacity;
+			this.notifyAll();
 		}
 	}
 

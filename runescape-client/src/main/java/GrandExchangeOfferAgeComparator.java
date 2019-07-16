@@ -20,7 +20,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		return var1.field370 < var2.field370 ? -1 : (var1.field370 == var2.field370 ? 0 : 1);
+		return var1.age < var2.age ? -1 : (var1.age == var2.age ? 0 : 1);
 	}
 
 	public boolean equals(Object var1) {

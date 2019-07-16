@@ -220,20 +220,15 @@ public abstract class AbstractFont extends Rasterizer2D {
 					var2 = -1;
 					if (var7.equals("lt")) {
 						var6 = '<';
-					} else {
-						if (!var7.equals("gt")) {
-							if (var7.startsWith("img=")) {
-								try {
-									int var8 = MouseHandler.parseInt(var7.substring(4));
-									var4 += AbstractFont_modIconSprites[var8].width;
-									var3 = -1;
-								} catch (Exception var9) {
-								}
-							}
-							continue;
-						}
-
+					} else if (var7.equals("gt")) {
 						var6 = '>';
+					} else if (var7.startsWith("img=")) {
+						try {
+							int var8 = MouseHandler.parseInt(var7.substring(4));
+							var4 += AbstractFont_modIconSprites[var8].width;
+							var3 = -1;
+						} catch (Exception var9) {
+						}
 					}
 				}
 

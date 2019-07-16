@@ -290,17 +290,17 @@ public abstract class AbstractArchive {
 	)
 	@Export("tryLoadFile")
 	public boolean tryLoadFile(int group, int file) {
-		if (group >= 0 && group < this.files.length && this.files[group] != null && file >= 0 && file < this.files[group].length) {
-			if (this.files[group][file] != null) {
-				return true;
-			}
-			if (this.groups[group] != null) {
-				return true;
-			}
-			this.loadGroup(group);
-			return this.groups[group] != null;
+		if (group < 0 || group >= this.files.length || this.files[group] == null || file < 0 || file >= this.files[group].length) {
+			return false;
 		}
-		return false;
+		if (this.files[group][file] != null) {
+			return true;
+		}
+		if (this.groups[group] != null) {
+			return true;
+		}
+		this.loadGroup(group);
+		return this.groups[group] != null;
 	}
 
 	@ObfuscatedName("u")
@@ -751,18 +751,19 @@ public abstract class AbstractArchive {
 		garbageValue = "308670894"
 	)
 	static boolean method4585() {
-		if (Client.archiveLoaders != null && Client.archiveLoaderArchive < Client.archiveLoaders.size()) {
-			while (Client.archiveLoaderArchive < Client.archiveLoaders.size()) {
-				ArchiveLoader var0 = (ArchiveLoader)Client.archiveLoaders.get(Client.archiveLoaderArchive);
-				if (!var0.isLoaded()) {
-					return false;
-				}
-
-				++Client.archiveLoaderArchive;
-			}
-
+		if (Client.archiveLoaders == null || Client.archiveLoaderArchive >= Client.archiveLoaders.size()) {
 			return true;
 		}
+
+		while (Client.archiveLoaderArchive < Client.archiveLoaders.size()) {
+			ArchiveLoader var0 = (ArchiveLoader)Client.archiveLoaders.get(Client.archiveLoaderArchive);
+			if (!var0.isLoaded()) {
+				return false;
+			}
+
+			++Client.archiveLoaderArchive;
+		}
+
 		return true;
 	}
 

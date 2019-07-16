@@ -49,58 +49,59 @@ public class class214 {
 		garbageValue = "-125135280"
 	)
 	static boolean method4144(CharSequence var0, int var1, boolean var2) {
-		if (var1 >= 2 && var1 <= 36) {
-			boolean var3 = false;
-			boolean var4 = false;
-			int var5 = 0;
-			int var6 = var0.length();
+		if (var1 < 2 || var1 > 36) {
+			throw new IllegalArgumentException("");
+		}
+		boolean var3 = false;
+		boolean var4 = false;
+		int var5 = 0;
+		int var6 = var0.length();
 
-			for (int var7 = 0; var7 < var6; ++var7) {
-				char var8 = var0.charAt(var7);
-				if (var7 == 0) {
-					if (var8 == '-') {
-						var3 = true;
-						continue;
-					}
-
-					if (var8 == '+') {
-						continue;
-					}
+		for (int var7 = 0; var7 < var6; ++var7) {
+			char var8 = var0.charAt(var7);
+			if (var7 == 0) {
+				if (var8 == '-') {
+					var3 = true;
+					continue;
 				}
 
-				int var9;
-				if (var8 >= '0' && var8 <= '9') {
-					var9 = var8 - '0';
-				} else if (var8 >= 'A' && var8 <= 'Z') {
-					var9 = var8 - '7';
-				} else {
-					if (var8 < 'a' || var8 > 'z') {
-						return false;
-					}
-
-					var9 = var8 - 'W';
+				if (var8 == '+') {
+					continue;
 				}
-
-				if (var9 >= var1) {
-					return false;
-				}
-
-				if (var3) {
-					var9 = -var9;
-				}
-
-				int var10 = var5 * var1 + var9;
-				if (var10 / var1 != var5) {
-					return false;
-				}
-
-				var5 = var10;
-				var4 = true;
 			}
 
-			return var4;
+			int var9;
+			if (var8 >= '0' && var8 <= '9') {
+				var9 = var8 - '0';
+			}
+			else if (var8 >= 'A' && var8 <= 'Z') {
+				var9 = var8 - '7';
+			} else {
+				if (var8 < 'a' || var8 > 'z') {
+					return false;
+				}
+
+				var9 = var8 - 'W';
+			}
+
+			if (var9 >= var1) {
+				return false;
+			}
+
+			if (var3) {
+				var9 = -var9;
+			}
+
+			int var10 = var5 * var1 + var9;
+			if (var10 / var1 != var5) {
+				return false;
+			}
+
+			var5 = var10;
+			var4 = true;
 		}
-		throw new IllegalArgumentException("");
+
+		return var4;
 	}
 
 	@ObfuscatedName("o")

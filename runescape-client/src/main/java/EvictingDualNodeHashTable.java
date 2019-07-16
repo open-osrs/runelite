@@ -30,14 +30,14 @@ public final class EvictingDualNodeHashTable {
 	@Export("deque")
 	DualNodeDeque deque;
 
-	public EvictingDualNodeHashTable(int var1) {
+	public EvictingDualNodeHashTable(int size) {
 		this.field343 = new DualNode();
 		this.deque = new DualNodeDeque();
-		this.capacity = var1;
-		this.remainingCapacity = var1;
+		this.capacity = size;
+		this.remainingCapacity = size;
 
 		int var2;
-		for (var2 = 1; var2 + var2 < var1; var2 += var2) {
+		for (var2 = 1; var2 + var2 < size; var2 += var2) {
 		}
 
 		this.hashTable = new NodeHashTable(var2);

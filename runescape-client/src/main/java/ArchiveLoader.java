@@ -689,22 +689,24 @@ public class ArchiveLoader {
 			}
 
 			KeyHandler.title_muteSprite[ReflectionCheck.clientPreferences.titleMusicDisabled ? 1 : 0].drawAt(Login.xPadding + 765 - 40, 463);
-			if (Client.gameState > 5 && Client.language == 0) {
-				if (class277.field1144 != null) {
-					var10 = Login.xPadding + 5;
-					var34 = 463;
-					byte var39 = 100;
-					byte var41 = 35;
-					class277.field1144.drawAt(var10, var34);
-					var0.drawCentered("World " + Client.worldId, var39 / 2 + var10, var41 / 2 + var34 - 2, 16777215, 0);
-					if (FriendLoginUpdate.field356 != null) {
-						var1.drawCentered("Loading...", var39 / 2 + var10, var41 / 2 + var34 + 12, 16777215, 0);
-					} else {
-						var1.drawCentered("Click to switch", var39 / 2 + var10, var41 / 2 + var34 + 12, 16777215, 0);
-					}
+			if (Client.gameState <= 5 || Client.language != 0) {
+				return;
+			}
+
+			if (class277.field1144 != null) {
+				var10 = Login.xPadding + 5;
+				var34 = 463;
+				byte var39 = 100;
+				byte var41 = 35;
+				class277.field1144.drawAt(var10, var34);
+				var0.drawCentered("World " + Client.worldId, var39 / 2 + var10, var41 / 2 + var34 - 2, 16777215, 0);
+				if (FriendLoginUpdate.field356 != null) {
+					var1.drawCentered("Loading...", var39 / 2 + var10, var41 / 2 + var34 + 12, 16777215, 0);
 				} else {
-					class277.field1144 = MenuAction.loadIndexedSpriteByName(WorldMapSection2.archive8, "sl_button", "");
+					var1.drawCentered("Click to switch", var39 / 2 + var10, var41 / 2 + var34 + 12, 16777215, 0);
 				}
+			} else {
+				class277.field1144 = MenuAction.loadIndexedSpriteByName(WorldMapSection2.archive8, "sl_button", "");
 			}
 		}
 

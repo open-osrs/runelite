@@ -18,7 +18,8 @@ public class GrandExchangeEvent {
 	@ObfuscatedGetter(
 		longValue = -6503890758391257651L
 	)
-	public final long field370;
+	@Export("age")
+	public final long age;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		signature = "Lx;"
@@ -39,7 +40,7 @@ public class GrandExchangeEvent {
 		this.offerName = var1.readStringCp1252NullTerminated();
 		this.previousOfferName = var1.readStringCp1252NullTerminated();
 		this.world = var1.readUnsignedShort();
-		this.field370 = var1.readLong();
+		this.age = var1.readLong();
 		int var4 = var1.readInt();
 		int var5 = var1.readInt();
 		this.grandExchangeOffer = new GrandExchangeOffer();

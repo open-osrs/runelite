@@ -68,26 +68,28 @@ public class BufferedSource implements Runnable {
 		if (length == 0) {
 			return true;
 		}
-		if (length > 0 && length < this.capacity) {
-			synchronized(this) {
-				int var3;
-				if (this.position <= this.limit) {
-					var3 = this.limit - this.position;
-				} else {
-					var3 = this.capacity - this.position + this.limit;
-				}
-
-				if (var3 < length) {
-					if (this.exception != null) {
-						throw new IOException(this.exception.toString());
-					}
-					this.notifyAll();
-					return false;
-				}
-				return true;
-			}
+		if (length <= 0 || length >= this.capacity) {
+			throw new IOException();
 		}
-		throw new IOException();
+		synchronized (this) {
+			int var3;
+			if (this.position <= this.limit) {
+				var3 = this.limit - this.position;
+			}
+			else
+			{
+				var3 = this.capacity - this.position + this.limit;
+			}
+
+			if (var3 >= length) {
+				return true;
+			} if (this.exception != null) {
+				throw new IOException(this.exception.toString());
+			}
+
+			this.notifyAll();
+			return false;
+		}
 	}
 
 	@ObfuscatedName("f")
@@ -121,16 +123,18 @@ public class BufferedSource implements Runnable {
 	@Export("readUnsignedByte")
 	int readUnsignedByte() throws IOException {
 		synchronized(this) {
-			if (this.position == this.limit) {
-				if (this.exception != null) {
-					throw new IOException(this.exception.toString());
-				}
-				return -1;
+			if (this.position != this.limit) {
+				int var2 = this.buffer[this.position] & 255;
+				this.position = (this.position + 1) % this.capacity;
+				this.notifyAll();
+				return var2;
 			}
-			int var2 = this.buffer[this.position] & 255;
-			this.position = (this.position + 1) % this.capacity;
-			this.notifyAll();
-			return var2;
+
+			if (this.exception != null) {
+				throw new IOException(this.exception.toString());
+			}
+
+			return -1;
 		}
 	}
 
@@ -141,36 +145,37 @@ public class BufferedSource implements Runnable {
 	)
 	@Export("read")
 	int read(byte[] dst, int dstIndex, int length) throws IOException {
-		if (length >= 0 && dstIndex >= 0 && length + dstIndex <= dst.length) {
-			synchronized(this) {
-				int var5;
-				if (this.position <= this.limit) {
-					var5 = this.limit - this.position;
-				} else {
-					var5 = this.capacity - this.position + this.limit;
-				}
-
-				if (length > var5) {
-					length = var5;
-				}
-
-				if (length == 0 && this.exception != null) {
-					throw new IOException(this.exception.toString());
-				}
-				if (length + this.position <= this.capacity) {
-					System.arraycopy(this.buffer, this.position, dst, dstIndex, length);
-				} else {
-					int var6 = this.capacity - this.position;
-					System.arraycopy(this.buffer, this.position, dst, dstIndex, var6);
-					System.arraycopy(this.buffer, 0, dst, var6 + dstIndex, length - var6);
-				}
-
-				this.position = (length + this.position) % this.capacity;
-				this.notifyAll();
-				return length;
-			}
+		if (length < 0 || dstIndex < 0 || length + dstIndex > dst.length) {
+			throw new IOException();
 		}
-		throw new IOException();
+
+		synchronized (this) {
+			int var5;
+			if (this.position <= this.limit) {
+				var5 = this.limit - this.position;
+			} else {
+				var5 = this.capacity - this.position + this.limit;
+			}
+
+			if (length > var5) {
+				length = var5;
+			}
+
+			if (length == 0 && this.exception != null) {
+				throw new IOException(this.exception.toString());
+			}
+			if (length + this.position <= this.capacity) {
+				System.arraycopy(this.buffer, this.position, dst, dstIndex, length);
+			} else {
+				int var6 = this.capacity - this.position;
+				System.arraycopy(this.buffer, this.position, dst, dstIndex, var6);
+				System.arraycopy(this.buffer, 0, dst, var6 + dstIndex, length - var6);
+			}
+
+			this.position = (length + this.position) % this.capacity;
+			this.notifyAll();
+			return length;
+		}
 	}
 
 	@ObfuscatedName("o")
@@ -252,23 +257,26 @@ public class BufferedSource implements Runnable {
 	static final void addNpcsToScene(boolean var0) {
 		for (int var1 = 0; var1 < Client.npcCount; ++var1) {
 			NPC var2 = Client.npcs[Client.npcIndices[var1]];
-			if (var2 != null && var2.isVisible() && var2.definition.isVisible == var0 && var2.definition.transformIsVisible()) {
-				int var3 = var2.x >> 7;
-				int var4 = var2.y >> 7;
-				if (var3 >= 0 && var3 < 104 && var4 >= 0 && var4 < 104) {
-					if (var2.size == 1 && (var2.x & 127) == 64 && (var2.y & 127) == 64) {
-						if (Client.tileLastDrawnActor[var3][var4] == Client.viewportDrawCount) {
-							continue;
-						}
-
-						Client.tileLastDrawnActor[var3][var4] = Client.viewportDrawCount;
-					}
-
-					long var5 = FontName.calculateTag(0, 0, 1, !var2.definition.isInteractable, Client.npcIndices[var1]);
-					var2.playerCycle = Client.cycle;
-					class65.scene.drawEntity(SoundSystem.plane, var2.x, var2.y, class32.getTileHeight(var2.size * 64 - 64 + var2.x, var2.size * 64 - 64 + var2.y, SoundSystem.plane), var2.size * 64 - 64 + 60, var2, var2.field9, var5, var2.field10);
-				}
+			if (var2 == null || !var2.isVisible() || var2.definition.isVisible != var0 || !var2.definition.transformIsVisible()) {
+				continue;
 			}
+
+			int var3 = var2.x >> 7;
+			int var4 = var2.y >> 7;
+			if (var3 < 0 || var3 >= 104 || var4 < 0 || var4 >= 104) {
+				continue;
+			}
+			if (var2.size == 1 && (var2.x & 127) == 64 && (var2.y & 127) == 64) {
+				if (Client.tileLastDrawnActor[var3][var4] == Client.viewportDrawCount) {
+					continue;
+				}
+
+				Client.tileLastDrawnActor[var3][var4] = Client.viewportDrawCount;
+			}
+
+			long var5 = FontName.calculateTag(0, 0, 1, !var2.definition.isInteractable, Client.npcIndices[var1]);
+			var2.playerCycle = Client.cycle;
+			class65.scene.drawEntity(SoundSystem.plane, var2.x, var2.y, class32.getTileHeight(var2.size * 64 - 64 + var2.x, var2.size * 64 - 64 + var2.y, SoundSystem.plane), var2.size * 64 - 64 + 60, var2, var2.field9, var5, var2.field10);
 		}
 
 	}

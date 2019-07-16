@@ -60,28 +60,32 @@ public abstract class AbstractByteArrayCopier {
 	)
 	@Export("unloadInterface")
 	public static void unloadInterface(int var0) {
-		if (var0 != -1 && Widget.loadedInterfaces[var0]) {
-			Widget.Widget_archive.clearFilesGroup(var0);
-			if (Widget.Widget_interfaceComponents[var0] != null) {
-				boolean var1 = true;
+		if (var0 == -1 || !Widget.loadedInterfaces[var0]) {
+			return;
+		}
+		Widget.Widget_archive.clearFilesGroup(var0);
+		if (Widget.Widget_interfaceComponents[var0] == null) {
+			return;
+		}
+		boolean var1 = true;
 
-				for (int var2 = 0; var2 < Widget.Widget_interfaceComponents[var0].length; ++var2) {
-					if (Widget.Widget_interfaceComponents[var0][var2] != null) {
-						if (Widget.Widget_interfaceComponents[var0][var2].type != 2) {
-							Widget.Widget_interfaceComponents[var0][var2] = null;
-						} else {
-							var1 = false;
-						}
-					}
-				}
+		for (int var2 = 0; var2 < Widget.Widget_interfaceComponents[var0].length; ++var2) {
+			if (Widget.Widget_interfaceComponents[var0][var2] == null) {
+				continue;
+			}
 
-				if (var1) {
-					Widget.Widget_interfaceComponents[var0] = null;
-				}
-
-				Widget.loadedInterfaces[var0] = false;
+			if (Widget.Widget_interfaceComponents[var0][var2].type != 2) {
+				Widget.Widget_interfaceComponents[var0][var2] = null;
+			} else {
+				var1 = false;
 			}
 		}
+
+		if (var1) {
+			Widget.Widget_interfaceComponents[var0] = null;
+		}
+
+		Widget.loadedInterfaces[var0] = false;
 
 	}
 
