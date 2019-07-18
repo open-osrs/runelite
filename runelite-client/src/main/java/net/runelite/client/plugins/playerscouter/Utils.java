@@ -46,6 +46,7 @@ import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.PvPValueBrokenItem;
 import net.runelite.client.util.StackFormatter;
 import net.runelite.http.api.discord.DiscordClient;
 import net.runelite.http.api.discord.DiscordEmbed;
@@ -161,11 +162,17 @@ class Utils
 					continue;
 				}
 
-				if (!itemDefinition.isTradeable())
+				if (PvPValueBrokenItem.breaksOnDeath(id))
+				{
+					prices.put(id, itemManager.getBrokenValue(id));
+					log.debug("Item has a broken value: Id {}, Value {}", id, itemManager.getBrokenValue(id));
+				}
+
+				if (!itemDefinition.isTradeable() && !PvPValueBrokenItem.breaksOnDeath(id))
 				{
 					prices.put(id, itemDefinition.getPrice());
 				}
-				else
+				else if (itemDefinition.isTradeable())
 				{
 					prices.put(id, itemManager.getItemPrice(id, false));
 				}

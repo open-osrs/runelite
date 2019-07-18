@@ -280,7 +280,7 @@ public class PlayerScouter extends Plugin
 	{
 		resetBlacklist();
 
-		if (playerContainer.isEmpty())
+		if (!checkWildy() || playerContainer.isEmpty())
 		{
 			return;
 		}
@@ -290,7 +290,7 @@ public class PlayerScouter extends Plugin
 			Utils.reset(player);
 			Utils.update(player, itemManager, 6, WILD_LOCS);
 
-			if (player.getRisk() > this.minimumRisk && checkWildy())
+			if (player.getRisk() > this.minimumRisk)
 			{
 				Utils.scoutPlayer(player, url, DISCORD_CLIENT, itemManager, client, this.minimumValue);
 			}
