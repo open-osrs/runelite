@@ -91,7 +91,6 @@ public class AoeWarningOverlay extends Overlay
 		}
 
 		Instant now = Instant.now();
-		Set<ProjectileContainer> toRemove = new HashSet<>();
 		Set<ProjectileContainer> projectiles = plugin.getProjectiles();
 		projectiles.forEach(proj ->
 		{
