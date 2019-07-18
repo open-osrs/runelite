@@ -134,6 +134,7 @@ public class PlayerScouter extends Plugin
 		overlayManager.remove(attackerOverlay);
 		playerContainer.clear();
 		blacklist.clear();
+		eventBus.unregister(this);
 	}
 
 	private void addSubscriptions()
