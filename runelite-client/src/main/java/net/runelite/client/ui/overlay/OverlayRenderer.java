@@ -31,11 +31,9 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
@@ -55,7 +53,6 @@ import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseAdapter;
 import net.runelite.client.input.MouseManager;
-import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.MiscUtils;
@@ -120,10 +117,9 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private void updateConfig()
 	{
 		// Overlay Fonts
-		Font clientFont = runeLiteConfig.clientFont();
-		this.standardFont = FontManager.getFontFromType(clientFont, runeLiteConfig.fontType());
-		this.tooltipFont = FontManager.getFontFromType(clientFont, runeLiteConfig.tooltipFontType());
-		this.interfaceFont = FontManager.getFontFromType(clientFont, runeLiteConfig.interfaceFontType());
+		this.standardFont = runeLiteConfig.fontType();
+		this.tooltipFont =  runeLiteConfig.tooltipFontType();
+		this.interfaceFont = runeLiteConfig.interfaceFontType();
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -193,19 +189,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			|| client.getViewportWidget() == null)
 		{
 			return;
-		}
-
-		// Set font rendering properties like the OS's font rendering
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Map desktopHints = (Map)(tk.getDesktopProperty("awt.font.desktophints"));
-		if (desktopHints != null)
-		{
-			graphics.addRenderingHints(desktopHints);
-		}
-
-		if (shouldInvalidateBounds())
-		{
-			snapCorners = buildSnapCorners();
 		}
 
 		// Create copy of snap corners because overlays will modify them

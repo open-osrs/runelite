@@ -118,7 +118,7 @@ public class InfoPanel extends PluginPanel
 		versionPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		versionPanel.setLayout(new GridLayout(0, 1));
 
-		final Font smallFont = FontManager.getSmallFont(getFont());
+		final Font smallFont = FontManager.getRunescapeSmallFont();
 
 		JLabel version = new JLabel(htmlLabel("RuneLite version: ", runeLiteProperties.getVersion()));
 		version.setFont(smallFont);
@@ -271,11 +271,11 @@ public class InfoPanel extends PluginPanel
 
 		JLabel topLine = new JLabel(topText);
 		topLine.setForeground(Color.WHITE);
-		topLine.setFont(FontManager.getSmallFont(getFont()));
+		topLine.setFont(FontManager.getRunescapeSmallFont());
 
 		JLabel bottomLine = new JLabel(bottomText);
 		bottomLine.setForeground(Color.WHITE);
-		bottomLine.setFont(FontManager.getSmallFont(getFont()));
+		bottomLine.setFont(FontManager.getRunescapeSmallFont());
 
 		textContainer.add(topLine);
 		textContainer.add(bottomLine);

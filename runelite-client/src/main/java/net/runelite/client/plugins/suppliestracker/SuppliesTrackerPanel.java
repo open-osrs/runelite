@@ -90,7 +90,7 @@ class SuppliesTrackerPanel extends PluginPanel
 		overallInfo.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		overallInfo.setLayout(new GridLayout(2, 1));
 		overallInfo.setBorder(new EmptyBorder(0, 10, 0, 0));
-		overallSuppliesUsedLabel.setFont(FontManager.getSmallFont(getFont()));
+		overallSuppliesUsedLabel.setFont(FontManager.getRunescapeSmallFont());
 		overallCostLabel.setFont(FontManager.getSmallFont(getFont()));
 		overallInfo.add(overallSuppliesUsedLabel);
 		overallInfo.add(overallCostLabel);
