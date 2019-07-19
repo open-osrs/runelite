@@ -477,14 +477,14 @@ public class GrandExchangePlugin extends Plugin
 
 	private void onScriptCallbackEvent(ScriptCallbackEvent event)
 	{
-		if (!event.getEventName().equals("setGETitle") || !config.showTotal())
-		{
-			return;
-		}
-
 		if (event.getEventName().equals("geBuilt"))
 		{
 			rebuildGeText();
+		}
+
+		if (!event.getEventName().equals("setGETitle") || !config.showTotal())
+		{
+			return;
 		}
 
 		long total = 0;
