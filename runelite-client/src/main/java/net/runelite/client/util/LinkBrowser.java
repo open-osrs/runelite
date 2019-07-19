@@ -26,8 +26,6 @@ package net.runelite.client.util;
 
 import com.google.common.base.Strings;
 import java.awt.Desktop;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;

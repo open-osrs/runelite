@@ -32,7 +32,8 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
-public class Clipboard {
+public class Clipboard
+{
 	public static String retrieve()
 	{
 		Transferable contents = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
