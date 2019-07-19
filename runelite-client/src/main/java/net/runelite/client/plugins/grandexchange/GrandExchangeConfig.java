@@ -98,7 +98,7 @@ public interface GrandExchangeConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		position = 7,
 		keyName = "enableAfford",
 		name = "Enable Afford quantity on GE",
 		description = "Shows the quantity you can buy on the GE"
