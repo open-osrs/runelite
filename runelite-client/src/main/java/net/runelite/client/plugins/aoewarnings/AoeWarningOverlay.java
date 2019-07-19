@@ -34,7 +34,6 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -106,21 +105,20 @@ public class AoeWarningOverlay extends Overlay
 				return;
 			}
 
-			Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, proj.getTargetPoint(), proj.getAoeProjectileInfo().getAoeSize());
+			final Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, proj.getTargetPoint(), proj.getAoeProjectileInfo().getAoeSize());
 			if (tilePoly == null)
 			{
 				return;
 			}
 
-			// how far through the projectiles lifetime between 0-1.
-			double progress = (System.currentTimeMillis() - proj.getStartTime().toEpochMilli()) / (double) proj.getLifetime();
+			final double progress = (System.currentTimeMillis() - proj.getStartTime().toEpochMilli()) / (double) proj.getLifetime();
 
-			int tickProgress = proj.getFinalTick() - client.getTickCount();
+			final int tickProgress = proj.getFinalTick() - client.getTickCount();
 
 			int fillAlpha, outlineAlpha;
 			if (plugin.isConfigFadeEnabled())
 			{
-				fillAlpha = (int) ((1 - progress) * FILL_START_ALPHA);//alpha drop off over lifetime
+				fillAlpha = (int) ((1 - progress) * FILL_START_ALPHA);
 				outlineAlpha = (int) ((1 - progress) * OUTLINE_START_ALPHA);
 			}
 			else
