@@ -28,37 +28,46 @@ import java.util.Map;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
+import net.runelite.api.coords.WorldPoint;
 
 @Slf4j
 @Singleton
-class Timers
+public class Timers
 {
 	private final Map<Actor, HashMap<TimerType, Long>> timerMap = new HashMap<>();
+	private final Map<Actor, WorldPoint> freezeLocMap = new HashMap<Actor, WorldPoint>();
 
-	void gameTick()
-	{
-
-	}
-
-	void setTimerEnd(Actor actor, TimerType type, long n)
+	public void setTimerEnd(Actor actor, TimerType type, long n)
 	{
 		if (!timerMap.containsKey(actor))
 		{
 			timerMap.put(actor, new HashMap<>());
 		}
+
 		timerMap.get(actor).put(type, n);
 	}
 
-	long getTimerEnd(Actor actor, TimerType type)
+	public long getTimerEnd(Actor actor, TimerType type)
 	{
 		if (!timerMap.containsKey(actor))
 		{
 			timerMap.put(actor, new HashMap<>());
 		}
+
 		return timerMap.get(actor).getOrDefault(type, (long) 0);
 	}
 
-	boolean areAllTimersZero(Actor actor)
+	public long getTimerReApply(Actor actor, TimerType type)
+	{
+		if (!timerMap.containsKey(actor))
+		{
+			timerMap.put(actor, new HashMap<>());
+		}
+
+		return timerMap.get(actor).getOrDefault(type, (long) -PlayerSpellEffect.IMMUNITY_TIME) + PlayerSpellEffect.IMMUNITY_TIME;
+	}
+
+	public boolean areAllTimersZero(Actor actor)
 	{
 		for (TimerType type : TimerType.values())
 		{
@@ -69,5 +78,4 @@ class Timers
 		}
 		return true;
 	}
-
 }

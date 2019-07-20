@@ -45,11 +45,11 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-	name = "Freeze Timers",
-	description = "Shows a freeze timer overlay on players",
-	tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
-	type = PluginType.PVP,
-	enabledByDefault = false
+		name = "Freeze Timers",
+		description = "Shows a freeze timer overlay on players",
+		tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
+		type = PluginType.PVP,
+		enabledByDefault = false
 )
 @Singleton
 public class FreezeTimersPlugin extends Plugin
@@ -58,22 +58,16 @@ public class FreezeTimersPlugin extends Plugin
 
 	@Inject
 	private Client client;
-
 	@Inject
 	private OverlayManager overlayManager;
-
 	@Inject
 	private Timers timers;
-
 	@Inject
 	private PrayerTracker prayerTracker;
-
 	@Inject
 	private FreezeTimersOverlay overlay;
-
 	@Inject
 	private FreezeTimersConfig config;
-
 	@Inject
 	private EventBus eventBus;
 
@@ -124,36 +118,43 @@ public class FreezeTimersPlugin extends Plugin
 		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
 	}
 
-	private void onSpotAnimationChanged(SpotAnimationChanged graphicChanged)
+	public void onSpotAnimationChanged(SpotAnimationChanged graphicChanged)
 	{
-		int oldGraphic = prayerTracker.getSpotanimLastTick(graphicChanged.getActor());
-		int newGraphic = graphicChanged.getActor().getSpotAnimation();
+		final int oldGraphic = prayerTracker.getSpotanimLastTick(graphicChanged.getActor());
+		final int newGraphic = graphicChanged.getActor().getSpotAnimation();
+
 		if (oldGraphic == newGraphic)
 		{
 			return;
 		}
-		PlayerSpellEffect effect = PlayerSpellEffect.getFromSpotAnim(newGraphic);
+
+		final PlayerSpellEffect effect = PlayerSpellEffect.getFromSpotAnim(newGraphic);
+
 		if (effect == PlayerSpellEffect.NONE)
 		{
 			return;
 		}
+
 		long length = effect.getTimerLengthTicks();
+
 		if (effect.isHalvable() && prayerTracker.getPrayerIconLastTick(graphicChanged.getActor()) == 2)
 		{
 			length /= 2;
 		}
-		if (timers.getTimerEnd(graphicChanged.getActor(), effect.getType()) > System.currentTimeMillis())
+
+		if (timers.getTimerReApply(graphicChanged.getActor(), effect.getType()) > System.currentTimeMillis())
 		{
 			return;
 		}
+
 		timers.setTimerEnd(graphicChanged.getActor(), effect.getType(),
-			System.currentTimeMillis() + length);
+				System.currentTimeMillis() + length);
 	}
 
-	private void onGameTick(GameTick tickEvent)
+	public void onGameTick(GameTick tickEvent)
 	{
-		timers.gameTick();
 		prayerTracker.gameTick();
+
 		for (Actor actor : client.getPlayers())
 		{
 			if (prayerTracker.getSpotanimLastTick(actor) != actor.getSpotAnimation())
@@ -165,7 +166,7 @@ public class FreezeTimersPlugin extends Plugin
 		}
 	}
 
-	private void onNpcDespawned(NpcDespawned event)
+	public void onNpcDespawned(NpcDespawned event)
 	{
 		if (!isAtVorkath())
 		{
@@ -182,7 +183,7 @@ public class FreezeTimersPlugin extends Plugin
 		if (npc.getName().equals("Zombified Spawn"))
 		{
 			timers.setTimerEnd(client.getLocalPlayer(), TimerType.FREEZE,
-					System.currentTimeMillis());
+					System.currentTimeMillis() - PlayerSpellEffect.IMMUNITY_TIME);
 		}
 	}
 
