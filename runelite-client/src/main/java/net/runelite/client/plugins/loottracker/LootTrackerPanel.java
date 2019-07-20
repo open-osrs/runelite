@@ -120,7 +120,8 @@ class LootTrackerPanel extends PluginPanel
 	private final LootTrackerConfig config;
 
 	private boolean groupLoot;
-	private LootRecordDateFilter dateFilter = LootRecordDateFilter.ALL;
+	// Set default date filter to session data
+	private LootRecordDateFilter dateFilter = LootRecordDateFilter.SESSION;
 	private boolean hideIgnoredItems;
 	private String currentView;
 

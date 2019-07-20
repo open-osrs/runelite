@@ -13,10 +13,12 @@ package net.runelite.client.plugins.loottracker;
 
 
 import java.time.Duration;
+import java.time.Instant;
 import lombok.Getter;
 
 public enum LootRecordDateFilter
 {
+	SESSION("Session", Duration.between(LootTrackerPlugin.getSessionStart(), Instant.now())),
 	HOUR("Hour", Duration.ofHours(1)),
 	DAY("Day", Duration.ofDays(1)),
 	WEEK("Week", Duration.ofDays(7)),

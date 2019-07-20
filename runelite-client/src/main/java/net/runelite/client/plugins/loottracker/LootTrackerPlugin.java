@@ -146,6 +146,11 @@ public class LootTrackerPlugin extends Plugin
 		12342, // Edgeville
 		11062 // Camelot
 	);
+
+	// Instant for showing session loot. this gets set on plugin startup
+	@Getter
+	private static Instant sessionStart;
+
 	@Inject
 	public Client client;
 	@VisibleForTesting
@@ -289,6 +294,8 @@ public class LootTrackerPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		sessionStart = Instant.now();
+
 		addSubscriptions();
 
 		ignoredItems = Text.fromCSV(config.getIgnoredItems());
