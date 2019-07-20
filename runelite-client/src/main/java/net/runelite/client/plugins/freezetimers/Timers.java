@@ -28,14 +28,12 @@ import java.util.Map;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
-import net.runelite.api.coords.WorldPoint;
 
 @Slf4j
 @Singleton
 public class Timers
 {
 	private final Map<Actor, HashMap<TimerType, Long>> timerMap = new HashMap<>();
-	private final Map<Actor, WorldPoint> freezeLocMap = new HashMap<Actor, WorldPoint>();
 
 	public void setTimerEnd(Actor actor, TimerType type, long n)
 	{
