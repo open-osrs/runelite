@@ -52,7 +52,7 @@ public class Timers
 			timerMap.put(actor, new HashMap<>());
 		}
 
-		return timerMap.get(actor).getOrDefault(type, (long) 0);
+		return timerMap.get(actor).getOrDefault(type, (long) PlayerSpellEffect.IMMUNITY_TIME) - PlayerSpellEffect.IMMUNITY_TIME;
 	}
 
 	public long getTimerReApply(Actor actor, TimerType type)
@@ -62,7 +62,7 @@ public class Timers
 			timerMap.put(actor, new HashMap<>());
 		}
 
-		return timerMap.get(actor).getOrDefault(type, (long) -PlayerSpellEffect.IMMUNITY_TIME) + PlayerSpellEffect.IMMUNITY_TIME;
+		return timerMap.get(actor).getOrDefault(type, (long) 0);
 	}
 
 	public boolean areAllTimersZero(Actor actor)
