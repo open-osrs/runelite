@@ -527,10 +527,24 @@ class LootTrackerPanel extends PluginPanel
 				buildBox(records.get(i));
 				continue;
 			}
-			if (Instant.now().toEpochMilli() - records.get(i).getTimestamp().toEpochMilli() <= this.dateFilter.getDuration().toMillis())
+			if (dateFilter.equals(LootRecordDateFilter.SESSION))
 			{
-				buildBox(records.get(i));
+				if (records.get(i).getTimestamp().toEpochMilli() > dateFilter.getDuration().toMillis())
+				{
+					buildBox(records.get(i));
+					continue;
+				}
 			}
+			else
+			{
+				if (Instant.now().toEpochMilli() - records.get(i).getTimestamp().toEpochMilli() <= this.dateFilter.getDuration().toMillis())
+				{
+					buildBox(records.get(i));
+				}
+			}
+
+
+
 
 		}
 		boxes.forEach(LootTrackerBox::rebuild);
@@ -685,10 +699,20 @@ class LootTrackerPanel extends PluginPanel
 			}
 			if (!dateFilter.equals(LootRecordDateFilter.ALL))
 			{
-				if (Instant.now().toEpochMilli() - record.getTimestamp().toEpochMilli()
-					> this.dateFilter.getDuration().toMillis())
+				if (dateFilter.equals(LootRecordDateFilter.SESSION))
 				{
-					continue;
+					if (!(record.getTimestamp().toEpochMilli() > dateFilter.getDuration().toMillis()))
+					{
+						continue;
+					}
+				}
+				else
+				{
+					if (Instant.now().toEpochMilli() - record.getTimestamp().toEpochMilli()
+						> this.dateFilter.getDuration().toMillis())
+					{
+						continue;
+					}
 				}
 			}
 

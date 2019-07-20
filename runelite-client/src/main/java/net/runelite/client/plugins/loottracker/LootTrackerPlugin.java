@@ -149,7 +149,7 @@ public class LootTrackerPlugin extends Plugin
 
 	// Instant for showing session loot. this gets set on plugin startup
 
-	public static final Instant SESSION_START = Instant.now();
+	public static final Instant SESSION_START_TIME = Instant.now();
 
 	@Inject
 	public Client client;
