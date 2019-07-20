@@ -277,7 +277,7 @@ class LootTrackerPanel extends PluginPanel
 			}
 		});
 
-		dateFilterComboBox.setSelectedItem(LootRecordDateFilter.ALL);
+		dateFilterComboBox.setSelectedItem(this.dateFilter);
 		dateFilterComboBox.setToolTipText("Filter the displayed loot records by date");
 		dateFilterComboBox.setMaximumSize(new Dimension(15, 0));
 		dateFilterComboBox.setMaximumRowCount(3);
@@ -396,6 +396,7 @@ class LootTrackerPanel extends PluginPanel
 		// Add error pane
 		errorPanel.setContent("Loot tracker", "You have not received any loot yet.");
 		add(errorPanel);
+		actionsContainer.setVisible(true);
 	}
 
 	void loadHeaderIcon(BufferedImage img)
@@ -464,10 +465,7 @@ class LootTrackerPanel extends PluginPanel
 		boxes.clear();
 		logsContainer.removeAll();
 		logsContainer.repaint();
-		if (config.localPersistence())
-		{
-			plugin.deleteLocalRecords();
-		}
+		plugin.deleteLocalRecords();
 	}
 
 	/**

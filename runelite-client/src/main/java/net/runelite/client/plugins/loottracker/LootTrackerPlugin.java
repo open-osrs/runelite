@@ -148,8 +148,8 @@ public class LootTrackerPlugin extends Plugin
 	);
 
 	// Instant for showing session loot. this gets set on plugin startup
-	@Getter
-	private static Instant sessionStart;
+
+	public static final Instant SESSION_START = Instant.now();
 
 	@Inject
 	public Client client;
@@ -294,7 +294,6 @@ public class LootTrackerPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		sessionStart = Instant.now();
 
 		addSubscriptions();
 
@@ -759,8 +758,8 @@ public class LootTrackerPlugin extends Plugin
 		}
 		catch (IOException e)
 		{
-			log.debug("Error deleting local loot records file.");
-			log.debug(Arrays.toString(e.getStackTrace()));
+			log.error("Error deleting local loot records file.");
+			log.error(Arrays.toString(e.getStackTrace()));
 		}
 	}
 
