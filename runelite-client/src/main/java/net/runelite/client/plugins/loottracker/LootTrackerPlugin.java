@@ -696,7 +696,7 @@ public class LootTrackerPlugin extends Plugin
 					{
 						lootTrackerClient.submit(lootRecord);
 					}
-					if (this.localPersistence && lootTrackerClient == null)
+					if (this.localPersistence)
 					{
 						saveLocalLootRecord(lootRecord);
 					}
