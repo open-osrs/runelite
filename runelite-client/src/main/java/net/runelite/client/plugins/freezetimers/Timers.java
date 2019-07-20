@@ -52,7 +52,11 @@ public class Timers
 			timerMap.put(actor, new HashMap<>());
 		}
 
-		return timerMap.get(actor).getOrDefault(type, (long) PlayerSpellEffect.IMMUNITY_TIME) - PlayerSpellEffect.IMMUNITY_TIME;
+		if (type == TimerType.FREEZE){
+			return timerMap.get(actor).getOrDefault(type, (long) PlayerSpellEffect.IMMUNITY_TIME) - PlayerSpellEffect.IMMUNITY_TIME;
+		}
+
+		return timerMap.get(actor).getOrDefault(type, (long) 0);
 	}
 
 	public long getTimerReApply(Actor actor, TimerType type)

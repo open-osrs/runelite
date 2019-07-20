@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.freezetimers;
 
 import com.google.inject.Provides;
-import java.util.EnumSet;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -35,23 +34,18 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
-import net.runelite.api.Varbits;
-import net.runelite.api.WorldType;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.LocalPlayerDeath;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.SpotAnimationChanged;
-import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.client.ui.overlay.infobox.Timer;
-import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
