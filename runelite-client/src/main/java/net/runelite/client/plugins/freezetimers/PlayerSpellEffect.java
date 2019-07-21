@@ -43,8 +43,6 @@ public enum PlayerSpellEffect
 	VENG_OTHER("Vengeance Other", 725, 30000, false, 9, TimerType.VENG),
 	NONE("Nothing", -69, 420, true, 9999, TimerType.THIS_SHIT_BROKE);
 
-	public static final int IMMUNITY_TIME = 3000;
-
 	@Getter(AccessLevel.PACKAGE)
 	private final String name;
 	@Getter(AccessLevel.PACKAGE)

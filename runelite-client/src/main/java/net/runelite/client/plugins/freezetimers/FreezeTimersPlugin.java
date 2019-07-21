@@ -25,6 +25,8 @@
 package net.runelite.client.plugins.freezetimers;
 
 import com.google.inject.Provides;
+import java.util.EnumSet;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -34,6 +36,8 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
+import net.runelite.api.WorldType;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
@@ -49,11 +53,11 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-	name = "Freeze Timers",
-	description = "Shows a freeze timer overlay on players",
-	tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
-	type = PluginType.PVP,
-	enabledByDefault = false
+		name = "Freeze Timers",
+		description = "Shows a freeze timer overlay on players",
+		tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
+		type = PluginType.PVP,
+		enabledByDefault = false
 )
 @Singleton
 public class FreezeTimersPlugin extends Plugin
@@ -155,11 +159,6 @@ public class FreezeTimersPlugin extends Plugin
 			length /= 2;
 		}
 
-		if (effect.getType() == TimerType.FREEZE)
-		{
-			length += PlayerSpellEffect.IMMUNITY_TIME;
-		}
-
 		timers.setTimerEnd(graphicChanged.getActor(), effect.getType(),
 				currentTime + length);
 	}
@@ -177,6 +176,29 @@ public class FreezeTimersPlugin extends Plugin
 				client.getCallbacks().post(SpotAnimationChanged.class, callback);
 			}
 		}
+
+		List<Actor> teleblocked = timers.getAllActorsOnTimer(TimerType.TELEBLOCK);
+
+		if (!teleblocked.isEmpty())
+		{
+			final EnumSet<WorldType> worldTypes = client.getWorldType();
+
+			for (Actor actor : teleblocked)
+			{
+				final WorldPoint actorLoc = actor.getWorldLocation();
+
+				if (!isPvPWorld(worldTypes) && !isInWilderness(actorLoc))
+				{
+					//TODO: setTimerReApply or setTimerEnd ?
+					timers.setTimerReApply(actor, TimerType.TELEBLOCK, System.currentTimeMillis());
+				}
+				else if (isPvPWorld(worldTypes) && isInSafeZone(actorLoc))
+				{
+					//TODO: setTimerReApply or setTimerEnd ?
+					timers.setTimerReApply(actor, TimerType.TELEBLOCK, System.currentTimeMillis());
+				}
+			}
+		}
 	}
 
 	public void onLocalPlayerDeath(LocalPlayerDeath event)
@@ -186,12 +208,12 @@ public class FreezeTimersPlugin extends Plugin
 
 		for (TimerType type : TimerType.values())
 		{
-			if (timers.getTimerEnd(localPlayer, type) <= currentTime)
+			if (timers.getTimerReApply(localPlayer, type) <= currentTime)
 			{
 				continue;
 			}
 
-			timers.setTimerEnd(localPlayer, type, currentTime);
+			timers.setTimerReApply(localPlayer, type, currentTime);
 		}
 	}
 
@@ -211,25 +233,52 @@ public class FreezeTimersPlugin extends Plugin
 
 		if (npc.getName().equals("Zombified Spawn"))
 		{
-			timers.setTimerEnd(client.getLocalPlayer(), TimerType.FREEZE,
+			timers.setTimerReApply(client.getLocalPlayer(), TimerType.FREEZE,
 					System.currentTimeMillis());
 		}
 	}
 
 	public void onChatMessage(ChatMessage event)
 	{
+		//TODO: Type == GAMEMESSAGE or ENGINE ?
 		if (event.getType() != ChatMessageType.GAMEMESSAGE
 				|| !event.getMessage().contains("Your Tele Block has been removed"))
 		{
 			return;
 		}
 
-		timers.setTimerEnd(client.getLocalPlayer(), TimerType.TELEBLOCK, System.currentTimeMillis());
+		//TODO: setTimerReApply or setTimerEnd ?
+		timers.setTimerReApply(client.getLocalPlayer(), TimerType.TELEBLOCK, System.currentTimeMillis());
 	}
 
 	private boolean isAtVorkath()
 	{
 		return ArrayUtils.contains(client.getMapRegions(), VORKATH_REGION);
+	}
+
+	private boolean isPvPWorld(EnumSet<WorldType> types)
+	{
+		return (types.contains(WorldType.PVP) || types.contains(WorldType.DEADMAN)
+				|| types.contains(WorldType.SEASONAL_DEADMAN) || types.contains(WorldType.DEADMAN_TOURNAMENT));
+	}
+
+	private boolean isInWilderness(WorldPoint loc)
+	{
+		//TODO: Check x-coordinates
+
+		if (loc.getY() < 3525)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean isInSafeZone(WorldPoint loc)
+	{
+		//TODO
+
+		return false;
 	}
 
 	private void onConfigChanged(ConfigChanged event)

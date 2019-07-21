@@ -23,7 +23,9 @@
  */
 package net.runelite.client.plugins.freezetimers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,16 @@ public class Timers
 			timerMap.put(actor, new HashMap<>());
 		}
 
+		timerMap.get(actor).put(type, n + type.getImmunityTime());
+	}
+
+	public void setTimerReApply(Actor actor, TimerType type, long n)
+	{
+		if (!timerMap.containsKey(actor))
+		{
+			timerMap.put(actor, new HashMap<>());
+		}
+
 		timerMap.get(actor).put(type, n);
 	}
 
@@ -49,35 +61,54 @@ public class Timers
 	{
 		if (!timerMap.containsKey(actor))
 		{
-			timerMap.put(actor, new HashMap<>());
+			return 0;
 		}
 
-		if (type == TimerType.FREEZE){
-			return timerMap.get(actor).getOrDefault(type, (long) PlayerSpellEffect.IMMUNITY_TIME) - PlayerSpellEffect.IMMUNITY_TIME;
-		}
-
-		return timerMap.get(actor).getOrDefault(type, (long) 0);
+		return timerMap.get(actor).getOrDefault(type, (long) type.getImmunityTime()) - type.getImmunityTime();
 	}
 
 	public long getTimerReApply(Actor actor, TimerType type)
 	{
 		if (!timerMap.containsKey(actor))
 		{
-			timerMap.put(actor, new HashMap<>());
+			return 0;
 		}
 
 		return timerMap.get(actor).getOrDefault(type, (long) 0);
+	}
+
+	public List<Actor> getAllActorsOnTimer(TimerType type)
+	{
+		List<Actor> actors = new ArrayList<Actor>();
+
+		for (Actor actor : timerMap.keySet())
+		{
+			if (areAllTimersZero(actor))
+			{
+				continue;
+			}
+
+			final long end = getTimerReApply(actor, type);
+
+			if (end > System.currentTimeMillis())
+			{
+				actors.add(actor);
+			}
+		}
+
+		return actors;
 	}
 
 	public boolean areAllTimersZero(Actor actor)
 	{
 		for (TimerType type : TimerType.values())
 		{
-			if (getTimerEnd(actor, type) != 0)
+			if (getTimerReApply(actor, type) > System.currentTimeMillis())
 			{
 				return false;
 			}
 		}
+		timerMap.remove(actor);
 		return true;
 	}
 }

@@ -53,8 +53,9 @@ public class FreezeTimersOverlay extends Overlay
 	private final Client client;
 	private final Font timerFont = FontManager.getRunescapeBoldFont().deriveFont(14.0f);
 	private final BufferedImage FREEZE_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "freeze.png");
-	private final BufferedImage IMMUNE_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "immune.png");
+	private final BufferedImage FREEZE_IMMUNE_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "freezeimmune.png");
 	private final BufferedImage TB_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "teleblock.png");
+	private final BufferedImage TB_IMMUNE_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "teleblockimmune.png");
 	private final BufferedImage VENG_IMAGE = ImageUtil.getResourceStreamFromClass(getClass(), "veng.png");
 	private final Timers timers;
 
@@ -125,7 +126,7 @@ public class FreezeTimersOverlay extends Overlay
 		else
 		{
 			finishedAt = timers.getTimerReApply(actor, TimerType.FREEZE);
-			image = IMMUNE_IMAGE;
+			image = FREEZE_IMMUNE_IMAGE;
 		}
 
 		final String text = processTickCounter(finishedAt);
@@ -163,11 +164,23 @@ public class FreezeTimersOverlay extends Overlay
 		{
 			return false;
 		}
-		if (timers.getTimerEnd(actor, TimerType.TELEBLOCK) <= currentTick)
+		if (timers.getTimerReApply(actor, TimerType.TELEBLOCK) <= currentTick)
 		{
 			return false;
 		}
-		final long finishedAt = timers.getTimerEnd(actor, TimerType.TELEBLOCK);
+
+		long finishedAt;
+		BufferedImage image;
+		if (timers.getTimerEnd(actor, TimerType.TELEBLOCK) > currentTick)
+		{
+			finishedAt = timers.getTimerEnd(actor, TimerType.TELEBLOCK);
+			image = TB_IMAGE;
+		}
+		else
+		{
+			finishedAt = timers.getTimerReApply(actor, TimerType.TELEBLOCK);
+			image = TB_IMMUNE_IMAGE;
+		}
 
 		final String text = processTickCounter(finishedAt);
 		final Point poi = actor.getCanvasTextLocation(g, text, 0);
@@ -178,24 +191,26 @@ public class FreezeTimersOverlay extends Overlay
 		}
 
 		final Point fixedPoint = new Point(poi.getX() + 20, poi.getY());
+
 		if (plugin.isNoImage())
 		{
-			if (timers.getTimerEnd(actor, TimerType.FREEZE) <= currentTick)
+			if (timers.getTimerReApply(actor, TimerType.FREEZE) <= currentTick)
 			{
 				OverlayUtil.renderTextLocation(g, text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.CYAN, poi, false, 0);
 			}
-			if (timers.getTimerEnd(actor, TimerType.FREEZE) >= currentTick)
+			else
 			{
 				OverlayUtil.renderTextLocation(g, " | " + text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.CYAN, fixedPoint, false, 0);
 			}
-			if (timers.getTimerEnd(actor, TimerType.VENG) >= currentTick)
+
+			if (timers.getTimerReApply(actor, TimerType.VENG) >= currentTick)
 			{
 				OverlayUtil.renderTextLocation(g, " | " + text, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.CYAN, fixedPoint, false, 0);
 			}
 		}
 		else
 		{
-			renderActorText(g, actor, text, overlaysDrawn, TB_IMAGE);
+			renderActorText(g, actor, text, overlaysDrawn, image);
 		}
 		return true;
 	}
@@ -284,7 +299,7 @@ public class FreezeTimersOverlay extends Overlay
 		xOffset = image.getWidth() + 1;
 		yOffset = (image.getHeight() - (int) graphics.getFontMetrics().getStringBounds(text, graphics).getHeight());
 		textLocation = new Point(textLocation.getX() + xOffset, textLocation.getY() + image.getHeight() - yOffset);
-		net.runelite.client.ui.overlay.OverlayUtil.renderTextLocation(graphics, textLocation, text, color);
+		OverlayUtil.renderTextLocation(graphics, textLocation, text, color);
 	}
 
 	private String processTickCounter(long finishedAt)
