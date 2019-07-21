@@ -55,11 +55,11 @@ import net.runelite.client.util.PvPUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-		name = "Freeze Timers",
-		description = "Shows a freeze timer overlay on players",
-		tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
-		type = PluginType.PVP,
-		enabledByDefault = false
+	name = "Freeze Timers",
+	description = "Shows a freeze timer overlay on players",
+	tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 @Singleton
 public class FreezeTimersPlugin extends Plugin
