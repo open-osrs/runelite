@@ -147,16 +147,12 @@ public class NpcSceneOverlay extends Overlay
 		}
 	}
 
-	public void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color)
+	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color)
 	{
-		if (actor.getInteracting() == client.getLocalPlayer())
-		{
-			color = plugin.getGetInteractingColor();
-		}
 		switch (plugin.getRenderStyle())
 		{
 			case SOUTH_WEST_TILE:
-				LocalPoint lp1 = LocalPoint.fromWorld(client, actor.getWorldLocation());
+				final LocalPoint lp1 = LocalPoint.fromWorld(client, actor.getWorldLocation());
 				Polygon tilePoly1 = null;
 				if (lp1 != null)
 				{
@@ -165,38 +161,30 @@ public class NpcSceneOverlay extends Overlay
 
 				renderPoly(graphics, color, tilePoly1);
 				break;
-
 			case TILE:
 				int size = 1;
-				NPCDefinition composition = actor.getTransformedDefinition();
+				final NPCDefinition composition = actor.getTransformedDefinition();
 				if (composition != null)
 				{
 					size = composition.getSize();
 				}
-				LocalPoint lp = actor.getLocalLocation();
-				Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, lp, size);
-
+				final LocalPoint lp = actor.getLocalLocation();
+				final Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, lp, size);
 				renderPoly(graphics, color, tilePoly);
 				break;
-
 			case HULL:
-				Polygon objectClickbox = actor.getConvexHull();
-
+				final Polygon objectClickbox = actor.getConvexHull();
 				renderPoly(graphics, color, objectClickbox);
 				break;
-
 			case THIN_OUTLINE:
 				modelOutliner.drawOutline(actor, 1, color);
 				break;
-
 			case OUTLINE:
 				modelOutliner.drawOutline(actor, 2, color);
 				break;
-
 			case THIN_GLOW:
 				modelOutliner.drawOutline(actor, 4, color, TRANSPARENT);
 				break;
-
 			case GLOW:
 				modelOutliner.drawOutline(actor, 8, color, TRANSPARENT);
 				break;
@@ -204,8 +192,8 @@ public class NpcSceneOverlay extends Overlay
 
 		if (plugin.isDrawNames() && actor.getName() != null)
 		{
-			String npcName = Text.removeTags(actor.getName());
-			Point textLocation = actor.getCanvasTextLocation(graphics, npcName, actor.getLogicalHeight() + 40);
+			final String npcName = Text.removeTags(actor.getName());
+			final Point textLocation = actor.getCanvasTextLocation(graphics, npcName, actor.getLogicalHeight() + 40);
 
 			if (textLocation != null)
 			{
@@ -215,11 +203,14 @@ public class NpcSceneOverlay extends Overlay
 
 		if (plugin.isDrawInteracting() && actor.getInteracting() != null)
 		{
-			int drawHeight = plugin.isDrawNames() ? 80 : 40;
+			if (actor.getInteracting() == client.getLocalPlayer())
+			{
+				color = plugin.getGetInteractingColor();
+			}
 
-			String targetName = Text.removeTags(actor.getInteracting().getName());
-			Point textLocation = actor.getCanvasTextLocation(graphics, targetName, actor.getLogicalHeight() + drawHeight);
-
+			final int drawHeight = plugin.isDrawNames() ? 80 : 40;
+			final String targetName = Text.removeTags(actor.getInteracting().getName());
+			final Point textLocation = actor.getCanvasTextLocation(graphics, targetName, actor.getLogicalHeight() + drawHeight);
 
 			if (textLocation != null)
 			{
