@@ -149,6 +149,12 @@ public class NpcSceneOverlay extends Overlay
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color)
 	{
+		if (plugin.isDrawInteracting() && actor.getInteracting() != null
+			&& actor.getInteracting() == client.getLocalPlayer())
+		{
+			color = plugin.getGetInteractingColor();
+		}
+
 		switch (plugin.getRenderStyle())
 		{
 			case SOUTH_WEST_TILE:
@@ -203,11 +209,6 @@ public class NpcSceneOverlay extends Overlay
 
 		if (plugin.isDrawInteracting() && actor.getInteracting() != null)
 		{
-			if (actor.getInteracting() == client.getLocalPlayer())
-			{
-				color = plugin.getGetInteractingColor();
-			}
-
 			final int drawHeight = plugin.isDrawNames() ? 80 : 40;
 			final String targetName = Text.removeTags(actor.getInteracting().getName());
 			final Point textLocation = actor.getCanvasTextLocation(graphics, targetName, actor.getLogicalHeight() + drawHeight);
