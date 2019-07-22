@@ -91,7 +91,7 @@ public interface NpcIndicatorsConfig extends Config
 		position = 4,
 		keyName = "drawInteracting",
 		name = "Draw target name above NPC",
-		description = "Configures whether or not NPC names should be drawn above the NPC that indicate aggro target"
+		description = "Configures whether the name of the NPC's target is drawn above it's head"
 	)
 	default boolean drawInteracting()
 	{
