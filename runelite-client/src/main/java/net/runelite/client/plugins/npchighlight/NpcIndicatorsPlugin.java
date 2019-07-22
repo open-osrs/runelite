@@ -75,9 +75,9 @@ import net.runelite.client.util.Text;
 import net.runelite.client.util.WildcardMatcher;
 
 @PluginDescriptor(
-	name = "NPC Indicators",
-	description = "Highlight NPCs on-screen and/or on the minimap",
-	tags = {"highlight", "minimap", "npcs", "overlay", "respawn", "tags"}
+		name = "NPC Indicators",
+		description = "Highlight NPCs on-screen and/or on the minimap",
+		tags = {"highlight", "minimap", "npcs", "overlay", "respawn", "tags"}
 )
 @Slf4j
 @Singleton
@@ -90,7 +90,7 @@ public class NpcIndicatorsPlugin extends Plugin
 	private static final String UNTAG = "Untag";
 
 	private static final Set<MenuAction> NPC_MENU_ACTIONS = ImmutableSet.of(MenuAction.NPC_FIRST_OPTION, MenuAction.NPC_SECOND_OPTION,
-		MenuAction.NPC_THIRD_OPTION, MenuAction.NPC_FOURTH_OPTION, MenuAction.NPC_FIFTH_OPTION);
+	MenuAction.NPC_THIRD_OPTION, MenuAction.NPC_FOURTH_OPTION, MenuAction.NPC_FIFTH_OPTION);
 
 	@Inject
 	private Client client;
@@ -192,7 +192,11 @@ public class NpcIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private Color getHighlightColor;
 	@Getter(AccessLevel.PACKAGE)
+	private Color getInteractingColor;
+	@Getter(AccessLevel.PACKAGE)
 	private boolean drawNames;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean drawInteracting;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean drawMinimapNames;
 	@Getter(AccessLevel.PACKAGE)
@@ -257,7 +261,7 @@ public class NpcIndicatorsPlugin extends Plugin
 	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGIN_SCREEN ||
-			event.getGameState() == GameState.HOPPING)
+				event.getGameState() == GameState.HOPPING)
 		{
 			highlightedNpcs.clear();
 			deadNpcsToDisplay.clear();
@@ -654,7 +658,9 @@ public class NpcIndicatorsPlugin extends Plugin
 		this.renderStyle = config.renderStyle();
 		this.getNpcToHighlight = config.getNpcToHighlight();
 		this.getHighlightColor = config.getHighlightColor();
+		this.getInteractingColor = config.getInteractingColor();
 		this.drawNames = config.drawNames();
+		this.drawInteracting = config.drawInteracting();
 		this.drawMinimapNames = config.drawMinimapNames();
 		this.highlightMenuNames = config.highlightMenuNames();
 		this.showRespawnTimer = config.showRespawnTimer();
