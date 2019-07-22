@@ -66,10 +66,10 @@ public interface NpcIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "interactingColor",
-			name = "Interacting Color",
-			description = "Color of the NPC highlight when interacting with local player"
+		position = 2,
+		keyName = "interactingColor",
+		name = "Interacting Color",
+		description = "Color of the NPC highlight when interacting with local player"
 	)
 	default Color getInteractingColor()
 	{
@@ -88,10 +88,10 @@ public interface NpcIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "drawInteracting",
-			name = "Draw names above NPC indicating who the NPC is aggro'd to",
-			description = "Configures whether or not NPC names should be drawn above the NPC that indicate aggro target"
+		position = 4,
+		keyName = "drawInteracting",
+		name = "Draw names above NPC indicating who the NPC is aggro'd to",
+		description = "Configures whether or not NPC names should be drawn above the NPC that indicate aggro target"
 	)
 	default boolean drawInteracting()
 	{
