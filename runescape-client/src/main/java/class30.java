@@ -384,7 +384,11 @@ public class class30 {
 			HealthBarUpdate.Interpreter_intStackSize -= 2;
 			return 1;
 		}
-		return var0 == 3156 ? 1 : 2;
+		if (var0 == 3156) {
+			return 1;
+		}
+		
+		return 2;
 	}
 
 	@ObfuscatedName("ad")
@@ -598,200 +602,200 @@ public class class30 {
 
 			return 1;
 		}
-		if (var0 != ScriptOpcodes.CLAN_ISIGNORE) {
-			if (var0 == 3628) {
-				ArchiveLoader.friendSystem.friendsList.removeComparator();
-				return 1;
+		if (var0 == ScriptOpcodes.CLAN_ISIGNORE) {
+			var3 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			if (DevicePcmPlayerProvider.clanChat != null && var3 < DevicePcmPlayerProvider.clanChat.getSize() && ((ClanMate) DevicePcmPlayerProvider.clanChat.get(var3)).isIgnored()) {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
 			}
-			boolean var7;
-			if (var0 == 3629) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator1(var7));
-					return 1;
-				}
-			if (var0 == 3630) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator2(var7));
-					return 1;
-				}
-			if (var0 == 3631) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator3(var7));
-					return 1;
-				}
-			if (var0 == 3632) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator4(var7));
-					return 1;
-				}
-			if (var0 == 3633) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator5(var7));
-					return 1;
-				}
-			if (var0 == 3634) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator6(var7));
-					return 1;
-				}
-			if (var0 == 3635) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator7(var7));
-					return 1;
-				}
-			if (var0 == 3636) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator8(var7));
-					return 1;
-				}
-			if (var0 == 3637) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator9(var7));
-					return 1;
-				}
-			if (var0 == 3638) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator10(var7));
-					return 1;
-				}
-			if (var0 == 3639) {
-					ArchiveLoader.friendSystem.friendsList.sort();
-					return 1;
-				}
-			if (var0 == 3640) {
-					ArchiveLoader.friendSystem.ignoreList.removeComparator();
-					return 1;
-				}
-			if (var0 == 3641) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.ignoreList.addComparator(new UserComparator1(var7));
-					return 1;
-				}
-			if (var0 == 3642) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.ignoreList.addComparator(new UserComparator2(var7));
-					return 1;
-				}
-			if (var0 == 3643) {
-					ArchiveLoader.friendSystem.ignoreList.sort();
-					return 1;
-				}
-			if (var0 == 3644) {
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.removeComparator();
-					}
 
-					return 1;
-				}
-			if (var0 == 3645) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator1(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3646) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator2(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3647) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator3(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3648) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator4(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3649) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator5(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3650) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator6(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3651) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator7(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3652) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator8(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3653) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator9(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3654) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator10(var7));
-					}
-
-					return 1;
-				}
-			if (var0 == 3655) {
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.sort();
-					}
-
-					return 1;
-				}
-			if (var0 == 3656) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					ArchiveLoader.friendSystem.friendsList.addComparator(new BuddyRankComparator(var7));
-					return 1;
-				}
-			if (var0 == 3657) {
-					var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-					if (DevicePcmPlayerProvider.clanChat != null) {
-						DevicePcmPlayerProvider.clanChat.addComparator(new BuddyRankComparator(var7));
-					}
-
-					return 1;
-				}
-			return 2;
+			return 1;
 		}
-		var3 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-		if (DevicePcmPlayerProvider.clanChat != null && var3 < DevicePcmPlayerProvider.clanChat.getSize() && ((ClanMate)DevicePcmPlayerProvider.clanChat.get(var3)).isIgnored()) {
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
-		} else {
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
+		if (var0 == 3628) {
+			ArchiveLoader.friendSystem.friendsList.removeComparator();
+			return 1;
 		}
+		boolean var7;
+		if (var0 == 3629) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator1(var7));
+			return 1;
+		}
+		if (var0 == 3630) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator2(var7));
+			return 1;
+		}
+		if (var0 == 3631) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator3(var7));
+			return 1;
+		}
+		if (var0 == 3632) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator4(var7));
+			return 1;
+		}
+		if (var0 == 3633) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator5(var7));
+			return 1;
+		}
+		if (var0 == 3634) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator6(var7));
+			return 1;
+		}
+		if (var0 == 3635) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator7(var7));
+			return 1;
+		}
+		if (var0 == 3636) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator8(var7));
+			return 1;
+		}
+		if (var0 == 3637) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator9(var7));
+			return 1;
+		}
+		if (var0 == 3638) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new UserComparator10(var7));
+			return 1;
+		}
+		if (var0 == 3639) {
+			ArchiveLoader.friendSystem.friendsList.sort();
+			return 1;
+		}
+		if (var0 == 3640) {
+			ArchiveLoader.friendSystem.ignoreList.removeComparator();
+			return 1;
+		}
+		if (var0 == 3641) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.ignoreList.addComparator(new UserComparator1(var7));
+			return 1;
+		}
+		if (var0 == 3642) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.ignoreList.addComparator(new UserComparator2(var7));
+			return 1;
+		}
+		if (var0 == 3643) {
+			ArchiveLoader.friendSystem.ignoreList.sort();
+			return 1;
+		}
+		if (var0 == 3644) {
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.removeComparator();
+			}
 
-		return 1;
+			return 1;
+		}
+		if (var0 == 3645) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator1(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3646) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator2(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3647) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator3(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3648) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator4(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3649) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator5(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3650) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator6(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3651) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator7(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3652) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator8(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3653) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator9(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3654) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new UserComparator10(var7));
+			}
+
+			return 1;
+		}
+		if (var0 == 3655) {
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.sort();
+			}
+
+			return 1;
+		}
+		if (var0 == 3656) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			ArchiveLoader.friendSystem.friendsList.addComparator(new BuddyRankComparator(var7));
+			return 1;
+		}
+		if (var0 == 3657) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			if (DevicePcmPlayerProvider.clanChat != null) {
+				DevicePcmPlayerProvider.clanChat.addComparator(new BuddyRankComparator(var7));
+			}
+
+			return 1;
+		}
+		return 2;
 	}
 }

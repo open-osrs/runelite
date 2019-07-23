@@ -121,52 +121,53 @@ public class class65 extends RouteStrategy {
 
 			return 1;
 		}
-		if (var0 != ScriptOpcodes.ENUM) {
-			if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) {
-				var3 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-				EnumDefinition var10 = BoundaryObject.getEnum(var3);
-				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var10.size();
+		if (var0 == ScriptOpcodes.ENUM) {
+			HealthBarUpdate.Interpreter_intStackSize -= 4;
+			var3 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
+			var4 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
+			int var9 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 2];
+			var6 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 3];
+			EnumDefinition var7 = BoundaryObject.getEnum(var9);
+			if (var3 == var7.inputType && var4 == var7.outputType) {
+
+				for (int var8 = 0; var8 < var7.outputCount; ++var8) {
+					if (var6 == var7.keys[var8]) {
+						if (var4 == 115) {
+							Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var7.strVals[var8];
+						} else {
+							Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var7.intVals[var8];
+						}
+
+						var7 = null;
+						break;
+					}
+				}
+
+				if (var7 != null) {
+					if (var4 == 115) {
+						Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var7.defaultStr;
+					} else {
+						Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var7.defaultInt;
+					}
+				}
+
 				return 1;
 			}
-			return 2;
-		}
-		HealthBarUpdate.Interpreter_intStackSize -= 4;
-		var3 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
-		var4 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-		int var9 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 2];
-		var6 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 3];
-		EnumDefinition var7 = BoundaryObject.getEnum(var9);
-		if (var3 == var7.inputType && var4 == var7.outputType) {
-			for (int var8 = 0; var8 < var7.outputCount; ++var8) {
-				if (var6 == var7.keys[var8]) {
-					if (var4 == 115) {
-						Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var7.strVals[var8];
-					} else {
-						Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var7.intVals[var8];
-					}
-
-					var7 = null;
-					break;
-				}
-			}
-
-			if (var7 != null) {
-				if (var4 == 115) {
-					Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var7.defaultStr;
-				} else {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var7.defaultInt;
-				}
+			if (var4 == 115) {
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = "null";
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
 			}
 
 			return 1;
 		}
-		if (var4 == 115) {
-			Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = "null";
-		} else {
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
+		if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) {
+			var3 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			EnumDefinition var10 = BoundaryObject.getEnum(var3);
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var10.size();
+			return 1;
 		}
-
-		return 1;
+		return 2;
 	}
 
 	@ObfuscatedName("ee")

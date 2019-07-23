@@ -190,19 +190,19 @@ public class UserComparator6 extends AbstractUserComparator {
 			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = WorldMapLabelSize.clientPreferences.windowMode;
 			return 1;
 		}
-		if (var0 != ScriptOpcodes.SETDEFAULTWINDOWMODE) {
-			if (var0 == 5310) {
-				--HealthBarUpdate.Interpreter_intStackSize;
-				return 1;
+		if (var0 == ScriptOpcodes.SETDEFAULTWINDOWMODE) {
+			var3 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			if (var3 == 1 || var3 == 2) {
+				WorldMapLabelSize.clientPreferences.windowMode = var3;
+				ReflectionCheck.savePreferences();
 			}
-			return 2;
-		}
-		var3 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-		if (var3 == 1 || var3 == 2) {
-			WorldMapLabelSize.clientPreferences.windowMode = var3;
-			ReflectionCheck.savePreferences();
-		}
 
-		return 1;
+			return 1;
+		}
+		if (var0 == 5310) {
+			--HealthBarUpdate.Interpreter_intStackSize;
+			return 1;
+		}
+		return 2;
 	}
 }

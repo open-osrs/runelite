@@ -175,122 +175,122 @@ public class class197 {
 			WorldMapLabelSize.sortWorldList(var7, var10, var5, var6);
 			return 1;
 		}
-		if (var0 != ScriptOpcodes.GETWORLDINFO) {
-			if (var0 == ScriptOpcodes.SETFOLLOWEROPSLOWPRIORITY) {
-				Client.followerOpsLowPriority = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-				return 1;
+		if (var0 == ScriptOpcodes.GETWORLDINFO) {
+			var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			if (var7 >= 0 && var7 < World.worldsCount) {
+				var4 = World.worlds[var7];
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.id;
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.properties;
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var4.activity;
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.location;
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.population;
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var4.host;
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = -1;
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = "";
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = "";
 			}
-			int var8;
-			ParamDefinition var9;
-			if (var0 == ScriptOpcodes.NC_PARAM) {
-					HealthBarUpdate.Interpreter_intStackSize -= 2;
-					var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
-					var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-					var9 = WorldMapIcon_0.getParamDefinition(var8);
-					if (var9.isString()) {
-						Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = GameShell.getNpcDefinition(var7).getStringParam(var8, var9.defaultStr);
-					} else {
-						Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = GameShell.getNpcDefinition(var7).getIntParam(var8, var9.defaultInt);
-					}
 
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.LC_PARAM) {
-					HealthBarUpdate.Interpreter_intStackSize -= 2;
-					var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
-					var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-					var9 = WorldMapIcon_0.getParamDefinition(var8);
-					if (var9.isString()) {
-						Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = ViewportMouse.getObjectDefinition(var7).getStringParam(var8, var9.defaultStr);
-					} else {
-						Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = ViewportMouse.getObjectDefinition(var7).getIntParam(var8, var9.defaultInt);
-					}
-
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.OC_PARAM) {
-					HealthBarUpdate.Interpreter_intStackSize -= 2;
-					var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
-					var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-					var9 = WorldMapIcon_0.getParamDefinition(var8);
-					if (var9.isString()) {
-						Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = WorldMapArea.getItemDefinition(var7).getStringParam(var8, var9.defaultStr);
-					} else {
-						Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = WorldMapArea.getItemDefinition(var7).getIntParam(var8, var9.defaultInt);
-					}
-
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.STRUCT_PARAM) {
-					HealthBarUpdate.Interpreter_intStackSize -= 2;
-					var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
-					var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-					var9 = WorldMapIcon_0.getParamDefinition(var8);
-					if (var9.isString()) {
-						Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = ParamDefinition.StructDefinition_getStructDefinition(var7).getStringParam(var8, var9.defaultStr);
-					} else {
-						Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = ParamDefinition.StructDefinition_getStructDefinition(var7).getIntParam(var8, var9.defaultInt);
-					}
-
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.ON_MOBILE) {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = Client.onMobile ? 1 : 0;
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.CLIENTTYPE) {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = Client.clientType & 3;
-					return 1;
-				}
-			if (var0 == 6520) {
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.MOBILE_KEYBOARDHIDE) {
-					return 1;
-				}
-			if (var0 == 6522) {
-					--Skills.Interpreter_stringStackSize;
-					--HealthBarUpdate.Interpreter_intStackSize;
-					return 1;
-				}
-			if (var0 == 6523) {
-					--Skills.Interpreter_stringStackSize;
-					--HealthBarUpdate.Interpreter_intStackSize;
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.BATTERYLEVEL) {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = -1;
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.BATTERYCHARGING) {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
-					return 1;
-				}
-			if (var0 == ScriptOpcodes.WIFIAVAILABLE) {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
-					return 1;
-				}
-			return 2;
+			return 1;
 		}
-		var7 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-		if (var7 >= 0 && var7 < World.worldsCount) {
-			var4 = World.worlds[var7];
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.id;
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.properties;
-			Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var4.activity;
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.location;
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = var4.population;
-			Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var4.host;
-		} else {
+		if (var0 == ScriptOpcodes.SETFOLLOWEROPSLOWPRIORITY) {
+			Client.followerOpsLowPriority = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
+			return 1;
+		}
+		int var8;
+		ParamDefinition var9;
+		if (var0 == ScriptOpcodes.NC_PARAM) {
+			HealthBarUpdate.Interpreter_intStackSize -= 2;
+			var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
+			var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
+			var9 = WorldMapIcon_0.getParamDefinition(var8);
+			if (var9.isString()) {
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = GameShell.getNpcDefinition(var7).getStringParam(var8, var9.defaultStr);
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = GameShell.getNpcDefinition(var7).getIntParam(var8, var9.defaultInt);
+			}
+
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.LC_PARAM) {
+			HealthBarUpdate.Interpreter_intStackSize -= 2;
+			var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
+			var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
+			var9 = WorldMapIcon_0.getParamDefinition(var8);
+			if (var9.isString()) {
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = ViewportMouse.getObjectDefinition(var7).getStringParam(var8, var9.defaultStr);
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = ViewportMouse.getObjectDefinition(var7).getIntParam(var8, var9.defaultInt);
+			}
+
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_PARAM) {
+			HealthBarUpdate.Interpreter_intStackSize -= 2;
+			var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
+			var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
+			var9 = WorldMapIcon_0.getParamDefinition(var8);
+			if (var9.isString()) {
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = WorldMapArea.getItemDefinition(var7).getStringParam(var8, var9.defaultStr);
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = WorldMapArea.getItemDefinition(var7).getIntParam(var8, var9.defaultInt);
+			}
+
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.STRUCT_PARAM) {
+			HealthBarUpdate.Interpreter_intStackSize -= 2;
+			var7 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
+			var8 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
+			var9 = WorldMapIcon_0.getParamDefinition(var8);
+			if (var9.isString()) {
+				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = ParamDefinition.StructDefinition_getStructDefinition(var7).getStringParam(var8, var9.defaultStr);
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = ParamDefinition.StructDefinition_getStructDefinition(var7).getIntParam(var8, var9.defaultInt);
+			}
+
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.ON_MOBILE) {
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = Client.onMobile ? 1 : 0;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CLIENTTYPE) {
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = Client.clientType & 3;
+			return 1;
+		}
+		if (var0 == 6520) {
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.MOBILE_KEYBOARDHIDE) {
+			return 1;
+		}
+		if (var0 == 6522) {
+			--Skills.Interpreter_stringStackSize;
+			--HealthBarUpdate.Interpreter_intStackSize;
+			return 1;
+		}
+		if (var0 == 6523) {
+			--Skills.Interpreter_stringStackSize;
+			--HealthBarUpdate.Interpreter_intStackSize;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.BATTERYLEVEL) {
 			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = -1;
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
-			Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = "";
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
-			Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = "";
+			return 1;
 		}
-
-		return 1;
+		if (var0 == ScriptOpcodes.BATTERYCHARGING) {
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.WIFIAVAILABLE) {
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
+			return 1;
+		}
+		return 2;
 	}
 
 	@ObfuscatedName("jw")

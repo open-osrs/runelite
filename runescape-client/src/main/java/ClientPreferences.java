@@ -456,53 +456,53 @@ public class ClientPreferences {
 			Client.packetWriter.method2219(var11);
 			return 1;
 		}
-		if (var0 != ScriptOpcodes.CHAT_PLAYERNAME) {
-			if (var0 == ScriptOpcodes.CHAT_GETFILTER_TRADE) {
-				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = Client.field872;
-				return 1;
+		if (var0 == ScriptOpcodes.CHAT_PLAYERNAME) {
+			if (Client.localPlayer != null && Client.localPlayer.username != null) {
+				var3 = Client.localPlayer.username.getName();
+			} else {
+				var3 = "";
 			}
-			if (var0 == ScriptOpcodes.CHAT_GETHISTORYLENGTH) {
-				var10 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = LoginScreenAnimation.method1744(var10);
-				return 1;
-			}
-			if (var0 == ScriptOpcodes.CHAT_GETNEXTUID) {
-				var10 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = MusicPatchNode2.method3686(var10);
-				return 1;
-			}
-			if (var0 == ScriptOpcodes.CHAT_GETPREVUID) {
-				var10 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = class192.method3669(var10);
-				return 1;
-			}
-			if (var0 == ScriptOpcodes.DOCHEAT) {
-				var3 = Interpreter.Interpreter_stringStack[--Skills.Interpreter_stringStackSize];
-				UserComparator1.doCheat(var3);
-				return 1;
-			}
-			if (var0 == ScriptOpcodes.CHAT_SETMESSAGEFILTER) {
-				Client.field762 = Interpreter.Interpreter_stringStack[--Skills.Interpreter_stringStackSize].toLowerCase().trim();
-				return 1;
-			}
-			if (var0 == ScriptOpcodes.CHAT_GETMESSAGEFILTER) {
-				Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = Client.field762;
-				return 1;
-			}
-			if (var0 == 5023) {
-				var3 = Interpreter.Interpreter_stringStack[--Skills.Interpreter_stringStackSize];
-				System.out.println(var3);
-				return 1;
-			}
-			return 2;
-		}
-		if (Client.localPlayer != null && Client.localPlayer.username != null) {
-			var3 = Client.localPlayer.username.getName();
-		} else {
-			var3 = "";
-		}
 
-		Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var3;
-		return 1;
+			Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = var3;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CHAT_GETFILTER_TRADE) {
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = Client.field872;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CHAT_GETHISTORYLENGTH) {
+			var10 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = LoginScreenAnimation.method1744(var10);
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CHAT_GETNEXTUID) {
+			var10 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = MusicPatchNode2.method3686(var10);
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CHAT_GETPREVUID) {
+			var10 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = class192.method3669(var10);
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.DOCHEAT) {
+			var3 = Interpreter.Interpreter_stringStack[--Skills.Interpreter_stringStackSize];
+			UserComparator1.doCheat(var3);
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CHAT_SETMESSAGEFILTER) {
+			Client.field762 = Interpreter.Interpreter_stringStack[--Skills.Interpreter_stringStackSize].toLowerCase().trim();
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CHAT_GETMESSAGEFILTER) {
+			Interpreter.Interpreter_stringStack[++Skills.Interpreter_stringStackSize - 1] = Client.field762;
+			return 1;
+		}
+		if (var0 == 5023) {
+			var3 = Interpreter.Interpreter_stringStack[--Skills.Interpreter_stringStackSize];
+			System.out.println(var3);
+			return 1;
+		}
+		return 2;
 	}
 }

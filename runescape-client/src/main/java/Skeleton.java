@@ -198,39 +198,39 @@ public class Skeleton extends Node {
 			Strings.method4120(var9);
 			return 1;
 		}
-		if (var0 != ScriptOpcodes.CC_FIND) {
-			if (var0 == ScriptOpcodes.IF_FIND) {
-				var9 = class80.getWidget(Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize]);
-				if (var9 != null) {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
-					if (var2) {
-						Interpreter.field1111 = var9;
-					} else {
-						Calendar.field2507 = var9;
-					}
+		if (var0 == ScriptOpcodes.CC_FIND) {
+			HealthBarUpdate.Interpreter_intStackSize -= 2;
+			var3 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
+			var4 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
+			Widget var11 = Client.getWidgetChild(var3, var4);
+			if (var11 != null && var4 != -1) {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
+				if (var2) {
+					Interpreter.field1111 = var11;
 				} else {
-					Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
+					Calendar.field2507 = var11;
 				}
-
-				return 1;
-			}
-			return 2;
-		}
-		HealthBarUpdate.Interpreter_intStackSize -= 2;
-		var3 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
-		var4 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-		Widget var11 = Client.getWidgetChild(var3, var4);
-		if (var11 != null && var4 != -1) {
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
-			if (var2) {
-				Interpreter.field1111 = var11;
 			} else {
-				Calendar.field2507 = var11;
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
 			}
-		} else {
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
-		}
 
-		return 1;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.IF_FIND) {
+			var9 = class80.getWidget(Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize]);
+			if (var9 != null) {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 1;
+				if (var2) {
+					Interpreter.field1111 = var9;
+				} else {
+					Calendar.field2507 = var9;
+				}
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = 0;
+			}
+
+			return 1;
+		}
+		return 2;
 	}
 }

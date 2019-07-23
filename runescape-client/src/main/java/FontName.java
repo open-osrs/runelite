@@ -176,20 +176,20 @@ public class FontName {
 			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = FloorOverlayDefinition.foundItemIdCount;
 			return 1;
 		}
-		if (var0 != ScriptOpcodes.OC_FINDNEXT) {
-			if (var0 == ScriptOpcodes.OC_FINDRESET) {
-				class32.foundItemIndex = 0;
-				return 1;
+		if (var0 == ScriptOpcodes.OC_FINDNEXT) {
+			if (WorldMapData_1.foundItemIds != null && class32.foundItemIndex < FloorOverlayDefinition.foundItemIdCount) {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = WorldMapData_1.foundItemIds[++class32.foundItemIndex - 1] & '\uffff';
+			} else {
+				Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = -1;
 			}
-			return 2;
-		}
-		if (WorldMapData_1.foundItemIds != null && class32.foundItemIndex < FloorOverlayDefinition.foundItemIdCount) {
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = WorldMapData_1.foundItemIds[++class32.foundItemIndex - 1] & '\uffff';
-		} else {
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = -1;
-		}
 
-		return 1;
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.OC_FINDRESET) {
+			class32.foundItemIndex = 0;
+			return 1;
+		}
+		return 2;
 	}
 
 	@ObfuscatedName("ii")

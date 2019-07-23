@@ -53,46 +53,46 @@ public class WorldMapDecoration {
 		}
 
 		Strings.method4120(var3);
-		if (var0 != ScriptOpcodes.CC_SETOBJECT && var0 != ScriptOpcodes.CC_SETOBJECT_NONUM && var0 != ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM) {
-			if (var0 == ScriptOpcodes.CC_SETNPCHEAD) {
-				var3.modelType = 2;
-				var3.modelId = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-				return 1;
+		if (var0 == ScriptOpcodes.CC_SETOBJECT || var0 == ScriptOpcodes.CC_SETOBJECT_NONUM || var0 == ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM) {
+			HealthBarUpdate.Interpreter_intStackSize -= 2;
+			int var4 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
+			int var5 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
+			var3.itemId = var4;
+			var3.itemQuantity = var5;
+			ItemDefinition var6 = WorldMapArea.getItemDefinition(var4);
+			var3.modelAngleX = var6.xan2d;
+			var3.modelAngleY = var6.yan2d;
+			var3.modelAngleZ = var6.zan2d;
+			var3.modelOffsetX = var6.offsetX2d;
+			var3.modelOffsetY = var6.offsetY2d;
+			var3.modelZoom = var6.zoom2d;
+			if (var0 == ScriptOpcodes.CC_SETOBJECT_NONUM) {
+				var3.itemQuantityMode = 0;
+			} else if (var0 == ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM | var6.isStackable == 1) {
+				var3.itemQuantityMode = 1;
+			} else {
+				var3.itemQuantityMode = 2;
 			}
-			if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) {
-				var3.modelType = 3;
-				var3.modelId = Client.localPlayer.appearance.getChatHeadId();
-				return 1;
+
+			if (var3.field2619 > 0) {
+				var3.modelZoom = var3.modelZoom * 32 / var3.field2619;
+			} else if (var3.rawWidth > 0) {
+				var3.modelZoom = var3.modelZoom * 32 / var3.rawWidth;
 			}
-			return 2;
-		}
-		HealthBarUpdate.Interpreter_intStackSize -= 2;
-		int var4 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
-		int var5 = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-		var3.itemId = var4;
-		var3.itemQuantity = var5;
-		ItemDefinition var6 = WorldMapArea.getItemDefinition(var4);
-		var3.modelAngleX = var6.xan2d;
-		var3.modelAngleY = var6.yan2d;
-		var3.modelAngleZ = var6.zan2d;
-		var3.modelOffsetX = var6.offsetX2d;
-		var3.modelOffsetY = var6.offsetY2d;
-		var3.modelZoom = var6.zoom2d;
-		if (var0 == ScriptOpcodes.CC_SETOBJECT_NONUM) {
-			var3.itemQuantityMode = 0;
-		} else if (var0 == ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM | var6.isStackable == 1) {
-			var3.itemQuantityMode = 1;
-		} else {
-			var3.itemQuantityMode = 2;
-		}
 
-		if (var3.field2619 > 0) {
-			var3.modelZoom = var3.modelZoom * 32 / var3.field2619;
-		} else if (var3.rawWidth > 0) {
-			var3.modelZoom = var3.modelZoom * 32 / var3.rawWidth;
+			return 1;
 		}
-
-		return 1;
+		if (var0 == ScriptOpcodes.CC_SETNPCHEAD) {
+			var3.modelType = 2;
+			var3.modelId = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
+			return 1;
+		}
+		if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) {
+			var3.modelType = 3;
+			var3.modelId = Client.localPlayer.appearance.getChatHeadId();
+			return 1;
+		}
+		return 2;
 	}
 
 	@ObfuscatedName("kv")

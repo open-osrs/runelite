@@ -225,12 +225,10 @@ public final class GraphicsObject extends Entity {
 			var3.onStockTransmit = var8;
 		} else if (var0 == 1426) {
 			var3.field2681 = var8;
-		} else {
-			if (var0 != ScriptOpcodes.CC_SETONRESIZE) {
-				return 2;
-			}
-
+		} else if (var0 == ScriptOpcodes.CC_SETONRESIZE) {
 			var3.onResize = var8;
+		} else {
+			return 2;
 		}
 
 		var3.hasListener = true;
