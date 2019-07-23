@@ -42,7 +42,7 @@ public class AnnotationAdder
 			if (!Strings.isNullOrEmpty(implementingName))
 			{
 				// Still error here cause I don't wanna call classes dumb shit
-				assert implementingName.equals(c.getClassName()): c + " implements " + implementingName + " but is called " + c.getClassName();
+				assert implementingName.equals(c.getClassName()) : c + " implements " + implementingName + " but is called " + c.getClassName();
 			}
 			else
 			{

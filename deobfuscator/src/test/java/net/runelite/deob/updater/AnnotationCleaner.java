@@ -7,8 +7,6 @@ import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
-import net.runelite.asm.attributes.annotation.Element;
 import net.runelite.deob.Deob;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.DeobTestProperties;
