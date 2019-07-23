@@ -10,10 +10,10 @@ public class class16 {
 	)
 	public static void method174() {
 		Varps.SpriteBuffer_xOffsets = null;
-		class326.SpriteBuffer_yOffsets = null;
-		class326.SpriteBuffer_spriteWidths = null;
+		SpriteBuffer.SpriteBuffer_yOffsets = null;
+		SpriteBuffer.SpriteBuffer_spriteWidths = null;
 		class216.SpriteBuffer_spriteHeights = null;
 		Frames.SpriteBuffer_spritePalette = null;
-		class326.SpriteBuffer_pixels = null;
+		SpriteBuffer.SpriteBuffer_pixels = null;
 	}
 }

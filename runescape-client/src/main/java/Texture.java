@@ -104,14 +104,14 @@ public class Texture extends Node {
 				var7 = null;
 			} else {
 				IndexedSprite var10 = new IndexedSprite();
-				var10.width = class326.SpriteBuffer_spriteWidth;
-				var10.height = class326.SpriteBuffer_spriteHeight;
+				var10.width = SpriteBuffer.SpriteBuffer_spriteWidth;
+				var10.height = SpriteBuffer.SpriteBuffer_spriteHeight;
 				var10.xOffset = Varps.SpriteBuffer_xOffsets[0];
-				var10.yOffset = class326.SpriteBuffer_yOffsets[0];
-				var10.subWidth = class326.SpriteBuffer_spriteWidths[0];
+				var10.yOffset = SpriteBuffer.SpriteBuffer_yOffsets[0];
+				var10.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[0];
 				var10.subHeight = class216.SpriteBuffer_spriteHeights[0];
 				var10.palette = Frames.SpriteBuffer_spritePalette;
-				var10.pixels = class326.SpriteBuffer_pixels[0];
+				var10.pixels = SpriteBuffer.SpriteBuffer_pixels[0];
 				class16.method174();
 				var7 = var10;
 			}

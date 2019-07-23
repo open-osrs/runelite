@@ -67,18 +67,18 @@ public final class TilePaint {
 		if (!Friend.doesSpriteExist(var0, var1, var2)) {
 			return null;
 		} else {
-			Sprite[] var4 = new Sprite[class326.SpriteBuffer_spriteCount];
+			Sprite[] var4 = new Sprite[SpriteBuffer.SpriteBuffer_spriteCount];
 
-			for (int var5 = 0; var5 < class326.SpriteBuffer_spriteCount; ++var5) {
+			for (int var5 = 0; var5 < SpriteBuffer.SpriteBuffer_spriteCount; ++var5) {
 				Sprite var6 = var4[var5] = new Sprite();
-				var6.width = class326.SpriteBuffer_spriteWidth;
-				var6.height = class326.SpriteBuffer_spriteHeight;
+				var6.width = SpriteBuffer.SpriteBuffer_spriteWidth;
+				var6.height = SpriteBuffer.SpriteBuffer_spriteHeight;
 				var6.yOffset = Varps.SpriteBuffer_xOffsets[var5];
-				var6.xOffset = class326.SpriteBuffer_yOffsets[var5];
-				var6.subWidth = class326.SpriteBuffer_spriteWidths[var5];
+				var6.xOffset = SpriteBuffer.SpriteBuffer_yOffsets[var5];
+				var6.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[var5];
 				var6.subHeight = class216.SpriteBuffer_spriteHeights[var5];
 				int var7 = var6.subHeight * var6.subWidth;
-				byte[] var8 = class326.SpriteBuffer_pixels[var5];
+				byte[] var8 = SpriteBuffer.SpriteBuffer_pixels[var5];
 				var6.pixels = new int[var7];
 
 				for (int var9 = 0; var9 < var7; ++var9) {

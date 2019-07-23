@@ -75,14 +75,14 @@ public class class65 extends RouteStrategy {
 			return null;
 		} else {
 			Sprite var4 = new Sprite();
-			var4.width = class326.SpriteBuffer_spriteWidth;
-			var4.height = class326.SpriteBuffer_spriteHeight;
+			var4.width = SpriteBuffer.SpriteBuffer_spriteWidth;
+			var4.height = SpriteBuffer.SpriteBuffer_spriteHeight;
 			var4.yOffset = Varps.SpriteBuffer_xOffsets[0];
-			var4.xOffset = class326.SpriteBuffer_yOffsets[0];
-			var4.subWidth = class326.SpriteBuffer_spriteWidths[0];
+			var4.xOffset = SpriteBuffer.SpriteBuffer_yOffsets[0];
+			var4.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[0];
 			var4.subHeight = class216.SpriteBuffer_spriteHeights[0];
 			int var5 = var4.subHeight * var4.subWidth;
-			byte[] var6 = class326.SpriteBuffer_pixels[0];
+			byte[] var6 = SpriteBuffer.SpriteBuffer_pixels[0];
 			var4.pixels = new int[var5];
 
 			for (int var7 = 0; var7 < var5; ++var7) {

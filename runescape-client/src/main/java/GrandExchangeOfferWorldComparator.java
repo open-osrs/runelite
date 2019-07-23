@@ -129,7 +129,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 	)
 	@Export("openURL")
 	public static void openURL(String var0, boolean var1, boolean var2) {
-		class326.method6243(var0, var1, "openjs", var2);
+		SpriteBuffer.method6243(var0, var1, "openjs", var2);
 	}
 
 	@ObfuscatedName("gn")
