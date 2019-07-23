@@ -67,28 +67,27 @@ public final class TilePaint {
 	public static Sprite[] SpriteBuffer_getSpriteArray(AbstractArchive var0, int var1, int var2) {
 		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
 			return null;
-		} else {
-			Sprite[] var4 = new Sprite[SpriteBuffer.SpriteBuffer_spriteCount];
-
-			for (int var5 = 0; var5 < SpriteBuffer.SpriteBuffer_spriteCount; ++var5) {
-				Sprite var6 = var4[var5] = new Sprite();
-				var6.width = SpriteBuffer.SpriteBuffer_spriteWidth;
-				var6.height = SpriteBuffer.SpriteBuffer_spriteHeight;
-				var6.yOffset = Varps.SpriteBuffer_xOffsets[var5];
-				var6.xOffset = SpriteBuffer.SpriteBuffer_yOffsets[var5];
-				var6.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[var5];
-				var6.subHeight = class216.SpriteBuffer_spriteHeights[var5];
-				int var7 = var6.subHeight * var6.subWidth;
-				byte[] var8 = SpriteBuffer.SpriteBuffer_pixels[var5];
-				var6.pixels = new int[var7];
-
-				for (int var9 = 0; var9 < var7; ++var9) {
-					var6.pixels[var9] = Frames.SpriteBuffer_spritePalette[var8[var9] & 255];
-				}
-			}
-
-			class16.SpriteBuffer_clear();
-			return var4;
 		}
+		Sprite[] var4 = new Sprite[SpriteBuffer.SpriteBuffer_spriteCount];
+
+		for (int var5 = 0; var5 < SpriteBuffer.SpriteBuffer_spriteCount; ++var5) {
+			Sprite var6 = var4[var5] = new Sprite();
+			var6.width = SpriteBuffer.SpriteBuffer_spriteWidth;
+			var6.height = SpriteBuffer.SpriteBuffer_spriteHeight;
+			var6.yOffset = Varps.SpriteBuffer_xOffsets[var5];
+			var6.xOffset = SpriteBuffer.SpriteBuffer_yOffsets[var5];
+			var6.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[var5];
+			var6.subHeight = class216.SpriteBuffer_spriteHeights[var5];
+			int var7 = var6.subHeight * var6.subWidth;
+			byte[] var8 = SpriteBuffer.SpriteBuffer_pixels[var5];
+			var6.pixels = new int[var7];
+
+			for (int var9 = 0; var9 < var7; ++var9) {
+				var6.pixels[var9] = Frames.SpriteBuffer_spritePalette[var8[var9] & 255];
+			}
+		}
+
+		class16.SpriteBuffer_clear();
+		return var4;
 	}
 }

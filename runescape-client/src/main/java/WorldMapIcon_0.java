@@ -127,17 +127,16 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
-		} else {
-			byte[] var2 = ParamDefinition.ParamDefinition_archive.takeFile(11, var0);
-			var1 = new ParamDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			ParamDefinition.ParamDefinition_cached.put(var1, (long)var0);
-			return var1;
 		}
+		byte[] var2 = ParamDefinition.ParamDefinition_archive.takeFile(11, var0);
+		var1 = new ParamDefinition();
+		if (var2 != null) {
+			var1.decode(new Buffer(var2));
+		}
+
+		var1.postDecode();
+		ParamDefinition.ParamDefinition_cached.put(var1, (long)var0);
+		return var1;
 	}
 
 	@ObfuscatedName("e")

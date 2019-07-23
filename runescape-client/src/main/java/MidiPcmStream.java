@@ -978,9 +978,8 @@ public class MidiPcmStream extends PcmStream {
 			}
 
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	@ObfuscatedName("bp")
@@ -1068,19 +1067,17 @@ public class MidiPcmStream extends PcmStream {
 				}
 
 				return true;
-			} else {
-				var1.stream.method2536(var1.field2455, this.method3731(var1), this.method3732(var1));
-				return false;
 			}
-		} else {
-			var1.method3826();
-			var1.remove();
-			if (var1.field2438 > 0 && var1 == this.field2428[var1.field2440][var1.field2438]) {
-				this.field2428[var1.field2440][var1.field2438] = null;
-			}
-
-			return true;
+			var1.stream.method2536(var1.field2455, this.method3731(var1), this.method3732(var1));
+			return false;
 		}
+		var1.method3826();
+		var1.remove();
+		if (var1.field2438 > 0 && var1 == this.field2428[var1.field2440][var1.field2438]) {
+			this.field2428[var1.field2440][var1.field2438] = null;
+		}
+
+		return true;
 	}
 
 	@ObfuscatedName("w")

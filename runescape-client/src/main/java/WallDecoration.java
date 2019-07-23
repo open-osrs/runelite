@@ -88,11 +88,10 @@ public final class WallDecoration {
 	public static Font SpriteBuffer_createFont(byte[] var0) {
 		if (var0 == null) {
 			return null;
-		} else {
-			Font var1 = new Font(var0, Varps.SpriteBuffer_xOffsets, SpriteBuffer.SpriteBuffer_yOffsets, SpriteBuffer.SpriteBuffer_spriteWidths, class216.SpriteBuffer_spriteHeights, Frames.SpriteBuffer_spritePalette, SpriteBuffer.SpriteBuffer_pixels);
-			class16.SpriteBuffer_clear();
-			return var1;
 		}
+		Font var1 = new Font(var0, Varps.SpriteBuffer_xOffsets, SpriteBuffer.SpriteBuffer_yOffsets, SpriteBuffer.SpriteBuffer_spriteWidths, class216.SpriteBuffer_spriteHeights, Frames.SpriteBuffer_spritePalette, SpriteBuffer.SpriteBuffer_pixels);
+		class16.SpriteBuffer_clear();
+		return var1;
 	}
 
 	@ObfuscatedName("g")
@@ -103,9 +102,8 @@ public final class WallDecoration {
 	public static int method3292(int var0) {
 		if (var0 > 0) {
 			return 1;
-		} else {
-			return var0 < 0 ? -1 : 0;
 		}
+		return var0 < 0 ? -1 : 0;
 	}
 
 	@ObfuscatedName("as")

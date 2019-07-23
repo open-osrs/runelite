@@ -61,7 +61,8 @@ public class BufferedSource implements Runnable {
 	boolean isAvailable(int var1) throws IOException {
 		if (var1 == 0) {
 			return true;
-		} else if (var1 > 0 && var1 < this.capacity) {
+		}
+		if (var1 > 0 && var1 < this.capacity) {
 			synchronized(this) {
 				int var3;
 				if (this.position <= this.limit) {
@@ -73,17 +74,14 @@ public class BufferedSource implements Runnable {
 				if (var3 < var1) {
 					if (this.exception != null) {
 						throw new IOException(this.exception.toString());
-					} else {
-						this.notifyAll();
-						return false;
 					}
-				} else {
-					return true;
+					this.notifyAll();
+					return false;
 				}
+				return true;
 			}
-		} else {
-			throw new IOException();
 		}
+		throw new IOException();
 	}
 
 	@ObfuscatedName("w")
@@ -103,10 +101,9 @@ public class BufferedSource implements Runnable {
 
 			if (var2 <= 0 && this.exception != null) {
 				throw new IOException(this.exception.toString());
-			} else {
-				this.notifyAll();
-				return var2;
 			}
+			this.notifyAll();
+			return var2;
 		}
 	}
 
@@ -121,15 +118,13 @@ public class BufferedSource implements Runnable {
 			if (this.limit == this.position) {
 				if (this.exception != null) {
 					throw new IOException(this.exception.toString());
-				} else {
-					return -1;
 				}
-			} else {
-				int var2 = this.buffer[this.position] & 255;
-				this.position = (this.position + 1) % this.capacity;
-				this.notifyAll();
-				return var2;
+				return -1;
 			}
+			int var2 = this.buffer[this.position] & 255;
+			this.position = (this.position + 1) % this.capacity;
+			this.notifyAll();
+			return var2;
 		}
 	}
 
@@ -155,23 +150,21 @@ public class BufferedSource implements Runnable {
 
 				if (var3 == 0 && this.exception != null) {
 					throw new IOException(this.exception.toString());
-				} else {
-					if (var3 + this.position <= this.capacity) {
-						System.arraycopy(this.buffer, this.position, var1, var2, var3);
-					} else {
-						int var6 = this.capacity - this.position;
-						System.arraycopy(this.buffer, this.position, var1, var2, var6);
-						System.arraycopy(this.buffer, 0, var1, var6 + var2, var3 - var6);
-					}
-
-					this.position = (var3 + this.position) % this.capacity;
-					this.notifyAll();
-					return var3;
 				}
+				if (var3 + this.position <= this.capacity) {
+					System.arraycopy(this.buffer, this.position, var1, var2, var3);
+				} else {
+					int var6 = this.capacity - this.position;
+					System.arraycopy(this.buffer, this.position, var1, var2, var6);
+					System.arraycopy(this.buffer, 0, var1, var6 + var2, var3 - var6);
+				}
+
+				this.position = (var3 + this.position) % this.capacity;
+				this.notifyAll();
+				return var3;
 			}
-		} else {
-			throw new IOException();
 		}
+		throw new IOException();
 	}
 
 	@ObfuscatedName("k")

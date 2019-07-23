@@ -170,9 +170,8 @@ public class class190 implements Enumerated {
 			}
 
 			return true;
-		} else {
-			return true;
 		}
+		return true;
 	}
 
 	@ObfuscatedName("ko")

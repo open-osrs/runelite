@@ -23,23 +23,29 @@ public class Friend extends Buddy {
 	int compareToFriend(Friend var1) {
 		if (super.world == Client.worldId && Client.worldId != var1.world) {
 			return -1;
-		} else if (Client.worldId == var1.world && super.world != Client.worldId) {
-			return 1;
-		} else if (super.world != 0 && var1.world == 0) {
-			return -1;
-		} else if (var1.world != 0 && super.world == 0) {
-			return 1;
-		} else if (this.field3650 && !var1.field3650) {
-			return -1;
-		} else if (!this.field3650 && var1.field3650) {
-			return 1;
-		} else if (this.field3651 && !var1.field3651) {
-			return -1;
-		} else if (!this.field3651 && var1.field3651) {
-			return 1;
-		} else {
-			return super.world != 0 ? super.int2 - var1.int2 : var1.int2 - super.int2;
 		}
+		if (Client.worldId == var1.world && super.world != Client.worldId) {
+			return 1;
+		}
+		if (super.world != 0 && var1.world == 0) {
+			return -1;
+		}
+		if (var1.world != 0 && super.world == 0) {
+			return 1;
+		}
+		if (this.field3650 && !var1.field3650) {
+			return -1;
+		}
+		if (!this.field3650 && var1.field3650) {
+			return 1;
+		}
+		if (this.field3651 && !var1.field3651) {
+			return -1;
+		}
+		if (!this.field3651 && var1.field3651) {
+			return 1;
+		}
+		return super.world != 0 ? super.int2 - var1.int2 : var1.int2 - super.int2;
 	}
 
 	@ObfuscatedName("ax")
@@ -66,10 +72,9 @@ public class Friend extends Buddy {
 		byte[] var3 = var0.takeFile(var1, var2);
 		if (var3 == null) {
 			return false;
-		} else {
-			class185.SpriteBuffer_decode(var3);
-			return true;
 		}
+		class185.SpriteBuffer_decode(var3);
+		return true;
 	}
 
 	@ObfuscatedName("fv")

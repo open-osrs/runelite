@@ -29,23 +29,22 @@ public final class class289 {
 	public static IndexedSprite[] SpriteBuffer_getIndexedSpriteArray(AbstractArchive var0, int var1, int var2) {
 		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
 			return null;
-		} else {
-			IndexedSprite[] var4 = new IndexedSprite[SpriteBuffer.SpriteBuffer_spriteCount];
-
-			for (int var5 = 0; var5 < SpriteBuffer.SpriteBuffer_spriteCount; ++var5) {
-				IndexedSprite var6 = var4[var5] = new IndexedSprite();
-				var6.width = SpriteBuffer.SpriteBuffer_spriteWidth;
-				var6.height = SpriteBuffer.SpriteBuffer_spriteHeight;
-				var6.xOffset = Varps.SpriteBuffer_xOffsets[var5];
-				var6.yOffset = SpriteBuffer.SpriteBuffer_yOffsets[var5];
-				var6.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[var5];
-				var6.subHeight = class216.SpriteBuffer_spriteHeights[var5];
-				var6.palette = Frames.SpriteBuffer_spritePalette;
-				var6.pixels = SpriteBuffer.SpriteBuffer_pixels[var5];
-			}
-
-			class16.SpriteBuffer_clear();
-			return var4;
 		}
+		IndexedSprite[] var4 = new IndexedSprite[SpriteBuffer.SpriteBuffer_spriteCount];
+
+		for (int var5 = 0; var5 < SpriteBuffer.SpriteBuffer_spriteCount; ++var5) {
+			IndexedSprite var6 = var4[var5] = new IndexedSprite();
+			var6.width = SpriteBuffer.SpriteBuffer_spriteWidth;
+			var6.height = SpriteBuffer.SpriteBuffer_spriteHeight;
+			var6.xOffset = Varps.SpriteBuffer_xOffsets[var5];
+			var6.yOffset = SpriteBuffer.SpriteBuffer_yOffsets[var5];
+			var6.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[var5];
+			var6.subHeight = class216.SpriteBuffer_spriteHeights[var5];
+			var6.palette = Frames.SpriteBuffer_spritePalette;
+			var6.pixels = SpriteBuffer.SpriteBuffer_pixels[var5];
+		}
+
+		class16.SpriteBuffer_clear();
+		return var4;
 	}
 }
