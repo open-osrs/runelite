@@ -65,7 +65,7 @@ public final class TilePaint {
 	)
 	@Export("SpriteBuffer_getSpriteArray")
 	public static Sprite[] SpriteBuffer_getSpriteArray(AbstractArchive var0, int var1, int var2) {
-		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
+		if (!Friend.SpriteBuffer_bufferFile(var0, var1, var2)) {
 			return null;
 		}
 		Sprite[] var4 = new Sprite[SpriteBuffer.SpriteBuffer_spriteCount];

@@ -379,7 +379,7 @@ public class HitSplatDefinition extends DualNode {
 		AbstractArchive var4 = HitSplatDefinition_fontsArchive;
 		int var5 = this.fontId;
 		Font var2;
-		if (!Friend.SpriteBuffer_loadSprite(var3, var5, 0)) {
+		if (!Friend.SpriteBuffer_bufferFile(var3, var5, 0)) {
 			var2 = null;
 		} else {
 			var2 = WallDecoration.SpriteBuffer_createFont(var4.takeFile(var5, 0));

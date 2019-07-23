@@ -420,8 +420,8 @@ public class PlayerAppearance {
 		signature = "(Lhp;II)Z",
 		garbageValue = "-435811450"
 	)
-	@Export("SpriteBuffer_loadSpriteFlat")
-	public static boolean SpriteBuffer_loadSpriteFlat(AbstractArchive var0, int var1) {
+	@Export("SpriteBuffer_bufferFileFlat")
+	public static boolean SpriteBuffer_bufferFileFlat(AbstractArchive var0, int var1) {
 		byte[] var2 = var0.takeFileFlat(var1);
 		if (var2 == null) {
 			return false;

@@ -27,7 +27,7 @@ public final class class289 {
 	)
 	@Export("SpriteBuffer_getIndexedSpriteArray")
 	public static IndexedSprite[] SpriteBuffer_getIndexedSpriteArray(AbstractArchive var0, int var1, int var2) {
-		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
+		if (!Friend.SpriteBuffer_bufferFile(var0, var1, var2)) {
 			return null;
 		}
 		IndexedSprite[] var4 = new IndexedSprite[SpriteBuffer.SpriteBuffer_spriteCount];

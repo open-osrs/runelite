@@ -100,7 +100,7 @@ public class Texture extends Node {
 		for (int var6 = 0; var6 < this.records.length; ++var6) {
 			int var8 = this.records[var6];
 			IndexedSprite var7;
-			if (!PlayerAppearance.SpriteBuffer_loadSpriteFlat(var4, var8)) {
+			if (!PlayerAppearance.SpriteBuffer_bufferFileFlat(var4, var8)) {
 				var7 = null;
 			} else {
 				IndexedSprite var10 = new IndexedSprite();

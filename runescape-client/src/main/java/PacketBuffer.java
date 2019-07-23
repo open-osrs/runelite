@@ -171,7 +171,7 @@ public class PacketBuffer extends Buffer {
 	)
 	@Export("SpriteBuffer_getIndexedSprite")
 	static IndexedSprite SpriteBuffer_getIndexedSprite(AbstractArchive var0, int var1, int var2) {
-		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
+		if (!Friend.SpriteBuffer_bufferFile(var0, var1, var2)) {
 			return null;
 		}
 		IndexedSprite var4 = new IndexedSprite();

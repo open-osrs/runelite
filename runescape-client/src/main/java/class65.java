@@ -68,7 +68,7 @@ public class class65 extends RouteStrategy {
 	)
 	@Export("SpriteBuffer_getSprite")
 	public static Sprite SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
-		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
+		if (!Friend.SpriteBuffer_bufferFile(var0, var1, var2)) {
 			return null;
 		}
 		Sprite var4 = new Sprite();

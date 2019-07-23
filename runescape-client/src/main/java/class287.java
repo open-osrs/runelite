@@ -14,7 +14,7 @@ public class class287 {
 		int var4 = spriteArchive.getGroupId(groupName);
 		int var5 = spriteArchive.getFileId(var4, fileName);
 		Font var6;
-		if (!Friend.SpriteBuffer_loadSprite(spriteArchive, var4, var5)) {
+		if (!Friend.SpriteBuffer_bufferFile(spriteArchive, var4, var5)) {
 			var6 = null;
 		} else {
 			var6 = WallDecoration.SpriteBuffer_createFont(fontArchive.takeFile(var4, var5));
