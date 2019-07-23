@@ -221,6 +221,7 @@ public class MidiPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		signature = "()Ldx;"
 	)
+	@Export("firstSubStream")
 	protected synchronized PcmStream firstSubStream() {
 		return this.patchStream;
 	}
@@ -229,6 +230,7 @@ public class MidiPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		signature = "()Ldx;"
 	)
+	@Export("nextSubStream")
 	protected synchronized PcmStream nextSubStream() {
 		return null;
 	}

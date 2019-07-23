@@ -81,6 +81,7 @@ public class RawPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		signature = "()Ldx;"
 	)
+	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
 		return null;
 	}
@@ -89,6 +90,7 @@ public class RawPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		signature = "()Ldx;"
 	)
+	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
 		return null;
 	}

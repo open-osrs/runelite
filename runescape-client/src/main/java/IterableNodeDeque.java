@@ -125,7 +125,7 @@ public class IterableNodeDeque implements Iterable, Collection {
 	}
 
 	@ObfuscatedName("c")
-	@Export("isEmpty")
+	@Export("rsIsEmpty")
 	public boolean rsIsEmpty() {
 		return this.sentinel.previous == this.sentinel;
 	}

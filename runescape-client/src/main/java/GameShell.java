@@ -713,6 +713,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		signature = "(B)V",
 		garbageValue = "-3"
 	)
+	@Export("doCycle")
 	protected abstract void doCycle();
 
 	@ObfuscatedName("ag")
@@ -720,6 +721,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		signature = "(ZB)V",
 		garbageValue = "-5"
 	)
+	@Export("draw")
 	protected abstract void draw(boolean var1);
 
 	@ObfuscatedName("ar")
