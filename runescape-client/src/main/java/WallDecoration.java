@@ -84,13 +84,13 @@ public final class WallDecoration {
 		signature = "([BI)Lke;",
 		garbageValue = "107452813"
 	)
-	@Export("getWorldMapSprite")
-	public static Font getWorldMapSprite(byte[] var0) {
+	@Export("SpriteBuffer_createFont")
+	public static Font SpriteBuffer_createFont(byte[] var0) {
 		if (var0 == null) {
 			return null;
 		} else {
 			Font var1 = new Font(var0, Varps.SpriteBuffer_xOffsets, SpriteBuffer.SpriteBuffer_yOffsets, SpriteBuffer.SpriteBuffer_spriteWidths, class216.SpriteBuffer_spriteHeights, Frames.SpriteBuffer_spritePalette, SpriteBuffer.SpriteBuffer_pixels);
-			class16.method174();
+			class16.SpriteBuffer_clear();
 			return var1;
 		}
 	}

@@ -112,7 +112,7 @@ public class Texture extends Node {
 				var10.subHeight = class216.SpriteBuffer_spriteHeights[0];
 				var10.palette = Frames.SpriteBuffer_spritePalette;
 				var10.pixels = SpriteBuffer.SpriteBuffer_pixels[0];
-				class16.method174();
+				class16.SpriteBuffer_clear();
 				var7 = var10;
 			}
 

@@ -262,25 +262,25 @@ public class BufferedSource implements Runnable {
 			GrandExchangeOfferWorldComparator.leftTitleSprite = BuddyRankComparator.convertJpgToSprite(var4);
 			NPC.rightTitleSprite = GrandExchangeOfferWorldComparator.leftTitleSprite.mirrorHorizontally();
 			if ((Client.worldProperties & 536870912) != 0) {
-				GroundItem.logoSprite = class215.loadIndexedSpriteByName(var1, "logo_deadman_mode", "");
+				GroundItem.logoSprite = class215.SpriteBuffer_getIndexedSpriteByName(var1, "logo_deadman_mode", "");
 			} else {
-				GroundItem.logoSprite = class215.loadIndexedSpriteByName(var1, "logo", "");
+				GroundItem.logoSprite = class215.SpriteBuffer_getIndexedSpriteByName(var1, "logo", "");
 			}
 
-			Login.titleboxSprite = class215.loadIndexedSpriteByName(var1, "titlebox", "");
-			VarpDefinition.titlebuttonSprite = class215.loadIndexedSpriteByName(var1, "titlebutton", "");
+			Login.titleboxSprite = class215.SpriteBuffer_getIndexedSpriteByName(var1, "titlebox", "");
+			VarpDefinition.titlebuttonSprite = class215.SpriteBuffer_getIndexedSpriteByName(var1, "titlebutton", "");
 			int var6 = var1.getGroupId("runes");
 			int var7 = var1.getFileId(var6, "");
-			IndexedSprite[] var5 = class289.method5281(var1, var6, var7);
+			IndexedSprite[] var5 = class289.SpriteBuffer_getIndexedSpriteArray(var1, var6, var7);
 			Login.runesSprite = var5;
 			var7 = var1.getGroupId("title_mute");
 			int var8 = var1.getFileId(var7, "");
-			IndexedSprite[] var9 = class289.method5281(var1, var7, var8);
+			IndexedSprite[] var9 = class289.SpriteBuffer_getIndexedSpriteArray(var1, var7, var8);
 			Login.title_muteSprite = var9;
-			Login.options_buttons_0Sprite = class215.loadIndexedSpriteByName(var1, "options_radio_buttons,0", "");
-			Message.field606 = class215.loadIndexedSpriteByName(var1, "options_radio_buttons,4", "");
-			Decimator.options_buttons_2Sprite = class215.loadIndexedSpriteByName(var1, "options_radio_buttons,2", "");
-			Login.field1185 = class215.loadIndexedSpriteByName(var1, "options_radio_buttons,6", "");
+			Login.options_buttons_0Sprite = class215.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,0", "");
+			Message.field606 = class215.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,4", "");
+			Decimator.options_buttons_2Sprite = class215.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,2", "");
+			Login.field1185 = class215.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,6", "");
 			class237.field3191 = Login.options_buttons_0Sprite.subWidth;
 			WorldMapDecoration.field212 = Login.options_buttons_0Sprite.subHeight;
 			Ignored.loginScreenRunesAnimation = new LoginScreenAnimation(Login.runesSprite);

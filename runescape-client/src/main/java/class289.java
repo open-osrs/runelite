@@ -25,8 +25,9 @@ public final class class289 {
 		signature = "(Lhp;III)[Llx;",
 		garbageValue = "1777014825"
 	)
-	public static IndexedSprite[] method5281(AbstractArchive var0, int var1, int var2) {
-		if (!Friend.doesSpriteExist(var0, var1, var2)) {
+	@Export("SpriteBuffer_getIndexedSpriteArray")
+	public static IndexedSprite[] SpriteBuffer_getIndexedSpriteArray(AbstractArchive var0, int var1, int var2) {
+		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
 			return null;
 		} else {
 			IndexedSprite[] var4 = new IndexedSprite[SpriteBuffer.SpriteBuffer_spriteCount];
@@ -43,7 +44,7 @@ public final class class289 {
 				var6.pixels = SpriteBuffer.SpriteBuffer_pixels[var5];
 			}
 
-			class16.method174();
+			class16.SpriteBuffer_clear();
 			return var4;
 		}
 	}

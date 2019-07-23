@@ -1,3 +1,4 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -8,7 +9,8 @@ public class class16 {
 		signature = "(I)V",
 		garbageValue = "572816821"
 	)
-	public static void method174() {
+	@Export("SpriteBuffer_clear")
+	public static void SpriteBuffer_clear() {
 		Varps.SpriteBuffer_xOffsets = null;
 		SpriteBuffer.SpriteBuffer_yOffsets = null;
 		SpriteBuffer.SpriteBuffer_spriteWidths = null;

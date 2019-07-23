@@ -67,11 +67,11 @@ public class class215 {
 		signature = "(Lhp;Ljava/lang/String;Ljava/lang/String;I)Llx;",
 		garbageValue = "-1167154349"
 	)
-	@Export("loadIndexedSpriteByName")
-	public static IndexedSprite loadIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
+	@Export("SpriteBuffer_getIndexedSpriteByName")
+	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
 		int var3 = var0.getGroupId(var1);
 		int var4 = var0.getFileId(var3, var2);
-		return PacketBuffer.loadIndexedSprite(var0, var3, var4);
+		return PacketBuffer.SpriteBuffer_getIndexedSprite(var0, var3, var4);
 	}
 
 	@ObfuscatedName("eg")

@@ -491,67 +491,67 @@ public class Timer {
 				} else if (Client.titleLoadingStage == 80) {
 					var0 = 0;
 					if (Message.compass == null) {
-						Message.compass = class65.loadSprite(Client.archive8, UserComparator6.spriteIds.compass, 0);
+						Message.compass = class65.SpriteBuffer_getSprite(Client.archive8, UserComparator6.spriteIds.compass, 0);
 					} else {
 						++var0;
 					}
 
 					if (UserComparator4.redHintArrowSprite == null) {
-						UserComparator4.redHintArrowSprite = class65.loadSprite(Client.archive8, UserComparator6.spriteIds.field3823, 0);
+						UserComparator4.redHintArrowSprite = class65.SpriteBuffer_getSprite(Client.archive8, UserComparator6.spriteIds.field3823, 0);
 					} else {
 						++var0;
 					}
 
 					if (ClanChat.mapSceneSprites == null) {
-						ClanChat.mapSceneSprites = class289.method5281(Client.archive8, UserComparator6.spriteIds.mapScenes, 0);
+						ClanChat.mapSceneSprites = class289.SpriteBuffer_getIndexedSpriteArray(Client.archive8, UserComparator6.spriteIds.mapScenes, 0);
 					} else {
 						++var0;
 					}
 
 					if (UserComparator3.headIconPkSprites == null) {
-						UserComparator3.headIconPkSprites = TilePaint.method3062(Client.archive8, UserComparator6.spriteIds.headIconsPk, 0);
+						UserComparator3.headIconPkSprites = TilePaint.SpriteBuffer_getSpriteArray(Client.archive8, UserComparator6.spriteIds.headIconsPk, 0);
 					} else {
 						++var0;
 					}
 
 					if (SoundCache.headIconPrayerSprites == null) {
-						SoundCache.headIconPrayerSprites = TilePaint.method3062(Client.archive8, UserComparator6.spriteIds.field3830, 0);
+						SoundCache.headIconPrayerSprites = TilePaint.SpriteBuffer_getSpriteArray(Client.archive8, UserComparator6.spriteIds.field3830, 0);
 					} else {
 						++var0;
 					}
 
 					if (class173.headIconHintSprites == null) {
-						class173.headIconHintSprites = TilePaint.method3062(Client.archive8, UserComparator6.spriteIds.field3827, 0);
+						class173.headIconHintSprites = TilePaint.SpriteBuffer_getSpriteArray(Client.archive8, UserComparator6.spriteIds.field3827, 0);
 					} else {
 						++var0;
 					}
 
 					if (WorldMapData_1.mapMarkerSprites == null) {
-						WorldMapData_1.mapMarkerSprites = TilePaint.method3062(Client.archive8, UserComparator6.spriteIds.field3828, 0);
+						WorldMapData_1.mapMarkerSprites = TilePaint.SpriteBuffer_getSpriteArray(Client.archive8, UserComparator6.spriteIds.field3828, 0);
 					} else {
 						++var0;
 					}
 
 					if (Occluder.crossSprites == null) {
-						Occluder.crossSprites = TilePaint.method3062(Client.archive8, UserComparator6.spriteIds.field3829, 0);
+						Occluder.crossSprites = TilePaint.SpriteBuffer_getSpriteArray(Client.archive8, UserComparator6.spriteIds.field3829, 0);
 					} else {
 						++var0;
 					}
 
 					if (Skills.mapDotSprites == null) {
-						Skills.mapDotSprites = TilePaint.method3062(Client.archive8, UserComparator6.spriteIds.field3832, 0);
+						Skills.mapDotSprites = TilePaint.SpriteBuffer_getSpriteArray(Client.archive8, UserComparator6.spriteIds.field3832, 0);
 					} else {
 						++var0;
 					}
 
 					if (GrandExchangeOfferAgeComparator.scrollBarSprites == null) {
-						GrandExchangeOfferAgeComparator.scrollBarSprites = class289.method5281(Client.archive8, UserComparator6.spriteIds.field3831, 0);
+						GrandExchangeOfferAgeComparator.scrollBarSprites = class289.SpriteBuffer_getIndexedSpriteArray(Client.archive8, UserComparator6.spriteIds.field3831, 0);
 					} else {
 						++var0;
 					}
 
 					if (GrandExchangeOfferNameComparator.modIconSprites == null) {
-						GrandExchangeOfferNameComparator.modIconSprites = class289.method5281(Client.archive8, UserComparator6.spriteIds.field3822, 0);
+						GrandExchangeOfferNameComparator.modIconSprites = class289.SpriteBuffer_getIndexedSpriteArray(Client.archive8, UserComparator6.spriteIds.field3822, 0);
 					} else {
 						++var0;
 					}

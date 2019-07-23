@@ -63,8 +63,9 @@ public final class TilePaint {
 		signature = "(Lhp;III)[Lly;",
 		garbageValue = "1591290793"
 	)
-	public static Sprite[] method3062(AbstractArchive var0, int var1, int var2) {
-		if (!Friend.doesSpriteExist(var0, var1, var2)) {
+	@Export("SpriteBuffer_getSpriteArray")
+	public static Sprite[] SpriteBuffer_getSpriteArray(AbstractArchive var0, int var1, int var2) {
+		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
 			return null;
 		} else {
 			Sprite[] var4 = new Sprite[SpriteBuffer.SpriteBuffer_spriteCount];
@@ -86,7 +87,7 @@ public final class TilePaint {
 				}
 			}
 
-			class16.method174();
+			class16.SpriteBuffer_clear();
 			return var4;
 		}
 	}

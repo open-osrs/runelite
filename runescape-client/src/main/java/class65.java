@@ -69,9 +69,9 @@ public class class65 extends RouteStrategy {
 		signature = "(Lhp;III)Lly;",
 		garbageValue = "300652258"
 	)
-	@Export("loadSprite")
-	public static Sprite loadSprite(AbstractArchive var0, int var1, int var2) {
-		if (!Friend.doesSpriteExist(var0, var1, var2)) {
+	@Export("SpriteBuffer_getSprite")
+	public static Sprite SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
+		if (!Friend.SpriteBuffer_loadSprite(var0, var1, var2)) {
 			return null;
 		} else {
 			Sprite var4 = new Sprite();
@@ -89,7 +89,7 @@ public class class65 extends RouteStrategy {
 				var4.pixels[var7] = Frames.SpriteBuffer_spritePalette[var6[var7] & 255];
 			}
 
-			class16.method174();
+			class16.SpriteBuffer_clear();
 			return var4;
 		}
 	}
