@@ -40,7 +40,6 @@ import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
-import net.runelite.cache.util.XteaKeyManager;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;

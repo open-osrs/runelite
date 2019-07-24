@@ -37,7 +37,6 @@ import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
-import net.runelite.cache.util.XteaKeyManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +48,6 @@ public class RegionLoader
 
 	private final Store store;
 	private final Index index;
-	private final XteaKeyManager keyManager;
 
 	private final Map<Integer, Region> regions = new HashMap<>();
 	private Region lowestX = null, lowestY = null;
@@ -59,8 +57,6 @@ public class RegionLoader
 	{
 		this.store = store;
 		index = store.getIndex(IndexType.MAPS);
-		keyManager = new XteaKeyManager();
-		keyManager.loadKeys();
 	}
 
 	public void loadRegions() throws IOException
@@ -97,21 +93,6 @@ public class RegionLoader
 
 		Region region = new Region(i);
 		region.loadTerrain(mapDef);
-
-		int[] keys = keyManager.getKeys(i);
-		if (keys != null)
-		{
-			try
-			{
-				data = land.decompress(storage.loadArchive(land), keys);
-				LocationsDefinition locDef = new LocationsLoader().load(x, y, data);
-				region.loadLocations(locDef);
-			}
-			catch (IOException ex)
-			{
-				logger.debug("Can't decrypt region " + i, ex);
-			}
-		}
 
 		return region;
 	}
