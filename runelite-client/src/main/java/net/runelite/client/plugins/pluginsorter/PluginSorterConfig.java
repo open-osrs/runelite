@@ -44,8 +44,8 @@ public interface PluginSorterConfig extends Config
 	@ConfigItem(
 		position = 0,
 		keyName = "sortaz",
-		name = "Hide All Plugins Alphabetically",
-		description = "Hides all plugins Alphabetically if checked"
+		name = "Sort All Plugins Alphabetically",
+		description = "Sorts all plugins Alphabetically if checked"
 	)
 	default boolean sortaz()
 	{

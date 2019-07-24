@@ -28,7 +28,6 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
@@ -114,29 +113,11 @@ public class PluginSorterPlugin extends Plugin
 		{
 			hidePlugins();
 		}
-		else if (this.hideExternalPlugins)
+		else if (this.hideExternalPlugins || this.hidePrivateServerPlugins
+			|| this.hidePVMPlugins || this.hidePVPPlugins
+			|| this.hideSkillingPlugins || this.hideUtilityPlugins)
 		{
-			hideExternalPlugins();
-		}
-		else if (this.hidePrivateServerPlugins)
-		{
-			hidePrivateServerPlugins();
-		}
-		else if (this.hidePVMPlugins)
-		{
-			hidePVMPlugins();
-		}
-		else if (this.hidePVPPlugins)
-		{
-			hidePVPPlugins();
-		}
-		else if (this.hideSkillingPlugins)
-		{
-			hideSkillingPlugins();
-		}
-		else if (this.hideUtilityPlugins)
-		{
-			hideUtilityPlugins();
+			hideindividualPlugins();
 		}
 		else
 		{
@@ -152,13 +133,17 @@ public class PluginSorterPlugin extends Plugin
 		{
 			return;
 		}
+		if (configChanged.getKey().equals("sortaz"))
+		{
+			return;
+		}
 
 		updateConfig();
 
 		if (configChanged.getKey().equals("hidePlugins") || configChanged.getKey().equals("hidePrivateServerPlugins")
 			|| configChanged.getKey().equals("hideExternalPlugins") || configChanged.getKey().equals("hidePVMPlugins")
 			|| configChanged.getKey().equals("hidePVPPlugins") || configChanged.getKey().equals("hideSkillingPlugins")
-			|| configChanged.getKey().equals("hideUtilityPlugins") || configChanged.getKey().equals("sortaz"))
+			|| configChanged.getKey().equals("hideUtilityPlugins"))
 		{
 			validatePlugins();
 		}
@@ -226,7 +211,7 @@ public class PluginSorterPlugin extends Plugin
 		}
 	}
 
-	private void hidePrivateServerPlugins()
+	private void hideindividualPlugins()
 	{
 		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
 		while (iter.hasNext())
@@ -234,100 +219,57 @@ public class PluginSorterPlugin extends Plugin
 			PluginListItem pli = iter.next();
 			if (pli.getPlugin() != null)
 			{
-				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PRIVATE_SERVER)
+				if (hidePrivateServerPlugins)
 				{
-					iter.remove();
-					removedPlugins.add(pli);
+					if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PRIVATE_SERVER)
+					{
+						iter.remove();
+						removedPlugins.add(pli);
+					}
+				}
+				if (hideExternalPlugins)
+				{
+					if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.EXTERNAL)
+					{
+						iter.remove();
+						removedPlugins.add(pli);
+					}
+				}
+				if (hidePVMPlugins)
+				{
+					if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PVM)
+					{
+						iter.remove();
+						removedPlugins.add(pli);
+					}
+				}
+				if (hidePVPPlugins)
+				{
+					if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PVP)
+					{
+						iter.remove();
+						removedPlugins.add(pli);
+					}
+				}
+				if (hideSkillingPlugins)
+				{
+					if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.SKILLING)
+					{
+						iter.remove();
+						removedPlugins.add(pli);
+					}
+				}
+				if (hideUtilityPlugins)
+				{
+					if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.UTILITY)
+					{
+						iter.remove();
+						removedPlugins.add(pli);
+					}
 				}
 			}
 		}
 	}
-
-	private void hideExternalPlugins()
-	{
-		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
-		while (iter.hasNext())
-		{
-			PluginListItem pli = iter.next();
-			if (pli.getPlugin() != null)
-			{
-				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.EXTERNAL)
-				{
-					iter.remove();
-					removedPlugins.add(pli);
-				}
-			}
-		}
-	}
-
-	private void hidePVMPlugins()
-	{
-		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
-		while (iter.hasNext())
-		{
-			PluginListItem pli = iter.next();
-			if (pli.getPlugin() != null)
-			{
-				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PVM)
-				{
-					iter.remove();
-					removedPlugins.add(pli);
-				}
-			}
-		}
-	}
-
-	private void hidePVPPlugins()
-	{
-		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
-		while (iter.hasNext())
-		{
-			PluginListItem pli = iter.next();
-			if (pli.getPlugin() != null)
-			{
-				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PVP)
-				{
-					iter.remove();
-					removedPlugins.add(pli);
-				}
-			}
-		}
-	}
-
-	private void hideSkillingPlugins()
-	{
-		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
-		while (iter.hasNext())
-		{
-			PluginListItem pli = iter.next();
-			if (pli.getPlugin() != null)
-			{
-				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.SKILLING)
-				{
-					iter.remove();
-					removedPlugins.add(pli);
-				}
-			}
-		}
-	}
-
-	private void hideUtilityPlugins()
-	{
-		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
-		while (iter.hasNext())
-		{
-			PluginListItem pli = iter.next();
-			if (pli.getPlugin() != null)
-			{
-				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.UTILITY)
-				{
-					iter.remove();
-					removedPlugins.add(pli);
-				}
-			}
-		}
-	}
-
 	private void showPlugins()
 	{
 		List<PluginListItem> tempList = new ArrayList<>(ConfigPanel.pluginList);
