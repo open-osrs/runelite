@@ -27,6 +27,8 @@ package net.runelite.client.plugins.pluginsorter;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
@@ -60,7 +62,15 @@ public class PluginSorterPlugin extends Plugin
 	private EventBus eventBus;
 
 	private boolean hidePlugins;
+	private boolean hideExternalPlugins;
+	private boolean hidePrivateServerPlugins;
+	private	boolean hidePVMPlugins;
+	private boolean hidePVPPlugins;
+	private boolean hideSkillingPlugins;
+	private boolean hideUtilityPlugins;
+	private boolean sortaz;
 	private Color externalColor;
+	private Color privateserverColor;
 	private Color pvmColor;
 	private Color pvpColor;
 	private Color skillingColor;
@@ -104,6 +114,30 @@ public class PluginSorterPlugin extends Plugin
 		{
 			hidePlugins();
 		}
+		else if (this.hideExternalPlugins)
+		{
+			hideExternalPlugins();
+		}
+		else if (this.hidePrivateServerPlugins)
+		{
+			hidePrivateServerPlugins();
+		}
+		else if (this.hidePVMPlugins)
+		{
+			hidePVMPlugins();
+		}
+		else if (this.hidePVPPlugins)
+		{
+			hidePVPPlugins();
+		}
+		else if (this.hideSkillingPlugins)
+		{
+			hideSkillingPlugins();
+		}
+		else if (this.hideUtilityPlugins)
+		{
+			hideUtilityPlugins();
+		}
 		else
 		{
 			showPlugins();
@@ -121,10 +155,14 @@ public class PluginSorterPlugin extends Plugin
 
 		updateConfig();
 
-		if (configChanged.getKey().equals("hidePlugins"))
+		if (configChanged.getKey().equals("hidePlugins") || configChanged.getKey().equals("hidePrivateServerPlugins")
+			|| configChanged.getKey().equals("hideExternalPlugins") || configChanged.getKey().equals("hidePVMPlugins")
+			|| configChanged.getKey().equals("hidePVPPlugins") || configChanged.getKey().equals("hideSkillingPlugins")
+			|| configChanged.getKey().equals("hideUtilityPlugins") || configChanged.getKey().equals("sortaz"))
 		{
 			validatePlugins();
 		}
+
 	}
 
 	private void updateColors()
@@ -137,6 +175,9 @@ public class PluginSorterPlugin extends Plugin
 				{
 					case EXTERNAL:
 						pli.nameLabel.setForeground(this.externalColor);
+						break;
+					case PRIVATE_SERVER:
+						pli.nameLabel.setForeground(this.privateserverColor);
 						break;
 					case PVM:
 						pli.nameLabel.setForeground(this.pvmColor);
@@ -172,6 +213,7 @@ public class PluginSorterPlugin extends Plugin
 					case PVP:
 					case SKILLING:
 					case UTILITY:
+					case PRIVATE_SERVER:
 					case EXTERNAL:
 						iter.remove();
 						removedPlugins.add(pli);
@@ -184,27 +226,142 @@ public class PluginSorterPlugin extends Plugin
 		}
 	}
 
+	private void hidePrivateServerPlugins()
+	{
+		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
+		while (iter.hasNext())
+		{
+			PluginListItem pli = iter.next();
+			if (pli.getPlugin() != null)
+			{
+				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PRIVATE_SERVER)
+				{
+					iter.remove();
+					removedPlugins.add(pli);
+				}
+			}
+		}
+	}
+
+	private void hideExternalPlugins()
+	{
+		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
+		while (iter.hasNext())
+		{
+			PluginListItem pli = iter.next();
+			if (pli.getPlugin() != null)
+			{
+				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.EXTERNAL)
+				{
+					iter.remove();
+					removedPlugins.add(pli);
+				}
+			}
+		}
+	}
+
+	private void hidePVMPlugins()
+	{
+		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
+		while (iter.hasNext())
+		{
+			PluginListItem pli = iter.next();
+			if (pli.getPlugin() != null)
+			{
+				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PVM)
+				{
+					iter.remove();
+					removedPlugins.add(pli);
+				}
+			}
+		}
+	}
+
+	private void hidePVPPlugins()
+	{
+		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
+		while (iter.hasNext())
+		{
+			PluginListItem pli = iter.next();
+			if (pli.getPlugin() != null)
+			{
+				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.PVP)
+				{
+					iter.remove();
+					removedPlugins.add(pli);
+				}
+			}
+		}
+	}
+
+	private void hideSkillingPlugins()
+	{
+		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
+		while (iter.hasNext())
+		{
+			PluginListItem pli = iter.next();
+			if (pli.getPlugin() != null)
+			{
+				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.SKILLING)
+				{
+					iter.remove();
+					removedPlugins.add(pli);
+				}
+			}
+		}
+	}
+
+	private void hideUtilityPlugins()
+	{
+		Iterator<PluginListItem> iter = ConfigPanel.pluginList.iterator();
+		while (iter.hasNext())
+		{
+			PluginListItem pli = iter.next();
+			if (pli.getPlugin() != null)
+			{
+				if (pli.getPlugin().getClass().getAnnotation(PluginDescriptor.class).type() == PluginType.UTILITY)
+				{
+					iter.remove();
+					removedPlugins.add(pli);
+				}
+			}
+		}
+	}
+
 	private void showPlugins()
 	{
 		List<PluginListItem> tempList = new ArrayList<>(ConfigPanel.pluginList);
 		if (tempList.size() > 0)
 		{
-			tempList.addAll(1, removedPlugins);
+			tempList.addAll(2, removedPlugins);
 		}
 		else
 		{
 			tempList.addAll(removedPlugins);
 		}
 		ConfigPanel.pluginList = tempList;
+		if (this.sortaz)
+		{
+			Collections.sort(tempList,
+				(a, d) -> (a.getName().compareTo(d.getName())));
+		}
 	}
 
 	private void updateConfig()
 	{
 		this.hidePlugins = config.hidePlugins();
+		this.hidePrivateServerPlugins = config.hidePrivateServerPlugins();
+		this.sortaz = config.sortaz();
+		this.hideExternalPlugins = config.hideExternalPlugins();
+		this.hidePVMPlugins = config.hidePVMPlugins();
+		this.hidePVPPlugins = config.hidePVPPlugins();
+		this.hideSkillingPlugins = config.hideSkillingPlugins();
+		this.hideUtilityPlugins = config.hideUtilityPlugins();
 		this.externalColor = config.externalColor();
 		this.pvmColor = config.pvmColor();
 		this.pvpColor = config.pvpColor();
 		this.skillingColor = config.skillingColor();
 		this.utilityColor = config.utilityColor();
+		this.privateserverColor = config.privateserverColor();
 	}
 }

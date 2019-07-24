@@ -294,6 +294,24 @@ public class ConfigPanel extends PluginPanel
 		externalPlugins.sort(Comparator.comparing(PluginListItem::getName));
 		pluginList.addAll(externalPlugins);
 
+		List<PluginListItem> privateserverPlugins = new ArrayList<>();
+		// populate pluginList with all privateserver Plugins
+		pluginManager.getPlugins().stream()
+			.filter(plugin -> plugin.getClass().getAnnotation(PluginDescriptor.class).type().equals(PluginType.PRIVATE_SERVER))
+			.forEach(plugin ->
+			{
+				final PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
+				final Config config = pluginManager.getPluginConfigProxy(plugin);
+				final ConfigDescriptor configDescriptor = config == null ? null : configManager.getConfigDescriptor(config);
+
+				final PluginListItem listItem = new PluginListItem(this, configManager, plugin, descriptor, config, configDescriptor);
+				listItem.setPinned(pinnedPlugins.contains(listItem.getName()));
+				privateserverPlugins.add(listItem);
+			});
+
+		privateserverPlugins.sort(Comparator.comparing(PluginListItem::getName));
+		pluginList.addAll(privateserverPlugins);
+
 		List<PluginListItem> pvmPlugins = new ArrayList<>();
 
 		// populate pluginList with all non-hidden plugins
@@ -378,12 +396,12 @@ public class ConfigPanel extends PluginPanel
 			.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).type().equals(PluginType.UTILITY))
 			.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).type().equals(PluginType.PLUGIN_ORGANIZER))
 			.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).type().equals(PluginType.EXTERNAL))
+			.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).type().equals(PluginType.PRIVATE_SERVER))
 			.forEach(plugin ->
 				{
 					final PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
 					final Config config = pluginManager.getPluginConfigProxy(plugin);
 					final ConfigDescriptor configDescriptor = config == null ? null : configManager.getConfigDescriptor(config);
-
 					final PluginListItem listItem = new PluginListItem(this, configManager, plugin, descriptor, config, configDescriptor);
 					listItem.setPinned(pinnedPlugins.contains(listItem.getName()));
 					vanillaPlugins.add(listItem);

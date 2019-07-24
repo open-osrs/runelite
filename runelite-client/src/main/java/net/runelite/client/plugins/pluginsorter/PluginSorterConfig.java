@@ -33,12 +33,31 @@ import net.runelite.client.config.ConfigItem;
 public interface PluginSorterConfig extends Config
 {
 	boolean pluginsHidden = false;
+	boolean pluginsPrivateServerHidden = false;
+	boolean pluginsExternalHidden = false;
+	boolean pluginsPVMHidden = false;
+	boolean pluginsPVPHidden = false;
+	boolean pluginsSkillingHidden = false;
+	boolean pluginsUtilityHidden = false;
+	boolean pluginssortaz = false;
+
+	@ConfigItem(
+		position = 0,
+		keyName = "sortaz",
+		name = "Hide All Plugins Alphabetically",
+		description = "Hides all plugins Alphabetically if checked"
+	)
+	default boolean sortaz()
+	{
+		return pluginssortaz;
+	}
 
 	@ConfigItem(
 		position = 0,
 		keyName = "hidePlugins",
-		name = "Hide Plugins",
-		description = "Hides all 3rd party plugins if checked"
+		name = "Hide All Plugins",
+		description = "Hides all 3rd party plugins if checked",
+		group = "Hide Plugins"
 	)
 	default boolean hidePlugins()
 	{
@@ -47,9 +66,89 @@ public interface PluginSorterConfig extends Config
 
 	@ConfigItem(
 		position = 1,
+		keyName = "hideExternalPlugins",
+		name = "Hide External Plugins",
+		description = "Hides all External plugins if checked",
+		group = "Hide Plugins",
+		disabledBy =  "hidePlugins"
+	)
+	default boolean hideExternalPlugins()
+	{
+		return pluginsExternalHidden;
+	}
+
+	@ConfigItem(
+		position = 1,
+		keyName = "hidePrivateServerPlugins",
+		name = "Hide Private Server Plugins",
+		description = "Hides all Private Server plugins if checked",
+		group = "Hide Plugins",
+		disabledBy =  "hidePlugins"
+	)
+	default boolean hidePrivateServerPlugins()
+	{
+		return pluginsPrivateServerHidden;
+	}
+
+	@ConfigItem(
+		position = 2,
+		keyName = "hidePVMPlugins",
+		name = "Hide PVM Plugins",
+		description = "Hides all PVM plugins if checked",
+		group = "Hide Plugins",
+		disabledBy =  "hidePlugins"
+	)
+	default boolean hidePVMPlugins()
+	{
+		return pluginsPVMHidden;
+	}
+
+	@ConfigItem(
+		position = 3,
+		keyName = "hidePVPPlugins",
+		name = "Hide PVP Plugins",
+		description = "Hides all PVP plugins if checked",
+		group = "Hide Plugins",
+		disabledBy =  "hidePlugins"
+	)
+	default boolean hidePVPPlugins()
+	{
+		return pluginsPVPHidden;
+	}
+
+	@ConfigItem(
+		position = 4,
+		keyName = "hideSkillingPlugins",
+		name = "Hide Skilling Plugins",
+		description = "Hides all Skilling plugins if checked",
+		group = "Hide Plugins",
+		disabledBy =  "hidePlugins"
+	)
+	default boolean hideSkillingPlugins()
+	{
+		return pluginsSkillingHidden;
+	}
+
+	@ConfigItem(
+		position = 5,
+		keyName = "hideUtilityPlugins",
+		name = "Hide Utility Plugins",
+		description = "Hides all Utility plugins if checked",
+		group = "Hide Plugins",
+		disabledBy =  "hidePlugins"
+	)
+	default boolean hideUtilityPlugins()
+	{
+		return pluginsUtilityHidden;
+	}
+
+
+	@ConfigItem(
+		position = 0,
 		keyName = "externalColor",
 		name = "External color",
-		description = "Configure the color of external plugins"
+		description = "Configure the color of external plugins",
+		group = "Plugins Colors"
 	)
 	default Color externalColor()
 	{
@@ -57,10 +156,23 @@ public interface PluginSorterConfig extends Config
 	}
 
 	@ConfigItem(
+		position = 1,
+		keyName = "privateserverColor",
+		name = "Private Server color",
+		description = "Configure the color of Private Server plugins",
+		group = "Plugins Colors"
+	)
+	default Color privateserverColor()
+	{
+		return Color.BLUE;
+	}
+
+	@ConfigItem(
 		position = 2,
 		keyName = "pvmColor",
 		name = "PVM color",
-		description = "Configure the color of PVM related plugins"
+		description = "Configure the color of PVM related plugins",
+		group = "Plugins Colors"
 	)
 	default Color pvmColor()
 	{
@@ -71,7 +183,8 @@ public interface PluginSorterConfig extends Config
 		position = 3,
 		keyName = "pvpColor",
 		name = "PVP color",
-		description = "Configure the color of PVP related plugins"
+		description = "Configure the color of PVP related plugins",
+		group = "Plugins Colors"
 	)
 	default Color pvpColor()
 	{
@@ -82,7 +195,8 @@ public interface PluginSorterConfig extends Config
 		position = 4,
 		keyName = "skillingColor",
 		name = "Skilling color",
-		description = "Configure the color of Skilling related plugins"
+		description = "Configure the color of Skilling related plugins",
+		group = "Plugins Colors"
 	)
 	default Color skillingColor()
 	{
@@ -93,11 +207,13 @@ public interface PluginSorterConfig extends Config
 		position = 5,
 		keyName = "utilityColor",
 		name = "Utility color",
-		description = "Configure the color of Utility related plugins"
+		description = "Configure the color of Utility related plugins",
+		group = "Plugins Colors"
 	)
 	default Color utilityColor()
 	{
 		return Color.CYAN;
 	}
+
 
 }
