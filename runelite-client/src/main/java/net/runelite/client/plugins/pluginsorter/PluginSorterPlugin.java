@@ -133,13 +133,13 @@ public class PluginSorterPlugin extends Plugin
 		{
 			return;
 		}
+
+		updateConfig();
+
 		if (configChanged.getKey().equals("sortaz"))
 		{
 			return;
 		}
-
-		updateConfig();
-
 		if (configChanged.getKey().equals("hidePlugins") || configChanged.getKey().equals("hidePrivateServerPlugins")
 			|| configChanged.getKey().equals("hideExternalPlugins") || configChanged.getKey().equals("hidePVMPlugins")
 			|| configChanged.getKey().equals("hidePVPPlugins") || configChanged.getKey().equals("hideSkillingPlugins")
@@ -286,6 +286,10 @@ public class PluginSorterPlugin extends Plugin
 		{
 			Collections.sort(tempList,
 				(a, d) -> (a.getName().compareTo(d.getName())));
+		}
+		else
+		{
+			return;
 		}
 	}
 
