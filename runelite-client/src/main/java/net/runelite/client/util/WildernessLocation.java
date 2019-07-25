@@ -152,7 +152,7 @@ public enum WildernessLocation
 	VOLCANO("Volcano", new Location(3345, 3957, 3390, 3916), 0),
 	NEW_GATE("New Gate", new Location(3345, 3957, 3390, 3916), 0),
 	GLORY_HOLE("Glory Hole", new Location(3352, 3897, 3386, 3869), 0),
-	GLORY_HILL("Glory Hill", new Location(3331, 3890, 3348, 3866), 0),,
+	GLORY_HILL("Glory Hill", new Location(3331, 3890, 3348, 3866), 0),
 	GDZ("Gdz", new Location(3279, 3895, 3296, 3875), 0),
 	GAP("Gap", new Location(3238, 3855, 3258, 3841), 0),
 	OLD_GATE("Old Gate", new Location(3211, 3906, 3238, 3882), 0),
