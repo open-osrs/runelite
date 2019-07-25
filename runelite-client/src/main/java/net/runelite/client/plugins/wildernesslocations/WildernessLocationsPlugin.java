@@ -1,11 +1,11 @@
-/*
- * Copyright (c) 2019. PKLite  - All Rights Reserved
- * Unauthorized modification, distribution, or possession of this source file, via any medium is strictly prohibited.
- * Proprietary and confidential. Refer to PKLite License file for more information on
- * full terms of this copyright and to determine what constitutes authorized use.
- * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
- *
- */
+/*******************************************************************************
+ * Copyright (c) 2019 RuneLitePlus
+ * Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ * If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
+ * ST0NEWALL#9112
+ * RuneLitePlus Discord: https://discord.gg/Q7wFtCe
+ * RuneLitePlus website: https://runelitepl.us
+ ******************************************************************************/
 
 package net.runelite.client.plugins.wildernesslocations;
 
@@ -24,6 +24,7 @@ import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.Varbits;
+import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
@@ -97,6 +98,7 @@ public class WildernessLocationsPlugin extends Plugin
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean drawOverlay;
+	private boolean pvpWorld;
 	private Keybind keybind;
 
 	@Provides
@@ -111,6 +113,7 @@ public class WildernessLocationsPlugin extends Plugin
 		addSubscriptions();
 
 		this.drawOverlay = wildyConfig.drawOverlay();
+		this.pvpWorld = wildyConfig.pvpWorld();
 		this.keybind = wildyConfig.keybind();
 
 		overlayManager.add(overlay);
@@ -132,6 +135,7 @@ public class WildernessLocationsPlugin extends Plugin
 		}
 
 		this.drawOverlay = wildyConfig.drawOverlay();
+		this.pvpWorld = wildyConfig.pvpWorld();
 		this.keybind = wildyConfig.keybind();
 	}
 
@@ -150,7 +154,8 @@ public class WildernessLocationsPlugin extends Plugin
 		{
 			currentCooldown--;
 		}
-		renderLocation = client.getVar(Varbits.IN_WILDERNESS) == 1;
+		renderLocation = (client.getVar(Varbits.IN_WILDERNESS) == 1
+			|| (this.pvpWorld && WorldType.isAllPvpWorld(client.getWorldType())));
 		if (renderLocation)
 		{
 			if (client.getLocalPlayer().getWorldLocation() != worldPoint)

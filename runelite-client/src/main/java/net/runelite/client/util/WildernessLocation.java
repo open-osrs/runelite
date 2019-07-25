@@ -1,11 +1,43 @@
+/*******************************************************************************
+ * Copyright (c) 2019 RuneLitePlus
+ * Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ * If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
+ * ST0NEWALL#9112
+ * RuneLitePlus Discord: https://discord.gg/Q7wFtCe
+ * RuneLitePlus website: https://runelitepl.us
+ ******************************************************************************/
+
 package net.runelite.client.util;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import net.runelite.api.coords.WorldArea;
 
 public enum WildernessLocation
 {
 
+
+	// Non-Wilderness Locations
+	MONASTERY("Monastery", new Location(3044, 3507, 3060, 3471), 0),
+	EDGE_BANK("Edge Bank", new Location(3090, 3499, 3099, 3487), 0),
+	BARB_VILLAGE("Barb Village", new Location(3071, 3448, 3092, 3405), 0),
+	ICE_MOUNTAIN("Ice Mountain", new Location(3001, 3508, 3024, 3463), 0),
+	FALLY_RESPAWN("Fally Respawn", new Location(2957, 3355, 2998, 3325), 0),
+	FALLY_BANK("Fally Bank", new Location(2943, 3372, 2949, 3358), 0),
+	FALLY_CENTER("Fally Center", new Location(2959, 3385, 2972, 3374), 0),
+	FALLY_PARK("Fally Park", new Location(2982, 3390, 3025, 3368), 0),
+	FALLY_EAST_BANK("Fally East Bank", new Location(3008, 3358,  3021, 3353), 0),
+	RIMMINGTON_PORTAL("Rimmington Portal", new Location(2946, 3228, 2960, 3218), 0),
+	PORT_SARIM("Port Sarim", new Location(3009, 3261, 3060, 3194), 0),
+	DRYANOR_VILLAGE("Dryanor Village", new Location(3074, 3283, 3112, 3241), 0),
+	WIZARDS_TOWER("Wizards Tower", new Location(3093, 3171, 3121, 3146), 0),
+	LUMBY_SWAMP("Lumby Swamp", new Location(3135, 3203, 3245, 3140), 0),
+	LUMBRIDGE_CASTLE("Lumbridge Castle", new Location(3201, 3235, 3225, 3201), 0),
+
+
+	//Wilderness Locations
 	REV_CAVE_OTHER("Rev Cave", new Location(3128, 10232, 3225, 10059), 0),
 	REV_BLACK_DRAGS("Rev Black Drags", new Location(3223, 10216, 3254, 10190), 0),
 	REV_DARK_BEAST("Rev Dark Beast", new Location(3243, 10154, 3264, 10136), 0),
@@ -71,6 +103,12 @@ public enum WildernessLocation
 	@Getter
 	private final WorldArea worldArea;
 
+	/**
+	 * Creates a location used to get the name of a location by a WorldPoint
+	 * @param name - The name that is used to represent the area in overlays etc
+	 * @param location - A Location made out of 4 points on the world map
+	 * @param plane - The plane of the World Area
+	 */
 	WildernessLocation(String name, Location location, int plane)
 	{
 		this.name = name;
@@ -91,5 +129,11 @@ public enum WildernessLocation
 			this.width = x1 - x;
 			this.height = y - y1;
 		}
+	}
+
+	public static Collection<WildernessLocation> getNonWildernessLocations()
+	{
+		return Arrays.stream(WildernessLocation.values()).filter(loc ->
+			PvPUtil.getWildernessLevelFrom(loc.worldArea.toWorldPoint()) > 0).collect(Collectors.toList());
 	}
 }

@@ -1,11 +1,11 @@
-/*
- * Copyright (c) 2019. PKLite  - All Rights Reserved
- * Unauthorized modification, distribution, or possession of this source file, via any medium is strictly prohibited.
- * Proprietary and confidential. Refer to PKLite License file for more information on
- * full terms of this copyright and to determine what constitutes authorized use.
- * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
- *
- */
+/*******************************************************************************
+ * Copyright (c) 2019 RuneLitePlus
+ * Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ * If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
+ * ST0NEWALL#9112
+ * RuneLitePlus Discord: https://discord.gg/Q7wFtCe
+ * RuneLitePlus website: https://runelitepl.us
+ ******************************************************************************/
 
 package net.runelite.client.plugins.wildernesslocations;
 
@@ -25,6 +25,17 @@ public interface WildernessLocationsConfig extends Config
 		position = 1
 	)
 	default boolean drawOverlay()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "pvpWorld",
+		name = "PvP World",
+		description = "When enabled, shows location when anywhere in a PvP World",
+		position = 2
+	)
+	default boolean pvpWorld()
 	{
 		return true;
 	}
