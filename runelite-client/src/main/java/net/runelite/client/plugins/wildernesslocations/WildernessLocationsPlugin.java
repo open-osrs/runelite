@@ -41,7 +41,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
-import net.runelite.client.util.WildernessLocation;
+import net.runelite.client.game.WorldLocation;
 
 @Slf4j
 @PluginDescriptor(
@@ -222,8 +222,8 @@ public class WildernessLocationsPlugin extends Plugin
 	private static Map<WorldArea, String> getLocationMap()
 	{
 		Map<WorldArea, String> hashMap = new HashMap<>();
-		Arrays.stream(WildernessLocation.values()).forEach(wildernessLocation ->
-			hashMap.put(wildernessLocation.getWorldArea(), wildernessLocation.getName()));
+		Arrays.stream(WorldLocation.values()).forEach(worldLocation ->
+			hashMap.put(worldLocation.getWorldArea(), worldLocation.getName()));
 		return hashMap;
 	}
 

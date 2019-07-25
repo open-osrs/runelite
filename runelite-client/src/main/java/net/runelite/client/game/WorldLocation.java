@@ -7,15 +7,16 @@
  * RuneLitePlus website: https://runelitepl.us
  ******************************************************************************/
 
-package net.runelite.client.util;
+package net.runelite.client.game;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import net.runelite.api.coords.WorldArea;
+import net.runelite.client.util.PvPUtil;
 
-public enum WildernessLocation
+public enum WorldLocation
 {
 
 
@@ -39,7 +40,6 @@ public enum WildernessLocation
 	DUEL_ARENA_ENTRANCE("Duel Arena Entrance", new Location(3311, 3247, 3328, 3223), 0),
 	DUEL_ARENA_NORTH("Duel Arena North", new Location(3329, 3266, 3388, 3264), 0),
 	DUEL_ARENA_NW("Duel Arena North West", new Location(3328, 3266, 3322, 3248), 0),
-	RIMMINGTON("Rimmington", new Location(2943, 3226, 2973, 3200), 0),
 	SHANTAY_PASS("Shantay Pass", new Location(3293, 3137, 3312, 3116), 0),
 	GRAND_EXCHANGE_NORTHWEST("Grand Exchange NorthWest",
 		new Location(3164, 3490, 3139, 3516), 0),
@@ -204,15 +204,15 @@ public enum WildernessLocation
 	 * @param location - A Location made out of 4 points on the world map
 	 * @param plane    - The plane of the World Area
 	 */
-	WildernessLocation(String name, Location location, int plane)
+	WorldLocation(String name, Location location, int plane)
 	{
 		this.name = name;
 		this.worldArea = new WorldArea(location.x, location.y, location.width, location.height, plane);
 	}
 
-	public static Collection<WildernessLocation> getNonWildernessLocations()
+	public static Collection<WorldLocation> getNonWildernessLocations()
 	{
-		return Arrays.stream(WildernessLocation.values()).filter(loc ->
+		return Arrays.stream(WorldLocation.values()).filter(loc ->
 			PvPUtil.getWildernessLevelFrom(loc.worldArea.toWorldPoint()) > 0).collect(Collectors.toList());
 	}
 

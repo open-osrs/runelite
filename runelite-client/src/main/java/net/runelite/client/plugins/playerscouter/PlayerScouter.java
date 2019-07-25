@@ -59,7 +59,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.PvPUtil;
-import net.runelite.client.util.WildernessLocation;
+import net.runelite.client.game.WorldLocation;
 import net.runelite.http.api.discord.DiscordClient;
 import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreSkill;
@@ -110,8 +110,8 @@ public class PlayerScouter extends Plugin
 	private static Map<WorldArea, String> getLocationMap()
 	{
 		Map<WorldArea, String> hashMap = new HashMap<>();
-		Arrays.stream(WildernessLocation.values()).forEach(wildernessLocation ->
-			hashMap.put(wildernessLocation.getWorldArea(), wildernessLocation.getName()));
+		Arrays.stream(WorldLocation.values()).forEach(worldLocation ->
+			hashMap.put(worldLocation.getWorldArea(), worldLocation.getName()));
 		return hashMap;
 	}
 
