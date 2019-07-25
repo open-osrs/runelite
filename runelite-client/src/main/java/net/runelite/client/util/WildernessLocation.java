@@ -28,14 +28,86 @@ public enum WildernessLocation
 	FALLY_BANK("Fally Bank", new Location(2943, 3372, 2949, 3358), 0),
 	FALLY_CENTER("Fally Center", new Location(2959, 3385, 2972, 3374), 0),
 	FALLY_PARK("Fally Park", new Location(2982, 3390, 3025, 3368), 0),
-	FALLY_EAST_BANK("Fally East Bank", new Location(3008, 3358,  3021, 3353), 0),
+	FALLY_EAST_BANK("Fally East Bank", new Location(3008, 3358, 3021, 3353), 0),
 	RIMMINGTON_PORTAL("Rimmington Portal", new Location(2946, 3228, 2960, 3218), 0),
 	PORT_SARIM("Port Sarim", new Location(3009, 3261, 3060, 3194), 0),
 	DRYANOR_VILLAGE("Dryanor Village", new Location(3074, 3283, 3112, 3241), 0),
 	WIZARDS_TOWER("Wizards Tower", new Location(3093, 3171, 3121, 3146), 0),
 	LUMBY_SWAMP("Lumby Swamp", new Location(3135, 3203, 3245, 3140), 0),
 	LUMBRIDGE_CASTLE("Lumbridge Castle", new Location(3201, 3235, 3225, 3201), 0),
-
+	BARROWS("Barrows", new Location(3583, 3268, 3546, 3314), 0),
+	DUEL_ARENA_ENTRANCE("Duel Arena Entrance", new Location(3311, 3247, 3328, 3223), 0),
+	DUEL_ARENA_NORTH("Duel Arena North", new Location(3329, 3266, 3388, 3264), 0),
+	DUEL_ARENA_NW("Duel Arena North West", new Location(3328, 3266, 3322, 3248), 0),
+	RIMMINGTON("Rimmington", new Location(2943, 3226, 2973, 3200), 0),
+	SHANTAY_PASS("Shantay Pass", new Location(3293, 3137, 3312, 3116), 0),
+	GRAND_EXCHANGE_NORTHWEST("Grand Exchange NorthWest",
+		new Location(3164, 3490, 3139, 3516), 0),
+	GRAND_EXCHANGE_NORTHEAST("Grand Exchange NorthEast",
+		new Location(3165, 3490, 3197, 3516), 0),
+	GRAND_EXCHANGE_SOUTHEAST("Grand Exchange SouthEast",
+		new Location(3165, 3489, 3189, 3468), 0),
+	GRAND_EXCHANGE_SOUTHWEST("Grand Exchange SouthWest",
+		new Location(3164, 3489, 3139, 3467), 0),
+	COOKS_GUILD("Cooks Guild", new Location(3135, 3455, 3155, 3427), 0),
+	VARROCK_WEST("Varrock West", new Location(3172, 3447, 3200, 3427), 0),
+	VARROCK_CENTRE("Varrock Centre", new Location(3201, 3444, 3229, 3412), 0),
+	VARROCK_EAST("Varrock East", new Location(3241, 3438, 3228, 3450), 0),
+	DIGSITE_NORTHEAST("Digsite NorthWest", new Location(3325, 3445, 3353, 3420), 0),
+	DIGSITE_NORTHWEST("Digsite NorthEast", new Location(3354, 3420, 3382, 3445), 0),
+	DIGSITE_SOUTHWEST("Digsite SouthWest", new Location(3353, 3419, 3325, 3393), 0),
+	DIGSITE_SOUTHEAST("Digsite SouthEast", new Location(3354, 3419, 3382, 3393), 0),
+	CASTLE_WARS("Castle Wars", new Location(2435, 3074, 2474, 3127), 0),
+	CAMELOT_CASTLE("Camelot Castle", new Location(2775, 3481, 2743, 3468), 0),
+	SEERS_VILLAGE("Seers Village", new Location(2742, 3468, 2688, 3498), 0),
+	FALADOR_PARTYROOM("Falador Partyroom", new Location(3035, 3386, 3056, 3370), 0),
+	APE_ATOLL_TEMPLE("Ape Atoll Temple", new Location(2784, 2802, 2810, 2770), 0),
+	NORTH_APE_ATOLL_MARIM("North Marim", new Location(2783, 2786, 2731, 2804), 0),
+	SOUTH_APE_ATOLL_MARIM("South Marim", new Location(2783, 2785, 2731, 2762), 0),
+	PEST_CONTROL("Pest Control", new Location(2682, 2627, 2630, 2679), 0),
+	WINTERTODT_CAMP("Wintertodt Camp", new Location(1645, 3932, 1616, 3963), 0),
+	WINTERTODT_ENTRANCE("Wintertodt Entrance", new Location(1641, 3964, 1617, 3986), 0),
+	WINTERTODT_NORTHWEST("Wintertodt NorthWest", new Location(1629, 4008, 1608, 4028), 0),
+	WINTERTODT_NORTHEAST("Wintertodt NorthEast", new Location(1630, 4008, 1651, 4027), 0),
+	WINTERTODT_SOUTHWEST("Wintertodt SouthWest", new Location(1629, 4007, 1608, 3987), 0),
+	COX("CoX", new Location(1226, 3574, 1270, 3559), 0),
+	SANDCRABS_NORTH("SandCrabs North", new Location(1848, 3572, 1884, 3532), 0),
+	SANDCRABS_CENTRAL("SandCrabs Central", new Location(1850, 3529, 1884, 3465), 0),
+	SANDCRABS_SOUTH("SandCrabs South", new Location(1849, 3468, 1796, 3436), 0),
+	ANDRA("Zul-Andra", new Location(2214, 3070, 2182, 3042), 0),
+	LUNAR_ISLE_NORTH("Lunar Isle North", new Location(2112, 3934, 2063, 3958), 0),
+	LUNAR_ISLE_EAST("Lunar Isle East", new Location(2185, 3921, 2113, 3888), 0),
+	LUNAR_ISLE_SOUTHEAST("Lunar Isle SouthEast", new Location(2113, 3887, 2185, 3843), 0),
+	LUNAR_ISLE_SOUTH("Lunar Isle South", new Location(2112, 3887, 2057, 3843), 0),
+	LUNAR_ISLE_CENTRAL("Lunar Isle Central", new Location(2112, 3888, 2055, 3933), 0),
+	WATERBIRTH_ISLAND("Waterbirth Island", new Location(2562, 3774, 2494, 3710), 0),
+	RELLEKKA_NORTHEAST("Rellekka North East", new Location(2690, 3712, 2650, 3679), 0),
+	RELLEKKA_SOUTHEAST("Rellekka South East", new Location(2650, 3678, 2690, 3644), 0),
+	RELLEKKA_NORTHWEST("Rellekka North West", new Location(2649, 3679, 2609, 3712), 0),
+	RELLEKA_SOUTHWEST("Relleka South West", new Location(2649, 3678, 2609, 3644), 0),
+	CATHERBY_EAST("Catherby East", new Location(2862, 3441, 2834, 3425), 0),
+	CATHERBY("Catherby", new Location(2833, 3436, 2791, 3457), 0),
+	CATHERBY_DOCKS("Catherby Docks", new Location(2808, 3432, 2790, 3409), 0),
+	CATHERBY_NORTH("Catherby North", new Location(2791, 3458, 2833, 3472), 0),
+	CLAN_WARS("Clan Wars", new Location(3391, 3142, 3344, 3176), 0),
+	DESERT_BANDIT_CAMP("Desert Bandit Camp", new Location(3189, 2993, 3154, 2963), 0),
+	NARDAH_SOUTH("Nardah South", new Location(3453, 2882, 3397, 2914), 0),
+	NARDAH_NORTH("Nardah North", new Location(3397, 2915, 3453, 2942), 0),
+	AGILITY_PYRAMID("Agility Pyramid", new Location(3386, 2864, 3334, 2819), 0),
+	POLLNIVNEACH_NORTH("Pollnivneach North", new Location(3379, 2974, 3331, 3004), 0),
+	POLLNIVNEACH_SOUTH("Pollnivneach South", new Location(3379, 2973, 3331, 2941), 0),
+	BEDABIN_CAMP("Bedabin Camp", new Location(3188, 3052, 3157, 3019), 0),
+	YANILLE_EAST("Yanille East", new Location(2576, 3110, 2621, 3071), 0),
+	YANILLE_WEST("Yanille West", new Location(2575, 3110, 2532, 3071), 0),
+	KING_LANTHAS_TRAINING_GROUND("Training Ground", new Location(2534, 3387, 2501, 3358), 0),
+	SOUTH_OF_GRAND_EXCHANGE("South of Grand Exchange", new Location(3156, 3466, 3190, 3448), 0),
+	WINDERTODT_SOUTH_EAST("Windertodt South East", new Location(1630, 4007, 1651, 3987), 0),
+	CRAB_CLAW_ISLE("Crab Claw Isle", new Location(1795, 3449, 1745, 3399), 0),
+	LUNAR_ISLE_NORTH_EAST("Lunar Isle North East", new Location(2113, 3922, 2185, 3958), 0),
+	ROCK_CRABS_WEST("Rock Crabs West", new Location(2690, 3738, 2650, 3713), 0),
+	ROCK_CRABS_EAST("Rock Crabs East", new Location(2691, 3713, 2730, 3738), 0),
+	SHILO_VILLAGE_NORTH("Shilo Village North", new Location(2878, 3006, 2817, 2973), 0),
+	SHILO_VILLAGE_SOUTH("Shilo Village South", new Location(2879, 2972, 2816, 2944), 0),
 
 	//Wilderness Locations
 	REV_CAVE_OTHER("Rev Cave", new Location(3128, 10232, 3225, 10059), 0),
@@ -59,7 +131,7 @@ public enum WildernessLocation
 	VOLCANO("Volcano", new Location(3345, 3957, 3390, 3916), 0),
 	NEW_GATE("New Gate", new Location(3345, 3957, 3390, 3916), 0),
 	GLORY_HOLE("Glory Hole", new Location(3352, 3897, 3386, 3869), 0),
-	GLORY_HILL("Glory Hill", new Location(3331, 3890, 3348, 3866), 0),
+	GLORY_HILL("Glory Hill", new Location(3331, 3890, 3348, 3866), 0),,
 	GDZ("Gdz", new Location(3279, 3895, 3296, 3875), 0),
 	GAP("Gap", new Location(3238, 3855, 3258, 3841), 0),
 	OLD_GATE("Old Gate", new Location(3211, 3906, 3238, 3882), 0),
@@ -103,17 +175,26 @@ public enum WildernessLocation
 	@Getter
 	private final WorldArea worldArea;
 
+
 	/**
 	 * Creates a location used to get the name of a location by a WorldPoint
-	 * @param name - The name that is used to represent the area in overlays etc
+	 *
+	 * @param name     - The name that is used to represent the area in overlays etc
 	 * @param location - A Location made out of 4 points on the world map
-	 * @param plane - The plane of the World Area
+	 * @param plane    - The plane of the World Area
 	 */
 	WildernessLocation(String name, Location location, int plane)
 	{
 		this.name = name;
 		this.worldArea = new WorldArea(location.x, location.y, location.width, location.height, plane);
 	}
+
+	public static Collection<WildernessLocation> getNonWildernessLocations()
+	{
+		return Arrays.stream(WildernessLocation.values()).filter(loc ->
+			PvPUtil.getWildernessLevelFrom(loc.worldArea.toWorldPoint()) > 0).collect(Collectors.toList());
+	}
+
 
 	static class Location
 	{
@@ -129,11 +210,5 @@ public enum WildernessLocation
 			this.width = x1 - x;
 			this.height = y - y1;
 		}
-	}
-
-	public static Collection<WildernessLocation> getNonWildernessLocations()
-	{
-		return Arrays.stream(WildernessLocation.values()).filter(loc ->
-			PvPUtil.getWildernessLevelFrom(loc.worldArea.toWorldPoint()) > 0).collect(Collectors.toList());
 	}
 }
