@@ -62,13 +62,13 @@ import net.runelite.client.ui.overlay.OverlayManager;
 public class GauntletPlugin extends Plugin
 {
 
-	private static final Set<Integer> HUNLEFF_ATTACKS = ImmutableSet.of(AnimationID.HUNLEFF_ATTACK,AnimationID.HUNLEFF_TORNADO);
+	private static final Set<Integer> HUNLEFF_ATTACKS = ImmutableSet.of(AnimationID.HUNLEFF_ATTACK, AnimationID.HUNLEFF_TORNADO);
 	@Inject
 	private EventBus eventBus;
 	@Inject
 	private OverlayManager overlayManager;
 	@Inject
-	private net.runelite.client.plugins.gauntlet.GauntletInfoBox GauntletInfoBox;
+	private GauntletInfoBox GauntletInfoBox;
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
 	private int attacks = 0;
