@@ -95,13 +95,11 @@ public class WildernessLocationsMapOverlay extends Overlay
 			if (worldLocation.equals(WorldLocation.ICE_GATE) || worldLocation.equals(WorldLocation.ICE_ROCK))
 			{
 				graphics.setColor(Color.BLACK);
-				graphics.drawRect(point.getX(), point1.getY(), width, height);
 				graphics.drawString(worldLocation.getName(), point.getX(), point.getY());
 			}
 			else
 			{
 				graphics.setColor(Color.CYAN);
-				graphics.drawRect(point.getX(), point1.getY(), width, height);
 				graphics.drawString(worldLocation.getName(), point.getX(), point.getY());
 			}
 		}
