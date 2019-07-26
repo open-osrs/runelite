@@ -22,21 +22,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-description = 'Injected Client'
-dependencies {
-    compile project(":injector-plugin")
-    compile project(':rs-client')
-    compile group: 'net.runelite.rs', name: 'vanilla', version: rsversion
-}
 
-compileJava.outputs.upToDateWhen { false }
-
-compileJava.doLast() {
-    copy {
-        File f = file("build/classes/java/main/injected-client")
-        f.deleteDir()
-        f.mkdirs()
-        from ("${project.rootDir}/injector-plugin/out/injected-client")
-        into ("build/classes/java/main/injected-client")
-    }
+/**
+ * @author ThatGamerBlue
+ *
+ * This file exists to force gradle to execute the compileJava task
+ * so we can hijack it and run the injector-plugin
+ */
+public class Placeholder
+{
 }

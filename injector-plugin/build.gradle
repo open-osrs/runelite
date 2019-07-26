@@ -1,10 +1,10 @@
 group = 'net.runelite.rs'
 description = 'Injector'
 
-def osrsRevision = 181
+def osrsRevision = rsversion
 def deobfuscatedJar = "${project.rootDir}/runescape-client/build/libs/rs-client-"+project.version+".jar"
 def vanillaJar = "$buildDir/vanilla-"+osrsRevision+".jar"
-def injectedJar = "${project.rootDir}/injected-client/build/libs/injected-client-"+project.version+".jar"
+def injectedClasses = "${project.rootDir}/injector-plugin/out/injected-client"
 
 configurations {
     vanilla
@@ -16,7 +16,6 @@ dependencies {
     compile project(':runelite-api')
     compile project(':runescape-api')
     compile project(':rs-client')
-    compile project(':injected-client')
     compile group: 'org.apache.maven', name: 'maven-plugin-api', version: '3.6.1'
     testCompile project(':deobfuscator')
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -39,7 +38,7 @@ compileJava.doLast() {
     String[] jarPaths = [
             deobfuscatedJar,
             vanillaJar,
-            injectedJar
+            injectedClasses
     ]
     inject.main(jarPaths)
 }
