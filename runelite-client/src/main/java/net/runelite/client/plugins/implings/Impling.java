@@ -60,12 +60,17 @@ enum Impling
 
 	NINJA(ImplingType.NINJA, NpcID.NINJA_IMPLING),
 	NINJA_2(ImplingType.NINJA, NpcID.NINJA_IMPLING_1653),
+	
+	CRYSTAL(ImplingType.CRYSTAL, NpcID.CRYSTAL_IMPLING),
+	CRYSTAL_2(ImplingType.CRYSTAL, NpcID.CRYSTAL_IMPLING_8741);
 
 	DRAGON(ImplingType.DRAGON, NpcID.DRAGON_IMPLING),
 	DRAGON_2(ImplingType.DRAGON, NpcID.DRAGON_IMPLING_1654),
 
 	LUCKY(ImplingType.LUCKY, NpcID.LUCKY_IMPLING),
 	LUCKY_2(ImplingType.LUCKY, NpcID.LUCKY_IMPLING_7302);
+	
+
 
 	private ImplingType implingType;
 	private final int npcId;
