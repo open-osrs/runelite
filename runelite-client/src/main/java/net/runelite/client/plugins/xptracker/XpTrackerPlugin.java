@@ -189,6 +189,8 @@ public class XpTrackerPlugin extends Plugin
 		eventBus.subscribe(ExperienceChanged.class, this, this::onExperienceChanged);
 		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(onMenuEntryAdded.class, this, this::onMenuEntryAdded);
+		eventBus.subscribe(onMenuOptionClicked.class, this, this::onMenuOptionClicked);
 	}
 
 	private void onGameStateChanged(GameStateChanged event)
@@ -413,7 +415,6 @@ public class XpTrackerPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
 	public void onMenuEntryAdded(final MenuEntryAdded event)
 	{
 		int widgetID = event.getActionParam1();
@@ -442,7 +443,6 @@ public class XpTrackerPlugin extends Plugin
 		client.setMenuEntries(menuEntries);
 	}
 
-	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		if (event.getMenuAction().getId() != MenuAction.RUNELITE.getId()
