@@ -11,9 +11,13 @@ package net.runelite.client.game;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import net.runelite.api.coords.WorldArea;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.util.PvPUtil;
 
 public enum WorldLocation
@@ -191,6 +195,7 @@ public enum WorldLocation
 	WEST_DRAGONS("West Drags", new Location(2960, 3627, 2992, 3598), 0),
 	BANDIT_CAMP("Bandit Camp", new Location(3017, 3712, 3059, 3681), 0);
 
+
 	@Getter
 	private final String name;
 	@Getter
@@ -210,10 +215,85 @@ public enum WorldLocation
 		this.worldArea = new WorldArea(location.x, location.y, location.width, location.height, plane);
 	}
 
+	/**
+	 * Returns all locations that aren't in the wild
+	 * @return - A Collection of non-wilderness WorldLocations
+	 */
 	public static Collection<WorldLocation> getNonWildernessLocations()
 	{
 		return Arrays.stream(WorldLocation.values()).filter(loc ->
+			PvPUtil.getWildernessLevelFrom(loc.worldArea.toWorldPoint()) < 0).collect(Collectors.toList());
+	}
+
+	/**
+	 * Returns only the WorldLocations that are in the wilderness
+	 * @return - A Collection of WorldLocations in the wilderness
+	 */
+	public static Collection<WorldLocation> getWildernessLocations()
+	{
+		return Arrays.stream(WorldLocation.values()).filter(loc ->
 			PvPUtil.getWildernessLevelFrom(loc.worldArea.toWorldPoint()) > 0).collect(Collectors.toList());
+	}
+
+	public static Map<WorldArea, String> getLocationMap()
+	{
+		Map<WorldArea, String> hashMap = new HashMap<>();
+		Arrays.stream(values()).forEach(worldLocation ->
+			hashMap.put(worldLocation.getWorldArea(), worldLocation.getName()));
+		return hashMap;
+	}
+
+	/**
+	 * Returns the WorldLocation that a WorldPoint is in, or the closest WorldLocation to the point
+	 * @param worldPoint - the WorldPoint to find the WorldLocation of
+	 * @return - Containing location or closest location if it isn't in any
+	 */
+	public static String location(WorldPoint worldPoint)
+	{
+		final Map<WorldArea, String> locationMap = getLocationMap();
+		int dist = 10000;
+		String s = "";
+		WorldArea closestArea = null;
+		for (Map.Entry<WorldArea, String> entry : locationMap.entrySet())
+		{
+			WorldArea worldArea = entry.getKey();
+
+			if (worldArea.toWorldPointList().contains(worldPoint))
+			{
+				s = entry.getValue();
+				return s;
+			}
+			int distTo = worldArea.distanceTo(worldArea);
+			if (distTo < dist)
+			{
+				dist = distTo;
+				closestArea = worldArea;
+			}
+		}
+		if (worldPoint.getY() > (Objects.requireNonNull(closestArea).toWorldPoint().getY() + closestArea.getHeight()))
+		{
+			s = s + "N";
+		}
+		if (worldPoint.getY() < closestArea.toWorldPoint().getY())
+		{
+			s = s + "S";
+		}
+		if (worldPoint.getX() < closestArea.toWorldPoint().getX())
+		{
+			s = s + "W";
+		}
+		if (worldPoint.getX() > (closestArea.toWorldPoint().getX() + closestArea.getWidth()))
+		{
+			s = s + "E";
+		}
+		s = s + " of ";
+		s = s + locationMap.get(closestArea);
+		if (s.startsWith(" of "))
+		{
+			s = s.substring(3);
+		}
+		return s;
+
 	}
 
 
@@ -228,8 +308,32 @@ public enum WorldLocation
 		{
 			this.x = x;
 			this.y = y1;
-			this.width = x1 - x;
-			this.height = y - y1;
+			if (x1 - x > 0)
+			{
+				this.width = x1 - x;
+			}
+			else
+			{
+				this.width = x - x1;
+			}
+			if (y - y1 > 0)
+			{
+				this.height = y - y1;
+			}
+			else
+			{
+				this.height = y1 - y;
+			}
 		}
 	}
+
+	@Override
+	public String toString()
+	{
+		return "WorldLocation{" +
+			"name='" + name + '\'' +
+			", worldArea=" + worldArea +
+			'}';
+	}
+
 }

@@ -11,10 +11,8 @@ package net.runelite.client.plugins.wildernesslocations;
 
 
 import com.google.inject.Provides;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.awt.Color;
 import java.util.Map;
-import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -82,10 +80,13 @@ public class WildernessLocationsPlugin extends Plugin
 	@Inject
 	private EventBus eventBus;
 
+	@Inject
+	private WildernessLocationsMapOverlay wildernessLocationsMapOverlay;
+
 	private String oldChat = "";
 	private int currentCooldown = 0;
 	private WorldPoint worldPoint = null;
-	private final Map<WorldArea, String> wildLocs = getLocationMap();
+	private static final Map<WorldArea, String> wildLocs = WorldLocation.getLocationMap();
 
 	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> this.keybind)
 	{
@@ -100,6 +101,11 @@ public class WildernessLocationsPlugin extends Plugin
 	private boolean drawOverlay;
 	private boolean pvpWorld;
 	private Keybind keybind;
+	@Getter
+	private boolean worldMapOverlay;
+	@Getter
+	private Color mapOverlayColor;
+
 
 	@Provides
 	WildernessLocationsConfig getConfig(ConfigManager configManager)
@@ -115,8 +121,11 @@ public class WildernessLocationsPlugin extends Plugin
 		this.drawOverlay = wildyConfig.drawOverlay();
 		this.pvpWorld = wildyConfig.pvpWorld();
 		this.keybind = wildyConfig.keybind();
+		this.worldMapOverlay = wildyConfig.worldMapOverlay();
+		this.mapOverlayColor = wildyConfig.mapOverlayColor();
 
 		overlayManager.add(overlay);
+		overlayManager.add(wildernessLocationsMapOverlay);
 		keyManager.registerKeyListener(hotkeyListener);
 	}
 
@@ -137,6 +146,8 @@ public class WildernessLocationsPlugin extends Plugin
 		this.drawOverlay = wildyConfig.drawOverlay();
 		this.pvpWorld = wildyConfig.pvpWorld();
 		this.keybind = wildyConfig.keybind();
+		this.worldMapOverlay = wildyConfig.worldMapOverlay();
+		this.mapOverlayColor = wildyConfig.mapOverlayColor();
 	}
 
 	@Override
@@ -145,6 +156,7 @@ public class WildernessLocationsPlugin extends Plugin
 		eventBus.unregister(this);
 
 		overlayManager.remove(overlay);
+		overlayManager.remove(wildernessLocationsMapOverlay);
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
@@ -160,7 +172,7 @@ public class WildernessLocationsPlugin extends Plugin
 		{
 			if (client.getLocalPlayer().getWorldLocation() != worldPoint)
 			{
-				locationString = location();
+				locationString = WorldLocation.location(client.getLocalPlayer().getWorldLocation());
 				worldPoint = client.getLocalPlayer().getWorldLocation();
 			}
 		}
@@ -169,62 +181,6 @@ public class WildernessLocationsPlugin extends Plugin
 			worldPoint = null;
 			locationString = "";
 		}
-	}
-
-	private String location()
-	{
-		int dist = 10000;
-		String s = "";
-		WorldArea closestArea = null;
-		for (Map.Entry<WorldArea, String> entry : wildLocs.entrySet())
-		{
-			WorldArea worldArea = entry.getKey();
-
-			if (worldArea.toWorldPointList().contains(client.getLocalPlayer().getWorldLocation()))
-			{
-				s = entry.getValue();
-				return s;
-			}
-			int distTo = worldArea.distanceTo(client.getLocalPlayer().getWorldLocation());
-			if (distTo < dist)
-			{
-				dist = distTo;
-				closestArea = worldArea;
-			}
-		}
-		if (client.getLocalPlayer().getWorldLocation().getY() >
-			(Objects.requireNonNull(closestArea).toWorldPoint().getY() + closestArea.getHeight()))
-		{
-			s = s + "N";
-		}
-		if (client.getLocalPlayer().getWorldLocation().getY() < closestArea.toWorldPoint().getY())
-		{
-			s = s + "S";
-		}
-		if (client.getLocalPlayer().getWorldLocation().getX() < closestArea.toWorldPoint().getX())
-		{
-			s = s + "W";
-		}
-		if (client.getLocalPlayer().getWorldLocation().getX() >
-			(closestArea.toWorldPoint().getX() + closestArea.getWidth()))
-		{
-			s = s + "E";
-		}
-		s = s + " of ";
-		s = s + wildLocs.get(closestArea);
-		if (s.startsWith(" of "))
-		{
-			s = s.substring(3);
-		}
-		return s;
-	}
-
-	private static Map<WorldArea, String> getLocationMap()
-	{
-		Map<WorldArea, String> hashMap = new HashMap<>();
-		Arrays.stream(WorldLocation.values()).forEach(worldLocation ->
-			hashMap.put(worldLocation.getWorldArea(), worldLocation.getName()));
-		return hashMap;
 	}
 
 	private void onVarClientStrChanged(VarClientStrChanged varClient)

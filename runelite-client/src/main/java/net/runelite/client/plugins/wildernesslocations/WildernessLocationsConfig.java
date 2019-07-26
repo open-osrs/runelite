@@ -9,6 +9,7 @@
 
 package net.runelite.client.plugins.wildernesslocations;
 
+import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -44,11 +45,34 @@ public interface WildernessLocationsConfig extends Config
 		keyName = "keybind",
 		name = "Send to CC",
 		description = "Configure button to send current location to CC",
-		position = 2
+		position = 3
 	)
 	default Keybind keybind()
 	{
 		return Keybind.NOT_SET;
 	}
+
+	@ConfigItem(
+		keyName = "worldMapOverlay",
+		name = "Show on World Map",
+		description = "Toggles wether or not Wilderness Location names are shown on the World Map",
+		position = 4
+	)
+	default boolean worldMapOverlay()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "mapOverlayColor",
+		name = "World Map Color",
+		description = "The color for the names of the locations on the World Map",
+		position = 5
+	)
+	default Color mapOverlayColor()
+	{
+		return Color.cyan;
+	}
+
 
 }
