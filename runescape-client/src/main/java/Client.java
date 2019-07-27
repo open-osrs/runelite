@@ -483,7 +483,8 @@ public final class Client extends GameShell implements Usernamed {
 	@ObfuscatedGetter(
 		intValue = -602987385
 	)
-	static int field872;
+	@Export("tradeChatMode")
+	static int tradeChatMode;
 	@ObfuscatedName("pv")
 	@ObfuscatedGetter(
 		intValue = -547874643
@@ -1486,7 +1487,7 @@ public final class Client extends GameShell implements Usernamed {
 		isResizable = true;
 		field870 = new int[]{16776960, 16711680, 65280, 65535, 16711935, 16777215};
 		publicChatMode = 0;
-		field872 = 0;
+		tradeChatMode = 0;
 		field762 = "";
 		field922 = new long[100];
 		field875 = 0;
@@ -1961,7 +1962,7 @@ public final class Client extends GameShell implements Usernamed {
 							ScriptFrame.clientLanguage = var11;
 							break;
 						case 7:
-							PacketBufferNode.field2337 = ServerBuild.valueOf(Integer.parseInt(var4));
+							PacketBufferNode.serverBuild = ServerBuild.valueOf(Integer.parseInt(var4));
 							break;
 						case 8:
 							if (var4.equalsIgnoreCase("true")) {
@@ -1971,10 +1972,10 @@ public final class Client extends GameShell implements Usernamed {
 							class294.field3695 = var4;
 							break;
 						case 10:
-							StudioGame[] var5 = new StudioGame[]{StudioGame.field3110, StudioGame.field3107, StudioGame.field3109, StudioGame.field3106, StudioGame.field3108, StudioGame.field3112};
-							WorldMapRegion.field248 = (StudioGame)SoundSystem.findEnumerated(var5, Integer.parseInt(var4));
-							if (WorldMapRegion.field248 == StudioGame.field3110) {
-								class40.loginType = LoginType.field4052;
+							StudioGame[] var5 = new StudioGame[]{StudioGame.oldscape, StudioGame.runescape, StudioGame.game5, StudioGame.stellardawn, StudioGame.game4, StudioGame.game3};
+							WorldMapRegion.studioGame = (StudioGame)SoundSystem.findEnumerated(var5, Integer.parseInt(var4));
+							if (WorldMapRegion.studioGame == StudioGame.oldscape) {
+								class40.loginType = LoginType.oldscape;
 							} else {
 								class40.loginType = LoginType.field4056;
 							}
@@ -1994,9 +1995,9 @@ public final class Client extends GameShell implements Usernamed {
 					}
 				}
 
-				class215.method4022();
+				class215.setLowDetailOff();
 				ClientPreferences.worldHost = this.getCodeBase().getHost();
-				String var9 = PacketBufferNode.field2337.name;
+				String var9 = PacketBufferNode.serverBuild.name;
 				byte var10 = 0;
 
 				try {
@@ -2006,7 +2007,7 @@ public final class Client extends GameShell implements Usernamed {
 				}
 
 				WorldMapSprite.client = this;
-				RunException.field4066 = clientType;
+				RunException.RunException_clientType = clientType;
 				this.startThread(765, 503, 181);
 			}
 		} catch (RuntimeException var8) {
@@ -2442,12 +2443,12 @@ public final class Client extends GameShell implements Usernamed {
 			}
 
 			if (loginState == 7 && ((AbstractSocket)var1).available() > 0) {
-				class323.field3884 = ((AbstractSocket)var1).readUnsignedByte();
+				FillMode.field3884 = ((AbstractSocket)var1).readUnsignedByte();
 				loginState = 8;
 			}
 
-			if (loginState == 8 && ((AbstractSocket)var1).available() >= class323.field3884) {
-				((AbstractSocket)var1).read(var2.array, 0, class323.field3884);
+			if (loginState == 8 && ((AbstractSocket)var1).available() >= FillMode.field3884) {
+				((AbstractSocket)var1).read(var2.array, 0, FillMode.field3884);
 				var2.offset = 0;
 				loginState = 6;
 			}
@@ -3721,7 +3722,7 @@ public final class Client extends GameShell implements Usernamed {
 
 			if (ServerPacket.field2161 == var1.serverPacket) {
 				var16 = var3.method5532();
-				GroundItemPile.method2764(var16);
+				TileItemPile.method2764(var16);
 				field888[++field671 - 1 & 31] = var16 & 32767;
 				var1.serverPacket = null;
 				return true;
@@ -4028,7 +4029,7 @@ public final class Client extends GameShell implements Usernamed {
 			}
 
 			if (ServerPacket.field2183 == var1.serverPacket) {
-				class226.field3072 = NetSocket.method3530(var3.readUnsignedByte());
+				class226.privateChatMode = NetSocket.method3530(var3.readUnsignedByte());
 				var1.serverPacket = null;
 				return true;
 			}
@@ -4686,7 +4687,7 @@ public final class Client extends GameShell implements Usernamed {
 			}
 
 			if (ServerPacket.field2195 == var1.serverPacket) {
-				field872 = var3.readUnsignedByteNegate();
+				tradeChatMode = var3.readUnsignedByteNegate();
 				publicChatMode = var3.readUnsignedByteNegate();
 				var1.serverPacket = null;
 				return true;

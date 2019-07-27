@@ -483,7 +483,7 @@ public interface RSClient extends RSGameShell, Client
 	@Override
 	RSIterableNodeHashTable getMessages();
 
-	@Import("revision")
+	@Import("RunException_revision")
 	@Override
 	int getRevision();
 
@@ -609,7 +609,7 @@ public interface RSClient extends RSGameShell, Client
 	void setObjectDefinitionLowDetail(boolean lowDetail);
 
 	@Construct
-	RSGroundItem createItem();
+	RSTileItem createItem();
 
 	@Import("Interpreter_intStackSize")
 	@Override
@@ -833,9 +833,9 @@ public interface RSClient extends RSGameShell, Client
 	@Override
 	int getOculusOrbFocalPointY();
 
-	RSGroundItem getLastItemDespawn();
+	RSTileItem getLastItemDespawn();
 
-	void setLastItemDespawn(RSGroundItem lastItemDespawn);
+	void setLastItemDespawn(RSTileItem lastItemDespawn);
 
 	@Construct
 	RSWidget createWidget();

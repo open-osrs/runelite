@@ -1,0 +1,5 @@
+description = 'Injected Client'
+dependencies {
+    implementation project(':rs-client')
+    implementation group: 'net.runelite.rs', name: 'vanilla', version: '181'
+}

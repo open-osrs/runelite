@@ -57,8 +57,9 @@ public class XteaClient
 
 		logger.debug("Built URI: {}", url);
 
+		RequestBody body = RequestBody.Companion.create(json, JSON);
 		Request request = new Request.Builder()
-			.post(RequestBody.create(JSON, json))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -102,7 +103,9 @@ public class XteaClient
 		{
 			InputStream in = response.body().byteStream();
 			// CHECKSTYLE:OFF
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<List<XteaKey>>() {}.getType());
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<List<XteaKey>>()
+			{
+			}.getType());
 			// CHECKSTYLE:ON
 		}
 		catch (JsonParseException ex)
