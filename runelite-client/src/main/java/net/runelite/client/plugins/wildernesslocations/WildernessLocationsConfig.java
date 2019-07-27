@@ -53,9 +53,9 @@ public interface WildernessLocationsConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "worldMapOverlay",
-		name = "Show on World Map",
-		description = "Toggles wether or not Wilderness Location names are shown on the World Map",
+		keyName = "worldMapNames",
+		name = "Show Loc Names World Map",
+		description = "Toggles whether or not Wilderness Location names are shown on the World Map",
 		position = 4
 	)
 	default boolean worldMapOverlay()
@@ -64,10 +64,21 @@ public interface WildernessLocationsConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "outlineLocations",
+		name = "Outline Locatoins",
+		description = "Draws an outline for the area of each location in the wilderness",
+		position = 5
+	)
+	default boolean outlineLocations()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "mapOverlayColor",
 		name = "World Map Color",
-		description = "The color for the names of the locations on the World Map",
-		position = 5
+		description = "The color for the names and outlines of the locations on the World Map",
+		position = 6
 	)
 	default Color mapOverlayColor()
 	{

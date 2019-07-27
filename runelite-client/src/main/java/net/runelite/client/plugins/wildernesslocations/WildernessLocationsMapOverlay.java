@@ -79,28 +79,42 @@ public class WildernessLocationsMapOverlay extends Overlay
 			final int y1 = worldLocation.getWorldArea().getY();
 			final int y2 = worldLocation.getWorldArea().getY() + worldLocation.getWorldArea().getHeight();
 			final int plane = worldLocation.getWorldArea().getPlane();
-			final Point point = mapWorldPointToGraphicsPoint(new WorldPoint(x1, y1, plane));
-			final Point point1 = mapWorldPointToGraphicsPoint(new WorldPoint(x2, y2, plane));
+			final Point point = mapWorldPointToGraphicsPoint(new WorldPoint(x1, y2, plane));
+			final Point point1 = mapWorldPointToGraphicsPoint(new WorldPoint(x2, y1, plane));
 			if (point == null || point1 == null)
 			{
 				continue;
 			}
 			int width = point1.getX() - point.getX();
-			int height = point1.getY() - point.getY();
+			int height = point.getY() - point1.getY();
 
-			// for drawing the location bounds, was going to add it as an option but the areas need to be fixed
-			Rectangle rectangle = new Rectangle(point.getX(), point.getY(), width, height);
+
+			Rectangle rectangle = new Rectangle(point.getX(), point1.getY(), width, height);
 
 			// These would be unreadable unless font color is black
 			if (worldLocation.equals(WorldLocation.ICE_GATE) || worldLocation.equals(WorldLocation.ICE_ROCK))
 			{
 				graphics.setColor(Color.BLACK);
-				graphics.drawString(worldLocation.getName(), point.getX(), point.getY());
+				if (plugin.isWorldMapNames())
+				{
+					graphics.drawString(worldLocation.getName(), point.getX(), point.getY());
+				}
+				if (plugin.isOutlineLocations())
+				{
+					graphics.draw(rectangle);
+				}
 			}
 			else
 			{
-				graphics.setColor(Color.CYAN);
-				graphics.drawString(worldLocation.getName(), point.getX(), point.getY());
+				graphics.setColor(plugin.getMapOverlayColor());
+				if (plugin.isWorldMapNames())
+				{
+					graphics.drawString(worldLocation.getName(), point.getX(), point.getY());
+				}
+				if (plugin.isOutlineLocations())
+				{
+					graphics.draw(rectangle);
+				}
 			}
 		}
 	}

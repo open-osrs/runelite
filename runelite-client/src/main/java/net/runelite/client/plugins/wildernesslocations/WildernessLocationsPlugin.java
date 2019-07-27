@@ -102,9 +102,13 @@ public class WildernessLocationsPlugin extends Plugin
 	private boolean pvpWorld;
 	private Keybind keybind;
 	@Getter
-	private boolean worldMapOverlay;
+	private boolean worldMapNames;
 	@Getter
 	private Color mapOverlayColor;
+	@Getter
+	private boolean outlineLocations;
+	@Getter
+	private boolean worldMapOverlay;
 
 
 	@Provides
@@ -118,15 +122,22 @@ public class WildernessLocationsPlugin extends Plugin
 	{
 		addSubscriptions();
 
-		this.drawOverlay = wildyConfig.drawOverlay();
-		this.pvpWorld = wildyConfig.pvpWorld();
-		this.keybind = wildyConfig.keybind();
-		this.worldMapOverlay = wildyConfig.worldMapOverlay();
-		this.mapOverlayColor = wildyConfig.mapOverlayColor();
+		updateConfig();
 
 		overlayManager.add(overlay);
 		overlayManager.add(wildernessLocationsMapOverlay);
 		keyManager.registerKeyListener(hotkeyListener);
+	}
+
+	private void updateConfig()
+	{
+		this.drawOverlay = wildyConfig.drawOverlay();
+		this.pvpWorld = wildyConfig.pvpWorld();
+		this.keybind = wildyConfig.keybind();
+		this.worldMapNames = wildyConfig.worldMapOverlay();
+		this.mapOverlayColor = wildyConfig.mapOverlayColor();
+		this.outlineLocations = wildyConfig.outlineLocations();
+		this.worldMapOverlay = this.worldMapNames || this.outlineLocations;
 	}
 
 	private void addSubscriptions()
@@ -143,11 +154,7 @@ public class WildernessLocationsPlugin extends Plugin
 			return;
 		}
 
-		this.drawOverlay = wildyConfig.drawOverlay();
-		this.pvpWorld = wildyConfig.pvpWorld();
-		this.keybind = wildyConfig.keybind();
-		this.worldMapOverlay = wildyConfig.worldMapOverlay();
-		this.mapOverlayColor = wildyConfig.mapOverlayColor();
+		updateConfig();
 	}
 
 	@Override

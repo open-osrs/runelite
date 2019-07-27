@@ -297,7 +297,7 @@ public enum WorldLocation
 	}
 
 
-	static class Location
+	public static class Location
 	{
 		final int x;
 		final int y;
@@ -307,23 +307,20 @@ public enum WorldLocation
 		Location(int x, int y, int x1, int y1)
 		{
 			this.x = x;
-			this.y = y1;
-			if (x1 - x > 0)
-			{
-				this.width = x1 - x;
-			}
-			else
-			{
-				this.width = x - x1;
-			}
-			if (y - y1 > 0)
-			{
-				this.height = y - y1;
-			}
-			else
-			{
-				this.height = y1 - y;
-			}
+			this.y = y;
+			this.width = x1 - x;
+			this.height = y1 - y;
+		}
+
+		@Override
+		public String toString()
+		{
+			return "Location{" +
+				"x=" + x +
+				", y=" + y +
+				", width=" + width +
+				", height=" + height +
+				'}';
 		}
 	}
 
