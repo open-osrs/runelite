@@ -568,7 +568,9 @@ public class LootTrackerPlugin extends Plugin
 				{
 					return;
 				}
-				if (client.getLocalPlayer().getWorldLocation().getRegionID() != THEATRE_OF_BLOOD_REGION)
+				
+				if (WorldPoint.fromLocalInstance(client, client.getLocalPlayer()
+					.getLocalLocation()).getRegionID() != THEATRE_OF_BLOOD_REGION)
 				{
 					return;
 				}
