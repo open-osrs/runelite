@@ -24,9 +24,9 @@
  */
 description = 'Injected Client'
 dependencies {
-    compile project(":injector-plugin")
-    compile project(':rs-client')
-    compile group: 'net.runelite.rs', name: 'vanilla', version: rsversion
+    implementation project(":injector-plugin")
+    implementation project(':rs-client')
+    implementation group: 'net.runelite.rs', name: 'vanilla', version: rsversion
 }
 
 compileJava.outputs.upToDateWhen { false }
