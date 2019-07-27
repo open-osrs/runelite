@@ -29,6 +29,7 @@ allprojects {
 
     ext {
         rsversion = 181
+        cacheversion = 165
 
         gitCommit = localGitCommit
         gitCommitShort = localGitCommitShort
@@ -46,7 +47,7 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
     tasks.withType(JavaCompile) {
