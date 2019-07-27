@@ -58,9 +58,10 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 
 		for (int i = 0; i < itemIds.length; ++i)
 		{
-			RSTileItem item = client.createItem();
-			item.setId(itemIds[i]);
-			item.setQuantity(stackSizes[i]);
+			Item item = new Item(
+				itemIds[i],
+				stackSizes[i]
+			);
 			items[i] = item;
 		}
 
@@ -70,7 +71,6 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 	@Copy("itemContainerSetItem")
 	static void rs$itemContainerSetItem(int itemContainerId, int index, int itemId, int itemQuantity)
 	{
-
 	}
 
 	@Replace("itemContainerSetItem")
