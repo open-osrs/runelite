@@ -1,11 +1,11 @@
 group = 'net.runelite.rs'
 description = 'Injector'
 
-def rootPath = project.rootDir.toString().replace('\\', '/')
-def buildPath = project.buildDir.toString().replace('\\', '/')
+def buildPath = buildDir.toString().replace('\\', '/') // this doesnt work in an ext block for some reason
+
 def deobfuscatedJar = "${rootPath}/runescape-client/build/libs/rs-client-${project.version}.jar"
 def vanillaJar = "${buildPath}/vanilla-${rsversion}.jar"
-def injectedClasses = "${rootPath}/injector-plugin/out/injected-client"
+
 
 configurations {
     vanilla
@@ -31,7 +31,7 @@ compileJava {
     dependsOn ":rs-client:build"
 }
 
-compileJava.outputs.upToDateWhen {false}
+compileJava.outputs.upToDateWhen { false }
 
 compileJava.doLast() {
     copy {
@@ -44,7 +44,7 @@ compileJava.doLast() {
     String[] jarPaths = [
             deobfuscatedJar.toString(),
             vanillaJar.toString(),
-            injectedClasses.toString()
+            injectedClassesPath.toString()
     ]
     inject.main(jarPaths)
 }

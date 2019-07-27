@@ -23,10 +23,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 description = 'Injected Client'
-dependencies {
-    implementation project(":injector-plugin")
-    implementation project(':rs-client')
-    implementation group: 'net.runelite.rs', name: 'vanilla', version: rsversion
+
+
+
+def injectedClassesPath = "${rootPath}/injector-plugin/out/injected-client/"
+
+compileJava {
+    dependsOn ':injector-plugin:assemble'
 }
 
 compileJava.outputs.upToDateWhen { false }
@@ -36,7 +39,13 @@ compileJava.doLast() {
         File f = file("build/classes/java/main/injected-client")
         f.deleteDir()
         f.mkdirs()
-        from ("${project.rootDir}/injector-plugin/out/injected-client")
+        from ("${injectedClassesPath}")
         into ("build/classes/java/main/injected-client")
     }
 }
+
+classes.doLast() {
+    File f = file("build/classes/java/main/Placeholder.class")
+    f.delete()
+}
+

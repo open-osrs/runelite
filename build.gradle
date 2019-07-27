@@ -34,6 +34,9 @@ allprojects {
         gitCommit = localGitCommit
         gitCommitShort = localGitCommitShort
         gitDirty = localGitDirty
+
+        rootPath = rootDir.toString().replace('\\', '/')
+        injectedClassesPath = rootPath + "/injector-plugin/out/injected-client/"
     }
 
     group = 'net.runelite'
