@@ -71,24 +71,16 @@ public class AoeWarningOverlay extends Overlay
 		WorldPoint lp = client.getLocalPlayer().getWorldLocation();
 
 		plugin.getLightningTrail().forEach(o ->
-		{
-			OverlayUtil.drawTiles(graphics, client, o, lp, new Color(0, 150, 200), 2, 150, 50);
-		});
+			OverlayUtil.drawTiles(graphics, client, o, lp, new Color(0, 150, 200), 2, 150, 50));
 
 		plugin.getAcidTrail().forEach(o ->
-		{
-			OverlayUtil.drawTiles(graphics, client, o.getWorldLocation(), lp, new Color(69, 241, 44), 2, 150, 50);
-		});
+			OverlayUtil.drawTiles(graphics, client, o.getWorldLocation(), lp, new Color(69, 241, 44), 2, 150, 50));
 
 		plugin.getCrystalSpike().forEach(o ->
-		{
-			OverlayUtil.drawTiles(graphics, client, o.getWorldLocation(), lp, new Color(255, 0, 84), 2, 150, 50);
-		});
+			OverlayUtil.drawTiles(graphics, client, o.getWorldLocation(), lp, new Color(255, 0, 84), 2, 150, 50));
 
 		plugin.getWintertodtSnowFall().forEach(o ->
-		{
-			OverlayUtil.drawTiles(graphics, client, o.getWorldLocation(), lp, new Color(255, 0, 84), 2, 150, 50);
-		});
+			OverlayUtil.drawTiles(graphics, client, o.getWorldLocation(), lp, new Color(255, 0, 84), 2, 150, 50));
 
 		Instant now = Instant.now();
 		Set<ProjectileContainer> projectiles = plugin.getProjectiles();

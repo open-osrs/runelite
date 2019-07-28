@@ -165,7 +165,7 @@ public class AoeWarningPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		updateConfig();
 		addSubscriptions();
@@ -175,7 +175,7 @@ public class AoeWarningPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		overlayManager.remove(coreOverlay);
 		overlayManager.remove(bombOverlay);
