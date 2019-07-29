@@ -119,7 +119,7 @@ public class ZalcanoPlugin extends Plugin
 	{
 	}
 
-	public void onGameTickCheckRegion(GameTick gameTick)
+	private void onGameTickCheckRegion(GameTick gameTick)
 	{
 		if (client.getLocalPlayer().getWorldLocation().getRegionID() == 12126) //if player is in zalcanos region load the other events
 		{
