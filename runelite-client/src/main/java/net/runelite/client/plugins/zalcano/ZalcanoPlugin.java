@@ -87,7 +87,7 @@ public class ZalcanoPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private NPC golem;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	@Setter
 	private Step step;
 
