@@ -74,7 +74,7 @@ public class ZalcanoUtil
 	//this should be a project-wide standard
 	protected List<GameObject> getGameObjects()
 	{
-		ArrayList<GameObject> gameObjectArrayList = new ArrayList<>();
+		List<GameObject> gameObjectArrayList = new ArrayList<>();
 
 		for (int x = 0; x < Constants.SCENE_SIZE; x++)
 		{
