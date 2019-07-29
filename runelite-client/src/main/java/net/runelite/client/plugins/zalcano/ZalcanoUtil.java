@@ -49,6 +49,10 @@ public class ZalcanoUtil
 	private Client client;
 	private ZalcanoPlugin plugin;
 
+	protected static final String mine = "MINE";
+	protected static final String warning = "GET BACK";
+	protected static final int ZALCANO_REGION = 12126;
+
 	@Inject
 	ZalcanoUtil(Client client, ZalcanoPlugin plugin)
 	{

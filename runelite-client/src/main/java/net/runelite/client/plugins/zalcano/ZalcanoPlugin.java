@@ -32,8 +32,11 @@ import com.google.inject.Provides;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
+import net.runelite.api.ItemID;
 import net.runelite.api.NPC;
+import net.runelite.api.NpcID;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
@@ -75,9 +78,6 @@ public class ZalcanoPlugin extends Plugin
 
 	@Inject
 	private EventBus eventBus;
-
-	protected static final String mine = "MINE";
-	protected static final String warning = "GET BACK";
 
 	@Setter
 	@Getter
@@ -140,11 +140,11 @@ public class ZalcanoPlugin extends Plugin
 	{
 		switch (npcSpawned.getNpc().getId())
 		{
-			case 9049: //zalcano
+			case NpcID.ZALCANO:
 				log.debug("zalcano spawned");
 				zalcano = npcSpawned.getNpc();
 				break;
-			case 9051: //golem
+			case NpcID.GOLEM_9051:
 				log.debug("golem spawned");
 				golem = npcSpawned.getNpc();
 				break;
@@ -155,10 +155,10 @@ public class ZalcanoPlugin extends Plugin
 	{
 		switch (npcDespawned.getNpc().getId())
 		{
-			case 9049: //zalcano
+			case NpcID.ZALCANO:
 				zalcano = null;
 				break;
-			case 9051: //golem
+			case NpcID.GOLEM_9051:
 				golem = null;
 				break;
 		}
@@ -183,36 +183,36 @@ public class ZalcanoPlugin extends Plugin
 
 		if (getZalcano() != null)
 		{
-			if (getZalcano().getAnimation() == 8437) //zalcano got knocked down
+			if (getZalcano().getAnimation() == AnimationID.ZALCANO_KNOCKED_DOWN) //zalcano got knocked down
 			{
 				setStep(Step.MINE_ZALCANO);
 				return;
 			}
 		}
-		if (util.countItemInInventory(23905) < 3 && util.countItemInInventory(23906) < 3 && util.countStackInInventory(23907) < 3)
+		if (util.countItemInInventory(ItemID.TEPHRA) < 3 && util.countItemInInventory(ItemID.REFINED_TEPHRA) < 3 && util.countStackInInventory(ItemID.IMBUED_TEPHRA) < 3)
 		{
-			if (client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) == 23907)
+			if (client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) == ItemID.IMBUED_TEPHRA)
 			{
 				setStep(Step.THROW);
 				return;
 			}
-			if (getZalcano() != null && util.countItemInInventory(23906) == 0 && util.countItemInInventory(23907) == 0)
+			if (getZalcano() != null && util.countItemInInventory(ItemID.REFINED_TEPHRA) == 0 && util.countItemInInventory(ItemID.IMBUED_TEPHRA) == 0)
 			{
 				setStep(Step.MINE);
 				return;
 			}
 		}
-		if (util.countItemInInventory(23905) >= 3)
+		if (util.countItemInInventory(ItemID.TEPHRA) >= 3)
 		{
 			setStep(Step.SMELT);
 			return;
 		}
-		if (util.countItemInInventory(23906) >= 3 && ores == 0)
+		if (util.countItemInInventory(ItemID.REFINED_TEPHRA) >= 3 && ores == 0)
 		{
 			setStep(Step.RUNECRAFT);
 			return;
 		}
-		if (util.countStackInInventory(23907) >= 3)
+		if (util.countStackInInventory(ItemID.IMBUED_TEPHRA) >= 3)
 		{
 			setStep(Step.THROW);
 			return;
@@ -226,7 +226,7 @@ public class ZalcanoPlugin extends Plugin
 		{
 			return;
 		}
-		ores = util.countItemInInventory(23905);
+		ores = util.countItemInInventory(ItemID.TEPHRA);
 		//log.debug("ores: {}", ores);
 	}
 

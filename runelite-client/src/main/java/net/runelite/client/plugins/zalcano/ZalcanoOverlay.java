@@ -31,10 +31,12 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
 import net.runelite.api.DynamicObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.GraphicsObject;
+import net.runelite.api.ObjectID;
 import net.runelite.api.Perspective;
 import net.runelite.api.Renderable;
 import net.runelite.api.coords.LocalPoint;
@@ -122,7 +124,7 @@ public class ZalcanoOverlay extends Overlay
 		ArrayList<GraphicsObject> arrList = new ArrayList<>();
 		for (GraphicsObject graphicsObject : client.getGraphicsObjects())
 		{
-			if (graphicsObject.getId() == 1727)
+			if (graphicsObject.getId() == 1727/*<-- not sure where to add that*/)
 			{
 				arrList.add(graphicsObject);
 			}
@@ -139,7 +141,7 @@ public class ZalcanoOverlay extends Overlay
 	{
 		for (GameObject gameObject : util.getGameObjects())
 		{
-			if (gameObject.getId() == 36199)
+			if (gameObject.getId() == ObjectID.DEMONIC_SYMBOL)
 			{
 				if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
 				{
@@ -168,21 +170,21 @@ public class ZalcanoOverlay extends Overlay
 	{
 		for (GameObject gameObject : util.getGameObjects())
 		{
-			if (gameObject.getId() == 36192)
+			if (gameObject.getId() == ObjectID.ROCK_FORMATION_GLOWING)
 			{
 				if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
 				{
 					Renderable renderable = gameObject.getRenderable();
 					if (renderable instanceof DynamicObject)
 					{
-						if (((DynamicObject) renderable).getAnimationID() == 8448)
+						if (((DynamicObject) renderable).getAnimationID() == AnimationID.ZALCANO_ROCK_GLOWING)
 						{
 							final Polygon poly = Perspective.getCanvasTileAreaPoly(client, gameObject.getLocalLocation(), !util.projectileExists() ? 2 : 4);
 							if (poly != null)
 							{
-								Color green = new Color(140, 255, 60);
+								final Color green = new Color(140, 255, 60);
 								OverlayUtil.renderPolygon(graphics, poly, !util.projectileExists() ? green : Color.RED);
-								OverlayUtil.renderTextLocation(graphics, gameObject.getCanvasLocation(), !util.projectileExists() ? plugin.mine : plugin.warning, !util.projectileExists() ? green : Color.RED);
+								OverlayUtil.renderTextLocation(graphics, gameObject.getCanvasLocation(), !util.projectileExists() ? util.mine : util.warning, !util.projectileExists() ? green : Color.RED);
 							}
 						}
 					}
@@ -223,13 +225,13 @@ public class ZalcanoOverlay extends Overlay
 		{
 			switch (plugin.getZalcano().getAnimation())
 			{
-				case 8437: //mineable
+				case AnimationID.ZALCANO_KNOCKED_DOWN:
 					if (config.showAoeZalcanoMineable())
 					{
 						renderZalcanoMineable(graphics);
 					}
 					break;
-				case 8439: //waking back up
+				case AnimationID.ZALCANO_WAKEUP:
 					if (config.showAoeZalcanoWakeup())
 					{
 						renderZalcanoWakeup(graphics);
@@ -241,12 +243,12 @@ public class ZalcanoOverlay extends Overlay
 
 	private void renderZalcanoMineable(Graphics2D graphics)
 	{
-		renderZalcanoAOE(graphics, 4, plugin.mine, Color.GREEN);
+		renderZalcanoAOE(graphics, 4, util.mine, Color.GREEN);
 	}
 
 	private void renderZalcanoWakeup(Graphics2D graphics)
 	{
-		renderZalcanoAOE(graphics, 6, plugin.warning, Color.RED);
+		renderZalcanoAOE(graphics, 6, util.warning, Color.RED);
 	}
 
 	private void renderZalcanoAOE(Graphics2D graphics, int polySize, String text, Color color)
