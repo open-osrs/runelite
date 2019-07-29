@@ -59,7 +59,7 @@ public class ZalcanoPlugin extends Plugin
 	private Client client;
 
 	@Inject
-	ZalcanoConfig config;
+	private ZalcanoConfig config;
 
 	@Inject
 	ZalcanoUtil util;
