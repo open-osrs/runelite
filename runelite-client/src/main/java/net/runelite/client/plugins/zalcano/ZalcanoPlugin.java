@@ -88,7 +88,7 @@ public class ZalcanoPlugin extends Plugin
 	private NPC golem;
 
 	@Getter(AccessLevel.PACKAGE)
-	@Setter
+	@Setter(AccessLevel.PACKAGE)
 	private Step step;
 
 	private int ores = 0;
