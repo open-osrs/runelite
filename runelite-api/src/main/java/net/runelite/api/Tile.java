@@ -24,9 +24,9 @@
  */
 package net.runelite.api;
 
-import java.util.List;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import java.util.List;
 
 /**
  * Represents a tile in the game.
@@ -52,7 +52,7 @@ public interface Tile
 	 *
 	 * @return the item
 	 */
-	ItemLayer getItemLayer();
+	TileItemPile getItemLayer();
 
 	/**
 	 * Gets the object on the ground layer of the tile.
@@ -130,12 +130,10 @@ public interface Tile
 	 *
 	 * @return the ground items
 	 */
-	List<Item> getGroundItems();
+	List<TileItem> getGroundItems();
 
 	/**
 	 * Return the tile under this one, if this tile is a bridge
-	 *
-	 * @return
 	 */
 	Tile getBridge();
 }

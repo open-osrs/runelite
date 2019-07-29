@@ -71,7 +71,7 @@ enum TransportationPointLocation
 	RELLEKKA_TO_WATERBIRTH("Ship to Waterbirth", new WorldPoint(2621, 3683, 0)),
 	RELLEKKA_TO_WEISS_ICEBERG("Ship to Weiss/Iceberg", new WorldPoint(2707, 3735, 0)),
 	RELLEKKA_TO_UNGAEL("Ship to Ungael", new WorldPoint(2638, 3698, 0)),
-	RIMMINGTON_TO_CORSAIR_COVE("Ship to Corsair Cove", new WorldPoint(2909, 3227, 0 )),
+	RIMMINGTON_TO_CORSAIR_COVE("Ship to Corsair Cove", new WorldPoint(2909, 3227, 0)),
 	WATERBIRTH_TO_RELLEKKA("Ship to Rellekka", new WorldPoint(2549, 3758, 0)),
 	WEISS_TO_RELLEKKA("Ship to Rellekka", new WorldPoint(2847, 3967, 0)),
 	UNGAEL_TO_RELLEKKA("Ship to Rellekka", new WorldPoint(2276, 4034, 0)),
@@ -114,6 +114,8 @@ enum TransportationPointLocation
 	CHARTER_PORT_PHASMATYS("Charter Ship", new WorldPoint(3702, 3503, 0)),
 	CHARTER_PORTSARIM("Charter Ship", new WorldPoint(3037, 3191, 0)),
 	CHARTER_TYRAS("Charter Ship", new WorldPoint(2141, 3123, 0)),
+	CHARTER_PRIFDDINAS("Charter Ship", new WorldPoint(2156, 3331, 0)),
+	CHARTER_PRIFDDINAS_INSTANCE("Charter Ship", new WorldPoint(3180, 6083, 0)),
 
 	//Minecarts/Carts
 	MINE_CART_ARCEUUS("Minecart", new WorldPoint(1673, 3832, 0)),
@@ -155,6 +157,7 @@ enum TransportationPointLocation
 	SPIRITTREE_GNOMESTRONGHOLD("Spirit Tree", new WorldPoint(2459, 3446, 0)),
 	SPIRITTREE_GNOMEVILLAGE("Spirit Tree", new WorldPoint(2538, 3166, 0)),
 	SPIRITTREE_GRANDEXCHANGE("Spirit Tree", new WorldPoint(3184, 3510, 0)),
+	SPIRITTREE_PRIFDDINAS("Spirit Tree", new WorldPoint(3274, 6124, 0)),
 
 	//Carpets
 	CARPET_KHARID("Carpet to Bedabin/Pollnivneach/Uzer", new WorldPoint(3311, 3107, 0)),
@@ -172,6 +175,7 @@ enum TransportationPointLocation
 	TELEPORT_RUNE_ARDOUGNE("Teleport to Rune Essence", new WorldPoint(2681, 3325, 0)),
 	TELEPORT_RUNE_YANILLE("Teleport to Rune Essence", new WorldPoint(2592, 3089, 0)),
 	TELEPORT_SORCERESS_GARDEN("Teleport to Sorceress's Garden", new WorldPoint(3320, 3141, 0)),
+	TELEPORT_PRIFDDINAS_LIBRARY("Teleport to Priffdinas Library", new WorldPoint(3254, 6082, 2)),
 
 	//Other
 	ALTER_KOUREND_UNDERGROUND("Altar to Skotizo", new WorldPoint(1662, 10047, 0)),

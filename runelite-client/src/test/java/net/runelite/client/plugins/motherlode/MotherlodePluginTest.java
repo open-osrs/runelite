@@ -39,7 +39,11 @@ import net.runelite.api.Varbits;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.client.Notifier;
+import net.runelite.client.config.ChatColorConfig;
+import net.runelite.client.config.RuneLiteConfig;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -47,7 +51,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MotherlodePluginTest
@@ -87,6 +91,18 @@ public class MotherlodePluginTest
 	@Bind
 	private ScheduledExecutorService scheduledExecutorService;
 
+	@Mock
+	@Bind
+	private ChatColorConfig chatColorConfig;
+
+	@Mock
+	@Bind
+	private RuneLiteConfig runeliteConfig;
+
+	@Mock
+	@Bind
+	private Notifier notifier;
+
 	@Before
 	public void before()
 	{
@@ -101,7 +117,7 @@ public class MotherlodePluginTest
 	{
 		// set inMlm
 		GameStateChanged gameStateChanged = new GameStateChanged();
-		gameStateChanged.setGameState(GameState.LOGGED_IN);
+		gameStateChanged.setGameState(GameState.LOADING);
 		motherlodePlugin.onGameStateChanged(gameStateChanged);
 
 		// Initial sack count
@@ -111,12 +127,12 @@ public class MotherlodePluginTest
 		// Create before inventory
 		ItemContainer inventory = mock(ItemContainer.class);
 		Item[] items = new Item[]{
-			mockItem(ItemID.RUNITE_ORE, 1),
-			mockItem(ItemID.GOLDEN_NUGGET, 4),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
+			item(ItemID.RUNITE_ORE, 1),
+			item(ItemID.GOLDEN_NUGGET, 4),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
 
 		};
 		when(inventory.getItems())
@@ -130,24 +146,23 @@ public class MotherlodePluginTest
 		inventory = mock(ItemContainer.class);
 		// +1 rune, +4 nugget, +2 coal, +1 addy
 		items = new Item[]{
-			mockItem(ItemID.RUNITE_ORE, 1),
-			mockItem(ItemID.RUNITE_ORE, 1),
-			mockItem(ItemID.GOLDEN_NUGGET, 8),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.COAL, 1),
-			mockItem(ItemID.ADAMANTITE_ORE, 1),
-
+			item(ItemID.RUNITE_ORE, 1),
+			item(ItemID.RUNITE_ORE, 1),
+			item(ItemID.GOLDEN_NUGGET, 8),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
+			item(ItemID.COAL, 1),
+			item(ItemID.ADAMANTITE_ORE, 1),
 		};
 		when(inventory.getItems())
 			.thenReturn(items);
 		when(client.getItemContainer(InventoryID.INVENTORY)).thenReturn(inventory);
 
 		// Trigger comparison
-		motherlodePlugin.onItemContainerChanged(new ItemContainerChanged(inventory));
+		motherlodePlugin.onItemContainerChanged(new ItemContainerChanged(InventoryID.INVENTORY.getId(), inventory));
 
 		verify(motherlodeSession).updateOreFound(ItemID.RUNITE_ORE, 1);
 		verify(motherlodeSession).updateOreFound(ItemID.GOLDEN_NUGGET, 4);
@@ -156,11 +171,8 @@ public class MotherlodePluginTest
 		verifyNoMoreInteractions(motherlodeSession);
 	}
 
-	private static Item mockItem(int itemId, int quantity)
+	private static Item item(int itemId, int quantity)
 	{
-		Item item = mock(Item.class);
-		when(item.getId()).thenReturn(itemId);
-		when(item.getQuantity()).thenReturn(quantity);
-		return item;
+		return new Item(itemId, quantity);
 	}
 }

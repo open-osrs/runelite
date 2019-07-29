@@ -25,14 +25,18 @@
 package net.runelite.client.plugins.chatboxperformance;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
-import net.runelite.api.widgets.WidgetType;
-import net.runelite.api.events.WidgetPositioned;
+import net.runelite.api.GameState;
+import net.runelite.api.ScriptID;
+import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetPositionMode;
 import net.runelite.api.widgets.WidgetSizeMode;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.api.widgets.WidgetType;
+import net.runelite.client.callback.ClientThread;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
@@ -40,41 +44,45 @@ import net.runelite.client.plugins.PluginDescriptor;
 	name = "Chatbox performance",
 	hidden = true
 )
+@Singleton
 public class ChatboxPerformancePlugin extends Plugin
 {
 	@Inject
 	private Client client;
 
-	@Subscribe
-	public void onWidgetPositioned(WidgetPositioned event)
+	@Inject
+	private ClientThread clientThread;
+
+	@Inject
+	private EventBus eventBus;
+
+	@Override
+	public void startUp()
 	{
-		if (!areWidgetsFixed())
+		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+		if (client.getGameState() == GameState.LOGGED_IN)
 		{
-			fixChatbox();
+			clientThread.invokeLater(() -> client.runScript(ScriptID.RESET_CHATBOX_INPUT));
 		}
 	}
 
-	private boolean areWidgetsFixed()
+	@Override
+	public void shutDown()
 	{
-		Widget widget = client.getWidget(WidgetInfo.CHATBOX_TRANSPARENT_BACKGROUND);
-		if (widget == null)
+		if (client.getGameState() == GameState.LOGGED_IN)
 		{
-			return true;
+			clientThread.invokeLater(() -> client.runScript(ScriptID.RESET_CHATBOX_INPUT));
 		}
-
-		Widget[] widgets = widget.getChildren();
-
-		if (widgets != null && widgets.length > 0)
-		{
-			Widget last = widgets[widgets.length - 1];
-			return last != null && last.getOpacity() < 254;
-		}
-
-		return false;
+		eventBus.unregister(this);
 	}
 
-	private void fixChatbox()
+	private void onScriptCallbackEvent(ScriptCallbackEvent ev)
 	{
+		if (!"chatboxBackgroundBuilt".equals(ev.getEventName()))
+		{
+			return;
+		}
+
 		fixDarkBackground();
 		fixWhiteLines(true);
 		fixWhiteLines(false);

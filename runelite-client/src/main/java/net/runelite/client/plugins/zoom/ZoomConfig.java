@@ -34,10 +34,16 @@ public interface ZoomConfig extends Config
 {
 	int OUTER_LIMIT_MIN = -400;
 	int OUTER_LIMIT_MAX = 400;
+	/**
+	 * The largest (most zoomed in) value that can be used without the client crashing.
+	 *
+	 * Larger values trigger an overflow in the engine's fov to scale code.
+	 */
+	int INNER_ZOOM_LIMIT = 1004;
 
 	@ConfigItem(
 		keyName = "inner",
-		name = "Expand inner zoom limit",
+		name = "Inner limit",
 		description = "Configures whether or not the inner zoom limit is reduced",
 		position = 1
 	)
@@ -52,7 +58,7 @@ public interface ZoomConfig extends Config
 	)
 	@ConfigItem(
 		keyName = "outerLimit",
-		name = "Expand outer zoom limit",
+		name = "Outer limit",
 		description = "Configures how much the outer zoom limit is adjusted",
 		position = 2
 	)
@@ -73,13 +79,40 @@ public interface ZoomConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "requireControlDown",
-		name = "Require control down",
-		description = "Configures if holding control is required for zooming",
+		keyName = "controlFunction",
+		name = "Control Function",
+		description = "Configures the zoom function when control is pressed",
 		position = 4
 	)
-	default boolean requireControlDown()
+	default ControlFunction controlFunction()
 	{
-		return false;
+		return ControlFunction.NONE;
 	}
+
+	@ConfigItem(
+		keyName = "ctrlZoomValue",
+		name = "Reset zoom position",
+		description = "Position of zoom when it is reset",
+		position = 5
+	)
+	@Range(
+		min = OUTER_LIMIT_MIN,
+		max = INNER_ZOOM_LIMIT
+	)
+	default int ctrlZoomValue()
+	{
+		return 512;
+	}
+
+	@ConfigItem(
+		keyName = "zoomIncrement",
+		name = "Zoom Speed",
+		description = "Speed of zoom",
+		position = 6
+	)
+	default int zoomIncrement()
+	{
+		return 25;
+	}
+
 }

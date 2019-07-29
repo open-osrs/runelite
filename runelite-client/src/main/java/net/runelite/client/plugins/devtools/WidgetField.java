@@ -67,6 +67,7 @@ public class WidgetField<T>
 		return MessageFormatter.format("{}", value).getMessage();
 	}
 
+	@SuppressWarnings("unchecked")
 	void setValue(Widget widget, Object inValue)
 	{
 		Object value = null;
@@ -88,7 +89,6 @@ public class WidgetField<T>
 		}
 		else
 		{
-			setter.accept(widget, (T) value);
 			log.warn("Type {} is not supported for editing", type);
 		}
 		setter.accept(widget, (T) value);
