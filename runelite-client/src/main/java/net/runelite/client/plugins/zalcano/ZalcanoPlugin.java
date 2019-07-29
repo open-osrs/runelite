@@ -222,7 +222,7 @@ public class ZalcanoPlugin extends Plugin
 		setStep(Step.IDLE);
 	}
 
-	public void gameTickOreListener(GameTick gameTick)
+	private void gameTickOreListener(GameTick gameTick)
 	{
 		if (!config.showSteps())
 		{
