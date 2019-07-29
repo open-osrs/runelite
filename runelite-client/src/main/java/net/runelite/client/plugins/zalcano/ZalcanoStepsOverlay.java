@@ -40,7 +40,7 @@ public class ZalcanoStepsOverlay extends Overlay
 {
 	private final Client client;
 	private final ZalcanoPlugin plugin;
-	private ZalcanoConfig config;
+	private final ZalcanoConfig config;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
