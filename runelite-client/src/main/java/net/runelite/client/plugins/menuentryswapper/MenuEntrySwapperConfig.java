@@ -917,7 +917,7 @@ default CharterOption charterOption()
 		keyName = "swapTanning",
 		name = "Swap Tanning",
 		description = "Enables swapping of 'Tan-1' and 'Tan-all' options.",
-		position = 3,
+		position = 2,
 		group = "Skilling"
 	)
 	default boolean getSwapTanning()
@@ -929,7 +929,7 @@ default CharterOption charterOption()
 		keyName = "swapSawmill",
 		name = "Swap Sawmill Operator",
 		description = "Makes 'Buy-plank' the default option on the Sawmill Operator.",
-		position = 4,
+		position = 3,
 		group = "Skilling"
 	)
 	default boolean getSwapSawmill()
@@ -941,7 +941,7 @@ default CharterOption charterOption()
 		keyName = "swapSawmillPlanks",
 		name = "Swap Buy Planks",
 		description = "Makes 'Buy All' the default option when buying planks.",
-		position = 5,
+		position = 4,
 		group = "Skilling"
 	)
 	default boolean getSwapSawmillPlanks()
@@ -953,7 +953,7 @@ default CharterOption charterOption()
 		keyName = "swapPuroPuro",
 		name = "Swap Puro-Puro Wheat",
 		description = "",
-		position = 6,
+		position = 5,
 		group = "Skilling"
 	)
 	default boolean getSwapPuro()
