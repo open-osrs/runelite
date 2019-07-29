@@ -1,6 +1,6 @@
 package net.runelite.client.plugins.zalcano;
 
-public enum Step
+enum Step
 {
 	IDLE,
 	MINE,
