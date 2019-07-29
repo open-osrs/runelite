@@ -39,7 +39,7 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 public class ZalcanoStepsOverlay extends Overlay
 {
 	private final Client client;
-	private ZalcanoPlugin plugin;
+	private final ZalcanoPlugin plugin;
 	private ZalcanoConfig config;
 	private final PanelComponent panelComponent = new PanelComponent();
 
