@@ -44,7 +44,7 @@ public class ZalcanoStepsOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	ZalcanoStepsOverlay(Client client, ZalcanoPlugin plugin, ZalcanoConfig config)
+	ZalcanoStepsOverlay(final Client client, final ZalcanoPlugin plugin, final ZalcanoConfig config)
 	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
