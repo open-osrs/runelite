@@ -914,18 +914,6 @@ default CharterOption charterOption()
 	}
 
 	@ConfigItem(
-		keyName = "swapSmithing",
-		name = "Swap Smithing",
-		description = "Enables swapping of 'Smith-1' and 'Smith-all' options.",
-		position = 2,
-		group = "Skilling"
-	)
-	default boolean getSwapSmithing()
-	{
-		return false;
-	}
-
-	@ConfigItem(
 		keyName = "swapTanning",
 		name = "Swap Tanning",
 		description = "Enables swapping of 'Tan-1' and 'Tan-all' options.",
