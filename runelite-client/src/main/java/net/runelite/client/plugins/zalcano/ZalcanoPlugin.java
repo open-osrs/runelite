@@ -109,6 +109,7 @@ public class ZalcanoPlugin extends Plugin
 	protected void shutDown()
 	{
 		eventBus.unregister(this);
+		eventBus.unregister("regionchecker");
 		overlayManager.remove(overlay);
 		overlayManager.remove(stepsOverlay);
 	}
