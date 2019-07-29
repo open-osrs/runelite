@@ -71,7 +71,7 @@ public class ZalcanoPlugin extends Plugin
 	private ZalcanoStepsOverlay stepsOverlay;
 
 	@Inject
-	OverlayManager overlayManager;
+	private OverlayManager overlayManager;
 
 	@Inject
 	private EventBus eventBus;
