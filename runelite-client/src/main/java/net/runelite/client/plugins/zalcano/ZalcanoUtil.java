@@ -36,6 +36,7 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.NPC;
+import net.runelite.api.NpcID;
 import net.runelite.api.Projectile;
 import net.runelite.api.ProjectileID;
 import net.runelite.api.Tile;
@@ -46,8 +47,8 @@ import net.runelite.api.widgets.WidgetItem;
 public class ZalcanoUtil
 {
 
-	private Client client;
-	private ZalcanoPlugin plugin;
+	private final Client client;
+	private final ZalcanoPlugin plugin;
 
 	protected static final String mine = "MINE";
 	protected static final String warning = "GET BACK";
@@ -148,7 +149,7 @@ public class ZalcanoUtil
 		{
 			if (npc != null)
 			{
-				if (npc.getId() == 9049)
+				if (npc.getId() == NpcID.ZALCANO)
 				{
 					plugin.setZalcano(npc);
 				}
