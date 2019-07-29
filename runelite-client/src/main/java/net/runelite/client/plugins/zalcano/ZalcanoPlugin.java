@@ -80,7 +80,7 @@ public class ZalcanoPlugin extends Plugin
 	@Inject
 	private EventBus eventBus;
 
-	@Setter
+	@Setter(AccessLevel.PACKAGE)
 	@Getter
 	private NPC zalcano;
 
