@@ -176,7 +176,7 @@ public class ZalcanoPlugin extends Plugin
 	 *
 	 * @param gameTick
 	 */
-	public void gameTickStepMachine(GameTick gameTick)
+	private void gameTickStepMachine(GameTick gameTick)
 	{
 		if (!config.showSteps())
 		{
