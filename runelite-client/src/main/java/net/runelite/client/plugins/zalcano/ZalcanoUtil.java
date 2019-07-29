@@ -71,7 +71,7 @@ public class ZalcanoUtil
 	}
 
 	//this should be a project-wide standard
-	protected ArrayList<GameObject> getGameObjects()
+	protected List<GameObject> getGameObjects()
 	{
 		ArrayList<GameObject> gameObjectArrayList = new ArrayList<>();
 
