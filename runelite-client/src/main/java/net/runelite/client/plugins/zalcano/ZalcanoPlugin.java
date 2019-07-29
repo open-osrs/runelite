@@ -62,7 +62,7 @@ public class ZalcanoPlugin extends Plugin
 	private ZalcanoConfig config;
 
 	@Inject
-	ZalcanoUtil util;
+	private ZalcanoUtil util;
 
 	@Inject
 	private ZalcanoOverlay overlay;
