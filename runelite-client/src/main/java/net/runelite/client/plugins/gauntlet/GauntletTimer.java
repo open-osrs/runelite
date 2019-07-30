@@ -24,9 +24,16 @@
  */
 package net.runelite.client.plugins.gauntlet;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
+import net.runelite.client.chat.ChatMessageBuilder;
+import net.runelite.client.chat.ChatMessageManager;
+import net.runelite.client.chat.QueuedMessage;
+import static net.runelite.client.plugins.gauntlet.GauntletTimer.RaidState.*;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -34,199 +41,246 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
-
 import javax.inject.Inject;
-import java.awt.*;
-
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 
-class GauntletTimer extends Overlay {
+class GauntletTimer extends Overlay
+{
+	@Inject
+	private
+	ChatMessageManager chatMessageManager;
 
-    private final Client client;
+	private final Client client;
+	private final GauntletPlugin plugin;
+	private final PanelComponent panelComponent = new PanelComponent();
+	private long timeRaidStart = -1L;
+	private long timeBossEnter = -1L;
+	private RaidState currentState = UNKNOWN;
+	public enum RaidState
+	{
+		UNKNOWN, IN_RAID, IN_BOSS
+	}
 
-    private final GauntletPlugin plugin;
-    private final GauntletConfig config;
+	/**
+	 * Resets the timer.
+	 */
+	void resetStates()
+	{
+		timeRaidStart = -1L;
+		timeBossEnter = -1L;
 
-    private final PanelComponent panelComponent = new PanelComponent();
+		currentState = UNKNOWN;
+	}
 
-    public enum RaidState {
-        UNKNOWN, IN_RAID, IN_BOSS;
-    }
+	/**
+	 * This is called when the player resets the plugin mid-raid. We do not want to confuse the timer.
+	 * <p>
+	 * TODO: Originally, this function will disable the timer if the plugin is started mid raid.
+	 * Unfortunately, VARBITS can't be checked unless you're on the client thread.
+	 * I've no idea how to access RL's task handler.
+	 * Good luck to you. If you restart plugin mid raid, oh well. Your timer's going to be inaccurate.
+	 */
+	void initStates()
+	{
+		timeRaidStart = -1L;
+		timeBossEnter = -1L;
 
-    public long timeRaidStart = -1L;
-    public long timeBossEnter = -1L;
+		if (GauntletUtils.inRaid(client))
+		{
+			currentState = IN_RAID;
+			if (GauntletUtils.inBoss(client))
+			{
+				currentState = IN_BOSS;
+			}
+		}
+		else
+		{
+			currentState = UNKNOWN;
+		}
+	}
 
-    public RaidState currentState = RaidState.UNKNOWN;
+	/**
+	 * Converts the different between two epoch times into minutes:seconds format.
+	 *
+	 * @param epochA long
+	 * @param epochB long
+	 * @return String
+	 */
+	private String calculateElapsedTime(long epochA, long epochB)
+	{
+		long max = Math.max(epochA, epochB);
+		long min = Math.min(epochA, epochB);
 
-    /**
-     * Resets the timer.
-     */
-    public void resetStates() {
-        timeRaidStart = -1L;
-        timeBossEnter = -1L;
+		long elapsedEpoch = max - min;
+		long seconds = elapsedEpoch / 1000L;
 
-        currentState = RaidState.UNKNOWN;
-    }
+		long minutes = seconds / 60L;
+		seconds = seconds % 60;
 
-    /**
-     * This is called when the player resets the plugin mid-raid. We do not want to confuse the timer.
-     * <p>
-     * TODO: Originally, this function will disable the timer if the plugin is started mid raid.
-     * Unfortunately, VARBITS can't be checked unless you're on the client thread.
-     * I've no idea how to access RL's task handler.
-     * Good luck to you. If you restart plugin mid raid, oh well. Your timer's going to be inaccurate.
-     */
-    public void initStates() {
-        timeRaidStart = -1L;
-        timeBossEnter = -1L;
+		if (seconds == 0)
+		{
+			return minutes + ":00";
+		}
 
-        if (GauntletUtils.inRaid(client)) {
-            currentState = RaidState.IN_RAID;
-            if (GauntletUtils.inBoss(client)) {
-                currentState = RaidState.IN_BOSS;
-            }
-        } else
-            currentState = RaidState.UNKNOWN;
-    }
+		if (seconds < 10)
+		{
+			return minutes + ":0" + seconds;
+		}
 
-    /**
-     * Converts the different between two epoch times into minutes:seconds format.
-     *
-     * @param epochA long
-     * @param epochB long
-     * @return String
-     */
-    private String calculateElapsedTime(long epochA, long epochB) {
-        long max = Math.max(epochA, epochB);
-        long min = Math.min(epochA, epochB);
+		return minutes + ":" + seconds;
+	}
 
-        long elapsedEpoch = max - min;
-        long seconds = elapsedEpoch / 1000L;
+	/**
+	 * Called when varbit changes. See if the the raid state has changed.
+	 */
+	void checkStates(boolean checkVarps)
+	{
+		final Player p = client.getLocalPlayer();
 
-        long minutes = seconds / 60L;
-        seconds = seconds % 60;
+		if (p == null || !plugin.completeStartup)
+		{
+			return;
+		}
 
-        if (seconds == 0) {
-            return minutes + ":00";
-        }
+		if (checkVarps)
+		{
+			switch (currentState)
+			{
+				case UNKNOWN:
+					if (GauntletUtils.inRaid(client) && p.getHealthRatio() != 0)
+					{ // Player has started a new raid.
+						if (!GauntletUtils.inBoss(client))
+						{
+							currentState = IN_RAID;
+							timeRaidStart = System.currentTimeMillis();
+						}
+						else
+						{
+							currentState = IN_RAID;
+							timeRaidStart = timeBossEnter = System.currentTimeMillis();
+						}
+					}
+				case IN_RAID:
+					if (GauntletUtils.inRaid(client))
+					{
+						if (GauntletUtils.inBoss(client))
+						{  // Player has begun the boss fight.
+							printPrepTime();
+							currentState = IN_BOSS;
+							timeBossEnter = System.currentTimeMillis();
+						}
+					}
+					else
+					{ // Player has died or left the raid.
+						printPrepTime();
+						resetStates();
+					}
+				case IN_BOSS:
+					if (!GauntletUtils.inBoss(client) || !GauntletUtils.inRaid(client))
+					{ // Player has killed the boss.
+						resetStates();
+					}
+			}
 
-        if (seconds < 10) {
-            return minutes + ":0" + seconds;
-        }
+		}
+		else
+		{
+			if (currentState == IN_BOSS)
+			{
+				if (p.getHealthRatio() == 0)
+				{ // Boss has killed the player.
+					printBossTime();
+					resetStates();
+				}
+			}
+		}
+	}
 
-        return minutes + ":" + seconds;
-    }
+	private void printPrepTime()
+	{
+		if (!plugin.displayTimerChat || timeRaidStart == -1L)
+		{
+			return;
+		}
 
-    /**
-     * Called when varbit changes. See if the the raid state has changed.
-     */
-    public void checkStates(boolean checkVarps) {
-        final Player p = client.getLocalPlayer();
+		String elapsedTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
+		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage(
+			new ChatMessageBuilder().append("Preparation time: <col=ff0000>" + elapsedTime + "<col=000000>.")
+				.build()).build());
+	}
 
-        if (p == null || !plugin.completeStartup)
-            return;
+	private void printBossTime()
+	{
+		if (!plugin.displayTimerChat || timeRaidStart == -1L || timeBossEnter == -1L)
+		{
+			return;
+		}
 
-        if (checkVarps) {
-            if (currentState == RaidState.UNKNOWN) {
-                if (GauntletUtils.inRaid(client) && p.getHealthRatio() != 0) { // Player has started a new raid.
-                    if (!GauntletUtils.inBoss(client)) {
-                        currentState = RaidState.IN_RAID;
-                        timeRaidStart = System.currentTimeMillis();
-                    } else {
-                        currentState = RaidState.IN_RAID;
-                        timeRaidStart = timeBossEnter = System.currentTimeMillis();
-                    }
-                }
-            } else if (currentState == RaidState.IN_RAID) {
-                if (GauntletUtils.inRaid(client)) {
-                    if (GauntletUtils.inBoss(client)) {  // Player has begun the boss fight.
-                        printPrepTime();
-                        currentState = RaidState.IN_BOSS;
-                        timeBossEnter = System.currentTimeMillis();
-                    }
-                } else { // Player has died or left the raid.
-                    printPrepTime();
-                    resetStates();
-                }
-            } else if (currentState == RaidState.IN_BOSS) {
-                if (!GauntletUtils.inBoss(client) || !GauntletUtils.inRaid(client)) { // Player has killed the boss.
-                    resetStates();
-                }
-            }
-        } else {
-            if (currentState == RaidState.IN_BOSS) {
-                if (p.getHealthRatio() == 0) { // Boss has killed the player.
-                    printBossTime();
-                    resetStates();
-                }
-            }
-        }
-    }
+		String elapsedBossTime = calculateElapsedTime(System.currentTimeMillis(), timeBossEnter);
+		String elapsedPrepTime = calculateElapsedTime(timeRaidStart, timeBossEnter);
+		String elapsedTotalTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
 
-    private void printPrepTime() {
-        if (!config.displayTimerChat() || timeRaidStart == -1L)
-            return;
+		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage(
+			new ChatMessageBuilder().append("Challenge duration: <col=ff0000>" + elapsedTotalTime + "<col=000000>.")
+				.build()).build());
 
-        String elapsedTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
-        this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Preparation time: <col=ff0000>" + elapsedTime + "<col=000000>.", null);
-    }
+		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage(
+			new ChatMessageBuilder().append("Preparation time: <col=ff0000>" + elapsedPrepTime + "<col=000000>. Player death time: <col=ff0000>" + elapsedBossTime + "<col=000000>.")
+				.build()).build());
+	}
 
-    private void printBossTime() {
-        if (!config.displayTimerChat() || timeRaidStart == -1L || timeBossEnter == -1L)
-            return;
+	@Inject
+	public GauntletTimer(Client client, GauntletPlugin plugin)
+	{
+		super(plugin);
 
-        String elapsedBossTime = calculateElapsedTime(System.currentTimeMillis(), timeBossEnter);
-        String elapsedPrepTime = calculateElapsedTime(timeRaidStart, timeBossEnter);
-        String elapsedTotalTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
+		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
+		setPriority(OverlayPriority.HIGH);
 
-        this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Challenge duration: <col=ff0000>" + elapsedTotalTime + "<col=000000>.", null);
-        this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Preparation time: <col=ff0000>" + elapsedPrepTime + "<col=000000>. Player death time: <col=ff0000>" + elapsedBossTime + "<col=000000>.", null);
-    }
+		this.client = client;
+		this.plugin = plugin;
 
-    @Inject
-    public GauntletTimer(Client client, GauntletPlugin plugin, GauntletConfig config) {
-        super(plugin);
+		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Gauntlet Timer Overlay"));
+	}
 
-        setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
-        setPriority(OverlayPriority.HIGH);
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		if (currentState == UNKNOWN)
+		{
+			return null;
+		}
 
-        this.client = client;
-        this.plugin = plugin;
-        this.config = config;
+		panelComponent.getChildren().clear();
 
-        getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Gauntlet Timer Overlay"));
-    }
+		panelComponent.getChildren().add(TitleComponent.builder().text("Gauntlet Timer").color(Color.WHITE).build());
 
-    @Override
-    public Dimension render(Graphics2D graphics) {
-        if (currentState == RaidState.UNKNOWN) {
-            return null;
-        }
+		if (timeRaidStart == -1L)
+		{ // User restarted the plugin mid raid. Timer is inaccurate.
+			panelComponent.getChildren().add(LineComponent.builder().left("Inactive").right("0:00").build());
+		}
+		else
+		{
+			String elapsedPrepTime, elapsedBossTime, elapsedTotalTime;
+			elapsedTotalTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
 
-        panelComponent.getChildren().clear();
+			if (currentState == IN_RAID)
+			{
+				elapsedPrepTime = calculateElapsedTime(timeRaidStart, System.currentTimeMillis());
+				elapsedBossTime = "0:00";
+			}
+			else
+			{
+				elapsedPrepTime = calculateElapsedTime(timeRaidStart, timeBossEnter);
+				elapsedBossTime = calculateElapsedTime(System.currentTimeMillis(), timeBossEnter);
+			}
 
-        panelComponent.getChildren().add(TitleComponent.builder().text("Gauntlet Timer").color(Color.WHITE).build());
+			panelComponent.getChildren().add(LineComponent.builder().left("Preparation").right(elapsedPrepTime).build());
+			panelComponent.getChildren().add(LineComponent.builder().left("Boss Fight").right(elapsedBossTime).build());
+			panelComponent.getChildren().add(LineComponent.builder().left("Total Time").right(elapsedTotalTime).build());
+		}
 
-        if (timeRaidStart == -1L) { // User restarted the plugin mid raid. Timer is inaccurate.
-            panelComponent.getChildren().add(LineComponent.builder().left("Inactive").right("0:00").build());
-        } else {
-            String elapsedPrepTime, elapsedBossTime, elapsedTotalTime;
-            elapsedTotalTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
-
-            if (currentState == RaidState.IN_RAID) {
-                elapsedPrepTime = calculateElapsedTime(timeRaidStart, System.currentTimeMillis());
-                elapsedBossTime = "0:00";
-            } else {
-                elapsedPrepTime = calculateElapsedTime(timeRaidStart, timeBossEnter);
-                elapsedBossTime = calculateElapsedTime(System.currentTimeMillis(), timeBossEnter);
-            }
-
-            panelComponent.getChildren().add(LineComponent.builder().left("Preparation").right(elapsedPrepTime).build());
-            panelComponent.getChildren().add(LineComponent.builder().left("Boss Fight").right(elapsedBossTime).build());
-            panelComponent.getChildren().add(LineComponent.builder().left("Total Time").right(elapsedTotalTime).build());
-        }
-
-        return panelComponent.render(graphics);
-    }
+		return panelComponent.render(graphics);
+	}
 }

@@ -15,157 +15,155 @@ import net.runelite.client.config.Range;
 
 @ConfigGroup("Gauntlet")
 
-public interface GauntletConfig extends Config 
+public interface GauntletConfig extends Config
 {
 
 	@ConfigItem(
-			position = 0,
-			keyName = "highlightResourcesColor",
-			name = "Highlight Resources with a tile",
-			description = "Highlights all the resources in each room with a color."
+		position = 0,
+		keyName = "highlightResourcesColor",
+		name = "Highlight Resources with a tile",
+		description = "Highlights all the resources in each room with a color."
 	)
-	default boolean highlightResourcesColor() 
+	default boolean highlightResourcesColor()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "highlightResourcesIcons",
-			name = "Highlight Resources with an Icon",
-			description = "Highlights all the icons in each room with an icon."
+		position = 1,
+		keyName = "highlightResourcesIcons",
+		name = "Highlight Resources with an Icon",
+		description = "Highlights all the icons in each room with an icon."
 	)
-	default boolean highlightResourcesIcons() 
+	default boolean highlightResourcesIcons()
 	{
 		return true;
 	}
-	
-		@Range(
-			min = 1,
-			max = 50
+
+	@Range(
+		min = 1,
+		max = 50
 	)
 	@ConfigItem(
-			position = 2,
-			keyName = "iconSize",
-			name = "Global Icon Size",
-			description = "Globally change the size of icons.",
-			hidden = true,
+		position = 2,
+		keyName = "iconSize",
+		name = "Global Icon Size",
+		description = "Globally change the size of icons.",
+		hidden = true,
 		unhide = "highlightResourcesIcons"
 	)
-	default int iconSize() 
+	default int iconSize()
 	{
 		return 20;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "countBossAttacks",
-			name = "Count Boss Attacks",
-			description = "Count the attacks until the boss switches their style."
+		position = 3,
+		keyName = "countBossAttacks",
+		name = "Count Boss Attacks",
+		description = "Count the attacks until the boss switches their style."
 	)
-	default boolean countBossAttacks() 
+	default boolean countBossAttacks()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "countPlayerAttacks",
-			name = "Count Player Attacks",
-			description = "Count the player attacks until the boss switches their prayer."
+		position = 4,
+		keyName = "countPlayerAttacks",
+		name = "Count Player Attacks",
+		description = "Count the player attacks until the boss switches their prayer."
 	)
-	default boolean countPlayerAttacks() 
+	default boolean countPlayerAttacks()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 5,
-			keyName = "uniquePrayerAudio",
-			name = "Unique Prayer Audio",
-			description = "Plays a unique sound whenever the boss is about to shut down your prayer."
+		position = 5,
+		keyName = "uniquePrayerAudio",
+		name = "Unique Prayer Audio",
+		description = "Plays a unique sound whenever the boss is about to shut down your prayer."
 	)
-	default boolean uniquePrayerAudio() 
+	default boolean uniquePrayerAudio()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "uniquePrayerVisual",
-			name = "Unique Prayer Visual",
-			description = "Prayer attacks will have a unique overlay visual."
+		position = 6,
+		keyName = "uniquePrayerVisual",
+		name = "Unique Prayer Visual",
+		description = "Prayer attacks will have a unique overlay visual."
 	)
-	default boolean uniquePrayerVisual() 
+	default boolean uniquePrayerVisual()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 7,
-			keyName = "uniqueAttackVisual",
-			name = "Unique Magic & Range Visuals",
-			description = "Magic and Range attacks will have a unique overlay visual."
+		position = 7,
+		keyName = "uniqueAttackVisual",
+		name = "Unique Magic & Range Visuals",
+		description = "Magic and Range attacks will have a unique overlay visual."
 	)
-	default boolean uniqueAttackVisual() 
+	default boolean uniqueAttackVisual()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 8,
-			keyName = "overlayBoss",
-			name = "Overlay the Boss (Color)",
-			description = "Overlay the boss with an color denoting it's current attack style."
+		position = 8,
+		keyName = "overlayBoss",
+		name = "Overlay the Boss (Color)",
+		description = "Overlay the boss with an color denoting it's current attack style."
 	)
-	default boolean overlayBoss() 
+	default boolean overlayBoss()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 9,
-			keyName = "overlayBossPrayer",
-			name = "Overlay the Boss (Icon)",
-			description = "Overlay the boss with an icon denoting it's current attack style."
+		position = 9,
+		keyName = "overlayBossPrayer",
+		name = "Overlay the Boss (Icon)",
+		description = "Overlay the boss with an icon denoting it's current attack style."
 	)
-	default boolean overlayBossPrayer() 
+	default boolean overlayBossPrayer()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 10,
-			keyName = "overlayTornadoes",
-			name = "Show Tornado Decay",
-			description = "Display the amount of ticks left until the tornadoes decay."
+		position = 10,
+		keyName = "overlayTornadoes",
+		name = "Show Tornado Decay",
+		description = "Display the amount of ticks left until the tornadoes decay."
 	)
-	default boolean overlayTornadoes() 
+	default boolean overlayTornadoes()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 11,
-			keyName = "displayTimerWidget",
-			name = "Show Custom Timer (Widget)",
-			description = "Display a timer widget that tracks your gauntlet progress."
+		position = 11,
+		keyName = "displayTimerWidget",
+		name = "Show Custom Timer (Widget)",
+		description = "Display a timer widget that tracks your gauntlet progress."
 	)
-	default boolean displayTimerWidget() 
+	default boolean displayTimerWidget()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 12,
-			keyName = "displayTimerChat",
-			name = "Show Custom Timer (Chat)",
-			description = "Display a chat message that tracks your gauntlet progress."
+		position = 12,
+		keyName = "displayTimerChat",
+		name = "Show Custom Timer (Chat)",
+		description = "Display a chat message that tracks your gauntlet progress."
 	)
-	default boolean displayTimerChat() 
+	default boolean displayTimerChat()
 	{
 		return true;
 	}
-
-
 }
