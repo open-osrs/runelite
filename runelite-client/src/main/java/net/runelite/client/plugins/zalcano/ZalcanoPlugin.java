@@ -121,7 +121,7 @@ public class ZalcanoPlugin extends Plugin
 
 	private void onGameTickCheckRegion(GameTick gameTick)
 	{
-		if (client.getLocalPlayer().getWorldLocation().getRegionID() == util.ZALCANO_REGION) //if player is in zalcanos region load the other events
+		if (util.isInZalcanoRegion())
 		{
 			log.debug("region check complete loading other events");
 			eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
@@ -229,7 +229,6 @@ public class ZalcanoPlugin extends Plugin
 			return;
 		}
 		ores = util.countItemInInventory(ItemID.TEPHRA);
-		//log.debug("ores: {}", ores);
 	}
 
 }

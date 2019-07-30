@@ -29,16 +29,21 @@ package net.runelite.client.plugins.zalcano;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
+import net.runelite.api.DynamicObject;
 import net.runelite.api.GameObject;
+import net.runelite.api.GraphicsObject;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
+import net.runelite.api.ObjectID;
 import net.runelite.api.Projectile;
 import net.runelite.api.ProjectileID;
+import net.runelite.api.Renderable;
 import net.runelite.api.Tile;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -60,6 +65,11 @@ public class ZalcanoUtil
 		this.client = client;
 		this.plugin = plugin;
 	}
+
+	protected boolean isInZalcanoRegion() {
+		return client.getLocalPlayer().getWorldLocation().getRegionID() == ZALCANO_REGION ? true : false;
+	}
+
 
 	protected boolean projectileExists()
 	{
@@ -100,6 +110,64 @@ public class ZalcanoUtil
 			}
 		}
 		return gameObjectArrayList;
+	}
+
+	protected GameObject getGlowingRock() {
+		for (GameObject gameObject : getGameObjects())
+		{
+			if (gameObject != null) {
+				if (gameObject.getId() == ObjectID.ROCK_FORMATION_GLOWING)
+				{
+					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
+					{
+						Renderable renderable = gameObject.getRenderable();
+						if (renderable instanceof DynamicObject)
+						{
+							if (((DynamicObject) renderable).getAnimationID() == AnimationID.ZALCANO_ROCK_GLOWING)
+							{
+								return gameObject;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	protected List<GameObject> getRedSymbols() {
+		List<GameObject> list = new ArrayList<>();
+		for (GameObject gameObject : getGameObjects())
+		{
+			if (gameObject != null) {
+				if (gameObject.getId() == ObjectID.DEMONIC_SYMBOL)
+				{
+					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
+					{
+						Renderable renderable = gameObject.getRenderable();
+						if (renderable instanceof DynamicObject)
+						{
+							list.add(gameObject);
+						}
+					}
+				}
+			}
+		}
+		return list.size() > 0 ? list : null;
+	}
+
+	protected List<GraphicsObject> getRockfall() {
+		List<GraphicsObject> list = new ArrayList<>();
+		for (GraphicsObject graphicsObject : client.getGraphicsObjects())
+		{
+			if (graphicsObject != null) {
+				if (graphicsObject.getId() == 1727/*<-- not sure where to add that*/)
+				{
+					list.add(graphicsObject);
+				}
+			}
+		}
+		return list.size() > 0 ? list : null;
 	}
 
 	protected int countItemInInventory(int itemID)

@@ -30,20 +30,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
-import net.runelite.api.DynamicObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.GraphicsObject;
-import net.runelite.api.ObjectID;
 import net.runelite.api.Perspective;
-import net.runelite.api.Renderable;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -92,6 +89,10 @@ public class ZalcanoOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
+		if (!util.isInZalcanoRegion()) {
+			return null;
+		}
+
 		if (config.showAoeForRockfall())
 		{
 			renderBadTiles(graphics);
@@ -121,74 +122,48 @@ public class ZalcanoOverlay extends Overlay
 
 	private void renderBadTiles(Graphics2D graphics)
 	{
-		ArrayList<GraphicsObject> arrList = new ArrayList<>();
-		for (GraphicsObject graphicsObject : client.getGraphicsObjects())
-		{
-			if (graphicsObject.getId() == 1727/*<-- not sure where to add that*/)
-			{
-				arrList.add(graphicsObject);
-			}
-		}
+		List<GraphicsObject> rockFall = util.getRockfall();
 
-		for (GraphicsObject graphicsObject : arrList)
+		if (rockFall != null)
 		{
-			WorldPoint worldPoint = WorldPoint.fromLocal(client, graphicsObject.getLocation());
-			OverlayUtil.drawTiles(graphics, client, worldPoint, client.getLocalPlayer().getWorldLocation(), Color.RED, 2, 150, 50);
+			for (GraphicsObject graphicsObject : rockFall)
+			{
+				WorldPoint worldPoint = WorldPoint.fromLocal(client, graphicsObject.getLocation());
+				OverlayUtil.drawTiles(graphics, client, worldPoint, client.getLocalPlayer().getWorldLocation(), Color.RED, 2, 150, 50);
+			}
 		}
 	}
 
 	private void renderRedSymbols(Graphics2D graphics)
 	{
-		for (GameObject gameObject : util.getGameObjects())
+		List<GameObject> symbolsToRender = util.getRedSymbols();
+
+		if (symbolsToRender != null)
 		{
-			if (gameObject.getId() == ObjectID.DEMONIC_SYMBOL)
+			for (GameObject gameObject : symbolsToRender)
 			{
-				if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
+				final LocalPoint loc = gameObject.getLocalLocation();
+				final Polygon poly = Perspective.getCanvasTileAreaPoly(client, loc, 3);
+				if (poly != null)
 				{
-					Renderable renderable = gameObject.getRenderable();
-					if (renderable instanceof DynamicObject)
-					{
-						render3x3AroundObject(graphics, gameObject);
-					}
+					OverlayUtil.renderPolygon(graphics, poly, new Color(249, 47, 30));
 				}
 			}
 		}
 	}
 
-	//helper method
-	private void render3x3AroundObject(Graphics2D graphics, GameObject gameObject)
-	{
-		final LocalPoint loc = gameObject.getLocalLocation();
-		final Polygon poly = Perspective.getCanvasTileAreaPoly(client, loc, 3);
-		if (poly != null)
-		{
-			OverlayUtil.renderPolygon(graphics, poly, new Color(249, 47, 30));
-		}
-	}
-
 	private void renderRockToMine(Graphics2D graphics)
 	{
-		for (GameObject gameObject : util.getGameObjects())
-		{
-			if (gameObject.getId() == ObjectID.ROCK_FORMATION_GLOWING)
+		GameObject glowingRock = util.getGlowingRock();
+
+		if (glowingRock != null) {
+			final Polygon poly = Perspective.getCanvasTileAreaPoly(client, glowingRock.getLocalLocation(), !util.projectileExists() ? 2 : 4);
+
+			if (poly != null)
 			{
-				if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
-				{
-					Renderable renderable = gameObject.getRenderable();
-					if (renderable instanceof DynamicObject)
-					{
-						if (((DynamicObject) renderable).getAnimationID() == AnimationID.ZALCANO_ROCK_GLOWING)
-						{
-							final Polygon poly = Perspective.getCanvasTileAreaPoly(client, gameObject.getLocalLocation(), !util.projectileExists() ? 2 : 4);
-							if (poly != null)
-							{
-								final Color green = new Color(140, 255, 60);
-								OverlayUtil.renderPolygon(graphics, poly, !util.projectileExists() ? green : Color.RED);
-								OverlayUtil.renderTextLocation(graphics, gameObject.getCanvasLocation(), !util.projectileExists() ? util.mine : util.warning, !util.projectileExists() ? green : Color.RED);
-							}
-						}
-					}
-				}
+				final Color green = new Color(140, 255, 60);
+				OverlayUtil.renderPolygon(graphics, poly, !util.projectileExists() ? green : Color.RED);
+				OverlayUtil.renderTextLocation(graphics, glowingRock.getCanvasLocation(), !util.projectileExists() ? util.mine : util.warning, !util.projectileExists() ? green : Color.RED);
 			}
 		}
 	}
