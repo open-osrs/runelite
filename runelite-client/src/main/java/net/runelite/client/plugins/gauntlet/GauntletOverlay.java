@@ -42,11 +42,9 @@ import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.Projectile;
-import net.runelite.api.Skill;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.model.Jarvis;
 import net.runelite.api.model.Vertex;
-import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -57,22 +55,17 @@ import static net.runelite.client.util.ImageUtil.resizeImage;
 
 public class GauntletOverlay extends Overlay
 {
-	private BufferedImage mage;
-	private BufferedImage range;
 	private static final int MAX_DISTANCE = 2400;
 	private final Client client;
 	private final GauntletPlugin plugin;
 	private final ModelOutlineRenderer outlineRenderer;
 
 	@Inject
-	private GauntletOverlay(Client client, GauntletPlugin plugin, ModelOutlineRenderer outlineRenderer, SkillIconManager skillIconManager)
+	private GauntletOverlay(Client client, GauntletPlugin plugin, ModelOutlineRenderer outlineRenderer)
 	{
 		this.client = client;
 		this.plugin = plugin;
 		this.outlineRenderer = outlineRenderer;
-
-		this.mage = skillIconManager.getSkillImage(Skill.MAGIC);
-		this.range = skillIconManager.getSkillImage(Skill.RANGED);
 
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
@@ -92,7 +85,7 @@ public class GauntletOverlay extends Overlay
 		{
 			// This section handles the visuals when the player is in the boss room.
 			// This section handles the projectile overlays.
-			Set<ProjectileContainer> projectiles = plugin.getProjectiles();
+			Set<Missiles> projectiles = plugin.getProjectiles();
 			projectiles.forEach(projectile ->
 			{
 				BufferedImage icon = resizeImage(projectile.getImage(), plugin.getIconSize(), plugin.getIconSize());
@@ -155,47 +148,36 @@ public class GauntletOverlay extends Overlay
 				}
 			});
 
-			if (plugin.getHunleff() != null)
+			if (plugin.getHunllef() != null)
 			{
-				final NPC hunleff = plugin.getHunleff();
-				final LocalPoint point = hunleff.getLocalLocation();
+				final Hunllef hunllef = plugin.getHunllef();
+				final NPC boss = hunllef.getNpc();
+				final LocalPoint point = boss.getLocalLocation();
 
 				if (plugin.overlayBoss)
 				{
-					Polygon polygon = hunleff.getConvexHull();
+					Polygon polygon = boss.getConvexHull();
 
 					if (polygon == null)
 					{
 						return null;
 					}
 
-					Color color;
-					switch (plugin.currentPhase)
-					{
-						case MAGIC:
-							color = Color.CYAN;
-							break;
-						case RANGE:
-							color = Color.GREEN;
-							break;
-						default:
-							color = Color.WHITE;
-							break;
-					}
-					outlineRenderer.drawOutline(hunleff, 2, color);
+					Color color = hunllef.getCurrentPhase().getColor();
+					outlineRenderer.drawOutline(boss, 2, color);
 				}
 
 				if (plugin.overlayBossPrayer)
 				{
 					BufferedImage attackIcon = null;
 
-					switch (plugin.currentPhase)
+					switch (hunllef.getCurrentPhase())
 					{
 						case MAGIC:
-							attackIcon = resizeImage(mage, plugin.getIconSize(), plugin.getIconSize());
+							attackIcon = resizeImage(hunllef.getMage(), plugin.getIconSize(), plugin.getIconSize());
 							break;
 						case RANGE:
-							attackIcon = resizeImage(range, plugin.getIconSize(), plugin.getIconSize());
+							attackIcon = resizeImage(hunllef.getRange(), plugin.getIconSize(), plugin.getIconSize());
 							break;
 						default:
 							break;
@@ -206,7 +188,7 @@ public class GauntletOverlay extends Overlay
 						return null;
 					}
 
-					Point imageLoc = Perspective.getCanvasImageLocation(client, point, attackIcon, hunleff.getLogicalHeight() / 2);
+					Point imageLoc = Perspective.getCanvasImageLocation(client, point, attackIcon, boss.getLogicalHeight() / 2);
 
 					if (imageLoc == null)
 					{
@@ -222,7 +204,7 @@ public class GauntletOverlay extends Overlay
 				// Handles the counter for the boss.
 				if (plugin.countBossAttacks)
 				{
-					textOverlay = Integer.toString(plugin.bossCounter);
+					textOverlay = Integer.toString(hunllef.getBossAttacks());
 				}
 
 				// Handles the counter for the player.
@@ -232,13 +214,13 @@ public class GauntletOverlay extends Overlay
 					{
 						textOverlay += " | ";
 					}
-					textOverlay += Integer.toString(plugin.playerCounter);
+					textOverlay += Integer.toString(hunllef.getPlayerAttacks());
 				}
 
 				// Handles drawing the text onto the boss.
 				if (textOverlay.length() > 0)
 				{
-					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, point, textOverlay, hunleff.getLogicalHeight() / 2);
+					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, point, textOverlay, boss.getLogicalHeight() / 2);
 
 					if (textLoc == null)
 					{
@@ -264,7 +246,7 @@ public class GauntletOverlay extends Overlay
 			// This section overlays all resources.
 			LocalPoint playerLocation = client.getLocalPlayer().getLocalLocation();
 
-			Set<ObjectContainer> resources = plugin.getResources();
+			Set<Resources> resources = plugin.getResources();
 			resources.forEach(object ->
 			{
 				if (object.getGameObject().getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
@@ -273,33 +255,33 @@ public class GauntletOverlay extends Overlay
 					// Don't use Convex Hull click box. As the room start to fill up, your FPS will dip.
 					Polygon polygon = object.getGameObject().getConvexHull();
 
-					if (polygon != null)
+					if (polygon == null)
 					{
-						// This section will highlight the resource with color.
-						if (plugin.highlightResourcesColor)
+						return;
+					}
+					// This section will highlight the resource with color.
+					if (plugin.highlightResourcesColor)
+					{
+						Color color = Color.YELLOW;
+
+						outlineRenderer.drawOutline(object.getGameObject(), 2, color);
+					}
+
+					// This section will overlay the resource with an icon.
+					if (plugin.highlightResourcesIcons)
+					{
+						BufferedImage icon = object.getImage();
+
+						if (icon != null)
 						{
-							Color color = Color.YELLOW;
-
-							outlineRenderer.drawOutline(object.getGameObject(), 2, color);
-						}
-
-						// This section will overlay the resource with an icon.
-						if (plugin.highlightResourcesIcons)
-						{
-							BufferedImage icon = object.getImage();
-
-							if (icon != null)
-							{
-								Rectangle bounds = polygon.getBounds();
-								int startX = (int) bounds.getCenterX() - (icon.getWidth() / 2);
-								int startY = (int) bounds.getCenterY() - (icon.getHeight() / 2);
-								graphics.drawImage(icon, startX, startY, null);
-							}
+							Rectangle bounds = polygon.getBounds();
+							int startX = (int) bounds.getCenterX() - (icon.getWidth() / 2);
+							int startY = (int) bounds.getCenterY() - (icon.getHeight() / 2);
+							graphics.drawImage(icon, startX, startY, null);
 						}
 					}
 				}
 			});
-
 		}
 		return null;
 	}

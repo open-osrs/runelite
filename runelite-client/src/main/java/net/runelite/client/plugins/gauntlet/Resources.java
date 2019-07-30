@@ -21,65 +21,50 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package net.runelite.client.plugins.gauntlet;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.Projectile;
-import net.runelite.api.ProjectileID;
+import net.runelite.api.GameObject;
+import net.runelite.api.ObjectID;
 import net.runelite.api.Skill;
+import net.runelite.api.Tile;
 import net.runelite.client.game.SkillIconManager;
 
 @Getter(AccessLevel.PACKAGE)
-class ProjectileContainer
+class Resources
 {
-	private Projectile projectile;
-	private int id;
+	private GameObject gameObject;
+	private Tile tile;
 	private BufferedImage image;
-	private Color color;
 
-	ProjectileContainer(Projectile projectile, SkillIconManager skillIconManager)
+	Resources(GameObject object, Tile tile, SkillIconManager skillIconManager)
 	{
-		this.projectile = projectile;
-		this.id = projectile.getId();
-		this.image = assignedImage(skillIconManager, id);
-		this.color = assignedColor(id);
-	}
-
-	private Color assignedColor(int id)
-	{
-		switch (id)
-		{
-			case ProjectileID.HUNLEFF_MAGE_ATTACK:
-			case ProjectileID.HUNLEFF_CORRUPTED_MAGE_ATTACK:
-				return Color.CYAN;
-			case ProjectileID.HUNLEFF_RANGE_ATTACK:
-			case ProjectileID.HUNLEFF_CORRUPTED_RANGE_ATTACK:
-				return Color.GREEN;
-			case ProjectileID.HUNLEFF_PRAYER_ATTACK:
-			case ProjectileID.HUNLEFF_CORRUPTED_PRAYER_ATTACK:
-				return Color.MAGENTA;
-			default:
-				return null;
-		}
+		this.gameObject = object;
+		this.tile = tile;
+		this.image = assignedImage(skillIconManager, object.getId());
 	}
 
 	private BufferedImage assignedImage(SkillIconManager SkillIconManager, int id)
 	{
 		switch (id)
 		{
-			case ProjectileID.HUNLEFF_MAGE_ATTACK:
-			case ProjectileID.HUNLEFF_CORRUPTED_MAGE_ATTACK:
-				return SkillIconManager.getSkillImage(Skill.MAGIC);
-			case ProjectileID.HUNLEFF_RANGE_ATTACK:
-			case ProjectileID.HUNLEFF_CORRUPTED_RANGE_ATTACK:
-				return SkillIconManager.getSkillImage(Skill.RANGED);
-			case ProjectileID.HUNLEFF_PRAYER_ATTACK:
-			case ProjectileID.HUNLEFF_CORRUPTED_PRAYER_ATTACK:
-				return SkillIconManager.getSkillImage(Skill.PRAYER);
+			case ObjectID.CRYSTAL_DEPOSIT:
+			case ObjectID.CORRUPT_DEPOSIT:
+				return SkillIconManager.getSkillImage(Skill.MINING);
+			case ObjectID.PHREN_ROOTS:
+			case ObjectID.PHREN_ROOTS_36066:
+				return SkillIconManager.getSkillImage(Skill.WOODCUTTING);
+			case ObjectID.FISHING_SPOT_36068:
+			case ObjectID.FISHING_SPOT_35971:
+				return SkillIconManager.getSkillImage(Skill.FISHING);
+			case ObjectID.GRYM_ROOT:
+			case ObjectID.GRYM_ROOT_36070:
+				return SkillIconManager.getSkillImage(Skill.HERBLORE);
+			case ObjectID.LINUM_TIRINUM:
+			case ObjectID.LINUM_TIRINUM_36072:
+				return SkillIconManager.getSkillImage(Skill.FARMING);
 			default:
 				return null;
 		}

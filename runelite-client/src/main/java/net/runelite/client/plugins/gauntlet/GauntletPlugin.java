@@ -45,7 +45,6 @@ import net.runelite.api.ObjectID;
 import net.runelite.api.Player;
 import net.runelite.api.Projectile;
 import net.runelite.api.ProjectileID;
-import net.runelite.api.SoundEffectID;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ConfigChanged;
@@ -63,6 +62,10 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.LIGHTNING;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.MAGIC;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.PRAYER;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.RANGE;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
@@ -80,11 +83,11 @@ public class GauntletPlugin extends Plugin
 	private static final Set<Integer> TORNADO_NPC_IDS = ImmutableSet.of(9025, 9039);
 	private static final Set<Integer> MELEE_ANIMATIONS = ImmutableSet.of(395, 401, 400, 401, 386, 390, 422, 423, 401, 428, 440);
 	private static final Set<Integer> PLAYER_ANIMATIONS = ImmutableSet.of(395, 401, 400, 401, 386, 390, 422, 423, 401, 428, 440, 426, 1167);
-	private static final Set<Integer> HUNLEFF_MAGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_MAGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_MAGE_ATTACK);
-	private static final Set<Integer> HUNLEFF_RANGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_RANGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_RANGE_ATTACK);
-	private static final Set<Integer> HUNLEFF_PRAYER_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_PRAYER_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_PRAYER_ATTACK);
-	private static final Set<Integer> HUNLEFF_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_PRAYER_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_PRAYER_ATTACK,
-		ProjectileID.HUNLEFF_RANGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_RANGE_ATTACK, ProjectileID.HUNLEFF_MAGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_MAGE_ATTACK
+	private static final Set<Integer> HUNLLEF_MAGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_MAGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_MAGE_ATTACK);
+	private static final Set<Integer> HUNLLEF_RANGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_RANGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_RANGE_ATTACK);
+	private static final Set<Integer> HUNLLEF_PRAYER_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_PRAYER_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_PRAYER_ATTACK);
+	private static final Set<Integer> HUNLLEF_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_PRAYER_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_PRAYER_ATTACK,
+		ProjectileID.HUNLLEF_RANGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_RANGE_ATTACK, ProjectileID.HUNLLEF_MAGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_MAGE_ATTACK
 	);
 	private static final Set<Integer> HUNLEFF_NPC_IDS = ImmutableSet.of(NpcID.CRYSTALLINE_HUNLLEF, NpcID.CRYSTALLINE_HUNLLEF_9022, NpcID.CRYSTALLINE_HUNLLEF_9023,
 		NpcID.CRYSTALLINE_HUNLLEF_9024, NpcID.CORRUPTED_HUNLLEF, NpcID.CORRUPTED_HUNLLEF_9036, NpcID.CORRUPTED_HUNLLEF_9037, NpcID.CORRUPTED_HUNLLEF_9038
@@ -93,16 +96,6 @@ public class GauntletPlugin extends Plugin
 		ObjectID.PHREN_ROOTS_36066, ObjectID.FISHING_SPOT_36068, ObjectID.FISHING_SPOT_35971, ObjectID.GRYM_ROOT, ObjectID.GRYM_ROOT_36070,
 		ObjectID.LINUM_TIRINUM, ObjectID.LINUM_TIRINUM_36072
 	);
-
-	public enum BossAttackPhase
-	{
-		MAGIC, RANGE, UNKNOWN
-	}
-
-	public enum BossAttack
-	{
-		MAGIC, RANGE, PRAYER, LIGHTNING
-	}
 
 	@Inject
 	private Client client;
@@ -122,12 +115,12 @@ public class GauntletPlugin extends Plugin
 	@Inject
 	private SkillIconManager skillIconManager;
 	@Getter(AccessLevel.PACKAGE)
-	private final Set<ObjectContainer> resources = new HashSet<>();
+	private final Set<Resources> resources = new HashSet<>();
 	@Getter(AccessLevel.PACKAGE)
-	private final Set<ProjectileContainer> projectiles = new HashSet<>();
+	private final Set<Missiles> projectiles = new HashSet<>();
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
-	private NPC hunleff;
+	private Hunllef hunllef;
 	@Getter(AccessLevel.PACKAGE)
 	private Set<NPC> tornado = new HashSet<>();
 	boolean completeStartup = false;
@@ -139,9 +132,6 @@ public class GauntletPlugin extends Plugin
 	boolean overlayBoss;
 	boolean overlayBossPrayer;
 	boolean overlayTornadoes;
-	BossAttackPhase currentPhase = BossAttackPhase.UNKNOWN;
-	int bossCounter = 0;
-	int playerCounter = 6;
 	int tornadoTicks = 20;
 	private boolean displayTimerWidget;
 	private boolean timerVisible = true;
@@ -199,7 +189,7 @@ public class GauntletPlugin extends Plugin
 		resources.clear();
 		projectiles.clear();
 		tornado.clear();
-		setHunleff(null);
+		setHunllef(null);
 	}
 
 	private void addSubscriptions()
@@ -231,7 +221,7 @@ public class GauntletPlugin extends Plugin
 				return;
 			}
 
-			NPCDefinition comp = hunleff.getDefinition();
+			NPCDefinition comp = hunllef.getNpc().getDefinition();
 
 			if (comp == null || comp.getOverheadIcon() == null)
 			{
@@ -247,10 +237,10 @@ public class GauntletPlugin extends Plugin
 					{
 						return;
 					}
-					playerCounter--;
-					if (playerCounter <= 0)
+					hunllef.setPlayerAttacks(hunllef.getPlayerAttacks() - 1);
+					if (hunllef.getPlayerAttacks() <= 0)
 					{
-						playerCounter = 6;
+						hunllef.setPlayerAttacks(6);
 					}
 					break;
 				case RANGED:
@@ -258,10 +248,10 @@ public class GauntletPlugin extends Plugin
 					{
 						return;
 					}
-					playerCounter--;
-					if (playerCounter <= 0)
+					hunllef.setPlayerAttacks(hunllef.getPlayerAttacks() - 1);
+					if (hunllef.getPlayerAttacks() <= 0)
 					{
-						playerCounter = 6;
+						hunllef.setPlayerAttacks(6);
 					}
 					break;
 				case MAGIC:
@@ -269,10 +259,10 @@ public class GauntletPlugin extends Plugin
 					{
 						return;
 					}
-					playerCounter--;
-					if (playerCounter <= 0)
+					hunllef.setPlayerAttacks(hunllef.getPlayerAttacks() - 1);
+					if (hunllef.getPlayerAttacks() <= 0)
 					{
-						playerCounter = 6;
+						hunllef.setPlayerAttacks(6);
 					}
 					break;
 			}
@@ -283,11 +273,11 @@ public class GauntletPlugin extends Plugin
 		{
 			final NPC npc = (NPC) actor;
 
-			if (npc == hunleff)
+			if (npc == hunllef.getNpc())
 			{
 				if (npc.getAnimation() == LIGHTNING_ANIMATION)
 				{
-					this.doAttack(BossAttack.LIGHTNING);
+					hunllef.updateAttack(LIGHTNING);
 				}
 			}
 		}
@@ -332,7 +322,7 @@ public class GauntletPlugin extends Plugin
 		final GameObject obj = event.getGameObject();
 		if (RESOURCES.contains(obj.getId()))
 		{
-			resources.add(new ObjectContainer(obj, event.getTile(), skillIconManager));
+			resources.add(new Resources(obj, event.getTile(), skillIconManager));
 		}
 	}
 
@@ -367,7 +357,7 @@ public class GauntletPlugin extends Plugin
 		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
 		{
 			resetCounters();
-			setHunleff(null);
+			setHunllef(null);
 		}
 		else if (TORNADO_NPC_IDS.contains(npc.getId()))
 		{
@@ -381,7 +371,7 @@ public class GauntletPlugin extends Plugin
 		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
 		{
 			resetCounters();
-			setHunleff(npc);
+			setHunllef(new Hunllef(npc, skillIconManager));
 		}
 		else if (TORNADO_NPC_IDS.contains(npc.getId()))
 		{
@@ -393,20 +383,20 @@ public class GauntletPlugin extends Plugin
 	{
 		final Projectile proj = event.getProjectile();
 
-		if (HUNLEFF_PROJECTILES.contains(proj.getId()))
+		if (HUNLLEF_PROJECTILES.contains(proj.getId()))
 		{
-			projectiles.add(new ProjectileContainer(proj, skillIconManager));
-			if (HUNLEFF_MAGE_PROJECTILES.contains(proj.getId()))
+			projectiles.add(new Missiles(proj, skillIconManager));
+			if (HUNLLEF_MAGE_PROJECTILES.contains(proj.getId()))
 			{
-				this.doAttack(BossAttack.MAGIC);
+				hunllef.updateAttack(MAGIC);
 			}
-			else if (HUNLEFF_PRAYER_PROJECTILES.contains(proj.getId()))
+			else if (HUNLLEF_PRAYER_PROJECTILES.contains(proj.getId()))
 			{
-				this.doAttack(BossAttack.PRAYER);
+				hunllef.updateAttack(PRAYER);
 			}
-			else if (HUNLEFF_RANGE_PROJECTILES.contains(proj.getId()))
+			else if (HUNLLEF_RANGE_PROJECTILES.contains(proj.getId()))
 			{
-				this.doAttack(BossAttack.RANGE);
+				hunllef.updateAttack(RANGE);
 			}
 		}
 	}
@@ -421,84 +411,8 @@ public class GauntletPlugin extends Plugin
 
 	private void resetCounters()
 	{
-		bossCounter = 0;
-		currentPhase = BossAttackPhase.UNKNOWN;
-		playerCounter = 6;
 		tornadoTicks = 20;
 		projectiles.clear();
-	}
-
-	/**
-	 * Method is called when an attack is performed by the boss.
-	 *
-	 * @param style BossAttack ; the attack performed by the boss
-	 */
-	private void doAttack(BossAttack style)
-	{
-		// Prayer attacks are magic related. We only care if it's prayer to play the unique sound.
-		// This section will change all PRAYER attacks to MAGIC.
-		if (style == BossAttack.PRAYER)
-		{
-			if (this.uniquePrayerAudio)
-			{
-				client.playSoundEffect(SoundEffectID.MAGIC_SPLASH_BOING);
-			}
-
-			style = BossAttack.MAGIC;
-		}
-
-		// This section will decrement the boss attack counter by 1.
-		if (style == BossAttack.LIGHTNING)
-		{
-			bossCounter--;
-		}
-		else if (style == BossAttack.RANGE)
-		{
-			if (currentPhase != BossAttackPhase.RANGE)
-			{
-				currentPhase = BossAttackPhase.RANGE;
-				bossCounter = 3;
-			}
-			else
-			{
-				bossCounter--;
-			}
-		}
-		else if (style == BossAttack.MAGIC)
-		{
-			if (currentPhase != BossAttackPhase.MAGIC)
-			{
-				currentPhase = BossAttackPhase.MAGIC;
-				bossCounter = 3;
-			}
-			else
-			{
-				bossCounter--;
-			}
-		}
-
-		// This section will reset the boss attack counter if necessary.
-		if (bossCounter <= 0)
-		{
-			BossAttackPhase nextPhase;
-
-			switch (currentPhase)
-			{
-				case MAGIC:
-					bossCounter = 4;
-					nextPhase = BossAttackPhase.RANGE;
-					break;
-				case RANGE:
-					bossCounter = 4;
-					nextPhase = BossAttackPhase.MAGIC;
-					break;
-				default:
-					bossCounter = 0;
-					nextPhase = BossAttackPhase.UNKNOWN;
-					break;
-			}
-			currentPhase = nextPhase;
-		}
 	}
 
 	boolean fightingBoss()
