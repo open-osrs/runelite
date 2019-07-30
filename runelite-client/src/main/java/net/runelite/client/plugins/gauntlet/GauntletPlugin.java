@@ -129,24 +129,24 @@ public class GauntletPlugin extends Plugin
 	private NPC hunleff;
 	@Getter(AccessLevel.PACKAGE)
 	private Set<NPC> tornado = new HashSet<>();
-	int bossCounter = 0;
-	BossAttackPhase currentPhase = BossAttackPhase.UNKNOWN;
-	int playerCounter = 6;
-	private boolean timerVisible = true;
-	int tornadoTicks = 20;
 	boolean completeStartup = false;
-	private boolean displayTimerWidget;
-	boolean highlightResourcesColor;
-	boolean highlightResourcesIcons;
 	boolean countBossAttacks;
 	boolean countPlayerAttacks;
-	private boolean uniquePrayerAudio;
-	boolean uniquePrayerVisual;
-	boolean uniqueAttackVisual;
+	boolean displayTimerChat;
+	boolean highlightResourcesColor;
+	boolean highlightResourcesIcons;
 	boolean overlayBoss;
 	boolean overlayBossPrayer;
 	boolean overlayTornadoes;
-	boolean displayTimerChat;
+	BossAttackPhase currentPhase = BossAttackPhase.UNKNOWN;
+	int bossCounter = 0;
+	int playerCounter = 6;
+	int tornadoTicks = 20;
+	private boolean displayTimerWidget;
+	private boolean timerVisible = true;
+	private boolean uniqueAttackVisual;
+	private boolean uniquePrayerAudio;
+	private boolean uniquePrayerVisual;
 	@Getter(AccessLevel.PACKAGE)
 	private int iconSize;
 
@@ -195,6 +195,10 @@ public class GauntletPlugin extends Plugin
 			timerVisible = false;
 		}
 		overlayManager.remove(overlay);
+		resources.clear();
+		projectiles.clear();
+		tornado.clear();
+		setHunleff(null);
 	}
 
 	private void addSubscriptions()
@@ -209,28 +213,6 @@ public class GauntletPlugin extends Plugin
 		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
 		eventBus.subscribe(ProjectileSpawned.class, this, this::onProjectileSpawned);
 		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-	}
-
-	private void onProjectileSpawned(ProjectileSpawned event)
-	{
-		final Projectile proj = event.getProjectile();
-
-		if (HUNLEFF_PROJECTILES.contains(proj))
-		{
-			projectiles.add(new ProjectileContainer(proj, skillIconManager));
-			if (HUNLEFF_MAGE_PROJECTILES.contains(proj.getId()))
-			{
-				this.doAttack(BossAttack.MAGIC);
-			}
-			else if (HUNLEFF_PRAYER_PROJECTILES.contains(proj.getId()))
-			{
-				this.doAttack(BossAttack.PRAYER);
-			}
-			else if (HUNLEFF_RANGE_PROJECTILES.contains(proj.getId()))
-			{
-				this.doAttack(BossAttack.RANGE);
-			}
-		}
 	}
 
 	public void onAnimationChanged(AnimationChanged event)
@@ -312,7 +294,7 @@ public class GauntletPlugin extends Plugin
 
 	public void onConfigChanged(ConfigChanged event)
 	{
-		if (event.getGroup().equals("Gauntlet"))
+		if (!event.getGroup().equals("Gauntlet"))
 		{
 			return;
 		}
@@ -334,21 +316,21 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onGameObjectSpawned(GameObjectSpawned event)
-	{
-		final GameObject obj = event.getGameObject();
-		if (RESOURCES.contains(obj.getId()))
-		{
-			resources.add(new ObjectContainer(obj, event.getTile(), skillIconManager));
-		}
-	}
-
 	public void onGameObjectDespawned(GameObjectDespawned event)
 	{
 		final GameObject obj = event.getGameObject();
 		if (RESOURCES.contains(obj.getId()))
 		{
 			resources.removeIf(object -> object.getGameObject() == obj);
+		}
+	}
+
+	public void onGameObjectSpawned(GameObjectSpawned event)
+	{
+		final GameObject obj = event.getGameObject();
+		if (RESOURCES.contains(obj.getId()))
+		{
+			resources.add(new ObjectContainer(obj, event.getTile(), skillIconManager));
 		}
 	}
 
@@ -377,6 +359,20 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	public void onNpcDespawned(NpcDespawned event)
+	{
+		final NPC npc = event.getNpc();
+		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
+		{
+			resetCounters();
+			setHunleff(null);
+		}
+		else if (TORNADO_NPC_IDS.contains(npc.getId()))
+		{
+			tornado.removeIf(tornado -> tornado == npc);
+		}
+	}
+
 	public void onNpcSpawned(NpcSpawned event)
 	{
 		final NPC npc = event.getNpc();
@@ -391,17 +387,25 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onNpcDespawned(NpcDespawned event)
+	private void onProjectileSpawned(ProjectileSpawned event)
 	{
-		final NPC npc = event.getNpc();
-		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
+		final Projectile proj = event.getProjectile();
+
+		if (HUNLEFF_PROJECTILES.contains(proj.getId()))
 		{
-			resetCounters();
-			setHunleff(null);
-		}
-		else if (TORNADO_NPC_IDS.contains(npc.getId()))
-		{
-			tornado.removeIf(tornado -> tornado == npc);
+			projectiles.add(new ProjectileContainer(proj, skillIconManager));
+			if (HUNLEFF_MAGE_PROJECTILES.contains(proj.getId()))
+			{
+				this.doAttack(BossAttack.MAGIC);
+			}
+			else if (HUNLEFF_PRAYER_PROJECTILES.contains(proj.getId()))
+			{
+				this.doAttack(BossAttack.PRAYER);
+			}
+			else if (HUNLEFF_RANGE_PROJECTILES.contains(proj.getId()))
+			{
+				this.doAttack(BossAttack.RANGE);
+			}
 		}
 	}
 
@@ -495,6 +499,16 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	boolean fightingBoss()
+	{
+		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 1;
+	}
+
+	boolean startedGauntlet()
+	{
+		return client.getVar(Varbits.GAUNTLET_ENTERED) == 1;
+	}
+
 	private void updateConfig()
 	{
 		this.highlightResourcesColor = config.highlightResourcesColor();
@@ -510,15 +524,5 @@ public class GauntletPlugin extends Plugin
 		this.overlayTornadoes = config.overlayTornadoes();
 		this.displayTimerWidget = config.displayTimerWidget();
 		this.displayTimerChat = config.displayTimerChat();
-	}
-
-	boolean fightingBoss()
-	{
-		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 1;
-	}
-
-	boolean startedGauntlet()
-	{
-		return client.getVar(Varbits.GAUNTLET_ENTERED) == 1;
 	}
 }

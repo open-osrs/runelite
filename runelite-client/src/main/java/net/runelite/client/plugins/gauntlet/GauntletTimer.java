@@ -162,6 +162,7 @@ class GauntletTimer extends Overlay
 						currentState = IN_RAID;
 						timeRaidStart = timeBossEnter = System.currentTimeMillis();
 					}
+					break;
 				case IN_RAID:
 					if (!plugin.startedGauntlet())
 					{
@@ -176,12 +177,14 @@ class GauntletTimer extends Overlay
 						currentState = IN_BOSS;
 						timeBossEnter = System.currentTimeMillis();
 					}
+					break;
 				case IN_BOSS:
 					if (!plugin.fightingBoss() || !plugin.startedGauntlet())
 					{
 						// Player has killed the boss.
 						resetStates();
 					}
+					break;
 			}
 		}
 		else
