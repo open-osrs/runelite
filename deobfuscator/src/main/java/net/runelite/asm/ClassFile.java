@@ -30,7 +30,6 @@ import net.runelite.asm.attributes.Annotations;
 import net.runelite.asm.attributes.annotation.Annotation;
 import net.runelite.asm.pool.Class;
 import net.runelite.asm.signature.Signature;
-import net.runelite.deob.DeobAnnotations;
 import static net.runelite.deob.DeobAnnotations.*;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassVisitor;
