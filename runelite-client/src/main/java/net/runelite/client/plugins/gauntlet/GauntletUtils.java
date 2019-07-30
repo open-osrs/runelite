@@ -1,5 +1,6 @@
 package net.runelite.client.plugins.gauntlet;
 
+import java.awt.Polygon;
 import net.runelite.api.Client;
 import net.runelite.api.Model;
 import net.runelite.api.NPC;
@@ -9,15 +10,13 @@ import net.runelite.api.Projectile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.model.Jarvis;
 import net.runelite.api.model.Vertex;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GauntletUtils
 {
 
-	public static final int[] MELEE_ANIMATIONS = new int[]{
+	static final int[] MELEE_ANIMATIONS = new int[]{
 		395, // Axe Slash
 		401, // Axe Crush
 
@@ -35,53 +34,53 @@ public class GauntletUtils
 		440 // Crystal Halberd Swipe
 	};
 
-	public static final int[] RANGE_ANIMATIONS = new int[]{
+	static final int[] RANGE_ANIMATIONS = new int[]{
 		426 // Crystal Bow
 	};
 
-	public static final int[] MAGE_ANIMATIONS = new int[]{
+	static final int[] MAGE_ANIMATIONS = new int[]{
 		1167 // Crystal Staff
 	};
 
-	public static final int[] PLAYER_ANIMATIONS = concatIntArray(MELEE_ANIMATIONS, RANGE_ANIMATIONS, MAGE_ANIMATIONS);
+	static final int[] PLAYER_ANIMATIONS = concatIntArray(MELEE_ANIMATIONS, RANGE_ANIMATIONS, MAGE_ANIMATIONS);
 
-	public static final int[] CRYSTAL_DEPOSIT = new int[]{
+	static final int[] CRYSTAL_DEPOSIT = new int[]{
 		36064, // Normal Mining Spot
 		35975 // Corrupted Mining Spot
 	};
 
-	public static final int[] PHREN_ROOTS = new int[]{
+	static final int[] PHREN_ROOTS = new int[]{
 		36066, // Normal Woodcutting Spot
 		35969 // Corrupted Woodcutting Spot
 	};
 
-	public static final int[] FISHING_SPOTS = new int[]{
+	static final int[] FISHING_SPOTS = new int[]{
 		36068, // Normal Fishing Spot
 		35967 // Corrupted Fishing Spot
 	};
-	public static final int[] GRYM_ROOTS = new int[]{
+	static final int[] GRYM_ROOTS = new int[]{
 		36070, // Normal Herblore Spot
 		35971 // Corrupted Herblore Spot
 	};
 
-	public static final int[] LINUM_TIRINUM = new int[]{
+	static final int[] LINUM_TIRINUM = new int[]{
 		36072, // Normal Farming Spot
 		35973, // Corrupted Farming Spot
 	};
 
-	public static final int[] RESOURCE_IDS = concatIntArray(CRYSTAL_DEPOSIT, PHREN_ROOTS, FISHING_SPOTS, GRYM_ROOTS, LINUM_TIRINUM);
+	static final int[] RESOURCE_IDS = concatIntArray(CRYSTAL_DEPOSIT, PHREN_ROOTS, FISHING_SPOTS, GRYM_ROOTS, LINUM_TIRINUM);
 
-	public static final int[] PROJECTILE_MAGIC = new int[]{1707, 1708};
-	public static final int[] PROJECTILE_RANGE = new int[]{1711, 1712};
-	public static final int[] PROJECTILE_PRAYER = new int[]{1713, 1714};
+	static final int[] PROJECTILE_MAGIC = new int[]{1707, 1708};
+	static final int[] PROJECTILE_RANGE = new int[]{1711, 1712};
+	static final int[] PROJECTILE_PRAYER = new int[]{1713, 1714};
 
-	public static final int VARP_BOSS_ROOM = 9177;
-	public static final int VARP_RAID_ROOM = 9178;
+	private static final int VARP_BOSS_ROOM = 9177;
+	private static final int VARP_RAID_ROOM = 9178;
 
-	public static final int BOSS_ANIMATION_LIGHTNING = 8418;
+	static final int BOSS_ANIMATION_LIGHTNING = 8418;
 
-	public static final int[] TORNADO_IDS = new int[]{9025, 9039};
-	public static final int TORNADO_TICKS = 20;
+	private static final int[] TORNADO_IDS = new int[]{9025, 9039};
+	static final int TORNADO_TICKS = 20;
 
 	/**
 	 * Concatenate all integers in the array into a single array.
@@ -89,7 +88,7 @@ public class GauntletUtils
 	 * @param arrays array of int arrays
 	 * @return int array
 	 */
-	public static int[] concatIntArray(int[]... arrays)
+	private static int[] concatIntArray(int[]... arrays)
 	{
 		int length = 0;
 
@@ -120,7 +119,7 @@ public class GauntletUtils
 	 * @param value    int
 	 * @return boolean
 	 */
-	public static boolean arrayContainsInteger(int[] intArray, int value)
+	static boolean arrayContainsInteger(int[] intArray, int value)
 	{
 		for (int i : intArray)
 		{
@@ -138,7 +137,7 @@ public class GauntletUtils
 	 * @param npc NPC
 	 * @return boolean
 	 */
-	public static boolean isTornado(NPC npc)
+	static boolean isTornado(NPC npc)
 	{
 		return npc != null && arrayContainsInteger(TORNADO_IDS, npc.getId());
 	}
@@ -149,7 +148,7 @@ public class GauntletUtils
 	 * @param npc NPC
 	 * @return boolean
 	 */
-	public static boolean isBoss(NPC npc)
+	static boolean isBoss(NPC npc)
 	{
 		return npc != null && npc.getName() != null && npc.getName().matches("(Crystalline|Corrupted) Hunllef");
 	}
@@ -160,7 +159,7 @@ public class GauntletUtils
 	 * @param client Client
 	 * @return boolean
 	 */
-	public static boolean inRaid(Client client)
+	static boolean inRaid(Client client)
 	{
 		try
 		{
@@ -178,7 +177,7 @@ public class GauntletUtils
 	 * @param client Client
 	 * @return boolean
 	 */
-	public static boolean inBoss(Client client)
+	static boolean inBoss(Client client)
 	{
 		try
 		{
@@ -190,7 +189,7 @@ public class GauntletUtils
 		}
 	}
 
-	public static Polygon boundProjectile(Client client, Projectile p)
+	static Polygon boundProjectile(Client client, Projectile p)
 	{
 		if (p == null || p.getModel() == null)
 		{
@@ -219,7 +218,7 @@ public class GauntletUtils
 
 		List<Point> list = new ArrayList<>();
 
-		for (final Vertex vertex : vertices)
+		for (Vertex vertex : vertices)
 		{
 			final Point localToCanvas = Perspective.localToCanvas(client, point.getX() - vertex.getX(), point.getY() - vertex.getZ(), tileHeight + vertex.getY() + (int) p.getZ());
 			if (localToCanvas != null)
