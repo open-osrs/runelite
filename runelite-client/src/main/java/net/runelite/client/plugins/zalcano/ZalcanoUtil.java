@@ -66,7 +66,8 @@ public class ZalcanoUtil
 		this.plugin = plugin;
 	}
 
-	protected boolean isInZalcanoRegion() {
+	protected boolean isInZalcanoRegion()
+	{
 		return client.getLocalPlayer().getWorldLocation().getRegionID() == ZALCANO_REGION ? true : false;
 	}
 
@@ -112,10 +113,12 @@ public class ZalcanoUtil
 		return gameObjectArrayList;
 	}
 
-	protected GameObject getGlowingRock() {
+	protected GameObject getGlowingRock()
+	{
 		for (GameObject gameObject : getGameObjects())
 		{
-			if (gameObject != null) {
+			if (gameObject != null)
+			{
 				if (gameObject.getId() == ObjectID.ROCK_FORMATION_GLOWING)
 				{
 					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
@@ -135,11 +138,13 @@ public class ZalcanoUtil
 		return null;
 	}
 
-	protected List<GameObject> getRedSymbols() {
+	protected List<GameObject> getRedSymbols()
+	{
 		List<GameObject> list = new ArrayList<>();
 		for (GameObject gameObject : getGameObjects())
 		{
-			if (gameObject != null) {
+			if (gameObject != null)
+			{
 				if (gameObject.getId() == ObjectID.DEMONIC_SYMBOL)
 				{
 					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
@@ -156,11 +161,13 @@ public class ZalcanoUtil
 		return list.size() > 0 ? list : null;
 	}
 
-	protected List<GraphicsObject> getRockfall() {
+	protected List<GraphicsObject> getRockfall()
+	{
 		List<GraphicsObject> list = new ArrayList<>();
 		for (GraphicsObject graphicsObject : client.getGraphicsObjects())
 		{
-			if (graphicsObject != null) {
+			if (graphicsObject != null)
+			{
 				if (graphicsObject.getId() == 1727/*<-- not sure where to add that*/)
 				{
 					list.add(graphicsObject);

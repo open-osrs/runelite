@@ -89,7 +89,8 @@ public class ZalcanoOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!util.isInZalcanoRegion()) {
+		if (!util.isInZalcanoRegion())
+		{
 			return null;
 		}
 
@@ -156,7 +157,8 @@ public class ZalcanoOverlay extends Overlay
 	{
 		GameObject glowingRock = util.getGlowingRock();
 
-		if (glowingRock != null) {
+		if (glowingRock != null)
+		{
 			final Polygon poly = Perspective.getCanvasTileAreaPoly(client, glowingRock.getLocalLocation(), !util.projectileExists() ? 2 : 4);
 
 			if (poly != null)
