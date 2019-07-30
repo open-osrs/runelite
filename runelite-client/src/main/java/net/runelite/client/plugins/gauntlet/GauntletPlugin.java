@@ -45,6 +45,7 @@ import net.runelite.api.ObjectID;
 import net.runelite.api.Player;
 import net.runelite.api.Projectile;
 import net.runelite.api.ProjectileID;
+import net.runelite.api.SoundEffectID;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ConfigChanged;
@@ -393,6 +394,10 @@ public class GauntletPlugin extends Plugin
 			else if (HUNLLEF_PRAYER_PROJECTILES.contains(proj.getId()))
 			{
 				hunllef.updateAttack(PRAYER);
+				if (this.uniquePrayerAudio)
+				{
+					client.playSoundEffect(SoundEffectID.MAGIC_SPLASH_BOING);
+				}
 			}
 			else if (HUNLLEF_RANGE_PROJECTILES.contains(proj.getId()))
 			{
