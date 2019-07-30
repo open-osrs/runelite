@@ -86,10 +86,21 @@ public interface PvpToolsConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "hideCastNpcs",
+		name = "Hide cast NPCs",
+		description = "Hides the cast option for NPCs",
+		position = 6
+	)
+	default boolean hideCastNpcs()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "hideCastMode",
 		name = "Mode",
 		description = "",
-		position = 6,
+		position = 7,
 		hidden = true,
 		unhide = "hideCast"
 	)
@@ -102,7 +113,7 @@ public interface PvpToolsConfig extends Config
 		keyName = "hideCastIgnored",
 		name = "Ignored spells",
 		description = "Spells that should not be hidden from being cast, separated by a comma",
-		position = 7,
+		position = 8,
 		hidden = true,
 		unhide = "hideCast"
 	)
@@ -115,7 +126,7 @@ public interface PvpToolsConfig extends Config
 		keyName = "riskCalculator",
 		name = "Risk Calculator",
 		description = "Enables a panel in the PvP Tools Panel that shows the players current risk",
-		position = 8
+		position = 9
 	)
 	default boolean riskCalculatorEnabled()
 	{
@@ -126,7 +137,7 @@ public interface PvpToolsConfig extends Config
 		keyName = "missingPlayers",
 		name = "Missing CC Players",
 		description = "Adds a button to the PvP Tools panel that opens a window showing which CC members are not at the current players location",
-		position = 9
+		position = 10
 	)
 	default boolean missingPlayersEnabled()
 	{
@@ -137,7 +148,7 @@ public interface PvpToolsConfig extends Config
 		keyName = "currentPlayers",
 		name = "Current CC Players",
 		description = "Adds a button to the PvP Tools panel that opens a window showing which CC members currently at the players location",
-		position = 10
+		position = 11
 	)
 	default boolean currentPlayersEnabled()
 	{

@@ -36,6 +36,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.Player;
 import net.runelite.api.SkullIcon;
 import net.runelite.api.Varbits;
@@ -43,6 +44,7 @@ import net.runelite.api.WorldType;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.client.callback.ClientThread;
@@ -293,6 +295,7 @@ public class PvpToolsPlugin extends Plugin
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(PlayerSpawned.class, this, this::onPlayerSpawned);
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
+		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
 	}
 
 	private void onConfigChanged(ConfigChanged configChanged)
@@ -419,6 +422,14 @@ public class PvpToolsPlugin extends Plugin
 		if (this.countOverHeads)
 		{
 			countOverHeads();
+		}
+	}
+
+	private void onMenuEntryAdded(MenuEntryAdded event)
+	{
+		if (config.hideCastNpcs() && event.getType() == 8 && event.getOption().equals("Cast"))
+		{
+			client.setMenuEntries(ArrayUtils.removeElement(client.getMenuEntries(), event.getMenuEntry()));
 		}
 	}
 
