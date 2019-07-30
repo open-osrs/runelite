@@ -36,7 +36,6 @@ import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.Player;
 import net.runelite.api.SkullIcon;
 import net.runelite.api.Varbits;
