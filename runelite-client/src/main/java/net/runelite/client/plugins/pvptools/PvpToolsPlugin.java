@@ -36,6 +36,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
+import net.runelite.api.MenuAction;
 import net.runelite.api.Player;
 import net.runelite.api.SkullIcon;
 import net.runelite.api.Varbits;
@@ -426,7 +427,7 @@ public class PvpToolsPlugin extends Plugin
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (config.hideCastNpcs() && event.getType() == 8 && event.getOption().equals("Cast"))
+		if (config.hideCastNpcs() && event.getType() == MenuAction.SPELL_CAST_ON_NPC.getId())
 		{
 			client.setMenuEntries(ArrayUtils.removeElement(client.getMenuEntries(), event.getMenuEntry()));
 		}
