@@ -79,6 +79,7 @@ public class GauntletPlugin extends Plugin
 	private static final int LIGHTNING_ANIMATION = 8418;
 	private static final Set<Integer> TORNADO_NPC_IDS = ImmutableSet.of(9025, 9039);
 	private static final Set<Integer> MELEE_ANIMATIONS = ImmutableSet.of(395, 401, 400, 401, 386, 390, 422, 423, 401, 428, 440);
+	private static final Set<Integer> PLAYER_ANIMATIONS = ImmutableSet.of(395, 401, 400, 401, 386, 390, 422, 423, 401, 428, 440, 426, 1167);
 	private static final Set<Integer> HUNLEFF_MAGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_MAGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_MAGE_ATTACK);
 	private static final Set<Integer> HUNLEFF_RANGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_RANGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_RANGE_ATTACK);
 	private static final Set<Integer> HUNLEFF_PRAYER_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_PRAYER_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_PRAYER_ATTACK);
@@ -225,7 +226,7 @@ public class GauntletPlugin extends Plugin
 			final Player player = (Player) actor;
 			final int anim = player.getAnimation();
 
-			if (!player.getName().equals(client.getLocalPlayer().getName()) || anim == -1)
+			if (!player.getName().equals(client.getLocalPlayer().getName()) || anim == -1 || !PLAYER_ANIMATIONS.contains(anim))
 			{
 				return;
 			}
@@ -273,8 +274,6 @@ public class GauntletPlugin extends Plugin
 					{
 						playerCounter = 6;
 					}
-					break;
-				default:
 					break;
 			}
 		}
