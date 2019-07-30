@@ -27,29 +27,30 @@ package net.runelite.client.plugins.gauntlet;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import javax.inject.Inject;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
+import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Player;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
-import static net.runelite.client.plugins.gauntlet.GauntletTimer.RaidState.*;
+import static net.runelite.client.plugins.gauntlet.GauntletTimer.RaidState.IN_BOSS;
+import static net.runelite.client.plugins.gauntlet.GauntletTimer.RaidState.IN_RAID;
+import static net.runelite.client.plugins.gauntlet.GauntletTimer.RaidState.UNKNOWN;
 import net.runelite.client.ui.overlay.Overlay;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
-import javax.inject.Inject;
-import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 
 class GauntletTimer extends Overlay
 {
 	@Inject
-	private
-	ChatMessageManager chatMessageManager;
+	private ChatMessageManager chatMessageManager;
 
 	private final Client client;
 	private final GauntletPlugin plugin;
@@ -57,6 +58,7 @@ class GauntletTimer extends Overlay
 	private long timeRaidStart = -1L;
 	private long timeBossEnter = -1L;
 	private RaidState currentState = UNKNOWN;
+
 	public enum RaidState
 	{
 		UNKNOWN, IN_RAID, IN_BOSS
@@ -86,10 +88,10 @@ class GauntletTimer extends Overlay
 		timeRaidStart = -1L;
 		timeBossEnter = -1L;
 
-		if (GauntletUtils.inRaid(client))
+		if (plugin.startedGauntlet())
 		{
 			currentState = IN_RAID;
-			if (GauntletUtils.inBoss(client))
+			if (plugin.fightingBoss())
 			{
 				currentState = IN_BOSS;
 			}
@@ -148,51 +150,46 @@ class GauntletTimer extends Overlay
 			switch (currentState)
 			{
 				case UNKNOWN:
-					if (GauntletUtils.inRaid(client) && p.getHealthRatio() != 0)
-					{ // Player has started a new raid.
-						if (!GauntletUtils.inBoss(client))
+					if (plugin.startedGauntlet() && p.getHealthRatio() != 0)
+					{
+						// Player has started a new raid.
+						if (!plugin.fightingBoss())
 						{
 							currentState = IN_RAID;
 							timeRaidStart = System.currentTimeMillis();
+							return;
 						}
-						else
-						{
-							currentState = IN_RAID;
-							timeRaidStart = timeBossEnter = System.currentTimeMillis();
-						}
+						currentState = IN_RAID;
+						timeRaidStart = timeBossEnter = System.currentTimeMillis();
 					}
 				case IN_RAID:
-					if (GauntletUtils.inRaid(client))
+					if (!plugin.startedGauntlet())
 					{
-						if (GauntletUtils.inBoss(client))
-						{  // Player has begun the boss fight.
-							printPrepTime();
-							currentState = IN_BOSS;
-							timeBossEnter = System.currentTimeMillis();
-						}
-					}
-					else
-					{ // Player has died or left the raid.
 						printPrepTime();
 						resetStates();
+						return;
+					}
+					if (plugin.fightingBoss())
+					{
+						// Player has begun the boss fight.
+						printPrepTime();
+						currentState = IN_BOSS;
+						timeBossEnter = System.currentTimeMillis();
 					}
 				case IN_BOSS:
-					if (!GauntletUtils.inBoss(client) || !GauntletUtils.inRaid(client))
-					{ // Player has killed the boss.
+					if (!plugin.fightingBoss() || !plugin.startedGauntlet())
+					{
+						// Player has killed the boss.
 						resetStates();
 					}
 			}
-
 		}
 		else
 		{
-			if (currentState == IN_BOSS)
+			if (currentState == IN_BOSS && p.getHealthRatio() == 0)
 			{
-				if (p.getHealthRatio() == 0)
-				{ // Boss has killed the player.
-					printBossTime();
-					resetStates();
-				}
+				printBossTime();
+				resetStates();
 			}
 		}
 	}

@@ -106,5 +106,6 @@ public class ProjectileID
 	public static final int HUNLEFF_CORRUPTED_MAGE_ATTACK = 1708;
 	public static final int HUNLEFF_RANGE_ATTACK = 1711;
 	public static final int HUNLEFF_CORRUPTED_RANGE_ATTACK = 1712;
-
+	public static final int HUNLEFF_PRAYER_ATTACK = 1713;
+	public static final int HUNLEFF_CORRUPTED_PRAYER_ATTACK = 1714;
 }
