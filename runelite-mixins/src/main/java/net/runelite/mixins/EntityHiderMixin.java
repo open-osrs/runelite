@@ -46,6 +46,9 @@ public abstract class EntityHiderMixin implements RSScene
 	@Inject
 	private static final Pattern WILDCARD_PATTERN = Pattern.compile("(?i)[^*]+|(\\*)");
 
+	@Inject
+	private static final Pattern TAG_REGEXP = Pattern.compile("<[^>]*>");
+
 	@Shadow("client")
 	private static RSClient client;
 
@@ -215,6 +218,11 @@ public abstract class EntityHiderMixin implements RSScene
 	@Inject
 	static private boolean matches(String pattern, String text)
 	{
+		String standardized = TAG_REGEXP.matcher(text)
+			.replaceAll("")
+			.replace('\u00A0', ' ')
+			.toLowerCase();
+
 		final Matcher matcher = WILDCARD_PATTERN.matcher(pattern.toLowerCase());
 		final StringBuffer buffer = new StringBuffer();
 
@@ -234,6 +242,6 @@ public abstract class EntityHiderMixin implements RSScene
 		matcher.appendTail(buffer);
 		final String replaced = buffer.toString();
 
-		return text.toLowerCase().matches(replaced);
+		return standardized.matches(replaced);
 	}
 }
