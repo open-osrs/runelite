@@ -242,36 +242,33 @@ public class GauntletPlugin extends Plugin
 			switch (prayer)
 			{
 				case MELEE:
-					if (MELEE_ANIMATIONS.contains(anim))
+					if (!MELEE_ANIMATIONS.contains(anim))
 					{
-						return;
-					}
-					playerCounter--;
-					if (playerCounter <= 0)
-					{
-						playerCounter = 6;
+						playerCounter--;
+						if (playerCounter <= 0)
+						{
+							playerCounter = 6;
+						}
 					}
 					break;
 				case RANGED:
-					if (BOW_ATTACK == anim)
+					if (BOW_ATTACK != anim)
 					{
-						return;
-					}
-					playerCounter--;
-					if (playerCounter <= 0)
-					{
-						playerCounter = 6;
+						playerCounter--;
+						if (playerCounter <= 0)
+						{
+							playerCounter = 6;
+						}
 					}
 					break;
 				case MAGIC:
-					if (STAFF_ATTACK == anim)
+					if (STAFF_ATTACK != anim)
 					{
-						return;
-					}
-					playerCounter--;
-					if (playerCounter <= 0)
-					{
-						playerCounter = 6;
+						playerCounter--;
+						if (playerCounter <= 0)
+						{
+							playerCounter = 6;
+						}
 					}
 					break;
 				default:
