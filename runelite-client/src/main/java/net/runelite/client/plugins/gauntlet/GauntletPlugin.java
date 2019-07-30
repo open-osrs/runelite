@@ -1,16 +1,38 @@
 /*
- * THIS SOFTWARE WRITTEN BY A KEYBOARD-WIELDING MONKEY BOI
- * No rights reserved. Use, redistribute, and modify at your own discretion,
- * and in accordance with Yagex and RuneLite guidelines.
- * However, aforementioned monkey would prefer if you don't sell this plugin for profit.
- * Good luck on your raids!
+ * Copyright (c) 2019, kThisIsCvpv <https://github.com/kThisIsCvpv>
+ * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package net.runelite.client.plugins.gauntlet;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+import java.util.HashSet;
+import java.util.Set;
+import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
@@ -18,20 +40,22 @@ import net.runelite.api.GameState;
 import net.runelite.api.HeadIcon;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
+import net.runelite.api.NpcID;
+import net.runelite.api.ObjectID;
 import net.runelite.api.Player;
 import net.runelite.api.Projectile;
-import net.runelite.api.Skill;
+import net.runelite.api.ProjectileID;
 import net.runelite.api.SoundEffectID;
-import net.runelite.api.Tile;
+import net.runelite.api.Varbits;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ConfigChanged;
-import net.runelite.api.events.GameObjectChanged;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.ProjectileSpawned;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -40,14 +64,6 @@ import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.client.util.ImageUtil;
-
-import javax.inject.Inject;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 @PluginDescriptor(
 	name = "Gauntlet",
@@ -58,25 +74,24 @@ import java.util.Set;
 
 public class GauntletPlugin extends Plugin
 {
-
-	BufferedImage imageCrystalDeposit;
-	BufferedImage imagePhrenRoots;
-	BufferedImage imageFishingSpot;
-	BufferedImage imageGrymRoot;
-	BufferedImage imageLinumTirinum;
-
-	BufferedImage imageAttackRange;
-	BufferedImage imageAttackMage;
-	BufferedImage imageAttackPrayer;
-
-	final Map<GameObject, Tile> resources = new HashMap<>();
-
-	public Set<Projectile> projectiles = new HashSet<>();
-
-	int bossCounter = 0; // Attacks until the boss changes attack styles.
-	BossAttackPhase currentPhase = BossAttackPhase.UNKNOWN;
-
-	int playerCounter = 6; // Attacks until the boss changes prayer.
+	private static final int BOW_ATTACK = 426;
+	private static final int STAFF_ATTACK = 1167;
+	private static final int LIGHTNING_ANIMATION = 8418;
+	private static final Set<Integer> TORNADO_NPC_IDS = ImmutableSet.of(9025, 9039);
+	private static final Set<Integer> MELEE_ANIMATIONS = ImmutableSet.of(395, 401, 400, 401, 386, 390, 422, 423, 401, 428, 440);
+	private static final Set<Integer> HUNLEFF_MAGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_MAGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_MAGE_ATTACK);
+	private static final Set<Integer> HUNLEFF_RANGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_RANGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_RANGE_ATTACK);
+	private static final Set<Integer> HUNLEFF_PRAYER_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_PRAYER_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_PRAYER_ATTACK);
+	private static final Set<Integer> HUNLEFF_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLEFF_PRAYER_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_PRAYER_ATTACK,
+		ProjectileID.HUNLEFF_RANGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_RANGE_ATTACK, ProjectileID.HUNLEFF_MAGE_ATTACK, ProjectileID.HUNLEFF_CORRUPTED_MAGE_ATTACK
+	);
+	private static final Set<Integer> HUNLEFF_NPC_IDS = ImmutableSet.of(NpcID.CRYSTALLINE_HUNLLEF, NpcID.CRYSTALLINE_HUNLLEF_9022, NpcID.CRYSTALLINE_HUNLLEF_9023,
+		NpcID.CRYSTALLINE_HUNLLEF_9024, NpcID.CORRUPTED_HUNLLEF, NpcID.CORRUPTED_HUNLLEF_9036, NpcID.CORRUPTED_HUNLLEF_9037, NpcID.CORRUPTED_HUNLLEF_9038
+	);
+	private static final Set<Integer> RESOURCES = ImmutableSet.of(ObjectID.CRYSTAL_DEPOSIT, ObjectID.CORRUPT_DEPOSIT, ObjectID.PHREN_ROOTS,
+		ObjectID.PHREN_ROOTS_36066, ObjectID.FISHING_SPOT_36068, ObjectID.FISHING_SPOT_35971, ObjectID.GRYM_ROOT, ObjectID.GRYM_ROOT_36070,
+		ObjectID.LINUM_TIRINUM, ObjectID.LINUM_TIRINUM_36072
+	);
 
 	public enum BossAttackPhase
 	{
@@ -98,21 +113,27 @@ public class GauntletPlugin extends Plugin
 	@Inject
 	private GauntletOverlay overlay;
 	@Inject
-	private SkillIconManager iconManager;
-	@Inject
 	private GauntletConfig config;
 	@Inject
 	private EventBus eventBus;
-	@Provides
-	GauntletConfig getConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(GauntletConfig.class);
-	}
 	@Inject
 	private GauntletTimer timer;
+	@Inject
+	private SkillIconManager skillIconManager;
+	@Getter(AccessLevel.PACKAGE)
+	private final Set<ObjectContainer> resources = new HashSet<>();
+	@Getter(AccessLevel.PACKAGE)
+	private final Set<ProjectileContainer> projectiles = new HashSet<>();
+	@Getter(AccessLevel.PACKAGE)
+	@Setter(AccessLevel.PACKAGE)
+	private NPC hunleff;
+	@Getter(AccessLevel.PACKAGE)
+	private Set<NPC> tornado = new HashSet<>();
+	int bossCounter = 0;
+	BossAttackPhase currentPhase = BossAttackPhase.UNKNOWN;
+	int playerCounter = 6;
 	private boolean timerVisible = true;
-	boolean tornadoesActive = false;
-	int tornadoTicks = GauntletUtils.TORNADO_TICKS;
+	int tornadoTicks = 20;
 	boolean completeStartup = false;
 	private boolean displayTimerWidget;
 	boolean highlightResourcesColor;
@@ -126,14 +147,20 @@ public class GauntletPlugin extends Plugin
 	boolean overlayBossPrayer;
 	boolean overlayTornadoes;
 	boolean displayTimerChat;
+	@Getter(AccessLevel.PACKAGE)
 	private int iconSize;
+
+	@Provides
+	GauntletConfig getConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(GauntletConfig.class);
+	}
 
 	@Override
 	protected void startUp()
 	{
 		addSubscriptions();
 		updateConfig();
-		loadImages(this.iconSize);
 		resetCounters();
 		timerVisible = this.displayTimerWidget;
 		timer.resetStates();
@@ -142,8 +169,6 @@ public class GauntletPlugin extends Plugin
 			overlayManager.add(timer);
 		}
 		overlayManager.add(overlay);
-		// This section checks if the user is trying to start the timer while mid-raid.
-		// Varbits can only be checked on the client thread. Perform init check if necessary.
 		if (client.getGameState() != GameState.STARTING && client.getGameState() != GameState.UNKNOWN)
 		{
 			completeStartup = false;
@@ -164,48 +189,134 @@ public class GauntletPlugin extends Plugin
 		eventBus.unregister(this);
 		resetCounters();
 		timer.resetStates();
-
 		if (timerVisible)
 		{
 			overlayManager.remove(timer);
 			timerVisible = false;
 		}
-
 		overlayManager.remove(overlay);
 	}
+
 	private void addSubscriptions()
 	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
-		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
-		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-		eventBus.subscribe(GameObjectSpawned.class, this, this::onGameObjectSpawned);
-		eventBus.subscribe(GameObjectChanged.class, this, this::onGameObjectChanged);
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(GameObjectDespawned.class, this, this::onGameObjectDespawned);
+		eventBus.subscribe(GameObjectSpawned.class, this, this::onGameObjectSpawned);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
+		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
+		eventBus.subscribe(ProjectileSpawned.class, this, this::onProjectileSpawned);
+		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
 	}
 
-	private void loadImages(int imageSize)
+	private void onProjectileSpawned(ProjectileSpawned event)
 	{
-		imageCrystalDeposit = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.MINING, true), imageSize, imageSize);
-		imagePhrenRoots = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.WOODCUTTING, true), imageSize, imageSize);
-		imageFishingSpot = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.FISHING, true), imageSize, imageSize);
-		imageGrymRoot = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.HERBLORE, true), imageSize, imageSize);
-		imageLinumTirinum = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.FARMING, true), imageSize, imageSize);
+		final Projectile proj = event.getProjectile();
 
-		imageAttackMage = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.MAGIC, true), imageSize, imageSize);
-		imageAttackRange = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.RANGED, true), imageSize, imageSize);
-		imageAttackPrayer = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.PRAYER, true), imageSize, imageSize);
+		if (HUNLEFF_PROJECTILES.contains(proj))
+		{
+			projectiles.add(new ProjectileContainer(proj, skillIconManager));
+			if (HUNLEFF_MAGE_PROJECTILES.contains(proj.getId()))
+			{
+				this.doAttack(BossAttack.MAGIC);
+			}
+			else if (HUNLEFF_PRAYER_PROJECTILES.contains(proj.getId()))
+			{
+				this.doAttack(BossAttack.PRAYER);
+			}
+			else if (HUNLEFF_RANGE_PROJECTILES.contains(proj.getId()))
+			{
+				this.doAttack(BossAttack.RANGE);
+			}
+		}
+	}
+
+	public void onAnimationChanged(AnimationChanged event)
+	{
+		final Actor actor = event.getActor();
+
+		// This section handles the player counter.
+		if (actor instanceof Player && fightingBoss())
+		{
+			final Player player = (Player) actor;
+			final int anim = player.getAnimation();
+
+			if (!player.getName().equals(client.getLocalPlayer().getName()) || anim == -1)
+			{
+				return;
+			}
+
+			NPCDefinition comp = hunleff.getDefinition();
+
+			if (comp == null || comp.getOverheadIcon() == null)
+			{
+				return;
+			}
+
+			final HeadIcon prayer = comp.getOverheadIcon();
+
+			switch (prayer)
+			{
+				case MELEE:
+					if (MELEE_ANIMATIONS.contains(anim))
+					{
+						playerCounter--;
+						if (playerCounter <= 0)
+						{
+							playerCounter = 6;
+						}
+					}
+					break;
+				case RANGED:
+					if (BOW_ATTACK == anim)
+					{
+						playerCounter--;
+						if (playerCounter <= 0)
+						{
+							playerCounter = 6;
+						}
+					}
+					break;
+				case MAGIC:
+					if (STAFF_ATTACK == anim)
+					{
+						playerCounter--;
+						if (playerCounter <= 0)
+						{
+							playerCounter = 6;
+						}
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		// This section handles the boss attack counter if they perform a lightning attack.
+		if (actor instanceof NPC)
+		{
+			final NPC npc = (NPC) actor;
+
+			if (npc == hunleff)
+			{
+				if (npc.getAnimation() == LIGHTNING_ANIMATION)
+				{
+					this.doAttack(BossAttack.LIGHTNING);
+				}
+			}
+		}
+
 	}
 
 	public void onConfigChanged(ConfigChanged event)
 	{
-		if (event.getGroup() == null || event.getKey() == null || !event.getGroup().equals("Gauntlet"))
+		if (event.getGroup().equals("Gauntlet"))
 		{
 			return;
 		}
+
 		updateConfig();
 
 		if (event.getKey().equals("displayTimerWidget"))
@@ -221,52 +332,93 @@ public class GauntletPlugin extends Plugin
 				timerVisible = false;
 			}
 		}
-		else if (event.getKey().equals("iconSize"))
+	}
+
+	public void onGameObjectSpawned(GameObjectSpawned event)
+	{
+		final GameObject obj = event.getGameObject();
+		if (RESOURCES.contains(obj.getId()))
 		{
-			loadImages(this.iconSize);
+			resources.add(new ObjectContainer(obj, event.getTile(), skillIconManager));
+		}
+	}
+
+	public void onGameObjectDespawned(GameObjectDespawned event)
+	{
+		final GameObject obj = event.getGameObject();
+		if (RESOURCES.contains(obj.getId()))
+		{
+			resources.removeIf(object -> object.getGameObject() == obj);
+		}
+	}
+
+	public void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOADING)
+		{
+			resources.clear();
+		}
+	}
+
+	public void onGameTick(GameTick event)
+	{
+		// This handles the timer based on player health.
+		if (this.completeStartup)
+		{
+			timer.checkStates(false);
+		}
+		if (tornado.size() > 0)
+		{
+			tornadoTicks--;
+			if (tornadoTicks <= 0)
+			{
+				tornadoTicks = 20;
+			}
+		}
+	}
+
+	public void onNpcSpawned(NpcSpawned event)
+	{
+		final NPC npc = event.getNpc();
+		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
+		{
+			resetCounters();
+			setHunleff(npc);
+		}
+		else if (TORNADO_NPC_IDS.contains(npc.getId()))
+		{
+			tornado.add(npc);
+		}
+	}
+
+	public void onNpcDespawned(NpcDespawned event)
+	{
+		final NPC npc = event.getNpc();
+		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
+		{
+			resetCounters();
+			setHunleff(null);
+		}
+		else if (TORNADO_NPC_IDS.contains(npc.getId()))
+		{
+			tornado.removeIf(tornado -> tornado == npc);
 		}
 	}
 
 	public void onVarbitChanged(VarbitChanged event)
 	{
-		// This handles the timer based on varp states.
 		if (this.completeStartup)
 		{
 			timer.checkStates(true);
 		}
 	}
 
-	public void onNpcSpawned(NpcSpawned event)
-	{
-		NPC npc = event.getNpc();
-		if (GauntletUtils.isBoss(npc))
-		{
-			resetCounters();
-		}
-	}
-
-	public void onNpcDespawned(NpcDespawned event)
-	{
-		NPC npc = event.getNpc();
-		if (GauntletUtils.isBoss(npc))
-		{
-			resetCounters();
-		}
-	}
-
-	/**
-	 * Reset all boss and player related counter resources.
-	 */
 	private void resetCounters()
 	{
 		bossCounter = 0;
 		currentPhase = BossAttackPhase.UNKNOWN;
-
 		playerCounter = 6;
-
-		tornadoesActive = false;
-		tornadoTicks = GauntletUtils.TORNADO_TICKS;
-
+		tornadoTicks = 20;
 		projectiles.clear();
 	}
 
@@ -339,192 +491,7 @@ public class GauntletPlugin extends Plugin
 					nextPhase = BossAttackPhase.UNKNOWN;
 					break;
 			}
-
 			currentPhase = nextPhase;
-		}
-	}
-
-	public void onAnimationChanged(AnimationChanged event)
-	{
-		Actor actor = event.getActor();
-
-		// This section handles the player counter.
-		if (actor instanceof Player && GauntletUtils.inBoss(client))
-		{
-			Player p = (Player) actor;
-			if (p.getName().equals(client.getLocalPlayer().getName()))
-			{
-				int id = p.getAnimation();
-				if (id != -1)
-				{
-					// Detect the overhead prayer that the boss is using and determine the list of animations that the boss is currently immune to.
-					int[] wrong_style = new int[]{};
-
-					for (NPC npc : this.client.getNpcs())
-					{
-						if (GauntletUtils.isBoss(npc))
-						{
-							NPCDefinition comp = npc.getDefinition();
-							if (comp != null)
-							{
-								HeadIcon prayer = comp.getOverheadIcon();
-								if (prayer != null)
-								{
-									switch (prayer)
-									{
-										case MELEE:
-											wrong_style = GauntletUtils.MELEE_ANIMATIONS;
-											break;
-										case RANGED:
-											wrong_style = GauntletUtils.RANGE_ANIMATIONS;
-											break;
-										case MAGIC:
-											wrong_style = GauntletUtils.MAGE_ANIMATIONS;
-											break;
-										default:
-											wrong_style = new int[]{};
-											break;
-									}
-
-									break;
-								}
-							}
-						}
-					}
-
-					// Check that the player performed an attack animation that the boss isn't immune to.
-					if (GauntletUtils.arrayContainsInteger(GauntletUtils.PLAYER_ANIMATIONS, id) && !GauntletUtils.arrayContainsInteger(wrong_style, id))
-					{
-						// Attack is valid. Decrement the player attack counter and reset it if necessary.
-						playerCounter--;
-						if (playerCounter <= 0)
-						{
-							playerCounter = 6;
-						}
-					}
-				}
-			}
-		}
-
-		// This section handles the boss attack counter if they perform a lightning attack.
-		if (actor instanceof NPC)
-		{
-			NPC npc = (NPC) actor;
-			if (GauntletUtils.isBoss(npc))
-			{
-				int id = npc.getAnimation();
-				if (id == GauntletUtils.BOSS_ANIMATION_LIGHTNING)
-				{
-					this.doAttack(BossAttack.LIGHTNING);
-				}
-			}
-		}
-	}
-
-	public void onGameTick(GameTick event)
-	{
-		// This handles the timer based on player health.
-		if (this.completeStartup)
-		{
-			timer.checkStates(false);
-		}
-
-		// This section handles the boss attack counter if they perform a projectile attack.
-		Set<Projectile> newProjectiles = new HashSet<>();
-
-		for (Projectile projectile : client.getProjectiles())
-		{
-			newProjectiles.add(projectile);
-
-			if (!projectiles.contains(projectile))
-			{
-				int id = projectile.getId();
-				if (GauntletUtils.arrayContainsInteger(GauntletUtils.PROJECTILE_MAGIC, id))
-				{
-					this.doAttack(BossAttack.MAGIC);
-				}
-				else if (GauntletUtils.arrayContainsInteger(GauntletUtils.PROJECTILE_PRAYER, id))
-				{
-					this.doAttack(BossAttack.PRAYER);
-				}
-				else if (GauntletUtils.arrayContainsInteger(GauntletUtils.PROJECTILE_RANGE, id))
-				{
-					this.doAttack(BossAttack.RANGE);
-				}
-			}
-		}
-
-		projectiles.clear();
-		projectiles = newProjectiles;
-
-		// This section handles lightning decay.
-		if (!this.tornadoesActive)
-		{
-			for (NPC npc : client.getNpcs())
-			{
-				if (GauntletUtils.isTornado(npc))
-				{
-					tornadoesActive = true;
-					tornadoTicks = GauntletUtils.TORNADO_TICKS;
-					break;
-				}
-			}
-		}
-		else
-		{
-			tornadoTicks--;
-			if (tornadoTicks <= 0)
-			{
-				tornadoesActive = false;
-				tornadoTicks = GauntletUtils.TORNADO_TICKS;
-			}
-		}
-	}
-
-
-	public void onGameObjectSpawned(GameObjectSpawned event)
-	{
-		onGameObject(event.getTile(), null, event.getGameObject());
-	}
-
-	public void onGameObjectChanged(GameObjectChanged event)
-	{
-		onGameObject(event.getTile(), event.getPrevious(), event.getGameObject());
-	}
-	public void onGameObjectDespawned(GameObjectDespawned event)
-	{
-		onGameObject(event.getTile(), event.getGameObject(), null);
-	}
-
-	public void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOADING)
-		{
-			resources.clear();
-		}
-	}
-
-	/**
-	 * Called when a GameObject spawns, changes, or despawns.
-	 *
-	 * @param tile      Tile
-	 * @param oldObject TileObject
-	 * @param newObject TileObject
-	 */
-	private void onGameObject(Tile tile, GameObject oldObject, GameObject newObject)
-	{
-		resources.remove(oldObject);
-
-		if (newObject == null)
-		{
-			return;
-		}
-
-		int id = newObject.getId();
-
-		if (GauntletUtils.arrayContainsInteger(GauntletUtils.RESOURCE_IDS, id))
-		{
-			resources.put(newObject, tile);
 		}
 	}
 
@@ -543,5 +510,15 @@ public class GauntletPlugin extends Plugin
 		this.overlayTornadoes = config.overlayTornadoes();
 		this.displayTimerWidget = config.displayTimerWidget();
 		this.displayTimerChat = config.displayTimerChat();
+	}
+
+	boolean fightingBoss()
+	{
+		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 1;
+	}
+
+	boolean startedGauntlet()
+	{
+		return client.getVar(Varbits.GAUNTLET_ENTERED) == 1;
 	}
 }
