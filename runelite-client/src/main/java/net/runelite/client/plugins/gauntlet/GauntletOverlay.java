@@ -88,7 +88,7 @@ public class GauntletOverlay extends Overlay
 			Set<Missiles> projectiles = plugin.getProjectiles();
 			projectiles.forEach(projectile ->
 			{
-				BufferedImage icon = resizeImage(projectile.getImage(), plugin.getIconSize(), plugin.getIconSize());
+				BufferedImage icon = resizeImage(projectile.getImage(), plugin.getProjectileIconSize(), plugin.getProjectileIconSize());
 				Color color = projectile.getColor();
 
 				Polygon polygon = boundProjectile(projectile.getProjectile());
@@ -169,10 +169,10 @@ public class GauntletOverlay extends Overlay
 					switch (hunllef.getCurrentPhase())
 					{
 						case MAGIC:
-							attackIcon = resizeImage(hunllef.getMage(), plugin.getIconSize(), plugin.getIconSize());
+							attackIcon = resizeImage(hunllef.getMage(), plugin.getProjectileIconSize(), plugin.getProjectileIconSize());
 							break;
 						case RANGE:
-							attackIcon = resizeImage(hunllef.getRange(), plugin.getIconSize(), plugin.getIconSize());
+							attackIcon = resizeImage(hunllef.getRange(), plugin.getProjectileIconSize(), plugin.getProjectileIconSize());
 							break;
 						default:
 							break;
@@ -271,7 +271,7 @@ public class GauntletOverlay extends Overlay
 					// This section will overlay the resource with an icon.
 					if (plugin.isHighlightResourcesIcons())
 					{
-						BufferedImage icon = object.getImage();
+						BufferedImage icon = resizeImage(object.getImage(), plugin.getResourceIconSize(), plugin.getResourceIconSize());
 
 						if (icon != null)
 						{
