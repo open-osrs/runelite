@@ -248,7 +248,7 @@ class GauntletTimer extends Overlay
 			.append("Preparation time: ")
 			.append(ChatColorType.HIGHLIGHT)
 			.append(elapsedPrepTime)
-		 	.append(ChatColorType.NORMAL)
+			.append(ChatColorType.NORMAL)
 			.append(" player/boss death time: ")
 			.append(ChatColorType.HIGHLIGHT)
 			.append(elapsedBossTime);
