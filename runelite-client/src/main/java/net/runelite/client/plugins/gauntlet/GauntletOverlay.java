@@ -195,10 +195,11 @@ public class GauntletOverlay extends Overlay
 
 				if (plugin.isHighlightWidget())
 				{
-					if (hunllef.getCurrentPhase().getPrayer() != null)
+					if (hunllef.getCurrentPhase().getPrayer() == null)
 					{
-						Rectangle bounds = OverlayUtil.renderPrayerOverlay(graphics, client, hunllef.getCurrentPhase().getPrayer(), hunllef.getCurrentPhase().getPrayerColor());
+						return null;
 					}
+					OverlayUtil.renderPrayerOverlay(graphics, client, hunllef.getCurrentPhase().getPrayer(), hunllef.getCurrentPhase().getColor());
 				}
 
 				// This section handles any text overlays.
