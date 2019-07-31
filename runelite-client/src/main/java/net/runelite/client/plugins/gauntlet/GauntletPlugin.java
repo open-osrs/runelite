@@ -147,7 +147,8 @@ public class GauntletPlugin extends Plugin
 	private boolean uniqueAttackVisual;
 	private boolean uniquePrayerAudio;
 	private boolean uniquePrayerVisual;
-	private int iconSize;
+	private int resourceIconSize;
+	private int projectileIconSize;
 
 	@Provides
 	GauntletConfig getConfig(ConfigManager configManager)
@@ -439,7 +440,8 @@ public class GauntletPlugin extends Plugin
 		this.highlightResourcesColor = config.highlightResourcesColor();
 		this.highlightResourcesIcons = config.highlightResourcesIcons();
 		this.highlightWidget = config.highlightWidget();
-		this.iconSize = config.iconSize();
+		this.resourceIconSize = config.resourceIconSize();
+		this.projectileIconSize = config.projectileIconSize();
 		this.countBossAttacks = config.countBossAttacks();
 		this.countPlayerAttacks = config.countPlayerAttacks();
 		this.uniquePrayerAudio = config.uniquePrayerAudio();
