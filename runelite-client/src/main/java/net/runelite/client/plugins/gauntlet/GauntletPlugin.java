@@ -288,7 +288,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onConfigChanged(ConfigChanged event)
+	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("Gauntlet"))
 		{
@@ -312,7 +312,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onGameObjectDespawned(GameObjectDespawned event)
+	private void onGameObjectDespawned(GameObjectDespawned event)
 	{
 		final GameObject obj = event.getGameObject();
 		if (RESOURCES.contains(obj.getId()))
@@ -321,7 +321,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onGameObjectSpawned(GameObjectSpawned event)
+	private void onGameObjectSpawned(GameObjectSpawned event)
 	{
 		final GameObject obj = event.getGameObject();
 		if (RESOURCES.contains(obj.getId()))
@@ -330,7 +330,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onGameStateChanged(GameStateChanged event)
+	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOADING)
 		{
@@ -338,7 +338,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onGameTick(GameTick event)
+	private void onGameTick(GameTick event)
 	{
 		// This handles the timer based on player health.
 		if (this.completeStartup)
@@ -355,7 +355,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onNpcDespawned(NpcDespawned event)
+	private void onNpcDespawned(NpcDespawned event)
 	{
 		final NPC npc = event.getNpc();
 		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
@@ -369,7 +369,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onNpcSpawned(NpcSpawned event)
+	private void onNpcSpawned(NpcSpawned event)
 	{
 		final NPC npc = event.getNpc();
 		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
@@ -409,7 +409,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	public void onVarbitChanged(VarbitChanged event)
+	private void onVarbitChanged(VarbitChanged event)
 	{
 		if (this.completeStartup)
 		{
