@@ -50,7 +50,6 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.client.config.FontType;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.KeyListener;
@@ -93,6 +92,10 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private boolean isResizeable;
 	private OverlayBounds snapCorners;
 
+	private Font standardFont;
+	private Font tooltipFont;
+	private Font interfaceFont;
+
 	@Inject
 	private OverlayRenderer(
 		final Client client,
@@ -118,9 +121,9 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private void updateConfig()
 	{
 		// Overlay Fonts
-		Font clientFont = runeLiteConfig.clientFont();
-		FontType fontype = runeLiteConfig.fontType();
-
+		this.standardFont = runeLiteConfig.fontType().getFont();
+		this.tooltipFont = runeLiteConfig.tooltipFontType().getFont();
+		this.interfaceFont = runeLiteConfig.interfaceFontType().getFont();
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -481,15 +484,15 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		// Set font based on configuration
 		if (position == OverlayPosition.DYNAMIC || position == OverlayPosition.DETACHED)
 		{
-			subGraphics.setFont(runeLiteConfig.fontType().getFont()); // TODO MAKE USE CONFIG SYSTEM
+			subGraphics.setFont(this.standardFont); // TODO MAKE USE CONFIG SYSTEM
 		}
 		else if (position == OverlayPosition.TOOLTIP)
 		{
-			subGraphics.setFont(runeLiteConfig.tooltipFontType().getFont());
+			subGraphics.setFont(this.tooltipFont);
 		}
 		else
 		{
-			subGraphics.setFont(runeLiteConfig.interfaceFontType().getFont());
+			subGraphics.setFont(this.interfaceFont);
 		}
 
 		subGraphics.translate(point.x, point.y);
