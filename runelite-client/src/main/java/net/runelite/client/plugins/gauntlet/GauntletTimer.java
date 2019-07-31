@@ -32,6 +32,8 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Player;
+import net.runelite.client.chat.ChatColor;
+import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
@@ -206,9 +208,17 @@ class GauntletTimer extends Overlay
 		}
 
 		String elapsedTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
-		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage(
-			new ChatMessageBuilder().append("Preparation time: <col=ff0000>" + elapsedTime + "<col=000000>.")
-				.build()).build());
+
+		final ChatMessageBuilder prepmessage = new ChatMessageBuilder()
+			.append(ChatColorType.NORMAL)
+			.append("Preparation time: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(elapsedTime);
+
+		chatMessageManager.queue(QueuedMessage.builder()
+			.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+			.runeLiteFormattedMessage(prepmessage.build())
+			.build());
 	}
 
 	private void printBossTime()
@@ -222,13 +232,31 @@ class GauntletTimer extends Overlay
 		String elapsedPrepTime = calculateElapsedTime(timeRaidStart, timeBossEnter);
 		String elapsedTotalTime = calculateElapsedTime(System.currentTimeMillis(), timeRaidStart);
 
-		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage(
-			new ChatMessageBuilder().append("Challenge duration: <col=ff0000>" + elapsedTotalTime + "<col=000000>.")
-				.build()).build());
+		final ChatMessageBuilder challengedurationmessage = new ChatMessageBuilder()
+			.append(ChatColorType.NORMAL)
+			.append("Challenge duration: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(elapsedTotalTime);
 
-		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).runeLiteFormattedMessage(
-			new ChatMessageBuilder().append("Preparation time: <col=ff0000>" + elapsedPrepTime + "<col=000000>. Player death time: <col=ff0000>" + elapsedBossTime + "<col=000000>.")
-				.build()).build());
+		chatMessageManager.queue(QueuedMessage.builder()
+			.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+			.runeLiteFormattedMessage(challengedurationmessage.build())
+			.build());
+
+		final ChatMessageBuilder prepdeathmessage = new ChatMessageBuilder()
+			.append(ChatColorType.NORMAL)
+			.append("Preparation time: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(elapsedPrepTime)
+		 	.append(ChatColorType.NORMAL)
+			.append(" player/boss death time: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(elapsedBossTime);
+
+		chatMessageManager.queue(QueuedMessage.builder()
+			.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+			.runeLiteFormattedMessage(prepdeathmessage.build())
+			.build());
 	}
 
 	@Inject
@@ -282,7 +310,6 @@ class GauntletTimer extends Overlay
 			tableComponent.addRow("Total Time", elapsedTotalTime);
 			panelComponent.getChildren().add(tableComponent);
 		}
-
 		return panelComponent.render(graphics);
 	}
 }
