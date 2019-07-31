@@ -52,19 +52,27 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 class GauntletTimer extends Overlay
 {
-	@Inject
-	private ChatMessageManager chatMessageManager;
-
 	private final Client client;
 	private final GauntletPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
+	@Inject
+	private ChatMessageManager chatMessageManager;
 	private long timeRaidStart = -1L;
 	private long timeBossEnter = -1L;
 	private RaidState currentState = UNKNOWN;
 
-	public enum RaidState
+	@Inject
+	public GauntletTimer(Client client, GauntletPlugin plugin)
 	{
-		UNKNOWN, IN_RAID, IN_BOSS
+		super(plugin);
+
+		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
+		setPriority(OverlayPriority.HIGH);
+
+		this.client = client;
+		this.plugin = plugin;
+
+		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Gauntlet Timer Overlay"));
 	}
 
 	/**
@@ -259,20 +267,6 @@ class GauntletTimer extends Overlay
 			.build());
 	}
 
-	@Inject
-	public GauntletTimer(Client client, GauntletPlugin plugin)
-	{
-		super(plugin);
-
-		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
-		setPriority(OverlayPriority.HIGH);
-
-		this.client = client;
-		this.plugin = plugin;
-
-		getMenuEntries().add(new OverlayMenuEntry(RUNELITE_OVERLAY_CONFIG, OPTION_CONFIGURE, "Gauntlet Timer Overlay"));
-	}
-
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
@@ -311,5 +305,10 @@ class GauntletTimer extends Overlay
 			panelComponent.getChildren().add(tableComponent);
 		}
 		return panelComponent.render(graphics);
+	}
+
+	public enum RaidState
+	{
+		UNKNOWN, IN_RAID, IN_BOSS
 	}
 }
