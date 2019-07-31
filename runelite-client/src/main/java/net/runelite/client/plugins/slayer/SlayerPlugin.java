@@ -61,6 +61,7 @@ import net.runelite.api.NPCDefinition;
 import static net.runelite.api.Skill.SLAYER;
 import net.runelite.api.SpriteID;
 import net.runelite.api.Varbits;
+import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
@@ -140,6 +141,8 @@ public class SlayerPlugin extends Plugin
 	private static final Pattern TASK_STRING_VALIDATION = Pattern.compile("[^a-zA-Z0-9' -]");
 	private static final int TASK_STRING_MAX_LENGTH = 50;
 	private static final String POINTS_COMMAND_STRING = "!points";
+
+	private static final double DMM_MULTIPLIER_RATIO = 5;
 
 	// Superiors
 	@VisibleForTesting
@@ -290,15 +293,18 @@ public class SlayerPlugin extends Plugin
 	private int initialAmount;
 	private int lastCertainAmount;
 
+	private boolean weaknessOverlayAttached;
+
 	@Override
 	protected void startUp() throws Exception
 	{
 		updateConfig();
 		addSubscriptions();
 
+		weaknessOverlayAttached = false;
+
 		overlayManager.add(overlay);
 		overlayManager.add(targetClickboxOverlay);
-		overlayManager.add(targetWeaknessOverlay);
 		overlayManager.add(targetMinimapOverlay);
 
 		if (slayerXpDropLookup == null)
@@ -436,7 +442,7 @@ public class SlayerPlugin extends Plugin
 		}
 	}
 
-	void onVarbitChanged(VarbitChanged event)
+	public void onVarbitChanged(VarbitChanged event)
 	{
 		if (client.getVar(Varbits.SLAYER_REWARD_POINTS) == cachedPoints)
 		{
@@ -486,6 +492,13 @@ public class SlayerPlugin extends Plugin
 		for (NPCPresence potentialDead : potentialKills)
 		{
 			double xp = slayerXpDropLookup.findXpForNpc(potentialDead);
+
+			// DeadMan mode has an XP modifier
+			if (client.getWorldType().contains(WorldType.DEADMAN))
+			{
+				xp = xp * DMM_MULTIPLIER_RATIO;
+			}
+
 			if (xp > 0)
 			{
 				potentialXpDrops.add(xp);
@@ -543,7 +556,7 @@ public class SlayerPlugin extends Plugin
 	private static final int FORCED_WAIT = 2;
 	private int forcedWait = -1;
 
-	void onGameTick(GameTick tick)
+	public void onGameTick(GameTick tick)
 	{
 		loginTick = false;
 
@@ -624,7 +637,7 @@ public class SlayerPlugin extends Plugin
 		}
 	}
 
-	void onChatMessage(ChatMessage event)
+	public void onChatMessage(ChatMessage event)
 	{
 		if (event.getType() != ChatMessageType.GAMEMESSAGE && event.getType() != ChatMessageType.SPAM)
 		{
@@ -709,7 +722,7 @@ public class SlayerPlugin extends Plugin
 		}
 	}
 
-	private void onExperienceChanged(ExperienceChanged event)
+	public void onExperienceChanged(ExperienceChanged event)
 	{
 		if (event.getSkill() != SLAYER)
 		{
@@ -725,23 +738,41 @@ public class SlayerPlugin extends Plugin
 
 		if (cachedXp != 0)
 		{
-			// this is not the initial xp sent on login so these are new xp gains
-			int gains = slayerExp - cachedXp;
+			final Task task = Task.getTask(taskName);
 
-			// potential npcs to give xp drop are current highlighted npcs and the lingering presences
-			List<NPCPresence> potentialNPCs = new ArrayList<>(lingeringPresences);
-			for (NPC npc : highlightedTargets)
+			if (task == null)
 			{
-				NPCPresence currentPresence = NPCPresence.buildPresence(npc);
-				potentialNPCs.add(currentPresence);
+				return;
 			}
 
-			int killCount = estimateKillCount(potentialNPCs, gains);
-			for (int i = 0; i < killCount; i++)
+			final int taskKillExp = task.getExpectedKillExp();
+
+			// Only count exp gain as a kill if the task either has no expected exp for a kill, or if the exp gain is equal
+			// to the expected exp gain for the task.
+			if (taskKillExp == 0 || taskKillExp == slayerExp - cachedXp)
 			{
 				killedOne();
-				int delta = slayerExp - cachedXp;
-				currentTask.setElapsedXp(currentTask.getElapsedXp() + delta);
+			}
+			else
+			{
+				// this is not the initial xp sent on login so these are new xp gains
+				int gains = slayerExp - cachedXp;
+
+				// potential npcs to give xp drop are current highlighted npcs and the lingering presences
+				List<NPCPresence> potentialNPCs = new ArrayList<>(lingeringPresences);
+				for (NPC npc : highlightedTargets)
+				{
+					NPCPresence currentPresence = NPCPresence.buildPresence(npc);
+					potentialNPCs.add(currentPresence);
+				}
+
+				int killCount = estimateKillCount(potentialNPCs, gains);
+				for (int i = 0; i < killCount; i++)
+				{
+					killedOne();
+					int delta = slayerExp - cachedXp;
+					currentTask.setElapsedXp(currentTask.getElapsedXp() + delta);
+				}
 			}
 		}
 		cachedXp = slayerExp;
@@ -815,7 +846,10 @@ public class SlayerPlugin extends Plugin
 
 		config.amount(currentTask.getAmount()); // save changed value
 		currentTask.setPaused(false); // no longer paused since xp is gained
-		panel.updateCurrentTask(true, currentTask.isPaused(), currentTask, false);
+		if (panel != null)
+		{
+			panel.updateCurrentTask(true, currentTask.isPaused(), currentTask, false);
+		}
 
 		if (!this.showInfobox)
 		{
@@ -978,7 +1012,7 @@ public class SlayerPlugin extends Plugin
 		}
 	}
 
-	private void setTask(String name, int amt, int initAmt, boolean isNewAssignment, int lastCertainAmt)
+	public void setTask(String name, int amt, int initAmt, boolean isNewAssignment, int lastCertainAmt)
 	{
 		setTask(name, amt, initAmt, isNewAssignment, null, lastCertainAmt);
 	}
@@ -1006,6 +1040,22 @@ public class SlayerPlugin extends Plugin
 		rebuildTargetIds(task);
 		rebuildCheckAsTokens(task);
 		rebuildTargetList();
+
+		if (task == null)
+		{
+			return;
+		}
+
+		if (!weaknessOverlayAttached && task.getWeaknessItem() != -1 && task.getWeaknessThreshold() != -1)
+		{
+			overlayManager.add(targetWeaknessOverlay);
+			weaknessOverlayAttached = true;
+		}
+		else if (weaknessOverlayAttached && task.getWeaknessItem() == -1 && task.getWeaknessThreshold() == -1)
+		{
+			overlayManager.remove(targetWeaknessOverlay);
+			weaknessOverlayAttached = false;
+		}
 	}
 
 	AsyncBufferedImage getImageForTask(Task task)

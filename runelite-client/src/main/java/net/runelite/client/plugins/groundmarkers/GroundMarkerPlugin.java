@@ -190,6 +190,7 @@ public class GroundMarkerPlugin extends Plugin
 	 * @param points
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	private Collection<GroundMarkerWorldPoint> translateToWorld(Collection<GroundMarkerPoint> points)
 	{
 		if (points.isEmpty())
@@ -319,7 +320,7 @@ public class GroundMarkerPlugin extends Plugin
 				final String option = (stream.isPresent() && stream.get().getGroup() == i) ? UNMARK : MARK;
 				menuEntry.setOption(ColorUtil.prependColorTag(Text.removeTags(option + (i == 1 ? "" : " (Group " + i + ")")), getColor(i)));
 				menuEntry.setTarget(event.getTarget());
-				menuEntry.setType(MenuAction.CANCEL.getId());
+				menuEntry.setType(MenuAction.RUNELITE.getId());
 
 				lastIndex++;
 			}

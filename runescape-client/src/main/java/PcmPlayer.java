@@ -111,6 +111,7 @@ public class PcmPlayer {
 		signature = "(I)V",
 		garbageValue = "-1518489339"
 	)
+	@Export("init")
 	protected void init() throws Exception {
 	}
 
@@ -119,6 +120,7 @@ public class PcmPlayer {
 		signature = "(IB)V",
 		garbageValue = "2"
 	)
+	@Export("open")
 	protected void open(int var1) throws Exception {
 	}
 
@@ -133,6 +135,7 @@ public class PcmPlayer {
 	}
 
 	@ObfuscatedName("p")
+	@Export("write")
 	protected void write() throws Exception {
 	}
 
@@ -470,8 +473,8 @@ public class PcmPlayer {
 		signature = "(B)[Lll;",
 		garbageValue = "69"
 	)
-	public static class323[] method2405() {
-		return new class323[]{class323.field3887, class323.SOLID, class323.field3885};
+	public static FillMode[] method2405() {
+		return new FillMode[]{FillMode.GRADIENT, FillMode.SOLID, FillMode.GRADIENTALPHA};
 	}
 
 	@ObfuscatedName("ip")

@@ -23,7 +23,7 @@ public class class189 {
 		} else {
 			GrandExchangeOfferWorldComparator.leftTitleSprite.drawAt(Login.xPadding, 0);
 			NPC.rightTitleSprite.drawAt(Login.xPadding + 382, 0);
-			GroundItem.logoSprite.drawAt(Login.xPadding + 382 - GroundItem.logoSprite.subWidth / 2, 18);
+			TileItem.logoSprite.drawAt(Login.xPadding + 382 - TileItem.logoSprite.subWidth / 2, 18);
 			int var4;
 			if (Client.gameState == 0 || Client.gameState == 5) {
 				byte var3 = 20;
@@ -335,7 +335,7 @@ public class class189 {
 			}
 
 			Login.title_muteSprite[WorldMapLabelSize.clientPreferences.titleMusicDisabled ? 1 : 0].drawAt(Login.xPadding + 765 - 40, 463);
-			if (Client.gameState > 5 && ScriptFrame.field528 == class190.field2348) {
+			if (Client.gameState > 5 && ScriptFrame.clientLanguage == Language.Language_EN) {
 				if (class30.field264 != null) {
 					var23 = Login.xPadding + 5;
 					var24 = 463;
@@ -349,7 +349,7 @@ public class class189 {
 						var1.drawCentered("Click to switch", var27 / 2 + var23, var19 / 2 + var24 + 12, 16777215, 0);
 					}
 				} else {
-					class30.field264 = class215.loadIndexedSpriteByName(Client.archive8, "sl_button", "");
+					class30.field264 = class215.SpriteBuffer_getIndexedSpriteByName(Client.archive8, "sl_button", "");
 				}
 			}
 

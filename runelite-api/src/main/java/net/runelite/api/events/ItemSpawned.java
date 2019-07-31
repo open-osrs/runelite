@@ -24,7 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.Item;
+import lombok.Value;
+import net.runelite.api.TileItem;
 import net.runelite.api.Tile;
 import lombok.Value;
 
@@ -33,8 +34,8 @@ import lombok.Value;
  * all item piles are implicitly reset and a new spawn event will be sent.
  */
 @Value
-public class ItemSpawned
+public class ItemSpawned implements Event
 {
 	private final Tile tile;
-	private final Item item;
+	private final TileItem item;
 }

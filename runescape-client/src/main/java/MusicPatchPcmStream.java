@@ -128,9 +128,8 @@ public class MusicPatchPcmStream extends PcmStream {
 		MusicPatchNode var1 = (MusicPatchNode)this.queue.last();
 		if (var1 == null) {
 			return null;
-		} else {
-			return (PcmStream)(var1.stream != null ? var1.stream : this.nextSubStream());
 		}
+		return (PcmStream)(var1.stream != null ? var1.stream : this.nextSubStream());
 	}
 
 	@ObfuscatedName("b")
@@ -226,9 +225,9 @@ public class MusicPatchPcmStream extends PcmStream {
 		ClientPreferences.worldHost = var0.host;
 		Client.worldId = var0.id;
 		Client.worldProperties = var0.properties;
-		class190.port1 = Client.gameBuild == 0 ? 43594 : var0.id + 40000;
+		Language.port1 = Client.gameBuild == 0 ? 43594 : var0.id + 40000;
 		Skeleton.port2 = Client.gameBuild == 0 ? 443 : var0.id + 50000;
-		Varcs.port3 = class190.port1;
+		Varcs.port3 = Language.port1;
 	}
 
 	@ObfuscatedName("ih")

@@ -45,9 +45,9 @@ import net.runelite.api.DecorativeObject;
 import net.runelite.api.DynamicObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.GraphicsObject;
+import net.runelite.api.TileItem;
 import net.runelite.api.GroundObject;
-import net.runelite.api.Item;
-import net.runelite.api.ItemLayer;
+import net.runelite.api.TileItemPile;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.Node;
@@ -283,16 +283,16 @@ class DevToolsOverlay extends Overlay
 
 	private void renderGroundItems(Graphics2D graphics, Tile tile, Player player)
 	{
-		ItemLayer itemLayer = tile.getItemLayer();
-		if (itemLayer != null)
+		TileItemPile tileItemPile = tile.getItemLayer();
+		if (tileItemPile != null)
 		{
-			if (player.getLocalLocation().distanceTo(itemLayer.getLocalLocation()) <= MAX_DISTANCE)
+			if (player.getLocalLocation().distanceTo(tileItemPile.getLocalLocation()) <= MAX_DISTANCE)
 			{
-				Node current = itemLayer.getBottom();
-				while (current instanceof Item)
+				Node current = tileItemPile.getBottom();
+				while (current instanceof TileItem)
 				{
-					Item item = (Item) current;
-					OverlayUtil.renderTileOverlay(graphics, itemLayer, "ID: " + item.getId() + " Qty:" + item.getQuantity(), RED);
+					TileItem item = (TileItem) current;
+					OverlayUtil.renderTileOverlay(graphics, tileItemPile, "ID: " + item.getId() + " Qty:" + item.getQuantity(), RED);
 					current = current.getNext();
 				}
 			}

@@ -1,0 +1,58 @@
+group = 'net.runelite.rs'
+description = 'Injector'
+
+def buildPath = buildDir.toString().replace('\\', '/') // this doesnt work in an ext block for some reason
+def deobfuscatedJar = "${rootPath}/runescape-client/build/libs/rs-client-${project.version}.jar"
+def vanillaJar = "${buildPath}/vanilla-${rsversion}.jar"
+
+
+configurations {
+    vanilla
+}
+
+dependencies {
+    implementation project(':deobfuscator')
+    implementation project(':mixins')
+    implementation project(':runelite-api')
+    implementation project(':runescape-api')
+    implementation group: 'com.google.guava', name: 'guava', version: '28.0-jre'
+    implementation group: 'org.apache.maven', name: 'maven-plugin-api', version: '3.6.1'
+    implementation group: 'org.ow2.asm', name: 'asm-debug-all', version: '5.2'
+    testImplementation project(':deobfuscator')
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.0.0'
+    compileOnly group: 'org.apache.maven.plugin-tools', name: 'maven-plugin-annotations', version: '3.6.0'
+    annotationProcessor group: 'org.eclipse.sisu', name: 'org.eclipse.sisu.inject', version: '0.3.3'
+    vanilla "net.runelite.rs:vanilla:${rsversion}"
+}
+
+compileJava {
+    dependsOn ":rs-client:build"
+}
+
+compileJava.outputs.upToDateWhen { false }
+
+compileJava.doLast() {
+    copy {
+        from configurations.vanilla
+        into "$buildDir"
+    }
+    def path = sourceSets.main.runtimeClasspath
+    def loader = new URLClassLoader(path.collect { f -> f.toURI().toURL() } as URL[])
+    def inject = loader.loadClass('net.runelite.injector.Injector')
+    String[] jarPaths = [
+            deobfuscatedJar.toString(),
+            vanillaJar.toString(),
+            injectedClassesPath.toString()
+    ]
+    inject.main(jarPaths)
+    loader.close()
+}
+
+test {
+    exclude '**/*'
+}
+
+compileTestJava {
+    exclude '**/*'
+}

@@ -26,10 +26,12 @@ package net.runelite.api;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.math.BigInteger;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -349,6 +351,7 @@ public interface Client extends GameShell
 	 * @return the corresponding item composition
 	 * @see ItemID
 	 */
+	@Nonnull
 	ItemDefinition getItemDefinition(int id);
 
 	/**
@@ -1454,6 +1457,13 @@ public interface Client extends GameShell
 	void setNPCsNames(String names);
 
 	/**
+	 * Sets which NPCs are hidden on death
+	 *
+	 * @param names the names of the npcs seperated by ','
+	 */
+	void setNPCsHiddenOnDeath(String names);
+
+	/**
 	 * Sets whether 2D sprites (ie. overhead prayers) related to
 	 * the NPCs are hidden.
 	 *
@@ -1474,6 +1484,13 @@ public interface Client extends GameShell
 	 * @param state new projectile hidden state
 	 */
 	void setProjectilesHidden(boolean state);
+
+	/**
+	 * Sets whether dead NPCs are hidden.
+	 *
+	 * @param state new NPC hidden state
+	 */
+	void setDeadNPCsHidden(boolean state);
 
 	/**
 	 * Gets an array of tile collision data.
@@ -1675,9 +1692,9 @@ public interface Client extends GameShell
 	MouseRecorder getMouseRecorder();
 
 	void setPrintMenuActions(boolean b);
-	
+
 	String getSelectedSpellName();
-	
+
 	boolean isSpellSelected();
 
 	/**
@@ -1704,7 +1721,7 @@ public interface Client extends GameShell
 	 * Set spells excluded from above hiding
 	 */
 	void setUnhiddenCasts(Set<String> casts);
-	
+
 	/**
 	 * Sorts the current menu entries in the same way the client does this.
 	 * The last entry will be the left click one after this.
@@ -1720,4 +1737,13 @@ public interface Client extends GameShell
 	 * Remove player from friendlist
 	 */
 	void removeFriend(String name);
+
+	BigInteger getModulus();
+
+	void setModulus(BigInteger modulus);
+
+	/*
+	 * Returns the max item index + 1 from cache
+	 */
+	int getItemCount();
 }

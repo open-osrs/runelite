@@ -46,6 +46,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,9 @@ import net.runelite.client.game.ItemStack;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.loottracker.localstorage.LTItemEntry;
+import net.runelite.client.plugins.loottracker.localstorage.LTRecord;
+import net.runelite.client.plugins.loottracker.localstorage.LootRecordWriter;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
@@ -111,6 +115,7 @@ import net.runelite.http.api.loottracker.GameItem;
 import net.runelite.http.api.loottracker.LootRecord;
 import net.runelite.http.api.loottracker.LootRecordType;
 import net.runelite.http.api.loottracker.LootTrackerClient;
+import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
 	name = "Loot Tracker",
@@ -126,9 +131,22 @@ public class LootTrackerPlugin extends Plugin
 	private static final Pattern CLUE_SCROLL_PATTERN = Pattern.compile("You have completed [0-9]+ ([a-z]+) Treasure Trails.");
 	private static final int THEATRE_OF_BLOOD_REGION = 12867;
 
+	private static final Pattern BOSS_NAME_NUMBER_PATTERN = Pattern.compile("Your (.*) kill count is: ([0-9]*).");
+	private static final Pattern NUMBER_PATTERN = Pattern.compile("([0-9]+)");
+
 	// Herbiboar loot handling
 	private static final String HERBIBOAR_LOOTED_MESSAGE = "You harvest herbs from the herbiboar, whereupon it escapes.";
-	private static final String HERBIBOR_EVENT = "Herbiboar";
+	private static final String HERBIBOAR_EVENT = "Herbiboar";
+
+	// Hespori loot handling
+	private static final String HESPORI_LOOTED_MESSAGE = "You have successfully cleared this patch for new crops.";
+	private static final String HESPORI_EVENT = "Hespori";
+	private static final int HESPORI_REGION = 5021;
+
+	// Gauntlet loot handling
+	private static final String GAUNTLET_LOOTED_MESSAGE = "You open the chest.";
+	private static final String GAUNTLET_EVENT = "The Gauntlet";
+	private static final int GAUNTLET_LOBBY_REGION = 12127;
 
 	// Chest loot handling
 	private static final String CHEST_LOOTED_MESSAGE = "You find some treasure in the chest!";
@@ -137,7 +155,8 @@ public class LootTrackerPlugin extends Plugin
 		5179, "Brimstone Chest",
 		11573, "Crystal Chest",
 		12093, "Larran's big chest",
-		13113, "Larran's small chest"
+		13113, "Larran's small chest",
+		13151, "Elven Crystal Chest"
 	);
 	private static final File LOOT_RECORDS_FILE = new File(RuneLite.RUNELITE_DIR, "lootRecords.json");
 	private static final Set<Integer> RESPAWN_REGIONS = ImmutableSet.of(
@@ -146,11 +165,20 @@ public class LootTrackerPlugin extends Plugin
 		12342, // Edgeville
 		11062 // Camelot
 	);
+
+	// Instant for showing session loot. this gets set on plugin startup
+
+	public static final Instant SESSION_START_TIME = Instant.now();
+
 	@Inject
 	public Client client;
 	@VisibleForTesting
 	private Collection<LootRecord> lootRecords = new ArrayList<>();
 	private boolean pvpDeath = false;
+	
+	// Last man standing map regions
+	private static final Set<Integer> LAST_MAN_STANDING_REGIONS = ImmutableSet.of(13658, 13659, 13914, 13915, 13916);
+
 	@Inject
 	private ClientToolbar clientToolbar;
 	@Inject
@@ -169,6 +197,8 @@ public class LootTrackerPlugin extends Plugin
 	private ScheduledExecutorService executor;
 	@Inject
 	private EventBus eventBus;
+	@Inject
+	private LootRecordWriter writer;
 	private LootTrackerPanel panel;
 	private NavigationButton navButton;
 	private String eventType;
@@ -179,6 +209,8 @@ public class LootTrackerPlugin extends Plugin
 	private Multiset<Integer> inventorySnapshot;
 	@Getter(AccessLevel.PACKAGE)
 	private LootTrackerClient lootTrackerClient;
+
+	private Map<String, Integer> killCountMap = new HashMap<>();
 
 	private static Collection<ItemStack> stack(Collection<ItemStack> items)
 	{
@@ -289,6 +321,7 @@ public class LootTrackerPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+
 		addSubscriptions();
 
 		ignoredItems = Text.fromCSV(config.getIgnoredItems());
@@ -406,6 +439,35 @@ public class LootTrackerPlugin extends Plugin
 		{
 			chestLooted = false;
 		}
+
+		if (event.getGameState() == GameState.LOGGING_IN)
+		{
+			clientThread.invokeLater(() ->
+			{
+				switch (client.getGameState())
+				{
+					case LOGGED_IN:
+						break;
+					case LOGGING_IN:
+					case LOADING:
+						return false;
+					default:
+						// Quit running if any other state
+						return true;
+				}
+
+				String name = client.getLocalPlayer().getName();
+				if (name != null)
+				{
+					writer.setPlayerUsername(name);
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			});
+		}
 	}
 
 	private void onNpcLootReceived(final NpcLootReceived npcLootReceived)
@@ -416,6 +478,8 @@ public class LootTrackerPlugin extends Plugin
 		final int combat = npc.getCombatLevel();
 		final LootTrackerItem[] entries = buildEntries(stack(items));
 		String localUsername = client.getLocalPlayer().getName();
+
+		final int killCount = killCountMap.getOrDefault(name.toUpperCase(), -1);
 
 		if (this.whitelistEnabled)
 		{
@@ -448,6 +512,9 @@ public class LootTrackerPlugin extends Plugin
 		{
 			saveLocalLootRecord(lootRecord);
 		}
+
+		LTRecord record = new LTRecord(npc.getId(), npc.getName(), combat, killCount, convertToLTItemEntries(items));
+		writer.addLootTrackerRecord(record);
 	}
 
 	private void onPlayerSpawned(PlayerSpawned event)
@@ -460,6 +527,11 @@ public class LootTrackerPlugin extends Plugin
 
 	private void onPlayerLootReceived(final PlayerLootReceived playerLootReceived)
 	{
+		// Ignore Last Man Standing player loots
+		if (isAtLMS())
+		{
+			return;
+		}
 		if (this.sendLootValueMessages)
 		{
 			if (WorldType.isDeadmanWorld(client.getWorldType()) || WorldType.isHighRiskWorld(client.getWorldType()) ||
@@ -490,6 +562,9 @@ public class LootTrackerPlugin extends Plugin
 		{
 			saveLocalLootRecord(lootRecord);
 		}
+
+		LTRecord record = new LTRecord(-1, name, combat, -1, convertToLTItemEntries(items));
+		writer.addLootTrackerRecord(record);
 	}
 
 	private void onWidgetLoaded(WidgetLoaded event)
@@ -510,16 +585,18 @@ public class LootTrackerPlugin extends Plugin
 				container = client.getItemContainer(InventoryID.CHAMBERS_OF_XERIC_CHEST);
 				chestLooted = true;
 				break;
-			case (WidgetID.THEATRE_OF_BLOOD_GROUP_ID):
+			case (WidgetID.THEATRE_OF_BLOOD_REWARD_GROUP_ID):
 				if (chestLooted)
 				{
 					return;
 				}
-				int region = WorldPoint.fromLocalInstance(client, client.getLocalPlayer().getLocalLocation()).getRegionID();
-				if (region != THEATRE_OF_BLOOD_REGION)
+				
+				if (WorldPoint.fromLocalInstance(client, client.getLocalPlayer()
+					.getLocalLocation()).getRegionID() != THEATRE_OF_BLOOD_REGION)
 				{
 					return;
 				}
+
 				eventType = "Theatre of Blood";
 				container = client.getItemContainer(InventoryID.THEATRE_OF_BLOOD_CHEST);
 				chestLooted = true;
@@ -584,6 +661,8 @@ public class LootTrackerPlugin extends Plugin
 		LootRecord lootRecord = new LootRecord(eventType, client.getLocalPlayer().getName(), LootRecordType.EVENT,
 			toGameItems(items), Instant.now());
 
+		final int killCount = killCountMap.getOrDefault(eventType.toUpperCase(), -1);
+
 		if (lootTrackerClient != null && this.saveLoot)
 		{
 			lootTrackerClient.submit(lootRecord);
@@ -592,6 +671,9 @@ public class LootTrackerPlugin extends Plugin
 		{
 			saveLocalLootRecord(lootRecord);
 		}
+
+		LTRecord record = new LTRecord(-1, eventType, -1, killCount, convertToLTItemEntries(items));
+		writer.addLootTrackerRecord(record);
 	}
 
 	private void onChatMessage(ChatMessage event)
@@ -619,14 +701,32 @@ public class LootTrackerPlugin extends Plugin
 
 		if (message.equals(HERBIBOAR_LOOTED_MESSAGE))
 		{
-			eventType = HERBIBOR_EVENT;
+			eventType = HERBIBOAR_EVENT;
 			takeInventorySnapshot();
 
 			return;
 		}
 
+		// Remove all tags
+		final String chatMessage = Text.removeTags(message);
+		
+		final int regionID = client.getLocalPlayer().getWorldLocation().getRegionID();
+		if (HESPORI_REGION == regionID && message.equals(HESPORI_LOOTED_MESSAGE))
+		{
+			eventType = HESPORI_EVENT;
+			takeInventorySnapshot();
+			return;
+		}
+
+		if (GAUNTLET_LOBBY_REGION == regionID && message.equals(GAUNTLET_LOOTED_MESSAGE))
+		{
+			eventType = GAUNTLET_EVENT;
+			takeInventorySnapshot();
+			return;
+		}
+
 		// Check if message is for a clue scroll reward
-		final Matcher m = CLUE_SCROLL_PATTERN.matcher(Text.removeTags(message));
+		final Matcher m = CLUE_SCROLL_PATTERN.matcher(chatMessage);
 		if (m.find())
 		{
 			final String type = m.group(1).toLowerCase();
@@ -651,9 +751,54 @@ public class LootTrackerPlugin extends Plugin
 					eventType = "Clue Scroll (Master)";
 					break;
 			}
+
+			int killCount = Integer.parseInt(m.group(1));
+			killCountMap.put(eventType.toUpperCase(), killCount);
+			return;
+		}
+
+		// Barrows KC
+		if (chatMessage.startsWith("Your Barrows chest count is"))
+		{
+			Matcher n = NUMBER_PATTERN.matcher(chatMessage);
+			if (n.find())
+			{
+				killCountMap.put("BARROWS", Integer.valueOf(n.group()));
+				return;
+			}
+		}
+
+		// Raids KC
+		if (chatMessage.startsWith("Your completed Chambers of Xeric count is"))
+		{
+			Matcher n = NUMBER_PATTERN.matcher(chatMessage);
+			if (n.find())
+			{
+				killCountMap.put("CHAMBERS OF XERIC", Integer.valueOf(n.group()));
+				return;
+			}
+		}
+		// Raids KC
+		if (chatMessage.startsWith("Your completed Theatre of Blood count is"))
+		{
+			Matcher n = NUMBER_PATTERN.matcher(chatMessage);
+			if (n.find())
+			{
+				killCountMap.put("THEATRE OF BLOOD", Integer.valueOf(n.group()));
+				return;
+			}
+		}
+		// Handle all other boss
+		Matcher boss = BOSS_NAME_NUMBER_PATTERN.matcher(chatMessage);
+		if (boss.find())
+		{
+			String bossName = boss.group(1);
+			int killCount = Integer.parseInt(boss.group(2));
+			killCountMap.put(bossName.toUpperCase(), killCount);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
 		if (pvpDeath && RESPAWN_REGIONS.contains(client.getLocalPlayer().getWorldLocation().getRegionID()))
@@ -690,7 +835,7 @@ public class LootTrackerPlugin extends Plugin
 					{
 						lootTrackerClient.submit(lootRecord);
 					}
-					if (this.localPersistence && lootTrackerClient == null)
+					if (this.localPersistence)
 					{
 						saveLocalLootRecord(lootRecord);
 					}
@@ -701,7 +846,10 @@ public class LootTrackerPlugin extends Plugin
 			}
 
 		}
-		if (eventType != null && (CHEST_EVENT_TYPES.containsValue(eventType) || HERBIBOR_EVENT.equals(eventType)))
+		if (CHEST_EVENT_TYPES.containsValue(eventType)
+			|| HERBIBOAR_EVENT.equals(eventType)
+			|| HESPORI_EVENT.equals(eventType)
+			|| GAUNTLET_EVENT.equals(eventType))
 		{
 			if (event.getItemContainer() != client.getItemContainer(InventoryID.INVENTORY))
 			{
@@ -743,7 +891,7 @@ public class LootTrackerPlugin extends Plugin
 		}
 	}
 
-	public void deleteLocalRecords()
+	void deleteLocalRecords()
 	{
 		try
 		{
@@ -752,8 +900,8 @@ public class LootTrackerPlugin extends Plugin
 		}
 		catch (IOException e)
 		{
-			log.debug("Error deleting local loot records file.");
-			log.debug(Arrays.toString(e.getStackTrace()));
+			log.error("Error deleting local loot records file.");
+			log.error(Arrays.toString(e.getStackTrace()));
 		}
 	}
 
@@ -819,6 +967,9 @@ public class LootTrackerPlugin extends Plugin
 				saveLocalLootRecord(lootRecord);
 			}
 
+			LTRecord record = new LTRecord(-1, chestType, -1, -1, convertToLTItemEntries(items));
+			writer.addLootTrackerRecord(record);
+
 			inventorySnapshot = null;
 		}
 	}
@@ -851,7 +1002,7 @@ public class LootTrackerPlugin extends Plugin
 	 * @param name - The String name of the record to toggle the hidden status of
 	 * @param ignore - true to ignore, false to remove
 	 */
-	public void toggleNPC(String name, boolean ignore)
+	void toggleNPC(String name, boolean ignore)
 	{
 		final Set<String> ignoredNPCSet = new HashSet<>(ignoredNPCs);
 		if (ignore)
@@ -872,7 +1023,7 @@ public class LootTrackerPlugin extends Plugin
 	 * @param name - The String of the name to check
 	 * @return - true if it is being ignored, false otherwise
 	 */
-	public boolean isIgnoredNPC(String name)
+	boolean isIgnoredNPC(String name)
 	{
 		return ignoredNPCs.contains(name);
 	}
@@ -923,6 +1074,35 @@ public class LootTrackerPlugin extends Plugin
 		}
 
 		return trackerRecords;
+	}
+
+	private Collection<LTItemEntry> convertToLTItemEntries(Collection<ItemStack> stacks)
+	{
+		return stacks.stream().map(i ->
+		{
+			final ItemDefinition c = itemManager.getItemDefinition(i.getId());
+			final int id = c.getNote() == -1 ? c.getId() : c.getLinkedNoteId();
+			final int price = itemManager.getItemPrice(id);
+			return new LTItemEntry(c.getName(), i.getId(), i.getQuantity(), price);
+		}).collect(Collectors.toList());
+	}
+
+	/**
+	 * Is player at the Last Man Standing minigame
+	 */
+	private boolean isAtLMS()
+	{
+		final int[] mapRegions = client.getMapRegions();
+
+		for (int region : LAST_MAN_STANDING_REGIONS)
+		{
+			if (ArrayUtils.contains(mapRegions, region))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private void updateConfig()

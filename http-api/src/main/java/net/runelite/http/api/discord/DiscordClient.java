@@ -46,18 +46,19 @@ public class DiscordClient
 
 	public void message(HttpUrl url, DiscordMessage discordMessage)
 	{
-		log.info("Message being sent");
+		log.debug("Message being sent");
 		message(url, discordMessage, 0, 5);
 	}
 
 	private void message(HttpUrl url, DiscordMessage discordMessage, int retryAttempt, int maxAttempts)
 	{
+		RequestBody body = RequestBody.Companion.create(gson.toJson(discordMessage), JSON);
 		Request request = new Request.Builder()
-			.post(RequestBody.create(JSON, gson.toJson(discordMessage)))
+			.post(body)
 			.url(url)
 			.build();
 
-		log.info("Attempting to message with {}", discordMessage);
+		log.debug("Attempting to message with {}", discordMessage);
 
 		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
 		{
@@ -79,12 +80,12 @@ public class DiscordClient
 				{
 					if (response.body() == null)
 					{
-						log.error("API Call - Reponse was null.");
+						log.debug("API Call - Reponse was null.");
 						return;
 					}
 					if (response.body().string().contains("You are being rate limited") && retryAttempt < maxAttempts)
 					{
-						log.error("You are being rate limited, retrying...");
+						log.debug("You are being rate limited, retrying...");
 						message(url, discordMessage, retryAttempt + 1, maxAttempts);
 					}
 				}

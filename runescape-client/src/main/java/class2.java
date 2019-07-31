@@ -53,9 +53,8 @@ final class class2 implements class0 {
 		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
 		if (var2 == null) {
 			return 0;
-		} else {
-			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0;
 		}
+		return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0;
 	}
 
 	@ObfuscatedName("an")
@@ -254,7 +253,7 @@ final class class2 implements class0 {
 										Messages.method2163(var20 + 1, var9.id, var9.childIndex, var9.itemId, "");
 									} else if (var20 == 10) {
 										WorldMapID.method542();
-										GroundItem.method2053(var9.id, var9.childIndex, HealthBar.method1957(class268.getWidgetClickMask(var9)), var9.itemId);
+										TileItem.method2053(var9.id, var9.childIndex, HealthBar.method1957(class268.getWidgetClickMask(var9)), var9.itemId);
 										Client.selectedSpellActionName = FontName.method5318(var9);
 										if (Client.selectedSpellActionName == null) {
 											Client.selectedSpellActionName = "null";

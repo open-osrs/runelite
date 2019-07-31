@@ -95,10 +95,9 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 	static String method54(IterableNodeHashTable var0, int var1, String var2) {
 		if (var0 == null) {
 			return var2;
-		} else {
-			ObjectNode var3 = (ObjectNode)var0.get((long)var1);
-			return var3 == null ? var2 : (String)var3.obj;
 		}
+		ObjectNode var3 = (ObjectNode)var0.get((long)var1);
+		return var3 == null ? var2 : (String)var3.obj;
 	}
 
 	@ObfuscatedName("w")
@@ -110,16 +109,15 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
-		} else {
-			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0);
-			var1 = new VarpDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0);
-			return var1;
 		}
+		byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0);
+		var1 = new VarpDefinition();
+		if (var2 != null) {
+			var1.decode(new Buffer(var2));
+		}
+
+		VarpDefinition.VarpDefinition_cached.put(var1, (long)var0);
+		return var1;
 	}
 
 	@ObfuscatedName("w")
@@ -129,7 +127,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 	)
 	@Export("openURL")
 	public static void openURL(String var0, boolean var1, boolean var2) {
-		class326.method6243(var0, var1, "openjs", var2);
+		SpriteBuffer.method6243(var0, var1, "openjs", var2);
 	}
 
 	@ObfuscatedName("gn")
@@ -144,10 +142,10 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 			scene.removeGroundItemPile(class42.plane, var0, var1);
 		} else {
 			long var3 = -99999999L;
-			GroundItem var5 = null;
+			TileItem var5 = null;
 
-			GroundItem var6;
-			for (var6 = (GroundItem)var2.last(); var6 != null; var6 = (GroundItem)var2.previous()) {
+			TileItem var6;
+			for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) {
 				ItemDefinition var7 = WorldMapArea.getItemDefinition(var6.id);
 				long var8 = (long)var7.price;
 				if (var7.isStackable == 1) {
@@ -164,10 +162,10 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 				scene.removeGroundItemPile(class42.plane, var0, var1);
 			} else {
 				var2.addLast(var5);
-				GroundItem var12 = null;
-				GroundItem var11 = null;
+				TileItem var12 = null;
+				TileItem var11 = null;
 
-				for (var6 = (GroundItem)var2.last(); var6 != null; var6 = (GroundItem)var2.previous()) {
+				for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) {
 					if (var5.id != var6.id) {
 						if (var12 == null) {
 							var12 = var6;

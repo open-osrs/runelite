@@ -38,10 +38,9 @@ public class class14 {
 	static final void method153(Widget var0, int var1, int var2, int var3) {
 		if (var0.field2641 == null) {
 			throw new RuntimeException();
-		} else {
-			var0.field2641[var1] = var2;
-			var0.field2588[var1] = var3;
 		}
+		var0.field2641[var1] = var2;
+		var0.field2588[var1] = var3;
 	}
 
 	@ObfuscatedName("s")
@@ -75,14 +74,14 @@ public class class14 {
 			} else {
 				String var4 = var3 + "; Expires=";
 				long var6 = DirectByteArrayCopier.currentTimeMs() + 94608000000L;
-				Calendar.field2504.setTime(new Date(var6));
-				int var8 = Calendar.field2504.get(7);
-				int var9 = Calendar.field2504.get(5);
-				int var10 = Calendar.field2504.get(2);
-				int var11 = Calendar.field2504.get(1);
-				int var12 = Calendar.field2504.get(11);
-				int var13 = Calendar.field2504.get(12);
-				int var14 = Calendar.field2504.get(13);
+				Calendar.Calendar_calendar.setTime(new Date(var6));
+				int var8 = Calendar.Calendar_calendar.get(7);
+				int var9 = Calendar.Calendar_calendar.get(5);
+				int var10 = Calendar.Calendar_calendar.get(2);
+				int var11 = Calendar.Calendar_calendar.get(1);
+				int var12 = Calendar.Calendar_calendar.get(11);
+				int var13 = Calendar.Calendar_calendar.get(12);
+				int var14 = Calendar.Calendar_calendar.get(13);
 				var5 = Calendar.DAYS_OF_THE_WEEK[var8 - 1] + ", " + var9 / 10 + var9 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var10] + "-" + var11 + " " + var12 / 10 + var12 % 10 + ":" + var13 / 10 + var13 % 10 + ":" + var14 / 10 + var14 % 10 + " GMT";
 				var3 = var4 + var5 + "; Max-Age=" + 94608000L;
 			}

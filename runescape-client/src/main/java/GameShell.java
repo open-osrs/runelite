@@ -481,7 +481,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 			gameShell = this;
 			GrandExchangeEvent.canvasWidth = var1;
 			ParamDefinition.canvasHeight = var2;
-			RunException.revision = var3;
+			RunException.RunException_revision = var3;
 			RunException.RunException_applet = this;
 			if (taskHandler == null) {
 				taskHandler = new TaskHandler();
@@ -553,28 +553,24 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	@Export("checkHost")
 	protected final boolean checkHost() {
 		String var1 = this.getDocumentBase().getHost().toLowerCase();
-		if (!var1.equals("jagex.com") && !var1.endsWith(".jagex.com")) {
-			if (!var1.equals("runescape.com") && !var1.endsWith(".runescape.com")) {
-				if (var1.endsWith("127.0.0.1")) {
-					return true;
-				} else {
-					while (var1.length() > 0 && var1.charAt(var1.length() - 1) >= '0' && var1.charAt(var1.length() - 1) <= '9') {
-						var1 = var1.substring(0, var1.length() - 1);
-					}
-
-					if (var1.endsWith("192.168.1.")) {
-						return true;
-					} else {
-						this.error("invalidhost");
-						return false;
-					}
-				}
-			} else {
-				return true;
-			}
-		} else {
+		if (var1.equals("jagex.com") || var1.endsWith(".jagex.com")) {
 			return true;
 		}
+		if (var1.equals("runescape.com") || var1.endsWith(".runescape.com")) {
+			return true;
+		}
+		if (var1.endsWith("127.0.0.1")) {
+			return true;
+		}
+		while (var1.length() > 0 && var1.charAt(var1.length() - 1) >= '0' && var1.charAt(var1.length() - 1) <= '9') {
+			var1 = var1.substring(0, var1.length() - 1);
+		}
+
+		if (var1.endsWith("192.168.1.")) {
+			return true;
+		}
+		this.error("invalidhost");
+		return false;
 	}
 
 	@ObfuscatedName("j")
@@ -713,6 +709,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		signature = "(B)V",
 		garbageValue = "-3"
 	)
+	@Export("doCycle")
 	protected abstract void doCycle();
 
 	@ObfuscatedName("ag")
@@ -720,6 +717,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		signature = "(ZB)V",
 		garbageValue = "-5"
 	)
+	@Export("draw")
 	protected abstract void draw(boolean var1);
 
 	@ObfuscatedName("ar")
@@ -992,17 +990,16 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		NPCDefinition var1 = (NPCDefinition)NPCDefinition.NpcDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
-		} else {
-			byte[] var2 = NPCDefinition.NpcDefinition_archive.takeFile(9, var0);
-			var1 = new NPCDefinition();
-			var1.id = var0;
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			NPCDefinition.NpcDefinition_cached.put(var1, (long)var0);
-			return var1;
 		}
+		byte[] var2 = NPCDefinition.NpcDefinition_archive.takeFile(9, var0);
+		var1 = new NPCDefinition();
+		var1.id = var0;
+		if (var2 != null) {
+			var1.decode(new Buffer(var2));
+		}
+
+		var1.postDecode();
+		NPCDefinition.NpcDefinition_cached.put(var1, (long)var0);
+		return var1;
 	}
 }

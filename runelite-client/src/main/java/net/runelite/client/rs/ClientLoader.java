@@ -34,6 +34,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.RuneLite;
 
 @Slf4j
 @Singleton
@@ -41,7 +42,6 @@ public class ClientLoader
 {
 	private final ClientConfigLoader clientConfigLoader;
 	private final ClientUpdateCheckMode updateCheckMode;
-	public static boolean useLocalInjected = false;
 
 	@Inject
 	private ClientLoader(
@@ -67,6 +67,9 @@ public class ClientLoader
 					return loadVanilla(config);
 				case NONE:
 					return null;
+				case RSPS:
+					RuneLite.allowPrivateServer = true;
+					return loadRLPlus(config);
 			}
 		}
 		catch (IOException | InstantiationException | IllegalAccessException e)
@@ -85,14 +88,15 @@ public class ClientLoader
 		}
 	}
 
-	private static Applet loadRLPlus(final RSConfig config) throws ClassNotFoundException, InstantiationException, IllegalAccessException
+	private static Applet loadRLPlus(final RSConfig config)
+	throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
-		// the injected client is a runtime scoped dependency
 		final Class<?> clientClass = ClientLoader.class.getClassLoader().loadClass(config.getInitialClass());
 		return loadFromClass(config, clientClass);
 	}
 
-	private static Applet loadVanilla(final RSConfig config) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException
+	private static Applet loadVanilla(final RSConfig config)
+	throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		final String codebase = config.getCodeBase();
 		final String initialJar = config.getInitialJar();
@@ -106,7 +110,8 @@ public class ClientLoader
 		return loadFromClass(config, clientClass);
 	}
 
-	private static Applet loadFromClass(final RSConfig config, final Class<?> clientClass) throws IllegalAccessException, InstantiationException
+	private static Applet loadFromClass(final RSConfig config, final Class<?> clientClass)
+	throws IllegalAccessException, InstantiationException
 	{
 		final Applet rs = (Applet) clientClass.newInstance();
 		rs.setStub(new RSAppletStub(config));

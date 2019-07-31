@@ -279,7 +279,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private String getSellFiftyItems;
 	private boolean getEasyConstruction;
 	private String getEasyConstructionItems;
-	private boolean getSwapSmithing;
 	private boolean getSwapTanning;
 	private boolean getSwapSawmill;
 	private boolean getSwapSawmillPlanks;
@@ -653,12 +652,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 		ItemDefinition itemComposition = client.getItemDefinition(itemId);
 		String itemName = itemComposition.getName();
 		String option = "Use";
-		int shiftClickActionindex = itemComposition.getShiftClickActionIndex();
+		int shiftClickActionIndex = itemComposition.getShiftClickActionIndex();
 		String[] inventoryActions = itemComposition.getInventoryActions();
 
-		if (shiftClickActionindex >= 0 && shiftClickActionindex < inventoryActions.length)
+		if (shiftClickActionIndex >= 0 && shiftClickActionIndex < inventoryActions.length)
 		{
-			option = inventoryActions[shiftClickActionindex];
+			option = inventoryActions[shiftClickActionIndex];
 		}
 
 		MenuEntry[] entries = event.getMenuEntries();
@@ -958,18 +957,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		}
 
-		else if (this.getSwapSmithing && option.contains("smith"))
-		{
-			if (option.equalsIgnoreCase("Smith 1"))
-			{
-				swap(client, "Smith All", option, target);
-			}
-			else if (option.equalsIgnoreCase("Smith 1 Set"))
-			{
-				swap(client, "Smith All Sets", option, target);
-			}
-		}
-
 		else if (this.getSwapTanning && option.equalsIgnoreCase("Tan 1"))
 		{
 			swap(client, "Tan All", option, target);
@@ -1091,6 +1078,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 						}
 					}
 					break;
+				case "crystal impling jar":
 				case "dragon impling jar":
 					if (client.getItemContainer(InventoryID.INVENTORY) != null)
 					{
@@ -1350,10 +1338,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			swap(client, "empty", option, target, true);
 		}
 
-		else if (this.swapQuick && option.equals("enter"))
-		{
-			swap(client, "quick-enter", option, target, true);
-		}
 		else if (this.swapQuick && option.equals("ring"))
 		{
 			swap(client, "quick-start", option, target, true);
@@ -1368,14 +1352,17 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			swap(client, "quick-open", option, target, true);
 		}
-		else if (this.swapQuick && option.equals("enter"))
+
+		else if (this.swapQuick && (option.equals("enter") || option.equals("enter-crypt")))
 		{
 			swap(client, "quick-enter", option, target, true);
 		}
+
 		else if (this.swapQuick && option.equals("leave tomb"))
 		{
 			swap(client, "quick-leave", option, target, true);
 		}
+		
 		else if (this.swapAdmire && option.equals("admire"))
 		{
 			swap(client, "teleport", option, target, true);
@@ -1866,7 +1853,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.getSellFiftyItems = config.getSellFiftyItems();
 		this.getEasyConstruction = config.getEasyConstruction();
 		this.getEasyConstructionItems = config.getEasyConstructionItems();
-		this.getSwapSmithing = config.getSwapSmithing();
 		this.getSwapTanning = config.getSwapTanning();
 		this.getSwapSawmill = config.getSwapSawmill();
 		this.getSwapSawmillPlanks = config.getSwapSawmillPlanks();

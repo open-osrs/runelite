@@ -36,9 +36,8 @@ public class UserComparator10 extends AbstractUserComparator {
 	int compareBuddy(Buddy var1, Buddy var2) {
 		if (Client.worldId == var1.world && var2.world == Client.worldId) {
 			return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2;
-		} else {
-			return this.compareUser(var1, var2);
 		}
+		return this.compareUser(var1, var2);
 	}
 
 	public int compare(Object var1, Object var2) {
@@ -57,7 +56,7 @@ public class UserComparator10 extends AbstractUserComparator {
 		} else {
 			long var1;
 			try {
-				URL var3 = new URL(class190.method3666("services", false) + "m=accountappeal/login.ws");
+				URL var3 = new URL(Language.method3666("services", false) + "m=accountappeal/login.ws");
 				URLConnection var4 = var3.openConnection();
 				var4.setRequestProperty("connection", "close");
 				var4.setDoInput(true);
@@ -172,7 +171,7 @@ public class UserComparator10 extends AbstractUserComparator {
 
 				byte var30;
 				try {
-					URL var17 = new URL(class190.method3666("services", false) + "m=accountappeal/login.ws");
+					URL var17 = new URL(Language.method3666("services", false) + "m=accountappeal/login.ws");
 					URLConnection var18 = var17.openConnection();
 					var18.setDoInput(true);
 					var18.setDoOutput(true);
@@ -278,8 +277,7 @@ public class UserComparator10 extends AbstractUserComparator {
 		boolean var2 = (var3 >> var1 + 1 & 1) != 0;
 		if (!var2 && var0.onOp == null) {
 			return null;
-		} else {
-			return var0.actions != null && var0.actions.length > var1 && var0.actions[var1] != null && var0.actions[var1].trim().length() != 0 ? var0.actions[var1] : null;
 		}
+		return var0.actions != null && var0.actions.length > var1 && var0.actions[var1] != null && var0.actions[var1].trim().length() != 0 ? var0.actions[var1] : null;
 	}
 }

@@ -33,6 +33,7 @@ import java.awt.Polygon;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.Instant;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -43,6 +44,7 @@ import net.runelite.api.NPCDefinition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.ui.overlay.Overlay;
@@ -149,10 +151,16 @@ public class NpcSceneOverlay extends Overlay
 
 	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color)
 	{
+		if (plugin.isDrawInteracting() && actor.getInteracting() != null
+			&& actor.getInteracting() == client.getLocalPlayer())
+		{
+			color = plugin.getGetInteractingColor();
+		}
+
 		switch (plugin.getRenderStyle())
 		{
 			case SOUTH_WEST_TILE:
-				LocalPoint lp1 = LocalPoint.fromWorld(client, actor.getWorldLocation());
+				final LocalPoint lp1 = LocalPoint.fromWorld(client, actor.getWorldLocation());
 				Polygon tilePoly1 = null;
 				if (lp1 != null)
 				{
@@ -161,7 +169,6 @@ public class NpcSceneOverlay extends Overlay
 
 				renderPoly(graphics, color, tilePoly1);
 				break;
-
 			case TILE:
 				int size = 1;
 				NPCDefinition composition = actor.getTransformedDefinition();
@@ -169,43 +176,65 @@ public class NpcSceneOverlay extends Overlay
 				{
 					size = composition.getSize();
 				}
-				LocalPoint lp = actor.getLocalLocation();
-				Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, lp, size);
-
+				final LocalPoint lp = actor.getLocalLocation();
+				final Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, lp, size);
 				renderPoly(graphics, color, tilePoly);
 				break;
-
 			case HULL:
-				Polygon objectClickbox = actor.getConvexHull();
-
+				final Polygon objectClickbox = actor.getConvexHull();
 				renderPoly(graphics, color, objectClickbox);
 				break;
-
 			case THIN_OUTLINE:
 				modelOutliner.drawOutline(actor, 1, color);
 				break;
-
 			case OUTLINE:
 				modelOutliner.drawOutline(actor, 2, color);
 				break;
-
 			case THIN_GLOW:
 				modelOutliner.drawOutline(actor, 4, color, TRANSPARENT);
 				break;
-
 			case GLOW:
 				modelOutliner.drawOutline(actor, 8, color, TRANSPARENT);
+				break;
+			case TRUE_LOCATIONS:
+				size = 1;
+				composition = actor.getTransformedDefinition();
+
+				if (composition != null)
+				{
+					size = composition.getSize();
+				}
+
+				final WorldPoint wp = actor.getWorldLocation();
+				final Color squareColor = color;
+
+				getSquare(wp, size).forEach(square ->
+				{
+					drawTile(graphics, square, squareColor, 1, 255, 50);
+				});
 				break;
 		}
 
 		if (plugin.isDrawNames() && actor.getName() != null)
 		{
-			String npcName = Text.removeTags(actor.getName());
-			Point textLocation = actor.getCanvasTextLocation(graphics, npcName, actor.getLogicalHeight() + 40);
+			final String npcName = Text.removeTags(actor.getName());
+			final Point textLocation = actor.getCanvasTextLocation(graphics, npcName, actor.getLogicalHeight() + 40);
 
 			if (textLocation != null)
 			{
 				OverlayUtil.renderTextLocation(graphics, textLocation, npcName, color);
+			}
+		}
+
+		if (plugin.isDrawInteracting() && actor.getInteracting() != null)
+		{
+			final int drawHeight = plugin.isDrawNames() ? 80 : 40;
+			final String targetName = Text.removeTags(actor.getInteracting().getName());
+			final Point textLocation = actor.getCanvasTextLocation(graphics, targetName, actor.getLogicalHeight() + drawHeight);
+
+			if (textLocation != null)
+			{
+				OverlayUtil.renderTextLocation(graphics, textLocation, targetName, color);
 			}
 		}
 	}
@@ -220,5 +249,40 @@ public class NpcSceneOverlay extends Overlay
 			graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 20));
 			graphics.fill(polygon);
 		}
+	}
+
+	private List<WorldPoint> getSquare(WorldPoint npcLoc, int npcSize)
+	{
+		return new WorldArea(npcLoc.getX(), npcLoc.getY(), npcSize, npcSize, npcLoc.getPlane()).toWorldPointList();
+	}
+
+	private void drawTile(Graphics2D graphics, WorldPoint point, Color color, int strokeWidth, int outlineAlpha, int fillAlpha)
+	{
+		WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
+
+		if (point.distanceTo(playerLocation) >= 32)
+		{
+			return;
+		}
+
+		LocalPoint lp = LocalPoint.fromWorld(client, point);
+
+		if (lp == null)
+		{
+			return;
+		}
+
+		Polygon poly = Perspective.getCanvasTilePoly(client, lp);
+
+		if (poly == null)
+		{
+			return;
+		}
+
+		graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), outlineAlpha));
+		graphics.setStroke(new BasicStroke(strokeWidth));
+		graphics.draw(poly);
+		graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), fillAlpha));
+		graphics.fill(poly);
 	}
 }

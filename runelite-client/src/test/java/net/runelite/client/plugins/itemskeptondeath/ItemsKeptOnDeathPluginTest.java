@@ -41,12 +41,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ItemsKeptOnDeathPluginTest
@@ -81,37 +82,21 @@ public class ItemsKeptOnDeathPluginTest
 	{
 		// Mock Item Composition and necessary ItemManager methods for this item
 		ItemDefinition c = mock(ItemDefinition.class);
-		when(c.getId())
-			.thenReturn(id);
+
 		when(c.getName())
 			.thenReturn(name);
-		when(c.isTradeable())
-			.thenReturn(tradeable);
-		when(c.getPrice())
-			.thenReturn(price);
-
-		if (!tradeable)
-		{
-			when(c.getNote()).thenReturn(-1);
-			when(c.getLinkedNoteId()).thenReturn(-1);
-		}
 
 		when(itemManager.getItemDefinition(id)).thenReturn(c);
 		when(itemManager.canonicalize(id)).thenReturn(id);
 		when(itemManager.getItemPrice(id, true)).thenReturn(price);
 
-		return mockItem(id, qty);
+		return item(id, qty);
 	}
 
-	// Creates a mocked item
-	private Item mockItem(final int id, final int qty)
+	// Creates a new item
+	private static Item item(final int id, final int qty)
 	{
-		Item item = mock(Item.class);
-
-		when(item.getId()).thenReturn(id);
-		when(item.getQuantity()).thenReturn(qty);
-
-		return item;
+		return new Item(id, qty);
 	}
 
 	@Test

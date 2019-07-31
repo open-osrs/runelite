@@ -164,7 +164,7 @@ public class Varcs {
 	)
 	@Export("getPreferencesFile")
 	AccessFile getPreferencesFile(boolean var1) {
-		return WorldMapIcon_0.getPreferencesFile("2", WorldMapRegion.field248.name, var1);
+		return WorldMapIcon_0.getPreferencesFile("2", WorldMapRegion.studioGame.name, var1);
 	}
 
 	@ObfuscatedName("c")
@@ -304,29 +304,28 @@ public class Varcs {
 
 								++var7;
 							}
-						} else {
-							var17 = var15.readUnsignedShort();
+						}
+						var17 = var15.readUnsignedShort();
 
-							for (var7 = 0; var7 < var17; ++var7) {
-								var8 = var15.readUnsignedShort();
-								var9 = var15.readInt();
-								if (this.intsPersistence[var8]) {
-									this.map.put(var8, var9);
-								}
+						for (var7 = 0; var7 < var17; ++var7) {
+							var8 = var15.readUnsignedShort();
+							var9 = var15.readInt();
+							if (this.intsPersistence[var8]) {
+								this.map.put(var8, var9);
+							}
+						}
+
+						var7 = var15.readUnsignedShort();
+						var8 = 0;
+
+						while (true) {
+							if (var8 >= var7) {
+								break label226;
 							}
 
-							var7 = var15.readUnsignedShort();
-							var8 = 0;
-
-							while (true) {
-								if (var8 >= var7) {
-									break label226;
-								}
-
-								var15.readUnsignedShort();
-								var15.readStringCp1252NullTerminated();
-								++var8;
-							}
+							var15.readUnsignedShort();
+							var15.readStringCp1252NullTerminated();
+							++var8;
 						}
 					}
 

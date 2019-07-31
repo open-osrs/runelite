@@ -38,6 +38,8 @@ import okhttp3.Response;
 
 public class ChatClient
 {
+
+	private static final RequestBody body = RequestBody.Companion.create(new byte[0], null);
 	private static final Predicate<String> LAYOUT_VALIDATOR = Pattern
 		.compile("\\[[A-Z]+]:(\\s*\\w+\\s*(\\([A-Za-z]+\\))?,?)+")
 		.asPredicate();
@@ -52,8 +54,9 @@ public class ChatClient
 			.addQueryParameter("kc", Integer.toString(kc))
 			.build();
 
+
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -96,7 +99,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -141,7 +144,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -190,7 +193,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -225,7 +228,7 @@ public class ChatClient
 
 	public boolean submitGc(String username, int gc) throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getPlusApiBase().newBuilder()
+		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
 			.addPathSegment("chat")
 			.addPathSegment("gc")
 			.addQueryParameter("name", username)
@@ -233,7 +236,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -245,7 +248,7 @@ public class ChatClient
 
 	public int getGc(String username) throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getPlusApiBase().newBuilder()
+		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
 			.addPathSegment("chat")
 			.addPathSegment("gc")
 			.addQueryParameter("name", username)
@@ -255,7 +258,7 @@ public class ChatClient
 			.url(url)
 			.build();
 
-		try (Response response = RuneLiteAPI.RLP_CLIENT.newCall(request).execute())
+		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
 		{
 			if (!response.isSuccessful())
 			{
@@ -280,7 +283,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -303,7 +306,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -424,7 +427,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 
@@ -453,7 +456,7 @@ public class ChatClient
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
+			.post(body)
 			.url(url)
 			.build();
 

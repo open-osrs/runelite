@@ -41,7 +41,7 @@ public interface AoeWarningConfig extends Config
 {
 	@Getter
 	@AllArgsConstructor
-	public enum FontStyle
+	enum FontStyle
 	{
 		BOLD("Bold", Font.BOLD),
 		ITALIC("Italic", Font.ITALIC),

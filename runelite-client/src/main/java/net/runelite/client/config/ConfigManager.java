@@ -42,7 +42,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.nio.channels.FileLock;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -106,7 +106,7 @@ public class ConfigManager
 		final Properties properties = new Properties();
 		try (FileInputStream in = new FileInputStream(propertiesFile))
 		{
-			properties.load(new InputStreamReader(in, Charset.forName("UTF-8")));
+			properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
 		}
 		catch (Exception e)
 		{
@@ -114,7 +114,7 @@ public class ConfigManager
 			return;
 		}
 
-		final Map<String, String> copy = (Map) ImmutableMap.copyOf(this.properties);
+		@SuppressWarnings("unchecked") final Map<String, String> copy = (Map) ImmutableMap.copyOf(this.properties);
 		copy.forEach((groupAndKey, value) ->
 		{
 			if (!properties.containsKey(groupAndKey))
@@ -158,7 +158,7 @@ public class ConfigManager
 
 		try (FileInputStream in = new FileInputStream(SETTINGS_FILE))
 		{
-			properties.load(new InputStreamReader(in, Charset.forName("UTF-8")));
+			properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
 		}
 		catch (FileNotFoundException ex)
 		{
@@ -172,7 +172,7 @@ public class ConfigManager
 
 		try
 		{
-			Map<String, String> copy = (Map) ImmutableMap.copyOf(properties);
+			@SuppressWarnings("unchecked") Map<String, String> copy = (Map) ImmutableMap.copyOf(properties);
 			copy.forEach((groupAndKey, value) ->
 			{
 				final String[] split = groupAndKey.split("\\.", 2);
@@ -210,7 +210,7 @@ public class ConfigManager
 
 			try
 			{
-				properties.store(new OutputStreamWriter(out, Charset.forName("UTF-8")), "RuneLite configuration");
+				properties.store(new OutputStreamWriter(out, StandardCharsets.UTF_8), "RuneLite configuration");
 			}
 			finally
 			{
@@ -233,6 +233,7 @@ public class ConfigManager
 		eventBus.post(ConfigChanged.class, configChanged);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getConfig(Class<T> clazz)
 	{
 		if (!Modifier.isPublic(clazz.getModifiers()))
@@ -261,6 +262,7 @@ public class ConfigManager
 		return properties.getProperty(propertyKey);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getConfiguration(String groupName, String key, Class<T> clazz)
 	{
 		String value = getConfiguration(groupName, key);
@@ -462,6 +464,7 @@ public class ConfigManager
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	static Object stringToObject(String str, Class<?> type)
 	{
 		if (type == boolean.class || type == Boolean.class)
@@ -623,22 +626,34 @@ public class ConfigManager
 
 		newestFile = STANDARD_SETTINGS_FILE;
 
-		for (File profileDir : PROFILES_DIR.listFiles())
-		{
-			if (!profileDir.isDirectory())
-			{
-				continue;
-			}
+		File[] profileDirFiles = PROFILES_DIR.listFiles();
 
-			for (File settings : profileDir.listFiles())
+		if (profileDirFiles != null)
+		{
+			for (File profileDir : profileDirFiles)
 			{
-				if (!settings.getName().equals(STANDARD_SETTINGS_FILE_NAME) ||
-					settings.lastModified() < newestFile.lastModified())
+				if (!profileDir.isDirectory())
 				{
 					continue;
 				}
 
-				newestFile = settings;
+				File[] settingsFiles = profileDir.listFiles();
+
+				if (settingsFiles == null)
+				{
+					continue;
+				}
+
+				for (File settings : settingsFiles)
+				{
+					if (!settings.getName().equals(STANDARD_SETTINGS_FILE_NAME) ||
+						settings.lastModified() < newestFile.lastModified())
+					{
+						continue;
+					}
+
+					newestFile = settings;
+				}
 			}
 		}
 

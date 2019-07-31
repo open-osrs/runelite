@@ -357,7 +357,7 @@ public class MusicPatch extends Node {
 				var32 = var41 * (var30 - var44) + (var30 - var44) / 2;
 
 				for (var33 = var44; var33 < var30; ++var33) {
-					var34 = GroundItemPile.method2767(var32, var30 - var44);
+					var34 = TileItemPile.method2767(var32, var30 - var44);
 					this.field2476[var33] = (byte)(var34 * this.field2476[var33] + 32 >> 6);
 					var32 += var31 - var41;
 				}
@@ -405,7 +405,7 @@ public class MusicPatch extends Node {
 				var32 = var47 * (var30 - var44) + (var30 - var44) / 2;
 
 				for (var33 = var44; var33 < var30; ++var33) {
-					var34 = GroundItemPile.method2767(var32, var30 - var44);
+					var34 = TileItemPile.method2767(var32, var30 - var44);
 					int var35 = var34 + (this.field2477[var33] & 255);
 					if (var35 < 0) {
 						var35 = 0;
@@ -536,17 +536,16 @@ public class MusicPatch extends Node {
 		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
-		} else {
-			byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0);
-			var1 = new SpotAnimationDefinition();
-			var1.id = var0;
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0);
-			return var1;
 		}
+		byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0);
+		var1 = new SpotAnimationDefinition();
+		var1.id = var0;
+		if (var2 != null) {
+			var1.decode(new Buffer(var2));
+		}
+
+		SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0);
+		return var1;
 	}
 
 	@ObfuscatedName("e")
