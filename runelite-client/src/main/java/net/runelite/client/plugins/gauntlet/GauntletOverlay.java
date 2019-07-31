@@ -91,11 +91,6 @@ public class GauntletOverlay extends Overlay
 				BufferedImage icon = resizeImage(projectile.getImage(), plugin.getIconSize(), plugin.getIconSize());
 				Color color = projectile.getColor();
 
-				if (icon == null)
-				{
-					return;
-				}
-
 				Polygon polygon = boundProjectile(projectile.getProjectile());
 				if (polygon == null)
 				{
