@@ -27,6 +27,7 @@ package net.runelite.client.plugins.gauntlet;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
@@ -63,6 +64,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.LIGHTNING;
 import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.MAGIC;
 import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.PRAYER;
@@ -73,9 +75,10 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Gauntlet",
 	description = "All-in-one plugin for the Gauntlet.",
 	tags = {"Gauntlet"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	type = PluginType.PVM
 )
-
+@Getter(AccessLevel.PACKAGE)
 public class GauntletPlugin extends Plugin
 {
 	private static final int BOW_ATTACK = 426;
@@ -99,47 +102,51 @@ public class GauntletPlugin extends Plugin
 	);
 
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private Client client;
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private ClientThread clientThread;
-	@Getter(AccessLevel.PUBLIC)
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private OverlayManager overlayManager;
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private GauntletOverlay overlay;
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private GauntletConfig config;
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private EventBus eventBus;
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private GauntletTimer timer;
 	@Inject
+	@Getter(AccessLevel.NONE)
 	private SkillIconManager skillIconManager;
-	@Getter(AccessLevel.PACKAGE)
-	private final Set<Resources> resources = new HashSet<>();
-	@Getter(AccessLevel.PACKAGE)
-	private final Set<Missiles> projectiles = new HashSet<>();
-	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
 	private Hunllef hunllef;
-	@Getter(AccessLevel.PACKAGE)
+	private final Set<Resources> resources = new HashSet<>();
+	private final Set<Missiles> projectiles = new HashSet<>();
 	private Set<NPC> tornado = new HashSet<>();
-	boolean completeStartup = false;
-	boolean countBossAttacks;
-	boolean countPlayerAttacks;
-	boolean displayTimerChat;
-	boolean highlightResourcesColor;
-	boolean highlightResourcesIcons;
-	boolean overlayBoss;
-	boolean overlayBossPrayer;
-	boolean overlayTornadoes;
-	int tornadoTicks = 20;
+	private boolean completeStartup = false;
+	private boolean countBossAttacks;
+	private boolean countPlayerAttacks;
+	private boolean displayTimerChat;
+	private boolean highlightResources;
+	private boolean highlightResourcesIcons;
+	private boolean highlightWidget;
+	private boolean overlayBoss;
+	private boolean overlayBossPrayer;
+	private boolean overlayTornadoes;
+	private Color highlightResourcesColor;
+	private int tornadoTicks = 20;
 	private boolean displayTimerWidget;
 	private boolean timerVisible = true;
 	private boolean uniqueAttackVisual;
 	private boolean uniquePrayerAudio;
 	private boolean uniquePrayerVisual;
-	@Getter(AccessLevel.PACKAGE)
 	private int iconSize;
 
 	@Provides
@@ -274,15 +281,11 @@ public class GauntletPlugin extends Plugin
 		{
 			final NPC npc = (NPC) actor;
 
-			if (npc == hunllef.getNpc())
+			if (npc.getAnimation() == LIGHTNING_ANIMATION)
 			{
-				if (npc.getAnimation() == LIGHTNING_ANIMATION)
-				{
-					hunllef.updateAttack(LIGHTNING);
-				}
+				hunllef.updateAttack(LIGHTNING);
 			}
 		}
-
 	}
 
 	public void onConfigChanged(ConfigChanged event)
@@ -432,8 +435,10 @@ public class GauntletPlugin extends Plugin
 
 	private void updateConfig()
 	{
+		this.highlightResources = config.highlightResources();
 		this.highlightResourcesColor = config.highlightResourcesColor();
 		this.highlightResourcesIcons = config.highlightResourcesIcons();
+		this.highlightWidget = config.highlightWidget();
 		this.iconSize = config.iconSize();
 		this.countBossAttacks = config.countBossAttacks();
 		this.countPlayerAttacks = config.countPlayerAttacks();

@@ -8,32 +8,62 @@
 
 package net.runelite.client.plugins.gauntlet;
 
+import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
+import net.runelite.client.config.Stub;
 
 @ConfigGroup("Gauntlet")
 
 public interface GauntletConfig extends Config
 {
-
 	@ConfigItem(
 		position = 0,
-		keyName = "highlightResourcesColor",
-		name = "Highlight Resources with a tile",
-		description = "Highlights all the resources in each room with a color."
+		keyName = "resources",
+		name = "Resources",
+		description = ""
 	)
-	default boolean highlightResourcesColor()
+	default Stub resources()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 1,
+		keyName = "highlightResources",
+		name = "Highlight Resources",
+		description = "Highlights all the resources in each room with a color.",
+		parent = "resources"
+	)
+	default boolean highlightResources()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-		position = 1,
+		position = 2,
+		keyName = "highlightResourcesColor",
+		name = "Highlight Color",
+		description = "Highlights all the resources in each room with this color.",
+		parent = "resources",
+		hidden = true,
+		unhide = "highlightResources"
+	)
+	default Color highlightResourcesColor()
+	{
+		return Color.YELLOW;
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "highlightResourcesIcons",
 		name = "Highlight Resources with an Icon",
-		description = "Highlights all the icons in each room with an icon."
+		description = "Highlights all the icons in each room with an icon.",
+		parent = "resources",
+		hidden = true,
+		unhide = "highlightResources"
 	)
 	default boolean highlightResourcesIcons()
 	{
@@ -45,12 +75,13 @@ public interface GauntletConfig extends Config
 		max = 50
 	)
 	@ConfigItem(
-		position = 2,
+		position = 4,
 		keyName = "iconSize",
 		name = "Global Icon Size",
 		description = "Globally change the size of icons.",
 		hidden = true,
-		unhide = "highlightResourcesIcons"
+		unhide = "highlightResources",
+		parent = "resources"
 	)
 	default int iconSize()
 	{
@@ -58,10 +89,22 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+		position = 5,
+		keyName = "boss",
+		name = "Boss",
+		description = ""
+	)
+	default Stub boss()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 6,
 		keyName = "countBossAttacks",
 		name = "Count Boss Attacks",
-		description = "Count the attacks until the boss switches their style."
+		description = "Count the attacks until the boss switches their style.",
+		parent = "boss"
 	)
 	default boolean countBossAttacks()
 	{
@@ -69,10 +112,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 7,
 		keyName = "countPlayerAttacks",
 		name = "Count Player Attacks",
-		description = "Count the player attacks until the boss switches their prayer."
+		description = "Count the player attacks until the boss switches their prayer.",
+		parent = "boss"
 	)
 	default boolean countPlayerAttacks()
 	{
@@ -80,10 +124,23 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		position = 8,
+		keyName = "highlightWidget",
+		name = "Highlight Correct Prayer",
+		description = "Highlights correct prayer in your prayer book.",
+		parent = "boss"
+	)
+	default boolean highlightWidget()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 9,
 		keyName = "uniquePrayerAudio",
 		name = "Unique Prayer Audio",
-		description = "Plays a unique sound whenever the boss is about to shut down your prayer."
+		description = "Plays a unique sound whenever the boss is about to shut down your prayer.",
+		parent = "boss"
 	)
 	default boolean uniquePrayerAudio()
 	{
@@ -91,10 +148,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 6,
+		position = 10,
 		keyName = "uniquePrayerVisual",
 		name = "Unique Prayer Visual",
-		description = "Prayer attacks will have a unique overlay visual."
+		description = "Prayer attacks will have a unique overlay visual.",
+		parent = "boss"
 	)
 	default boolean uniquePrayerVisual()
 	{
@@ -102,10 +160,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 7,
+		position = 11,
 		keyName = "uniqueAttackVisual",
 		name = "Unique Magic & Range Visuals",
-		description = "Magic and Range attacks will have a unique overlay visual."
+		description = "Magic and Range attacks will have a unique overlay visual.",
+		parent = "boss"
 	)
 	default boolean uniqueAttackVisual()
 	{
@@ -113,10 +172,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 8,
+		position = 12,
 		keyName = "overlayBoss",
 		name = "Overlay the Boss (Color)",
-		description = "Overlay the boss with an color denoting it's current attack style."
+		description = "Overlay the boss with an color denoting it's current attack style.",
+		parent = "boss"
 	)
 	default boolean overlayBoss()
 	{
@@ -124,10 +184,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 9,
+		position = 13,
 		keyName = "overlayBossPrayer",
 		name = "Overlay the Boss (Icon)",
-		description = "Overlay the boss with an icon denoting it's current attack style."
+		description = "Overlay the boss with an icon denoting it's current attack style.",
+		parent = "boss"
 	)
 	default boolean overlayBossPrayer()
 	{
@@ -135,10 +196,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 10,
+		position = 14,
 		keyName = "overlayTornadoes",
 		name = "Show Tornado Decay",
-		description = "Display the amount of ticks left until the tornadoes decay."
+		description = "Display the amount of ticks left until the tornadoes decay.",
+		parent = "boss"
 	)
 	default boolean overlayTornadoes()
 	{
@@ -146,10 +208,22 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 11,
+		position = 15,
+		keyName = "timer",
+		name = "Timer",
+		description = ""
+	)
+	default Stub timer()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 16,
 		keyName = "displayTimerWidget",
 		name = "Show Custom Timer (Widget)",
-		description = "Display a timer widget that tracks your gauntlet progress."
+		description = "Display a timer widget that tracks your gauntlet progress.",
+		parent = "timer"
 	)
 	default boolean displayTimerWidget()
 	{
@@ -157,10 +231,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 12,
+		position = 17,
 		keyName = "displayTimerChat",
 		name = "Show Custom Timer (Chat)",
-		description = "Display a chat message that tracks your gauntlet progress."
+		description = "Display a chat message that tracks your gauntlet progress.",
+		parent = "timer"
 	)
 	default boolean displayTimerChat()
 	{

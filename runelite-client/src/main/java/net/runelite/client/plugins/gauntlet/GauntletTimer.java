@@ -43,9 +43,10 @@ import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
+import net.runelite.client.ui.overlay.components.table.TableAlignment;
+import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 class GauntletTimer extends Overlay
 {
@@ -140,7 +141,7 @@ class GauntletTimer extends Overlay
 	{
 		final Player p = client.getLocalPlayer();
 
-		if (p == null || !plugin.completeStartup)
+		if (p == null || !plugin.isCompleteStartup())
 		{
 			return;
 		}
@@ -199,7 +200,7 @@ class GauntletTimer extends Overlay
 
 	private void printPrepTime()
 	{
-		if (!plugin.displayTimerChat || timeRaidStart == -1L)
+		if (!plugin.isDisplayTimerChat() || timeRaidStart == -1L)
 		{
 			return;
 		}
@@ -212,7 +213,7 @@ class GauntletTimer extends Overlay
 
 	private void printBossTime()
 	{
-		if (!plugin.displayTimerChat || timeRaidStart == -1L || timeBossEnter == -1L)
+		if (!plugin.isDisplayTimerChat() || timeRaidStart == -1L || timeBossEnter == -1L)
 		{
 			return;
 		}
@@ -253,12 +254,13 @@ class GauntletTimer extends Overlay
 		}
 
 		panelComponent.getChildren().clear();
-
 		panelComponent.getChildren().add(TitleComponent.builder().text("Gauntlet Timer").color(Color.WHITE).build());
+		TableComponent tableComponent = new TableComponent();
+		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
 		if (timeRaidStart == -1L)
 		{ // User restarted the plugin mid raid. Timer is inaccurate.
-			panelComponent.getChildren().add(LineComponent.builder().left("Inactive").right("0:00").build());
+			tableComponent.addRow("Inactive", "0:00");
 		}
 		else
 		{
@@ -275,10 +277,10 @@ class GauntletTimer extends Overlay
 				elapsedPrepTime = calculateElapsedTime(timeRaidStart, timeBossEnter);
 				elapsedBossTime = calculateElapsedTime(System.currentTimeMillis(), timeBossEnter);
 			}
-
-			panelComponent.getChildren().add(LineComponent.builder().left("Preparation").right(elapsedPrepTime).build());
-			panelComponent.getChildren().add(LineComponent.builder().left("Boss Fight").right(elapsedBossTime).build());
-			panelComponent.getChildren().add(LineComponent.builder().left("Total Time").right(elapsedTotalTime).build());
+			tableComponent.addRow("Preparation", elapsedPrepTime);
+			tableComponent.addRow("Boss Fight", elapsedBossTime);
+			tableComponent.addRow("Total Time", elapsedTotalTime);
+			panelComponent.getChildren().add(tableComponent);
 		}
 
 		return panelComponent.render(graphics);

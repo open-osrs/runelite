@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.NPC;
+import net.runelite.api.Prayer;
 import net.runelite.api.Skill;
 import net.runelite.client.game.SkillIconManager;
 
@@ -40,18 +41,18 @@ public class Hunllef
 
 		if (style == BossAttack.LIGHTNING)
 		{
-			this.bossAttacks--;
+			bossAttacks--;
 		}
 		else if (style == BossAttack.RANGE)
 		{
 			if (currentPhase != BossAttackPhase.RANGE)
 			{
 				currentPhase = BossAttackPhase.RANGE;
-				this.bossAttacks = 3;
+				bossAttacks = 3;
 			}
 			else
 			{
-				this.bossAttacks--;
+				bossAttacks--;
 			}
 		}
 		else if (style == BossAttack.MAGIC)
@@ -59,30 +60,30 @@ public class Hunllef
 			if (currentPhase != BossAttackPhase.MAGIC)
 			{
 				currentPhase = BossAttackPhase.MAGIC;
-				this.bossAttacks = 3;
+				bossAttacks = 3;
 			}
 			else
 			{
-				this.bossAttacks--;
+				bossAttacks--;
 			}
 		}
 
-		if (this.bossAttacks <= 0)
+		if (bossAttacks <= 0)
 		{
 			BossAttackPhase nextPhase;
 
 			switch (currentPhase)
 			{
 				case MAGIC:
-					this.bossAttacks = 4;
+					bossAttacks = 4;
 					nextPhase = BossAttackPhase.RANGE;
 					break;
 				case RANGE:
-					this.bossAttacks = 4;
+					bossAttacks = 4;
 					nextPhase = BossAttackPhase.MAGIC;
 					break;
 				default:
-					this.bossAttacks = 0;
+					bossAttacks = 0;
 					nextPhase = BossAttackPhase.UNKNOWN;
 					break;
 			}
@@ -94,11 +95,13 @@ public class Hunllef
 	@Getter(AccessLevel.PACKAGE)
 	enum BossAttackPhase
 	{
-		MAGIC(Color.CYAN),
-		RANGE(Color.GREEN),
-		UNKNOWN(Color.WHITE);
+		MAGIC(Color.CYAN, Prayer.PROTECT_FROM_MISSILES, Color.GREEN),
+		RANGE(Color.GREEN, Prayer.PROTECT_FROM_MAGIC, Color.CYAN),
+		UNKNOWN(Color.WHITE, null, null);
 
 		private Color color;
+		private Prayer prayer;
+		private Color prayerColor;
 	}
 
 	enum BossAttack

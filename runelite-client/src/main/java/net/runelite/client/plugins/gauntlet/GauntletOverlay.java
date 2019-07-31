@@ -129,9 +129,9 @@ public class GauntletOverlay extends Overlay
 
 			plugin.getTornado().forEach(tornado ->
 			{
-				if (plugin.overlayTornadoes)
+				if (plugin.isOverlayTornadoes())
 				{
-					String textOverlay = Integer.toString(plugin.tornadoTicks);
+					String textOverlay = Integer.toString(plugin.getTornadoTicks());
 					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, tornado.getLocalLocation(), textOverlay, 0);
 
 					if (textLoc == null)
@@ -154,7 +154,7 @@ public class GauntletOverlay extends Overlay
 				final NPC boss = hunllef.getNpc();
 				final LocalPoint point = boss.getLocalLocation();
 
-				if (plugin.overlayBoss)
+				if (plugin.isOverlayBoss())
 				{
 					Polygon polygon = boss.getConvexHull();
 
@@ -167,7 +167,7 @@ public class GauntletOverlay extends Overlay
 					outlineRenderer.drawOutline(boss, 2, color);
 				}
 
-				if (plugin.overlayBossPrayer)
+				if (plugin.isOverlayBossPrayer())
 				{
 					BufferedImage attackIcon = null;
 
@@ -198,17 +198,25 @@ public class GauntletOverlay extends Overlay
 					graphics.drawImage(attackIcon, imageLoc.getX(), imageLoc.getY(), null);
 				}
 
+				if (plugin.isHighlightWidget())
+				{
+					if (hunllef.getCurrentPhase().getPrayer() != null)
+					{
+						Rectangle bounds = OverlayUtil.renderPrayerOverlay(graphics, client, hunllef.getCurrentPhase().getPrayer(), hunllef.getCurrentPhase().getPrayerColor());
+					}
+				}
+
 				// This section handles any text overlays.
 				String textOverlay = "";
 
 				// Handles the counter for the boss.
-				if (plugin.countBossAttacks)
+				if (plugin.isCountBossAttacks())
 				{
 					textOverlay = Integer.toString(hunllef.getBossAttacks());
 				}
 
 				// Handles the counter for the player.
-				if (plugin.countPlayerAttacks)
+				if (plugin.isCountPlayerAttacks())
 				{
 					if (textOverlay.length() > 0)
 					{
@@ -260,15 +268,13 @@ public class GauntletOverlay extends Overlay
 						return;
 					}
 					// This section will highlight the resource with color.
-					if (plugin.highlightResourcesColor)
+					if (plugin.isHighlightResources())
 					{
-						Color color = Color.YELLOW;
-
-						outlineRenderer.drawOutline(object.getGameObject(), 2, color);
+						outlineRenderer.drawOutline(object.getGameObject(), 2, plugin.getHighlightResourcesColor());
 					}
 
 					// This section will overlay the resource with an icon.
-					if (plugin.highlightResourcesIcons)
+					if (plugin.isHighlightResourcesIcons())
 					{
 						BufferedImage icon = object.getImage();
 
