@@ -76,14 +76,14 @@ public interface GauntletConfig extends Config
 	)
 	@ConfigItem(
 		position = 4,
-		keyName = "iconSize",
-		name = "Global Icon Size",
-		description = "Globally change the size of icons.",
+		keyName = "resourceIconSize",
+		name = "Resource Icon Size",
+		description = " change the size of resource icons.",
 		hidden = true,
 		unhide = "highlightResources",
 		parent = "resources"
 	)
-	default int iconSize()
+	default int resourceIconSize()
 	{
 		return 20;
 	}
@@ -207,8 +207,24 @@ public interface GauntletConfig extends Config
 		return true;
 	}
 
+	@Range(
+		min = 1,
+		max = 50
+	)
 	@ConfigItem(
 		position = 15,
+		keyName = "projectileIconSize",
+		name = "Boss Projectile Icon Size",
+		description = " change the size of Projectile icons.",
+		parent = "boss"
+	)
+	default int projectileIconSize()
+	{
+		return 20;
+	}
+
+	@ConfigItem(
+		position = 16,
 		keyName = "timer",
 		name = "Timer",
 		description = ""
@@ -219,7 +235,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 16,
+		position = 17,
 		keyName = "displayTimerWidget",
 		name = "Show Custom Timer (Widget)",
 		description = "Display a timer widget that tracks your gauntlet progress.",
@@ -231,7 +247,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 17,
+		position = 18,
 		keyName = "displayTimerChat",
 		name = "Show Custom Timer (Chat)",
 		description = "Display a chat message that tracks your gauntlet progress.",
