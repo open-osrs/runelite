@@ -66,7 +66,7 @@ public class ZalcanoUtil
 		this.plugin = plugin;
 	}
 
-	private boolean isInZalcanoRegion()
+	boolean isInZalcanoRegion()
 	{
 		return client.getLocalPlayer().getWorldLocation().getRegionID() == ZALCANO_REGION;
 	}
@@ -113,7 +113,7 @@ public class ZalcanoUtil
 		return gameObjectArrayList;
 	}
 
-	protected GameObject getGlowingRock()
+	GameObject getGlowingRock()
 	{
 		for (GameObject gameObject : getGameObjects())
 		{
