@@ -108,7 +108,10 @@ public class GauntletOverlay extends Overlay
 						return;
 					}
 
-					graphics.drawImage(icon, loc.getX(), loc.getY(), null);
+					if (plugin.isUniqueAttackVisual())
+					{
+						graphics.drawImage(icon, loc.getX(), loc.getY(), null);
+					}
 				}
 				else
 				{
@@ -116,21 +119,37 @@ public class GauntletOverlay extends Overlay
 					graphics.draw(polygon);
 					graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 50));
 					graphics.fill(polygon);
-
-					Rectangle bounds = polygon.getBounds();
-					int x = (int) bounds.getCenterX() - (icon.getWidth() / 2);
-					int y = (int) bounds.getCenterY() - (icon.getHeight() / 2);
-					graphics.drawImage(icon, x, y, null);
+					if (plugin.isUniqueAttackVisual())
+					{
+						Rectangle bounds = polygon.getBounds();
+						int x = (int) bounds.getCenterX() - (icon.getWidth() / 2);
+						int y = (int) bounds.getCenterY() - (icon.getHeight() / 2);
+						graphics.drawImage(icon, x, y, null);
+					}
 				}
 			});
 			projectiles.removeIf(proj -> proj.getProjectile().getRemainingCycles() <= 0);
 
-			plugin.getTornado().forEach(tornado ->
+			plugin.getTornadoes().forEach(tornado ->
 			{
 				if (plugin.isOverlayTornadoes())
 				{
-					String textOverlay = Integer.toString(plugin.getTornadoTicks());
-					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, tornado.getLocalLocation(), textOverlay, 0);
+					if (tornado.getTimeLeft() <= 0)
+					{
+						return;
+					}
+
+					final String textOverlay = Integer.toString(tornado.getTimeLeft());
+					final Point textLoc = Perspective.getCanvasTextLocation(client, graphics, tornado.getNpc().getLocalLocation(), textOverlay, 0);
+					final LocalPoint lp = LocalPoint.fromWorld(client, tornado.getNpc().getWorldLocation());
+
+					if (lp == null)
+					{
+						return;
+					}
+
+					final Polygon tilePoly = Perspective.getCanvasTilePoly(client, lp);
+					OverlayUtil.renderPolygon(graphics, tilePoly, Color.YELLOW);
 
 					if (textLoc == null)
 					{

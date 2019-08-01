@@ -132,7 +132,7 @@ public class GauntletPlugin extends Plugin
 	private final Set<Resources> resources = new HashSet<>();
 	private final Set<Missiles> projectiles = new HashSet<>();
 	private final Map<String, Integer> items = new HashMap<>();
-	private Set<NPC> tornado = new HashSet<>();
+	private Set<Tornado> tornadoes = new HashSet<>();
 	private boolean completeStartup = false;
 	private boolean countBossAttacks;
 	private boolean countPlayerAttacks;
@@ -147,7 +147,6 @@ public class GauntletPlugin extends Plugin
 	private boolean flash;
 	private boolean flashOnWrongAttack;
 	private Color highlightResourcesColor;
-	private int tornadoTicks = 20;
 	private boolean displayTimerWidget;
 	private boolean timerVisible = true;
 	private boolean uniqueAttackVisual;
@@ -167,7 +166,6 @@ public class GauntletPlugin extends Plugin
 	{
 		addSubscriptions();
 		updateConfig();
-		resetCounters();
 		timerVisible = this.displayTimerWidget;
 		timer.resetStates();
 		if (timerVisible)
@@ -193,7 +191,6 @@ public class GauntletPlugin extends Plugin
 	protected void shutDown()
 	{
 		eventBus.unregister(this);
-		resetCounters();
 		timer.resetStates();
 		if (timerVisible)
 		{
@@ -203,7 +200,7 @@ public class GauntletPlugin extends Plugin
 		overlayManager.remove(overlay);
 		resources.clear();
 		projectiles.clear();
-		tornado.clear();
+		tornadoes.clear();
 		setHunllef(null);
 	}
 
@@ -343,13 +340,9 @@ public class GauntletPlugin extends Plugin
 		{
 			timer.checkStates(false);
 		}
-		if (tornado.size() > 0)
+		if (!tornadoes.isEmpty())
 		{
-			tornadoTicks--;
-			if (tornadoTicks <= 0)
-			{
-				tornadoTicks = 20;
-			}
+			tornadoes.forEach(Tornado::updateTimeLeft);
 		}
 		if (hunllef != null)
 		{
@@ -365,12 +358,11 @@ public class GauntletPlugin extends Plugin
 		final NPC npc = event.getNpc();
 		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
 		{
-			resetCounters();
 			setHunllef(null);
 		}
 		else if (TORNADO_NPC_IDS.contains(npc.getId()))
 		{
-			tornado.removeIf(tornado -> tornado == npc);
+			tornadoes.removeIf(tornado -> tornado.getNpc() == npc);
 		}
 	}
 
@@ -379,12 +371,11 @@ public class GauntletPlugin extends Plugin
 		final NPC npc = event.getNpc();
 		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
 		{
-			resetCounters();
 			setHunllef(new Hunllef(npc, skillIconManager));
 		}
 		else if (TORNADO_NPC_IDS.contains(npc.getId()))
 		{
-			tornado.add(npc);
+			tornadoes.add(new Tornado(npc));
 		}
 	}
 
@@ -425,12 +416,6 @@ public class GauntletPlugin extends Plugin
 		{
 			timer.checkStates(true);
 		}
-	}
-
-	private void resetCounters()
-	{
-		tornadoTicks = 20;
-		projectiles.clear();
 	}
 
 	boolean fightingBoss()
