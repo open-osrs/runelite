@@ -68,7 +68,7 @@ public class ZalcanoUtil
 
 	protected boolean isInZalcanoRegion()
 	{
-		return client.getLocalPlayer().getWorldLocation().getRegionID() == ZALCANO_REGION ? true : false;
+		return client.getLocalPlayer().getWorldLocation().getRegionID() == ZALCANO_REGION;
 	}
 
 
