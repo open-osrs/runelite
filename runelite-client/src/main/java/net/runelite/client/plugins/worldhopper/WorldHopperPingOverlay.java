@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, gregg1494 <https://github.com/gregg1494>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -10,6 +10,7 @@
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -21,59 +22,70 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.playerscouter;
+package net.runelite.client.plugins.worldhopper;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.client.graphics.ModelOutlineRenderer;
+import net.runelite.api.Client;
+import net.runelite.api.Point;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
-@Singleton
-public class AttackerOverlay extends Overlay
+class WorldHopperPingOverlay extends Overlay
 {
-	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
+	private static final int Y_OFFSET = 11;
+	private static final int X_OFFSET = 1;
 
-	private final PlayerScouter plugin;
-	private final ModelOutlineRenderer outlineRenderer;
+	private final Client client;
+	private final WorldHopperPlugin worldHopperPlugin;
 
 	@Inject
-	public AttackerOverlay(final PlayerScouter plugin, final ModelOutlineRenderer outlineRenderer)
+	private WorldHopperPingOverlay(Client client, WorldHopperPlugin worldHopperPlugin)
 	{
-		this.plugin = plugin;
-		this.outlineRenderer = outlineRenderer;
+		this.client = client;
+		this.worldHopperPlugin = worldHopperPlugin;
+		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setPriority(OverlayPriority.HIGH);
 		setPosition(OverlayPosition.DYNAMIC);
-		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!plugin.isOverlayEnabled() || plugin.getPlayerContainer().isEmpty())
+		if (!worldHopperPlugin.isDisplayPing())
 		{
 			return null;
 		}
 
-		plugin.getPlayerContainer().forEach(player ->
+		final int ping = worldHopperPlugin.getCurrentPing();
+		if (ping < 0)
 		{
-			if (!player.isTarget())
-			{
-				return;
-			}
+			return null;
+		}
 
-			final AttackStyle attackStyle = player.getAttackStyle();
+		final String text = ping + " ms";
+		final int textWidth = graphics.getFontMetrics().stringWidth(text);
+		final int textHeight = graphics.getFontMetrics().getAscent() - graphics.getFontMetrics().getDescent();
 
-			if (attackStyle.getPrayer() == null)
-			{
-				return;
-			}
+		// Adjust ping offset for logout button
+		Widget logoutButton = client.getWidget(WidgetInfo.RESIZABLE_MINIMAP_LOGOUT_BUTTON);
+		int xOffset = X_OFFSET;
+		if (logoutButton != null && !logoutButton.isHidden())
+		{
+			xOffset += logoutButton.getWidth();
+		}
 
-			outlineRenderer.drawOutline(player.getPlayer(), 2, attackStyle.getColor(), TRANSPARENT);
-		});
+		final int width = (int) client.getRealDimensions().getWidth();
+		final Point point = new Point(width - textWidth - xOffset, textHeight + Y_OFFSET);
+		OverlayUtil.renderTextLocation(graphics, point, text, Color.YELLOW);
+
 		return null;
 	}
 }

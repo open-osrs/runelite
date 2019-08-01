@@ -595,7 +595,7 @@ public enum Varbits
 	QUEST_LUNAR_DIPLOMACY(2448),
 	QUEST_MAKING_HISTORY(1383),
 	QUEST_MOUNTAIN_DAUGHTER(260),
-	QUEST_MOURNINGS_ENDS_PART_II(1103),
+	QUEST_MOURNINGS_END_PART_II(1103),
 	QUEST_MY_ARMS_BIG_ADVENTURE(2790),
 	QUEST_RATCATCHERS(1404),
 	QUEST_RECIPE_FOR_DISASTER(1850),
@@ -629,6 +629,8 @@ public enum Varbits
 	QUEST_MAKING_FRIENDS_WITH_MY_ARM(6528),
 	QUEST_THE_ASCENT_OF_ARCEUUS(7856),
 	QUEST_THE_FORSAKEN_TOWER(7796),
+	//TODO
+	QUEST_SONG_OF_THE_ELVES(7796),
 
 	/**
 	 * mini-quest varbits, these don't hold the completion value.
@@ -642,6 +644,8 @@ public enum Varbits
 	QUEST_LAIR_OF_TARN_RAZORLOR(3290),
 	QUEST_FAMILY_PEST(5347),
 	QUEST_THE_MAGE_ARENA_II(6067),
+	//TODO
+	QUEST_IN_SEARCH_OF_KNOWLEDGE(6067),
 
 	/**
 	 * Active spellbook (see enumID)
@@ -683,7 +687,12 @@ public enum Varbits
 	/**
 	 * The y coordinate of the final safespace (world coord)
 	 */
-	LMS_SAFE_Y(5320);
+	LMS_SAFE_Y(5320),
+
+	/**
+	 * 1 is true, 0 is false.
+	 */
+	GAUNTLET_FINAL_ROOM_ENTERED(9177);
 
 	/**
 	 * The raw varbit ID.

@@ -27,6 +27,7 @@ package net.runelite.client.plugins.grounditems;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
+import com.google.common.collect.EvictingQueue;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -40,6 +41,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +56,7 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
-import net.runelite.api.ItemLayer;
+import net.runelite.api.TileItemPile;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.Node;
@@ -72,6 +74,7 @@ import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemQuantityChanged;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -170,6 +173,7 @@ public class GroundItemsPlugin extends Plugin
 	private EventBus eventBus;
 	private LoadingCache<String, Boolean> highlightedItems;
 	private LoadingCache<String, Boolean> hiddenItems;
+	private final Queue<Integer> droppedItemQueue = EvictingQueue.create(16); // recently dropped items
 
 	private Color defaultColor;
 	private Color highlightedColor;
@@ -270,6 +274,7 @@ public class GroundItemsPlugin extends Plugin
 		eventBus.subscribe(ClientTick.class, this, this::onClientTick);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
 		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
+		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 	}
 
 	private void onGameTick(GameTick event)
@@ -313,6 +318,7 @@ public class GroundItemsPlugin extends Plugin
 		if (existing != null)
 		{
 			existing.setQuantity(existing.getQuantity() + groundItem.getQuantity());
+			// The spawn time remains set at the oldest spawn
 		}
 
 		boolean shouldNotify = !this.onlyShowLoot && this.highlightedColor.equals(getHighlighted(
@@ -345,6 +351,10 @@ public class GroundItemsPlugin extends Plugin
 		else
 		{
 			groundItem.setQuantity(groundItem.getQuantity() - item.getQuantity());
+			// When picking up an item when multiple stacks appear on the ground,
+			// it is not known which item is picked up, so we invalidate the spawn
+			// time
+			groundItem.setSpawnTime(null);
 		}
 	}
 
@@ -377,14 +387,14 @@ public class GroundItemsPlugin extends Plugin
 		);
 
 		Collection<ItemStack> items = npcLootReceived.getItems();
-		lootReceived(items);
+		lootReceived(items, LootType.PVM);
 		lootNotifier(items);
 	}
 
 	private void onPlayerLootReceived(PlayerLootReceived playerLootReceived)
 	{
 		Collection<ItemStack> items = playerLootReceived.getItems();
-		lootReceived(items);
+		lootReceived(items, LootType.PVP);
 		lootNotifier(items);
 	}
 
@@ -534,7 +544,7 @@ public class GroundItemsPlugin extends Plugin
 		}).toArray(MenuEntry[]::new));
 	}
 
-	private void lootReceived(Collection<ItemStack> items)
+	private void lootReceived(Collection<ItemStack> items, LootType lootType)
 	{
 		for (ItemStack itemStack : items)
 		{
@@ -545,6 +555,7 @@ public class GroundItemsPlugin extends Plugin
 			{
 				groundItem.setMine(true);
 				groundItem.setTicks(200);
+				groundItem.setLootType(lootType);
 
 				boolean shouldNotify = this.onlyShowLoot && this.highlightedColor.equals(getHighlighted(
 					groundItem.getName(),
@@ -586,6 +597,7 @@ public class GroundItemsPlugin extends Plugin
 			durationMillis = NORMAL_DURATION_MILLIS;
 			durationTicks = tile.getWorldLocation().equals(playerLocation) ? NORMAL_DURATION_TICKS * 2 : NORMAL_DURATION_TICKS;
 		}
+		final boolean dropped = tile.getWorldLocation().equals(client.getLocalPlayer().getWorldLocation()) && droppedItemQueue.remove(itemId);
 
 		final GroundItem groundItem = GroundItem.builder()
 			.id(itemId)
@@ -601,6 +613,9 @@ public class GroundItemsPlugin extends Plugin
 			.isAlwaysPrivate(client.isInInstancedRegion() || (!itemComposition.isTradeable() && realItemId != COINS))
 			.isOwnedByPlayer(tile.getWorldLocation().equals(playerLocation))
 			.ticks(durationTicks)
+			.lootType(LootType.UNKNOWN)
+			.isDropped(dropped)
+			.spawnTime(Instant.now())
 			.build();
 
 
@@ -678,9 +693,9 @@ public class GroundItemsPlugin extends Plugin
 			int itemId = event.getIdentifier();
 			Scene scene = client.getScene();
 			Tile tile = scene.getTiles()[client.getPlane()][event.getActionParam0()][event.getActionParam1()];
-			ItemLayer itemLayer = tile.getItemLayer();
+			TileItemPile tileItemPile = tile.getItemLayer();
 
-			if (itemLayer == null)
+			if (tileItemPile == null)
 			{
 				return;
 			}
@@ -689,7 +704,7 @@ public class GroundItemsPlugin extends Plugin
 			MenuEntry lastEntry = menuEntries[menuEntries.length - 1];
 
 			int quantity = 1;
-			Node current = itemLayer.getBottom();
+			Node current = tileItemPile.getBottom();
 
 			while (current instanceof TileItem)
 			{
@@ -922,6 +937,17 @@ public class GroundItemsPlugin extends Plugin
 		if (!focusChanged.isFocused())
 		{
 			setHotKeyPressed(false);
+		}
+	}
+
+	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked)
+	{
+		if (menuOptionClicked.getMenuAction() == MenuAction.ITEM_DROP)
+		{
+			int itemId = menuOptionClicked.getIdentifier();
+			// Keep a queue of recently dropped items to better detect
+			// item spawns that are drops
+			droppedItemQueue.add(itemId);
 		}
 	}
 

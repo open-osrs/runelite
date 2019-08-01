@@ -738,7 +738,14 @@ public class SlayerPlugin extends Plugin
 
 		if (cachedXp != 0)
 		{
-			final int taskKillExp = Task.getTask(taskName).getExpectedKillExp();
+			final Task task = Task.getTask(taskName);
+
+			if (task == null)
+			{
+				return;
+			}
+
+			final int taskKillExp = task.getExpectedKillExp();
 
 			// Only count exp gain as a kill if the task either has no expected exp for a kill, or if the exp gain is equal
 			// to the expected exp gain for the task.
@@ -1033,6 +1040,11 @@ public class SlayerPlugin extends Plugin
 		rebuildTargetIds(task);
 		rebuildCheckAsTokens(task);
 		rebuildTargetList();
+
+		if (task == null)
+		{
+			return;
+		}
 
 		if (!weaknessOverlayAttached && task.getWeaknessItem() != -1 && task.getWeaknessThreshold() != -1)
 		{

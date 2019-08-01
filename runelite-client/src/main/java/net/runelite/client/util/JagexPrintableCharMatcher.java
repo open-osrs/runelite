@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,42 +22,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.util;
 
-/**
- * Represents a pile of items held by a tile.
- */
-public interface ItemLayer extends TileObject
+import com.google.common.base.CharMatcher;
+
+class JagexPrintableCharMatcher extends CharMatcher
 {
-	/**
-	 * Gets the height of the layer.
-	 *
-	 * @return the height
-	 */
-	int getHeight();
-
-	/**
-	 * Gets the item at the bottom of the pile.
-	 *
-	 * @return the bottom item
-	 */
-	Renderable getBottom();
-
-	/**
-	 * Gets the item at the middle of the pile.
-	 *
-	 * @return the middle item
-	 */
-	Renderable getMiddle();
-
-	/**
-	 * Gets the item at the top of the pile.
-	 *
-	 * @return the top item
-	 */
-	Renderable getTop();
-
-	Model getModelBottom();
-	Model getModelMiddle();
-	Model getModelTop();
+	@Override
+	public boolean matches(char c)
+	{
+		// Characters which are printable
+		return (c >= 32 && c <= 126)
+			|| c == 128
+			|| (c >= 160 && c <= 255);
+	}
 }
