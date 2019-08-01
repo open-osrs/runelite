@@ -225,7 +225,7 @@ public class ZalcanoOverlay extends Overlay
 
 	private void renderZalcanoWakeup(Graphics2D graphics)
 	{
-		renderZalcanoAOE(graphics, 6, util.warning, Color.RED);
+		renderZalcanoAOE(graphics, 6, ZalcanoUtil.warning, Color.RED);
 	}
 
 	private void renderZalcanoAOE(Graphics2D graphics, int polySize, String text, Color color)
