@@ -28,7 +28,9 @@ package net.runelite.client.plugins.gauntlet;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
 import lombok.AccessLevel;
@@ -129,6 +131,7 @@ public class GauntletPlugin extends Plugin
 	private Hunllef hunllef;
 	private final Set<Resources> resources = new HashSet<>();
 	private final Set<Missiles> projectiles = new HashSet<>();
+	private final Map<String, Integer> items = new HashMap<>();
 	private Set<NPC> tornado = new HashSet<>();
 	private boolean completeStartup = false;
 	private boolean countBossAttacks;
@@ -140,6 +143,9 @@ public class GauntletPlugin extends Plugin
 	private boolean overlayBoss;
 	private boolean overlayBossPrayer;
 	private boolean overlayTornadoes;
+	@Setter(AccessLevel.PACKAGE)
+	private boolean flash;
+	private boolean flashOnWrongAttack;
 	private Color highlightResourcesColor;
 	private int tornadoTicks = 20;
 	private boolean displayTimerWidget;
@@ -215,7 +221,7 @@ public class GauntletPlugin extends Plugin
 		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
 	}
 
-	public void onAnimationChanged(AnimationChanged event)
+	private void onAnimationChanged(AnimationChanged event)
 	{
 		final Actor actor = event.getActor();
 
@@ -244,35 +250,26 @@ public class GauntletPlugin extends Plugin
 				case MELEE:
 					if (MELEE_ANIMATIONS.contains(anim))
 					{
+						setFlash(true);
 						return;
 					}
-					hunllef.setPlayerAttacks(hunllef.getPlayerAttacks() - 1);
-					if (hunllef.getPlayerAttacks() <= 0)
-					{
-						hunllef.setPlayerAttacks(6);
-					}
+					hunllef.updatePlayerAttack();
 					break;
 				case RANGED:
 					if (BOW_ATTACK == anim)
 					{
+						setFlash(true);
 						return;
 					}
-					hunllef.setPlayerAttacks(hunllef.getPlayerAttacks() - 1);
-					if (hunllef.getPlayerAttacks() <= 0)
-					{
-						hunllef.setPlayerAttacks(6);
-					}
+					hunllef.updatePlayerAttack();
 					break;
 				case MAGIC:
 					if (STAFF_ATTACK == anim)
 					{
+						setFlash(true);
 						return;
 					}
-					hunllef.setPlayerAttacks(hunllef.getPlayerAttacks() - 1);
-					if (hunllef.getPlayerAttacks() <= 0)
-					{
-						hunllef.setPlayerAttacks(6);
-					}
+					hunllef.updatePlayerAttack();
 					break;
 			}
 		}
@@ -354,6 +351,13 @@ public class GauntletPlugin extends Plugin
 				tornadoTicks = 20;
 			}
 		}
+		if (hunllef != null)
+		{
+			if (hunllef.getTicksUntilAttack() > 0)
+			{
+				hunllef.setTicksUntilAttack(hunllef.getTicksUntilAttack() - 1);
+			}
+		}
 	}
 
 	private void onNpcDespawned(NpcDespawned event)
@@ -386,6 +390,11 @@ public class GauntletPlugin extends Plugin
 
 	private void onProjectileSpawned(ProjectileSpawned event)
 	{
+		if (hunllef == null)
+		{
+			return;
+		}
+
 		final Projectile proj = event.getProjectile();
 
 		if (HUNLLEF_PROJECTILES.contains(proj.getId()))
@@ -439,6 +448,7 @@ public class GauntletPlugin extends Plugin
 		this.highlightResources = config.highlightResources();
 		this.highlightResourcesColor = config.highlightResourcesColor();
 		this.highlightResourcesIcons = config.highlightResourcesIcons();
+		this.flashOnWrongAttack = config.flashOnWrongAttack();
 		this.highlightWidget = config.highlightWidget();
 		this.resourceIconSize = config.resourceIconSize();
 		this.projectileIconSize = config.projectileIconSize();

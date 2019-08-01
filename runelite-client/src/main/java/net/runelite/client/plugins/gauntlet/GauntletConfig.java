@@ -136,6 +136,18 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
+		position = 8,
+		keyName = "flashOnWrongAttack",
+		name = "Flash on Wrong Attack",
+		description = "This will flash your screen if you attack with the wrong stlye.",
+		parent = "boss"
+	)
+	default boolean flashOnWrongAttack()
+	{
+		return true;
+	}
+
+	@ConfigItem(
 		position = 9,
 		keyName = "uniquePrayerAudio",
 		name = "Unique Prayer Audio",

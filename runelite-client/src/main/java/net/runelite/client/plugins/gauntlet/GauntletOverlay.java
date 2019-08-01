@@ -55,10 +55,12 @@ import static net.runelite.client.util.ImageUtil.resizeImage;
 
 public class GauntletOverlay extends Overlay
 {
+	private static final Color FLASH_COLOR = new Color(255, 0, 0, 70);
 	private static final int MAX_DISTANCE = 2400;
 	private final Client client;
 	private final GauntletPlugin plugin;
 	private final ModelOutlineRenderer outlineRenderer;
+	private int timeout;
 
 	@Inject
 	private GauntletOverlay(Client client, GauntletPlugin plugin, ModelOutlineRenderer outlineRenderer)
@@ -69,13 +71,14 @@ public class GauntletOverlay extends Overlay
 
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
-		setLayer(OverlayLayer.ABOVE_SCENE);
+		setLayer(OverlayLayer.ALWAYS_ON_TOP);
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
 		// Save resources. There's nothing to render if the user is not in a raid.
+
 		if (!plugin.startedGauntlet())
 		{
 			return null;
@@ -149,6 +152,20 @@ public class GauntletOverlay extends Overlay
 				final NPC boss = hunllef.getNpc();
 				final LocalPoint point = boss.getLocalLocation();
 
+				if (plugin.isFlash())
+				{
+					final Color flash = graphics.getColor();
+					graphics.setColor(FLASH_COLOR);
+					graphics.fill(new Rectangle(client.getCanvas().getSize()));
+					graphics.setColor(flash);
+					timeout++;
+					if (timeout >= 15)
+					{
+						timeout = 0;
+						plugin.setFlash(false);
+					}
+				}
+
 				if (plugin.isOverlayBoss())
 				{
 					Polygon polygon = boss.getConvexHull();
@@ -159,7 +176,7 @@ public class GauntletOverlay extends Overlay
 					}
 
 					Color color = hunllef.getCurrentPhase().getColor();
-					outlineRenderer.drawOutline(boss, 2, color);
+					outlineRenderer.drawOutline(boss, 8, color, new Color(0, 0, 0, 0));
 				}
 
 				if (plugin.isOverlayBossPrayer())
@@ -199,7 +216,14 @@ public class GauntletOverlay extends Overlay
 					{
 						return null;
 					}
-					OverlayUtil.renderPrayerOverlay(graphics, client, hunllef.getCurrentPhase().getPrayer(), hunllef.getCurrentPhase().getColor());
+
+					final Rectangle bounds = OverlayUtil.renderPrayerOverlay(graphics, client, hunllef.getCurrentPhase().getPrayer(), hunllef.getCurrentPhase().getColor());
+
+					if (bounds != null)
+					{
+						final Color color = hunllef.getTicksUntilAttack() == 1 ? Color.WHITE : hunllef.getCurrentPhase().getColor();
+						renderTextLocation(graphics, Integer.toString(hunllef.getTicksUntilAttack()), 16, Font.BOLD, color, centerPoint(bounds), false);
+					}
 				}
 
 				// This section handles any text overlays.
@@ -248,9 +272,9 @@ public class GauntletOverlay extends Overlay
 		else
 		{
 			// This section overlays all resources.
-			LocalPoint playerLocation = client.getLocalPlayer().getLocalLocation();
+			final LocalPoint playerLocation = client.getLocalPlayer().getLocalLocation();
 
-			Set<Resources> resources = plugin.getResources();
+			final Set<Resources> resources = plugin.getResources();
 			resources.forEach(object ->
 			{
 				if (object.getGameObject().getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
@@ -339,5 +363,31 @@ public class GauntletOverlay extends Overlay
 		}
 
 		return polygon;
+	}
+
+	private void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint, boolean shadows)
+	{
+		graphics.setFont(new Font("Arial", fontStyle, fontSize));
+		if (canvasPoint != null)
+		{
+			final Point canvasCenterPoint = new Point(
+				canvasPoint.getX() - 3,
+				canvasPoint.getY() + 6);
+			final Point canvasCenterPoint_shadow = new Point(
+				canvasPoint.getX() - 2,
+				canvasPoint.getY() + 7);
+			if (shadows)
+			{
+				OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
+			}
+			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
+		}
+	}
+
+	private Point centerPoint(Rectangle rect)
+	{
+		int x = (int) (rect.getX() + rect.getWidth() / 2);
+		int y = (int) (rect.getY() + rect.getHeight() / 2);
+		return new Point(x, y);
 	}
 }

@@ -42,6 +42,7 @@ public class Hunllef
 	private NPC npc;
 	private int bossAttacks;
 	private int playerAttacks;
+	private int ticksUntilAttack;
 	private BufferedImage mage;
 	private BufferedImage range;
 	private BossAttackPhase currentPhase;
@@ -51,13 +52,24 @@ public class Hunllef
 		this.npc = npc;
 		this.bossAttacks = 0;
 		this.playerAttacks = 6;
+		this.ticksUntilAttack = 0;
 		this.mage = skillIconManager.getSkillImage(Skill.MAGIC);
 		this.range = skillIconManager.getSkillImage(Skill.RANGED);
 		this.currentPhase = BossAttackPhase.UNKNOWN;
 	}
 
+	void updatePlayerAttack()
+	{
+		playerAttacks--;
+		if (playerAttacks <= 0)
+		{
+			playerAttacks = 6;
+		}
+	}
+
 	void updateAttack(BossAttack style)
 	{
+		ticksUntilAttack = 6;
 		if (style == BossAttack.PRAYER)
 		{
 			style = BossAttack.MAGIC;
