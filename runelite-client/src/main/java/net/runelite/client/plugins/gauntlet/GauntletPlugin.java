@@ -95,7 +95,7 @@ public class GauntletPlugin extends Plugin
 	private static final Set<Integer> HUNLLEF_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_PRAYER_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_PRAYER_ATTACK,
 		ProjectileID.HUNLLEF_RANGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_RANGE_ATTACK, ProjectileID.HUNLLEF_MAGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_MAGE_ATTACK
 	);
-	private static final Set<Integer> HUNLEFF_NPC_IDS = ImmutableSet.of(NpcID.CRYSTALLINE_HUNLLEF, NpcID.CRYSTALLINE_HUNLLEF_9022, NpcID.CRYSTALLINE_HUNLLEF_9023,
+	private static final Set<Integer> HUNLLEF_NPC_IDS = ImmutableSet.of(NpcID.CRYSTALLINE_HUNLLEF, NpcID.CRYSTALLINE_HUNLLEF_9022, NpcID.CRYSTALLINE_HUNLLEF_9023,
 		NpcID.CRYSTALLINE_HUNLLEF_9024, NpcID.CORRUPTED_HUNLLEF, NpcID.CORRUPTED_HUNLLEF_9036, NpcID.CORRUPTED_HUNLLEF_9037, NpcID.CORRUPTED_HUNLLEF_9038
 	);
 	private static final Set<Integer> RESOURCES = ImmutableSet.of(ObjectID.CRYSTAL_DEPOSIT, ObjectID.CORRUPT_DEPOSIT, ObjectID.PHREN_ROOTS,
@@ -356,7 +356,7 @@ public class GauntletPlugin extends Plugin
 	private void onNpcDespawned(NpcDespawned event)
 	{
 		final NPC npc = event.getNpc();
-		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
+		if (HUNLLEF_NPC_IDS.contains(npc.getId()))
 		{
 			setHunllef(null);
 		}
@@ -369,7 +369,7 @@ public class GauntletPlugin extends Plugin
 	private void onNpcSpawned(NpcSpawned event)
 	{
 		final NPC npc = event.getNpc();
-		if (HUNLEFF_NPC_IDS.contains(npc.getId()))
+		if (HUNLLEF_NPC_IDS.contains(npc.getId()))
 		{
 			setHunllef(new Hunllef(npc, skillIconManager));
 		}
