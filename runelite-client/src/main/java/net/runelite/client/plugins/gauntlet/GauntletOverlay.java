@@ -149,6 +149,7 @@ public class GauntletOverlay extends Overlay
 			if (plugin.getHunllef() != null)
 			{
 				final Hunllef hunllef = plugin.getHunllef();
+				final Hunllef.BossAttackPhase phase = hunllef.getCurrentPhase();
 				final NPC boss = hunllef.getNpc();
 				final LocalPoint point = boss.getLocalLocation();
 
@@ -175,15 +176,18 @@ public class GauntletOverlay extends Overlay
 						return null;
 					}
 
-					Color color = hunllef.getCurrentPhase().getColor();
-					outlineRenderer.drawOutline(boss, 8, color, new Color(0, 0, 0, 0));
+					if (phase.getPrayer() != null && !client.isPrayerActive(phase.getPrayer()))
+					{
+						Color color = phase.getColor();
+						outlineRenderer.drawOutline(boss, 12, color, new Color(0, 0, 0, 0));
+					}
 				}
 
 				if (plugin.isOverlayBossPrayer())
 				{
 					BufferedImage attackIcon = null;
 
-					switch (hunllef.getCurrentPhase())
+					switch (phase)
 					{
 						case MAGIC:
 							attackIcon = resizeImage(hunllef.getMage(), plugin.getProjectileIconSize(), plugin.getProjectileIconSize());
@@ -212,16 +216,16 @@ public class GauntletOverlay extends Overlay
 
 				if (plugin.isHighlightWidget())
 				{
-					if (hunllef.getCurrentPhase().getPrayer() == null)
+					if (phase.getPrayer() == null)
 					{
 						return null;
 					}
 
-					final Rectangle bounds = OverlayUtil.renderPrayerOverlay(graphics, client, hunllef.getCurrentPhase().getPrayer(), hunllef.getCurrentPhase().getColor());
+					final Rectangle bounds = OverlayUtil.renderPrayerOverlay(graphics, client, phase.getPrayer(), phase.getColor());
 
 					if (bounds != null)
 					{
-						final Color color = hunllef.getTicksUntilAttack() == 1 ? Color.WHITE : hunllef.getCurrentPhase().getColor();
+						final Color color = hunllef.getTicksUntilAttack() == 1 ? Color.WHITE : phase.getColor();
 						renderTextLocation(graphics, Integer.toString(hunllef.getTicksUntilAttack()), 16, Font.BOLD, color, centerPoint(bounds), false);
 					}
 				}
@@ -263,7 +267,7 @@ public class GauntletOverlay extends Overlay
 					Point pointShadow = new Point(textLoc.getX() + 1, textLoc.getY() + 1);
 
 					OverlayUtil.renderTextLocation(graphics, pointShadow, textOverlay, Color.BLACK);
-					OverlayUtil.renderTextLocation(graphics, textLoc, textOverlay, Color.CYAN);
+					OverlayUtil.renderTextLocation(graphics, textLoc, textOverlay, phase.getColor());
 
 					graphics.setFont(oldFont);
 				}
