@@ -138,7 +138,7 @@ public class ZalcanoPlugin extends Plugin
 		}
 	}
 
-	public void onNpcSpawned(NpcSpawned npcSpawned)
+	private void onNpcSpawned(NpcSpawned npcSpawned)
 	{
 		switch (npcSpawned.getNpc().getId())
 		{
@@ -153,7 +153,7 @@ public class ZalcanoPlugin extends Plugin
 		}
 	}
 
-	public void onNpcDespawned(NpcDespawned npcDespawned)
+	private void onNpcDespawned(NpcDespawned npcDespawned)
 	{
 		switch (npcDespawned.getNpc().getId())
 		{

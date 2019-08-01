@@ -55,9 +55,9 @@ public class ZalcanoUtil
 	private final Client client;
 	private final ZalcanoPlugin plugin;
 
-	protected static final String mine = "MINE";
+	static final String mine = "MINE";
 	protected static final String warning = "GET BACK";
-	protected static final int ZALCANO_REGION = 12126;
+	private static final int ZALCANO_REGION = 12126;
 
 	@Inject
 	ZalcanoUtil(Client client, ZalcanoPlugin plugin)
@@ -66,13 +66,13 @@ public class ZalcanoUtil
 		this.plugin = plugin;
 	}
 
-	protected boolean isInZalcanoRegion()
+	private boolean isInZalcanoRegion()
 	{
 		return client.getLocalPlayer().getWorldLocation().getRegionID() == ZALCANO_REGION;
 	}
 
 
-	protected boolean projectileExists()
+	boolean projectileExists()
 	{
 		for (Projectile projectile : client.getProjectiles())
 		{
@@ -88,7 +88,7 @@ public class ZalcanoUtil
 	}
 
 	//this should be a project-wide standard
-	protected List<GameObject> getGameObjects()
+	private List<GameObject> getGameObjects()
 	{
 		List<GameObject> gameObjectArrayList = new ArrayList<>();
 
@@ -138,7 +138,7 @@ public class ZalcanoUtil
 		return null;
 	}
 
-	protected List<GameObject> getRedSymbols()
+	List<GameObject> getRedSymbols()
 	{
 		List<GameObject> list = new ArrayList<>();
 		for (GameObject gameObject : getGameObjects())
@@ -161,7 +161,7 @@ public class ZalcanoUtil
 		return list.size() > 0 ? list : null;
 	}
 
-	protected List<GraphicsObject> getRockfall()
+	List<GraphicsObject> getRockfall()
 	{
 		List<GraphicsObject> list = new ArrayList<>();
 		for (GraphicsObject graphicsObject : client.getGraphicsObjects())
@@ -177,7 +177,7 @@ public class ZalcanoUtil
 		return list.size() > 0 ? list : null;
 	}
 
-	protected int countItemInInventory(int itemID)
+	int countItemInInventory(int itemID)
 	{
 		int i = 0;
 		Widget widget = client.getWidget(WidgetInfo.INVENTORY);
@@ -197,7 +197,7 @@ public class ZalcanoUtil
 	 * @param itemId
 	 * @return
 	 */
-	protected int countStackInInventory(int itemId)
+	int countStackInInventory(int itemId)
 	{
 		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
 		if (inventory != null)
@@ -218,7 +218,7 @@ public class ZalcanoUtil
 		return 0;
 	}
 
-	protected void manuallyFindZalcano()
+	void manuallyFindZalcano()
 	{
 		for (NPC npc : client.getNpcs())
 		{
