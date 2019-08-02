@@ -717,16 +717,27 @@ public class RaidsPlugin extends Plugin
 		final String layout = getRaid().getLayout().toCodeString();
 		final String rooms = getRaid().toRoomString();
 		final String raidData = "[" + layout + "]: " + rooms;
-
-		chatMessageManager.queue(QueuedMessage.builder()
-			.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-			.runeLiteFormattedMessage(new ChatMessageBuilder()
+		layoutMessage = new ChatMessageBuilder()
 				.append(ChatColorType.HIGHLIGHT)
 				.append("Layout: ")
 				.append(ChatColorType.NORMAL)
 				.append(raidData)
-				.build())
-			.build());
+				.build();
+
+		final PartyMember localMember = party.getLocalMember();
+		if (party.getMembers().isEmpty() || localMember == null)
+		{
+			chatMessageManager.queue(QueuedMessage.builder()
+				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+				.runeLiteFormattedMessage(layoutMessage)
+				.build());
+		}
+		else
+		{
+			final PartyChatMessage message = new PartyChatMessage(layoutMessage);
+			message.setMemberId(localMember.getMemberId());
+			ws.send(message);
+		}
 
 		if (recordRaid() != null)
 		{
@@ -745,22 +756,6 @@ public class RaidsPlugin extends Plugin
 					.append("The following are some places you can sell this raid: Scout Trading in We do Raids discord, and Buying Cox Rotations in Oblivion discord.")
 					.build())
 				.build());
-		}
-		
-		final PartyMember localMember = party.getLocalMember();
-
-		if (party.getMembers().isEmpty() || localMember == null)
-		{
-			chatMessageManager.queue(QueuedMessage.builder()
-				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-				.runeLiteFormattedMessage(layoutMessage)
-				.build());
-		}
-		else
-		{
-			final PartyChatMessage message = new PartyChatMessage(layoutMessage);
-			message.setMemberId(localMember.getMemberId());
-			ws.send(message);
 		}
 	}
 
