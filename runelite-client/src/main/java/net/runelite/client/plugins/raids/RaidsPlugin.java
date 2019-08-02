@@ -118,7 +118,6 @@ public class RaidsPlugin extends Plugin
 	private static final String RAID_START_MESSAGE = "The raid has begun!";
 	private static final String LEVEL_COMPLETE_MESSAGE = "level complete!";
 	private static final String RAID_COMPLETE_MESSAGE = "Congratulations - your raid is complete!";
-	private static final String SPLIT_REGEX = "\\s*,\\s*";
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###.##");
 	private static final Pattern ROTATION_REGEX = Pattern.compile("\\[(.*?)]");
 	private static final Pattern RAID_COMPLETE_REGEX = Pattern.compile("Congratulations - your raid is complete! Duration: ([0-9:]+)");
@@ -811,7 +810,7 @@ public class RaidsPlugin extends Plugin
 			{
 				continue;
 			}
-			String[] itemNames = everything.substring(split).split(SPLIT_REGEX);
+			List<String> itemNames = Text.fromCSV(everything.substring(split));
 
 			map.computeIfAbsent(key, k -> new ArrayList<>());
 
