@@ -867,6 +867,21 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		}
 
+		if (this.swapTravel)
+		{
+			if (!(target.equals("trader crewmember") || target.equals("trader stan")) || this.charterOption.equals(CharterOption.CHARTER))
+			{
+				menuManager.addSwap("charter", target, option);
+			}
+		}
+
+		if (this.swapTrade && (!(target.equals("trader crewmember") || target.equals("trader stan")) || this.charterOption.equals(CharterOption.TRADE)))
+		{
+			menuManager.addSwap("trade", target, option);
+			menuManager.addSwap("trade-with", target, option);
+			menuManager.addSwap("shop", target, option);
+		}
+
 		if (this.shiftClickCustomization && shiftModifier && !option.equals("use"))
 		{
 			Integer customOption = getSwapConfig(eventId);
@@ -1038,8 +1053,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			Text.fromCSV(this.getWithdrawXItems).forEach(item ->
 			{
-				menuManager.addPriorityEntry("Withdraw-", item);
-				menuManager.addPriorityEntry("Deposit-", item);
+				menuManager.addPriorityEntry("Withdraw-" + this.getWithdrawXAmount, item);
+				menuManager.addPriorityEntry("Deposit-" + this.getWithdrawXAmount, item);
 			});
 		}
 
@@ -1179,13 +1194,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			menuManager.addPriorityEntry("Buy-plank");
 		}
 
-		if (this.swapTrade)
-		{
-			menuManager.addPriorityEntry("Trade");
-			menuManager.addPriorityEntry("Trade-with");
-			menuManager.addPriorityEntry("Shop");
-		}
-
 		if (this.swapMinigame)
 		{
 			menuManager.addPriorityEntry("Story");
@@ -1198,7 +1206,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			menuManager.addPriorityEntry("Travel");
 			menuManager.addPriorityEntry("Pay-fare");
-			menuManager.addPriorityEntry("Charter");
 			menuManager.addPriorityEntry("Take-boat");
 			menuManager.addPriorityEntry("Fly");
 			menuManager.addPriorityEntry("Jatizso");
@@ -1470,8 +1477,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		});
 		Text.fromCSV(this.getWithdrawXItems).forEach(item ->
 		{
-			menuManager.removePriorityEntry("Withdraw-", item);
-			menuManager.removePriorityEntry("Deposit-", item);
+			menuManager.removePriorityEntry("Withdraw-" + this.getWithdrawXAmount, item);
+			menuManager.removePriorityEntry("Deposit-" + this.getWithdrawXAmount, item);
 		});
 		Text.fromCSV(this.getWithdrawAllItems).forEach(item ->
 		{
@@ -1502,6 +1509,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removeSwaps("quest point cape");
 		menuManager.removeSwaps("Fairy ring");
 		menuManager.removeSwaps("Tree");
+		menuManager.removeSwaps("Trade");
+		menuManager.removeSwaps("Trade-with");
+		menuManager.removeSwaps("Shop");
+		menuManager.removeSwaps("Charter");
 		menuManager.removePriorityEntry("Smith All");
 		menuManager.removePriorityEntry("Smith All Sets");
 		menuManager.removePriorityEntry("Tan All");
@@ -1531,16 +1542,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Help");
 		menuManager.removePriorityEntry("Assignment");
 		menuManager.removePriorityEntry("Buy-plank");
-		menuManager.removePriorityEntry("Trade");
-		menuManager.removePriorityEntry("Trade-with");
-		menuManager.removePriorityEntry("Shop");
 		menuManager.removePriorityEntry("Story");
 		menuManager.removePriorityEntry("Escort");
 		menuManager.removePriorityEntry("Dream");
 		menuManager.removePriorityEntry("Start-minigame");
 		menuManager.removePriorityEntry("Travel");
 		menuManager.removePriorityEntry("Pay-fare");
-		menuManager.removePriorityEntry("Charter");
 		menuManager.removePriorityEntry("Take-boat");
 		menuManager.removePriorityEntry("Fly");
 		menuManager.removePriorityEntry("Jatizso");
