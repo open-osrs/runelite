@@ -166,8 +166,6 @@ public class GrandExchangePlugin extends Plugin
 	private Widget grandExchangeItem;
 	private Map<Integer, Integer> itemGELimits;
 
-	private GrandExchangeClient grandExchangeClient;
-
 	private int coins = 0;
 	private boolean quickLookup;
 	private boolean enableNotifications;
@@ -235,12 +233,6 @@ public class GrandExchangePlugin extends Plugin
 			mouseManager.registerMouseListener(inputListener);
 			keyManager.registerKeyListener(inputListener);
 		}
-
-		AccountSession accountSession = sessionManager.getAccountSession();
-		if (accountSession != null)
-		{
-			grandExchangeClient = new GrandExchangeClient(accountSession.getUuid());
-		}
 	}
 
 	@Override
@@ -255,7 +247,6 @@ public class GrandExchangePlugin extends Plugin
 		grandExchangeItem = null;
 		grandExchangeOfferType = null;
 		itemGELimits = null;
-		grandExchangeClient = null;
 	}
 
 	private void addSubscriptions()
@@ -263,27 +254,12 @@ public class GrandExchangePlugin extends Plugin
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
-		eventBus.subscribe(SessionOpen.class, this, this::onSessionOpen);
-		eventBus.subscribe(SessionClose.class, this, this::onSessionClose);
 		eventBus.subscribe(GrandExchangeOfferChanged.class, this, this::onGrandExchangeOfferChanged);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
 		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
 		eventBus.subscribe(WidgetLoaded.class, this, this::onWidgetLoaded);
 		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
-	}
-
-	private void onSessionOpen(SessionOpen sessionOpen)
-	{
-		AccountSession accountSession = sessionManager.getAccountSession();
-		if (accountSession.getUuid() != null)
-		{
-			grandExchangeClient = new GrandExchangeClient(accountSession.getUuid());
-		}
-		else
-		{
-			grandExchangeClient = null;
-		}
 	}
 
 	private void updateConfig()
@@ -293,11 +269,6 @@ public class GrandExchangePlugin extends Plugin
 		this.enableOsbPrices = config.enableOsbPrices();
 		this.enableGELimits = config.enableGELimits();
 		this.enableAfford = config.enableAfford();
-	}
-
-	private void onSessionClose(SessionClose sessionClose)
-	{
-		grandExchangeClient = null;
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -338,10 +309,6 @@ public class GrandExchangePlugin extends Plugin
 
 	private void submitTrades(int slot, GrandExchangeOffer offer)
 	{
-		if (grandExchangeClient == null)
-		{
-			return;
-		}
 
 		// Only interested in offers which are fully bought/sold
 		if (offer.getState() != GrandExchangeOfferState.BOUGHT && offer.getState() != GrandExchangeOfferState.SOLD)
@@ -364,8 +331,6 @@ public class GrandExchangePlugin extends Plugin
 		grandExchangeTrade.setQuantity(offer.getTotalQuantity());
 		grandExchangeTrade.setPrice(priceEach);
 
-		log.debug("Submitting trade: {}", grandExchangeTrade);
-		grandExchangeClient.submit(grandExchangeTrade);
 	}
 
 	private void updateConfig(int slot, GrandExchangeOffer offer)
