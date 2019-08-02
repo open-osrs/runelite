@@ -423,11 +423,11 @@ public class WorldMap {
 		signature = "(IIZZB)V",
 		garbageValue = "24"
 	)
-	public void method6301(int var1, int var2, boolean var3, boolean var4) {
+	public void method6301(int var1, int var2, boolean isClicked, boolean wasClicked) {
 		long var5 = DirectByteArrayCopier.currentTimeMs();
-		this.method6302(var1, var2, var4, var5);
-		if (!this.hasTarget() && (var4 || var3)) {
-			if (var4) {
+		this.method6302(var1, var2, wasClicked, var5);
+		if (!this.hasTarget() && (wasClicked || isClicked)) {
+			if (wasClicked) {
 				this.field4001 = var1;
 				this.field3989 = var2;
 				this.field4006 = this.centerTileX;
@@ -443,7 +443,7 @@ public class WorldMap {
 			this.method6306();
 		}
 
-		if (var4) {
+		if (wasClicked) {
 			this.field3982 = var5;
 			this.field4000 = var1;
 			this.field4012 = var2;
@@ -460,7 +460,7 @@ public class WorldMap {
 			if (this.mouseCoord != null && var3) {
 				boolean var8 = Client.staffModLevel >= 2;
 				if (var8 && KeyHandler.KeyHandler_pressedKeys[82] && KeyHandler.KeyHandler_pressedKeys[81]) {
-					WorldMapLabel.method418(this.mouseCoord.x, this.mouseCoord.y, this.mouseCoord.plane, false);
+					WorldMapLabel.changePlane(this.mouseCoord.x, this.mouseCoord.y, this.mouseCoord.plane, false);
 				} else {
 					boolean var9 = true;
 					if (this.field4013) {

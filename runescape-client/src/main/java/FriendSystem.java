@@ -84,7 +84,8 @@ public class FriendSystem {
 		signature = "(B)V",
 		garbageValue = "9"
 	)
-	final void method1762() {
+	@Export("processFriendUpdates")
+	final void processFriendUpdates() {
 		for (FriendLoginUpdate var1 = (FriendLoginUpdate)this.friendsList.friendLoginUpdates.last(); var1 != null; var1 = (FriendLoginUpdate)this.friendsList.friendLoginUpdates.previous()) {
 			if ((long)var1.field3661 < DirectByteArrayCopier.currentTimeMs() / 1000L - 5L) {
 				if (var1.world > 0) {

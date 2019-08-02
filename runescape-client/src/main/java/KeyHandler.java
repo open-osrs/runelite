@@ -178,7 +178,8 @@ public final class KeyHandler implements KeyListener, FocusListener {
 		signature = "(Lhp;I)V",
 		garbageValue = "-939658474"
 	)
-	public static void method794(AbstractArchive var0) {
+	@Export("ParamDefinition_setArchives")
+	public static void ParamDefinition_setArchives(AbstractArchive var0) {
 		ParamDefinition.ParamDefinition_archive = var0;
 	}
 

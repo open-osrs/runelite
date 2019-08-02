@@ -16,11 +16,11 @@ public final class Sprite extends Rasterizer2D {
 	@Export("subHeight")
 	public int subHeight;
 	@ObfuscatedName("p")
-	@Export("yOffset")
-	public int yOffset;
-	@ObfuscatedName("k")
 	@Export("xOffset")
-	int xOffset;
+	public int xOffset;
+	@ObfuscatedName("k")
+	@Export("yOffset")
+	int yOffset;
 	@ObfuscatedName("l")
 	@Export("width")
 	public int width;
@@ -28,16 +28,16 @@ public final class Sprite extends Rasterizer2D {
 	@Export("height")
 	public int height;
 
-	public Sprite(int[] var1, int var2, int var3) {
-		this.pixels = var1;
-		this.subWidth = this.width = var2;
-		this.subHeight = this.height = var3;
-		this.xOffset = 0;
+	public Sprite(int[] px, int w, int h) {
+		this.pixels = px;
+		this.subWidth = this.width = w;
+		this.subHeight = this.height = h;
 		this.yOffset = 0;
+		this.xOffset = 0;
 	}
 
-	public Sprite(int var1, int var2) {
-		this(new int[var2 * var1], var1, var2);
+	public Sprite(int w, int h) {
+		this(new int[h * w], w, h);
 	}
 
 	Sprite() {
@@ -52,8 +52,8 @@ public final class Sprite extends Rasterizer2D {
 		Sprite var1 = new Sprite(this.subWidth, this.subHeight);
 		var1.width = this.width;
 		var1.height = this.height;
-		var1.yOffset = this.width - this.subWidth - this.yOffset;
-		var1.xOffset = this.xOffset;
+		var1.xOffset = this.width - this.subWidth - this.xOffset;
+		var1.yOffset = this.yOffset;
 
 		for (int var2 = 0; var2 < this.subHeight; ++var2) {
 			for (int var3 = 0; var3 < this.subWidth; ++var3) {
@@ -74,7 +74,7 @@ public final class Sprite extends Rasterizer2D {
 
 		for (int var2 = 0; var2 < this.subHeight; ++var2) {
 			for (int var3 = 0; var3 < this.subWidth; ++var3) {
-				var1.pixels[var3 + (var2 + this.xOffset) * this.width + this.yOffset] = this.pixels[var3 + var2 * this.subWidth];
+				var1.pixels[var3 + (var2 + this.yOffset) * this.width + this.xOffset] = this.pixels[var3 + var2 * this.subWidth];
 			}
 		}
 
@@ -90,66 +90,70 @@ public final class Sprite extends Rasterizer2D {
 	@ObfuscatedName("p")
 	@Export("normalize")
 	public void normalize() {
-		if (this.subWidth != this.width || this.subHeight != this.height) {
-			int[] var1 = new int[this.width * this.height];
-
-			for (int var2 = 0; var2 < this.subHeight; ++var2) {
-				for (int var3 = 0; var3 < this.subWidth; ++var3) {
-					var1[var3 + (var2 + this.xOffset) * this.width + this.yOffset] = this.pixels[var3 + var2 * this.subWidth];
-				}
-			}
-
-			this.pixels = var1;
-			this.subWidth = this.width;
-			this.subHeight = this.height;
-			this.yOffset = 0;
-			this.xOffset = 0;
+		if (this.subWidth == this.width && this.subHeight == this.height) {
+			return;
 		}
+		int[] var1 = new int[this.width * this.height];
+
+		for (int var2 = 0; var2 < this.subHeight; ++var2) {
+			for (int var3 = 0; var3 < this.subWidth; ++var3) {
+				var1[var3 + (var2 + this.yOffset) * this.width + this.xOffset] = this.pixels[var3 + var2 * this.subWidth];
+			}
+		}
+
+		this.pixels = var1;
+		this.subWidth = this.width;
+		this.subHeight = this.height;
+		this.xOffset = 0;
+		this.yOffset = 0;
 	}
 
 	@ObfuscatedName("k")
-	public void method6115(int var1) {
-		if (this.subWidth != this.width || this.subHeight != this.height) {
-			int var2 = var1;
-			if (var1 > this.yOffset) {
-				var2 = this.yOffset;
-			}
-
-			int var3 = var1;
-			if (var1 + this.yOffset + this.subWidth > this.width) {
-				var3 = this.width - this.yOffset - this.subWidth;
-			}
-
-			int var4 = var1;
-			if (var1 > this.xOffset) {
-				var4 = this.xOffset;
-			}
-
-			int var5 = var1;
-			if (var1 + this.xOffset + this.subHeight > this.height) {
-				var5 = this.height - this.xOffset - this.subHeight;
-			}
-
-			int var6 = var2 + var3 + this.subWidth;
-			int var7 = var4 + var5 + this.subHeight;
-			int[] var8 = new int[var6 * var7];
-
-			for (int var9 = 0; var9 < this.subHeight; ++var9) {
-				for (int var10 = 0; var10 < this.subWidth; ++var10) {
-					var8[var6 * (var9 + var4) + var10 + var2] = this.pixels[var10 + var9 * this.subWidth];
-				}
-			}
-
-			this.pixels = var8;
-			this.subWidth = var6;
-			this.subHeight = var7;
-			this.yOffset -= var2;
-			this.xOffset -= var4;
+	@Export("pad")
+	public void pad(int amount) {
+		if (this.subWidth == this.width && this.subHeight == this.height) {
+			return;
 		}
+		int var2 = amount;
+		if (amount > this.xOffset) {
+			var2 = this.xOffset;
+		}
+
+		int var3 = amount;
+		if (amount + this.xOffset + this.subWidth > this.width) {
+			var3 = this.width - this.xOffset - this.subWidth;
+		}
+
+		int var4 = amount;
+		if (amount > this.yOffset) {
+			var4 = this.yOffset;
+		}
+
+		int var5 = amount;
+		if (amount + this.yOffset + this.subHeight > this.height) {
+			var5 = this.height - this.yOffset - this.subHeight;
+		}
+
+		int var6 = var2 + var3 + this.subWidth;
+		int var7 = var4 + var5 + this.subHeight;
+		int[] var8 = new int[var6 * var7];
+
+		for (int var9 = 0; var9 < this.subHeight; ++var9) {
+			for (int var10 = 0; var10 < this.subWidth; ++var10) {
+				var8[var6 * (var9 + var4) + var10 + var2] = this.pixels[var10 + var9 * this.subWidth];
+			}
+		}
+
+		this.pixels = var8;
+		this.subWidth = var6;
+		this.subHeight = var7;
+		this.xOffset -= var2;
+		this.yOffset -= var4;
 	}
 
 	@ObfuscatedName("l")
-	public void method6117() {
+	@Export("flipHorizontally")
+	public void flipHorizontally() {
 		int[] var1 = new int[this.subWidth * this.subHeight];
 		int var2 = 0;
 
@@ -160,11 +164,12 @@ public final class Sprite extends Rasterizer2D {
 		}
 
 		this.pixels = var1;
-		this.yOffset = this.width - this.subWidth - this.yOffset;
+		this.xOffset = this.width - this.subWidth - this.xOffset;
 	}
 
 	@ObfuscatedName("b")
-	public void method6128() {
+	@Export("flipVertically")
+	public void flipVertically() {
 		int[] var1 = new int[this.subWidth * this.subHeight];
 		int var2 = 0;
 
@@ -175,12 +180,12 @@ public final class Sprite extends Rasterizer2D {
 		}
 
 		this.pixels = var1;
-		this.xOffset = this.height - this.subHeight - this.xOffset;
+		this.yOffset = this.height - this.subHeight - this.yOffset;
 	}
 
 	@ObfuscatedName("i")
 	@Export("outline")
-	public void outline(int var1) {
+	public void outline(int color) {
 		int[] var2 = new int[this.subWidth * this.subHeight];
 		int var3 = 0;
 
@@ -189,13 +194,13 @@ public final class Sprite extends Rasterizer2D {
 				int var6 = this.pixels[var3];
 				if (var6 == 0) {
 					if (var5 > 0 && this.pixels[var3 - 1] != 0) {
-						var6 = var1;
+						var6 = color;
 					} else if (var4 > 0 && this.pixels[var3 - this.subWidth] != 0) {
-						var6 = var1;
+						var6 = color;
 					} else if (var5 < this.subWidth - 1 && this.pixels[var3 + 1] != 0) {
-						var6 = var1;
+						var6 = color;
 					} else if (var4 < this.subHeight - 1 && this.pixels[var3 + this.subWidth] != 0) {
-						var6 = var1;
+						var6 = color;
 					}
 				}
 
@@ -223,214 +228,215 @@ public final class Sprite extends Rasterizer2D {
 
 	@ObfuscatedName("u")
 	@Export("drawAt")
-	public void drawAt(int var1, int var2) {
-		var1 += this.yOffset;
-		var2 += this.xOffset;
-		int var3 = var1 + var2 * Rasterizer2D.Rasterizer2D_width;
+	public void drawAt(int x, int y) {
+		x += this.xOffset;
+		y += this.yOffset;
+		int var3 = x + y * Rasterizer2D.Rasterizer2D_width;
 		int var4 = 0;
 		int var5 = this.subHeight;
 		int var6 = this.subWidth;
 		int var7 = Rasterizer2D.Rasterizer2D_width - var6;
 		int var8 = 0;
 		int var9;
-		if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) {
-			var9 = Rasterizer2D.Rasterizer2D_yClipStart - var2;
+		if (y < Rasterizer2D.Rasterizer2D_yClipStart) {
+			var9 = Rasterizer2D.Rasterizer2D_yClipStart - y;
 			var5 -= var9;
-			var2 = Rasterizer2D.Rasterizer2D_yClipStart;
+			y = Rasterizer2D.Rasterizer2D_yClipStart;
 			var4 += var9 * var6;
 			var3 += var9 * Rasterizer2D.Rasterizer2D_width;
 		}
 
-		if (var5 + var2 > Rasterizer2D.Rasterizer2D_yClipEnd) {
-			var5 -= var5 + var2 - Rasterizer2D.Rasterizer2D_yClipEnd;
+		if (var5 + y > Rasterizer2D.Rasterizer2D_yClipEnd) {
+			var5 -= var5 + y - Rasterizer2D.Rasterizer2D_yClipEnd;
 		}
 
-		if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) {
-			var9 = Rasterizer2D.Rasterizer2D_xClipStart - var1;
+		if (x < Rasterizer2D.Rasterizer2D_xClipStart) {
+			var9 = Rasterizer2D.Rasterizer2D_xClipStart - x;
 			var6 -= var9;
-			var1 = Rasterizer2D.Rasterizer2D_xClipStart;
+			x = Rasterizer2D.Rasterizer2D_xClipStart;
 			var4 += var9;
 			var3 += var9;
 			var8 += var9;
 			var7 += var9;
 		}
 
-		if (var6 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) {
-			var9 = var6 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd;
+		if (var6 + x > Rasterizer2D.Rasterizer2D_xClipEnd) {
+			var9 = var6 + x - Rasterizer2D.Rasterizer2D_xClipEnd;
 			var6 -= var9;
 			var8 += var9;
 			var7 += var9;
 		}
 
 		if (var6 > 0 && var5 > 0) {
-			Sprite_something(Rasterizer2D.Rasterizer2D_pixels, this.pixels, var4, var3, var6, var5, var7, var8);
+			Sprite_draw(Rasterizer2D.Rasterizer2D_pixels, this.pixels, var4, var3, var6, var5, var7, var8);
 		}
 	}
 
 	@ObfuscatedName("r")
-	@Export("drawAt2")
-	public void drawAt2(int var1, int var2) {
-		var1 += this.yOffset;
-		var2 += this.xOffset;
-		int var3 = var1 + var2 * Rasterizer2D.Rasterizer2D_width;
+	@Export("drawTransBgAt")
+	public void drawTransBgAt(int x, int y) {
+		x += this.xOffset;
+		y += this.yOffset;
+		int var3 = x + y * Rasterizer2D.Rasterizer2D_width;
 		int var4 = 0;
 		int var5 = this.subHeight;
 		int var6 = this.subWidth;
 		int var7 = Rasterizer2D.Rasterizer2D_width - var6;
 		int var8 = 0;
 		int var9;
-		if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) {
-			var9 = Rasterizer2D.Rasterizer2D_yClipStart - var2;
+		if (y < Rasterizer2D.Rasterizer2D_yClipStart) {
+			var9 = Rasterizer2D.Rasterizer2D_yClipStart - y;
 			var5 -= var9;
-			var2 = Rasterizer2D.Rasterizer2D_yClipStart;
+			y = Rasterizer2D.Rasterizer2D_yClipStart;
 			var4 += var9 * var6;
 			var3 += var9 * Rasterizer2D.Rasterizer2D_width;
 		}
 
-		if (var5 + var2 > Rasterizer2D.Rasterizer2D_yClipEnd) {
-			var5 -= var5 + var2 - Rasterizer2D.Rasterizer2D_yClipEnd;
+		if (var5 + y > Rasterizer2D.Rasterizer2D_yClipEnd) {
+			var5 -= var5 + y - Rasterizer2D.Rasterizer2D_yClipEnd;
 		}
 
-		if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) {
-			var9 = Rasterizer2D.Rasterizer2D_xClipStart - var1;
+		if (x < Rasterizer2D.Rasterizer2D_xClipStart) {
+			var9 = Rasterizer2D.Rasterizer2D_xClipStart - x;
 			var6 -= var9;
-			var1 = Rasterizer2D.Rasterizer2D_xClipStart;
+			x = Rasterizer2D.Rasterizer2D_xClipStart;
 			var4 += var9;
 			var3 += var9;
 			var8 += var9;
 			var7 += var9;
 		}
 
-		if (var6 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) {
-			var9 = var6 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd;
+		if (var6 + x > Rasterizer2D.Rasterizer2D_xClipEnd) {
+			var9 = var6 + x - Rasterizer2D.Rasterizer2D_xClipEnd;
 			var6 -= var9;
 			var8 += var9;
 			var7 += var9;
 		}
 
 		if (var6 > 0 && var5 > 0) {
-			Sprite_andAnotherOne(Rasterizer2D.Rasterizer2D_pixels, this.pixels, 0, var4, var3, var6, var5, var7, var8);
+			Sprite_drawTransBg(Rasterizer2D.Rasterizer2D_pixels, this.pixels, 0, var4, var3, var6, var5, var7, var8);
 		}
 	}
 
 	@ObfuscatedName("y")
-	public void method6125(int var1, int var2, int var3, int var4) {
-		if (var3 > 0 && var4 > 0) {
-			int var5 = this.subWidth;
-			int var6 = this.subHeight;
-			int var7 = 0;
-			int var8 = 0;
-			int var9 = this.width;
-			int var10 = this.height;
-			int var11 = (var9 << 16) / var3;
-			int var12 = (var10 << 16) / var4;
-			int var13;
-			if (this.yOffset > 0) {
-				var13 = (var11 + (this.yOffset << 16) - 1) / var11;
-				var1 += var13;
-				var7 += var13 * var11 - (this.yOffset << 16);
-			}
-
-			if (this.xOffset > 0) {
-				var13 = (var12 + (this.xOffset << 16) - 1) / var12;
-				var2 += var13;
-				var8 += var13 * var12 - (this.xOffset << 16);
-			}
-
-			if (var5 < var9) {
-				var3 = (var11 + ((var5 << 16) - var7) - 1) / var11;
-			}
-
-			if (var6 < var10) {
-				var4 = (var12 + ((var6 << 16) - var8) - 1) / var12;
-			}
-
-			var13 = var1 + var2 * Rasterizer2D.Rasterizer2D_width;
-			int var14 = Rasterizer2D.Rasterizer2D_width - var3;
-			if (var2 + var4 > Rasterizer2D.Rasterizer2D_yClipEnd) {
-				var4 -= var2 + var4 - Rasterizer2D.Rasterizer2D_yClipEnd;
-			}
-
-			int var15;
-			if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) {
-				var15 = Rasterizer2D.Rasterizer2D_yClipStart - var2;
-				var4 -= var15;
-				var13 += var15 * Rasterizer2D.Rasterizer2D_width;
-				var8 += var12 * var15;
-			}
-
-			if (var3 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) {
-				var15 = var3 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd;
-				var3 -= var15;
-				var14 += var15;
-			}
-
-			if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) {
-				var15 = Rasterizer2D.Rasterizer2D_xClipStart - var1;
-				var3 -= var15;
-				var13 += var15;
-				var7 += var11 * var15;
-				var14 += var15;
-			}
-
-			Sprite_somethingElse(Rasterizer2D.Rasterizer2D_pixels, this.pixels, 0, var7, var8, var13, var14, var3, var4, var11, var12, var5);
+	public void drawAt(int x, int y, int width, int height) {
+		if (width <= 0 || height <= 0) {
+			return;
 		}
+		int var5 = this.subWidth;
+		int var6 = this.subHeight;
+		int var7 = 0;
+		int var8 = 0;
+		int var9 = this.width;
+		int var10 = this.height;
+		int var11 = (var9 << 16) / width;
+		int var12 = (var10 << 16) / height;
+		int var13;
+		if (this.xOffset > 0) {
+			var13 = (var11 + (this.xOffset << 16) - 1) / var11;
+			x += var13;
+			var7 += var13 * var11 - (this.xOffset << 16);
+		}
+
+		if (this.yOffset > 0) {
+			var13 = (var12 + (this.yOffset << 16) - 1) / var12;
+			y += var13;
+			var8 += var13 * var12 - (this.yOffset << 16);
+		}
+
+		if (var5 < var9) {
+			width = (var11 + ((var5 << 16) - var7) - 1) / var11;
+		}
+
+		if (var6 < var10) {
+			height = (var12 + ((var6 << 16) - var8) - 1) / var12;
+		}
+
+		var13 = x + y * Rasterizer2D.Rasterizer2D_width;
+		int var14 = Rasterizer2D.Rasterizer2D_width - width;
+		if (y + height > Rasterizer2D.Rasterizer2D_yClipEnd) {
+			height -= y + height - Rasterizer2D.Rasterizer2D_yClipEnd;
+		}
+
+		int var15;
+		if (y < Rasterizer2D.Rasterizer2D_yClipStart) {
+			var15 = Rasterizer2D.Rasterizer2D_yClipStart - y;
+			height -= var15;
+			var13 += var15 * Rasterizer2D.Rasterizer2D_width;
+			var8 += var12 * var15;
+		}
+
+		if (width + x > Rasterizer2D.Rasterizer2D_xClipEnd) {
+			var15 = width + x - Rasterizer2D.Rasterizer2D_xClipEnd;
+			width -= var15;
+			var14 += var15;
+		}
+
+		if (x < Rasterizer2D.Rasterizer2D_xClipStart) {
+			var15 = Rasterizer2D.Rasterizer2D_xClipStart - x;
+			width -= var15;
+			var13 += var15;
+			var7 += var11 * var15;
+			var14 += var15;
+		}
+
+		Sprite_drawScaled(Rasterizer2D.Rasterizer2D_pixels, this.pixels, 0, var7, var8, var13, var14, width, height, var11, var12, var5);
 	}
 
 	@ObfuscatedName("a")
 	@Export("drawAtTransOverlay")
-	public void drawAtTransOverlay(int var1, int var2, int var3, int var4) {
-		if (var3 == 256) {
-			this.drawAt2(var1, var2);
-		} else {
-			var1 += this.yOffset;
-			var2 += this.xOffset;
-			int var5 = var1 + var2 * Rasterizer2D.Rasterizer2D_width;
-			int var6 = 0;
-			int var7 = this.subHeight;
-			int var8 = this.subWidth;
-			int var9 = Rasterizer2D.Rasterizer2D_width - var8;
-			int var10 = 0;
-			int var11;
-			if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) {
-				var11 = Rasterizer2D.Rasterizer2D_yClipStart - var2;
-				var7 -= var11;
-				var2 = Rasterizer2D.Rasterizer2D_yClipStart;
-				var6 += var11 * var8;
-				var5 += var11 * Rasterizer2D.Rasterizer2D_width;
-			}
+	public void drawAtTransOverlay(int x, int y, int overlayOpacity, int overlayColor) {
+		if (overlayOpacity == 256) {
+			this.drawTransBgAt(x, y);
+			return;
+		}
+		x += this.xOffset;
+		y += this.yOffset;
+		int var5 = x + y * Rasterizer2D.Rasterizer2D_width;
+		int var6 = 0;
+		int var7 = this.subHeight;
+		int var8 = this.subWidth;
+		int var9 = Rasterizer2D.Rasterizer2D_width - var8;
+		int var10 = 0;
+		int var11;
+		if (y < Rasterizer2D.Rasterizer2D_yClipStart) {
+			var11 = Rasterizer2D.Rasterizer2D_yClipStart - y;
+			var7 -= var11;
+			y = Rasterizer2D.Rasterizer2D_yClipStart;
+			var6 += var11 * var8;
+			var5 += var11 * Rasterizer2D.Rasterizer2D_width;
+		}
 
-			if (var7 + var2 > Rasterizer2D.Rasterizer2D_yClipEnd) {
-				var7 -= var7 + var2 - Rasterizer2D.Rasterizer2D_yClipEnd;
-			}
+		if (var7 + y > Rasterizer2D.Rasterizer2D_yClipEnd) {
+			var7 -= var7 + y - Rasterizer2D.Rasterizer2D_yClipEnd;
+		}
 
-			if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) {
-				var11 = Rasterizer2D.Rasterizer2D_xClipStart - var1;
-				var8 -= var11;
-				var1 = Rasterizer2D.Rasterizer2D_xClipStart;
-				var6 += var11;
-				var5 += var11;
-				var10 += var11;
-				var9 += var11;
-			}
+		if (x < Rasterizer2D.Rasterizer2D_xClipStart) {
+			var11 = Rasterizer2D.Rasterizer2D_xClipStart - x;
+			var8 -= var11;
+			x = Rasterizer2D.Rasterizer2D_xClipStart;
+			var6 += var11;
+			var5 += var11;
+			var10 += var11;
+			var9 += var11;
+		}
 
-			if (var8 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) {
-				var11 = var8 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd;
-				var8 -= var11;
-				var10 += var11;
-				var9 += var11;
-			}
+		if (var8 + x > Rasterizer2D.Rasterizer2D_xClipEnd) {
+			var11 = var8 + x - Rasterizer2D.Rasterizer2D_xClipEnd;
+			var8 -= var11;
+			var10 += var11;
+			var9 += var11;
+		}
 
-			if (var8 > 0 && var7 > 0) {
-				Sprite_anotherOne(Rasterizer2D.Rasterizer2D_pixels, this.pixels, 0, var6, var5, var8, var7, var9, var10, var3, var4);
-			}
+		if (var8 > 0 && var7 > 0) {
+			Sprite_anotherOne(Rasterizer2D.Rasterizer2D_pixels, this.pixels, 0, var6, var5, var8, var7, var9, var10, overlayOpacity, overlayColor);
 		}
 	}
 
 	@ObfuscatedName("o")
 	public void method6129(int var1, int var2, int var3) {
-		var1 += this.yOffset;
-		var2 += this.xOffset;
+		var1 += this.xOffset;
+		var2 += this.yOffset;
 		int var4 = var1 + var2 * Rasterizer2D.Rasterizer2D_width;
 		int var5 = 0;
 		int var6 = this.subHeight;
@@ -484,16 +490,16 @@ public final class Sprite extends Rasterizer2D {
 			int var12 = (var10 << 16) / var3;
 			int var13 = (var11 << 16) / var4;
 			int var14;
-			if (this.yOffset > 0) {
-				var14 = (var12 + (this.yOffset << 16) - 1) / var12;
+			if (this.xOffset > 0) {
+				var14 = (var12 + (this.xOffset << 16) - 1) / var12;
 				var1 += var14;
-				var8 += var14 * var12 - (this.yOffset << 16);
+				var8 += var14 * var12 - (this.xOffset << 16);
 			}
 
-			if (this.xOffset > 0) {
-				var14 = (var13 + (this.xOffset << 16) - 1) / var13;
+			if (this.yOffset > 0) {
+				var14 = (var13 + (this.yOffset << 16) - 1) / var13;
 				var2 += var14;
-				var9 += var14 * var13 - (this.xOffset << 16);
+				var9 += var14 * var13 - (this.yOffset << 16);
 			}
 
 			if (var6 < var10) {
@@ -538,8 +544,8 @@ public final class Sprite extends Rasterizer2D {
 
 	@ObfuscatedName("al")
 	public void method6135(int var1, int var2, int var3) {
-		var1 += this.yOffset;
-		var2 += this.xOffset;
+		var1 += this.xOffset;
+		var2 += this.yOffset;
 		int var4 = var1 + var2 * Rasterizer2D.Rasterizer2D_width;
 		int var5 = 0;
 		int var6 = this.subHeight;
@@ -598,16 +604,16 @@ public final class Sprite extends Rasterizer2D {
 			int var12 = (var10 << 16) / var3;
 			int var13 = (var11 << 16) / var4;
 			int var14;
-			if (this.yOffset > 0) {
-				var14 = (var12 + (this.yOffset << 16) - 1) / var12;
+			if (this.xOffset > 0) {
+				var14 = (var12 + (this.xOffset << 16) - 1) / var12;
 				var1 += var14;
-				var8 += var14 * var12 - (this.yOffset << 16);
+				var8 += var14 * var12 - (this.xOffset << 16);
 			}
 
-			if (this.xOffset > 0) {
-				var14 = (var13 + (this.xOffset << 16) - 1) / var13;
+			if (this.yOffset > 0) {
+				var14 = (var13 + (this.yOffset << 16) - 1) / var13;
 				var2 += var14;
-				var9 += var14 * var13 - (this.xOffset << 16);
+				var9 += var14 * var13 - (this.yOffset << 16);
 			}
 
 			if (var6 < var10) {
@@ -785,8 +791,8 @@ public final class Sprite extends Rasterizer2D {
 	@ObfuscatedName("ao")
 	void method6143(int var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var6 != 0) {
-			var1 -= this.yOffset << 4;
-			var2 -= this.xOffset << 4;
+			var1 -= this.xOffset << 4;
+			var2 -= this.yOffset << 4;
 			double var7 = (double)(var5 & 65535) * 9.587379924285257E-5D;
 			int var9 = (int)Math.floor(Math.sin(var7) * (double)var6 + 0.5D);
 			int var10 = (int)Math.floor(Math.cos(var7) * (double)var6 + 0.5D);
@@ -1254,10 +1260,10 @@ public final class Sprite extends Rasterizer2D {
 	@ObfuscatedName("aj")
 	public void method6144(int var1, int var2, int var3, int var4) {
 		if (var3 <= this.width && var4 <= this.height) {
-			int var5 = var3 * this.yOffset / this.width + var1;
-			int var6 = (var3 * (this.yOffset + this.subWidth) + this.width - 1) / this.width + var1;
-			int var7 = var2 + var4 * this.xOffset / this.height;
-			int var8 = var2 + (this.height + (this.xOffset + this.subHeight) * var4 - 1) / this.height;
+			int var5 = var3 * this.xOffset / this.width + var1;
+			int var6 = (var3 * (this.xOffset + this.subWidth) + this.width - 1) / this.width + var1;
+			int var7 = var2 + var4 * this.yOffset / this.height;
+			int var8 = var2 + (this.height + (this.yOffset + this.subHeight) * var4 - 1) / this.height;
 			if (var5 < Rasterizer2D.Rasterizer2D_xClipStart) {
 				var5 = Rasterizer2D.Rasterizer2D_xClipStart;
 			}
@@ -1282,10 +1288,10 @@ public final class Sprite extends Rasterizer2D {
 						for (int var12 = var5; var12 < var6; ++var12) {
 							int var13 = var12 - var1 << 4;
 							int var14 = var11 - var2 << 4;
-							int var15 = var13 * this.width / var3 - (this.yOffset << 4);
-							int var16 = (var13 + 16) * this.width / var3 - (this.yOffset << 4);
-							int var17 = var14 * this.height / var4 - (this.xOffset << 4);
-							int var18 = (var14 + 16) * this.height / var4 - (this.xOffset << 4);
+							int var15 = var13 * this.width / var3 - (this.xOffset << 4);
+							int var16 = (var13 + 16) * this.width / var3 - (this.xOffset << 4);
+							int var17 = var14 * this.height / var4 - (this.yOffset << 4);
+							int var18 = (var14 + 16) * this.height / var4 - (this.yOffset << 4);
 							int var19 = (var16 - var15) * (var18 - var17) >> 1;
 							if (var19 != 0) {
 								if (var15 < 0) {
@@ -1374,119 +1380,118 @@ public final class Sprite extends Rasterizer2D {
 	}
 
 	@ObfuscatedName("x")
-	@Export("Sprite_something")
-	static void Sprite_something(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		for (int var8 = -var5; var8 < 0; ++var8) {
+	@Export("Sprite_draw")
+	static void Sprite_draw(int[] rasterPx, int[] spritePx, int spritePxIdx, int rasterPxIdx, int width, int height, int rasterStartOffset, int spriteStartOffset) {
+		for (int var8 = -height; var8 < 0; ++var8) {
 			int var9;
-			for (var9 = var3 + var4 - 3; var3 < var9; var0[var3++] = var1[var2++]) {
-				var0[var3++] = var1[var2++];
-				var0[var3++] = var1[var2++];
-				var0[var3++] = var1[var2++];
+			for (var9 = rasterPxIdx + width - 3; rasterPxIdx < var9; rasterPx[rasterPxIdx++] = spritePx[spritePxIdx++]) {
+				rasterPx[rasterPxIdx++] = spritePx[spritePxIdx++];
+				rasterPx[rasterPxIdx++] = spritePx[spritePxIdx++];
+				rasterPx[rasterPxIdx++] = spritePx[spritePxIdx++];
 			}
 
-			for (var9 += 3; var3 < var9; var0[var3++] = var1[var2++]) {
+			for (var9 += 3; rasterPxIdx < var9; rasterPx[rasterPxIdx++] = spritePx[spritePxIdx++]) {
 			}
 
-			var3 += var6;
-			var2 += var7;
+			rasterPxIdx += rasterStartOffset;
+			spritePxIdx += spriteStartOffset;
 		}
 
 	}
 
 	@ObfuscatedName("v")
-	@Export("Sprite_andAnotherOne")
-	static void Sprite_andAnotherOne(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-		int var9 = -(var5 >> 2);
-		var5 = -(var5 & 3);
+	@Export("Sprite_drawTransBg")
+	static void Sprite_drawTransBg(int[] rasterPx, int[] spritePx, int currentPx, int spritePxIdx, int rasterPxIdx, int width, int height, int rasterStartOffset, int spriteStartOffset) {
+		int var9 = -(width >> 2);
+		width = -(width & 3);
 
-		for (int var10 = -var6; var10 < 0; ++var10) {
-			int var11;
-			for (var11 = var9; var11 < 0; ++var11) {
-				var2 = var1[var3++];
-				if (var2 != 0) {
-					var0[var4++] = var2;
+		for (int var10 = -height; var10 < 0; ++var10) {
+			for (int var11 = var9; var11 < 0; ++var11) {
+				currentPx = spritePx[spritePxIdx++];
+				if (currentPx != 0) {
+					rasterPx[rasterPxIdx++] = currentPx;
 				} else {
-					++var4;
+					++rasterPxIdx;
 				}
 
-				var2 = var1[var3++];
-				if (var2 != 0) {
-					var0[var4++] = var2;
+				currentPx = spritePx[spritePxIdx++];
+				if (currentPx != 0) {
+					rasterPx[rasterPxIdx++] = currentPx;
 				} else {
-					++var4;
+					++rasterPxIdx;
 				}
 
-				var2 = var1[var3++];
-				if (var2 != 0) {
-					var0[var4++] = var2;
+				currentPx = spritePx[spritePxIdx++];
+				if (currentPx != 0) {
+					rasterPx[rasterPxIdx++] = currentPx;
 				} else {
-					++var4;
+					++rasterPxIdx;
 				}
 
-				var2 = var1[var3++];
-				if (var2 != 0) {
-					var0[var4++] = var2;
+				currentPx = spritePx[spritePxIdx++];
+				if (currentPx != 0) {
+					rasterPx[rasterPxIdx++] = currentPx;
 				} else {
-					++var4;
-				}
-			}
-
-			for (var11 = var5; var11 < 0; ++var11) {
-				var2 = var1[var3++];
-				if (var2 != 0) {
-					var0[var4++] = var2;
-				} else {
-					++var4;
+					++rasterPxIdx;
 				}
 			}
 
-			var4 += var7;
-			var3 += var8;
+			for (int var11 = width; var11 < 0; ++var11) {
+				currentPx = spritePx[spritePxIdx++];
+				if (currentPx != 0) {
+					rasterPx[rasterPxIdx++] = currentPx;
+				} else {
+					++rasterPxIdx;
+				}
+			}
+
+			rasterPxIdx += rasterStartOffset;
+			spritePxIdx += spriteStartOffset;
 		}
 
 	}
 
 	@ObfuscatedName("g")
-	@Export("Sprite_somethingElse")
-	static void Sprite_somethingElse(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11) {
-		int var12 = var3;
+	@Export("Sprite_drawScaled")
+	static void Sprite_drawScaled(int[] rasterPx, int[] spritePx, int currentPx, int xIdx, int yIdx, int rasterPxIdx, int rasterPxOffset, int width, int height, int pixelWidth, int pixelHeight, int subWidth) {
+		int var12 = xIdx;
 
-		for (int var13 = -var8; var13 < 0; ++var13) {
-			int var14 = var11 * (var4 >> 16);
+		for (int var13 = -height; var13 < 0; ++var13) {
+			int var14 = subWidth * (yIdx >> 16);
 
-			for (int var15 = -var7; var15 < 0; ++var15) {
-				var2 = var1[(var3 >> 16) + var14];
-				if (var2 != 0) {
-					var0[var5++] = var2;
+			for (int var15 = -width; var15 < 0; ++var15) {
+				currentPx = spritePx[(xIdx >> 16) + var14];
+				if (currentPx != 0) {
+					rasterPx[rasterPxIdx++] = currentPx;
 				} else {
-					++var5;
+					++rasterPxIdx;
 				}
 
-				var3 += var9;
+				xIdx += pixelWidth;
 			}
 
-			var4 += var10;
-			var3 = var12;
-			var5 += var6;
+			yIdx += pixelHeight;
+			xIdx = var12;
+			rasterPxIdx += rasterPxOffset;
 		}
 
 	}
 
 	@ObfuscatedName("j")
 	@Export("Sprite_anotherOne")
-	static void Sprite_anotherOne(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10) {
-		int var11 = 256 - var9;
-		int var12 = (var10 & 16711935) * var11 & -16711936;
-		int var13 = (var10 & 65280) * var11 & 16711680;
-		var10 = (var12 | var13) >>> 8;
+	static void Sprite_anotherOne(int[] rasterPx, int[] spritePx, int currentPx, int var3, int var4, int var5, int var6, int var7, int var8, int overlayOpacity, int overlayColor) {
+		int var11 = 256 - overlayOpacity;
+		int var12 = (overlayColor & 0xff00ff) * var11 & 0xff00ff00;
+		int var13 = (overlayColor & 0xff00) * var11 & 0xff0000;
+		overlayColor = (var12 | var13) >>> 8;
 
 		for (int var14 = -var6; var14 < 0; ++var14) {
 			for (int var15 = -var5; var15 < 0; ++var15) {
-				var2 = var1[var3++];
-				if (var2 != 0) {
-					var12 = var9 * (var2 & 16711935) & -16711936;
-					var13 = (var2 & 65280) * var9 & 16711680;
-					var0[var4++] = var10 + ((var12 | var13) >>> 8);
+				currentPx = spritePx[var3++];
+				if (currentPx != 0) {
+					var12 = overlayOpacity * (currentPx & 0xff00ff) & 0xff00ff00;
+					var13 = (currentPx & 0xff00) * overlayOpacity & 0xff0000;
+					rasterPx[var4++] = overlayColor + ((var12 | var13) >>> 8);
 				} else {
 					++var4;
 				}
@@ -1508,7 +1513,7 @@ public final class Sprite extends Rasterizer2D {
 				var2 = var1[var3++];
 				if (var2 != 0) {
 					int var13 = var0[var4];
-					var0[var4++] = ((var13 & 16711935) * var10 + var9 * (var2 & 16711935) & -16711936) + ((var2 & 65280) * var9 + var10 * (var13 & 65280) & 16711680) >> 8;
+					var0[var4++] = ((var13 & 0xff00ff) * var10 + var9 * (var2 & 0xff00ff) & 0xff00ff00) + ((var2 & 0xff00) * var9 + var10 * (var13 & 0xff00) & 0xff0000) >> 8;
 				} else {
 					++var4;
 				}
@@ -1533,7 +1538,7 @@ public final class Sprite extends Rasterizer2D {
 				var2 = var1[(var3 >> 16) + var16];
 				if (var2 != 0) {
 					int var18 = var0[var5];
-					var0[var5++] = ((var2 & 65280) * var12 + var13 * (var18 & 65280) & 16711680) + ((var18 & 16711935) * var13 + var12 * (var2 & 16711935) & -16711936) >> 8;
+					var0[var5++] = ((var2 & 0xff00) * var12 + var13 * (var18 & 0xff00) & 0xff0000) + ((var18 & 0xff00ff) * var13 + var12 * (var2 & 0xff00ff) & 0xff00ff00) >> 8;
 				} else {
 					++var5;
 				}
@@ -1556,7 +1561,7 @@ public final class Sprite extends Rasterizer2D {
 				if (var0 != 0) {
 					var1 = var3[var7];
 					var2 = var0 + var1;
-					var0 = (var0 & 16711935) + (var1 & 16711935);
+					var0 = (var0 & 0xff00ff) + (var1 & 0xff00ff);
 					var1 = (var0 & 16777472) + (var2 - var0 & 65536);
 					var3[var7++] = var2 - var1 | var1 - (var1 >>> 8);
 				} else {
@@ -1576,11 +1581,11 @@ public final class Sprite extends Rasterizer2D {
 			for (var6 = -var9; var6 < 0; ++var6) {
 				var0 = var4[var5++];
 				if (var0 != 0) {
-					var1 = var13 * (var0 & 16711935);
-					var0 = (var1 & -16711936) + (var13 * var0 - var1 & 16711680) >>> 8;
+					var1 = var13 * (var0 & 0xff00ff);
+					var0 = (var1 & 0xff00ff00) + (var13 * var0 - var1 & 0xff0000) >>> 8;
 					var1 = var3[var7];
 					var2 = var0 + var1;
-					var0 = (var0 & 16711935) + (var1 & 16711935);
+					var0 = (var0 & 0xff00ff) + (var1 & 0xff00ff);
 					var1 = (var0 & 16777472) + (var2 - var0 & 65536);
 					var3[var7++] = var2 - var1 | var1 - (var1 >>> 8);
 				} else {
@@ -1604,7 +1609,7 @@ public final class Sprite extends Rasterizer2D {
 				if (var0 != 0) {
 					var1 = var5[var10];
 					var2 = var0 + var1;
-					var0 = (var0 & 16711935) + (var1 & 16711935);
+					var0 = (var0 & 0xff00ff) + (var1 & 0xff00ff);
 					var1 = (var0 & 16777472) + (var2 - var0 & 65536);
 					var5[var10++] = var2 - var1 | var1 - (var1 >>> 8);
 				} else {
@@ -1629,11 +1634,11 @@ public final class Sprite extends Rasterizer2D {
 			for (var6 = -var12; var6 < 0; ++var6) {
 				var0 = var4[(var3 >> 16) + var7];
 				if (var0 != 0) {
-					var1 = (var0 & 16711935) * var16;
-					var0 = (var1 & -16711936) + (var0 * var16 - var1 & 16711680) >>> 8;
+					var1 = (var0 & 0xff00ff) * var16;
+					var0 = (var1 & 0xff00ff00) + (var0 * var16 - var1 & 0xff0000) >>> 8;
 					var1 = var5[var10];
 					var2 = var0 + var1;
-					var0 = (var0 & 16711935) + (var1 & 16711935);
+					var0 = (var0 & 0xff00ff) + (var1 & 0xff00ff);
 					var1 = (var0 & 16777472) + (var2 - var0 & 65536);
 					var5[var10++] = var2 - var1 | var1 - (var1 >>> 8);
 				} else {

@@ -53,10 +53,10 @@ public class RasterizerHook
 	private static final String font = "AbstractFont_placeGlyph";
 	private static final String rast3D = "Rasterizer3D_iDontKnow";
 	private static final String rast3D2 = "Rasterizer3D_textureAlpha";
-	private static final String sprite = "Sprite_something";
-	private static final String sprite2 = "Sprite_somethingElse";
+	private static final String sprite = "Sprite_draw";
+	private static final String sprite2 = "Sprite_drawScaled";
 	private static final String sprite3 = "Sprite_anotherOne";
-	private static final String sprite4 = "Sprite_andAnotherOne";
+	private static final String sprite4 = "Sprite_drawTransBg";
 	private static final String indexedSprite = "IndexedSprite_something";
 	private static final String indexedSprite2 = "IndexedSprite_two";
 

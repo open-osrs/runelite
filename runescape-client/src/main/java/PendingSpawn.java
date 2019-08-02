@@ -117,9 +117,9 @@ public final class PendingSpawn extends Node {
 		Client.interfaceParents.put(var3, (long)var0);
 		GrandExchangeOfferAgeComparator.method146(var1);
 		Widget var4 = class80.getWidget(var0);
-		Strings.method4120(var4);
+		Strings.invalidateWidget(var4);
 		if (Client.field850 != null) {
-			Strings.method4120(Client.field850);
+			Strings.invalidateWidget(Client.field850);
 			Client.field850 = null;
 		}
 

@@ -93,48 +93,48 @@ public class class83 {
 				var3.scrollY = 0;
 			}
 
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETCOLOUR) {
 			var3.color = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETFILL) {
 			var3.fill = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETTRANS) {
 			var3.transparencyTop = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETLINEWID) {
 			var3.lineWid = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETGRAPHIC) {
 			var3.spriteId2 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SET2DANGLE) {
 			var3.spriteAngle = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETTILING) {
 			var3.spriteTiling = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETMODEL) {
 			var3.modelType = 1;
 			var3.modelId = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETMODELANGLE) {
@@ -145,7 +145,7 @@ public class class83 {
 			var3.modelAngleY = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 3];
 			var3.modelAngleZ = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 4];
 			var3.modelZoom = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 5];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		int var8;
@@ -155,28 +155,28 @@ public class class83 {
 				var3.sequenceId = var8;
 				var3.modelFrame = 0;
 				var3.modelFrameCycle = 0;
-				Strings.method4120(var3);
+				Strings.invalidateWidget(var3);
 			}
 
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETMODELORTHOG) {
 			var3.modelOrthog = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETTEXT) {
 			String var7 = Interpreter.Interpreter_stringStack[--Skills.Interpreter_stringStackSize];
 			if (!var7.equals(var3.text)) {
 				var3.text = var7;
-				Strings.method4120(var3);
+				Strings.invalidateWidget(var3);
 			}
 
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETTEXTFONT) {
 			var3.fontId = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETTEXTALIGN) {
@@ -184,39 +184,39 @@ public class class83 {
 			var3.textXAlignment = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
 			var3.textYAlignment = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
 			var3.textLineHeight = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 2];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETTEXTSHADOW) {
 			var3.textShadowed = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETOUTLINE) {
 			var3.outline = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETGRAPHICSHADOW) {
 			var3.spriteShadow = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETVFLIP) {
 			var3.spriteFlipV = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETHFLIP) {
 			var3.spriteFlipH = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize] == 1;
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETSCROLLSIZE) {
 			HealthBarUpdate.Interpreter_intStackSize -= 2;
 			var3.scrollWidth = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize];
 			var3.scrollHeight = Interpreter.Interpreter_intStack[HealthBarUpdate.Interpreter_intStackSize + 1];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			if (var4 != -1 && var3.type == 0) {
 				WorldMapSprite.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var4 >> 16], var3, false);
 			}
@@ -226,22 +226,22 @@ public class class83 {
 		if (var0 == ScriptOpcodes.CC_RESUME_PAUSEBUTTON) {
 			ScriptFrame.method1086(var3.id, var3.childIndex);
 			Client.field850 = var3;
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == 1122) {
 			var3.spriteId = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETFILLCOLOUR) {
 			var3.color2 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == 1124) {
 			var3.transparencyBot = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Strings.method4120(var3);
+			Strings.invalidateWidget(var3);
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_SETFILLMODE) {
@@ -249,7 +249,7 @@ public class class83 {
 			FillMode var6 = (FillMode)SoundSystem.findEnumerated(PcmPlayer.method2405(), var8);
 			if (var6 != null) {
 				var3.fillMode = var6;
-				Strings.method4120(var3);
+				Strings.invalidateWidget(var3);
 			}
 
 			return 1;

@@ -477,7 +477,7 @@ public class WorldMapRegion {
 			Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, this.backgroundColor);
 		}
 
-		int var8 = 16711935;
+		int var8 = 0xff00ff;
 		int var9;
 		if (var7 != -1) {
 			int var10 = this.backgroundColor;
@@ -532,7 +532,7 @@ public class WorldMapRegion {
 					}
 
 					var9 = Rasterizer3D.Rasterizer3D_colorPalette[var17] | -16777216;
-				} else if (var11.primaryRgb == 16711935) {
+				} else if (var11.primaryRgb == 0xff00ff) {
 					var9 = var10;
 				} else {
 					var17 = class192.method3679(var11.hue, var11.saturation, var11.lightness);
@@ -640,7 +640,7 @@ public class WorldMapRegion {
 						}
 
 						var7 = Rasterizer3D.Rasterizer3D_colorPalette[var16] | -16777216;
-					} else if (var9.primaryRgb == 16711935) {
+					} else if (var9.primaryRgb == 0xff00ff) {
 						var7 = var8;
 					} else {
 						var16 = class192.method3679(var9.hue, var9.saturation, var9.lightness);
@@ -849,10 +849,10 @@ public class WorldMapRegion {
 	void method493(WorldMapElement var1, int var2, int var3, int var4, int var5) {
 		Sprite var6 = var1.getSpriteBool(false);
 		if (var6 != null) {
-			var6.drawAt2(var2 - var6.subWidth / 2, var3 - var6.subHeight / 2);
+			var6.drawTransBgAt(var2 - var6.subWidth / 2, var3 - var6.subHeight / 2);
 			if (var4 % var5 < var5 / 2) {
 				Rasterizer2D.Rasterizer2D_drawCircleAlpha(var2, var3, 15, 16776960, 128);
-				Rasterizer2D.Rasterizer2D_drawCircleAlpha(var2, var3, 7, 16777215, 256);
+				Rasterizer2D.Rasterizer2D_drawCircleAlpha(var2, var3, 7, 0xffffff, 256);
 			}
 
 		}
@@ -879,7 +879,7 @@ public class WorldMapRegion {
 		if (var4 != null) {
 			int var5 = this.method455(var4, var1.horizontalAlignment);
 			int var6 = this.method450(var4, var1.verticalAlignment);
-			var4.drawAt2(var5 + var2, var3 + var6);
+			var4.drawTransBgAt(var5 + var2, var3 + var6);
 		}
 
 	}

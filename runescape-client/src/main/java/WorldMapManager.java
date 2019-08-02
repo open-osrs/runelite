@@ -288,7 +288,7 @@ public final class WorldMapManager {
 	@Export("drawOverview")
 	public void drawOverview(int var1, int var2, int var3, int var4, HashSet var5, int var6, int var7) {
 		if (this.compositeTextureSprite != null) {
-			this.compositeTextureSprite.method6125(var1, var2, var3, var4);
+			this.compositeTextureSprite.drawAt(var1, var2, var3, var4);
 			if (var6 > 0 && var6 % var7 < var7 / 2) {
 				if (this.icons == null) {
 					this.buildIcons0();
@@ -513,7 +513,7 @@ public final class WorldMapManager {
 					int var9 = var8 - var7;
 					String var6;
 					if (var9 < -9) {
-						var6 = ClientPreferences.colorStartTag(16711680);
+						var6 = ClientPreferences.colorStartTag(0xff0000);
 					} else if (var9 < -6) {
 						var6 = ClientPreferences.colorStartTag(16723968);
 					} else if (var9 < -3) {
@@ -521,7 +521,7 @@ public final class WorldMapManager {
 					} else if (var9 < 0) {
 						var6 = ClientPreferences.colorStartTag(16756736);
 					} else if (var9 > 9) {
-						var6 = ClientPreferences.colorStartTag(65280);
+						var6 = ClientPreferences.colorStartTag(0xff00);
 					} else if (var9 > 6) {
 						var6 = ClientPreferences.colorStartTag(4259584);
 					} else if (var9 > 3) {
@@ -539,10 +539,10 @@ public final class WorldMapManager {
 
 				int var10;
 				if (Client.isItemSelected == 1) {
-					class188.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ClientPreferences.colorStartTag(16777215) + var4, 14, var1, var2, var3);
+					class188.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ClientPreferences.colorStartTag(0xffffff) + var4, 14, var1, var2, var3);
 				} else if (Client.isSpellSelected) {
 					if ((WorldMapCacheName.selectedSpellFlags & 8) == 8) {
-						class188.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ClientPreferences.colorStartTag(16777215) + var4, 15, var1, var2, var3);
+						class188.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ClientPreferences.colorStartTag(0xffffff) + var4, 15, var1, var2, var3);
 					}
 				} else {
 					for (var10 = 7; var10 >= 0; --var10) {
@@ -570,14 +570,14 @@ public final class WorldMapManager {
 
 							boolean var12 = false;
 							var7 = Client.playerMenuOpcodes[var10] + var11;
-							class188.insertMenuItemNoShift(Client.playerMenuActions[var10], ClientPreferences.colorStartTag(16777215) + var4, var7, var1, var2, var3);
+							class188.insertMenuItemNoShift(Client.playerMenuActions[var10], ClientPreferences.colorStartTag(0xffffff) + var4, var7, var1, var2, var3);
 						}
 					}
 				}
 
 				for (var10 = 0; var10 < Client.menuOptionsCount; ++var10) {
 					if (Client.menuOpcodes[var10] == 23) {
-						Client.menuTargetNames[var10] = ClientPreferences.colorStartTag(16777215) + var4;
+						Client.menuTargetNames[var10] = ClientPreferences.colorStartTag(0xffffff) + var4;
 						break;
 					}
 				}

@@ -284,7 +284,7 @@ public abstract class AbstractWorldMapData {
 							int var9 = var8 - var7;
 							String var6;
 							if (var9 < -9) {
-								var6 = ClientPreferences.colorStartTag(16711680);
+								var6 = ClientPreferences.colorStartTag(0xff0000);
 							} else if (var9 < -6) {
 								var6 = ClientPreferences.colorStartTag(16723968);
 							} else if (var9 < -3) {
@@ -292,7 +292,7 @@ public abstract class AbstractWorldMapData {
 							} else if (var9 < 0) {
 								var6 = ClientPreferences.colorStartTag(16756736);
 							} else if (var9 > 9) {
-								var6 = ClientPreferences.colorStartTag(65280);
+								var6 = ClientPreferences.colorStartTag(0xff00);
 							} else if (var9 > 6) {
 								var6 = ClientPreferences.colorStartTag(4259584);
 							} else if (var9 > 3) {

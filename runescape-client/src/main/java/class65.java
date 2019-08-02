@@ -74,8 +74,8 @@ public class class65 extends RouteStrategy {
 		Sprite var4 = new Sprite();
 		var4.width = SpriteBuffer.SpriteBuffer_spriteWidth;
 		var4.height = SpriteBuffer.SpriteBuffer_spriteHeight;
-		var4.yOffset = Varps.SpriteBuffer_xOffsets[0];
-		var4.xOffset = SpriteBuffer.SpriteBuffer_yOffsets[0];
+		var4.xOffset = Varps.SpriteBuffer_xOffsets[0];
+		var4.yOffset = SpriteBuffer.SpriteBuffer_yOffsets[0];
 		var4.subWidth = SpriteBuffer.SpriteBuffer_spriteWidths[0];
 		var4.subHeight = class216.SpriteBuffer_spriteHeights[0];
 		int var5 = var4.subHeight * var4.subWidth;
@@ -416,7 +416,7 @@ public class class65 extends RouteStrategy {
 					var4 = (int)var0.key;
 					Widget var5 = class80.getWidget(var4);
 					if (var5 != null) {
-						Strings.method4120(var5);
+						Strings.invalidateWidget(var5);
 					}
 				}
 			}

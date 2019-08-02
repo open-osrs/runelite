@@ -123,7 +123,7 @@ public class GrandExchangeEvent {
 		}
 
 		if (Client.field850 != null) {
-			Strings.method4120(Client.field850);
+			Strings.invalidateWidget(Client.field850);
 			Client.field850 = null;
 		}
 

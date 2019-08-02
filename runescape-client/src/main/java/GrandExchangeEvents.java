@@ -92,7 +92,8 @@ public class GrandExchangeEvents {
 		signature = "(Lhp;Lhp;B)V",
 		garbageValue = "-127"
 	)
-	public static void method66(AbstractArchive var0, AbstractArchive var1) {
+	@Export("KitDefinition_setArchives")
+	public static void KitDefinition_setArchives(AbstractArchive var0, AbstractArchive var1) {
 		KitDefinition.KitDefinition_archive = var0;
 		class288.KitDefinition_modelsArchive = var1;
 		KitDefinition.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3);
@@ -103,7 +104,8 @@ public class GrandExchangeEvents {
 		signature = "(Lhp;B)V",
 		garbageValue = "1"
 	)
-	public static void method68(AbstractArchive var0) {
+	@Export("VarpDefinition_setArchives")
+	public static void VarpDefinition_setArchives(AbstractArchive var0) {
 		VarpDefinition.VarpDefinition_archive = var0;
 		VarpDefinition.VarpDefinition_fileCount = VarpDefinition.VarpDefinition_archive.getGroupFileCount(16);
 	}
@@ -380,7 +382,7 @@ public class GrandExchangeEvents {
 									if (var51 >= 0) {
 										var40 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var51);
 										var39 = -1;
-									} else if (var35.primaryRgb == 16711935) {
+									} else if (var35.primaryRgb == 0xff00ff) {
 										var39 = -2;
 										var51 = -1;
 										var40 = -2;
@@ -631,10 +633,10 @@ public class GrandExchangeEvents {
 		if (MouseHandler.MouseHandler_currentButton == 1 || !DevicePcmPlayerProvider.mouseCam && MouseHandler.MouseHandler_currentButton == 4) {
 			if (var5 >= var1 && var5 < var1 + 16 && var6 >= var2 && var6 < var2 + 16) {
 				var0.scrollY -= 4;
-				Strings.method4120(var0);
+				Strings.invalidateWidget(var0);
 			} else if (var5 >= var1 && var5 < var1 + 16 && var6 >= var3 + var2 - 16 && var6 < var3 + var2) {
 				var0.scrollY += 4;
-				Strings.method4120(var0);
+				Strings.invalidateWidget(var0);
 			} else if (var5 >= var1 - Client.field882 && var5 < Client.field882 + var1 + 16 && var6 >= var2 + 16 && var6 < var3 + var2 - 16) {
 				var7 = var3 * (var3 - 32) / var4;
 				if (var7 < 8) {
@@ -644,7 +646,7 @@ public class GrandExchangeEvents {
 				int var8 = var6 - var2 - 16 - var7 / 2;
 				int var9 = var3 - 32 - var7;
 				var0.scrollY = var8 * (var4 - var3) / var9;
-				Strings.method4120(var0);
+				Strings.invalidateWidget(var0);
 				Client.field719 = true;
 			}
 		}
@@ -653,7 +655,7 @@ public class GrandExchangeEvents {
 			var7 = var0.width;
 			if (var5 >= var1 - var7 && var6 >= var2 && var5 < var1 + 16 && var6 <= var3 + var2) {
 				var0.scrollY += Client.mouseWheelRotation * 45;
-				Strings.method4120(var0);
+				Strings.invalidateWidget(var0);
 			}
 		}
 
