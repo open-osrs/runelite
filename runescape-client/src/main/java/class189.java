@@ -44,11 +44,11 @@ public class class189 {
 			if (Client.gameState == 20) {
 				Login.titleboxSprite.drawAt(Login.loginBoxX + 180 - Login.titleboxSprite.subWidth / 2, 271 - Login.titleboxSprite.subHeight / 2);
 				var22 = 201;
-				var0.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 16776960, 0);
+				var0.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 0xffff00, 0);
 				var23 = var22 + 15;
-				var0.drawCentered(Login.Login_response2, Login.loginBoxX + 180, var23, 16776960, 0);
+				var0.drawCentered(Login.Login_response2, Login.loginBoxX + 180, var23, 0xffff00, 0);
 				var23 += 15;
-				var0.drawCentered(Login.Login_response3, Login.loginBoxX + 180, var23, 16776960, 0);
+				var0.drawCentered(Login.Login_response3, Login.loginBoxX + 180, var23, 0xffff00, 0);
 				var23 += 15;
 				var23 += 7;
 				if (Login.loginIndex != 4) {
@@ -71,7 +71,7 @@ public class class189 {
 				short var17;
 				if (Login.loginIndex == 0) {
 					var22 = 251;
-					var0.drawCentered("Welcome to RuneScape", Login.loginBoxX + 180, var22, 16776960, 0);
+					var0.drawCentered("Welcome to RuneScape", Login.loginBoxX + 180, var22, 0xffff00, 0);
 					var23 = var22 + 30;
 					var4 = Login.loginBoxX + 180 - 80;
 					var17 = 291;
@@ -81,7 +81,7 @@ public class class189 {
 					VarpDefinition.titlebuttonSprite.drawAt(var4 - 73, var17 - 20);
 					var0.drawLines("Existing User", var4 - 73, var17 - 20, 144, 40, 0xffffff, 0, 1, 1, 0);
 				} else if (Login.loginIndex == 1) {
-					var0.drawCentered(Login.Login_response0, Login.loginBoxX + 180, 201, 16776960, 0);
+					var0.drawCentered(Login.Login_response0, Login.loginBoxX + 180, 201, 0xffff00, 0);
 					var22 = 236;
 					var0.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 0xffffff, 0);
 					var23 = var22 + 15;
@@ -100,11 +100,11 @@ public class class189 {
 					int var7;
 					if (Login.loginIndex == 2) {
 						var22 = 201;
-						var0.drawCentered(Login.Login_response1, ScriptEvent.loginBoxCenter, var22, 16776960, 0);
+						var0.drawCentered(Login.Login_response1, ScriptEvent.loginBoxCenter, var22, 0xffff00, 0);
 						var23 = var22 + 15;
-						var0.drawCentered(Login.Login_response2, ScriptEvent.loginBoxCenter, var23, 16776960, 0);
+						var0.drawCentered(Login.Login_response2, ScriptEvent.loginBoxCenter, var23, 0xffff00, 0);
 						var23 += 15;
-						var0.drawCentered(Login.Login_response3, ScriptEvent.loginBoxCenter, var23, 16776960, 0);
+						var0.drawCentered(Login.Login_response3, ScriptEvent.loginBoxCenter, var23, 0xffff00, 0);
 						var23 += 15;
 						var23 += 7;
 						var0.draw("Login: ", ScriptEvent.loginBoxCenter - 110, var23, 0xffffff, 0);
@@ -114,9 +114,9 @@ public class class189 {
 						for (var6 = var5; var0.stringWidth(var6) > var24; var6 = var6.substring(1)) {
 						}
 
-						var0.draw(AbstractFont.escapeBrackets(var6) + (Login.currentLoginField == 0 & Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(16776960) + "|" : ""), ScriptEvent.loginBoxCenter - 70, var23, 0xffffff, 0);
+						var0.draw(AbstractFont.escapeBrackets(var6) + (Login.currentLoginField == 0 & Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(0xffff00) + "|" : ""), ScriptEvent.loginBoxCenter - 70, var23, 0xffffff, 0);
 						var23 += 15;
-						var0.draw("Password: " + ClientPacket.method3612(Login.Login_password) + (Login.currentLoginField == 1 & Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(16776960) + "|" : ""), ScriptEvent.loginBoxCenter - 108, var23, 0xffffff, 0);
+						var0.draw("Password: " + ClientPacket.method3612(Login.Login_password) + (Login.currentLoginField == 1 & Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(0xffff00) + "|" : ""), ScriptEvent.loginBoxCenter - 108, var23, 0xffffff, 0);
 						var23 += 15;
 						var22 = 277;
 						var7 = ScriptEvent.loginBoxCenter + -117;
@@ -125,14 +125,14 @@ public class class189 {
 						IndexedSprite var8 = var9 ? (var10 ? Login.field1185 : Decimator.options_buttons_2Sprite) : (var10 ? Message.field606 : Login.options_buttons_0Sprite);
 						var8.drawAt(var7, var22);
 						var7 = var7 + var8.subWidth + 5;
-						var1.draw("Remember username", var7, var22 + 13, 16776960, 0);
+						var1.draw("Remember username", var7, var22 + 13, 0xffff00, 0);
 						var7 = ScriptEvent.loginBoxCenter + 24;
 						boolean var13 = WorldMapLabelSize.clientPreferences.hideUsername;
 						boolean var14 = Login.field1184;
 						IndexedSprite var12 = var13 ? (var14 ? Login.field1185 : Decimator.options_buttons_2Sprite) : (var14 ? Message.field606 : Login.options_buttons_0Sprite);
 						var12.drawAt(var7, var22);
 						var7 = var7 + var12.subWidth + 5;
-						var1.draw("Hide username", var7, var22 + 13, 16776960, 0);
+						var1.draw("Hide username", var7, var22 + 13, 0xffff00, 0);
 						var23 = var22 + 15;
 						int var15 = ScriptEvent.loginBoxCenter - 80;
 						short var16 = 321;
@@ -155,11 +155,11 @@ public class class189 {
 						var1.drawCentered(UserComparator5.field1986, ScriptEvent.loginBoxCenter, var22, 0xffffff, 0);
 					} else if (Login.loginIndex == 3) {
 						var22 = 201;
-						var0.drawCentered("Invalid credentials.", Login.loginBoxX + 180, var22, 16776960, 0);
+						var0.drawCentered("Invalid credentials.", Login.loginBoxX + 180, var22, 0xffff00, 0);
 						var23 = var22 + 20;
-						var1.drawCentered("For accounts created after 24th November 2010, please use your", Login.loginBoxX + 180, var23, 16776960, 0);
+						var1.drawCentered("For accounts created after 24th November 2010, please use your", Login.loginBoxX + 180, var23, 0xffff00, 0);
 						var23 += 15;
-						var1.drawCentered("email address to login. Otherwise please login with your username.", Login.loginBoxX + 180, var23, 16776960, 0);
+						var1.drawCentered("email address to login. Otherwise please login with your username.", Login.loginBoxX + 180, var23, 0xffff00, 0);
 						var23 += 15;
 						var4 = Login.loginBoxX + 180;
 						var17 = 276;
@@ -172,7 +172,7 @@ public class class189 {
 					} else {
 						short var20;
 						if (Login.loginIndex == 4) {
-							var0.drawCentered("Authenticator", Login.loginBoxX + 180, 201, 16776960, 0);
+							var0.drawCentered("Authenticator", Login.loginBoxX + 180, 201, 0xffff00, 0);
 							var22 = 236;
 							var0.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 0xffffff, 0);
 							var23 = var22 + 15;
@@ -180,11 +180,11 @@ public class class189 {
 							var23 += 15;
 							var0.drawCentered(Login.Login_response3, Login.loginBoxX + 180, var23, 0xffffff, 0);
 							var23 += 15;
-							var0.draw("PIN: " + ClientPacket.method3612(WorldMapManager.otp) + (Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(16776960) + "|" : ""), Login.loginBoxX + 180 - 108, var23, 0xffffff, 0);
+							var0.draw("PIN: " + ClientPacket.method3612(WorldMapManager.otp) + (Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(0xffff00) + "|" : ""), Login.loginBoxX + 180 - 108, var23, 0xffffff, 0);
 							var23 -= 8;
-							var0.draw("Trust this computer", Login.loginBoxX + 180 - 9, var23, 16776960, 0);
+							var0.draw("Trust this computer", Login.loginBoxX + 180 - 9, var23, 0xffff00, 0);
 							var23 += 15;
-							var0.draw("for 30 days: ", Login.loginBoxX + 180 - 9, var23, 16776960, 0);
+							var0.draw("for 30 days: ", Login.loginBoxX + 180 - 9, var23, 0xffff00, 0);
 							var4 = Login.loginBoxX + 180 - 9 + var0.stringWidth("for 30 days: ") + 15;
 							int var26 = var23 - var0.ascent;
 							IndexedSprite var25;
@@ -205,13 +205,13 @@ public class class189 {
 							var0.drawCentered("Cancel", var7, var20 + 5, 0xffffff, 0);
 							var1.drawCentered("<u=ff>Can't Log In?</u>", Login.loginBoxX + 180, var20 + 36, 255, 0);
 						} else if (Login.loginIndex == 5) {
-							var0.drawCentered("Forgotten your password?", Login.loginBoxX + 180, 201, 16776960, 0);
+							var0.drawCentered("Forgotten your password?", Login.loginBoxX + 180, 201, 0xffff00, 0);
 							var22 = 221;
-							var2.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 16776960, 0);
+							var2.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 0xffff00, 0);
 							var23 = var22 + 15;
-							var2.drawCentered(Login.Login_response2, Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered(Login.Login_response2, Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
-							var2.drawCentered(Login.Login_response3, Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered(Login.Login_response3, Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
 							var23 += 14;
 							var0.draw("Username/email: ", Login.loginBoxX + 180 - 145, var23, 0xffffff, 0);
@@ -221,7 +221,7 @@ public class class189 {
 							for (var6 = var5; var0.stringWidth(var6) > var24; var6 = var6.substring(1)) {
 							}
 
-							var0.draw(AbstractFont.escapeBrackets(var6) + (Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(16776960) + "|" : ""), Login.loginBoxX + 180 - 34, var23, 0xffffff, 0);
+							var0.draw(AbstractFont.escapeBrackets(var6) + (Client.cycle % 40 < 20 ? ClientPreferences.colorStartTag(0xffff00) + "|" : ""), Login.loginBoxX + 180 - 34, var23, 0xffffff, 0);
 							var23 += 15;
 							var7 = Login.loginBoxX + 180 - 80;
 							var20 = 321;
@@ -234,11 +234,11 @@ public class class189 {
 							var1.drawCentered("Still having trouble logging in?", ScriptEvent.loginBoxCenter, var20, 0xfffffff, 0);
 						} else if (Login.loginIndex == 6) {
 							var22 = 201;
-							var0.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 16776960, 0);
+							var0.drawCentered(Login.Login_response1, Login.loginBoxX + 180, var22, 0xffff00, 0);
 							var23 = var22 + 15;
-							var0.drawCentered(Login.Login_response2, Login.loginBoxX + 180, var23, 16776960, 0);
+							var0.drawCentered(Login.Login_response2, Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
-							var0.drawCentered(Login.Login_response3, Login.loginBoxX + 180, var23, 16776960, 0);
+							var0.drawCentered(Login.Login_response3, Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
 							var4 = Login.loginBoxX + 180;
 							var17 = 321;
@@ -246,11 +246,11 @@ public class class189 {
 							var0.drawCentered("Back", var4, var17 + 5, 0xffffff, 0);
 						} else if (Login.loginIndex == 7) {
 							var22 = 216;
-							var0.drawCentered("Your date of birth isn't set.", Login.loginBoxX + 180, var22, 16776960, 0);
+							var0.drawCentered("Your date of birth isn't set.", Login.loginBoxX + 180, var22, 0xffff00, 0);
 							var23 = var22 + 15;
-							var2.drawCentered("Please verify your account status by", Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered("Please verify your account status by", Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
-							var2.drawCentered("setting your date of birth.", Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered("setting your date of birth.", Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
 							var4 = Login.loginBoxX + 180 - 80;
 							var17 = 321;
@@ -261,11 +261,11 @@ public class class189 {
 							var0.drawCentered("Back", var4, var17 + 5, 0xffffff, 0);
 						} else if (Login.loginIndex == 8) {
 							var22 = 216;
-							var0.drawCentered("Sorry, but your account is not eligible to play.", Login.loginBoxX + 180, var22, 16776960, 0);
+							var0.drawCentered("Sorry, but your account is not eligible to play.", Login.loginBoxX + 180, var22, 0xffff00, 0);
 							var23 = var22 + 15;
-							var2.drawCentered("For more information, please take a look at", Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered("For more information, please take a look at", Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
-							var2.drawCentered("our privacy policy.", Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered("our privacy policy.", Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
 							var4 = Login.loginBoxX + 180 - 80;
 							var17 = 321;
@@ -294,11 +294,11 @@ public class class189 {
 								FaceNormal.method3266(false);
 							}
 
-							var0.drawCentered(var21, Login.loginBoxX + 180, var22, 16776960, 0);
+							var0.drawCentered(var21, Login.loginBoxX + 180, var22, 0xffff00, 0);
 							var23 = var22 + 15;
-							var2.drawCentered(var5, Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered(var5, Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
-							var2.drawCentered(var6, Login.loginBoxX + 180, var23, 16776960, 0);
+							var2.drawCentered(var6, Login.loginBoxX + 180, var23, 0xffff00, 0);
 							var23 += 15;
 							var7 = Login.loginBoxX + 180;
 							var20 = 276;

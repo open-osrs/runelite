@@ -115,7 +115,8 @@ public class WorldMapLabel {
 		signature = "(IB)Ljava/lang/String;",
 		garbageValue = "108"
 	)
-	static String method417(int var0) {
+	@Export("getMenuText")
+	static String getMenuText(int var0) {
 		if (var0 < 0) {
 			return "";
 		}

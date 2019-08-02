@@ -458,10 +458,10 @@ public class Messages {
 									}
 								}
 							} else if (var2 == 30) {
-								if (Client.field850 == null) {
-									ScriptFrame.method1086(var1, var0);
-									Client.field850 = Client.getWidgetChild(var1, var0);
-									Strings.invalidateWidget(Client.field850);
+								if (Client.meslayerContinueWidget == null) {
+									ScriptFrame.resumePauseWidget(var1, var0);
+									Client.meslayerContinueWidget = Client.getWidgetChild(var1, var0);
+									Strings.invalidateWidget(Client.meslayerContinueWidget);
 								}
 							} else if (var2 == 31) {
 								var8 = Archive.method4265(ClientPacket.field2266, Client.packetWriter.isaacCipher);

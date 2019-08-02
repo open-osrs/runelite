@@ -235,7 +235,7 @@ public class FontName {
 			int var15;
 			int var16;
 			if (var10 == Client.clickedWidget) {
-				if (var1 != -1412584499 && !var10.isScrollBar) {
+				if (var1 != 0xabcdabcd && !var10.isScrollBar) {
 					WorldMapIcon_1.field188 = var0;
 					WorldMapDecorationType.field2742 = var6;
 					ClientPacket.field2305 = var7;
@@ -320,11 +320,11 @@ public class FontName {
 				if (var10.contentType == 1336) {
 					if (Client.displayFps) {
 						var13 += 15;
-						class169.fontPlain12.drawRightAligned("Fps:" + GameShell.fps, var12 + var10.width, var13, 16776960, -1);
+						class169.fontPlain12.drawRightAligned("Fps:" + GameShell.fps, var12 + var10.width, var13, 0xffff00, -1);
 						var13 += 15;
 						Runtime var42 = Runtime.getRuntime();
 						var20 = (int)((var42.totalMemory() - var42.freeMemory()) / 1024L);
-						var21 = 16776960;
+						var21 = 0xffff00;
 						if (var20 > 327680 && !Client.isLowDetail) {
 							var21 = 0xff0000;
 						}
@@ -336,8 +336,8 @@ public class FontName {
 				}
 
 				if (var10.contentType == 1337) {
-					Client.field803 = var12;
-					Client.field804 = var13;
+					Client.viewportX = var12;
+					Client.viewportY = var13;
 					class4.drawEntities(var12, var13, var10.width, var10.height);
 					Client.field843[var10.rootIndex] = true;
 					Rasterizer2D.Rasterizer2D_setClip(var2, var3, var4, var5);
@@ -463,7 +463,7 @@ public class FontName {
 											var25 = 0;
 										}
 
-										var27.method6129(var24 + var22, var25 + var23, 128);
+										var27.drawTransAt(var24 + var22, var25 + var23, 128);
 										if (var1 != -1) {
 											Widget var28 = var0[var1 & 65535];
 											int var29;
@@ -498,7 +498,7 @@ public class FontName {
 											}
 										}
 									} else if (var10 == ItemContainer.field549 && var19 == Client.field698) {
-										var27.method6129(var22, var23, 128);
+										var27.drawTransAt(var22, var23, 128);
 									} else {
 										var27.drawTransBgAt(var22, var23);
 									}
@@ -582,7 +582,7 @@ public class FontName {
 							}
 						}
 
-						if (var10 == Client.field850) {
+						if (var10 == Client.meslayerContinueWidget) {
 							var44 = "Please wait...";
 							var20 = var10.color;
 						}
@@ -621,11 +621,11 @@ public class FontName {
 								if (var10.spriteAngle != 0) {
 									var40.method6186(var10.width / 2 + var12, var10.height / 2 + var13, var10.spriteAngle, var22);
 								} else if (var14 != 0) {
-									var40.method6131(var12, var13, var10.width, var10.height, 256 - (var14 & 255));
+									var40.drawTransScaledAt(var12, var13, var10.width, var10.height, 256 - (var14 & 255));
 								} else if (var20 == var10.width && var21 == var10.height) {
 									var40.drawTransBgAt(var12, var13);
 								} else {
-									var40.drawAt(var12, var13, var10.width, var10.height);
+									var40.drawScaledAt(var12, var13, var10.width, var10.height);
 								}
 							} else {
 								Rasterizer2D.Rasterizer2D_expandClip(var12, var13, var12 + var10.width, var13 + var10.height);
@@ -637,7 +637,7 @@ public class FontName {
 										if (var10.spriteAngle != 0) {
 											var40.method6186(var20 / 2 + var12 + var24 * var20, var21 / 2 + var13 + var21 * var25, var10.spriteAngle, 4096);
 										} else if (var14 != 0) {
-											var40.method6129(var12 + var24 * var20, var13 + var25 * var21, 256 - (var14 & 255));
+											var40.drawTransAt(var12 + var24 * var20, var13 + var25 * var21, 256 - (var14 & 255));
 										} else {
 											var40.drawTransBgAt(var12 + var24 * var20, var13 + var21 * var25);
 										}

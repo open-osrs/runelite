@@ -703,7 +703,7 @@ public class class40 {
 			class188.insertMenuItemNoShift(var0.buttonText, "", 29, 0, 0, var0.id);
 		}
 
-		if (var0.buttonType == 6 && Client.field850 == null) {
+		if (var0.buttonType == 6 && Client.meslayerContinueWidget == null) {
 			class188.insertMenuItemNoShift(var0.buttonText, "", 30, 0, -1, var0.id);
 		}
 

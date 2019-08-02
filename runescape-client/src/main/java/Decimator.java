@@ -313,9 +313,9 @@ public class Decimator {
 				var23 = var3 + Client.viewportTempY - var87;
 				var22 -= var16;
 				if (var17 >= 0 && var17 < 255) {
-					var76.method6129(var22, var23, var17);
+					var76.drawTransAt(var22, var23, var17);
 					Rasterizer2D.Rasterizer2D_expandClip(var22, var23, var93 + var22, var21 + var23);
-					var14.method6129(var22, var23, var17);
+					var14.drawTransAt(var22, var23, var17);
 				} else {
 					var76.drawTransBgAt(var22, var23);
 					Rasterizer2D.Rasterizer2D_expandClip(var22, var23, var93 + var22, var21 + var23);
@@ -717,41 +717,41 @@ public class Decimator {
 
 			if (var73 >= 0 && var73 < 255) {
 				if (var82 != null) {
-					var82.method6129(var65 + var52 - var26, var66, var73);
+					var82.drawTransAt(var65 + var52 - var26, var66, var73);
 				}
 
 				if (var84 != null) {
-					var84.method6129(var65 + var53 - var28, var66, var73);
+					var84.drawTransAt(var65 + var53 - var28, var66, var73);
 				}
 
 				if (var83 != null) {
 					for (var74 = 0; var74 < var49; ++var74) {
-						var83.method6129(var23 * var74 + (var54 + var65 - var27), var66, var73);
+						var83.drawTransAt(var23 * var74 + (var54 + var65 - var27), var66, var73);
 					}
 				}
 
 				if (var85 != null) {
-					var85.method6129(var56 + var65 - var29, var66, var73);
+					var85.drawTransAt(var56 + var65 - var29, var66, var73);
 				}
 
 				var86.drawAlpha(var45, var55 + var65, var69, var95.field3333, 0, var73);
 				if (var81 != null) {
 					if (var30 != null) {
-						var30.method6129(var65 + var57 - var38, var66, var73);
+						var30.drawTransAt(var65 + var57 - var38, var66, var73);
 					}
 
 					if (var32 != null) {
-						var32.method6129(var65 + var58 - var40, var66, var73);
+						var32.drawTransAt(var65 + var58 - var40, var66, var73);
 					}
 
 					if (var31 != null) {
 						for (var74 = 0; var74 < var50; ++var74) {
-							var31.method6129(var74 * var35 + (var65 + var59 - var39), var66, var73);
+							var31.drawTransAt(var74 * var35 + (var65 + var59 - var39), var66, var73);
 						}
 					}
 
 					if (var33 != null) {
-						var33.method6129(var60 + var65 - var41, var66, var73);
+						var33.drawTransAt(var60 + var65 - var41, var66, var73);
 					}
 
 					var44.drawAlpha(var46, var65 + var61, var72, var81.field3333, 0, var73);
@@ -775,7 +775,7 @@ public class Decimator {
 					var85.drawTransBgAt(var65 + var56 - var29, var66);
 				}
 
-				var86.draw(var45, var65 + var55, var69, var95.field3333 | -16777216, 0);
+				var86.draw(var45, var65 + var55, var69, var95.field3333 | 0xff000000, 0);
 				if (var81 == null) {
 					continue;
 				}
@@ -797,7 +797,7 @@ public class Decimator {
 					var33.drawTransBgAt(var60 + var65 - var41, var66);
 				}
 
-				var44.draw(var46, var61 + var65, var72, var81.field3333 | -16777216, 0);
+				var44.draw(var46, var61 + var65, var72, var81.field3333 | 0xff000000, 0);
 			}
 		}
 

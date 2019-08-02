@@ -370,13 +370,13 @@ final class class4 implements class0 {
 			Client.viewportTempY = Client.overheadTextYs[var18] = var20;
 			String var30 = Client.overheadText[var18];
 			if (Client.chatEffects == 0) {
-				int var25 = 16776960;
+				int var25 = 0xffff00;
 				if (Client.overheadTextColors[var18] < 6) {
 					var25 = Client.field870[Client.overheadTextColors[var18]];
 				}
 
 				if (Client.overheadTextColors[var18] == 6) {
-					var25 = Client.viewportDrawCount % 20 < 10 ? 0xff0000 : 16776960;
+					var25 = Client.viewportDrawCount % 20 < 10 ? 0xff0000 : 0xffff00;
 				}
 
 				if (Client.overheadTextColors[var18] == 7) {
@@ -393,7 +393,7 @@ final class class4 implements class0 {
 					if (var26 < 50) {
 						var25 = var26 * 1280 + 0xff0000;
 					} else if (var26 < 100) {
-						var25 = 16776960 - (var26 - 50) * 327680;
+						var25 = 0xffff00 - (var26 - 50) * 327680;
 					} else if (var26 < 150) {
 						var25 = (var26 - 100) * 5 + 0xff00;
 					}
@@ -458,7 +458,7 @@ final class class4 implements class0 {
 					Rasterizer2D.Rasterizer2D_setClip(var0, var1, var0 + var2, var3 + var1);
 				}
 			} else {
-				WorldMapIcon_1.fontBold12.drawCentered(var30, var0 + Client.viewportTempX, Client.viewportTempY + var1, 16776960, 0);
+				WorldMapIcon_1.fontBold12.drawCentered(var30, var0 + Client.viewportTempX, Client.viewportTempY + var1, 0xffff00, 0);
 			}
 		}
 

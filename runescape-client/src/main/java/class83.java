@@ -1,4 +1,5 @@
 import java.math.BigInteger;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -26,27 +27,28 @@ public class class83 {
 		signature = "(IIILiy;II)V",
 		garbageValue = "1789870821"
 	)
-	static void method1996(int var0, int var1, int var2, ObjectDefinition var3, int var4) {
+	@Export("newObjectSound")
+	static void newObjectSound(int plane, int x, int y, ObjectDefinition object, int rotation) {
 		ObjectSound var5 = new ObjectSound();
-		var5.field1078 = var0;
-		var5.field1083 = var1 * 128;
-		var5.field1090 = var2 * 16384;
-		int var6 = var3.sizeX;
-		int var7 = var3.sizeY;
-		if (var4 == 1 || var4 == 3) {
-			var6 = var3.sizeY;
-			var7 = var3.sizeX;
+		var5.plane = plane;
+		var5.x = x * 128;
+		var5.y = y * 16384;
+		int var6 = object.sizeX;
+		int var7 = object.sizeY;
+		if (rotation == 1 || rotation == 3) {
+			var6 = object.sizeY;
+			var7 = object.sizeX;
 		}
 
-		var5.field1077 = (var6 + var1) * 16384;
-		var5.field1082 = (var7 + var2) * 16384;
-		var5.soundEffectId = var3.ambientSoundId;
-		var5.field1091 = var3.int4 * 128;
-		var5.field1086 = var3.int5;
-		var5.field1081 = var3.int6;
-		var5.soundEffectIds = var3.field3367;
-		if (var3.transforms != null) {
-			var5.obj = var3;
+		var5.field1077 = (var6 + x) * 16384;
+		var5.field1082 = (var7 + y) * 16384;
+		var5.soundEffectId = object.ambientSoundId;
+		var5.field1091 = object.int4 * 128;
+		var5.field1086 = object.int5;
+		var5.field1081 = object.int6;
+		var5.soundEffectIds = object.soundEffectIds;
+		if (object.transforms != null) {
+			var5.obj = object;
 			var5.set();
 		}
 
@@ -224,8 +226,8 @@ public class class83 {
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.CC_RESUME_PAUSEBUTTON) {
-			ScriptFrame.method1086(var3.id, var3.childIndex);
-			Client.field850 = var3;
+			ScriptFrame.resumePauseWidget(var3.id, var3.childIndex);
+			Client.meslayerContinueWidget = var3;
 			Strings.invalidateWidget(var3);
 			return 1;
 		}
@@ -246,7 +248,7 @@ public class class83 {
 		}
 		if (var0 == ScriptOpcodes.CC_SETFILLMODE) {
 			var8 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			FillMode var6 = (FillMode)SoundSystem.findEnumerated(PcmPlayer.method2405(), var8);
+			FillMode var6 = (FillMode)SoundSystem.findEnumerated(PcmPlayer.FillMode_values(), var8);
 			if (var6 != null) {
 				var3.fillMode = var6;
 				Strings.invalidateWidget(var3);

@@ -70,7 +70,7 @@ public final class WorldMapSprite {
 		} else if (Client.isSpellSelected && Client.menuOptionsCount < 2) {
 			var3 = Client.selectedSpellActionName + " " + Client.selectedSpellName + " " + "->";
 		} else {
-			var3 = WorldMapLabel.method417(var2);
+			var3 = WorldMapLabel.getMenuText(var2);
 		}
 
 		if (Client.menuOptionsCount > 2) {

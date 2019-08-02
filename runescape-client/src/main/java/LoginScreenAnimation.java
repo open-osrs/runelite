@@ -102,7 +102,7 @@ public class LoginScreenAnimation {
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1045[var1 + 128] = var1 * 4 + 16776960;
+			this.field1045[var1 + 128] = var1 * 4 + 0xffff00;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
@@ -417,7 +417,7 @@ public class LoginScreenAnimation {
 					int var13 = 256 - var10;
 					var10 = this.field1044[var10];
 					int var14 = MusicPatchPcmStream.rasterProvider.pixels[var8];
-					MusicPatchPcmStream.rasterProvider.pixels[var8++] = -16777216 | (var13 * (var14 & 0xff00) + var12 * (var10 & 0xff00) & 0xff0000) + ((var14 & 0xff00ff) * var13 + (var10 & 0xff00ff) * var12 & 0xff00ff00) >> 8;
+					MusicPatchPcmStream.rasterProvider.pixels[var8++] = 0xff000000 | (var13 * (var14 & 0xff00) + var12 * (var10 & 0xff00) & 0xff0000) + ((var14 & 0xff00ff) * var13 + (var10 & 0xff00ff) * var12 & 0xff00ff00) >> 8;
 				} else {
 					++var8;
 				}

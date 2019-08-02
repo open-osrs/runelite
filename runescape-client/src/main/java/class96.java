@@ -40,7 +40,7 @@ public class class96 {
 		int var17;
 		if (PacketBufferNode.isWorldMapEvent(var0.type)) {
 			WorldMapIcon_0.worldMapEvent = (WorldMapEvent)var2[0];
-			WorldMapElement var4 = class222.getWorldMapElement(WorldMapIcon_0.worldMapEvent.mapElement);
+			WorldMapElement var4 = class222.WorldMapElement_get(WorldMapIcon_0.worldMapEvent.mapElement);
 			var3 = ObjectSound.getWorldMapScript(var0.type, var4.objectId, var4.category);
 		} else {
 			var17 = (Integer)var2[0];
@@ -355,80 +355,81 @@ public class class96 {
 	)
 	@Export("updateGameState")
 	static void updateGameState(int var0) {
-		if (var0 != Client.gameState) {
-			if (Client.gameState == 0) {
-				WorldMapSprite.client.method885();
-			}
-
-			if (var0 == 20 || var0 == 40 || var0 == 45) {
-				Client.loginState = 0;
-				Client.field687 = 0;
-				Client.field688 = 0;
-				Client.timer.method4996(var0);
-				if (var0 != 20) {
-					GrandExchangeOffer.method99(false);
-				}
-			}
-
-			if (var0 != 20 && var0 != 40 && class269.field3563 != null) {
-				class269.field3563.close();
-				class269.field3563 = null;
-			}
-
-			if (Client.gameState == 25) {
-				Client.field709 = 0;
-				Client.field705 = 0;
-				Client.field706 = 1;
-				Client.field707 = 0;
-				Client.field896 = 1;
-			}
-
-			if (var0 != 5 && var0 != 10) {
-				if (var0 == 20) {
-					BufferedSource.method5892(WorldMapLabelSize.archive10, Client.archive8, true, Client.gameState == 11 ? 4 : 0);
-				} else if (var0 == 11) {
-					BufferedSource.method5892(WorldMapLabelSize.archive10, Client.archive8, false, 4);
-				} else if (Login.field1179) {
-					Login.titleboxSprite = null;
-					VarpDefinition.titlebuttonSprite = null;
-					Login.runesSprite = null;
-					GrandExchangeOfferWorldComparator.leftTitleSprite = null;
-					NPC.rightTitleSprite = null;
-					TileItem.logoSprite = null;
-					Login.title_muteSprite = null;
-					Login.options_buttons_0Sprite = null;
-					Decimator.options_buttons_2Sprite = null;
-					WorldMapID.worldSelectBackSprites = null;
-					SecureRandomCallable.worldSelectFlagSprites = null;
-					class225.worldSelectArrows = null;
-					FriendSystem.worldSelectStars = null;
-					class30.field264 = null;
-					Ignored.loginScreenRunesAnimation.method1720();
-					class40.method729(2);
-					if (NetCache.NetCache_socket != null) {
-						try {
-							Buffer var1 = new Buffer(4);
-							var1.writeByte(2);
-							var1.writeMedium(0);
-							NetCache.NetCache_socket.write(var1.array, 0, 4);
-						} catch (IOException var4) {
-							try {
-								NetCache.NetCache_socket.close();
-							} catch (Exception var3) {
-							}
-
-							++NetCache.NetCache_ioExceptions;
-							NetCache.NetCache_socket = null;
-						}
-					}
-
-					Login.field1179 = false;
-				}
-			} else {
-				BufferedSource.method5892(WorldMapLabelSize.archive10, Client.archive8, true, 0);
-			}
-
-			Client.gameState = var0;
+		if (var0 == Client.gameState) {
+			return;
 		}
+		if (Client.gameState == 0) {
+			WorldMapSprite.client.method885();
+		}
+
+		if (var0 == 20 || var0 == 40 || var0 == 45) {
+			Client.loginState = 0;
+			Client.field687 = 0;
+			Client.field688 = 0;
+			Client.timer.method4996(var0);
+			if (var0 != 20) {
+				GrandExchangeOffer.method99(false);
+			}
+		}
+
+		if (var0 != 20 && var0 != 40 && class269.field3563 != null) {
+			class269.field3563.close();
+			class269.field3563 = null;
+		}
+
+		if (Client.gameState == 25) {
+			Client.field709 = 0;
+			Client.field705 = 0;
+			Client.field706 = 1;
+			Client.field707 = 0;
+			Client.field896 = 1;
+		}
+
+		if (var0 != 5 && var0 != 10) {
+			if (var0 == 20) {
+				BufferedSource.method5892(WorldMapLabelSize.archive10, Client.archive8, true, Client.gameState == 11 ? 4 : 0);
+			} else if (var0 == 11) {
+				BufferedSource.method5892(WorldMapLabelSize.archive10, Client.archive8, false, 4);
+			} else if (Login.field1179) {
+				Login.titleboxSprite = null;
+				VarpDefinition.titlebuttonSprite = null;
+				Login.runesSprite = null;
+				GrandExchangeOfferWorldComparator.leftTitleSprite = null;
+				NPC.rightTitleSprite = null;
+				TileItem.logoSprite = null;
+				Login.title_muteSprite = null;
+				Login.options_buttons_0Sprite = null;
+				Decimator.options_buttons_2Sprite = null;
+				WorldMapID.worldSelectBackSprites = null;
+				SecureRandomCallable.worldSelectFlagSprites = null;
+				class225.worldSelectArrows = null;
+				FriendSystem.worldSelectStars = null;
+				class30.field264 = null;
+				Ignored.loginScreenRunesAnimation.method1720();
+				class40.method729(2);
+				if (NetCache.NetCache_socket != null) {
+					try {
+						Buffer var1 = new Buffer(4);
+						var1.writeByte(2);
+						var1.writeMedium(0);
+						NetCache.NetCache_socket.write(var1.array, 0, 4);
+					} catch (IOException var4) {
+						try {
+							NetCache.NetCache_socket.close();
+						} catch (Exception var3) {
+						}
+
+						++NetCache.NetCache_ioExceptions;
+						NetCache.NetCache_socket = null;
+					}
+				}
+
+				Login.field1179 = false;
+			}
+		} else {
+			BufferedSource.method5892(WorldMapLabelSize.archive10, Client.archive8, true, 0);
+		}
+
+		Client.gameState = var0;
 	}
 }

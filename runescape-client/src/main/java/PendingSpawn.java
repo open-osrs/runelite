@@ -118,9 +118,9 @@ public final class PendingSpawn extends Node {
 		GrandExchangeOfferAgeComparator.method146(var1);
 		Widget var4 = class80.getWidget(var0);
 		Strings.invalidateWidget(var4);
-		if (Client.field850 != null) {
-			Strings.invalidateWidget(Client.field850);
-			Client.field850 = null;
+		if (Client.meslayerContinueWidget != null) {
+			Strings.invalidateWidget(Client.meslayerContinueWidget);
+			Client.meslayerContinueWidget = null;
 		}
 
 		for (int var5 = 0; var5 < Client.menuOptionsCount; ++var5) {

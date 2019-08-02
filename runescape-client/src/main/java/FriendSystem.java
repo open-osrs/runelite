@@ -343,7 +343,7 @@ public class FriendSystem {
 		garbageValue = "-77884497"
 	)
 	public static int method1784(int var0) {
-		return class43.method770(ViewportMouse.ViewportMouse_entityTags[var0]);
+		return class43.getObjectIdFromTag(ViewportMouse.ViewportMouse_entityTags[var0]);
 	}
 
 	@ObfuscatedName("ag")

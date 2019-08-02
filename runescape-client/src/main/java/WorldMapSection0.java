@@ -397,7 +397,7 @@ public class WorldMapSection0 implements WorldMapSection {
 				var20 = "<col=00ff80>" + var1 / 1000000 + "M" + "</col>";
 			}
 
-			var19.draw(var20, 0, 9, 16776960, 1);
+			var19.draw(var20, 0, 9, 0xffff00, 1);
 		}
 
 		if (!var5) {

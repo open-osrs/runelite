@@ -237,7 +237,7 @@ public class class188 {
 
 				if (MouseHandler.MouseHandler_x >= var12 && MouseHandler.MouseHandler_y >= var11 && MouseHandler.MouseHandler_x < var27 + var12 && MouseHandler.MouseHandler_y < var11 + var28 && var18) {
 					Login.hoveredWorldIndex = var16;
-					WorldMapID.worldSelectBackSprites[var20].drawAtTransOverlay(var12, var11, 128, 0xffffff);
+					WorldMapID.worldSelectBackSprites[var20].drawTransOverlayAt(var12, var11, 128, 0xffffff);
 					var14 = true;
 				} else {
 					WorldMapID.worldSelectBackSprites[var20].drawAt(var12, var11);
@@ -301,6 +301,6 @@ public class class188 {
 		if (var1.length() > 9) {
 			return " " + ClientPreferences.colorStartTag(65408) + var1.substring(0, var1.length() - 8) + "M" + " " + " (" + var1 + ")" + "</col>";
 		}
-		return var1.length() > 6 ? " " + ClientPreferences.colorStartTag(0xffffff) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + ClientPreferences.colorStartTag(16776960) + var1 + "</col>";
+		return var1.length() > 6 ? " " + ClientPreferences.colorStartTag(0xffffff) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + ClientPreferences.colorStartTag(0xffff00) + var1 + "</col>";
 	}
 }

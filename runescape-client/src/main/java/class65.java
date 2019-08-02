@@ -191,9 +191,9 @@ public class class65 extends RouteStrategy {
 		garbageValue = "-1548212436"
 	)
 	@Export("addSceneMenuOptions")
-	static final void addSceneMenuOptions(int var0, int var1, int var2, int var3) {
+	static final void addSceneMenuOptions(int mouseX, int mouseY, int xOffset, int yOffset) {
 		if (Client.isItemSelected == 0 && !Client.isSpellSelected) {
-			class188.insertMenuItemNoShift("Walk here", "", 23, 0, var0 - var2, var1 - var3);
+			class188.insertMenuItemNoShift("Walk here", "", 23, 0, mouseX - xOffset, mouseY - yOffset);
 		}
 
 		long var4 = -1L;
@@ -400,24 +400,25 @@ public class class65 extends RouteStrategy {
 	static void method1176() {
 		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) {
 			int var1 = var0.group;
-			if (class162.loadInterface(var1)) {
-				boolean var2 = true;
-				Widget[] var3 = Widget.Widget_interfaceComponents[var1];
+			if (!class162.loadInterface(var1)) {
+				continue;
+			}
+			boolean var2 = true;
+			Widget[] var3 = Widget.Widget_interfaceComponents[var1];
 
-				int var4;
-				for (var4 = 0; var4 < var3.length; ++var4) {
-					if (var3[var4] != null) {
-						var2 = var3[var4].isIf3;
-						break;
-					}
+			int var4;
+			for (var4 = 0; var4 < var3.length; ++var4) {
+				if (var3[var4] != null) {
+					var2 = var3[var4].isIf3;
+					break;
 				}
+			}
 
-				if (!var2) {
-					var4 = (int)var0.key;
-					Widget var5 = class80.getWidget(var4);
-					if (var5 != null) {
-						Strings.invalidateWidget(var5);
-					}
+			if (!var2) {
+				var4 = (int)var0.key;
+				Widget var5 = class80.getWidget(var4);
+				if (var5 != null) {
+					Strings.invalidateWidget(var5);
 				}
 			}
 		}

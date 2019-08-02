@@ -130,8 +130,8 @@ public class UrlRequest {
 				var9 = (var2 - var8) / 2;
 				if (var4) {
 					Rasterizer2D.Rasterizer2D_resetClip();
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var9, var3, -16777216);
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0 + var2 - var9, var1, var9, var3, -16777216);
+					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var9, var3, 0xff000000);
+					Rasterizer2D.Rasterizer2D_fillRectangle(var0 + var2 - var9, var1, var9, var3, 0xff000000);
 				}
 
 				var0 += var9;
@@ -146,8 +146,8 @@ public class UrlRequest {
 				var9 = (var3 - var8) / 2;
 				if (var4) {
 					Rasterizer2D.Rasterizer2D_resetClip();
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var9, -16777216);
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var3 + var1 - var9, var2, var9, -16777216);
+					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var9, 0xff000000);
+					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var3 + var1 - var9, var2, var9, 0xff000000);
 				}
 
 				var1 += var9;

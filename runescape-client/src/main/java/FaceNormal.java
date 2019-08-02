@@ -188,7 +188,7 @@ public class FaceNormal {
 
 		Client.rootInterface = -1;
 		Client.interfaceParents = new NodeHashTable(8);
-		Client.field850 = null;
+		Client.meslayerContinueWidget = null;
 		Strings.method4121();
 		Client.playerAppearance.update((int[])null, new int[]{0, 0, 0, 0, 0}, false, -1);
 

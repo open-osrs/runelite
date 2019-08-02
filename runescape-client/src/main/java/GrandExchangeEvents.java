@@ -188,10 +188,10 @@ public class GrandExchangeEvents {
 			}
 
 			for (var11 = 0; var11 < 104; ++var11) {
-				ServerBuild.field3103[var11] = 0;
-				Tiles.field508[var11] = 0;
-				Tiles.field507[var11] = 0;
-				DynamicObject.field1301[var11] = 0;
+				ServerBuild.Tiles_hue[var11] = 0;
+				Tiles.Tiles_saturation[var11] = 0;
+				Tiles.Tiles_lightness[var11] = 0;
+				DynamicObject.Tiles_hueMultiplier[var11] = 0;
 				Fonts.field3689[var11] = 0;
 			}
 
@@ -202,14 +202,14 @@ public class GrandExchangeEvents {
 					if (var13 >= 0 && var13 < 104) {
 						var14 = Tiles.field504[var2][var13][var12] & 255;
 						if (var14 > 0) {
-							FloorUnderlayDefinition var45 = ItemContainer.method1117(var14 - 1);
-							var10000 = ServerBuild.field3103;
+							FloorUnderlayDefinition var45 = ItemContainer.FloorUnderlayDefinition_get(var14 - 1);
+							var10000 = ServerBuild.Tiles_hue;
 							var10000[var12] += var45.hue;
-							var10000 = Tiles.field508;
+							var10000 = Tiles.Tiles_saturation;
 							var10000[var12] += var45.saturation;
-							var10000 = Tiles.field507;
+							var10000 = Tiles.Tiles_lightness;
 							var10000[var12] += var45.lightness;
-							var10000 = DynamicObject.field1301;
+							var10000 = DynamicObject.Tiles_hueMultiplier;
 							var10000[var12] += var45.hueMultiplier;
 							var10002 = Fonts.field3689[var12]++;
 						}
@@ -236,13 +236,13 @@ public class GrandExchangeEvents {
 								var47 = var46;
 							}
 
-							var10000 = ServerBuild.field3103;
+							var10000 = ServerBuild.Tiles_hue;
 							var10000[var12] -= var47.hue;
-							var10000 = Tiles.field508;
+							var10000 = Tiles.Tiles_saturation;
 							var10000[var12] -= var47.saturation;
-							var10000 = Tiles.field507;
+							var10000 = Tiles.Tiles_lightness;
 							var10000[var12] -= var47.lightness;
-							var10000 = DynamicObject.field1301;
+							var10000 = DynamicObject.Tiles_hueMultiplier;
 							var10000[var12] -= var47.hueMultiplier;
 							var10002 = Fonts.field3689[var12]--;
 						}
@@ -259,19 +259,19 @@ public class GrandExchangeEvents {
 					for (var17 = -5; var17 < 109; ++var17) {
 						var18 = var17 + 5;
 						if (var18 >= 0 && var18 < 104) {
-							var12 += ServerBuild.field3103[var18];
-							var13 += Tiles.field508[var18];
-							var14 += Tiles.field507[var18];
-							var15 += DynamicObject.field1301[var18];
+							var12 += ServerBuild.Tiles_hue[var18];
+							var13 += Tiles.Tiles_saturation[var18];
+							var14 += Tiles.Tiles_lightness[var18];
+							var15 += DynamicObject.Tiles_hueMultiplier[var18];
 							var16 += Fonts.field3689[var18];
 						}
 
 						var19 = var17 - 5;
 						if (var19 >= 0 && var19 < 104) {
-							var12 -= ServerBuild.field3103[var19];
-							var13 -= Tiles.field508[var19];
-							var14 -= Tiles.field507[var19];
-							var15 -= DynamicObject.field1301[var19];
+							var12 -= ServerBuild.Tiles_hue[var19];
+							var13 -= Tiles.Tiles_saturation[var19];
+							var14 -= Tiles.Tiles_lightness[var19];
+							var15 -= DynamicObject.Tiles_hueMultiplier[var19];
 							var16 -= Fonts.field3689[var19];
 						}
 
