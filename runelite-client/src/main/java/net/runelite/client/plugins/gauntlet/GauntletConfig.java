@@ -51,7 +51,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 1,
 		keyName = "highlightResources",
-		name = "Highlight Resources with an outline",
+		name = "Highlight Resources (Outline)",
 		description = "Highlights all the resources in each room with an outline.",
 		parent = "resources"
 	)
@@ -63,7 +63,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 2,
 		keyName = "highlightResourcesColor",
-		name = "Highlight Resources Color",
+		name = "Highlight Color",
 		description = "Highlights all the resources in each room with this color.",
 		parent = "resources",
 		hidden = true,
@@ -77,7 +77,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 3,
 		keyName = "highlightResourcesIcons",
-		name = "Highlight Resources with an Icon",
+		name = "Highlight Resources (Icon)",
 		description = "Highlights all the icons in each room with an icon.",
 		parent = "resources",
 		hidden = true,
@@ -191,7 +191,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 12,
 		keyName = "uniquePrayerVisual",
-		name = "Prayer attack Overlay",
+		name = "Prayer attack (Icon)",
 		description = "Prayer attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
@@ -203,7 +203,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 13,
 		keyName = "uniqueAttackVisual",
-		name = "Magic & Range attack Overlay",
+		name = "Magic & Range attack (Icon)",
 		description = "Magic and Range attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
@@ -215,7 +215,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 14,
 		keyName = "attackVisualOutline",
-		name = "Outline the Hunllef's attacks",
+		name = "Hunllef's attacks (Outline)",
 		description = "Outline the Hunllef's attacks.",
 		parent = "boss"
 	)
