@@ -276,7 +276,7 @@ public class GauntletOverlay extends Overlay
 				// Handles the counter for the boss.
 
 
-					GauntletConfig.counterdisplay counterdisplay = config.counterBossAttacks();
+					GauntletConfig.counterdisplay counterdisplay = config.countAttacks();
 
 					if (counterdisplay == NONE)
 					{
@@ -302,7 +302,7 @@ public class GauntletOverlay extends Overlay
 
 
 				// Handles the counter for the player.
-				if (plugin.isCountPlayerAttacks())
+				if (counterdisplay == ONBOSS || counterdisplay == BOTH)
 				{
 					if (textOverlay.length() > 0)
 					{

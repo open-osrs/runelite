@@ -141,8 +141,7 @@ public class GauntletPlugin extends Plugin
 	private final Map<String, Integer> items = new HashMap<>();
 	private Set<Tornado> tornadoes = new HashSet<>();
 	private boolean completeStartup = false;
-	private GauntletConfig.counterdisplay counterBossAttacks;
-	private boolean countPlayerAttacks;
+	private GauntletConfig.counterdisplay countAttacks;
 	private boolean displayTimerChat;
 	private boolean highlightResources;
 	private boolean highlightResourcesIcons;
@@ -458,8 +457,7 @@ public class GauntletPlugin extends Plugin
 		this.highlightWidget = config.highlightWidget();
 		this.resourceIconSize = config.resourceIconSize();
 		this.projectileIconSize = config.projectileIconSize();
-		this.counterBossAttacks = config.counterBossAttacks();
-		this.countPlayerAttacks = config.countPlayerAttacks();
+		this.countAttacks = config.countAttacks();
 		this.uniquePrayerAudio = config.uniquePrayerAudio();
 		this.uniquePrayerVisual = config.uniquePrayerVisual();
 		this.uniqueAttackVisual = config.uniqueAttackVisual();

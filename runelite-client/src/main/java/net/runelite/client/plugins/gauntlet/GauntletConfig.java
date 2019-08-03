@@ -127,30 +127,18 @@ public interface GauntletConfig extends Config
 
 	@ConfigItem(
 		position = 6,
-		keyName = "counterBossAttacks",
-		name = "Count Hunllef Attacks",
-		description = "Count the attacks until the Hunllef switches their attack style.",
+		keyName = "countAttacks",
+		name = "Count Attacks",
+		description = "Count the attacks until the Hunllef switches their attack style and prayer.",
 		parent = "boss"
 	)
-	default counterdisplay counterBossAttacks()
+	default counterdisplay countAttacks()
 	{
 		return counterdisplay.NONE;
 	}
 
 	@ConfigItem(
 		position = 7,
-		keyName = "countPlayerAttacks",
-		name = "Count Player Attacks",
-		description = "Count the player attacks until the Hunllef switches their prayer.",
-		parent = "boss"
-	)
-	default boolean countPlayerAttacks()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 8,
 		keyName = "highlightWidget",
 		name = "Highlight Prayer (prayer tab)",
 		description = "Highlights the correct prayer to use in your prayer book.",
@@ -161,7 +149,7 @@ public interface GauntletConfig extends Config
 		return false;
 	}
 	@ConfigItem(
-		position = 9,
+		position = 8,
 		keyName = "highlightPrayerInfobox",
 		name = "Highlight Prayer (InfoBox)",
 		description = "Highlights the correct prayer to use in your prayer book.",
@@ -173,7 +161,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 10,
+		position = 9,
 		keyName = "flashOnWrongAttack",
 		name = "Flash screen on Wrong Attack",
 		description = "This will flash your screen if you attack with the wrong stlye.",
@@ -185,7 +173,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 11,
+		position = 10,
 		keyName = "uniquePrayerAudio",
 		name = "Prayer Audio Warning",
 		description = "Plays a unique sound whenever the boss is about to shut down your prayer.",
@@ -197,7 +185,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 12,
+		position = 11,
 		keyName = "uniquePrayerVisual",
 		name = "Prayer attack (Icon)",
 		description = "Prayer attacks will have a unique overlay visual.",
@@ -209,7 +197,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 13,
+		position = 12,
 		keyName = "uniqueAttackVisual",
 		name = "Magic & Range attack (Icon)",
 		description = "Magic and Range attacks will have a unique overlay visual.",
@@ -221,7 +209,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 14,
+		position = 13,
 		keyName = "attackVisualOutline",
 		name = "Hunllef's attacks (Outline)",
 		description = "Outline the Hunllef's attacks.",
@@ -233,7 +221,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 15,
+		position = 14,
 		keyName = "overlayBoss",
 		name = "outline the Hunllef (Color)",
 		description = "Overlay the Hunllef with an color denoting it's current attack style.",
@@ -246,7 +234,7 @@ public interface GauntletConfig extends Config
 
 
 	@ConfigItem(
-		position = 16,
+		position = 15,
 		keyName = "overlayBossPrayer",
 		name = "Overlay the Hunllef",
 		description = "Overlay the Hunllef with an icon denoting it's current attack style.",
@@ -258,7 +246,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 17,
+		position = 16,
 		keyName = "overlayTornadoes",
 		name = "Show Tornado Decay",
 		description = "Display the amount of ticks left until the tornadoes decay.",
@@ -274,7 +262,7 @@ public interface GauntletConfig extends Config
 		max = 50
 	)
 	@ConfigItem(
-		position = 18,
+		position = 17,
 		keyName = "projectileIconSize",
 		name = "Hunllef Projectile Icon Size",
 		description = " change the size of Projectile icons.",
@@ -286,7 +274,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 19,
+		position = 18,
 		keyName = "timer",
 		name = "Timer",
 		description = ""
@@ -297,7 +285,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 20,
+		position = 19,
 		keyName = "displayTimerWidget",
 		name = "Show Gauntlet timer overlay",
 		description = "Display a timer widget that tracks your gauntlet progress.",
@@ -309,7 +297,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 21,
+		position = 20,
 		keyName = "displayTimerChat",
 		name = "Show Gauntlet timer chat message",
 		description = "Display a chat message that tracks your gauntlet progress.",
