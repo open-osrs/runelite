@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2019, kThisIsCvpv <https://github.com/kThisIsCvpv>
  * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -117,6 +118,9 @@ public class GauntletPlugin extends Plugin
 	private GauntletOverlay overlay;
 	@Inject
 	@Getter(AccessLevel.NONE)
+	private GauntletInfoBoxOverlay infoboxoverlay;
+	@Inject
+	@Getter(AccessLevel.NONE)
 	private GauntletConfig config;
 	@Inject
 	@Getter(AccessLevel.NONE)
@@ -152,6 +156,8 @@ public class GauntletPlugin extends Plugin
 	private boolean uniqueAttackVisual;
 	private boolean uniquePrayerAudio;
 	private boolean uniquePrayerVisual;
+	private boolean attackVisualOutline;
+	private boolean highlightPrayerInfobox;
 	private int resourceIconSize;
 	private int projectileIconSize;
 
@@ -173,6 +179,7 @@ public class GauntletPlugin extends Plugin
 			overlayManager.add(timer);
 		}
 		overlayManager.add(overlay);
+		overlayManager.add(infoboxoverlay);
 		if (client.getGameState() != GameState.STARTING && client.getGameState() != GameState.UNKNOWN)
 		{
 			completeStartup = false;
@@ -198,6 +205,7 @@ public class GauntletPlugin extends Plugin
 			timerVisible = false;
 		}
 		overlayManager.remove(overlay);
+		overlayManager.remove(infoboxoverlay);
 		resources.clear();
 		projectiles.clear();
 		tornadoes.clear();
@@ -447,5 +455,7 @@ public class GauntletPlugin extends Plugin
 		this.overlayTornadoes = config.overlayTornadoes();
 		this.displayTimerWidget = config.displayTimerWidget();
 		this.displayTimerChat = config.displayTimerChat();
+		this.attackVisualOutline = config.attackVisualOutline();
+		this.highlightPrayerInfobox = config.highlightPrayerInfobox();
 	}
 }

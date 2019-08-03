@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2019, kThisIsCvpv <https://github.com/kThisIsCvpv>
  * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -115,10 +116,13 @@ public class GauntletOverlay extends Overlay
 				}
 				else
 				{
-					graphics.setColor(color);
-					graphics.draw(polygon);
-					graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 50));
-					graphics.fill(polygon);
+					if (plugin.isAttackVisualOutline())
+					{
+						graphics.setColor(color);
+						graphics.draw(polygon);
+						graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 50));
+						graphics.fill(polygon);
+					}
 					if (plugin.isUniqueAttackVisual())
 					{
 						Rectangle bounds = polygon.getBounds();
