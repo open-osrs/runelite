@@ -433,7 +433,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
-	boolean notfightingBoss()
+	private boolean notfightingBoss()
 	{
 		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 0;
 	}
