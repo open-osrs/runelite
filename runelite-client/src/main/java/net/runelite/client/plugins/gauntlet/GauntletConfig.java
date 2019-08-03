@@ -57,7 +57,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightResources()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -85,7 +85,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightResourcesIcons()
 	{
-		return true;
+		return false;
 	}
 
 	@Range(
@@ -126,7 +126,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean countBossAttacks()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -138,7 +138,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean countPlayerAttacks()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -150,7 +150,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightWidget()
 	{
-		return true;
+		return false;
 	}
 	@ConfigItem(
 		position = 9,
@@ -161,7 +161,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightPrayerInfobox()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -173,7 +173,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean flashOnWrongAttack()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -185,7 +185,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean uniquePrayerAudio()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -197,7 +197,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean uniquePrayerVisual()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -233,7 +233,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean overlayBoss()
 	{
-		return true;
+		return false;
 	}
 
 
@@ -258,7 +258,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean overlayTornadoes()
 	{
-		return true;
+		return false;
 	}
 
 	@Range(
@@ -297,7 +297,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean displayTimerWidget()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -309,6 +309,6 @@ public interface GauntletConfig extends Config
 	)
 	default boolean displayTimerChat()
 	{
-		return true;
+		return false;
 	}
 }
