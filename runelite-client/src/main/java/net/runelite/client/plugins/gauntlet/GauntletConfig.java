@@ -37,6 +37,14 @@ import net.runelite.client.config.Stub;
 
 public interface GauntletConfig extends Config
 {
+	enum counterdisplay
+	{
+		ONBOSS,
+		INFOBOX,
+		BOTH,
+		NONE
+	}
+
 	@ConfigItem(
 		position = 0,
 		keyName = "resources",
@@ -51,19 +59,19 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 1,
 		keyName = "highlightResources",
-		name = "Highlight Resources with an outline",
+		name = "Highlight Resources (Outline)",
 		description = "Highlights all the resources in each room with an outline.",
 		parent = "resources"
 	)
 	default boolean highlightResources()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
 		position = 2,
 		keyName = "highlightResourcesColor",
-		name = "Highlight Resources Color",
+		name = "Highlight Color",
 		description = "Highlights all the resources in each room with this color.",
 		parent = "resources",
 		hidden = true,
@@ -77,7 +85,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 3,
 		keyName = "highlightResourcesIcons",
-		name = "Highlight Resources with an Icon",
+		name = "Highlight Resources (Icon)",
 		description = "Highlights all the icons in each room with an icon.",
 		parent = "resources",
 		hidden = true,
@@ -85,7 +93,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightResourcesIcons()
 	{
-		return true;
+		return false;
 	}
 
 	@Range(
@@ -119,14 +127,14 @@ public interface GauntletConfig extends Config
 
 	@ConfigItem(
 		position = 6,
-		keyName = "countBossAttacks",
+		keyName = "counterBossAttacks",
 		name = "Count Hunllef Attacks",
 		description = "Count the attacks until the Hunllef switches their attack style.",
 		parent = "boss"
 	)
-	default boolean countBossAttacks()
+	default counterdisplay counterBossAttacks()
 	{
-		return true;
+		return counterdisplay.NONE;
 	}
 
 	@ConfigItem(
@@ -138,7 +146,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean countPlayerAttacks()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -150,7 +158,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightWidget()
 	{
-		return true;
+		return false;
 	}
 	@ConfigItem(
 		position = 9,
@@ -161,7 +169,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightPrayerInfobox()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -173,7 +181,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean flashOnWrongAttack()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -185,25 +193,25 @@ public interface GauntletConfig extends Config
 	)
 	default boolean uniquePrayerAudio()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
 		position = 12,
 		keyName = "uniquePrayerVisual",
-		name = "Prayer attack Overlay",
+		name = "Prayer attack (Icon)",
 		description = "Prayer attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
 	default boolean uniquePrayerVisual()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
 		position = 13,
 		keyName = "uniqueAttackVisual",
-		name = "Magic & Range attack Overlay",
+		name = "Magic & Range attack (Icon)",
 		description = "Magic and Range attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
@@ -215,7 +223,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 14,
 		keyName = "attackVisualOutline",
-		name = "Outline the Hunllef's attacks",
+		name = "Hunllef's attacks (Outline)",
 		description = "Outline the Hunllef's attacks.",
 		parent = "boss"
 	)
@@ -233,7 +241,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean overlayBoss()
 	{
-		return true;
+		return false;
 	}
 
 
@@ -258,7 +266,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean overlayTornadoes()
 	{
-		return true;
+		return false;
 	}
 
 	@Range(
@@ -297,7 +305,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean displayTimerWidget()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -309,6 +317,6 @@ public interface GauntletConfig extends Config
 	)
 	default boolean displayTimerChat()
 	{
-		return true;
+		return false;
 	}
 }

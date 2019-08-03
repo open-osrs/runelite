@@ -131,6 +131,9 @@ public class GauntletPlugin extends Plugin
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private SkillIconManager skillIconManager;
+	@Inject
+	@Getter(AccessLevel.NONE)
+	private GauntletCounter GauntletCounter;
 	@Setter(AccessLevel.PACKAGE)
 	private Hunllef hunllef;
 	private final Set<Resources> resources = new HashSet<>();
@@ -138,7 +141,7 @@ public class GauntletPlugin extends Plugin
 	private final Map<String, Integer> items = new HashMap<>();
 	private Set<Tornado> tornadoes = new HashSet<>();
 	private boolean completeStartup = false;
-	private boolean countBossAttacks;
+	private GauntletConfig.counterdisplay counterBossAttacks;
 	private boolean countPlayerAttacks;
 	private boolean displayTimerChat;
 	private boolean highlightResources;
@@ -206,6 +209,7 @@ public class GauntletPlugin extends Plugin
 		}
 		overlayManager.remove(overlay);
 		overlayManager.remove(infoboxoverlay);
+		overlayManager.remove(GauntletCounter);
 		resources.clear();
 		projectiles.clear();
 		tornadoes.clear();
@@ -424,6 +428,15 @@ public class GauntletPlugin extends Plugin
 		{
 			timer.checkStates(true);
 		}
+		if (notfightingBoss())
+		{
+			overlayManager.remove(GauntletCounter);
+		}
+	}
+
+	boolean notfightingBoss()
+	{
+		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 0;
 	}
 
 	boolean fightingBoss()
@@ -445,7 +458,7 @@ public class GauntletPlugin extends Plugin
 		this.highlightWidget = config.highlightWidget();
 		this.resourceIconSize = config.resourceIconSize();
 		this.projectileIconSize = config.projectileIconSize();
-		this.countBossAttacks = config.countBossAttacks();
+		this.counterBossAttacks = config.counterBossAttacks();
 		this.countPlayerAttacks = config.countPlayerAttacks();
 		this.uniquePrayerAudio = config.uniquePrayerAudio();
 		this.uniquePrayerVisual = config.uniquePrayerVisual();
