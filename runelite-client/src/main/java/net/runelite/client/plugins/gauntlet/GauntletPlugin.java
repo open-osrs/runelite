@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2019, kThisIsCvpv <https://github.com/kThisIsCvpv>
  * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -117,6 +118,9 @@ public class GauntletPlugin extends Plugin
 	private GauntletOverlay overlay;
 	@Inject
 	@Getter(AccessLevel.NONE)
+	private GauntletInfoBoxOverlay infoboxoverlay;
+	@Inject
+	@Getter(AccessLevel.NONE)
 	private GauntletConfig config;
 	@Inject
 	@Getter(AccessLevel.NONE)
@@ -127,6 +131,9 @@ public class GauntletPlugin extends Plugin
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private SkillIconManager skillIconManager;
+	@Inject
+	@Getter(AccessLevel.NONE)
+	private GauntletCounter GauntletCounter;
 	@Setter(AccessLevel.PACKAGE)
 	private Hunllef hunllef;
 	private final Set<Resources> resources = new HashSet<>();
@@ -134,7 +141,7 @@ public class GauntletPlugin extends Plugin
 	private final Map<String, Integer> items = new HashMap<>();
 	private Set<Tornado> tornadoes = new HashSet<>();
 	private boolean completeStartup = false;
-	private boolean countBossAttacks;
+	private GauntletConfig.counterdisplay counterBossAttacks;
 	private boolean countPlayerAttacks;
 	private boolean displayTimerChat;
 	private boolean highlightResources;
@@ -152,6 +159,8 @@ public class GauntletPlugin extends Plugin
 	private boolean uniqueAttackVisual;
 	private boolean uniquePrayerAudio;
 	private boolean uniquePrayerVisual;
+	private boolean attackVisualOutline;
+	private boolean highlightPrayerInfobox;
 	private int resourceIconSize;
 	private int projectileIconSize;
 
@@ -173,6 +182,7 @@ public class GauntletPlugin extends Plugin
 			overlayManager.add(timer);
 		}
 		overlayManager.add(overlay);
+		overlayManager.add(infoboxoverlay);
 		if (client.getGameState() != GameState.STARTING && client.getGameState() != GameState.UNKNOWN)
 		{
 			completeStartup = false;
@@ -198,6 +208,8 @@ public class GauntletPlugin extends Plugin
 			timerVisible = false;
 		}
 		overlayManager.remove(overlay);
+		overlayManager.remove(infoboxoverlay);
+		overlayManager.remove(GauntletCounter);
 		resources.clear();
 		projectiles.clear();
 		tornadoes.clear();
@@ -416,6 +428,15 @@ public class GauntletPlugin extends Plugin
 		{
 			timer.checkStates(true);
 		}
+		if (notfightingBoss())
+		{
+			overlayManager.remove(GauntletCounter);
+		}
+	}
+
+	boolean notfightingBoss()
+	{
+		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 0;
 	}
 
 	boolean fightingBoss()
@@ -437,7 +458,7 @@ public class GauntletPlugin extends Plugin
 		this.highlightWidget = config.highlightWidget();
 		this.resourceIconSize = config.resourceIconSize();
 		this.projectileIconSize = config.projectileIconSize();
-		this.countBossAttacks = config.countBossAttacks();
+		this.counterBossAttacks = config.counterBossAttacks();
 		this.countPlayerAttacks = config.countPlayerAttacks();
 		this.uniquePrayerAudio = config.uniquePrayerAudio();
 		this.uniquePrayerVisual = config.uniquePrayerVisual();
@@ -447,5 +468,7 @@ public class GauntletPlugin extends Plugin
 		this.overlayTornadoes = config.overlayTornadoes();
 		this.displayTimerWidget = config.displayTimerWidget();
 		this.displayTimerChat = config.displayTimerChat();
+		this.attackVisualOutline = config.attackVisualOutline();
+		this.highlightPrayerInfobox = config.highlightPrayerInfobox();
 	}
 }

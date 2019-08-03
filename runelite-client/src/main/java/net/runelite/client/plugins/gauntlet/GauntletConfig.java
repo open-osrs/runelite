@@ -1,9 +1,27 @@
 /*
- * THIS SOFTWARE WRITTEN BY A KEYBOARD-WIELDING MONKEY BOI
- * No rights reserved. Use, redistribute, and modify at your own discretion,
- * and in accordance with Yagex and RuneLite guidelines.
- * However, aforementioned monkey would prefer if you don't sell this plugin for profit.
- * Good luck on your raids!
+ * Copyright (c) 2019, kThisIsCvpv <https://github.com/kThisIsCvpv>
+ * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package net.runelite.client.plugins.gauntlet;
@@ -19,6 +37,14 @@ import net.runelite.client.config.Stub;
 
 public interface GauntletConfig extends Config
 {
+	enum counterdisplay
+	{
+		ONBOSS,
+		INFOBOX,
+		BOTH,
+		NONE
+	}
+
 	@ConfigItem(
 		position = 0,
 		keyName = "resources",
@@ -33,13 +59,13 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 1,
 		keyName = "highlightResources",
-		name = "Highlight Resources",
-		description = "Highlights all the resources in each room with a color.",
+		name = "Highlight Resources (Outline)",
+		description = "Highlights all the resources in each room with an outline.",
 		parent = "resources"
 	)
 	default boolean highlightResources()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -59,7 +85,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 3,
 		keyName = "highlightResourcesIcons",
-		name = "Highlight Resources with an Icon",
+		name = "Highlight Resources (Icon)",
 		description = "Highlights all the icons in each room with an icon.",
 		parent = "resources",
 		hidden = true,
@@ -67,7 +93,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean highlightResourcesIcons()
 	{
-		return true;
+		return false;
 	}
 
 	@Range(
@@ -101,80 +127,91 @@ public interface GauntletConfig extends Config
 
 	@ConfigItem(
 		position = 6,
-		keyName = "countBossAttacks",
-		name = "Count Boss Attacks",
-		description = "Count the attacks until the boss switches their style.",
+		keyName = "counterBossAttacks",
+		name = "Count Hunllef Attacks",
+		description = "Count the attacks until the Hunllef switches their attack style.",
 		parent = "boss"
 	)
-	default boolean countBossAttacks()
+	default counterdisplay counterBossAttacks()
 	{
-		return true;
+		return counterdisplay.NONE;
 	}
 
 	@ConfigItem(
 		position = 7,
 		keyName = "countPlayerAttacks",
 		name = "Count Player Attacks",
-		description = "Count the player attacks until the boss switches their prayer.",
+		description = "Count the player attacks until the Hunllef switches their prayer.",
 		parent = "boss"
 	)
 	default boolean countPlayerAttacks()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
 		position = 8,
 		keyName = "highlightWidget",
-		name = "Highlight Correct Prayer",
-		description = "Highlights correct prayer in your prayer book.",
+		name = "Highlight Prayer (prayer tab)",
+		description = "Highlights the correct prayer to use in your prayer book.",
 		parent = "boss"
 	)
 	default boolean highlightWidget()
 	{
-		return true;
+		return false;
+	}
+	@ConfigItem(
+		position = 9,
+		keyName = "highlightPrayerInfobox",
+		name = "Highlight Prayer (InfoBox)",
+		description = "Highlights the correct prayer to use in your prayer book.",
+		parent = "boss"
+	)
+	default boolean highlightPrayerInfobox()
+	{
+		return false;
 	}
 
 	@ConfigItem(
-		position = 8,
+		position = 10,
 		keyName = "flashOnWrongAttack",
-		name = "Flash on Wrong Attack",
+		name = "Flash screen on Wrong Attack",
 		description = "This will flash your screen if you attack with the wrong stlye.",
 		parent = "boss"
 	)
 	default boolean flashOnWrongAttack()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
-		position = 9,
+		position = 11,
 		keyName = "uniquePrayerAudio",
-		name = "Unique Prayer Audio",
+		name = "Prayer Audio Warning",
 		description = "Plays a unique sound whenever the boss is about to shut down your prayer.",
 		parent = "boss"
 	)
 	default boolean uniquePrayerAudio()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
-		position = 10,
+		position = 12,
 		keyName = "uniquePrayerVisual",
-		name = "Unique Prayer Visual",
+		name = "Prayer attack (Icon)",
 		description = "Prayer attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
 	default boolean uniquePrayerVisual()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
-		position = 11,
+		position = 13,
 		keyName = "uniqueAttackVisual",
-		name = "Unique Magic & Range Visuals",
+		name = "Magic & Range attack (Icon)",
 		description = "Magic and Range attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
@@ -184,22 +221,35 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 12,
+		position = 14,
+		keyName = "attackVisualOutline",
+		name = "Hunllef's attacks (Outline)",
+		description = "Outline the Hunllef's attacks.",
+		parent = "boss"
+	)
+	default boolean attackVisualOutline()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 15,
 		keyName = "overlayBoss",
-		name = "Overlay the Boss (Color)",
-		description = "Overlay the boss with an color denoting it's current attack style.",
+		name = "outline the Hunllef (Color)",
+		description = "Overlay the Hunllef with an color denoting it's current attack style.",
 		parent = "boss"
 	)
 	default boolean overlayBoss()
 	{
-		return true;
+		return false;
 	}
 
+
 	@ConfigItem(
-		position = 13,
+		position = 16,
 		keyName = "overlayBossPrayer",
-		name = "Overlay the Boss (Icon)",
-		description = "Overlay the boss with an icon denoting it's current attack style.",
+		name = "Overlay the Hunllef",
+		description = "Overlay the Hunllef with an icon denoting it's current attack style.",
 		parent = "boss"
 	)
 	default boolean overlayBossPrayer()
@@ -208,7 +258,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 14,
+		position = 17,
 		keyName = "overlayTornadoes",
 		name = "Show Tornado Decay",
 		description = "Display the amount of ticks left until the tornadoes decay.",
@@ -216,7 +266,7 @@ public interface GauntletConfig extends Config
 	)
 	default boolean overlayTornadoes()
 	{
-		return true;
+		return false;
 	}
 
 	@Range(
@@ -224,9 +274,9 @@ public interface GauntletConfig extends Config
 		max = 50
 	)
 	@ConfigItem(
-		position = 15,
+		position = 18,
 		keyName = "projectileIconSize",
-		name = "Boss Projectile Icon Size",
+		name = "Hunllef Projectile Icon Size",
 		description = " change the size of Projectile icons.",
 		parent = "boss"
 	)
@@ -236,7 +286,7 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 16,
+		position = 19,
 		keyName = "timer",
 		name = "Timer",
 		description = ""
@@ -247,26 +297,26 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 17,
+		position = 20,
 		keyName = "displayTimerWidget",
-		name = "Show Custom Timer (Widget)",
+		name = "Show Gauntlet timer overlay",
 		description = "Display a timer widget that tracks your gauntlet progress.",
 		parent = "timer"
 	)
 	default boolean displayTimerWidget()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
-		position = 18,
+		position = 21,
 		keyName = "displayTimerChat",
-		name = "Show Custom Timer (Chat)",
+		name = "Show Gauntlet timer chat message",
 		description = "Display a chat message that tracks your gauntlet progress.",
 		parent = "timer"
 	)
 	default boolean displayTimerChat()
 	{
-		return true;
+		return false;
 	}
 }

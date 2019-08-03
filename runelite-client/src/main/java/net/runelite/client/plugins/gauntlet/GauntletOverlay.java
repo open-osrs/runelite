@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2019, kThisIsCvpv <https://github.com/kThisIsCvpv>
  * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,8 +47,13 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.model.Jarvis;
 import net.runelite.api.model.Vertex;
 import net.runelite.client.graphics.ModelOutlineRenderer;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.BOTH;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.INFOBOX;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.NONE;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.ONBOSS;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
@@ -55,18 +61,24 @@ import static net.runelite.client.util.ImageUtil.resizeImage;
 
 public class GauntletOverlay extends Overlay
 {
+	@Inject
+	private OverlayManager overlayManager;
+	@Inject
+	private GauntletCounter GauntletCounter;
 	private static final Color FLASH_COLOR = new Color(255, 0, 0, 70);
 	private static final int MAX_DISTANCE = 2400;
 	private final Client client;
 	private final GauntletPlugin plugin;
+	private final GauntletConfig config;
 	private final ModelOutlineRenderer outlineRenderer;
 	private int timeout;
 
 	@Inject
-	private GauntletOverlay(Client client, GauntletPlugin plugin, ModelOutlineRenderer outlineRenderer)
+	private GauntletOverlay(Client client, GauntletConfig config, GauntletPlugin plugin, ModelOutlineRenderer outlineRenderer)
 	{
 		this.client = client;
 		this.plugin = plugin;
+		this.config = config;
 		this.outlineRenderer = outlineRenderer;
 
 		setPosition(OverlayPosition.DYNAMIC);
@@ -83,6 +95,12 @@ public class GauntletOverlay extends Overlay
 		{
 			return null;
 		}
+
+	/*	if (!plugin.fightingBoss())
+		{
+			overlayManager.remove(GauntletCounter);
+		}*/
+
 
 		if (plugin.fightingBoss())
 		{
@@ -115,10 +133,13 @@ public class GauntletOverlay extends Overlay
 				}
 				else
 				{
-					graphics.setColor(color);
-					graphics.draw(polygon);
-					graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 50));
-					graphics.fill(polygon);
+					if (plugin.isAttackVisualOutline())
+					{
+						graphics.setColor(color);
+						graphics.draw(polygon);
+						graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 50));
+						graphics.fill(polygon);
+					}
 					if (plugin.isUniqueAttackVisual())
 					{
 						Rectangle bounds = polygon.getBounds();
@@ -253,10 +274,32 @@ public class GauntletOverlay extends Overlay
 				String textOverlay = "";
 
 				// Handles the counter for the boss.
-				if (plugin.isCountBossAttacks())
-				{
-					textOverlay = Integer.toString(hunllef.getBossAttacks());
-				}
+
+
+					GauntletConfig.counterdisplay counterdisplay = config.counterBossAttacks();
+
+					if (counterdisplay == NONE)
+					{
+						overlayManager.remove(GauntletCounter);
+					}
+					else if (counterdisplay == INFOBOX)
+					{
+
+						overlayManager.add(GauntletCounter);
+
+					}
+					else if (counterdisplay == BOTH)
+					{
+						textOverlay = Integer.toString(hunllef.getBossAttacks());
+						overlayManager.add(GauntletCounter);
+
+					}
+					else if (counterdisplay == ONBOSS)
+					{
+						textOverlay = Integer.toString(hunllef.getBossAttacks());
+						overlayManager.remove(GauntletCounter);
+					}
+
 
 				// Handles the counter for the player.
 				if (plugin.isCountPlayerAttacks())
@@ -290,6 +333,10 @@ public class GauntletOverlay extends Overlay
 
 					graphics.setFont(oldFont);
 				}
+			}
+			if (plugin.getHunllef() == null)
+			{
+				overlayManager.remove(GauntletCounter);
 			}
 		}
 		else
