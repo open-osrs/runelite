@@ -368,13 +368,10 @@ public class GauntletOverlay extends Overlay
 					{
 						BufferedImage icon = resizeImage(object.getImage(), plugin.getResourceIconSize(), plugin.getResourceIconSize());
 
-						if (icon != null)
-						{
-							Rectangle bounds = polygon.getBounds();
-							int startX = (int) bounds.getCenterX() - (icon.getWidth() / 2);
-							int startY = (int) bounds.getCenterY() - (icon.getHeight() / 2);
-							graphics.drawImage(icon, startX, startY, null);
-						}
+						Rectangle bounds = polygon.getBounds();
+						int startX = (int) bounds.getCenterX() - (icon.getWidth() / 2);
+						int startY = (int) bounds.getCenterY() - (icon.getHeight() / 2);
+						graphics.drawImage(icon, startX, startY, null);
 					}
 				}
 			});
