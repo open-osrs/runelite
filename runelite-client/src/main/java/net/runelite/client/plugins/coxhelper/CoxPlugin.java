@@ -133,7 +133,6 @@ public class CoxPlugin extends Plugin
 	private PrayAgainst prayAgainstOlm;
 	private long lastPrayTime;
 	private int sleepcount = 0;
-	private boolean needOlm = false;
 	private boolean muttadile;
 	private boolean tekton;
 	private boolean tektonTickCounter;
@@ -246,7 +245,6 @@ public class CoxPlugin extends Plugin
 					}
 					OlmPhase = 0;
 					runOlm = true;
-					needOlm = true;
 					crippleTimer = 45;
 					Olm_NextSpec = -1;
 					break;
@@ -332,7 +330,7 @@ public class CoxPlugin extends Plugin
 
 	private void onNpcSpawned(NpcSpawned event)
 	{
-		if (inRaid())
+		if (!inRaid())
 		{
 			return;
 		}
@@ -369,6 +367,8 @@ public class CoxPlugin extends Plugin
 			case NpcID.GREAT_OLM_LEFT_CLAW_7555:
 				hand = npc;
 				break;
+			case NpcID.GREAT_OLM:
+				Olm_NPC = npc;
 		}
 	}
 
@@ -423,7 +423,6 @@ public class CoxPlugin extends Plugin
 	{
 		if (!inRaid())
 		{
-			needOlm = false;
 			OlmPhase = 0;
 			sleepcount = 0;
 			Olm_Heal.clear();
@@ -438,19 +437,6 @@ public class CoxPlugin extends Plugin
 
 		handleNpcs();
 		handleVictims();
-
-		if (needOlm = true)
-		{
-			for (NPC monster : client.getNpcs())
-			{
-				if (monster.getId() == NpcID.GREAT_OLM)
-				{
-					needOlm = false;
-					Olm_NPC = monster;
-					break;
-				}
-			}
-		}
 
 		if (handCripple)
 		{
