@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -135,33 +136,35 @@ public class GauntletPlugin extends Plugin
 	@Getter(AccessLevel.NONE)
 	private GauntletCounter GauntletCounter;
 	@Setter(AccessLevel.PACKAGE)
+	@Nullable
 	private Hunllef hunllef;
-	private final Set<Resources> resources = new HashSet<>();
-	private final Set<Missiles> projectiles = new HashSet<>();
-	private final Map<String, Integer> items = new HashMap<>();
-	private Set<Tornado> tornadoes = new HashSet<>();
+	private boolean attackVisualOutline;
 	private boolean completeStartup = false;
-	private GauntletConfig.counterdisplay countAttacks;
 	private boolean displayTimerChat;
+	private boolean displayTimerWidget;
+	@Setter(AccessLevel.PACKAGE)
+	private boolean flash;
+	private boolean flashOnWrongAttack;
+	private boolean highlightPrayerInfobox;
 	private boolean highlightResources;
 	private boolean highlightResourcesIcons;
 	private boolean highlightWidget;
 	private boolean overlayBoss;
 	private boolean overlayBossPrayer;
 	private boolean overlayTornadoes;
-	@Setter(AccessLevel.PACKAGE)
-	private boolean flash;
-	private boolean flashOnWrongAttack;
-	private Color highlightResourcesColor;
-	private boolean displayTimerWidget;
 	private boolean timerVisible = true;
 	private boolean uniqueAttackVisual;
 	private boolean uniquePrayerAudio;
 	private boolean uniquePrayerVisual;
-	private boolean attackVisualOutline;
-	private boolean highlightPrayerInfobox;
+	private Color highlightResourcesColor;
+	private final Map<String, Integer> items = new HashMap<>();
+	private final Set<Missiles> projectiles = new HashSet<>();
+	private final Set<Resources> resources = new HashSet<>();
+	private GauntletConfig.CounterDisplay countAttacks;
 	private int resourceIconSize;
+	private Set<Tornado> tornadoes = new HashSet<>();
 	private int projectileIconSize;
+
 
 	@Provides
 	GauntletConfig getConfig(ConfigManager configManager)
@@ -174,14 +177,15 @@ public class GauntletPlugin extends Plugin
 	{
 		addSubscriptions();
 		updateConfig();
+		overlayManager.add(overlay);
+		overlayManager.add(infoboxoverlay);
+		overlayManager.add(GauntletCounter);
 		timerVisible = this.displayTimerWidget;
 		timer.resetStates();
 		if (timerVisible)
 		{
 			overlayManager.add(timer);
 		}
-		overlayManager.add(overlay);
-		overlayManager.add(infoboxoverlay);
 		if (client.getGameState() != GameState.STARTING && client.getGameState() != GameState.UNKNOWN)
 		{
 			completeStartup = false;
@@ -231,6 +235,11 @@ public class GauntletPlugin extends Plugin
 
 	private void onAnimationChanged(AnimationChanged event)
 	{
+		if (hunllef == null)
+		{
+			return;
+		}
+
 		final Actor actor = event.getActor();
 
 		// This section handles the player counter.
@@ -427,15 +436,6 @@ public class GauntletPlugin extends Plugin
 		{
 			timer.checkStates(true);
 		}
-		if (notfightingBoss())
-		{
-			overlayManager.remove(GauntletCounter);
-		}
-	}
-
-	private boolean notfightingBoss()
-	{
-		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 0;
 	}
 
 	boolean fightingBoss()

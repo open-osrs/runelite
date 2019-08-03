@@ -65,39 +65,36 @@ public class GauntletInfoBoxOverlay extends Overlay
 	{
 		panelComponent.getChildren().clear();
 
-
-
-		if (plugin.isHighlightPrayerInfobox())
+		if (!plugin.isHighlightPrayerInfobox() || !plugin.fightingBoss() || plugin.getHunllef() == null)
 		{
-			if (plugin.getHunllef() == null || !plugin.startedGauntlet())
-			{
-				return null;
-			}
-			final Hunllef hunllef = plugin.getHunllef();
-			final Hunllef.BossAttackPhase phase = hunllef.getCurrentPhase();
-
-			Prayer prayer = phase.getPrayer();
-
-			if (prayer == null)
-			{
-				return null;
-			}
-
-			InfoBoxComponent prayComponent = new InfoBoxComponent();
-			BufferedImage prayImg = scaleImg(getPrayerImage(prayer));
-			prayComponent.setImage(prayImg);
-			prayComponent.setColor(Color.WHITE);
-			prayComponent.setBackgroundColor(client.isPrayerActive(prayer)
-				? ComponentConstants.STANDARD_BACKGROUND_COLOR
-				: NOT_ACTIVATED_BACKGROUND_COLOR);
-			prayComponent.setPreferredSize(new Dimension(40, 40));
-			panelComponent.getChildren().add(prayComponent);
-			panelComponent.setPreferredSize(new Dimension(40, 40));
-			panelComponent.setBorder(new Rectangle(0, 0, 0, 0));
-
-			return panelComponent.render(graphics);
+			return null;
 		}
-		return null;
+
+		final Hunllef hunllef = plugin.getHunllef();
+		final Hunllef.BossAttackPhase phase = hunllef.getCurrentPhase();
+		Prayer prayer = phase.getPrayer();
+
+		if (plugin.getHunllef() == null || !plugin.startedGauntlet())
+		{
+			return null;
+		}
+		if (prayer == null)
+		{
+			return null;
+		}
+
+		InfoBoxComponent prayComponent = new InfoBoxComponent();
+		BufferedImage prayImg = scaleImg(getPrayerImage(prayer));
+		prayComponent.setImage(prayImg);
+		prayComponent.setColor(Color.WHITE);
+		prayComponent.setBackgroundColor(client.isPrayerActive(prayer)
+			? ComponentConstants.STANDARD_BACKGROUND_COLOR
+			: NOT_ACTIVATED_BACKGROUND_COLOR);
+		prayComponent.setPreferredSize(new Dimension(40, 40));
+		panelComponent.getChildren().add(prayComponent);
+		panelComponent.setPreferredSize(new Dimension(40, 40));
+		panelComponent.setBorder(new Rectangle(0, 0, 0, 0));
+		return panelComponent.render(graphics);
 	}
 
 	private BufferedImage getPrayerImage(Prayer prayer)

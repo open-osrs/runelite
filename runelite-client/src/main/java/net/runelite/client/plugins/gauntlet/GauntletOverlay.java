@@ -47,10 +47,8 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.model.Jarvis;
 import net.runelite.api.model.Vertex;
 import net.runelite.client.graphics.ModelOutlineRenderer;
-import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.BOTH;
-import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.INFOBOX;
-import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.NONE;
-import static net.runelite.client.plugins.gauntlet.GauntletConfig.counterdisplay.ONBOSS;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.CounterDisplay.BOTH;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.CounterDisplay.ONBOSS;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -95,12 +93,6 @@ public class GauntletOverlay extends Overlay
 		{
 			return null;
 		}
-
-	/*	if (!plugin.fightingBoss())
-		{
-			overlayManager.remove(GauntletCounter);
-		}*/
-
 
 		if (plugin.fightingBoss())
 		{
@@ -193,7 +185,7 @@ public class GauntletOverlay extends Overlay
 				final NPC boss = hunllef.getNpc();
 				final LocalPoint point = boss.getLocalLocation();
 
-				if (plugin.isFlash())
+				if (plugin.isFlash() && plugin.isFlashOnWrongAttack())
 				{
 					final Color flash = graphics.getColor();
 					graphics.setColor(FLASH_COLOR);
@@ -270,68 +262,40 @@ public class GauntletOverlay extends Overlay
 					}
 				}
 
-				// This section handles any text overlays.
-				String textOverlay = "";
-
-				// Handles the counter for the boss.
-
-
-					GauntletConfig.counterdisplay counterdisplay = config.countAttacks();
-
-					if (counterdisplay == NONE)
-					{
-						overlayManager.remove(GauntletCounter);
-					}
-					else if (counterdisplay == INFOBOX)
-					{
-
-						overlayManager.add(GauntletCounter);
-
-					}
-					else if (counterdisplay == BOTH)
-					{
-						textOverlay = Integer.toString(hunllef.getBossAttacks());
-						overlayManager.add(GauntletCounter);
-
-					}
-					else if (counterdisplay == ONBOSS)
-					{
-						textOverlay = Integer.toString(hunllef.getBossAttacks());
-						overlayManager.remove(GauntletCounter);
-					}
-
-
-				// Handles the counter for the player.
-				if (counterdisplay == ONBOSS || counterdisplay == BOTH)
+				if (plugin.getCountAttacks() == ONBOSS || plugin.getCountAttacks() == BOTH)
 				{
+					String textOverlay;
+
+					textOverlay = Integer.toString(hunllef.getBossAttacks());
+
 					if (textOverlay.length() > 0)
 					{
 						textOverlay += " | ";
 					}
+
 					textOverlay += Integer.toString(hunllef.getPlayerAttacks());
-				}
 
-				// Handles drawing the text onto the boss.
-				if (textOverlay.length() > 0)
-				{
-					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, point, textOverlay, boss.getLogicalHeight() / 2);
-
-					if (textLoc == null)
+					if (textOverlay.length() > 0)
 					{
-						return null;
+						Point textLoc = Perspective.getCanvasTextLocation(client, graphics, point, textOverlay, boss.getLogicalHeight() / 2);
+
+						if (textLoc == null)
+						{
+							return null;
+						}
+
+						textLoc = new Point(textLoc.getX(), textLoc.getY() + 35);
+
+						Font oldFont = graphics.getFont();
+
+						graphics.setFont(new Font("Arial", Font.BOLD, 20));
+						Point pointShadow = new Point(textLoc.getX() + 1, textLoc.getY() + 1);
+
+						OverlayUtil.renderTextLocation(graphics, pointShadow, textOverlay, Color.BLACK);
+						OverlayUtil.renderTextLocation(graphics, textLoc, textOverlay, phase.getColor());
+
+						graphics.setFont(oldFont);
 					}
-
-					textLoc = new Point(textLoc.getX(), textLoc.getY() + 35);
-
-					Font oldFont = graphics.getFont();
-
-					graphics.setFont(new Font("Arial", Font.BOLD, 20));
-					Point pointShadow = new Point(textLoc.getX() + 1, textLoc.getY() + 1);
-
-					OverlayUtil.renderTextLocation(graphics, pointShadow, textOverlay, Color.BLACK);
-					OverlayUtil.renderTextLocation(graphics, textLoc, textOverlay, phase.getColor());
-
-					graphics.setFont(oldFont);
 				}
 			}
 			if (plugin.getHunllef() == null)
@@ -367,7 +331,6 @@ public class GauntletOverlay extends Overlay
 					if (plugin.isHighlightResourcesIcons())
 					{
 						BufferedImage icon = resizeImage(object.getImage(), plugin.getResourceIconSize(), plugin.getResourceIconSize());
-
 						Rectangle bounds = polygon.getBounds();
 						int startX = (int) bounds.getCenterX() - (icon.getWidth() / 2);
 						int startY = (int) bounds.getCenterY() - (icon.getHeight() / 2);

@@ -27,6 +27,8 @@
 package net.runelite.client.plugins.gauntlet;
 
 import java.awt.Color;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -37,12 +39,22 @@ import net.runelite.client.config.Stub;
 
 public interface GauntletConfig extends Config
 {
-	enum counterdisplay
+	@Getter
+	@AllArgsConstructor
+	enum CounterDisplay
 	{
-		ONBOSS,
-		INFOBOX,
-		BOTH,
-		NONE
+		ONBOSS("On Boss"),
+		INFOBOX("Info Box"),
+		BOTH("Both"),
+		NONE("None");
+
+		private String name;
+
+		@Override
+		public String toString()
+		{
+			return getName();
+		}
 	}
 
 	@ConfigItem(
@@ -128,19 +140,19 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 6,
 		keyName = "countAttacks",
-		name = "Count Attacks",
+		name = "Count Attacks Display",
 		description = "Count the attacks until the Hunllef switches their attack style and prayer.",
 		parent = "boss"
 	)
-	default counterdisplay countAttacks()
+	default CounterDisplay countAttacks()
 	{
-		return counterdisplay.NONE;
+		return CounterDisplay.NONE;
 	}
 
 	@ConfigItem(
 		position = 7,
 		keyName = "highlightWidget",
-		name = "Highlight Prayer (prayer tab)",
+		name = "Highlight Prayer (Prayer Tab)",
 		description = "Highlights the correct prayer to use in your prayer book.",
 		parent = "boss"
 	)
@@ -148,11 +160,12 @@ public interface GauntletConfig extends Config
 	{
 		return false;
 	}
+
 	@ConfigItem(
 		position = 8,
 		keyName = "highlightPrayerInfobox",
 		name = "Highlight Prayer (InfoBox)",
-		description = "Highlights the correct prayer to use in your prayer book.",
+		description = "Highlights the correct prayer to use in an Infobox.",
 		parent = "boss"
 	)
 	default boolean highlightPrayerInfobox()
@@ -187,7 +200,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 11,
 		keyName = "uniquePrayerVisual",
-		name = "Prayer attack (Icon)",
+		name = "Prayer Attack (Icon)",
 		description = "Prayer attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
@@ -199,7 +212,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 12,
 		keyName = "uniqueAttackVisual",
-		name = "Magic & Range attack (Icon)",
+		name = "Magic & Range Attack (Icon)",
 		description = "Magic and Range attacks will have a unique overlay visual.",
 		parent = "boss"
 	)
@@ -211,8 +224,8 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 13,
 		keyName = "attackVisualOutline",
-		name = "Hunllef's attacks (Outline)",
-		description = "Outline the Hunllef's attacks.",
+		name = "Hunllefs' attacks (Outline)",
+		description = "Outline the Hunllefs' attacks.",
 		parent = "boss"
 	)
 	default boolean attackVisualOutline()
@@ -223,8 +236,8 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 14,
 		keyName = "overlayBoss",
-		name = "outline the Hunllef (Color)",
-		description = "Overlay the Hunllef with an color denoting it's current attack style.",
+		name = "Outline Hunllef (Color)",
+		description = "Overlay Hunllef while you are on the wrong prayer with an color denoting it's current attack style.",
 		parent = "boss"
 	)
 	default boolean overlayBoss()
@@ -236,7 +249,7 @@ public interface GauntletConfig extends Config
 	@ConfigItem(
 		position = 15,
 		keyName = "overlayBossPrayer",
-		name = "Overlay the Hunllef",
+		name = "Hunllef Overlay (Icons)",
 		description = "Overlay the Hunllef with an icon denoting it's current attack style.",
 		parent = "boss"
 	)
