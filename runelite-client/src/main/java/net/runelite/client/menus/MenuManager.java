@@ -87,12 +87,10 @@ public class MenuManager
 	//Used to manage custom non-player menu options
 	private final Multimap<Integer, WidgetMenuOption> managedMenuOptions = HashMultimap.create();
 	private final Set<String> npcMenuOptions = new HashSet<>();
-
 	private final HashSet<ComparableEntry> priorityEntries = new HashSet<>();
 	private HashMap<MenuEntry, ComparableEntry> currentPriorityEntries = new HashMap<>();
 	private final ConcurrentHashMap<MenuEntry, ComparableEntry> safeCurrentPriorityEntries = new ConcurrentHashMap<>();
 	private final HashSet<ComparableEntry> hiddenEntries = new HashSet<>();
-	private HashSet<MenuEntry> currentHiddenEntries = new HashSet<>();
 	private final HashMap<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
 
 	private final LinkedHashSet<MenuEntry> entries = Sets.newLinkedHashSet();
@@ -162,24 +160,13 @@ public class MenuManager
 
 		firstEntry = null;
 
-		client.sortMenuEntries();
-
 		List<MenuEntry> newEntries = Lists.newArrayList(oldEntries);
 
 		boolean shouldDeprioritize = false;
 
-		prioritizer: for (MenuEntry entry : oldEntries)
+		prioritizer:
+		for (MenuEntry entry : oldEntries)
 		{
-			// Remove hidden entries from menus
-			for (ComparableEntry p : hiddenEntries)
-			{
-				if (p.matches(entry))
-				{
-					newEntries.remove(entry);
-					continue prioritizer;
-				}
-			}
-
 			for (ComparableEntry p : priorityEntries)
 			{
 				// Create list of priority entries, and remove from menus
@@ -251,7 +238,7 @@ public class MenuManager
 		if (!currentPriorityEntries.isEmpty())
 		{
 			newEntries.addAll(currentPriorityEntries.entrySet().stream()
-				.sorted(Comparator.comparingInt(e -> e.getValue().getPriority()))
+				.sorted(Comparator.comparingInt(e -> e.getValue().getPriority() * -1))
 				.map(Map.Entry::getKey)
 				.collect(Collectors.toList()));
 		}
@@ -265,6 +252,15 @@ public class MenuManager
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
+		for (ComparableEntry e : hiddenEntries)
+		{
+			if (e.matches(event.getMenuEntry()))
+			{
+				client.setMenuOptionCount(client.getMenuOptionCount() - 1);
+				return;
+			}
+		}
+
 		int widgetId = event.getActionParam1();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 		MenuEntry[] menuEntries = client.getMenuEntries();
@@ -791,21 +787,6 @@ public class MenuManager
 	public void removeHiddenEntry(ComparableEntry entry)
 	{
 		hiddenEntries.remove(entry);
-	}
-
-	private void indexHiddenEntries(Set<MenuEntry> entries)
-	{
-		currentHiddenEntries = entries.parallelStream().filter(entry ->
-		{
-			for (ComparableEntry p : hiddenEntries)
-			{
-				if (p.matches(entry))
-				{
-					return true;
-				}
-			}
-			return false;
-		}).collect(Collectors.toCollection(HashSet::new));
 	}
 
 	// This could use some optimization
