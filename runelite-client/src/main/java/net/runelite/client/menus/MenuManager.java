@@ -30,25 +30,22 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import com.google.common.collect.Sets;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
@@ -88,12 +85,9 @@ public class MenuManager
 	private final Multimap<Integer, WidgetMenuOption> managedMenuOptions = HashMultimap.create();
 	private final Set<String> npcMenuOptions = new HashSet<>();
 	private final HashSet<ComparableEntry> priorityEntries = new HashSet<>();
-	private HashMap<MenuEntry, ComparableEntry> currentPriorityEntries = new HashMap<>();
-	private final ConcurrentHashMap<MenuEntry, ComparableEntry> safeCurrentPriorityEntries = new ConcurrentHashMap<>();
+	private LinkedHashMap<MenuEntry, ComparableEntry> currentPriorityEntries = new LinkedHashMap<>();
 	private final HashSet<ComparableEntry> hiddenEntries = new HashSet<>();
 	private final HashMap<ComparableEntry, ComparableEntry> swaps = new HashMap<>();
-
-	private final LinkedHashSet<MenuEntry> entries = Sets.newLinkedHashSet();
 
 	private MenuEntry leftClickEntry = null;
 	private MenuEntry firstEntry = null;
@@ -238,7 +232,7 @@ public class MenuManager
 		if (!currentPriorityEntries.isEmpty())
 		{
 			newEntries.addAll(currentPriorityEntries.entrySet().stream()
-				.sorted(Comparator.comparingInt(e -> e.getValue().getPriority() * -1))
+				.sorted(Comparator.comparingInt(e -> e.getValue().getPriority()))
 				.map(Map.Entry::getKey)
 				.collect(Collectors.toList()));
 		}
@@ -294,47 +288,36 @@ public class MenuManager
 			return null;
 		}
 
-		firstEntry = null;
-		entries.clear();
-		entries.addAll(Arrays.asList(client.getMenuEntries()));
-
-		if (entries.size() < 2)
+		int menuOptionCount = client.getMenuOptionCount();
+		if (menuOptionCount <= 2)
 		{
 			return null;
 		}
 
-		if (!hiddenEntries.isEmpty())
-		{
-			currentHiddenEntries.clear();
-			indexHiddenEntries(entries);
+		client.sortMenuEntries();
 
-			if (!currentHiddenEntries.isEmpty())
-			{
-				entries.removeAll(currentHiddenEntries);
-			}
-		}
+		firstEntry = null;
+		MenuEntry[] entries = new MenuEntry[menuOptionCount + priorityEntries.size()];
+		System.arraycopy(client.getMenuEntries(), 0, entries, 0, menuOptionCount);
 
 		if (!priorityEntries.isEmpty())
 		{
-			indexPriorityEntries(entries);
+			indexPriorityEntries(entries, menuOptionCount);
 		}
 
 		if (firstEntry == null && !swaps.isEmpty())
 		{
-			indexSwapEntries(entries);
+			indexSwapEntries(entries, menuOptionCount);
 		}
 
-		if (firstEntry != null)
+
+		if (firstEntry == null)
 		{
-			entries.remove(firstEntry);
-			entries.add(firstEntry);
-		}
-		else if (!currentHiddenEntries.isEmpty())
-		{
-			firstEntry = Iterables.getLast(entries, null);
+			// stop being null smh
+			firstEntry = entries[menuOptionCount - 1];
 		}
 
-		client.setMenuEntries(entries.toArray(new MenuEntry[0]));
+		client.setMenuEntries(entries);
 
 		return firstEntry;
 	}
@@ -790,32 +773,58 @@ public class MenuManager
 	}
 
 	// This could use some optimization
-	private void indexPriorityEntries(Set<MenuEntry> entries)
+	private void indexPriorityEntries(MenuEntry[] entries, int menuOptionCount)
 	{
-		safeCurrentPriorityEntries.clear();
-		entries.parallelStream().forEach(entry ->
-		{
-			for (ComparableEntry p : priorityEntries)
-			{
-				if (p.matches(entry))
-				{
-					safeCurrentPriorityEntries.put(entry, p);
-					break;
-				}
-			}
-		});
+		// create a array of priority entries so we can sort those
+		SortMapping[] prios = new SortMapping[entries.length - menuOptionCount];
 
-		firstEntry = Iterables.getLast(safeCurrentPriorityEntries.entrySet().stream()
-			.sorted(Comparator.comparingInt(e -> e.getValue().getPriority()))
-			.map(Map.Entry::getKey)
-			.collect(Collectors.toList()), null);
+		int prioAmt = 0;
+		for (int i = 0; i < menuOptionCount; i++)
+		{
+			final MenuEntry entry = entries[i];
+			for (ComparableEntry prio : priorityEntries)
+			{
+				if (!prio.matches(entry))
+				{
+					continue;
+				}
+
+				final SortMapping map = new SortMapping(prio.getPriority(), entry);
+				prios[prioAmt++] = map;
+				entries[i] = null;
+				break;
+			}
+		}
+
+		if (prioAmt == 0)
+		{
+			return;
+		}
+
+		// Sort em!
+		Arrays.sort(prios, 0, prioAmt);
+		int i;
+
+		// Just place them after the standard entries. clientmixin ignores null entries
+		for (i = 0; i < prioAmt; i++)
+		{
+			entries[menuOptionCount + i] = prios[i].entry;
+		}
+
+		firstEntry = entries[menuOptionCount + i - 1];
 	}
 
-	private void indexSwapEntries(Set<MenuEntry> entries)
+	private void indexSwapEntries(MenuEntry[] entries, int menuOptionCount)
 	{
-		MenuEntry first = Iterables.getLast(entries);
+		// firstEntry was null, so it's the entry at count - 1
+		final MenuEntry first = entries[menuOptionCount - 1];
+		if (first == null)
+		{
+			log.debug("First entry is null");
+			return;
+		}
 
-		List<ComparableEntry> values = new ArrayList<>();
+		Set<ComparableEntry> values = new HashSet<>();
 
 		for (Map.Entry<ComparableEntry, ComparableEntry> pair : swaps.entrySet())
 		{
@@ -825,16 +834,42 @@ public class MenuManager
 			}
 		}
 
-		firstEntry = entries.parallelStream().filter(entry ->
+		if (values.isEmpty())
 		{
-			for (ComparableEntry value : values)
+			return;
+		}
+
+		// Backwards so we swap with the otherwise highest one
+		// Count - 2 so we don't compare the entry against itself
+		outer:
+		for (int i = menuOptionCount - 2; i > 0; i--)
+		{
+			final MenuEntry entry = entries[i];
+			for (ComparableEntry swap : values)
 			{
-				if (value.matches(entry))
+				if (!swap.matches(entry))
 				{
-					return true;
+					continue;
 				}
+
+				entries[i] = first;
+				entries[menuOptionCount - 1] = entry;
+				firstEntry = entry;
+				break outer;
 			}
-			return false;
-		}).findFirst().orElse(null);
+		}
+	}
+
+	@AllArgsConstructor
+	private class SortMapping implements Comparable<SortMapping>
+	{
+		private final int priority;
+		private final MenuEntry entry;
+
+		@Override
+		public int compareTo(@Nonnull SortMapping mapping)
+		{
+			return Integer.compare(this.priority, mapping.priority);
+		}
 	}
 }
