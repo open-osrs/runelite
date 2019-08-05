@@ -26,20 +26,27 @@
  */
 package net.runelite.client.plugins.banktags;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
 import com.google.inject.Provides;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import static net.runelite.api.Constants.HIGH_ALCHEMY_MULTIPLIER;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemID;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.VarClientInt;
@@ -48,6 +55,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.DraggingWidgetChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.ScriptCallbackEvent;
@@ -73,6 +81,7 @@ import net.runelite.client.plugins.banktags.tabs.BankSearch;
 import net.runelite.client.plugins.banktags.tabs.TabInterface;
 import net.runelite.client.plugins.banktags.tabs.TabSprites;
 import net.runelite.client.plugins.cluescrolls.ClueScrollPlugin;
+import net.runelite.client.util.StackFormatter;
 import net.runelite.client.util.Text;
 
 @PluginDescriptor(
@@ -88,6 +97,7 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 	private static final String EDIT_TAGS_MENU_OPTION = "Edit-tags";
 	public static final String ICON_SEARCH = "icon_";
 	public static final String VAR_TAG_SUFFIX = "*";
+	private static final String NUMBER_REGEX = "[0-9]+(\\.[0-9]+)?[kmb]?";
 
 	private static final String SEARCH_BANK_INPUT_TEXT =
 		"Show items whose names or tags contain the following text:<br>" +
@@ -95,6 +105,10 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 	private static final String SEARCH_BANK_INPUT_TEXT_FOUND =
 		"Show items whose names or tags contain the following text: (%d found)<br>" +
 			"(To show only tagged items, start your search with 'tag:')";
+
+	private static final Pattern VALUE_SEARCH_PATTERN = Pattern.compile("^(?<mode>ge|ha|alch)?" +
+		" *(((?<op>[<>=]|>=|<=) *(?<num>" + NUMBER_REGEX + "))|" +
+		"((?<num1>" + NUMBER_REGEX + ") *- *(?<num2>" + NUMBER_REGEX + ")))$", Pattern.CASE_INSENSITIVE);
 
 	@Inject
 	private ItemManager itemManager;
@@ -131,6 +145,9 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 
 	private boolean shiftPressed = false;
 
+	@VisibleForTesting
+	Multiset<Integer> itemQuantities = HashMultiset.create();
+
 	@Provides
 	BankTagsConfig getConfig(ConfigManager configManager)
 	{
@@ -155,6 +172,23 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 		spriteManager.removeSpriteOverrides(TabSprites.values());
 
 		shiftPressed = false;
+		itemQuantities.clear();
+	}
+
+	@Subscribe
+	public void onItemContainerChanged(ItemContainerChanged event)
+	{
+		if (event.getContainerId() == InventoryID.BANK.getId())
+		{
+			itemQuantities.clear();
+			for (Item item : event.getItemContainer().getItems())
+			{
+				if (item.getId() != ItemID.BANK_FILLER)
+				{
+					itemQuantities.add(item.getId(), item.getQuantity());
+				}
+			}
+		}
 	}
 
 	@Subscribe
@@ -193,7 +227,7 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 					search = search.substring(TAG_SEARCH.length()).trim();
 				}
 
-				if (tagManager.findTag(itemId, search))
+				if (tagManager.findTag(itemId, search) || valueSearch(itemId, search))
 				{
 					// return true
 					intStack[intStackSize - 2] = 1;
@@ -392,5 +426,75 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 		{
 			shiftPressed = false;
 		}
+	}
+
+	@VisibleForTesting
+	boolean valueSearch(final int itemId, final String str)
+	{
+		final Matcher matcher = VALUE_SEARCH_PATTERN.matcher(str);
+		if (!matcher.matches())
+		{
+			return false;
+		}
+
+		final ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		long gePrice = (long) itemManager.getItemPrice(itemId) * (long) itemQuantities.count(itemId);
+		long haPrice = (long) (itemComposition.getPrice() * HIGH_ALCHEMY_MULTIPLIER) * (long) itemQuantities.count(itemId);
+
+		long value = Math.max(gePrice, haPrice);
+
+		final String mode = matcher.group("mode");
+		if (mode != null)
+		{
+			value = mode.toLowerCase().equals("ge") ? gePrice : haPrice;
+		}
+
+		final String op = matcher.group("op");
+		if (op != null)
+		{
+			long compare;
+			try
+			{
+				compare = StackFormatter.stackSizeToQuantity(matcher.group("num"));
+			}
+			catch (ParseException e)
+			{
+				return false;
+			}
+
+			switch (op)
+			{
+				case ">":
+					return value > compare;
+				case "<":
+					return value < compare;
+				case "=":
+					return value == compare;
+				case ">=":
+					return value >= compare;
+				case "<=":
+					return value <= compare;
+			}
+		}
+
+		final String num1 = matcher.group("num1");
+		final String num2 = matcher.group("num2");
+		if (num1 != null && num2 != null)
+		{
+			long compare1, compare2;
+			try
+			{
+				compare1 = StackFormatter.stackSizeToQuantity(num1);
+				compare2 = StackFormatter.stackSizeToQuantity(num2);
+			}
+			catch (ParseException e)
+			{
+				return false;
+			}
+
+			return compare1 <= value && compare2 >= value;
+		}
+
+		return false;
 	}
 }
