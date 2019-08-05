@@ -4,12 +4,21 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ObjectArrays;
 import com.google.inject.Provides;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import static java.time.temporal.ChronoUnit.MINUTES;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
@@ -51,6 +60,8 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 
 	private static final ImmutableList<String> AFTER_OPTIONS = ImmutableList.of("Message", "Add ignore", "Remove friend", "Kick");
 
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("mm:ss");
+
 	private final Set<String> playerNames = new HashSet<>();
 
 	@Inject
@@ -77,12 +88,20 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	@Inject
 	private EventBus eventBus;
 
-	private boolean translateOptionVisable;
+	private boolean translateOptionVisible;
 	private boolean publicChat;
 	private String getPlayerNames;
 	private Languages publicTargetLanguage;
 	private boolean playerChat;
 	private Languages playerTargetLanguage;
+
+	@Getter
+	@Setter
+	private boolean timedOut;
+	@Getter
+	@Setter
+	private Instant timedOutAt;
+	private Translator translator;
 
 	@Provides
 	ChatTranslationConfig provideConfig(ConfigManager configManager)
@@ -95,8 +114,8 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	{
 		updateConfig();
 		addSubscriptions();
-
-		if (client != null && this.translateOptionVisable)
+		translator = new Translator(this);
+		if (client != null && this.translateOptionVisible)
 		{
 			menuManager.get().addPlayerMenuItem(TRANSLATE);
 		}
@@ -108,8 +127,9 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	@Override
 	protected void shutDown() throws Exception
 	{
+		translator = null;
 		eventBus.unregister(this);
-		if (client != null && this.translateOptionVisable)
+		if (client != null && this.translateOptionVisible)
 		{
 			menuManager.get().removePlayerMenuItem(TRANSLATE);
 		}
@@ -146,7 +166,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!this.translateOptionVisable)
+		if (!this.translateOptionVisible)
 		{
 			return;
 		}
@@ -216,8 +236,20 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			if (nameList.contains(Text.toJagexName(chatMessage.getName())))
 			{
 				String message = chatMessage.getMessage();
+				if (timedOut)
+				{
+					long l = timedOutAt.plus(10, MINUTES).getEpochSecond() - (Instant.now().getEpochSecond());
+					if (l > 0)
+					{
 
-				Translator translator = new Translator();
+						client.addChatMessage(ChatMessageType.GAMEMESSAGE, "",
+							"Currently timed out from the Google Translate API. Will try again in "
+								+ DATE_FORMAT.format(Date.from(Instant.ofEpochSecond(l))) + " minutes/seconds"
+							, null);
+						client.refreshChat();
+						return;
+					}
+				}
 
 				try
 				{
@@ -253,11 +285,24 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			return;
 		}
 
+		if (timedOut)
+		{
+			long l = timedOutAt.plus(10, MINUTES).getEpochSecond() - (Instant.now().getEpochSecond());
+			if (l > 0)
+			{
+
+				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "",
+					"Currently timed out from the Google Translate API. Will try again in "
+						+ DATE_FORMAT.format(Date.from(Instant.ofEpochSecond(l))) + " minutes/seconds"
+					, null);
+				client.refreshChat();
+				return;
+			}
+		}
 		Widget chatboxParent = client.getWidget(WidgetInfo.CHATBOX_PARENT);
 
 		if (chatboxParent != null && chatboxParent.getOnKeyListener() != null && event.getKeyCode() == 0xA)
 		{
-			Translator translator = new Translator();
 			String message = client.getVar(VarClientStr.CHATBOX_TYPED_TEXT);
 
 			if (message.startsWith("/"))
@@ -311,7 +356,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	{
 		this.publicChat = config.publicChat();
 		this.getPlayerNames = config.getPlayerNames();
-		this.translateOptionVisable = config.translateOptionVisable();
+		this.translateOptionVisible = config.translateOptionVisable();
 		this.publicTargetLanguage = config.publicTargetLanguage();
 		this.playerChat = config.playerChat();
 		this.playerTargetLanguage = config.playerTargetLanguage();

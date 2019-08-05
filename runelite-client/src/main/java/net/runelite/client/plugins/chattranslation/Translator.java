@@ -8,18 +8,35 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.Instant;
 
-class Translator
+public class Translator
 {
+
+	private final ChatTranslationPlugin plugin;
+
+	public Translator(ChatTranslationPlugin plugin)
+	{
+		this.plugin = plugin;
+	}
 
 	public String translate(String source, String target, String message) throws Exception
 	{
 
-		String url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + source + "&tl=" + target + "&dt=t&q=" + URLEncoder.encode(message, "UTF-8");
+		String url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + source + "&tl=" + target
+			+ "&dt=t&q=" + URLEncoder.encode(message, "UTF-8");
 
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+		int httpCode = con.getResponseCode();
+		if (httpCode == 429)
+		{
+			plugin.setTimedOut(true);
+			plugin.setTimedOutAt(Instant.now());
+			return null;
+		}
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
