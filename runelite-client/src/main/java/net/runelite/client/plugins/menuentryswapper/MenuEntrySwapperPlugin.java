@@ -1576,6 +1576,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Teleport", "Mounted Hunter Cape");
 		menuManager.removePriorityEntry("Teleport", "Mounted Fishing Cape");
 		menuManager.removePriorityEntry("Spellbook", "Mounted Magic Cape");
+		menuManager.removePriorityEntry("Empty", "Coal bag");
 		menuManager.removePriorityEntry("Perks", "Mounted Max Cape");
 		menuManager.removePriorityEntry("Private");
 		menuManager.removePriorityEntry("Pick-lots");
