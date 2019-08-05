@@ -2,7 +2,6 @@ package net.runelite.client.plugins.chattranslation;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;

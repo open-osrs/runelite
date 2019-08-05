@@ -8,8 +8,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalUnit;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
@@ -24,6 +22,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MessageNode;
+import net.runelite.api.ScriptID;
 import static net.runelite.api.ScriptID.CHATBOX_INPUT;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.events.ChatMessage;
@@ -90,6 +89,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 
 	private boolean translateOptionVisible;
 	private boolean publicChat;
+	private boolean privateChat;
 	private String getPlayerNames;
 	private Languages publicTargetLanguage;
 	private boolean playerChat;
@@ -221,6 +221,12 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 		{
 			case PUBLICCHAT:
 			case MODCHAT:
+			case PRIVATECHAT:
+				if (!this.privateChat)
+				{
+					return;
+				}
+				break;
 			case FRIENDSCHAT:
 				if (!this.publicChat)
 				{
@@ -280,25 +286,65 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		if (!this.playerChat)
+		if (!this.playerChat || !this.privateChat)
 		{
 			return;
 		}
 
-		if (timedOut)
-		{
-			long l = timedOutAt.plus(10, MINUTES).getEpochSecond() - (Instant.now().getEpochSecond());
-			if (l > 0)
-			{
 
-				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "",
-					"Currently timed out from the Google Translate API. Will try again in "
-						+ DATE_FORMAT.format(Date.from(Instant.ofEpochSecond(l))) + " minutes/seconds"
-					, null);
-				client.refreshChat();
-				return;
+		Widget titleWidget = client.getWidget(WidgetInfo.CHATBOX_TITLE);
+		Widget inputWidget = client.getWidget(WidgetInfo.CHATBOX_FULL_INPUT);
+
+		if (privateChat)
+		{
+			if (titleWidget != null && inputWidget != null && event.getKeyCode() == 0xA)
+			{
+				String target = Text.toJagexName(titleWidget.getText().substring(25));
+				if (playerNames.contains(Text.toJagexName(target)))
+				{
+					if (timedOut)
+					{
+						long l = timedOutAt.plus(10, MINUTES).getEpochSecond() - (Instant.now().getEpochSecond());
+						if (l > 0)
+						{
+
+							client.addChatMessage(ChatMessageType.GAMEMESSAGE, "",
+								"Currently timed out from the Google Translate API. Will try again in "
+									+ DATE_FORMAT.format(Date.from(Instant.ofEpochSecond(l))) + " minutes/seconds"
+								, null);
+							client.refreshChat();
+							return;
+						}
+					}
+					else
+					{
+						event.consume();
+						String message = client.getVar(VarClientStr.INPUT_TEXT);
+						try
+						{
+							String translate = translator.translate("auto",
+								config.playerTargetLanguage().toString(), message);
+							if (translate.equals("") || translate == null)
+							{
+								clientThread.invoke(() ->
+									client.runScript(ScriptID.RESET_CHATBOX_INPUT, 1, 1));
+								return;
+							}
+							client.setVar(VarClientStr.INPUT_TEXT,
+								translate);
+							clientThread.invoke(() ->
+								client.runScript(ScriptID.PRIVMSG, Text.toJagexName(target), translate));
+						}
+						catch (Exception e)
+						{
+							e.printStackTrace();
+							return;
+						}
+					}
+				}
 			}
 		}
+
 		Widget chatboxParent = client.getWidget(WidgetInfo.CHATBOX_PARENT);
 
 		if (chatboxParent != null && chatboxParent.getOnKeyListener() != null && event.getKeyCode() == 0xA)
@@ -355,6 +401,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 	private void updateConfig()
 	{
 		this.publicChat = config.publicChat();
+		this.privateChat = config.privateChat();
 		this.getPlayerNames = config.getPlayerNames();
 		this.translateOptionVisible = config.translateOptionVisable();
 		this.publicTargetLanguage = config.publicTargetLanguage();

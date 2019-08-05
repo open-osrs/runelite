@@ -35,10 +35,24 @@ public interface ChatTranslationConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "privateChat",
+		name = "Translate incoming PM's",
+		description = "Would you like to Translate Private Messages?",
+		position = 2,
+		group = "Chat Translation",
+		hidden = true,
+		unhide = "translateOptionVisable"
+	)
+	default boolean privateChat()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "playerNames",
 		name = "Translated Player list:",
 		description = "Players you add to this list will be Translated in chat.",
-		position = 2,
+		position = 3,
 		group = "Chat Translation",
 		hidden = true,
 		unhide = "translateOptionVisable"
@@ -52,7 +66,7 @@ public interface ChatTranslationConfig extends Config
 		keyName = "publicTargetLanguage",
 		name = "Target Language",
 		description = "Language to translate messages to.",
-		position = 2,
+		position = 4,
 		group = "Chat Translation",
 		hidden = true,
 		unhide = "publicChat"
@@ -66,7 +80,7 @@ public interface ChatTranslationConfig extends Config
 		keyName = "playerChat",
 		name = "Translate outgoing Messages",
 		description = "Would you like to Translate your Messages?",
-		position = 3,
+		position = 5,
 		group = "Player Message Translation"
 	)
 	default boolean playerChat()
@@ -78,7 +92,7 @@ public interface ChatTranslationConfig extends Config
 		keyName = "playerTargetLanguage",
 		name = "Target Language",
 		description = "Language to translate messages to.",
-		position = 4,
+		position = 6,
 		group = "Player Message Translation",
 		hidden = true,
 		unhide = "playerChat"
