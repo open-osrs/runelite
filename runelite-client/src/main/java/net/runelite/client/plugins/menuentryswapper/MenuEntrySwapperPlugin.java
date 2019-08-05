@@ -1322,8 +1322,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapCoalBag)
 		{
-			menuManager.addPriorityEntry("Empty", "Coal bag").setPriority(90);
-			menuManager.addPriorityEntry("Fill", "Coal bag").setPriority(100);
+			menuManager.addPriorityEntry("Fill", "Coal bag");
+			menuManager.addPriorityEntry(new BankComparableEntry("Empty", "Coal bag"));
 		}
 
 		if (this.swapBones)
