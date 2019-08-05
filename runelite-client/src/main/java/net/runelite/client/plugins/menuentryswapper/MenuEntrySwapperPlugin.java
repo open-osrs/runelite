@@ -1322,7 +1322,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapCoalBag)
 		{
-			menuManager.addPriorityEntry("Empty", "Coal bag");
+			menuManager.addPriorityEntry("Empty", "Coal bag").setPriority(90);
+			menuManager.addPriorityEntry("Fill", "Coal bag").setPriority(100);
 		}
 
 		if (this.swapBones)
@@ -1577,6 +1578,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Teleport", "Mounted Fishing Cape");
 		menuManager.removePriorityEntry("Spellbook", "Mounted Magic Cape");
 		menuManager.removePriorityEntry("Empty", "Coal bag");
+		menuManager.removePriorityEntry("Fill", "Coal bag");
 		menuManager.removePriorityEntry("Perks", "Mounted Max Cape");
 		menuManager.removePriorityEntry("Private");
 		menuManager.removePriorityEntry("Pick-lots");
