@@ -1449,7 +1449,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			menuManager.addPriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		}
-		System.out.println("All added");
 	}
 
 	private void removeSwaps()
@@ -1636,7 +1635,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 				menuManager.removePriorityEntry("Friend's house");
 				break;
 		}
-		System.out.println("All Removed");
 	}
 
 	private void delete(int target)
