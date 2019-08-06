@@ -183,15 +183,12 @@ public class MultiIndicatorsPlugin extends Plugin
 	// sometimes the lines get offset (seems to happen when there is a delay
 	// due to map reloading when walking/running "Loading - please wait")
 	// resetting the lines generation logic fixes this
-	@Schedule(
-		period = 1800,
-		unit = ChronoUnit.MILLIS
-	)
+
 	public void update()
 	{
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
-			findLinesInScene();
+			clientThread.invokeLater(this::findLinesInScene);
 		}
 
 	}
@@ -293,10 +290,7 @@ public class MultiIndicatorsPlugin extends Plugin
 		// Generate lines for multicombat zones
 		if (this.multicombatZoneVisibility == ZoneVisibility.HIDE)
 		{
-			for (int i = 0; i < multicombatPathToDisplay.length; i++)
-			{
-				multicombatPathToDisplay[i] = null;
-			}
+			Arrays.fill(multicombatPathToDisplay, null);
 		}
 		else
 		{
