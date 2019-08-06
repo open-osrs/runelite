@@ -29,7 +29,6 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -55,7 +54,6 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
