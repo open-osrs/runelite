@@ -552,6 +552,18 @@ public class MenuManager
 		return entry;
 	}
 
+	public AbstractComparableEntry addPriorityEntry(String option, boolean strictOption)
+	{
+		option = Text.standardize(option);
+
+		AbstractComparableEntry entry =
+			newBaseComparableEntry(option, "", -1, -1, false, strictOption);
+
+		priorityEntries.add(entry);
+
+		return entry;
+	}
+
 	public AbstractComparableEntry addPriorityEntry(AbstractComparableEntry entry)
 	{
 		priorityEntries.add(entry);
@@ -564,6 +576,16 @@ public class MenuManager
 		option = Text.standardize(option);
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
+
+		priorityEntries.removeIf(entry::equals);
+	}
+
+	public void removePriorityEntry(String option, boolean strictOption)
+	{
+		option = Text.standardize(option);
+
+		AbstractComparableEntry entry =
+			newBaseComparableEntry(option, "", -1, -1, false, strictOption);
 
 		priorityEntries.removeIf(entry::equals);
 	}
