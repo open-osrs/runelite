@@ -88,7 +88,7 @@ public class MenuManager
 	private final HashSet<AbstractComparableEntry> priorityEntries = new HashSet<>();
 	private LinkedHashMap<MenuEntry, AbstractComparableEntry> currentPriorityEntries = new LinkedHashMap<>();
 	private final HashSet<AbstractComparableEntry> hiddenEntries = new HashSet<>();
-	private final HashMap<AbstractComparableEntry, AbstractComparableEntry> swaps = new HashMap<>();
+	private final Multimap<AbstractComparableEntry, AbstractComparableEntry> swaps = HashMultimap.create();
 
 	private MenuEntry leftClickEntry = null;
 	private MenuEntry firstEntry = null;
@@ -190,14 +190,17 @@ public class MenuManager
 
 					MenuEntry swapFrom = null;
 
-					AbstractComparableEntry from = swaps.get(src);
+					Collection<AbstractComparableEntry> from = swaps.get(src);
 
 					for (MenuEntry e : newEntries)
 					{
-						if (from.matches(e))
+						for (AbstractComparableEntry a : from)
 						{
-							swapFrom = e;
-							break;
+							if (a.matches(e))
+							{
+								swapFrom = e;
+								break;
+							}
 						}
 					}
 
@@ -681,12 +684,12 @@ public class MenuManager
 		AbstractComparableEntry swapFrom = newBaseComparableEntry(option, target, id, type, false, false);
 		AbstractComparableEntry swapTo = newBaseComparableEntry(option2, target2, id2, type2, false, false);
 
-		swaps.entrySet().removeIf(e -> e.getKey().equals(swapFrom) && e.getValue().equals(swapTo));
+		swaps.entries().removeIf(e -> e.getKey().equals(swapFrom) && e.getValue().equals(swapTo));
 	}
 
 	public void removeSwap(AbstractComparableEntry swapFrom, AbstractComparableEntry swapTo)
 	{
-		swaps.entrySet().removeIf(e -> e.getKey().equals(swapFrom) && e.getValue().equals(swapTo));
+		swaps.entries().removeIf(e -> e.getKey().equals(swapFrom) && e.getValue().equals(swapTo));
 	}
 
 	/**
@@ -834,7 +837,7 @@ public class MenuManager
 
 		Set<AbstractComparableEntry> values = new HashSet<>();
 
-		for (Map.Entry<AbstractComparableEntry, AbstractComparableEntry> pair : swaps.entrySet())
+		for (Map.Entry<AbstractComparableEntry, AbstractComparableEntry> pair : swaps.entries())
 		{
 			if (pair.getKey().matches(first))
 			{
