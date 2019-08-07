@@ -1264,7 +1264,15 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapBirdhouseEmpty)
 		{
-			menuManager.addPriorityEntry("Empty", "Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Bird house");
+			menuManager.addPriorityEntry("Empty", "Oak Bird house");
+			menuManager.addPriorityEntry("Empty", "Willow Bird house");
+			menuManager.addPriorityEntry("Empty", "Teak Bird house");
+			menuManager.addPriorityEntry("Empty", "Maple Bird house");
+			menuManager.addPriorityEntry("Empty", "Mahogany Bird house");
+			menuManager.addPriorityEntry("Empty", "Yew Bird house");
+			menuManager.addPriorityEntry("Empty", "Magic Bird house");
+			menuManager.addPriorityEntry("Empty", "Redwood Bird house");
 		}
 
 		if (this.swapQuick)
@@ -1564,7 +1572,15 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Lay", "Box trap");
 		menuManager.removePriorityEntry("Activate", "Box trap");
 		menuManager.removePriorityEntry("Chase");
-		menuManager.removePriorityEntry("Empty", "Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Bird house");
+		menuManager.removePriorityEntry("Empty", "Oak Bird house");
+		menuManager.removePriorityEntry("Empty", "Willow Bird house");
+		menuManager.removePriorityEntry("Empty", "Teak Bird house");
+		menuManager.removePriorityEntry("Empty", "Maple Bird house");
+		menuManager.removePriorityEntry("Empty", "Mahogany Bird house");
+		menuManager.removePriorityEntry("Empty", "Yew Bird house");
+		menuManager.removePriorityEntry("Empty", "Magic Bird house");
+		menuManager.removePriorityEntry("Empty", "Redwood Bird house");
 		menuManager.removePriorityEntry("Quick-enter");
 		menuManager.removePriorityEntry("Quick-start");
 		menuManager.removePriorityEntry("Quick-pass");
