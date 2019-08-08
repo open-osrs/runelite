@@ -116,7 +116,7 @@ public class ClientUI
 	private static final int CLIENT_WELL_HIDDEN_MARGIN = 160;
 	private static final int CLIENT_WELL_HIDDEN_MARGIN_TOP = 10;
 	public static boolean allowInput = false;
-	public static String currentPresenceName = "RuneLite";
+	public static String currentPresenceName = "RuneLitePlus";
 	public static final BufferedImage ICON = ImageUtil.getResourceStreamFromClass(ClientUI.class, "/runeliteplus.png");
 
 	@Getter
