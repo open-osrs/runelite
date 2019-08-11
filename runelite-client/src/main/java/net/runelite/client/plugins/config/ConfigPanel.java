@@ -26,6 +26,7 @@ package net.runelite.client.plugins.config;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.EnumHashBiMap;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -42,8 +43,10 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
@@ -57,6 +60,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -65,6 +69,7 @@ import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -99,6 +104,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.plugins.playerindicators.ConfigEnumMap;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.ui.PluginPanel;
@@ -707,6 +713,7 @@ public class ConfigPanel extends PluginPanel
 				configEntryName.setToolTipText("<html>" + name + ":<br>" + cid.getItem().description() + "</html>");
 				item.add(configEntryName, cid.getType() != String.class ? BorderLayout.CENTER : BorderLayout.NORTH);
 
+
 				if (cid.getType() == Stub.class)
 				{
 					Border border = item.getBorder();
@@ -1030,6 +1037,43 @@ public class ConfigPanel extends PluginPanel
 
 					item.add(button, BorderLayout.EAST);
 				}
+
+				else if (cid.getType() == ConfigEnumMap.class)
+				{
+					HashMap hashMap = configManager.getConfiguration(cd.getGroup().value(),
+						cid.getItem().keyName(),
+						(Class<? extends  HashMap>) cid.getType());
+					Class<? extends Enum> type = (Class<? extends Enum>) cid.getItem().enumClazz();
+					ConfigEnumMap enumMap = new ConfigEnumMap(type);
+					hashMap.forEach((k, v) ->
+					{
+						enumMap.put(Enum.valueOf(type, (String) k), Integer.valueOf(v.toString()));
+					});					JList jList = new JList(type.getEnumConstants());
+
+					if (!enumMap.isEmpty())
+					{
+						int[] e = new int[enumMap.values().toArray().length];
+						for (int i = 0; i < enumMap.values().toArray().length; i++)
+						{
+							e[i] = (int) enumMap.values().toArray()[i];
+						}
+						jList.setSelectedIndices(e);
+					}
+
+
+					jList.setVisibleRowCount(2);
+					jList.setCellRenderer(new ComboBoxListRenderer());
+					jList.setLayoutOrientation(JList.VERTICAL);
+					jList.setSelectionBackground(jList.getBackground().brighter().brighter());
+					jList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+					jList.addListSelectionListener(e ->
+						changeConfiguration(listItem, config, jList, cd, cid));
+					JScrollPane jScrollPane = new JScrollPane();
+					jScrollPane.setViewportView(jList);
+
+					item.add(jScrollPane, BorderLayout.SOUTH);
+
+				}
 				mainPanel.add(item);
 			}
 		}
@@ -1175,6 +1219,67 @@ public class ConfigPanel extends PluginPanel
 					}
 
 					String changedVal = ((Enum) jComboBox.getSelectedItem()).name();
+
+					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
+					{
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+						reloadPluginlist(listItem, config, cd);
+					}
+					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()) && cid2.getItem().disabledByValue().equals(changedVal))
+					{
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+						reloadPluginlist(listItem, config, cd);
+					}
+				}
+			}
+		}
+		else if (component instanceof JList)
+		{
+			JList jList = (JList) component;
+
+			HashMap hashMap = configManager.getConfiguration(cd.getGroup().value(),
+				cid.getItem().keyName(),
+				(Class<? extends  HashMap>) cid.getType());
+			Class<? extends Enum> type = (Class<? extends Enum>) cid.getItem().enumClazz();
+			ConfigEnumMap enumMap = new ConfigEnumMap(type);
+			hashMap.forEach((k, v) ->
+			{
+				enumMap.put(Enum.valueOf(type, (String) k), Integer.valueOf(v.toString()));
+			});
+
+			for (int i = 0; i < type.getEnumConstants().length; i++)
+			{
+				enumMap.putIfAbsent(type.getEnumConstants()[i], 0);
+			}
+
+			for (int i = 0; i < jList.getSelectedIndices().length; i++)
+			{
+				enumMap.entrySet().toArray()[i] = 1;
+			}
+
+			jList.getSelectedValuesList().forEach(value ->
+			{
+				enumMap.replace(Enum.valueOf(type, value.toString()), 1);
+			});
+
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), enumMap);
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				if (cid2.getItem().hidden() || !cid2.getItem().hide().isEmpty())
+				{
+					List<String> itemHide = Splitter
+						.onPattern("\\|\\|")
+						.trimResults()
+						.omitEmptyStrings()
+						.splitToList(String.format("%s || %s", cid2.getItem().unhide(), cid2.getItem().hide()));
+
+					if (itemHide.contains(cid.getItem().keyName()))
+					{
+						reloadPluginlist(listItem, config, cd);
+					}
+
+					String changedVal = String.valueOf(( jList.getSelectedValues()));
 
 					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
 					{

@@ -67,6 +67,9 @@ public @interface ConfigItem
 
 	String disabledByValue() default "";
 
+	Class<? extends Enum> enumClazz() default Enum.class;
+
+
 	boolean parse() default false;
 
 	Class<?> clazz() default void.class;

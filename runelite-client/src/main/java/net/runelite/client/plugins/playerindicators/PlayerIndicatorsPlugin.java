@@ -28,11 +28,13 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.runelite.api.Actor;
 import net.runelite.api.ClanMember;
 import net.runelite.api.ClanMemberRank;
 import static net.runelite.api.ClanMemberRank.UNRANKED;
@@ -55,8 +57,10 @@ import net.runelite.api.Player;
 import net.runelite.api.events.ClanMemberJoined;
 import net.runelite.api.events.ClanMemberLeft;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.config.EnumList;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.plugins.Plugin;
@@ -160,8 +164,16 @@ public class PlayerIndicatorsPlugin extends Plugin
 	private boolean highlightCallers;
 	@Getter(AccessLevel.PACKAGE)
 	private Color callerColor;
+	@Getter
+	private boolean highlightCallerTargets;
+	@Getter
+	private Color callerTargetColor;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean unchargedGlory;
+	@Getter
+	private HashMap<String, Actor> callerPiles = new HashMap<String, Actor>();
+	@Getter
+	private List<PlayerIndicationMode> playerIndicationModes;
 
 	@Provides
 	PlayerIndicatorsConfig provideConfig(ConfigManager configManager)
@@ -197,9 +209,45 @@ public class PlayerIndicatorsPlugin extends Plugin
 		eventBus.subscribe(ClanMemberJoined.class, this, this::onClanMemberJoined);
 		eventBus.subscribe(ClanMemberLeft.class, this, this::onClanMemberLeft);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
+		eventBus.subscribe(InteractingChanged.class, this, this::onInterActingChanged);
 	}
 
 	private List<String> callers = new ArrayList<>();
+
+	private void onInterActingChanged(InteractingChanged event)
+	{
+		if (!this.highlightCallerTargets)
+		{
+			return;
+		}
+		if (callers.isEmpty())
+		{
+			return;
+		}
+		if (!isCaller(event.getSource()))
+		{
+			return;
+		}
+
+		final Actor caller = event.getSource();
+
+		if (this.callerPiles.containsKey(caller.getName()))
+		{
+			if (event.getTarget() == null)
+			{
+				callerPiles.remove(caller.getName());
+			}
+			else
+			{
+				callerPiles.replace(caller.getName(), event.getTarget());
+			}
+		}
+		else
+		{
+			callerPiles.put(caller.getName(), event.getTarget());
+		}
+
+	}
 
 	private void onConfigChanged(ConfigChanged event)
 	{
@@ -224,49 +272,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 	private void onClanMemberLeft(ClanMemberLeft event)
 	{
 		getCallerList();
-	}
-
-	private void getCallerList()
-	{
-		callers.clear();
-		if (this.useClanchatRanks && client.getClanMembers() != null)
-		{
-			for (ClanMember clanMember : client.getClanMembers())
-			{
-				if (clanMember.getRank().getValue() > this.callerRank.getValue())
-				{
-					callers.add(clanMember.getUsername());
-				}
-			}
-		}
-		if (this.configCallers.contains(","))
-		{
-			callers.addAll(Arrays.asList(this.configCallers.split(",")));
-		}
-		else
-		{
-			if (!this.configCallers.equals(""))
-			{
-				callers.add(this.configCallers);
-			}
-		}
-	}
-
-	boolean isCaller(Player player)
-	{
-		if (callers != null)
-		{
-			for (String name : callers)
-			{
-				String finalName = name.toLowerCase().replace("_", " ");
-				if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
-				{
-					return true;
-				}
-			}
-		}
-
-		return false;
 	}
 
 	private void onMenuEntryAdded(MenuEntryAdded menuEntryAdded)
@@ -407,16 +412,47 @@ public class PlayerIndicatorsPlugin extends Plugin
 		}
 	}
 
-	public enum MinimapSkullLocations
+	private void getCallerList()
 	{
-		BEFORE_NAME,
-		AFTER_NAME
+		callers.clear();
+		if (this.useClanchatRanks && client.getClanMembers() != null)
+		{
+			for (ClanMember clanMember : client.getClanMembers())
+			{
+				if (clanMember.getRank().getValue() > this.callerRank.getValue())
+				{
+					callers.add(clanMember.getUsername());
+				}
+			}
+		}
+		if (this.configCallers.contains(","))
+		{
+			callers.addAll(Arrays.asList(this.configCallers.split(",")));
+		}
+		else
+		{
+			if (!this.configCallers.equals(""))
+			{
+				callers.add(this.configCallers);
+			}
+		}
 	}
 
-	public enum AgilityFormats
+	public boolean isCaller(Actor player)
 	{
-		TEXT,
-		ICONS
+		if (callers != null)
+		{
+			for (String name : callers)
+			{
+				String finalName = name.toLowerCase().replace("_", " ");
+				if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 	
 	private void updateConfig()
@@ -454,6 +490,23 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.configCallers = config.callers();
 		this.highlightCallers = config.highlightCallers();
 		this.callerColor = config.callerColor();
+		this.highlightCallerTargets = config.callersTargets();
+		this.callerTargetColor = config.callerTargetColor();
 		this.unchargedGlory = config.unchargedGlory();
+//		this.playerIndicationModes = Arrays.asList(config.callerTargetHighlightOptions());
+
+	}
+
+
+	public enum MinimapSkullLocations
+	{
+		BEFORE_NAME,
+		AFTER_NAME
+	}
+
+	public enum AgilityFormats
+	{
+		TEXT,
+		ICONS
 	}
 }

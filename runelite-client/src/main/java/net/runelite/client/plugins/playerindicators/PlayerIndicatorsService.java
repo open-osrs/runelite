@@ -47,8 +47,7 @@ public class PlayerIndicatorsService
 
 	public void forEachPlayer(final BiConsumer<Player, Color> consumer)
 	{
-		if (!plugin.isHighlightOwnPlayer() && !plugin.isDrawClanMemberNames()
-			&& !plugin.isHighlightFriends() && !plugin.isHighlightNonClanMembers() && !plugin.isHighlightTargets() && !plugin.isHighlightCallers() && !plugin.isHighlightTeamMembers())
+		if (!highlight())
 		{
 			return;
 		}
@@ -100,10 +99,21 @@ public class PlayerIndicatorsService
 					consumer.accept(player, plugin.getGetTargetColor());
 				}
 			}
-			if (plugin.isHighlightCallers() && plugin.getConfigCallers() != null && plugin.isCaller(player))
+			else if (plugin.isHighlightCallers() && plugin.getConfigCallers() != null && plugin.isCaller(player))
 			{
 				consumer.accept(player, plugin.getCallerColor());
 			}
+			else if (plugin.isHighlightCallerTargets() && plugin.getCallerPiles().containsValue(player))
+			{
+				consumer.accept(player, plugin.getCallerTargetColor());
+			}
 		}
+	}
+
+	private boolean highlight()
+	{
+		return plugin.isHighlightOwnPlayer() && plugin.isDrawClanMemberNames()
+			&& plugin.isHighlightFriends() && plugin.isHighlightNonClanMembers() && plugin.isHighlightTargets()
+			&& plugin.isHighlightCallers() && plugin.isHighlightTeamMembers() && plugin.isHighlightCallerTargets();
 	}
 }

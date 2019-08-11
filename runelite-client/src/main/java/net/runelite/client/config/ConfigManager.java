@@ -65,7 +65,9 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.RuneLite;
 import static net.runelite.client.RuneLite.PROFILES_DIR;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.plugins.playerindicators.ConfigEnumMap;
 import net.runelite.client.util.ColorUtil;
+import org.apache.commons.lang3.StringUtils;
 
 @Singleton
 @Slf4j
@@ -533,7 +535,15 @@ public class ConfigManager
 		{
 			return Duration.ofMillis(Long.parseLong(str));
 		}
-		if (type == Map.class)
+		if (type == int[].class)
+		{
+			if (str.contains(","))
+			{
+				return Arrays.stream(str.split(",")).mapToInt(Integer::valueOf).toArray();
+			}
+			return new int[] {Integer.parseInt(str)};
+		}
+		if (type == Map.class || type == ConfigEnumMap.class)
 		{
 			Map<String, String> output = new HashMap<>();
 			str = str.substring(1, str.length() - 1);
@@ -594,6 +604,14 @@ public class ConfigManager
 		if (object instanceof Duration)
 		{
 			return Long.toString(((Duration) object).toMillis());
+		}
+		if (object instanceof int[])
+		{
+			if (((int[]) object).length == 0)
+			{
+				return String.valueOf(object);
+			}
+			return StringUtils.join(object, ",");
 		}
 		return object.toString();
 	}
