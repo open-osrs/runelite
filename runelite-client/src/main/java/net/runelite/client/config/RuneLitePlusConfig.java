@@ -26,10 +26,7 @@
  */
 package net.runelite.client.config;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.Range;
+import java.awt.Color;
 
 @ConfigGroup("runeliteplus")
 public interface RuneLitePlusConfig extends Config
@@ -80,5 +77,30 @@ public interface RuneLitePlusConfig extends Config
 	default boolean enablePlugins()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+		keyName = "enableCustomPrivateMessageColor",
+		name = "Custom split private message color",
+		description = "Change the cyan color from split private messages",
+		position = 11
+	)
+	default boolean enableCustomPMColors()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "customPMColor",
+		name = "Color to use",
+		description = "The color that we\'ll use for split private messages.",
+		position = 12,
+		parent = "enableCustomPrivateMessageColor",
+		hidden = true,
+		unhide = "enableCustomPrivateMessageColor"
+	)
+	default Color customPMColor()
+	{
+		return Color.MAGENTA;
 	}
 }

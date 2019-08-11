@@ -32,8 +32,10 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import static net.runelite.api.ScriptID.BANK_PIN_OP;
+import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
+import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import static net.runelite.api.widgets.WidgetInfo.*;
 import net.runelite.client.callback.ClientThread;
@@ -86,6 +88,7 @@ public class RuneLitePlusPlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		eventbus.unregister(this);
+		eventbus.unregister("pmcolors");
 
 		entered = 0;
 		enterIdx = 0;
@@ -107,12 +110,28 @@ public class RuneLitePlusPlugin extends Plugin
 			expectInput = false;
 			keyManager.unregisterKeyListener(keyListener);
 		}
+
+		if (event.getKey().equals("enableCustomPrivateMessageColor"))
+		{
+			if (Boolean.parseBoolean(event.getNewValue()))
+			{
+				eventbus.subscribe(BeforeRender.class, "pmcolors", this::onBeforeRender);
+			}
+			else
+			{
+				eventbus.unregister("pmcolors");
+			}
+		}
 	}
 
 	private void addSubscriptions()
 	{
 		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventbus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+		if (config.enableCustomPMColors())
+		{
+			eventbus.subscribe(BeforeRender.class, "pmcolors", this::onBeforeRender);
+		}
 	}
 
 	private void onScriptCallbackEvent(ScriptCallbackEvent e)
@@ -226,6 +245,22 @@ public class RuneLitePlusPlugin extends Plugin
 		@Override
 		public void keyReleased(KeyEvent keyEvent)
 		{
+		}
+	}
+
+	private void onBeforeRender(BeforeRender beforeRender)
+	{
+		Widget privateChatWidget = client.getWidget(PRIVATE_CHAT_MESSAGE);
+		if (privateChatWidget != null)
+		{
+			int hex = Integer.parseInt(Integer.toHexString(config.customPMColor().getRGB() & 0xffffff), 16);
+			for (Widget child : privateChatWidget.getChildren())
+			{
+				if (child != null && child.getTextColor() != hex)
+				{
+					child.setTextColor(hex);
+				}
+			}
 		}
 	}
 }
