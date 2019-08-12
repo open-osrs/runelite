@@ -315,7 +315,7 @@ public class DamageCounterPlugin extends Plugin
 		else
 		{
 			MessageDamage = "Didn't do much, " +
-				"fucking leech, you did " + DAMAGEFORMAT.format(DamageCount) + " damage to " +
+				"leech, you did " + DAMAGEFORMAT.format(DamageCount) + " damage to " +
 				actor.getName() + "! You did %" + String.format("%.2f", percent) + " of the damage";
 		}
 
