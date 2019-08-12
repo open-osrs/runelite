@@ -259,6 +259,13 @@ public class RaidsOverlay extends Overlay
 				.build());
 			panelComponent.setBackgroundColor(new Color(0, 255, 0, 10));
 		}
+		if (plugin.isDisplayDCScout() && plugin.getList_of_DC_SCOUT_RAIDS().contains(plugin.getRaid().getLayout().toCodeString()))
+		{
+			panelComponent.getChildren().add(TitleComponent.builder()
+				.text("DC Scout")
+				.color(Color.ORANGE)
+				.build());
+		}
 		else
 		{
 			if (plugin.isHideBackground())

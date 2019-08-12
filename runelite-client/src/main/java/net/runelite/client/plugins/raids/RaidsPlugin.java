@@ -222,6 +222,11 @@ public class RaidsPlugin extends Plugin
 	private final List<String> layoutWhitelist = new ArrayList<>();
 
 	@Getter
+	private final ImmutableSet<String> list_of_DC_SCOUT_RAIDS = ImmutableSet.of(
+		"SCPFCCSPCF", "CSPFCCCSSF", "SCFPCSCPCF", "PCSFCPCSCF", "SCCFCPSCSF", "SCPFCCCSSF",
+		"SCPFCPCSCF"
+	);
+	@Getter
 	private Raid raid;
 
 	private boolean inRaidChambers;
@@ -247,6 +252,7 @@ public class RaidsPlugin extends Plugin
 	private boolean hideVanguards;
 	private boolean hideUnknownCombat;
 	private boolean partyDisplay;
+	private boolean displayDCScout;
 	private int startPlayerCount;
 	private int upperTime = -1;
 	private int middleTime = -1;
@@ -1292,5 +1298,6 @@ public class RaidsPlugin extends Plugin
 		this.hideVanguards = config.hideVanguards();
 		this.hideUnknownCombat = config.hideUnknownCombat();
 		this.partyDisplay = config.partyDisplay();
+		this.displayDCScout = config.displayDCScout();
 	}
 }
