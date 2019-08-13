@@ -17,7 +17,7 @@ plugins {
 apply plugin: 'application'
 
 ext {
-    grgit = org.ajoberstar.grgit.Grgit.open(dir: '.')
+    grgit = org.ajoberstar.grgit.Grgit.open(dir: "${rootProject.projectDir}")
     localGitCommit = grgit.head().id
     localGitCommitShort = grgit.head().getAbbreviatedId(7)
     localGitDirty = !grgit.status().clean
@@ -79,8 +79,8 @@ subprojects {
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: System.getenv("NEXUS-URL")) {
-                    authentication(userName: System.getenv("NEXUS-USER"), password: System.getenv("NEXUS-PASSWORD"))
+                repository(url: System.getenv("NEXUS_URL")) {
+                    authentication(userName: System.getenv("NEXUS_USER"), password: System.getenv("NEXUS_PASSWORD"))
                 }
             }
         }
