@@ -1,13 +1,15 @@
 description = 'Script Assembler Plugin'
 
 dependencies {
-    implementation project(':cache')
-    implementation project(':runelite-api')
+    annotationProcessor group: 'org.eclipse.sisu', name: 'org.eclipse.sisu.inject', version: sisu
+
+    compileOnly group: 'org.apache.maven.plugin-tools', name: 'maven-plugin-annotations', version: mavenPluginAnnotations
+
     implementation group: 'com.google.guava', name: 'guava', version: guava
     implementation group: 'org.apache.maven', name: 'maven-plugin-api', version: mavenPluginApi
     implementation group: 'org.slf4j', name: 'slf4j-nop', version: slf4j
-    compileOnly group: 'org.apache.maven.plugin-tools', name: 'maven-plugin-annotations', version: mavenPluginAnnotations
-    annotationProcessor group: 'org.eclipse.sisu', name: 'org.eclipse.sisu.inject', version: sisu
+    implementation project(':cache')
+    implementation project(':runelite-api')
 }
 
 compileJava.outputs.upToDateWhen {false}

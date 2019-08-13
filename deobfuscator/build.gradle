@@ -11,17 +11,20 @@ configurations {
 }
 
 dependencies {
-    implementation project(':runelite-api')
-    implementation project(':runescape-api')
-    implementation group: 'net.runelite', name: 'fernflower', version: fernflower
-    implementation group: 'com.google.guava', name: 'guava', version: guava
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
+    deobjars group: 'net.runelite.rs', name: 'vanilla', version: rsversion
+    deobjars project(':rs-client')
+
     implementation group: 'com.google.code.gson', name: 'gson', version: gson
+    implementation group: 'com.google.guava', name: 'guava', version: guava
+    implementation group: 'net.runelite', name: 'fernflower', version: fernflower
     implementation group: 'org.ow2.asm', name: 'asm', version: asm
     implementation group: 'org.ow2.asm', name: 'asm-util', version: asm
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
+    implementation project(':runelite-api')
+    implementation project(':runescape-api')
+
     runtime group: 'org.slf4j', name: 'slf4j-simple', version: slf4j
-    deobjars project(':rs-client')
-    deobjars group: 'net.runelite.rs', name: 'vanilla', version: rsversion
+
     testImplementation configurations.deobjars.dependencies
     testImplementation group: 'junit', name: 'junit', version: junit
     testImplementation group: 'org.mockito', name: 'mockito-core', version: mockito

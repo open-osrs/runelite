@@ -10,21 +10,25 @@ configurations {
 }
 
 dependencies {
-    implementation project(':deobfuscator')
-    implementation project(':mixins')
-    implementation project(':runelite-api')
-    implementation project(':runescape-api')
+    annotationProcessor group: 'org.eclipse.sisu', name: 'org.eclipse.sisu.inject', version: sisu
+
+    compileOnly group: 'org.apache.maven.plugin-tools', name: 'maven-plugin-annotations', version: mavenPluginAnnotations
+
     implementation group: 'com.google.guava', name: 'guava', version: guava
     implementation group: 'org.apache.maven', name: 'maven-plugin-api', version: mavenPluginApi
     implementation group: 'org.ow2.asm', name: 'asm', version: asm
     implementation group: 'org.ow2.asm', name: 'asm-util', version: asm
-    testImplementation project(':deobfuscator')
+    implementation project(':deobfuscator')
+    implementation project(':mixins')
+    implementation project(':runelite-api')
+    implementation project(':runescape-api')
+
     testImplementation group: 'junit', name: 'junit', version: junit
     testImplementation group: 'org.mockito', name: 'mockito-core', version: mockito
-    compileOnly group: 'org.apache.maven.plugin-tools', name: 'maven-plugin-annotations', version: mavenPluginAnnotations
-    annotationProcessor group: 'org.eclipse.sisu', name: 'org.eclipse.sisu.inject', version: sisu
-    vanilla "net.runelite.rs:vanilla:${rsversion}"
+    testImplementation project(':deobfuscator')
     testImplementation project(path: ':deobfuscator', configuration: 'testArchives')
+
+    vanilla "net.runelite.rs:vanilla:${rsversion}"
 }
 
 compileJava {

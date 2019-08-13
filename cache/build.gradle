@@ -7,19 +7,23 @@ plugins {
 description = 'Cache'
 
 dependencies {
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombok
+
     api project(':http-api')
-    implementation group: 'com.google.guava', name: 'guava', version: guava
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
-    implementation group: 'org.apache.commons', name: 'commons-compress', version: apacheCommonsCompress
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombok
+
     implementation group: 'com.google.code.gson', name: 'gson', version: gson
+    implementation group: 'com.google.guava', name: 'guava', version: guava
+    implementation group: 'commons-cli', name: 'commons-cli', version: commonsCli
     implementation group: 'io.netty', name: 'netty-buffer', version: netty
     implementation group: 'org.antlr', name: 'antlr4-runtime', version: antlr
-    implementation group: 'commons-cli', name: 'commons-cli', version: commonsCli
+    implementation group: 'org.apache.commons', name: 'commons-compress', version: apacheCommonsCompress
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
+
     testImplementation group: 'junit', name: 'junit', version: junit
-    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j
     testImplementation group: 'net.runelite.rs', name: 'cache', version: cacheversion
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombok
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombok
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j
 }
 
 processTestResources {

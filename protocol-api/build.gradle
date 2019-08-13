@@ -1,10 +1,13 @@
 description = 'Protocol API'
 
 dependencies {
-    implementation project(':runelite-api')
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
-    implementation group: 'com.google.guava', name: 'guava', version: guava
-    testImplementation group: 'junit', name: 'junit', version: junit
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombok
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombok
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombok
+
+    implementation group: 'com.google.guava', name: 'guava', version: guava
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
+    implementation project(':runelite-api')
+
+    testImplementation group: 'junit', name: 'junit', version: junit
 }
