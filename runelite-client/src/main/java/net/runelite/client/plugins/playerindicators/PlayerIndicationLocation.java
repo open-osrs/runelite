@@ -12,7 +12,7 @@ package net.runelite.client.plugins.playerindicators;
 public enum PlayerIndicationLocation
 {
 	ABOVE_HEAD,
+	HULL,
 	MINIMAP,
 	TILE,
-
 }

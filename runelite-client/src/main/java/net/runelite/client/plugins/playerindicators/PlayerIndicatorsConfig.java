@@ -25,15 +25,11 @@
 package net.runelite.client.plugins.playerindicators;
 
 import java.awt.Color;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
 import net.runelite.api.ClanMemberRank;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.EnumList;
+import net.runelite.client.plugins.config.ConfigEnumMap;
 
 @ConfigGroup("playerindicators")
 public interface PlayerIndicatorsConfig extends Config
@@ -480,11 +476,11 @@ public interface PlayerIndicatorsConfig extends Config
 		name = "Pile indication methods",
 		description = "How to highlight the callers' target",
 		group = "Callers",
-		enumClazz = PlayerIndicationMode.class
+		displayRows = 3
 	)
 	default ConfigEnumMap callerTargetHighlightOptions()
 	{
-		return new ConfigEnumMap(PlayerIndicationMode.class);
+		return new ConfigEnumMap(PlayerIndicationLocation.class);
 	}
 
 

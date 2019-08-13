@@ -60,11 +60,11 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.config.EnumList;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.config.ConfigEnumMap;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.PvPUtil;
@@ -75,6 +75,7 @@ import net.runelite.client.util.PvPUtil;
 	tags = {"highlight", "minimap", "overlay", "players", "pklite"}
 )
 @Singleton
+@Slf4j
 public class PlayerIndicatorsPlugin extends Plugin
 {
 	@Inject
@@ -173,7 +174,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter
 	private HashMap<String, Actor> callerPiles = new HashMap<String, Actor>();
 	@Getter
-	private List<PlayerIndicationMode> playerIndicationModes;
+	private ConfigEnumMap playerIndicationModes;
 
 	@Provides
 	PlayerIndicatorsConfig provideConfig(ConfigManager configManager)
@@ -209,12 +210,12 @@ public class PlayerIndicatorsPlugin extends Plugin
 		eventBus.subscribe(ClanMemberJoined.class, this, this::onClanMemberJoined);
 		eventBus.subscribe(ClanMemberLeft.class, this, this::onClanMemberLeft);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
-		eventBus.subscribe(InteractingChanged.class, this, this::onInterActingChanged);
+		eventBus.subscribe(InteractingChanged.class, this, this::onInteractingChanged);
 	}
 
 	private List<String> callers = new ArrayList<>();
 
-	private void onInterActingChanged(InteractingChanged event)
+	private void onInteractingChanged(InteractingChanged event)
 	{
 		if (!this.highlightCallerTargets)
 		{
@@ -493,8 +494,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.highlightCallerTargets = config.callersTargets();
 		this.callerTargetColor = config.callerTargetColor();
 		this.unchargedGlory = config.unchargedGlory();
-//		this.playerIndicationModes = Arrays.asList(config.callerTargetHighlightOptions());
-
+		this.playerIndicationModes = config.callerTargetHighlightOptions();
 	}
 
 

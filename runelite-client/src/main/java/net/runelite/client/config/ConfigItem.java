@@ -67,11 +67,16 @@ public @interface ConfigItem
 
 	String disabledByValue() default "";
 
-	Class<? extends Enum> enumClazz() default Enum.class;
-
-
 	boolean parse() default false;
 
+	/**
+	 * For Config items that have a value of multiple enums,
+	 * @return the number of rows that are display in the item without having to scroll.
+	 */
+	int displayRows() default 2;
+
 	Class<?> clazz() default void.class;
+
 	String method() default "";
+
 }

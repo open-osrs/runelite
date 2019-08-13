@@ -65,7 +65,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.RuneLite;
 import static net.runelite.client.RuneLite.PROFILES_DIR;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.plugins.playerindicators.ConfigEnumMap;
+import net.runelite.client.plugins.config.ConfigEnumMap;
 import net.runelite.client.util.ColorUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -543,7 +543,35 @@ public class ConfigManager
 			}
 			return new int[] {Integer.parseInt(str)};
 		}
-		if (type == Map.class || type == ConfigEnumMap.class)
+		if (type == ConfigEnumMap.class)
+		{
+			Map<String, String> output = new HashMap<>();
+			String substring = str.substring(str.indexOf("{") + 1, str.length() - 1);
+			String[] splitStr = substring.split(", ");
+			for (String s : splitStr)
+			{
+				String[] keyVal = s.split("=");
+				if (keyVal.length > 1)
+				{
+					output.put(keyVal[0], keyVal[1]);
+				}
+			}
+			try
+			{
+				ConfigEnumMap configEnumMap = new ConfigEnumMap(Class.forName(str.substring(0, str.indexOf("{"))));
+				output.forEach((s, s2) ->
+				{
+					configEnumMap.put(Enum.valueOf(configEnumMap.getKeyType(), s), Integer.parseInt(s2));
+				});
+				return configEnumMap;
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		}
+		if (type == Map.class)
 		{
 			Map<String, String> output = new HashMap<>();
 			str = str.substring(1, str.length() - 1);

@@ -26,7 +26,6 @@ package net.runelite.client.plugins.config;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
-import com.google.common.collect.EnumHashBiMap;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -43,10 +42,8 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
@@ -104,7 +101,6 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.plugins.playerindicators.ConfigEnumMap;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.ui.PluginPanel;
@@ -1040,28 +1036,20 @@ public class ConfigPanel extends PluginPanel
 
 				else if (cid.getType() == ConfigEnumMap.class)
 				{
-					HashMap hashMap = configManager.getConfiguration(cd.getGroup().value(),
-						cid.getItem().keyName(),
-						(Class<? extends  HashMap>) cid.getType());
-					Class<? extends Enum> type = (Class<? extends Enum>) cid.getItem().enumClazz();
-					ConfigEnumMap enumMap = new ConfigEnumMap(type);
-					hashMap.forEach((k, v) ->
-					{
-						enumMap.put(Enum.valueOf(type, (String) k), Integer.valueOf(v.toString()));
-					});					JList jList = new JList(type.getEnumConstants());
 
-					if (!enumMap.isEmpty())
-					{
-						int[] e = new int[enumMap.values().toArray().length];
-						for (int i = 0; i < enumMap.values().toArray().length; i++)
-						{
-							e[i] = (int) enumMap.values().toArray()[i];
-						}
-						jList.setSelectedIndices(e);
-					}
+					int displayRows = cid.getItem().displayRows();
 
+					ConfigEnumMap enumMap = configManager.getConfiguration(cd.getGroup().value(),
+						cid.getItem().keyName(), ConfigEnumMap.class);
 
-					jList.setVisibleRowCount(2);
+					JList jList = new JList(enumMap.getKeyType().getEnumConstants());
+					int [] selected = new int[enumMap.getSelectedValues().size()];
+
+					enumMap.getSelectedValues().forEach(v ->
+						selected[enumMap.getSelectedValues().indexOf(v)] = enumMap.getAllEnums().indexOf(v));
+
+					jList.setSelectedIndices(selected);
+					jList.setVisibleRowCount(displayRows);
 					jList.setCellRenderer(new ComboBoxListRenderer());
 					jList.setLayoutOrientation(JList.VERTICAL);
 					jList.setSelectionBackground(jList.getBackground().brighter().brighter());
@@ -1237,30 +1225,13 @@ public class ConfigPanel extends PluginPanel
 		{
 			JList jList = (JList) component;
 
-			HashMap hashMap = configManager.getConfiguration(cd.getGroup().value(),
+			ConfigEnumMap enumMap = configManager.getConfiguration(cd.getGroup().value(),
 				cid.getItem().keyName(),
-				(Class<? extends  HashMap>) cid.getType());
-			Class<? extends Enum> type = (Class<? extends Enum>) cid.getItem().enumClazz();
-			ConfigEnumMap enumMap = new ConfigEnumMap(type);
-			hashMap.forEach((k, v) ->
-			{
-				enumMap.put(Enum.valueOf(type, (String) k), Integer.valueOf(v.toString()));
-			});
+				ConfigEnumMap.class);
 
-			for (int i = 0; i < type.getEnumConstants().length; i++)
-			{
-				enumMap.putIfAbsent(type.getEnumConstants()[i], 0);
-			}
+			jList.getSelectedValuesList().forEach(value -> enumMap.put(Enum.valueOf(enumMap.getKeyType(),
+				value.toString()), 1));
 
-			for (int i = 0; i < jList.getSelectedIndices().length; i++)
-			{
-				enumMap.entrySet().toArray()[i] = 1;
-			}
-
-			jList.getSelectedValuesList().forEach(value ->
-			{
-				enumMap.replace(Enum.valueOf(type, value.toString()), 1);
-			});
 
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), enumMap);
 
@@ -1394,6 +1365,7 @@ public class ConfigPanel extends PluginPanel
 	{
 		return new Dimension(PANEL_WIDTH + SCROLLBAR_WIDTH, super.getPreferredSize().height);
 	}
+
 
 	private static class FixedWidthPanel extends JPanel
 	{
