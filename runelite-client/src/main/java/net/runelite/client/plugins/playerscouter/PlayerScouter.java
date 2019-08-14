@@ -53,6 +53,7 @@ import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.PlayerDespawned;
@@ -106,6 +107,14 @@ public class PlayerScouter extends Plugin
 	private final Set<PlayerContainer> playerContainer = new HashSet<>();
 	private final Map<String, HiscoreResult> resultCache = new HashMap<>();
 	private final Map<String, Integer> blacklist = new HashMap<>();
+	private HttpUrl webhook;
+	private int minimumRisk;
+	private int minimumValue;
+	private int timeout;
+	private boolean onlyWildy;
+	private boolean outputItems;
+	private boolean scoutFriends;
+	private boolean scoutClan;
 
 	@Provides
 	PlayerScouterConfig provideConfig(ConfigManager configManager)
@@ -118,6 +127,7 @@ public class PlayerScouter extends Plugin
 	{
 		blacklist.clear();
 		addSubscriptions();
+		updateConfig();
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			for (Player player : client.getPlayers())
@@ -137,10 +147,21 @@ public class PlayerScouter extends Plugin
 
 	private void addSubscriptions()
 	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(PlayerSpawned.class, this, this::onPlayerSpawned);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("playerscouter"))
+		{
+			return;
+		}
+
+		updateConfig();
 	}
 
 	private void onGameStateChanged(GameStateChanged event)
@@ -165,7 +186,7 @@ public class PlayerScouter extends Plugin
 		playerContainer.forEach(player ->
 		{
 			update(player);
-			if (player.getRisk() > config.minimumRisk())
+			if (player.getRisk() > this.minimumRisk)
 			{
 				scoutPlayer(player);
 			}
@@ -189,15 +210,15 @@ public class PlayerScouter extends Plugin
 	{
 		if (player == client.getLocalPlayer()
 			|| (!blacklist.isEmpty() && blacklist.containsKey(player.getName()))
-			|| (!config.scoutFriends() && client.isFriended(player.getName(), false)
-			|| (!config.scoutClan() && client.isClanMember(player.getName()))))
+			|| (!this.scoutFriends && client.isFriended(player.getName(), false)
+			|| (!this.scoutClan && client.isClanMember(player.getName()))))
 		{
 			log.debug("Player Rejected: {}", player.getName());
 			return;
 		}
 
 		playerContainer.add(new PlayerContainer(player));
-		blacklist.put(player.getName(), client.getTickCount() + config.timeout());
+		blacklist.put(player.getName(), client.getTickCount() + this.timeout);
 	}
 
 	private void resetBlacklist()
@@ -220,12 +241,24 @@ public class PlayerScouter extends Plugin
 
 	private boolean checkWildy()
 	{
-		if (!config.onlyWildy())
+		if (!this.onlyWildy)
 		{
 			return true;
 		}
 
 		return client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isPvpWorld(client.getWorldType());
+	}
+
+	private void updateConfig()
+	{
+		this.webhook = HttpUrl.parse(config.webhook());
+		this.minimumRisk = config.minimumRisk();
+		this.minimumValue = config.minimumValue();
+		this.timeout = config.timeout();
+		this.onlyWildy = config.onlyWildy();
+		this.outputItems = config.outputItems();
+		this.scoutClan = config.scoutClan();
+		this.scoutFriends = config.scoutFriends();
 	}
 
 	private void update(PlayerContainer player)
@@ -483,7 +516,7 @@ public class PlayerScouter extends Plugin
 			.inline(true)
 			.build());
 
-		if (config.outputItems())
+		if (this.outputItems)
 		{
 			fieldList.add(FieldEmbed.builder()
 				.name("Risked Items Sorted by Value")
@@ -496,7 +529,7 @@ public class PlayerScouter extends Plugin
 			{
 				Integer gear = entry.getKey();
 				Integer value = entry.getValue();
-				if (value <= 0 || value <= config.minimumValue())
+				if (value <= 0 || value <= this.minimumValue)
 				{
 					items++;
 					continue;
@@ -520,7 +553,7 @@ public class PlayerScouter extends Plugin
 			if (items > 0)
 			{
 				fieldList.add(FieldEmbed.builder()
-					.name("Items below value: " + config.minimumValue())
+					.name("Items below value: " + this.minimumValue)
 					.value(Integer.toString(items))
 					.inline(true)
 					.build());
@@ -542,7 +575,7 @@ public class PlayerScouter extends Plugin
 
 	private void message(String name, String iconUrl, ThumbnailEmbed thumbnail, List<FieldEmbed> fields, String color)
 	{
-		log.debug("Message Contents: {}, {}, {}, {}, {}", name, " ", thumbnail, Arrays.toString(fields.toArray()), HttpUrl.parse(config.webhook()));
+		log.debug("Message Contents: {}, {}, {}, {}, {}", name, " ", thumbnail, Arrays.toString(fields.toArray()), this.webhook);
 		log.debug("Fields: {}", fields);
 
 		if (name.isEmpty() || fields.isEmpty())
@@ -570,7 +603,7 @@ public class PlayerScouter extends Plugin
 
 		DiscordMessage discordMessage = new DiscordMessage("Gabon Scouter", " ", "https://i.imgur.com/2A6dr7q.png");
 		discordMessage.getEmbeds().add(discordEmbed);
-		DISCORD_CLIENT.message(HttpUrl.parse(config.webhook()), discordMessage);
+		DISCORD_CLIENT.message(this.webhook, discordMessage);
 		fields.clear();
 	}
 
