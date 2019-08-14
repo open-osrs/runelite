@@ -16,16 +16,20 @@ import java.util.EnumMap;
 import java.util.List;
 import lombok.Getter;
 
-public class ConfigEnumMap<K extends Enum<K>> extends EnumMap<K, Integer> implements Serializable
+public class ConfigEnumMap extends EnumMap implements Serializable
 {
 	@Getter
-	private final Class<K> keyType;
+	private final Class<? extends Enum> keyType;
 	@Getter
-	private final List<K> allEnums;
+	private final List<? extends Enum> allEnums;
 
 	@Override
 	public String toString()
 	{
+		if (this.isEmpty())
+		{
+			return this.keyType.getCanonicalName() + "{}";
+		}
 		return this.keyType.getCanonicalName() + super.toString();
 	}
 
@@ -33,31 +37,32 @@ public class ConfigEnumMap<K extends Enum<K>> extends EnumMap<K, Integer> implem
 	 *
 	 * @param keyType
 	 */
-	public ConfigEnumMap(Class<K> keyType)
+	public ConfigEnumMap(Class k)
 	{
-		super(keyType);
-		this.keyType = keyType;
+		super(k);
+		this.keyType = k;
 		allEnums = Arrays.asList(this.keyType.getEnumConstants());
 		Arrays.stream(this.keyType.getEnumConstants()).forEach(constant ->
 		{
 			super.put(constant, 0);
 		});
-
 	}
+
+
 
 	/**
 	 *
 	 * @return
 	 */
-	public List<K> getSelectedValues()
+	public List<? extends Enum> getSelectedValues()
 	{
-		ArrayList<K> selectedValues = new ArrayList<>();
+		ArrayList<Enum> selectedValues = new ArrayList<>();
 		this.forEach((t, value) ->
 		{
-			final int v = value;
+			final int v = (int) value;
 			if (v == 1)
 			{
-				selectedValues.add(t);
+				selectedValues.add((Enum) t);
 			}
 		});
 		return selectedValues;
@@ -68,7 +73,7 @@ public class ConfigEnumMap<K extends Enum<K>> extends EnumMap<K, Integer> implem
 	 * @param index
 	 * @return
 	 */
-	private K getEnumFromIndex(int index)
+	private Enum getEnumFromIndex(int index)
 	{
 		return this.getKeyType().getEnumConstants()[index];
 	}

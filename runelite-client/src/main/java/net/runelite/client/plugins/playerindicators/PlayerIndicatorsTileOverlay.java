@@ -65,7 +65,7 @@ public class PlayerIndicatorsTileOverlay extends Overlay
 			{
 				final Polygon poly = player.getCanvasTilePoly();
 				if (!playerIndicatorsPlugin.getCallerPiles().containsValue(player) &&
-					!playerIndicatorsPlugin.getPlayerIndicationModes().getSelectedValues().contains(PlayerIndicationMode.TILE))
+					!playerIndicatorsPlugin.getPlayerIndicationModes().contains(PlayerIndicationMode.TILE))
 				{
 					return;
 				}

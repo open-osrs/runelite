@@ -31,6 +31,7 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.plugins.config.ConfigEnumMap;
 
+@SuppressWarnings("unchecked")
 @ConfigGroup("playerindicators")
 public interface PlayerIndicatorsConfig extends Config
 {
@@ -60,9 +61,22 @@ public interface PlayerIndicatorsConfig extends Config
 
 	@ConfigItem(
 		position = 2,
+		keyName = "selfIndicatorModes",
+		name = "Indicator Mode",
+		description = "Location(s) of the overlay",
+		group = "Yourself"
+	)
+	default ConfigEnumMap selfIndicatorModes()
+	{
+		return new ConfigEnumMap(PlayerIndicationLocation.class);
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "drawFriendNames",
 		name = "Highlight friends",
-		description = "Configures whether or not friends should be highlighted"
+		description = "Configures whether or not friends should be highlighted",
+		group = "Friends"
 	)
 	default boolean highlightFriends()
 	{
@@ -73,7 +87,8 @@ public interface PlayerIndicatorsConfig extends Config
 		position = 3,
 		keyName = "friendNameColor",
 		name = "Friend color",
-		description = "Color of friend names"
+		description = "Color of friend names",
+		group = "Friends"
 	)
 	default Color getFriendColor()
 	{
@@ -81,12 +96,25 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "drawClanMemberNames",
-		name = "Highlight clan members",
-		description = "Configures whether or clan members should be highlighted"
+		position = 2,
+		keyName = "friendIndicatorMode",
+		name = "Indicator Mode",
+		description = "Location(s) of the overlay",
+		group = "Friends"
 	)
-	default boolean drawClanMemberNames()
+	default ConfigEnumMap friendIndicatorMode()
+	{
+		return new ConfigEnumMap(PlayerIndicationLocation.class);
+	}
+
+	@ConfigItem(
+		position = 4,
+		keyName = "highlightClan",
+		name = "Highlight clan members",
+		description = "Configures whether or clan members should be highlighted",
+		group = "Clan"
+	)
+	default boolean highlightClan()
 	{
 		return true;
 	}
@@ -95,7 +123,8 @@ public interface PlayerIndicatorsConfig extends Config
 		position = 5,
 		keyName = "clanMemberColor",
 		name = "Clan member color",
-		description = "Color of clan members"
+		description = "Color of clan members",
+		group = "Clan"
 	)
 	default Color getClanMemberColor()
 	{
@@ -103,10 +132,35 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
+		position = 2,
+		keyName = "clanIndicatorModes",
+		name = "Indicator Mode",
+		description = "Location(s) of the overlay",
+		group = "Clan"
+	)
+	default ConfigEnumMap clanIndicatorModes()
+	{
+		return new ConfigEnumMap(PlayerIndicationLocation.class);
+	}
+
+	@ConfigItem(
+		position = 14,
+		keyName = "clanMenuIcons",
+		name = "Show clan ranks",
+		description = "Add clan rank to right click menu and next to player names",
+		group = "Clan"
+	)
+	default boolean showClanRanks()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		position = 6,
 		keyName = "drawTeamMemberNames",
 		name = "Highlight team members",
-		description = "Configures whether or not team members should be highlighted"
+		description = "Configures whether or not team members should be highlighted",
+		group = "Team"
 	)
 	default boolean highlightTeamMembers()
 	{
@@ -117,7 +171,8 @@ public interface PlayerIndicatorsConfig extends Config
 		position = 7,
 		keyName = "teamMemberColor",
 		name = "Team member color",
-		description = "Color of team members"
+		description = "Color of team members",
+		group = "Team"
 	)
 	default Color getTeamMemberColor()
 	{
@@ -125,157 +180,51 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "drawNonClanMemberNames",
-		name = "Highlight non-clan members",
-		description = "Configures whether or not non-clan members should be highlighted"
+		position = 2,
+		keyName = "teamIndicatorModes",
+		name = "Indicator Mode",
+		description = "Location(s) of the overlay",
+		group = "Team"
 	)
-	default boolean highlightNonClanMembers()
+	default ConfigEnumMap teamIndicatorModes()
 	{
-		return false;
+		return new ConfigEnumMap(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "nonClanMemberColor",
-		name = "Non-clan member color",
-		description = "Color of non-clan member names"
-	)
-	default Color getNonClanMemberColor()
-	{
-		return Color.RED;
-	}
-
-	@ConfigItem(
-		position = 10,
-		keyName = "drawPlayerTiles",
-		name = "Draw tiles under players",
-		description = "Configures whether or not tiles under highlighted players should be drawn"
-	)
-	default boolean drawTiles()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 11,
-		keyName = "playerNamePosition",
-		name = "Name position",
-		description = "Configures the position of drawn player names, or if they should be disabled"
-	)
-	default PlayerNameLocation playerNamePosition()
-	{
-		return PlayerNameLocation.ABOVE_HEAD;
-	}
-	
-	@ConfigItem(
-		position = 12,
-		keyName = "drawMinimapNames",
-		name = "Draw names on minimap",
-		description = "Configures whether or not minimap names for players with rendered names should be drawn",
-		group = "Minimap"
-	)
-	default boolean drawMinimapNames()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 13,
-		keyName = "drawFriendMinimapNames",
-		name = "Draw Friendnames on minimap",
-		description = "Configures whether or not minimap names for Friends with rendered names should be drawn",
-		group = "Minimap",
-		hidden = true,
-		unhide = "drawMinimapNames"
-	)
-	default boolean drawFriendMinimapNames()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 14,
-		keyName = "drawClanMinimapNames",
-		name = "Draw clan Friend names on minimap",
-		description = "Configures whether or not minimap names for Clan Members with rendered names should be drawn",
-		group = "Minimap",
-		hidden = true,
-		unhide = "drawMinimapNames"
-	)
-	default boolean drawClanMinimapNames()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 13,
-		keyName = "colorPlayerMenu",
-		name = "Colorize player menu",
-		description = "Color right click menu for players"
-	)
-	default boolean colorPlayerMenu()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 14,
-		keyName = "clanMenuIcons",
-		name = "Show clan ranks",
-		description = "Add clan rank to right click menu and next to player names"
-	)
-	default boolean showClanRanks()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 15,
-		keyName = "highlightTargets",
-		name = "Highlight attackable players in wilderness on the minimap",
-		description = "Highlights players on the minimap that the current player can attack based on combat/wilderness levels",
-		group = "Target Indicator"
+		position = 6,
+		keyName = "drawTargetsNames",
+		name = "Highlight attackable targets",
+		description = "Configures whether or not attackable targets should be highlighted",
+		group = "Target"
 	)
 	default boolean highlightTargets()
 	{
 		return false;
 	}
 
-//	@ConfigItem(
-//		position = 16,
-//		keyName = "highlightOverheadTargets",
-//		name = "Highlights attackable players over their head",
-//		description = "Highlights players over their head that the current player can attack based on combat/wilderness levels",
-//		group = "Target Indicator"
-//	)
-//	default boolean highlightOverheadTargets()
-//	{
-//		return false;
-//	}
-
 	@ConfigItem(
-		position = 17,
+		position = 7,
 		keyName = "targetColor",
-		name = "Target color",
+		name = "Target member color",
 		description = "Color of attackable targets",
-		group = "Target Indicator"
+		group = "Target"
 	)
-	default Color getTargetColor()
+	default Color getTargetsColor()
 	{
-		return Color.RED;
+		return new Color(19, 110, 247);
 	}
 
 	@ConfigItem(
-		position = 18,
-		keyName = "showCombat",
-		name = "Show Combat Levels",
-		description = "Show the combat level of attackable players next to their name.",
-		group = "Target Indicator"
+		position = 2,
+		keyName = "targetsIndicatorModes",
+		name = "Indicator Mode",
+		description = "Location(s) of the overlay",
+		group = "Target"
 	)
-	default boolean showCombatLevel()
+	default ConfigEnumMap targetsIndicatorModes()
 	{
-		return false;
+		return new ConfigEnumMap(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
@@ -283,7 +232,7 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "showAgility",
 		name = "Show Agility Levels",
 		description = "Show the agility level of attackable players next to their name while in the wilderness.",
-		group = "Target Indicator"
+		group = "Target"
 	)
 	default boolean showAgilityLevel()
 	{
@@ -295,7 +244,7 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "agilityFormat",
 		name = "Format",
 		description = "Whether to show the agility level as text, or as icons (1 skull >= 1st threshold, 2 skulls >= 2nd threshold).",
-		group = "Target Indicator"
+		group = "Target"
 	)
 	default PlayerIndicatorsPlugin.AgilityFormats agilityFormat()
 	{
@@ -307,7 +256,7 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "agilityFirstThreshold",
 		name = "First Threshold",
 		description = "When showing agility as icons, show one icon for agility >= this level.",
-		group = "Target Indicator"
+		group = "Target"
 	)
 	default int agilityFirstThreshold()
 	{
@@ -319,7 +268,7 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "agilitySecondThreshold",
 		name = "Second Threshold",
 		description = "When showing agility as icons, show two icons for agility >= this level.",
-		group = "Target Indicator"
+		group = "Target"
 	)
 	default int agilitySecondThreshold()
 	{
@@ -330,8 +279,8 @@ public interface PlayerIndicatorsConfig extends Config
 		position = 23,
 		keyName = "playerSkull",
 		name = "Show Skull Information",
-		description = "Indicate of the player is skulled.",
-		group = "Target Indicator"
+		description = "shows",
+		group = "Target"
 	)
 	default boolean playerSkull()
 	{
@@ -343,7 +292,7 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "minimapSkullLocation",
 		name = "Skull Icon Location",
 		description = "The location of the skull icon for skulled players",
-		group = "Target Indicator"
+		group = "Target"
 	)
 	default PlayerIndicatorsPlugin.MinimapSkullLocations skullLocation()
 	{
@@ -351,39 +300,75 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 25,
-		keyName = "skulledTargetsOnly",
-		name = "Tag Skulls Only",
-		description = "Only indicate skulled targets (which are also attackable)",
-		group = "Target Indicator"
-	)
-	default boolean skulledTargetsOnly()
-	{
-		return false;
-	}
-
-	@ConfigItem(
 		position = 26,
 		keyName = "targetRisk",
 		name = "Indicate Target Risk",
 		description = "Indicates the risk (in K GP) of the target",
-		group = "Target Indicator"
+		group = "Target"
 	)
 	default boolean targetRisk()
 	{
 		return false;
 	}
-	
-/*	@ConfigItem(
-			position = 23,
-			keyName = "rightClickOverhead",
-			name = "Add Overheads to Right Click Menu",
-			description = "Feature shows a player's overhead prayer in the right click menu. Useful for DDs, or extremely crowded areas."
+
+	@ConfigItem(
+		position = 18,
+		keyName = "showCombat",
+		name = "Show Combat Levels",
+		description = "Show the combat level of attackable players next to their name.",
+		group = "Target"
 	)
-	default boolean rightClickOverhead()
+	default boolean showCombatLevel()
 	{
 		return false;
-	}*/
+	}
+
+	@ConfigItem(
+		position = 8,
+		keyName = "drawOtherPlayerNames",
+		name = "Highlight other players",
+		description = "Configures whether or not other players should be highlighted",
+		group = "Other"
+	)
+	default boolean highlightOtherPlayers()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 9,
+		keyName = "otherPlayerColor",
+		name = "Other player color",
+		description = "Color of other players' names",
+		group = "Other"
+	)
+	default Color getOtherPlayerColor()
+	{
+		return Color.RED;
+	}
+	@ConfigItem(
+		position = 2,
+		keyName = "otherIndicatorModes",
+		name = "Indicator Mode",
+		description = "Location(s) of the overlay",
+		group = "Other"
+	)
+	default ConfigEnumMap otherIndicatorModes()
+	{
+		return new ConfigEnumMap(PlayerIndicationLocation.class);
+	}
+
+
+	@ConfigItem(
+		position = 11,
+		keyName = "playerNamePosition",
+		name = "Name position",
+		description = "Configures the position of drawn player names, or if they should be disabled"
+	)
+	default PlayerNameLocation playerNamePosition()
+	{
+		return PlayerNameLocation.ABOVE_HEAD;
+	}
 
 	@ConfigItem(
 		position = 27,

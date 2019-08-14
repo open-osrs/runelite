@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.playerindicators;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.function.BiConsumer;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -45,6 +46,7 @@ public class PlayerIndicatorsService
 		this.plugin = plugin;
 	}
 
+
 	public void forEachPlayer(final BiConsumer<Player, Color> consumer)
 	{
 		if (!highlight())
@@ -52,68 +54,70 @@ public class PlayerIndicatorsService
 			return;
 		}
 
-		final Player localPlayer = client.getLocalPlayer();
-
-		for (Player player : client.getPlayers())
+		final List<Player> players = client.getPlayers();
+		players.forEach(player ->
 		{
 			if (player == null || player.getName() == null)
 			{
-				continue;
+				return;
 			}
-
-			boolean isClanMember = player.isClanMember();
-
-			if (player.equals(localPlayer))
+			if (plugin.isHighlightOwnPlayer())
 			{
-				if (plugin.isHighlightOwnPlayer())
+				if (!plugin.getSelfIndicationModes().isEmpty())
 				{
-					consumer.accept(player, plugin.getGetOwnPlayerColor());
+					consumer.accept(player, plugin.getSelfColor());
 				}
 			}
-			else if (plugin.isHighlightFriends() && client.isFriended(player.getName(), false))
-			{
-				consumer.accept(player, plugin.getGetFriendColor());
-			}
-			else if (plugin.isDrawClanMemberNames() && isClanMember)
-			{
-				consumer.accept(player, plugin.getGetClanMemberColor());
-			}
-			else if (plugin.isHighlightTeamMembers() && localPlayer.getTeam() > 0 &&
-				localPlayer.getTeam() == player.getTeam())
-			{
-				consumer.accept(player, plugin.getGetTeamMemberColor());
-			}
-			else if (plugin.isHighlightNonClanMembers() && !isClanMember)
-			{
-				consumer.accept(player, plugin.getGetNonClanMemberColor());
-			}
-			else if (plugin.isHighlightTargets() && PvPUtil.isAttackable(client, player) &&
-				!client.isFriended(player.getName(), false) && !player.isClanMember())
-			{
-				if (plugin.isSkulledTargetsOnly() && player.getSkullIcon() != null)
+			if (plugin.isHighlightFriends())
+				if (!plugin.getFriendIndicationModes().isEmpty())
 				{
-					consumer.accept(player, plugin.getGetTargetColor());
+					if (client.isFriended(player.getName(), false))
+					{
+						consumer.accept(player, plugin.getFriendsColor());
+					}
 				}
-				else if (!plugin.isSkulledTargetsOnly())
+			if (plugin.isHighlightClan())
+			{
+				if (!plugin.getClanIndicationModes().isEmpty())
 				{
-					consumer.accept(player, plugin.getGetTargetColor());
+					if (player.isClanMember())
+					{
+						consumer.accept(player, plugin.getGetClanMemberColor());
+					}
 				}
 			}
-			else if (plugin.isHighlightCallers() && plugin.getConfigCallers() != null && plugin.isCaller(player))
+			if (plugin.isHighlightTeamMembers())
 			{
-				consumer.accept(player, plugin.getCallerColor());
+				if (!plugin.getTeamIndicationModes().isEmpty() && player.getTeam() == client.getLocalPlayer().getTeam())
+				{
+					consumer.accept(player, plugin.getGetTeamMemberColor());
+				}
 			}
-			else if (plugin.isHighlightCallerTargets() && plugin.getCallerPiles().containsValue(player))
+			if (plugin.isHighlightTargets())
 			{
-				consumer.accept(player, plugin.getCallerTargetColor());
+				if (!plugin.getTargetIndicationModes().isEmpty())
+				{
+					if (PvPUtil.isAttackable(client, player))
+					{
+						consumer.accept(player, plugin.getCallerTargetColor());
+					}
+				}
 			}
-		}
+			if (plugin.isHighlightOther())
+			{
+				if (!plugin.getOtherIndicationModes().isEmpty())
+				{
+					consumer.accept(player, plugin.getOtherColor());
+				}
+			}
+		});
 	}
+
 
 	private boolean highlight()
 	{
-		return plugin.isHighlightOwnPlayer() && plugin.isDrawClanMemberNames()
-			&& plugin.isHighlightFriends() && plugin.isHighlightNonClanMembers() && plugin.isHighlightTargets()
-			&& plugin.isHighlightCallers() && plugin.isHighlightTeamMembers() && plugin.isHighlightCallerTargets();
+		return plugin.isHighlightOwnPlayer() || plugin.isHighlightClan()
+			|| plugin.isHighlightFriends() || plugin.isHighlightOther() || plugin.isHighlightTargets()
+			|| plugin.isHighlightCallers() || plugin.isHighlightTeamMembers() || plugin.isHighlightCallerTargets();
 	}
 }

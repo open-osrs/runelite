@@ -24,12 +24,14 @@
  */
 package net.runelite.client.plugins.playerindicators;
 
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -75,9 +77,11 @@ import net.runelite.client.util.PvPUtil;
 	tags = {"highlight", "minimap", "overlay", "players", "pklite"}
 )
 @Singleton
-@Slf4j
 public class PlayerIndicatorsPlugin extends Plugin
 {
+	public static final ImmutableList RELAETIONSHIPS = ImmutableList.of("Self", "Friends", "Team", "Clan", "Targets",
+		"Other");
+
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -105,13 +109,13 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightOwnPlayer;
 	@Getter(AccessLevel.PACKAGE)
-	private Color getOwnPlayerColor;
+	private Color selfColor;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightFriends;
 	@Getter(AccessLevel.PACKAGE)
-	private Color getFriendColor;
+	private Color friendsColor;
 	@Getter(AccessLevel.PACKAGE)
-	private boolean drawClanMemberNames;
+	private boolean highlightClan;
 	@Getter(AccessLevel.PACKAGE)
 	private Color getClanMemberColor;
 	@Getter(AccessLevel.PACKAGE)
@@ -119,9 +123,9 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private Color getTeamMemberColor;
 	@Getter(AccessLevel.PACKAGE)
-	private boolean highlightNonClanMembers;
+	private boolean highlightOther;
 	@Getter(AccessLevel.PACKAGE)
-	private Color getNonClanMemberColor;
+	private Color otherColor;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean drawTiles;
 	@Getter(AccessLevel.PACKAGE)
@@ -174,7 +178,23 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter
 	private HashMap<String, Actor> callerPiles = new HashMap<String, Actor>();
 	@Getter
-	private ConfigEnumMap playerIndicationModes;
+	private List playerIndicationModes;
+	@Getter
+	private ConfigEnumMap selfIndicationModes;
+	@Getter
+	private ConfigEnumMap friendIndicationModes;
+	@Getter
+	private ConfigEnumMap clanIndicationModes;
+	@Getter
+	private List teamIndicationModes;
+	@Getter
+	private ConfigEnumMap otherIndicationModes;
+	@Getter
+	private ConfigEnumMap targetIndicationModes;
+
+	private HashMap<String, List<? extends Enum>> relationshipColorMap = new HashMap<>();
+	private ConfigObservable configObservable = this.new ConfigObservable();
+
 
 	@Provides
 	PlayerIndicatorsConfig provideConfig(ConfigManager configManager)
@@ -185,10 +205,12 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+
 		updateConfig();
 		addSubscriptions();
 		
 		overlayManager.add(playerIndicatorsOverlay);
+		configObservable.addObserver(playerIndicatorsOverlay);
 		overlayManager.add(playerIndicatorsTileOverlay);
 		overlayManager.add(playerIndicatorsMinimapOverlay);
 		getCallerList();
@@ -317,7 +339,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 			if (this.colorPlayerMenu && client.isFriended(player.getName(), false))
 			{
-				color = this.getFriendColor;
+				color = this.friendsColor;
 			}
 			else if (this.colorPlayerMenu && player.isClanMember())
 			{
@@ -333,9 +355,9 @@ public class PlayerIndicatorsPlugin extends Plugin
 			{
 				color = this.getTeamMemberColor;
 			}
-			else if (this.highlightNonClanMembers && !player.isClanMember() && !player.isFriend() && !PvPUtil.isAttackable(client, player))
+			else if (this.highlightOther && !player.isClanMember() && !player.isFriend() && !PvPUtil.isAttackable(client, player))
 			{
-				color = this.getNonClanMemberColor;
+				color = this.otherColor;
 			}
 			else if (this.colorPlayerMenu && !player.isClanMember() && client.isFriended(player.getName(), false) && PvPUtil.isAttackable(client, player))
 			{
@@ -441,6 +463,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	public boolean isCaller(Actor player)
 	{
+		/**
 		if (callers != null)
 		{
 			for (String name : callers)
@@ -452,31 +475,67 @@ public class PlayerIndicatorsPlugin extends Plugin
 				}
 			}
 		}
-
+		**/
 		return false;
 	}
-	
+
+
 	private void updateConfig()
 	{
+		this.relationshipColorMap.clear();
+		configObservable.setChanged();
 		this.highlightOwnPlayer = config.highlightOwnPlayer();
-		this.getOwnPlayerColor = config.getOwnPlayerColor();
+		this.selfColor = config.getOwnPlayerColor();
+		this.selfIndicationModes = config.selfIndicatorModes();
+
+
+		if (this.highlightOwnPlayer)
+		{
+			relationshipColorMap.put("Self", this.selfIndicationModes.getSelectedValues());
+		}
 		this.highlightFriends = config.highlightFriends();
-		this.getFriendColor = config.getFriendColor();
-		this.drawClanMemberNames = config.drawClanMemberNames();
+		this.friendsColor = config.getFriendColor();
+		this.friendIndicationModes = config.friendIndicatorMode();
+		if (this.highlightFriends)
+		{
+			relationshipColorMap.put("Friends", this.friendIndicationModes.getSelectedValues());
+		}
+		this.highlightClan = config.highlightClan();
 		this.getClanMemberColor = config.getClanMemberColor();
+
+		this.clanIndicationModes = config.clanIndicatorModes();
+		if (this.highlightClan)
+		{
+			relationshipColorMap.put("Clan", this.clanIndicationModes.getSelectedValues());
+		}
 		this.highlightTeamMembers = config.highlightTeamMembers();
 		this.getTeamMemberColor = config.getTeamMemberColor();
-		this.highlightNonClanMembers = config.highlightNonClanMembers();
-		this.getNonClanMemberColor = config.getNonClanMemberColor();
-		this.drawTiles = config.drawTiles();
-		this.playerNamePosition = config.playerNamePosition();
-		this.drawMinimapNames = config.drawMinimapNames();
-		this.drawFriendMinimapNames = config.drawFriendMinimapNames();
-		this.drawClanMinimapNames = config.drawClanMinimapNames();
-		this.colorPlayerMenu = config.colorPlayerMenu();
+		if (highlightTeamMembers)
+		{
+			relationshipColorMap.put("Team", this.teamIndicationModes);
+		}
+		this.teamIndicationModes = config.teamIndicatorModes().getSelectedValues();
+		this.highlightOther = config.highlightOtherPlayers();
+		this.otherColor = config.getOtherPlayerColor();
+
+
+		this.otherIndicationModes = config.otherIndicatorModes();
+
+		if (highlightOther)
+		{
+			relationshipColorMap.put("Other", this.otherIndicationModes.getSelectedValues());
+		}
 		this.showClanRanks = config.showClanRanks();
 		this.highlightTargets = config.highlightTargets();
-		this.getTargetColor = config.getTargetColor();
+		this.getTargetColor = config.getTargetsColor();
+
+		this.targetIndicationModes = config.targetsIndicatorModes();
+
+
+		if (highlightTargets)
+		{
+			relationshipColorMap.put("Targets", targetIndicationModes.getSelectedValues());
+		}
 		this.showCombatLevel = config.showCombatLevel();
 		this.showAgilityLevel = config.showAgilityLevel();
 		this.agilityFirstThreshold = config.agilityFirstThreshold();
@@ -484,7 +543,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.agilityFormat = config.agilityFormat();
 		this.playerSkull = config.playerSkull();
 		this.skullLocation = config.skullLocation();
-		this.skulledTargetsOnly = config.skulledTargetsOnly();
 		this.targetRisk = config.targetRisk();
 		this.useClanchatRanks = config.useClanchatRanks();
 		this.callerRank = config.callerRank();
@@ -494,7 +552,18 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.highlightCallerTargets = config.callersTargets();
 		this.callerTargetColor = config.callerTargetColor();
 		this.unchargedGlory = config.unchargedGlory();
-		this.playerIndicationModes = config.callerTargetHighlightOptions();
+		this.configObservable.notifyObservers(this.relationshipColorMap);
+	}
+
+	public enum PlayerRelation
+	{
+		SELF,
+		FRIEND,
+		CLAN,
+		TEAM,
+		TARGET,
+		OTHER,
+		CALLER
 	}
 
 
@@ -508,5 +577,16 @@ public class PlayerIndicatorsPlugin extends Plugin
 	{
 		TEXT,
 		ICONS
+	}
+
+
+
+	public class ConfigObservable extends Observable
+	{
+		@Override
+		public void setChanged()
+		{
+			super.setChanged();
+		}
 	}
 }
