@@ -28,6 +28,7 @@
 package net.runelite.client.plugins.coxhelper;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -56,6 +57,7 @@ import net.runelite.api.ProjectileID;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
@@ -128,6 +130,27 @@ public class CoxPlugin extends Plugin
 	private PrayAgainst prayAgainstOlm;
 	private long lastPrayTime;
 	private int sleepcount = 0;
+	private boolean muttadile;
+	private boolean tekton;
+	private boolean tektonTickCounter;
+	private boolean guardians;
+	private boolean guardinTickCounter;
+	private boolean vangHighlight;
+	private boolean vangHealth;
+	private boolean configPrayAgainstOlm;
+	private boolean timers;
+	private boolean tpOverlay;
+	private boolean olmTick;
+	private int prayAgainstSize;
+	private Color muttaColor;
+	private Color guardColor;
+	private Color tektonColor;
+	private Color burnColor;
+	private Color acidColor;
+	private Color tpColor;
+	private CoxConfig.FontStyle fontStyle;
+	private int textSize;
+	private boolean shadows;
 
 	@Provides
 	CoxConfig getConfig(ConfigManager configManager)
@@ -138,8 +161,8 @@ public class CoxPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		updateConfig();
 		addSubscriptions();
-
 		overlayManager.add(coxOverlay);
 		overlayManager.add(coxInfoBox);
 		handCripple = false;
@@ -162,12 +185,21 @@ public class CoxPlugin extends Plugin
 
 	private void addSubscriptions()
 	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
 		eventBus.subscribe(ProjectileSpawned.class, this, this::onProjectileSpawned);
 		eventBus.subscribe(SpotAnimationChanged.class, this, this::onSpotAnimationChanged);
 		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
 		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("Cox"))
+		{
+			updateConfig();
+		}
 	}
 
 	private void onChatMessage(ChatMessage event)
@@ -595,5 +627,30 @@ public class CoxPlugin extends Plugin
 	boolean inRaid()
 	{
 		return client.getVar(Varbits.IN_RAID) == 1;
+	}
+
+	private void updateConfig()
+	{
+		this.muttadile = config.muttadile();
+		this.tekton = config.tekton();
+		this.tektonTickCounter = config.tektonTickCounter();
+		this.guardians = config.guardians();
+		this.guardinTickCounter = config.guardinTickCounter();
+		this.vangHighlight = config.vangHighlight();
+		this.vangHealth = config.vangHealth();
+		this.configPrayAgainstOlm = config.prayAgainstOlm();
+		this.timers = config.timers();
+		this.tpOverlay = config.tpOverlay();
+		this.olmTick = config.olmTick();
+		this.muttaColor = config.muttaColor();
+		this.guardColor = config.guardColor();
+		this.tektonColor = config.tektonColor();
+		this.burnColor = config.burnColor();
+		this.acidColor = config.acidColor();
+		this.tpColor = config.tpColor();
+		this.fontStyle = config.fontStyle();
+		this.textSize = config.textSize();
+		this.shadows = config.shadows();
+		this.prayAgainstSize = config.prayAgainstOlmSize();
 	}
 }
