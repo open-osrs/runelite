@@ -55,10 +55,10 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
 @PluginDescriptor(
-		name = "Kingdom of Miscellania",
-		description = "Show various informations about your Kingdom of Miscellania",
-		tags = {"favor", "favour", "managing", "overlay", "indication", "notification"},
-		enabledByDefault = false
+	name = "Kingdom of Miscellania",
+	description = "Show various informations about your Kingdom of Miscellania",
+	tags = {"favor", "favour", "managing", "overlay", "notification"},
+	enabledByDefault = false
 )
 @Slf4j
 @Singleton
@@ -200,7 +200,7 @@ public class KingdomPlugin extends Plugin
 	private boolean isInKingdom()
 	{
 		return client.getLocalPlayer() != null
-				&& KINGDOM_REGION.contains(client.getLocalPlayer().getWorldLocation().getRegionID());
+			&& KINGDOM_REGION.contains(client.getLocalPlayer().getWorldLocation().getRegionID());
 	}
 
 	private boolean hasCompletedQuest()
@@ -232,15 +232,15 @@ public class KingdomPlugin extends Plugin
 	private void sendChatMessage(String chatMessage)
 	{
 		final String message = new ChatMessageBuilder()
-				.append(ChatColorType.HIGHLIGHT)
-				.append(chatMessage)
-				.build();
+			.append(ChatColorType.HIGHLIGHT)
+			.append(chatMessage)
+			.build();
 
 		chatMessageManager.queue(
-				QueuedMessage.builder()
-						.type(ChatMessageType.CONSOLE)
-						.runeLiteFormattedMessage(message)
-						.build());
+			QueuedMessage.builder()
+				.type(ChatMessageType.CONSOLE)
+				.runeLiteFormattedMessage(message)
+				.build());
 	}
 
 	private void updateConfig()

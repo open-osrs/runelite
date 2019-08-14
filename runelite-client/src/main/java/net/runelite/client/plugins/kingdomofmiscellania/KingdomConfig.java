@@ -31,10 +31,10 @@ import net.runelite.client.config.ConfigItem;
 public interface KingdomConfig extends Config
 {
 	@ConfigItem(
-			keyName = "showInfoboxAnywhere",
-			name = "Show kingdom infobox anywhere",
-			description = "Show the infobox containing your favor/coffer amount even when outside Miscellania",
-			position = 0
+		keyName = "showInfoboxAnywhere",
+		name = "Show kingdom infobox anywhere",
+		description = "Show the infobox containing your favor/coffer amount even when outside Miscellania",
+		position = 0
 	)
 	default boolean showInfoboxAnywhere()
 	{
@@ -42,10 +42,10 @@ public interface KingdomConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "notifyFavorThreshold",
-			name = "Notify chat favor",
-			description = "Sends a message to your chatbox when your kingdom favor percentage is below the threshold. Leave at 0 to disable.",
-			position = 1
+		keyName = "notifyFavorThreshold",
+		name = "Notify chat favor",
+		description = "Sends a message to your chatbox when your kingdom favor percentage is below the threshold. Leave at 0 to disable.",
+		position = 1
 
 	)
 	default int notifyFavorThreshold()
@@ -54,10 +54,10 @@ public interface KingdomConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "notifyCofferThreshold",
-			name = "Notify chat coffer value",
-			description = "Sends a message to your chatbox when your kingdom's coffer is below the threshold. Leave at 0 to disable.",
-			position = 2
+		keyName = "notifyCofferThreshold",
+		name = "Notify chat coffer value",
+		description = "Sends a message to your chatbox when your kingdom's coffer is below the threshold. Leave at 0 to disable.",
+		position = 2
 	)
 	default int notifyCofferThreshold()
 	{
