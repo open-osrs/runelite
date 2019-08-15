@@ -23,10 +23,7 @@
  */
 package net.runelite.client.plugins.freezetimers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
@@ -101,14 +98,20 @@ public class Timers
 
 	public boolean areAllTimersZero(Actor actor)
 	{
-		for (TimerType type : TimerType.values())
+		Iterator typeIterator = timerMap.keySet().iterator();
+
+		while(typeIterator.hasNext())
 		{
-			if (getTimerReApply(actor, type) > System.currentTimeMillis())
+			TimerType type = (TimerType) typeIterator.next();
+
+			if(getTimerReApply(actor, type) > System.currentTimeMillis())
 			{
 				return false;
 			}
 		}
+
 		timerMap.remove(actor);
+
 		return true;
 	}
 }
