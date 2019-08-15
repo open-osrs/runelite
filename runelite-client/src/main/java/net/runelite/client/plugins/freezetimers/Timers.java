@@ -81,8 +81,9 @@ public class Timers
 	List<Actor> getAllActorsOnTimer(TimerType type)
 	{
 		final List<Actor> actors = new ArrayList<>();
+		final Iterator<Actor> it = timerMap.keySet().iterator();
 
-		for (Iterator<Actor> it = timerMap.keySet().iterator(); it.hasNext(); )
+		while (it.hasNext())
 		{
 			final Actor actor = it.next();
 
@@ -90,9 +91,10 @@ public class Timers
 			{
 				if (getTimerReApply(actor, timerType) > System.currentTimeMillis())
 				{
-					continue;
+					break;
 				}
 				it.remove();
+				break;
 			}
 
 			final long end = getTimerReApply(actor, type);
