@@ -27,9 +27,13 @@ import com.google.common.base.Strings;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.cache.ItemManager;
@@ -51,13 +55,20 @@ public class ItemLimitsDumper
 
 		final ItemManager itemManager = new ItemManager(store);
 		itemManager.load();
+		final Pattern pattern = Pattern.compile("limit {6}= (.*),");
 
 		final Map<Integer, Integer> limits = new TreeMap<>();
 		final Collection<ItemDefinition> items = itemManager.getItems();
 		final Stream<ItemDefinition> itemDefinitionStream = items.parallelStream();
+		List<String> missing = new ArrayList<>();
 
 		itemDefinitionStream.forEach(item ->
 		{
+			if (!item.isTradeable)
+			{
+				return;
+			}
+
 			if (item.getNotedTemplate() != -1)
 			{
 				return;
@@ -68,9 +79,10 @@ public class ItemLimitsDumper
 				return;
 			}
 
-			final String name = Namer
+			String name = Namer
 				.removeTags(item.name)
 				.replace('\u00A0', ' ')
+				.replaceAll("\\+", "%2b")
 				.trim();
 
 			if (name.isEmpty())
@@ -78,10 +90,12 @@ public class ItemLimitsDumper
 				return;
 			}
 
-			final String data = wiki.getPageData("Module:Exchange/" + name, -1);
+			String data = wiki.getPageData("Module:Exchange/" + name, -1);
 
 			if (Strings.isNullOrEmpty(data))
 			{
+				log.debug("Data is null or empty: {}", name);
+				missing.add(name);
 				return;
 			}
 
@@ -96,11 +110,34 @@ public class ItemLimitsDumper
 
 			if (limit == null || limit <= 0)
 			{
+				Matcher matcher = pattern.matcher(data);
+				String temp = "";
+				while (matcher.find())
+				{
+					temp = matcher.group(1);
+					if (Strings.isNullOrEmpty(temp) ||
+						temp.equalsIgnoreCase("no") ||
+						temp.equalsIgnoreCase("n/a") ||
+						temp.equals("nil") ||
+						temp.equalsIgnoreCase("varies"))
+					{
+						temp = null;
+					}
+				}
+				if (!Strings.isNullOrEmpty(temp))
+				{
+					limits.put(item.id, Integer.valueOf(temp));
+				}
+				else
+				{
+					log.debug("Item was still null: {}", name);
+					missing.add(name);
+				}
 				return;
 			}
 
 			limits.put(item.id, limit);
-			log.info("Dumped item limit for {} {}", item.id, name);
+			log.debug("Dumped item limit for {} {}", item.id, name);
 		});
 
 		try (FileWriter fw = new FileWriter(new File(out, "ge_limits.json")))
@@ -109,5 +146,10 @@ public class ItemLimitsDumper
 		}
 
 		log.info("Dumped {} item limits", limits.size());
+		log.info("Total Missing: " + missing.size());
+		missing.forEach(str ->
+		{
+			log.info("Still Missing: {}", str);
+		});
 	}
 }

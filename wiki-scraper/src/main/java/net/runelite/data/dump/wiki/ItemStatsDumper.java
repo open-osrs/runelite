@@ -48,44 +48,6 @@ public class ItemStatsDumper
 {
 	private final static Integer MAX_ITEMS_ON_PAGE = 50;
 
-	@Value
-	@Builder
-	private static final class ItemEquipmentStats
-	{
-		private final Integer slot;
-
-		private final Integer astab;
-		private final Integer aslash;
-		private final Integer acrush;
-		private final Integer amagic;
-		private final Integer arange;
-
-		private final Integer dstab;
-		private final Integer dslash;
-		private final Integer dcrush;
-		private final Integer dmagic;
-		private final Integer drange;
-
-		private final Integer str;
-		private final Integer rstr;
-		private final Integer mdmg;
-		private final Integer prayer;
-		private final Integer aspeed;
-	}
-
-	@Value
-	@Builder
-	private static final class ItemStats
-	{
-		static final ItemStats DEFAULT = ItemStats.builder().build();
-
-		private final Boolean quest;
-		private final Boolean equipable;
-		private final Double weight;
-
-		private final ItemEquipmentStats equipment;
-	}
-
 	public static void dump(final Store store, final MediaWiki wiki) throws IOException
 	{
 		final File out = new File("../runelite-client/src/main/resources/");
@@ -121,14 +83,14 @@ public class ItemStatsDumper
 				return;
 			}
 
-			final String data = wiki.getSpecialLookupData("item", item.id, 0);
+			String data = wiki.getSpecialLookupData("item", item.id, 0);
 
 			if (Strings.isNullOrEmpty(data))
 			{
 				return;
 			}
 
-			final MediaWikiTemplate base = MediaWikiTemplate.parseWikitext("Infobox Item", data);
+			MediaWikiTemplate base = MediaWikiTemplate.parseWikitext("Infobox Item", data);
 
 			if (base == null)
 			{
@@ -149,43 +111,60 @@ public class ItemStatsDumper
 					continue;
 				}
 
+				itemStat.name(getVarString(base, "name", offset) == null ? getVarString(base, "name1", offset) : getVarString(base, "name", offset));
 				itemStat.quest(getVarBoolean(base, "quest", offset));
-				itemStat.equipable(getVarBoolean(base, "equipable", offset));
+				itemStat.equipable(getVarBoolean(base, "equipable", offset) == null
+					? getVarBoolean(base, "equipable1", offset) : getVarBoolean(base, "equipable", offset));
 				itemStat.weight(getVarDouble(base, "weight", offset));
+
 
 				if (Boolean.TRUE.equals(itemStat.equipable))
 				{
-					final MediaWikiTemplate stats = MediaWikiTemplate.parseWikitext("Infobox Bonuses", data);
+					MediaWikiTemplate stats = MediaWikiTemplate.parseWikitext("Infobox Bonuses", data);
 
-					if (stats != null)
+					if (stats == null)
 					{
-						final ItemEquipmentStats.ItemEquipmentStatsBuilder equipmentStat = ItemEquipmentStats.builder();
+						data = wiki.getSpecialLookupData("item", item.id, 1);
 
-						equipmentStat.slot(toEquipmentSlot(getVarString(stats, "slot", offset)));
-						equipmentStat.astab(getVarInt(stats, "astab", offset));
-						equipmentStat.aslash(getVarInt(stats, "aslash", offset));
-						equipmentStat.acrush(getVarInt(stats, "acrush", offset));
-						equipmentStat.amagic(getVarInt(stats, "amagic", offset));
-						equipmentStat.arange(getVarInt(stats, "arange", offset));
-
-						equipmentStat.dstab(getVarInt(stats, "dstab", offset));
-						equipmentStat.dslash(getVarInt(stats, "dslash", offset));
-						equipmentStat.dcrush(getVarInt(stats, "dcrush", offset));
-						equipmentStat.dmagic(getVarInt(stats, "dmagic", offset));
-						equipmentStat.drange(getVarInt(stats, "drange", offset));
-
-						equipmentStat.str(getVarInt(stats, "str", offset));
-						equipmentStat.rstr(getVarInt(stats, "rstr", offset));
-						equipmentStat.mdmg(getVarInt(stats, "mdmg", offset));
-						equipmentStat.prayer(getVarInt(stats, "prayer", offset));
-						equipmentStat.aspeed(getVarInt(stats, "aspeed", offset));
-
-						final ItemEquipmentStats builtEqStat = equipmentStat.build();
-
-						if (!builtEqStat.equals(ItemEquipmentStats.builder().build()))
+						if (Strings.isNullOrEmpty(data))
 						{
-							itemStat.equipment(builtEqStat);
+							break;
 						}
+
+						stats = MediaWikiTemplate.parseWikitext("Infobox Bonuses", data);
+					}
+
+					if (stats == null)
+					{
+						break;
+					}
+
+					final ItemEquipmentStats.ItemEquipmentStatsBuilder equipmentStat = ItemEquipmentStats.builder();
+
+					equipmentStat.slot(toEquipmentSlot(getVarString(stats, "slot", offset)));
+					equipmentStat.astab(getVarInt(stats, "astab", offset));
+					equipmentStat.aslash(getVarInt(stats, "aslash", offset));
+					equipmentStat.acrush(getVarInt(stats, "acrush", offset));
+					equipmentStat.amagic(getVarInt(stats, "amagic", offset));
+					equipmentStat.arange(getVarInt(stats, "arange", offset));
+
+					equipmentStat.dstab(getVarInt(stats, "dstab", offset));
+					equipmentStat.dslash(getVarInt(stats, "dslash", offset));
+					equipmentStat.dcrush(getVarInt(stats, "dcrush", offset));
+					equipmentStat.dmagic(getVarInt(stats, "dmagic", offset));
+					equipmentStat.drange(getVarInt(stats, "drange", offset));
+
+					equipmentStat.str(getVarInt(stats, "str", offset));
+					equipmentStat.rstr(getVarInt(stats, "rstr", offset));
+					equipmentStat.mdmg(getVarInt(stats, "mdmg", offset));
+					equipmentStat.prayer(getVarInt(stats, "prayer", offset));
+					equipmentStat.aspeed(getVarInt(stats, "aspeed", offset));
+
+					final ItemEquipmentStats builtEqStat = equipmentStat.build();
+
+					if (!builtEqStat.equals(ItemEquipmentStats.builder().build()))
+					{
+						itemStat.equipment(builtEqStat);
 					}
 				}
 
@@ -200,7 +179,7 @@ public class ItemStatsDumper
 			}
 
 			itemStats.put(item.id, val);
-			log.info("Dumped item stat for {} {}", item.id, name);
+			log.debug("Dumped item stat for {} {}", item.id, name);
 		});
 
 		try (FileWriter fw = new FileWriter(new File(out, "item_stats.json")))
@@ -213,6 +192,7 @@ public class ItemStatsDumper
 
 	/**
 	 * Counts how many items are on page
+	 *
 	 * @param template media wiki template
 	 * @return item count
 	 */
@@ -242,7 +222,8 @@ public class ItemStatsDumper
 
 	/**
 	 * Return fixed string version of indexed key
-	 * @param base key name
+	 *
+	 * @param base  key name
 	 * @param index current index
 	 * @return string representation of index
 	 */
@@ -335,5 +316,44 @@ public class ItemStatsDumper
 		}
 
 		return null;
+	}
+
+	@Value
+	@Builder
+	private static final class ItemEquipmentStats
+	{
+		private final Integer slot;
+
+		private final Integer astab;
+		private final Integer aslash;
+		private final Integer acrush;
+		private final Integer amagic;
+		private final Integer arange;
+
+		private final Integer dstab;
+		private final Integer dslash;
+		private final Integer dcrush;
+		private final Integer dmagic;
+		private final Integer drange;
+
+		private final Integer str;
+		private final Integer rstr;
+		private final Integer mdmg;
+		private final Integer prayer;
+		private final Integer aspeed;
+	}
+
+	@Value
+	@Builder
+	private static final class ItemStats
+	{
+		static final ItemStats DEFAULT = ItemStats.builder().build();
+
+		private final String name;
+		private final Boolean quest;
+		private final Boolean equipable;
+		private final Double weight;
+
+		private final ItemEquipmentStats equipment;
 	}
 }

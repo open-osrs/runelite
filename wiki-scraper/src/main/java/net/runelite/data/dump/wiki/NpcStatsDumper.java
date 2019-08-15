@@ -57,9 +57,9 @@ public class NpcStatsDumper
 	{
 		private String name;
 		private final Integer hitpoints;
+		private final Integer hitpoints1;
 		private final Integer combatLevel;
 		private final Integer slayerLevel;
-
 		private final Integer attackSpeed;
 
 		private final Integer attackLevel;
@@ -233,7 +233,7 @@ public class NpcStatsDumper
 							stats.setName(curName == null ? stats.getName() : curName);
 
 							npcStats.put(curID, stats);
-							log.info("Dumped npc stats for npc id: {}", curID);
+							log.debug("Dumped npc stats for npc id: {}", curID);
 						}
 					}
 
@@ -250,6 +250,11 @@ public class NpcStatsDumper
 		{
 			fw.write(App.GSON.toJson(sorted));
 		}
+
+//		try (FileWriter fw = new FileWriter(new File(out, "npc_stats.min.json")))
+//		{
+//			fw.write(new GsonBuilder().disableHtmlEscaping().create().toJson(sorted));
+//		}
 
 		log.info("Dumped {} npc stats", sorted.size());
 	}
@@ -282,9 +287,12 @@ public class NpcStatsDumper
 		final NpcStats.NpcStatsBuilder stats = NpcStats.builder();
 
 		stats.hitpoints(getInt("hitpoints", variantKey, template));
+		if (stats.hitpoints == null)
+		{
+			stats.hitpoints(getInt("hitpoints1", variantKey, template));
+		}
 		stats.combatLevel(getInt("combat", variantKey, template));
 		stats.slayerLevel(getInt("slaylvl", variantKey, template));
-
 		stats.attackSpeed(getInt("attack speed", variantKey, template));
 
 		stats.attackLevel(getInt("att", variantKey, template));

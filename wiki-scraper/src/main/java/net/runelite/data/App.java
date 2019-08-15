@@ -49,6 +49,7 @@ public class App
 		System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "100");
 
 		final MediaWiki wiki = new MediaWiki("https://oldschool.runescape.wiki");
+
 		// Only use this to diff current limits with scraped limits
 		// ItemLimitsDumper.dump(cacheStore, wiki);
 		// ItemStatsDumper.dump(cacheStore, wiki);

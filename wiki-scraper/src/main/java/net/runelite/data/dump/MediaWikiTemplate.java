@@ -27,6 +27,7 @@ import com.google.common.base.Function;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,6 @@ public class MediaWikiTemplate
 		LUA_PARSER = StringParser.of("return").trim()
 			.seq(CharacterParser.of('{').trim())
 			.seq(commaLine.plus().trim())
-			.seq(CharacterParser.of('}'))
 			.pick(2);
 
 		final Parser wikiValue = CharacterParser.of('|')
@@ -193,6 +193,34 @@ public class MediaWikiTemplate
 		}
 
 		return new MediaWikiTemplate(out);
+	}
+
+	/**
+	 * Looks for and parses the `Switch infobox` into a {@link MediaWikiTemplate} and then iterates over the `item#` values.
+	 * Attempts to parse each `item#` value via `parseWikiText`, matching the `name` attribute. null values are ignored
+	 *
+	 * @param name only parses MediaWikiTemplates from `Switch infobox` if matches this value. (case insensitive)
+	 * @param baseTemplate the {@link MediaWikiTemplate} representation of the `Switch infobox` to parse from
+	 * @return List of all valid {@link MediaWikiTemplate}s matching `name` from `baseTemplate`s `item#` values
+	 */
+	public static List<MediaWikiTemplate> parseSwitchInfoboxItems(final String name, final MediaWikiTemplate baseTemplate)
+	{
+		final List<MediaWikiTemplate> templates = new ArrayList<>();
+
+		String value;
+		int suffix = 1;
+		while ((value = baseTemplate.getValue("item" + suffix)) != null)
+		{
+			final MediaWikiTemplate subTemplate = parseWikitext(name, value);
+			if (subTemplate != null)
+			{
+				templates.add(subTemplate);
+			}
+
+			suffix++;
+		}
+
+		return templates;
 	}
 
 	private final Map<String, String> map;
