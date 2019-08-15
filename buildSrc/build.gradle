@@ -1,3 +1,7 @@
+repositories {
+    maven { url "https://raw.githubusercontent.com/runelite-extended/maven-repo/master" }
+}
 dependencies {
     compile localGroovy()
+    implementation 'net.runelite:fernflower:07082019'
 }

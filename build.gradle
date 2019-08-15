@@ -33,7 +33,7 @@ ext {
     asm = '7.1'
     commonsCli = '1.4'
     discord = '1.1'
-    fernflower = '20171017'
+    fernflower = '07082019'
     findbugs = '3.0.2'
     gson = '2.8.5'
     guava = '28.0-jre'
@@ -79,7 +79,7 @@ ext {
 
 allprojects {
     apply plugin: 'maven'
-    apply plugin: 'checkstyle'
+    if (this.name != 'rs-client') apply plugin: 'checkstyle'
 
     group = 'net.runelite'
     version = '1.5.31-SNAPSHOT'
