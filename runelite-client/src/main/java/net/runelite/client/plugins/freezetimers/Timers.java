@@ -106,14 +106,14 @@ public class Timers
 		return actors;
 	}
 
-	@SuppressWarnings("WhileLoopReplaceableByForEach")
-	boolean areAllTimersZero(Actor actor)
+	public boolean areAllTimersZero(Actor actor)
 	{
 		final Iterator<Map.Entry<Actor, HashMap<TimerType, Long>>> timerIterator = timerMap.entrySet().iterator();
 
 		while (timerIterator.hasNext())
 		{
 			final Map.Entry<Actor, HashMap<TimerType, Long>> timerEntry = timerIterator.next();
+
 			final Iterator<Map.Entry<TimerType, Long>> typeIterator = timerEntry.getValue().entrySet().iterator();
 
 			while (typeIterator.hasNext())
