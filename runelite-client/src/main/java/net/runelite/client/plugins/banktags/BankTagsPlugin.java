@@ -427,7 +427,7 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 		}
 	}
 
-	public void onItemContainerChanged(ItemContainerChanged event)
+	private void onItemContainerChanged(ItemContainerChanged event)
 	{
 		if (event.getContainerId() == InventoryID.BANK.getId())
 		{
