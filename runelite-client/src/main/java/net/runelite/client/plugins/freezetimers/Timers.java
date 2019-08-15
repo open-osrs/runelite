@@ -80,13 +80,19 @@ public class Timers
 
 	public List<Actor> getAllActorsOnTimer(TimerType type)
 	{
-		List<Actor> actors = new ArrayList<Actor>();
+		final List<Actor> actors = new ArrayList<>();
 
-		for (Actor actor : timerMap.keySet())
+		for (Iterator<Actor> it = timerMap.keySet().iterator(); it.hasNext(); )
 		{
-			if (areAllTimersZero(actor))
+			final Actor actor = it.next();
+
+			for (TimerType timerType : TimerType.values())
 			{
-				continue;
+				if (getTimerReApply(actor, timerType) > System.currentTimeMillis())
+				{
+					continue;
+				}
+				it.remove();
 			}
 
 			final long end = getTimerReApply(actor, type);
