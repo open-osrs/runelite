@@ -5352,24 +5352,28 @@
   },
   "720": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "721": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "722": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "723": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
@@ -5382,24 +5386,28 @@
   },
   "725": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "726": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "727": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "728": {
     "name": "Mummy",
+    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
@@ -5806,6 +5814,7 @@
   },
   "800": {
     "name": "Locust rider",
+    "hitpoints": 90,
     "combatLevel": 68,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -5820,6 +5829,7 @@
   },
   "801": {
     "name": "Locust rider",
+    "hitpoints": 90,
     "combatLevel": 68,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -7308,6 +7318,7 @@
   },
   "1118": {
     "name": "Man",
+    "hitpoints": 7,
     "combatLevel": 4,
     "attackSpeed": 4,
     "attackLevel": 1,
@@ -9254,6 +9265,7 @@
   },
   "1713": {
     "name": "Spinner",
+    "hitpoints": 33,
     "combatLevel": 88
   },
   "1714": {
@@ -19317,6 +19329,46 @@
     "rangeDef": 100,
     "magicDef": 90
   },
+  "4043": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4044": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4045": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4046": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4047": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4048": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4049": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4050": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4051": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
+  "4052": {
+    "name": "Pirate",
+    "hitpoints": 20
+  },
   "4067": {
     "name": "Black Knight Titan",
     "hitpoints": 142,
@@ -20074,6 +20126,7 @@
   },
   "4247": {
     "name": "Thief",
+    "hitpoints": 17,
     "combatLevel": 14,
     "attackSpeed": 4,
     "attackLevel": 14,
@@ -27255,6 +27308,7 @@
   },
   "6340": {
     "name": "Cow (hard)",
+    "hitpoints": 8,
     "combatLevel": 170,
     "slayerLevel": 1,
     "attackSpeed": 4
@@ -32569,24 +32623,28 @@
   },
   "7530": {
     "name": "Vespula",
+    "hitpoints": 200,
     "attackSpeed": 3,
     "rangeDef": 60,
     "magicDef": 70
   },
   "7531": {
     "name": "Vespula",
+    "hitpoints": 200,
     "attackSpeed": 3,
     "rangeDef": 60,
     "magicDef": 70
   },
   "7532": {
     "name": "Vespula",
+    "hitpoints": 200,
     "attackSpeed": 3,
     "rangeDef": 60,
     "magicDef": 70
   },
   "7533": {
     "name": "Abyssal portal",
+    "hitpoints": 250,
     "attackSpeed": 2,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32596,12 +32654,14 @@
   },
   "7538": {
     "name": "Vespine soldier",
+    "hitpoints": 100,
     "attackSpeed": 4,
     "rangeLevel": 1,
     "magicDef": 30
   },
   "7539": {
     "name": "Vespine soldier",
+    "hitpoints": 100,
     "attackSpeed": 4,
     "rangeLevel": 1,
     "magicDef": 30
@@ -32826,6 +32886,7 @@
   },
   "7559": {
     "name": "Deathly ranger",
+    "hitpoints": 120,
     "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32834,6 +32895,7 @@
   },
   "7560": {
     "name": "Deathly mage",
+    "hitpoints": 120,
     "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32842,18 +32904,22 @@
   },
   "7561": {
     "name": "Muttadile",
+    "hitpoints": 250,
     "attackSpeed": 4
   },
   "7562": {
     "name": "Muttadile",
+    "hitpoints": 250,
     "attackSpeed": 4
   },
   "7563": {
     "name": "Muttadile",
+    "hitpoints": 250,
     "attackSpeed": 4
   },
   "7566": {
     "name": "Vasa Nistirio",
+    "hitpoints": 300,
     "attackSpeed": 3,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32866,6 +32932,7 @@
   },
   "7567": {
     "name": "Vasa Nistirio",
+    "hitpoints": 300,
     "attackSpeed": 3,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32878,6 +32945,7 @@
   },
   "7568": {
     "name": "Glowing crystal",
+    "hitpoints": 120,
     "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32887,6 +32955,7 @@
   },
   "7573": {
     "name": "Lizardman shaman",
+    "hitpoints": 190,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "range": 56,
@@ -32900,6 +32969,7 @@
   },
   "7574": {
     "name": "Lizardman shaman",
+    "hitpoints": 190,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "range": 56,
@@ -32945,6 +33015,7 @@
   },
   "7604": {
     "name": "Skeletal Mystic",
+    "hitpoints": 160,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "rangeLevel": 1,
@@ -32960,6 +33031,7 @@
   },
   "7605": {
     "name": "Skeletal Mystic",
+    "hitpoints": 160,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "rangeLevel": 1,
@@ -32975,6 +33047,7 @@
   },
   "7606": {
     "name": "Skeletal Mystic",
+    "hitpoints": 160,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "rangeLevel": 1,
