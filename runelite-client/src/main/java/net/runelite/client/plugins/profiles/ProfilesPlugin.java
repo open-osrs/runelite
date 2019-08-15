@@ -77,6 +77,12 @@ public class ProfilesPlugin extends Plugin
 
 		updateConfig();
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+
+		if (this.switchToPanel)
+		{
+			eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		}
 
 		if (this.switchToPanel)
 		{
