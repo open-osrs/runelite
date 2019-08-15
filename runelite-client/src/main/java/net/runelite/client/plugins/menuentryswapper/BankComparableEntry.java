@@ -19,6 +19,7 @@ public class BankComparableEntry extends AbstractComparableEntry
 	public boolean matches(MenuEntry entry)
 	{
 		final int groupId = WidgetInfo.TO_GROUP(entry.getParam1());
+
 		if (groupId != WidgetID.BANK_GROUP_ID && groupId != WidgetID.BANK_INVENTORY_GROUP_ID)
 		{
 			return false;

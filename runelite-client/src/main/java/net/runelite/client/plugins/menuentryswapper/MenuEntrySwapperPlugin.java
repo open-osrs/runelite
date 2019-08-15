@@ -305,6 +305,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean hideDestroyHerbsack;
 	private boolean hideDestroyBoltpouch;
 	private boolean hideDestroyGembag;
+	private boolean hideDestroyLootingBag;
 	private boolean hideDropRunecraftingPouch;
 	private boolean hideCastToB;
 	private Set<String> hideCastIgnoredToB;
@@ -566,6 +567,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 					continue;
 				}
 				if (this.hideDestroyBoltpouch && entry.getTarget().contains("Bolt pouch"))
+				{
+					continue;
+				}
+				if (this.hideDestroyLootingBag && entry.getTarget().contains("Looting bag"))
 				{
 					continue;
 				}
@@ -1119,8 +1124,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.getSwapConstructionCape)
 		{
-			menuManager.addPriorityEntry(this.constructionCapeMode.toString(), "Construct. cape");
-			menuManager.addPriorityEntry(this.constructionCapeMode.toString(), "Construct. cape(t)");
+			menuManager.addPriorityEntry(this.constructionCapeMode.toString(), "Construct. cape").setPriority(100);
+			menuManager.addPriorityEntry(this.constructionCapeMode.toString(), "Construct. cape(t)").setPriority(100);
 		}
 
 		if (this.getSwapMagicCape)
@@ -1169,7 +1174,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapAssignment)
 		{
-			menuManager.addPriorityEntry("Assignment");
+			menuManager.addPriorityEntry("Assignment").setPriority(100);
 		}
 
 		if (this.swapPlank)
@@ -1265,6 +1270,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 		if (this.swapBirdhouseEmpty)
 		{
 			menuManager.addPriorityEntry("Empty", "Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Oak Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Willow Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Teak Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Maple Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Mahogany Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Yew Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Magic Birdhouse");
+			menuManager.addPriorityEntry("Empty", "Redwood Birdhouse");
 		}
 
 		if (this.swapQuick)
@@ -1394,54 +1407,52 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.getCombatBracelet)
 		{
-			menuManager.addPriorityEntry(this.getCombatBraceletMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getCombatBraceletMode.toString(), "combat bracelet"));
 		}
 
 		if (this.getGamesNecklace)
 		{
-			menuManager.addPriorityEntry(this.getGamesNecklaceMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getGamesNecklaceMode.toString(), "games necklace"));
 		}
 
 		if (this.getDuelingRing)
 		{
-			menuManager.addPriorityEntry(this.getDuelingRingMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getDuelingRingMode.toString(), "ring of dueling"));
 		}
 
 		if (this.getGlory)
 		{
-			menuManager.addPriorityEntry(this.getGloryMode.toString());
-			menuManager.addPriorityEntry(this.getGloryMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getGloryMode.toString(), "glory"));
 		}
 
 		if (this.getSkillsNecklace)
 		{
-			menuManager.addPriorityEntry(this.getSkillsNecklaceMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getSkillsNecklaceMode.toString(), "skills necklace"));
 		}
 
 		if (this.getNecklaceofPassage)
 		{
-			menuManager.addPriorityEntry(this.getNecklaceofPassageMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getNecklaceofPassageMode.toString(), "necklace of passage"));
 		}
 
 		if (this.getDigsitePendant)
 		{
-			menuManager.addPriorityEntry(this.getDigsitePendantMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getDigsitePendantMode.toString(), "digsite pendant"));
 		}
 
 		if (this.getSlayerRing)
 		{
-			menuManager.addPriorityEntry(this.getSlayerRingMode.toString());
-			menuManager.addPriorityEntry(this.getSlayerRingMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getSlayerRingMode.toString(), "slayer ring"));
 		}
 
 		if (this.getXericsTalisman)
 		{
-			menuManager.addPriorityEntry(this.getXericsTalismanMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getXericsTalismanMode.toString(), "talisman"));
 		}
 
 		if (this.getRingofWealth)
 		{
-			menuManager.addPriorityEntry(this.getRingofWealthMode.toString());
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getRingofWealthMode.toString(), "ring of wealth"));
 		}
 
 		if (this.swapMax)
@@ -1565,6 +1576,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Activate", "Box trap");
 		menuManager.removePriorityEntry("Chase");
 		menuManager.removePriorityEntry("Empty", "Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Oak Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Willow Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Teak Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Maple Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Mahogany Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Yew Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Magic Birdhouse");
+		menuManager.removePriorityEntry("Empty", "Redwood Birdhouse");
 		menuManager.removePriorityEntry("Quick-enter");
 		menuManager.removePriorityEntry("Quick-start");
 		menuManager.removePriorityEntry("Quick-pass");
@@ -1908,6 +1927,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.hideDestroyCoalbag = config.hideDestroyCoalbag();
 		this.hideDestroyHerbsack = config.hideDestroyHerbsack();
 		this.hideDestroyBoltpouch = config.hideDestroyBoltpouch();
+		this.hideDestroyLootingBag = config.hideDestroyLootingBag();
 		this.hideDestroyGembag = config.hideDestroyGembag();
 		this.hideDropRunecraftingPouch = config.hideDropRunecraftingPouch();
 		this.hideCastToB = config.hideCastToB();
