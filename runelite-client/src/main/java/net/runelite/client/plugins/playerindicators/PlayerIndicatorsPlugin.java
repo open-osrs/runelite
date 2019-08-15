@@ -29,6 +29,7 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
@@ -66,7 +67,6 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.config.ConfigEnumMap;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.PvPUtil;
@@ -178,22 +178,15 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter
 	private HashMap<String, Actor> callerPiles = new HashMap<String, Actor>();
 	@Getter
-	private List playerIndicationModes;
+	private EnumMap selfIndicationModes;
 	@Getter
-	private ConfigEnumMap selfIndicationModes;
+	private EnumMap friendIndicationModes;
 	@Getter
-	private ConfigEnumMap friendIndicationModes;
+	private EnumMap clanIndicationModes;
 	@Getter
-	private ConfigEnumMap clanIndicationModes;
+	private EnumMap otherIndicationModes;
 	@Getter
-	private List teamIndicationModes;
-	@Getter
-	private ConfigEnumMap otherIndicationModes;
-	@Getter
-	private ConfigEnumMap targetIndicationModes;
-
-	private HashMap<String, List<? extends Enum>> relationshipColorMap = new HashMap<>();
-	private ConfigObservable configObservable = this.new ConfigObservable();
+	private EnumMap targetIndicationModes;
 
 
 	@Provides
@@ -210,7 +203,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		addSubscriptions();
 		
 		overlayManager.add(playerIndicatorsOverlay);
-		configObservable.addObserver(playerIndicatorsOverlay);
 		overlayManager.add(playerIndicatorsTileOverlay);
 		overlayManager.add(playerIndicatorsMinimapOverlay);
 		getCallerList();
@@ -482,8 +474,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	private void updateConfig()
 	{
-		this.relationshipColorMap.clear();
-		configObservable.setChanged();
+
 		this.highlightOwnPlayer = config.highlightOwnPlayer();
 		this.selfColor = config.getOwnPlayerColor();
 		this.selfIndicationModes = config.selfIndicatorModes();
@@ -491,14 +482,12 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 		if (this.highlightOwnPlayer)
 		{
-			relationshipColorMap.put("Self", this.selfIndicationModes.getSelectedValues());
 		}
 		this.highlightFriends = config.highlightFriends();
 		this.friendsColor = config.getFriendColor();
 		this.friendIndicationModes = config.friendIndicatorMode();
 		if (this.highlightFriends)
 		{
-			relationshipColorMap.put("Friends", this.friendIndicationModes.getSelectedValues());
 		}
 		this.highlightClan = config.highlightClan();
 		this.getClanMemberColor = config.getClanMemberColor();
@@ -506,15 +495,12 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.clanIndicationModes = config.clanIndicatorModes();
 		if (this.highlightClan)
 		{
-			relationshipColorMap.put("Clan", this.clanIndicationModes.getSelectedValues());
 		}
 		this.highlightTeamMembers = config.highlightTeamMembers();
 		this.getTeamMemberColor = config.getTeamMemberColor();
 		if (highlightTeamMembers)
 		{
-			relationshipColorMap.put("Team", this.teamIndicationModes);
 		}
-		this.teamIndicationModes = config.teamIndicatorModes().getSelectedValues();
 		this.highlightOther = config.highlightOtherPlayers();
 		this.otherColor = config.getOtherPlayerColor();
 
@@ -523,7 +509,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 		if (highlightOther)
 		{
-			relationshipColorMap.put("Other", this.otherIndicationModes.getSelectedValues());
 		}
 		this.showClanRanks = config.showClanRanks();
 		this.highlightTargets = config.highlightTargets();
@@ -534,7 +519,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 		if (highlightTargets)
 		{
-			relationshipColorMap.put("Targets", targetIndicationModes.getSelectedValues());
 		}
 		this.showCombatLevel = config.showCombatLevel();
 		this.showAgilityLevel = config.showAgilityLevel();
@@ -552,7 +536,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.highlightCallerTargets = config.callersTargets();
 		this.callerTargetColor = config.callerTargetColor();
 		this.unchargedGlory = config.unchargedGlory();
-		this.configObservable.notifyObservers(this.relationshipColorMap);
 	}
 
 	public enum PlayerRelation
@@ -580,13 +563,4 @@ public class PlayerIndicatorsPlugin extends Plugin
 	}
 
 
-
-	public class ConfigObservable extends Observable
-	{
-		@Override
-		public void setChanged()
-		{
-			super.setChanged();
-		}
-	}
 }

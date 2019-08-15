@@ -29,9 +29,8 @@ import net.runelite.api.ClanMemberRank;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-import net.runelite.client.plugins.config.ConfigEnumMap;
+import java.util.EnumMap;
 
-@SuppressWarnings("unchecked")
 @ConfigGroup("playerindicators")
 public interface PlayerIndicatorsConfig extends Config
 {
@@ -66,9 +65,9 @@ public interface PlayerIndicatorsConfig extends Config
 		description = "Location(s) of the overlay",
 		group = "Yourself"
 	)
-	default ConfigEnumMap selfIndicatorModes()
+	default EnumMap selfIndicatorModes()
 	{
-		return new ConfigEnumMap(PlayerIndicationLocation.class);
+		return new EnumMap<>(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
@@ -84,7 +83,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+		position = 4,
 		keyName = "friendNameColor",
 		name = "Friend color",
 		description = "Color of friend names",
@@ -96,19 +95,19 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		position = 5,
 		keyName = "friendIndicatorMode",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
 		group = "Friends"
 	)
-	default ConfigEnumMap friendIndicatorMode()
+	default EnumMap friendIndicatorMode()
 	{
-		return new ConfigEnumMap(PlayerIndicationLocation.class);
+		return new EnumMap<>(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 6,
 		keyName = "highlightClan",
 		name = "Highlight clan members",
 		description = "Configures whether or clan members should be highlighted",
@@ -120,7 +119,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		position = 7,
 		keyName = "clanMemberColor",
 		name = "Clan member color",
 		description = "Color of clan members",
@@ -132,19 +131,19 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		position = 8,
 		keyName = "clanIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
 		group = "Clan"
 	)
-	default ConfigEnumMap clanIndicatorModes()
+	default EnumMap clanIndicatorModes()
 	{
-		return new ConfigEnumMap(PlayerIndicationLocation.class);
+		return new EnumMap<>(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
-		position = 14,
+		position = 9,
 		keyName = "clanMenuIcons",
 		name = "Show clan ranks",
 		description = "Add clan rank to right click menu and next to player names",
@@ -156,7 +155,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 6,
+		position = 10,
 		keyName = "drawTeamMemberNames",
 		name = "Highlight team members",
 		description = "Configures whether or not team members should be highlighted",
@@ -168,7 +167,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 7,
+		position = 11,
 		keyName = "teamMemberColor",
 		name = "Team member color",
 		description = "Color of team members",
@@ -180,19 +179,19 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		position = 12,
 		keyName = "teamIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
 		group = "Team"
 	)
-	default ConfigEnumMap teamIndicatorModes()
+	default EnumMap teamIndicatorModes()
 	{
-		return new ConfigEnumMap(PlayerIndicationLocation.class);
+		return new EnumMap<>(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
-		position = 6,
+		position = 13,
 		keyName = "drawTargetsNames",
 		name = "Highlight attackable targets",
 		description = "Configures whether or not attackable targets should be highlighted",
@@ -204,7 +203,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 7,
+		position = 14,
 		keyName = "targetColor",
 		name = "Target member color",
 		description = "Color of attackable targets",
@@ -216,19 +215,19 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		position = 15,
 		keyName = "targetsIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
 		group = "Target"
 	)
-	default ConfigEnumMap targetsIndicatorModes()
+	default EnumMap targetsIndicatorModes()
 	{
-		return new ConfigEnumMap(PlayerIndicationLocation.class);
+		return new EnumMap<>(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
-		position = 19,
+		position = 16,
 		keyName = "showAgility",
 		name = "Show Agility Levels",
 		description = "Show the agility level of attackable players next to their name while in the wilderness.",
@@ -240,7 +239,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 20,
+		position = 17,
 		keyName = "agilityFormat",
 		name = "Format",
 		description = "Whether to show the agility level as text, or as icons (1 skull >= 1st threshold, 2 skulls >= 2nd threshold).",
@@ -252,7 +251,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 21,
+		position = 18,
 		keyName = "agilityFirstThreshold",
 		name = "First Threshold",
 		description = "When showing agility as icons, show one icon for agility >= this level.",
@@ -264,7 +263,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 22,
+		position = 19,
 		keyName = "agilitySecondThreshold",
 		name = "Second Threshold",
 		description = "When showing agility as icons, show two icons for agility >= this level.",
@@ -276,7 +275,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 23,
+		position = 20,
 		keyName = "playerSkull",
 		name = "Show Skull Information",
 		description = "shows",
@@ -288,7 +287,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 24,
+		position = 21,
 		keyName = "minimapSkullLocation",
 		name = "Skull Icon Location",
 		description = "The location of the skull icon for skulled players",
@@ -300,7 +299,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 26,
+		position = 22,
 		keyName = "targetRisk",
 		name = "Indicate Target Risk",
 		description = "Indicates the risk (in K GP) of the target",
@@ -312,7 +311,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 18,
+		position = 23,
 		keyName = "showCombat",
 		name = "Show Combat Levels",
 		description = "Show the combat level of attackable players next to their name.",
@@ -324,7 +323,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 8,
+		position = 24,
 		keyName = "drawOtherPlayerNames",
 		name = "Highlight other players",
 		description = "Configures whether or not other players should be highlighted",
@@ -336,7 +335,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 9,
+		position = 25,
 		keyName = "otherPlayerColor",
 		name = "Other player color",
 		description = "Color of other players' names",
@@ -347,15 +346,15 @@ public interface PlayerIndicatorsConfig extends Config
 		return Color.RED;
 	}
 	@ConfigItem(
-		position = 2,
+		position = 26,
 		keyName = "otherIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
 		group = "Other"
 	)
-	default ConfigEnumMap otherIndicatorModes()
+	default EnumMap otherIndicatorModes()
 	{
-		return new ConfigEnumMap(PlayerIndicationLocation.class);
+		return new EnumMap<>(PlayerIndicationLocation.class);
 	}
 
 
@@ -463,9 +462,9 @@ public interface PlayerIndicatorsConfig extends Config
 		group = "Callers",
 		displayRows = 3
 	)
-	default ConfigEnumMap callerTargetHighlightOptions()
+	default EnumMap callerTargetHighlightOptions()
 	{
-		return new ConfigEnumMap(PlayerIndicationLocation.class);
+		return new EnumMap<PlayerIndicationLocation, Integer>(PlayerIndicationLocation.class);
 	}
 
 

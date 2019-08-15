@@ -25,15 +25,13 @@
  */
 package net.runelite.client.plugins.playerindicators;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.function.Predicate;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +51,7 @@ import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.PvPUtil;
 
 @Slf4j
-public class PlayerIndicatorsOverlay extends Overlay implements Observer
+public class PlayerIndicatorsOverlay extends Overlay
 {
 	private static final int ACTOR_OVERHEAD_TEXT_MARGIN = 40;
 	private static final int ACTOR_HORIZONTAL_TEXT_MARGIN = 10;
@@ -75,9 +73,6 @@ public class PlayerIndicatorsOverlay extends Overlay implements Observer
 	@Inject
 	private HiscoreManager hiscoreManager;
 
-
-	private HashMap<String, List<PlayerIndicationLocation>> locationMap = new HashMap<>();
-
 	@Inject
 	public PlayerIndicatorsOverlay(PlayerIndicatorsPlugin plugin, PlayerIndicatorsService playerIndicatorsService,
 		HiscoreManager hiscoreManager)
@@ -98,109 +93,70 @@ public class PlayerIndicatorsOverlay extends Overlay implements Observer
 		return null;
 	}
 
-	private Predicate<Player> friends = (player) -> client.isFriended(player.getName(), false)
-			&& (locationMap.get("Friend").contains(PlayerIndicationLocation.ABOVE_HEAD)
-			|| locationMap.get("Friend").contains(PlayerIndicationLocation.HULL));
+	public Predicate<Player> friends = (player) -> client.isFriended(player.getName(), false);
 
-	private Predicate<Player> self = (player) -> client.getLocalPlayer().equals(player)
-			&& (locationMap.get("Self").contains(PlayerIndicationLocation.ABOVE_HEAD)
-			|| locationMap.get("Self").contains(PlayerIndicationLocation.HULL));
+	public Predicate<Player> self = (player) -> client.getLocalPlayer().equals(player);
 
-	private Predicate<Player> clan = (player) -> player.isClanMember()
-			&& (locationMap.get("Clan").contains(PlayerIndicationLocation.ABOVE_HEAD)
-			|| locationMap.get("Clan").contains(PlayerIndicationLocation.HULL));
+	public Predicate<Player> clan = Player::isClanMember;
 
-	private Predicate<Player> team = (player) -> client.getLocalPlayer().getTeam() == player.getTeam()
-			&& (locationMap.get("Team").contains(PlayerIndicationLocation.ABOVE_HEAD)
-			|| locationMap.get("Team").contains(PlayerIndicationLocation.HULL));
+	public Predicate<Player> team = (player) -> client.getLocalPlayer().getTeam() == player.getTeam();
 
-	private Predicate<Player> target = (player) -> PvPUtil.isAttackable(client, player)
-			&& (locationMap.get("Target").contains(PlayerIndicationLocation.ABOVE_HEAD)
-			|| locationMap.get("Target").contains(PlayerIndicationLocation.HULL));
+	public Predicate<Player> target = (player) -> PvPUtil.isAttackable(client, player);
 
-	private Predicate<Player> other = (player) -> locationMap.get("Other").contains(PlayerIndicationLocation.ABOVE_HEAD)
-		|| locationMap.get("Other").contains(PlayerIndicationLocation.HULL);
+	public Predicate<Player> other = Objects::nonNull;
+
 
 	private void renderPlayerOverlay(Graphics2D graphics, Player actor)
 	{
 
 		final PlayerNameLocation drawPlayerNamesConfig = plugin.getPlayerNamePosition();
 
-
-		for (Map.Entry<String, List<PlayerIndicationLocation>> entry : locationMap.entrySet())
-		{
-			String key = entry.getKey();
-			List<PlayerIndicationLocation> playerIndicationLocations = entry.getValue();
-			String name = actor.getName();
-			final boolean skulls = plugin.isPlayerSkull();
-			final int zOffset = actor.getLogicalHeight() + ACTOR_OVERHEAD_TEXT_MARGIN;
-			Point textLocation = actor.getCanvasTextLocation(graphics, name, zOffset);
-			if (plugin.isShowCombatLevel())
-			{
-				name = name + " (" + String.valueOf(actor.getCombatLevel()) + ")";
-			}
 			if (this.self.test(actor))
 			{
-				drawFriendOverlay(graphics, actor, name, plugin.getSelfColor());
+				drawFriendOverlay(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.SELF);
 				return;
 			}
 
 			if (this.friends.test(actor))
 			{
-				drawFriendOverlay(graphics, actor, name, plugin.getFriendsColor());
+				drawFriendOverlay(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.FRIEND);
 				return;
 			}
 
 			if (this.clan.test(actor))
 			{
-				drawFriendOverlay(graphics, actor, name, plugin.getGetClanMemberColor());
+				drawFriendOverlay(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.CLAN);
 				return;
 			}
 
 			if (this.team.test(actor))
 			{
-				drawFriendOverlay(graphics, actor, name, plugin.getGetTeamMemberColor());
+				drawFriendOverlay(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.TEAM);
 				return;
 			}
 			if (this.target.test(actor))
 			{
-				drawFriendOverlay(graphics, actor, name, plugin.getGetTargetColor());
+				drawFriendOverlay(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.TARGET);
 				return;
 			}
 			if (this.other.test(actor))
 			{
-				drawFriendOverlay(graphics, actor, name, plugin.getOtherColor());
-				return;
+				drawFriendOverlay(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.OTHER);
 			}
-
-//				}
-//				if (actor.getSkullIcon() != null && plugin.isPlayerSkull() && actor.getSkullIcon() == SkullIcon.SKULL)
-//				{
-//					int width = graphics.getFontMetrics().stringWidth(name);
-//					int height = graphics.getFontMetrics().getHeight();
-//					if (plugin.getSkullLocation().equals(PlayerIndicatorsPlugin.MinimapSkullLocations.AFTER_NAME))
-//					{
-//						OverlayUtil.renderImageLocation(graphics, new Point(textLocation.getX()
-//								+ width, textLocation.getY() - height),
-//							ImageUtil.resizeImage(skullIcon, height, height));
-//					}
-//					else
-//					{
-//						OverlayUtil.renderImageLocation(graphics, new Point(textLocation.getX(),
-//								textLocation.getY() - height),
-//							ImageUtil.resizeImage(skullIcon, height, height));
-//						textLocation = new Point(textLocation.getX() + skullIcon.getWidth(),
-//							textLocation.getY());
-//					}
-//				}
-//			}
-
-		}
 	}
 
-	private void drawFriendOverlay(Graphics2D graphics, Player actor, String name, Color color)
+	private void drawFriendOverlay(Graphics2D graphics, Player actor, PlayerIndicatorsPlugin.PlayerRelation relation)
 	{
-		if (locationMap.get(name).contains(PlayerIndicationLocation.ABOVE_HEAD))
+
+		String name = actor.getName();
+		final boolean skulls = plugin.isPlayerSkull();
+		final int zOffset = actor.getLogicalHeight() + ACTOR_OVERHEAD_TEXT_MARGIN;
+		Point textLocation = actor.getCanvasTextLocation(graphics, name, zOffset);
+		if (plugin.isShowCombatLevel())
+		{
+			name = name + " (" + String.valueOf(actor.getCombatLevel()) + ")";
+		}
+		if (if PlayerIndicatorsPlugin.PlayerRelation)
 		{
 			if (plugin.isPlayerSkull() && actor.getSkullIcon() != null)
 			{

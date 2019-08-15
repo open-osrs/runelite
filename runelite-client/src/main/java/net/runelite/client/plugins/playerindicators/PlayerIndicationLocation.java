@@ -9,10 +9,14 @@
 
 package net.runelite.client.plugins.playerindicators;
 
+import com.google.common.collect.ImmutableList;
+
 public enum PlayerIndicationLocation
 {
 	ABOVE_HEAD,
 	HULL,
 	MINIMAP,
-	TILE,
+	TILE;
+
+	public static final ImmutableList<PlayerIndicationLocation> SCENE_LOCATIONS = ImmutableList.of(ABOVE_HEAD, HULL);
 }

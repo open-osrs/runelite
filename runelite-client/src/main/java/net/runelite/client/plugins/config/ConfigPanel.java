@@ -26,6 +26,7 @@ package net.runelite.client.plugins.config;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -44,6 +45,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
@@ -1037,10 +1039,11 @@ public class ConfigPanel extends PluginPanel
 
 					int displayRows = cid.getItem().displayRows();
 
-					ConfigEnumMap enumMap = configManager.getConfiguration(cd.getGroup().value(),
-						cid.getItem().keyName(), ConfigEnumMap.class);
+					EnumMap enumMap = configManager.getConfiguration(cd.getGroup().value(),
+						cid.getItem().keyName(), EnumMap.class);
+					e
 
-					JList jList = new JList(enumMap.getKeyType().getEnumConstants());
+					JList jList = new JList(Lists.newArrayList(enumMap.keySet()));
 					int [] selected = new int[enumMap.getSelectedValues().size()];
 
 					enumMap.getSelectedValues().forEach(v ->
