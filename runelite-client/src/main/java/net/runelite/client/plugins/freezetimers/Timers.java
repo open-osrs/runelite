@@ -38,7 +38,7 @@ public class Timers
 {
 	private final Map<Actor, HashMap<TimerType, Long>> timerMap = new HashMap<>();
 
-	public void setTimerEnd(Actor actor, TimerType type, long n)
+	void setTimerEnd(Actor actor, TimerType type, long n)
 	{
 		if (!timerMap.containsKey(actor))
 		{
@@ -48,7 +48,7 @@ public class Timers
 		timerMap.get(actor).put(type, n + type.getImmunityTime());
 	}
 
-	public void setTimerReApply(Actor actor, TimerType type, long n)
+	void setTimerReApply(Actor actor, TimerType type, long n)
 	{
 		if (!timerMap.containsKey(actor))
 		{
@@ -58,7 +58,7 @@ public class Timers
 		timerMap.get(actor).put(type, n);
 	}
 
-	public long getTimerEnd(Actor actor, TimerType type)
+	long getTimerEnd(Actor actor, TimerType type)
 	{
 		if (!timerMap.containsKey(actor))
 		{
@@ -68,7 +68,7 @@ public class Timers
 		return timerMap.get(actor).getOrDefault(type, (long) type.getImmunityTime()) - type.getImmunityTime();
 	}
 
-	public long getTimerReApply(Actor actor, TimerType type)
+	long getTimerReApply(Actor actor, TimerType type)
 	{
 		if (!timerMap.containsKey(actor))
 		{
@@ -78,7 +78,7 @@ public class Timers
 		return timerMap.get(actor).getOrDefault(type, (long) 0);
 	}
 
-	public List<Actor> getAllActorsOnTimer(TimerType type)
+	List<Actor> getAllActorsOnTimer(TimerType type)
 	{
 		final List<Actor> actors = new ArrayList<>();
 
@@ -106,17 +106,17 @@ public class Timers
 		return actors;
 	}
 
-	public boolean areAllTimersZero(Actor actor)
+	@SuppressWarnings("WhileLoopReplaceableByForEach")
+	boolean areAllTimersZero(Actor actor)
 	{
 		final Iterator<Map.Entry<Actor, HashMap<TimerType, Long>>> timerIterator = timerMap.entrySet().iterator();
 
-		while(timerIterator.hasNext())
+		while (timerIterator.hasNext())
 		{
 			final Map.Entry<Actor, HashMap<TimerType, Long>> timerEntry = timerIterator.next();
-
 			final Iterator<Map.Entry<TimerType, Long>> typeIterator = timerEntry.getValue().entrySet().iterator();
 
-			while(typeIterator.hasNext())
+			while (typeIterator.hasNext())
 			{
 				final Map.Entry<TimerType, Long> typeEntry = typeIterator.next();
 
