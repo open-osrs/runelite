@@ -3713,6 +3713,7 @@
     "name": "Highwayman",
     "hitpoints": 13,
     "combatLevel": 5,
+    "attackSpeed": 4,
     "attackLevel": 2,
     "strengthLevel": 2,
     "defenceLevel": 4,
@@ -3728,6 +3729,7 @@
     "name": "Highwayman",
     "hitpoints": 13,
     "combatLevel": 5,
+    "attackSpeed": 4,
     "attackLevel": 2,
     "strengthLevel": 2,
     "defenceLevel": 4,
@@ -3849,7 +3851,7 @@
     "hitpoints": 17,
     "combatLevel": 8,
     "slayerLevel": 1,
-    "attackSpeed": 6,
+    "attackSpeed": 4,
     "attackLevel": 5,
     "strengthLevel": 5,
     "defenceLevel": 5,
@@ -4823,7 +4825,7 @@
   },
   "655": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4837,7 +4839,7 @@
   },
   "656": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4851,7 +4853,7 @@
   },
   "657": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4865,7 +4867,7 @@
   },
   "658": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4879,7 +4881,7 @@
   },
   "659": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4893,7 +4895,7 @@
   },
   "660": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4907,7 +4909,7 @@
   },
   "661": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4921,7 +4923,7 @@
   },
   "662": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4935,7 +4937,7 @@
   },
   "663": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4949,7 +4951,7 @@
   },
   "664": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4963,7 +4965,7 @@
   },
   "665": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4977,7 +4979,7 @@
   },
   "666": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -4991,7 +4993,7 @@
   },
   "667": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -5005,7 +5007,7 @@
   },
   "668": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -5019,7 +5021,7 @@
   },
   "674": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -5033,7 +5035,7 @@
   },
   "677": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -5047,7 +5049,7 @@
   },
   "678": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -5350,28 +5352,24 @@
   },
   "720": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "721": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "722": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "723": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
@@ -5384,28 +5382,24 @@
   },
   "725": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "726": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "727": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
   },
   "728": {
     "name": "Mummy",
-    "hitpoints": 68,
     "combatLevel": 103,
     "attackSpeed": 4,
     "undead": true
@@ -5812,7 +5806,6 @@
   },
   "800": {
     "name": "Locust rider",
-    "hitpoints": 90,
     "combatLevel": 68,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -5827,7 +5820,6 @@
   },
   "801": {
     "name": "Locust rider",
-    "hitpoints": 90,
     "combatLevel": 68,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -6159,6 +6151,14 @@
     "rangeLevel": 100,
     "magicLevel": 100,
     "demon": true
+  },
+  "924": {
+    "name": "Skeleton",
+    "hitpoints": 18,
+    "combatLevel": 13,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "undead": true
   },
   "925": {
     "name": "Rock",
@@ -6960,6 +6960,18 @@
     "rangeLevel": 1,
     "magicLevel": 1
   },
+  "1039": {
+    "name": "Albino bat",
+    "hitpoints": 33,
+    "combatLevel": 52,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 57,
+    "strengthLevel": 57,
+    "defenceLevel": 30,
+    "rangeLevel": 1,
+    "magicLevel": 1
+  },
   "1041": {
     "name": "Giant mosquito",
     "hitpoints": 3,
@@ -7296,7 +7308,6 @@
   },
   "1118": {
     "name": "Man",
-    "hitpoints": 7,
     "combatLevel": 4,
     "attackSpeed": 4,
     "attackLevel": 1,
@@ -9243,7 +9254,6 @@
   },
   "1713": {
     "name": "Spinner",
-    "hitpoints": 33,
     "combatLevel": 88
   },
   "1714": {
@@ -12282,7 +12292,7 @@
   },
   "2484": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -14848,7 +14858,7 @@
   },
   "3045": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -14879,7 +14889,7 @@
   },
   "3047": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -14893,7 +14903,7 @@
   },
   "3048": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -15254,7 +15264,7 @@
   },
   "3073": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -15268,7 +15278,7 @@
   },
   "3074": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -15282,7 +15292,7 @@
   },
   "3075": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -15296,7 +15306,7 @@
   },
   "3076": {
     "name": "Goblin",
-    "hitpoints": 5,
+    "hitpoints": 12,
     "combatLevel": 5,
     "slayerLevel": 1,
     "attackSpeed": 6,
@@ -19307,46 +19317,6 @@
     "rangeDef": 100,
     "magicDef": 90
   },
-  "4043": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4044": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4045": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4046": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4047": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4048": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4049": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4050": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4051": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
-  "4052": {
-    "name": "Pirate",
-    "hitpoints": 20
-  },
   "4067": {
     "name": "Black Knight Titan",
     "hitpoints": 142,
@@ -20104,7 +20074,6 @@
   },
   "4247": {
     "name": "Thief",
-    "hitpoints": 17,
     "combatLevel": 14,
     "attackSpeed": 4,
     "attackLevel": 14,
@@ -26090,7 +26059,7 @@
     "hitpoints": 40,
     "combatLevel": 48,
     "slayerLevel": 1,
-    "attackSpeed": 7,
+    "attackSpeed": 3,
     "attackLevel": 40,
     "strengthLevel": 45,
     "defenceLevel": 45,
@@ -26108,7 +26077,7 @@
     "hitpoints": 40,
     "combatLevel": 48,
     "slayerLevel": 1,
-    "attackSpeed": 7,
+    "attackSpeed": 3,
     "attackLevel": 40,
     "strengthLevel": 45,
     "defenceLevel": 45,
@@ -26126,7 +26095,7 @@
     "hitpoints": 40,
     "combatLevel": 48,
     "slayerLevel": 1,
-    "attackSpeed": 7,
+    "attackSpeed": 3,
     "attackLevel": 40,
     "strengthLevel": 45,
     "defenceLevel": 45,
@@ -26144,7 +26113,7 @@
     "hitpoints": 40,
     "combatLevel": 48,
     "slayerLevel": 1,
-    "attackSpeed": 7,
+    "attackSpeed": 3,
     "attackLevel": 40,
     "strengthLevel": 45,
     "defenceLevel": 45,
@@ -27286,7 +27255,6 @@
   },
   "6340": {
     "name": "Cow (hard)",
-    "hitpoints": 8,
     "combatLevel": 170,
     "slayerLevel": 1,
     "attackSpeed": 4
@@ -29459,7 +29427,7 @@
     "hitpoints": 137,
     "combatLevel": 145,
     "slayerLevel": 1,
-    "attackSpeed": 6,
+    "attackSpeed": 4,
     "attackLevel": 75,
     "strengthLevel": 75,
     "defenceLevel": 55,
@@ -29811,6 +29779,7 @@
   },
   "6728": {
     "name": "Rock Golem",
+    "hitpoints": 86,
     "combatLevel": 79,
     "attackSpeed": 4
   },
@@ -32600,28 +32569,24 @@
   },
   "7530": {
     "name": "Vespula",
-    "hitpoints": 200,
     "attackSpeed": 3,
     "rangeDef": 60,
     "magicDef": 70
   },
   "7531": {
     "name": "Vespula",
-    "hitpoints": 200,
     "attackSpeed": 3,
     "rangeDef": 60,
     "magicDef": 70
   },
   "7532": {
     "name": "Vespula",
-    "hitpoints": 200,
     "attackSpeed": 3,
     "rangeDef": 60,
     "magicDef": 70
   },
   "7533": {
     "name": "Abyssal portal",
-    "hitpoints": 250,
     "attackSpeed": 2,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32631,14 +32596,12 @@
   },
   "7538": {
     "name": "Vespine soldier",
-    "hitpoints": 100,
     "attackSpeed": 4,
     "rangeLevel": 1,
     "magicDef": 30
   },
   "7539": {
     "name": "Vespine soldier",
-    "hitpoints": 100,
     "attackSpeed": 4,
     "rangeLevel": 1,
     "magicDef": 30
@@ -32863,7 +32826,6 @@
   },
   "7559": {
     "name": "Deathly ranger",
-    "hitpoints": 120,
     "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32872,7 +32834,6 @@
   },
   "7560": {
     "name": "Deathly mage",
-    "hitpoints": 120,
     "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32881,22 +32842,18 @@
   },
   "7561": {
     "name": "Muttadile",
-    "hitpoints": 250,
     "attackSpeed": 4
   },
   "7562": {
     "name": "Muttadile",
-    "hitpoints": 250,
     "attackSpeed": 4
   },
   "7563": {
     "name": "Muttadile",
-    "hitpoints": 250,
     "attackSpeed": 4
   },
   "7566": {
     "name": "Vasa Nistirio",
-    "hitpoints": 300,
     "attackSpeed": 3,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32909,7 +32866,6 @@
   },
   "7567": {
     "name": "Vasa Nistirio",
-    "hitpoints": 300,
     "attackSpeed": 3,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32922,7 +32878,6 @@
   },
   "7568": {
     "name": "Glowing crystal",
-    "hitpoints": 120,
     "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
@@ -32932,7 +32887,6 @@
   },
   "7573": {
     "name": "Lizardman shaman",
-    "hitpoints": 190,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "range": 56,
@@ -32946,7 +32900,6 @@
   },
   "7574": {
     "name": "Lizardman shaman",
-    "hitpoints": 190,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "range": 56,
@@ -32992,7 +32945,6 @@
   },
   "7604": {
     "name": "Skeletal Mystic",
-    "hitpoints": 160,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "rangeLevel": 1,
@@ -33008,7 +32960,6 @@
   },
   "7605": {
     "name": "Skeletal Mystic",
-    "hitpoints": 160,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "rangeLevel": 1,
@@ -33024,7 +32975,6 @@
   },
   "7606": {
     "name": "Skeletal Mystic",
-    "hitpoints": 160,
     "slayerLevel": 1,
     "attackSpeed": 4,
     "rangeLevel": 1,
@@ -34918,7 +34868,6 @@
     "name": "Zombified Spawn",
     "hitpoints": 8,
     "combatLevel": 55,
-    "attackSpeed": 4,
     "attackLevel": 80,
     "strengthLevel": 80,
     "defenceLevel": 4,
@@ -34939,7 +34888,6 @@
     "name": "Zombified Spawn",
     "hitpoints": 38,
     "combatLevel": 64,
-    "attackSpeed": 4,
     "attackLevel": 82,
     "strengthLevel": 82,
     "defenceLevel": 6,
@@ -36510,7 +36458,6 @@
     "name": "Nylocas Matomenos",
     "hitpoints": 200,
     "combatLevel": 115,
-    "attackSpeed": 6,
     "attackLevel": 100,
     "strengthLevel": 100,
     "defenceLevel": 100,
@@ -36521,7 +36468,6 @@
     "name": "Blood spawn",
     "hitpoints": 120,
     "combatLevel": 55,
-    "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
     "rangeLevel": 1
@@ -36713,7 +36659,6 @@
     "name": "Nylocas Athanatos",
     "hitpoints": 180,
     "combatLevel": 350,
-    "attackSpeed": 4,
     "attackLevel": 1,
     "strengthLevel": 1,
     "defenceLevel": 50,
@@ -36724,7 +36669,6 @@
     "name": "Nylocas Matomenos",
     "hitpoints": 200,
     "combatLevel": 115,
-    "attackSpeed": 6,
     "attackLevel": 100,
     "strengthLevel": 100,
     "defenceLevel": 100,
@@ -36849,7 +36793,7 @@
     "hitpoints": 40,
     "combatLevel": 48,
     "slayerLevel": 1,
-    "attackSpeed": 7,
+    "attackSpeed": 3,
     "attackLevel": 40,
     "strengthLevel": 45,
     "defenceLevel": 45,
@@ -36867,7 +36811,7 @@
     "hitpoints": 40,
     "combatLevel": 48,
     "slayerLevel": 1,
-    "attackSpeed": 7,
+    "attackSpeed": 3,
     "attackLevel": 40,
     "strengthLevel": 45,
     "defenceLevel": 45,
@@ -36885,7 +36829,7 @@
     "hitpoints": 40,
     "combatLevel": 48,
     "slayerLevel": 1,
-    "attackSpeed": 7,
+    "attackSpeed": 3,
     "attackLevel": 40,
     "strengthLevel": 45,
     "defenceLevel": 45,
@@ -37524,6 +37468,20 @@
     "crushDef": 50,
     "magicDef": 150
   },
+  "8736": {
+    "name": "Moss Giant",
+    "hitpoints": 120,
+    "combatLevel": 84,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 60,
+    "strengthLevel": 60,
+    "defenceLevel": 60,
+    "rangeLevel": 1,
+    "magicLevel": 1,
+    "bonusAttack": 66,
+    "bonusStrength": 62
+  },
   "8917": {
     "name": "Fragment of Seren",
     "hitpoints": 1000,
@@ -37627,5 +37585,253 @@
     "hitpoints": 600,
     "combatLevel": 674,
     "attackSpeed": 5
+  },
+  "9026": {
+    "name": "Crystalline Rat",
+    "combatLevel": 24,
+    "attackSpeed": 4
+  },
+  "9028": {
+    "name": "Crystalline Bat",
+    "combatLevel": 33,
+    "attackSpeed": 4
+  },
+  "9029": {
+    "name": "Crystalline Unicorn",
+    "combatLevel": 48,
+    "attackSpeed": 4
+  },
+  "9030": {
+    "name": "Crystalline Scorpion",
+    "combatLevel": 64,
+    "attackSpeed": 4
+  },
+  "9031": {
+    "name": "Crystalline Wolf",
+    "combatLevel": 74,
+    "attackSpeed": 4
+  },
+  "9032": {
+    "name": "Crystalline Bear",
+    "combatLevel": 172,
+    "attackSpeed": 4
+  },
+  "9033": {
+    "name": "Crystalline Dragon",
+    "combatLevel": 172,
+    "attackSpeed": 4
+  },
+  "9040": {
+    "name": "Corrupted Rat",
+    "combatLevel": 34,
+    "attackSpeed": 4
+  },
+  "9041": {
+    "name": "Corrupted Spider",
+    "hitpoints": 12,
+    "combatLevel": 32,
+    "attackSpeed": 4
+  },
+  "9042": {
+    "name": "Corrupted Bat",
+    "combatLevel": 48,
+    "attackSpeed": 4
+  },
+  "9043": {
+    "name": "Corrupted Unicorn",
+    "combatLevel": 64,
+    "attackSpeed": 4
+  },
+  "9044": {
+    "name": "Corrupted Scorpion",
+    "combatLevel": 89,
+    "attackSpeed": 4
+  },
+  "9045": {
+    "name": "Corrupted Wolf",
+    "combatLevel": 102,
+    "attackSpeed": 4
+  },
+  "9046": {
+    "name": "Corrupted Bear",
+    "hitpoints": 100,
+    "combatLevel": 258,
+    "attackSpeed": 4
+  },
+  "9047": {
+    "name": "Corrupted Dragon",
+    "combatLevel": 258,
+    "attackSpeed": 4
+  },
+  "9048": {
+    "name": "Corrupted Dark Beast",
+    "hitpoints": 100,
+    "combatLevel": 258,
+    "attackSpeed": 4
+  },
+  "9049": {
+    "name": "Zalcano",
+    "hitpoints": 14,
+    "combatLevel": 64
+  },
+  "9182": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9183": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9184": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9185": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9186": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9187": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9188": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9189": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9190": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
+  },
+  "9191": {
+    "name": "Guard",
+    "hitpoints": 105,
+    "combatLevel": 108,
+    "slayerLevel": 1,
+    "attackSpeed": 4,
+    "attackLevel": 95,
+    "strengthLevel": 80,
+    "defenceLevel": 95,
+    "magicLevel": 1,
+    "stabDef": 50,
+    "slashDef": 70,
+    "crushDef": 70,
+    "rangeDef": 50,
+    "magicDef": 60
   }
 }
