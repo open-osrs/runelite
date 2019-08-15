@@ -28,7 +28,10 @@ import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.swing.SwingUtilities;
+import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
@@ -52,10 +55,14 @@ public class ProfilesPlugin extends Plugin
 	private ClientToolbar clientToolbar;
 
 	@Inject
+	private ProfilesConfig config;
+
+	@Inject
 	private EventBus eventBus;
 
 	private ProfilesPanel panel;
 	private NavigationButton navButton;
+	private boolean switchToPanel;
 
 
 	@Provides
@@ -67,7 +74,15 @@ public class ProfilesPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+
+		updateConfig();
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+
+		if (this.switchToPanel)
+		{
+			eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		}
 
 		panel = injector.getInstance(ProfilesPanel.class);
 
@@ -91,6 +106,21 @@ public class ProfilesPlugin extends Plugin
 		clientToolbar.removeNavigation(navButton);
 	}
 
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (!this.switchToPanel)
+		{
+			return;
+		}
+		if (event.getGameState().equals(GameState.LOGIN_SCREEN))
+		{
+			if (!navButton.isSelected())
+			{
+				SwingUtilities.invokeLater(() -> navButton.getOnSelect().run());
+			}
+		}
+	}
+
 	private void onConfigChanged(ConfigChanged event) throws Exception
 	{
 		if (event.getGroup().equals("profiles") && event.getKey().equals("rememberPassword"))
@@ -99,6 +129,15 @@ public class ProfilesPlugin extends Plugin
 			this.shutDown();
 			this.startUp();
 		}
+		if (event.getGroup().equals("profiles") && event.getKey().equals("switchPanel"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.switchToPanel = config.switchPanel();
 	}
 
 }
