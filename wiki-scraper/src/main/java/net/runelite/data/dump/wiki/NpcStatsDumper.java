@@ -181,7 +181,7 @@ public class NpcStatsDumper
 			{
 				return;
 			}
-			
+
 			List<MediaWikiTemplate> bases = new ArrayList<>();
 
 			final MediaWikiTemplate switchBase = MediaWikiTemplate.parseWikitext("Switch infobox", data);

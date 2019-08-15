@@ -29,8 +29,6 @@ import java.io.File;
 import java.io.IOException;
 import net.runelite.cache.fs.Store;
 import net.runelite.data.dump.MediaWiki;
-import net.runelite.data.dump.wiki.ItemLimitsDumper;
-import net.runelite.data.dump.wiki.ItemStatsDumper;
 import net.runelite.data.dump.wiki.NpcStatsDumper;
 
 public class App
