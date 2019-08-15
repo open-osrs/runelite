@@ -28,7 +28,6 @@ import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.swing.SwingUtilities;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
@@ -40,6 +39,7 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
+import java.util.concurrent.ScheduledExecutorService;
 
 @PluginDescriptor(
 	name = "Account Switcher",
@@ -60,6 +60,9 @@ public class ProfilesPlugin extends Plugin
 	@Inject
 	private EventBus eventBus;
 
+	@Inject
+	private ScheduledExecutorService executorService;
+
 	private ProfilesPanel panel;
 	private NavigationButton navButton;
 	private boolean switchToPanel;
@@ -77,12 +80,6 @@ public class ProfilesPlugin extends Plugin
 
 		updateConfig();
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-
-		if (this.switchToPanel)
-		{
-			eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		}
 
 		if (this.switchToPanel)
 		{
@@ -98,6 +95,7 @@ public class ProfilesPlugin extends Plugin
 			.icon(icon)
 			.priority(8)
 			.panel(panel)
+			.onReady(() -> executorService.submit(() -> OpenPanel(true)))
 			.build();
 
 		clientToolbar.addNavigation(navButton);
@@ -121,7 +119,7 @@ public class ProfilesPlugin extends Plugin
 		{
 			if (!navButton.isSelected())
 			{
-				SwingUtilities.invokeLater(() -> navButton.getOnSelect().run());
+				OpenPanel(true);
 			}
 		}
 	}
@@ -133,10 +131,21 @@ public class ProfilesPlugin extends Plugin
 			panel = injector.getInstance(ProfilesPanel.class);
 			this.shutDown();
 			this.startUp();
+			updateConfig();
 		}
 		if (event.getGroup().equals("profiles") && event.getKey().equals("switchPanel"))
 		{
 			updateConfig();
+		}
+	}
+
+	private void OpenPanel(boolean openPanel)
+	{
+		if (openPanel && this.switchToPanel)
+		{
+			// If we haven't seen the latest feed item,
+			// open the feed panel.
+			navButton.getOnSelect().run();
 		}
 	}
 
