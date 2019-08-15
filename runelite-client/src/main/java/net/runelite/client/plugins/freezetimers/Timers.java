@@ -106,29 +106,15 @@ public class Timers
 		return actors;
 	}
 
-	public boolean areAllTimersZero(Actor actor)
+	boolean areAllTimersZero(Actor actor)
 	{
-		final Iterator<Map.Entry<Actor, HashMap<TimerType, Long>>> timerIterator = timerMap.entrySet().iterator();
-
-		while (timerIterator.hasNext())
+		for (TimerType type : TimerType.values())
 		{
-			final Map.Entry<Actor, HashMap<TimerType, Long>> timerEntry = timerIterator.next();
-
-			final Iterator<Map.Entry<TimerType, Long>> typeIterator = timerEntry.getValue().entrySet().iterator();
-
-			while (typeIterator.hasNext())
+			if (getTimerReApply(actor, type) > System.currentTimeMillis())
 			{
-				final Map.Entry<TimerType, Long> typeEntry = typeIterator.next();
-
-				if (getTimerReApply(actor, typeEntry.getKey()) > System.currentTimeMillis())
-				{
-					return false;
-				}
+				return false;
 			}
 		}
-
-		timerMap.remove(actor);
-
 		return true;
 	}
 }
