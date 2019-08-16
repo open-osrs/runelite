@@ -258,7 +258,7 @@ public class RunecraftPlugin extends Plugin
 			}
 		}
 	}
-	
+
 	private void hide(String option, String target)
 	{
 		final MenuEntry[] entries = client.getMenuEntries();
@@ -346,7 +346,7 @@ public class RunecraftPlugin extends Plugin
 		{
 			final Item[] items = event.getItemContainer().getItems();
 
-			if(items.length == 0)
+			if (items.length == 0)
 			{
 				return;
 			}
