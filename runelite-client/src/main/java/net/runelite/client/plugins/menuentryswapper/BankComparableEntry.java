@@ -10,10 +10,11 @@ import net.runelite.client.util.Text;
 @EqualsAndHashCode(callSuper = true)
 public class BankComparableEntry extends AbstractComparableEntry
 {
-	public BankComparableEntry(String option, String itemName)
+	public BankComparableEntry(String option, String itemName, boolean strictTarget)
 	{
 		this.setOption(Text.standardize(option));
 		this.setTarget(Text.standardize(itemName));
+		this.setStrictTarget(strictTarget);
 	}
 
 	public boolean matches(MenuEntry entry)
@@ -25,6 +26,11 @@ public class BankComparableEntry extends AbstractComparableEntry
 			return false;
 		}
 
-		return Text.standardize(entry.getOption()).contains(this.getOption()) && Text.standardize(entry.getTarget()).equals(this.getTarget());
+		if (isStrictTarget() && Text.standardize(entry.getTarget()).equals(this.getTarget()))
+		{
+			return false;
+		}
+
+		return Text.standardize(entry.getOption()).contains(this.getOption()) && Text.standardize(entry.getTarget()).contains(this.getTarget());
 	}
 }
