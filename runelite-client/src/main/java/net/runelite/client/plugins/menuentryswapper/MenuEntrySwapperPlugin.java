@@ -1318,10 +1318,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapTeleportItem)
 		{
-			menuManager.addSwap("Wear", "", "Rub");
-			menuManager.addSwap("Wield", "", "Rub");
-			menuManager.addSwap("Wear", "", "Teleport");
-			menuManager.addSwap("Wield", "", "Teleport");
+			menuManager.addPriorityEntry(new InventoryComparableEntry("Rub", "", false)).setPriority(1);
+			menuManager.addPriorityEntry(new InventoryComparableEntry("Teleport", "", false)).setPriority(1);
 		}
 
 		if (this.swapCoalBag)
@@ -1498,15 +1496,17 @@ public class MenuEntrySwapperPlugin extends Plugin
 		Text.fromCSV(this.getSellFiftyItems).forEach(item -> menuManager.removePriorityEntry("Sell 50", item));
 		menuManager.removeSwaps("Fairy ring");
 		menuManager.removeSwaps("Tree");
-		menuManager.removePriorityEntry(this.getGloryMode.toString());
-		menuManager.removePriorityEntry(this.getGloryMode.toString());
-		menuManager.removePriorityEntry(this.getSkillsNecklaceMode.toString());
-		menuManager.removePriorityEntry(this.getNecklaceofPassageMode.toString());
-		menuManager.removePriorityEntry(this.getDigsitePendantMode.toString());
-		menuManager.removePriorityEntry(this.getSlayerRingMode.toString());
-		menuManager.removePriorityEntry(this.getSlayerRingMode.toString());
-		menuManager.removePriorityEntry(this.getXericsTalismanMode.toString());
-		menuManager.removePriorityEntry(this.getRingofWealthMode.toString());
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getBurningAmuletMode.toString(), "burning amulet"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getCombatBraceletMode.toString(), "combat bracelet"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getGamesNecklaceMode.toString(), "games necklace"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getDuelingRingMode.toString(), "ring of dueling"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getGloryMode.toString(), "glory"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getSkillsNecklaceMode.toString(), "skills necklace"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getNecklaceofPassageMode.toString(), "necklace of passage"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getDigsitePendantMode.toString(), "digsite pendant"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getSlayerRingMode.toString(), "slayer ring"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getXericsTalismanMode.toString(), "talisman"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getRingofWealthMode.toString(), "ring of wealth"));
 		menuManager.removePriorityEntry(this.maxMode.toString(), "max cape");
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		menuManager.removePriorityEntry("Smith All");
@@ -1601,10 +1601,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Search");
 		menuManager.removePriorityEntry("Search for traps");
 		menuManager.removePriorityEntry("Guzzle", "Dwarven rock cake");
-		menuManager.removeSwap("Wear", "", "Rub");
-		menuManager.removeSwap("Wield", "", "Rub");
-		menuManager.removeSwap("Wear", "", "Teleport");
-		menuManager.removeSwap("Wield", "", "Teleport");
+		menuManager.removePriorityEntry(new InventoryComparableEntry("Rub", "", false));
+		menuManager.removePriorityEntry(new InventoryComparableEntry("Teleport", "", false));
 		menuManager.removePriorityEntry(this.getConstructionMode.getBuild());
 		menuManager.removePriorityEntry(this.getConstructionMode.getRemove());
 
