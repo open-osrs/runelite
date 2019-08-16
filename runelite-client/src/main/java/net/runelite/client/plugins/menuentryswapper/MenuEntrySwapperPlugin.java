@@ -1248,7 +1248,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapBoxTrap)
 		{
-			menuManager.addPriorityEntry("Reset", "Box trap");
+			menuManager.addPriorityEntry("Reset", "Shaking box");
 			menuManager.addPriorityEntry("Lay", "Box trap");
 			menuManager.addPriorityEntry("Activate", "Box trap");
 		}
@@ -1568,7 +1568,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Pay-toll(10gp)", "Gate");
 		menuManager.removePriorityEntry("Travel", "Trapdoor");
 		menuManager.removePriorityEntry("Harpoon");
-		menuManager.removePriorityEntry("Reset", "Box trap");
+		menuManager.removePriorityEntry("Reset", "Shaking box");
 		menuManager.removePriorityEntry("Lay", "Box trap");
 		menuManager.removePriorityEntry("Activate", "Box trap");
 		menuManager.removePriorityEntry("Chase");
