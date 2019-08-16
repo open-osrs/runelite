@@ -1643,20 +1643,22 @@ public class MenuEntrySwapperPlugin extends Plugin
 				break;
 		}
 		
-		switch (this.swapFairyRingMode)
-		{
-			case OFF:
-			case ZANARIS:
-				menuManager.removeSwaps("Fairy ring");
-				menuManager.removeSwaps("Tree");
-				break;
-			case CONFIGURE:
-				menuManager.removePriorityEntry("Configure", "Fairy ring");
-				break;
-			case LAST_DESTINATION:
-				menuManager.removePriorityEntry("Last-destination", false);
-				break;
-		}
+        switch (this.swapFairyTreeMode) 
+	{
+            case OFF:
+            case TREE:
+                menuManager.removePriorityEntry("Tree", "Spiritual Fairy Tree");
+                break;
+            case RING_ZANARIS:
+                menuManager.removePriorityEntry("Ring-Zanaris", "Spiritual Fairy Tree");
+                break;
+            case RING_CONFIGURE:
+                menuManager.removePriorityEntry("Ring-configure", "Spiritual Fairy Tree");
+                break;
+            case RING_LAST_DESTINATION:
+                menuManager.removePriorityEntry("Ring-last-destination", false);
+                break;
+        }
 
 		switch (this.swapOccultMode)
 		{
