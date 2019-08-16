@@ -93,6 +93,7 @@ import net.runelite.client.plugins.menuentryswapper.util.ConstructionCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.DigsitePendantMode;
 import net.runelite.client.plugins.menuentryswapper.util.DuelingRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
+import net.runelite.client.plugins.menuentryswapper.util.FairyTreeMode;
 import net.runelite.client.plugins.menuentryswapper.util.GamesNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.GloryMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
@@ -268,6 +269,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapMetamorphosis;
 	private boolean swapEnchant;
 	private FairyRingMode swapFairyRingMode;
+	private FairyTreeMode swapFairyTreeMode;
 	private ObeliskMode swapObeliskMode;
 	private boolean swapTeleportItem;
 	private boolean swapWildernessLever;
@@ -1363,6 +1365,23 @@ public class MenuEntrySwapperPlugin extends Plugin
 				menuManager.addPriorityEntry("Last-destination", false);
 				break;
 		}
+		
+		switch (this.swapFairyTreeMode)
+		{
+			case OFF:
+			case TREE:
+				menuManager.addPriorityEntry("Tree", "Spiritual Fairy Tree");
+				break;
+			case RING_ZANARIS:
+				menuManager.addPriorityEntry("Ring-Zanaris", "Spiritual Fairy Tree");
+				break;
+			case RING_CONFIGURE:
+				menuManager.addPriorityEntry("Ring-configure", "Spiritual Fairy Tree");
+				break;
+			case RING_LAST_DESTINATION:
+				menuManager.addPriorityEntry("Ring-last-destination", false);
+				break;
+		}
 
 		switch (this.swapOccultMode)
 		{
@@ -1609,6 +1628,21 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removeSwap("Wear", "", "Teleport");
 		menuManager.removeSwap("Wield", "", "Teleport");
 
+		switch (this.swapFairyRingMode)
+		{
+			case OFF:
+			case ZANARIS:
+				menuManager.removeSwaps("Fairy ring");
+				menuManager.removeSwaps("Tree");
+				break;
+			case CONFIGURE:
+				menuManager.removePriorityEntry("Configure", "Fairy ring");
+				break;
+			case LAST_DESTINATION:
+				menuManager.removePriorityEntry("Last-destination", false);
+				break;
+		}
+		
 		switch (this.swapFairyRingMode)
 		{
 			case OFF:
@@ -1891,6 +1925,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.swapMetamorphosis = config.swapMetamorphosis();
 		this.swapEnchant = config.swapEnchant();
 		this.swapFairyRingMode = config.swapFairyRingMode();
+		this.swapFairyTreeMode = config.swapFairyTreeMode();
 		this.swapObeliskMode = config.swapObeliskMode();
 		this.swapTeleportItem = config.swapTeleportItem();
 		this.swapWildernessLever = config.swapWildernessLever();
