@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import static net.runelite.api.AnimationID.SMITHING_CANNONBALL;
 import static net.runelite.api.AnimationID.SMITHING_SMELTING;
 import net.runelite.api.Client;
@@ -40,13 +41,15 @@ import net.runelite.client.ui.overlay.Overlay;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
+import net.runelite.client.ui.overlay.components.table.TableAlignment;
+import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+@Singleton
 class SmeltingOverlay extends Overlay
 {
-	private static final int SMELT_TIMEOUT = 5;
+	private static final int SMELT_TIMEOUT = 7;
 
 	private final Client client;
 	private final SmeltingPlugin plugin;
@@ -55,7 +58,7 @@ class SmeltingOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	SmeltingOverlay(Client client, SmeltingPlugin plugin, XpTrackerService xpTrackerService)
+	SmeltingOverlay(final Client client, final SmeltingPlugin plugin, final XpTrackerService xpTrackerService)
 	{
 		super(plugin);
 		this.client = client;
@@ -94,27 +97,23 @@ class SmeltingOverlay extends Overlay
 		int actions = xpTrackerService.getActions(Skill.SMITHING);
 		if (actions > 0)
 		{
+			TableComponent tableComponent = new TableComponent();
+			tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
+
 			if (plugin.getSession().getBarsSmelted() > 0)
 			{
-				panelComponent.getChildren().add(LineComponent.builder()
-					.left("Bars:")
-					.right(Integer.toString(session.getBarsSmelted()))
-					.build());
+				tableComponent.addRow("Bars:", Integer.toString(session.getBarsSmelted()));
 			}
 			if (plugin.getSession().getCannonBallsSmelted() > 0)
 			{
-				panelComponent.getChildren().add(LineComponent.builder()
-					.left("Cannonballs:")
-					.right(Integer.toString(session.getCannonBallsSmelted()))
-					.build());
+				tableComponent.addRow("Cannonballs:", Integer.toString(session.getCannonBallsSmelted()));
 			}
 			if (actions > 2)
 			{
-				panelComponent.getChildren().add(LineComponent.builder()
-					.left("Actions/hr:")
-					.right(Integer.toString(xpTrackerService.getActionsHr(Skill.SMITHING)))
-					.build());
+				tableComponent.addRow("Actions/hr:", Integer.toString(xpTrackerService.getActionsHr(Skill.SMITHING)));
 			}
+
+			panelComponent.getChildren().add(tableComponent);
 		}
 
 		return panelComponent.render(graphics);

@@ -24,15 +24,19 @@
  */
 package net.runelite.client.plugins.loottracker;
 
+import com.google.gson.annotations.SerializedName;
+import java.time.Instant;
 import lombok.Value;
 
 @Value
 class LootTrackerRecord
 {
 	private final String title;
+	private String localUsername;
 	private final String subTitle;
+	@SerializedName("item_records")
 	private final LootTrackerItem[] items;
-	private final long timestamp;
+	private final Instant timestamp;
 
 	/**
 	 * Checks if this record matches specified id

@@ -35,6 +35,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Singleton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
@@ -48,6 +49,7 @@ import net.runelite.client.util.StackFormatter;
  * This panel displays an individual item result in the
  * Grand Exchange search plugin.
  */
+@Singleton
 class GrandExchangeItemPanel extends JPanel
 {
 	private static final Dimension ICON_SIZE = new Dimension(32, 32);
@@ -165,7 +167,7 @@ class GrandExchangeItemPanel extends JPanel
 		}
 	}
 
-	private static void geLink(String name, int itemID)
+	static void geLink(String name, int itemID)
 	{
 		final String url = "http://services.runescape.com/m=itemdb_oldschool/"
 			+ name.replaceAll(" ", "_")

@@ -24,12 +24,19 @@
  */
 package net.runelite.api;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * A menu entry in a right-click menu.
  */
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class MenuEntry
 {
 	/**
@@ -66,4 +73,31 @@ public class MenuEntry
 	 * This is used  for shift click
 	 */
 	private boolean forceLeftClick;
+
+	public static MenuEntry copy(MenuEntry src)
+	{
+		return new MenuEntry(
+			src.getOption(),
+			src.getTarget(),
+			src.getIdentifier(),
+			src.getType(),
+			src.getParam0(),
+			src.getParam1(),
+			src.isForceLeftClick()
+		);
+	}
+
+	private static final Matcher TAG_REGEXP = Pattern.compile("<[^>]*>").matcher("");
+
+	@Getter(lazy = true)
+	private final String standardizedOption = standardize(option);
+	@Getter(lazy = true)
+	private final String standardizedTarget = standardize(LEVEL_MATCHER.reset(target).replaceAll(""));
+
+	public String standardize(String string)
+	{
+		return TAG_REGEXP.reset(string).replaceAll("").replace('\u00A0', ' ').trim().toLowerCase();
+	}
+
+	private static final Matcher LEVEL_MATCHER = Pattern.compile("\\(level-[0-9]*\\)").matcher("");
 }

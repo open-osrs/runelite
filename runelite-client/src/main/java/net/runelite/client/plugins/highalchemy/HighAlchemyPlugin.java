@@ -28,10 +28,12 @@
 package net.runelite.client.plugins.highalchemy;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
@@ -44,7 +46,7 @@ import static net.runelite.api.widgets.WidgetID.GUIDE_PRICES_INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.SHOP_INVENTORY_GROUP_ID;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -52,11 +54,12 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
 	name = "High Alchemy",
-	description = "*Highlights items that yield a profit from casting High Alchemy.",
+	description = "Highlights items that yield a profit from casting the High Alchemy spell.",
 	tags = {"bank", "inventory", "overlay", "high", "alchemy", "grand", "exchange", "tooltips"},
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
+@Singleton
 public class HighAlchemyPlugin extends Plugin
 {
 	private static final String CONFIG_GROUP = "highalchemy";
@@ -73,15 +76,30 @@ public class HighAlchemyPlugin extends Plugin
 	@Inject
 	private HighAlchemyOverlay overlay;
 
+	@Inject
+	private EventBus eventBus;
+
 	@Provides
 	HighAlchemyConfig getConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(HighAlchemyConfig.class);
 	}
 
+	private boolean showBank;
+	private boolean showInventory;
+	@Getter(AccessLevel.PACKAGE)
+	private Color getHighlightColor;
+	@Getter(AccessLevel.PACKAGE)
+	private int minProfit;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean usingFireRunes;
+
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+
 		buildGroupList();
 		overlayManager.add(overlay);
 	}
@@ -92,11 +110,11 @@ public class HighAlchemyPlugin extends Plugin
 		overlayManager.remove(overlay);
 	}
 
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	private void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals(CONFIG_GROUP))
 		{
+			updateConfig();
 			buildGroupList();
 		}
 	}
@@ -105,12 +123,12 @@ public class HighAlchemyPlugin extends Plugin
 	{
 		interfaceGroups.clear();
 
-		if (config.showBank())
+		if (this.showBank)
 		{
 			interfaceGroups.add(BANK_GROUP_ID);
 		}
 
-		if (config.showInventory())
+		if (this.showInventory)
 		{
 			Arrays.stream(
 				new int[]{
@@ -124,5 +142,14 @@ public class HighAlchemyPlugin extends Plugin
 				}
 			).forEach(interfaceGroups::add);
 		}
+	}
+
+	private void updateConfig()
+	{
+		this.showBank = config.showBank();
+		this.showInventory = config.showInventory();
+		this.getHighlightColor = config.getHighlightColor();
+		this.minProfit = config.minProfit();
+		this.usingFireRunes = config.usingFireRunes();
 	}
 }

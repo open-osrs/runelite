@@ -50,6 +50,11 @@ public enum Varbits
 	CHAT_SCROLLBAR_ON_LEFT(6374),
 
 	/**
+	 * Grand Exchange
+	 */
+	GRAND_EXCHANGE_PRICE_PER_ITEM(4398),
+
+	/**
 	 * Runepouch
 	 */
 	RUNE_POUCH_RUNE1(29),
@@ -293,6 +298,16 @@ public enum Varbits
 	 * Theatre of Blood 1=In Party, 2=Inside/Spectator, 3=Dead Spectating
 	 */
 	THEATRE_OF_BLOOD(6440),
+	BLOAT_DOOR(6447),
+
+	/**
+	 * Theatre of Blood orb varbits each number stands for the player's health on a scale of 1-27 (I think), 0 hides the orb
+	 */
+	THEATRE_OF_BLOOD_ORB_1(6442),
+	THEATRE_OF_BLOOD_ORB_2(6443),
+	THEATRE_OF_BLOOD_ORB_3(6444),
+	THEATRE_OF_BLOOD_ORB_4(6445),
+	THEATRE_OF_BLOOD_ORB_5(6446),
 
 	/**
 	 * Nightmare Zone
@@ -329,7 +344,7 @@ public enum Varbits
 	 * Pyramid plunder
 	 */
 	PYRAMID_PLUNDER_TIMER(2375),
-	PYRAMID_PLUNDER_ROOM(2377),
+	PYRAMID_PLUNDER_ROOM(2374),
 
 	/**
 	 * Barrows
@@ -580,7 +595,7 @@ public enum Varbits
 	QUEST_LUNAR_DIPLOMACY(2448),
 	QUEST_MAKING_HISTORY(1383),
 	QUEST_MOUNTAIN_DAUGHTER(260),
-	QUEST_MOURNINGS_ENDS_PART_II(1103),
+	QUEST_MOURNINGS_END_PART_II(1103),
 	QUEST_MY_ARMS_BIG_ADVENTURE(2790),
 	QUEST_RATCATCHERS(1404),
 	QUEST_RECIPE_FOR_DISASTER(1850),
@@ -614,6 +629,8 @@ public enum Varbits
 	QUEST_MAKING_FRIENDS_WITH_MY_ARM(6528),
 	QUEST_THE_ASCENT_OF_ARCEUUS(7856),
 	QUEST_THE_FORSAKEN_TOWER(7796),
+	//TODO
+	QUEST_SONG_OF_THE_ELVES(7796),
 
 	/**
 	 * mini-quest varbits, these don't hold the completion value.
@@ -627,6 +644,8 @@ public enum Varbits
 	QUEST_LAIR_OF_TARN_RAZORLOR(3290),
 	QUEST_FAMILY_PEST(5347),
 	QUEST_THE_MAGE_ARENA_II(6067),
+	//TODO
+	QUEST_IN_SEARCH_OF_KNOWLEDGE(6067),
 
 	/**
 	 * Active spellbook (see enumID)
@@ -641,7 +660,44 @@ public enum Varbits
 	/**
 	 * POH Building mode (1 = yes, 0 = no)
 	 */
-	BUILDING_MODE(2176);
+	BUILDING_MODE(2176),
+
+	WINTERTODT_TIMER(7980),
+
+	/**
+	 * 1 if in game, 0 if not
+	 */
+	LMS_IN_GAME(5314),
+
+	/**
+	 * Amount of pvp kills in current game
+	 */
+	LMS_KILLS(5315),
+
+	/**
+	 * The x coordinate of the final safespace (world coord)
+	 */
+	LMS_SAFE_X(5316),
+
+	/**
+	 * Starts at 100, counts down every 10 ticks (6 seconds)
+	 */
+	LMS_POISON_PROGRESS(5317),
+
+	/**
+	 * The y coordinate of the final safespace (world coord)
+	 */
+	LMS_SAFE_Y(5320),
+
+	/**
+	 * 1 is true, 0 is false.
+	 */
+	GAUNTLET_FINAL_ROOM_ENTERED(9177),
+
+	/**
+	 * 1 is true, 0 is false.
+	 */
+	GAUNTLET_ENTERED(9178);
 
 	/**
 	 * The raw varbit ID.

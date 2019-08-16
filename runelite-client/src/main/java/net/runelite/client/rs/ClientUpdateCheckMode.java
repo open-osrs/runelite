@@ -29,5 +29,5 @@ public enum ClientUpdateCheckMode
 	AUTO,
 	NONE,
 	VANILLA,
-	CUSTOM
+	RSPS
 }

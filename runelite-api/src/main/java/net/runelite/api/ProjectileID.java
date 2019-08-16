@@ -51,7 +51,7 @@ public class ProjectileID
 	public static final int OLM_FIRE_LINE = 1347;
 	public static final int OLM_MAGE_ATTACK = 1339;
 	public static final int OLM_RANGE_ATTACK = 1340;
-	
+
 	public static final int VORKATH_BOMB_AOE = 1481;
 	public static final int VORKATH_POISON_POOL_AOE = 1483;
 	public static final int VORKATH_TICK_FIRE_AOE = 1482;
@@ -82,9 +82,9 @@ public class ProjectileID
 	public static final int CERB_FIRE = 1247;
 
 	/**
-	 * missing: marble gargoyle, superior dark beast
+	 * missing: superior dark beast
 	 */
-
+	public static final int MARBLE_GARGOYLE_AOE = 1453;
 	/**
 	 * non AOE, regular projectiles
 	 */
@@ -93,7 +93,11 @@ public class ProjectileID
 	public static final int VORKATH_MAGIC = 1479;
 	public static final int VORKATH_PRAYER_DISABLE = 1471;
 	public static final int VORKATH_VENOM = 1470;
-	public static final int VORKATH_ICE = 350;
+	public static final int VORKATH_ICE = 395;
+
+	public static final int SOTETSEG_BOMB = 1604;
+	public static final int SOTETSEG_RANGE = 1607;
+	public static final int SOTETSEG_MAGE = 1606;
 
 	public static final int HYDRA_MAGIC = 1662;
 	public static final int HYDRA_RANGED = 1663;
@@ -101,4 +105,13 @@ public class ProjectileID
 	public static final int HYDRA_LIGHTNING = 1664;
 	public static final int HYDRA_LIGHTNING_2 = 1665;
 	public static final int DRAKE_BREATH = 1637;
+
+	public static final int HUNLLEF_MAGE_ATTACK = 1707;
+	public static final int HUNLLEF_CORRUPTED_MAGE_ATTACK = 1708;
+	public static final int HUNLLEF_RANGE_ATTACK = 1711;
+	public static final int HUNLLEF_CORRUPTED_RANGE_ATTACK = 1712;
+	public static final int HUNLLEF_PRAYER_ATTACK = 1713;
+	public static final int HUNLLEF_CORRUPTED_PRAYER_ATTACK = 1714;
+
+	public static final int ZALCANO_PROJECTILE = 1728;
 }

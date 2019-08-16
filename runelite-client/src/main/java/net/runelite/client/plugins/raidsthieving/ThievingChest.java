@@ -24,53 +24,56 @@
  */
 package net.runelite.client.plugins.raidsthieving;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.api.GameObject;
+import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 
 /**
  * Wrapper class for a GameObject that represents a chest in the thieving room of Chambers of Xeric.
  */
-@Getter
+@Getter(AccessLevel.PACKAGE)
 public class ThievingChest
 {
 	/**
 	 * If the chest has never been opened, it could have bats.
 	 */
-	@Setter
+	@Setter(AccessLevel.PACKAGE)
 	private boolean everOpened;
 
 	/**
 	 * If the chest is empty, it could have bats.
 	 */
-	@Setter
+	@Setter(AccessLevel.PACKAGE)
 	private boolean empty;
 
 	/**
 	 * If the chest contains a poison trap instead.
 	 */
-	@Setter
+	@Setter(AccessLevel.PACKAGE)
 	private boolean poison;
 
-
-	@Setter
+	@Setter(AccessLevel.PUBLIC)
 	private int chestId;
 
-	private final WorldPoint localPoint;
-	private final InstancePoint instancePoint;
+	private final WorldPoint worldPoint;
+
+	@Getter(AccessLevel.PUBLIC)
+	private final Point instancePoint;
 
 	/**
 	 * Constructor for a ThievingChest object
 	 *
-	 * @param gameObject The gameobject thats corresponds with this trap.
+	 * @param worldPoint The world location of the gameobject that corresponds with this trap.
+	 * @param instancePoint The world location accounting for instances of the gameobject that corresponds with this trap.
 	 */
-	ThievingChest(GameObject gameObject, InstancePoint instancePoint)
+	ThievingChest(final WorldPoint worldPoint, final Point instancePoint)
 	{
 		this.everOpened = false;
 		this.poison = false;
 		this.empty = false;
-		localPoint = gameObject.getWorldLocation();
+		this.worldPoint = worldPoint;
 		this.instancePoint = instancePoint;
 		this.chestId = -1;
 	}

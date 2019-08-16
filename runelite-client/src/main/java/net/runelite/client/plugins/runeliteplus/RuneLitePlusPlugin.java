@@ -26,44 +26,194 @@
  */
 package net.runelite.client.plugins.runeliteplus;
 
-
-import com.google.common.collect.ImmutableSet;
-import com.google.inject.Provides;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import static net.runelite.api.ScriptID.BANK_PIN_OP;
 import net.runelite.api.events.ConfigChanged;
-import net.runelite.api.events.WidgetLoaded;
-import net.runelite.api.widgets.Widget;
+import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.widgets.WidgetID;
-import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.client.RuneLiteProperties;
+import static net.runelite.api.widgets.WidgetInfo.*;
 import net.runelite.client.callback.ClientThread;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.discord.DiscordService;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.config.Keybind;
+import net.runelite.client.config.RuneLitePlusConfig;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
-import net.runelite.client.ui.ClientUI;
-import org.apache.commons.lang3.ArrayUtils;
+import net.runelite.client.util.HotkeyListener;
 
 @PluginDescriptor(
 	loadWhenOutdated = true, // prevent users from disabling
 	hidden = true, // prevent users from disabling
-	name = "RuneLitePlus",
-	description = "Configures various aspects of RuneLitePlus",
-	type = PluginType.EXTERNAL
+	name = "RunelitePlus"
 )
-
+@Singleton
 @Slf4j
 public class RuneLitePlusPlugin extends Plugin
 {
+	private final RuneLitePlusKeyListener keyListener = new RuneLitePlusKeyListener();
+	@Inject
+	private RuneLitePlusConfig config;
+
+	@Inject
+	private KeyManager keyManager;
+
+	@Inject
+	private Client client;
+
+	@Inject
+	private ClientThread clientThread;
+
+	@Inject
+	private EventBus eventbus;
+
+	private HotkeyListener hotkeyListener = new HotkeyListener(() -> this.keybind)
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			detach = !detach;
+			client.setOculusOrbState(detach ? 1 : 0);
+			client.setOculusOrbNormalSpeed(detach ? 36 : 12);
+		}
+	};
+	private int entered = -1;
+	private int enterIdx;
+	private boolean expectInput;
+	private boolean detach;
+	private Keybind keybind;
+
+	@Override
+	protected void startUp() throws Exception
+	{
+		addSubscriptions();
+
+		entered = -1;
+		enterIdx = 0;
+		expectInput = false;
+		this.keybind = config.detachHotkey();
+		keyManager.registerKeyListener(hotkeyListener);
+	}
+
+	@Override
+	protected void shutDown() throws Exception
+	{
+		eventbus.unregister(this);
+
+		entered = 0;
+		enterIdx = 0;
+		expectInput = false;
+		keyManager.unregisterKeyListener(keyListener);
+		keyManager.unregisterKeyListener(hotkeyListener);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("runeliteplus"))
+		{
+			return;
+		}
+
+		this.keybind = config.detachHotkey();
+
+		if (!config.keyboardPin())
+		{
+			entered = 0;
+			enterIdx = 0;
+			expectInput = false;
+			keyManager.unregisterKeyListener(keyListener);
+		}
+	}
+
+	private void addSubscriptions()
+	{
+		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventbus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+	}
+
+	private void onScriptCallbackEvent(ScriptCallbackEvent e)
+	{
+		if (!config.keyboardPin())
+		{
+			return;
+		}
+
+		if (e.getEventName().equals("bankpin"))
+		{
+			int[] intStack = client.getIntStack();
+			int intStackSize = client.getIntStackSize();
+
+			// This'll be anywhere from -1 to 3
+			// 0 = first number, 1 second, etc
+			// Anything other than 0123 means the bankpin interface closes
+			int enterIdx = intStack[intStackSize - 1];
+
+			if (enterIdx < 0 || enterIdx > 3)
+			{
+				keyManager.unregisterKeyListener(keyListener);
+				this.enterIdx = 0;
+				this.entered = 0;
+				expectInput = false;
+				return;
+			}
+			else if (enterIdx == 0)
+			{
+				keyManager.registerKeyListener(keyListener);
+			}
+
+			this.enterIdx = enterIdx;
+			expectInput = true;
+		}
+	}
+
+	private void handleKey(char c)
+	{
+		if (client.getWidget(WidgetID.BANK_PIN_GROUP_ID, BANK_PIN_INSTRUCTION_TEXT.getChildId()) == null
+			|| !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("First click the FIRST digit.")
+			&& !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("Now click the SECOND digit.")
+			&& !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("Time for the THIRD digit.")
+			&& !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("Finally, the FOURTH digit."))
+
+		{
+			entered = 0;
+			enterIdx = 0;
+			expectInput = false;
+			keyManager.unregisterKeyListener(keyListener);
+			return;
+		}
+
+		if (!expectInput)
+		{
+			return;
+		}
+
+		int num = Character.getNumericValue(c);
+
+		// We gotta copy this cause enteridx changes while the script is executing
+		int oldEnterIdx = enterIdx;
+
+		// Script 685 will call 653, which in turn will set expectInput to true
+		expectInput = false;
+		client.runScript(BANK_PIN_OP, num, enterIdx, entered, BANK_PIN_EXIT_BUTTON.getId(), BANK_PIN_FORGOT_BUTTON.getId(), BANK_PIN_1.getId(), BANK_PIN_2.getId(), BANK_PIN_3.getId(), BANK_PIN_4.getId(), BANK_PIN_5.getId(), BANK_PIN_6.getId(), BANK_PIN_7.getId(), BANK_PIN_8.getId(), BANK_PIN_9.getId(), BANK_PIN_0.getId(), BANK_PIN_FIRST_ENTERED.getId(), BANK_PIN_SECOND_ENTERED.getId(), BANK_PIN_THIRD_ENTERED.getId(), BANK_PIN_FOURTH_ENTERED.getId(), BANK_PIN_INSTRUCTION_TEXT.getId());
+
+		if (oldEnterIdx == 0)
+		{
+			entered = num * 1000;
+		}
+		else if (oldEnterIdx == 1)
+		{
+			entered += num * 100;
+		}
+		else if (oldEnterIdx == 2)
+		{
+			entered += num * 10;
+		}
+	}
+
 	private class RuneLitePlusKeyListener implements KeyListener
 	{
 		private int lastKeyCycle;
@@ -71,7 +221,7 @@ public class RuneLitePlusPlugin extends Plugin
 		@Override
 		public void keyTyped(KeyEvent keyEvent)
 		{
-			if (!isNumber(keyEvent))
+			if (!Character.isDigit(keyEvent.getKeyChar()))
 			{
 				return;
 			}
@@ -97,210 +247,5 @@ public class RuneLitePlusPlugin extends Plugin
 		public void keyReleased(KeyEvent keyEvent)
 		{
 		}
-
-		private boolean isNumber(KeyEvent keyEvent)
-		{
-			char character = keyEvent.getKeyChar();
-			return ArrayUtils.contains(numbers, character);
-		}
-	}
-
-	private static final ImmutableSet<WidgetInfo> buttons = ImmutableSet.of(
-		WidgetInfo.BANK_PIN_1,
-		WidgetInfo.BANK_PIN_2,
-		WidgetInfo.BANK_PIN_3,
-		WidgetInfo.BANK_PIN_4,
-		WidgetInfo.BANK_PIN_5,
-		WidgetInfo.BANK_PIN_6,
-		WidgetInfo.BANK_PIN_7,
-		WidgetInfo.BANK_PIN_8,
-		WidgetInfo.BANK_PIN_9,
-		WidgetInfo.BANK_PIN_0
-	);
-	public static boolean customPresenceEnabled = false;
-	public static final String rlPlusDiscordApp = "560644885250572289";
-	public static final String rlDiscordApp = "409416265891971072";
-	private static final char[] numbers = "0123456789".toCharArray();
-
-	@Inject
-	public RuneLitePlusConfig config;
-
-	@Inject
-	private ConfigManager configManager;
-
-	@Inject
-	public DiscordService discordService;
-
-	@Inject
-	private KeyManager keyManager;
-
-	@Inject
-	private Client client;
-
-	@Inject
-	private ClientThread clientThread;
-
-	@Provides
-	RuneLitePlusConfig getConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(RuneLitePlusConfig.class);
-	}
-
-	private RuneLitePlusKeyListener keyListener;
-
-	@Override
-	protected void startUp() throws Exception
-	{
-		if (getConfig(configManager).customPresence())
-		{
-			ClientUI.currentPresenceName = ("RuneLitePlus");
-			ClientUI.frame.setTitle(ClientUI.currentPresenceName);
-		}
-
-		if (config.customPresence())
-		{
-			RuneLiteProperties.discordAppID = rlPlusDiscordApp;
-			discordService.close();
-			discordService.init();
-		}
-		else
-		{
-			RuneLiteProperties.discordAppID = rlDiscordApp;
-			discordService.close();
-			discordService.init();
-		}
-	}
-
-	@Subscribe
-	protected void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getKey().equals("customPresence"))
-		{
-			if (config.customPresence())
-			{
-				ClientUI.currentPresenceName = ("RuneLitePlus");
-				ClientUI.frame.setTitle(ClientUI.currentPresenceName);
-			}
-			else
-			{
-				ClientUI.currentPresenceName = ("RuneLite");
-				ClientUI.frame.setTitle(ClientUI.currentPresenceName);
-			}
-
-			if (config.customPresence())
-			{
-				RuneLiteProperties.discordAppID = rlPlusDiscordApp;
-				discordService.close();
-				discordService.init();
-			}
-			else
-			{
-				RuneLiteProperties.discordAppID = rlDiscordApp;
-				discordService.close();
-				discordService.init();
-			}
-
-			if (!config.keyboardPin())
-			{
-				keyManager.unregisterKeyListener(keyListener);
-			}
-		}
-	}
-
-	@Override
-	protected void shutDown() throws Exception
-	{
-		keyManager.unregisterKeyListener(keyListener);
-	}
-
-	@Subscribe
-	public void onWidgetLoaded(WidgetLoaded event)
-	{
-		if (!config.keyboardPin())
-		{
-			return;
-		}
-
-		if (event.getGroupId() == WidgetID.BANK_GROUP_ID)
-		{
-			// log.debug("Bank opened, removing key listener");
-			keyManager.unregisterKeyListener(keyListener);
-			return;
-		}
-		else if (event.getGroupId() != WidgetID.BANK_PIN_GROUP_ID)
-		{
-			return;
-		}
-
-		// log.debug("Registering key listener");
-		keyListener = new RuneLitePlusKeyListener();
-		keyManager.registerKeyListener(keyListener);
-	}
-
-	private void handleKey(char c)
-	{
-		if (client.getWidget(WidgetID.BANK_PIN_GROUP_ID, 0) == null)
-		{
-			// log.debug("Key was pressed, but widget wasn't open");
-			keyManager.unregisterKeyListener(keyListener);
-			return;
-		}
-
-		Map<Character, Widget> buttonMap = new HashMap<>();
-		Widget unknown = null;
-
-		for (WidgetInfo w : buttons)
-		{
-			Widget widget = client.getWidget(w);
-
-			if (widget == null)
-			{
-				// log.debug(w.toString() + " is null, returning early");
-				continue;
-			}
-			else if (widget.getChild(1) == null || widget.getChild(1).isHidden())
-			{
-				// log.debug(widget.getId() + " wasn't null, but either the text was missing or child was null");
-				unknown = widget;
-			}
-			else
-			{
-				try
-				{
-					char number = widget.getChild(1).getText().charAt(0);
-					buttonMap.put(number, widget);
-					// log.debug(number + " is widget " + widget.getId());
-				}
-				catch (IndexOutOfBoundsException e)
-				{
-					// log.debug("There was no text in widget " + widget.getId());
-					unknown = widget;
-				}
-			}
-		}
-
-		if (unknown != null && buttonMap.size() == 9)
-		{
-			for (char num : numbers)
-			{
-				if (!buttonMap.containsKey(num))
-				{
-					// log.debug(num + " must be the unknown char for widget " + unknown.getId());
-					buttonMap.put(num, unknown);
-				}
-			}
-		}
-
-		if (buttonMap.size() != 10)
-		{
-			// log.debug("We didn't have 10 numbers, rip");
-			return;
-		}
-
-		Widget w = buttonMap.get(c);
-//todo once bytecodes work again, re-enable
-/*
-		client.invokeMenuAction(0, w.getId(), MenuAction.WIDGET_DEFAULT.getId(), 1, "Select", "", w.getCanvasLocation().getX() + 32, w.getCanvasLocation().getY() + 32);
-*/
 	}
 }

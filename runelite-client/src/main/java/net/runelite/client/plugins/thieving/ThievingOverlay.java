@@ -31,18 +31,21 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.text.DecimalFormat;
 import javax.inject.Inject;
-import static net.runelite.api.AnimationID.THIEVING_STALL;
-import static net.runelite.api.AnimationID.PICKPOCKET_SUCCESS;
+import javax.inject.Singleton;
 import static net.runelite.api.AnimationID.BLOCK_UNARMED;
+import static net.runelite.api.AnimationID.PICKPOCKET_SUCCESS;
+import static net.runelite.api.AnimationID.THIEVING_STALL;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
+import net.runelite.client.ui.overlay.components.table.TableAlignment;
+import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+@Singleton
 public class ThievingOverlay extends Overlay
 {
 	private static final DecimalFormat FORMAT = new DecimalFormat("#.#");
@@ -53,7 +56,7 @@ public class ThievingOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private ThievingOverlay(Client client, ThievingPlugin plugin, XpTrackerService xpTrackerService)
+	private ThievingOverlay(final Client client, final ThievingPlugin plugin, final XpTrackerService xpTrackerService)
 	{
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -95,15 +98,13 @@ public class ThievingOverlay extends Overlay
 				.build());
 		}
 
-		panelComponent.getChildren().add(LineComponent.builder()
-			.left("Succeeded:")
-			.right(session.getSuccessful() + (session.getSuccessful() >= 1 ? " (" + xpTrackerService.getActionsHr(Skill.THIEVING) + "/hr)" : ""))
-			.build());
+		TableComponent tableComponent = new TableComponent();
+		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		panelComponent.getChildren().add(LineComponent.builder()
-			.left("Failed:")
-			.right(session.getFailed() + (session.getFailed() >= 1 ? " (" + FORMAT.format(session.getSuccessRate()) + "%)" : ""))
-			.build());
+		tableComponent.addRow("Succeeded:", session.getSuccessful() + (session.getSuccessful() >= 1 ? " (" + xpTrackerService.getActionsHr(Skill.THIEVING) + "/hr)" : ""));
+		tableComponent.addRow("Failed:", session.getFailed() + (session.getFailed() >= 1 ? " (" + FORMAT.format(session.getSuccessRate()) + "%)" : ""));
+
+		panelComponent.getChildren().add(tableComponent);
 
 		return panelComponent.render(graphics);
 	}

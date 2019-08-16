@@ -27,29 +27,45 @@ package net.runelite.client.plugins.profiles;
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
+import java.util.concurrent.ScheduledExecutorService;
 
 @PluginDescriptor(
 	name = "Account Switcher",
 	description = "Allow for a allows you to easily switch between multiple OSRS Accounts",
 	tags = {"profile", "account", "login", "log in", "pklite"},
-	type = PluginType.UTILITY
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
+@Singleton
 public class ProfilesPlugin extends Plugin
 {
 	@Inject
 	private ClientToolbar clientToolbar;
 
+	@Inject
+	private ProfilesConfig config;
+
+	@Inject
+	private EventBus eventBus;
+
+	@Inject
+	private ScheduledExecutorService executorService;
+
 	private ProfilesPanel panel;
 	private NavigationButton navButton;
+	private boolean switchToPanel;
 
 
 	@Provides
@@ -61,6 +77,15 @@ public class ProfilesPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+
+		updateConfig();
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+
+		if (this.switchToPanel)
+		{
+			eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		}
+
 		panel = injector.getInstance(ProfilesPanel.class);
 
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "profiles_icon.png");
@@ -70,6 +95,7 @@ public class ProfilesPlugin extends Plugin
 			.icon(icon)
 			.priority(8)
 			.panel(panel)
+			.onReady(() -> executorService.submit(() -> OpenPanel(true)))
 			.build();
 
 		clientToolbar.addNavigation(navButton);
@@ -78,21 +104,54 @@ public class ProfilesPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		eventBus.unregister(this);
+
 		clientToolbar.removeNavigation(navButton);
 	}
 
-	@Subscribe
-	private void onConfigChanged(ConfigChanged event) throws Exception
+	private void onGameStateChanged(GameStateChanged event)
 	{
-		if (event.getGroup().equals("profiles"))
+		if (!this.switchToPanel)
 		{
-			if (event.getKey().equals("rememberPassword"))
+			return;
+		}
+		if (event.getGameState().equals(GameState.LOGIN_SCREEN))
+		{
+			if (!navButton.isSelected())
 			{
-				panel = injector.getInstance(ProfilesPanel.class);
-				this.shutDown();
-				this.startUp();
+				OpenPanel(true);
 			}
 		}
+	}
+
+	private void onConfigChanged(ConfigChanged event) throws Exception
+	{
+		if (event.getGroup().equals("profiles") && event.getKey().equals("rememberPassword"))
+		{
+			panel = injector.getInstance(ProfilesPanel.class);
+			this.shutDown();
+			this.startUp();
+			updateConfig();
+		}
+		if (event.getGroup().equals("profiles") && event.getKey().equals("switchPanel"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void OpenPanel(boolean openPanel)
+	{
+		if (openPanel && this.switchToPanel)
+		{
+			// If we haven't seen the latest feed item,
+			// open the feed panel.
+			navButton.getOnSelect().run();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.switchToPanel = config.switchPanel();
 	}
 
 }

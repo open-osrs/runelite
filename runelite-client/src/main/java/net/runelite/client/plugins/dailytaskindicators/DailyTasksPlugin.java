@@ -26,6 +26,9 @@
 
 package net.runelite.client.plugins.dailytaskindicators;
 
+import javax.inject.Singleton;
+import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.vars.AccountType;
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import net.runelite.api.ChatMessageType;
@@ -36,13 +39,12 @@ import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
-import net.runelite.api.vars.AccountType;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
@@ -50,6 +52,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 	name = "Daily Task Indicator",
 	description = "Show chat notifications for daily tasks upon login"
 )
+@Singleton
 public class DailyTasksPlugin extends Plugin
 {
 	private static final int ONE_DAY = 86400000;
@@ -77,8 +80,21 @@ public class DailyTasksPlugin extends Plugin
 	@Inject
 	private ChatMessageManager chatMessageManager;
 
+	@Inject
+	private EventBus eventBus;
+
 	private long lastReset;
 	private boolean loggingIn;
+
+	private boolean showHerbBoxes;
+	private boolean showStaves;
+	private boolean showEssence;
+	private boolean showRunes;
+	private boolean showSand;
+	private boolean showFlax;
+	private boolean showBonemeal;
+	private boolean showArrows;
+	private boolean showDynamite;
 
 	@Provides
 	DailyTasksConfig provideConfig(ConfigManager configManager)
@@ -89,17 +105,29 @@ public class DailyTasksPlugin extends Plugin
 	@Override
 	public void startUp()
 	{
+		updateConfig();
+		addSubscriptions();
+
 		loggingIn = true;
 	}
 
 	@Override
 	public void shutDown()
 	{
+		eventBus.unregister(this);
+
+		eventBus.unregister(this);
 		lastReset = 0L;
 	}
 
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged event)
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+	}
+
+	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGING_IN)
 		{
@@ -107,8 +135,7 @@ public class DailyTasksPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick event)
+	private void onGameTick(GameTick event)
 	{
 		long currentTime = System.currentTimeMillis();
 		boolean dailyReset = !loggingIn && currentTime - lastReset > ONE_DAY;
@@ -120,47 +147,47 @@ public class DailyTasksPlugin extends Plugin
 			lastReset = (long) Math.floor(currentTime / ONE_DAY) * ONE_DAY;
 			loggingIn = false;
 
-			if (config.showHerbBoxes())
+			if (this.showHerbBoxes)
 			{
 				checkHerbBoxes(dailyReset);
 			}
 
-			if (config.showStaves())
+			if (this.showStaves)
 			{
 				checkStaves(dailyReset);
 			}
 
-			if (config.showEssence())
+			if (this.showEssence)
 			{
 				checkEssence(dailyReset);
 			}
 
-			if (config.showRunes())
+			if (this.showRunes)
 			{
 				checkRunes(dailyReset);
 			}
 
-			if (config.showSand())
+			if (this.showSand)
 			{
 				checkSand(dailyReset);
 			}
 
-			if (config.showFlax())
+			if (this.showFlax)
 			{
 				checkFlax(dailyReset);
 			}
 
-			if (config.showBonemeal())
+			if (this.showBonemeal)
 			{
 				checkBonemeal(dailyReset);
 			}
 
-			if (config.showArrows())
+			if (this.showArrows)
 			{
 				checkArrows(dailyReset);
 			}
-
-			if (config.showDynamite())
+			
+			if (this.showDynamite)
 			{
 				checkDynamite(dailyReset);
 			}
@@ -230,8 +257,9 @@ public class DailyTasksPlugin extends Plugin
 
 	private void checkArrows(boolean dailyReset)
 	{
-		if ((client.getVar(Varbits.DIARY_WESTERN_EASY) == 1)
-			&& (dailyReset || client.getVar(Varbits.DAILY_ARROWS_STATE) == 0))
+		if (client.getVar(Varbits.DIARY_WESTERN_EASY) == 1
+			&& (client.getVar(Varbits.DAILY_ARROWS_STATE) == 0
+			|| dailyReset))
 		{
 			sendChatMessage(ARROWS_MESSAGE);
 		}
@@ -280,5 +308,26 @@ public class DailyTasksPlugin extends Plugin
 				.type(ChatMessageType.CONSOLE)
 				.runeLiteFormattedMessage(message)
 				.build());
+	}
+
+	private void onConfigChanged(ConfigChanged configChanged)
+	{
+		if (configChanged.getGroup().equals("dailytaskindicators"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.showHerbBoxes = config.showHerbBoxes();
+		this.showStaves = config.showStaves();
+		this.showEssence = config.showEssence();
+		this.showRunes = config.showRunes();
+		this.showSand = config.showSand();
+		this.showFlax = config.showFlax();
+		this.showBonemeal = config.showBonemeal();
+		this.showArrows = config.showArrows();
+		this.showDynamite = config.showDynamite();
 	}
 }

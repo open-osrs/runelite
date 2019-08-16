@@ -1,17 +1,23 @@
-/*******************************************************************************
- * Copyright (c) 2019. PKLite
- *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
- *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the following authors:
- *
- *   PKLite discord: https://discord.gg/Dp3HuFM
- *   Written by PKLite(ST0NEWALL, others) <stonewall@stonewall@pklite.xyz>, 2019
- *
- ******************************************************************************/
+
+/*
+ * ******************************************************************************
+ *  * Copyright (c) 2019 RuneLitePlus
+ *  *  Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
+ *  *  If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
+ *  *  ST0NEWALL#9112
+ *  *   RuneLitePlus Discord: https://discord.gg/Q7wFtCe
+ *  *   RuneLitePlus website: https://runelitepl.us
+ *  *****************************************************************************
+ */
 
 package net.runelite.client.plugins.whalewatchers;
 
 import com.google.inject.Provides;
+import java.util.EnumSet;
+import java.util.Objects;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
@@ -21,9 +27,9 @@ import net.runelite.api.Skill;
 import net.runelite.api.SkullIcon;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
-import static net.runelite.api.WorldType.HIGH_RISK;
-import static net.runelite.api.WorldType.PVP;
+import net.runelite.api.WorldType;
 import static net.runelite.api.WorldType.isPvpWorld;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
 import net.runelite.api.events.ItemContainerChanged;
@@ -31,7 +37,7 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -46,13 +52,16 @@ import org.apache.commons.lang3.ObjectUtils;
 	type = PluginType.PVP,
 	enabledByDefault = false
 )
+@Singleton
 public class WhaleWatchersPlugin extends Plugin
 {
 
-	public boolean enableOverlay = false;
-	public int damageDone = 0;
-	public int damageTaken = 0;
-	public boolean inCombat = false;
+	private static final String CONFIG_GROUP_NAME = "WhaleWatchers";
+
+	boolean protectItemOverlay = false;
+	int damageDone = 0;
+	int damageTaken = 0;
+	boolean inCombat = false;
 	@Inject
 	private Client client;
 	@Inject
@@ -67,11 +76,20 @@ public class WhaleWatchersPlugin extends Plugin
 	private WhaleWatchersGloryOverlay whaleWatchersGloryOverlay;
 	@Inject
 	private OverlayManager overlayManager;
+	@Inject
+	private EventBus eventBus;
 	private int tickCountdown = 0;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean displaySmiteOverlay;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean displayGloryOverlay;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean protectItemWarning;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showDamageCounter;
+	private boolean smiteableWarning;
+	private boolean gloryWarning;
 
 	@Provides
 	WhaleWatchersConfig getConfig(ConfigManager configManager)
@@ -79,25 +97,19 @@ public class WhaleWatchersPlugin extends Plugin
 		return configManager.getConfig(WhaleWatchersConfig.class);
 	}
 
-	@Subscribe
-	public void onOverlayMenuClicked(OverlayMenuClicked event)
+	private void onOverlayMenuClicked(OverlayMenuClicked event)
 	{
-		if (!event.getOverlay().equals(overlay))
+		if (event.getOverlay().equals(overlay) && event.getEntry().getOption().equals("Reset"))
 		{
-			return;
-		}
-		else
-		{
-			if (event.getEntry().getOption().equals("Reset"))
-			{
-				resetDamageCounter();
-			}
+			resetDamageCounter();
 		}
 	}
 
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+		addSubscriptions();
 
 		overlayManager.add(overlay);
 		overlayManager.add(whaleWatchersProtOverlay);
@@ -108,6 +120,7 @@ public class WhaleWatchersPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
 		overlayManager.remove(overlay);
 		overlayManager.remove(whaleWatchersProtOverlay);
 		overlayManager.remove(whaleWatchersSmiteableOverlay);
@@ -115,11 +128,43 @@ public class WhaleWatchersPlugin extends Plugin
 		resetDamageCounter();
 	}
 
-
-	@Subscribe
-	public void onHitsplatApplied(HitsplatApplied event)
+	private void addSubscriptions()
 	{
-		if (config.showDamageCounter())
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(OverlayMenuClicked.class, this, this::onOverlayMenuClicked);
+		eventBus.subscribe(HitsplatApplied.class, this, this::onHitsplatApplied);
+		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
+		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
+		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals(CONFIG_GROUP_NAME))
+		{
+			return;
+		}
+
+		updateConfig();
+
+		if (!this.protectItemWarning)
+		{
+			protectItemOverlay = false;
+		}
+		if (!this.gloryWarning)
+		{
+			displayGloryOverlay = false;
+		}
+		if (!this.smiteableWarning)
+		{
+			displaySmiteOverlay = false;
+		}
+	}
+
+	private void onHitsplatApplied(HitsplatApplied event)
+	{
+		if (this.showDamageCounter)
 		{
 			if (!(event.getActor() == client.getLocalPlayer() ||
 				event.getActor() == client.getLocalPlayer().getInteracting()))
@@ -141,14 +186,12 @@ public class WhaleWatchersPlugin extends Plugin
 		}
 	}
 
-
-	@Subscribe
-	public void onItemContainerChanged(ItemContainerChanged event)
+	private void onItemContainerChanged(ItemContainerChanged event)
 	{
-		if (config.gloryWarning() && event.getItemContainer() == client.getItemContainer(InventoryID.EQUIPMENT))
+		if (this.gloryWarning && event.getItemContainer() == client.getItemContainer(InventoryID.EQUIPMENT))
 		{
 			final int amuletID = ObjectUtils.defaultIfNull(client.getLocalPlayer()
-				.getPlayerComposition().getEquipmentId(KitType.AMULET), 0);
+				.getPlayerAppearance().getEquipmentId(KitType.AMULET), 0);
 			displayGloryOverlay = amuletID == ItemID.AMULET_OF_GLORY;
 		}
 		else
@@ -157,76 +200,67 @@ public class WhaleWatchersPlugin extends Plugin
 		}
 	}
 
-
-	@Subscribe
-	public void onMenuOptionClicked(MenuOptionClicked event)
+	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (config.showDamageCounter() && event.getMenuAction().equals(MenuAction.SPELL_CAST_ON_PLAYER))
+		if (this.showDamageCounter && event.getMenuAction().equals(MenuAction.SPELL_CAST_ON_PLAYER))
 		{
 			inCombat = true;
 		}
 	}
 
-	@Subscribe
-	public void onVarbitChanged(VarbitChanged event)
+	private void onVarbitChanged(VarbitChanged event)
 	{
-		if (config.showDamageCounter())
-		{
-			if (client.getVar(VarPlayer.ATTACKING_PLAYER) == -1)
+		if (this.showDamageCounter && client.getVar(VarPlayer.ATTACKING_PLAYER) == -1 && inCombat)
 			{
-				if (inCombat)
-				{
-					tickCountdown = 10;
-				}
+				tickCountdown = 10;
 			}
-		}
 
-		if (config.protectItemWarning())
+		if (this.protectItemWarning)
 		{
 			try
 			{
-				if (client.getLocalPlayer().getSkullIcon() == (SkullIcon.SKULL))
+				final SkullIcon skullIcon = Objects.requireNonNull(client.getLocalPlayer().getSkullIcon());
+				final EnumSet<WorldType> worldTypes = client.getWorldType();
+				if (WorldType.isHighRiskWorld(worldTypes))
 				{
-					if (client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 0 && client.getVar(Varbits.IN_WILDERNESS) == 1 ||
-						client.getWorldType().contains(PVP))
-					{
-						enableOverlay = true;
-					}
-					if (client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 1 || client.getVar(Varbits.IN_WILDERNESS) == 0 ||
-						client.getWorldType().contains(HIGH_RISK) || client.getWorld() == 365)
-					{
-						enableOverlay = false;
-					}
+					protectItemOverlay = false;
+					return;
 				}
-				else
+				if (skullIcon.equals(SkullIcon.SKULL))
 				{
-					enableOverlay = false;
+					if (WorldType.isPvpWorld(worldTypes) || WorldType.isDeadmanWorld(worldTypes) ||
+						client.getVar(Varbits.IN_WILDERNESS) == 1)
+					{
+						protectItemOverlay = client.getRealSkillLevel(Skill.PRAYER) > 25 &&
+							client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 0;
+					}
+					else
+					{
+						protectItemOverlay = false;
+					}
 				}
 			}
 			catch (NullPointerException e)
 			{
-
+				// local player isn't skulled
 			}
+
 		}
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick event)
+	private void onGameTick(GameTick event)
 	{
-		if (config.showDamageCounter())
+		if (this.showDamageCounter && tickCountdown > 0 && tickCountdown < 11)
 		{
-			if (tickCountdown > 0 && tickCountdown < 11)
+			tickCountdown--;
+			if (tickCountdown == 1)
 			{
-				tickCountdown--;
-				if (tickCountdown == 1)
-				{
-					inCombat = false;
-					resetDamageCounter();
-					return;
-				}
+				inCombat = false;
+				resetDamageCounter();
+				return;
 			}
 		}
-		if (config.smiteableWarning() && (client.getVar(Varbits.IN_WILDERNESS) == 1 || isPvpWorld(client.getWorldType())))
+		if (this.smiteableWarning && (client.getVar(Varbits.IN_WILDERNESS) == 1 || isPvpWorld(client.getWorldType())))
 		{
 			if (client.getLocalPlayer().getSkullIcon() != null && client.getLocalPlayer().getSkullIcon().equals(SkullIcon.SKULL))
 			{
@@ -264,6 +298,14 @@ public class WhaleWatchersPlugin extends Plugin
 	{
 		damageTaken = 0;
 		damageDone = 0;
+	}
+	
+	private void updateConfig()
+	{
+		this.protectItemWarning = config.protectItemWarning();
+		this.showDamageCounter = config.showDamageCounter();
+		this.smiteableWarning = config.smiteableWarning();
+		this.gloryWarning = config.gloryWarning();
 	}
 
 }

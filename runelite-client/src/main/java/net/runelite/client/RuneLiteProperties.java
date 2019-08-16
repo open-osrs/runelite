@@ -24,95 +24,111 @@
  */
 package net.runelite.client;
 
+import com.google.inject.Singleton;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.plugins.runeliteplus.RuneLitePlusPlugin;
 
 @Singleton
-@Slf4j
 public class RuneLiteProperties
 {
-	public static String discordAppID = "409416265891971072";
-	private static final String RUNELITE_TITLE = "runelite.title";
+	private static final String RUNELITE_TITLE = "runelite.plus.title";
 	private static final String RUNELITE_VERSION = "runelite.version";
+	private static final String RUNELITE_PLUS_VERSION = "runelite.plus.version";
+	private static final String RUNELITE_PLUS_DATE = "runelite.plus.builddate";
 	private static final String RUNESCAPE_VERSION = "runescape.version";
-	private static final String DISCORD_APP_ID = "runelite.discord.appid";
+	private static final String DISCORD_APP_ID = "runelite.plus.discord.appid";
 	private static final String DISCORD_INVITE = "runelite.discord.invite";
 	private static final String GITHUB_LINK = "runelite.github.link";
 	private static final String WIKI_LINK = "runelite.wiki.link";
 	private static final String PATREON_LINK = "runelite.patreon.link";
 	private static final String LAUNCHER_VERSION_PROPERTY = "runelite.launcher.version";
+	private static final String TROUBLESHOOTING_LINK = "runelite.wiki.troubleshooting.link";
+	private static final String BUILDING_LINK = "runelite.wiki.building.link";
+	private static final String DNS_CHANGE_LINK = "runelite.dnschange.link";
 
-	private final Properties properties = new Properties();
+	private static final Properties properties = new Properties();
 
-	@Inject
-	public RuneLiteProperties()
+	static
 	{
-		try (InputStream in = getClass().getResourceAsStream("runelite.properties"))
+		try (InputStream in = RuneLiteProperties.class.getResourceAsStream("/runelite.plus.properties"))
 		{
 			properties.load(in);
 		}
 		catch (IOException ex)
 		{
-			log.warn("unable to load propertries", ex);
+			throw new RuntimeException(ex);
 		}
 	}
 
-	public String getTitle()
+	public static String getTitle()
 	{
-		return properties.getProperty(RUNELITE_TITLE);
+		final StringBuilder sb = new StringBuilder(properties.getProperty(RUNELITE_TITLE));
+		String proxy;
+		if ((proxy = System.getProperty("socksProxyHost")) != null)
+		{
+			sb.append(String.format(" (%s)", proxy));
+		}
+		return sb.toString();
 	}
 
-	public String getVersion()
+	public static String getVersion()
 	{
 		return properties.getProperty(RUNELITE_VERSION);
 	}
 
-	public String getRunescapeVersion()
+	public static String getPlusVersion()
+	{
+		return properties.getProperty(RUNELITE_PLUS_VERSION);
+	}
+
+	public static String getPlusDate()
+	{
+		return properties.getProperty(RUNELITE_PLUS_DATE);
+	}
+
+	public static String getRunescapeVersion()
 	{
 		return properties.getProperty(RUNESCAPE_VERSION);
 	}
 
-	public String getDiscordAppId()
+	public static String getDiscordAppId()
 	{
-		if (RuneLitePlusPlugin.customPresenceEnabled)
-		{
-			return properties.getProperty(RuneLitePlusPlugin.rlPlusDiscordApp);
-		}
-		else
-		{
-			return properties.getProperty(DISCORD_APP_ID);
-		}
+		return properties.getProperty(DISCORD_APP_ID);
 	}
 
-	public String getDiscordInvite()
+	public static String getDiscordInvite()
 	{
 		return properties.getProperty(DISCORD_INVITE);
 	}
 
-	public String getGithubLink()
+	public static String getGithubLink()
 	{
 		return properties.getProperty(GITHUB_LINK);
 	}
 
-	public String getWikiLink()
+	public static String getWikiLink()
 	{
 		return properties.getProperty(WIKI_LINK);
 	}
 
-	public String getPatreonLink()
+	public static String getPatreonLink()
 	{
 		return properties.getProperty(PATREON_LINK);
 	}
 
-	@Nullable
-	public static String getLauncherVersion()
+	public static String getTroubleshootingLink()
 	{
-		return System.getProperty(LAUNCHER_VERSION_PROPERTY);
+		return properties.getProperty(TROUBLESHOOTING_LINK);
+	}
+
+	public static String getBuildingLink()
+	{
+		return properties.getProperty(BUILDING_LINK);
+	}
+
+	public static String getDNSChangeLink()
+	{
+		return properties.getProperty(DNS_CHANGE_LINK);
 	}
 }

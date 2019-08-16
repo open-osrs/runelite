@@ -36,11 +36,11 @@ import net.runelite.client.config.ConfigItem;
 public interface ZulrahConfig extends Config
 {
 	@ConfigItem(
-		keyName = "enabled",
-		name = "Enabled",
-		description = "Configures whether or not zulrah overlays are displayed"
+		keyName = "sounds",
+		name = "Sounds Enabled",
+		description = "Configures whether client sounds are enabled for zulrah"
 	)
-	default boolean enabled()
+	default boolean sounds()
 	{
 		return true;
 	}

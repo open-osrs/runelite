@@ -1,11 +1,17 @@
-language: java
 sudo: false
-dist: xenial
+dist: trusty
+
+language: java
+jdk: oraclejdk8
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
     - $HOME/.m2
-jdk:
-- openjdk8
-- openjdk11
-install: true
-script: ./travis/build.sh
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+script: ./gradlew build
+

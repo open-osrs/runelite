@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2019, Enza-Denino <https://github.com/Enza-Denino>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,16 +31,21 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
 import javax.inject.Inject;
+
+import javax.inject.Singleton;
+import net.runelite.api.geometry.Geometry;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.geometry.Geometry;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+@Singleton
 public class MultiIndicatorsMinimapOverlay extends Overlay
 {
 	private final static int MAX_LOCAL_DRAW_LENGTH = 20 * Perspective.LOCAL_TILE_SIZE;
@@ -49,9 +55,6 @@ public class MultiIndicatorsMinimapOverlay extends Overlay
 
 	@Inject
 	private MultiIndicatorsPlugin plugin;
-
-	@Inject
-	private MultiIndicatorsConfig config;
 
 	@Inject
 	public MultiIndicatorsMinimapOverlay()
@@ -84,8 +87,11 @@ public class MultiIndicatorsMinimapOverlay extends Overlay
 		path = Geometry.transformPath(path, coords ->
 		{
 			Point point = Perspective.localToMinimap(client, new LocalPoint((int) coords[0], (int) coords[1]));
-			coords[0] = point.getX();
-			coords[1] = point.getY();
+			if (point != null)
+			{
+				coords[0] = point.getX();
+				coords[1] = point.getY();
+			}
 		});
 
 		graphics.draw(path);
@@ -94,21 +100,38 @@ public class MultiIndicatorsMinimapOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!config.showMinimapLines())
+		if (!plugin.isShowMinimapLines())
 		{
 			return null;
 		}
 
+		Widget w;
+		if (client.getWidget(WidgetInfo.FIXED_VIEWPORT_MINIMAP_DRAW_AREA) != null)
+		{
+			w = client.getWidget(WidgetInfo.FIXED_VIEWPORT_MINIMAP_DRAW_AREA);
+		}
+		else
+		{
+			w = client.getWidget(WidgetInfo.RESIZABLE_MINIMAP_STONES_DRAW_AREA);
+		}
+		Rectangle minimapClip = w.getBounds();
+		graphics.setClip(minimapClip);
+
 		GeneralPath multicombatPath = plugin.getMulticombatPathToDisplay()[client.getPlane()];
 		GeneralPath pvpPath = plugin.getPvpPathToDisplay()[client.getPlane()];
+		GeneralPath wildernessLevelLinesPath = plugin.getWildernessLevelLinesPathToDisplay()[client.getPlane()];
 
-		if (config.multicombatZoneVisibility() != ZoneVisibility.HIDE && multicombatPath != null)
+		if (plugin.getMulticombatZoneVisibility() != ZoneVisibility.HIDE && multicombatPath != null)
 		{
-			renderPath(graphics, multicombatPath, getTransparentColorVersion(config.multicombatColor()));
+			renderPath(graphics, multicombatPath, getTransparentColorVersion(plugin.getMulticombatColor()));
 		}
-		if ((config.showPvpSafeZones() || config.showDeadmanSafeZones()) && pvpPath != null)
+		if ((plugin.isShowPvpSafeZones() || plugin.isShowDeadmanSafeZones()) && pvpPath != null)
 		{
-			renderPath(graphics, pvpPath, getTransparentColorVersion(config.safeZoneColor()));
+			renderPath(graphics, pvpPath, getTransparentColorVersion(plugin.getSafeZoneColor()));
+		}
+		if (plugin.isShowWildernessLevelLines() && wildernessLevelLinesPath != null)
+		{
+			renderPath(graphics, wildernessLevelLinesPath, getTransparentColorVersion(plugin.getWildernessLevelLinesColor()));
 		}
 
 		return null;

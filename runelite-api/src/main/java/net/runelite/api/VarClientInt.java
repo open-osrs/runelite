@@ -42,14 +42,31 @@ public enum VarClientInt
 */
 	TOOLTIP_VISIBLE(2),
 
+	/**
+	 * Current message layer mode
+	 * @see net.runelite.api.vars.InputType
+	 */
 	INPUT_TYPE(5),
 
 	MEMBERSHIP_STATUS(103),
-/**
- * -1 = player inventory closed
- * 3 = player inventory opened
-*/
-	PLAYER_INVENTORY_OPENED(171),
+
+	/**
+	 *  0 = Combat
+	 *  1 = Stats
+	 *  2 = Quest
+	 *  3 = Inventory
+	 *  4 = Equipment
+	 *  5 = Prayer
+	 *  6 = Spellbook
+	 *  7 = Clan
+	 *  8 = Account Managment
+	 *  9 = Friends
+	 *  10 = Logout
+	 *  11 = Options
+	 *  12 = Emotes
+	 *  13 = Music
+	 */
+	PLAYER_INTERFACE_CONTAINER_OPENED(171),
 
 	INVENTORY_TAB(171),
 

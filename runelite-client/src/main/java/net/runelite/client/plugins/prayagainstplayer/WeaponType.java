@@ -25,7 +25,7 @@
 package net.runelite.client.plugins.prayagainstplayer;
 
 import net.runelite.api.Client;
-import net.runelite.api.ItemComposition;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.Player;
 import net.runelite.api.kit.KitType;
 
@@ -46,15 +46,15 @@ enum WeaponType
 	 */
 	public static WeaponType checkWeaponOnPlayer(Client client, Player attacker)
 	{
-		int itemId = attacker.getPlayerComposition().getEquipmentId(KitType.WEAPON);
-		ItemComposition itemComposition = client.getItemDefinition(itemId);
+		int itemId = attacker.getPlayerAppearance().getEquipmentId(KitType.WEAPON);
+		ItemDefinition itemComposition = client.getItemDefinition(itemId);
 		String weaponNameGivenLowerCase = itemComposition.getName().toLowerCase();
 
 		if (itemId == -1)
 		{
 			return WEAPON_MELEE;
 		}
-		if (weaponNameGivenLowerCase == null || weaponNameGivenLowerCase.toLowerCase().contains("null"))
+		if (weaponNameGivenLowerCase.toLowerCase().contains("null"))
 		{
 			return WEAPON_MELEE;
 		}
@@ -87,7 +87,7 @@ enum WeaponType
 
 	}
 
-	private static String[] meleeWeaponNames = {
+	private static final String[] meleeWeaponNames = {
 		"sword",
 		"scimitar",
 		"dagger",
@@ -119,7 +119,7 @@ enum WeaponType
 		"bulwark"
 	};
 
-	private static String[] rangedWeaponNames = {
+	private static final String[] rangedWeaponNames = {
 		"bow",
 		"blowpipe",
 		"xil-ul",
@@ -130,7 +130,7 @@ enum WeaponType
 		"ballista"
 	};
 
-	private static String[] magicWeaponNames = {
+	private static final String[] magicWeaponNames = {
 		"staff",
 		"trident",
 		"wand",

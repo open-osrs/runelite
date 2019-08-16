@@ -1,0 +1,12 @@
+description = 'RuneLite API'
+
+dependencies {
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombok
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombok
+
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: findbugs
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
+
+    testImplementation group: 'junit', name: 'junit', version: junit
+}

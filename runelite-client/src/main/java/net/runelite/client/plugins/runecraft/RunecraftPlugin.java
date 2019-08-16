@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -55,7 +56,7 @@ import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -69,6 +70,7 @@ import net.runelite.client.util.Text;
 	description = "Show minimap icons and clickboxes for abyssal rifts",
 	tags = {"abyssal", "minimap", "overlay", "rifts", "rc", "runecrafting"}
 )
+@Singleton
 public class RunecraftPlugin extends Plugin
 {
 	private static final int FIRE_ALTAR = 10315;
@@ -113,6 +115,46 @@ public class RunecraftPlugin extends Plugin
 	@Inject
 	private MenuManager menuManager;
 
+	@Inject
+	private EventBus eventBus;
+
+	private boolean Lavas;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean essPouch;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean hightlightDarkMage;
+	private boolean degradingNotification;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showRifts;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showAir;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showBlood;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showBody;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showChaos;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showCosmic;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showDeath;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showEarth;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showFire;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showLaw;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showMind;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showNature;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showSoul;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showWater;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showClickBox;
+
 	@Provides
 	RunecraftConfig getConfig(ConfigManager configManager)
 	{
@@ -122,6 +164,9 @@ public class RunecraftPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+		addSubscriptions();
+
 		overlayManager.add(abyssOverlay);
 		abyssOverlay.updateConfig();
 		overlayManager.add(runecraftOverlay);
@@ -131,6 +176,8 @@ public class RunecraftPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
+
 		overlayManager.remove(abyssOverlay);
 		abyssObjects.clear();
 		darkMage = null;
@@ -139,13 +186,27 @@ public class RunecraftPlugin extends Plugin
 		removeSwaps();
 	}
 
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
+		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
+		eventBus.subscribe(DecorativeObjectSpawned.class, this, this::onDecorativeObjectSpawned);
+		eventBus.subscribe(DecorativeObjectDespawned.class, this, this::onDecorativeObjectDespawned);
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
+		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
+		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("runecraft"))
 		{
 			return;
 		}
+
+		updateConfig();
 
 		if (event.getKey().equals("essPouch"))
 		{
@@ -155,25 +216,20 @@ public class RunecraftPlugin extends Plugin
 		abyssOverlay.updateConfig();
 	}
 
-	@Subscribe
-	public void onChatMessage(ChatMessage event)
+	private void onChatMessage(ChatMessage event)
 	{
 		if (event.getType() != ChatMessageType.GAMEMESSAGE)
 		{
 			return;
 		}
 
-		if (config.degradingNotification())
+		if (this.degradingNotification && event.getMessage().contains(POUCH_DECAYED_MESSAGE))
 		{
-			if (event.getMessage().contains(POUCH_DECAYED_MESSAGE))
-			{
-				notifier.notify(POUCH_DECAYED_NOTIFICATION_MESSAGE);
-			}
+			notifier.notify(POUCH_DECAYED_NOTIFICATION_MESSAGE);
 		}
 	}
 
-	@Subscribe
-	public void onMenuEntryAdded(MenuEntryAdded entry)
+	private void onMenuEntryAdded(MenuEntryAdded entry)
 	{
 		if (wearingCape || wearingTiara)
 		{
@@ -202,7 +258,7 @@ public class RunecraftPlugin extends Plugin
 			}
 		}
 	}
-	
+
 	private void hide(String option, String target)
 	{
 		final MenuEntry[] entries = client.getMenuEntries();
@@ -247,9 +303,7 @@ public class RunecraftPlugin extends Plugin
 		return -1;
 	}
 
-
-	@Subscribe
-	public void onDecorativeObjectSpawned(DecorativeObjectSpawned event)
+	private void onDecorativeObjectSpawned(DecorativeObjectSpawned event)
 	{
 		DecorativeObject decorativeObject = event.getDecorativeObject();
 		if (AbyssRifts.getRift(decorativeObject.getId()) != null)
@@ -258,15 +312,13 @@ public class RunecraftPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onDecorativeObjectDespawned(DecorativeObjectDespawned event)
+	private void onDecorativeObjectDespawned(DecorativeObjectDespawned event)
 	{
 		DecorativeObject decorativeObject = event.getDecorativeObject();
 		abyssObjects.remove(decorativeObject);
 	}
 
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged event)
+	private void onGameStateChanged(GameStateChanged event)
 	{
 		GameState gameState = event.getGameState();
 		switch (gameState)
@@ -282,8 +334,7 @@ public class RunecraftPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onItemContainerChanged(ItemContainerChanged event)
+	private void onItemContainerChanged(ItemContainerChanged event)
 	{
 		if (event.getItemContainer() == client.getItemContainer(InventoryID.INVENTORY))
 		{
@@ -294,13 +345,18 @@ public class RunecraftPlugin extends Plugin
 		else if (event.getItemContainer() == client.getItemContainer(InventoryID.EQUIPMENT))
 		{
 			final Item[] items = event.getItemContainer().getItems();
-			wearingTiara = config.Lavas() && items[EquipmentInventorySlot.HEAD.getSlotIdx()].getId() == ItemID.FIRE_TIARA;
-			wearingCape = config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.RUNECRAFT_CAPE || config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.RUNECRAFT_CAPET || config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.MAX_CAPE_13342;
+
+			if (items.length == 0)
+			{
+				return;
+			}
+
+			wearingTiara = this.Lavas && items[EquipmentInventorySlot.HEAD.getSlotIdx()].getId() == ItemID.FIRE_TIARA;
+			wearingCape = this.Lavas && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.RUNECRAFT_CAPE || config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.RUNECRAFT_CAPET || config.Lavas() && items[EquipmentInventorySlot.CAPE.getSlotIdx()].getId() == ItemID.MAX_CAPE_13342;
 		}
 	}
 
-	@Subscribe
-	public void onNpcSpawned(NpcSpawned event)
+	private void onNpcSpawned(NpcSpawned event)
 	{
 		final NPC npc = event.getNpc();
 		if (npc.getId() == NpcID.DARK_MAGE)
@@ -309,11 +365,10 @@ public class RunecraftPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onNpcDespawned(NpcDespawned event)
+	private void onNpcDespawned(NpcDespawned event)
 	{
 		final NPC npc = event.getNpc();
-		if (npc == darkMage)
+		if (npc != null && npc.equals(darkMage))
 		{
 			darkMage = null;
 		}
@@ -337,5 +392,28 @@ public class RunecraftPlugin extends Plugin
 	{
 		menuManager.removeSwap("deposit", "pouch", 2, 57, "fill", "pouch", 9, 1007);
 		menuManager.removeSwap("fill", "pouch", "empty", "pouch", true, false);
+	}
+
+	private void updateConfig()
+	{
+		this.Lavas = config.Lavas();
+		this.essPouch = config.essPouch();
+		this.hightlightDarkMage = config.hightlightDarkMage();
+		this.degradingNotification = config.degradingNotification();
+		this.showRifts = config.showRifts();
+		this.showAir = config.showAir();
+		this.showBlood = config.showBlood();
+		this.showBody = config.showBody();
+		this.showChaos = config.showChaos();
+		this.showCosmic = config.showCosmic();
+		this.showDeath = config.showDeath();
+		this.showEarth = config.showEarth();
+		this.showFire = config.showFire();
+		this.showLaw = config.showLaw();
+		this.showMind = config.showMind();
+		this.showNature = config.showNature();
+		this.showSoul = config.showSoul();
+		this.showWater = config.showWater();
+		this.showClickBox = config.showClickBox();
 	}
 }

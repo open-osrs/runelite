@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.HashTable;
@@ -47,7 +48,7 @@ import static net.runelite.api.widgets.WidgetConfig.DRAG_ON;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.menus.WidgetMenuOption;
 import net.runelite.client.plugins.Plugin;
@@ -57,6 +58,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 	name = "Reorder Prayers",
 	description = "Reorder the prayers displayed on the Prayer panel"
 )
+@Singleton
 public class ReorderPrayersPlugin extends Plugin
 {
 
@@ -179,6 +181,9 @@ public class ReorderPrayersPlugin extends Plugin
 	@Inject
 	private MenuManager menuManager;
 
+	@Inject
+	private EventBus eventBus;
+
 	private Prayer[] prayerOrder;
 
 	static String prayerOrderToString(Prayer[] prayerOrder)
@@ -219,6 +224,8 @@ public class ReorderPrayersPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		addSubscriptions();
+
 		refreshPrayerTabOption();
 		prayerOrder = stringToPrayerOrder(config.prayerOrder());
 		reorderPrayers();
@@ -227,13 +234,23 @@ public class ReorderPrayersPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
+
 		clearPrayerTabMenus();
 		prayerOrder = Prayer.values();
 		reorderPrayers(false);
 	}
 
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged event)
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(WidgetLoaded.class, this, this::onWidgetLoaded);
+		eventBus.subscribe(DraggingWidgetChanged.class, this, this::onDraggingWidgetChanged);
+		eventBus.subscribe(WidgetMenuOptionClicked.class, this, this::onWidgetMenuOptionClicked);
+	}
+
+	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
 		{
@@ -241,8 +258,7 @@ public class ReorderPrayersPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	private void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals(CONFIG_GROUP_KEY))
 		{
@@ -258,8 +274,7 @@ public class ReorderPrayersPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onWidgetLoaded(WidgetLoaded event)
+	private void onWidgetLoaded(WidgetLoaded event)
 	{
 		if (event.getGroupId() == WidgetID.PRAYER_GROUP_ID || event.getGroupId() == WidgetID.QUICK_PRAYERS_GROUP_ID)
 		{
@@ -267,8 +282,7 @@ public class ReorderPrayersPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onDraggingWidgetChanged(DraggingWidgetChanged event)
+	private void onDraggingWidgetChanged(DraggingWidgetChanged event)
 	{
 		// is dragging widget and mouse button released
 		if (event.isDraggingWidget() && client.getMouseCurrentButton() == 0)
@@ -299,8 +313,7 @@ public class ReorderPrayersPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event)
+	private void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event)
 	{
 		if (event.getWidget() == WidgetInfo.FIXED_VIEWPORT_PRAYER_TAB
 			|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_PRAYER_TAB

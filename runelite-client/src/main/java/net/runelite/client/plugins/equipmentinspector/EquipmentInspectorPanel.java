@@ -40,7 +40,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ItemComposition;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.game.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
@@ -49,14 +49,14 @@ import net.runelite.client.ui.PluginPanel;
 
 @Slf4j
 @Singleton
-public class EquipmentInspectorPanel extends PluginPanel
+class EquipmentInspectorPanel extends PluginPanel
 {
 	private final static String NO_PLAYER_SELECTED = "No player selected";
 
-	private GridBagConstraints c;
-	private JPanel equipmentPanels;
-	private JPanel header;
-	private JLabel nameLabel;
+	private final GridBagConstraints c;
+	private final JPanel equipmentPanels;
+	private final JPanel header;
+	private final JLabel nameLabel;
 
 	@Inject
 	private ItemManager itemManager;
@@ -95,7 +95,7 @@ public class EquipmentInspectorPanel extends PluginPanel
 		update(new HashMap<>(), "");
 	}
 
-	public void update(Map<KitType, ItemComposition> playerEquipment, String playerName)
+	public void update(Map<KitType, ItemDefinition> playerEquipment, String playerName)
 	{
 		if (playerName.isEmpty())
 		{

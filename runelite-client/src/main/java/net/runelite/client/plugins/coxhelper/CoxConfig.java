@@ -25,42 +25,66 @@
 
 package net.runelite.client.plugins.coxhelper;
 
+import java.awt.Color;
+import java.awt.Font;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 import net.runelite.client.config.Stub;
 
 @ConfigGroup("Cox")
 
 public interface CoxConfig extends Config
 {
+	@Getter
+	@AllArgsConstructor
+	enum FontStyle
+	{
+		BOLD("Bold", Font.BOLD),
+		ITALIC("Italic", Font.ITALIC),
+		PLAIN("Plain", Font.PLAIN);
+
+		private String name;
+		private int font;
+
+		@Override
+		public String toString()
+		{
+			return getName();
+		}
+	}
+
 	@ConfigItem(
+		position = 1,
 		keyName = "muttadileStub",
 		name = "Muttadile",
-		description = "",
-		position = 1
+		description = ""
 	)
 	default Stub muttadileStub()
 	{
 		return new Stub();
 	}
+
 	@ConfigItem(
 		position = 2,
-		keyName = "Muttadile",
+		keyName = "muttadile",
 		name = "Muttadile Marker",
-		description = "",
+		description = "Places an overlay around muttadiles showing their melee range.",
 		parent = "muttadileStub"
 	)
-	default boolean Muttadile()
+	default boolean muttadile()
 	{
 		return true;
 	}
 
 	@ConfigItem(
+		position = 3,
 		keyName = "tektonStub",
 		name = "Tekton",
-		description = "",
-		position = 3
+		description = ""
 	)
 	default Stub tektonStub()
 	{
@@ -69,21 +93,33 @@ public interface CoxConfig extends Config
 
 	@ConfigItem(
 		position = 4,
-		keyName = "Tekton",
+		keyName = "tekton",
 		name = "Tekton Marker",
-		description = "",
+		description = "Places an overlay around Tekton showing his melee range.",
 		parent = "tektonStub"
 	)
-	default boolean Tekton()
+	default boolean tekton()
 	{
 		return true;
 	}
 
 	@ConfigItem(
+		position = 4,
+		keyName = "tektonTickCounter",
+		name = "Tekton Tick Counters",
+		description = "Counts down current phase timer, and attack ticks.",
+		parent = "tektonStub"
+	)
+	default boolean tektonTickCounter()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 5,
 		keyName = "guardiansStub",
 		name = "Guardians",
-		description = "",
-		position = 5
+		description = ""
 	)
 	default Stub guardiansStub()
 	{
@@ -92,21 +128,68 @@ public interface CoxConfig extends Config
 
 	@ConfigItem(
 		position = 6,
-		keyName = "Guardians",
-		name = "Guardians timing",
-		description = "",
+		keyName = "guardians",
+		name = "Guardians Overlay",
+		description = "Places an overlay near Guardians showing safespot.",
 		parent = "guardiansStub"
 	)
-	default boolean Guardians()
+	default boolean guardians()
 	{
 		return true;
 	}
 
 	@ConfigItem(
+		position = 6,
+		keyName = "guardinTickCounter",
+		name = "Guardians Tick Timing",
+		description = "Places an overlay on Guardians showing attack tick timers.",
+		parent = "guardiansStub"
+	)
+	default boolean guardinTickCounter()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 7,
+		keyName = "vanguardsStub",
+		name = "Vanguards",
+		description = ""
+	)
+	default Stub vanguardsStub()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 8,
+		keyName = "vangHighlight",
+		name = "Highlight Vanguards",
+		description = "Color is based on their attack style.",
+		parent = "vanguardsStub"
+	)
+	default boolean vangHighlight()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 9,
+		keyName = "vangHealth",
+		name = "Show Vanguards Current HP",
+		description = "This will create an infobox with vanguards current hp.",
+		parent = "vanguardsStub"
+	)
+	default boolean vangHealth()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 10,
 		keyName = "olmStub",
 		name = "Olm",
-		description = "",
-		position = 7
+		description = ""
 	)
 	default Stub olmStub()
 	{
@@ -114,7 +197,7 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 8,
+		position = 11,
 		keyName = "prayAgainstOlm",
 		name = "Olm Show Prayer",
 		description = "Shows what prayer to use during olm.",
@@ -125,8 +208,24 @@ public interface CoxConfig extends Config
 		return true;
 	}
 
+	@Range(
+		min = 40,
+		max = 100
+	)
 	@ConfigItem(
-		position = 9,
+		position = 11,
+		keyName = "prayAgainstOlmSize",
+		name = "Olm Prayer Size",
+		description = "Change the Size of the Olm Infobox.",
+		parent = "olmStub"
+	)
+	default int prayAgainstOlmSize()
+	{
+		return 40;
+	}
+
+	@ConfigItem(
+		position = 12,
 		keyName = "timers",
 		name = "Olm Show Burn/Acid Timers",
 		description = "Shows tick timers for burns/acids.",
@@ -138,7 +237,7 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 10,
+		position = 13,
 		keyName = "tpOverlay",
 		name = "Olm Show Teleport Overlays",
 		description = "Shows Overlays for targeted teleports.",
@@ -150,15 +249,160 @@ public interface CoxConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "OlmTick",
+		position = 14,
+		keyName = "olmTick",
 		name = "Olm Tick Counter",
 		description = "Show Tick Counter on Olm",
 		parent = "olmStub"
 	)
-	default boolean OlmTick()
+	default boolean olmTick()
 	{
 		return true;
 	}
 
+	@ConfigItem(
+		position = 15,
+		keyName = "colors",
+		name = "Colors",
+		description = ""
+	)
+	default Stub colors()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 16,
+		keyName = "muttaColor",
+		name = "Muttadile Tile Color",
+		description = "Change hit area tile color for muttadiles",
+		parent = "colors",
+		hidden = true,
+		unhide = "Muttadile"
+	)
+	default Color muttaColor()
+	{
+		return new Color(0, 255, 99);
+	}
+
+	@ConfigItem(
+		position = 17,
+		keyName = "guardColor",
+		name = "Guardians Tile Color",
+		description = "Change safespot area tile color for Guardians",
+		parent = "colors",
+		hidden = true,
+		unhide = "Guardians"
+	)
+	default Color guardColor()
+	{
+		return new Color(0, 255, 99);
+	}
+
+	@ConfigItem(
+		position = 18,
+		keyName = "tektonColor",
+		name = "Tekton Tile Color",
+		description = "Change hit area tile color for Tekton",
+		parent = "colors",
+		hidden = true,
+		unhide = "Tekton"
+	)
+	default Color tektonColor()
+	{
+		return new Color(193, 255, 245);
+	}
+
+	@ConfigItem(
+		position = 19,
+		keyName = "burnColor",
+		name = "Burn Victim Color",
+		description = "Changes tile color for burn victim.",
+		parent = "colors",
+		hidden = true,
+		unhide = "timers"
+	)
+	default Color burnColor()
+	{
+		return new Color(255, 100, 0);
+	}
+
+	@ConfigItem(
+		position = 20,
+		keyName = "acidColor",
+		name = "Acid Victim Color",
+		description = "Changes tile color for acid victim.",
+		parent = "colors",
+		hidden = true,
+		unhide = "timers"
+	)
+	default Color acidColor()
+	{
+		return new Color(69, 241, 44);
+	}
+
+	@ConfigItem(
+		position = 21,
+		keyName = "tpColor",
+		name = "Teleport Target Color",
+		description = "Changes tile color for teleport target.",
+		parent = "colors",
+		hidden = true,
+		unhide = "tpOverlay"
+	)
+	default Color tpColor()
+	{
+		return new Color(193, 255, 245);
+	}
+
+	@ConfigItem(
+		position = 22,
+		keyName = "text",
+		name = "Text",
+		description = ""
+	)
+	default Stub text()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 23,
+		keyName = "fontStyle",
+		name = "Font Style",
+		description = "Bold/Italics/Plain",
+		parent = "text"
+	)
+	default FontStyle fontStyle()
+	{
+		return FontStyle.BOLD;
+	}
+
+	@Range(
+		min = 9,
+		max = 20
+	)
+	@ConfigItem(
+		position = 24,
+		keyName = "textSize",
+		name = "Text Size",
+		description = "Text Size for Timers.",
+		parent = "text"
+	)
+	default int textSize()
+	{
+		return 14;
+	}
+
+	@ConfigItem(
+		position = 25,
+		keyName = "shadows",
+		name = "Shadows",
+		description = "Adds Shadows to text.",
+		parent = "text"
+	)
+	default boolean shadows()
+	{
+		return true;
+	}
 }

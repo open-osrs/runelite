@@ -54,6 +54,7 @@ package net.runelite.client.plugins.slayermusiq;
 import com.google.common.primitives.Ints;
 import java.util.Arrays;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
@@ -62,7 +63,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.chat.ChatMessageManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -75,6 +76,7 @@ import net.runelite.client.util.Text;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
+@Singleton
 @Slf4j
 public class SlayermusiqPlugin extends Plugin
 {
@@ -94,20 +96,23 @@ public class SlayermusiqPlugin extends Plugin
 	@Inject
 	private ChatMessageManager chatMessageManager;
 
+	@Inject
+	private EventBus eventBus;
+
 	@Override
 	protected void startUp() throws Exception
 	{
-		//
+		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
+		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		//
+		eventBus.unregister(this);
 	}
 
-	@Subscribe
-	public void onMenuEntryAdded(MenuEntryAdded event)
+	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
 		int widgetID = event.getActionParam1();
 		if (Ints.contains(QUESTLIST_WIDGET_IDS, widgetID) && "Read Journal:".equals(event.getOption()))
@@ -122,13 +127,12 @@ public class SlayermusiqPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
 	private void onMenuOptionClicked(MenuOptionClicked ev)
 	{
-		if (ev.getMenuAction() == MenuAction.RUNELITE && ev.getMenuOption().equals(MENUOP_SLAYERMUSIQ))
+		if (ev.getMenuAction() == MenuAction.RUNELITE && ev.getOption().equals(MENUOP_SLAYERMUSIQ))
 		{
 			ev.consume();
-			String quest = Text.removeTags(ev.getMenuTarget());
+			String quest = Text.removeTags(ev.getTarget());
 			QuestGuideLinks.tryOpenGuide(quest, chatMessageManager);
 		}
 	}

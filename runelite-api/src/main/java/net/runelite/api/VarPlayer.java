@@ -55,6 +55,7 @@ public enum VarPlayer
 	NMZ_REWARD_POINTS(1060),
 	
 	ATTACKING_PLAYER(1075),
+
 	/**
 	 * -1 : Poison immune
 	 *  Normal poison damage is ceil( this / 5.0f )
@@ -219,7 +220,7 @@ public enum VarPlayer
 	QUEST_MERLINS_CRYSTAL(14),
 	QUEST_MONKEY_MADNESS_I(365),
 	QUEST_MONKS_FRIEND(30),
-	QUEST_MOURNINGS_ENDS_PART_I(517),
+	QUEST_MOURNINGS_END_PART_I(517),
 	QUEST_MURDER_MYSTERY(192),
 	QUEST_NATURE_SPIRIT(307),
 	QUEST_OBSERVATORY_QUEST(112),
@@ -260,5 +261,5 @@ public enum VarPlayer
 
 
 
-	private final int id;
+	public final int id;
 }

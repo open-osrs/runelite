@@ -26,17 +26,20 @@
 package net.runelite.client.plugins.slayer;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import lombok.AccessLevel;
+import javax.annotation.Nullable;
 import lombok.Getter;
 import net.runelite.api.ItemID;
 import net.runelite.api.NpcID;
 
-@Getter
+@Getter(AccessLevel.PACKAGE)
 enum Task
 {
 
@@ -52,7 +55,7 @@ enum Task
 	ABERRANT_SPECTRES("Aberrant spectres", ItemID.ABERRANT_SPECTRE,
 		asList("Abhorrent spectre", "Deviant spectre", "Repugnant spectre"), Collections.emptyList()),
 	ABYSSAL_DEMONS("Abyssal demons", ItemID.ABYSSAL_DEMON,
-		asList("Ayssal Sire"), Collections.emptyList()),
+		asList("Abyssal Sire"), Collections.emptyList()),
 	ABYSSAL_SIRE("Abyssal Sire", ItemID.ABYSSAL_ORPHAN),
 	ADAMANT_DRAGONS("Adamant dragons", ItemID.ADAMANT_DRAGON_MASK),
 	ALCHEMICAL_HYDRA("Alchemical Hydra", ItemID.IKKLE_HYDRA),
@@ -119,7 +122,7 @@ enum Task
 		asList("Dwarf", "Black guard"), Collections.emptyList()),
 	EARTH_WARRIORS("Earth warriors", ItemID.BRONZE_FULL_HELM_T),
 	ELVES("Elves", ItemID.ELF,
-		asList("Elf"), asList(NpcID.MOURNER_5311)),
+		asList("Elf"), Collections.emptyList()),
 	FEVER_SPIDERS("Fever spiders", ItemID.FEVER_SPIDER),
 	FIRE_GIANTS("Fire giants", ItemID.FIRE_BATTLESTAFF),
 	REVENANTS("Revenants", ItemID.REVENANT_ETHER,
@@ -154,7 +157,7 @@ enum Task
 	INFERNAL_MAGES("Infernal mages", ItemID.INFERNAL_MAGE,
 		asList("Malevolent mage"), Collections.emptyList()),
 	IRON_DRAGONS("Iron dragons", ItemID.IRON_DRAGON_MASK),
-	JAD("TzTok-Jad", ItemID.TZREKJAD),
+	JAD("TzTok-Jad", ItemID.TZREKJAD, 25250),
 	JELLIES("Jellies", ItemID.JELLY,
 		asList("Jelly"), Collections.emptyList()),
 	JUNGLE_HORROR("Jungle horrors", ItemID.ENSOULED_HORROR_HEAD),
@@ -200,6 +203,7 @@ enum Task
 	SCORPIA("Scorpia", ItemID.SCORPIAS_OFFSPRING),
 	SCORPIONS("Scorpions", ItemID.ENSOULED_SCORPION_HEAD,
 		asList("Scorpia"), Collections.emptyList()),
+	SARACHNIS("Sarachnis", ItemID.SRARACHA),
 	SEA_SNAKES("Sea snakes", ItemID.SNAKE_CORPSE),
 	SHADES("Shades", ItemID.SHADE_ROBE_TOP,
 		asList("Loar Shadow", "Loar Shade", "Phrin Shadow", "Phrin Shade", "Riyl Shadow", "Riyl Shade", "Asyn Shadow", "Asyn Shade", "Fiyr Shadow", "Fiyr Shade"), Collections.emptyList()),
@@ -236,10 +240,52 @@ enum Task
 	ZOMBIES("Zombies", ItemID.ZOMBIE_HEAD,
 		asList("Undead"), Collections.emptyList()),
 	ZULRAH("Zulrah", ItemID.PET_SNAKELING),
-	ZUK("TzKal-Zuk", ItemID.TZREKZUK);
+	ZUK("TzKal-Zuk", ItemID.TZREKZUK, 101890);
 	//</editor-fold>
 
 	private static final Map<String, Task> tasks;
+	static final List<String> LOCATIONS = ImmutableList.of(
+		"", // no location is a valid location
+		"Abyss",
+		"Ancient Cavern",
+		"Asgarnian Ice Dungeon",
+		"Brimhaven Dungeon",
+		"Brine Rat Cavern",
+		"Catacombs of Kourend",
+		"Chasm of Fire",
+		"Clan Wars",
+		"Death Plateau",
+		"Evil Chicken's Lair",
+		"Fossil Island",
+		"Fremennik Slayer Dungeon",
+		"God Wars Dungeon",
+		"Iorwerth Dungeon",
+		"Kalphite Lair",
+		"Karuulm Slayer Dungeon",
+		"Keldagrim",
+		"Kraken Cove",
+		"Lighthouse",
+		"Lithkren Vault",
+		"Lizardman Canyon",
+		"Lizardman Settlement",
+		"Molch",
+		"Mount Quidamortem",
+		"Mourner Tunnels",
+		"Ogre Enclave",
+		"Slayer Tower",
+		"Smoke Devil Dungeon",
+		"Smoke Dungeon",
+		"Stronghold of Security",
+		"Stronghold Slayer Dungeon",
+		"task-only Kalphite Cave",
+		"Taverley Dungeon",
+		"Troll Stronghold",
+		"Waterbirth Island",
+		"Waterfall Dungeon",
+		"Wilderness",
+		"Witchaven Dungeon",
+		"Zanaris"
+	);
 
 	private final String name;
 	private final int itemSpriteId;
@@ -249,6 +295,7 @@ enum Task
 	private final boolean checkAsTokens;
 	private final int weaknessThreshold;
 	private final int weaknessItem;
+	private final int expectedKillExp;
 
 	static
 	{
@@ -272,6 +319,7 @@ enum Task
 		this.targetNames = new ArrayList<>();
 		this.npcIds = new ArrayList<>();
 		this.checkAsTokens = true;
+		this.expectedKillExp = 0;
 	}
 
 	Task(String name, int itemSpriteId, int weaknessThreshold, int weaknessItem)
@@ -284,6 +332,7 @@ enum Task
 		this.targetNames = new ArrayList<>();
 		this.npcIds = new ArrayList<>();
 		this.checkAsTokens = true;
+		this.expectedKillExp = 0;
 	}
 
 	Task(String name, int itemSpriteId, boolean checkAsTokens)
@@ -296,6 +345,20 @@ enum Task
 		this.targetNames = new ArrayList<>();
 		this.npcIds = new ArrayList<>();
 		this.checkAsTokens = checkAsTokens;
+		this.expectedKillExp = 0;
+	}
+
+	Task(String name, int itemSpriteId, int expectedKillExp)
+	{
+		Preconditions.checkArgument(itemSpriteId >= 0);
+		this.name = name;
+		this.itemSpriteId = itemSpriteId;
+		this.weaknessThreshold = -1;
+		this.weaknessItem = -1;
+		this.targetNames = new ArrayList<>();
+		this.npcIds = new ArrayList<>();
+		this.checkAsTokens = true;
+		this.expectedKillExp = expectedKillExp;
 	}
 
 	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds)
@@ -308,6 +371,7 @@ enum Task
 		this.targetNames = targetNames;
 		this.npcIds = npcIds;
 		this.checkAsTokens = true;
+		this.expectedKillExp = 0;
 	}
 
 	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds, int weaknessThreshold, int weaknessItem)
@@ -320,6 +384,7 @@ enum Task
 		this.targetNames = targetNames;
 		this.npcIds = npcIds;
 		this.checkAsTokens = true;
+		this.expectedKillExp = 0;
 	}
 
 	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds, boolean checkAsTokens)
@@ -332,8 +397,10 @@ enum Task
 		this.targetNames = targetNames;
 		this.npcIds = npcIds;
 		this.checkAsTokens = checkAsTokens;
+		this.expectedKillExp = 0;
 	}
 
+	@Nullable
 	static Task getTask(String taskName)
 	{
 		return tasks.get(taskName.toLowerCase());

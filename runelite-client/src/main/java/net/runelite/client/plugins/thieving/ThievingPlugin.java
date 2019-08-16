@@ -29,14 +29,16 @@ package net.runelite.client.plugins.thieving;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import com.google.inject.Provides;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -49,8 +51,10 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Thieving",
 	description = "Show thieving overlay",
 	tags = {"overlay", "skilling", "thieving", "pickpocketing"},
-	type = PluginType.SKILLING
+	type = PluginType.SKILLING,
+	enabledByDefault = false
 )
+@Singleton
 @PluginDependency(XpTrackerPlugin.class)
 public class ThievingPlugin extends Plugin
 {
@@ -63,8 +67,13 @@ public class ThievingPlugin extends Plugin
 	@Inject
 	private OverlayManager overlayManager;
 
+	@Inject
+	private EventBus eventBus;
+
 	@Getter(AccessLevel.PACKAGE)
 	private ThievingSession session;
+
+	private int statTimeout;
 
 	@Provides
 	ThievingConfig getConfig(ConfigManager configManager)
@@ -75,6 +84,10 @@ public class ThievingPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		addSubscriptions();
+
+		this.statTimeout = config.statTimeout();
+
 		session = null;
 		overlayManager.add(overlay);
 	}
@@ -82,19 +95,27 @@ public class ThievingPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
+
 		overlayManager.remove(overlay);
 		session = null;
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick gameTick)
+	private void addSubscriptions()
 	{
-		if (session == null || config.statTimeout() == 0)
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
+	}
+
+	private void onGameTick(GameTick gameTick)
+	{
+		if (session == null || this.statTimeout == 0)
 		{
 			return;
 		}
 
-		Duration statTimeout = Duration.ofMinutes(config.statTimeout());
+		Duration statTimeout = Duration.ofMinutes(this.statTimeout);
 		Duration sinceCut = Duration.between(session.getLastTheivingAction(), Instant.now());
 
 		if (sinceCut.compareTo(statTimeout) >= 0)
@@ -103,10 +124,8 @@ public class ThievingPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onChatMessage(ChatMessage event)
+	private void onChatMessage(ChatMessage event)
 	{
-
 		if (event.getType() != ChatMessageType.SPAM)
 		{
 			return;
@@ -114,7 +133,7 @@ public class ThievingPlugin extends Plugin
 
 		final String message = event.getMessage();
 
-		if (message.startsWith("You pick") || message.startsWith("You steal"))
+		if (message.startsWith("You pickpocket") || message.startsWith("You pick-pocket") || message.startsWith("You steal") || message.startsWith("You successfully pick-pocket") || message.startsWith("You successfully pick") || message.startsWith("You successfully steal"))
 		{
 			if (session == null)
 			{
@@ -125,7 +144,7 @@ public class ThievingPlugin extends Plugin
 			session.hasSucceeded();
 
 		}
-		else if (message.startsWith("You fail to pick"))
+		else if (message.startsWith("You fail to pickpocket") || message.startsWith("You fail to pick-pocket") || message.startsWith("You fail to steal"))
 		{
 			if (session == null)
 			{
@@ -135,6 +154,16 @@ public class ThievingPlugin extends Plugin
 			session.updateLastThevingAction();
 			session.hasFailed();
 		}
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!"thieving".equals(event.getGroup()))
+		{
+			return;
+		}
+
+		this.statTimeout = config.statTimeout();
 	}
 }
 

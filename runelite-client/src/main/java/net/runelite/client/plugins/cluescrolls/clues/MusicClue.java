@@ -61,7 +61,7 @@ public class MusicClue extends ClueScroll implements NpcClueScroll
 			.leftColor(TITLED_CONTENT_COLOR)
 			.build());
 
-		panelComponent.getChildren().add(LineComponent.builder().left("Area:").build());
+		panelComponent.getChildren().add(LineComponent.builder().left("Location:").build());
 		panelComponent.getChildren().add(LineComponent.builder()
 			.left("Falador Park")
 			.leftColor(TITLED_CONTENT_COLOR)
@@ -91,7 +91,7 @@ public class MusicClue extends ClueScroll implements NpcClueScroll
 	@Override
 	public String[] getNpcs()
 	{
-		return new String[]{CECILIA};
+		return new String[] {CECILIA};
 	}
 
 	public static MusicClue forText(String text)

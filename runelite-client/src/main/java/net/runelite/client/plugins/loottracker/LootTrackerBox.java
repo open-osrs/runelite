@@ -28,10 +28,13 @@ package net.runelite.client.plugins.loottracker;
 import com.google.common.base.Strings;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.function.BiConsumer;
 import javax.annotation.Nullable;
@@ -59,24 +62,31 @@ class LootTrackerBox extends JPanel
 	private final JPanel itemContainer = new JPanel();
 	private final JLabel priceLabel = new JLabel();
 	private final JLabel subTitleLabel = new JLabel();
+	private final JLabel dateLabel = new JLabel();
+	private final JPanel logTitle = new JPanel(new BorderLayout(5, 0));
+	private final JLabel titleLabel = new JLabel();
 	private final ItemManager itemManager;
 	@Getter(AccessLevel.PACKAGE)
 	private final String id;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final List<LootTrackerRecord> records = new ArrayList<>();
 
 	private long totalPrice;
 	private boolean hideIgnoredItems;
 	private BiConsumer<String, Boolean> onItemToggle;
+	private final long timeStamp;
 
 	LootTrackerBox(
+		final long timeStamp,
 		final ItemManager itemManager,
 		final String id,
 		@Nullable final String subtitle,
 		final boolean hideIgnoredItems,
+		@Nullable final Boolean showDate,
 		final BiConsumer<String, Boolean> onItemToggle)
 	{
+		this.timeStamp = timeStamp;
 		this.id = id;
 		this.itemManager = itemManager;
 		this.onItemToggle = onItemToggle;
@@ -85,11 +95,10 @@ class LootTrackerBox extends JPanel
 		setLayout(new BorderLayout(0, 1));
 		setBorder(new EmptyBorder(5, 0, 0, 0));
 
-		final JPanel logTitle = new JPanel(new BorderLayout(5, 0));
 		logTitle.setBorder(new EmptyBorder(7, 7, 7, 7));
 		logTitle.setBackground(ColorScheme.DARKER_GRAY_COLOR.darker());
 
-		final JLabel titleLabel = new JLabel(Text.removeTags(id));
+		titleLabel.setText(Text.removeTags(id));
 		titleLabel.setFont(FontManager.getRunescapeSmallFont());
 		titleLabel.setForeground(Color.WHITE);
 
@@ -98,6 +107,16 @@ class LootTrackerBox extends JPanel
 		subTitleLabel.setFont(FontManager.getRunescapeSmallFont());
 		subTitleLabel.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		logTitle.add(subTitleLabel, BorderLayout.CENTER);
+
+		dateLabel.setFont(FontManager.getRunescapeSmallFont().deriveFont(FontManager.getRunescapeSmallFont().getSize() - 2));
+		dateLabel.setForeground(Color.LIGHT_GRAY);
+		dateLabel.setText(DateFormat.getDateInstance().format(new Date(timeStamp)));
+
+		if (showDate)
+		{
+			logTitle.add(dateLabel, BorderLayout.SOUTH);
+		}
+
 
 		if (!Strings.isNullOrEmpty(subtitle))
 		{
@@ -110,6 +129,7 @@ class LootTrackerBox extends JPanel
 
 		add(logTitle, BorderLayout.NORTH);
 		add(itemContainer, BorderLayout.CENTER);
+
 	}
 
 	/**
@@ -120,7 +140,8 @@ class LootTrackerBox extends JPanel
 	private long getTotalKills()
 	{
 		return hideIgnoredItems
-			? records.stream().filter(r -> !Arrays.stream(r.getItems()).allMatch(LootTrackerItem::isIgnored)).count()
+			? records.stream().filter(
+				r -> !Arrays.stream(r.getItems()).allMatch(LootTrackerItem::isIgnored)).count()
 			: records.size();
 	}
 
@@ -182,6 +203,39 @@ class LootTrackerBox extends JPanel
 		repaint();
 	}
 
+	void collapse()
+	{
+		if (!isCollapsed())
+		{
+			itemContainer.setVisible(false);
+			applyDimmer(false, logTitle);
+		}
+	}
+
+	void expand()
+	{
+		if (isCollapsed())
+		{
+			itemContainer.setVisible(true);
+			applyDimmer(true, logTitle);
+		}
+	}
+
+	boolean isCollapsed()
+	{
+		return !itemContainer.isVisible();
+	}
+
+	private void applyDimmer(boolean brighten, JPanel panel)
+	{
+		for (Component component : panel.getComponents())
+		{
+			Color color = component.getForeground();
+
+			component.setForeground(brighten ? color.brighter() : color.darker());
+		}
+	}
+
 	/**
 	 * This method creates stacked items from the item list, calculates total price and then
 	 * displays all the items in the UI.
@@ -229,7 +283,7 @@ class LootTrackerBox extends JPanel
 				}
 			}
 
-			if (quantity > 0)
+			if (quantity != 0)
 			{
 				int newQuantity = entry.getQuantity() + quantity;
 				long pricePerItem = entry.getPrice() == 0 ? 0 : (entry.getPrice() / entry.getQuantity());
@@ -263,7 +317,7 @@ class LootTrackerBox extends JPanel
 				imageLabel.setVerticalAlignment(SwingConstants.CENTER);
 				imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-				AsyncBufferedImage itemImage = itemManager.getImage(item.getId(), item.getQuantity(), item.getQuantity() > 1);
+				AsyncBufferedImage itemImage = itemManager.getImage(item.getId(), Math.abs(item.getQuantity()), Math.abs(item.getQuantity()) > 1);
 
 				if (item.isIgnored())
 				{

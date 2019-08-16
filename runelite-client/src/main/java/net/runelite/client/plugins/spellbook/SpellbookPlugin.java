@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -52,23 +53,25 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.menus.WidgetMenuOption;
-import static net.runelite.client.util.MiscUtils.clamp;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
+import static net.runelite.client.util.MiscUtils.clamp;
 import net.runelite.client.util.Text;
 
 @PluginDescriptor(
 	name = "Spellbook",
 	description = "Modifications to the spellbook",
 	tags = {"resize", "spell", "mobile", "lowers", "pvp", "skill", "level"},
-	type = PluginType.UTILITY
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
+@Singleton
 @Slf4j
 public class SpellbookPlugin extends Plugin
 {
@@ -84,15 +87,7 @@ public class SpellbookPlugin extends Plugin
 	private static final WidgetMenuOption RESIZABLE_MAGIC_TAB_UNLOCK = new WidgetMenuOption(UNLOCK, MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_MAGIC_TAB);
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_MAGIC_TAB_LOCK = new WidgetMenuOption(LOCK, MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_MAGIC_TAB);
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_MAGIC_TAB_UNLOCK = new WidgetMenuOption(UNLOCK, MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_MAGIC_TAB);
-
-	private enum WordFilterMode
-	{
-		CONTAINS,
-		EQUALS,
-		STARTSWITH,
-		ENDSWITH
-	}
-
+	private final Map<Integer, Spell> spells = new HashMap<>();
 	@Inject
 	private Client client;
 
@@ -117,6 +112,9 @@ public class SpellbookPlugin extends Plugin
 	@Inject
 	private SpellbookDragOverlay overlay;
 
+	@Inject
+	private EventBus eventBus;
+
 	@Getter
 	private boolean dragging;
 
@@ -125,80 +123,15 @@ public class SpellbookPlugin extends Plugin
 
 	@Getter
 	private Point draggingLocation;
-
-	private Map<Integer, Spell> spells = new HashMap<>();
 	private Map<Integer, Spell> tmp = null;
 	private ImmutableSet<String> notFilteredSpells;
 	private Spellbook spellbook;
 	private SpellbookMouseListener mouseListener;
-
-
-	@Provides
-	SpellbookConfig getConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(SpellbookConfig.class);
-	}
-
-	@Override
-	protected void startUp()
-	{
-		refreshMagicTabOption();
-		loadFilter();
-		mouseListener = new SpellbookMouseListener(this);
-	}
-
-	@Override
-	protected void shutDown()
-	{
-		clearMagicTabMenus();
-		saveSpells();
-		config.canDrag(false);
-		mouseManager.unregisterMouseListener(mouseListener);
-		mouseManager.unregisterMouseWheelListener(mouseListener);
-		mouseListener = null;
-	}
-
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOGGED_IN)
-		{
-			refreshMagicTabOption();
-		}
-	}
-
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (!"spellbook".equals(event.getGroup()))
-		{
-			return;
-		}
-
-		String key = event.getKey();
-
-		if ("filter".equals(key))
-		{
-			loadFilter();
-		}
-
-		clientThread.invokeLater(this::runRebuild);
-		refreshMagicTabOption();
-	}
-
-	@Subscribe
-	public void onVarbitChanged(VarbitChanged event)
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
-			return;
-		}
-
-		if (config.canDrag())
-		{
-			config.canDrag(client.getVar(Varbits.FILTER_SPELLBOOK) == 1 && client.getVar(VarClientInt.INVENTORY_TAB) == 6);
-		}
-	}
+	private boolean enableMobile;
+	private boolean dragSpells;
+	private boolean scroll;
+	private int size;
+	private String filter;
 
 	private static boolean isUnfiltered(String spell, Set<String> unfiltereds)
 	{
@@ -240,9 +173,109 @@ public class SpellbookPlugin extends Plugin
 		return false;
 	}
 
+	private static WordFilterMode getFilterMode(String s)
+	{
+		if (!s.contains("\""))
+		{
+			return WordFilterMode.CONTAINS;
+		}
+		if (s.startsWith("\""))
+		{
+			return s.endsWith("\"") ? WordFilterMode.EQUALS : WordFilterMode.STARTSWITH;
+		}
+		else if (s.endsWith("\""))
+		{
+			return WordFilterMode.ENDSWITH;
+		}
 
-	@Subscribe
-	public void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event)
+		return WordFilterMode.CONTAINS; // but probably null soz
+	}
+
+	private static String removeFlyingComma(String s)
+	{
+		return s.replaceAll("\"", "");
+	}
+
+	@Provides
+	SpellbookConfig getConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(SpellbookConfig.class);
+	}
+
+	@Override
+	protected void startUp()
+	{
+		updateConfig();
+		addSubscriptions();
+
+		refreshMagicTabOption();
+		loadFilter();
+		mouseListener = new SpellbookMouseListener(this);
+	}
+
+	@Override
+	protected void shutDown()
+	{
+		eventBus.unregister(this);
+		clearMagicTabMenus();
+		saveSpells();
+		config.canDrag(false);
+		mouseManager.unregisterMouseListener(mouseListener);
+		mouseManager.unregisterMouseWheelListener(mouseListener);
+		mouseListener = null;
+	}
+
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
+		eventBus.subscribe(WidgetMenuOptionClicked.class, this, this::onWidgetMenuOptionClicked);
+		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+	}
+
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGGED_IN)
+		{
+			refreshMagicTabOption();
+		}
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!"spellbook".equals(event.getGroup()))
+		{
+			return;
+		}
+
+		updateConfig();
+
+		String key = event.getKey();
+
+		if ("filter".equals(key))
+		{
+			loadFilter();
+		}
+
+		clientThread.invokeLater(this::runRebuild);
+		refreshMagicTabOption();
+	}
+
+	public void onVarbitChanged(VarbitChanged event)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
+			return;
+		}
+
+		if (config.canDrag())
+		{
+			config.canDrag(client.getVar(Varbits.FILTER_SPELLBOOK) == 1 && client.getVar(VarClientInt.INVENTORY_TAB) == 6);
+		}
+	}
+
+	private void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event)
 	{
 		if (event.getWidget() != WidgetInfo.FIXED_VIEWPORT_MAGIC_TAB
 			&& event.getWidget() != WidgetInfo.RESIZABLE_VIEWPORT_MAGIC_TAB
@@ -258,7 +291,7 @@ public class SpellbookPlugin extends Plugin
 			mouseManager.registerMouseListener(mouseListener);
 			tmp = new HashMap<>();
 
-			if (config.scroll())
+			if (this.scroll)
 			{
 				mouseManager.registerMouseWheelListener(mouseListener);
 			}
@@ -287,7 +320,7 @@ public class SpellbookPlugin extends Plugin
 	private void refreshMagicTabOption()
 	{
 		clearMagicTabMenus();
-		if (client.getGameState() != GameState.LOGGED_IN || !config.dragSpells())
+		if (client.getGameState() != GameState.LOGGED_IN || !this.dragSpells)
 		{
 			return;
 		}
@@ -306,11 +339,10 @@ public class SpellbookPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onScriptCallbackEvent(ScriptCallbackEvent event)
+	private void onScriptCallbackEvent(ScriptCallbackEvent event)
 	{
 		if (client.getVar(Varbits.FILTER_SPELLBOOK) != 0
-			|| !config.enableMobile()
+			|| !this.enableMobile
 			|| !event.getEventName().toLowerCase().contains("spell"))
 		{
 			return;
@@ -365,7 +397,7 @@ public class SpellbookPlugin extends Plugin
 		}
 		else if ("resizeSpell".equals(event.getEventName()))
 		{
-			int size = config.size();
+			int size = this.size;
 			int columns = clamp(FULL_WIDTH / size, 2, 3);
 
 			iStack[iStackSize - 2] = size;
@@ -373,7 +405,7 @@ public class SpellbookPlugin extends Plugin
 		}
 		else if ("setSpellAreaSize".equals(event.getEventName()))
 		{
-			if (!config.dragSpells())
+			if (!this.dragSpells)
 			{
 				return;
 			}
@@ -409,7 +441,7 @@ public class SpellbookPlugin extends Plugin
 		}
 		else if ("setSpellPosition".equals(event.getEventName()))
 		{
-			if (!config.dragSpells())
+			if (!this.dragSpells)
 			{
 				return;
 			}
@@ -463,7 +495,7 @@ public class SpellbookPlugin extends Plugin
 
 	private void saveSpells()
 	{
-		if (spells.isEmpty())
+		if (spells.isEmpty() || tmp == null || tmp.isEmpty())
 		{
 			return;
 		}
@@ -491,25 +523,7 @@ public class SpellbookPlugin extends Plugin
 		);
 	}
 
-	private static WordFilterMode getFilterMode(String s)
-	{
-		if (!s.contains("\""))
-		{
-			return WordFilterMode.CONTAINS;
-		}
-		if (s.startsWith("\""))
-		{
-			return s.endsWith("\"") ? WordFilterMode.EQUALS : WordFilterMode.STARTSWITH;
-		}
-		else if (s.endsWith("\""))
-		{
-			return WordFilterMode.ENDSWITH;
-		}
-
-		return WordFilterMode.CONTAINS; // but probably null soz
-	}
-
-	boolean isOnSpellWidget(java.awt.Point point)
+	boolean isNotOnSpellWidget(java.awt.Point point)
 	{
 		Widget boundsWidget = client.getWidget(WidgetInfo.SPELLBOOK_FILTERED_BOUNDS);
 		if (client.getVar(VarClientInt.INVENTORY_TAB) != 6
@@ -517,15 +531,15 @@ public class SpellbookPlugin extends Plugin
 			|| boundsWidget == null
 			|| !boundsWidget.getBounds().contains(point))
 		{
-			return false;
+			return true;
 		}
 
-		return currentWidget(point) != null;
+		return currentWidget(point) == null;
 	}
 
 	private void loadFilter()
 	{
-		notFilteredSpells = ImmutableSet.copyOf(Text.fromCSV(config.filter().toLowerCase()));
+		notFilteredSpells = ImmutableSet.copyOf(Text.fromCSV(this.filter.toLowerCase()));
 	}
 
 	void startDragging(java.awt.Point point)
@@ -576,11 +590,11 @@ public class SpellbookPlugin extends Plugin
 	{
 		ImmutableSet<String> tmp = ImmutableSet.copyOf(notFilteredSpells);
 
-		for (int id : spells.keySet())
+		for (Map.Entry<Integer, Spell> spell : spells.entrySet())
 		{
-			Widget w = client.getWidget(WidgetInfo.TO_GROUP(id), WidgetInfo.TO_CHILD(id)); // y tho let me just plop in id
+			Widget w = client.getWidget(WidgetInfo.TO_GROUP(spell.getKey()), WidgetInfo.TO_CHILD(spell.getKey())); // y tho let me just plop in id
 
-			if (w == null || !w.getBounds().contains(point) || !isUnfiltered(spells.get(id).getName(), tmp))
+			if (w == null || !w.getBounds().contains(point) || !isUnfiltered(spell.getValue().getName(), tmp))
 			{
 				continue;
 			}
@@ -630,7 +644,7 @@ public class SpellbookPlugin extends Plugin
 	{
 		Widget clickedWidget = currentWidget(point);
 
-		if (clickedWidget == null || dragging || !config.scroll())
+		if (clickedWidget == null || dragging || !this.scroll)
 		{
 			return;
 		}
@@ -694,13 +708,25 @@ public class SpellbookPlugin extends Plugin
 		runRebuild();
 	}
 
-	private static String removeFlyingComma(String s)
-	{
-		return s.replaceAll("\"", "");
-	}
-
 	private int trueSize(Spell s)
 	{
-		return s.getSize() * 2 + config.size();
+		return s.getSize() * 2 + this.size;
+	}
+
+	private void updateConfig()
+	{
+		this.enableMobile = config.enableMobile();
+		this.dragSpells = config.dragSpells();
+		this.scroll = config.scroll();
+		this.size = config.size();
+		this.filter = config.filter();
+	}
+
+	private enum WordFilterMode
+	{
+		CONTAINS,
+		EQUALS,
+		STARTSWITH,
+		ENDSWITH
 	}
 }

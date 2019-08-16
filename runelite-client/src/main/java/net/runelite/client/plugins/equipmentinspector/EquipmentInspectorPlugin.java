@@ -37,12 +37,14 @@ import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
-import net.runelite.api.ItemComposition;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.Player;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.PlayerMenuOptionClicked;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.chat.ChatColorType;
@@ -50,7 +52,7 @@ import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
@@ -63,12 +65,11 @@ import net.runelite.client.util.Text;
 
 @PluginDescriptor(
 	name = "Equipment Inspector",
-	enabledByDefault = false,
-	type = PluginType.PVP
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
-
+@Singleton
 @Slf4j
-
 public class EquipmentInspectorPlugin extends Plugin
 {
 	private static final String INSPECT_EQUIPMENT = "Gear";
@@ -93,6 +94,10 @@ public class EquipmentInspectorPlugin extends Plugin
 
 	@Inject
 	private ClientToolbar pluginToolbar;
+
+	@Inject
+	private EventBus eventBus;
+
 	private NavigationButton navButton;
 	private EquipmentInspectorPanel equipmentInspectorPanel;
 	private int TotalPrice = 0;
@@ -100,6 +105,10 @@ public class EquipmentInspectorPlugin extends Plugin
 	private int Prot2 = 0;
 	private int Prot3 = 0;
 	private int Prot4 = 0;
+
+	private boolean ShowValue;
+	private int protecteditems;
+	private boolean ExactValue;
 
 	@Provides
 	EquipmentInspectorConfig provideConfig(ConfigManager configManager)
@@ -110,6 +119,8 @@ public class EquipmentInspectorPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
+		addSubscriptions();
 
 		equipmentInspectorPanel = injector.getInstance(EquipmentInspectorPanel.class);
 		if (client != null)
@@ -126,7 +137,6 @@ public class EquipmentInspectorPlugin extends Plugin
 			.panel(equipmentInspectorPanel)
 			.build();
 
-
 		pluginToolbar.addNavigation(navButton);
 
 	}
@@ -134,17 +144,22 @@ public class EquipmentInspectorPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
 
 		menuManager.removePlayerMenuItem(INSPECT_EQUIPMENT);
+		pluginToolbar.removeNavigation(navButton);
 	}
 
-	@Subscribe
-	public void onPlayerMenuOptionClicked(PlayerMenuOptionClicked event)
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(PlayerMenuOptionClicked.class, this, this::onPlayerMenuOptionClicked);
+	}
+
+	private void onPlayerMenuOptionClicked(PlayerMenuOptionClicked event)
 	{
 		if (event.getMenuOption().equals(INSPECT_EQUIPMENT))
 		{
-
-
 			executor.execute(() ->
 			{
 				try
@@ -167,10 +182,18 @@ public class EquipmentInspectorPlugin extends Plugin
 				// The player menu uses a non-breaking space in the player name, we need to replace this to compare
 				// against the playerName in the player cache.
 				String finalPlayerName = playerName.replace('\u00A0', ' ');
-				List<Player> players = client.getPlayers();
-				Optional<Player> targetPlayer = players.stream()
-					.filter(Objects::nonNull)
-					.filter(p -> p.getName().equals(finalPlayerName)).findFirst();
+				List<Player> players = null;
+				if (client != null)
+				{
+					players = client.getPlayers();
+				}
+				Optional<Player> targetPlayer = Optional.empty();
+				if (players != null)
+				{
+					targetPlayer = players.stream()
+						.filter(Objects::nonNull)
+						.filter(p -> p.getName().equals(finalPlayerName)).findFirst();
+				}
 
 				if (targetPlayer.isPresent())
 				{
@@ -180,7 +203,7 @@ public class EquipmentInspectorPlugin extends Plugin
 					Prot3 = 0;
 					Prot4 = 0;
 					Player p = targetPlayer.get();
-					Map<KitType, ItemComposition> playerEquipment = new HashMap<>();
+					Map<KitType, ItemDefinition> playerEquipment = new HashMap<>();
 
 					for (KitType kitType : KitType.values())
 					{
@@ -193,10 +216,10 @@ public class EquipmentInspectorPlugin extends Plugin
 							continue;
 						}
 
-						int itemId = p.getPlayerComposition().getEquipmentId(kitType);
+						int itemId = p.getPlayerAppearance().getEquipmentId(kitType);
 						if (itemId != -1)
 						{
-							ItemComposition itemComposition = client.getItemDefinition(itemId);
+							ItemDefinition itemComposition = client.getItemDefinition(itemId);
 							playerEquipment.put(kitType, itemComposition);
 							int ItemPrice = itemManager.getItemPrice(itemId);
 							TotalPrice += ItemPrice;
@@ -225,13 +248,13 @@ public class EquipmentInspectorPlugin extends Plugin
 							}
 						}
 					}
-					int IgnoredItems = config.protecteditems();
+					int IgnoredItems = this.protecteditems;
 					if (IgnoredItems != 0 && IgnoredItems != 1 && IgnoredItems != 2 && IgnoredItems != 3)
 					{
 						IgnoredItems = 4;
 
 					}
-					if (config.ShowValue())
+					if (this.ShowValue)
 					{
 						switch (IgnoredItems)
 						{
@@ -256,13 +279,13 @@ public class EquipmentInspectorPlugin extends Plugin
 								break;
 						}
 						String StringPrice = "";
-						if (!config.ExactValue())
+						if (!this.ExactValue)
 						{
 							TotalPrice = TotalPrice / 1000;
 							StringPrice = NumberFormat.getIntegerInstance().format(TotalPrice);
 							StringPrice = StringPrice + 'K';
 						}
-						if (config.ExactValue())
+						if (this.ExactValue)
 						{
 							StringPrice = NumberFormat.getIntegerInstance().format(TotalPrice);
 						}
@@ -281,5 +304,20 @@ public class EquipmentInspectorPlugin extends Plugin
 				}
 			});
 		}
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equalsIgnoreCase("equipmentinspector"))
+		{
+			updateConfig();
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.ShowValue = config.ShowValue();
+		this.protecteditems = config.protecteditems();
+		this.ExactValue = config.ExactValue();
 	}
 }

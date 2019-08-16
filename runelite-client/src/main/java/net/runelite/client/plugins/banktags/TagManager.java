@@ -44,7 +44,7 @@ import net.runelite.client.plugins.cluescrolls.clues.EmoteClue;
 import net.runelite.client.plugins.cluescrolls.clues.FairyRingClue;
 import net.runelite.client.plugins.cluescrolls.clues.HotColdClue;
 import net.runelite.client.plugins.cluescrolls.clues.MapClue;
-import net.runelite.client.plugins.cluescrolls.clues.emote.ItemRequirement;
+import net.runelite.client.plugins.cluescrolls.clues.item.ItemRequirement;
 import net.runelite.client.util.Text;
 
 @Singleton
@@ -66,7 +66,7 @@ public class TagManager
 		this.clueScrollService = clueScrollService;
 	}
 
-	String getTagString(int itemId, boolean variation)
+	private String getTagString(int itemId, boolean variation)
 	{
 		itemId = getItemId(itemId, variation);
 

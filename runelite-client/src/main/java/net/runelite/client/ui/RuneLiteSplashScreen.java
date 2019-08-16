@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Jeremy Plsek <github.com/jplsek>
+ * Copyright (c) 2019, TheStonedTurtle <https://github.com/TheStonedTurtle>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,225 +24,124 @@
  */
 package net.runelite.client.ui;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.inject.Singleton;
-import javax.swing.ImageIcon;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicProgressBarUI;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.RuneLite;
-import net.runelite.client.RuneLiteProperties;
-import net.runelite.client.util.SwingUtil;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
+import net.runelite.client.ui.components.InfoPanel;
+import net.runelite.client.ui.components.MessagePanel;
+import net.runelite.client.util.ImageUtil;
 
-/**
- * This is a custom Splash Screen and does not use Java's SplashScreen class. This has helper methods to update the
- * status while loading RuneLite. All public methods run non-blocking passed to the swing thread.
- */
 @Slf4j
-@Singleton
-public class RuneLiteSplashScreen
+public class RuneLiteSplashScreen extends JFrame
 {
-	private RuneLiteProperties runeLiteProperties = new RuneLiteProperties();
+	private static RuneLiteSplashScreen INSTANCE;
+	public static final Dimension FRAME_SIZE = new Dimension(600, 350);
 
-	public JFrame frame;
-	public JPanel panel = new JPanel();
-	public JLabel messageLabel;
-	public JLabel subMessageLabel;
-	public JProgressBar progressBar = new JProgressBar();
+	@Getter
+	private final MessagePanel messagePanel = new MessagePanel();
 
-	private int currentStep;
-
-	/**
-	 * This is not done in the constructor in order to avoid processing in case the user chooses to not load
-	 * the splash screen.
-	 *
-	 * @param estimatedSteps steps until completion, used for the progress bar
-	 */
-	private void initLayout(final int estimatedSteps)
+	private RuneLiteSplashScreen()
 	{
-		SwingUtil.setupRuneLiteLookAndFeel();
+		this.setTitle("RuneLitePlus");
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setSize(FRAME_SIZE);
+		this.setLayout(new BorderLayout());
+		this.setUndecorated(true);
+		this.setIconImage(ImageUtil.getResourceStreamFromClass(RuneLiteSplashScreen.class, "/runeliteplus.png"));
 
-		// init fields with updated swing look and feel
-		frame = new JFrame("RuneLitePlus Loading");
-		messageLabel = new JLabel("Loading...");
-		subMessageLabel = new JLabel();
-		progressBar.setUI(new BasicProgressBarUI());
-		progressBar.setMinimum(0);
-		progressBar.setMaximum(estimatedSteps);
+		final JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.setPreferredSize(RuneLiteSplashScreen.FRAME_SIZE);
 
-		// frame setup
-		frame.setSize(220, 290);
-		frame.setLocationRelativeTo(null);
-		frame.setUndecorated(true);
+		panel.add(new InfoPanel(), BorderLayout.EAST);
+		panel.add(messagePanel, BorderLayout.WEST);
 
-		// main panel setup
-		// To reduce substance's colorization (tinting)
-		panel.putClientProperty(SubstanceSynapse.COLORIZATION_FACTOR, 1.0);
-		panel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		final GridBagLayout layout = new GridBagLayout();
-		layout.columnWeights = new double[]{1};
-		layout.rowWeights = new double[]{1, 0, 0, 1, 0, 1};
-		panel.setLayout(layout);
+		this.setContentPane(panel);
+		pack();
 
-		// logo
-		synchronized (ImageIO.class)
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+	}
+
+	private void setBarText(final String text)
+	{
+		final JProgressBar bar = messagePanel.getBar();
+		bar.setString(text);
+		bar.setStringPainted(text != null);
+		bar.revalidate();
+		bar.repaint();
+	}
+
+	private void setMessage(final String msg, final double value)
+	{
+		messagePanel.getBarLabel().setText(msg);
+		messagePanel.getBar().setMaximum(1000);
+		messagePanel.getBar().setValue((int) (value * 1000));
+		setBarText(null);
+
+		this.getContentPane().revalidate();
+		this.getContentPane().repaint();
+	}
+
+	public static void init()
+	{
+		try
 		{
-			try
+			SwingUtilities.invokeAndWait(() ->
 			{
-				final BufferedImage logo = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/runeliteplus.png"));
-				frame.setIconImage(logo);
+				if (INSTANCE != null)
+				{
+					return;
+				}
 
-				final BufferedImage logoTransparent = ImageIO.read(RuneLiteSplashScreen.class.getResourceAsStream("/runeliteplus_transparent.png"));
-				final GridBagConstraints logoConstraints = new GridBagConstraints();
-				logoConstraints.anchor = GridBagConstraints.SOUTH;
-				panel.add(new JLabel(new ImageIcon(logoTransparent.getScaledInstance(96, 96, Image.SCALE_SMOOTH))), logoConstraints);
-			}
-			catch (IOException e)
-			{
-				log.warn("Error loading logo", e);
-			}
+				try
+				{
+					INSTANCE = new RuneLiteSplashScreen();
+				}
+				catch (Exception e)
+				{
+					log.warn("Unable to start splash screen", e);
+				}
+			});
 		}
-
-		// runelite title
-		final JLabel title = new JLabel("RuneLitePlus");
-		final GridBagConstraints titleConstraints = new GridBagConstraints();
-		titleConstraints.gridy = 1;
-		panel.add(title, titleConstraints);
-
-		// version
-		final JLabel version = new JLabel("RuneLite Version : " + runeLiteProperties.getVersion());
-		version.setForeground(Color.GREEN);
-		version.setFont(FontManager.getRunescapeSmallFont());
-		version.setForeground(version.getForeground().darker());
-		final GridBagConstraints versionConstraints = new GridBagConstraints();
-		versionConstraints.gridy = 2;
-		panel.add(version, versionConstraints);
-
-		// version
-		final JLabel litVersion = new JLabel("Plus Version : PRE-" + RuneLite.RUNELIT_VERSION);
-		litVersion.setForeground(Color.GREEN);
-		litVersion.setFont(FontManager.getRunescapeSmallFont());
-		litVersion.setForeground(litVersion.getForeground().darker());
-		final GridBagConstraints litVersionConstraints = new GridBagConstraints();
-		litVersionConstraints.gridy = 3;
-		litVersionConstraints.weightx = 4;
-		panel.add(litVersion, litVersionConstraints);
-
-
-		// progressbar
-		final GridBagConstraints progressConstraints = new GridBagConstraints();
-		progressConstraints.fill = GridBagConstraints.HORIZONTAL;
-		progressConstraints.anchor = GridBagConstraints.SOUTH;
-		progressConstraints.gridy = 4;
-		panel.add(progressBar, progressConstraints);
-
-		// main message
-		messageLabel.setFont(FontManager.getRunescapeSmallFont());
-		final GridBagConstraints messageConstraints = new GridBagConstraints();
-		messageConstraints.gridy = 5;
-		panel.add(messageLabel, messageConstraints);
-
-		// alternate message
-		final GridBagConstraints subMessageConstraints = new GridBagConstraints();
-		subMessageLabel.setForeground(subMessageLabel.getForeground().darker());
-		subMessageLabel.setFont(FontManager.getRunescapeSmallFont());
-		subMessageConstraints.gridy = 6;
-		panel.add(subMessageLabel, subMessageConstraints);
-
-		frame.setContentPane(panel);
+		catch (InterruptedException | InvocationTargetException bs)
+		{
+			throw new RuntimeException(bs);
+		}
 	}
 
-	private boolean notActive()
-	{
-		return frame == null || !frame.isDisplayable();
-	}
-
-	/**
-	 * Close/dispose of the splash screen
-	 */
-	public void close()
+	public static void close()
 	{
 		SwingUtilities.invokeLater(() ->
 		{
-			if (notActive())
+			if (INSTANCE == null)
 			{
 				return;
 			}
 
-			frame.dispose();
+			INSTANCE.setVisible(false);
+			INSTANCE.dispose();
+			INSTANCE = null;
 		});
 	}
 
-	/**
-	 * Set the splash screen to be visible.
-	 *
-	 * @param estimatedSteps steps until completion, used for the progress bar
-	 */
-	public void open(final int estimatedSteps)
+	public static void stage(double startProgress, double endProgress, String progressText, int done, int total)
 	{
-		SwingUtilities.invokeLater(() ->
-		{
-			initLayout(estimatedSteps);
-			frame.setVisible(true);
-		});
+		String progress = done + " / " + total;
+		stage(startProgress + ((endProgress - startProgress) * done / total), progressText + " " + progress);
 	}
 
-	public void setMessage(final String message)
+	public static void stage(double overallProgress, String progressText)
 	{
-		SwingUtilities.invokeLater(() ->
+		if (INSTANCE != null)
 		{
-			if (notActive())
-			{
-				return;
-			}
-			messageLabel.setText(message);
-		});
-	}
-
-	public void setSubMessage(final String subMessage)
-	{
-		SwingUtilities.invokeLater(() ->
-		{
-			if (notActive())
-			{
-				return;
-			}
-			subMessageLabel.setText(subMessage);
-		});
-	}
-
-	public void setProgress(int currentProgress, int progressGoal)
-	{
-		SwingUtilities.invokeLater(() ->
-		{
-			if (notActive())
-			{
-				return;
-			}
-			if (progressGoal != progressBar.getMaximum())
-			{
-				panel.remove(progressBar);
-				panel.validate();
-				final GridBagConstraints progressConstraints = new GridBagConstraints();
-				progressConstraints.fill = GridBagConstraints.HORIZONTAL;
-				progressConstraints.anchor = GridBagConstraints.SOUTH;
-				progressConstraints.gridy = 4;
-				panel.add(progressBar, progressConstraints);
-				panel.validate();
-			}
-			progressBar.setMaximum(progressGoal);
-			progressBar.setValue(currentProgress);
-		});
+			INSTANCE.setMessage(progressText, overallProgress);
+		}
 	}
 }

@@ -76,6 +76,7 @@ class DevToolsPanel extends PluginPanel
 		container.add(plugin.getLocation());
 		container.add(plugin.getWorldMapLocation());
 		container.add(plugin.getTileLocation());
+		container.add(plugin.getCursorPos());
 		container.add(plugin.getCameraPosition());
 
 		container.add(plugin.getChunkBorders());
@@ -131,6 +132,8 @@ class DevToolsPanel extends PluginPanel
 				client.setPrintMenuActions(true);
 			}
 		});
+
+		container.add(plugin.getSoundEffects());
 
 		return container;
 	}

@@ -2,6 +2,7 @@
  * Copyright (c) 2017, Aria <aria@ar1as.space>
  * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
+ * Copyright (c) 2019, Ganom <https://github.com/ganom>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,16 +29,24 @@ package net.runelite.client.plugins.zulrah;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Actor;
+import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.NPC;
+import net.runelite.api.Prayer;
+import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.game.Sound;
+import net.runelite.client.game.SoundManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -54,42 +63,44 @@ import net.runelite.client.plugins.zulrah.phase.ZulrahPhase;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Zulrah",
-	description = "Overlays to assist with killing Zulrah",
+	name = "Zulrah Helper",
+	description = "Shows tiles on where to stand during the phases and what prayer to use.",
 	tags = {"zulrah", "boss", "helper"},
-	type = PluginType.PVM
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
-
 @Slf4j
+@Singleton
 public class ZulrahPlugin extends Plugin
 {
-	@Getter
+	private static final ZulrahPattern[] patterns = new ZulrahPattern[]
+		{
+			new ZulrahPatternA(),
+			new ZulrahPatternB(),
+			new ZulrahPatternC(),
+			new ZulrahPatternD()
+		};
+	@Getter(AccessLevel.PACKAGE)
 	private NPC zulrah;
-
 	@Inject
 	private Client client;
-
 	@Inject
 	private ZulrahConfig config;
-
-	@Inject
-	private ZulrahOverlay overlay;
-
 	@Inject
 	private OverlayManager overlayManager;
-
+	@Inject
+	private SoundManager soundManager;
 	@Inject
 	private ZulrahCurrentPhaseOverlay currentPhaseOverlay;
-
 	@Inject
 	private ZulrahNextPhaseOverlay nextPhaseOverlay;
-
 	@Inject
 	private ZulrahPrayerOverlay zulrahPrayerOverlay;
-
 	@Inject
 	private ZulrahOverlay zulrahOverlay;
-
+	@Inject
+	private EventBus eventBus;
+	private ZulrahInstance instance;
 
 	@Provides
 	ZulrahConfig getConfig(ConfigManager configManager)
@@ -97,19 +108,11 @@ public class ZulrahPlugin extends Plugin
 		return configManager.getConfig(ZulrahConfig.class);
 	}
 
-	private final ZulrahPattern[] patterns = new ZulrahPattern[]
-		{
-			new ZulrahPatternA(),
-			new ZulrahPatternB(),
-			new ZulrahPatternC(),
-			new ZulrahPatternD()
-		};
-
-	private ZulrahInstance instance;
-
 	@Override
 	protected void startUp() throws Exception
 	{
+		addSubscriptions();
+
 		overlayManager.add(currentPhaseOverlay);
 		overlayManager.add(nextPhaseOverlay);
 		overlayManager.add(zulrahPrayerOverlay);
@@ -119,6 +122,8 @@ public class ZulrahPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
+
 		overlayManager.remove(currentPhaseOverlay);
 		overlayManager.remove(nextPhaseOverlay);
 		overlayManager.remove(zulrahPrayerOverlay);
@@ -127,10 +132,17 @@ public class ZulrahPlugin extends Plugin
 		instance = null;
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick event)
+	private void addSubscriptions()
 	{
-		if (!config.enabled() || client.getGameState() != GameState.LOGGED_IN)
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
+		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
+	}
+
+	private void onGameTick(GameTick event)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
 		}
@@ -152,6 +164,7 @@ public class ZulrahPlugin extends Plugin
 		}
 
 		ZulrahPhase currentPhase = ZulrahPhase.valueOf(zulrah, instance.getStartLocation());
+
 		if (instance.getPhase() == null)
 		{
 			instance.setPhase(currentPhase);
@@ -166,6 +179,7 @@ public class ZulrahPlugin extends Plugin
 		}
 
 		ZulrahPattern pattern = instance.getPattern();
+
 		if (pattern == null)
 		{
 			int potential = 0;
@@ -195,37 +209,61 @@ public class ZulrahPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onNpcSpawned(NpcSpawned event)
+	private void onAnimationChanged(AnimationChanged event)
 	{
-		try
+		if (instance == null)
 		{
-			NPC npc = event.getNpc();
-			if (npc != null && npc.getName().toLowerCase().contains("zulrah"))
-			{
-				zulrah = npc;
-			}
+			return;
 		}
-		catch (Exception e)
-		{
 
+		ZulrahPhase currentPhase = instance.getPhase();
+		ZulrahPhase nextPhase = instance.getNextPhase();
+
+		if (currentPhase == null || nextPhase == null)
+		{
+			return;
+		}
+
+		final Actor actor = event.getActor();
+
+		if (config.sounds() && zulrah != null && zulrah.equals(actor) && zulrah.getAnimation() == AnimationID.ZULRAH_PHASE)
+		{
+			Prayer prayer = nextPhase.getPrayer();
+
+			if (prayer == null)
+			{
+				return;
+			}
+
+			switch (prayer)
+			{
+				case PROTECT_FROM_MAGIC:
+					soundManager.playSound(Sound.PRAY_MAGIC);
+					break;
+				case PROTECT_FROM_MISSILES:
+					soundManager.playSound(Sound.PRAY_RANGED);
+					break;
+			}
 		}
 	}
 
-	@Subscribe
-	public void onNpcDespawned(NpcDespawned event)
+	private void onNpcSpawned(NpcSpawned event)
 	{
-		try
+		NPC npc = event.getNpc();
+		if (npc != null && npc.getName() != null &&
+			npc.getName().toLowerCase().contains("zulrah"))
 		{
-			NPC npc = event.getNpc();
-			if (npc != null && npc.getName().toLowerCase().contains("zulrah"))
-			{
-				zulrah = null;
-			}
+			zulrah = npc;
 		}
-		catch (Exception e)
-		{
+	}
 
+	private void onNpcDespawned(NpcDespawned event)
+	{
+		NPC npc = event.getNpc();
+		if (npc != null && npc.getName() != null &&
+			npc.getName().toLowerCase().contains("zulrah"))
+		{
+			zulrah = null;
 		}
 	}
 

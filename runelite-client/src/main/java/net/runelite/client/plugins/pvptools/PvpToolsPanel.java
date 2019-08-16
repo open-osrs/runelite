@@ -9,41 +9,41 @@
 
 package net.runelite.client.plugins.pvptools;
 
-import com.google.common.base.MoreObjects;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import javax.inject.Singleton;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.plugins.info.JRichTextPane;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 
 @Slf4j
-public class PvpToolsPanel extends PluginPanel
+@Singleton
+class PvpToolsPanel extends PluginPanel
 {
 
 	private final JLabel loggedLabel = new JLabel();
 	private final JRichTextPane emailLabel = new JRichTextPane();
-	JLabel numCC = new JLabel();
-	JLabel numOther = new JLabel();
-	JLabel numMageJLabel = new JLabel(" ");
-	JLabel numRangeJLabel = new JLabel(" ");
-	JLabel numMeleeJLabel = new JLabel(" ");
-	JLabel totalRiskLabel = new JLabel(" ");
-	JLabel riskProtectingItem = new JLabel(" ");
-	JLabel biggestItemLabel = new JLabel("Protected Item: ");
-	JButton missingPlayers = new JButton("Show missing CC members");
-	JButton currentPlayers = new JButton("Show current CC members");
-	private JLabel numBrews = new JLabel();
-	private JPanel missingPlayersPanel = new JPanel();
+	final JLabel numCC = new JLabel();
+	final JLabel numOther = new JLabel();
+	final JLabel numMageJLabel = new JLabel(" ");
+	final JLabel numRangeJLabel = new JLabel(" ");
+	final JLabel numMeleeJLabel = new JLabel(" ");
+	final JLabel totalRiskLabel = new JLabel(" ");
+	final JLabel riskProtectingItem = new JLabel(" ");
+	final JLabel biggestItemLabel = new JLabel("Protected Item: ");
+	final JButton missingPlayers = new JButton("Show missing CC members");
+	final JButton currentPlayers = new JButton("Show current CC members");
+	private final JLabel numBrews = new JLabel();
+	private final JPanel missingPlayersPanel = new JPanel();
 
 
 	public static String htmlLabel(String key, String value)
@@ -91,10 +91,6 @@ public class PvpToolsPanel extends PluginPanel
 		revision.setFont(smallFont);
 
 		revision.setText("Oldschool revision: ");
-
-		JLabel launcher = new JLabel(htmlLabel("Launcher version: ", MoreObjects
-			.firstNonNull(RuneLiteProperties.getLauncherVersion(), "Unknown")));
-		launcher.setFont(smallFont);
 
 		loggedLabel.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		loggedLabel.setFont(smallFont);

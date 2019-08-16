@@ -25,15 +25,19 @@ package net.runelite.client.plugins.tmorph;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
 import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.kit.KitType;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -43,9 +47,10 @@ import org.apache.commons.lang3.ObjectUtils;
 	name = "TMorph",
 	description = "Want to wear a infernal cape? well now you can!",
 	tags = {"transform", "model", "item", "morph"},
-	type = PluginType.UTILITY
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
-
+@Singleton
 public class TMorph extends Plugin
 {
 	@Inject
@@ -54,38 +59,159 @@ public class TMorph extends Plugin
 	@Inject
 	private TMorphConfig config;
 
+	@Inject
+	private EventBus eventBus;
+
+	private boolean mageSwap;
+	private boolean meleeSwap;
+	private boolean rangeSwap;
+	private int animation;
+	private int bodyMage;
+	private int bodyMelee;
+	private int bodyRange;
+	private int bootsMage;
+	private int bootsMelee;
+	private int bootsRange;
+	private int capeMage;
+	private int capeMelee;
+	private int capeRange;
+	private int globalAnimSwap;
+	private int globalGraphicSwap;
+	private int glovesMage;
+	private int glovesMelee;
+	private int glovesRange;
+	private int graphic;
+	private int helmetMage;
+	private int helmetMelee;
+	private int helmetRange;
+	private int legsMage;
+	private int legsMelee;
+	private int legsRange;
+	private int mainhandMage;
+	private int mainhandMelee;
+	private int mainhandRange;
+	private int neckMage;
+	private int neckMelee;
+	private int neckRange;
+	private int offhandMage;
+	private int offhandMelee;
+	private int offhandRange;
+	private int targetAnimation;
+	private int targetBodyMage;
+	private int targetBodyMelee;
+	private int targetBodyRange;
+	private int targetBootsMage;
+	private int targetBootsMelee;
+	private int targetBootsRange;
+	private int targetCapeMage;
+	private int targetCapeMelee;
+	private int targetCapeRange;
+	private int targetGlovesMage;
+	private int targetGlovesMelee;
+	private int targetGlovesRange;
+	private int targetGraphic;
+	private int targetHelmetMage;
+	private int targetHelmetMelee;
+	private int targetHelmetRange;
+	private int targetLegsMage;
+	private int targetLegsMelee;
+	private int targetLegsRange;
+	private int targetMainhandMage;
+	private int targetMainhandMelee;
+	private int targetMainhandRange;
+	private int targetNeckMage;
+	private int targetNeckMelee;
+	private int targetNeckRange;
+	private int targetOffhandMage;
+	private int targetOffhandMelee;
+	private int targetOffhandRange;
+
 	@Provides
 	TMorphConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(TMorphConfig.class);
 	}
 
-	@Subscribe
-	public void onAnimationChanged(AnimationChanged event)
+	@Override
+	protected void startUp() throws Exception
 	{
-		if (config.animationTarget() < 0 && config.animationSwap() < 0)
+		updateConfig();
+		addSubscriptions();
+	}
+
+	@Override
+	protected void shutDown() throws Exception
+	{
+		eventBus.unregister(this);
+	}
+
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(SpotAnimationChanged.class, this, this::onSpotAnimationChanged);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("TMorph"))
 		{
-			if (event.getActor().getAnimation() != -1)
-			{
-				event.getActor().setAnimation(config.globalAnimSwap());
-			}
+			updateConfig();
 		}
-		if (config.animationTarget() > 0 && config.animationSwap() > 0)
+	}
+
+	private void onSpotAnimationChanged(SpotAnimationChanged event)
+	{
+		final Actor actor = event.getActor();
+
+		if (actor.getSpotAnimation() == -1)
 		{
-			if (event.getActor().getAnimation() == config.animationTarget())
+			return;
+		}
+
+		if (this.graphic <= 0 && this.targetGraphic <= 0 && this.globalGraphicSwap > 0)
+		{
+			actor.setSpotAnimation(this.globalGraphicSwap);
+		}
+		if (this.graphic > 0 && this.targetGraphic > 0)
+		{
+			if (actor.getSpotAnimation() == this.targetGraphic)
 			{
-				event.getActor().setAnimation(config.animationSwap());
+				actor.setSpotAnimation(this.graphic);
 			}
 		}
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick event)
+	private void onAnimationChanged(AnimationChanged event)
+	{
+		final Actor actor = event.getActor();
+
+		if (actor.getAnimation() != -1)
+		{
+			return;
+		}
+
+		if (this.targetAnimation <= 0 && this.animation <= 0 && this.globalAnimSwap > 0)
+		{
+			actor.setAnimation(this.globalAnimSwap);
+		}
+		if (this.targetAnimation > 0 && this.animation > 0)
+		{
+			if (actor.getAnimation() == this.targetAnimation)
+			{
+				actor.setAnimation(this.animation);
+			}
+		}
+	}
+
+	private void onGameTick(GameTick event)
 	{
 		if (client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
 		}
+
 		updateEquip();
 	}
 
@@ -94,311 +220,378 @@ public class TMorph extends Plugin
 		Player player = client.getLocalPlayer();
 
 		if (player == null
-			|| player.getPlayerComposition() == null
+			|| player.getPlayerAppearance() == null
 			|| client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN) != null
 			|| client.getViewportWidget() == null)
 		{
 			return;
 		}
 
-		final int mainhandID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int mainhandID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.WEAPON), 0);
-		final int offhandID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int offhandID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.SHIELD), 0);
-		final int helmetID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int helmetID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.HELMET), 0);
-		final int capeID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int capeID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.CAPE), 0);
-		final int neckID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int neckID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.AMULET), 0);
-		final int bodyID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int bodyID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.TORSO), 0);
-		final int legsID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int legsID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.LEGS), 0);
-		final int bootsID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int bootsID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.BOOTS), 0);
-		final int glovesID = ObjectUtils.defaultIfNull(player.getPlayerComposition().
+		final int glovesID = ObjectUtils.defaultIfNull(player.getPlayerAppearance().
 			getEquipmentId(KitType.HANDS), 0);
 
-		if (config.mageSwap())
+		if (this.mageSwap)
 		{
-			if (config.MainhandMage() > 0)
+			if (this.mainhandMage > 0)
 			{
-				if (config.targetMainhandMage() > 0)
+				if (this.targetMainhandMage > 0)
 				{
-					if (mainhandID == config.targetMainhandMage())
+					if (mainhandID == this.targetMainhandMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.WEAPON.getIndex()] = config.MainhandMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.WEAPON.getIndex()] = this.mainhandMage + 512;
 					}
 				}
 			}
-			if (config.OffhandMage() > 0)
+			if (this.offhandMage > 0)
 			{
-				if (config.targetOffhandMage() > 0)
+				if (this.targetOffhandMage > 0)
 				{
-					if (offhandID == config.targetOffhandMage())
+					if (offhandID == this.targetOffhandMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.SHIELD.getIndex()] = config.OffhandMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.SHIELD.getIndex()] = this.offhandMage + 512;
 					}
 				}
 			}
-			if (config.HelmetMage() > 0)
+			if (this.helmetMage > 0)
 			{
-				if (config.targetHelmetMage() > 0)
+				if (this.targetHelmetMage > 0)
 				{
-					if (helmetID == config.targetHelmetMage())
+					if (helmetID == this.targetHelmetMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.HELMET.getIndex()] = config.HelmetMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.HELMET.getIndex()] = this.helmetMage + 512;
 					}
 				}
 			}
-			if (config.CapeMage() > 0)
+			if (this.capeMage > 0)
 			{
-				if (config.targetCapeMage() > 0)
+				if (this.targetCapeMage > 0)
 				{
-					if (capeID == config.targetCapeMage())
+					if (capeID == this.targetCapeMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.CAPE.getIndex()] = config.CapeMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.CAPE.getIndex()] = this.capeMage + 512;
 					}
 				}
 			}
-			if (config.NeckMage() > 0)
+			if (this.neckMage > 0)
 			{
-				if (config.targetNeckMage() > 0)
+				if (this.targetNeckMage > 0)
 				{
-					if (neckID == config.targetNeckMage())
+					if (neckID == this.targetNeckMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.AMULET.getIndex()] = config.NeckMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.AMULET.getIndex()] = this.neckMage + 512;
 					}
 				}
 			}
-			if (config.BodyMage() > 0)
+			if (this.bodyMage > 0)
 			{
-				if (config.targetBodyMage() > 0)
+				if (this.targetBodyMage > 0)
 				{
-					if (bodyID == config.targetBodyMage())
+					if (bodyID == this.targetBodyMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.TORSO.getIndex()] = config.BodyMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.TORSO.getIndex()] = this.bodyMage + 512;
 					}
 				}
 			}
-			if (config.LegsMage() > 0)
+			if (this.legsMage > 0)
 			{
-				if (config.targetLegsMage() > 0)
+				if (this.targetLegsMage > 0)
 				{
-					if (legsID == config.targetLegsMage())
+					if (legsID == this.targetLegsMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.LEGS.getIndex()] = config.LegsMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.LEGS.getIndex()] = this.legsMage + 512;
 					}
 				}
 			}
-			if (config.BootsMage() > 0)
+			if (this.bootsMage > 0)
 			{
-				if (config.targetBootsMage() > 0)
+				if (this.targetBootsMage > 0)
 				{
-					if (bootsID == config.targetBootsMage())
+					if (bootsID == this.targetBootsMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.BOOTS.getIndex()] = config.BootsMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.BOOTS.getIndex()] = this.bootsMage + 512;
 					}
 				}
 			}
-			if (config.GlovesMage() > 0)
+			if (this.glovesMage > 0)
 			{
-				if (config.targetGlovesMage() > 0)
+				if (this.targetGlovesMage > 0)
 				{
-					if (glovesID == config.targetGlovesMage())
+					if (glovesID == this.targetGlovesMage)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.HANDS.getIndex()] = config.GlovesMage() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.HANDS.getIndex()] = this.glovesMage + 512;
 					}
 				}
 			}
 		}
-		if (config.rangeSwap())
+		if (this.rangeSwap)
 		{
-			if (config.MainhandRange() > 0)
+			if (this.mainhandRange > 0)
 			{
-				if (config.targetMainhandRange() > 0)
+				if (this.targetMainhandRange > 0)
 				{
-					if (mainhandID == config.targetMainhandRange())
+					if (mainhandID == this.targetMainhandRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.WEAPON.getIndex()] = config.MainhandRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.WEAPON.getIndex()] = this.mainhandRange + 512;
 					}
 				}
 			}
-			if (config.OffhandRange() > 0)
+			if (this.offhandRange > 0)
 			{
-				if (config.targetOffhandRange() > 0)
+				if (this.targetOffhandRange > 0)
 				{
-					if (offhandID == config.targetOffhandRange())
+					if (offhandID == this.targetOffhandRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.SHIELD.getIndex()] = config.OffhandRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.SHIELD.getIndex()] = this.offhandRange + 512;
 					}
 				}
 			}
-			if (config.HelmetRange() > 0)
+			if (this.helmetRange > 0)
 			{
-				if (config.targetHelmetRange() > 0)
+				if (this.targetHelmetRange > 0)
 				{
-					if (helmetID == config.targetHelmetRange())
+					if (helmetID == this.targetHelmetRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.HELMET.getIndex()] = config.HelmetRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.HELMET.getIndex()] = this.helmetRange + 512;
 					}
 				}
 			}
-			if (config.CapeRange() > 0)
+			if (this.capeRange > 0)
 			{
-				if (config.targetCapeRange() > 0)
+				if (this.targetCapeRange > 0)
 				{
-					if (capeID == config.targetCapeRange())
+					if (capeID == this.targetCapeRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.CAPE.getIndex()] = config.CapeRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.CAPE.getIndex()] = this.capeRange + 512;
 					}
 				}
 			}
-			if (config.NeckRange() > 0)
+			if (this.neckRange > 0)
 			{
-				if (config.targetNeckRange() > 0)
+				if (this.targetNeckRange > 0)
 				{
-					if (neckID == config.targetNeckRange())
+					if (neckID == this.targetNeckRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.AMULET.getIndex()] = config.NeckRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.AMULET.getIndex()] = this.neckRange + 512;
 					}
 				}
 			}
-			if (config.BodyRange() > 0)
+			if (this.bodyRange > 0)
 			{
-				if (config.targetBodyRange() > 0)
+				if (this.targetBodyRange > 0)
 				{
-					if (bodyID == config.targetBodyRange())
+					if (bodyID == this.targetBodyRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.TORSO.getIndex()] = config.BodyRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.TORSO.getIndex()] = this.bodyRange + 512;
 					}
 				}
 			}
-			if (config.LegsRange() > 0)
+			if (this.legsRange > 0)
 			{
-				if (config.targetLegsRange() > 0)
+				if (this.targetLegsRange > 0)
 				{
-					if (legsID == config.targetLegsRange())
+					if (legsID == this.targetLegsRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.LEGS.getIndex()] = config.LegsRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.LEGS.getIndex()] = this.legsRange + 512;
 					}
 				}
 			}
-			if (config.BootsRange() > 0)
+			if (this.bootsRange > 0)
 			{
-				if (config.targetBootsRange() > 0)
+				if (this.targetBootsRange > 0)
 				{
-					if (bootsID == config.targetBootsRange())
+					if (bootsID == this.targetBootsRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.BOOTS.getIndex()] = config.BootsRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.BOOTS.getIndex()] = this.bootsRange + 512;
 					}
 				}
 			}
-			if (config.GlovesRange() > 0)
+			if (this.glovesRange > 0)
 			{
-				if (config.targetGlovesRange() > 0)
+				if (this.targetGlovesRange > 0)
 				{
-					if (glovesID == config.targetGlovesRange())
+					if (glovesID == this.targetGlovesRange)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.HANDS.getIndex()] = config.GlovesRange() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.HANDS.getIndex()] = this.glovesRange + 512;
 					}
 				}
 			}
 		}
-		if (config.meleeSwap())
+		if (this.meleeSwap)
 		{
-			if (config.MainhandMelee() > 0)
+			if (this.mainhandMelee > 0)
 			{
-				if (config.targetMainhandMelee() > 0)
+				if (this.targetMainhandMelee > 0)
 				{
-					if (mainhandID == config.targetMainhandMelee())
+					if (mainhandID == this.targetMainhandMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.WEAPON.getIndex()] = config.MainhandMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.WEAPON.getIndex()] = this.mainhandMelee + 512;
 					}
 				}
 			}
-			if (config.OffhandMelee() > 0)
+			if (this.offhandMelee > 0)
 			{
-				if (config.targetOffhandMelee() > 0)
+				if (this.targetOffhandMelee > 0)
 				{
-					if (offhandID == config.targetOffhandMelee())
+					if (offhandID == this.targetOffhandMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.SHIELD.getIndex()] = config.OffhandMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.SHIELD.getIndex()] = this.offhandMelee + 512;
 					}
 				}
 			}
-			if (config.HelmetMelee() > 0)
+			if (this.helmetMelee > 0)
 			{
-				if (config.targetHelmetMelee() > 0)
+				if (this.targetHelmetMelee > 0)
 				{
-					if (helmetID == config.targetHelmetMelee())
+					if (helmetID == this.targetHelmetMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.HELMET.getIndex()] = config.HelmetMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.HELMET.getIndex()] = this.helmetMelee + 512;
 					}
 				}
 			}
-			if (config.CapeMelee() > 0)
+			if (this.capeMelee > 0)
 			{
-				if (config.targetCapeMelee() > 0)
+				if (this.targetCapeMelee > 0)
 				{
-					if (capeID == config.targetCapeMelee())
+					if (capeID == this.targetCapeMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.CAPE.getIndex()] = config.CapeMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.CAPE.getIndex()] = this.capeMelee + 512;
 					}
 				}
 			}
-			if (config.NeckMelee() > 0)
+			if (this.neckMelee > 0)
 			{
-				if (config.targetNeckMelee() > 0)
+				if (this.targetNeckMelee > 0)
 				{
-					if (neckID == config.targetNeckMelee())
+					if (neckID == this.targetNeckMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.AMULET.getIndex()] = config.NeckMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.AMULET.getIndex()] = this.neckMelee + 512;
 					}
 				}
 			}
-			if (config.BodyMelee() > 0)
+			if (this.bodyMelee > 0)
 			{
-				if (config.targetBodyMelee() > 0)
+				if (this.targetBodyMelee > 0)
 				{
-					if (bodyID == config.targetBodyMelee())
+					if (bodyID == this.targetBodyMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.TORSO.getIndex()] = config.BodyMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.TORSO.getIndex()] = this.bodyMelee + 512;
 					}
 				}
 			}
-			if (config.LegsMelee() > 0)
+			if (this.legsMelee > 0)
 			{
-				if (config.targetLegsMelee() > 0)
+				if (this.targetLegsMelee > 0)
 				{
-					if (legsID == config.targetLegsMelee())
+					if (legsID == this.targetLegsMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.LEGS.getIndex()] = config.LegsMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.LEGS.getIndex()] = this.legsMelee + 512;
 					}
 				}
 			}
-			if (config.BootsMelee() > 0)
+			if (this.bootsMelee > 0)
 			{
-				if (config.targetBootsMelee() > 0)
+				if (this.targetBootsMelee > 0)
 				{
-					if (bootsID == config.targetBootsMelee())
+					if (bootsID == this.targetBootsMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.BOOTS.getIndex()] = config.BootsMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.BOOTS.getIndex()] = this.bootsMelee + 512;
 					}
 				}
 			}
-			if (config.GlovesMelee() > 0)
+			if (this.glovesMelee > 0)
 			{
-				if (config.targetGlovesMelee() > 0)
+				if (this.targetGlovesMelee > 0)
 				{
-					if (glovesID == config.targetGlovesMelee())
+					if (glovesID == this.targetGlovesMelee)
 					{
-						player.getPlayerComposition().getEquipmentIds()[KitType.HANDS.getIndex()] = config.GlovesMelee() + 512;
+						player.getPlayerAppearance().getEquipmentIds()[KitType.HANDS.getIndex()] = this.glovesMelee + 512;
 					}
 				}
 			}
 		}
-		player.getPlayerComposition().setHash();
+		player.getPlayerAppearance().setHash();
+	}
+
+	private void updateConfig()
+	{
+		this.animation = config.animationSwap();
+		this.bodyMage = config.BodyMage();
+		this.bodyMelee = config.BodyMelee();
+		this.bodyRange = config.BodyRange();
+		this.bootsMage = config.BootsMage();
+		this.bootsMelee = config.BootsMelee();
+		this.bootsRange = config.BootsRange();
+		this.capeMage = config.CapeMage();
+		this.capeMelee = config.CapeMelee();
+		this.capeRange = config.CapeRange();
+		this.globalAnimSwap = config.globalAnimSwap();
+		this.globalGraphicSwap = config.globalGraphicSwap();
+		this.glovesMage = config.GlovesMage();
+		this.glovesMelee = config.GlovesMelee();
+		this.glovesRange = config.GlovesRange();
+		this.graphic = config.graphicSwap();
+		this.helmetMage = config.HelmetMage();
+		this.helmetMelee = config.HelmetMelee();
+		this.helmetRange = config.HelmetRange();
+		this.legsMage = config.LegsMage();
+		this.legsMelee = config.LegsMelee();
+		this.legsRange = config.LegsRange();
+		this.mageSwap = config.mageSwap();
+		this.mainhandMage = config.MainhandMage();
+		this.mainhandMelee = config.MainhandMelee();
+		this.mainhandRange = config.MainhandRange();
+		this.meleeSwap = config.meleeSwap();
+		this.neckMage = config.NeckMage();
+		this.neckMelee = config.NeckMelee();
+		this.neckRange = config.NeckRange();
+		this.offhandMage = config.OffhandMage();
+		this.offhandMelee = config.OffhandMelee();
+		this.offhandRange = config.OffhandRange();
+		this.rangeSwap = config.rangeSwap();
+		this.targetAnimation = config.animationTarget();
+		this.targetBodyMage = config.targetBodyMage();
+		this.targetBodyMelee = config.targetBodyMelee();
+		this.targetBodyRange = config.targetBodyRange();
+		this.targetBootsMage = config.targetBootsMage();
+		this.targetBootsMelee = config.targetBootsMelee();
+		this.targetBootsRange = config.targetBootsRange();
+		this.targetCapeMage = config.targetCapeMage();
+		this.targetCapeMelee = config.targetCapeMelee();
+		this.targetCapeRange = config.targetCapeRange();
+		this.targetGlovesMage = config.targetGlovesMage();
+		this.targetGlovesMelee = config.targetGlovesMelee();
+		this.targetGlovesRange = config.targetGlovesRange();
+		this.targetGraphic = config.graphicTarget();
+		this.targetHelmetMage = config.targetHelmetMage();
+		this.targetHelmetMelee = config.targetHelmetMelee();
+		this.targetHelmetRange = config.targetHelmetRange();
+		this.targetLegsMage = config.targetLegsMage();
+		this.targetLegsMelee = config.targetLegsMelee();
+		this.targetLegsRange = config.targetLegsRange();
+		this.targetMainhandMage = config.targetMainhandMage();
+		this.targetMainhandMelee = config.targetMainhandMelee();
+		this.targetMainhandRange = config.targetMainhandRange();
+		this.targetNeckMage = config.targetNeckMage();
+		this.targetNeckMelee = config.targetNeckMelee();
+		this.targetNeckRange = config.targetNeckRange();
+		this.targetOffhandMage = config.targetOffhandMage();
+		this.targetOffhandMelee = config.targetOffhandMelee();
+		this.targetOffhandRange = config.targetOffhandRange();
 	}
 }

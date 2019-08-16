@@ -36,7 +36,7 @@ public interface XpDropConfig extends Config
 	{
 		NONE,
 		ABOVE_OPPONENT,
-		IN_XP_DROP
+		IN_XP_DROP;
 	}
 
 	@ConfigItem(
@@ -95,12 +95,12 @@ public interface XpDropConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "showDamage",
+		keyName = "showdamagedrops",
 		name = "Show Damage on XP Drop",
 		description = "Show what you hit next to the XP drop",
 		position = 5
 	)
-	default DamageMode showDamage()
+	default DamageMode showdamagedrops()
 	{
 		return DamageMode.NONE;
 	}

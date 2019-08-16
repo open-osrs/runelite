@@ -82,11 +82,15 @@ import static net.runelite.api.NpcID.FISHING_SPOT_7733;
 import static net.runelite.api.NpcID.FISHING_SPOT_7946;
 import static net.runelite.api.NpcID.FISHING_SPOT_7947;
 import static net.runelite.api.NpcID.FISHING_SPOT_8523;
+import static net.runelite.api.NpcID.FISHING_SPOT_8525;
+import static net.runelite.api.NpcID.FISHING_SPOT_8526;
+import static net.runelite.api.NpcID.FISHING_SPOT_8527;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_1508;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_1509;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_1513;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_1515;
+import static net.runelite.api.NpcID.ROD_FISHING_SPOT_1516;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_1526;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_1527;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_6825;
@@ -94,6 +98,9 @@ import static net.runelite.api.NpcID.ROD_FISHING_SPOT_7463;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_7464;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_7468;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_7676;
+import static net.runelite.api.NpcID.ROD_FISHING_SPOT_8524;
+import static net.runelite.api.NpcID.FISHING_SPOT_4928;
+import static net.runelite.api.NpcID.FISHING_SPOT_6784;
 
 @Getter
 enum FishingSpot
@@ -115,16 +122,20 @@ enum FishingSpot
 		FISHING_SPOT_1511, FISHING_SPOT_1520, FISHING_SPOT_3915,
 		FISHING_SPOT_4476, FISHING_SPOT_4477, FISHING_SPOT_5233,
 		FISHING_SPOT_5234, FISHING_SPOT_5821, FISHING_SPOT_7200,
-		FISHING_SPOT_7461, FISHING_SPOT_7466
+		FISHING_SPOT_7461, FISHING_SPOT_7466, FISHING_SPOT_8525,
+		FISHING_SPOT_8526, FISHING_SPOT_8527
 	),
 	MONKFISH("Monkfish", ItemID.RAW_MONKFISH,
 		FISHING_SPOT_4316
 	),
 	SALMON("Salmon, Trout", ItemID.RAW_SALMON,
 		ROD_FISHING_SPOT, ROD_FISHING_SPOT_1508, ROD_FISHING_SPOT_1509,
-		ROD_FISHING_SPOT_1513, ROD_FISHING_SPOT_1515, ROD_FISHING_SPOT_1526,
-		ROD_FISHING_SPOT_1527, ROD_FISHING_SPOT_7463, ROD_FISHING_SPOT_7464,
-		ROD_FISHING_SPOT_7468
+		ROD_FISHING_SPOT_1513, ROD_FISHING_SPOT_1515, ROD_FISHING_SPOT_1516,
+		ROD_FISHING_SPOT_1526, ROD_FISHING_SPOT_1527, ROD_FISHING_SPOT_7463,
+		ROD_FISHING_SPOT_7464, ROD_FISHING_SPOT_7468, ROD_FISHING_SPOT_8524
+	),
+	LAVA_EEL("Lava eel", ItemID.LAVA_EEL,
+		FISHING_SPOT_4928, FISHING_SPOT_6784
 	),
 	BARB_FISH("Sturgeon, Salmon, Trout", ItemID.LEAPING_STURGEON,
 		FISHING_SPOT_1542, FISHING_SPOT_7323

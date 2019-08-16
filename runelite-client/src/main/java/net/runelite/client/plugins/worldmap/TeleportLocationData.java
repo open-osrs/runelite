@@ -115,7 +115,7 @@ enum TeleportLocationData
 
 	// Misc
 	XERICS_LOOKOUT(TeleportType.OTHER, "Xeric's Talisman", "Xeric's Lookout", new WorldPoint(1576, 3528, 0), "xerics_talisman_teleport_icon.png"),
-	XERICS_GLADE(TeleportType.OTHER, "Xeric's Talisman", "Xeric's Glade", new WorldPoint(1773, 3502, 0), "xerics_talisman_teleport_icon.png"),
+	XERICS_GLADE(TeleportType.OTHER, "Xeric's Talisman", "Xeric's Glade", new WorldPoint(1754, 3564, 0), "xerics_talisman_teleport_icon.png"),
 	XERICS_INFERNO(TeleportType.OTHER, "Xeric's Talisman", "Xeric's Inferno", new WorldPoint(1504, 3819, 0), "xerics_talisman_teleport_icon.png"),
 	XERICS_HEART(TeleportType.OTHER, "Xeric's Talisman", "Xeric's Heart", new WorldPoint(1641, 3670, 0), "xerics_talisman_teleport_icon.png"),
 	XERICS_HONOUR(TeleportType.OTHER, "Xeric's Talisman", "Xeric's Honour", new WorldPoint(1254, 3559, 0), "xerics_talisman_teleport_icon.png"),
@@ -138,6 +138,9 @@ enum TeleportLocationData
 	PHARAOHS_SCEPTRE_JALSAVRAH(TeleportType.OTHER, "Pharaoh's Sceptre", "Jalsavrah (Pyramid Plunder)", new WorldPoint(3288, 2795, 0), "pharaohs_sceptre_teleport_icon.png"),
 	PHARAOHS_SCEPTRE_JALEUSTROPHOS(TeleportType.OTHER, "Pharaoh's Sceptre", "Jaleustrophos (Agility Pyramid)", new WorldPoint(3341, 2827, 0), "pharaohs_sceptre_teleport_icon.png"),
 	PHARAOHS_SCEPTRE_JALDRAOCHT(TeleportType.OTHER, "Pharaoh's Sceptre", "Jaldraocht (Desert Treasure Pyramid)", new WorldPoint(3232, 2897, 0), "pharaohs_sceptre_teleport_icon.png"),
+	CAMULET_TEMPLE(TeleportType.OTHER, "Camulet", "Enakhra's Temple", new WorldPoint(3190, 2923, 0), "camulet_teleport_icon.png"),
+	TELEPORT_CRYSTAL_LLETYA(TeleportType.OTHER, "Teleport crystal", "Lletya", new WorldPoint(2330, 3172, 0), "teleport_crystal_icon.png"),
+	TELEPORT_CRYSTAL_PRIFDDINAS(TeleportType.OTHER, "Teleport crystal", "Prifddinas", new WorldPoint(3264, 6065, 0), "teleport_crystal_icon.png"),
 
 	// Wilderness
 	OBELISK_13(TeleportType.OTHER, "Obelisk", "13", new WorldPoint(3156, 3620, 0), "obelisk_icon.png"),
@@ -166,7 +169,7 @@ enum TeleportLocationData
 
 	// Scrolls
 	DIGSITE_SCROLL(TeleportType.SCROLL, "Digsite Teleport", new WorldPoint(3324, 3412, 0), "scroll_teleport_icon.png"),
-	ELF_CAMP_SCROLL(TeleportType.SCROLL, "Elf Camp Teleport", new WorldPoint(2193, 3257, 0), "scroll_teleport_icon.png"),
+	IORWERTH_CAMP_SCROLL(TeleportType.SCROLL, "Iorwerth Camp Teleport", new WorldPoint(2193, 3257, 0), "scroll_teleport_icon.png"),
 	FELDIP_HILLS_SCROLL(TeleportType.SCROLL, "Feldip Hills Teleport", new WorldPoint(2542, 2925, 0), "scroll_teleport_icon.png"),
 	LUMBERYARD_SCROLL(TeleportType.SCROLL, "Lumberyard Teleport", new WorldPoint(3303, 3487, 0), "scroll_teleport_icon.png"),
 	LUNAR_ISLE_SCROLL(TeleportType.SCROLL, "Lunar Isle Teleport", new WorldPoint(2093, 3912, 0), "scroll_teleport_icon.png"),

@@ -23,56 +23,100 @@
  */
 package net.runelite.client.plugins.freezetimers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import javax.inject.Inject;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
-import net.runelite.api.Client;
 
 @Slf4j
 @Singleton
 public class Timers
 {
+	private final Map<Actor, HashMap<TimerType, Long>> timerMap = new HashMap<>();
 
-	@Inject
-	private Client client;
-
-	private HashMap<Actor, HashMap<TimerType, Long>> timerMap = new HashMap<>();
-
-	public void gameTick()
-	{
-
-	}
-
-	public void setTimerEnd(Actor actor, TimerType type, long n)
+	void setTimerEnd(Actor actor, TimerType type, long n)
 	{
 		if (!timerMap.containsKey(actor))
 		{
 			timerMap.put(actor, new HashMap<>());
 		}
+
+		timerMap.get(actor).put(type, n + type.getImmunityTime());
+	}
+
+	void setTimerReApply(Actor actor, TimerType type, long n)
+	{
+		if (!timerMap.containsKey(actor))
+		{
+			timerMap.put(actor, new HashMap<>());
+		}
+
 		timerMap.get(actor).put(type, n);
 	}
 
-	public long getTimerEnd(Actor actor, TimerType type)
+	long getTimerEnd(Actor actor, TimerType type)
 	{
 		if (!timerMap.containsKey(actor))
 		{
-			timerMap.put(actor, new HashMap<>());
+			return 0;
 		}
+
+		return timerMap.get(actor).getOrDefault(type, (long) type.getImmunityTime()) - type.getImmunityTime();
+	}
+
+	long getTimerReApply(Actor actor, TimerType type)
+	{
+		if (!timerMap.containsKey(actor))
+		{
+			return 0;
+		}
+
 		return timerMap.get(actor).getOrDefault(type, (long) 0);
 	}
 
-	public boolean areAllTimersZero(Actor actor)
+	List<Actor> getAllActorsOnTimer(TimerType type)
+	{
+		final List<Actor> actors = new ArrayList<>();
+		final Iterator<Actor> it = timerMap.keySet().iterator();
+
+		while (it.hasNext())
+		{
+			final Actor actor = it.next();
+
+			for (TimerType timerType : TimerType.values())
+			{
+				if (getTimerReApply(actor, timerType) > System.currentTimeMillis())
+				{
+					break;
+				}
+				it.remove();
+				break;
+			}
+
+			final long end = getTimerReApply(actor, type);
+
+			if (end > System.currentTimeMillis())
+			{
+				actors.add(actor);
+			}
+		}
+
+		return actors;
+	}
+
+	boolean areAllTimersZero(Actor actor)
 	{
 		for (TimerType type : TimerType.values())
 		{
-			if (getTimerEnd(actor, type) != 0)
+			if (getTimerReApply(actor, type) > System.currentTimeMillis())
 			{
 				return false;
 			}
 		}
 		return true;
 	}
-
 }

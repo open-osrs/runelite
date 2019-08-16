@@ -27,11 +27,13 @@
 package net.runelite.client.plugins.experiencedrop;
 
 import com.google.inject.Provides;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -53,7 +55,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.NPCManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -65,6 +67,7 @@ import net.runelite.client.util.ColorUtil;
 	description = "Enable customization of the way XP drops are displayed",
 	tags = {"experience", "levels", "tick"}
 )
+@Singleton
 public class XpDropPlugin extends Plugin
 {
 	private static final int XPDROP_PADDING = 2; // space between xp drop icons
@@ -86,6 +89,9 @@ public class XpDropPlugin extends Plugin
 	@Inject
 	private XpDropOverlay overlay;
 
+	@Inject
+	private EventBus eventBus;
+
 	@Getter(AccessLevel.PACKAGE)
 	private int damage = 0;
 
@@ -100,9 +106,18 @@ public class XpDropPlugin extends Plugin
 	private boolean hasDropped = false;
 	private boolean correctPrayer;
 	private Skill lastSkill = null;
-	private Map<Skill, Integer> previousSkillExpTable = new EnumMap<>(Skill.class);
+	private final Map<Skill, Integer> previousSkillExpTable = new EnumMap<>(Skill.class);
 	private PrayerType currentTickPrayer;
 	private XpDropConfig.DamageMode damageMode;
+
+	private boolean hideSkillIcons;
+	private Color getMeleePrayerColor;
+	private Color getRangePrayerColor;
+	private Color getMagePrayerColor;
+	private int fakeXpDropDelay;
+	private XpDropConfig.DamageMode showdamagedrops;
+	@Getter(AccessLevel.PACKAGE)
+	private Color damageColor;
 
 	@Provides
 	XpDropConfig provideConfig(ConfigManager configManager)
@@ -113,7 +128,10 @@ public class XpDropPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		damageMode = config.showDamage();
+		updateConfig();
+		addSubscriptions();
+
+		damageMode = config.showdamagedrops();
 
 		if (damageMode == XpDropConfig.DamageMode.ABOVE_OPPONENT)
 		{
@@ -124,21 +142,33 @@ public class XpDropPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
+
 		overlayManager.remove(overlay);
 	}
 
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(WidgetHiddenChanged.class, this, this::onWidgetHiddenChanged);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(ExperienceChanged.class, this, this::onExperienceChanged);
+		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("xpdrop"))
 		{
 			return;
 		}
 
+		updateConfig();
 
 		if (damageMode != XpDropConfig.DamageMode.ABOVE_OPPONENT)
 		{
-			damageMode = config.showDamage();
+			damageMode = this.showdamagedrops;
 
 			if (damageMode == XpDropConfig.DamageMode.ABOVE_OPPONENT)
 			{
@@ -147,7 +177,7 @@ public class XpDropPlugin extends Plugin
 		}
 		else
 		{
-			damageMode = config.showDamage();
+			damageMode = this.showdamagedrops;
 
 			if (damageMode != XpDropConfig.DamageMode.ABOVE_OPPONENT)
 			{
@@ -156,15 +186,13 @@ public class XpDropPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged event)
+	private void onGameStateChanged(GameStateChanged event)
 	{
 		damage = 0;
 		tickShow = 0;
 	}
 
-	@Subscribe
-	public void onWidgetHiddenChanged(WidgetHiddenChanged event)
+	private void onWidgetHiddenChanged(WidgetHiddenChanged event)
 	{
 		Widget widget = event.getWidget();
 
@@ -180,7 +208,7 @@ public class XpDropPlugin extends Plugin
 			return;
 		}
 
-		if (config.hideSkillIcons())
+		if (this.hideSkillIcons)
 		{
 			if (widget.getSpriteId() > 0)
 			{
@@ -245,21 +273,21 @@ public class XpDropPlugin extends Plugin
 						id == SpriteID.SKILL_ATTACK || id == SpriteID.SKILL_STRENGTH || id == SpriteID.SKILL_DEFENCE
 							|| correctPrayer))
 					{
-						color = config.getMeleePrayerColor().getRGB();
+						color = this.getMeleePrayerColor.getRGB();
 						correctPrayer = true;
 					}
 					break;
 				case RANGE:
 					if (spriteIDs.anyMatch(id -> id == SpriteID.SKILL_RANGED || correctPrayer))
 					{
-						color = config.getRangePrayerColor().getRGB();
+						color = this.getRangePrayerColor.getRGB();
 						correctPrayer = true;
 					}
 					break;
 				case MAGIC:
 					if (spriteIDs.anyMatch(id -> id == SpriteID.SKILL_MAGIC || correctPrayer))
 					{
-						color = config.getMagePrayerColor().getRGB();
+						color = this.getMagePrayerColor.getRGB();
 						correctPrayer = true;
 					}
 					break;
@@ -288,8 +316,7 @@ public class XpDropPlugin extends Plugin
 		return null;
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick tick)
+	private void onGameTick(GameTick tick)
 	{
 		lastOpponent = client.getLocalPlayer().getInteracting();
 
@@ -301,7 +328,7 @@ public class XpDropPlugin extends Plugin
 		currentTickPrayer = getActivePrayerType();
 		correctPrayer = false;
 
-		final int fakeTickDelay = config.fakeXpDropDelay();
+		final int fakeTickDelay = this.fakeXpDropDelay;
 
 		if (fakeTickDelay == 0 || lastSkill == null)
 		{
@@ -324,8 +351,7 @@ public class XpDropPlugin extends Plugin
 		client.runScript(XPDROP_DISABLED, lastSkill.ordinal(), previousExpGained);
 	}
 
-	@Subscribe
-	public void onExperienceChanged(ExperienceChanged event)
+	private void onExperienceChanged(ExperienceChanged event)
 	{
 		final Skill skill = event.getSkill();
 		final int xp = client.getSkillExperience(skill);
@@ -340,18 +366,21 @@ public class XpDropPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onScriptCallbackEvent(ScriptCallbackEvent e)
+	private void onScriptCallbackEvent(ScriptCallbackEvent e)
 	{
-		if (config.showDamage() == XpDropConfig.DamageMode.NONE)
+		if (this.showdamagedrops == XpDropConfig.DamageMode.NONE)
 		{
 			return;
 		}
 
 		final String eventName = e.getEventName();
 
+		if (eventName.equals("newXpDrop"))
+		{
+			damage = 0;
+		}
 		// Handles Fake XP drops (Ironman, DMM Cap, 200m xp, etc)
-		if (eventName.equals("fakeXpDrop"))
+		else if (eventName.equals("fakeXpDrop"))
 		{
 			final int[] intStack = client.getIntStack();
 			final int intStackSize = client.getIntStackSize();
@@ -382,12 +411,10 @@ public class XpDropPlugin extends Plugin
 			final String[] stringStack = client.getStringStack();
 			final int stringStackSize = client.getStringStackSize();
 
-			StringBuilder builder = new StringBuilder()
-				.append(stringStack[stringStackSize - 1])
-				.append(ColorUtil.colorTag(config.getDamageColor()))
-				.append(" (").append(damage).append(")");
-
-			stringStack[stringStackSize - 1] = builder.toString();
+			String builder = stringStack[stringStackSize - 1] +
+				ColorUtil.colorTag(this.damageColor) +
+				" (" + damage + ")";
+			stringStack[stringStackSize - 1] = builder;
 		}
 	}
 
@@ -425,5 +452,16 @@ public class XpDropPlugin extends Plugin
 		NPC target = (NPC) a;
 		damage = (int) Math.rint(damageDealt / npcManager.getXpModifier(target.getId()));
 		tickShow = 3;
+	}
+
+	private void updateConfig()
+	{
+		this.hideSkillIcons = config.hideSkillIcons();
+		this.getMeleePrayerColor = config.getMeleePrayerColor();
+		this.getRangePrayerColor = config.getRangePrayerColor();
+		this.getMagePrayerColor = config.getMagePrayerColor();
+		this.fakeXpDropDelay = config.fakeXpDropDelay();
+		this.showdamagedrops = config.showdamagedrops();
+		this.damageColor = config.getDamageColor();
 	}
 }

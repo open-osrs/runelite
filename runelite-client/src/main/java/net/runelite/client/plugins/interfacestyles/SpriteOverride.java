@@ -26,12 +26,13 @@
  */
 package net.runelite.client.plugins.interfacestyles;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.SpriteID;
 import static net.runelite.client.plugins.interfacestyles.Skin.AROUND_2005;
 import static net.runelite.client.plugins.interfacestyles.Skin.AROUND_2010;
 
-@Getter
+@Getter(AccessLevel.PACKAGE)
 enum SpriteOverride
 {
 	TAB_COMBAT(SpriteID.TAB_COMBAT, AROUND_2005, AROUND_2010),
@@ -55,6 +56,9 @@ enum SpriteOverride
 	TAB_EMOTES(SpriteID.TAB_EMOTES, AROUND_2005, AROUND_2010),
 	TAB_MUSIC(SpriteID.TAB_MUSIC, AROUND_2005, AROUND_2010),
 	TAB_CHATBOX(SpriteID.CHATBOX, AROUND_2005),
+
+	BUTTON_FRIENDS(SpriteID.BUTTON_FRIENDS, AROUND_2005),
+	BUTTON_IGNORES(SpriteID.BUTTON_IGNORES, AROUND_2005),
 
 	SKILL_ATTACK(SpriteID.SKILL_ATTACK, AROUND_2010),
 	SKILL_STRENGTH(SpriteID.SKILL_STRENGTH, AROUND_2010),

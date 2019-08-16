@@ -28,6 +28,8 @@ import com.google.inject.Provides;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.inject.Singleton;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
@@ -37,7 +39,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -47,8 +49,10 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Hydra Helper",
 	description = "Overlays for small hydras",
 	tags = {"Hydra", "Helper", "you", "probably", "want", "the", "other", "one"},
-	type = PluginType.PVM
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
+@Singleton
 public class BabyHydraPlugin extends Plugin
 {
 	@Inject
@@ -69,29 +73,40 @@ public class BabyHydraPlugin extends Plugin
 	@Inject
 	private Client client;
 
+	@Inject
+	private EventBus eventBus;
+
 	@Provides
 	BabyHydraConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(BabyHydraConfig.class);
 	}
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Map<Integer, Integer> hydras = new HashMap<>();
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Map<Integer, Integer> hydraattacks = new HashMap<>();
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private NPC hydra;
+
+	private boolean TextIndicator;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean BoldText;
+	private boolean PrayerHelper;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		if (config.TextIndicator())
+		updateConfig();
+		addSubscriptions();
+
+		if (this.TextIndicator)
 		{
 			overlayManager.add(hydraOverlay);
 		}
-		if (config.PrayerHelper())
+		if (this.PrayerHelper)
 		{
 			overlayManager.add(hydraPrayOverlay);
 			overlayManager.add(hydraIndicatorOverlay);
@@ -101,6 +116,8 @@ public class BabyHydraPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(this);
+
 		overlayManager.remove(hydraOverlay);
 		overlayManager.remove(hydraPrayOverlay);
 		overlayManager.remove(hydraIndicatorOverlay);
@@ -108,13 +125,22 @@ public class BabyHydraPlugin extends Plugin
 		hydraattacks.clear();
 	}
 
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
+		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
+		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("hydra"))
 		{
 			return;
 		}
+
+		updateConfig();
 
 		if (event.getKey().equals("textindicators"))
 		{
@@ -142,38 +168,26 @@ public class BabyHydraPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onNpcSpawned(NpcSpawned event)
+	private void onNpcSpawned(NpcSpawned event)
 	{
 		NPC hydra = event.getNpc();
-		if (hydra.getCombatLevel() != 0 && hydra.getName() != null)
+		if (hydra.getCombatLevel() != 0 && hydra.getName() != null && hydra.getName().equalsIgnoreCase("Hydra") && !hydras.containsKey(hydra.getIndex()))
 		{
-			if (hydra.getName().equalsIgnoreCase("Hydra"))
-			{
-				if (!hydras.containsKey(hydra.getIndex()))
-				{
-					hydras.put(hydra.getIndex(), 3);
-				}
-			}
+			hydras.put(hydra.getIndex(), 3);
 		}
 	}
 
-	@Subscribe
-	public void onNpcDespawned(NpcDespawned event)
+	private void onNpcDespawned(NpcDespawned event)
 	{
 		NPC hydra = event.getNpc();
-		if (hydra.getCombatLevel() != 0 && hydra.getName() != null)
+		if (hydra.getCombatLevel() != 0 && hydra.getName() != null && hydra.getName().equalsIgnoreCase("Hydra"))
 		{
-			if (hydra.getName().equalsIgnoreCase("Hydra"))
-			{
-				hydras.remove(hydra.getIndex());
-				hydraattacks.remove(hydra.getIndex());
-			}
+			hydras.remove(hydra.getIndex());
+			hydraattacks.remove(hydra.getIndex());
 		}
 	}
 
-	@Subscribe
-	public void onAnimationChanged(AnimationChanged event)
+	private void onAnimationChanged(AnimationChanged event)
 	{
 		Actor monster = event.getActor();
 		Actor local = client.getLocalPlayer();
@@ -238,5 +252,12 @@ public class BabyHydraPlugin extends Plugin
 				hydras.replace(hydra.getIndex(), currval - 1);
 			}
 		}
+	}
+
+	private void updateConfig()
+	{
+		this.TextIndicator = config.TextIndicator();
+		this.BoldText = config.BoldText();
+		this.PrayerHelper = config.PrayerHelper();
 	}
 }

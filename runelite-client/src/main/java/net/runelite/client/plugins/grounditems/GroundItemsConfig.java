@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.grounditems;
 
 import java.awt.Color;
+import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -57,6 +58,7 @@ public interface GroundItemsConfig extends Config
 		position = 2,
 		parent = "colorsStub"
 	)
+	@Alpha
 	default Color defaultColor()
 	{
 		return Color.WHITE;
@@ -69,9 +71,10 @@ public interface GroundItemsConfig extends Config
 		position = 3,
 		parent = "colorsStub"
 	)
+	@Alpha
 	default Color highlightedColor()
 	{
-		return Color.decode("#AA00FF");
+		return Color.decode("#C46AFF");
 	}
 
 	@ConfigItem(
@@ -81,6 +84,7 @@ public interface GroundItemsConfig extends Config
 		position = 4,
 		parent = "colorsStub"
 	)
+	@Alpha
 	default Color hiddenColor()
 	{
 		return Color.GRAY;
@@ -277,6 +281,7 @@ public interface GroundItemsConfig extends Config
 	{
 		return false;
 	}
+
 	@ConfigItem(
 		keyName = "itemHighlightMode",
 		name = "Item Highlight Mode",
@@ -319,6 +324,7 @@ public interface GroundItemsConfig extends Config
 		position = 23,
 		parent = "lowValueStub"
 	)
+	@Alpha
 	default Color lowValueColor()
 	{
 		return Color.decode("#66B2FF");
@@ -366,6 +372,7 @@ public interface GroundItemsConfig extends Config
 		position = 27,
 		parent = "mediumValueStub"
 	)
+	@Alpha
 	default Color mediumValueColor()
 	{
 		return Color.decode("#99FF99");
@@ -413,6 +420,7 @@ public interface GroundItemsConfig extends Config
 		position = 31,
 		parent = "highValueStub"
 	)
+	@Alpha
 	default Color highValueColor()
 	{
 		return Color.decode("#FF9600");
@@ -460,6 +468,7 @@ public interface GroundItemsConfig extends Config
 		position = 35,
 		parent = "insaneValueStub"
 	)
+	@Alpha
 	default Color insaneValueColor()
 	{
 		return Color.decode("#FF66B2");
@@ -605,5 +614,29 @@ public interface GroundItemsConfig extends Config
 	default boolean toggleOutline()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+		keyName = "showTimer",
+		name = "Show ground item tick countdown timer",
+		description = "Shows how many ticks left until disappearing.",
+		position = 48,
+		parent = "miscStub"
+	)
+	default boolean showTimer()
+	{
+		return false;
+	}
+
+	@Alpha
+	@ConfigItem(
+		keyName = "bordercolor",
+		name = "Border color",
+		description = "Change the border color",
+		position = 49
+	)
+	default Color bordercolor()
+	{
+		return new Color(0, 0, 0, 150);
 	}
 }

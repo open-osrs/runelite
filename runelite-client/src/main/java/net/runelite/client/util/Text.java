@@ -30,6 +30,7 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.text.WordUtils;
 
@@ -38,13 +39,15 @@ import org.apache.commons.text.WordUtils;
  */
 public class Text
 {
-	private static final Pattern TAG_REGEXP = Pattern.compile("<[^>]*>");
+	private static final Matcher TAG_REGEXP = Pattern.compile("<[^>]*>").matcher("");
 	private static final Splitter COMMA_SPLITTER = Splitter
 		.on(",")
 		.omitEmptyStrings()
 		.trimResults();
 
 	private static final Joiner COMMA_JOINER = Joiner.on(",").skipNulls();
+
+	public static final CharMatcher JAGEX_PRINTABLE_CHAR_MATCHER = new JagexPrintableCharMatcher();
 
 	/**
 	 * Splits comma separated values to list of strings
@@ -76,7 +79,7 @@ public class Text
 	 */
 	public static String removeTags(String str)
 	{
-		return TAG_REGEXP.matcher(str).replaceAll("");
+		return TAG_REGEXP.reset(str).replaceAll("");
 	}
 
 	/**

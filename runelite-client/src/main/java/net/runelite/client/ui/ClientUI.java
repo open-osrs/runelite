@@ -60,7 +60,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
@@ -84,7 +83,7 @@ import net.runelite.client.config.ExpandResizeType;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.config.WarningOnExit;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.NavigationButtonAdded;
 import net.runelite.client.events.NavigationButtonRemoved;
 import net.runelite.client.input.KeyManager;
@@ -116,13 +115,11 @@ public class ClientUI
 	private static final int CLIENT_WELL_HIDDEN_MARGIN = 160;
 	private static final int CLIENT_WELL_HIDDEN_MARGIN_TOP = 10;
 	public static boolean allowInput = false;
-	public static String currentPresenceName = "RuneLite";
-	public static final BufferedImage ICON = ImageUtil.getResourceStreamFromClass(ClientUI.class, "/runelite.png");
+	public static final BufferedImage ICON = ImageUtil.getResourceStreamFromClass(ClientUI.class, "/runeliteplus.png");
 
 	@Getter
 	private TrayIcon trayIcon;
 
-	private final RuneLiteProperties properties;
 	private final RuneLiteConfig config;
 	private final KeyManager keyManager;
 	private final MouseManager mouseManager;
@@ -152,25 +149,28 @@ public class ClientUI
 
 	@Inject
 	private ClientUI(
-		RuneLiteProperties properties,
 		RuneLiteConfig config,
 		KeyManager keyManager,
 		MouseManager mouseManager,
 		@Nullable Applet client,
 		ConfigManager configManager,
-		Provider<ClientThread> clientThreadProvider)
+		Provider<ClientThread> clientThreadProvider,
+		EventBus eventbus)
 	{
-		this.properties = properties;
 		this.config = config;
 		this.keyManager = keyManager;
 		this.mouseManager = mouseManager;
 		this.client = client;
 		this.configManager = configManager;
 		this.clientThreadProvider = clientThreadProvider;
+
+		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+		eventbus.subscribe(NavigationButtonAdded.class, this, this::onNavigationButtonAdded);
+		eventbus.subscribe(NavigationButtonRemoved.class, this, this::onNavigationButtonRemoved);
+		eventbus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 	}
 
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
+	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals(CONFIG_GROUP)
 			&& !(event.getGroup().equals(PLUS_CONFIG_GROUP)
@@ -185,8 +185,7 @@ public class ClientUI
 		SwingUtilities.invokeLater(() -> updateFrameConfig(event.getKey().equals("lockWindowSize")));
 	}
 
-	@Subscribe
-	public void onNavigationButtonAdded(final NavigationButtonAdded event)
+	private void onNavigationButtonAdded(final NavigationButtonAdded event)
 	{
 		SwingUtilities.invokeLater(() ->
 		{
@@ -249,11 +248,15 @@ public class ClientUI
 				pluginToolbar.addComponent(event.getButton(), button);
 				pluginToolbar.revalidate();
 			}
+
+			if (navigationButton.getOnReady() != null)
+			{
+				navigationButton.getOnReady().run();
+			}
 		});
 	}
 
-	@Subscribe
-	public void onNavigationButtonRemoved(final NavigationButtonRemoved event)
+	private void onNavigationButtonRemoved(final NavigationButtonRemoved event)
 	{
 		SwingUtilities.invokeLater(() ->
 		{
@@ -270,8 +273,7 @@ public class ClientUI
 		});
 	}
 
-	@Subscribe
-	public void onGameStateChanged(final GameStateChanged event)
+	private void onGameStateChanged(final GameStateChanged event)
 	{
 		if (event.getGameState() != GameState.LOGGED_IN || !(client instanceof Client) || !config.usernameInTitle())
 		{
@@ -303,18 +305,17 @@ public class ClientUI
 				return false;
 			}
 
-			frame.setTitle(currentPresenceName + " - " + name);
+			frame.setTitle(RuneLiteProperties.getTitle() + " - " + name);
 			return true;
 		});
 	}
 
 	/**
 	 * Initialize UI.
-	 *
 	 * @param runelite runelite instance that will be shut down on exit
 	 * @throws Exception exception that can occur during creation of the UI
 	 */
-	public void open(final RuneLite runelite) throws Exception
+	public void init(final RuneLite runelite) throws Exception
 	{
 		SwingUtilities.invokeAndWait(() ->
 		{
@@ -326,7 +327,7 @@ public class ClientUI
 			// Try to enable fullscreen on OSX
 			OSXUtil.tryEnableFullscreen(frame);
 
-			frame.setTitle(ClientUI.currentPresenceName);
+			frame.setTitle(RuneLiteProperties.getTitle());
 			frame.setIconImage(ICON);
 			frame.getLayeredPane().setCursor(Cursor.getDefaultCursor()); // Prevent substance from using a resize cursor for pointing
 			frame.setLocationRelativeTo(frame.getOwner());
@@ -463,13 +464,19 @@ public class ClientUI
 
 			titleToolbar.addComponent(sidebarNavigationButton, sidebarNavigationJButton);
 			toggleSidebar();
+		});
+	}
 
+	public void show()
+	{
+		SwingUtilities.invokeLater(() ->
+		{
 			// Layout frame
 			frame.pack();
 			frame.revalidateMinimumSize();
 
 			// Create tray icon (needs to be created after frame is packed)
-			trayIcon = SwingUtil.createTrayIcon(ICON, properties.getTitle(), frame);
+			trayIcon = SwingUtil.createTrayIcon(ICON, RuneLiteProperties.getTitle(), frame);
 
 			// Move frame around (needs to be done after frame is packed)
 			if (config.rememberScreenBounds())
@@ -526,17 +533,10 @@ public class ClientUI
 		});
 
 		// Show out of date dialog if needed
-		if (client == null)
+		if (client != null && !(client instanceof Client))
 		{
 			SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(frame,
-				"Error loading client! Check your logs for more details.",
-				"Unable to load client",
-				ERROR_MESSAGE));
-		}
-		else if (!(client instanceof Client))
-		{
-			SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(frame,
-				"RuneLite has not yet been updated to work with the latest\n"
+				"RuneLitePlus has not yet been updated to work with the latest\n"
 					+ "game update, it will work with reduced functionality until then.",
 				"RuneLite is outdated", INFORMATION_MESSAGE));
 		}
@@ -607,13 +607,43 @@ public class ClientUI
 		{
 			OSXUtil.requestFocus();
 		}
+		// The workaround for Windows is to minimise and then un-minimise the client to bring
+		// it to the front because java.awt.Window#toFront doesn't work reliably.
+		else if (OSType.getOSType() == OSType.Windows && !frame.isFocused())
+		{
+			if ((frame.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH)
+			{
+				SwingUtilities.invokeLater(() ->
+				{
+					frame.setExtendedState(JFrame.ICONIFIED);
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				});
+			}
+			else
+			{
+				SwingUtilities.invokeLater(() ->
+				{
+					// If the client is snapped to the top and bottom edges of the screen, setExtendedState will
+					// will reset it so setSize and setLocation ensure that the client doesn't move or resize.
+					// It is done this way because Windows does not support JFrame.MAXIMIZED_VERT
+					int x = frame.getLocation().x;
+					int y = frame.getLocation().y;
+					int width = frame.getWidth();
+					int height = frame.getHeight();
+					frame.setExtendedState(JFrame.ICONIFIED);
+					frame.setExtendedState(JFrame.NORMAL);
+					frame.setLocation(x, y);
+					frame.setSize(width, height);
+				});
+			}
+		}
 
 		frame.requestFocus();
 		giveClientFocus();
 	}
 
 	/**
-	 * Changes cursor for client window. Requires ${@link ClientUI#open(RuneLite)} to be called first.
+	 * Changes cursor for client window. Requires ${@link ClientUI#init(RuneLite)} to be called first.
 	 * FIXME: This is working properly only on Windows, Linux and Mac are displaying cursor incorrectly
 	 *
 	 * @param image cursor image
@@ -852,12 +882,12 @@ public class ClientUI
 
 			if (player != null && player.getName() != null)
 			{
-				frame.setTitle(currentPresenceName + " - " + player.getName());
+				frame.setTitle(RuneLiteProperties.getTitle() + " - " + player.getName());
 			}
 		}
 		else
 		{
-			frame.setTitle(currentPresenceName);
+			frame.setTitle(RuneLiteProperties.getTitle());
 		}
 
 		if (frame.isAlwaysOnTopSupported())
@@ -871,7 +901,15 @@ public class ClientUI
 		}
 
 		frame.setExpandResizeType(config.automaticResizeType());
-		frame.setContainedInScreen(config.containInScreen() && withTitleBar);
+
+		ContainableFrame.Mode containMode = config.containInScreen();
+		if (containMode == ContainableFrame.Mode.ALWAYS && !withTitleBar)
+		{
+			// When native window decorations are enabled we don't have a way to receive window move events
+			// so we can't contain to screen always.
+			containMode = ContainableFrame.Mode.RESIZING;
+		}
+		frame.setContainedInScreen(containMode);
 
 		if (!config.rememberScreenBounds())
 		{

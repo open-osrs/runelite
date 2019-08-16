@@ -39,7 +39,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
 import net.runelite.client.util.LinkBrowser;
@@ -67,7 +66,8 @@ public class SessionManager
 		this.configManager = configManager;
 		this.eventBus = eventBus;
 		this.wsClient = wsClient;
-		eventBus.register(this);
+
+		this.eventBus.subscribe(LoginResponse.class, this, this::onLoginResponse);
 	}
 
 	public void loadSession()
@@ -94,7 +94,7 @@ public class SessionManager
 
 		// Check if session is still valid
 		AccountClient accountClient = new AccountClient(session.getUuid());
-		if (!accountClient.sesssionCheck())
+		if (!accountClient.sessionCheck())
 		{
 			log.debug("Loaded session {} is invalid", session.getUuid());
 			return;
@@ -150,7 +150,7 @@ public class SessionManager
 			configManager.switchSession();
 		}
 
-		eventBus.post(new SessionOpen());
+		eventBus.post(SessionOpen.class, new SessionOpen());
 	}
 
 	private void closeSession()
@@ -179,7 +179,7 @@ public class SessionManager
 		// Restore config
 		configManager.switchSession();
 
-		eventBus.post(new SessionClose());
+		eventBus.post(SessionClose.class, new SessionClose());
 	}
 
 	public void login()
@@ -207,8 +207,7 @@ public class SessionManager
 		LinkBrowser.browse(login.getOauthUrl());
 	}
 
-	@Subscribe
-	public void onLoginResponse(LoginResponse loginResponse)
+	private void onLoginResponse(LoginResponse loginResponse)
 	{
 		log.debug("Now logged in as {}", loginResponse.getUsername());
 

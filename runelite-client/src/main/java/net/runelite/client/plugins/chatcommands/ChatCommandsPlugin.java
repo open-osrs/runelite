@@ -26,19 +26,21 @@
 package net.runelite.client.plugins.chatcommands;
 
 import com.google.inject.Provides;
+import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.IconID;
-import net.runelite.api.ItemComposition;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.MessageNode;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
@@ -50,12 +52,13 @@ import net.runelite.api.vars.AccountType;
 import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetID.KILL_LOGS_GROUP_ID;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatCommandManager;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ChatInput;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.input.KeyManager;
@@ -64,6 +67,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.StackFormatter;
 import static net.runelite.client.util.Text.sanitize;
 import net.runelite.http.api.chat.ChatClient;
+import net.runelite.http.api.chat.Duels;
 import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
@@ -72,7 +76,6 @@ import net.runelite.http.api.hiscore.SingleHiscoreSkillResult;
 import net.runelite.http.api.hiscore.Skill;
 import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.osbuddy.OSBGrandExchangeClient;
-import net.runelite.http.api.osbuddy.OSBGrandExchangeResult;
 import org.apache.commons.text.WordUtils;
 
 @PluginDescriptor(
@@ -80,15 +83,18 @@ import org.apache.commons.text.WordUtils;
 	description = "Enable chat commands",
 	tags = {"grand", "exchange", "level", "prices"}
 )
+@Singleton
 @Slf4j
 public class ChatCommandsPlugin extends Plugin
 {
-	private static final Pattern KILLCOUNT_PATTERN = Pattern.compile("Your (.+) (?:kill|harvest) count is: <col=ff0000>(\\d+)</col>");
+	private static final Pattern KILLCOUNT_PATTERN = Pattern.compile("Your (.+) (?:kill|harvest|lap|completion) count is: <col=ff0000>(\\d+)</col>");
 	private static final Pattern RAIDS_PATTERN = Pattern.compile("Your completed (.+) count is: <col=ff0000>(\\d+)</col>");
 	private static final Pattern WINTERTODT_PATTERN = Pattern.compile("Your subdued Wintertodt count is: <col=ff0000>(\\d+)</col>");
 	private static final Pattern BARROWS_PATTERN = Pattern.compile("Your Barrows chest count is: <col=ff0000>(\\d+)</col>");
-	private static final Pattern KILL_DURATION_PATTERN = Pattern.compile("Fight duration: <col=ff0000>[0-9:]+</col>. Personal best: ([0-9:]+)");
-	private static final Pattern NEW_PB_PATTERN = Pattern.compile("Fight duration: <col=ff0000>([0-9:]+)</col> \\(new personal best\\)");
+	private static final Pattern KILL_DURATION_PATTERN = Pattern.compile("(?i)^(?:Fight |Lap |Challenge |Corrupted challenge )?duration: <col=ff0000>[0-9:]+</col>\\. Personal best: ([0-9:]+)");
+	private static final Pattern NEW_PB_PATTERN = Pattern.compile("(?i)^(?:Fight |Lap |Challenge |Corrupted challenge )?duration: <col=ff0000>([0-9:]+)</col> \\(new personal best\\)");
+	private static final Pattern DUEL_ARENA_WINS_PATTERN = Pattern.compile("You (were defeated|won)! You have(?: now)? won (\\d+) duels?");
+	private static final Pattern DUEL_ARENA_LOSSES_PATTERN = Pattern.compile("You have(?: now)? lost (\\d+) duels?");
 	private static final String TOTAL_LEVEL_COMMAND_STRING = "!total";
 	private static final String PRICE_COMMAND_STRING = "!price";
 	private static final String LEVEL_COMMAND_STRING = "!lvl";
@@ -98,6 +104,7 @@ public class ChatCommandsPlugin extends Plugin
 	private static final String QP_COMMAND_STRING = "!qp";
 	private static final String GC_COMMAND_STRING = "!gc";
 	private static final String PB_COMMAND = "!pb";
+	private static final String DUEL_ARENA_COMMAND = "!duels";
 
 	private final HiscoreClient hiscoreClient = new HiscoreClient();
 	private final ChatClient chatClient = new ChatClient();
@@ -106,9 +113,13 @@ public class ChatCommandsPlugin extends Plugin
 	private boolean logKills;
 	private HiscoreEndpoint hiscoreEndpoint; // hiscore endpoint for current player
 	private String lastBossKill;
+	private int lastPb = -1;
 
 	@Inject
 	private Client client;
+
+	@Inject
+	private ClientThread clientThread;
 
 	@Inject
 	private ChatCommandsConfig config;
@@ -134,9 +145,14 @@ public class ChatCommandsPlugin extends Plugin
 	@Inject
 	private ChatKeyboardListener chatKeyboardListener;
 
+	@Inject
+	private EventBus eventBus;
+
 	@Override
 	public void startUp()
 	{
+		addSubscriptions();
+
 		keyManager.registerKeyListener(chatKeyboardListener);
 
 		chatCommandManager.registerCommandAsync(TOTAL_LEVEL_COMMAND_STRING, this::playerSkillLookup);
@@ -148,11 +164,14 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.registerCommandAsync(QP_COMMAND_STRING, this::questPointsLookup, this::questPointsSubmit);
 		chatCommandManager.registerCommandAsync(GC_COMMAND_STRING, this::gambleCountLookup, this::gambleCountSubmit);
 		chatCommandManager.registerCommandAsync(PB_COMMAND, this::personalBestLookup, this::personalBestSubmit);
+		chatCommandManager.registerCommandAsync(DUEL_ARENA_COMMAND, this::duelArenaLookup, this::duelArenaSubmit);
 	}
 
 	@Override
 	public void shutDown()
 	{
+		eventBus.unregister(this);
+
 		lastBossKill = null;
 
 		keyManager.unregisterKeyListener(chatKeyboardListener);
@@ -166,6 +185,15 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.unregisterCommand(QP_COMMAND_STRING);
 		chatCommandManager.unregisterCommand(PB_COMMAND);
 		chatCommandManager.unregisterCommand(GC_COMMAND_STRING);
+		chatCommandManager.unregisterCommand(DUEL_ARENA_COMMAND);
+	}
+
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(WidgetLoaded.class, this, this::onWidgetLoaded);
+		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
 	}
 
 	@Provides
@@ -200,10 +228,11 @@ public class ChatCommandsPlugin extends Plugin
 		return personalBest == null ? 0 : personalBest;
 	}
 
-	@Subscribe
-	public void onChatMessage(ChatMessage chatMessage)
+	void onChatMessage(ChatMessage chatMessage)
 	{
-		if (chatMessage.getType() != ChatMessageType.GAMEMESSAGE && chatMessage.getType() != ChatMessageType.SPAM)
+		if (chatMessage.getType() != ChatMessageType.TRADE
+			&& chatMessage.getType() != ChatMessageType.GAMEMESSAGE
+			&& chatMessage.getType() != ChatMessageType.SPAM)
 		{
 			return;
 		}
@@ -216,7 +245,17 @@ public class ChatCommandsPlugin extends Plugin
 			int kc = Integer.parseInt(matcher.group(2));
 
 			setKc(boss, kc);
-			lastBossKill = boss;
+			// We either already have the pb, or need to remember the boss for the upcoming pb
+			if (lastPb > -1)
+			{
+				log.debug("Got out-of-order personal best for {}: {}", boss, lastPb);
+				setPb(boss, lastPb);
+				lastPb = -1;
+			}
+			else
+			{
+				lastBossKill = boss;
+			}
 			return;
 		}
 
@@ -239,6 +278,43 @@ public class ChatCommandsPlugin extends Plugin
 			return;
 		}
 
+		matcher = DUEL_ARENA_WINS_PATTERN.matcher(message);
+		if (matcher.find())
+		{
+			final int oldWins = getKc("Duel Arena Wins");
+			final int wins = Integer.parseInt(matcher.group(2));
+			final String result = matcher.group(1);
+			int winningStreak = getKc("Duel Arena Win Streak");
+			int losingStreak = getKc("Duel Arena Lose Streak");
+
+			if (result.equals("won") && wins > oldWins)
+			{
+				losingStreak = 0;
+				winningStreak += 1;
+			}
+			else if (result.equals("were defeated"))
+			{
+				losingStreak += 1;
+				winningStreak = 0;
+			}
+			else
+			{
+				log.warn("unrecognized duel streak chat message: {}", message);
+			}
+
+			setKc("Duel Arena Wins", wins);
+			setKc("Duel Arena Win Streak", winningStreak);
+			setKc("Duel Arena Lose Streak", losingStreak);
+		}
+
+		matcher = DUEL_ARENA_LOSSES_PATTERN.matcher(message);
+		if (matcher.find())
+		{
+			int losses = Integer.parseInt(matcher.group(1));
+
+			setKc("Duel Arena Losses", losses);
+		}
+
 		matcher = BARROWS_PATTERN.matcher(message);
 		if (matcher.find())
 		{
@@ -247,19 +323,16 @@ public class ChatCommandsPlugin extends Plugin
 			setKc("Barrows Chests", kc);
 		}
 
-		if (lastBossKill != null)
+		matcher = KILL_DURATION_PATTERN.matcher(message);
+		if (matcher.find())
 		{
-			matcher = KILL_DURATION_PATTERN.matcher(message);
-			if (matcher.find())
-			{
-				matchPb(matcher);
-			}
+			matchPb(matcher);
+		}
 
-			matcher = NEW_PB_PATTERN.matcher(message);
-			if (matcher.find())
-			{
-				matchPb(matcher);
-			}
+		matcher = NEW_PB_PATTERN.matcher(message);
+		if (matcher.find())
+		{
+			matchPb(matcher);
 		}
 
 		lastBossKill = null;
@@ -272,13 +345,23 @@ public class ChatCommandsPlugin extends Plugin
 		if (s.length == 2)
 		{
 			int seconds = Integer.parseInt(s[0]) * 60 + Integer.parseInt(s[1]);
-			log.debug("Got personal best for {}: {}", lastBossKill, seconds);
-			setPb(lastBossKill, seconds);
+			if (lastBossKill != null)
+			{
+				// Most bosses sent boss kill message, and then pb message, so we
+				// use the remembered lastBossKill
+				log.debug("Got personal best for {}: {}", lastBossKill, seconds);
+				setPb(lastBossKill, seconds);
+				lastPb = -1;
+			}
+			else
+			{
+				// Some bosses send the pb message, and then the kill message!
+				lastPb = seconds;
+			}
 		}
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick event)
+	private void onGameTick(GameTick event)
 	{
 		if (!logKills)
 		{
@@ -314,8 +397,7 @@ public class ChatCommandsPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onWidgetLoaded(WidgetLoaded widget)
+	private void onWidgetLoaded(WidgetLoaded widget)
 	{
 		// don't load kc if in an instance, if the player is in another players poh
 		// and reading their boss log
@@ -327,8 +409,7 @@ public class ChatCommandsPlugin extends Plugin
 		logKills = true;
 	}
 
-	@Subscribe
-	public void onVarbitChanged(VarbitChanged varbitChanged)
+	private void onVarbitChanged(VarbitChanged varbitChanged)
 	{
 		hiscoreEndpoint = getLocalHiscoreEndpointType();
 	}
@@ -410,6 +491,96 @@ public class ChatCommandsPlugin extends Plugin
 			.append(" kill count: ")
 			.append(ChatColorType.HIGHLIGHT)
 			.append(Integer.toString(kc))
+			.build();
+
+		log.debug("Setting response {}", response);
+		final MessageNode messageNode = chatMessage.getMessageNode();
+		messageNode.setRuneLiteFormatMessage(response);
+		chatMessageManager.update(messageNode);
+		client.refreshChat();
+	}
+
+	private boolean duelArenaSubmit(ChatInput chatInput, String value)
+	{
+		final int wins = getKc("Duel Arena Wins");
+		final int losses = getKc("Duel Arena Losses");
+		final int winningStreak = getKc("Duel Arena Win Streak");
+		final int losingStreak = getKc("Duel Arena Lose Streak");
+
+		if (wins <= 0 && losses <= 0 && winningStreak <= 0 && losingStreak <= 0)
+		{
+			return false;
+		}
+
+		final String playerName = client.getLocalPlayer().getName();
+
+		executor.execute(() ->
+		{
+			try
+			{
+				chatClient.submitDuels(playerName, wins, losses, winningStreak, losingStreak);
+			}
+			catch (Exception ex)
+			{
+				log.warn("unable to submit duels", ex);
+			}
+			finally
+			{
+				chatInput.resume();
+			}
+		});
+
+		return true;
+	}
+
+	private void duelArenaLookup(ChatMessage chatMessage, String message)
+	{
+		if (!config.duels())
+		{
+			return;
+		}
+
+		ChatMessageType type = chatMessage.getType();
+
+		final String player;
+		if (type == ChatMessageType.PRIVATECHATOUT)
+		{
+			player = client.getLocalPlayer().getName();
+		}
+		else
+		{
+			player = sanitize(chatMessage.getName());
+		}
+
+		Duels duels;
+		try
+		{
+			duels = chatClient.getDuels(player);
+		}
+		catch (IOException ex)
+		{
+			log.debug("unable to lookup duels", ex);
+			return;
+		}
+
+		final int wins = duels.getWins();
+		final int losses = duels.getLosses();
+		final int winningStreak = duels.getWinningStreak();
+		final int losingStreak = duels.getLosingStreak();
+
+		String response = new ChatMessageBuilder()
+			.append(ChatColorType.NORMAL)
+			.append("Duel Arena wins: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(Integer.toString(wins))
+			.append(ChatColorType.NORMAL)
+			.append("   losses: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(Integer.toString(losses))
+			.append(ChatColorType.NORMAL)
+			.append("   streak: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(Integer.toString((winningStreak != 0 ? winningStreak : -losingStreak)))
 			.build();
 
 		log.debug("Setting response {}", response);
@@ -674,49 +845,47 @@ public class ChatCommandsPlugin extends Plugin
 		if (!results.isEmpty())
 		{
 			ItemPrice item = retrieveFromList(results, search);
-			OSBGrandExchangeResult osbresult = new OSBGrandExchangeResult();
-			try
-			{
-				osbresult = CLIENT.lookupItem(item.getId());
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			CLIENT.lookupItem(item.getId())
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.from(clientThread))
+				.subscribe(
+					(osbresult) ->
+					{
+						int itemId = item.getId();
+						int itemPrice = itemManager.getItemPrice(itemId);
 
-			int itemId = item.getId();
-			int itemPrice = itemManager.getItemPrice(itemId);
+						final ChatMessageBuilder builder = new ChatMessageBuilder();
+						builder.append(ChatColorType.NORMAL);
+						builder.append(ChatColorType.HIGHLIGHT);
+						builder.append(item.getName());
+						builder.append(ChatColorType.NORMAL);
+						builder.append(": GE ");
+						builder.append(ChatColorType.HIGHLIGHT);
+						builder.append(StackFormatter.formatNumber(itemPrice));
+						builder.append(ChatColorType.NORMAL);
+						builder.append(": OSB ");
+						builder.append(ChatColorType.HIGHLIGHT);
+						builder.append(StackFormatter.formatNumber(osbresult.getOverall_average()));
 
-			final ChatMessageBuilder builder = new ChatMessageBuilder();
-			builder.append(ChatColorType.NORMAL);
-			builder.append(ChatColorType.HIGHLIGHT);
-			builder.append(item.getName());
-			builder.append(ChatColorType.NORMAL);
-			builder.append(": GE ");
-			builder.append(ChatColorType.HIGHLIGHT);
-			builder.append(StackFormatter.formatNumber(itemPrice));
-			builder.append(ChatColorType.NORMAL);
-			builder.append(": OSB ");
-			builder.append(ChatColorType.HIGHLIGHT);
-			builder.append(StackFormatter.formatNumber(osbresult.getOverall_average()));
+						ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
+						if (itemComposition != null)
+						{
+							int alchPrice = itemManager.getAlchValue(itemId);
+							builder
+								.append(ChatColorType.NORMAL)
+								.append(" HA value ")
+								.append(ChatColorType.HIGHLIGHT)
+								.append(StackFormatter.formatNumber(alchPrice));
+						}
 
-			ItemComposition itemComposition = itemManager.getItemComposition(itemId);
-			if (itemComposition != null)
-			{
-				int alchPrice = itemManager.getAlchValue(itemId);
-				builder
-					.append(ChatColorType.NORMAL)
-					.append(" HA value ")
-					.append(ChatColorType.HIGHLIGHT)
-					.append(StackFormatter.formatNumber(alchPrice));
-			}
+						String response = builder.build();
 
-			String response = builder.build();
-
-			log.debug("Setting response {}", response);
-			messageNode.setRuneLiteFormatMessage(response);
-			chatMessageManager.update(messageNode);
-			client.refreshChat();
+						log.debug("Setting response {}", response);
+						messageNode.setRuneLiteFormatMessage(response);
+						chatMessageManager.update(messageNode);
+						client.refreshChat();
+					}
+				);
 		}
 	}
 
@@ -1029,7 +1198,7 @@ public class ChatCommandsPlugin extends Plugin
 		ItemPrice shortest = null;
 		for (ItemPrice item : items)
 		{
-			if (item.getName().toLowerCase().equals(originalInput.toLowerCase()))
+			if (item.getName().equalsIgnoreCase(originalInput.toLowerCase()))
 			{
 				return item;
 			}
@@ -1226,6 +1395,21 @@ public class ChatCommandsPlugin extends Plugin
 			case "verzik vitur":
 			case "raids 2":
 				return "Theatre of Blood";
+
+			// agility course
+			case "prif":
+			case "prifddinas":
+				return "Prifddinas Agility Course";
+
+			// The Gauntlet
+			case "gaunt":
+			case "gauntlet":
+				return "Gauntlet";
+
+			// Corrupted Gauntlet
+			case "cgaunt":
+			case "cgauntlet":
+				return "Corrupted Gauntlet";
 
 			default:
 				return WordUtils.capitalize(boss);

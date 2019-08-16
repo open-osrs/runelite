@@ -27,14 +27,14 @@ package net.runelite.client.plugins.crystalmathlabs;
 import java.io.IOException;
 import java.util.Objects;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
-import net.runelite.api.Skill;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.http.api.RuneLiteAPI;
@@ -52,22 +52,40 @@ import okhttp3.Response;
 	enabledByDefault = false
 )
 @Slf4j
+@Singleton
 public class CrystalMathLabs extends Plugin
 {
 	/**
 	 * Amount of EXP that must be gained for an update to be submitted.
 	 */
-	private static final int XP_THRESHOLD = 1000;
+	private static final int XP_THRESHOLD = 10000;
 
 	@Inject
 	private Client client;
+
+	@Inject
+	private EventBus eventBus;
 
 	private String lastUsername;
 	private boolean fetchXp;
 	private long lastXp;
 
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged gameStateChanged)
+	@Override
+	protected void startUp() throws Exception
+	{
+		fetchXp = true;
+
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+	}
+
+	@Override
+	protected void shutDown() throws Exception
+	{
+		eventBus.unregister(this);
+	}
+
+	private void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
 		GameState state = gameStateChanged.getGameState();
 		if (state == GameState.LOGGED_IN)
@@ -75,7 +93,7 @@ public class CrystalMathLabs extends Plugin
 			if (!Objects.equals(client.getUsername(), lastUsername))
 			{
 				lastUsername = client.getUsername();
-				lastXp = getTotalXp();
+				fetchXp = true;
 			}
 		}
 		else if (state == GameState.LOGIN_SCREEN)
@@ -86,34 +104,24 @@ public class CrystalMathLabs extends Plugin
 				return;
 			}
 
-			long totalXp = getTotalXp();
+			long totalXp = client.getOverallExperience();
 			// Don't submit update unless xp threshold is reached
 			if (Math.abs(totalXp - lastXp) > XP_THRESHOLD)
 			{
 				log.debug("Submitting update for {}", local.getName());
 				sendUpdateRequest(local.getName());
+				lastXp = totalXp;
 			}
 		}
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick gameTick)
+	private void onGameTick(GameTick gameTick)
 	{
 		if (fetchXp)
 		{
-			lastXp = getTotalXp();
+			lastXp = client.getOverallExperience();
 			fetchXp = false;
 		}
-	}
-
-	private long getTotalXp()
-	{
-		long total = 0;
-		for (Skill skill : Skill.values())
-		{
-			total += client.getSkillExperience(skill);
-		}
-		return total;
 	}
 
 	private void sendUpdateRequest(String username)

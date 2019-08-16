@@ -42,7 +42,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.nio.channels.FileLock;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -55,6 +55,7 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -78,17 +79,15 @@ public class ConfigManager
 	@Inject
 	EventBus eventBus;
 
-	private final ScheduledExecutorService executor;
 	private final ConfigInvocationHandler handler = new ConfigInvocationHandler(this);
 	private final Properties properties = new Properties();
+	private final Map<String, Object> configObjectCache = new HashMap<>();
 	private final Map<String, String> pendingChanges = new HashMap<>();
 
 	@Inject
 	public ConfigManager(ScheduledExecutorService scheduledExecutorService)
 	{
-		this.executor = scheduledExecutorService;
-
-		executor.scheduleWithFixedDelay(this::sendConfig, 30, 30, TimeUnit.SECONDS);
+		scheduledExecutorService.scheduleWithFixedDelay(this::sendConfig, 30, 30, TimeUnit.SECONDS);
 	}
 
 	public final void switchSession()
@@ -107,7 +106,7 @@ public class ConfigManager
 		final Properties properties = new Properties();
 		try (FileInputStream in = new FileInputStream(propertiesFile))
 		{
-			properties.load(new InputStreamReader(in, Charset.forName("UTF-8")));
+			properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
 		}
 		catch (Exception e)
 		{
@@ -115,7 +114,7 @@ public class ConfigManager
 			return;
 		}
 
-		final Map<String, String> copy = (Map) ImmutableMap.copyOf(this.properties);
+		@SuppressWarnings("unchecked") final Map<String, String> copy = (Map) ImmutableMap.copyOf(this.properties);
 		copy.forEach((groupAndKey, value) ->
 		{
 			if (!properties.containsKey(groupAndKey))
@@ -159,7 +158,7 @@ public class ConfigManager
 
 		try (FileInputStream in = new FileInputStream(SETTINGS_FILE))
 		{
-			properties.load(new InputStreamReader(in, Charset.forName("UTF-8")));
+			properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
 		}
 		catch (FileNotFoundException ex)
 		{
@@ -173,7 +172,7 @@ public class ConfigManager
 
 		try
 		{
-			Map<String, String> copy = (Map) ImmutableMap.copyOf(properties);
+			@SuppressWarnings("unchecked") Map<String, String> copy = (Map) ImmutableMap.copyOf(properties);
 			copy.forEach((groupAndKey, value) ->
 			{
 				final String[] split = groupAndKey.split("\\.", 2);
@@ -192,7 +191,7 @@ public class ConfigManager
 				configChanged.setKey(key);
 				configChanged.setOldValue(null);
 				configChanged.setNewValue(value);
-				eventBus.post(configChanged);
+				eventBus.post(ConfigChanged.class, configChanged);
 			});
 		}
 		catch (Exception ex)
@@ -211,7 +210,7 @@ public class ConfigManager
 
 			try
 			{
-				properties.store(new OutputStreamWriter(out, Charset.forName("UTF-8")), "RuneLite configuration");
+				properties.store(new OutputStreamWriter(out, StandardCharsets.UTF_8), "RuneLite configuration");
 			}
 			finally
 			{
@@ -220,6 +219,21 @@ public class ConfigManager
 		}
 	}
 
+	// Attempts to fetch the config value from the cache if present. Otherwise it calls the get value function and caches the result
+	Object getConfigObjectFromCacheOrElse(String groupName, String key, Function<String, Object> getValue)
+	{
+		String configItemKey = groupName + "." + key;
+		return configObjectCache.computeIfAbsent(configItemKey, getValue);
+	}
+
+	// Posts the configchanged event to the event bus and remove the changed key from the cache
+	private void postConfigChanged(ConfigChanged configChanged)
+	{
+		configObjectCache.remove(configChanged.getGroup() + "." + configChanged.getKey());
+		eventBus.post(ConfigChanged.class, configChanged);
+	}
+
+	@SuppressWarnings("unchecked")
 	public <T> T getConfig(Class<T> clazz)
 	{
 		if (!Modifier.isPublic(clazz.getModifiers()))
@@ -227,12 +241,10 @@ public class ConfigManager
 			throw new RuntimeException("Non-public configuration classes can't have default methods invoked");
 		}
 
-		T t = (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]
+		return (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]
 			{
 				clazz
 			}, handler);
-
-		return t;
 	}
 
 	public List<String> getConfigurationKeys(String prefix)
@@ -245,6 +257,12 @@ public class ConfigManager
 		return properties.getProperty(groupName + "." + key);
 	}
 
+	public String getConfiguration(String propertyKey)
+	{
+		return properties.getProperty(propertyKey);
+	}
+
+	@SuppressWarnings("unchecked")
 	public <T> T getConfiguration(String groupName, String key, Class<T> clazz)
 	{
 		String value = getConfiguration(groupName, key);
@@ -284,7 +302,7 @@ public class ConfigManager
 		configChanged.setOldValue(oldValue);
 		configChanged.setNewValue(value);
 
-		eventBus.post(configChanged);
+		postConfigChanged(configChanged);
 	}
 
 	public void setConfiguration(String groupName, String key, Object value)
@@ -313,7 +331,7 @@ public class ConfigManager
 		configChanged.setKey(key);
 		configChanged.setOldValue(oldValue);
 
-		eventBus.post(configChanged);
+		eventBus.post(ConfigChanged.class, configChanged);
 	}
 
 	public ConfigDescriptor getConfigDescriptor(Object configurationProxy)
@@ -432,7 +450,10 @@ public class ConfigManager
 
 			String current = getConfiguration(group.value(), item.keyName());
 			String valueString = objectToString(defaultValue);
-			if (Objects.equals(current, valueString))
+			// null and the empty string are treated identically in sendConfig and treated as an unset
+			// If a config value defaults to "" and the current value is null, it will cause an extra
+			// unset to be sent, so treat them as equal
+			if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
 			{
 				continue; // already set to the default value
 			}
@@ -443,6 +464,7 @@ public class ConfigManager
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	static Object stringToObject(String str, Class<?> type)
 	{
 		if (type == boolean.class || type == Boolean.class)
@@ -604,22 +626,34 @@ public class ConfigManager
 
 		newestFile = STANDARD_SETTINGS_FILE;
 
-		for (File profileDir : PROFILES_DIR.listFiles())
-		{
-			if (!profileDir.isDirectory())
-			{
-				continue;
-			}
+		File[] profileDirFiles = PROFILES_DIR.listFiles();
 
-			for (File settings : profileDir.listFiles())
+		if (profileDirFiles != null)
+		{
+			for (File profileDir : profileDirFiles)
 			{
-				if (!settings.getName().equals(STANDARD_SETTINGS_FILE_NAME) ||
-					settings.lastModified() < newestFile.lastModified())
+				if (!profileDir.isDirectory())
 				{
 					continue;
 				}
 
-				newestFile = settings;
+				File[] settingsFiles = profileDir.listFiles();
+
+				if (settingsFiles == null)
+				{
+					continue;
+				}
+
+				for (File settings : settingsFiles)
+				{
+					if (!settings.getName().equals(STANDARD_SETTINGS_FILE_NAME) ||
+						settings.lastModified() < newestFile.lastModified())
+					{
+						continue;
+					}
+
+					newestFile = settings;
+				}
 			}
 		}
 

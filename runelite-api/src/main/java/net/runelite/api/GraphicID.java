@@ -27,12 +27,14 @@ package net.runelite.api;
 
 public class GraphicID
 {
+	public static final int WINE_MAKE = 47;
 	public static final int SPLASH = 85;
 	public static final int GREY_BUBBLE_TELEPORT = 86;
 	public static final int TELEPORT = 111;
 	public static final int ENTANGLE = 179;
 	public static final int SNARE = 180;
 	public static final int BIND = 181;
+	public static final int POISON_SPLAT = 184;
 	public static final int ICE_RUSH = 361;
 	public static final int ICE_BURST = 363;
 	public static final int ICE_BLITZ = 367;
@@ -50,6 +52,10 @@ public class GraphicID
 	public static final int IMBUED_HEART = 1316;
 	public static final int FLYING_FISH = 1387;
 	public static final int OLM_BURN = 1351;
+	public static final int OLM_LIGHTNING = 1356;
 	public static final int OLM_TELEPORT = 1359;
+	public static final int OLM_HEAL = 1363;
+	public static final int OLM_CRYSTAL = 1447;
 	public static final int XERIC_TELEPORT = 1612;
+	public static final int HYDRA_LIGHTNING = 1666;
 }

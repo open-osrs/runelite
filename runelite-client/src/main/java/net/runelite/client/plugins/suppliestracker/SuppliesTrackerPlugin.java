@@ -35,9 +35,11 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import static net.runelite.api.AnimationID.BLOWPIPE_ATTACK;
@@ -47,113 +49,10 @@ import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
-import static net.runelite.api.ItemID.ACCUMULATOR_MAX_CAPE;
-import static net.runelite.api.ItemID.ADAMANT_DART;
-import static net.runelite.api.ItemID.ADAMANT_KNIFE;
-import static net.runelite.api.ItemID.ADAMANT_THROWNAXE;
-import static net.runelite.api.ItemID.ADMIRAL_PIE;
-import static net.runelite.api.ItemID.AIR_RUNE;
-import static net.runelite.api.ItemID.ANCHOVY_PIZZA;
-import static net.runelite.api.ItemID.APPLE_PIE;
-import static net.runelite.api.ItemID.ASSEMBLER_MAX_CAPE;
-import static net.runelite.api.ItemID.ASTRAL_RUNE;
-import static net.runelite.api.ItemID.AVAS_ACCUMULATOR;
-import static net.runelite.api.ItemID.AVAS_ASSEMBLER;
-import static net.runelite.api.ItemID.AVAS_ATTRACTOR;
-import static net.runelite.api.ItemID.BLACK_CHINCHOMPA;
-import static net.runelite.api.ItemID.BLACK_DART;
-import static net.runelite.api.ItemID.BLACK_KNIFE;
-import static net.runelite.api.ItemID.BLOOD_RUNE;
-import static net.runelite.api.ItemID.BODY_RUNE;
-import static net.runelite.api.ItemID.BOTANICAL_PIE;
-import static net.runelite.api.ItemID.BRONZE_DART;
-import static net.runelite.api.ItemID.BRONZE_KNIFE;
-import static net.runelite.api.ItemID.BRONZE_THROWNAXE;
-import static net.runelite.api.ItemID.CAKE;
-import static net.runelite.api.ItemID.CANNONBALL;
-import static net.runelite.api.ItemID.CHAOS_RUNE;
-import static net.runelite.api.ItemID.CHINCHOMPA_10033;
-import static net.runelite.api.ItemID.CHOCOLATE_CAKE;
-import static net.runelite.api.ItemID.CHOCOLATE_SLICE;
-import static net.runelite.api.ItemID.COINS_995;
-import static net.runelite.api.ItemID.COSMIC_RUNE;
-import static net.runelite.api.ItemID.DEATH_RUNE;
-import static net.runelite.api.ItemID.DRAGON_DART;
-import static net.runelite.api.ItemID.DRAGON_KNIFE;
-import static net.runelite.api.ItemID.DRAGON_KNIFEP;
-import static net.runelite.api.ItemID.DRAGON_KNIFEP_22808;
-import static net.runelite.api.ItemID.DRAGON_KNIFEP_22810;
-import static net.runelite.api.ItemID.DRAGON_KNIFE_22812;
-import static net.runelite.api.ItemID.DRAGON_KNIFE_22814;
-import static net.runelite.api.ItemID.DRAGON_THROWNAXE;
-import static net.runelite.api.ItemID.DUST_RUNE;
-import static net.runelite.api.ItemID.EARTH_RUNE;
-import static net.runelite.api.ItemID.FIRE_RUNE;
-import static net.runelite.api.ItemID.FISH_PIE;
-import static net.runelite.api.ItemID.GARDEN_PIE;
-import static net.runelite.api.ItemID.HALF_AN_ADMIRAL_PIE;
-import static net.runelite.api.ItemID.HALF_AN_APPLE_PIE;
-import static net.runelite.api.ItemID.HALF_A_BOTANICAL_PIE;
-import static net.runelite.api.ItemID.HALF_A_FISH_PIE;
-import static net.runelite.api.ItemID.HALF_A_GARDEN_PIE;
-import static net.runelite.api.ItemID.HALF_A_MEAT_PIE;
-import static net.runelite.api.ItemID.HALF_A_MUSHROOM_PIE;
-import static net.runelite.api.ItemID.HALF_A_REDBERRY_PIE;
-import static net.runelite.api.ItemID.HALF_A_SUMMER_PIE;
-import static net.runelite.api.ItemID.HALF_A_WILD_PIE;
-import static net.runelite.api.ItemID.IRON_DART;
-import static net.runelite.api.ItemID.IRON_KNIFE;
-import static net.runelite.api.ItemID.IRON_THROWNAXE;
-import static net.runelite.api.ItemID.LAVA_RUNE;
-import static net.runelite.api.ItemID.LAW_RUNE;
-import static net.runelite.api.ItemID.MEAT_PIE;
-import static net.runelite.api.ItemID.MEAT_PIZZA;
-import static net.runelite.api.ItemID.MIND_RUNE;
-import static net.runelite.api.ItemID.MIST_RUNE;
-import static net.runelite.api.ItemID.MITHRIL_DART;
-import static net.runelite.api.ItemID.MITHRIL_KNIFE;
-import static net.runelite.api.ItemID.MITHRIL_THROWNAXE;
-import static net.runelite.api.ItemID.MUD_RUNE;
-import static net.runelite.api.ItemID.MUSHROOM_PIE;
-import static net.runelite.api.ItemID.NATURE_RUNE;
-import static net.runelite.api.ItemID.PINEAPPLE_PIZZA;
-import static net.runelite.api.ItemID.PLAIN_PIZZA;
-import static net.runelite.api.ItemID.RANGING_CAPE;
-import static net.runelite.api.ItemID.REDBERRY_PIE;
-import static net.runelite.api.ItemID.RED_CHINCHOMPA_10034;
-import static net.runelite.api.ItemID.RUNE_DART;
-import static net.runelite.api.ItemID.RUNE_KNIFE;
-import static net.runelite.api.ItemID.RUNE_THROWNAXE;
-import static net.runelite.api.ItemID.SANGUINESTI_STAFF;
-import static net.runelite.api.ItemID.SANGUINESTI_STAFF_UNCHARGED;
-import static net.runelite.api.ItemID.SLICE_OF_CAKE;
-import static net.runelite.api.ItemID.SMOKE_RUNE;
-import static net.runelite.api.ItemID.SOUL_RUNE;
-import static net.runelite.api.ItemID.STEAM_RUNE;
-import static net.runelite.api.ItemID.STEEL_DART;
-import static net.runelite.api.ItemID.STEEL_KNIFE;
-import static net.runelite.api.ItemID.STEEL_THROWNAXE;
-import static net.runelite.api.ItemID.SUMMER_PIE;
-import static net.runelite.api.ItemID.TRIDENT_OF_THE_SEAS;
-import static net.runelite.api.ItemID.TRIDENT_OF_THE_SEAS_E;
-import static net.runelite.api.ItemID.TRIDENT_OF_THE_SEAS_FULL;
-import static net.runelite.api.ItemID.TRIDENT_OF_THE_SWAMP;
-import static net.runelite.api.ItemID.TRIDENT_OF_THE_SWAMP_E;
-import static net.runelite.api.ItemID.UNCHARGED_TOXIC_TRIDENT;
-import static net.runelite.api.ItemID.UNCHARGED_TOXIC_TRIDENT_E;
-import static net.runelite.api.ItemID.WATER_RUNE;
-import static net.runelite.api.ItemID.WILD_PIE;
-import static net.runelite.api.ItemID.WRATH_RUNE;
-import static net.runelite.api.ItemID.ZULRAHS_SCALES;
-import static net.runelite.api.ItemID._12_ANCHOVY_PIZZA;
-import static net.runelite.api.ItemID._12_MEAT_PIZZA;
-import static net.runelite.api.ItemID._12_PINEAPPLE_PIZZA;
-import static net.runelite.api.ItemID._12_PLAIN_PIZZA;
-import static net.runelite.api.ItemID._23_CAKE;
-import static net.runelite.api.ItemID._23_CHOCOLATE_CAKE;
+import static net.runelite.api.ItemID.*;
 import net.runelite.api.Player;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.events.AnimationChanged;
@@ -163,7 +62,7 @@ import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -184,6 +83,7 @@ import net.runelite.http.api.item.ItemPrice;
 	type = PluginType.UTILITY,
 	enabledByDefault = false
 )
+@Singleton
 @Slf4j
 public class SuppliesTrackerPlugin extends Plugin
 {
@@ -219,9 +119,9 @@ public class SuppliesTrackerPlugin extends Plugin
 	private static final int[] RUNE_IDS = new int[]{AIR_RUNE, WATER_RUNE, EARTH_RUNE, MIND_RUNE, BODY_RUNE, COSMIC_RUNE, CHAOS_RUNE, NATURE_RUNE, LAW_RUNE, DEATH_RUNE, ASTRAL_RUNE, BLOOD_RUNE, SOUL_RUNE, WRATH_RUNE, MIST_RUNE, DUST_RUNE, MUD_RUNE, SMOKE_RUNE, STEAM_RUNE, LAVA_RUNE};
 
 	//Hold Supply Data
-	private static HashMap<Integer, SuppliesTrackerItem> suppliesEntry = new HashMap<>();
+	private static final Map<Integer, SuppliesTrackerItem> suppliesEntry = new HashMap<>();
 	private ItemContainer old;
-	private Deque<MenuAction> actionStack = new ArrayDeque<>();
+	private final Deque<MenuAction> actionStack = new ArrayDeque<>();
 	private int ammoId = 0;
 	private int ammoAmount = 0;
 	private int thrownId = 0;
@@ -232,7 +132,7 @@ public class SuppliesTrackerPlugin extends Plugin
 	private int mainHand = 0;
 	private SuppliesTrackerPanel panel;
 	private NavigationButton navButton;
-	private String[] RAIDS_CONSUMABLES = new String[]{"xeric's", "elder", "twisted", "revitalisation", "overload", "prayer enhance", "pysk", "suphi", "leckish", "brawk", "mycil", "roqed", "kyren", "guanic", "prael", "giral", "phluxia", "kryket", "murng", "psykk"};
+	private final String[] RAIDS_CONSUMABLES = new String[]{"xeric's", "elder", "twisted", "revitalisation", "overload", "prayer enhance", "pysk", "suphi", "leckish", "brawk", "mycil", "roqed", "kyren", "guanic", "prael", "giral", "phluxia", "kryket", "murng", "psykk"};
 
 	private int attackStyleVarbit = -1;
 	private int ticks = 0;
@@ -250,10 +150,14 @@ public class SuppliesTrackerPlugin extends Plugin
 	@Inject
 	private Client client;
 
+	@Inject
+	private EventBus eventBus;
 
 	@Override
 	protected void startUp() throws Exception
 	{
+		addSubscriptions();
+
 		panel = new SuppliesTrackerPanel(itemManager, this);
 		final BufferedImage header = ImageUtil.getResourceStreamFromClass(getClass(), "panel_icon.png");
 		panel.loadHeaderIcon(header);
@@ -272,7 +176,18 @@ public class SuppliesTrackerPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		eventBus.unregister(this);
 		clientToolbar.removeNavigation(navButton);
+	}
+
+	private void addSubscriptions()
+	{
+		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
+		eventBus.subscribe(CannonballFired.class, this, this::onCannonballFired);
+		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
+		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 	}
 
 	@Provides
@@ -281,8 +196,7 @@ public class SuppliesTrackerPlugin extends Plugin
 		return configManager.getConfig(SuppliesTrackerConfig.class);
 	}
 
-	@Subscribe
-	public void onGameTick(GameTick tick)
+	private void onGameTick(GameTick tick)
 	{
 		Player player = client.getLocalPlayer();
 		if (player.getAnimation() == BLOWPIPE_ATTACK)
@@ -339,8 +253,7 @@ public class SuppliesTrackerPlugin extends Plugin
 		return percent;
 	}
 
-	@Subscribe
-	public void onVarbitChanged(VarbitChanged event)
+	private void onVarbitChanged(VarbitChanged event)
 	{
 		if (attackStyleVarbit == -1 || attackStyleVarbit != client.getVar(VarPlayer.ATTACK_STYLE))
 		{
@@ -399,7 +312,13 @@ public class SuppliesTrackerPlugin extends Plugin
 					{
 						quantity -= newItem.getQuantity();
 					}
-					buildEntries(oldItem.getId(), quantity);
+					// ensure that only positive quantities are added since it is reported
+					// that sometimes checkUsedRunes is called on the same tick that a player
+					// gains runes in their inventory
+					if (quantity > 0)
+					{
+						buildEntries(oldItem.getId(), quantity);
+					}
 				}
 			}
 		}
@@ -408,14 +327,12 @@ public class SuppliesTrackerPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onCannonballFired(CannonballFired cannonballFired)
+	private void onCannonballFired(CannonballFired cannonballFired)
 	{
 		buildEntries(CANNONBALL);
 	}
 
-	@Subscribe
-	public void onAnimationChanged(AnimationChanged animationChanged)
+	private void onAnimationChanged(AnimationChanged animationChanged)
 	{
 		if (animationChanged.getActor() == client.getLocalPlayer())
 		{
@@ -468,8 +385,7 @@ public class SuppliesTrackerPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onItemContainerChanged(ItemContainerChanged itemContainerChanged)
+	private void onItemContainerChanged(ItemContainerChanged itemContainerChanged)
 	{
 		ItemContainer itemContainer = itemContainerChanged.getItemContainer();
 
@@ -595,41 +511,38 @@ public class SuppliesTrackerPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	public void onMenuOptionClicked(final MenuOptionClicked event)
+	private void onMenuOptionClicked(final MenuOptionClicked event)
 	{
 		// Uses stacks to push/pop for tick eating
 		// Create pattern to find eat/drink at beginning
 		Pattern eatPattern = Pattern.compile(EAT_PATTERN);
 		Pattern drinkPattern = Pattern.compile(DRINK_PATTERN);
-		if (eatPattern.matcher(event.getMenuTarget().toLowerCase()).find() || drinkPattern.matcher(event.getMenuTarget().toLowerCase()).find())
-		{
-			if (actionStack.stream().noneMatch(a ->
+		if ((eatPattern.matcher(event.getTarget().toLowerCase()).find() || drinkPattern.matcher(event.getTarget().toLowerCase()).find()) &&
+			actionStack.stream().noneMatch(a ->
 			{
 				if (a instanceof MenuAction.ItemAction)
 				{
 					MenuAction.ItemAction i = (MenuAction.ItemAction) a;
-					return i.getItemID() == event.getId();
+					return i.getItemID() == event.getIdentifier();
 				}
 				return false;
 			}))
+		{
+			old = client.getItemContainer(InventoryID.INVENTORY);
+			int slot = event.getActionParam0();
+			if (old.getItems() != null)
 			{
-				old = client.getItemContainer(InventoryID.INVENTORY);
-				int slot = event.getActionParam();
-				if (old.getItems() != null)
-				{
-					int pushItem = old.getItems()[event.getActionParam()].getId();
-					MenuAction newAction = new MenuAction.ItemAction(CONSUMABLE, old.getItems(), pushItem, slot);
-					actionStack.push(newAction);
-				}
+				int pushItem = old.getItems()[event.getActionParam0()].getId();
+				MenuAction newAction = new MenuAction.ItemAction(CONSUMABLE, old.getItems(), pushItem, slot);
+				actionStack.push(newAction);
 			}
 		}
 
 		// Create pattern for teleport scrolls and tabs
 		Pattern teleportPattern = Pattern.compile(TELEPORT_PATTERN);
 		Pattern teletabPattern = Pattern.compile(TELETAB_PATTERN);
-		if (teleportPattern.matcher(event.getMenuTarget().toLowerCase()).find() ||
-			teletabPattern.matcher(event.getMenuTarget().toLowerCase()).find())
+		if (teleportPattern.matcher(event.getTarget().toLowerCase()).find() ||
+			teletabPattern.matcher(event.getTarget().toLowerCase()).find())
 		{
 			old = client.getItemContainer(InventoryID.INVENTORY);
 
@@ -637,17 +550,17 @@ public class SuppliesTrackerPlugin extends Plugin
 			if (old != null && old.getItems() != null && actionStack.stream().noneMatch(a ->
 				a.getType() == TELEPORT))
 			{
-				int teleid = event.getId();
-				MenuAction newAction = new MenuAction.ItemAction(TELEPORT, old.getItems(), teleid, event.getActionParam());
+				int teleid = event.getIdentifier();
+				MenuAction newAction = new MenuAction.ItemAction(TELEPORT, old.getItems(), teleid, event.getActionParam0());
 				actionStack.push(newAction);
 			}
 		}
 
 		// Create pattern for spell cast
 		Pattern spellPattern = Pattern.compile(SPELL_PATTERN);
-		// note that here we look at the menuOption not menuTarget b/c the option for all spells is cast
+		// note that here we look at the option not target b/c the option for all spells is cast
 		// but the target differs based on each spell name
-		if (spellPattern.matcher(event.getMenuOption().toLowerCase()).find())
+		if (spellPattern.matcher(event.getOption().toLowerCase()).find())
 		{
 			old = client.getItemContainer(InventoryID.INVENTORY);
 
@@ -734,7 +647,7 @@ public class SuppliesTrackerPlugin extends Plugin
 	 */
 	private void buildEntries(int itemId, int count)
 	{
-		final ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
 		String name = itemComposition.getName();
 		long calculatedPrice;
 
@@ -756,12 +669,12 @@ public class SuppliesTrackerPlugin extends Plugin
 		if (isPizzaPie(name))
 		{
 			itemId = getFullVersionItemID(itemId);
-			name = itemManager.getItemComposition(itemId).getName();
+			name = itemManager.getItemDefinition(itemId).getName();
 		}
 		if (isCake(name, itemId))
 		{
 			itemId = getFullVersionItemID(itemId);
-			name = itemManager.getItemComposition(itemId).getName();
+			name = itemManager.getItemDefinition(itemId).getName();
 		}
 
 		int newQuantity;

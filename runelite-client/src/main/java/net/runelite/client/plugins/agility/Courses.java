@@ -26,6 +26,7 @@ package net.runelite.client.plugins.agility;
 
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
 
@@ -46,20 +47,21 @@ enum Courses
 	SEERS(570.0, 435, 10806),
 	POLLNIVNEACH(890.0, 540, 13358),
 	RELLEKA(780.0, 475, 10553),
+	PRIFDDINAS(1337.0, 1037, 12895),
 	ARDOUGNE(793.0, 529, 10547);
 
 	private final static Map<Integer, Courses> coursesByRegion;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final double totalXp;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final int lastObstacleXp;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final int regionId;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private final WorldPoint[] courseEndWorldPoints;
 
 	static
