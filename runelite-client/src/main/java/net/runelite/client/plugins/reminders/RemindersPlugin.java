@@ -28,6 +28,7 @@ package net.runelite.client.plugins.reminders;
 import com.google.inject.Provides;
 import static java.lang.Math.floor;
 import static java.time.Duration.between;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -55,6 +56,7 @@ import java.time.temporal.ChronoUnit;
 	type = PluginType.UTILITY
 )
 
+@Slf4j
 public class RemindersPlugin extends Plugin
 {
 
@@ -74,6 +76,12 @@ public class RemindersPlugin extends Plugin
 	private boolean ready;
 	private boolean hydrationReminder;
 	private boolean breakReminder;
+	private int seconds;
+	private int minutes;
+	private int hours;
+	private int ounces;
+	private int millilitres;
+
 
 	@Provides
 	RemindersConfig provideConfig(ConfigManager configManager)
@@ -125,12 +133,73 @@ public class RemindersPlugin extends Plugin
 
 	private void onConfigChanged(ConfigChanged event)
 	{
-		if (!event.getGroup().equals("reminders"))
+		if (!event.getGroup().equals("Reminders"))
 		{
 			return;
 		}
-
 		updateConfig();
+	}
+
+	private void timers()
+	{
+		if (loginTime == null)
+		{
+			return;
+		}
+		seconds = 60;
+		minutes = (int) floor(between(loginTime, Instant.now()).getSeconds() / seconds);
+		hours = minutes / seconds;
+		ounces = 4 * hours;
+		millilitres = 120 * hours;
+	}
+
+	private String pluralizeTime(String time, int count)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(count).append(" ").append(time);
+		if (count != 1)
+		{
+			sb.append("s");
+		}
+		return sb.toString();
+	}
+
+	private void breakReminders()
+	{
+		timers();
+		if (!this.breakReminder)
+		{
+			log.error("breakReminder - Unexpected value: " + hours);
+		}
+
+			final ChatMessageBuilder breakreminder = new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append("You have been logged in for ")
+				.append(pluralizeTime("hour", hours))
+				.append(", you should take a 5-10 minute break.");
+			chatMessageManager.queue(QueuedMessage.builder()
+				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+				.runeLiteFormattedMessage(breakreminder.build())
+				.build());
+	}
+
+	private void hydrationReminders()
+	{
+		timers();
+		if (!this.hydrationReminder)
+		{
+			log.error("hydrationReminder - Unexpected value: " + hours);
+		}
+			final ChatMessageBuilder hydrationreminderhour = new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append("You have been logged in for ")
+				.append(pluralizeTime("hour", hours))
+				.append(". By this point, you should have consumed at least " + ounces + "oz (" + millilitres + "ml) of Water to maintain optimum hydration.");
+			chatMessageManager.queue(QueuedMessage.builder()
+				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+				.runeLiteFormattedMessage(hydrationreminderhour.build())
+				.build());
+
 	}
 
 	@Schedule(
@@ -140,84 +209,16 @@ public class RemindersPlugin extends Plugin
 	public void reminders()
 	{
 
-		if (loginTime == null)
-		{
-			return;
-		}
-		int seconds = 60;
-		int minutes = (int) floor(between(loginTime, Instant.now()).getSeconds() / seconds);
-		int hours = minutes / seconds;
+		timers();
 		if (minutes % seconds == 0 && minutes > 0)
 		{
 			if (this.breakReminder)
 			{
-				switch (hours)
-				{
-					case 1:
-						final ChatMessageBuilder breakreminderhour = new ChatMessageBuilder()
-							.append(ChatColorType.NORMAL)
-							.append("You have hit the 1 hour mark, you should take a 5-10 minute break.");
-						chatMessageManager.queue(QueuedMessage.builder()
-							.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-							.runeLiteFormattedMessage(breakreminderhour.build())
-							.build());
-						break;
-					case 2:
-					case 3:
-					case 4:
-					case 5:
-					case 6:
-						final ChatMessageBuilder breakreminderhours = new ChatMessageBuilder()
-							.append(ChatColorType.NORMAL)
-							.append("You have hit the " + hours + " hours mark, you should take a 5-10 minute break.");
-						chatMessageManager.queue(QueuedMessage.builder()
-							.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-							.runeLiteFormattedMessage(breakreminderhours.build())
-							.build());
-						break;
-					default:
-						throw new IllegalStateException("Unexpected value: " + hours);
-				}
+				breakReminders();
 			}
 			if (this.hydrationReminder)
 			{
-				int ounces = 4 * hours;
-				int millilitres = 120 * hours;
-
-				switch (hours)
-				{
-					case 1:
-						final ChatMessageBuilder hydrationreminderhour = new ChatMessageBuilder()
-							.append(ChatColorType.NORMAL)
-							.append("You have been logged in for 1 hour.");
-						chatMessageManager.queue(QueuedMessage.builder()
-							.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-							.runeLiteFormattedMessage(hydrationreminderhour.build())
-							.build());
-						break;
-					case 2:
-					case 3:
-					case 4:
-					case 5:
-					case 6:
-						final ChatMessageBuilder hydrationreminderhours = new ChatMessageBuilder()
-							.append(ChatColorType.NORMAL)
-							.append("You have been logged in for " + hours + " hours.");
-						chatMessageManager.queue(QueuedMessage.builder()
-							.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-							.runeLiteFormattedMessage(hydrationreminderhours.build())
-							.build());
-						break;
-					default:
-						throw new IllegalStateException("Unexpected value: " + hours);
-				}
-			final ChatMessageBuilder hydrationreminder = new ChatMessageBuilder()
-					.append(ChatColorType.NORMAL)
-					.append("By this point, you should have consumed at least " + ounces + "oz (" + millilitres + "ml) of Water to maintain optimum hydration.");
-				chatMessageManager.queue(QueuedMessage.builder()
-					.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-					.runeLiteFormattedMessage(hydrationreminder.build())
-					.build());
+				hydrationReminders();
 			}
 		}
 	}
@@ -227,4 +228,5 @@ public class RemindersPlugin extends Plugin
 		this.hydrationReminder = config.hydrationReminder();
 		this.breakReminder = config.breakReminder();
 	}
+
 }
