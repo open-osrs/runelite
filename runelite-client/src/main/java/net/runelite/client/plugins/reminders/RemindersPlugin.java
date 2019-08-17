@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019, jkybtw <https://github.com/jkybtw>
  * Copyright (c) 2019, RuneLitePlus <https://runelitepl.us>
- * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
+ * Copyright (c) 2019, kyle <https://github.com/xKylee>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
