@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2019, RuneLitePlus <https://runelitepl.us>
- * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
+ * Copyright (c) 2019, kyle <https://github.com/xKylee>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
