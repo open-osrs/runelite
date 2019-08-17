@@ -1330,7 +1330,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapBones)
 		{
-			menuManager.addSwap("Bury", "", "Use");
+			menuManager.addPriorityEntry(new InventoryComparableEntry("Use", "bone", false));
 		}
 
 		if (this.swapNexus)
@@ -1509,6 +1509,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getRingofWealthMode.toString(), "ring of wealth"));
 		menuManager.removePriorityEntry(this.maxMode.toString(), "max cape");
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
+		menuManager.removePriorityEntry(new InventoryComparableEntry("Use", "bone", false));
 		menuManager.removePriorityEntry("Smith All");
 		menuManager.removePriorityEntry("Smith All Sets");
 		menuManager.removePriorityEntry("Tan All");
