@@ -146,7 +146,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
 	private boolean inCoxRaid = false;
-	private final Map<AbstractComparableEntry, AbstractComparableEntry> customSwaps = new HashMap<>();
+	private final Map<AbstractComparableEntry, Integer> customSwaps = new HashMap<>();
+	private final Map<AbstractComparableEntry, Integer> customShiftSwaps = new HashMap<>();
 	private List<String> bankItemNames = new ArrayList<>();
 	private ConstructionMode getConstructionMode;
 	private BurningAmuletMode getBurningAmuletMode;
@@ -286,7 +287,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		addSubscriptions();
 		addSwaps();
 		loadConstructionItems();
-		loadCustomSwaps(config.customSwaps());
+		loadCustomSwaps(config.customSwaps(), customSwaps);
 		keyManager.registerKeyListener(inputListener);
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
@@ -299,7 +300,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		eventBus.unregister(this);
 
-		loadCustomSwaps(""); // Removes all custom swaps
+		loadCustomSwaps("", customSwaps); // Removes all custom swaps
 		removeSwaps();
 		keyManager.unregisterKeyListener(inputListener);
 		if (client.getGameState() == GameState.LOGGED_IN)
@@ -333,7 +334,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (event.getKey().equals("customSwaps"))
 			{
-				loadCustomSwaps(this.configCustomSwaps);
+				loadCustomSwaps(this.configCustomSwaps, customSwaps);
 			}
 		}
 
@@ -632,13 +633,13 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
-	private void loadCustomSwaps(String config)
+	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map)
 	{
-		Map<AbstractComparableEntry, AbstractComparableEntry> tmp = new HashMap<>();
+		final Map<AbstractComparableEntry, Integer> tmp = new HashMap<>();
 
 		if (!Strings.isNullOrEmpty(config))
 		{
-			StringBuilder sb = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 
 			for (String str : config.split("\n"))
 			{
@@ -648,15 +649,23 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 
-			Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
+			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
 
 			for (Map.Entry<String, String> entry : split.entrySet())
 			{
-				String from = entry.getKey();
-				String to = entry.getValue();
-				String[] splitFrom = Text.standardize(from).split(",");
-				String optionFrom = splitFrom[0].trim();
-				String targetFrom;
+				final String prio = entry.getKey();
+				int priority;
+				try
+				{
+					priority = Integer.parseInt(entry.getValue());
+				}
+				catch (NumberFormatException e)
+				{
+					priority = 0;
+				}
+				final String[] splitFrom = Text.standardize(prio).split(",");
+				final String optionFrom = splitFrom[0].trim();
+				final String targetFrom;
 				if (splitFrom.length == 1)
 				{
 					targetFrom = "";
@@ -666,41 +675,26 @@ public class MenuEntrySwapperPlugin extends Plugin
 					targetFrom = splitFrom[1].trim();
 				}
 
-				AbstractComparableEntry fromEntry = newBaseComparableEntry(optionFrom, targetFrom);
+				final AbstractComparableEntry prioEntry = newBaseComparableEntry(optionFrom, targetFrom);
 
-				String[] splitTo = Text.standardize(to).split(",");
-				String optionTo = splitTo[0].trim();
-				String targetTo;
-				if (splitTo.length == 1)
-				{
-					targetTo = "";
-				}
-				else
-				{
-					targetTo = splitTo[1].trim();
-				}
-
-				AbstractComparableEntry toEntry = newBaseComparableEntry(optionTo, targetTo);
-
-				tmp.put(fromEntry, toEntry);
+				tmp.put(prioEntry, priority);
 			}
 		}
 
-		for (Map.Entry<AbstractComparableEntry, AbstractComparableEntry> e : customSwaps.entrySet())
+		for (Map.Entry<AbstractComparableEntry, Integer> e : map.entrySet())
 		{
-			AbstractComparableEntry key = e.getKey();
-			AbstractComparableEntry value = e.getValue();
-			menuManager.removeSwap(key, value);
+			final AbstractComparableEntry key = e.getKey();
+			menuManager.removePriorityEntry(key);
 		}
 
-		customSwaps.clear();
-		customSwaps.putAll(tmp);
+		map.clear();
+		map.putAll(tmp);
 
-		for (Map.Entry<AbstractComparableEntry, AbstractComparableEntry> entry : customSwaps.entrySet())
+		for (Map.Entry<AbstractComparableEntry, Integer> entry : map.entrySet())
 		{
 			AbstractComparableEntry a1 = entry.getKey();
-			AbstractComparableEntry a2 = entry.getValue();
-			menuManager.addSwap(a1, a2);
+			int a2 = entry.getValue();
+			menuManager.addPriorityEntry(a1).setPriority(a2);
 		}
 	}
 
@@ -1414,7 +1408,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	void startShift()
 	{
-		loadCustomSwaps(this.configCustomShiftSwaps);
+		loadCustomSwaps(this.configCustomShiftSwaps, customShiftSwaps);
 
 		if (!this.swapClimbUpDown)
 		{
@@ -1427,7 +1421,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	void stopShift()
 	{
 		menuManager.removePriorityEntry("climb-up");
-		loadCustomSwaps("");
+		loadCustomSwaps("", customShiftSwaps);
 	}
 
 	void startControl()
