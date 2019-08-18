@@ -34,10 +34,10 @@ import net.runelite.client.config.Stub;
 public interface InfernoConfig extends Config
 {
 	@ConfigItem(
-			position = 0,
-			keyName = "prayer",
-			name = "Prayer",
-			description = ""
+		position = 0,
+		keyName = "prayer",
+		name = "Prayer",
+		description = ""
 	)
 	default Stub prayer()
 	{
@@ -45,10 +45,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "Prayer Helper",
-			name = "Prayer Helper",
-			description = "Indicates the correct prayer"
+		position = 1,
+		keyName = "Prayer Helper",
+		name = "Prayer Helper",
+		description = "Indicates the correct prayer"
 	)
 	default boolean showPrayerHelp()
 	{
@@ -56,10 +56,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "prayerHelperMode",
-			name = "Prayer Helper Mode",
-			description = "Display prayer indicator in the prayer tab or in the bottom right corner of the screen"
+		position = 2,
+		keyName = "prayerHelperMode",
+		name = "Prayer Helper Mode",
+		description = "Display prayer indicator in the prayer tab or in the bottom right corner of the screen"
 	)
 	default InfernoPrayerOverlayMode prayerOverlayMode()
 	{
@@ -67,10 +67,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "descendingBoxes",
-			name = "Descending Boxes",
-			description = "Draws timing boxes above the prayer icons, as if you were playing Piano Tiles"
+		position = 3,
+		keyName = "descendingBoxes",
+		name = "Descending Boxes",
+		description = "Draws timing boxes above the prayer icons, as if you were playing Piano Tiles"
 	)
 	default boolean descendingBoxes()
 	{
@@ -78,10 +78,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "indicateWhenPrayingCorrectly",
-			name = "Indicate When Praying Correctly",
-			description = "Indicate the correct prayer, even if you are already praying that prayer"
+		position = 4,
+		keyName = "indicateWhenPrayingCorrectly",
+		name = "Indicate When Praying Correctly",
+		description = "Indicate the correct prayer, even if you are already praying that prayer"
 	)
 	default boolean indicateWhenPrayingCorrectly()
 	{
@@ -89,10 +89,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 5,
-			keyName = "monsters",
-			name = "Monsters",
-			description = ""
+		position = 5,
+		keyName = "monsters",
+		name = "Monsters",
+		description = ""
 	)
 	default Stub monsters()
 	{
@@ -100,10 +100,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "Nibbler Overlay",
-			name = "Nibbler Overlay",
-			description = "Shows if there are any Nibblers left"
+		position = 6,
+		keyName = "Nibbler Overlay",
+		name = "Nibbler Overlay",
+		description = "Shows if there are any Nibblers left"
 	)
 	default boolean displayNibblerOverlay()
 	{
@@ -111,10 +111,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 7,
-			keyName = "indicateActiveHealers",
-			name = "Indicate Active Healers",
-			description = "Indicate healers that are still healing Jad"
+		position = 7,
+		keyName = "indicateActiveHealers",
+		name = "Indicate Active Healers",
+		description = "Indicate healers that are still healing Jad"
 	)
 	default boolean indicateActiveHealers()
 	{
@@ -122,10 +122,10 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 8,
-			keyName = "waves",
-			name = "Waves",
-			description = ""
+		position = 8,
+		keyName = "waves",
+		name = "Waves",
+		description = ""
 	)
 	default Stub waves()
 	{
