@@ -52,7 +52,7 @@ public class Parse
 
 			for (String str : tmp.values())
 			{
-				Integer.parseInt(str);
+				Integer.parseInt(str.trim());
 			}
 			return true;
 		}

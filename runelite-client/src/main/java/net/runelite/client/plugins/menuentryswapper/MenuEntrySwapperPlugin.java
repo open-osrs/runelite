@@ -142,6 +142,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private PvpToolsPlugin pvpTools;
 	@Inject
 	private PvpToolsConfig pvpToolsConfig;
+	/**
+	 * Migrates old custom swaps config
+	 * This should be removed after a reasonable amount of time.
+	 */
+	@Inject
+	private ConfigManager configManager;
 	private MenuEntry[] entries;
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
@@ -283,6 +289,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Override
 	public void startUp()
 	{
+		migrateConfig();
 		updateConfig();
 		addSubscriptions();
 		addSwaps();
@@ -657,7 +664,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				int priority;
 				try
 				{
-					priority = Integer.parseInt(entry.getValue());
+					priority = Integer.parseInt(entry.getValue().trim());
 				}
 				catch (NumberFormatException e)
 				{
@@ -1618,5 +1625,69 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.hideCastIgnoredToB = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredToB().toLowerCase()));
 		this.hideCastCoX = config.hideCastCoX();
 		this.hideCastIgnoredCoX = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredCoX().toLowerCase()));
+	}
+
+	/**
+	 * Migrates old custom swaps config
+	 * This should be removed after a reasonable amount of time.
+	 */
+	private static boolean oldParse(String value)
+	{
+		try
+		{
+			StringBuilder sb = new StringBuilder();
+
+			for (String str : value.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
+					sb.append(str).append("\n");
+				}
+			}
+
+			NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
+			return true;
+		}
+		catch (IllegalArgumentException ex)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Migrates old custom swaps config
+	 * This should be removed after a reasonable amount of time.
+	 */
+	private void migrateConfig()
+	{
+		String customSwaps = config.customSwaps();
+
+		if (!Parse.parse(customSwaps) && oldParse(customSwaps))
+		{
+			Splitter NEWLINE_SPLITTER = Splitter
+				.on("\n")
+				.omitEmptyStrings()
+				.trimResults();
+
+			final StringBuilder sb = new StringBuilder();
+
+			for (String str : customSwaps.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
+					sb.append(str).append("\n");
+				}
+			}
+
+			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
+			sb.setLength(0);
+
+			for (Map.Entry<String, String> entry : split.entrySet())
+			{
+				sb.append(entry.getValue()).append(":0\n");
+			}
+
+			configManager.setConfiguration("menuentryswapper", "customSwaps", sb.toString());
+		}
 	}
 }
