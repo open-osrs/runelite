@@ -1660,11 +1660,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 	 */
 	private void migrateConfig()
 	{
-		String customSwaps = config.customSwaps();
+		final String customSwaps = config.customSwaps();
 
 		if (!Parse.parse(customSwaps) && oldParse(customSwaps))
 		{
-			Splitter NEWLINE_SPLITTER = Splitter
+			final Splitter NEWLINE_SPLITTER = Splitter
 				.on("\n")
 				.omitEmptyStrings()
 				.trimResults();
@@ -1680,6 +1680,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 
 			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
+
 			sb.setLength(0);
 
 			for (Map.Entry<String, String> entry : split.entrySet())
