@@ -41,7 +41,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -82,9 +81,20 @@ public class ItemsKeptOnDeathPluginTest
 	{
 		// Mock Item Composition and necessary ItemManager methods for this item
 		ItemDefinition c = mock(ItemDefinition.class);
-
+		when(c.getId())
+			.thenReturn(id);
 		when(c.getName())
 			.thenReturn(name);
+		when(c.isTradeable())
+			.thenReturn(tradeable);
+		when(c.getPrice())
+			.thenReturn(price);
+
+		if (!tradeable)
+		{
+			when(c.getNote()).thenReturn(-1);
+			when(c.getLinkedNoteId()).thenReturn(-1);
+		}
 
 		when(itemManager.getItemDefinition(id)).thenReturn(c);
 		when(itemManager.canonicalize(id)).thenReturn(id);
@@ -597,5 +607,25 @@ public class ItemsKeptOnDeathPluginTest
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		assertTrue(kept.contains(new ItemStack(ItemID.SHADOW_SWORD, 1)));
+	}
+
+	@Test
+	public void brokenOnDeathTestRepairPrice()
+	{
+		// Dragon defender price should actually be pulled from BrokenOnDeathItem, and be lost on death
+		final Item[] inv = new Item[]
+			{
+				mItem(ItemID.BARROWS_GLOVES, 1, "Barrows gloves", false, 130000),
+				mItem(ItemID.DRAGON_DEFENDER, 1, "Dragon defender", false, 68007),
+				mItem(ItemID.DRAGON_SCIMITAR, 1, "Dragon scimitar", true, 63123),
+				mItem(ItemID.HELM_OF_NEITIZNOT, 1, "Helm of neitiznot", true, 45519),
+			};
+
+		plugin.wildyLevel = 21;
+
+		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, new Item[0]);
+
+		final List<ItemStack> lost = deathItems.getLostItems();
+		assertTrue(lost.contains(new ItemStack(ItemID.DRAGON_DEFENDER, 1)));
 	}
 }

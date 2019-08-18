@@ -93,7 +93,7 @@ public class RuneLiteAPI
 		catch (NumberFormatException e)
 		{
 			e.printStackTrace();
-			throw new RuntimeException("Version string has not been substituted; Re-run maven");
+			throw new RuntimeException("Version string has not been substituted; Re-run Gradle");
 		}
 		catch (IOException ex)
 		{
@@ -168,7 +168,7 @@ public class RuneLiteAPI
 
 	public static HttpUrl getPlusApiBase()
 	{
-		return HttpUrl.parse(RLPLUS_BASE + "/runelite-" + getRlpVersion());
+		return HttpUrl.parse(RLPLUS_BASE + "/http-service-" + getRlpVersion());
 	}
 
 	public static HttpUrl getStaticBase()

@@ -279,10 +279,10 @@ public interface RSClient extends RSGameShell, Client
 	@Override
 	int[] getPlayerMenuTypes();
 
-	@Import("MouseHandler_x0")
+	@Import("MouseHandler_xVolatile")
 	int getMouseX();
 
-	@Import("MouseHandler_y0")
+	@Import("MouseHandler_yVolatile")
 	int getMouseY();
 
 	@Import("Scene_selectedScreenX")
@@ -302,6 +302,7 @@ public interface RSClient extends RSGameShell, Client
 	int getMenuOptionCount();
 
 	@Import("menuOptionsCount")
+	@Override
 	void setMenuOptionCount(int menuOptionCount);
 
 	@Import("menuActions")

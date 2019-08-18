@@ -26,18 +26,16 @@ package net.runelite.client.plugins.raidsthieving;
 
 import com.google.inject.Provides;
 import java.awt.Color;
-import java.text.MessageFormat;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import static net.runelite.api.Constants.CHUNK_SIZE;
 import net.runelite.api.GameObject;
+import net.runelite.api.GraphicID;
 import net.runelite.api.GraphicsObject;
+import net.runelite.api.ObjectID;
+import net.runelite.api.Point;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
@@ -54,8 +52,11 @@ import net.runelite.client.plugins.raidsthieving.BatSolver.BatSolver;
 import net.runelite.client.plugins.raidsthieving.BatSolver.ChestIdentifier;
 import net.runelite.client.plugins.raidsthieving.BatSolver.ThievingRoomType;
 import net.runelite.client.ui.overlay.OverlayManager;
+import javax.inject.Inject;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
-@Slf4j
 @PluginDescriptor(
 	name = "Raids Bat Finder",
 	description = "Tracks which chests need to be searched for bats and which poison",
@@ -66,47 +67,37 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @Singleton
 public class RaidsThievingPlugin extends Plugin
 {
+	private static final double CHUNK_OFFSET = 3.5;
+
 	@Inject
 	private Client client;
-
 	@Inject
 	private OverlayManager overlayManager;
-
 	@Inject
 	private ChestOverlay overlay;
-
 	@Inject
 	private Notifier notifier;
-
 	@Inject
 	private RaidsThievingConfig config;
-
 	@Inject
 	private EventBus eventBus;
 
 	@Getter(AccessLevel.PACKAGE)
 	private final Map<WorldPoint, ThievingChest> chests = new HashMap<>();
-
 	@Getter(AccessLevel.PACKAGE)
 	private Instant lastActionTime = Instant.ofEpochMilli(0);
-
-	private boolean inRaidChambers;
-
 	@Getter(AccessLevel.PACKAGE)
 	private boolean batsFound;
-
 	@Getter(AccessLevel.PACKAGE)
 	private BatSolver solver;
-
 	@Getter(AccessLevel.PACKAGE)
 	private ChestIdentifier mapper;
-
 	@Getter(AccessLevel.PACKAGE)
-	private Color getPotentialBatColor;
+	private Color potentialBatColor;
 	@Getter(AccessLevel.PACKAGE)
-	private Color getPoisonTrapColor;
+	private Color poisonTrapColor;
 	private boolean batFoundNotify;
-
+	private boolean inRaidChambers;
 
 	@Provides
 	RaidsThievingConfig provideConfig(ConfigManager configManager)
@@ -117,22 +108,21 @@ public class RaidsThievingPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		reset();
 		updateConfig();
 		addSubscriptions();
 
 		overlayManager.add(overlay);
-		overlay.updateConfig();
-		reset();
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 		lastActionTime = Instant.ofEpochMilli(0);
 		chests.clear();
+
+		eventBus.unregister(this);
 	}
 
 	private void addSubscriptions()
@@ -146,12 +136,12 @@ public class RaidsThievingPlugin extends Plugin
 	private void onGameObjectSpawned(GameObjectSpawned event)
 	{
 		GameObject obj = event.getGameObject();
-		WorldPoint loc = obj.getWorldLocation();
-		InstancePoint absLoc = InstancePoint.buildFromPoint(loc, client);
+		WorldPoint worldLoc = obj.getWorldLocation();
+		Point instanceLoc = buildFromPoint(worldLoc, client);
 
-		if (obj.getId() == RaidsThievingConstants.EMPTY_TROUGH)
+		if (obj.getId() == ObjectID.TROUGH_29746)
 		{
-			ThievingRoomType type = ThievingRoomType.identifyByInstancePoint(absLoc);
+			ThievingRoomType type = ThievingRoomType.identifyByInstancePoint(instanceLoc);
 
 			if (type != null)
 			{
@@ -162,25 +152,20 @@ public class RaidsThievingPlugin extends Plugin
 					mapper.indentifyChest(chest);
 				}
 			}
-			else
-			{
-				log.error(MessageFormat.format("Unable to identify room type with: {0} {1} {2} {3} {4}.",
-					loc.getX(), loc.getY(), absLoc.getX(), absLoc.getY(), absLoc.getRot()));
-				log.error("Please report this @https://github.com/runelite/runelite/pull/4914!");
-			}
 		}
-		if (obj.getId() == RaidsThievingConstants.CLOSED_CHEST_ID)
+
+		if (obj.getId() == ObjectID.CHEST_29742)
 		{
-			if (!chests.containsKey(loc))
+			if (!chests.containsKey(worldLoc))
 			{
-				ThievingChest chest = new ThievingChest(obj, absLoc);
+				ThievingChest chest = new ThievingChest(worldLoc, instanceLoc);
 
 				if (mapper != null)
 				{
 					mapper.indentifyChest(chest);
 				}
 
-				chests.put(loc, chest);
+				chests.put(worldLoc, chest);
 			}
 			else
 			{
@@ -188,12 +173,9 @@ public class RaidsThievingPlugin extends Plugin
 			}
 		}
 
-		if (obj.getId() == RaidsThievingConstants.OPEN_FULL_CHEST_1 ||
-			obj.getId() == RaidsThievingConstants.OPEN_FULL_CHEST_2)
+		if (obj.getId() == ObjectID.CHEST_29744 || obj.getId() == ObjectID.CHEST_29745)
 		{
 			ThievingChest chest = chests.get(obj.getWorldLocation());
-			// We found a chest that has grubs
-			log.info(MessageFormat.format("Found grubs at {0}, {1} chestId: {2}", loc.getX(), loc.getY(), chest.getChestId()));
 			if (solver != null && chest.getChestId() != -1)
 			{
 				chest.setEverOpened(true);
@@ -202,7 +184,7 @@ public class RaidsThievingPlugin extends Plugin
 			checkForBats();
 		}
 
-		if (obj.getId() == RaidsThievingConstants.OPEN_EMPTY_CHEST)
+		if (obj.getId() == ObjectID.CHEST_29743)
 		{
 			ThievingChest chest = chests.get(obj.getWorldLocation());
 			// We found a chest that could have poison
@@ -218,9 +200,8 @@ public class RaidsThievingPlugin extends Plugin
 	private void onGraphicsObjectCreated(GraphicsObjectCreated event)
 	{
 		GraphicsObject obj = event.getGraphicsObject();
-		if (obj.getId() == 184)
+		if (obj.getId() == GraphicID.POISON_SPLAT)
 		{
-			log.debug("Found poison splat");
 			WorldPoint loc = WorldPoint.fromLocal(client, obj.getLocation());
 
 			if (chests.get(loc) == null)
@@ -241,7 +222,6 @@ public class RaidsThievingPlugin extends Plugin
 			inRaidChambers = setting;
 			reset();
 		}
-
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -249,7 +229,6 @@ public class RaidsThievingPlugin extends Plugin
 		if (event.getGroup().equals("raidsthievingplugin"))
 		{
 			updateConfig();
-			overlay.updateConfig();
 		}
 	}
 
@@ -274,7 +253,7 @@ public class RaidsThievingPlugin extends Plugin
 		return total;
 	}
 
-	private boolean checkForBats()
+	private void checkForBats()
 	{
 		for (ThievingChest chest : chests.values())
 		{
@@ -285,10 +264,9 @@ public class RaidsThievingPlugin extends Plugin
 				{
 					notifier.notify("Bats have been found!");
 				}
-				return true;
+				return;
 			}
 		}
-		return false;
 	}
 
 	int getChestId(WorldPoint worldPoint)
@@ -296,11 +274,55 @@ public class RaidsThievingPlugin extends Plugin
 		return chests.get(worldPoint).getChestId();
 	}
 
+	private static Point buildFromPoint(WorldPoint worldPoint, Client client)
+	{
+		Point point = new Point(worldPoint.getX(), worldPoint.getY());
+		Point base = new Point(client.getBaseX(), client.getBaseY());
+		int plane = worldPoint.getPlane();
+
+		int deltaX = point.getX() - base.getX();
+		int deltaY = point.getY() - base.getY();
+		int chunkIndexX = deltaX / CHUNK_SIZE;
+		int chunkIndexY = deltaY / CHUNK_SIZE;
+
+		int chunkData = client.getInstanceTemplateChunks()[plane][chunkIndexX][chunkIndexY];
+		int rotation = chunkData >> 1 & 0x3;
+		int y = (chunkData >> 3 & 0x7FF) * 8;
+		int x = (chunkData >> 14 & 0x3FF) * 8;
+
+		return buildFromTile(base, point, rotation, new Point(x, y));
+	}
+
+	private static Point buildFromTile(Point base, Point tile, int rot, Point chunkOrigin)
+	{
+		int deltaX = tile.getX() - base.getX();
+		int deltaY = tile.getY() - base.getY();
+
+		double chunkOffsetX = (deltaX % CHUNK_SIZE) - CHUNK_OFFSET;
+		double chunkOffsetY = (deltaY % CHUNK_SIZE) - CHUNK_OFFSET;
+
+		for (int i = 0; i < rot; i++)
+		{
+			double temp = chunkOffsetX;
+			chunkOffsetX = -chunkOffsetY;
+			chunkOffsetY = temp;
+		}
+
+		chunkOffsetX += CHUNK_OFFSET;
+		chunkOffsetY += CHUNK_OFFSET;
+
+		int invariantChunkOffsetX = (int) chunkOffsetX;
+		int invariantChunkOffsetY = (int) chunkOffsetY;
+
+		return new Point(
+			chunkOrigin.getX() + invariantChunkOffsetX,
+			chunkOrigin.getY() + invariantChunkOffsetY);
+	}
+
 	private void updateConfig()
 	{
-		this.getPotentialBatColor = config.getPotentialBatColor();
-		this.getPoisonTrapColor = config.getPoisonTrapColor();
+		this.potentialBatColor = config.getPotentialBatColor();
+		this.poisonTrapColor = config.getPoisonTrapColor();
 		this.batFoundNotify = config.batFoundNotify();
 	}
 }
-

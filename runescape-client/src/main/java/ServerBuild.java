@@ -32,7 +32,8 @@ public class ServerBuild {
 	@Export("WIP")
 	static final ServerBuild WIP;
 	@ObfuscatedName("f")
-	static int[] field3103;
+	@Export("Tiles_hue")
+	static int[] Tiles_hue;
 	@ObfuscatedName("k")
 	@Export("name")
 	public final String name;

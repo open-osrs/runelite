@@ -24,8 +24,23 @@
  */
 description = 'Injected Client'
 
-task injector(){
-    // I kinda want to make the entire injector work here but seems like more work
-    dependsOn ':injector-plugin:compileJava'
+compileJava {
+    dependsOn ':injector-plugin:assemble'
 }
 
+compileJava.outputs.upToDateWhen { false }
+
+compileJava.doLast() {
+    copy {
+        File f = file("build/classes/java/main")
+        f.deleteDir()
+        f.mkdirs()
+        from ("${injectedClassesPath}")
+        into ("build/classes/java/main")
+    }
+}
+
+classes.doLast() {
+    File f = file("build/classes/java/main/Placeholder.class")
+    f.delete()
+}

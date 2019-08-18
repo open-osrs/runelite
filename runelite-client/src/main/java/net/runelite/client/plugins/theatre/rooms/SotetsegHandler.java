@@ -1,14 +1,17 @@
 package net.runelite.client.plugins.theatre.rooms;
 
+import com.google.common.collect.ImmutableSet;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -17,12 +20,13 @@ import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import net.runelite.api.Point;
 import net.runelite.api.Projectile;
+import net.runelite.api.ProjectileID;
 import net.runelite.api.Tile;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.GroundObjectSpawned;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
-import net.runelite.api.events.ProjectileMoved;
+import net.runelite.api.events.ProjectileSpawned;
 import net.runelite.client.plugins.theatre.RoomHandler;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
@@ -31,19 +35,18 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 public class SotetsegHandler extends RoomHandler
 {
-
+	private static final Set<Integer> SOTE_PROJ = ImmutableSet.of(
+		ProjectileID.SOTETSEG_MAGE, ProjectileID.SOTETSEG_RANGE
+	);
 	@Getter(AccessLevel.PUBLIC)
 	private final Map<GroundObject, Tile> redTiles = new LinkedHashMap<>();
-	//My variables
-	private int playerX;
-	private int playerY;
 	@Getter(AccessLevel.PUBLIC)
 	private List<WorldPoint> redOverworld = new ArrayList<>();
 	private final List<WorldPoint> blackOverworld = new ArrayList<>();
 	private final List<WorldPoint> blackUnderworld = new ArrayList<>();
 	private final List<WorldPoint> redUnderworld = new ArrayList<>();
 	private final List<Point> gridPath = new ArrayList<>();
-	private final Map<Projectile, WorldPoint> soteyProjectiles = new HashMap<>();
+	private final Set<Projectile> soteyProjectiles = new HashSet<>();
 	private NPC npc;
 
 	public SotetsegHandler(final Client client, final TheatrePlugin plugin)
@@ -73,7 +76,6 @@ public class SotetsegHandler extends RoomHandler
 	private void reset()
 	{
 		npc = null;
-		soteyProjectiles.clear();
 		redTiles.clear();
 		redOverworld.clear();
 		blackOverworld.clear();
@@ -120,7 +122,7 @@ public class SotetsegHandler extends RoomHandler
 		{
 
 			Map<Projectile, String> projectileMap = new HashMap<>();
-			for (Projectile p : soteyProjectiles.keySet())
+			for (Projectile p : soteyProjectiles)
 			{
 				final int ticksRemaining = p.getRemainingCycles() / 30;
 				int id = p.getId();
@@ -140,15 +142,17 @@ public class SotetsegHandler extends RoomHandler
 		}
 	}
 
-	public void onProjectileMoved(ProjectileMoved event)
+	public void onProjectileSpawned(ProjectileSpawned event)
 	{
-		Projectile projectile = event.getProjectile();
+		final Projectile projectile = event.getProjectile();
 
-		//1604 ball
-		if (event.getPosition().getX() == playerX && event.getPosition().getY() == playerY || event.getProjectile().getId() == 1604)
+		if (SOTE_PROJ.contains(projectile.getId()) && projectile.getInteracting() == client.getLocalPlayer())
 		{
-			WorldPoint p = WorldPoint.fromLocal(client, event.getPosition());
-			soteyProjectiles.put(projectile, p);
+			soteyProjectiles.add(projectile);
+		}
+		else if (projectile.getId() == ProjectileID.SOTETSEG_BOMB)
+		{
+			soteyProjectiles.add(projectile);
 		}
 	}
 
@@ -233,18 +237,13 @@ public class SotetsegHandler extends RoomHandler
 			return;
 		}
 
-		//Update player position every game tick
-		playerX = client.getLocalPlayer().getLocalLocation().getX();
-		playerY = client.getLocalPlayer().getLocalLocation().getY();
-
-
-		//Remove projectiles that are about to die
 		if (!soteyProjectiles.isEmpty())
 		{
-			soteyProjectiles.keySet().removeIf(p -> p.getRemainingCycles() < 1);
+			soteyProjectiles.removeIf(p -> p.getRemainingCycles() <= 0);
 		}
 
 		boolean sotetsegFighting = false;
+
 		for (NPC npc : client.getNpcs())
 		{
 			if (npc.getId() == NpcID.SOTETSEG_8388)

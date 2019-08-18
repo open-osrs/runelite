@@ -42,11 +42,11 @@ public class class40 {
 		signature = "(IIIIIIIII)V",
 		garbageValue = "1804465340"
 	)
-	void method698(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+	void method698(int x, int y, int var3, int col, int w, int h, int var7, int var8) {
 		if (var7 != 0 && this.pixelsPerTile != 0 && this.tileTemplates != null) {
 			var8 = this.method699(var8, var7);
 			var7 = this.method712(var7);
-			Rasterizer2D.raster2d7(var1, var2, var5, var6, var3, var4, this.tileTemplates[var7 - 1][var8], this.pixelsPerTile);
+			Rasterizer2D.Rasterizer2D_drawGradientPixels(x, y, w, h, var3, col, this.tileTemplates[var7 - 1][var8], this.pixelsPerTile);
 		}
 	}
 
@@ -687,7 +687,7 @@ public class class40 {
 		if (var0.buttonType == 2 && !Client.isSpellSelected) {
 			var3 = FontName.method5318(var0);
 			if (var3 != null) {
-				class188.insertMenuItemNoShift(var3, ClientPreferences.colorStartTag(65280) + var0.spellName, 25, 0, -1, var0.id);
+				class188.insertMenuItemNoShift(var3, ClientPreferences.colorStartTag(0xff00) + var0.spellName, 25, 0, -1, var0.id);
 			}
 		}
 
@@ -703,7 +703,7 @@ public class class40 {
 			class188.insertMenuItemNoShift(var0.buttonText, "", 29, 0, 0, var0.id);
 		}
 
-		if (var0.buttonType == 6 && Client.field850 == null) {
+		if (var0.buttonType == 6 && Client.meslayerContinueWidget == null) {
 			class188.insertMenuItemNoShift(var0.buttonText, "", 30, 0, -1, var0.id);
 		}
 

@@ -31,8 +31,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
@@ -46,6 +44,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -80,9 +79,11 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.LocalPlayerDeath;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.WidgetID;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.RuneLite;
 import net.runelite.client.account.AccountSession;
 import net.runelite.client.account.SessionManager;
@@ -128,7 +129,7 @@ import org.apache.commons.lang3.ArrayUtils;
 public class LootTrackerPlugin extends Plugin
 {
 	// Activity/Event loot handling
-	private static final Pattern CLUE_SCROLL_PATTERN = Pattern.compile("You have completed [0-9]+ ([a-z]+) Treasure Trails.");
+	private static final Pattern CLUE_SCROLL_PATTERN = Pattern.compile("You have completed ([0-9]+) ([a-z]+) Treasure Trails.");
 	private static final int THEATRE_OF_BLOOD_REGION = 12867;
 
 	private static final Pattern BOSS_NAME_NUMBER_PATTERN = Pattern.compile("Your (.*) kill count is: ([0-9]*).");
@@ -137,6 +138,10 @@ public class LootTrackerPlugin extends Plugin
 	// Herbiboar loot handling
 	private static final String HERBIBOAR_LOOTED_MESSAGE = "You harvest herbs from the herbiboar, whereupon it escapes.";
 	private static final String HERBIBOAR_EVENT = "Herbiboar";
+
+	// Wintertodt loot handling
+	private static final Pattern WINTERTODT_NUMBER_PATTERN = Pattern.compile("Your subdued Wintertodt count is: ([0-9]*).");
+	private static final String WINTERTODT_EVENT = "Wintertodt";
 
 	// Hespori loot handling
 	private static final String HESPORI_LOOTED_MESSAGE = "You have successfully cleared this patch for new crops.";
@@ -166,6 +171,10 @@ public class LootTrackerPlugin extends Plugin
 		11062 // Camelot
 	);
 
+	private static final Set<String> PET_MESSAGES = ImmutableSet.of("You have a funny feeling like you're being followed",
+		"You feel something weird sneaking into your backpack",
+		"You have a funny feeling like you would have been followed");
+
 	// Instant for showing session loot. this gets set on plugin startup
 
 	public static final Instant SESSION_START_TIME = Instant.now();
@@ -175,7 +184,7 @@ public class LootTrackerPlugin extends Plugin
 	@VisibleForTesting
 	private Collection<LootRecord> lootRecords = new ArrayList<>();
 	private boolean pvpDeath = false;
-	
+
 	// Last man standing map regions
 	private static final Set<Integer> LAST_MAN_STANDING_REGIONS = ImmutableSet.of(13658, 13659, 13914, 13915, 13916);
 
@@ -211,6 +220,7 @@ public class LootTrackerPlugin extends Plugin
 	private LootTrackerClient lootTrackerClient;
 
 	private Map<String, Integer> killCountMap = new HashMap<>();
+	private boolean gotPet = false;
 
 	private static Collection<ItemStack> stack(Collection<ItemStack> items)
 	{
@@ -431,6 +441,7 @@ public class LootTrackerPlugin extends Plugin
 		eventBus.subscribe(WidgetLoaded.class, this, this::onWidgetLoaded);
 		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
 		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
+		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 	}
 
 	private void onGameStateChanged(final GameStateChanged event)
@@ -500,6 +511,19 @@ public class LootTrackerPlugin extends Plugin
 			}
 		}
 
+		if (gotPet)
+		{
+			ItemStack pet = handlePet(name);
+			if (pet == null)
+			{
+				log.warn("Error finding pet for npc name: {}", name);
+			}
+			else
+			{
+				items.add(pet);
+			}
+		}
+
 		SwingUtilities.invokeLater(() -> panel.add(name, localUsername, combat, entries));
 		LootRecord lootRecord = new LootRecord(name, localUsername, LootRecordType.NPC,
 			toGameItems(items), Instant.now());
@@ -535,7 +559,7 @@ public class LootTrackerPlugin extends Plugin
 		if (this.sendLootValueMessages)
 		{
 			if (WorldType.isDeadmanWorld(client.getWorldType()) || WorldType.isHighRiskWorld(client.getWorldType()) ||
-					WorldType.isPvpWorld(client.getWorldType()) || client.getVar(Varbits.IN_WILDERNESS) == 1)
+				WorldType.isPvpWorld(client.getWorldType()) || client.getVar(Varbits.IN_WILDERNESS) == 1)
 			{
 				final String totalValue = StackFormatter.quantityToRSStackSize(playerLootReceived.getItems().stream()
 					.mapToInt(itemStack -> itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity()).sum());
@@ -590,7 +614,7 @@ public class LootTrackerPlugin extends Plugin
 				{
 					return;
 				}
-				
+
 				if (WorldPoint.fromLocalInstance(client, client.getLocalPlayer()
 					.getLocalLocation()).getRegionID() != THEATRE_OF_BLOOD_REGION)
 				{
@@ -605,6 +629,10 @@ public class LootTrackerPlugin extends Plugin
 				// event type should be set via ChatMessage for clue scrolls.
 				// Clue Scrolls use same InventoryID as Barrows
 				container = client.getItemContainer(InventoryID.BARROWS_REWARD);
+				break;
+			case (WidgetID.KINGDOM_GROUP_ID):
+				eventType = "Kingdom of Miscellania";
+				container = client.getItemContainer(InventoryID.KINGDOM_OF_MISCELLANIA);
 				break;
 			default:
 				return;
@@ -685,6 +713,11 @@ public class LootTrackerPlugin extends Plugin
 
 		final String message = event.getMessage();
 
+		if (PET_MESSAGES.stream().anyMatch(message::contains))
+		{
+			gotPet = true;
+		}
+
 		if (message.equals(CHEST_LOOTED_MESSAGE) || LARRAN_LOOTED_PATTERN.matcher(message).matches())
 		{
 			final int regionID = client.getLocalPlayer().getWorldLocation().getRegionID();
@@ -709,7 +742,7 @@ public class LootTrackerPlugin extends Plugin
 
 		// Remove all tags
 		final String chatMessage = Text.removeTags(message);
-		
+
 		final int regionID = client.getLocalPlayer().getWorldLocation().getRegionID();
 		if (HESPORI_REGION == regionID && message.equals(HESPORI_LOOTED_MESSAGE))
 		{
@@ -729,7 +762,7 @@ public class LootTrackerPlugin extends Plugin
 		final Matcher m = CLUE_SCROLL_PATTERN.matcher(chatMessage);
 		if (m.find())
 		{
-			final String type = m.group(1).toLowerCase();
+			final String type = m.group(2).toLowerCase();
 			switch (type)
 			{
 				case "beginner":
@@ -787,6 +820,13 @@ public class LootTrackerPlugin extends Plugin
 				killCountMap.put("THEATRE OF BLOOD", Integer.valueOf(n.group()));
 				return;
 			}
+		}
+		// Handle wintertodt
+		Matcher wintertodt = WINTERTODT_NUMBER_PATTERN.matcher(chatMessage);
+		if (wintertodt.find())
+		{
+			int killCount = Integer.parseInt(wintertodt.group(1));
+			killCountMap.put(WINTERTODT_EVENT, killCount);
 		}
 		// Handle all other boss
 		Matcher boss = BOSS_NAME_NUMBER_PATTERN.matcher(chatMessage);
@@ -849,7 +889,8 @@ public class LootTrackerPlugin extends Plugin
 		if (CHEST_EVENT_TYPES.containsValue(eventType)
 			|| HERBIBOAR_EVENT.equals(eventType)
 			|| HESPORI_EVENT.equals(eventType)
-			|| GAUNTLET_EVENT.equals(eventType))
+			|| GAUNTLET_EVENT.equals(eventType)
+			|| WINTERTODT_EVENT.equals(eventType))
 		{
 			if (event.getItemContainer() != client.getItemContainer(InventoryID.INVENTORY))
 			{
@@ -861,6 +902,30 @@ public class LootTrackerPlugin extends Plugin
 		}
 	}
 
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		if (event.getActionParam1() != WidgetInfo.INVENTORY.getId())
+		{
+			return;
+		}
+
+		int itemId = event.getIdentifier();
+
+		if (itemId == -1)
+		{
+			return;
+		}
+
+		String option = event.getOption();
+		ItemDefinition itemComposition = client.getItemDefinition(itemId);
+
+		if (option.equals("Open") && itemComposition.getName().equals("Supply crate"))
+		{
+			eventType = WINTERTODT_EVENT;
+			takeInventorySnapshot();
+		}
+	}
+
 	private void saveLocalLootRecord(LootRecord lootRecord)
 	{
 		lootRecords.add(lootRecord);
@@ -868,10 +933,7 @@ public class LootTrackerPlugin extends Plugin
 		{
 			BufferedWriter bufferedWriter = Files.newBufferedWriter(LOOT_RECORDS_FILE.toPath());
 
-			GsonBuilder gsonBuilder = new GsonBuilder();
-			gsonBuilder.setPrettyPrinting();
-			Gson gson = gsonBuilder.create();
-			bufferedWriter.append(gson.toJson(lootRecords));
+			bufferedWriter.append(RuneLiteAPI.GSON.toJson(lootRecords));
 			bufferedWriter.close();
 		}
 		catch (IOException e)
@@ -952,6 +1014,32 @@ public class LootTrackerPlugin extends Plugin
 				.map(e -> new ItemStack(e.getElement(), e.getCount(), client.getLocalPlayer().getLocalLocation()))
 				.collect(Collectors.toList());
 
+			if (gotPet)
+			{
+				ItemStack pet = null;
+				switch (chestType)
+				{
+					case HERBIBOAR_EVENT:
+						pet = handlePet("Herbiboar");
+						break;
+					case WINTERTODT_EVENT:
+						pet = handlePet("Wintertodt");
+						break;
+					case GAUNTLET_EVENT:
+						pet = handlePet("Gauntlet");
+						break;
+				}
+
+				if (pet == null)
+				{
+					log.warn("Error finding pet for npc name: Herbiboar");
+				}
+				else
+				{
+					items.add(pet);
+				}
+			}
+
 			final LootTrackerItem[] entries = buildEntries(stack(items));
 			SwingUtilities.invokeLater(() -> panel.add(chestType, client.getLocalPlayer().getName(), -1, entries));
 
@@ -999,7 +1087,8 @@ public class LootTrackerPlugin extends Plugin
 
 	/**
 	 * Toggles the hidden status for a particular record
-	 * @param name - The String name of the record to toggle the hidden status of
+	 *
+	 * @param name   - The String name of the record to toggle the hidden status of
 	 * @param ignore - true to ignore, false to remove
 	 */
 	void toggleNPC(String name, boolean ignore)
@@ -1020,6 +1109,7 @@ public class LootTrackerPlugin extends Plugin
 
 	/**
 	 * Checks to see if a record name is in the list of ignored NPCs
+	 *
 	 * @param name - The String of the name to check
 	 * @return - true if it is being ignored, false otherwise
 	 */
@@ -1062,18 +1152,17 @@ public class LootTrackerPlugin extends Plugin
 
 	private Collection<LootTrackerRecord> convertToLootTrackerRecord(final Collection<LootRecord> records)
 	{
-		Collection<LootTrackerRecord> trackerRecords = new ArrayList<>();
-		for (LootRecord record : records)
-		{
-			LootTrackerItem[] drops = record.getDrops().stream().map(itemStack ->
-				buildLootTrackerItem(itemStack.getId(), itemStack.getQty())
-			).toArray(LootTrackerItem[]::new);
-
-			trackerRecords.add(new LootTrackerRecord(record.getEventId(), record.getUsername(),
-				"", drops, record.getTime()));
-		}
-
-		return trackerRecords;
+		return records.stream()
+			.sorted(Comparator.comparing(LootRecord::getTime))
+			.map(record ->
+			{
+				LootTrackerItem[] drops = record.getDrops().stream().map(itemStack ->
+					buildLootTrackerItem(itemStack.getId(), itemStack.getQty())
+				).toArray(LootTrackerItem[]::new);
+				return new LootTrackerRecord(record.getEventId(), record.getUsername(),
+					"", drops, record.getTime());
+			})
+			.collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	private Collection<LTItemEntry> convertToLTItemEntries(Collection<ItemStack> stacks)
@@ -1103,6 +1192,30 @@ public class LootTrackerPlugin extends Plugin
 		}
 
 		return false;
+	}
+
+	// Pet Handling
+	private ItemStack handlePet(String name)
+	{
+		gotPet = false;
+
+		int petID = getPetId(name);
+		if (petID == -1)
+		{
+			return null;
+		}
+
+		return new ItemStack(petID, 1, client.getLocalPlayer().getLocalLocation());
+	}
+
+	private int getPetId(String name)
+	{
+		Pet pet = Pet.getByBossName(name);
+		if (pet != null)
+		{
+			return pet.getPetID();
+		}
+		return -1;
 	}
 
 	private void updateConfig()
