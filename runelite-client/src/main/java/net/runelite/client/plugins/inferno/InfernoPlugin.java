@@ -101,21 +101,21 @@ public class InfernoPlugin extends Plugin
 	private int currentWave = -1;
 
 	@Getter(AccessLevel.PACKAGE)
-	private Map<NPC, InfernoNPC> monsters;
+	private final Map<NPC, InfernoNPC> monsters = new HashMap<>();
 
 	@Getter(AccessLevel.PACKAGE)
-	private Map<Integer, ArrayList<InfernoNPC>> monsterCurrentAttackMap;
+	private final Map<Integer, ArrayList<InfernoNPC>> monsterCurrentAttackMap = new HashMap<>(6);
 
 	@Getter(AccessLevel.PACKAGE)
-	private List<NPC> nibblers;
+	private final List<NPC> nibblers = new ArrayList<>();
 
 	@Getter(AccessLevel.PACKAGE)
-	private InfernoNPC[] priorityNPC;
+	private final InfernoNPC[] priorityNPC = new InfernoNPC[4];;
 
 	@Getter(AccessLevel.PACKAGE)
-	private List<InfernoJad> jads;
+	private final List<InfernoJad> jads = new ArrayList<>();
 	@Getter(AccessLevel.PACKAGE)
-	private List<NPC> activeHealers;
+	private final List<NPC> activeHealers = new ArrayList<>();
 
 	@Getter
 	private long lastTick;
@@ -123,12 +123,7 @@ public class InfernoPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private int currentWaveNumber;
 
-	private final List<Actor> waveMonsters;
-
-	public InfernoPlugin()
-	{
-		waveMonsters = new ArrayList<>();
-	}
+	private final List<Actor> waveMonsters = new ArrayList<>();
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean displayNibblerOverlay;
@@ -177,18 +172,10 @@ public class InfernoPlugin extends Plugin
 		waveOverlay.setWaveHeaderColor(this.getWaveOverlayHeaderColor);
 		waveOverlay.setWaveTextColor(this.getWaveTextColor);
 
-		jads = new ArrayList<>();
-		activeHealers = new ArrayList<>();
-		monsters = new HashMap<>();
-		monsterCurrentAttackMap = new HashMap<>(6);
-
 		for (int i = 1; i <= 6; i++)
 		{
 			monsterCurrentAttackMap.put(i, new ArrayList<>());
 		}
-
-		nibblers = new ArrayList<>();
-		priorityNPC = new InfernoNPC[4];
 	}
 
 	@Override
@@ -201,9 +188,6 @@ public class InfernoPlugin extends Plugin
 		overlayManager.remove(waveOverlay);
 		overlayManager.remove(jadOverlay);
 		overlayManager.remove(prayerOverlay);
-		jads = null;
-		activeHealers = null;
-		monsters = null;
 		currentWaveNumber = -1;
 	}
 

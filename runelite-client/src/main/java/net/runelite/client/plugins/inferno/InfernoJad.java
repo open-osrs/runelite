@@ -30,31 +30,29 @@ import net.runelite.api.AnimationID;
 import net.runelite.api.NPC;
 import net.runelite.api.Prayer;
 
+@Getter(AccessLevel.PACKAGE)
 public class InfernoJad
 {
 	private static final int TICKS_AFTER_ANIMATION = 4;
 
-	@Getter(AccessLevel.PACKAGE)
 	private NPC npc;
-	@Getter(AccessLevel.PACKAGE)
 	private Attack nextAttack;
-	@Getter(AccessLevel.PACKAGE)
 	private int ticksTillNextAttack;
 
-	public InfernoJad(NPC npc)
+	InfernoJad(NPC npc)
 	{
 		this.npc = npc;
 		nextAttack = null;
 		ticksTillNextAttack = -1;
 	}
 
-	public void updateNextAttack(Attack nextAttack)
+	void updateNextAttack(Attack nextAttack)
 	{
 		this.nextAttack = nextAttack;
 		this.ticksTillNextAttack = TICKS_AFTER_ANIMATION;
 	}
 
-	public void gameTick()
+	void gameTick()
 	{
 		if (ticksTillNextAttack < 0)
 		{
@@ -69,6 +67,7 @@ public class InfernoJad
 		}
 	}
 
+	@Getter(AccessLevel.PACKAGE)
 	enum Attack
 	{
 		MAGIC(AnimationID.JALTOK_JAD_MAGE_ATTACK, Prayer.PROTECT_FROM_MAGIC),
@@ -81,16 +80,6 @@ public class InfernoJad
 		{
 			this.animation = animation;
 			this.prayer = prayer;
-		}
-
-		public int getAnimation()
-		{
-			return animation;
-		}
-
-		public Prayer getPrayer()
-		{
-			return prayer;
 		}
 	}
 }
