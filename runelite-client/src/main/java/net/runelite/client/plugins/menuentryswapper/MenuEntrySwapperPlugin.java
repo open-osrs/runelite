@@ -1635,7 +1635,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		try
 		{
-			StringBuilder sb = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 
 			for (String str : value.split("\n"))
 			{
@@ -1664,11 +1664,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (!Parse.parse(customSwaps) && oldParse(customSwaps))
 		{
-			final Splitter NEWLINE_SPLITTER = Splitter
-				.on("\n")
-				.omitEmptyStrings()
-				.trimResults();
-
 			final StringBuilder sb = new StringBuilder();
 
 			for (String str : customSwaps.split("\n"))
