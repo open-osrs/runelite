@@ -166,6 +166,7 @@ class QuestGuideLinks
 		new Link("The Mage Arena", "https://www.youtube.com/watch?v=UyncI4hgmtY"),
 		new Link("Skippy and the Mogres", "https://www.youtube.com/watch?v=cU0H6QVXcG0")
 	};
+	
 	private static class Link
 	{
 
