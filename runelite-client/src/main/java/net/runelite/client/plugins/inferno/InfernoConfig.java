@@ -55,7 +55,40 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+			position = 1,
+			keyName = "descendingBoxes",
+			name = "Descending Boxes",
+			description = "Draws timing boxes above the prayer icons, as if you were playing Piano Tiles"
+	)
+	default boolean descendingBoxes()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			position = 2,
+			keyName = "indicateWhenPrayingCorrectly",
+			name = "Indicate When Praying Correctly",
+			description = "Indicate the correct prayer, even if you are already praying that prayer"
+	)
+	default boolean indicateWhenPrayingCorrectly()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			position = 2,
+			keyName = "indicateActiveHealers",
+			name = "Indicate Active Healers",
+			description = "Indicate healers that are still healing Jad"
+	)
+	default boolean indicateActiveHealers()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "waveDisplay",
 		name = "Wave display",
 		description = "Shows monsters that will spawn on the selected wave(s)."
@@ -66,7 +99,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+		position = 4,
 		keyName = "getWaveOverlayHeaderColor",
 		name = "Wave Header",
 		description = "Color for Wave Header"
@@ -77,7 +110,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 5,
 		keyName = "getWaveTextColor",
 		name = "Wave Text Color",
 		description = "Color for Wave Texts"
