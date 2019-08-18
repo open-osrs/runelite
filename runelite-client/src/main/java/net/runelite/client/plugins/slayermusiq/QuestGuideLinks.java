@@ -153,7 +153,8 @@ class QuestGuideLinks
 		new Link("Making History", "https://www.youtube.com/watch?v=bOTGi2zAuhs"),
 		new Link("The Hand in the Sand", "https://www.youtube.com/watch?v=gdNLcZ-l1Lw"),
 		new Link("The Slug Menace", "https://www.youtube.com/watch?v=BRQbdr3JEZ8"),
-		new Link("Another Slice of H.A.M.", "https://www.youtube.com/watch?v=Yq3db7827Lk")
+		new Link("Another Slice of H.A.M.", "https://www.youtube.com/watch?v=Yq3db7827Lk"),
+		new Link("Song of the Elves", "https://www.youtube.com/watch?v=oMGvdBCuxoY")
 	};
 
 	private static class Link
