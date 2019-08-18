@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019, jkybtw <https://github.com/jkybtw>
  * Copyright (c) 2019, RuneLitePlus <https://runelitepl.us>
- * Copyright (c) 2019, kyle <https://github.com/xKylee>
+ * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -111,7 +111,7 @@ public class RemindersPlugin extends Plugin
 
 	public void onGameStateChanged(GameStateChanged event)
 	{
-		GameState state = event.getGameState();
+		final GameState state = event.getGameState();
 
 		switch (state)
 		{
@@ -155,8 +155,11 @@ public class RemindersPlugin extends Plugin
 
 	private String pluralizeTime(String time, int count)
 	{
-		StringBuilder sb = new StringBuilder();
-		sb.append(count).append(" ").append(time);
+		final StringBuilder sb = new StringBuilder();
+		sb
+			.append(count)
+			.append(" ")
+			.append(time);
 		if (count != 1)
 		{
 			sb.append("s");
