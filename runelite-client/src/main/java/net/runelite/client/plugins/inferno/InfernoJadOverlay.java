@@ -62,6 +62,12 @@ public class InfernoJadOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
+		if (!plugin.isShowPrayerHelp() || (plugin.getPrayerOverlayMode() != InfernoPrayerOverlayMode.BOTTOM_RIGHT
+				&& plugin.getPrayerOverlayMode() != InfernoPrayerOverlayMode.BOTH))
+		{
+			return null;
+		}
+
 		InfernoJad.Attack attack = null;
 		int leastTicks = 999;
 

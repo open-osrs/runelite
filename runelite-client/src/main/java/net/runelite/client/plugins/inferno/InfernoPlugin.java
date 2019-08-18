@@ -89,9 +89,6 @@ public class InfernoPlugin extends Plugin
 	private InfernoPrayerOverlay prayerOverlay;
 
 	@Inject
-	private InfernoInfobox infernoInfobox;
-
-	@Inject
 	private InfernoNibblerOverlay nibblerOverlay;
 
 	@Inject
@@ -137,6 +134,8 @@ public class InfernoPlugin extends Plugin
 	private boolean displayNibblerOverlay;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean showPrayerHelp;
+	@Getter(AccessLevel.PACKAGE)
+	private InfernoPrayerOverlayMode prayerOverlayMode;
 	private InfernoWaveDisplayMode waveDisplay;
 	private Color getWaveOverlayHeaderColor;
 	private Color getWaveTextColor;
@@ -164,7 +163,6 @@ public class InfernoPlugin extends Plugin
 		if (isInInferno())
 		{
 			overlayManager.add(infernoOverlay);
-			overlayManager.add(infernoInfobox);
 			overlayManager.add(nibblerOverlay);
 
 			if (this.waveDisplay != InfernoWaveDisplayMode.NONE)
@@ -198,7 +196,6 @@ public class InfernoPlugin extends Plugin
 	{
 		eventBus.unregister(this);
 
-		overlayManager.remove(infernoInfobox);
 		overlayManager.remove(infernoOverlay);
 		overlayManager.remove(nibblerOverlay);
 		overlayManager.remove(waveOverlay);
@@ -329,7 +326,6 @@ public class InfernoPlugin extends Plugin
 		if (!isInInferno())
 		{
 			currentWaveNumber = -1;
-			overlayManager.remove(infernoInfobox);
 			overlayManager.remove(infernoOverlay);
 			overlayManager.remove(nibblerOverlay);
 			overlayManager.remove(waveOverlay);
@@ -340,7 +336,6 @@ public class InfernoPlugin extends Plugin
 		{
 			currentWaveNumber = 1;
 			overlayManager.add(infernoOverlay);
-			overlayManager.add(infernoInfobox);
 			overlayManager.add(nibblerOverlay);
 
 			if (this.waveDisplay != InfernoWaveDisplayMode.NONE)
@@ -564,6 +559,7 @@ public class InfernoPlugin extends Plugin
 	{
 		this.displayNibblerOverlay = config.displayNibblerOverlay();
 		this.showPrayerHelp = config.showPrayerHelp();
+		this.prayerOverlayMode = config.prayerOverlayMode();
 		this.waveDisplay = config.waveDisplay();
 		this.getWaveOverlayHeaderColor = config.getWaveOverlayHeaderColor();
 		this.getWaveTextColor = config.getWaveTextColor();

@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Prayer;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -17,10 +19,6 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 public class InfernoPrayerOverlay extends Overlay
 {
 	private static final int TICK_PIXEL_SIZE = 60;
-	private static final int BASE_Y = 325;
-	private static final int BASE_X_1 = 588;
-	private static final int BASE_X_2 = 625;
-	private static final int PRAYER_SIZE = 32;
 	private static final int BLOB_WIDTH = 10;
 	private static final int BLOB_HEIGHT = 5;
 
@@ -41,6 +39,12 @@ public class InfernoPrayerOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
+		if (client.getWidget(WidgetInfo.PRAYER_PROTECT_FROM_MAGIC).isHidden()
+				|| client.getWidget(WidgetInfo.PRAYER_PROTECT_FROM_MISSILES).isHidden())
+		{
+			return null;
+		}
+
 		InfernoJad.Attack prayerForAttack = null;
 
 		if (client.isPrayerActive(Prayer.PROTECT_FROM_MAGIC))
@@ -68,16 +72,20 @@ public class InfernoPrayerOverlay extends Overlay
 				closestAttack = jad.getNextAttack();
 			}
 
-			if (!plugin.isDescendingBoxes())
+			if (!plugin.isDescendingBoxes() || !plugin.isShowPrayerHelp()
+					|| (plugin.getPrayerOverlayMode() != InfernoPrayerOverlayMode.PRAYER_TAB
+					&& plugin.getPrayerOverlayMode() != InfernoPrayerOverlayMode.BOTH))
 			{
 				continue;
 			}
 
-			int baseX = jad.getNextAttack() == InfernoJad.Attack.MAGIC ? BASE_X_1 : BASE_X_2;
-			baseX += PRAYER_SIZE / 2;
+			final Widget prayerWidget = jad.getNextAttack() == InfernoJad.Attack.MAGIC
+					? client.getWidget(WidgetInfo.PRAYER_PROTECT_FROM_MAGIC) : client.getWidget(WidgetInfo.PRAYER_PROTECT_FROM_MISSILES);
+			int baseX = (int) prayerWidget.getBounds().getX();
+			baseX += prayerWidget.getBounds().getWidth() / 2;
 			baseX -= BLOB_WIDTH / 2;
 
-			int baseY = BASE_Y - jad.getTicksTillNextAttack() * TICK_PIXEL_SIZE - BLOB_HEIGHT;
+			int baseY = (int) prayerWidget.getBounds().getY() - jad.getTicksTillNextAttack() * TICK_PIXEL_SIZE - BLOB_HEIGHT;
 			baseY += TICK_PIXEL_SIZE - ((plugin.getLastTick() + 600 - System.currentTimeMillis()) / 600.0 * TICK_PIXEL_SIZE);
 
 			final Polygon blob = new Polygon(new int[]{0, BLOB_WIDTH, BLOB_WIDTH, 0}, new int[]{0, 0, BLOB_HEIGHT, BLOB_HEIGHT}, 4);
@@ -87,11 +95,17 @@ public class InfernoPrayerOverlay extends Overlay
 		}
 
 		if (plugin.isShowPrayerHelp() && closestAttack != null
-				&& (closestAttack != prayerForAttack || plugin.isIndicateWhenPrayingCorrectly()))
+				&& (closestAttack != prayerForAttack || plugin.isIndicateWhenPrayingCorrectly())
+				&& (plugin.getPrayerOverlayMode() == InfernoPrayerOverlayMode.PRAYER_TAB
+				|| plugin.getPrayerOverlayMode() == InfernoPrayerOverlayMode.BOTH))
 		{
-			int baseX = closestAttack == InfernoJad.Attack.MAGIC ? BASE_X_1 : BASE_X_2;
-			final Polygon prayer = new Polygon(new int[]{0, PRAYER_SIZE, PRAYER_SIZE, 0}, new int[]{0, 0, PRAYER_SIZE, PRAYER_SIZE}, 4);
-			prayer.translate(baseX, BASE_Y);
+			final Widget prayerWidget = closestAttack == InfernoJad.Attack.MAGIC
+					? client.getWidget(WidgetInfo.PRAYER_PROTECT_FROM_MAGIC) : client.getWidget(WidgetInfo.PRAYER_PROTECT_FROM_MISSILES);
+			final Polygon prayer = new Polygon(
+					new int[]{0, (int) prayerWidget.getBounds().getWidth(), (int) prayerWidget.getBounds().getWidth(), 0},
+					new int[]{0, 0, (int) prayerWidget.getBounds().getHeight(), (int) prayerWidget.getBounds().getHeight()},
+					4);
+			prayer.translate((int) prayerWidget.getBounds().getX(), (int) prayerWidget.getBounds().getY());
 
 			Color prayerColor;
 			if (closestAttack == prayerForAttack)

@@ -28,34 +28,46 @@ import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Stub;
 
 @ConfigGroup("inferno")
 public interface InfernoConfig extends Config
 {
 	@ConfigItem(
-		position = 0,
-		keyName = "Nibbler Overlay",
-		name = "Nibbler Overlay",
-		description = "Shows if there are any Nibblers left"
+			position = 0,
+			keyName = "prayer",
+			name = "Prayer",
+			description = ""
 	)
-	default boolean displayNibblerOverlay()
+	default Stub prayer()
 	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 1,
-		keyName = "Prayer Helper",
-		name = "Prayer Helper",
-		description = "Tells you what to flick in how many ticks"
-	)
-	default boolean showPrayerHelp()
-	{
-		return false;
+		return new Stub();
 	}
 
 	@ConfigItem(
 			position = 1,
+			keyName = "Prayer Helper",
+			name = "Prayer Helper",
+			description = "Indicates the correct prayer"
+	)
+	default boolean showPrayerHelp()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			position = 2,
+			keyName = "prayerHelperMode",
+			name = "Prayer Helper Mode",
+			description = "Display prayer indicator in the prayer tab or in the bottom right corner of the screen"
+	)
+	default InfernoPrayerOverlayMode prayerOverlayMode()
+	{
+		return InfernoPrayerOverlayMode.PRAYER_TAB;
+	}
+
+	@ConfigItem(
+			position = 3,
 			keyName = "descendingBoxes",
 			name = "Descending Boxes",
 			description = "Draws timing boxes above the prayer icons, as if you were playing Piano Tiles"
@@ -66,7 +78,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 2,
+			position = 4,
 			keyName = "indicateWhenPrayingCorrectly",
 			name = "Indicate When Praying Correctly",
 			description = "Indicate the correct prayer, even if you are already praying that prayer"
@@ -77,7 +89,29 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 2,
+			position = 5,
+			keyName = "monsters",
+			name = "Monsters",
+			description = ""
+	)
+	default Stub monsters()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+			position = 6,
+			keyName = "Nibbler Overlay",
+			name = "Nibbler Overlay",
+			description = "Shows if there are any Nibblers left"
+	)
+	default boolean displayNibblerOverlay()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			position = 7,
 			keyName = "indicateActiveHealers",
 			name = "Indicate Active Healers",
 			description = "Indicate healers that are still healing Jad"
@@ -88,7 +122,18 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+			position = 8,
+			keyName = "waves",
+			name = "Waves",
+			description = ""
+	)
+	default Stub waves()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 9,
 		keyName = "waveDisplay",
 		name = "Wave display",
 		description = "Shows monsters that will spawn on the selected wave(s)."
@@ -99,7 +144,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 10,
 		keyName = "getWaveOverlayHeaderColor",
 		name = "Wave Header",
 		description = "Color for Wave Header"
@@ -110,7 +155,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		position = 11,
 		keyName = "getWaveTextColor",
 		name = "Wave Text Color",
 		description = "Color for Wave Texts"
