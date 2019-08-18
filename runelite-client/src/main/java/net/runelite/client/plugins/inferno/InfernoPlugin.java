@@ -110,10 +110,11 @@ public class InfernoPlugin extends Plugin
 	private final List<NPC> nibblers = new ArrayList<>();
 
 	@Getter(AccessLevel.PACKAGE)
-	private final InfernoNPC[] priorityNPC = new InfernoNPC[4];;
+	private final InfernoNPC[] priorityNPC = new InfernoNPC[4];
 
 	@Getter(AccessLevel.PACKAGE)
 	private final List<InfernoJad> jads = new ArrayList<>();
+
 	@Getter(AccessLevel.PACKAGE)
 	private final List<NPC> activeHealers = new ArrayList<>();
 
@@ -282,7 +283,7 @@ public class InfernoPlugin extends Plugin
 			nibblers.remove(npc);
 		}
 
-		ListIterator<InfernoJad> iter = jads.listIterator();
+		final ListIterator<InfernoJad> iter = jads.listIterator();
 		while (iter.hasNext())
 		{
 			final InfernoJad possibleJad = iter.next();

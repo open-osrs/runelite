@@ -1,6 +1,6 @@
 package net.runelite.client.plugins.inferno;
 
-public enum InfernoPrayerOverlayMode
+enum InfernoPrayerOverlayMode
 {
 	PRAYER_TAB,
 	BOTTOM_RIGHT,
