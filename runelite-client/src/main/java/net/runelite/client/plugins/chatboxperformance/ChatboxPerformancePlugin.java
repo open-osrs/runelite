@@ -148,8 +148,10 @@ public class ChatboxPerformancePlugin extends Plugin
 			}
 
 			prevY = w.getRelativeY();
-			if (config.transparentChatBox()) // If not enabled, then increment gradient
-				currOpacity -= 3; // Rough number, can't get exactly the same as Jagex because of rounding
+			if (config.transparentChatBox())
+			{
+				currOpacity -= 3;
+			}
 			prev = w;
 		}
 		if (prev != null)
