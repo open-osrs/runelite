@@ -55,7 +55,7 @@ public interface RunecraftConfig extends Config
 	)
 	default boolean lavas()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
