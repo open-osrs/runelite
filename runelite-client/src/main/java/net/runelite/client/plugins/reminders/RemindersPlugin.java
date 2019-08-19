@@ -74,13 +74,18 @@ public class RemindersPlugin extends Plugin
 
 	private Instant loginTime;
 	private boolean ready;
-	private boolean hydrationReminder;
-	private boolean breakReminder;
 	private int seconds;
 	private int minutes;
 	private int hours;
 	private int ounces;
 	private int millilitres;
+	private int personaltime;
+	private boolean hydrationReminder;
+	private boolean breakReminder;
+	private boolean personalReminder;
+	private String personalReminderText;
+	private int personalReminderTime;
+
 
 
 	@Provides
@@ -133,11 +138,10 @@ public class RemindersPlugin extends Plugin
 
 	private void onConfigChanged(ConfigChanged event)
 	{
-		if (!event.getGroup().equals("Reminders"))
+		if (event.getGroup().equals("Reminders"))
 		{
-			return;
+			updateConfig();
 		}
-		updateConfig();
 	}
 
 	private void timers()
@@ -148,6 +152,7 @@ public class RemindersPlugin extends Plugin
 		}
 		seconds = 60;
 		minutes = (int) floor(between(loginTime, Instant.now()).getSeconds() / seconds);
+		personaltime = this.personalReminderTime;
 		hours = minutes / seconds;
 		ounces = 4 * hours;
 		millilitres = 120 * hours;
@@ -193,17 +198,33 @@ public class RemindersPlugin extends Plugin
 		{
 			log.error("hydrationReminder - Unexpected value: " + hours);
 		}
-			final ChatMessageBuilder hydrationreminderhour = new ChatMessageBuilder()
+			final ChatMessageBuilder hydrationreminder = new ChatMessageBuilder()
 				.append(ChatColorType.HIGHLIGHT)
 				.append("You have been logged in for ")
 				.append(pluralizeTime("hour", hours))
 				.append(". By this point, you should have consumed at least " + ounces + "oz (" + millilitres + "ml) of Water to maintain optimum hydration.");
 			chatMessageManager.queue(QueuedMessage.builder()
 				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-				.runeLiteFormattedMessage(hydrationreminderhour.build())
+				.runeLiteFormattedMessage(hydrationreminder.build())
 				.build());
-
 	}
+
+	private void personalReminders()
+	{
+		if (!this.personalReminder)
+		{
+			log.error("personalReminder - Unexpected value: " + hours);
+		}
+
+		final ChatMessageBuilder personalreminder = new ChatMessageBuilder()
+			.append(ChatColorType.HIGHLIGHT)
+			.append(this.personalReminderText);
+		chatMessageManager.queue(QueuedMessage.builder()
+			.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+			.runeLiteFormattedMessage(personalreminder.build())
+			.build());
+	}
+
 
 	@Schedule(
 		period = 1,
@@ -224,12 +245,18 @@ public class RemindersPlugin extends Plugin
 				hydrationReminders();
 			}
 		}
+		if (minutes % personaltime == 0 && minutes > 0 && !this.personalReminderText.isEmpty())
+		{
+			personalReminders();
+		}
 	}
 
 	private void updateConfig()
 	{
 		this.hydrationReminder = config.hydrationReminder();
 		this.breakReminder = config.breakReminder();
+		this.personalReminderText = config.personalReminderText();
+		this.personalReminderTime = config.personalReminderTime();
+		this.personalReminder = config.personalReminder();
 	}
-
 }
