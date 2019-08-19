@@ -55,38 +55,129 @@ public interface RemindersConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "personalReminder",
-		name = "Personal Reminder",
-		description = "Set your own personal reminder",
+		keyName = "personalReminders",
+		name = "Personal Reminders",
+		description = "Set your own personal reminders",
 		position = 2
 	)
-	default boolean personalReminder()
+	default boolean personalReminders()
 	{
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "personalReminderText",
-		name = "Personal Reminder Text",
-		description = "Set the text to your own personal reminder",
+		keyName = "personalReminder1",
+		name = "Personal Reminder #1",
+		description = "Set your first personal reminder",
 		position = 3,
 		hidden = true,
-		unhide = "personalReminder"
+		unhide = "personalReminders"
 	)
-	default String personalReminderText()
+	default boolean personalReminder1()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "personalReminderText1",
+		name = "Personal Reminder Text #1",
+		description = "Set the text to your first personal reminder",
+		position = 4,
+		hidden = true,
+		unhide = "personalReminder1"
+	)
+	default String personalReminderText1()
 	{
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "personalreminderTime",
-		name = "Personal Reminder Time",
-		description = "Time in minutes for your personal reminder",
-		position = 4,
+		keyName = "personalreminderTime1",
+		name = "Personal Reminder Time #1",
+		description = "Time in minutes for your first personal reminder",
+		position = 5,
 		hidden = true,
-		unhide = "personalReminder"
+		unhide = "personalReminder1"
 	)
-	default int personalReminderTime()
+	default int personalReminderTime1()
+	{
+		return 0;
+	}
+
+	@ConfigItem(
+		keyName = "personalReminder2",
+		name = "Personal Reminder #2",
+		description = "Set your second personal reminder",
+		position = 6,
+		hidden = true,
+		unhide = "personalReminders"
+	)
+	default boolean personalReminder2()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "personalReminderText2",
+		name = "Personal Reminder Text #2",
+		description = "Set the text to your second personal reminder",
+		position = 7,
+		hidden = true,
+		unhide = "personalReminder2"
+	)
+	default String personalReminderText2()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "personalreminderTime2",
+		name = "Personal Reminder Time #2",
+		description = "Time in minutes for your second personal reminder",
+		position = 8,
+		hidden = true,
+		unhide = "personalReminder2"
+	)
+	default int personalReminderTime2()
+	{
+		return 0;
+	}
+
+	@ConfigItem(
+		keyName = "personalReminder3",
+		name = "Personal Reminder #3",
+		description = "Set your third personal reminder",
+		position = 9,
+		hidden = true,
+		unhide = "personalReminders"
+	)
+	default boolean personalReminder3()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "personalReminderText3",
+		name = "Personal Reminder Text #3",
+		description = "Set the text to your third personal reminder",
+		position = 10,
+		hidden = true,
+		unhide = "personalReminder3"
+	)
+	default String personalReminderText3()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "personalreminderTime3",
+		name = "Personal Reminder Time #3",
+		description = "Time in minutes for your third personal reminder",
+		position = 11,
+		hidden = true,
+		unhide = "personalReminder3"
+	)
+	default int personalReminderTime3()
 	{
 		return 0;
 	}
