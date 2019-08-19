@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2019, RuneLitePlus <https://runelitepl.us>
- * Copyright (c) 2019, kyle <https://github.com/xKylee>
+ * Copyright (c) 2019, kyle <https://github.com/Kyleeld>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,5 +54,40 @@ public interface RemindersConfig extends Config
 		return false;
 	}
 
+	@ConfigItem(
+		keyName = "personalReminder",
+		name = "Personal Reminder",
+		description = "Set your own personal reminder",
+		position = 2
+	)
+	default boolean personalReminder()
+	{
+		return false;
+	}
 
+	@ConfigItem(
+		keyName = "personalReminderText",
+		name = "Personal Reminder Text",
+		description = "Set the text to your own personal reminder",
+		position = 3,
+		hidden = true,
+		unhide = "personalReminder"
+	)
+	default String personalReminderText()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "personalreminderTime",
+		name = "Personal Reminder Time",
+		description = "Time in minutes for your personal reminder",
+		position = 4,
+		hidden = true,
+		unhide = "personalReminder"
+	)
+	default int personalReminderTime()
+	{
+		return 0;
+	}
 }
