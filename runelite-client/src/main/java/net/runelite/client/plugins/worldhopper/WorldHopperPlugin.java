@@ -416,8 +416,7 @@ public class WorldHopperPlugin extends Plugin
 
 			World currentWorld = worldResult.findWorld(client.getWorld());
 			World targetWorld = worldResult.findWorld(player.getWorld());
-			if (targetWorld == null || currentWorld == null
-				|| (!currentWorld.getTypes().contains(WorldType.PVP) && targetWorld.getTypes().contains(WorldType.PVP)))
+			if (targetWorld == null || currentWorld == null)
 			{
 				// Disable Hop-to a PVP world from a regular world
 				return;
