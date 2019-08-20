@@ -50,6 +50,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.SoundEffectPlayed;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.kit.KitType;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
@@ -383,8 +384,7 @@ public class DevToolsPlugin extends Plugin
 
 		if (EXAMINE_MENU_ACTIONS.contains(action))
 		{
-			MenuEntry[] entries = client.getMenuEntries();
-			MenuEntry entry = entries[entries.length - 1];
+			DirectMenuEntryElement entry = event.getMenuEntry();
 
 			final int identifier = event.getIdentifier();
 			String info = "ID: ";
@@ -400,13 +400,12 @@ public class DevToolsPlugin extends Plugin
 
 				if (action == MenuOpcode.EXAMINE_OBJECT)
 				{
-					WorldPoint point = WorldPoint.fromScene(client, entry.getParam0(), entry.getParam1(), client.getPlane());
+					WorldPoint point = WorldPoint.fromScene(client, entry.getActionParam0(), entry.getActionParam1(), client.getPlane());
 					info += " X: " + point.getX() + " Y: " + point.getY();
 				}
 			}
 
 			entry.setTarget(entry.getTarget() + " " + ColorUtil.prependColorTag("(" + info + ")", JagexColors.MENU_TARGET));
-			client.setMenuEntries(entries);
 		}
 	}
 

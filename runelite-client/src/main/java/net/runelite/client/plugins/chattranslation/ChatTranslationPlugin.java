@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.chattranslation;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ObjectArrays;
 import com.google.inject.Provides;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
@@ -34,7 +33,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.Text;
-import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
 	name = "Chat Translator",
@@ -135,10 +133,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			{
 				for (String names : Text.fromCSV(this.getPlayerNames))
 				{
-					if (!playerNames.contains(Text.toJagexName(names)))
-					{
-						playerNames.add(Text.toJagexName(names));
-					}
+					playerNames.add(Text.toJagexName(names));
 				}
 			}
 		}
@@ -154,26 +149,21 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 		int groupId = WidgetInfo.TO_GROUP(event.getActionParam1());
 		String option = event.getOption();
 
-		if (groupId == WidgetInfo.CHATBOX.getGroupId())
+		if (groupId != WidgetInfo.CHATBOX.getGroupId() ||
+			!AFTER_OPTIONS.contains(option))
 		{
-			if (!AFTER_OPTIONS.contains(option))
-			{
-				return;
-			}
-
-			final MenuEntry menuEntry = new MenuEntry();
-			menuEntry.setOption(TRANSLATE);
-			menuEntry.setTarget(event.getTarget());
-			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
-			menuEntry.setParam0(event.getActionParam0());
-			menuEntry.setParam1(event.getActionParam1());
-			menuEntry.setIdentifier(event.getIdentifier());
-
-			MenuEntry[] newMenu = ObjectArrays.concat(menuEntry, client.getMenuEntries());
-			int menuEntryCount = newMenu.length;
-			ArrayUtils.swap(newMenu, menuEntryCount - 1, menuEntryCount - 2);
-			client.setMenuEntries(newMenu);
+			return;
 		}
+
+		final MenuEntry menuEntry = new MenuEntry();
+		menuEntry.setOption(TRANSLATE);
+		menuEntry.setTarget(event.getTarget());
+		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
+		menuEntry.setActionParam0(event.getActionParam0());
+		menuEntry.setActionParam1(event.getActionParam1());
+		menuEntry.setIdentifier(event.getIdentifier());
+
+		event.getMenuEntry().insertBefore(menuEntry);
 	}
 
 	private void onPlayerMenuOptionClicked(PlayerMenuOptionClicked event)
@@ -181,10 +171,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 		if (event.getMenuOption().equals(TRANSLATE))
 		{
 			String name = Text.toJagexName(event.getMenuTarget());
-			if (!playerNames.contains(name))
-			{
-				playerNames.add(name);
-			}
+			playerNames.add(name);
 
 			configManager.setConfiguration("chattranslation", "playerNames", Text.toCSV(playerNames));
 			configManager.sendConfig();

@@ -45,8 +45,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.Skill;
 import net.runelite.api.SoundEffectID;
 import net.runelite.api.Tile;
@@ -56,6 +56,9 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.menus.MenuEntries;
+import net.runelite.api.menus.comparables.AbstractComparableEntry;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
@@ -252,20 +255,20 @@ public class PartyPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		boolean isOnCanvas = false;
-
-		for (MenuEntry menuEntry : client.getMenuEntries())
+		boolean isOnCanvas = MenuEntries.anyMatches(new AbstractComparableEntry()
 		{
-			if (menuEntry == null)
+			@Override
+			public boolean matches(DirectMenuEntryElement entry)
 			{
-				continue;
+				return entry.optionEquals("walk here");
 			}
 
-			if ("walk here".equalsIgnoreCase(menuEntry.getOption()))
+			@Override
+			public boolean matches(MenuEntry entry)
 			{
-				isOnCanvas = true;
+				return false;
 			}
-		}
+		});
 
 		if (!isOnCanvas)
 		{

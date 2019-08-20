@@ -35,7 +35,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,6 +61,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.menus.MenuEntries;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
@@ -322,8 +322,6 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		MenuEntry[] entries = client.getMenuEntries();
-
 		if (event.getActionParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getOption().equals("Examine"))
 		{
@@ -339,15 +337,13 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 			}
 
 			MenuEntry editTags = new MenuEntry();
-			editTags.setParam0(event.getActionParam0());
-			editTags.setParam1(event.getActionParam1());
+			editTags.setActionParam0(event.getActionParam0());
+			editTags.setActionParam1(event.getActionParam1());
 			editTags.setTarget(event.getTarget());
 			editTags.setOption(text);
 			editTags.setOpcode(MenuOpcode.RUNELITE.getId());
 			editTags.setIdentifier(event.getIdentifier());
-			entries = Arrays.copyOf(entries, entries.length + 1);
-			entries[entries.length - 1] = editTags;
-			client.setMenuEntries(entries);
+			MenuEntries.addMenuEntry(editTags);
 		}
 
 		tabInterface.handleAdd(event);

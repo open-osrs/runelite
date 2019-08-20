@@ -55,7 +55,6 @@ import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemDefinition;
 import static net.runelite.api.ItemID.COINS_995;
 import net.runelite.api.MenuOpcode;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
@@ -66,6 +65,7 @@ import net.runelite.api.events.GrandExchangeOfferChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -431,9 +431,8 @@ public class GrandExchangePlugin extends Plugin
 			return;
 		}
 
-		final MenuEntry[] entries = client.getMenuEntries();
-		final MenuEntry menuEntry = entries[entries.length - 1];
-		final int widgetId = menuEntry.getParam1();
+		final DirectMenuEntryElement menuEntry = DirectMenuEntryElement.getLast();
+		final int widgetId = menuEntry.getActionParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
 		switch (groupId)
@@ -450,7 +449,6 @@ public class GrandExchangePlugin extends Plugin
 			case WidgetID.SHOP_INVENTORY_GROUP_ID:
 				menuEntry.setOption(SEARCH_GRAND_EXCHANGE);
 				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
-				client.setMenuEntries(entries);
 		}
 	}
 

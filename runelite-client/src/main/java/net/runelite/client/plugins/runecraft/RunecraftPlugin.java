@@ -51,16 +51,16 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.menus.comparables.BankComparableEntry;
+import net.runelite.api.menus.comparables.BaseComparableEntry;
+import static net.runelite.api.menus.comparables.ComparableEntries.newBaseComparableEntry;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.menus.BaseComparableEntry;
-import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.menuentryswapper.BankComparableEntry;
-import net.runelite.client.plugins.menuentryswapper.EquipmentComparableEntry;
+import net.runelite.api.menus.comparables.EquipmentComparableEntry;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 

@@ -29,8 +29,8 @@ import com.google.common.collect.ImmutableSet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.MenuOpcode;
-import net.runelite.client.menus.BaseComparableEntry;
-import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
+import net.runelite.api.menus.comparables.BaseComparableEntry;
+import static net.runelite.api.menus.comparables.ComparableEntries.newBaseComparableEntry;
 
 @AllArgsConstructor
 public enum Menus

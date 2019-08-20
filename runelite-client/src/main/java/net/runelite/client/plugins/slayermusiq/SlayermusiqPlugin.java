@@ -145,8 +145,8 @@ public class SlayermusiqPlugin extends Plugin
 		MenuEntry menuEntry = new MenuEntry();
 		menuEntry.setTarget(event.getTarget());
 		menuEntry.setOption(MENUOP_SLAYERMUSIQ);
-		menuEntry.setParam0(widgetIndex);
-		menuEntry.setParam1(widgetID);
+		menuEntry.setActionParam0(widgetIndex);
+		menuEntry.setActionParam1(widgetID);
 		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 		return menuEntry;

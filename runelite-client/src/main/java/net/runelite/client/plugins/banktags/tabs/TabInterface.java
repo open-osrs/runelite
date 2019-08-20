@@ -67,6 +67,8 @@ import net.runelite.api.VarClientStr;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.menus.MenuEntries;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.ItemQuantityMode;
 import net.runelite.api.widgets.JavaScriptCallback;
@@ -535,39 +537,31 @@ public class TabInterface
 			return;
 		}
 
-		MenuEntry[] entries = client.getMenuEntries();
-		MenuEntry entry = entries[entries.length - 1];
-
 		if (activeTab != null
 			&& event.getActionParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getOption().equals("Examine"))
 		{
-			entries = createMenuEntry(event, REMOVE_TAG + " (" + activeTab.getTag() + ")", event.getTarget(), entries);
-			client.setMenuEntries(entries);
+			createMenuEntry(event, REMOVE_TAG + " (" + activeTab.getTag() + ")", event.getTarget());
 		}
 		else if (event.getActionParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId()
 			&& event.getOption().equals("Deposit inventory"))
 		{
-			entries = createMenuEntry(event, TAG_INVENTORY, event.getTarget(), entries);
+			createMenuEntry(event, TAG_INVENTORY, event.getTarget());
 
 			if (activeTab != null)
 			{
-				entries = createMenuEntry(event, TAG_INVENTORY, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR), entries);
+				createMenuEntry(event, TAG_INVENTORY, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR));
 			}
-
-			client.setMenuEntries(entries);
 		}
 		else if (event.getActionParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId()
 			&& event.getOption().equals("Deposit worn items"))
 		{
-			entries = createMenuEntry(event, TAG_GEAR, event.getTarget(), entries);
+			createMenuEntry(event, TAG_GEAR, event.getTarget());
 
 			if (activeTab != null)
 			{
-				entries = createMenuEntry(event, TAG_GEAR, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR), entries);
+				createMenuEntry(event, TAG_GEAR, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR));
 			}
-
-			client.setMenuEntries(entries);
 		}
 	}
 
@@ -580,8 +574,8 @@ public class TabInterface
 
 		if (chatboxPanelManager.getCurrentInput() != null
 			&& event.getMenuOpcode() != MenuOpcode.CANCEL
-			&& !event.getMenuEntry().equals(SCROLL_UP)
-			&& !event.getMenuEntry().equals(SCROLL_DOWN))
+			&& !event.getMenuEntry().getOption().equals(SCROLL_UP)
+			&& !event.getMenuEntry().getOption().equals(SCROLL_DOWN))
 		{
 			chatboxPanelManager.close();
 		}
@@ -706,27 +700,21 @@ public class TabInterface
 		}
 		else if (draggedWidget.getItemId() > 0)
 		{
-			MenuEntry[] entries = client.getMenuEntries();
+			DirectMenuEntryElement entry = DirectMenuEntryElement.getLast();
 
-			if (entries.length > 0)
+			if (draggedWidget.getItemId() > 0 && entry.getOption().equals(VIEW_TAB) && draggedOn.getId() != draggedWidget.getId())
 			{
-				MenuEntry entry = entries[entries.length - 1];
+				entry.setOption(TAG_SEARCH + Text.removeTags(entry.getTarget()) + (shiftDown ? VAR_TAG_SUFFIX : ""));
+				entry.setTarget(draggedWidget.getName());
+			}
 
-				if (draggedWidget.getItemId() > 0 && entry.getOption().equals(VIEW_TAB) && draggedOn.getId() != draggedWidget.getId())
-				{
-					entry.setOption(TAG_SEARCH + Text.removeTags(entry.getTarget()) + (shiftDown ? VAR_TAG_SUFFIX : ""));
-					entry.setTarget(draggedWidget.getName());
-					client.setMenuEntries(entries);
-				}
-
-				if (entry.getOption().equals(SCROLL_UP))
-				{
-					scrollTick(-1);
-				}
-				else if (entry.getOption().equals(SCROLL_DOWN))
-				{
-					scrollTick(1);
-				}
+			if (entry.getOption().equals(SCROLL_UP))
+			{
+				scrollTick(-1);
+			}
+			else if (entry.getOption().equals(SCROLL_DOWN))
+			{
+				scrollTick(1);
 			}
 		}
 	}
@@ -1058,17 +1046,15 @@ public class TabInterface
 		searchBackground.setSpriteId(SpriteID.EQUIPMENT_SLOT_TILE);
 	}
 
-	private static MenuEntry[] createMenuEntry(MenuEntryAdded event, String option, String target, MenuEntry[] entries)
+	private static void createMenuEntry(MenuEntryAdded event, String option, String target)
 	{
 		final MenuEntry entry = new MenuEntry();
-		entry.setParam0(event.getActionParam0());
-		entry.setParam1(event.getActionParam1());
+		entry.setActionParam0(event.getActionParam0());
+		entry.setActionParam1(event.getActionParam1());
 		entry.setTarget(target);
 		entry.setOption(option);
 		entry.setOpcode(MenuOpcode.RUNELITE.getId());
 		entry.setIdentifier(event.getIdentifier());
-		entries = Arrays.copyOf(entries, entries.length + 1);
-		entries[entries.length - 1] = entry;
-		return entries;
+		MenuEntries.addMenuEntry(entry);
 	}
 }

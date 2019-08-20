@@ -40,7 +40,6 @@ import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import static net.runelite.api.ItemID.AGILITY_ARENA_TICKET;
 import net.runelite.api.MenuOpcode;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
 import static net.runelite.api.Skill.AGILITY;
@@ -68,6 +67,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.WallObjectChanged;
 import net.runelite.api.events.WallObjectDespawned;
 import net.runelite.api.events.WallObjectSpawned;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -508,20 +508,18 @@ public class AgilityPlugin extends Plugin
 		}
 
 		final int entryId = event.getIdentifier();
-		MenuEntry[] menuEntries = client.getMenuEntries();
 
 		for (Obstacle nearbyObstacle : getObstacles().values())
 		{
 			AgilityShortcut shortcut = nearbyObstacle.getShortcut();
 			if (shortcut != null && Arrays.stream(shortcut.getObstacleIds()).anyMatch(i -> i == entryId))
 			{
-				MenuEntry entry = menuEntries[menuEntries.length - 1];
+				DirectMenuEntryElement entry = event.getMenuEntry();
 				int level = shortcut.getLevel();
 				Color color = level <= getAgilityLevel() ? Color.GREEN : Color.RED;
 				String requirementText = " (level-" + level + ")";
 
 				entry.setTarget(event.getTarget() + ColorUtil.prependColorTag(requirementText, color));
-				client.setMenuEntries(menuEntries);
 				return;
 			}
 		}

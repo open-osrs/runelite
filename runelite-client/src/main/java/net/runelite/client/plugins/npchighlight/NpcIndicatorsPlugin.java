@@ -318,8 +318,8 @@ public class NpcIndicatorsPlugin extends Plugin
 			final MenuEntry tagEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
 			tagEntry.setOption(highlightedNpcs.stream().anyMatch(npc -> npc.getIndex() == event.getIdentifier()) ? UNTAG : TAG);
 			tagEntry.setTarget(event.getTarget());
-			tagEntry.setParam0(event.getActionParam0());
-			tagEntry.setParam1(event.getActionParam1());
+			tagEntry.setActionParam0(event.getActionParam0());
+			tagEntry.setActionParam1(event.getActionParam1());
 			tagEntry.setIdentifier(event.getIdentifier());
 			tagEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 			client.setMenuEntries(menuEntries);

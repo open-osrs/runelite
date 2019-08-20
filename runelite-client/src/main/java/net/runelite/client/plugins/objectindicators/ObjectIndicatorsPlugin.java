@@ -255,8 +255,8 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 
 		menuEntry.setOption(objects.contains(findTileObject(tile, event.getIdentifier())) ? UNMARK : MARK);
 		menuEntry.setTarget(event.getTarget());
-		menuEntry.setParam0(event.getActionParam0());
-		menuEntry.setParam1(event.getActionParam1());
+		menuEntry.setActionParam0(event.getActionParam0());
+		menuEntry.setActionParam1(event.getActionParam1());
 		menuEntry.setIdentifier(event.getIdentifier());
 		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 		client.setMenuEntries(menuEntries);

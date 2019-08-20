@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.wiki;
 
 import com.google.common.primitives.Ints;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
@@ -42,6 +41,7 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.menus.MenuEntries;
 import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetConfig;
@@ -338,43 +338,40 @@ public class WikiPlugin extends Plugin
 	{
 		int widgetIndex = event.getActionParam0();
 		int widgetID = event.getActionParam1();
-		MenuEntry[] menuEntries = client.getMenuEntries();
 
 		if (Ints.contains(QUESTLIST_WIDGET_IDS, widgetID) && "Read Journal:".equals(event.getOption()))
 		{
-			menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 2);
-
-			MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
+			MenuEntry menuEntry = new MenuEntry();
 			menuEntry.setTarget(event.getTarget());
 			menuEntry.setOption(MENUOP_GUIDE);
-			menuEntry.setParam0(widgetIndex);
-			menuEntry.setParam1(widgetID);
+			menuEntry.setActionParam0(widgetIndex);
+			menuEntry.setActionParam1(widgetID);
 			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
-			menuEntry = menuEntries[menuEntries.length - 2] = new MenuEntry();
+			MenuEntries.addMenuEntry(menuEntry);
+
+			menuEntry = new MenuEntry();
 			menuEntry.setTarget(event.getTarget());
 			menuEntry.setOption(MENUOP_QUICKGUIDE);
-			menuEntry.setParam0(widgetIndex);
-			menuEntry.setParam1(widgetID);
+			menuEntry.setActionParam0(widgetIndex);
+			menuEntry.setActionParam1(widgetID);
 			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
-			client.setMenuEntries(menuEntries);
+			MenuEntries.addMenuEntry(menuEntry);
 		}
 
 		if ((WidgetInfo.TO_GROUP(widgetID) == WidgetID.SKILLS_GROUP_ID && event.getOption().startsWith("View"))
 			|| (WidgetInfo.TO_GROUP(widgetID) == WidgetID.DIARY_GROUP_ID && event.getOption().startsWith("Open")))
 		{
-			menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
-
-			MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
+			MenuEntry menuEntry = new MenuEntry();
 			menuEntry.setTarget(event.getOption().replace("View ", "").replace("Open ", ""));
 			menuEntry.setOption(MENUOP_WIKI);
-			menuEntry.setParam0(widgetIndex);
-			menuEntry.setParam1(widgetID);
+			menuEntry.setActionParam0(widgetIndex);
+			menuEntry.setActionParam1(widgetID);
 			menuEntry.setIdentifier(event.getIdentifier());
 			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
-			client.setMenuEntries(menuEntries);
+			MenuEntries.addMenuEntry(menuEntry);
 		}
 	}
 }

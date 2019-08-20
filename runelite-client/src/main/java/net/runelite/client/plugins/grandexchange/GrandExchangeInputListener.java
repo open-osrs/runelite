@@ -29,8 +29,10 @@ import java.awt.event.MouseEvent;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
-import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.menus.MenuEntries;
+import net.runelite.api.menus.comparables.AbstractComparableEntry;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseAdapter;
 import static net.runelite.client.plugins.grandexchange.GrandExchangePlugin.SEARCH_GRAND_EXCHANGE;
@@ -39,13 +41,11 @@ import net.runelite.client.util.Text;
 @Singleton
 public class GrandExchangeInputListener extends MouseAdapter implements KeyListener
 {
-	private final Client client;
 	private final GrandExchangePlugin plugin;
 
 	@Inject
-	private GrandExchangeInputListener(final Client client, final GrandExchangePlugin plugin)
+	private GrandExchangeInputListener(final GrandExchangePlugin plugin)
 	{
-		this.client = client;
 		this.plugin = plugin;
 	}
 
@@ -55,15 +55,25 @@ public class GrandExchangeInputListener extends MouseAdapter implements KeyListe
 		// Check if left click + alt
 		if (e.getButton() == MouseEvent.BUTTON1 && e.isAltDown())
 		{
-			final MenuEntry[] menuEntries = client.getMenuEntries();
-			for (final MenuEntry menuEntry : menuEntries)
+			DirectMenuEntryElement entry = MenuEntries.findFirst(new AbstractComparableEntry()
 			{
-				if (menuEntry.getOption().equals(SEARCH_GRAND_EXCHANGE))
+				@Override
+				public boolean matches(DirectMenuEntryElement entry)
 				{
-					search(Text.removeTags(menuEntry.getTarget()));
-					e.consume();
-					break;
+					return entry.optionEquals(SEARCH_GRAND_EXCHANGE);
 				}
+
+				@Override
+				public boolean matches(MenuEntry entry)
+				{
+					return false;
+				}
+			});
+
+			if (entry != null)
+			{
+				search(Text.removeTags(entry.getTarget()));
+				e.consume();
 			}
 		}
 

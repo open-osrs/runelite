@@ -427,8 +427,8 @@ public class WorldHopperPlugin extends Plugin
 			hopTo.setOption(HOP_TO);
 			hopTo.setTarget(event.getTarget());
 			hopTo.setOpcode(MenuOpcode.RUNELITE.getId());
-			hopTo.setParam0(event.getActionParam0());
-			hopTo.setParam1(event.getActionParam1());
+			hopTo.setActionParam0(event.getActionParam0());
+			hopTo.setActionParam1(event.getActionParam1());
 
 			insertMenuEntry(hopTo, client.getMenuEntries(), after);
 		}

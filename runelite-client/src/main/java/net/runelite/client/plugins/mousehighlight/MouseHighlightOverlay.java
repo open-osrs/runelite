@@ -102,7 +102,7 @@ class MouseHighlightOverlay extends Overlay
 				}
 		}
 
-		final int widgetId = menuEntry.getParam1();
+		final int widgetId = menuEntry.getActionParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 		final int childId = WidgetInfo.TO_CHILD(widgetId);
 		final Widget widget = client.getWidget(groupId, childId);

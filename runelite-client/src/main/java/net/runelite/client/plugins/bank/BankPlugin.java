@@ -39,7 +39,6 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.FontID;
 import net.runelite.api.ItemContainer;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.ItemContainerChanged;
@@ -47,6 +46,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuShouldLeftClick;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -169,16 +169,12 @@ public class BankPlugin extends Plugin
 		}
 
 		forceRightClickFlag = false;
-		MenuEntry[] menuEntries = client.getMenuEntries();
-		for (MenuEntry entry : menuEntries)
+		DirectMenuEntryElement entry = event.getEntry();
+		if (this.rightClickBankEquip && entry.optionEquals(DEPOSIT_WORN)
+			|| this.rightClickBankInventory && entry.optionEquals(DEPOSIT_INVENTORY)
+			|| this.rightClickBankLoot && entry.optionEquals(DEPOSIT_LOOT))
 		{
-			if ((entry.getOption().equals(DEPOSIT_WORN) && this.rightClickBankEquip)
-				|| (entry.getOption().equals(DEPOSIT_INVENTORY) && this.rightClickBankInventory)
-				|| (entry.getOption().equals(DEPOSIT_LOOT) && this.rightClickBankLoot))
-			{
-				event.setForceRightClick(true);
-				return;
-			}
+			event.setForceRightClick(true);
 		}
 	}
 

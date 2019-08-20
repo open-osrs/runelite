@@ -28,7 +28,6 @@
 package net.runelite.client.plugins.friendnotes;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.ObjectArrays;
 import java.awt.Color;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -44,6 +43,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NameableNameChanged;
 import net.runelite.api.events.FriendRemoved;
+import net.runelite.api.menus.MenuEntries;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -189,12 +189,11 @@ public class FriendNotesPlugin extends Plugin
 			addNote.setOption(hoveredFriend == null || hoveredFriend.getNote() == null ? ADD_NOTE : EDIT_NOTE);
 			addNote.setOpcode(MenuOpcode.RUNELITE.getId());
 			addNote.setTarget(event.getTarget()); //Preserve color codes here
-			addNote.setParam0(event.getActionParam0());
-			addNote.setParam1(event.getActionParam1());
+			addNote.setActionParam0(event.getActionParam0());
+			addNote.setActionParam1(event.getActionParam1());
 
 			// Add menu entry
-			final MenuEntry[] menuEntries = ObjectArrays.concat(client.getMenuEntries(), addNote);
-			client.setMenuEntries(menuEntries);
+			MenuEntries.addMenuEntry(addNote);
 		}
 		else if (hoveredFriend != null)
 		{

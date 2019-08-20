@@ -37,7 +37,7 @@ import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuOpcode;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.ItemManager;
@@ -81,24 +81,17 @@ class ItemPricesOverlay extends Overlay
 			return null;
 		}
 
-		final MenuEntry[] menuEntries = client.getMenuEntries();
-		final int last = menuEntries.length - 1;
+		final DirectMenuEntryElement entry = DirectMenuEntryElement.getLast();
 
-		if (last < 0)
-		{
-			return null;
-		}
-
-		final MenuEntry menuEntry = menuEntries[last];
-		final MenuOpcode action = MenuOpcode.of(menuEntry.getOpcode());
-		final int widgetId = menuEntry.getParam1();
+		final MenuOpcode action = MenuOpcode.of(entry.getOpcode());
+		final int widgetId = entry.getActionParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
 		// Tooltip action type handling
 		switch (action)
 		{
 			case ITEM_USE_ON_WIDGET:
-				if (!plugin.isShowWhileAlching() || !menuEntry.getOption().equals("Cast") || !menuEntry.getTarget().contains("High Level Alchemy"))
+				if (!plugin.isShowWhileAlching() || !entry.optionEquals("Cast") || !entry.targetContains("High Level Alchemy"))
 				{
 					break;
 				}
@@ -126,7 +119,7 @@ class ItemPricesOverlay extends Overlay
 					case WidgetID.BANK_GROUP_ID:
 					case WidgetID.BANK_INVENTORY_GROUP_ID:
 						// Make tooltip
-						final String text = makeValueTooltip(menuEntry);
+						final String text = makeValueTooltip(entry);
 						if (text != null)
 						{
 							tooltipManager.add(new Tooltip(ColorUtil.prependColorTag(text, new Color(238, 238, 238))));
@@ -138,7 +131,7 @@ class ItemPricesOverlay extends Overlay
 		return null;
 	}
 
-	private String makeValueTooltip(MenuEntry menuEntry)
+	private String makeValueTooltip(DirectMenuEntryElement menuEntry)
 	{
 		// Disabling both disables all value tooltips
 		if (!plugin.isShowGEPrice() && !plugin.isShowHAValue())
@@ -146,7 +139,7 @@ class ItemPricesOverlay extends Overlay
 			return null;
 		}
 
-		final int widgetId = menuEntry.getParam1();
+		final int widgetId = menuEntry.getActionParam1();
 		ItemContainer container = null;
 
 		// Inventory item
@@ -167,7 +160,7 @@ class ItemPricesOverlay extends Overlay
 
 		// Find the item in the container to get stack size
 		final Item[] items = container.getItems();
-		final int index = menuEntry.getParam0();
+		final int index = menuEntry.getActionParam0();
 		if (index < items.length)
 		{
 			final Item item = items[index];

@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.hiscore;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ObjectArrays;
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
@@ -55,7 +54,6 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
-import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
 	name = "HiScore",
@@ -203,14 +201,11 @@ public class HiscorePlugin extends Plugin
 			lookup.setOption(LOOKUP);
 			lookup.setTarget(event.getTarget());
 			lookup.setOpcode(MenuOpcode.RUNELITE.getId());
-			lookup.setParam0(event.getActionParam0());
-			lookup.setParam1(event.getActionParam1());
+			lookup.setActionParam0(event.getActionParam0());
+			lookup.setActionParam1(event.getActionParam1());
 			lookup.setIdentifier(event.getIdentifier());
 
-			if (client != null)
-			{
-				insertMenuEntry(lookup, client.getMenuEntries());
-			}
+			event.getMenuEntry().insertBefore(lookup);
 		}
 	}
 
@@ -234,17 +229,6 @@ public class HiscorePlugin extends Plugin
 		if (m.matches())
 		{
 			lookupPlayer(m.group(1));
-		}
-	}
-
-	private void insertMenuEntry(MenuEntry newEntry, MenuEntry[] entries)
-	{
-		MenuEntry[] newMenu = ObjectArrays.concat(entries, newEntry);
-		int menuEntryCount = newMenu.length;
-		ArrayUtils.swap(newMenu, menuEntryCount - 1, menuEntryCount - 2);
-		if (client != null)
-		{
-			client.setMenuEntries(newMenu);
 		}
 	}
 
