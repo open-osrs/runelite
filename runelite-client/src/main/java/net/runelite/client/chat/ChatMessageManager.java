@@ -571,7 +571,7 @@ public class ChatMessageManager
 		}
 
 		//guard case for google MoreObjects#firstNonNull
-		if (message.getValue() == null && message.getRuneLiteFormattedMessage() == null)
+		if (message.getValue() == null || message.getRuneLiteFormattedMessage() == null)
 		{
 			return;
 		}
