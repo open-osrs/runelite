@@ -38,7 +38,7 @@ public class MenuEntries
 	public static int[] menuIdentifiers;
 
 	@Setter
-	public static String[] menuActions;
+	public static String[] menuOptions;
 
 	@Setter
 	public static String[] menuTargets;
@@ -71,9 +71,9 @@ public class MenuEntries
 				menuTargets[i] = menuTargets[i + 1];
 				menuTargets[i + 1] = var3;
 
-				String var4 = menuActions[i];
-				menuActions[i] = menuActions[i + 1];
-				menuActions[i + 1] = var4;
+				String var4 = menuOptions[i];
+				menuOptions[i] = menuOptions[i + 1];
+				menuOptions[i + 1] = var4;
 
 				tmp = menuOpcodes[i];
 				menuOpcodes[i] = menuOpcodes[i + 1];
@@ -127,9 +127,9 @@ public class MenuEntries
 				menuIdentifiers[i] = menuIdentifiers[high];
 				menuIdentifiers[high] = opc;
 
-				String t = menuActions[i];
-				menuActions[i] = menuActions[high];
-				menuActions[high] = t;
+				String t = menuOptions[i];
+				menuOptions[i] = menuOptions[high];
+				menuOptions[high] = t;
 
 				t = menuTargets[i];
 				menuTargets[i] = menuTargets[high];
@@ -158,7 +158,7 @@ public class MenuEntries
 		menuArguments2[menuEntryCount] = entry.getActionParam1();
 		menuOpcodes[menuEntryCount] = entry.getOpcode();
 		menuIdentifiers[menuEntryCount] = entry.getIdentifier();
-		menuActions[menuEntryCount] = entry.getOption();
+		menuOptions[menuEntryCount] = entry.getOption();
 		menuTargets[menuEntryCount] = entry.getTarget();
 		menuShiftClick[menuEntryCount] = entry.isForceLeftClick();
 		client.setMenuOptionCount(++menuEntryCount);

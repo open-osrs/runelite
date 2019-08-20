@@ -109,12 +109,12 @@ public class DirectMenuEntryElement extends MenuEntries
 
 	public String getOption()
 	{
-		return menuActions[idx];
+		return menuOptions[idx];
 	}
 
 	public void setOption(String opt)
 	{
-		menuActions[idx] = opt;
+		menuOptions[idx] = opt;
 	}
 
 	public String getTarget()
@@ -170,12 +170,12 @@ public class DirectMenuEntryElement extends MenuEntries
 	 */
 	public boolean optionEquals(String option)
 	{
-		return menuActions[idx].equalsIgnoreCase(option);
+		return menuOptions[idx].equalsIgnoreCase(option);
 	}
 
 	public boolean optionContains(String option)
 	{
-		return StringUtils.containsIgnoreCase(menuActions[idx], (option));
+		return StringUtils.containsIgnoreCase(menuOptions[idx], (option));
 	}
 
 	/**
@@ -317,7 +317,7 @@ public class DirectMenuEntryElement extends MenuEntries
 	{
 		for (int i = menuEntryCount; i > 0; i--)
 		{
-			if (!menuActions[i].equalsIgnoreCase(option))
+			if (!menuOptions[i].equalsIgnoreCase(option))
 			{
 				continue;
 			}
@@ -327,9 +327,9 @@ public class DirectMenuEntryElement extends MenuEntries
 				continue;
 			}
 
-			String tmp = menuActions[i];
-			menuActions[i] = menuActions[idx];
-			menuActions[idx] = tmp;
+			String tmp = menuOptions[i];
+			menuOptions[i] = menuOptions[idx];
+			menuOptions[idx] = tmp;
 
 			int temp = menuArguments1[i];
 			menuArguments1[i] = menuArguments1[idx];
@@ -353,9 +353,9 @@ public class DirectMenuEntryElement extends MenuEntries
 
 	public void swapWith(int other)
 	{
-		String tmp = menuActions[other];
-		menuActions[other] = menuActions[idx];
-		menuActions[idx] = tmp;
+		String tmp = menuOptions[other];
+		menuOptions[other] = menuOptions[idx];
+		menuOptions[idx] = tmp;
 
 		int temp = menuArguments1[other];
 		menuArguments1[other] = menuArguments1[idx];
@@ -386,7 +386,7 @@ public class DirectMenuEntryElement extends MenuEntries
 		menuArguments2[newIdx] = menuArguments2[idx];
 		menuOpcodes[newIdx] = menuOpcodes[idx];
 		menuIdentifiers[newIdx] = menuIdentifiers[idx];
-		menuActions[newIdx] = menuActions[idx];
+		menuOptions[newIdx] = menuOptions[idx];
 		menuTargets[newIdx] = menuTargets[idx];
 		menuShiftClick[newIdx] = menuShiftClick[idx];
 		idx = newIdx;
@@ -402,7 +402,7 @@ public class DirectMenuEntryElement extends MenuEntries
 		menuArguments2[idx] = entry.getActionParam1();
 		menuOpcodes[idx] = entry.getOpcode();
 		menuIdentifiers[idx] = entry.getIdentifier();
-		menuActions[idx] = entry.getOption();
+		menuOptions[idx] = entry.getOption();
 		menuTargets[idx] = entry.getTarget();
 		menuShiftClick[idx] = false;
 		// Make sure to increase count

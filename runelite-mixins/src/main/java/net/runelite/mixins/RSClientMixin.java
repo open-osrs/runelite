@@ -102,6 +102,7 @@ import net.runelite.api.events.WidgetPressed;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.menus.MenuEntries;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
@@ -715,6 +716,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		int oldCount = oldMenuEntryCount;
 		int newCount = client.getMenuOptionCount();
+		MenuEntries.setMenuEntryCount(newCount);
 
 		oldMenuEntryCount = newCount;
 
@@ -1710,5 +1712,20 @@ public abstract class RSClientMixin implements RSClient
 	public void setModulus(BigInteger modulus)
 	{
 		this.modulus = modulus;
+	}
+
+	@MethodHook("init")
+	@Inject
+	public void onInit()
+	{
+		MenuEntries.setClient(this);
+		MenuEntries.setMenuOpcodes(getMenuOpcodes());
+		MenuEntries.setMenuShiftClick(getMenuForceLeftClick());
+		MenuEntries.setMenuIdentifiers(getMenuIdentifiers());
+		MenuEntries.setMenuArguments1(getMenuArguments1());
+		MenuEntries.setMenuArguments2(getMenuArguments2());
+		MenuEntries.setMenuTargets(getMenuTargets());
+		MenuEntries.setMenuOptions(getMenuOptions());
+		MenuEntries.setMenuEntryCount(getMenuOptionCount());
 	}
 }

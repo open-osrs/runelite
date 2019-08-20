@@ -37,7 +37,7 @@ public class RandomAccessEntry extends MenuEntries
 
 	public static String getOption(int idx)
 	{
-		return menuActions[idx];
+		return menuOptions[idx];
 	}
 
 	public static String getTarget(int idx)
