@@ -25,6 +25,7 @@
 package net.runelite.api.events;
 
 import lombok.Data;
+import net.runelite.api.menus.DirectMenuEntryElement;
 
 /**
  * Event called when the client is checking if the menu should be
@@ -33,6 +34,11 @@ import lombok.Data;
 @Data
 public class MenuShouldLeftClick implements Event
 {
+	/**
+	 * The entry this entire event is for.
+	 */
+	private final DirectMenuEntryElement entry;
+
 	/**
 	 * If set to true, the menu will open on left click.
 	 */

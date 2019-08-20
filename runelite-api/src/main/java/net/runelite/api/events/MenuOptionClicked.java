@@ -99,7 +99,7 @@ public class MenuOptionClicked implements Event
 	 */
 	public int getActionParam0()
 	{
-		return menuEntry.getParam0();
+		return menuEntry.getActionParam0();
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class MenuOptionClicked implements Event
 	 */
 	public int getActionParam1()
 	{
-		return menuEntry.getParam1();
+		return menuEntry.getActionParam1();
 	}
 
 	public boolean isForceLeftClick()

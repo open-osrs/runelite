@@ -1,7 +1,9 @@
-package net.runelite.client.plugins.menuentryswapper;
+package net.runelite.api.menus.comparables;
 
 import lombok.EqualsAndHashCode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.menus.AbstractComparableEntry;
@@ -18,9 +20,26 @@ public class InventoryComparableEntry extends AbstractComparableEntry
 		this.setStrictTarget(strictTarget);
 	}
 
+	public boolean matches(DirectMenuEntryElement entry)
+	{
+		final int groupId = WidgetInfo.TO_GROUP(entry.getActionParam1());
+
+		if (groupId != WidgetID.INVENTORY_GROUP_ID)
+		{
+			return false;
+		}
+
+		if (isStrictTarget())
+		{
+			return entry.targetEquals(this.getTarget());
+		}
+
+		return entry.optionContains(this.getOption()) && entry.targetContains(this.getTarget());
+	}
+
 	public boolean matches(MenuEntry entry)
 	{
-		final int groupId = WidgetInfo.TO_GROUP(entry.getParam1());
+		final int groupId = WidgetInfo.TO_GROUP(entry.getActionParam1());
 
 		if (groupId != WidgetID.INVENTORY_GROUP_ID)
 		{

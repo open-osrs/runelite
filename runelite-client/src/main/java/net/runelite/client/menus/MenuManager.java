@@ -60,9 +60,10 @@ import net.runelite.api.events.PlayerMenuOptionClicked;
 import net.runelite.api.events.PlayerMenuOptionsChanged;
 import net.runelite.api.events.WidgetMenuOptionClicked;
 import net.runelite.api.events.WidgetPressed;
+import net.runelite.api.menus.comparables.AbstractComparableEntry;
+import static net.runelite.api.menus.comparables.ComparableEntries.newBaseComparableEntry;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.EventBus;
-import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 import net.runelite.client.util.Text;
 
 @Singleton
@@ -266,7 +267,7 @@ public class MenuManager
 
 				MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
 				menuEntry.setOption(currentMenu.getMenuOption());
-				menuEntry.setParam1(widgetId);
+				menuEntry.setActionParam1(widgetId);
 				menuEntry.setTarget(currentMenu.getMenuTarget());
 				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 

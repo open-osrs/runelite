@@ -1,9 +1,10 @@
-package net.runelite.client.menus;
+package net.runelite.api.menus.comparables;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.DirectMenuEntryElement;
 
 @Getter
 @Setter
@@ -24,6 +25,8 @@ public abstract class AbstractComparableEntry
 
 	@EqualsAndHashCode.Exclude
 	private int priority = 0;
+
+	public abstract boolean matches(DirectMenuEntryElement entry);
 
 	public abstract boolean matches(MenuEntry entry);
 }

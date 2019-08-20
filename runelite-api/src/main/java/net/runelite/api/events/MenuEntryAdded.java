@@ -26,7 +26,8 @@ package net.runelite.api.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.menus.RandomAccessEntry;
 
 /**
  * An event when a new entry is added to a right-click menu.
@@ -35,43 +36,45 @@ import net.runelite.api.MenuEntry;
 @AllArgsConstructor
 public class MenuEntryAdded implements Event
 {
-	/**
-	 * The MenuEntry object that was actually added
-	 */
-	private final MenuEntry menuEntry;
+	private final int idx;
+
+	public DirectMenuEntryElement getMenuEntry()
+	{
+		return DirectMenuEntryElement.get(idx);
+	}
 
 	public String getOption()
 	{
-		return menuEntry.getOption();
+		return RandomAccessEntry.getOption(idx);
 	}
 
 	public String getTarget()
 	{
-		return menuEntry.getTarget();
+		return RandomAccessEntry.getTarget(idx);
 	}
 
 	public int getType()
 	{
-		return menuEntry.getOpcode();
+		return RandomAccessEntry.getOpcode(idx);
 	}
 
 	public int getIdentifier()
 	{
-		return menuEntry.getIdentifier();
+		return RandomAccessEntry.getIdentifier(idx);
 	}
 
 	public int getActionParam0()
 	{
-		return menuEntry.getParam0();
+		return RandomAccessEntry.getActionParam0(idx);
 	}
 
 	public int getActionParam1()
 	{
-		return menuEntry.getParam1();
+		return RandomAccessEntry.getActionParam1(idx);
 	}
 
 	public boolean isForceLeftClick()
 	{
-		return menuEntry.isForceLeftClick();
+		return RandomAccessEntry.getShiftClick(idx);
 	}
 }

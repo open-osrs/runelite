@@ -62,11 +62,11 @@ public class MenuEntry
 	/**
 	 * An additional parameter for the action.
 	 */
-	private int param0;
+	private int actionParam0;
 	/**
 	 * A second additional parameter for the action.
 	 */
-	private int param1;
+	private int actionParam1;
 	/**
 	 * If this field is true and you have single mouse button on and this entry is
 	 * the top entry the right click menu will not be opened when you left click
@@ -93,8 +93,8 @@ public class MenuEntry
 			src.getTarget(),
 			src.getIdentifier(),
 			src.getOpcode(),
-			src.getParam0(),
-			src.getParam1(),
+			src.getActionParam0(),
+			src.getActionParam1(),
 			src.isForceLeftClick()
 		);
 	}

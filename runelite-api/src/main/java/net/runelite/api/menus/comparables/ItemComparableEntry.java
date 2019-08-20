@@ -1,4 +1,4 @@
-package net.runelite.client.menus;
+package net.runelite.api.menus.comparables;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -6,7 +6,8 @@ import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.MenuEntry;
-import net.runelite.client.util.Text;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @EqualsAndHashCode(callSuper = true)
@@ -19,7 +20,7 @@ abstract class ItemComparableEntry extends AbstractComparableEntry
 	@EqualsAndHashCode.Exclude
 	short itemCount;
 
-	public abstract boolean matches(MenuEntry entry);
+//	public abstract boolean matches(DirectMenuEntryElement entry);
 
 	@EqualsAndHashCode(callSuper = true)
 	static class InvItemComparableEntry extends ItemComparableEntry
@@ -29,7 +30,7 @@ abstract class ItemComparableEntry extends AbstractComparableEntry
 			assert client.isClientThread() : "You can only create these on the clientthread";
 
 			this.target = Text.standardize(itemName);
-			this.option = option;
+			this.option = Text.standardize(option);
 
 			short[] tmp = this.itemIds = new short[16];
 
@@ -72,6 +73,25 @@ abstract class ItemComparableEntry extends AbstractComparableEntry
 			this.itemIds = new short[itemCount];
 			this.itemCount = found;
 			System.arraycopy(tmp, 0, this.itemIds, 0, found);
+		}
+
+		public boolean matches(DirectMenuEntryElement entry)
+		{
+			if (!entry.optionContains(this.option))
+			{
+				return false;
+			}
+
+			int entryId = entry.getIdentifier();
+			for (short i = 0; i < itemCount; i++)
+			{
+				if (entryId == itemIds[i])
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		public boolean matches(MenuEntry entry)

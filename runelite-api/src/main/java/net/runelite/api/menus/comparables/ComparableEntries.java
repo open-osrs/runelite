@@ -1,7 +1,6 @@
-package net.runelite.client.menus;
+package net.runelite.api.menus.comparables;
 
 import net.runelite.api.Client;
-import net.runelite.client.plugins.menuentryswapper.BankComparableEntry;
 
 public interface ComparableEntries
 {

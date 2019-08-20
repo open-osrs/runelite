@@ -101,6 +101,7 @@ import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.events.WidgetPressed;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
@@ -667,8 +668,8 @@ public abstract class RSClientMixin implements RSClient
 			entry.setTarget(menuTargets[i]);
 			entry.setIdentifier(menuIdentifiers[i]);
 			entry.setOpcode(menuTypes[i]);
-			entry.setParam0(params0[i]);
-			entry.setParam1(params1[i]);
+			entry.setActionParam0(params0[i]);
+			entry.setActionParam1(params1[i]);
 			entry.setForceLeftClick(leftClick[i]);
 		}
 		return entries;
@@ -698,8 +699,8 @@ public abstract class RSClientMixin implements RSClient
 			menuTargets[count] = entry.getTarget();
 			menuIdentifiers[count] = entry.getIdentifier();
 			menuTypes[count] = entry.getOpcode();
-			params0[count] = entry.getParam0();
-			params1[count] = entry.getParam1();
+			params0[count] = entry.getActionParam0();
+			params1[count] = entry.getActionParam1();
 			leftClick[count] = entry.isForceLeftClick();
 			++count;
 		}
@@ -719,17 +720,8 @@ public abstract class RSClientMixin implements RSClient
 
 		if (newCount == oldCount + 1)
 		{
-			MenuEntryAdded event = new MenuEntryAdded(
-				new MenuEntry(
-					client.getMenuOptions()[oldCount],
-					client.getMenuTargets()[oldCount],
-					client.getMenuIdentifiers()[oldCount],
-					client.getMenuOpcodes()[oldCount],
-					client.getMenuArguments1()[oldCount],
-					client.getMenuArguments2()[oldCount],
-					client.getMenuForceLeftClick()[oldCount]
-				)
-			);
+			// oldCount == newCount - 1
+			MenuEntryAdded event = new MenuEntryAdded(oldCount);
 
 			client.getCallbacks().post(MenuEntryAdded.class, event);
 		}
@@ -1631,7 +1623,7 @@ public abstract class RSClientMixin implements RSClient
 			return true;
 		}
 
-		MenuShouldLeftClick menuShouldLeftClick = new MenuShouldLeftClick();
+		MenuShouldLeftClick menuShouldLeftClick = new MenuShouldLeftClick(DirectMenuEntryElement.getLast());
 		client.getCallbacks().post(MenuShouldLeftClick.class, menuShouldLeftClick);
 
 		if (menuShouldLeftClick.isForceRightClick())

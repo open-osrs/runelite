@@ -22,13 +22,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.menus;
+package net.runelite.api.menus.comparables;
 
 import javax.annotation.Nonnull;
-import joptsimple.internal.Strings;
 import lombok.EqualsAndHashCode;
 import net.runelite.api.MenuEntry;
-import net.runelite.client.util.Text;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @EqualsAndHashCode(callSuper = true)
@@ -50,6 +50,44 @@ public class BaseComparableEntry extends AbstractComparableEntry
 		super.strictTarget = strictTarget;
 	}
 
+	public boolean matches(@Nonnull DirectMenuEntryElement entry)
+	{
+		if (strictOption && !entry.optionEquals(option) || !strictOption && !entry.optionContains(option))
+		{
+			return false;
+		}
+
+		if (strictTarget || StringUtils.isNotEmpty(target))
+		{
+			if (strictTarget && !entry.targetEquals(target) || !strictTarget && !entry.targetContains(target))
+			{
+				return false;
+			}
+		}
+
+		if (id != -1)
+		{
+			int id = entry.getIdentifier();
+
+			if (this.id != id)
+			{
+				return false;
+			}
+		}
+
+		if (type != -1)
+		{
+			int type = entry.getOpcode();
+
+			if (this.type != type)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public boolean matches(@Nonnull MenuEntry entry)
 	{
 		String opt = entry.getOption();
@@ -59,7 +97,7 @@ public class BaseComparableEntry extends AbstractComparableEntry
 			return false;
 		}
 
-		if (strictTarget || !Strings.isNullOrEmpty(target))
+		if (strictTarget || !StringUtils.isNotEmpty(target))
 		{
 			String tgt = entry.getStandardizedTarget();
 
