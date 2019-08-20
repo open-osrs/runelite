@@ -34,25 +34,23 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuOpcode;
-import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
-import static net.runelite.api.MenuOpcode.WALK;
+import net.runelite.api.MenuAction;
+import static net.runelite.api.MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
+import static net.runelite.api.MenuAction.WALK;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
@@ -61,26 +59,18 @@ import static net.runelite.api.Varbits.BUILDING_MODE;
 import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
-import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.PostItemDefinition;
 import net.runelite.api.events.VarbitChanged;
-import net.runelite.api.events.WidgetMenuOptionClicked;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.game.ItemManager;
-import net.runelite.client.game.ItemVariationMapping;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.menus.AbstractComparableEntry;
 import static net.runelite.client.menus.ComparableEntries.newBankComparableEntry;
 import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 import net.runelite.client.menus.MenuManager;
-import net.runelite.client.menus.WidgetMenuOption;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -90,6 +80,7 @@ import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
 import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
 import net.runelite.client.plugins.menuentryswapper.util.ConstructionCapeMode;
+import net.runelite.client.plugins.menuentryswapper.util.ConstructionMode;
 import net.runelite.client.plugins.menuentryswapper.util.DigsitePendantMode;
 import net.runelite.client.plugins.menuentryswapper.util.DuelingRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
@@ -123,28 +114,11 @@ import org.apache.commons.lang3.ArrayUtils;
 @PluginDependency(PvpToolsPlugin.class)
 public class MenuEntrySwapperPlugin extends Plugin
 {
-	private static final String CONFIGURE = "Configure";
-	private static final String SAVE = "Save";
-	private static final String RESET = "Reset";
-	private static final String MENU_TARGET = "Shift-click";
 	private static final String CONFIG_GROUP = "shiftclick";
-	private static final String ITEM_KEY_PREFIX = "item_";
 	private static final int PURO_PURO_REGION_ID = 10307;
-	private static final WidgetMenuOption FIXED_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
-	private static final WidgetMenuOption FIXED_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
-	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
-	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
-	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
-	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
-	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
-		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
-		MenuOpcode.NPC_FOURTH_OPTION, MenuOpcode.NPC_FIFTH_OPTION, MenuOpcode.EXAMINE_NPC
+	private static final Set<MenuAction> NPC_MENU_TYPES = ImmutableSet.of(
+		MenuAction.NPC_FIRST_OPTION, MenuAction.NPC_SECOND_OPTION, MenuAction.NPC_THIRD_OPTION,
+		MenuAction.NPC_FOURTH_OPTION, MenuAction.NPC_FIFTH_OPTION, MenuAction.EXAMINE_NPC
 	);
 	private static final Splitter NEWLINE_SPLITTER = Splitter
 		.on("\n")
@@ -158,159 +132,157 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Inject
 	private MenuEntrySwapperConfig config;
 	@Inject
-	private ShiftClickInputListener inputListener;
-	@Inject
-	private ConfigManager configManager;
-	@Inject
 	private PluginManager pluginManager;
-	@Inject
-	private KeyManager keyManager;
 	@Inject
 	private MenuManager menuManager;
 	@Inject
-	private ItemManager itemManager;
+	private KeyManager keyManager;
+	@Inject
+	private ShiftClickInputListener inputListener;
 	@Inject
 	private EventBus eventBus;
 	@Inject
 	private PvpToolsPlugin pvpTools;
 	@Inject
 	private PvpToolsConfig pvpToolsConfig;
+	/**
+	 * Migrates old custom swaps config
+	 * This should be removed after a reasonable amount of time.
+	 */
+	@Inject
+	private ConfigManager configManager;
 	private MenuEntry[] entries;
-	private final Set<String> leftClickConstructionItems = new HashSet<>();
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
 	private boolean inCoxRaid = false;
-	private final Map<AbstractComparableEntry, AbstractComparableEntry> customSwaps = new HashMap<>();
+	private final Map<AbstractComparableEntry, Integer> customSwaps = new HashMap<>();
+	private final Map<AbstractComparableEntry, Integer> customShiftSwaps = new HashMap<>();
+	private final Map<AbstractComparableEntry, AbstractComparableEntry> dePrioSwaps = new HashMap<>();
 	private List<String> bankItemNames = new ArrayList<>();
-	@Getter(AccessLevel.PACKAGE)
-	private boolean configuringShiftClick = false;
-	@Setter(AccessLevel.PACKAGE)
-	private boolean shiftModifier = false;
-
-	private boolean getWithdrawOne;
-	private String getWithdrawOneItems;
-	private boolean getWithdrawFive;
+	private ConstructionMode getConstructionMode;
+	private BurningAmuletMode getBurningAmuletMode;
+	private CharterOption charterOption;
+	private CombatBraceletMode getCombatBraceletMode;
+	private ConstructionCapeMode constructionCapeMode;
+	private DigsitePendantMode getDigsitePendantMode;
+	private DuelingRingMode getDuelingRingMode;
+	private FairyRingMode swapFairyRingMode;
+	private GamesNecklaceMode getGamesNecklaceMode;
+	private GloryMode getGloryMode;
+	private HouseMode swapHomePortalMode;
+	private MaxCapeMode maxMode;
+	private NecklaceOfPassageMode getNecklaceofPassageMode;
+	private ObeliskMode swapObeliskMode;
+	private OccultAltarMode swapOccultMode;
+	private QuestCapeMode questCapeMode;
+	private RingOfWealthMode getRingofWealthMode;
+	private Set<String> hideCastIgnoredCoX;
+	private Set<String> hideCastIgnoredToB;
+	private SkillsNecklaceMode getSkillsNecklaceMode;
+	private SlayerRingMode getSlayerRingMode;
+	private String configCustomSwaps;
+	private String configCustomShiftSwaps;
+	private String getBuyFiftyItems;
+	private String getBuyFiveItems;
+	private String getBuyOneItems;
+	private String getBuyTenItems;
+	private String getRemovedObjects;
+	private String getSellFiftyItems;
+	private String getSellFiveItems;
+	private String getSellOneItems;
+	private String getSellTenItems;
+	private String getWithdrawAllItems;
 	private String getWithdrawFiveItems;
-	private boolean getWithdrawTen;
+	private String getWithdrawOneItems;
 	private String getWithdrawTenItems;
-	private boolean getWithdrawX;
 	private String getWithdrawXAmount;
 	private String getWithdrawXItems;
-	private boolean getWithdrawAll;
-	private String getWithdrawAllItems;
-	private boolean swapMax;
-	private MaxCapeMode maxMode;
-	private boolean getSwapArdougneCape;
-	private boolean getSwapConstructionCape;
-	private ConstructionCapeMode constructionCapeMode;
-	private boolean getSwapCraftingCape;
-	private boolean getSwapMagicCape;
-	private boolean getSwapExplorersRing;
-	private boolean swapAdmire;
-	private boolean swapQuestCape;
-	private QuestCapeMode questCapeMode;
-	private String configCustomSwaps;
-	private boolean shiftClickCustomization;
-	private boolean swapCoalBag;
-	private boolean swapBirdhouseEmpty;
-	private boolean swapBones;
-	private boolean swapChase;
-	private boolean swapHarpoon;
-	private OccultAltarMode swapOccultMode;
-	private HouseMode swapHomePortalMode;
-	private boolean swapPrivate;
-	private boolean swapPick;
-	private boolean swapQuick;
-	private boolean swapBoxTrap;
-	private boolean rockCake;
-	private boolean swapRogueschests;
-	private boolean swapClimbUpDown;
-	private boolean swapStun;
-	private boolean swapSearch;
-	private boolean swapHardWoodGrove;
-	private boolean getRemoveObjects;
-	private String getRemovedObjects;
-	private boolean swapImps;
-	private CharterOption charterOption;
-	private boolean getSwapBuyOne;
-	private String getBuyOneItems;
-	private boolean getSwapBuyFive;
-	private String getBuyFiveItems;
-	private boolean getSwapBuyTen;
-	private String getBuyTenItems;
-	private boolean getSwapBuyFifty;
-	private String getBuyFiftyItems;
-	private boolean getSwapSellOne;
-	private String getSellOneItems;
-	private boolean getSwapSellFive;
-	private String getSellFiveItems;
-	private boolean getSwapSellTen;
-	private String getSellTenItems;
-	private boolean getSwapSellFifty;
-	private String getSellFiftyItems;
+	private XericsTalismanMode getXericsTalismanMode;
+	private boolean getBurningAmulet;
+	private boolean getCombatBracelet;
+	private boolean getDigsitePendant;
+	private boolean getDuelingRing;
 	private boolean getEasyConstruction;
-	private String getEasyConstructionItems;
-	private boolean getSwapTanning;
+	private boolean getGamesNecklace;
+	private boolean getGlory;
+	private boolean getNecklaceofPassage;
+	private boolean getRemoveObjects;
+	private boolean getRingofWealth;
+	private boolean getSkillsNecklace;
+	private boolean getSlayerRing;
+	private boolean getSwapArdougneCape;
+	private boolean getSwapBuyFifty;
+	private boolean getSwapBuyFive;
+	private boolean getSwapBuyOne;
+	private boolean getSwapBuyTen;
+	private boolean getSwapConstructionCape;
+	private boolean getSwapCraftingCape;
+	private boolean getSwapExplorersRing;
+	private boolean getSwapMagicCape;
+	private boolean getSwapPuro;
 	private boolean getSwapSawmill;
 	private boolean getSwapSawmillPlanks;
-	private boolean getSwapPuro;
-	private boolean swapAssignment;
-	private boolean swapBankExchange;
-	private boolean swapContract;
-	private boolean swapInteract;
-	private boolean swapPickpocket;
-	private boolean swapPay;
-	private boolean swapAbyssTeleport;
-	private boolean swapTrade;
-	private boolean swapTravel;
-	private boolean swapMinigame;
-	private boolean swapPlank;
-	private boolean swapMetamorphosis;
-	private boolean swapEnchant;
-	private FairyRingMode swapFairyRingMode;
-	private ObeliskMode swapObeliskMode;
-	private boolean swapTeleportItem;
-	private boolean swapWildernessLever;
-	private boolean swapNexus;
-	private boolean getGamesNecklace;
-	private GamesNecklaceMode getGamesNecklaceMode;
-	private boolean getDuelingRing;
-	private DuelingRingMode getDuelingRingMode;
-	private boolean getGlory;
-	private GloryMode getGloryMode;
-	private boolean getSkillsNecklace;
-	private SkillsNecklaceMode getSkillsNecklaceMode;
-	private boolean getNecklaceofPassage;
-	private NecklaceOfPassageMode getNecklaceofPassageMode;
-	private boolean getDigsitePendant;
-	private DigsitePendantMode getDigsitePendantMode;
-	private boolean getCombatBracelet;
-	private CombatBraceletMode getCombatBraceletMode;
-	private boolean getBurningAmulet;
-	private BurningAmuletMode getBurningAmuletMode;
+	private boolean getSwapSellFifty;
+	private boolean getSwapSellFive;
+	private boolean getSwapSellOne;
+	private boolean getSwapSellTen;
+	private boolean getSwapTanning;
+	private boolean getWithdrawAll;
+	private boolean getWithdrawFive;
+	private boolean getWithdrawOne;
+	private boolean getWithdrawTen;
+	private boolean getWithdrawX;
 	private boolean getXericsTalisman;
-	private XericsTalismanMode getXericsTalismanMode;
-	private boolean getRingofWealth;
-	private RingOfWealthMode getRingofWealthMode;
-	private boolean getSlayerRing;
-	private SlayerRingMode getSlayerRingMode;
+	private boolean hideBait;
+	private boolean hideCastCoX;
+	private boolean hideCastToB;
+	private boolean hideDestroyBoltpouch;
+	private boolean hideDestroyCoalbag;
+	private boolean hideDestroyGembag;
+	private boolean hideDestroyHerbsack;
+	private boolean hideDestroyLootingBag;
+	private boolean hideDestroyRunepouch;
+	private boolean hideDropRunecraftingPouch;
 	private boolean hideExamine;
-	private boolean hideTradeWith;
-	private boolean hideReport;
 	private boolean hideLookup;
 	private boolean hideNet;
-	private boolean hideBait;
-	private boolean hideDestroyRunepouch;
-	private boolean hideDestroyCoalbag;
-	private boolean hideDestroyHerbsack;
-	private boolean hideDestroyBoltpouch;
-	private boolean hideDestroyGembag;
-	private boolean hideDestroyLootingBag;
-	private boolean hideDropRunecraftingPouch;
-	private boolean hideCastToB;
-	private Set<String> hideCastIgnoredToB;
-	private boolean hideCastCoX;
-	private Set<String> hideCastIgnoredCoX;
+	private boolean hideReport;
+	private boolean hideTradeWith;
+	private boolean rockCake;
+	private boolean swapAbyssTeleport;
+	private boolean swapAdmire;
+	private boolean swapAssignment;
+	private boolean swapBankExchange;
+	private boolean swapBirdhouseEmpty;
+	private boolean swapBones;
+	private boolean swapBoxTrap;
+	private boolean swapChase;
+	private boolean swapClimbUpDown;
+	private boolean swapCoalBag;
+	private boolean swapContract;
+	private boolean swapEnchant;
+	private boolean swapHardWoodGrove;
+	private boolean swapHarpoon;
+	private boolean swapImps;
+	private boolean swapInteract;
+	private boolean swapMax;
+	private boolean swapMetamorphosis;
+	private boolean swapMinigame;
+	private boolean swapNexus;
+	private boolean swapPay;
+	private boolean swapPick;
+	private boolean swapPickpocket;
+	private boolean swapPlank;
+	private boolean swapPrivate;
+	private boolean swapQuestCape;
+	private boolean swapQuick;
+	private boolean swapRogueschests;
+	private boolean swapSearch;
+	private boolean swapStun;
+	private boolean swapTeleportItem;
+	private boolean swapTrade;
+	private boolean swapTravel;
+	private boolean swapWildernessLever;
 
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
@@ -321,18 +293,13 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Override
 	public void startUp()
 	{
+		migrateConfig();
 		updateConfig();
 		addSubscriptions();
 		addSwaps();
-		loadConstructionItems(config.getEasyConstructionItems());
-
-		if (config.shiftClickCustomization())
-		{
-			enableCustomization();
-		}
-
-		loadCustomSwaps(config.customSwaps());
-
+		loadConstructionItems();
+		loadCustomSwaps(config.customSwaps(), customSwaps);
+		keyManager.registerKeyListener(inputListener);
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			setCastOptions(true);
@@ -344,11 +311,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		eventBus.unregister(this);
 
-		disableCustomization();
-		loadConstructionItems("");
-		loadCustomSwaps(""); // Removes all custom swaps
+		loadCustomSwaps("", customSwaps); // Removes all custom swaps
 		removeSwaps();
-
+		keyManager.unregisterKeyListener(inputListener);
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			resetCastOptions();
@@ -358,14 +323,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private void addSubscriptions()
 	{
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(WidgetMenuOptionClicked.class, this, this::onWidgetMenuOptionClicked);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
 		eventBus.subscribe(MenuOpened.class, this, this::onMenuOpened);
-		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
-		eventBus.subscribe(PostItemDefinition.class, this, this::onPostItemDefinition);
-		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -378,30 +339,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 		removeSwaps();
 		updateConfig();
 		addSwaps();
-		loadConstructionItems(this.getEasyConstructionItems);
+		loadConstructionItems();
 
 		if (!CONFIG_GROUP.equals(event.getGroup()))
 		{
 			if (event.getKey().equals("customSwaps"))
 			{
-				loadCustomSwaps(this.configCustomSwaps);
+				loadCustomSwaps(this.configCustomSwaps, customSwaps);
 			}
-		}
-
-		if (event.getKey().equals("shiftClickCustomization"))
-		{
-			if (this.shiftClickCustomization)
-			{
-				enableCustomization();
-			}
-			else
-			{
-				disableCustomization();
-			}
-		}
-		else if (event.getKey().startsWith(ITEM_KEY_PREFIX))
-		{
-			clientThread.invoke(this::resetItemDefinitionCache);
 		}
 
 		else if ((event.getKey().equals("hideCastToB") || event.getKey().equals("hideCastIgnoredToB")))
@@ -429,62 +374,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
-	private void resetItemDefinitionCache()
-	{
-		itemManager.invalidateItemDefinitionCache();
-		client.getItemDefinitionCache().reset();
-	}
-
-	private Integer getSwapConfig(int itemId)
-	{
-		itemId = ItemVariationMapping.map(itemId);
-		String config = configManager.getConfiguration(CONFIG_GROUP, ITEM_KEY_PREFIX + itemId);
-		if (config == null || config.isEmpty())
-		{
-			return null;
-		}
-
-		return Integer.parseInt(config);
-	}
-
-	private void setSwapConfig(int itemId, int index)
-	{
-		itemId = ItemVariationMapping.map(itemId);
-		configManager.setConfiguration(CONFIG_GROUP, ITEM_KEY_PREFIX + itemId, index);
-	}
-
-	private void unsetSwapConfig(int itemId)
-	{
-		itemId = ItemVariationMapping.map(itemId);
-		configManager.unsetConfiguration(CONFIG_GROUP, ITEM_KEY_PREFIX + itemId);
-	}
-
-	private void enableCustomization()
-	{
-		keyManager.registerKeyListener(inputListener);
-		refreshShiftClickCustomizationMenus();
-		clientThread.invoke(this::resetItemDefinitionCache);
-	}
-
-	private void disableCustomization()
-	{
-		keyManager.unregisterKeyListener(inputListener);
-		removeShiftClickCustomizationMenus();
-		configuringShiftClick = false;
-		clientThread.invoke(this::resetItemDefinitionCache);
-	}
-
-	private void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event)
-	{
-		if (event.getWidget() == WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB
-			|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB
-			|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB)
-		{
-			configuringShiftClick = event.getMenuOption().equals(CONFIGURE) && Text.removeTags(event.getMenuTarget()).equals(MENU_TARGET);
-			refreshShiftClickCustomizationMenus();
-		}
-	}
-
 	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (client.getGameState() != GameState.LOGGED_IN)
@@ -492,7 +381,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			return;
 		}
 
-		loadConstructionItems(this.getEasyConstructionItems);
+		loadConstructionItems();
 	}
 
 	private void onVarbitChanged(VarbitChanged event)
@@ -597,121 +486,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		MenuEntry[] updated_menu_entries = new MenuEntry[menu_entries.size()];
 		updated_menu_entries = menu_entries.toArray(updated_menu_entries);
-
 		client.setMenuEntries(updated_menu_entries);
-
-		if (!configuringShiftClick)
-		{
-			return;
-		}
-
-		MenuEntry firstEntry = event.getFirstEntry();
-		if (firstEntry == null)
-		{
-			return;
-		}
-
-		int widgetId = firstEntry.getParam1();
-		if (widgetId != WidgetInfo.INVENTORY.getId())
-		{
-			return;
-		}
-
-		int itemId = firstEntry.getIdentifier();
-		if (itemId == -1)
-		{
-			return;
-		}
-
-		ItemDefinition itemComposition = client.getItemDefinition(itemId);
-		String itemName = itemComposition.getName();
-		String option = "Use";
-		int shiftClickActionIndex = itemComposition.getShiftClickActionIndex();
-		String[] inventoryActions = itemComposition.getInventoryActions();
-
-		if (shiftClickActionIndex >= 0 && shiftClickActionIndex < inventoryActions.length)
-		{
-			option = inventoryActions[shiftClickActionIndex];
-		}
-
-		MenuEntry[] entries = event.getMenuEntries();
-
-		for (MenuEntry entry : entries)
-		{
-			if (itemName.equals(Text.removeTags(entry.getTarget())))
-			{
-				entry.setOpcode(MenuOpcode.RUNELITE.getId());
-
-				if (option.equals(entry.getOption()))
-				{
-					entry.setOption("* " + option);
-				}
-			}
-		}
-
-		final MenuEntry resetShiftClickEntry = new MenuEntry();
-		resetShiftClickEntry.setOption(RESET);
-		resetShiftClickEntry.setTarget(MENU_TARGET);
-		resetShiftClickEntry.setIdentifier(itemId);
-		resetShiftClickEntry.setParam1(widgetId);
-		resetShiftClickEntry.setOpcode(MenuOpcode.RUNELITE.getId());
-		client.setMenuEntries(ArrayUtils.addAll(entries, resetShiftClickEntry));
-	}
-
-	private void onMenuOptionClicked(MenuOptionClicked event)
-	{
-		if (event.getMenuOpcode() != MenuOpcode.RUNELITE || event.getActionParam1() != WidgetInfo.INVENTORY.getId())
-		{
-			return;
-		}
-
-		int itemId = event.getIdentifier();
-
-		if (itemId == -1)
-		{
-			return;
-		}
-
-		String option = event.getOption();
-		String target = event.getTarget();
-		ItemDefinition itemComposition = client.getItemDefinition(itemId);
-
-		if (option.equals(RESET) && target.equals(MENU_TARGET))
-		{
-			unsetSwapConfig(itemId);
-			return;
-		}
-
-		if (!itemComposition.getName().equals(Text.removeTags(target)))
-		{
-			return;
-		}
-
-		int index = -1;
-		boolean valid = false;
-
-		if (option.equals("Use")) //because "Use" is not in inventoryActions
-		{
-			valid = true;
-		}
-		else
-		{
-			String[] inventoryActions = itemComposition.getInventoryActions();
-
-			for (index = 0; index < inventoryActions.length; index++)
-			{
-				if (option.equals(inventoryActions[index]))
-				{
-					valid = true;
-					break;
-				}
-			}
-		}
-
-		if (valid)
-		{
-			setSwapConfig(itemId, index);
-		}
 	}
 
 	public void onMenuEntryAdded(MenuEntryAdded event)
@@ -721,7 +496,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			return;
 		}
 
-		final String pOptionToReplace = Text.removeTags(event.getOption()).toUpperCase();
 		final int eventId = event.getIdentifier();
 		final String option = Text.standardize(event.getOption());
 		final String target = Text.standardize(event.getTarget());
@@ -868,75 +642,15 @@ public class MenuEntrySwapperPlugin extends Plugin
 					break;
 			}
 		}
-
-		if (this.shiftClickCustomization && shiftModifier && !option.equals("use"))
-		{
-			Integer customOption = getSwapConfig(eventId);
-
-			if (customOption != null && customOption == -1)
-			{
-				menuManager.addPriorityEntry("Use");
-			}
-			else
-			{
-				menuManager.removePriorityEntry("Use");
-			}
-		}
 	}
 
-	private void onPostItemDefinition(PostItemDefinition event)
+	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map)
 	{
-		ItemDefinition itemComposition = event.getItemDefinition();
-		Integer option = getSwapConfig(itemComposition.getId());
-
-		if (option != null)
-		{
-			itemComposition.setShiftClickActionIndex(option);
-		}
-	}
-
-	private void onFocusChanged(FocusChanged event)
-	{
-		if (!event.isFocused())
-		{
-			shiftModifier = false;
-		}
-	}
-
-	private void removeShiftClickCustomizationMenus()
-	{
-		menuManager.removeManagedCustomMenu(FIXED_INVENTORY_TAB_CONFIGURE);
-		menuManager.removeManagedCustomMenu(FIXED_INVENTORY_TAB_SAVE);
-		menuManager.removeManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE);
-		menuManager.removeManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE);
-		menuManager.removeManagedCustomMenu(RESIZABLE_INVENTORY_TAB_CONFIGURE);
-		menuManager.removeManagedCustomMenu(RESIZABLE_INVENTORY_TAB_SAVE);
-	}
-
-	private void refreshShiftClickCustomizationMenus()
-	{
-		removeShiftClickCustomizationMenus();
-		if (configuringShiftClick)
-		{
-			menuManager.addManagedCustomMenu(FIXED_INVENTORY_TAB_SAVE);
-			menuManager.addManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE);
-			menuManager.addManagedCustomMenu(RESIZABLE_INVENTORY_TAB_SAVE);
-		}
-		else
-		{
-			menuManager.addManagedCustomMenu(FIXED_INVENTORY_TAB_CONFIGURE);
-			menuManager.addManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE);
-			menuManager.addManagedCustomMenu(RESIZABLE_INVENTORY_TAB_CONFIGURE);
-		}
-	}
-
-	private void loadCustomSwaps(String config)
-	{
-		Map<AbstractComparableEntry, AbstractComparableEntry> tmp = new HashMap<>();
+		final Map<AbstractComparableEntry, Integer> tmp = new HashMap<>();
 
 		if (!Strings.isNullOrEmpty(config))
 		{
-			StringBuilder sb = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 
 			for (String str : config.split("\n"))
 			{
@@ -946,15 +660,23 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 
-			Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
+			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
 
 			for (Map.Entry<String, String> entry : split.entrySet())
 			{
-				String from = entry.getKey();
-				String to = entry.getValue();
-				String[] splitFrom = Text.standardize(from).split(",");
-				String optionFrom = splitFrom[0].trim();
-				String targetFrom;
+				final String prio = entry.getKey();
+				int priority;
+				try
+				{
+					priority = Integer.parseInt(entry.getValue().trim());
+				}
+				catch (NumberFormatException e)
+				{
+					priority = 0;
+				}
+				final String[] splitFrom = Text.standardize(prio).split(",");
+				final String optionFrom = splitFrom[0].trim();
+				final String targetFrom;
 				if (splitFrom.length == 1)
 				{
 					targetFrom = "";
@@ -964,49 +686,39 @@ public class MenuEntrySwapperPlugin extends Plugin
 					targetFrom = splitFrom[1].trim();
 				}
 
-				AbstractComparableEntry fromEntry = newBaseComparableEntry(optionFrom, targetFrom);
+				final AbstractComparableEntry prioEntry = newBaseComparableEntry(optionFrom, targetFrom);
 
-				String[] splitTo = Text.standardize(to).split(",");
-				String optionTo = splitTo[0].trim();
-				String targetTo;
-				if (splitTo.length == 1)
-				{
-					targetTo = "";
-				}
-				else
-				{
-					targetTo = splitTo[1].trim();
-				}
-
-				AbstractComparableEntry toEntry = newBaseComparableEntry(optionTo, targetTo);
-
-				tmp.put(fromEntry, toEntry);
+				tmp.put(prioEntry, priority);
 			}
 		}
 
-		for (Map.Entry<AbstractComparableEntry, AbstractComparableEntry> e : customSwaps.entrySet())
+		for (Map.Entry<AbstractComparableEntry, Integer> e : map.entrySet())
 		{
-			AbstractComparableEntry key = e.getKey();
-			AbstractComparableEntry value = e.getValue();
-			menuManager.removeSwap(key, value);
+			final AbstractComparableEntry key = e.getKey();
+			menuManager.removePriorityEntry(key);
 		}
 
-		customSwaps.clear();
-		customSwaps.putAll(tmp);
+		map.clear();
+		map.putAll(tmp);
 
-		for (Map.Entry<AbstractComparableEntry, AbstractComparableEntry> entry : customSwaps.entrySet())
+		for (Map.Entry<AbstractComparableEntry, Integer> entry : map.entrySet())
 		{
 			AbstractComparableEntry a1 = entry.getKey();
-			AbstractComparableEntry a2 = entry.getValue();
-			menuManager.addSwap(a1, a2);
+			int a2 = entry.getValue();
+			menuManager.addPriorityEntry(a1).setPriority(a2);
 		}
 	}
 
 	private void addSwaps()
 	{
-		if (this.getBurningAmulet)
+		final Map<String, String> tmp = NEWLINE_SPLITTER.withKeyValueSeparator(',').split(config.prioEntry());
+
+		for (Map.Entry<String, String> str : tmp.entrySet())
 		{
-			menuManager.addPriorityEntry(this.getBurningAmuletMode.toString(), "burning amulet");
+			final AbstractComparableEntry a = newBaseComparableEntry("", str.getValue(), -1, -1, false, true);
+			final AbstractComparableEntry b = newBaseComparableEntry(str.getKey(), "", -1, -1, false, false);
+			dePrioSwaps.put(a, b);
+			menuManager.addSwap(a, b);
 		}
 
 		if (this.getWithdrawOne)
@@ -1153,8 +865,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapBankExchange)
 		{
-			menuManager.addPriorityEntry("Bank").setPriority(1);
-			menuManager.addPriorityEntry("Exchange").setPriority(10);
+			menuManager.addPriorityEntry(new BankComparableEntry("collect", "", false));
+			menuManager.addPriorityEntry("Bank");
+			menuManager.addPriorityEntry("Exchange");
 		}
 
 		if (this.swapContract)
@@ -1257,7 +970,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapBoxTrap)
 		{
-			menuManager.addPriorityEntry("Reset", "Box trap");
+			menuManager.addPriorityEntry("Reset", "Shaking box");
 			menuManager.addPriorityEntry("Lay", "Box trap");
 			menuManager.addPriorityEntry("Activate", "Box trap");
 		}
@@ -1312,7 +1025,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapSearch)
 		{
-			menuManager.addPriorityEntry("Search");
+			menuManager.addPriorityEntry("Search").setPriority(1);
 		}
 
 		if (this.swapRogueschests)
@@ -1327,21 +1040,19 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapTeleportItem)
 		{
-			menuManager.addSwap("Wear", "", "Rub");
-			menuManager.addSwap("Wield", "", "Rub");
-			menuManager.addSwap("Wear", "", "Teleport");
-			menuManager.addSwap("Wield", "", "Teleport");
+			menuManager.addPriorityEntry(new InventoryComparableEntry("Rub", "", false)).setPriority(1);
+			menuManager.addPriorityEntry(new InventoryComparableEntry("Teleport", "", false)).setPriority(1);
 		}
 
 		if (this.swapCoalBag)
 		{
 			menuManager.addPriorityEntry("Fill", "Coal bag");
-			menuManager.addPriorityEntry(new BankComparableEntry("Empty", "Coal bag"));
+			menuManager.addPriorityEntry(newBankComparableEntry("Empty", "Coal bag"));
 		}
 
 		if (this.swapBones)
 		{
-			menuManager.addSwap("Bury", "", "Use");
+			menuManager.addPriorityEntry(new InventoryComparableEntry("Use", "bone", false));
 		}
 
 		if (this.swapNexus)
@@ -1403,6 +1114,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		if (this.swapHardWoodGrove)
 		{
 			menuManager.addPriorityEntry("Quick-pay(100)", "Hardwood grove doors");
+		}
+
+		if (this.getBurningAmulet)
+		{
+			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getBurningAmuletMode.toString(), "burning amulet"));
 		}
 
 		if (this.getCombatBracelet)
@@ -1467,30 +1183,36 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void removeSwaps()
 	{
+		final Iterator<Map.Entry<AbstractComparableEntry, AbstractComparableEntry>> dePrioIter = dePrioSwaps.entrySet().iterator();
+		dePrioIter.forEachRemaining((e) ->
+		{
+			menuManager.removeSwap(e.getKey(), e.getValue());
+			dePrioIter.remove();
+		});
 		Text.fromCSV(this.getWithdrawOneItems).forEach(item ->
 		{
-			menuManager.removePriorityEntry("Withdraw-1", item);
-			menuManager.removePriorityEntry("Deposit-1", item);
+			menuManager.removePriorityEntry(newBankComparableEntry("Withdraw-1", item));
+			menuManager.removePriorityEntry(newBankComparableEntry("Deposit-1", item));
 		});
 		Text.fromCSV(this.getWithdrawFiveItems).forEach(item ->
 		{
-			menuManager.removePriorityEntry("Withdraw-5", item);
-			menuManager.removePriorityEntry("Deposit-5", item);
+			menuManager.removePriorityEntry(newBankComparableEntry("Withdraw-5", item));
+			menuManager.removePriorityEntry(newBankComparableEntry("Deposit-5", item));
 		});
 		Text.fromCSV(this.getWithdrawTenItems).forEach(item ->
 		{
-			menuManager.removePriorityEntry("Withdraw-10", item);
-			menuManager.removePriorityEntry("Deposit-10", item);
+			menuManager.removePriorityEntry(newBankComparableEntry("Withdraw-10", item));
+			menuManager.removePriorityEntry(newBankComparableEntry("Deposit-10", item));
 		});
 		Text.fromCSV(this.getWithdrawXItems).forEach(item ->
 		{
-			menuManager.removePriorityEntry("Withdraw-" + this.getWithdrawXAmount, item);
-			menuManager.removePriorityEntry("Deposit-" + this.getWithdrawXAmount, item);
+			menuManager.removePriorityEntry(newBankComparableEntry("Withdraw-" + this.getWithdrawXAmount, item));
+			menuManager.removePriorityEntry(newBankComparableEntry("Deposit-" + this.getWithdrawXAmount, item));
 		});
 		Text.fromCSV(this.getWithdrawAllItems).forEach(item ->
 		{
-			menuManager.removePriorityEntry("Withdraw-All", item);
-			menuManager.removePriorityEntry("Deposit-All", item);
+			menuManager.removePriorityEntry(newBankComparableEntry("Withdraw-All", item));
+			menuManager.removePriorityEntry(newBankComparableEntry("Deposit-All", item));
 		});
 		Text.fromCSV(this.getBuyOneItems).forEach(item -> menuManager.removePriorityEntry("Buy 1", item));
 		Text.fromCSV(this.getBuyFiveItems).forEach(item -> menuManager.removePriorityEntry("Buy 5", item));
@@ -1500,21 +1222,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		Text.fromCSV(this.getSellFiveItems).forEach(item -> menuManager.removePriorityEntry("Sell 5", item));
 		Text.fromCSV(this.getSellTenItems).forEach(item -> menuManager.removePriorityEntry("Sell 10", item));
 		Text.fromCSV(this.getSellFiftyItems).forEach(item -> menuManager.removePriorityEntry("Sell 50", item));
-		menuManager.removeSwaps("Fairy ring");
-		menuManager.removeSwaps("Tree");
-		menuManager.removePriorityEntry(this.getGloryMode.toString());
-		menuManager.removePriorityEntry(this.getGloryMode.toString());
-		menuManager.removePriorityEntry(this.getSkillsNecklaceMode.toString());
-		menuManager.removePriorityEntry(this.getNecklaceofPassageMode.toString());
-		menuManager.removePriorityEntry(this.getDigsitePendantMode.toString());
-		menuManager.removePriorityEntry(this.getSlayerRingMode.toString());
-		menuManager.removePriorityEntry(this.getSlayerRingMode.toString());
-		menuManager.removePriorityEntry(this.getXericsTalismanMode.toString());
-		menuManager.removePriorityEntry(this.getRingofWealthMode.toString());
-		menuManager.removePriorityEntry(this.maxMode.toString(), "max cape");
-		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
-		menuManager.removePriorityEntry("Smith All");
-		menuManager.removePriorityEntry("Smith All Sets");
 		menuManager.removePriorityEntry("Tan All");
 		menuManager.removePriorityEntry("Buy-plank", "Sawmill operator");
 		menuManager.removePriorityEntry("Buy All");
@@ -1522,8 +1229,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Monastery Teleport");
 		menuManager.removePriorityEntry("Teleport", "Crafting cape");
 		menuManager.removePriorityEntry("Teleport", "Crafting cape(t)");
-		menuManager.removePriorityEntry("Tele to poh", "Construct. cape");
-		menuManager.removePriorityEntry("Tele to poh", "Construct. cape(t)");
+		menuManager.removePriorityEntry(this.constructionCapeMode.toString(), "Construct. cape");
+		menuManager.removePriorityEntry(this.constructionCapeMode.toString(), "Construct. cape(t)");
 		menuManager.removePriorityEntry("Spellbook", "Magic cape");
 		menuManager.removePriorityEntry("Spellbook", "Magic cape(t)");
 		menuManager.removePriorityEntry("Teleport", "Explorer's ring 2");
@@ -1531,6 +1238,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Teleport", "Explorer's ring 4");
 		menuManager.removePriorityEntry("Pickpocket");
 		menuManager.removePriorityEntry("Send-parcel", "Rionasta");
+		menuManager.removePriorityEntry(new BankComparableEntry("collect", "", false));
 		menuManager.removePriorityEntry("Bank");
 		menuManager.removePriorityEntry("Exchange");
 		menuManager.removePriorityEntry("Contract");
@@ -1557,7 +1265,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Jatizso");
 		menuManager.removePriorityEntry("Neitiznot");
 		menuManager.removePriorityEntry("Rellekka");
-		menuManager.removePriorityEntry("Follow");
+		menuManager.removePriorityEntry("Follow", "Elkoy");
 		menuManager.removePriorityEntry("Transport");
 		menuManager.removePriorityEntry("Teleport", "Mage of zamorak");
 		menuManager.removePriorityEntry("Pay");
@@ -1571,7 +1279,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Pay-toll(10gp)", "Gate");
 		menuManager.removePriorityEntry("Travel", "Trapdoor");
 		menuManager.removePriorityEntry("Harpoon");
-		menuManager.removePriorityEntry("Reset", "Box trap");
+		menuManager.removePriorityEntry("Reset", "Shaking box");
 		menuManager.removePriorityEntry("Lay", "Box trap");
 		menuManager.removePriorityEntry("Activate", "Box trap");
 		menuManager.removePriorityEntry("Chase");
@@ -1588,7 +1296,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Quick-start");
 		menuManager.removePriorityEntry("Quick-pass");
 		menuManager.removePriorityEntry("Quick-open");
-		menuManager.removePriorityEntry("Quick-enter");
 		menuManager.removePriorityEntry("Quick-leave");
 		menuManager.removePriorityEntry("Teleport", "Mounted Strength Cape");
 		menuManager.removePriorityEntry("Teleport", "Mounted Construction Cape");
@@ -1596,18 +1303,34 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Teleport", "Mounted Hunter Cape");
 		menuManager.removePriorityEntry("Teleport", "Mounted Fishing Cape");
 		menuManager.removePriorityEntry("Spellbook", "Mounted Magic Cape");
-		menuManager.removePriorityEntry("Empty", "Coal bag");
-		menuManager.removePriorityEntry("Fill", "Coal bag");
 		menuManager.removePriorityEntry("Perks", "Mounted Max Cape");
 		menuManager.removePriorityEntry("Private");
 		menuManager.removePriorityEntry("Pick-lots");
 		menuManager.removePriorityEntry("Search");
 		menuManager.removePriorityEntry("Search for traps");
 		menuManager.removePriorityEntry("Guzzle", "Dwarven rock cake");
-		menuManager.removeSwap("Wear", "", "Rub");
-		menuManager.removeSwap("Wield", "", "Rub");
-		menuManager.removeSwap("Wear", "", "Teleport");
-		menuManager.removeSwap("Wield", "", "Teleport");
+		menuManager.removePriorityEntry(new InventoryComparableEntry("Rub", "", false));
+		menuManager.removePriorityEntry(new InventoryComparableEntry("Teleport", "", false));
+		menuManager.removePriorityEntry("Fill", "Coal bag");
+		menuManager.removePriorityEntry(newBankComparableEntry("Empty", "Coal bag"));
+		menuManager.removePriorityEntry(new InventoryComparableEntry("Use", "bone", false));
+		menuManager.removePriorityEntry("Teleport menu", "Portal nexus");
+		menuManager.removePriorityEntry("Quick-pay", "Hardwood grove doors");
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getBurningAmuletMode.toString(), "burning amulet"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getCombatBraceletMode.toString(), "combat bracelet"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getGamesNecklaceMode.toString(), "games necklace"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getDuelingRingMode.toString(), "ring of dueling"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getGloryMode.toString(), "glory"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getSkillsNecklaceMode.toString(), "skills necklace"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getNecklaceofPassageMode.toString(), "necklace of passage"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getDigsitePendantMode.toString(), "digsite pendant"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getSlayerRingMode.toString(), "slayer ring"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getXericsTalismanMode.toString(), "talisman"));
+		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getRingofWealthMode.toString(), "ring of wealth"));
+		menuManager.removePriorityEntry(this.maxMode.toString(), "max cape");
+		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
+		menuManager.removePriorityEntry(this.getConstructionMode.getBuild());
+		menuManager.removePriorityEntry(this.getConstructionMode.getRemove());
 
 		switch (this.swapFairyRingMode)
 		{
@@ -1689,55 +1412,43 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
-	private void loadConstructionItems(String from)
+	private void loadConstructionItems()
 	{
-		if (client.getGameState() != GameState.LOGGED_IN
-			|| Strings.isNullOrEmpty(from) && leftClickConstructionItems.isEmpty())
+		if (client.getGameState() != GameState.LOGGED_IN)
 		{
 			return;
 		}
 
-		if (!leftClickConstructionItems.isEmpty())
+		if (!buildingMode)
 		{
-			leftClickConstructionItems.forEach(item ->
-			{
-				menuManager.removePriorityEntry("build", item);
-				menuManager.removePriorityEntry("remove", item);
-			});
-
-			leftClickConstructionItems.clear();
+			menuManager.removePriorityEntry(this.getConstructionMode.getBuild());
+			menuManager.removePriorityEntry(this.getConstructionMode.getRemove());
+			return;
 		}
 
-		if (this.getEasyConstruction && !Strings.isNullOrEmpty(from) && buildingMode)
+		if (this.getEasyConstruction)
 		{
-			Text.fromCSV(from).forEach(item ->
-			{
-				if (leftClickConstructionItems.contains(item))
-				{
-					return;
-				}
-
-				menuManager.addPriorityEntry("build", item);
-				menuManager.addPriorityEntry("remove", item);
-
-				leftClickConstructionItems.add(item);
-			});
+			menuManager.addPriorityEntry(this.getConstructionMode.getBuild()).setPriority(100);
+			menuManager.addPriorityEntry(this.getConstructionMode.getRemove()).setPriority(100);
 		}
 	}
 
 	void startShift()
 	{
+		loadCustomSwaps(this.configCustomShiftSwaps, customShiftSwaps);
+
 		if (!this.swapClimbUpDown)
 		{
 			return;
 		}
 
-		menuManager.addPriorityEntry("climb-up");
+		menuManager.addPriorityEntry("climb-up").setPriority(100);
 	}
 
 	void stopShift()
 	{
 		menuManager.removePriorityEntry("climb-up");
+		loadCustomSwaps("", customShiftSwaps);
 	}
 
 	void startControl()
@@ -1747,7 +1458,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			return;
 		}
 
-		menuManager.addPriorityEntry("climb-down");
+		menuManager.addPriorityEntry("climb-down").setPriority(100);
 	}
 
 	void stopControl()
@@ -1833,7 +1544,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.swapQuestCape = config.swapQuestCape();
 		this.questCapeMode = config.questCapeMode();
 		this.configCustomSwaps = config.customSwaps();
-		this.shiftClickCustomization = config.shiftClickCustomization();
+		this.configCustomShiftSwaps = config.shiftCustomSwaps();
 		this.swapCoalBag = config.swapCoalBag();
 		this.swapBirdhouseEmpty = config.swapBirdhouseEmpty();
 		this.swapBones = config.swapBones();
@@ -1872,7 +1583,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.getSwapSellFifty = config.getSwapSellFifty();
 		this.getSellFiftyItems = config.getSellFiftyItems();
 		this.getEasyConstruction = config.getEasyConstruction();
-		this.getEasyConstructionItems = config.getEasyConstructionItems();
 		this.getSwapTanning = config.getSwapTanning();
 		this.getSwapSawmill = config.getSwapSawmill();
 		this.getSwapSawmillPlanks = config.getSwapSawmillPlanks();
@@ -1911,6 +1621,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.getCombatBraceletMode = config.getCombatBraceletMode();
 		this.getBurningAmulet = config.getBurningAmulet();
 		this.getBurningAmuletMode = config.getBurningAmuletMode();
+		this.getConstructionMode = config.getConstructionMode();
 		this.getXericsTalisman = config.getXericsTalisman();
 		this.getXericsTalismanMode = config.getXericsTalismanMode();
 		this.getRingofWealth = config.getRingofWealth();
@@ -1934,5 +1645,89 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.hideCastIgnoredToB = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredToB().toLowerCase()));
 		this.hideCastCoX = config.hideCastCoX();
 		this.hideCastIgnoredCoX = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredCoX().toLowerCase()));
+	}
+
+	/**
+	 * Migrates old custom swaps config
+	 * This should be removed after a reasonable amount of time.
+	 */
+	private static boolean oldParse(String value)
+	{
+		try
+		{
+			final StringBuilder sb = new StringBuilder();
+
+			for (String str : value.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
+					sb.append(str).append("\n");
+				}
+			}
+
+			NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
+			return true;
+		}
+		catch (IllegalArgumentException ex)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Migrates old custom swaps config
+	 * This should be removed after a reasonable amount of time.
+	 */
+	private void migrateConfig()
+	{
+		final String customSwaps = config.customSwaps();
+
+		if (!CustomSwapParse.parse(customSwaps) && oldParse(customSwaps))
+		{
+			final StringBuilder sb = new StringBuilder();
+
+			for (String str : customSwaps.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
+					sb.append(str).append("\n");
+				}
+			}
+
+			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
+
+			sb.setLength(0);
+
+			for (Map.Entry<String, String> entry : split.entrySet())
+			{
+				String val = entry.getValue();
+				if (!val.contains(","))
+				{
+					continue;
+				}
+
+				sb.append(entry.getValue()).append(":0\n");
+			}
+
+			configManager.setConfiguration("menuentryswapper", "customSwaps", sb.toString());
+		}
+
+		// Ugly band-aid i'm sorry
+		configManager.setConfiguration("menuentryswapper", "customSwaps",
+			Arrays.stream(config.customSwaps()
+				.split("\n"))
+				.distinct()
+				.filter(swap -> !"walk here"
+					.equals(swap.
+						split(":")[0]
+						.trim()
+						.toLowerCase()))
+				.filter(swap -> !"cancel"
+					.equals(swap
+						.split(":")[0]
+						.trim()
+						.toLowerCase()))
+				.collect(Collectors.joining("\n"))
+		);
 	}
 }

@@ -31,8 +31,10 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
+import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
 import net.runelite.client.plugins.menuentryswapper.util.ConstructionCapeMode;
+import net.runelite.client.plugins.menuentryswapper.util.ConstructionMode;
 import net.runelite.client.plugins.menuentryswapper.util.DigsitePendantMode;
 import net.runelite.client.plugins.menuentryswapper.util.DuelingRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
@@ -48,7 +50,6 @@ import net.runelite.client.plugins.menuentryswapper.util.RingOfWealthMode;
 import net.runelite.client.plugins.menuentryswapper.util.SkillsNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
-import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 
 
 @ConfigGroup("menuentryswapper")
@@ -208,7 +209,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapMax",
-		name = "Swap Max Cape",
+		name = "Max Cape",
 		description = "Enables swapping max cape options in worn interface.",
 		position = 0,
 		group = "Equipment swapper"
@@ -234,7 +235,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapArdougneCape",
-		name = "Swap Ardougne Cape",
+		name = "Ardougne Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 2,
 		group = "Equipment swapper"
@@ -246,7 +247,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapConstructionCape",
-		name = "Swap Construction Cape",
+		name = "Construction Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 3,
 		group = "Equipment swapper"
@@ -272,7 +273,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapCraftingCape",
-		name = "Swap Crafting Cape",
+		name = "Crafting Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 5,
 		group = "Equipment swapper"
@@ -284,7 +285,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapMagicCape",
-		name = "Swap Magic Cape",
+		name = "Magic Cape",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
 		position = 6,
 		group = "Equipment swapper"
@@ -296,7 +297,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapExplorersRing",
-		name = "Swap Explorer's Ring",
+		name = "Explorer's Ring",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
 		position = 7,
 		group = "Equipment swapper"
@@ -320,7 +321,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapQuestCape",
-		name = "Swap Quest Cape",
+		name = "Quest Cape",
 		description = "Enables swapping Quest cape options in worn interface.",
 		position = 9,
 		group = "Equipment swapper"
@@ -351,11 +352,12 @@ public interface MenuEntrySwapperConfig extends Config
 	@ConfigItem(
 		keyName = "customSwaps",
 		name = "Custom Swaps",
-		description = "Add custom swaps here, 1 per line. Syntax: option, target : option, target<br>Note that the first entry should be the left click one!",
+		description = "Add custom swaps here, 1 per line. Syntax: option,target:priority" +
+			"<br>Note that the higher your set the priority, the more it will overtake over swaps.",
 		position = 0,
 		group = "Miscellaneous",
 		parse = true,
-		clazz = Parse.class,
+		clazz = CustomSwapParse.class,
 		method = "parse"
 	)
 	default String customSwaps()
@@ -364,22 +366,46 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "shiftClickCustomization",
-		name = "Customizable Shift-click",
-		description = "Allows customization of shift-clicks on items.",
+		keyName = "shiftCustomSwaps",
+		name = "Shift Swaps",
+		description = "Add custom swaps here that will only be activated when you press shift." +
+			"<br>1 per line. Syntax: option,target:priority" +
+			"<br>Note that the higher your set the priority, the more it will overtake over swaps.",
 		position = 1,
-		group = "Miscellaneous"
+		group = "Miscellaneous",
+		parse = true,
+		clazz = CustomSwapParse.class,
+		method = "parse"
 	)
-	default boolean shiftClickCustomization()
+	default String shiftCustomSwaps()
 	{
-		return true;
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "prioEntry",
+		name = "Prioritize Entry",
+		description = "This section is mainly for prioritizing entries. For example" +
+			"<br>ignoring attack on snakelings at zulrah." +
+			"<br>Example Syntax: walk here, snakeling" +
+			"<br>Example Syntax: follow, friendsnamehere" +
+			"<br>It's important to note that these will not take precedent over other swaps.",
+		position = 2,
+		group = "Miscellaneous",
+		parse = true,
+		clazz = PrioParse.class,
+		method = "parse"
+	)
+	default String prioEntry()
+	{
+		return "";
 	}
 
 	@ConfigItem(
 		keyName = "swapCoalBag",
-		name = "Swap Coal Bag Empty",
+		name = "Coal Bag",
 		description = "Makes Empty the left click option when in a bank",
-		position = 2,
+		position = 3,
 		group = "Miscellaneous"
 	)
 	default boolean swapCoalBag()
@@ -391,7 +417,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapBirdhouseEmpty",
 		name = "Birdhouse",
 		description = "Swap 'Interact' with 'Empty' for birdhouses on Fossil Island.",
-		position = 3,
+		position = 4,
 		group = "Miscellaneous"
 	)
 	default boolean swapBirdhouseEmpty()
@@ -403,7 +429,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapBones",
 		name = "Bury",
 		description = "Swap 'Bury' with 'Use' on Bones.",
-		position = 4,
+		position = 5,
 		group = "Miscellaneous"
 	)
 	default boolean swapBones()
@@ -415,7 +441,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapChase",
 		name = "Chase",
 		description = "Allows to left click your cat to chase rats.",
-		position = 5,
+		position = 6,
 		group = "Miscellaneous"
 	)
 	default boolean swapChase()
@@ -427,7 +453,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapHarpoon",
 		name = "Harpoon",
 		description = "Swap 'Cage', 'Big Net' with 'Harpoon' on Fishing spots.",
-		position = 6,
+		position = 7,
 		group = "Miscellaneous"
 	)
 	default boolean swapHarpoon()
@@ -439,7 +465,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapOccult",
 		name = "Occult Altar",
 		description = "Swap 'Venerate' with 'Ancient', 'Lunar', or 'Arceuus' on an Altar of the Occult.",
-		position = 7,
+		position = 8,
 		group = "Miscellaneous"
 	)
 	default boolean swapOccult()
@@ -451,7 +477,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "occultalter",
 		name = "Mode",
 		description = "",
-		position = 8,
+		position = 9,
 		group = "Miscellaneous",
 		hidden = true,
 		unhide = "swapOccult"
@@ -465,7 +491,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapHomePortal",
 		name = "Home",
 		description = "Swap 'Enter' with 'Home', 'Build' or 'Friend's house' on Portal.",
-		position = 9,
+		position = 10,
 		group = "Miscellaneous"
 	)
 	default boolean swapHomePortal()
@@ -477,7 +503,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "home",
 		name = "Mode",
 		description = "",
-		position = 10,
+		position = 11,
 		group = "Miscellaneous",
 		hidden = true,
 		unhide = "swapHomePortal"
@@ -491,7 +517,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapPrivate",
 		name = "Private",
 		description = "Swap 'Shared' with 'Private' on the Chambers of Xeric storage units.",
-		position = 11,
+		position = 12,
 		group = "Miscellaneous"
 	)
 	default boolean swapPrivate()
@@ -503,7 +529,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapPick",
 		name = "Pick",
 		description = "Swap 'Pick' with 'Pick-lots' of the Gourd tree in the Chambers of Xeric.",
-		position = 12,
+		position = 13,
 		group = "Miscellaneous"
 	)
 	default boolean swapPick()
@@ -515,7 +541,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapQuick",
 		name = "Quick Pass/Open/Start/Travel",
 		description = "Swap 'Pass' with 'Quick-Pass', 'Open' with 'Quick-Open', 'Ring' with 'Quick-Start' and 'Talk-to' with 'Quick-Travel'.",
-		position = 13,
+		position = 14,
 		group = "Miscellaneous"
 	)
 	default boolean swapQuick()
@@ -527,7 +553,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapBoxTrap",
 		name = "Reset",
 		description = "Swap 'Check' with 'Reset' on box traps.",
-		position = 14,
+		position = 15,
 		group = "Miscellaneous"
 	)
 	default boolean swapBoxTrap()
@@ -539,7 +565,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "rockCake",
 		name = "Rock Cake Guzzle",
 		description = "Enables Left Click 'Guzzle' on the Dwarven Rock Cake.",
-		position = 15,
+		position = 16,
 		group = "Miscellaneous"
 	)
 	default boolean rockCake()
@@ -551,7 +577,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapRogueschests",
 		name = "Rogues Chests",
 		description = "Swap Rogues Chests from 'Open' to 'Search for traps'.",
-		position = 16,
+		position = 17,
 		group = "Miscellaneous"
 	)
 	default boolean swapRogueschests()
@@ -563,7 +589,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapClimbUpDown",
 		name = "Climb",
 		description = "Swap 'Climb-Up'/'Climb-Down' depending on Shift or Control key.",
-		position = 17,
+		position = 18,
 		group = "Miscellaneous"
 	)
 	default boolean swapClimbUpDown()
@@ -575,7 +601,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapStun",
 		name = "Stun Hoop Snakes",
 		description = "Swap 'Attack' with 'Stun'.",
-		position = 18,
+		position = 19,
 		group = "Miscellaneous"
 	)
 	default boolean swapStun()
@@ -587,7 +613,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapSearch",
 		name = "Search",
 		description = "Swap 'Close', 'Shut' with 'Search' on chests, cupboards, etc.",
-		position = 19,
+		position = 20,
 		group = "Miscellaneous"
 	)
 	default boolean swapSearch()
@@ -599,7 +625,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapHardWoodGrove",
 		name = "Hardwood Grove",
 		description = "Swap 'Quick-Pay(100)' and 'Send-Parcel' at Hardwood Grove.",
-		position = 20,
+		position = 21,
 		group = "Miscellaneous"
 	)
 	default boolean swapHardWoodGrove()
@@ -612,7 +638,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "removeObjects",
 		name = "Remove Objects",
 		description = "Removes interaction with the listed objects.",
-		position = 21,
+		position = 22,
 		group = "Miscellaneous"
 	)
 	default boolean getRemoveObjects()
@@ -624,7 +650,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "removedObjects",
 		name = "Objects",
 		description = "Objects listed here will have all interaction be removed.",
-		position = 22,
+		position = 23,
 		group = "Miscellaneous",
 		hidden = true,
 		unhide = "removeObjects"
@@ -638,7 +664,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapImps",
 		name = "Impling Jars",
 		description = "Don't open implings if bank has a clue.",
-		position = 23,
+		position = 24,
 		group = "Miscellaneous"
 	)
 	default boolean swapImps()
@@ -650,7 +676,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "charterOption",
 		name = "Trader Crew",
 		description = "Configure whether you want Charter or Trade to be the first option of Trader Crewmembers.",
-		position = 24,
+		position = 25,
 		group = "Miscellaneous"
 	)
 	default CharterOption charterOption()
@@ -664,7 +690,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapBuyOne",
-		name = "Swappable Buy One",
+		name = "Buy One",
 		description = "",
 		position = 0,
 		group = "Shop / stores"
@@ -690,7 +716,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapBuyFive",
-		name = "Swappable Buy Five",
+		name = "Buy Five",
 		description = "",
 		position = 2,
 		group = "Shop / stores"
@@ -716,7 +742,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapBuyTen",
-		name = "Swappable Buy Ten",
+		name = "Buy Ten",
 		description = "",
 		position = 4,
 		group = "Shop / stores"
@@ -742,7 +768,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapBuyFifty",
-		name = "Swappable Buy Fifty",
+		name = "Buy Fifty",
 		description = "",
 		position = 6,
 		group = "Shop / stores"
@@ -768,7 +794,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapSellOne",
-		name = "Swappable Sell One",
+		name = "Sell One",
 		description = "",
 		position = 8,
 		group = "Shop / stores"
@@ -794,7 +820,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapSellFive",
-		name = "Swappable Sell Five",
+		name = "Sell Five",
 		description = "",
 		position = 10,
 		group = "Shop / stores"
@@ -820,7 +846,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapSellTen",
-		name = "Swappable Sell Ten",
+		name = "Sell Ten",
 		description = "",
 		position = 12,
 		group = "Shop / stores"
@@ -846,7 +872,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapSellFifty",
-		name = "Swappable Sell Fifty",
+		name = "Sell Fifty",
 		description = "",
 		position = 14,
 		group = "Shop / stores"
@@ -881,29 +907,28 @@ public interface MenuEntrySwapperConfig extends Config
 		position = 0,
 		group = "Skilling"
 	)
-
 	default boolean getEasyConstruction()
 	{
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "getEasyConstructionItems",
-		name = "Build Items",
+		keyName = "getConstructionMode",
+		name = "EZ Construction Type",
 		description = "",
 		position = 1,
 		group = "Skilling",
 		hidden = true,
 		unhide = "getEasyConstruction"
 	)
-	default String getEasyConstructionItems()
+	default ConstructionMode getConstructionMode()
 	{
-		return "";
+		return ConstructionMode.LARDER;
 	}
 
 	@ConfigItem(
 		keyName = "swapTanning",
-		name = "Swap Tanning",
+		name = "Tanning",
 		description = "Enables swapping of 'Tan-1' and 'Tan-all' options.",
 		position = 2,
 		group = "Skilling"
@@ -915,7 +940,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapSawmill",
-		name = "Swap Sawmill Operator",
+		name = "Sawmill Operator",
 		description = "Makes 'Buy-plank' the default option on the Sawmill Operator.",
 		position = 3,
 		group = "Skilling"
@@ -927,7 +952,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapSawmillPlanks",
-		name = "Swap Buy Planks",
+		name = "Buy Planks",
 		description = "Makes 'Buy All' the default option when buying planks.",
 		position = 4,
 		group = "Skilling"
@@ -939,7 +964,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapPuroPuro",
-		name = "Swap Puro-Puro Wheat",
+		name = "Puro-Puro Wheat",
 		description = "",
 		position = 5,
 		group = "Skilling"
@@ -1204,7 +1229,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapGamesNecklace",
-		name = "Swap Games Necklace",
+		name = "Games Necklace",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Games Necklace.",
 		position = 7,
 		group = "Teleportation"
@@ -1230,7 +1255,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapDuelingRing",
-		name = "Swap Dueling Ring",
+		name = "Dueling Ring",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Ring of Dueling.",
 		position = 9,
 		group = "Teleportation"
@@ -1256,7 +1281,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapGlory",
-		name = "Swap Glory",
+		name = "Glory",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Amulet of Glory / Amulet of Eternal Glory.",
 		position = 11,
 		group = "Teleportation"
@@ -1282,7 +1307,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapSkill",
-		name = "Swap Skill",
+		name = "Skills Necklace",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Skills Necklace.",
 		position = 13,
 		group = "Teleportation"
@@ -1308,7 +1333,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapPassage",
-		name = "Swap Passage",
+		name = "Passage Necklace",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Necklace of Passage.",
 		position = 15,
 		group = "Teleportation"
@@ -1334,7 +1359,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapDigsite",
-		name = "Swap Digsite",
+		name = "Digsite Pendant",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Digsite Pendant.",
 		position = 17,
 		group = "Teleportation"
@@ -1360,7 +1385,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapCombat",
-		name = "Swap Combat",
+		name = "Combat Bracelet",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Combat Bracelet.",
 		position = 19,
 		group = "Teleportation"
@@ -1386,7 +1411,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapburning",
-		name = "Swap Burning",
+		name = "Burning Amulet",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Burning Amulet.",
 		position = 21,
 		group = "Teleportation"
@@ -1412,7 +1437,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapxeric",
-		name = "Swap Xeric's",
+		name = "Xeric's Talisman",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Xeric's Talisman.",
 		position = 23,
 		group = "Teleportation"
@@ -1438,7 +1463,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapwealth",
-		name = "Swap Wealth",
+		name = "Ring of Wealth",
 		description = "Swap the left click 'remove' option with the desired teleport location on a worn Ring of Wealth.",
 		position = 25,
 		group = "Teleportation"
@@ -1464,7 +1489,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "swapslayer",
-		name = "Swap Slayer Ring",
+		name = "Slayer Ring",
 		description = "",
 		position = 27,
 		group = "Teleportation"
@@ -1494,10 +1519,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideExamine",
-		name = "Hide Examine",
+		name = "Examine",
 		description = "Hides the 'Examine' option from the right click menu.",
 		position = 0,
-		group = "Right Click Options"
+		group = "Hide Right Click Options"
 	)
 	default boolean hideExamine()
 	{
@@ -1506,10 +1531,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideTradeWith",
-		name = "Hide Trade With",
+		name = "Trade With",
 		description = "Hides the 'Trade with' option from the right click menu.",
 		position = 1,
-		group = "Right Click Options"
+		group = "Hide Right Click Options"
 	)
 	default boolean hideTradeWith()
 	{
@@ -1518,10 +1543,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideReport",
-		name = "Hide Report",
+		name = "Report",
 		description = "Hides the 'Report' option from the right click menu.",
 		position = 2,
-		group = "Right Click Options"
+		group = "Hide Right Click Options"
 	)
 	default boolean hideReport()
 	{
@@ -1530,10 +1555,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideLookup",
-		name = "Hide Lookup",
+		name = "Lookup",
 		description = "Hides the 'Lookup' option from the right click menu.",
 		position = 3,
-		group = "Right Click Options"
+		group = "Hide Right Click Options"
 	)
 	default boolean hideLookup()
 	{
@@ -1542,10 +1567,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideNet",
-		name = "Hide Net",
+		name = "Net",
 		description = "Hides the 'Net' option from the right click menu.",
 		position = 4,
-		group = "Right Click Options"
+		group = "Hide Right Click Options"
 	)
 	default boolean hideNet()
 	{
@@ -1554,10 +1579,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideBait",
-		name = "Hide Bait",
+		name = "Bait",
 		description = "Hides the 'Bait' option from the right click menu.",
 		position = 5,
-		group = "Right Click Options"
+		group = "Hide Right Click Options"
 	)
 	default boolean hideBait()
 	{
@@ -1570,10 +1595,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideDestroyRunepouch",
-		name = "Hide Destroy on Rune Pouch",
+		name = "Destroy on Rune Pouch",
 		description = "Hides the 'Destroy' option when right clicking a Rune pouch.",
 		position = 0,
-		group = "Untradeables"
+		group = "Hide Untradeable Options"
 	)
 	default boolean hideDestroyRunepouch()
 	{
@@ -1582,10 +1607,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideDestroyCoalbag",
-		name = "Hide Destroy on Coal bag",
+		name = "Destroy on Coal bag",
 		description = "Hides the 'Destroy' option when right clicking a Coal bag.",
 		position = 1,
-		group = "Untradeables"
+		group = "Hide Untradeable Options"
 	)
 	default boolean hideDestroyCoalbag()
 	{
@@ -1594,10 +1619,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideDestroyHerbsack",
-		name = "Hide Destroy on Herb sack",
+		name = "Destroy on Herb sack",
 		description = "Hides the 'Destroy' option when right clicking a Herb sack.",
 		position = 2,
-		group = "Untradeables"
+		group = "Hide Untradeable Options"
 	)
 	default boolean hideDestroyHerbsack()
 	{
@@ -1606,10 +1631,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideDestroyBoltpouch",
-		name = "Hide Destroy on Bolt pouch",
+		name = "Destroy on Bolt pouch",
 		description = "Hides the 'Destroy' option when right clicking a Bolt pouch.",
 		position = 3,
-		group = "Untradeables"
+		group = "Hide Untradeable Options"
 	)
 	default boolean hideDestroyBoltpouch()
 	{
@@ -1618,10 +1643,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideDestroyGembag",
-		name = "Hide Destroy on Gem bag",
+		name = "Destroy on Gem bag",
 		description = "Hides the 'Destroy' option when right clicking a Gem bag.",
 		position = 4,
-		group = "Untradeables"
+		group = "Hide Untradeable Options"
 	)
 	default boolean hideDestroyGembag()
 	{
@@ -1630,10 +1655,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideDestroyLootingBag",
-		name = "Hide Destroy on Looting bag",
+		name = "Destroy on Looting bag",
 		description = "Hides the 'Destroy' option when right clicking a Looting bag.",
 		position = 5,
-		group = "Untradeables"
+		group = "Hide Untradeable Options"
 	)
 	default boolean hideDestroyLootingBag()
 	{
@@ -1642,10 +1667,10 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "hideDropRunecraftingPouch",
-		name = "Hide Drop on RC pouches",
+		name = "Drop on RC pouches",
 		description = "Hides the 'Drop' option when right clicking a Small, Medium, Large, or Giant pouch.",
 		position = 6,
-		group = "Untradeables"
+		group = "Hide Untradeable Options"
 	)
 	default boolean hideDropRunecraftingPouch()
 	{
