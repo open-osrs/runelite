@@ -845,4 +845,9 @@ public interface Widget
 	 * Seems like this needs to set to true when creating new widgets
 	 */
 	void setIsIf3(boolean isIf3);
+
+	/**
+	 * Returns yes if your mouse pointer is over this widget or any of it's children.
+	 */
+	boolean containsMouse();
 }
