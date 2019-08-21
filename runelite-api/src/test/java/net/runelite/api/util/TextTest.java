@@ -41,4 +41,10 @@ public class TextTest
 		assertEquals("a < b", Text.removeTags("a < b"));
 		assertEquals("Remove no tags", Text.removeTags("Remove no tags"));
 	}
+
+	@Test
+	public void toJagexName()
+	{
+		assertEquals("Whoever This Is Lmao", Text.toJagexName("-__- - \u00A0\u00A0 Whoever\uABCD\uABCD\u00A0T\uABBBhis  Is-Lmao"));
+	}
 }
