@@ -501,12 +501,6 @@ public enum Varbits
 	SPELLBOOK_ID(4070),
 
 	/**
-	 * 0 = no
-	 * 1 = yes
-	 **/
-	SPELLBOOK_HIDDEN(6718),
-
-	/**
 	 * Amount of items in each bank tab
 	 */
 	BANK_TAB_ONE_COUNT(4171),

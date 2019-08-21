@@ -49,6 +49,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetMenuOptionClicked;
+import net.runelite.api.vars.InterfaceTab;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
@@ -63,6 +64,7 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import static net.runelite.client.util.MiscUtils.clamp;
 import net.runelite.client.util.Text;
+import org.apache.commons.lang3.StringUtils;
 
 @PluginDescriptor(
 	name = "Spellbook",
@@ -188,12 +190,12 @@ public class SpellbookPlugin extends Plugin
 			return WordFilterMode.ENDSWITH;
 		}
 
-		return WordFilterMode.CONTAINS; // but probably null soz
+		throw new IllegalStateException();
 	}
 
 	private static String removeFlyingComma(String s)
 	{
-		return s.replaceAll("\"", "");
+		return StringUtils.remove(s, '\"');
 	}
 
 	@Provides
@@ -271,7 +273,7 @@ public class SpellbookPlugin extends Plugin
 
 		if (config.canDrag())
 		{
-			config.canDrag(client.getVar(Varbits.FILTER_SPELLBOOK) == 1 && client.getVar(VarClientInt.INVENTORY_TAB) == 6);
+			config.canDrag(client.getVar(Varbits.FILTER_SPELLBOOK) == 1 && client.getVar(VarClientInt.INTERFACE_TAB) == InterfaceTab.SPELLBOOK.getId());
 		}
 	}
 
@@ -526,7 +528,7 @@ public class SpellbookPlugin extends Plugin
 	boolean isNotOnSpellWidget(java.awt.Point point)
 	{
 		Widget boundsWidget = client.getWidget(WidgetInfo.SPELLBOOK_FILTERED_BOUNDS);
-		if (client.getVar(VarClientInt.INVENTORY_TAB) != 6
+		if (client.getVar(VarClientInt.INTERFACE_TAB) != InterfaceTab.SPELLBOOK.getId()
 			|| client.isMenuOpen()
 			|| boundsWidget == null
 			|| !boundsWidget.getBounds().contains(point))

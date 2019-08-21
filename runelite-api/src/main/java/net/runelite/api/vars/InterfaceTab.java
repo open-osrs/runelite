@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Lucas <https://github.com/Lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,41 +22,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.api.vars;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * An enumeration of integer local variables.
- */
 @AllArgsConstructor
 @Getter
-public enum VarClientInt
+public enum InterfaceTab
 {
-	TOOLTIP_TIMEOUT(1),
+	COMBAT(0),
+	STATS(1),
+	QUEST(2),
+	INVENTORY(3),
+	EQUIPMENT(4),
+	PRAYER(5),
+	SPELLBOOK(6),
+	CLAN(7),
+	ACCOUNT_MANAGMENT(8),
+	FRIENDS(9),
+	LOGOUT(10),
+	OPTIONS(11),
+	EMOTES(12),
+	MUSIC(13);
 
-/**
- * 0 = no tooltip displayed
- * 1 = tooltip displaying
-*/
-	TOOLTIP_VISIBLE(2),
-
-	/**
-	 * Current message layer mode
-	 * @see net.runelite.api.vars.InputType
-	 */
-	INPUT_TYPE(5),
-
-	MEMBERSHIP_STATUS(103),
-
-	/**
-	 * The currently open interface tab
-	 * @see net.runelite.api.vars.InterfaceTab
-	 */
-	INTERFACE_TAB(171),
-
-	WORLD_MAP_SEARCH_FOCUSED(190);
-
-	private final int index;
+	private final int id;
 }
