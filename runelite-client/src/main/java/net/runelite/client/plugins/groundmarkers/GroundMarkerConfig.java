@@ -80,6 +80,50 @@ public interface GroundMarkerConfig extends Config
 		return Color.GREEN;
 	}
 
+	@Alpha
+	@ConfigItem(
+		keyName = "markerColor5",
+		name = "Group 5 tile color",
+		description = "Configures the color of the 5th group of marked tiles"
+	)
+	default Color markerColor5()
+	{
+		return Color.BLACK;
+	}
+
+	@Alpha
+	@ConfigItem(
+		keyName = "markerColor6",
+		name = "Group 6 tile color",
+		description = "Configures the color of the 6th group of marked tiles"
+	)
+	default Color markerColor6()
+	{
+		return Color.GRAY;
+	}
+
+	@Alpha
+	@ConfigItem(
+		keyName = "markerColor7",
+		name = "Group 7 tile color",
+		description = "Configures the color of the 7th group of marked tiles"
+	)
+	default Color markerColor7()
+	{
+		return Color.WHITE;
+	}
+
+	@Alpha
+	@ConfigItem(
+		keyName = "markerColor8",
+		name = "Group 8 tile color",
+		description = "Configures the color of the 8th group of marked tiles"
+	)
+	default Color markerColor8()
+	{
+		return Color.MAGENTA;
+	}
+
 	@ConfigItem(
 		keyName = "showMinimap",
 		name = "Show on minimap",
