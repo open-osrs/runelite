@@ -309,7 +309,7 @@ public class GroundMarkerPlugin extends Plugin
 		{
 			MenuEntry[] menuEntries = client.getMenuEntries();
 			int lastIndex = menuEntries.length;
-			menuEntries = Arrays.copyOf(menuEntries, lastIndex + 4);
+			menuEntries = Arrays.copyOf(menuEntries, lastIndex + 8);
 
 			final Tile tile = client.getSelectedSceneTile();
 			if (tile == null)
@@ -319,7 +319,7 @@ public class GroundMarkerPlugin extends Plugin
 			final WorldPoint loc = WorldPoint.fromLocalInstance(client, tile.getLocalLocation());
 			final int regionId = loc.getRegionID();
 
-			for (int i = 4; i > 0; i--)
+			for (int i = 8; i > 0; i--)
 			{
 				MenuEntry menuEntry = menuEntries[lastIndex] = new MenuEntry();
 
@@ -450,7 +450,6 @@ public class GroundMarkerPlugin extends Plugin
 				break;
 			case 8:
 				color = this.markerColor8;
-				break;
 		}
 
 		return color;
