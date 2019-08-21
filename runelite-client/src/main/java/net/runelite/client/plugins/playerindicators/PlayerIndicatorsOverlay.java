@@ -25,6 +25,7 @@
  */
 package net.runelite.client.plugins.playerindicators;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -152,12 +153,12 @@ public class PlayerIndicatorsOverlay extends Overlay
 		final boolean skulls = plugin.isPlayerSkull();
 		final int zOffset = actor.getLogicalHeight() + ACTOR_OVERHEAD_TEXT_MARGIN;
 		Point textLocation = actor.getCanvasTextLocation(graphics, name, zOffset);
+		final Color color = plugin.getRelationColorHashMap().get(relation);
 		if (plugin.isShowCombatLevel())
 		{
 			name = name + " (" + String.valueOf(actor.getCombatLevel()) + ")";
 		}
-		if (if PlayerIndicatorsPlugin.PlayerRelation)
-		{
+
 			if (plugin.isPlayerSkull() && actor.getSkullIcon() != null)
 			{
 				int x = graphics.getFontMetrics().stringWidth(name);
@@ -169,12 +170,10 @@ public class PlayerIndicatorsOverlay extends Overlay
 			{
 				OverlayUtil.renderActorOverlay(graphics, actor, name, color);
 			}
-		}
-		if (locationMap.get(name).contains(PlayerIndicationLocation.HULL))
-		{
-			OverlayUtil.renderPolygon(graphics, actor.getConvexHull(), color);
-		}
+		OverlayUtil.renderPolygon(graphics, actor.getConvexHull(), color);
+
 	}
+
 
 
 //		BiPredicate<Player, String> self  = (player, s) ->
@@ -366,18 +365,6 @@ public class PlayerIndicatorsOverlay extends Overlay
 		return client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isAllPvpWorld(client.getWorldType());
 	}
 
-	@Override
-	public void update(Observable o, Object arg)
-	{
-		log.info(o.toString() + " updated config");
-		this.locationMap.clear();
-		((HashMap<String, List<PlayerIndicationLocation>>) arg).forEach((s, value) ->
-		{
-			if (value.contains(PlayerIndicationLocation.ABOVE_HEAD) || value.contains(PlayerIndicationLocation.HULL))
-			{
-				this.locationMap.put(s, value);
-			}
-		});
-	}
+
 
 }

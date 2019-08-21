@@ -125,7 +125,7 @@ public interface PlayerIndicatorsConfig extends Config
 		description = "Color of clan members",
 		group = "Clan"
 	)
-	default Color getClanMemberColor()
+	default Color getClanColor()
 	{
 		return new Color(170, 0, 255);
 	}
@@ -173,7 +173,7 @@ public interface PlayerIndicatorsConfig extends Config
 		description = "Color of team members",
 		group = "Team"
 	)
-	default Color getTeamMemberColor()
+	default Color getTeamcolor()
 	{
 		return new Color(19, 110, 247);
 	}
@@ -341,7 +341,7 @@ public interface PlayerIndicatorsConfig extends Config
 		description = "Color of other players' names",
 		group = "Other"
 	)
-	default Color getOtherPlayerColor()
+	default Color getOtherColor()
 	{
 		return Color.RED;
 	}

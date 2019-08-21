@@ -32,7 +32,6 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -187,6 +186,14 @@ public class PlayerIndicatorsPlugin extends Plugin
 	private EnumMap otherIndicationModes;
 	@Getter
 	private EnumMap targetIndicationModes;
+	@Getter
+	private EnumMap teamIndicationModes;
+
+	@Getter
+	private HashMap<PlayerRelation, Color> relationColorHashMap = new HashMap<>();
+
+	@Getter
+	private HashMap<PlayerRelation, PlayerIndicationLocation> locationHashMap = new HashMap<>();
 
 
 	@Provides
@@ -475,6 +482,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 	private void updateConfig()
 	{
 
+		relationColorHashMap.clear();
 		this.highlightOwnPlayer = config.highlightOwnPlayer();
 		this.selfColor = config.getOwnPlayerColor();
 		this.selfIndicationModes = config.selfIndicatorModes();
@@ -482,33 +490,39 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 		if (this.highlightOwnPlayer)
 		{
+			relationColorHashMap.put(PlayerRelation.SELF, config.getOwnPlayerColor());
 		}
 		this.highlightFriends = config.highlightFriends();
 		this.friendsColor = config.getFriendColor();
 		this.friendIndicationModes = config.friendIndicatorMode();
 		if (this.highlightFriends)
 		{
+			relationColorHashMap.put(PlayerRelation.FRIEND, config.getFriendColor());
 		}
 		this.highlightClan = config.highlightClan();
-		this.getClanMemberColor = config.getClanMemberColor();
+		this.getClanMemberColor = config.getClanColor();
 
 		this.clanIndicationModes = config.clanIndicatorModes();
 		if (this.highlightClan)
 		{
+			relationColorHashMap.put(PlayerRelation.CLAN, config.getClanColor());
 		}
-		this.highlightTeamMembers = config.highlightTeamMembers();
-		this.getTeamMemberColor = config.getTeamMemberColor();
+		this.teamIndicationModes = config.teamIndicatorModes();
+		this.getTeamMemberColor = config.getTeamcolor();
 		if (highlightTeamMembers)
 		{
+			relationColorHashMap.put(PlayerRelation.TEAM, config.getTeamcolor());
+
 		}
 		this.highlightOther = config.highlightOtherPlayers();
-		this.otherColor = config.getOtherPlayerColor();
+		this.otherColor = config.getOtherColor();
 
 
 		this.otherIndicationModes = config.otherIndicatorModes();
 
 		if (highlightOther)
 		{
+			relationColorHashMap.put(PlayerRelation.OTHER, config.getOtherColor());
 		}
 		this.showClanRanks = config.showClanRanks();
 		this.highlightTargets = config.highlightTargets();
@@ -519,6 +533,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 		if (highlightTargets)
 		{
+			relationColorHashMap.put(PlayerRelation.TARGET, config.getTargetsColor());
 		}
 		this.showCombatLevel = config.showCombatLevel();
 		this.showAgilityLevel = config.showAgilityLevel();

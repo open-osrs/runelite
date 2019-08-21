@@ -1034,16 +1034,16 @@ public class ConfigPanel extends PluginPanel
 					item.add(button, BorderLayout.EAST);
 				}
 
-				else if (cid.getType() == ConfigEnumMap.class)
+				else if (cid.getType() == EnumMap.class)
 				{
 
 					int displayRows = cid.getItem().displayRows();
 
 					EnumMap enumMap = configManager.getConfiguration(cd.getGroup().value(),
 						cid.getItem().keyName(), EnumMap.class);
-					e
 
-					JList jList = new JList(Lists.newArrayList(enumMap.keySet()));
+
+					JList jList = new JList(Lists.newArrayList(enumMap.keySet()).toArray());
 					int [] selected = new int[enumMap.getSelectedValues().size()];
 
 					enumMap.getSelectedValues().forEach(v ->
