@@ -260,12 +260,12 @@ public class ClanChatPlugin extends Plugin
 		{
 			final String memberName = Text.toJagexName(member.getUsername());
 
+			List<Player> toRemove = new ArrayList<>();
 			for (Player each : clanMembers)
 			{
 				if (memberName.equals(Text.toJagexName(each.getName())))
 				{
-					clanMembers.remove(each);
-
+					toRemove.add(each);
 					if (clanMembers.isEmpty())
 					{
 						removeClanCounter();
@@ -274,6 +274,7 @@ public class ClanChatPlugin extends Plugin
 					break;
 				}
 			}
+			clanMembers.removeAll(toRemove);
 		}
 
 		if (!this.showJoinLeave ||
