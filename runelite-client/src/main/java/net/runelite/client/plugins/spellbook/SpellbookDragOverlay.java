@@ -52,12 +52,12 @@ public class SpellbookDragOverlay extends Overlay
 		this.client = client;
 		this.spriteManager = spriteManager;
 		setPosition(OverlayPosition.TOOLTIP);
-		setPriority(OverlayPriority.HIGHEST);
+		setPriority(OverlayPriority.HIGH);
 		setLayer(OverlayLayer.ALWAYS_ON_TOP);
 	}
 
 	@Override
-	public Dimension render(Graphics2D g)
+	public Dimension render(final Graphics2D g)
 	{
 		if (!plugin.isDragging())
 		{
@@ -67,14 +67,15 @@ public class SpellbookDragOverlay extends Overlay
 		final net.runelite.api.Point mouseCanvasPosition = client.getMouseCanvasPosition();
 		final net.runelite.api.Point draggingLocation = plugin.getDraggingLocation();
 
-		final int size = plugin.getDraggingWidget().getWidth();
+		final int width = plugin.getDraggingWidget().getOriginalWidth();
+		final int height = plugin.getDraggingWidget().getOriginalHeight();
 		final int sprite = plugin.getDraggingWidget().getSpriteId();
 		final BufferedImage image = spriteManager.getSprite(sprite, 0);
 
-		final Point mousePosition = new Point(mouseCanvasPosition.getX() - draggingLocation.getX(), mouseCanvasPosition.getY() - draggingLocation.getY());
-		final Rectangle bounds = new Rectangle(mousePosition.x, mousePosition.y, size, size);
+		final Point drawPos = new Point(mouseCanvasPosition.getX() - draggingLocation.getX(), mouseCanvasPosition.getY() - draggingLocation.getY());
+		final Rectangle bounds = new Rectangle(drawPos.x, drawPos.y, width, height);
 
-		g.drawImage(image, mousePosition.x, mousePosition.y, size, size, null);
+		g.drawImage(image, drawPos.x, drawPos.y, width, height, null);
 
 		return bounds.getSize();
 	}
