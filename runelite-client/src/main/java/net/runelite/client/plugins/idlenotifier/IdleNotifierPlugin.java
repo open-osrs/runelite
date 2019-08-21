@@ -260,6 +260,7 @@ public class IdleNotifierPlugin extends Plugin
 	private boolean interactingNotified;
 	private SkullIcon lastTickSkull = null;
 	private boolean isFirstTick = true;
+	private boolean resourceDoorReady = false;
 
 	@Setter(AccessLevel.PACKAGE)
 	private boolean animationIdle;
@@ -288,6 +289,7 @@ public class IdleNotifierPlugin extends Plugin
 	private boolean notifyPkers;
 	private boolean notifyResourceDoor;
 	private boolean outOfItemsIdle;
+
 
 	@Provides
 	IdleNotifierConfig provideConfig(ConfigManager configManager)
@@ -350,7 +352,7 @@ public class IdleNotifierPlugin extends Plugin
 	private void onWallObjectSpawned(WallObjectSpawned event)
 	{
 		WallObject wall = event.getWallObject();
-		if (this.notifyResourceDoor && wall.getId() == 83)
+		if (this.notifyResourceDoor && wall.getId() == 83 && resourceDoorReady)
 		{
 			notifier.notify("Door warning! The resource area door has been opened!");
 		}
@@ -510,6 +512,7 @@ public class IdleNotifierPlugin extends Plugin
 					ready = false;
 					resetTimers();
 				}
+				resourceDoorReady = true;
 
 				break;
 		}
