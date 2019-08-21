@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018 gazivodag <https://github.com/gazivodag>
- * Copyright (c) 2019 lucwousin <https://github.com/lucwousin>
+ * Copyright (c) 2019 Lucas <https://github.com/lucwousin>
  * Copyright (c) 2019 infinitay <https://github.com/Infinitay>
  * All rights reserved.
  *

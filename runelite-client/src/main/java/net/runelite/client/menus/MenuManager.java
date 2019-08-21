@@ -64,7 +64,7 @@ import net.runelite.api.menus.comparables.AbstractComparableEntry;
 import static net.runelite.api.menus.comparables.ComparableEntries.newBaseComparableEntry;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.util.Text;
+import net.runelite.api.util.Text;
 
 @Singleton
 @Slf4j

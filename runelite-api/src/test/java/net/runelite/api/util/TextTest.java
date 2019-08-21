@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.util;
+package net.runelite.api.util;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -41,5 +41,4 @@ public class TextTest
 		assertEquals("a < b", Text.removeTags("a < b"));
 		assertEquals("Remove no tags", Text.removeTags("Remove no tags"));
 	}
-
 }

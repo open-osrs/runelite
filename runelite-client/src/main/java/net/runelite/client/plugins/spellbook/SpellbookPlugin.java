@@ -64,7 +64,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import static net.runelite.client.util.MiscUtils.clamp;
-import net.runelite.client.util.Text;
+import net.runelite.api.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @PluginDescriptor(
@@ -474,7 +474,7 @@ public class SpellbookPlugin extends Plugin
 		}
 
 		// CHECKSTYLE:OFF
-		final Collection<Spell> gson = GSON.fromJson(cfg, new TypeToken<List<Spell>>() 
+		final Collection<Spell> gson = GSON.fromJson(cfg, new TypeToken<List<Spell>>()
 		{
 		}
 		.getType());
