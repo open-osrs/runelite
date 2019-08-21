@@ -189,7 +189,7 @@ public class PlayerScouter extends Plugin
 		playerContainer.forEach(player ->
 		{
 			update(player);
-			if(player.getPlayer().getCombatLevel() < this.minimumCombat
+			if (player.getPlayer().getCombatLevel() < this.minimumCombat
 				&& player.getPlayer().getCombatLevel() > this.maximumCombat)
 			{
 				return;
