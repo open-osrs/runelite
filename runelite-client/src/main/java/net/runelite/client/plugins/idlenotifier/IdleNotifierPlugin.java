@@ -58,6 +58,7 @@ import net.runelite.api.SkullIcon;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
+import net.runelite.api.WallObject;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
@@ -66,6 +67,7 @@ import net.runelite.api.events.HitsplatApplied;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.PlayerSpawned;
+import net.runelite.api.events.WallObjectSpawned;
 import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
@@ -284,6 +286,7 @@ public class IdleNotifierPlugin extends Plugin
 	private boolean getSpecSound;
 	private boolean getOverSpecEnergy;
 	private boolean notifyPkers;
+	private boolean notifyResourceDoor;
 	private boolean outOfItemsIdle;
 
 	@Provides
@@ -341,6 +344,15 @@ public class IdleNotifierPlugin extends Plugin
 			int combat = p.getCombatLevel();
 			notifier.notify("PK'er warning! A level " + combat + " player named " + playerName +
 				" appeared!", TrayIcon.MessageType.WARNING);
+		}
+	}
+
+	private void onWallObjectSpawned(WallObjectSpawned event)
+	{
+		WallObject wall = event.getWallObject();
+		if (this.notifyResourceDoor && wall.getId() == 83)
+		{
+			notifier.notify("Door warning! The resource area door has been opened!");
 		}
 	}
 
@@ -934,6 +946,7 @@ public class IdleNotifierPlugin extends Plugin
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
 		eventBus.subscribe(PlayerSpawned.class, this, this::onPlayerSpawned);
+		eventBus.subscribe(WallObjectSpawned.class, this, this::onWallObjectSpawned);
 		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
 		eventBus.subscribe(InteractingChanged.class, this, this::onInteractingChanged);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
@@ -972,6 +985,7 @@ public class IdleNotifierPlugin extends Plugin
 		this.getSpecSound = config.getSpecSound();
 		this.getOverSpecEnergy = config.getOverSpecEnergy();
 		this.notifyPkers = config.notifyPkers();
+		this.notifyResourceDoor = config.notifyResourceDoor();
 		this.outOfItemsIdle = config.outOfItemsIdle();
 	}
 }
