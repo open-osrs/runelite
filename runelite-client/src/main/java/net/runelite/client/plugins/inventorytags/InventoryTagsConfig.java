@@ -77,4 +77,48 @@ public interface InventoryTagsConfig extends Config
 	{
 		return new Color(255, 0, 255);
 	}
+
+	@ConfigItem(
+		position = 4,
+		keyName = "groupColor5",
+		name = "Group 5 Color",
+		description = "Color of the Tag"
+	)
+	default Color getGroup5Color()
+	{
+		return new Color(0, 255, 246);
+	}
+
+	@ConfigItem(
+		position = 5,
+		keyName = "groupColor6",
+		name = "Group 6 Color",
+		description = "Color of the Tag"
+	)
+	default Color getGroup6Color()
+	{
+		return new Color(248, 255, 244);
+	}
+
+	@ConfigItem(
+		position = 6,
+		keyName = "groupColor7",
+		name = "Group 7 Color",
+		description = "Color of the Tag"
+	)
+	default Color getGroup7Color()
+	{
+		return new Color(0, 0, 0);
+	}
+
+	@ConfigItem(
+		position = 7,
+		keyName = "groupColor8",
+		name = "Group 8 Color",
+		description = "Color of the Tag"
+	)
+	default Color getGroup8Color()
+	{
+		return new Color(104, 105, 255);
+	}
 }
