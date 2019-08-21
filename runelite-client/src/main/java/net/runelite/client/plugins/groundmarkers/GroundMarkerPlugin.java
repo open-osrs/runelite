@@ -153,6 +153,14 @@ public class GroundMarkerPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private Color markerColor4;
 	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor5;
+	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor6;
+	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor7;
+	@Getter(AccessLevel.PACKAGE)
+	private Color markerColor8;
+	@Getter(AccessLevel.PACKAGE)
 	private boolean showMinimap;
 	@Getter(AccessLevel.PACKAGE)
 	private int minimapOverlayOpacity;
@@ -430,6 +438,19 @@ public class GroundMarkerPlugin extends Plugin
 				break;
 			case 4:
 				color = this.markerColor4;
+				break;
+			case 5:
+				color = this.markerColor5;
+				break;
+			case 6:
+				color = this.markerColor6;
+				break;
+			case 7:
+				color = this.markerColor7;
+				break;
+			case 8:
+				color = this.markerColor8;
+				break;
 		}
 
 		return color;
@@ -449,6 +470,10 @@ public class GroundMarkerPlugin extends Plugin
 		this.markerColor2 = config.markerColor2();
 		this.markerColor3 = config.markerColor3();
 		this.markerColor4 = config.markerColor4();
+		this.markerColor5 = config.markerColor5();
+		this.markerColor6 = config.markerColor6();
+		this.markerColor7 = config.markerColor7();
+		this.markerColor8 = config.markerColor8();
 		this.showMinimap = config.showMinimap();
 		this.minimapOverlayOpacity = config.minimapOverlayOpacity();
 	}
