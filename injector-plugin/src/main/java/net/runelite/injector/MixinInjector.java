@@ -847,7 +847,7 @@ public class MixinInjector
 			InvokeStatic is = (InvokeStatic) i;
 
 			if (is.getMethod().getClazz() != mixinCf.getPoolClass()
-				&& is.getMethod().getClazz().getName().startsWith(MIXIN_BASE.replace(".", "/")))
+				&& is.getMethod().getClazz().getName().startsWith(MIXIN_BASE.replace('.', '/')))
 			{
 				throw new InjectionException("Invoking static methods of other mixins is not supported");
 			}

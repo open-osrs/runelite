@@ -123,7 +123,7 @@ public class TwitterService
 				items.add(new FeedItem(FeedItemType.TWEET,
 					i.getUser().getProfileImageUrl(),
 					i.getUser().getScreenName(),
-					i.getText().replace("\n\n", " ").replaceAll("\n", " "),
+					i.getText().replace("\n\n", " ").replace('\n', ' '),
 					"https://twitter.com/" + i.getUser().getScreenName() + "/status/" + i.getId(),
 					getTimestampFromSnowflake(i.getId())));
 			}

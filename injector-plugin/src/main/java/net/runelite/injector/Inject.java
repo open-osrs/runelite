@@ -452,7 +452,7 @@ public class Inject
 		java.lang.Class<?> rsApiType;
 		try
 		{
-			rsApiType = java.lang.Class.forName(API_PACKAGE_BASE + cf.getName().replace("/", "."));
+			rsApiType = java.lang.Class.forName(API_PACKAGE_BASE + cf.getName().replace('/', '.'));
 		}
 		catch (ClassNotFoundException ex)
 		{

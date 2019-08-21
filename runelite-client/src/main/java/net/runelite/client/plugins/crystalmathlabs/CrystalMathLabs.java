@@ -126,7 +126,7 @@ public class CrystalMathLabs extends Plugin
 
 	private void sendUpdateRequest(String username)
 	{
-		String reformedUsername = username.replace(" ", "_");
+		String reformedUsername = username.replace(' ', '_');
 		OkHttpClient httpClient = RuneLiteAPI.CLIENT;
 
 		HttpUrl httpUrl = new HttpUrl.Builder()

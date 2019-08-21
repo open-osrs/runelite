@@ -27,7 +27,6 @@ package net.runelite.client.plugins.playerindicators;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -56,6 +55,7 @@ import net.runelite.api.events.ClanMemberJoined;
 import net.runelite.api.events.ClanMemberLeft;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
@@ -241,14 +241,11 @@ public class PlayerIndicatorsPlugin extends Plugin
 		}
 		if (this.configCallers.contains(","))
 		{
-			callers.addAll(Arrays.asList(this.configCallers.split(",")));
+			callers.addAll(Text.fromCSV(this.configCallers));
 		}
-		else
+		else if (!this.configCallers.equals(""))
 		{
-			if (!this.configCallers.equals(""))
-			{
-				callers.add(this.configCallers);
-			}
+			callers.add(this.configCallers);
 		}
 	}
 
@@ -256,10 +253,11 @@ public class PlayerIndicatorsPlugin extends Plugin
 	{
 		if (callers != null)
 		{
+			final String playerName = player.getName().toLowerCase().replace('_', ' ');
 			for (String name : callers)
 			{
-				String finalName = name.toLowerCase().replace("_", " ");
-				if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
+				String finalName = name.toLowerCase().replace('_', ' ');
+				if (playerName.equals(finalName))
 				{
 					return true;
 				}

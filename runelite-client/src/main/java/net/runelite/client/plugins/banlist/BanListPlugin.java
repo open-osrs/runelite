@@ -26,11 +26,8 @@
  */
 package net.runelite.client.plugins.banlist;
 
-import com.google.common.base.Splitter;
 import com.google.inject.Provides;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -111,11 +108,7 @@ public class BanListPlugin extends Plugin
 	{
 		updateConfig();
 		addSubscriptions();
-		List<String> bannedPlayers = Splitter
-			.on(",")
-			.trimResults()
-			.omitEmptyStrings()
-			.splitToList(config.getBannedPlayers());
+		List<String> bannedPlayers = Text.fromCSV(config.getBannedPlayers());
 		manualBans.addAll(bannedPlayers);
 		fetchFromWebsites();
 	}
@@ -144,18 +137,11 @@ public class BanListPlugin extends Plugin
 	{
 		if (event.getGroup().equals("banlist") && event.getKey().equals("bannedPlayers"))
 		{
-			List<String> bannedPlayers = Splitter
-				.on(",")
-				.trimResults()
-				.omitEmptyStrings()
-				.splitToList(config.getBannedPlayers());
+			List<String> bannedPlayers = Text.fromCSV(config.getBannedPlayers());
 
 			for (String bannedPlayer : bannedPlayers)
 			{
-				if (!manualBans.contains(bannedPlayer))
-				{
-					manualBans.add(Text.standardize(bannedPlayer));
-				}
+				manualBans.add(Text.standardize(bannedPlayer));
 			}
 		}
 	}
@@ -406,14 +392,11 @@ public class BanListPlugin extends Plugin
 			{
 				String text = response.body().string();
 				text = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
-				text = text.replace("/", ",");
+				text = text.replace('/', ',');
 				text = text.replace(", $", "");
 
-				ArrayList<String> wdrList = new ArrayList<>(Arrays.asList(text.split(",")));
-				ArrayList<String> wdrList2 = new ArrayList<>();
-				wdrList.forEach((name) -> wdrList2.add(Text.standardize(name).toLowerCase()));
-
-				wdrScamSet.addAll(wdrList2);
+				List<String> wdrList = Text.fromCSV(text);
+				wdrList.forEach((name) -> wdrScamSet.add(Text.standardize(name)));
 			}
 		});
 
@@ -441,7 +424,7 @@ public class BanListPlugin extends Plugin
 					{
 						x = x.substring(x.indexOf("title"), x.indexOf('>'));
 						x = x.substring(x.indexOf('=') + 2, x.length() - 1);
-						runeWatchSet.add(Text.standardize(x).toLowerCase());
+						runeWatchSet.add(Text.standardize(x));
 					}
 				}
 			}
@@ -463,14 +446,11 @@ public class BanListPlugin extends Plugin
 			{
 				String text = response.body().string();
 				text = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
-				text = text.replace("/", ",");
+				text = text.replace('/', ',');
 				text = text.replace(", $", "");
 
-				ArrayList<String> wdrToxicList = new ArrayList<>(Arrays.asList(text.split(",")));
-				ArrayList<String> wdrToxicList2 = new ArrayList<>();
-				wdrToxicList.forEach((name) -> wdrToxicList2.add(Text.standardize(name).toLowerCase()));
-
-				wdrToxicSet.addAll(wdrToxicList2);
+				List<String> wdrToxicList = Text.fromCSV(text);
+				wdrToxicList.forEach((name) -> wdrToxicSet.add(Text.standardize(name)));
 			}
 		});
 	}

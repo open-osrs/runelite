@@ -34,17 +34,17 @@ processResources {
     from file("src/main/resources/deob.properties"), {
         filter(ReplaceTokens, tokens: [
                 "rs.version": rsversion.toString(),
-                "vanilla.jar": configurations.deobjars.find {it.name.startsWith("vanilla")}.toString().replace('\\', "/"),
-                "rs.client": configurations.deobjars.find {it.name.startsWith("rs-client")}.toString().replace('\\', "/")
+                "vanilla.jar": configurations.deobjars.find {it.name.startsWith("vanilla")}.toString().replace('\\', '/'),
+                "rs.client": configurations.deobjars.find {it.name.startsWith("rs-client")}.toString().replace('\\', '/')
         ])
     }
 }
 processTestResources {
     from file("src/test/resources/deob-test.properties"), {
         filter(ReplaceTokens, tokens: [
-                "rs.client": configurations.deobjars.find {it.name.startsWith("rs-client")}.toString().replace('\\', "/"),
+                "rs.client": configurations.deobjars.find {it.name.startsWith("rs-client")}.toString().replace('\\', '/'),
                 "rs.version": rsversion.toString(),
-                "vanilla.jar": configurations.deobjars.find {it.name.startsWith("vanilla")}.toString().replace('\\', "/")
+                "vanilla.jar": configurations.deobjars.find {it.name.startsWith("vanilla")}.toString().replace('\\', '/')
         ])
     }
 }
