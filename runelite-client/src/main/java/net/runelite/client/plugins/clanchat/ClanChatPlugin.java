@@ -259,13 +259,12 @@ public class ClanChatPlugin extends Plugin
 		if (member.getWorld() == client.getWorld())
 		{
 			final String memberName = Text.toJagexName(member.getUsername());
-			final Iterator<Player> each = clanMembers.iterator();
 
-			while (each.hasNext())
+			for (Player each : clanMembers)
 			{
-				if (memberName.equals(Text.toJagexName(each.next().getName())))
+				if (memberName.equals(Text.toJagexName(each.getName())))
 				{
-					each.remove();
+					clanMembers.remove(each);
 
 					if (clanMembers.isEmpty())
 					{
