@@ -64,6 +64,11 @@ public class InventoryTagsPlugin extends Plugin
 	private static final String SETNAME_GROUP_2 = "Group 2";
 	private static final String SETNAME_GROUP_3 = "Group 3";
 	private static final String SETNAME_GROUP_4 = "Group 4";
+	private static final String SETNAME_GROUP_5 = "Group 5";
+	private static final String SETNAME_GROUP_6 = "Group 6";
+	private static final String SETNAME_GROUP_7 = "Group 7";
+	private static final String SETNAME_GROUP_8 = "Group 8";
+
 
 	private static final String CONFIGURE = "Configure";
 	private static final String SAVE = "Save";
@@ -84,7 +89,8 @@ public class InventoryTagsPlugin extends Plugin
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
 		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
 
-	private static final List<String> GROUPS = ImmutableList.of(SETNAME_GROUP_4, SETNAME_GROUP_3, SETNAME_GROUP_2, SETNAME_GROUP_1);
+	private static final List<String> GROUPS = ImmutableList.of(SETNAME_GROUP_8, SETNAME_GROUP_7, SETNAME_GROUP_6,
+		SETNAME_GROUP_5, SETNAME_GROUP_4, SETNAME_GROUP_3, SETNAME_GROUP_2, SETNAME_GROUP_1);
 
 	@Inject
 	private Client client;
@@ -113,6 +119,10 @@ public class InventoryTagsPlugin extends Plugin
 	private Color group2Color;
 	private Color group3Color;
 	private Color group4Color;
+	private Color group5Color;
+	private Color group6Color;
+	private Color group7Color;
+	private Color group8Color;
 
 	@Provides
 	InventoryTagsConfig provideConfig(ConfigManager configManager)
@@ -257,8 +267,15 @@ public class InventoryTagsPlugin extends Plugin
 				return this.group3Color;
 			case SETNAME_GROUP_4:
 				return this.group4Color;
+			case SETNAME_GROUP_5:
+				return this.group5Color;
+			case SETNAME_GROUP_6:
+				return this.group6Color;
+			case SETNAME_GROUP_7:
+				return this.group7Color;
+			case SETNAME_GROUP_8:
+				return this.group8Color;
 		}
-
 		return null;
 	}
 
@@ -303,5 +320,9 @@ public class InventoryTagsPlugin extends Plugin
 		this.group2Color = config.getGroup2Color();
 		this.group3Color = config.getGroup3Color();
 		this.group4Color = config.getGroup4Color();
+		this.group5Color = config.getGroup5Color();
+		this.group6Color = config.getGroup6Color();
+		this.group7Color = config.getGroup7Color();
+		this.group8Color = config.getGroup8Color();
 	}
 }
