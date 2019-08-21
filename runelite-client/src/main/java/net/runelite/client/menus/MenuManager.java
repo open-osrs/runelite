@@ -47,8 +47,8 @@ import javax.inject.Singleton;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.MenuAction;
-import static net.runelite.api.MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
+import net.runelite.api.MenuOpcode;
+import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.events.BeforeRender;
@@ -166,7 +166,7 @@ public class MenuManager
 				if (p.matches(entry))
 				{
 					// Other entries need to be deprioritized if their types are lower than 1000
-					if (entry.getType() >= 1000 && !shouldDeprioritize)
+					if (entry.getOpcode() >= 1000 && !shouldDeprioritize)
 					{
 						shouldDeprioritize = true;
 					}
@@ -202,8 +202,8 @@ public class MenuManager
 					// Do not need to swap with itself or if the swapFrom is already the first entry
 					if (swapFrom != null && swapFrom != entry && swapFrom != Iterables.getLast(newEntries))
 					{
-						// Deprioritize entries if the swaps are not in similar type groups
-						if ((swapFrom.getType() >= 1000 && entry.getType() < 1000) || (entry.getType() >= 1000 && swapFrom.getType() < 1000) && !shouldDeprioritize)
+						// Deprioritize entries if the swaps are not in similar opcode groups
+						if ((swapFrom.getOpcode() >= 1000 && entry.getOpcode() < 1000) || (entry.getOpcode() >= 1000 && swapFrom.getOpcode() < 1000) && !shouldDeprioritize)
 						{
 							shouldDeprioritize = true;
 						}
@@ -221,9 +221,9 @@ public class MenuManager
 		{
 			for (MenuEntry entry : newEntries)
 			{
-				if (entry.getType() <= MENU_ACTION_DEPRIORITIZE_OFFSET)
+				if (entry.getOpcode() <= MENU_ACTION_DEPRIORITIZE_OFFSET)
 				{
-					entry.setType(entry.getType() + MENU_ACTION_DEPRIORITIZE_OFFSET);
+					entry.setOpcode(entry.getOpcode() + MENU_ACTION_DEPRIORITIZE_OFFSET);
 				}
 			}
 		}
@@ -268,7 +268,7 @@ public class MenuManager
 				menuEntry.setOption(currentMenu.getMenuOption());
 				menuEntry.setParam1(widgetId);
 				menuEntry.setTarget(currentMenu.getMenuTarget());
-				menuEntry.setType(MenuAction.RUNELITE.getId());
+				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 				client.setMenuEntries(menuEntries);
 			}
@@ -429,9 +429,7 @@ public class MenuManager
 	{
 		if (!client.isMenuOpen() && event.isAuthentic())
 		{
-			// The mouse button will not be 0 if a non draggable widget was clicked,
-			// otherwise the left click entry will have been set in onWidgetPressed
-			if (client.getMouseCurrentButton() != 0)
+			if (event.getMouseButton() != 0)
 			{
 				leftClickEntry = rebuildLeftClickMenu();
 			}
@@ -443,7 +441,7 @@ public class MenuManager
 			}
 		}
 
-		if (event.getMenuAction() != MenuAction.RUNELITE)
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE)
 		{
 			return; // not a player menu
 		}
@@ -482,7 +480,7 @@ public class MenuManager
 	{
 		client.getPlayerOptions()[playerOptionIndex] = menuText;
 		client.getPlayerOptionsPriorities()[playerOptionIndex] = true;
-		client.getPlayerMenuTypes()[playerOptionIndex] = MenuAction.RUNELITE.getId();
+		client.getPlayerMenuTypes()[playerOptionIndex] = MenuOpcode.RUNELITE.getId();
 
 		playerMenuIndexMap.put(playerOptionIndex, menuText);
 	}
@@ -550,6 +548,18 @@ public class MenuManager
 		return entry;
 	}
 
+	public AbstractComparableEntry addPriorityEntry(String option, boolean strictOption)
+	{
+		option = Text.standardize(option);
+
+		AbstractComparableEntry entry =
+			newBaseComparableEntry(option, "", -1, -1, false, strictOption);
+
+		priorityEntries.add(entry);
+
+		return entry;
+	}
+
 	public AbstractComparableEntry addPriorityEntry(AbstractComparableEntry entry)
 	{
 		priorityEntries.add(entry);
@@ -557,11 +567,26 @@ public class MenuManager
 		return entry;
 	}
 
+	public void removePriorityEntry(AbstractComparableEntry entry)
+	{
+		priorityEntries.removeIf(entry::equals);
+	}
+
 	public void removePriorityEntry(String option)
 	{
 		option = Text.standardize(option);
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
+
+		priorityEntries.removeIf(entry::equals);
+	}
+
+	public void removePriorityEntry(String option, boolean strictOption)
+	{
+		option = Text.standardize(option);
+
+		AbstractComparableEntry entry =
+			newBaseComparableEntry(option, "", -1, -1, false, strictOption);
 
 		priorityEntries.removeIf(entry::equals);
 	}
@@ -645,7 +670,7 @@ public class MenuManager
 	}
 
 	/**
-	 * Adds to the map of swaps - Non-strict option/target, but with type & id
+	 * Adds to the map of swaps - Non-strict option/target, but with opcode & id
 	 * ID's of -1 are ignored in matches()!
 	 */
 	public void addSwap(String option, String target, int id, int type, String option2, String target2, int id2, int type2)

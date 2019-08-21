@@ -27,7 +27,7 @@ package net.runelite.api.events;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import net.runelite.api.MenuAction;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
 
 /**
@@ -50,10 +50,11 @@ public class MenuOptionClicked implements Event
 		authentic = true;
 	}
 
-	public MenuOptionClicked(MenuEntry entry, boolean authentic)
+	public MenuOptionClicked(MenuEntry entry, boolean authentic, int mouseButton)
 	{
 		menuEntry = entry;
 		this.authentic = authentic;
+		this.mouseButton = mouseButton;
 	}
 
 	/**
@@ -78,11 +79,11 @@ public class MenuOptionClicked implements Event
 	}
 
 	/**
-	 * MenuAction but int-ish
+	 * MenuOpcode but int-ish
 	 */
-	public int getType()
+	public int getOpcode()
 	{
-		return menuEntry.getType();
+		return menuEntry.getOpcode();
 	}
 
 	/**
@@ -117,15 +118,20 @@ public class MenuOptionClicked implements Event
 	/**
 	 * The action performed.
 	 */
-	public MenuAction getMenuAction()
+	public MenuOpcode getMenuOpcode()
 	{
-		return MenuAction.of(getType());
+		return MenuOpcode.of(getOpcode());
 	}
 
 	/**
 	 * Whether or not the event has been consumed by a subscriber.
 	 */
 	private boolean consumed;
+
+	/**
+	 * The mouse button will be 1 if a non draggable widget was clicked,
+	 */
+	private int mouseButton;
 
 	/**
 	 * Marks the event as having been consumed.

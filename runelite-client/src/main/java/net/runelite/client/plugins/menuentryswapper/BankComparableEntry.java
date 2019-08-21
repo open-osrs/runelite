@@ -10,20 +10,27 @@ import net.runelite.client.util.Text;
 @EqualsAndHashCode(callSuper = true)
 public class BankComparableEntry extends AbstractComparableEntry
 {
-	public BankComparableEntry(String option, String itemName)
+	public BankComparableEntry(String option, String itemName, boolean strictTarget)
 	{
 		this.setOption(Text.standardize(option));
 		this.setTarget(Text.standardize(itemName));
+		this.setStrictTarget(strictTarget);
 	}
 
 	public boolean matches(MenuEntry entry)
 	{
 		final int groupId = WidgetInfo.TO_GROUP(entry.getParam1());
-		if (groupId != WidgetID.BANK_GROUP_ID && groupId != WidgetID.BANK_INVENTORY_GROUP_ID)
+
+		if (groupId != WidgetID.BANK_GROUP_ID && groupId != WidgetID.BANK_INVENTORY_GROUP_ID && groupId != WidgetID.GRAND_EXCHANGE_GROUP_ID)
 		{
 			return false;
 		}
 
-		return Text.standardize(entry.getOption()).contains(this.getOption()) && Text.standardize(entry.getTarget()).equals(this.getTarget());
+		if (isStrictTarget() && Text.standardize(entry.getTarget()).equals(this.getTarget()))
+		{
+			return false;
+		}
+
+		return Text.standardize(entry.getOption()).contains(this.getOption()) && Text.standardize(entry.getTarget()).contains(this.getTarget());
 	}
 }

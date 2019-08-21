@@ -36,7 +36,7 @@ import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuAction;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -54,6 +54,7 @@ class ItemPricesOverlay extends Overlay
 	private static final int INVENTORY_ITEM_WIDGETID = WidgetInfo.INVENTORY.getPackedId();
 	private static final int BANK_INVENTORY_ITEM_WIDGETID = WidgetInfo.BANK_INVENTORY_ITEMS_CONTAINER.getPackedId();
 	private static final int BANK_ITEM_WIDGETID = WidgetInfo.BANK_ITEM_CONTAINER.getPackedId();
+	private static final int EXPLORERS_RING_ITEM_WIDGETID = WidgetInfo.EXPLORERS_RING_ALCH_INVENTORY.getPackedId();
 
 	private final Client client;
 	private final ItemPricesPlugin plugin;
@@ -89,7 +90,7 @@ class ItemPricesOverlay extends Overlay
 		}
 
 		final MenuEntry menuEntry = menuEntries[last];
-		final MenuAction action = MenuAction.of(menuEntry.getType());
+		final MenuOpcode action = MenuOpcode.of(menuEntry.getOpcode());
 		final int widgetId = menuEntry.getParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
@@ -97,7 +98,7 @@ class ItemPricesOverlay extends Overlay
 		switch (action)
 		{
 			case ITEM_USE_ON_WIDGET:
-				if (!menuEntry.getTarget().contains("High Level Alchemy") || !plugin.isShowAlchProfit())
+				if (!plugin.isShowWhileAlching() || !menuEntry.getOption().equals("Cast") || !menuEntry.getTarget().contains("High Level Alchemy"))
 				{
 					break;
 				}
@@ -111,6 +112,11 @@ class ItemPricesOverlay extends Overlay
 				// Item tooltip values
 				switch (groupId)
 				{
+					case WidgetID.EXPLORERS_RING_ALCH_GROUP_ID:
+						if (!plugin.isShowWhileAlching())
+						{
+							return null;
+						}
 					case WidgetID.INVENTORY_GROUP_ID:
 						if (plugin.isHideInventory())
 						{
@@ -144,7 +150,7 @@ class ItemPricesOverlay extends Overlay
 		ItemContainer container = null;
 
 		// Inventory item
-		if (widgetId == INVENTORY_ITEM_WIDGETID || widgetId == BANK_INVENTORY_ITEM_WIDGETID)
+		if (widgetId == INVENTORY_ITEM_WIDGETID || widgetId == BANK_INVENTORY_ITEM_WIDGETID || widgetId == EXPLORERS_RING_ITEM_WIDGETID)
 		{
 			container = client.getItemContainer(InventoryID.INVENTORY);
 		}
