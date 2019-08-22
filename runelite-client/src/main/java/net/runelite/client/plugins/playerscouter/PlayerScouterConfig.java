@@ -136,7 +136,7 @@ public interface PlayerScouterConfig extends Config
 	)
 	default int maximumCombat()
 	{
-		return 3;
+		return 126;
 	}
 
 	@ConfigItem(
