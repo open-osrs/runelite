@@ -293,9 +293,6 @@ public class IdleNotifierPlugin extends Plugin
 	private boolean notifyResourceDoor;
 	private boolean outOfItemsIdle;
 
-
-
-
 	@Provides
 	IdleNotifierConfig provideConfig(ConfigManager configManager)
 	{
