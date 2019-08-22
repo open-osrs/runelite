@@ -25,11 +25,11 @@
 package net.runelite.client.plugins.playerindicators;
 
 import java.awt.Color;
+import java.util.EnumSet;
 import net.runelite.api.ClanMemberRank;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
-import java.util.EnumMap;
 
 @ConfigGroup("playerindicators")
 public interface PlayerIndicatorsConfig extends Config
@@ -63,11 +63,12 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "selfIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
-		group = "Yourself"
+		group = "Yourself",
+		enumClass = PlayerIndicationLocation.class
 	)
-	default EnumMap selfIndicatorModes()
+	default EnumSet<PlayerIndicationLocation> selfIndicatorModes()
 	{
-		return new EnumMap<>(PlayerIndicationLocation.class);
+		return EnumSet.allOf(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
@@ -99,11 +100,13 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "friendIndicatorMode",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
-		group = "Friends"
+		group = "Friends",
+		enumClass = PlayerIndicationLocation.class
+
 	)
-	default EnumMap friendIndicatorMode()
+	default EnumSet<PlayerIndicationLocation> friendIndicatorMode()
 	{
-		return new EnumMap<>(PlayerIndicationLocation.class);
+		return EnumSet.allOf(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
@@ -135,11 +138,13 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "clanIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
-		group = "Clan"
+		group = "Clan",
+		enumClass = PlayerIndicationLocation.class
+
 	)
-	default EnumMap clanIndicatorModes()
+	default EnumSet<PlayerIndicationLocation> clanIndicatorModes()
 	{
-		return new EnumMap<>(PlayerIndicationLocation.class);
+		return EnumSet.allOf(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
@@ -183,11 +188,13 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "teamIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
-		group = "Team"
+		group = "Team",
+		enumClass = PlayerIndicationLocation.class
+
 	)
-	default EnumMap teamIndicatorModes()
+	default EnumSet<PlayerIndicationLocation> teamIndicatorModes()
 	{
-		return new EnumMap<>(PlayerIndicationLocation.class);
+		return EnumSet.allOf(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
@@ -219,11 +226,13 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "targetsIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
-		group = "Target"
+		group = "Target",
+		enumClass = PlayerIndicationLocation.class
+
 	)
-	default EnumMap targetsIndicatorModes()
+	default EnumSet<PlayerIndicationLocation> targetsIndicatorModes()
 	{
-		return new EnumMap<>(PlayerIndicationLocation.class);
+		return EnumSet.allOf(PlayerIndicationLocation.class);
 	}
 
 	@ConfigItem(
@@ -345,16 +354,19 @@ public interface PlayerIndicatorsConfig extends Config
 	{
 		return Color.RED;
 	}
+
 	@ConfigItem(
 		position = 26,
 		keyName = "otherIndicatorModes",
 		name = "Indicator Mode",
 		description = "Location(s) of the overlay",
-		group = "Other"
+		group = "Other",
+		enumClass = PlayerIndicationLocation.class
+
 	)
-	default EnumMap otherIndicatorModes()
+	default EnumSet<PlayerIndicationLocation> otherIndicatorModes()
 	{
-		return new EnumMap<>(PlayerIndicationLocation.class);
+		return EnumSet.allOf(PlayerIndicationLocation.class);
 	}
 
 
@@ -445,7 +457,7 @@ public interface PlayerIndicatorsConfig extends Config
 	@ConfigItem(
 		position = 33,
 		keyName = "callerTargetColor",
-		name = "Calllers' targets color",
+		name = "Callers' targets color",
 		description = "Color of the the targets of callers",
 		group = "Callers"
 	)
@@ -460,11 +472,13 @@ public interface PlayerIndicatorsConfig extends Config
 		name = "Pile indication methods",
 		description = "How to highlight the callers' target",
 		group = "Callers",
-		displayRows = 3
+		displayRows = 3,
+		enumClass = PlayerIndicationLocation.class
+
 	)
-	default EnumMap callerTargetHighlightOptions()
+	default EnumSet<PlayerIndicationLocation> callerTargetHighlightOptions()
 	{
-		return new EnumMap<PlayerIndicationLocation, Integer>(PlayerIndicationLocation.class);
+		return EnumSet.allOf(PlayerIndicationLocation.class);
 	}
 
 

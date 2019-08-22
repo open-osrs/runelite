@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -50,6 +51,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.PvPUtil;
+import org.apache.commons.lang3.ArrayUtils;
 
 @Slf4j
 public class PlayerIndicatorsOverlay extends Overlay
@@ -148,16 +150,19 @@ public class PlayerIndicatorsOverlay extends Overlay
 
 	private void drawFriendOverlay(Graphics2D graphics, Player actor, PlayerIndicatorsPlugin.PlayerRelation relation)
 	{
-
-		String name = actor.getName();
-		final boolean skulls = plugin.isPlayerSkull();
-		final int zOffset = actor.getLogicalHeight() + ACTOR_OVERHEAD_TEXT_MARGIN;
-		Point textLocation = actor.getCanvasTextLocation(graphics, name, zOffset);
+		final List indicationLocations = Arrays.asList(plugin.getLocationHashMap().get(relation));
 		final Color color = plugin.getRelationColorHashMap().get(relation);
-		if (plugin.isShowCombatLevel())
+
+		if (indicationLocations.contains(PlayerIndicationLocation.ABOVE_HEAD))
 		{
-			name = name + " (" + String.valueOf(actor.getCombatLevel()) + ")";
-		}
+			String name = actor.getName();
+			final boolean skulls = plugin.isPlayerSkull();
+			final int zOffset = actor.getLogicalHeight() + ACTOR_OVERHEAD_TEXT_MARGIN;
+			Point textLocation = actor.getCanvasTextLocation(graphics, name, zOffset);
+			if (plugin.isShowCombatLevel())
+			{
+				name = name + " (" + String.valueOf(actor.getCombatLevel()) + ")";
+			}
 
 			if (plugin.isPlayerSkull() && actor.getSkullIcon() != null)
 			{
@@ -170,7 +175,11 @@ public class PlayerIndicatorsOverlay extends Overlay
 			{
 				OverlayUtil.renderActorOverlay(graphics, actor, name, color);
 			}
-		OverlayUtil.renderPolygon(graphics, actor.getConvexHull(), color);
+		}
+		if (indicationLocations.contains(PlayerIndicationLocation.HULL))
+		{
+			OverlayUtil.renderPolygon(graphics, actor.getConvexHull(), color);
+		}
 
 	}
 

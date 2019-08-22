@@ -31,12 +31,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -47,7 +51,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +71,6 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.RuneLite;
 import static net.runelite.client.RuneLite.PROFILES_DIR;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.plugins.config.ConfigEnumMap;
 import net.runelite.client.util.ColorUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -543,31 +548,30 @@ public class ConfigManager
 			}
 			return new int[] {Integer.parseInt(str)};
 		}
-		if (type == ConfigEnumMap.class)
+		if (type == EnumSet.class)
 		{
-			Map<String, String> output = new HashMap<>();
-			String substring = str.substring(str.indexOf("{") + 1, str.length() - 1);
-			String[] splitStr = substring.split(", ");
-			for (String s : splitStr)
-			{
-				String[] keyVal = s.split("=");
-				if (keyVal.length > 1)
-				{
-					output.put(keyVal[0], keyVal[1]);
-				}
-			}
 			try
 			{
-				ConfigEnumMap configEnumMap = new ConfigEnumMap(Class.forName(str.substring(0, str.indexOf("{"))));
-				output.forEach((s, s2) ->
+				String substring = str.substring(str.indexOf("{") + 1, str.length() - 1);
+				String[] splitStr = substring.split(", ");
+				final Class<? extends Enum> enumClass;
+				log.info("reading: {} ", str);
+				if (!str.contains("{"))
 				{
-					configEnumMap.put(Enum.valueOf(configEnumMap.getKeyType(), s), Integer.parseInt(s2));
-				});
-				return configEnumMap;
+					return null;
+				}
+				enumClass = (Class<? extends Enum>) Class.forName(str.substring(0, str.indexOf("{")));
+				EnumSet enumSet = EnumSet.noneOf(enumClass);
+				for (String s : splitStr)
+				{
+					enumSet.add(Enum.valueOf(enumClass, s.replace("[", "").replace("]", "")));
+				}
+				return enumSet;
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
+				return null;
 			}
 
 		}
@@ -640,6 +644,12 @@ public class ConfigManager
 				return String.valueOf(object);
 			}
 			return StringUtils.join(object, ",");
+		}
+		if (object instanceof EnumSet)
+		{
+
+			log.info("saving {} ", ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + object.toString());
+			return ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + "{" + object.toString() + "}";
 		}
 		return object.toString();
 	}

@@ -64,8 +64,7 @@ public class PlayerIndicatorsTileOverlay extends Overlay
 			playerIndicatorsService.forEachPlayer((player, color) ->
 			{
 				final Polygon poly = player.getCanvasTilePoly();
-				if (!playerIndicatorsPlugin.getCallerPiles().containsValue(player) &&
-					!playerIndicatorsPlugin.getPlayerIndicationModes().contains(PlayerIndicationMode.TILE))
+				if (!playerIndicatorsPlugin.getCallerPiles().containsValue(player))
 				{
 					return;
 				}

@@ -79,4 +79,7 @@ public @interface ConfigItem
 
 	String method() default "";
 
+	Class<? extends Enum> enumClass() default Enum.class;
+
+
 }

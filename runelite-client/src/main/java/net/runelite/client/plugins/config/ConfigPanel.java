@@ -43,9 +43,10 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
@@ -1034,27 +1035,42 @@ public class ConfigPanel extends PluginPanel
 					item.add(button, BorderLayout.EAST);
 				}
 
-				else if (cid.getType() == EnumMap.class)
+				else if (cid.getType() == EnumSet.class)
 				{
 
 					int displayRows = cid.getItem().displayRows();
 
-					EnumMap enumMap = configManager.getConfiguration(cd.getGroup().value(),
-						cid.getItem().keyName(), EnumMap.class);
+					Class enumType = cid.getItem().enumClass();
 
+					EnumSet enumSet = configManager.getConfiguration(cd.getGroup().value(),
+						cid.getItem().keyName(), EnumSet.class);
+					if (enumSet == null || enumSet.contains(null))
+					{
+						enumSet = EnumSet.noneOf(enumType);
+					}
+					JList jList = new JList(enumType.getEnumConstants());
+					jList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-					JList jList = new JList(Lists.newArrayList(enumMap.keySet()).toArray());
-					int [] selected = new int[enumMap.getSelectedValues().size()];
-
-					enumMap.getSelectedValues().forEach(v ->
-						selected[enumMap.getSelectedValues().indexOf(v)] = enumMap.getAllEnums().indexOf(v));
-
-					jList.setSelectedIndices(selected);
+					if (!enumSet.isEmpty() && enumSet.size() > 1)
+					{
+						int[] selected = new int[enumSet.size()];
+						for (int i = 0; i < enumSet.size(); i++)
+						{
+							if (enumSet.contains(EnumSet.allOf(enumType).toArray()[i]))
+							{
+								selected[i] = Lists.newArrayList(EnumSet.allOf(enumType)).indexOf(enumSet.toArray()[i]);
+							}
+						}
+						jList.setSelectedIndices(selected);
+					}
+					if (enumSet.size() == 1)
+					{
+						enumSet.forEach(anObject -> jList.setSelectedValue(anObject, true));
+					}
 					jList.setVisibleRowCount(displayRows);
 					jList.setCellRenderer(new ComboBoxListRenderer());
 					jList.setLayoutOrientation(JList.VERTICAL);
 					jList.setSelectionBackground(jList.getBackground().brighter().brighter());
-					jList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 					jList.addListSelectionListener(e ->
 						changeConfiguration(listItem, config, jList, cd, cid));
 					JScrollPane jScrollPane = new JScrollPane();
@@ -1226,15 +1242,22 @@ public class ConfigPanel extends PluginPanel
 		{
 			JList jList = (JList) component;
 
-			ConfigEnumMap enumMap = configManager.getConfiguration(cd.getGroup().value(),
-				cid.getItem().keyName(),
-				ConfigEnumMap.class);
+			Class<?extends Enum> enumType = cid.getItem().enumClass();
+			EnumSet enumSet = configManager.getConfiguration(cd.getGroup().value(),
+				cid.getItem().keyName(), EnumSet.class) != null ? configManager.getConfiguration(cd.getGroup().value(),
+				cid.getItem().keyName(), EnumSet.class) : EnumSet.noneOf(enumType);
+			if (enumSet == null || enumSet.contains(null))
+			{
+				enumSet = EnumSet.noneOf(enumType);
+			}
+			enumSet.clear();
 
-			jList.getSelectedValuesList().forEach(value -> enumMap.put(Enum.valueOf(enumMap.getKeyType(),
-				value.toString()), 1));
+			EnumSet finalEnumSet = enumSet;
+			jList.getSelectedValuesList().forEach(value ->
+				finalEnumSet.add(Enum.valueOf(cid.getItem().enumClass(), value.toString())));
 
 
-			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), enumMap);
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), finalEnumSet);
 
 			for (ConfigItemDescriptor cid2 : cd.getItems())
 			{

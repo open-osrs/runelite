@@ -29,7 +29,7 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
@@ -177,23 +177,23 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter
 	private HashMap<String, Actor> callerPiles = new HashMap<String, Actor>();
 	@Getter
-	private EnumMap selfIndicationModes;
+	private EnumSet<PlayerIndicationLocation> selfIndicationModes;
 	@Getter
-	private EnumMap friendIndicationModes;
+	private EnumSet<PlayerIndicationLocation> friendIndicationModes;
 	@Getter
-	private EnumMap clanIndicationModes;
+	private EnumSet<PlayerIndicationLocation> clanIndicationModes;
 	@Getter
-	private EnumMap otherIndicationModes;
+	private EnumSet<PlayerIndicationLocation> otherIndicationModes;
 	@Getter
-	private EnumMap targetIndicationModes;
+	private EnumSet<PlayerIndicationLocation> targetIndicationModes;
 	@Getter
-	private EnumMap teamIndicationModes;
+	private EnumSet<PlayerIndicationLocation> teamIndicationModes;
 
 	@Getter
 	private HashMap<PlayerRelation, Color> relationColorHashMap = new HashMap<>();
 
 	@Getter
-	private HashMap<PlayerRelation, PlayerIndicationLocation> locationHashMap = new HashMap<>();
+	private HashMap<PlayerRelation, Object[]> locationHashMap = new HashMap<PlayerRelation, Object[]>();
 
 
 	@Provides
@@ -491,6 +491,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 		if (this.highlightOwnPlayer)
 		{
 			relationColorHashMap.put(PlayerRelation.SELF, config.getOwnPlayerColor());
+			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.selfIndicatorModes().toArray());
 		}
 		this.highlightFriends = config.highlightFriends();
 		this.friendsColor = config.getFriendColor();
@@ -498,6 +499,8 @@ public class PlayerIndicatorsPlugin extends Plugin
 		if (this.highlightFriends)
 		{
 			relationColorHashMap.put(PlayerRelation.FRIEND, config.getFriendColor());
+			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.friendIndicatorMode().toArray());
+
 		}
 		this.highlightClan = config.highlightClan();
 		this.getClanMemberColor = config.getClanColor();
@@ -506,12 +509,14 @@ public class PlayerIndicatorsPlugin extends Plugin
 		if (this.highlightClan)
 		{
 			relationColorHashMap.put(PlayerRelation.CLAN, config.getClanColor());
+			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.clanIndicatorModes().toArray());
 		}
 		this.teamIndicationModes = config.teamIndicatorModes();
 		this.getTeamMemberColor = config.getTeamcolor();
 		if (highlightTeamMembers)
 		{
 			relationColorHashMap.put(PlayerRelation.TEAM, config.getTeamcolor());
+			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.clanIndicatorModes().toArray());
 
 		}
 		this.highlightOther = config.highlightOtherPlayers();
@@ -523,6 +528,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 		if (highlightOther)
 		{
 			relationColorHashMap.put(PlayerRelation.OTHER, config.getOtherColor());
+			locationHashMap.put(PlayerRelation.SELF, config.otherIndicatorModes().toArray());
 		}
 		this.showClanRanks = config.showClanRanks();
 		this.highlightTargets = config.highlightTargets();
@@ -534,6 +540,8 @@ public class PlayerIndicatorsPlugin extends Plugin
 		if (highlightTargets)
 		{
 			relationColorHashMap.put(PlayerRelation.TARGET, config.getTargetsColor());
+			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.targetsIndicatorModes().toArray());
+
 		}
 		this.showCombatLevel = config.showCombatLevel();
 		this.showAgilityLevel = config.showAgilityLevel();
