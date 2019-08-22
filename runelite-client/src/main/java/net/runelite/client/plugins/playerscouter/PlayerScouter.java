@@ -190,7 +190,7 @@ public class PlayerScouter extends Plugin
 		{
 			update(player);
 			if (player.getPlayer().getCombatLevel() < this.minimumCombat
-				&& player.getPlayer().getCombatLevel() > this.maximumCombat)
+				|| player.getPlayer().getCombatLevel() > this.maximumCombat)
 			{
 				return;
 			}
