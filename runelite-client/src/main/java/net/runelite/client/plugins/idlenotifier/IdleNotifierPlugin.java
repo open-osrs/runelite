@@ -296,6 +296,7 @@ public class IdleNotifierPlugin extends Plugin
 
 
 
+
 	@Provides
 	IdleNotifierConfig provideConfig(ConfigManager configManager)
 	{
@@ -357,6 +358,7 @@ public class IdleNotifierPlugin extends Plugin
 	private void onWallObjectSpawned(WallObjectSpawned event)
 	{
 		WallObject wall = event.getWallObject();
+
 		if (this.notifyResourceDoor && wall.getId() == 83 && resourceDoorReady && regionCheck())
 		{
 			notifier.notify("Door warning! The resource area door has been opened!");
