@@ -292,7 +292,6 @@ public class IdleNotifierPlugin extends Plugin
 	private boolean notifyPkers;
 	private boolean notifyResourceDoor;
 	private boolean outOfItemsIdle;
-	private boolean validRegion;
 
 
 
