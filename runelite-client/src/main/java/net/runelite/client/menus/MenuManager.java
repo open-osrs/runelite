@@ -90,6 +90,7 @@ public class MenuManager
 
 	private MenuEntry leftClickEntry = null;
 	private MenuEntry firstEntry = null;
+	private volatile boolean indexing;
 
 	@Inject
 	private MenuManager(Client client, EventBus eventBus)
@@ -157,6 +158,7 @@ public class MenuManager
 
 		boolean shouldDeprioritize = false;
 
+		indexing = true;
 		prioritizer:
 		for (MenuEntry entry : oldEntries)
 		{
@@ -241,10 +243,12 @@ public class MenuManager
 		// Need to set the event entries to prevent conflicts
 		event.setMenuEntries(arrayEntries);
 		client.setMenuEntries(arrayEntries);
+		indexing = false;
 	}
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
+		indexing = true;
 		for (AbstractComparableEntry e : hiddenEntries)
 		{
 			if (e.matches(event.getMenuEntry()))
@@ -253,6 +257,7 @@ public class MenuManager
 				return;
 			}
 		}
+		indexing = false;
 
 		int widgetId = event.getActionParam1();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
@@ -292,6 +297,7 @@ public class MenuManager
 		{
 			return null;
 		}
+		indexing = true;
 
 		client.sortMenuEntries();
 
@@ -308,7 +314,7 @@ public class MenuManager
 		{
 			indexSwapEntries(entries, menuOptionCount);
 		}
-
+		indexing = false;
 
 		if (firstEntry == null)
 		{
@@ -517,6 +523,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target);
 
+		while (indexing);
 		priorityEntries.add(entry);
 
 		return entry;
@@ -529,6 +536,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target);
 
+		while (indexing);
 		priorityEntries.removeIf(entry::equals);
 	}
 
@@ -543,6 +551,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
 
+		while (indexing);
 		priorityEntries.add(entry);
 
 		return entry;
@@ -555,6 +564,7 @@ public class MenuManager
 		AbstractComparableEntry entry =
 			newBaseComparableEntry(option, "", -1, -1, false, strictOption);
 
+		while (indexing);
 		priorityEntries.add(entry);
 
 		return entry;
@@ -562,6 +572,7 @@ public class MenuManager
 
 	public AbstractComparableEntry addPriorityEntry(AbstractComparableEntry entry)
 	{
+		while (indexing);
 		priorityEntries.add(entry);
 
 		return entry;
@@ -569,6 +580,7 @@ public class MenuManager
 
 	public void removePriorityEntry(AbstractComparableEntry entry)
 	{
+		while (indexing);
 		priorityEntries.removeIf(entry::equals);
 	}
 
@@ -578,6 +590,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
 
+		while (indexing);
 		priorityEntries.removeIf(entry::equals);
 	}
 
@@ -588,6 +601,7 @@ public class MenuManager
 		AbstractComparableEntry entry =
 			newBaseComparableEntry(option, "", -1, -1, false, strictOption);
 
+		while (indexing);
 		priorityEntries.removeIf(entry::equals);
 	}
 
@@ -624,6 +638,7 @@ public class MenuManager
 			return;
 		}
 
+		while (indexing);
 		swaps.put(swapFrom, swapTo);
 	}
 
@@ -666,6 +681,7 @@ public class MenuManager
 			return;
 		}
 
+		while (indexing);
 		swaps.put(swapFrom, swapTo);
 	}
 
@@ -690,6 +706,7 @@ public class MenuManager
 			return;
 		}
 
+		while (indexing);
 		swaps.put(swapFrom, swapTo);
 	}
 
@@ -704,11 +721,13 @@ public class MenuManager
 		AbstractComparableEntry swapFrom = newBaseComparableEntry(option, target, id, type, false, false);
 		AbstractComparableEntry swapTo = newBaseComparableEntry(option2, target2, id2, type2, false, false);
 
+		while (indexing);
 		swaps.entrySet().removeIf(e -> e.getKey().equals(swapFrom) && e.getValue().equals(swapTo));
 	}
 
 	public void removeSwap(AbstractComparableEntry swapFrom, AbstractComparableEntry swapTo)
 	{
+		while (indexing);
 		swaps.entrySet().removeIf(e -> e.getKey().equals(swapFrom) && e.getValue().equals(swapTo));
 	}
 
@@ -719,6 +738,7 @@ public class MenuManager
 	{
 		final String target = Text.standardize(withTarget);
 
+		while (indexing);
 		swaps.keySet().removeIf(e -> e.getTarget().equals(target));
 	}
 
@@ -732,6 +752,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target);
 
+		while (indexing);
 		hiddenEntries.add(entry);
 	}
 
@@ -742,6 +763,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target);
 
+		while (indexing);
 		hiddenEntries.removeIf(entry::equals);
 	}
 
@@ -755,6 +777,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
 
+		while (indexing);
 		hiddenEntries.add(entry);
 	}
 
@@ -764,6 +787,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
 
+		while (indexing);
 		hiddenEntries.removeIf(entry::equals);
 	}
 
@@ -777,6 +801,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target, -1, -1, strictOption, strictTarget);
 
+		while (indexing);
 		hiddenEntries.add(entry);
 	}
 
@@ -787,6 +812,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target, -1, -1, strictOption, strictTarget);
 
+		while (indexing);
 		hiddenEntries.remove(entry);
 	}
 
@@ -795,11 +821,13 @@ public class MenuManager
 	 */
 	public void addHiddenEntry(AbstractComparableEntry entry)
 	{
+		while (indexing);
 		hiddenEntries.add(entry);
 	}
 
 	public void removeHiddenEntry(AbstractComparableEntry entry)
 	{
+		while (indexing);
 		hiddenEntries.remove(entry);
 	}
 
