@@ -355,9 +355,12 @@ public class IdleNotifierPlugin extends Plugin
 	{
 		WallObject wall = event.getWallObject();
 
-		if (this.notifyResourceDoor && wall.getId() == 83 && resourceDoorReady && regionCheck())
+		if (regionCheck())
 		{
-			notifier.notify("Door warning! The resource area door has been opened!");
+			if (this.notifyResourceDoor && wall.getId() == 83 && resourceDoorReady)
+			{
+				notifier.notify("Door warning! The resource area door has been opened!");
+			}
 		}
 	}
 
