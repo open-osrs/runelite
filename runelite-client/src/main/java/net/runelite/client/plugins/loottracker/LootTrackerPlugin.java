@@ -1322,7 +1322,10 @@ public class LootTrackerPlugin extends Plugin
 
 		if (!lootTrackerEvents || !lootTrackerLoot || !lootTrackerLink || !user)
 		{
-			migrateData();
+			if (LOOT_RECORDS_FILE.exists())
+			{
+				migrateData();
+			}
 		}
 	}
 
