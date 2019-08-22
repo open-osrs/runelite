@@ -77,6 +77,7 @@ import net.runelite.client.game.SoundManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.PvPUtil;
+import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
 	name = "Idle Notifier",
@@ -96,6 +97,8 @@ public class IdleNotifierPlugin extends Plugin
 	private static final Duration SIX_HOUR_LOGOUT_WARNING_AFTER_DURATION = Duration.ofMinutes(340);
 
 	private static final String FISHING_SPOT = "Fishing spot";
+
+	private static final int RESOURCE_AREA_REGION = 12605;
 
 	private static final Set<Integer> nominalAnimations = new ImmutableSet.Builder<Integer>()
 		.addAll(
@@ -289,6 +292,8 @@ public class IdleNotifierPlugin extends Plugin
 	private boolean notifyPkers;
 	private boolean notifyResourceDoor;
 	private boolean outOfItemsIdle;
+	private boolean validRegion;
+
 
 
 	@Provides
@@ -352,7 +357,7 @@ public class IdleNotifierPlugin extends Plugin
 	private void onWallObjectSpawned(WallObjectSpawned event)
 	{
 		WallObject wall = event.getWallObject();
-		if (this.notifyResourceDoor && wall.getId() == 83 && resourceDoorReady)
+		if (this.notifyResourceDoor && wall.getId() == 83 && resourceDoorReady && regionCheck())
 		{
 			notifier.notify("Door warning! The resource area door has been opened!");
 		}
@@ -924,6 +929,11 @@ public class IdleNotifierPlugin extends Plugin
 
 			lastTickSkull = currentTickSkull;
 		}
+	}
+
+	private boolean regionCheck()
+	{
+		return ArrayUtils.contains(client.getMapRegions(), RESOURCE_AREA_REGION);
 	}
 
 	private void notifyWith(Player local, String message) 
