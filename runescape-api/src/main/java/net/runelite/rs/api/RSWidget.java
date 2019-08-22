@@ -489,4 +489,7 @@ public interface RSWidget extends Widget
 	@Import("containsMouse")
 	@Override
 	boolean containsMouse();
+
+	@Import("getSprite")
+	RSSprite getSprite(boolean b);
 }

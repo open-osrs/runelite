@@ -53,10 +53,6 @@ class SpellbookMouseListener extends MouseAdapter implements MouseWheelListener
 		{
 			plugin.resetSize();
 		}
-		else if (SwingUtilities.isRightMouseButton(event))
-		{
-			plugin.resetLocation();
-		}
 
 		event.consume();
 		return event;
@@ -65,14 +61,17 @@ class SpellbookMouseListener extends MouseAdapter implements MouseWheelListener
 	@Override
 	public MouseEvent mousePressed(final MouseEvent event)
 	{
-		if (!SwingUtilities.isLeftMouseButton(event) || plugin.isNotOnSpellWidget() || plugin.isDragging())
+		if (SwingUtilities.isRightMouseButton(event))
 		{
+			plugin.resetLocation();
 			return event;
 		}
+		else if (SwingUtilities.isLeftMouseButton(event) && !plugin.isNotOnSpellWidget() && !plugin.isDragging())
+		{
+			plugin.startDragging(event.getPoint());
+			event.consume();
+		}
 
-		plugin.startDragging(event.getPoint());
-
-		event.consume();
 		return event;
 	}
 
