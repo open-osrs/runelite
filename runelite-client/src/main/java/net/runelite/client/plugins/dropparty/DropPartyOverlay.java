@@ -68,7 +68,9 @@ public class DropPartyOverlay extends Overlay
 	{
 		int tiles = plugin.getShowAmmount();
 		if (tiles == 0)
+		{
 			return null;
+		}
 		List<WorldPoint> path = plugin.getPlayerPath();
 
 		List<WorldPoint> markedTiles = new ArrayList<>();
@@ -101,7 +103,8 @@ public class DropPartyOverlay extends Overlay
 					if (tickProgress == 0)
 					{
 						color = Color.RED;
-					} else
+					}
+					else
 					{
 						color = Color.WHITE;
 					}
@@ -111,7 +114,7 @@ public class DropPartyOverlay extends Overlay
 						graphics.setColor(new Color(setAlphaComponent(plugin.getOverlayColor().getRGB(), outlineAlpha), true));
 						graphics.drawPolygon(tilePoly);
 						OverlayUtil.renderTextLocation(graphics, Integer.toString(tickProgress), plugin.getTextSize(),
-								plugin.getFontStyle(), color, centerPoint(tilePoly.getBounds()), true, 0);
+							plugin.getFontStyle(), color, centerPoint(tilePoly.getBounds()), true, 0);
 					}
 					markedTiles.add(path.get(i));
 				}
