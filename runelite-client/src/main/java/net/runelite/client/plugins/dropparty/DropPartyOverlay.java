@@ -100,7 +100,11 @@ public class DropPartyOverlay extends Overlay
 					outlineAlpha = OUTLINE_START_ALPHA;
 
 					Color color;
-					if (tickProgress == 0)
+					
+					Worldpoint currentTile = path.get(i);
+					path.remove(i);
+					
+					if (path.contains(currentTile))
 					{
 						color = Color.RED;
 					}
@@ -108,7 +112,8 @@ public class DropPartyOverlay extends Overlay
 					{
 						color = Color.WHITE;
 					}
-
+					path.clear();
+					path = plugin.getPlayerPath();
 					if (!markedTiles.contains(path.get(i)))
 					{
 						graphics.setColor(new Color(setAlphaComponent(plugin.getOverlayColor().getRGB(), outlineAlpha), true));
