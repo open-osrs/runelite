@@ -47,7 +47,7 @@ public interface DropPartyConfig extends Config
 	)
 	@ConfigItem(
 		keyName = "showAmmount",
-		name = "trail length",
+		name = "Trail length",
 		description = "Shows the legnth of the droppers trail",
 		position = 1
 	)
