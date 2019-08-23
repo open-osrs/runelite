@@ -93,6 +93,30 @@ public class DropPartyOverlay extends Overlay
 
 				if (tilePoly != null)
 				{
+<<<<<<< HEAD
+=======
+					final int tickProgress = i + 1;
+
+					int fillAlpha, outlineAlpha;
+					fillAlpha = FILL_START_ALPHA;
+					outlineAlpha = OUTLINE_START_ALPHA;
+
+					Color color;
+					
+					WorldPoint currentTile = path.get(i);
+					path.remove(i);
+					
+					if (path.contains(currentTile))
+					{
+						color = Color.RED;
+					}
+					else
+					{
+						color = Color.WHITE;
+					}
+					path.clear();
+					path = plugin.getPlayerPath();
+>>>>>>> 26462839d874c5f3f33c3d45bd68ce5f66b1de07
 					if (!markedTiles.contains(path.get(i)))
 					{
 						graphics.setColor(new Color(setAlphaComponent(plugin.getOverlayColor().getRGB(), OUTLINE_START_ALPHA), true));
