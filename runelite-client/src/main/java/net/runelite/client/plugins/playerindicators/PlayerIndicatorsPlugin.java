@@ -32,6 +32,8 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -39,6 +41,7 @@ import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.ClanMember;
 import net.runelite.api.ClanMemberRank;
+import static net.runelite.api.ClanMemberRank.FRIEND;
 import static net.runelite.api.ClanMemberRank.UNRANKED;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuOpcode.FOLLOW;
@@ -61,6 +64,8 @@ import net.runelite.api.events.ClanMemberLeft;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.PlayerDespawned;
+import net.runelite.api.events.PlayerSpawned;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
@@ -91,9 +96,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 	private PlayerIndicatorsOverlay playerIndicatorsOverlay;
 
 	@Inject
-	private PlayerIndicatorsTileOverlay playerIndicatorsTileOverlay;
-
-	@Inject
 	private PlayerIndicatorsMinimapOverlay playerIndicatorsMinimapOverlay;
 
 	@Inject
@@ -108,34 +110,13 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightOwnPlayer;
 	@Getter(AccessLevel.PACKAGE)
-	private Color selfColor;
-	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightFriends;
-	@Getter(AccessLevel.PACKAGE)
-	private Color friendsColor;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightClan;
 	@Getter(AccessLevel.PACKAGE)
-	private Color getClanMemberColor;
-	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightTeamMembers;
 	@Getter(AccessLevel.PACKAGE)
-	private Color getTeamMemberColor;
-	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightOther;
-	@Getter(AccessLevel.PACKAGE)
-	private Color otherColor;
-	@Getter(AccessLevel.PACKAGE)
-	private boolean drawTiles;
-	@Getter(AccessLevel.PACKAGE)
-	private PlayerNameLocation playerNamePosition;
-	@Getter(AccessLevel.PACKAGE)
-	private boolean drawMinimapNames;
-	@Getter(AccessLevel.PACKAGE)
-	private boolean drawFriendMinimapNames;
-	@Getter(AccessLevel.PACKAGE)
-	private boolean drawClanMinimapNames;
-	private boolean colorPlayerMenu;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean showClanRanks;
 	@Getter(AccessLevel.PACKAGE)
@@ -177,23 +158,13 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter
 	private HashMap<String, Actor> callerPiles = new HashMap<String, Actor>();
 	@Getter
-	private EnumSet<PlayerIndicationLocation> selfIndicationModes;
-	@Getter
-	private EnumSet<PlayerIndicationLocation> friendIndicationModes;
-	@Getter
-	private EnumSet<PlayerIndicationLocation> clanIndicationModes;
-	@Getter
-	private EnumSet<PlayerIndicationLocation> otherIndicationModes;
-	@Getter
-	private EnumSet<PlayerIndicationLocation> targetIndicationModes;
-	@Getter
-	private EnumSet<PlayerIndicationLocation> teamIndicationModes;
-
-	@Getter
 	private HashMap<PlayerRelation, Color> relationColorHashMap = new HashMap<>();
 
 	@Getter
-	private HashMap<PlayerRelation, Object[]> locationHashMap = new HashMap<PlayerRelation, Object[]>();
+	private HashMap<PlayerRelation, Object[]> locationHashMap = new HashMap<>();
+
+	@Getter
+	private ConcurrentHashMap<Player, PlayerRelation> colorizedMenus = new ConcurrentHashMap<>();
 
 
 	@Provides
@@ -210,7 +181,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		addSubscriptions();
 		
 		overlayManager.add(playerIndicatorsOverlay);
-		overlayManager.add(playerIndicatorsTileOverlay);
 		overlayManager.add(playerIndicatorsMinimapOverlay);
 		getCallerList();
 	}
@@ -221,7 +191,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		eventBus.unregister(this);
 
 		overlayManager.remove(playerIndicatorsOverlay);
-		overlayManager.remove(playerIndicatorsTileOverlay);
 		overlayManager.remove(playerIndicatorsMinimapOverlay);
 	}
 
@@ -336,13 +305,19 @@ public class PlayerIndicatorsPlugin extends Plugin
 			int image2 = -1;
 			Color color = null;
 
-			if (this.colorPlayerMenu && client.isFriended(player.getName(), false))
+			if (this.highlightFriends && client.isFriended(player.getName(), false))
 			{
-				color = this.friendsColor;
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.FRIEND)).contains(PlayerIndicationLocation.MENU))
+				{
+					color = relationColorHashMap.get(PlayerRelation.FRIEND);
+				}
 			}
-			else if (this.colorPlayerMenu && player.isClanMember())
+			else if (this.highlightClan && player.isClanMember())
 			{
-				color = this.getClanMemberColor;
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CLAN)).contains(PlayerIndicationLocation.MENU))
+				{
+					color = relationColorHashMap.get(PlayerRelation.CLAN);
+				}
 
 				ClanMemberRank rank = clanManager.getRank(player.getName());
 				if (rank != UNRANKED)
@@ -350,64 +325,43 @@ public class PlayerIndicatorsPlugin extends Plugin
 					image = clanManager.getIconNumber(rank);
 				}
 			}
-			else if (this.colorPlayerMenu && player.getTeam() > 0 && localPlayer.getTeam() == player.getTeam())
+			else if (this.highlightTeamMembers && player.getTeam() > 0 && localPlayer.getTeam() == player.getTeam())
 			{
-				color = this.getTeamMemberColor;
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.TEAM)).contains(PlayerIndicationLocation.MENU))
+				{
+					color = relationColorHashMap.get(PlayerRelation.TEAM);
+				}
 			}
 			else if (this.highlightOther && !player.isClanMember() && !player.isFriend() && !PvPUtil.isAttackable(client, player))
 			{
-				color = this.otherColor;
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.OTHER)).contains(PlayerIndicationLocation.MENU))
+				{
+					color = relationColorHashMap.get(PlayerRelation.OTHER);
+				}
 			}
-			else if (this.colorPlayerMenu && !player.isClanMember() && client.isFriended(player.getName(), false) && PvPUtil.isAttackable(client, player))
+			else if (this.highlightTargets && !player.isClanMember() && !client.isFriended(player.getName(),
+				false) && PvPUtil.isAttackable(client, player))
 			{
-				color = this.getTargetColor;
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.TARGET)).contains(PlayerIndicationLocation.MENU))
+				{
+					color = relationColorHashMap.get(PlayerRelation.TARGET);
+				}
 			}
-			else if (this.colorPlayerMenu && PvPUtil.isAttackable(client, player) && !player.isClanMember() && !player.isFriend())
-			{
-				color = this.getTargetColor;
-			}
-/*			if (config.rightClickOverhead() && !player.isClanMember() && player.getOverheadIcon() != null)
-			{
-				if (player.getOverheadIcon().equals(HeadIcon.MAGIC))
-				{
-					image = 29;
-				}
-				else if (player.getOverheadIcon().equals(HeadIcon.RANGED))
-				{
-					image = 30;
-				}
-				else if (player.getOverheadIcon().equals(HeadIcon.MELEE))
-				{
-					image = 31;
-				}
-				else if (player.getOverheadIcon().equals(HeadIcon.REDEMPTION))
-				{
-					image = 32;
-				}
-				else if (player.getOverheadIcon().equals(HeadIcon.RETRIBUTION))
-				{
-					image = 33;
-				}
-				else if (player.getOverheadIcon().equals(HeadIcon.SMITE))
-				{
-					image = 34;
-				}
-			}*/
 			if (this.playerSkull && !player.isClanMember() && player.getSkullIcon() != null)
 			{
 				image2 = 35;
 			}
-			if (this.colorPlayerMenu && this.highlightCallers && this.isCaller(player))
-			{
-				color = this.callerColor;
-			}
+//			if (this.colorPlayerMenu && this.highlightCallers && this.isCaller(player))
+//			{
+//				color = this.callerColor;
+//			}
 			if (image != -1 || color != null)
 			{
 				MenuEntry[] menuEntries = client.getMenuEntries();
 				MenuEntry lastEntry = menuEntries[menuEntries.length - 1];
 
 
-				if (color != null && this.colorPlayerMenu)
+				if (color != null)
 				{
 					// strip out existing <col...
 					String target = lastEntry.getTarget();
@@ -481,68 +435,51 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	private void updateConfig()
 	{
-
+		locationHashMap.clear();
 		relationColorHashMap.clear();
 		this.highlightOwnPlayer = config.highlightOwnPlayer();
-		this.selfColor = config.getOwnPlayerColor();
-		this.selfIndicationModes = config.selfIndicatorModes();
-
-
 		if (this.highlightOwnPlayer)
 		{
 			relationColorHashMap.put(PlayerRelation.SELF, config.getOwnPlayerColor());
-			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.selfIndicatorModes().toArray());
+			locationHashMap.put(PlayerRelation.SELF, EnumSet.copyOf(config.selfIndicatorModes()).toArray());
 		}
+
 		this.highlightFriends = config.highlightFriends();
-		this.friendsColor = config.getFriendColor();
-		this.friendIndicationModes = config.friendIndicatorMode();
 		if (this.highlightFriends)
 		{
 			relationColorHashMap.put(PlayerRelation.FRIEND, config.getFriendColor());
-			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.friendIndicatorMode().toArray());
-
+			locationHashMap.put(PlayerRelation.FRIEND, config.friendIndicatorMode().toArray());
 		}
-		this.highlightClan = config.highlightClan();
-		this.getClanMemberColor = config.getClanColor();
 
-		this.clanIndicationModes = config.clanIndicatorModes();
+		this.highlightClan = config.highlightClan();
 		if (this.highlightClan)
 		{
 			relationColorHashMap.put(PlayerRelation.CLAN, config.getClanColor());
-			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.clanIndicatorModes().toArray());
+			locationHashMap.put(PlayerRelation.CLAN, config.clanIndicatorModes().toArray());
 		}
-		this.teamIndicationModes = config.teamIndicatorModes();
-		this.getTeamMemberColor = config.getTeamcolor();
-		if (highlightTeamMembers)
+
+		this.highlightTeamMembers = config.highlightTeamMembers();
+		if (this.highlightTeamMembers)
 		{
 			relationColorHashMap.put(PlayerRelation.TEAM, config.getTeamcolor());
-			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.clanIndicatorModes().toArray());
-
+			locationHashMap.put(PlayerRelation.TEAM, config.teamIndicatorModes().toArray());
 		}
+
 		this.highlightOther = config.highlightOtherPlayers();
-		this.otherColor = config.getOtherColor();
-
-
-		this.otherIndicationModes = config.otherIndicatorModes();
-
-		if (highlightOther)
+		if (this.highlightOther)
 		{
 			relationColorHashMap.put(PlayerRelation.OTHER, config.getOtherColor());
-			locationHashMap.put(PlayerRelation.SELF, config.otherIndicatorModes().toArray());
+			locationHashMap.put(PlayerRelation.OTHER, EnumSet.copyOf(config.otherIndicatorModes()).toArray());
 		}
-		this.showClanRanks = config.showClanRanks();
+
 		this.highlightTargets = config.highlightTargets();
-		this.getTargetColor = config.getTargetsColor();
-
-		this.targetIndicationModes = config.targetsIndicatorModes();
-
-
-		if (highlightTargets)
+		if (this.highlightTargets)
 		{
 			relationColorHashMap.put(PlayerRelation.TARGET, config.getTargetsColor());
-			locationHashMap.put(PlayerRelation.SELF, (PlayerIndicationLocation[]) config.targetsIndicatorModes().toArray());
-
+			locationHashMap.put(PlayerRelation.TARGET, config.targetsIndicatorModes().toArray());
 		}
+
+		this.showClanRanks = config.showClanRanks();
 		this.showCombatLevel = config.showCombatLevel();
 		this.showAgilityLevel = config.showAgilityLevel();
 		this.agilityFirstThreshold = config.agilityFirstThreshold();

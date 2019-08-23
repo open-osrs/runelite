@@ -16,6 +16,7 @@ public enum PlayerIndicationLocation
 	ABOVE_HEAD,
 	HULL,
 	MINIMAP,
+	MENU,
 	TILE;
 
 	public static final ImmutableList<PlayerIndicationLocation> SCENE_LOCATIONS = ImmutableList.of(ABOVE_HEAD, HULL);

@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.playerindicators;
 
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.BiConsumer;
 import javax.inject.Inject;
@@ -38,6 +39,7 @@ public class PlayerIndicatorsService
 {
 	private final Client client;
 	private final PlayerIndicatorsPlugin plugin;
+
 
 	@Inject
 	private PlayerIndicatorsService(final Client client, final PlayerIndicatorsPlugin plugin)
@@ -61,41 +63,44 @@ public class PlayerIndicatorsService
 			{
 				return;
 			}
+			final HashMap<PlayerIndicatorsPlugin.PlayerRelation, Object[]> locationHashMap
+				= plugin.getLocationHashMap();
 			if (plugin.isHighlightOwnPlayer())
 			{
-				if (!plugin.getSelfIndicationModes().isEmpty())
+				if (locationHashMap.containsKey(PlayerIndicatorsPlugin.PlayerRelation.SELF))
 				{
-					consumer.accept(player, plugin.getSelfColor());
+					consumer.accept(player, plugin.getRelationColorHashMap().get(PlayerIndicatorsPlugin.PlayerRelation.SELF));
 				}
 			}
 			if (plugin.isHighlightFriends())
-				if (!plugin.getFriendIndicationModes().isEmpty())
+				if (locationHashMap.containsKey(PlayerIndicatorsPlugin.PlayerRelation.FRIEND))
 				{
 					if (client.isFriended(player.getName(), false))
 					{
-						consumer.accept(player, plugin.getFriendsColor());
+						consumer.accept(player, plugin.getRelationColorHashMap().get(PlayerIndicatorsPlugin.PlayerRelation.FRIEND));
 					}
 				}
 			if (plugin.isHighlightClan())
 			{
-				if (!plugin.getClanIndicationModes().isEmpty())
+				if (locationHashMap.containsKey(PlayerIndicatorsPlugin.PlayerRelation.CLAN))
 				{
 					if (player.isClanMember())
 					{
-						consumer.accept(player, plugin.getGetClanMemberColor());
+						consumer.accept(player, plugin.getRelationColorHashMap().get(PlayerIndicatorsPlugin.PlayerRelation.CLAN));
 					}
 				}
 			}
 			if (plugin.isHighlightTeamMembers())
 			{
-				if (!plugin.getTeamIndicationModes().isEmpty() && player.getTeam() == client.getLocalPlayer().getTeam())
+				if (locationHashMap.containsKey(PlayerIndicatorsPlugin.PlayerRelation.TEAM)
+					&& player.getTeam() == client.getLocalPlayer().getTeam())
 				{
-					consumer.accept(player, plugin.getGetTeamMemberColor());
+					consumer.accept(player, plugin.getRelationColorHashMap().get(PlayerIndicatorsPlugin.PlayerRelation.TEAM));
 				}
 			}
 			if (plugin.isHighlightTargets())
 			{
-				if (!plugin.getTargetIndicationModes().isEmpty())
+				if (locationHashMap.containsKey(PlayerIndicatorsPlugin.PlayerRelation.TARGET))
 				{
 					if (PvPUtil.isAttackable(client, player))
 					{
@@ -105,9 +110,9 @@ public class PlayerIndicatorsService
 			}
 			if (plugin.isHighlightOther())
 			{
-				if (!plugin.getOtherIndicationModes().isEmpty())
+				if (locationHashMap.containsKey(PlayerIndicatorsPlugin.PlayerRelation.OTHER))
 				{
-					consumer.accept(player, plugin.getOtherColor());
+					consumer.accept(player, plugin.getRelationColorHashMap().get(PlayerIndicatorsPlugin.PlayerRelation.OTHER));
 				}
 			}
 		});
