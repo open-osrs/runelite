@@ -23,15 +23,15 @@ public class WorldMapArchiveLoader {
 	@Export("percentLoaded")
 	int percentLoaded;
 	@ObfuscatedName("i")
-	@Export("isLoaded")
-	boolean isLoaded;
+	@Export("loaded")
+	boolean loaded;
 
 	@ObfuscatedSignature(
 		signature = "(Lhp;)V"
 	)
 	WorldMapArchiveLoader(AbstractArchive var1) {
 		this.percentLoaded = 0;
-		this.isLoaded = false;
+		this.loaded = false;
 		this.archive = var1;
 	}
 
@@ -46,7 +46,7 @@ public class WorldMapArchiveLoader {
 			if (var1 != this.cacheName) {
 				this.cacheName = var1;
 				this.percentLoaded = 0;
-				this.isLoaded = false;
+				this.loaded = false;
 				this.load();
 			}
 		}
@@ -60,7 +60,7 @@ public class WorldMapArchiveLoader {
 	@Export("load")
 	int load() {
 		if (this.percentLoaded < 33) {
-			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field302.name, this.cacheName)) {
+			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.COMPOSITEMAP.name, this.cacheName)) {
 				return this.percentLoaded;
 			}
 
@@ -68,7 +68,7 @@ public class WorldMapArchiveLoader {
 		}
 
 		if (this.percentLoaded == 33) {
-			if (this.archive.isValidFileName(WorldMapCacheName.field303.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.field303.name, this.cacheName)) {
+			if (this.archive.isValidFileName(WorldMapCacheName.COMPOSITETEXTURE.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.COMPOSITETEXTURE.name, this.cacheName)) {
 				return this.percentLoaded;
 			}
 
@@ -76,12 +76,12 @@ public class WorldMapArchiveLoader {
 		}
 
 		if (this.percentLoaded == 66) {
-			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.field305.name)) {
+			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.LABELS.name)) {
 				return this.percentLoaded;
 			}
 
 			this.percentLoaded = 100;
-			this.isLoaded = true;
+			this.loaded = true;
 		}
 
 		return this.percentLoaded;
@@ -92,9 +92,9 @@ public class WorldMapArchiveLoader {
 		signature = "(I)Z",
 		garbageValue = "1906092832"
 	)
-	@Export("getIsLoaded")
-	boolean getIsLoaded() {
-		return this.isLoaded;
+	@Export("isLoaded")
+	boolean isLoaded() {
+		return this.loaded;
 	}
 
 	@ObfuscatedName("p")

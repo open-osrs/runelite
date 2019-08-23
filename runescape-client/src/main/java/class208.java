@@ -69,7 +69,7 @@ public class class208 {
 		}
 		if (var0 == ScriptOpcodes.COMPARE) {
 			Skills.Interpreter_stringStackSize -= 2;
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = WallDecoration.method3292(MenuAction.method1993(Interpreter.Interpreter_stringStack[Skills.Interpreter_stringStackSize], Interpreter.Interpreter_stringStack[Skills.Interpreter_stringStackSize + 1], ScriptFrame.clientLanguage));
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = WallDecoration.method3292(MenuAction.compareStrings(Interpreter.Interpreter_stringStack[Skills.Interpreter_stringStackSize], Interpreter.Interpreter_stringStack[Skills.Interpreter_stringStackSize + 1], ScriptFrame.clientLanguage));
 			return 1;
 		}
 		int var5;
@@ -135,7 +135,7 @@ public class class208 {
 		}
 		if (var0 == ScriptOpcodes.CHAR_ISNUMERIC) {
 			var10 = Interpreter.Interpreter_intStack[--HealthBarUpdate.Interpreter_intStackSize];
-			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = class49.isCharDigit((char) var10) ? 1 : 0;
+			Interpreter.Interpreter_intStack[++HealthBarUpdate.Interpreter_intStackSize - 1] = class49.isDigit((char) var10) ? 1 : 0;
 			return 1;
 		}
 		if (var0 == ScriptOpcodes.STRING_LENGTH) {

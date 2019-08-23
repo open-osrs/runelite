@@ -41,7 +41,7 @@ public final class TileItem extends Entity {
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		return WorldMapArea.getItemDefinition(this.id).getModel(this.quantity);
+		return WorldMapArea.ItemDefinition_get(this.id).getModel(this.quantity);
 	}
 
 	@ObfuscatedName("q")
@@ -49,7 +49,8 @@ public final class TileItem extends Entity {
 		signature = "(Lhp;B)V",
 		garbageValue = "97"
 	)
-	public static void method2054(AbstractArchive var0) {
+	@Export("StructDefinition_setArchives")
+	public static void StructDefinition_setArchives(AbstractArchive var0) {
 		StructDefinition.StructDefinition_archive = var0;
 	}
 
@@ -58,7 +59,8 @@ public final class TileItem extends Entity {
 		signature = "(III)Lbj;",
 		garbageValue = "308740376"
 	)
-	static Message method2049(int var0, int var1) {
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
 		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0);
 		return var2.getMessage(var1);
 	}
@@ -82,6 +84,6 @@ public final class TileItem extends Entity {
 		WorldMapEvent.field359 = var0;
 		Client.field848 = var1;
 		WorldMapCacheName.selectedSpellFlags = var2;
-		Strings.method4120(var4);
+		Strings.invalidateWidget(var4);
 	}
 }

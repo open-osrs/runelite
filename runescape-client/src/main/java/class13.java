@@ -28,7 +28,8 @@ public class class13 {
 		signature = "(I)I",
 		garbageValue = "246973533"
 	)
-	static final int method151() {
+	@Export("getNewestMenuIdx")
+	static final int getNewestMenuIdx() {
 		return Client.menuOptionsCount - 1;
 	}
 
@@ -37,8 +38,8 @@ public class class13 {
 		signature = "([Lhj;IIIZI)V",
 		garbageValue = "1879036172"
 	)
-	@Export("resizeWidget")
-	static void resizeWidget(Widget[] var0, int var1, int var2, int var3, boolean var4) {
+	@Export("resizeInterface")
+	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
 		for (int var5 = 0; var5 < var0.length; ++var5) {
 			Widget var6 = var0[var5];
 			if (var6 != null && var6.parentId == var1) {

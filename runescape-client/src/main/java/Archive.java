@@ -405,7 +405,8 @@ public class Archive extends AbstractArchive {
 		signature = "(Lgx;Llv;I)Lgb;",
 		garbageValue = "1775123545"
 	)
-	public static PacketBufferNode method4265(ClientPacket var0, IsaacCipher var1) {
+	@Export("getPacketBufferNode")
+	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {
 		PacketBufferNode var2;
 		if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) {
 			var2 = new PacketBufferNode();
@@ -438,9 +439,10 @@ public class Archive extends AbstractArchive {
 		signature = "(IB)V",
 		garbageValue = "35"
 	)
-	static final void method4269(int var0) {
+	@Export("drawInterfaceModelComponents")
+	static final void drawInterfaceModelComponents(int var0) {
 		if (class162.loadInterface(var0)) {
-			class225.method4122(Widget.Widget_interfaceComponents[var0], -1);
+			class225.drawModelComponents(Widget.Widget_interfaceComponents[var0], -1);
 		}
 	}
 }

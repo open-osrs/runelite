@@ -74,7 +74,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 						field3144 = 600;
 					}
 				} else {
-					EnumDefinition.method4550(100L);
+					EnumDefinition.sleepMillis(100L);
 					synchronized(ArchiveDiskActionHandler_lock) {
 						if (field3144 <= 1) {
 							field3144 = 0;
@@ -87,7 +87,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 				}
 			}
 		} catch (Exception var13) {
-			HitSplatDefinition.sendStackTrace((String)null, var13);
+			HitSplatDefinition.RunException_sendStackTrace((String)null, var13);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 
 			try {
 				PcmPlayer var3 = class32.pcmPlayerProvider.player();
-				var3.samples = new int[256 * (class169.isStereo ? 2 : 1)];
+				var3.samples = new int[256 * (FileSystem.PcmPlayer_stereo ? 2 : 1)];
 				var3.field1414 = var2;
 				var3.init();
 				var3.capacity = (var2 & -1024) + 1024;
@@ -116,7 +116,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 				}
 
 				var3.open(var3.capacity);
-				if (PcmPlayer.pcmPlayerCount > 0 && SecureRandomFuture.soundSystem == null) {
+				if (PcmPlayer.PcmPlayer_count > 0 && SecureRandomFuture.soundSystem == null) {
 					SecureRandomFuture.soundSystem = new SoundSystem();
 					class14.soundSystemExecutor = Executors.newScheduledThreadPool(1);
 					class14.soundSystemExecutor.scheduleAtFixedRate(SecureRandomFuture.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS);

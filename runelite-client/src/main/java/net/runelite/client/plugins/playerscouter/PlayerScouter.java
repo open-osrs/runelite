@@ -62,6 +62,7 @@ import net.runelite.api.kit.KitType;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.ItemMapping;
 import net.runelite.client.game.PvPValueBrokenItem;
 import net.runelite.client.game.WorldLocation;
 import net.runelite.client.plugins.Plugin;
@@ -94,7 +95,7 @@ public class PlayerScouter extends Plugin
 	private static final DiscordClient DISCORD_CLIENT = new DiscordClient();
 	private static final Map<WorldArea, String> WILD_LOCS = WorldLocation.getLocationMap();
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("MMM dd h:mm a z");
-	private static final String ICONBASEURL = "https://www.osrsbox.com/osrsbox-db/items-icons/"; // Add item id + ".png"
+	private static final String ICON_URL = "https://www.osrsbox.com/osrsbox-db/items-icons/"; // Add item id + ".png"
 	@Inject
 	private Client client;
 	@Inject
@@ -103,17 +104,20 @@ public class PlayerScouter extends Plugin
 	private PlayerScouterConfig config;
 	@Inject
 	private EventBus eventBus;
-	private Set<PlayerContainer> playerContainer = new HashSet<>();
-	private ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
-	private Map<HiscoreResult, String> resultCache = new HashMap<>();
-	private Map<String, Integer> blacklist = new HashMap<>();
-	private HttpUrl url;
+	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+	private final Set<PlayerContainer> playerContainer = new HashSet<>();
+	private final Map<String, HiscoreResult> resultCache = new HashMap<>();
+	private final Map<String, Integer> blacklist = new HashMap<>();
+	private HttpUrl webhook;
 	private int minimumRisk;
 	private int minimumValue;
 	private int timeout;
+	private int minimumCombat;
+	private int maximumCombat;
 	private boolean onlyWildy;
 	private boolean outputItems;
-
+	private boolean scoutFriends;
+	private boolean scoutClan;
 
 	@Provides
 	PlayerScouterConfig provideConfig(ConfigManager configManager)
@@ -125,8 +129,15 @@ public class PlayerScouter extends Plugin
 	protected void startUp()
 	{
 		blacklist.clear();
-		updateConfig();
 		addSubscriptions();
+		updateConfig();
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
+			for (Player player : client.getPlayers())
+			{
+				addPlayer(player);
+			}
+		}
 	}
 
 	@Override
@@ -168,6 +179,7 @@ public class PlayerScouter extends Plugin
 
 	private void onGameTick(GameTick event)
 	{
+
 		resetBlacklist();
 
 		if (!checkWildy() || playerContainer.isEmpty())
@@ -178,7 +190,13 @@ public class PlayerScouter extends Plugin
 		playerContainer.forEach(player ->
 		{
 			update(player);
-			if (player.getRisk() > this.minimumRisk)
+			if (player.getPlayer().getCombatLevel() < this.minimumCombat
+				|| player.getPlayer().getCombatLevel() > this.maximumCombat)
+			{
+				return;
+			}
+			if ((player.getPlayer().getCombatLevel() >= this.minimumCombat
+				&& player.getPlayer().getCombatLevel() <= this.maximumCombat) && player.getRisk() > this.minimumRisk)
 			{
 				scoutPlayer(player);
 			}
@@ -195,21 +213,23 @@ public class PlayerScouter extends Plugin
 	private void onPlayerSpawned(PlayerSpawned event)
 	{
 		final Player player = event.getPlayer();
+		addPlayer(player);
+	}
 
-		if (player == client.getLocalPlayer())
+	private void addPlayer(Player player)
+	{
+		if (player == client.getLocalPlayer()
+			|| (!blacklist.isEmpty() && blacklist.containsKey(player.getName()))
+			|| (!this.scoutFriends && client.isFriended(player.getName(), false)
+			|| (!this.scoutClan && client.isClanMember(player.getName()))))
 		{
-			return;
-		}
-
-		if (!blacklist.isEmpty() && blacklist.keySet().contains(player.getName()))
-		{
+			log.debug("Player Rejected: {}", player.getName());
 			return;
 		}
 
 		playerContainer.add(new PlayerContainer(player));
 		blacklist.put(player.getName(), client.getTickCount() + this.timeout);
 	}
-
 
 	private void resetBlacklist()
 	{
@@ -218,11 +238,13 @@ public class PlayerScouter extends Plugin
 			return;
 		}
 
-		blacklist.forEach((k, v) ->
+		Iterator<Map.Entry<String, Integer>> iter = blacklist.entrySet().iterator();
+
+		iter.forEachRemaining(entry ->
 		{
-			if (v == client.getTickCount())
+			if (entry.getValue() == client.getTickCount())
 			{
-				blacklist.remove(k, v);
+				iter.remove();
 			}
 		});
 	}
@@ -233,27 +255,26 @@ public class PlayerScouter extends Plugin
 		{
 			return true;
 		}
+
 		return client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isPvpWorld(client.getWorldType());
 	}
 
 	private void updateConfig()
 	{
-		this.url = HttpUrl.parse(config.webhook());
+		this.webhook = HttpUrl.parse(config.webhook());
 		this.minimumRisk = config.minimumRisk();
 		this.minimumValue = config.minimumValue();
 		this.timeout = config.timeout();
 		this.onlyWildy = config.onlyWildy();
 		this.outputItems = config.outputItems();
+		this.scoutClan = config.scoutClan();
+		this.scoutFriends = config.scoutFriends();
+		this.minimumCombat = config.minimumCombat();
+		this.maximumCombat = config.maximumCombat();
 	}
 
 	private void update(PlayerContainer player)
 	{
-		player.setRisk(0);
-		updatePlayerGear(player);
-		updateStats(player);
-		player.setLocation(location(player));
-		player.setWildyLevel(PvPUtil.getWildernessLevelFrom(player.getPlayer().getWorldLocation()));
-		player.setTargetString(targetStringBuilder(player));
 		if (player.isScouted())
 		{
 			player.setScoutTimer(player.getScoutTimer() - 1);
@@ -262,39 +283,37 @@ public class PlayerScouter extends Plugin
 				player.setScouted(false);
 				player.setScoutTimer(500);
 			}
+			return;
 		}
+		player.setRisk(0);
+		updatePlayerGear(player);
+		updateStats(player);
+		player.setLocation(location(player));
+		player.setWildyLevel(PvPUtil.getWildernessLevelFrom(player.getPlayer().getWorldLocation()));
+		player.setTargetString(targetStringBuilder(player));
 		log.debug(player.toString());
 	}
 
 	private void updateStats(PlayerContainer player)
 	{
-		if (player.getSkills() == null)
+		if (player.isHttpRetry() || player.getSkills() != null)
 		{
-			if (player.isHttpRetry())
+			return;
+		}
+
+		executorService.submit(() ->
+		{
+			player.setHttpRetry(true);
+			HiscoreResult result;
+			if (resultCache.containsKey(player.getName()))
 			{
-				return;
+				result = resultCache.get(player.getName());
 			}
-			executorService.submit(() ->
+			else
 			{
-				player.setHttpRetry(true);
-				HiscoreResult result = null;
 				try
 				{
-					if (!resultCache.values().contains(player.getName()))
-					{
-						result = HISCORE_CLIENT.lookup(player.getName());
-					}
-					else
-					{
-						for (Map.Entry<HiscoreResult, String> entry : resultCache.entrySet())
-						{
-							if (!entry.getValue().equals(player.getName()))
-							{
-								continue;
-							}
-							result = entry.getKey();
-						}
-					}
+					result = HISCORE_CLIENT.lookup(player.getName());
 				}
 				catch (IOException ex)
 				{
@@ -302,65 +321,72 @@ public class PlayerScouter extends Plugin
 					player.setHttpRetry(false);
 					return;
 				}
-				resultCache.put(result, player.getName());
+			}
+			if (result == null)
+			{
 				player.setHttpRetry(false);
-				player.setSkills(result);
-				player.setPrayer(player.getSkills().getPrayer().getLevel());
-			});
-		}
+				return;
+			}
+			resultCache.put(player.getName(), result);
+			player.setSkills(result);
+			player.setPrayer(player.getSkills().getPrayer().getLevel());
+		});
 	}
 
 	private void updatePlayerGear(PlayerContainer player)
 	{
 		Map<Integer, Integer> prices = new HashMap<>();
 
-		if (player.getPlayer().getPlayerAppearance() != null)
+		if (player.getPlayer().getPlayerAppearance() == null)
 		{
-			for (KitType kitType : KitType.values())
-			{
-				if (kitType.equals(KitType.RING) || kitType.equals(KitType.AMMUNITION))
-				{
-					continue;
-				}
-
-				final int id = player.getPlayer().getPlayerAppearance().getEquipmentId(kitType);
-
-				if (id == -1)
-				{
-					continue;
-				}
-
-				if (kitType.equals(KitType.WEAPON))
-				{
-					player.setWeapon(id);
-				}
-
-				final ItemStats item = itemManager.getItemStats(id, false);
-				final ItemDefinition itemDefinition = itemManager.getItemDefinition(id);
-
-				if (item == null)
-				{
-					log.debug("Item is null: {}", id);
-					continue;
-				}
-
-				if (PvPValueBrokenItem.breaksOnDeath(id))
-				{
-					prices.put(id, itemManager.getBrokenValue(id));
-					log.debug("Item has a broken value: Id {}, Value {}", id, itemManager.getBrokenValue(id));
-				}
-
-				if (!itemDefinition.isTradeable() && !PvPValueBrokenItem.breaksOnDeath(id))
-				{
-					prices.put(id, itemDefinition.getPrice());
-				}
-				else if (itemDefinition.isTradeable())
-				{
-					prices.put(id, itemManager.getItemPrice(id, false));
-				}
-			}
-			updateGear(player, prices);
+			return;
 		}
+
+		for (KitType kitType : KitType.values())
+		{
+			if (kitType.equals(KitType.RING) || kitType.equals(KitType.AMMUNITION))
+			{
+				continue;
+			}
+
+			final int id = player.getPlayer().getPlayerAppearance().getEquipmentId(kitType);
+
+			if (id == -1)
+			{
+				continue;
+			}
+
+			if (kitType.equals(KitType.WEAPON))
+			{
+				player.setWeapon(id);
+			}
+
+			final ItemStats item = itemManager.getItemStats(id, false);
+			final ItemDefinition itemDefinition = itemManager.getItemDefinition(id);
+
+			if (item == null)
+			{
+				log.debug("Item is null: {}", id);
+				continue;
+			}
+
+			if (PvPValueBrokenItem.breaksOnDeath(id))
+			{
+				prices.put(id, itemManager.getBrokenValue(id));
+				log.debug("Item has a broken value: Id {}, Value {}", id, itemManager.getBrokenValue(id));
+				continue;
+			}
+
+			if (!itemDefinition.isTradeable() && !ItemMapping.isMapped(id))
+			{
+				prices.put(id, itemDefinition.getPrice());
+			}
+			else if (itemDefinition.isTradeable())
+			{
+				prices.put(id, itemManager.getItemPrice(id, false));
+			}
+		}
+		updateGear(player, prices);
 	}
 
 	private void updateGear(PlayerContainer player, Map<Integer, Integer> prices)
@@ -368,12 +394,14 @@ public class PlayerScouter extends Plugin
 		player.setGear(prices.entrySet()
 			.stream()
 			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new)));
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+		);
 
 		player.setRiskedGear(prices.entrySet()
 			.stream()
 			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new)));
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+		);
 
 		if (player.getPlayer().getSkullIcon() == null)
 		{
@@ -462,7 +490,7 @@ public class PlayerScouter extends Plugin
 		}
 
 		ThumbnailEmbed image = ThumbnailEmbed.builder()
-			.url(ICONBASEURL + player.getWeapon() + ".png")
+			.url(ICON_URL + player.getWeapon() + ".png")
 			.build();
 
 		fieldList.add(FieldEmbed.builder()
@@ -510,14 +538,16 @@ public class PlayerScouter extends Plugin
 				.value("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 				.build());
 
-			final int[] items = {0};
+			int items = 0;
 
-			player.getRiskedGear().forEach((gear, value) ->
+			for (Map.Entry<Integer, Integer> entry : player.getRiskedGear().entrySet())
 			{
+				Integer gear = entry.getKey();
+				Integer value = entry.getValue();
 				if (value <= 0 || value <= this.minimumValue)
 				{
-					items[0]++;
-					return;
+					items++;
+					continue;
 				}
 
 				ItemStats item = itemManager.getItemStats(gear, false);
@@ -525,7 +555,7 @@ public class PlayerScouter extends Plugin
 				if (item == null)
 				{
 					log.error("Item is Null: {}", gear);
-					return;
+					continue;
 				}
 
 				fieldList.add(FieldEmbed.builder()
@@ -533,19 +563,19 @@ public class PlayerScouter extends Plugin
 					.value("Value: " + StackFormatter.quantityToRSDecimalStack(value))
 					.inline(true)
 					.build());
-			});
+			}
 
-			if (items[0] > 0)
+			if (items > 0)
 			{
 				fieldList.add(FieldEmbed.builder()
 					.name("Items below value: " + this.minimumValue)
-					.value(Integer.toString(items[0]))
+					.value(Integer.toString(items))
 					.inline(true)
 					.build());
 			}
 		}
 
-		String icon = ICONBASEURL + Objects.requireNonNull(getEntry(player.getGear())).getKey() + ".png";
+		String icon = ICON_URL + Objects.requireNonNull(getEntry(player.getGear())).getKey() + ".png";
 		String name = "☠️ " + player.getName() + " ☠️";
 
 		if (player.getPlayer().getSkullIcon() == null)
@@ -560,7 +590,7 @@ public class PlayerScouter extends Plugin
 
 	private void message(String name, String iconUrl, ThumbnailEmbed thumbnail, List<FieldEmbed> fields, String color)
 	{
-		log.debug("Message Contents: {}, {}, {}, {}, {}", name, " ", thumbnail, Arrays.toString(fields.toArray()), this.url);
+		log.debug("Message Contents: {}, {}, {}, {}, {}", name, " ", thumbnail, Arrays.toString(fields.toArray()), this.webhook);
 		log.debug("Fields: {}", fields);
 
 		if (name.isEmpty() || fields.isEmpty())
@@ -588,7 +618,7 @@ public class PlayerScouter extends Plugin
 
 		DiscordMessage discordMessage = new DiscordMessage("Gabon Scouter", " ", "https://i.imgur.com/2A6dr7q.png");
 		discordMessage.getEmbeds().add(discordEmbed);
-		DISCORD_CLIENT.message(this.url, discordMessage);
+		DISCORD_CLIENT.message(this.webhook, discordMessage);
 		fields.clear();
 	}
 

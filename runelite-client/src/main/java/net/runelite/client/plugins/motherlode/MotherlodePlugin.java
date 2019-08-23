@@ -43,18 +43,7 @@ import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.AnimationID;
-import static net.runelite.api.AnimationID.IDLE;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_3A;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_ADAMANT;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_BLACK;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_BRONZE;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_DRAGON;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_DRAGON_ORN;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_INFERNAL;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_IRON;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_MITHRIL;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_RUNE;
-import static net.runelite.api.AnimationID.MINING_MOTHERLODE_STEEL;
+import static net.runelite.api.AnimationID.*;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
@@ -63,7 +52,7 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuAction;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import static net.runelite.api.ObjectID.DEPLETED_VEIN_26665;
@@ -385,7 +374,7 @@ public class MotherlodePlugin extends Plugin
 			return;
 		}
 
-		if (MINE_SPOTS.contains(menu.getIdentifier()) &&  menu.getMenuAction() == MenuAction.GAME_OBJECT_FIRST_OPTION)
+		if (MINE_SPOTS.contains(menu.getIdentifier()) &&  menu.getMenuOpcode() == MenuOpcode.GAME_OBJECT_FIRST_OPTION)
 		{
 			resetIdleChecks();
 			int veinX = menu.getActionParam0();
@@ -451,7 +440,9 @@ public class MotherlodePlugin extends Plugin
 			case MINING_MOTHERLODE_ADAMANT:
 			case MINING_MOTHERLODE_RUNE:
 			case MINING_MOTHERLODE_DRAGON:
-			case MINING_MOTHERLODE_DRAGON_ORN:
+			case MINING_MOTHERLODE_DRAGON_UPGRADED:
+			case MINING_MOTHERLODE_DRAGON_OR:
+			case MINING_MOTHERLODE_CRYSTAL:
 			case MINING_MOTHERLODE_INFERNAL:
 			case MINING_MOTHERLODE_3A:
 				lastAnimation = animation;

@@ -153,6 +153,7 @@ public class WidgetID
 	public static final int ITEMS_KEPT_ON_DEATH_GROUP_ID = 4;
 	public static final int TRADING_SCREEN = 335;
 	public static final int SEED_VAULT_GROUP_ID = 631;
+	public static final int EXPLORERS_RING_ALCH_GROUP_ID = 483;
 
 	static class WorldMap
 	{
@@ -816,6 +817,7 @@ public class WidgetID
 
 	static class SpellBook
 	{
+		static final int FILTERED_SPELLS_PARENT = 1;
 		static final int FILTERED_SPELLS_BOUNDS = 3;
 
 		// NORMAL SPELLS
@@ -967,6 +969,12 @@ public class WidgetID
 
 		// ARCEUUS SPELLS
 		static final int ARCEUUS_HOME_TELEPORT = 143;
+		static final int BATTLEFRONT_TELEPORT = 178;
+
+		static final int FILTER_SECTION_PARENT = 181;
+		static final int FILTER_BUTTONS_PARENT = 184;
+		static final int FILTER_BUTTON_PARENT = 185;
+		static final int FILTER_BUTTON = 187;
 	}
 
 	static class Pvp
@@ -975,7 +983,7 @@ public class WidgetID
 		static final int PVP_WIDGET_CONTAINER = 54;  // OUTDATED?
 		static final int SKULL = 56;  // OUTDATED?
 		static final int ATTACK_RANGE = 59;  // OUTDATED?
-		static final int BOUNTY_HUNTER_INFO = 19;
+		static final int BOUNTY_HUNTER_INFO = 18;
 		static final int KILLDEATH_RATIO = 15;
 		static final int SKULL_CONTAINER = 61;
 		static final int SAFE_ZONE = 63;
@@ -1129,5 +1137,10 @@ public class WidgetID
 		static final int TITLE_CONTAINER = 2;
 		static final int ITEM_CONTAINER = 15;
 		static final int ITEM_TEXT = 16;
+	}
+
+	static class ExplorersRing
+	{
+		static final int INVENTORY = 7;
 	}
 }

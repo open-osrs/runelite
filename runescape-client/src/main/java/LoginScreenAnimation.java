@@ -80,7 +80,7 @@ public class LoginScreenAnimation {
 		this.field1055 = 0;
 		this.field1056 = 0;
 		this.sprites = var1;
-		this.method1721();
+		this.initColors();
 	}
 
 	@ObfuscatedName("q")
@@ -88,24 +88,25 @@ public class LoginScreenAnimation {
 		signature = "(I)V",
 		garbageValue = "-1195148401"
 	)
-	void method1721() {
+	@Export("initColors")
+	void initColors() {
 		this.field1045 = new int[256];
 
 		int var1;
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1045[var1] = var1 * 262144;
+			this.field1045[var1] = var1 * 0x40000;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1045[var1 + 64] = var1 * 1024 + 16711680;
+			this.field1045[var1 + 64] = var1 * 1024 + 0xff0000;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1045[var1 + 128] = var1 * 4 + 16776960;
+			this.field1045[var1 + 128] = var1 * 4 + 0xffff00;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1045[var1 + 192] = 16777215;
+			this.field1045[var1 + 192] = 0xffffff;
 		}
 
 		this.field1046 = new int[256];
@@ -115,15 +116,15 @@ public class LoginScreenAnimation {
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1046[var1 + 64] = var1 * 4 + 65280;
+			this.field1046[var1 + 64] = var1 * 4 + 0xff00;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1046[var1 + 128] = var1 * 262144 + 65535;
+			this.field1046[var1 + 128] = var1 * 0x40000 + 0xffff;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1046[var1 + 192] = 16777215;
+			this.field1046[var1 + 192] = 0xffffff;
 		}
 
 		this.field1047 = new int[256];
@@ -133,15 +134,15 @@ public class LoginScreenAnimation {
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1047[var1 + 64] = var1 * 262144 + 255;
+			this.field1047[var1 + 64] = var1 * 0x40000 + 255;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1047[var1 + 128] = var1 * 1024 + 16711935;
+			this.field1047[var1 + 128] = var1 * 1024 + 0xff00ff;
 		}
 
 		for (var1 = 0; var1 < 64; ++var1) {
-			this.field1047[var1 + 192] = 16777215;
+			this.field1047[var1 + 192] = 0xffffff;
 		}
 
 		this.field1044 = new int[256];
@@ -179,7 +180,7 @@ public class LoginScreenAnimation {
 	@Export("draw")
 	void draw(int var1, int var2) {
 		if (this.field1039 == null) {
-			this.method1721();
+			this.initColors();
 		}
 
 		if (this.field1056 == 0) {
@@ -340,7 +341,7 @@ public class LoginScreenAnimation {
 	)
 	final int method1725(int var1, int var2, int var3) {
 		int var4 = 256 - var3;
-		return (var4 * (var1 & 16711935) + var3 * (var2 & 16711935) & -16711936) + (var3 * (var2 & 65280) + var4 * (var1 & 65280) & 16711680) >> 8;
+		return (var4 * (var1 & 0xff00ff) + var3 * (var2 & 0xff00ff) & 0xff00ff00) + (var3 * (var2 & 0xff00) + var4 * (var1 & 0xff00) & 0xff0000) >> 8;
 	}
 
 	@ObfuscatedName("l")
@@ -416,7 +417,7 @@ public class LoginScreenAnimation {
 					int var13 = 256 - var10;
 					var10 = this.field1044[var10];
 					int var14 = MusicPatchPcmStream.rasterProvider.pixels[var8];
-					MusicPatchPcmStream.rasterProvider.pixels[var8++] = -16777216 | (var13 * (var14 & 65280) + var12 * (var10 & 65280) & 16711680) + ((var14 & 16711935) * var13 + (var10 & 16711935) * var12 & -16711936) >> 8;
+					MusicPatchPcmStream.rasterProvider.pixels[var8++] = 0xff000000 | (var13 * (var14 & 0xff00) + var12 * (var10 & 0xff00) & 0xff0000) + ((var14 & 0xff00ff) * var13 + (var10 & 0xff00ff) * var12 & 0xff00ff00) >> 8;
 				} else {
 					++var8;
 				}
@@ -481,7 +482,8 @@ public class LoginScreenAnimation {
 		signature = "(II)I",
 		garbageValue = "-1877742024"
 	)
-	static int method1744(int var0) {
+	@Export("Messages_getHistorySize")
+	static int Messages_getHistorySize(int var0) {
 		ChatChannel var1 = (ChatChannel)Messages.Messages_channels.get(var0);
 		return var1 == null ? 0 : var1.size();
 	}
@@ -499,7 +501,7 @@ public class LoginScreenAnimation {
 			var8 = 100;
 		}
 
-		int var9 = (Client.field908 - Client.field906) * var8 / 100 + Client.field906;
+		int var9 = (Client.zoomWidth - Client.zoomHeight) * var8 / 100 + Client.zoomHeight;
 		int var7 = var5 * var9 / 256;
 		var8 = 2048 - var3 & 2047;
 		var9 = 2048 - var4 & 2047;
@@ -534,7 +536,7 @@ public class LoginScreenAnimation {
 			var13 = Client.localPlayer.plane;
 			var14 = MusicPatchNode2.baseX * 64 + (MouseHandler.oculusOrbFocalPointX >> 7);
 			var15 = class1.baseY * 64 + (WorldMapArea.oculusOrbFocalPointY >> 7);
-			WorldMapLabel.method418(var14, var15, var13, true);
+			WorldMapLabel.changePlane(var14, var15, var13, true);
 		}
 
 	}

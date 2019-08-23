@@ -99,6 +99,8 @@ import static net.runelite.api.NpcID.ROD_FISHING_SPOT_7464;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_7468;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_7676;
 import static net.runelite.api.NpcID.ROD_FISHING_SPOT_8524;
+import static net.runelite.api.NpcID.FISHING_SPOT_4928;
+import static net.runelite.api.NpcID.FISHING_SPOT_6784;
 
 @Getter
 enum FishingSpot
@@ -131,6 +133,9 @@ enum FishingSpot
 		ROD_FISHING_SPOT_1513, ROD_FISHING_SPOT_1515, ROD_FISHING_SPOT_1516,
 		ROD_FISHING_SPOT_1526, ROD_FISHING_SPOT_1527, ROD_FISHING_SPOT_7463,
 		ROD_FISHING_SPOT_7464, ROD_FISHING_SPOT_7468, ROD_FISHING_SPOT_8524
+	),
+	LAVA_EEL("Lava eel", ItemID.LAVA_EEL,
+		FISHING_SPOT_4928, FISHING_SPOT_6784
 	),
 	BARB_FISH("Sturgeon, Salmon, Trout", ItemID.LEAPING_STURGEON,
 		FISHING_SPOT_1542, FISHING_SPOT_7323
@@ -165,7 +170,6 @@ enum FishingSpot
 	COMMON_TENCH("Common tench, Bluegill, Greater siren, Mottled eel", ItemID.COMMON_TENCH,
 		FISHING_SPOT_8523);
 
-	@Getter
 	private static final Map<Integer, FishingSpot> SPOTS;
 
 	private final String name;
@@ -192,5 +196,10 @@ enum FishingSpot
 		this.name = spot;
 		this.fishSpriteId = fishSpriteId;
 		this.ids = ids;
+	}
+
+	static FishingSpot findSpot(int id)
+	{
+		return SPOTS.get(id);
 	}
 }

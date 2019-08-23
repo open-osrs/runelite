@@ -30,7 +30,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Insets;
 import java.awt.Rectangle;
@@ -65,6 +64,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -101,7 +101,6 @@ import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
-import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.ComboBoxListRenderer;
 import net.runelite.client.ui.components.IconButton;
@@ -214,7 +213,6 @@ public class ConfigPanel extends PluginPanel
 
 		initializePluginList();
 		refreshPluginList();
-
 	}
 
 	static class configTextArea extends JTextArea
@@ -749,7 +747,8 @@ public class ConfigPanel extends PluginPanel
 						JLabel sliderValueLabel = new JLabel();
 						JSlider slider = new JSlider(min, max, value);
 						sliderValueLabel.setText(String.valueOf(slider.getValue()));
-						slider.setPreferredSize(new Dimension(85, 25));
+						slider.setPreferredSize(new Dimension(80, 25));
+						slider.setBackground(Color.WHITE);
 						slider.addChangeListener((l) ->
 							{
 								sliderValueLabel.setText(String.valueOf(slider.getValue()));
@@ -777,33 +776,47 @@ public class ConfigPanel extends PluginPanel
 								return null;
 							}
 						});
+
+						JPanel subPanel = new JPanel();
+						subPanel.setPreferredSize(new Dimension(110, 25));
+						subPanel.setLayout(new BorderLayout());
+
 						spinner.addChangeListener((ce) ->
 						{
 							changeConfiguration(listItem, config, spinner, cd, cid);
-							spinner.setVisible(false);
+
 							sliderValueLabel.setText(String.valueOf(spinner.getValue()));
-							sliderValueLabel.setVisible(true);
 							slider.setValue((Integer) spinner.getValue());
-							slider.setVisible(true);
+
+							subPanel.add(sliderValueLabel, BorderLayout.WEST);
+							subPanel.add(slider, BorderLayout.EAST);
+							subPanel.remove(spinner);
+
+							validate();
+							repaint();
 						});
-						spinner.setVisible(false);
 
 						sliderValueLabel.addMouseListener(new MouseAdapter()
 						{
 							public void mouseClicked(MouseEvent e)
 							{
 								spinner.setValue(slider.getValue());
-								spinner.setVisible(true);
-								sliderValueLabel.setVisible(false);
-								slider.setVisible(false);
+
+								subPanel.remove(sliderValueLabel);
+								subPanel.remove(slider);
+								subPanel.add(spinner, BorderLayout.EAST);
+
+								validate();
+								repaint();
+
+								final JTextField tf = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
+								tf.requestFocusInWindow();
+								SwingUtilities.invokeLater(tf::selectAll);
 							}
 						});
 
-						JPanel subPanel = new JPanel();
-
-						subPanel.add(spinner);
-						subPanel.add(sliderValueLabel);
-						subPanel.add(slider);
+						subPanel.add(sliderValueLabel, BorderLayout.WEST);
+						subPanel.add(slider, BorderLayout.EAST);
 
 						item.add(subPanel, BorderLayout.EAST);
 					}
@@ -839,27 +852,25 @@ public class ConfigPanel extends PluginPanel
 					textField.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 					textField.setText(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName()));
 
-					textField.addFocusListener(new FocusAdapter()
+					DeferredDocumentChangedListener listener = new DeferredDocumentChangedListener();
+					listener.addChangeListener(e ->
 					{
-						@Override
-						public void focusLost(FocusEvent e)
+						ConfigItem configItem = cid.getItem();
+						if (configItem.parse())
 						{
-							ConfigItem item = cid.getItem();
-							if (item.parse())
-							{
-								Boolean result = parse(item, textField.getText());
+							Boolean result = parse(configItem, textField.getText());
 
-								if (result != null && result)
-								{
-									changeConfiguration(listItem, config, textField, cd, cid);
-								}
-							}
-							else
+							if (result != null && result)
 							{
 								changeConfiguration(listItem, config, textField, cd, cid);
 							}
 						}
+						else
+						{
+							changeConfiguration(listItem, config, textField, cd, cid);
+						}
 					});
+					textField.getDocument().addDocumentListener(listener);
 
 					if (cid.getItem().parse())
 					{
@@ -867,7 +878,7 @@ public class ConfigPanel extends PluginPanel
 						parsingLabel.setHorizontalAlignment(SwingConstants.CENTER);
 						parsingLabel.setPreferredSize(new Dimension(PANEL_WIDTH, 15));
 
-						DeferredDocumentChangedListener listener = new DeferredDocumentChangedListener();
+						listener = new DeferredDocumentChangedListener();
 						listener.addChangeListener(e ->
 						{
 							if (cid.getItem().parse())
@@ -1017,37 +1028,6 @@ public class ConfigPanel extends PluginPanel
 
 					item.add(button, BorderLayout.EAST);
 				}
-
-				if (cid.getType() == Font.class)
-				{
-					JComboBox box = new JComboBox(FontManager.getAvailableFontNames());
-					box.setPreferredSize(new Dimension(150, 25));
-					box.setRenderer(new ComboBoxListRenderer());
-					box.setForeground(Color.WHITE);
-					box.setFocusable(false);
-					String currentlyConfigured = configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName());
-					if (FontManager.lookupFont(currentlyConfigured) != null)
-					{
-						box.setSelectedItem(currentlyConfigured);
-						box.setToolTipText(currentlyConfigured);
-					}
-					else
-					{
-						log.debug("Selected font wasn't found on this system, resetting font back to runescape regular");
-						configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), FontManager.getRunescapeFont());
-					}
-					box.addItemListener(e ->
-					{
-						if (e.getStateChange() == ItemEvent.SELECTED && box.getSelectedItem() != null)
-						{
-							final Font selected = FontManager.lookupFont(box.getSelectedItem().toString());
-							configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), selected);
-							box.setToolTipText(box.getSelectedItem().toString());
-						}
-					});
-					item.add(box, BorderLayout.EAST);
-				}
-
 				mainPanel.add(item);
 			}
 		}

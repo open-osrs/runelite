@@ -24,6 +24,9 @@
  */
 package net.runelite.mixins;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -40,6 +43,12 @@ import net.runelite.rs.api.RSScene;
 @Mixin(RSScene.class)
 public abstract class EntityHiderMixin implements RSScene
 {
+	@Inject
+	private static final Pattern WILDCARD_PATTERN = Pattern.compile("(?i)[^*]+|(\\*)");
+
+	@Inject
+	private static final Pattern TAG_REGEXP = Pattern.compile("<[^>]*>");
+
 	@Shadow("client")
 	private static RSClient client;
 
@@ -68,7 +77,10 @@ public abstract class EntityHiderMixin implements RSScene
 	private static boolean hideNPCs;
 
 	@Shadow("hideNPCsNames")
-	private  static String hideNPCsNames;
+	private static List<String> hideNPCsNames;
+
+	@Shadow("hideNPCsOnDeath")
+	private static List<String> hideNPCsOnDeath;
 
 	@Shadow("hideNPCs2D")
 	private static boolean hideNPCs2D;
@@ -79,13 +91,16 @@ public abstract class EntityHiderMixin implements RSScene
 	@Shadow("hideProjectiles")
 	private static boolean hideProjectiles;
 
+	@Shadow("hideDeadNPCs")
+	private static boolean hideDeadNPCs;
+
 	@Copy("newGameObject")
-	abstract boolean addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity renderable, int var10, boolean var11, long var12, int var13);
+	abstract boolean addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13);
 
 	@Replace("newGameObject")
-	boolean rl$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity renderable, int var10, boolean var11, long var12, int var13)
+	boolean rl$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13)
 	{
-		final boolean shouldDraw = shouldDraw(renderable, false);
+		final boolean shouldDraw = shouldDraw(entity, false);
 
 		if (!shouldDraw)
 		{
@@ -98,7 +113,7 @@ public abstract class EntityHiderMixin implements RSScene
 			client.getOccupiedTilesTick()[tileX][tileY] = -1;
 		}
 
-		return shouldDraw && addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, renderable, var10, var11, var12, var13);
+		return shouldDraw && addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, entity, var10, var11, var12, var13);
 	}
 
 	@Copy("drawActor2d")
@@ -117,22 +132,22 @@ public abstract class EntityHiderMixin implements RSScene
 	}
 
 	@Inject
-	private static boolean shouldDraw(Object renderable, boolean drawingUI)
+	private static boolean shouldDraw(Object entity, boolean drawingUI)
 	{
 		if (!isHidingEntities)
 		{
 			return true;
 		}
 
-		if (renderable instanceof RSPlayer)
+		if (entity instanceof RSPlayer)
 		{
 			boolean local = drawingUI ? hideLocalPlayer2D : hideLocalPlayer;
 			boolean other = drawingUI ? hidePlayers2D : hidePlayers;
-			boolean isLocalPlayer = renderable == client.getLocalPlayer();
+			boolean isLocalPlayer = entity == client.getLocalPlayer();
 
 			if (isLocalPlayer ? local : other)
 			{
-				RSPlayer player = (RSPlayer) renderable;
+				RSPlayer player = (RSPlayer) entity;
 
 				if (!hideAttackers)
 				{
@@ -151,10 +166,9 @@ public abstract class EntityHiderMixin implements RSScene
 				return (!hideFriends && player.isFriend()) || (!isLocalPlayer && !hideClanMates && player.isClanMember());
 			}
 		}
-		else if (renderable instanceof RSNPC)
+		else if (entity instanceof RSNPC)
 		{
-			RSNPC npc = (RSNPC) renderable;
-			String[] names = hideNPCsNames.split(",");
+			RSNPC npc = (RSNPC) entity;
 
 			if (!hideAttackers)
 			{
@@ -164,27 +178,70 @@ public abstract class EntityHiderMixin implements RSScene
 				}
 			}
 
-			for (String name : names)
+			if (hideDeadNPCs && npc.getHealthRatio() == 0)
+			{
+				return false;
+			}
+
+			for (String name : hideNPCsNames)
 			{
 				if (name != null && !name.equals(""))
 				{
-					if (npc.getName() != null)
+					if (npc.getName() != null && matches(name, npc.getName()))
 					{
-						if (npc.getName().startsWith(name))
-						{
-							return false;
-						}
+						return false;
+					}
+				}
+			}
+
+			for (String name : hideNPCsOnDeath)
+			{
+				if (name != null && !name.equals(""))
+				{
+					if (npc.getName() != null && matches(name, npc.getName()) && npc.getHealthRatio() == 0)
+					{
+						return false;
 					}
 				}
 			}
 
 			return drawingUI ? !hideNPCs2D : !hideNPCs;
 		}
-		else if (renderable instanceof RSProjectile)
+		else if (entity instanceof RSProjectile)
 		{
 			return !hideProjectiles;
 		}
 
 		return true;
+	}
+
+	@Inject
+	static private boolean matches(String pattern, String text)
+	{
+		String standardized = TAG_REGEXP.matcher(text)
+			.replaceAll("")
+			.replace('\u00A0', ' ')
+			.toLowerCase();
+
+		final Matcher matcher = WILDCARD_PATTERN.matcher(pattern.toLowerCase());
+		final StringBuffer buffer = new StringBuffer();
+
+		buffer.append("(?i)");
+		while (matcher.find())
+		{
+			if (matcher.group(1) != null)
+			{
+				matcher.appendReplacement(buffer, ".*");
+			}
+			else
+			{
+				matcher.appendReplacement(buffer, "\\\\Q" + matcher.group(0) + "\\\\E");
+			}
+		}
+
+		matcher.appendTail(buffer);
+		final String replaced = buffer.toString();
+
+		return standardized.matches(replaced);
 	}
 }

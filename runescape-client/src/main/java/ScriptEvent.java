@@ -21,13 +21,14 @@ public class ScriptEvent extends Node {
 	@Export("loginBoxCenter")
 	static int loginBoxCenter;
 	@ObfuscatedName("o")
-	static String field586;
+	@Export("operatingSystem")
+	static String operatingSystem;
 	@ObfuscatedName("q")
 	@Export("args")
 	Object[] args;
 	@ObfuscatedName("w")
-	@Export("boolean1")
-	boolean boolean1;
+	@Export("isMouseInputEvent")
+	boolean isMouseInputEvent;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		signature = "Lhj;"
@@ -86,7 +87,7 @@ public class ScriptEvent extends Node {
 	int type;
 
 	public ScriptEvent() {
-		this.type = 76;
+		this.type = 0x4c;
 	}
 
 	@ObfuscatedName("q")

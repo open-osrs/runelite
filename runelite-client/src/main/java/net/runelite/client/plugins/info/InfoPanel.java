@@ -29,13 +29,11 @@ import com.google.inject.Inject;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
@@ -51,7 +49,6 @@ import static net.runelite.client.RuneLite.LOGS_DIR;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.account.SessionManager;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
 import net.runelite.client.ui.ColorScheme;
@@ -80,12 +77,6 @@ public class InfoPanel extends PluginPanel
 	@Inject
 	@Nullable
 	private Client client;
-
-	@Inject
-	private RuneLiteProperties runeLiteProperties;
-
-	@Inject
-	private EventBus eventBus;
 
 	@Inject
 	private SessionManager sessionManager;
@@ -117,13 +108,13 @@ public class InfoPanel extends PluginPanel
 		versionPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		versionPanel.setLayout(new GridLayout(0, 1));
 
-		final Font smallFont = FontManager.getSmallFont(getFont());
+		final Font smallFont = FontManager.getRunescapeSmallFont();
 
-		JLabel version = new JLabel(htmlLabel("RuneLite version: ", runeLiteProperties.getVersion()));
+		JLabel version = new JLabel(htmlLabel("RuneLite version: ", RuneLiteProperties.getVersion()));
 		version.setFont(smallFont);
 
-		JLabel plusVersion = new JLabel(htmlLabel("RuneLitePlus version: ", runeLiteProperties.getPlusVersion()));
-		version.setFont(smallFont);
+		JLabel plusVersion = new JLabel(htmlLabel("RuneLitePlus version: ", RuneLiteProperties.getPlusVersion()));
+		plusVersion.setFont(smallFont);
 
 		JLabel revision = new JLabel();
 		revision.setFont(smallFont);
@@ -177,14 +168,13 @@ public class InfoPanel extends PluginPanel
 		actionsContainer.add(buildLinkPanel(GITHUB_ICON, "License info", "for distribution", "https://github.com/runelite-extended/runelite/blob/master/LICENSE"));
 		actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open logs directory", "(for bug reports)", LOGS_DIR));
 		actionsContainer.add(buildLinkPanel(DISCORD_ICON, "Talk to us on our", "discord server", "https://discord.gg/HN5gf3m"));
-		actionsContainer.add(buildLinkPanel(PATREON_ICON, "Patreon to support", "the RuneLitePlus devs", runeLiteProperties.getPatreonLink()));
+		actionsContainer.add(buildLinkPanel(PATREON_ICON, "Patreon to support", "the RuneLitePlus devs", RuneLiteProperties.getPatreonLink()));
 		/*		actionsContainer.add(buildLinkPanel(WIKI_ICON, "Information about", "RuneLite and plugins", runeLiteProperties.getWikiLink()));*/
 
 		add(versionPanel, BorderLayout.NORTH);
 		add(actionsContainer, BorderLayout.CENTER);
 
 		updateLoggedIn();
-		// eventBus.register(this);
 	}
 
 	/**
@@ -192,22 +182,13 @@ public class InfoPanel extends PluginPanel
 	 */
 	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, File dir)
 	{
-		return buildLinkPanel(icon, topText, bottomText, () ->
-		{
-			try
-			{
-				Desktop.getDesktop().open(dir);
-			}
-			catch (IOException ex)
-			{
-			}
-		});
+		return buildLinkPanel(icon, topText, bottomText, () -> LinkBrowser.openLocalFile(dir));
 	}
 
 	/**
 	 * Builds a link panel with a given icon, text and url to redirect to.
 	 */
-	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, String url)
+	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, String url)
 	{
 		return buildLinkPanel(icon, topText, bottomText, () -> LinkBrowser.browse(url));
 	}
@@ -215,7 +196,7 @@ public class InfoPanel extends PluginPanel
 	/**
 	 * Builds a link panel with a given icon, text and callable to call.
 	 */
-	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, Runnable callback)
+	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, Runnable callback)
 	{
 		JPanel container = new JPanel();
 		container.setBackground(ColorScheme.DARKER_GRAY_COLOR);
@@ -269,11 +250,11 @@ public class InfoPanel extends PluginPanel
 
 		JLabel topLine = new JLabel(topText);
 		topLine.setForeground(Color.WHITE);
-		topLine.setFont(FontManager.getSmallFont(getFont()));
+		topLine.setFont(FontManager.getRunescapeSmallFont());
 
 		JLabel bottomLine = new JLabel(bottomText);
 		bottomLine.setForeground(Color.WHITE);
-		bottomLine.setFont(FontManager.getSmallFont(getFont()));
+		bottomLine.setFont(FontManager.getRunescapeSmallFont());
 
 		textContainer.add(topLine);
 		textContainer.add(bottomLine);

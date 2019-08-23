@@ -11,8 +11,8 @@ public class PcmPlayer {
 	@ObfuscatedGetter(
 		intValue = 1278180609
 	)
-	@Export("pcmPlayerCount")
-	static int pcmPlayerCount;
+	@Export("PcmPlayer_count")
+	static int PcmPlayer_count;
 	@ObfuscatedName("r")
 	@Export("samples")
 	protected int[] samples;
@@ -174,90 +174,90 @@ public class PcmPlayer {
 	)
 	@Export("run")
 	public final synchronized void run() {
-		if (this.samples != null) {
-			long var1 = DirectByteArrayCopier.currentTimeMs();
+		if (this.samples == null) {
+			return;
+		}
+		long var1 = DirectByteArrayCopier.currentTimeMs();
 
-			try {
-				if (0L != this.field1416) {
-					if (var1 < this.field1416) {
-						return;
-					}
-
+		try {
+			if (0L != this.field1416) {
+				if (var1 >= this.field1416) {
 					this.open(this.capacity);
 					this.field1416 = 0L;
 					this.field1421 = true;
+				} else {
+					return;
 				}
 
-				int var3 = this.position();
-				if (this.field1419 - var3 > this.field1417) {
-					this.field1417 = this.field1419 - var3;
+			}
+
+			int var3 = this.position();
+			if (this.field1419 - var3 > this.field1417) {
+				this.field1417 = this.field1419 - var3;
+			}
+
+			int var4 = this.field1413 + this.field1414;
+			if (var4 + 256 > 16384) {
+				var4 = 16128;
+			}
+
+			if (var4 + 256 > this.capacity) {
+				this.capacity += 1024;
+				if (this.capacity > 16384) {
+					this.capacity = 16384;
 				}
 
-				int var4 = this.field1413 + this.field1414;
-				if (var4 + 256 > 16384) {
-					var4 = 16128;
-				}
-
-				if (var4 + 256 > this.capacity) {
-					this.capacity += 1024;
-					if (this.capacity > 16384) {
-						this.capacity = 16384;
-					}
-
-					this.close();
-					this.open(this.capacity);
-					var3 = 0;
-					this.field1421 = true;
-					if (var4 + 256 > this.capacity) {
-						var4 = this.capacity - 256;
-						this.field1413 = var4 - this.field1414;
-					}
-				}
-
-				while (var3 < var4) {
-					this.fill(this.samples, 256);
-					this.write();
-					var3 += 256;
-				}
-
-				if (var1 > this.field1420) {
-					if (!this.field1421) {
-						if (this.field1417 == 0 && this.field1418 == 0) {
-							this.close();
-							this.field1416 = 2000L + var1;
-							return;
-						}
-
-						this.field1413 = Math.min(this.field1418, this.field1417);
-						this.field1418 = this.field1417;
-					} else {
-						this.field1421 = false;
-					}
-
-					this.field1417 = 0;
-					this.field1420 = 2000L + var1;
-				}
-
-				this.field1419 = var3;
-			} catch (Exception var7) {
 				this.close();
-				this.field1416 = var1 + 2000L;
+				this.open(this.capacity);
+				var3 = 0;
+				this.field1421 = true;
+				if (var4 + 256 > this.capacity) {
+					var4 = this.capacity - 256;
+					this.field1413 = var4 - this.field1414;
+				}
 			}
 
-			try {
-				if (var1 > 500000L + this.timeMs) {
-					var1 = this.timeMs;
-				}
-
-				while (var1 > 5000L + this.timeMs) {
-					this.skip(256);
-					this.timeMs += (long)(256000 / CollisionMap.PcmPlayer_sampleRate);
-				}
-			} catch (Exception var6) {
-				this.timeMs = var1;
+			while (var3 < var4) {
+				this.fill(this.samples, 256);
+				this.write();
+				var3 += 256;
 			}
 
+			if (var1 > this.field1420) {
+				if (this.field1421) {
+					this.field1421 = false;
+				} else if (this.field1417 != 0 || this.field1418 != 0) {
+					this.field1413 = Math.min(this.field1418, this.field1417);
+					this.field1418 = this.field1417;
+				} else {
+					this.close();
+					this.field1416 = 2000L + var1;
+					return;
+				}
+
+				this.field1417 = 0;
+				this.field1420 = 2000L + var1;
+			}
+
+			this.field1419 = var3;
+		} catch (Exception var7) {
+			this.close();
+			this.field1416 = var1 + 2000L;
 		}
+
+		try {
+			if (var1 > 500000L + this.timeMs) {
+				var1 = this.timeMs;
+			}
+
+			while (var1 > 5000L + this.timeMs) {
+				this.skip(256);
+				this.timeMs += (long)(256000 / CollisionMap.PcmPlayer_sampleRate);
+			}
+		} catch (Exception var6) {
+			this.timeMs = var1;
+		}
+
 	}
 
 	@ObfuscatedName("aw")
@@ -340,7 +340,7 @@ public class PcmPlayer {
 	@Export("fill")
 	final void fill(int[] var1, int var2) {
 		int var3 = var2;
-		if (class169.isStereo) {
+		if (FileSystem.PcmPlayer_stereo) {
 			var3 = var2 << 1;
 		}
 
@@ -353,10 +353,8 @@ public class PcmPlayer {
 			int var4 = 0;
 			int var5 = 255;
 
-			int var6;
 			PcmStream var10;
-			label104:
-			for (var6 = 7; var5 != 0; --var6) {
+			for (int var6 = 7; var5 != 0; --var6) {
 				int var7;
 				int var8;
 				if (var6 < 0) {
@@ -367,67 +365,59 @@ public class PcmPlayer {
 					var8 = 0;
 				}
 
-				for (int var9 = var5 >>> var7 & 286331153; var9 != 0; var9 >>>= 4) {
-					if ((var9 & 1) != 0) {
-						var5 &= ~(1 << var7);
-						var10 = null;
-						PcmStream var11 = this.field1426[var7];
+				for (int var9 = var5 >>> var7 & 0x11111111; var9 != 0; var9 >>>= 4, var7 += 4, ++var8) {
+					if ((var9 & 1) == 0) {
+						continue;
+					}
+					var5 &= ~(1 << var7);
+					var10 = null;
 
-						label98:
-						while (true) {
-							while (true) {
-								if (var11 == null) {
-									break label98;
-								}
 
-								AbstractSound var12 = var11.sound;
-								if (var12 != null && var12.position > var8) {
-									var5 |= 1 << var7;
-									var10 = var11;
-									var11 = var11.after;
-								} else {
-									var11.active = true;
-									int var13 = var11.vmethod3892();
-									var4 += var13;
-									if (var12 != null) {
-										var12.position += var13;
-									}
+					for (PcmStream var11 = this.field1426[var7]; var11 != null;) {
+						AbstractSound var12 = var11.sound;
+						if (var12 != null && var12.position > var8) {
+							var5 |= 1 << var7;
+							var10 = var11;
+							var11 = var11.after;
+							continue;
+						}
+						var11.active = true;
+						int var13 = var11.vmethod3892();
+						var4 += var13;
+						if (var12 != null) {
+							var12.position += var13;
+						}
 
-									if (var4 >= this.field1406) {
-										break label104;
-									}
+						if (var4 >= this.field1406) {
+							return;
+						}
 
-									PcmStream var14 = var11.firstSubStream();
-									if (var14 != null) {
-										for (int var15 = var11.field1496; var14 != null; var14 = var11.nextSubStream()) {
-											this.method2456(var14, var15 * var14.vmethod2689() >> 8);
-										}
-									}
-
-									PcmStream var18 = var11.after;
-									var11.after = null;
-									if (var10 == null) {
-										this.field1426[var7] = var18;
-									} else {
-										var10.after = var18;
-									}
-
-									if (var18 == null) {
-										this.field1425[var7] = var10;
-									}
-
-									var11 = var18;
-								}
+						PcmStream var14 = var11.firstSubStream();
+						if (var14 != null) {
+							for (int var15 = var11.field1496; var14 != null; var14 = var11.nextSubStream()) {
+								this.method2456(var14, var15 * var14.vmethod2689() >> 8);
 							}
 						}
-					}
 
-					var7 += 4;
-					++var8;
+						PcmStream var18 = var11.after;
+						var11.after = null;
+						if (var10 == null) {
+							this.field1426[var7] = var18;
+						}
+						else {
+							var10.after = var18;
+						}
+
+						if (var18 == null) {
+							this.field1425[var7] = var10;
+						}
+
+						var11 = var18;
+					}
 				}
 			}
 
-			for (var6 = 0; var6 < 8; ++var6) {
+			for (int var6 = 0; var6 < 8; ++var6) {
 				PcmStream var16 = this.field1426[var6];
 				PcmStream[] var17 = this.field1426;
 				this.field1425[var6] = null;
@@ -473,7 +463,8 @@ public class PcmPlayer {
 		signature = "(B)[Lll;",
 		garbageValue = "69"
 	)
-	public static FillMode[] method2405() {
+	@Export("FillMode_values")
+	public static FillMode[] FillMode_values() {
 		return new FillMode[]{FillMode.GRADIENT, FillMode.SOLID, FillMode.GRADIENTALPHA};
 	}
 

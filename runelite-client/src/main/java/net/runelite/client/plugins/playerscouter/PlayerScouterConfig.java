@@ -26,6 +26,7 @@ package net.runelite.client.plugins.playerscouter;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 
 @ConfigGroup("playerscouter")
 public interface PlayerScouterConfig extends Config
@@ -34,7 +35,8 @@ public interface PlayerScouterConfig extends Config
 		keyName = "webhook",
 		name = "Webhook Url",
 		description = "Input the url for your webhook.",
-		position = 0
+		position = 0,
+		secret = true
 	)
 	default String webhook()
 	{
@@ -53,10 +55,32 @@ public interface PlayerScouterConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "scoutClan",
+		name = "Scout Clan Members",
+		description = "Enable this to scout clan members.",
+		position = 2
+	)
+	default boolean scoutClan()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "scoutFriends",
+		name = "Scout Friends",
+		description = "Enable this to scout friends.",
+		position = 3
+	)
+	default boolean scoutFriends()
+	{
+		return true;
+	}
+
+	@ConfigItem(
 		keyName = "outputItems",
 		name = "Output Items",
 		description = "This will output all of their risked gear to the webhook.",
-		position = 2
+		position = 4
 	)
 	default boolean outputItems()
 	{
@@ -67,7 +91,7 @@ public interface PlayerScouterConfig extends Config
 		keyName = "minimumRisk",
 		name = "Minimum Risk",
 		description = "Minimum risk for the player to be scouted.",
-		position = 3
+		position = 5
 	)
 	default int minimumRisk()
 	{
@@ -78,18 +102,48 @@ public interface PlayerScouterConfig extends Config
 		keyName = "minimumValue",
 		name = "Minimum Value",
 		description = "Minimum value for the item to be posted on discord.",
-		position = 4
+		position = 6
 	)
 	default int minimumValue()
 	{
 		return 1000;
 	}
 
+	@Range(
+		min = 3,
+		max = 125
+	)
+	@ConfigItem(
+		keyName = "minimumCombat",
+		name = "Minimum Combat Level",
+		description = "The Minimum Combat Level you wish to scout.",
+		position = 7
+	)
+	default int minimumCombat()
+	{
+		return 3;
+	}
+
+	@Range(
+		min = 4,
+		max = 126
+	)
+	@ConfigItem(
+		keyName = "maximumCombat",
+		name = "Maximum Combat Level",
+		description = "The Maximum Combat Level you wish to scout.",
+		position = 8
+	)
+	default int maximumCombat()
+	{
+		return 126;
+	}
+
 	@ConfigItem(
 		keyName = "timeout",
 		name = "Timeout",
 		description = "Minimum amount of ticks before the player can be scouted again. (1 tick = 600ms)",
-		position = 5
+		position = 9
 	)
 	default int timeout()
 	{

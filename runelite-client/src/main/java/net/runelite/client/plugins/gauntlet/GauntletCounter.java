@@ -28,7 +28,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import lombok.extern.slf4j.Slf4j;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.CounterDisplay.NONE;
+import static net.runelite.client.plugins.gauntlet.GauntletConfig.CounterDisplay.ONBOSS;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -39,10 +40,8 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-@Slf4j
 public class GauntletCounter extends Overlay
 {
-	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 	private final GauntletPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
@@ -58,8 +57,12 @@ public class GauntletCounter extends Overlay
 	public Dimension render(Graphics2D graphics)
 	{
 		panelComponent.getChildren().clear();
+		final Hunllef hunllef = plugin.getHunllef();
 
-		if (plugin.getHunllef() == null || !plugin.isInRoom())
+		if (!plugin.fightingBoss() ||
+			hunllef == null ||
+			plugin.getCountAttacks() == NONE ||
+			plugin.getCountAttacks() == ONBOSS)
 		{
 			return null;
 		}
@@ -69,12 +72,13 @@ public class GauntletCounter extends Overlay
 			.color(Color.pink)
 			.build());
 
-		Color color = plugin.getPlayerAttacks() == 1 ? Color.RED : Color.WHITE;
-		final String pHits = ColorUtil.prependColorTag(Integer.toString(plugin.getPlayerAttacks()), color);
+
+		Color color = hunllef.getPlayerAttacks() == 1 ? Color.RED : Color.WHITE;
+		final String pHits = ColorUtil.prependColorTag(Integer.toString(hunllef.getPlayerAttacks()), color);
 
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
-		tableComponent.addRow("Hunllef Hits: ", Integer.toString(plugin.getAttacks()));
+		tableComponent.addRow("Hunllef Hits: ", Integer.toString(hunllef.getBossAttacks()));
 		tableComponent.addRow("Player Hits Left: ", pHits);
 		panelComponent.getChildren().add(tableComponent);
 		return panelComponent.render(graphics);

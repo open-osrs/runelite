@@ -498,13 +498,7 @@ public enum Varbits
 	 * 2 = lunars
 	 * 3 = arrceus
 	 **/
-	SPELLBOOK_ID(4070),
-
-	/**
-	 * 0 = no
-	 * 1 = yes
-	 **/
-	SPELLBOOK_HIDDEN(6718),
+	SPELLBOOK(4070),
 
 	/**
 	 * Amount of items in each bank tab
@@ -648,11 +642,6 @@ public enum Varbits
 	QUEST_IN_SEARCH_OF_KNOWLEDGE(6067),
 
 	/**
-	 * Active spellbook (see enumID)
-	 */
-	SPELLBOOK(4070),
-
-	/**
 	 * Spellbook filtering (1 = unfiltered, 0 = filtered)
 	 */
 	FILTER_SPELLBOOK(6718),
@@ -692,7 +681,12 @@ public enum Varbits
 	/**
 	 * 1 is true, 0 is false.
 	 */
-	GAUNTLET_FINAL_ROOM_ENTERED(9177);
+	GAUNTLET_FINAL_ROOM_ENTERED(9177),
+
+	/**
+	 * 1 is true, 0 is false.
+	 */
+	GAUNTLET_ENTERED(9178);
 
 	/**
 	 * The raw varbit ID.

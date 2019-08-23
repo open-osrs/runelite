@@ -61,7 +61,7 @@ public class MusicPatchPcmStream extends PcmStream {
 				var4 -= var7;
 				var1.field2444 += var6 * var7 - 1048576;
 				int var8 = CollisionMap.PcmPlayer_sampleRate / 100;
-				int var9 = 262144 / var6;
+				int var9 = 0x40000 / var6;
 				if (var9 < var8) {
 					var8 = var9;
 				}
@@ -214,11 +214,11 @@ public class MusicPatchPcmStream extends PcmStream {
 		if (var0.isMembersOnly() != Client.isMembersWorld) {
 			Client.isMembersWorld = var0.isMembersOnly();
 			boolean var1 = var0.isMembersOnly();
-			if (var1 != ModelData0.inMembersWorld) {
+			if (var1 != ModelData0.ItemDefinition_inMembersWorld) {
 				ItemDefinition.ItemDefinition_cached.clear();
 				ItemDefinition.ItemDefinition_cachedModels.clear();
 				ItemDefinition.ItemDefinition_cachedSprites.clear();
-				ModelData0.inMembersWorld = var1;
+				ModelData0.ItemDefinition_inMembersWorld = var1;
 			}
 		}
 

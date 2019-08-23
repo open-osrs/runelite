@@ -99,7 +99,8 @@ public class Interpreter {
 		signature = "(II)Z",
 		garbageValue = "1044045879"
 	)
-	static final boolean method1936(int var0) {
+	@Export("isRightClickOnlyMenu")
+	static final boolean isRightClickOnlyMenu(int var0) {
 		if (var0 < 0) {
 			return false;
 		}
@@ -129,7 +130,7 @@ public class Interpreter {
 				if (var7 > 2500) {
 					var4.method6146(var10 + var5.width / 2 - var4.width / 2, var5.height / 2 - var11 - var4.height / 2, var0, var1, var5.width, var5.height, var5.xStarts, var5.xWidths);
 				} else {
-					var4.drawAt2(var0 + var10 + var5.width / 2 - var4.width / 2, var5.height / 2 + var1 - var11 - var4.height / 2);
+					var4.drawTransBgAt(var0 + var10 + var5.width / 2 - var4.width / 2, var5.height / 2 + var1 - var11 - var4.height / 2);
 				}
 
 			}

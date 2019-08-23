@@ -153,18 +153,18 @@ public class class237 {
 
 		for (var10 = 0; var10 < var3.pixels.length; ++var10) {
 			if (var3.pixels[var10] == 0) {
-				var3.pixels[var10] = -16777216;
+				var3.pixels[var10] = 0xff000000;
 			} else {
 				var11 = (var3.pixels[var10] + 64 - 1) / 256;
 				if (var11 <= 0) {
-					var3.pixels[var10] = -16777216;
+					var3.pixels[var10] = 0xff000000;
 				} else {
 					if (var11 > field3189.length) {
 						var11 = field3189.length;
 					}
 
 					var12 = field3189[var11 - 1];
-					var3.pixels[var10] = -16777216 | var12;
+					var3.pixels[var10] = 0xff000000 | var12;
 				}
 			}
 		}
@@ -194,9 +194,7 @@ public class class237 {
 
 			for (int var8 = 0; var8 < var3.highY; ++var8) {
 				for (int var9 = 0; var9 < var3.highX; ++var9) {
-					int[] var10000 = var2.pixels;
-					int var10001 = var7++;
-					var10000[var10001] += var1.pixels[var6++];
+					var2.pixels[++var7] += var1.pixels[var6++];
 				}
 
 				var6 += var1.subWidth - var3.highX;

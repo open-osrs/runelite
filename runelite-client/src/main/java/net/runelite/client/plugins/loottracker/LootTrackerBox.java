@@ -28,6 +28,7 @@ package net.runelite.client.plugins.loottracker;
 import com.google.common.base.Strings;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.text.DateFormat;
@@ -62,6 +63,8 @@ class LootTrackerBox extends JPanel
 	private final JLabel priceLabel = new JLabel();
 	private final JLabel subTitleLabel = new JLabel();
 	private final JLabel dateLabel = new JLabel();
+	private final JPanel logTitle = new JPanel(new BorderLayout(5, 0));
+	private final JLabel titleLabel = new JLabel();
 	private final ItemManager itemManager;
 	@Getter(AccessLevel.PACKAGE)
 	private final String id;
@@ -92,17 +95,16 @@ class LootTrackerBox extends JPanel
 		setLayout(new BorderLayout(0, 1));
 		setBorder(new EmptyBorder(5, 0, 0, 0));
 
-		final JPanel logTitle = new JPanel(new BorderLayout(5, 0));
 		logTitle.setBorder(new EmptyBorder(7, 7, 7, 7));
 		logTitle.setBackground(ColorScheme.DARKER_GRAY_COLOR.darker());
 
-		final JLabel titleLabel = new JLabel(Text.removeTags(id));
-		titleLabel.setFont(FontManager.getSmallFont(getFont()));
+		titleLabel.setText(Text.removeTags(id));
+		titleLabel.setFont(FontManager.getRunescapeSmallFont());
 		titleLabel.setForeground(Color.WHITE);
 
 		logTitle.add(titleLabel, BorderLayout.WEST);
 
-		subTitleLabel.setFont(FontManager.getSmallFont(getFont()));
+		subTitleLabel.setFont(FontManager.getRunescapeSmallFont());
 		subTitleLabel.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		logTitle.add(subTitleLabel, BorderLayout.CENTER);
 
@@ -121,7 +123,7 @@ class LootTrackerBox extends JPanel
 			subTitleLabel.setText(subtitle);
 		}
 
-		priceLabel.setFont(FontManager.getSmallFont(getFont()));
+		priceLabel.setFont(FontManager.getRunescapeSmallFont());
 		priceLabel.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		logTitle.add(priceLabel, BorderLayout.EAST);
 
@@ -199,6 +201,39 @@ class LootTrackerBox extends JPanel
 
 		validate();
 		repaint();
+	}
+
+	void collapse()
+	{
+		if (!isCollapsed())
+		{
+			itemContainer.setVisible(false);
+			applyDimmer(false, logTitle);
+		}
+	}
+
+	void expand()
+	{
+		if (isCollapsed())
+		{
+			itemContainer.setVisible(true);
+			applyDimmer(true, logTitle);
+		}
+	}
+
+	boolean isCollapsed()
+	{
+		return !itemContainer.isVisible();
+	}
+
+	private void applyDimmer(boolean brighten, JPanel panel)
+	{
+		for (Component component : panel.getComponents())
+		{
+			Color color = component.getForeground();
+
+			component.setForeground(brighten ? color.brighter() : color.darker());
+		}
 	}
 
 	/**

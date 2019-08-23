@@ -45,7 +45,7 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuAction;
+import net.runelite.api.MenuOpcode;
 import static net.runelite.api.ObjectID.DEPLETED_VEIN_26665;
 import static net.runelite.api.ObjectID.DEPLETED_VEIN_26666;
 import static net.runelite.api.ObjectID.DEPLETED_VEIN_26667;
@@ -80,8 +80,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @Singleton
 public class MiningPlugin extends Plugin
 {
-	// private static final int ROCK_DISTANCE = 14;
 	private static final int MINING_GUILD_REGION = 12183;
+	private static final int ROCK_DISTANCE = 14;
 
 	private static final Pattern COAL_BAG_EMPTY_MESSAGE = Pattern.compile("^The coal bag is (now )?empty\\.$");
 	private static final Pattern COAL_BAG_ONE_MESSAGE = Pattern.compile("^The coal bag contains one piece of coal\\.$");
@@ -189,11 +189,12 @@ public class MiningPlugin extends Plugin
 		}
 
 		final GameObject object = event.getGameObject();
+		final int region = client.getLocalPlayer().getWorldLocation().getRegionID();
 
 		Rock rock = Rock.getRock(object.getId());
 		if (rock != null)
 		{
-			RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(inMiningGuild()).toMillis(), rock.getZOffset());
+			RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(region).toMillis(), rock.getZOffset());
 			respawns.add(rockRespawn);
 		}
 	}
@@ -206,13 +207,14 @@ public class MiningPlugin extends Plugin
 		}
 
 		final WallObject object = event.getWallObject();
+		final int region = client.getLocalPlayer().getWorldLocation().getRegionID();
 
 		switch (object.getId())
 		{
 			case EMPTY_WALL:
 			{
 				Rock rock = Rock.AMETHYST;
-				RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(inMiningGuild()).toMillis(), rock.getZOffset());
+				RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(region).toMillis(), rock.getZOffset());
 				respawns.add(rockRespawn);
 				break;
 			}
@@ -222,7 +224,7 @@ public class MiningPlugin extends Plugin
 			case DEPLETED_VEIN_26668: // Depleted motherlode vein
 			{
 				Rock rock = Rock.ORE_VEIN;
-				RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(inMiningGuild()).toMillis(), rock.getZOffset());
+				RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(region).toMillis(), rock.getZOffset());
 				respawns.add(rockRespawn);
 				break;
 			}
@@ -242,7 +244,7 @@ public class MiningPlugin extends Plugin
 	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		//TODO: should work hopefully
-		if (event.getMenuAction() != MenuAction.RUNELITE || event.getActionParam1() != WidgetInfo.INVENTORY.getId())
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE || event.getActionParam1() != WidgetInfo.INVENTORY.getId())
 		{
 			return;
 		}

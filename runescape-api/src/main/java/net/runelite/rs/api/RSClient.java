@@ -279,10 +279,10 @@ public interface RSClient extends RSGameShell, Client
 	@Override
 	int[] getPlayerMenuTypes();
 
-	@Import("MouseHandler_x0")
+	@Import("MouseHandler_xVolatile")
 	int getMouseX();
 
-	@Import("MouseHandler_y0")
+	@Import("MouseHandler_yVolatile")
 	int getMouseY();
 
 	@Import("Scene_selectedScreenX")
@@ -302,30 +302,31 @@ public interface RSClient extends RSGameShell, Client
 	int getMenuOptionCount();
 
 	@Import("menuOptionsCount")
+	@Override
 	void setMenuOptionCount(int menuOptionCount);
 
 	@Import("menuActions")
 	String[] getMenuOptions();
 
-	@Import("menuTargetNames")
+	@Import("menuTargets")
 	String[] getMenuTargets();
 
-	@Import("menuArguments0")
+	@Import("menuIdentifiers")
 	int[] getMenuIdentifiers();
 
 	@Import("menuOpcodes")
-	int[] getMenuTypes();
+	int[] getMenuOpcodes();
 
 	@Import("menuArguments1")
-	int[] getMenuActionParams0();
+	int[] getMenuArguments1();
 
 	@Import("menuArguments2")
-	int[] getMenuActionParams1();
+	int[] getMenuArguments2();
 
 	@Import("menuShiftClick")
 	boolean[] getMenuForceLeftClick();
 
-	@Import("worlds")
+	@Import("World_worlds")
 	@Override
 	RSWorld[] getWorldList();
 
@@ -383,7 +384,7 @@ public interface RSClient extends RSGameShell, Client
 	@Import("itemContainers")
 	RSNodeHashTable getItemContainers();
 
-	@Import("getItemDefinition")
+	@Import("ItemDefinition_get")
 	@Override
 	RSItemDefinition getItemDefinition(int itemId);
 
@@ -602,14 +603,11 @@ public interface RSClient extends RSGameShell, Client
 	@Import("Scene_isLowDetail")
 	void setSceneLowMemory(boolean lowMemory);
 
-	@Import("isStereo")
+	@Import("PcmPlayer_stereo")
 	void setAudioHighMemory(boolean highMemory);
 
 	@Import("ObjectDefinition_isLowDetail")
 	void setObjectDefinitionLowDetail(boolean lowDetail);
-
-	@Construct
-	RSTileItem createItem();
 
 	@Import("Interpreter_intStackSize")
 	@Override

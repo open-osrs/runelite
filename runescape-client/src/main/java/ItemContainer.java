@@ -38,7 +38,8 @@ public class ItemContainer extends Node {
 		signature = "(IB)Lic;",
 		garbageValue = "-70"
 	)
-	public static FloorUnderlayDefinition method1117(int var0) {
+	@Export("FloorUnderlayDefinition_get")
+	public static FloorUnderlayDefinition FloorUnderlayDefinition_get(int var0) {
 		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition)FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
@@ -60,6 +61,6 @@ public class ItemContainer extends Node {
 		garbageValue = "-1225456641"
 	)
 	static int method1116(int var0) {
-		return (int)Math.pow(2.0D, (double)((float)var0 / 256.0F + 7.0F));
+		return (int)Math.pow(2.0D, (double)(var0 / 256.0F + 7.0F));
 	}
 }

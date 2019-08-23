@@ -127,10 +127,10 @@ public final class WorldMapManager {
 			this.loaded = false;
 			this.loadStarted = true;
 			System.nanoTime();
-			int var4 = var1.getGroupId(WorldMapCacheName.field308.name);
+			int var4 = var1.getGroupId(WorldMapCacheName.DETAILS.name);
 			int var5 = var1.getFileId(var4, var2);
-			Buffer var6 = new Buffer(var1.takeFileByNames(WorldMapCacheName.field308.name, var2));
-			Buffer var7 = new Buffer(var1.takeFileByNames(WorldMapCacheName.field302.name, var2));
+			Buffer var6 = new Buffer(var1.takeFileByNames(WorldMapCacheName.DETAILS.name, var2));
+			Buffer var7 = new Buffer(var1.takeFileByNames(WorldMapCacheName.COMPOSITEMAP.name, var2));
 			System.nanoTime();
 			System.nanoTime();
 			this.mapAreaData = new WorldMapAreaData();
@@ -177,8 +177,8 @@ public final class WorldMapManager {
 
 			System.nanoTime();
 			System.nanoTime();
-			if (var1.isValidFileName(WorldMapCacheName.field303.name, var2)) {
-				byte[] var20 = var1.takeFileByNames(WorldMapCacheName.field303.name, var2);
+			if (var1.isValidFileName(WorldMapCacheName.COMPOSITETEXTURE.name, var2)) {
+				byte[] var20 = var1.takeFileByNames(WorldMapCacheName.COMPOSITETEXTURE.name, var2);
 				this.compositeTextureSprite = BuddyRankComparator.convertJpgToSprite(var20);
 			}
 
@@ -240,7 +240,7 @@ public final class WorldMapManager {
 
 		for (int var21 = var13.x; var21 < var13.x + var13.width; ++var21) {
 			for (int var22 = var13.y; var22 < var13.y + var13.height; ++var22) {
-				this.regions[var21][var22].method506(var5 + var18 * (this.regions[var21][var22].regionx * 64 - var19) / 64, var8 - var18 * (this.regions[var21][var22].regionY * 64 - var20 + 64) / 64, var18);
+				this.regions[var21][var22].method506(var5 + var18 * (this.regions[var21][var22].regionX * 64 - var19) / 64, var8 - var18 * (this.regions[var21][var22].regionY * 64 - var20 + 64) / 64, var18);
 			}
 		}
 
@@ -251,12 +251,13 @@ public final class WorldMapManager {
 		signature = "(IIIIIIIILjava/util/HashSet;Ljava/util/HashSet;IIZI)V",
 		garbageValue = "-855095363"
 	)
-	public final void method605(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, HashSet var9, HashSet var10, int var11, int var12, boolean var13) {
-		WorldMapRectangle var14 = this.createWorldMapRectangle(var1, var2, var3, var4);
-		float var15 = this.getPixelsPerTile(var7 - var5, var3 - var1);
+	@Export("drawElements")
+	public final void drawElements(int minTileX, int minTileY, int maxTileX, int maxTileY, int x, int y, int endX, int endY, HashSet var9, HashSet flashingElements, int flashCycle, int cyclesPerFlash, boolean var13) {
+		WorldMapRectangle var14 = this.createWorldMapRectangle(minTileX, minTileY, maxTileX, maxTileY);
+		float var15 = this.getPixelsPerTile(endX - x, maxTileX - minTileX);
 		int var16 = (int)(var15 * 64.0F);
-		int var17 = this.tileX * 4096 + var1;
-		int var18 = this.tileY * 4096 + var2;
+		int var17 = this.tileX * 4096 + minTileX;
+		int var18 = this.tileY * 4096 + minTileY;
 
 		int var19;
 		int var20;
@@ -266,14 +267,14 @@ public final class WorldMapManager {
 					this.regions[var19][var20].initWorldMapIcon1s();
 				}
 
-				this.regions[var19][var20].method432(var5 + var16 * (this.regions[var19][var20].regionx * 64 - var17) / 64, var8 - var16 * (this.regions[var19][var20].regionY * 64 - var18 + 64) / 64, var16, var9);
+				this.regions[var19][var20].method432(x + var16 * (this.regions[var19][var20].regionX * 64 - var17) / 64, endY - var16 * (this.regions[var19][var20].regionY * 64 - var18 + 64) / 64, var16, var9);
 			}
 		}
 
-		if (var10 != null && var11 > 0) {
+		if (flashingElements != null && flashCycle > 0) {
 			for (var19 = var14.x; var19 < var14.width + var14.x; ++var19) {
 				for (var20 = var14.y; var20 < var14.height + var14.y; ++var20) {
-					this.regions[var19][var20].method433(var10, var11, var12);
+					this.regions[var19][var20].flashElements(flashingElements, flashCycle, cyclesPerFlash);
 				}
 			}
 		}
@@ -288,7 +289,7 @@ public final class WorldMapManager {
 	@Export("drawOverview")
 	public void drawOverview(int var1, int var2, int var3, int var4, HashSet var5, int var6, int var7) {
 		if (this.compositeTextureSprite != null) {
-			this.compositeTextureSprite.method6125(var1, var2, var3, var4);
+			this.compositeTextureSprite.drawScaledAt(var1, var2, var3, var4);
 			if (var6 > 0 && var6 % var7 < var7 / 2) {
 				if (this.icons == null) {
 					this.buildIcons0();
@@ -313,7 +314,7 @@ public final class WorldMapManager {
 						AbstractWorldMapIcon var12 = (AbstractWorldMapIcon)var11.next();
 						int var13 = var3 * (var12.coord2.x - this.tileX * 4096) / (this.tileWidth * 64);
 						int var14 = var4 - (var12.coord2.y - this.tileY * 4096) * var4 / (this.tileHeight * 64);
-						Rasterizer2D.Rasterizer2D_drawCircleAlpha(var13 + var1, var14 + var2, 2, 16776960, 256);
+						Rasterizer2D.Rasterizer2D_drawCircleAlpha(var13 + var1, var14 + var2, 2, 0xffff00, 256);
 					}
 				}
 			}
@@ -325,20 +326,20 @@ public final class WorldMapManager {
 		signature = "(IIIIIIIIIII)Ljava/util/List;",
 		garbageValue = "286331893"
 	)
-	public List method607(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10) {
+	public List method607(int minTileX, int minTileY, int maxTileX, int maxTileY, int xOffset, int yOffset, int width, int height, int mouseX, int mouseY) {
 		LinkedList var11 = new LinkedList();
 		if (!this.loaded) {
 			return var11;
 		}
-		WorldMapRectangle var12 = this.createWorldMapRectangle(var1, var2, var3, var4);
-		float var13 = this.getPixelsPerTile(var7, var3 - var1);
+		WorldMapRectangle var12 = this.createWorldMapRectangle(minTileX, minTileY, maxTileX, maxTileY);
+		float var13 = this.getPixelsPerTile(width, maxTileX - minTileX);
 		int var14 = (int)(64.0F * var13);
-		int var15 = this.tileX * 4096 + var1;
-		int var16 = this.tileY * 4096 + var2;
+		int var15 = this.tileX * 4096 + minTileX;
+		int var16 = this.tileY * 4096 + minTileY;
 
 		for (int var17 = var12.x; var17 < var12.width + var12.x; ++var17) {
 			for (int var18 = var12.y; var18 < var12.y + var12.height; ++var18) {
-				List var19 = this.regions[var17][var18].method440(var5 + var14 * (this.regions[var17][var18].regionx * 64 - var15) / 64, var8 + var6 - var14 * (this.regions[var17][var18].regionY * 64 - var16 + 64) / 64, var14, var9, var10);
+				List var19 = this.regions[var17][var18].method440(xOffset + var14 * (this.regions[var17][var18].regionX * 64 - var15) / 64, height + yOffset - var14 * (this.regions[var17][var18].regionY * 64 - var16 + 64) / 64, var14, mouseX, mouseY);
 				if (!var19.isEmpty()) {
 					var11.addAll(var19);
 				}
@@ -488,7 +489,8 @@ public final class WorldMapManager {
 		signature = "(Ljava/lang/String;I)V",
 		garbageValue = "-1454512266"
 	)
-	static final void method633(String var0) {
+	@Export("FriendSystem_alreadyFriendMes")
+	static final void FriendSystem_alreadyFriendMes(String var0) {
 		StringBuilder var10000 = (new StringBuilder()).append(var0);
 		Object var10001 = null;
 		String var1 = var10000.append(" is already on your friend list").toString();
@@ -502,87 +504,90 @@ public final class WorldMapManager {
 	)
 	@Export("addPlayerToMenu")
 	static final void addPlayerToMenu(Player var0, int var1, int var2, int var3) {
-		if (Client.localPlayer != var0) {
-			if (Client.menuOptionsCount < 400) {
-				String var4;
-				int var7;
-				if (var0.skillLevel == 0) {
-					String var5 = var0.actions[0] + var0.username + var0.actions[1];
-					var7 = var0.combatLevel;
-					int var8 = Client.localPlayer.combatLevel;
-					int var9 = var8 - var7;
-					String var6;
-					if (var9 < -9) {
-						var6 = ClientPreferences.colorStartTag(16711680);
-					} else if (var9 < -6) {
-						var6 = ClientPreferences.colorStartTag(16723968);
-					} else if (var9 < -3) {
-						var6 = ClientPreferences.colorStartTag(16740352);
-					} else if (var9 < 0) {
-						var6 = ClientPreferences.colorStartTag(16756736);
-					} else if (var9 > 9) {
-						var6 = ClientPreferences.colorStartTag(65280);
-					} else if (var9 > 6) {
-						var6 = ClientPreferences.colorStartTag(4259584);
-					} else if (var9 > 3) {
-						var6 = ClientPreferences.colorStartTag(8453888);
-					} else if (var9 > 0) {
-						var6 = ClientPreferences.colorStartTag(12648192);
-					} else {
-						var6 = ClientPreferences.colorStartTag(16776960);
-					}
+		if (Client.localPlayer == var0) {
+			return;
+		}
+		if (Client.menuOptionsCount >= 400) {
+			return;
+		}
+		String var4;
+		int var7;
+		if (var0.skillLevel != 0) {
+			var4 = var0.actions[0] + var0.username + var0.actions[1] + " " + " (" + "skill-" + var0.skillLevel + ")" + var0.actions[2];
+		} else {
+			String var5 = var0.actions[0] + var0.username + var0.actions[1];
+			var7 = var0.combatLevel;
+			int var8 = Client.localPlayer.combatLevel;
+			int var9 = var8 - var7;
+			String var6;
+			if (var9 < -9) {
+				var6 = ClientPreferences.colorStartTag(0xff0000);
+			} else if (var9 < -6) {
+				var6 = ClientPreferences.colorStartTag(0xff3000);
+			} else if (var9 < -3) {
+				var6 = ClientPreferences.colorStartTag(0xff7000);
+			} else if (var9 < 0) {
+				var6 = ClientPreferences.colorStartTag(0xffb000);
+			} else if (var9 > 9) {
+				var6 = ClientPreferences.colorStartTag(0xff00);
+			} else if (var9 > 6) {
+				var6 = ClientPreferences.colorStartTag(0x40ff00);
+			} else if (var9 > 3) {
+				var6 = ClientPreferences.colorStartTag(0x80ff00);
+			} else if (var9 > 0) {
+				var6 = ClientPreferences.colorStartTag(0xc0ff00);
+			} else {
+				var6 = ClientPreferences.colorStartTag(0xffff00);
+			}
 
-					var4 = var5 + var6 + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
-				} else {
-					var4 = var0.actions[0] + var0.username + var0.actions[1] + " " + " (" + "skill-" + var0.skillLevel + ")" + var0.actions[2];
+			var4 = var5 + var6 + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
+		}
+
+		int var10;
+		if (Client.isItemSelected == 1) {
+			class188.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ClientPreferences.colorStartTag(0xffffff) + var4, 14, var1, var2, var3);
+		} else if (Client.isSpellSelected) {
+			if ((WorldMapCacheName.selectedSpellFlags & 8) == 8) {
+				class188.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ClientPreferences.colorStartTag(0xffffff) + var4, 15, var1, var2, var3);
+			}
+		} else {
+			for (var10 = 7; var10 >= 0; --var10) {
+				if (Client.playerMenuActions[var10] == null) {
+					continue;
 				}
-
-				int var10;
-				if (Client.isItemSelected == 1) {
-					class188.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ClientPreferences.colorStartTag(16777215) + var4, 14, var1, var2, var3);
-				} else if (Client.isSpellSelected) {
-					if ((WorldMapCacheName.selectedSpellFlags & 8) == 8) {
-						class188.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ClientPreferences.colorStartTag(16777215) + var4, 15, var1, var2, var3);
+				short var11 = 0;
+				if (Client.playerMenuActions[var10].equalsIgnoreCase("Attack")) {
+					if (Client.playerAttackOption == AttackOption.AttackOption_hidden) {
+						continue;
 					}
-				} else {
-					for (var10 = 7; var10 >= 0; --var10) {
-						if (Client.playerMenuActions[var10] != null) {
-							short var11 = 0;
-							if (Client.playerMenuActions[var10].equalsIgnoreCase("Attack")) {
-								if (Client.playerAttackOption == AttackOption.AttackOption_hidden) {
-									continue;
-								}
 
-								if (AttackOption.AttackOption_alwaysRightClick == Client.playerAttackOption || AttackOption.AttackOption_dependsOnCombatLevels == Client.playerAttackOption && var0.combatLevel > Client.localPlayer.combatLevel) {
-									var11 = 2000;
-								}
+					if (AttackOption.AttackOption_alwaysRightClick == Client.playerAttackOption || AttackOption.AttackOption_dependsOnCombatLevels == Client.playerAttackOption && var0.combatLevel > Client.localPlayer.combatLevel) {
+						var11 = 2000;
+					}
 
-								if (Client.localPlayer.team != 0 && var0.team != 0) {
-									if (var0.team == Client.localPlayer.team) {
-										var11 = 2000;
-									} else {
-										var11 = 0;
-									}
-								}
-							} else if (Client.playerOptionsPriorities[var10]) {
-								var11 = 2000;
-							}
-
-							boolean var12 = false;
-							var7 = Client.playerMenuOpcodes[var10] + var11;
-							class188.insertMenuItemNoShift(Client.playerMenuActions[var10], ClientPreferences.colorStartTag(16777215) + var4, var7, var1, var2, var3);
+					if (Client.localPlayer.team != 0 && var0.team != 0) {
+						if (var0.team == Client.localPlayer.team) {
+							var11 = 2000;
+						} else {
+							var11 = 0;
 						}
 					}
+				} else if (Client.playerOptionsPriorities[var10]) {
+					var11 = 2000;
 				}
 
-				for (var10 = 0; var10 < Client.menuOptionsCount; ++var10) {
-					if (Client.menuOpcodes[var10] == 23) {
-						Client.menuTargetNames[var10] = ClientPreferences.colorStartTag(16777215) + var4;
-						break;
-					}
-				}
-
+				boolean var12 = false;
+				var7 = Client.playerMenuOpcodes[var10] + var11;
+				class188.insertMenuItemNoShift(Client.playerMenuActions[var10], ClientPreferences.colorStartTag(0xffffff) + var4, var7, var1, var2, var3);
 			}
 		}
+
+		for (var10 = 0; var10 < Client.menuOptionsCount; ++var10) {
+			if (Client.menuOpcodes[var10] == 23) {
+				Client.menuTargets[var10] = ClientPreferences.colorStartTag(0xffffff) + var4;
+				break;
+			}
+		}
+
 	}
 }

@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.slayer;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import static java.util.Arrays.asList;
@@ -111,8 +112,6 @@ enum Task
 		asList("Night beast"), Collections.emptyList()),
 	DARK_WARRIORS("Dark warriors", ItemID.BLACK_MED_HELM),
 	DERANGED_ARCHAEOLOGIST("Deranged Archaeologist", ItemID.ARCHAEOLOGISTS_DIARY),
-	DESERT_LIZARDS("Desert lizards", ItemID.DESERT_LIZARD,
-		asList("Small lizard", "Lizard"), Collections.emptyList(), 4, ItemID.ICE_COOLER),
 	DOGS("Dogs", ItemID.GUARD_DOG, asList("Jackal"), Collections.emptyList()),
 	DRAKES("Drakes", ItemID.DRAKE),
 	DUST_DEVILS("Dust devils", ItemID.DUST_DEVIL,
@@ -173,6 +172,8 @@ enum Task
 	LESSER_DEMONS("Lesser demons", ItemID.LESSER_DEMON_MASK),
 	LIZARDMEN("Lizardmen", ItemID.LIZARDMAN_FANG,
 		asList("Lizardman"), Collections.emptyList()),
+	LIZARDS("Lizards", ItemID.DESERT_LIZARD,
+		asList("Desert lizard", "Sulphur lizard", "Small lizard", "Lizard"), Collections.emptyList(), 4, ItemID.ICE_COOLER),
 	MAGIC_AXES("Magic axes", ItemID.IRON_BATTLEAXE),
 	MAMMOTHS("Mammoths", ItemID.ATTACKER_HORN,
 		asList("Mammoth"), Collections.emptyList()),
@@ -202,6 +203,7 @@ enum Task
 	SCORPIA("Scorpia", ItemID.SCORPIAS_OFFSPRING),
 	SCORPIONS("Scorpions", ItemID.ENSOULED_SCORPION_HEAD,
 		asList("Scorpia"), Collections.emptyList()),
+	SARACHNIS("Sarachnis", ItemID.SRARACHA),
 	SEA_SNAKES("Sea snakes", ItemID.SNAKE_CORPSE),
 	SHADES("Shades", ItemID.SHADE_ROBE_TOP,
 		asList("Loar Shadow", "Loar Shade", "Phrin Shadow", "Phrin Shade", "Riyl Shadow", "Riyl Shade", "Asyn Shadow", "Asyn Shade", "Fiyr Shadow", "Fiyr Shade"), Collections.emptyList()),
@@ -242,6 +244,48 @@ enum Task
 	//</editor-fold>
 
 	private static final Map<String, Task> tasks;
+	static final List<String> LOCATIONS = ImmutableList.of(
+		"", // no location is a valid location
+		"Abyss",
+		"Ancient Cavern",
+		"Asgarnian Ice Dungeon",
+		"Brimhaven Dungeon",
+		"Brine Rat Cavern",
+		"Catacombs of Kourend",
+		"Chasm of Fire",
+		"Clan Wars",
+		"Death Plateau",
+		"Evil Chicken's Lair",
+		"Fossil Island",
+		"Fremennik Slayer Dungeon",
+		"God Wars Dungeon",
+		"Iorwerth Dungeon",
+		"Kalphite Lair",
+		"Karuulm Slayer Dungeon",
+		"Keldagrim",
+		"Kraken Cove",
+		"Lighthouse",
+		"Lithkren Vault",
+		"Lizardman Canyon",
+		"Lizardman Settlement",
+		"Molch",
+		"Mount Quidamortem",
+		"Mourner Tunnels",
+		"Ogre Enclave",
+		"Slayer Tower",
+		"Smoke Devil Dungeon",
+		"Smoke Dungeon",
+		"Stronghold of Security",
+		"Stronghold Slayer Dungeon",
+		"task-only Kalphite Cave",
+		"Taverley Dungeon",
+		"Troll Stronghold",
+		"Waterbirth Island",
+		"Waterfall Dungeon",
+		"Wilderness",
+		"Witchaven Dungeon",
+		"Zanaris"
+	);
 
 	private final String name;
 	private final int itemSpriteId;

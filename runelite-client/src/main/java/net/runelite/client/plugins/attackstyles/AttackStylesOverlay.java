@@ -29,7 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import static net.runelite.api.MenuAction.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.client.ui.overlay.Overlay;
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
@@ -60,7 +60,14 @@ class AttackStylesOverlay extends Overlay
 
 		if (warnedSkillSelected || plugin.isAlwaysShowStyle())
 		{
-			final String attackStyleString = plugin.getAttackStyle().getName();
+			final AttackStyle attackStyle = plugin.getAttackStyle();
+
+			if (attackStyle == null)
+			{
+				return null;
+			}
+
+			final String attackStyleString = attackStyle.getName();
 
 			panelComponent.getChildren().add(TitleComponent.builder()
 				.text(attackStyleString)
