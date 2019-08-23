@@ -45,8 +45,8 @@ public interface DropPartyConfig extends Config {
     )
     @ConfigItem(
             keyName = "showAmmount",
-            name = "Show number of tiles",
-            description = "marks the last number of tiles the player stood on",
+            name = "trail length",
+            description = "Shows the legnth of the droppers trail",
             position = 1
     )
     default int showAmmount() { return 10; }
