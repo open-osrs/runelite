@@ -101,7 +101,7 @@ public class DropPartyOverlay extends Overlay
 
 					Color color;
 					
-					Worldpoint currentTile = path.get(i);
+					WorldPoint currentTile = path.get(i);
 					path.remove(i);
 					
 					if (path.contains(currentTile))
