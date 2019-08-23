@@ -8,6 +8,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
+import net.runelite.client.config.Stub;
 
 @ConfigGroup("drop")
 public interface DropPartyConfig extends Config
