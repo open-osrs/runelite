@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.playerindicators;
 
-import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -41,7 +39,6 @@ import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.ClanMember;
 import net.runelite.api.ClanMemberRank;
-import static net.runelite.api.ClanMemberRank.FRIEND;
 import static net.runelite.api.ClanMemberRank.UNRANKED;
 import net.runelite.api.Client;
 import static net.runelite.api.MenuOpcode.FOLLOW;
@@ -64,8 +61,6 @@ import net.runelite.api.events.ClanMemberLeft;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.PlayerDespawned;
-import net.runelite.api.events.PlayerSpawned;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
@@ -83,8 +78,6 @@ import net.runelite.client.util.PvPUtil;
 @Singleton
 public class PlayerIndicatorsPlugin extends Plugin
 {
-	public static final ImmutableList RELAETIONSHIPS = ImmutableList.of("Self", "Friends", "Team", "Clan", "Targets",
-		"Other");
 
 	@Inject
 	private OverlayManager overlayManager;
