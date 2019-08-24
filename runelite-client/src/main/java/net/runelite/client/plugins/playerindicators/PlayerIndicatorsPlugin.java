@@ -395,19 +395,18 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	public boolean isCaller(Actor player)
 	{
-		/**
-		 if (callers != null)
-		 {
-		 for (String name : callers)
-		 {
-		 String finalName = name.toLowerCase().replace("_", " ");
-		 if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
-		 {
-		 return true;
-		 }
-		 }
-		 }
-		 **/
+		if (callers != null)
+		{
+			for (String name : callers)
+			{
+				String finalName = name.toLowerCase().replace("_", " ");
+				if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
+				{
+					return true;
+				}
+			}
+		}
+
 		return false;
 	}
 
