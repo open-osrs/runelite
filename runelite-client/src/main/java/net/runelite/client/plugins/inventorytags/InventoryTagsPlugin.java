@@ -115,6 +115,7 @@ public class InventoryTagsPlugin extends Plugin
 
 	private boolean editorMode;
 
+	private InventoryTagsConfig.amount amount;
 	private Color group1Color;
 	private Color group2Color;
 	private Color group3Color;
@@ -230,13 +231,15 @@ public class InventoryTagsPlugin extends Plugin
 				return;
 			}
 
-			MenuEntry[] menuList = new MenuEntry[GROUPS.size() + 1];
+			MenuEntry[] menuList = new MenuEntry[amount.toInt() + 1];
 			int num = 0;
 
 			// preserve the 'Cancel' option as the client will reuse the first entry for Cancel and only resets option/action
 			menuList[num++] = event.getMenuEntries()[0];
 
-			for (final String groupName : GROUPS)
+			List<String> groups = GROUPS.subList(Math.max(GROUPS.size() - amount.toInt(), 0), GROUPS.size());
+
+			for (final String groupName : groups)
 			{
 				final String group = getTag(itemId);
 				final MenuEntry newMenu = new MenuEntry();
@@ -316,6 +319,7 @@ public class InventoryTagsPlugin extends Plugin
 
 	private void updateConfig()
 	{
+		this.amount = config.getAmount();
 		this.group1Color = config.getGroup1Color();
 		this.group2Color = config.getGroup2Color();
 		this.group3Color = config.getGroup3Color();
