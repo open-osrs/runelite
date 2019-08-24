@@ -326,14 +326,26 @@ public class PlayerIndicatorsPlugin extends Plugin
 					color = relationColorHashMap.get(PlayerRelation.TARGET);
 				}
 			}
+			else if (this.highlightCallers && isCaller(player))
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CALLER)).contains(PlayerIndicationLocation.MENU))
+				{
+					color = relationColorHashMap.get(PlayerRelation.CALLER);
+				}
+			}
+			else if (this.highlightCallerTargets && isPile(player))
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CALLER_TARGET)).contains(PlayerIndicationLocation.MENU))
+				{
+					color = relationColorHashMap.get(PlayerRelation.CALLER_TARGET);
+				}
+			}
+
 			if (this.playerSkull && !player.isClanMember() && player.getSkullIcon() != null)
 			{
 				image2 = 35;
 			}
-//			if (this.colorPlayerMenu && this.highlightCallers && this.isCaller(player))
-//			{
-//				color = this.callerColor;
-//			}
+
 			if (image != -1 || color != null)
 			{
 				MenuEntry[] menuEntries = client.getMenuEntries();
@@ -393,6 +405,11 @@ public class PlayerIndicatorsPlugin extends Plugin
 		}
 	}
 
+	/**
+	 * Checks if a player is a caller
+	 * @param player The player to check
+	 * @return true if they are, false otherwise
+	 */
 	public boolean isCaller(Actor player)
 	{
 		if (callers != null)
@@ -407,6 +424,24 @@ public class PlayerIndicatorsPlugin extends Plugin
 			}
 		}
 
+		return false;
+	}
+
+	/**
+	 * Checks if a player is currently a target of any of the current callers
+	 * @param actor The player to check
+	 * @return true if they are a target, false otherwise
+	 */
+	public boolean isPile(Actor actor)
+	{
+		if (!(actor instanceof Player))
+		{
+			return false;
+		}
+		if (callerPiles.containsValue(actor))
+		{
+			return true;
+		}
 		return false;
 	}
 
@@ -464,6 +499,13 @@ public class PlayerIndicatorsPlugin extends Plugin
 			locationHashMap.put(PlayerRelation.CALLER, config.callerHighlightOptions().toArray());
 		}
 
+		this.highlightCallerTargets = config.callersTargets();
+		if (this.highlightCallerTargets)
+		{
+			relationColorHashMap.put(PlayerRelation.CALLER_TARGET, config.callerTargetColor());
+			locationHashMap.put(PlayerRelation.CALLER_TARGET, config.callerTargetHighlightOptions().toArray());
+		}
+
 		this.showClanRanks = config.showClanRanks();
 		this.showCombatLevel = config.showCombatLevel();
 		this.showAgilityLevel = config.showAgilityLevel();
@@ -475,9 +517,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.targetRisk = config.targetRisk();
 		this.useClanchatRanks = config.useClanchatRanks();
 		this.callerRank = config.callerRank();
-		this.configCallers = config.callers();
-		this.highlightCallerTargets = config.callersTargets();
-		this.callerTargetColor = config.callerTargetColor();
 		this.unchargedGlory = config.unchargedGlory();
 	}
 
@@ -489,7 +528,8 @@ public class PlayerIndicatorsPlugin extends Plugin
 		TEAM,
 		TARGET,
 		OTHER,
-		CALLER
+		CALLER,
+		CALLER_TARGET
 	}
 
 

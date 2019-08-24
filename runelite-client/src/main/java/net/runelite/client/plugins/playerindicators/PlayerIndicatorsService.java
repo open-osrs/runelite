@@ -48,6 +48,7 @@ public class PlayerIndicatorsService
 	public Predicate<Player> target;
 	public Predicate<Player> other;
 	public Predicate<Player> caller;
+	public Predicate<Player> callerTarget;
 
 
 
@@ -58,14 +59,15 @@ public class PlayerIndicatorsService
 		this.client = client;
 		this.plugin = plugin;
 
-		self = (player) -> client.getLocalPlayer().equals(player);
+		self = (player) -> Objects.equals(client.getLocalPlayer(), player);
 		friend = (player) -> client.isFriended(player.getName(), false);
 		clan = Player::isClanMember;
-		team = (player) -> (client.getLocalPlayer().getTeam() != 0 &&
+		team = (player) -> (Objects.requireNonNull(client.getLocalPlayer()).getTeam() != 0 &&
 			client.getLocalPlayer().getTeam() == player.getTeam());
 		target = (player) -> PvPUtil.isAttackable(client, player);
 		other = Objects::nonNull;
 		caller = plugin::isCaller;
+		callerTarget = plugin::isPile;
 	}
 
 
@@ -105,6 +107,11 @@ public class PlayerIndicatorsService
 		if (plugin.isHighlightOther())
 		{
 			playersStream.filter(caller).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER));
+		}
+		if (plugin.isHighlightCallerTargets())
+		{
+			playersStream.filter(callerTarget).forEach(p ->
+				consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER_TARGET));
 		}
 	}
 
