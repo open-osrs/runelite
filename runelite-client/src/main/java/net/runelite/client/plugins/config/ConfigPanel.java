@@ -43,7 +43,6 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumSet;
@@ -1068,13 +1067,15 @@ public class ConfigPanel extends PluginPanel
 						enumSet.forEach(anObject -> jList.setSelectedValue(anObject, true));
 					}
 					jList.setVisibleRowCount(displayRows);
+					jList.setPrototypeCellValue("XXXXXXXXXX");
 					jList.setCellRenderer(new ComboBoxListRenderer());
 					jList.setLayoutOrientation(JList.VERTICAL);
-					jList.setSelectionBackground(jList.getBackground().brighter().brighter());
+					jList.setSelectionBackground(Color.decode("708090"));
 					jList.addListSelectionListener(e ->
 						changeConfiguration(listItem, config, jList, cd, cid));
 					JScrollPane jScrollPane = new JScrollPane();
 					jScrollPane.setViewportView(jList);
+					jScrollPane.setViewportBorder(BorderFactory.createLoweredSoftBevelBorder());
 
 					item.add(jScrollPane, BorderLayout.SOUTH);
 

@@ -31,16 +31,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -51,7 +47,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -555,7 +550,6 @@ public class ConfigManager
 				String substring = str.substring(str.indexOf("{") + 1, str.length() - 1);
 				String[] splitStr = substring.split(", ");
 				final Class<? extends Enum> enumClass;
-				log.info("reading: {} ", str);
 				if (!str.contains("{"))
 				{
 					return null;
@@ -647,8 +641,6 @@ public class ConfigManager
 		}
 		if (object instanceof EnumSet)
 		{
-
-			log.info("saving {} ", ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + object.toString());
 			return ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + "{" + object.toString() + "}";
 		}
 		return object.toString();

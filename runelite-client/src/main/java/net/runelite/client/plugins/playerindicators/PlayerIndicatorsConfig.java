@@ -444,6 +444,20 @@ public interface PlayerIndicatorsConfig extends Config
 
 	@ConfigItem(
 		position = 32,
+		keyName = "callerHighlightOptions",
+		name = "Caller indication methods",
+		description = "Location(s) of the overlay",
+		group = "Callers",
+		displayRows = 3,
+		enumClass = PlayerIndicationLocation.class
+	)
+	default EnumSet<PlayerIndicationLocation> callerHighlightOptions()
+	{
+		return EnumSet.allOf(PlayerIndicationLocation.class);
+	}
+
+	@ConfigItem(
+		position = 33,
 		keyName = "callersTargets",
 		name = "Calllers' targets",
 		description = "Highlights the targets of callers",
@@ -455,7 +469,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 33,
+		position = 34,
 		keyName = "callerTargetColor",
 		name = "Callers' targets color",
 		description = "Color of the the targets of callers",
@@ -467,7 +481,7 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 34,
+		position = 35,
 		keyName = "callerTargetHighlightOptions",
 		name = "Pile indication methods",
 		description = "How to highlight the callers' target",
@@ -483,7 +497,7 @@ public interface PlayerIndicatorsConfig extends Config
 
 
 	@ConfigItem(
-		position = 35,
+		position = 36,
 		keyName = "unchargedGlory",
 		name = "Uncharged Glory Indication",
 		description = "Indicates if players have an uncharged glory"
