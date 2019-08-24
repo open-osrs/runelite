@@ -110,19 +110,26 @@ public class SulliuscepsPlugin extends Plugin
 
 	private void onVarbitChanged(VarbitChanged event)
 	{
-		if (!isInRegion())
+		if (isInRegion())
 		{
-			return;
+			client.clearHintArrow();
+			sulliuscepVarLocation = client.getVar(Varbits.SULLIUSCEP_LOCATION);
+			ItemContainer itemContainer = client.getItemContainer(InventoryID.INVENTORY);
+			if (itemContainer != null)
+			{
+				inventorySnapshot = HashMultiset.create();
+				Arrays.stream(itemContainer.getItems())
+						.filter(item -> FUNGI.contains(item.getId()))
+						.forEach(item -> inventorySnapshot.add(item.getId(), item.getQuantity()));
+			}
 		}
-		client.clearHintArrow();
-		sulliuscepVarLocation = client.getVar(Varbits.SULLIUSCEP_LOCATION);
 	}
 
 	private void onItemContainerChanged(ItemContainerChanged event)
 	{
 		final ItemContainer container = event.getItemContainer();
 
-		if (!isInRegion() || !shouldUpdateFungi || inventorySnapshot == null || container != client.getItemContainer(InventoryID.INVENTORY))
+		if (!isInRegion() || inventorySnapshot == null || container != client.getItemContainer(InventoryID.INVENTORY))
 		{
 			return;
 		}
@@ -137,7 +144,6 @@ public class SulliuscepsPlugin extends Plugin
 		delta.forEachEntry(session::updateFungiFound);
 
 		inventorySnapshot = null;
-		shouldUpdateFungi = false;
 	}
 
 	public boolean isInRegion()
@@ -151,13 +157,17 @@ public class SulliuscepsPlugin extends Plugin
 	{
 		switch (varbit)
 		{
-			case 1: return new WorldPoint(3678, 3733, 0);
-			case 2: return new WorldPoint(3683, 3775, 0);
-			case 3: return new WorldPoint(3663, 3781, 0);
-			case 4: return new WorldPoint(3663, 3802, 0);
-			case 5: return new WorldPoint(3678, 3806, 0);
+			case 1:
+				return new WorldPoint(3678, 3733, 0);
+			case 2:
+				return new WorldPoint(3683, 3775, 0);
+			case 3:
+				return new WorldPoint(3663, 3781, 0);
+			case 4:
+				return new WorldPoint(3663, 3802, 0);
+			case 5:
+				return new WorldPoint(3678, 3806, 0);
 			default:
-				// case 0 and fail safe: just point too first spawn.
 				return new WorldPoint(3683, 3758, 0);
 		}
 

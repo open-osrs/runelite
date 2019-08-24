@@ -35,6 +35,7 @@ public class SulliuscepSession
 				break;
 			default:
 				// Numulite, Clue Nests and various Fossils.
+				System.out.println("test: " + item);
 				break;
 		}
 	}
