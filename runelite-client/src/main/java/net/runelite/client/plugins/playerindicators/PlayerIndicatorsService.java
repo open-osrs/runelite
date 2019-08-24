@@ -60,7 +60,7 @@ public class PlayerIndicatorsService
 		this.plugin = plugin;
 
 		self = (player) -> Objects.equals(client.getLocalPlayer(), player);
-		friend = (player) -> client.isFriended(player.getName(), false);
+		friend = (player) -> (!player.equals(client.getLocalPlayer()) && client.isFriended(player.getName(), false));
 		clan = Player::isClanMember;
 		team = (player) -> (Objects.requireNonNull(client.getLocalPlayer()).getTeam() != 0 &&
 			client.getLocalPlayer().getTeam() == player.getTeam());
