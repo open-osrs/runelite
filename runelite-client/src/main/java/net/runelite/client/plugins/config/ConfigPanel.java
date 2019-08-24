@@ -80,6 +80,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicBorders;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
@@ -1067,13 +1068,15 @@ public class ConfigPanel extends PluginPanel
 						enumSet.forEach(anObject -> jList.setSelectedValue(anObject, true));
 					}
 					jList.setVisibleRowCount(displayRows);
+					jList.setPrototypeCellValue("XXXXXXXXXX");
 					jList.setCellRenderer(new ComboBoxListRenderer());
 					jList.setLayoutOrientation(JList.VERTICAL);
-					jList.setSelectionBackground(jList.getBackground().brighter().brighter());
+					jList.setSelectionBackground(Color.decode("708090"));
 					jList.addListSelectionListener(e ->
 						changeConfiguration(listItem, config, jList, cd, cid));
 					JScrollPane jScrollPane = new JScrollPane();
 					jScrollPane.setViewportView(jList);
+					jScrollPane.setViewportBorder(BorderFactory.createLoweredSoftBevelBorder());
 
 					item.add(jScrollPane, BorderLayout.SOUTH);
 

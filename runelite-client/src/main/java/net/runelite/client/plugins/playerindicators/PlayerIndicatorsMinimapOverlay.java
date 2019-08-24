@@ -31,11 +31,8 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.api.Client;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.SkullIcon;
@@ -46,7 +43,6 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.client.util.PvPUtil;
 
 @Singleton
 public class PlayerIndicatorsMinimapOverlay extends Overlay
@@ -57,8 +53,6 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay
 		"skull.png");
 
 	@Inject
-	private Client client;
-	@Inject
 	private PlayerIndicatorsMinimapOverlay(final PlayerIndicatorsPlugin plugin, final PlayerIndicatorsService playerIndicatorsService)
 	{
 		this.plugin = plugin;
@@ -68,60 +62,7 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay
 		setPriority(OverlayPriority.HIGH);
 	}
 
-	public Predicate<Player> friends = (player) -> client.isFriended(player.getName(), false);
-
-	public Predicate<Player> self = (player) -> client.getLocalPlayer().equals(player);
-
-	public Predicate<Player> clan = Player::isClanMember;
-
-	public Predicate<Player> team = (player) -> (client.getLocalPlayer().getTeam() != 0 &&
-		client.getLocalPlayer().getTeam() == player.getTeam());
-
-	public Predicate<Player> target = (player) -> PvPUtil.isAttackable(client, player);
-
-	public Predicate<Player> other = Objects::nonNull;
-
-
-	private void renderMinimapOverlay(Graphics2D graphics, Player actor)
-	{
-
-		if (this.self.test(actor))
-		{
-			drawMiniMapOverlays(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.SELF);
-			return;
-		}
-
-		if (this.friends.test(actor))
-		{
-			drawMiniMapOverlays(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.FRIEND);
-			return;
-		}
-
-		if (this.clan.test(actor))
-		{
-			drawMiniMapOverlays(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.CLAN);
-			return;
-		}
-
-		if (this.team.test(actor))
-		{
-			drawMiniMapOverlays(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.TEAM);
-			return;
-		}
-		if (this.target.test(actor))
-		{
-			drawMiniMapOverlays(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.TARGET);
-			return;
-		}
-		if (this.other.test(actor))
-		{
-			drawMiniMapOverlays(graphics, actor, PlayerIndicatorsPlugin.PlayerRelation.OTHER);
-		}
-	}
-
-
-
-	private void drawMiniMapOverlays(Graphics2D graphics, Player actor, PlayerIndicatorsPlugin.PlayerRelation relation)
+	private void renderMinimapOverlays(Graphics2D graphics, Player actor, PlayerIndicatorsPlugin.PlayerRelation relation)
 	{
 		final HashMap<PlayerIndicatorsPlugin.PlayerRelation, Object[]> locationHashMap = plugin.getLocationHashMap();
 		if (!locationHashMap.containsKey(relation))
@@ -180,7 +121,7 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		playerIndicatorsService.forEachPlayer((player, color) -> renderMinimapOverlay(graphics, player));
+		playerIndicatorsService.forEachPlayer((player, playerRelation) -> renderMinimapOverlays(graphics, player, playerRelation));
 		return null;
 	}
 }

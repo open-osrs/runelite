@@ -550,7 +550,6 @@ public class ConfigManager
 				String substring = str.substring(str.indexOf("{") + 1, str.length() - 1);
 				String[] splitStr = substring.split(", ");
 				final Class<? extends Enum> enumClass;
-				log.info("reading: {} ", str);
 				if (!str.contains("{"))
 				{
 					return null;
@@ -642,8 +641,6 @@ public class ConfigManager
 		}
 		if (object instanceof EnumSet)
 		{
-
-			log.info("saving {} ", ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + object.toString());
 			return ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + "{" + object.toString() + "}";
 		}
 		return object.toString();

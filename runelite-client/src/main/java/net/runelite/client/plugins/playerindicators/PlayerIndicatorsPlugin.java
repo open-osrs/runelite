@@ -41,20 +41,8 @@ import net.runelite.api.ClanMember;
 import net.runelite.api.ClanMemberRank;
 import static net.runelite.api.ClanMemberRank.UNRANKED;
 import net.runelite.api.Client;
-import static net.runelite.api.MenuOpcode.FOLLOW;
-import static net.runelite.api.MenuOpcode.ITEM_USE_ON_PLAYER;
-import static net.runelite.api.MenuOpcode.PLAYER_EIGTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_FIFTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_FIRST_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_FOURTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_SECOND_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_SEVENTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_SIXTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_THIRD_OPTION;
-import static net.runelite.api.MenuOpcode.RUNELITE;
-import static net.runelite.api.MenuOpcode.SPELL_CAST_ON_PLAYER;
-import static net.runelite.api.MenuOpcode.TRADE;
 import net.runelite.api.MenuEntry;
+import static net.runelite.api.MenuOpcode.*;
 import net.runelite.api.Player;
 import net.runelite.api.events.ClanMemberJoined;
 import net.runelite.api.events.ClanMemberLeft;
@@ -107,7 +95,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightClan;
 	@Getter(AccessLevel.PACKAGE)
-	private boolean highlightTeamMembers;
+	private boolean highlightTeam;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightOther;
 	@Getter(AccessLevel.PACKAGE)
@@ -149,7 +137,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private boolean unchargedGlory;
 	@Getter
-	private HashMap<String, Actor> callerPiles = new HashMap<String, Actor>();
+	private HashMap<String, Actor> callerPiles = new HashMap<>();
 	@Getter
 	private HashMap<PlayerRelation, Color> relationColorHashMap = new HashMap<>();
 
@@ -158,7 +146,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	@Getter
 	private ConcurrentHashMap<Player, PlayerRelation> colorizedMenus = new ConcurrentHashMap<>();
-
+	private List<String> callers = new ArrayList<>();
 
 	@Provides
 	PlayerIndicatorsConfig provideConfig(ConfigManager configManager)
@@ -172,7 +160,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 		updateConfig();
 		addSubscriptions();
-		
+
 		overlayManager.add(playerIndicatorsOverlay);
 		overlayManager.add(playerIndicatorsMinimapOverlay);
 		getCallerList();
@@ -195,8 +183,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
 		eventBus.subscribe(InteractingChanged.class, this, this::onInteractingChanged);
 	}
-
-	private List<String> callers = new ArrayList<>();
 
 	private void onInteractingChanged(InteractingChanged event)
 	{
@@ -241,7 +227,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 		}
 
 		updateConfig();
-		
+
 		if (this.configCallers != null && !this.configCallers.trim().equals(""))
 		{
 			getCallerList();
@@ -318,7 +304,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 					image = clanManager.getIconNumber(rank);
 				}
 			}
-			else if (this.highlightTeamMembers && player.getTeam() > 0 && localPlayer.getTeam() == player.getTeam())
+			else if (this.highlightTeam && player.getTeam() > 0 && (localPlayer != null ? localPlayer.getTeam() : -1) == player.getTeam())
 			{
 				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.TEAM)).contains(PlayerIndicationLocation.MENU))
 				{
@@ -410,18 +396,18 @@ public class PlayerIndicatorsPlugin extends Plugin
 	public boolean isCaller(Actor player)
 	{
 		/**
-		if (callers != null)
-		{
-			for (String name : callers)
-			{
-				String finalName = name.toLowerCase().replace("_", " ");
-				if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
-				{
-					return true;
-				}
-			}
-		}
-		**/
+		 if (callers != null)
+		 {
+		 for (String name : callers)
+		 {
+		 String finalName = name.toLowerCase().replace("_", " ");
+		 if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
+		 {
+		 return true;
+		 }
+		 }
+		 }
+		 **/
 		return false;
 	}
 
@@ -451,8 +437,8 @@ public class PlayerIndicatorsPlugin extends Plugin
 			locationHashMap.put(PlayerRelation.CLAN, config.clanIndicatorModes().toArray());
 		}
 
-		this.highlightTeamMembers = config.highlightTeamMembers();
-		if (this.highlightTeamMembers)
+		this.highlightTeam = config.highlightTeamMembers();
+		if (this.highlightTeam)
 		{
 			relationColorHashMap.put(PlayerRelation.TEAM, config.getTeamcolor());
 			locationHashMap.put(PlayerRelation.TEAM, config.teamIndicatorModes().toArray());
