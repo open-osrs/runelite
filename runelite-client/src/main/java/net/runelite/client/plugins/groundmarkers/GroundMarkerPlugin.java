@@ -144,6 +144,7 @@ public class GroundMarkerPlugin extends Plugin
 	{
 	}
 
+	private GroundMarkerConfig.amount amount;
 	@Getter(AccessLevel.PACKAGE)
 	private Color markerColor;
 	@Getter(AccessLevel.PACKAGE)
@@ -309,7 +310,7 @@ public class GroundMarkerPlugin extends Plugin
 		{
 			MenuEntry[] menuEntries = client.getMenuEntries();
 			int lastIndex = menuEntries.length;
-			menuEntries = Arrays.copyOf(menuEntries, lastIndex + 8);
+			menuEntries = Arrays.copyOf(menuEntries, lastIndex + this.amount.toInt());
 
 			final Tile tile = client.getSelectedSceneTile();
 			if (tile == null)
@@ -319,7 +320,7 @@ public class GroundMarkerPlugin extends Plugin
 			final WorldPoint loc = WorldPoint.fromLocalInstance(client, tile.getLocalLocation());
 			final int regionId = loc.getRegionID();
 
-			for (int i = 8; i > 0; i--)
+			for (int i = this.amount.toInt(); i > 0; i--)
 			{
 				MenuEntry menuEntry = menuEntries[lastIndex] = new MenuEntry();
 
@@ -465,6 +466,7 @@ public class GroundMarkerPlugin extends Plugin
 
 	private void updateConfig()
 	{
+		this.amount = config.getAmount();
 		this.markerColor = config.markerColor();
 		this.markerColor2 = config.markerColor2();
 		this.markerColor3 = config.markerColor3();
