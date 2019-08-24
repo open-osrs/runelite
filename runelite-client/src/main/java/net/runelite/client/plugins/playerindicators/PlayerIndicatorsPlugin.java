@@ -381,6 +381,10 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	private void getCallerList()
 	{
+		if (!this.highlightCallers)
+		{
+			return;
+		}
 		callers.clear();
 		if (this.useClanchatRanks && client.getClanMembers() != null)
 		{

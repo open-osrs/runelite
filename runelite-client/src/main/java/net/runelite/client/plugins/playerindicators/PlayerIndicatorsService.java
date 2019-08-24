@@ -79,38 +79,37 @@ public class PlayerIndicatorsService
 		}
 
 		final List<Player> players = client.getPlayers();
-		Stream<Player> playersStream = players.stream();
 		if (plugin.isHighlightOwnPlayer())
 		{
-			playersStream.filter(self).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.SELF));
+			players.stream().filter(self).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.SELF));
 		}
 		if (plugin.isHighlightFriends())
 		{
-			playersStream.filter(friend).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.FRIEND));
+			players.stream().filter(friend).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.FRIEND));
 		}
 		if (plugin.isHighlightClan())
 		{
-			playersStream.filter(clan).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CLAN));
+			players.stream().filter(clan).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CLAN));
 		}
 		if (plugin.isHighlightTeam())
 		{
-			playersStream.filter(team).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TEAM));
+			players.stream().filter(team).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TEAM));
 		}
 		if (plugin.isHighlightTargets())
 		{
-			playersStream.filter(target).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TARGET));
+			players.stream().filter(target).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TARGET));
 		}
 		if (plugin.isHighlightOther())
 		{
-			playersStream.filter(other).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.OTHER));
+			players.stream().filter(other).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.OTHER));
 		}
 		if (plugin.isHighlightOther())
 		{
-			playersStream.filter(caller).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER));
+			players.stream().filter(caller).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER));
 		}
 		if (plugin.isHighlightCallerTargets())
 		{
-			playersStream.filter(callerTarget).forEach(p ->
+			players.stream().filter(callerTarget).forEach(p ->
 				consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER_TARGET));
 		}
 	}
