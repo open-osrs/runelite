@@ -47,6 +47,7 @@ public class PlayerIndicatorsService
 	public Predicate<Player> team;
 	public Predicate<Player> target;
 	public Predicate<Player> other;
+	public Predicate<Player> caller;
 
 
 
@@ -64,6 +65,7 @@ public class PlayerIndicatorsService
 			client.getLocalPlayer().getTeam() == player.getTeam());
 		target = (player) -> PvPUtil.isAttackable(client, player);
 		other = Objects::nonNull;
+		caller = plugin::isCaller;
 	}
 
 
@@ -99,6 +101,10 @@ public class PlayerIndicatorsService
 		if (plugin.isHighlightOther())
 		{
 			playersStream.filter(other).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.OTHER));
+		}
+		if (plugin.isHighlightOther())
+		{
+			playersStream.filter(caller).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER));
 		}
 	}
 

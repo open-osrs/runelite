@@ -457,6 +457,13 @@ public class PlayerIndicatorsPlugin extends Plugin
 			locationHashMap.put(PlayerRelation.TARGET, config.targetsIndicatorModes().toArray());
 		}
 
+		this.highlightCallers = config.highlightCallers();
+		if (this.highlightCallers)
+		{
+			relationColorHashMap.put(PlayerRelation.CALLER, config.callerColor());
+			locationHashMap.put(PlayerRelation.CALLER, config.callerHighlightOptions().toArray());
+		}
+
 		this.showClanRanks = config.showClanRanks();
 		this.showCombatLevel = config.showCombatLevel();
 		this.showAgilityLevel = config.showAgilityLevel();
@@ -469,8 +476,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.useClanchatRanks = config.useClanchatRanks();
 		this.callerRank = config.callerRank();
 		this.configCallers = config.callers();
-		this.highlightCallers = config.highlightCallers();
-		this.callerColor = config.callerColor();
 		this.highlightCallerTargets = config.callersTargets();
 		this.callerTargetColor = config.callerTargetColor();
 		this.unchargedGlory = config.unchargedGlory();
