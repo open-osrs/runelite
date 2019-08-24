@@ -81,8 +81,8 @@ public class MenuEntry
 		this.target = target;
 		this.identifier = identifier;
 		this.opcode = opcode;
-		this.param0 = param0;
-		this.param1 = param1;
+		this.actionParam0 = param0;
+		this.actionParam1 = param1;
 		this.forceLeftClick = forceLeftClick;
 	}
 

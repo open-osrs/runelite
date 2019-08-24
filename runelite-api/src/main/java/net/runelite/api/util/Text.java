@@ -84,18 +84,28 @@ public class Text
 	 */
 	public static String removeTags(String str, boolean removeLevels)
 	{
+		int strLen = str.length();
+		if (removeLevels)
+		{
+			int levelIdx =  StringUtils.lastIndexOf(str, "  (level");
+			if (levelIdx >= 0)
+			{
+				strLen = levelIdx;
+			}
+		}
+
 		int open, close;
 		if ((open = StringUtils.indexOf(str, '<')) == -1
 			|| (close = StringUtils.indexOf(str, '>', open)) == -1)
 		{
-			return str;
+			return strLen == str.length() ? str : str.substring(0, strLen - 1);
 		}
 
 		// If the string starts with a < we can maybe take a shortcut if this
 		// is the only tag in the string (take the substring after it)
 		if (open == 0)
 		{
-			if ((open = close + 1) >= str.length())
+			if ((open = close + 1) >= strLen)
 			{
 				return "";
 			}
@@ -112,7 +122,7 @@ public class Text
 		}
 
 		SB.setLength(0);
-		int i = 0, strLen = str.length();
+		int i = 0;
 		do
 		{
 			while (open != i)
@@ -146,9 +156,14 @@ public class Text
 	 * @param str The string to standardize
 	 * @return The given `str` that is standardized
 	 */
-	public static String standardize(String str)
+	public static String standardize(String str, boolean removeLevel)
 	{
 		return removeTags(str).replace('\u00A0', ' ').trim().toLowerCase();
+	}
+
+	public static String standardize(String str)
+	{
+		return standardize(str, false);
 	}
 
 	/**

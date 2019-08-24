@@ -32,10 +32,11 @@ import net.runelite.api.MenuOpcode;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.KeyManager;
-import net.runelite.client.menus.AbstractComparableEntry;
+import net.runelite.api.menus.comparables.AbstractComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -78,6 +79,14 @@ public class ShiftWalkerPlugin extends Plugin
 		}
 
 		@Override
+		public boolean matches(DirectMenuEntryElement entry)
+		{
+			return
+				entry.getOpcode() == MenuOpcode.WALK.getId() ||
+				entry.getOpcode() == MenuOpcode.WALK.getId() + MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
+		}
+
+		@Override
 		public boolean matches(MenuEntry entry)
 		{
 			return
@@ -106,6 +115,20 @@ public class ShiftWalkerPlugin extends Plugin
 		public int getPriority()
 		{
 			return 100;
+		}
+
+		@Override
+		public boolean matches(DirectMenuEntryElement entry)
+		{
+			int opcode = entry.getOpcode();
+			if (opcode > MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET)
+			{
+				opcode -= MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
+			}
+
+			return
+				opcode >= MenuOpcode.GROUND_ITEM_FIRST_OPTION.getId() &&
+					opcode <= MenuOpcode.GROUND_ITEM_FIFTH_OPTION.getId();
 		}
 
 		@Override
