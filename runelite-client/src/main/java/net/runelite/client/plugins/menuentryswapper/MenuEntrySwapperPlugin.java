@@ -288,7 +288,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapTravel;
 	private boolean swapWildernessLever;
 	private Keybind hotkeyMod;
-	private Keybind ctrl = Keybind.CTRL;
 
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
@@ -306,7 +305,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		loadConstructionItems();
 		loadCustomSwaps(config.customSwaps(), customSwaps);
 		keyManager.registerKeyListener(ctrlHotkey);
-		keyManager.registerKeyListener(shiftHotkey);
+		keyManager.registerKeyListener(hotkey);
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			setCastOptions(true);
@@ -321,7 +320,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		loadCustomSwaps("", customSwaps); // Removes all custom swaps
 		removeSwaps();
 		keyManager.unregisterKeyListener(ctrlHotkey);
-		keyManager.unregisterKeyListener(shiftHotkey);
+		keyManager.unregisterKeyListener(hotkey);
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			resetCastOptions();
@@ -1773,7 +1772,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		);
 	}
 
-	private final HotkeyListener shiftHotkey = new HotkeyListener(() -> this.hotkeyMod)
+	private final HotkeyListener hotkey = new HotkeyListener(() -> this.hotkeyMod)
 	{
 		@Override
 		public void hotkeyPressed()
@@ -1788,7 +1787,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	};
 
-	private final HotkeyListener ctrlHotkey = new HotkeyListener(() -> this.ctrl)
+	private final HotkeyListener ctrlHotkey = new HotkeyListener(() -> Keybind.CTRL)
 	{
 		@Override
 		public void hotkeyPressed()

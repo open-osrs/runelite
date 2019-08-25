@@ -354,7 +354,8 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "hotkeyMod",
 		name = "Hotkey for Swaps",
 		description = "Set this hotkey to do custom swaps on hotkeys.",
-		position = 0
+		position = 0,
+		group = "Miscellaneous"
 	)
 	default Keybind hotkeyMod()
 	{
@@ -366,7 +367,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Custom Swaps",
 		description = "Add custom swaps here, 1 per line. Syntax: option,target:priority" +
 			"<br>Note that the higher your set the priority, the more it will overtake over swaps.",
-		position = 0,
+		position = 1,
 		group = "Miscellaneous",
 		parse = true,
 		clazz = CustomSwapParse.class,
@@ -383,7 +384,7 @@ public interface MenuEntrySwapperConfig extends Config
 		description = "Add custom swaps here that will only be activated when you press your hotkey." +
 			"<br>1 per line. Syntax: option,target:priority" +
 			"<br>Note that the higher your set the priority, the more it will overtake over swaps.",
-		position = 1,
+		position = 2,
 		group = "Miscellaneous",
 		parse = true,
 		clazz = CustomSwapParse.class,
