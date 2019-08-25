@@ -73,7 +73,7 @@ public class DropPartyOverlay extends Overlay
 		}
 		Final List<WorldPoint> path = plugin.getPlayerPath();
 
-		List<WorldPoint> markedTiles = new ArrayList<>();
+		Final List<WorldPoint> markedTiles = new ArrayList<>();
 
 		for (int i = 0; i < path.size(); i++)
 		{
