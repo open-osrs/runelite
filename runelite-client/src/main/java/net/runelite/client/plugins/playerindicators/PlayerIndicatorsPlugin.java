@@ -499,6 +499,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.highlightCallers = config.highlightCallers();
 		if (this.highlightCallers)
 		{
+			this.configCallers = config.callers();
 			relationColorHashMap.put(PlayerRelation.CALLER, config.callerColor());
 			locationHashMap.put(PlayerRelation.CALLER, config.callerHighlightOptions().toArray());
 		}
