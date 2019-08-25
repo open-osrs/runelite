@@ -191,8 +191,8 @@ public class TMorph extends Plugin
 		}
 
 		final Map<String, String> set1 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(this.set1);
-		final Map<String, String> set2 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(this.set1);
-		final Map<String, String> set3 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(this.set1);
+		final Map<String, String> set2 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(this.set2);
+		final Map<String, String> set3 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(this.set3);
 
 		updateGear(set1, player);
 		updateGear(set2, player);
