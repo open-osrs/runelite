@@ -736,12 +736,19 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void addSwaps()
 	{
-		final Map<String, String> tmp = NEWLINE_SPLITTER.withKeyValueSeparator(',').split(config.prioEntry());
+		final List<String> tmp = NEWLINE_SPLITTER.splitToList(config.prioEntry());
 
-		for (Map.Entry<String, String> str : tmp.entrySet())
+		for (String str : tmp)
 		{
-			final AbstractComparableEntry a = newBaseComparableEntry("", str.getValue(), -1, -1, false, true);
-			final AbstractComparableEntry b = newBaseComparableEntry(str.getKey(), "", -1, -1, false, false);
+			String[] strings = str.split(",");
+
+			if (strings.length <= 1)
+			{
+				continue;
+			}
+
+			final AbstractComparableEntry a = newBaseComparableEntry("", strings[1], -1, -1, false, true);
+			final AbstractComparableEntry b = newBaseComparableEntry(strings[0], "", -1, -1, false, false);
 			dePrioSwaps.put(a, b);
 			menuManager.addSwap(a, b);
 		}
