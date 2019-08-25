@@ -65,16 +65,16 @@ public class DropPartyPlugin extends Plugin
 	@Inject
 	public DropPartyConfig config;
 	@Getter(AccessLevel.PACKAGE)
-	List<WorldPoint> playerPath = new ArrayList<>();
+	private List<WorldPoint> playerPath = new ArrayList<>();
 	@Getter(AccessLevel.PACKAGE)
-	String playerName = "";
+	private String playerName = "";
 	@Getter(AccessLevel.PACKAGE)
-	int showAmmount = 0;
+	private int showAmmount = 0;
 	@Getter(AccessLevel.PACKAGE)
 	int MAXPATHSIZE = 100;
-	Player runningPlayer;
+	private Player runningPlayer;
 	@Getter(AccessLevel.PACKAGE)
-	Color overlayColor;
+	private Color overlayColor;
 
 	@Inject
 	private Notifier notifier;
@@ -124,7 +124,7 @@ public class DropPartyPlugin extends Plugin
 	private void onGameTick(GameTick event)
 	{
 		shuffleList();
-		if (playerName.equalsIgnoreCase("") || playerName == null)
+		if (playerName.equalsIgnoreCase(""))
 		{
 			return;
 		}
@@ -133,13 +133,14 @@ public class DropPartyPlugin extends Plugin
 
 		for (Player player : client.getPlayers())
 		{
-			if (player.getName() != null)
+			if (player.getName() == null)
 			{
-				if (player.getName().equalsIgnoreCase(playerName))
-				{
-					runningPlayer = player;
-					break;
-				}
+				continue;
+			}
+			if (player.getName().equalsIgnoreCase(playerName))
+			{
+				runningPlayer = player;
+				break;
 			}
 
 		}
