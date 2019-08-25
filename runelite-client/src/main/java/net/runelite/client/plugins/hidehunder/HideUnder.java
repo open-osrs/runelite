@@ -45,7 +45,8 @@ import net.runelite.client.plugins.PluginType;
 	name = "Hide Under",
 	description = "Hide local player when under targeted players",
 	tags = {"hide", "local", "player", "under"},
-	type = PluginType.PVP
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 @Slf4j
 public class HideUnder extends Plugin
