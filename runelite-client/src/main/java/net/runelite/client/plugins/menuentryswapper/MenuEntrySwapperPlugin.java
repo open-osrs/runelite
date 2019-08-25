@@ -44,6 +44,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.AccessLevel;
+import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
@@ -119,8 +121,10 @@ import org.apache.commons.lang3.ArrayUtils;
 public class MenuEntrySwapperPlugin extends Plugin
 {
 	private static final String CONFIG_GROUP = "shiftclick";
-	private static final String SHIFT = "menuentryswapper shift";
+	private static final String HOTKEY = "menuentryswapper hotkey";
 	private static final String CONTROL = "menuentryswapper control";
+	private static final String HOTKEY_CHECK = "menuentryswapper hotkey check";
+	private static final String CONTROL_CHECK = "menuentryswapper control check";
 	private static final int PURO_PURO_REGION_ID = 10307;
 	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
 		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
@@ -159,6 +163,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
 	private boolean inCoxRaid = false;
+	@Setter(AccessLevel.PRIVATE)
+	private boolean hotkeyActive;
+	@Setter(AccessLevel.PRIVATE)
+	private boolean controlActive;
 	private final Map<AbstractComparableEntry, Integer> customSwaps = new HashMap<>();
 	private final Map<AbstractComparableEntry, Integer> customShiftSwaps = new HashMap<>();
 	private final Map<AbstractComparableEntry, AbstractComparableEntry> dePrioSwaps = new HashMap<>();
@@ -1452,7 +1460,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void startHotkey()
 	{
-		eventBus.subscribe(ClientTick.class, SHIFT, this::addHotkey);
+		eventBus.subscribe(ClientTick.class, HOTKEY, this::addHotkey);
+		eventBus.subscribe(ClientTick.class, HOTKEY_CHECK, this::hotkeyCheck);
 	}
 
 	private void addHotkey(ClientTick event)
@@ -1464,19 +1473,40 @@ public class MenuEntrySwapperPlugin extends Plugin
 			menuManager.addPriorityEntry("climb-up").setPriority(100);
 		}
 
-		eventBus.unregister(SHIFT);
+		eventBus.unregister(HOTKEY);
 	}
 
 	private void stopHotkey()
 	{
-		eventBus.subscribe(ClientTick.class, SHIFT, this::removeHotkey);
+		eventBus.subscribe(ClientTick.class, HOTKEY, this::removeHotkey);
 	}
 
 	private void removeHotkey(ClientTick event)
 	{
 		menuManager.removePriorityEntry("climb-up");
 		loadCustomSwaps("", customShiftSwaps);
-		eventBus.unregister(SHIFT);
+		eventBus.unregister(HOTKEY);
+	}
+
+	private void hotkeyCheck(ClientTick event)
+	{
+		if (hotkeyActive)
+		{
+			int i = 0;
+			for (boolean bol : client.getPressedKeys())
+			{
+				if (bol)
+				{
+					i++;
+				}
+			}
+			if (i == 0)
+			{
+				stopHotkey();
+				setHotkeyActive(false);
+				eventBus.unregister(HOTKEY_CHECK);
+			}
+		}
 	}
 
 	private void startControl()
@@ -1487,6 +1517,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 
 		eventBus.subscribe(ClientTick.class, CONTROL, this::addControl);
+		eventBus.subscribe(ClientTick.class, CONTROL_CHECK, this::controlCheck);
 	}
 
 	private void addControl(ClientTick event)
@@ -1497,13 +1528,34 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void stopControl()
 	{
-		eventBus.subscribe(ClientTick.class, CONTROL, this::remove);
+		eventBus.subscribe(ClientTick.class, CONTROL, this::removeControl);
 	}
 
-	private void remove(ClientTick event)
+	private void removeControl(ClientTick event)
 	{
 		menuManager.removePriorityEntry("climb-down");
 		eventBus.unregister(CONTROL);
+	}
+
+	private void controlCheck(ClientTick event)
+	{
+		if (controlActive)
+		{
+			int i = 0;
+			for (boolean bol : client.getPressedKeys())
+			{
+				if (bol)
+				{
+					i++;
+				}
+			}
+			if (i == 0)
+			{
+				stopControl();
+				setControlActive(false);
+				eventBus.unregister(CONTROL_CHECK);
+			}
+		}
 	}
 
 	private void setCastOptions(boolean force)
@@ -1778,12 +1830,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 		public void hotkeyPressed()
 		{
 			startHotkey();
+			setHotkeyActive(true);
 		}
 
 		@Override
 		public void hotkeyReleased()
 		{
 			stopHotkey();
+			setHotkeyActive(false);
 		}
 	};
 
@@ -1793,12 +1847,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 		public void hotkeyPressed()
 		{
 			startControl();
+			setControlActive(true);
 		}
 
 		@Override
 		public void hotkeyReleased()
 		{
 			stopControl();
+			setControlActive(false);
 		}
 	};
 }
