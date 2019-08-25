@@ -30,6 +30,7 @@ import net.runelite.api.ClanMemberRank;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Stub;
 
 @ConfigGroup("playerindicators")
 public interface PlayerIndicatorsConfig extends Config
@@ -374,7 +375,8 @@ public interface PlayerIndicatorsConfig extends Config
 		position = 11,
 		keyName = "playerNamePosition",
 		name = "Name position",
-		description = "Configures the position of drawn player names, or if they should be disabled"
+		description = "Configures the position of drawn player names, or if they should be disabled",
+		parent = "Other Settings"
 	)
 	default PlayerNameLocation playerNamePosition()
 	{
@@ -382,40 +384,15 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 27,
-		keyName = "useClanchatRanks",
-		name = "Use Ranks as Callers",
-		description = "Uses clanchat ranks as the list of callers",
+		position = 5,
+		keyName = "callerConfiguration",
+		name = "Caller Configuration",
+		description = "",
 		group = "Callers"
 	)
-	default boolean useClanchatRanks()
+	default Stub callerConfiguration()
 	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 28,
-		keyName = "callerRank",
-		name = "Minimum rank for Clan Caller",
-		description = "Chooses the minimum rank to use as clanchat callers.",
-		group = "Callers"
-	)
-	default ClanMemberRank callerRank()
-	{
-		return ClanMemberRank.CAPTAIN;
-	}
-
-	@ConfigItem(
-		position = 29,
-		keyName = "callers",
-		name = "List of callers to highlight",
-		description = "Highlights callers, only highlights one at a time. Separate each entry with a comma and enter" +
-			" in the order you want them highlighted.",
-		group = "Callers"
-	)
-	default String callers()
-	{
-		return " ";
+		return new Stub();
 	}
 
 	@ConfigItem(
@@ -423,7 +400,8 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "highlightCallers",
 		name = "Highlight Callers",
 		description = "Highlights Callers Onscreen",
-		group = "Callers"
+		group = "Callers",
+		parent = "callerConfiguration"
 	)
 	default boolean highlightCallers()
 	{
@@ -432,10 +410,63 @@ public interface PlayerIndicatorsConfig extends Config
 
 	@ConfigItem(
 		position = 31,
+		keyName = "useClanchatRanks",
+		name = "Use Ranks as Callers",
+		description = "Uses clanchat ranks as the list of callers",
+		group = "Callers",
+		parent = "callerConfiguration"
+	)
+	default boolean useClanchatRanks()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 32,
+		keyName = "callerRank",
+		name = "Minimum rank for Clan Caller",
+		description = "Chooses the minimum rank to use as clanchat callers.",
+		group = "Callers",
+		parent = "callerConfiguration"
+	)
+	default ClanMemberRank callerRank()
+	{
+		return ClanMemberRank.CAPTAIN;
+	}
+
+	@ConfigItem(
+		position = 33,
+		keyName = "callers",
+		name = "List of callers to highlight",
+		description = "Highlights callers, only highlights one at a time. Separate each entry with a comma and enter" +
+			" in the order you want them highlighted.",
+		group = "Callers",
+		parent = "callerConfiguration"
+	)
+	default String callers()
+	{
+		return " ";
+	}
+
+	@ConfigItem(
+		position = 5,
+		keyName = "callerIndicators",
+		name = "Caller Indicators",
+		description = "",
+		group = "Callers"
+	)
+	default Stub callerIndicators()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
+		position = 31,
 		keyName = "callerColor",
 		name = "Caller Color",
 		description = "Color of Indicated Callers",
-		group = "Callers"
+		group = "Callers",
+		parent = "callerIndicators"
 	)
 	default Color callerColor()
 	{
@@ -448,7 +479,7 @@ public interface PlayerIndicatorsConfig extends Config
 		name = "Caller indication methods",
 		description = "Location(s) of the overlay",
 		group = "Callers",
-		displayRows = 3,
+		parent = "callerIndicators",
 		enumClass = PlayerIndicationLocation.class
 	)
 	default EnumSet<PlayerIndicationLocation> callerHighlightOptions()
@@ -457,11 +488,24 @@ public interface PlayerIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
+		position = 5,
+		keyName = "callerTargetIndicators",
+		name = "Caller Target Indicators",
+		description = "",
+		group = "Callers"
+	)
+	default Stub callerTargetIndicators()
+	{
+		return new Stub();
+	}
+
+	@ConfigItem(
 		position = 33,
 		keyName = "callersTargets",
 		name = "Calllers' targets",
 		description = "Highlights the targets of callers",
-		group = "Callers"
+		group = "Callers",
+		parent = "callerTargetIndicators"
 	)
 	default boolean callersTargets()
 	{
@@ -473,7 +517,8 @@ public interface PlayerIndicatorsConfig extends Config
 		keyName = "callerTargetColor",
 		name = "Callers' targets color",
 		description = "Color of the the targets of callers",
-		group = "Callers"
+		group = "Callers",
+		parent = "callerTargetIndicators"
 	)
 	default Color callerTargetColor()
 	{
@@ -486,9 +531,8 @@ public interface PlayerIndicatorsConfig extends Config
 		name = "Pile indication methods",
 		description = "How to highlight the callers' target",
 		group = "Callers",
-		displayRows = 3,
+		parent = "callerTargetIndicators",
 		enumClass = PlayerIndicationLocation.class
-
 	)
 	default EnumSet<PlayerIndicationLocation> callerTargetHighlightOptions()
 	{
@@ -500,7 +544,8 @@ public interface PlayerIndicatorsConfig extends Config
 		position = 36,
 		keyName = "unchargedGlory",
 		name = "Uncharged Glory Indication",
-		description = "Indicates if players have an uncharged glory"
+		description = "Indicates if players have an uncharged glory",
+		parent = "Other Settings"
 	)
 	default boolean unchargedGlory()
 	{
