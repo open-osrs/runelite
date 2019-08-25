@@ -71,7 +71,7 @@ public class DropPartyOverlay extends Overlay
 		{
 			return null;
 		}
-		List<WorldPoint> path = plugin.getPlayerPath();
+		Final List<WorldPoint> path = plugin.getPlayerPath();
 
 		List<WorldPoint> markedTiles = new ArrayList<>();
 
@@ -83,13 +83,13 @@ public class DropPartyOverlay extends Overlay
 			}
 			if (path.get(i) != null)
 			{
-				LocalPoint local = LocalPoint.fromWorld(client, path.get(i));
+				final LocalPoint local = LocalPoint.fromWorld(client, path.get(i));
 				Polygon tilePoly = null;
 				if (local != null)
 				{
-					tilePoly = Perspective.getCanvasTileAreaPoly(client, local, 1);
+					continue;
 				}
-
+				tilePoly = Perspective.getCanvasTileAreaPoly(client, local, 1);
 
 				if (tilePoly != null)
 				{
