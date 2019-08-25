@@ -48,10 +48,10 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
 import static net.runelite.api.MenuOpcode.WALK;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.Varbits;
@@ -60,12 +60,14 @@ import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
+import net.runelite.client.config.Keybind;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.menus.AbstractComparableEntry;
@@ -99,6 +101,7 @@ import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
 import net.runelite.client.plugins.pvptools.PvpToolsConfig;
 import net.runelite.client.plugins.pvptools.PvpToolsPlugin;
+import net.runelite.client.util.HotkeyListener;
 import static net.runelite.client.util.MenuUtil.swap;
 import net.runelite.client.util.MiscUtils;
 import net.runelite.client.util.Text;
@@ -140,8 +143,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private MenuManager menuManager;
 	@Inject
 	private KeyManager keyManager;
-	@Inject
-	private ShiftClickInputListener inputListener;
 	@Inject
 	private EventBus eventBus;
 	@Inject
@@ -286,6 +287,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapTrade;
 	private boolean swapTravel;
 	private boolean swapWildernessLever;
+	private Keybind hotkeyMod;
+	private Keybind ctrl = Keybind.CTRL;
 
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
@@ -302,7 +305,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		addSwaps();
 		loadConstructionItems();
 		loadCustomSwaps(config.customSwaps(), customSwaps);
-		keyManager.registerKeyListener(inputListener);
+		keyManager.registerKeyListener(ctrlHotkey);
+		keyManager.registerKeyListener(shiftHotkey);
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			setCastOptions(true);
@@ -316,7 +320,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		loadCustomSwaps("", customSwaps); // Removes all custom swaps
 		removeSwaps();
-		keyManager.unregisterKeyListener(inputListener);
+		keyManager.unregisterKeyListener(ctrlHotkey);
+		keyManager.unregisterKeyListener(shiftHotkey);
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
 			resetCastOptions();
@@ -330,6 +335,16 @@ public class MenuEntrySwapperPlugin extends Plugin
 		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
 		eventBus.subscribe(MenuOpened.class, this, this::onMenuOpened);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
+		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
+	}
+
+	private void onFocusChanged(FocusChanged event)
+	{
+		if (!event.isFocused())
+		{
+			stopControl();
+			stopHotkey();
+		}
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -1436,37 +1451,36 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
-	void startShift()
+	private void startHotkey()
 	{
-		eventBus.subscribe(ClientTick.class, SHIFT, this::addShift);
+		eventBus.subscribe(ClientTick.class, SHIFT, this::addHotkey);
 	}
 
-	private void addShift(ClientTick event)
+	private void addHotkey(ClientTick event)
 	{
 		loadCustomSwaps(this.configCustomShiftSwaps, customShiftSwaps);
 
-		if (!this.swapClimbUpDown)
+		if (this.swapClimbUpDown)
 		{
-			return;
+			menuManager.addPriorityEntry("climb-up").setPriority(100);
 		}
 
-		menuManager.addPriorityEntry("climb-up").setPriority(100);
 		eventBus.unregister(SHIFT);
 	}
 
-	void stopShift()
+	private void stopHotkey()
 	{
-		eventBus.subscribe(ClientTick.class, SHIFT, this::remShift);
+		eventBus.subscribe(ClientTick.class, SHIFT, this::removeHotkey);
 	}
 
-	private void remShift(ClientTick event)
+	private void removeHotkey(ClientTick event)
 	{
 		menuManager.removePriorityEntry("climb-up");
 		loadCustomSwaps("", customShiftSwaps);
 		eventBus.unregister(SHIFT);
 	}
 
-	void startControl()
+	private void startControl()
 	{
 		if (!this.swapClimbUpDown)
 		{
@@ -1482,12 +1496,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 		eventBus.unregister(CONTROL);
 	}
 
-	void stopControl()
+	private void stopControl()
 	{
-		eventBus.subscribe(ClientTick.class, CONTROL, this::remControl);
+		eventBus.subscribe(ClientTick.class, CONTROL, this::remove);
 	}
 
-	private void remControl(ClientTick event)
+	private void remove(ClientTick event)
 	{
 		menuManager.removePriorityEntry("climb-down");
 		eventBus.unregister(CONTROL);
@@ -1548,130 +1562,131 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void updateConfig()
 	{
-		this.getWithdrawOne = config.getWithdrawOne();
-		this.getWithdrawOneItems = config.getWithdrawOneItems();
+		this.charterOption = config.charterOption();
+		this.configCustomShiftSwaps = config.shiftCustomSwaps();
+		this.configCustomSwaps = config.customSwaps();
+		this.constructionCapeMode = config.constructionCapeMode();
+		this.getBurningAmulet = config.getBurningAmulet();
+		this.getBurningAmuletMode = config.getBurningAmuletMode();
+		this.getBuyFiftyItems = config.getBuyFiftyItems();
+		this.getBuyFiveItems = config.getBuyFiveItems();
+		this.getBuyOneItems = config.getBuyOneItems();
+		this.getBuyTenItems = config.getBuyTenItems();
+		this.getCombatBracelet = config.getCombatBracelet();
+		this.getCombatBraceletMode = config.getCombatBraceletMode();
+		this.getConstructionMode = config.getConstructionMode();
+		this.getDigsitePendant = config.getDigsitePendant();
+		this.getDigsitePendantMode = config.getDigsitePendantMode();
+		this.getDuelingRing = config.getDuelingRing();
+		this.getDuelingRingMode = config.getDuelingRingMode();
+		this.getEasyConstruction = config.getEasyConstruction();
+		this.getGamesNecklace = config.getGamesNecklace();
+		this.getGamesNecklaceMode = config.getGamesNecklaceMode();
+		this.getGlory = config.getGlory();
+		this.getGloryMode = config.getGloryMode();
+		this.getNecklaceofPassage = config.getNecklaceofPassage();
+		this.getNecklaceofPassageMode = config.getNecklaceofPassageMode();
+		this.getRemoveObjects = config.getRemoveObjects();
+		this.getRemovedObjects = config.getRemovedObjects();
+		this.getRingofWealth = config.getRingofWealth();
+		this.getRingofWealthMode = config.getRingofWealthMode();
+		this.getSellFiftyItems = config.getSellFiftyItems();
+		this.getSellFiveItems = config.getSellFiveItems();
+		this.getSellOneItems = config.getSellOneItems();
+		this.getSellTenItems = config.getSellTenItems();
+		this.getSkillsNecklace = config.getSkillsNecklace();
+		this.getSkillsNecklaceMode = config.getSkillsNecklaceMode();
+		this.getSlayerRing = config.getSlayerRing();
+		this.getSlayerRingMode = config.getSlayerRingMode();
+		this.getSwapArdougneCape = config.getSwapArdougneCape();
+		this.getSwapBuyFifty = config.getSwapBuyFifty();
+		this.getSwapBuyFive = config.getSwapBuyFive();
+		this.getSwapBuyOne = config.getSwapBuyOne();
+		this.getSwapBuyTen = config.getSwapBuyTen();
+		this.getSwapConstructionCape = config.getSwapConstructionCape();
+		this.getSwapCraftingCape = config.getSwapCraftingCape();
+		this.getSwapExplorersRing = config.getSwapExplorersRing();
+		this.getSwapMagicCape = config.getSwapMagicCape();
+		this.getSwapPuro = config.getSwapPuro();
+		this.getSwapSawmill = config.getSwapSawmill();
+		this.getSwapSawmillPlanks = config.getSwapSawmillPlanks();
+		this.getSwapSellFifty = config.getSwapSellFifty();
+		this.getSwapSellFive = config.getSwapSellFive();
+		this.getSwapSellOne = config.getSwapSellOne();
+		this.getSwapSellTen = config.getSwapSellTen();
+		this.getSwapTanning = config.getSwapTanning();
+		this.getWithdrawAll = config.getWithdrawAll();
+		this.getWithdrawAllItems = config.getWithdrawAllItems();
 		this.getWithdrawFive = config.getWithdrawFive();
 		this.getWithdrawFiveItems = config.getWithdrawFiveItems();
+		this.getWithdrawOne = config.getWithdrawOne();
+		this.getWithdrawOneItems = config.getWithdrawOneItems();
 		this.getWithdrawTen = config.getWithdrawTen();
 		this.getWithdrawTenItems = config.getWithdrawTenItems();
 		this.getWithdrawX = config.getWithdrawX();
 		this.getWithdrawXAmount = config.getWithdrawXAmount();
 		this.getWithdrawXItems = config.getWithdrawXItems();
-		this.getWithdrawAll = config.getWithdrawAll();
-		this.getWithdrawAllItems = config.getWithdrawAllItems();
-		this.swapMax = config.swapMax();
-		this.maxMode = config.maxMode();
-		this.getSwapArdougneCape = config.getSwapArdougneCape();
-		this.getSwapConstructionCape = config.getSwapConstructionCape();
-		this.constructionCapeMode = config.constructionCapeMode();
-		this.getSwapCraftingCape = config.getSwapCraftingCape();
-		this.getSwapMagicCape = config.getSwapMagicCape();
-		this.getSwapExplorersRing = config.getSwapExplorersRing();
-		this.swapAdmire = config.swapAdmire();
-		this.swapQuestCape = config.swapQuestCape();
-		this.questCapeMode = config.questCapeMode();
-		this.configCustomSwaps = config.customSwaps();
-		this.configCustomShiftSwaps = config.shiftCustomSwaps();
-		this.swapCoalBag = config.swapCoalBag();
-		this.swapBirdhouseEmpty = config.swapBirdhouseEmpty();
-		this.swapBones = config.swapBones();
-		this.swapChase = config.swapChase();
-		this.swapHarpoon = config.swapHarpoon();
-		this.swapOccultMode = config.swapOccultMode();
-		this.swapHomePortalMode = config.swapHomePortalMode();
-		this.swapPrivate = config.swapPrivate();
-		this.swapPick = config.swapPick();
-		this.swapQuick = config.swapQuick();
-		this.swapBoxTrap = config.swapBoxTrap();
-		this.rockCake = config.rockCake();
-		this.swapRogueschests = config.swapRogueschests();
-		this.swapClimbUpDown = config.swapClimbUpDown();
-		this.swapStun = config.swapStun();
-		this.swapSearch = config.swapSearch();
-		this.swapHardWoodGrove = config.swapHardWoodGrove();
-		this.getRemoveObjects = config.getRemoveObjects();
-		this.getRemovedObjects = config.getRemovedObjects();
-		this.swapImps = config.swapImps();
-		this.charterOption = config.charterOption();
-		this.getSwapBuyOne = config.getSwapBuyOne();
-		this.getBuyOneItems = config.getBuyOneItems();
-		this.getSwapBuyFive = config.getSwapBuyFive();
-		this.getBuyFiveItems = config.getBuyFiveItems();
-		this.getSwapBuyTen = config.getSwapBuyTen();
-		this.getBuyTenItems = config.getBuyTenItems();
-		this.getSwapBuyFifty = config.getSwapBuyFifty();
-		this.getBuyFiftyItems = config.getBuyFiftyItems();
-		this.getSwapSellOne = config.getSwapSellOne();
-		this.getSellOneItems = config.getSellOneItems();
-		this.getSwapSellFive = config.getSwapSellFive();
-		this.getSellFiveItems = config.getSellFiveItems();
-		this.getSwapSellTen = config.getSwapSellTen();
-		this.getSellTenItems = config.getSellTenItems();
-		this.getSwapSellFifty = config.getSwapSellFifty();
-		this.getSellFiftyItems = config.getSellFiftyItems();
-		this.getEasyConstruction = config.getEasyConstruction();
-		this.getSwapTanning = config.getSwapTanning();
-		this.getSwapSawmill = config.getSwapSawmill();
-		this.getSwapSawmillPlanks = config.getSwapSawmillPlanks();
-		this.getSwapPuro = config.getSwapPuro();
-		this.swapAssignment = config.swapAssignment();
-		this.swapBankExchange = config.swapBankExchange();
-		this.swapContract = config.swapContract();
-		this.swapInteract = config.swapInteract();
-		this.swapPickpocket = config.swapPickpocket();
-		this.swapPay = config.swapPay();
-		this.swapAbyssTeleport = config.swapAbyssTeleport();
-		this.swapTrade = config.swapTrade();
-		this.swapTravel = config.swapTravel();
-		this.swapMinigame = config.swapMinigame();
-		this.swapPlank = config.swapPlank();
-		this.swapMetamorphosis = config.swapMetamorphosis();
-		this.swapEnchant = config.swapEnchant();
-		this.swapFairyRingMode = config.swapFairyRingMode();
-		this.swapObeliskMode = config.swapObeliskMode();
-		this.swapTeleportItem = config.swapTeleportItem();
-		this.swapWildernessLever = config.swapWildernessLever();
-		this.swapNexus = config.swapNexus();
-		this.getGamesNecklace = config.getGamesNecklace();
-		this.getGamesNecklaceMode = config.getGamesNecklaceMode();
-		this.getDuelingRing = config.getDuelingRing();
-		this.getDuelingRingMode = config.getDuelingRingMode();
-		this.getGlory = config.getGlory();
-		this.getGloryMode = config.getGloryMode();
-		this.getSkillsNecklace = config.getSkillsNecklace();
-		this.getSkillsNecklaceMode = config.getSkillsNecklaceMode();
-		this.getNecklaceofPassage = config.getNecklaceofPassage();
-		this.getNecklaceofPassageMode = config.getNecklaceofPassageMode();
-		this.getDigsitePendant = config.getDigsitePendant();
-		this.getDigsitePendantMode = config.getDigsitePendantMode();
-		this.getCombatBracelet = config.getCombatBracelet();
-		this.getCombatBraceletMode = config.getCombatBraceletMode();
-		this.getBurningAmulet = config.getBurningAmulet();
-		this.getBurningAmuletMode = config.getBurningAmuletMode();
-		this.getConstructionMode = config.getConstructionMode();
 		this.getXericsTalisman = config.getXericsTalisman();
 		this.getXericsTalismanMode = config.getXericsTalismanMode();
-		this.getRingofWealth = config.getRingofWealth();
-		this.getRingofWealthMode = config.getRingofWealthMode();
-		this.getSlayerRing = config.getSlayerRing();
-		this.getSlayerRingMode = config.getSlayerRingMode();
-		this.hideExamine = config.hideExamine();
-		this.hideTradeWith = config.hideTradeWith();
-		this.hideReport = config.hideReport();
-		this.hideLookup = config.hideLookup();
-		this.hideNet = config.hideNet();
 		this.hideBait = config.hideBait();
-		this.hideDestroyRunepouch = config.hideDestroyRunepouch();
-		this.hideDestroyCoalbag = config.hideDestroyCoalbag();
-		this.hideDestroyHerbsack = config.hideDestroyHerbsack();
-		this.hideDestroyBoltpouch = config.hideDestroyBoltpouch();
-		this.hideDestroyLootingBag = config.hideDestroyLootingBag();
-		this.hideDestroyGembag = config.hideDestroyGembag();
-		this.hideDropRunecraftingPouch = config.hideDropRunecraftingPouch();
-		this.hideCastToB = config.hideCastToB();
-		this.hideCastIgnoredToB = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredToB().toLowerCase()));
 		this.hideCastCoX = config.hideCastCoX();
 		this.hideCastIgnoredCoX = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredCoX().toLowerCase()));
+		this.hideCastIgnoredToB = Sets.newHashSet(Text.fromCSV(config.hideCastIgnoredToB().toLowerCase()));
+		this.hideCastToB = config.hideCastToB();
+		this.hideDestroyBoltpouch = config.hideDestroyBoltpouch();
+		this.hideDestroyCoalbag = config.hideDestroyCoalbag();
+		this.hideDestroyGembag = config.hideDestroyGembag();
+		this.hideDestroyHerbsack = config.hideDestroyHerbsack();
+		this.hideDestroyLootingBag = config.hideDestroyLootingBag();
+		this.hideDestroyRunepouch = config.hideDestroyRunepouch();
+		this.hideDropRunecraftingPouch = config.hideDropRunecraftingPouch();
+		this.hideExamine = config.hideExamine();
+		this.hideLookup = config.hideLookup();
+		this.hideNet = config.hideNet();
+		this.hideReport = config.hideReport();
+		this.hideTradeWith = config.hideTradeWith();
+		this.hotkeyMod = config.hotkeyMod();
+		this.maxMode = config.maxMode();
+		this.questCapeMode = config.questCapeMode();
+		this.rockCake = config.rockCake();
+		this.swapAbyssTeleport = config.swapAbyssTeleport();
+		this.swapAdmire = config.swapAdmire();
+		this.swapAssignment = config.swapAssignment();
+		this.swapBankExchange = config.swapBankExchange();
+		this.swapBirdhouseEmpty = config.swapBirdhouseEmpty();
+		this.swapBones = config.swapBones();
+		this.swapBoxTrap = config.swapBoxTrap();
+		this.swapChase = config.swapChase();
+		this.swapClimbUpDown = config.swapClimbUpDown();
+		this.swapCoalBag = config.swapCoalBag();
+		this.swapContract = config.swapContract();
+		this.swapEnchant = config.swapEnchant();
+		this.swapFairyRingMode = config.swapFairyRingMode();
+		this.swapHardWoodGrove = config.swapHardWoodGrove();
+		this.swapHarpoon = config.swapHarpoon();
+		this.swapHomePortalMode = config.swapHomePortalMode();
+		this.swapImps = config.swapImps();
+		this.swapInteract = config.swapInteract();
+		this.swapMax = config.swapMax();
+		this.swapMetamorphosis = config.swapMetamorphosis();
+		this.swapMinigame = config.swapMinigame();
+		this.swapNexus = config.swapNexus();
+		this.swapObeliskMode = config.swapObeliskMode();
+		this.swapOccultMode = config.swapOccultMode();
+		this.swapPay = config.swapPay();
+		this.swapPick = config.swapPick();
+		this.swapPickpocket = config.swapPickpocket();
+		this.swapPlank = config.swapPlank();
+		this.swapPrivate = config.swapPrivate();
+		this.swapQuestCape = config.swapQuestCape();
+		this.swapQuick = config.swapQuick();
+		this.swapRogueschests = config.swapRogueschests();
+		this.swapSearch = config.swapSearch();
+		this.swapStun = config.swapStun();
+		this.swapTeleportItem = config.swapTeleportItem();
+		this.swapTrade = config.swapTrade();
+		this.swapTravel = config.swapTravel();
+		this.swapWildernessLever = config.swapWildernessLever();
 	}
 
 	/**
@@ -1757,4 +1772,34 @@ public class MenuEntrySwapperPlugin extends Plugin
 				.collect(Collectors.joining("\n"))
 		);
 	}
+
+	private final HotkeyListener shiftHotkey = new HotkeyListener(() -> this.hotkeyMod)
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			startHotkey();
+		}
+
+		@Override
+		public void hotkeyReleased()
+		{
+			stopHotkey();
+		}
+	};
+
+	private final HotkeyListener ctrlHotkey = new HotkeyListener(() -> this.ctrl)
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			startControl();
+		}
+
+		@Override
+		public void hotkeyReleased()
+		{
+			stopControl();
+		}
+	};
 }

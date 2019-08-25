@@ -83,10 +83,10 @@ public class MenuManager
 	//Used to manage custom non-player menu options
 	private final Multimap<Integer, WidgetMenuOption> managedMenuOptions = HashMultimap.create();
 	private final Set<String> npcMenuOptions = new HashSet<>();
-	private final HashSet<AbstractComparableEntry> priorityEntries = new HashSet<>();
-	private LinkedHashMap<MenuEntry, AbstractComparableEntry> currentPriorityEntries = new LinkedHashMap<>();
-	private final HashSet<AbstractComparableEntry> hiddenEntries = new HashSet<>();
-	private final HashMap<AbstractComparableEntry, AbstractComparableEntry> swaps = new HashMap<>();
+	private final Set<AbstractComparableEntry> priorityEntries = new HashSet<>();
+	private final Map<MenuEntry, AbstractComparableEntry> currentPriorityEntries = new LinkedHashMap<>();
+	private final Set<AbstractComparableEntry> hiddenEntries = new HashSet<>();
+	private final Map<AbstractComparableEntry, AbstractComparableEntry> swaps = new HashMap<>();
 
 	private MenuEntry leftClickEntry = null;
 	private MenuEntry firstEntry = null;
