@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
@@ -85,23 +84,23 @@ public class PlayerIndicatorsService
 		}
 		if (plugin.isHighlightFriends())
 		{
-			players.stream().filter(friend).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.FRIEND));
+			players.stream().filter(friend.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.FRIEND));
 		}
 		if (plugin.isHighlightClan())
 		{
-			players.stream().filter(clan).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CLAN));
+			players.stream().filter(clan.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CLAN));
 		}
 		if (plugin.isHighlightTeam())
 		{
-			players.stream().filter(team).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TEAM));
+			players.stream().filter(team.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TEAM));
 		}
 		if (plugin.isHighlightTargets())
 		{
-			players.stream().filter(target).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TARGET));
+			players.stream().filter(target.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TARGET));
 		}
 		if (plugin.isHighlightOther())
 		{
-			players.stream().filter(other).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.OTHER));
+			players.stream().filter(other.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.OTHER));
 		}
 		if (plugin.isHighlightOther())
 		{

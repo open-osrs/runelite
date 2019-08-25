@@ -29,8 +29,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -137,12 +137,12 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private boolean unchargedGlory;
 	@Getter
-	private HashMap<String, Actor> callerPiles = new HashMap<>();
+	private ConcurrentHashMap<String, Actor> callerPiles = new ConcurrentHashMap<>();
 	@Getter
-	private HashMap<PlayerRelation, Color> relationColorHashMap = new HashMap<>();
+	private ConcurrentHashMap<PlayerRelation, Color> relationColorHashMap = new ConcurrentHashMap<>();
 
 	@Getter
-	private HashMap<PlayerRelation, Object[]> locationHashMap = new HashMap<>();
+	private ConcurrentHashMap<PlayerRelation, Object[]> locationHashMap = new ConcurrentHashMap<>();
 
 	@Getter
 	private ConcurrentHashMap<Player, PlayerRelation> colorizedMenus = new ConcurrentHashMap<>();
@@ -186,7 +186,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	private void onInteractingChanged(InteractingChanged event)
 	{
-		if (!this.highlightCallerTargets)
+		if (!this.highlightCallerTargets || event.getSource() == null)
 		{
 			return;
 		}
@@ -416,12 +416,16 @@ public class PlayerIndicatorsPlugin extends Plugin
 	 */
 	public boolean isCaller(Actor player)
 	{
+		if (player == null || player.getName() == null)
+		{
+			return false;
+		}
 		if (callers != null)
 		{
 			for (String name : callers)
 			{
 				String finalName = name.toLowerCase().replace("_", " ");
-				if (player.getName().toLowerCase().replace("_", " ").equals(finalName))
+				if (Objects.requireNonNull(player.getName()).toLowerCase().replace("_", " ").equals(finalName))
 				{
 					return true;
 				}
@@ -502,6 +506,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 			this.configCallers = config.callers();
 			relationColorHashMap.put(PlayerRelation.CALLER, config.callerColor());
 			locationHashMap.put(PlayerRelation.CALLER, config.callerHighlightOptions().toArray());
+			getCallerList();
 		}
 
 		this.highlightCallerTargets = config.callersTargets();

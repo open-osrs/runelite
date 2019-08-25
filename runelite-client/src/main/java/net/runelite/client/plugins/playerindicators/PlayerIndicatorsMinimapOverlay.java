@@ -31,6 +31,7 @@ import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Player;
@@ -64,12 +65,11 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay
 
 	private void renderMinimapOverlays(Graphics2D graphics, Player actor, PlayerIndicatorsPlugin.PlayerRelation relation)
 	{
-		final HashMap<PlayerIndicatorsPlugin.PlayerRelation, Object[]> locationHashMap = plugin.getLocationHashMap();
-		if (!locationHashMap.containsKey(relation))
+		if (!plugin.getLocationHashMap().containsKey(relation))
 		{
 			return;
 		}
-		final List indicationLocations = Arrays.asList(locationHashMap.get(relation));
+		final List indicationLocations = Arrays.asList(plugin.getLocationHashMap().get(relation));
 		final Color color = plugin.getRelationColorHashMap().get(relation);
 
 		if (indicationLocations.contains(PlayerIndicationLocation.MINIMAP))
