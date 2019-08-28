@@ -52,7 +52,7 @@ public class PlayerIndicatorsService
 	public Predicate<Player> callerTarget;
 
 
-	List<Actor> piles = new ArrayList<>();
+	private List<Actor> piles = new ArrayList<>();
 
 
 	@Inject

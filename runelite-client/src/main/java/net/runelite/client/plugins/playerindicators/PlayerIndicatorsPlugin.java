@@ -103,8 +103,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightTargets;
 	@Getter(AccessLevel.PACKAGE)
-	private Color getTargetColor;
-	@Getter(AccessLevel.PACKAGE)
 	private boolean showAgilityLevel;
 	@Getter(AccessLevel.PACKAGE)
 	private int agilityFirstThreshold;
@@ -119,8 +117,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private PlayerIndicatorsPlugin.MinimapSkullLocations skullLocation;
 	@Getter(AccessLevel.PACKAGE)
-	private boolean skulledTargetsOnly;
-	@Getter(AccessLevel.PACKAGE)
 	private boolean targetRisk;
 	private boolean useClanchatRanks;
 	private ClanMemberRank callerRank;
@@ -128,12 +124,8 @@ public class PlayerIndicatorsPlugin extends Plugin
 	private String configCallers;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean highlightCallers;
-	@Getter(AccessLevel.PACKAGE)
-	private Color callerColor;
 	@Getter
 	private boolean highlightCallerTargets;
-	@Getter
-	private Color callerTargetColor;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean unchargedGlory;
 	@Getter
