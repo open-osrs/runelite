@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kamiel
+ * Copyright (c) 2019, Alexsuperfly <https://github.com/Alexsuperfly>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,47 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.menuentryswapper;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.client.input.KeyListener;
+package net.runelite.client.plugins.screenshot;
 
-@Singleton
-class ShiftClickInputListener implements KeyListener
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public enum UploadStyle
 {
-	@Inject
-	private MenuEntrySwapperPlugin plugin;
+	NEITHER("Neither"),
+	IMGUR("Imgur"),
+	CLIPBOARD("Clipboard");
+
+	private final String name;
 
 	@Override
-	public void keyTyped(KeyEvent event)
+	public String toString()
 	{
-	}
-
-	@Override
-	public void keyPressed(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.startShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.startControl();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.stopShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.stopControl();
-		}
+		return name;
 	}
 }

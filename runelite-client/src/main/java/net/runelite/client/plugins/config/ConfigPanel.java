@@ -34,6 +34,7 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
@@ -83,6 +84,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
+import net.runelite.client.config.Button;
 import net.runelite.client.config.ChatColorConfig;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigDescriptor;
@@ -114,7 +117,6 @@ import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.MiscUtils;
-import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
@@ -627,6 +629,7 @@ public class ConfigPanel extends PluginPanel
 			} while (allItems.size() > 0 && maxDepth > 0);
 
 			List<ConfigPanelItem> orderedList = mainParent.getItemsAsList();
+			List<JButton> buttons = new ArrayList<>();
 
 			for (ConfigPanelItem cpi : orderedList)
 			{
@@ -666,11 +669,23 @@ public class ConfigPanel extends PluginPanel
 									@SuppressWarnings("unchecked") Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
 									if (!cid.getItem().unhideValue().equals(""))
 									{
-										show = selectedItem.toString().equals(cid.getItem().unhideValue());
+										List<String> unhideValue = Splitter
+											.onPattern("\\|\\|")
+											.trimResults()
+											.omitEmptyStrings()
+											.splitToList(cid.getItem().unhideValue());
+
+										show = unhideValue.contains(selectedItem.toString());
 									}
 									else if (!cid.getItem().hideValue().equals(""))
 									{
-										show = !selectedItem.toString().equals(cid.getItem().hideValue());
+										List<String> hideValue = Splitter
+											.onPattern("\\|\\|")
+											.trimResults()
+											.omitEmptyStrings()
+											.splitToList(cid.getItem().hideValue());
+
+										show = !hideValue.contains(selectedItem.toString());
 									}
 								}
 								catch (IllegalArgumentException ex)
@@ -690,6 +705,27 @@ public class ConfigPanel extends PluginPanel
 					{
 						continue;
 					}
+				}
+
+				if (cid.getType() == Button.class)
+				{
+					try
+					{
+						ConfigItem item = cid.getItem();
+
+						JButton button = new JButton(item.name());
+
+						Class<ActionListener> actionListener = (Class<ActionListener>) item.clazz();
+
+						button.addActionListener(actionListener.newInstance());
+						buttons.add(button);
+					}
+					catch (IllegalAccessException | InstantiationException ex)
+					{
+						log.error("Adding action listener failed: {}", ex.getMessage());
+					}
+
+					continue;
 				}
 
 				JPanel item = new JPanel();
@@ -1082,6 +1118,8 @@ public class ConfigPanel extends PluginPanel
 				}
 				mainPanel.add(item);
 			}
+
+			buttons.forEach(mainPanel::add);
 		}
 
 		JButton resetButton = new JButton("Reset");
