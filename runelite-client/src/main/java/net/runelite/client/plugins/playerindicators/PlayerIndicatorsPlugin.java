@@ -57,6 +57,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.PvPUtil;
+import net.runelite.client.util.Text;
 
 @PluginDescriptor(
 	name = "Player Indicators",
@@ -227,11 +228,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		}
 
 		updateConfig();
-
-		if (this.configCallers != null && !this.configCallers.trim().equals(""))
-		{
-			getCallerList();
-		}
 	}
 
 	private void onClanMemberJoined(ClanMemberJoined event)
@@ -392,7 +388,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 			{
 				if (clanMember.getRank().getValue() > this.callerRank.getValue())
 				{
-					callers.add(clanMember.getUsername());
+					callers.add(Text.standardize(clanMember.getUsername()));
 				}
 			}
 		}
@@ -420,12 +416,12 @@ public class PlayerIndicatorsPlugin extends Plugin
 		{
 			return false;
 		}
-		if (callers != null)
+		if (callers.size() > 0)
 		{
 			for (String name : callers)
 			{
-				String finalName = name.toLowerCase().replace("_", " ");
-				if (Objects.requireNonNull(player.getName()).toLowerCase().replace("_", " ").equals(finalName))
+				String finalName = Text.standardize(name.trim());
+				if (Text.standardize(player.getName()).equals(finalName))
 				{
 					return true;
 				}
@@ -503,6 +499,8 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.highlightCallers = config.highlightCallers();
 		if (this.highlightCallers)
 		{
+			this.callerRank = config.callerRank();
+
 			this.configCallers = config.callers();
 			relationColorHashMap.put(PlayerRelation.CALLER, config.callerColor());
 			locationHashMap.put(PlayerRelation.CALLER, config.callerHighlightOptions().toArray());
@@ -526,7 +524,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.skullLocation = config.skullLocation();
 		this.targetRisk = config.targetRisk();
 		this.useClanchatRanks = config.useClanchatRanks();
-		this.callerRank = config.callerRank();
 		this.unchargedGlory = config.unchargedGlory();
 	}
 

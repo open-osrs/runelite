@@ -37,8 +37,8 @@ import net.runelite.client.util.PvPUtil;
 @Singleton
 public class PlayerIndicatorsService
 {
-	private final Client client;
-	private final PlayerIndicatorsPlugin plugin;
+	private Client client;
+	private PlayerIndicatorsPlugin plugin;
 
 	public Predicate<Player> self;
 	public Predicate<Player> friend;
@@ -58,14 +58,14 @@ public class PlayerIndicatorsService
 		this.client = client;
 		this.plugin = plugin;
 
-		self = (player) -> Objects.equals(client.getLocalPlayer(), player);
-		friend = (player) -> (!player.equals(client.getLocalPlayer()) && client.isFriended(player.getName(), false));
-		clan = Player::isClanMember;
+		self = (player) -> (Objects.equals(client.getLocalPlayer(), player) && plugin.isHighlightOwnPlayer());
+		friend = (player) -> (plugin.isHighlightFriends() && client.isFriended(player.getName(), false));
+		clan = (player) -> (player.isClanMember() && plugin.isHighlightClan());
 		team = (player) -> (Objects.requireNonNull(client.getLocalPlayer()).getTeam() != 0 &&
-			client.getLocalPlayer().getTeam() == player.getTeam());
-		target = (player) -> PvPUtil.isAttackable(client, player);
-		other = Objects::nonNull;
-		caller = plugin::isCaller;
+			client.getLocalPlayer().getTeam() == player.getTeam() && plugin.isHighlightTeam());
+		target = (player) -> (PvPUtil.isAttackable(client, player) && plugin.isHighlightTargets());
+		other = (player -> (Objects.nonNull(player) && plugin.isHighlightOther()));
+		caller = player -> (plugin.isCaller(player) && plugin.isHighlightCallers());
 		callerTarget = plugin::isPile;
 	}
 
@@ -78,39 +78,23 @@ public class PlayerIndicatorsService
 		}
 
 		final List<Player> players = client.getPlayers();
-		if (plugin.isHighlightOwnPlayer())
-		{
-			players.stream().filter(self).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.SELF));
-		}
-		if (plugin.isHighlightFriends())
-		{
-			players.stream().filter(friend.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.FRIEND));
-		}
-		if (plugin.isHighlightClan())
-		{
-			players.stream().filter(clan.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CLAN));
-		}
-		if (plugin.isHighlightTeam())
-		{
-			players.stream().filter(team.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TEAM));
-		}
-		if (plugin.isHighlightTargets())
-		{
-			players.stream().filter(target.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TARGET));
-		}
-		if (plugin.isHighlightOther())
-		{
-			players.stream().filter(other.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.OTHER));
-		}
-		if (plugin.isHighlightOther())
-		{
-			players.stream().filter(caller).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER));
-		}
-		if (plugin.isHighlightCallerTargets())
-		{
-			players.stream().filter(callerTarget).forEach(p ->
-				consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER_TARGET));
-		}
+
+		players.stream().filter(self).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.SELF));
+
+		players.stream().filter(friend.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.FRIEND));
+
+		players.stream().filter(clan.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CLAN));
+
+		players.stream().filter(team.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TEAM));
+
+		players.stream().filter(target.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.TARGET));
+
+		players.stream().filter(other.and(self.negate())).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.OTHER));
+
+		players.stream().filter(caller).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER));
+
+		players.stream().filter(callerTarget).forEach(p -> consumer.accept(p, PlayerIndicatorsPlugin.PlayerRelation.CALLER_TARGET));
+
 	}
 
 
