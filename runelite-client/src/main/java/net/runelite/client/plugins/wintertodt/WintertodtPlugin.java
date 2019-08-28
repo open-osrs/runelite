@@ -25,10 +25,12 @@
  */
 package net.runelite.client.plugins.wintertodt;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -72,7 +74,7 @@ import net.runelite.client.util.ColorUtil;
 @Singleton
 public class WintertodtPlugin extends Plugin
 {
-	private static final int WINTERTODT_REGION = 6462;
+	private static final Set<Integer> WINTERTODT_REGIONS = ImmutableSet.of(6461, 6462);
 
 	static final int WINTERTODT_ROOTS_MULTIPLIER = 10;
 	static final int WINTERTODT_KINDLING_MULTIPLIER = 25;
@@ -193,7 +195,7 @@ public class WintertodtPlugin extends Plugin
 	{
 		if (client.getLocalPlayer() != null)
 		{
-			return client.getLocalPlayer().getWorldLocation().getRegionID() == WINTERTODT_REGION;
+			return WINTERTODT_REGIONS.contains(client.getLocalPlayer().getWorldLocation().getRegionID());
 		}
 
 		return false;
