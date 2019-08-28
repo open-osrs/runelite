@@ -36,10 +36,12 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.ItemID;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
+import net.runelite.api.kit.KitType;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -98,7 +100,13 @@ public class PlayerIndicatorsOverlay extends Overlay
 			{
 				name = name + " (" + actor.getCombatLevel() + ")";
 			}
-
+			if (plugin.isUnchargedGlory())
+			{
+				if (actor.getPlayerAppearance().getEquipmentId(KitType.AMULET) == ItemID.AMULET_OF_GLORY)
+				{
+					name += " (glory)";
+				}
+			}
 			if (plugin.isPlayerSkull() && actor.getSkullIcon() != null)
 			{
 				int x = graphics.getFontMetrics().stringWidth(name);
@@ -106,6 +114,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 				OverlayUtil.renderActorTextAndImage(graphics, actor, name, color,
 					ImageUtil.resizeImage(skullIcon, y, y), 0, x);
 			}
+
 			else
 			{
 				OverlayUtil.renderActorTextOverlay(graphics, actor, name, color);
