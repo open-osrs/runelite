@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -49,6 +48,7 @@ import net.runelite.api.events.ClanMemberLeft;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
@@ -57,7 +57,6 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.PvPUtil;
-import net.runelite.client.util.Text;
 
 @PluginDescriptor(
 	name = "Player Indicators",
@@ -147,6 +146,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	@Getter
 	private ConcurrentHashMap<Player, PlayerRelation> colorizedMenus = new ConcurrentHashMap<>();
+	@Getter
 	private List<String> callers = new ArrayList<>();
 
 	@Provides
@@ -526,19 +526,6 @@ public class PlayerIndicatorsPlugin extends Plugin
 		this.useClanchatRanks = config.useClanchatRanks();
 		this.unchargedGlory = config.unchargedGlory();
 	}
-
-	public enum PlayerRelation
-	{
-		SELF,
-		FRIEND,
-		CLAN,
-		TEAM,
-		TARGET,
-		OTHER,
-		CALLER,
-		CALLER_TARGET
-	}
-
 
 	public enum MinimapSkullLocations
 	{

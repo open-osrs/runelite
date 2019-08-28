@@ -63,7 +63,7 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay
 		setPriority(OverlayPriority.HIGH);
 	}
 
-	private void renderMinimapOverlays(Graphics2D graphics, Player actor, PlayerIndicatorsPlugin.PlayerRelation relation)
+	private void renderMinimapOverlays(Graphics2D graphics, Player actor, PlayerRelation relation)
 	{
 		if (!plugin.getLocationHashMap().containsKey(relation))
 		{

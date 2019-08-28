@@ -81,7 +81,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 		return null;
 	}
 
-	private void drawSceneOverlays(Graphics2D graphics, Player actor, PlayerIndicatorsPlugin.PlayerRelation relation)
+	private void drawSceneOverlays(Graphics2D graphics, Player actor, PlayerRelation relation)
 	{
 		if (!plugin.getLocationHashMap().containsKey(relation))
 		{
