@@ -33,10 +33,10 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
@@ -48,7 +48,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.task.Schedule;
+import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
 	name = "Report Button",
@@ -79,7 +79,15 @@ public class ReportButtonPlugin extends Plugin
 	@Inject
 	private EventBus eventBus;
 
-	private TimeStyle timeStyle;
+	@Inject
+	OverlayManager overlayManager;
+
+	public TimeStyle timeStyle;
+
+	@Getter
+	private boolean shouldRender = false;
+
+	private ReportButtonOverlay reportButtonOverlay;
 
 	@Provides
 	ReportButtonConfig provideConfig(ConfigManager configManager)
@@ -91,15 +99,16 @@ public class ReportButtonPlugin extends Plugin
 	public void startUp()
 	{
 		addSubscriptions();
-
 		this.timeStyle = config.time();
-		clientThread.invoke(this::updateReportButtonTime);
+		reportButtonOverlay = new ReportButtonOverlay(this, this.client);
+		overlayManager.add(reportButtonOverlay);
 	}
 
 	@Override
 	public void shutDown()
 	{
 		eventBus.unregister(this);
+		overlayManager.remove(reportButtonOverlay);
 
 		clientThread.invoke(() ->
 		{
@@ -110,6 +119,7 @@ public class ReportButtonPlugin extends Plugin
 			}
 		});
 	}
+
 
 	private void addSubscriptions()
 	{
@@ -131,55 +141,33 @@ public class ReportButtonPlugin extends Plugin
 			case LOGGED_IN:
 				if (ready)
 				{
+					shouldRender = true;
 					loginTime = Instant.now();
 					ready = false;
 				}
 				break;
+			default:
+				shouldRender = false;
+				break;
 		}
 	}
 
-	@Schedule(
-		period = 500,
-		unit = ChronoUnit.MILLIS
-	)
-	public void updateSchedule()
+	public String reportButtonTime()
 	{
-		updateReportButtonTime();
-	}
-
-	private void updateReportButtonTime()
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
-			return;
-		}
-
-		Widget reportButton = client.getWidget(WidgetInfo.CHATBOX_REPORT_TEXT);
-		if (reportButton == null)
-		{
-			return;
-		}
-
 		switch (this.timeStyle)
 		{
 			case UTC:
-				reportButton.setText(getUTCTime());
-				break;
+				return getUTCTime();
 			case JAGEX:
-				reportButton.setText(getJagexTime());
-				break;
+				return getJagexTime();
 			case LOCAL_TIME:
-				reportButton.setText(getLocalTime());
-				break;
+				return getLocalTime();
 			case LOGIN_TIME:
-				reportButton.setText(getLoginTime());
-				break;
+				return getLoginTime();
 			case DATE:
-				reportButton.setText(getDate());
-				break;
-			case OFF:
-				reportButton.setText("Report");
-				break;
+				return  getDate();
+			default:
+				return "Report";
 		}
 	}
 
@@ -222,6 +210,15 @@ public class ReportButtonPlugin extends Plugin
 		if (event.getGroup().equals("reportButton"))
 		{
 			this.timeStyle = config.time();
+
+			if (this.timeStyle.equals(TimeStyle.OFF))
+			{
+				shouldRender = false;
+			}
+			else
+			{
+				shouldRender = true;
+			}
 		}
 	}
 }
