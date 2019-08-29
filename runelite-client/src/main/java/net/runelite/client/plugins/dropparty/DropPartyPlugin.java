@@ -71,7 +71,7 @@ public class DropPartyPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private int showAmmount = 0;
 	@Getter(AccessLevel.PACKAGE)
-	int MAXPATHSIZE = 100;
+	private int MAXPATHSIZE = 100;
 	private Player runningPlayer;
 	@Getter(AccessLevel.PACKAGE)
 	private Color overlayColor;
