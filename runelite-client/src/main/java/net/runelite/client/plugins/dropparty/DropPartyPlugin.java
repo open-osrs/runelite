@@ -63,7 +63,7 @@ import java.util.List;
 public class DropPartyPlugin extends Plugin
 {
 	@Inject
-	public DropPartyConfig config;
+	private DropPartyConfig config;
 	@Getter(AccessLevel.PACKAGE)
 	private List<WorldPoint> playerPath = new ArrayList<>();
 	@Getter(AccessLevel.PACKAGE)
