@@ -61,18 +61,16 @@ import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.rs.ClientUpdateCheckMode;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.ClientUI;
-import net.runelite.client.ui.DrawManager;
 import net.runelite.client.ui.RuneLiteSplashScreen;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.WidgetOverlay;
 import net.runelite.client.ui.overlay.arrow.ArrowMinimapOverlay;
 import net.runelite.client.ui.overlay.arrow.ArrowWorldOverlay;
-import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxOverlay;
 import net.runelite.client.ui.overlay.tooltip.TooltipOverlay;
 import net.runelite.client.ui.overlay.worldmap.WorldMapOverlay;
-import net.runelite.client.ws.PartyService;
+import net.runelite.client.util.bootstrap.Bootstrapper;
 import org.slf4j.LoggerFactory;
 
 @Singleton
@@ -84,8 +82,6 @@ public class RuneLite
 	public static final File PLUGIN_DIR = new File(RUNELITE_DIR, "plugins");
 	public static final File SCREENSHOT_DIR = new File(RUNELITE_DIR, "screenshots");
 	public static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
-	private static final File LOG_FILE = new File(LOGS_DIR, "client.log");
-	private static final RuneLiteProperties PROPERTIES = new RuneLiteProperties();
 	public static boolean allowPrivateServer = false;
 	public static final Locale SYSTEM_LOCALE = Locale.getDefault();
 
@@ -97,9 +93,6 @@ public class RuneLite
 
 	@Inject
 	private ConfigManager configManager;
-
-	@Inject
-	private DrawManager drawManager;
 
 	@Inject
 	private SessionManager sessionManager;
@@ -114,13 +107,7 @@ public class RuneLite
 	private ClientUI clientUI;
 
 	@Inject
-	private InfoBoxManager infoBoxManager;
-
-	@Inject
 	private OverlayManager overlayManager;
-
-	@Inject
-	private PartyService partyService;
 
 	@Inject
 	private Provider<ItemManager> itemManager;
@@ -179,6 +166,8 @@ public class RuneLite
 		parser.accepts("developer-mode", "Enable developer tools");
 		parser.accepts("debug", "Show extra debugging output");
 		parser.accepts("no-splash", "Do not show the splash screen");
+		parser.accepts("bootstrap", "Builds a bootstrap with locally built jars");
+		parser.accepts("bootstrap-staging", "Builds a testing bootstrap with locally built jars");
 		final ArgumentAcceptingOptionSpec<String> proxyInfo = parser
 			.accepts("proxy")
 			.withRequiredArg().ofType(String.class);
@@ -200,6 +189,16 @@ public class RuneLite
 		parser.accepts("help", "Show this text").forHelp();
 		OptionSet options = parser.parse(args);
 
+		if (options.has("bootstrap"))
+		{
+			Bootstrapper.main(false);
+			System.exit(0);
+		}
+		if (options.has("bootstrap-staging"))
+		{
+			Bootstrapper.main(true);
+			System.exit(0);
+		}
 		if (options.has("proxy"))
 		{
 			String[] proxy = options.valueOf(proxyInfo).split(":");

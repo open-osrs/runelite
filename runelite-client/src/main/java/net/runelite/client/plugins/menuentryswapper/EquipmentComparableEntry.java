@@ -5,7 +5,7 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.menus.AbstractComparableEntry;
-import net.runelite.client.util.Text;
+import net.runelite.api.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @EqualsAndHashCode(callSuper = true)
@@ -13,7 +13,7 @@ public class EquipmentComparableEntry extends AbstractComparableEntry
 {
 	public EquipmentComparableEntry(String option, String itemName)
 	{
-		this.setOption(Text.standardize(option));
+		this.setOption(option);
 		this.setTarget(Text.standardize(itemName));
 	}
 

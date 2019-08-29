@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2018, Joshua Filby <joshua@filby.me>
  * Copyright (c) 2018, Jordan Atwood <jordan.atwood423@gmail.com>
+ * Copyright (c) 2019, Lucas <https://github.com/Lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,23 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.util;
+package net.runelite.api.util;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import java.util.Collection;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 
-/**
- * A set of utilities to use when dealing with text.
- */
 public class Text
 {
-	private static final Matcher TAG_REGEXP = Pattern.compile("<[^>]*>").matcher("");
+	private static final StringBuilder SB = new StringBuilder(64);
+
 	private static final Splitter COMMA_SPLITTER = Splitter
 		.on(",")
 		.omitEmptyStrings()
@@ -76,11 +74,81 @@ public class Text
 	 *
 	 * @param str The string to remove tags from.
 	 * @return The given string with all tags removed from it.
+	 *
+	 * I know this is a monstrosity, but old frankenstein here
+	 * is twice as fast as the old regex method was.
+	 * Seems worth it to me
+	 *
+	 * Having removeLevels true removes the "  (level-xxx)" from text
+	 * as well. This should obviously only be used for this purpose.
 	 */
+	public static String removeTags(String str, boolean removeLevels)
+	{
+		int strLen = str.length();
+		if (removeLevels)
+		{
+			int levelIdx =  StringUtils.lastIndexOf(str, "  (level");
+			if (levelIdx >= 0)
+			{
+				strLen = levelIdx;
+			}
+		}
+
+		int open, close;
+		if ((open = StringUtils.indexOf(str, '<')) == -1
+			|| (close = StringUtils.indexOf(str, '>', open)) == -1)
+		{
+			return strLen == str.length() ? str : str.substring(0, strLen - 1);
+		}
+
+		// If the string starts with a < we can maybe take a shortcut if this
+		// is the only tag in the string (take the substring after it)
+		if (open == 0)
+		{
+			if ((open = close + 1) >= strLen)
+			{
+				return "";
+			}
+
+			if ((open = StringUtils.indexOf(str, '<', open)) == -1
+				|| (StringUtils.indexOf(str, '>', open)) == -1)
+			{
+				return StringUtils.substring(str, close + 1);
+			}
+
+			// Whoops, at least we know the last value so we can go back to where we were
+			// before :)
+			open = 0;
+		}
+
+		SB.setLength(0);
+		int i = 0;
+		do
+		{
+			while (open != i)
+			{
+				SB.append(str.charAt(i++));
+			}
+
+			i = close + 1;
+		}
+		while ((open = StringUtils.indexOf(str, '<', close)) != -1
+			&& (close = StringUtils.indexOf(str, '>', open)) != -1
+			&& i < strLen);
+
+		while (i < strLen)
+		{
+			SB.append(str.charAt(i++));
+		}
+
+		return SB.toString();
+	}
+
 	public static String removeTags(String str)
 	{
-		return TAG_REGEXP.reset(str).replaceAll("");
+		return removeTags(str, false);
 	}
+
 
 	/**
 	 * In addition to removing all tags, replaces nbsp with space, trims string and lowercases it
@@ -88,9 +156,19 @@ public class Text
 	 * @param str The string to standardize
 	 * @return The given `str` that is standardized
 	 */
+	public static String standardize(String str, boolean removeLevel)
+	{
+		if (StringUtils.isBlank(str))
+		{
+			return str;
+		}
+
+		return removeTags(str, removeLevel).replace('\u00A0', ' ').trim().toLowerCase();
+	}
+
 	public static String standardize(String str)
 	{
-		return removeTags(str).replace('\u00A0', ' ').trim().toLowerCase();
+		return standardize(str, false);
 	}
 
 	/**
@@ -102,7 +180,34 @@ public class Text
 	 */
 	public static String toJagexName(String str)
 	{
-		return CharMatcher.ascii().retainFrom(str.replace('\u00A0', ' ')).replaceAll("[_-]+", " ").trim();
+		char[] chars = str.toCharArray();
+		int newIdx = 0;
+
+		for (int oldIdx = 0, strLen = str.length(); oldIdx < strLen; oldIdx++)
+		{
+			char c = chars[oldIdx];
+
+			// take care of replacing and trimming in 1 go
+			if (c == '\u00A0' || c == '-' || c == '_' || c == ' ')
+			{
+				if (oldIdx == strLen - 1 || newIdx == 0 || chars[newIdx - 1] == ' ')
+				{
+					continue;
+				}
+
+				c = ' ';
+			}
+
+			// 0 - 127 is valid ascii
+			if (c > 127)
+			{
+				continue;
+			}
+
+			chars[newIdx++] = c;
+		}
+
+		return new String(chars, 0, newIdx);
 	}
 
 	/**
@@ -182,7 +287,7 @@ public class Text
 		{
 			return WordUtils
 				.capitalize(toString.toLowerCase(), '_')
-				.replace("_", " ");
+				.replace('_', ' ');
 		}
 
 		return toString;
