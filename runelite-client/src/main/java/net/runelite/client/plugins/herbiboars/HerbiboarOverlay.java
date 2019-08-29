@@ -171,7 +171,8 @@ class HerbiboarOverlay extends Overlay
 		{
 			for (NPC npc : client.getNpcs())
 			{
-				if (npc.getId() == NpcID.HERBIBOAR || npc.getId() == NpcID.HERBIBOAR_7786) {
+				if (npc.getId() == NpcID.HERBIBOAR || npc.getId() == NpcID.HERBIBOAR_7786)
+				{
 					OverlayUtil.renderPolygon(graphics, npc.getConvexHull(), plugin.getGetObjectColor());
 				}
 			}
