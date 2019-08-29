@@ -159,7 +159,7 @@ public class HerbiboarPlugin extends Plugin
 
 	@Getter
 	@Setter
-	private WorldPoint herbiboarLocation = null;
+	private boolean herbiboarRendered = false;
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean isStartShown;
@@ -357,17 +357,17 @@ public class HerbiboarPlugin extends Plugin
 		// Herbiboar spawns
 		if (npc.getId() == NpcID.HERBIBOAR_7786 && npc.getAnimation() == 7687)
 		{
-			herbiboarLocation = npc.getWorldLocation();
+			herbiboarRendered = true;
 		}
 		// Herbiboar is stunned
 		else if (npc.getId() == NpcID.HERBIBOAR && npc.getAnimation() == 7689)
 		{
-			herbiboarLocation = npc.getWorldLocation();
+			herbiboarRendered = true;
 		}
 		// Herbiboar is harvested
 		else if (npc.getId() == NpcID.HERBIBOAR_7786 && npc.getAnimation() == 7690)
 		{
-			herbiboarLocation = null;
+			herbiboarRendered = false;
 		}
 	}
 
