@@ -36,6 +36,7 @@ import java.time.format.FormatStyle;
 import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -84,8 +85,8 @@ public class ReportButtonPlugin extends Plugin
 
 	public TimeStyle timeStyle;
 
-	@Getter
-	private boolean shouldRender = false;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean shouldRender;
 
 	private ReportButtonOverlay reportButtonOverlay;
 
