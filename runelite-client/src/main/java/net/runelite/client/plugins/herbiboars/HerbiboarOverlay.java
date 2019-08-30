@@ -32,13 +32,12 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.util.Set;
-import lombok.Getter;
-import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import net.runelite.api.TileObject;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -47,22 +46,20 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 @Singleton
 class HerbiboarOverlay extends Overlay
 {
-	@Inject
-	@Getter
+
 	private Client client;
 
-	@Getter
-	@Setter
-	private WorldPoint herbiboarLocation;
-
 	private final HerbiboarPlugin plugin;
+	private final ModelOutlineRenderer outlineRenderer;
 
 	@Inject
-	public HerbiboarOverlay(final HerbiboarPlugin plugin)
+	public HerbiboarOverlay(final HerbiboarPlugin plugin, ModelOutlineRenderer outlineRenderer, Client client)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
+		this.outlineRenderer = outlineRenderer;
+		this.client = client;
 	}
 
 	@Override
@@ -173,7 +170,7 @@ class HerbiboarOverlay extends Overlay
 			{
 				if (npc.getId() == NpcID.HERBIBOAR || npc.getId() == NpcID.HERBIBOAR_7786)
 				{
-					OverlayUtil.renderPolygon(graphics, npc.getConvexHull(), plugin.getGetObjectColor());
+					outlineRenderer.drawOutline(npc, 2, plugin.getGetObjectColor());
 				}
 			}
 		}
