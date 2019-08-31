@@ -62,7 +62,8 @@ import org.apache.commons.lang3.ArrayUtils;
 	name = "Inferno",
 	description = "Inferno helper",
 	tags = {"combat", "overlay", "pve", "pvm"},
-	type = PluginType.PVM
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Slf4j
 @Singleton
