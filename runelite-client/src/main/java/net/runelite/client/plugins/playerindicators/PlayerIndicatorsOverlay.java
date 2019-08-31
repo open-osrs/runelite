@@ -54,6 +54,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 {
 	private static final int ACTOR_OVERHEAD_TEXT_MARGIN = 40;
 	private static final int ACTOR_HORIZONTAL_TEXT_MARGIN = 10;
+	private static final Object[] NULL_OBJ = new Object[]{null};
 	private final BufferedImage agilityIcon = ImageUtil.getResourceStreamFromClass(PlayerIndicatorsPlugin.class,
 		"agility.png");
 	private final BufferedImage noAgilityIcon = ImageUtil.getResourceStreamFromClass(PlayerIndicatorsPlugin.class,
@@ -126,7 +127,9 @@ public class PlayerIndicatorsOverlay extends Overlay
 				OverlayUtil.renderActorTextOverlay(graphics, actor, builtString, color);
 			}
 		}
-		if (Arrays.asList(plugin.getLocationHashMap().get(relation)).contains(PlayerIndicationLocation.HULL))
+		if (Arrays.asList(plugin.getLocationHashMap()
+			.getOrDefault(relation, NULL_OBJ))
+			.contains(PlayerIndicationLocation.HULL))
 		{
 			if (actor.getConvexHull() == null)
 			{
@@ -136,7 +139,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 		}
 
 		if (Arrays.asList(plugin.getLocationHashMap()
-			.getOrDefault(relation, new Object[]{null}))
+			.getOrDefault(relation, NULL_OBJ))
 			.contains(PlayerIndicationLocation.TILE))
 		{
 			final Polygon poly = actor.getCanvasTilePoly();
