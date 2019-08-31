@@ -64,7 +64,8 @@ import net.runelite.client.util.PvPUtil;
 	name = "Player Indicators",
 	description = "Highlight players on-screen and/or on the minimap",
 	tags = {"highlight", "minimap", "overlay", "players", "pklite"},
-	type = PluginType.UTILITY
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Singleton
 @Getter(AccessLevel.PACKAGE)
