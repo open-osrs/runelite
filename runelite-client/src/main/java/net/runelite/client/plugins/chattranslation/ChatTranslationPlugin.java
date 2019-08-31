@@ -40,7 +40,8 @@ import org.apache.commons.lang3.ArrayUtils;
 	name = "Chat Translator",
 	description = "Translates messages from one Language to another.",
 	tags = {"translate", "language", "english", "spanish", "dutch", "french"},
-	type = PluginType.UTILITY
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Singleton
 @Slf4j
