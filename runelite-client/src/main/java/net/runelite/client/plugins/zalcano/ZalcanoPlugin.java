@@ -53,7 +53,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Zalcano",
 	description = "Highlights Zalcano AOEs and useful stuff",
 	tags = {"zalcano", "aoe", "prifddinas", "elf", "boss"},
-	type = PluginType.PVM
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Slf4j
 public class ZalcanoPlugin extends Plugin
