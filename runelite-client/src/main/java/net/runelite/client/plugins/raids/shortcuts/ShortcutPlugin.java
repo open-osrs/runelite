@@ -26,7 +26,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Raids Shortcuts",
 	description = "Highlights Raid Shortcuts",
 	tags = {"boulder", "cox", "raids", "highlight"},
-	type = PluginType.PVM
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Slf4j
 @Singleton
