@@ -112,16 +112,18 @@ public class PlayerIndicatorsOverlay extends Overlay
 				nameSb.append(" (glory)");
 			}
 
+			final String builtString = nameSb.toString();
+
 			if (skulls && actor.getSkullIcon() != null)
 			{
-				final int x = graphics.getFontMetrics().stringWidth(nameSb.toString());
+				final int x = graphics.getFontMetrics().stringWidth(builtString);
 				final int y = graphics.getFontMetrics().getHeight();
-				OverlayUtil.renderActorTextAndImage(graphics, actor, nameSb.toString(), color,
+				OverlayUtil.renderActorTextAndImage(graphics, actor, builtString, color,
 					ImageUtil.resizeImage(skullIcon, y, y), 0, x);
 			}
 			else
 			{
-				OverlayUtil.renderActorTextOverlay(graphics, actor, nameSb.toString(), color);
+				OverlayUtil.renderActorTextOverlay(graphics, actor, builtString, color);
 			}
 		}
 		if (Arrays.asList(plugin.getLocationHashMap().get(relation)).contains(PlayerIndicationLocation.HULL))
