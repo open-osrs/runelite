@@ -164,8 +164,6 @@ public class HerbiboarPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private boolean isStartShown;
 	@Getter(AccessLevel.PACKAGE)
-	private boolean showClickBoxes;
-	@Getter(AccessLevel.PACKAGE)
 	private Color getStartColor;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean isTunnelShown;
@@ -485,7 +483,6 @@ public class HerbiboarPlugin extends Plugin
 	private void updateConfig()
 	{
 		this.isStartShown = config.isStartShown();
-		this.showClickBoxes = config.showClickBoxes();
 		this.getStartColor = config.getStartColor();
 		this.isTunnelShown = config.isTunnelShown();
 		this.getTunnelColor = config.getTunnelColor();

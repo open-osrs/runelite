@@ -118,21 +118,7 @@ class HerbiboarOverlay extends Overlay
 				TileObject object = plugin.getTrailObjects().get(trailLoc);
 				if (object != null)
 				{
-					if (plugin.isShowClickBoxes())
-					{
-						Area clickbox = object.getClickbox();
-						if (clickbox != null)
-						{
-							graphics.setColor(plugin.getGetObjectColor());
-							graphics.draw(clickbox);
-							graphics.setColor(new Color(255, 0, 255, 20));
-							graphics.fill(clickbox);
-						}
-					}
-					else
-					{
 						OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetObjectColor());
-					}
 				}
 			}
 		}
@@ -144,22 +130,7 @@ class HerbiboarOverlay extends Overlay
 			TileObject object = plugin.getTunnels().get(finishLoc);
 			if (object != null)
 			{
-				if (plugin.isShowClickBoxes())
-				{
-					Area clickbox = object.getClickbox();
-					if (clickbox != null)
-					{
-						Color col = plugin.getGetObjectColor();
-						graphics.setColor(col);
-						graphics.draw(clickbox);
-						graphics.setColor(new Color(col.getRed(), col.getGreen(), col.getBlue(), 20));
-						graphics.fill(clickbox);
-					}
-				}
-				else
-				{
-					OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetTunnelColor());
-				}
+				OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetTunnelColor());
 			}
 		}
 

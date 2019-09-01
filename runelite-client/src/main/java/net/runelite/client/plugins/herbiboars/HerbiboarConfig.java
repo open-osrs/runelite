@@ -46,17 +46,6 @@ public interface HerbiboarConfig extends Config
 
 	@ConfigItem(
 		position = 1,
-		keyName = "showClickboxes",
-		name = "Show Clickboxes",
-		description = "Show clickboxes on trail objects and tunnels instead of tiles"
-	)
-	default boolean showClickBoxes()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		position = 2,
 		keyName = "colorStart",
 		name = "Start Color",
 		description = "Color for rocks that start the trails"
@@ -67,7 +56,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+		position = 2,
 		keyName = "showTunnel",
 		name = "Show End Tunnels",
 		description = "Show highlights for tunnels with herbiboars"
@@ -78,7 +67,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 3,
 		keyName = "colorTunnel",
 		name = "Tunnel Color",
 		description = "Color for tunnels with herbiboars"
@@ -89,7 +78,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		position = 4,
 		keyName = "showObject",
 		name = "Show Trail Objects",
 		description = "Show highlights for mushrooms, mud, seaweed, etc"
@@ -100,7 +89,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 6,
+		position = 5,
 		keyName = "colorGameObject",
 		name = "Trail Object Color",
 		description = "Color for mushrooms, mud, seaweed, etc"
@@ -111,7 +100,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 7,
+		position = 6,
 		keyName = "showTrail",
 		name = "Show Trail",
 		description = "Show highlights for trail prints"
@@ -122,7 +111,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 8,
+		position = 7,
 		keyName = "showOnlyCurrentTrail",
 		name = "Show Current Trail Only",
 		description = "Only show the trail that you currently have to follow to get to the next object you have to inspect. Requires that the \"Show Trail\" option is enabled"
@@ -133,7 +122,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 9,
+		position = 8,
 		keyName = "colorTrail",
 		name = "Trail Color",
 		description = "Color for mushrooms, mud, seaweed, etc"
