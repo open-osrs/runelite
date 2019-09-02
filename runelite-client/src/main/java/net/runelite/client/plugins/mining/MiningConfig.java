@@ -96,7 +96,7 @@ public interface MiningConfig extends Config
 	}
 
 	@Range(
-		min = 1,
+		min = 10,
 		max = 50
 	)
 	@ConfigItem(
@@ -106,6 +106,6 @@ public interface MiningConfig extends Config
 	)
 	default int progressPieDiameter()
 	{
-		return 40;
+		return 30;
 	}
 }

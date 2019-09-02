@@ -26,7 +26,6 @@
  */
 package net.runelite.client.plugins.screenmarkers;
 
-import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.awt.Dimension;
@@ -43,6 +42,7 @@ import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.MouseManager;
@@ -252,7 +252,7 @@ public class ScreenMarkerPlugin extends Plugin
 
 	private Stream<ScreenMarkerOverlay> loadConfig(String json)
 	{
-		if (Strings.isNullOrEmpty(json))
+		if (Text.isNullOrEmpty(json))
 		{
 			return Stream.empty();
 		}

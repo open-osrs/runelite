@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.twitch;
 
-import com.google.common.base.Strings;
 import com.google.inject.Provides;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
@@ -35,6 +34,7 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.util.Text;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
@@ -115,9 +115,9 @@ public class TwitchPlugin extends Plugin implements TwitchListener, ChatboxInput
 			twitchIRCClient = null;
 		}
 
-		if (!Strings.isNullOrEmpty(twitchConfig.username())
-			&& !Strings.isNullOrEmpty(twitchConfig.oauthToken())
-			&& !Strings.isNullOrEmpty(twitchConfig.channel()))
+		if (!Text.isNullOrEmpty(twitchConfig.username())
+			&& !Text.isNullOrEmpty(twitchConfig.oauthToken())
+			&& !Text.isNullOrEmpty(twitchConfig.channel()))
 		{
 			String channel = twitchConfig.channel().toLowerCase();
 			if (!channel.startsWith("#"))

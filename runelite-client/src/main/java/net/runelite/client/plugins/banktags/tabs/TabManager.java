@@ -35,10 +35,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.Getter;
 import net.runelite.api.ItemID;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import static net.runelite.client.plugins.banktags.BankTagsPlugin.CONFIG_GROUP;
 import static net.runelite.client.plugins.banktags.BankTagsPlugin.ICON_SEARCH;
-import net.runelite.api.util.Text;
 import org.apache.commons.lang3.math.NumberUtils;
 
 @Singleton

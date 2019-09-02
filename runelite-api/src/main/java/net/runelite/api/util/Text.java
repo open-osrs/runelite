@@ -292,4 +292,20 @@ public class Text
 
 		return toString;
 	}
+
+	/**
+	 * Returns yes if str is null or all whitespace
+	 *
+	 * @param str the str you want to test
+	 * @return whether or not the string is null, or empty
+	 * ^ that explains what this does pretty well imo
+	 *
+	 * this is a in house replacement for
+	 * com.google.base.Strings::isNullOrEmpty
+	 * I made this for no reason whatsoever
+	 */
+	public static boolean isNullOrEmpty(String str)
+	{
+		return str == null || str.isEmpty();
+	}
 }

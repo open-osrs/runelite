@@ -28,8 +28,15 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
+import static net.runelite.api.ObjectID.CONTORTION_BARS;
+import static net.runelite.api.ObjectID.DOOR_7234;
+import static net.runelite.api.ObjectID.DOOR_7246;
+import static net.runelite.api.ObjectID.GRILL_7255;
+import static net.runelite.api.ObjectID.LEDGE_7240;
+import static net.runelite.api.ObjectID.PASSAGEWAY;
+import static net.runelite.api.ObjectID.WALL_7249;
+import static net.runelite.api.ObjectID.WALL_SAFE_7237;
 import net.runelite.api.coords.WorldPoint;
-import static net.runelite.api.ObjectID.*;
 
 class Obstacles
 {

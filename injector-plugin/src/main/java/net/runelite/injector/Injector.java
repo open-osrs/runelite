@@ -24,10 +24,9 @@
  */
 package net.runelite.injector;
 
+import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
-
-import com.google.common.io.Files;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.util.JarUtil;

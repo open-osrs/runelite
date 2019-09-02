@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.signature.Signature;
-import static net.runelite.deob.DeobAnnotations.*;
+import static net.runelite.deob.DeobAnnotations.getObfuscatedName;
 
 public class ClassGroup
 {

@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.banktags.tabs;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Runnables;
 import java.awt.Color;
@@ -55,8 +54,8 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.Point;
 import net.runelite.api.ScriptEvent;
 import net.runelite.api.ScriptID;
@@ -67,6 +66,7 @@ import net.runelite.api.VarClientStr;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.util.Text;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.ItemQuantityMode;
 import net.runelite.api.widgets.JavaScriptCallback;
@@ -89,7 +89,6 @@ import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.NewTab;
 import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.Tab;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.api.util.Text;
 
 @Singleton
 public class TabInterface
@@ -214,7 +213,7 @@ public class TabInterface
 		activateTab(null);
 		scrollTab(0);
 
-		if (config.rememberTab() && !Strings.isNullOrEmpty(config.tab()))
+		if (config.rememberTab() && !Text.isNullOrEmpty(config.tab()))
 		{
 			// the server will resync the last opened vanilla tab when the bank is opened
 			client.setVarbit(Varbits.CURRENT_BANK_TAB, 0);
@@ -237,7 +236,7 @@ public class TabInterface
 			.filter(id -> id != -1)
 			.collect(Collectors.toList());
 
-		if (!Strings.isNullOrEmpty(event.getTarget()))
+		if (!Text.isNullOrEmpty(event.getTarget()))
 		{
 			if (activeTab != null && Text.removeTags(event.getTarget()).equals(activeTab.getTag()))
 			{
@@ -276,7 +275,7 @@ public class TabInterface
 				chatboxPanelManager.openTextInput("Tag name")
 					.onDone((tagName) -> clientThread.invoke(() ->
 					{
-						if (!Strings.isNullOrEmpty(tagName))
+						if (!Text.isNullOrEmpty(tagName))
 						{
 							loadTab(tagName);
 							tabManager.save();
@@ -436,7 +435,7 @@ public class TabInterface
 			// Do the same for last active tab
 			if (config.rememberTab())
 			{
-				if (activeTab == null && !Strings.isNullOrEmpty(config.tab()))
+				if (activeTab == null && !Text.isNullOrEmpty(config.tab()))
 				{
 					config.tab("");
 				}
@@ -445,7 +444,7 @@ public class TabInterface
 					config.tab(activeTab.getTag());
 				}
 			}
-			else if (!Strings.isNullOrEmpty(config.tab()))
+			else if (!Text.isNullOrEmpty(config.tab()))
 			{
 				config.tab("");
 			}
@@ -463,7 +462,7 @@ public class TabInterface
 
 		String str = client.getVar(VarClientStr.INPUT_TEXT);
 
-		if (Strings.isNullOrEmpty(str))
+		if (Text.isNullOrEmpty(str))
 		{
 			str = "";
 		}
@@ -492,7 +491,7 @@ public class TabInterface
 
 		if (!waitSearchTick
 			&& activeTab == null
-			&& !Strings.isNullOrEmpty(rememberedSearch)
+			&& !Text.isNullOrEmpty(rememberedSearch)
 			&& client.getVar(VarClientInt.INPUT_TYPE) == InputType.NONE.getType())
 		{
 			bankSearch.reset(true);
@@ -697,7 +696,7 @@ public class TabInterface
 					updateTabIfActive(Lists.newArrayList(Text.standardize(draggedOn.getName())));
 				}
 			}
-			else if (parent.getId() == draggedOn.getId() && parent.getId() == draggedWidget.getId() && !Strings.isNullOrEmpty(draggedOn.getName()))
+			else if (parent.getId() == draggedOn.getId() && parent.getId() == draggedWidget.getId() && !Text.isNullOrEmpty(draggedOn.getName()))
 			{
 				tabManager.move(draggedWidget.getName(), draggedOn.getName());
 				tabManager.save();
@@ -795,7 +794,7 @@ public class TabInterface
 		chatboxPanelManager.openTextInput("Enter new tag name for tag \"" + oldTag + "\":")
 			.onDone((newTag) -> clientThread.invoke(() ->
 			{
-				if (!Strings.isNullOrEmpty(newTag) && !newTag.equalsIgnoreCase(oldTag))
+				if (!Text.isNullOrEmpty(newTag) && !newTag.equalsIgnoreCase(oldTag))
 				{
 					if (tabManager.find(newTag) == null)
 					{

@@ -35,10 +35,10 @@ import static net.runelite.client.plugins.itemcharges.ItemChargeType.ABYSSAL_BRA
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.BELLOWS;
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.FUNGICIDE_SPRAY;
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.IMPBOX;
+import static net.runelite.client.plugins.itemcharges.ItemChargeType.SACK;
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.TELEPORT;
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.WATERCAN;
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.WATERSKIN;
-import static net.runelite.client.plugins.itemcharges.ItemChargeType.SACK;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)

@@ -24,8 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.GrandExchangeOffer;
 import lombok.Data;
+import net.runelite.api.GrandExchangeOffer;
 
 /**
  * An event where a {GrandExchangeOffer} has been updated with

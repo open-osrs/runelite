@@ -27,7 +27,10 @@ package net.runelite.client.plugins.idlenotifier;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import java.util.Collection;
-import static net.runelite.api.ItemID.*;
+import static net.runelite.api.ItemID.BLUEGILL;
+import static net.runelite.api.ItemID.COMMON_TENCH;
+import static net.runelite.api.ItemID.GREATER_SIREN;
+import static net.runelite.api.ItemID.MOTTLED_EEL;
 
 public enum OutOfItemsMapping
 {

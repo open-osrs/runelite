@@ -24,6 +24,9 @@
  */
 package net.runelite.mixins;
 
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 import net.runelite.api.Actor;
 import net.runelite.api.Hitsplat;
 import net.runelite.api.NPC;
@@ -37,14 +40,11 @@ import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.HitsplatApplied;
+import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.LocalPlayerDeath;
+import net.runelite.api.events.OverheadTextChanged;
 import net.runelite.api.events.PlayerDeath;
 import net.runelite.api.events.SpotAnimationChanged;
-import net.runelite.api.events.InteractingChanged;
-import net.runelite.api.events.OverheadTextChanged;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.image.BufferedImage;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.MethodHook;

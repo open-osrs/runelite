@@ -24,8 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.ItemContainer;
 import lombok.Value;
+import net.runelite.api.ItemContainer;
 
 /**
  * An event called whenever the stack size of an {@link net.runelite.api.Item}

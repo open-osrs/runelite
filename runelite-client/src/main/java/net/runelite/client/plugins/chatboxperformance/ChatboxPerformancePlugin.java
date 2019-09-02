@@ -24,10 +24,9 @@
  */
 package net.runelite.client.plugins.chatboxperformance;
 
+import com.google.inject.Provides;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import com.google.inject.Provides;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ScriptID;

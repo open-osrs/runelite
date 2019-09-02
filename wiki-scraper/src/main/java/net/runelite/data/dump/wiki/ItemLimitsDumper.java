@@ -23,7 +23,6 @@
  */
 package net.runelite.data.dump.wiki;
 
-import com.google.common.base.Strings;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -92,7 +91,7 @@ public class ItemLimitsDumper
 
 			String data = wiki.getPageData("Module:Exchange/" + name, -1);
 
-			if (Strings.isNullOrEmpty(data))
+			if (Text.isNullOrEmpty(data))
 			{
 				log.debug("Data is null or empty: {}", name);
 				missing.add(name);
@@ -115,7 +114,7 @@ public class ItemLimitsDumper
 				while (matcher.find())
 				{
 					temp = matcher.group(1);
-					if (Strings.isNullOrEmpty(temp) ||
+					if (Text.isNullOrEmpty(temp) ||
 						temp.equalsIgnoreCase("no") ||
 						temp.equalsIgnoreCase("n/a") ||
 						temp.equals("nil") ||
@@ -124,7 +123,7 @@ public class ItemLimitsDumper
 						temp = null;
 					}
 				}
-				if (!Strings.isNullOrEmpty(temp))
+				if (!Text.isNullOrEmpty(temp))
 				{
 					limits.put(item.id, Integer.valueOf(temp));
 				}

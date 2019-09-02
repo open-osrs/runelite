@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.timetracking.farming;
 
-import com.google.common.base.Strings;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.time.Instant;
@@ -34,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
+import net.runelite.api.util.Text;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.timetracking.TabContentPanel;
 import net.runelite.client.plugins.timetracking.TimeTrackingConfig;
@@ -74,11 +74,11 @@ public class FarmingTabPanel extends TabContentPanel
 		boolean first = true;
 		for (FarmingPatch patch : patches)
 		{
-			String title = patch.getRegion().getName() + (Strings.isNullOrEmpty(patch.getName()) ? "" : " (" + patch.getName() + ")");
+			String title = patch.getRegion().getName() + (Text.isNullOrEmpty(patch.getName()) ? "" : " (" + patch.getName() + ")");
 			TimeablePanel<FarmingPatch> p = new TimeablePanel<>(patch, title, 1);
 
 			/* Show labels to subdivide tabs into sections */
-			if (patch.getImplementation() != lastImpl && !Strings.isNullOrEmpty(patch.getImplementation().getName()))
+			if (patch.getImplementation() != lastImpl && !Text.isNullOrEmpty(patch.getImplementation().getName()))
 			{
 				JLabel groupLabel = new JLabel(patch.getImplementation().getName());
 

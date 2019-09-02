@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.grandexchange;
 
-import com.google.common.base.Strings;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -45,6 +44,7 @@ import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemDefinition;
+import net.runelite.api.util.Text;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.game.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
@@ -158,7 +158,7 @@ class GrandExchangeSearchPanel extends JPanel
 	{
 		String lookup = searchBar.getText();
 
-		if (Strings.isNullOrEmpty(lookup))
+		if (Text.isNullOrEmpty(lookup))
 		{
 			searchItemsPanel.removeAll();
 			SwingUtilities.invokeLater(searchItemsPanel::updateUI);

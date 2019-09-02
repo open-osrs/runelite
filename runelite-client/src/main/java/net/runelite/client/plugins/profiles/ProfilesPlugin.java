@@ -26,6 +26,7 @@ package net.runelite.client.plugins.profiles;
 
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.GameState;
@@ -39,7 +40,6 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
-import java.util.concurrent.ScheduledExecutorService;
 
 @PluginDescriptor(
 	name = "Account Switcher",

@@ -24,7 +24,6 @@
  */
 package net.runelite.client.ui.overlay.components;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -34,6 +33,7 @@ import java.awt.Rectangle;
 import java.text.DecimalFormat;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.util.Text;
 
 @Setter
 public class ProgressBarComponent implements LayoutableRenderableEntity
@@ -96,7 +96,7 @@ public class ProgressBarComponent implements LayoutableRenderableEntity
 				textToWrite = formatFullProgress(currentValue, maximum);
 		}
 
-		if (!Strings.isNullOrEmpty(centerLabel))
+		if (!Text.isNullOrEmpty(centerLabel))
 		{
 			if (!textToWrite.isEmpty())
 			{

@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.keyremapping;
 
-import com.google.common.base.Strings;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +33,7 @@ import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.VarClientStr;
+import net.runelite.api.util.Text;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseAdapter;
@@ -197,7 +197,7 @@ class KeyRemappingListener extends MouseAdapter implements KeyListener
 					break;
 				case KeyEvent.VK_BACK_SPACE:
 					// Only lock chat on backspace when the typed text is now empty
-					if (Strings.isNullOrEmpty(client.getVar(VarClientStr.CHATBOX_TYPED_TEXT)))
+					if (Text.isNullOrEmpty(client.getVar(VarClientStr.CHATBOX_TYPED_TEXT)))
 					{
 						plugin.setTyping(false);
 						clientThread.invoke(plugin::lockChat);

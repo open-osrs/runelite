@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.inferno;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -36,6 +35,7 @@ import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.util.Text;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -92,7 +92,7 @@ public class InfernoOverlay extends Overlay
 	{
 		graphics.setFont(new Font("Arial", Font.BOLD, 15));
 		Point textLocation = actor.getNpc().getCanvasTextLocation(graphics, text, actor.textLocHeight + 40);
-		if (Strings.isNullOrEmpty(text))
+		if (Text.isNullOrEmpty(text))
 		{
 			return;
 		}

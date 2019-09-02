@@ -2,9 +2,9 @@ package net.runelite.mixins;
 
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.World;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.rs.api.RSClient;
 
 @Mixin(RSClient.class)

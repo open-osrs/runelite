@@ -25,14 +25,13 @@
 package net.runelite.client.plugins.nightmarezone;
 
 import com.google.inject.Provides;
-
 import java.awt.Color;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
-import java.time.Duration;
-import java.time.Instant;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -40,6 +39,7 @@ import net.runelite.api.Varbits;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.Notifier;
@@ -48,7 +48,6 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.api.util.Text;
 
 @PluginDescriptor(
 	name = "Nightmare Zone",

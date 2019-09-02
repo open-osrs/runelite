@@ -25,7 +25,6 @@
 package net.runelite.client.ui.overlay.components;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -35,6 +34,7 @@ import java.awt.Rectangle;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.util.Text;
 
 @Setter
 @Builder
@@ -79,7 +79,7 @@ public class LineComponent implements LayoutableRenderableEntity
 			int leftSmallWidth = preferredSize.width;
 			int rightSmallWidth = 0;
 
-			if (!Strings.isNullOrEmpty(right))
+			if (!Text.isNullOrEmpty(right))
 			{
 				rightSmallWidth = (preferredSize.width / 3);
 				leftSmallWidth -= rightSmallWidth;

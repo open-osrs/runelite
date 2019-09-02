@@ -25,10 +25,9 @@
 
 package net.runelite.asm.execution;
 
-import net.runelite.asm.Type;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.runelite.asm.Type;
 
 public class VariableContext
 {

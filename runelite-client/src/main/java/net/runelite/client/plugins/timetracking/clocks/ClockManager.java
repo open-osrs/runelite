@@ -33,9 +33,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
-import joptsimple.internal.Strings;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.plugins.timetracking.TimeTrackingConfig;
@@ -150,7 +150,7 @@ public class ClockManager
 	{
 		final String timersJson = configManager.getConfiguration(TimeTrackingConfig.CONFIG_GROUP, TimeTrackingConfig.TIMERS);
 
-		if (!Strings.isNullOrEmpty(timersJson))
+		if (!Text.isNullOrEmpty(timersJson))
 		{
 			final Gson gson = new Gson();
 			final List<Timer> timers = gson.fromJson(timersJson, new TypeToken<ArrayList<Timer>>()
@@ -167,7 +167,7 @@ public class ClockManager
 	{
 		final String stopwatchesJson = configManager.getConfiguration(TimeTrackingConfig.CONFIG_GROUP, TimeTrackingConfig.STOPWATCHES);
 
-		if (!Strings.isNullOrEmpty(stopwatchesJson))
+		if (!Text.isNullOrEmpty(stopwatchesJson))
 		{
 			final Gson gson = new Gson();
 			final List<Stopwatch> stopwatches = gson.fromJson(stopwatchesJson, new TypeToken<ArrayList<Stopwatch>>()

@@ -33,8 +33,8 @@ import net.runelite.deob.util.JarUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class MenuActionDeobfuscatorTest

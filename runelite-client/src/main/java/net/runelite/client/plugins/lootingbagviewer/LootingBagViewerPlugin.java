@@ -26,7 +26,6 @@
 
 package net.runelite.client.plugins.lootingbagviewer;
 
-import com.google.common.base.Strings;
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.WidgetHiddenChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -164,7 +164,7 @@ public class LootingBagViewerPlugin extends Plugin
 				Widget value = client.getWidget(81, 6);
 				log.debug("val: {}", value.getText());
 
-				if (!Strings.isNullOrEmpty(value.getText()))
+				if (!Text.isNullOrEmpty(value.getText()))
 				{
 					if (value.getText().equals("Value: -")) 
 					{

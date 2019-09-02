@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.objectindicators;
 
-import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Provides;
@@ -47,8 +46,8 @@ import static net.runelite.api.Constants.REGION_SIZE;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.ObjectDefinition;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
@@ -63,6 +62,7 @@ import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.KeyListener;
@@ -285,7 +285,7 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 
 		ObjectDefinition objectDefinition = client.getObjectDefinition(object.getId());
 		String name = objectDefinition.getName();
-		if (Strings.isNullOrEmpty(name))
+		if (Text.isNullOrEmpty(name))
 		{
 			return;
 		}
@@ -409,7 +409,7 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 	{
 		final String json = configManager.getConfiguration(CONFIG_GROUP, "region_" + id);
 
-		if (Strings.isNullOrEmpty(json))
+		if (Text.isNullOrEmpty(json))
 		{
 			return null;
 		}

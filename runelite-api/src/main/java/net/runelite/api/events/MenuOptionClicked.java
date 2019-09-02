@@ -27,8 +27,8 @@ package net.runelite.api.events;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 
 /**
  * An event where a menu option has been clicked.

@@ -30,17 +30,7 @@ import java.awt.Rectangle;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.ASGARNIA;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.DESERT;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.FELDIP_HILLS;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.FREMENNIK_PROVINCE;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.KANDARIN;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.KARAMJA;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.MISTHALIN;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.MORYTANIA;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.WESTERN_PROVINCE;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.WILDERNESS;
-import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.ZEAH;
+import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.*;
 
 // The locations contains all hot/cold points and their descriptions according to the wiki
 // these central points were obtained by checking wiki location pictures against a coordinate map

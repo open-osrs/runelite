@@ -26,8 +26,8 @@ package net.runelite.http.service.chat;
 
 import java.time.Duration;
 import java.util.List;
-import net.runelite.http.api.chat.ChatClient;
 import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.chat.ChatClient;
 import net.runelite.http.api.chat.House;
 import net.runelite.http.service.util.redis.RedisPool;
 import org.springframework.beans.factory.annotation.Autowired;

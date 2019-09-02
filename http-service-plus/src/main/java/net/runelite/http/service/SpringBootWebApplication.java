@@ -25,7 +25,6 @@
 package net.runelite.http.service;
 
 import ch.qos.logback.classic.LoggerContext;
-import com.google.common.base.Strings;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.HashMap;
@@ -36,6 +35,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.service.util.InstantConverter;
 import okhttp3.Cache;
@@ -158,7 +158,7 @@ public class SpringBootWebApplication extends SpringBootServletInitializer
 
 	private static DataSource getDataSource(DataSourceProperties dataSourceProperties)
 	{
-		if (!Strings.isNullOrEmpty(dataSourceProperties.getJndiName()))
+		if (!Text.isNullOrEmpty(dataSourceProperties.getJndiName()))
 		{
 			// Use JNDI provided datasource, which is already configured with pooling
 			JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();

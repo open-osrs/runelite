@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.loginscreen;
 
-import com.google.common.base.Strings;
 import com.google.inject.Provides;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
@@ -38,9 +37,10 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.util.Text;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.SessionOpen;
-import net.runelite.client.config.ConfigManager;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
@@ -162,7 +162,7 @@ public class LoginScreenPlugin extends Plugin implements KeyListener
 		{
 			String username = this.username;
 
-			if (Strings.isNullOrEmpty(username))
+			if (Text.isNullOrEmpty(username))
 			{
 				return;
 			}

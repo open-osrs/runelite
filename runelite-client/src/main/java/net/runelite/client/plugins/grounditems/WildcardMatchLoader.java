@@ -24,10 +24,10 @@
  */
 package net.runelite.client.plugins.grounditems;
 
-import com.google.common.base.Strings;
 import com.google.common.cache.CacheLoader;
 import java.util.List;
 import javax.annotation.Nonnull;
+import net.runelite.api.util.Text;
 import net.runelite.client.util.WildcardMatcher;
 
 class WildcardMatchLoader extends CacheLoader<String, Boolean>
@@ -42,7 +42,7 @@ class WildcardMatchLoader extends CacheLoader<String, Boolean>
 	@Override
 	public Boolean load(@Nonnull final String key)
 	{
-		if (Strings.isNullOrEmpty(key))
+		if (Text.isNullOrEmpty(key))
 		{
 			return false;
 		}

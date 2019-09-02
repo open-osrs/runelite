@@ -28,7 +28,6 @@
 
 package net.runelite.client.plugins.fairyring;
 
-import com.google.common.base.Strings;
 import com.google.inject.Provides;
 import java.util.Collection;
 import java.util.Map;
@@ -48,6 +47,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
@@ -60,7 +60,6 @@ import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.game.chatbox.ChatboxTextInput;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.api.util.Text;
 
 @Slf4j
 @PluginDescriptor(
@@ -298,7 +297,7 @@ public class FairyRingPlugin extends Plugin
 				{
 					codeMap.computeIfAbsent(w.getRelativeY(), k -> new CodeWidgets()).setFavorite(w);
 				}
-				else if (!Strings.isNullOrEmpty(w.getText()))
+				else if (!Text.isNullOrEmpty(w.getText()))
 				{
 					codeMap.computeIfAbsent(w.getRelativeY(), k -> new CodeWidgets()).setDescription(w);
 				}

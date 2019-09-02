@@ -46,7 +46,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import joptsimple.internal.Strings;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -74,6 +73,7 @@ import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.vars.SlayerUnlock;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -100,7 +100,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.api.util.Text;
 import net.runelite.http.api.chat.ChatClient;
 
 @PluginDescriptor(
@@ -1081,7 +1080,7 @@ public class SlayerPlugin extends Plugin
 
 	private void addCounter()
 	{
-		if (!this.showInfobox || counter != null || currentTask == null || Strings.isNullOrEmpty(currentTask.getTaskName()))
+		if (!this.showInfobox || counter != null || currentTask == null || Text.isNullOrEmpty(currentTask.getTaskName()))
 		{
 			return;
 		}
@@ -1172,7 +1171,7 @@ public class SlayerPlugin extends Plugin
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(task.getTask());
-		if (!Strings.isNullOrEmpty(task.getLocation()))
+		if (!Text.isNullOrEmpty(task.getLocation()))
 		{
 			sb.append(" (").append(task.getLocation()).append(")");
 		}
@@ -1272,7 +1271,7 @@ public class SlayerPlugin extends Plugin
 
 	private boolean taskSubmit(ChatInput chatInput, String value)
 	{
-		if (Strings.isNullOrEmpty(currentTask.getTaskName()))
+		if (Text.isNullOrEmpty(currentTask.getTaskName()))
 		{
 			return false;
 		}

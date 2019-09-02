@@ -37,13 +37,14 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Friend;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.Nameable;
+import net.runelite.api.events.FriendRemoved;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NameableNameChanged;
-import net.runelite.api.events.FriendRemoved;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -52,7 +53,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.api.util.Text;
 
 @Slf4j
 @PluginDescriptor(
@@ -119,7 +119,7 @@ public class FriendNotesPlugin extends Plugin
 	 */
 	private void setFriendNote(String displayName, String note)
 	{
-		if (Strings.isNullOrEmpty(note))
+		if (Text.isNullOrEmpty(note))
 		{
 			configManager.unsetConfiguration(CONFIG_GROUP, KEY_PREFIX + displayName);
 		}
@@ -164,7 +164,7 @@ public class FriendNotesPlugin extends Plugin
 	{
 		hoveredFriend = null;
 
-		if (!Strings.isNullOrEmpty(displayName))
+		if (!Text.isNullOrEmpty(displayName))
 		{
 			final String note = getFriendNote(displayName);
 			if (note != null)
@@ -206,7 +206,7 @@ public class FriendNotesPlugin extends Plugin
 	{
 		if (WidgetInfo.TO_GROUP(event.getActionParam1()) == WidgetInfo.FRIENDS_LIST.getGroupId())
 		{
-			if (Strings.isNullOrEmpty(event.getTarget()))
+			if (Text.isNullOrEmpty(event.getTarget()))
 			{
 				return;
 			}

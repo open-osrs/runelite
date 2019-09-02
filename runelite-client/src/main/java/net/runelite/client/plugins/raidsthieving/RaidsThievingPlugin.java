@@ -26,6 +26,10 @@ package net.runelite.client.plugins.raidsthieving;
 
 import com.google.inject.Provides;
 import java.awt.Color;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -52,10 +56,6 @@ import net.runelite.client.plugins.raidsthieving.BatSolver.BatSolver;
 import net.runelite.client.plugins.raidsthieving.BatSolver.ChestIdentifier;
 import net.runelite.client.plugins.raidsthieving.BatSolver.ThievingRoomType;
 import net.runelite.client.ui.overlay.OverlayManager;
-import javax.inject.Inject;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
 
 @PluginDescriptor(
 	name = "Raids Bat Finder",

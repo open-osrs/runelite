@@ -24,7 +24,6 @@
  */
 package net.runelite.api;
 
-import net.runelite.api.hooks.DrawCallbacks;
 import java.awt.Canvas;
 import net.runelite.api.hooks.DrawCallbacks;
 

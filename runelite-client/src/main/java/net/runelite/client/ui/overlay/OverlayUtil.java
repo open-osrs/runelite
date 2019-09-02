@@ -24,7 +24,6 @@
  */
 package net.runelite.client.ui.overlay;
 
-import com.google.common.base.Strings;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -49,6 +48,7 @@ import net.runelite.api.VarClientInt;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.util.Text;
 import net.runelite.api.vars.InterfaceTab;
 import net.runelite.api.widgets.Widget;
 
@@ -92,7 +92,7 @@ public class OverlayUtil
 
 	public static void renderTextLocation(Graphics2D graphics, Point txtLoc, String text, Color color)
 	{
-		if (Strings.isNullOrEmpty(text))
+		if (Text.isNullOrEmpty(text))
 		{
 			return;
 		}

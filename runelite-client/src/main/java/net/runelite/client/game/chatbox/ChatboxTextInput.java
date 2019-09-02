@@ -24,7 +24,6 @@
  */
 package net.runelite.client.game.chatbox;
 
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -48,6 +47,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.FontID;
 import net.runelite.api.FontTypeFace;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetPositionMode;
@@ -58,7 +58,6 @@ import net.runelite.client.callback.ClientThread;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseListener;
 import net.runelite.client.util.MiscUtils;
-import net.runelite.api.util.Text;
 
 @Slf4j
 public class ChatboxTextInput extends ChatboxInput implements KeyListener, MouseListener
@@ -390,7 +389,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 				cursor.revalidate();
 			}
 
-			if (!Strings.isNullOrEmpty(lt))
+			if (!Text.isNullOrEmpty(lt))
 			{
 				final Widget leftText = container.createChild(-1, WidgetType.TEXT);
 				leftText.setFontId(fontID);
@@ -402,7 +401,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 				leftText.revalidate();
 			}
 
-			if (!Strings.isNullOrEmpty(mt))
+			if (!Text.isNullOrEmpty(mt))
 			{
 				final Widget background = container.createChild(-1, WidgetType.RECTANGLE);
 				background.setTextColor(0x113399);
@@ -424,7 +423,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 				middleText.revalidate();
 			}
 
-			if (!Strings.isNullOrEmpty(rt))
+			if (!Text.isNullOrEmpty(rt))
 			{
 				final Widget rightText = container.createChild(-1, WidgetType.TEXT);
 				rightText.setText(rt);

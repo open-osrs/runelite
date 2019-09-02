@@ -25,7 +25,6 @@ package net.runelite.data.dump;
 
 import com.google.common.base.Function;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Strings;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -234,7 +233,7 @@ public class MediaWikiTemplate
 	{
 		String val = map.get(key);
 
-		if (Strings.isNullOrEmpty(val) ||
+		if (Text.isNullOrEmpty(val) ||
 			val.equalsIgnoreCase("no") ||
 			val.equalsIgnoreCase("n/a") ||
 			val.equals("nil") ||
@@ -244,20 +243,20 @@ public class MediaWikiTemplate
 		}
 
 		val = val.replace("kg", "").replaceAll("[><]", "");
-		return Strings.isNullOrEmpty(val) ? null : val;
+		return Text.isNullOrEmpty(val) ? null : val;
 	}
 
 	public Boolean getBoolean(final String key)
 	{
 		final String val = getValue(key);
-		return !Strings.isNullOrEmpty(val) ? true : null;
+		return !Text.isNullOrEmpty(val) ? true : null;
 	}
 
 	public Double getDouble(final String key)
 	{
 		final String val = getValue(key);
 
-		if (Strings.isNullOrEmpty(val))
+		if (Text.isNullOrEmpty(val))
 		{
 			return null;
 		}
@@ -278,7 +277,7 @@ public class MediaWikiTemplate
 	{
 		final String val = getValue(key);
 
-		if (Strings.isNullOrEmpty(val))
+		if (Text.isNullOrEmpty(val))
 		{
 			return null;
 		}

@@ -23,7 +23,6 @@
  */
 package net.runelite.data.dump.wiki;
 
-import com.google.common.base.Strings;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -85,7 +84,7 @@ public class ItemStatsDumper
 
 			String data = wiki.getSpecialLookupData("item", item.id, 0);
 
-			if (Strings.isNullOrEmpty(data))
+			if (Text.isNullOrEmpty(data))
 			{
 				return;
 			}
@@ -126,7 +125,7 @@ public class ItemStatsDumper
 					{
 						data = wiki.getSpecialLookupData("item", item.id, 1);
 
-						if (Strings.isNullOrEmpty(data))
+						if (Text.isNullOrEmpty(data))
 						{
 							break;
 						}

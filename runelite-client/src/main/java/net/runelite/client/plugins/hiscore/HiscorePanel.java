@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.hiscore;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -53,6 +52,7 @@ import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.Player;
 import net.runelite.api.WorldType;
+import net.runelite.api.util.Text;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
@@ -65,34 +65,7 @@ import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
 import net.runelite.http.api.hiscore.HiscoreSkill;
-import static net.runelite.http.api.hiscore.HiscoreSkill.AGILITY;
-import static net.runelite.http.api.hiscore.HiscoreSkill.ATTACK;
-import static net.runelite.http.api.hiscore.HiscoreSkill.BOUNTY_HUNTER_HUNTER;
-import static net.runelite.http.api.hiscore.HiscoreSkill.BOUNTY_HUNTER_ROGUE;
-import static net.runelite.http.api.hiscore.HiscoreSkill.CLUE_SCROLL_ALL;
-import static net.runelite.http.api.hiscore.HiscoreSkill.CONSTRUCTION;
-import static net.runelite.http.api.hiscore.HiscoreSkill.COOKING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.CRAFTING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.DEFENCE;
-import static net.runelite.http.api.hiscore.HiscoreSkill.FARMING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.FIREMAKING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.FISHING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.FLETCHING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.HERBLORE;
-import static net.runelite.http.api.hiscore.HiscoreSkill.HITPOINTS;
-import static net.runelite.http.api.hiscore.HiscoreSkill.HUNTER;
-import static net.runelite.http.api.hiscore.HiscoreSkill.LAST_MAN_STANDING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.MAGIC;
-import static net.runelite.http.api.hiscore.HiscoreSkill.MINING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.OVERALL;
-import static net.runelite.http.api.hiscore.HiscoreSkill.PRAYER;
-import static net.runelite.http.api.hiscore.HiscoreSkill.RANGED;
-import static net.runelite.http.api.hiscore.HiscoreSkill.RUNECRAFT;
-import static net.runelite.http.api.hiscore.HiscoreSkill.SLAYER;
-import static net.runelite.http.api.hiscore.HiscoreSkill.SMITHING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.STRENGTH;
-import static net.runelite.http.api.hiscore.HiscoreSkill.THIEVING;
-import static net.runelite.http.api.hiscore.HiscoreSkill.WOODCUTTING;
+import static net.runelite.http.api.hiscore.HiscoreSkill.*;
 import net.runelite.http.api.hiscore.Skill;
 
 @Slf4j
@@ -337,9 +310,9 @@ public class HiscorePanel extends PluginPanel
 	{
 		String lookup = searchBar.getText();
 
-		lookup = sanitize(lookup);
+		lookup = Text.sanitize(lookup);
 
-		if (Strings.isNullOrEmpty(lookup))
+		if (Text.isNullOrEmpty(lookup))
 		{
 			return;
 		}

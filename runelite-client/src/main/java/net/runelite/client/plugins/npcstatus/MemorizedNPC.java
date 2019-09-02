@@ -29,9 +29,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.Actor;
 import net.runelite.api.NPC;
 import net.runelite.api.coords.WorldArea;
-import net.runelite.api.Actor;
 
 @Getter
 class MemorizedNPC

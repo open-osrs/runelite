@@ -24,17 +24,17 @@
  */
 package net.runelite.client.plugins.statusbars;
 
-import javax.inject.Inject;
-
 import com.google.common.collect.Maps;
 import com.google.inject.Provides;
-import javax.inject.Singleton;
-import lombok.Getter;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
+import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -54,9 +54,6 @@ import net.runelite.client.plugins.statusbars.renderer.HitPointsRenderer;
 import net.runelite.client.plugins.statusbars.renderer.PrayerRenderer;
 import net.runelite.client.plugins.statusbars.renderer.SpecialAttackRenderer;
 import net.runelite.client.ui.overlay.OverlayManager;
-
-
-import java.util.Map;
 
 @PluginDescriptor(
 	name = "Status Bars",
