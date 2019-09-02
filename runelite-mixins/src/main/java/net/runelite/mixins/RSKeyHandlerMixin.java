@@ -1,8 +1,8 @@
 package net.runelite.mixins;
 
-import net.runelite.api.events.FocusChanged;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
+import net.runelite.api.events.FocusChanged;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.MethodHook;

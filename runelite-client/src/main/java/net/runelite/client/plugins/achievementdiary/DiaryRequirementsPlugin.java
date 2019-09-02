@@ -40,6 +40,7 @@ import net.runelite.api.QuestState;
 import net.runelite.api.ScriptID;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -59,7 +60,6 @@ import net.runelite.client.plugins.achievementdiary.diaries.MorytaniaDiaryRequir
 import net.runelite.client.plugins.achievementdiary.diaries.VarrockDiaryRequirement;
 import net.runelite.client.plugins.achievementdiary.diaries.WesternDiaryRequirement;
 import net.runelite.client.plugins.achievementdiary.diaries.WildernessDiaryRequirement;
-import net.runelite.api.util.Text;
 
 @Slf4j
 @PluginDescriptor(

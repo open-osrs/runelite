@@ -24,15 +24,15 @@
  */
 package net.runelite.client.plugins.mousehighlight;
 
-import com.google.common.base.Strings;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.VarClientInt;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
@@ -82,7 +82,7 @@ class MouseHighlightOverlay extends Overlay
 			return null;
 		}
 
-		if (Strings.isNullOrEmpty(option))
+		if (Text.isNullOrEmpty(option))
 		{
 			return null;
 		}
@@ -139,7 +139,7 @@ class MouseHighlightOverlay extends Overlay
 			return null;
 		}
 
-		tooltipManager.addFront(new Tooltip(option + (Strings.isNullOrEmpty(target) ? "" : " " + target)));
+		tooltipManager.addFront(new Tooltip(option + (Text.isNullOrEmpty(target) ? "" : " " + target)));
 		return null;
 	}
 

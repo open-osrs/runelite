@@ -1,7 +1,7 @@
 package net.runelite.api.events;
 
-import net.runelite.api.Actor;
 import lombok.Value;
+import net.runelite.api.Actor;
 
 @Value
 public class OverheadTextChanged implements Event

@@ -66,6 +66,7 @@ import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetHiddenChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
@@ -93,13 +94,12 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.api.util.Text;
-import org.apache.commons.lang3.StringUtils;
-import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 import net.runelite.client.ws.PartyMember;
 import net.runelite.client.ws.PartyService;
 import net.runelite.client.ws.WSClient;
 import net.runelite.http.api.ws.messages.party.PartyChatMessage;
+import org.apache.commons.lang3.StringUtils;
+import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 @PluginDescriptor(
 	name = "CoX Scouter",

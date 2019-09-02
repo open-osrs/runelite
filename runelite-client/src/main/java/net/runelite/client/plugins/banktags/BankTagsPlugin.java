@@ -42,15 +42,15 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import static net.runelite.api.Constants.HIGH_ALCHEMY_MULTIPLIER;
 import net.runelite.api.Client;
+import static net.runelite.api.Constants.HIGH_ALCHEMY_MULTIPLIER;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.events.ConfigChanged;
@@ -62,6 +62,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
@@ -84,7 +85,6 @@ import net.runelite.client.plugins.banktags.tabs.TabInterface;
 import net.runelite.client.plugins.banktags.tabs.TabSprites;
 import net.runelite.client.plugins.cluescrolls.ClueScrollPlugin;
 import net.runelite.client.util.StackFormatter;
-import net.runelite.api.util.Text;
 
 @PluginDescriptor(
 	name = "Bank Tags",

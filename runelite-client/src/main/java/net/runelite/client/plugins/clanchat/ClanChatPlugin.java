@@ -26,7 +26,6 @@
  */
 package net.runelite.client.plugins.clanchat;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.inject.Provides;
 import java.awt.Color;
@@ -64,6 +63,7 @@ import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarClientStrChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetType;
@@ -80,7 +80,6 @@ import static net.runelite.client.ui.JagexColors.CHAT_CLAN_NAME_TRANSPARENT_BACK
 import static net.runelite.client.ui.JagexColors.CHAT_CLAN_TEXT_OPAQUE_BACKGROUND;
 import static net.runelite.client.ui.JagexColors.CHAT_CLAN_TEXT_TRANSPARENT_BACKGROUND;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
-import net.runelite.api.util.Text;
 
 @PluginDescriptor(
 	name = "Clan Chat",
@@ -313,7 +312,7 @@ public class ClanChatPlugin extends Plugin
 			{
 				clanChatTitleWidget.setText(CLAN_CHAT_TITLE + " (" + client.getClanChatCount() + "/100)");
 			}
-			else if (this.recentChats && clanChatList.getChildren() == null && !Strings.isNullOrEmpty(owner.getText()))
+			else if (this.recentChats && clanChatList.getChildren() == null && !Text.isNullOrEmpty(owner.getText()))
 			{
 				clanChatTitleWidget.setText(RECENT_TITLE);
 
@@ -626,7 +625,7 @@ public class ClanChatPlugin extends Plugin
 
 	private void updateRecentChat(String s)
 	{
-		if (Strings.isNullOrEmpty(s))
+		if (Text.isNullOrEmpty(s))
 		{
 			return;
 		}

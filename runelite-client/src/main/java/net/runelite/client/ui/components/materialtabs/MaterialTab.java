@@ -24,7 +24,6 @@
  */
 package net.runelite.client.ui.components.materialtabs;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -38,6 +37,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.util.Text;
 import net.runelite.client.ui.ColorScheme;
 
 /**
@@ -93,7 +93,7 @@ public class MaterialTab extends JLabel
 			}
 		});
 
-		if (!Strings.isNullOrEmpty(string))
+		if (!Text.isNullOrEmpty(string))
 		{
 			addMouseListener(new MouseAdapter()
 			{

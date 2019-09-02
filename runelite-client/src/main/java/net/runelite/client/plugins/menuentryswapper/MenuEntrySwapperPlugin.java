@@ -29,7 +29,6 @@
 package net.runelite.client.plugins.menuentryswapper;
 
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.inject.Provides;
@@ -67,6 +66,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.util.Text;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.Keybind;
@@ -106,7 +106,6 @@ import net.runelite.client.plugins.pvptools.PvpToolsPlugin;
 import net.runelite.client.util.HotkeyListener;
 import static net.runelite.client.util.MenuUtil.swap;
 import net.runelite.client.util.MiscUtils;
-import net.runelite.api.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
@@ -673,7 +672,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		final Map<AbstractComparableEntry, Integer> tmp = new HashMap<>();
 
-		if (!Strings.isNullOrEmpty(config))
+		if (!Text.isNullOrEmpty(config))
 		{
 			final StringBuilder sb = new StringBuilder();
 

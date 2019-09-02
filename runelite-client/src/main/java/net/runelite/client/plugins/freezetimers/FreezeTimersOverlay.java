@@ -26,6 +26,8 @@
 package net.runelite.client.plugins.freezetimers;
 
 import java.awt.Color;
+import static java.awt.Color.RED;
+import static java.awt.Color.WHITE;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -44,8 +46,6 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
-import static java.awt.Color.RED;
-import static java.awt.Color.WHITE;
 
 @Singleton
 public class FreezeTimersOverlay extends Overlay

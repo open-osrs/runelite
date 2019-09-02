@@ -1,11 +1,11 @@
 package net.runelite.mixins;
 
-import net.runelite.api.VarClientInt;
-import net.runelite.api.VarClientStr;
-import net.runelite.api.Varbits;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import java.util.Map;
+import net.runelite.api.VarClientInt;
+import net.runelite.api.VarClientStr;
+import net.runelite.api.Varbits;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;

@@ -23,17 +23,17 @@
  */
 package net.runelite.data.dump;
 
-import java.io.UnsupportedEncodingException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import net.runelite.data.App;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 
 public class MediaWiki
 {

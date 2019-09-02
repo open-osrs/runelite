@@ -26,9 +26,9 @@ package net.runelite.mixins;
 
 import net.runelite.api.Entity;
 import net.runelite.api.Perspective;
+import net.runelite.api.Tile;
 import net.runelite.api.TileModel;
 import net.runelite.api.TilePaint;
-import net.runelite.api.Tile;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
@@ -38,9 +38,9 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSBoundaryObject;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSFloorDecoration;
-import net.runelite.rs.api.RSTileItemPile;
 import net.runelite.rs.api.RSScene;
 import net.runelite.rs.api.RSTile;
+import net.runelite.rs.api.RSTileItemPile;
 import net.runelite.rs.api.RSTileModel;
 import net.runelite.rs.api.RSWallDecoration;
 

@@ -55,6 +55,7 @@ import net.runelite.api.events.GroundObjectChanged;
 import net.runelite.api.events.GroundObjectDespawned;
 import net.runelite.api.events.GroundObjectSpawned;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
@@ -66,7 +67,6 @@ import net.runelite.client.plugins.pestcontrol.config.HighlightPortalOption;
 import net.runelite.client.plugins.pestcontrol.config.NpcHighlightStyle;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
-import net.runelite.api.util.Text;
 
 @Slf4j
 @PluginDescriptor(

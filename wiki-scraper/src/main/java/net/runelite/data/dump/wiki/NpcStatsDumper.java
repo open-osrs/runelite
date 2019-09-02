@@ -23,7 +23,6 @@
  */
 package net.runelite.data.dump.wiki;
 
-import com.google.common.base.Strings;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,6 +39,7 @@ import java.util.stream.Stream;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 import net.runelite.cache.NpcManager;
 import net.runelite.cache.definitions.NpcDefinition;
 import net.runelite.cache.fs.Store;
@@ -177,7 +177,7 @@ public class NpcStatsDumper
 			}
 
 			final String data = wiki.getSpecialLookupData("npc", n.getId(), 0);
-			if (Strings.isNullOrEmpty(data))
+			if (Text.isNullOrEmpty(data))
 			{
 				return;
 			}
@@ -367,7 +367,7 @@ public class NpcStatsDumper
 		}
 
 		final String val = template.getValue(key);
-		if (Strings.isNullOrEmpty(val))
+		if (Text.isNullOrEmpty(val))
 		{
 			return null;
 		}

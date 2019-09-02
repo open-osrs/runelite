@@ -31,11 +31,11 @@ import net.runelite.api.CollisionDataFlag;
 import net.runelite.api.Constants;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.GroundObject;
-import net.runelite.api.TileItemPile;
 import net.runelite.api.Node;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
 import net.runelite.api.TileItem;
+import net.runelite.api.TileItemPile;
 import net.runelite.api.WallObject;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -62,12 +62,12 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEntity;
 import net.runelite.rs.api.RSGameObject;
 import net.runelite.rs.api.RSGraphicsObject;
-import net.runelite.rs.api.RSTileItemPile;
 import net.runelite.rs.api.RSNode;
 import net.runelite.rs.api.RSNodeDeque;
 import net.runelite.rs.api.RSProjectile;
 import net.runelite.rs.api.RSTile;
 import net.runelite.rs.api.RSTileItem;
+import net.runelite.rs.api.RSTileItemPile;
 import org.slf4j.Logger;
 
 @Mixin(RSTile.class)

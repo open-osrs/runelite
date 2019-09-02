@@ -3,10 +3,10 @@ package net.runelite.rs.api;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.GroundObject;
+import net.runelite.api.Tile;
 import net.runelite.api.TileItemPile;
 import net.runelite.api.TileModel;
 import net.runelite.api.TilePaint;
-import net.runelite.api.Tile;
 import net.runelite.api.WallObject;
 import net.runelite.mapping.Import;
 

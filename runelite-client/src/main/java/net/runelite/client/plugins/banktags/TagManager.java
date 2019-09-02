@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.banktags;
 
-import com.google.common.base.Strings;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -33,6 +32,7 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.ItemID;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemVariationMapping;
@@ -45,7 +45,6 @@ import net.runelite.client.plugins.cluescrolls.clues.FairyRingClue;
 import net.runelite.client.plugins.cluescrolls.clues.HotColdClue;
 import net.runelite.client.plugins.cluescrolls.clues.MapClue;
 import net.runelite.client.plugins.cluescrolls.clues.item.ItemRequirement;
-import net.runelite.api.util.Text;
 
 @Singleton
 public class TagManager
@@ -88,7 +87,7 @@ public class TagManager
 	{
 		itemId = getItemId(itemId, variation);
 
-		if (Strings.isNullOrEmpty(tags))
+		if (Text.isNullOrEmpty(tags))
 		{
 			configManager.unsetConfiguration(CONFIG_GROUP, ITEM_KEY_PREFIX + itemId);
 		}

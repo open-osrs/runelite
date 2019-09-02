@@ -25,8 +25,8 @@
 
 package net.runelite.api.events;
 
-import net.runelite.api.Skill;
 import lombok.Data;
+import net.runelite.api.Skill;
 
 /**
  * An event where the experience level of a {@link Skill} has been modified.

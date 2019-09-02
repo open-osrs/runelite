@@ -25,7 +25,6 @@
  */
 package net.runelite.client.ui.overlay.infobox;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -35,6 +34,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -121,7 +121,7 @@ public class InfoBoxOverlay extends Overlay
 			{
 				final InfoBoxComponent component = (InfoBoxComponent) child;
 
-				if (!Strings.isNullOrEmpty(component.getTooltip()))
+				if (!Text.isNullOrEmpty(component.getTooltip()))
 				{
 					// Create intersection rectangle
 					final Rectangle intersectionRectangle = new Rectangle(component.getBounds());

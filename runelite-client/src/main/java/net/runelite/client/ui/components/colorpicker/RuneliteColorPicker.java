@@ -25,7 +25,6 @@
  */
 package net.runelite.client.ui.components.colorpicker;
 
-import com.google.common.base.Strings;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -56,6 +55,7 @@ import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.ColorUtil;
@@ -375,7 +375,7 @@ public class RuneliteColorPicker extends JDialog
 	private void updateHex()
 	{
 		String hex = hexInput.getText();
-		if (Strings.isNullOrEmpty(hex))
+		if (Text.isNullOrEmpty(hex))
 		{
 			hex = BLANK_HEX;
 		}

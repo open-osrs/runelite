@@ -49,9 +49,9 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.GraphicID;
 import net.runelite.api.GraphicsObject;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
@@ -64,6 +64,7 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.util.Text;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -71,7 +72,6 @@ import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.api.util.Text;
 import net.runelite.client.util.WildcardMatcher;
 
 @PluginDescriptor(

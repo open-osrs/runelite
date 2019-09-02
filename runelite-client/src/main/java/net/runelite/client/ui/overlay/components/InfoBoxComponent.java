@@ -24,7 +24,6 @@
  */
 package net.runelite.client.ui.overlay.components;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -34,6 +33,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.util.Text;
 import net.runelite.client.ui.FontManager;
 
 @Setter
@@ -86,7 +86,7 @@ public class InfoBoxComponent implements LayoutableRenderableEntity
 			null);
 
 		// Render caption
-		if (!Strings.isNullOrEmpty(text))
+		if (!Text.isNullOrEmpty(text))
 		{
 			final TextComponent textComponent = new TextComponent();
 			textComponent.setColor(color);

@@ -45,11 +45,11 @@ import net.runelite.api.Player;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.OverheadTextChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
+import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.api.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @PluginDescriptor(

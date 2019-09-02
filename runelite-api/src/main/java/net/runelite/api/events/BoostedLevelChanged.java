@@ -24,8 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.Skill;
 import lombok.Data;
+import net.runelite.api.Skill;
 
 /**
  * An event where a players skill level has been temporarily modified.

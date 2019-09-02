@@ -72,6 +72,7 @@ import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.ProjectileSpawned;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -97,7 +98,6 @@ import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.api.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 

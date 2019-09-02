@@ -45,6 +45,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
+import net.runelite.api.util.Text;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.Keybind;
@@ -64,7 +65,6 @@ import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.PvPUtil;
 import static net.runelite.client.util.StackFormatter.quantityToRSDecimalStack;
-import net.runelite.api.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(

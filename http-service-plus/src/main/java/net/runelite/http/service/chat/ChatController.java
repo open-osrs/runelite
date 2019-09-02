@@ -25,7 +25,6 @@
 package net.runelite.http.service.chat;
 
 import java.util.regex.Pattern;
-import com.google.common.base.Strings;
 import net.runelite.http.api.chat.House;
 import net.runelite.http.service.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,7 @@ public class ChatController
 	@PostMapping("/layout")
 	public void submitLayout(@RequestParam String name, @RequestParam String layout)
 	{
-		if (Strings.isNullOrEmpty(layout))
+		if (Text.isNullOrEmpty(layout))
 		{
 			return;
 		}

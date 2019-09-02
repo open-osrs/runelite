@@ -24,12 +24,15 @@
  */
 package net.runelite.client.plugins.statusbars;
 
-import com.google.common.base.Strings;
 import com.google.common.primitives.Ints;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.Point;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.plugins.itemstats.Effect;
@@ -40,10 +43,6 @@ import net.runelite.client.plugins.statusbars.renderer.BarRenderer;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-
-import javax.inject.Inject;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 
 @Singleton
 public class StatusBarsOverlay extends Overlay
@@ -157,7 +156,7 @@ public class StatusBarsOverlay extends Overlay
 					//final String strVar = c.getTheoretical(); this was erroring
 					final String strVar = String.valueOf(c.getTheoretical());
 
-					if (Strings.isNullOrEmpty(strVar))
+					if (Text.isNullOrEmpty(strVar))
 					{
 						continue;
 					}

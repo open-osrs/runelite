@@ -24,10 +24,10 @@
  */
 package net.runelite.client.plugins.raidsthieving.BatSolver;
 
+import java.util.HashMap;
 import java.util.Map;
 import net.runelite.api.Point;
 import net.runelite.client.plugins.raidsthieving.ThievingChest;
-import java.util.HashMap;
 
 public class ChestIdentifier
 {

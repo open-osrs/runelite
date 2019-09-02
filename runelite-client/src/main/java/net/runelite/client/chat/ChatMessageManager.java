@@ -25,7 +25,6 @@
 package net.runelite.client.chat;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Strings;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
@@ -50,6 +49,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.ResizeableChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.util.Text;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ChatColorConfig;
 import net.runelite.client.eventbus.EventBus;
@@ -154,7 +154,7 @@ public class ChatMessageManager
 		}
 
 		String sender = chatMessage.getSender();
-		if (senderColor != null && !Strings.isNullOrEmpty(sender))
+		if (senderColor != null && !Text.isNullOrEmpty(sender))
 		{
 			messageNode.setSender(ColorUtil.wrapWithColorTag(sender, senderColor));
 		}
@@ -603,7 +603,7 @@ public class ChatMessageManager
 
 	public void update(final MessageNode target)
 	{
-		if (Strings.isNullOrEmpty(target.getRuneLiteFormatMessage()))
+		if (Text.isNullOrEmpty(target.getRuneLiteFormatMessage()))
 		{
 			return;
 		}

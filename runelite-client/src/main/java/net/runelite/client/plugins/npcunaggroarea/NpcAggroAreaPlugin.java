@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.npcunaggroarea;
 
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.Polygon;
@@ -56,6 +55,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.geometry.Geometry;
+import net.runelite.api.util.Text;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -300,7 +300,7 @@ public class NpcAggroAreaPlugin extends Plugin
 			return false;
 		}
 
-		if (Strings.isNullOrEmpty(composition.getName()))
+		if (Text.isNullOrEmpty(composition.getName()))
 		{
 			return false;
 		}

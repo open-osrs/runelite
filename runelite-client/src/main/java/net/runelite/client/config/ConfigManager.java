@@ -24,7 +24,6 @@
  */
 package net.runelite.client.config;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableMap;
 import java.awt.Color;
@@ -63,6 +62,7 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.util.Text;
 import net.runelite.client.RuneLite;
 import static net.runelite.client.RuneLite.PROFILES_DIR;
 import net.runelite.client.eventbus.EventBus;
@@ -268,7 +268,7 @@ public class ConfigManager
 	public <T> T getConfiguration(String groupName, String key, Class<T> clazz)
 	{
 		String value = getConfiguration(groupName, key);
-		if (!Strings.isNullOrEmpty(value))
+		if (!Text.isNullOrEmpty(value))
 		{
 			try
 			{
@@ -457,7 +457,7 @@ public class ConfigManager
 			// null and the empty string are treated identically in sendConfig and treated as an unset
 			// If a config value defaults to "" and the current value is null, it will cause an extra
 			// unset to be sent, so treat them as equal
-			if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
+			if (Objects.equals(current, valueString) || (Text.isNullOrEmpty(current) && Text.isNullOrEmpty(valueString)))
 			{
 				continue; // already set to the default value
 			}

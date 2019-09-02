@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.stonedtracker.ui;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -46,6 +45,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import net.runelite.api.util.Text;
 import net.runelite.client.game.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.stonedtracker.data.BossTab;
@@ -305,7 +305,7 @@ class SelectionPanel extends JPanel
 	private void onSearchBarChanged()
 	{
 		final String text = searchBar.getText();
-		if (Strings.isNullOrEmpty(text))
+		if (Text.isNullOrEmpty(text))
 		{
 			addNamesToPanel(this.names);
 		}

@@ -24,13 +24,12 @@
  */
 package net.runelite.api;
 
-import java.awt.geom.Path2D;
-import static net.runelite.api.Constants.TILE_FLAG_BRIDGE;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.geom.Area;
+import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -38,6 +37,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import static net.runelite.api.Constants.TILE_FLAG_BRIDGE;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.model.Jarvis;
 import net.runelite.api.model.Triangle;

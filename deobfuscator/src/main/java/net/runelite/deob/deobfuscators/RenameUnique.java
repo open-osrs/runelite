@@ -25,6 +25,7 @@
 
 package net.runelite.deob.deobfuscators;
 
+import java.util.List;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -34,8 +35,6 @@ import net.runelite.deob.Deob;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.Deobfuscator;
 import net.runelite.deob.util.NameMappings;
-
-import java.util.List;
 
 public class RenameUnique implements Deobfuscator
 {

@@ -24,8 +24,8 @@
  */
 package net.runelite.deob.deobfuscators;
 
-import com.google.common.base.Strings;
 import java.util.List;
+import net.runelite.api.util.Text;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -258,7 +258,7 @@ public class Renamer implements Deobfuscator
 						{
 							break;
 						}
-						else if (newParams.length < 1 || index > newParams.length - 1 || Strings.isNullOrEmpty(newParams[index]))
+						else if (newParams.length < 1 || index > newParams.length - 1 || Text.isNullOrEmpty(newParams[index]))
 						{
 							break;
 						}

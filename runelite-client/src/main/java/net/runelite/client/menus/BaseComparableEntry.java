@@ -25,7 +25,6 @@
 package net.runelite.client.menus;
 
 import javax.annotation.Nonnull;
-import joptsimple.internal.Strings;
 import lombok.EqualsAndHashCode;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.util.Text;
@@ -59,7 +58,7 @@ public class BaseComparableEntry extends AbstractComparableEntry
 			return false;
 		}
 
-		if (strictTarget || !Strings.isNullOrEmpty(target))
+		if (strictTarget || !Text.isNullOrEmpty(target))
 		{
 			String tgt = entry.getStandardizedTarget();
 

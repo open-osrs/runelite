@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.discord;
 
-import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -50,6 +49,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.util.Text;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.discord.DiscordService;
@@ -290,7 +290,7 @@ public class DiscordPlugin extends Plugin
 
 		String url = "https://cdn.discordapp.com/avatars/" + event.getUserId() + "/" + event.getAvatarId() + ".png";
 
-		if (Strings.isNullOrEmpty(event.getAvatarId()))
+		if (Text.isNullOrEmpty(event.getAvatarId()))
 		{
 			final String[] split = memberById.getName().split("#", 2);
 

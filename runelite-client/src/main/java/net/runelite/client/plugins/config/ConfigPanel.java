@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.config;
 
 import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -1177,7 +1176,7 @@ public class ConfigPanel extends PluginPanel
 	{
 		final ConfigItem configItem = cid.getItem();
 
-		if (!Strings.isNullOrEmpty(configItem.warning()))
+		if (!Text.isNullOrEmpty(configItem.warning()))
 		{
 			final int result = JOptionPane.showOptionDialog(component, configItem.warning(),
 				"Are you sure?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,

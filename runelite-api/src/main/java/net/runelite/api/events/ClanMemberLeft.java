@@ -24,8 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.ClanMember;
 import lombok.Value;
+import net.runelite.api.ClanMember;
 
 @Value
 public class ClanMemberLeft implements Event

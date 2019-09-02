@@ -1,6 +1,5 @@
 package net.runelite.deob.updater;
 
-import com.google.common.base.Strings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,7 @@ public class AnnotationCleaner
 			log.debug("Checking {}", c.toString());
 
 			String implementingName = DeobAnnotations.getImplements(c);
-			if (!Strings.isNullOrEmpty(implementingName))
+			if (!Text.isNullOrEmpty(implementingName))
 			{
 				if (!implementingName.equals(className))
 				{

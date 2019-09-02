@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.loottracker;
 
-import com.google.common.base.Strings;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -47,13 +46,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.runelite.api.util.Text;
 import net.runelite.client.game.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.StackFormatter;
-import net.runelite.api.util.Text;
 
 class LootTrackerBox extends JPanel
 {
@@ -118,7 +117,7 @@ class LootTrackerBox extends JPanel
 		}
 
 
-		if (!Strings.isNullOrEmpty(subtitle))
+		if (!Text.isNullOrEmpty(subtitle))
 		{
 			subTitleLabel.setText(subtitle);
 		}

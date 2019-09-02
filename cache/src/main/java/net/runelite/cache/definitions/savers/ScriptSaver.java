@@ -28,10 +28,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.io.OutputStream;
-import static net.runelite.cache.script.Opcodes.SCONST;
 import static net.runelite.cache.script.Opcodes.POP_INT;
 import static net.runelite.cache.script.Opcodes.POP_STRING;
 import static net.runelite.cache.script.Opcodes.RETURN;
+import static net.runelite.cache.script.Opcodes.SCONST;
 
 public class ScriptSaver
 {

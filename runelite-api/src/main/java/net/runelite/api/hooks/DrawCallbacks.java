@@ -25,9 +25,9 @@
 package net.runelite.api.hooks;
 
 import net.runelite.api.Entity;
+import net.runelite.api.Texture;
 import net.runelite.api.TileModel;
 import net.runelite.api.TilePaint;
-import net.runelite.api.Texture;
 
 public interface DrawCallbacks
 {

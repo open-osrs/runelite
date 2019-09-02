@@ -26,13 +26,13 @@
  */
 package net.runelite.client.plugins.thieving;
 
+import com.google.inject.Provides;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import com.google.inject.Provides;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;

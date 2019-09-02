@@ -24,13 +24,13 @@
  */
 package net.runelite.client.discord;
 
-import com.google.common.base.Strings;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.discord.events.DiscordDisconnected;
 import net.runelite.client.discord.events.DiscordErrored;
@@ -143,12 +143,12 @@ public class DiscordService implements AutoCloseable
 		discordRichPresence.endTimestamp = discordPresence.getEndTimestamp() != null
 			? discordPresence.getEndTimestamp().getEpochSecond()
 			: 0;
-		discordRichPresence.largeImageKey = Strings.isNullOrEmpty(discordPresence.getLargeImageKey())
+		discordRichPresence.largeImageKey = Text.isNullOrEmpty(discordPresence.getLargeImageKey())
 			? "default"
 			: discordPresence.getLargeImageKey();
 		discordRichPresence.largeImageText = discordPresence.getLargeImageText();
 
-		if (!Strings.isNullOrEmpty(discordPresence.getSmallImageKey()))
+		if (!Text.isNullOrEmpty(discordPresence.getSmallImageKey()))
 		{
 			discordRichPresence.smallImageKey = discordPresence.getSmallImageKey();
 		}

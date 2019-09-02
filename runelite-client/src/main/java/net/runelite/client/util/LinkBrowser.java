@@ -24,7 +24,6 @@
  */
 package net.runelite.client.util;
 
-import com.google.common.base.Strings;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +33,7 @@ import javax.inject.Singleton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 
 /**
  * Utility class used for browser navigation
@@ -53,7 +53,7 @@ public class LinkBrowser
 	 */
 	public static boolean browse(final String url)
 	{
-		if (Strings.isNullOrEmpty(url))
+		if (Text.isNullOrEmpty(url))
 		{
 			return false;
 		}

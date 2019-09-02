@@ -24,7 +24,6 @@
  */
 package net.runelite.client.ui;
 
-import com.google.common.base.Strings;
 import java.applet.Applet;
 import java.awt.Canvas;
 import java.awt.CardLayout;
@@ -73,6 +72,7 @@ import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.RuneLite;
@@ -300,7 +300,7 @@ public class ClientUI
 
 			final String name = player.getName();
 
-			if (Strings.isNullOrEmpty(name))
+			if (Text.isNullOrEmpty(name))
 			{
 				return false;
 			}

@@ -1,6 +1,5 @@
 package net.runelite.mixins;
 
-import net.runelite.api.overlay.OverlayIndex;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
 import com.google.common.io.BaseEncoding;
@@ -14,10 +13,11 @@ import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
-import org.slf4j.Logger;
+import net.runelite.api.overlay.OverlayIndex;
 import net.runelite.rs.api.RSAbstractArchive;
-import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSArchive;
+import net.runelite.rs.api.RSClient;
+import org.slf4j.Logger;
 
 @Mixin(RSAbstractArchive.class)
 public abstract class RSAbstractArchiveMixin implements RSAbstractArchive

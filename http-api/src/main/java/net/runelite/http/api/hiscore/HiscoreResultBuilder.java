@@ -26,8 +26,6 @@ package net.runelite.http.api.hiscore;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.runelite.http.api.hiscore.HiscoreResult;
-import net.runelite.http.api.hiscore.Skill;
 
 public class HiscoreResultBuilder
 {

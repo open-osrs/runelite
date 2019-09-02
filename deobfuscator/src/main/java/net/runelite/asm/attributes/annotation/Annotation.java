@@ -27,7 +27,6 @@ package net.runelite.asm.attributes.annotation;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.asm.Type;
 import net.runelite.asm.attributes.Annotations;
 import org.objectweb.asm.AnnotationVisitor;

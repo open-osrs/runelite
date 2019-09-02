@@ -50,6 +50,7 @@ import net.runelite.client.RuneLite;
 import net.runelite.client.RuneLiteModule;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.rs.ClientUpdateCheckMode;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Rule;
@@ -58,7 +59,6 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import net.runelite.client.rs.ClientUpdateCheckMode;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PluginManagerTest

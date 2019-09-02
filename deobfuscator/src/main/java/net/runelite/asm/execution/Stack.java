@@ -25,11 +25,10 @@
 
 package net.runelite.asm.execution;
 
-import net.runelite.asm.Type;
-
 import java.util.Arrays;
 import java.util.List;
 import net.runelite.asm.Method;
+import net.runelite.asm.Type;
 
 public class Stack
 {

@@ -25,7 +25,6 @@
 package net.runelite.http.service;
 
 import ch.qos.logback.classic.LoggerContext;
-import com.google.common.base.Strings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import java.io.IOException;
@@ -39,6 +38,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.service.util.InstantConverter;
 import okhttp3.Cache;
@@ -164,12 +164,12 @@ public class SpringBootWebApplication extends SpringBootServletInitializer
 	@Bean(destroyMethod = "")
 	public MongoClient mongoClient(@Value("${mongo.host:}") String host, @Value("${mongo.jndiName:}") String jndiName) throws NamingException
 	{
-		if (!Strings.isNullOrEmpty(jndiName))
+		if (!Text.isNullOrEmpty(jndiName))
 		{
 			JndiTemplate jndiTemplate = new JndiTemplate();
 			return jndiTemplate.lookup(jndiName, MongoClient.class);
 		}
-		else if (!Strings.isNullOrEmpty(host))
+		else if (!Text.isNullOrEmpty(host))
 		{
 			return MongoClients.create(host);
 		}
@@ -181,7 +181,7 @@ public class SpringBootWebApplication extends SpringBootServletInitializer
 
 	private static DataSource getDataSource(DataSourceProperties dataSourceProperties)
 	{
-		if (!Strings.isNullOrEmpty(dataSourceProperties.getJndiName()))
+		if (!Text.isNullOrEmpty(dataSourceProperties.getJndiName()))
 		{
 			// Use JNDI provided datasource, which is already configured with pooling
 			JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();

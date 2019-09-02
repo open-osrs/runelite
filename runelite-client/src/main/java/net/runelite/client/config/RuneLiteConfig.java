@@ -27,8 +27,8 @@ package net.runelite.client.config;
 import java.awt.Dimension;
 import java.awt.Font;
 import net.runelite.api.Constants;
-import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.ContainableFrame;
+import net.runelite.client.ui.FontManager;
 
 @ConfigGroup("runelite")
 public interface RuneLiteConfig extends Config

@@ -24,8 +24,8 @@
  */
 package net.runelite.deob.deobfuscators.transformers.buffer;
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

@@ -24,8 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.MenuEntry;
 import lombok.Data;
+import net.runelite.api.MenuEntry;
 
 /**
  * An event where a menu has been opened.

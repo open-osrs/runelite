@@ -24,13 +24,13 @@
  */
 package net.runelite.client.plugins.skybox;
 
-import com.google.common.base.Strings;
 import com.google.common.io.CharSource;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -55,7 +55,7 @@ public class SkyboxTest
 		log.info("Parse took {}ms", (System.nanoTime() - start) / 1_000_000);
 
 		String skyboxFile = System.getProperty("skyboxExport");
-		if (!Strings.isNullOrEmpty(skyboxFile))
+		if (!Text.isNullOrEmpty(skyboxFile))
 		{
 			start = System.nanoTime();
 			BufferedImage img = skybox.render(1f, 0, 0, null);

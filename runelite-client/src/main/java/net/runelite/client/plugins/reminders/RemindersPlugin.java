@@ -28,6 +28,9 @@ package net.runelite.client.plugins.reminders;
 import com.google.inject.Provides;
 import static java.lang.Math.floor;
 import static java.time.Duration.between;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -44,9 +47,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.task.Schedule;
-import javax.inject.Inject;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 @PluginDescriptor(
 	name = "Reminders",

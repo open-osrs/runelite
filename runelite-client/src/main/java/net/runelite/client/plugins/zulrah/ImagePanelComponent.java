@@ -27,7 +27,6 @@
 
 package net.runelite.client.plugins.zulrah;
 
-import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -39,6 +38,7 @@ import javax.annotation.Nullable;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
+import net.runelite.api.util.Text;
 import net.runelite.client.ui.overlay.RenderableEntity;
 import net.runelite.client.ui.overlay.components.BackgroundComponent;
 
@@ -71,9 +71,9 @@ public class ImagePanelComponent implements RenderableEntity
 	{
 		final Dimension dimension = new Dimension();
 		final FontMetrics metrics = graphics.getFontMetrics();
-		int height = TOP_BORDER + (Strings.isNullOrEmpty(title) ? 0 : metrics.getHeight())
+		int height = TOP_BORDER + (Text.isNullOrEmpty(title) ? 0 : metrics.getHeight())
 			+ SEPARATOR + image.getHeight() + BOTTOM_BORDER;
-		int width = Math.max(Strings.isNullOrEmpty(title) ? 0 : metrics.stringWidth(title), image.getWidth()) + SIDE_BORDER * 2;
+		int width = Math.max(Text.isNullOrEmpty(title) ? 0 : metrics.stringWidth(title), image.getWidth()) + SIDE_BORDER * 2;
 		dimension.setSize(width, height);
 
 		if (dimension.height == 0)
@@ -91,7 +91,7 @@ public class ImagePanelComponent implements RenderableEntity
 		backgroundComponent.render(graphics);
 
 		// Render title
-		if (!Strings.isNullOrEmpty(title))
+		if (!Text.isNullOrEmpty(title))
 		{
 			final TextComponent titleComponent = new TextComponent();
 			titleComponent.setText(title);
