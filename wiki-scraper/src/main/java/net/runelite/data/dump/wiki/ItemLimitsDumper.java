@@ -35,6 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.util.Text;
 import net.runelite.cache.ItemManager;
 import net.runelite.cache.definitions.ItemDefinition;
 import net.runelite.cache.fs.Store;

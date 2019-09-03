@@ -1,6 +1,6 @@
 package net.runelite.deob.updater;
 
-import net.runelite.api.util.Text;
+import com.google.common.base.Strings;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -39,7 +39,7 @@ public class AnnotationAdder
 			log.debug("Checking {}", c.toString());
 
 			String implementingName = DeobAnnotations.getImplements(c);
-			if (!Text.isNullOrEmpty(implementingName))
+			if (!Strings.isNullOrEmpty(implementingName))
 			{
 				// Still error here cause I don't wanna call classes dumb shit
 				assert implementingName.equals(c.getClassName()) : c + " implements " + implementingName + " but is called " + c.getClassName();

@@ -24,11 +24,11 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Strings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import net.runelite.api.util.Text;
 import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ public class StoreLocation
 	static
 	{
 		String cacheTmpDir = System.getProperty("cache.tmpdir");
-		if (!Text.isNullOrEmpty(cacheTmpDir))
+		if (!Strings.isNullOrEmpty(cacheTmpDir))
 		{
 			System.setProperty("java.io.tmpdir", cacheTmpDir);
 			TMP = new File(cacheTmpDir);
