@@ -157,6 +157,7 @@ public class RuneLite
 
 	@Inject
 	private Scheduler scheduler;
+	private static boolean wikiPages;
 
 	public static void main(String[] args) throws Exception
 	{
@@ -168,6 +169,7 @@ public class RuneLite
 		parser.accepts("no-splash", "Do not show the splash screen");
 		parser.accepts("bootstrap", "Builds a bootstrap with locally built jars");
 		parser.accepts("bootstrap-staging", "Builds a testing bootstrap with locally built jars");
+		parser.accepts("wiki-pages", "Generates wiki pages for the plugins and their config options");
 		final ArgumentAcceptingOptionSpec<String> proxyInfo = parser
 			.accepts("proxy")
 			.withRequiredArg().ofType(String.class);
@@ -262,6 +264,8 @@ public class RuneLite
 			logger.setLevel(Level.DEBUG);
 		}
 
+		wikiPages = options.has("wiki-pages");
+
 		Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
 		{
 			if (throwable instanceof AbstractMethodError)
@@ -323,6 +327,12 @@ public class RuneLite
 		// to main settings
 		pluginManager.loadDefaultPluginConfiguration();
 
+		// Generate the wiki-pages for the plugin
+		if (wikiPages)
+		{
+			pluginManager.dumpPluginInfo();
+		}
+
 		// Initialize UI
 		RuneLiteSplashScreen.stage(.75, "Initialize UI");
 		clientUI.init(this);
@@ -369,6 +379,8 @@ public class RuneLite
 		RuneLiteSplashScreen.close();
 
 		clientUI.show();
+
+
 	}
 
 	public void shutdown()

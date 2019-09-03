@@ -38,10 +38,17 @@ import com.google.inject.CreationException;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +73,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
@@ -77,6 +85,7 @@ import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.RuneLiteSplashScreen;
 import net.runelite.client.util.GameEventManager;
+import org.apache.commons.lang3.StringUtils;
 
 @Singleton
 @Slf4j
@@ -177,6 +186,85 @@ public class PluginManager
 		}
 
 		return null;
+	}
+
+	/**
+	 * Dumps all of the info from each Plugin's PluginDescriptor and each of its ConfigItems.
+	 * Used to automatically generate the wiki pages for plugins
+	 */
+	public void dumpPluginInfo()
+	{
+		try
+		{
+			Files.createDirectory(new File("plugindumps").toPath());
+		}
+		catch (IOException e)
+		{
+			log.error("Error creating directory for plugin dumps");
+			e.printStackTrace();
+		}
+		for (PluginType pluginType : PluginType.values())
+		{
+			try
+			{
+				final Path pluginDumps = new File("plugindumps",
+					pluginType.name().toLowerCase()).toPath();
+				if (Files.exists(pluginDumps))
+				{
+
+					Files.createDirectory(pluginDumps);
+				}
+			}
+			catch (IOException e)
+			{
+				log.error("Error creating plugin category directories");
+				e.printStackTrace();
+			}
+		}
+		for (Plugin plugin : plugins)
+		{
+			List<ConfigItem> configItems = null;
+
+			if (getPluginConfigProxy(plugin) != null)
+			{
+				Class<?>[] config = getPluginConfigProxy(plugin).getClass().getInterfaces();
+
+				if (config != null)
+				{
+					configItems = new ArrayList<>();
+
+					List<ConfigItem> finalConfigItems = configItems;
+					for (Class<?> c : config)
+					{
+						for (Method m : c.getDeclaredMethods())
+						{
+							finalConfigItems.addAll(Arrays.asList(m.getDeclaredAnnotationsByType(ConfigItem.class)));
+						}
+					}
+				}
+			}
+			final Class<? extends Plugin> pluginClass = plugin.getClass();
+			final PluginDescriptor description = pluginClass.getDeclaredAnnotation(PluginDescriptor.class);
+			final PluginType type = description.type();
+			File exportFile;
+
+			exportFile = new File("plugindumps/" + type.name().toLowerCase(), description.name().toLowerCase().replaceAll(" ", "_") + ".txt");
+			WikiPluginPage pluginPage = new WikiPluginPage(description.name(), description.description(),
+				description.tags(), description.enabledByDefault(), description.hidden(), description.developerPlugin(),
+				description.loadWhenOutdated(), configItems);
+			try
+			{
+				log.info("Dumping Wiki page for plugin {} to {}", description.name(), exportFile.toString());
+				final BufferedWriter bufferedWriter = Files.newBufferedWriter(exportFile.toPath());
+				bufferedWriter.write(pluginPage.toString());
+				bufferedWriter.flush();
+				bufferedWriter.close();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private List<Config> getPluginConfigProxies()
