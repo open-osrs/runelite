@@ -63,18 +63,19 @@ public class PlayerIndicatorsService
 		clan = Player::isClanMember;
 		team = (player) -> (Objects.requireNonNull(client.getLocalPlayer()).getTeam() != 0 &&
 			client.getLocalPlayer().getTeam() == player.getTeam());
-		target = (player) -> PvPUtil.isAttackable(client, player);
+		target = (player ->
+		{
+			if (nonFriendly(player))
+			{
+				return false;
+			}
+			return PvPUtil.isAttackable(client, player);
+		});
 		caller = plugin::isCaller;
 		callerTarget = piles::contains;
 		other = (player ->
 		{
-			if (player == null
-				|| (plugin.isHighlightClan() && player.isClanMember())
-				|| (plugin.isHighlightFriends() && client.isFriended(player.getName(), false))
-				|| (plugin.isHighlightCallers() && plugin.isCaller(player))
-				|| (plugin.isHighlightCallerTargets() && piles.contains(player))
-				|| (plugin.isHighlightTeam() && Objects.requireNonNull(client.getLocalPlayer()).getTeam() != 0
-				&& client.getLocalPlayer().getTeam() == player.getTeam()))
+			if (nonFriendly(player))
 			{
 				return false;
 			}
@@ -140,5 +141,16 @@ public class PlayerIndicatorsService
 		return plugin.isHighlightOwnPlayer() || plugin.isHighlightClan()
 			|| plugin.isHighlightFriends() || plugin.isHighlightOther() || plugin.isHighlightTargets()
 			|| plugin.isHighlightCallers() || plugin.isHighlightTeam() || plugin.isHighlightCallerTargets();
+	}
+
+	private boolean nonFriendly(Player player)
+	{
+		return player == null
+			|| (plugin.isHighlightClan() && player.isClanMember())
+			|| (plugin.isHighlightFriends() && client.isFriended(player.getName(), false))
+			|| (plugin.isHighlightCallers() && plugin.isCaller(player))
+			|| (plugin.isHighlightCallerTargets() && piles.contains(player))
+			|| (plugin.isHighlightTeam() && Objects.requireNonNull(client.getLocalPlayer()).getTeam() != 0
+			&& client.getLocalPlayer().getTeam() == player.getTeam());
 	}
 }
