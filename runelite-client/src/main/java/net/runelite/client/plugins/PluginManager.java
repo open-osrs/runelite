@@ -41,12 +41,10 @@ import com.google.inject.Module;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -85,7 +83,6 @@ import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.RuneLiteSplashScreen;
 import net.runelite.client.util.GameEventManager;
-import org.apache.commons.lang3.StringUtils;
 
 @Singleton
 @Slf4j
@@ -196,7 +193,10 @@ public class PluginManager
 	{
 		try
 		{
-			Files.createDirectory(new File("plugindumps").toPath());
+			final Path parentDir = new File("plugindumps").toPath();
+			// clear previous pages
+			Files.deleteIfExists(parentDir);
+			Files.createDirectory(parentDir);
 		}
 		catch (IOException e)
 		{
@@ -211,7 +211,6 @@ public class PluginManager
 					pluginType.name().toLowerCase()).toPath();
 				if (Files.exists(pluginDumps))
 				{
-
 					Files.createDirectory(pluginDumps);
 				}
 			}
