@@ -40,6 +40,26 @@ public class Method
 		this.type = type;
 	}
 
+	public static Method of(String str)
+	{
+		try
+		{
+			int dotLoc = str.indexOf('.');
+			final String clazz = str.substring(0, dotLoc++);
+
+			final int sigLoc = str.indexOf('(', dotLoc);
+			final String name = str.substring(dotLoc, sigLoc);
+
+			final Signature sig = new Signature(str.substring(sigLoc));
+
+			return new Method(new Class(clazz), name, sig);
+		}
+		catch (StringIndexOutOfBoundsException e)
+		{
+			throw new IllegalArgumentException("Invalid n.r.asm.pool.Method string format: " + str, e);
+		}
+	}
+
 	@Override
 	public String toString()
 	{

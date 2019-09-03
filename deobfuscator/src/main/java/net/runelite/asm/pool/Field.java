@@ -42,6 +42,26 @@ public class Field
 		this.type = type;
 	}
 
+	public static Field of(final String str)
+	{
+		try
+		{
+			int dotLoc = str.indexOf('.');
+			final String clazz = str.substring(0, dotLoc++);
+
+			int typeLoc = str.indexOf(' ', dotLoc);
+			final String name = str.substring(dotLoc, typeLoc++);
+
+			final Type type = new Type(str.substring(typeLoc));
+
+			return new Field(new Class(clazz), name, type);
+		}
+		catch (StringIndexOutOfBoundsException e)
+		{
+			throw new IllegalArgumentException("Invalid n.r.asm.pool.Field string format: " + str, e);
+		}
+	}
+
 	@Override
 	public String toString()
 	{

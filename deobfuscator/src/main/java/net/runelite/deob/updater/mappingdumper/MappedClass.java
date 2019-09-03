@@ -19,7 +19,6 @@ public class MappedClass
 	public List<String> interfaces;
 	public List<MappedField> fields;
 	public List<MappedMethod> methods;
-	public List<MappedMethod> constructors;
 
 	public MappedClass visitClass(final ClassFile c, final MappingDump dump)
 	{
@@ -56,11 +55,6 @@ public class MappedClass
 		methods = c.getMethods()
 			.stream()
 			.map(m -> new MappedMethod().visitMethod(m, dump))
-			.collect(Collectors.toList());
-
-		constructors = methods
-			.stream()
-			.filter(m -> m.obfuscatedName.endsWith("init>"))
 			.collect(Collectors.toList());
 
 		return this;

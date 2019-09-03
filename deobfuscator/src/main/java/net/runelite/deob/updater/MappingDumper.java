@@ -1,5 +1,6 @@
 package net.runelite.deob.updater;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,6 +39,12 @@ public class MappingDumper
 
 	public void dump(final File outputFile)
 	{
+		final MappingDump dump = dump();
+		writeJson(dump, outputFile);
+	}
+
+	public MappingDump dump()
+	{
 		Stopwatch st = Stopwatch.createStarted();
 		group.buildClassGraph();
 
@@ -51,11 +58,12 @@ public class MappingDumper
 		log.info("Total methods: {}. Total mapped methods: {}. ({}%)", dump.totalMethods, dump.totalNamedMethods, dump.totalNamedMethods * 100 / dump.totalMethods);
 		log.info("Total fields: {}. Total mapped fields: {}. ({}%)", dump.totalFields, dump.totalNamedFields, dump.totalNamedFields * 100 / dump.totalFields);
 		log.info("Total non static fields: {}. Total mapped non static fields: {}. ({}%)", dump.totalNonStaticFields, dump.totalNamedNonStaticFields, dump.totalNamedNonStaticFields * 100 / dump.totalNamedFields);
-		writeJson(dump, outputFile);
+		return dump;
 	}
 
 	// Without this stack'll overflow :P
-	private void writeJson(MappingDump dump, File outputFile)
+	@VisibleForTesting
+	public void writeJson(MappingDump dump, File outputFile)
 	{
 		final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try (JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(outputFile), StandardCharsets.UTF_8)))
