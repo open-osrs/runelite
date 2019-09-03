@@ -42,3 +42,5 @@ public @interface Range
 
 	int max() default Integer.MAX_VALUE;
 }
+
+// TODO: Make this retroactively apply (only once preferably)
