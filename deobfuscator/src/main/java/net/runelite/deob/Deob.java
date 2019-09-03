@@ -152,8 +152,11 @@ public class Deob
 
 	public static boolean isObfuscated(String name)
 	{
-		return (name.length() <= OBFUSCATED_NAME_MAX_LEN && !name.equals("run"))
-			|| name.startsWith("method")
+		if (name.length() <= OBFUSCATED_NAME_MAX_LEN)
+		{
+			return !name.equals("run");
+		}
+		return name.startsWith("method")
 			|| name.startsWith("vmethod")
 			|| name.startsWith("field")
 			|| name.startsWith("class");
