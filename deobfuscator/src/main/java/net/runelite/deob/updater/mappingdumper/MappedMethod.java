@@ -93,8 +93,14 @@ public class MappedMethod
 				if (met.size() > 0)
 				{
 					Method mme = met.get(0);
+					String className = DeobAnnotations.getObfuscatedName(mme.getClassFile().getAnnotations());
+					if (className == null)
+					{
+						className = mme.getClassFile().getName();
+					}
+
 					k = new net.runelite.asm.pool.Method(
-						new Class(DeobAnnotations.getObfuscatedName(mme.getClassFile().getAnnotations())),
+						new Class(className),
 						DeobAnnotations.getObfuscatedName(mme.getAnnotations()),
 						mme.getObfuscatedSignature() != null ? mme.getObfuscatedSignature() : mme.getDescriptor()
 					);
