@@ -27,10 +27,8 @@ package net.runelite.client.plugins.herbiboars;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.geom.Area;
 import java.util.Set;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
