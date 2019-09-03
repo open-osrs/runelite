@@ -3,5 +3,5 @@ repositories {
 }
 dependencies {
     compile localGroovy()
-    implementation group: 'net.runelite', name: 'fernflower', version: fernflower
+    implementation group: 'net.runelite', name: 'fernflower', version: 07082019
 }
