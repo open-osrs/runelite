@@ -87,16 +87,6 @@ public class Timers
 		{
 			final Actor actor = it.next();
 
-			for (TimerType timerType : TimerType.values())
-			{
-				if (getTimerReApply(actor, timerType) > System.currentTimeMillis())
-				{
-					break;
-				}
-				it.remove();
-				break;
-			}
-
 			final long end = getTimerReApply(actor, type);
 
 			if (end > System.currentTimeMillis())
