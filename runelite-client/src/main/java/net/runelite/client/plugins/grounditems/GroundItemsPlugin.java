@@ -56,14 +56,14 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuOpcode;
-import net.runelite.api.TileItemPile;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.Node;
 import net.runelite.api.Player;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
 import net.runelite.api.TileItem;
+import net.runelite.api.TileItemPile;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ConfigChanged;
@@ -75,6 +75,7 @@ import net.runelite.api.events.ItemQuantityChanged;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.util.Text;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -98,7 +99,6 @@ import net.runelite.client.plugins.grounditems.config.ValueCalculationMode;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.StackFormatter;
-import net.runelite.api.util.Text;
 
 @PluginDescriptor(
 	name = "Ground Items",
@@ -134,6 +134,14 @@ public class GroundItemsPlugin extends Plugin
 	private static final int CAST_ON_ITEM = MenuOpcode.SPELL_CAST_ON_GROUND_ITEM.getId();
 	private static final String TELEGRAB_TEXT = ColorUtil.wrapWithColorTag("Telekinetic Grab", Color.GREEN) + ColorUtil.prependColorTag(" -> ", Color.WHITE);
 	private final Map<Integer, Color> priceChecks = new LinkedHashMap<>();
+	private final Queue<Integer> droppedItemQueue = EvictingQueue.create(16); // recently dropped items
+	public boolean highlightHerblore;
+	public boolean highlightPrayer;
+	public LoadingCache<String, Boolean> hiddenItems;
+	Color herbloreColor;
+	Color prayerColor;
+	ArrayList<Integer> herbloreItems = new ArrayList();
+	ArrayList<Integer> prayerItems = new ArrayList();
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
 	private Map.Entry<Rectangle, GroundItem> textBoxBounds;
@@ -172,9 +180,6 @@ public class GroundItemsPlugin extends Plugin
 	@Inject
 	private EventBus eventBus;
 	private LoadingCache<String, Boolean> highlightedItems;
-	private LoadingCache<String, Boolean> hiddenItems;
-	private final Queue<Integer> droppedItemQueue = EvictingQueue.create(16); // recently dropped items
-
 	private Color defaultColor;
 	private Color highlightedColor;
 	private Color hiddenColor;
@@ -235,6 +240,9 @@ public class GroundItemsPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		createHerbloreItems();
+		createPrayerItems();
+
 		updateConfig();
 		addSubscriptions();
 
@@ -259,6 +267,8 @@ public class GroundItemsPlugin extends Plugin
 		hiddenItemList = null;
 		highlightedItemsList = null;
 		collectedGroundItems.clear();
+		herbloreItems = null;
+		prayerItems = null;
 	}
 
 	private void addSubscriptions()
@@ -821,6 +831,21 @@ public class GroundItemsPlugin extends Plugin
 		this.getHighlightItems = Text.toCSV(highlightedItemSet);
 	}
 
+	Color getHerbloreColor()
+	{
+		return config.herbloreColor();
+	}
+
+	Color getPrayerColor()
+	{
+		return config.prayerColor();
+	}
+
+	Color getDefaultColor()
+	{
+		return config.defaultColor();
+	}
+
 	Color getHighlighted(String item, int gePrice, int haPrice)
 	{
 		if (TRUE.equals(highlightedItems.getUnchecked(item)))
@@ -981,6 +1006,255 @@ public class GroundItemsPlugin extends Plugin
 		notifier.notify(notificationStringBuilder.toString());
 	}
 
+
+	void createHerbloreItems()
+	{
+		//Grimy Herbs
+		herbloreItems.add(ItemID.GRIMY_GUAM_LEAF);
+		herbloreItems.add(ItemID.GRIMY_GUAM_LEAF + 1);
+		herbloreItems.add(ItemID.GRIMY_MARRENTILL);
+		herbloreItems.add(ItemID.GRIMY_MARRENTILL + 1);
+		herbloreItems.add(ItemID.GRIMY_TARROMIN);
+		herbloreItems.add(ItemID.GRIMY_TARROMIN + 1);
+		herbloreItems.add(ItemID.GRIMY_HARRALANDER);
+		herbloreItems.add(ItemID.GRIMY_HARRALANDER + 1);
+		herbloreItems.add(ItemID.GRIMY_RANARR_WEED);
+		herbloreItems.add(ItemID.GRIMY_RANARR_WEED + 1);
+		herbloreItems.add(ItemID.GRIMY_TOADFLAX);
+		herbloreItems.add(ItemID.GRIMY_TOADFLAX + 1);
+		herbloreItems.add(ItemID.GRIMY_IRIT_LEAF);
+		herbloreItems.add(ItemID.GRIMY_IRIT_LEAF + 1);
+		herbloreItems.add(ItemID.GRIMY_AVANTOE);
+		herbloreItems.add(ItemID.GRIMY_AVANTOE + 1);
+		herbloreItems.add(ItemID.GRIMY_KWUARM);
+		herbloreItems.add(ItemID.GRIMY_KWUARM + 1);
+		herbloreItems.add(ItemID.GRIMY_SNAPDRAGON);
+		herbloreItems.add(ItemID.GRIMY_SNAPDRAGON + 1);
+		herbloreItems.add(ItemID.GRIMY_CADANTINE);
+		herbloreItems.add(ItemID.GRIMY_CADANTINE + 1);
+		herbloreItems.add(ItemID.GRIMY_LANTADYME);
+		herbloreItems.add(ItemID.GRIMY_LANTADYME + 1);
+		herbloreItems.add(ItemID.GRIMY_DWARF_WEED);
+		herbloreItems.add(ItemID.GRIMY_DWARF_WEED + 1);
+		herbloreItems.add(ItemID.GRIMY_TORSTOL);
+		herbloreItems.add(ItemID.GRIMY_TORSTOL + 1);
+
+		//Clean Herbs
+		herbloreItems.add(ItemID.GUAM_LEAF);
+		herbloreItems.add(ItemID.GUAM_LEAF + 1);
+		herbloreItems.add(ItemID.MARRENTILL);
+		herbloreItems.add(ItemID.MARRENTILL + 1);
+		herbloreItems.add(ItemID.TARROMIN);
+		herbloreItems.add(ItemID.TARROMIN + 1);
+		herbloreItems.add(ItemID.HARRALANDER);
+		herbloreItems.add(ItemID.HARRALANDER + 1);
+		herbloreItems.add(ItemID.RANARR_WEED);
+		herbloreItems.add(ItemID.RANARR_WEED + 1);
+		herbloreItems.add(ItemID.TOADFLAX);
+		herbloreItems.add(ItemID.TOADFLAX + 1);
+		herbloreItems.add(ItemID.IRIT_LEAF);
+		herbloreItems.add(ItemID.IRIT_LEAF + 1);
+		herbloreItems.add(ItemID.AVANTOE);
+		herbloreItems.add(ItemID.AVANTOE + 1);
+		herbloreItems.add(ItemID.KWUARM);
+		herbloreItems.add(ItemID.KWUARM + 1);
+		herbloreItems.add(ItemID.SNAPDRAGON);
+		herbloreItems.add(ItemID.SNAPDRAGON + 1);
+		herbloreItems.add(ItemID.CADANTINE);
+		herbloreItems.add(ItemID.CADANTINE + 1);
+		herbloreItems.add(ItemID.LANTADYME);
+		herbloreItems.add(ItemID.LANTADYME + 1);
+		herbloreItems.add(ItemID.DWARF_WEED);
+		herbloreItems.add(ItemID.DWARF_WEED + 1);
+		herbloreItems.add(ItemID.TORSTOL);
+		herbloreItems.add(ItemID.TORSTOL + 1);
+
+		//Secondary ingredients
+		herbloreItems.add(ItemID.EYE_OF_NEWT);
+		herbloreItems.add(ItemID.EYE_OF_NEWT + 1);
+		herbloreItems.add(ItemID.UNICORN_HORN);
+		herbloreItems.add(ItemID.UNICORN_HORN + 1);
+		herbloreItems.add(ItemID.UNICORN_HORN_DUST);
+		herbloreItems.add(ItemID.UNICORN_HORN_DUST + 1);
+		herbloreItems.add(ItemID.LIMPWURT_ROOT);
+		herbloreItems.add(ItemID.LIMPWURT_ROOT + 1);
+		herbloreItems.add(ItemID.RED_SPIDERS_EGGS);
+		herbloreItems.add(ItemID.RED_SPIDERS_EGGS + 1);
+		herbloreItems.add(ItemID.CHOCOLATE_BAR);
+		herbloreItems.add(ItemID.CHOCOLATE_BAR + 1);
+		herbloreItems.add(ItemID.CHOCOLATE_DUST);
+		herbloreItems.add(ItemID.CHOCOLATE_DUST + 1);
+		herbloreItems.add(ItemID.TOADS_LEGS);
+		herbloreItems.add(ItemID.TOADS_LEGS + 1);
+		herbloreItems.add(ItemID.GOAT_HORN_DUST);
+		herbloreItems.add(ItemID.GOAT_HORN_DUST + 1);
+		herbloreItems.add(ItemID.DESERT_GOAT_HORN);
+		herbloreItems.add(ItemID.DESERT_GOAT_HORN + 1);
+		herbloreItems.add(ItemID.SNAPE_GRASS);
+		herbloreItems.add(ItemID.SNAPE_GRASS + 1);
+		herbloreItems.add(ItemID.MORT_MYRE_FUNGUS);
+		herbloreItems.add(ItemID.MORT_MYRE_FUNGUS + 1);
+		herbloreItems.add(ItemID.WHITE_BERRIES);
+		herbloreItems.add(ItemID.WHITE_BERRIES + 1);
+		herbloreItems.add(ItemID.BLUE_DRAGON_SCALE);
+		herbloreItems.add(ItemID.BLUE_DRAGON_SCALE + 1);
+		herbloreItems.add(ItemID.DRAGON_SCALE_DUST);
+		herbloreItems.add(ItemID.DRAGON_SCALE_DUST + 1);
+		herbloreItems.add(ItemID.WINE_OF_ZAMORAK);
+		herbloreItems.add(ItemID.WINE_OF_ZAMORAK + 1);
+		herbloreItems.add(ItemID.POTATO_CACTUS);
+		herbloreItems.add(ItemID.POTATO_CACTUS + 1);
+		herbloreItems.add(ItemID.BIRD_NEST);
+		herbloreItems.add(ItemID.BIRD_NEST + 1);
+		herbloreItems.add(ItemID.BIRD_NEST_5071);
+		herbloreItems.add(ItemID.BIRD_NEST_5072);
+		herbloreItems.add(ItemID.BIRD_NEST_5073);
+		herbloreItems.add(ItemID.BIRD_NEST_5074);
+		herbloreItems.add(ItemID.BIRD_NEST_5075);
+		herbloreItems.add(ItemID.BIRD_NEST_7413);
+		herbloreItems.add(ItemID.BIRD_NEST_13653);
+		herbloreItems.add(ItemID.BIRD_NEST_22798);
+		herbloreItems.add(ItemID.BIRD_NEST_22800);
+		herbloreItems.add(ItemID.LAVA_SCALE);
+		herbloreItems.add(ItemID.LAVA_SCALE + 1);
+		herbloreItems.add(ItemID.LAVA_SCALE_SHARD);
+		herbloreItems.add(ItemID.LAVA_SCALE_SHARD + 1);
+		herbloreItems.add(ItemID.TORSTOL);
+		herbloreItems.add(ItemID.TORSTOL + 1);
+		herbloreItems.add(ItemID.SUPERIOR_DRAGON_BONES);
+		herbloreItems.add(ItemID.SUPERIOR_DRAGON_BONES + 1);
+		herbloreItems.add(ItemID.CRUSHED_SUPERIOR_DRAGON_BONES);
+		herbloreItems.add(ItemID.CRUSHED_SUPERIOR_DRAGON_BONES + 1);
+		herbloreItems.add(ItemID.AMYLASE_CRYSTAL);
+		herbloreItems.add(ItemID.GARLIC);
+		herbloreItems.add(ItemID.GARLIC + 1);
+
+		//Jungle Potion herbs
+		herbloreItems.add(ItemID.GRIMY_ARDRIGAL);
+		herbloreItems.add(ItemID.GRIMY_ROGUES_PURSE);
+		herbloreItems.add(ItemID.GRIMY_SITO_FOIL);
+		herbloreItems.add(ItemID.GRIMY_SNAKE_WEED);
+		herbloreItems.add(ItemID.GRIMY_VOLENCIA_MOSS);
+
+		//Herb seeds
+		herbloreItems.add(ItemID.GUAM_SEED);
+		herbloreItems.add(ItemID.MARRENTILL_SEED);
+		herbloreItems.add(ItemID.TARROMIN_SEED);
+		herbloreItems.add(ItemID.HARRALANDER_SEED);
+		herbloreItems.add(ItemID.GOUT_TUBER);
+		herbloreItems.add(ItemID.RANARR_SEED);
+		herbloreItems.add(ItemID.TOADFLAX_SEED);
+		herbloreItems.add(ItemID.IRIT_SEED);
+		herbloreItems.add(ItemID.AVANTOE_SEED);
+		herbloreItems.add(ItemID.KWUARM_SEED);
+		herbloreItems.add(ItemID.SNAPDRAGON_SEED);
+		herbloreItems.add(ItemID.CADANTINE_SEED);
+		herbloreItems.add(ItemID.LANTADYME_SEED);
+		herbloreItems.add(ItemID.DWARF_WEED_SEED);
+		herbloreItems.add(ItemID.TORSTOL_SEED);
+
+		//Secondary seeds
+		herbloreItems.add(ItemID.LIMPWURT_SEED);
+		herbloreItems.add(ItemID.SNAPE_GRASS_SEED);
+		herbloreItems.add(ItemID.POTATO_CACTUS_SEED);
+		herbloreItems.add(ItemID.JANGERBERRY_SEED);
+		herbloreItems.add(ItemID.POISON_IVY_SEED);
+		herbloreItems.add(ItemID.BELLADONNA_SEED);
+	}
+
+	void createPrayerItems()
+	{
+		//Bones
+		prayerItems.add(ItemID.BONES);
+		prayerItems.add(ItemID.BONES + 1);
+		prayerItems.add(ItemID.WOLF_BONES);
+		prayerItems.add(ItemID.WOLF_BONES + 1);
+		prayerItems.add(ItemID.BURNT_BONES);
+		prayerItems.add(ItemID.BURNT_BONES + 1);
+		prayerItems.add(ItemID.MONKEY_BONES);
+		prayerItems.add(ItemID.MONKEY_BONES + 1);
+		prayerItems.add(ItemID.BAT_BONES);
+		prayerItems.add(ItemID.BAT_BONES + 1);
+		prayerItems.add(ItemID.BIG_BONES);
+		prayerItems.add(ItemID.BIG_BONES + 1);
+		prayerItems.add(ItemID.JOGRE_BONES);
+		prayerItems.add(ItemID.JOGRE_BONES + 1);
+		prayerItems.add(ItemID.ZOGRE_BONES);
+		prayerItems.add(ItemID.ZOGRE_BONES + 1);
+		prayerItems.add(ItemID.SHAIKAHAN_BONES);
+		prayerItems.add(ItemID.SHAIKAHAN_BONES + 1);
+		prayerItems.add(ItemID.BABYDRAGON_BONES);
+		prayerItems.add(ItemID.BABYDRAGON_BONES + 1);
+		prayerItems.add(ItemID.WYRM_BONES);
+		prayerItems.add(ItemID.WYRM_BONES + 1);
+		prayerItems.add(ItemID.WYVERN_BONES);
+		prayerItems.add(ItemID.WYVERN_BONES + 1);
+		prayerItems.add(ItemID.DRAGON_BONES);
+		prayerItems.add(ItemID.DRAGON_BONES + 1);
+		prayerItems.add(ItemID.DRAKE_BONES);
+		prayerItems.add(ItemID.DRAKE_BONES + 1);
+		prayerItems.add(ItemID.FAYRG_BONES);
+		prayerItems.add(ItemID.FAYRG_BONES + 1);
+		prayerItems.add(ItemID.LAVA_DRAGON_BONES);
+		prayerItems.add(ItemID.LAVA_DRAGON_BONES + 1);
+		prayerItems.add(ItemID.RAURG_BONES);
+		prayerItems.add(ItemID.RAURG_BONES + 1);
+		prayerItems.add(ItemID.HYDRA_BONES);
+		prayerItems.add(ItemID.HYDRA_BONES + 1);
+		prayerItems.add(ItemID.DAGANNOTH_BONES);
+		prayerItems.add(ItemID.DAGANNOTH_BONES + 1);
+		prayerItems.add(ItemID.OURG_BONES);
+		prayerItems.add(ItemID.OURG_BONES + 1);
+		prayerItems.add(ItemID.SUPERIOR_DRAGON_BONES);
+		prayerItems.add(ItemID.SUPERIOR_DRAGON_BONES + 1);
+
+		//Ensouled heads
+		prayerItems.add(ItemID.ENSOULED_ABYSSAL_HEAD_13508);
+		prayerItems.add(ItemID.ENSOULED_ABYSSAL_HEAD_13508 + 1);
+		prayerItems.add(ItemID.ENSOULED_AVIANSIE_HEAD_13505);
+		prayerItems.add(ItemID.ENSOULED_AVIANSIE_HEAD_13505 + 1);
+		prayerItems.add(ItemID.ENSOULED_BEAR_HEAD_13463);
+		prayerItems.add(ItemID.ENSOULED_BEAR_HEAD_13463 + 1);
+		prayerItems.add(ItemID.ENSOULED_BLOODVELD_HEAD_13496);
+		prayerItems.add(ItemID.ENSOULED_BLOODVELD_HEAD_13496 + 1);
+		prayerItems.add(ItemID.ENSOULED_CHAOS_DRUID_HEAD_13472);
+		prayerItems.add(ItemID.ENSOULED_CHAOS_DRUID_HEAD_13472 + 1);
+		prayerItems.add(ItemID.ENSOULED_DAGANNOTH_HEAD_13493);
+		prayerItems.add(ItemID.ENSOULED_DAGANNOTH_HEAD_13493 + 1);
+		prayerItems.add(ItemID.ENSOULED_DEMON_HEAD_13502);
+		prayerItems.add(ItemID.ENSOULED_DEMON_HEAD_13502 + 1);
+		prayerItems.add(ItemID.ENSOULED_DOG_HEAD_13469);
+		prayerItems.add(ItemID.ENSOULED_DOG_HEAD_13469 + 1);
+		prayerItems.add(ItemID.ENSOULED_DRAGON_HEAD_13511);
+		prayerItems.add(ItemID.ENSOULED_DRAGON_HEAD_13511 + 1);
+		prayerItems.add(ItemID.ENSOULED_ELF_HEAD_13481);
+		prayerItems.add(ItemID.ENSOULED_ELF_HEAD_13481 + 1);
+		prayerItems.add(ItemID.ENSOULED_GIANT_HEAD_13475);
+		prayerItems.add(ItemID.ENSOULED_GIANT_HEAD_13475 + 1);
+		prayerItems.add(ItemID.ENSOULED_GOBLIN_HEAD_13448);
+		prayerItems.add(ItemID.ENSOULED_GOBLIN_HEAD_13448 + 1);
+		prayerItems.add(ItemID.ENSOULED_HORROR_HEAD_13487);
+		prayerItems.add(ItemID.ENSOULED_HORROR_HEAD_13487 + 1);
+		prayerItems.add(ItemID.ENSOULED_IMP_HEAD_13454);
+		prayerItems.add(ItemID.ENSOULED_IMP_HEAD_13454 + 1);
+		prayerItems.add(ItemID.ENSOULED_KALPHITE_HEAD_13490);
+		prayerItems.add(ItemID.ENSOULED_KALPHITE_HEAD_13490 + 1);
+		prayerItems.add(ItemID.ENSOULED_MINOTAUR_HEAD_13457);
+		prayerItems.add(ItemID.ENSOULED_MINOTAUR_HEAD_13457 + 1);
+		prayerItems.add(ItemID.ENSOULED_MONKEY_HEAD_13451);
+		prayerItems.add(ItemID.ENSOULED_MONKEY_HEAD_13451 + 1);
+		prayerItems.add(ItemID.ENSOULED_OGRE_HEAD_13478);
+		prayerItems.add(ItemID.ENSOULED_OGRE_HEAD_13478 + 1);
+		prayerItems.add(ItemID.ENSOULED_SCORPION_HEAD_13460);
+		prayerItems.add(ItemID.ENSOULED_SCORPION_HEAD_13460 + 1);
+		prayerItems.add(ItemID.ENSOULED_TROLL_HEAD_13484);
+		prayerItems.add(ItemID.ENSOULED_TROLL_HEAD_13484 + 1);
+		prayerItems.add(ItemID.ENSOULED_TZHAAR_HEAD_13499);
+		prayerItems.add(ItemID.ENSOULED_TZHAAR_HEAD_13499 + 1);
+		prayerItems.add(ItemID.ENSOULED_UNICORN_HEAD_13466);
+		prayerItems.add(ItemID.ENSOULED_UNICORN_HEAD_13466 + 1);
+	}
+
 	private void updateConfig()
 	{
 		this.defaultColor = config.defaultColor();
@@ -1022,5 +1296,9 @@ public class GroundItemsPlugin extends Plugin
 		this.toggleOutline = config.toggleOutline();
 		this.showTimer = config.showTimer();
 		this.bordercolor = config.bordercolor();
+		this.herbloreColor = config.herbloreColor();
+		this.prayerColor = config.prayerColor();
+		this.highlightHerblore = config.highlightHerblore();
+		this.highlightPrayer = config.highlightPrayer();
 	}
 }
