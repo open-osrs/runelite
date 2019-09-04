@@ -60,7 +60,7 @@ public class PlayerIndicatorsService
 
 		self = (player) -> Objects.equals(client.getLocalPlayer(), player);
 		friend = (player) -> (!player.equals(client.getLocalPlayer()) && client.isFriended(player.getName(), false));
-		clan = Player::isClanMember;
+		clan = (player) -> (player.isClanMember() && !client.isFriended(player.getName(), false));
 		team = (player) -> (Objects.requireNonNull(client.getLocalPlayer()).getTeam() != 0 &&
 			client.getLocalPlayer().getTeam() == player.getTeam());
 		target = (player ->
@@ -69,7 +69,7 @@ public class PlayerIndicatorsService
 			{
 				return false;
 			}
-			return PvPUtil.isAttackable(client, player);
+			return plugin.isHighlightTargets() && PvPUtil.isAttackable(client, player);
 		});
 		caller = plugin::isCaller;
 		callerTarget = piles::contains;
@@ -79,7 +79,7 @@ public class PlayerIndicatorsService
 			{
 				return false;
 			}
-			return !plugin.isHighlightTargets() || PvPUtil.isAttackable(client, player);
+			return true;
 		});
 	}
 
