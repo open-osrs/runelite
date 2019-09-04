@@ -25,21 +25,21 @@ public class WikiPluginPage
 	private final List<ConfigItem> configItems;
 
 	/**
-	 *
-	 * @param name - The plugin name
+	 * @param name        - The plugin name
 	 * @param description - The Plugin description
-	 * @param tags - Plugin/wiki tags
-	 * @param enabled - The default PluginDescriptor value
-	 * @param hidden - The default PluginDescriptor value
-	 * @param developer - The default PluginDescriptor value
-	 * @param outdated - The default PluginDescriptor value
+	 * @param tags        - Plugin/wiki tags
+	 * @param enabled     - The default PluginDescriptor value
+	 * @param hidden      - The default PluginDescriptor value
+	 * @param developer   - The default PluginDescriptor value
+	 * @param outdated    - The default PluginDescriptor value
 	 * @param configItems - A List of the ConfigItem from the plugins config file
 	 */
 	public WikiPluginPage(String name, String description, String[] tags, boolean enabled, boolean hidden,
 						  boolean developer, boolean outdated, List<ConfigItem> configItems)
 	{
 		this.name = String.format("====== %s ====== \n", name);
-		this.description = String.format("===== Description ===== \n <code>%s</code>\n", description);;
+		this.description = String.format("===== Description ===== \n <code>%s</code>\n", description);
+		;
 		this.info = "===== Information ===== \n" +
 			String.format("|Enabled by default|%s|\n", enabled ? "Yes" : "No") +
 			String.format("|Hidden|%s|\n", hidden ? "Yes" : "No") +
@@ -67,11 +67,11 @@ public class WikiPluginPage
 		StringBuilder s = new StringBuilder(this.name + this.description + this.info);
 		if (configItems != null)
 		{
-			 s.append("===== Configuration Settings =====\n");
-			 for (ConfigItem configItem : configItems)
-			 {
-			 	s.append("  * ").append(configItem.name()).append(": ").append(configItem.description()).append(" \n");
-			 }
+			s.append("===== Configuration Settings =====\n");
+			for (ConfigItem configItem : configItems)
+			{
+				s.append("  * ").append(configItem.name()).append(": ").append(configItem.description()).append(" \n");
+			}
 		}
 		s.append(this.tags);
 		return s.toString();
