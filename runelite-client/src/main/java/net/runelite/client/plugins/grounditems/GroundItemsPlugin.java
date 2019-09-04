@@ -28,6 +28,7 @@ package net.runelite.client.plugins.grounditems;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.EvictingQueue;
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -136,13 +137,11 @@ public class GroundItemsPlugin extends Plugin
 	private static final String TELEGRAB_TEXT = ColorUtil.wrapWithColorTag("Telekinetic Grab", Color.GREEN) + ColorUtil.prependColorTag(" -> ", Color.WHITE);
 	private final Map<Integer, Color> priceChecks = new LinkedHashMap<>();
 	private final Queue<Integer> droppedItemQueue = EvictingQueue.create(16); // recently dropped items
-	public boolean highlightHerblore;
-	public boolean highlightPrayer;
-	public LoadingCache<String, Boolean> hiddenItems;
-	Color herbloreColor;
-	Color prayerColor;
-	static final int[] herbloreItems = new int[]
-		{
+	boolean highlightHerblore;
+	boolean highlightPrayer;
+	LoadingCache<String, Boolean> hiddenItems;
+	static final ImmutableSet<Integer> herbloreItems = ImmutableSet.of
+		(
 			//Grimy Herbs
 			GRIMY_GUAM_LEAF,
 			GRIMY_GUAM_LEAF + 1,
@@ -294,9 +293,9 @@ public class GroundItemsPlugin extends Plugin
 			JANGERBERRY_SEED,
 			POISON_IVY_SEED,
 			BELLADONNA_SEED
-		};
-	static final int[] prayerItems = new int[]
-		{
+		);
+	static final ImmutableSet<Integer> prayerItems = ImmutableSet.of
+		(
 			//Bones
 			BONES,
 			BONES + 1,
@@ -386,7 +385,7 @@ public class GroundItemsPlugin extends Plugin
 			ENSOULED_TZHAAR_HEAD_13499 + 1,
 			ENSOULED_UNICORN_HEAD_13466,
 			ENSOULED_UNICORN_HEAD_13466 + 1
-		};
+		);
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
 	private Map.Entry<Rectangle, GroundItem> textBoxBounds;
@@ -475,6 +474,8 @@ public class GroundItemsPlugin extends Plugin
 	private boolean showTimer;
 	@Getter(AccessLevel.PACKAGE)
 	private Color bordercolor;
+	private Color herbloreColor;
+	private Color prayerColor;
 
 	@Provides
 	GroundItemsConfig provideConfig(ConfigManager configManager)
@@ -1073,12 +1074,12 @@ public class GroundItemsPlugin extends Plugin
 
 	Color getHerbloreColor()
 	{
-		return config.herbloreColor();
+		return herbloreColor;
 	}
 
 	Color getPrayerColor()
 	{
-		return config.prayerColor();
+		return prayerColor;
 	}
 
 	Color getDefaultColor()
