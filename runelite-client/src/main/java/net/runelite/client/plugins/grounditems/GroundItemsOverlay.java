@@ -60,6 +60,7 @@ import net.runelite.client.ui.overlay.components.BackgroundComponent;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 import net.runelite.client.ui.overlay.components.TextComponent;
 import net.runelite.client.util.StackFormatter;
+import org.apache.commons.lang3.ArrayUtils;
 
 @Singleton
 public class GroundItemsOverlay extends Overlay
@@ -203,14 +204,14 @@ public class GroundItemsOverlay extends Overlay
 				highlighted = plugin.getDefaultColor();
 				if (plugin.highlightHerblore)
 				{
-					if (plugin.herbloreItems.contains(item.getId()))
+					if (ArrayUtils.contains(GroundItemsPlugin.herbloreItems, item.getId()))
 					{
 						highlighted = plugin.getHerbloreColor();
 					}
 				}
 				if (plugin.highlightPrayer)
 				{
-					if (plugin.prayerItems.contains(item.getId()))
+					if (ArrayUtils.contains(GroundItemsPlugin.prayerItems, item.getId()))
 					{
 						highlighted = plugin.getPrayerColor();
 					}

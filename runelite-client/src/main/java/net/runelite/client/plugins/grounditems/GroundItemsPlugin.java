@@ -56,6 +56,7 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
+import static net.runelite.api.ItemID.*;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.Node;
@@ -140,8 +141,252 @@ public class GroundItemsPlugin extends Plugin
 	public LoadingCache<String, Boolean> hiddenItems;
 	Color herbloreColor;
 	Color prayerColor;
-	ArrayList<Integer> herbloreItems = new ArrayList();
-	ArrayList<Integer> prayerItems = new ArrayList();
+	static final int[] herbloreItems = new int[]
+		{
+			//Grimy Herbs
+			GRIMY_GUAM_LEAF,
+			GRIMY_GUAM_LEAF + 1,
+			GRIMY_MARRENTILL,
+			GRIMY_MARRENTILL + 1,
+			GRIMY_TARROMIN,
+			GRIMY_TARROMIN + 1,
+			GRIMY_HARRALANDER,
+			GRIMY_HARRALANDER + 1,
+			GRIMY_RANARR_WEED,
+			GRIMY_RANARR_WEED + 1,
+			GRIMY_TOADFLAX,
+			GRIMY_TOADFLAX + 1,
+			GRIMY_IRIT_LEAF,
+			GRIMY_IRIT_LEAF + 1,
+			GRIMY_AVANTOE,
+			GRIMY_AVANTOE + 1,
+			GRIMY_KWUARM,
+			GRIMY_KWUARM + 1,
+			GRIMY_SNAPDRAGON,
+			GRIMY_SNAPDRAGON + 1,
+			GRIMY_CADANTINE,
+			GRIMY_CADANTINE + 1,
+			GRIMY_LANTADYME,
+			GRIMY_LANTADYME + 1,
+			GRIMY_DWARF_WEED,
+			GRIMY_DWARF_WEED + 1,
+			GRIMY_TORSTOL,
+			GRIMY_TORSTOL + 1,
+
+			//Clean Herbs
+			GUAM_LEAF,
+			GUAM_LEAF + 1,
+			MARRENTILL,
+			MARRENTILL + 1,
+			TARROMIN,
+			TARROMIN + 1,
+			HARRALANDER,
+			HARRALANDER + 1,
+			RANARR_WEED,
+			RANARR_WEED + 1,
+			TOADFLAX,
+			TOADFLAX + 1,
+			IRIT_LEAF,
+			IRIT_LEAF + 1,
+			AVANTOE,
+			AVANTOE + 1,
+			KWUARM,
+			KWUARM + 1,
+			SNAPDRAGON,
+			SNAPDRAGON + 1,
+			CADANTINE,
+			CADANTINE + 1,
+			LANTADYME,
+			LANTADYME + 1,
+			DWARF_WEED,
+			DWARF_WEED + 1,
+			TORSTOL,
+			TORSTOL + 1,
+
+			//Secondary ingredients
+			EYE_OF_NEWT,
+			EYE_OF_NEWT + 1,
+			UNICORN_HORN,
+			UNICORN_HORN + 1,
+			UNICORN_HORN_DUST,
+			UNICORN_HORN_DUST + 1,
+			LIMPWURT_ROOT,
+			LIMPWURT_ROOT + 1,
+			RED_SPIDERS_EGGS,
+			RED_SPIDERS_EGGS + 1,
+			CHOCOLATE_BAR,
+			CHOCOLATE_BAR + 1,
+			CHOCOLATE_DUST,
+			CHOCOLATE_DUST + 1,
+			TOADS_LEGS,
+			TOADS_LEGS + 1,
+			GOAT_HORN_DUST,
+			GOAT_HORN_DUST + 1,
+			DESERT_GOAT_HORN,
+			DESERT_GOAT_HORN + 1,
+			SNAPE_GRASS,
+			SNAPE_GRASS + 1,
+			MORT_MYRE_FUNGUS,
+			MORT_MYRE_FUNGUS + 1,
+			WHITE_BERRIES,
+			WHITE_BERRIES + 1,
+			BLUE_DRAGON_SCALE,
+			BLUE_DRAGON_SCALE + 1,
+			DRAGON_SCALE_DUST,
+			DRAGON_SCALE_DUST + 1,
+			WINE_OF_ZAMORAK,
+			WINE_OF_ZAMORAK + 1,
+			POTATO_CACTUS,
+			POTATO_CACTUS + 1,
+			BIRD_NEST,
+			BIRD_NEST + 1,
+			BIRD_NEST_5071,
+			BIRD_NEST_5072,
+			BIRD_NEST_5073,
+			BIRD_NEST_5074,
+			BIRD_NEST_5075,
+			BIRD_NEST_7413,
+			BIRD_NEST_13653,
+			BIRD_NEST_22798,
+			BIRD_NEST_22800,
+			LAVA_SCALE,
+			LAVA_SCALE + 1,
+			LAVA_SCALE_SHARD,
+			LAVA_SCALE_SHARD + 1,
+			TORSTOL,
+			TORSTOL + 1,
+			SUPERIOR_DRAGON_BONES,
+			SUPERIOR_DRAGON_BONES + 1,
+			CRUSHED_SUPERIOR_DRAGON_BONES,
+			CRUSHED_SUPERIOR_DRAGON_BONES + 1,
+			AMYLASE_CRYSTAL,
+			GARLIC,
+			GARLIC + 1,
+
+			//Jungle Potion herbs
+			GRIMY_ARDRIGAL,
+			GRIMY_ROGUES_PURSE,
+			GRIMY_SITO_FOIL,
+			GRIMY_SNAKE_WEED,
+			GRIMY_VOLENCIA_MOSS,
+
+			//Herb seeds
+			GUAM_SEED,
+			MARRENTILL_SEED,
+			TARROMIN_SEED,
+			HARRALANDER_SEED,
+			GOUT_TUBER,
+			RANARR_SEED,
+			TOADFLAX_SEED,
+			IRIT_SEED,
+			AVANTOE_SEED,
+			KWUARM_SEED,
+			SNAPDRAGON_SEED,
+			CADANTINE_SEED,
+			LANTADYME_SEED,
+			DWARF_WEED_SEED,
+			TORSTOL_SEED,
+
+			//Secondary seeds
+			LIMPWURT_SEED,
+			SNAPE_GRASS_SEED,
+			POTATO_CACTUS_SEED,
+			JANGERBERRY_SEED,
+			POISON_IVY_SEED,
+			BELLADONNA_SEED
+		};
+	static final int[] prayerItems = new int[]
+		{
+			//Bones
+			BONES,
+			BONES + 1,
+			WOLF_BONES,
+			WOLF_BONES + 1,
+			BURNT_BONES,
+			BURNT_BONES + 1,
+			MONKEY_BONES,
+			MONKEY_BONES + 1,
+			BAT_BONES,
+			BAT_BONES + 1,
+			BIG_BONES,
+			BIG_BONES + 1,
+			JOGRE_BONES,
+			JOGRE_BONES + 1,
+			ZOGRE_BONES,
+			ZOGRE_BONES + 1,
+			SHAIKAHAN_BONES,
+			SHAIKAHAN_BONES + 1,
+			BABYDRAGON_BONES,
+			BABYDRAGON_BONES + 1,
+			WYRM_BONES,
+			WYRM_BONES + 1,
+			WYVERN_BONES,
+			WYVERN_BONES + 1,
+			DRAGON_BONES,
+			DRAGON_BONES + 1,
+			DRAKE_BONES,
+			DRAKE_BONES + 1,
+			FAYRG_BONES,
+			FAYRG_BONES + 1,
+			LAVA_DRAGON_BONES,
+			LAVA_DRAGON_BONES + 1,
+			RAURG_BONES,
+			RAURG_BONES + 1,
+			HYDRA_BONES,
+			HYDRA_BONES + 1,
+			DAGANNOTH_BONES,
+			DAGANNOTH_BONES + 1,
+			OURG_BONES,
+			OURG_BONES + 1,
+			SUPERIOR_DRAGON_BONES,
+			SUPERIOR_DRAGON_BONES + 1,
+
+			//Ensouled heads
+			ENSOULED_ABYSSAL_HEAD_13508,
+			ENSOULED_ABYSSAL_HEAD_13508 + 1,
+			ENSOULED_AVIANSIE_HEAD_13505,
+			ENSOULED_AVIANSIE_HEAD_13505 + 1,
+			ENSOULED_BEAR_HEAD_13463,
+			ENSOULED_BEAR_HEAD_13463 + 1,
+			ENSOULED_BLOODVELD_HEAD_13496,
+			ENSOULED_BLOODVELD_HEAD_13496 + 1,
+			ENSOULED_CHAOS_DRUID_HEAD_13472,
+			ENSOULED_CHAOS_DRUID_HEAD_13472 + 1,
+			ENSOULED_DAGANNOTH_HEAD_13493,
+			ENSOULED_DAGANNOTH_HEAD_13493 + 1,
+			ENSOULED_DEMON_HEAD_13502,
+			ENSOULED_DEMON_HEAD_13502 + 1,
+			ENSOULED_DOG_HEAD_13469,
+			ENSOULED_DOG_HEAD_13469 + 1,
+			ENSOULED_DRAGON_HEAD_13511,
+			ENSOULED_DRAGON_HEAD_13511 + 1,
+			ENSOULED_ELF_HEAD_13481,
+			ENSOULED_ELF_HEAD_13481 + 1,
+			ENSOULED_GIANT_HEAD_13475,
+			ENSOULED_GIANT_HEAD_13475 + 1,
+			ENSOULED_GOBLIN_HEAD_13448,
+			ENSOULED_GOBLIN_HEAD_13448 + 1,
+			ENSOULED_HORROR_HEAD_13487,
+			ENSOULED_HORROR_HEAD_13487 + 1,
+			ENSOULED_IMP_HEAD_13454,
+			ENSOULED_IMP_HEAD_13454 + 1,
+			ENSOULED_KALPHITE_HEAD_13490,
+			ENSOULED_KALPHITE_HEAD_13490 + 1,
+			ENSOULED_MINOTAUR_HEAD_13457,
+			ENSOULED_MINOTAUR_HEAD_13457 + 1,
+			ENSOULED_MONKEY_HEAD_13451,
+			ENSOULED_MONKEY_HEAD_13451 + 1,
+			ENSOULED_OGRE_HEAD_13478,
+			ENSOULED_OGRE_HEAD_13478 + 1,
+			ENSOULED_SCORPION_HEAD_13460,
+			ENSOULED_SCORPION_HEAD_13460 + 1,
+			ENSOULED_TROLL_HEAD_13484,
+			ENSOULED_TROLL_HEAD_13484 + 1,
+			ENSOULED_TZHAAR_HEAD_13499,
+			ENSOULED_TZHAAR_HEAD_13499 + 1,
+			ENSOULED_UNICORN_HEAD_13466,
+			ENSOULED_UNICORN_HEAD_13466 + 1
+		};
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
 	private Map.Entry<Rectangle, GroundItem> textBoxBounds;
@@ -240,9 +485,6 @@ public class GroundItemsPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		createHerbloreItems();
-		createPrayerItems();
-
 		updateConfig();
 		addSubscriptions();
 
@@ -267,8 +509,6 @@ public class GroundItemsPlugin extends Plugin
 		hiddenItemList = null;
 		highlightedItemsList = null;
 		collectedGroundItems.clear();
-		herbloreItems = null;
-		prayerItems = null;
 	}
 
 	private void addSubscriptions()
@@ -1004,255 +1244,6 @@ public class GroundItemsPlugin extends Plugin
 
 		notificationStringBuilder.append("!");
 		notifier.notify(notificationStringBuilder.toString());
-	}
-
-
-	void createHerbloreItems()
-	{
-		//Grimy Herbs
-		herbloreItems.add(ItemID.GRIMY_GUAM_LEAF);
-		herbloreItems.add(ItemID.GRIMY_GUAM_LEAF + 1);
-		herbloreItems.add(ItemID.GRIMY_MARRENTILL);
-		herbloreItems.add(ItemID.GRIMY_MARRENTILL + 1);
-		herbloreItems.add(ItemID.GRIMY_TARROMIN);
-		herbloreItems.add(ItemID.GRIMY_TARROMIN + 1);
-		herbloreItems.add(ItemID.GRIMY_HARRALANDER);
-		herbloreItems.add(ItemID.GRIMY_HARRALANDER + 1);
-		herbloreItems.add(ItemID.GRIMY_RANARR_WEED);
-		herbloreItems.add(ItemID.GRIMY_RANARR_WEED + 1);
-		herbloreItems.add(ItemID.GRIMY_TOADFLAX);
-		herbloreItems.add(ItemID.GRIMY_TOADFLAX + 1);
-		herbloreItems.add(ItemID.GRIMY_IRIT_LEAF);
-		herbloreItems.add(ItemID.GRIMY_IRIT_LEAF + 1);
-		herbloreItems.add(ItemID.GRIMY_AVANTOE);
-		herbloreItems.add(ItemID.GRIMY_AVANTOE + 1);
-		herbloreItems.add(ItemID.GRIMY_KWUARM);
-		herbloreItems.add(ItemID.GRIMY_KWUARM + 1);
-		herbloreItems.add(ItemID.GRIMY_SNAPDRAGON);
-		herbloreItems.add(ItemID.GRIMY_SNAPDRAGON + 1);
-		herbloreItems.add(ItemID.GRIMY_CADANTINE);
-		herbloreItems.add(ItemID.GRIMY_CADANTINE + 1);
-		herbloreItems.add(ItemID.GRIMY_LANTADYME);
-		herbloreItems.add(ItemID.GRIMY_LANTADYME + 1);
-		herbloreItems.add(ItemID.GRIMY_DWARF_WEED);
-		herbloreItems.add(ItemID.GRIMY_DWARF_WEED + 1);
-		herbloreItems.add(ItemID.GRIMY_TORSTOL);
-		herbloreItems.add(ItemID.GRIMY_TORSTOL + 1);
-
-		//Clean Herbs
-		herbloreItems.add(ItemID.GUAM_LEAF);
-		herbloreItems.add(ItemID.GUAM_LEAF + 1);
-		herbloreItems.add(ItemID.MARRENTILL);
-		herbloreItems.add(ItemID.MARRENTILL + 1);
-		herbloreItems.add(ItemID.TARROMIN);
-		herbloreItems.add(ItemID.TARROMIN + 1);
-		herbloreItems.add(ItemID.HARRALANDER);
-		herbloreItems.add(ItemID.HARRALANDER + 1);
-		herbloreItems.add(ItemID.RANARR_WEED);
-		herbloreItems.add(ItemID.RANARR_WEED + 1);
-		herbloreItems.add(ItemID.TOADFLAX);
-		herbloreItems.add(ItemID.TOADFLAX + 1);
-		herbloreItems.add(ItemID.IRIT_LEAF);
-		herbloreItems.add(ItemID.IRIT_LEAF + 1);
-		herbloreItems.add(ItemID.AVANTOE);
-		herbloreItems.add(ItemID.AVANTOE + 1);
-		herbloreItems.add(ItemID.KWUARM);
-		herbloreItems.add(ItemID.KWUARM + 1);
-		herbloreItems.add(ItemID.SNAPDRAGON);
-		herbloreItems.add(ItemID.SNAPDRAGON + 1);
-		herbloreItems.add(ItemID.CADANTINE);
-		herbloreItems.add(ItemID.CADANTINE + 1);
-		herbloreItems.add(ItemID.LANTADYME);
-		herbloreItems.add(ItemID.LANTADYME + 1);
-		herbloreItems.add(ItemID.DWARF_WEED);
-		herbloreItems.add(ItemID.DWARF_WEED + 1);
-		herbloreItems.add(ItemID.TORSTOL);
-		herbloreItems.add(ItemID.TORSTOL + 1);
-
-		//Secondary ingredients
-		herbloreItems.add(ItemID.EYE_OF_NEWT);
-		herbloreItems.add(ItemID.EYE_OF_NEWT + 1);
-		herbloreItems.add(ItemID.UNICORN_HORN);
-		herbloreItems.add(ItemID.UNICORN_HORN + 1);
-		herbloreItems.add(ItemID.UNICORN_HORN_DUST);
-		herbloreItems.add(ItemID.UNICORN_HORN_DUST + 1);
-		herbloreItems.add(ItemID.LIMPWURT_ROOT);
-		herbloreItems.add(ItemID.LIMPWURT_ROOT + 1);
-		herbloreItems.add(ItemID.RED_SPIDERS_EGGS);
-		herbloreItems.add(ItemID.RED_SPIDERS_EGGS + 1);
-		herbloreItems.add(ItemID.CHOCOLATE_BAR);
-		herbloreItems.add(ItemID.CHOCOLATE_BAR + 1);
-		herbloreItems.add(ItemID.CHOCOLATE_DUST);
-		herbloreItems.add(ItemID.CHOCOLATE_DUST + 1);
-		herbloreItems.add(ItemID.TOADS_LEGS);
-		herbloreItems.add(ItemID.TOADS_LEGS + 1);
-		herbloreItems.add(ItemID.GOAT_HORN_DUST);
-		herbloreItems.add(ItemID.GOAT_HORN_DUST + 1);
-		herbloreItems.add(ItemID.DESERT_GOAT_HORN);
-		herbloreItems.add(ItemID.DESERT_GOAT_HORN + 1);
-		herbloreItems.add(ItemID.SNAPE_GRASS);
-		herbloreItems.add(ItemID.SNAPE_GRASS + 1);
-		herbloreItems.add(ItemID.MORT_MYRE_FUNGUS);
-		herbloreItems.add(ItemID.MORT_MYRE_FUNGUS + 1);
-		herbloreItems.add(ItemID.WHITE_BERRIES);
-		herbloreItems.add(ItemID.WHITE_BERRIES + 1);
-		herbloreItems.add(ItemID.BLUE_DRAGON_SCALE);
-		herbloreItems.add(ItemID.BLUE_DRAGON_SCALE + 1);
-		herbloreItems.add(ItemID.DRAGON_SCALE_DUST);
-		herbloreItems.add(ItemID.DRAGON_SCALE_DUST + 1);
-		herbloreItems.add(ItemID.WINE_OF_ZAMORAK);
-		herbloreItems.add(ItemID.WINE_OF_ZAMORAK + 1);
-		herbloreItems.add(ItemID.POTATO_CACTUS);
-		herbloreItems.add(ItemID.POTATO_CACTUS + 1);
-		herbloreItems.add(ItemID.BIRD_NEST);
-		herbloreItems.add(ItemID.BIRD_NEST + 1);
-		herbloreItems.add(ItemID.BIRD_NEST_5071);
-		herbloreItems.add(ItemID.BIRD_NEST_5072);
-		herbloreItems.add(ItemID.BIRD_NEST_5073);
-		herbloreItems.add(ItemID.BIRD_NEST_5074);
-		herbloreItems.add(ItemID.BIRD_NEST_5075);
-		herbloreItems.add(ItemID.BIRD_NEST_7413);
-		herbloreItems.add(ItemID.BIRD_NEST_13653);
-		herbloreItems.add(ItemID.BIRD_NEST_22798);
-		herbloreItems.add(ItemID.BIRD_NEST_22800);
-		herbloreItems.add(ItemID.LAVA_SCALE);
-		herbloreItems.add(ItemID.LAVA_SCALE + 1);
-		herbloreItems.add(ItemID.LAVA_SCALE_SHARD);
-		herbloreItems.add(ItemID.LAVA_SCALE_SHARD + 1);
-		herbloreItems.add(ItemID.TORSTOL);
-		herbloreItems.add(ItemID.TORSTOL + 1);
-		herbloreItems.add(ItemID.SUPERIOR_DRAGON_BONES);
-		herbloreItems.add(ItemID.SUPERIOR_DRAGON_BONES + 1);
-		herbloreItems.add(ItemID.CRUSHED_SUPERIOR_DRAGON_BONES);
-		herbloreItems.add(ItemID.CRUSHED_SUPERIOR_DRAGON_BONES + 1);
-		herbloreItems.add(ItemID.AMYLASE_CRYSTAL);
-		herbloreItems.add(ItemID.GARLIC);
-		herbloreItems.add(ItemID.GARLIC + 1);
-
-		//Jungle Potion herbs
-		herbloreItems.add(ItemID.GRIMY_ARDRIGAL);
-		herbloreItems.add(ItemID.GRIMY_ROGUES_PURSE);
-		herbloreItems.add(ItemID.GRIMY_SITO_FOIL);
-		herbloreItems.add(ItemID.GRIMY_SNAKE_WEED);
-		herbloreItems.add(ItemID.GRIMY_VOLENCIA_MOSS);
-
-		//Herb seeds
-		herbloreItems.add(ItemID.GUAM_SEED);
-		herbloreItems.add(ItemID.MARRENTILL_SEED);
-		herbloreItems.add(ItemID.TARROMIN_SEED);
-		herbloreItems.add(ItemID.HARRALANDER_SEED);
-		herbloreItems.add(ItemID.GOUT_TUBER);
-		herbloreItems.add(ItemID.RANARR_SEED);
-		herbloreItems.add(ItemID.TOADFLAX_SEED);
-		herbloreItems.add(ItemID.IRIT_SEED);
-		herbloreItems.add(ItemID.AVANTOE_SEED);
-		herbloreItems.add(ItemID.KWUARM_SEED);
-		herbloreItems.add(ItemID.SNAPDRAGON_SEED);
-		herbloreItems.add(ItemID.CADANTINE_SEED);
-		herbloreItems.add(ItemID.LANTADYME_SEED);
-		herbloreItems.add(ItemID.DWARF_WEED_SEED);
-		herbloreItems.add(ItemID.TORSTOL_SEED);
-
-		//Secondary seeds
-		herbloreItems.add(ItemID.LIMPWURT_SEED);
-		herbloreItems.add(ItemID.SNAPE_GRASS_SEED);
-		herbloreItems.add(ItemID.POTATO_CACTUS_SEED);
-		herbloreItems.add(ItemID.JANGERBERRY_SEED);
-		herbloreItems.add(ItemID.POISON_IVY_SEED);
-		herbloreItems.add(ItemID.BELLADONNA_SEED);
-	}
-
-	void createPrayerItems()
-	{
-		//Bones
-		prayerItems.add(ItemID.BONES);
-		prayerItems.add(ItemID.BONES + 1);
-		prayerItems.add(ItemID.WOLF_BONES);
-		prayerItems.add(ItemID.WOLF_BONES + 1);
-		prayerItems.add(ItemID.BURNT_BONES);
-		prayerItems.add(ItemID.BURNT_BONES + 1);
-		prayerItems.add(ItemID.MONKEY_BONES);
-		prayerItems.add(ItemID.MONKEY_BONES + 1);
-		prayerItems.add(ItemID.BAT_BONES);
-		prayerItems.add(ItemID.BAT_BONES + 1);
-		prayerItems.add(ItemID.BIG_BONES);
-		prayerItems.add(ItemID.BIG_BONES + 1);
-		prayerItems.add(ItemID.JOGRE_BONES);
-		prayerItems.add(ItemID.JOGRE_BONES + 1);
-		prayerItems.add(ItemID.ZOGRE_BONES);
-		prayerItems.add(ItemID.ZOGRE_BONES + 1);
-		prayerItems.add(ItemID.SHAIKAHAN_BONES);
-		prayerItems.add(ItemID.SHAIKAHAN_BONES + 1);
-		prayerItems.add(ItemID.BABYDRAGON_BONES);
-		prayerItems.add(ItemID.BABYDRAGON_BONES + 1);
-		prayerItems.add(ItemID.WYRM_BONES);
-		prayerItems.add(ItemID.WYRM_BONES + 1);
-		prayerItems.add(ItemID.WYVERN_BONES);
-		prayerItems.add(ItemID.WYVERN_BONES + 1);
-		prayerItems.add(ItemID.DRAGON_BONES);
-		prayerItems.add(ItemID.DRAGON_BONES + 1);
-		prayerItems.add(ItemID.DRAKE_BONES);
-		prayerItems.add(ItemID.DRAKE_BONES + 1);
-		prayerItems.add(ItemID.FAYRG_BONES);
-		prayerItems.add(ItemID.FAYRG_BONES + 1);
-		prayerItems.add(ItemID.LAVA_DRAGON_BONES);
-		prayerItems.add(ItemID.LAVA_DRAGON_BONES + 1);
-		prayerItems.add(ItemID.RAURG_BONES);
-		prayerItems.add(ItemID.RAURG_BONES + 1);
-		prayerItems.add(ItemID.HYDRA_BONES);
-		prayerItems.add(ItemID.HYDRA_BONES + 1);
-		prayerItems.add(ItemID.DAGANNOTH_BONES);
-		prayerItems.add(ItemID.DAGANNOTH_BONES + 1);
-		prayerItems.add(ItemID.OURG_BONES);
-		prayerItems.add(ItemID.OURG_BONES + 1);
-		prayerItems.add(ItemID.SUPERIOR_DRAGON_BONES);
-		prayerItems.add(ItemID.SUPERIOR_DRAGON_BONES + 1);
-
-		//Ensouled heads
-		prayerItems.add(ItemID.ENSOULED_ABYSSAL_HEAD_13508);
-		prayerItems.add(ItemID.ENSOULED_ABYSSAL_HEAD_13508 + 1);
-		prayerItems.add(ItemID.ENSOULED_AVIANSIE_HEAD_13505);
-		prayerItems.add(ItemID.ENSOULED_AVIANSIE_HEAD_13505 + 1);
-		prayerItems.add(ItemID.ENSOULED_BEAR_HEAD_13463);
-		prayerItems.add(ItemID.ENSOULED_BEAR_HEAD_13463 + 1);
-		prayerItems.add(ItemID.ENSOULED_BLOODVELD_HEAD_13496);
-		prayerItems.add(ItemID.ENSOULED_BLOODVELD_HEAD_13496 + 1);
-		prayerItems.add(ItemID.ENSOULED_CHAOS_DRUID_HEAD_13472);
-		prayerItems.add(ItemID.ENSOULED_CHAOS_DRUID_HEAD_13472 + 1);
-		prayerItems.add(ItemID.ENSOULED_DAGANNOTH_HEAD_13493);
-		prayerItems.add(ItemID.ENSOULED_DAGANNOTH_HEAD_13493 + 1);
-		prayerItems.add(ItemID.ENSOULED_DEMON_HEAD_13502);
-		prayerItems.add(ItemID.ENSOULED_DEMON_HEAD_13502 + 1);
-		prayerItems.add(ItemID.ENSOULED_DOG_HEAD_13469);
-		prayerItems.add(ItemID.ENSOULED_DOG_HEAD_13469 + 1);
-		prayerItems.add(ItemID.ENSOULED_DRAGON_HEAD_13511);
-		prayerItems.add(ItemID.ENSOULED_DRAGON_HEAD_13511 + 1);
-		prayerItems.add(ItemID.ENSOULED_ELF_HEAD_13481);
-		prayerItems.add(ItemID.ENSOULED_ELF_HEAD_13481 + 1);
-		prayerItems.add(ItemID.ENSOULED_GIANT_HEAD_13475);
-		prayerItems.add(ItemID.ENSOULED_GIANT_HEAD_13475 + 1);
-		prayerItems.add(ItemID.ENSOULED_GOBLIN_HEAD_13448);
-		prayerItems.add(ItemID.ENSOULED_GOBLIN_HEAD_13448 + 1);
-		prayerItems.add(ItemID.ENSOULED_HORROR_HEAD_13487);
-		prayerItems.add(ItemID.ENSOULED_HORROR_HEAD_13487 + 1);
-		prayerItems.add(ItemID.ENSOULED_IMP_HEAD_13454);
-		prayerItems.add(ItemID.ENSOULED_IMP_HEAD_13454 + 1);
-		prayerItems.add(ItemID.ENSOULED_KALPHITE_HEAD_13490);
-		prayerItems.add(ItemID.ENSOULED_KALPHITE_HEAD_13490 + 1);
-		prayerItems.add(ItemID.ENSOULED_MINOTAUR_HEAD_13457);
-		prayerItems.add(ItemID.ENSOULED_MINOTAUR_HEAD_13457 + 1);
-		prayerItems.add(ItemID.ENSOULED_MONKEY_HEAD_13451);
-		prayerItems.add(ItemID.ENSOULED_MONKEY_HEAD_13451 + 1);
-		prayerItems.add(ItemID.ENSOULED_OGRE_HEAD_13478);
-		prayerItems.add(ItemID.ENSOULED_OGRE_HEAD_13478 + 1);
-		prayerItems.add(ItemID.ENSOULED_SCORPION_HEAD_13460);
-		prayerItems.add(ItemID.ENSOULED_SCORPION_HEAD_13460 + 1);
-		prayerItems.add(ItemID.ENSOULED_TROLL_HEAD_13484);
-		prayerItems.add(ItemID.ENSOULED_TROLL_HEAD_13484 + 1);
-		prayerItems.add(ItemID.ENSOULED_TZHAAR_HEAD_13499);
-		prayerItems.add(ItemID.ENSOULED_TZHAAR_HEAD_13499 + 1);
-		prayerItems.add(ItemID.ENSOULED_UNICORN_HEAD_13466);
-		prayerItems.add(ItemID.ENSOULED_UNICORN_HEAD_13466 + 1);
 	}
 
 	private void updateConfig()
