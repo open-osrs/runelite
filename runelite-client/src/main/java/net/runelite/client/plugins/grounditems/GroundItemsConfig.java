@@ -605,15 +605,15 @@ public interface GroundItemsConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "toggleOutline",
+		keyName = "enableOutline",
 		name = "Text Outline",
 		description = "Use an outline around text instead of a text shadow",
 		position = 47,
 		parent = "miscStub"
 	)
-	default boolean toggleOutline()
+	default boolean enableOutline()
 	{
-		return false;
+		return true;
 	}
 
 	@ConfigItem(

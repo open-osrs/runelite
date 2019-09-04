@@ -220,7 +220,7 @@ public class GroundItemsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private int doubleTapDelay;
 	@Getter(AccessLevel.PACKAGE)
-	private boolean toggleOutline;
+	private boolean enableOutline;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean showTimer;
 	@Getter(AccessLevel.PACKAGE)
@@ -1019,7 +1019,7 @@ public class GroundItemsPlugin extends Plugin
 		this.onlyShowLoot = config.onlyShowLoot();
 		this.showGroundItemDuration = config.showGroundItemDuration();
 		this.doubleTapDelay = config.doubleTapDelay();
-		this.toggleOutline = config.toggleOutline();
+		this.enableOutline = config.enableOutline();
 		this.showTimer = config.showTimer();
 		this.bordercolor = config.bordercolor();
 	}

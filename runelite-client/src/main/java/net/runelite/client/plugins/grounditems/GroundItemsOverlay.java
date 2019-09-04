@@ -378,7 +378,7 @@ public class GroundItemsOverlay extends Overlay
 				drawTimerOverlay(graphics, new java.awt.Point(textX, textY), item);
 			}
 
-			if (plugin.isToggleOutline())
+			if (plugin.isEnableOutline())
 			{
 				final Color bordercolor = plugin.getBordercolor();
 				graphics.setColor(bordercolor);
