@@ -660,7 +660,7 @@ public interface GroundItemsConfig extends Config
 	)
 	default boolean highlightHerblore()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -685,7 +685,7 @@ public interface GroundItemsConfig extends Config
 	)
 	default boolean highlightPrayer()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
