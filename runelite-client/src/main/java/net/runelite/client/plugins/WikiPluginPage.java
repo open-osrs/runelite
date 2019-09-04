@@ -37,7 +37,7 @@ public class WikiPluginPage
 	 * @param configItems - A List of the ConfigItem from the plugins config file
 	 */
 	public WikiPluginPage(String name, String description, String[] tags, boolean enabled, boolean hidden,
-						  boolean developer, boolean outdated, List<ConfigItem> configItems)
+		boolean developer, boolean outdated, List<ConfigItem> configItems)
 	{
 		this.name = String.format("====== %s ====== \n", name);
 		this.description = String.format("===== Description ===== \n <code>%s</code>\n", description);
