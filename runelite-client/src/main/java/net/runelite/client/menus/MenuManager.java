@@ -240,7 +240,7 @@ public class MenuManager
 
 		// Need to set the event entries to prevent conflicts
 		event.setMenuEntries(arrayEntries);
-		client.setMenuEntries(arrayEntries);
+		event.setModified(true);
 	}
 
 	private void onMenuEntryAdded(MenuEntryAdded event)

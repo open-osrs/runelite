@@ -1422,6 +1422,11 @@ public abstract class RSClientMixin implements RSClient
 		final MenuOpened event = new MenuOpened();
 		event.setMenuEntries(getMenuEntries());
 		callbacks.post(MenuOpened.class, event);
+
+		if (event.isModified())
+		{
+			setMenuEntries(event.getMenuEntries());
+		}
 	}
 
 	@Inject
