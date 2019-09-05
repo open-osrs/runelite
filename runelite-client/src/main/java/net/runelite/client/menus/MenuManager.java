@@ -256,21 +256,20 @@ public class MenuManager
 
 		int widgetId = event.getActionParam1();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
-		MenuEntry[] menuEntries = client.getMenuEntries();
 
 		for (WidgetMenuOption currentMenu : options)
 		{
 			if (!menuContainsCustomMenu(currentMenu))//Don't add if we have already added it to this widget
 			{
-				menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
-
-				MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
-				menuEntry.setOption(currentMenu.getMenuOption());
-				menuEntry.setParam1(widgetId);
-				menuEntry.setTarget(currentMenu.getMenuTarget());
-				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
-
-				client.setMenuEntries(menuEntries);
+				client.insertMenuItem(
+					currentMenu.getMenuOption(),
+					currentMenu.getMenuTarget(),
+					MenuOpcode.RUNELITE.getId(),
+					0,
+					0,
+					widgetId,
+					false
+				);
 			}
 		}
 	}
@@ -871,7 +870,6 @@ public class MenuManager
 
 		// Backwards so we swap with the otherwise highest one
 		// Count - 2 so we don't compare the entry against itself
-		outer:
 		for (int i = menuOptionCount - 2; i > 0; i--)
 		{
 			final MenuEntry entry = entries[i];
@@ -885,7 +883,7 @@ public class MenuManager
 				entries[i] = first;
 				entries[menuOptionCount - 1] = entry;
 				firstEntry = entry;
-				break outer;
+				return;
 			}
 		}
 	}
