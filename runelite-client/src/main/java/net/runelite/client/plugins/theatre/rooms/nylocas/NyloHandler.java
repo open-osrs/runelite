@@ -13,30 +13,41 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.kit.KitType;
+import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.client.game.ItemManager;
+import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.theatre.RoomHandler;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
+import org.apache.commons.lang3.ObjectUtils;
 
 public class NyloHandler extends RoomHandler
 {
-
-	public long startTime = 0L;
-	int startTick = 0;
 	final List<NPC> waveSpawns = new ArrayList<>();
 	final List<NPC> waveAgros = new ArrayList<>();
+	public long startTime = 0L;
+	int startTick = 0;
+
+	private final MenuManager menuManager;
+	private final ItemManager itemManager;
 	@Getter(AccessLevel.PUBLIC)
 	private Map<NPC, Integer> pillars = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
@@ -46,10 +57,13 @@ public class NyloHandler extends RoomHandler
 	private int wave = 0;
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
+	private int attackStyle = 0; // 1 = 2h range, 2 = melee 3= mage 4= 1h range
 
-	public NyloHandler(final Client client, final TheatrePlugin plugin)
+	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager)
 	{
 		super(client, plugin);
+		this.itemManager = itemManager;
+		this.menuManager = menuManager;
 	}
 
 	@Override
@@ -71,6 +85,7 @@ public class NyloHandler extends RoomHandler
 
 		this.startTime = System.currentTimeMillis();
 		this.startTick = this.client.getTickCount();
+
 	}
 
 	@Override
@@ -96,7 +111,8 @@ public class NyloHandler extends RoomHandler
 
 		if (this.startTime != 0 && plugin.isExtraTimers())
 		{
-			this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'The Nylocas - Waves' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
+			this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'The Nylocas - Waves' " +
+				"completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
 		}
 	}
 
@@ -111,6 +127,15 @@ public class NyloHandler extends RoomHandler
 		this.waveSpawns.clear();
 		this.waveAgros.clear();
 		this.predictor.reset();
+		removeMenuSwaps();
+
+	}
+
+	private void removeMenuSwaps()
+	{
+		menuManager.removeHiddenEntry("Attack", "Nylocas Hagios");
+		menuManager.removeHiddenEntry("Attack", "Nylocas Ischyros");
+		menuManager.removeHiddenEntry("Attack", "Nylocas Toxobolos");
 	}
 
 	public void onConfigChanged()
@@ -365,6 +390,127 @@ public class NyloHandler extends RoomHandler
 			{
 				pillars.replace(pillar, healthPercent);
 			}
+		}
+	}
+
+	private int checkAttackStyle(String itemName)
+	{
+		switch (itemName.toLowerCase())
+		{
+			case "toxic blowpipe":
+			case "twisted bow":
+			case "craw's bow":
+				return 1;
+			case "abyssal whip":
+			case "abyssal tentacle":
+			case "scythe of vitur":
+			case "scythe of vitur (uncharged)":
+			case "ham joint":
+			case "bandos godsword":
+			case "bandos godsword (or)":
+			case "dragon warhammer":
+			case "dragon claws":
+			case "event rpg":
+			case "ghrazi rapier":
+			case "blade of saeldor":
+			case "crystal halberd":
+			case "dragon scimitar":
+				return 2;
+			case "kodai wand":
+			case "master wand":
+			case "trident of the seas":
+			case "trident of the swamp":
+			case "sanguinesti staff":
+			case "iban's staff":
+			case "iban's staff (u)":
+			case "trident of the swamp (e)":
+			case "trident of the seas (e)":
+				return 3;
+			case "red chinchompa":
+			case "chinchompa":
+			case "black chinchompa":
+			case "armadyl crossbow":
+			case "dragon crossbow":
+			case "rune crossbow":
+				return 4;
+			case "avernic defender":
+			case "dragon defender":
+			case "dragon defender (t)":
+				if (attackStyle == 1)
+				{
+					return 2;
+				}
+				else
+				{
+					return attackStyle;
+				}
+			default:
+				return attackStyle;
+		}
+	}
+
+	public void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		if (!plugin.isNylocasMenuSwap())
+		{
+			attackStyle = 0;
+			removeMenuSwaps();
+			return;
+		}
+		final String menuOption = event.getOption();
+		if (!menuOption.equalsIgnoreCase("equip") && !menuOption.equalsIgnoreCase("attack"))
+		{
+			return;
+		}
+
+		if (attackStyle == 0)
+		{
+			String itemName;
+			if (client.getLocalPlayer() == null
+				|| client.getLocalPlayer().getPlayerAppearance() == null
+				|| client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN) != null
+				|| client.getViewportWidget() == null
+				|| client.getLocalPlayer().getPlayerAppearance() == null
+				|| client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) == 0
+			)
+			{
+				return;
+			}
+			final int weapon = ObjectUtils.defaultIfNull((client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON)), 0);
+
+			if (weapon == 0) {
+				return;
+			}
+			ItemDefinition equippedWeapon = itemManager.getItemDefinition(weapon);
+			itemName = equippedWeapon.getName();
+			if (itemName != null) {
+				attackStyle = checkAttackStyle(itemName);
+			}
+		}
+		if (event.getOption().equalsIgnoreCase("attack"))
+		{
+			return;
+		}
+
+		attackStyle = checkAttackStyle(event.getTarget());
+		switch (attackStyle)
+		{
+			case 1:
+			case 4:
+				removeMenuSwaps();
+				menuManager.addHiddenEntry("Attack", "Nylocas Hagios");
+				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");;
+				break;
+			case 2:
+				removeMenuSwaps();
+				menuManager.addHiddenEntry("Attack", "Nylocas Hagios");
+				menuManager.addHiddenEntry("Attack", "Nylocas Toxobolos");
+				break;
+			case 3:
+				removeMenuSwaps();
+				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");
+				menuManager.addHiddenEntry("Attack", "Nylocas Toxobolos");
+				break;
 		}
 	}
 

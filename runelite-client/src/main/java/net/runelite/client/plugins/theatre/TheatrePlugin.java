@@ -22,6 +22,7 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.GroundObjectSpawned;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
@@ -31,7 +32,9 @@ import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.game.ItemManager;
 import net.runelite.client.graphics.ModelOutlineRenderer;
+import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -66,6 +69,10 @@ public class TheatrePlugin extends Plugin
 	@Inject
 	private TheatreConfig config;
 	@Inject
+	private MenuManager menuManager;
+	@Inject
+	private ItemManager itemManager;
+	@Inject
 	private ModelOutlineRenderer modelOutline;
 	private BloatHandler bloatHandler;
 	private MaidenHandler maidenHandler;
@@ -90,6 +97,7 @@ public class TheatrePlugin extends Plugin
 	private boolean showNylocasAmount;
 	private boolean showNyloFreezeHighlights;
 	private boolean showNyloPillarHealth;
+	private boolean nylocasMenuSwap;
 	private boolean showSotetsegAttacks;
 	private boolean showSotetsegMaze;
 	private boolean showSotetsegSolo;
@@ -116,7 +124,7 @@ public class TheatrePlugin extends Plugin
 		room = TheatreRoom.UNKNOWN;
 		maidenHandler = new MaidenHandler(client, this, modelOutline);
 		bloatHandler = new BloatHandler(client, this);
-		nyloHandler = new NyloHandler(client, this);
+		nyloHandler = new NyloHandler(client, this, menuManager, itemManager);
 		sotetsegHandler = new SotetsegHandler(client, this);
 		xarpusHandler = new XarpusHandler(client, this);
 		verzikHandler = new VerzikHandler(client, this);
@@ -146,6 +154,7 @@ public class TheatrePlugin extends Plugin
 
 	private void addSubscriptions()
 	{
+		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
 		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
@@ -331,6 +340,14 @@ public class TheatrePlugin extends Plugin
 		}
 	}
 
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		if (nyloHandler != null)
+		{
+			nyloHandler.onMenuOptionClicked(event);
+		}
+	}
+
 	private void onVarbitChanged(VarbitChanged event)
 	{
 		if (bloatHandler != null)
@@ -354,6 +371,7 @@ public class TheatrePlugin extends Plugin
 		this.BloatFeetIndicatorRaveEdition = config.BloatFeetIndicatorRaveEdition();
 		this.showBloatTimer = config.showBloatTimer();
 		this.showNyloPillarHealth = config.showNyloPillarHealth();
+		this.nylocasMenuSwap = config.nylocasMenuSwap();
 		this.showNylocasExplosions = config.showNylocasExplosions();
 		this.showNylocasAmount = config.showNylocasAmount();
 		this.highlightNyloAgros = config.highlightNyloAgros();
