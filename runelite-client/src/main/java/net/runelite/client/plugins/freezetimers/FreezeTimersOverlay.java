@@ -44,7 +44,6 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
-import static java.awt.Color.RED;
 import static java.awt.Color.WHITE;
 
 @Singleton
