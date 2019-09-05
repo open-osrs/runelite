@@ -1419,7 +1419,6 @@ public abstract class RSClientMixin implements RSClient
 	@MethodHook("openMenu")
 	public void menuOpened(int x, int y)
 	{
-		sortMenuEntries();
 		final MenuOpened event = new MenuOpened();
 		event.setMenuEntries(getMenuEntries());
 		callbacks.post(MenuOpened.class, event);

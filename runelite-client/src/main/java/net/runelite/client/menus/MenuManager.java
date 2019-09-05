@@ -293,8 +293,6 @@ public class MenuManager
 			return null;
 		}
 
-		client.sortMenuEntries();
-
 		firstEntry = null;
 		MenuEntry[] entries = new MenuEntry[menuOptionCount + priorityEntries.size()];
 		System.arraycopy(client.getMenuEntries(), 0, entries, 0, menuOptionCount);
