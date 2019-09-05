@@ -257,21 +257,6 @@ public class FreezeTimersOverlay extends Overlay
 		{
 			renderActorText(g, actor, text, overlaysDrawn, VENG_IMAGE);
 		}
-		if (actor.getSpotAnimation() == GraphicID.VENGEANCE || actor.getSpotAnimation() == GraphicID.VENGEANCE_OTHER)
-		{
-
-			g.setColor(RED);
-			Polygon poly = actor.getCanvasTilePoly();
-
-			if (poly == null)
-			{
-				return false;
-			}
-
-			OverlayUtil.renderPolygon(g, poly, RED);
-			OverlayUtil.renderTextLocation(g, new Point((int) poly.getBounds2D().getCenterX(),
-					(int) poly.getBounds2D().getCenterY()), actor.getName(), RED);
-		}
 		return true;
 	}
 
