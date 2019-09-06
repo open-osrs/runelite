@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
+import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
@@ -56,7 +57,7 @@ public class NyloHandler extends RoomHandler
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
 	private attackStyle currentAttack = null;
-
+	private static final String MESNAME = "tobmes";
 	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager, final EventBus eventBus)
 	{
 		super(client, plugin);
@@ -86,7 +87,7 @@ public class NyloHandler extends RoomHandler
 		this.startTick = this.client.getTickCount();
 		if (plugin.isNylocasMenuSwap())
 		{
-			eventBus.subscribe(MenuOptionClicked.class, "tobmes", this::onMenuOptionClicked);
+			eventBus.subscribe(MenuOptionClicked.class, MESNAME, this::onMenuOptionClicked);
 		}
 
 	}
@@ -145,11 +146,11 @@ public class NyloHandler extends RoomHandler
 	{
 		if (plugin.isNylocasMenuSwap())
 		{
-			eventBus.subscribe(MenuOptionClicked.class, "tobmes", this::onMenuOptionClicked);
+			eventBus.subscribe(MenuOptionClicked.class, MESNAME, this::onMenuOptionClicked);
 		}
 		else
 		{
-			eventBus.unregister("tobmes");
+			eventBus.unregister(MESNAME);
 		}
 		if (plugin.getRoom() != TheatreRoom.NYLOCAS)
 		{
@@ -426,6 +427,7 @@ public class NyloHandler extends RoomHandler
 			case "blade of saeldor":
 			case "crystal halberd":
 			case "dragon scimitar":
+			case "rune scimitar":
 				return attackStyle.MELEE;
 			case "kodai wand":
 			case "master wand":
@@ -443,6 +445,7 @@ public class NyloHandler extends RoomHandler
 			case "armadyl crossbow":
 			case "dragon crossbow":
 			case "rune crossbow":
+			case "Dorgeshuun crossbow":
 				return attackStyle.RANGE;
 			case "avernic defender":
 			case "dragon defender":
@@ -497,7 +500,6 @@ public class NyloHandler extends RoomHandler
 			}
 			return;
 		}
-
 		currentAttack = checkAttackStyle(event.getTarget());
 		doSwaps();
 	}
@@ -511,7 +513,6 @@ public class NyloHandler extends RoomHandler
 				removeMenuSwaps();
 				menuManager.addHiddenEntry("Attack", "Nylocas Hagios");
 				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");
-				;
 				break;
 			case MELEE:
 				removeMenuSwaps();
