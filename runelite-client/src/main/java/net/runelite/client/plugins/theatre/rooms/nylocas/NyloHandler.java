@@ -57,7 +57,13 @@ public class NyloHandler extends RoomHandler
 	private int wave = 0;
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
-	private int attackStyle = 0; // 1 = 2h range, 2 = melee 3= mage 4= 1h range
+	private enum attackStyle {
+		MELEE,
+		MAGE,
+		RANGE,
+		RANGE2H
+	}
+	private attackStyle currentAttack = null;
 
 	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager)
 	{
@@ -393,14 +399,14 @@ public class NyloHandler extends RoomHandler
 		}
 	}
 
-	private int checkAttackStyle(String itemName)
+	private attackStyle checkAttackStyle(String itemName)
 	{
 		switch (itemName.toLowerCase())
 		{
 			case "toxic blowpipe":
 			case "twisted bow":
 			case "craw's bow":
-				return 1;
+				return attackStyle.RANGE2H;
 			case "abyssal whip":
 			case "abyssal tentacle":
 			case "scythe of vitur":
@@ -415,7 +421,7 @@ public class NyloHandler extends RoomHandler
 			case "blade of saeldor":
 			case "crystal halberd":
 			case "dragon scimitar":
-				return 2;
+				return attackStyle.MELEE;
 			case "kodai wand":
 			case "master wand":
 			case "trident of the seas":
@@ -425,27 +431,23 @@ public class NyloHandler extends RoomHandler
 			case "iban's staff (u)":
 			case "trident of the swamp (e)":
 			case "trident of the seas (e)":
-				return 3;
+				return attackStyle.MAGE;
 			case "red chinchompa":
 			case "chinchompa":
 			case "black chinchompa":
 			case "armadyl crossbow":
 			case "dragon crossbow":
 			case "rune crossbow":
-				return 4;
+				return attackStyle.RANGE;
 			case "avernic defender":
 			case "dragon defender":
 			case "dragon defender (t)":
-				if (attackStyle == 1)
+				if (currentAttack == attackStyle.RANGE2H)
 				{
-					return 2;
-				}
-				else
-				{
-					return attackStyle;
+					return attackStyle.MELEE;
 				}
 			default:
-				return attackStyle;
+				return currentAttack;
 		}
 	}
 
@@ -453,7 +455,7 @@ public class NyloHandler extends RoomHandler
 	{
 		if (!plugin.isNylocasMenuSwap())
 		{
-			attackStyle = 0;
+			currentAttack = null;
 			removeMenuSwaps();
 			return;
 		}
@@ -463,7 +465,7 @@ public class NyloHandler extends RoomHandler
 			return;
 		}
 		boolean needSwaps = false;
-		if (attackStyle == 0)
+		if (currentAttack == null)
 		{
 			String itemName;
 			if (client.getLocalPlayer() == null
@@ -484,7 +486,7 @@ public class NyloHandler extends RoomHandler
 			ItemDefinition equippedWeapon = itemManager.getItemDefinition(weapon);
 			itemName = equippedWeapon.getName();
 			if (itemName != null) {
-				attackStyle = checkAttackStyle(itemName);
+				currentAttack = checkAttackStyle(itemName);
 				needSwaps = true;
 			}
 		}
@@ -497,26 +499,26 @@ public class NyloHandler extends RoomHandler
 			return;
 		}
 
-		attackStyle = checkAttackStyle(event.getTarget());
+		currentAttack = checkAttackStyle(event.getTarget());
 		doSwaps();
 	}
 
 	private void doSwaps()
 	{
-		switch (attackStyle)
+		switch (currentAttack)
 		{
-			case 1:
-			case 4:
+			case RANGE:
+			case RANGE2H:
 				removeMenuSwaps();
 				menuManager.addHiddenEntry("Attack", "Nylocas Hagios");
 				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");;
 				break;
-			case 2:
+			case MELEE:
 				removeMenuSwaps();
 				menuManager.addHiddenEntry("Attack", "Nylocas Hagios");
 				menuManager.addHiddenEntry("Attack", "Nylocas Toxobolos");
 				break;
-			case 3:
+			case MAGE:
 				removeMenuSwaps();
 				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");
 				menuManager.addHiddenEntry("Attack", "Nylocas Toxobolos");
