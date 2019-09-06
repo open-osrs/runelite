@@ -13,8 +13,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,11 +41,10 @@ public class NyloHandler extends RoomHandler
 {
 	final List<NPC> waveSpawns = new ArrayList<>();
 	final List<NPC> waveAgros = new ArrayList<>();
-	public long startTime = 0L;
-	int startTick = 0;
-
 	private final MenuManager menuManager;
 	private final ItemManager itemManager;
+	public long startTime = 0L;
+	int startTick = 0;
 	@Getter(AccessLevel.PUBLIC)
 	private Map<NPC, Integer> pillars = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
@@ -57,12 +54,6 @@ public class NyloHandler extends RoomHandler
 	private int wave = 0;
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
-	private enum attackStyle {
-		MELEE,
-		MAGE,
-		RANGE,
-		RANGE2H
-	}
 	private attackStyle currentAttack = null;
 
 	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager)
@@ -480,19 +471,21 @@ public class NyloHandler extends RoomHandler
 			}
 			final int weapon = ObjectUtils.defaultIfNull((client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON)), 0);
 
-			if (weapon == 0) {
+			if (weapon == 0)
+			{
 				return;
 			}
 			ItemDefinition equippedWeapon = itemManager.getItemDefinition(weapon);
 			itemName = equippedWeapon.getName();
-			if (itemName != null) {
+			if (itemName != null)
+			{
 				currentAttack = checkAttackStyle(itemName);
 				needSwaps = true;
 			}
 		}
 		if (event.getOption().equalsIgnoreCase("attack"))
 		{
-			if(needSwaps)
+			if (needSwaps)
 			{
 				doSwaps();
 			}
@@ -511,7 +504,8 @@ public class NyloHandler extends RoomHandler
 			case RANGE2H:
 				removeMenuSwaps();
 				menuManager.addHiddenEntry("Attack", "Nylocas Hagios");
-				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");;
+				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");
+				;
 				break;
 			case MELEE:
 				removeMenuSwaps();
@@ -525,6 +519,7 @@ public class NyloHandler extends RoomHandler
 				break;
 		}
 	}
+
 	private void recalculateLocal()
 	{
 		if (this.pillars != null && this.pillars.size() == 4)
@@ -555,5 +550,13 @@ public class NyloHandler extends RoomHandler
 				this.predictor.westBound = centerX - 12;
 			}
 		}
+	}
+
+	private enum attackStyle
+	{
+		MELEE,
+		MAGE,
+		RANGE,
+		RANGE2H
 	}
 }
