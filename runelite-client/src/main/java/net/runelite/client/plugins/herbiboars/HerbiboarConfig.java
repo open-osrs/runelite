@@ -46,6 +46,30 @@ public interface HerbiboarConfig extends Config
 
 	@ConfigItem(
 		position = 1,
+		keyName = "showOutline",
+		name = "Show Outlines",
+		description = "Show outlines on trail objects and tunnels instead of tiles"
+	)
+	default boolean showOutlines()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 2,
+		keyName = "highlightStyle",
+		name = "Outline Style",
+		description = "Outline setting",
+		hidden = true,
+		unhide = "showOutline"
+	)
+	default RenderStyle outlineStyle()
+	{
+		return RenderStyle.THIN_OUTLINE;
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "colorStart",
 		name = "Start Color",
 		description = "Color for rocks that start the trails"
@@ -56,7 +80,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		position = 4,
 		keyName = "showTunnel",
 		name = "Show End Tunnels",
 		description = "Show highlights for tunnels with herbiboars"
@@ -67,7 +91,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 3,
+		position = 5,
 		keyName = "colorTunnel",
 		name = "Tunnel Color",
 		description = "Color for tunnels with herbiboars"
@@ -78,7 +102,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 6,
 		keyName = "showObject",
 		name = "Show Trail Objects",
 		description = "Show highlights for mushrooms, mud, seaweed, etc"
@@ -89,7 +113,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		position = 7,
 		keyName = "colorGameObject",
 		name = "Trail Object Color",
 		description = "Color for mushrooms, mud, seaweed, etc"
@@ -100,7 +124,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 6,
+		position = 8,
 		keyName = "showTrail",
 		name = "Show Trail",
 		description = "Show highlights for trail prints"
@@ -111,7 +135,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 7,
+		position = 9,
 		keyName = "showOnlyCurrentTrail",
 		name = "Show Current Trail Only",
 		description = "Only show the trail that you currently have to follow to get to the next object you have to inspect. Requires that the \"Show Trail\" option is enabled"
@@ -122,7 +146,7 @@ public interface HerbiboarConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 8,
+		position = 10,
 		keyName = "colorTrail",
 		name = "Trail Color",
 		description = "Color for mushrooms, mud, seaweed, etc"
