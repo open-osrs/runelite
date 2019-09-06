@@ -36,7 +36,7 @@ public enum FairyTreeMode
     RING_CONFIGURE("Configure"),
     RING_LAST_DESTINATION("Last-destination"),
     OFF("Off");
-
+    
     private final String name;
 
     @Override
