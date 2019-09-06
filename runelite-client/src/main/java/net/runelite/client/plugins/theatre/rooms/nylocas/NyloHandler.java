@@ -480,9 +480,9 @@ public class NyloHandler extends RoomHandler
 		if (currentAttack == null)
 		{
 			if (client.getLocalPlayer() != null
-				|| client.getViewportWidget() != null
-				|| client.getLocalPlayer().getPlayerAppearance() != null
-				|| client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) != 0
+				&& client.getViewportWidget() != null
+				&& client.getLocalPlayer().getPlayerAppearance() != null
+				&& client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) != 0
 			)
 			{
 				currentAttack = checkAttackStyle(client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON));
@@ -517,6 +517,8 @@ public class NyloHandler extends RoomHandler
 				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");
 				menuManager.addHiddenEntry("Attack", "Nylocas Toxobolos");
 				break;
+			default:
+				removeMenuSwaps();
 		}
 	}
 
