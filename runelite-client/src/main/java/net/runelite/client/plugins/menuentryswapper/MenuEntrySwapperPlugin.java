@@ -108,7 +108,7 @@ import net.runelite.client.util.HotkeyListener;
 import static net.runelite.client.util.MenuUtil.swap;
 import net.runelite.client.util.MiscUtils;
 import net.runelite.api.util.Text;
-import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @PluginDescriptor(
 	name = "Menu Entry Swapper",
@@ -160,7 +160,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	 */
 	@Inject
 	private ConfigManager configManager;
-	private MenuEntry[] entries;
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
 	private boolean inCoxRaid = false;
@@ -297,7 +296,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapTrade;
 	private boolean swapTravel;
 	private boolean swapWildernessLever;
-
 	private Keybind hotkeyMod;
 
 	@Provides
@@ -428,6 +426,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			return;
 		}
 
+		// TODO: Remove this? This makes everything here only work in wildy lol
 		if (!(MiscUtils.getWildernessLevelFrom(client, localPlayer.getWorldLocation()) >= 0))
 		{
 			return;
@@ -512,9 +511,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 			menu_entries.add(entry);
 		}
 
-		MenuEntry[] updated_menu_entries = new MenuEntry[menu_entries.size()];
-		updated_menu_entries = menu_entries.toArray(updated_menu_entries);
-		client.setMenuEntries(updated_menu_entries);
+		event.setMenuEntries(menu_entries.toArray(new MenuEntry[0]));
+		event.setModified(true);
 	}
 
 	public void onMenuEntryAdded(MenuEntryAdded event)
@@ -525,33 +523,34 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 
 		final int eventId = event.getIdentifier();
-		final String option = Text.standardize(event.getOption());
-		final String target = Text.standardize(event.getTarget());
+		final String option = event.getOption().toLowerCase();
+		final String target = event.getMenuEntry().getStandardizedTarget();
 		final NPC hintArrowNpc = client.getHintArrowNpc();
-		entries = client.getMenuEntries();
 
 		if (this.getRemoveObjects && !this.getRemovedObjects.equals(""))
 		{
+			// TODO: CACHE THIS
 			for (String removed : Text.fromCSV(this.getRemovedObjects))
 			{
 				removed = Text.standardize(removed);
-				if (target.contains("(") && target.split(" \\(")[0].equals(removed))
+				if (target.equals(removed))
 				{
-					delete(event.getIdentifier());
+					client.setMenuOptionCount(client.getMenuOptionCount() - 1);
+					return;
 				}
 				else if (target.contains("->"))
 				{
 					String trimmed = target.split("->")[1].trim();
 					if (trimmed.length() >= removed.length() && trimmed.substring(0, removed.length()).equalsIgnoreCase(removed))
 					{
-						delete(event.getIdentifier());
-						break;
+						client.setMenuOptionCount(client.getMenuOptionCount() - 1);
+						return;
 					}
 				}
-				else if (target.length() >= removed.length() && target.substring(0, removed.length()).equalsIgnoreCase(removed))
+				else if (target.length() >= removed.length() && StringUtils.startsWithIgnoreCase(target, removed))
 				{
-					delete(event.getIdentifier());
-					break;
+					client.setMenuOptionCount(client.getMenuOptionCount() - 1);
+					return;
 				}
 			}
 		}
@@ -1451,19 +1450,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 				menuManager.removePriorityEntry("Friend's house");
 				break;
 		}
-	}
-
-	private void delete(int target)
-	{
-		for (int i = entries.length - 1; i >= 0; i--)
-		{
-			if (entries[i].getIdentifier() == target)
-			{
-				entries = ArrayUtils.remove(entries, i);
-				i--;
-			}
-		}
-		client.setMenuEntries(entries);
 	}
 
 	private boolean isPuroPuro()
