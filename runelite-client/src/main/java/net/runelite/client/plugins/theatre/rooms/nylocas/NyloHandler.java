@@ -462,7 +462,7 @@ public class NyloHandler extends RoomHandler
 		{
 			return;
 		}
-
+		boolean needSwaps = false;
 		if (attackStyle == 0)
 		{
 			String itemName;
@@ -485,14 +485,23 @@ public class NyloHandler extends RoomHandler
 			itemName = equippedWeapon.getName();
 			if (itemName != null) {
 				attackStyle = checkAttackStyle(itemName);
+				needSwaps = true;
 			}
 		}
 		if (event.getOption().equalsIgnoreCase("attack"))
 		{
+			if(needSwaps) {
+				doSwaps();
+			}
 			return;
 		}
 
 		attackStyle = checkAttackStyle(event.getTarget());
+		doSwaps();
+	}
+
+	private void doSwaps()
+	{
 		switch (attackStyle)
 		{
 			case 1:
@@ -513,7 +522,6 @@ public class NyloHandler extends RoomHandler
 				break;
 		}
 	}
-
 	private void recalculateLocal()
 	{
 		if (this.pillars != null && this.pillars.size() == 4)
