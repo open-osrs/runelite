@@ -490,7 +490,8 @@ public class NyloHandler extends RoomHandler
 		}
 		if (event.getOption().equalsIgnoreCase("attack"))
 		{
-			if(needSwaps) {
+			if(needSwaps)
+			{
 				doSwaps();
 			}
 			return;
