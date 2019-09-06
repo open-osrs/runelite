@@ -16,9 +16,10 @@ import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
-import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemID;
 import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -35,8 +36,8 @@ import net.runelite.client.plugins.theatre.RoomHandler;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
-import org.apache.commons.lang3.ObjectUtils;
 
+@Slf4j
 public class NyloHandler extends RoomHandler
 {
 	private static final String MESNAME = "tobmes";
@@ -405,51 +406,57 @@ public class NyloHandler extends RoomHandler
 		}
 	}
 
-	private attackStyle checkAttackStyle(String itemName)
+	private attackStyle checkAttackStyle(int weaponId)
 	{
-		switch (itemName.toLowerCase())
+		switch (weaponId)
 		{
-			case "toxic blowpipe":
-			case "twisted bow":
-			case "craw's bow":
+			case ItemID.TOXIC_BLOWPIPE:
+			case ItemID.TWISTED_BOW:
+			case ItemID.CRAWS_BOW:
 				return attackStyle.RANGE2H;
-			case "abyssal whip":
-			case "abyssal tentacle":
-			case "scythe of vitur":
-			case "scythe of vitur (uncharged)":
-			case "ham joint":
-			case "bandos godsword":
-			case "bandos godsword (or)":
-			case "dragon warhammer":
-			case "dragon claws":
-			case "event rpg":
-			case "ghrazi rapier":
-			case "blade of saeldor":
-			case "crystal halberd":
-			case "dragon scimitar":
-			case "rune scimitar":
+			case ItemID.ABYSSAL_WHIP:
+			case ItemID.ABYSSAL_TENTACLE:
+			case ItemID.SCYTHE_OF_VITUR:
+			case ItemID.SCYTHE_OF_VITUR_22664:
+			case ItemID.SCYTHE_OF_VITUR_UNCHARGED:
+			case ItemID.HAM_JOINT:
+			case ItemID.SWIFT_BLADE:
+			case ItemID.BANDOS_GODSWORD:
+			case ItemID.BANDOS_GODSWORD_20782:
+			case ItemID.BANDOS_GODSWORD_21060:
+			case ItemID.BANDOS_GODSWORD_OR:
+			case ItemID.DRAGON_WARHAMMER:
+			case ItemID.DRAGON_CLAWS:
+			case ItemID.EVENT_RPG:
+			case ItemID.GHRAZI_RAPIER:
+			case ItemID.GHRAZI_RAPIER_23628:
+			case ItemID.BLADE_OF_SAELDOR:
+			case ItemID.CRYSTAL_HALBERD:
+			case ItemID.DRAGON_SCIMITAR:
+			case ItemID.RUNE_SCIMITAR:
 				return attackStyle.MELEE;
-			case "kodai wand":
-			case "master wand":
-			case "trident of the seas":
-			case "trident of the swamp":
-			case "sanguinesti staff":
-			case "iban's staff":
-			case "iban's staff (u)":
-			case "trident of the swamp (e)":
-			case "trident of the seas (e)":
+			case ItemID.KODAI_WAND:
+			case ItemID.MASTER_WAND:
+			case ItemID.TRIDENT_OF_THE_SEAS:
+			case ItemID.TRIDENT_OF_THE_SWAMP:
+			case ItemID.SANGUINESTI_STAFF:
+			case ItemID.IBANS_STAFF:
+			case ItemID.IBANS_STAFF_1410:
+			case ItemID.IBANS_STAFF_U:
+			case ItemID.TRIDENT_OF_THE_SWAMP_E:
+			case ItemID.TRIDENT_OF_THE_SEAS_E:
 				return attackStyle.MAGE;
-			case "red chinchompa":
-			case "chinchompa":
-			case "black chinchompa":
-			case "armadyl crossbow":
-			case "dragon crossbow":
-			case "rune crossbow":
-			case "Dorgeshuun crossbow":
+			case ItemID.RED_CHINCHOMPA:
+			case ItemID.CHINCHOMPA:
+			case ItemID.BLACK_CHINCHOMPA:
+			case ItemID.ARMADYL_CROSSBOW:
+			case ItemID.DRAGON_CROSSBOW:
+			case ItemID.RUNE_CROSSBOW:
+			case ItemID.DORGESHUUN_CROSSBOW:
 				return attackStyle.RANGE;
-			case "avernic defender":
-			case "dragon defender":
-			case "dragon defender (t)":
+			case ItemID.AVERNIC_DEFENDER:
+			case ItemID.DRAGON_DEFENDER:
+			case ItemID.DRAGON_DEFENDER_T:
 				if (currentAttack == attackStyle.RANGE2H)
 				{
 					return attackStyle.MELEE;
@@ -462,45 +469,28 @@ public class NyloHandler extends RoomHandler
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		final String menuOption = event.getOption();
-		if (!menuOption.equalsIgnoreCase("equip") && !menuOption.equalsIgnoreCase("attack"))
+		if (!event.getOption().equalsIgnoreCase("equip") && !event.getOption().equalsIgnoreCase("wield") && !event.getOption().equalsIgnoreCase("hold"))
 		{
-			return;
+			if (currentAttack != null)
+			{
+				return;
+			}
 		}
-		boolean needSwaps = false;
 		if (currentAttack == null)
 		{
-			String itemName;
-			if (client.getLocalPlayer() == null
-				|| client.getViewportWidget() == null
-				|| client.getLocalPlayer().getPlayerAppearance() == null
-				|| client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) == 0
+			if (client.getLocalPlayer() != null
+				|| client.getViewportWidget() != null
+				|| client.getLocalPlayer().getPlayerAppearance() != null
+				|| client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) != 0
 			)
 			{
-				return;
-			}
-			final int weapon = ObjectUtils.defaultIfNull((client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON)), 0);
-
-			if (weapon == 0)
-			{
-				return;
-			}
-			ItemDefinition equippedWeapon = itemManager.getItemDefinition(weapon);
-			itemName = equippedWeapon.getName();
-			if (itemName != null)
-			{
-				currentAttack = checkAttackStyle(itemName);
-				needSwaps = true;
+				currentAttack = checkAttackStyle(client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON));
 			}
 		}
-		if (event.getOption().equalsIgnoreCase("attack"))
+		if (event.getOption().equalsIgnoreCase("equip") || event.getOption().equalsIgnoreCase("wield") || event.getOption().equalsIgnoreCase("hold"))
 		{
-			if (needSwaps)
-			{
-				doSwaps();
-			}
-			return;
+			currentAttack = checkAttackStyle(event.getIdentifier());
 		}
-		currentAttack = checkAttackStyle(event.getTarget());
 		doSwaps();
 	}
 
