@@ -494,7 +494,10 @@ public class NyloHandler extends RoomHandler
 		{
 			currentAttack = checkAttackStyle(event.getIdentifier());
 		}
-		doSwaps();
+		if (currentAttack != null)
+		{
+			doSwaps();
+		}
 	}
 
 	private void doSwaps()
@@ -517,8 +520,6 @@ public class NyloHandler extends RoomHandler
 				menuManager.addHiddenEntry("Attack", "Nylocas Ischyros");
 				menuManager.addHiddenEntry("Attack", "Nylocas Toxobolos");
 				break;
-			default:
-				removeMenuSwaps();
 		}
 	}
 
