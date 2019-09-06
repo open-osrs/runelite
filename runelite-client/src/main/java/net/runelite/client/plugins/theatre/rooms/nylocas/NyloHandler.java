@@ -488,7 +488,9 @@ public class NyloHandler extends RoomHandler
 				currentAttack = checkAttackStyle(client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON));
 			}
 		}
-		if (event.getOption().equalsIgnoreCase("equip") || event.getOption().equalsIgnoreCase("wield") || event.getOption().equalsIgnoreCase("hold"))
+		if (event.getOption().equalsIgnoreCase("equip") ||
+			event.getOption().equalsIgnoreCase("wield") ||
+			event.getOption().equalsIgnoreCase("hold"))
 		{
 			currentAttack = checkAttackStyle(event.getIdentifier());
 		}
