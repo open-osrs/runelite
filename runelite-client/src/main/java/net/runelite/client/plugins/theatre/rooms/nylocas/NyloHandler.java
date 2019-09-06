@@ -18,7 +18,6 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
-import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
@@ -40,6 +39,7 @@ import org.apache.commons.lang3.ObjectUtils;
 
 public class NyloHandler extends RoomHandler
 {
+	private static final String MESNAME = "tobmes";
 	final List<NPC> waveSpawns = new ArrayList<>();
 	final List<NPC> waveAgros = new ArrayList<>();
 	private final MenuManager menuManager;
@@ -57,7 +57,7 @@ public class NyloHandler extends RoomHandler
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
 	private attackStyle currentAttack = null;
-	private static final String MESNAME = "tobmes";
+
 	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager, final EventBus eventBus)
 	{
 		super(client, plugin);
