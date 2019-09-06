@@ -57,7 +57,7 @@ public class NyloHandler extends RoomHandler
 	private int wave = 0;
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
-	private attackStyle currentAttack = null;
+	private AttackStyle currentAttack = null;
 
 	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager, final EventBus eventBus)
 	{
@@ -406,14 +406,14 @@ public class NyloHandler extends RoomHandler
 		}
 	}
 
-	private attackStyle checkAttackStyle(int weaponId)
+	private AttackStyle checkAttackStyle(int weaponId)
 	{
 		switch (weaponId)
 		{
 			case ItemID.TOXIC_BLOWPIPE:
 			case ItemID.TWISTED_BOW:
 			case ItemID.CRAWS_BOW:
-				return attackStyle.RANGE2H;
+				return AttackStyle.RANGE2H;
 			case ItemID.ABYSSAL_WHIP:
 			case ItemID.ABYSSAL_TENTACLE:
 			case ItemID.SCYTHE_OF_VITUR:
@@ -434,7 +434,7 @@ public class NyloHandler extends RoomHandler
 			case ItemID.CRYSTAL_HALBERD:
 			case ItemID.DRAGON_SCIMITAR:
 			case ItemID.RUNE_SCIMITAR:
-				return attackStyle.MELEE;
+				return AttackStyle.MELEE;
 			case ItemID.KODAI_WAND:
 			case ItemID.MASTER_WAND:
 			case ItemID.TRIDENT_OF_THE_SEAS:
@@ -445,7 +445,7 @@ public class NyloHandler extends RoomHandler
 			case ItemID.IBANS_STAFF_U:
 			case ItemID.TRIDENT_OF_THE_SWAMP_E:
 			case ItemID.TRIDENT_OF_THE_SEAS_E:
-				return attackStyle.MAGE;
+				return AttackStyle.MAGE;
 			case ItemID.RED_CHINCHOMPA:
 			case ItemID.CHINCHOMPA:
 			case ItemID.BLACK_CHINCHOMPA:
@@ -453,13 +453,13 @@ public class NyloHandler extends RoomHandler
 			case ItemID.DRAGON_CROSSBOW:
 			case ItemID.RUNE_CROSSBOW:
 			case ItemID.DORGESHUUN_CROSSBOW:
-				return attackStyle.RANGE;
+				return AttackStyle.RANGE;
 			case ItemID.AVERNIC_DEFENDER:
 			case ItemID.DRAGON_DEFENDER:
 			case ItemID.DRAGON_DEFENDER_T:
-				if (currentAttack == attackStyle.RANGE2H)
+				if (currentAttack == AttackStyle.RANGE2H)
 				{
-					return attackStyle.MELEE;
+					return AttackStyle.MELEE;
 				}
 			default:
 				return currentAttack;
@@ -555,7 +555,7 @@ public class NyloHandler extends RoomHandler
 		}
 	}
 
-	private enum attackStyle
+	private enum AttackStyle
 	{
 		MELEE,
 		MAGE,
