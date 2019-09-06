@@ -1186,7 +1186,10 @@ public interface MenuEntrySwapperConfig extends Config
 			position = 2,
 			group = "Teleportation"
 	)
-	default boolean swapFairyTree() { return false; }
+	default boolean swapFairyTree()
+	{
+		return false;
+	}
 
 	@ConfigItem(
 			keyName = "fairyTree",
