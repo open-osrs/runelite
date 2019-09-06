@@ -27,6 +27,7 @@ package net.runelite.client.plugins.herbiboars;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Set;
@@ -44,19 +45,20 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 @Singleton
 class HerbiboarOverlay extends Overlay
 {
+	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
 	private Client client;
 
 	private final HerbiboarPlugin plugin;
-	private final ModelOutlineRenderer outlineRenderer;
+	private final ModelOutlineRenderer modelOutlineRenderer;
 
 	@Inject
-	public HerbiboarOverlay(final HerbiboarPlugin plugin, ModelOutlineRenderer outlineRenderer, Client client)
+	public HerbiboarOverlay(final HerbiboarPlugin plugin, ModelOutlineRenderer modelOutlineRenderer, Client client)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
-		this.outlineRenderer = outlineRenderer;
+		this.modelOutlineRenderer = modelOutlineRenderer;
 		this.client = client;
 	}
 
@@ -114,9 +116,17 @@ class HerbiboarOverlay extends Overlay
 				}
 
 				TileObject object = plugin.getTrailObjects().get(trailLoc);
+
 				if (object != null)
 				{
+					if (plugin.isShowOutlines())
+					{
+						renderOutline(object, new Color(255, 0, 255, 20));
+					}
+					else
+					{
 						OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetObjectColor());
+					}
 				}
 			}
 		}
@@ -128,7 +138,15 @@ class HerbiboarOverlay extends Overlay
 			TileObject object = plugin.getTunnels().get(finishLoc);
 			if (object != null)
 			{
-				OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetTunnelColor());
+				if (plugin.isShowOutlines())
+				{
+					Color col = plugin.getGetObjectColor();
+					renderOutline(object, new Color(col.getRed(), col.getGreen(), col.getBlue(), 20));
+				}
+				else
+				{
+					OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetTunnelColor());
+				}
 			}
 		}
 
@@ -139,10 +157,32 @@ class HerbiboarOverlay extends Overlay
 			{
 				if (npc.getId() == NpcID.HERBIBOAR || npc.getId() == NpcID.HERBIBOAR_7786)
 				{
-					outlineRenderer.drawOutline(npc, 2, plugin.getGetObjectColor());
+					modelOutlineRenderer.drawOutline(npc, 2, plugin.getGetObjectColor());
 				}
 			}
 		}
 		return null;
+	}
+
+	private void renderOutline(TileObject object, Color color)
+	{
+		switch (plugin.getOutlineStyle())
+		{
+			case THIN_OUTLINE:
+				modelOutlineRenderer.drawOutline(object, 1, color);
+				break;
+
+			case OUTLINE:
+				modelOutlineRenderer.drawOutline(object, 2, color);
+				break;
+
+			case THIN_GLOW:
+				modelOutlineRenderer.drawOutline(object, 4, color, TRANSPARENT);
+				break;
+
+			case GLOW:
+				modelOutlineRenderer.drawOutline(object, 8, color, TRANSPARENT);
+				break;
+		}
 	}
 }
