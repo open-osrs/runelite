@@ -460,8 +460,6 @@ public class NyloHandler extends RoomHandler
 		{
 			String itemName;
 			if (client.getLocalPlayer() == null
-				|| client.getLocalPlayer().getPlayerAppearance() == null
-				|| client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN) != null
 				|| client.getViewportWidget() == null
 				|| client.getLocalPlayer().getPlayerAppearance() == null
 				|| client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) == 0
