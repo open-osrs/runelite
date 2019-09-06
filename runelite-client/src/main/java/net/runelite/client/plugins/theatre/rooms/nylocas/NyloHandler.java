@@ -468,8 +468,9 @@ public class NyloHandler extends RoomHandler
 
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		final String menuOption = event.getOption();
-		if (!event.getOption().equalsIgnoreCase("equip") && !event.getOption().equalsIgnoreCase("wield") && !event.getOption().equalsIgnoreCase("hold"))
+		if (!event.getOption().equalsIgnoreCase("equip") &&
+			!event.getOption().equalsIgnoreCase("wield") &&
+			!event.getOption().equalsIgnoreCase("hold"))
 		{
 			if (currentAttack != null)
 			{
