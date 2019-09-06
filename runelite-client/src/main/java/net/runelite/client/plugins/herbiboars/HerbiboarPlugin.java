@@ -179,6 +179,10 @@ public class HerbiboarPlugin extends Plugin
 	private Color getTrailColor;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean isOnlyCurrentTrailShown;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showOutlines;
+	@Getter(AccessLevel.PACKAGE)
+	private RenderStyle outlineStyle;
 
 	@Provides
 	HerbiboarConfig getConfig(ConfigManager configManager)
@@ -491,5 +495,7 @@ public class HerbiboarPlugin extends Plugin
 		this.isTrailShown = config.isTrailShown();
 		this.getTrailColor = config.getTrailColor();
 		this.isOnlyCurrentTrailShown = config.isOnlyCurrentTrailShown();
+		this.showOutlines = config.showOutlines();
+		this.outlineStyle = config.outlineStyle();
 	}
 }
