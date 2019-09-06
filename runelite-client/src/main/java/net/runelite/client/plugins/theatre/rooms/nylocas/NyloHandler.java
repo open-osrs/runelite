@@ -28,7 +28,7 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.kit.KitType;
-import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.theatre.RoomHandler;
@@ -43,6 +43,7 @@ public class NyloHandler extends RoomHandler
 	final List<NPC> waveAgros = new ArrayList<>();
 	private final MenuManager menuManager;
 	private final ItemManager itemManager;
+	private final EventBus eventBus;
 	public long startTime = 0L;
 	int startTick = 0;
 	@Getter(AccessLevel.PUBLIC)
@@ -56,11 +57,12 @@ public class NyloHandler extends RoomHandler
 	private NyloPredictor predictor = null;
 	private attackStyle currentAttack = null;
 
-	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager)
+	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final ItemManager itemManager, final EventBus eventBus)
 	{
 		super(client, plugin);
 		this.itemManager = itemManager;
 		this.menuManager = menuManager;
+		this.eventBus = eventBus;
 	}
 
 	@Override
@@ -82,6 +84,10 @@ public class NyloHandler extends RoomHandler
 
 		this.startTime = System.currentTimeMillis();
 		this.startTick = this.client.getTickCount();
+		if (plugin.isNylocasMenuSwap())
+		{
+			eventBus.subscribe(MenuOptionClicked.class, "tobmes", this::onMenuOptionClicked);
+		}
 
 	}
 
@@ -137,6 +143,14 @@ public class NyloHandler extends RoomHandler
 
 	public void onConfigChanged()
 	{
+		if (plugin.isNylocasMenuSwap())
+		{
+			eventBus.subscribe(MenuOptionClicked.class, "tobmes", this::onMenuOptionClicked);
+		}
+		else
+		{
+			eventBus.unregister("tobmes");
+		}
 		if (plugin.getRoom() != TheatreRoom.NYLOCAS)
 		{
 			return;
@@ -444,12 +458,6 @@ public class NyloHandler extends RoomHandler
 
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (!plugin.isNylocasMenuSwap())
-		{
-			currentAttack = null;
-			removeMenuSwaps();
-			return;
-		}
 		final String menuOption = event.getOption();
 		if (!menuOption.equalsIgnoreCase("equip") && !menuOption.equalsIgnoreCase("attack"))
 		{

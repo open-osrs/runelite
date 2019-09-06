@@ -148,6 +148,7 @@ public interface TheatreConfig extends Config
 	{
 		return true;
 	}
+
 	/**
 	 * @ConfigItem( position = 8,
 	 * keyName = "showNylocasSpawns",

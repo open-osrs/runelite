@@ -22,7 +22,6 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.GroundObjectSpawned;
-import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
@@ -124,7 +123,7 @@ public class TheatrePlugin extends Plugin
 		room = TheatreRoom.UNKNOWN;
 		maidenHandler = new MaidenHandler(client, this, modelOutline);
 		bloatHandler = new BloatHandler(client, this);
-		nyloHandler = new NyloHandler(client, this, menuManager, itemManager);
+		nyloHandler = new NyloHandler(client, this, menuManager, itemManager, eventBus);
 		sotetsegHandler = new SotetsegHandler(client, this);
 		xarpusHandler = new XarpusHandler(client, this);
 		verzikHandler = new VerzikHandler(client, this);
@@ -154,7 +153,6 @@ public class TheatrePlugin extends Plugin
 
 	private void addSubscriptions()
 	{
-		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
 		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
@@ -337,14 +335,6 @@ public class TheatrePlugin extends Plugin
 		if (maidenHandler != null)
 		{
 			maidenHandler.onSpotAnimationChanged(event);
-		}
-	}
-
-	private void onMenuOptionClicked(MenuOptionClicked event)
-	{
-		if (nyloHandler != null)
-		{
-			nyloHandler.onMenuOptionClicked(event);
 		}
 	}
 
