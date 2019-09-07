@@ -152,6 +152,7 @@ public class NyloHandler extends RoomHandler
 		else
 		{
 			eventBus.unregister(MESNAME);
+			reset();
 		}
 		if (plugin.getRoom() != TheatreRoom.NYLOCAS)
 		{
