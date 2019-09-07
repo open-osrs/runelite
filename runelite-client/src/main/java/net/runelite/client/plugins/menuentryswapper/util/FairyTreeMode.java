@@ -31,17 +31,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum FairyTreeMode
 {
-    TREE("Tree"),
-    RING_ZANARIS("Zanaris"),
-    RING_CONFIGURE("Configure"),
-    RING_LAST_DESTINATION("Last-destination"),
-    OFF("Off");
-    
-    private final String name;
+	TREE("Tree"),
+	RING_ZANARIS("Zanaris"),
+	RING_CONFIGURE("Configure"),
+	RING_LAST_DESTINATION("Last-destination"),
+	OFF("Off");
 
-    @Override
-    public String toString()
-    {
-        return name;
-    }
+	private final String name;
+
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }
