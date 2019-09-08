@@ -41,10 +41,12 @@ import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.menus.AbstractComparableEntry;
+import net.runelite.client.menus.BaseComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.plugins.menuentryswapper.MenuEntrySwapperConfig;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RandomUtils;
 
@@ -72,6 +74,7 @@ public class BlackjackPlugin extends Plugin
 	private static final String BANDIT = "Bandit";
 	private static final String MENAPHITE = "Menaphite Thug";
 
+	private static final AbstractComparableEntry EMPTY = new BaseComparableEntry("", "", -1, -1, false, false);
 	private static final AbstractComparableEntry PICKPOCKET_BANDIT = new BJComparableEntry(BANDIT, true);
 	private static final AbstractComparableEntry KNOCKOUT_BANDIT = new BJComparableEntry(BANDIT, false);
 	private static final AbstractComparableEntry PICKPOCKET_MENAPHITE = new BJComparableEntry(MENAPHITE, true);
@@ -85,6 +88,8 @@ public class BlackjackPlugin extends Plugin
 	private EventBus eventBus;
 	@Inject
 	private MenuManager menuManager;
+	@Inject
+	private ConfigManager configManager;
 	private boolean pickpocketOnAggro;
 	private boolean random;
 	private long nextKnockOutTick = 0;
@@ -100,18 +105,22 @@ public class BlackjackPlugin extends Plugin
 	{
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		menuManager.addPriorityEntry(KNOCKOUT_BANDIT);
-		menuManager.addPriorityEntry(KNOCKOUT_MENAPHITE);
+		menuManager.addSwap(EMPTY, KNOCKOUT_BANDIT);
+		menuManager.addSwap(EMPTY, KNOCKOUT_MENAPHITE);
 		this.pickpocketOnAggro = config.pickpocketOnAggro();
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		menuManager.removePriorityEntry(PICKPOCKET_BANDIT);
-		menuManager.removePriorityEntry(PICKPOCKET_MENAPHITE);
-		menuManager.removePriorityEntry(KNOCKOUT_BANDIT);
-		menuManager.removePriorityEntry(KNOCKOUT_MENAPHITE);
+		menuManager.removeSwap(EMPTY, KNOCKOUT_BANDIT);
+		menuManager.removeSwap(EMPTY, KNOCKOUT_MENAPHITE);
+		menuManager.removeSwap(EMPTY, PICKPOCKET_BANDIT);
+		menuManager.removeSwap(EMPTY, PICKPOCKET_MENAPHITE);
+		if (configManager.getConfig(MenuEntrySwapperConfig.class).swapPickpocket())
+		{
+			menuManager.addPriorityEntry("Pickpocket").setPriority(1);
+		}
 		eventBus.unregister(this);
 		eventBus.unregister("poll");
 	}
@@ -121,11 +130,19 @@ public class BlackjackPlugin extends Plugin
 		if (event.getGameState() != GameState.LOGGED_IN || !ArrayUtils.contains(client.getMapRegions(), POLLNIVNEACH_REGION))
 		{
 			eventBus.unregister("poll");
+			if (configManager.getConfig(MenuEntrySwapperConfig.class).swapPickpocket())
+			{
+				menuManager.addPriorityEntry("Pickpocket").setPriority(1);
+			}
 			return;
 		}
 
 		eventBus.subscribe(GameTick.class, "poll", this::onGameTick);
 		eventBus.subscribe(ChatMessage.class, "poll", this::onChatMessage);
+		if (configManager.getConfig(MenuEntrySwapperConfig.class).swapPickpocket())
+		{
+			menuManager.removePriorityEntry("Pickpocket");
+		}
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -141,10 +158,10 @@ public class BlackjackPlugin extends Plugin
 	{
 		if (client.getTickCount() >= nextKnockOutTick)
 		{
-			menuManager.removePriorityEntry(PICKPOCKET_BANDIT);
-			menuManager.removePriorityEntry(PICKPOCKET_MENAPHITE);
-			menuManager.addPriorityEntry(KNOCKOUT_BANDIT);
-			menuManager.addPriorityEntry(KNOCKOUT_MENAPHITE);
+			menuManager.removeSwap(EMPTY, PICKPOCKET_BANDIT);
+			menuManager.removeSwap(EMPTY, PICKPOCKET_MENAPHITE);
+			menuManager.addSwap(EMPTY, KNOCKOUT_BANDIT);
+			menuManager.addSwap(EMPTY, KNOCKOUT_MENAPHITE);
 		}
 	}
 
@@ -154,10 +171,10 @@ public class BlackjackPlugin extends Plugin
 
 		if (event.getType() == ChatMessageType.SPAM && (msg.equals(SUCCESS_BLACKJACK) || (msg.equals(FAILED_BLACKJACK) && this.pickpocketOnAggro)))
 		{
-			menuManager.removePriorityEntry(KNOCKOUT_BANDIT);
-			menuManager.removePriorityEntry(KNOCKOUT_MENAPHITE);
-			menuManager.addPriorityEntry(PICKPOCKET_BANDIT);
-			menuManager.addPriorityEntry(PICKPOCKET_MENAPHITE);
+			menuManager.removeSwap(EMPTY, KNOCKOUT_BANDIT);
+			menuManager.removeSwap(EMPTY, KNOCKOUT_MENAPHITE);
+			menuManager.addSwap(EMPTY, PICKPOCKET_BANDIT);
+			menuManager.addSwap(EMPTY, PICKPOCKET_MENAPHITE);
 			final int ticks = this.random ? RandomUtils.nextInt(3, 4) : 4;
 			nextKnockOutTick = client.getTickCount() + ticks;
 		}
@@ -182,7 +199,7 @@ public class BlackjackPlugin extends Plugin
 		{
 			return
 				entry.getStandardizedTarget().equals(this.getTarget()) &&
-				entry.getOption().equalsIgnoreCase(this.getOption());
+					entry.getOption().equalsIgnoreCase(this.getOption());
 		}
 	}
 }
