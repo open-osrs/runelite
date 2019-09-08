@@ -25,6 +25,7 @@
  */
 package net.runelite.client.plugins.raids;
 
+import com.google.common.collect.ImmutableSet;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -89,6 +90,11 @@ public class RaidsOverlay extends Overlay
 	private int width;
 	@Getter(AccessLevel.PACKAGE)
 	private int height;
+
+	private final ImmutableSet<String> DC_SCOUT_RAIDS = ImmutableSet.of(
+		"SCPFCCSPCF", "CSPFCCCSSF", "SCFPCSCPCF", "PCSFCPCSCF", "SCCFCPSCSF", "SCPFCCCSSF",
+		"SCPFCPCSCF"
+	);
 
 	@Inject
 	private RaidsOverlay(final Client client, final RaidsPlugin plugin, final ItemManager itemManager, final SpriteManager spriteManager)
@@ -259,10 +265,10 @@ public class RaidsOverlay extends Overlay
 				.build());
 			panelComponent.setBackgroundColor(new Color(0, 255, 0, 10));
 		}
-		if (plugin.isDisplayDCScout() && plugin.getList_of_DC_SCOUT_RAIDS().contains(plugin.getRaid().getLayout().toCodeString()))
+		if (plugin.isDisplayDCScout() && DC_SCOUT_RAIDS.contains(plugin.getRaid().getLayout().toCodeString()))
 		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("DC Scout")
+				.text("Re-loadable Layout")
 				.color(Color.ORANGE)
 				.build());
 		}

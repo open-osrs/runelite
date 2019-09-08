@@ -222,11 +222,6 @@ public class RaidsPlugin extends Plugin
 	private final List<String> layoutWhitelist = new ArrayList<>();
 
 	@Getter
-	private final ImmutableSet<String> list_of_DC_SCOUT_RAIDS = ImmutableSet.of(
-		"SCPFCCSPCF", "CSPFCCCSSF", "SCFPCSCPCF", "PCSFCPCSCF", "SCCFCPSCSF", "SCPFCCCSSF",
-		"SCPFCPCSCF"
-	);
-	@Getter
 	private Raid raid;
 
 	private boolean inRaidChambers;
@@ -724,11 +719,11 @@ public class RaidsPlugin extends Plugin
 		final String rooms = getRaid().toRoomString();
 		final String raidData = "[" + layout + "]: " + rooms;
 		layoutMessage = new ChatMessageBuilder()
-				.append(ChatColorType.HIGHLIGHT)
-				.append("Layout: ")
-				.append(ChatColorType.NORMAL)
-				.append(raidData)
-				.build();
+			.append(ChatColorType.HIGHLIGHT)
+			.append("Layout: ")
+			.append(ChatColorType.NORMAL)
+			.append(raidData)
+			.build();
 
 		final PartyMember localMember = party.getLocalMember();
 		if (party.getMembers().isEmpty() || localMember == null)
