@@ -73,6 +73,8 @@ public class EntityHiderPlugin extends Plugin
 	{
 		updateConfig();
 		addSubscriptions();
+
+		Text.fromCSV(config.hideNPCsNames()).forEach(client::addHiddenNpcName);
 	}
 
 	private void addSubscriptions()
@@ -159,6 +161,8 @@ public class EntityHiderPlugin extends Plugin
 		client.setProjectilesHidden(false);
 
 		client.setDeadNPCsHidden(false);
+
+		Text.fromCSV(config.hideNPCsNames()).forEach(client::removeHiddenNpcName);
 	}
 
 	private boolean isPlayerRegionAllowed()
