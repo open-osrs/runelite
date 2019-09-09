@@ -1112,6 +1112,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		switch (this.swapFairyTreeMode)
 		{
 			case OFF:
+				break;
 			case TREE:
 				menuManager.addPriorityEntry("Tree", "Spiritual Fairy Tree");
 				break;
