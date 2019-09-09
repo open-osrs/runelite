@@ -24,9 +24,6 @@
  */
 package net.runelite.mixins;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -41,60 +38,48 @@ import net.runelite.rs.api.RSPlayer;
 import net.runelite.rs.api.RSProjectile;
 import net.runelite.rs.api.RSScene;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Mixin(RSScene.class)
 public abstract class EntityHiderMixin implements RSScene
 {
 	@Inject
 	private static final Pattern WILDCARD_PATTERN = Pattern.compile("(?i)[^*]+|(\\*)");
-
 	@Inject
 	private static final Pattern TAG_REGEXP = Pattern.compile("<[^>]*>");
-
 	@Shadow("client")
 	private static RSClient client;
-
 	@Shadow("isHidingEntities")
 	private static boolean isHidingEntities;
-
 	@Shadow("hidePlayers")
 	private static boolean hidePlayers;
-
 	@Shadow("hidePlayers2D")
 	private static boolean hidePlayers2D;
-
 	@Shadow("hideFriends")
 	private static boolean hideFriends;
-
 	@Shadow("hideClanMates")
 	private static boolean hideClanMates;
-
 	@Shadow("hideLocalPlayer")
 	private static boolean hideLocalPlayer;
-
 	@Shadow("hideLocalPlayer2D")
 	private static boolean hideLocalPlayer2D;
-
 	@Shadow("hideNPCs")
 	private static boolean hideNPCs;
-
-	@Shadow("hideNPCsNames")
-	private static List<String> hideNPCsNames;
-
+	@Shadow("hiddenNpcs")
+	private static HashMap<String, Integer> hiddenNpcs;
 	@Shadow("hideNPCsOnDeath")
 	private static List<String> hideNPCsOnDeath;
-
 	@Shadow("hideSpecificPlayers")
 	private static List<String> hideSpecificPlayers;
-
 	@Shadow("hideNPCs2D")
 	private static boolean hideNPCs2D;
-
 	@Shadow("hideAttackers")
 	private static boolean hideAttackers;
-
 	@Shadow("hideProjectiles")
 	private static boolean hideProjectiles;
-
 	@Shadow("hideDeadNPCs")
 	private static boolean hideDeadNPCs;
 
@@ -117,7 +102,8 @@ public abstract class EntityHiderMixin implements RSScene
 			client.getOccupiedTilesTick()[tileX][tileY] = -1;
 		}
 
-		return shouldDraw && addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, entity, var10, var11, var12, var13);
+		return shouldDraw &&
+			addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, entity, var10, var11, var12, var13);
 	}
 
 	@Copy("drawActor2d")
@@ -177,7 +163,8 @@ public abstract class EntityHiderMixin implements RSScene
 					return false;
 				}
 
-				return (!hideFriends && player.isFriend()) || (!isLocalPlayer && !hideClanMates && player.isClanMember());
+				return (!hideFriends && player.isFriend()) ||
+					(!isLocalPlayer && !hideClanMates && player.isClanMember());
 			}
 		}
 		else if (entity instanceof RSNPC)
@@ -197,15 +184,9 @@ public abstract class EntityHiderMixin implements RSScene
 				return false;
 			}
 
-			for (String name : hideNPCsNames)
+			if (npc.getName() != null && hiddenNpcs.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
 			{
-				if (name != null && !name.equals(""))
-				{
-					if (npc.getName() != null && matches(name, npc.getName()))
-					{
-						return false;
-					}
-				}
+				return false;
 			}
 
 			for (String name : hideNPCsOnDeath)

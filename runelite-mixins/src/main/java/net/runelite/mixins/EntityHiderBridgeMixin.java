@@ -24,6 +24,7 @@
  */
 package net.runelite.mixins;
 
+import java.util.HashMap;
 import java.util.List;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -69,7 +70,7 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public static boolean hideDeadNPCs;
 
 	@Inject
-	public static List<String> hideNPCsNames;
+	public static HashMap<String, Integer> hiddenNpcs;
 
 	@Inject
 	public static List<String> hideNPCsOnDeath;
@@ -142,9 +143,38 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
-	public void setNPCsNames(List<String> NPCs)
+	public void addHiddenNpcName(String npc)
 	{
-		hideNPCsNames = NPCs;
+		npc = npc.toLowerCase();
+		int i = hiddenNpcs.getOrDefault(npc, 0);
+		if (i == Integer.MAX_VALUE)
+		{
+			throw new RuntimeException("NPC " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
+		}
+
+		hiddenNpcs.put(npc, ++i);
+	}
+
+	@Inject
+	@Override
+	public void removeHiddenNpcName(String npc)
+	{
+		npc = npc.toLowerCase();
+		int i = hiddenNpcs.getOrDefault(npc, 0);
+		if (i == 0)
+		{
+			return;
+		}
+
+		hiddenNpcs.put(npc, --i);
+	}
+
+	@Inject
+	@Override
+	public void forciblyUnhideNpcName(String npc)
+	{
+		npc = npc.toLowerCase();
+		hiddenNpcs.put(npc, 0);
 	}
 
 	@Inject

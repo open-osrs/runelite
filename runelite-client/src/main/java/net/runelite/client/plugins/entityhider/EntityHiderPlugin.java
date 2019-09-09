@@ -40,6 +40,10 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @PluginDescriptor(
 	name = "Entity Hider",
 	description = "Hide players, NPCs, and/or projectiles",
@@ -82,6 +86,18 @@ public class EntityHiderPlugin extends Plugin
 		if (event.getGroup().equals("entityhider"))
 		{
 			updateConfig();
+
+			if (event.getKey().equals("hideNPCsNames"))
+			{
+				List<String> oldList = Text.fromCSV(event.getOldValue());
+				List<String> newList = Text.fromCSV(event.getNewValue());
+
+				ArrayList<String> removed = oldList.stream().filter(s -> !newList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+				ArrayList<String> added = newList.stream().filter(s -> !oldList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+
+				removed.forEach(client::removeHiddenNpcName);
+				added.forEach(client::addHiddenNpcName);
+			}
 		}
 	}
 
@@ -109,7 +125,7 @@ public class EntityHiderPlugin extends Plugin
 
 		client.setNPCsHidden(config.hideNPCs());
 		client.setNPCsHidden2D(config.hideNPCs2D());
-		client.setNPCsNames(Text.fromCSV(config.hideNPCsNames()));
+		//client.setNPCsNames(Text.fromCSV(config.hideNPCsNames()));
 		client.setNPCsHiddenOnDeath(Text.fromCSV(config.hideNPCsOnDeath()));
 
 		client.setAttackersHidden(config.hideAttackers());

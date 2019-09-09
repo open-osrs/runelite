@@ -1464,11 +1464,25 @@ public interface Client extends GameShell
 	void setNPCsHidden(boolean state);
 
 	/**
-	 * Sets which NPCs are hidden
+	 * Increments the counter for how many times this npc has been selected to be hidden
 	 *
-	 * @param names the names of the npcs
+	 * @param name npc name
 	 */
-	void setNPCsNames(List<String> names);
+	void addHiddenNpcName(String name);
+
+	/**
+	 * Decrements the counter for how many times this npc has been selected to be hidden
+	 *
+	 * @param name npc name
+	 */
+	void removeHiddenNpcName(String name);
+
+	/**
+	 * Forcibly unhides an npc by setting its counter to zero
+	 *
+	 * @param name npc name
+	 */
+	void forciblyUnhideNpcName(String name);
 
 	/**
 	 * Sets which NPCs are hidden on death
