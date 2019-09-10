@@ -15,10 +15,10 @@ jobs:
         jdkFile: ./zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz
         
     - run: |
-        gradlew assemble
-        gradlew build -x test
+        ./gradlew assemble
+        ./gradlew build -x test
         
-    - run: gradlew shadowJar
+    - run: ./gradlew shadowJar
     
     - name: trying to find artifacts
       run: |
