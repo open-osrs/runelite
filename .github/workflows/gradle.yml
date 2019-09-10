@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-16.04    
+    runs-on: windows-latest    
     steps:
     - uses: actions/checkout@v1
     - run: curl -O "https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz"
@@ -18,3 +18,8 @@ jobs:
         rm -fr $HOME/.gradle/caches/*/plugin-resolution/
         ./gradlew clean build
 
+     name: Upload artifact
+      - uses: actions/upload-artifact@v1.0.0
+        with:
+          name: client-SNAPSHOT-1.5.33.jar
+          path: target/libs
