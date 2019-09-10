@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-16.04
     
     steps:
-    -name: Cloning Git repo
+    - name: Cloning Git repo
     - uses: actions/checkout@v1
     - name: Downloading Zulu JDK8
       run: curl -O "https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz"
@@ -22,3 +22,5 @@ jobs:
         rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         rm -fr $HOME/.gradle/caches/*/plugin-resolution/
         ./gradlew clean build
+
+
