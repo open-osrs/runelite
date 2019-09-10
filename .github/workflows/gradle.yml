@@ -16,7 +16,7 @@ jobs:
     - run: |
         gradlew assemble
         gradle clean build -x test
-   `- name: Upload artifact
+    - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with: nightly
       path: runelite-client/build/libs/client-1.5.33-SNAPSHOT-shaded.jar
