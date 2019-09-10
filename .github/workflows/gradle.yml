@@ -18,7 +18,7 @@ jobs:
         rm -fr $HOME/.gradle/caches/*/plugin-resolution/
         ./gradlew clean build
 
-     name: Upload artifact
+    - name: Upload artifact
       - uses: actions/upload-artifact@v1.0.0
         with:
           name: client-SNAPSHOT-1.5.33.jar
