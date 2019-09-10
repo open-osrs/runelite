@@ -16,4 +16,6 @@ jobs:
     - run: |         
         rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-        ./gradlew clean build
+        ./gradlew build
+   - name: Upload artifact
+   - uses: actions/upload-artifact@v1.0.0
