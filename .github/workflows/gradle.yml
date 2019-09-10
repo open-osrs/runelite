@@ -13,4 +13,4 @@ jobs:
         java-version: 1.8
         architecture: x64
         jdkFile: ./zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz
-    - run: ./gradlew build
+    - run: ./gradlew clean build
