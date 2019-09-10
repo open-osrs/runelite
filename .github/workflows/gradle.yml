@@ -17,11 +17,4 @@ jobs:
         rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         rm -fr $HOME/.gradle/caches/*/plugin-resolution/
         ./gradlew clean build
-
-  artifact: 
-    needs: build
-    - name: Upload artifact
-    - uses: actions/upload-artifact@v1.0.0
-        with:
-          name: client-SNAPSHOT-1.5.33.jar
-          path: target/libs
+        
