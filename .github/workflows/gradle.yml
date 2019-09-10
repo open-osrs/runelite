@@ -13,5 +13,4 @@ jobs:
         version: 8
         architecture: x64
         jdkFile: ./zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz
-    - name: Build with Gradle
     - run: ./gradlew build
