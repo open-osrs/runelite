@@ -13,6 +13,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: jdk8
-        jdkFile: https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz
+        jdkFile: 'https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz'
     - name: Build with Gradle
       run: ./gradlew build
