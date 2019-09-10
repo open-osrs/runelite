@@ -18,8 +18,10 @@ jobs:
         gradlew assemble
         gradlew build -x test
         
+    - run: gradlew shadowJar
+        
     - uses: actions/upload-artifact@v1.0.0
       with:
           name: nightly
-          path: ./runelite-client/build/libs/client-1.5.33-SNAPSHOT-shaded.jar
+          path: ../runelite-client/build/libs/client-1.5.33-SNAPSHOT-shaded.jar
     
