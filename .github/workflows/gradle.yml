@@ -21,7 +21,7 @@ jobs:
     - run: gradlew shadowJar
     
     - name: trying to find artifacts
-    - run: |
+      run: |
         cd $WORKSPACE
         ls -Rla
         ls -Rla | grep jar
