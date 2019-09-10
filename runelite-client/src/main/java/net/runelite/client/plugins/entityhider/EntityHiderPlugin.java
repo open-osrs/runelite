@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2019, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,6 +76,7 @@ public class EntityHiderPlugin extends Plugin
 		addSubscriptions();
 
 		Text.fromCSV(config.hideNPCsNames()).forEach(client::addHiddenNpcName);
+		Text.fromCSV(config.hideNPCsOnDeath()).forEach(client::addHiddenNpcDeath);
 	}
 
 	private void addSubscriptions()
@@ -99,6 +101,18 @@ public class EntityHiderPlugin extends Plugin
 
 				removed.forEach(client::removeHiddenNpcName);
 				added.forEach(client::addHiddenNpcName);
+			}
+
+			if (event.getKey().equals("hideNPCsOnDeath"))
+			{
+				List<String> oldList = Text.fromCSV(event.getOldValue());
+				List<String> newList = Text.fromCSV(event.getNewValue());
+
+				ArrayList<String> removed = oldList.stream().filter(s -> !newList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+				ArrayList<String> added = newList.stream().filter(s -> !oldList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+
+				removed.forEach(client::removeHiddenNpcDeath);
+				added.forEach(client::addHiddenNpcDeath);
 			}
 		}
 	}
@@ -128,7 +142,7 @@ public class EntityHiderPlugin extends Plugin
 		client.setNPCsHidden(config.hideNPCs());
 		client.setNPCsHidden2D(config.hideNPCs2D());
 		//client.setNPCsNames(Text.fromCSV(config.hideNPCsNames()));
-		client.setNPCsHiddenOnDeath(Text.fromCSV(config.hideNPCsOnDeath()));
+		//client.setNPCsHiddenOnDeath(Text.fromCSV(config.hideNPCsOnDeath()));
 
 		client.setAttackersHidden(config.hideAttackers());
 
@@ -163,6 +177,7 @@ public class EntityHiderPlugin extends Plugin
 		client.setDeadNPCsHidden(false);
 
 		Text.fromCSV(config.hideNPCsNames()).forEach(client::removeHiddenNpcName);
+		Text.fromCSV(config.hideNPCsOnDeath()).forEach(client::removeHiddenNpcDeath);
 	}
 
 	private boolean isPlayerRegionAllowed()

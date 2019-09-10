@@ -1485,11 +1485,25 @@ public interface Client extends GameShell
 	void forciblyUnhideNpcName(String name);
 
 	/**
-	 * Sets which NPCs are hidden on death
+	 * Increments the counter for how many times this npc has been selected to be hidden on death
 	 *
-	 * @param names the names of the npcs
+	 * @param name npc name
 	 */
-	void setNPCsHiddenOnDeath(List<String> names);
+	void addHiddenNpcDeath(String name);
+
+	/**
+	 * Decrements the counter for how many times this npc has been selected to be hidden on death
+	 *
+	 * @param name npc name
+	 */
+	void removeHiddenNpcDeath(String name);
+
+	/**
+	 * Forcibly unhides a hidden-while-dead npc by setting its counter to zero
+	 *
+	 * @param name npc name
+	 */
+	void forciblyUnhideNpcDeath(String name);
 
 	/**
 	 * Sets whether 2D sprites (ie. overhead prayers) related to

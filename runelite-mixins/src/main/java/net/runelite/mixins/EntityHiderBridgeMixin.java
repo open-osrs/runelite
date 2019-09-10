@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2019, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,6 +25,7 @@
  */
 package net.runelite.mixins;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import net.runelite.api.mixins.Inject;
@@ -70,13 +72,13 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public static boolean hideDeadNPCs;
 
 	@Inject
-	public static HashMap<String, Integer> hiddenNpcs;
+	public static HashMap<String, Integer> hiddenNpcsName = new HashMap<>();
 
 	@Inject
-	public static List<String> hideNPCsOnDeath;
+	public static HashMap<String, Integer> hiddenNpcsDeath = new HashMap<>();
 
 	@Inject
-	public static List<String> hideSpecificPlayers;
+	public static List<String> hideSpecificPlayers = new ArrayList<>();
 
 	@Inject
 	@Override
@@ -146,13 +148,13 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public void addHiddenNpcName(String npc)
 	{
 		npc = npc.toLowerCase();
-		int i = hiddenNpcs.getOrDefault(npc, 0);
+		int i = hiddenNpcsName.getOrDefault(npc, 0);
 		if (i == Integer.MAX_VALUE)
 		{
-			throw new RuntimeException("NPC " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
+			throw new RuntimeException("NPC name " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
 		}
 
-		hiddenNpcs.put(npc, ++i);
+		hiddenNpcsName.put(npc, ++i);
 	}
 
 	@Inject
@@ -160,13 +162,13 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public void removeHiddenNpcName(String npc)
 	{
 		npc = npc.toLowerCase();
-		int i = hiddenNpcs.getOrDefault(npc, 0);
+		int i = hiddenNpcsName.getOrDefault(npc, 0);
 		if (i == 0)
 		{
 			return;
 		}
 
-		hiddenNpcs.put(npc, --i);
+		hiddenNpcsName.put(npc, --i);
 	}
 
 	@Inject
@@ -174,14 +176,43 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public void forciblyUnhideNpcName(String npc)
 	{
 		npc = npc.toLowerCase();
-		hiddenNpcs.put(npc, 0);
+		hiddenNpcsName.put(npc, 0);
 	}
 
 	@Inject
 	@Override
-	public void setNPCsHiddenOnDeath(List<String> NPCs)
+	public void addHiddenNpcDeath(String npc)
 	{
-		hideNPCsOnDeath = NPCs;
+		npc = npc.toLowerCase();
+		int i = hiddenNpcsDeath.getOrDefault(npc, 0);
+		if (i == Integer.MAX_VALUE)
+		{
+			throw new RuntimeException("NPC death " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
+		}
+
+		hiddenNpcsDeath.put(npc, ++i);
+	}
+
+	@Inject
+	@Override
+	public void removeHiddenNpcDeath(String npc)
+	{
+		npc = npc.toLowerCase();
+		int i = hiddenNpcsDeath.getOrDefault(npc, 0);
+		if (i == 0)
+		{
+			return;
+		}
+
+		hiddenNpcsDeath.put(npc, --i);
+	}
+
+	@Inject
+	@Override
+	public void forciblyUnhideNpcDeath(String npc)
+	{
+		npc = npc.toLowerCase();
+		hiddenNpcsDeath.put(npc, 0);
 	}
 
 	@Inject
