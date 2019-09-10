@@ -12,6 +12,6 @@ jobs:
     - name: Set up jdk8
       uses: actions/setup-java@v1
       with:
-        java-version: jdk8fx
+        java-version: jdk8.0.222
     - name: Build with Gradle
       run: ./gradlew build
