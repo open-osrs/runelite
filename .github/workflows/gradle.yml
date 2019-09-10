@@ -4,15 +4,15 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up jdk8
-      uses: actions/setup-java@v1
+    - run: curl -O "https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gzp"
+    - name: Set Java
+      uses: actions/setup-java@master
       with:
-        java-version: jdk8
-        jdkFile: 'https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz'
+        version: 12
+        architecture: x64
+        jdkFile: ./openjdk-12_windows-x64_bin.zip
     - name: Build with Gradle
       run: ./gradlew build
