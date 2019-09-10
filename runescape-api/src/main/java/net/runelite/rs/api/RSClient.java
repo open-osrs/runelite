@@ -29,11 +29,11 @@
 package net.runelite.rs.api;
 
 import java.math.BigInteger;
+import java.util.Map;
 import net.runelite.api.Client;
 import net.runelite.api.Sprite;
 import net.runelite.api.World;
 import net.runelite.api.widgets.Widget;
-import java.util.Map;
 import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
 
@@ -597,6 +597,10 @@ public interface RSClient extends RSGameShell, Client
 	@Override
 	int getKeyboardIdleTicks();
 
+	@Import("KeyHandler_pressedKeys")
+	@Override
+	boolean[] getPressedKeys();
+
 	@Import("isLowDetail")
 	void setLowMemory(boolean lowMemory);
 
@@ -1046,4 +1050,8 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("ItemDefinition_fileCount")
 	int getItemCount();
+
+	@Import("insertMenuItem")
+	@Override
+	void insertMenuItem(String action, String target, int opcode, int identifier, int argument1, int argument2, boolean forceLeftClick);
 }

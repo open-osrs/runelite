@@ -139,6 +139,20 @@ public class OverlayUtil
 		}
 	}
 
+	public static void renderActorTextOverlay(Graphics2D graphics, Actor actor, String text, Color color)
+	{
+		renderActorTextOverlay(graphics, actor, text, color, 40);
+	}
+
+	public static void renderActorTextOverlay(Graphics2D graphics, Actor actor, String text, Color color, int offset)
+	{
+		Point textLocation = actor.getCanvasTextLocation(graphics, text, actor.getLogicalHeight() + offset);
+		if (textLocation != null)
+		{
+			renderTextLocation(graphics, textLocation, text, color);
+		}
+	}
+
 	public static void renderActorOverlayImage(Graphics2D graphics, Actor actor, BufferedImage image, Color color, int zOffset)
 	{
 		Polygon poly = actor.getCanvasTilePoly();

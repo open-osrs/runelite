@@ -32,7 +32,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 import lombok.Setter;
 import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.util.Text;
+import net.runelite.api.util.Text;
 
 /**
  * A custom list renderer to avoid substance's weird coloring.
@@ -59,7 +59,7 @@ public final class ComboBoxListRenderer extends JLabel implements ListCellRender
 			setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		}
 
-		setBorder(new EmptyBorder(5, 5, 5, 0));
+		setBorder(new EmptyBorder(5, 10, 5, 10));
 		setIcon(null);
 
 		String text;

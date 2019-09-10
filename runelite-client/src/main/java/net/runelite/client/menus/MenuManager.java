@@ -34,7 +34,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -64,7 +63,7 @@ import net.runelite.api.events.WidgetPressed;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.EventBus;
 import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
-import net.runelite.client.util.Text;
+import net.runelite.api.util.Text;
 
 @Singleton
 @Slf4j
@@ -241,7 +240,7 @@ public class MenuManager
 
 		// Need to set the event entries to prevent conflicts
 		event.setMenuEntries(arrayEntries);
-		client.setMenuEntries(arrayEntries);
+		event.setModified(true);
 	}
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
@@ -257,21 +256,20 @@ public class MenuManager
 
 		int widgetId = event.getActionParam1();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
-		MenuEntry[] menuEntries = client.getMenuEntries();
 
 		for (WidgetMenuOption currentMenu : options)
 		{
 			if (!menuContainsCustomMenu(currentMenu))//Don't add if we have already added it to this widget
 			{
-				menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
-
-				MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
-				menuEntry.setOption(currentMenu.getMenuOption());
-				menuEntry.setParam1(widgetId);
-				menuEntry.setTarget(currentMenu.getMenuTarget());
-				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
-
-				client.setMenuEntries(menuEntries);
+				client.insertMenuItem(
+					currentMenu.getMenuOption(),
+					currentMenu.getMenuTarget(),
+					MenuOpcode.RUNELITE.getId(),
+					0,
+					0,
+					widgetId,
+					false
+				);
 			}
 		}
 	}
@@ -293,8 +291,6 @@ public class MenuManager
 		{
 			return null;
 		}
-
-		client.sortMenuEntries();
 
 		firstEntry = null;
 		MenuEntry[] entries = new MenuEntry[menuOptionCount + priorityEntries.size()];
@@ -808,49 +804,43 @@ public class MenuManager
 	private void indexPriorityEntries(MenuEntry[] entries, int menuOptionCount)
 	{
 		// create a array of priority entries so we can sort those
-		try
-		{
-			final SortMapping[] prios = new SortMapping[entries.length - menuOptionCount];
+		final SortMapping[] prios = new SortMapping[entries.length - menuOptionCount];
 
-			int prioAmt = 0;
-			for (int i = 0; i < menuOptionCount; i++)
+		int prioAmt = 0;
+		for (int i = 0; i < menuOptionCount; i++)
+		{
+			final MenuEntry entry = entries[i];
+			for (AbstractComparableEntry prio : priorityEntries)
 			{
-				final MenuEntry entry = entries[i];
-				for (AbstractComparableEntry prio : priorityEntries)
+				if (!prio.matches(entry))
 				{
-					if (!prio.matches(entry))
-					{
-						continue;
-					}
-
-					final SortMapping map = new SortMapping(prio.getPriority(), entry);
-					prios[prioAmt++] = map;
-					entries[i] = null;
-					break;
+					continue;
 				}
+
+				final SortMapping map = new SortMapping(prio.getPriority(), entry);
+				prios[prioAmt++] = map;
+				entries[i] = null;
+				break;
 			}
-
-			if (prioAmt == 0)
-			{
-				return;
-			}
-
-			// Sort em!
-			Arrays.sort(prios, 0, prioAmt);
-			int i;
-
-			// Just place them after the standard entries. clientmixin ignores null entries
-			for (i = 0; i < prioAmt; i++)
-			{
-				entries[menuOptionCount + i] = prios[i].entry;
-			}
-
-			firstEntry = entries[menuOptionCount + i - 1];
 		}
-		catch (ConcurrentModificationException ignored)
+
+		if (prioAmt == 0)
 		{
-			//true band aid :)
+			return;
 		}
+
+		// Sort em!
+		Arrays.sort(prios, 0, prioAmt);
+		int i;
+
+		// Just place them after the standard entries. clientmixin ignores null entries
+		for (i = 0; i < prioAmt; i++)
+		{
+			entries[menuOptionCount + i] = prios[i].entry;
+		}
+
+		firstEntry = entries[menuOptionCount + i - 1];
+
 	}
 
 	private void indexSwapEntries(MenuEntry[] entries, int menuOptionCount)
@@ -880,7 +870,6 @@ public class MenuManager
 
 		// Backwards so we swap with the otherwise highest one
 		// Count - 2 so we don't compare the entry against itself
-		outer:
 		for (int i = menuOptionCount - 2; i > 0; i--)
 		{
 			final MenuEntry entry = entries[i];
@@ -894,7 +883,7 @@ public class MenuManager
 				entries[i] = first;
 				entries[menuOptionCount - 1] = entry;
 				firstEntry = entry;
-				break outer;
+				return;
 			}
 		}
 	}

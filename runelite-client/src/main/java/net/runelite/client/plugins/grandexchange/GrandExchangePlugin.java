@@ -86,7 +86,7 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.StackFormatter;
-import net.runelite.client.util.Text;
+import net.runelite.api.util.Text;
 import net.runelite.http.api.ge.GrandExchangeClient;
 import net.runelite.http.api.ge.GrandExchangeTrade;
 import net.runelite.http.api.osbuddy.OSBGrandExchangeClient;
@@ -431,8 +431,7 @@ public class GrandExchangePlugin extends Plugin
 			return;
 		}
 
-		final MenuEntry[] entries = client.getMenuEntries();
-		final MenuEntry menuEntry = entries[entries.length - 1];
+		final MenuEntry menuEntry = event.getMenuEntry();
 		final int widgetId = menuEntry.getParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
@@ -450,7 +449,7 @@ public class GrandExchangePlugin extends Plugin
 			case WidgetID.SHOP_INVENTORY_GROUP_ID:
 				menuEntry.setOption(SEARCH_GRAND_EXCHANGE);
 				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
-				client.setMenuEntries(entries);
+				event.setWasModified(true);
 		}
 	}
 

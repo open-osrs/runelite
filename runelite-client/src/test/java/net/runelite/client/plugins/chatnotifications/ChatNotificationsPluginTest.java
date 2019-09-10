@@ -37,7 +37,7 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.client.Notifier;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.config.RuneLitePlusConfig;
-import net.runelite.client.util.Text;
+import net.runelite.api.util.Text;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -99,6 +99,82 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
+	public void testColor()
+	{
+		when(config.highlightWordsString()).thenReturn("you. It");
+
+		String message = "Your dodgy necklace protects you. <col=ff0000>It has 1 charge left.</col>";
+		MessageNode messageNode = mock(MessageNode.class);
+		when(messageNode.getValue()).thenReturn(message);
+
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setType(ChatMessageType.PUBLICCHAT);
+		chatMessage.setMessageNode(messageNode);
+
+		chatNotificationsPlugin.startUp(); // load highlight config
+		chatNotificationsPlugin.onChatMessage(chatMessage);
+
+		verify(messageNode).setValue("Your dodgy necklace protects <colHIGHLIGHT>you. It<col=ff0000> has 1 charge left.</col>");
+	}
+
+	@Test
+	public void testPreceedingColor()
+	{
+		when(config.highlightWordsString()).thenReturn("you. It");
+
+		String message = "Your dodgy <col=00ff00>necklace protects you. It has 1 charge left.</col>";
+		MessageNode messageNode = mock(MessageNode.class);
+		when(messageNode.getValue()).thenReturn(message);
+
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setType(ChatMessageType.PUBLICCHAT);
+		chatMessage.setMessageNode(messageNode);
+
+		chatNotificationsPlugin.startUp(); // load highlight config
+		chatNotificationsPlugin.onChatMessage(chatMessage);
+
+		verify(messageNode).setValue("Your dodgy <col=00ff00>necklace protects <colHIGHLIGHT>you. It<col=00ff00> has 1 charge left.</col>");
+	}
+
+	@Test
+	public void testEmoji()
+	{
+		when(config.highlightWordsString()).thenReturn("test");
+
+		String message = "emoji test <img=29>";
+		MessageNode messageNode = mock(MessageNode.class);
+		when(messageNode.getValue()).thenReturn(message);
+
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setType(ChatMessageType.PUBLICCHAT);
+		chatMessage.setMessageNode(messageNode);
+
+		chatNotificationsPlugin.startUp(); // load highlight config
+		chatNotificationsPlugin.onChatMessage(chatMessage);
+
+		verify(messageNode).setValue("emoji <colHIGHLIGHT>test<colNORMAL> <img=29>");
+	}
+
+	@Test
+	public void testNonMatchedColors()
+	{
+		when(config.highlightWordsString()).thenReturn("test");
+
+		String message = "<col=ff0000>color</col> test <img=29>";
+		MessageNode messageNode = mock(MessageNode.class);
+		when(messageNode.getValue()).thenReturn(message);
+
+		ChatMessage chatMessage = new ChatMessage();
+		chatMessage.setType(ChatMessageType.PUBLICCHAT);
+		chatMessage.setMessageNode(messageNode);
+
+		chatNotificationsPlugin.startUp(); // load highlight config
+		chatNotificationsPlugin.onChatMessage(chatMessage);
+
+		verify(messageNode).setValue("<col=ff0000>color</col> <colHIGHLIGHT>test<colNORMAL> <img=29>");
+	}
+
+	@Test
 	public void highlightListTest()
 	{
 		when(config.highlightWordsString()).thenReturn("this,is, a                   , test, ");
@@ -110,5 +186,11 @@ public class ChatNotificationsPluginTest
 		assertEquals("is", iterator.next());
 		assertEquals("a", iterator.next());
 		assertEquals("test", iterator.next());
+	}
+
+	@Test
+	public void testStripColor()
+	{
+		assertEquals("you. It", ChatNotificationsPlugin.stripColor("you. <col=ff0000>It"));
 	}
 }

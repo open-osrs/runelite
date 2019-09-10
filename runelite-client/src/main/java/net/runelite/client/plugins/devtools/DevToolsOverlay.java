@@ -26,8 +26,8 @@
 package net.runelite.client.plugins.devtools;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -46,9 +46,7 @@ import net.runelite.api.DynamicObject;
 import net.runelite.api.Entity;
 import net.runelite.api.GameObject;
 import net.runelite.api.GraphicsObject;
-import net.runelite.api.TileItem;
 import net.runelite.api.GroundObject;
-import net.runelite.api.TileItemPile;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.Node;
@@ -58,6 +56,8 @@ import net.runelite.api.Point;
 import net.runelite.api.Projectile;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
+import net.runelite.api.TileItem;
+import net.runelite.api.TileItemPile;
 import net.runelite.api.WallObject;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.widgets.Widget;
@@ -67,6 +67,7 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
@@ -106,7 +107,8 @@ class DevToolsOverlay extends Overlay
 	private DevToolsOverlay(Client client, DevToolsPlugin plugin, TooltipManager toolTipManager)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
-		setLayer(OverlayLayer.ABOVE_MAP);
+		setLayer(OverlayLayer.ABOVE_WIDGETS);
+		setPriority(OverlayPriority.HIGHEST);
 		this.client = client;
 		this.plugin = plugin;
 		this.toolTipManager = toolTipManager;
@@ -243,6 +245,7 @@ class DevToolsOverlay extends Overlay
 				if (plugin.getGameObjects().isActive())
 				{
 					renderGameObjects(graphics, tile, player);
+
 				}
 
 				if (plugin.getWalls().isActive())
@@ -328,6 +331,8 @@ class DevToolsOverlay extends Overlay
 					{
 						graphics.drawPolygon(p);
 					}
+					// This is incredibly taxing to run, only uncomment if you know what you're doing.
+					/*renderGameObjectWireframe(graphics, gameObject, Color.CYAN);*/
 				}
 			}
 		}
@@ -546,6 +551,23 @@ class DevToolsOverlay extends Overlay
 		graphics.drawString(text, textX + 1, textY + 1);
 		graphics.setColor(color);
 		graphics.drawString(text, textX, textY);
+	}
+
+	private void renderGameObjectWireframe(Graphics2D graphics, GameObject gameObject, Color color)
+	{
+		Polygon[] polys = gameObject.getPolygons();
+
+		if (polys == null)
+		{
+			return;
+		}
+
+		graphics.setColor(color);
+
+		for (Polygon p : polys)
+		{
+			graphics.drawPolygon(p);
+		}
 	}
 
 	private void renderPlayerWireframe(Graphics2D graphics, Player player, Color color)
