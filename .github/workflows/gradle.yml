@@ -13,7 +13,7 @@ jobs:
         java-version: 1.8
         architecture: x64
         jdkFile: ./zulu8.40.0.25-ca-fx-jdk8.0.222-win_x64.zip
-      run: |
+    - run: |
         gradlew assemble
         gradle clean build -x test
         
