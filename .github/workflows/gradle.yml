@@ -1,0 +1,16 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@v1
+    - run: curl -O "https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz"
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        architecture: x64
+        jdkFile: ./zulu8.40.0.25-ca-fx-jdk8.0.222-linux_x64.tar.gz
+    - run: ./gradlew clean build
