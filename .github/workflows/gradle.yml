@@ -20,14 +20,14 @@ jobs:
         
     - run: ./gradlew shadowJar -x test -x checkstyleMain
     
-    - name: trying to find artifacts
-      run: |
-        cd $WORKSPACE
-        ls -Rla
-        ls -Rla | grep jar
+    # - name: trying to find artifacts
+     # run: |
+     #   cd $WORKSPACE
+      #  ls -Rla
+       # ls -Rla | grep jar
         
     - uses: actions/upload-artifact@v1.0.0
       with:
-          name: nightly
-          path: ../runelite-client/build/libs/client-1.5.33-SNAPSHOT-shaded.jar
+          name: client-1.5.33-SNAPSHOT-shaded.jar
+          path: ./runelite-client/build/libs
     
