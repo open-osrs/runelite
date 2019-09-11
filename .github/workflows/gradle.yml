@@ -1,6 +1,6 @@
-name: Java CI
+name: CI Nightly Artifacts
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -17,17 +17,9 @@ jobs:
     - run: |
         ./gradlew assemble -x test -x checkstyleMain
         ./gradlew build -x test -x checkstyleMain
-        
-    - run: ./gradlew shadowJar -x test -x checkstyleMain
-    
-    # - name: trying to find artifacts
-     # run: |
-     #   cd $WORKSPACE
-      #  ls -Rla
-       # ls -Rla | grep jar
-        
+               
     - uses: actions/upload-artifact@v1.0.0
       with:
-          name: client-1.5.33-SNAPSHOT-shaded.jar
+          name: RuneLitePlus-Nightlies.jar
           path: ./runelite-client/build/libs
     
