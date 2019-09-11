@@ -35,9 +35,7 @@ import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
-import net.runelite.api.HeadIcon;
 import net.runelite.api.NPC;
-import net.runelite.api.NPCDefinition;
 import net.runelite.api.Player;
 import net.runelite.api.Prayer;
 import net.runelite.api.WorldType;
@@ -301,10 +299,7 @@ public class StatusTimers extends Plugin
 			return;
 		}
 		victim.timerToImmunity(client.getTickCount());
-		victim.setLastPrayer(victim.getCurrentPrayer());
-		victim.setSpotAnimLastTick(victim.getSpotAnim());
-		victim.setCurrentPrayer(updatePrayer(victim.getActor()));
-		victim.setSpotAnim(victim.getActor().getSpotAnimation());
+		victim.update();
 		if (victim.getTimerMap().containsKey(TimerType.TELEBLOCK))
 		{
 			final WorldPoint actorLoc = victim.getActor().getWorldLocation();
@@ -346,54 +341,5 @@ public class StatusTimers extends Plugin
 	private boolean isNotVorkath()
 	{
 		return !ArrayUtils.contains(client.getMapRegions(), VORKATH_REGION);
-	}
-
-	private Prayer updatePrayer(Actor actor)
-	{
-		if (actor instanceof NPC)
-		{
-			final NPCDefinition def = ((NPC) actor).getDefinition();
-			if (def == null)
-			{
-				return null;
-			}
-			final HeadIcon icon = def.getOverheadIcon();
-			if (icon == null)
-			{
-				return null;
-			}
-			return headIconToPrayer(def.getOverheadIcon());
-		}
-		else if (actor instanceof Player)
-		{
-			final HeadIcon icon = ((Player) actor).getOverheadIcon();
-			if (icon == null)
-			{
-				return null;
-			}
-			return headIconToPrayer(icon);
-		}
-		return null;
-	}
-
-	private Prayer headIconToPrayer(HeadIcon icon)
-	{
-		switch (icon)
-		{
-			case MELEE:
-				return Prayer.PROTECT_FROM_MELEE;
-			case RANGED:
-				return Prayer.PROTECT_FROM_MISSILES;
-			case MAGIC:
-				return Prayer.PROTECT_FROM_MAGIC;
-			case RETRIBUTION:
-				return Prayer.RETRIBUTION;
-			case SMITE:
-				return Prayer.SMITE;
-			case REDEMPTION:
-				return Prayer.REDEMPTION;
-			default:
-				return null;
-		}
 	}
 }
