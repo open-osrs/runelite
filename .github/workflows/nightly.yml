@@ -1,7 +1,9 @@
+
 name: CI Nightly Artifacts
 
-on: [push, pull_request]
-
+on: 
+  schedule:
+  - cron: 0 21 * * *
 jobs:
   build:
     runs-on: windows-latest    
@@ -22,4 +24,3 @@ jobs:
       with:
           name: RuneLitePlus-Nightlies.jar
           path: ./runelite-client/build/libs
-    
