@@ -11,9 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.Event;
-import net.runelite.client.plugins.tzhaartimers.TzhaarTimersPlugin;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 @Slf4j
@@ -82,7 +80,4 @@ public class EventBus implements EventBusInterface
 	{
 		getSubject(eventClass).accept(event);
 	}
-
-    public void subscript(Class<ChatMessage> chatMessageClass, TzhaarTimersPlugin tzhaarTimersPlugin, Object onChatMessage) {
-    }
 }
