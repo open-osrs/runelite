@@ -34,47 +34,46 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class TzhaarTimers extends InfoBox {
-    private final Instant startTime;
-    private LocalTime time;
-    private Instant lastTime;
+	private final Instant startTime;
+	private LocalTime time;
+	private Instant lastTime;
 
-    public TzhaarTimers(BufferedImage image, TzhaarTimersPlugin plugin, Instant startTime, Instant lastTime) {
-        super(image, plugin);
-        this.startTime = startTime;
-        this.lastTime = lastTime;
-    }
+	public TzhaarTimers(BufferedImage image, TzhaarTimersPlugin plugin, Instant startTime, Instant lastTime) {
+		super(image, plugin);
+		this.startTime = startTime;
+		this.lastTime = lastTime;
+	}
+	
+	@Override
+	public String getText() {
+		if (startTime == null) {
+			return "";
+		}
 
-    @Override
-    public String getText() {
-        if (startTime == null) {
-            return "";
-        }
+		if (lastTime == null) {
+			Duration elapsed = Duration.between(startTime, Instant.now());
+			time = LocalTime.ofSecondOfDay(elapsed.getSeconds());
+		} else {
+			Duration elapsed = Duration.between(startTime, lastTime);
+			time = LocalTime.ofSecondOfDay(elapsed.getSeconds());
+		}
 
-        if (lastTime == null) {
-            Duration elapsed = Duration.between(startTime, Instant.now());
-            time = LocalTime.ofSecondOfDay(elapsed.getSeconds());
-        } else {
-            Duration elapsed = Duration.between(startTime, lastTime);
-            time = LocalTime.ofSecondOfDay(elapsed.getSeconds());
-        }
+		if (time.getHour() > 0) {
+			return time.format(DateTimeFormatter.ofPattern("HH:mm"));
+		}
+		return time.format(DateTimeFormatter.ofPattern("mm:ss"));
+	}
 
-        if (time.getHour() > 0) {
-            return time.format(DateTimeFormatter.ofPattern("HH:mm"));
-        }
-        return time.format(DateTimeFormatter.ofPattern("mm:ss"));
-    }
+	@Override
+	public Color getTextColor() {
+		return Color.WHITE;
+	}
 
-    @Override
-    public Color getTextColor() {
-        return Color.WHITE;
-    }
-
-    @Override
-    public String getTooltip() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Elapsed time: ");
-        builder.append(time.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-
-        return builder.toString();
-    }
+	@Override
+	public String getTooltip() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Elapsed time: ");
+		builder.append(time.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+		return builder.toString();
+	}
 }
