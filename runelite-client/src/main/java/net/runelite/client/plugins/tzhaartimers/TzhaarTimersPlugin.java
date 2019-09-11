@@ -48,209 +48,209 @@ import static net.runelite.api.ItemID.FIRE_CAPE;
 import static net.runelite.api.ItemID.INFERNAL_CAPE;
 
 @PluginDescriptor(
-        name = "Tzhaar Timers",
-        description = "Display elapsed time in the Fight Caves and Inferno",
-        tags = {"inferno", "fight", "caves", "cape", "timer", "tzhaar"}
+	name = "Tzhaar Timers",
+	description = "Display elapsed time in the Fight Caves and Inferno",
+	tags = {"inferno", "fight", "caves", "cape", "timer", "tzhaar"}
 )
 public class TzhaarTimersPlugin extends Plugin {
-    private static final Pattern WAVE_MESSAGE = Pattern.compile("Wave: (\\d+)");
-    private static final String DEFEATED_MESSAGE = "You have been defeated!";
-    private static final Pattern COMPLETE_MESSAGE = Pattern.compile("Your (TzTok-Jad|TzKal-Zuk) kill count is:");
-    private static final Pattern PAUSED_MESSAGE = Pattern.compile("The (Inferno|Fight Cave) has been paused. You may now log out.");
-    private static final String CONFIG_GROUP = "tzhaartimers";
-    private static final String CONFIG_TIME = "time";
-    private static final String CONFIG_STARTED = "started";
-    private static final String CONFIG_LASTTIME = "lasttime";
+	private static final Pattern WAVE_MESSAGE = Pattern.compile("Wave: (\\d+)");	
+	private static final String DEFEATED_MESSAGE = "You have been defeated!";
+	private static final Pattern COMPLETE_MESSAGE = Pattern.compile("Your (TzTok-Jad|TzKal-Zuk) kill count is:");
+	private static final Pattern PAUSED_MESSAGE = Pattern.compile("The (Inferno|Fight Cave) has been paused. You may now log out.");
+	private static final String CONFIG_GROUP = "tzhaartimers";	
+	private static final String CONFIG_TIME = "time";
+	private static final String CONFIG_STARTED = "started";
+	private static final String CONFIG_LASTTIME = "lasttime";
+	
+	@Inject
+	private InfoBoxManager infoBoxManager;
 
-    @Inject
-    private InfoBoxManager infoBoxManager;
+	@Inject
+	private Client client;
 
-    @Inject
-    private Client client;
+	@Inject
+	private ItemManager itemManager;
 
-    @Inject
-    private ItemManager itemManager;
+	@Inject
+	private ConfigManager configManager;
 
-    @Inject
-    private ConfigManager configManager;
+	@Inject
+	private EventBus eventBus;
 
-    @Inject
-    private EventBus eventBus;
+	@Getter
+	private TzhaarTimers timer;
 
-    @Getter
-    private TzhaarTimers timer;
+	private Instant startTime;
+	private Instant lastTime;
+	private Boolean started = false;
+	private boolean loggingIn;
 
-    private Instant startTime;
-    private Instant lastTime;
-    private Boolean started = false;
-    private boolean loggingIn;
+	@Override
+	public void startUp() {
+	addSubscriptions();
+	}
 
-    @Override
-    public void startUp() {
-        addSubscriptions();
-    }
+	public void onGameStateChanged(GameStateChanged event) {
+		switch (event.getGameState()) {
+			case LOGGED_IN:
+				if (loggingIn) {
+					loggingIn = false;
+						loadConfig();
+						resetConfig();	
+			}
+				break;
+			case LOGGING_IN:
+				loggingIn = true;
+				break;
+			case LOADING:
+				if (!loggingIn) {
+					updateInfoBoxState();
+			}
+				break;
+			case HOPPING:
+				loggingIn = true;
+			case LOGIN_SCREEN:
+				removeTimer();
+				saveConfig();
+				break;
+			default:
+				break;
+		}
+	}
 
-    public void onGameStateChanged(GameStateChanged event) {
-        switch (event.getGameState()) {
-            case LOGGED_IN:
-                if (loggingIn) {
-                    loggingIn = false;
-                    loadConfig();
-                    resetConfig();
-                }
-                break;
-            case LOGGING_IN:
-                loggingIn = true;
-                break;
-            case LOADING:
-                if (!loggingIn) {
-                    updateInfoBoxState();
-                }
-                break;
-            case HOPPING:
-                loggingIn = true;
-            case LOGIN_SCREEN:
-                removeTimer();
-                saveConfig();
-                break;
-            default:
-                break;
-        }
-    }
+	public void onChatMessage(ChatMessage event) {
+		if (event.getType() != ChatMessageType.GAMEMESSAGE && event.getType() != ChatMessageType.SPAM) {
+			return;
+		}
+		
+		String message = Text.removeTags(event.getMessage());
+		Matcher matcher = COMPLETE_MESSAGE.matcher(message);
 
-    public void onChatMessage(ChatMessage event) {
-        if (event.getType() != ChatMessageType.GAMEMESSAGE && event.getType() != ChatMessageType.SPAM) {
-            return;
-        }
+		if (message.contains(DEFEATED_MESSAGE) || matcher.matches()) {
+			removeTimer();
+			resetConfig();
+			resetVars();
+			return;
+		}
 
-        String message = Text.removeTags(event.getMessage());
-        Matcher matcher = COMPLETE_MESSAGE.matcher(message);
+		Instant now = Instant.now();
+		matcher = PAUSED_MESSAGE.matcher(message);
+		if (matcher.matches()) {
+			lastTime = now;
+			createTimer(startTime, now);
+			return;
+		}
 
-        if (message.contains(DEFEATED_MESSAGE) || matcher.matches()) {
-            removeTimer();
-            resetConfig();
-            resetVars();
-            return;
-        }
+		matcher = WAVE_MESSAGE.matcher(message);
+		if (!matcher.matches()) {
+			return;
+		}
 
-        Instant now = Instant.now();
-        matcher = PAUSED_MESSAGE.matcher(message);
-        if (matcher.matches()) {
-            lastTime = now;
-            createTimer(startTime, now);
-            return;
-        }
+		if (!started) {
+			int wave = Integer.parseInt(matcher.group(1));
+			if (wave != 1) {
+				return;
+			}
 
-        matcher = WAVE_MESSAGE.matcher(message);
-        if (!matcher.matches()) {
-            return;
-        }
+			started = true;
+			startTime = now;
+		} else if (lastTime != null) {
+			startTime = startTime.plus(Duration.between(startTime, now)).minus(Duration.between(startTime, lastTime));
+			lastTime = null;
+		}
+		
+		createTimer(startTime, lastTime);
+	}
 
-        if (!started) {
-            int wave = Integer.parseInt(matcher.group(1));
-            if (wave != 1) {
-                return;
-            }
+	private void updateInfoBoxState() {
+		if (timer == null) {
+			return;
+		}
+		
+		if (!checkInFightCaves() && !checkInInferno()) {
+			removeTimer();		
+			resetConfig();
+			resetVars();
+		}
+	}
 
-            started = true;
-            startTime = now;
-        } else if (lastTime != null) {
-            startTime = startTime.plus(Duration.between(startTime, now)).minus(Duration.between(startTime, lastTime));
-            lastTime = null;
-        }
+	private boolean checkInFightCaves() {
+		return client.getMapRegions() != null && Arrays.stream(client.getMapRegions())
+				.filter(x -> x == 9551)
+				.toArray().length > 0;
+	}
 
-        createTimer(startTime, lastTime);
-    }
+	private boolean checkInInferno() {
+		return client.getMapRegions() != null && Arrays.stream(client.getMapRegions())
+				.filter(x -> x == 9043)
+				.toArray().length > 0;
+	}
 
-    private void updateInfoBoxState() {
-        if (timer == null) {
-            return;
-        }
+	private void resetVars() {
+		startTime = null;
+		lastTime = null;
+		started = false;
+	}
 
-        if (!checkInFightCaves() && !checkInInferno()) {
-            removeTimer();
-            resetConfig();
-            resetVars();
-        }
-    }
+	private void removeTimer() {
+		infoBoxManager.removeInfoBox(timer);		
+		timer = null;
+	}
 
-    private boolean checkInFightCaves() {
-        return client.getMapRegions() != null && Arrays.stream(client.getMapRegions())
-                .filter(x -> x == 9551)
-                .toArray().length > 0;
-    }
+	private void createTimer(Instant startTime, Instant lastTime) {
+		if (timer != null) {
+			infoBoxManager.removeInfoBox(timer);
+		}
 
-    private boolean checkInInferno() {
-        return client.getMapRegions() != null && Arrays.stream(client.getMapRegions())
-                .filter(x -> x == 9043)
-                .toArray().length > 0;
-    }
+		if (checkInFightCaves()) {
+			timer = new TzhaarTimers(itemManager.getImage(FIRE_CAPE), this, startTime, lastTime);
+			infoBoxManager.addInfoBox(timer);
+		} else if (checkInInferno()) {
+			timer = new TzhaarTimers(itemManager.getImage(INFERNAL_CAPE), this, startTime, lastTime);
+			infoBoxManager.addInfoBox(timer);
+		}
+	}
 
-    private void resetVars() {
-        startTime = null;
-        lastTime = null;
-        started = false;
-    }
+	@Override
+	protected void shutDown() throws Exception {
+		eventBus.unregister(this);
+		removeTimer();
+		resetConfig();
+		resetVars();
+	}
 
-    private void removeTimer() {
-        infoBoxManager.removeInfoBox(timer);
-        timer = null;
-    }
+	private void addSubscriptions() {		
+		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
+	}
 
-    private void createTimer(Instant startTime, Instant lastTime) {
-        if (timer != null) {
-            infoBoxManager.removeInfoBox(timer);
-        }
+	private void loadConfig() {
+		startTime = configManager.getConfiguration(CONFIG_GROUP, CONFIG_TIME, Instant.class);
+		started = configManager.getConfiguration(CONFIG_GROUP, CONFIG_STARTED, Boolean.class);
+		lastTime = configManager.getConfiguration(CONFIG_GROUP, CONFIG_LASTTIME, Instant.class);
+		if (started == null) {
+			started = false;
+		}
+	}
 
-        if (checkInFightCaves()) {
-            timer = new TzhaarTimers(itemManager.getImage(FIRE_CAPE), this, startTime, lastTime);
-            infoBoxManager.addInfoBox(timer);
-        } else if (checkInInferno()) {
-            timer = new TzhaarTimers(itemManager.getImage(INFERNAL_CAPE), this, startTime, lastTime);
-            infoBoxManager.addInfoBox(timer);
-        }
-    }
+	private void resetConfig() {
+		configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_TIME);
+		configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_STARTED);
+		configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_LASTTIME);
+	}
+	
+	private void saveConfig() {
+		if (startTime == null) {
+			return;
+		}
 
-    @Override
-    protected void shutDown() throws Exception {
-        eventBus.unregister(this);
-        removeTimer();
-        resetConfig();
-        resetVars();
-    }
+		if (lastTime == null) {
+			lastTime = Instant.now();
+		}
 
-    private void addSubscriptions() {
-        eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-        eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
-    }
-
-    private void loadConfig() {
-        startTime = configManager.getConfiguration(CONFIG_GROUP, CONFIG_TIME, Instant.class);
-        started = configManager.getConfiguration(CONFIG_GROUP, CONFIG_STARTED, Boolean.class);
-        lastTime = configManager.getConfiguration(CONFIG_GROUP, CONFIG_LASTTIME, Instant.class);
-        if (started == null) {
-            started = false;
-        }
-    }
-
-    private void resetConfig() {
-        configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_TIME);
-        configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_STARTED);
-        configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_LASTTIME);
-    }
-
-    private void saveConfig() {
-        if (startTime == null) {
-            return;
-        }
-
-        if (lastTime == null) {
-            lastTime = Instant.now();
-        }
-
-        configManager.setConfiguration(CONFIG_GROUP, CONFIG_TIME, startTime);
-        configManager.setConfiguration(CONFIG_GROUP, CONFIG_STARTED, started);
-        configManager.setConfiguration(CONFIG_GROUP, CONFIG_LASTTIME, lastTime);
-        resetVars();
-    }
+		configManager.setConfiguration(CONFIG_GROUP, CONFIG_TIME, startTime);
+		configManager.setConfiguration(CONFIG_GROUP, CONFIG_STARTED, started);
+		configManager.setConfiguration(CONFIG_GROUP, CONFIG_LASTTIME, lastTime);
+		resetVars();
+	}
 }
