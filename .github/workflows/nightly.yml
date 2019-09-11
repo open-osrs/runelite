@@ -1,7 +1,9 @@
+
 name: CI Nightly Artifacts
 
-on: [push, pull_request]
-
+on: 
+  schedule:
+  - cron: 0 21 * * *
 jobs:
   build:
     runs-on: windows-latest    
@@ -19,7 +21,6 @@ jobs:
         ./gradlew build -x test -x checkstyleMain
                
     - uses: actions/upload-artifact@v1.0.0
-      with:
+      with:0
           name: RuneLitePlus-Nightlies.jar
           path: ./runelite-client/build/libs
-    
