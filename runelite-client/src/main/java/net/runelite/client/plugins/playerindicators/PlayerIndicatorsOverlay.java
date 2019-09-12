@@ -28,7 +28,6 @@ package net.runelite.client.plugins.playerindicators;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.List;
@@ -128,6 +127,7 @@ public class PlayerIndicatorsOverlay extends Overlay
 					OverlayUtil.renderActorTextAndImage(graphics, actor, builtString, color,
 						ImageUtil.resizeImage(Objects.requireNonNull(clanManager
 							.getClanImage(clanManager.getRank(actor.getName()))), y, y), 0, ACTOR_HORIZONTAL_TEXT_MARGIN);
+					return;
 				}
 			}
 
