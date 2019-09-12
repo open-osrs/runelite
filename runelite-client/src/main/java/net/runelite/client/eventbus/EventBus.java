@@ -20,20 +20,24 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 @Slf4j
 @Singleton
-public class EventBus implements EventBusInterface {
+public class EventBus implements EventBusInterface
+{
 	private Map<Object, Object> subscriptionList = new HashMap<>();
 	private Map<Class<?>, Relay<Object>> subjectList = new HashMap<>();
 	private Map<Object, CompositeDisposable> subscriptionsMap = new HashMap<>();
 
 	@NonNull
-	private <T> Relay<Object> getSubject(Class<T> eventClass) {
-	return subjectList.computeIfAbsent(eventClass, k -> PublishRelay.create().toSerialized());
+	private <T> Relay<Object> getSubject(Class<T> eventClass)
+	{
+		return subjectList.computeIfAbsent(eventClass, k -> PublishRelay.create().toSerialized());
 	}
 
 	@NonNull
-	private CompositeDisposable getCompositeDisposable(@NonNull Object object) {
-	CompositeDisposable compositeDisposable = subscriptionsMap.get(object);
-		if (compositeDisposable == null) {
+	private CompositeDisposable getCompositeDisposable(@NonNull Object object)
+	{
+		CompositeDisposable compositeDisposable = subscriptionsMap.get(object);
+		if (compositeDisposable == null)
+		{
 			compositeDisposable = new CompositeDisposable();
 			subscriptionsMap.put(object, compositeDisposable);
 		}
@@ -43,8 +47,10 @@ public class EventBus implements EventBusInterface {
 
 	@Override
 	// Subscribe on lifecycle (for example from plugin startUp -> shutdown)
-	public <T> void subscribe(Class<T> eventClass, @NonNull Object lifecycle, @NonNull Consumer<T> action) {
-		if (subscriptionList.containsKey(lifecycle) && eventClass.equals(subscriptionList.get(lifecycle))) {
+	public <T> void subscribe(Class<T> eventClass, @NonNull Object lifecycle, @NonNull Consumer<T> action)
+	{
+		if (subscriptionList.containsKey(lifecycle) && eventClass.equals(subscriptionList.get(lifecycle)))
+		{
 			return;
 		}
 
@@ -52,9 +58,9 @@ public class EventBus implements EventBusInterface {
 			.filter(Objects::nonNull) // Filter out null objects, better safe than sorry
 			.cast(eventClass) // Cast it for easier usage
 			.subscribe(action, error ->
-					   {
-					log.error("Error in eventbus: {}", error.getMessage());
-					log.error(ExceptionUtils.getStackTrace(error));
+			{
+				log.error("Error in eventbus: {}", error.getMessage());
+				log.error(ExceptionUtils.getStackTrace(error));
 			});
 
 		getCompositeDisposable(lifecycle).add(disposable);
@@ -62,20 +68,24 @@ public class EventBus implements EventBusInterface {
 	}
 
 	@Override
-	public void unregister(@NonNull Object lifecycle) {
+	public void unregister(@NonNull Object lifecycle)
+	{
 		//We have to remove the composition from the map, because once you dispose it can't be used anymore
 		CompositeDisposable compositeDisposable = subscriptionsMap.remove(lifecycle);
 		subscriptionList.remove(lifecycle);
-		if (compositeDisposable != null) {
+		if (compositeDisposable != null)
+		{
 			compositeDisposable.dispose();
 		}
 	}
 
-	@Override	
-	public <T> void post(Class<T> eventClass, @NonNull Event event) {
+	@Override
+	public <T> void post(Class<T> eventClass, @NonNull Event event)
+	{
 		getSubject(eventClass).accept(event);
 	}
 
-	public void subscript(Class<ChatMessage> chatMessageClass, TzhaarTimersPlugin tzhaarTimersPlugin, Object onChatMessage) {
+	public void subscript(Class<ChatMessage> chatMessageClass, TzhaarTimersPlugin tzhaarTimersPlugin, Object onChatMessage)
+	{
 	}
 }
