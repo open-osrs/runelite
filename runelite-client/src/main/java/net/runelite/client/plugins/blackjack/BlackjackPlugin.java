@@ -41,7 +41,6 @@ import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.menus.AbstractComparableEntry;
-import net.runelite.client.menus.BaseComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -74,7 +73,7 @@ public class BlackjackPlugin extends Plugin
 	private static final String BANDIT = "Bandit";
 	private static final String MENAPHITE = "Menaphite Thug";
 
-	private static final AbstractComparableEntry EMPTY = new BaseComparableEntry("", "", -1, -1, false, false);
+	private static final AbstractComparableEntry EMPTY = new BlankEntry();
 	private static final AbstractComparableEntry PICKPOCKET_BANDIT = new BJComparableEntry(BANDIT, true);
 	private static final AbstractComparableEntry KNOCKOUT_BANDIT = new BJComparableEntry(BANDIT, false);
 	private static final AbstractComparableEntry PICKPOCKET_MENAPHITE = new BJComparableEntry(MENAPHITE, true);
@@ -180,6 +179,15 @@ public class BlackjackPlugin extends Plugin
 		}
 	}
 
+	private static class BlankEntry extends AbstractComparableEntry
+	{
+		@Override
+		public boolean matches(MenuEntry entry)
+		{
+			return true;
+		}
+	}
+
 	private static class BJComparableEntry extends AbstractComparableEntry
 	{
 		private BJComparableEntry(final String npc, final boolean pickpocket)
@@ -197,9 +205,8 @@ public class BlackjackPlugin extends Plugin
 		@Override
 		public boolean matches(MenuEntry entry)
 		{
-			return
-				entry.getStandardizedTarget().equals(this.getTarget()) &&
-					entry.getOption().equalsIgnoreCase(this.getOption());
+			return entry.getStandardizedTarget().equals(this.getTarget()) &&
+				entry.getOption().equalsIgnoreCase(this.getOption());
 		}
 	}
 }
