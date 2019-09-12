@@ -717,21 +717,40 @@ public abstract class RSClientMixin implements RSClient
 
 		oldMenuEntryCount = newCount;
 
+		final String[] options = client.getMenuOptions();
+		final String[] targets = client.getMenuTargets();
+		final int[] identifiers = client.getMenuIdentifiers();
+		final int[] opcodes = client.getMenuOpcodes();
+		final int[] arguments1 = client.getMenuArguments1();
+		final int[] arguments2 = client.getMenuArguments2();
+		final boolean[] forceLeftClick = client.getMenuForceLeftClick();
+
 		if (newCount == oldCount + 1)
 		{
 			MenuEntryAdded event = new MenuEntryAdded(
 				new MenuEntry(
-					client.getMenuOptions()[oldCount],
-					client.getMenuTargets()[oldCount],
-					client.getMenuIdentifiers()[oldCount],
-					client.getMenuOpcodes()[oldCount],
-					client.getMenuArguments1()[oldCount],
-					client.getMenuArguments2()[oldCount],
-					client.getMenuForceLeftClick()[oldCount]
+					options[oldCount],
+					targets[oldCount],
+					identifiers[oldCount],
+					opcodes[oldCount],
+					arguments1[oldCount],
+					arguments2[oldCount],
+					forceLeftClick[oldCount]
 				)
 			);
 
 			client.getCallbacks().post(MenuEntryAdded.class, event);
+
+			if (event.isWasModified() && client.getMenuOptionCount() == newCount)
+			{
+				options[oldCount] = event.getOption();
+				targets[oldCount] = event.getTarget();
+				identifiers[oldCount] = event.getIdentifier();
+				opcodes[oldCount] = event.getType();
+				arguments1[oldCount] = event.getActionParam0();
+				arguments2[oldCount] = event.getActionParam1();
+				forceLeftClick[oldCount] = event.isForceLeftClick();
+			}
 		}
 	}
 
@@ -1400,10 +1419,14 @@ public abstract class RSClientMixin implements RSClient
 	@MethodHook("openMenu")
 	public void menuOpened(int x, int y)
 	{
-		sortMenuEntries();
 		final MenuOpened event = new MenuOpened();
 		event.setMenuEntries(getMenuEntries());
 		callbacks.post(MenuOpened.class, event);
+
+		if (event.isModified())
+		{
+			setMenuEntries(event.getMenuEntries());
+		}
 	}
 
 	@Inject
@@ -1703,7 +1726,7 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
-	BigInteger modulus = new BigInteger("83ff79a3e258b99ead1a70e1049883e78e513c4cdec538d8da9483879a9f81689c0c7d146d7b82b52d05cf26132b1cda5930eeef894e4ccf3d41eebc3aabe54598c4ca48eb5a31d736bfeea17875a35558b9e3fcd4aebe2a9cc970312a477771b36e173dc2ece6001ab895c553e2770de40073ea278026f36961c94428d8d7db", 16);
+	BigInteger modulus = new BigInteger("f8a2c48a898ebf7a2a5069193f0c6798757879d298af09a6fa94e569d45b09f67aeef8e6bb8a61650d597c743104fdef7d07b24af92df6be995877e9a7dd6a630d3e62c14e70427b959ff70735f96135d73434e73aabbd6aa8cf0b97dae7e2b6b70e646ff550b0ad8a4d8d18675714e5228b026d85e8f2f24607ba69d7404571", 16);
 
 	@Inject
 	@Override

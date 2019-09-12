@@ -1464,18 +1464,46 @@ public interface Client extends GameShell
 	void setNPCsHidden(boolean state);
 
 	/**
-	 * Sets which NPCs are hidden
+	 * Increments the counter for how many times this npc has been selected to be hidden
 	 *
-	 * @param names the names of the npcs
+	 * @param name npc name
 	 */
-	void setNPCsNames(List<String> names);
+	void addHiddenNpcName(String name);
 
 	/**
-	 * Sets which NPCs are hidden on death
+	 * Decrements the counter for how many times this npc has been selected to be hidden
 	 *
-	 * @param names the names of the npcs
+	 * @param name npc name
 	 */
-	void setNPCsHiddenOnDeath(List<String> names);
+	void removeHiddenNpcName(String name);
+
+	/**
+	 * Forcibly unhides an npc by setting its counter to zero
+	 *
+	 * @param name npc name
+	 */
+	void forciblyUnhideNpcName(String name);
+
+	/**
+	 * Increments the counter for how many times this npc has been selected to be hidden on death
+	 *
+	 * @param name npc name
+	 */
+	void addHiddenNpcDeath(String name);
+
+	/**
+	 * Decrements the counter for how many times this npc has been selected to be hidden on death
+	 *
+	 * @param name npc name
+	 */
+	void removeHiddenNpcDeath(String name);
+
+	/**
+	 * Forcibly unhides a hidden-while-dead npc by setting its counter to zero
+	 *
+	 * @param name npc name
+	 */
+	void forciblyUnhideNpcDeath(String name);
 
 	/**
 	 * Sets whether 2D sprites (ie. overhead prayers) related to
@@ -1744,12 +1772,6 @@ public interface Client extends GameShell
 	void setUnhiddenCasts(Set<String> casts);
 
 	/**
-	 * Sorts the current menu entries in the same way the client does this.
-	 * The last entry will be the left click one after this.
-	 */
-	void sortMenuEntries();
-
-	/**
 	 * Add player to friendlist
 	 */
 	void addFriend(String name);
@@ -1763,8 +1785,13 @@ public interface Client extends GameShell
 
 	void setModulus(BigInteger modulus);
 
-	/*
+	/**
 	 * Returns the max item index + 1 from cache
 	 */
 	int getItemCount();
+
+	/**
+	 * Adds a MenuEntry to the current menu.
+	 */
+	void insertMenuItem(String action, String target, int opcode, int identifier, int argument1, int argument2, boolean forceLeftClick);
 }

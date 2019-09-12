@@ -31,30 +31,10 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import net.runelite.api.Client;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.NPC;
-import net.runelite.api.Perspective;
 import net.runelite.api.Point;
-import net.runelite.client.game.ItemManager;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.AIR_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.BLOOD_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.BODY_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.CHAOS_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.COSMIC_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.DEATH_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.EARTH_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.FIRE_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.LAW_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.MIND_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.NATURE_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.SOUL_RIFT;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.WATER_RIFT;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -63,16 +43,8 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 @Singleton
 class AbyssOverlay extends Overlay
 {
-	private static final Dimension IMAGE_SIZE = new Dimension(15, 14);
-
-	private final Set<AbyssRifts> rifts = new HashSet<>();
-	private final Map<AbyssRifts, BufferedImage> abyssIcons = new HashMap<>();
-
 	private final Client client;
 	private final RunecraftPlugin plugin;
-
-	@Inject
-	private ItemManager itemManager;
 
 	@Inject
 	AbyssOverlay(final Client client, final RunecraftPlugin plugin)
@@ -90,7 +62,7 @@ class AbyssOverlay extends Overlay
 		{
 			for (DecorativeObject object : plugin.getAbyssObjects())
 			{
-				renderRifts(graphics, object);
+				renderRift(graphics, object);
 			}
 		}
 
@@ -124,118 +96,29 @@ class AbyssOverlay extends Overlay
 		OverlayUtil.renderPolygon(graphics, tilePoly, Color.green);
 	}
 
-	private void renderRifts(Graphics2D graphics, DecorativeObject object)
+	private void renderRift(Graphics2D graphics, DecorativeObject object)
 	{
 		AbyssRifts rift = AbyssRifts.getRift(object.getId());
-		if (rift == null || !rifts.contains(rift))
+		if (rift == null || !plugin.getRifts().contains(rift))
 		{
 			return;
 		}
 
-		if (plugin.isShowClickBox())
+		Point mousePosition = client.getMouseCanvasPosition();
+		Area objectClickbox = object.getClickbox();
+		if (objectClickbox != null)
 		{
-			//Draw clickbox
-			Point mousePosition = client.getMouseCanvasPosition();
-			Area objectClickbox = object.getClickbox();
-			if (objectClickbox != null)
+			if (objectClickbox.contains(mousePosition.getX(), mousePosition.getY()))
 			{
-				if (objectClickbox.contains(mousePosition.getX(), mousePosition.getY()))
-				{
-					graphics.setColor(Color.MAGENTA.darker());
-				}
-				else
-				{
-					graphics.setColor(Color.MAGENTA);
-				}
-				graphics.draw(objectClickbox);
-				graphics.setColor(new Color(255, 0, 255, 20));
-				graphics.fill(objectClickbox);
+				graphics.setColor(Color.MAGENTA.darker());
 			}
-		}
-
-		//Draw minimap
-		BufferedImage image = getImage(rift);
-		Point miniMapImage = Perspective.getMiniMapImageLocation(client, object.getLocalLocation(), image);
-
-		if (miniMapImage != null)
-		{
-			graphics.drawImage(image, miniMapImage.getX(), miniMapImage.getY(), null);
-		}
-	}
-
-	private BufferedImage getImage(AbyssRifts rift)
-	{
-		BufferedImage image = abyssIcons.get(rift);
-		if (image != null)
-		{
-			return image;
-		}
-
-		// Since item image is too big, we must resize it first.
-		image = itemManager.getImage(rift.getItemId());
-		BufferedImage resizedImage = new BufferedImage(IMAGE_SIZE.width, IMAGE_SIZE.height, BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g = resizedImage.createGraphics();
-		g.drawImage(image, 0, 0, IMAGE_SIZE.width, IMAGE_SIZE.height, null);
-		g.dispose();
-
-		abyssIcons.put(rift, resizedImage);
-		return resizedImage;
-	}
-
-	public void updateConfig()
-	{
-		rifts.clear();
-		if (plugin.isShowAir())
-		{
-			rifts.add(AIR_RIFT);
-		}
-		if (plugin.isShowBlood())
-		{
-			rifts.add(BLOOD_RIFT);
-		}
-		if (plugin.isShowBody())
-		{
-			rifts.add(BODY_RIFT);
-		}
-		if (plugin.isShowChaos())
-		{
-			rifts.add(CHAOS_RIFT);
-		}
-		if (plugin.isShowCosmic())
-		{
-			rifts.add(COSMIC_RIFT);
-		}
-		if (plugin.isShowDeath())
-		{
-			rifts.add(DEATH_RIFT);
-		}
-		if (plugin.isShowEarth())
-		{
-			rifts.add(EARTH_RIFT);
-		}
-		if (plugin.isShowFire())
-		{
-			rifts.add(FIRE_RIFT);
-		}
-		if (plugin.isShowLaw())
-		{
-			rifts.add(LAW_RIFT);
-		}
-		if (plugin.isShowMind())
-		{
-			rifts.add(MIND_RIFT);
-		}
-		if (plugin.isShowNature())
-		{
-			rifts.add(NATURE_RIFT);
-		}
-		if (plugin.isShowSoul())
-		{
-			rifts.add(SOUL_RIFT);
-		}
-		if (plugin.isShowWater())
-		{
-			rifts.add(WATER_RIFT);
+			else
+			{
+				graphics.setColor(Color.MAGENTA);
+			}
+			graphics.draw(objectClickbox);
+			graphics.setColor(new Color(255, 0, 255, 20));
+			graphics.fill(objectClickbox);
 		}
 	}
 }
