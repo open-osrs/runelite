@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, pklite <https://github.com/pklite/pklite>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -21,27 +22,50 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.statustimers;
+package net.runelite.client.plugins.freezetimers;
 
-import java.awt.Font;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum FontStyle
+public enum PlayerSpellEffect
 {
-	BOLD("Bold", Font.BOLD),
-	ITALIC("Italic", Font.ITALIC),
-	PLAIN("Plain", Font.PLAIN);
+	BIND("Bind", 181, 4800, false, 0, TimerType.FREEZE),
+	SNARE("Snare", 180, 9600, false, 1, TimerType.FREEZE),
+	ENTANGLE("Entangle", 179, 14400, false, 2, TimerType.FREEZE),
+	RUSH("Ice Rush", 361, 4800, false, 3, TimerType.FREEZE),
+	BURST("Ice Burst", 363, 9600, false, 4, TimerType.FREEZE),
+	BLITZ("Ice Blitz", 367, 14400, false, 5, TimerType.FREEZE),
+	BARRAGE("Ice Barrage", 369, 19200, false, 6, TimerType.FREEZE),
+	TELEBLOCK("Teleblock", 345, 300000, true, 7, TimerType.TELEBLOCK),
+	VENG("Vengeance", 726, 30000, false, 8, TimerType.VENG),
+	VENG_OTHER("Vengeance Other", 725, 30000, false, 9, TimerType.VENG),
+	NONE("Nothing", -69, 420, true, 9999, TimerType.THIS_SHIT_BROKE);
 
-	private String name;
-	private int font;
+	@Getter(AccessLevel.PACKAGE)
+	private final String name;
+	@Getter(AccessLevel.PACKAGE)
+	private final int spotAnimId;
+	@Getter(AccessLevel.PACKAGE)
+	private final int timerLengthTicks;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean halvable;
+	@Getter(AccessLevel.PACKAGE)
+	private final int spriteIdx;
+	@Getter(AccessLevel.PACKAGE)
+	private final TimerType type;
 
-	@Override
-	public String toString()
+	static PlayerSpellEffect getFromSpotAnim(int spotAnim)
 	{
-		return getName();
+		for (PlayerSpellEffect effect : values())
+		{
+			if (effect.getSpotAnimId() == spotAnim)
+			{
+				return effect;
+			}
+		}
+		return NONE;
 	}
+
 }

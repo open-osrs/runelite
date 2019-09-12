@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2019 Hydrox6 <ikada@protonmail.ch>
- * Copyright (c) 2019 Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, ganom <https://github.com/Ganom>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -11,7 +10,6 @@
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -23,42 +21,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.cluescrolls;
+package net.runelite.client.plugins.freezetimers;
 
-import net.runelite.api.coords.WorldPoint;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import org.junit.Test;
+import java.awt.Font;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public class ClueScrollPluginTest
+@Getter(AccessLevel.PACKAGE)
+@AllArgsConstructor
+public enum FontStyle
 {
-	@Test
-	public void getGetMirrorPoint()
+	BOLD("Bold", Font.BOLD),
+	ITALIC("Italic", Font.ITALIC),
+	PLAIN("Plain", Font.PLAIN);
+
+	private String name;
+	private int font;
+
+	@Override
+	public String toString()
 	{
-		WorldPoint point, converted;
-
-		// Zalcano's entrance portal
-		point = new WorldPoint(3282, 6058, 0);
-		converted = ClueScrollPlugin.getMirrorPoint(point, true);
-		assertNotEquals(point, converted);
-
-		// Elven Crystal Chest, which is upstairs
-		point = new WorldPoint(3273, 6082, 2);
-		converted = ClueScrollPlugin.getMirrorPoint(point, true);
-		assertNotEquals(point, converted);
-
-		// Around the area of the Elite coordinate clue
-		point = new WorldPoint(2185, 3280, 0);
-		// To overworld
-		converted = ClueScrollPlugin.getMirrorPoint(point, true);
-		assertEquals(point, converted);
-		// To real
-		converted = ClueScrollPlugin.getMirrorPoint(point, false);
-		assertNotEquals(point, converted);
-
-		// Brugsen Bursen, Grand Exchange
-		point = new WorldPoint(3165, 3477, 0);
-		converted = ClueScrollPlugin.getMirrorPoint(point, false);
-		assertEquals(point, converted);
+		return getName();
 	}
 }

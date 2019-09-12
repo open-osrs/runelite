@@ -36,7 +36,7 @@ public interface StatusBarsConfig extends Config
 		position = 1,
 		keyName = "enableCounter",
 		name = "Show counters",
-		description = "Shows the numeric value of HP and Prayer on the status bar"
+		description = "Shows currentValue value of the status on the bar"
 	)
 	default boolean enableCounter()
 	{

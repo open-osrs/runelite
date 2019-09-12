@@ -36,7 +36,6 @@ import net.runelite.api.Player;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
-import net.runelite.api.util.Text;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -53,11 +52,11 @@ import java.util.List;
 
 
 @PluginDescriptor(
-	name = "Drop Party",
-	description = "Marks where a user ran, for drop partys",
-	tags = {"Drop", "Party", "marker", "player"},
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Drop Party",
+		description = "Marks where a user ran, for drop partys",
+		tags = {"Drop", "Party", "marker", "player"},
+		type = PluginType.UTILITY,
+		enabledByDefault = false
 )
 @Singleton
 @Slf4j
@@ -138,7 +137,7 @@ public class DropPartyPlugin extends Plugin
 			{
 				continue;
 			}
-			if (Text.standardize(player.getName()).equalsIgnoreCase(playerName))
+			if (player.getName().equalsIgnoreCase(playerName))
 			{
 				runningPlayer = player;
 				break;

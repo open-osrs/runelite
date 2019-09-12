@@ -115,13 +115,6 @@ public class ClueScrollPlugin extends Plugin
 	private static final Color HIGHLIGHT_BORDER_COLOR = Color.ORANGE;
 	private static final Color HIGHLIGHT_HOVER_BORDER_COLOR = HIGHLIGHT_BORDER_COLOR.darker();
 	private static final Color HIGHLIGHT_FILL_COLOR = new Color(0, 255, 0, 20);
-	private static final int[] REGION_MIRRORS = {
-		// Prifddinas
-		12894, 8755,
-		12895, 8756,
-		13150, 9011,
-		13151, 9012
-	};
 
 	@Getter
 	private ClueScroll clue;
@@ -393,13 +386,12 @@ public class ClueScrollPlugin extends Plugin
 
 		if (clue instanceof LocationClueScroll)
 		{
-			final WorldPoint[] locations = ((LocationClueScroll) clue).getLocations();
+			final WorldPoint location = ((LocationClueScroll) clue).getLocation();
 
-			for (WorldPoint location : locations)
+			if (location != null)
 			{
 				// Only set the location hint arrow if we do not already have more accurate location
-				if (location.isInScene(client)
-					&& this.displayHintArrows
+				if (this.displayHintArrows
 					&& (client.getHintArrowNpc() == null
 					|| !npcsToMark.contains(client.getHintArrowNpc())))
 				{
@@ -626,11 +618,7 @@ public class ClueScrollPlugin extends Plugin
 			minX *= -1;
 		}
 
-		WorldPoint coordinate = coordinatesToWorldPoint(degX, minX, degY, minY);
-		// Convert from overworld to real
-		WorldPoint mirrorPoint = getMirrorPoint(coordinate, false);
-		// Use mirror point as mirrorLocation if there is one
-		return new CoordinateClue(text, coordinate, coordinate == mirrorPoint ? null : mirrorPoint);
+		return new CoordinateClue(text, coordinatesToWorldPoint(degX, minX, degY, minY));
 	}
 
 	/**
@@ -831,30 +819,5 @@ public class ClueScrollPlugin extends Plugin
 			list.getId(),
 			newScroll
 		);
-	}
-
-	/**
-	 * Translate a coordinate either between overworld and real, or real and overworld
-	 *
-	 * @param worldPoint
-	 * @param toOverworld whether to convert to overworld coordinates, or to real coordinates
-	 * @return
-	 */
-	public static WorldPoint getMirrorPoint(WorldPoint worldPoint, boolean toOverworld)
-	{
-		int region = worldPoint.getRegionID();
-		for (int i = 0; i < REGION_MIRRORS.length; i += 2)
-		{
-			int real = REGION_MIRRORS[i];
-			int overworld = REGION_MIRRORS[i + 1];
-
-			// Test against what we are converting from
-			if (region == (toOverworld ? real : overworld))
-			{
-				return WorldPoint.fromRegion(toOverworld ? overworld : real,
-					worldPoint.getRegionX(), worldPoint.getRegionY(), worldPoint.getPlane());
-			}
-		}
-		return worldPoint;
 	}
 }

@@ -37,8 +37,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
-import lombok.AccessLevel;
-import lombok.Getter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.MenuOpcode;
@@ -72,14 +70,6 @@ public class HiscorePlugin extends Plugin
 	private static final String KICK_OPTION = "Kick";
 	private static final ImmutableList<String> AFTER_OPTIONS = ImmutableList.of("Message", "Add ignore", "Remove friend", KICK_OPTION);
 	private static final Pattern BOUNTY_PATTERN = Pattern.compile("<col=ff0000>You've been assigned a target: (.*)</col>");
-
-	// config
-	private boolean playerOption;
-	private boolean menuOption;
-	@Getter(AccessLevel.PACKAGE)
-	private boolean virtualLevels;
-	private boolean autocomplete;
-	private boolean bountyLookup;
 
 	@Inject
 	@Nullable
@@ -116,7 +106,6 @@ public class HiscorePlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		addSubscriptions();
-		updateConfig();
 
 		hiscorePanel = injector.getInstance(HiscorePanel.class);
 
@@ -131,11 +120,11 @@ public class HiscorePlugin extends Plugin
 
 		clientToolbar.addNavigation(navButton);
 
-		if (this.playerOption && client != null)
+		if (config.playerOption() && client != null)
 		{
 			menuManager.get().addPlayerMenuItem(LOOKUP);
 		}
-		if (this.autocomplete)
+		if (config.autocomplete())
 		{
 			hiscorePanel.addInputKeyListener(autocompleter);
 		}
@@ -165,17 +154,13 @@ public class HiscorePlugin extends Plugin
 
 	private void onConfigChanged(ConfigChanged event)
 	{
-
-		if (!event.getGroup().equals("hiscore"))
+		if (event.getGroup().equals("hiscore"))
 		{
-			return;
-		}
-		updateConfig();
 			if (client != null)
 			{
 				menuManager.get().removePlayerMenuItem(LOOKUP);
 
-				if (this.playerOption)
+				if (config.playerOption())
 				{
 					menuManager.get().addPlayerMenuItem(LOOKUP);
 				}
@@ -183,7 +168,7 @@ public class HiscorePlugin extends Plugin
 
 			if (event.getKey().equals("autocomplete"))
 			{
-				if (this.autocomplete)
+				if (config.autocomplete())
 				{
 					hiscorePanel.addInputKeyListener(autocompleter);
 				}
@@ -193,11 +178,11 @@ public class HiscorePlugin extends Plugin
 				}
 			}
 		}
-
+	}
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!this.menuOption)
+		if (!config.menuOption())
 		{
 			return;
 		}
@@ -239,7 +224,7 @@ public class HiscorePlugin extends Plugin
 
 	private void onChatMessage(ChatMessage event)
 	{
-		if (!this.bountyLookup || !event.getType().equals(ChatMessageType.GAMEMESSAGE))
+		if (!config.bountylookup() || !event.getType().equals(ChatMessageType.GAMEMESSAGE))
 		{
 			return;
 		}
@@ -250,15 +235,6 @@ public class HiscorePlugin extends Plugin
 		{
 			lookupPlayer(m.group(1));
 		}
-	}
-
-	private void updateConfig()
-	{
-		this.playerOption = config.playerOption();
-		this.menuOption = config.menuOption();
-		this.virtualLevels = config.virtualLevels();
-		this.autocomplete = config.autocomplete();
-		this.bountyLookup = config.bountyLookup();
 	}
 
 	private void insertMenuEntry(MenuEntry newEntry, MenuEntry[] entries)

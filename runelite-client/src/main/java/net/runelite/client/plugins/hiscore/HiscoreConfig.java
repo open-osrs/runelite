@@ -81,7 +81,7 @@ public interface HiscoreConfig extends Config
 		name = "Bounty lookup",
 		description = "Automatically lookup the stats of your bounty hunter target"
 	)
-	default boolean bountyLookup()
+	default boolean bountylookup()
 	{
 		return false;
 	}

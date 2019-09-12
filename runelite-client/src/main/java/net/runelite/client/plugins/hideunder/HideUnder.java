@@ -83,11 +83,11 @@ public class HideUnder extends Plugin
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 	}
 
-	private void onGameStateChanged(GameStateChanged event)
+	public void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
 		{
-			client.setIsHidingEntities(isPlayerRegionAllowed());
+			client.setIsHidingEntities(true);
 		}
 	}
 
@@ -206,20 +206,5 @@ public class HideUnder extends Plugin
 				client.setLocalPlayerHidden(true);
 			}
 		}
-	}
-
-	private boolean isPlayerRegionAllowed()
-	{
-		final Player localPlayer = client.getLocalPlayer();
-
-		if (localPlayer == null)
-		{
-			return true;
-		}
-
-		final int playerRegionID = WorldPoint.fromLocalInstance(client, localPlayer.getLocalLocation()).getRegionID();
-
-		// 9520 = Castle Wars
-		return playerRegionID != 9520;
 	}
 }
