@@ -2,8 +2,7 @@
 name: CI Nightly Artifacts
 
 on: 
-  schedule:
-  - cron: 0 21 * * *
+  push:
 jobs:
   build:
     runs-on: windows-latest    
