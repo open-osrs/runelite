@@ -292,8 +292,7 @@ public class HotColdClue extends ClueScroll implements LocationClueScroll, Locat
 			return false;
 		}
 
-		// Convert from real to overworld
-		final WorldPoint localWorld = ClueScrollPlugin.getMirrorPoint(plugin.getClient().getLocalPlayer().getWorldLocation(), true);
+		final WorldPoint localWorld = plugin.getClient().getLocalPlayer().getWorldLocation();
 
 		if (localWorld == null)
 		{

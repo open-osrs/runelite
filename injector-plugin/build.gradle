@@ -1,4 +1,4 @@
-group = 'us.runelitepl.rs'
+group = 'net.runelite.rs'
 description = 'Injector'
 
 def buildPath = buildDir.toString().replace('\\', '/') // this doesnt work in an ext block for some reason

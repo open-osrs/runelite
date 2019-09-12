@@ -116,8 +116,8 @@ public interface WorldHopperConfig extends Config
 
 	@ConfigItem(
 		keyName = "removePVPWorld",
-		name = "Remove Hop-to menu option (PVP)",
-		description = "Removes Hop-to menu option for PVP worlds",
+		name = "remove Hop-to menu option (PVP)",
+		description = "removes Hop-to menu option for pvp worlds",
 		position = 7
 	)
 	default boolean removePVPWorld()

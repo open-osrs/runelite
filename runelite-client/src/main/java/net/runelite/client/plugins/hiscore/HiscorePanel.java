@@ -123,7 +123,7 @@ public class HiscorePanel extends PluginPanel
 	@Nullable
 	private Client client;
 
-	private final HiscorePlugin plugin;
+	private final HiscoreConfig config;
 
 	private final IconTextField searchBar;
 
@@ -141,10 +141,10 @@ public class HiscorePanel extends PluginPanel
 	private boolean loading = false;
 
 	@Inject
-	public HiscorePanel(HiscorePlugin plugin)
+	public HiscorePanel(HiscoreConfig config)
 	{
 		super();
-		this.plugin = plugin;
+		this.config = config;
 
 		// The layout seems to be ignoring the top margin and only gives it
 		// a 2-3 pixel margin, so I set the value to 18 to compensate
@@ -423,7 +423,7 @@ public class HiscorePanel extends PluginPanel
 				final long exp = s.getExperience();
 				final boolean isSkill = SKILLS.contains(skill);
 				int level = -1;
-				if (plugin.isVirtualLevels() && isSkill && exp > -1L)
+				if (config.virtualLevels() && isSkill && exp > -1L)
 				{
 					level = Experience.getLevelForXp((int) exp);
 				}

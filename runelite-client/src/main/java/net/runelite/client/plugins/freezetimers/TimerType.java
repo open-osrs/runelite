@@ -21,24 +21,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.statustimers;
+package net.runelite.client.plugins.freezetimers;
 
-import java.awt.image.BufferedImage;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.runelite.client.util.ImageUtil;
 
-@AllArgsConstructor
-@Getter(AccessLevel.PACKAGE)
 public enum TimerType
 {
-	FREEZE(5, ImageUtil.getResourceStreamFromClass(StatusTimers.class, "freeze.png"), ImageUtil.getResourceStreamFromClass(StatusTimers.class, "freezeimmune.png")),
-	VENG(-1, ImageUtil.getResourceStreamFromClass(StatusTimers.class, "veng.png"), null),
-	TELEBLOCK(75, ImageUtil.getResourceStreamFromClass(StatusTimers.class, "teleblock.png"), ImageUtil.getResourceStreamFromClass(StatusTimers.class, "teleblockimmune.png")),
-	THIS_SHIT_BROKE(-1, null, null);
+	FREEZE(3000),
+	VENG(0),
+	TELEBLOCK(45000),
+	THIS_SHIT_BROKE(-1);
 
+	@Getter(AccessLevel.PACKAGE)
 	private final int immunityTime;
-	private final BufferedImage image;
-	private final BufferedImage immunity;
+
+	TimerType(int immunityTime)
+	{
+		this.immunityTime = immunityTime;
+	}
 }

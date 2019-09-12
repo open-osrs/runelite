@@ -1,4 +1,4 @@
-group = 'us.runelitepl.rs'
+group = 'net.runelite.rs'
 description = 'RuneScape API'
 
 dependencies {
