@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.freezetimers;
+package net.runelite.client.plugins.statustimers;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
@@ -30,8 +30,8 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Stub;
 
-@ConfigGroup("freezetimers")
-public interface FreezeTimersConfig extends Config
+@ConfigGroup("statusTimers")
+public interface StatusTimersConfig extends Config
 {
 	@ConfigItem(
 		keyName = "timersStub",

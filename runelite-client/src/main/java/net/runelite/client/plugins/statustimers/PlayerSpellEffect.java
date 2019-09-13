@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2019, ganom <https://github.com/Ganom>
  * Copyright (c) 2019, pklite <https://github.com/pklite/pklite>
  * All rights reserved.
  *
@@ -21,65 +22,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.freezetimers;
+package net.runelite.client.plugins.statustimers;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Actor;
-import net.runelite.api.Client;
-import net.runelite.api.NPC;
-import net.runelite.api.Player;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Slf4j
-@Singleton
-class PrayerTracker
+@Getter(AccessLevel.PACKAGE)
+@AllArgsConstructor
+enum PlayerSpellEffect
 {
+	BARRAGE("Ice Barrage", 369, 32, false, 6, TimerType.FREEZE),
+	BIND("Bind", 181, 8, false, 0, TimerType.FREEZE),
+	BLITZ("Ice Blitz", 367, 24, false, 5, TimerType.FREEZE),
+	BURST("Ice Burst", 363, 16, false, 4, TimerType.FREEZE),
+	ENTANGLE("Entangle", 179, 24, false, 2, TimerType.FREEZE),
+	NONE("Nothing", -69, 420, true, 9999, TimerType.THIS_SHIT_BROKE),
+	RUSH("Ice Rush", 361, 8, false, 3, TimerType.FREEZE),
+	SNARE("Snare", 180, 16, false, 1, TimerType.FREEZE),
+	TELEBLOCK("Teleblock", 345, 500, true, 7, TimerType.TELEBLOCK),
+	VENG("Vengeance", 726, 50, false, 8, TimerType.VENG),
+	VENG_OTHER("Vengeance Other", 725, 50, false, 9, TimerType.VENG);
 
-	@Inject
-	private Client client;
+	private final String name;
+	private final int spotAnimId;
+	private final int timerLengthTicks;
+	private boolean halvable;
+	private final int spriteIdx;
+	private final TimerType type;
 
-	private final Map<Actor, HashMap<String, Integer>> lastTick = new HashMap<>();
-	private final Map<Actor, HashMap<String, Integer>> newTick = new HashMap<>();
-
-	public void gameTick()
+	static PlayerSpellEffect getFromSpotAnim(int spotAnim)
 	{
-		lastTick.clear();
-		lastTick.putAll(newTick);
-		newTick.clear();
-		for (Player p : client.getPlayers())
+		for (PlayerSpellEffect effect : values())
 		{
-			processActor(p);
+			if (effect.getSpotAnimId() == spotAnim)
+			{
+				return effect;
+			}
 		}
-		for (NPC npc : client.getNpcs())
-		{
-			processActor(npc);
-		}
-	}
-
-	private void processActor(Actor actor)
-	{
-		if (!newTick.containsKey(actor))
-		{
-			newTick.put(actor, new HashMap<>());
-		}
-		if (actor instanceof Player)
-		{
-			newTick.get(actor).put("PrayerIcon", ((Player) actor).getOverheadIcon() == null ? -1 : ((Player) actor).getOverheadIcon().ordinal());
-		}
-		newTick.get(actor).put("SpotAnim", actor.getSpotAnimation());
-	}
-
-	int getPrayerIconLastTick(Actor p)
-	{
-		return lastTick.getOrDefault(p, new HashMap<>()).getOrDefault("PrayerIcon", -1337);
-	}
-
-	int getSpotanimLastTick(Actor p)
-	{
-		return lastTick.getOrDefault(p, new HashMap<>()).getOrDefault("SpotAnim", -1337);
+		return NONE;
 	}
 
 }

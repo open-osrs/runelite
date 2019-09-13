@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, ganom <https://github.com/Ganom>
+ * Copyright (c) 2019, pklite <https://github.com/pklite/pklite>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -21,27 +21,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.freezetimers;
+package net.runelite.client.plugins.statustimers;
 
-import java.awt.Font;
+import java.awt.image.BufferedImage;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.runelite.client.util.ImageUtil;
 
-@Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum FontStyle
+@Getter(AccessLevel.PACKAGE)
+public enum TimerType
 {
-	BOLD("Bold", Font.BOLD),
-	ITALIC("Italic", Font.ITALIC),
-	PLAIN("Plain", Font.PLAIN);
+	FREEZE(5, ImageUtil.getResourceStreamFromClass(StatusTimers.class, "freeze.png"), ImageUtil.getResourceStreamFromClass(StatusTimers.class, "freezeimmune.png")),
+	VENG(-1, ImageUtil.getResourceStreamFromClass(StatusTimers.class, "veng.png"), null),
+	TELEBLOCK(75, ImageUtil.getResourceStreamFromClass(StatusTimers.class, "teleblock.png"), ImageUtil.getResourceStreamFromClass(StatusTimers.class, "teleblockimmune.png")),
+	THIS_SHIT_BROKE(-1, null, null);
 
-	private String name;
-	private int font;
-
-	@Override
-	public String toString()
-	{
-		return getName();
-	}
+	private final int immunityTime;
+	private final BufferedImage image;
+	private final BufferedImage immunity;
 }

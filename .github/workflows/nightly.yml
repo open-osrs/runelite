@@ -1,0 +1,26 @@
+
+name: CI Nightly Artifacts
+
+on: 
+  push:
+jobs:
+  build:
+    runs-on: windows-latest    
+    steps:
+    - uses: actions/checkout@v1
+    - run: curl -O "https://cdn.azul.com/zulu/bin/zulu8.40.0.25-ca-fx-jdk8.0.222-win_x64.zip"
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        architecture: x64
+        jdkFile: ./zulu8.40.0.25-ca-fx-jdk8.0.222-win_x64.zip
+        
+    - run: |
+        ./gradlew assemble -x test -x checkstyleMain
+        ./gradlew build -x test -x checkstyleMain
+        ./gradlew shadowJar -x test -x checkstyleMain
+               
+    - uses: actions/upload-artifact@v1.0.0
+      with:
+          name: RuneLitePlus-Nightlies.jar
+          path: ./runelite-client/build/libs
