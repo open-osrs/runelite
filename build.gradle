@@ -85,17 +85,18 @@ allprojects {
     apply plugin: 'maven'
     if (this.name != 'rs-client') apply plugin: 'checkstyle'
 
-    group = 'net.runelite'
-    version = '1.5.33-SNAPSHOT'
+    group = 'us.runelitepl'
+    version = '1.5.34-SNAPSHOT'
 
     ext {
-        rsversion = 182
+        rsversion = 183
         cacheversion = 165
-        plusVersion = '2.1.5.0'
+        plusVersion = '2.1.6.0'
 
         gitCommit = localGitCommit
         gitCommitShort = localGitCommitShort
         gitDirty = localGitDirty
+        
 
         rootPath = rootDir.toString().replace('\\', '/')
         injectedClassesPath = rootPath + "/injector-plugin/out/injected-client/"
