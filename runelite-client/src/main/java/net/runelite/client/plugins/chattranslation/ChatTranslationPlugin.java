@@ -222,7 +222,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 				try
 				{
 					//Automatically check language of message and translate to selected language.
-					String translation = translator.translate("auto", this.publicTargetLanguage.toString(), message);
+					String translation = translator.translate("auto", this.publicTargetLanguage.toShortString(), message);
 					if (translation != null)
 					{
 						final MessageNode messageNode = chatMessage.getMessageNode();
@@ -264,7 +264,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			{
 				try
 				{
-					client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, translator.translate("auto", config.playerTargetLanguage().toString(), message));
+					client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, translator.translate("auto", config.playerTargetLanguage().toShortString(), message));
 				}
 				catch (Exception e)
 				{
@@ -278,7 +278,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			try
 			{
 				//Automatically check language of message and translate to selected language.
-				String translation = translator.translate("auto", this.playerTargetLanguage.toString(), message);
+				String translation = translator.translate("auto", this.playerTargetLanguage.toShortString(), message);
 				if (translation != null)
 				{
 					client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, translation);
