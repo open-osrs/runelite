@@ -138,8 +138,9 @@ public class DropPartyPlugin extends Plugin
 			{
 				continue;
 			}
-			if (Text.standardize(player.getName()).equalsIgnoreCase(playerName))
+			if (player.getName().equalsIgnoreCase(playerName))
 			{
+				log.error("found running player");
 				runningPlayer = player;
 				break;
 			}

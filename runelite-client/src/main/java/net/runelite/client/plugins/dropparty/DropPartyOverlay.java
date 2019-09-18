@@ -27,6 +27,7 @@
  */
 package net.runelite.client.plugins.dropparty;
 
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -44,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.runelite.client.util.ColorUtil.setAlphaComponent;
-
+@Slf4j
 @Singleton
 public class DropPartyOverlay extends Overlay
 {
@@ -87,9 +88,8 @@ public class DropPartyOverlay extends Overlay
 				Polygon tilePoly = null;
 				if (local != null)
 				{
-					continue;
+					tilePoly = Perspective.getCanvasTileAreaPoly(client, local, 1);
 				}
-				tilePoly = Perspective.getCanvasTileAreaPoly(client, local, 1);
 
 				if (tilePoly != null)
 				{
