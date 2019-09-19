@@ -81,6 +81,7 @@ import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.plugins.menuentryswapper.util.ArdougneCloakMode;
 import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
 import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
@@ -175,6 +176,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private BurningAmuletMode getBurningAmuletMode;
 	private CharterOption charterOption;
 	private CombatBraceletMode getCombatBraceletMode;
+	private ArdougneCloakMode ardougneCloakMode;
 	private ConstructionCapeMode constructionCapeMode;
 	private DigsitePendantMode getDigsitePendantMode;
 	private DuelingRingMode getDuelingRingMode;
@@ -223,7 +225,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean getRingofWealth;
 	private boolean getSkillsNecklace;
 	private boolean getSlayerRing;
-	private boolean getSwapArdougneCape;
+	private boolean getSwapArdougneCloak;
 	private boolean getSwapBuyFifty;
 	private boolean getSwapBuyFive;
 	private boolean getSwapBuyOne;
@@ -856,10 +858,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			menuManager.addPriorityEntry("Buy All").setPriority(10);
 		}
 
-		if (this.getSwapArdougneCape)
+		if (this.getSwapArdougneCloak)
 		{
-			menuManager.addPriorityEntry("Kandarin Monastery");
-			menuManager.addPriorityEntry("Monastery Teleport");
+			menuManager.addPriorityEntry(this.ardougneCloakMode.toString()).setPriority(100);
+			menuManager.addPriorityEntry(this.ardougneCloakMode.toString2()).setPriority(100);
 		}
 
 		if (this.getSwapCraftingCape)
@@ -1277,8 +1279,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("Tan All");
 		menuManager.removePriorityEntry("Buy-plank", "Sawmill operator");
 		menuManager.removePriorityEntry("Buy All");
-		menuManager.removePriorityEntry("Kandarin Monastery");
-		menuManager.removePriorityEntry("Monastery Teleport");
+		menuManager.removePriorityEntry(this.ardougneCloakMode.toString());
+		menuManager.removePriorityEntry(this.ardougneCloakMode.toString2());
 		menuManager.removePriorityEntry("Teleport", "Crafting cape");
 		menuManager.removePriorityEntry("Teleport", "Crafting cape(t)");
 		menuManager.removePriorityEntry(this.constructionCapeMode.toString(), "Construct. cape");
@@ -1647,6 +1649,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.charterOption = config.charterOption();
 		this.configCustomShiftSwaps = config.shiftCustomSwaps();
 		this.configCustomSwaps = config.customSwaps();
+		this.ardougneCloakMode = config.ardougneCloakMode();
 		this.constructionCapeMode = config.constructionCapeMode();
 		this.getBurningAmulet = config.getBurningAmulet();
 		this.getBurningAmuletMode = config.getBurningAmuletMode();
@@ -1680,7 +1683,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.getSkillsNecklaceMode = config.getSkillsNecklaceMode();
 		this.getSlayerRing = config.getSlayerRing();
 		this.getSlayerRingMode = config.getSlayerRingMode();
-		this.getSwapArdougneCape = config.getSwapArdougneCape();
+		this.getSwapArdougneCloak = config.getSwapArdougneCloak();
 		this.getSwapBuyFifty = config.getSwapBuyFifty();
 		this.getSwapBuyFive = config.getSwapBuyFive();
 		this.getSwapBuyOne = config.getSwapBuyOne();

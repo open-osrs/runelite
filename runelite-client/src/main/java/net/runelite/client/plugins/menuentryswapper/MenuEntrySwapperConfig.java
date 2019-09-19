@@ -31,6 +31,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Keybind;
+import net.runelite.client.plugins.menuentryswapper.util.ArdougneCloakMode;
 import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
 import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
@@ -236,22 +237,36 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "swapArdougneCape",
-		name = "Ardougne Cape",
+		keyName = "swapArdougneCloak",
+		name = "Ardougne Cloak",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 2,
 		group = "Equipment swapper"
 	)
-	default boolean getSwapArdougneCape()
+	default boolean getSwapArdougneCloak()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+		keyName = "ardougneCloakMode",
+		name = "Mode",
+		description = "",
+		position = 3,
+		group = "Equipment swapper",
+		hidden = true,
+		unhide = "swapArdougneCloak"
+	)
+	default ArdougneCloakMode ardougneCloakMode()
+	{
+		return ArdougneCloakMode.TELE_TO_MONASTERY;
 	}
 
 	@ConfigItem(
 		keyName = "swapConstructionCape",
 		name = "Construction Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
-		position = 3,
+		position = 4,
 		group = "Equipment swapper"
 	)
 	default boolean getSwapConstructionCape()
@@ -263,7 +278,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "constructionCapeMode",
 		name = "Mode",
 		description = "",
-		position = 4,
+		position = 5,
 		group = "Equipment swapper",
 		hidden = true,
 		unhide = "swapConstructionCape"
@@ -277,7 +292,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapCraftingCape",
 		name = "Crafting Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
-		position = 5,
+		position = 6,
 		group = "Equipment swapper"
 	)
 	default boolean getSwapCraftingCape()
@@ -289,7 +304,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapMagicCape",
 		name = "Magic Cape",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
-		position = 6,
+		position = 7,
 		group = "Equipment swapper"
 	)
 	default boolean getSwapMagicCape()
@@ -301,7 +316,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapExplorersRing",
 		name = "Explorer's Ring",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
-		position = 7,
+		position = 8,
 		group = "Equipment swapper"
 	)
 	default boolean getSwapExplorersRing()
@@ -313,7 +328,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapAdmire",
 		name = "Admire",
 		description = "Swap 'Admire' with 'Teleport', 'Spellbook' and 'Perks' (max cape) for mounted skill capes.",
-		position = 8,
+		position = 9,
 		group = "Equipment swapper"
 	)
 	default boolean swapAdmire()
@@ -325,7 +340,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapQuestCape",
 		name = "Quest Cape",
 		description = "Enables swapping Quest cape options in worn interface.",
-		position = 9,
+		position = 10,
 		group = "Equipment swapper"
 	)
 	default boolean swapQuestCape()
@@ -337,7 +352,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "questCapeMode",
 		name = "Mode",
 		description = "",
-		position = 10,
+		position = 11,
 		group = "Equipment swapper",
 		hidden = true,
 		unhide = "swapQuestCape"
@@ -1178,13 +1193,13 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return FairyRingMode.LAST_DESTINATION;
 	}
-	
+
 	@ConfigItem(
-			keyName = "swapFairyTree",
-			name = "Fairy Tree",
-			description = "Swap options on PoH Fairy Tree",
-			position = 2,
-			group = "Teleportation"
+		keyName = "swapFairyTree",
+		name = "Fairy Tree",
+		description = "Swap options on PoH Fairy Tree",
+		position = 2,
+		group = "Teleportation"
 	)
 	default boolean swapFairyTree()
 	{
@@ -1192,13 +1207,13 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "fairyTree",
-			name = "Mode",
-			description = "",
-			position = 3,
-			group = "Teleportation",
-			hidden = true,
-			unhide = "swapFairyTree"
+		keyName = "fairyTree",
+		name = "Mode",
+		description = "",
+		position = 3,
+		group = "Teleportation",
+		hidden = true,
+		unhide = "swapFairyTree"
 	)
 	default FairyTreeMode swapFairyTreeMode()
 	{
