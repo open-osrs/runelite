@@ -43,6 +43,7 @@ import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.FairyTreeMode;
 import net.runelite.client.plugins.menuentryswapper.util.GamesNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.GloryMode;
+import net.runelite.client.plugins.menuentryswapper.util.HouseAdvertisementMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
 import net.runelite.client.plugins.menuentryswapper.util.MaxCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.NecklaceOfPassageMode;
@@ -639,10 +640,36 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "swapHouseAd",
+		name = "House Ad",
+		description = "Swap your house advertisement entries.",
+		position = 12,
+		section = "miscellaneousSection"
+	)
+	default boolean swapHouseAd()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "swapHouseAdMode",
+		name = "Mode",
+		description = "",
+		position = 13,
+		section = "miscellaneousSection",
+		hidden = true,
+		unhide = "swapHouseAd"
+	)
+	default HouseAdvertisementMode swapHouseAdMode()
+	{
+		return HouseAdvertisementMode.VIEW;
+	}
+
+	@ConfigItem(
 		keyName = "swapPrivate",
 		name = "Private",
 		description = "Swap 'Shared' with 'Private' on the Chambers of Xeric storage units.",
-		position = 12,
+		position = 15,
 		section = "miscellaneousSection"
 	)
 	default boolean swapPrivate()
@@ -654,7 +681,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapPick",
 		name = "Pick",
 		description = "Swap 'Pick' with 'Pick-lots' of the Gourd tree in the Chambers of Xeric.",
-		position = 13,
+		position = 15,
 		section = "miscellaneousSection"
 	)
 	default boolean swapPick()
@@ -666,7 +693,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapQuick",
 		name = "Quick Pass/Open/Start/Travel",
 		description = "Swap 'Pass' with 'Quick-Pass', 'Open' with 'Quick-Open', 'Ring' with 'Quick-Start' and 'Talk-to' with 'Quick-Travel'.",
-		position = 14,
+		position = 16,
 		section = "miscellaneousSection"
 	)
 	default boolean swapQuick()
@@ -678,7 +705,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapBoxTrap",
 		name = "Reset",
 		description = "Swap 'Check' with 'Reset' on box traps.",
-		position = 15,
+		position = 17,
 		section = "miscellaneousSection"
 	)
 	default boolean swapBoxTrap()
@@ -690,7 +717,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "rockCake",
 		name = "Rock Cake Guzzle",
 		description = "Enables Left Click 'Guzzle' on the Dwarven Rock Cake.",
-		position = 16,
+		position = 18,
 		section = "miscellaneousSection"
 	)
 	default boolean rockCake()
@@ -702,7 +729,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapRogueschests",
 		name = "Rogues Chests",
 		description = "Swap Rogues Chests from 'Open' to 'Search for traps'.",
-		position = 17,
+		position = 19,
 		section = "miscellaneousSection"
 	)
 	default boolean swapRogueschests()
@@ -714,7 +741,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapClimbUpDown",
 		name = "Climb",
 		description = "Swap 'Climb-Up'/'Climb-Down' depending on Shift or Control key.",
-		position = 18,
+		position = 20,
 		section = "miscellaneousSection"
 	)
 	default boolean swapClimbUpDown()
@@ -726,7 +753,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapStun",
 		name = "Stun Hoop Snakes",
 		description = "Swap 'Attack' with 'Stun'.",
-		position = 19,
+		position = 21,
 		section = "miscellaneousSection"
 	)
 	default boolean swapStun()
@@ -738,7 +765,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapSearch",
 		name = "Search",
 		description = "Swap 'Close', 'Shut' with 'Search' on chests, cupboards, etc.",
-		position = 20,
+		position = 22,
 		section = "miscellaneousSection"
 	)
 	default boolean swapSearch()
@@ -750,7 +777,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapHardWoodGrove",
 		name = "Hardwood Grove",
 		description = "Swap 'Quick-Pay(100)' and 'Send-Parcel' at Hardwood Grove.",
-		position = 21,
+		position = 23,
 		section = "miscellaneousSection"
 	)
 	default boolean swapHardWoodGrove()
@@ -763,7 +790,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "removeObjects",
 		name = "Remove Objects",
 		description = "Removes interaction with the listed objects.",
-		position = 22,
+		position = 24,
 		section = "miscellaneousSection"
 	)
 	default boolean getRemoveObjects()
@@ -775,7 +802,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "removedObjects",
 		name = "Objects",
 		description = "Objects listed here will have all interaction be removed.",
-		position = 23,
+		position = 25,
 		section = "miscellaneousSection",
 		hidden = true,
 		unhide = "removeObjects"
@@ -789,7 +816,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "swapImps",
 		name = "Impling Jars",
 		description = "Don't open implings if bank has a clue.",
-		position = 24,
+		position = 26,
 		section = "miscellaneousSection"
 	)
 	default boolean swapImps()
@@ -801,7 +828,7 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "charterOption",
 		name = "Trader Crew",
 		description = "Configure whether you want Charter or Trade to be the first option of Trader Crewmembers.",
-		position = 25,
+		position = 27,
 		section = "miscellaneousSection"
 	)
 	default CharterOption charterOption()
@@ -1289,7 +1316,7 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return FairyRingMode.LAST_DESTINATION;
 	}
-	
+
 	@ConfigItem(
 			keyName = "swapFairyTree",
 			name = "Fairy Tree",
