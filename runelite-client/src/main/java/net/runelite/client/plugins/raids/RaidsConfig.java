@@ -387,6 +387,18 @@ public interface RaidsConfig extends Config
 	@ConfigItem(
 		position = 26,
 		titleSection = "roomConfig",
+		keyName = "displayReloadableScout",
+		name = "Display Re-loadable Layouts",
+		description = "Lets you know when a Raid can be Re-loaded to reveal unknown rooms"
+	)
+	default boolean displayReloadableScout()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		position = 27,
+		titleSection = "roomConfig",
 		keyName = "whitelistedRooms",
 		name = "Whitelisted rooms",
 		description = "Display whitelisted rooms in green on the overlay. Separate with comma (full name)",
@@ -400,7 +412,7 @@ public interface RaidsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 27,
+		position = 28,
 		titleSection = "roomConfig",
 		keyName = "blacklistedRooms",
 		name = "Blacklisted rooms",
@@ -418,7 +430,7 @@ public interface RaidsConfig extends Config
 		keyName = "hideRooms",
 		name = "Hide Rooms",
 		description = "",
-		position = 28
+		position = 29
 	)
 	default Title hideRooms()
 	{
@@ -426,7 +438,7 @@ public interface RaidsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 29,
+		position = 30,
 		titleSection = "hideRooms",
 		keyName = "hideRopeless",
 		name = "Hide no Tightrope raids",
@@ -438,7 +450,7 @@ public interface RaidsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 30,
+		position = 31,
 		titleSection = "hideRooms",
 		keyName = "hideVanguards",
 		name = "Hide Vanguard raids",
@@ -450,7 +462,7 @@ public interface RaidsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 31,
+		position = 32,
 		titleSection = "hideRooms",
 		keyName = "hideUnknownCombat",
 		name = "Hide Unknown combat raids",
@@ -462,7 +474,7 @@ public interface RaidsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 32,
+		position = 33,
 		keyName = "partyDisplay",
 		name = "Party Info Display",
 		description = "Display an overlay that shows information about the current party"

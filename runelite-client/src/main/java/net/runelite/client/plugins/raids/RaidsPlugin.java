@@ -1293,6 +1293,6 @@ public class RaidsPlugin extends Plugin
 		this.hideVanguards = config.hideVanguards();
 		this.hideUnknownCombat = config.hideUnknownCombat();
 		this.partyDisplay = config.partyDisplay();
-		this.displayDCScout = config.displayDCScout();
+		this.displayDCScout = config.displayReloadableScout();
 	}
 }
