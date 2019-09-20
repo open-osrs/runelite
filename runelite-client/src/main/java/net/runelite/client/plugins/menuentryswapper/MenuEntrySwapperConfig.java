@@ -365,7 +365,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Mode",
 		description = "",
 		position = 3,
-		group = "Equipment swapper",
+		section = "equipmentSwapperSection",
 		hidden = true,
 		unhide = "swapArdougneCloak"
 	)
@@ -379,7 +379,6 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Construction Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 4,
-		group = "Equipment swapper"
 		section = "equipmentSwapperSection"
 	)
 	default boolean getSwapConstructionCape()
@@ -392,8 +391,7 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Mode",
 		description = "",
 		position = 5,
-		group = "Equipment swapper",
-		section = "equipmentSwapperSection"
+		section = "equipmentSwapperSection",
 		hidden = true,
 		unhide = "swapConstructionCape"
 	)
@@ -407,7 +405,6 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Crafting Cape",
 		description = "Enables swapping of 'Teleport' and 'Wear'.",
 		position = 6,
-		group = "Equipment swapper"
 		section = "equipmentSwapperSection"
 	)
 	default boolean getSwapCraftingCape()
@@ -420,7 +417,6 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Magic Cape",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
 		position = 7,
-		group = "Equipment swapper"
 		section = "equipmentSwapperSection"
 	)
 	default boolean getSwapMagicCape()
@@ -433,7 +429,6 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Explorer's Ring",
 		description = "Enables swapping of 'Spellbook' and 'Wear'.",
 		position = 8,
-		group = "Equipment swapper"
 		section = "equipmentSwapperSection"
 	)
 	default boolean getSwapExplorersRing()
@@ -446,7 +441,6 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Admire",
 		description = "Swap 'Admire' with 'Teleport', 'Spellbook' and 'Perks' (max cape) for mounted skill capes.",
 		position = 9,
-		group = "Equipment swapper"
 		section = "equipmentSwapperSection"
 	)
 	default boolean swapAdmire()
@@ -459,7 +453,6 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Quest Cape",
 		description = "Enables swapping Quest cape options in worn interface.",
 		position = 10,
-		group = "Equipment swapper"
 		section = "equipmentSwapperSection"
 	)
 	default boolean swapQuestCape()
@@ -472,7 +465,6 @@ public interface MenuEntrySwapperConfig extends Config
 		name = "Mode",
 		description = "",
 		position = 11,
-		group = "Equipment swapper",
 		section = "equipmentSwapperSection",
 		hidden = true,
 		unhide = "swapQuestCape"
@@ -1340,7 +1332,7 @@ public interface MenuEntrySwapperConfig extends Config
 		return FairyRingMode.LAST_DESTINATION;
 	}
 
-	@ConfigIte(
+	@ConfigItem(
 			keyName = "swapFairyTree",
 			name = "Fairy Tree",
 			description = "Swap options on PoH Fairy Tree",
