@@ -32,6 +32,7 @@ import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.google.common.primitives.Ints;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +51,7 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
+import net.runelite.api.ItemID;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
@@ -65,10 +67,13 @@ import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.util.Text;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.Keybind;
@@ -130,6 +135,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private static final String CONTROL = "menuentryswapper control";
 	private static final String HOTKEY_CHECK = "menuentryswapper hotkey check";
 	private static final String CONTROL_CHECK = "menuentryswapper control check";
+	private static final String LIGHT = "Light";
 	private static final int PURO_PURO_REGION_ID = 10307;
 	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
 		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
@@ -139,6 +145,20 @@ public class MenuEntrySwapperPlugin extends Plugin
 		.on("\n")
 		.omitEmptyStrings()
 		.trimResults();
+	private static final int[] burnableItems = new int[]
+		{
+			ItemID.LOGS,
+			ItemID.ACHEY_TREE_LOGS,
+			ItemID.OAK_LOGS,
+			ItemID.WILLOW_LOGS,
+			ItemID.TEAK_LOGS,
+			ItemID.ARCTIC_PINE_LOGS,
+			ItemID.MAPLE_LOGS,
+			ItemID.MAHOGANY_LOGS,
+			ItemID.YEW_LOGS,
+			ItemID.MAGIC_LOGS,
+			ItemID.REDWOOD_LOGS
+		};
 
 	@Inject
 	private Client client;
@@ -167,6 +187,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
 	private boolean inCoxRaid = false;
+
+	private int tinderboxIdx = -1;
+	private int tinderboxItem = -1;
+
 	@Setter(AccessLevel.PRIVATE)
 	private boolean hotkeyActive;
 	@Setter(AccessLevel.PRIVATE)
@@ -314,12 +338,20 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			setCastOptions(true);
 		}
+
+		if (config.enhancedFiremaking())
+		{
+			eventBus.subscribe(ItemContainerChanged.class, LIGHT, this::onItemContainerChanged);
+			eventBus.subscribe(MenuOptionClicked.class, LIGHT, this::onMenuOptionClicked);
+		}
 	}
 
 	@Override
 	public void shutDown()
 	{
 		eventBus.unregister(this);
+		eventBus.unregister(LIGHT);
+		tinderboxIdx = -1;
 
 		loadCustomSwaps("", customSwaps); // Removes all custom swaps
 		removeSwaps();
@@ -397,6 +429,18 @@ public class MenuEntrySwapperPlugin extends Plugin
 			case "removeObjects":
 			case "removedObjects":
 				updateRemovedObjects();
+				return;
+			case "enhancedFiremaking":
+				if (config.enhancedFiremaking())
+				{
+					eventBus.subscribe(ItemContainerChanged.class, LIGHT, this::onItemContainerChanged);
+					eventBus.subscribe(MenuOptionClicked.class, LIGHT, this::onMenuOptionClicked);
+				}
+				else
+				{
+					eventBus.unregister(LIGHT);
+					tinderboxIdx = -1;
+				}
 				return;
 		}
 
@@ -668,6 +712,56 @@ public class MenuEntrySwapperPlugin extends Plugin
 					break;
 			}
 		}
+
+		if (event.getType() == MenuOpcode.ITEM_USE.getId() && tinderboxIdx != -1 && Ints.contains(burnableItems, eventId))
+		{
+			event.getMenuEntry().setOption(LIGHT);
+			event.setWasModified(true);
+		}
+	}
+
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		if (event.getOpcode() == MenuOpcode.ITEM_USE.getId() && event.getOption().equals(LIGHT))
+		{
+			MenuEntry entry = event.getMenuEntry();
+			entry.setOpcode(MenuOpcode.ITEM_USE_ON_WIDGET_ITEM.getId());
+			client.setSelectedItemWidget(WidgetInfo.INVENTORY.getId());
+			client.setSelectedItemSlot(tinderboxIdx);
+			client.setSelectedItemID(tinderboxItem);
+		}
+	}
+
+	private void onItemContainerChanged(ItemContainerChanged event)
+	{
+		if (event.getContainerId() != InventoryID.INVENTORY.getId())
+		{
+			return;
+		}
+
+		Item[] items = event.getItemContainer().getItems();
+
+		if (tinderboxIdx >= 0 && tinderboxIdx < items.length &&
+			(items[tinderboxIdx].getId() == tinderboxItem || items[tinderboxIdx].getId() == tinderboxItem))
+		{
+			return;
+		}
+
+		for (int i = 0, itemsLength = items.length; i < itemsLength; i++)
+		{
+			final Item item = items[i];
+			final int itemID = item.getId();
+
+			// Could add all bows/firelighters etc but cba
+			if (itemID == ItemID.TINDERBOX || itemID == ItemID.GOLDEN_TINDERBOX)
+			{
+				tinderboxIdx = i;
+				tinderboxItem = itemID;
+				return;
+			}
+		}
+
+		tinderboxIdx = -1;
 	}
 
 	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map)

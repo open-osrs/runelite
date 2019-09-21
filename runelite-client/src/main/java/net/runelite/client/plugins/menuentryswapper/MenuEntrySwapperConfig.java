@@ -1898,4 +1898,14 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return "cure other, energy transfer, heal other, vengeance other";
 	}
+
+	@ConfigItem(
+		keyName = "enhancedFiremaking",
+		name = "Enhanced firemaking",
+		description = "Adds a 'Light' menu option to logs if you have a tinderbox in your inventory"
+	)
+	default boolean enhancedFiremaking()
+	{
+		return false;
+	}
 }

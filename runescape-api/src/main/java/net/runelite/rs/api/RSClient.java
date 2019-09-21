@@ -1054,4 +1054,16 @@ public interface RSClient extends RSGameShell, Client
 	@Import("insertMenuItem")
 	@Override
 	void insertMenuItem(String action, String target, int opcode, int identifier, int argument1, int argument2, boolean forceLeftClick);
+
+	@Import("selectedItemId")
+	@Override
+	void setSelectedItemID(int id);
+
+	@Import("selectedItemSlot")
+	@Override
+	void setSelectedItemSlot(int index);
+
+	@Import("selectedItemWidget")
+	@Override
+	void setSelectedItemWidget(int widgetID);
 }

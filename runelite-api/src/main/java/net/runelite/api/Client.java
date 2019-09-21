@@ -1794,4 +1794,8 @@ public interface Client extends GameShell
 	 * Adds a MenuEntry to the current menu.
 	 */
 	void insertMenuItem(String action, String target, int opcode, int identifier, int argument1, int argument2, boolean forceLeftClick);
+
+	void setSelectedItemID(int id);
+	void setSelectedItemWidget(int widgetID);
+	void setSelectedItemSlot(int idx);
 }
