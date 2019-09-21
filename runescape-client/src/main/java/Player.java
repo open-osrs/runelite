@@ -741,6 +741,7 @@ public final class Player extends Actor {
 		signature = "(IIIII)V",
 		garbageValue = "16777215"
 	)
+	@Export("selectSpell")
 	static void selectSpell(int widgetId, int childId, int clickMaskId, int id) {
 		Widget var4 = class49.getWidgetChild(widgetId, childId);
 		if (var4 != null && var4.onTargetEnter != null) {
