@@ -645,7 +645,7 @@ public class EnumDefinition extends DualNode {
 							var16 = class49.getWidgetChild(var1, var0);
 							if (var16 != null) {
 								FloorDecoration.Widget_runOnTargetLeave();
-								Player.changeSpellFlag(var1, var0, WorldMapElement.method4390(class60.getWidgetClickMask(var16)), var16.itemId);
+								Player.selectSpell(var1, var0, WorldMapElement.method4390(class60.getWidgetClickMask(var16)), var16.itemId);
 								Client.isItemSelected = 0;
 								Client.selectedSpellActionName = class16.method165(var16);
 								if (Client.selectedSpellActionName == null) {
