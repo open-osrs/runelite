@@ -686,7 +686,7 @@ public enum Varbits
 	/**
 	 * 1 is true, 0 is false.
 	 */
-	GAUNTLET_ENTERED(9178),
+	GAUNTLET_ENTERED(9178);
 
 	/**
 	 * The raw varbit ID.
