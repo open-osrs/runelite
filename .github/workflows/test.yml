@@ -1,4 +1,4 @@
-name: RunelitePlus
+name: RunelitePlus - Testing
 
 on: [pull_request, push]
 

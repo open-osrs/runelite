@@ -1,4 +1,4 @@
-name: RunelitePlus
+name: RunelitePlus - CI
 
 on: [pull_request, push]
 
