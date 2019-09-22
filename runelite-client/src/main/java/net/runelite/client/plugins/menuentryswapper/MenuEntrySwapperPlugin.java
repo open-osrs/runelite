@@ -1981,8 +1981,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (client.getGameState() == GameState.LOGGED_IN)
 			{
-			startHotkey();
-			setHotkeyActive(true);
+				startHotkey();
+				setHotkeyActive(true);
 			}
 		}
 
@@ -1991,8 +1991,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (client.getGameState() == GameState.LOGGED_IN)
 			{
-			stopHotkey();
-			setHotkeyActive(false);
+				stopHotkey();
+				setHotkeyActive(false);
 			}
 		}
 	};
@@ -2004,8 +2004,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (client.getGameState() == GameState.LOGGED_IN)
 			{
-			startControl();
-			setControlActive(true);
+				startControl();
+				setControlActive(true);
 			}
 		}
 
@@ -2014,8 +2014,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (client.getGameState() == GameState.LOGGED_IN)
 			{
-			stopControl();
-			setControlActive(false);
+				stopControl();
+				setControlActive(false);
 			}
 		}
 	};
