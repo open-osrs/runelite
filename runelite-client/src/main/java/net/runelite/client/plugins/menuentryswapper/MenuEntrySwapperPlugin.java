@@ -1979,6 +1979,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		@Override
 		public void hotkeyPressed()
 		{
+			if (client.getGameState() != GameState.LOGGED_IN)
+			{
+				return;
+			}
 			startHotkey();
 			setHotkeyActive(true);
 		}
@@ -1986,6 +1990,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		@Override
 		public void hotkeyReleased()
 		{
+			if (client.getGameState() != GameState.LOGGED_IN)
+			{
+				return;
+			}
 			stopHotkey();
 			setHotkeyActive(false);
 		}
@@ -1996,6 +2004,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		@Override
 		public void hotkeyPressed()
 		{
+			if (client.getGameState() != GameState.LOGGED_IN)
+			{
+				return;
+			}
+		
 			startControl();
 			setControlActive(true);
 		}
@@ -2003,6 +2016,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		@Override
 		public void hotkeyReleased()
 		{
+			if (client.getGameState() != GameState.LOGGED_IN)
+			{
+				return;
+			}
 			stopControl();
 			setControlActive(false);
 		}
