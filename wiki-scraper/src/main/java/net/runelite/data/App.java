@@ -64,6 +64,6 @@ public class App
 		// ItemLimitsDumper.dump(cacheStore, wiki);
 		// ItemStatsDumper.dump(cacheStore, wiki);
 
-		NpcStatsDumper.dump(cacheStore, wiki);
+		NpcStatsDumper.dump(cacheStore, wiki, new File(args[0]));
 	}
 }

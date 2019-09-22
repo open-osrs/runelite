@@ -28,7 +28,10 @@ task scrape {
         def path = sourceSets.main.runtimeClasspath
         def loader = new URLClassLoader(path.collect { f -> f.toURI().toURL() } as URL[])
         def scrape = loader.loadClass('net.runelite.data.App')
-        scrape.main();
+        String[] args = [
+                rootProject.file("./runelite-client/src/main/resources/")
+        ]
+        scrape.main(args);
 
         loader.close()
     }
