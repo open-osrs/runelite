@@ -23,9 +23,9 @@ jobs:
         run: ./gradlew :wiki-scraper:build --console=plain
       - name: Downloading jagex cache
         run: ./gradlew :cache-client:update --console=plain
-      - name: Scraping
-        run: ./gradlew :wiki-scraper:scrape --console=plain
-      - name: Create Pull Request
+      - name: Scraping NPC stats
+        run: ./gradlew :wiki-scraper:npcStatsScrape --console=plain
+      - name: Create NPC stats Pull Request
         uses: peter-evans/create-pull-request@v1.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,3 +33,13 @@ jobs:
           PULL_REQUEST_TITLE: 'Client: Update NPC stats'
           PULL_REQUEST_BODY: This is an auto-generated PR with changes from the OSRS wiki
           COMMIT_MESSAGE: 'Client: Update NPC stats'
+      - name: Scraping item stats
+        run: ./gradlew :wiki-scraper:npcStatsScrape --console=plain
+      - name: Create item stats Pull Request
+        uses: peter-evans/create-pull-request@v1.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_BRANCH: NPC-UPDATE
+          PULL_REQUEST_TITLE: 'Client: Update item stats'
+          PULL_REQUEST_BODY: This is an auto-generated PR with changes from the OSRS wiki
+          COMMIT_MESSAGE: 'Client: Update item stats'
