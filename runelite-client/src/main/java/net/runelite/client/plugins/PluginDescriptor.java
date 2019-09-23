@@ -60,4 +60,9 @@ public @interface PluginDescriptor
 	boolean loadWhenOutdated() default false;
 
 	PluginType type() default PluginType.GENERAL_USE;
+
+	/**
+	 * Version of the plugin, mainly used for external plugins.
+	 */
+	String version() default "";
 }
