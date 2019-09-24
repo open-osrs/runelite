@@ -403,13 +403,13 @@ public class NyloHandler extends RoomHandler
 
 		final int id = event.getIdentifier();
 		final Set<AbstractComparableEntry> entries = Weapons.getEntries(id);
+		menuManager.removeSwaps("Nylocas Hagios", "Nylocas Toxobolos", "Nylocas Ischyros");
 
 		if (entries.isEmpty())
 		{
 			return;
 		}
 
-		menuManager.removeSwaps("Nylocas Hagios", "Nylocas Toxobolos", "Nylocas Ischyros");
 		entries.forEach(menuManager::addHiddenEntry);
 	}
 
