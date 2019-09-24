@@ -47,45 +47,4 @@ public class ConfigPanelItem
 		this.children = new ArrayList<>();
 		this.item = item;
 	}
-
-	public List<ConfigPanelItem> getItemsAsList()
-	{
-		List<ConfigPanelItem> items = new ArrayList<>();
-
-		items.add(this);
-
-		for (ConfigPanelItem child : children)
-		{
-			items.addAll(child.getItemsAsList());
-		}
-		return items;
-	}
-
-	public int getDepth()
-	{
-		return (parent == null ? 0 : parent.getDepth() + 1);
-	}
-
-	public boolean addChildIfMatchParent(ConfigItemDescriptor cid)
-	{
-
-		if (item != null && item.getItem().keyName().equals(cid.getItem().parent()))
-		{
-			children.add(new ConfigPanelItem(this, cid));
-			return true;
-		}
-		else
-		{
-			for (ConfigPanelItem child : children)
-			{
-				if (child.addChildIfMatchParent(cid))
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-	}
-
 }

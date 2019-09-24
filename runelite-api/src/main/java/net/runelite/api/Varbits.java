@@ -688,16 +688,7 @@ public enum Varbits
 	 */
 	GAUNTLET_ENTERED(9178),
 
-	/**
-	 * 1 if full of Mushrooms, 0 is empty.
-	 */
-	MUSHY_PIT(5809),
-
-	/**
-	 * Current location of Sulliuscep tree.
-	 */
-	SULLIUSCEP_LOCATION(5808);
-
+	WITHDRAW_X_AMOUNT(3960);
 
 	/**
 	 * The raw varbit ID.

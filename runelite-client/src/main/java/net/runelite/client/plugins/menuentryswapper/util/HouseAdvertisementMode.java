@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Craftiii4 <craftiii4@gmail.com>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,31 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.config;
+package net.runelite.client.plugins.menuentryswapper.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import net.runelite.client.menus.AbstractComparableEntry;
+import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 
-public class ConfigItemsGroup
+@Getter
+@RequiredArgsConstructor
+public enum HouseAdvertisementMode
 {
+	VIEW("View", newBaseComparableEntry("View", "House Advertisement")),
+	ADD_HOUSE("Add-House", newBaseComparableEntry("Add-House", "House Advertisement")),
+	VISIT_LAST("Visit-Last", newBaseComparableEntry("Visit-Last", "House Advertisement"));
 
-	@Getter(AccessLevel.PUBLIC)
-	private final String group;
+	private final String name;
+	private final AbstractComparableEntry entry;
 
-	@Getter(AccessLevel.PUBLIC)
-	private Collection<ConfigItemDescriptor> items;
-
-	public ConfigItemsGroup(String group)
+	@Override
+	public String toString()
 	{
-		this.group = group;
-		this.items = new ArrayList<>();
+		return name;
 	}
-
-	public void addItem(ConfigItemDescriptor item)
-	{
-		items.add(item);
-	}
-
 }
