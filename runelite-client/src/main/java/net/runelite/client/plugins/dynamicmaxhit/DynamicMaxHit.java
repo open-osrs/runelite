@@ -378,7 +378,7 @@ public class DynamicMaxHit extends Plugin
 					result = null;
 					try
 					{
-						Thread.sleep(50);
+						Thread.sleep(1000);
 					}
 					catch (InterruptedException e)
 					{
