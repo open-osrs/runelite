@@ -298,18 +298,26 @@ public class DamageCounterPlugin extends Plugin
 	{
 		int playerCount = getPlayers();
 		String MessageDamage;
-		if (playerCount >= 2 && playerCount <= 5) {
-			if (percent >= (2.0 / playerCount) * 100) {
+		if (playerCount >= 2 && playerCount <= 5) 
+		{
+			if (percent >= (2.0 / playerCount) * 100) 
+			{
 				MessageDamage = "[Exceptional performance] Damage dealt to " + actor.getName() + ": "
 						+ DAMAGEFORMAT.format(DamageCount) + " (" + String.format("%.2f", percent) + "%)";
-			} else if (percent >= (1.0 / playerCount) * 100) {
+			} 
+			else if (percent >= (1.0 / playerCount) * 100) 
+			{
 				MessageDamage = "[Above-average performance] Damage dealt to " + actor.getName() + ": "
 						+ DAMAGEFORMAT.format(DamageCount) + " (" + String.format("%.2f", percent) + "%)";
-			} else {
+			} 
+			else 
+			{
 				MessageDamage = "[Under performance] Damage dealt to " + actor.getName() + ": "
 						+ DAMAGEFORMAT.format(DamageCount) + " (" + String.format("%.2f", percent) + "%)";
 			}
-		} else {
+		}
+		else 
+		{
 			MessageDamage = "Damage dealt to " + actor.getName() + ": "
 					+ DAMAGEFORMAT.format(DamageCount) + " (" + String.format("%.2f", percent) + "%)";
 		}
@@ -319,7 +327,8 @@ public class DamageCounterPlugin extends Plugin
 		sendChatMessage(MessageTaken);
 	}
 
-	public int getPlayers(){
+	public int getPlayers()
+	{
 		List<Player> players = client.getPlayers();
 		int numPlayers = players.size();
 
