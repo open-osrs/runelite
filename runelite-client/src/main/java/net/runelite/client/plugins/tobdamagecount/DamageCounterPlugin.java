@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.tobdamagecount;
 
 import java.text.DecimalFormat;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Actor;
@@ -50,6 +51,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.plugins.getPlayers.NumPlayers;
 
 @PluginDescriptor(
 	name = "ToB Damage Counter",
