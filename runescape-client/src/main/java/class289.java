@@ -117,7 +117,7 @@ public class class289 {
                               }
 
                               var8.field_27 -= var5 * 128;
-                              var8.field_28 -= var6 * -595411840;
+                              var8.field_28 -= var6 * 128;
                         }
                   }
 
@@ -130,7 +130,7 @@ public class class289 {
                               }
 
                               var21.field_27 -= var5 * 128;
-                              var21.field_28 -= var6 * -595411840;
+                              var21.field_28 -= var6 * 128;
                         }
                   }
 

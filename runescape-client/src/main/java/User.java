@@ -34,7 +34,8 @@ public class User implements Comparable {
             signature = "(I)Ljava/lang/String;",
             garbageValue = "-835299696"
       )
-      public String method4967() {
+      @Export("getName")
+      public String getName() {
             return this.username == null ? "" : this.username.getName();
       }
 
@@ -43,7 +44,8 @@ public class User implements Comparable {
             signature = "(B)Ljava/lang/String;",
             garbageValue = "116"
       )
-      public String method4965() {
+      @Export("getPreviousName")
+      public String getPreviousName() {
             return this.previousUsername == null ? "" : this.previousUsername.getName();
       }
 

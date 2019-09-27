@@ -41,7 +41,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
                   super.minPlane = var1.readUnsignedByte();
                   super.planes = var1.readUnsignedByte();
                   super.regionXLow = var1.readUnsignedShort() * 64;
-                  super.regionYLow = var1.readUnsignedShort() * 4096;
+                  super.regionYLow = var1.readUnsignedShort() * 64;
                   super.regionX = var1.readUnsignedShort();
                   super.regionY = var1.readUnsignedShort();
                   super.groupId = var1.method5438();
@@ -136,8 +136,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
                                           var11 = var0[var6].isMembersOnly() ? 1 : 0;
                                           var12 = var8.isMembersOnly() ? 1 : 0;
                                     } else {
-                                          var11 = var0[var6].field_59;
-                                          var12 = var8.field_59;
+                                          var11 = var0[var6].field_60;
+                                          var12 = var8.field_60;
                                     }
 
                                     if (var11 != var12) {
@@ -176,8 +176,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
                                           var11 = var0[var5].isMembersOnly() ? 1 : 0;
                                           var12 = var8.isMembersOnly() ? 1 : 0;
                                     } else {
-                                          var11 = var0[var5].field_59;
-                                          var12 = var8.field_59;
+                                          var11 = var0[var5].field_60;
+                                          var12 = var8.field_60;
                                     }
 
                                     if (var12 != var11) {
@@ -253,8 +253,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
             signature = "(ILhp;Ljava/lang/String;Ljava/lang/String;IZS)V",
             garbageValue = "6590"
       )
-      @Export("playMusicTrackByName")
-      public static void playMusicTrackByName(int var0, AbstractArchive var1, String var2, String var3, int var4, boolean var5) {
+      public static void method194(int var0, AbstractArchive var1, String var2, String var3, int var4, boolean var5) {
             int var6 = var1.getGroupId(var2);
             int var7 = var1.getFileId(var6, var3);
             class197.field2386 = 1;
@@ -386,7 +385,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
                                           return 1;
                                     } else if (var0 == ScriptOpcodes.CHAR_ISALPHA) {
                                           var10 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                                          Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = UserComparator7.method3369((char)var10) ? 1 : 0;
+                                          Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = UserComparator7.isCharAlphabetic((char)var10) ? 1 : 0;
                                           return 1;
                                     } else if (var0 == ScriptOpcodes.CHAR_ISNUMERIC) {
                                           var10 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
@@ -438,7 +437,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
                                           var5 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.indexOf(var9, var5);
                                           return 1;
-                                    } else if (var0 == ScriptOpcodes.UPPERCASE) {
+                                    } else if (var0 == 4122) {
                                           var3 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
                                           Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.toUpperCase();
                                           return 1;

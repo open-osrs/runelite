@@ -81,7 +81,7 @@ public class Friend extends Buddy {
       @Export("drawEntities")
       static final void drawEntities(int var0, int var1, int var2, int var3) {
             ++Client.viewportDrawCount;
-            if (class223.localPlayer.field_27 >> 7 == Client.destinationX && class223.localPlayer.field_28 * 682054857 >> 7 == Client.destinationY) {
+            if (class223.localPlayer.field_27 >> 7 == Client.destinationX && class223.localPlayer.field_28 >> 7 == Client.destinationY) {
                   Client.destinationX = 0;
             }
 
@@ -93,7 +93,7 @@ public class Friend extends Buddy {
             class4.addNpcsToScene(true);
             Login.method2110();
             class4.addNpcsToScene(false);
-            DynamicObject.drawProjectiles();
+            DynamicObject.method2221();
 
             for(GraphicsObject var4 = (GraphicsObject)Client.graphicsObjects.last(); var4 != null; var4 = (GraphicsObject)Client.graphicsObjects.previous()) {
                   if (var4.plane == WorldMapRectangle.plane && !var4.isFinished) {
@@ -135,7 +135,7 @@ public class Friend extends Buddy {
 
                   var5 = Client.camAngleY & 2047;
                   var6 = ObjectSound.oculusOrbFocalPointX;
-                  var7 = ModelData0.field1840 * -1351160427;
+                  var7 = ModelData0.field1840;
                   var8 = class14.oculusOrbFocalPointY;
                   var11 = var15 * 3 + 600;
                   NPCDefinition.method4665(var6, var7, var8, var15, var5, var11, var3);
@@ -158,7 +158,7 @@ public class Friend extends Buddy {
                                           var8 = class14.oculusOrbFocalPointY >> 7;
                                     } else {
                                           var7 = class223.localPlayer.field_27 >> 7;
-                                          var8 = class223.localPlayer.field_28 * 682054857 >> 7;
+                                          var8 = class223.localPlayer.field_28 >> 7;
                                     }
 
                                     var9 = GrandExchangeOfferOwnWorldComparator.cameraX >> 7;
@@ -250,8 +250,8 @@ public class Friend extends Buddy {
                                     }
                               }
 
-                              if (class223.localPlayer.field_27 >= 0 && class223.localPlayer.field_28 * 682054857 >= 0 && class223.localPlayer.field_27 < 13312 && class223.localPlayer.field_28 * 682054857 < 13312) {
-                                    if ((Tiles.Tiles_renderFlags[WorldMapRectangle.plane][class223.localPlayer.field_27 >> 7][class223.localPlayer.field_28 * 682054857 >> 7] & 4) != 0) {
+                              if (class223.localPlayer.field_27 >= 0 && class223.localPlayer.field_28 >= 0 && class223.localPlayer.field_27 < 13312 && class223.localPlayer.field_28 < 13312) {
+                                    if ((Tiles.Tiles_renderFlags[WorldMapRectangle.plane][class223.localPlayer.field_27 >> 7][class223.localPlayer.field_28 >> 7] & 4) != 0) {
                                           var6 = WorldMapRectangle.plane;
                                     }
 
@@ -315,7 +315,7 @@ public class Friend extends Buddy {
             if (var10 >= var0 && var10 < var0 + var2 && var11 >= var1 && var11 < var3 + var1) {
                   WorldMapSection1.method582(var10 - var0, var11 - var1);
             } else {
-                  MenuAction.ViewportMouse_clear();
+                  MenuAction.method2062();
             }
 
             WorldMapID.playPcmPlayers();
@@ -332,7 +332,7 @@ public class Friend extends Buddy {
             ((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).animate(Client.field698);
             Client.field634 = 0;
             var13 = class223.baseX * 64 + (class223.localPlayer.field_27 >> 7);
-            var14 = class286.baseY * 64 + (class223.localPlayer.field_28 * 682054857 >> 7);
+            var14 = class286.baseY * 64 + (class223.localPlayer.field_28 >> 7);
             if (var13 >= 3053 && var13 <= 3156 && var14 >= 3056 && var14 <= 3136) {
                   Client.field634 = 1;
             }

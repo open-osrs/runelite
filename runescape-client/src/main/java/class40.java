@@ -756,7 +756,7 @@ public class class40 {
                   } else if (var0 == ScriptOpcodes.CC_CLEAROPS) {
                         var4.actions = null;
                         return 1;
-                  } else if (var0 == 1308) {
+                  } else if (var0 == ScriptOpcodes._1308) {
                         var4.field2687 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
                         return 1;
                   } else {
@@ -846,8 +846,7 @@ public class class40 {
             signature = "(II)Ljava/lang/String;",
             garbageValue = "-2143921100"
       )
-      @Export("getMenuText")
-      static String getMenuText(int var0) {
+      static String method799(int var0) {
             if (var0 < 0) {
                   return "";
             } else {

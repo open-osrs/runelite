@@ -32,7 +32,7 @@ public class class237 {
 
             int var4;
             for(byte var3 = 12; var1 < 16; var2 -= var3) {
-                  var4 = class56.method1158((double)((float)var2 / 360.0F), 0.9998999834060669D, (double)(0.075F + 0.425F * (float)var1 / 16.0F));
+                  var4 = ScriptFrame.method1158((double)((float)var2 / 360.0F), 0.9998999834060669D, (double)(0.075F + 0.425F * (float)var1 / 16.0F));
                   class267.field3540[var1] = var4;
                   ++var1;
             }
@@ -42,7 +42,7 @@ public class class237 {
             for(int var6 = var2 / 6; var1 < class267.field3540.length; var2 -= var6) {
                   var4 = var1 * 2;
 
-                  for(int var5 = class56.method1158((double)((float)var2 / 360.0F), 0.9998999834060669D, 0.5D); var1 < var4 && var1 < class267.field3540.length; ++var1) {
+                  for(int var5 = ScriptFrame.method1158((double)((float)var2 / 360.0F), 0.9998999834060669D, 0.5D); var1 < var4 && var1 < class267.field3540.length; ++var1) {
                         class267.field3540[var1] = var5;
                   }
             }
@@ -90,7 +90,7 @@ public class class237 {
       @ObfuscatedName("v")
       @ObfuscatedSignature(
             signature = "(IIB)V",
-            garbageValue = "5"
+            garbageValue = "-43"
       )
       public final void method4289(int var1, int var2) {
             if (this.field3165 < this.field3163.length) {
@@ -103,7 +103,7 @@ public class class237 {
       @ObfuscatedName("u")
       @ObfuscatedSignature(
             signature = "(I)V",
-            garbageValue = "1070284652"
+            garbageValue = "1335191014"
       )
       public final void method4288() {
             this.field3165 = 0;

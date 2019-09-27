@@ -67,7 +67,8 @@ public class GrandExchangeEvent {
             signature = "(I)Ljava/lang/String;",
             garbageValue = "1720570985"
       )
-      public String method89() {
+      @Export("getPreviousOfferName")
+      public String getPreviousOfferName() {
             return this.previousOfferName;
       }
 

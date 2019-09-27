@@ -16,6 +16,9 @@ public abstract class Actor extends Entity {
       int field_27;
       // $FF: renamed from: y int
       @ObfuscatedName("ap")
+      @ObfuscatedGetter(
+            intValue = 682054857
+      )
       @Export("y")
       int field_28;
       @ObfuscatedName("ar")
@@ -28,8 +31,7 @@ public abstract class Actor extends Entity {
       @Export("isWalking")
       boolean isWalking = false;
       @ObfuscatedName("ax")
-      @Export("size")
-      int size = 772175475;
+      int field932 = 772175475;
       @ObfuscatedName("as")
       @ObfuscatedGetter(
             intValue = -334562759
@@ -164,7 +166,8 @@ public abstract class Actor extends Entity {
       @ObfuscatedGetter(
             intValue = -1979514767
       )
-      int field953 = 0;
+      @Export("movementFrameCycle")
+      int movementFrameCycle = 0;
       @ObfuscatedName("bn")
       @ObfuscatedGetter(
             intValue = -1879648645

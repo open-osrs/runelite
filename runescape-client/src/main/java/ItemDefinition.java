@@ -864,8 +864,7 @@ public class ItemDefinition extends DualNode {
             signature = "(B)Lbl;",
             garbageValue = "66"
       )
-      @Export("loadClientPreferences")
-      static ClientPreferences loadClientPreferences() {
+      static ClientPreferences method4655() {
             AccessFile var0 = null;
             ClientPreferences var1 = new ClientPreferences();
 

@@ -79,7 +79,7 @@ public class GraphicsDefaults {
       )
       @Export("decode")
       public void decode(AbstractArchive var1) {
-            byte[] var2 = var1.takeFileFlat(PrivateChatMode.field3794.group);
+            byte[] var2 = var1.takeFileFlat(DefaultsGroup.field3794.group);
             Buffer var3 = new Buffer(var2);
 
             while(true) {

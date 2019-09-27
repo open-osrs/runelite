@@ -157,8 +157,8 @@ public class class3 implements Enumerated {
 
                         if (var2 > var4.field1060 * 16384) {
                               var5 += var2 - var4.field1060 * 16384;
-                        } else if (var2 < var4.field_8 * 16384) {
-                              var5 += var4.field_8 * 16384 - var2;
+                        } else if (var2 < var4.field_8 * 128) {
+                              var5 += var4.field_8 * 128 - var2;
                         }
 
                         if (var5 - 64 <= var4.field1061 && Client.field868 != 0 && var0 == var4.plane) {
@@ -290,8 +290,7 @@ public class class3 implements Enumerated {
             signature = "(IIIIIIILex;Lfa;S)V",
             garbageValue = "23648"
       )
-      @Export("addPendingGameObject")
-      static final void addPendingGameObject(int var0, int var1, int var2, int var3, int var4, int var5, int var6, Scene var7, CollisionMap var8) {
+      static final void method50(int var0, int var1, int var2, int var3, int var4, int var5, int var6, Scene var7, CollisionMap var8) {
             ObjectDefinition var9 = GrandExchangeOfferOwnWorldComparator.getObjectDefinition(var4);
             int var10;
             int var11;
@@ -520,7 +519,7 @@ public class class3 implements Enumerated {
       )
       static void method47(int var0, int var1) {
             MenuAction var2 = ParamDefinition.tempMenuAction;
-            class239.menuAction(var2.argument1, var2.argument2, var2.opcode, var2.argument0, var2.action, var2.action, var0, var1);
+            InvDefinition.menuAction(var2.argument1, var2.argument2, var2.opcode, var2.argument0, var2.action, var2.action, var0, var1);
             ParamDefinition.tempMenuAction = null;
       }
 }

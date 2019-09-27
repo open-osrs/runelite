@@ -50,13 +50,13 @@ public class LoginPacket implements class181 {
             intValue = -1737377539
       )
       @Export("id")
-      public final int field_39;
+      public final int field_40;
 
       static {
             LoginPacket[] var0 = class192.method3640();
 
             for(int var1 = 0; var1 < var0.length; ++var1) {
-                  LoginPacket_indexedValues[var0[var1].field_39] = var0[var1];
+                  LoginPacket_indexedValues[var0[var1].field_40] = var0[var1];
             }
 
       }
@@ -66,7 +66,7 @@ public class LoginPacket implements class181 {
             garbageValue = "0"
       )
       LoginPacket(int var1, int var2) {
-            this.field_39 = var1;
+            this.field_40 = var1;
       }
 
       @ObfuscatedName("z")
@@ -197,10 +197,10 @@ public class LoginPacket implements class181 {
 
                   if (Client.gameState != 5) {
                         if (Login.field1181 == -1L) {
-                              Login.field1181 = class30.currentTimeMs() + 1000L;
+                              Login.field1181 = class30.method566() + 1000L;
                         }
 
-                        long var12 = class30.currentTimeMs();
+                        long var12 = class30.method566();
                         boolean var3;
                         if (Client.archiveLoaders != null && Client.archiveLoaderArchive < Client.archiveLoaders.size()) {
                               while(true) {

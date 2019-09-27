@@ -31,14 +31,14 @@ public final class WallDecoration {
             intValue = 1787906731
       )
       @Export("x")
-      int field_65;
+      int field_66;
       // $FF: renamed from: y int
       @ObfuscatedName("u")
       @ObfuscatedGetter(
             intValue = -337099317
       )
       @Export("y")
-      int field_66;
+      int field_67;
       @ObfuscatedName("r")
       @ObfuscatedGetter(
             intValue = 1549979331

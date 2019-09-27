@@ -20,7 +20,7 @@ public class WorldMapArea {
             intValue = -321078873
       )
       @Export("id")
-      int field_50 = -1;
+      int field_51 = -1;
       @ObfuscatedName("n")
       @Export("internalName")
       String internalName;
@@ -83,7 +83,7 @@ public class WorldMapArea {
       )
       @Export("read")
       public void read(Buffer var1, int var2) {
-            this.field_50 = var2;
+            this.field_51 = var2;
             this.internalName = var1.readStringCp1252NullTerminated();
             this.externalName = var1.readStringCp1252NullTerminated();
             this.origin = new Coord(var1.readInt());
@@ -250,7 +250,7 @@ public class WorldMapArea {
       )
       @Export("getId")
       public int getId() {
-            return this.field_50;
+            return this.field_51;
       }
 
       @ObfuscatedName("y")
@@ -278,7 +278,8 @@ public class WorldMapArea {
             signature = "(B)Ljava/lang/String;",
             garbageValue = "24"
       )
-      public String method362() {
+      @Export("getExternalName")
+      public String getExternalName() {
             return this.externalName;
       }
 
@@ -349,7 +350,7 @@ public class WorldMapArea {
       )
       @Export("getOriginX")
       public int getOriginX() {
-            return this.origin.field_53;
+            return this.origin.field_54;
       }
 
       @ObfuscatedName("f")
@@ -369,7 +370,7 @@ public class WorldMapArea {
       )
       @Export("getOriginY")
       public int getOriginY() {
-            return this.origin.field_54;
+            return this.origin.field_55;
       }
 
       @ObfuscatedName("d")
@@ -389,7 +390,7 @@ public class WorldMapArea {
       )
       public static void method430(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2) {
             HitSplatDefinition.HitSplatDefinition_archive = var0;
-            GrandExchangeOfferNameComparator.HitSplatDefinition_spritesArchive = var1;
+            GrandExchangeOfferNameComparator.field66 = var1;
             HitSplatDefinition.HitSplatDefinition_fontsArchive = var2;
       }
 

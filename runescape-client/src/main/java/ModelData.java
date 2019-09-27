@@ -1330,19 +1330,19 @@ public class ModelData extends Entity {
 
                         if (var15 == 0) {
                               VertexNormal var16 = this.vertexNormals[var2];
-                              var16.field_46 += var11;
-                              var16.field_47 += var12;
-                              var16.field_48 += var13;
+                              var16.field_47 += var11;
+                              var16.field_48 += var12;
+                              var16.field_49 += var13;
                               ++var16.magnitude;
                               var16 = this.vertexNormals[var3];
-                              var16.field_46 += var11;
-                              var16.field_47 += var12;
-                              var16.field_48 += var13;
+                              var16.field_47 += var11;
+                              var16.field_48 += var12;
+                              var16.field_49 += var13;
                               ++var16.magnitude;
                               var16 = this.vertexNormals[var4];
-                              var16.field_46 += var11;
-                              var16.field_47 += var12;
-                              var16.field_48 += var13;
+                              var16.field_47 += var11;
+                              var16.field_48 += var12;
+                              var16.field_49 += var13;
                               ++var16.magnitude;
                         } else if (var15 == 1) {
                               if (this.faceNormals == null) {
@@ -1350,9 +1350,9 @@ public class ModelData extends Entity {
                               }
 
                               FaceNormal var17 = this.faceNormals[var1] = new FaceNormal();
-                              var17.field_60 = var11;
-                              var17.field_61 = var12;
-                              var17.field_62 = var13;
+                              var17.field_61 = var11;
+                              var17.field_62 = var12;
+                              var17.field_63 = var13;
                         }
                   }
 
@@ -1508,7 +1508,7 @@ public class ModelData extends Entity {
                         if (var17 != 0) {
                               if (var17 == 1) {
                                     var19 = this.faceNormals[var16];
-                                    var14 = (var4 * var19.field_61 + var5 * var19.field_62 + var3 * var19.field_60) / (var7 / 2 + var7) + var1;
+                                    var14 = (var4 * var19.field_62 + var5 * var19.field_63 + var3 * var19.field_61) / (var7 / 2 + var7) + var1;
                                     var8.faceColors1[var16] = method2777(this.faceColors[var16] & '\uffff', var14);
                                     var8.faceColors3[var16] = -1;
                               } else if (var17 == 3) {
@@ -1525,7 +1525,7 @@ public class ModelData extends Entity {
                                     var13 = this.vertexNormals[this.indices1[var16]];
                               }
 
-                              var14 = (var4 * var13.field_47 + var5 * var13.field_48 + var3 * var13.field_46) / (var7 * var13.magnitude) + var1;
+                              var14 = (var4 * var13.field_48 + var5 * var13.field_49 + var3 * var13.field_47) / (var7 * var13.magnitude) + var1;
                               var8.faceColors1[var16] = method2777(var15, var14);
                               if (this.field1545 != null && this.field1545[this.indices2[var16]] != null) {
                                     var13 = this.field1545[this.indices2[var16]];
@@ -1533,7 +1533,7 @@ public class ModelData extends Entity {
                                     var13 = this.vertexNormals[this.indices2[var16]];
                               }
 
-                              var14 = (var4 * var13.field_47 + var5 * var13.field_48 + var3 * var13.field_46) / (var7 * var13.magnitude) + var1;
+                              var14 = (var4 * var13.field_48 + var5 * var13.field_49 + var3 * var13.field_47) / (var7 * var13.magnitude) + var1;
                               var8.faceColors2[var16] = method2777(var15, var14);
                               if (this.field1545 != null && this.field1545[this.indices3[var16]] != null) {
                                     var13 = this.field1545[this.indices3[var16]];
@@ -1541,13 +1541,13 @@ public class ModelData extends Entity {
                                     var13 = this.vertexNormals[this.indices3[var16]];
                               }
 
-                              var14 = (var4 * var13.field_47 + var5 * var13.field_48 + var3 * var13.field_46) / (var7 * var13.magnitude) + var1;
+                              var14 = (var4 * var13.field_48 + var5 * var13.field_49 + var3 * var13.field_47) / (var7 * var13.magnitude) + var1;
                               var8.faceColors3[var16] = method2777(var15, var14);
                         }
                   } else if (var17 != 0) {
                         if (var17 == 1) {
                               var19 = this.faceNormals[var16];
-                              var14 = (var4 * var19.field_61 + var5 * var19.field_62 + var3 * var19.field_60) / (var7 / 2 + var7) + var1;
+                              var14 = (var4 * var19.field_62 + var5 * var19.field_63 + var3 * var19.field_61) / (var7 / 2 + var7) + var1;
                               var8.faceColors1[var16] = method2767(var14);
                               var8.faceColors3[var16] = -1;
                         } else {
@@ -1560,7 +1560,7 @@ public class ModelData extends Entity {
                               var13 = this.vertexNormals[this.indices1[var16]];
                         }
 
-                        var14 = (var4 * var13.field_47 + var5 * var13.field_48 + var3 * var13.field_46) / (var7 * var13.magnitude) + var1;
+                        var14 = (var4 * var13.field_48 + var5 * var13.field_49 + var3 * var13.field_47) / (var7 * var13.magnitude) + var1;
                         var8.faceColors1[var16] = method2767(var14);
                         if (this.field1545 != null && this.field1545[this.indices2[var16]] != null) {
                               var13 = this.field1545[this.indices2[var16]];
@@ -1568,7 +1568,7 @@ public class ModelData extends Entity {
                               var13 = this.vertexNormals[this.indices2[var16]];
                         }
 
-                        var14 = (var4 * var13.field_47 + var5 * var13.field_48 + var3 * var13.field_46) / (var7 * var13.magnitude) + var1;
+                        var14 = (var4 * var13.field_48 + var5 * var13.field_49 + var3 * var13.field_47) / (var7 * var13.magnitude) + var1;
                         var8.faceColors2[var16] = method2767(var14);
                         if (this.field1545 != null && this.field1545[this.indices3[var16]] != null) {
                               var13 = this.field1545[this.indices3[var16]];
@@ -1576,7 +1576,7 @@ public class ModelData extends Entity {
                               var13 = this.vertexNormals[this.indices3[var16]];
                         }
 
-                        var14 = (var4 * var13.field_47 + var5 * var13.field_48 + var3 * var13.field_46) / (var7 * var13.magnitude) + var1;
+                        var14 = (var4 * var13.field_48 + var5 * var13.field_49 + var3 * var13.field_47) / (var7 * var13.magnitude) + var1;
                         var8.faceColors3[var16] = method2767(var14);
                   }
             }
@@ -1654,13 +1654,13 @@ public class ModelData extends Entity {
                                                             var17 = var1.field1545[var14] = new VertexNormal(var15);
                                                       }
 
-                                                      var16.field_46 += var15.field_46;
                                                       var16.field_47 += var15.field_47;
                                                       var16.field_48 += var15.field_48;
+                                                      var16.field_49 += var15.field_49;
                                                       var16.magnitude += var15.magnitude;
-                                                      var17.field_46 += var10.field_46;
                                                       var17.field_47 += var10.field_47;
                                                       var17.field_48 += var10.field_48;
+                                                      var17.field_49 += var10.field_49;
                                                       var17.magnitude += var10.magnitude;
                                                       ++var6;
                                                       field1548[var9] = field1550;

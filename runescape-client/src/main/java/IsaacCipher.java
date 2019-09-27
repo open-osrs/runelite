@@ -19,28 +19,28 @@ public final class IsaacCipher {
       // $FF: renamed from: mm int[]
       @ObfuscatedName("p")
       @Export("mm")
-      int[] field_68 = new int[256];
+      int[] field_69 = new int[256];
       // $FF: renamed from: aa int
       @ObfuscatedName("q")
       @ObfuscatedGetter(
             intValue = 460099205
       )
       @Export("aa")
-      int field_69;
+      int field_70;
       // $FF: renamed from: bb int
       @ObfuscatedName("m")
       @ObfuscatedGetter(
             intValue = 883284121
       )
       @Export("bb")
-      int field_70;
+      int field_71;
       // $FF: renamed from: cc int
       @ObfuscatedName("y")
       @ObfuscatedGetter(
             intValue = 2097692587
       )
       @Export("cc")
-      int field_71;
+      int field_72;
 
       public IsaacCipher(int[] var1) {
             for(int var2 = 0; var2 < var1.length; ++var2) {
@@ -86,26 +86,26 @@ public final class IsaacCipher {
       )
       @Export("generateMoreResults")
       final void generateMoreResults() {
-            this.field_70 += ++this.field_71;
+            this.field_71 += ++this.field_72;
 
             for(int var1 = 0; var1 < 256; ++var1) {
-                  int var2 = this.field_68[var1];
+                  int var2 = this.field_69[var1];
                   if ((var1 & 2) == 0) {
                         if ((var1 & 1) == 0) {
-                              this.field_69 ^= this.field_69 << 13;
+                              this.field_70 ^= this.field_70 << 13;
                         } else {
-                              this.field_69 ^= this.field_69 >>> 6;
+                              this.field_70 ^= this.field_70 >>> 6;
                         }
                   } else if ((var1 & 1) == 0) {
-                        this.field_69 ^= this.field_69 << 2;
+                        this.field_70 ^= this.field_70 << 2;
                   } else {
-                        this.field_69 ^= this.field_69 >>> 16;
+                        this.field_70 ^= this.field_70 >>> 16;
                   }
 
-                  this.field_69 += this.field_68[128 + var1 & 255];
+                  this.field_70 += this.field_69[128 + var1 & 255];
                   int var3;
-                  this.field_68[var1] = var3 = this.field_68[(var2 & 1020) >> 2] + this.field_70 + this.field_69;
-                  this.results[var1] = this.field_70 = this.field_68[(var3 >> 8 & 1020) >> 2] + var2;
+                  this.field_69[var1] = var3 = this.field_69[(var2 & 1020) >> 2] + this.field_71 + this.field_70;
+                  this.results[var1] = this.field_71 = this.field_69[(var3 >> 8 & 1020) >> 2] + var2;
             }
 
       }
@@ -186,25 +186,25 @@ public final class IsaacCipher {
                   var9 ^= var2 >>> 9;
                   var4 += var9;
                   var2 += var3;
-                  this.field_68[var1] = var2;
-                  this.field_68[var1 + 1] = var3;
-                  this.field_68[var1 + 2] = var4;
-                  this.field_68[var1 + 3] = var5;
-                  this.field_68[var1 + 4] = var6;
-                  this.field_68[var1 + 5] = var7;
-                  this.field_68[var1 + 6] = var8;
-                  this.field_68[var1 + 7] = var9;
+                  this.field_69[var1] = var2;
+                  this.field_69[var1 + 1] = var3;
+                  this.field_69[var1 + 2] = var4;
+                  this.field_69[var1 + 3] = var5;
+                  this.field_69[var1 + 4] = var6;
+                  this.field_69[var1 + 5] = var7;
+                  this.field_69[var1 + 6] = var8;
+                  this.field_69[var1 + 7] = var9;
             }
 
             for(var1 = 0; var1 < 256; var1 += 8) {
-                  var2 += this.field_68[var1];
-                  var3 += this.field_68[var1 + 1];
-                  var4 += this.field_68[var1 + 2];
-                  var5 += this.field_68[var1 + 3];
-                  var6 += this.field_68[var1 + 4];
-                  var7 += this.field_68[var1 + 5];
-                  var8 += this.field_68[var1 + 6];
-                  var9 += this.field_68[var1 + 7];
+                  var2 += this.field_69[var1];
+                  var3 += this.field_69[var1 + 1];
+                  var4 += this.field_69[var1 + 2];
+                  var5 += this.field_69[var1 + 3];
+                  var6 += this.field_69[var1 + 4];
+                  var7 += this.field_69[var1 + 5];
+                  var8 += this.field_69[var1 + 6];
+                  var9 += this.field_69[var1 + 7];
                   var2 ^= var3 << 11;
                   var5 += var2;
                   var3 += var4;
@@ -229,14 +229,14 @@ public final class IsaacCipher {
                   var9 ^= var2 >>> 9;
                   var4 += var9;
                   var2 += var3;
-                  this.field_68[var1] = var2;
-                  this.field_68[var1 + 1] = var3;
-                  this.field_68[var1 + 2] = var4;
-                  this.field_68[var1 + 3] = var5;
-                  this.field_68[var1 + 4] = var6;
-                  this.field_68[var1 + 5] = var7;
-                  this.field_68[var1 + 6] = var8;
-                  this.field_68[var1 + 7] = var9;
+                  this.field_69[var1] = var2;
+                  this.field_69[var1 + 1] = var3;
+                  this.field_69[var1 + 2] = var4;
+                  this.field_69[var1 + 3] = var5;
+                  this.field_69[var1 + 4] = var6;
+                  this.field_69[var1 + 5] = var7;
+                  this.field_69[var1 + 6] = var8;
+                  this.field_69[var1 + 7] = var9;
             }
 
             this.generateMoreResults();

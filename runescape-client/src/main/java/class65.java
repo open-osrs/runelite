@@ -19,8 +19,7 @@ public class class65 extends RouteStrategy {
             signature = "(IIIB)I",
             garbageValue = "42"
       )
-      @Export("WorldMap_hslToRgb")
-      static int WorldMap_hslToRgb(int var0, int var1, int var2) {
+      static int method1245(int var0, int var1, int var2) {
             if (var2 > 179) {
                   var1 /= 2;
             }

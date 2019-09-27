@@ -1,24 +1,31 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bv")
-public class class56 {
+@Implements("ScriptFrame")
+public class ScriptFrame {
       @ObfuscatedName("z")
       @ObfuscatedSignature(
             signature = "Lcu;"
       )
-      Script field504;
+      @Export("script")
+      Script script;
+      // $FF: renamed from: pc int
       @ObfuscatedName("n")
       @ObfuscatedGetter(
             intValue = 173320539
       )
-      int field505 = -1;
+      @Export("pc")
+      int field_36 = -1;
       @ObfuscatedName("v")
-      int[] field506;
+      @Export("intLocals")
+      int[] intLocals;
       @ObfuscatedName("u")
-      String[] field507;
+      @Export("stringLocals")
+      String[] stringLocals;
 
       @ObfuscatedName("z")
       public static final int method1158(double var0, double var2, double var4) {
@@ -87,9 +94,8 @@ public class class56 {
             signature = "(Lhp;Lhp;I)V",
             garbageValue = "-1912847764"
       )
-      @Export("KitDefinition_setArchives")
-      public static void KitDefinition_setArchives(AbstractArchive var0, AbstractArchive var1) {
+      public static void method1157(AbstractArchive var0, AbstractArchive var1) {
             HealthBarDefinition.HealthBarDefinition_archive = var0;
-            HealthBarDefinition.HealthBarDefinition_spritesArchive = var1;
+            HealthBarDefinition.HitSplatDefinition_spritesArchive = var1;
       }
 }

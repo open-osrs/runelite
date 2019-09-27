@@ -79,7 +79,7 @@ public enum class192 implements Enumerated {
             intValue = 1983326673
       )
       @Export("id")
-      final int field_67;
+      final int field_68;
       @ObfuscatedName("e")
       final Set field2364 = new HashSet();
 
@@ -87,7 +87,7 @@ public enum class192 implements Enumerated {
             signature = "(Ljava/lang/String;I[Lgl;)V"
       )
       class192(String var3, int var4, class191[] var5) {
-            this.field_67 = var4;
+            this.field_68 = var4;
             class191[] var6 = var5;
 
             for(int var7 = 0; var7 < var6.length; ++var7) {
@@ -98,7 +98,7 @@ public enum class192 implements Enumerated {
       }
 
       class192(String var3, int var4) {
-            this.field_67 = var4;
+            this.field_68 = var4;
       }
 
       @ObfuscatedName("v")
@@ -108,7 +108,7 @@ public enum class192 implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_67;
+            return this.field_68;
       }
 
       @ObfuscatedName("z")

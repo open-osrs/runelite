@@ -104,7 +104,8 @@ public class class13 {
             signature = "(II)I",
             garbageValue = "-114703177"
       )
-      static int method170(int var0) {
+      @Export("Messages_getNextChatID")
+      static int Messages_getNextChatID(int var0) {
             Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
             if (var1 == null) {
                   return -1;

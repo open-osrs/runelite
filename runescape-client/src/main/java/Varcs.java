@@ -238,7 +238,7 @@ public class Varcs {
             }
 
             this.unwrittenChanges = false;
-            this.field1253 = class30.currentTimeMs();
+            this.field1253 = class30.method566();
       }
 
       @ObfuscatedName("i")
@@ -341,7 +341,7 @@ public class Varcs {
       )
       @Export("tryWrite")
       void tryWrite() {
-            if (this.unwrittenChanges && this.field1253 < class30.currentTimeMs() - 60000L) {
+            if (this.unwrittenChanges && this.field1253 < class30.method566() - 60000L) {
                   this.write();
             }
 

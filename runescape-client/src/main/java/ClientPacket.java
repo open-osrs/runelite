@@ -519,7 +519,7 @@ public class ClientPacket implements class181 {
             intValue = 1560897385
       )
       @Export("id")
-      final int field_36;
+      final int field_37;
       @ObfuscatedName("cp")
       @ObfuscatedGetter(
             intValue = 171085629
@@ -528,7 +528,7 @@ public class ClientPacket implements class181 {
       final int length;
 
       ClientPacket(int var1, int var2) {
-            this.field_36 = var1;
+            this.field_37 = var1;
             this.length = var2;
       }
 

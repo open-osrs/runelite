@@ -78,7 +78,7 @@ public class ChatChannel {
       )
       static final void method2233() {
             int var0 = class225.field3045 * 16384 + 64;
-            int var1 = Clock.field2039 * 128 + 64;
+            int var1 = Clock.field2039 * 16384 + 64;
             int var2 = MusicPatchPcmStream.getTileHeight(var0, var1, WorldMapRectangle.plane) - GrandExchangeOfferOwnWorldComparator.field627;
             if (GrandExchangeOfferOwnWorldComparator.cameraX < var0) {
                   GrandExchangeOfferOwnWorldComparator.cameraX = (var0 - GrandExchangeOfferOwnWorldComparator.cameraX) * Messages.field1262 / 1000 + GrandExchangeOfferOwnWorldComparator.cameraX + MouseRecorder.field572;
@@ -192,8 +192,7 @@ public class ChatChannel {
             signature = "(IB)V",
             garbageValue = "73"
       )
-      @Export("saveTempMenuAction")
-      static void saveTempMenuAction(int var0) {
+      static void method2225(int var0) {
             ParamDefinition.tempMenuAction = new MenuAction();
             ParamDefinition.tempMenuAction.argument1 = Client.menuArguments1[var0];
             ParamDefinition.tempMenuAction.argument2 = Client.menuArguments2[var0];

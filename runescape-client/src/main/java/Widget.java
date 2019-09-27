@@ -233,7 +233,8 @@ public class Widget extends Node {
       @ObfuscatedGetter(
             intValue = -1279506063
       )
-      public int field2577;
+      @Export("transparencyBot")
+      public int transparencyBot;
       @ObfuscatedName("at")
       @ObfuscatedGetter(
             intValue = 1520637795
@@ -367,7 +368,8 @@ public class Widget extends Node {
       @Export("modelOrthog")
       public boolean modelOrthog;
       @ObfuscatedName("bw")
-      public boolean field2654;
+      @Export("modelTransparency")
+      public boolean modelTransparency;
       @ObfuscatedName("bp")
       @ObfuscatedGetter(
             intValue = 1908099759
@@ -681,7 +683,7 @@ public class Widget extends Node {
       public Widget() {
             this.fillMode = FillMode.SOLID;
             this.transparencyTop = 0;
-            this.field2577 = 0;
+            this.transparencyBot = 0;
             this.lineWid = 1;
             this.field2579 = false;
             this.spriteId2 = -1;
@@ -705,7 +707,7 @@ public class Widget extends Node {
             this.field2667 = 0;
             this.field2601 = 0;
             this.modelOrthog = false;
-            this.field2654 = false;
+            this.modelTransparency = false;
             this.itemQuantityMode = 2;
             this.fontId = -1;
             this.text = "";
@@ -1281,7 +1283,7 @@ public class Widget extends Node {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = ClanMate.SpriteBuffer_getFont(ClientPreferences.Widget_spritesArchive, class2.Widget_fontsArchive, this.fontId, 0);
+                        var1 = ClanMate.method4964(ClientPreferences.Widget_spritesArchive, class2.Widget_fontsArchive, this.fontId, 0);
                         if (var1 != null) {
                               Widget_cachedFonts.put(var1, (long)this.fontId);
                         } else {

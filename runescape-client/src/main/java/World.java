@@ -43,7 +43,7 @@ public class World {
             intValue = 974966281
       )
       @Export("id")
-      int field_59;
+      int field_60;
       @ObfuscatedName("b")
       @ObfuscatedGetter(
             intValue = 1702314457
@@ -230,7 +230,7 @@ public class World {
       )
       @Export("getActorScreenLocation")
       static final void getActorScreenLocation(Actor var0, int var1) {
-            PlayerAppearance.worldToScreen(var0.field_27, var0.field_28 * 682054857, var1);
+            PlayerAppearance.worldToScreen(var0.field_27, var0.field_28, var1);
       }
 
       @ObfuscatedName("jj")

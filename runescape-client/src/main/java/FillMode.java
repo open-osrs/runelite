@@ -36,11 +36,11 @@ public enum FillMode implements Enumerated {
             intValue = -532498775
       )
       @Export("id")
-      final int field_58;
+      final int field_59;
 
       FillMode(int var3, int var4) {
             this.value = var3;
-            this.field_58 = var4;
+            this.field_59 = var4;
       }
 
       @ObfuscatedName("v")
@@ -50,7 +50,7 @@ public enum FillMode implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_58;
+            return this.field_59;
       }
 
       @ObfuscatedName("m")

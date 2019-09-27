@@ -203,7 +203,7 @@ public class MusicPatchPcmStream extends PcmStream {
       @ObfuscatedName("gf")
       @ObfuscatedSignature(
             signature = "(IIII)I",
-            garbageValue = "-781967444"
+            garbageValue = "-2075145984"
       )
       @Export("getTileHeight")
       static final int getTileHeight(int var0, int var1, int var2) {

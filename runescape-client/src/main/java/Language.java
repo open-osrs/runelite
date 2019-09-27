@@ -79,7 +79,7 @@ public class Language implements Enumerated {
             intValue = 1051697599
       )
       @Export("id")
-      final int field_43;
+      final int field_44;
 
       static {
             Language_EN = new Language("EN", "en", "English", class192.field2362, 0, "GB");
@@ -89,17 +89,17 @@ public class Language implements Enumerated {
             Language_NL = new Language("NL", "nl", "Dutch", class192.field2353, 4, "NL");
             Language_ES = new Language("ES", "es", "Spanish", class192.field2353, 5, "ES");
             Language_ES_MX = new Language("ES_MX", "es-mx", "Spanish (Latin American)", class192.field2362, 6, "MX");
-            Language[] var0 = Language_values();
+            Language[] var0 = method3629();
             Language_valuesOrdered = new Language[var0.length];
             Language[] var1 = var0;
 
             for(int var2 = 0; var2 < var1.length; ++var2) {
                   Language var3 = var1[var2];
-                  if (Language_valuesOrdered[var3.field_43] != null) {
+                  if (Language_valuesOrdered[var3.field_44] != null) {
                         throw new IllegalStateException();
                   }
 
-                  Language_valuesOrdered[var3.field_43] = var3;
+                  Language_valuesOrdered[var3.field_44] = var3;
             }
 
       }
@@ -110,7 +110,7 @@ public class Language implements Enumerated {
       Language(String var1, String var2, String var3, class192 var4, int var5, String var6) {
             this.field2338 = var1;
             this.language = var2;
-            this.field_43 = var5;
+            this.field_44 = var5;
             if (var6 != null) {
                   new Locale(var2.substring(0, 2), var6);
             } else {
@@ -136,22 +136,10 @@ public class Language implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_43;
+            return this.field_44;
       }
 
       public String toString() {
-            return this.getLanguage().toLowerCase(Locale.ENGLISH);
-      }
-
-      public String aae() {
-            return this.getLanguage().toLowerCase(Locale.ENGLISH);
-      }
-
-      public String aah() {
-            return this.getLanguage().toLowerCase(Locale.ENGLISH);
-      }
-
-      public String aak() {
             return this.getLanguage().toLowerCase(Locale.ENGLISH);
       }
 
@@ -160,8 +148,7 @@ public class Language implements Enumerated {
             signature = "(I)[Lgt;",
             garbageValue = "1567762755"
       )
-      @Export("Language_values")
-      static Language[] Language_values() {
+      static Language[] method3629() {
             return new Language[]{Language_PT, Language_EN, Language_NL, Language_ES, Language_FR, Language_ES_MX, Language_DE};
       }
 

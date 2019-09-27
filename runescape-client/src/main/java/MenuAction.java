@@ -47,8 +47,7 @@ public class MenuAction {
             signature = "(Lky;ZS)V",
             garbageValue = "-32250"
       )
-      @Export("NetCache_connect")
-      public static void NetCache_connect(AbstractSocket var0, boolean var1) {
+      public static void method2063(AbstractSocket var0, boolean var1) {
             if (NetCache.NetCache_socket != null) {
                   try {
                         NetCache.NetCache_socket.close();
@@ -92,7 +91,7 @@ public class MenuAction {
                                     }
 
                                     NetCache.NetCache_loadTime = 0;
-                                    NetCache.field3142 = class30.currentTimeMs();
+                                    NetCache.field3142 = class30.method566();
                                     return;
                               }
 
@@ -114,8 +113,7 @@ public class MenuAction {
             signature = "(I)V",
             garbageValue = "1201643852"
       )
-      @Export("ViewportMouse_clear")
-      public static final void ViewportMouse_clear() {
+      public static final void method2062() {
             ViewportMouse.ViewportMouse_isInViewport = false;
             ViewportMouse.ViewportMouse_entityCount = 0;
       }

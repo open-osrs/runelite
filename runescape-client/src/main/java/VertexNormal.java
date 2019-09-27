@@ -24,21 +24,21 @@ public class VertexNormal {
             intValue = 162355823
       )
       @Export("x")
-      int field_46;
+      int field_47;
       // $FF: renamed from: y int
       @ObfuscatedName("v")
       @ObfuscatedGetter(
             intValue = 669484941
       )
       @Export("y")
-      int field_47;
+      int field_48;
       // $FF: renamed from: z int
       @ObfuscatedName("u")
       @ObfuscatedGetter(
             intValue = -1691554905
       )
       @Export("z")
-      int field_48;
+      int field_49;
 
       VertexNormal() {
       }
@@ -47,9 +47,9 @@ public class VertexNormal {
             signature = "(Ldp;)V"
       )
       VertexNormal(VertexNormal var1) {
-            this.field_46 = var1.field_46;
             this.field_47 = var1.field_47;
             this.field_48 = var1.field_48;
+            this.field_49 = var1.field_49;
             this.magnitude = var1.magnitude;
       }
 
@@ -58,8 +58,7 @@ public class VertexNormal {
             signature = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
             garbageValue = "-1499927610"
       )
-      @Export("base37Decode")
-      public static String base37Decode(CharSequence var0) {
+      public static String method2957(CharSequence var0) {
             long var3 = 0L;
             int var5 = var0.length();
 
@@ -127,8 +126,7 @@ public class VertexNormal {
             signature = "(Lhp;IIS)Z",
             garbageValue = "18259"
       )
-      @Export("SpriteBuffer_bufferFile")
-      static boolean SpriteBuffer_bufferFile(AbstractArchive var0, int var1, int var2) {
+      static boolean method2958(AbstractArchive var0, int var1, int var2) {
             byte[] var3 = var0.takeFile(var1, var2);
             if (var3 == null) {
                   return false;

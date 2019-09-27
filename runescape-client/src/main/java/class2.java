@@ -15,8 +15,8 @@ final class class2 implements class0 {
       @ObfuscatedGetter(
             intValue = 1489483619
       )
-      @Export("selectedItemId")
-      static int selectedItemId;
+      @Export("selectedItemWidget")
+      static int selectedItemWidget;
 
       @ObfuscatedName("z")
       @ObfuscatedSignature(
@@ -65,8 +65,7 @@ final class class2 implements class0 {
             signature = "(Ljava/lang/CharSequence;II)I",
             garbageValue = "-2101135652"
       )
-      @Export("parseIntCustomRadix")
-      public static int parseIntCustomRadix(CharSequence var0, int var1) {
+      public static int method29(CharSequence var0, int var1) {
             return SoundCache.parseIntCustomRadix(var0, var1, true);
       }
 

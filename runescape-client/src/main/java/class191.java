@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -25,8 +24,7 @@ public class class191 {
             signature = "(I)V",
             garbageValue = "1561368496"
       )
-      @Export("KeyHandler_exit")
-      public static void KeyHandler_exit() {
+      public static void method3631() {
             if (KeyHandler.KeyHandler_instance != null) {
                   KeyHandler var0 = KeyHandler.KeyHandler_instance;
                   synchronized(KeyHandler.KeyHandler_instance) {
@@ -43,10 +41,10 @@ public class class191 {
       )
       static final void method3630(Actor var0) {
             int var1 = var0.field948 - Client.cycle;
-            int var2 = var0.size * -527978816 + var0.field971 * 128;
-            int var3 = var0.size * -527978816 + var0.field973 * 128;
+            int var2 = var0.field932 * -527978816 + var0.field971 * 128;
+            int var3 = var0.field932 * -527978816 + var0.field973 * 128;
             var0.field_27 += (var2 - var0.field_27) / var1;
-            var0.field_28 += (var3 - var0.field_28 * 682054857) / var1 * -944175751;
+            var0.field_28 += (var3 - var0.field_28) / var1;
             var0.field949 = 0;
             var0.orientation = var0.field977;
       }

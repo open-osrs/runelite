@@ -171,8 +171,7 @@ public class Decimator {
             signature = "(I)V",
             garbageValue = "851552801"
       )
-      @Export("readNpcUpdates")
-      static final void readNpcUpdates() {
+      static final void method2496() {
             PacketBuffer var0 = Client.packetWriter.packetBuffer;
             var0.importIndex();
             int var1 = var0.readBits(8);

@@ -40,11 +40,11 @@ public enum class160 implements Enumerated {
             intValue = 1779758939
       )
       @Export("id")
-      final int field_57;
+      final int field_58;
 
       class160(int var3, int var4) {
             this.field1984 = var3;
-            this.field_57 = var4;
+            this.field_58 = var4;
       }
 
       @ObfuscatedName("v")
@@ -54,7 +54,7 @@ public enum class160 implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_57;
+            return this.field_58;
       }
 
       @ObfuscatedName("o")

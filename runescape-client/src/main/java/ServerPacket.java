@@ -449,7 +449,7 @@ public class ServerPacket {
             intValue = -1102910255
       )
       @Export("id")
-      public final int field_42;
+      public final int field_43;
       @ObfuscatedName("cj")
       @ObfuscatedGetter(
             intValue = -1349590603
@@ -458,7 +458,7 @@ public class ServerPacket {
       public final int length;
 
       ServerPacket(int var1, int var2) {
-            this.field_42 = var1;
+            this.field_43 = var1;
             this.length = var2;
       }
 
@@ -484,7 +484,7 @@ public class ServerPacket {
                         Interpreter.Interpreter_intStackSize -= 2;
                         var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
                         var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-                        Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = FloorUnderlayDefinition.method4396(var3, var4);
+                        Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = FloorUnderlayDefinition.ItemContainer_getCount(var3, var4);
                         return 1;
                   } else if (var0 == ScriptOpcodes.INV_TOTAL) {
                         Interpreter.Interpreter_intStackSize -= 2;
@@ -494,7 +494,7 @@ public class ServerPacket {
                         return 1;
                   } else if (var0 == ScriptOpcodes.INV_SIZE) {
                         var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                        Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = StudioGame.method4096(var3).field3176;
+                        Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = StudioGame.getInvDefinition(var3).size;
                         return 1;
                   } else if (var0 == ScriptOpcodes.STAT) {
                         var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
@@ -513,18 +513,18 @@ public class ServerPacket {
                         if (var0 == ScriptOpcodes.COORD) {
                               var3 = WorldMapRectangle.plane;
                               var4 = class223.baseX * 64 + (class223.localPlayer.field_27 >> 7);
-                              var5 = class286.baseY * 64 + (class223.localPlayer.field_28 * 682054857 >> 7);
+                              var5 = class286.baseY * 64 + (class223.localPlayer.field_28 >> 7);
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = (var4 << 14) + var5 + (var3 << 28);
                               return 1;
                         } else if (var0 == ScriptOpcodes.COORDX) {
                               var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3 >> 14 & 16383;
                               return 1;
-                        } else if (var0 == ScriptOpcodes.COORDZ) {
+                        } else if (var0 == ScriptOpcodes.COORDY) {
                               var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3 >> 28;
                               return 1;
-                        } else if (var0 == ScriptOpcodes.COORDY) {
+                        } else if (var0 == ScriptOpcodes.COORDZ) {
                               var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3 & 16383;
                               return 1;
@@ -541,7 +541,7 @@ public class ServerPacket {
                               Interpreter.Interpreter_intStackSize -= 2;
                               var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] + '耀';
                               var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-                              Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = FloorUnderlayDefinition.method4396(var3, var4);
+                              Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = FloorUnderlayDefinition.ItemContainer_getCount(var3, var4);
                               return 1;
                         } else if (var0 == ScriptOpcodes.INVOTHER_TOTAL) {
                               Interpreter.Interpreter_intStackSize -= 2;

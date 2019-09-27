@@ -53,7 +53,6 @@ public class PacketTypeFinderTest
 	}
 
 	@Test
-	@Ignore
 	public void testRun() throws IOException
 	{
 		PacketTypeFinder bf = new PacketTypeFinder(group);

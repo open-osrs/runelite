@@ -1,25 +1,33 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kp")
+@ObfuscatedName("kc")
 @Implements("PrivateChatMode")
 public class PrivateChatMode {
       @ObfuscatedName("z")
       @ObfuscatedSignature(
-            signature = "Lkp;"
+            signature = "Lkc;"
       )
-      static final PrivateChatMode field3794 = new PrivateChatMode(3);
+      static final PrivateChatMode field3790 = new PrivateChatMode(0);
       @ObfuscatedName("n")
-      @ObfuscatedGetter(
-            intValue = 779550305
+      @ObfuscatedSignature(
+            signature = "Lkc;"
       )
-      @Export("group")
-      final int group;
+      public static final PrivateChatMode field3791 = new PrivateChatMode(1);
+      @ObfuscatedName("v")
+      @ObfuscatedSignature(
+            signature = "Lkc;"
+      )
+      static final PrivateChatMode field3792 = new PrivateChatMode(2);
+      @ObfuscatedName("u")
+      @ObfuscatedGetter(
+            intValue = -1358406113
+      )
+      public final int field3793;
 
       PrivateChatMode(int var1) {
-            this.group = var1;
+            this.field3793 = var1;
       }
 }

@@ -244,7 +244,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
             } else {
                   TileItem var33;
                   if (class185.field2304 == var0) {
-                        var37 = var1.readUnsignedByteNegate();
+                        var37 = var1.method5455();
                         var38 = (var37 >> 4 & 7) + class40.field326;
                         var4 = (var37 & 7) + WorldMapSection2.field195;
                         var5 = var1.method5632();
@@ -271,7 +271,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
                         var38 = var37 >> 2;
                         var4 = var37 & 3;
                         var5 = Client.field697[var38];
-                        var6 = var1.readUnsignedByteNegate();
+                        var6 = var1.method5455();
                         var7 = (var6 >> 4 & 7) + class40.field326;
                         var8 = (var6 & 7) + WorldMapSection2.field195;
                         if (var7 >= 0 && var8 >= 0 && var7 < 104 && var8 < 104) {
@@ -281,7 +281,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
                   } else if (class185.field2297 == var0) {
                         var37 = var1.method5465();
                         var38 = var1.method5464();
-                        var4 = var1.readUnsignedByteNegate();
+                        var4 = var1.method5455();
                         var5 = (var4 >> 4 & 7) + class40.field326;
                         var6 = (var4 & 7) + WorldMapSection2.field195;
                         if (var5 >= 0 && var6 >= 0 && var5 < 104 && var6 < 104) {
@@ -324,7 +324,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
                               var38 = var37 >> 2;
                               var4 = var37 & 3;
                               var5 = Client.field697[var38];
-                              var6 = var1.readUnsignedByteNegate();
+                              var6 = var1.method5455();
                               var7 = (var6 >> 4 & 7) + class40.field326;
                               var8 = (var6 & 7) + WorldMapSection2.field195;
                               var9 = var1.readUnsignedShort();
@@ -342,7 +342,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
                               byte var39 = var1.method5460();
                               var9 = var1.method5496() * 4;
                               var10 = var1.readUnsignedByte();
-                              var40 = var1.readUnsignedByteNegate();
+                              var40 = var1.method5455();
                               byte var41 = var1.method5458();
                               var13 = var1.method5471();
                               var14 = var1.method5496() * 4;
@@ -361,8 +361,8 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
                         } else if (class185.field2303 != var0) {
                               if (class185.field2301 == var0) {
                                     var37 = var1.method5632();
-                                    var38 = var1.readUnsignedByteNegate();
-                                    var4 = var1.readUnsignedByteNegate();
+                                    var38 = var1.method5455();
+                                    var4 = var1.method5455();
                                     var5 = (var4 >> 4 & 7) + class40.field326;
                                     var6 = (var4 & 7) + WorldMapSection2.field195;
                                     var7 = var1.method5464();

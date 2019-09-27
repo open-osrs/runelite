@@ -31,21 +31,21 @@ public class FaceNormal {
             intValue = 149051353
       )
       @Export("x")
-      int field_60;
+      int field_61;
       // $FF: renamed from: y int
       @ObfuscatedName("v")
       @ObfuscatedGetter(
             intValue = -1494841217
       )
       @Export("y")
-      int field_61;
+      int field_62;
       // $FF: renamed from: z int
       @ObfuscatedName("u")
       @ObfuscatedGetter(
             intValue = 2026615431
       )
       @Export("z")
-      int field_62;
+      int field_63;
 
       @ObfuscatedName("iy")
       @ObfuscatedSignature(

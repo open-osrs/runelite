@@ -50,7 +50,7 @@ public enum PlayerType implements Enumerated {
             intValue = -1844030563
       )
       @Export("id")
-      final int field_37;
+      final int field_38;
       @ObfuscatedName("m")
       @ObfuscatedGetter(
             intValue = -1331495779
@@ -65,7 +65,7 @@ public enum PlayerType implements Enumerated {
       public final boolean isUser;
 
       PlayerType(int var3, int var4, boolean var5, boolean var6, boolean var7) {
-            this.field_37 = var3;
+            this.field_38 = var3;
             this.modIcon = var4;
             this.isPrivileged = var6;
             this.isUser = var7;
@@ -78,7 +78,7 @@ public enum PlayerType implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_37;
+            return this.field_38;
       }
 
       @ObfuscatedName("m")

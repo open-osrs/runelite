@@ -13,13 +13,12 @@ public final class WorldMapRectangle {
       )
       @Export("plane")
       static int plane;
-	private final WorldMapManager this$0;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = 1437732891
-	)
-	@Export("width")
-	int width;
+      @ObfuscatedName("z")
+      @ObfuscatedGetter(
+            intValue = 1437732891
+      )
+      @Export("width")
+      int width;
       @ObfuscatedName("n")
       @ObfuscatedGetter(
             intValue = 2120102399
@@ -32,14 +31,14 @@ public final class WorldMapRectangle {
             intValue = -1194762567
       )
       @Export("x")
-      int field_72;
+      int field_73;
       // $FF: renamed from: y int
       @ObfuscatedName("u")
       @ObfuscatedGetter(
             intValue = 1496265891
       )
       @Export("y")
-      int field_73;
+      int field_74;
 
       @ObfuscatedSignature(
             signature = "(Lal;)V"
@@ -58,7 +57,7 @@ public final class WorldMapRectangle {
             int var3 = var0.getGroupId(var1);
             int var4 = var0.getFileId(var3, var2);
             IndexedSprite var5;
-            if (!VertexNormal.SpriteBuffer_bufferFile(var0, var3, var4)) {
+            if (!VertexNormal.method2958(var0, var3, var4)) {
                   var5 = null;
             } else {
                   IndexedSprite var7 = new IndexedSprite();

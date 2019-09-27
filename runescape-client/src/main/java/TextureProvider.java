@@ -258,8 +258,7 @@ public class TextureProvider implements TextureLoader {
             signature = "(B)V",
             garbageValue = "-114"
       )
-      @Export("ParamDefinition_clearCached")
-      public static void ParamDefinition_clearCached() {
+      public static void method2742() {
             ParamDefinition.ParamDefinition_cached.clear();
       }
 }

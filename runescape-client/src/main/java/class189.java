@@ -397,7 +397,7 @@ public class class189 {
                                     ParamDefinition.ParamDefinition_archive = var15;
                                     class197.varcs = new Varcs();
                                     WorldMapArea.method430(FaceNormal.archive2, GrandExchangeOfferAgeComparator.archive8, Tile.archive13);
-                                    class56.KitDefinition_setArchives(FaceNormal.archive2, GrandExchangeOfferAgeComparator.archive8);
+                                    ScriptFrame.method1157(FaceNormal.archive2, GrandExchangeOfferAgeComparator.archive8);
                                     Archive var16 = FaceNormal.archive2;
                                     Archive var17 = GrandExchangeOfferAgeComparator.archive8;
                                     WorldMapElement.WorldMapElement_archive = var17;
@@ -434,7 +434,7 @@ public class class189 {
                               }
 
                               if (class14.mapSceneSprites == null) {
-                                    class14.mapSceneSprites = class297.SpriteBuffer_getIndexedSpriteArray(GrandExchangeOfferAgeComparator.archive8, WorldMapData_0.spriteIds.mapScenes, 0);
+                                    class14.mapSceneSprites = class297.method5374(GrandExchangeOfferAgeComparator.archive8, WorldMapData_0.spriteIds.mapScenes, 0);
                               } else {
                                     ++var0;
                               }
@@ -476,13 +476,13 @@ public class class189 {
                               }
 
                               if (class4.scrollBarSprites == null) {
-                                    class4.scrollBarSprites = class297.SpriteBuffer_getIndexedSpriteArray(GrandExchangeOfferAgeComparator.archive8, WorldMapData_0.spriteIds.field3807, 0);
+                                    class4.scrollBarSprites = class297.method5374(GrandExchangeOfferAgeComparator.archive8, WorldMapData_0.spriteIds.field3807, 0);
                               } else {
                                     ++var0;
                               }
 
                               if (WorldMapData_0.modIconSprites == null) {
-                                    WorldMapData_0.modIconSprites = class297.SpriteBuffer_getIndexedSpriteArray(GrandExchangeOfferAgeComparator.archive8, WorldMapData_0.spriteIds.field3806, 0);
+                                    WorldMapData_0.modIconSprites = class297.method5374(GrandExchangeOfferAgeComparator.archive8, WorldMapData_0.spriteIds.field3806, 0);
                               } else {
                                     ++var0;
                               }

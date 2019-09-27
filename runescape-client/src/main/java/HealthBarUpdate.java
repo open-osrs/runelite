@@ -97,7 +97,7 @@ public class HealthBarUpdate extends Node {
                                     }
 
                                     int var6 = Client.soundLocations[var0] >> 8 & 255;
-                                    int var7 = var6 * 128 + 64 - class223.localPlayer.field_28 * 682054857;
+                                    int var7 = var6 * 128 + 64 - class223.localPlayer.field_28;
                                     if (var7 < 0) {
                                           var7 = -var7;
                                     }

@@ -78,19 +78,7 @@ public class LoginType {
             this.field4034 = var4;
       }
 
-      public String aak() {
-            return this.field4034;
-      }
-
       public String toString() {
-            return this.field4034;
-      }
-
-      public String aah() {
-            return this.field4034;
-      }
-
-      public String aae() {
             return this.field4034;
       }
 }

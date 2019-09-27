@@ -27,7 +27,8 @@ public class Texture extends Node {
       @Export("animationDirection")
       int animationDirection;
       @ObfuscatedName("b")
-      int field1593;
+      @Export("animationSpeed")
+      int animationSpeed;
       @ObfuscatedName("o")
       @Export("pixels")
       int[] pixels;
@@ -73,7 +74,7 @@ public class Texture extends Node {
                   }
 
                   this.animationDirection = var1.readUnsignedByte();
-                  this.field1593 = var1.readUnsignedByte();
+                  this.animationSpeed = var1.readUnsignedByte();
                   this.pixels = null;
             } else {
                   throw new RuntimeException();
@@ -241,7 +242,7 @@ public class Texture extends Node {
                         }
 
                         var3 = this.pixels.length;
-                        var4 = var2 * this.field1593 * var1;
+                        var4 = var2 * this.animationSpeed * var1;
                         var5 = var3 - 1;
                         if (this.animationDirection == 1) {
                               var4 = -var4;
@@ -269,7 +270,7 @@ public class Texture extends Node {
                         }
 
                         var3 = this.pixels.length;
-                        var4 = this.field1593 * var1;
+                        var4 = this.animationSpeed * var1;
                         var5 = var2 - 1;
                         if (this.animationDirection == 2) {
                               var4 = -var4;

@@ -101,7 +101,7 @@ public final class WorldMapSprite {
                   Login.field1183 = true;
                   Login.worldSelectOpen = false;
                   if (!AbstractArchive.clientPreferences.titleMusicDisabled) {
-                        WorldMapData_0.playMusicTrackByName(2, class225.archive6, "scape main", "", 255, false);
+                        WorldMapData_0.method194(2, class225.archive6, "scape main", "", 255, false);
                   } else {
                         class197.field2386 = 1;
                         class197.musicTrackArchive = null;
@@ -174,7 +174,8 @@ public final class WorldMapSprite {
             signature = "(I)Z",
             garbageValue = "-240794843"
       )
-      static boolean method437() {
+      @Export("getTapToDrop")
+      static boolean getTapToDrop() {
             return Client.tapToDrop;
       }
 }

@@ -172,8 +172,7 @@ public class FloorUnderlayDefinition extends DualNode {
             signature = "(B)[Lcn;",
             garbageValue = "126"
       )
-      @Export("AttackOption_values")
-      static AttackOption[] AttackOption_values() {
+      static AttackOption[] method4383() {
             return new AttackOption[]{AttackOption.AttackOption_hidden, AttackOption.AttackOption_leftClickWhereAvailable, AttackOption.AttackOption_alwaysRightClick, AttackOption.AttackOption_dependsOnCombatLevels};
       }
 
@@ -182,7 +181,8 @@ public class FloorUnderlayDefinition extends DualNode {
             signature = "(IIB)I",
             garbageValue = "1"
       )
-      static int method4396(int var0, int var1) {
+      @Export("ItemContainer_getCount")
+      static int ItemContainer_getCount(int var0, int var1) {
             ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
             if (var2 == null) {
                   return 0;

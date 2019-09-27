@@ -50,7 +50,8 @@ public class JagexCache {
             signature = "(IB)Lir;",
             garbageValue = "62"
       )
-      public static StructDefinition method3449(int var0) {
+      @Export("StructDefinition_getStructDefinition")
+      public static StructDefinition StructDefinition_getStructDefinition(int var0) {
             StructDefinition var1 = (StructDefinition)StructDefinition.StructDefinition_cached.get((long)var0);
             if (var1 != null) {
                   return var1;

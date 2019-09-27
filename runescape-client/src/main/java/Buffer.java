@@ -760,8 +760,7 @@ public class Buffer extends Node {
             signature = "(I)I",
             garbageValue = "-108626677"
       )
-      @Export("readUnsignedByteNegate")
-      public int readUnsignedByteNegate() {
+      public int method5455() {
             return this.array[++this.offset - 1] - 128 & 255;
       }
 
@@ -815,8 +814,7 @@ public class Buffer extends Node {
             signature = "(II)V",
             garbageValue = "1760464682"
       )
-      @Export("writeIntLE")
-      public void writeIntLE(int var1) {
+      public void method5461(int var1) {
             this.array[++this.offset - 1] = (byte)var1;
             this.array[++this.offset - 1] = (byte)(var1 >> 8);
       }
@@ -826,7 +824,8 @@ public class Buffer extends Node {
             signature = "(II)V",
             garbageValue = "1748318243"
       )
-      public void method5590(int var1) {
+      @Export("writeIntME")
+      public void writeIntME(int var1) {
             this.array[++this.offset - 1] = (byte)(var1 >> 8);
             this.array[++this.offset - 1] = (byte)(var1 + 128);
       }
@@ -836,7 +835,8 @@ public class Buffer extends Node {
             signature = "(II)V",
             garbageValue = "921627728"
       )
-      public void method5463(int var1) {
+      @Export("writeShortLE")
+      public void writeShortLE(int var1) {
             this.array[++this.offset - 1] = (byte)(var1 + 128);
             this.array[++this.offset - 1] = (byte)(var1 >> 8);
       }
@@ -942,7 +942,8 @@ public class Buffer extends Node {
             signature = "(IB)V",
             garbageValue = "-115"
       )
-      public void method5526(int var1) {
+      @Export("writeIntLE16")
+      public void writeIntLE16(int var1) {
             this.array[++this.offset - 1] = (byte)var1;
             this.array[++this.offset - 1] = (byte)(var1 >> 8);
             this.array[++this.offset - 1] = (byte)(var1 >> 16);
@@ -954,8 +955,7 @@ public class Buffer extends Node {
             signature = "(IB)V",
             garbageValue = "81"
       )
-      @Export("writeShortLE")
-      public void writeShortLE(int var1) {
+      public void method5615(int var1) {
             this.array[++this.offset - 1] = (byte)(var1 >> 8);
             this.array[++this.offset - 1] = (byte)var1;
             this.array[++this.offset - 1] = (byte)(var1 >> 24);
@@ -967,8 +967,7 @@ public class Buffer extends Node {
             signature = "(II)V",
             garbageValue = "775210063"
       )
-      @Export("writeIntME")
-      public void writeIntME(int var1) {
+      public void method5474(int var1) {
             this.array[++this.offset - 1] = (byte)(var1 >> 16);
             this.array[++this.offset - 1] = (byte)(var1 >> 24);
             this.array[++this.offset - 1] = (byte)var1;

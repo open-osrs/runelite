@@ -45,8 +45,9 @@ public class UserComparator10 extends AbstractUserComparator {
             signature = "(II)Lia;",
             garbageValue = "12340961"
       )
-      public static EnumDefinition method3364(int var0) {
-            EnumDefinition var1 = (EnumDefinition)EnumDefinition.field3299.get((long)var0);
+      @Export("getEnum")
+      public static EnumDefinition getEnum(int var0) {
+            EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0);
             if (var1 != null) {
                   return var1;
             } else {
@@ -56,7 +57,7 @@ public class UserComparator10 extends AbstractUserComparator {
                         var1.decode(new Buffer(var2));
                   }
 
-                  EnumDefinition.field3299.put(var1, (long)var0);
+                  EnumDefinition.EnumDefinition_cached.put(var1, (long)var0);
                   return var1;
             }
       }

@@ -1,10 +1,12 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ig")
-public class class239 extends DualNode {
+@Implements("InvDefinition")
+public class InvDefinition extends DualNode {
       @ObfuscatedName("z")
       @ObfuscatedSignature(
             signature = "Lhp;"
@@ -15,26 +17,29 @@ public class class239 extends DualNode {
       @ObfuscatedSignature(
             signature = "Lem;"
       )
-      static EvictingDualNodeHashTable field3178 = new EvictingDualNodeHashTable(64);
+      @Export("InvDefinition_cached")
+      static EvictingDualNodeHashTable InvDefinition_cached = new EvictingDualNodeHashTable(64);
       @ObfuscatedName("v")
       @ObfuscatedGetter(
             intValue = -1122330625
       )
-      public int field3176 = 0;
+      @Export("size")
+      public int size = 0;
 
       @ObfuscatedName("v")
       @ObfuscatedSignature(
             signature = "(Lkl;I)V",
             garbageValue = "1971272201"
       )
-      void method4311(Buffer var1) {
+      @Export("decode")
+      void decode(Buffer var1) {
             while(true) {
                   int var2 = var1.readUnsignedByte();
                   if (var2 == 0) {
                         return;
                   }
 
-                  this.method4312(var1, var2);
+                  this.decodeNext(var1, var2);
             }
       }
 
@@ -43,9 +48,10 @@ public class class239 extends DualNode {
             signature = "(Lkl;II)V",
             garbageValue = "-57582576"
       )
-      void method4312(Buffer var1, int var2) {
+      @Export("decodeNext")
+      void decodeNext(Buffer var1, int var2) {
             if (var2 == 2) {
-                  this.field3176 = var1.readUnsignedShort();
+                  this.size = var1.readUnsignedShort();
             }
 
       }
@@ -70,12 +76,12 @@ public class class239 extends DualNode {
                   Client.destinationX = var0;
                   Client.destinationY = var1;
                   var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2230, Client.packetWriter.isaacCipher);
-                  var8.packetBuffer.writeIntLE(class223.baseX * 64 + var0);
+                  var8.packetBuffer.method5461(class223.baseX * 64 + var0);
                   var8.packetBuffer.writeShort(class286.baseY * 64 + var1);
-                  var8.packetBuffer.method5590(AbstractWorldMapData.field163);
-                  var8.packetBuffer.writeShortLE(class2.selectedItemId);
+                  var8.packetBuffer.writeIntME(AbstractWorldMapData.selectedItemId);
+                  var8.packetBuffer.method5615(class2.selectedItemWidget);
                   var8.packetBuffer.writeShort(DevicePcmPlayerProvider.selectedItemSlot);
-                  var8.packetBuffer.method5463(var3);
+                  var8.packetBuffer.writeShortLE(var3);
                   var8.packetBuffer.method5453(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                   Client.packetWriter.addNode(var8);
             } else if (var2 == 2) {
@@ -86,12 +92,12 @@ public class class239 extends DualNode {
                   Client.destinationX = var0;
                   Client.destinationY = var1;
                   var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2252, Client.packetWriter.isaacCipher);
-                  var8.packetBuffer.writeInt(AttackOption.field1157);
+                  var8.packetBuffer.writeInt(AttackOption.selectedSpellWidget);
                   var8.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                   var8.packetBuffer.writeShort(class286.baseY * 64 + var1);
-                  var8.packetBuffer.method5463(var3);
+                  var8.packetBuffer.writeShortLE(var3);
                   var8.packetBuffer.writeShort(class223.baseX * 64 + var0);
-                  var8.packetBuffer.method5590(Client.field768);
+                  var8.packetBuffer.writeIntME(Client.selectedSpellChildIndex);
                   Client.packetWriter.addNode(var8);
             } else if (var2 == 3) {
                   Client.mouseCrossX = var6;
@@ -103,8 +109,8 @@ public class class239 extends DualNode {
                   var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2235, Client.packetWriter.isaacCipher);
                   var8.packetBuffer.method5453(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                   var8.packetBuffer.writeShort(var3);
-                  var8.packetBuffer.method5590(class286.baseY * 64 + var1);
-                  var8.packetBuffer.method5463(class223.baseX * 64 + var0);
+                  var8.packetBuffer.writeIntME(class286.baseY * 64 + var1);
+                  var8.packetBuffer.writeShortLE(class223.baseX * 64 + var0);
                   Client.packetWriter.addNode(var8);
             } else if (var2 == 4) {
                   Client.mouseCrossX = var6;
@@ -114,10 +120,10 @@ public class class239 extends DualNode {
                   Client.destinationX = var0;
                   Client.destinationY = var1;
                   var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2190, Client.packetWriter.isaacCipher);
-                  var8.packetBuffer.method5463(var3);
+                  var8.packetBuffer.writeShortLE(var3);
                   var8.packetBuffer.writeShort(class223.baseX * 64 + var0);
                   var8.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                  var8.packetBuffer.method5590(class286.baseY * 64 + var1);
+                  var8.packetBuffer.writeIntME(class286.baseY * 64 + var1);
                   Client.packetWriter.addNode(var8);
             } else if (var2 == 5) {
                   Client.mouseCrossX = var6;
@@ -128,8 +134,8 @@ public class class239 extends DualNode {
                   Client.destinationY = var1;
                   var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2226, Client.packetWriter.isaacCipher);
                   var8.packetBuffer.writeShort(var3);
-                  var8.packetBuffer.method5590(class223.baseX * 64 + var0);
-                  var8.packetBuffer.method5463(class286.baseY * 64 + var1);
+                  var8.packetBuffer.writeIntME(class223.baseX * 64 + var0);
+                  var8.packetBuffer.writeShortLE(class286.baseY * 64 + var1);
                   var8.packetBuffer.method5452(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                   Client.packetWriter.addNode(var8);
             } else if (var2 == 6) {
@@ -142,8 +148,8 @@ public class class239 extends DualNode {
                   var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2266, Client.packetWriter.isaacCipher);
                   var8.packetBuffer.writeShort(class223.baseX * 64 + var0);
                   var8.packetBuffer.method5453(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                  var8.packetBuffer.method5590(var3);
-                  var8.packetBuffer.method5590(class286.baseY * 64 + var1);
+                  var8.packetBuffer.writeIntME(var3);
+                  var8.packetBuffer.writeIntME(class286.baseY * 64 + var1);
                   Client.packetWriter.addNode(var8);
             } else {
                   PacketBufferNode var9;
@@ -158,10 +164,10 @@ public class class239 extends DualNode {
                               Client.destinationX = var0;
                               Client.destinationY = var1;
                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2195, Client.packetWriter.isaacCipher);
-                              var9.packetBuffer.method5526(class2.selectedItemId);
-                              var9.packetBuffer.method5463(AbstractWorldMapData.field163);
-                              var9.packetBuffer.method5590(var3);
-                              var9.packetBuffer.method5463(DevicePcmPlayerProvider.selectedItemSlot);
+                              var9.packetBuffer.writeIntLE16(class2.selectedItemWidget);
+                              var9.packetBuffer.writeShortLE(AbstractWorldMapData.selectedItemId);
+                              var9.packetBuffer.writeIntME(var3);
+                              var9.packetBuffer.writeShortLE(DevicePcmPlayerProvider.selectedItemSlot);
                               var9.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                               Client.packetWriter.addNode(var9);
                         }
@@ -175,9 +181,9 @@ public class class239 extends DualNode {
                               Client.destinationX = var0;
                               Client.destinationY = var1;
                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2260, Client.packetWriter.isaacCipher);
-                              var9.packetBuffer.writeIntLE(Client.field768);
-                              var9.packetBuffer.writeIntLE(var3);
-                              var9.packetBuffer.method5526(AttackOption.field1157);
+                              var9.packetBuffer.method5461(Client.selectedSpellChildIndex);
+                              var9.packetBuffer.method5461(var3);
+                              var9.packetBuffer.writeIntLE16(AttackOption.selectedSpellWidget);
                               var9.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                               Client.packetWriter.addNode(var9);
                         }
@@ -192,7 +198,7 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2273, Client.packetWriter.isaacCipher);
                               var9.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var9.packetBuffer.writeIntLE(var3);
+                              var9.packetBuffer.method5461(var3);
                               Client.packetWriter.addNode(var9);
                         }
                   } else if (var2 == 10) {
@@ -206,7 +212,7 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2280, Client.packetWriter.isaacCipher);
                               var9.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var9.packetBuffer.method5590(var3);
+                              var9.packetBuffer.writeIntME(var3);
                               Client.packetWriter.addNode(var9);
                         }
                   } else if (var2 == 11) {
@@ -220,7 +226,7 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2219, Client.packetWriter.isaacCipher);
                               var9.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var9.packetBuffer.writeIntLE(var3);
+                              var9.packetBuffer.method5461(var3);
                               Client.packetWriter.addNode(var9);
                         }
                   } else if (var2 == 12) {
@@ -234,7 +240,7 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2263, Client.packetWriter.isaacCipher);
                               var9.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var9.packetBuffer.writeIntLE(var3);
+                              var9.packetBuffer.method5461(var3);
                               Client.packetWriter.addNode(var9);
                         }
                   } else if (var2 == 13) {
@@ -248,7 +254,7 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2221, Client.packetWriter.isaacCipher);
                               var9.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var9.packetBuffer.writeIntLE(var3);
+                              var9.packetBuffer.method5461(var3);
                               Client.packetWriter.addNode(var9);
                         }
                   } else {
@@ -263,10 +269,10 @@ public class class239 extends DualNode {
                                     Client.destinationX = var0;
                                     Client.destinationY = var1;
                                     var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2243, Client.packetWriter.isaacCipher);
-                                    var9.packetBuffer.method5463(var3);
-                                    var9.packetBuffer.writeShortLE(class2.selectedItemId);
-                                    var9.packetBuffer.writeShort(AbstractWorldMapData.field163);
-                                    var9.packetBuffer.writeIntLE(DevicePcmPlayerProvider.selectedItemSlot);
+                                    var9.packetBuffer.writeShortLE(var3);
+                                    var9.packetBuffer.method5615(class2.selectedItemWidget);
+                                    var9.packetBuffer.writeShort(AbstractWorldMapData.selectedItemId);
+                                    var9.packetBuffer.method5461(DevicePcmPlayerProvider.selectedItemSlot);
                                     var9.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                                     Client.packetWriter.addNode(var9);
                               }
@@ -280,10 +286,10 @@ public class class239 extends DualNode {
                                     Client.destinationX = var0;
                                     Client.destinationY = var1;
                                     var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2239, Client.packetWriter.isaacCipher);
-                                    var9.packetBuffer.writeIntLE(var3);
-                                    var9.packetBuffer.method5590(Client.field768);
+                                    var9.packetBuffer.method5461(var3);
+                                    var9.packetBuffer.writeIntME(Client.selectedSpellChildIndex);
                                     var9.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                                    var9.packetBuffer.writeIntME(AttackOption.field1157);
+                                    var9.packetBuffer.method5474(AttackOption.selectedSpellWidget);
                                     Client.packetWriter.addNode(var9);
                               }
                         } else if (var2 == 16) {
@@ -294,13 +300,13 @@ public class class239 extends DualNode {
                               Client.destinationX = var0;
                               Client.destinationY = var1;
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2197, Client.packetWriter.isaacCipher);
-                              var8.packetBuffer.method5463(var3);
-                              var8.packetBuffer.writeInt(class2.selectedItemId);
-                              var8.packetBuffer.method5590(DevicePcmPlayerProvider.selectedItemSlot);
-                              var8.packetBuffer.method5463(class286.baseY * 64 + var1);
+                              var8.packetBuffer.writeShortLE(var3);
+                              var8.packetBuffer.writeInt(class2.selectedItemWidget);
+                              var8.packetBuffer.writeIntME(DevicePcmPlayerProvider.selectedItemSlot);
+                              var8.packetBuffer.writeShortLE(class286.baseY * 64 + var1);
                               var8.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var8.packetBuffer.method5590(class223.baseX * 64 + var0);
-                              var8.packetBuffer.method5590(AbstractWorldMapData.field163);
+                              var8.packetBuffer.writeIntME(class223.baseX * 64 + var0);
+                              var8.packetBuffer.writeIntME(AbstractWorldMapData.selectedItemId);
                               Client.packetWriter.addNode(var8);
                         } else if (var2 == 17) {
                               Client.mouseCrossX = var6;
@@ -310,11 +316,11 @@ public class class239 extends DualNode {
                               Client.destinationX = var0;
                               Client.destinationY = var1;
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2218, Client.packetWriter.isaacCipher);
-                              var8.packetBuffer.method5590(class286.baseY * 64 + var1);
-                              var8.packetBuffer.method5526(AttackOption.field1157);
-                              var8.packetBuffer.method5463(var3);
-                              var8.packetBuffer.method5590(Client.field768);
-                              var8.packetBuffer.writeIntLE(class223.baseX * 64 + var0);
+                              var8.packetBuffer.writeIntME(class286.baseY * 64 + var1);
+                              var8.packetBuffer.writeIntLE16(AttackOption.selectedSpellWidget);
+                              var8.packetBuffer.writeShortLE(var3);
+                              var8.packetBuffer.writeIntME(Client.selectedSpellChildIndex);
+                              var8.packetBuffer.method5461(class223.baseX * 64 + var0);
                               var8.packetBuffer.method5452(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                               Client.packetWriter.addNode(var8);
                         } else if (var2 == 18) {
@@ -326,9 +332,9 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2277, Client.packetWriter.isaacCipher);
                               var8.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var8.packetBuffer.writeIntLE(class286.baseY * 64 + var1);
-                              var8.packetBuffer.method5590(class223.baseX * 64 + var0);
-                              var8.packetBuffer.method5463(var3);
+                              var8.packetBuffer.method5461(class286.baseY * 64 + var1);
+                              var8.packetBuffer.writeIntME(class223.baseX * 64 + var0);
+                              var8.packetBuffer.writeShortLE(var3);
                               Client.packetWriter.addNode(var8);
                         } else if (var2 == 19) {
                               Client.mouseCrossX = var6;
@@ -339,9 +345,9 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2205, Client.packetWriter.isaacCipher);
                               var8.packetBuffer.method5452(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var8.packetBuffer.method5590(class223.baseX * 64 + var0);
-                              var8.packetBuffer.method5590(var3);
-                              var8.packetBuffer.method5590(class286.baseY * 64 + var1);
+                              var8.packetBuffer.writeIntME(class223.baseX * 64 + var0);
+                              var8.packetBuffer.writeIntME(var3);
+                              var8.packetBuffer.writeIntME(class286.baseY * 64 + var1);
                               Client.packetWriter.addNode(var8);
                         } else if (var2 == 20) {
                               Client.mouseCrossX = var6;
@@ -352,9 +358,9 @@ public class class239 extends DualNode {
                               Client.destinationY = var1;
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2240, Client.packetWriter.isaacCipher);
                               var8.packetBuffer.method5453(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                              var8.packetBuffer.method5463(class223.baseX * 64 + var0);
-                              var8.packetBuffer.method5590(class286.baseY * 64 + var1);
-                              var8.packetBuffer.writeIntLE(var3);
+                              var8.packetBuffer.writeShortLE(class223.baseX * 64 + var0);
+                              var8.packetBuffer.writeIntME(class286.baseY * 64 + var1);
+                              var8.packetBuffer.method5461(var3);
                               Client.packetWriter.addNode(var8);
                         } else if (var2 == 21) {
                               Client.mouseCrossX = var6;
@@ -364,8 +370,8 @@ public class class239 extends DualNode {
                               Client.destinationX = var0;
                               Client.destinationY = var1;
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2265, Client.packetWriter.isaacCipher);
-                              var8.packetBuffer.method5463(class223.baseX * 64 + var0);
-                              var8.packetBuffer.method5590(class286.baseY * 64 + var1);
+                              var8.packetBuffer.writeShortLE(class223.baseX * 64 + var0);
+                              var8.packetBuffer.writeIntME(class286.baseY * 64 + var1);
                               var8.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                               var8.packetBuffer.writeShort(var3);
                               Client.packetWriter.addNode(var8);
@@ -377,9 +383,9 @@ public class class239 extends DualNode {
                               Client.destinationX = var0;
                               Client.destinationY = var1;
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2192, Client.packetWriter.isaacCipher);
-                              var8.packetBuffer.writeIntLE(class223.baseX * 64 + var0);
-                              var8.packetBuffer.writeIntLE(class286.baseY * 64 + var1);
-                              var8.packetBuffer.method5463(var3);
+                              var8.packetBuffer.method5461(class223.baseX * 64 + var0);
+                              var8.packetBuffer.method5461(class286.baseY * 64 + var1);
+                              var8.packetBuffer.writeShortLE(var3);
                               var8.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                               Client.packetWriter.addNode(var8);
                         } else if (var2 == 23) {
@@ -408,7 +414,7 @@ public class class239 extends DualNode {
                                           var16 = GrandExchangeOfferWorldComparator.getWidgetChild(var1, var0);
                                           if (var16 != null) {
                                                 class208.Widget_runOnTargetLeave();
-                                                class32.method573(var1, var0, class2.method30(class2.getWidgetClickMask(var16)), var16.itemId);
+                                                class32.selectSpell(var1, var0, class2.method30(class2.getWidgetClickMask(var16)), var16.itemId);
                                                 Client.isItemSelected = 0;
                                                 Client.selectedSpellActionName = VerticalAlignment.method4309(var16);
                                                 if (Client.selectedSpellActionName == null) {
@@ -460,10 +466,10 @@ public class class239 extends DualNode {
                                                 }
                                           } else if (var2 == 31) {
                                                 var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2269, Client.packetWriter.isaacCipher);
-                                                var8.packetBuffer.writeShortLE(var1);
-                                                var8.packetBuffer.method5463(DevicePcmPlayerProvider.selectedItemSlot);
-                                                var8.packetBuffer.writeInt(class2.selectedItemId);
-                                                var8.packetBuffer.writeShort(AbstractWorldMapData.field163);
+                                                var8.packetBuffer.method5615(var1);
+                                                var8.packetBuffer.writeShortLE(DevicePcmPlayerProvider.selectedItemSlot);
+                                                var8.packetBuffer.writeInt(class2.selectedItemWidget);
+                                                var8.packetBuffer.writeShort(AbstractWorldMapData.selectedItemId);
                                                 var8.packetBuffer.writeShort(var0);
                                                 var8.packetBuffer.writeShort(var3);
                                                 Client.packetWriter.addNode(var8);
@@ -472,11 +478,11 @@ public class class239 extends DualNode {
                                                 Client.field743 = var0;
                                           } else if (var2 == 32) {
                                                 var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2246, Client.packetWriter.isaacCipher);
-                                                var8.packetBuffer.method5463(Client.field768);
-                                                var8.packetBuffer.writeIntLE(var0);
-                                                var8.packetBuffer.writeIntLE(var3);
-                                                var8.packetBuffer.writeShortLE(var1);
-                                                var8.packetBuffer.writeIntME(AttackOption.field1157);
+                                                var8.packetBuffer.writeShortLE(Client.selectedSpellChildIndex);
+                                                var8.packetBuffer.method5461(var0);
+                                                var8.packetBuffer.method5461(var3);
+                                                var8.packetBuffer.method5615(var1);
+                                                var8.packetBuffer.method5474(AttackOption.selectedSpellWidget);
                                                 Client.packetWriter.addNode(var8);
                                                 Client.field750 = 0;
                                                 GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
@@ -484,8 +490,8 @@ public class class239 extends DualNode {
                                           } else if (var2 == 33) {
                                                 var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2211, Client.packetWriter.isaacCipher);
                                                 var8.packetBuffer.writeInt(var1);
-                                                var8.packetBuffer.writeIntLE(var0);
-                                                var8.packetBuffer.writeIntLE(var3);
+                                                var8.packetBuffer.method5461(var0);
+                                                var8.packetBuffer.method5461(var3);
                                                 Client.packetWriter.addNode(var8);
                                                 Client.field750 = 0;
                                                 GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
@@ -493,16 +499,16 @@ public class class239 extends DualNode {
                                           } else if (var2 == 34) {
                                                 var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2255, Client.packetWriter.isaacCipher);
                                                 var8.packetBuffer.writeInt(var1);
-                                                var8.packetBuffer.writeIntLE(var0);
-                                                var8.packetBuffer.method5590(var3);
+                                                var8.packetBuffer.method5461(var0);
+                                                var8.packetBuffer.writeIntME(var3);
                                                 Client.packetWriter.addNode(var8);
                                                 Client.field750 = 0;
                                                 GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
                                                 Client.field743 = var0;
                                           } else if (var2 == 35) {
                                                 var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2189, Client.packetWriter.isaacCipher);
-                                                var8.packetBuffer.writeIntLE(var3);
-                                                var8.packetBuffer.method5526(var1);
+                                                var8.packetBuffer.method5461(var3);
+                                                var8.packetBuffer.writeIntLE16(var1);
                                                 var8.packetBuffer.writeShort(var0);
                                                 Client.packetWriter.addNode(var8);
                                                 Client.field750 = 0;
@@ -510,18 +516,18 @@ public class class239 extends DualNode {
                                                 Client.field743 = var0;
                                           } else if (var2 == 36) {
                                                 var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2198, Client.packetWriter.isaacCipher);
-                                                var8.packetBuffer.method5463(var3);
-                                                var8.packetBuffer.writeIntLE(var0);
-                                                var8.packetBuffer.writeShortLE(var1);
+                                                var8.packetBuffer.writeShortLE(var3);
+                                                var8.packetBuffer.method5461(var0);
+                                                var8.packetBuffer.method5615(var1);
                                                 Client.packetWriter.addNode(var8);
                                                 Client.field750 = 0;
                                                 GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
                                                 Client.field743 = var0;
                                           } else if (var2 == 37) {
                                                 var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2247, Client.packetWriter.isaacCipher);
-                                                var8.packetBuffer.method5590(var0);
-                                                var8.packetBuffer.writeShortLE(var1);
-                                                var8.packetBuffer.method5590(var3);
+                                                var8.packetBuffer.writeIntME(var0);
+                                                var8.packetBuffer.method5615(var1);
+                                                var8.packetBuffer.writeIntME(var3);
                                                 Client.packetWriter.addNode(var8);
                                                 Client.field750 = 0;
                                                 GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
@@ -532,8 +538,8 @@ public class class239 extends DualNode {
                                                       var16 = Canvas.getWidget(var1);
                                                       Client.isItemSelected = 1;
                                                       DevicePcmPlayerProvider.selectedItemSlot = var0;
-                                                      class2.selectedItemId = var1;
-                                                      AbstractWorldMapData.field163 = var3;
+                                                      class2.selectedItemWidget = var1;
+                                                      AbstractWorldMapData.selectedItemId = var3;
                                                       WorldMapSectionType.invalidateWidget(var16);
                                                       Client.selectedItemName = World.colorStartTag(16748608) + Occluder.ItemDefinition_get(var3).name + World.colorStartTag(16777215);
                                                       if (Client.selectedItemName == null) {
@@ -545,27 +551,27 @@ public class class239 extends DualNode {
 
                                                 if (var2 == 39) {
                                                       var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2217, Client.packetWriter.isaacCipher);
-                                                      var8.packetBuffer.method5590(var0);
+                                                      var8.packetBuffer.writeIntME(var0);
                                                       var8.packetBuffer.writeShort(var3);
-                                                      var8.packetBuffer.writeIntME(var1);
+                                                      var8.packetBuffer.method5474(var1);
                                                       Client.packetWriter.addNode(var8);
                                                       Client.field750 = 0;
                                                       GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
                                                       Client.field743 = var0;
                                                 } else if (var2 == 40) {
                                                       var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2272, Client.packetWriter.isaacCipher);
-                                                      var8.packetBuffer.writeShortLE(var1);
-                                                      var8.packetBuffer.method5590(var0);
-                                                      var8.packetBuffer.method5463(var3);
+                                                      var8.packetBuffer.method5615(var1);
+                                                      var8.packetBuffer.writeIntME(var0);
+                                                      var8.packetBuffer.writeShortLE(var3);
                                                       Client.packetWriter.addNode(var8);
                                                       Client.field750 = 0;
                                                       GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
                                                       Client.field743 = var0;
                                                 } else if (var2 == 41) {
                                                       var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2250, Client.packetWriter.isaacCipher);
-                                                      var8.packetBuffer.writeIntLE(var0);
-                                                      var8.packetBuffer.writeIntME(var1);
-                                                      var8.packetBuffer.writeIntLE(var3);
+                                                      var8.packetBuffer.method5461(var0);
+                                                      var8.packetBuffer.method5474(var1);
+                                                      var8.packetBuffer.method5461(var3);
                                                       Client.packetWriter.addNode(var8);
                                                       Client.field750 = 0;
                                                       GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
@@ -574,7 +580,7 @@ public class class239 extends DualNode {
                                                       var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2259, Client.packetWriter.isaacCipher);
                                                       var8.packetBuffer.writeShort(var3);
                                                       var8.packetBuffer.writeShort(var0);
-                                                      var8.packetBuffer.writeShortLE(var1);
+                                                      var8.packetBuffer.method5615(var1);
                                                       Client.packetWriter.addNode(var8);
                                                       Client.field750 = 0;
                                                       GrandExchangeOfferOwnWorldComparator.field628 = Canvas.getWidget(var1);
@@ -582,7 +588,7 @@ public class class239 extends DualNode {
                                                 } else if (var2 == 43) {
                                                       var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2282, Client.packetWriter.isaacCipher);
                                                       var8.packetBuffer.writeShort(var3);
-                                                      var8.packetBuffer.writeIntME(var1);
+                                                      var8.packetBuffer.method5474(var1);
                                                       var8.packetBuffer.writeShort(var0);
                                                       Client.packetWriter.addNode(var8);
                                                       Client.field750 = 0;
@@ -598,7 +604,7 @@ public class class239 extends DualNode {
                                                             Client.destinationX = var0;
                                                             Client.destinationY = var1;
                                                             var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2231, Client.packetWriter.isaacCipher);
-                                                            var9.packetBuffer.method5590(var3);
+                                                            var9.packetBuffer.writeIntME(var3);
                                                             var9.packetBuffer.method5452(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                                                             Client.packetWriter.addNode(var9);
                                                       }
@@ -612,7 +618,7 @@ public class class239 extends DualNode {
                                                             Client.destinationX = var0;
                                                             Client.destinationY = var1;
                                                             var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2227, Client.packetWriter.isaacCipher);
-                                                            var9.packetBuffer.method5463(var3);
+                                                            var9.packetBuffer.writeShortLE(var3);
                                                             var9.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                                                             Client.packetWriter.addNode(var9);
                                                       }
@@ -627,7 +633,7 @@ public class class239 extends DualNode {
                                                             Client.destinationY = var1;
                                                             var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2206, Client.packetWriter.isaacCipher);
                                                             var9.packetBuffer.method5446(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                                                            var9.packetBuffer.writeIntLE(var3);
+                                                            var9.packetBuffer.method5461(var3);
                                                             Client.packetWriter.addNode(var9);
                                                       }
                                                 } else if (var2 == 47) {
@@ -640,7 +646,7 @@ public class class239 extends DualNode {
                                                             Client.destinationX = var0;
                                                             Client.destinationY = var1;
                                                             var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2271, Client.packetWriter.isaacCipher);
-                                                            var9.packetBuffer.method5463(var3);
+                                                            var9.packetBuffer.writeShortLE(var3);
                                                             var9.packetBuffer.method5453(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                                                             Client.packetWriter.addNode(var9);
                                                       }
@@ -655,7 +661,7 @@ public class class239 extends DualNode {
                                                             Client.destinationY = var1;
                                                             var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2242, Client.packetWriter.isaacCipher);
                                                             var9.packetBuffer.method5453(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                                                            var9.packetBuffer.writeIntLE(var3);
+                                                            var9.packetBuffer.method5461(var3);
                                                             Client.packetWriter.addNode(var9);
                                                       }
                                                 } else if (var2 == 49) {
@@ -682,7 +688,7 @@ public class class239 extends DualNode {
                                                             Client.destinationX = var0;
                                                             Client.destinationY = var1;
                                                             var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2274, Client.packetWriter.isaacCipher);
-                                                            var9.packetBuffer.writeIntLE(var3);
+                                                            var9.packetBuffer.method5461(var3);
                                                             var9.packetBuffer.method5452(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
                                                             Client.packetWriter.addNode(var9);
                                                       }
@@ -697,7 +703,7 @@ public class class239 extends DualNode {
                                                             Client.destinationY = var1;
                                                             var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2262, Client.packetWriter.isaacCipher);
                                                             var9.packetBuffer.method5452(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0);
-                                                            var9.packetBuffer.method5590(var3);
+                                                            var9.packetBuffer.writeIntME(var3);
                                                             Client.packetWriter.addNode(var9);
                                                       }
                                                 } else {
@@ -707,12 +713,12 @@ public class class239 extends DualNode {
                                                                         var16 = GrandExchangeOfferWorldComparator.getWidgetChild(var1, var0);
                                                                         if (var16 != null) {
                                                                               var9 = InterfaceParent.getPacketBufferNode(ClientPacket.field2236, Client.packetWriter.isaacCipher);
-                                                                              var9.packetBuffer.writeShortLE(var1);
+                                                                              var9.packetBuffer.method5615(var1);
                                                                               var9.packetBuffer.writeShort(var16.itemId);
-                                                                              var9.packetBuffer.method5526(AttackOption.field1157);
-                                                                              var9.packetBuffer.method5463(var0);
-                                                                              var9.packetBuffer.method5590(Client.field768);
-                                                                              var9.packetBuffer.method5590(Client.field793);
+                                                                              var9.packetBuffer.writeIntLE16(AttackOption.selectedSpellWidget);
+                                                                              var9.packetBuffer.writeShortLE(var0);
+                                                                              var9.packetBuffer.writeIntME(Client.selectedSpellChildIndex);
+                                                                              var9.packetBuffer.writeIntME(Client.field793);
                                                                               Client.packetWriter.addNode(var9);
                                                                         }
                                                                         break label960;
@@ -740,7 +746,7 @@ public class class239 extends DualNode {
                                                                         Client.mouseCrossColor = 2;
                                                                         Client.mouseCrossState = 0;
                                                                         var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2220, Client.packetWriter.isaacCipher);
-                                                                        var8.packetBuffer.writeIntLE(var3);
+                                                                        var8.packetBuffer.method5461(var3);
                                                                         Client.packetWriter.addNode(var8);
                                                                         break label960;
                                                                   }
@@ -759,7 +765,7 @@ public class class239 extends DualNode {
 
                                                                               if (var17 != null) {
                                                                                     var10 = InterfaceParent.getPacketBufferNode(ClientPacket.field2248, Client.packetWriter.isaacCipher);
-                                                                                    var10.packetBuffer.method5590(var17.field_13);
+                                                                                    var10.packetBuffer.writeIntME(var17.field_13);
                                                                                     Client.packetWriter.addNode(var10);
                                                                               }
                                                                         }
@@ -794,7 +800,7 @@ public class class239 extends DualNode {
                                                                   }
 
                                                                   if (var2 != 1007) {
-                                                                        if (var2 == 1011 || var2 == 1010 || var2 == 1009 || var2 == 1008 || var2 == 1012) {
+                                                                        if (var2 == 1011 || var2 == 1009 || var2 == 1008 || var2 == 1010 || var2 == 1012) {
                                                                               Tiles.worldMap.menuAction(var2, var3, new Coord(var0), new Coord(var1));
                                                                         }
                                                                         break label960;
@@ -816,7 +822,7 @@ public class class239 extends DualNode {
 
             if (Client.isItemSelected != 0) {
                   Client.isItemSelected = 0;
-                  WorldMapSectionType.invalidateWidget(Canvas.getWidget(class2.selectedItemId));
+                  WorldMapSectionType.invalidateWidget(Canvas.getWidget(class2.selectedItemWidget));
             }
 
             if (Client.isSpellSelected) {

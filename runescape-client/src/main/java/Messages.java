@@ -158,7 +158,7 @@ public class Messages {
                               } else if (var0 == ScriptOpcodes.RENDERSELF) {
                                     Client.renderSelf = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
                                     return 1;
-                              } else if (var0 == 3120) {
+                              } else if (var0 == ScriptOpcodes._3120) {
                                     if (Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1) {
                                           Client.drawPlayerNames |= 1;
                                     } else {
@@ -166,7 +166,7 @@ public class Messages {
                                     }
 
                                     return 1;
-                              } else if (var0 == 3121) {
+                              } else if (var0 == ScriptOpcodes._3121) {
                                     if (Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1) {
                                           Client.drawPlayerNames |= 2;
                                     } else {
@@ -174,7 +174,7 @@ public class Messages {
                                     }
 
                                     return 1;
-                              } else if (var0 == 3122) {
+                              } else if (var0 == ScriptOpcodes._3122) {
                                     if (Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1) {
                                           Client.drawPlayerNames |= 4;
                                     } else {
@@ -182,7 +182,7 @@ public class Messages {
                                     }
 
                                     return 1;
-                              } else if (var0 == 3123) {
+                              } else if (var0 == ScriptOpcodes._3123) {
                                     if (Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1) {
                                           Client.drawPlayerNames |= 8;
                                     } else {
@@ -190,7 +190,7 @@ public class Messages {
                                     }
 
                                     return 1;
-                              } else if (var0 == 3124) {
+                              } else if (var0 == ScriptOpcodes._3124) {
                                     Client.drawPlayerNames = 0;
                                     return 1;
                               } else if (var0 == ScriptOpcodes.SETSHOWMOUSECROSS) {
@@ -203,17 +203,17 @@ public class Messages {
                                     ScriptEvent.setTapToDrop(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1);
                                     return 1;
                               } else if (var0 == ScriptOpcodes.GETTAPTODROP) {
-                                    Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = WorldMapSprite.method437() ? 1 : 0;
+                                    Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = WorldMapSprite.getTapToDrop() ? 1 : 0;
                                     return 1;
-                              } else if (var0 == ScriptOpcodes.SETOCULUSORBSPEED) {
+                              } else if (var0 == ScriptOpcodes._3129) {
                                     Interpreter.Interpreter_intStackSize -= 2;
                                     Client.oculusOrbNormalSpeed = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
                                     Client.oculusOrbSlowedSpeed = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
                                     return 1;
-                              } else if (var0 == 3130) {
+                              } else if (var0 == ScriptOpcodes._3130) {
                                     Interpreter.Interpreter_intStackSize -= 2;
                                     return 1;
-                              } else if (var0 == 3131) {
+                              } else if (var0 == ScriptOpcodes._3131) {
                                     --Interpreter.Interpreter_intStackSize;
                                     return 1;
                               } else if (var0 == ScriptOpcodes.GETCANVASSIZE) {
@@ -228,21 +228,21 @@ public class Messages {
                               } else if (var0 == ScriptOpcodes.MOBILE_OPENSTORECATEGORY) {
                                     Interpreter.Interpreter_intStackSize -= 2;
                                     return 1;
-                              } else if (var0 == 3136) {
+                              } else if (var0 == ScriptOpcodes._3136) {
                                     Client.field798 = 3;
                                     Client.field824 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                                     return 1;
-                              } else if (var0 == 3137) {
+                              } else if (var0 == ScriptOpcodes._3137) {
                                     Client.field798 = 2;
                                     Client.field824 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                                     return 1;
-                              } else if (var0 == 3138) {
+                              } else if (var0 == ScriptOpcodes._3138) {
                                     Client.field798 = 0;
                                     return 1;
-                              } else if (var0 == 3139) {
+                              } else if (var0 == ScriptOpcodes._3139) {
                                     Client.field798 = 1;
                                     return 1;
-                              } else if (var0 == 3140) {
+                              } else if (var0 == ScriptOpcodes._3140) {
                                     Client.field798 = 3;
                                     Client.field824 = var2 ? GrandExchangeOfferAgeComparator.field76.field_9 : KitDefinition.field3252.field_9;
                                     return 1;
@@ -268,9 +268,9 @@ public class Messages {
                                     } else if (var0 == ScriptOpcodes.GETREMEMBERUSERNAME) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.Login_isUsernameRemembered ? 1 : 0;
                                           return 1;
-                                    } else if (var0 == 3145) {
+                                    } else if (var0 == ScriptOpcodes._3145) {
                                           return 1;
-                                    } else if (var0 == ScriptOpcodes.SETTITLEMUSICENABLED) {
+                                    } else if (var0 == 3146) {
                                           var8 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
                                           if (var8 == AbstractArchive.clientPreferences.titleMusicDisabled) {
                                                 AbstractArchive.clientPreferences.titleMusicDisabled = !var8;
@@ -278,7 +278,7 @@ public class Messages {
                                           }
 
                                           return 1;
-                                    } else if (var0 == ScriptOpcodes.GETTITLEMUSICENABLED) {
+                                    } else if (var0 == 3147) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = AbstractArchive.clientPreferences.titleMusicDisabled ? 0 : 1;
                                           return 1;
                                     } else if (var0 == 3148) {

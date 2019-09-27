@@ -17,8 +17,8 @@ public class HealthBarDefinition extends DualNode {
       @ObfuscatedSignature(
             signature = "Lhp;"
       )
-      @Export("HealthBarDefinition_spritesArchive")
-      static AbstractArchive HealthBarDefinition_spritesArchive;
+      @Export("HitSplatDefinition_spritesArchive")
+      static AbstractArchive HitSplatDefinition_spritesArchive;
       @ObfuscatedName("v")
       @ObfuscatedSignature(
             signature = "Lem;"
@@ -155,7 +155,7 @@ public class HealthBarDefinition extends DualNode {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = NPCDefinition.SpriteBuffer_getSprite(HealthBarDefinition_spritesArchive, this.frontSpriteID, 0);
+                        var1 = NPCDefinition.SpriteBuffer_getSprite(HitSplatDefinition_spritesArchive, this.frontSpriteID, 0);
                         if (var1 != null) {
                               HealthBarDefinition_cachedSprites.put(var1, (long)this.frontSpriteID);
                         }
@@ -179,7 +179,7 @@ public class HealthBarDefinition extends DualNode {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = NPCDefinition.SpriteBuffer_getSprite(HealthBarDefinition_spritesArchive, this.backSpriteID, 0);
+                        var1 = NPCDefinition.SpriteBuffer_getSprite(HitSplatDefinition_spritesArchive, this.backSpriteID, 0);
                         if (var1 != null) {
                               HealthBarDefinition_cachedSprites.put(var1, (long)this.backSpriteID);
                         }

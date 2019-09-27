@@ -857,11 +857,11 @@ public class MidiPcmStream extends PcmStream {
 
             if (var1.field2433 > 0 && var2.field2374 != null) {
                   var4 = var1.field2433;
-                  var5 = var2.field2374[var1.field2434 * 4 + 1];
-                  if (var1.field2434 * 4 < var2.field2374.length - 2) {
-                        var6 = (var2.field2374[var1.field2434 * 4] & 255) << 8;
-                        var7 = (var2.field2374[var1.field2434 * 4 + 2] & 255) << 8;
-                        var5 += (var2.field2374[var1.field2434 * 4 + 3] - var5) * (var4 - var6) / (var7 - var6);
+                  var5 = var2.field2374[var1.field2434 * 2 + 1];
+                  if (var1.field2434 * 2 < var2.field2374.length - 2) {
+                        var6 = (var2.field2374[var1.field2434 * 2] & 255) << 8;
+                        var7 = (var2.field2374[var1.field2434 * 2 + 2] & 255) << 8;
+                        var5 += (var4 - var6) * (var2.field2374[var1.field2434 * 2 + 3] - var5) / (var7 - var6);
                   }
 
                   var3 = var3 * var5 + 32 >> 6;
@@ -1001,11 +1001,11 @@ public class MidiPcmStream extends PcmStream {
                               var1.field2433 += 128;
                         }
 
-                        while(var1.field2434 * 4 < var6.field2374.length - 2 && var1.field2433 > (var6.field2374[var1.field2434 * 4 + 2] & 255) << 8) {
-                              var1.field2434 = var1.field2434 * 4 + 2;
+                        while(var1.field2434 * 2 < var6.field2374.length - 2 && var1.field2433 > (var6.field2374[var1.field2434 * 2 + 2] & 255) << 8) {
+                              var1.field2434 = var1.field2434 * 4 + 4;
                         }
 
-                        if (var1.field2434 * 4 == var6.field2374.length - 2) {
+                        if (var1.field2434 * 2 == var6.field2374.length - 2) {
                               var7 = true;
                         }
                   }

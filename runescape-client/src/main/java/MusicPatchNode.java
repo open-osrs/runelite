@@ -91,7 +91,7 @@ public class MusicPatchNode extends Node {
       int field2433;
       @ObfuscatedName("w")
       @ObfuscatedGetter(
-            intValue = 641640947
+            intValue = 1283281894
       )
       int field2434;
       @ObfuscatedName("t")
@@ -214,7 +214,7 @@ public class MusicPatchNode extends Node {
                                                       var10 = class2.getWidgetClickMask(var0);
                                                       var9 = (var10 >> 30 & 1) != 0;
                                                       if (var9) {
-                                                            if (var0.field_9 != class2.selectedItemId || var19 != DevicePcmPlayerProvider.selectedItemSlot) {
+                                                            if (var0.field_9 != class2.selectedItemWidget || var19 != DevicePcmPlayerProvider.selectedItemSlot) {
                                                                   WorldMapData_1.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + World.colorStartTag(16748608) + var8.name, 31, var8.field_15, var19, var0.field_9);
                                                             }
                                                             break label331;
@@ -526,7 +526,7 @@ public class MusicPatchNode extends Node {
                                                             WorldMapSection1.method605(var20 + 1, var9.field_9, var9.childIndex, var9.itemId, "");
                                                       } else if (var20 == 10) {
                                                             class208.Widget_runOnTargetLeave();
-                                                            class32.method573(var9.field_9, var9.childIndex, class2.method30(class2.getWidgetClickMask(var9)), var9.itemId);
+                                                            class32.selectSpell(var9.field_9, var9.childIndex, class2.method30(class2.getWidgetClickMask(var9)), var9.itemId);
                                                             Client.selectedSpellActionName = VerticalAlignment.method4309(var9);
                                                             if (Client.selectedSpellActionName == null) {
                                                                   Client.selectedSpellActionName = "null";

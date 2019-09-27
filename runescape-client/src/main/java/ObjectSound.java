@@ -52,7 +52,7 @@ public final class ObjectSound extends Node {
       // $FF: renamed from: y int
       @ObfuscatedName("p")
       @ObfuscatedGetter(
-            intValue = 514830237
+            intValue = 1473760896
       )
       @Export("y")
       int field_8;

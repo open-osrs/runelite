@@ -230,15 +230,14 @@ public class DynamicObject extends Entity {
             signature = "(I)V",
             garbageValue = "652940971"
       )
-      @Export("drawProjectiles")
-      static final void drawProjectiles() {
+      static final void method2221() {
             for(Projectile var0 = (Projectile)Client.projectiles.last(); var0 != null; var0 = (Projectile)Client.projectiles.previous()) {
                   if (var0.plane == WorldMapRectangle.plane && Client.cycle <= var0.cycleEnd) {
                         if (Client.cycle >= var0.cycleStart) {
                               if (var0.targetIndex > 0) {
                                     NPC var1 = Client.npcs[var0.targetIndex - 1];
-                                    if (var1 != null && var1.field_27 >= 0 && var1.field_27 < 13312 && var1.field_28 * 682054857 >= 0 && var1.field_28 * 682054857 < 13312) {
-                                          var0.setDestination(var1.field_27, var1.field_28 * 682054857, MusicPatchPcmStream.getTileHeight(var1.field_27, var1.field_28 * 682054857, var0.plane) - var0.endHeight, Client.cycle);
+                                    if (var1 != null && var1.field_27 >= 0 && var1.field_27 < 13312 && var1.field_28 >= 0 && var1.field_28 < 13312) {
+                                          var0.setDestination(var1.field_27, var1.field_28, MusicPatchPcmStream.getTileHeight(var1.field_27, var1.field_28, var0.plane) - var0.endHeight, Client.cycle);
                                     }
                               }
 
@@ -251,8 +250,8 @@ public class DynamicObject extends Entity {
                                           var3 = Client.players[var2];
                                     }
 
-                                    if (var3 != null && var3.field_27 >= 0 && var3.field_27 < 13312 && var3.field_28 * 682054857 >= 0 && var3.field_28 * 682054857 < 13312) {
-                                          var0.setDestination(var3.field_27, var3.field_28 * 682054857, MusicPatchPcmStream.getTileHeight(var3.field_27, var3.field_28 * 682054857, var0.plane) - var0.endHeight, Client.cycle);
+                                    if (var3 != null && var3.field_27 >= 0 && var3.field_27 < 13312 && var3.field_28 >= 0 && var3.field_28 < 13312) {
+                                          var0.setDestination(var3.field_27, var3.field_28, MusicPatchPcmStream.getTileHeight(var3.field_27, var3.field_28, var0.plane) - var0.endHeight, Client.cycle);
                                     }
                               }
 

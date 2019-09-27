@@ -13,8 +13,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
       @ObfuscatedSignature(
             signature = "Lhp;"
       )
-      @Export("HitSplatDefinition_spritesArchive")
-      static AbstractArchive HitSplatDefinition_spritesArchive;
+      static AbstractArchive field66;
 
       @ObfuscatedName("z")
       @ObfuscatedSignature(

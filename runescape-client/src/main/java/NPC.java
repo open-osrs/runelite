@@ -119,8 +119,8 @@ public final class NPC extends Actor {
             super.field949 = 0;
             super.pathX[0] = var1;
             super.pathY[0] = var2;
-            super.field_27 = super.pathX[0] * 128 + super.size * -527978816;
-            super.field_28 = super.size * 1330337984 + super.pathY[0] * -595411840;
+            super.field_27 = super.pathX[0] * 128 + super.field932 * -527978816;
+            super.field_28 = super.pathY[0] * 128 + super.field932 * -527978816;
       }
 
       @ObfuscatedName("y")

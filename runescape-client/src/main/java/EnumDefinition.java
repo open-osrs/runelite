@@ -17,7 +17,8 @@ public class EnumDefinition extends DualNode {
       @ObfuscatedSignature(
             signature = "Lem;"
       )
-      static EvictingDualNodeHashTable field3299 = new EvictingDualNodeHashTable(64);
+      @Export("EnumDefinition_cached")
+      static EvictingDualNodeHashTable EnumDefinition_cached = new EvictingDualNodeHashTable(64);
       @ObfuscatedName("t")
       @ObfuscatedSignature(
             signature = "Laq;"
@@ -127,8 +128,7 @@ public class EnumDefinition extends DualNode {
             signature = "(Ljava/lang/String;B)V",
             garbageValue = "54"
       )
-      @Export("FriendSystem_alreadyFriendMes")
-      static final void FriendSystem_alreadyFriendMes(String var0) {
+      static final void method4496(String var0) {
             class210.addGameMessage(30, "", var0);
       }
 }

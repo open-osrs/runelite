@@ -284,7 +284,7 @@ public class HitSplatDefinition extends DualNode {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.HitSplatDefinition_spritesArchive, this.field3319, 0);
+                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.field66, this.field3319, 0);
                         if (var1 != null) {
                               HitSplatDefinition_cachedSprites.put(var1, (long)this.field3319);
                         }
@@ -307,7 +307,7 @@ public class HitSplatDefinition extends DualNode {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.HitSplatDefinition_spritesArchive, this.field3332, 0);
+                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.field66, this.field3332, 0);
                         if (var1 != null) {
                               HitSplatDefinition_cachedSprites.put(var1, (long)this.field3332);
                         }
@@ -330,7 +330,7 @@ public class HitSplatDefinition extends DualNode {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.HitSplatDefinition_spritesArchive, this.field3321, 0);
+                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.field66, this.field3321, 0);
                         if (var1 != null) {
                               HitSplatDefinition_cachedSprites.put(var1, (long)this.field3321);
                         }
@@ -353,7 +353,7 @@ public class HitSplatDefinition extends DualNode {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.HitSplatDefinition_spritesArchive, this.field3322, 0);
+                        var1 = NPCDefinition.SpriteBuffer_getSprite(GrandExchangeOfferNameComparator.field66, this.field3322, 0);
                         if (var1 != null) {
                               HitSplatDefinition_cachedSprites.put(var1, (long)this.field3322);
                         }
@@ -377,7 +377,7 @@ public class HitSplatDefinition extends DualNode {
                   if (var1 != null) {
                         return var1;
                   } else {
-                        var1 = ClanMate.SpriteBuffer_getFont(GrandExchangeOfferNameComparator.HitSplatDefinition_spritesArchive, HitSplatDefinition_fontsArchive, this.fontId, 0);
+                        var1 = ClanMate.method4964(GrandExchangeOfferNameComparator.field66, HitSplatDefinition_fontsArchive, this.fontId, 0);
                         if (var1 != null) {
                               HitSplatDefinition_cachedFonts.put(var1, (long)this.fontId);
                         }

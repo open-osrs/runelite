@@ -1580,7 +1580,7 @@ public class Model extends Entity {
                                           if (var32 && var30) {
                                                 boolean var34 = false;
                                                 if (field1694) {
-                                                      var34 = SecureRandomCallable.boundingBoxCheck(this, var6, var7, var8);
+                                                      var34 = SecureRandomCallable.method1163(this, var6, var7, var8);
                                                 } else {
                                                       var35 = var12 - var13;
                                                       if (var35 <= 50) {

@@ -60,7 +60,6 @@ public class ControlFlowDeobfuscatorTest
 	}
 
 	@Test
-	@Ignore
 	public void testRun() throws Exception
 	{
 		new ControlFlowDeobfuscator().run(group);

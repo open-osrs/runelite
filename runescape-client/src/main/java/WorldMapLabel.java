@@ -60,7 +60,7 @@ public class WorldMapLabel {
             WorldMapArea var3 = Decimator.getWorldMap().getMapArea(var0);
             int var4 = class223.localPlayer.plane;
             int var5 = class223.baseX * 64 + (class223.localPlayer.field_27 >> 7);
-            int var6 = class286.baseY * 64 + (class223.localPlayer.field_28 * 682054857 >> 7);
+            int var6 = class286.baseY * 64 + (class223.localPlayer.field_28 >> 7);
             Coord var7 = new Coord(var4, var5, var6);
             Decimator.getWorldMap().method6426(var3, var7, var1, var2);
       }

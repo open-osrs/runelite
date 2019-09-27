@@ -1,5 +1,6 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -7,6 +8,9 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("ModelData0")
 public class ModelData0 {
       @ObfuscatedName("ha")
+      @ObfuscatedGetter(
+            intValue = -1351160427
+      )
       static int field1840;
 
       @ObfuscatedName("u")
@@ -42,7 +46,7 @@ public class ModelData0 {
                   int var4 = Client.menuIdentifiers[var0];
                   String var5 = Client.menuActions[var0];
                   String var6 = Client.menuTargets[var0];
-                  class239.menuAction(var1, var2, var3, var4, var5, var6, MouseHandler.MouseHandler_lastPressedX, MouseHandler.MouseHandler_lastPressedY);
+                  InvDefinition.menuAction(var1, var2, var3, var4, var5, var6, MouseHandler.MouseHandler_lastPressedX, MouseHandler.MouseHandler_lastPressedY);
             }
       }
 }

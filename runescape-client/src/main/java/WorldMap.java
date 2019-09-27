@@ -392,7 +392,7 @@ public class WorldMap {
             garbageValue = "-1491433552"
       )
       public void method6422(int var1, int var2, boolean var3, boolean var4) {
-            long var5 = class30.currentTimeMs();
+            long var5 = class30.method566();
             this.method6282(var1, var2, var4, var5);
             if (!this.hasTarget() && (var4 || var3)) {
                   if (var4) {
@@ -428,7 +428,7 @@ public class WorldMap {
                   if (this.mouseCoord != null && var3) {
                         boolean var8 = Client.staffModLevel >= 2;
                         if (var8 && KeyHandler.KeyHandler_pressedKeys[82] && KeyHandler.KeyHandler_pressedKeys[81]) {
-                              class287.changePlane(this.mouseCoord.field_53, this.mouseCoord.field_54, this.mouseCoord.plane, false);
+                              class287.method5205(this.mouseCoord.field_54, this.mouseCoord.field_55, this.mouseCoord.plane, false);
                         } else {
                               boolean var9 = true;
                               if (this.field3986) {
@@ -510,7 +510,7 @@ public class WorldMap {
       final void setWorldMapPosition(int var1, int var2, boolean var3) {
             this.centerTileX = var1;
             this.centerTileY = var2;
-            class30.currentTimeMs();
+            class30.method566();
             if (var3) {
                   this.method6246();
             }
@@ -658,10 +658,10 @@ public class WorldMap {
                         this.initializeWorldMapManager(var1);
                   }
 
-                  if (!var4 && this.currentMapArea.containsCoord(var2.plane, var2.field_53, var2.field_54)) {
-                        this.jump(var2.plane, var2.field_53, var2.field_54);
+                  if (!var4 && this.currentMapArea.containsCoord(var2.plane, var2.field_54, var2.field_55)) {
+                        this.jump(var2.plane, var2.field_54, var2.field_55);
                   } else {
-                        this.jump(var3.plane, var3.field_53, var3.field_54);
+                        this.jump(var3.plane, var3.field_54, var3.field_55);
                   }
 
             }
@@ -977,7 +977,8 @@ public class WorldMap {
             signature = "(IIII)V",
             garbageValue = "-1606645646"
       )
-      public void method6270(int var1, int var2, int var3) {
+      @Export("jumpToSourceCoord")
+      public void jumpToSourceCoord(int var1, int var2, int var3) {
             if (this.currentMapArea != null) {
                   int[] var4 = this.currentMapArea.position(var1, var2, var3);
                   if (var4 != null) {
@@ -992,7 +993,8 @@ public class WorldMap {
             signature = "(IIIB)V",
             garbageValue = "-123"
       )
-      public void method6271(int var1, int var2, int var3) {
+      @Export("jumpToSourceCoordInstant")
+      public void jumpToSourceCoordInstant(int var1, int var2, int var3) {
             if (this.currentMapArea != null) {
                   int[] var4 = this.currentMapArea.position(var1, var2, var3);
                   if (var4 != null) {
@@ -1057,7 +1059,8 @@ public class WorldMap {
             signature = "(II)V",
             garbageValue = "-582916792"
       )
-      public void method6277(int var1) {
+      @Export("setMaxFlashCount")
+      public void setMaxFlashCount(int var1) {
             if (var1 >= 1) {
                   this.maxFlashCount = var1;
             }
@@ -1069,7 +1072,8 @@ public class WorldMap {
             signature = "(I)V",
             garbageValue = "-46547597"
       )
-      public void method6278() {
+      @Export("resetMaxFlashCount")
+      public void resetMaxFlashCount() {
             this.maxFlashCount = 3;
       }
 
@@ -1078,7 +1082,8 @@ public class WorldMap {
             signature = "(II)V",
             garbageValue = "1061983788"
       )
-      public void method6289(int var1) {
+      @Export("setCyclesPerFlash")
+      public void setCyclesPerFlash(int var1) {
             if (var1 >= 1) {
                   this.cyclesPerFlash = var1;
             }
@@ -1090,7 +1095,8 @@ public class WorldMap {
             signature = "(I)V",
             garbageValue = "-996390323"
       )
-      public void method6280() {
+      @Export("resetCyclesPerFlash")
+      public void resetCyclesPerFlash() {
             this.cyclesPerFlash = 50;
       }
 
@@ -1214,7 +1220,8 @@ public class WorldMap {
             signature = "(IS)Z",
             garbageValue = "15242"
       )
-      public boolean method6275(int var1) {
+      @Export("isElementDisabled")
+      public boolean isElementDisabled(int var1) {
             return !this.enabledElements.contains(var1);
       }
 
@@ -1223,7 +1230,8 @@ public class WorldMap {
             signature = "(IB)Z",
             garbageValue = "0"
       )
-      public boolean method6290(int var1) {
+      @Export("isCategoryDisabled")
+      public boolean isCategoryDisabled(int var1) {
             return !this.enabledCategories.contains(var1);
       }
 
@@ -1284,7 +1292,7 @@ public class WorldMap {
                   return null;
             } else if (!this.worldMapManager.isLoaded()) {
                   return null;
-            } else if (!this.currentMapArea.containsPosition(var2.field_53, var2.field_54)) {
+            } else if (!this.currentMapArea.containsPosition(var2.field_54, var2.field_55)) {
                   return null;
             } else {
                   HashMap var3 = this.worldMapManager.buildIcons();
@@ -1303,8 +1311,8 @@ public class WorldMap {
                                     }
 
                                     var8 = (AbstractWorldMapIcon)var7.next();
-                                    int var9 = var8.coord2.field_53 - var2.field_53;
-                                    int var10 = var8.coord2.field_54 - var2.field_54;
+                                    int var9 = var8.coord2.field_54 - var2.field_54;
+                                    int var10 = var8.coord2.field_55 - var2.field_55;
                                     var11 = var10 * var10 + var9 * var9;
                                     if (var11 == 0) {
                                           return var8.coord2;

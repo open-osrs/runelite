@@ -38,11 +38,11 @@ public enum HorizontalAlignment implements Enumerated {
             intValue = 1916297519
       )
       @Export("id")
-      final int field_56;
+      final int field_57;
 
       HorizontalAlignment(int var3, int var4) {
             this.value = var3;
-            this.field_56 = var4;
+            this.field_57 = var4;
       }
 
       @ObfuscatedName("v")
@@ -52,6 +52,6 @@ public enum HorizontalAlignment implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_56;
+            return this.field_57;
       }
 }

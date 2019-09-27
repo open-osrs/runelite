@@ -15,7 +15,8 @@ public class class219 {
       @ObfuscatedSignature(
             signature = "Lkc;"
       )
-      static class309 field2696;
+      @Export("privateChatMode")
+      static PrivateChatMode privateChatMode;
 
       @ObfuscatedName("r")
       @ObfuscatedSignature(
@@ -50,7 +51,7 @@ public class class219 {
                   if (var0 == ScriptOpcodes.WORLDLIST_START) {
                         var3 = ModelData0.worldListStart();
                         if (var3 != null) {
-                              Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.field_59;
+                              Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.field_60;
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.properties;
                               Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.activity;
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.location;
@@ -69,7 +70,7 @@ public class class219 {
                   } else if (var0 == ScriptOpcodes.WORLDLIST_NEXT) {
                         var3 = AbstractByteArrayCopier.getNextWorldListWorld();
                         if (var3 != null) {
-                              Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.field_59;
+                              Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.field_60;
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.properties;
                               Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.activity;
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.location;
@@ -94,14 +95,14 @@ public class class219 {
                               var4 = null;
 
                               for(var5 = 0; var5 < World.World_count; ++var5) {
-                                    if (var7 == World.World_worlds[var5].field_59) {
+                                    if (var7 == World.World_worlds[var5].field_60) {
                                           var4 = World.World_worlds[var5];
                                           break;
                                     }
                               }
 
                               if (var4 != null) {
-                                    Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.field_59;
+                                    Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.field_60;
                                     Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.properties;
                                     Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var4.activity;
                                     Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.location;
@@ -125,7 +126,7 @@ public class class219 {
                               boolean var6 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 3] == 1;
                               class49.sortWorldList(var7, var10, var5, var6);
                               return 1;
-                        } else if (var0 != ScriptOpcodes.GETWORLDINFO) {
+                        } else if (var0 != ScriptOpcodes._6511) {
                               if (var0 == ScriptOpcodes.SETFOLLOWEROPSLOWPRIORITY) {
                                     Client.followerOpsLowPriority = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
                                     return 1;
@@ -174,9 +175,9 @@ public class class219 {
                                           var8 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
                                           var9 = WallDecoration.getParamDefinition(var8);
                                           if (var9.isString()) {
-                                                Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = JagexCache.method3449(var7).getStringParam(var8, var9.defaultStr);
+                                                Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = JagexCache.StructDefinition_getStructDefinition(var7).getStringParam(var8, var9.defaultStr);
                                           } else {
-                                                Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = JagexCache.method3449(var7).getIntParam(var8, var9.defaultInt);
+                                                Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = JagexCache.StructDefinition_getStructDefinition(var7).getIntParam(var8, var9.defaultInt);
                                           }
 
                                           return 1;
@@ -186,25 +187,25 @@ public class class219 {
                                     } else if (var0 == ScriptOpcodes.CLIENTTYPE) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.clientType & 3;
                                           return 1;
-                                    } else if (var0 == 6520) {
+                                    } else if (var0 == ScriptOpcodes._6520) {
                                           return 1;
                                     } else if (var0 == ScriptOpcodes.MOBILE_KEYBOARDHIDE) {
                                           return 1;
-                                    } else if (var0 == 6522) {
+                                    } else if (var0 == ScriptOpcodes._6522) {
                                           --Interpreter.Interpreter_stringStackSize;
                                           --Interpreter.Interpreter_intStackSize;
                                           return 1;
-                                    } else if (var0 == 6523) {
+                                    } else if (var0 == ScriptOpcodes._6523) {
                                           --Interpreter.Interpreter_stringStackSize;
                                           --Interpreter.Interpreter_intStackSize;
                                           return 1;
-                                    } else if (var0 == ScriptOpcodes.BATTERYLEVEL) {
+                                    } else if (var0 == ScriptOpcodes.MOBILE_BATTERYLEVEL) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                           return 1;
-                                    } else if (var0 == ScriptOpcodes.BATTERYCHARGING) {
+                                    } else if (var0 == ScriptOpcodes.MOBILE_BATTERYCHARGING) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 1;
                                           return 1;
-                                    } else if (var0 == ScriptOpcodes.WIFIAVAILABLE) {
+                                    } else if (var0 == ScriptOpcodes.MOBILE_WIFIAVAILABLE) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 1;
                                           return 1;
                                     } else {
@@ -215,7 +216,7 @@ public class class219 {
                               var7 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                               if (var7 >= 0 && var7 < World.World_count) {
                                     var4 = World.World_worlds[var7];
-                                    Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.field_59;
+                                    Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.field_60;
                                     Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.properties;
                                     Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var4.activity;
                                     Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4.location;

@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class Clock {
       @ObfuscatedName("qq")
       @ObfuscatedGetter(
-            intValue = 1800617984
+            intValue = -757684608
       )
       static int field2039;
 
@@ -34,7 +34,8 @@ public abstract class Clock {
             signature = "(II)I",
             garbageValue = "1663360326"
       )
-      static int method3465(int var0) {
+      @Export("Messages_getLastChatID")
+      static int Messages_getLastChatID(int var0) {
             Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
             if (var1 == null) {
                   return -1;
@@ -60,7 +61,7 @@ public abstract class Clock {
       @Export("resumePauseWidget")
       static void resumePauseWidget(int var0, int var1) {
             PacketBufferNode var2 = InterfaceParent.getPacketBufferNode(ClientPacket.field2185, Client.packetWriter.isaacCipher);
-            var2.packetBuffer.method5526(var0);
+            var2.packetBuffer.writeIntLE16(var0);
             var2.packetBuffer.writeShort(var1);
             Client.packetWriter.addNode(var2);
       }

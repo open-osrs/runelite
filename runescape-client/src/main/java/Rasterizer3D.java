@@ -3421,26 +3421,22 @@ public class Rasterizer3D extends Rasterizer2D {
       }
 
       @ObfuscatedName("d")
-      @Export("rot3")
-      static final int rot3(int var0, int var1, int var2, int var3) {
+      static final int method2980(int var0, int var1, int var2, int var3) {
             return var0 * var2 - var3 * var1 >> 16;
       }
 
       @ObfuscatedName("l")
-      @Export("rot4")
-      static final int rot4(int var0, int var1, int var2, int var3) {
+      static final int method2981(int var0, int var1, int var2, int var3) {
             return var3 * var0 + var2 * var1 >> 16;
       }
 
       @ObfuscatedName("k")
-      @Export("rot1")
-      static final int rot1(int var0, int var1, int var2, int var3) {
+      static final int method2982(int var0, int var1, int var2, int var3) {
             return var0 * var2 + var3 * var1 >> 16;
       }
 
       @ObfuscatedName("ac")
-      @Export("rot2")
-      static final int rot2(int var0, int var1, int var2, int var3) {
+      static final int method2974(int var0, int var1, int var2, int var3) {
             return var2 * var1 - var3 * var0 >> 16;
       }
 }

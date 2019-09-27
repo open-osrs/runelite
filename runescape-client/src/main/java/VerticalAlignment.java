@@ -41,11 +41,11 @@ public enum VerticalAlignment implements Enumerated {
             intValue = 1741450623
       )
       @Export("id")
-      final int field_55;
+      final int field_56;
 
       VerticalAlignment(int var3, int var4) {
             this.value = var3;
-            this.field_55 = var4;
+            this.field_56 = var4;
       }
 
       @ObfuscatedName("v")
@@ -55,7 +55,7 @@ public enum VerticalAlignment implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_55;
+            return this.field_56;
       }
 
       @ObfuscatedName("ko")

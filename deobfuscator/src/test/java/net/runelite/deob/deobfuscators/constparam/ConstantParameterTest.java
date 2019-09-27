@@ -60,7 +60,6 @@ public class ConstantParameterTest
 	}
 
 	@Test
-	@Ignore
 	public void testRun()
 	{
 		ConstantParameter cp = new ConstantParameter();

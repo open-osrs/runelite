@@ -114,14 +114,6 @@ public class BufferedNetSocket extends AbstractSocket {
             this.close();
       }
 
-      protected void aav() {
-            this.close();
-      }
-
-      protected void aao() {
-            this.close();
-      }
-
       @ObfuscatedName("z")
       @ObfuscatedSignature(
             signature = "(I)Z",
@@ -142,7 +134,7 @@ public class BufferedNetSocket extends AbstractSocket {
                         World var3;
                         for(int var2 = 0; var2 < World.World_count; var3.index = var2++) {
                               var3 = World.World_worlds[var2] = new World();
-                              var3.field_59 = var1.readUnsignedShort();
+                              var3.field_60 = var1.readUnsignedShort();
                               var3.properties = var1.readInt();
                               var3.host = var1.readStringCp1252NullTerminated();
                               var3.activity = var1.readStringCp1252NullTerminated();

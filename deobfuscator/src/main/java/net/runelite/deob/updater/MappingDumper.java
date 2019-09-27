@@ -41,7 +41,6 @@ public class MappingDumper
 		Stopwatch st = Stopwatch.createStarted();
 		group.buildClassGraph();
 
-		// MappingDump.of(ClassGroup) dumps everything completely
 		final MappingDump dump = new MappingDump().visitGroup(group);
 		dump.revision = Integer.parseInt(DeobProperties.getRevision());
 

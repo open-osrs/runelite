@@ -37,9 +37,9 @@ public final class class227 {
                               Client.widgetClickY = var2;
                               ViewportMouse.widgetDragDuration = 0;
                               Client.isDraggingWidget = false;
-                              int var5 = class158.getNewestMenuIdx();
+                              int var5 = BuddyRankComparator.getNewestMenuIdx();
                               if (var5 != -1) {
-                                    ChatChannel.saveTempMenuAction(var5);
+                                    ChatChannel.method2225(var5);
                               }
 
                               return;

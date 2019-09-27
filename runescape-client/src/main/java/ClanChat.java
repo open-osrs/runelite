@@ -76,7 +76,7 @@ public class ClanChat extends UserList {
       )
       @Export("readName")
       final void readName(String var1) {
-            this.name = VertexNormal.base37Decode(var1);
+            this.name = VertexNormal.method2957(var1);
       }
 
       @ObfuscatedName("m")
@@ -86,7 +86,7 @@ public class ClanChat extends UserList {
       )
       @Export("setOwner")
       final void setOwner(String var1) {
-            this.owner = VertexNormal.base37Decode(var1);
+            this.owner = VertexNormal.method2957(var1);
       }
 
       @ObfuscatedName("y")

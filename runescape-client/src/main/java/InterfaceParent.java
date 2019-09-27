@@ -74,7 +74,7 @@ public class InterfaceParent extends Node {
             }
 
             var2.packetBuffer.setIsaacCipher(var1);
-            var2.packetBuffer.writeByteIsaac(var2.clientPacket.field_36);
+            var2.packetBuffer.writeByteIsaac(var2.clientPacket.field_37);
             var2.index = 0;
             return var2;
       }
@@ -148,7 +148,7 @@ public class InterfaceParent extends Node {
       static final void updateNpcs(boolean var0, PacketBuffer var1) {
             Client.field640 = 0;
             Client.field633 = 0;
-            Decimator.readNpcUpdates();
+            Decimator.method2496();
 
             int var2;
             NPC var4;
@@ -208,7 +208,7 @@ public class InterfaceParent extends Node {
 
                   var9 = var1.readBits(1);
                   var4.definition = PacketBufferNode.getNpcDefinition(var1.readBits(14));
-                  var4.size = var4.definition.size * 772175475;
+                  var4.field932 = var4.definition.size * 772175475;
                   var4.field982 = var4.definition.rotation;
                   if (var4.field982 == 0) {
                         var4.rotation = 0;
@@ -313,7 +313,7 @@ public class InterfaceParent extends Node {
 
                   if ((var5 & 32) != 0) {
                         var4.definition = PacketBufferNode.getNpcDefinition(var1.method5632());
-                        var4.size = var4.definition.size * 772175475;
+                        var4.field932 = var4.definition.size * 772175475;
                         var4.field982 = var4.definition.rotation;
                         var4.walkSequence = var4.definition.walkSequence;
                         var4.walkBackSequence = var4.definition.walkBackSequence;
@@ -328,7 +328,7 @@ public class InterfaceParent extends Node {
                         var6 = var1.method5465();
                         var7 = var1.method5632();
                         var8 = var4.field_27 - (var6 - class223.baseX * 64 - class223.baseX * 64) * 64;
-                        var9 = var4.field_28 * 682054857 - (var7 - class286.baseY * 64 - class286.baseY * 64) * 64;
+                        var9 = var4.field_28 - (var7 - class286.baseY * 64 - class286.baseY * 64) * 64;
                         if (var8 != 0 || var9 != 0) {
                               var4.field957 = (int)(Math.atan2((double)var8, (double)var9) * 325.949D) & 2047;
                         }

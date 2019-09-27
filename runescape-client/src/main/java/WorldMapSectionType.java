@@ -46,11 +46,11 @@ public enum WorldMapSectionType implements Enumerated {
       // $FF: renamed from: id byte
       @ObfuscatedName("p")
       @Export("id")
-      final byte field_51;
+      final byte field_52;
 
       WorldMapSectionType(int var3, byte var4) {
             this.type = var3;
-            this.field_51 = var4;
+            this.field_52 = var4;
       }
 
       @ObfuscatedName("v")
@@ -60,7 +60,7 @@ public enum WorldMapSectionType implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_51;
+            return this.field_52;
       }
 
       @ObfuscatedName("jf")
@@ -91,13 +91,12 @@ public enum WorldMapSectionType implements Enumerated {
             signature = "(Ljava/lang/String;I)Ljava/lang/String;",
             garbageValue = "-1617760184"
       )
-      @Export("removeImageTag")
-      static String removeImageTag(String var0) {
+      static String method250(String var0) {
             PlayerType[] var1 = class226.PlayerType_values();
 
             for(int var2 = 0; var2 < var1.length; ++var2) {
                   PlayerType var3 = var1[var2];
-                  if (var3.modIcon != -1 && var0.startsWith(class247.getModIconString(var3.modIcon))) {
+                  if (var3.modIcon != -1 && var0.startsWith(class247.method4443(var3.modIcon))) {
                         var0 = var0.substring(6 + Integer.toString(var3.modIcon).length());
                         break;
                   }

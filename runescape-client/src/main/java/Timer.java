@@ -61,7 +61,7 @@ public class Timer {
             garbageValue = "-20"
       )
       public void method4924() {
-            this.field3561 = class30.currentTimeMs();
+            this.field3561 = class30.method566();
       }
 
       @ObfuscatedName("n")
@@ -71,7 +71,7 @@ public class Timer {
       )
       public void method4925() {
             if (-1L != this.field3561) {
-                  this.field3565 = class30.currentTimeMs() - this.field3561;
+                  this.field3565 = class30.method566() - this.field3561;
                   this.field3561 = -1L;
             }
 
@@ -83,7 +83,7 @@ public class Timer {
             garbageValue = "-1928577406"
       )
       public void method4926(int var1) {
-            this.field3562 = class30.currentTimeMs();
+            this.field3562 = class30.method566();
             this.field3567 = var1;
       }
 
@@ -94,7 +94,7 @@ public class Timer {
       )
       public void method4927() {
             if (-1L != this.field3562) {
-                  this.field3564 = class30.currentTimeMs() - this.field3562;
+                  this.field3564 = class30.method566() - this.field3562;
                   this.field3562 = -1L;
             }
 

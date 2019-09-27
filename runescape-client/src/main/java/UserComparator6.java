@@ -125,11 +125,11 @@ public class UserComparator6 extends AbstractUserComparator {
             } else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Y) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelAngleY;
                   return 1;
-            } else if (var0 == ScriptOpcodes.CC_GETTRANSTOP) {
+            } else if (var0 == ScriptOpcodes.CC_GETTRANS) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.transparencyTop;
                   return 1;
-            } else if (var0 == ScriptOpcodes.CC_GETTRANSBOT) {
-                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.field2577;
+            } else if (var0 == ScriptOpcodes._1610) {
+                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.transparencyBot;
                   return 1;
             } else if (var0 == ScriptOpcodes.CC_GETCOLOUR) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.color;
@@ -137,11 +137,11 @@ public class UserComparator6 extends AbstractUserComparator {
             } else if (var0 == ScriptOpcodes.CC_GETFILLCOLOUR) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.color2;
                   return 1;
-            } else if (var0 == ScriptOpcodes.CC_GETFILLMODE) {
+            } else if (var0 == ScriptOpcodes._1613) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal();
                   return 1;
             } else if (var0 == ScriptOpcodes.CC_GETMODELTRANSPARENT) {
-                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.field2654 ? 1 : 0;
+                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0;
                   return 1;
             } else {
                   return 2;
@@ -193,10 +193,10 @@ public class UserComparator6 extends AbstractUserComparator {
       )
       static int method3398(int var0, Script var1, boolean var2) {
             int var3;
-            if (var0 == 6600) {
+            if (var0 == ScriptOpcodes._6600) {
                   var3 = WorldMapRectangle.plane;
                   int var9 = class223.baseX * 64 + (class223.localPlayer.field_27 >> 7);
-                  int var5 = class286.baseY * 64 + (class223.localPlayer.field_28 * 682054857 >> 7);
+                  int var5 = class286.baseY * 64 + (class223.localPlayer.field_28 >> 7);
                   Decimator.getWorldMap().method6249(var3, var9, var5, true);
                   return 1;
             } else {
@@ -206,7 +206,7 @@ public class UserComparator6 extends AbstractUserComparator {
                         String var16 = "";
                         var11 = Decimator.getWorldMap().getMapArea(var3);
                         if (var11 != null) {
-                              var16 = var11.method362();
+                              var16 = var11.getExternalName();
                         }
 
                         Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var16;
@@ -229,19 +229,19 @@ public class UserComparator6 extends AbstractUserComparator {
                         Coord var15;
                         if (var0 == ScriptOpcodes.WORLDMAP_JUMPTODISPLAYCOORD) {
                               var15 = new Coord(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-                              Decimator.getWorldMap().setWorldMapPositionTarget(var15.field_53, var15.field_54);
+                              Decimator.getWorldMap().setWorldMapPositionTarget(var15.field_54, var15.field_55);
                               return 1;
                         } else if (var0 == ScriptOpcodes.WORLDMAP_JUMPTODISPLAYCOORD_INSTANT) {
                               var15 = new Coord(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-                              Decimator.getWorldMap().setWorldMapPositionTargetInstant(var15.field_53, var15.field_54);
+                              Decimator.getWorldMap().setWorldMapPositionTargetInstant(var15.field_54, var15.field_55);
                               return 1;
                         } else if (var0 == ScriptOpcodes.WORLDMAP_JUMPTOSOURCECOORD) {
                               var15 = new Coord(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-                              Decimator.getWorldMap().method6270(var15.plane, var15.field_53, var15.field_54);
+                              Decimator.getWorldMap().jumpToSourceCoord(var15.plane, var15.field_54, var15.field_55);
                               return 1;
                         } else if (var0 == ScriptOpcodes.WORLDMAP_JUMPTOSOURCECOORD_INSTANT) {
                               var15 = new Coord(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-                              Decimator.getWorldMap().method6271(var15.plane, var15.field_53, var15.field_54);
+                              Decimator.getWorldMap().jumpToSourceCoordInstant(var15.plane, var15.field_54, var15.field_55);
                               return 1;
                         } else if (var0 == ScriptOpcodes.WORLDMAP_GETDISPLAYPOSITION) {
                               Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Decimator.getWorldMap().getDisplayX();
@@ -297,14 +297,14 @@ public class UserComparator6 extends AbstractUserComparator {
                                     }
 
                                     return 1;
-                              } else if (var0 == 6615) {
+                              } else if (var0 == ScriptOpcodes._6615) {
                                     var15 = Decimator.getWorldMap().getDisplayCoord();
                                     if (var15 == null) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                     } else {
-                                          Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var15.field_53;
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var15.field_54;
+                                          Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var15.field_55;
                                     }
 
                                     return 1;
@@ -319,7 +319,7 @@ public class UserComparator6 extends AbstractUserComparator {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                           return 1;
                                     } else {
-                                          int[] var14 = var13.position(var15.plane, var15.field_53, var15.field_54);
+                                          int[] var14 = var13.position(var15.plane, var15.field_54, var15.field_55);
                                           if (var14 == null) {
                                                 Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                                 Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
@@ -332,7 +332,7 @@ public class UserComparator6 extends AbstractUserComparator {
                                     }
                               } else {
                                     Coord var7;
-                                    if (var0 == 6618) {
+                                    if (var0 == ScriptOpcodes._6618) {
                                           var15 = new Coord(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
                                           var13 = Decimator.getWorldMap().getCurrentMapArea();
                                           if (var13 == null) {
@@ -340,7 +340,7 @@ public class UserComparator6 extends AbstractUserComparator {
                                                 Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                                 return 1;
                                           } else {
-                                                var7 = var13.coord(var15.field_53, var15.field_54);
+                                                var7 = var13.coord(var15.field_54, var15.field_55);
                                                 if (var7 == null) {
                                                       Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                                 } else {
@@ -351,13 +351,13 @@ public class UserComparator6 extends AbstractUserComparator {
                                           }
                                     } else {
                                           Coord var12;
-                                          if (var0 == 6619) {
+                                          if (var0 == ScriptOpcodes._6619) {
                                                 Interpreter.Interpreter_intStackSize -= 2;
                                                 var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
                                                 var12 = new Coord(Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]);
                                                 WorldMapLabel.method439(var3, var12, false);
                                                 return 1;
-                                          } else if (var0 == 6620) {
+                                          } else if (var0 == ScriptOpcodes._6620) {
                                                 Interpreter.Interpreter_intStackSize -= 2;
                                                 var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
                                                 var12 = new Coord(Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]);
@@ -372,16 +372,16 @@ public class UserComparator6 extends AbstractUserComparator {
                                                       Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
                                                       return 1;
                                                 } else {
-                                                      Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var11.containsCoord(var12.plane, var12.field_53, var12.field_54) ? 1 : 0;
+                                                      Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var11.containsCoord(var12.plane, var12.field_54, var12.field_55) ? 1 : 0;
                                                       return 1;
                                                 }
                                           } else if (var0 == ScriptOpcodes.WORLDMAP_GETSIZE) {
                                                 Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Decimator.getWorldMap().getDisplayWith();
                                                 Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Decimator.getWorldMap().getDisplayHeight();
                                                 return 1;
-                                          } else if (var0 == 6623) {
+                                          } else if (var0 == ScriptOpcodes._6623) {
                                                 var15 = new Coord(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-                                                var13 = Decimator.getWorldMap().mapAreaAtCoord(var15.plane, var15.field_53, var15.field_54);
+                                                var13 = Decimator.getWorldMap().mapAreaAtCoord(var15.plane, var15.field_54, var15.field_55);
                                                 if (var13 == null) {
                                                       Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
                                                 } else {
@@ -389,17 +389,17 @@ public class UserComparator6 extends AbstractUserComparator {
                                                 }
 
                                                 return 1;
-                                          } else if (var0 == 6624) {
-                                                Decimator.getWorldMap().method6277(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
+                                          } else if (var0 == ScriptOpcodes._6624) {
+                                                Decimator.getWorldMap().setMaxFlashCount(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
                                                 return 1;
-                                          } else if (var0 == 6625) {
-                                                Decimator.getWorldMap().method6278();
+                                          } else if (var0 == ScriptOpcodes._6625) {
+                                                Decimator.getWorldMap().resetMaxFlashCount();
                                                 return 1;
-                                          } else if (var0 == 6626) {
-                                                Decimator.getWorldMap().method6289(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
+                                          } else if (var0 == ScriptOpcodes._6626) {
+                                                Decimator.getWorldMap().setCyclesPerFlash(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
                                                 return 1;
-                                          } else if (var0 == 6627) {
-                                                Decimator.getWorldMap().method6280();
+                                          } else if (var0 == ScriptOpcodes._6627) {
+                                                Decimator.getWorldMap().resetCyclesPerFlash();
                                                 return 1;
                                           } else {
                                                 boolean var10;
@@ -441,13 +441,13 @@ public class UserComparator6 extends AbstractUserComparator {
                                                             return 1;
                                                       } else if (var0 == ScriptOpcodes.WORLDMAP_GETDISABLEELEMENT) {
                                                             var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                                                            Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Decimator.getWorldMap().method6275(var3) ? 1 : 0;
+                                                            Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Decimator.getWorldMap().isElementDisabled(var3) ? 1 : 0;
                                                             return 1;
                                                       } else if (var0 == ScriptOpcodes.WORLDMAP_GETDISABLEELEMENTCATEGORY) {
                                                             var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                                                            Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Decimator.getWorldMap().method6290(var3) ? 1 : 0;
+                                                            Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Decimator.getWorldMap().isCategoryDisabled(var3) ? 1 : 0;
                                                             return 1;
-                                                      } else if (var0 == 6638) {
+                                                      } else if (var0 == ScriptOpcodes._6638) {
                                                             Interpreter.Interpreter_intStackSize -= 2;
                                                             var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
                                                             var12 = new Coord(Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]);
@@ -523,7 +523,7 @@ public class UserComparator6 extends AbstractUserComparator {
                                                                   } else if (var0 == ScriptOpcodes.WORLDMAP_ELEMENT) {
                                                                         Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = EnumDefinition.worldMapEvent.mapElement;
                                                                         return 1;
-                                                                  } else if (var0 == 6698) {
+                                                                  } else if (var0 == ScriptOpcodes._6698) {
                                                                         Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = EnumDefinition.worldMapEvent.coord1.packed();
                                                                         return 1;
                                                                   } else if (var0 == ScriptOpcodes.WORLDMAP_ELEMENTCOORD) {
@@ -555,7 +555,7 @@ public class UserComparator6 extends AbstractUserComparator {
             int var3;
             int var4;
             for(var3 = 0; var3 < Client.menuOptionsCount; ++var3) {
-                  var4 = class173.fontBold12.stringWidth(class40.getMenuText(var3));
+                  var4 = class173.fontBold12.stringWidth(class40.method799(var3));
                   if (var4 > var2) {
                         var2 = var4;
                   }

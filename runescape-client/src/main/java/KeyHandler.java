@@ -170,7 +170,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
       )
       @Export("InvDefinition_setArchives")
       public static void InvDefinition_setArchives(AbstractArchive var0) {
-            class239.InvDefinition_archive = var0;
+            InvDefinition.InvDefinition_archive = var0;
       }
 
       @ObfuscatedName("n")
@@ -292,35 +292,35 @@ public final class KeyHandler implements KeyListener, FocusListener {
                                           case 2:
                                                 throw new IllegalStateException();
                                           }
-                                    } else if (var29 == ScriptOpcodes.ICONST) {
+                                    } else if (var29 == ScriptOpcodes.PUSH_CONSTANT_INT) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var6[var17];
-                                    } else if (var29 == ScriptOpcodes.GET_VARP) {
+                                    } else if (var29 == ScriptOpcodes.PUSH_VAR) {
                                           var11 = var6[var17];
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Varps.Varps_main[var11];
-                                    } else if (var29 == ScriptOpcodes.SET_VARP) {
+                                    } else if (var29 == ScriptOpcodes.POP_VAR) {
                                           var11 = var6[var17];
                                           Varps.Varps_main[var11] = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                                           NetSocket.method3468(var11);
-                                    } else if (var29 == ScriptOpcodes.SCONST) {
+                                    } else if (var29 == ScriptOpcodes.PUSH_CONSTANT_STRING) {
                                           Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.stringOperands[var17];
-                                    } else if (var29 == ScriptOpcodes.JUMP) {
+                                    } else if (var29 == ScriptOpcodes.BRANCH) {
                                           var17 += var6[var17];
-                                    } else if (var29 == ScriptOpcodes.IF_ICMPNE) {
+                                    } else if (var29 == ScriptOpcodes.BRANCH_NOT) {
                                           Interpreter.Interpreter_intStackSize -= 2;
                                           if (Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] != Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]) {
                                                 var17 += var6[var17];
                                           }
-                                    } else if (var29 == ScriptOpcodes.IF_ICMPEQ) {
+                                    } else if (var29 == ScriptOpcodes.BRANCH_EQUALS) {
                                           Interpreter.Interpreter_intStackSize -= 2;
                                           if (Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] == Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]) {
                                                 var17 += var6[var17];
                                           }
-                                    } else if (var29 == ScriptOpcodes.IF_ICMPLT) {
+                                    } else if (var29 == ScriptOpcodes.BRANCH_LESS_THAN) {
                                           Interpreter.Interpreter_intStackSize -= 2;
                                           if (Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] < Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]) {
                                                 var17 += var6[var17];
                                           }
-                                    } else if (var29 == ScriptOpcodes.IF_ICMPGT) {
+                                    } else if (var29 == ScriptOpcodes.BRANCH_GREATER_THAN) {
                                           Interpreter.Interpreter_intStackSize -= 2;
                                           if (Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] > Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]) {
                                                 var17 += var6[var17];
@@ -330,52 +330,52 @@ public final class KeyHandler implements KeyListener, FocusListener {
                                                 return;
                                           }
 
-                                          class56 var34 = Interpreter.Interpreter_frames[--Interpreter.Interpreter_frameDepth];
-                                          var3 = var34.field504;
+                                          ScriptFrame var34 = Interpreter.Interpreter_frames[--Interpreter.Interpreter_frameDepth];
+                                          var3 = var34.script;
                                           var5 = var3.opcodes;
                                           var6 = var3.intOperands;
-                                          var17 = var34.field505;
-                                          Interpreter.Interpreter_intLocals = var34.field506;
-                                          UrlRequester.Interpreter_stringLocals = var34.field507;
-                                    } else if (var29 == ScriptOpcodes.GET_VARBIT) {
+                                          var17 = var34.field_36;
+                                          Interpreter.Interpreter_intLocals = var34.intLocals;
+                                          UrlRequester.Interpreter_stringLocals = var34.stringLocals;
+                                    } else if (var29 == ScriptOpcodes.PUSH_VARBIT) {
                                           var11 = var6[var17];
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = WorldMapSprite.getVarbit(var11);
-                                    } else if (var29 == ScriptOpcodes.SET_VARBIT) {
+                                    } else if (var29 == ScriptOpcodes.POP_VARBIT) {
                                           var11 = var6[var17];
                                           WorldMapElement.method4348(var11, Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-                                    } else if (var29 == ScriptOpcodes.IF_ICMPLE) {
+                                    } else if (var29 == ScriptOpcodes.BRANCH_LESS_THAN_OR_EQUALS) {
                                           Interpreter.Interpreter_intStackSize -= 2;
                                           if (Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] <= Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]) {
                                                 var17 += var6[var17];
                                           }
-                                    } else if (var29 == ScriptOpcodes.IF_ICMPGE) {
+                                    } else if (var29 == ScriptOpcodes.BRANCH_GREATER_THAN_OR_EQUALS) {
                                           Interpreter.Interpreter_intStackSize -= 2;
                                           if (Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] >= Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]) {
                                                 var17 += var6[var17];
                                           }
-                                    } else if (var29 == ScriptOpcodes.ILOAD) {
+                                    } else if (var29 == ScriptOpcodes.PUSH_INT_LOCAL) {
                                           Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Interpreter.Interpreter_intLocals[var6[var17]];
-                                    } else if (var29 == ScriptOpcodes.ISTORE) {
+                                    } else if (var29 == ScriptOpcodes.POP_INT_LOCAL) {
                                           Interpreter.Interpreter_intLocals[var6[var17]] = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                                    } else if (var29 == ScriptOpcodes.SLOAD) {
+                                    } else if (var29 == ScriptOpcodes.PUSH_STRING_LOCAL) {
                                           Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = UrlRequester.Interpreter_stringLocals[var6[var17]];
-                                    } else if (var29 == ScriptOpcodes.SSTORE) {
+                                    } else if (var29 == ScriptOpcodes.POP_STRING_LOCAL) {
                                           UrlRequester.Interpreter_stringLocals[var6[var17]] = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
                                     } else if (var29 == ScriptOpcodes.JOIN_STRING) {
                                           var11 = var6[var17];
                                           Interpreter.Interpreter_stringStackSize -= var11;
                                           String var31 = FloorOverlayDefinition.method4704(Interpreter.Interpreter_stringStack, Interpreter.Interpreter_stringStackSize, var11);
                                           Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var31;
-                                    } else if (var29 == ScriptOpcodes.POP_INT) {
+                                    } else if (var29 == ScriptOpcodes.POP_INT_DISCARD) {
                                           --Interpreter.Interpreter_intStackSize;
-                                    } else if (var29 == ScriptOpcodes.POP_STRING) {
+                                    } else if (var29 == ScriptOpcodes.POP_STRING_DISCARD) {
                                           --Interpreter.Interpreter_stringStackSize;
                                     } else {
                                           int var15;
-                                          if (var29 != ScriptOpcodes.INVOKE) {
-                                                if (var29 == ScriptOpcodes.GET_VARC_INT) {
+                                          if (var29 != ScriptOpcodes.GOSUB_WITH_PARAMS) {
+                                                if (var29 == ScriptOpcodes.PUSH_VARC_INT) {
                                                       Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class197.varcs.getInt(var6[var17]);
-                                                } else if (var29 == ScriptOpcodes.SET_VARC_INT) {
+                                                } else if (var29 == ScriptOpcodes.POP_VARC_INT) {
                                                       class197.varcs.setInt(var6[var17], Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
                                                 } else if (var29 == ScriptOpcodes.DEFINE_ARRAY) {
                                                       var11 = var6[var17] >> 16;
@@ -394,7 +394,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
                                                       for(var15 = 0; var15 < var21; ++var15) {
                                                             Interpreter.Interpreter_arrays[var11][var15] = var22;
                                                       }
-                                                } else if (var29 == ScriptOpcodes.GET_ARRAY_INT) {
+                                                } else if (var29 == ScriptOpcodes.PUSH_ARRAY_INT) {
                                                       var11 = var6[var17];
                                                       var20 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                                                       if (var20 < 0 || var20 >= Interpreter.Interpreter_arrayLengths[var11]) {
@@ -402,7 +402,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
                                                       }
 
                                                       Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Interpreter.Interpreter_arrays[var11][var20];
-                                                } else if (var29 == ScriptOpcodes.SET_ARRAY_INT) {
+                                                } else if (var29 == ScriptOpcodes.POP_ARRAY_INT) {
                                                       var11 = var6[var17];
                                                       Interpreter.Interpreter_intStackSize -= 2;
                                                       var20 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
@@ -411,19 +411,19 @@ public final class KeyHandler implements KeyListener, FocusListener {
                                                       }
 
                                                       Interpreter.Interpreter_arrays[var11][var20] = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-                                                } else if (var29 == ScriptOpcodes.GET_VARC_STRING_OLD) {
+                                                } else if (var29 == ScriptOpcodes.PUSH_VARC_STRING_OLD) {
                                                       var18 = class197.varcs.getStringOld(var6[var17]);
                                                       if (var18 == null) {
                                                             var18 = "null";
                                                       }
 
                                                       Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var18;
-                                                } else if (var29 == ScriptOpcodes.SET_VARC_STRING_OLD) {
+                                                } else if (var29 == ScriptOpcodes.POP_VARC_STRING_OLD) {
                                                       class197.varcs.setStringOld(var6[var17], Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]);
-                                                } else if (var29 == ScriptOpcodes.GET_VARC_STRING) {
+                                                } else if (var29 == ScriptOpcodes.PUSH_VARC_STRING) {
                                                       var18 = class197.varcs.getString(var6[var17]);
                                                       Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var18;
-                                                } else if (var29 == ScriptOpcodes.SET_VARC_STRING) {
+                                                } else if (var29 == ScriptOpcodes.POP_VARC_STRING) {
                                                       class197.varcs.setString(var6[var17], Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]);
                                                 } else {
                                                       if (var29 != ScriptOpcodes.SWITCH) {
@@ -452,11 +452,11 @@ public final class KeyHandler implements KeyListener, FocusListener {
 
                                                 Interpreter.Interpreter_intStackSize -= var12.intArgumentCount;
                                                 Interpreter.Interpreter_stringStackSize -= var12.stringArgumentCount;
-                                                class56 var19 = new class56();
-                                                var19.field504 = var3;
-                                                var19.field505 = var17;
-                                                var19.field506 = Interpreter.Interpreter_intLocals;
-                                                var19.field507 = UrlRequester.Interpreter_stringLocals;
+                                                ScriptFrame var19 = new ScriptFrame();
+                                                var19.script = var3;
+                                                var19.field_36 = var17;
+                                                var19.intLocals = Interpreter.Interpreter_intLocals;
+                                                var19.stringLocals = UrlRequester.Interpreter_stringLocals;
                                                 Interpreter.Interpreter_frames[++Interpreter.Interpreter_frameDepth - 1] = var19;
                                                 var3 = var12;
                                                 var5 = var12.opcodes;
@@ -472,7 +472,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
                               var24.append("").append(var3.key).append(" ");
 
                               for(var10 = Interpreter.Interpreter_frameDepth - 1; var10 >= 0; --var10) {
-                                    var24.append("").append(Interpreter.Interpreter_frames[var10].field504.key).append(" ");
+                                    var24.append("").append(Interpreter.Interpreter_frames[var10].script.key).append(" ");
                               }
 
                               var24.append("").append(var7);
@@ -1391,7 +1391,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
       )
       @Export("addCancelMenuEntry")
       static void addCancelMenuEntry() {
-            ScriptEvent.resetMenuEntries();
+            ScriptEvent.method1205();
             Client.menuActions[0] = "Cancel";
             Client.menuTargets[0] = "";
             Client.menuOpcodes[0] = 1006;

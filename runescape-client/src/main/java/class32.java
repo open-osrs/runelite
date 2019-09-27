@@ -26,7 +26,7 @@ public class class32 {
                   try {
                         String var2 = "";
                         if (var1 != null) {
-                              var2 = WorldMapManager.shortenStackTrace(var1);
+                              var2 = WorldMapManager.method685(var1);
                         }
 
                         if (var0 != null) {
@@ -164,7 +164,8 @@ public class class32 {
             signature = "(IIIII)V",
             garbageValue = "1810963756"
       )
-      static void method573(int var0, int var1, int var2, int var3) {
+      @Export("selectSpell")
+      static void selectSpell(int var0, int var1, int var2, int var3) {
             Widget var4 = GrandExchangeOfferWorldComparator.getWidgetChild(var0, var1);
             if (var4 != null && var4.onTargetEnter != null) {
                   ScriptEvent var5 = new ScriptEvent();
@@ -175,8 +176,8 @@ public class class32 {
 
             Client.field793 = var3;
             Client.isSpellSelected = true;
-            AttackOption.field1157 = var0;
-            Client.field768 = var1;
+            AttackOption.selectedSpellWidget = var0;
+            Client.selectedSpellChildIndex = var1;
             ItemContainer.selectedSpellFlags = var2;
             WorldMapSectionType.invalidateWidget(var4);
       }
@@ -281,10 +282,10 @@ public class class32 {
                                           break label336;
                                     }
 
-                                    if (var32.definition.size == 1 && (var32.field_27 & 127) == 64 && (var32.field_28 * 682054857 & 127) == 64) {
+                                    if (var32.definition.size == 1 && (var32.field_27 & 127) == 64 && (var32.field_28 & 127) == 64) {
                                           for(var22 = 0; var22 < Client.npcCount; ++var22) {
                                                 var23 = Client.npcs[Client.npcIndices[var22]];
-                                                if (var23 != null && var23 != var32 && var23.definition.size == 1 && var23.field_27 == var32.field_27 && var32.field_28 * 682054857 == var23.field_28 * 682054857) {
+                                                if (var23 != null && var23 != var32 && var23.definition.size == 1 && var23.field_27 == var32.field_27 && var23.field_28 == var32.field_28) {
                                                       class186.addNpcToMenu(var23.definition, Client.npcIndices[var22], var16, var17);
                                                 }
                                           }
@@ -294,7 +295,7 @@ public class class32 {
 
                                           for(var37 = 0; var37 < var22; ++var37) {
                                                 var25 = Client.players[var35[var37]];
-                                                if (var25 != null && var32.field_27 == var25.field_27 && var32.field_28 * 682054857 == var25.field_28 * 682054857) {
+                                                if (var25 != null && var32.field_27 == var25.field_27 && var32.field_28 == var25.field_28) {
                                                       GrandExchangeEvent.addPlayerToMenu(var25, var35[var37], var16, var17);
                                                 }
                                           }
@@ -309,10 +310,10 @@ public class class32 {
                                           break label336;
                                     }
 
-                                    if ((var33.field_27 & 127) == 64 && (var33.field_28 * 682054857 & 127) == 64) {
+                                    if ((var33.field_27 & 127) == 64 && (var33.field_28 & 127) == 64) {
                                           for(var22 = 0; var22 < Client.npcCount; ++var22) {
                                                 var23 = Client.npcs[Client.npcIndices[var22]];
-                                                if (var23 != null && var23.definition.size == 1 && var23.field_27 == var33.field_27 && var23.field_28 * 682054857 == var33.field_28 * 682054857) {
+                                                if (var23 != null && var23.definition.size == 1 && var23.field_27 == var33.field_27 && var33.field_28 == var23.field_28) {
                                                       class186.addNpcToMenu(var23.definition, Client.npcIndices[var22], var16, var17);
                                                 }
                                           }
@@ -322,7 +323,7 @@ public class class32 {
 
                                           for(var37 = 0; var37 < var22; ++var37) {
                                                 var25 = Client.players[var35[var37]];
-                                                if (var25 != null && var33 != var25 && var33.field_27 == var25.field_27 && var33.field_28 * 682054857 == var25.field_28 * 682054857) {
+                                                if (var25 != null && var33 != var25 && var33.field_27 == var25.field_27 && var33.field_28 == var25.field_28) {
                                                       GrandExchangeEvent.addPlayerToMenu(var25, var35[var37], var16, var17);
                                                 }
                                           }

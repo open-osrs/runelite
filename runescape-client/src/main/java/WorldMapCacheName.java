@@ -50,9 +50,8 @@ public class WorldMapCacheName {
             signature = "(I)V",
             garbageValue = "1512894139"
       )
-      @Export("FriendSystem_cantIgnoreSelfMes")
-      static final void FriendSystem_cantIgnoreSelfMes() {
-            EnumDefinition.FriendSystem_alreadyFriendMes("Your ignore list is full. Max of 100 for free users, and 400 for members");
+      static final void method644() {
+            EnumDefinition.method4496("Your ignore list is full. Max of 100 for free users, and 400 for members");
       }
 
       @ObfuscatedName("ht")

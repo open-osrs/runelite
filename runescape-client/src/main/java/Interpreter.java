@@ -51,7 +51,7 @@ public class Interpreter {
             signature = "[Lbv;"
       )
       @Export("Interpreter_frames")
-      static class56[] Interpreter_frames = new class56[50];
+      static ScriptFrame[] Interpreter_frames = new ScriptFrame[50];
       @ObfuscatedName("e")
       @Export("Interpreter_calendar")
       static java.util.Calendar Interpreter_calendar = java.util.Calendar.getInstance();

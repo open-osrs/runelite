@@ -90,10 +90,10 @@ final class class4 implements class0 {
             }
 
             class160.worldHost = var0.host;
-            Client.worldId = var0.field_59;
+            Client.worldId = var0.field_60;
             Client.worldProperties = var0.properties;
-            HitSplatDefinition.port1 = Client.gameBuild == 0 ? 'ꩊ' : var0.field_59 + '鱀';
-            BZip2State.port2 = Client.gameBuild == 0 ? 443 : var0.field_59 + '썐';
+            HitSplatDefinition.port1 = Client.gameBuild == 0 ? 'ꩊ' : var0.field_60 + '鱀';
+            BZip2State.port2 = Client.gameBuild == 0 ? 443 : var0.field_60 + '썐';
             NPC.port3 = HitSplatDefinition.port1;
       }
 
@@ -123,7 +123,7 @@ final class class4 implements class0 {
             }
 
             if (AbstractUserComparator.garbageCollector != null) {
-                  long var9 = class30.currentTimeMs();
+                  long var9 = class30.method566();
                   long var3 = AbstractUserComparator.garbageCollector.getCollectionTime();
                   if (GameShell.garbageCollectorLastCollectionTime != -1L) {
                         long var5 = var3 - GameShell.garbageCollectorLastCollectionTime;
@@ -151,9 +151,9 @@ final class class4 implements class0 {
                   NPC var2 = Client.npcs[Client.npcIndices[var1]];
                   if (var2 != null && var2.isVisible() && var2.definition.isVisible == var0 && var2.definition.transformIsVisible()) {
                         int var3 = var2.field_27 >> 7;
-                        int var4 = var2.field_28 * 682054857 >> 7;
+                        int var4 = var2.field_28 >> 7;
                         if (var3 >= 0 && var3 < 104 && var4 >= 0 && var4 < 104) {
-                              if (var2.size * 1669471931 == 1 && (var2.field_27 & 127) == 64 && (var2.field_28 * 682054857 & 127) == 64) {
+                              if (var2.field932 * 1669471931 == 1 && (var2.field_27 & 127) == 64 && (var2.field_28 & 127) == 64) {
                                     if (Client.tileLastDrawnActor[var3][var4] == Client.viewportDrawCount) {
                                           continue;
                                     }
@@ -163,7 +163,7 @@ final class class4 implements class0 {
 
                               long var5 = class267.calculateTag(0, 0, 1, !var2.definition.isInteractable, Client.npcIndices[var1]);
                               var2.playerCycle = Client.cycle;
-                              PacketWriter.scene.drawEntity(WorldMapRectangle.plane, var2.field_27, var2.field_28 * 682054857, MusicPatchPcmStream.getTileHeight(var2.size * -527978816 - 64 + var2.field_27, var2.size * -527978816 - 64 + var2.field_28 * 682054857, WorldMapRectangle.plane), var2.size * -527978816 - 64 + 60, var2, var2.rotation, var5, var2.isWalking);
+                              PacketWriter.scene.drawEntity(WorldMapRectangle.plane, var2.field_27, var2.field_28, MusicPatchPcmStream.getTileHeight(var2.field932 * -527978816 - 64 + var2.field_27, var2.field932 * -527978816 - 64 + var2.field_28, WorldMapRectangle.plane), var2.field932 * -527978816 - 64 + 60, var2, var2.rotation, var5, var2.isWalking);
                         }
                   }
             }

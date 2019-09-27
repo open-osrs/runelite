@@ -72,7 +72,7 @@ public final class WorldMapManager {
       final HashMap fonts;
       @ObfuscatedName("b")
       @ObfuscatedGetter(
-            intValue = -753174201
+            intValue = -958508608
       )
       @Export("tileX")
       int tileX;
@@ -84,7 +84,7 @@ public final class WorldMapManager {
       int tileY;
       @ObfuscatedName("a")
       @ObfuscatedGetter(
-            intValue = -2004318801
+            intValue = 572615616
       )
       @Export("tileWidth")
       int tileWidth;
@@ -139,9 +139,9 @@ public final class WorldMapManager {
                   this.mapAreaData.getOriginX();
                   this.mapAreaData.getOriginPlane();
                   this.mapAreaData.getOriginY();
-                  this.tileX = this.mapAreaData.getRegionLowX() * 64;
+                  this.tileX = this.mapAreaData.getRegionLowX() * 4096;
                   this.tileY = this.mapAreaData.getRegionLowY() * 64;
-                  this.tileWidth = (this.mapAreaData.getRegionHighX() - this.mapAreaData.getRegionLowX() + 1) * 64;
+                  this.tileWidth = (this.mapAreaData.getRegionHighX() - this.mapAreaData.getRegionLowX() + 1) * 4096;
                   this.tileHeight = (this.mapAreaData.getRegionHighY() - this.mapAreaData.getRegionLowY() + 1) * 4096;
                   int var16 = this.mapAreaData.getRegionHighX() - this.mapAreaData.getRegionLowX() + 1;
                   int var9 = this.mapAreaData.getRegionHighY() - this.mapAreaData.getRegionLowY() + 1;
@@ -216,13 +216,13 @@ public final class WorldMapManager {
                   this.field301.put(var15, var16);
             }
 
-            int var23 = var13.width + var13.field_72 - 1;
-            int var17 = var13.field_73 + var13.height - 1;
+            int var23 = var13.width + var13.field_73 - 1;
+            int var17 = var13.field_74 + var13.height - 1;
 
             int var18;
             int var19;
-            for(var18 = var13.field_72; var18 <= var23; ++var18) {
-                  for(var19 = var13.field_73; var19 <= var17; ++var19) {
+            for(var18 = var13.field_73; var18 <= var23; ++var18) {
+                  for(var19 = var13.field_74; var19 <= var17; ++var19) {
                         this.regions[var18][var19].drawTile(var15, (class40)this.field301.get(var15), this.mapSceneSprites, this.geographyArchive, this.groundArchive);
                   }
             }
@@ -230,11 +230,11 @@ public final class WorldMapManager {
             Rasterizer2D.Rasterizer2D_replace(var9, var10, var11);
             Rasterizer2D.Rasterizer2D_setClipArray(var12);
             var18 = (int)(var14 * 64.0F);
-            var19 = this.tileX * 4096 + var1;
+            var19 = this.tileX * 64 + var1;
             int var20 = this.tileY * 4096 + var2;
 
-            for(int var21 = var13.field_72; var21 < var13.width + var13.field_72; ++var21) {
-                  for(int var22 = var13.field_73; var22 < var13.field_73 + var13.height; ++var22) {
+            for(int var21 = var13.field_73; var21 < var13.width + var13.field_73; ++var21) {
+                  for(int var22 = var13.field_74; var22 < var13.field_74 + var13.height; ++var22) {
                         this.regions[var21][var22].method441(var5 + var18 * (this.regions[var21][var22].regionX * 64 - var19) / 64, var8 - var18 * (this.regions[var21][var22].regionY * 64 - var20 + 64) / 64, var18);
                   }
             }
@@ -251,13 +251,13 @@ public final class WorldMapManager {
             WorldMapRectangle var14 = this.createWorldMapRectangle(var1, var2, var3, var4);
             float var15 = this.getPixelsPerTile(var7 - var5, var3 - var1);
             int var16 = (int)(64.0F * var15);
-            int var17 = this.tileX * 4096 + var1;
+            int var17 = this.tileX * 64 + var1;
             int var18 = this.tileY * 4096 + var2;
 
             int var19;
             int var20;
-            for(var19 = var14.field_72; var19 < var14.field_72 + var14.width; ++var19) {
-                  for(var20 = var14.field_73; var20 < var14.field_73 + var14.height; ++var20) {
+            for(var19 = var14.field_73; var19 < var14.field_73 + var14.width; ++var19) {
+                  for(var20 = var14.field_74; var20 < var14.field_74 + var14.height; ++var20) {
                         if (var13) {
                               this.regions[var19][var20].initWorldMapIcon1s();
                         }
@@ -267,8 +267,8 @@ public final class WorldMapManager {
             }
 
             if (var10 != null && var11 > 0) {
-                  for(var19 = var14.field_72; var19 < var14.field_72 + var14.width; ++var19) {
-                        for(var20 = var14.field_73; var20 < var14.height + var14.field_73; ++var20) {
+                  for(var19 = var14.field_73; var19 < var14.field_73 + var14.width; ++var19) {
+                        for(var20 = var14.field_74; var20 < var14.height + var14.field_74; ++var20) {
                               this.regions[var19][var20].flashElements(var10, var11, var12);
                         }
                   }
@@ -307,8 +307,8 @@ public final class WorldMapManager {
 
                               while(var11.hasNext()) {
                                     AbstractWorldMapIcon var12 = (AbstractWorldMapIcon)var11.next();
-                                    int var13 = var3 * (var12.coord2.field_53 - this.tileX * 4096) / (this.tileWidth * 4096);
-                                    int var14 = var4 - (var12.coord2.field_54 - this.tileY * 4096) * var4 / (this.tileHeight * 64);
+                                    int var13 = var3 * (var12.coord2.field_54 - this.tileX * 64) / (this.tileWidth * 64);
+                                    int var14 = var4 - (var12.coord2.field_55 - this.tileY * 4096) * var4 / (this.tileHeight * 64);
                                     Rasterizer2D.Rasterizer2D_drawCircleAlpha(var13 + var1, var14 + var2, 2, 16776960, 256);
                               }
                         }
@@ -329,11 +329,11 @@ public final class WorldMapManager {
                   WorldMapRectangle var12 = this.createWorldMapRectangle(var1, var2, var3, var4);
                   float var13 = this.getPixelsPerTile(var7, var3 - var1);
                   int var14 = (int)(var13 * 64.0F);
-                  int var15 = this.tileX * 4096 + var1;
+                  int var15 = this.tileX * 64 + var1;
                   int var16 = this.tileY * 4096 + var2;
 
-                  for(int var17 = var12.field_72; var17 < var12.field_72 + var12.width; ++var17) {
-                        for(int var18 = var12.field_73; var18 < var12.field_73 + var12.height; ++var18) {
+                  for(int var17 = var12.field_73; var17 < var12.field_73 + var12.width; ++var17) {
+                        for(int var18 = var12.field_74; var18 < var12.field_74 + var12.height; ++var18) {
                               List var19 = this.regions[var17][var18].method472(var5 + var14 * (this.regions[var17][var18].regionX * 64 - var15) / 64, var8 + var6 - var14 * (this.regions[var17][var18].regionY * 64 - var16 + 64) / 64, var14, var9, var10);
                               if (!var19.isEmpty()) {
                                     var11.addAll(var19);
@@ -353,9 +353,9 @@ public final class WorldMapManager {
       @Export("createWorldMapRectangle")
       WorldMapRectangle createWorldMapRectangle(int var1, int var2, int var3, int var4) {
             WorldMapRectangle var5 = new WorldMapRectangle(this);
-            int var6 = this.tileX * 4096 + var1;
+            int var6 = this.tileX * 64 + var1;
             int var7 = this.tileY * 4096 + var2;
-            int var8 = var3 + this.tileX * 4096;
+            int var8 = var3 + this.tileX * 64;
             int var9 = this.tileY * 4096 + var4;
             int var10 = var6 / 64;
             int var11 = var7 / 64;
@@ -363,24 +363,24 @@ public final class WorldMapManager {
             int var13 = var9 / 64;
             var5.width = var12 - var10 + 1;
             var5.height = var13 - var11 + 1;
-            var5.field_72 = var10 - this.mapAreaData.getRegionLowX();
-            var5.field_73 = var11 - this.mapAreaData.getRegionLowY();
-            if (var5.field_72 < 0) {
-                  var5.width += var5.field_72;
-                  var5.field_72 = 0;
-            }
-
-            if (var5.field_72 > this.regions.length - var5.width) {
-                  var5.width = this.regions.length - var5.field_72;
-            }
-
+            var5.field_73 = var10 - this.mapAreaData.getRegionLowX();
+            var5.field_74 = var11 - this.mapAreaData.getRegionLowY();
             if (var5.field_73 < 0) {
-                  var5.height += var5.field_73;
+                  var5.width += var5.field_73;
                   var5.field_73 = 0;
             }
 
-            if (var5.field_73 > this.regions[0].length - var5.height) {
-                  var5.height = this.regions[0].length - var5.field_73;
+            if (var5.field_73 > this.regions.length - var5.width) {
+                  var5.width = this.regions.length - var5.field_73;
+            }
+
+            if (var5.field_74 < 0) {
+                  var5.height += var5.field_74;
+                  var5.field_74 = 0;
+            }
+
+            if (var5.field_74 > this.regions[0].length - var5.height) {
+                  var5.height = this.regions[0].length - var5.field_74;
             }
 
             var5.width = Math.min(var5.width, this.regions.length);
@@ -721,7 +721,7 @@ public final class WorldMapManager {
                                                             }
 
                                                             if (var22.modIcon != -1) {
-                                                                  class210.addGameMessage(var15, class247.getModIconString(var22.modIcon) + var16.username.getName(), var14);
+                                                                  class210.addGameMessage(var15, class247.method4443(var22.modIcon) + var16.username.getName(), var14);
                                                             } else {
                                                                   class210.addGameMessage(var15, var16.username.getName(), var14);
                                                             }
@@ -775,7 +775,7 @@ public final class WorldMapManager {
                                           }
 
                                           if ((var6 & 4) != 0) {
-                                                var8 = var0.readUnsignedByteNegate();
+                                                var8 = var0.method5455();
                                                 int var19;
                                                 int var21;
                                                 int var23;
@@ -808,8 +808,8 @@ public final class WorldMapManager {
                                                             var12 = var0.readUShortSmart();
                                                             if (var12 != 32767) {
                                                                   var21 = var0.readUShortSmart();
-                                                                  var19 = var0.readUnsignedByteNegate();
-                                                                  var15 = var12 > 0 ? var0.readUnsignedByteNegate() : var19;
+                                                                  var19 = var0.method5455();
+                                                                  var15 = var12 > 0 ? var0.method5455() : var19;
                                                                   var16.addHealthBar(var11, Client.cycle, var12, var21, var19, var15);
                                                             } else {
                                                                   var16.removeHealthBar(var11);
@@ -863,8 +863,7 @@ public final class WorldMapManager {
             signature = "(Ljava/lang/Throwable;B)Ljava/lang/String;",
             garbageValue = "4"
       )
-      @Export("shortenStackTrace")
-      static String shortenStackTrace(Throwable var0) throws IOException {
+      static String method685(Throwable var0) throws IOException {
             String var1;
             if (var0 instanceof RunException) {
                   RunException var2 = (RunException)var0;

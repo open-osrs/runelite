@@ -45,9 +45,10 @@ public class ClanMate extends Buddy {
             signature = "(I)Z",
             garbageValue = "1388018244"
       )
-      public final boolean method4957() {
+      @Export("isFriend")
+      public final boolean isFriend() {
             if (this.friend == TriBool.TriBool_unknown) {
-                  this.method4947();
+                  this.fillIsFriend();
             }
 
             return this.friend == TriBool.TriBool_true;
@@ -58,7 +59,8 @@ public class ClanMate extends Buddy {
             signature = "(I)V",
             garbageValue = "2101732622"
       )
-      void method4947() {
+      @Export("fillIsFriend")
+      void fillIsFriend() {
             this.friend = Tiles.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
       }
 
@@ -77,9 +79,10 @@ public class ClanMate extends Buddy {
             signature = "(I)Z",
             garbageValue = "-1700541155"
       )
-      public final boolean method4951() {
+      @Export("isIgnored")
+      public final boolean isIgnored() {
             if (this.ignored == TriBool.TriBool_unknown) {
-                  this.method4959();
+                  this.fillIsIgnored();
             }
 
             return this.ignored == TriBool.TriBool_true;
@@ -90,7 +93,8 @@ public class ClanMate extends Buddy {
             signature = "(I)V",
             garbageValue = "-735499948"
       )
-      void method4959() {
+      @Export("fillIsIgnored")
+      void fillIsIgnored() {
             this.ignored = Tiles.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
       }
 
@@ -99,8 +103,7 @@ public class ClanMate extends Buddy {
             signature = "(Lhp;Lhp;III)Lkn;",
             garbageValue = "-569680121"
       )
-      @Export("SpriteBuffer_getFont")
-      public static Font SpriteBuffer_getFont(AbstractArchive var0, AbstractArchive var1, int var2, int var3) {
-            return !VertexNormal.SpriteBuffer_bufferFile(var0, var2, var3) ? null : class49.SpriteBuffer_createFont(var1.takeFile(var2, var3));
+      public static Font method4964(AbstractArchive var0, AbstractArchive var1, int var2, int var3) {
+            return !VertexNormal.method2958(var0, var2, var3) ? null : class49.method893(var1.takeFile(var2, var3));
       }
 }

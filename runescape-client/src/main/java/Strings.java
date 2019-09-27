@@ -28,7 +28,7 @@ public class Strings {
             garbageValue = "-552615239"
       )
       public static boolean method4079(int var0) {
-            return var0 >= WorldMapDecorationType.field2704.field_49 && var0 <= WorldMapDecorationType.field2720.field_49;
+            return var0 >= WorldMapDecorationType.field2704.field_50 && var0 <= WorldMapDecorationType.field2720.field_50;
       }
 
       @ObfuscatedName("z")

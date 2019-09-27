@@ -98,9 +98,10 @@ public class Message extends DualNode {
             signature = "(I)Z",
             garbageValue = "-1794465193"
       )
-      final boolean method1220() {
+      @Export("isFromFriend")
+      final boolean isFromFriend() {
             if (this.isFromFriend0 == TriBool.TriBool_unknown) {
-                  this.method1217();
+                  this.fillIsFromFriend();
             }
 
             return this.isFromFriend0 == TriBool.TriBool_true;
@@ -111,7 +112,8 @@ public class Message extends DualNode {
             signature = "(I)V",
             garbageValue = "-1169950855"
       )
-      void method1217() {
+      @Export("fillIsFromFriend")
+      void fillIsFromFriend() {
             this.isFromFriend0 = Tiles.friendSystem.friendsList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false;
       }
 
@@ -130,9 +132,10 @@ public class Message extends DualNode {
             signature = "(I)Z",
             garbageValue = "-759719202"
       )
-      final boolean method1221() {
+      @Export("isFromIgnored")
+      final boolean isFromIgnored() {
             if (this.isFromIgnored0 == TriBool.TriBool_unknown) {
-                  this.method1222();
+                  this.fillIsFromIgnored();
             }
 
             return this.isFromIgnored0 == TriBool.TriBool_true;
@@ -143,7 +146,8 @@ public class Message extends DualNode {
             signature = "(I)V",
             garbageValue = "-1328990032"
       )
-      void method1222() {
+      @Export("fillIsFromIgnored")
+      void fillIsFromIgnored() {
             this.isFromIgnored0 = Tiles.friendSystem.ignoreList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false;
       }
 
@@ -155,7 +159,7 @@ public class Message extends DualNode {
       @Export("fillSenderUsername")
       final void fillSenderUsername() {
             if (this.sender != null) {
-                  this.senderUsername = new Username(WorldMapSectionType.removeImageTag(this.sender), WorldMapSection1.loginType);
+                  this.senderUsername = new Username(WorldMapSectionType.method250(this.sender), WorldMapSection1.loginType);
             } else {
                   this.senderUsername = null;
             }
@@ -187,7 +191,7 @@ public class Message extends DualNode {
       )
       static final void method1231(int var0, int var1) {
             if (Client.hintArrowType == 2) {
-                  PlayerAppearance.worldToScreen(Client.hintArrowSubX * 64 + (Client.hintArrowX - class223.baseX * 64 << 7), Client.hintArrowSubY * 64 + (Client.hintArrowY - class286.baseY * 64 << 7), Client.hintArrowHeight * 4);
+                  PlayerAppearance.worldToScreen((Client.hintArrowX - class223.baseX * 64 << 7) + Client.hintArrowSubX * 4096, (Client.hintArrowY - class286.baseY * 64 << 7) + Client.hintArrowSubY * 4096, Client.hintArrowHeight * 2);
                   if (Client.viewportTempX > -1 && Client.cycle % 20 < 10) {
                         ReflectionCheck.headIconHintSprites[0].drawTransBgAt(var0 + Client.viewportTempX - 12, Client.viewportTempY + var1 - 28);
                   }

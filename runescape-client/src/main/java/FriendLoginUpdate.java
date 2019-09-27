@@ -18,7 +18,7 @@ public class FriendLoginUpdate extends Link {
       @ObfuscatedGetter(
             intValue = -1649732045
       )
-      public int field3627 = (int)(class30.currentTimeMs() / 1000L);
+      public int field3627 = (int)(class30.method566() / 1000L);
       @ObfuscatedName("u")
       @ObfuscatedSignature(
             signature = "Ljq;"

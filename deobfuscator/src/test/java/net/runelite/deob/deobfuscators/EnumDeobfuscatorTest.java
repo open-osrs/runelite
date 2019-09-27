@@ -60,7 +60,6 @@ public class EnumDeobfuscatorTest
 	}
 
 	@Test
-	@Ignore
 	public void testRun() throws Exception
 	{
 		new EnumDeobfuscator().run(group);

@@ -430,7 +430,7 @@ public class Archive extends AbstractArchive {
 
                   for(int var0 = 0; var0 < Client.players.length; ++var0) {
                         if (Client.players[var0] != null) {
-                              StudioGame.field3086.method4289(class223.baseX * 64 + (Client.players[var0].field_27 >> 7), class286.baseY * 64 + (Client.players[var0].field_28 * 682054857 >> 7));
+                              StudioGame.field3086.method4289(class223.baseX * 64 + (Client.players[var0].field_27 >> 7), class286.baseY * 64 + (Client.players[var0].field_28 >> 7));
                         }
                   }
             }

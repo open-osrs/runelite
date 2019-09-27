@@ -54,7 +54,7 @@ public class CheckExports
 	{
 		ClassLoader loader = new URLClassLoader(new URL[]{CLIENT.toURI().toURL()});
 
-		Class c = loader.loadClass("net.runelite.rs.client.client");
+		Class c = loader.loadClass("net.runelite.rs.client.Client");
 		classes.add(c);
 
 		for (int i = 0; i < 230; ++i)

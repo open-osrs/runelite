@@ -383,7 +383,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
                         ObjectSound var22 = new ObjectSound();
                         var22.plane = var0;
                         var22.field_7 = var1 * 128;
-                        var22.field_8 = var2 * 128;
+                        var22.field_8 = var2 * 16384;
                         var23 = var8.sizeX;
                         var24 = var8.sizeY;
                         if (var4 == 1 || var4 == 3) {

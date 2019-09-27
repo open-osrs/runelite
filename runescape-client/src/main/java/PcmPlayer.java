@@ -39,7 +39,7 @@ public class PcmPlayer {
             longValue = -9085441602565192727L
       )
       @Export("timeMs")
-      long timeMs = class30.currentTimeMs();
+      long timeMs = class30.method566();
       @ObfuscatedName("g")
       @ObfuscatedGetter(
             intValue = 937182747
@@ -168,7 +168,7 @@ public class PcmPlayer {
       @Export("run")
       public final synchronized void run() {
             if (this.samples != null) {
-                  long var1 = class30.currentTimeMs();
+                  long var1 = class30.method566();
 
                   try {
                         if (this.field1393 != 0L) {
@@ -275,7 +275,7 @@ public class PcmPlayer {
                   this.discard();
             } catch (Exception var2) {
                   this.close();
-                  this.field1393 = class30.currentTimeMs() + 2000L;
+                  this.field1393 = class30.method566() + 2000L;
             }
 
       }
@@ -440,7 +440,7 @@ public class PcmPlayer {
                   this.stream.fill(var1, 0, var2);
             }
 
-            this.timeMs = class30.currentTimeMs();
+            this.timeMs = class30.method566();
       }
 
       @ObfuscatedName("al")

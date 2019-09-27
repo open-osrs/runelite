@@ -152,7 +152,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
             HealthBarDefinition.HealthBarDefinition_cached.clear();
             HealthBarDefinition.HealthBarDefinition_cachedSprites.clear();
             StructDefinition.StructDefinition_cached.clear();
-            TextureProvider.ParamDefinition_clearCached();
+            TextureProvider.method2742();
             WorldMapElement.WorldMapElement_cachedSprites.clear();
             UserComparator1.method5827();
             Widget.Widget_cachedSprites.clear();

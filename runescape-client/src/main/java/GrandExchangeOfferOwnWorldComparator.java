@@ -116,7 +116,8 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
             signature = "(IS)Lbe;",
             garbageValue = "-12583"
       )
-      static Message method1305(int var0) {
+      @Export("Messages_getMessage")
+      static Message Messages_getMessage(int var0) {
             return (Message)Messages.Messages_hashTable.get((long)var0);
       }
 }

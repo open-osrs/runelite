@@ -184,12 +184,12 @@ public class class42 implements WorldMapSection {
       @Export("getWorldMapScript")
       static Script getWorldMapScript(int var0, int var1, int var2) {
             int var3 = (var1 << 8) + var0;
-            Script var5 = WorldMapSection1.getWorldMapScript(var3, var0);
+            Script var5 = WorldMapSection1.method591(var3, var0);
             if (var5 != null) {
                   return var5;
             } else {
                   int var6 = (var2 + '鱀' << 8) + var0;
-                  var5 = WorldMapSection1.getWorldMapScript(var6, var0);
+                  var5 = WorldMapSection1.method591(var6, var0);
                   return var5 != null ? var5 : null;
             }
       }

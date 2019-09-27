@@ -19,28 +19,28 @@ public class Coord {
             intValue = 2054727359
       )
       @Export("x")
-      public int field_53;
+      public int field_54;
       // $FF: renamed from: y int
       @ObfuscatedName("u")
       @ObfuscatedGetter(
             intValue = -1032758603
       )
       @Export("y")
-      public int field_54;
+      public int field_55;
 
       @ObfuscatedSignature(
             signature = "(Lhb;)V"
       )
       public Coord(Coord var1) {
             this.plane = var1.plane;
-            this.field_53 = var1.field_53;
             this.field_54 = var1.field_54;
+            this.field_55 = var1.field_55;
       }
 
       public Coord(int var1, int var2, int var3) {
             this.plane = var1;
-            this.field_53 = var2;
-            this.field_54 = var3;
+            this.field_54 = var2;
+            this.field_55 = var3;
       }
 
       public Coord(int var1) {
@@ -48,8 +48,8 @@ public class Coord {
                   this.plane = -1;
             } else {
                   this.plane = var1 >> 28 & 3;
-                  this.field_53 = var1 >> 14 & 16383;
-                  this.field_54 = var1 & 16383;
+                  this.field_54 = var1 >> 14 & 16383;
+                  this.field_55 = var1 & 16383;
             }
 
       }
@@ -61,7 +61,7 @@ public class Coord {
       )
       @Export("packed")
       public int packed() {
-            return this.plane << 28 | this.field_53 << 14 | this.field_54;
+            return this.plane << 28 | this.field_54 << 14 | this.field_55;
       }
 
       @ObfuscatedName("n")
@@ -73,10 +73,10 @@ public class Coord {
       boolean equalsCoord(Coord var1) {
             if (this.plane != var1.plane) {
                   return false;
-            } else if (this.field_53 != var1.field_53) {
+            } else if (this.field_54 != var1.field_54) {
                   return false;
             } else {
-                  return this.field_54 == var1.field_54;
+                  return this.field_55 == var1.field_55;
             }
       }
 
@@ -87,7 +87,7 @@ public class Coord {
       )
       @Export("toString")
       String toString(String var1) {
-            return this.plane + var1 + (this.field_53 >> 6) + var1 + (this.field_54 >> 6) + var1 + (this.field_53 & 63) + var1 + (this.field_54 & 63);
+            return this.plane + var1 + (this.field_54 >> 6) + var1 + (this.field_55 >> 6) + var1 + (this.field_54 & 63) + var1 + (this.field_55 & 63);
       }
 
       public boolean equals(Object var1) {
@@ -103,18 +103,6 @@ public class Coord {
       }
 
       public String toString() {
-            return this.toString(",");
-      }
-
-      public String aah() {
-            return this.toString(",");
-      }
-
-      public String aae() {
-            return this.toString(",");
-      }
-
-      public String aak() {
             return this.toString(",");
       }
 

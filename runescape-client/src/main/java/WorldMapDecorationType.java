@@ -129,14 +129,14 @@ public enum WorldMapDecorationType implements Enumerated {
             intValue = -240297385
       )
       @Export("id")
-      public final int field_49;
+      public final int field_50;
 
       @ObfuscatedSignature(
             signature = "(II)V",
             garbageValue = "0"
       )
       WorldMapDecorationType(int var3, int var4) {
-            this.field_49 = var3;
+            this.field_50 = var3;
       }
 
       @ObfuscatedName("v")
@@ -146,6 +146,6 @@ public enum WorldMapDecorationType implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_49;
+            return this.field_50;
       }
 }

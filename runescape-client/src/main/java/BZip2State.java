@@ -169,8 +169,9 @@ public final class BZip2State {
             signature = "(B)[Lkc;",
             garbageValue = "-127"
       )
-      static class309[] method5687() {
-            return new class309[]{class309.field3792, class309.field3790, class309.field3791};
+      @Export("ChatMode_values")
+      static PrivateChatMode[] ChatMode_values() {
+            return new PrivateChatMode[]{PrivateChatMode.field3792, PrivateChatMode.field3790, PrivateChatMode.field3791};
       }
 
       @ObfuscatedName("hy")
@@ -178,8 +179,7 @@ public final class BZip2State {
             signature = "(II)Z",
             garbageValue = "157596925"
       )
-      @Export("isWidgetMenuOpcode")
-      static boolean isWidgetMenuOpcode(int var0) {
+      static boolean method5688(int var0) {
             return var0 == 57 || var0 == 58 || var0 == 1007 || var0 == 25 || var0 == 30;
       }
 }

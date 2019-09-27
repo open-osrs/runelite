@@ -232,14 +232,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
             this.close();
       }
 
-      protected void aav() {
-            this.close();
-      }
-
-      protected void aao() {
-            this.close();
-      }
-
       public void run() {
             try {
                   while(true) {
@@ -522,7 +514,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
                   }
 
                   if (var4 == 18) {
-                        Client.playerAttackOption = (AttackOption)findEnumerated(FloorUnderlayDefinition.AttackOption_values(), var2);
+                        Client.playerAttackOption = (AttackOption)findEnumerated(FloorUnderlayDefinition.method4383(), var2);
                         if (Client.playerAttackOption == null) {
                               Client.playerAttackOption = AttackOption.AttackOption_dependsOnCombatLevels;
                         }
@@ -537,7 +529,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
                   }
 
                   if (var4 == 22) {
-                        Client.npcAttackOption = (AttackOption)findEnumerated(FloorUnderlayDefinition.AttackOption_values(), var2);
+                        Client.npcAttackOption = (AttackOption)findEnumerated(FloorUnderlayDefinition.method4383(), var2);
                         if (Client.npcAttackOption == null) {
                               Client.npcAttackOption = AttackOption.AttackOption_dependsOnCombatLevels;
                         }

@@ -13,7 +13,8 @@ public abstract class AbstractWorldMapData {
       @ObfuscatedGetter(
             intValue = 742897815
       )
-      static int field163;
+      @Export("selectedItemId")
+      static int selectedItemId;
       @ObfuscatedName("z")
       @ObfuscatedGetter(
             intValue = 461674944
@@ -22,7 +23,7 @@ public abstract class AbstractWorldMapData {
       int regionXLow;
       @ObfuscatedName("n")
       @ObfuscatedGetter(
-            intValue = 278884352
+            intValue = -1740472896
       )
       @Export("regionYLow")
       int regionYLow;
@@ -399,12 +400,12 @@ public abstract class AbstractWorldMapData {
                               } else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERPREVIOUSNAME) {
                                     var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                                     var11 = (GrandExchangeEvent)TileItem.grandExchangeEvents.events.get(var3);
-                                    Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var11.method89();
+                                    Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var11.getPreviousOfferName();
                                     return 1;
                               } else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERAGE) {
                                     var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                                     var11 = (GrandExchangeEvent)TileItem.grandExchangeEvents.events.get(var3);
-                                    long var5 = class30.currentTimeMs() - class81.field1135 - var11.age;
+                                    long var5 = class30.method566() - class81.field1135 - var11.age;
                                     int var7 = (int)(var5 / 3600000L);
                                     int var8 = (int)((var5 - (long)(var7 * 3600000)) / 60000L);
                                     int var9 = (int)((var5 - (long)(var7 * 3600000) - (long)(var8 * '\uea60')) / 1000L);

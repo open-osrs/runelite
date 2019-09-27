@@ -27,7 +27,7 @@ public class class208 {
       @Export("Widget_runOnTargetLeave")
       static void Widget_runOnTargetLeave() {
             if (Client.isSpellSelected) {
-                  Widget var0 = GrandExchangeOfferWorldComparator.getWidgetChild(AttackOption.field1157, Client.field768);
+                  Widget var0 = GrandExchangeOfferWorldComparator.getWidgetChild(AttackOption.selectedSpellWidget, Client.selectedSpellChildIndex);
                   if (var0 != null && var0.onTargetLeave != null) {
                         ScriptEvent var1 = new ScriptEvent();
                         var1.widget = var0;

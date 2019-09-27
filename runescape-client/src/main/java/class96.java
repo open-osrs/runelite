@@ -32,7 +32,8 @@ public class class96 {
             signature = "(B)[Llu;",
             garbageValue = "-67"
       )
-      public static FillMode[] method2266() {
+      @Export("FillMode_values")
+      public static FillMode[] FillMode_values() {
             return new FillMode[]{FillMode.field3856, FillMode.SOLID, FillMode.field3857};
       }
 

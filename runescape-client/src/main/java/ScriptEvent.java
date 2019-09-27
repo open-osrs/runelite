@@ -182,8 +182,7 @@ public class ScriptEvent extends Node {
             signature = "(I)V",
             garbageValue = "-2065771075"
       )
-      @Export("resetMenuEntries")
-      static void resetMenuEntries() {
+      static void method1205() {
             Client.menuOptionsCount = 0;
             Client.isMenuOpen = false;
       }
@@ -423,7 +422,7 @@ public class ScriptEvent extends Node {
                                                                         var26 = var10.itemIds[var19] - 1;
                                                                         if (var22 + 32 > var2 && var22 < var4 && var23 + 32 > var3 && var23 < var5 || var10 == Frames.dragInventoryWidget && var19 == Client.dragItemSlotSource) {
                                                                               Sprite var27;
-                                                                              if (Client.isItemSelected == 1 && var19 == DevicePcmPlayerProvider.selectedItemSlot && var10.field_9 == class2.selectedItemId) {
+                                                                              if (Client.isItemSelected == 1 && var19 == DevicePcmPlayerProvider.selectedItemSlot && var10.field_9 == class2.selectedItemWidget) {
                                                                                     var27 = GrandExchangeOfferWorldComparator.getItemSprite(var26, var10.itemQuantities[var19], 2, 0, 2, false);
                                                                               } else {
                                                                                     var27 = GrandExchangeOfferWorldComparator.getItemSprite(var26, var10.itemQuantities[var19], 1, 3153952, 2, false);
@@ -513,7 +512,7 @@ public class ScriptEvent extends Node {
                                                                   Rasterizer2D.Rasterizer2D_fillRectangleGradient(var12, var13, var10.width, var10.height, var10.color, var10.color2);
                                                                   break;
                                                             case 2:
-                                                                  Rasterizer2D.Rasterizer2D_fillRectangleGradientAlpha(var12, var13, var10.width, var10.height, var10.color, var10.color2, 255 - (var10.transparencyTop & 255), 255 - (var10.field2577 & 255));
+                                                                  Rasterizer2D.Rasterizer2D_fillRectangleGradientAlpha(var12, var13, var10.width, var10.height, var10.color, var10.color2, 255 - (var10.transparencyTop & 255), 255 - (var10.transparencyBot & 255));
                                                                   break;
                                                             default:
                                                                   if (var14 == 0) {
@@ -571,7 +570,7 @@ public class ScriptEvent extends Node {
                                                                   }
 
                                                                   if (!var10.isIf3) {
-                                                                        var45 = class239.method4323(var45, var10);
+                                                                        var45 = InvDefinition.method4323(var45, var10);
                                                                   }
 
                                                                   var39.drawLines(var45, var12, var13, var10.width, var10.height, var20, var10.textShadowed ? 0 : -1, var10.textXAlignment, var10.textYAlignment, var10.textLineHeight);
@@ -737,7 +736,7 @@ public class ScriptEvent extends Node {
                                                                         String var33 = var10.text;
 
                                                                         String var44;
-                                                                        for(var33 = class239.method4323(var33, var10); var33.length() > 0; var20 = var20 + var32.ascent + 1) {
+                                                                        for(var33 = InvDefinition.method4323(var33, var10); var33.length() > 0; var20 = var20 + var32.ascent + 1) {
                                                                               var24 = var33.indexOf("<br>");
                                                                               if (var24 != -1) {
                                                                                     var44 = var33.substring(0, var24);
@@ -774,7 +773,7 @@ public class ScriptEvent extends Node {
                                                                         var33 = var10.text;
                                                                         var26 = var25 + var32.ascent + 2;
 
-                                                                        for(var33 = class239.method4323(var33, var10); var33.length() > 0; var26 = var26 + var32.ascent + 1) {
+                                                                        for(var33 = InvDefinition.method4323(var33, var10); var33.length() > 0; var26 = var26 + var32.ascent + 1) {
                                                                               int var35 = var33.indexOf("<br>");
                                                                               if (var35 != -1) {
                                                                                     var44 = var33.substring(0, var35);

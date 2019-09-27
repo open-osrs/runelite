@@ -11,7 +11,7 @@ public final class BZip2Decompressor {
             signature = "Lkj;"
       )
       @Export("BZip2Decompressor_state")
-      static BZip2State  BZip2Decompressor_state = new BZip2State();
+      static BZip2State BZip2Decompressor_state = new BZip2State();
 
       @ObfuscatedName("z")
       @Export("BZip2Decompressor_decompress")

@@ -74,7 +74,7 @@ public class SecureRandomFuture {
       )
       static void method2134() {
             for(int var0 = 0; var0 < Client.menuOptionsCount; ++var0) {
-                  if (BZip2State.isWidgetMenuOpcode(Client.menuOpcodes[var0])) {
+                  if (BZip2State.method5688(Client.menuOpcodes[var0])) {
                         if (var0 < Client.menuOptionsCount - 1) {
                               for(int var1 = var0; var1 < Client.menuOptionsCount - 1; ++var1) {
                                     Client.menuActions[var1] = Client.menuActions[var1 + 1];

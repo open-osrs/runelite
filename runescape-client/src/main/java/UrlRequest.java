@@ -139,7 +139,7 @@ public class UrlRequest {
                               ++var7;
                         }
 
-                        if (Client.localPlayerIndex != var1 || var4.field_27 >= 1536 && var4.field_28 * 682054857 >= 1536 && var4.field_27 < 11776 && var4.field_28 * 682054857 < 11776) {
+                        if (Client.localPlayerIndex != var1 || var4.field_27 >= 1536 && var4.field_28 >= 1536 && var4.field_27 < 11776 && var4.field_28 < 11776) {
                               if (var2) {
                                     var4.field621 = true;
                                     var4.tileX = var6;
@@ -203,7 +203,7 @@ public class UrlRequest {
                               var7 += 2;
                         }
 
-                        if (Client.localPlayerIndex == var1 && (var4.field_27 < 1536 || var4.field_28 * 682054857 < 1536 || var4.field_27 >= 11776 || var4.field_28 * 682054857 >= 11776)) {
+                        if (Client.localPlayerIndex == var1 && (var4.field_27 < 1536 || var4.field_28 < 1536 || var4.field_27 >= 11776 || var4.field_28 >= 11776)) {
                               var4.resetPath(var6, var7);
                               var4.field621 = false;
                         } else if (var2) {
@@ -236,7 +236,7 @@ public class UrlRequest {
 
                               var10 = var8 + var4.pathX[0];
                               var11 = var9 + var4.pathY[0];
-                              if (Client.localPlayerIndex == var1 && (var4.field_27 < 1536 || var4.field_28 * 682054857 < 1536 || var4.field_27 >= 11776 || var4.field_28 * 682054857 >= 11776)) {
+                              if (Client.localPlayerIndex == var1 && (var4.field_27 < 1536 || var4.field_28 < 1536 || var4.field_27 >= 11776 || var4.field_28 >= 11776)) {
                                     var4.resetPath(var10, var11);
                                     var4.field621 = false;
                               } else if (var2) {
@@ -260,16 +260,18 @@ public class UrlRequest {
                               var9 = var6 & 16383;
                               var10 = (class223.baseX * 64 + var8 + var4.pathX[0] & 16383) - class223.baseX * 64;
                               var11 = (class286.baseY * 64 + var9 + var4.pathY[0] & 16383) - class286.baseY * 64;
-                              if (Client.localPlayerIndex == var1 && (var4.field_27 < 1536 || var4.field_28 * 682054857 < 1536 || var4.field_27 >= 11776 || var4.field_28 * 682054857 >= 11776)) {
+                              if (Client.localPlayerIndex != var1 || var4.field_27 >= 1536 && var4.field_28 >= 1536 && var4.field_27 < 11776 && var4.field_28 < 11776) {
+                                    if (var2) {
+                                          var4.field621 = true;
+                                          var4.tileX = var10;
+                                          var4.tileY = var11;
+                                    } else {
+                                          var4.field621 = false;
+                                          var4.method1274(var10, var11, Players.field1235[var1]);
+                                    }
+                              } else {
                                     var4.resetPath(var10, var11);
                                     var4.field621 = false;
-                              } else if (var2) {
-                                    var4.field621 = true;
-                                    var4.tileX = var10;
-                                    var4.tileY = var11;
-                              } else {
-                                    var4.field621 = false;
-                                    var4.method1274(var10, var11, Players.field1235[var1]);
                               }
 
                               var4.plane = (byte)(var7 + var4.plane & 3);

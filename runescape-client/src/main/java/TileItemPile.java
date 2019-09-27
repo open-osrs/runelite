@@ -25,14 +25,14 @@ public final class TileItemPile {
             intValue = 905063527
       )
       @Export("x")
-      int field_63;
+      int field_64;
       // $FF: renamed from: y int
       @ObfuscatedName("u")
       @ObfuscatedGetter(
             intValue = -1956463223
       )
       @Export("y")
-      int field_64;
+      int field_65;
       @ObfuscatedName("r")
       @ObfuscatedSignature(
             signature = "Ler;"

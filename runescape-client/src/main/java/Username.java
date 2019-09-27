@@ -82,18 +82,6 @@ public class Username implements Comparable {
             return this.compareToTyped((Username)var1);
       }
 
-      public String aah() {
-            return this.getName();
-      }
-
-      public String aae() {
-            return this.getName();
-      }
-
-      public String aak() {
-            return this.getName();
-      }
-
       @ObfuscatedName("ai")
       @ObfuscatedSignature(
             signature = "([BII)I",

@@ -247,11 +247,11 @@ public class BufferedSink implements Runnable {
                               int var9 = var5 * var7 + var4 * var8 >> 11;
                               int var10 = var5 * var8 - var7 * var4 >> 11;
                               int var11 = var9 + class223.localPlayer.field_27 >> 7;
-                              int var12 = class223.localPlayer.field_28 * 682054857 - var10 >> 7;
+                              int var12 = class223.localPlayer.field_28 - var10 >> 7;
                               PacketBufferNode var13 = InterfaceParent.getPacketBufferNode(ClientPacket.field2275, Client.packetWriter.isaacCipher);
                               var13.packetBuffer.writeByte(18);
-                              var13.packetBuffer.method5463(class223.baseX * 64 + var11);
-                              var13.packetBuffer.writeIntLE(class286.baseY * 64 + var12);
+                              var13.packetBuffer.writeShortLE(class223.baseX * 64 + var11);
+                              var13.packetBuffer.method5461(class286.baseY * 64 + var12);
                               var13.packetBuffer.method5453(KeyHandler.KeyHandler_pressedKeys[82] ? (KeyHandler.KeyHandler_pressedKeys[81] ? 2 : 1) : 0);
                               var13.packetBuffer.writeByte(var4);
                               var13.packetBuffer.writeByte(var5);
@@ -261,7 +261,7 @@ public class BufferedSink implements Runnable {
                               var13.packetBuffer.writeByte(0);
                               var13.packetBuffer.writeByte(89);
                               var13.packetBuffer.writeShort(class223.localPlayer.field_27);
-                              var13.packetBuffer.writeShort(class223.localPlayer.field_28 * 682054857);
+                              var13.packetBuffer.writeShort(class223.localPlayer.field_28);
                               var13.packetBuffer.writeByte(63);
                               Client.packetWriter.addNode(var13);
                               Client.destinationX = var11;

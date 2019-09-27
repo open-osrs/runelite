@@ -113,8 +113,7 @@ public abstract class Entity extends DualNode {
             signature = "(I)Ljava/lang/String;",
             garbageValue = "67381036"
       )
-      @Export("getChatMessagesAsString")
-      static String getChatMessagesAsString() {
+      static String method3221() {
             String var0 = "";
 
             Message var2;
@@ -203,16 +202,16 @@ public abstract class Entity extends DualNode {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class219.method4069(Client.field880);
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class219.method4069(Client.field887);
                   return 1;
-            } else if (var0 == 6220) {
+            } else if (var0 == ScriptOpcodes._6220) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
                   return 1;
-            } else if (var0 == 6221) {
+            } else if (var0 == ScriptOpcodes._6221) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
                   return 1;
-            } else if (var0 == 6222) {
+            } else if (var0 == ScriptOpcodes._6222) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = FloorDecoration.canvasWidth;
                   return 1;
-            } else if (var0 == 6223) {
+            } else if (var0 == ScriptOpcodes._6223) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = WallDecoration.canvasHeight;
                   return 1;
             } else {

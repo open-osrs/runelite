@@ -23,8 +23,7 @@ public class SecureRandomCallable implements Callable {
             signature = "(IIIB)J",
             garbageValue = "0"
       )
-      @Export("getWorldMapSpriteHash")
-      static long getWorldMapSpriteHash(int var0, int var1, int var2) {
+      static long method1165(int var0, int var1, int var2) {
             return (long)(var2 << 16 | var0 << 8 | var1);
       }
 
@@ -42,8 +41,7 @@ public class SecureRandomCallable implements Callable {
             signature = "(Ldh;IIII)Z",
             garbageValue = "810507745"
       )
-      @Export("boundingBoxCheck")
-      static final boolean boundingBoxCheck(Model var0, int var1, int var2, int var3) {
+      static final boolean method1163(Model var0, int var1, int var2, int var3) {
             boolean var4 = ViewportMouse.ViewportMouse_isInViewport;
             if (!var4) {
                   return false;
@@ -68,17 +66,17 @@ public class SecureRandomCallable implements Callable {
                         var12 = (ViewportMouse.ViewportMouse_y - Rasterizer3D.Rasterizer3D_clipMidY) * var9 / Rasterizer3D.Rasterizer3D_zoom;
                         var13 = (ViewportMouse.ViewportMouse_x - Rasterizer3D.Rasterizer3D_clipMidX) * var10 / Rasterizer3D.Rasterizer3D_zoom;
                         int var14 = (ViewportMouse.ViewportMouse_y - Rasterizer3D.Rasterizer3D_clipMidY) * var10 / Rasterizer3D.Rasterizer3D_zoom;
-                        int var15 = Rasterizer3D.rot1(var12, var9, var6, var5);
-                        var16 = Rasterizer3D.rot2(var12, var9, var6, var5);
+                        int var15 = Rasterizer3D.method2982(var12, var9, var6, var5);
+                        var16 = Rasterizer3D.method2974(var12, var9, var6, var5);
                         var12 = var15;
-                        var15 = Rasterizer3D.rot1(var14, var10, var6, var5);
-                        var17 = Rasterizer3D.rot2(var14, var10, var6, var5);
+                        var15 = Rasterizer3D.method2982(var14, var10, var6, var5);
+                        var17 = Rasterizer3D.method2974(var14, var10, var6, var5);
                         var14 = var15;
-                        var15 = Rasterizer3D.rot3(var11, var16, var8, var7);
-                        var16 = Rasterizer3D.rot4(var11, var16, var8, var7);
+                        var15 = Rasterizer3D.method2980(var11, var16, var8, var7);
+                        var16 = Rasterizer3D.method2981(var11, var16, var8, var7);
                         var11 = var15;
-                        var15 = Rasterizer3D.rot3(var13, var17, var8, var7);
-                        var17 = Rasterizer3D.rot4(var13, var17, var8, var7);
+                        var15 = Rasterizer3D.method2980(var13, var17, var8, var7);
+                        var17 = Rasterizer3D.method2981(var13, var17, var8, var7);
                         ViewportMouse.field1707 = (var15 + var11) / 2;
                         ViewportMouse.field1708 = (var12 + var14) / 2;
                         ViewportMouse.field1714 = (var16 + var17) / 2;
@@ -86,7 +84,7 @@ public class SecureRandomCallable implements Callable {
                         ViewportMouse.field1718 = (var14 - var12) / 2;
                         ViewportMouse.field1711 = (var17 - var16) / 2;
                         class222.field2729 = Math.abs(class96.field1304);
-                        class157.field1971 = Math.abs(ViewportMouse.field1718);
+                        UserComparator3.field1971 = Math.abs(ViewportMouse.field1718);
                         ParamDefinition.field3287 = Math.abs(ViewportMouse.field1711);
                   }
 
@@ -101,16 +99,16 @@ public class SecureRandomCallable implements Callable {
                   var13 = ViewportMouse.field1714 - var7;
                   if (Math.abs(var11) > var8 + class222.field2729) {
                         return false;
-                  } else if (Math.abs(var12) > var16 + class157.field1971) {
+                  } else if (Math.abs(var12) > var16 + UserComparator3.field1971) {
                         return false;
                   } else if (Math.abs(var13) > var17 + ParamDefinition.field3287) {
                         return false;
-                  } else if (Math.abs(var13 * ViewportMouse.field1718 - var12 * ViewportMouse.field1711) > var16 * ParamDefinition.field3287 + var17 * class157.field1971) {
+                  } else if (Math.abs(var13 * ViewportMouse.field1718 - var12 * ViewportMouse.field1711) > var16 * ParamDefinition.field3287 + var17 * UserComparator3.field1971) {
                         return false;
                   } else if (Math.abs(var11 * ViewportMouse.field1711 - var13 * class96.field1304) > var17 * class222.field2729 + var8 * ParamDefinition.field3287) {
                         return false;
                   } else {
-                        return Math.abs(var12 * class96.field1304 - var11 * ViewportMouse.field1718) <= var16 * class222.field2729 + var8 * class157.field1971;
+                        return Math.abs(var12 * class96.field1304 - var11 * ViewportMouse.field1718) <= var16 * class222.field2729 + var8 * UserComparator3.field1971;
                   }
             }
       }

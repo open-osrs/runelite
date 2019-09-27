@@ -333,18 +333,6 @@ public final class ArchiveDisk {
             return "" + this.archive;
       }
 
-      public String aak() {
-            return "" + this.archive;
-      }
-
-      public String aah() {
-            return "" + this.archive;
-      }
-
-      public String aae() {
-            return "" + this.archive;
-      }
-
       @ObfuscatedName("z")
       @ObfuscatedSignature(
             signature = "(Lkl;Ljava/lang/String;I)I",
@@ -352,7 +340,7 @@ public final class ArchiveDisk {
       )
       public static int method5779(Buffer var0, String var1) {
             int var2 = var0.offset;
-            byte[] var3 = class157.method3390(var1);
+            byte[] var3 = UserComparator3.method3390(var1);
             var0.writeSmartByteShort(var3.length);
             var0.offset += class210.huffman.compress(var3, 0, var3.length, var0.array, var0.offset);
             return var0.offset - var2;
@@ -459,8 +447,7 @@ public final class ArchiveDisk {
             signature = "(Lkl;IB)V",
             garbageValue = "16"
       )
-      @Export("writeNewRandomDat")
-      static void writeNewRandomDat(Buffer var0, int var1) {
+      static void method5781(Buffer var0, int var1) {
             LoginScreenAnimation.method1828(var0.array, var1);
             SoundSystem.method2464(var0, var1);
       }

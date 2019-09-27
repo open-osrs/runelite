@@ -31,14 +31,14 @@ public final class BoundaryObject {
             intValue = -602196191
       )
       @Export("x")
-      int field_40;
+      int field_41;
       // $FF: renamed from: y int
       @ObfuscatedName("u")
       @ObfuscatedGetter(
             intValue = -1866626591
       )
       @Export("y")
-      int field_41;
+      int field_42;
       @ObfuscatedName("r")
       @ObfuscatedGetter(
             intValue = -1916194803

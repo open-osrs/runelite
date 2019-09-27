@@ -88,7 +88,7 @@ public class UserComparator7 extends AbstractUserComparator {
             } else if (var2 == 7) {
                   return var0.isMembersOnly() ? (var1.isMembersOnly() ? 0 : 1) : (var1.isMembersOnly() ? -1 : 0);
             } else {
-                  return var0.field_59 - var1.field_59;
+                  return var0.field_60 - var1.field_60;
             }
       }
 
@@ -97,7 +97,8 @@ public class UserComparator7 extends AbstractUserComparator {
             signature = "(CB)Z",
             garbageValue = "1"
       )
-      public static boolean method3369(char var0) {
+      @Export("isCharAlphabetic")
+      public static boolean isCharAlphabetic(char var0) {
             return var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z';
       }
 }

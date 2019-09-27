@@ -91,7 +91,7 @@ public class WorldMapRegion {
             int var5 = this.regionX;
             int var6 = this.regionY;
             int var7 = this.pixelsPerTile;
-            Sprite var4 = (Sprite)WorldMapRegion_cachedSprites.get(SecureRandomCallable.getWorldMapSpriteHash(var5, var6, var7));
+            Sprite var4 = (Sprite)WorldMapRegion_cachedSprites.get(SecureRandomCallable.method1165(var5, var6, var7));
             if (var4 != null) {
                   if (var3 == this.pixelsPerTile * 64) {
                         var4.drawAt(var1, var2);
@@ -196,10 +196,10 @@ public class WorldMapRegion {
             Coord var6 = new Coord(var2, var3 + this.regionX * 64, this.regionY * 64 + var4);
             Coord var7 = null;
             if (this.worldMapData_0 != null) {
-                  var7 = new Coord(this.worldMapData_0.minPlane + var2, var3 + this.worldMapData_0.regionXLow * 4096, var4 + this.worldMapData_0.regionYLow * 64);
+                  var7 = new Coord(this.worldMapData_0.minPlane + var2, var3 + this.worldMapData_0.regionXLow * 4096, this.worldMapData_0.regionYLow * 4096 + var4);
             } else {
                   WorldMapData_1 var8 = (WorldMapData_1)var5;
-                  var7 = new Coord(var2 + var8.minPlane, var8.regionXLow * 4096 + var3 + var8.getChunkXLow() * 8, var8.regionYLow * 64 + var4 + var8.getChunkYLow() * 8);
+                  var7 = new Coord(var2 + var8.minPlane, var8.regionXLow * 4096 + var3 + var8.getChunkXLow() * 8, var8.regionYLow * 4096 + var4 + var8.getChunkYLow() * 8);
             }
 
             Object var10;
@@ -242,7 +242,7 @@ public class WorldMapRegion {
 
             while(var2.hasNext()) {
                   WorldMapIcon_0 var3 = (WorldMapIcon_0)var2.next();
-                  if (var3.coord2.field_53 >> 6 == this.regionX && var3.coord2.field_54 >> 6 == this.regionY) {
+                  if (var3.coord2.field_54 >> 6 == this.regionX && var3.coord2.field_55 >> 6 == this.regionY) {
                         WorldMapIcon_0 var4 = new WorldMapIcon_0(var3.coord2, var3.coord2, var3.element, this.method470(var3.element));
                         this.icon0List.add(var4);
                   }
@@ -319,7 +319,7 @@ public class WorldMapRegion {
             if (this.worldMapData_0 != null || !this.worldMapData1List.isEmpty()) {
                   int var7 = this.regionX;
                   int var8 = this.regionY;
-                  Sprite var6 = (Sprite)WorldMapRegion_cachedSprites.get(SecureRandomCallable.getWorldMapSpriteHash(var7, var8, var1));
+                  Sprite var6 = (Sprite)WorldMapRegion_cachedSprites.get(SecureRandomCallable.method1165(var7, var8, var1));
                   if (var6 == null) {
                         boolean var9 = true;
                         var9 &= this.loadGeography(var4);
@@ -351,7 +351,7 @@ public class WorldMapRegion {
                               int var15 = this.regionX;
                               int var16 = this.regionY;
                               int var17 = this.pixelsPerTile;
-                              WorldMapRegion_cachedSprites.put(var14, SecureRandomCallable.getWorldMapSpriteHash(var15, var16, var17), var14.pixels.length * 4);
+                              WorldMapRegion_cachedSprites.put(var14, SecureRandomCallable.method1165(var15, var16, var17), var14.pixels.length * 4);
                               this.method448();
                         }
                   }
@@ -535,7 +535,7 @@ public class WorldMapRegion {
                         } else if (var11.primaryRgb == 16711935) {
                               var9 = var10;
                         } else {
-                              var17 = class65.WorldMap_hslToRgb(var11.hue, var11.saturation, var11.lightness);
+                              var17 = class65.method1245(var11.hue, var11.saturation, var11.lightness);
                               var15 = 96;
                               if (var17 == -2) {
                                     var14 = 12345678;
@@ -643,7 +643,7 @@ public class WorldMapRegion {
                               } else if (var9.primaryRgb == 16711935) {
                                     var7 = var8;
                               } else {
-                                    var16 = class65.WorldMap_hslToRgb(var9.hue, var9.saturation, var9.lightness);
+                                    var16 = class65.method1245(var9.hue, var9.saturation, var9.lightness);
                                     var13 = 96;
                                     if (var16 == -2) {
                                           var12 = 12345678;
@@ -705,7 +705,7 @@ public class WorldMapRegion {
                               WorldMapDecoration var9 = var7[var8];
                               if (!Strings.method4079(var9.decoration)) {
                                     int var11 = var9.decoration;
-                                    boolean var10 = var11 == WorldMapDecorationType.field2721.field_49;
+                                    boolean var10 = var11 == WorldMapDecorationType.field2721.field_50;
                                     if (!var10) {
                                           continue;
                                     }
@@ -739,20 +739,20 @@ public class WorldMapRegion {
                         for(int var7 = 0; var7 < var6.length; ++var7) {
                               WorldMapDecoration var8 = var6[var7];
                               int var10 = var8.decoration;
-                              boolean var9 = var10 >= WorldMapDecorationType.field2710.field_49 && var10 <= WorldMapDecorationType.field2702.field_49 || var10 == WorldMapDecorationType.field2708.field_49;
+                              boolean var9 = var10 >= WorldMapDecorationType.field2710.field_50 && var10 <= WorldMapDecorationType.field2702.field_50 || var10 == WorldMapDecorationType.field2708.field_50;
                               if (var9) {
                                     ObjectDefinition var11 = GrandExchangeOfferOwnWorldComparator.getObjectDefinition(var8.objectDefinitionId);
                                     int var12 = var11.int1 != 0 ? -3407872 : -3355444;
-                                    if (var8.decoration == WorldMapDecorationType.field2710.field_49) {
+                                    if (var8.decoration == WorldMapDecorationType.field2710.field_50) {
                                           this.method474(var1, var2, var8.rotation, var12);
                                     }
 
-                                    if (var8.decoration == WorldMapDecorationType.field2701.field_49) {
+                                    if (var8.decoration == WorldMapDecorationType.field2701.field_50) {
                                           this.method474(var1, var2, var8.rotation, -3355444);
                                           this.method474(var1, var2, var8.rotation + 1, var12);
                                     }
 
-                                    if (var8.decoration == WorldMapDecorationType.field2702.field_49) {
+                                    if (var8.decoration == WorldMapDecorationType.field2702.field_50) {
                                           if (var8.rotation == 0) {
                                                 Rasterizer2D.method5935(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), 1, var12);
                                           }
@@ -770,7 +770,7 @@ public class WorldMapRegion {
                                           }
                                     }
 
-                                    if (var8.decoration == WorldMapDecorationType.field2708.field_49) {
+                                    if (var8.decoration == WorldMapDecorationType.field2708.field_50) {
                                           int var13 = var8.rotation % 2;
                                           int var14;
                                           if (var13 == 0) {
@@ -804,8 +804,8 @@ public class WorldMapRegion {
             while(var7.hasNext()) {
                   Entry var8 = (Entry)var7.next();
                   Coord var9 = (Coord)var8.getKey();
-                  int var10 = (int)((float)var1 + var5 * (float)var9.field_53 - var6);
-                  int var11 = (int)((float)(var2 + var4) - var5 * (float)var9.field_54 - var6);
+                  int var10 = (int)((float)var1 + var5 * (float)var9.field_54 - var6);
+                  int var11 = (int)((float)(var2 + var4) - var5 * (float)var9.field_55 - var6);
                   AbstractWorldMapIcon var12 = (AbstractWorldMapIcon)var8.getValue();
                   if (var12 != null && var12.hasValidElement()) {
                         var12.screenX = var10;
@@ -911,8 +911,8 @@ public class WorldMapRegion {
             while(var6.hasNext()) {
                   AbstractWorldMapIcon var7 = (AbstractWorldMapIcon)var6.next();
                   if (var7.hasValidElement()) {
-                        int var8 = var7.coord2.field_53 % 64;
-                        int var9 = var7.coord2.field_54 % 64;
+                        int var8 = var7.coord2.field_54 % 64;
+                        int var9 = var7.coord2.field_55 % 64;
                         var7.screenX = (int)(var5 * (float)var8 + (float)var1);
                         var7.screenY = (int)((float)var2 + (float)(63 - var9) * var5);
                         if (!var3.contains(var7.getElement())) {

@@ -84,7 +84,7 @@ public class FriendSystem {
       @Export("processFriendUpdates")
       final void processFriendUpdates() {
             for(FriendLoginUpdate var1 = (FriendLoginUpdate)this.friendsList.friendLoginUpdates.last(); var1 != null; var1 = (FriendLoginUpdate)this.friendsList.friendLoginUpdates.previous()) {
-                  if ((long)var1.field3627 < class30.currentTimeMs() / 1000L - 5L) {
+                  if ((long)var1.field3627 < class30.method566() / 1000L - 5L) {
                         if (var1.world > 0) {
                               class210.addGameMessage(5, "", var1.username + " has logged in.");
                         }
@@ -207,7 +207,7 @@ public class FriendSystem {
                   Username var2 = new Username(var1, this.loginType);
                   if (var2.hasCleanName()) {
                         if (this.canAddIgnore()) {
-                              WorldMapCacheName.FriendSystem_cantIgnoreSelfMes();
+                              WorldMapCacheName.method644();
                         } else {
                               StringBuilder var10000;
                               String var4;

@@ -297,7 +297,7 @@ public class VarbitDefinition extends DualNode {
                                     Language.worldSelectFlagSprites[(var33.isMembersOnly() ? 8 : 0) + var33.location].drawAt(var32 + 29, var12);
                               }
 
-                              var0.drawCentered(Integer.toString(var33.field_59), var32 + 15, var50 / 2 + var12 + 5, var22, -1);
+                              var0.drawCentered(Integer.toString(var33.field_60), var32 + 15, var50 / 2 + var12 + 5, var22, -1);
                               var1.drawCentered(var20, var32 + 60, var50 / 2 + var12 + 5, 268435455, -1);
                               var12 = var12 + var29 + var50;
                               ++var14;

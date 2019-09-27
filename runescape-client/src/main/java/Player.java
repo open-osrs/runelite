@@ -394,7 +394,7 @@ public final class Player extends Actor {
 
                               if (Client.cycle >= this.animationCycleStart && Client.cycle < this.animationCycleEnd) {
                                     var4 = this.model0;
-                                    var4.offsetBy(this.field606 * 4096 - super.field_27, this.tileHeight2 - this.tileHeight, this.field608 * 4096 - super.field_28 * 682054857);
+                                    var4.offsetBy(this.field606 * 4096 - super.field_27, this.tileHeight2 - this.tileHeight, this.field608 * 4096 - super.field_28);
                                     if (super.orientation == 512) {
                                           var4.rotateY90Ccw();
                                           var4.rotateY90Ccw();
@@ -419,7 +419,7 @@ public final class Player extends Actor {
                                           var4.rotateY90Ccw();
                                     }
 
-                                    var4.offsetBy(super.field_27 - this.field606 * 4096, this.tileHeight - this.tileHeight2, super.field_28 * 682054857 - this.field608 * 4096);
+                                    var4.offsetBy(super.field_27 - this.field606 * 4096, this.tileHeight - this.tileHeight2, super.field_28 - this.field608 * 4096);
                               }
                         }
 
@@ -470,7 +470,7 @@ public final class Player extends Actor {
             super.pathY[0] = var2;
             int var3 = this.transformedSize();
             super.field_27 = var3 * 64 + super.pathX[0] * 128;
-            super.field_28 = var3 * -297705920 + super.pathY[0] * -595411840;
+            super.field_28 = var3 * 64 + super.pathY[0] * 128;
       }
 
       @ObfuscatedName("b")

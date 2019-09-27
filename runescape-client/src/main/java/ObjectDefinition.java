@@ -138,7 +138,7 @@ public class ObjectDefinition extends DualNode {
       int ambient = 0;
       @ObfuscatedName("az")
       @ObfuscatedGetter(
-            intValue = -1558537711
+            intValue = -308737111
       )
       @Export("contrast")
       int contrast = 0;
@@ -372,7 +372,7 @@ public class ObjectDefinition extends DualNode {
             } else if (var2 == 29) {
                   this.ambient = var1.readByte();
             } else if (var2 == 39) {
-                  this.contrast = var1.readByte();
+                  this.contrast = var1.readByte() * 25;
             } else if (var2 >= 30 && var2 < 35) {
                   this.actions[var2 - 30] = var1.readStringCp1252NullTerminated();
                   if (this.actions[var2 - 30].equalsIgnoreCase("Hidden")) {
@@ -548,10 +548,10 @@ public class ObjectDefinition extends DualNode {
                   }
 
                   if (!this.nonFlatShading) {
-                        var9 = var10.toModel(this.ambient + 64, this.contrast * 25 + 768, -50, -10, -50);
+                        var9 = var10.toModel(this.ambient + 64, this.contrast + 768, -50, -10, -50);
                   } else {
                         var10.ambient = (short)(this.ambient + 64);
-                        var10.contrast = (short)(this.contrast * 25 + 768);
+                        var10.contrast = (short)(this.contrast + 768);
                         var10.calculateVertexNormals();
                         var9 = var10;
                   }
@@ -595,7 +595,7 @@ public class ObjectDefinition extends DualNode {
                         return null;
                   }
 
-                  var9 = var10.toModel(this.ambient + 64, this.contrast * 25 + 768, -50, -10, -50);
+                  var9 = var10.toModel(this.ambient + 64, this.contrast + 768, -50, -10, -50);
                   ObjectDefinition_cachedModels.put(var9, var7);
             }
 
@@ -627,7 +627,7 @@ public class ObjectDefinition extends DualNode {
                         return null;
                   }
 
-                  var11 = var12.toModel(this.ambient + 64, this.contrast * 25 + 768, -50, -10, -50);
+                  var11 = var12.toModel(this.ambient + 64, this.contrast + 768, -50, -10, -50);
                   ObjectDefinition_cachedModels.put(var11, var9);
             }
 

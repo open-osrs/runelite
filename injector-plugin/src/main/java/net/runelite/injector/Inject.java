@@ -318,7 +318,7 @@ public class Inject
 		new RenderDraw(this).inject();
 		// new DrawMenu(this).inject();
 		new Occluder(this).inject();
-		new HidePlayerAttacks(this).inject();
+		//new HidePlayerAttacks(this).inject();
 	}
 
 	private java.lang.Class injectInterface(ClassFile cf, ClassFile other)

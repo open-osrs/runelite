@@ -132,12 +132,12 @@ public class WorldMapLabelSize {
                         PacketBufferNode var8;
                         if (var0 == 1) {
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2231, Client.packetWriter.isaacCipher);
-                              var8.packetBuffer.method5590(var3[var6]);
+                              var8.packetBuffer.writeIntME(var3[var6]);
                               var8.packetBuffer.method5452(0);
                               Client.packetWriter.addNode(var8);
                         } else if (var0 == 4) {
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2271, Client.packetWriter.isaacCipher);
-                              var8.packetBuffer.method5463(var3[var6]);
+                              var8.packetBuffer.writeShortLE(var3[var6]);
                               var8.packetBuffer.method5453(0);
                               Client.packetWriter.addNode(var8);
                         } else if (var0 == 6) {
@@ -147,7 +147,7 @@ public class WorldMapLabelSize {
                               Client.packetWriter.addNode(var8);
                         } else if (var0 == 7) {
                               var8 = InterfaceParent.getPacketBufferNode(ClientPacket.field2274, Client.packetWriter.isaacCipher);
-                              var8.packetBuffer.writeIntLE(var3[var6]);
+                              var8.packetBuffer.method5461(var3[var6]);
                               var8.packetBuffer.method5452(0);
                               Client.packetWriter.addNode(var8);
                         }

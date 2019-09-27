@@ -140,7 +140,7 @@ final class class1 implements class0 {
                               var12 = var0 + 1;
                         }
 
-                        class3.addPendingGameObject(var0, var12, var2, var3, var4, var5, var6, PacketWriter.scene, Client.collisionMaps[var0]);
+                        class3.method50(var0, var12, var2, var3, var4, var5, var6, PacketWriter.scene, Client.collisionMaps[var0]);
                   }
             }
 
@@ -188,12 +188,12 @@ final class class1 implements class0 {
                   }
 
                   ObjectSound.oculusOrbFocalPointX = class223.localPlayer.field_27;
-                  int var2 = MusicPatchPcmStream.getTileHeight(class223.localPlayer.field_27, class223.localPlayer.field_28 * 682054857, WorldMapRectangle.plane) - Client.camFollowHeight * -844153885;
-                  if (var2 < ModelData0.field1840 * -1351160427) {
-                        ModelData0.field1840 = var2 * -506989123;
+                  int var2 = MusicPatchPcmStream.getTileHeight(class223.localPlayer.field_27, class223.localPlayer.field_28, WorldMapRectangle.plane) - Client.camFollowHeight;
+                  if (var2 < ModelData0.field1840) {
+                        ModelData0.field1840 = var2;
                   }
 
-                  class14.oculusOrbFocalPointY = class223.localPlayer.field_28 * 682054857;
+                  class14.oculusOrbFocalPointY = class223.localPlayer.field_28;
                   Client.field879 = false;
             }
 

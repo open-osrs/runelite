@@ -152,7 +152,7 @@ public class class216 {
                               }
 
                               if (var6 == 19) {
-                                    var7 = class286.baseY * 64 + (class223.localPlayer.field_28 * 682054857 >> 7);
+                                    var7 = class286.baseY * 64 + (class223.localPlayer.field_28 >> 7);
                               }
 
                               if (var6 == 20) {

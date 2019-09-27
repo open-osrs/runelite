@@ -169,7 +169,7 @@ public class class81 {
                         Client.meslayerContinueWidget = var3;
                         WorldMapSectionType.invalidateWidget(var3);
                         return 1;
-                  } else if (var0 == 1122) {
+                  } else if (var0 == ScriptOpcodes._1122) {
                         var3.spriteId = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                         WorldMapSectionType.invalidateWidget(var3);
                         return 1;
@@ -177,13 +177,13 @@ public class class81 {
                         var3.color2 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                         WorldMapSectionType.invalidateWidget(var3);
                         return 1;
-                  } else if (var0 == 1124) {
-                        var3.field2577 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
+                  } else if (var0 == ScriptOpcodes._1124) {
+                        var3.transparencyBot = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
                         WorldMapSectionType.invalidateWidget(var3);
                         return 1;
-                  } else if (var0 == ScriptOpcodes.CC_SETFILLMODE) {
+                  } else if (var0 == ScriptOpcodes._1125) {
                         var8 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-                        FillMode var6 = (FillMode)NetSocket.findEnumerated(class96.method2266(), var8);
+                        FillMode var6 = (FillMode)NetSocket.findEnumerated(class96.FillMode_values(), var8);
                         if (var6 != null) {
                               var3.fillMode = var6;
                               WorldMapSectionType.invalidateWidget(var3);
@@ -198,7 +198,7 @@ public class class81 {
                               return 1;
                         } else if (var0 == ScriptOpcodes.CC_SETMODELTRANSPARENT) {
                               var5 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-                              var3.field2654 = var5;
+                              var3.modelTransparency = var5;
                               return 1;
                         } else {
                               return 2;

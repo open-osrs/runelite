@@ -41,8 +41,7 @@ public class class49 {
             signature = "([BI)Lkn;",
             garbageValue = "-1770627772"
       )
-      @Export("SpriteBuffer_createFont")
-      static Font SpriteBuffer_createFont(byte[] var0) {
+      static Font method893(byte[] var0) {
             if (var0 == null) {
                   return null;
             } else {

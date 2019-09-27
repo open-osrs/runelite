@@ -53,7 +53,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
                   super.minPlane = var1.readUnsignedByte();
                   super.planes = var1.readUnsignedByte();
                   super.regionXLow = var1.readUnsignedShort() * 64;
-                  super.regionYLow = var1.readUnsignedShort() * 4096;
+                  super.regionYLow = var1.readUnsignedShort() * 64;
                   this.chunkXLow = var1.readUnsignedByte();
                   this.chunkYLow = var1.readUnsignedByte();
                   super.regionX = var1.readUnsignedShort();
@@ -204,10 +204,10 @@ public class WorldMapData_1 extends AbstractWorldMapData {
                         var3 = 0;
                   }
 
-                  Client.camFollowHeight = var3 * -767303221;
+                  Client.camFollowHeight = var3;
                   return 1;
             } else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) {
-                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camFollowHeight * -844153885;
+                  Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camFollowHeight;
                   return 1;
             } else {
                   return 2;

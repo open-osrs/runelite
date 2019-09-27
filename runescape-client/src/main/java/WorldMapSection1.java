@@ -173,8 +173,7 @@ public class WorldMapSection1 implements WorldMapSection {
             signature = "(III)Lcu;",
             garbageValue = "-1499115361"
       )
-      @Export("getWorldMapScript")
-      static Script getWorldMapScript(int var0, int var1) {
+      static Script method591(int var0, int var1) {
             Script var2 = (Script)Script.Script_cached.get((long)(var0 << 16));
             if (var2 != null) {
                   return var2;

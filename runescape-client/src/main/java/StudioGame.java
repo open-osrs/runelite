@@ -58,11 +58,11 @@ public enum StudioGame implements Enumerated {
             intValue = 275633543
       )
       @Export("id")
-      final int field_52;
+      final int field_53;
 
       StudioGame(String var3, String var4, int var5) {
             this.name = var3;
-            this.field_52 = var5;
+            this.field_53 = var5;
       }
 
       @ObfuscatedName("v")
@@ -72,7 +72,7 @@ public enum StudioGame implements Enumerated {
       )
       @Export("rsOrdinal")
       public int rsOrdinal() {
-            return this.field_52;
+            return this.field_53;
       }
 
       @ObfuscatedName("n")
@@ -80,18 +80,19 @@ public enum StudioGame implements Enumerated {
             signature = "(II)Lig;",
             garbageValue = "-61677673"
       )
-      public static class239 method4096(int var0) {
-            class239 var1 = (class239)class239.field3178.get((long)var0);
+      @Export("getInvDefinition")
+      public static InvDefinition getInvDefinition(int var0) {
+            InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0);
             if (var1 != null) {
                   return var1;
             } else {
-                  byte[] var2 = class239.InvDefinition_archive.takeFile(5, var0);
-                  var1 = new class239();
+                  byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0);
+                  var1 = new InvDefinition();
                   if (var2 != null) {
-                        var1.method4311(new Buffer(var2));
+                        var1.decode(new Buffer(var2));
                   }
 
-                  class239.field3178.put(var1, (long)var0);
+                  InvDefinition.InvDefinition_cached.put(var1, (long)var0);
                   return var1;
             }
       }

@@ -36,8 +36,7 @@ public class class30 {
             signature = "(I)J",
             garbageValue = "1399044967"
       )
-      @Export("currentTimeMs")
-      public static final synchronized long currentTimeMs() {
+      public static final synchronized long method566() {
             long var0 = System.currentTimeMillis();
             if (var0 < class296.field3688) {
                   class296.field3689 += class296.field3688 - var0;

@@ -504,7 +504,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
             }
 
             this.isCanvasInvalid = false;
-            this.field446 = class30.currentTimeMs();
+            this.field446 = class30.method566();
       }
 
       @ObfuscatedName("h")
@@ -545,7 +545,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
             garbageValue = "-1775618326"
       )
       void method963() {
-            long var1 = class30.currentTimeMs();
+            long var1 = class30.method566();
             long var3 = field431[WorldMapID.field259];
             field431[WorldMapID.field259] = var1;
             WorldMapID.field259 = WorldMapID.field259 + 1 & 31;
@@ -567,7 +567,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
       )
       void method956() {
             Container var1 = this.container();
-            long var2 = class30.currentTimeMs();
+            long var2 = class30.method566();
             long var4 = field430[Varcs.field1255];
             field430[Varcs.field1255] = var2;
             Varcs.field1255 = Varcs.field1255 + 1 & 31;
@@ -834,7 +834,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
       public final void destroy() {
             if (this == gameShell && !isKilled) {
-                  stopTimeMs = class30.currentTimeMs();
+                  stopTimeMs = class30.method566();
                   long var1 = 4999L;
 
                   try {
@@ -856,7 +856,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
       public final synchronized void paint(Graphics var1) {
             if (this == gameShell && !isKilled) {
                   this.field420 = true;
-                  if (class30.currentTimeMs() - this.field446 > 1000L) {
+                  if (class30.method566() - this.field446 > 1000L) {
                         Rectangle var2 = var1.getClipBounds();
                         if (var2 == null || var2.width >= FloorDecoration.canvasWidth && var2.height >= WallDecoration.canvasHeight) {
                               this.isCanvasInvalid = true;
@@ -899,7 +899,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
                   this.setUp();
                   clock = ItemContainer.newClock();
 
-                  while(0L == stopTimeMs || class30.currentTimeMs() < stopTimeMs) {
+                  while(0L == stopTimeMs || class30.method566() < stopTimeMs) {
                         field419 = clock.wait(cycleDurationMillis, fiveOrOne);
 
                         for(int var5 = 0; var5 < field419; ++var5) {
@@ -925,7 +925,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
       public final void stop() {
             if (this == gameShell && !isKilled) {
-                  stopTimeMs = class30.currentTimeMs() + 4000L;
+                  stopTimeMs = class30.method566() + 4000L;
             }
       }
 
