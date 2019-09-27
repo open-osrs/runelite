@@ -1,71 +1,83 @@
-import java.io.IOException;
-import java.net.Socket;
 import java.util.HashMap;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ku")
+@ObfuscatedName("kr")
 @Implements("Fonts")
 public class Fonts {
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		signature = "Lhz;"
-	)
-	@Export("spritesArchive")
-	AbstractArchive spritesArchive;
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Lhz;"
-	)
-	@Export("fontsArchive")
-	AbstractArchive fontsArchive;
-	@ObfuscatedName("t")
-	@Export("map")
-	HashMap map;
+      @ObfuscatedName("z")
+      @ObfuscatedSignature(
+            signature = "Lhp;"
+      )
+      @Export("spritesArchive")
+      AbstractArchive spritesArchive;
+      @ObfuscatedName("n")
+      @ObfuscatedSignature(
+            signature = "Lhp;"
+      )
+      @Export("fontsArchive")
+      AbstractArchive fontsArchive;
+      @ObfuscatedName("v")
+      @Export("map")
+      HashMap map;
 
-	@ObfuscatedSignature(
-		signature = "(Lhz;Lhz;)V"
-	)
-	public Fonts(AbstractArchive var1, AbstractArchive var2) {
-		this.spritesArchive = var1;
-		this.fontsArchive = var2;
-		this.map = new HashMap();
-	}
+      @ObfuscatedSignature(
+            signature = "(Lhp;Lhp;)V"
+      )
+      public Fonts(AbstractArchive var1, AbstractArchive var2) {
+            this.spritesArchive = var1;
+            this.fontsArchive = var2;
+            this.map = new HashMap();
+      }
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		signature = "([Lkn;B)Ljava/util/HashMap;",
-		garbageValue = "-84"
-	)
-	@Export("createMap")
-	public HashMap createMap(FontName[] var1) {
-		HashMap var2 = new HashMap();
-		FontName[] var3 = var1;
+      @ObfuscatedName("z")
+      @ObfuscatedSignature(
+            signature = "([Lko;I)Ljava/util/HashMap;",
+            garbageValue = "-1165155916"
+      )
+      @Export("createMap")
+      public HashMap createMap(FontName[] var1) {
+            HashMap var2 = new HashMap();
+            FontName[] var3 = var1;
 
-		for (int var4 = 0; var4 < var3.length; ++var4) {
-			FontName var5 = var3[var4];
-			if (this.map.containsKey(var5)) {
-				var2.put(var5, this.map.get(var5));
-			} else {
-				Font var6 = Skeleton.SpriteBuffer_getFontByName(this.spritesArchive, this.fontsArchive, var5.name, "");
-				if (var6 != null) {
-					this.map.put(var5, var6);
-					var2.put(var5, var6);
-				}
-			}
-		}
+            for(int var4 = 0; var4 < var3.length; ++var4) {
+                  FontName var5 = var3[var4];
+                  if (this.map.containsKey(var5)) {
+                        var2.put(var5, this.map.get(var5));
+                  } else {
+                        AbstractArchive var7 = this.spritesArchive;
+                        AbstractArchive var8 = this.fontsArchive;
+                        String var9 = var5.name;
+                        int var10 = var7.getGroupId(var9);
+                        int var11 = var7.getFileId(var10, "");
+                        Font var6 = ClanMate.SpriteBuffer_getFont(var7, var8, var10, var11);
+                        if (var6 != null) {
+                              this.map.put(var5, var6);
+                              var2.put(var5, var6);
+                        }
+                  }
+            }
 
-		return var2;
-	}
+            return var2;
+      }
 
-	@ObfuscatedName("an")
-	@ObfuscatedSignature(
-		signature = "(Ljava/net/Socket;III)Lks;",
-		garbageValue = "1860750557"
-	)
-	public static AbstractSocket method5293(Socket var0, int var1, int var2) throws IOException {
-		return new BufferedNetSocket(var0, var1, var2);
-	}
+      @ObfuscatedName("n")
+      @ObfuscatedSignature(
+            signature = "(II)Lkc;",
+            garbageValue = "202775938"
+      )
+      public static class309 method5258(int var0) {
+            class309[] var1 = BZip2State.method5687();
+
+            for(int var2 = 0; var2 < var1.length; ++var2) {
+                  class309 var3 = var1[var2];
+                  if (var0 == var3.field3793) {
+                        return var3;
+                  }
+            }
+
+            return null;
+      }
 }

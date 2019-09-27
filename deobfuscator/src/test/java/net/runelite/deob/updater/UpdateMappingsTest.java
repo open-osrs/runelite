@@ -71,7 +71,6 @@ public class UpdateMappingsTest
 	}
 
 	@Test
-	@Ignore
 	public void testRun() throws IOException
 	{
 		File client = new File(properties.getRsClient());
@@ -89,7 +88,6 @@ public class UpdateMappingsTest
 	}
 
 	@Test
-	@Ignore
 	public void testScriptopcodes() throws Exception
 	{
 		File client = new File("C:\\Users\\Lucas\\IdeaProjects\\runelitexxx\\client.jar");

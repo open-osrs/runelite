@@ -152,7 +152,9 @@ public class Deob
 
 	public static boolean isObfuscated(String name)
 	{
-		return name.length() <= OBFUSCATED_NAME_MAX_LEN || name.startsWith("method") || name.startsWith("vmethod") || name.startsWith("field") || name.startsWith("class") || name.startsWith("__");
+		return name.length() <= OBFUSCATED_NAME_MAX_LEN || name.startsWith("method")
+			|| name.startsWith("vmethod") || name.startsWith("field") ||
+			name.startsWith("class") || name.startsWith("__") || name.startsWith("aa");
 	}
 
 	private static void runMath(ClassGroup group)

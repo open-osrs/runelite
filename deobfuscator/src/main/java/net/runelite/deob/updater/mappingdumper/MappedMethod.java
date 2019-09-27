@@ -17,9 +17,13 @@ import net.runelite.asm.pool.Class;
 import net.runelite.asm.pool.Field;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.updater.MappingDumper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class MappedMethod
 {
+	public Logger logger = LoggerFactory.getLogger(this.getClass());
 	@SerializedName("method")
 	public String exportedName;
 	public String owner;
@@ -88,11 +92,16 @@ public class MappedMethod
 			}
 			else if (i instanceof InvokeInstruction)
 			{
+
 				List<Method> met = ((InvokeInstruction) i).getMethods();
 				net.runelite.asm.pool.Method k;
 				if (met.size() > 0)
 				{
 					Method mme = met.get(0);
+					logger.info(mme.toString());
+					logger.info(DeobAnnotations.getObfuscatedName(mme.getClassFile().getAnnotations()));
+					logger.info(DeobAnnotations.getObfuscatedName(mme.getAnnotations()));
+					logger.info(mme.getObfuscatedSignature().toString());
 					k = new net.runelite.asm.pool.Method(
 						new Class(DeobAnnotations.getObfuscatedName(mme.getClassFile().getAnnotations())),
 						DeobAnnotations.getObfuscatedName(mme.getAnnotations()),

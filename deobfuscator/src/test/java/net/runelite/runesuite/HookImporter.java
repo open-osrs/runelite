@@ -30,6 +30,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
@@ -74,12 +77,15 @@ public class HookImporter
 	private List<HookClass> hooks;
 	private ClassGroup group;
 
+	private static final String OUTDIR = "D:/";
+	private final File OUTFILE = new File(OUTDIR, "184.json");
+
 	@Before
 	public void before() throws IOException
 	{
 		group = JarUtil.loadJar(new File(properties.getRsClient()));
 
-		InputStream is = getClass().getResourceAsStream("hooks.json");
+		InputStream is = Files.newInputStream(Paths.get("D:/183.json"));
 		Gson gson = new Gson();
 		java.lang.reflect.Type type = new TypeToken<List<HookClass>>()
 		{
@@ -96,7 +102,6 @@ public class HookImporter
 	}
 
 	@Test
-	@Ignore
 	public void importHooks()
 	{
 		int classes = 0, fields = 0, methods = 0, params = 0;

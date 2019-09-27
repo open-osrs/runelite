@@ -4,111 +4,104 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ib")
+@ObfuscatedName("ih")
 @Implements("ArchiveDiskActionHandler")
 public class ArchiveDiskActionHandler implements Runnable {
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		signature = "Ljv;"
-	)
-	@Export("ArchiveDiskActionHandler_requestQueue")
-	static NodeDeque ArchiveDiskActionHandler_requestQueue;
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Ljv;"
-	)
-	@Export("ArchiveDiskActionHandler_responseQueue")
-	static NodeDeque ArchiveDiskActionHandler_responseQueue;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 1435645163
-	)
-	public static int field3126;
-	@ObfuscatedName("l")
-	@Export("ArchiveDiskActionHandler_lock")
-	public static Object ArchiveDiskActionHandler_lock;
-	@ObfuscatedName("u")
-	@Export("ArchiveDiskActionHandler_thread")
-	static Thread ArchiveDiskActionHandler_thread;
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "Lhz;"
-	)
-	@Export("Widget_archive")
-	static AbstractArchive Widget_archive;
+      @ObfuscatedName("z")
+      @ObfuscatedSignature(
+            signature = "Ljv;"
+      )
+      @Export("ArchiveDiskActionHandler_requestQueue")
+      public static NodeDeque ArchiveDiskActionHandler_requestQueue = new NodeDeque();
+      @ObfuscatedName("n")
+      @ObfuscatedSignature(
+            signature = "Ljv;"
+      )
+      @Export("ArchiveDiskActionHandler_responseQueue")
+      public static NodeDeque ArchiveDiskActionHandler_responseQueue = new NodeDeque();
+      @ObfuscatedName("v")
+      @ObfuscatedGetter(
+            intValue = 1320379029
+      )
+      static int field3127 = 0;
+      @ObfuscatedName("u")
+      @Export("ArchiveDiskActionHandler_lock")
+      static Object ArchiveDiskActionHandler_lock = new Object();
 
-	static {
-		ArchiveDiskActionHandler_requestQueue = new NodeDeque();
-		ArchiveDiskActionHandler_responseQueue = new NodeDeque();
-		field3126 = 0;
-		ArchiveDiskActionHandler_lock = new Object();
-	}
+      public void run() {
+            try {
+                  while(true) {
+                        NodeDeque var2 = ArchiveDiskActionHandler_requestQueue;
+                        ArchiveDiskAction var1;
+                        synchronized(ArchiveDiskActionHandler_requestQueue) {
+                              var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last();
+                        }
 
-	ArchiveDiskActionHandler() {
-	}
+                        Object var18;
+                        if (var1 != null) {
+                              if (var1.type == 0) {
+                                    var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length);
+                                    var2 = ArchiveDiskActionHandler_requestQueue;
+                                    synchronized(ArchiveDiskActionHandler_requestQueue) {
+                                          var1.remove();
+                                    }
+                              } else if (var1.type == 1) {
+                                    var1.data = var1.archiveDisk.read((int)var1.key);
+                                    var2 = ArchiveDiskActionHandler_requestQueue;
+                                    synchronized(ArchiveDiskActionHandler_requestQueue) {
+                                          ArchiveDiskActionHandler_responseQueue.addFirst(var1);
+                                    }
+                              }
 
-	public void run() {
-		try {
-			while (true) {
-				ArchiveDiskAction var1;
-				synchronized(ArchiveDiskActionHandler_requestQueue) {
-					var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last();
-				}
+                              var18 = ArchiveDiskActionHandler_lock;
+                              synchronized(ArchiveDiskActionHandler_lock) {
+                                    if (field3127 <= 1) {
+                                          field3127 = 0;
+                                          ArchiveDiskActionHandler_lock.notifyAll();
+                                          return;
+                                    }
 
-				if (var1 != null) {
-					if (var1.type == 0) {
-						var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length);
-						synchronized(ArchiveDiskActionHandler_requestQueue) {
-							var1.remove();
-						}
-					} else if (var1.type == 1) {
-						var1.data = var1.archiveDisk.read((int)var1.key);
-						synchronized(ArchiveDiskActionHandler_requestQueue) {
-							ArchiveDiskActionHandler_responseQueue.addFirst(var1);
-						}
-					}
+                                    field3127 = 600;
+                              }
+                        } else {
+                              long var8 = 99L;
 
-					synchronized(ArchiveDiskActionHandler_lock) {
-						if (field3126 <= 1) {
-							field3126 = 0;
-							ArchiveDiskActionHandler_lock.notifyAll();
-							return;
-						}
+                              try {
+                                    Thread.sleep(var8);
+                              } catch (InterruptedException var15) {
+                                    ;
+                              }
 
-						field3126 = 600;
-					}
-				} else {
-					FriendsList.sleepMillis(100L);
-					synchronized(ArchiveDiskActionHandler_lock) {
-						if (field3126 <= 1) {
-							field3126 = 0;
-							ArchiveDiskActionHandler_lock.notifyAll();
-							return;
-						}
+                              try {
+                                    Thread.sleep(1L);
+                              } catch (InterruptedException var14) {
+                                    ;
+                              }
 
-						--field3126;
-					}
-				}
-			}
-		} catch (Exception var13) {
-			class188.RunException_sendStackTrace((String)null, var13);
-		}
-	}
+                              var18 = ArchiveDiskActionHandler_lock;
+                              synchronized(ArchiveDiskActionHandler_lock) {
+                                    if (field3127 <= 1) {
+                                          field3127 = 0;
+                                          ArchiveDiskActionHandler_lock.notifyAll();
+                                          return;
+                                    }
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Throwable;Ljava/lang/String;)Lma;"
-	)
-	@Export("newRunException")
-	public static RunException newRunException(Throwable var0, String var1) {
-		RunException var2;
-		if (var0 instanceof RunException) {
-			var2 = (RunException)var0;
-			var2.message = var2.message + ' ' + var1;
-		} else {
-			var2 = new RunException(var0, var1);
-		}
+                                    --field3127;
+                              }
+                        }
+                  }
+            } catch (Exception var17) {
+                  class32.RunException_sendStackTrace((String)null, var17);
+            }
+      }
 
-		return var2;
-	}
+      @ObfuscatedName("z")
+      @ObfuscatedSignature(
+            signature = "(Ljava/lang/String;ZZB)V",
+            garbageValue = "10"
+      )
+      @Export("openURL")
+      public static void openURL(String var0, boolean var1, boolean var2) {
+            WorldMapID.method568(var0, var1, "openjs", var2);
+      }
 }

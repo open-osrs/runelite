@@ -30,7 +30,7 @@ public class AnnotationCleaner
 	public void checkMappings() throws Exception
 	{
 		final List<String> missing = new ArrayList<>();
-		File client = new File(properties.getRsClient());
+		File client = new File("C:\\Users\\Jesse\\rl\\runescape-client\\build\\libs\\rs-client-1.5.34-SNAPSHOT.jar");
 		ClassGroup group = JarUtil.loadJar(client);
 
 		for (ClassFile c : group.getClasses())
@@ -112,7 +112,6 @@ public class AnnotationCleaner
 	}
 
 	@Test
-	@Ignore
 	public void fixMappings() throws Exception
 	{
 		File client = new File(properties.getRsClient());
@@ -121,7 +120,7 @@ public class AnnotationCleaner
 
 		new AnnotationAdder(group).run();
 
-		JarUtil.saveJar(group, new File("C:/Users/Lucas/Desktop/niec.jar"));
+		JarUtil.saveJar(group, new File("C:/Users/Jesse/Desktop/niec.jar"));
 	}
 
 	private class OhNoException extends Exception

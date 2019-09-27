@@ -30,8 +30,15 @@ public class Class
 
 	public Class(String name)
 	{
-		assert !name.startsWith("L") || !name.endsWith(";");
-		this.name = name.replace('.', '/');
+		if (name != null)
+		{
+			assert !name.startsWith("L") || !name.endsWith(";");
+			this.name = name.replace('.', '/');
+		}
+		else
+		{
+			this.name = "nullNamed";
+		}
 	}
 
 	public Class(String name, int dimms)

@@ -1,4 +1,5 @@
 import org.gradle.api.DefaultTask
+import org.gradle.api.logging.Logger
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
@@ -8,15 +9,16 @@ class FernflowerTask extends DefaultTask {
     List<String> extraArgs
     String inputJar
     String outputDir
-
+    Logger log = getLogger()
     @InputFile
     File getInputJar() {
-        project.file(inputJar ?: project.buildDir.toString() + '/libs/' + project.getName() + '-' + project.version + '.jar')
+        project.file("D:\\183renamed.jar")
     }
 
     @OutputDirectory
     File getOutputDir() {
-        project.file(outputDir ?: project.buildDir.toString() + '/decompiled-sources')
+        new File("D:\\183renamedDecompiled.jar")
+
     }
 
     @TaskAction
@@ -26,6 +28,8 @@ class FernflowerTask extends DefaultTask {
         if (extraArgs) {
             args.addAll(extraArgs)
         }
+
+
 
         ConsoleDecompiler.main(args as String[])
     }

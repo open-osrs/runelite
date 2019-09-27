@@ -51,8 +51,8 @@ public class MappingDumper
 	public DeobTestProperties properties = new DeobTestProperties();
 
 	private ClassGroup group;
-	private static final String OUTDIR = "";
-	private final File OUTFILE = new File(OUTDIR, "rlplushooks.json");
+	private static final String OUTDIR = "D:";
+	private final File OUTFILE = new File(OUTDIR, "184.json");
 
 	@Before
 	public void before() throws IOException
@@ -61,7 +61,6 @@ public class MappingDumper
 	}
 
 	@Test
-	@Ignore
 	public void newDump()
 	{
 		new net.runelite.deob.updater.MappingDumper(group).dump(OUTFILE);

@@ -4,51 +4,54 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lf")
+@ObfuscatedName("lm")
 @Implements("AbstractRasterProvider")
 public abstract class AbstractRasterProvider {
-	@ObfuscatedName("t")
-	@Export("pixels")
-	public int[] pixels;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 1812732741
-	)
-	@Export("width")
-	public int width;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -828006161
-	)
-	@Export("height")
-	public int height;
+      @ObfuscatedName("p")
+      @ObfuscatedSignature(
+            signature = "Llp;"
+      )
+      @Export("titlebuttonSprite")
+      static IndexedSprite titlebuttonSprite;
+      @ObfuscatedName("v")
+      @Export("pixels")
+      public int[] pixels;
+      @ObfuscatedName("u")
+      @ObfuscatedGetter(
+            intValue = 1221954905
+      )
+      @Export("width")
+      public int width;
+      @ObfuscatedName("r")
+      @ObfuscatedGetter(
+            intValue = 809652275
+      )
+      @Export("height")
+      public int height;
 
-	protected AbstractRasterProvider() {
-	}
+      @ObfuscatedName("n")
+      @ObfuscatedSignature(
+            signature = "(III)V",
+            garbageValue = "-1952064900"
+      )
+      @Export("drawFull")
+      public abstract void drawFull(int var1, int var2);
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-978411495"
-	)
-	@Export("drawFull")
-	public abstract void drawFull(int var1, int var2);
+      @ObfuscatedName("v")
+      @ObfuscatedSignature(
+            signature = "(IIIII)V",
+            garbageValue = "-67564732"
+      )
+      @Export("draw")
+      public abstract void draw(int var1, int var2, int var3, int var4);
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "-2009002566"
-	)
-	@Export("draw")
-	public abstract void draw(int var1, int var2, int var3, int var4);
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-934160158"
-	)
-	@Export("apply")
-	public final void apply() {
-		Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height);
-	}
+      @ObfuscatedName("f")
+      @ObfuscatedSignature(
+            signature = "(I)V",
+            garbageValue = "-997992638"
+      )
+      @Export("apply")
+      public final void apply() {
+            Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height);
+      }
 }

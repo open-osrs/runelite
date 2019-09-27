@@ -60,7 +60,6 @@ public class MenuActionDeobfuscatorTest
 	}
 
 	@Test
-	@Ignore
 	public void testRun()
 	{
 		new MenuActionDeobfuscator().run(group);

@@ -255,7 +255,7 @@ public class ScriptVM
 		{
 			if (pcLocalVar == null)
 			{
-				throw new InjectionException("Unable to find ILoad for invokedFromPc IStore");
+				log.error("Unable to find ILoad for invokedFromPc IStore");
 			}
 			log.debug("Found pc index {}", pcLocalVar);
 

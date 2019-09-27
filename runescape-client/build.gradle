@@ -1,13 +1,17 @@
+
+apply plugin: 'fernflower'
 group = 'us.runelitepl.rs'
 description = 'RuneScape Client'
-
 dependencies {
-    implementation project(':runescape-api')
+    compile localGroovy()
 
+    implementation project(':runescape-api')
+    implementation group: 'net.runelite', name: 'fernflower', version: '07082019'
     testImplementation group: 'junit', name: 'junit', version: junit
     testImplementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j
 }
+
 
 tasks.withType(JavaCompile) {
     options.compilerArgs.addAll('-g:source,vars,lines', '-Xlint:-unchecked')

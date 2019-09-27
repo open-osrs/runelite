@@ -7,53 +7,49 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("aq")
+@ObfuscatedName("av")
 @Implements("MouseWheelHandler")
 public final class MouseWheelHandler implements MouseWheel, MouseWheelListener {
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = 1710824769
-	)
-	@Export("rotation")
-	int rotation;
+      @ObfuscatedName("z")
+      @ObfuscatedGetter(
+            intValue = -2136851861
+      )
+      @Export("rotation")
+      int rotation = 0;
 
-	MouseWheelHandler() {
-		this.rotation = 0;
-	}
+      @ObfuscatedName("z")
+      @ObfuscatedSignature(
+            signature = "(Ljava/awt/Component;B)V",
+            garbageValue = "39"
+      )
+      @Export("addTo")
+      void addTo(Component var1) {
+            var1.addMouseWheelListener(this);
+      }
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Component;I)V",
-		garbageValue = "-1548191195"
-	)
-	@Export("addTo")
-	void addTo(Component var1) {
-		var1.addMouseWheelListener(this);
-	}
+      @ObfuscatedName("n")
+      @ObfuscatedSignature(
+            signature = "(Ljava/awt/Component;I)V",
+            garbageValue = "-2135806748"
+      )
+      @Export("removeFrom")
+      void removeFrom(Component var1) {
+            var1.removeMouseWheelListener(this);
+      }
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Component;I)V",
-		garbageValue = "1923589438"
-	)
-	@Export("removeFrom")
-	void removeFrom(Component var1) {
-		var1.removeMouseWheelListener(this);
-	}
+      @ObfuscatedName("v")
+      @ObfuscatedSignature(
+            signature = "(B)I",
+            garbageValue = "-125"
+      )
+      @Export("useRotation")
+      public synchronized int useRotation() {
+            int var1 = this.rotation;
+            this.rotation = 0;
+            return var1;
+      }
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-495916017"
-	)
-	@Export("useRotation")
-	public synchronized int useRotation() {
-		int var1 = this.rotation;
-		this.rotation = 0;
-		return var1;
-	}
-
-	public synchronized void mouseWheelMoved(MouseWheelEvent var1) {
-		this.rotation += var1.getWheelRotation();
-	}
+      public synchronized void mouseWheelMoved(MouseWheelEvent var1) {
+            this.rotation += var1.getWheelRotation();
+      }
 }

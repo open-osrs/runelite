@@ -257,8 +257,9 @@ public class InjectUtil
 				return c2.findField(obfuscatedName);
 			}
 		}
-
-		throw new InjectionException(String.format("Mapped field \"%s\" could not be found.", name));
+		System.out.println(hint);
+		System.out.println(new InjectionException(String.format("Mapped field \"%s\" could not be found.", name)).getMessage());
+		return null;
 	}
 
 	public static Field findDeobFieldButUseless(Inject inject, String name) throws InjectionException
@@ -276,6 +277,9 @@ public class InjectUtil
 			}
 		}
 
-		throw new InjectionException(String.format("Mapped field \"%s\" could not be found.", name));
-	}
+		System.out.println(findObField(inject, name).getClassFile());
+		final InjectionException e = new InjectionException(String.format("Mapped field \"%s\" could not be found.", name));
+		e.printStackTrace();
+		return null;
+			}
 }

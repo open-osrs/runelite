@@ -2,19 +2,44 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kd")
+@ObfuscatedName("kk")
 public class class287 {
-	@ObfuscatedName("c")
-	@Export("cp1252AsciiExtension")
-	public static final char[] cp1252AsciiExtension;
-	@ObfuscatedName("gs")
-	@ObfuscatedSignature(
-		signature = "[Llt;"
-	)
-	@Export("mapSceneSprites")
-	static IndexedSprite[] mapSceneSprites;
+      @ObfuscatedName("z")
+      @Export("cp1252AsciiExtension")
+      static final char[] cp1252AsciiExtension = new char[]{'€', '\u0000', '‚', 'ƒ', '„', '…', '†', '‡', 'ˆ', '‰', 'Š', '‹', 'Œ', '\u0000', 'Ž', '\u0000', '\u0000', '‘', '’', '“', '”', '•', '–', '—', '˜', '™', 'š', '›', 'œ', '\u0000', 'ž', 'Ÿ'};
+      @ObfuscatedName("q")
+      static byte[][][] field3634;
 
-	static {
-		cp1252AsciiExtension = new char[]{'€', '\u0000', '‚', 'ƒ', '„', '…', '†', '‡', 'ˆ', '‰', 'Š', '‹', 'Œ', '\u0000', 'Ž', '\u0000', '\u0000', '‘', '’', '“', '”', '•', '–', '—', '˜', '™', 'š', '›', 'œ', '\u0000', 'ž', 'Ÿ'};
-	}
+      @ObfuscatedName("n")
+      @ObfuscatedSignature(
+            signature = "(DDII)[D",
+            garbageValue = "-1793531075"
+      )
+      public static double[] method5206(double var0, double var2, int var4) {
+            int var5 = var4 * 2 + 1;
+            double[] var6 = new double[var5];
+            int var7 = -var4;
+
+            for(int var8 = 0; var7 <= var4; ++var8) {
+                  var6[var8] = TaskHandler.method3425((double)var7, var0, var2);
+                  ++var7;
+            }
+
+            return var6;
+      }
+
+      @ObfuscatedName("kf")
+      @ObfuscatedSignature(
+            signature = "(IIIZI)V",
+            garbageValue = "326242369"
+      )
+      @Export("changePlane")
+      public static void changePlane(int var0, int var1, int var2, boolean var3) {
+            PacketBufferNode var4 = InterfaceParent.getPacketBufferNode(ClientPacket.field2191, Client.packetWriter.isaacCipher);
+            var4.packetBuffer.method5446(var2);
+            var4.packetBuffer.method5526(var3 ? Client.field718 : 0);
+            var4.packetBuffer.writeShort(var1);
+            var4.packetBuffer.method5463(var0);
+            Client.packetWriter.addNode(var4);
+      }
 }

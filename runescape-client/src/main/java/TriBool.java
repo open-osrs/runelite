@@ -3,34 +3,25 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jb")
+@ObfuscatedName("jm")
 @Implements("TriBool")
 public class TriBool {
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		signature = "Ljb;"
-	)
-	@Export("TriBool_unknown")
-	public static final TriBool TriBool_unknown;
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Ljb;"
-	)
-	@Export("TriBool_true")
-	public static final TriBool TriBool_true;
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		signature = "Ljb;"
-	)
-	@Export("TriBool_false")
-	public static final TriBool TriBool_false;
-
-	static {
-		TriBool_unknown = new TriBool();
-		TriBool_true = new TriBool();
-		TriBool_false = new TriBool();
-	}
-
-	TriBool() {
-	}
+      @ObfuscatedName("z")
+      @ObfuscatedSignature(
+            signature = "Ljm;"
+      )
+      @Export("TriBool_unknown")
+      public static final TriBool TriBool_unknown = new TriBool();
+      @ObfuscatedName("n")
+      @ObfuscatedSignature(
+            signature = "Ljm;"
+      )
+      @Export("TriBool_true")
+      public static final TriBool TriBool_true = new TriBool();
+      @ObfuscatedName("v")
+      @ObfuscatedSignature(
+            signature = "Ljm;"
+      )
+      @Export("TriBool_false")
+      public static final TriBool TriBool_false = new TriBool();
 }

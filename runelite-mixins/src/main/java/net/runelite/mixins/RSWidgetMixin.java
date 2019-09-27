@@ -481,7 +481,6 @@ public abstract class RSWidgetMixin implements RSWidget
 		broadcastHidden(isSelfHidden());
 	}
 
-	@FieldHook("y")
 	@Inject
 	public void onPositionChanged(int idx)
 	{
