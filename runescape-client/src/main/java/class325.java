@@ -295,15 +295,15 @@ public class class325 {
 		if (var0.movementSequence != -1) {
 			var2 = GrandExchangeOfferUnitPriceComparator.SequenceDefinition_get(var0.movementSequence);
 			if (var2 != null && var2.frameIds != null) {
-				++var0.field953;
-				if (var0.movementFrame < var2.frameIds.length && var0.field953 > var2.frameLengths[var0.movementFrame]) {
-					var0.field953 = 1;
+				++var0.movementFrameCycle;
+				if (var0.movementFrame < var2.frameIds.length && var0.movementFrameCycle > var2.frameLengths[var0.movementFrame]) {
+					var0.movementFrameCycle = 1;
 					++var0.movementFrame;
 					class30.addSequenceSoundEffect(var2, var0.movementFrame, var0.x, var0.y);
 				}
 
 				if (var0.movementFrame >= var2.frameIds.length) {
-					var0.field953 = 0;
+					var0.movementFrameCycle = 0;
 					var0.movementFrame = 0;
 					class30.addSequenceSoundEffect(var2, var0.movementFrame, var0.x, var0.y);
 				}

@@ -1018,13 +1018,13 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 		int var6 = (var3 - 32 - var5) * var2 / (var4 - var3);
 		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var6 + var1 + 16, 16, var5, Client.field700);
-		Rasterizer2D.method5960(var0, var6 + var1 + 16, var5, Client.field702);
-		Rasterizer2D.method5960(var0 + 1, var6 + var1 + 16, var5, Client.field702);
-		Rasterizer2D.method5958(var0, var6 + var1 + 16, 16, Client.field702);
-		Rasterizer2D.method5958(var0, var6 + var1 + 17, 16, Client.field702);
-		Rasterizer2D.method5960(var0 + 15, var6 + var1 + 16, var5, Client.field701);
-		Rasterizer2D.method5960(var0 + 14, var6 + var1 + 17, var5 - 1, Client.field701);
-		Rasterizer2D.method5958(var0, var6 + var5 + var1 + 15, 16, Client.field701);
-		Rasterizer2D.method5958(var0 + 1, var5 + var6 + var1 + 14, 15, Client.field701);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0, var6 + var1 + 16, var5, Client.field702);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 1, var6 + var1 + 16, var5, Client.field702);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 16, 16, Client.field702);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 17, 16, Client.field702);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 15, var6 + var1 + 16, var5, Client.field701);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 14, var6 + var1 + 17, var5 - 1, Client.field701);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var5 + var1 + 15, 16, Client.field701);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0 + 1, var5 + var6 + var1 + 14, 15, Client.field701);
 	}
 }

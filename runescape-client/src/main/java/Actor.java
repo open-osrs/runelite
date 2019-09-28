@@ -164,7 +164,8 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = -1979514767
 	)
-	int field953;
+	@Export("movementFrameCycle")
+	int movementFrameCycle;
 	@ObfuscatedName("bn")
 	@ObfuscatedGetter(
 		intValue = -1879648645
@@ -340,7 +341,7 @@ public abstract class Actor extends Entity {
 		this.field957 = -1;
 		this.movementSequence = -1;
 		this.movementFrame = 0;
-		this.field953 = 0;
+		this.movementFrameCycle = 0;
 		this.sequence = -1;
 		this.sequenceFrame = 0;
 		this.sequenceFrameCycle = 0;
