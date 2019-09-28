@@ -344,7 +344,7 @@ public enum Varbits
 	 * Pyramid plunder
 	 */
 	PYRAMID_PLUNDER_TIMER(2375),
-	PYRAMID_PLUNDER_ROOM(2377),
+	PYRAMID_PLUNDER_ROOM(2374),
 
 	/**
 	 * Barrows
@@ -686,9 +686,7 @@ public enum Varbits
 	/**
 	 * 1 is true, 0 is false.
 	 */
-	GAUNTLET_ENTERED(9178),
-
-	WITHDRAW_X_AMOUNT(3960);
+	GAUNTLET_ENTERED(9178);
 
 	/**
 	 * The raw varbit ID.
