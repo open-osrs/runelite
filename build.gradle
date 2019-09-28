@@ -18,6 +18,7 @@ plugins {
 }
 
 apply plugin: 'application'
+apply plugin: "com.github.ben-manes.versions"
 
 ext {
     grgit = Grgit.open(dir: "${rootProject.projectDir}")
@@ -109,7 +110,6 @@ subprojects {
     apply plugin: 'com.adarshr.test-logger'
     apply plugin: 'java-library'
     apply plugin: 'maven'
-    apply plugin: "com.github.ben-manes.versions"
     apply plugin: 'fernflower'
 
     sourceCompatibility = 1.8
@@ -170,4 +170,24 @@ wrapper {
 run {
     classpath = childProjects.client.sourceSets.main.runtimeClasspath
     mainClassName = "net.runelite.client.RuneLite"
+}
+
+def isNonStable = { String version ->
+    def unstableKeyword = ['ALPHA', 'BETA', 'RC'].any { it -> version.toUpperCase().contains(it) }
+
+    return unstableKeyword
+}
+
+dependencyUpdates {
+    checkForGradleUpdate = false
+
+    resolutionStrategy {
+        componentSelection {
+            all {
+                if (isNonStable(candidate.version)) {
+                    reject()
+                }
+            }
+        }
+    }
 }
