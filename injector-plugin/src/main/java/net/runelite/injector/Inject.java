@@ -46,14 +46,10 @@ import net.runelite.asm.signature.Signature;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.deobfuscators.arithmetic.DMath;
 import static net.runelite.injector.InjectUtil.getFieldType;
-import net.runelite.injector.raw.ClearColorBuffer;
-import net.runelite.injector.raw.DrawAfterWidgets;
+
+import net.runelite.injector.raw.*;
 // import net.runelite.injector.raw.DrawMenu;
-import net.runelite.injector.raw.HidePlayerAttacks;
-import net.runelite.injector.raw.Occluder;
-import net.runelite.injector.raw.RasterizerHook;
-import net.runelite.injector.raw.RenderDraw;
-import net.runelite.injector.raw.ScriptVM;
+// import net.runelite.injector.raw.HidePlayerAttacks;
 import net.runelite.mapping.Import;
 import net.runelite.rs.api.RSClient;
 import org.slf4j.Logger;
@@ -318,7 +314,7 @@ public class Inject
 		new RenderDraw(this).inject();
 		// new DrawMenu(this).inject();
 		new Occluder(this).inject();
-		new HidePlayerAttacks(this).inject();
+		// new HidePlayerAttacks(this).inject();
 	}
 
 	private java.lang.Class injectInterface(ClassFile cf, ClassFile other)
