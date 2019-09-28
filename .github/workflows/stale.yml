@@ -1,4 +1,4 @@
-name: Mark stale issues and pull requests
+name: RunelitePlus - Stale issues and PRs
 
 on:
   schedule:
