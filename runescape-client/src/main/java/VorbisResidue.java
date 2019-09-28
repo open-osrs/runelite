@@ -2,28 +2,28 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("dn")
+@ObfuscatedName("df")
 @Implements("VorbisResidue")
 public class VorbisResidue {
-	@ObfuscatedName("c")
+	@ObfuscatedName("z")
 	@Export("residueType")
 	int residueType;
-	@ObfuscatedName("x")
+	@ObfuscatedName("n")
 	@Export("begin")
 	int begin;
-	@ObfuscatedName("t")
+	@ObfuscatedName("v")
 	@Export("end")
 	int end;
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@Export("partitionSize")
 	int partitionSize;
-	@ObfuscatedName("l")
+	@ObfuscatedName("r")
 	@Export("classifications")
 	int classifications;
-	@ObfuscatedName("u")
+	@ObfuscatedName("p")
 	@Export("classbook")
 	int classbook;
-	@ObfuscatedName("j")
+	@ObfuscatedName("q")
 	@Export("cascade")
 	int[] cascade;
 
@@ -56,8 +56,8 @@ public class VorbisResidue {
 
 	}
 
-	@ObfuscatedName("c")
-	void method2488(float[] var1, int var2, boolean var3) {
+	@ObfuscatedName("z")
+	void method2493(float[] var1, int var2, boolean var3) {
 		int var4;
 		for (var4 = 0; var4 < var2; ++var4) {
 			var1[var4] = 0.0F;
@@ -76,7 +76,7 @@ public class VorbisResidue {
 					int var10;
 					int var11;
 					if (var8 == 0) {
-						var10 = VorbisSample.VorbisSample_codebooks[this.classbook].method2307();
+						var10 = VorbisSample.VorbisSample_codebooks[this.classbook].method2317();
 
 						for (var11 = var4 - 1; var11 >= 0; --var11) {
 							if (var9 + var11 < var6) {
