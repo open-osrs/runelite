@@ -1,4 +1,4 @@
-name: RunelitePlus - Testing
+name: OpenOSRS - Testing
 
 on: [pull_request, push]
 

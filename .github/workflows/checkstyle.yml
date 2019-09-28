@@ -1,4 +1,4 @@
-name: RunelitePlus - Code convention
+name: OpenOSRS - Code convention
 
 on: [pull_request, push]
 

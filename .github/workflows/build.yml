@@ -1,4 +1,4 @@
-name: RunelitePlus - CI
+name: OpenOSRS - CI
 
 on: [pull_request, push]
 
