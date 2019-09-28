@@ -13,12 +13,12 @@ buildscript {
 
 plugins {
     id 'com.adarshr.test-logger' version '1.7.0' apply false
-    id "com.github.ben-manes.versions" version "0.22.0" apply false
+    id "com.github.ben-manes.versions" version "0.22.0"
     id "com.gradle.build-scan" version "2.4"
+    id 'se.patrikerdes.use-latest-versions' version '0.2.8'
 }
 
 apply plugin: 'application'
-apply plugin: "com.github.ben-manes.versions"
 
 ext {
     grgit = Grgit.open(dir: "${rootProject.projectDir}")
