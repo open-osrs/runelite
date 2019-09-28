@@ -49,7 +49,7 @@ import static net.runelite.injector.InjectUtil.getFieldType;
 import net.runelite.injector.raw.ClearColorBuffer;
 import net.runelite.injector.raw.DrawAfterWidgets;
 // import net.runelite.injector.raw.DrawMenu;
-import net.runelite.injector.raw.HidePlayerAttacks;
+// import net.runelite.injector.raw.HidePlayerAttacks;
 import net.runelite.injector.raw.Occluder;
 import net.runelite.injector.raw.RasterizerHook;
 import net.runelite.injector.raw.RenderDraw;

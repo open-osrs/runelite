@@ -221,7 +221,7 @@ public class WorldMapAreaData extends WorldMapArea {
                   var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3 & var4;
                   return 1;
-            } else if (var0 == ScriptOpcodes.field_30) {
+            } else if (var0 == ScriptOpcodes.OR) {
                   Interpreter.Interpreter_intStackSize -= 2;
                   var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
                   var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];

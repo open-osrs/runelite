@@ -137,7 +137,7 @@ public class UserComparator6 extends AbstractUserComparator {
             } else if (var0 == ScriptOpcodes.CC_GETFILLCOLOUR) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.color2;
                   return 1;
-            } else if (var0 == ScriptOpcodes._1613) {
+            } else if (var0 == ScriptOpcodes.CC_GETFILLMODE) {
                   Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal();
                   return 1;
             } else if (var0 == ScriptOpcodes.CC_GETMODELTRANSPARENT) {

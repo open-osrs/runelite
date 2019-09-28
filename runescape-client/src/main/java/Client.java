@@ -16,1265 +16,1262 @@ import netscape.javascript.JSObject;
 @Implements("Client")
 @ObfuscatedName("client")
 public final class Client extends GameShell implements Usernamed {
-      @ObfuscatedName("mk")
-      @ObfuscatedSignature(
-            signature = "Lho;"
-      )
-      @Export("clickedWidget")
-      static Widget clickedWidget;
-      @ObfuscatedName("om")
-      @ObfuscatedGetter(
-            intValue = -556975935
-      )
-      @Export("rootWidgetCount")
-      static int rootWidgetCount;
-      @ObfuscatedName("ol")
-      @ObfuscatedGetter(
-            intValue = -659707133
-      )
-      static int field638;
-      @ObfuscatedName("og")
-      @ObfuscatedGetter(
-            longValue = -2357868230662320483L
-      )
-      static long field754;
-      @ObfuscatedName("ot")
-      static boolean[] field841;
-      @ObfuscatedName("oi")
-      static boolean[] field847;
-      @ObfuscatedName("nj")
-      static boolean field817;
-      @ObfuscatedName("op")
-      static boolean[] field842;
-      @ObfuscatedName("nm")
-      static boolean field814;
-      @ObfuscatedName("ox")
-      @Export("isResizable")
-      static boolean isResizable;
-      @ObfuscatedName("nt")
-      @ObfuscatedGetter(
-            intValue = 1655703121
-      )
-      @Export("cycleCntr")
-      static int cycleCntr;
-      @ObfuscatedName("sj")
-      @ObfuscatedGetter(
-            intValue = 11492349
-      )
-      public static int field905;
-      @ObfuscatedName("ng")
-      @ObfuscatedGetter(
-            intValue = -1435027681
-      )
-      static int field744;
-      @ObfuscatedName("mb")
-      @ObfuscatedGetter(
-            intValue = -1276072491
-      )
-      @Export("widgetClickX")
-      static int widgetClickX;
-      @ObfuscatedName("qr")
-      static boolean field759;
-      @ObfuscatedName("mv")
-      @ObfuscatedGetter(
-            intValue = 2043143959
-      )
-      @Export("widgetClickY")
-      static int widgetClickY;
-      @ObfuscatedName("na")
-      @ObfuscatedGetter(
-            intValue = -868722211
-      )
-      static int field695;
-      @ObfuscatedName("me")
-      @ObfuscatedSignature(
-            signature = "Lho;"
-      )
-      @Export("clickedWidgetParent")
-      static Widget clickedWidgetParent;
-      @ObfuscatedName("md")
-      @ObfuscatedSignature(
-            signature = "Llq;"
-      )
-      @Export("interfaceParents")
-      static NodeHashTable interfaceParents;
-      @ObfuscatedName("nl")
-      @ObfuscatedGetter(
-            intValue = 194862223
-      )
-      static int field816;
-      @ObfuscatedName("oy")
-      @Export("rootWidgetXs")
-      static int[] rootWidgetXs;
-      @ObfuscatedName("oq")
-      @ObfuscatedSignature(
-            signature = "Llq;"
-      )
-      @Export("widgetClickMasks")
-      static NodeHashTable widgetClickMasks;
-      @ObfuscatedName("oe")
-      @Export("rootWidgetWidths")
-      static int[] rootWidgetWidths;
-      @ObfuscatedName("ms")
-      @ObfuscatedSignature(
-            signature = "Lho;"
-      )
-      @Export("viewportWidget")
-      static Widget viewportWidget;
-      @ObfuscatedName("oz")
-      @ObfuscatedGetter(
-            intValue = 1348758997
-      )
-      @Export("gameDrawingMode")
-      static int gameDrawingMode;
-      @ObfuscatedName("ow")
-      @Export("rootWidgetHeights")
-      static int[] rootWidgetHeights;
-      @ObfuscatedName("my")
-      @ObfuscatedGetter(
-            intValue = -2028586371
-      )
-      @Export("staffModLevel")
-      public static int staffModLevel;
-      @ObfuscatedName("ov")
-      @Export("rootWidgetYs")
-      static int[] rootWidgetYs;
-      @ObfuscatedName("nk")
-      @ObfuscatedGetter(
-            intValue = -1019005303
-      )
-      static int field818;
-      @ObfuscatedName("pl")
-      @ObfuscatedGetter(
-            intValue = 858875897
-      )
-      @Export("destinationX")
-      static int destinationX;
-      @ObfuscatedName("tb")
-      @ObfuscatedSignature(
-            signature = "Lbu;"
-      )
-      static final class65 field909;
-      @ObfuscatedName("np")
-      @ObfuscatedGetter(
-            intValue = 1046894235
-      )
-      static int field819;
-      @ObfuscatedName("px")
-      @ObfuscatedGetter(
-            intValue = 242208529
-      )
-      @Export("destinationY")
-      static int destinationY;
-      @ObfuscatedName("oh")
-      @ObfuscatedSignature(
-            signature = "Ljv;"
-      )
-      @Export("scriptEvents")
-      static NodeDeque scriptEvents;
-      @ObfuscatedName("nq")
-      @ObfuscatedGetter(
-            intValue = -861923243
-      )
-      static int field833;
-      @ObfuscatedName("tg")
-      static int[] field910;
-      @ObfuscatedName("nc")
-      @Export("isDraggingWidget")
-      static boolean isDraggingWidget;
-      @ObfuscatedName("td")
-      static int[] field911;
-      @ObfuscatedName("nv")
-      @ObfuscatedGetter(
-            intValue = 826785605
-      )
-      static int field832;
-      @ObfuscatedName("qz")
-      @Export("isCameraLocked")
-      static boolean isCameraLocked;
-      @ObfuscatedName("mx")
-      @ObfuscatedGetter(
-            intValue = -140222153
-      )
-      @Export("runEnergy")
-      static int runEnergy;
-      @ObfuscatedName("qb")
-      @ObfuscatedGetter(
-            intValue = -910754411
-      )
-      static int field666;
-      @ObfuscatedName("mo")
-      @ObfuscatedGetter(
-            intValue = -1946560921
-      )
-      @Export("weight")
-      static int weight;
-      @ObfuscatedName("qa")
-      @ObfuscatedGetter(
-            intValue = 892519291
-      )
-      static int field868;
-      @ObfuscatedName("no")
-      static int[] field820;
-      @ObfuscatedName("nb")
-      @ObfuscatedGetter(
-            intValue = -1905651311
-      )
-      static int field830;
-      @ObfuscatedName("nw")
-      @ObfuscatedGetter(
-            intValue = -330072185
-      )
-      static int field825;
-      @ObfuscatedName("mw")
-      @ObfuscatedSignature(
-            signature = "Lho;"
-      )
-      @Export("draggedOnWidget")
-      static Widget draggedOnWidget;
-      @ObfuscatedName("sl")
-      @ObfuscatedGetter(
-            intValue = -897184099
-      )
-      static int field900;
-      @ObfuscatedName("ru")
-      @ObfuscatedSignature(
-            signature = "Lhr;"
-      )
-      @Export("playerAppearance")
-      static PlayerAppearance playerAppearance;
-      @ObfuscatedName("on")
-      @ObfuscatedGetter(
-            intValue = -1310890605
-      )
-      @Export("mouseWheelRotation")
-      static int mouseWheelRotation;
-      @ObfuscatedName("mj")
-      @ObfuscatedSignature(
-            signature = "Lho;"
-      )
-      @Export("meslayerContinueWidget")
-      static Widget meslayerContinueWidget;
-      @ObfuscatedName("qm")
-      @ObfuscatedGetter(
-            intValue = -1177667309
-      )
-      @Export("soundEffectCount")
-      static int soundEffectCount;
-      @ObfuscatedName("sn")
-      @ObfuscatedGetter(
-            intValue = 2123814989
-      )
-      static int field901;
-      @ObfuscatedName("qh")
-      @Export("soundEffectIds")
-      static int[] soundEffectIds;
-      @ObfuscatedName("qw")
-      @Export("queuedSoundEffectLoops")
-      static int[] queuedSoundEffectLoops;
-      @ObfuscatedName("sa")
-      @ObfuscatedSignature(
-            signature = "[Li;"
-      )
-      @Export("grandExchangeOffers")
-      static GrandExchangeOffer[] grandExchangeOffers;
-      @ObfuscatedName("qx")
-      @Export("queuedSoundEffectDelays")
-      static int[] queuedSoundEffectDelays;
-      @ObfuscatedName("qt")
-      @ObfuscatedSignature(
-            signature = "[Lcm;"
-      )
-      @Export("soundEffects")
-      static SoundEffect[] soundEffects;
-      @ObfuscatedName("ql")
-      @Export("soundLocations")
-      static int[] soundLocations;
-      @ObfuscatedName("nn")
-      @ObfuscatedGetter(
-            intValue = 1294400327
-      )
-      static int field831;
-      @ObfuscatedName("qf")
-      @ObfuscatedGetter(
-            intValue = 1977131521
-      )
-      @Export("minimapState")
-      static int minimapState;
-      @ObfuscatedName("si")
-      @Export("archiveLoaders")
-      static ArrayList archiveLoaders;
-      @ObfuscatedName("se")
-      @ObfuscatedGetter(
-            intValue = 426040267
-      )
-      @Export("archiveLoaderArchive")
-      static int archiveLoaderArchive;
-      @ObfuscatedName("rm")
-      static boolean[] field835;
-      @ObfuscatedName("pz")
-      static long[] field889;
-      @ObfuscatedName("rk")
-      static int[] field882;
-      @ObfuscatedName("pi")
-      @ObfuscatedGetter(
-            longValue = -2403274902957123209L
-      )
-      static long field860;
-      @ObfuscatedName("rl")
-      static int[] field883;
-      @ObfuscatedName("nu")
-      static int[] field782;
-      @ObfuscatedName("rh")
-      static int[] field884;
-      @ObfuscatedName("ne")
-      @ObfuscatedGetter(
-            intValue = -1128248371
-      )
-      static int field823;
-      @ObfuscatedName("rj")
-      static int[] field885;
-      @ObfuscatedName("pr")
-      @ObfuscatedGetter(
-            intValue = -1812154483
-      )
-      static int field856;
-      @ObfuscatedName("su")
-      @ObfuscatedSignature(
-            signature = "Lly;"
-      )
-      @Export("platformInfoProvider")
-      static PlatformInfoProvider platformInfoProvider;
-      @ObfuscatedName("pt")
-      @ObfuscatedGetter(
-            intValue = -1929025607
-      )
-      static int field643;
-      @ObfuscatedName("pv")
-      @ObfuscatedGetter(
-            intValue = -1079323191
-      )
-      @Export("mapIconCount")
-      static int mapIconCount;
-      @ObfuscatedName("ps")
-      @Export("mapIconXs")
-      static int[] mapIconXs;
-      @ObfuscatedName("qi")
-      @ObfuscatedGetter(
-            intValue = -114703177
-      )
-      static int field761;
-      @ObfuscatedName("pu")
-      @Export("mapIconYs")
-      static int[] mapIconYs;
-      @ObfuscatedName("rt")
-      static short field880;
-      @ObfuscatedName("re")
-      static short field887;
-      @ObfuscatedName("rd")
-      static short field892;
-      @ObfuscatedName("pg")
-      @ObfuscatedSignature(
-            signature = "[Llf;"
-      )
-      @Export("mapIcons")
-      static Sprite[] mapIcons;
-      @ObfuscatedName("rr")
-      static short field893;
-      @ObfuscatedName("ra")
-      static short field891;
-      @ObfuscatedName("rf")
-      @ObfuscatedGetter(
-            intValue = 720626183
-      )
-      @Export("viewportZoom")
-      static int viewportZoom;
-      @ObfuscatedName("ri")
-      static short field686;
-      @ObfuscatedName("rz")
-      @ObfuscatedGetter(
-            intValue = 806304417
-      )
-      @Export("viewportWidth")
-      static int viewportWidth;
-      @ObfuscatedName("nh")
-      @ObfuscatedGetter(
-            intValue = 1691099913
-      )
-      @Export("chatCycle")
-      static int chatCycle;
-      @ObfuscatedName("pa")
-      @ObfuscatedGetter(
-            intValue = 168765299
-      )
-      @Export("tradeChatMode")
-      static int tradeChatMode;
-      @ObfuscatedName("pw")
-      @ObfuscatedGetter(
-            intValue = 253399583
-      )
-      @Export("publicChatMode")
-      static int publicChatMode;
-      @ObfuscatedName("qj")
-      @ObfuscatedGetter(
-            intValue = -1492029485
-      )
-      @Export("soundEffectVolume")
-      static int soundEffectVolume;
-      @ObfuscatedName("ro")
-      @ObfuscatedGetter(
-            intValue = -1929841361
-      )
-      @Export("viewportHeight")
-      static int viewportHeight;
-      @ObfuscatedName("rc")
-      @ObfuscatedGetter(
-            intValue = -1154982749
-      )
-      @Export("viewportOffsetX")
-      static int viewportOffsetX;
-      @ObfuscatedName("nz")
-      @Export("changedSkills")
-      static int[] changedSkills;
-      @ObfuscatedName("rb")
-      @ObfuscatedGetter(
-            intValue = -654475437
-      )
-      @Export("viewportOffsetY")
-      static int viewportOffsetY;
-      @ObfuscatedName("nd")
-      @ObfuscatedGetter(
-            intValue = -15935377
-      )
-      @Export("changedSkillsCount")
-      static int changedSkillsCount;
-      @ObfuscatedName("rp")
-      @Export("zoomWidth")
-      static short zoomWidth;
-      @ObfuscatedName("ma")
-      @ObfuscatedGetter(
-            intValue = 42533643
-      )
-      @Export("chatEffects")
-      static int chatEffects;
-      @ObfuscatedName("rg")
-      @Export("zoomHeight")
-      static short zoomHeight;
-      @ObfuscatedName("mr")
-      @ObfuscatedGetter(
-            intValue = -382576035
-      )
-      static int field873;
-      @ObfuscatedName("sr")
-      @ObfuscatedGetter(
-            intValue = -1773628049
-      )
-      static int field908;
-      @ObfuscatedName("pf")
-      @ObfuscatedGetter(
-            intValue = -1367796571
-      )
-      static int field857;
-      @ObfuscatedName("mq")
-      @ObfuscatedGetter(
-            intValue = 494577071
-      )
-      @Export("followerIndex")
-      static int followerIndex;
-      @ObfuscatedName("mt")
-      @Export("playerMod")
-      static boolean playerMod;
-      @ObfuscatedName("pm")
-      static int[] field859;
-      @ObfuscatedName("po")
-      static int[] field858;
-      @ObfuscatedName("os")
-      @ObfuscatedSignature(
-            signature = "Ljv;"
-      )
-      static NodeDeque field836;
-      @ObfuscatedName("ob")
-      @ObfuscatedSignature(
-            signature = "Ljv;"
-      )
-      static NodeDeque field763;
-      @ObfuscatedName("mc")
-      @ObfuscatedGetter(
-            intValue = -1507863629
-      )
-      static int field798;
-      @ObfuscatedName("mz")
-      @ObfuscatedGetter(
-            intValue = -1296819247
-      )
-      static int field824;
-      @ObfuscatedName("ph")
-      static int[] field851;
-      @ObfuscatedName("pd")
-      static String field907;
-      @ObfuscatedName("sx")
-      @ObfuscatedSignature(
-            signature = "Lbb;"
-      )
-      @Export("GrandExchangeEvents_worldComparator")
-      static GrandExchangeOfferOwnWorldComparator GrandExchangeEvents_worldComparator;
-      @ObfuscatedName("w")
-      @ObfuscatedSignature(
-            signature = "[Lfa;"
-      )
-      @Export("collisionMaps")
-      static CollisionMap[] collisionMaps;
-      @ObfuscatedName("at")
-      static boolean field802 = true;
-      @ObfuscatedName("bx")
-      @ObfuscatedGetter(
-            intValue = 1846758827
-      )
-      @Export("worldId")
-      public static int worldId = 1;
-      @ObfuscatedName("bh")
-      @ObfuscatedGetter(
-            intValue = -1282298749
-      )
-      @Export("worldProperties")
-      static int worldProperties = 0;
-      @ObfuscatedName("bm")
-      @ObfuscatedGetter(
-            intValue = -744372313
-      )
-      @Export("gameBuild")
-      static int gameBuild = 0;
-      @ObfuscatedName("bs")
-      @Export("isMembersWorld")
-      public static boolean isMembersWorld = false;
-      @ObfuscatedName("bz")
-      @Export("isLowDetail")
-      static boolean isLowDetail = false;
-      @ObfuscatedName("be")
-      @ObfuscatedGetter(
-            intValue = -1434422805
-      )
-      @Export("clientType")
-      static int clientType = -1;
-      @ObfuscatedName("bu")
-      @Export("onMobile")
-      static boolean onMobile = false;
-      @ObfuscatedName("bi")
-      @ObfuscatedGetter(
-            intValue = -1513198459
-      )
-      @Export("gameState")
-      static int gameState = 0;
-      @ObfuscatedName("cn")
-      @Export("isLoading")
-      static boolean isLoading = true;
-      @ObfuscatedName("cd")
-      @ObfuscatedGetter(
-            intValue = 1080568465
-      )
-      @Export("cycle")
-      static int cycle = 0;
-      @ObfuscatedName("cy")
-      @ObfuscatedGetter(
-            longValue = 5290188514648997903L
-      )
-      @Export("mouseLastLastPressedTimeMillis")
-      static long mouseLastLastPressedTimeMillis = 1L;
-      @ObfuscatedName("cb")
-      @ObfuscatedGetter(
-            intValue = -445977517
-      )
-      static int field646 = -1;
-      @ObfuscatedName("cr")
-      @ObfuscatedGetter(
-            intValue = -624148243
-      )
-      static int field647 = -1;
-      @ObfuscatedName("ct")
-      @ObfuscatedGetter(
-            longValue = -8037513059658187963L
-      )
-      static long field648 = -1L;
-      @ObfuscatedName("ci")
-      @Export("hadFocus")
-      static boolean hadFocus = true;
-      @ObfuscatedName("cu")
-      @Export("displayFps")
-      static boolean displayFps = false;
-      @ObfuscatedName("ce")
-      @ObfuscatedGetter(
-            intValue = -1130052375
-      )
-      @Export("rebootTimer")
-      static int rebootTimer = 0;
-      @ObfuscatedName("cc")
-      @ObfuscatedGetter(
-            intValue = 2049608033
-      )
-      @Export("hintArrowType")
-      static int hintArrowType = 0;
-      @ObfuscatedName("cl")
-      @ObfuscatedGetter(
-            intValue = 648504057
-      )
-      @Export("hintArrowNpcIndex")
-      static int hintArrowNpcIndex = 0;
-      @ObfuscatedName("cw")
-      @ObfuscatedGetter(
-            intValue = 275182897
-      )
-      @Export("hintArrowPlayerIndex")
-      static int hintArrowPlayerIndex = 0;
-      @ObfuscatedName("cq")
-      @ObfuscatedGetter(
-            intValue = 1932039353
-      )
-      @Export("hintArrowX")
-      static int hintArrowX = 0;
-      @ObfuscatedName("ca")
-      @ObfuscatedGetter(
-            intValue = -204101851
-      )
-      @Export("hintArrowY")
-      static int hintArrowY = 0;
-      @ObfuscatedName("cf")
-      @ObfuscatedGetter(
-            intValue = -1197817308
-      )
-      @Export("hintArrowHeight")
-      static int hintArrowHeight = 0;
-      @ObfuscatedName("cx")
-      @ObfuscatedGetter(
-            intValue = 1732957465
-      )
-      @Export("hintArrowSubX")
-      static int hintArrowSubX = 0;
-      @ObfuscatedName("cm")
-      @ObfuscatedGetter(
-            intValue = 739749845
-      )
-      @Export("hintArrowSubY")
-      static int hintArrowSubY = 0;
-      @ObfuscatedName("ch")
-      @ObfuscatedSignature(
-            signature = "Lcn;"
-      )
-      @Export("playerAttackOption")
-      static AttackOption playerAttackOption;
-      @ObfuscatedName("dt")
-      @ObfuscatedSignature(
-            signature = "Lcn;"
-      )
-      @Export("npcAttackOption")
-      static AttackOption npcAttackOption;
-      @ObfuscatedName("dm")
-      @ObfuscatedGetter(
-            intValue = 963568873
-      )
-      @Export("titleLoadingStage")
-      static int titleLoadingStage;
-      @ObfuscatedName("dy")
-      @ObfuscatedGetter(
-            intValue = 584801883
-      )
-      @Export("js5ConnectState")
-      static int js5ConnectState;
-      @ObfuscatedName("de")
-      @ObfuscatedGetter(
-            intValue = -900928897
-      )
-      static int field664;
-      @ObfuscatedName("dd")
-      @ObfuscatedSignature(
-            signature = "Lie;"
-      )
-      @Export("archive10")
-      static Archive archive10;
-      @ObfuscatedName("ef")
-      @ObfuscatedSignature(
-            signature = "Lie;"
-      )
-      @Export("archive17")
-      static Archive archive17;
-      @ObfuscatedName("ew")
-      @ObfuscatedGetter(
-            intValue = 982456973
-      )
-      @Export("js5Errors")
-      static int js5Errors;
-      @ObfuscatedName("eq")
-      @ObfuscatedGetter(
-            intValue = -14383853
-      )
-      @Export("loginState")
-      static int loginState;
-      @ObfuscatedName("er")
-      @ObfuscatedGetter(
-            intValue = -1286153331
-      )
-      static int field669;
-      @ObfuscatedName("eo")
-      @ObfuscatedGetter(
-            intValue = 1787272407
-      )
-      static int field670;
-      @ObfuscatedName("ee")
-      @ObfuscatedGetter(
-            intValue = 460753713
-      )
-      static int field671;
-      @ObfuscatedName("ep")
-      @ObfuscatedSignature(
-            signature = "Lff;"
-      )
-      static class160 field672;
-      @ObfuscatedName("ev")
-      @Export("Login_isUsernameRemembered")
-      static boolean Login_isUsernameRemembered;
-      @ObfuscatedName("ez")
-      @ObfuscatedSignature(
-            signature = "Lcb;"
-      )
-      @Export("secureRandomFuture")
-      static SecureRandomFuture secureRandomFuture;
-      @ObfuscatedName("ed")
-      @Export("randomDatData")
-      static byte[] randomDatData;
-      @ObfuscatedName("et")
-      @ObfuscatedSignature(
-            signature = "[Lck;"
-      )
-      @Export("npcs")
-      static NPC[] npcs;
-      @ObfuscatedName("eb")
-      @ObfuscatedGetter(
-            intValue = -347893507
-      )
-      @Export("npcCount")
-      static int npcCount;
-      @ObfuscatedName("fb")
-      @Export("npcIndices")
-      static int[] npcIndices;
-      @ObfuscatedName("fe")
-      @ObfuscatedGetter(
-            intValue = -1928648709
-      )
-      static int field633;
-      @ObfuscatedName("fd")
-      static int[] field681;
-      @ObfuscatedName("fo")
-      @ObfuscatedSignature(
-            signature = "Lcl;"
-      )
-      @Export("packetWriter")
-      public static final PacketWriter packetWriter;
-      @ObfuscatedName("fq")
-      @ObfuscatedGetter(
-            intValue = -1810258911
-      )
-      @Export("logoutTimer")
-      static int logoutTimer;
-      @ObfuscatedName("fc")
-      static boolean field730;
-      @ObfuscatedName("fv")
-      @Export("useBufferedSocket")
-      static boolean useBufferedSocket;
-      @ObfuscatedName("fm")
-      @ObfuscatedSignature(
-            signature = "Ljd;"
-      )
-      @Export("timer")
-      static Timer timer;
-      @ObfuscatedName("fh")
-      @ObfuscatedSignature(
-            signature = "Len;"
-      )
-      @Export("urlRequester")
-      static UrlRequester urlRequester;
-      @ObfuscatedName("fa")
-      @Export("fontsMap")
-      static HashMap fontsMap;
-      @ObfuscatedName("fj")
-      @ObfuscatedGetter(
-            intValue = 543460729
-      )
-      static int field689;
-      @ObfuscatedName("fx")
-      @ObfuscatedGetter(
-            intValue = -1697289513
-      )
-      static int field690;
-      @ObfuscatedName("fp")
-      @ObfuscatedGetter(
-            intValue = -355199335
-      )
-      static int field691;
-      @ObfuscatedName("gv")
-      @ObfuscatedGetter(
-            intValue = 1416543095
-      )
-      static int field692;
-      @ObfuscatedName("gy")
-      @ObfuscatedGetter(
-            intValue = 1539626603
-      )
-      static int field693;
-      @ObfuscatedName("gl")
-      @Export("isInInstance")
-      static boolean isInInstance;
-      @ObfuscatedName("gs")
-      @Export("instanceChunkTemplates")
-      static int[][][] instanceChunkTemplates;
-      @ObfuscatedName("gm")
-      static final int[] field697;
-      @ObfuscatedName("gf")
-      @ObfuscatedGetter(
-            intValue = -2045474947
-      )
-      static int field698;
-      @ObfuscatedName("hh")
-      @ObfuscatedGetter(
-            intValue = -1078673109
-      )
-      static int field699;
-      @ObfuscatedName("ht")
-      @ObfuscatedGetter(
-            intValue = 1330821821
-      )
-      static int field700;
-      @ObfuscatedName("hk")
-      @ObfuscatedGetter(
-            intValue = -1693078415
-      )
-      static int field701;
-      @ObfuscatedName("hz")
-      @ObfuscatedGetter(
-            intValue = -572241931
-      )
-      static int field702;
-      @ObfuscatedName("hl")
-      static boolean field703;
-      @ObfuscatedName("hb")
-      @ObfuscatedGetter(
-            intValue = -1280891227
-      )
-      @Export("alternativeScrollbarWidth")
-      static int alternativeScrollbarWidth;
-      @ObfuscatedName("hm")
-      @ObfuscatedGetter(
-            intValue = -851788043
-      )
-      @Export("camAngleX")
-      static int camAngleX;
-      @ObfuscatedName("hu")
-      @ObfuscatedGetter(
-            intValue = 1157777555
-      )
-      @Export("camAngleY")
-      static int camAngleY;
-      @ObfuscatedName("hi")
-      @ObfuscatedGetter(
-            intValue = 56611529
-      )
-      @Export("camAngleDY")
-      static int camAngleDY;
-      @ObfuscatedName("hx")
-      @ObfuscatedGetter(
-            intValue = 594555395
-      )
-      @Export("camAngleDX")
-      static int camAngleDX;
-      @ObfuscatedName("hf")
-      @ObfuscatedGetter(
-            intValue = 1391902969
-      )
-      @Export("mouseCamClickedX")
-      static int mouseCamClickedX;
-      @ObfuscatedName("hd")
-      @ObfuscatedGetter(
-            intValue = -148858111
-      )
-      @Export("mouseCamClickedY")
-      static int mouseCamClickedY;
-      @ObfuscatedName("hw")
-      @ObfuscatedGetter(
-            intValue = 1963305499
-      )
-      @Export("oculusOrbState")
-      static int oculusOrbState;
-      @ObfuscatedName("hj")
-      @ObfuscatedGetter(
-            intValue = -844153885
-      )
-      @Export("camFollowHeight")
-      static int camFollowHeight;
-      @ObfuscatedName("hc")
-      @ObfuscatedGetter(
-            intValue = -1192657817
-      )
-      static int field766;
-      @ObfuscatedName("hp")
-      @ObfuscatedGetter(
-            intValue = -1637520021
-      )
-      static int field714;
-      @ObfuscatedName("ih")
-      @ObfuscatedGetter(
-            intValue = -1473797019
-      )
-      static int field715;
-      @ObfuscatedName("io")
-      @ObfuscatedGetter(
-            intValue = -925368297
-      )
-      @Export("oculusOrbNormalSpeed")
-      static int oculusOrbNormalSpeed;
-      @ObfuscatedName("ib")
-      @ObfuscatedGetter(
-            intValue = -1611804213
-      )
-      @Export("oculusOrbSlowedSpeed")
-      static int oculusOrbSlowedSpeed;
-      @ObfuscatedName("im")
-      @ObfuscatedGetter(
-            intValue = -1513473005
-      )
-      static int field718;
-      @ObfuscatedName("ig")
-      static boolean field879;
-      @ObfuscatedName("iq")
-      @ObfuscatedGetter(
-            intValue = 773031175
-      )
-      static int field720;
-      @ObfuscatedName("ij")
-      static boolean field721;
-      @ObfuscatedName("is")
-      @ObfuscatedGetter(
-            intValue = 130801757
-      )
-      static int field722;
-      @ObfuscatedName("ik")
-      @ObfuscatedGetter(
-            intValue = -1967946355
-      )
-      @Export("overheadTextCount")
-      static int overheadTextCount;
-      @ObfuscatedName("iu")
-      @ObfuscatedGetter(
-            intValue = 2101736993
-      )
-      @Export("overheadTextLimit")
-      static int overheadTextLimit;
-      @ObfuscatedName("iy")
-      @Export("overheadTextXs")
-      static int[] overheadTextXs;
-      @ObfuscatedName("ip")
-      @Export("overheadTextYs")
-      static int[] overheadTextYs;
-      @ObfuscatedName("iw")
-      @Export("overheadTextAscents")
-      static int[] overheadTextAscents;
-      @ObfuscatedName("id")
-      @Export("overheadTextXOffsets")
-      static int[] overheadTextXOffsets;
-      @ObfuscatedName("if")
-      @Export("overheadTextColors")
-      static int[] overheadTextColors;
-      @ObfuscatedName("ir")
-      @Export("overheadTextEffects")
-      static int[] overheadTextEffects;
-      @ObfuscatedName("ia")
-      @Export("overheadTextCyclesRemaining")
-      static int[] overheadTextCyclesRemaining;
-      @ObfuscatedName("iv")
-      @Export("overheadText")
-      static String[] overheadText;
-      @ObfuscatedName("it")
-      @Export("selectedItemName")
-      static String selectedItemName;
-      @ObfuscatedName("in")
-      @Export("tileLastDrawnActor")
-      static int[][] tileLastDrawnActor;
-      @ObfuscatedName("il")
-      @ObfuscatedGetter(
-            intValue = -1976595977
-      )
-      @Export("viewportDrawCount")
-      static int viewportDrawCount;
-      @ObfuscatedName("ii")
-      @ObfuscatedGetter(
-            intValue = -1627292871
-      )
-      @Export("viewportTempX")
-      static int viewportTempX;
-      @ObfuscatedName("ic")
-      @ObfuscatedGetter(
-            intValue = -527920877
-      )
-      @Export("viewportTempY")
-      static int viewportTempY;
-      @ObfuscatedName("js")
-      @ObfuscatedGetter(
-            intValue = 978670267
-      )
-      @Export("mouseCrossX")
-      static int mouseCrossX;
-      @ObfuscatedName("jv")
-      @ObfuscatedGetter(
-            intValue = -1556961545
-      )
-      @Export("mouseCrossY")
-      static int mouseCrossY;
-      @ObfuscatedName("je")
-      @ObfuscatedGetter(
-            intValue = 1152437527
-      )
-      @Export("mouseCrossState")
-      static int mouseCrossState;
-      @ObfuscatedName("jt")
-      @ObfuscatedGetter(
-            intValue = -588599615
-      )
-      @Export("mouseCrossColor")
-      static int mouseCrossColor;
-      @ObfuscatedName("jx")
-      @Export("showMouseCross")
-      static boolean showMouseCross;
-      @ObfuscatedName("jf")
-      @ObfuscatedGetter(
-            intValue = 2052271037
-      )
-      static int field750;
-      @ObfuscatedName("jc")
-      @ObfuscatedGetter(
-            intValue = 2007699929
-      )
-      static int field743;
-      @ObfuscatedName("jp")
-      @ObfuscatedGetter(
-            intValue = -1979890787
-      )
-      @Export("dragItemSlotSource")
-      static int dragItemSlotSource;
-      @ObfuscatedName("jd")
-      @ObfuscatedGetter(
-            intValue = -438601773
-      )
-      static int field745;
-      @ObfuscatedName("jo")
-      @ObfuscatedGetter(
-            intValue = -1643414129
-      )
-      static int field746;
-      @ObfuscatedName("jh")
-      @ObfuscatedGetter(
-            intValue = 1036462411
-      )
-      @Export("dragItemSlotDestination")
-      static int dragItemSlotDestination;
-      @ObfuscatedName("jr")
-      static boolean field748;
-      @ObfuscatedName("jw")
-      @ObfuscatedGetter(
-            intValue = -1965230699
-      )
-      @Export("itemDragDuration")
-      static int itemDragDuration;
-      @ObfuscatedName("jb")
-      @ObfuscatedGetter(
-            intValue = 1577400495
-      )
-      static int field634;
-      @ObfuscatedName("jl")
-      @Export("showLoadingMessages")
-      static boolean showLoadingMessages;
-      @ObfuscatedName("jm")
-      @ObfuscatedSignature(
-            signature = "[Lbi;"
-      )
-      @Export("players")
-      static Player[] players;
-      @ObfuscatedName("jq")
-      @ObfuscatedGetter(
-            intValue = 87159269
-      )
-      @Export("localPlayerIndex")
-      static int localPlayerIndex;
-      @ObfuscatedName("jy")
-      @ObfuscatedGetter(
-            intValue = 1781220751
-      )
-      static int field636;
-      @ObfuscatedName("jj")
-      @Export("renderSelf")
-      static boolean renderSelf;
-      @ObfuscatedName("ki")
-      @ObfuscatedGetter(
-            intValue = -2014818077
-      )
-      @Export("drawPlayerNames")
-      static int drawPlayerNames;
-      @ObfuscatedName("ko")
-      @ObfuscatedGetter(
-            intValue = 729085131
-      )
-      static int field640;
-      @ObfuscatedName("kr")
-      static int[] field758;
-      @ObfuscatedName("kn")
-      @Export("playerMenuOpcodes")
-      static final int[] playerMenuOpcodes;
-      @ObfuscatedName("kh")
-      @Export("playerMenuActions")
-      static String[] playerMenuActions;
-      @ObfuscatedName("kb")
-      @Export("playerOptionsPriorities")
-      static boolean[] playerOptionsPriorities;
-      @ObfuscatedName("kz")
-      @Export("defaultRotations")
-      static int[] defaultRotations;
-      @ObfuscatedName("kf")
-      @ObfuscatedGetter(
-            intValue = 722101389
-      )
-      @Export("combatTargetPlayerIndex")
-      static int combatTargetPlayerIndex;
-      @ObfuscatedName("kl")
-      @ObfuscatedSignature(
-            signature = "[[[Ljv;"
-      )
-      @Export("groundItems")
-      static NodeDeque[][][] groundItems;
-      @ObfuscatedName("ka")
-      @ObfuscatedSignature(
-            signature = "Ljv;"
-      )
-      @Export("pendingSpawns")
-      static NodeDeque pendingSpawns;
-      @ObfuscatedName("kt")
-      @ObfuscatedSignature(
-            signature = "Ljv;"
-      )
-      @Export("projectiles")
-      static NodeDeque projectiles;
-      @ObfuscatedName("kj")
-      @ObfuscatedSignature(
-            signature = "Ljv;"
-      )
-      @Export("graphicsObjects")
-      static NodeDeque graphicsObjects;
-      @ObfuscatedName("km")
-      @Export("currentLevels")
-      static int[] currentLevels;
-      @ObfuscatedName("ky")
-      @Export("levels")
-      static int[] levels;
-      @ObfuscatedName("kd")
-      @Export("experience")
-      static int[] experience;
-      @ObfuscatedName("kv")
-      @ObfuscatedGetter(
-            intValue = 421096745
-      )
-      @Export("leftClickOpensMenu")
-      static int leftClickOpensMenu;
-      @ObfuscatedName("kg")
-      @Export("isMenuOpen")
-      static boolean isMenuOpen;
-      @ObfuscatedName("lw")
-      @ObfuscatedGetter(
-            intValue = 813297127
-      )
-      @Export("menuOptionsCount")
-      static int menuOptionsCount;
-      @ObfuscatedName("ld")
-      @Export("menuArguments1")
-      static int[] menuArguments1;
-      @ObfuscatedName("lb")
-      @Export("menuArguments2")
-      static int[] menuArguments2;
-      @ObfuscatedName("ls")
-      @Export("menuOpcodes")
-      static int[] menuOpcodes;
-      @ObfuscatedName("lq")
-      @Export("menuIdentifiers")
-      static int[] menuIdentifiers;
-      @ObfuscatedName("ll")
-      @Export("menuActions")
-      static String[] menuActions;
-      @ObfuscatedName("ln")
-      @Export("menuTargets")
-      static String[] menuTargets;
-      @ObfuscatedName("lx")
-      @Export("menuShiftClick")
-      static boolean[] menuShiftClick;
-      @ObfuscatedName("lm")
-      @Export("followerOpsLowPriority")
-      static boolean followerOpsLowPriority;
-      @ObfuscatedName("lp")
-      @Export("shiftClickDrop")
-      static boolean shiftClickDrop;
-      @ObfuscatedName("lf")
-      @Export("tapToDrop")
-      static boolean tapToDrop;
-      @ObfuscatedName("lo")
-      @Export("showMouseOverText")
-      static boolean showMouseOverText;
-      @ObfuscatedName("lh")
-      @ObfuscatedGetter(
-            intValue = -1819095265
-      )
-      @Export("viewportX")
-      static int viewportX;
-      @ObfuscatedName("lg")
-      @ObfuscatedGetter(
-            intValue = -546279315
-      )
-      @Export("viewportY")
-      static int viewportY;
-      @ObfuscatedName("lj")
-      @ObfuscatedGetter(
-            intValue = 509497683
-      )
-      static int field787;
-      @ObfuscatedName("la")
-      @ObfuscatedGetter(
-            intValue = 1721267483
-      )
-      static int field788;
-      @ObfuscatedName("lr")
-      @ObfuscatedGetter(
-            intValue = 241697491
-      )
-      @Export("isItemSelected")
-      static int isItemSelected;
-      @ObfuscatedName("lz")
-      @Export("isSpellSelected")
-      static boolean isSpellSelected;
-      @ObfuscatedName("li")
-      @ObfuscatedGetter(
-            intValue = -133249451
-      )
-      @Export("selectedSpellChildIndex")
-      static int selectedSpellChildIndex;
-      @ObfuscatedName("mp")
-      @ObfuscatedGetter(
-            intValue = -1549196691
-      )
-      static int field793;
-      @ObfuscatedName("mf")
-      @Export("selectedSpellActionName")
-      static String selectedSpellActionName;
-      @ObfuscatedName("mm")
-      @Export("selectedSpellName")
-      static String selectedSpellName;
-      @ObfuscatedName("mh")
-      @ObfuscatedGetter(
-            intValue = 1431344687
-      )
-      @Export("rootInterface")
-      static int rootInterface;
+	@ObfuscatedName("mk")
+	@ObfuscatedSignature(
+		signature = "Lho;"
+	)
+	@Export("clickedWidget")
+	static Widget clickedWidget;
+	@ObfuscatedName("om")
+	@ObfuscatedGetter(
+		intValue = -556975935
+	)
+	@Export("rootWidgetCount")
+	static int rootWidgetCount;
+	@ObfuscatedName("ol")
+	@ObfuscatedGetter(
+		intValue = -659707133
+	)
+	static int field638;
+	@ObfuscatedName("sj")
+	@ObfuscatedGetter(
+		intValue = 11492349
+	)
+	public static int field905;
+	@ObfuscatedName("og")
+	@ObfuscatedGetter(
+		longValue = -2357868230662320483L
+	)
+	static long field754;
+	@ObfuscatedName("ot")
+	static boolean[] field841;
+	@ObfuscatedName("oi")
+	static boolean[] field847;
+	@ObfuscatedName("nj")
+	static boolean field817;
+	@ObfuscatedName("op")
+	static boolean[] field842;
+	@ObfuscatedName("nm")
+	static boolean field814;
+	@ObfuscatedName("ox")
+	@Export("isResizable")
+	static boolean isResizable;
+	@ObfuscatedName("nt")
+	@ObfuscatedGetter(
+		intValue = 1655703121
+	)
+	@Export("cycleCntr")
+	static int cycleCntr;
+	@ObfuscatedName("ng")
+	@ObfuscatedGetter(
+		intValue = -1435027681
+	)
+	static int field744;
+	@ObfuscatedName("mb")
+	@ObfuscatedGetter(
+		intValue = -1276072491
+	)
+	@Export("widgetClickX")
+	static int widgetClickX;
+	@ObfuscatedName("qr")
+	static boolean field759;
+	@ObfuscatedName("mv")
+	@ObfuscatedGetter(
+		intValue = 2043143959
+	)
+	@Export("widgetClickY")
+	static int widgetClickY;
+	@ObfuscatedName("na")
+	@ObfuscatedGetter(
+		intValue = -868722211
+	)
+	static int field695;
+	@ObfuscatedName("me")
+	@ObfuscatedSignature(
+		signature = "Lho;"
+	)
+	@Export("clickedWidgetParent")
+	static Widget clickedWidgetParent;
+	@ObfuscatedName("md")
+	@ObfuscatedSignature(
+		signature = "Llq;"
+	)
+	@Export("interfaceParents")
+	static NodeHashTable interfaceParents;
+	@ObfuscatedName("nl")
+	@ObfuscatedGetter(
+		intValue = 194862223
+	)
+	static int field816;
+	@ObfuscatedName("oy")
+	@Export("rootWidgetXs")
+	static int[] rootWidgetXs;
+	@ObfuscatedName("oq")
+	@ObfuscatedSignature(
+		signature = "Llq;"
+	)
+	@Export("widgetClickMasks")
+	static NodeHashTable widgetClickMasks;
+	@ObfuscatedName("oe")
+	@Export("rootWidgetWidths")
+	static int[] rootWidgetWidths;
+	@ObfuscatedName("ms")
+	@ObfuscatedSignature(
+		signature = "Lho;"
+	)
+	@Export("viewportWidget")
+	static Widget viewportWidget;
+	@ObfuscatedName("oz")
+	@ObfuscatedGetter(
+		intValue = 1348758997
+	)
+	@Export("gameDrawingMode")
+	static int gameDrawingMode;
+	@ObfuscatedName("ow")
+	@Export("rootWidgetHeights")
+	static int[] rootWidgetHeights;
+	@ObfuscatedName("my")
+	@ObfuscatedGetter(
+		intValue = -2028586371
+	)
+	@Export("staffModLevel")
+	public static int staffModLevel;
+	@ObfuscatedName("ov")
+	@Export("rootWidgetYs")
+	static int[] rootWidgetYs;
+	@ObfuscatedName("nk")
+	@ObfuscatedGetter(
+		intValue = -1019005303
+	)
+	static int field818;
+	@ObfuscatedName("pl")
+	@ObfuscatedGetter(
+		intValue = 858875897
+	)
+	@Export("destinationX")
+	static int destinationX;
+	@ObfuscatedName("tb")
+	@ObfuscatedSignature(
+		signature = "Lbu;"
+	)
+	static final class65 field909;
+	@ObfuscatedName("np")
+	@ObfuscatedGetter(
+		intValue = 1046894235
+	)
+	static int field819;
+	@ObfuscatedName("px")
+	@ObfuscatedGetter(
+		intValue = 242208529
+	)
+	@Export("destinationY")
+	static int destinationY;
+	@ObfuscatedName("oh")
+	@ObfuscatedSignature(
+		signature = "Ljv;"
+	)
+	@Export("scriptEvents")
+	static NodeDeque scriptEvents;
+	@ObfuscatedName("nq")
+	@ObfuscatedGetter(
+		intValue = -861923243
+	)
+	static int field833;
+	@ObfuscatedName("tg")
+	static int[] field910;
+	@ObfuscatedName("nc")
+	@Export("isDraggingWidget")
+	static boolean isDraggingWidget;
+	@ObfuscatedName("td")
+	static int[] field911;
+	@ObfuscatedName("nv")
+	@ObfuscatedGetter(
+		intValue = 826785605
+	)
+	static int field832;
+	@ObfuscatedName("qz")
+	@Export("isCameraLocked")
+	static boolean isCameraLocked;
+	@ObfuscatedName("mx")
+	@ObfuscatedGetter(
+		intValue = -140222153
+	)
+	@Export("runEnergy")
+	static int runEnergy;
+	@ObfuscatedName("qb")
+	@ObfuscatedGetter(
+		intValue = -910754411
+	)
+	static int field666;
+	@ObfuscatedName("mo")
+	@ObfuscatedGetter(
+		intValue = -1946560921
+	)
+	@Export("weight")
+	static int weight;
+	@ObfuscatedName("qa")
+	@ObfuscatedGetter(
+		intValue = 892519291
+	)
+	static int field868;
+	@ObfuscatedName("no")
+	static int[] field820;
+	@ObfuscatedName("nb")
+	@ObfuscatedGetter(
+		intValue = -1905651311
+	)
+	static int field830;
+	@ObfuscatedName("nw")
+	@ObfuscatedGetter(
+		intValue = -330072185
+	)
+	static int field825;
+	@ObfuscatedName("mw")
+	@ObfuscatedSignature(
+		signature = "Lho;"
+	)
+	@Export("draggedOnWidget")
+	static Widget draggedOnWidget;
+	@ObfuscatedName("sl")
+	@ObfuscatedGetter(
+		intValue = -897184099
+	)
+	static int field900;
+	@ObfuscatedName("ru")
+	@ObfuscatedSignature(
+		signature = "Lhr;"
+	)
+	@Export("playerAppearance")
+	static PlayerAppearance playerAppearance;
+	@ObfuscatedName("on")
+	@ObfuscatedGetter(
+		intValue = -1310890605
+	)
+	@Export("mouseWheelRotation")
+	static int mouseWheelRotation;
+	@ObfuscatedName("mj")
+	@ObfuscatedSignature(
+		signature = "Lho;"
+	)
+	@Export("meslayerContinueWidget")
+	static Widget meslayerContinueWidget;
+	@ObfuscatedName("qm")
+	@ObfuscatedGetter(
+		intValue = -1177667309
+	)
+	@Export("soundEffectCount")
+	static int soundEffectCount;
+	@ObfuscatedName("sn")
+	@ObfuscatedGetter(
+		intValue = 2123814989
+	)
+	static int field901;
+	@ObfuscatedName("qh")
+	@Export("soundEffectIds")
+	static int[] soundEffectIds;
+	@ObfuscatedName("qw")
+	@Export("queuedSoundEffectLoops")
+	static int[] queuedSoundEffectLoops;
+	@ObfuscatedName("sa")
+	@ObfuscatedSignature(
+		signature = "[Li;"
+	)
+	@Export("grandExchangeOffers")
+	static GrandExchangeOffer[] grandExchangeOffers;
+	@ObfuscatedName("qx")
+	@Export("queuedSoundEffectDelays")
+	static int[] queuedSoundEffectDelays;
+	@ObfuscatedName("qt")
+	@ObfuscatedSignature(
+		signature = "[Lcm;"
+	)
+	@Export("soundEffects")
+	static SoundEffect[] soundEffects;
+	@ObfuscatedName("ql")
+	@Export("soundLocations")
+	static int[] soundLocations;
+	@ObfuscatedName("nn")
+	@ObfuscatedGetter(
+		intValue = 1294400327
+	)
+	static int field831;
+	@ObfuscatedName("qf")
+	@ObfuscatedGetter(
+		intValue = 1977131521
+	)
+	@Export("minimapState")
+	static int minimapState;
+	@ObfuscatedName("si")
+	@Export("archiveLoaders")
+	static ArrayList archiveLoaders;
+	@ObfuscatedName("se")
+	@ObfuscatedGetter(
+		intValue = 426040267
+	)
+	@Export("archiveLoaderArchive")
+	static int archiveLoaderArchive;
+	@ObfuscatedName("rm")
+	static boolean[] field835;
+	@ObfuscatedName("pz")
+	static long[] field889;
+	@ObfuscatedName("rk")
+	static int[] field882;
+	@ObfuscatedName("pi")
+	@ObfuscatedGetter(
+		longValue = -2403274902957123209L
+	)
+	static long field860;
+	@ObfuscatedName("rl")
+	static int[] field883;
+	@ObfuscatedName("nu")
+	static int[] field782;
+	@ObfuscatedName("rh")
+	static int[] field884;
+	@ObfuscatedName("ne")
+	@ObfuscatedGetter(
+		intValue = -1128248371
+	)
+	static int field823;
+	@ObfuscatedName("rj")
+	static int[] field885;
+	@ObfuscatedName("pr")
+	@ObfuscatedGetter(
+		intValue = -1812154483
+	)
+	static int field856;
+	@ObfuscatedName("su")
+	@ObfuscatedSignature(
+		signature = "Lly;"
+	)
+	@Export("platformInfoProvider")
+	static PlatformInfoProvider platformInfoProvider;
+	@ObfuscatedName("pt")
+	@ObfuscatedGetter(
+		intValue = -1929025607
+	)
+	static int field643;
+	@ObfuscatedName("pv")
+	@ObfuscatedGetter(
+		intValue = -1079323191
+	)
+	@Export("mapIconCount")
+	static int mapIconCount;
+	@ObfuscatedName("ps")
+	@Export("mapIconXs")
+	static int[] mapIconXs;
+	@ObfuscatedName("qi")
+	@ObfuscatedGetter(
+		intValue = -114703177
+	)
+	static int field761;
+	@ObfuscatedName("pu")
+	@Export("mapIconYs")
+	static int[] mapIconYs;
+	@ObfuscatedName("rt")
+	static short field880;
+	@ObfuscatedName("re")
+	static short field887;
+	@ObfuscatedName("rd")
+	static short field892;
+	@ObfuscatedName("pg")
+	@ObfuscatedSignature(
+		signature = "[Llf;"
+	)
+	@Export("mapIcons")
+	static Sprite[] mapIcons;
+	@ObfuscatedName("rr")
+	static short field893;
+	@ObfuscatedName("ra")
+	static short field891;
+	@ObfuscatedName("rf")
+	@ObfuscatedGetter(
+		intValue = 720626183
+	)
+	@Export("viewportZoom")
+	static int viewportZoom;
+	@ObfuscatedName("ri")
+	static short field686;
+	@ObfuscatedName("rz")
+	@ObfuscatedGetter(
+		intValue = 806304417
+	)
+	@Export("viewportWidth")
+	static int viewportWidth;
+	@ObfuscatedName("nh")
+	@ObfuscatedGetter(
+		intValue = 1691099913
+	)
+	@Export("chatCycle")
+	static int chatCycle;
+	@ObfuscatedName("pa")
+	@ObfuscatedGetter(
+		intValue = 168765299
+	)
+	@Export("tradeChatMode")
+	static int tradeChatMode;
+	@ObfuscatedName("pw")
+	@ObfuscatedGetter(
+		intValue = 253399583
+	)
+	@Export("publicChatMode")
+	static int publicChatMode;
+	@ObfuscatedName("qj")
+	@ObfuscatedGetter(
+		intValue = -1492029485
+	)
+	@Export("soundEffectVolume")
+	static int soundEffectVolume;
+	@ObfuscatedName("ro")
+	@ObfuscatedGetter(
+		intValue = -1929841361
+	)
+	@Export("viewportHeight")
+	static int viewportHeight;
+	@ObfuscatedName("rc")
+	@ObfuscatedGetter(
+		intValue = -1154982749
+	)
+	@Export("viewportOffsetX")
+	static int viewportOffsetX;
+	@ObfuscatedName("nz")
+	@Export("changedSkills")
+	static int[] changedSkills;
+	@ObfuscatedName("rb")
+	@ObfuscatedGetter(
+		intValue = -654475437
+	)
+	@Export("viewportOffsetY")
+	static int viewportOffsetY;
+	@ObfuscatedName("nd")
+	@ObfuscatedGetter(
+		intValue = -15935377
+	)
+	@Export("changedSkillsCount")
+	static int changedSkillsCount;
+	@ObfuscatedName("rp")
+	@Export("zoomWidth")
+	static short zoomWidth;
+	@ObfuscatedName("ma")
+	@ObfuscatedGetter(
+		intValue = 42533643
+	)
+	@Export("chatEffects")
+	static int chatEffects;
+	@ObfuscatedName("rg")
+	@Export("zoomHeight")
+	static short zoomHeight;
+	@ObfuscatedName("mr")
+	@ObfuscatedGetter(
+		intValue = -382576035
+	)
+	static int field873;
+	@ObfuscatedName("sr")
+	@ObfuscatedGetter(
+		intValue = -1773628049
+	)
+	static int field908;
+	@ObfuscatedName("pf")
+	@ObfuscatedGetter(
+		intValue = -1367796571
+	)
+	static int field857;
+	@ObfuscatedName("mq")
+	@ObfuscatedGetter(
+		intValue = 494577071
+	)
+	@Export("followerIndex")
+	static int followerIndex;
+	@ObfuscatedName("mt")
+	@Export("playerMod")
+	static boolean playerMod;
+	@ObfuscatedName("pm")
+	static int[] field859;
+	@ObfuscatedName("po")
+	static int[] field858;
+	@ObfuscatedName("os")
+	@ObfuscatedSignature(
+		signature = "Ljv;"
+	)
+	static NodeDeque field836;
+	@ObfuscatedName("ob")
+	@ObfuscatedSignature(
+		signature = "Ljv;"
+	)
+	static NodeDeque field763;
+	@ObfuscatedName("mc")
+	@ObfuscatedGetter(
+		intValue = -1507863629
+	)
+	static int field798;
+	@ObfuscatedName("mz")
+	@ObfuscatedGetter(
+		intValue = -1296819247
+	)
+	static int field824;
+	@ObfuscatedName("ph")
+	static int[] field851;
+	@ObfuscatedName("pd")
+	static String field907;
+	@ObfuscatedName("sx")
+	@ObfuscatedSignature(
+		signature = "Lbb;"
+	)
+	@Export("GrandExchangeEvents_worldComparator")
+	static GrandExchangeOfferOwnWorldComparator GrandExchangeEvents_worldComparator;
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		signature = "[Lfa;"
+	)
+	@Export("collisionMaps")
+	static CollisionMap[] collisionMaps;
+	@ObfuscatedName("at")
+	static boolean field802;
+	@ObfuscatedName("bx")
+	@ObfuscatedGetter(
+		intValue = 1846758827
+	)
+	@Export("worldId")
+	public static int worldId;
+	@ObfuscatedName("bh")
+	@ObfuscatedGetter(
+		intValue = -1282298749
+	)
+	@Export("worldProperties")
+	static int worldProperties;
+	@ObfuscatedName("bm")
+	@ObfuscatedGetter(
+		intValue = -744372313
+	)
+	@Export("gameBuild")
+	static int gameBuild;
+	@ObfuscatedName("bs")
+	@Export("isMembersWorld")
+	public static boolean isMembersWorld;
+	@ObfuscatedName("bz")
+	@Export("isLowDetail")
+	static boolean isLowDetail;
+	@ObfuscatedName("be")
+	@ObfuscatedGetter(
+		intValue = -1434422805
+	)
+	@Export("clientType")
+	static int clientType;
+	@ObfuscatedName("bu")
+	@Export("onMobile")
+	static boolean onMobile;
+	@ObfuscatedName("bi")
+	@ObfuscatedGetter(
+		intValue = -1513198459
+	)
+	@Export("gameState")
+	static int gameState;
+	@ObfuscatedName("cn")
+	@Export("isLoading")
+	static boolean isLoading;
+	@ObfuscatedName("cd")
+	@ObfuscatedGetter(
+		intValue = 1080568465
+	)
+	@Export("cycle")
+	static int cycle;
+	@ObfuscatedName("cy")
+	@ObfuscatedGetter(
+		longValue = -5290188514648997903L
+	)
+	@Export("mouseLastLastPressedTimeMillis")
+	static long mouseLastLastPressedTimeMillis;
+	@ObfuscatedName("cb")
+	@ObfuscatedGetter(
+		intValue = -445977517
+	)
+	static int field646;
+	@ObfuscatedName("cr")
+	@ObfuscatedGetter(
+		intValue = -624148243
+	)
+	static int field647;
+	@ObfuscatedName("ct")
+	@ObfuscatedGetter(
+		longValue = -8037513059658187963L
+	)
+	static long field648;
+	@ObfuscatedName("ci")
+	@Export("hadFocus")
+	static boolean hadFocus;
+	@ObfuscatedName("cu")
+	@Export("displayFps")
+	static boolean displayFps;
+	@ObfuscatedName("ce")
+	@ObfuscatedGetter(
+		intValue = -1130052375
+	)
+	@Export("rebootTimer")
+	static int rebootTimer;
+	@ObfuscatedName("cc")
+	@ObfuscatedGetter(
+		intValue = 2049608033
+	)
+	@Export("hintArrowType")
+	static int hintArrowType;
+	@ObfuscatedName("cl")
+	@ObfuscatedGetter(
+		intValue = 648504057
+	)
+	@Export("hintArrowNpcIndex")
+	static int hintArrowNpcIndex;
+	@ObfuscatedName("cw")
+	@ObfuscatedGetter(
+		intValue = 275182897
+	)
+	@Export("hintArrowPlayerIndex")
+	static int hintArrowPlayerIndex;
+	@ObfuscatedName("cq")
+	@ObfuscatedGetter(
+		intValue = 1932039353
+	)
+	@Export("hintArrowX")
+	static int hintArrowX;
+	@ObfuscatedName("ca")
+	@ObfuscatedGetter(
+		intValue = -204101851
+	)
+	@Export("hintArrowY")
+	static int hintArrowY;
+	@ObfuscatedName("cf")
+	@ObfuscatedGetter(
+		intValue = 1548574994
+	)
+	@Export("hintArrowHeight")
+	static int hintArrowHeight;
+	@ObfuscatedName("cx")
+	@ObfuscatedGetter(
+		intValue = -759871936
+	)
+	@Export("hintArrowSubX")
+	static int hintArrowSubX;
+	@ObfuscatedName("cm")
+	@ObfuscatedGetter(
+		intValue = 99349824
+	)
+	@Export("hintArrowSubY")
+	static int hintArrowSubY;
+	@ObfuscatedName("ch")
+	@ObfuscatedSignature(
+		signature = "Lcn;"
+	)
+	@Export("playerAttackOption")
+	static AttackOption playerAttackOption;
+	@ObfuscatedName("dt")
+	@ObfuscatedSignature(
+		signature = "Lcn;"
+	)
+	@Export("npcAttackOption")
+	static AttackOption npcAttackOption;
+	@ObfuscatedName("dm")
+	@ObfuscatedGetter(
+		intValue = 963568873
+	)
+	@Export("titleLoadingStage")
+	static int titleLoadingStage;
+	@ObfuscatedName("dy")
+	@ObfuscatedGetter(
+		intValue = 584801883
+	)
+	@Export("js5ConnectState")
+	static int js5ConnectState;
+	@ObfuscatedName("de")
+	@ObfuscatedGetter(
+		intValue = -900928897
+	)
+	static int field664;
+	@ObfuscatedName("dd")
+	@ObfuscatedSignature(
+		signature = "Lie;"
+	)
+	@Export("archive10")
+	static Archive archive10;
+	@ObfuscatedName("ef")
+	@ObfuscatedSignature(
+		signature = "Lie;"
+	)
+	@Export("archive17")
+	static Archive archive17;
+	@ObfuscatedName("ew")
+	@ObfuscatedGetter(
+		intValue = 982456973
+	)
+	@Export("js5Errors")
+	static int js5Errors;
+	@ObfuscatedName("eq")
+	@ObfuscatedGetter(
+		intValue = -14383853
+	)
+	@Export("loginState")
+	static int loginState;
+	@ObfuscatedName("er")
+	@ObfuscatedGetter(
+		intValue = -1286153331
+	)
+	static int field669;
+	@ObfuscatedName("eo")
+	@ObfuscatedGetter(
+		intValue = 1787272407
+	)
+	static int field670;
+	@ObfuscatedName("ee")
+	@ObfuscatedGetter(
+		intValue = 460753713
+	)
+	static int field671;
+	@ObfuscatedName("ep")
+	@ObfuscatedSignature(
+		signature = "Lff;"
+	)
+	static class160 field672;
+	@ObfuscatedName("ev")
+	@Export("Login_isUsernameRemembered")
+	static boolean Login_isUsernameRemembered;
+	@ObfuscatedName("ez")
+	@ObfuscatedSignature(
+		signature = "Lcb;"
+	)
+	@Export("secureRandomFuture")
+	static SecureRandomFuture secureRandomFuture;
+	@ObfuscatedName("ed")
+	@Export("randomDatData")
+	static byte[] randomDatData;
+	@ObfuscatedName("et")
+	@ObfuscatedSignature(
+		signature = "[Lck;"
+	)
+	@Export("npcs")
+	static NPC[] npcs;
+	@ObfuscatedName("eb")
+	@ObfuscatedGetter(
+		intValue = -347893507
+	)
+	@Export("npcCount")
+	static int npcCount;
+	@ObfuscatedName("fb")
+	@Export("npcIndices")
+	static int[] npcIndices;
+	@ObfuscatedName("fe")
+	@ObfuscatedGetter(
+		intValue = -1928648709
+	)
+	static int field633;
+	@ObfuscatedName("fd")
+	static int[] field681;
+	@ObfuscatedName("fo")
+	@ObfuscatedSignature(
+		signature = "Lcl;"
+	)
+	@Export("packetWriter")
+	public static final PacketWriter packetWriter;
+	@ObfuscatedName("fq")
+	@ObfuscatedGetter(
+		intValue = -1810258911
+	)
+	@Export("logoutTimer")
+	static int logoutTimer;
+	@ObfuscatedName("fc")
+	static boolean field730;
+	@ObfuscatedName("fv")
+	@Export("useBufferedSocket")
+	static boolean useBufferedSocket;
+	@ObfuscatedName("fm")
+	@ObfuscatedSignature(
+		signature = "Ljd;"
+	)
+	@Export("timer")
+	static Timer timer;
+	@ObfuscatedName("fh")
+	@ObfuscatedSignature(
+		signature = "Len;"
+	)
+	@Export("urlRequester")
+	static UrlRequester urlRequester;
+	@ObfuscatedName("fa")
+	@Export("fontsMap")
+	static HashMap fontsMap;
+	@ObfuscatedName("fj")
+	@ObfuscatedGetter(
+		intValue = 543460729
+	)
+	static int field689;
+	@ObfuscatedName("fx")
+	@ObfuscatedGetter(
+		intValue = -1697289513
+	)
+	static int field690;
+	@ObfuscatedName("fp")
+	@ObfuscatedGetter(
+		intValue = -355199335
+	)
+	static int field691;
+	@ObfuscatedName("gv")
+	@ObfuscatedGetter(
+		intValue = 1416543095
+	)
+	static int field692;
+	@ObfuscatedName("gy")
+	@ObfuscatedGetter(
+		intValue = 1539626603
+	)
+	static int field693;
+	@ObfuscatedName("gl")
+	@Export("isInInstance")
+	static boolean isInInstance;
+	@ObfuscatedName("gs")
+	@Export("instanceChunkTemplates")
+	static int[][][] instanceChunkTemplates;
+	@ObfuscatedName("gm")
+	static final int[] field697;
+	@ObfuscatedName("gf")
+	@ObfuscatedGetter(
+		intValue = -2045474947
+	)
+	static int field698;
+	@ObfuscatedName("hh")
+	@ObfuscatedGetter(
+		intValue = -1078673109
+	)
+	static int field699;
+	@ObfuscatedName("ht")
+	@ObfuscatedGetter(
+		intValue = 1330821821
+	)
+	static int field700;
+	@ObfuscatedName("hk")
+	@ObfuscatedGetter(
+		intValue = -1693078415
+	)
+	static int field701;
+	@ObfuscatedName("hz")
+	@ObfuscatedGetter(
+		intValue = -572241931
+	)
+	static int field702;
+	@ObfuscatedName("hl")
+	static boolean field703;
+	@ObfuscatedName("hb")
+	@ObfuscatedGetter(
+		intValue = -1280891227
+	)
+	@Export("alternativeScrollbarWidth")
+	static int alternativeScrollbarWidth;
+	@ObfuscatedName("hm")
+	@ObfuscatedGetter(
+		intValue = -851788043
+	)
+	@Export("camAngleX")
+	static int camAngleX;
+	@ObfuscatedName("hu")
+	@ObfuscatedGetter(
+		intValue = 1157777555
+	)
+	@Export("camAngleY")
+	static int camAngleY;
+	@ObfuscatedName("hi")
+	@ObfuscatedGetter(
+		intValue = 56611529
+	)
+	@Export("camAngleDY")
+	static int camAngleDY;
+	@ObfuscatedName("hx")
+	@ObfuscatedGetter(
+		intValue = 594555395
+	)
+	@Export("camAngleDX")
+	static int camAngleDX;
+	@ObfuscatedName("hf")
+	@ObfuscatedGetter(
+		intValue = 1391902969
+	)
+	@Export("mouseCamClickedX")
+	static int mouseCamClickedX;
+	@ObfuscatedName("hd")
+	@ObfuscatedGetter(
+		intValue = -148858111
+	)
+	@Export("mouseCamClickedY")
+	static int mouseCamClickedY;
+	@ObfuscatedName("hw")
+	@ObfuscatedGetter(
+		intValue = 1963305499
+	)
+	@Export("oculusOrbState")
+	static int oculusOrbState;
+	@ObfuscatedName("hj")
+	@Export("camFollowHeight")
+	static int camFollowHeight;
+	@ObfuscatedName("hc")
+	@ObfuscatedGetter(
+		intValue = -1192657817
+	)
+	static int field766;
+	@ObfuscatedName("hp")
+	@ObfuscatedGetter(
+		intValue = -1637520021
+	)
+	static int field714;
+	@ObfuscatedName("ih")
+	@ObfuscatedGetter(
+		intValue = -1473797019
+	)
+	static int field715;
+	@ObfuscatedName("io")
+	@ObfuscatedGetter(
+		intValue = -925368297
+	)
+	@Export("oculusOrbNormalSpeed")
+	static int oculusOrbNormalSpeed;
+	@ObfuscatedName("ib")
+	@ObfuscatedGetter(
+		intValue = -1611804213
+	)
+	@Export("oculusOrbSlowedSpeed")
+	static int oculusOrbSlowedSpeed;
+	@ObfuscatedName("im")
+	@ObfuscatedGetter(
+		intValue = -1513473005
+	)
+	static int field718;
+	@ObfuscatedName("ig")
+	static boolean field879;
+	@ObfuscatedName("iq")
+	@ObfuscatedGetter(
+		intValue = 773031175
+	)
+	static int field720;
+	@ObfuscatedName("ij")
+	static boolean field721;
+	@ObfuscatedName("is")
+	@ObfuscatedGetter(
+		intValue = 130801757
+	)
+	static int field722;
+	@ObfuscatedName("ik")
+	@ObfuscatedGetter(
+		intValue = -1967946355
+	)
+	@Export("overheadTextCount")
+	static int overheadTextCount;
+	@ObfuscatedName("iu")
+	@ObfuscatedGetter(
+		intValue = 2101736993
+	)
+	@Export("overheadTextLimit")
+	static int overheadTextLimit;
+	@ObfuscatedName("iy")
+	@Export("overheadTextXs")
+	static int[] overheadTextXs;
+	@ObfuscatedName("ip")
+	@Export("overheadTextYs")
+	static int[] overheadTextYs;
+	@ObfuscatedName("iw")
+	@Export("overheadTextAscents")
+	static int[] overheadTextAscents;
+	@ObfuscatedName("id")
+	@Export("overheadTextXOffsets")
+	static int[] overheadTextXOffsets;
+	@ObfuscatedName("if")
+	@Export("overheadTextColors")
+	static int[] overheadTextColors;
+	@ObfuscatedName("ir")
+	@Export("overheadTextEffects")
+	static int[] overheadTextEffects;
+	@ObfuscatedName("ia")
+	@Export("overheadTextCyclesRemaining")
+	static int[] overheadTextCyclesRemaining;
+	@ObfuscatedName("iv")
+	@Export("overheadText")
+	static String[] overheadText;
+	@ObfuscatedName("it")
+	@Export("selectedItemName")
+	static String selectedItemName;
+	@ObfuscatedName("in")
+	@Export("tileLastDrawnActor")
+	static int[][] tileLastDrawnActor;
+	@ObfuscatedName("il")
+	@ObfuscatedGetter(
+		intValue = -1976595977
+	)
+	@Export("viewportDrawCount")
+	static int viewportDrawCount;
+	@ObfuscatedName("ii")
+	@ObfuscatedGetter(
+		intValue = -1627292871
+	)
+	@Export("viewportTempX")
+	static int viewportTempX;
+	@ObfuscatedName("ic")
+	@ObfuscatedGetter(
+		intValue = -527920877
+	)
+	@Export("viewportTempY")
+	static int viewportTempY;
+	@ObfuscatedName("js")
+	@ObfuscatedGetter(
+		intValue = 978670267
+	)
+	@Export("mouseCrossX")
+	static int mouseCrossX;
+	@ObfuscatedName("jv")
+	@ObfuscatedGetter(
+		intValue = -1556961545
+	)
+	@Export("mouseCrossY")
+	static int mouseCrossY;
+	@ObfuscatedName("je")
+	@ObfuscatedGetter(
+		intValue = 1573914060
+	)
+	@Export("mouseCrossState")
+	static int mouseCrossState;
+	@ObfuscatedName("jt")
+	@ObfuscatedGetter(
+		intValue = -588599615
+	)
+	@Export("mouseCrossColor")
+	static int mouseCrossColor;
+	@ObfuscatedName("jx")
+	@Export("showMouseCross")
+	static boolean showMouseCross;
+	@ObfuscatedName("jf")
+	@ObfuscatedGetter(
+		intValue = 2052271037
+	)
+	static int field750;
+	@ObfuscatedName("jc")
+	@ObfuscatedGetter(
+		intValue = 2007699929
+	)
+	static int field743;
+	@ObfuscatedName("jp")
+	@ObfuscatedGetter(
+		intValue = -1979890787
+	)
+	@Export("dragItemSlotSource")
+	static int dragItemSlotSource;
+	@ObfuscatedName("jd")
+	@ObfuscatedGetter(
+		intValue = -438601773
+	)
+	static int field745;
+	@ObfuscatedName("jo")
+	@ObfuscatedGetter(
+		intValue = -1643414129
+	)
+	static int field746;
+	@ObfuscatedName("jh")
+	@ObfuscatedGetter(
+		intValue = 1036462411
+	)
+	@Export("dragItemSlotDestination")
+	static int dragItemSlotDestination;
+	@ObfuscatedName("jr")
+	static boolean field748;
+	@ObfuscatedName("jw")
+	@ObfuscatedGetter(
+		intValue = -1965230699
+	)
+	@Export("itemDragDuration")
+	static int itemDragDuration;
+	@ObfuscatedName("jb")
+	@ObfuscatedGetter(
+		intValue = 1577400495
+	)
+	static int field634;
+	@ObfuscatedName("jl")
+	@Export("showLoadingMessages")
+	static boolean showLoadingMessages;
+	@ObfuscatedName("jm")
+	@ObfuscatedSignature(
+		signature = "[Lbi;"
+	)
+	@Export("players")
+	static Player[] players;
+	@ObfuscatedName("jq")
+	@ObfuscatedGetter(
+		intValue = 87159269
+	)
+	@Export("localPlayerIndex")
+	static int localPlayerIndex;
+	@ObfuscatedName("jy")
+	@ObfuscatedGetter(
+		intValue = 1781220751
+	)
+	static int field636;
+	@ObfuscatedName("jj")
+	@Export("renderSelf")
+	static boolean renderSelf;
+	@ObfuscatedName("ki")
+	@ObfuscatedGetter(
+		intValue = -2014818077
+	)
+	@Export("drawPlayerNames")
+	static int drawPlayerNames;
+	@ObfuscatedName("ko")
+	@ObfuscatedGetter(
+		intValue = 729085131
+	)
+	static int field640;
+	@ObfuscatedName("kr")
+	static int[] field758;
+	@ObfuscatedName("kn")
+	@Export("playerMenuOpcodes")
+	static final int[] playerMenuOpcodes;
+	@ObfuscatedName("kh")
+	@Export("playerMenuActions")
+	static String[] playerMenuActions;
+	@ObfuscatedName("kb")
+	@Export("playerOptionsPriorities")
+	static boolean[] playerOptionsPriorities;
+	@ObfuscatedName("kz")
+	@Export("defaultRotations")
+	static int[] defaultRotations;
+	@ObfuscatedName("kf")
+	@ObfuscatedGetter(
+		intValue = 722101389
+	)
+	@Export("combatTargetPlayerIndex")
+	static int combatTargetPlayerIndex;
+	@ObfuscatedName("kl")
+	@ObfuscatedSignature(
+		signature = "[[[Ljv;"
+	)
+	@Export("groundItems")
+	static NodeDeque[][][] groundItems;
+	@ObfuscatedName("ka")
+	@ObfuscatedSignature(
+		signature = "Ljv;"
+	)
+	@Export("pendingSpawns")
+	static NodeDeque pendingSpawns;
+	@ObfuscatedName("kt")
+	@ObfuscatedSignature(
+		signature = "Ljv;"
+	)
+	@Export("projectiles")
+	static NodeDeque projectiles;
+	@ObfuscatedName("kj")
+	@ObfuscatedSignature(
+		signature = "Ljv;"
+	)
+	@Export("graphicsObjects")
+	static NodeDeque graphicsObjects;
+	@ObfuscatedName("km")
+	@Export("currentLevels")
+	static int[] currentLevels;
+	@ObfuscatedName("ky")
+	@Export("levels")
+	static int[] levels;
+	@ObfuscatedName("kd")
+	@Export("experience")
+	static int[] experience;
+	@ObfuscatedName("kv")
+	@ObfuscatedGetter(
+		intValue = 421096745
+	)
+	@Export("leftClickOpensMenu")
+	static int leftClickOpensMenu;
+	@ObfuscatedName("kg")
+	@Export("isMenuOpen")
+	static boolean isMenuOpen;
+	@ObfuscatedName("lw")
+	@ObfuscatedGetter(
+		intValue = 813297127
+	)
+	@Export("menuOptionsCount")
+	static int menuOptionsCount;
+	@ObfuscatedName("ld")
+	@Export("menuArguments1")
+	static int[] menuArguments1;
+	@ObfuscatedName("lb")
+	@Export("menuArguments2")
+	static int[] menuArguments2;
+	@ObfuscatedName("ls")
+	@Export("menuOpcodes")
+	static int[] menuOpcodes;
+	@ObfuscatedName("lq")
+	@Export("menuIdentifiers")
+	static int[] menuIdentifiers;
+	@ObfuscatedName("ll")
+	@Export("menuActions")
+	static String[] menuActions;
+	@ObfuscatedName("ln")
+	@Export("menuTargets")
+	static String[] menuTargets;
+	@ObfuscatedName("lx")
+	@Export("menuShiftClick")
+	static boolean[] menuShiftClick;
+	@ObfuscatedName("lm")
+	@Export("followerOpsLowPriority")
+	static boolean followerOpsLowPriority;
+	@ObfuscatedName("lp")
+	@Export("shiftClickDrop")
+	static boolean shiftClickDrop;
+	@ObfuscatedName("lf")
+	@Export("tapToDrop")
+	static boolean tapToDrop;
+	@ObfuscatedName("lo")
+	@Export("showMouseOverText")
+	static boolean showMouseOverText;
+	@ObfuscatedName("lh")
+	@ObfuscatedGetter(
+		intValue = -1819095265
+	)
+	@Export("viewportX")
+	static int viewportX;
+	@ObfuscatedName("lg")
+	@ObfuscatedGetter(
+		intValue = -546279315
+	)
+	@Export("viewportY")
+	static int viewportY;
+	@ObfuscatedName("lj")
+	@ObfuscatedGetter(
+		intValue = 509497683
+	)
+	static int field787;
+	@ObfuscatedName("la")
+	@ObfuscatedGetter(
+		intValue = 1721267483
+	)
+	static int field788;
+	@ObfuscatedName("lr")
+	@ObfuscatedGetter(
+		intValue = 241697491
+	)
+	@Export("isItemSelected")
+	static int isItemSelected;
+	@ObfuscatedName("lz")
+	@Export("isSpellSelected")
+	static boolean isSpellSelected;
+	@ObfuscatedName("li")
+	@ObfuscatedGetter(
+		intValue = -133249451
+	)
+	@Export("selectedSpellChildIndex")
+	static int selectedSpellChildIndex;
+	@ObfuscatedName("mp")
+	@ObfuscatedGetter(
+		intValue = -1549196691
+	)
+	static int field793;
+	@ObfuscatedName("mf")
+	@Export("selectedSpellActionName")
+	static String selectedSpellActionName;
+	@ObfuscatedName("mm")
+	@Export("selectedSpellName")
+	static String selectedSpellName;
+	@ObfuscatedName("mh")
+	@ObfuscatedGetter(
+		intValue = 1431344687
+	)
+	@Export("rootInterface")
+	static int rootInterface;
 
       static {
             playerAttackOption = AttackOption.AttackOption_hidden;

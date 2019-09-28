@@ -7,7 +7,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("bv")
 @Implements("ScriptFrame")
 public class ScriptFrame {
-      @ObfuscatedName("z")
+	public int pc;
+	@ObfuscatedName("z")
       @ObfuscatedSignature(
             signature = "Lcu;"
       )

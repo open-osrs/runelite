@@ -13,7 +13,8 @@ public final class WorldMapRectangle {
       )
       @Export("plane")
       static int plane;
-      @ObfuscatedName("z")
+	private final WorldMapManager this$0;
+	@ObfuscatedName("z")
       @ObfuscatedGetter(
             intValue = 1437732891
       )
