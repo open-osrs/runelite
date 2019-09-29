@@ -3,6 +3,15 @@ name: OpenOSRS - CI
 on: [pull_request, push]
 
 jobs:
+  pr-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR title lint
+        if: github.event_name == 'pull_request'
+        uses: seferov/pr-lint-action@master
+        with:
+          title-regex: '^\w+: \w+'
+
   build:
     runs-on: windows-latest
 
