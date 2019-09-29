@@ -124,10 +124,12 @@ public class PlayerIndicatorsOverlay extends Overlay
 			{
 				if (clanManager.getRank(actor.getName()) != null)
 				{
-					OverlayUtil.renderActorTextAndImage(graphics, actor, builtString, color,
-						ImageUtil.resizeImage(Objects.requireNonNull(clanManager
-							.getClanImage(clanManager.getRank(actor.getName()))), y, y), 0, ACTOR_HORIZONTAL_TEXT_MARGIN);
-					return;
+					final BufferedImage clanRankImage = clanManager.getClanImage(clanManager.getRank(actor.getName()));
+					if (clanRankImage != null)
+					{
+						OverlayUtil.renderActorTextAndImage(graphics, actor, builtString, color,
+							ImageUtil.resizeImage(clanRankImage, y, y), 0, ACTOR_HORIZONTAL_TEXT_MARGIN);
+					}
 				}
 			}
 

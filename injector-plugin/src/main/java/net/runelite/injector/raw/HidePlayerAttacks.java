@@ -176,12 +176,6 @@ public class HidePlayerAttacks
 			}
 
 			i = iterator.next();
-			if (!(i instanceof IAnd))
-			{
-				throw new InjectionException("Yikes I didn't expect this");
-			}
-
-			i = iterator.next();
 			if (!(i instanceof IfICmpNe))
 			{
 				throw new InjectionException("Yikes I didn't expect this");
