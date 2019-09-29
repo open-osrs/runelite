@@ -17,7 +17,7 @@ jobs:
       - name: Create Gradle wrapper update Pull Request
         uses: peter-evans/create-pull-request@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.OpenOSRS }}
           PULL_REQUEST_BRANCH: GRADLE-WRAPPER-UPDATE
           PULL_REQUEST_TITLE: 'project: Update gradle wrapper'
           PULL_REQUEST_BODY: This is an auto-generated PR with an updated gradle version
@@ -35,7 +35,7 @@ jobs:
     - name: Create Gradle dependencies update Pull Request
       uses: peter-evans/create-pull-request@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.OpenOSRS }}
         PULL_REQUEST_BRANCH: GRADLE-DEPENDENCY-UPDATE
         PULL_REQUEST_TITLE: 'project: Update gradle dependencies'
         PULL_REQUEST_BODY: This is an auto-generated PR with an updated gradle dependencies versions

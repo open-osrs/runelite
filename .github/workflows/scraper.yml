@@ -31,7 +31,7 @@ jobs:
       - name: Create NPC stats Pull Request
         uses: peter-evans/create-pull-request@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.OpenOSRS }}
           PULL_REQUEST_BRANCH: NPC-UPDATE
           PULL_REQUEST_TITLE: 'Client: Update NPC stats'
           PULL_REQUEST_BODY: This is an auto-generated PR with changes from the OSRS wiki
@@ -63,7 +63,7 @@ jobs:
       - name: Create item stats Pull Request
         uses: peter-evans/create-pull-request@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.OpenOSRS }}
           PULL_REQUEST_BRANCH: ITEM-STATS-UPDATE
           PULL_REQUEST_TITLE: 'Client: Update item stats'
           PULL_REQUEST_BODY: This is an auto-generated PR with changes from the OSRS wiki
