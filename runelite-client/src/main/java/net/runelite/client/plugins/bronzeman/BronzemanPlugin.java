@@ -40,7 +40,7 @@ import java.util.List;
  */
 @PluginDescriptor(
 	name = "Bronze Man Mode",
-	description = "restrict yourself as an IM with GE use for items you have unlocked.",
+	description = "Restrict yourself as an Iron Meme with GE use for items you have unlocked.",
 	tags = {"Bronze", "pve", "restrict", "game", "challenge", "bronzeman", "ironman"},
 	type = PluginType.UTILITY,
 	enabledByDefault = false
