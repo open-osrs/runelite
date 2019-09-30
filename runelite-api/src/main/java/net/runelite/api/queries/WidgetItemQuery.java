@@ -25,6 +25,7 @@
 package net.runelite.api.queries;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 import net.runelite.api.Query;
 import net.runelite.api.QueryResults;
 import net.runelite.api.widgets.WidgetItem;
@@ -72,6 +73,12 @@ public abstract class WidgetItemQuery extends Query<WidgetItem, WidgetItemQuery,
 	public WidgetItemQuery quantityEquals(int quantity)
 	{
 		predicate = and(item -> item.getQuantity() == quantity);
+		return this;
+	}
+
+	public WidgetItemQuery filter(Predicate<WidgetItem> other)
+	{
+		predicate = and(other);
 		return this;
 	}
 }

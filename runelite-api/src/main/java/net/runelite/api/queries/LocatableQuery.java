@@ -25,6 +25,7 @@
 package net.runelite.api.queries;
 
 import static java.lang.Math.abs;
+import java.util.function.Predicate;
 import net.runelite.api.Locatable;
 import net.runelite.api.LocatableQueryResults;
 import net.runelite.api.Query;
@@ -70,6 +71,13 @@ public abstract class LocatableQuery<EntityType extends Locatable, QueryType> ex
 			return abs(localLocation.getX() - from.getX()) < area
 					&& abs(localLocation.getY() - from.getY()) < area;
 		});
+		return (QueryType) this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public QueryType filter(Predicate<EntityType> other)
+	{
+		predicate = and(other);
 		return (QueryType) this;
 	}
 }

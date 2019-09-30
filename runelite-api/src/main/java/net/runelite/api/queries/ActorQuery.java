@@ -24,6 +24,7 @@
  */
 package net.runelite.api.queries;
 
+import java.util.function.Predicate;
 import net.runelite.api.Actor;
 import net.runelite.api.coords.WorldPoint;
 
@@ -97,6 +98,13 @@ public abstract class ActorQuery<EntityType extends Actor, QueryType> extends Lo
 	public QueryType hasNoHealthBar()
 	{
 		predicate = and(a -> a.getHealthRatio() == -1);
+		return (QueryType) this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public QueryType filter(Predicate<EntityType> other)
+	{
+		predicate = and(other);
 		return (QueryType) this;
 	}
 }

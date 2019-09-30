@@ -27,6 +27,7 @@ package net.runelite.api.queries;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.Scene;
@@ -78,6 +79,13 @@ public abstract class TileObjectQuery<EntityType extends TileObject, QueryType> 
 	public QueryType idEquals(Collection<Integer> ids)
 	{
 		predicate = and((object) -> ids.contains(object.getId()));
+		return (QueryType) this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public QueryType filter(Predicate<EntityType> other)
+	{
+		predicate = and(other);
 		return (QueryType) this;
 	}
 }
