@@ -88,10 +88,21 @@ public interface PlayerScouterConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = "minimumTotalGear",
+			name = "Minimum Total Gear",
+			description = "Minimum value of gear for the player to be scouted.",
+			position = 5
+	)
+	default int minimumTotalGear()
+	{
+		return 1;
+	}
+
+	@ConfigItem(
 		keyName = "minimumRisk",
 		name = "Minimum Risk",
 		description = "Minimum risk for the player to be scouted.",
-		position = 5
+		position = 6
 	)
 	default int minimumRisk()
 	{
@@ -102,7 +113,7 @@ public interface PlayerScouterConfig extends Config
 		keyName = "minimumValue",
 		name = "Minimum Value",
 		description = "Minimum value for the item to be posted on discord.",
-		position = 6
+		position = 7
 	)
 	default int minimumValue()
 	{
@@ -117,7 +128,7 @@ public interface PlayerScouterConfig extends Config
 		keyName = "minimumCombat",
 		name = "Minimum Combat Level",
 		description = "The Minimum Combat Level you wish to scout.",
-		position = 7
+		position = 8
 	)
 	default int minimumCombat()
 	{
@@ -132,7 +143,7 @@ public interface PlayerScouterConfig extends Config
 		keyName = "maximumCombat",
 		name = "Maximum Combat Level",
 		description = "The Maximum Combat Level you wish to scout.",
-		position = 8
+		position = 9
 	)
 	default int maximumCombat()
 	{
@@ -143,7 +154,7 @@ public interface PlayerScouterConfig extends Config
 		keyName = "timeout",
 		name = "Timeout",
 		description = "Minimum amount of ticks before the player can be scouted again. (1 tick = 600ms)",
-		position = 9
+		position = 10
 	)
 	default int timeout()
 	{

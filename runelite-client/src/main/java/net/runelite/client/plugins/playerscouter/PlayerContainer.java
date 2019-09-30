@@ -39,6 +39,7 @@ class PlayerContainer
 	private HiscoreResult skills;
 	private LinkedHashMap<Integer, Integer> gear;
 	private LinkedHashMap<Integer, Integer> riskedGear;
+	private LinkedHashMap<Integer, Integer> gearValue;
 	private Player player;
 	private String location;
 	private String name;
@@ -46,6 +47,7 @@ class PlayerContainer
 	private boolean httpRetry;
 	private boolean scouted;
 	private int prayer;
+	private int totalGear;
 	private int risk;
 	private int scoutTimer;
 	private int weapon;
@@ -59,6 +61,8 @@ class PlayerContainer
 		this.name = player.getName();
 		this.player = player;
 		this.prayer = -1;
+		this.totalGear = 0;
+		this.gearValue = new LinkedHashMap<>();
 		this.risk = 0;
 		this.riskedGear = new LinkedHashMap<>();
 		this.scoutTimer = 500;

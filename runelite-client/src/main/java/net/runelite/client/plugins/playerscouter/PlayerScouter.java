@@ -109,6 +109,7 @@ public class PlayerScouter extends Plugin
 	private final Map<String, HiscoreResult> resultCache = new HashMap<>();
 	private final Map<String, Integer> blacklist = new HashMap<>();
 	private HttpUrl webhook;
+	private int minimumTotalGear;
 	private int minimumRisk;
 	private int minimumValue;
 	private int timeout;
@@ -173,7 +174,6 @@ public class PlayerScouter extends Plugin
 		{
 			return;
 		}
-
 		blacklist.clear();
 	}
 
@@ -196,7 +196,7 @@ public class PlayerScouter extends Plugin
 				return;
 			}
 			if ((player.getPlayer().getCombatLevel() >= this.minimumCombat
-				&& player.getPlayer().getCombatLevel() <= this.maximumCombat) && player.getRisk() > this.minimumRisk)
+				&& player.getPlayer().getCombatLevel() <= this.maximumCombat) && player.getRisk() > this.minimumRisk && player.getTotalGear() > this.minimumTotalGear)
 			{
 				scoutPlayer(player);
 			}
@@ -262,6 +262,7 @@ public class PlayerScouter extends Plugin
 	private void updateConfig()
 	{
 		this.webhook = HttpUrl.parse(config.webhook());
+		this.minimumTotalGear = config.minimumTotalGear();
 		this.minimumRisk = config.minimumRisk();
 		this.minimumValue = config.minimumValue();
 		this.timeout = config.timeout();
@@ -396,7 +397,11 @@ public class PlayerScouter extends Plugin
 			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
 			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
-
+		player.setGearValue(prices.entrySet()
+				.stream()
+				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+		);
 		player.setRiskedGear(prices.entrySet()
 			.stream()
 			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
@@ -411,8 +416,9 @@ public class PlayerScouter extends Plugin
 		{
 			removeEntries(player.getRiskedGear(), player.getPrayer() <= 25 ? 0 : 1);
 		}
-
 		player.getRiskedGear().values().forEach(price -> player.setRisk(player.getRisk() + price));
+		removeEntries(player.getGearValue(), player.getPrayer() <= 25 ? 0 : 0);
+		player.getGearValue().values().forEach(price -> player.setTotalGear(player.getTotalGear() + price));
 		prices.clear();
 	}
 
@@ -492,6 +498,12 @@ public class PlayerScouter extends Plugin
 		ThumbnailEmbed image = ThumbnailEmbed.builder()
 			.url(ICON_URL + player.getWeapon() + ".png")
 			.build();
+
+		fieldList.add(FieldEmbed.builder()
+				.name("Total Gear Value")
+				.value(StackFormatter.quantityToRSDecimalStack(player.getTotalGear()))
+				.inline(true)
+				.build());
 
 		fieldList.add(FieldEmbed.builder()
 			.name("Risk")
