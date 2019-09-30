@@ -160,6 +160,7 @@ public class HidePlayerAttacks
 		// add option n such
 
 		Instructions ins = addPlayerOptions.getCode().getInstructions();
+		log.info(String.valueOf(ins.getInstructions().size()));
 		ListIterator<Instruction> iterator = ins.getInstructions().listIterator();
 		while (iterator.hasNext())
 		{
@@ -170,15 +171,17 @@ public class HidePlayerAttacks
 			}
 
 			i = iterator.next();
-			while (!(i instanceof BiPush) || (byte) ((BiPush) i).getConstant() != 8)
+			if (!(i instanceof IAnd))
 			{
-				i = iterator.next();
+				continue;
+				/*log.info(i.getClass().getName() + i.getClass().getSuperclass() + i.getType().getName() +
+					i.getType().getInstructionClass() + i.getInstructions() + i.toString());
+				throw new InjectionException("Yikes I didn't expect this");**/
 			}
 
-			i = iterator.next();
 			if (!(i instanceof IfICmpNe))
 			{
-				throw new InjectionException("Yikes I didn't expect this");
+				continue;
 			}
 
 			Label target = ((IfICmpNe) i).getJumps().get(0);
