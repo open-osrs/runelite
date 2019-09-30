@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, tha23rd <https://https://github.com/tha23rd>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api;
 
-package net.runelite.deob.clientver;
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldPoint;
 
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.IOException;
-
-public class ClientVersionMain
+public interface Locatable
 {
-	public static void main(String[] args) throws IOException
-	{
-		File jar = new File(args[0]);
-		ClientVersion cv = new ClientVersion(jar);
-		System.out.println(cv.getVersion());
-	}
+	/**
+	 * Gets the server-side location of the actor.
+	 * <p>
+	 * This value is typically ahead of where the client renders and is not
+	 * affected by things such as animations.
+	 *
+	 * @return the server location
+	 */
+	WorldPoint getWorldLocation();
 
-	public static int version(String loc)
-	{
-		File jar = new File(loc);
-		ClientVersion cv = new ClientVersion(jar);
-		try
-		{
-			int version = cv.getVersion();
-
-			Files.move(jar, new File(loc.replace("gamepack.jar", "gamepack-" + version + ".jar")));
-
-			return version;
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		return -1;
-	}
+	/**
+	 * Gets the client-side location of the actor.
+	 *
+	 * @return the client location
+	 */
+	LocalPoint getLocalLocation();
 }
