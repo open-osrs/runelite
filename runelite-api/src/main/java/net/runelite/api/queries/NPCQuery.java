@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api.queries;
 
-package net.runelite.deob.clientver;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import net.runelite.api.Client;
+import net.runelite.api.LocatableQueryResults;
+import net.runelite.api.NPC;
 
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.IOException;
-
-public class ClientVersionMain
+public class NPCQuery extends ActorQuery<NPC, NPCQuery>
 {
-	public static void main(String[] args) throws IOException
+	@Override
+	public LocatableQueryResults<NPC> result(Client client)
 	{
-		File jar = new File(args[0]);
-		ClientVersion cv = new ClientVersion(jar);
-		System.out.println(cv.getVersion());
+		return new LocatableQueryResults<>(client.getNpcs().stream()
+			.filter(predicate)
+			.collect(Collectors.toList()));
 	}
 
-	public static int version(String loc)
+	@SuppressWarnings("unchecked")
+	public NPCQuery idEquals(int... ids)
 	{
-		File jar = new File(loc);
-		ClientVersion cv = new ClientVersion(jar);
-		try
+		predicate = and(object ->
 		{
-			int version = cv.getVersion();
+			for (int id : ids)
+			{
+				if (object.getId() == id)
+				{
+					return true;
+				}
+			}
+			return false;
+		});
+		return this;
+	}
 
-			Files.move(jar, new File(loc.replace("gamepack.jar", "gamepack-" + version + ".jar")));
-
-			return version;
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		return -1;
+	@SuppressWarnings("unchecked")
+	public NPCQuery idEquals(Collection<Integer> ids)
+	{
+		predicate = and((object) -> ids.contains(object.getId()));
+		return this;
 	}
 }

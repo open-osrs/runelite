@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2016-2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,51 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api.queries;
 
-package net.runelite.deob.clientver;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import net.runelite.api.Client;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
+import net.runelite.api.Query;
+import net.runelite.api.QueryResults;
 
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.IOException;
-
-public class ClientVersionMain
+@RequiredArgsConstructor
+public class InventoryItemQuery extends Query<Item, InventoryItemQuery, QueryResults<Item>>
 {
-	public static void main(String[] args) throws IOException
+	private final InventoryID inventory;
+
+	@Override
+	public QueryResults<Item> result(Client client)
 	{
-		File jar = new File(args[0]);
-		ClientVersion cv = new ClientVersion(jar);
-		System.out.println(cv.getVersion());
+		ItemContainer container = client.getItemContainer(inventory);
+		if (container == null)
+		{
+			return new QueryResults<>(null);
+		}
+		return new QueryResults<>(Arrays.stream(container.getItems())
+			.filter(Objects::nonNull)
+			.filter(predicate)
+			.collect(Collectors.toList()));
 	}
 
-	public static int version(String loc)
+	public InventoryItemQuery idEquals(int... ids)
 	{
-		File jar = new File(loc);
-		ClientVersion cv = new ClientVersion(jar);
-		try
+		predicate = and(item ->
 		{
-			int version = cv.getVersion();
-
-			Files.move(jar, new File(loc.replace("gamepack.jar", "gamepack-" + version + ".jar")));
-
-			return version;
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		return -1;
+			for (int id : ids)
+			{
+				if (item.getId() == id)
+				{
+					return true;
+				}
+			}
+			return false;
+		});
+		return this;
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,63 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api.queries;
 
-package net.runelite.deob.clientver;
+import java.util.Collection;
+import java.util.function.Predicate;
+import net.runelite.api.Query;
+import net.runelite.api.QueryResults;
+import net.runelite.api.widgets.WidgetItem;
 
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.IOException;
-
-public class ClientVersionMain
+public abstract class WidgetItemQuery extends Query<WidgetItem, WidgetItemQuery, QueryResults<WidgetItem>>
 {
-	public static void main(String[] args) throws IOException
+	public WidgetItemQuery idEquals(int... ids)
 	{
-		File jar = new File(args[0]);
-		ClientVersion cv = new ClientVersion(jar);
-		System.out.println(cv.getVersion());
+		predicate = and(item ->
+		{
+			for (int id : ids)
+			{
+				if (item.getId() == id)
+				{
+					return true;
+				}
+			}
+			return false;
+		});
+		return this;
 	}
 
-	public static int version(String loc)
+	public WidgetItemQuery idEquals(Collection<Integer> ids)
 	{
-		File jar = new File(loc);
-		ClientVersion cv = new ClientVersion(jar);
-		try
+		predicate = and((object) -> ids.contains(object.getId()));
+		return this;
+	}
+
+	public WidgetItemQuery indexEquals(int... indexes)
+	{
+		predicate = and(item ->
 		{
-			int version = cv.getVersion();
+			for (int index : indexes)
+			{
+				if (item.getIndex() == index)
+				{
+					return true;
+				}
+			}
+			return false;
+		});
+		return this;
+	}
 
-			Files.move(jar, new File(loc.replace("gamepack.jar", "gamepack-" + version + ".jar")));
+	public WidgetItemQuery quantityEquals(int quantity)
+	{
+		predicate = and(item -> item.getQuantity() == quantity);
+		return this;
+	}
 
-			return version;
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		return -1;
+	public WidgetItemQuery filter(Predicate<WidgetItem> other)
+	{
+		predicate = and(other);
+		return this;
 	}
 }

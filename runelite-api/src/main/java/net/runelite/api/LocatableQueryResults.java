@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, tha23rd <https://https://github.com/tha23rd>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api;
 
-package net.runelite.deob.clientver;
+import java.util.Collection;
+import java.util.Comparator;
+import javax.annotation.Nullable;
 
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.IOException;
-
-public class ClientVersionMain
+public class LocatableQueryResults<EntityType extends Locatable> extends QueryResults<EntityType>
 {
-	public static void main(String[] args) throws IOException
+
+	public LocatableQueryResults(Collection<? extends EntityType> results)
 	{
-		File jar = new File(args[0]);
-		ClientVersion cv = new ClientVersion(jar);
-		System.out.println(cv.getVersion());
+		super(results);
 	}
 
-	public static int version(String loc)
+	@Nullable
+	public EntityType nearestTo(Locatable locatable)
 	{
-		File jar = new File(loc);
-		ClientVersion cv = new ClientVersion(jar);
-		try
-		{
-			int version = cv.getVersion();
-
-			Files.move(jar, new File(loc.replace("gamepack.jar", "gamepack-" + version + ".jar")));
-
-			return version;
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		return -1;
+		return this.stream()
+				.min(Comparator.comparing(entityType -> entityType.getLocalLocation().distanceTo(locatable.getLocalLocation())))
+				.orElse(null);
 	}
+
 }
