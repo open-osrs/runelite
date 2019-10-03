@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableSet;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import jdk.internal.jline.internal.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.ItemID;
@@ -52,7 +51,6 @@ public enum Weapons
 		map = builder.build();
 	}
 
-	@Nullable
 	static Set<AbstractComparableEntry> getEntries(int id)
 	{
 		final Set<AbstractComparableEntry> entries = new HashSet<>();
