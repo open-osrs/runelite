@@ -88,10 +88,10 @@ public interface PlayerScouterConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "minimumTotalGear",
-			name = "Minimum Total Gear",
-			description = "Minimum value of gear for the player to be scouted.",
-			position = 5
+		keyName = "minimumTotalGear",
+		name = "Minimum Total Gear",
+		description = "Minimum value of gear for the player to be scouted.",
+		position = 5
 	)
 	default int minimumTotalGear()
 	{
