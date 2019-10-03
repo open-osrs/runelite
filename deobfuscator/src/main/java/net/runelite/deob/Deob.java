@@ -30,8 +30,6 @@ import java.io.IOException;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.execution.Execution;
 import net.runelite.deob.deobfuscators.CastNull;
-import net.runelite.deob.deobfuscators.StaticShouldBeInstance;
-import net.runelite.deob.deobfuscators.constparam.ConstantParameter;
 import net.runelite.deob.deobfuscators.EnumDeobfuscator;
 import net.runelite.deob.deobfuscators.FieldInliner;
 import net.runelite.deob.deobfuscators.IllegalStateExceptions;
@@ -39,6 +37,7 @@ import net.runelite.deob.deobfuscators.Lvt;
 import net.runelite.deob.deobfuscators.Order;
 import net.runelite.deob.deobfuscators.RenameUnique;
 import net.runelite.deob.deobfuscators.RuntimeExceptions;
+import net.runelite.deob.deobfuscators.StaticShouldBeInstance;
 import net.runelite.deob.deobfuscators.UnreachedCode;
 import net.runelite.deob.deobfuscators.UnusedClass;
 import net.runelite.deob.deobfuscators.UnusedFields;
@@ -49,6 +48,7 @@ import net.runelite.deob.deobfuscators.arithmetic.MultiplicationDeobfuscator;
 import net.runelite.deob.deobfuscators.arithmetic.MultiplyOneDeobfuscator;
 import net.runelite.deob.deobfuscators.arithmetic.MultiplyZeroDeobfuscator;
 import net.runelite.deob.deobfuscators.cfg.ControlFlowDeobfuscator;
+import net.runelite.deob.deobfuscators.constparam.ConstantParameter;
 import net.runelite.deob.deobfuscators.exprargorder.ExprArgOrder;
 import net.runelite.deob.deobfuscators.menuaction.MenuActionDeobfuscator;
 import net.runelite.deob.deobfuscators.transformers.ClientErrorTransformer;
@@ -64,7 +64,7 @@ public class Deob
 {
 	private static final Logger logger = LoggerFactory.getLogger(Deob.class);
 
-	public static final int OBFUSCATED_NAME_MAX_LEN = 2;
+	public static final int OBFUSCATED_NAME_MAX_LEN = 3;
 	private static final boolean CHECK_EXEC = false;
 
 	public static void main(String[] args) throws IOException
@@ -152,7 +152,15 @@ public class Deob
 
 	public static boolean isObfuscated(String name)
 	{
-		return name.length() <= OBFUSCATED_NAME_MAX_LEN || name.startsWith("method") || name.startsWith("vmethod") || name.startsWith("field") || name.startsWith("class") || name.startsWith("__");
+		if (name.length() <= OBFUSCATED_NAME_MAX_LEN)
+		{
+			return !name.equals("run") && !name.equals("add");
+		}
+		return name.startsWith("method")
+				|| name.startsWith("vmethod")
+				|| name.startsWith("field")
+				|| name.startsWith("class")
+				|| name.startsWith("__");
 	}
 
 	private static void runMath(ClassGroup group)
