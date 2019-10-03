@@ -119,14 +119,14 @@ class InfernoWaveMappings
 
 		ImmutableMap.Builder<Integer, String> nameMapBuilder = new ImmutableMap.Builder<>();
 
-		nameMapBuilder.put(32, "Jal-Nib - Level 32");
-		nameMapBuilder.put(85, "Jal-MejRah - Level 85");
-		nameMapBuilder.put(165, "Jal-Ak - Level 165");
-		nameMapBuilder.put(240, "Jal-ImKot - Level 240");
-		nameMapBuilder.put(370, "Jal-Xil - Level 370");
-		nameMapBuilder.put(490, "Jal-Zek - Level 490");
-		nameMapBuilder.put(900, "JalTok-Jad - Level 900");
-		nameMapBuilder.put(1400, "TzKal-Zuk - Level 1400");
+		nameMapBuilder.put(32, "Nibbler");
+		nameMapBuilder.put(85, "Bat");
+		nameMapBuilder.put(165, "Blob");
+		nameMapBuilder.put(240, "Melee");
+		nameMapBuilder.put(370, "Ranger");
+		nameMapBuilder.put(490, "Mage");
+		nameMapBuilder.put(900, "Big Bad Jad");
+		nameMapBuilder.put(1400, "Oh Boy You Gon' Die");
 
 		npcNameMapping = nameMapBuilder.build();
 	}
