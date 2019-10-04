@@ -85,7 +85,8 @@ processResources {
                 "project.version": project.version,
                 "rs.version": rsversion.toString(),
                 "runelite.plus.version": plusVersion.toString(),
-                "runelite.plus.builddate": buildDate.toString()
+                "runelite.plus.builddate": buildDate.toString(),
+                "launcher.version": launcherVersion
         ])
     }
 }
@@ -107,10 +108,11 @@ shadowJar {
     exclude("net/runelite/injector/**")
 }
 
-task copyToLib(type: Copy) {
-    into "$buildDir/lib"
-    from configurations.runtime
+task dependencyReportFile(type: DependencyReportTask) {
+    outputFile = file('dependencies.txt')
+    Set configs = [project.configurations.runtime]
+    setConfigurations(configs)
 }
 
 tasks.build.dependsOn tasks.shadowJar
-tasks.shadowJar.dependsOn tasks.copyToLib
+tasks.shadowJar.dependsOn tasks.dependencyReportFile
