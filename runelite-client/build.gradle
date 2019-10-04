@@ -86,7 +86,7 @@ processResources {
                 "rs.version": rsversion.toString(),
                 "runelite.plus.version": plusVersion.toString(),
                 "runelite.plus.builddate": buildDate.toString(),
-                "launcher.version": launcherVersion
+                "launcher.version": launcherVersion.toString()
         ])
     }
 }
@@ -110,7 +110,7 @@ shadowJar {
 
 task dependencyReportFile(type: DependencyReportTask) {
     outputFile = file('dependencies.txt')
-    Set configs = [project.configurations.runtime]
+    Set configs = [project.configurations.runtimeClasspath]
     setConfigurations(configs)
 }
 
