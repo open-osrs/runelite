@@ -85,7 +85,7 @@ processResources {
                 "project.version": project.version,
                 "rs.version": rsversion.toString(),
                 "open.osrs.version": plusVersion.toString(),
-                "open.osrs.builddate": buildDate.toString()
+                "open.osrs.builddate": buildDate.toString(),
                 "launcher.version": launcherVersion.toString()
         ])
     }
