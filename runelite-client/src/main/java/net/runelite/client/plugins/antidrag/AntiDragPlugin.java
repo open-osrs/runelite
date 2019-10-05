@@ -60,6 +60,8 @@ public class AntiDragPlugin extends Plugin
 
 	private boolean toggleDrag;
 
+	private boolean holdDrag;
+
 	@Inject
 	private Client client;
 
@@ -124,6 +126,7 @@ public class AntiDragPlugin extends Plugin
 		client.setInventoryDragDelay(DEFAULT_DELAY);
 		keyManager.unregisterKeyListener(hotkeyListener);
 		toggleDrag = false;
+		holdDrag = false;
 		overlayManager.remove(overlay);
 		clientUI.resetCursor();
 	}
@@ -226,9 +229,13 @@ public class AntiDragPlugin extends Plugin
 			{
 				return;
 			}
+			if (toggleKeyBind)
+			{
+				toggleDrag = !toggleDrag;
+			}
 
-			toggleDrag = !toggleDrag;
-			if (toggleDrag)
+			holdDrag = !holdDrag;
+			if (toggleDrag || holdDrag)
 			{
 				if (configOverlay)
 				{
@@ -257,8 +264,8 @@ public class AntiDragPlugin extends Plugin
 				return;
 			}
 
-			toggleDrag = !toggleDrag;
-			if (toggleDrag)
+			holdDrag = !holdDrag;
+			if (toggleDrag || holdDrag)
 			{
 				if (configOverlay)
 				{
