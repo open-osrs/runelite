@@ -10,13 +10,10 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.MenuOpcode;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.MessageNode;
+import net.runelite.api.*;
+
 import static net.runelite.api.ScriptID.CHATBOX_INPUT;
-import net.runelite.api.VarClientStr;
+
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.MenuEntryAdded;
@@ -221,7 +218,6 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 
 				try
 				{
-					//Automatically check language of message and translate to selected language.
 					String translation = translator.translate("auto", this.publicTargetLanguage.toShortString(), message);
 					if (translation != null)
 					{
@@ -264,7 +260,15 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			{
 				try
 				{
-					client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, translator.translate("auto", config.playerTargetLanguage().toShortString(), message));
+					if (config.playerTargetLanguage() == Languages.GERMAN)
+					{
+						// This is 'sort of' needed as German will translate the / and it will send to public-chat instead of clan-chat.
+						client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, "/" + translator.translate("auto", config.playerTargetLanguage().toShortString(), message));
+					}
+					else
+					{
+						client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, translator.translate("auto", config.playerTargetLanguage().toShortString(), message));
+					}
 				}
 				catch (Exception e)
 				{

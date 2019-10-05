@@ -9,7 +9,8 @@ public enum Languages
 	WELSH("Welsh", "cy"),
 	DUTCH("Dutch", "nl"),
 	SPANISH("Spanish", "es"),
-	FRENCH("French", "fr");
+	FRENCH("French", "fr"),
+	GERMAN("German", "de");
 
 	@Getter
 	private final String name;
