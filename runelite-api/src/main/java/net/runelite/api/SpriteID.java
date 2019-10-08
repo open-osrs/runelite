@@ -1564,6 +1564,7 @@ public final class SpriteID
 	public static final int MOBILE_FUNCTION_MODE_DISABLED = 1624;
 	public static final int MOBILE_YELLOW_TOUCH_ANIMATION_1 = 1625;
 	public static final int MOBILE_YELLOW_TOUCH_ANIMATION_2 = 1626;
+	public static final int MOBILE_FINGER_ON_INTERFACE = 1653;
 	/* Unmapped: 1627~1701 */
 	public static final int BUTTON_FRIENDS = 1702;
 	public static final int BUTTON_IGNORES = 1703;
@@ -1572,6 +1573,8 @@ public final class SpriteID
 	/* Unmapped: 1709, 1710 */
 	public static final int TAB_MAGIC_SPELLBOOK_ARCEUUS = 1711;
 	public static final int BIG_ASS_GUTHIX_SPELL = 1774;
+	public static final int BIG_ASS_GREY_ENTANGLE = 1788;
+	public static final int BIG_ASS_WHITE_ENTANGLE = 1789;
 	public static final int BIG_SUPERHEAT = 1800;
 	public static final int BIG_SPEC_TRANSFER = 1959;
 	/* Unmapped: 1712~2175 */

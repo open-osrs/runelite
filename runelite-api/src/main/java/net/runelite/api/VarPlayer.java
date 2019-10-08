@@ -53,7 +53,13 @@ public enum VarPlayer
 	IN_RAID_PARTY(1427),
 
 	NMZ_REWARD_POINTS(1060),
-	
+
+	/**
+	 * The 11 least significant bits of this var correspond to the player
+	 * you're currently fighting. Value is -1 when not fighting any player.
+	 *
+	 * Client.getVar(ATTACKING_PLAYER) & 2047 == Client.getLocalInteractingIndex();
+	 */
 	ATTACKING_PLAYER(1075),
 
 	/**
@@ -166,6 +172,10 @@ public enum VarPlayer
 	MUSIC_TRACKS_UNLOCKED_17(1338),
 	MUSIC_TRACKS_UNLOCKED_18(1681),
 	MUSIC_TRACKS_UNLOCKED_19(2065),
+
+	MUSIC_VOLUME(168),
+	SOUND_EFFECT_VOLUME(169),
+	AREA_EFFECT_VOLUME(872),
 
 	/**
 	 * f2p Quest varbits, these don't hold the completion value.

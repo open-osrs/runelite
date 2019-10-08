@@ -26,6 +26,9 @@ ext {
     localGitCommitShort = grgit.head().getAbbreviatedId(7)
     localGitDirty = !grgit.status().clean
 
+    // sets the minimum launcher version that is output for the bootstrapper
+    launcherVersion = '2.0.3'
+
     // Dependencies versions
     annotations = '17.0.0'
     antlr = '4.7.2'
@@ -37,14 +40,14 @@ ext {
     discord = '1.1'
     fernflower = '07082019'
     findbugs = '3.0.2'
-    gson = '2.8.5'
+    gson = '2.8.6'
     guava = '28.1-jre'
     guice = '4.2.2'
     h2 = '1.4.199'
     hamcrest = '2.1'
     httpcore = '4.4.12'
     httpmime = '4.5.10'
-    javassist = '3.25.0-GA'
+    javassist = '3.26.0-GA'
     javax = '1.3.2'
     javaxInject = '1'
     jbsdiff = '1.0'
@@ -60,7 +63,7 @@ ext {
     logback = '1.2.3'
     lombok = '1.18.10'
     mapstruct = '1.3.1.Final'
-    mariadbJdbc = '2.4.4'
+    mariadbJdbc = '2.5.0'
     mavenPluginAnnotations = '3.6.0'
     mavenPluginApi = '3.6.2'
     minio = '6.0.11'
@@ -68,17 +71,17 @@ ext {
     mongodbDriverSync = '3.11.0'
     mysqlConnectorJava = '8.0.17'
     netty = '4.1.42.Final'
-    okhttp3 = '4.2.0'
+    okhttp3 = '4.2.2'
     orangeExtensions = '1.0'
     petitparser = '2.2.0'
     plexus = '3.2.1'
-    rxjava = '2.2.12'
+    rxjava = '2.2.13'
     rxrelay = '2.1.1'
-    scribejava = '6.8.1'
+    scribejava = '6.9.0'
     sisu = '0.3.3'
     slf4j = '1.7.28'
     springJdbc = '5.2.0.RELEASE'
-    springboot = '2.1.8.RELEASE'
+    springboot = '2.1.9.RELEASE'
     sql2o = '1.6.0'
     substance = '8.0.02'
     trident = '1.5.00'
@@ -129,7 +132,7 @@ subprojects {
         maven { url "http://repo1.maven.org/maven2" }
         maven { url "http://repo.runelite.net" }
         maven { url "http://repo.maven.apache.org/maven2" }
-        maven { url "https://raw.githubusercontent.com/runelite-extended/maven-repo/master" }
+        maven { url "https://raw.githubusercontent.com/open-osrs/hosting/master" }
 
         if (System.getenv("NEXUS-URL") != null) {
             maven { url System.getenv("NEXUS-URL") }
