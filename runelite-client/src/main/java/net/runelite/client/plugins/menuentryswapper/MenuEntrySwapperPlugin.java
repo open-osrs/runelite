@@ -135,10 +135,14 @@ import org.apache.commons.lang3.ArrayUtils;
 @PluginDependency(PvpToolsPlugin.class)
 public class MenuEntrySwapperPlugin extends Plugin
 {
-	private static final String HOTKEY = "menuentryswapper hotkey";
-	private static final String CONTROL = "menuentryswapper control";
-	private static final String HOTKEY_CHECK = "menuentryswapper hotkey check";
-	private static final String CONTROL_CHECK = "menuentryswapper control check";
+	private static final Object HOTKEY = new Object();
+	private static final Object CONTROL = new Object();
+	private static final Object HOTKEY_CHECK = new Object();
+	private static final Object CONTROL_CHECK = new Object();
+	private static final Object JEWEL_CLICKED = new Object();
+	private static final Object JEWEL_TELE = new Object();
+	private static final Object JEWEL_WIDGET = new Object();
+
 	private static final int PURO_PURO_REGION_ID = 10307;
 	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
 		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
@@ -361,7 +365,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (config.lastJewel())
 		{
-			eventBus.subscribe(MenuOptionClicked.class, "duality and cruelty of poultry jewellery", this::onMenuOptionClicked);
+			eventBus.subscribe(MenuOptionClicked.class, JEWEL_CLICKED, this::onMenuOptionClicked);
 		}
 	}
 
@@ -420,11 +424,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 			case "lastJewel":
 				if (config.lastJewel())
 				{
-					eventBus.subscribe(MenuOptionClicked.class, "duality and cruelty of poultry jewellery", this::onMenuOptionClicked);
+					eventBus.subscribe(MenuOptionClicked.class, JEWEL_CLICKED, this::onMenuOptionClicked);
 				}
 				else
 				{
-					eventBus.unregister("duality and cruelty of poultry jewellery");
+					eventBus.unregister(JEWEL_CLICKED);
 				}
 				return;
 		}
@@ -749,7 +753,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			e.setOption("Teleport");
 			e.setOpcode(MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId());
 
-			eventBus.subscribe(ScriptCallbackEvent.class, "wait for widget", this::onScriptCallback);
+			eventBus.subscribe(ScriptCallbackEvent.class, JEWEL_WIDGET, this::onScriptCallback);
 		}
 	}
 
@@ -760,11 +764,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 			return;
 		}
 
-		eventBus.unregister("wait for widget");
+		eventBus.unregister(JEWEL_WIDGET);
 
 		// Use a event so we don't accidentally run another script before returning
 		// menu also is when jagex is probably expecting input like this so :)
-		eventBus.subscribe(Menu.class, "teleport", this::teleportInputs);
+		eventBus.subscribe(Menu.class, JEWEL_TELE, this::teleportInputs);
 	}
 
 	private void teleportInputs(Menu menu)
@@ -791,7 +795,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		args[ArrayUtils.indexOf(args, 0x80000004)] = 1;
 
 		client.runScript(args);
-		eventBus.unregister("teleport");
+		eventBus.unregister(JEWEL_TELE);
 
 		menu.dontRun();
 	}
