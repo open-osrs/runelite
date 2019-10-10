@@ -40,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import static net.runelite.api.ItemID.AGILITY_ARENA_TICKET;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
@@ -48,6 +49,7 @@ import net.runelite.api.Tile;
 import net.runelite.api.TileItem;
 import net.runelite.api.TileObject;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.BoostedLevelChanged;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.DecorativeObjectChanged;
@@ -64,7 +66,7 @@ import net.runelite.api.events.GroundObjectDespawned;
 import net.runelite.api.events.GroundObjectSpawned;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.WallObjectChanged;
 import net.runelite.api.events.WallObjectDespawned;
 import net.runelite.api.events.WallObjectSpawned;
@@ -89,6 +91,7 @@ import net.runelite.client.util.ColorUtil;
 public class AgilityPlugin extends Plugin
 {
 	private static final int AGILITY_ARENA_REGION_ID = 11157;
+	private static final Object MENU_SUBS = new Object();
 
 	@Getter(AccessLevel.PACKAGE)
 	private final Map<TileObject, Obstacle> obstacles = new HashMap<>();
@@ -163,13 +166,17 @@ public class AgilityPlugin extends Plugin
 	private Color trapColor;
 	private boolean notifyAgilityArena;
 	private boolean showAgilityArenaTimer;
-	private boolean showShortcutLevel;
 
 	@Override
 	protected void startUp() throws Exception
 	{
 		updateConfig();
 		addSubscriptions();
+
+		if (config.showShortcutLevel())
+		{
+			addMenuSubscriptions();
+		}
 
 		overlayManager.add(agilityOverlay);
 		overlayManager.add(lapCounterOverlay);
@@ -180,6 +187,7 @@ public class AgilityPlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		eventBus.unregister(this);
+		eventBus.unregister(MENU_SUBS);
 
 		overlayManager.remove(agilityOverlay);
 		overlayManager.remove(lapCounterOverlay);
@@ -210,7 +218,12 @@ public class AgilityPlugin extends Plugin
 		eventBus.subscribe(DecorativeObjectSpawned.class, this, this::onDecorativeObjectSpawned);
 		eventBus.subscribe(DecorativeObjectChanged.class, this, this::onDecorativeObjectChanged);
 		eventBus.subscribe(DecorativeObjectDespawned.class, this, this::onDecorativeObjectDespawned);
-		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
+	}
+
+	private void addMenuSubscriptions()
+	{
+		eventBus.subscribe(BeforeRender.class, MENU_SUBS, this::onBeforeRender);
+		eventBus.subscribe(MenuOpened.class, MENU_SUBS, this::onMenuOpened);
 	}
 
 	private void onGameStateChanged(GameStateChanged event)
@@ -244,6 +257,19 @@ public class AgilityPlugin extends Plugin
 			return;
 		}
 
+		if ("addLevelsToShortcutOptions".equals(event.getKey()))
+		{
+			if (config.showShortcutLevel())
+			{
+				addMenuSubscriptions();
+			}
+			else
+			{
+				eventBus.unregister(MENU_SUBS);
+			}
+			return;
+		}
+
 		updateConfig();
 
 		if (!this.showAgilityArenaTimer)
@@ -267,7 +293,6 @@ public class AgilityPlugin extends Plugin
 		this.trapColor = config.getTrapColor();
 		this.notifyAgilityArena = config.notifyAgilityArena();
 		this.showAgilityArenaTimer = config.showAgilityArenaTimer();
-		this.showShortcutLevel = config.showShortcutLevel();
 	}
 
 	private void onExperienceChanged(ExperienceChanged event)
@@ -494,31 +519,52 @@ public class AgilityPlugin extends Plugin
 		}
 	}
 
-	private void onMenuEntryAdded(MenuEntryAdded event)
+	private void onBeforeRender(BeforeRender event)
 	{
-		if (!this.showShortcutLevel)
+		if (client.isMenuOpen() || client.getMenuOptionCount() <= 0)
 		{
 			return;
 		}
 
-		//Guarding against non-first option because agility shortcuts are always that type of event.
-		if (event.getOpcode() != MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId())
+		final MenuEntry entry = client.getLeftClickMenuEntry();
+		if (checkAndModify(entry))
 		{
-			return;
+			client.setLeftClickMenuEntry(entry);
+		}
+	}
+
+	private void onMenuOpened(MenuOpened event)
+	{
+		boolean changed = false;
+		for (MenuEntry entry : event.getMenuEntries())
+		{
+			changed |= checkAndModify(entry);
+		}
+
+		event.setModified(changed);
+	}
+
+	private boolean checkAndModify(MenuEntry old)
+	{
+		//Guarding against non-first option because agility shortcuts are always that type of event.
+		if (old.getOpcode() != MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId())
+		{
+			return false;
 		}
 
 		for (Obstacle nearbyObstacle : getObstacles().values())
 		{
 			AgilityShortcut shortcut = nearbyObstacle.getShortcut();
-			if (shortcut != null && Ints.contains(shortcut.getObstacleIds(), event.getIdentifier()))
+			if (shortcut != null && Ints.contains(shortcut.getObstacleIds(), old.getIdentifier()))
 			{
 				final int reqLevel = shortcut.getLevel();
 				final String requirementText = ColorUtil.getLevelColorString(reqLevel, getAgilityLevel()) + "  (level-" + reqLevel + ")";
 
-				event.setTarget(event.getTarget() + requirementText);
-				event.setModified(true);
-				return;
+				old.setTarget(old.getTarget() + requirementText);
+				return true;
 			}
 		}
+
+		return false;
 	}
 }
