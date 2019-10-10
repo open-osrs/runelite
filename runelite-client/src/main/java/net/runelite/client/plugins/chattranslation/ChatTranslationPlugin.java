@@ -151,7 +151,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		int groupId = WidgetInfo.TO_GROUP(event.getActionParam1());
+		int groupId = WidgetInfo.TO_GROUP(event.getParam1());
 		String option = event.getOption();
 
 		if (groupId == WidgetInfo.CHATBOX.getGroupId())
@@ -165,8 +165,8 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			menuEntry.setOption(TRANSLATE);
 			menuEntry.setTarget(event.getTarget());
 			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
-			menuEntry.setParam0(event.getActionParam0());
-			menuEntry.setParam1(event.getActionParam1());
+			menuEntry.setParam0(event.getParam0());
+			menuEntry.setParam1(event.getParam1());
 			menuEntry.setIdentifier(event.getIdentifier());
 
 			MenuEntry[] newMenu = ObjectArrays.concat(menuEntry, client.getMenuEntries());

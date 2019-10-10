@@ -33,11 +33,11 @@ import static java.lang.Math.min;
 import java.util.List;
 import javax.inject.Inject;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.MenuOpcode;
-import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
@@ -377,20 +377,18 @@ public class DevToolsPlugin extends Plugin
 		}
 	}
 
-	private void onMenuEntryAdded(MenuEntryAdded event)
+	private void onMenuEntryAdded(MenuEntryAdded entry)
 	{
 		if (!examine.isActive())
 		{
 			return;
 		}
 
-		MenuOpcode action = MenuOpcode.of(event.getType());
+		MenuOpcode action = MenuOpcode.of(entry.getOpcode());
 
 		if (EXAMINE_MENU_ACTIONS.contains(action))
 		{
-			final MenuEntry entry = event.getMenuEntry();
-
-			final int identifier = event.getIdentifier();
+			final int identifier = entry.getIdentifier();
 			String info = "ID: ";
 
 			if (action == MenuOpcode.EXAMINE_NPC)
@@ -410,7 +408,7 @@ public class DevToolsPlugin extends Plugin
 			}
 
 			entry.setTarget(entry.getTarget() + " " + ColorUtil.prependColorTag("(" + info + ")", JagexColors.MENU_TARGET));
-			event.setWasModified(true);
+			entry.setModified(true);
 		}
 	}
 

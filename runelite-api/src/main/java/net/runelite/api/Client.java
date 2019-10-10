@@ -1806,6 +1806,22 @@ public interface Client extends GameShell
 	 */
 	void insertMenuItem(String action, String target, int opcode, int identifier, int argument1, int argument2, boolean forceLeftClick);
 
+	/**
+	 * InvokeMenuAction, widget default specific
+	 *
+	 * @param opIndex index in menu array
+	 * @param parent parent widgetID
+	 * @param childIdx index in child array
+	 * @param itemID widget specific item id
+	 * @param target target name
+	 */
+	void widgetDefaultMenuAction(int opIndex, int parent, int childIdx, int itemID, String target);
+
+	short getHorizontalFov();
+	short getVerticalFov();
+	void setHorizontalFov(short s);
+	void setVerticalFov(short s);
+
 	void setSelectedItemID(int id);
 
 	void setSelectedItemWidget(int widgetID);
@@ -1839,4 +1855,22 @@ public interface Client extends GameShell
 	 * @param oldWidth old width
 	 */
 	void scaleSprite(int[] canvas, int[] pixels, int color, int pixelX, int pixelY, int canvasIdx, int canvasOffset, int newWidth, int newHeight, int pixelWidth, int pixelHeight, int oldWidth);
+
+	/**
+	 * Get the MenuEntry at client.getMenuOptionCount() - 1
+	 *
+	 * This is useful so you don't have to use getMenuEntries,
+	 * which will create a big array, when you only want to change
+	 * the left click one.
+	 */
+	MenuEntry getLeftClickMenuEntry();
+
+	/**
+	 * Set the MenuEntry at client.getMenuOptionCount() - 1
+	 *
+	 * This is useful so you don't have to use setMenuEntries,
+	 * which will arraycopy a big array to several smaller arrays lol,
+	 * when you only want to change the left click one.
+	 */
+	void setLeftClickMenuEntry(MenuEntry entry);
 }

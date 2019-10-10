@@ -24,10 +24,8 @@
  */
 package net.runelite.api;
 
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * A menu entry in a right-click menu.
@@ -46,7 +44,6 @@ public class MenuEntry
 	 * If the option does not apply to any target, this field
 	 * will be set to empty string.
 	 */
-	@Setter(AccessLevel.NONE)
 	private String target;
 	/**
 	 * An identifier value for the target of the action.
@@ -97,8 +94,11 @@ public class MenuEntry
 		);
 	}
 
-	public void setTarget(String target)
+	/**
+	 * Get opcode, but as it's enum counterpart
+	 */
+	public MenuOpcode getMenuOpcode()
 	{
-		this.target = target;
+		return MenuOpcode.of(getOpcode());
 	}
 }
