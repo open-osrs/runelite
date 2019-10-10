@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class MenuEntry
+public class MenuEntry implements Cloneable
 {
 	/**
 	 * The option text added to the menu (ie. "Walk here", "Use").
@@ -81,17 +81,17 @@ public class MenuEntry
 		this.forceLeftClick = forceLeftClick;
 	}
 
-	public static MenuEntry copy(MenuEntry src)
+	@Override
+	public MenuEntry clone()
 	{
-		return new MenuEntry(
-			src.getOption(),
-			src.getTarget(),
-			src.getIdentifier(),
-			src.getOpcode(),
-			src.getParam0(),
-			src.getParam1(),
-			src.isForceLeftClick()
-		);
+		try
+		{
+			return (MenuEntry) super.clone();
+		}
+		catch (CloneNotSupportedException ex)
+		{
+			throw new RuntimeException(ex);
+		}
 	}
 
 	/**
