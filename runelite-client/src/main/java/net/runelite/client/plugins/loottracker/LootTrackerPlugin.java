@@ -71,6 +71,10 @@ import net.runelite.api.widgets.WidgetID;
 import net.runelite.client.account.AccountSession;
 import net.runelite.client.account.SessionManager;
 import net.runelite.client.callback.ClientThread;
+import net.runelite.client.chat.ChatColorType;
+import net.runelite.client.chat.ChatMessageBuilder;
+import net.runelite.client.chat.ChatMessageManager;
+import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.NpcLootReceived;
@@ -86,6 +90,7 @@ import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
+import net.runelite.client.util.StackFormatter;
 import net.runelite.client.util.Text;
 import net.runelite.http.api.loottracker.GameItem;
 import net.runelite.http.api.loottracker.LootRecord;
@@ -157,6 +162,9 @@ public class LootTrackerPlugin extends Plugin
 
 	@Inject
 	private ScheduledExecutorService executor;
+
+	@Inject
+	private ChatMessageManager chatMessageManager;
 
 	private LootTrackerPanel panel;
 	private NavigationButton navButton;
@@ -354,6 +362,31 @@ public class LootTrackerPlugin extends Plugin
 		final int combat = player.getCombatLevel();
 		final LootTrackerItem[] entries = buildEntries(stack(items));
 		SwingUtilities.invokeLater(() -> panel.add(name, combat, entries));
+
+		if (config.pvpKillChatMessage())
+		{
+			long totalPrice = 0;
+
+			for (final ItemStack itemStack : items)
+			{
+				totalPrice += (long) itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity();
+			}
+
+			final String message = new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append("You've killed ")
+				.append(name)
+				.append(" for ")
+				.append(StackFormatter.quantityToStackSize(totalPrice))
+				.append(" loot.")
+				.build();
+
+			chatMessageManager.queue(
+				QueuedMessage.builder()
+					.type(ChatMessageType.CONSOLE)
+					.runeLiteFormattedMessage(message)
+					.build());
+		}
 
 		if (config.saveLoot())
 		{
