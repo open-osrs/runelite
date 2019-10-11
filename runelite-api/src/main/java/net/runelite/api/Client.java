@@ -1819,4 +1819,42 @@ public interface Client extends GameShell
 	void setSelectedSpellWidget(int widgetID);
 
 	void setSelectedSpellChildIndex(int index);
+
+	/**
+	 * Scales values from pixels onto canvas
+	 *
+	 * @see net.runelite.client.util.ImageUtil#resizeSprite(Client, Sprite, int, int)
+	 *
+	 * @param canvas the array we're writing to
+	 * @param pixels pixels to draw
+	 * @param color should be 0
+	 * @param pixelX x index
+	 * @param pixelY y index
+	 * @param canvasIdx index in canvas (canvas[canvasIdx])
+	 * @param canvasOffset x offset
+	 * @param newWidth new width
+	 * @param newHeight new height
+	 * @param pixelWidth pretty much horizontal scale
+	 * @param pixelHeight pretty much vertical scale
+	 * @param oldWidth old width
+	 */
+	void scaleSprite(int[] canvas, int[] pixels, int color, int pixelX, int pixelY, int canvasIdx, int canvasOffset, int newWidth, int newHeight, int pixelWidth, int pixelHeight, int oldWidth);
+
+	/**
+	 * Get the MenuEntry at client.getMenuOptionCount() - 1
+	 *
+	 * This is useful so you don't have to use getMenuEntries,
+	 * which will create a big array, when you only want to change
+	 * the left click one.
+	 */
+	MenuEntry getLeftClickMenuEntry();
+
+	/**
+	 * Set the MenuEntry at client.getMenuOptionCount() - 1
+	 *
+	 * This is useful so you don't have to use setMenuEntries,
+	 * which will arraycopy a big array to several smaller arrays lol,
+	 * when you only want to change the left click one.
+	 */
+	void setLeftClickMenuEntry(MenuEntry entry);
 }

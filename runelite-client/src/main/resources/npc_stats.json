@@ -17003,7 +17003,8 @@
     "name": "Leon d'Cour",
     "hitpoints": 123,
     "combatLevel": 141,
-    "attackSpeed": 4
+    "attackSpeed": 4,
+    "defenceLevel": 69
   },
   "3361": {
     "name": "Kourend guard",
@@ -37548,6 +37549,7 @@
     "name": "Sarachnis",
     "hitpoints": 400,
     "combatLevel": 318,
+    "slayerLevel": 1,
     "attackSpeed": 4,
     "attackLevel": 200,
     "strengthLevel": 240,
@@ -38184,8 +38186,9 @@
   },
   "9258": {
     "name": "Basilisk Sentinel",
+    "hitpoints": 550,
     "combatLevel": 358,
-    "slayerLevel": 40,
+    "slayerLevel": 60,
     "attackSpeed": 4,
     "attackLevel": 274,
     "strengthLevel": 274,
