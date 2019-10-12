@@ -2,7 +2,7 @@
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * Copyright (c) 2019, alanbaumgartner <https://github.com/alanbaumgartner>
  * Copyright (c) 2019, Kyle <https://github.com/kyleeld>
- * Copyright (c) 2019, lucouswin <https://github.com/lucouswin>
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,6 +54,7 @@ import net.runelite.client.plugins.menuentryswapper.util.QuestCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.RingOfWealthMode;
 import net.runelite.client.plugins.menuentryswapper.util.SkillsNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
+import net.runelite.client.plugins.menuentryswapper.util.SwapGrimyHerbMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
 
 
@@ -1127,6 +1128,32 @@ public interface MenuEntrySwapperConfig extends Config
 		return false;
 	}
 
+	@ConfigItem(
+		keyName = "swapGrimyHerb",
+		name = "Grimy Herbs",
+		description = "",
+		position = 6,
+		section = "skillingSection"
+	)
+	default boolean getSwapGrimyHerb()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "swapGrimyHerbMode",
+		name = "Mode",
+		description = "",
+		position = 7,
+		section = "skillingSection",
+		hidden = true,
+		unhide = "swapGrimyHerb"
+	)
+	default SwapGrimyHerbMode swapGrimyHerbMode()
+	{
+		return SwapGrimyHerbMode.DYNAMIC;
+	}
+
 	//------------------------------------------------------------//
 	// Talk-To
 	//------------------------------------------------------------//
@@ -1291,6 +1318,17 @@ public interface MenuEntrySwapperConfig extends Config
 	//------------------------------------------------------------//
 	// Teleportation
 	//------------------------------------------------------------//
+
+	@ConfigItem(
+		keyName = "lastJewel",
+		name = "Last Destination for Jewellery Box",
+		description = "Adds a \"Last-destination\" menu option when Jewellery Boxes are right clicked",
+		section = "teleportationSection"
+	)
+	default boolean lastJewel()
+	{
+		return true;
+	}
 
 	@ConfigItem(
 		keyName = "swapFairyRing",
@@ -1913,4 +1951,23 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return "cure other, energy transfer, heal other, vengeance other";
 	}
+
+	@ConfigItem(
+		keyName = "lastDes",
+		name = "",
+		description = "Last jewellery box destination (option)",
+		hidden = true
+	)
+	default String lastDes()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "lastDes",
+		name = "",
+		description = "Last jewellery box destination (option)",
+		hidden = true
+	)
+	void lastDes(String des);
 }

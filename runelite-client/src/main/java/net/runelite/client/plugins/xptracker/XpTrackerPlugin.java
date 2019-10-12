@@ -292,6 +292,17 @@ public class XpTrackerPlugin extends Plugin
 	}
 
 	/**
+	 * Check if there is an overlay on the canvas for the skill.
+	 *
+	 * @param skill the skill which should have an overlay.
+	 * @return true if the skill has an overlay.
+	 */
+	boolean hasOverlay(final Skill skill)
+	{
+		return overlayManager.anyMatch(o -> o instanceof XpInfoBoxOverlay && ((XpInfoBoxOverlay) o).getSkill() == skill);
+	}
+
+	/**
 	 * Reset internal state and re-initialize all skills with XP currently cached by the RS client
 	 * This is called by the user manually clicking resetSkillState in the UI.
 	 * It reloads the current skills from the client after resetting internal state.
@@ -487,7 +498,7 @@ public class XpTrackerPlugin extends Plugin
 
 	private void onMenuEntryAdded(final MenuEntryAdded event)
 	{
-		int widgetID = event.getActionParam1();
+		int widgetID = event.getParam1();
 
 		if (TO_GROUP(widgetID) != WidgetID.SKILLS_GROUP_ID
 			|| !event.getOption().startsWith("View")
@@ -506,7 +517,7 @@ public class XpTrackerPlugin extends Plugin
 		MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
 		menuEntry.setTarget(skillText);
 		menuEntry.setOption(hasOverlay(skill) ? MENUOP_REMOVE_CANVAS_TRACKER : MENUOP_ADD_CANVAS_TRACKER);
-		menuEntry.setParam0(event.getActionParam0());
+		menuEntry.setParam0(event.getParam0());
 		menuEntry.setParam1(widgetID);
 		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
@@ -516,7 +527,7 @@ public class XpTrackerPlugin extends Plugin
 	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		if (event.getMenuOpcode().getId() != MenuOpcode.RUNELITE.getId()
-			|| TO_GROUP(event.getActionParam1()) != WidgetID.SKILLS_GROUP_ID)
+			|| TO_GROUP(event.getParam1()) != WidgetID.SKILLS_GROUP_ID)
 		{
 			return;
 		}
@@ -733,11 +744,6 @@ public class XpTrackerPlugin extends Plugin
 		{
 			pauseSkill(skill, pause);
 		}
-	}
-
-	private boolean hasOverlay(final Skill skill)
-	{
-		return overlayManager.anyMatch(o -> o instanceof XpInfoBoxOverlay && ((XpInfoBoxOverlay) o).getSkill() == skill);
 	}
 	
 	private void onConfigChanged(ConfigChanged event)
