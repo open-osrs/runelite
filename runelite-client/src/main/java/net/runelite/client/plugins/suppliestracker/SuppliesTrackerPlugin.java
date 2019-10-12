@@ -389,7 +389,7 @@ public class SuppliesTrackerPlugin extends Plugin
 	{
 		ItemContainer itemContainer = itemContainerChanged.getItemContainer();
 
-		if (itemContainer == client.getItemContainer(InventoryID.INVENTORY) && old != null && !actionStack.isEmpty())
+		if (itemContainer == client.getItemContainer(InventoryID.INVENTORY) && old != null)
 		{
 			while (!actionStack.isEmpty())
 			{
@@ -517,7 +517,7 @@ public class SuppliesTrackerPlugin extends Plugin
 		// Create pattern to find eat/drink at beginning
 		Pattern eatPattern = Pattern.compile(EAT_PATTERN);
 		Pattern drinkPattern = Pattern.compile(DRINK_PATTERN);
-		if ((eatPattern.matcher(event.getTarget().toLowerCase()).find() || drinkPattern.matcher(event.getTarget().toLowerCase()).find()) &&
+		if ((eatPattern.matcher(event.getOption().toLowerCase()).find() || drinkPattern.matcher(event.getOption().toLowerCase()).find()) &&
 			actionStack.stream().noneMatch(a ->
 			{
 				if (a instanceof MenuAction.ItemAction)
@@ -529,10 +529,10 @@ public class SuppliesTrackerPlugin extends Plugin
 			}))
 		{
 			old = client.getItemContainer(InventoryID.INVENTORY);
-			int slot = event.getActionParam0();
+			int slot = event.getParam0();
 			if (old.getItems() != null)
 			{
-				int pushItem = old.getItems()[event.getActionParam0()].getId();
+				int pushItem = old.getItems()[event.getParam0()].getId();
 				MenuAction newAction = new MenuAction.ItemAction(CONSUMABLE, old.getItems(), pushItem, slot);
 				actionStack.push(newAction);
 			}
@@ -551,7 +551,7 @@ public class SuppliesTrackerPlugin extends Plugin
 				a.getType() == TELEPORT))
 			{
 				int teleid = event.getIdentifier();
-				MenuAction newAction = new MenuAction.ItemAction(TELEPORT, old.getItems(), teleid, event.getActionParam0());
+				MenuAction newAction = new MenuAction.ItemAction(TELEPORT, old.getItems(), teleid, event.getParam0());
 				actionStack.push(newAction);
 			}
 		}

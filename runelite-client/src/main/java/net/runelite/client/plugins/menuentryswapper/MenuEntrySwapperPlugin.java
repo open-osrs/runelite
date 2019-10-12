@@ -3,7 +3,7 @@
  * Copyright (c) 2018, Kamiel
  * Copyright (c) 2019, alanbaumgartner <https://github.com/alanbaumgartner>
  * Copyright (c) 2019, Kyle <https://github.com/kyleeld>
- * Copyright (c) 2019, lucouswin <https://github.com/lucouswin>
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,10 +65,16 @@ import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.Menu;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
+import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.util.Text;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetID;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.Keybind;
@@ -85,6 +91,7 @@ import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.menuentryswapper.comparables.BankComparableEntry;
 import net.runelite.client.plugins.menuentryswapper.comparables.EquipmentComparableEntry;
+import net.runelite.client.plugins.menuentryswapper.comparables.GrimyHerbComparableEntry;
 import net.runelite.client.plugins.menuentryswapper.comparables.InventoryComparableEntry;
 import net.runelite.client.plugins.menuentryswapper.comparables.ShopComparableEntry;
 import net.runelite.client.plugins.menuentryswapper.comparables.WithdrawComparableEntry;
@@ -102,6 +109,7 @@ import net.runelite.client.plugins.menuentryswapper.util.GamesNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.GloryMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseAdvertisementMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
+import net.runelite.client.plugins.menuentryswapper.util.JewelleryBoxDestination;
 import net.runelite.client.plugins.menuentryswapper.util.MaxCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.NecklaceOfPassageMode;
 import net.runelite.client.plugins.menuentryswapper.util.ObeliskMode;
@@ -110,11 +118,13 @@ import net.runelite.client.plugins.menuentryswapper.util.QuestCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.RingOfWealthMode;
 import net.runelite.client.plugins.menuentryswapper.util.SkillsNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
+import net.runelite.client.plugins.menuentryswapper.util.SwapGrimyHerbMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
 import net.runelite.client.plugins.pvptools.PvpToolsConfig;
 import net.runelite.client.plugins.pvptools.PvpToolsPlugin;
 import net.runelite.client.util.HotkeyListener;
 import static net.runelite.client.util.MenuUtil.swap;
+import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
 	name = "Menu Entry Swapper",
@@ -127,10 +137,14 @@ import static net.runelite.client.util.MenuUtil.swap;
 @PluginDependency(PvpToolsPlugin.class)
 public class MenuEntrySwapperPlugin extends Plugin
 {
-	private static final String HOTKEY = "menuentryswapper hotkey";
-	private static final String CONTROL = "menuentryswapper control";
-	private static final String HOTKEY_CHECK = "menuentryswapper hotkey check";
-	private static final String CONTROL_CHECK = "menuentryswapper control check";
+	private static final Object HOTKEY = new Object();
+	private static final Object CONTROL = new Object();
+	private static final Object HOTKEY_CHECK = new Object();
+	private static final Object CONTROL_CHECK = new Object();
+	private static final Object JEWEL_CLICKED = new Object();
+	private static final Object JEWEL_TELE = new Object();
+	private static final Object JEWEL_WIDGET = new Object();
+
 	private static final int PURO_PURO_REGION_ID = 10307;
 	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
 		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
@@ -206,6 +220,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private OccultAltarMode swapOccultMode;
 	private QuestCapeMode questCapeMode;
 	private RingOfWealthMode getRingofWealthMode;
+	private SwapGrimyHerbMode swapGrimyHerbMode;
 	private Set<String> hideCastIgnoredCoX;
 	private Set<String> hideCastIgnoredToB;
 	private SkillsNecklaceMode getSkillsNecklaceMode;
@@ -230,6 +245,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean getSwapExplorersRing;
 	private boolean getSwapMagicCape;
 	private boolean getSwapPuro;
+	private boolean getSwapGrimyHerb;
 	private boolean getSwapSawmill;
 	private boolean getSwapSawmillPlanks;
 	private boolean getSwapTanning;
@@ -286,6 +302,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapTravel;
 	private boolean swapWildernessLever;
 
+	private JewelleryBoxDestination lastDes;
+
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
 	{
@@ -295,6 +313,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Override
 	public void startUp()
 	{
+		this.lastDes = JewelleryBoxDestination.withOption(config.lastDes());
+
 		migrateConfig();
 		updateConfig();
 		addSubscriptions();
@@ -346,6 +366,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		eventBus.subscribe(MenuOpened.class, this, this::onMenuOpened);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
 		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
+
+		if (config.lastJewel())
+		{
+			eventBus.subscribe(MenuOptionClicked.class, JEWEL_CLICKED, this::onMenuOptionClicked);
+		}
 	}
 
 	private void onFocusChanged(FocusChanged event)
@@ -399,6 +424,16 @@ public class MenuEntrySwapperPlugin extends Plugin
 			case "removeObjects":
 			case "removedObjects":
 				updateRemovedObjects();
+				return;
+			case "lastJewel":
+				if (config.lastJewel())
+				{
+					eventBus.subscribe(MenuOptionClicked.class, JEWEL_CLICKED, this::onMenuOptionClicked);
+				}
+				else
+				{
+					eventBus.unregister(JEWEL_CLICKED);
+				}
 				return;
 		}
 
@@ -524,6 +559,21 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 
+			if (config.lastJewel() && option.equals("teleport") && entry.getTarget().contains("Jewellery Box") && lastDes != null)
+			{
+				final MenuEntry lastDesEntry = new MenuEntry();
+
+				lastDesEntry.setOpcode(MenuOpcode.PRIO_RUNELITE.getId());
+				lastDesEntry.setOption(lastDes.getOption());
+
+				lastDesEntry.setTarget(entry.getTarget());
+				lastDesEntry.setIdentifier(entry.getIdentifier());
+				lastDesEntry.setParam0(entry.getParam0());
+				lastDesEntry.setParam1(entry.getParam1());
+
+				menu_entries.add(lastDesEntry);
+			}
+
 			menu_entries.add(entry);
 		}
 
@@ -562,7 +612,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.getSwapPuro && isPuroPuro())
 		{
-			if (event.getType() == WALK.getId())
+			if (event.getOpcode() == WALK.getId())
 			{
 				MenuEntry[] menuEntries = client.getMenuEntries();
 				MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
@@ -581,7 +631,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (hintArrowNpc != null
 			&& hintArrowNpc.getIndex() == eventId
-			&& NPC_MENU_TYPES.contains(MenuOpcode.of(event.getType())))
+			&& NPC_MENU_TYPES.contains(MenuOpcode.of(event.getOpcode())))
 		{
 			return;
 		}
@@ -598,26 +648,42 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 			List<String> invItemNames = new ArrayList<>();
-			if (target.equals("gourmet impling jar"))
-			{
-				if (client.getItemContainer(InventoryID.INVENTORY) != null)
-				{
-					for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
-					{
-						invItemNames.add(client.getItemDefinition((i.getId())).getName());
-					}
-					if ((invItemNames.contains("Clue scroll (easy)") || bankItemNames.contains("Clue scroll (easy)")))
-					{
-						menuManager.addSwap("loot", target, "use");
-					}
-					else
-					{
-						menuManager.removeSwaps(target);
-					}
-				}
-			}
 			switch (target)
 			{
+				case "gourmet impling jar":
+					if (client.getItemContainer(InventoryID.INVENTORY) != null)
+					{
+						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
+						{
+							invItemNames.add(client.getItemDefinition((i.getId())).getName());
+						}
+						if ((invItemNames.contains("Clue scroll (easy)") || bankItemNames.contains("Clue scroll (easy)")))
+						{
+							menuManager.addSwap("loot", target, "use");
+						}
+						else
+						{
+							menuManager.removeSwaps(target);
+						}
+					}
+					break;
+				case "young impling jar":
+					if (client.getItemContainer(InventoryID.INVENTORY) != null)
+					{
+						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
+						{
+							invItemNames.add(client.getItemDefinition((i.getId())).getName());
+						}
+						if (invItemNames.contains("Clue scroll (easy)") || bankItemNames.contains("Clue scroll (easy)") || invItemNames.contains("Clue scroll (beginner)") || bankItemNames.contains("Clue scroll (beginner)"))
+						{
+							menuManager.addSwap("loot", target, "use");
+						}
+						else
+						{
+							menuManager.removeSwaps(target);
+						}
+					}
+					break;
 				case "eclectic impling jar":
 					if (client.getItemContainer(InventoryID.INVENTORY) != null)
 					{
@@ -674,6 +740,83 @@ public class MenuEntrySwapperPlugin extends Plugin
 					break;
 			}
 		}
+	}
+
+	private void onMenuOptionClicked(MenuOptionClicked entry)
+	{
+		if (entry.getOpcode() == MenuOpcode.WIDGET_DEFAULT.getId() &&
+			WidgetInfo.TO_GROUP(entry.getParam1()) == WidgetID.JEWELLERY_BOX_GROUP_ID)
+		{
+			if (entry.getOption().equals(lastDes == null ? null : lastDes.getOption()))
+			{
+				return;
+			}
+
+			JewelleryBoxDestination newDest = JewelleryBoxDestination.withOption(entry.getOption());
+			if (newDest == null)
+			{
+				return;
+			}
+
+			lastDes = newDest;
+			config.lastDes(lastDes.getOption());
+		}
+		else if (entry.getOption().equals("Teleport") && entry.getTarget().contains("Jewellery Box"))
+		{
+			eventBus.unregister(JEWEL_WIDGET);
+		}
+		else if (lastDes != null &&
+			entry.getOpcode() == MenuOpcode.PRIO_RUNELITE.getId() &&
+			entry.getOption().equals(lastDes.getOption()))
+		{
+			entry.setOption("Teleport");
+			entry.setOpcode(MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId());
+
+			eventBus.subscribe(ScriptCallbackEvent.class, JEWEL_WIDGET, this::onScriptCallback);
+		}
+	}
+
+	private void onScriptCallback(ScriptCallbackEvent event)
+	{
+		if (!event.getEventName().equals("jewelleryBoxDone"))
+		{
+			return;
+		}
+
+		eventBus.unregister(JEWEL_WIDGET);
+
+		// Use a event so we don't accidentally run another script before returning
+		// menu also is when jagex is probably expecting input like this so :)
+		eventBus.subscribe(Menu.class, JEWEL_TELE, this::teleportInputs);
+	}
+
+	private void teleportInputs(Menu menu)
+	{
+		final Widget parent = client.getWidget(lastDes.getParent());
+		if (parent == null)
+		{
+			return;
+		}
+
+		final Widget child = parent.getChild(lastDes.getChildIndex());
+		if (child == null)
+		{
+			return;
+		}
+
+		Object[] args = child.getOnOp();
+		if (args == null)
+		{
+			return;
+		}
+
+		// Replace opIndex with 1
+		args[ArrayUtils.indexOf(args, 0x80000004)] = 1;
+
+		client.runScript(args);
+		eventBus.unregister(JEWEL_TELE);
+
+		menu.dontRun();
 	}
 
 	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map)
@@ -1157,6 +1300,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			menuManager.addPriorityEntry(this.swapHouseAdMode.getEntry());
 		}
+
+		if (this.getSwapGrimyHerb)
+		{
+			menuManager.addPriorityEntry(new GrimyHerbComparableEntry(this.swapGrimyHerbMode, client));
+		}
 	}
 
 	private void removeSwaps()
@@ -1269,6 +1417,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry(new EquipmentComparableEntry(this.getXericsTalismanMode.toString(), "talisman"));
 		menuManager.removePriorityEntry(new InventoryComparableEntry("Rub", "", false));
 		menuManager.removePriorityEntry(new InventoryComparableEntry("Teleport", "", false));
+		menuManager.removePriorityEntry(new GrimyHerbComparableEntry(this.swapGrimyHerbMode, client));
 		menuManager.removePriorityEntry(newBankComparableEntry("Empty", "Coal bag"));
 		menuManager.removePriorityEntry(this.constructionCapeMode.toString(), "Construct. cape");
 		menuManager.removePriorityEntry(this.constructionCapeMode.toString(), "Construct. cape(t)");
@@ -1562,6 +1711,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.getNecklaceofPassageMode = config.getNecklaceofPassageMode();
 		this.getRingofWealth = config.getRingofWealth();
 		this.getRingofWealthMode = config.getRingofWealthMode();
+		this.swapGrimyHerbMode = config.swapGrimyHerbMode();
 		this.getSkillsNecklace = config.getSkillsNecklace();
 		this.getSkillsNecklaceMode = config.getSkillsNecklaceMode();
 		this.getSlayerRing = config.getSlayerRing();
@@ -1572,6 +1722,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.getSwapExplorersRing = config.getSwapExplorersRing();
 		this.getSwapMagicCape = config.getSwapMagicCape();
 		this.getSwapPuro = config.getSwapPuro();
+		this.getSwapGrimyHerb = config.getSwapGrimyHerb();
 		this.getSwapSawmill = config.getSwapSawmill();
 		this.getSwapSawmillPlanks = config.getSwapSawmillPlanks();
 		this.getSwapTanning = config.getSwapTanning();
