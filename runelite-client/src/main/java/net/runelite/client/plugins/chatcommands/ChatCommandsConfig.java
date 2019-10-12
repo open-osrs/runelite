@@ -140,4 +140,12 @@ public interface ChatCommandsConfig extends Config
 	{
 		return true;
 	}
+
+	@ConfigItem(
+			position = 9,
+			keyName = "wiki",
+			name = "Wiki Command",
+			description = "Configures whether the wiki-lookup command is enabled<br> !wiki"
+	)
+	default boolean wiki(){ return false; }
 }

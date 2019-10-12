@@ -27,7 +27,11 @@ package net.runelite.client.plugins.chatcommands;
 
 import com.google.inject.Provides;
 import io.reactivex.schedulers.Schedulers;
+
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.regex.Matcher;
@@ -105,6 +109,7 @@ public class ChatCommandsPlugin extends Plugin
 	private static final String GC_COMMAND_STRING = "!gc";
 	private static final String PB_COMMAND = "!pb";
 	private static final String DUEL_ARENA_COMMAND = "!duels";
+	private static final String WIKI_COMMAND = "!wiki";
 
 	private final HiscoreClient hiscoreClient = new HiscoreClient();
 	private final ChatClient chatClient = new ChatClient();
@@ -165,6 +170,7 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.registerCommandAsync(GC_COMMAND_STRING, this::gambleCountLookup, this::gambleCountSubmit);
 		chatCommandManager.registerCommandAsync(PB_COMMAND, this::personalBestLookup, this::personalBestSubmit);
 		chatCommandManager.registerCommandAsync(DUEL_ARENA_COMMAND, this::duelArenaLookup, this::duelArenaSubmit);
+		chatCommandManager.registerCommandAsync(WIKI_COMMAND, this::wikiLookup);
 	}
 
 	@Override
@@ -186,6 +192,7 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.unregisterCommand(PB_COMMAND);
 		chatCommandManager.unregisterCommand(GC_COMMAND_STRING);
 		chatCommandManager.unregisterCommand(DUEL_ARENA_COMMAND);
+		chatCommandManager.unregisterCommand(WIKI_COMMAND);
 	}
 
 	private void addSubscriptions()
@@ -1146,6 +1153,36 @@ public class ChatCommandsPlugin extends Plugin
 		catch (IOException ex)
 		{
 			log.warn("error looking up clues", ex);
+		}
+	}
+
+	private void wikiLookup(ChatMessage chatMessage, String message)
+	{
+		if(!config.wiki())
+		{
+			return;
+		}
+
+		if(!sanitize(chatMessage.getName()).equals(client.getLocalPlayer().getName()))
+		{
+			return;
+		}
+
+		if (message.length() <= WIKI_COMMAND.length())
+		{
+			return;
+		}
+
+		try
+		{
+			String search = URLEncoder.encode(message.substring(WIKI_COMMAND.length() + 1), java.nio.charset.StandardCharsets.UTF_8.toString());
+
+			if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
+			{
+				Desktop.getDesktop().browse(new URI("https://oldschool.runescape.wiki/w/Special:Search?search=" + search));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
