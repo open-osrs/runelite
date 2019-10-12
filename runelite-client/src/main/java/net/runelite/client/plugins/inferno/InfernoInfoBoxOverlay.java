@@ -33,6 +33,7 @@ import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.SpriteID;
 import net.runelite.client.game.SpriteManager;
+import net.runelite.client.plugins.inferno.displaymodes.InfernoPrayerDisplayMode;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -41,7 +42,7 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
 @Singleton
-public class InfernoJadOverlay extends Overlay
+public class InfernoInfoBoxOverlay extends Overlay
 {
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 	private final Client client;
@@ -50,7 +51,7 @@ public class InfernoJadOverlay extends Overlay
 	private final PanelComponent imagePanelComponent = new PanelComponent();
 
 	@Inject
-	private InfernoJadOverlay(final Client client, final InfernoPlugin plugin, final SpriteManager spriteManager)
+	private InfernoInfoBoxOverlay(final Client client, final InfernoPlugin plugin, final SpriteManager spriteManager)
 	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 		setPriority(OverlayPriority.HIGH);
@@ -62,48 +63,51 @@ public class InfernoJadOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!plugin.isShowPrayerHelp() || (plugin.getPrayerOverlayMode() != InfernoPrayerOverlayMode.BOTTOM_RIGHT
-			&& plugin.getPrayerOverlayMode() != InfernoPrayerOverlayMode.BOTH))
+		if (plugin.getPrayerDisplayMode() != InfernoPrayerDisplayMode.BOTTOM_RIGHT
+			&& plugin.getPrayerDisplayMode() != InfernoPrayerDisplayMode.BOTH)
 		{
 			return null;
 		}
-
-		InfernoJad.Attack attack = null;
-		int leastTicks = 999;
-
-		for (InfernoJad jad : plugin.getJads())
-		{
-			if (jad.getNextAttack() == null || jad.getTicksTillNextAttack() < 1)
-			{
-				continue;
-			}
-
-			if (jad.getTicksTillNextAttack() < leastTicks)
-			{
-				leastTicks = jad.getTicksTillNextAttack();
-				attack = jad.getNextAttack();
-			}
-		}
-
-		if (attack == null)
-		{
-			return null;
-		}
-
-		final BufferedImage prayerImage = getPrayerImage(attack);
 
 		imagePanelComponent.getChildren().clear();
-		imagePanelComponent.getChildren().add(new ImageComponent(prayerImage));
-		imagePanelComponent.setBackgroundColor(client.isPrayerActive(attack.getPrayer())
-			? ComponentConstants.STANDARD_BACKGROUND_COLOR
-			: NOT_ACTIVATED_BACKGROUND_COLOR);
+
+		if (plugin.getClosestAttack() != null)
+		{
+			final BufferedImage prayerImage = getPrayerImage(plugin.getClosestAttack());
+
+			imagePanelComponent.getChildren().add(new ImageComponent(prayerImage));
+			imagePanelComponent.setBackgroundColor(client.isPrayerActive(plugin.getClosestAttack().getPrayer())
+				? ComponentConstants.STANDARD_BACKGROUND_COLOR
+				: NOT_ACTIVATED_BACKGROUND_COLOR);
+		}
+		else
+		{
+			imagePanelComponent.setBackgroundColor(ComponentConstants.STANDARD_BACKGROUND_COLOR);
+		}
 
 		return imagePanelComponent.render(graphics);
 	}
 
-	private BufferedImage getPrayerImage(InfernoJad.Attack attack)
+	private BufferedImage getPrayerImage(InfernoNPC.Attack attack)
 	{
-		final int prayerSpriteID = attack == InfernoJad.Attack.MAGIC ? SpriteID.PRAYER_PROTECT_FROM_MAGIC : SpriteID.PRAYER_PROTECT_FROM_MISSILES;
+		int prayerSpriteID;
+
+		switch (attack)
+		{
+			case MELEE:
+				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MELEE;
+				break;
+			case RANGED:
+				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MISSILES;
+				break;
+			case MAGIC:
+				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MAGIC;
+				break;
+			default:
+				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MAGIC;
+				break;
+		}
+
 		return spriteManager.getSprite(prayerSpriteID, 0);
 	}
 }
