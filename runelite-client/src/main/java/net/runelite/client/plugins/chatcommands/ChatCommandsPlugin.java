@@ -1158,12 +1158,12 @@ public class ChatCommandsPlugin extends Plugin
 
 	private void wikiLookup(ChatMessage chatMessage, String message)
 	{
-		if(!config.wiki())
+		if (!config.wiki())
 		{
 			return;
 		}
 
-		if(!sanitize(chatMessage.getName()).equals(client.getLocalPlayer().getName()))
+		if (!sanitize(chatMessage.getName()).equals(client.getLocalPlayer().getName()))
 		{
 			return;
 		}
@@ -1181,7 +1181,9 @@ public class ChatCommandsPlugin extends Plugin
 			{
 				Desktop.getDesktop().browse(new URI("https://oldschool.runescape.wiki/w/Special:Search?search=" + search));
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+        {
 			e.printStackTrace();
 		}
 	}
