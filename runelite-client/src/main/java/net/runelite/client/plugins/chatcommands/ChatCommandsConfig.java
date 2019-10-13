@@ -147,5 +147,8 @@ public interface ChatCommandsConfig extends Config
 			name = "Wiki Command",
 			description = "Configures whether the wiki-lookup command is enabled<br> !wiki"
 	)
-	default boolean wiki() { return false; }
+	default boolean wiki()
+	{
+		return false;
+	}
 }
