@@ -48,6 +48,7 @@ public class InfernoWaveOverlay extends Overlay
 			displayMode == InfernoWaveDisplayMode.BOTH)
 		{
 			addWaveComponent(
+				plugin,
 				panelComponent,
 				"Current Wave (Wave " + plugin.getCurrentWaveNumber() + ")",
 				plugin.getCurrentWaveNumber(),
@@ -60,6 +61,7 @@ public class InfernoWaveOverlay extends Overlay
 			displayMode == InfernoWaveDisplayMode.BOTH)
 		{
 			addWaveComponent(
+				plugin,
 				panelComponent,
 				"Next Wave (Wave " + plugin.getNextWaveNumber() + ")",
 				plugin.getNextWaveNumber(),

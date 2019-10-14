@@ -52,6 +52,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.plugins.inferno.displaymodes.InfernoNamingDisplayMode;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoPrayerDisplayMode;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoSafespotDisplayMode;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoWaveDisplayMode;
@@ -121,6 +122,7 @@ public class InfernoPlugin extends Plugin
 	private boolean finalPhase = false;
 	private NPC zukShield = null;
 	private WorldPoint zukShieldLastPosition = null;
+	private WorldPoint zukShieldBase = null;
 	private int zukShieldCornerTicks = -2;
 
 	@Getter(AccessLevel.PACKAGE)
@@ -154,6 +156,10 @@ public class InfernoPlugin extends Plugin
 	private boolean indicateWhenPrayingCorrectly;
 
 	private InfernoWaveDisplayMode waveDisplay;
+	@Getter(AccessLevel.PACKAGE)
+	private InfernoNamingDisplayMode npcNaming;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean npcLevels;
 	private Color getWaveOverlayHeaderColor;
 	private Color getWaveTextColor;
 
@@ -238,8 +244,6 @@ public class InfernoPlugin extends Plugin
 	{
 		updateConfig();
 		addSubscriptions();
-
-		//TODO: Config options
 
 		waveOverlay.setDisplayMode(this.waveDisplay);
 		waveOverlay.setWaveHeaderColor(this.getWaveOverlayHeaderColor);
@@ -368,6 +372,7 @@ public class InfernoPlugin extends Plugin
 			finalPhase = false;
 			zukShieldCornerTicks = -2;
 			zukShieldLastPosition = null;
+			zukShieldBase = null;
 		}
 		if (infernoNPCType == InfernoNPC.Type.HEALER_ZUK)
 		{
@@ -465,8 +470,6 @@ public class InfernoPlugin extends Plugin
 
 			overlayManager.add(infernoOverlay);
 			overlayManager.add(jadOverlay);
-
-			//TODO: Only add if prayhelper is on. Also check in configChanged and in srartUp/shutDown
 			overlayManager.add(prayerOverlay);
 
 			if (this.waveDisplay != InfernoWaveDisplayMode.NONE)
@@ -510,7 +513,7 @@ public class InfernoPlugin extends Plugin
 
 			if (infernoNPC.getType() == InfernoNPC.Type.ZUK && zukShieldCornerTicks == -1)
 			{
-				infernoNPC.updateNextAttack(InfernoNPC.Attack.UNKNOWN, 12);
+				infernoNPC.updateNextAttack(InfernoNPC.Attack.UNKNOWN, 12); // TODO: Could be 10 or 11. Test!
 				zukShieldCornerTicks = 0;
 			}
 
@@ -755,6 +758,7 @@ public class InfernoPlugin extends Plugin
 			if (zukShieldLastPosition != null && zukShieldLastPosition.getX() != zukShieldCurrentPosition.getX()
 				&& zukShieldCornerTicks == -2)
 			{
+				zukShieldBase = zukShieldLastPosition;
 				zukShieldCornerTicks = -1;
 			}
 
@@ -776,7 +780,15 @@ public class InfernoPlugin extends Plugin
 				else if ((finalPhase && safespotsZukShieldAfterHealers == InfernoZukShieldDisplayMode.PREDICT)
 					|| (!finalPhase && safespotsZukShieldBeforeHealers == InfernoZukShieldDisplayMode.PREDICT))
 				{
-					// TODO: Predict zuk shield safespots
+					if (zukShieldCornerTicks >= 0)
+					{
+						// TODO: Predict zuk shield safespots
+						// Calculate distance from zukShieldCurrentPosition to zukShieldBase.
+						// - If shield is not in corner: calculate next position in current direction (use
+						//   difference between current and last position to get direction)
+						// - If shield is in corner: increment zukShieldCornerTicks and predict next shield
+						//   position based on how many ticks the shield has been in the corner.
+					}
 				}
 			}
 		}
@@ -1064,6 +1076,8 @@ public class InfernoPlugin extends Plugin
 		this.indicateBlobDetectionTick = config.indicateBlobDetectionTick();
 
 		this.waveDisplay = config.waveDisplay();
+		this.npcNaming = config.npcNaming();
+		this.npcLevels = config.npcLevels();
 		this.getWaveOverlayHeaderColor = config.getWaveOverlayHeaderColor();
 		this.getWaveTextColor = config.getWaveTextColor();
 

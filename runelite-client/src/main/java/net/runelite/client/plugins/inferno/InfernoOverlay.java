@@ -293,7 +293,7 @@ public class InfernoOverlay extends Overlay
 		{
 			final int safeSpotId = plugin.getSafeSpotMap().get(worldPoint);
 
-			if (safeSpotId > 3)
+			if (safeSpotId > 6)
 			{
 				continue;
 			}
@@ -312,7 +312,6 @@ public class InfernoOverlay extends Overlay
 				continue;
 			}
 
-			// TODO: Config values
 			Color color;
 			switch (safeSpotId)
 			{
@@ -327,6 +326,15 @@ public class InfernoOverlay extends Overlay
 					break;
 				case 3:
 					color = Color.BLUE;
+					break;
+				case 4:
+					color = new Color(255, 255, 0);
+					break;
+				case 5:
+					color = new Color(255, 0, 255);
+					break;
+				case 6:
+					color = new Color(0, 255, 255);
 					break;
 				default:
 					continue;

@@ -32,6 +32,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
+import net.runelite.client.plugins.inferno.displaymodes.InfernoNamingDisplayMode;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoPrayerDisplayMode;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoSafespotDisplayMode;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoWaveDisplayMode;
@@ -307,7 +308,7 @@ public interface InfernoConfig extends Config
 	@ConfigItem(
 		position = 0,
 		keyName = "waveDisplay",
-		name = "Wave display",
+		name = "Wave Display",
 		description = "Shows monsters that will spawn on the selected wave(s).",
 		section = "WavesSection"
 	)
@@ -318,6 +319,30 @@ public interface InfernoConfig extends Config
 
 	@ConfigItem(
 		position = 1,
+		keyName = "npcNaming",
+		name = "NPC Naming",
+		description = "Simple (ex: Bat) or Complex (ex: Jal-MejRah) NPC naming",
+		section = "WavesSection"
+	)
+	default InfernoNamingDisplayMode npcNaming()
+	{
+		return InfernoNamingDisplayMode.SIMPLE;
+	}
+
+	@ConfigItem(
+		position = 2,
+		keyName = "npcLevels",
+		name = "NPC Levels",
+		description = "Show the combat level of the NPC next to their name",
+		section = "WavesSection"
+	)
+	default boolean npcLevels()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 3,
 		keyName = "getWaveOverlayHeaderColor",
 		name = "Wave Header",
 		description = "Color for Wave Header",
@@ -329,7 +354,7 @@ public interface InfernoConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 2,
+		position = 4,
 		keyName = "getWaveTextColor",
 		name = "Wave Text Color",
 		description = "Color for Wave Texts",
