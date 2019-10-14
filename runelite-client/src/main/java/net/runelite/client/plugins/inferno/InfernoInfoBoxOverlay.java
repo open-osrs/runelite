@@ -49,6 +49,9 @@ public class InfernoInfoBoxOverlay extends Overlay
 	private final InfernoPlugin plugin;
 	private final SpriteManager spriteManager;
 	private final PanelComponent imagePanelComponent = new PanelComponent();
+	private BufferedImage prayMeleeSprite;
+	private BufferedImage prayRangedSprite;
+	private BufferedImage prayMagicSprite;
 
 	@Inject
 	private InfernoInfoBoxOverlay(final Client client, final InfernoPlugin plugin, final SpriteManager spriteManager)
@@ -90,24 +93,29 @@ public class InfernoInfoBoxOverlay extends Overlay
 
 	private BufferedImage getPrayerImage(InfernoNPC.Attack attack)
 	{
-		int prayerSpriteID;
+		if (prayMeleeSprite == null)
+		{
+			prayMeleeSprite = spriteManager.getSprite(SpriteID.PRAYER_PROTECT_FROM_MELEE, 0);
+		}
+		if (prayRangedSprite == null)
+		{
+			prayRangedSprite = spriteManager.getSprite(SpriteID.PRAYER_PROTECT_FROM_MISSILES, 0);
+		}
+		if (prayMagicSprite == null)
+		{
+			prayMagicSprite = spriteManager.getSprite(SpriteID.PRAYER_PROTECT_FROM_MAGIC, 0);
+		}
 
 		switch (attack)
 		{
 			case MELEE:
-				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MELEE;
-				break;
+				return prayMeleeSprite;
 			case RANGED:
-				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MISSILES;
-				break;
+				return prayRangedSprite;
 			case MAGIC:
-				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MAGIC;
-				break;
-			default:
-				prayerSpriteID = SpriteID.PRAYER_PROTECT_FROM_MAGIC;
-				break;
+				return prayMagicSprite;
 		}
 
-		return spriteManager.getSprite(prayerSpriteID, 0);
+		return prayMagicSprite;
 	}
 }

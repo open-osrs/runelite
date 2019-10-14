@@ -48,7 +48,7 @@ public interface InfernoConfig extends Config
 		position = 0,
 		keyName = "PrayerSection"
 	)
-	default boolean PrayerSection()
+	default boolean prayerSection()
 	{
 		return false;
 	}
@@ -59,7 +59,7 @@ public interface InfernoConfig extends Config
 		position = 1,
 		keyName = "SafespotsSection"
 	)
-	default boolean SafespotsSection()
+	default boolean safespotsSection()
 	{
 		return false;
 	}
@@ -70,7 +70,7 @@ public interface InfernoConfig extends Config
 		position = 2,
 		keyName = "WavesSection"
 	)
-	default boolean WavesSection()
+	default boolean wavesSection()
 	{
 		return false;
 	}
@@ -81,7 +81,7 @@ public interface InfernoConfig extends Config
 		position = 3,
 		keyName = "ExtraSection"
 	)
-	default boolean ExtraSection()
+	default boolean extraSection()
 	{
 		return false;
 	}
@@ -92,7 +92,7 @@ public interface InfernoConfig extends Config
 		position = 4,
 		keyName = "NibblersSection"
 	)
-	default boolean NibblersSection()
+	default boolean nibblersSection()
 	{
 		return false;
 	}
@@ -103,7 +103,7 @@ public interface InfernoConfig extends Config
 		position = 5,
 		keyName = "BatsSection"
 	)
-	default boolean BatsSection()
+	default boolean batsSection()
 	{
 		return false;
 	}
@@ -114,7 +114,7 @@ public interface InfernoConfig extends Config
 		position = 6,
 		keyName = "BlobsSection"
 	)
-	default boolean BlobsSection()
+	default boolean blobsSection()
 	{
 		return false;
 	}
@@ -125,7 +125,7 @@ public interface InfernoConfig extends Config
 		position = 7,
 		keyName = "MeleersSection"
 	)
-	default boolean MeleersSection()
+	default boolean meleersSection()
 	{
 		return false;
 	}
@@ -136,7 +136,7 @@ public interface InfernoConfig extends Config
 		position = 8,
 		keyName = "RangersSection"
 	)
-	default boolean RangersSection()
+	default boolean rangersSection()
 	{
 		return false;
 	}
@@ -147,7 +147,7 @@ public interface InfernoConfig extends Config
 		position = 9,
 		keyName = "MagersSection"
 	)
-	default boolean MagersSection()
+	default boolean magersSection()
 	{
 		return false;
 	}
@@ -158,7 +158,7 @@ public interface InfernoConfig extends Config
 		position = 10,
 		keyName = "JadSection"
 	)
-	default boolean JadSection()
+	default boolean jadSection()
 	{
 		return false;
 	}
@@ -169,7 +169,7 @@ public interface InfernoConfig extends Config
 		position = 11,
 		keyName = "JadHealersSection"
 	)
-	default boolean JadHealersSection()
+	default boolean jadHealersSection()
 	{
 		return false;
 	}
@@ -180,7 +180,7 @@ public interface InfernoConfig extends Config
 		position = 12,
 		keyName = "ZukSection"
 	)
-	default boolean ZukSection()
+	default boolean zukSection()
 	{
 		return false;
 	}
@@ -191,7 +191,7 @@ public interface InfernoConfig extends Config
 		position = 13,
 		keyName = "ZukHealersSection"
 	)
-	default boolean ZukHealersSection()
+	default boolean zukHealersSection()
 	{
 		return false;
 	}

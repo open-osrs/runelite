@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -29,6 +31,7 @@ public class InfernoOverlay extends Overlay
 	private static final int TICK_PIXEL_SIZE = 60;
 	private static final int BLOB_WIDTH = 10;
 	private static final int BLOB_HEIGHT = 5;
+	private static final Rectangle BLOB_RECTANGLE = new Rectangle(BLOB_WIDTH, BLOB_HEIGHT);
 
 	private final InfernoPlugin plugin;
 	private final Client client;
@@ -378,13 +381,12 @@ public class InfernoOverlay extends Overlay
 			int bestPriority = 999;
 			InfernoNPC.Attack bestAttack = null;
 
-			for (InfernoNPC.Attack currentAttack : attackPriority.keySet())
+			for (Map.Entry<InfernoNPC.Attack, Integer> attackEntry : attackPriority.entrySet())
 			{
-				final int currentPriority = attackPriority.get(currentAttack);
-				if (currentPriority < bestPriority)
+				if (attackEntry.getValue() < bestPriority)
 				{
-					bestAttack = currentAttack;
-					bestPriority = currentPriority;
+					bestAttack = attackEntry.getKey();
+					bestPriority = attackEntry.getValue();
 				}
 			}
 
@@ -400,17 +402,15 @@ public class InfernoOverlay extends Overlay
 
 				int baseY = (int) prayerWidget.getBounds().getY() - tick * TICK_PIXEL_SIZE - BLOB_HEIGHT;
 				baseY += TICK_PIXEL_SIZE - ((plugin.getLastTick() + 600 - System.currentTimeMillis()) / 600.0 * TICK_PIXEL_SIZE);
-
-				final Polygon blob = new Polygon(new int[]{0, BLOB_WIDTH, BLOB_WIDTH, 0}, new int[]{0, 0, BLOB_HEIGHT, BLOB_HEIGHT}, 4);
-				blob.translate(baseX, baseY);
+				BLOB_RECTANGLE.translate(baseX, baseY);
 
 				if (currentAttack == bestAttack)
 				{
-					OverlayUtil.renderFilledPolygon(graphics, blob, color);
+					OverlayUtil.renderFilledPolygon(graphics, BLOB_RECTANGLE, color);
 				}
 				else if (plugin.isIndicateNonPriorityDescendingBoxes())
 				{
-					OverlayUtil.renderOutlinePolygon(graphics, blob, color);
+					OverlayUtil.renderOutlinePolygon(graphics, BLOB_RECTANGLE, color);
 				}
 			}
 		}

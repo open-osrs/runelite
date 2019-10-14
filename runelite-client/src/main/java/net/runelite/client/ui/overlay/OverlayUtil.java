@@ -72,29 +72,29 @@ public class OverlayUtil
 		graphics.setStroke(originalStroke);
 	}
 
-	public static void renderOutlinePolygon(Graphics2D graphics, Polygon poly, Color color)
+	public static void renderOutlinePolygon(Graphics2D graphics, Shape poly, Color color)
 	{
 		graphics.setColor(color);
 		final Stroke originalStroke = graphics.getStroke();
 		graphics.setStroke(new BasicStroke(2));
-		graphics.drawPolygon(poly);
+		graphics.draw(poly);
 		graphics.setStroke(originalStroke);
 	}
 
-	public static void renderFilledPolygon(Graphics2D graphics, Polygon poly, Color color)
+	public static void renderFilledPolygon(Graphics2D graphics, Shape poly, Color color)
 	{
 		graphics.setColor(color);
 		final Stroke originalStroke = graphics.getStroke();
 		graphics.setStroke(new BasicStroke(2));
-		graphics.drawPolygon(poly);
-		graphics.fillPolygon(poly);
+		graphics.draw(poly);
+		graphics.fill(poly);
 		graphics.setStroke(originalStroke);
 	}
 
-	public static void renderAreaTilePolygon(Graphics2D graphics, Polygon poly, Color color)
+	public static void renderAreaTilePolygon(Graphics2D graphics, Shape poly, Color color)
 	{
 		graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 10));
-		graphics.fillPolygon(poly);
+		graphics.fill(poly);
 	}
 
 	public static void renderFullLine(Graphics2D graphics, int[][] line, Color color)
