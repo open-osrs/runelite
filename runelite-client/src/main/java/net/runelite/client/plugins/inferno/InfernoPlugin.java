@@ -28,7 +28,6 @@ import com.google.inject.Provides;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
