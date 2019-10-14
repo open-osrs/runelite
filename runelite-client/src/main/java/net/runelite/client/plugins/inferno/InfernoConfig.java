@@ -802,7 +802,7 @@ public interface InfernoConfig extends Config
 
 	@ConfigItem(
 		position = 3,
-		keyName = "indicateActiveHealers",
+		keyName = "indicateActiveHealersJad",
 		name = "Indicate Active Healers",
 		description = "Indicate healers that are still healing Jad",
 		section = "JadHealersSection"
@@ -874,7 +874,7 @@ public interface InfernoConfig extends Config
 
 	@ConfigItem(
 		position = 0,
-		keyName = "indicateActiveHealers",
+		keyName = "indicateActiveHealersZuk",
 		name = "Indicate Active Healers (UNTESTED)",
 		description = "Indicate healers that are still healing Zuk",
 		section = "ZukHealersSection"
