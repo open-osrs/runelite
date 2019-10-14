@@ -39,6 +39,7 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.NPC;
+import net.runelite.api.NpcID;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ChatMessage;
@@ -71,7 +72,6 @@ import org.apache.commons.lang3.ArrayUtils;
 public class InfernoPlugin extends Plugin
 {
 	private static final int INFERNO_REGION = 9043;
-	private static final int ZUK_SHIELD = 7707;
 
 	@Inject
 	private Client client;
@@ -354,7 +354,7 @@ public class InfernoPlugin extends Plugin
 			return;
 		}
 
-		if (event.getNpc().getId() == ZUK_SHIELD)
+		if (event.getNpc().getId() == NpcID.ANCESTRAL_GLYPH)
 		{
 			zukShield = event.getNpc();
 		}
@@ -399,21 +399,12 @@ public class InfernoPlugin extends Plugin
 			return;
 		}
 
-		if (event.getNpc().getId() == ZUK_SHIELD)
+		if (event.getNpc().getId() == NpcID.ANCESTRAL_GLYPH)
 		{
 			zukShield = null;
 		}
 
-		Iterator<InfernoNPC> it = infernoNpcs.iterator();
-		while (it.hasNext())
-		{
-			InfernoNPC infernoNPC = it.next();
-
-			if (infernoNPC.getNpc() == event.getNpc())
-			{
-				it.remove();
-			}
-		}
+		infernoNpcs.removeIf(infernoNPC -> infernoNPC.getNpc() == event.getNpc());
 	}
 
 	private void onAnimationChanged(AnimationChanged event)
@@ -430,16 +421,7 @@ public class InfernoPlugin extends Plugin
 			if (ArrayUtils.contains(InfernoNPC.Type.NIBBLER.getNpcIds(), npc.getId())
 				&& npc.getAnimation() == 7576)
 			{
-				Iterator<InfernoNPC> it = infernoNpcs.iterator();
-				while (it.hasNext())
-				{
-					InfernoNPC infernoNPC = it.next();
-
-					if (infernoNPC.getNpc() == npc)
-					{
-						it.remove();
-					}
-				}
+				infernoNpcs.removeIf(infernoNPC -> infernoNPC.getNpc() == npc);
 			}
 		}
 	}
@@ -523,21 +505,13 @@ public class InfernoPlugin extends Plugin
 				|| (indicateBlobDetectionTick && infernoNPC.getType() == InfernoNPC.Type.BLOB
 				&& infernoNPC.getTicksTillNextAttack() >= 4)))
 			{
+				upcomingAttacks.computeIfAbsent(infernoNPC.getTicksTillNextAttack(), k -> new HashMap<>());
+
 				if (indicateBlobDetectionTick && infernoNPC.getType() == InfernoNPC.Type.BLOB
 					&& infernoNPC.getTicksTillNextAttack() >= 4)
 				{
-					if (!upcomingAttacks.containsKey(infernoNPC.getTicksTillNextAttack()))
-					{
-						upcomingAttacks.put(infernoNPC.getTicksTillNextAttack(), new HashMap<>());
-					}
-					if (!upcomingAttacks.containsKey(infernoNPC.getTicksTillNextAttack() - 3))
-					{
-						upcomingAttacks.put(infernoNPC.getTicksTillNextAttack() - 3, new HashMap<>());
-					}
-					if (!upcomingAttacks.containsKey(infernoNPC.getTicksTillNextAttack() - 4))
-					{
-						upcomingAttacks.put(infernoNPC.getTicksTillNextAttack() - 4, new HashMap<>());
-					}
+					upcomingAttacks.computeIfAbsent(infernoNPC.getTicksTillNextAttack() - 3, k -> new HashMap<>());
+					upcomingAttacks.computeIfAbsent(infernoNPC.getTicksTillNextAttack() - 4, k -> new HashMap<>());
 
 					// If there's already a magic attack on the detection tick, group them
 					if (upcomingAttacks.get(infernoNPC.getTicksTillNextAttack() - 3).containsKey(InfernoNPC.Attack.MAGIC))
@@ -583,11 +557,6 @@ public class InfernoPlugin extends Plugin
 				}
 				else
 				{
-					if (!upcomingAttacks.containsKey(infernoNPC.getTicksTillNextAttack()))
-					{
-						upcomingAttacks.put(infernoNPC.getTicksTillNextAttack(), new HashMap<>());
-					}
-
 					final InfernoNPC.Attack attack = infernoNPC.getNextAttack();
 					final int priority = infernoNPC.getType().getPriority();
 
