@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.AnimationID;
@@ -49,10 +50,10 @@ public class InfernoNPC
 	private Attack nextAttack;
 	@Getter(AccessLevel.PACKAGE)
 	private int ticksTillNextAttack;
-	private int lastAnimation = -1;
+	private int lastAnimation;
 	private boolean lastCanAttack;
 	//0 = not in LOS, 1 = in LOS after move, 2 = in LOS
-	private HashMap<WorldPoint, Integer> safeSpotCache;
+	private final Map<WorldPoint, Integer> safeSpotCache;
 
 	InfernoNPC(NPC npc)
 	{
@@ -71,7 +72,7 @@ public class InfernoNPC
 		this.ticksTillNextAttack = ticksTillNextAttack;
 	}
 
-	void updateNextAttack(Attack nextAttack)
+	private void updateNextAttack(Attack nextAttack)
 	{
 		this.nextAttack = nextAttack;
 	}
@@ -165,7 +166,7 @@ public class InfernoNPC
 		}
 	}
 
-	boolean couldAttackPrevTick(Client client, WorldPoint lastPlayerLocation)
+	private boolean couldAttackPrevTick(Client client, WorldPoint lastPlayerLocation)
 	{
 		return new WorldArea(lastPlayerLocation, 1, 1).hasLineOfSightTo(client, this.getNpc().getWorldArea());
 	}
@@ -235,8 +236,8 @@ public class InfernoNPC
 			// Range + LOS check for bat because it suffers from the defense animation bug, also dont activate on "stand" animation
 			else if (this.getType() == Type.BAT)
 			{
-				if (this.canAttack(client, client.getLocalPlayer().getWorldLocation()) && this.getNpc().getAnimation() != 7577
-					&& this.getNpc().getAnimation() != -1)
+				if (this.canAttack(client, client.getLocalPlayer().getWorldLocation())
+					&& this.getNpc().getAnimation() != AnimationID.JAL_MEJRAH_STAND	&& this.getNpc().getAnimation() != -1)
 				{
 					this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
 				}
@@ -329,7 +330,7 @@ public class InfernoNPC
 		private final Color criticalColor;
 		private final int[] animationIds;
 
-		Attack(Prayer prayer, Color normalColor, Color criticalColor, int animationIds[])
+		Attack(Prayer prayer, Color normalColor, Color criticalColor, int[] animationIds)
 		{
 			this.prayer = prayer;
 			this.normalColor = normalColor;

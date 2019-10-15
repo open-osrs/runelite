@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
@@ -377,7 +376,7 @@ public class InfernoOverlay extends Overlay
 	{
 		for (Integer tick : plugin.getUpcomingAttacks().keySet())
 		{
-			final HashMap<InfernoNPC.Attack, Integer> attackPriority = plugin.getUpcomingAttacks().get(tick);
+			final Map<InfernoNPC.Attack, Integer> attackPriority = plugin.getUpcomingAttacks().get(tick);
 			int bestPriority = 999;
 			InfernoNPC.Attack bestAttack = null;
 
