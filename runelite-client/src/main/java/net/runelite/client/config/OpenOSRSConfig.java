@@ -70,6 +70,7 @@ public interface OpenOSRSConfig extends Config
 		keyName = "enablePlugins",
 		name = "Enable loading of external plugins",
 		description = "Enable loading of external plugins",
+		warning = "Please restart your client after changing this setting",
 		position = 3
 	)
 	default boolean enablePlugins()
