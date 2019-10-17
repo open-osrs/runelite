@@ -77,7 +77,7 @@ public enum SpellBaseDamageConfig
 
 	SMOKE_BARRAGE(SpellBook.ANCIENT, 43, 27),
 	SHADOW_BARRAGE(SpellBook.ANCIENT, 44, 28),
-	BLOOD_BARRAGE(SpellBook.ANCIENT, 55, 29),
+	BLOOD_BARRAGE(SpellBook.ANCIENT, 45, 29),
 	ICE_BARRAGE(SpellBook.ANCIENT, 46, 30),
 
 	/*

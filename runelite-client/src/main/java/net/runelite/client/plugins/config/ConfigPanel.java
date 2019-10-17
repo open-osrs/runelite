@@ -41,8 +41,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -391,32 +389,25 @@ public class ConfigPanel extends PluginPanel
 		});
 	}
 
-	private Boolean parse(ConfigItem item, String value)
+	private boolean parse(ConfigItemDescriptor cid, String value)
 	{
 		try
 		{
-			Method parse = item.clazz().getMethod(item.method(), String.class);
-
-			return (boolean) parse.invoke(null, value);
+			return configManager.getParser(cid.getType()).isValid(value);
 		}
-		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex)
+		catch (NullPointerException e)
 		{
-			log.error("Parsing failed: {}", ex.getMessage());
+			log.warn("No parser for {}", cid);
 		}
 
-		return null;
+		return false;
 	}
 
-	private void parseLabel(ConfigItem item, JLabel label, String value)
+	private void parseLabel(ConfigItemDescriptor desc, JLabel label, String value)
 	{
-		Boolean result = parse(item, value);
+		boolean result = parse(desc, value);
 
-		if (result == null)
-		{
-			label.setForeground(Color.RED);
-			label.setText("Parsing failed");
-		}
-		else if (result)
+		if (result)
 		{
 			label.setForeground(Color.GREEN);
 			label.setText("Valid input");
@@ -815,7 +806,7 @@ public class ConfigPanel extends PluginPanel
 				}
 			}
 
-			else if (cid.getType() == String.class)
+			else if (cid.getType() == String.class || cid.getItem().parse())
 			{
 				JTextComponent textField;
 
@@ -840,9 +831,7 @@ public class ConfigPanel extends PluginPanel
 					ConfigItem configItem = cid.getItem();
 					if (configItem.parse())
 					{
-						Boolean result = parse(configItem, textField.getText());
-
-						if (result != null && result)
+						if (parse(cid, textField.getText()))
 						{
 							changeConfiguration(listItem, config, textField, cd, cid);
 						}
@@ -865,14 +854,14 @@ public class ConfigPanel extends PluginPanel
 					{
 						if (cid.getItem().parse())
 						{
-							parseLabel(cid.getItem(), parsingLabel, textField.getText());
+							parseLabel(cid, parsingLabel, textField.getText());
 						}
 					});
 					textField.getDocument().addDocumentListener(listener);
 
 					item.add(textField, BorderLayout.CENTER);
 
-					parseLabel(cid.getItem(), parsingLabel, textField.getText());
+					parseLabel(cid, parsingLabel, textField.getText());
 					item.add(parsingLabel, BorderLayout.SOUTH);
 				}
 				else

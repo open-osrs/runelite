@@ -83,17 +83,12 @@ public class ConfigManager
 	private final Properties properties = new Properties();
 	private final Map<String, Object> configObjectCache = new HashMap<>();
 	private final Map<String, String> pendingChanges = new HashMap<>();
+	private final Map<Class<?>, Parser<?>> parsers = new HashMap<>();
 
 	@Inject
 	public ConfigManager(ScheduledExecutorService scheduledExecutorService)
 	{
 		scheduledExecutorService.scheduleWithFixedDelay(this::sendConfig, 30, 30, TimeUnit.SECONDS);
-	}
-
-	public final void switchSession()
-	{
-		// Ensure existing config is saved
-		load();
 	}
 
 	public void load()
@@ -270,6 +265,11 @@ public class ConfigManager
 		{
 			try
 			{
+				if (parsers.containsKey(clazz))
+				{
+					return (T) parsers.get(clazz).parse(value);
+				}
+
 				return (T) stringToObject(value, clazz);
 			}
 			catch (Exception e)
@@ -420,9 +420,25 @@ public class ConfigManager
 
 			if (!override)
 			{
+				final Class<?> returnType = method.getReturnType();
+				final boolean parse = item.parse();
+
+				// This is first time this config is loaded, let's load parsers
+				if (parse && !parsers.containsKey(returnType))
+				{
+					try
+					{
+						parsers.put(returnType, item.parser().newInstance());
+					}
+					catch (InstantiationException | IllegalAccessException e)
+					{
+						log.warn(null, e);
+					}
+				}
+
 				// This checks if it is set and is also unmarshallable to the correct type; so
 				// we will overwrite invalid config values with the default
-				Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
+				Object current = getConfiguration(group.value(), item.keyName(), returnType);
 				if (current != null)
 				{
 					continue; // something else is already set
@@ -437,6 +453,11 @@ public class ConfigManager
 			catch (Throwable ex)
 			{
 				log.warn(null, ex);
+				continue;
+			}
+
+			if (defaultValue == null)
+			{
 				continue;
 			}
 
@@ -696,5 +717,10 @@ public class ConfigManager
 		}
 
 		syncPropertiesFromFile(newestFile);
+	}
+
+	public Parser getParser(Class<?> type)
+	{
+		return parsers.get(type);
 	}
 }

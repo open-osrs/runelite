@@ -42,7 +42,7 @@ class ConfigInvocationHandler implements InvocationHandler
 	private static final Map<Class<?>, String> groupValueCache = new HashMap<>();
 	private static final Map<Method, String> methodKeyNameCache = new HashMap<>();
 
-	public ConfigInvocationHandler(ConfigManager manager)
+	ConfigInvocationHandler(ConfigManager manager)
 	{
 		this.manager = manager;
 	}
@@ -108,6 +108,12 @@ class ConfigInvocationHandler implements InvocationHandler
 
 					try
 					{
+						Parser parser = manager.getParser(returnType);
+						if (parser != null)
+						{
+							return parser.parse(value);
+						}
+
 						return ConfigManager.stringToObject(value, returnType);
 					}
 					catch (Exception e)

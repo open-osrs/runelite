@@ -32,6 +32,7 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 import net.runelite.client.config.Keybind;
+import net.runelite.client.menus.AbstractComparableEntry;
 import net.runelite.client.plugins.menuentryswapper.util.ArdougneCloakMode;
 import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
 import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
@@ -481,33 +482,33 @@ public interface MenuEntrySwapperConfig extends Config
 		keyName = "customSwaps",
 		name = "Custom Swaps",
 		description = "Add custom swaps here, 1 per line. Syntax: option,target:priority" +
-			"<br>Note that the higher your set the priority, the more it will overtake over swaps.",
+			"<br>This is all case insensitive, and spaces around (not between) words don't matter" +
+			"<br>Note that the higher your set the priority, the more it will overtake other swaps.",
 		position = 1,
 		section = "miscellaneousSection",
 		parse = true,
-		clazz = CustomSwapParse.class,
-		method = "parse"
+		parser = CustomSwapParse.class
 	)
-	default String customSwaps()
+	default AbstractComparableEntry[] customSwaps()
 	{
-		return "";
+		return null;
 	}
 
 	@ConfigItem(
 		keyName = "shiftCustomSwaps",
 		name = "Hotkey Swaps",
 		description = "Add custom swaps here that will only be activated when you press your hotkey." +
-			"<br>1 per line. Syntax: option,target:priority" +
-			"<br>Note that the higher your set the priority, the more it will overtake over swaps.",
+			"<br>1 per line. Syntax: \"option, target: priority\"." +
+			"<br>This is all case insensitive, and spaces around (not between) words don't matter" +
+			"<br>Note that the higher your set the priority, the more it will overtake other swaps.",
 		position = 2,
 		section = "miscellaneousSection",
 		parse = true,
-		clazz = CustomSwapParse.class,
-		method = "parse"
+		parser = CustomSwapParse.class
 	)
-	default String shiftCustomSwaps()
+	default AbstractComparableEntry[] shiftCustomSwaps()
 	{
-		return "";
+		return null;
 	}
 
 	@ConfigItem(
@@ -521,12 +522,11 @@ public interface MenuEntrySwapperConfig extends Config
 		position = 2,
 		section = "miscellaneousSection",
 		parse = true,
-		clazz = PrioParse.class,
-		method = "parse"
+		parser = PrioParse.class
 	)
-	default String prioEntry()
+	default PrioParse.SwapPair[] prioEntry()
 	{
-		return "";
+		return null;
 	}
 
 	@ConfigItem(

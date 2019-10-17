@@ -38,8 +38,13 @@ public class Text
 {
 	private static final StringBuilder SB = new StringBuilder(64);
 
-	private static final Splitter COMMA_SPLITTER = Splitter
+	public static final Splitter COMMA_SPLITTER = Splitter
 		.on(",")
+		.omitEmptyStrings()
+		.trimResults();
+
+	public static final Splitter NEWLINE_SPLITTER = Splitter
+		.on("\n")
 		.omitEmptyStrings()
 		.trimResults();
 

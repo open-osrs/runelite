@@ -20,7 +20,7 @@ public class Parse
 					sb.append(str).append("\n");
 				}
 			}
-			final Map<String, String> tmp = TMorph.getNEWLINE_SPLITTER().withKeyValueSeparator(':').split(sb);
+			final Map<String, String> tmp = TMorph.MAP_SPLITTER.split(sb);
 
 			for (Map.Entry<String, String> entry : tmp.entrySet())
 			{

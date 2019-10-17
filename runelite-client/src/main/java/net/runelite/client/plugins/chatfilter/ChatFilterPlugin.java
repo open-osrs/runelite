@@ -26,7 +26,6 @@
 package net.runelite.client.plugins.chatfilter;
 
 import com.google.common.base.CharMatcher;
-import com.google.common.base.Splitter;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +44,7 @@ import net.runelite.api.Player;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.OverheadTextChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
+import static net.runelite.api.util.Text.NEWLINE_SPLITTER;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
@@ -60,11 +60,6 @@ import org.apache.commons.lang3.StringUtils;
 @Singleton
 public class ChatFilterPlugin extends Plugin
 {
-	private static final Splitter NEWLINE_SPLITTER = Splitter
-		.on("\n")
-		.omitEmptyStrings()
-		.trimResults();
-
 	private static final String CENSOR_MESSAGE = "Hey, everyone, I just tried to say something very silly!";
 
 	private final CharMatcher jagexPrintableCharMatcher = Text.JAGEX_PRINTABLE_CHAR_MATCHER;

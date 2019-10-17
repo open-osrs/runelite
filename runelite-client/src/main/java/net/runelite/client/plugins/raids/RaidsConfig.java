@@ -389,10 +389,10 @@ public interface RaidsConfig extends Config
 		titleSection = "roomConfig",
 		keyName = "whitelistedRooms",
 		name = "Whitelisted rooms",
-		description = "Display whitelisted rooms in green on the overlay. Separate with comma (full name)",
-		parse = true,
-		clazz = Parse.class,
-		method = "parse"
+		description = "Display whitelisted rooms in green on the overlay. Separate with comma (full name)"//,
+		//parse = true,
+		//clazz = Parse.class,
+		//method = "parse"
 	)
 	default String whitelistedRooms()
 	{
@@ -404,10 +404,10 @@ public interface RaidsConfig extends Config
 		titleSection = "roomConfig",
 		keyName = "blacklistedRooms",
 		name = "Blacklisted rooms",
-		description = "Display blacklisted rooms in red on the overlay. Separate with comma (full name)",
-		parse = true,
-		clazz = Parse.class,
-		method = "parse"
+		description = "Display blacklisted rooms in red on the overlay. Separate with comma (full name)"//,
+		//parse = true,
+		//clazz = Parse.class,
+		//method = "parse"
 	)
 	default String blacklistedRooms()
 	{

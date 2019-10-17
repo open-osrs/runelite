@@ -23,7 +23,7 @@
  */
 package net.runelite.client.plugins.tmorph;
 
-import com.google.common.base.Splitter;
+import com.google.common.base.Splitter.MapSplitter;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Provides;
 import java.awt.Color;
@@ -44,6 +44,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.kit.KitType;
+import static net.runelite.api.util.Text.NEWLINE_SPLITTER;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -78,11 +79,7 @@ public class TMorph extends Plugin
 		kit = builder.build();
 	}
 
-	@Getter(AccessLevel.PACKAGE)
-	private static final Splitter NEWLINE_SPLITTER = Splitter
-		.on("\n")
-		.omitEmptyStrings()
-		.trimResults();
+	static final MapSplitter MAP_SPLITTER = NEWLINE_SPLITTER.withKeyValueSeparator(':');
 
 	@Inject
 	private Client client;
@@ -304,9 +301,9 @@ public class TMorph extends Plugin
 
 	private void updateConfig()
 	{
-		this.set1 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(config.set1());
-		this.set2 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(config.set2());
-		this.set3 = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(config.set3());
+		this.set1 = MAP_SPLITTER.split(config.set1());
+		this.set2 = MAP_SPLITTER.split(config.set2());
+		this.set3 = MAP_SPLITTER.split(config.set3());
 		this.animation = config.animationSwap();
 		this.globalAnimSwap = config.globalAnimSwap();
 		this.globalGraphicSwap = config.globalGraphicSwap();

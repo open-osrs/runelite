@@ -69,6 +69,8 @@ public @interface ConfigItem
 
 	boolean parse() default false;
 
+	Class<? extends Parser> parser() default Parser.class;
+
 	/**
 	 * For Config items that have a value of multiple enums,
 	 * @return the number of rows that are display in the item without having to scroll.
@@ -76,8 +78,6 @@ public @interface ConfigItem
 	int displayRows() default 2;
 
 	Class<?> clazz() default void.class;
-
-	String method() default "";
 
 	/**
 	 * Use this to indicate the enum class that is going to be used in the multiple select config.

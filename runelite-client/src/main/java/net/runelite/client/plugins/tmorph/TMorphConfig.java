@@ -51,10 +51,10 @@ public interface TMorphConfig extends Config
 			"<br>For example: 6570,21295:Cape" +
 			"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
 		titleSection = "swaps",
-		position = 1,
-		parse = true,
-		clazz = Parse.class,
-		method = "parse"
+		position = 1//,
+		//parse = true,
+		//clazz = Parse.class,
+		//method = "parse"
 	)
 	default String set1()
 	{
@@ -68,10 +68,10 @@ public interface TMorphConfig extends Config
 			"<br>For example: 6570,21295:Cape" +
 			"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
 		titleSection = "swaps",
-		position = 2,
-		parse = true,
-		clazz = Parse.class,
-		method = "parse"
+		position = 2//,
+		//parse = true,
+		//clazz = Parse.class,
+		//method = "parse"
 	)
 	default String set2()
 	{
@@ -85,10 +85,10 @@ public interface TMorphConfig extends Config
 			"<br>For example: 6570,21295:Cape" +
 			"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
 		titleSection = "swaps",
-		position = 3,
-		parse = true,
-		clazz = Parse.class,
-		method = "parse"
+		position = 3//,
+		//parse = true,
+		//clazz = Parse.class,
+		//method = "parse"
 	)
 	default String set3()
 	{

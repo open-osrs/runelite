@@ -24,49 +24,74 @@
  */
 package net.runelite.client.plugins.menuentryswapper;
 
-import com.google.common.base.Splitter;
+import java.util.Arrays;
 import java.util.List;
-import javax.inject.Singleton;
+import lombok.AllArgsConstructor;
+import static net.runelite.api.util.Text.NEWLINE_SPLITTER;
+import net.runelite.client.config.Parser;
+import net.runelite.client.menus.AbstractComparableEntry;
+import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 
-@Singleton
-public class PrioParse
+public class PrioParse implements Parser<PrioParse.SwapPair[]>
 {
-	public static boolean parse(String value)
+	public SwapPair[] parse(String value)
 	{
-		try
-		{
-			final StringBuilder sb = new StringBuilder();
+		List<String> lines = NEWLINE_SPLITTER.splitToList(value.trim());
+		SwapPair[] result = new SwapPair[lines.size()];
+		int idx = 0;
 
-			for (String str : value.split("\n"))
+		for (String line : lines)
+		{
+			if (line.startsWith("//") || line.length() == 0)
 			{
-				if (!str.startsWith("//"))
-				{
-					sb.append(str).append("\n");
-				}
+				continue;
 			}
 
-			final Splitter NEWLINE_SPLITTER = Splitter
-				.on("\n")
-				.omitEmptyStrings()
-				.trimResults();
+			String[] split = line.split(",");
+			result[idx++] = new SwapPair(
+				newBaseComparableEntry("", split[1], -1, -1, false, true),
+				newBaseComparableEntry(split[0], "", -1, -1, false, false)
+			);
+		}
 
-			final List<String> tmp = NEWLINE_SPLITTER.splitToList(sb);
+		if (idx != result.length)
+		{
+			return Arrays.copyOf(result, idx);
+		}
 
-			for (String s : tmp)
+		return result;
+	}
+
+	public String unparse(SwapPair[] object)
+	{
+		return "";
+	}
+
+	public boolean isValid(String value)
+	{
+		for (String line : NEWLINE_SPLITTER.split(value))
+		{
+			if (line.startsWith("//"))
 			{
-				final String[] strings = s.split(",");
-
-				if (strings.length <= 1)
-				{
-					return false;
-				}
+				continue;
 			}
 
-			return tmp.size() > 0;
+			String[] split = line.split(",");
+			if (split.length == 1 || split[0].trim().length() == 0 || split[1].trim().length() == 0)
+			{
+				return false;
+			}
 		}
-		catch (Exception ex)
-		{
-			return false;
-		}
+
+		return true;
+	}
+
+	/*
+	 * can't be package private cause config reflection
+	 */
+	@AllArgsConstructor
+	public static class SwapPair
+	{
+		AbstractComparableEntry a, b;
 	}
 }

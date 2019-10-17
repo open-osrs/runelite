@@ -522,7 +522,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target);
 
-		priorityEntries.removeIf(entry::equals);
+		priorityEntries.remove(entry);
 	}
 
 
@@ -562,7 +562,7 @@ public class MenuManager
 
 	public void removePriorityEntry(AbstractComparableEntry entry)
 	{
-		priorityEntries.removeIf(entry::equals);
+		priorityEntries.remove(entry);
 	}
 
 	public void removePriorityEntry(String option)
@@ -571,7 +571,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
 
-		priorityEntries.removeIf(entry::equals);
+		priorityEntries.remove(entry);
 	}
 
 	public void removePriorityEntry(String option, boolean strictOption)
@@ -581,7 +581,17 @@ public class MenuManager
 		AbstractComparableEntry entry =
 			newBaseComparableEntry(option, "", -1, -1, false, strictOption);
 
-		priorityEntries.removeIf(entry::equals);
+		priorityEntries.remove(entry);
+	}
+
+	public void addPriorityEntries(Collection<AbstractComparableEntry> entries)
+	{
+		priorityEntries.addAll(entries);
+	}
+
+	public void removePriorityEntries(Collection<AbstractComparableEntry> entries)
+	{
+		priorityEntries.removeAll(entries);
 	}
 
 	/**
@@ -739,7 +749,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, target);
 
-		hiddenEntries.removeIf(entry::equals);
+		hiddenEntries.remove(entry);
 	}
 
 	/**
@@ -761,7 +771,7 @@ public class MenuManager
 
 		AbstractComparableEntry entry = newBaseComparableEntry(option, "", false);
 
-		hiddenEntries.removeIf(entry::equals);
+		hiddenEntries.remove(entry);
 	}
 
 	/**
@@ -889,7 +899,7 @@ public class MenuManager
 	}
 
 	@AllArgsConstructor
-	private class SortMapping implements Comparable<SortMapping>
+	private static class SortMapping implements Comparable<SortMapping>
 	{
 		private final int priority;
 		private final MenuEntry entry;

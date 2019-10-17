@@ -28,20 +28,14 @@
  */
 package net.runelite.client.plugins.menuentryswapper;
 
-import com.google.common.base.Splitter;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -82,7 +76,6 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.menus.AbstractComparableEntry;
 import static net.runelite.client.menus.ComparableEntries.newBankComparableEntry;
-import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
@@ -150,35 +143,34 @@ public class MenuEntrySwapperPlugin extends Plugin
 		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
 		MenuOpcode.NPC_FOURTH_OPTION, MenuOpcode.NPC_FIFTH_OPTION, MenuOpcode.EXAMINE_NPC
 	);
-	private static final Splitter NEWLINE_SPLITTER = Splitter
-		.on("\n")
-		.omitEmptyStrings()
-		.trimResults();
 
 	@Inject
 	private Client client;
+
 	@Inject
 	private ClientThread clientThread;
+
 	@Inject
 	private MenuEntrySwapperConfig config;
+
 	@Inject
 	private PluginManager pluginManager;
+
 	@Inject
 	private MenuManager menuManager;
+
 	@Inject
 	private KeyManager keyManager;
+
 	@Inject
 	private EventBus eventBus;
+
 	@Inject
 	private PvpToolsPlugin pvpTools;
+
 	@Inject
 	private PvpToolsConfig pvpToolsConfig;
-	/**
-	 * Migrates old custom swaps config
-	 * This should be removed after a reasonable amount of time.
-	 */
-	@Inject
-	private ConfigManager configManager;
+
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
 	private boolean inCoxRaid = false;
@@ -186,9 +178,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean hotkeyActive;
 	@Setter(AccessLevel.PRIVATE)
 	private boolean controlActive;
-	private final Map<AbstractComparableEntry, Integer> customSwaps = new HashMap<>();
-	private final Map<AbstractComparableEntry, Integer> customShiftSwaps = new HashMap<>();
-	private final Map<AbstractComparableEntry, AbstractComparableEntry> dePrioSwaps = new HashMap<>();
+
+	private List<AbstractComparableEntry> customSwaps;
+	private List<AbstractComparableEntry> customShiftSwaps;
+	private PrioParse.SwapPair[] dePrioSwaps;
 
 	// 1, 5, 10, 50
 	private final AbstractComparableEntry[][] buyEntries = new AbstractComparableEntry[4][];
@@ -225,8 +218,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private Set<String> hideCastIgnoredToB;
 	private SkillsNecklaceMode getSkillsNecklaceMode;
 	private SlayerRingMode getSlayerRingMode;
-	private String configCustomShiftSwaps;
-	private String configCustomSwaps;
 	private XericsTalismanMode getXericsTalismanMode;
 	private boolean getBurningAmulet;
 	private boolean getCombatBracelet;
@@ -315,12 +306,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		this.lastDes = JewelleryBoxDestination.withOption(config.lastDes());
 
-		migrateConfig();
 		updateConfig();
 		addSubscriptions();
 		addSwaps();
 		loadConstructionItems();
-		loadCustomSwaps(config.customSwaps(), customSwaps);
+
+		updateCustomSwaps();
+		updateCustomShiftSwaps();
+		updatePrios();
 
 		updateBuySellEntries();
 		addBuySellEntries();
@@ -343,7 +336,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		eventBus.unregister(this);
 
-		loadCustomSwaps("", customSwaps); // Removes all custom swaps
+		menuManager.removePriorityEntries(customShiftSwaps); // Removes all custom swaps
+		menuManager.removePriorityEntries(customSwaps);
+
 		removeSwaps();
 		removeBuySellEntries();
 		removeWithdrawEntries();
@@ -389,19 +384,17 @@ public class MenuEntrySwapperPlugin extends Plugin
 			return;
 		}
 
-		removeSwaps();
-		updateConfig();
-		addSwaps();
-		loadConstructionItems();
-
 		switch (event.getKey())
 		{
 			case "customSwaps":
-				loadCustomSwaps(this.configCustomSwaps, customSwaps);
+				updateCustomSwaps();
+				return;
+			case "shiftCustomSwaps":
+				updateCustomShiftSwaps();
 				return;
 			case "hideCastToB":
 			case "hideCastIgnoredToB":
-				if (this.hideCastToB)
+				if (config.hideCastToB())
 				{
 					setCastOptions(true);
 				}
@@ -412,7 +405,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				return;
 			case "hideCastCoX":
 			case "hideCastIgnoredCoX":
-				if (this.hideCastCoX)
+				if (config.hideCastCoX())
 				{
 					setCastOptions(true);
 				}
@@ -435,6 +428,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 					eventBus.unregister(JEWEL_CLICKED);
 				}
 				return;
+			case "prioEntry":
+				updatePrios();
+				return;
 		}
 
 		if (event.getKey().startsWith("swapSell") || event.getKey().startsWith("swapBuy") ||
@@ -443,13 +439,20 @@ public class MenuEntrySwapperPlugin extends Plugin
 			removeBuySellEntries();
 			updateBuySellEntries();
 			addBuySellEntries();
+			return;
 		}
 		else if (event.getKey().startsWith("withdraw") || event.getKey().startsWith("deposit"))
 		{
 			removeWithdrawEntries();
 			updateWithdrawEntries();
 			addWithdrawEntries();
+			return;
 		}
+
+		removeSwaps();
+		updateConfig();
+		addSwaps();
+		loadConstructionItems();
 	}
 
 	private void onGameStateChanged(GameStateChanged event)
@@ -819,90 +822,65 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menu.dontRun();
 	}
 
-	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map)
+	private void updateCustomSwaps()
 	{
-		final Map<AbstractComparableEntry, Integer> tmp = new HashMap<>();
-
-		if (!Strings.isNullOrEmpty(config))
+		if (customSwaps != null)
 		{
-			final StringBuilder sb = new StringBuilder();
-
-			for (String str : config.split("\n"))
-			{
-				if (!str.startsWith("//"))
-				{
-					sb.append(str).append("\n");
-				}
-			}
-
-			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
-
-			for (Map.Entry<String, String> entry : split.entrySet())
-			{
-				final String prio = entry.getKey();
-				int priority;
-				try
-				{
-					priority = Integer.parseInt(entry.getValue().trim());
-				}
-				catch (NumberFormatException e)
-				{
-					priority = 0;
-				}
-				final String[] splitFrom = Text.standardize(prio).split(",");
-				final String optionFrom = splitFrom[0].trim();
-				final String targetFrom;
-				if (splitFrom.length == 1)
-				{
-					targetFrom = "";
-				}
-				else
-				{
-					targetFrom = splitFrom[1].trim();
-				}
-
-				final AbstractComparableEntry prioEntry = newBaseComparableEntry(optionFrom, targetFrom);
-
-				tmp.put(prioEntry, priority);
-			}
+			menuManager.removePriorityEntries(customSwaps);
 		}
 
-		for (Map.Entry<AbstractComparableEntry, Integer> e : map.entrySet())
+		AbstractComparableEntry[] tmp = config.customSwaps();
+
+		if (tmp == null)
 		{
-			final AbstractComparableEntry key = e.getKey();
-			menuManager.removePriorityEntry(key);
+			customSwaps = null;
+			return;
 		}
 
-		map.clear();
-		map.putAll(tmp);
-
-		for (Map.Entry<AbstractComparableEntry, Integer> entry : map.entrySet())
-		{
-			AbstractComparableEntry a1 = entry.getKey();
-			int a2 = entry.getValue();
-			menuManager.addPriorityEntry(a1).setPriority(a2);
-		}
+		customSwaps = Arrays.asList(tmp);
+		menuManager.addPriorityEntries(customSwaps);
 	}
 
-	private void addSwaps()
+	private void updateCustomShiftSwaps()
 	{
-		final List<String> tmp = NEWLINE_SPLITTER.splitToList(config.prioEntry());
-
-		for (String str : tmp)
+		if (customShiftSwaps != null)
 		{
-			String[] strings = str.split(",");
-
-			if (strings.length <= 1)
-			{
-				continue;
-			}
-
-			final AbstractComparableEntry a = newBaseComparableEntry("", strings[1], -1, -1, false, true);
-			final AbstractComparableEntry b = newBaseComparableEntry(strings[0], "", -1, -1, false, false);
-			dePrioSwaps.put(a, b);
-			menuManager.addSwap(a, b);
+			menuManager.removePriorityEntries(customShiftSwaps);
 		}
 
+		AbstractComparableEntry[] tmp = config.shiftCustomSwaps();
+
+		if (tmp == null)
+		{
+			customShiftSwaps = null;
+			return;
+		}
+
+		customShiftSwaps = Arrays.asList(tmp);
+	}
+
+	private void updatePrios()
+	{
+		if (dePrioSwaps != null)
+		{
+			for (PrioParse.SwapPair pair : dePrioSwaps)
+			{
+				menuManager.removeSwap(pair.a, pair.b);
+			}
+		}
+
+		dePrioSwaps = config.prioEntry();
+
+		if (dePrioSwaps != null)
+		{
+			for (PrioParse.SwapPair pair : dePrioSwaps)
+			{
+				menuManager.addSwap(pair.a, pair.b);
+			}
+		}
+	}
+	private void addSwaps()
+	{
 		if (this.getSwapTanning)
 		{
 			menuManager.addPriorityEntry("Tan <col=ff7000>All");
@@ -1309,13 +1287,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void removeSwaps()
 	{
-		final Iterator<Map.Entry<AbstractComparableEntry, AbstractComparableEntry>> dePrioIter = dePrioSwaps.entrySet().iterator();
-		dePrioIter.forEachRemaining((e) ->
-		{
-			menuManager.removeSwap(e.getKey(), e.getValue());
-			dePrioIter.remove();
-		});
-
 		menuManager.removePriorityEntry("Activate", "Box trap");
 		menuManager.removePriorityEntry("Assignment");
 		menuManager.removePriorityEntry("Bank");
@@ -1541,7 +1512,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void addHotkey(ClientTick event)
 	{
-		loadCustomSwaps(this.configCustomShiftSwaps, customShiftSwaps);
+		if (customShiftSwaps != null)
+		{
+			menuManager.addPriorityEntries(customShiftSwaps);
+		}
 
 		if (this.swapClimbUpDown)
 		{
@@ -1558,8 +1532,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void removeHotkey(ClientTick event)
 	{
+		if (customShiftSwaps != null)
+		{
+			menuManager.removePriorityEntries(customShiftSwaps);
+		}
+
 		menuManager.removePriorityEntry("climb-up");
-		loadCustomSwaps("", customShiftSwaps);
 		eventBus.unregister(HOTKEY);
 	}
 
@@ -1689,8 +1667,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private void updateConfig()
 	{
 		this.charterOption = config.charterOption();
-		this.configCustomShiftSwaps = config.shiftCustomSwaps();
-		this.configCustomSwaps = config.customSwaps();
 		this.ardougneCloakMode = config.ardougneCloakMode();
 		this.constructionCapeMode = config.constructionCapeMode();
 		this.getBurningAmulet = config.getBurningAmulet();
@@ -2043,90 +2019,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			removedObjects = null;
 		}
-	}
-
-	/**
-	 * Migrates old custom swaps config
-	 * This should be removed after a reasonable amount of time.
-	 */
-	private static boolean oldParse(String value)
-	{
-		try
-		{
-			final StringBuilder sb = new StringBuilder();
-
-			for (String str : value.split("\n"))
-			{
-				if (!str.startsWith("//"))
-				{
-					sb.append(str).append("\n");
-				}
-			}
-
-			NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
-			return true;
-		}
-		catch (IllegalArgumentException ex)
-		{
-			return false;
-		}
-	}
-
-	/**
-	 * Migrates old custom swaps config
-	 * This should be removed after a reasonable amount of time.
-	 */
-	private void migrateConfig()
-	{
-		final String customSwaps = config.customSwaps();
-
-		if (!CustomSwapParse.parse(customSwaps) && oldParse(customSwaps))
-		{
-			final StringBuilder sb = new StringBuilder();
-
-			for (String str : customSwaps.split("\n"))
-			{
-				if (!str.startsWith("//"))
-				{
-					sb.append(str).append("\n");
-				}
-			}
-
-			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
-
-			sb.setLength(0);
-
-			for (Map.Entry<String, String> entry : split.entrySet())
-			{
-				String val = entry.getValue();
-				if (!val.contains(","))
-				{
-					continue;
-				}
-
-				sb.append(entry.getValue()).append(":0\n");
-			}
-
-			configManager.setConfiguration("menuentryswapper", "customSwaps", sb.toString());
-		}
-
-		// Ugly band-aid i'm sorry
-		configManager.setConfiguration("menuentryswapper", "customSwaps",
-			Arrays.stream(config.customSwaps()
-				.split("\n"))
-				.distinct()
-				.filter(swap -> !"walk here"
-					.equals(swap.
-						split(":")[0]
-						.trim()
-						.toLowerCase()))
-				.filter(swap -> !"cancel"
-					.equals(swap
-						.split(":")[0]
-						.trim()
-						.toLowerCase()))
-				.collect(Collectors.joining("\n"))
-		);
 	}
 
 	private final HotkeyListener hotkey = new HotkeyListener(() -> this.hotkeyMod)
