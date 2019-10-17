@@ -357,7 +357,7 @@ public class ItemsKeptOnDeathPlugin extends Plugin
 			if (!Pets.isPet(id)
 				&& !LostIfNotProtected.isLostIfNotProtected(id)
 				&& !isTradeable(itemManager.getItemDefinition(id)) && wildyLevel <= DEEP_WILDY
-				&& (wildyLevel <= 0 || itemManager.getBrokenValue(i.getId()) != 0))
+				&& (wildyLevel <= 0 || itemManager.getBrokenValue(i.getId(), true) != 0))
 			{
 				keptItems.add(new ItemStack(id, qty));
 			}
