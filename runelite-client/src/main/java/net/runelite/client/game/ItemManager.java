@@ -328,10 +328,19 @@ public class ItemManager
 
 	public int getBrokenValue(int itemId)
 	{
-		PvPValueBrokenItem b = PvPValueBrokenItem.of(itemId);
+		return getBrokenValue(itemId, false);
+	}
+
+	public int getBrokenValue(int itemId, boolean fullValue)
+	{
+		final PvPValueBrokenItem b = PvPValueBrokenItem.of(itemId);
 
 		if (b != null)
 		{
+			if (fullValue || b.getItemID() == GRANITE_MAUL_24225 || b.getItemID() == GRANITE_MAUL_24227)
+			{
+				return b.getValue();
+			}
 			return (int) (b.getValue() * (75.0f / 100.0f));
 		}
 
