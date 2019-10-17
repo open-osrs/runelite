@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019 Abex
+ * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,42 +23,54 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.rs;
 
-/**
- * Represents an paletted sprite.
- */
-public interface IndexedSprite
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.worlds.World;
+import net.runelite.http.api.worlds.WorldClient;
+import net.runelite.http.api.worlds.WorldResult;
+import okhttp3.HttpUrl;
+
+@Slf4j
+class HostSupplier implements Supplier<HttpUrl>
 {
-	/**
-	 * The bitmap of this sprite. Each value is an index into {@link #getPalette()}.
-	 * 0 is transparent
-	 */
-	byte[] getPixels();
-	void setPixels(byte[] pixels);
+	private final Random random = new Random();
+	private Queue<HttpUrl> hosts = new ArrayDeque<>();
 
-	/**
-	 * The color palette in RGB. The zero index is unused.
-	 */
-	int[] getPalette();
-	void setPalette(int[] palette);
+	@Override
+	public HttpUrl get()
+	{
+		if (!hosts.isEmpty())
+		{
+			return hosts.poll();
+		}
 
-	int getOffsetX();
-	void setOffsetX(int offsetX);
+		List<HttpUrl> newHosts = new  WorldClient(RuneLiteAPI.CLIENT)
+			.lookupWorlds()
+			.map(WorldResult::getWorlds)
+			.blockingSingle()
+			.stream()
+			.map(World::getAddress)
+			.map(HttpUrl::parse)
+			.collect(Collectors.toList());
 
-	int getOffsetY();
-	void setOffsetY(int offsetY);
+		Collections.shuffle(newHosts, random);
 
-	int getWidth();
-	void setWidth(int width);
+		hosts.addAll(newHosts.subList(0, 16));
 
+		while (hosts.size() < 2)
+		{
+			hosts.add(HttpUrl.parse("oldschool" + (random.nextInt(50) + 1) + ".runescape.COM"));
+		}
 
-	int getHeight();
-	void setHeight(int height);
-	
-	int getOriginalWidth();
-	void setOriginalWidth(int originalWidth);
-
-	int getOriginalHeight();
-	void setOriginalHeight(int originalHeight);
+		return hosts.poll();
+	}
 }
