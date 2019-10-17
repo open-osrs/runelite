@@ -267,13 +267,19 @@ public class ItemManager
 	 */
 	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
 	{
-		if (itemID == ItemID.COINS_995)
+		switch (itemID)
 		{
-			return 1;
-		}
-		if (itemID == ItemID.PLATINUM_TOKEN)
-		{
-			return 1000;
+			case ItemID.COINS_995:
+				return 1;
+			case ItemID.PLATINUM_TOKEN:
+				return 1000;
+			case ItemID.GRANITE_MAUL_24225:
+				return getItemPrice(ItemID.ORNATE_MAUL_HANDLE, true)
+					+ getItemPrice(ItemID.GRANITE_MAUL, true);
+			case ItemID.GRANITE_MAUL_24227:
+				return getItemPrice(ItemID.ORNATE_MAUL_HANDLE, true)
+					+ getItemPrice(ItemID.GRANITE_CLAMP, true)
+					+ getItemPrice(ItemID.GRANITE_MAUL, true);
 		}
 
 		if (!ignoreUntradeableMap)
