@@ -62,6 +62,7 @@ import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemMapping;
+import net.runelite.client.game.PvPValueBrokenItem;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.ColorUtil;
@@ -357,7 +358,7 @@ public class ItemsKeptOnDeathPlugin extends Plugin
 			if (!Pets.isPet(id)
 				&& !LostIfNotProtected.isLostIfNotProtected(id)
 				&& !isTradeable(itemManager.getItemDefinition(id)) && wildyLevel <= DEEP_WILDY
-				&& (wildyLevel <= 0 || itemManager.getBrokenValue(i.getId(), true) != 0))
+				&& (wildyLevel <= 0 || PvPValueBrokenItem.of(id) != null))
 			{
 				keptItems.add(new ItemStack(id, qty));
 			}
@@ -463,10 +464,10 @@ public class ItemsKeptOnDeathPlugin extends Plugin
 		}
 
 		// Jagex uses the repair price when determining which items are kept on death.
-		final int repairPrice = itemManager.getBrokenValue(canonicalizedItemId, true);
-		if (repairPrice != 0)
+		final PvPValueBrokenItem repairPrice = PvPValueBrokenItem.of(canonicalizedItemId);
+		if (repairPrice != null)
 		{
-			exchangePrice = repairPrice;
+			exchangePrice = repairPrice.getValue();
 		}
 
 		if (exchangePrice == 0)
