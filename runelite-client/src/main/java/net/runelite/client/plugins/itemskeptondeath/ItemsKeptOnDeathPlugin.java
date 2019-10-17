@@ -463,7 +463,7 @@ public class ItemsKeptOnDeathPlugin extends Plugin
 		}
 
 		// Jagex uses the repair price when determining which items are kept on death.
-		final int repairPrice = itemManager.getBrokenValue(canonicalizedItemId);
+		final int repairPrice = itemManager.getBrokenValue(canonicalizedItemId, true);
 		if (repairPrice != 0)
 		{
 			exchangePrice = repairPrice;
