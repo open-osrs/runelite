@@ -637,8 +637,8 @@ public class ItemsKeptOnDeathPluginTest
 	{
 		final Item defender = mItem(ItemID.AVERNIC_DEFENDER, 1, "Avernic defender", false, 0);
 		final int defenderOffset = FixedPriceItem.AVERNIC_DEFENDER.getOffset();
-		final Integer defenderBrokenPrice = BrokenOnDeathItem.getRepairPrice(ItemID.AVERNIC_DEFENDER);
-		final int defenderExpectedPrice = (defenderBrokenPrice == null ? 0 : defenderBrokenPrice) + defenderOffset;
+		final Integer defenderBrokenPrice = itemManager.getBrokenValue(ItemID.AVERNIC_DEFENDER, true);
+		final int defenderExpectedPrice = defenderBrokenPrice + defenderOffset;
 		assertEquals(defenderExpectedPrice, plugin.getDeathPrice(defender));
 
 		final Item[] inv = new Item[]
