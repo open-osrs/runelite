@@ -99,10 +99,6 @@ public class MusicPlugin extends Plugin
 	private int lastEffectVolume;
 	private int lastAreaEffectVolume;
 
-	private int getMusicVolume;
-	private int getSoundEffectVolume;
-	private int getAreaSoundEffectVolume;
-
 	@Provides
 	MusicConfig getConfig(ConfigManager configManager)
 	{
