@@ -48,6 +48,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -56,6 +58,8 @@ import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemDefinition;
+import net.runelite.api.InventoryID;
+import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
 import static net.runelite.api.ItemID.*;
 import net.runelite.api.MenuEntry;
@@ -72,6 +76,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemQuantityChanged;
 import net.runelite.api.events.ItemSpawned;
@@ -79,6 +84,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.util.Text;
 import net.runelite.client.Notifier;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.NpcLootReceived;
@@ -403,6 +409,8 @@ public class GroundItemsPlugin extends Plugin
 	private boolean hideAll;
 	private List<String> hiddenItemList = new CopyOnWriteArrayList<>();
 	private List<String> highlightedItemsList = new CopyOnWriteArrayList<>();
+	private final Set<String> inventoryStacksSet = new HashSet<>();
+
 	@Inject
 	private GroundItemInputListener inputListener;
 	@Inject
@@ -411,6 +419,8 @@ public class GroundItemsPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private Client client;
+	@Inject
+	private ClientThread clientThread;
 	@Inject
 	private ItemManager itemManager;
 	@Inject
@@ -456,6 +466,7 @@ public class GroundItemsPlugin extends Plugin
 	private Color insaneValueColor;
 	private int insaneValuePrice;
 	private boolean notifyInsaneValueDrops;
+    private boolean inventoryStacks;
 	@Getter(AccessLevel.PACKAGE)
 	private PriceDisplayMode priceDisplayMode;
 	@Getter(AccessLevel.PACKAGE)
@@ -509,6 +520,7 @@ public class GroundItemsPlugin extends Plugin
 		hiddenItems = null;
 		hiddenItemList = null;
 		highlightedItemsList = null;
+		inventoryStacksSet.clear();
 		collectedGroundItems.clear();
 	}
 
@@ -526,6 +538,7 @@ public class GroundItemsPlugin extends Plugin
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
 		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
 		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
+        eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
 	}
 
 	private void onGameTick(GameTick event)
@@ -902,6 +915,11 @@ public class GroundItemsPlugin extends Plugin
 			.expireAfterAccess(10, TimeUnit.MINUTES)
 			.build(new WildcardMatchLoader(hiddenItemList));
 
+		if (config.inventoryStacks())
+		{
+			editInventoryStacks();
+		}
+
 		// Cache colors
 		priceChecks.clear();
 
@@ -1069,13 +1087,18 @@ public class GroundItemsPlugin extends Plugin
 			return this.highlightedColor;
 		}
 
-		// Explicit hide takes priority over implicit highlight
+		// Explicit hide takes priority over implicit highlight and inventory stacks
 		if (TRUE.equals(hiddenItems.getUnchecked(item)))
 		{
 			return null;
 		}
 
-		ValueCalculationMode mode = this.valueCalculationMode;
+
+		if (config.inventoryStacks() && inventoryStacksSet.contains(item))
+		{
+			return config.highlightedColor();
+		}
+        ValueCalculationMode mode = this.valueCalculationMode;
 		for (Map.Entry<Integer, Color> entry : priceChecks.entrySet())
 		{
 			switch (mode)
@@ -1267,5 +1290,34 @@ public class GroundItemsPlugin extends Plugin
 		this.prayerColor = config.prayerColor();
 		this.highlightHerblore = config.highlightHerblore();
 		this.highlightPrayer = config.highlightPrayer();
+        this.inventoryStacks = config.inventoryStacks();
+	}
+
+	public void onItemContainerChanged(ItemContainerChanged itemContainerChangedEvent)
+	{
+		if (config.inventoryStacks() && itemContainerChangedEvent.getContainerId() == InventoryID.INVENTORY.getId())
+		{
+			editInventoryStacks();
+		}
+	}
+
+	void editInventoryStacks()
+	{
+		clientThread.invokeLater(() ->
+		{
+			final ItemContainer itemContainer = client.getItemContainer(InventoryID.INVENTORY);
+
+			if (itemContainer == null)
+			{
+				return;
+			}
+
+			inventoryStacksSet.clear();
+			inventoryStacksSet.addAll(Stream.of(itemContainer.getItems())
+				.map(item -> itemManager.getItemDefinition(item.getId()))
+				.filter(itemComposition -> itemComposition.isStackable())
+				.map(itemComposition -> itemComposition.getName())
+				.collect(Collectors.toSet()));
+		});
 	}
 }
