@@ -1047,6 +1047,15 @@ public interface RSClient extends RSGameShell, Client
 	@Import("soundEffectVolume")
 	int getSoundEffectVolume();
 
+	@Import("soundEffectVolume")
+	void setSoundEffectVolume(int volume);
+
+	@Import("areaSoundEffectVolume")
+	int getAreaSoundEffectVolume();
+
+	@Import("areaSoundEffectVolume")
+	void setAreaSoundEffectVolume(int volume);
+
 	@Import("viewportWalking")
 	void setViewportWalking(boolean viewportWalking);
 
