@@ -25,7 +25,6 @@
  */
 package net.runelite.client.plugins.music;
 
-import com.google.inject.Provides;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -60,7 +59,6 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetPositionMode;
 import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.callback.ClientThread;
-import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.game.chatbox.ChatboxTextInput;
@@ -108,6 +106,7 @@ public class MusicPlugin extends Plugin
 		clientThread.invoke(() ->
 		{
 			addMusicButtons();
+			addSubscriptions();
 			applyMusicVolumeConfig();
 			updateMusicOptions();
 		});
@@ -136,7 +135,7 @@ public class MusicPlugin extends Plugin
 		eventBus.subscribe(VarClientIntChanged.class, this, this::onVarClientIntChanged);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(VolumeChanged.class, this, this::onVolumeChanged);
-        eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
 
 	}
 
