@@ -642,6 +642,18 @@ public interface GroundItemsConfig extends Config
 		return false;
 	}
 
+	@ConfigItem(
+			keyName = "inventoryStacks",
+			name = "Inventory Stacks",
+			description = "Automatically highlights stackable items already stacked in your inventory",
+			position = 49,
+			titleSection = "miscTitle"
+	)
+	default boolean inventoryStacks()
+	{
+		return false;
+	}
+
 	@ConfigTitleSection(
 		keyName = "xpTitle",
 		name = "XP",
@@ -703,14 +715,5 @@ public interface GroundItemsConfig extends Config
 		return Color.YELLOW;
 	}
 
-	@ConfigItem(
-		keyName = "inventoryStacks",
-		name = "Inventory Stacks",
-		description = "Highlights items already stacked in inventory",
-		position = 55
-	)
-	default boolean inventoryStacks()
-	{
-		return false;
-	}
+
 }
