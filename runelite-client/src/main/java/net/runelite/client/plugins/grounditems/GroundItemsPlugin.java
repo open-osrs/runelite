@@ -466,7 +466,7 @@ public class GroundItemsPlugin extends Plugin
 	private Color insaneValueColor;
 	private int insaneValuePrice;
 	private boolean notifyInsaneValueDrops;
-    private boolean inventoryStacks;
+	private boolean inventoryStacks;
 	@Getter(AccessLevel.PACKAGE)
 	private PriceDisplayMode priceDisplayMode;
 	@Getter(AccessLevel.PACKAGE)
@@ -538,7 +538,7 @@ public class GroundItemsPlugin extends Plugin
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
 		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
 		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
-        eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
+		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
 	}
 
 	private void onGameTick(GameTick event)
@@ -1098,7 +1098,7 @@ public class GroundItemsPlugin extends Plugin
 		{
 			return config.highlightedColor();
 		}
-        ValueCalculationMode mode = this.valueCalculationMode;
+		ValueCalculationMode mode = this.valueCalculationMode;
 		for (Map.Entry<Integer, Color> entry : priceChecks.entrySet())
 		{
 			switch (mode)
@@ -1290,7 +1290,7 @@ public class GroundItemsPlugin extends Plugin
 		this.prayerColor = config.prayerColor();
 		this.highlightHerblore = config.highlightHerblore();
 		this.highlightPrayer = config.highlightPrayer();
-        this.inventoryStacks = config.inventoryStacks();
+		this.inventoryStacks = config.inventoryStacks();
 	}
 
 	public void onItemContainerChanged(ItemContainerChanged itemContainerChangedEvent)

@@ -707,7 +707,7 @@ public interface GroundItemsConfig extends Config
 		keyName = "inventoryStacks",
 		name = "Inventory Stacks",
 		description = "Highlights items already stacked in inventory",
-		position = 29
+		position = 55
 	)
 	default boolean inventoryStacks()
 	{
