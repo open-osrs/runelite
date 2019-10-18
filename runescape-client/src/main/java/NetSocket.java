@@ -444,7 +444,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 						VertexNormal.method2960();
 						Client.field759 = false;
 					} else if (class197.field2386 != 0) {
-						TileItem.field1223 = var3;
+						TileItem.musicVolume = var3;
 					} else {
 						class49.midiPcmStream.method3760(var3);
 					}

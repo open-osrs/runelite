@@ -71,7 +71,7 @@ public class MusicPatchNode2 {
 			class197.musicTrackArchive = var1;
 			class188.musicTrackGroupId = var0;
 			class49.musicTrackFileId = 0;
-			TileItem.field1223 = var2;
+			TileItem.musicVolume = var2;
 			WorldMapSectionType.musicTrackBoolean = false;
 			field2382 = 2;
 		}

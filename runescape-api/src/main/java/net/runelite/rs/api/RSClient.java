@@ -1038,6 +1038,12 @@ public interface RSClient extends RSGameShell, Client
 	@Import("decimator")
 	RSDecimator getSoundEffectResampler();
 
+	@Import("musicVolume")
+	int getMusicVolume();
+
+	@Import("musicVolume")
+	void setMusicVolume(int volume);
+
 	@Import("soundEffectVolume")
 	int getSoundEffectVolume();
 

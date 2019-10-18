@@ -1763,7 +1763,7 @@ public final class Client extends GameShell implements Usernamed {
 
 					if (class49.midiPcmStream.loadMusicTrack(class197.musicTrack, class197.musicPatchesArchive, FriendLoginUpdate.soundCache, 22050)) {
 						class49.midiPcmStream.clearAll();
-						class49.midiPcmStream.method3760(TileItem.field1223);
+						class49.midiPcmStream.method3760(TileItem.musicVolume);
 						class49.midiPcmStream.setMusicTrack(class197.musicTrack, WorldMapSectionType.musicTrackBoolean);
 						class197.field2386 = 0;
 						class197.musicTrack = null;

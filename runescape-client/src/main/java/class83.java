@@ -42,7 +42,7 @@ public class class83 {
 		class197.musicTrackArchive = var0;
 		class188.musicTrackGroupId = var1;
 		class49.musicTrackFileId = var2;
-		TileItem.field1223 = var3;
+		TileItem.musicVolume = var3;
 		WorldMapSectionType.musicTrackBoolean = var4;
 		MusicPatchNode2.field2382 = 10000;
 	}
