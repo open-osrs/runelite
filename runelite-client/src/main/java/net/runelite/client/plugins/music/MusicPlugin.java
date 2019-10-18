@@ -113,7 +113,6 @@ public class MusicPlugin extends Plugin
 	protected void startUp()
 	{
 		addSubscriptions();
-		updateConfig();
 		lastMusicVolume = lastEffectVolume = lastAreaEffectVolume = -1;
 
 		clientThread.invoke(this::addMusicButtons);
@@ -222,7 +221,6 @@ public class MusicPlugin extends Plugin
 	{
 		if (event.getGroup().equals("music"))
 		{
-			updateConfig();
 			clientThread.invokeLater(this::applyMusicVolumeConfig);
 		}
 	}
@@ -361,13 +359,6 @@ public class MusicPlugin extends Plugin
 				WidgetInfo.MUSIC_TRACK_LIST.getId(),
 				newHeight
 		);
-	}
-
-	private void updateConfig()
-	{
-		this.getMusicVolume = config.getMusicVolume();
-		this.getSoundEffectVolume = config.getSoundEffectVolume();
-		this.getAreaSoundEffectVolume = config.getAreaSoundEffectVolume();
 	}
 
 	@AllArgsConstructor
