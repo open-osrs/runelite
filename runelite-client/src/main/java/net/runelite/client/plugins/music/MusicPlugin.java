@@ -25,6 +25,7 @@
  */
 package net.runelite.client.plugins.music;
 
+import com.google.inject.Provides;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -32,12 +33,11 @@ import java.util.function.BiConsumer;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
-
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.AccessLevel;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ScriptID;
@@ -59,6 +59,7 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetPositionMode;
 import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.callback.ClientThread;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.game.chatbox.ChatboxTextInput;
@@ -100,13 +101,19 @@ public class MusicPlugin extends Plugin
 
 	private MusicState currentMusicFilter = MusicState.ALL;
 
+	@Provides
+	MusicConfig getConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(MusicConfig.class);
+	}
+
 	@Override
 	protected void startUp()
 	{
+		addSubscriptions();
 		clientThread.invoke(() ->
 		{
 			addMusicButtons();
-			addSubscriptions();
 			applyMusicVolumeConfig();
 			updateMusicOptions();
 		});
