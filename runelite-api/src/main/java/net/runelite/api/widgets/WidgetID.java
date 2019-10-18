@@ -157,6 +157,7 @@ public class WidgetID
 	public static final int LMS_GROUP_ID = 333;
 	public static final int LMS_INGAME_GROUP_ID = 328;
 	public static final int JEWELLERY_BOX_GROUP_ID = 590;
+	public static final int OPTIONS_GROUP_ID = 261;
 
 	static class WorldMap
 	{
@@ -1164,5 +1165,12 @@ public class WidgetID
 		static final int SKIL_NECK = 5;
 		static final int RING_OFGP = 6;
 		static final int AMUL_GLOR = 7; // yes
+	}
+
+	static class Options
+	{
+		static final int MUSIC_SLIDER = 44;
+		static final int SOUND_EFFECT_SLIDER = 50;
+		static final int AREA_SOUND_SLIDER = 56;
 	}
 }
