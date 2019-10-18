@@ -326,14 +326,14 @@ public class ItemManager
 		return (int) Math.max(1, getItemDefinition(itemID).getPrice() * HIGH_ALCHEMY_MULTIPLIER);
 	}
 
-	public int getBrokenValue(int itemId)
+	public int getRepairValue(int itemId)
 	{
-		return getBrokenValue(itemId, false);
+		return getRepairValue(itemId, false);
 	}
 
-	public int getBrokenValue(int itemId, boolean fullValue)
+	public int getRepairValue(int itemId, boolean fullValue)
 	{
-		final PvPValueBrokenItem b = PvPValueBrokenItem.of(itemId);
+		final ItemReclaimCost b = ItemReclaimCost.of(itemId);
 
 		if (b != null)
 		{

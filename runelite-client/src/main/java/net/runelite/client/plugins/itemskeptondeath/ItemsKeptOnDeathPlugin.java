@@ -62,7 +62,7 @@ import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemMapping;
-import net.runelite.client.game.PvPValueBrokenItem;
+import net.runelite.client.game.ItemReclaimCost;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.ColorUtil;
@@ -358,7 +358,7 @@ public class ItemsKeptOnDeathPlugin extends Plugin
 			if (!Pets.isPet(id)
 				&& !LostIfNotProtected.isLostIfNotProtected(id)
 				&& !isTradeable(itemManager.getItemDefinition(id)) && wildyLevel <= DEEP_WILDY
-				&& (wildyLevel <= 0 || PvPValueBrokenItem.of(id) != null))
+				&& (wildyLevel <= 0 || ItemReclaimCost.of(id) != null))
 			{
 				keptItems.add(new ItemStack(id, qty));
 			}
@@ -464,7 +464,7 @@ public class ItemsKeptOnDeathPlugin extends Plugin
 		}
 
 		// Jagex uses the repair price when determining which items are kept on death.
-		final PvPValueBrokenItem repairPrice = PvPValueBrokenItem.of(canonicalizedItemId);
+		final ItemReclaimCost repairPrice = ItemReclaimCost.of(canonicalizedItemId);
 		if (repairPrice != null)
 		{
 			exchangePrice = repairPrice.getValue();
@@ -585,7 +585,7 @@ public class ItemsKeptOnDeathPlugin extends Plugin
 			final int cid = itemManager.canonicalize(w.getItemId());
 			final TrueItemValue trueItemValue = TrueItemValue.map(cid);
 			final Collection<Integer> mapping = ItemMapping.map(cid);
-			final int breakValue = itemManager.getBrokenValue(cid);
+			final int breakValue = itemManager.getRepairValue(cid);
 
 			if (breakValue != 0)
 			{

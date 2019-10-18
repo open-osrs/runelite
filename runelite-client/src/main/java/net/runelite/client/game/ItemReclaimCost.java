@@ -37,7 +37,7 @@ import net.runelite.api.ItemID;
  */
 @AllArgsConstructor
 @Getter
-public enum PvPValueBrokenItem
+public enum ItemReclaimCost
 {
 	// Capes
 	FIRE_CAPE(ItemID.FIRE_CAPE, 50000),
@@ -102,13 +102,13 @@ public enum PvPValueBrokenItem
 	GRANITE_MAUL(ItemID.GRANITE_MAUL_24225, 375000),
 	GRANITE_MAUL_OR(ItemID.GRANITE_MAUL_24227, 375000);
 
-	private static final ImmutableMap<Integer, PvPValueBrokenItem> idMap;
+	private static final ImmutableMap<Integer, ItemReclaimCost> idMap;
 
 	static
 	{
-		ImmutableMap.Builder<Integer, PvPValueBrokenItem> builder = ImmutableMap.builder();
+		ImmutableMap.Builder<Integer, ItemReclaimCost> builder = ImmutableMap.builder();
 
-		for (PvPValueBrokenItem items : values())
+		for (ItemReclaimCost items : values())
 		{
 			builder.put(items.itemID, items);
 		}
@@ -120,7 +120,7 @@ public enum PvPValueBrokenItem
 	private final int value;
 
 	@Nullable
-	public static PvPValueBrokenItem of(int itemId)
+	public static ItemReclaimCost of(int itemId)
 	{
 		return idMap.get(itemId);
 	}
