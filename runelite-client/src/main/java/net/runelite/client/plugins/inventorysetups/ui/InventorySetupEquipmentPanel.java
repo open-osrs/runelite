@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018-2019, Ethan <https://github.com/Wea1thRS/>
- * Copyright (c) 2018, https://openosrs.com
+ * Copyright (c) 2019, Dillon <https://github.com/dillydill123>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,94 +24,94 @@
  */
 package net.runelite.client.plugins.inventorysetups.ui;
 
-import java.awt.GridLayout;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.inject.Singleton;
-import javax.swing.JPanel;
 import net.runelite.api.EquipmentInventorySlot;
+
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.inventorysetups.InventorySetup;
 import net.runelite.client.plugins.inventorysetups.InventorySetupItem;
 import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
 import net.runelite.client.ui.ColorScheme;
 
-@Singleton
+import javax.swing.JPanel;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class InventorySetupEquipmentPanel extends InventorySetupContainerPanel
 {
-	private Map<EquipmentInventorySlot, InventorySetupSlot> equipmentSlots;
+    private HashMap<EquipmentInventorySlot, InventorySetupSlot> equipmentSlots;
 
-	InventorySetupEquipmentPanel(final ItemManager itemManager, final InventorySetupPlugin plugin)
-	{
-		super(itemManager, plugin, "Equipment");
-	}
+    InventorySetupEquipmentPanel(final ItemManager itemManager, final InventorySetupPlugin plugin)
+    {
+        super(itemManager, plugin, "Equipment");
+    }
 
-	@Override
-	public void setupContainerPanel(final JPanel containerSlotsPanel)
-	{
-		this.equipmentSlots = new HashMap<>();
-		for (EquipmentInventorySlot slot : EquipmentInventorySlot.values())
-		{
-			equipmentSlots.put(slot, new InventorySetupSlot(ColorScheme.DARKER_GRAY_COLOR));
-		}
+    @Override
+    public void setupContainerPanel(final JPanel containerSlotsPanel)
+    {
+        this.equipmentSlots = new HashMap<>();
+        for (EquipmentInventorySlot slot : EquipmentInventorySlot.values())
+        {
+            equipmentSlots.put(slot, new InventorySetupSlot(ColorScheme.DARKER_GRAY_COLOR));
+        }
 
-		final GridLayout gridLayout = new GridLayout(5, 3, 1, 1);
-		containerSlotsPanel.setLayout(gridLayout);
+        final GridLayout gridLayout = new GridLayout(5, 3, 1, 1);
+        containerSlotsPanel.setLayout(gridLayout);
 
-		// add the grid layouts, including invisible ones
-		containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.HEAD));
-		containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.CAPE));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.AMULET));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.AMMO));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.WEAPON));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.BODY));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.SHIELD));
-		containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.LEGS));
-		containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.GLOVES));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.BOOTS));
-		containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.RING));
+        // add the grid layouts, including invisible ones
+        containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.HEAD));
+        containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.CAPE));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.AMULET));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.AMMO));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.WEAPON));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.BODY));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.SHIELD));
+        containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.LEGS));
+        containerSlotsPanel.add(new InventorySetupSlot(ColorScheme.DARK_GRAY_COLOR));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.GLOVES));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.BOOTS));
+        containerSlotsPanel.add(equipmentSlots.get(EquipmentInventorySlot.RING));
 
-	}
+    }
 
-	void setEquipmentSetupSlots(final InventorySetup setup)
-	{
-		final List<InventorySetupItem> equipment = setup.getEquipment();
+    @Override
+    public void setSlots(final InventorySetup setup)
+    {
+        final ArrayList<InventorySetupItem> equipment = setup.getEquipment();
 
-		for (final EquipmentInventorySlot slot : EquipmentInventorySlot.values())
-		{
-			int i = slot.getSlotIdx();
-			super.setContainerSlot(i, equipmentSlots.get(slot), equipment);
-		}
+        for (final EquipmentInventorySlot slot : EquipmentInventorySlot.values())
+        {
+            int i = slot.getSlotIdx();
+            super.setContainerSlot(i, equipmentSlots.get(slot), equipment);
+        }
 
-		validate();
-		repaint();
+        validate();
+        repaint();
+    }
 
-	}
+    @Override
+    public void highlightDifferences(final ArrayList<InventorySetupItem> currEquipment, final InventorySetup inventorySetup)
+    {
+        final ArrayList<InventorySetupItem> equipToCheck = inventorySetup.getEquipment();
 
-	void highlightDifferences(final List<InventorySetupItem> currEquipment, final InventorySetup inventorySetup)
-	{
-		final List<InventorySetupItem> equipToCheck = inventorySetup.getEquipment();
+        assert currEquipment.size() == equipToCheck.size() : "size mismatch";
 
-		assert currEquipment.size() == equipToCheck.size() : "size mismatch";
+        for (final EquipmentInventorySlot slot : EquipmentInventorySlot.values())
+        {
+            int slotIdx = slot.getSlotIdx();
+            super.highlightDifferentSlotColor(inventorySetup, equipToCheck.get(slotIdx), currEquipment.get(slotIdx), equipmentSlots.get(slot));
+        }
+    }
 
-		for (final EquipmentInventorySlot slot : EquipmentInventorySlot.values())
-		{
-
-			int slotIdx = slot.getSlotIdx();
-			super.highlightDifferentSlotColor(equipToCheck.get(slotIdx), currEquipment.get(slotIdx), equipmentSlots.get(slot));
-		}
-	}
-
-	void resetEquipmentSlotsColor()
-	{
-		for (final EquipmentInventorySlot slot : EquipmentInventorySlot.values())
-		{
-			equipmentSlots.get(slot).setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		}
-	}
+    @Override
+    public void resetSlotColors()
+    {
+        for (final EquipmentInventorySlot slot : EquipmentInventorySlot.values())
+        {
+            equipmentSlots.get(slot).setBackground(ColorScheme.DARKER_GRAY_COLOR);
+        }
+    }
 }

@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018-2019, Ethan <https://github.com/Wea1thRS/>
- * Copyright (c) 2018, https://openosrs.com
+ * Copyright (c) 2019, Dillon <https://github.com/dillydill123>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,107 +24,112 @@
  */
 package net.runelite.client.plugins.inventorysetups.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.util.List;
-import javax.inject.Singleton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import net.runelite.client.util.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemVariationMapping;
+import net.runelite.client.plugins.inventorysetups.InventorySetup;
 import net.runelite.client.plugins.inventorysetups.InventorySetupItem;
 import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
 import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.util.AsyncBufferedImage;
 
-@Singleton
-abstract class InventorySetupContainerPanel extends JPanel
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.util.ArrayList;
+
+public abstract class InventorySetupContainerPanel extends JPanel
 {
-	private final ItemManager itemManager;
 
-	private final InventorySetupPlugin plugin;
+    protected ItemManager itemManager;
 
-	InventorySetupContainerPanel(final ItemManager itemManager, final InventorySetupPlugin plugin, String captionText)
-	{
-		this.itemManager = itemManager;
-		this.plugin = plugin;
-		JPanel containerPanel = new JPanel();
+    private final InventorySetupPlugin plugin;
 
-		final JPanel containerSlotsPanel = new JPanel();
+    InventorySetupContainerPanel(final ItemManager itemManager, final InventorySetupPlugin plugin, String captionText)
+    {
+        this.itemManager = itemManager;
+        this.plugin = plugin;
+        JPanel containerPanel = new JPanel();
 
-		setupContainerPanel(containerSlotsPanel);
+        final JPanel containerSlotsPanel = new JPanel();
 
-		// caption
-		final JLabel caption = new JLabel(captionText);
-		caption.setHorizontalAlignment(JLabel.CENTER);
-		caption.setVerticalAlignment(JLabel.CENTER);
+        // sets up the custom container panel
+        setupContainerPanel(containerSlotsPanel);
 
-		// panel that holds the caption and any other graphics
-		final JPanel captionPanel = new JPanel();
-		captionPanel.add(caption);
+        // caption
+        final JLabel caption = new JLabel(captionText);
+        caption.setHorizontalAlignment(JLabel.CENTER);
+        caption.setVerticalAlignment(JLabel.CENTER);
 
-		containerPanel.setLayout(new BorderLayout());
-		containerPanel.add(captionPanel, BorderLayout.NORTH);
-		containerPanel.add(containerSlotsPanel, BorderLayout.CENTER);
+        // panel that holds the caption and any other graphics
+        final JPanel captionPanel = new JPanel();
+        captionPanel.add(caption);
 
-		add(containerPanel);
-	}
+        containerPanel.setLayout(new BorderLayout());
+        containerPanel.add(captionPanel, BorderLayout.NORTH);
+        containerPanel.add(containerSlotsPanel, BorderLayout.CENTER);
 
-	void setContainerSlot(int index,
-						final InventorySetupSlot containerSlot,
-						final List<InventorySetupItem> items)
-	{
-		if (index >= items.size() || items.get(index).getId() == -1)
-		{
-			containerSlot.setImageLabel(null, null);
-			return;
-		}
+        add(containerPanel);
+    }
 
-		int itemId = items.get(index).getId();
-		int quantity = items.get(index).getQuantity();
-		final String itemName = items.get(index).getName();
-		AsyncBufferedImage itemImg = itemManager.getImage(itemId, quantity, quantity > 1);
-		String toolTip = itemName;
-		if (quantity > 1)
-		{
-			toolTip += " (" + quantity + ")";
-		}
-		containerSlot.setImageLabel(toolTip, itemImg);
-	}
+    void setContainerSlot(int index, final InventorySetupSlot containerSlot, final ArrayList<InventorySetupItem> items)
+    {
+        if (index >= items.size() || items.get(index).getId() == -1)
+        {
+            containerSlot.setImageLabel(null, null);
+            return;
+        }
 
-	void highlightDifferentSlotColor(InventorySetupItem savedItem,
-									InventorySetupItem currItem,
-									final InventorySetupSlot containerSlot)
-	{
-		// important note: do not use item names for comparisons
-		// they are all empty to avoid clientThread usage when highlighting
+        int itemId = items.get(index).getId();
+        int quantity = items.get(index).getQuantity();
+        final String itemName = items.get(index).getName();
+        AsyncBufferedImage itemImg = itemManager.getImage(itemId, quantity, quantity > 1);
+        String toolTip = itemName;
+        if (quantity > 1)
+        {
+            toolTip += " (" + quantity + ")";
+        }
+        containerSlot.setImageLabel(toolTip, itemImg);
+    }
 
-		final Color highlightColor = plugin.getGetHighlightColor();
+    void highlightDifferentSlotColor(final InventorySetup setup, InventorySetupItem savedItem, InventorySetupItem currItem, final InventorySetupSlot containerSlot)
+    {
+        // important note: do not use item names for comparisons
+        // they are all empty to avoid clientThread usage when highlighting
 
-		if (plugin.isGetStackDifference() && currItem.getQuantity() != savedItem.getQuantity())
-		{
-			containerSlot.setBackground(highlightColor);
-			return;
-		}
+        // first check if stack differences are enabled and compare quantities
+        if (setup.isStackDifference() && currItem.getQuantity() != savedItem.getQuantity())
+        {
+            containerSlot.setBackground(setup.getHighlightColor());
+            return;
+        }
 
-		int currId = currItem.getId();
-		int checkId = savedItem.getId();
+        // obtain the correct item ids using the variation difference if applicable
+        int currId = currItem.getId();
+        int checkId = savedItem.getId();
 
-		if (!plugin.isGetVariationDifference())
-		{
-			currId = ItemVariationMapping.map(currId);
-			checkId = ItemVariationMapping.map(checkId);
-		}
+        if (!setup.isVariationDifference())
+        {
+            currId = ItemVariationMapping.map(currId);
+            checkId = ItemVariationMapping.map(checkId);
+        }
 
-		if (currId != checkId)
-		{
-			containerSlot.setBackground(highlightColor);
-			return;
-		}
+        // if the ids don't match, highlight the container slot
+        if (currId != checkId)
+        {
+            containerSlot.setBackground(setup.getHighlightColor());
+            return;
+        }
 
-		// set the color back to the original, because they match
-		containerSlot.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-	}
+        // set the color back to the original, because they match
+        containerSlot.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+    }
 
-	protected abstract void setupContainerPanel(final JPanel containerSlotsPanel);
+    abstract public void setupContainerPanel(final JPanel containerSlotsPanel);
+
+    abstract public void highlightDifferences(final ArrayList<InventorySetupItem> currContainer, final InventorySetup inventorySetup);
+
+    abstract public void setSlots(final InventorySetup setup);
+
+    abstract public void resetSlotColors();
 }
