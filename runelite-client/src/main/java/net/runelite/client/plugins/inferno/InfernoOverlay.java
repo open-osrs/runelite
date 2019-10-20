@@ -24,7 +24,6 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
-import org.w3c.dom.css.Rect;
 
 public class InfernoOverlay extends Overlay
 {
