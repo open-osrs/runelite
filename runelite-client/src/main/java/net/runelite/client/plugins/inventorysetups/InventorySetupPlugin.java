@@ -28,9 +28,8 @@ package net.runelite.client.plugins.inventorysetups;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Provides;
-import joptsimple.internal.Strings;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,15 +38,16 @@ import java.util.Map;
 import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
@@ -56,16 +56,16 @@ import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.ItemVariationMapping;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.inventorysetups.ui.InventorySetupPluginPanel;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
-import net.runelite.client.util.ImageUtil;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.ImageUtil;
+import joptsimple.internal.Strings;
 
 @PluginDescriptor(
 	name = "Inventory Setups",
@@ -92,16 +92,7 @@ public class InventorySetupPlugin extends Plugin
 	private ItemManager itemManager;
 
 	@Inject
-	private InventorySetupBankOverlay overlay;
-
-	@Inject
 	private ClientToolbar clientToolbar;
-
-	@Inject
-	private InventorySetupConfig config;
-
-	@Inject
-	private OverlayManager overlayManager;
 
 	@Inject
 	private ClientThread clientThread;
@@ -114,8 +105,8 @@ public class InventorySetupPlugin extends Plugin
 
 	private InventorySetupPluginPanel panel;
 
-    @Getter
-    private ArrayList<InventorySetup> inventorySetups;
+	@Getter
+	private ArrayList<InventorySetup> inventorySetups;
 
 	private NavigationButton navButton;
 
@@ -133,134 +124,134 @@ public class InventorySetupPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private Color getBankHighlightColor;
 
-    @Override
-    public void startUp()
-    {
-        addSubscriptions();
+	@Override
+	public void startUp()
+	{
+		addSubscriptions();
 
-        panel = new InventorySetupPluginPanel(this, itemManager);
+		panel = new InventorySetupPluginPanel(this, itemManager);
 
-        final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "inventorysetups_icon.png");
+		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "inventorysetups_icon.png");
 
-        navButton = NavigationButton.builder()
-                .tooltip("Inventory Setups")
-                .icon(icon)
-                .priority(9)
-                .panel(panel)
-                .build();
+		navButton = NavigationButton.builder()
+				.tooltip("Inventory Setups")
+				.icon(icon)
+				.priority(9)
+				.panel(panel)
+				.build();
 
-        clientToolbar.addNavigation(navButton);
-
-
-        loadConfig();
-        panel.rebuild();
-    }
+		clientToolbar.addNavigation(navButton);
 
 
-    public void addInventorySetup()
-    {
-        final String name = JOptionPane.showInputDialog(panel,
-                "Enter the name of this setup.",
-                "Add New Setup",
-                JOptionPane.PLAIN_MESSAGE);
-
-        // cancel button was clicked
-        if (name == null)
-        {
-            return;
-        }
-
-        if (name.isEmpty())
-        {
-            JOptionPane.showMessageDialog(panel,
-                    "Invalid Setup Name",
-                    "Names must not be empty.",
-                    JOptionPane.PLAIN_MESSAGE);
-            return;
-        }
-
-        clientThread.invoke(() ->
-        {
-            ArrayList<InventorySetupItem> inv = getNormalizedContainer(InventoryID.INVENTORY);
-            ArrayList<InventorySetupItem> eqp = getNormalizedContainer(InventoryID.EQUIPMENT);
-
-            final InventorySetup invSetup = new InventorySetup(inv, eqp, name, DEFAULT_HIGHLIGHT_COLOR, false, false, false);
-            SwingUtilities.invokeLater(() ->
-            {
-                inventorySetups.add(invSetup);
-                panel.rebuild();
-
-                updateConfig();
-            });
-        });
-    }
-
-    public void removeInventorySetup(final InventorySetup setup)
-    {
-        inventorySetups.remove(setup);
-        panel.rebuild();
-        updateConfig();
-    }
-
-    public void updateConfig()
-    {
-        if (inventorySetups.isEmpty())
-        {
-            configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_KEY);
-            return;
-        }
-
-        final Gson gson = new Gson();
-        final String json = gson.toJson(inventorySetups);
-        configManager.setConfiguration(CONFIG_GROUP, CONFIG_KEY, json);
-    }
-    private void loadConfig()
-    {
-        // serialize the internal data structure from the json in the configuration
-        final String json = configManager.getConfiguration(CONFIG_GROUP, CONFIG_KEY);
-        if (Strings.isNullOrEmpty(json))
-        {
-            inventorySetups = new ArrayList<>();
-        }
-        else
-        {
-            try
-            {
-                final Gson gson = new Gson();
-                Type type = new TypeToken<ArrayList<InventorySetup>>() {
-
-                }.getType();
-                inventorySetups = gson.fromJson(json, type);
-            }
-            catch (Exception e)
-            {
-                inventorySetups = new ArrayList<>();
-            }
-
-        }
-    }
+		loadConfig();
+		panel.rebuild();
+	}
 
 
+	public void addInventorySetup()
+	{
+		final String name = JOptionPane.showInputDialog(panel,
+				"Enter the name of this setup.",
+				"Add New Setup",
+				JOptionPane.PLAIN_MESSAGE);
 
-    public void onItemContainerChanged(ItemContainerChanged event)
-    {
+		// cancel button was clicked
+		if (name == null)
+		{
+			return;
+		}
 
-        // check to see that the container is the equipment or inventory
-        ItemContainer container = event.getItemContainer();
+		if (name.isEmpty())
+		{
+			JOptionPane.showMessageDialog(panel,
+					"Invalid Setup Name",
+					"Names must not be empty.",
+					JOptionPane.PLAIN_MESSAGE);
+			return;
+		}
 
-        if (container == client.getItemContainer(InventoryID.INVENTORY))
-        {
-            panel.highlightDifferences(InventoryID.INVENTORY);
-        }
-        else if (container == client.getItemContainer(InventoryID.EQUIPMENT))
-        {
-            panel.highlightDifferences(InventoryID.EQUIPMENT);
-        }
+		clientThread.invoke(() ->
+		{
+			ArrayList<InventorySetupItem> inv = getNormalizedContainer(InventoryID.INVENTORY);
+			ArrayList<InventorySetupItem> eqp = getNormalizedContainer(InventoryID.EQUIPMENT);
 
-    }
+			final InventorySetup invSetup = new InventorySetup(inv, eqp, name, DEFAULT_HIGHLIGHT_COLOR, false, false, false);
+			SwingUtilities.invokeLater(() ->
+			{
+				inventorySetups.add(invSetup);
+				panel.rebuild();
 
-    public void onGameStateChanged(GameStateChanged event)
-    {
+				updateConfig();
+			});
+		});
+	}
+
+	public void removeInventorySetup(final InventorySetup setup)
+	{
+		inventorySetups.remove(setup);
+		panel.rebuild();
+		updateConfig();
+	}
+
+	public void updateConfig()
+	{
+		if (inventorySetups.isEmpty())
+		{
+			configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_KEY);
+			return;
+		}
+
+		final Gson gson = new Gson();
+		final String json = gson.toJson(inventorySetups);
+		configManager.setConfiguration(CONFIG_GROUP, CONFIG_KEY, json);
+	}
+	private void loadConfig()
+	{
+		// serialize the internal data structure from the json in the configuration
+		final String json = configManager.getConfiguration(CONFIG_GROUP, CONFIG_KEY);
+		if (Strings.isNullOrEmpty(json))
+		{
+			inventorySetups = new ArrayList<>();
+		}
+		else
+		{
+			try
+			{
+				final Gson gson = new Gson();
+				Type type = new TypeToken<ArrayList<InventorySetup>>() {
+
+				}.getType();
+				inventorySetups = gson.fromJson(json, type);
+			}
+			catch (Exception e)
+			{
+				inventorySetups = new ArrayList<>();
+			}
+
+		}
+	}
+
+
+
+	public void onItemContainerChanged(ItemContainerChanged event)
+	{
+
+		// check to see that the container is the equipment or inventory
+		ItemContainer container = event.getItemContainer();
+
+		if (container == client.getItemContainer(InventoryID.INVENTORY))
+		{
+			panel.highlightDifferences(InventoryID.INVENTORY);
+		}
+		else if (container == client.getItemContainer(InventoryID.EQUIPMENT))
+		{
+			panel.highlightDifferences(InventoryID.EQUIPMENT);
+		}
+
+	}
+
+	public void onGameStateChanged(GameStateChanged event)
+	{
 //		switch (event.getGameState())
 //		{
 //			// set the highlighting off if login screen shows up
@@ -276,53 +267,52 @@ public class InventorySetupPlugin extends Plugin
 //			default:
 //				return;
 //		}
-    }
+	}
 
-    public ArrayList<InventorySetupItem> getNormalizedContainer(final InventoryID id)
-    {
-        assert id == InventoryID.INVENTORY || id == InventoryID.EQUIPMENT : "invalid inventory ID";
+	public ArrayList<InventorySetupItem> getNormalizedContainer(final InventoryID id)
+	{
+		assert id == InventoryID.INVENTORY || id == InventoryID.EQUIPMENT : "invalid inventory ID";
 
-        final ItemContainer container = client.getItemContainer(id);
+		final ItemContainer container = client.getItemContainer(id);
 
-        ArrayList<InventorySetupItem> newContainer = new ArrayList<>();
+		ArrayList<InventorySetupItem> newContainer = new ArrayList<>();
 
-        Item[] items = null;
-        if (container != null)
-        {
-            items = container.getItems();
-        }
+		Item[] items = null;
+		if (container != null)
+		{
+			items = container.getItems();
+		}
 
-        int size = id == InventoryID.INVENTORY ? NUM_INVENTORY_ITEMS : NUM_EQUIPMENT_ITEMS;
+		int size = id == InventoryID.INVENTORY ? NUM_INVENTORY_ITEMS : NUM_EQUIPMENT_ITEMS;
 
-        for (int i = 0; i < size; i++)
-        {
-            if (items == null || i >= items.length)
-            {
-                // add a "dummy" item to fill the normalized container to the right size
-                // this will be useful to compare when no item is in a slot
-                newContainer.add(new InventorySetupItem(-1, "", 0));
-            }
-            else
-            {
-                final Item item = items[i];
-                String itemName = "";
-                if (client.isClientThread())
-                {
-                    itemName = itemManager.getItemDefinition(item.getId()).getName();
-                }
-                newContainer.add(new InventorySetupItem(item.getId(), itemName, item.getQuantity()));
-            }
-        }
+		for (int i = 0; i < size; i++)
+		{
+			if (items == null || i >= items.length)
+			{
+				// add a "dummy" item to fill the normalized container to the right size
+				// this will be useful to compare when no item is in a slot
+				newContainer.add(new InventorySetupItem(-1, "", 0));
+			}
+			else
+			{
+				final Item item = items[i];
+				String itemName = "";
+				if (client.isClientThread())
+				{
+					itemName = itemManager.getItemDefinition(item.getId()).getName();
+				}
+				newContainer.add(new InventorySetupItem(item.getId(), itemName, item.getQuantity()));
+			}
+		}
 
-        return newContainer;
-    }
+		return newContainer;
+	}
 
 
 	@Override
 	public void shutDown()
 	{
 		eventBus.unregister(this);
-		overlayManager.remove(overlay);
 		clientToolbar.removeNavigation(navButton);
 	}
 

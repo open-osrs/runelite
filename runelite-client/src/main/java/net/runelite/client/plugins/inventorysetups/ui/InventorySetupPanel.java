@@ -25,15 +25,18 @@
 
 package net.runelite.client.plugins.inventorysetups.ui;
 
+import lombok.Getter;
 import net.runelite.client.plugins.inventorysetups.InventorySetup;
 import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
 
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.FlatTextField;
+import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -103,6 +106,11 @@ public class InventorySetupPanel extends JPanel
 	private final JLabel save = new JLabel("Save");
 	private final JLabel cancel = new JLabel("Cancel");
 	private final JLabel rename = new JLabel("Rename");
+
+
+	@Getter
+	@Inject
+	private ColorPickerManager colorPickerManager;
 
 	//private boolean visible;
 
@@ -482,15 +490,15 @@ public class InventorySetupPanel extends JPanel
 
 	private void openHighlightColorPicker()
 	{
-		RuneliteColorPicker colorPicker = new RuneliteColorPicker(SwingUtilities.windowForComponent(this),
-				inventorySetup.getHighlightColor(), inventorySetup.getName(), false);
-		colorPicker.setLocation(getLocationOnScreen());
-		colorPicker.setOnColorChange(c ->
-		{
-			// TODO update color
-			inventorySetup.setHighlightColor(c);
-			updateHighlightColorLabel();
-		});
+			RuneliteColorPicker colorPicker = getColorPickerManager().create(SwingUtilities.windowForComponent(this),
+					inventorySetup.getHighlightColor(), inventorySetup.getName(), false);
+			colorPicker.setLocation(getLocationOnScreen());
+			colorPicker.setOnColorChange(c ->
+			{
+				inventorySetup.setHighlightColor(c);
+				updateHighlightColorLabel();
+			});
+
 
 		colorPicker.addWindowListener(new WindowAdapter()
 		{

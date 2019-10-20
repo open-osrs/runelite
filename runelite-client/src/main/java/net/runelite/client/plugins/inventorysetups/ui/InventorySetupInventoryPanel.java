@@ -37,69 +37,69 @@ import java.util.ArrayList;
 public class InventorySetupInventoryPanel extends InventorySetupContainerPanel
 {
 
-    private static final int ITEMS_PER_ROW = 4;
-    private static final int NUM_INVENTORY_ITEMS = 28;
+	private static final int ITEMS_PER_ROW = 4;
+	private static final int NUM_INVENTORY_ITEMS = 28;
 
-    private ArrayList<InventorySetupSlot> inventorySlots;
+	private ArrayList<InventorySetupSlot> inventorySlots;
 
-    InventorySetupInventoryPanel(final ItemManager itemManager, final InventorySetupPlugin plugin)
-    {
-        super(itemManager, plugin, "Inventory");
-    }
+	InventorySetupInventoryPanel(final ItemManager itemManager, final InventorySetupPlugin plugin)
+	{
+		super(itemManager, plugin, "Inventory");
+	}
 
 
-    @Override
-    public void setupContainerPanel(final JPanel containerSlotsPanel)
-    {
-        this.inventorySlots = new ArrayList<>();
-        for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
-        {
-            inventorySlots.add(new InventorySetupSlot(ColorScheme.DARKER_GRAY_COLOR));
-        }
+	@Override
+	public void setupContainerPanel(final JPanel containerSlotsPanel)
+	{
+		this.inventorySlots = new ArrayList<>();
+		for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
+		{
+			inventorySlots.add(new InventorySetupSlot(ColorScheme.DARKER_GRAY_COLOR));
+		}
 
-        int numRows = (NUM_INVENTORY_ITEMS + ITEMS_PER_ROW - 1) / ITEMS_PER_ROW;
-        containerSlotsPanel.setLayout(new GridLayout(numRows, ITEMS_PER_ROW, 1, 1));
-        for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
-        {
-            containerSlotsPanel.add(inventorySlots.get(i));
-        }
-    }
+		int numRows = (NUM_INVENTORY_ITEMS + ITEMS_PER_ROW - 1) / ITEMS_PER_ROW;
+		containerSlotsPanel.setLayout(new GridLayout(numRows, ITEMS_PER_ROW, 1, 1));
+		for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
+		{
+			containerSlotsPanel.add(inventorySlots.get(i));
+		}
+	}
 
-    @Override
-    public void setSlots(final InventorySetup setup)
-    {
-        ArrayList<InventorySetupItem> inventory = setup.getInventory();
+	@Override
+	public void setSlots(final InventorySetup setup)
+	{
+		ArrayList<InventorySetupItem> inventory = setup.getInventory();
 
-        for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
-        {
-            super.setContainerSlot(i, inventorySlots.get(i), inventory);
-        }
+		for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
+		{
+			super.setContainerSlot(i, inventorySlots.get(i), inventory);
+		}
 
-        validate();
-        repaint();
+		validate();
+		repaint();
 
-    }
+	}
 
-    @Override
-    public void highlightDifferences(final ArrayList<InventorySetupItem> currInventory, final InventorySetup inventorySetup)
-    {
+	@Override
+	public void highlightDifferences(final ArrayList<InventorySetupItem> currInventory, final InventorySetup inventorySetup)
+	{
 
-        final ArrayList<InventorySetupItem> inventoryToCheck = inventorySetup.getInventory();
+		final ArrayList<InventorySetupItem> inventoryToCheck = inventorySetup.getInventory();
 
-        assert currInventory.size() == inventoryToCheck.size() : "size mismatch";
+		assert currInventory.size() == inventoryToCheck.size() : "size mismatch";
 
-        for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
-        {
-            super.highlightDifferentSlotColor(inventorySetup, inventoryToCheck.get(i), currInventory.get(i), inventorySlots.get(i));
-        }
-    }
+		for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
+		{
+			super.highlightDifferentSlotColor(inventorySetup, inventoryToCheck.get(i), currInventory.get(i), inventorySlots.get(i));
+		}
+	}
 
-    @Override
-    public void resetSlotColors()
-    {
-        for (InventorySetupSlot inventorySlot : inventorySlots)
-        {
-            inventorySlot.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-        }
-    }
+	@Override
+	public void resetSlotColors()
+	{
+		for (InventorySetupSlot inventorySlot : inventorySlots)
+		{
+			inventorySlot.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+		}
+	}
 }

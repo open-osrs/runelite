@@ -34,29 +34,29 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class InventorySetup
 {
-    @Getter
-    private ArrayList<InventorySetupItem> inventory;
+	@Getter
+	private ArrayList<InventorySetupItem> inventory;
 
-    @Getter
-    private ArrayList<InventorySetupItem> equipment;
+	@Getter
+	private ArrayList<InventorySetupItem> equipment;
 
-    @Getter
-    @Setter
-    private String name;
+	@Getter
+	@Setter
+	private String name;
 
-    @Getter
-    @Setter
-    private Color highlightColor;
+	@Getter
+	@Setter
+	private Color highlightColor;
 
-    @Getter
-    @Setter
-    private boolean stackDifference;
+	@Getter
+	@Setter
+	private boolean stackDifference;
 
-    @Getter
-    @Setter
-    private boolean variationDifference;
+	@Getter
+	@Setter
+	private boolean variationDifference;
 
-    @Getter
-    @Setter
-    private boolean highlightDifference;
+	@Getter
+	@Setter
+	private boolean highlightDifference;
 }

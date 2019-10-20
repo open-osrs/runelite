@@ -35,17 +35,17 @@ import net.runelite.client.util.AsyncBufferedImage;
 public class InventorySetupSlot extends JPanel
 {
 
-    private final JLabel imageLabel;
+	private final JLabel imageLabel;
 
-    public InventorySetupSlot(Color color)
-    {
-        imageLabel = new JLabel();
-        imageLabel.setVerticalAlignment(SwingConstants.CENTER);
-        setPreferredSize(new Dimension(46, 42));
-        setBackground(color);
-        add(imageLabel);
+	public InventorySetupSlot(Color color)
+	{
+		imageLabel = new JLabel();
+		imageLabel.setVerticalAlignment(SwingConstants.CENTER);
+		setPreferredSize(new Dimension(46, 42));
+		setBackground(color);
+		add(imageLabel);
 
-    }
+	}
 
 	public void setImageLabel(String toolTip, AsyncBufferedImage itemImage)
 	{
