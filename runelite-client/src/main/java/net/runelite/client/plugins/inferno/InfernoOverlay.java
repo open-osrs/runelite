@@ -24,13 +24,13 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
+import org.w3c.dom.css.Rect;
 
 public class InfernoOverlay extends Overlay
 {
 	private static final int TICK_PIXEL_SIZE = 60;
-	private static final int BLOB_WIDTH = 10;
-	private static final int BLOB_HEIGHT = 5;
-	private static final Rectangle BLOB_RECTANGLE = new Rectangle(BLOB_WIDTH, BLOB_HEIGHT);
+	private static final int BOX_WIDTH = 10;
+	private static final int BOX_HEIGHT = 5;
 
 	private final InfernoPlugin plugin;
 	private final Client client;
@@ -397,19 +397,21 @@ public class InfernoOverlay extends Overlay
 
 				int baseX = (int) prayerWidget.getBounds().getX();
 				baseX += prayerWidget.getBounds().getWidth() / 2;
-				baseX -= BLOB_WIDTH / 2;
+				baseX -= BOX_WIDTH / 2;
 
-				int baseY = (int) prayerWidget.getBounds().getY() - tick * TICK_PIXEL_SIZE - BLOB_HEIGHT;
+				int baseY = (int) prayerWidget.getBounds().getY() - tick * TICK_PIXEL_SIZE - BOX_HEIGHT;
 				baseY += TICK_PIXEL_SIZE - ((plugin.getLastTick() + 600 - System.currentTimeMillis()) / 600.0 * TICK_PIXEL_SIZE);
-				BLOB_RECTANGLE.translate(baseX, baseY);
+
+				final Rectangle boxRectangle = new Rectangle(BOX_WIDTH, BOX_HEIGHT);
+				boxRectangle.translate(baseX, baseY);
 
 				if (currentAttack == bestAttack)
 				{
-					OverlayUtil.renderFilledPolygon(graphics, BLOB_RECTANGLE, color);
+					OverlayUtil.renderFilledPolygon(graphics, boxRectangle, color);
 				}
 				else if (plugin.isIndicateNonPriorityDescendingBoxes())
 				{
-					OverlayUtil.renderOutlinePolygon(graphics, BLOB_RECTANGLE, color);
+					OverlayUtil.renderOutlinePolygon(graphics, boxRectangle, color);
 				}
 			}
 		}
@@ -437,11 +439,9 @@ public class InfernoOverlay extends Overlay
 			if (plugin.getClosestAttack() != prayerForAttack || plugin.isIndicateWhenPrayingCorrectly())
 			{
 				final Widget prayerWidget = client.getWidget(plugin.getClosestAttack().getPrayer().getWidgetInfo());
-				final Polygon prayer = new Polygon(
-					new int[]{0, (int) prayerWidget.getBounds().getWidth(), (int) prayerWidget.getBounds().getWidth(), 0},
-					new int[]{0, 0, (int) prayerWidget.getBounds().getHeight(), (int) prayerWidget.getBounds().getHeight()},
-					4);
-				prayer.translate((int) prayerWidget.getBounds().getX(), (int) prayerWidget.getBounds().getY());
+				final Rectangle prayerRectangle = new Rectangle((int) prayerWidget.getBounds().getWidth(),
+					(int) prayerWidget.getBounds().getHeight());
+				prayerRectangle.translate((int) prayerWidget.getBounds().getX(), (int) prayerWidget.getBounds().getY());
 
 				//TODO: Config values for these colors
 				Color prayerColor;
@@ -454,7 +454,7 @@ public class InfernoOverlay extends Overlay
 					prayerColor = Color.RED;
 				}
 
-				OverlayUtil.renderOutlinePolygon(graphics, prayer, prayerColor);
+				OverlayUtil.renderOutlinePolygon(graphics, prayerRectangle, prayerColor);
 			}
 		}
 	}
