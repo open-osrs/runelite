@@ -33,10 +33,12 @@ import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
 import net.runelite.client.ui.ColorScheme;
 
 import javax.swing.JPanel;
+import javax.inject.Singleton;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+@Singleton
 public class InventorySetupInventoryPanel extends InventorySetupContainerPanel
 {
 
