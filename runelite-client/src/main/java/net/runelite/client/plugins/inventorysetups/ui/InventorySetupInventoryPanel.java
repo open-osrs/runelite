@@ -33,6 +33,7 @@ import net.runelite.client.ui.ColorScheme;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventorySetupInventoryPanel extends InventorySetupContainerPanel
 {
@@ -40,7 +41,7 @@ public class InventorySetupInventoryPanel extends InventorySetupContainerPanel
 	private static final int ITEMS_PER_ROW = 4;
 	private static final int NUM_INVENTORY_ITEMS = 28;
 
-	private ArrayList<InventorySetupSlot> inventorySlots;
+	private List<InventorySetupSlot> inventorySlots;
 
 	InventorySetupInventoryPanel(final ItemManager itemManager, final InventorySetupPlugin plugin)
 	{
@@ -68,7 +69,7 @@ public class InventorySetupInventoryPanel extends InventorySetupContainerPanel
 	@Override
 	public void setSlots(final InventorySetup setup)
 	{
-		ArrayList<InventorySetupItem> inventory = setup.getInventory();
+		List<InventorySetupItem> inventory = setup.getInventory();
 
 		for (int i = 0; i < NUM_INVENTORY_ITEMS; i++)
 		{
@@ -81,10 +82,10 @@ public class InventorySetupInventoryPanel extends InventorySetupContainerPanel
 	}
 
 	@Override
-	public void highlightDifferences(final ArrayList<InventorySetupItem> currInventory, final InventorySetup inventorySetup)
+	public void highlightDifferences(final List<InventorySetupItem> currInventory, final InventorySetup inventorySetup)
 	{
 
-		final ArrayList<InventorySetupItem> inventoryToCheck = inventorySetup.getInventory();
+		final List<InventorySetupItem> inventoryToCheck = inventorySetup.getInventory();
 
 		assert currInventory.size() == inventoryToCheck.size() : "size mismatch";
 

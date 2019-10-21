@@ -29,16 +29,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.awt.Color;
-import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 public class InventorySetup
 {
 	@Getter
-	private ArrayList<InventorySetupItem> inventory;
+	private List<InventorySetupItem> inventory;
 
 	@Getter
-	private ArrayList<InventorySetupItem> equipment;
+	private List<InventorySetupItem> equipment;
 
 	@Getter
 	@Setter

@@ -24,48 +24,37 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.runelite.client.plugins.inventorysetups;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemContainer;
-import net.runelite.api.events.ConfigChanged;
-import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
-import net.runelite.client.game.ItemVariationMapping;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.inventorysetups.ui.InventorySetupPluginPanel;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
-import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
 import net.runelite.client.util.ImageUtil;
 import joptsimple.internal.Strings;
+import java.util.List;
 
 @PluginDescriptor(
 	name = "Inventory Setups",
@@ -103,26 +92,17 @@ public class InventorySetupPlugin extends Plugin
 	@Inject
 	private ConfigManager configManager;
 
+	@Getter
+	@Inject
+	private ColorPickerManager colorPickerManager;
+
 	private InventorySetupPluginPanel panel;
 
 	@Getter
-	private ArrayList<InventorySetup> inventorySetups;
+	private List<InventorySetup> inventorySetups;
 
 	private NavigationButton navButton;
 
-	private boolean highlightDifference;
-
-	private boolean getHighlightDifferences;
-	@Getter(AccessLevel.PUBLIC)
-	private Color getHighlightColor;
-	@Getter(AccessLevel.PUBLIC)
-	private boolean getStackDifference;
-	@Getter(AccessLevel.PUBLIC)
-	private boolean getVariationDifference;
-	@Getter(AccessLevel.PACKAGE)
-	private boolean getBankHighlight;
-	@Getter(AccessLevel.PACKAGE)
-	private Color getBankHighlightColor;
 
 	@Override
 	public void startUp()
@@ -172,8 +152,8 @@ public class InventorySetupPlugin extends Plugin
 
 		clientThread.invoke(() ->
 		{
-			ArrayList<InventorySetupItem> inv = getNormalizedContainer(InventoryID.INVENTORY);
-			ArrayList<InventorySetupItem> eqp = getNormalizedContainer(InventoryID.EQUIPMENT);
+			List<InventorySetupItem> inv = getNormalizedContainer(InventoryID.INVENTORY);
+			List<InventorySetupItem> eqp = getNormalizedContainer(InventoryID.EQUIPMENT);
 
 			final InventorySetup invSetup = new InventorySetup(inv, eqp, name, DEFAULT_HIGHLIGHT_COLOR, false, false, false);
 			SwingUtilities.invokeLater(() ->
@@ -250,25 +230,6 @@ public class InventorySetupPlugin extends Plugin
 
 	}
 
-	public void onGameStateChanged(GameStateChanged event)
-	{
-//		switch (event.getGameState())
-//		{
-//			// set the highlighting off if login screen shows up
-//			case LOGIN_SCREEN:
-//				highlightDifference = false;
-//				break;
-//
-//			// set highlighting
-//			case LOGGED_IN:
-//				highlightDifference = config.getHighlightDifferences();
-//				break;
-//
-//			default:
-//				return;
-//		}
-	}
-
 	public ArrayList<InventorySetupItem> getNormalizedContainer(final InventoryID id)
 	{
 		assert id == InventoryID.INVENTORY || id == InventoryID.EQUIPMENT : "invalid inventory ID";
@@ -308,7 +269,6 @@ public class InventorySetupPlugin extends Plugin
 		return newContainer;
 	}
 
-
 	@Override
 	public void shutDown()
 	{
@@ -318,9 +278,7 @@ public class InventorySetupPlugin extends Plugin
 
 	private void addSubscriptions()
 	{
-		//eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 
 	}
 

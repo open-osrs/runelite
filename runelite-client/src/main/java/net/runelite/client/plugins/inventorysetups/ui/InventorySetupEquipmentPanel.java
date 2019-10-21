@@ -34,12 +34,13 @@ import net.runelite.client.ui.ColorScheme;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InventorySetupEquipmentPanel extends InventorySetupContainerPanel
 {
-	private HashMap<EquipmentInventorySlot, InventorySetupSlot> equipmentSlots;
+	private Map<EquipmentInventorySlot, InventorySetupSlot> equipmentSlots;
 
 	InventorySetupEquipmentPanel(final ItemManager itemManager, final InventorySetupPlugin plugin)
 	{
@@ -80,7 +81,7 @@ public class InventorySetupEquipmentPanel extends InventorySetupContainerPanel
 	@Override
 	public void setSlots(final InventorySetup setup)
 	{
-		final ArrayList<InventorySetupItem> equipment = setup.getEquipment();
+		final List<InventorySetupItem> equipment = setup.getEquipment();
 
 		for (final EquipmentInventorySlot slot : EquipmentInventorySlot.values())
 		{
@@ -93,9 +94,9 @@ public class InventorySetupEquipmentPanel extends InventorySetupContainerPanel
 	}
 
 	@Override
-	public void highlightDifferences(final ArrayList<InventorySetupItem> currEquipment, final InventorySetup inventorySetup)
+	public void highlightDifferences(final List<InventorySetupItem> currEquipment, final InventorySetup inventorySetup)
 	{
-		final ArrayList<InventorySetupItem> equipToCheck = inventorySetup.getEquipment();
+		final List<InventorySetupItem> equipToCheck = inventorySetup.getEquipment();
 
 		assert currEquipment.size() == equipToCheck.size() : "size mismatch";
 

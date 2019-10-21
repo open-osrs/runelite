@@ -50,7 +50,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.List;
 
 public class InventorySetupPluginPanel extends PluginPanel
 {
@@ -255,8 +255,8 @@ public class InventorySetupPluginPanel extends PluginPanel
 
 		if (currentSelectedSetup.isHighlightDifference())
 		{
-			final ArrayList<InventorySetupItem> normInv = plugin.getNormalizedContainer(InventoryID.INVENTORY);
-			final ArrayList<InventorySetupItem> normEqp = plugin.getNormalizedContainer(InventoryID.EQUIPMENT);
+			final List<InventorySetupItem> normInv = plugin.getNormalizedContainer(InventoryID.INVENTORY);
+			final List<InventorySetupItem> normEqp = plugin.getNormalizedContainer(InventoryID.EQUIPMENT);
 
 			invPanel.highlightDifferences(normInv, inventorySetup);
 			eqpPanel.highlightDifferences(normEqp, inventorySetup);
@@ -286,7 +286,7 @@ public class InventorySetupPluginPanel extends PluginPanel
 			return;
 		}
 
-		final ArrayList<InventorySetupItem> container = plugin.getNormalizedContainer(type);
+		final List<InventorySetupItem> container = plugin.getNormalizedContainer(type);
 		switch (type)
 		{
 			case INVENTORY:

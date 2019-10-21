@@ -35,12 +35,12 @@ import net.runelite.client.ui.ColorScheme;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class InventorySetupContainerPanel extends JPanel
 {
 
-	protected ItemManager itemManager;
+	private final ItemManager itemManager;
 
 	private final InventorySetupPlugin plugin;
 
@@ -71,7 +71,7 @@ public abstract class InventorySetupContainerPanel extends JPanel
 		add(containerPanel);
 	}
 
-	void setContainerSlot(int index, final InventorySetupSlot containerSlot, final ArrayList<InventorySetupItem> items)
+	void setContainerSlot(int index, final InventorySetupSlot containerSlot, final List<InventorySetupItem> items)
 	{
 		if (index >= items.size() || items.get(index).getId() == -1)
 		{
@@ -124,9 +124,9 @@ public abstract class InventorySetupContainerPanel extends JPanel
 		containerSlot.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 	}
 
-	abstract public void setupContainerPanel(final JPanel containerSlotsPanel);
+	protected abstract void setupContainerPanel(final JPanel containerSlotsPanel);
 
-	abstract public void highlightDifferences(final ArrayList<InventorySetupItem> currContainer, final InventorySetup inventorySetup);
+	abstract public void highlightDifferences(final List<InventorySetupItem> currContainer, final InventorySetup inventorySetup);
 
 	abstract public void setSlots(final InventorySetup setup);
 
