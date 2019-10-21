@@ -68,6 +68,7 @@ import net.runelite.http.api.loottracker.LootTrackerClient;
 class LootTrackerPanel extends PluginPanel
 {
 	private static final int MAX_LOOT_BOXES = 500;
+	private static String HEX_COLOR = ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR);
 
 	private static final ImageIcon SINGLE_LOOT_VIEW;
 	private static final ImageIcon SINGLE_LOOT_VIEW_FADED;
@@ -826,6 +827,6 @@ class LootTrackerPanel extends PluginPanel
 	private static String htmlLabel(String key, long value)
 	{
 		final String valueStr = QuantityFormatter.quantityToStackSize(value);
-		return String.format(HTML_LABEL_TEMPLATE, ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR), key, valueStr);
+		return String.format(HTML_LABEL_TEMPLATE, HEX_COLOR, key, valueStr);
 	}
 }

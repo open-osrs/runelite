@@ -57,6 +57,7 @@ public class StatusOrbsOverlay extends Overlay
 	private static final Color OVERLAY_COLOR = new Color(255, 255, 255, 60);
 	private static final double DIAMETER = 26D;
 	private static final int OFFSET = 27;
+	private static final Stroke STROKE = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 
 	private final Client client;
 	private final StatusOrbsPlugin plugin;
@@ -87,6 +88,16 @@ public class StatusOrbsOverlay extends Overlay
 		this.tooltipManager = tooltipManager;
 	}
 
+	private Rectangle getBounds(WidgetInfo widgetInfo)
+	{
+		Widget widget = client.getWidget(widgetInfo);
+		if (widget == null || widget.isHidden())
+		{
+			return null;
+		}
+		return widget.getBounds();
+	}
+
 	@Override
 	public Dimension render(Graphics2D g)
 	{
@@ -113,11 +124,10 @@ public class StatusOrbsOverlay extends Overlay
 		{
 			if (client.getVar(VarPlayer.SPECIAL_ATTACK_ENABLED) == 1)
 			{
-				final Widget widget = client.getWidget(WidgetInfo.MINIMAP_SPEC_ORB);
+				final Rectangle bounds = getBounds(WidgetInfo.MINIMAP_SPEC_ORB);
 
-				if (widget != null && !widget.isHidden())
+				if (bounds != null)
 				{
-					final Rectangle bounds = widget.getBounds();
 					g.setColor(OVERLAY_COLOR);
 					g.fillOval(
 						bounds.x + OFFSET,
@@ -209,17 +219,13 @@ public class StatusOrbsOverlay extends Overlay
 
 	private void renderRegen(Graphics2D g, WidgetInfo widgetInfo, double percent, Color color)
 	{
-		Widget widget = client.getWidget(widgetInfo);
-		if (widget == null || widget.isHidden())
+		final Rectangle bounds = getBounds(widgetInfo);
+		if (bounds != null)
 		{
-			return;
+			Arc2D.Double arc = new Arc2D.Double(bounds.x + OFFSET, bounds.y + (bounds.height / 2 - DIAMETER / 2), DIAMETER, DIAMETER, 90.d, -360.d * percent, Arc2D.OPEN);
+			g.setStroke(STROKE);
+			g.setColor(color);
+			g.draw(arc);
 		}
-		Rectangle bounds = widget.getBounds();
-
-		Arc2D.Double arc = new Arc2D.Double(bounds.x + OFFSET, bounds.y + (bounds.height / 2 - DIAMETER / 2), DIAMETER, DIAMETER, 90.d, -360.d * percent, Arc2D.OPEN);
-		final Stroke STROKE = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-		g.setStroke(STROKE);
-		g.setColor(color);
-		g.draw(arc);
 	}
 }

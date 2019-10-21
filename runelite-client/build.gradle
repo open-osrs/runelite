@@ -22,6 +22,7 @@ dependencies {
     implementation group: 'com.h2database', name: 'h2', version: h2
     implementation group: 'com.jakewharton.rxrelay2', name: 'rxrelay', version: rxrelay
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: okhttp3
+    implementation group: 'com.zaxxer', name: 'SparseBitSet', version: sparsebitset
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: rxjava
     implementation group: 'net.java.dev.jna', name: 'jna', version: jna
     implementation group: 'net.java.dev.jna', name: 'jna-platform', version: jna

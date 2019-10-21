@@ -52,6 +52,7 @@ class XpStateSingle
 	private long skillTime = 0;
 	private int startLevelExp = 0;
 	private int endLevelExp = 0;
+	private double skillTimeToHourFactor = 0.0;
 
 	XpStateSingle(Skill skill, long startXp)
 	{
@@ -77,7 +78,7 @@ class XpStateSingle
 
 	private int toHourly(int value)
 	{
-		return (int) ((1.0 / (getTimeElapsedInSeconds() / 3600.0)) * value);
+		return (int)(skillTimeToHourFactor * value);
 	}
 
 	private long getTimeElapsedInSeconds()
@@ -253,6 +254,7 @@ class XpStateSingle
 			return;
 		}
 		skillTime += delta;
+		skillTimeToHourFactor = 1.0 / (getTimeElapsedInSeconds() / 3600.0);
 	}
 
 	XpSnapshotSingle snapshot()

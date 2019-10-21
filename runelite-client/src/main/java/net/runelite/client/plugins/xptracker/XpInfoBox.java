@@ -70,6 +70,8 @@ class XpInfoBox extends JPanel
 		TWO_DECIMAL_FORMAT.setRoundingMode(RoundingMode.DOWN);
 	}
 
+	private static String HEX_COLOR = ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR);
+
 	// Templates
 	private static final String HTML_TOOL_TIP_TEMPLATE =
 		"<html>%s %s done<br/>"
@@ -365,6 +367,6 @@ class XpInfoBox extends JPanel
 	static String htmlLabel(String key, int value)
 	{
 		String valueStr = QuantityFormatter.quantityToRSDecimalStack(value, true);
-		return String.format(HTML_LABEL_TEMPLATE, ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR), key, valueStr);
+		return String.format(HTML_LABEL_TEMPLATE, HEX_COLOR, key, valueStr);
 	}
 }

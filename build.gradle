@@ -35,6 +35,7 @@ ext {
     apacheCommonsCompress = '1.19'
     apacheCommonsCsv = '1.7'
     apacheCommonsText = '1.8'
+    sparsebitset = '1.2'
     asm = '7.2'
     commonsCli = '1.4'
     discord = '1.1'
