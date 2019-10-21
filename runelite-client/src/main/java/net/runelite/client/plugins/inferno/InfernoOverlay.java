@@ -460,13 +460,8 @@ public class InfernoOverlay extends Overlay
 
 	private boolean edgeEqualsEdge(int[][] edge1, int[][] edge2, int toleranceSquared)
 	{
-		if ((pointEqualsPoint(edge1[0], edge2[0], toleranceSquared) && pointEqualsPoint(edge1[1], edge2[1], toleranceSquared))
-			|| (pointEqualsPoint(edge1[0], edge2[1], toleranceSquared) && pointEqualsPoint(edge1[1], edge2[0], toleranceSquared)))
-		{
-			return true;
-		}
-
-		return false;
+		return (pointEqualsPoint(edge1[0], edge2[0], toleranceSquared) && pointEqualsPoint(edge1[1], edge2[1], toleranceSquared))
+			|| (pointEqualsPoint(edge1[0], edge2[1], toleranceSquared) && pointEqualsPoint(edge1[1], edge2[0], toleranceSquared));
 	}
 
 	private boolean pointEqualsPoint(int[] point1, int[] point2, int toleranceSquared)

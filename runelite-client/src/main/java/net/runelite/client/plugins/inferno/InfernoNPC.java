@@ -193,80 +193,82 @@ public class InfernoNPC
 
 		if (ticksTillNextAttack <= 0)
 		{
-			if (this.getType() == Type.ZUK)
+			switch (this.getType())
 			{
-				if (this.getNpc().getAnimation() == AnimationID.TZKAL_ZUK)
-				{
-					if (finalPhase)
+				case ZUK:
+					if (this.getNpc().getAnimation() == AnimationID.TZKAL_ZUK)
 					{
-						this.updateNextAttack(this.getType().getDefaultAttack(), 7);
+						if (finalPhase)
+						{
+							this.updateNextAttack(this.getType().getDefaultAttack(), 7);
+						}
+						else
+						{
+							this.updateNextAttack(this.getType().getDefaultAttack(), 10);
+						}
 					}
-					else
+					break;
+				case JAD:
+					if (this.getNextAttack() != Attack.UNKNOWN)
 					{
-						this.updateNextAttack(this.getType().getDefaultAttack(), 10);
+						// Jad's cycle continuous after his animation + attack but there's no animation to alert it
+						this.updateNextAttack(this.getType().getDefaultAttack(), 8);
 					}
-				}
-			}
-			else if (this.getType() == Type.JAD)
-			{
-				if (this.getNextAttack() != Attack.UNKNOWN)
-				{
-					// Jad's cycle continuous after his animation + attack but there's no animation to alert it
-					this.updateNextAttack(this.getType().getDefaultAttack(), 8);
-				}
-			}
-			else if (this.getType() == Type.BLOB)
-			{
-				//RS pathfinding + LOS = hell, so if it can attack you the tick you were on previously, start attack cycle
-				if (!this.lastCanAttack && this.couldAttackPrevTick(client, lastPlayerLocation))
-				{
-					this.updateNextAttack(Attack.UNKNOWN, 3);
-				}
-				//If there's no animation when coming out of the safespot, the blob is detecting prayer
-				else if (!this.lastCanAttack && this.canAttack(client, client.getLocalPlayer().getWorldLocation()))
-				{
-					this.updateNextAttack(Attack.UNKNOWN, 4);
-				}
-				//This will activate another attack cycle
-				else if (this.getNpc().getAnimation() != -1)
-				{
-					this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
-				}
-			}
-			// Range + LOS check for bat because it suffers from the defense animation bug, also dont activate on "stand" animation
-			else if (this.getType() == Type.BAT)
-			{
-				if (this.canAttack(client, client.getLocalPlayer().getWorldLocation())
-					&& this.getNpc().getAnimation() != AnimationID.JAL_MEJRAH_STAND	&& this.getNpc().getAnimation() != -1)
-				{
-					this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
-				}
-			}
-			// For the meleer, ranger and mage the attack animation is always prioritized so only check for those
-			else if (this.getType() == Type.MELEE || this.getType() == Type.RANGER || this.getType() == Type.MAGE)
-			{
-				// Normal attack animation, doesnt suffer from defense animation bug. Activate usual attack cycle
-				if (this.getNpc().getAnimation() == AnimationID.JAL_IMKOT
-					|| this.getNpc().getAnimation() == AnimationID.JAL_XIL_RANGE_ATTACK || this.getNpc().getAnimation() == AnimationID.JAL_XIL_MELEE_ATTACK
-					|| this.getNpc().getAnimation() == AnimationID.JAL_ZEK_MAGE_ATTACK || this.getNpc().getAnimation() == AnimationID.JAL_ZEK_MELEE_ATTACK)
-				{
-					this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
-				}
-				// Burrow into ground animation for meleer
-				else if (this.getNpc().getAnimation() == 7600)
-				{
-					this.updateNextAttack(this.getType().getDefaultAttack(), 12);
-				}
-				// Respawn enemy animation for mage
-				else if (this.getNpc().getAnimation() == 7611)
-				{
-					this.updateNextAttack(this.getType().getDefaultAttack(), 8);
-				}
-			}
-			else if (this.getNpc().getAnimation() != -1)
-			{
-				// This will activate another attack cycle
-				this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
+					break;
+				case BLOB:
+					//RS pathfinding + LOS = hell, so if it can attack you the tick you were on previously, start attack cycle
+					if (!this.lastCanAttack && this.couldAttackPrevTick(client, lastPlayerLocation))
+					{
+						this.updateNextAttack(Attack.UNKNOWN, 3);
+					}
+					//If there's no animation when coming out of the safespot, the blob is detecting prayer
+					else if (!this.lastCanAttack && this.canAttack(client, client.getLocalPlayer().getWorldLocation()))
+					{
+						this.updateNextAttack(Attack.UNKNOWN, 4);
+					}
+					//This will activate another attack cycle
+					else if (this.getNpc().getAnimation() != -1)
+					{
+						this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
+					}
+					break;
+				case BAT:
+					// Range + LOS check for bat because it suffers from the defense animation bug, also dont activate on "stand" animation
+					if (this.canAttack(client, client.getLocalPlayer().getWorldLocation())
+						&& this.getNpc().getAnimation() != AnimationID.JAL_MEJRAH_STAND	&& this.getNpc().getAnimation() != -1)
+					{
+						this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
+					}
+					break;
+				case MELEE:
+				case RANGER:
+				case MAGE:
+					// For the meleer, ranger and mage the attack animation is always prioritized so only check for those
+					// Normal attack animation, doesnt suffer from defense animation bug. Activate usual attack cycle
+					if (this.getNpc().getAnimation() == AnimationID.JAL_IMKOT
+						|| this.getNpc().getAnimation() == AnimationID.JAL_XIL_RANGE_ATTACK || this.getNpc().getAnimation() == AnimationID.JAL_XIL_MELEE_ATTACK
+						|| this.getNpc().getAnimation() == AnimationID.JAL_ZEK_MAGE_ATTACK || this.getNpc().getAnimation() == AnimationID.JAL_ZEK_MELEE_ATTACK)
+					{
+						this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
+					}
+					// Burrow into ground animation for meleer
+					else if (this.getNpc().getAnimation() == 7600)
+					{
+						this.updateNextAttack(this.getType().getDefaultAttack(), 12);
+					}
+					// Respawn enemy animation for mage
+					else if (this.getNpc().getAnimation() == 7611)
+					{
+						this.updateNextAttack(this.getType().getDefaultAttack(), 8);
+					}
+					break;
+				default:
+					if (this.getNpc().getAnimation() != -1)
+					{
+						// This will activate another attack cycle
+						this.updateNextAttack(this.getType().getDefaultAttack(), this.getType().getTicksAfterAnimation());
+					}
+					break;
 			}
 		}
 
@@ -287,9 +289,9 @@ public class InfernoNPC
 			this.updateNextAttack(nextBlobAttack);
 		}
 
-		// - This is for jad (jad's animation lasts till after the attack is launched, which fucks up the attack cycle)
+		// This is for jad (jad's animation lasts till after the attack is launched, which fucks up the attack cycle)
 		lastAnimation = this.getNpc().getAnimation();
-		// - This is for blob (to check if player just came out of safespot)
+		// This is for blob (to check if player just came out of safespot)
 		lastCanAttack = this.canAttack(client, client.getLocalPlayer().getWorldLocation());
 	}
 

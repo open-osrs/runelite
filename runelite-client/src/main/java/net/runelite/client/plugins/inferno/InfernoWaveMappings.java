@@ -28,6 +28,7 @@ package net.runelite.client.plugins.inferno;
 
 import com.google.common.collect.ImmutableMap;
 import java.awt.Color;
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoNamingDisplayMode;
@@ -37,11 +38,11 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 class InfernoWaveMappings
 {
 	@Getter(AccessLevel.PACKAGE)
-	private static final ImmutableMap<Integer, int[]> waveMapping;
+	private static final Map<Integer, int[]> waveMapping;
 	@Getter(AccessLevel.PACKAGE)
-	private static final ImmutableMap<Integer, String> npcNameMappingComplex;
+	private static final Map<Integer, String> npcNameMappingComplex;
 	@Getter(AccessLevel.PACKAGE)
-	private static final ImmutableMap<Integer, String> npcNameMappingSimple;
+	private static final Map<Integer, String> npcNameMappingSimple;
 
 	static
 	{
