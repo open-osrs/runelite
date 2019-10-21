@@ -34,12 +34,14 @@ import net.runelite.client.plugins.inventorysetups.InventorySetupItem;
 import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
 import net.runelite.client.ui.ColorScheme;
 
+import javax.inject.Singleton;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Singleton
 public class InventorySetupEquipmentPanel extends InventorySetupContainerPanel
 {
 	private Map<EquipmentInventorySlot, InventorySetupSlot> equipmentSlots;
