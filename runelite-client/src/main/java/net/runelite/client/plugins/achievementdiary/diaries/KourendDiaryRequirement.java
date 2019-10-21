@@ -31,6 +31,9 @@ import net.runelite.client.plugins.achievementdiary.FavourRequirement;
 import net.runelite.client.plugins.achievementdiary.GenericDiaryRequirement;
 import net.runelite.client.plugins.achievementdiary.QuestRequirement;
 import net.runelite.client.plugins.achievementdiary.SkillRequirement;
+import net.runelite.client.game.requirement.SkillRequirement;
+import net.runelite.client.game.requirement.QuestRequirement;
+import net.runelite.client.game.requirement.FavourRequirement;
 
 public class KourendDiaryRequirement extends GenericDiaryRequirement
 {
