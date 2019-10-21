@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2018-2019, Ethan <https://github.com/Wea1thRS/>
  * Copyright (c) 2018, https://openosrs.com
+ * Copyright (c) 2019, Dillon <https://github.com/dillydill123>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
