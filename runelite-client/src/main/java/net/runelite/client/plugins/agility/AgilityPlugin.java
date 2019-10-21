@@ -79,7 +79,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
-import net.runelite.client.util.ColorUtil;
 
 @PluginDescriptor(
 	name = "Agility",
@@ -560,10 +559,10 @@ public class AgilityPlugin extends Plugin
 			AgilityShortcut shortcut = nearbyObstacle.getShortcut();
 			if (shortcut != null && Ints.contains(shortcut.getObstacleIds(), old.getIdentifier()))
 			{
-				final int reqLevel = shortcut.getLevel();
-				final String requirementText = ColorUtil.getLevelColorString(reqLevel, getAgilityLevel()) + "  (level-" + reqLevel + ")";
+				//final int reqLevel = shortcut.getLevel();
+				//final String requirementText = ColorUtil.getLevelColorString(reqLevel, getAgilityLevel()) + "  (level-" + reqLevel + ")";
 
-				old.setTarget(old.getTarget() + requirementText);
+				old.setTarget(old.getTarget() + shortcut.requirements);
 				return true;
 			}
 		}

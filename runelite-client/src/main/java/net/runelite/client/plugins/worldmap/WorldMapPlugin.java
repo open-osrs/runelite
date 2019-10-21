@@ -241,14 +241,14 @@ public class WorldMapPlugin extends Plugin
 	{
 		worldMapPointManager.removeIf(AgilityShortcutPoint.class::isInstance);
 
-		if (this.agilityShortcutLevelIcon || this.agilityShortcutTooltips)
+		if (config.agilityShortcutLevelIcon() || config.agilityShortcutTooltips())
 		{
 			Arrays.stream(AgilityShortcut.values())
-				.filter(value -> value.getWorldMapLocation() != null)
-				.map(value -> new AgilityShortcutPoint(value,
-                        this.agilityShortcutLevelIcon() && !value.satisfiesAll(client) ? NOPE_ICON : BLANK_ICON,
-                        this.agilityShortcutTooltips()))
-				.forEach(worldMapPointManager::add);
+					.filter(value -> value.getWorldMapLocation() != null)
+					.map(value -> new AgilityShortcutPoint(value,
+							config.agilityShortcutLevelIcon() && !value.satisfiesAll(client) ? NOPE_ICON : BLANK_ICON,
+							config.agilityShortcutTooltips()))
+					.forEach(worldMapPointManager::add);
 		}
 	}
 

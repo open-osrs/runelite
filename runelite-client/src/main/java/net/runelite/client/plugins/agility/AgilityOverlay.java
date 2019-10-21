@@ -94,7 +94,7 @@ class AgilityOverlay extends Overlay
 				if (objectClickbox != null)
 				{
 					AgilityShortcut agilityShortcut = obstacle.getShortcut();
-					Color configColor = agilityShortcut == null || agilityShortcut.getLevel() <= plugin.getAgilityLevel() ? plugin.getOverlayColor() : SHORTCUT_HIGH_LEVEL_COLOR;
+					Color configColor = agilityShortcut == null || agilityShortcut.satisfiesAll(client) ? plugin.getOverlayColor() : SHORTCUT_HIGH_LEVEL_COLOR;
 					if (plugin.isHighlightMarks() && !marksOfGrace.isEmpty())
 					{
 						configColor = plugin.getMarkColor();
