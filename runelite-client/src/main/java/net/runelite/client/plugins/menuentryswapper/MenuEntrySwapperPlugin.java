@@ -663,7 +663,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 						}
 						else
 						{
-							menuManager.removeSwaps(target);
+							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
@@ -680,7 +680,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 						}
 						else
 						{
-							menuManager.removeSwaps(target);
+							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
@@ -697,7 +697,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 						}
 						else
 						{
-							menuManager.removeSwaps(target);
+							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
@@ -716,7 +716,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 						}
 						else
 						{
-							menuManager.removeSwaps(target);
+							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
@@ -734,7 +734,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 						}
 						else
 						{
-							menuManager.removeSwaps(target);
+							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
@@ -1427,7 +1427,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		menuManager.removePriorityEntry(this.swapHouseAdMode.getEntry());
 		menuManager.removeSwap("Bury", "bone", "Use");
-		
+
 		switch (this.swapFairyRingMode)
 		{
 			case OFF:
