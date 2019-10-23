@@ -25,7 +25,6 @@
 
 package net.runelite.client.rs;
 
-import java.io.IOException;
 import org.junit.Test;
 
 /**
@@ -35,9 +34,9 @@ import org.junit.Test;
 public class ClientConfigLoaderTest
 {
 	@Test
-	public void test() throws IOException
+	public void test()
 	{
-		final RSConfig config = ClientConfigLoader.fetch();
+		final RSConfig config = ClientConfigLoader.fetch().blockingGet();
 
 		for (String key : config.getClassLoaderProperties().keySet())
 		{
