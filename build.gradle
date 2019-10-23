@@ -30,6 +30,11 @@ ext {
     launcherVersion = '2.0.3'
 
     // Dependencies versions
+
+    scalaVersion = '2.12.4'
+    scalaBuildVersion = '2.12'
+    circeVersion = '0.11.1'
+
     scala = '2.11.12'
     scalatest = '3.0.0'
     annotations = '17.0.0'
@@ -39,6 +44,8 @@ ext {
     apacheCommonsText = '1.8'
     asm = '7.2'
     commonsCli = '1.4'
+    cats = '1.1.0'
+    catsEffect = '1.2.0'
     discord = '1.1'
     fernflower = '07082019'
     findbugs = '3.0.2'

@@ -12,9 +12,13 @@ description = 'RuneLite Client'
 dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombok
 
+    compile files("$sourceSets.main.scala.outputDir")
+
+
     compileOnly group: 'javax.annotation', name: 'javax.annotation-api', version: javax
     compileOnly group: 'net.runelite', name: 'orange-extensions', version: orangeExtensions
     compileOnly group: 'org.projectlombok', name: 'lombok', version: lombok
+
 
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: logback
     implementation group: 'com.google.code.gson', name: 'gson', version: gson
@@ -29,6 +33,12 @@ dependencies {
     implementation group: 'net.runelite', name: 'discord', version: discord
     implementation group: 'net.runelite.pushingpixels', name: 'substance', version: substance
     implementation group: 'net.sf.jopt-simple', name: 'jopt-simple', version: jopt
+    implementation group: 'org.typelevel', name: 'cats-core_2.12', version: cats
+    implementation group: 'org.typelevel', name: 'cats-effect_2.12', version: catsEffect
+    implementation group: 'io.circe', name: 'circe-core_2.12', version: circeVersion
+    implementation group: 'io.circe', name: 'circe-generic_2.12', version: circeVersion
+    implementation group: 'io.circe', name: 'circe-generic-extras_2.12', version: circeVersion
+    implementation group: 'io.circe', name: 'circe-parser_2.12', version: circeVersion
     implementation group: 'org.apache.commons', name: 'commons-text', version: apacheCommonsText
     implementation group: 'org.scala-lang', name: 'scala-library', version: scala
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: httpcore
@@ -117,5 +127,18 @@ task dependencyReportFile(type: DependencyReportTask) {
     setConfigurations(configs)
 }
 
+sourceSets {
+    main {
+        scala {
+            outputDir = file("$buildDir/classes/scala/main")
+        }
+        java {
+            outputDir = file("$buildDir/classes/java/main")
+        }
+    }
+}
+
+tasks.compileJava.dependsOn compileScala
+tasks.compileScala.dependsOn.remove("compileJava")
 tasks.build.dependsOn tasks.shadowJar
 tasks.shadowJar.dependsOn tasks.dependencyReportFile
