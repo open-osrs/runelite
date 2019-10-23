@@ -991,9 +991,9 @@ public interface AoeWarningConfig extends Config
 		name = "Volcanic Mine Notify",
 		description = "Configures whether or not AoE Projectile Warnings for Volcanic Mine should trigger a notification",
 		titleSection = "volcanicMineTitle",
-		position = 71,
+		position = 74,
 		hide = "aoeNotifyAll"
-	)
+	}
 	default boolean isVolcanicMineNotifyEnabled()
 	{
 		return false;

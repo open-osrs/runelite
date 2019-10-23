@@ -133,7 +133,7 @@ public enum AoeProjectileInfo
 	/**
 	 * Volcanic mine
 	 */
-	VOLCANIC_MINE_AOE(ProjectileID.VOLCANIC_MINE_AOE, 1);
+	VOLCANIC_MINE_AOE(ProjectileID.VOLCANIC_MINE_AOE, 1),
 
 	private static final Map<Integer, AoeProjectileInfo> map = new HashMap<>();
 
