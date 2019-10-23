@@ -961,4 +961,41 @@ public interface AoeWarningConfig extends Config
 	{
 		return false;
 	}
+
+	@ConfigTitleSection(
+		keyName = "volcanicMineTitle",
+		name = "Volcanic Mine",
+		description = "",
+		position = 72,
+		titleSection = "volcanicMineTitle"
+	)
+	default Title volcanicMineTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+		keyName = "volcanicMine",
+		name = "Volcanic Mine",
+		description = "Configures if Volcanic Mine tile markers are displayed",
+		titleSection = "volcanicMineTitle",
+		position = 73,
+	)
+	default boolean isVolcanicMineEnabled()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "volcanicMineNotify",
+		name = "Volcanic Mine Notify",
+		description = "Configures whether or not AoE Projectile Warnings for Volcanic Mine should trigger a notification",
+		titleSection = "volcanicMineTitle",
+		position = 71,
+		hide = "aoeNotifyAll"
+	)
+	default boolean isVolcanicMineNotifyEnabled()
+	{
+		return false;
+	}
 }

@@ -423,6 +423,8 @@ public class AoeWarningPlugin extends Plugin
 				return notify ? this.configCerbFireNotifyEnabled : this.configCerbFireEnabled;
 			case DEMONIC_GORILLA_BOULDER:
 				return notify ? this.configDemonicGorillaNotifyEnabled : this.configDemonicGorillaEnabled;
+			case VOLCANIC_MINE_AOE:
+				return notify ? this.configVolcanicMineNotifyEnabled : this.configVolcanicMineEnabled;
 		}
 
 		return false;
@@ -479,6 +481,8 @@ public class AoeWarningPlugin extends Plugin
 		this.configCerbFireNotifyEnabled = config.isCerbFireNotifyEnabled();
 		this.configDemonicGorillaEnabled = config.isDemonicGorillaEnabled();
 		this.configDemonicGorillaNotifyEnabled = config.isDemonicGorillaNotifyEnabled();
+		this.configVolcanicMineEnabled = config.isVolcanicMineEnabled();
+		this.configVolcanicMineNotifyEnabled = config.isVolcanicMineNotifyEnabled();
 	}
 
 	private void reset()
