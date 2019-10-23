@@ -323,11 +323,11 @@ public interface GauntletConfig extends Config
 	}
 
 	@ConfigItem(
-			position = 21,
-			keyName = "displayResources",
-			name = "Show raw resources gathered",
-			description = "Displays how much of each resource you have gathered.",
-			titleSection = "resources"
+		position = 21,
+		keyName = "displayResources",
+		name = "Show raw resources gathered",
+		description = "Displays how much of each resource you have gathered.",
+		titleSection = "resources"
 	)
 	default boolean displayGatheredResources()
 	{
