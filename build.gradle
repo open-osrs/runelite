@@ -30,6 +30,8 @@ ext {
     launcherVersion = '2.0.3'
 
     // Dependencies versions
+    scala = '2.11.12'
+    scalatest = '3.0.0'
     annotations = '17.0.0'
     antlr = '4.7.2'
     apacheCommonsCompress = '1.19'

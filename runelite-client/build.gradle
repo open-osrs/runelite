@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'java'
+    id 'scala'
 }
 
 description = 'RuneLite Client'
@@ -29,6 +30,7 @@ dependencies {
     implementation group: 'net.runelite.pushingpixels', name: 'substance', version: substance
     implementation group: 'net.sf.jopt-simple', name: 'jopt-simple', version: jopt
     implementation group: 'org.apache.commons', name: 'commons-text', version: apacheCommonsText
+    implementation group: 'org.scala-lang', name: 'scala-library', version: scala
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: httpcore
     implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: httpmime
     implementation group: 'org.codehaus.plexus', name: 'plexus-utils', version: plexus
@@ -71,6 +73,7 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: mockito
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: mockito
     testImplementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j
+    testImplementation group: 'org.scalatest', name: 'scalatest_2.11', version: scalatest
 }
 
 static def getDate() {
