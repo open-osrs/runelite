@@ -102,12 +102,13 @@ public class MiscUtils
 
 	public static String formatTimeAgo(Duration dur)
 	{
-		long dA = 0, dB = 0;
+		long dA = 0, dB = 0, rm;
 		ChronoUnit cA = null, cB = null;
 		for (int i = 0; i < ORDERED_CHRONOS.length; i++)
 		{
 			cA = ORDERED_CHRONOS[i];
-			dA = dur.get(cA);
+			dA = dur.getSeconds() / cA.getDuration().getSeconds();
+			rm = dur.getSeconds() % cA.getDuration().getSeconds();
 			if (dA <= 0)
 			{
 				cA = null;
@@ -117,7 +118,7 @@ public class MiscUtils
 			if (i + 1 < ORDERED_CHRONOS.length)
 			{
 				cB = ORDERED_CHRONOS[i + 1];
-				dB = dur.get(cB);
+				dB = rm / cB.getDuration().getSeconds();
 
 				if (dB <= 0)
 				{
@@ -156,7 +157,14 @@ public class MiscUtils
 			str = "a" + (chrono == ChronoUnit.HOURS ? "n " : " ");
 		}
 		str += chrono.name().toLowerCase();
-		if (multiple)
+		if (!multiple)
+		{
+			if (str.charAt(str.length() - 1) == 's')
+			{
+				str = str.substring(0, str.length() - 1);
+			}
+		}
+		else if (str.charAt(str.length() - 1) != 's')
 		{
 			str += "s";
 		}
