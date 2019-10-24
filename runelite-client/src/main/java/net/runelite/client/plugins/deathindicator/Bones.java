@@ -2,17 +2,20 @@ package net.runelite.client.plugins.deathindicator;
 
 import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Scene;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.config.ConfigManager;
 import static net.runelite.http.api.RuneLiteAPI.GSON;
 
+@Slf4j
 public class Bones
 {
 	private static final String CONFIG_GROUP = "deathIndicator";
@@ -26,6 +29,17 @@ public class Bones
 		// Clone is important here as the normal array changes
 		int[] regions = client.getMapRegions().clone();
 		Bone[][] bones = getBones(configManager, regions);
+		if (log.isDebugEnabled())
+		{
+			log.debug("Regions are now {}", Arrays.toString(regions));
+
+			int n = 0;
+			for (Bone[] ar : bones)
+			{
+				n += ar.length;
+			}
+				log.debug("Loaded {} Bones", n);
+		}
 
 		initMap(regions, bones);
 
@@ -93,6 +107,7 @@ public class Bones
 	{
 		if (this.map == null || !changed)
 		{
+			this.changed = false;
 			return;
 		}
 
@@ -116,7 +131,6 @@ public class Bones
 			configManager.setConfiguration(CONFIG_GROUP, key, val);
 		}
 
-		this.map = null;
 		this.changed = false;
 	}
 
@@ -163,6 +177,10 @@ public class Bones
 	{
 		final int reg = point.getRegionID();
 		final Map<WorldPoint, List<Bone>> map = this.map.get(reg);
+		if (map == null)
+		{
+			return null;
+		}
 		return map.get(point);
 	}
 

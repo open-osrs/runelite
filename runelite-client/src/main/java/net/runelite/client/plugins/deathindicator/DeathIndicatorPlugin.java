@@ -30,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -46,6 +47,7 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.LocalPlayerDeath;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
@@ -119,7 +121,7 @@ public class DeathIndicatorPlugin extends Plugin
 	private WorldPoint lastDeath;
 	private Instant lastDeathTime;
 	private int lastDeathWorld;
-
+	private int despawnIdx = 0;
 	@Provides
 	DeathIndicatorConfig deathIndicatorConfig(ConfigManager configManager)
 	{
@@ -212,6 +214,7 @@ public class DeathIndicatorPlugin extends Plugin
 
 	private void addBoneSubs()
 	{
+		eventBus.subscribe(ItemDespawned.class, BONES, this::onItemDespawn);
 		eventBus.subscribe(PlayerDeath.class, BONES, this::onPlayerDeath);
 		eventBus.subscribe(MenuEntryAdded.class, BONES, this::onMenuEntryAdded);
 		eventBus.subscribe(MenuOptionClicked.class, BONES, this::onMenuOptionClicked);
@@ -431,44 +434,63 @@ public class DeathIndicatorPlugin extends Plugin
 
 	private void onGameStateChanged(GameStateChanged event)
 	{
-		if (event.getGameState() == GameState.LOADING)
+		switch (event.getGameState())
 		{
-			clearBones();
-			saveBones();
-		}
-		else if (event.getGameState() == GameState.LOGGED_IN)
-		{
-			if (config.permaBones())
-			{
-				initBones();
-			}
+			case LOADING:
+				clearBones();
+				saveBones();
+				break;
+			case LOGGED_IN:
+				if (config.permaBones())
+				{
+					initBones();
+				}
 
-			if (!hasDied())
+				if (!hasDied())
+				{
+					return;
+				}
+
+				if (client.getWorld() == config.deathWorld())
+				{
+					WorldPoint deathPoint = new WorldPoint(config.deathLocationX(), config.deathLocationY(), config.deathLocationPlane());
+
+					if (config.showDeathHintArrow())
+					{
+						client.setHintArrow(deathPoint);
+					}
+
+					if (config.showDeathOnWorldMap())
+					{
+						worldMapPointManager.removeIf(DeathWorldMapPoint.class::isInstance);
+						worldMapPointManager.add(new DeathWorldMapPoint(deathPoint, this));
+					}
+				}
+				else
+				{
+					worldMapPointManager.removeIf(DeathWorldMapPoint.class::isInstance);
+				}
+				break;
+		}
+
+	}
+
+	private void onItemDespawn(ItemDespawned event)
+	{
+		if (event.getItem().getId() == HIJACKED_ITEMID)
+		{
+			List<Bone> list = bones.get(event.getTile().getWorldLocation());
+			if (list == null)
 			{
 				return;
 			}
-
-			if (client.getWorld() == config.deathWorld())
+			if (list.size() <= despawnIdx)
 			{
-				WorldPoint deathPoint = new WorldPoint(config.deathLocationX(), config.deathLocationY(), config.deathLocationPlane());
-
-				if (config.showDeathHintArrow())
-				{
-					client.setHintArrow(deathPoint);
-				}
-
-				if (config.showDeathOnWorldMap())
-				{
-					worldMapPointManager.removeIf(DeathWorldMapPoint.class::isInstance);
-					worldMapPointManager.add(new DeathWorldMapPoint(deathPoint, this));
-				}
+				despawnIdx = 0;
 			}
-			else
-			{
-				worldMapPointManager.removeIf(DeathWorldMapPoint.class::isInstance);
-			}
+			Bone bone = list.get(despawnIdx++);
+			bone.addToScene(client.getScene());
 		}
-
 	}
 
 	private boolean hasDied()
