@@ -91,6 +91,8 @@ public class MenuManager
 	private MenuEntry leftClickEntry = null;
 	private MenuEntry firstEntry = null;
 
+	private int playerAttackIdx = -1;
+
 	@Inject
 	private MenuManager(Client client, EventBus eventBus)
 	{
@@ -240,7 +242,7 @@ public class MenuManager
 
 		// Need to set the event entries to prevent conflicts
 		event.setMenuEntries(arrayEntries);
-		event.setModified(true);
+		event.setModified();
 	}
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
@@ -498,6 +500,29 @@ public class MenuManager
 		}
 
 		return index;
+	}
+
+	public int getPlayerAttackOpcode()
+	{
+		final String[] playerMenuOptions = client.getPlayerOptions();
+
+		if (playerAttackIdx != -1 && playerMenuOptions[playerAttackIdx].equals("Attack"))
+		{
+			return client.getPlayerMenuTypes()[playerAttackIdx];
+		}
+
+		playerAttackIdx = -1;
+
+		for (int i = IDX_LOWER; i < IDX_UPPER; i++)
+		{
+			if ("Attack".equals(playerMenuOptions[i]))
+			{
+				playerAttackIdx = i;
+				break;
+			}
+		}
+
+		return playerAttackIdx >= 0 ? client.getPlayerMenuTypes()[playerAttackIdx] : -1;
 	}
 
 	/**
