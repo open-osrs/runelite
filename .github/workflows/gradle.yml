@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v1
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Update Gradle Wrapper
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
     - name: Make gradlew executable
       run: chmod +x ./gradlew
     - name: Update Gradle dependencies
