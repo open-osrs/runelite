@@ -48,6 +48,7 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.geometry.Geometry;
+import net.runelite.client.game.MapLocations;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -298,12 +299,12 @@ public class MultiIndicatorsPlugin extends Plugin
 			{
 				currentPlane = i;
 
-				GeneralPath lines = new GeneralPath(MapLocations.getMulticombat(sceneRect, i));
+				GeneralPath lines = new GeneralPath(MapLocations.getMultiCombat(sceneRect, i));
 				lines = Geometry.clipPath(lines, sceneRect);
 				if (this.multicombatZoneVisibility == ZoneVisibility.SHOW_IN_PVP &&
 					!isInDeadman() && !isInPvp())
 				{
-					lines = Geometry.clipPath(lines, MapLocations.getRoughWilderness(i));
+					lines = Geometry.clipPath(lines, MapLocations.getWilderness(i));
 				}
 				lines = Geometry.splitIntoSegments(lines, 1);
 				if (useCollisionLogic())
