@@ -31,12 +31,6 @@ plugins {
 
 val deobjars = configurations.create("deobjars")
 
-val tokens = mapOf(
-        "rs.version" to ProjectVersions.rsversion.toString(),
-        "vanilla.jar" to deobjars.find { it.name.startsWith("vanilla") }.toString().replace("\\", "/"),
-        "rs.client" to deobjars.find { it.name.startsWith("rs-client") }.toString().replace("\\", "/")
-)
-
 dependencies {
     deobjars(group = "net.runelite.rs", name = "vanilla", version = ProjectVersions.rsversion.toString())
     deobjars(project(":runescape-client"))
@@ -58,6 +52,12 @@ dependencies {
 }
 
 tasks {
+    val tokens = mapOf(
+            "rs.version" to ProjectVersions.rsversion.toString(),
+            "vanilla.jar" to deobjars.find { it.name.startsWith("vanilla") }.toString().replace("\\", "/"),
+            "rs.client" to deobjars.find { it.name.startsWith("runescape-client") }.toString().replace("\\", "/")
+    )
+
     "processResources"(ProcessResources::class) {
         inputs.properties(tokens)
 
