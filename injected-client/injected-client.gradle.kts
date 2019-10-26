@@ -47,7 +47,9 @@ tasks {
         val f = file("build/classes/java/main/Placeholder.class")
         f.delete()
     }
-}
 
-// tasks.build.dependsOn(tasks.decompile)
-// this is just here to show how this could be used
+    // this is just here to show how the fernflower plugin could be used
+    //build {
+    //    dependsOn(project.tasks.getByName("decompile"))
+    //}
+}
