@@ -1041,7 +1041,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.swapTanning)
 		{
-			menuManager.addPriorityEntry("Tam All");
+			menuManager.addPriorityEntry("Tan All");
 		}
 		if (this.swapWildernessLever)
 		{
