@@ -116,6 +116,7 @@ public class ThievingPlugin extends Plugin
 		eventBus.unregister(this);
 
 		overlayManager.remove(overlay);
+		overlayManager.remove(chestOverlay);
 		session = null;
 	}
 
