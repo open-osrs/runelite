@@ -1154,6 +1154,18 @@ public interface MenuEntrySwapperConfig extends Config
 		return SwapGrimyHerbMode.DYNAMIC;
 	}
 
+	@ConfigItem(
+		keyName = "swapTanning",
+		name = "Tanning",
+		description = "Swap Tan 1 with Tan All",
+		position = 8,
+		section = "talkSection"
+	)
+	default boolean swapTanning()
+	{
+		return true;
+	}
+
 	//------------------------------------------------------------//
 	// Talk-To
 	//------------------------------------------------------------//
@@ -1357,11 +1369,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "swapFairyTree",
-			name = "Fairy Tree",
-			description = "Swap options on PoH Fairy Tree",
-			position = 2,
-			section = "teleportationSection"
+		keyName = "swapFairyTree",
+		name = "Fairy Tree",
+		description = "Swap options on PoH Fairy Tree",
+		position = 2,
+		section = "teleportationSection"
 	)
 	default boolean swapFairyTree()
 	{
@@ -1369,13 +1381,13 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "fairyTree",
-			name = "Mode",
-			description = "",
-			position = 3,
-			section = "teleportationSection",
-			hidden = true,
-			unhide = "swapFairyTree"
+		keyName = "fairyTree",
+		name = "Mode",
+		description = "",
+		position = 3,
+		section = "teleportationSection",
+		hidden = true,
+		unhide = "swapFairyTree"
 	)
 	default FairyTreeMode swapFairyTreeMode()
 	{

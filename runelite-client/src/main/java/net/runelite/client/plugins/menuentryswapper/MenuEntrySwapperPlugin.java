@@ -278,6 +278,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapCoalBag;
 	private boolean swapContract;
 	private boolean swapEnchant;
+	private boolean swapTanning;
 	private boolean swapHardWoodGrove;
 	private boolean swapHarpoon;
 	private boolean swapHouseAd;
@@ -1038,6 +1039,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			menuManager.addPriorityEntry("Enchant");
 		}
 
+		if (this.swapTanning)
+		{
+			menuManager.addPriorityEntry("Tam All");
+		}
 		if (this.swapWildernessLever)
 		{
 			menuManager.addPriorityEntry("Edgeville", "Lever");
@@ -1427,7 +1432,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		menuManager.removePriorityEntry(this.swapHouseAdMode.getEntry());
 		menuManager.removeSwap("Bury", "bone", "Use");
-		
+
 		switch (this.swapFairyRingMode)
 		{
 			case OFF:
@@ -1761,6 +1766,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.swapCoalBag = config.swapCoalBag();
 		this.swapContract = config.swapContract();
 		this.swapEnchant = config.swapEnchant();
+		this.swapTanning = config.swapTanning();
 		this.swapFairyRingMode = config.swapFairyRingMode();
 		this.swapFairyTreeMode = config.swapFairyTreeMode();
 		this.swapHardWoodGrove = config.swapHardWoodGrove();
