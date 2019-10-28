@@ -37,6 +37,8 @@ import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.ConfigChanged;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -46,23 +48,39 @@ import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 class ChestOverlay extends Overlay
 {
 	private final Client client;
-	private final ThievingPlugin plugin;
+	private final List<ChestRespawn> respawns;
 	private final ThievingConfig config;
+	private final EventBus eventBus;
+
+	private Color pieFillColor;
+	private Color pieBorderColor;
+	private boolean respawnPieInverted;
+	private int respawnPieDiameter;
 
 	@Inject
-	private ChestOverlay(final Client client, final ThievingPlugin plugin, final ThievingConfig config)
+	private ChestOverlay(final Client client, final ThievingPlugin plugin, final ThievingConfig config, final EventBus eventBus)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
-		this.plugin = plugin;
+		this.respawns = plugin.getRespawns();
 		this.client = client;
 		this.config = config;
+		this.eventBus = eventBus;
+
+		this.eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+	}
+
+	private void onConfigChanged(ConfigChanged event)
+	{
+		pieFillColor = config.respawnColor();
+		pieBorderColor = pieFillColor.darker();
+		respawnPieInverted = config.respawnPieInverted();
+		respawnPieDiameter = config.respawnPieDiameter();
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		List<ChestRespawn> respawns = plugin.getRespawns();
 		if (respawns.isEmpty())
 		{
 			return null;
@@ -71,8 +89,6 @@ class ChestOverlay extends Overlay
 		Instant now = Instant.now();
 		for (Iterator<ChestRespawn> it = respawns.iterator(); it.hasNext(); )
 		{
-			Color pieFillColor = config.respawnColor();
-			Color pieBorderColor;
 			ChestRespawn chestRespawn = it.next();
 
 			if (chestRespawn.getWorld() != client.getWorld())
@@ -99,15 +115,13 @@ class ChestOverlay extends Overlay
 				continue;
 			}
 
-			if (config.respawnPieInverted())
+			if (respawnPieInverted)
 			{
 				percent = 1.0f - percent;
 			}
 
-			pieBorderColor = pieFillColor.darker();
-
 			ProgressPieComponent ppc = new ProgressPieComponent();
-			ppc.setDiameter(config.respawnPieDiameter());
+			ppc.setDiameter(respawnPieDiameter);
 			ppc.setBorderColor(pieBorderColor);
 			ppc.setFill(pieFillColor);
 			ppc.setPosition(point);
