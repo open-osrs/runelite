@@ -412,24 +412,36 @@ public class ExaminePlugin extends Plugin
 								.append(ChatColorType.HIGHLIGHT)
 								.append(QuantityFormatter.formatNumber(gePrice * finalQuantity));
 
+							if (finalQuantity > 1)
+							{
+								message
+										.append(ChatColorType.NORMAL)
+										.append(" (")
+										.append(ChatColorType.HIGHLIGHT)
+										.append(QuantityFormatter.formatNumber(gePrice))
+										.append(ChatColorType.NORMAL)
+										.append("ea)");
+							}
+
 							if (osbresult != null)
 							{
+								int osbAverage = osbresult.getOverall_average();
 								message
 									.append(ChatColorType.NORMAL)
 									.append(" OSB  ")
 									.append(ChatColorType.HIGHLIGHT)
-									.append(QuantityFormatter.formatNumber(osbresult.getOverall_average() * finalQuantity));
-							}
+									.append(QuantityFormatter.formatNumber(osbAverage * finalQuantity));
 
-							if (finalQuantity > 1)
-							{
-								message
-									.append(ChatColorType.NORMAL)
-									.append(" (")
-									.append(ChatColorType.HIGHLIGHT)
-									.append(QuantityFormatter.formatNumber(gePrice))
-									.append(ChatColorType.NORMAL)
-									.append("ea)");
+								if (finalQuantity > 1)
+								{
+									message
+										.append(ChatColorType.NORMAL)
+										.append(" (")
+										.append(ChatColorType.HIGHLIGHT)
+										.append(QuantityFormatter.formatNumber(osbAverage))
+										.append(ChatColorType.NORMAL)
+										.append("ea)");
+								}
 							}
 
 							message
