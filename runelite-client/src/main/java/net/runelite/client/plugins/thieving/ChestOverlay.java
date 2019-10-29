@@ -28,17 +28,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.AccessLevel;
+import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.ConfigChanged;
-import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -49,33 +50,23 @@ class ChestOverlay extends Overlay
 {
 	private final Client client;
 	private final List<ChestRespawn> respawns;
-	private final ThievingConfig config;
-	private final EventBus eventBus;
 
+	@Setter(AccessLevel.PACKAGE)
 	private Color pieFillColor;
+	@Setter(AccessLevel.PACKAGE)
 	private Color pieBorderColor;
+	@Setter(AccessLevel.PACKAGE)
 	private boolean respawnPieInverted;
+	@Setter(AccessLevel.PACKAGE)
 	private int respawnPieDiameter;
 
 	@Inject
-	private ChestOverlay(final Client client, final ThievingPlugin plugin, final ThievingConfig config, final EventBus eventBus)
+	private ChestOverlay(final Client client, final ThievingPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.respawns = plugin.getRespawns();
 		this.client = client;
-		this.config = config;
-		this.eventBus = eventBus;
-
-		this.eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-	}
-
-	private void onConfigChanged(ConfigChanged event)
-	{
-		pieFillColor = config.respawnColor();
-		pieBorderColor = pieFillColor.darker();
-		respawnPieInverted = config.respawnPieInverted();
-		respawnPieDiameter = config.respawnPieDiameter();
 	}
 
 	@Override
@@ -96,7 +87,7 @@ class ChestOverlay extends Overlay
 				continue;
 			}
 
-			float percent = (now.toEpochMilli() - chestRespawn.getStartTime().toEpochMilli()) / (float) chestRespawn.getRespawnTime();
+			float percent = now.until(chestRespawn.getEndTime(), ChronoUnit.MILLIS) / (float) chestRespawn.getRespawnTime();
 			if (percent > 1.0f)
 			{
 				it.remove();

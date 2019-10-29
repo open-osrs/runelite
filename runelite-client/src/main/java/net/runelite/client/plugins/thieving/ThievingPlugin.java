@@ -53,8 +53,7 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-@PluginDescriptor
-(
+@PluginDescriptor(
 	name = "Thieving",
 	description = "Show thieving overlay",
 	tags = {"overlay", "skilling", "thieving", "pickpocketing"},
@@ -199,7 +198,7 @@ public class ThievingPlugin extends Plugin
 		Chest chest = Chest.of(object.getId());
 		if (chest != null)
 		{
-			ChestRespawn chestRespawn = new ChestRespawn(chest, object.getWorldLocation(), Instant.now(), (int) chest.getRespawnTime().toMillis(), client.getWorld());
+			ChestRespawn chestRespawn = new ChestRespawn(chest, object.getWorldLocation(), Instant.now().plus(chest.getRespawnTime()), client.getWorld());
 			respawns.add(chestRespawn);
 		}
 	}
@@ -212,6 +211,10 @@ public class ThievingPlugin extends Plugin
 		}
 
 		this.statTimeout = config.statTimeout();
+		chestOverlay.setPieFillColor(config.respawnColor());
+		chestOverlay.setPieBorderColor(config.respawnColor().darker());
+		chestOverlay.setRespawnPieInverted(config.respawnPieInverted());
+		chestOverlay.setRespawnPieDiameter(config.respawnPieDiameter());
 	}
 }
 

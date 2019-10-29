@@ -36,7 +36,9 @@ class ChestRespawn
 {
 	private final Chest chest;
 	private final WorldPoint worldPoint;
-	private final Instant startTime;
-	private final int respawnTime;
+	private final Instant endTime;
 	private final int world;
+
+	@Getter(lazy = true)
+	private final long respawnTime = chest.getRespawnTime().toMillis();
 }
