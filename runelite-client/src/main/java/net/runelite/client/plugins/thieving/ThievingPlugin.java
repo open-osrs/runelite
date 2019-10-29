@@ -104,6 +104,11 @@ public class ThievingPlugin extends Plugin
 
 		this.statTimeout = config.statTimeout();
 
+		chestOverlay.setPieFillColor(config.respawnColor());
+		chestOverlay.setPieBorderColor(config.respawnColor().darker());
+		chestOverlay.setRespawnPieInverted(config.respawnPieInverted());
+		chestOverlay.setRespawnPieDiameter(config.respawnPieDiameter());
+
 		session = null;
 		overlayManager.add(overlay);
 		overlayManager.add(chestOverlay);
