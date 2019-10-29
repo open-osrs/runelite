@@ -87,7 +87,7 @@ class ChestOverlay extends Overlay
 				continue;
 			}
 
-			float percent = now.until(chestRespawn.getEndTime(), ChronoUnit.MILLIS) / (float) chestRespawn.getRespawnTime();
+			float percent = 1.0f - (now.until(chestRespawn.getEndTime(), ChronoUnit.MILLIS) / (float) chestRespawn.getRespawnTime());
 			if (percent > 1.0f)
 			{
 				it.remove();
