@@ -67,7 +67,7 @@ enum Chest
 		this.ids = ids;
 	}
 
-	static Chest getChest(int id)
+	static Chest of(int id)
 	{
 		return CHESTS.get(id);
 	}

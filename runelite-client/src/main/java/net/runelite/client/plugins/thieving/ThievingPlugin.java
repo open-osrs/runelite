@@ -196,7 +196,7 @@ public class ThievingPlugin extends Plugin
 
 		final GameObject object = event.getGameObject();
 
-		Chest chest = Chest.getChest(object.getId());
+		Chest chest = Chest.of(object.getId());
 		if (chest != null)
 		{
 			ChestRespawn chestRespawn = new ChestRespawn(chest, object.getWorldLocation(), Instant.now(), (int) chest.getRespawnTime().toMillis(), client.getWorld());
