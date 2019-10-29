@@ -82,17 +82,18 @@ class ChestOverlay extends Overlay
 		{
 			ChestRespawn chestRespawn = it.next();
 
-			if (chestRespawn.getWorld() != client.getWorld())
-			{
-				continue;
-			}
-
 			float percent = 1.0f - (now.until(chestRespawn.getEndTime(), ChronoUnit.MILLIS) / (float) chestRespawn.getRespawnTime());
 			if (percent > 1.0f)
 			{
 				it.remove();
 				continue;
 			}
+
+			if (chestRespawn.getWorld() != client.getWorld())
+			{
+				continue;
+			}
+
 			WorldPoint worldPoint = chestRespawn.getWorldPoint();
 			LocalPoint loc = LocalPoint.fromWorld(client, worldPoint);
 			if (loc == null)
