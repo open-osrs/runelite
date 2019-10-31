@@ -29,7 +29,6 @@
 	"https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
 	<module name="TreeWalker">
-		<module name="SuppressionCommentFilter"/>
 		<module name="LeftCurly">
 			<property name="option" value="nl"/>
 		</module>
@@ -53,6 +52,7 @@
 		</module>
 		<module name="UnusedImports"/>
 	</module>
+    <module name="SuppressionCommentFilter"/>
 	<module name="RegexpMultiline">
 		<property name="format" value="else[ \t]*[\r\n]+[ \t]*if"/>
 		<property name="message" value="Newline should not be between else and if"/>
