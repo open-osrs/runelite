@@ -39,6 +39,16 @@ class ChestRespawn
 	private final Instant endTime;
 	private final int world;
 
-	@Getter(lazy = true)
-	private final long respawnTime = chest.getRespawnTime().toMillis();
+	private long respawnTime = -1;
+
+	long getRespawnTime()
+	{
+		if (respawnTime != -1)
+		{
+			return respawnTime;
+		}
+
+		respawnTime = chest.getRespawnTime().toMillis();
+		return respawnTime;
+	}
 }
