@@ -26,11 +26,11 @@ package net.runelite.client.plugins.thieving;
 
 import java.time.Instant;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.runelite.api.coords.WorldPoint;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
 class ChestRespawn
 {
