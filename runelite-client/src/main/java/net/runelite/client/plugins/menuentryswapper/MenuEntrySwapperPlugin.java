@@ -107,6 +107,7 @@ import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.FairyTreeMode;
 import net.runelite.client.plugins.menuentryswapper.util.GamesNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.GloryMode;
+import net.runelite.client.plugins.menuentryswapper.util.HopToMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseAdvertisementMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
 import net.runelite.client.plugins.menuentryswapper.util.JewelleryBoxDestination;
@@ -228,6 +229,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private String configCustomShiftSwaps;
 	private String configCustomSwaps;
 	private XericsTalismanMode getXericsTalismanMode;
+	private HopToMode swapHopToMode;
 	private boolean getBurningAmulet;
 	private boolean getCombatBracelet;
 	private boolean getDigsitePendant;
@@ -303,6 +305,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapWildernessLever;
 
 	private JewelleryBoxDestination lastDes;
+
 
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
@@ -1304,6 +1307,30 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			menuManager.addPriorityEntry(new GrimyHerbComparableEntry(this.swapGrimyHerbMode, client));
 		}
+
+		switch (this.swapHopToMode)
+		{
+			//.removePriorityEntry needed here to reset Priority
+			case FRIENDSLIST:
+				menuManager.removePriorityEntry("message");
+				menuManager.addPriorityEntry("hop-to").setPriority(1);
+				menuManager.addPriorityEntry("kick user").setPriority(100);
+				break;
+			case CLANCHAT:
+				menuManager.removePriorityEntry("kick user");
+				menuManager.addPriorityEntry("hop-to").setPriority(1);
+				menuManager.addPriorityEntry("message").setPriority(100);
+				break;
+			case BOTH:
+				menuManager.removePriorityEntry("message");
+				menuManager.removePriorityEntry("kick user");
+				menuManager.addPriorityEntry("hop-to").setPriority(100);
+				break;
+			case NONE:
+				menuManager.removePriorityEntry("hop-to");
+				menuManager.removePriorityEntry("kick user");
+				menuManager.removePriorityEntry("message");
+		}
 	}
 
 	private void removeSwaps()
@@ -1426,7 +1453,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		menuManager.removePriorityEntry(this.swapHouseAdMode.getEntry());
 		menuManager.removeSwap("Bury", "bone", "Use");
-		
+
 		switch (this.swapFairyRingMode)
 		{
 			case OFF:
@@ -1789,6 +1816,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.swapWildernessLever = config.swapWildernessLever();
 		this.swapHouseAd = config.swapHouseAd();
 		this.swapHouseAdMode = config.swapHouseAdMode();
+		this.swapHopToMode = config.swapHopToMode();
 	}
 
 	private void addBuySellEntries()

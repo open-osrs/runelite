@@ -44,6 +44,7 @@ import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.FairyTreeMode;
 import net.runelite.client.plugins.menuentryswapper.util.GamesNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.GloryMode;
+import net.runelite.client.plugins.menuentryswapper.util.HopToMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseAdvertisementMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
 import net.runelite.client.plugins.menuentryswapper.util.MaxCapeMode;
@@ -836,6 +837,18 @@ public interface MenuEntrySwapperConfig extends Config
 	default CharterOption charterOption()
 	{
 		return CharterOption.TRADE;
+	}
+
+	@ConfigItem(
+			keyName = "HopTo",
+			name = "Hop-to",
+			description = "Changes the default option to hop to on ccs and friend lists",
+			position = 28,
+			section = "miscellaneousSection"
+	)
+	default HopToMode swapHopToMode()
+	{
+		return HopToMode.NONE;
 	}
 
 	//------------------------------------------------------------//
