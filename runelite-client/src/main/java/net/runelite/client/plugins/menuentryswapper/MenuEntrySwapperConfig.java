@@ -840,11 +840,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "HopTo",
-			name = "Hop-to",
-			description = "Changes the default option to hop to on ccs and friend lists",
-			position = 28,
-			section = "miscellaneousSection"
+		keyName = "HopTo",
+		name = "Hop-to",
+		description = "Changes the default option to hop-to on ccs and friend lists or both",
+		position = 28,
+		section = "miscellaneousSection"
 	)
 	default HopToMode swapHopToMode()
 	{
@@ -1370,11 +1370,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "swapFairyTree",
-			name = "Fairy Tree",
-			description = "Swap options on PoH Fairy Tree",
-			position = 2,
-			section = "teleportationSection"
+		keyName = "swapFairyTree",
+		name = "Fairy Tree",
+		description = "Swap options on PoH Fairy Tree",
+		position = 2,
+		section = "teleportationSection"
 	)
 	default boolean swapFairyTree()
 	{
@@ -1382,13 +1382,13 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "fairyTree",
-			name = "Mode",
-			description = "",
-			position = 3,
-			section = "teleportationSection",
-			hidden = true,
-			unhide = "swapFairyTree"
+		keyName = "fairyTree",
+		name = "Mode",
+		description = "",
+		position = 3,
+		section = "teleportationSection",
+		hidden = true,
+		unhide = "swapFairyTree"
 	)
 	default FairyTreeMode swapFairyTreeMode()
 	{
