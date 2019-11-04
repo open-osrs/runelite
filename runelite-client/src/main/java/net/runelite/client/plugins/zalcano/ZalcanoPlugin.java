@@ -152,14 +152,17 @@ public class ZalcanoPlugin extends Plugin
 		}
 	}
 
-	public void onGameObjectSpawned(GameObjectSpawned event){
-		if(event.getGameObject().getId() == DEMONIC_SYMBOL || event.getGameObject().getId() == DEMONIC_SYMBOL_36200){
+	public void onGameObjectSpawned(GameObjectSpawned event)
+	{
+		if (event.getGameObject().getId() == DEMONIC_SYMBOL || event.getGameObject().getId() == DEMONIC_SYMBOL_36200)
+		{
 			tickCounterForBeyblades = 24;
 			aqewsBeyblades.put(event.getGameObject(), event.getTile());
 		}
 	}
 
-	public void onGameTick(GameTick event){
+	public void onGameTick(GameTick event)
+	{
 		tickCounterForBeyblades--;
 	}
 
