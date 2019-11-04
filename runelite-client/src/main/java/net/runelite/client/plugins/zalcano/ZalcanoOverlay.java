@@ -27,6 +27,7 @@
 package net.runelite.client.plugins.zalcano;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -35,6 +36,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
+import net.runelite.api.Point;
 import net.runelite.api.GameObject;
 import net.runelite.api.GraphicsObject;
 import net.runelite.api.Perspective;
@@ -115,6 +117,10 @@ public class ZalcanoOverlay extends Overlay
 		{
 			renderZalcano(graphics);
 		}
+		if (config.beybladeTimer())
+		{
+			renderBluePool(graphics);
+		}
 
 		//has their own configs within this method
 		renderZalcanoAnimations(graphics);
@@ -150,6 +156,29 @@ public class ZalcanoOverlay extends Overlay
 				{
 					OverlayUtil.renderPolygon(graphics, poly, new Color(249, 47, 30));
 				}
+			}
+		}
+	}
+
+	private void renderBluePool(Graphics2D graphics)
+	{
+		List<GameObject> bluepoolRender = util.getBluePools();
+
+		if (bluepoolRender != null)
+		{
+			for (GameObject gameObject : bluepoolRender)
+			{
+					String textOverlay = Integer.toString(plugin.tickCounterForBeyblades);
+					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, gameObject.getLocalLocation(), textOverlay, 0);
+					if (textLoc == null) {
+						continue;
+					}
+					Font oldFont = graphics.getFont();
+					graphics.setFont(new Font("Arial", Font.BOLD, 20));
+					Point pointShadow = new Point(textLoc.getX() + 1, textLoc.getY() + 1);
+					OverlayUtil.renderTextLocation(graphics, pointShadow, textOverlay, Color.BLACK);
+					OverlayUtil.renderTextLocation(graphics, textLoc, textOverlay, Color.YELLOW);
+					graphics.setFont(oldFont);
 			}
 		}
 	}
@@ -228,6 +257,7 @@ public class ZalcanoOverlay extends Overlay
 	{
 		renderZalcanoAOE(graphics, 6, ZalcanoUtil.warning, Color.RED);
 	}
+
 
 	private void renderZalcanoAOE(Graphics2D graphics, int polySize, String text, Color color)
 	{

@@ -161,6 +161,29 @@ public class ZalcanoUtil
 		return list.size() > 0 ? list : null;
 	}
 
+	List<GameObject> getBluePools()
+	{
+		List<GameObject> list = new ArrayList<>();
+		for (GameObject gameObject : getGameObjects())
+		{
+			if (gameObject != null)
+			{
+				if (gameObject.getId() == ObjectID.DEMONIC_SYMBOL_36200)
+				{
+					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
+					{
+						Entity entity = gameObject.getEntity();
+						if (entity instanceof DynamicObject)
+						{
+							list.add(gameObject);
+						}
+					}
+				}
+			}
+		}
+		return list.size() > 0 ? list : null;
+	}
+
 	List<GraphicsObject> getRockfall()
 	{
 		List<GraphicsObject> list = new ArrayList<>();

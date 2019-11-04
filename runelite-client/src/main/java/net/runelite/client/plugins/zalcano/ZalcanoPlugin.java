@@ -38,6 +38,9 @@ import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
+import net.runelite.api.Tile;
+import net.runelite.api.GameObject;
+import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
@@ -48,6 +51,12 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.runelite.api.ObjectID.DEMONIC_SYMBOL;
+import static net.runelite.api.ObjectID.DEMONIC_SYMBOL_36200;
 
 @PluginDescriptor(
 	name = "Zalcano",
@@ -92,6 +101,8 @@ public class ZalcanoPlugin extends Plugin
 	private Step step;
 
 	private int ores = 0;
+	protected int tickCounterForBeyblades;
+	Map<GameObject, Tile> aqewsBeyblades = new HashMap<>();
 
 	@Provides
 	ZalcanoConfig getConfig(ConfigManager configManager)
@@ -102,6 +113,7 @@ public class ZalcanoPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+
 		eventBus.subscribe(GameTick.class, "regionchecker", this::onGameTickCheckRegion);
 	}
 
@@ -128,6 +140,8 @@ public class ZalcanoPlugin extends Plugin
 			eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
 			eventBus.subscribe(GameTick.class, this, this::gameTickStepMachine);
 			eventBus.subscribe(GameTick.class, this, this::gameTickOreListener);
+			eventBus.subscribe(GameTick.class, this, this::onGameTick);
+			eventBus.subscribe(GameObjectSpawned.class, this, this::onGameObjectSpawned);
 
 			util.manuallyFindZalcano(); //this is here because the new subscribed npcspawn doesn't catch a pre existing zalcano
 
@@ -137,6 +151,18 @@ public class ZalcanoPlugin extends Plugin
 			eventBus.unregister("regionchecker");
 		}
 	}
+
+	public void onGameObjectSpawned(GameObjectSpawned event){
+		if(event.getGameObject().getId() == DEMONIC_SYMBOL || event.getGameObject().getId() == DEMONIC_SYMBOL_36200){
+			tickCounterForBeyblades = 24;
+			aqewsBeyblades.put(event.getGameObject(), event.getTile());
+		}
+	}
+
+	public void onGameTick(GameTick event){
+		tickCounterForBeyblades--;
+	}
+
 
 	private void onNpcSpawned(NpcSpawned npcSpawned)
 	{
