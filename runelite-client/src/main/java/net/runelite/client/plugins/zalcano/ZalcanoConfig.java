@@ -188,7 +188,9 @@ public interface ZalcanoConfig extends Config
 			description = "Countdown timer for maximum length a blue pool can stay active for. Useful for small teams only.",
 			position = 12
 	)
-	default boolean beybladeTimer() { return false; }
-
+	default boolean beybladeTimer()
+    {
+        return true;
+    }
 
 }
