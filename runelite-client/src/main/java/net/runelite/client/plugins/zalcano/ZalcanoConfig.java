@@ -189,8 +189,8 @@ public interface ZalcanoConfig extends Config
 			position = 12
 	)
 	default boolean beybladeTimer()
-    {
-        return true;
-    }
+	{
+		return true;
+	}
 
 }

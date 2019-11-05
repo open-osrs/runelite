@@ -170,7 +170,8 @@ public class ZalcanoOverlay extends Overlay
 			{
 					String textOverlay = Integer.toString(plugin.tickCounterForBeyblades);
 					Point textLoc = Perspective.getCanvasTextLocation(client, graphics, gameObject.getLocalLocation(), textOverlay, 0);
-					if (textLoc == null) {
+					if (textLoc == null)
+					{
 						continue;
 					}
 					Font oldFont = graphics.getFont();
