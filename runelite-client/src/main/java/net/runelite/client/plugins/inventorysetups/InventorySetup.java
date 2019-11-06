@@ -29,7 +29,6 @@ package net.runelite.client.plugins.inventorysetups;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.awt.Color;
 import java.util.List;
 

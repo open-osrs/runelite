@@ -199,7 +199,8 @@ public class InventorySetupPlugin extends Plugin
 			try
 			{
 				final Gson gson = new Gson();
-				Type type = new TypeToken<ArrayList<InventorySetup>>() {
+				Type type = new TypeToken<ArrayList<InventorySetup>>()
+				{
 
 				}.getType();
 				inventorySetups = gson.fromJson(json, type);
@@ -231,13 +232,13 @@ public class InventorySetupPlugin extends Plugin
 
 	}
 
-	public ArrayList<InventorySetupItem> getNormalizedContainer(final InventoryID id)
+	public List<InventorySetupItem> getNormalizedContainer(final InventoryID id)
 	{
 		assert id == InventoryID.INVENTORY || id == InventoryID.EQUIPMENT : "invalid inventory ID";
 
 		final ItemContainer container = client.getItemContainer(id);
 
-		ArrayList<InventorySetupItem> newContainer = new ArrayList<>();
+		List<InventorySetupItem> newContainer = new ArrayList<>();
 
 		Item[] items = null;
 		if (container != null)

@@ -41,7 +41,7 @@ import java.awt.BorderLayout;
 import java.util.List;
 
 @Singleton
-public abstract class InventorySetupContainerPanel extends JPanel
+abstract class InventorySetupContainerPanel extends JPanel
 {
 
 	private final ItemManager itemManager;
