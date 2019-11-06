@@ -25,6 +25,7 @@
  */
 package net.runelite.client.plugins.inventorysetups;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -68,8 +69,8 @@ import java.util.List;
 @Singleton
 public class InventorySetupPlugin extends Plugin
 {
-	private static final String CONFIG_GROUP = "inventorysetups";
-	private static final String CONFIG_KEY = "setups";
+	private static final String CONFIG_GROUP = "inventorysetups_new";
+	private static final String CONFIG_KEY = "setups_new";
 	private static final int NUM_INVENTORY_ITEMS = 28;
 	private static final int NUM_EQUIPMENT_ITEMS = 14;
 	private static final Color DEFAULT_HIGHLIGHT_COLOR = Color.RED;
@@ -203,7 +204,7 @@ public class InventorySetupPlugin extends Plugin
 				}.getType();
 				inventorySetups = gson.fromJson(json, type);
 			}
-			catch (Exception e)
+			catch (JsonSyntaxException e)
 			{
 				inventorySetups = new ArrayList<>();
 			}
