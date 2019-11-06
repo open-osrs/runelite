@@ -3,7 +3,6 @@ package net.runelite.client.plugins.deathindicator;
 import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,14 +30,14 @@ public class Bones
 		Bone[][] bones = getBones(configManager, regions);
 		if (log.isDebugEnabled())
 		{
-			log.debug("Regions are now {}", Arrays.toString(regions));
+			log.trace("Regions are now {}", Arrays.toString(regions));
 
 			int n = 0;
 			for (Bone[] ar : bones)
 			{
 				n += ar.length;
 			}
-				log.debug("Loaded {} Bones", n);
+			log.debug("Loaded {} Bones", n);
 		}
 
 		initMap(regions, bones);
@@ -81,7 +80,7 @@ public class Bones
 			Bone[] boneA = bones[i];
 			if (boneA.length == 0)
 			{
-				builder.put(region, Collections.EMPTY_MAP);
+				builder.put(region, new HashMap<>());
 				continue;
 			}
 
