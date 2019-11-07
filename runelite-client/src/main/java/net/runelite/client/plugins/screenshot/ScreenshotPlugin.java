@@ -628,22 +628,27 @@ public class ScreenshotPlugin extends Plugin
 	 */
 	private void takeScreenshot(String fileName)
 	{
-		overlayRenderer.setShouldRender(true);
+
 		if (client.getGameState() == GameState.LOGIN_SCREEN)
 		{
 			// Prevent the screenshot from being captured
 			log.info("Login screenshot prevented");
 			return;
 		}
-
+		if (hideOverlays)
+		{
+			overlayRenderer.setShouldRender(true);
+		}
 		Consumer<Image> imageCallback = (img) ->
 		{
 			// This callback is on the game thread, move to executor thread
 			executor.submit(() -> takeScreenshot(fileName, img, null));
 		};
 
-
-		overlayRenderer.setShouldRender(false);
+		if (hideOverlays)
+		{
+			overlayRenderer.setShouldRender(false);
+		}
 		if (this.displayDate)
 		{
 			screenshotOverlay.queueForTimestamp(imageCallback);
@@ -790,7 +795,10 @@ public class ScreenshotPlugin extends Plugin
 		{
 			log.warn("error writing screenshot", ex);
 		}
-		overlayRenderer.setShouldRender(true);
+		if (hideOverlays)
+		{
+			overlayRenderer.setShouldRender(true);
+		}
 	}
 
 	/**
