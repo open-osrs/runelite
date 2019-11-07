@@ -177,7 +177,7 @@ public class WildernessLocationsPlugin extends Plugin
 			|| (this.pvpWorld && WorldType.isAllPvpWorld(client.getWorldType())));
 		if (renderLocation)
 		{
-			if (client.getLocalPlayer().getWorldLocation() != worldPoint)
+			if (client.getLocalPlayer() != null && client.getLocalPlayer().getWorldLocation() != worldPoint)
 			{
 				locationString = WorldLocation.location(client.getLocalPlayer().getWorldLocation());
 				worldPoint = client.getLocalPlayer().getWorldLocation();
