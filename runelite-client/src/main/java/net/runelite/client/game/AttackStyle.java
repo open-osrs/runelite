@@ -21,51 +21,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.playerscouter;
+package net.runelite.client.game;
 
-import java.util.LinkedHashMap;
-import lombok.AccessLevel;
+import java.awt.Color;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import net.runelite.api.Player;
-import net.runelite.http.api.hiscore.HiscoreResult;
+import net.runelite.api.Prayer;
 
-@Getter(AccessLevel.PACKAGE)
-@Setter(AccessLevel.PACKAGE)
-@ToString(exclude = "player")
-class PlayerContainer
+@AllArgsConstructor
+@Getter
+public enum AttackStyle
 {
-	private HiscoreResult skills;
-	private LinkedHashMap<Integer, Integer> gear;
-	private LinkedHashMap<Integer, Integer> riskedGear;
-	private Player player;
-	private String location;
-	private String name;
-	private String targetString;
-	private boolean httpRetry;
-	private boolean scouted;
-	private int prayer;
-	private int risk;
-	private int scoutTimer;
-	private int weapon;
-	private int wildyLevel;
+	MAGE("Mage", Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
+	RANGE("Range", Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
+	MELEE("Melee", Color.RED, Prayer.PROTECT_FROM_MELEE),
+	UNKNOWN("Unknown", Color.WHITE, null);
 
-	PlayerContainer(Player player)
-	{
-		this.gear = new LinkedHashMap<>();
-		this.httpRetry = false;
-		this.location = "N/A";
-		this.name = player.getName();
-		this.player = player;
-		this.prayer = -1;
-		this.risk = 0;
-		this.riskedGear = new LinkedHashMap<>();
-		this.scoutTimer = 500;
-		this.scouted = false;
-		this.skills = null;
-		this.targetString = "";
-		this.weapon = 0;
-		this.wildyLevel = 0;
-	}
+	private String name;
+	private Color color;
+	private Prayer prayer;
 }

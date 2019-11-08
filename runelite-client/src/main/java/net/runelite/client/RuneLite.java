@@ -61,6 +61,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.LootManager;
+import net.runelite.client.game.PlayerManager;
 import net.runelite.client.game.XpDropManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.graphics.ModelOutlineRenderer;
@@ -155,6 +156,9 @@ public class RuneLite
 
 	@Inject
 	private Provider<XpDropManager> xpDropManager;
+
+	@Inject
+	private Provider<PlayerManager> playerManager;
 
 	@Inject
 	private Provider<ChatboxPanelManager> chatboxPanelManager;
@@ -364,6 +368,7 @@ public class RuneLite
 			commandManager.get();
 			lootManager.get();
 			xpDropManager.get();
+			playerManager.get();
 			chatboxPanelManager.get();
 
 			eventBus.subscribe(GameStateChanged.class, this, hooks::onGameStateChanged);
