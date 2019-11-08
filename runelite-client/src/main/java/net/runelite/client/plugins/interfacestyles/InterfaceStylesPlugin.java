@@ -148,7 +148,6 @@ public class InterfaceStylesPlugin extends Plugin
         }
     }
 
-
     private void onPostHealthBar(PostHealthBar postHealthBar)
 	{
 		if (!this.hdHealthBars)
