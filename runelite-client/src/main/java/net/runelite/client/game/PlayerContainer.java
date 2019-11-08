@@ -50,6 +50,7 @@ public class PlayerContainer
 	private String targetString;
 	private boolean httpRetry;
 	private boolean scouted;
+	private boolean attacking;
 	private int hpLevel;
 	private int magicAttack;
 	private int magicDefence;
@@ -79,6 +80,7 @@ public class PlayerContainer
 
 	PlayerContainer(Player player)
 	{
+		this.attacking = false;
 		this.attackStyle = AttackStyle.UNKNOWN;
 		this.gear = new LinkedHashMap<>();
 		this.hpLevel = 0;
@@ -92,9 +94,9 @@ public class PlayerContainer
 		this.meleeAtkStab = 0;
 		this.meleeAttack = 0;
 		this.meleeDefCrush = 0;
+		this.meleeDefence = 0;
 		this.meleeDefSlash = 0;
 		this.meleeDefStab = 0;
-		this.meleeDefence = 0;
 		this.meleeStr = 0;
 		this.meleeStyle = MeleeStyle.STAB;
 		this.name = player.getName();
@@ -107,8 +109,8 @@ public class PlayerContainer
 		this.rangeStr = 0;
 		this.risk = 0;
 		this.riskedGear = new LinkedHashMap<>();
-		this.scoutTimer = 500;
 		this.scouted = false;
+		this.scoutTimer = 500;
 		this.shield = 0;
 		this.skills = null;
 		this.speed = 0;
@@ -139,6 +141,14 @@ public class PlayerContainer
 		setRangeStr(0);
 		setOverhead(iconToPrayer(getPlayer()));
 		setMeleeStyle(MeleeStyle.NONE);
+		if (getTimer() > 0)
+		{
+			setTimer(getTimer() - 1);
+			if (getTimer() == 0)
+			{
+				setAttacking(false);
+			}
+		}
 	}
 
 	@Getter(AccessLevel.PACKAGE)

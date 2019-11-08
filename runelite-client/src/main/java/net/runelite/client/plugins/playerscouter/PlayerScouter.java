@@ -45,6 +45,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.events.AttackStyleChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.PlayerContainer;
 import net.runelite.client.game.PlayerManager;
@@ -123,6 +124,12 @@ public class PlayerScouter extends Plugin
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
+		eventBus.subscribe(AttackStyleChanged.class, this, this::onAttackStyleChanged);
+	}
+
+	private void onAttackStyleChanged(AttackStyleChanged event)
+	{
+		System.out.println(event);
 	}
 
 	private void onConfigChanged(ConfigChanged event)
@@ -178,6 +185,15 @@ public class PlayerScouter extends Plugin
 				player.getPlayer().getCombatLevel() <= this.maximumCombat) &&
 				player.getRisk() > this.minimumRisk)
 			{
+				if (player.getSkills() == null)
+				{
+					if (player.isHttpRetry())
+					{
+						continue;
+					}
+					playerManager.updateStats(player.getPlayer());
+					continue;
+				}
 				if (config.mini())
 				{
 					players.add(player);

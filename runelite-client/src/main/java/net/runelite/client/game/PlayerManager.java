@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +22,7 @@ import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
+import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
@@ -57,6 +60,23 @@ public class PlayerManager
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(PlayerSpawned.class, this, this::onPlayerSpawned);
+		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+	}
+
+	/**
+	 * @return Collection of {@link PlayerContainer} that are attacking you, this can be empty.
+	 */
+	public Set<PlayerContainer> getAllAttackers()
+	{
+		final Set<PlayerContainer> set = new HashSet<>();
+		for (PlayerContainer p : playerMap.values())
+		{
+			if (p.isAttacking())
+			{
+				set.add(p);
+			}
+		}
+		return set;
 	}
 
 	/**
@@ -138,6 +158,7 @@ public class PlayerManager
 
 		executorService.submit(() ->
 		{
+			player.setHttpRetry(true);
 			HiscoreResult result;
 			do
 			{
@@ -164,6 +185,7 @@ public class PlayerManager
 			player.setSkills(result);
 			player.setPrayerLevel(player.getSkills().getPrayer().getLevel());
 			player.setHpLevel(player.getSkills().getHitpoints().getLevel());
+			player.setHttpRetry(false);
 		});
 	}
 
@@ -177,6 +199,35 @@ public class PlayerManager
 	{
 		final Player player = event.getPlayer();
 		playerMap.put(player.getName(), new PlayerContainer(player));
+	}
+
+	private void onAnimationChanged(AnimationChanged event)
+	{
+		final Actor actor = event.getActor();
+
+		if (actor.getInteracting() != client.getLocalPlayer() || !(actor instanceof Player) || actor.getAnimation() == -1)
+		{
+			return;
+		}
+
+		final PlayerContainer player = playerMap.getOrDefault(actor.getName(), null);
+
+		if (player == null)
+		{
+			return;
+		}
+
+		if (player.getPlayer().getInteracting() != null &&
+			player.getPlayer().getInteracting() == client.getLocalPlayer())
+		{
+			if (player.getSkills() == null)
+			{
+				updateStats(player.getPlayer());
+			}
+
+			player.setAttacking(true);
+			player.setTimer(8);
+		}
 	}
 
 	private void onGameTick(GameTick event)
