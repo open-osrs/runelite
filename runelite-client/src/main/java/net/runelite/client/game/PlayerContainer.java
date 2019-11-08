@@ -39,15 +39,15 @@ public class PlayerContainer
 {
 	private AttackStyle attackStyle;
 	private AttackStyle weakness;
-	private MeleeStyle meleeStyle;
 	private HiscoreResult skills;
 	private LinkedHashMap<Integer, Integer> gear;
 	private LinkedHashMap<Integer, Integer> riskedGear;
+	private MeleeStyle meleeStyle;
 	private Player player;
+	private Prayer overhead;
 	private String location;
 	private String name;
 	private String targetString;
-	private Prayer overhead;
 	private boolean httpRetry;
 	private boolean scouted;
 	private int hpLevel;
@@ -79,6 +79,7 @@ public class PlayerContainer
 
 	PlayerContainer(Player player)
 	{
+		this.attackStyle = AttackStyle.UNKNOWN;
 		this.gear = new LinkedHashMap<>();
 		this.hpLevel = 0;
 		this.httpRetry = false;
@@ -95,6 +96,7 @@ public class PlayerContainer
 		this.meleeDefStab = 0;
 		this.meleeDefence = 0;
 		this.meleeStr = 0;
+		this.meleeStyle = MeleeStyle.STAB;
 		this.name = player.getName();
 		this.player = player;
 		this.potionBoost = 0;
@@ -112,6 +114,7 @@ public class PlayerContainer
 		this.speed = 0;
 		this.targetString = "";
 		this.timer = 0;
+		this.weakness = AttackStyle.UNKNOWN;
 		this.weapon = 0;
 		this.wildyLevel = 0;
 	}
@@ -135,7 +138,6 @@ public class PlayerContainer
 		setMeleeStr(0);
 		setRangeStr(0);
 		setOverhead(iconToPrayer(getPlayer()));
-		setAttackStyle(AttackStyle.UNKNOWN);
 		setMeleeStyle(MeleeStyle.NONE);
 	}
 

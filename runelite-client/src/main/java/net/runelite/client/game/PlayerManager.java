@@ -25,6 +25,7 @@ import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.events.AttackStyleChanged;
 import net.runelite.client.util.PvPUtil;
 import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreResult;
@@ -38,6 +39,7 @@ public class PlayerManager
 	private static final HiscoreClient HISCORE_CLIENT = new HiscoreClient();
 	private final Client client;
 	private final ItemManager itemManager;
+	private final EventBus eventBus;
 	private final Map<String, PlayerContainer> playerMap = new ConcurrentHashMap<>();
 	private final Map<String, HiscoreResult> resultCache = new ConcurrentHashMap<>();
 	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
@@ -51,6 +53,7 @@ public class PlayerManager
 	{
 		this.client = client;
 		this.itemManager = itemManager;
+		this.eventBus = eventBus;
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(PlayerSpawned.class, this, this::onPlayerSpawned);
@@ -352,6 +355,7 @@ public class PlayerManager
 
 	private void updateAttackStyle(PlayerContainer player)
 	{
+		final AttackStyle oldStyle = player.getAttackStyle();
 		boolean staff = false;
 
 		for (int id : player.getGear().keySet())
@@ -367,6 +371,12 @@ public class PlayerManager
 
 		if (staff)
 		{
+			if (oldStyle != player.getAttackStyle())
+			{
+				eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
+					player.getPlayer(), oldStyle, player.getAttackStyle())
+				);
+			}
 			return;
 		}
 
@@ -381,6 +391,13 @@ public class PlayerManager
 		else if (player.getMeleeStr() >= player.getMagicStr() && player.getMeleeStr() >= player.getRangeStr())
 		{
 			player.setAttackStyle(AttackStyle.MELEE);
+		}
+
+		if (oldStyle != player.getAttackStyle())
+		{
+			eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
+				player.getPlayer(), oldStyle, player.getAttackStyle())
+			);
 		}
 	}
 
