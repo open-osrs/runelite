@@ -71,6 +71,7 @@ dependencies {
     implementation(Libraries.jooq)
     implementation(Libraries.jooqCodegen)
     implementation(Libraries.jooqMeta)
+    implementation(Libraries.sentry)
     implementation(Libraries.slf4jApi)
     implementation(project(":http-api"))
     implementation(project(":runelite-api"))
@@ -105,18 +106,27 @@ fun formatDate(date: Date?) = with(date ?: Date()) {
     SimpleDateFormat("MM-dd-yyyy").format(this)
 }
 
+fun launcherVersion(): String {
+    if (project.hasProperty("releaseBuild")) {
+        return ProjectVersions.launcherVersion
+    }
+    return "-1"
+}
+
 tasks {
     build {
         finalizedBy("shadowJar")
     }
 
-    "processResources"(ProcessResources::class) {
+    processResources {
+
+
         val tokens = mapOf(
                 "project.version" to ProjectVersions.rlVersion,
                 "rs.version" to ProjectVersions.rsversion.toString(),
                 "open.osrs.version" to ProjectVersions.openosrsVersion,
                 "open.osrs.builddate" to formatDate(Date()),
-                "launcher.version" to ProjectVersions.launcherVersion
+                "launcher.version" to launcherVersion()
         )
 
         inputs.properties(tokens)
@@ -129,6 +139,7 @@ tasks {
     }
 
     jar {
+
         manifest {
             attributes(mutableMapOf("Main-Class" to "net.runelite.client.RuneLite"))
         }
