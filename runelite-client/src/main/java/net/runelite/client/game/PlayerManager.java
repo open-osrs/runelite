@@ -236,6 +236,8 @@ public class PlayerManager
 		{
 			update(p);
 			p.reset();
+			p.setFriend(client.isFriended(p.getName(), false));
+			p.setClan(client.isClanMember(p.getName()));
 		});
 	}
 

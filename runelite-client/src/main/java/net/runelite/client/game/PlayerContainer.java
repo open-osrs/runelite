@@ -51,6 +51,8 @@ public class PlayerContainer
 	private boolean httpRetry;
 	private boolean scouted;
 	private boolean attacking;
+	private boolean friend;
+	private boolean clan;
 	private int hpLevel;
 	private int magicAttack;
 	private int magicDefence;
@@ -80,8 +82,10 @@ public class PlayerContainer
 
 	PlayerContainer(Player player)
 	{
-		this.attacking = false;
 		this.attackStyle = AttackStyle.UNKNOWN;
+		this.attacking = false;
+		this.clan = false;
+		this.friend = false;
 		this.gear = new LinkedHashMap<>();
 		this.hpLevel = 0;
 		this.httpRetry = false;
@@ -94,9 +98,9 @@ public class PlayerContainer
 		this.meleeAtkStab = 0;
 		this.meleeAttack = 0;
 		this.meleeDefCrush = 0;
-		this.meleeDefence = 0;
 		this.meleeDefSlash = 0;
 		this.meleeDefStab = 0;
+		this.meleeDefence = 0;
 		this.meleeStr = 0;
 		this.meleeStyle = MeleeStyle.STAB;
 		this.name = player.getName();
@@ -109,8 +113,8 @@ public class PlayerContainer
 		this.rangeStr = 0;
 		this.risk = 0;
 		this.riskedGear = new LinkedHashMap<>();
-		this.scouted = false;
 		this.scoutTimer = 500;
+		this.scouted = false;
 		this.shield = 0;
 		this.skills = null;
 		this.speed = 0;

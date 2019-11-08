@@ -316,6 +316,7 @@ public class PlayerScouter extends Plugin
 
 		String iconId = String.valueOf(id);
 		String icon = ICON_URL + iconId + ".png";
+
 		ThumbnailEmbed image = ThumbnailEmbed.builder()
 			.url(ICON_URL + iconId + ".png")
 			.build();
