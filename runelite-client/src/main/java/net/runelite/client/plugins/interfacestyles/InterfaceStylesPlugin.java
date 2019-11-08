@@ -119,7 +119,7 @@ public class InterfaceStylesPlugin extends Plugin
 		eventBus.subscribe(PostHealthBar.class, this, this::onPostHealthBar);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(BeforeMenuRender.class, this, this::onBeforeMenuRender);
-        eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
 	}
 
 	private void onConfigChanged(ConfigChanged config)
@@ -136,19 +136,19 @@ public class InterfaceStylesPlugin extends Plugin
 		adjustWidgetDimensions();
 	}
 
-    public void onScriptCallbackEvent(ScriptCallbackEvent event)
-    {
-        String eventName = event.getEventName();
-        int[] intStack = client.getIntStack();
-        int intStackSize = client.getIntStackSize();
+	public void onScriptCallbackEvent(ScriptCallbackEvent event)
+	{
+		String eventName = event.getEventName();
+		int[] intStack = client.getIntStack();
+		int intStackSize = client.getIntStackSize();
 
-        if (config.stack() && "forceStackStones".equals(eventName))
-        {
-            intStack[intStackSize - 1] = 1;
-        }
-    }
+		if (config.stack() && "forceStackStones".equals(eventName))
+		{
+			intStack[intStackSize - 1] = 1;
+		}
+	}
 
-    private void onPostHealthBar(PostHealthBar postHealthBar)
+	private void onPostHealthBar(PostHealthBar postHealthBar)
 	{
 		if (!this.hdHealthBars)
 		{
