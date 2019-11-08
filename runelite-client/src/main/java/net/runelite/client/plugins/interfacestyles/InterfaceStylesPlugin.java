@@ -41,6 +41,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.PostHealthBar;
 import net.runelite.api.events.WidgetPositioned;
+import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
@@ -118,6 +119,7 @@ public class InterfaceStylesPlugin extends Plugin
 		eventBus.subscribe(PostHealthBar.class, this, this::onPostHealthBar);
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(BeforeMenuRender.class, this, this::onBeforeMenuRender);
+        eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
 	}
 
 	private void onConfigChanged(ConfigChanged config)
@@ -134,7 +136,20 @@ public class InterfaceStylesPlugin extends Plugin
 		adjustWidgetDimensions();
 	}
 
-	private void onPostHealthBar(PostHealthBar postHealthBar)
+    public void onScriptCallbackEvent(ScriptCallbackEvent event)
+    {
+        String eventName = event.getEventName();
+        int[] intStack = client.getIntStack();
+        int intStackSize = client.getIntStackSize();
+
+        if (config.stack() && "forceStackStones".equals(eventName))
+        {
+            intStack[intStackSize - 1] = 1;
+        }
+    }
+
+
+    private void onPostHealthBar(PostHealthBar postHealthBar)
 	{
 		if (!this.hdHealthBars)
 		{

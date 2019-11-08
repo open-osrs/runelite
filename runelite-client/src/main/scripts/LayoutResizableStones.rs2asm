@@ -1,0 +1,228 @@
+.id                 920
+.int_stack_count    2
+.string_stack_count 0
+.int_var_count      5
+.string_var_count   0
+; callback "forceStackStones"
+;   Used by the InterfaceStylesPlugin to enable it's Always stack bottom bar option
+;   Toggle the option when you have the bottom line top level interface on and your screen is large enough for the stones to be in a single line
+   iconst                 0
+   istore                 2
+   iconst                 0
+   istore                 3
+   iconst                 -1
+   istore                 4
+   iload                  1
+   switch
+      1745: LABEL113
+      1129: LABEL105
+      1130: LABEL85
+      1131: LABEL9
+   jump                   LABEL183
+LABEL9:
+   iconst                 10747936
+   if_getwidth
+   iconst                 33
+   sub
+   iconst                 10747936
+   if_getheight
+   istore                 3
+   istore                 2
+   iload                  0
+   if_getwidth
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10551325
+   enum
+   if_getwidth
+   sub
+   iconst                 429
+   if_icmplt              LABEL29
+   iconst                 0                  ; should resizable stones be forced to stack
+   sconst                 "forceStackStones" ; push event name
+   runelite_callback                         ; invoke callback
+   iconst                 0                  ; if 0 is returned, continue normal layout
+   if_icmpeq              LABEL49
+LABEL29:
+   iconst                 0
+   iload                  3
+   iconst                 10747951
+   if_getheight
+   add
+   iconst                 2
+   iconst                 2
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10747968
+   enum
+   if_setposition
+   iconst                 0
+   iload                  3
+   iconst                 2
+   iconst                 2
+   iconst                 10747951
+   if_setposition
+   jump                   LABEL65
+LABEL49:
+   iconst                 0
+   iload                  3
+   iconst                 2
+   iconst                 2
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10747968
+   enum
+   if_setposition
+   iload                  2
+   iconst                 0
+   iconst                 2
+   iconst                 2
+   iconst                 10747951
+   if_setposition
+LABEL65:
+   get_varbit             4084
+   iconst                 1
+   if_icmpeq              LABEL69
+   jump                   LABEL77
+LABEL69:
+   iconst                 1178
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10551321
+   enum
+   2122
+   jump                   LABEL84
+LABEL77:
+   iconst                 2154
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10551321
+   enum
+   2122
+LABEL84:
+   jump                   LABEL183
+LABEL85:
+   get_varbit             4084
+   iconst                 1
+   if_icmpeq              LABEL89
+   jump                   LABEL97
+LABEL89:
+   iconst                 1178
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10551321
+   enum
+   2122
+   jump                   LABEL104
+LABEL97:
+   iconst                 2154
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10551321
+   enum
+   2122
+LABEL104:
+   jump                   LABEL183
+LABEL105:
+   iconst                 1200
+   iconst                 73
+   iconst                 73
+   iload                  1
+   iconst                 10551321
+   enum
+   2122
+   jump                   LABEL183
+LABEL113:
+   get_varbit             6257
+   iconst                 1
+   if_icmpeq              LABEL117
+   jump                   LABEL121
+LABEL117:
+   iconst                 1
+   iconst                 39387166
+   if_sethide
+   jump                   LABEL176
+LABEL121:
+   iconst                 0
+   iconst                 39387166
+   if_sethide
+   iconst                 1
+   iconst                 39387166
+   2308
+   get_varbit             6255
+   switch
+      1: LABEL138
+      2: LABEL130
+      3: LABEL146
+   jump                   LABEL154
+LABEL130:
+   iconst                 1718
+   iconst                 39387168
+   if_setgraphic
+   iconst                 1
+   sconst                 "Toggle single-tap mode"
+   iconst                 39387166
+   if_setop
+   jump                   LABEL161
+LABEL138:
+   iconst                 1717
+   iconst                 39387168
+   if_setgraphic
+   iconst                 1
+   sconst                 "Toggle tap-to-drop mode"
+   iconst                 39387166
+   if_setop
+   jump                   LABEL161
+LABEL146:
+   iconst                 1716
+   iconst                 39387168
+   if_setgraphic
+   iconst                 1
+   sconst                 "Show Keyboard"
+   iconst                 39387166
+   if_setop
+   jump                   LABEL161
+LABEL154:
+   iconst                 1715
+   iconst                 39387168
+   if_setgraphic
+   iconst                 1
+   sconst                 ""
+   iconst                 39387166
+   if_setop
+LABEL161:
+   get_varbit             6255
+   iconst                 3
+   if_icmpne              LABEL165
+   jump                   LABEL173
+LABEL165:
+   get_varbit             6256
+   iconst                 0
+   if_icmpeq              LABEL169
+   jump                   LABEL173
+LABEL169:
+   iconst                 155
+   iconst                 39387168
+   if_settrans
+   jump                   LABEL176
+LABEL173:
+   iconst                 0
+   iconst                 39387168
+   if_settrans
+LABEL176:
+   invoke                 2581
+   get_varbit             6254
+   invoke                 633
+   iconst                 39387157
+   if_sethide
+   invoke                 2526
+   pop_int
+LABEL183:
+   return
