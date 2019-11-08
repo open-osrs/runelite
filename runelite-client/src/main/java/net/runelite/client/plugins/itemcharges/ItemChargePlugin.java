@@ -562,7 +562,7 @@ public class ItemChargePlugin extends Plugin
 		ringOfRecoilEquipped = false;
 
 		Item ring = null;
-		if (equipment != null && equipment.getItems().length >= EquipmentInventorySlot.RING.getSlotIdx())
+		if (equipment != null && EquipmentInventorySlot.RING.getSlotIdx() < equipment.getItems().length)
 		{
 			ring = equipment.getItems()[EquipmentInventorySlot.RING.getSlotIdx()];
 		}
