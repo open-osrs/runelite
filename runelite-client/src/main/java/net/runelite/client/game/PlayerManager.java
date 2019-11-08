@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -37,8 +38,8 @@ public class PlayerManager
 	private static final HiscoreClient HISCORE_CLIENT = new HiscoreClient();
 	private final Client client;
 	private final ItemManager itemManager;
-	private final Map<String, PlayerContainer> playerMap = new HashMap<>();
-	private final Map<String, HiscoreResult> resultCache = new HashMap<>();
+	private final Map<String, PlayerContainer> playerMap = new ConcurrentHashMap<>();
+	private final Map<String, HiscoreResult> resultCache = new ConcurrentHashMap<>();
 	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 	@Inject
