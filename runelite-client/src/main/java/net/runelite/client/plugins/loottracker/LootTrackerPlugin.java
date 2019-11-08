@@ -656,30 +656,30 @@ public class LootTrackerPlugin extends Plugin
 		{
 			saveLocalLootRecord(lootRecord);
 		}
-        if (config.pvpKillChatMessage())
-        {
-            long totalPrice = 0;
+		if (config.pvpKillChatMessage())
+		{
+			long totalPrice = 0;
 
-            for (final ItemStack itemStack : items)
-            {
-                totalPrice += (long) itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity();
-            }
+			for (final ItemStack itemStack : items)
+			{
+				totalPrice += (long) itemManager.getItemPrice(itemStack.getId()) * itemStack.getQuantity();
+			}
 
-            final String message = new ChatMessageBuilder()
-                    .append(ChatColorType.HIGHLIGHT)
-                    .append("You've killed ")
-                    .append(name)
-                    .append(" for ")
-                    .append(QuantityFormatter.quantityToStackSize(totalPrice))
-                    .append(" loot.")
-                    .build();
+			final String message = new ChatMessageBuilder()
+					.append(ChatColorType.HIGHLIGHT)
+					.append("You've killed ")
+					.append(name)
+					.append(" for ")
+					.append(QuantityFormatter.quantityToStackSize(totalPrice))
+					.append(" loot.")
+					.build();
 
-            chatMessageManager.queue(
-                    QueuedMessage.builder()
-                            .type(ChatMessageType.CONSOLE)
-                            .runeLiteFormattedMessage(message)
-                            .build());
-        }
+			chatMessageManager.queue(
+					QueuedMessage.builder()
+							.type(ChatMessageType.CONSOLE)
+							.runeLiteFormattedMessage(message)
+							.build());
+		}
 
 		LTRecord record = new LTRecord(-1, name, combat, -1, convertToLTItemEntries(items));
 		writer.addLootTrackerRecord(record);
