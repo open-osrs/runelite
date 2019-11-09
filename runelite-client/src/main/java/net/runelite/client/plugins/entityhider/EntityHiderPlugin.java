@@ -27,6 +27,9 @@
 package net.runelite.client.plugins.entityhider;
 
 import com.google.inject.Provides;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
@@ -40,10 +43,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @PluginDescriptor(
 	name = "Entity Hider",
@@ -189,7 +188,8 @@ public class EntityHiderPlugin extends Plugin
 			return true;
 		}
 
-		final int playerRegionID = WorldPoint.fromLocalInstance(client, localPlayer.getLocalLocation()).getRegionID();
+		final WorldPoint worldPoint = WorldPoint.fromLocalInstance(client, client.getLocalPlayer().getLocalLocation());
+		final int playerRegionID = worldPoint == null ? 0 : worldPoint.getRegionID();
 
 		// 9520 = Castle Wars
 		return playerRegionID != 9520;
