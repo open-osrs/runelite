@@ -24,6 +24,7 @@ import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.kit.KitType;
@@ -61,6 +62,7 @@ public class PlayerManager
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(PlayerSpawned.class, this, this::onPlayerSpawned);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+		eventBus.subscribe(PlayerAppearanceChanged.class, this, this::onAppearenceChanged);
 	}
 
 	/**
@@ -94,7 +96,7 @@ public class PlayerManager
 	@Nullable
 	public PlayerContainer getPlayer(String name)
 	{
-		return playerMap.getOrDefault(name, null);
+		return playerMap.get(name);
 	}
 
 	/**
@@ -109,7 +111,7 @@ public class PlayerManager
 			return null;
 		}
 
-		return playerMap.getOrDefault(player.getName(), null);
+		return playerMap.get(player.getName());
 	}
 
 	/**
@@ -119,7 +121,7 @@ public class PlayerManager
 	 */
 	public void updateStats(String name)
 	{
-		final PlayerContainer p = playerMap.getOrDefault(name, null);
+		final PlayerContainer p = playerMap.get(name);
 
 		if (p == null)
 		{
@@ -141,7 +143,7 @@ public class PlayerManager
 			return;
 		}
 
-		final PlayerContainer player = playerMap.getOrDefault(requestedPlayer.getName(), null);
+		final PlayerContainer player = playerMap.get(requestedPlayer.getName());
 
 		if (player == null)
 		{
@@ -173,9 +175,8 @@ public class PlayerManager
 					{
 						Thread.sleep(1000);
 					}
-					catch (InterruptedException e)
+					catch (InterruptedException ignored)
 					{
-						e.printStackTrace();
 					}
 				}
 			}
@@ -187,6 +188,21 @@ public class PlayerManager
 			player.setHpLevel(player.getSkills().getHitpoints().getLevel());
 			player.setHttpRetry(false);
 		});
+	}
+
+	private void onAppearenceChanged(PlayerAppearanceChanged event)
+	{
+		final PlayerContainer player = playerMap.get(event.getPlayer().getName());
+
+		if (player == null)
+		{
+			return;
+		}
+
+		update(player);
+		player.reset();
+		player.setFriend(client.isFriended(player.getName(), false));
+		player.setClan(client.isClanMember(player.getName()));
 	}
 
 	private void onPlayerDespawned(PlayerDespawned event)
@@ -235,9 +251,6 @@ public class PlayerManager
 		playerMap.values().forEach((p) ->
 		{
 			update(p);
-			p.reset();
-			p.setFriend(client.isFriended(p.getName(), false));
-			p.setClan(client.isClanMember(p.getName()));
 		});
 	}
 

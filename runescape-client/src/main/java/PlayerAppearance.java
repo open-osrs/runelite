@@ -39,7 +39,8 @@ public class PlayerAppearance {
 	@ObfuscatedGetter(
 		longValue = 3547676045736653443L
 	)
-	long field2517;
+	@Export("hash")
+	long hash;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
 		longValue = 826558689471794127L
@@ -198,39 +199,40 @@ public class PlayerAppearance {
 	)
 	@Export("setHash")
 	void setHash() {
-		long var1 = this.field2517;
+		long var1 = this.hash;
 		int var3 = this.equipment[5];
 		int var4 = this.equipment[9];
 		this.equipment[5] = var4;
 		this.equipment[9] = var3;
-		this.field2517 = 0L;
+		this.hash = 0L;
 
 		int var5;
 		for (var5 = 0; var5 < 12; ++var5) {
-			this.field2517 <<= 4;
+			this.hash <<= 4;
 			if (this.equipment[var5] >= 256) {
-				this.field2517 += (long)(this.equipment[var5] - 256);
+				this.hash += (long) (this.equipment[var5] - 256);
 			}
 		}
 
 		if (this.equipment[0] >= 256) {
-			this.field2517 += (long)(this.equipment[0] - 256 >> 4);
+			this.hash += (long) (this.equipment[0] - 256 >> 4);
 		}
 
 		if (this.equipment[1] >= 256) {
-			this.field2517 += (long)(this.equipment[1] - 256 >> 8);
+			this.hash += (long) (this.equipment[1] - 256 >> 8);
 		}
 
 		for (var5 = 0; var5 < 5; ++var5) {
-			this.field2517 <<= 3;
-			this.field2517 += (long)this.bodyColors[var5];
+			this.hash <<= 3;
+			this.hash += (long) this.bodyColors[var5];
 		}
 
-		this.field2517 <<= 1;
-		this.field2517 += (long)(this.isFemale ? 1 : 0);
+		this.hash <<= 1;
+		this.hash += (long) (this.isFemale ? 1 : 0);
 		this.equipment[5] = var3;
 		this.equipment[9] = var4;
-		if (var1 != 0L && var1 != this.field2517) {
+		if (var1 != 0L && var1 != this.hash)
+		{
 			PlayerAppearance_cachedModels.remove(var1);
 		}
 
@@ -246,7 +248,7 @@ public class PlayerAppearance {
 		if (this.npcTransformId != -1) {
 			return SecureRandomCallable.getNpcDefinition(this.npcTransformId).getModel(var1, var2, var3, var4);
 		} else {
-			long var5 = this.field2517;
+			long var5 = this.hash;
 			int[] var7 = this.equipment;
 			if (var1 != null && (var1.shield >= 0 || var1.weapon >= 0)) {
 				var7 = new int[12];
