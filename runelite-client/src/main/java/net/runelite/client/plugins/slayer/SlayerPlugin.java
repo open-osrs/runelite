@@ -843,7 +843,7 @@ public class SlayerPlugin extends Plugin
 	@VisibleForTesting
 	private void killedOne(int delta)
 	{
-		if (currentTask.getAmount() == 0)
+		if (currentTask == null || currentTask.getAmount() == 0)
 		{
 			return;
 		}
