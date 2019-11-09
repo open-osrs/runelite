@@ -16,3 +16,6 @@ jobs:
         owner: open-osrs
         base: master
         head: master
+        merge_method: merge
+        pr_title: auto_merge_upstream
+        
