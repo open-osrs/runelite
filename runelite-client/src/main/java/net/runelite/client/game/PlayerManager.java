@@ -246,14 +246,6 @@ public class PlayerManager
 		}
 	}
 
-	private void onGameTick(GameTick event)
-	{
-		playerMap.values().forEach((p) ->
-		{
-			update(p);
-		});
-	}
-
 	private void update(PlayerContainer player)
 	{
 		player.setRisk(0);
