@@ -12,4 +12,4 @@ jobs:
 
     steps:
       - name: checkout submods
-        run: ./git submodule update --init --recursive
+        run: git submodule update --init --recursive
