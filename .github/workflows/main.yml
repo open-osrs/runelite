@@ -13,6 +13,6 @@ jobs:
     - uses: TG908/fork-sync@v1.1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        owner: open-osrs/runelite
+        owner: open-osrs
         base: master
         head: master
