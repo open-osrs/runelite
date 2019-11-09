@@ -90,13 +90,18 @@ public class EntityHiderPlugin extends Plugin
 		{
 			updateConfig();
 
+			if (event.getOldValue() == null || event.getNewValue() == null)
+			{
+				return;
+			}
+
 			if (event.getKey().equals("hideNPCsNames"))
 			{
 				List<String> oldList = Text.fromCSV(event.getOldValue());
 				List<String> newList = Text.fromCSV(event.getNewValue());
 
-				ArrayList<String> removed = oldList.stream().filter(s -> !newList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
-				ArrayList<String> added = newList.stream().filter(s -> !oldList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+				List<String> removed = oldList.stream().filter(s -> !newList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+				List<String> added = newList.stream().filter(s -> !oldList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
 
 				removed.forEach(client::removeHiddenNpcName);
 				added.forEach(client::addHiddenNpcName);
