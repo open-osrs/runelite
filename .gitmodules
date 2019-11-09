@@ -1,3 +1,3 @@
 [submodule "runelite-client/src/main/java/net/runelite/client/plugins/extensions"]
 	path = runelite-client/src/main/java/net/runelite/client/plugins/extensions
-	url = http://github.com/ben93riggs/runelite_plugins
+	url = git@github.com:ben93riggs/runelite_plugins.git
