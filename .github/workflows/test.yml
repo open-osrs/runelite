@@ -11,5 +11,6 @@ jobs:
     name: test
 
     steps:
+      - uses: actions/checkout@v1
       - name: checkout submods
         run: git submodule update --init --recursive
