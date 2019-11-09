@@ -14,4 +14,5 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         owner: open-osrs
+        merge_method: rebase
         
