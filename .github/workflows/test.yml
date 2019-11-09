@@ -1,0 +1,15 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: test
+
+    steps:
+      - name: checkout submods
+        run: ./git submodule update --init --recursive
