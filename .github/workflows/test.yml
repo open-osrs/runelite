@@ -14,5 +14,8 @@ jobs:
     - uses: TG908/fork-sync@v1.1.4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        owner: ben93riggs
+        owner: open-osrs
+        base: master
+        head: master
         merge_method: merge
+        pr_message: automatic merge from upstream
