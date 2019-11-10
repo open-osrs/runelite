@@ -27,9 +27,9 @@ const val kotlinVersion = "1.3.50"
 
 object ProjectVersions {
     const val launcherVersion = "2.0.4"
-    const val rlVersion = "1.5.39-SNAPSHOT"
+    const val rlVersion = "1.5.40-SNAPSHOT"
 
-    const val openosrsVersion = "2.1.9.1"
+    const val openosrsVersion = "2.1.10.0"
 
     const val rsversion = 185
     const val cacheversion = 165
@@ -38,7 +38,7 @@ object ProjectVersions {
 object Plugins {
     val grgitPlugin = "org.ajoberstar:grgit:2.3.0"
     val versionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.27.0"
-    val injectorPlugin = "com.openosrs:injector-plugin:1.0.0"
+    val injectorPlugin = "com.openosrs:injector-plugin:1.0.2"
     val testLogger = Pair("com.adarshr.test-logger", "2.0.0")
     val versions = Pair("com.github.ben-manes.versions", "0.27.0")
     val buildScan = Pair("com.gradle.build-scan", "3.0")
@@ -99,6 +99,7 @@ object Libraries {
         const val rxrelay = "2.1.1"
         const val scribejava = "6.9.0"
         const val sisu = "0.3.3"
+        const val sentry = "1.7.28"
         const val slf4j = "1.7.28"
         const val springJdbc = "5.2.0.RELEASE"
         const val springboot = "2.2.0.RELEASE"
@@ -179,6 +180,7 @@ object Libraries {
     const val slf4jApi = "org.slf4j:slf4j-api:${Versions.slf4j}"
     const val slf4jNop = "org.slf4j:slf4j-nop:${Versions.slf4j}"
     const val slf4jSimple = "org.slf4j:slf4j-simple:${Versions.slf4j}"
+    const val sentry = "io.sentry:sentry:${Versions.sentry}"
     const val springbootDevtools = "org.springframework.boot:spring-boot-devtools:${Versions.springboot}"
     const val springbootStarter = "org.springframework.boot:spring-boot-starter:${Versions.springboot}"
     const val springbootStarterWeb = "org.springframework.boot:spring-boot-starter-web:${Versions.springboot}"

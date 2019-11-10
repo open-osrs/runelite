@@ -210,7 +210,7 @@ public class VorkathPlugin extends Plugin
 
 	private void onProjectileSpawned(ProjectileSpawned event)
 	{
-		if (!isAtVorkath())
+		if (!isAtVorkath() || vorkath == null)
 		{
 			return;
 		}
@@ -411,6 +411,11 @@ public class VorkathPlugin extends Plugin
 	{
 		acidFreePath.clear();
 
+		if (vorkath == null)
+		{
+			return;
+		}
+
 		final int[][][] directions = {
 			{
 				{0, 1}, {0, -1} // Positive and negative Y
@@ -514,8 +519,14 @@ public class VorkathPlugin extends Plugin
 
 		updateWooxWalkBar();
 
+		if (client.getLocalPlayer() == null || vorkath.getVorkath() == null)
+		{
+			return;
+		}
+
 		final WorldPoint playerLoc = client.getLocalPlayer().getWorldLocation();
 		final WorldPoint vorkLoc = vorkath.getVorkath().getWorldLocation();
+
 		final int maxX = vorkLoc.getX() + 14;
 		final int minX = vorkLoc.getX() - 8;
 		final int baseX = playerLoc.getX();

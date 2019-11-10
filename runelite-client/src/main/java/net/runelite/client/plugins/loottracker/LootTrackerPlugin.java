@@ -86,6 +86,7 @@ import net.runelite.api.events.LocalPlayerDeath;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.RuneLite;
@@ -119,7 +120,6 @@ import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.api.util.Text;
 import net.runelite.client.util.QuantityFormatter;
 import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.loottracker.GameItem;
@@ -508,6 +508,11 @@ public class LootTrackerPlugin extends Plugin
 
 	private void onGameStateChanged(final GameStateChanged event)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+
 		if (event.getGameState() == GameState.LOADING)
 		{
 			chestLooted = false;
@@ -547,6 +552,11 @@ public class LootTrackerPlugin extends Plugin
 
 	private void onNpcLootReceived(final NpcLootReceived npcLootReceived)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+
 		final NPC npc = npcLootReceived.getNpc();
 		final Collection<ItemStack> items = npcLootReceived.getItems();
 		final String name = npc.getName();
@@ -618,11 +628,17 @@ public class LootTrackerPlugin extends Plugin
 
 	private void onPlayerLootReceived(final PlayerLootReceived playerLootReceived)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+
 		// Ignore Last Man Standing player loots
 		if (isAtLMS())
 		{
 			return;
 		}
+
 		if (this.sendLootValueMessages)
 		{
 			if (WorldType.isDeadmanWorld(client.getWorldType()) || WorldType.isHighRiskWorld(client.getWorldType()) ||
@@ -636,6 +652,7 @@ public class LootTrackerPlugin extends Plugin
 						.build()).build());
 			}
 		}
+
 		final Player player = playerLootReceived.getPlayer();
 		final Collection<ItemStack> items = playerLootReceived.getItems();
 		final String name = player.getName();
@@ -663,6 +680,11 @@ public class LootTrackerPlugin extends Plugin
 
 	private void onWidgetLoaded(WidgetLoaded event)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+
 		final ItemContainer container;
 		switch (event.getGroupId())
 		{
@@ -685,8 +707,9 @@ public class LootTrackerPlugin extends Plugin
 					return;
 				}
 
-				if (WorldPoint.fromLocalInstance(client, client.getLocalPlayer()
-					.getLocalLocation()).getRegionID() != THEATRE_OF_BLOOD_REGION)
+				WorldPoint p = WorldPoint.fromLocalInstance(client, client.getLocalPlayer().getLocalLocation());
+
+				if (p != null && p.getRegionID() != THEATRE_OF_BLOOD_REGION)
 				{
 					return;
 				}
@@ -759,8 +782,6 @@ public class LootTrackerPlugin extends Plugin
 
 		final LootTrackerItem[] entries = buildEntries(stack(items));
 
-		final int killCount = killCountMap.getOrDefault(eventType.toUpperCase(), -1);
-
 		SwingUtilities.invokeLater(() -> panel.add(eventType, client.getLocalPlayer().getName(), -1, entries));
 		LootRecord lootRecord = new LootRecord(eventType, client.getLocalPlayer().getName(), LootRecordType.EVENT,
 			toGameItems(items), Instant.now());
@@ -777,12 +798,17 @@ public class LootTrackerPlugin extends Plugin
 			saveLocalLootRecord(lootRecord);
 		}
 
-		LTRecord record = new LTRecord(-1, eventType, -1, killCount, convertToLTItemEntries(items));
+		LTRecord record = new LTRecord(-1, eventType, -1, eventType == null ? -1 : killCountMap.getOrDefault(eventType.toUpperCase(), -1), convertToLTItemEntries(items));
 		writer.addLootTrackerRecord(record);
 	}
 
 	private void onChatMessage(ChatMessage event)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+
 		if (event.getType() != ChatMessageType.GAMEMESSAGE && event.getType() != ChatMessageType.SPAM)
 		{
 			return;
@@ -918,6 +944,11 @@ public class LootTrackerPlugin extends Plugin
 	@SuppressWarnings("unchecked")
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+
 		if (pvpDeath && RESPAWN_REGIONS.contains(client.getLocalPlayer().getWorldLocation().getRegionID()))
 		{
 			Multiset snapshot;
@@ -1090,6 +1121,11 @@ public class LootTrackerPlugin extends Plugin
 
 	private void processChestLoot(String chestType, ItemContainer inventoryContainer)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return;
+		}
+
 		if (inventorySnapshot != null)
 		{
 			Multiset<Integer> currentInventory = HashMultiset.create();
@@ -1214,17 +1250,17 @@ public class LootTrackerPlugin extends Plugin
 	{
 		final ItemDefinition itemDefinition = itemManager.getItemDefinition(itemId);
 		final int realItemId = itemDefinition.getNote() != -1 ? itemDefinition.getLinkedNoteId() : itemId;
-		final long gePrice ;
-		final long haPrice ;
+		final long gePrice;
+		final long haPrice;
 		// If it's a death we want to get a coin value for untradeables lost
 		if (!itemDefinition.isTradeable() && quantity < 0)
 		{
-			gePrice  = (long) itemDefinition.getPrice() * (long) quantity;
+			gePrice = (long) itemDefinition.getPrice() * (long) quantity;
 			haPrice = (long) Math.round(itemDefinition.getPrice() * Constants.HIGH_ALCHEMY_MULTIPLIER) * (long) quantity;
 		}
 		else
 		{
-			gePrice  = (long) itemManager.getItemPrice(realItemId) * (long) quantity;
+			gePrice = (long) itemManager.getItemPrice(realItemId) * (long) quantity;
 			haPrice = (long) Math.round(itemManager.getItemPrice(realItemId) * Constants.HIGH_ALCHEMY_MULTIPLIER) * (long) quantity;
 		}
 		final boolean ignored = ignoredItems.contains(itemDefinition.getName());
@@ -1292,6 +1328,11 @@ public class LootTrackerPlugin extends Plugin
 	// Pet Handling
 	private ItemStack handlePet(String name)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
 		gotPet = false;
 
 		int petID = getPetId(name);

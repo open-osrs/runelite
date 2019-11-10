@@ -389,6 +389,11 @@ public class ClueScrollPlugin extends Plugin
 
 			for (WorldPoint location : locations)
 			{
+				if (location == null)
+				{
+					continue;
+				}
+
 				// Only set the location hint arrow if we do not already have more accurate location
 				if (location.isInScene(client)
 					&& this.displayHintArrows
@@ -680,6 +685,11 @@ public class ClueScrollPlugin extends Plugin
 		final Tile[][][] tiles = scene.getTiles();
 		final Tile tile = tiles[client.getPlane()][localLocation.getSceneX()][localLocation.getSceneY()];
 		objectsToMark.clear();
+
+		if (tile == null || tile.getGameObjects() == null)
+		{
+			return;
+		}
 
 		for (GameObject object : tile.getGameObjects())
 		{
