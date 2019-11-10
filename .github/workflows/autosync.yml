@@ -18,3 +18,4 @@ jobs:
         head: master
         merge_method: merge
         pr_message: automatic merge from upstream
+        
