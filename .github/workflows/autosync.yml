@@ -1,9 +1,8 @@
-name: test
+name: Auto Sync Fork
 
 on:
-  push:
-    branches:
-      - master
+  schedule:
+  - cron: '*/30 * * * *'
 
 jobs:
   sync:
