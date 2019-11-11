@@ -39,6 +39,9 @@ configurations {
 
 dependencies {
     "vanilla"(Libraries.vanilla)
+    implementation(project(":runelite-mixins"))
+    implementation(project(":runescape-api"))
+    implementation(project(":runescape-client"))
 }
 
 injector {
