@@ -17,6 +17,5 @@ jobs:
         base: master
         head: master
         merge_method: merge
-        pr_title: Fork: merge upstream
+        pr_title: 'Fork: merge upstream'
         pr_message: automatic merge from upstream
-        
