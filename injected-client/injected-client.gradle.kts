@@ -39,9 +39,6 @@ configurations {
 
 dependencies {
     "vanilla"(Libraries.vanilla)
-    implementation(project(":runelite-mixins"))
-    implementation(project(":runescape-api"))
-    implementation(project(":runescape-client"))
 }
 
 injector {
@@ -59,6 +56,11 @@ artifacts {
 
 // keep the sourcesets etc but remove useless tasks
 tasks {
+    build {
+        dependsOn(":runelite-mixins:build")
+        dependsOn(":runescape-api:build")
+        dependsOn(":runescape-client:build")
+    }
     classes {
         enabled = false
     }
