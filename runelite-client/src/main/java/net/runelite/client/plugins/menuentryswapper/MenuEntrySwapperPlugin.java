@@ -120,8 +120,6 @@ import net.runelite.client.plugins.menuentryswapper.util.SkillsNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
 import net.runelite.client.plugins.menuentryswapper.util.SwapGrimyHerbMode;
 import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
-import net.runelite.client.plugins.pvptools.PvpToolsConfig;
-import net.runelite.client.plugins.pvptools.PvpToolsPlugin;
 import net.runelite.client.util.HotkeyListener;
 import static net.runelite.client.util.MenuUtil.swap;
 import org.apache.commons.lang3.ArrayUtils;
@@ -134,7 +132,6 @@ import org.apache.commons.lang3.ArrayUtils;
 	enabledByDefault = false
 )
 @Singleton
-@PluginDependency(PvpToolsPlugin.class)
 public class MenuEntrySwapperPlugin extends Plugin
 {
 	private static final Object HOTKEY = new Object();
@@ -169,10 +166,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private KeyManager keyManager;
 	@Inject
 	private EventBus eventBus;
-	@Inject
-	private PvpToolsPlugin pvpTools;
-	@Inject
-	private PvpToolsConfig pvpToolsConfig;
 	/**
 	 * Migrates old custom swaps config
 	 * This should be removed after a reasonable amount of time.
@@ -1673,15 +1666,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 	{
 		clientThread.invoke(() ->
 		{
-			if (client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isAllPvpWorld(client.getWorldType()) && pluginManager.isPluginEnabled(pvpTools) && pvpToolsConfig.hideCast())
-			{
-				pvpTools.setCastOptions();
-			}
-			else
-			{
-				client.setHideFriendCastOptions(false);
-				client.setHideClanmateCastOptions(false);
-			}
+			client.setHideFriendCastOptions(false);
+			client.setHideClanmateCastOptions(false);
 		});
 	}
 

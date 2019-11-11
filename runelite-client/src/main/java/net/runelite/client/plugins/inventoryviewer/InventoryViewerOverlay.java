@@ -43,7 +43,6 @@ import net.runelite.api.ItemContainer;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.vars.InterfaceTab;
 import net.runelite.client.game.ItemManager;
-import static net.runelite.client.plugins.lootingbagviewer.LootingBagViewerOverlay.PLACEHOLDER_WIDTH;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
@@ -143,13 +142,6 @@ class InventoryViewerOverlay extends Overlay
 			}
 			wrapperComponent.getChildren().add(inventoryComponent);
 
-			if (plugin.isShowFreeSlots())
-			{
-				freeSlotsComponent.setText(remaining + " free");
-				wrapperComponent.setPreferredSize(new Dimension(Math.min(totals.elementSet().size(), 4) * (PLACEHOLDER_WIDTH + 6) + ComponentConstants.STANDARD_BORDER * 2, 0));
-				wrapperComponent.getChildren().add(freeSlotsComponent);
-			}
-
 			return wrapperComponent.render(graphics);
 		}
 
@@ -177,13 +169,6 @@ class InventoryViewerOverlay extends Overlay
 		}
 
 		wrapperComponent.getChildren().add(inventoryComponent);
-
-		if (plugin.isShowFreeSlots())
-		{
-			freeSlotsComponent.setText(remaining + " free");
-			wrapperComponent.setPreferredSize(new Dimension(4 * (PLACEHOLDER_WIDTH + 6) + ComponentConstants.STANDARD_BORDER * 2, 0));
-			wrapperComponent.getChildren().add(freeSlotsComponent);
-		}
 
 		return wrapperComponent.render(graphics);
 	}
