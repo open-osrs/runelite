@@ -106,7 +106,7 @@ public class HideUnder extends Plugin
 				continue;
 			}
 
-			if (player.getPlayer().getWorldLocation().distanceTo(lp) == 0)
+			if (lp != null && player.getPlayer().getWorldLocation().distanceTo(lp) == 0)
 			{
 				client.setLocalPlayerHidden(true);
 			}
