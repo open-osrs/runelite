@@ -45,15 +45,15 @@ import net.runelite.api.MenuEntry;
 @EqualsAndHashCode(callSuper = true)
 public class MenuOptionClicked extends MenuEntry implements Event
 {
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
+	public MenuOptionClicked(String option, String target, int identifier, int opcode, int actionParam, int widgetId, boolean forceLeftClick)
 	{
-		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
+		super(option, target, identifier, opcode, actionParam, widgetId, forceLeftClick);
 		authentic = true;
 	}
 
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick, boolean authentic, int mouseButton)
+	public MenuOptionClicked(String option, String target, int identifier, int opcode, int actionParam, int widgetId, boolean forceLeftClick, boolean authentic, int mouseButton)
 	{
-		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
+		super(option, target, identifier, opcode, actionParam, widgetId, forceLeftClick);
 		this.authentic = authentic;
 		this.mouseButton = mouseButton;
 	}
