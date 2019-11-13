@@ -147,7 +147,7 @@ public class TheatrePlugin extends Plugin
 		this.keyManager.registerKeyListener(this.inputListener);
 		maidenHandler = new MaidenHandler(client, this, config, modelOutline);
 		bloatHandler = new BloatHandler(client, this, config);
-		nyloHandler = new NyloHandler(client, this, menuManager, eventBus);
+		nyloHandler = new NyloHandler(client, this, config, menuManager, eventBus);
 		//sotetsegHandler = new SotetsegHandler(client, this, config);
 		sotetseg = new Sotetseg(client, this, config, party, wsClient);
 		xarpusHandler = new XarpusHandler(client, this, config);

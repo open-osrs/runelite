@@ -32,6 +32,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.menus.AbstractComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.theatre.RoomHandler;
+import net.runelite.client.plugins.theatre.TheatreConfig;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
@@ -56,9 +57,9 @@ public class NyloHandler extends RoomHandler
 	private NyloOverlay overlay = null;
 	private NyloPredictor predictor = null;
 
-	public NyloHandler(final Client client, final TheatrePlugin plugin, final MenuManager menuManager, final EventBus eventBus)
+	public NyloHandler(final Client client, final TheatrePlugin plugin, TheatreConfig config, final MenuManager menuManager, final EventBus eventBus)
 	{
-		super(client, plugin);
+		super(client, plugin, config);
 		this.menuManager = menuManager;
 		this.eventBus = eventBus;
 	}

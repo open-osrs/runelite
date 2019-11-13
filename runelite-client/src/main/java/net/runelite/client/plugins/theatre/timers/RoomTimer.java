@@ -63,9 +63,9 @@ public class RoomTimer extends Overlay
 			case NYLOCAS:
 				plugin.getNyloHandler().render(graphics);
 				break;
-			case SOTETSEG:
-				plugin.getSotetsegHandler().render(graphics);
-				break;
+			//case SOTETSEG:
+				//plugin.getSotetsegHandler().render(graphics);
+				//break;
 			case XARPUS:
 				plugin.getXarpusHandler().render(graphics);
 				break;
