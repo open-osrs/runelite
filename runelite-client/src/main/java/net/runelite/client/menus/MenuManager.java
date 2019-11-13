@@ -51,8 +51,8 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
 import net.runelite.api.NPCDefinition;
+import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ClientTick;
-import net.runelite.api.events.Menu;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
@@ -102,12 +102,15 @@ public class MenuManager
 
 		eventBus.subscribe(MenuOpened.class, this, this::onMenuOpened);
 		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
-		eventBus.subscribe(ClientTick.class, this, tick -> leftClickEntry = null);
-		eventBus.subscribe(Menu.class, this, this::onMenu);
 		eventBus.subscribe(PlayerMenuOptionsChanged.class, this, this::onPlayerMenuOptionsChanged);
 		eventBus.subscribe(NpcActionChanged.class, this, this::onNpcActionChanged);
 		eventBus.subscribe(WidgetPressed.class, this, this::onWidgetPressed);
 		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
+
+		// Make sure last tick's entry gets cleared
+		eventBus.subscribe(ClientTick.class, this, tick -> leftClickEntry = null);
+		// Rebuild left click menu for top left entry
+		eventBus.subscribe(BeforeRender.class, this, br -> rebuildLeftClickMenu());
 	}
 
 	/**
@@ -280,11 +283,6 @@ public class MenuManager
 				);
 			}
 		}
-	}
-
-	private void onMenu(Menu event)
-	{
-		rebuildLeftClickMenu();
 	}
 
 	private void rebuildLeftClickMenu()
