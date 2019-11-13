@@ -47,7 +47,8 @@ public class TheatreOverlay extends Overlay
 				plugin.getNyloHandler().render(graphics);
 				break;
 			case SOTETSEG:
-				plugin.getSotetsegHandler().render(graphics);
+				plugin.getSotetseg().render(graphics);
+				//plugin.getSotetsegHandler().render(graphics);
 				break;
 			case XARPUS:
 				plugin.getXarpusHandler().render(graphics);
