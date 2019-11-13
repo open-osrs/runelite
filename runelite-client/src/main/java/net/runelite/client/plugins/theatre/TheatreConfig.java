@@ -348,7 +348,7 @@ public interface TheatreConfig extends Config
 
 	@ConfigItem(
 		position = 19,
-		keyName = "markerColor",
+		keyName = "mazeTileColour",
 		name = "Sotey Tile Colour",
 		description = "Configures the color of marked tile",
 		section = "sotetsegSection"
@@ -360,9 +360,10 @@ public interface TheatreConfig extends Config
 
 	@ConfigItem(
 			position = 21,
-			keyName = "markerColor",
+			keyName = "mazeTileColourParty",
 			name = "Sotey Color Party",
-			description = "Configures the color of marked tile for discord party pings"
+			description = "Configures the color of marked tile for discord party pings",
+            section = "sotetsegSection"
 	)
 	default Color mazeTileColourParty()
 	{
