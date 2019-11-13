@@ -690,8 +690,8 @@ public abstract class RSClientMixin implements RSClient
 			entry.setTarget(menuTargets[i]);
 			entry.setIdentifier(menuIdentifiers[i]);
 			entry.setOpcode(menuTypes[i]);
-			entry.setParam0(params0[i]);
-			entry.setParam1(params1[i]);
+			entry.setActionParam(params0[i]);
+			entry.setWidgetId(params1[i]);
 			entry.setForceLeftClick(leftClick[i]);
 		}
 		return entries;
@@ -721,8 +721,8 @@ public abstract class RSClientMixin implements RSClient
 			menuTargets[count] = entry.getTarget();
 			menuIdentifiers[count] = entry.getIdentifier();
 			menuTypes[count] = entry.getOpcode();
-			params0[count] = entry.getParam0();
-			params1[count] = entry.getParam1();
+			params0[count] = entry.getActionParam();
+			params1[count] = entry.getWidgetId();
 			leftClick[count] = entry.isForceLeftClick();
 			++count;
 		}
@@ -768,8 +768,8 @@ public abstract class RSClientMixin implements RSClient
 				targets[oldCount] = event.getTarget();
 				identifiers[oldCount] = event.getIdentifier();
 				opcodes[oldCount] = event.getOpcode();
-				arguments1[oldCount] = event.getParam0();
-				arguments2[oldCount] = event.getParam1();
+				arguments1[oldCount] = event.getActionParam();
+				arguments2[oldCount] = event.getWidgetId();
 				forceLeftClick[oldCount] = event.isForceLeftClick();
 			}
 		}
@@ -1395,7 +1395,7 @@ public abstract class RSClientMixin implements RSClient
 			return;
 		}
 
-		rs$menuAction(menuOptionClicked.getParam0(), menuOptionClicked.getParam1(), menuOptionClicked.getOpcode(),
+		rs$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(), menuOptionClicked.getOpcode(),
 			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
 	}
 

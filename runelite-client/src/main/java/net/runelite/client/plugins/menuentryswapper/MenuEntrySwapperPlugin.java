@@ -568,8 +568,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 				lastDesEntry.setTarget(entry.getTarget());
 				lastDesEntry.setIdentifier(entry.getIdentifier());
-				lastDesEntry.setParam0(entry.getParam0());
-				lastDesEntry.setParam1(entry.getParam1());
+				lastDesEntry.setActionParam(entry.getActionParam());
+				lastDesEntry.setWidgetId(entry.getWidgetId());
 
 				menu_entries.add(lastDesEntry);
 			}
@@ -744,7 +744,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private void onMenuOptionClicked(MenuOptionClicked entry)
 	{
 		if (entry.getOpcode() == MenuOpcode.WIDGET_DEFAULT.getId() &&
-			WidgetInfo.TO_GROUP(entry.getParam1()) == WidgetID.JEWELLERY_BOX_GROUP_ID)
+			WidgetInfo.TO_GROUP(entry.getWidgetId()) == WidgetID.JEWELLERY_BOX_GROUP_ID)
 		{
 			if (entry.getOption().equals(lastDes == null ? null : lastDes.getOption()))
 			{
@@ -1426,7 +1426,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		menuManager.removePriorityEntry(this.swapHouseAdMode.getEntry());
 		menuManager.removeSwap("Bury", "bone", "Use");
-		
+
 		switch (this.swapFairyRingMode)
 		{
 			case OFF:

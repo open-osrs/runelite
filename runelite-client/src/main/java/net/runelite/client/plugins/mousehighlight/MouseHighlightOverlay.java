@@ -30,8 +30,8 @@ import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -102,7 +102,7 @@ class MouseHighlightOverlay extends Overlay
 				}
 		}
 
-		final int widgetId = menuEntry.getParam1();
+		final int widgetId = menuEntry.getWidgetId();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 		final int childId = WidgetInfo.TO_CHILD(widgetId);
 		final Widget widget = client.getWidget(groupId, childId);

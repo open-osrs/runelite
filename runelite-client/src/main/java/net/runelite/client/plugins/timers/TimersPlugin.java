@@ -483,7 +483,7 @@ public class TimersPlugin extends Plugin
 			return;
 		}
 
-		TeleportWidget teleportWidget = TeleportWidget.of(event.getParam1());
+		TeleportWidget teleportWidget = TeleportWidget.of(event.getWidgetId());
 		if (teleportWidget != null)
 		{
 			lastTeleportClicked = teleportWidget;

@@ -26,6 +26,9 @@ package net.runelite.client.plugins.statusbars;
 
 import com.google.common.base.Strings;
 import com.google.common.primitives.Ints;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
@@ -40,10 +43,6 @@ import net.runelite.client.plugins.statusbars.renderer.BarRenderer;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-
-import javax.inject.Inject;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 
 @Singleton
 public class StatusBarsOverlay extends Overlay
@@ -144,7 +143,7 @@ public class StatusBarsOverlay extends Overlay
 		final MenuEntry entry = menuSize > 0 ? menu[menuSize - 1] : null;
 		int restoreValue = 0;
 
-		if (entry != null && entry.getParam1() == WidgetInfo.INVENTORY.getId())
+		if (entry != null && entry.getWidgetId() == WidgetInfo.INVENTORY.getId())
 		{
 			final Effect change = itemStatService.getItemStatChanges(entry.getIdentifier());
 

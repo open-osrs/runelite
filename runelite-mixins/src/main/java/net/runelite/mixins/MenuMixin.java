@@ -136,8 +136,8 @@ public abstract class MenuMixin implements RSClient
 		getMenuTargets()[i] = entry.getTarget();
 		getMenuIdentifiers()[i] = entry.getIdentifier();
 		getMenuOpcodes()[i] = entry.getOpcode();
-		getMenuArguments1()[i] = entry.getParam0();
-		getMenuArguments2()[i] = entry.getParam1();
+		getMenuArguments1()[i] = entry.getActionParam();
+		getMenuArguments2()[i] = entry.getWidgetId();
 		getMenuForceLeftClick()[i] = entry.isForceLeftClick();
 	}
 }

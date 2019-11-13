@@ -501,7 +501,7 @@ class WidgetInspector extends JFrame
 		client.setSpellSelected(false);
 		ev.consume();
 
-		Object target = getWidgetOrWidgetItemForMenuOption(ev.getMenuOpcode().getId(), ev.getParam0(), ev.getParam1());
+		Object target = getWidgetOrWidgetItemForMenuOption(ev.getMenuOpcode().getId(), ev.getActionParam(), ev.getWidgetId());
 		if (target == null)
 		{
 			return;
@@ -535,11 +535,11 @@ class WidgetInspector extends JFrame
 			{
 				continue;
 			}
-			String name = WidgetInfo.TO_GROUP(entry.getParam1()) + "." + WidgetInfo.TO_CHILD(entry.getParam1());
+			String name = WidgetInfo.TO_GROUP(entry.getWidgetId()) + "." + WidgetInfo.TO_CHILD(entry.getWidgetId());
 
-			if (entry.getParam0() != -1)
+			if (entry.getActionParam() != -1)
 			{
-				name += " [" + entry.getParam0() + "]";
+				name += " [" + entry.getActionParam() + "]";
 			}
 
 			Color color = colorForWidget(i, menuEntries.length);

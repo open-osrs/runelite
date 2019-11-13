@@ -45,8 +45,8 @@ import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
@@ -59,6 +59,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.StatChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetID;
 import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.client.config.ConfigManager;
@@ -73,7 +74,6 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.api.util.Text;
 import net.runelite.http.api.xp.XpClient;
 
 @PluginDescriptor(
@@ -498,7 +498,7 @@ public class XpTrackerPlugin extends Plugin
 
 	private void onMenuEntryAdded(final MenuEntryAdded event)
 	{
-		int widgetID = event.getParam1();
+		int widgetID = event.getWidgetId();
 
 		if (TO_GROUP(widgetID) != WidgetID.SKILLS_GROUP_ID
 			|| !event.getOption().startsWith("View")
@@ -517,8 +517,8 @@ public class XpTrackerPlugin extends Plugin
 		MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
 		menuEntry.setTarget(skillText);
 		menuEntry.setOption(hasOverlay(skill) ? MENUOP_REMOVE_CANVAS_TRACKER : MENUOP_ADD_CANVAS_TRACKER);
-		menuEntry.setParam0(event.getParam0());
-		menuEntry.setParam1(widgetID);
+		menuEntry.setActionParam(event.getActionParam());
+		menuEntry.setWidgetId(widgetID);
 		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 		client.setMenuEntries(menuEntries);
@@ -527,7 +527,7 @@ public class XpTrackerPlugin extends Plugin
 	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		if (event.getMenuOpcode().getId() != MenuOpcode.RUNELITE.getId()
-			|| TO_GROUP(event.getParam1()) != WidgetID.SKILLS_GROUP_ID)
+			|| TO_GROUP(event.getWidgetId()) != WidgetID.SKILLS_GROUP_ID)
 		{
 			return;
 		}
@@ -745,7 +745,7 @@ public class XpTrackerPlugin extends Plugin
 			pauseSkill(skill, pause);
 		}
 	}
-	
+
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("xpTracker"))

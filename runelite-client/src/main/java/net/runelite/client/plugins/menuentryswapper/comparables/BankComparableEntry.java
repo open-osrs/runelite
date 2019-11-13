@@ -20,7 +20,7 @@ public class BankComparableEntry extends AbstractComparableEntry
 
 	public boolean matches(MenuEntry entry)
 	{
-		if (isNotBankWidget(entry.getParam1()))
+		if (isNotBankWidget(entry.getWidgetId()))
 		{
 			return false;
 		}

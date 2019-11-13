@@ -261,7 +261,7 @@ public class MenuManager
 			}
 		}
 
-		int widgetId = event.getParam1();
+		int widgetId = event.getWidgetId();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 
 		for (WidgetMenuOption currentMenu : options)
@@ -450,7 +450,7 @@ public class MenuManager
 			return; // not a player menu
 		}
 
-		int widgetId = event.getParam1();
+		int widgetId = event.getWidgetId();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 
 		for (WidgetMenuOption curMenuOption : options)

@@ -36,18 +36,18 @@ import java.awt.event.MouseWheelEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.regex.Matcher;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import static net.runelite.api.Constants.HIGH_ALCHEMY_MULTIPLIER;
 import net.runelite.api.Client;
+import static net.runelite.api.Constants.HIGH_ALCHEMY_MULTIPLIER;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.VarClientInt;
@@ -61,6 +61,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
@@ -83,7 +84,6 @@ import net.runelite.client.plugins.banktags.tabs.TabInterface;
 import static net.runelite.client.plugins.banktags.tabs.TabInterface.FILTERED_CHARS;
 import net.runelite.client.plugins.banktags.tabs.TabSprites;
 import net.runelite.client.plugins.cluescrolls.ClueScrollPlugin;
-import net.runelite.api.util.Text;
 import net.runelite.client.util.QuantityFormatter;
 
 @PluginDescriptor(
@@ -373,11 +373,11 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+		if (event.getWidgetId() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getOption().equals("Examine"))
 		{
 			Widget container = client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER);
-			Widget item = container.getChild(event.getParam0());
+			Widget item = container.getChild(event.getActionParam());
 			int itemID = item.getItemId();
 			String text = EDIT_TAGS_MENU_OPTION;
 			int tagCount = tagManager.getTags(itemID, false).size() + tagManager.getTags(itemID, true).size();
@@ -392,8 +392,8 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 				event.getTarget(),
 				MenuOpcode.RUNELITE.getId(),
 				event.getIdentifier(),
-				event.getParam0(),
-				event.getParam1(),
+				event.getActionParam(),
+				event.getWidgetId(),
 				false
 			);
 		}
@@ -403,12 +403,12 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 
 	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+		if (event.getWidgetId() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getMenuOpcode() == MenuOpcode.RUNELITE
 			&& event.getOption().startsWith(EDIT_TAGS_MENU_OPTION))
 		{
 			event.consume();
-			int inventoryIndex = event.getParam0();
+			int inventoryIndex = event.getActionParam();
 			ItemContainer bankContainer = client.getItemContainer(InventoryID.BANK);
 			if (bankContainer == null)
 			{

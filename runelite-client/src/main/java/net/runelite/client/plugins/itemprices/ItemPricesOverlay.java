@@ -33,11 +33,11 @@ import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
-import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.ItemManager;
@@ -91,7 +91,7 @@ class ItemPricesOverlay extends Overlay
 
 		final MenuEntry menuEntry = menuEntries[last];
 		final MenuOpcode action = MenuOpcode.of(menuEntry.getOpcode());
-		final int widgetId = menuEntry.getParam1();
+		final int widgetId = menuEntry.getWidgetId();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
 		// Tooltip action type handling
@@ -146,7 +146,7 @@ class ItemPricesOverlay extends Overlay
 			return null;
 		}
 
-		final int widgetId = menuEntry.getParam1();
+		final int widgetId = menuEntry.getWidgetId();
 		ItemContainer container = null;
 
 		// Inventory item
@@ -167,7 +167,7 @@ class ItemPricesOverlay extends Overlay
 
 		// Find the item in the container to get stack size
 		final Item[] items = container.getItems();
-		final int index = menuEntry.getParam0();
+		final int index = menuEntry.getActionParam();
 		if (index < items.length)
 		{
 			final Item item = items[index];

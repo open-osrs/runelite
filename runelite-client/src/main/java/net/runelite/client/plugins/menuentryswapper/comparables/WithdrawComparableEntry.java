@@ -23,7 +23,7 @@ public class WithdrawComparableEntry extends AbstractComparableEntry
 	@Override
 	public boolean matches(MenuEntry entry)
 	{
-		if (BankComparableEntry.isNotBankWidget(entry.getParam1()))
+		if (BankComparableEntry.isNotBankWidget(entry.getWidgetId()))
 		{
 			return false;
 		}

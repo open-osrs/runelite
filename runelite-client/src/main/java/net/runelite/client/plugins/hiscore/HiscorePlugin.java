@@ -41,12 +41,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.PlayerMenuOptionClicked;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -56,7 +57,6 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.api.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
@@ -202,7 +202,7 @@ public class HiscorePlugin extends Plugin
 			return;
 		}
 
-		int groupId = WidgetInfo.TO_GROUP(event.getParam1());
+		int groupId = WidgetInfo.TO_GROUP(event.getWidgetId());
 		String option = event.getOption();
 
 		if (groupId == WidgetInfo.FRIENDS_LIST.getGroupId() || groupId == WidgetInfo.CLAN_CHAT.getGroupId() ||
@@ -218,8 +218,8 @@ public class HiscorePlugin extends Plugin
 			lookup.setOption(LOOKUP);
 			lookup.setTarget(event.getTarget());
 			lookup.setOpcode(MenuOpcode.RUNELITE.getId());
-			lookup.setParam0(event.getParam0());
-			lookup.setParam1(event.getParam1());
+			lookup.setActionParam(event.getActionParam());
+			lookup.setWidgetId(event.getWidgetId());
 			lookup.setIdentifier(event.getIdentifier());
 
 			if (client != null)

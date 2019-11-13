@@ -50,8 +50,8 @@ import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.GameState;
 import net.runelite.api.GroundObject;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.ObjectDefinition;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
@@ -293,7 +293,7 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		final Tile tile = client.getScene().getTiles()[client.getPlane()][event.getParam0()][event.getParam1()];
+		final Tile tile = client.getScene().getTiles()[client.getPlane()][event.getActionParam()][event.getWidgetId()];
 
 		MenuEntry[] menuEntries = client.getMenuEntries();
 		menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
@@ -301,8 +301,8 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 
 		menuEntry.setOption(objects.contains(findTileObject(tile, event.getIdentifier())) ? UNMARK : MARK);
 		menuEntry.setTarget(event.getTarget());
-		menuEntry.setParam0(event.getParam0());
-		menuEntry.setParam1(event.getParam1());
+		menuEntry.setActionParam(event.getActionParam());
+		menuEntry.setWidgetId(event.getWidgetId());
 		menuEntry.setIdentifier(event.getIdentifier());
 		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 		client.setMenuEntries(menuEntries);
@@ -318,8 +318,8 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 
 		Scene scene = client.getScene();
 		Tile[][][] tiles = scene.getTiles();
-		final int x = event.getParam0();
-		final int y = event.getParam1();
+		final int x = event.getActionParam();
+		final int y = event.getWidgetId();
 		final int z = client.getPlane();
 		final Tile tile = tiles[z][x][y];
 

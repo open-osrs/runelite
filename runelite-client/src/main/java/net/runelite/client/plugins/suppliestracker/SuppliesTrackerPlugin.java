@@ -552,10 +552,10 @@ public class SuppliesTrackerPlugin extends Plugin
 			}))
 		{
 			old = client.getItemContainer(InventoryID.INVENTORY);
-			int slot = event.getParam0();
+			int slot = event.getActionParam();
 			if (old.getItems() != null)
 			{
-				int pushItem = old.getItems()[event.getParam0()].getId();
+				int pushItem = old.getItems()[event.getActionParam()].getId();
 				MenuAction newAction = new MenuAction.ItemAction(CONSUMABLE, old.getItems(), pushItem, slot);
 				actionStack.push(newAction);
 			}
@@ -574,7 +574,7 @@ public class SuppliesTrackerPlugin extends Plugin
 				a.getType() == TELEPORT))
 			{
 				int teleid = event.getIdentifier();
-				MenuAction newAction = new MenuAction.ItemAction(TELEPORT, old.getItems(), teleid, event.getParam0());
+				MenuAction newAction = new MenuAction.ItemAction(TELEPORT, old.getItems(), teleid, event.getActionParam());
 				actionStack.push(newAction);
 			}
 		}

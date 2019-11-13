@@ -2,10 +2,10 @@ package net.runelite.client.plugins.menuentryswapper.comparables;
 
 import lombok.EqualsAndHashCode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.menus.AbstractComparableEntry;
-import net.runelite.api.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 @EqualsAndHashCode(callSuper = true)
@@ -20,7 +20,7 @@ public class InventoryComparableEntry extends AbstractComparableEntry
 
 	public boolean matches(MenuEntry entry)
 	{
-		final int groupId = WidgetInfo.TO_GROUP(entry.getParam1());
+		final int groupId = WidgetInfo.TO_GROUP(entry.getWidgetId());
 
 		if (groupId != WidgetID.INVENTORY_GROUP_ID)
 		{

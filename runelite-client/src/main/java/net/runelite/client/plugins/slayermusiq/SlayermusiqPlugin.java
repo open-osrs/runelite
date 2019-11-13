@@ -57,17 +57,17 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.api.util.Text;
 
 @PluginDescriptor(
 	name = "Slayermusiq1 Guides",
@@ -114,7 +114,7 @@ public class SlayermusiqPlugin extends Plugin
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		int widgetID = event.getParam1();
+		int widgetID = event.getWidgetId();
 		if (Ints.contains(QUESTLIST_WIDGET_IDS, widgetID) && "Read Journal:".equals(event.getOption()))
 		{
 			MenuEntry[] menuEntries = client.getMenuEntries();
@@ -139,14 +139,14 @@ public class SlayermusiqPlugin extends Plugin
 
 	private MenuEntry createSlayermusiqOptionMenuEntry(MenuEntryAdded event)
 	{
-		int widgetIndex = event.getParam0();
-		int widgetID = event.getParam1();
+		int widgetIndex = event.getActionParam();
+		int widgetID = event.getWidgetId();
 
 		MenuEntry menuEntry = new MenuEntry();
 		menuEntry.setTarget(event.getTarget());
 		menuEntry.setOption(MENUOP_SLAYERMUSIQ);
-		menuEntry.setParam0(widgetIndex);
-		menuEntry.setParam1(widgetID);
+		menuEntry.setActionParam(widgetIndex);
+		menuEntry.setWidgetId(widgetID);
 		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 		return menuEntry;

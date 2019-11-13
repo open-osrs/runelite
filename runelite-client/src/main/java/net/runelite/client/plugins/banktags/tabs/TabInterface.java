@@ -56,8 +56,8 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.Point;
 import net.runelite.api.ScriptEvent;
 import net.runelite.api.ScriptID;
@@ -68,6 +68,7 @@ import net.runelite.api.VarClientStr;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.util.Text;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.ItemQuantityMode;
 import net.runelite.api.widgets.JavaScriptCallback;
@@ -90,7 +91,6 @@ import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.NewTab;
 import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.Tab;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.api.util.Text;
 
 @Singleton
 public class TabInterface
@@ -557,12 +557,12 @@ public class TabInterface
 		}
 
 		if (activeTab != null
-			&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+			&& event.getWidgetId() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getOption().equals("Examine"))
 		{
 			insertMenuEntry(event, REMOVE_TAG + " (" + activeTab.getTag() + ")", event.getTarget());
 		}
-		else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId()
+		else if (event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId()
 			&& event.getOption().equals("Deposit inventory"))
 		{
 			insertMenuEntry(event, TAG_INVENTORY, event.getTarget());
@@ -572,7 +572,7 @@ public class TabInterface
 				insertMenuEntry(event, TAG_INVENTORY, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR));
 			}
 		}
-		else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId()
+		else if (event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId()
 			&& event.getOption().equals("Deposit worn items"))
 		{
 			insertMenuEntry(event, TAG_GEAR, event.getTarget());
@@ -614,7 +614,7 @@ public class TabInterface
 		{
 			if (event.getOption().startsWith(CHANGE_ICON + " ("))
 			{
-				ItemDefinition item = getItem(event.getParam0());
+				ItemDefinition item = getItem(event.getActionParam());
 				if (item != null)
 				{
 					int itemId = itemManager.canonicalize(item.getId());
@@ -645,13 +645,13 @@ public class TabInterface
 			activateTab(null);
 		}
 		else if (activeTab != null
-			&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+			&& event.getWidgetId() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getMenuOpcode() == MenuOpcode.RUNELITE
 			&& event.getOption().startsWith(REMOVE_TAG))
 		{
 			// Add "remove" menu entry to all items in bank while tab is selected
 			event.consume();
-			final ItemDefinition item = getItem(event.getParam0());
+			final ItemDefinition item = getItem(event.getActionParam());
 			final int itemId;
 			if (item != null)
 			{
@@ -661,10 +661,10 @@ public class TabInterface
 			}
 		}
 		else if (event.getMenuOpcode() == MenuOpcode.RUNELITE
-			&& ((event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId() && event.getOption().equals(TAG_INVENTORY))
-			|| (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId() && event.getOption().equals(TAG_GEAR))))
+			&& ((event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId() && event.getOption().equals(TAG_INVENTORY))
+			|| (event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId() && event.getOption().equals(TAG_GEAR))))
 		{
-			handleDeposit(event, event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId());
+			handleDeposit(event, event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId());
 		}
 	}
 
@@ -1081,8 +1081,8 @@ public class TabInterface
 			target,
 			MenuOpcode.RUNELITE.getId(),
 			event.getIdentifier(),
-			event.getParam0(),
-			event.getParam1(),
+			event.getActionParam(),
+			event.getWidgetId(),
 			false
 		);
 	}

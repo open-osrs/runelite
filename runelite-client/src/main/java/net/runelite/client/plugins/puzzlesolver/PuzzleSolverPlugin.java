@@ -38,6 +38,7 @@ import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
@@ -61,7 +62,6 @@ import net.runelite.client.plugins.puzzlesolver.lightbox.LightboxSolver;
 import net.runelite.client.plugins.puzzlesolver.lightbox.LightboxState;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.api.util.Text;
 
 @PluginDescriptor(
 	name = "Puzzle Solver",
@@ -167,7 +167,7 @@ public class PuzzleSolverPlugin extends Plugin
 
 	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked)
 	{
-		int widgetId = menuOptionClicked.getParam1();
+		int widgetId = menuOptionClicked.getWidgetId();
 		if (TO_GROUP(widgetId) != WidgetID.LIGHT_BOX_GROUP_ID)
 		{
 			return;

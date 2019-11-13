@@ -145,18 +145,18 @@ public class ExaminePlugin extends Plugin
 				type = ExamineType.ITEM;
 				id = event.getIdentifier();
 
-				int widgetId = event.getParam1();
+				int widgetId = event.getWidgetId();
 				int widgetGroup = TO_GROUP(widgetId);
 				int widgetChild = TO_CHILD(widgetId);
 				Widget widget = client.getWidget(widgetGroup, widgetChild);
-				WidgetItem widgetItem = widget.getWidgetItem(event.getParam0());
+				WidgetItem widgetItem = widget.getWidgetItem(event.getActionParam());
 				quantity = widgetItem != null && widgetItem.getId() >= 0 ? widgetItem.getQuantity() : 1;
 				break;
 			}
 			case EXAMINE_ITEM_BANK_EQ:
 			{
 				type = ExamineType.ITEM_BANK_EQ;
-				int[] qi = findItemFromWidget(event.getParam1(), event.getParam0());
+				int[] qi = findItemFromWidget(event.getWidgetId(), event.getActionParam());
 				if (qi == null)
 				{
 					log.debug("Examine for item with unknown widget: {}", event);

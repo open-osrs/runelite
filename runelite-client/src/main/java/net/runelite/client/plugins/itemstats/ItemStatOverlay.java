@@ -86,8 +86,8 @@ public class ItemStatOverlay extends Overlay
 		}
 
 		final MenuEntry entry = menu[menuSize - 1];
-		final int group = WidgetInfo.TO_GROUP(entry.getParam1());
-		final int child = WidgetInfo.TO_CHILD(entry.getParam1());
+		final int group = WidgetInfo.TO_GROUP(entry.getWidgetId());
+		final int child = WidgetInfo.TO_CHILD(entry.getWidgetId());
 		final Widget widget = client.getWidget(group, child);
 
 		if (widget == null || (group != WidgetInfo.INVENTORY.getGroupId() &&
@@ -109,7 +109,7 @@ public class ItemStatOverlay extends Overlay
 		}
 		else if (group == WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER.getGroupId())
 		{
-			final Widget widgetItem = widget.getChild(entry.getParam0());
+			final Widget widgetItem = widget.getChild(entry.getActionParam());
 			if (widgetItem != null)
 			{
 				itemId = widgetItem.getItemId();

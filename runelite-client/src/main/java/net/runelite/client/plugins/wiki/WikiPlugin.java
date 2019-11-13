@@ -258,11 +258,11 @@ public class WikiPlugin extends Plugin
 					}
 					id = lc.getId();
 					name = lc.getName();
-					location = WorldPoint.fromScene(client, ev.getParam0(), ev.getParam1(), client.getPlane());
+					location = WorldPoint.fromScene(client, ev.getActionParam(), ev.getWidgetId(), client.getPlane());
 					break;
 				}
 				case SPELL_CAST_ON_WIDGET:
-					Widget w = getWidget(ev.getParam1(), ev.getParam0());
+					Widget w = getWidget(ev.getWidgetId(), ev.getActionParam());
 
 					if (w.getType() == WidgetType.GRAPHIC && w.getItemId() != -1)
 					{
@@ -348,8 +348,8 @@ public class WikiPlugin extends Plugin
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		int widgetIndex = event.getParam0();
-		int widgetID = event.getParam1();
+		int widgetIndex = event.getActionParam();
+		int widgetID = event.getWidgetId();
 		MenuEntry[] menuEntries = client.getMenuEntries();
 
 		if (wikiSelected && event.getOpcode() == MenuOpcode.SPELL_CAST_ON_WIDGET.getId())
