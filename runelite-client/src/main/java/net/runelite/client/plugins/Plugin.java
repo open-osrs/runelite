@@ -28,7 +28,8 @@ import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-import java.awt.*;
+
+
 import java.io.File;
 
 public abstract class Plugin implements Module
