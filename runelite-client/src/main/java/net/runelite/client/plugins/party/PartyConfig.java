@@ -27,6 +27,9 @@ package net.runelite.client.plugins.party;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Alpha;
+
+import java.awt.Color;
 
 @ConfigGroup("party")
 public interface PartyConfig extends Config
@@ -49,6 +52,17 @@ public interface PartyConfig extends Config
 	default boolean pings()
 	{
 		return true;
+	}
+
+	@Alpha
+	@ConfigItem(
+			keyName = "ping Color",
+			name = "Ping Color",
+			description = ""
+	)
+	default Color pingColor()
+	{
+		return Color.WHITE;
 	}
 
 	@ConfigItem(

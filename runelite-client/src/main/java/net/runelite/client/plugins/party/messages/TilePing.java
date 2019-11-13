@@ -35,4 +35,5 @@ import net.runelite.http.api.ws.messages.party.PartyMemberMessage;
 public class TilePing extends PartyMemberMessage implements Event
 {
 	private final WorldPoint point;
+	private final boolean retain;
 }

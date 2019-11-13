@@ -28,6 +28,7 @@ import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.ProjectileSpawned;
 import net.runelite.client.plugins.theatre.RoomHandler;
+import net.runelite.client.plugins.theatre.TheatreConfig;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
@@ -49,9 +50,9 @@ public class SotetsegHandler extends RoomHandler
 	private final Set<Projectile> soteyProjectiles = new HashSet<>();
 	private NPC npc;
 
-	public SotetsegHandler(final Client client, final TheatrePlugin plugin)
+	public SotetsegHandler(final Client client, final TheatrePlugin plugin, TheatreConfig config)
 	{
-		super(client, plugin);
+		super(client, plugin, config);
 	}
 
 	@Override

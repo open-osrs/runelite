@@ -44,12 +44,14 @@ class PartyPingOverlay extends Overlay
 {
 	private final Client client;
 	private final PartyPlugin plugin;
+	private final PartyConfig config;
 
 	@Inject
-	private PartyPingOverlay(final Client client, final PartyPlugin plugin)
+	private PartyPingOverlay(final Client client, final PartyPlugin plugin, final PartyConfig config)
 	{
 		this.client = client;
 		this.plugin = plugin;
+		this.config = config;
 		setPosition(OverlayPosition.DYNAMIC);
 	}
 
@@ -100,10 +102,10 @@ class PartyPingOverlay extends Overlay
 		}
 
 		final Color color = new Color(
-			ping.getColor().getRed(),
-			ping.getColor().getGreen(),
-			ping.getColor().getBlue(),
-			ping.getAlpha());
+				plugin.getColor().getRed(),
+				plugin.getColor().getGreen(),
+				plugin.getColor().getBlue(),
+				plugin.getColor().getAlpha());
 
 		OverlayUtil.renderPolygon(graphics, poly, color);
 	}

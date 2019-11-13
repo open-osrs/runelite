@@ -18,6 +18,7 @@ import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.plugins.theatre.RoomHandler;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
+import net.runelite.client.plugins.theatre.TheatreConfig;
 import net.runelite.client.plugins.theatre.TheatreRoom;
 
 public class BloatHandler extends RoomHandler
@@ -32,9 +33,9 @@ public class BloatHandler extends RoomHandler
 	@Getter(AccessLevel.PUBLIC)
 	private BloatState bloatState;
 
-	public BloatHandler(final Client client, final TheatrePlugin plugin)
+	public BloatHandler(final Client client, final TheatrePlugin plugin, TheatreConfig config)
 	{
-		super(client, plugin);
+		super(client, plugin, config);
 	}
 
 	@Override
@@ -98,7 +99,7 @@ public class BloatHandler extends RoomHandler
 					WorldPoint point = WorldPoint.fromLocal(client, object.getLocation());
 					if (!plugin.isBloatFeetIndicatorRaveEdition())
 					{
-						drawTile(graphics, point, new Color(36, 248, 229), 2, 255, 10);
+						drawTile(graphics, point, new Color(config.bloatColor().getRed(), config.bloatColor().getGreen(), config.bloatColor().getBlue()), 2, config.bloatColor().getAlpha(), 10);
 					}
 					else
 					{

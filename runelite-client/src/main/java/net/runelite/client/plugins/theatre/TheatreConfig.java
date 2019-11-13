@@ -13,6 +13,10 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.ModifierlessKeybind;
+import java.awt.event.KeyEvent;
+
 
 @ConfigGroup("Theatre")
 
@@ -98,6 +102,16 @@ public interface TheatreConfig extends Config
 	default boolean showBloatHands()
 	{
 		return true;
+	}
+
+	@ConfigItem(
+			position = 6,
+			keyName = "bloatColor",
+			name = "Hands Color",
+			description = "Bloat Hands Color"
+	)
+	default Color bloatColor() {
+		return Color.CYAN;
 	}
 
 	@ConfigItem(
@@ -274,6 +288,31 @@ public interface TheatreConfig extends Config
 	}
 
 	@ConfigItem(
+			position = 18,
+			keyName = "sotetsegMazeDiscord",
+			name = "Sotetseg maze send discord",
+			description = ""
+	)
+	default boolean sotetsegMazeDiscord(){ return false; }
+
+	@ConfigItem(
+			position = 19,
+			keyName = "SotetsegAttacksSounds",
+			name = "Sotetseg big AOE sound",
+			description = ""
+	)
+	default boolean sotetsetAttacksSound() { return false; }
+
+	@Range(max = 100)
+	@ConfigItem(
+			position = 20,
+			keyName = "SotetsegAttacksSoundsVolume",
+			name = "Sotetseg big AOE sound volume",
+			description = ""
+	)
+	default int sotetsetAttacksSoundVolume() { return 80; }
+
+	@ConfigItem(
 		position = 19,
 		keyName = "markerColor",
 		name = "Sotey Tile Colour",
@@ -437,6 +476,17 @@ public interface TheatreConfig extends Config
 	default boolean p3attacks()
 	{
 		return true;
+	}
+
+	@ConfigItem(
+			position = 34,
+			keyName = "up",
+			name = "Purple Key",
+			description = "The key which will allow you to attack the purple crab."
+	)
+	default ModifierlessKeybind up()
+	{
+		return new ModifierlessKeybind(KeyEvent.VK_W, 0);
 	}
 
 	enum NYLOCAS

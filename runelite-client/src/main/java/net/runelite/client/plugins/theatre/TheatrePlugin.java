@@ -34,6 +34,7 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.menus.MenuManager;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -44,6 +45,7 @@ import net.runelite.client.plugins.theatre.rooms.VerzikHandler;
 import net.runelite.client.plugins.theatre.rooms.nylocas.NyloHandler;
 import net.runelite.client.plugins.theatre.rooms.xarpus.XarpusHandler;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.HotkeyListener;
 
 @PluginDescriptor(
 	name = "Theatre of Blood",
@@ -73,12 +75,17 @@ public class TheatrePlugin extends Plugin
 	private ItemManager itemManager;
 	@Inject
 	private ModelOutlineRenderer modelOutline;
+	@Inject
+	private ShiftWalkerInputListener inputListener;
+	@Inject
+	private KeyManager keyManager;
 	private BloatHandler bloatHandler;
 	private MaidenHandler maidenHandler;
 	private NyloHandler nyloHandler;
 	private SotetsegHandler sotetsegHandler;
 	@Setter(AccessLevel.PUBLIC)
 	private TheatreRoom room;
+	private Color bloatColor;
 	private VerzikHandler verzikHandler;
 	private XarpusHandler xarpusHandler;
 	private boolean BloatFeetIndicatorRaveEdition;
@@ -106,6 +113,7 @@ public class TheatrePlugin extends Plugin
 	private boolean showXarpusTick;
 	private boolean verzikRangeAttacks;
 	private boolean VerzikTankTile;
+	private boolean hotKeyPressed;
 	private Color mazeTileColour;
 	private TheatreConfig.NYLOOPTION showNylocasExplosions;
 
@@ -121,8 +129,9 @@ public class TheatrePlugin extends Plugin
 		updateConfig();
 		addSubscriptions();
 		room = TheatreRoom.UNKNOWN;
+		this.keyManager.registerKeyListener(this.inputListener);
 		maidenHandler = new MaidenHandler(client, this, modelOutline);
-		bloatHandler = new BloatHandler(client, this);
+		bloatHandler = new BloatHandler(client, this, config);
 		nyloHandler = new NyloHandler(client, this, menuManager, eventBus);
 		sotetsegHandler = new SotetsegHandler(client, this);
 		xarpusHandler = new XarpusHandler(client, this);
@@ -148,6 +157,7 @@ public class TheatrePlugin extends Plugin
 		verzikHandler.onStop();
 		verzikHandler = null;
 		room = TheatreRoom.UNKNOWN;
+		this.keyManager.unregisterKeyListener(this.inputListener);
 		overlayManager.remove(overlay);
 	}
 
@@ -351,6 +361,10 @@ public class TheatrePlugin extends Plugin
 		}
 	}
 
+	public void setHotKeyPressed(final boolean hotKeyPressed) {
+		this.hotKeyPressed = hotKeyPressed;
+	}
+
 	private void updateConfig()
 	{
 		this.showMaidenBloodToss = config.showMaidenBloodToss();
@@ -369,6 +383,7 @@ public class TheatrePlugin extends Plugin
 		this.showSotetsegMaze = config.showSotetsegMaze();
 		this.showSotetsegSolo = config.showSotetsegSolo();
 		this.mazeTileColour = config.mazeTileColour();
+		this.bloatColor = config.bloatColor();
 		this.showXarpusHeals = config.showXarpusHeals();
 		this.showXarpusTick = config.showXarpusTick();
 		this.showVerzikAttacks = config.showVerzikAttacks();

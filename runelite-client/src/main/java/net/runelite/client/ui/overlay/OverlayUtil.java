@@ -63,11 +63,16 @@ public class OverlayUtil
 
 	public static void renderPolygon(Graphics2D graphics, Shape poly, Color color)
 	{
+		renderPolygon(graphics, poly, color, new Color(0, 0, 0, 50), 2);
+	}
+
+	public static void renderPolygon(Graphics2D graphics, Shape poly, Color color, Color color2, int width)
+	{
 		graphics.setColor(color);
 		final Stroke originalStroke = graphics.getStroke();
-		graphics.setStroke(new BasicStroke(2));
+		graphics.setStroke(new BasicStroke(width));
 		graphics.draw(poly);
-		graphics.setColor(new Color(0, 0, 0, 50));
+		graphics.setColor(color2);
 		graphics.fill(poly);
 		graphics.setStroke(originalStroke);
 	}

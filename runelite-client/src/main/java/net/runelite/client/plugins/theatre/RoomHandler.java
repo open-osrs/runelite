@@ -19,11 +19,13 @@ public abstract class RoomHandler
 
 	protected final Client client;
 	protected final TheatrePlugin plugin;
+	protected final TheatreConfig config;
 
-	protected RoomHandler(final Client client, final TheatrePlugin plugin)
+	protected RoomHandler(final Client client, final TheatrePlugin plugin, TheatreConfig config)
 	{
 		this.client = client;
 		this.plugin = plugin;
+		this.config = config;
 	}
 
 	public abstract void onStart();

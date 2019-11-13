@@ -77,7 +77,6 @@ import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPointManager;
-import net.runelite.client.util.ColorUtil;
 import net.runelite.client.ws.PartyMember;
 import net.runelite.client.ws.PartyService;
 import net.runelite.client.ws.WSClient;
@@ -150,6 +149,8 @@ public class PartyPlugin extends Plugin implements KeyListener
 	private boolean messages;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean recolorNames;
+	@Getter(AccessLevel.PACKAGE)
+	private Color color = Color.WHITE;
 
 	@Override
 	public void configure(Binder binder)
@@ -273,13 +274,18 @@ public class PartyPlugin extends Plugin implements KeyListener
 		}
 
 		event.consume();
-		final TilePing tilePing = new TilePing(selectedSceneTile.getWorldLocation());
+		final TilePing tilePing = new TilePing(selectedSceneTile.getWorldLocation(), false);
 		tilePing.setMemberId(party.getLocalMember().getMemberId());
 		wsClient.send(tilePing);
 	}
 
+
 	private void onTilePing(TilePing event)
 	{
+		if (event.isRetain())
+		{
+			return;
+		}
 		if (this.pings)
 		{
 			final PartyData partyData = getPartyData(event.getMemberId());
@@ -523,7 +529,7 @@ public class PartyPlugin extends Plugin implements KeyListener
 				worldMapManager.add(worldMapPoint);
 			}
 
-			return new PartyData(u, name, worldMapPoint, ColorUtil.fromObject(name));
+			return new PartyData(u, name, worldMapPoint, config.pingColor());
 		});
 	}
 
@@ -589,5 +595,6 @@ public class PartyPlugin extends Plugin implements KeyListener
 		this.sounds = config.sounds();
 		this.messages = config.messages();
 		this.recolorNames = config.recolorNames();
+		this.color = config.pingColor();
 	}
 }

@@ -24,6 +24,7 @@ import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.plugins.theatre.RoomHandler;
+import net.runelite.client.plugins.theatre.TheatreConfig;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
@@ -48,9 +49,9 @@ public class XarpusHandler extends RoomHandler
 
 	private XarpusCounter overlay = null;
 
-	public XarpusHandler(final Client client, final TheatrePlugin plugin)
+	public XarpusHandler(final Client client, final TheatrePlugin plugin, TheatreConfig config)
 	{
-		super(client, plugin);
+		super(client, plugin, config);
 	}
 
 	@Override
