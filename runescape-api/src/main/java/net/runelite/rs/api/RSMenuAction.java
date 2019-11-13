@@ -34,12 +34,12 @@ public interface RSMenuAction
 	@Import("opcode")
 	void setOpcode(int yes);
 
-	@Import("argument0")
+	@Import("identifier")
 	void setIdentifier(int yes);
 
-	@Import("argument1")
-	void setArg1(int yes);
+	@Import("param0")
+	void setParam0(int yes);
 
-	@Import("argument2")
-	void setArg2(int yes);
+	@Import("param1")
+	void setParam1(int yes);
 }

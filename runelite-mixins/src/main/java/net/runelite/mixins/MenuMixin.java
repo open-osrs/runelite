@@ -171,7 +171,7 @@ public abstract class MenuMixin implements RSClient
 		tempMenuAction.setOption(entry.getOption());
 		tempMenuAction.setOpcode(entry.getOpcode());
 		tempMenuAction.setIdentifier(entry.getIdentifier());
-		tempMenuAction.setArg1(entry.getParam0());
-		tempMenuAction.setArg2(entry.getParam1());
+		tempMenuAction.setParam0(entry.getParam0());
+		tempMenuAction.setParam1(entry.getParam1());
 	}
 }
