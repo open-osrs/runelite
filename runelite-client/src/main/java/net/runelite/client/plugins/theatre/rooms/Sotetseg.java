@@ -34,7 +34,6 @@ import net.runelite.client.plugins.party.messages.TilePing;
 import net.runelite.client.plugins.theatre.*;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayUtil;
-//import net.runelite.client.ui.overlay.infobox.AnimatedInfoBox;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.ws.PartyService;
