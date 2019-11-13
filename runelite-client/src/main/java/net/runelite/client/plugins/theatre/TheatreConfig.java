@@ -363,7 +363,7 @@ public interface TheatreConfig extends Config
 			keyName = "mazeTileColourParty",
 			name = "Sotey Color Party",
 			description = "Configures the color of marked tile for discord party pings",
-            section = "sotetsegSection"
+			section = "sotetsegSection"
 	)
 	default Color mazeTileColourParty()
 	{
