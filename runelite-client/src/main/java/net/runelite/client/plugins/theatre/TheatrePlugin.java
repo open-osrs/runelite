@@ -96,7 +96,6 @@ public class TheatrePlugin extends Plugin
 	private Sotetseg sotetseg;
 	@Setter(AccessLevel.PUBLIC)
 	private TheatreRoom room;
-	@Getter
 	private Color bloatColor;
 	private VerzikHandler verzikHandler;
 	private XarpusHandler xarpusHandler;
