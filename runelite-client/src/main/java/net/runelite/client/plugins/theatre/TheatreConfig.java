@@ -9,12 +9,14 @@
 package net.runelite.client.plugins.theatre;
 
 import java.awt.Color;
+
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.ModifierlessKeybind;
+
 import java.awt.event.KeyEvent;
 
 
@@ -110,7 +112,8 @@ public interface TheatreConfig extends Config
 			name = "Hands Color",
 			description = "Bloat Hands Color"
 	)
-	default Color bloatColor() {
+	default Color bloatColor()
+	{
 		return Color.CYAN;
 	}
 
@@ -257,7 +260,8 @@ public interface TheatreConfig extends Config
 			name = "Show Sotetseg Orb Attacks",
 			description = "Highlight the attacks which Sotetseg throws at you."
 	)
-	default boolean showSotetsegAutoAttacks() {
+	default boolean showSotetsegAutoAttacks()
+	{
 		return true;
 	}
 
@@ -267,7 +271,8 @@ public interface TheatreConfig extends Config
 			name = "Show Sotetseg AoE",
 			description = "Highlight the big AoE dragonball-z deathball."
 	)
-	default boolean showSotetsegAoE() {
+	default boolean showSotetsegAoE()
+	{
 		return true;
 	}
 
@@ -313,7 +318,10 @@ public interface TheatreConfig extends Config
 			name = "Sotetseg maze send discord",
 			description = ""
 	)
-	default boolean sotetsegMazeDiscord(){ return false; }
+	default boolean sotetsegMazeDiscord()
+	{
+		return false;
+	}
 
 	@ConfigItem(
 			position = 19,
@@ -321,7 +329,10 @@ public interface TheatreConfig extends Config
 			name = "Sotetseg big AOE sound",
 			description = ""
 	)
-	default boolean sotetsetAttacksSound() { return false; }
+	default boolean sotetsetAttacksSound()
+	{
+		return false;
+	}
 
 	@Range(max = 100)
 	@ConfigItem(
@@ -330,7 +341,10 @@ public interface TheatreConfig extends Config
 			name = "Sotetseg big AOE sound volume",
 			description = ""
 	)
-	default int sotetsetAttacksSoundVolume() { return 80; }
+	default int sotetsetAttacksSoundVolume()
+	{
+		return 80;
+	}
 
 	@ConfigItem(
 		position = 19,

@@ -70,7 +70,7 @@ public class MaidenHandler extends RoomHandler
 
 	public MaidenHandler(final Client client, final TheatrePlugin plugin, TheatreConfig config, final ModelOutlineRenderer modelOutline)
 	{
-		super(client, plugin,config);
+		super(client, plugin, config);
 		this.modelOutline = modelOutline;
 	}
 

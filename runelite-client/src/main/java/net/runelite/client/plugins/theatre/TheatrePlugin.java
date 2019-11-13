@@ -9,9 +9,11 @@
 package net.runelite.client.plugins.theatre;
 
 import com.google.inject.Provides;
+
 import java.awt.Color;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -220,7 +222,8 @@ public class TheatrePlugin extends Plugin
 			return;
 		}
 
-		if (sotetseg != null) {
+		if (sotetseg != null)
+		{
 			sotetseg.onConfigChanged(event);
 		}
 
@@ -247,7 +250,8 @@ public class TheatrePlugin extends Plugin
 			nyloHandler.onGameTick();
 		}
 
-		if (sotetseg != null) {
+		if (sotetseg != null)
+		{
 			sotetseg.onGameTick(event);
 		}
 
@@ -270,7 +274,8 @@ public class TheatrePlugin extends Plugin
 	private void onGroundObjectSpawned(GroundObjectSpawned event)
 	{
 
-		if (sotetseg != null) {
+		if (sotetseg != null)
+		{
 			sotetseg.onGroundObjectSpawned(event);
 		}
 
@@ -310,7 +315,8 @@ public class TheatrePlugin extends Plugin
 			nyloHandler.onNpcDespawned(event);
 		}
 
-		if (sotetseg != null) {
+		if (sotetseg != null)
+		{
 			sotetseg.onNpcDespawned(event);
 		}
 
@@ -343,7 +349,8 @@ public class TheatrePlugin extends Plugin
 			nyloHandler.onNpcSpawned(event);
 		}
 
-		if (sotetseg != null) {
+		if (sotetseg != null)
+		{
 			sotetseg.onNpcSpawned(event);
 		}
 
@@ -364,8 +371,10 @@ public class TheatrePlugin extends Plugin
 
 	}
 
-	private void onTilePing(TilePing ping){
-		if (sotetseg != null){
+	private void onTilePing(TilePing ping)
+	{
+		if (sotetseg != null)
+		{
 			sotetseg.onTilePing(ping);
 		}
 	}
@@ -376,7 +385,8 @@ public class TheatrePlugin extends Plugin
 		{
 			verzikHandler.onProjectileMoved(event);
 		}
-		if (sotetseg != null) {
+		if (sotetseg != null)
+		{
 			sotetseg.onProjectileMoved(event);
 		}
 	}
@@ -390,8 +400,10 @@ public class TheatrePlugin extends Plugin
 		//}
 	}
 
-	public void onClientTick(ClientTick event) {
-		if (sotetseg != null) {
+	public void onClientTick(ClientTick event)
+	{
+		if (sotetseg != null)
+		{
 			sotetseg.onClientTick(event);
 		}
 	}
@@ -417,7 +429,8 @@ public class TheatrePlugin extends Plugin
 		}
 	}
 
-	public void setHotKeyPressed(final boolean hotKeyPressed) {
+	public void setHotKeyPressed(final boolean hotKeyPressed)
+	{
 		this.hotKeyPressed = hotKeyPressed;
 	}
 

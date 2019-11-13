@@ -57,7 +57,8 @@ import net.runelite.client.ws.PartyService;
 import net.runelite.client.ws.WSClient;
 
 @Slf4j
-public class Sotetseg extends RoomHandler {
+public class Sotetseg extends RoomHandler
+{
 	static final int SOTETSEG_MAGE_ORB = 1606;
 	static final int SOTETSEG_RANGE_ORB = 1607;
 	static final int SOTETSEG_BIG_AOE_ORB = 1604;
@@ -117,10 +118,12 @@ public class Sotetseg extends RoomHandler {
 	private ScheduledExecutorService executor;
 	@Getter
 	private Set<WorldPoint> mazePings = Collections.synchronizedSet(new HashSet<>());
+
 	@Inject
 
 
-	public Sotetseg(Client client, TheatrePlugin plugin, TheatreConfig config, PartyService party, WSClient wsClient) {
+	public Sotetseg(Client client, TheatrePlugin plugin, TheatreConfig config, PartyService party, WSClient wsClient)
+	{
 		super(client, plugin, config);
 		this.client = client;
 		this.plugin = plugin;
@@ -131,11 +134,13 @@ public class Sotetseg extends RoomHandler {
 	}
 
 	@Override
-	public void onStart() {
+	public void onStart()
+	{
 		if (this.plugin.getRoom() == TheatreRoom.SOTETSEG)
 			return;
 
-		if (!hackyShitFlag) {
+		if (!hackyShitFlag)
+		{
 			this.startTime = 0;
 		}
 
@@ -146,7 +151,8 @@ public class Sotetseg extends RoomHandler {
 		TACTICAL_NUKE_SHEET = ImageUtil.getResourceStreamFromClass(TheatrePlugin.class, "nuke_spritesheet.png");
 		TACTICAL_NUKE_OVERHEAD = ImageUtil.getResourceStreamFromClass(TheatrePlugin.class, "Tactical_Nuke_Care_Package_Icon_MW2.png");
 		System.out.println("initialising");
-		try {
+		try
+		{
 			AudioInputStream stream;
 			AudioFormat format;
 			DataLine.Info info;
@@ -157,10 +163,13 @@ public class Sotetseg extends RoomHandler {
 			clip = (Clip) AudioSystem.getLine(info);
 			clip.open(stream);
 			FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			if (control != null) {
+			if (control != null)
+			{
 				control.setValue(20f * (float) Math.log10(config.sotetsetAttacksSoundVolume() / 100.0f));
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			clip = null;
 		}
@@ -168,7 +177,8 @@ public class Sotetseg extends RoomHandler {
 	}
 
 	@Override
-	public void onStop() {
+	public void onStop()
+	{
 		this.hackyShitFlag = false;
 		this.delay = 0;
 		this.p1Timer = false;
@@ -181,20 +191,25 @@ public class Sotetseg extends RoomHandler {
 	}
 
 
-
-	public Dimension render(Graphics2D graphics) {
-		if (isSotetActive()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (isSotetActive())
+		{
 			playerX = client.getLocalPlayer().getLocalLocation().getX();
 			playerY = client.getLocalPlayer().getLocalLocation().getY();
-			if (config.showSotetsegMaze()) {
+			if (config.showSotetsegMaze())
+			{
 				int counter = 1;
-				for (Point p : getRedTiles()) {
+				for (Point p : getRedTiles())
+				{
 					WorldPoint wp = worldPointFromMazePoint(p);
 					drawTile(graphics, wp, config.mazeTileColour2(), 2, 155, 0);
 					LocalPoint lp = LocalPoint.fromWorld(client, wp);
-					if (lp != null && !isWasInUnderWorld()) {
+					if (lp != null && !isWasInUnderWorld())
+					{
 						Point textPoint = Perspective.getCanvasTextLocation(client, graphics, lp, String.valueOf(counter), 0);
-						if (textPoint != null) {
+						if (textPoint != null)
+						{
 							OverlayUtil.renderTextLocation(graphics, textPoint, String.valueOf(counter), Color.WHITE);
 						}
 					}
@@ -225,7 +240,6 @@ public class Sotetseg extends RoomHandler {
 			}
 
 
-
 			/**
 			 if(config.showSotetsegMazeAuto()){
 			 for (Point p : getGreenTiles())
@@ -236,16 +250,21 @@ public class Sotetseg extends RoomHandler {
 			 }**/
 
 			Map<Projectile, String> projectileMap = new HashMap<>();
-			for (Projectile proj : soteyProjectiles.keySet()) {
-				if (proj.getId() == SOTETSEG_BIG_AOE_ORB) {
-					if(config.showSotetsegAoE()){
+			for (Projectile proj : soteyProjectiles.keySet())
+			{
+				if (proj.getId() == SOTETSEG_BIG_AOE_ORB)
+				{
+					if (config.showSotetsegAoE())
+					{
 						final int ticksRemaining = proj.getRemainingCycles() / 30;
 						String countdownStr = String.valueOf(ticksRemaining);
 						projectileMap.put(proj, countdownStr);
 					}
 				}
-				if (proj.getId() == SOTETSEG_MAGE_ORB || proj.getId() == SOTETSEG_RANGE_ORB) {
-					if(config.showSotetsegAutoAttacks()){
+				if (proj.getId() == SOTETSEG_MAGE_ORB || proj.getId() == SOTETSEG_RANGE_ORB)
+				{
+					if (config.showSotetsegAutoAttacks())
+					{
 						final int ticksRemaining = proj.getRemainingCycles() / 30;
 						String countdownStr = String.valueOf(ticksRemaining);
 						projectileMap.put(proj, countdownStr);
@@ -253,8 +272,10 @@ public class Sotetseg extends RoomHandler {
 				}
 			}
 			renderProjectiles(graphics, projectileMap);
-			if (config.showSotetsegAoE()) {
-				for (Projectile p : client.getProjectiles()) {
+			if (config.showSotetsegAoE())
+			{
+				for (Projectile p : client.getProjectiles())
+				{
 					int id = p.getId();
 					int x = (int) p.getX();
 					int y = (int) p.getY();
@@ -262,10 +283,12 @@ public class Sotetseg extends RoomHandler {
 					Point point = Perspective.localToCanvas(
 							client, new LocalPoint(x, y), 0,
 							Perspective.getTileHeight(client, new LocalPoint(x, y), p.getFloor()) - z);
-					if (point == null) {
+					if (point == null)
+					{
 						continue;
 					}
-					if (id == Sotetseg.SOTETSEG_BIG_AOE_ORB) {
+					if (id == Sotetseg.SOTETSEG_BIG_AOE_ORB)
+					{
 						point = new Point(point.getX() - Sotetseg.TACTICAL_NUKE_OVERHEAD.getWidth() / 2, point.getY() - 60);
 						OverlayUtil.renderImageLocation(graphics, point, Sotetseg.TACTICAL_NUKE_OVERHEAD);
 					}
@@ -276,9 +299,10 @@ public class Sotetseg extends RoomHandler {
 	}
 
 
-
-	public void onProjectileMoved(ProjectileMoved event) {
-		if(sotetActive) {
+	public void onProjectileMoved(ProjectileMoved event)
+	{
+		if (sotetActive)
+		{
 			Projectile projectile = event.getProjectile();
 			//1604 ball
 			if (event.getPosition().getX() == playerX && event.getPosition().getY() == playerY || event.getProjectile().getId() == 1604) {
@@ -288,13 +312,17 @@ public class Sotetseg extends RoomHandler {
 		}
 	}
 
-	public void onConfigChanged(ConfigChanged change) {
+	public void onConfigChanged(ConfigChanged change)
+	{
 
-		if (change.getKey().equals("SotetsegAttacksSoundsVolume")) {
+		if (change.getKey().equals("SotetsegAttacksSoundsVolume"))
+		{
 
-			if (clip != null) {
+			if (clip != null)
+			{
 				FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				if (control != null) {
+				if (control != null)
+				{
 					control.setValue(20f * (float) Math.log10(config.sotetsetAttacksSoundVolume() / 100.0f));
 				}
 			}
@@ -303,9 +331,11 @@ public class Sotetseg extends RoomHandler {
 	}
 
 
-	public void onNpcSpawned(NpcSpawned npcSpawned) {
+	public void onNpcSpawned(NpcSpawned npcSpawned)
+	{
 		NPC npc = npcSpawned.getNpc();
-		switch (npc.getId()) {
+		switch (npc.getId())
+		{
 			case NpcID.SOTETSEG:
 			case NpcID.SOTETSEG_8388:
 				this.onStart();
@@ -316,12 +346,15 @@ public class Sotetseg extends RoomHandler {
 	}
 
 
-	public void onNpcDespawned(NpcDespawned npcDespawned) {
+	public void onNpcDespawned(NpcDespawned npcDespawned)
+	{
 		NPC npc = npcDespawned.getNpc();
-		switch (npc.getId()) {
+		switch (npc.getId())
+		{
 			case NpcID.SOTETSEG:
 			case NpcID.SOTETSEG_8388:
-				if (client.getPlane() != 3) {
+				if (client.getPlane() != 3)
+				{
 					this.onStop();
 					sotetActive = false;
 					sotetsegNPC = null;
@@ -331,30 +364,40 @@ public class Sotetseg extends RoomHandler {
 		}
 	}
 
-	public void onGameTick(GameTick event) {
+	public void onGameTick(GameTick event)
+	{
 
-		if (sotetActive) {
+		if (sotetActive)
+		{
 			playerX = client.getLocalPlayer().getLocalLocation().getX();
 			playerY = client.getLocalPlayer().getLocalLocation().getY();
 
 			int id = 0;
-			for (NPC npc : client.getNpcs()) {
+			for (NPC npc : client.getNpcs())
+			{
 				id = npc.getId();
 			}
-			if (id == TheatreConstant.SOTETSEG_NORMAL && !p1Timer) {
-				if (!hackyShitFlag) {
+			if (id == TheatreConstant.SOTETSEG_NORMAL && !p1Timer)
+			{
+				if (!hackyShitFlag)
+				{
 					this.startTime = System.currentTimeMillis();
 					p1Timer = true;
 					hackyShitFlag = true;
 				}
 
-			} else if (p1Timer && !p2Timer && !p3Timer) {
-				for (Player p : client.getPlayers()) {
-					if (p.getAnimation() == 1816) {
+			}
+			else if (p1Timer && !p2Timer && !p3Timer)
+			{
+				for (Player p : client.getPlayers())
+				{
+					if (p.getAnimation() == 1816)
+					{
 						animationCheck = true;
 					}
 				}
-				if (animationCheck) {
+				if (animationCheck)
+				{
 					long elapsedTime = System.currentTimeMillis() - this.startTime;
 					long seconds = elapsedTime / 1000L;
 
@@ -367,20 +410,26 @@ public class Sotetseg extends RoomHandler {
 					p2Timer = true;
 				}
 
-			} else if (p1Timer && p2Timer && !p3Timer) {
-				for (Player p : client.getPlayers()) {
-					if (p.getAnimation() == 1816) {
+			}
+			else if (p1Timer && p2Timer && !p3Timer)
+			{
+				for (Player p : client.getPlayers())
+				{
+					if (p.getAnimation() == 1816)
+					{
 						animationCheck = true;
 					}
 				}
-				if (animationCheck) {
+				if (animationCheck)
+				{
 					long elapsedTime = System.currentTimeMillis() - this.startTime;
 					long seconds = elapsedTime / 1000L;
 
 					long minutes = seconds / 60L;
 					seconds = seconds % 60;
 
-					if (elapsedTime - delay > 2500) {
+					if (elapsedTime - delay > 2500)
+					{
 						this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'Phase 2' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
 						p3Timer = true;
 					}
@@ -389,23 +438,29 @@ public class Sotetseg extends RoomHandler {
 			}
 
 			animationCheck = false;
-			if (sotetsegNPC != null && sotetsegNPC.getId() == NpcID.SOTETSEG_8388) {
-				if (!redTiles.isEmpty()) {
+			if (sotetsegNPC != null && sotetsegNPC.getId() == NpcID.SOTETSEG_8388)
+			{
+				if (!redTiles.isEmpty())
+				{
 					redTiles.clear();
 				}
 
-				if (isInOverWorld()) {
+				if (isInOverWorld())
+				{
 					wasInUnderWorld = false;
 					overWorldRegionID = client.getLocalPlayer().getWorldLocation().getRegionID();
 					mazeTrigger = true;
 				}
 			}
 
-			if (!redTiles.isEmpty() && wasInUnderWorld && config.sotetsegMazeDiscord()) {
-				for (Point p : redTiles) {
+			if (!redTiles.isEmpty() && wasInUnderWorld && config.sotetsegMazeDiscord())
+			{
+				for (Point p : redTiles)
+				{
 					WorldPoint wp = worldPointFromMazePoint(p);
 					TilePing tilePing = new TilePing(wp, true);
-					if (party != null && party.getLocalMember() != null) {
+					if (party != null && party.getLocalMember() != null)
+					{
 						tilePing.setMemberId(party.getLocalMember().getMemberId());
 						wsClient.send(tilePing);
 					}
@@ -418,11 +473,14 @@ public class Sotetseg extends RoomHandler {
 		}
 
 		//Remove projectiles that are about to die
-		if (!soteyProjectiles.isEmpty()) {
+		if (!soteyProjectiles.isEmpty())
+		{
 			Iterator<Map.Entry<Projectile, WorldPoint>> it = soteyProjectiles.entrySet().iterator();
-			while (it.hasNext()) {
+			while (it.hasNext())
+			{
 				Map.Entry<Projectile, WorldPoint> projectile = it.next();
-				if (projectile.getKey().getRemainingCycles() < 1 || projectile.getValue().getX() != playerX || projectile.getValue().getY() != playerY) {
+				if (projectile.getKey().getRemainingCycles() < 1 || projectile.getValue().getX() != playerX || projectile.getValue().getY() != playerY)
+				{
 					it.remove();
 
 				}
@@ -566,18 +624,23 @@ public class Sotetseg extends RoomHandler {
 	 **/
 
 
-	public void onGroundObjectSpawned(GroundObjectSpawned event) {
-		if (sotetActive) {
+	public void onGroundObjectSpawned(GroundObjectSpawned event)
+	{
+		if (sotetActive)
+		{
 			GroundObject o = event.getGroundObject();
 
-			if (o.getId() == GROUNDOBJECT_ID_REDMAZE) {
+			if (o.getId() == GROUNDOBJECT_ID_REDMAZE)
+			{
 				Tile t = event.getTile();
 				WorldPoint p = WorldPoint.fromLocal(client, t.getLocalLocation());
 				Point point = new Point(p.getRegionX(), p.getRegionY());
-				if (isInOverWorld()) {
+				if (isInOverWorld())
+				{
 					redTiles.add(new Point(point.getX() - swMazeSquareOverWorld.getX(), point.getY() - swMazeSquareOverWorld.getY()));
 				}
-				if (isInUnderWorld()) {
+				if (isInUnderWorld())
+				{
 					redTiles.add(new Point(point.getX() - swMazeSquareUnderWorld.getX(), point.getY() - swMazeSquareUnderWorld.getY()));
 					wasInUnderWorld = true;
 				}
@@ -732,26 +795,34 @@ public class Sotetseg extends RoomHandler {
 	 **/
 
 	@SuppressWarnings("varargs")
-	private final boolean requestMaze(int count, String name, long time, ScheduledFuture<Boolean>... previous) {
-		try {
+	private final boolean requestMaze(int count, String name, long time, ScheduledFuture<Boolean>... previous)
+	{
+		try
+		{
 			boolean proceed = true;
-			if (previous != null) {
-				for (ScheduledFuture<Boolean> future : previous) {
+			if (previous != null)
+			{
+				for (ScheduledFuture<Boolean> future : previous)
+				{
 					boolean result = future.get();
-					if (result) {
+					if (result)
+					{
 						System.out.println("Mazerequest || Not proceeding" + name + " " + count);
 						proceed = false;
 						break;
 					}
 				}
 			}
-			if (proceed) {
+			if (proceed)
+			{
 				System.out.println("Mazerequest || Proceeding" + name + " " + count);
 				log.debug("Maze request " + count);
 				System.out.println(System.currentTimeMillis() - time);
 				return requestMazeLayout(name);
 			}
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			log.debug(count + " maze retrieval ran into an error", ex);
 		}
 		return false;
@@ -781,18 +852,20 @@ public class Sotetseg extends RoomHandler {
 	 * }
 	 **/
 
-	public void onClientTick(ClientTick event) {
-
-
-		if (sotetActive && config.sotetsetAttacksSound()) {
+	public void onClientTick(ClientTick event)
+	{
+		if (sotetActive && config.sotetsetAttacksSound())
+		{
 			boolean foundBigOrb = false;
-			for (Projectile p : client.getProjectiles()) {
-				if (p.getId() == SOTETSEG_BIG_AOE_ORB) {
+			for (Projectile p : client.getProjectiles())
+			{
+				if (p.getId() == SOTETSEG_BIG_AOE_ORB)
+				{
 					foundBigOrb = true;
-					if (!bigOrbPresent) {
-
-
-						if (clip != null && config.sotetsetAttacksSound()) {
+					if (!bigOrbPresent)
+					{
+						if (clip != null && config.sotetsetAttacksSound())
+						{
 							clip.setFramePosition(0);
 							clip.start();
 						}
@@ -805,8 +878,10 @@ public class Sotetseg extends RoomHandler {
 
 	}
 
-	WorldPoint worldPointFromMazePoint(Point mazePoint) {
-		if (overWorldRegionID == -1) {
+	WorldPoint worldPointFromMazePoint(Point mazePoint)
+	{
+		if (overWorldRegionID == -1)
+		{
 			return WorldPoint.fromRegion(
 					client.getLocalPlayer().getWorldLocation().getRegionID(), mazePoint.getX() + Sotetseg.getSwMazeSquareOverWorld().getX(),
 					mazePoint.getY() + Sotetseg.getSwMazeSquareOverWorld().getY(), 0);
@@ -816,27 +891,35 @@ public class Sotetseg extends RoomHandler {
 				mazePoint.getY() + Sotetseg.getSwMazeSquareOverWorld().getY(), 0);
 	}
 
-	private boolean isInOverWorld() {
+	private boolean isInOverWorld()
+	{
 		return client.getMapRegions().length > 0 && client.getMapRegions()[0] == OVERWORLD_REGION_ID;
 	}
 
-	private boolean isInUnderWorld() {
+	private boolean isInUnderWorld()
+	{
 		return client.getMapRegions().length > 0 && client.getMapRegions()[0] == UNDERWORLD_REGION_ID;
 	}
 
-	private boolean requestMazeLayout(final String name) {
-		try {
+	private boolean requestMazeLayout(final String name)
+	{
+		try
+		{
 			int seed[] = MazeCommunication.getMazeLayourSeedTask(name);
 			HashSet<Point> points = new HashSet<>();
-			if (seed != null) {
+			if (seed != null)
+			{
 				points = MazeCommunication.pointSetFromSeed(seed);
 				greenTiles.addAll(points);
-				if (points.size() > 0) {
+				if (points.size() > 0)
+				{
 					return true;
 				}
 			}
 			log.debug("Setting maze from " + name + " to " + points);
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.debug("unable to retrieve maze seed for " + name, ex);
 		}
 		return false;
