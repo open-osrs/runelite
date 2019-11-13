@@ -305,7 +305,8 @@ public class Sotetseg extends RoomHandler
 		{
 			Projectile projectile = event.getProjectile();
 			//1604 ball
-			if (event.getPosition().getX() == playerX && event.getPosition().getY() == playerY || event.getProjectile().getId() == 1604) {
+			if (event.getPosition().getX() == playerX && event.getPosition().getY() == playerY || event.getProjectile().getId() == 1604)
+			{
 				WorldPoint p = WorldPoint.fromLocal(client, event.getPosition());
 				soteyProjectiles.put(projectile, p);
 			}
