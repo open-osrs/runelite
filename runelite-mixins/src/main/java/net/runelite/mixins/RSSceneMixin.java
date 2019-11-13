@@ -801,7 +801,8 @@ public abstract class RSSceneMixin implements RSScene
 		if (shape != 0 && shape != 1)
 		{
 			Tile tile = getTiles()[z][x][y];
-			SceneTileModel sceneTileModel = tile.getSceneTileModel();
+			//SceneTileModel sceneTileModel = tile.getSceneTileModel();
+			TileModel sceneTileModel = tile.getTileModel();
 
 			sceneTileModel.setUnderlaySwColor(underlaySwColor);
 			sceneTileModel.setUnderlayNwColor(underlayNwColor);
@@ -829,7 +830,8 @@ public abstract class RSSceneMixin implements RSScene
 		Tile tile = getTiles()[z][x][y];
 		if (tile != null)
 		{
-			SceneTilePaint sceneTilePaint = tile.getSceneTilePaint();
+			//SceneTilePaint sceneTilePaint = tile.getSceneTilePaint();
+			TilePaint sceneTilePaint = tile.getTilePaint();
 			if (sceneTilePaint != null)
 			{
 				int rgb = sceneTilePaint.getRBG();
@@ -885,7 +887,8 @@ public abstract class RSSceneMixin implements RSScene
 			}
 			else
 			{
-				SceneTileModel sceneTileModel = tile.getSceneTileModel();
+				//SceneTileModel sceneTileModel = tile.getSceneTileModel();
+				TileModel sceneTileModel = tile.getTileModel();
 				if (sceneTileModel != null)
 				{
 					int shape = sceneTileModel.getShape();

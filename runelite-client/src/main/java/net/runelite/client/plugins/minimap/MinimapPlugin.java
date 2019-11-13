@@ -70,6 +70,7 @@ public class MinimapPlugin extends Plugin
 	private Color teamColor;
 	private Color clanColor;
 	private boolean hideMinimap;
+	private boolean hdMinimapEnabled;
 
 	@Provides
 	private MinimapConfig provideConfig(ConfigManager configManager)
@@ -87,7 +88,7 @@ public class MinimapPlugin extends Plugin
 		storeOriginalDots();
 		replaceMapDots();
 
-		client.setHdMinimapEnabled(config.hdMinimapEnabled);
+		client.setHdMinimapEnabled(this.hdMinimapEnabled);
 	}
 
 	@Override

@@ -804,10 +804,10 @@ public interface RSClient extends RSGameShell, Client
 	@Import("itemDragDuration")
 	void setItemPressedDuration(int duration);
 
-    @Import("colorPalette")
-    int[] getColorPalette();
+	@Import("colorPalette")
+	int[] getColorPalette();
 
-    @Import("worldProperties")
+	@Import("worldProperties")
 	int getFlags();
 
 	@Import("compass")
