@@ -13,7 +13,7 @@ import net.runelite.api.mixins.Shadow;
 @Mixin(RSSprite.class)
 public abstract class RSSpriteMixin implements RSSprite
 {
-	@Shadow("clientInstance")
+	@Shadow("client")
 	private static RSClient client;
 
 	@Inject

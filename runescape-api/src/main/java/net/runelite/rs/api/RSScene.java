@@ -13,17 +13,17 @@ public interface RSScene extends Scene
 	@Override
 	RSTile[][][] getTiles();
 
-	@Import("drawTile")
-	void draw(Tile tile, boolean var2);
-
-	@Import("tileHeights")
-	int[][][] getTileHeights();
-
 	@Import("tileShape2D")
 	int[][] getTileShape2D();
 
 	@Import("tileRotation2D")
 	int[][] getTileRotation2D();
+
+	@Import("drawTile")
+	void draw(Tile tile, boolean var2);
+
+	@Import("tileHeights")
+	int[][][] getTileHeights();
 
 	@Import("drawTileMinimap")
 	void drawTile(int[] pixels, int pixelOffset, int width, int z, int x, int y);

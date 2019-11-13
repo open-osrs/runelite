@@ -231,6 +231,6 @@ public class MinimapPlugin extends Plugin
 		this.teamColor = config.teamColor();
 		this.clanColor = config.clanColor();
 		this.hideMinimap = config.hideMinimap();
-        this.hdMinimapEnabled = config.hdMinimapEnabled();
+		this.hdMinimapEnabled = config.hdMinimapEnabled();
 	}
 }

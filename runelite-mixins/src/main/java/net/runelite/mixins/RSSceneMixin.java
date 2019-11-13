@@ -59,7 +59,7 @@ public abstract class RSSceneMixin implements RSScene
 
 	private static final int MAX_TARGET_DISTANCE = 45;
 
-    private static final int INVALID_HSL_COLOR = 12345678;
+	private static final int INVALID_HSL_COLOR = 12345678;
 
 	@Shadow("client")
 	static RSClient client;

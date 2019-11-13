@@ -36,15 +36,6 @@ import net.runelite.rs.api.RSDualNode;
 public abstract class RSChatChannelMixin implements RSChatChannel
 {
 	@Inject
-	private int rl$modelBufferOffset;
-
-	@Inject
-	private int rl$modelUvBufferOffset;
-
-	@Inject
-	private int rl$modelBufferLen;
-
-	@Inject
 	@Override
 	public void removeMessageNode(MessageNode node)
 	{
