@@ -41,7 +41,6 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
-import net.runelite.api.NpcID;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
@@ -229,7 +228,7 @@ public class SpecialCounterPlugin extends Plugin
 		modifier = 1d;
 		interactedNpcIds.add(npcId);
 
-		if(client.getWidget(WidgetInfo.THEATRE_OF_BLOOD_PARTY) != null)
+		if (client.getWidget(WidgetInfo.THEATRE_OF_BLOOD_PARTY) != null)
 		{
 			Boss boss = Boss.getBoss(npcId);
 			if (boss != null)
