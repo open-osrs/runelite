@@ -28,6 +28,7 @@ import net.runelite.api.events.ProjectileMoved;
 import net.runelite.api.events.ProjectileSpawned;
 import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.events.ClientTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
@@ -40,12 +41,15 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.theatre.rooms.BloatHandler;
 import net.runelite.client.plugins.theatre.rooms.MaidenHandler;
-import net.runelite.client.plugins.theatre.rooms.SotetsegHandler;
+//import net.runelite.client.plugins.theatre.rooms.SotetsegHandler;
+import net.runelite.client.plugins.theatre.rooms.Sotetseg;
 import net.runelite.client.plugins.theatre.rooms.VerzikHandler;
 import net.runelite.client.plugins.theatre.rooms.nylocas.NyloHandler;
 import net.runelite.client.plugins.theatre.rooms.xarpus.XarpusHandler;
+import net.runelite.client.plugins.party.messages.TilePing;
 import net.runelite.client.ui.overlay.OverlayManager;
-import net.runelite.client.util.HotkeyListener;
+import net.runelite.client.ws.PartyService;
+import net.runelite.client.ws.WSClient;
 
 @PluginDescriptor(
 	name = "Theatre of Blood",
@@ -78,11 +82,16 @@ public class TheatrePlugin extends Plugin
 	@Inject
 	private ShiftWalkerInputListener inputListener;
 	@Inject
+	private PartyService party;
+	@Inject
+	private WSClient wsClient;
+	@Inject
 	private KeyManager keyManager;
 	private BloatHandler bloatHandler;
 	private MaidenHandler maidenHandler;
 	private NyloHandler nyloHandler;
-	private SotetsegHandler sotetsegHandler;
+	//private SotetsegHandler sotetsegHandler;
+	private Sotetseg sotetseg;
 	@Setter(AccessLevel.PUBLIC)
 	private TheatreRoom room;
 	private Color bloatColor;
@@ -114,7 +123,12 @@ public class TheatrePlugin extends Plugin
 	private boolean verzikRangeAttacks;
 	private boolean VerzikTankTile;
 	private boolean hotKeyPressed;
+	private boolean showSotetsegAoE;
+	private boolean sotetsegMazeDiscord;
+	private boolean sotetsetAttacksSound;
 	private Color mazeTileColour;
+	private Color mazeTileColourParty;
+	private int sotetsetAttacksSoundVolume;
 	private TheatreConfig.NYLOOPTION showNylocasExplosions;
 
 	@Provides
@@ -130,12 +144,13 @@ public class TheatrePlugin extends Plugin
 		addSubscriptions();
 		room = TheatreRoom.UNKNOWN;
 		this.keyManager.registerKeyListener(this.inputListener);
-		maidenHandler = new MaidenHandler(client, this, modelOutline);
+		maidenHandler = new MaidenHandler(client, this, config, modelOutline);
 		bloatHandler = new BloatHandler(client, this, config);
 		nyloHandler = new NyloHandler(client, this, menuManager, eventBus);
-		sotetsegHandler = new SotetsegHandler(client, this);
-		xarpusHandler = new XarpusHandler(client, this);
-		verzikHandler = new VerzikHandler(client, this);
+		//sotetsegHandler = new SotetsegHandler(client, this, config);
+		sotetseg = new Sotetseg(client, this, config, party, wsClient);
+		xarpusHandler = new XarpusHandler(client, this, config);
+		verzikHandler = new VerzikHandler(client, this, config);
 		overlayManager.add(overlay);
 	}
 
@@ -150,8 +165,10 @@ public class TheatrePlugin extends Plugin
 		nyloHandler.startTime = 0L;
 		nyloHandler.onStop();
 		nyloHandler = null;
-		sotetsegHandler.onStop();
-		sotetsegHandler = null;
+		sotetseg.onStop();
+		sotetseg = null;
+		//sotetsegHandler.onStop();
+		//sotetsegHandler = null;
 		xarpusHandler.onStop();
 		xarpusHandler = null;
 		verzikHandler.onStop();
@@ -175,6 +192,8 @@ public class TheatrePlugin extends Plugin
 		eventBus.subscribe(ProjectileSpawned.class, this, this::onProjectileSpawned);
 		eventBus.subscribe(SpotAnimationChanged.class, this, this::onSpotAnimationChanged);
 		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
+		eventBus.subscribe(TilePing.class, this, this::onTilePing);
+		eventBus.subscribe(ClientTick.class, this, this::onClientTick);
 	}
 
 	private void onAnimationChanged(AnimationChanged event)
@@ -200,6 +219,10 @@ public class TheatrePlugin extends Plugin
 			return;
 		}
 
+		if (sotetseg != null) {
+			sotetseg.onConfigChanged(event);
+		}
+
 		if (nyloHandler != null)
 		{
 			nyloHandler.onConfigChanged();
@@ -223,10 +246,14 @@ public class TheatrePlugin extends Plugin
 			nyloHandler.onGameTick();
 		}
 
-		if (sotetsegHandler != null)
-		{
-			sotetsegHandler.onGameTick();
+		if (sotetseg != null) {
+			sotetseg.onGameTick(event);
 		}
+
+		//if (sotetsegHandler != null)
+		//{
+			//sotetsegHandler.onGameTick();
+		//}
 
 		if (xarpusHandler != null)
 		{
@@ -241,10 +268,15 @@ public class TheatrePlugin extends Plugin
 
 	private void onGroundObjectSpawned(GroundObjectSpawned event)
 	{
-		if (sotetsegHandler != null)
-		{
-			sotetsegHandler.onGroundObjectSpawned(event);
+
+		if (sotetseg != null) {
+			sotetseg.onGroundObjectSpawned(event);
 		}
+
+		//if (sotetsegHandler != null)
+		//{
+			//sotetsegHandler.onGroundObjectSpawned(event);
+		//}
 
 		if (xarpusHandler != null)
 		{
@@ -277,10 +309,14 @@ public class TheatrePlugin extends Plugin
 			nyloHandler.onNpcDespawned(event);
 		}
 
-		if (sotetsegHandler != null)
-		{
-			sotetsegHandler.onNpcDespawned(event);
+		if (sotetseg != null) {
+			sotetseg.onNpcDespawned(event);
 		}
+
+		//if (sotetsegHandler != null)
+		//{
+			//sotetsegHandler.onNpcDespawned(event);
+		//}
 
 		if (xarpusHandler != null)
 		{
@@ -306,10 +342,14 @@ public class TheatrePlugin extends Plugin
 			nyloHandler.onNpcSpawned(event);
 		}
 
-		if (sotetsegHandler != null)
-		{
-			sotetsegHandler.onNpcSpawned(event);
+		if (sotetseg != null) {
+			sotetseg.onNpcSpawned(event);
 		}
+
+		//if (sotetsegHandler != null)
+		//{
+			//sotetsegHandler.onNpcSpawned(event);
+		//}
 
 		if (xarpusHandler != null)
 		{
@@ -323,20 +363,35 @@ public class TheatrePlugin extends Plugin
 
 	}
 
+	private void onTilePing(TilePing ping){
+		if (sotetseg != null){
+			sotetseg.onTilePing(ping);
+		}
+	}
+
 	private void onProjectileMoved(ProjectileMoved event)
 	{
 		if (verzikHandler != null)
 		{
 			verzikHandler.onProjectileMoved(event);
 		}
+		if (sotetseg != null) {
+			sotetseg.onProjectileMoved(event);
+		}
 	}
 
 	private void onProjectileSpawned(ProjectileSpawned event)
 	{
-		if (sotetsegHandler != null)
-		{
-			sotetsegHandler.onProjectileSpawned(event);
+		//if (sotetsegHandler != null)
+		//{
+			//sotetsegHandler.onProjectileSpawned(event);
 
+		//}
+	}
+
+	public void onClientTick(ClientTick event) {
+		if (sotetseg != null) {
+			sotetseg.onClientTick(event);
 		}
 	}
 
@@ -383,6 +438,11 @@ public class TheatrePlugin extends Plugin
 		this.showSotetsegMaze = config.showSotetsegMaze();
 		this.showSotetsegSolo = config.showSotetsegSolo();
 		this.mazeTileColour = config.mazeTileColour();
+		this.mazeTileColourParty = config.mazeTileColourParty();
+		this.sotetsetAttacksSoundVolume = config.sotetsetAttacksSoundVolume();
+		this.sotetsetAttacksSound = config.sotetsetAttacksSound();
+		this.sotetsegMazeDiscord = config.sotetsegMazeDiscord();
+		this.showSotetsegAoE = config.showSotetsegAoE();
 		this.bloatColor = config.bloatColor();
 		this.showXarpusHeals = config.showXarpusHeals();
 		this.showXarpusTick = config.showXarpusTick();

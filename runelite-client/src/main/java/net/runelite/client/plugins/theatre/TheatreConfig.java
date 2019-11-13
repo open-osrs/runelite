@@ -252,6 +252,26 @@ public interface TheatreConfig extends Config
 	}
 
 	@ConfigItem(
+			position = 15,
+			keyName = "showSotetsegAutoAttacks",
+			name = "Show Sotetseg Orb Attacks",
+			description = "Highlight the attacks which Sotetseg throws at you."
+	)
+	default boolean showSotetsegAutoAttacks() {
+		return true;
+	}
+
+	@ConfigItem(
+			position = 16,
+			keyName = "showSotetsegAoEAttacks",
+			name = "Show Sotetseg AoE",
+			description = "Highlight the big AoE dragonball-z deathball."
+	)
+	default boolean showSotetsegAoE() {
+		return true;
+	}
+
+	@ConfigItem(
 		position = 16,
 		keyName = "showSotetsegAttacks",
 		name = "Show Sotetseg Attacks",
@@ -320,6 +340,28 @@ public interface TheatreConfig extends Config
 		section = "sotetsegSection"
 	)
 	default Color mazeTileColour()
+	{
+		return Color.WHITE;
+	}
+
+	@ConfigItem(
+			position = 21,
+			keyName = "markerColor",
+			name = "Sotey Color Party",
+			description = "Configures the color of marked tile for discord party pings"
+	)
+	default Color mazeTileColourParty()
+	{
+		return Color.WHITE;
+	}
+
+	@ConfigItem(
+			position = 22,
+			keyName = "markerColor2",
+			name = "Sotey Color",
+			description = "Configures the second color of marked tiles"
+	)
+	default Color mazeTileColour2()
 	{
 		return Color.WHITE;
 	}
