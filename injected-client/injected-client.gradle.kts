@@ -49,13 +49,18 @@ injector {
 }
 
 artifacts {
-    add("runtime", tasks.inject.get().output) {
+    add("runtimeOnly", tasks.inject.get().output) {
         builtBy(tasks.inject)
     }
 }
 
 // keep the sourcesets etc but remove useless tasks
 tasks {
+    build {
+        dependsOn(":runelite-mixins:build")
+        dependsOn(":runescape-api:build")
+        dependsOn(":runescape-client:build")
+    }
     classes {
         enabled = false
     }
