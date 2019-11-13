@@ -432,7 +432,7 @@ public class MenuManager
 		// option and target will be the same if this one came from "tempMenuAction"
 		if (!client.isMenuOpen() && !event.getOption().equals(event.getTarget()) && event.isAuthentic())
 		{
-			if (!event.equals(leftClickEntry) && event.getMouseButton() == 0 || !client.isDraggingWidget())
+			if (!event.equals(leftClickEntry))
 			{
 				rebuildLeftClickMenu();
 			}
