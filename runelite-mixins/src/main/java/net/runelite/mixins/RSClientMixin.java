@@ -690,8 +690,8 @@ public abstract class RSClientMixin implements RSClient
 			entry.setTarget(menuTargets[i]);
 			entry.setIdentifier(menuIdentifiers[i]);
 			entry.setOpcode(menuTypes[i]);
-			entry.setActionParam(params0[i]);
-			entry.setWidgetId(params1[i]);
+			entry.setParam0(params0[i]);
+			entry.setParam1(params1[i]);
 			entry.setForceLeftClick(leftClick[i]);
 		}
 		return entries;
@@ -721,8 +721,8 @@ public abstract class RSClientMixin implements RSClient
 			menuTargets[count] = entry.getTarget();
 			menuIdentifiers[count] = entry.getIdentifier();
 			menuTypes[count] = entry.getOpcode();
-			params0[count] = entry.getActionParam();
-			params1[count] = entry.getWidgetId();
+			params0[count] = entry.getParam0();
+			params1[count] = entry.getParam1();
 			leftClick[count] = entry.isForceLeftClick();
 			++count;
 		}
@@ -768,8 +768,8 @@ public abstract class RSClientMixin implements RSClient
 				targets[oldCount] = event.getTarget();
 				identifiers[oldCount] = event.getIdentifier();
 				opcodes[oldCount] = event.getOpcode();
-				arguments1[oldCount] = event.getActionParam();
-				arguments2[oldCount] = event.getWidgetId();
+				arguments1[oldCount] = event.getParam0();
+				arguments2[oldCount] = event.getParam1();
 				forceLeftClick[oldCount] = event.isForceLeftClick();
 			}
 		}
@@ -1351,7 +1351,7 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Replace("menuAction")
-	static void rl$menuAction(int actionParam, int widgetId, int opcode, int id, String menuOption, String menuTarget, int canvasX, int canvasY)
+	static void rl$menuAction(int param0, int param1, int opcode, int id, String menuOption, String menuTarget, int canvasX, int canvasY)
 	{
 		boolean authentic = true;
 		if (menuTarget != null && menuTarget.startsWith("!AUTHENTIC"))
@@ -1363,8 +1363,8 @@ public abstract class RSClientMixin implements RSClient
 		if (printMenuActions && client.getLogger().isDebugEnabled())
 		{
 			client.getLogger().debug(
-				"|MenuAction|: ActionParam={} WidgetId={} Opcode={} Id={} MenuOption={} MenuTarget={} CanvasX={} CanvasY={} Authentic={}",
-				actionParam, widgetId, opcode, id, menuOption, menuTarget, canvasX, canvasY, authentic
+				"|MenuAction|: Param0={} Param1={} Opcode={} Id={} MenuOption={} MenuTarget={} CanvasX={} CanvasY={} Authentic={}",
+				param0, param1, opcode, id, menuOption, menuTarget, canvasX, canvasY, authentic
 			);
 		}
 
@@ -1381,8 +1381,8 @@ public abstract class RSClientMixin implements RSClient
 			menuTarget,
 			id,
 			opcode,
-			actionParam,
-			widgetId,
+			param0,
+			param1,
 			false,
 			authentic,
 			client.getMouseCurrentButton()
@@ -1395,15 +1395,15 @@ public abstract class RSClientMixin implements RSClient
 			return;
 		}
 
-		rs$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(), menuOptionClicked.getOpcode(),
+		rs$menuAction(menuOptionClicked.getParam0(), menuOptionClicked.getParam1(), menuOptionClicked.getOpcode(),
 			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
 	}
 
 	@Override
 	@Inject
-	public void invokeMenuAction(int actionParam, int widgetId, int opcode, int id, String menuOption, String menuTarget, int canvasX, int canvasY)
+	public void invokeMenuAction(int param0, int param1, int opcode, int id, String menuOption, String menuTarget, int canvasX, int canvasY)
 	{
-		client.sendMenuAction(actionParam, widgetId, opcode, id, menuOption, "!AUTHENTIC" + menuTarget, canvasX, canvasY);
+		client.sendMenuAction(param0, param1, opcode, id, menuOption, "!AUTHENTIC" + menuTarget, canvasX, canvasY);
 	}
 
 	@Inject

@@ -87,7 +87,7 @@ public class WidgetInspectorOverlay extends Overlay
 			{
 				MenuEntry e = entries[i];
 
-				Object wiw = inspector.getWidgetOrWidgetItemForMenuOption(e.getOpcode(), e.getActionParam(), e.getWidgetId());
+				Object wiw = inspector.getWidgetOrWidgetItemForMenuOption(e.getOpcode(), e.getParam0(), e.getParam1());
 				if (wiw == null)
 				{
 					continue;

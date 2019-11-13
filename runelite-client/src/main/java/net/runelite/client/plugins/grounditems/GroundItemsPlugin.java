@@ -943,7 +943,7 @@ public class GroundItemsPlugin extends Plugin
 
 			int itemId = lastEntry.getIdentifier();
 			Scene scene = client.getScene();
-			Tile tile = scene.getTiles()[client.getPlane()][lastEntry.getActionParam()][lastEntry.getWidgetId()];
+			Tile tile = scene.getTiles()[client.getPlane()][lastEntry.getParam0()][lastEntry.getParam1()];
 			TileItemPile tileItemPile = tile.getItemLayer();
 
 			if (tileItemPile == null)

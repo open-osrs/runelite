@@ -321,8 +321,8 @@ public class NpcIndicatorsPlugin extends Plugin
 				event.getTarget(),
 				MenuOpcode.RUNELITE.getId(),
 				event.getIdentifier(),
-				event.getActionParam(),
-				event.getWidgetId(),
+				event.getParam0(),
+				event.getParam1(),
 				false
 			);
 		}

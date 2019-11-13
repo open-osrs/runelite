@@ -215,7 +215,7 @@ public class InventoryTagsPlugin extends Plugin
 			return;
 		}
 
-		final int widgetId = firstEntry.getWidgetId();
+		final int widgetId = firstEntry.getParam1();
 
 		// Inventory item menu
 		if (widgetId == WidgetInfo.INVENTORY.getId() && editorMode)
@@ -243,7 +243,7 @@ public class InventoryTagsPlugin extends Plugin
 				newMenu.setOption(groupName.equals(group) ? MENU_REMOVE : MENU_SET);
 				newMenu.setTarget(ColorUtil.prependColorTag(groupName, MoreObjects.firstNonNull(color, Color.WHITE)));
 				newMenu.setIdentifier(itemId);
-				newMenu.setWidgetId(widgetId);
+				newMenu.setParam1(widgetId);
 				newMenu.setOpcode(MenuOpcode.RUNELITE.getId());
 				menuList[num++] = newMenu;
 			}

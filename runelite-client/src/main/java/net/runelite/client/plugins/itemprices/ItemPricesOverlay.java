@@ -91,7 +91,7 @@ class ItemPricesOverlay extends Overlay
 
 		final MenuEntry menuEntry = menuEntries[last];
 		final MenuOpcode action = MenuOpcode.of(menuEntry.getOpcode());
-		final int widgetId = menuEntry.getWidgetId();
+		final int widgetId = menuEntry.getParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
 		// Tooltip action type handling
@@ -146,7 +146,7 @@ class ItemPricesOverlay extends Overlay
 			return null;
 		}
 
-		final int widgetId = menuEntry.getWidgetId();
+		final int widgetId = menuEntry.getParam1();
 		ItemContainer container = null;
 
 		// Inventory item
@@ -167,7 +167,7 @@ class ItemPricesOverlay extends Overlay
 
 		// Find the item in the container to get stack size
 		final Item[] items = container.getItems();
-		final int index = menuEntry.getActionParam();
+		final int index = menuEntry.getParam0();
 		if (index < items.length)
 		{
 			final Item item = items[index];

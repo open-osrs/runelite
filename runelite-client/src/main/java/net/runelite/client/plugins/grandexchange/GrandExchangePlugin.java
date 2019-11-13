@@ -435,7 +435,7 @@ public class GrandExchangePlugin extends Plugin
 			return;
 		}
 
-		final int widgetId = menuEntry.getWidgetId();
+		final int widgetId = menuEntry.getParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 
 		switch (groupId)

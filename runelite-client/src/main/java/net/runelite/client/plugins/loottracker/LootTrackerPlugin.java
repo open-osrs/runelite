@@ -982,7 +982,7 @@ public class LootTrackerPlugin extends Plugin
 
 	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getWidgetId() != WidgetInfo.INVENTORY.getId())
+		if (event.getParam1() != WidgetInfo.INVENTORY.getId())
 		{
 			return;
 		}

@@ -568,8 +568,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 				lastDesEntry.setTarget(entry.getTarget());
 				lastDesEntry.setIdentifier(entry.getIdentifier());
-				lastDesEntry.setActionParam(entry.getActionParam());
-				lastDesEntry.setWidgetId(entry.getWidgetId());
+				lastDesEntry.setParam0(entry.getParam0());
+				lastDesEntry.setParam1(entry.getParam1());
 
 				menu_entries.add(lastDesEntry);
 			}
@@ -744,7 +744,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private void onMenuOptionClicked(MenuOptionClicked entry)
 	{
 		if (entry.getOpcode() == MenuOpcode.WIDGET_DEFAULT.getId() &&
-			WidgetInfo.TO_GROUP(entry.getWidgetId()) == WidgetID.JEWELLERY_BOX_GROUP_ID)
+			WidgetInfo.TO_GROUP(entry.getParam1()) == WidgetID.JEWELLERY_BOX_GROUP_ID)
 		{
 			if (entry.getOption().equals(lastDes == null ? null : lastDes.getOption()))
 			{

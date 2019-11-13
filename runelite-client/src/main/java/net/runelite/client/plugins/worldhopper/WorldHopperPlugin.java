@@ -386,7 +386,7 @@ public class WorldHopperPlugin extends Plugin
 			return;
 		}
 
-		int groupId = WidgetInfo.TO_GROUP(event.getWidgetId());
+		int groupId = WidgetInfo.TO_GROUP(event.getParam1());
 		String option = event.getOption();
 
 		if (groupId == WidgetInfo.FRIENDS_LIST.getGroupId() || groupId == WidgetInfo.CLAN_CHAT.getGroupId())
@@ -429,8 +429,8 @@ public class WorldHopperPlugin extends Plugin
 			hopTo.setOption(HOP_TO);
 			hopTo.setTarget(event.getTarget());
 			hopTo.setOpcode(MenuOpcode.RUNELITE.getId());
-			hopTo.setActionParam(event.getActionParam());
-			hopTo.setWidgetId(event.getWidgetId());
+			hopTo.setParam0(event.getParam0());
+			hopTo.setParam1(event.getParam1());
 
 			insertMenuEntry(hopTo, client.getMenuEntries(), after);
 		}

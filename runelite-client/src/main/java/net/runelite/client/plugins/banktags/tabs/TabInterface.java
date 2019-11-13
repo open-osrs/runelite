@@ -557,12 +557,12 @@ public class TabInterface
 		}
 
 		if (activeTab != null
-			&& event.getWidgetId() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+			&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getOption().equals("Examine"))
 		{
 			insertMenuEntry(event, REMOVE_TAG + " (" + activeTab.getTag() + ")", event.getTarget());
 		}
-		else if (event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId()
+		else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId()
 			&& event.getOption().equals("Deposit inventory"))
 		{
 			insertMenuEntry(event, TAG_INVENTORY, event.getTarget());
@@ -572,7 +572,7 @@ public class TabInterface
 				insertMenuEntry(event, TAG_INVENTORY, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR));
 			}
 		}
-		else if (event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId()
+		else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId()
 			&& event.getOption().equals("Deposit worn items"))
 		{
 			insertMenuEntry(event, TAG_GEAR, event.getTarget());
@@ -614,7 +614,7 @@ public class TabInterface
 		{
 			if (event.getOption().startsWith(CHANGE_ICON + " ("))
 			{
-				ItemDefinition item = getItem(event.getActionParam());
+				ItemDefinition item = getItem(event.getParam0());
 				if (item != null)
 				{
 					int itemId = itemManager.canonicalize(item.getId());
@@ -645,13 +645,13 @@ public class TabInterface
 			activateTab(null);
 		}
 		else if (activeTab != null
-			&& event.getWidgetId() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+			&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getMenuOpcode() == MenuOpcode.RUNELITE
 			&& event.getOption().startsWith(REMOVE_TAG))
 		{
 			// Add "remove" menu entry to all items in bank while tab is selected
 			event.consume();
-			final ItemDefinition item = getItem(event.getActionParam());
+			final ItemDefinition item = getItem(event.getParam0());
 			final int itemId;
 			if (item != null)
 			{
@@ -661,10 +661,10 @@ public class TabInterface
 			}
 		}
 		else if (event.getMenuOpcode() == MenuOpcode.RUNELITE
-			&& ((event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId() && event.getOption().equals(TAG_INVENTORY))
-			|| (event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId() && event.getOption().equals(TAG_GEAR))))
+			&& ((event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId() && event.getOption().equals(TAG_INVENTORY))
+			|| (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId() && event.getOption().equals(TAG_GEAR))))
 		{
-			handleDeposit(event, event.getWidgetId() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId());
+			handleDeposit(event, event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId());
 		}
 	}
 
@@ -1081,8 +1081,8 @@ public class TabInterface
 			target,
 			MenuOpcode.RUNELITE.getId(),
 			event.getIdentifier(),
-			event.getActionParam(),
-			event.getWidgetId(),
+			event.getParam0(),
+			event.getParam1(),
 			false
 		);
 	}

@@ -277,7 +277,7 @@ public class DeathIndicatorPlugin extends Plugin
 			entry.setIdentifier(HIJACKED_ITEMID + idx);
 
 			Bone bone = bones.get(
-				WorldPoint.fromScene(client, entry.getActionParam(), entry.getWidgetId(), client.getPlane()),
+				WorldPoint.fromScene(client, entry.getParam0(), entry.getParam1(), client.getPlane()),
 				idx++
 			);
 
@@ -292,7 +292,7 @@ public class DeathIndicatorPlugin extends Plugin
 			&& event.getOpcode() == MenuOpcode.EXAMINE_ITEM_GROUND.getId())
 		{
 			Bone b = bones.get(
-				WorldPoint.fromScene(client, event.getActionParam(), event.getWidgetId(), client.getPlane()),
+				WorldPoint.fromScene(client, event.getParam0(), event.getParam1(), client.getPlane()),
 				event.getIdentifier() - HIJACKED_ITEMID
 			);
 

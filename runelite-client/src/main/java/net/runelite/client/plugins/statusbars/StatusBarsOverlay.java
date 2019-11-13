@@ -143,7 +143,7 @@ public class StatusBarsOverlay extends Overlay
 		final MenuEntry entry = menuSize > 0 ? menu[menuSize - 1] : null;
 		int restoreValue = 0;
 
-		if (entry != null && entry.getWidgetId() == WidgetInfo.INVENTORY.getId())
+		if (entry != null && entry.getParam1() == WidgetInfo.INVENTORY.getId())
 		{
 			final Effect change = itemStatService.getItemStatChanges(entry.getIdentifier());
 

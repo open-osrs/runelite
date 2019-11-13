@@ -38,7 +38,7 @@ public class GrimyHerbComparableEntry extends AbstractComparableEntry
 
 	public boolean matches(MenuEntry entry)
 	{
-		final int groupId = WidgetInfo.TO_GROUP(entry.getWidgetId());
+		final int groupId = WidgetInfo.TO_GROUP(entry.getParam1());
 
 		if (groupId != WidgetID.INVENTORY_GROUP_ID)
 		{

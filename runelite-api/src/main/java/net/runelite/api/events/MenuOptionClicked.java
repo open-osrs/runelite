@@ -45,15 +45,15 @@ import net.runelite.api.MenuEntry;
 @EqualsAndHashCode(callSuper = true)
 public class MenuOptionClicked extends MenuEntry implements Event
 {
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int actionParam, int widgetId, boolean forceLeftClick)
+	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
 	{
-		super(option, target, identifier, opcode, actionParam, widgetId, forceLeftClick);
+		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
 		authentic = true;
 	}
 
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int actionParam, int widgetId, boolean forceLeftClick, boolean authentic, int mouseButton)
+	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick, boolean authentic, int mouseButton)
 	{
-		super(option, target, identifier, opcode, actionParam, widgetId, forceLeftClick);
+		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
 		this.authentic = authentic;
 		this.mouseButton = mouseButton;
 	}
@@ -92,8 +92,8 @@ public class MenuOptionClicked extends MenuEntry implements Event
 		setTarget(e.getTarget());
 		setIdentifier(e.getIdentifier());
 		setOpcode(e.getOpcode());
-		setActionParam(e.getActionParam());
-		setWidgetId(e.getWidgetId());
+		setParam0(e.getParam0());
+		setParam1(e.getParam1());
 		setForceLeftClick(e.isForceLeftClick());
 	}
 }
