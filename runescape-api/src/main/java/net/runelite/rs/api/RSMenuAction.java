@@ -24,6 +24,22 @@
  */
 package net.runelite.rs.api;
 
+import net.runelite.mapping.Import;
+
 public interface RSMenuAction
 {
+	@Import("action")
+	void setOption(String yes);
+
+	@Import("opcode")
+	void setOpcode(int yes);
+
+	@Import("argument0")
+	void setIdentifier(int yes);
+
+	@Import("argument1")
+	void setArg1(int yes);
+
+	@Import("argument2")
+	void setArg2(int yes);
 }
