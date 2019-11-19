@@ -627,7 +627,10 @@ public class ScreenshotPlugin extends Plugin
 	 * @param fileName    Filename to use, without file extension.
 	 */
 	private void takeScreenshot(String fileName)
-	{
+	{			
+	
+		overlayRenderer.setShouldRender(true);
+
 
 		if (client.getGameState() == GameState.LOGIN_SCREEN)
 		{
@@ -635,10 +638,7 @@ public class ScreenshotPlugin extends Plugin
 			log.info("Login screenshot prevented");
 			return;
 		}
-		if (hideOverlays)
-		{
-			overlayRenderer.setShouldRender(true);
-		}
+		
 		Consumer<Image> imageCallback = (img) ->
 		{
 			// This callback is on the game thread, move to executor thread
@@ -795,10 +795,8 @@ public class ScreenshotPlugin extends Plugin
 		{
 			log.warn("error writing screenshot", ex);
 		}
-		if (hideOverlays)
-		{
-			overlayRenderer.setShouldRender(true);
-		}
+		overlayRenderer.setShouldRender(true);
+
 	}
 
 	/**
