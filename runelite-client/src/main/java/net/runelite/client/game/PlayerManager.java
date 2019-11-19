@@ -264,6 +264,21 @@ public class PlayerManager
 			return;
 		}
 
+		int magicAttack = 0,
+			magicDefence = 0,
+			magicStr = 0,
+			meleeAtkCrush = 0,
+			meleeAtkStab = 0,
+			meleeAtkSlash = 0,
+			meleeDefCrush = 0,
+			meleeDefStab = 0,
+			meleeDefSlash = 0,
+			meleeStr = 0,
+			rangeAttack = 0,
+			rangeDefence = 0,
+			rangeStr = 0,
+			speed = 0;
+
 		for (KitType kitType : KitType.values())
 		{
 			if (kitType.equals(KitType.RING) || kitType.equals(KitType.AMMUNITION))
@@ -287,16 +302,16 @@ public class PlayerManager
 					case ItemID.HEAVY_BALLISTA:
 					case ItemID.HEAVY_BALLISTA_23630:
 					case ItemID.LIGHT_BALLISTA:
-						player.setRangeStr(player.getRangeStr() + 150);
+						rangeStr += 150;
 						break;
 					case ItemID.MAPLE_LONGBOW:
 					case ItemID.MAPLE_SHORTBOW:
-						player.setRangeStr(player.getRangeStr() + 31);
+						rangeStr += 31;
 						break;
 					case ItemID.MAGIC_SHORTBOW:
 					case ItemID.MAGIC_SHORTBOW_20558:
 					case ItemID.MAGIC_SHORTBOW_I:
-						player.setRangeStr(player.getRangeStr() + 55);
+						rangeStr += +55;
 						break;
 					case ItemID.DARK_BOW:
 					case ItemID.DARK_BOW_12765:
@@ -304,16 +319,16 @@ public class PlayerManager
 					case ItemID.DARK_BOW_12767:
 					case ItemID.DARK_BOW_12768:
 					case ItemID.DARK_BOW_20408:
-						player.setRangeStr(player.getRangeStr() + 60);
+						rangeStr += +60;
 						break;
 					case ItemID.RUNE_CROSSBOW:
 					case ItemID.RUNE_CROSSBOW_23601:
-						player.setRangeStr(player.getRangeStr() + 117);
+						rangeStr += +117;
 						break;
 					case ItemID.DRAGON_CROSSBOW:
 					case ItemID.ARMADYL_CROSSBOW:
 					case ItemID.ARMADYL_CROSSBOW_23611:
-						player.setRangeStr(player.getRangeStr() + 122);
+						rangeStr += +122;
 						break;
 				}
 			}
@@ -329,22 +344,20 @@ public class PlayerManager
 
 			final ItemEquipmentStats stats = item.getEquipment();
 
-			player.setSpeed(player.getSpeed() + stats.getAspeed());
-			player.setMeleeAtkCrush(player.getMeleeAtkCrush() + stats.getAcrush());
-			player.setMeleeAtkStab(player.getMeleeAtkStab() + stats.getAstab());
-			player.setMeleeAtkSlash(player.getMeleeAtkSlash() + stats.getAslash());
-			player.setMeleeAttack(player.getMeleeAttack() + ((stats.getAcrush() + stats.getAslash() + stats.getAstab()) / 3));
-			player.setMeleeDefCrush(player.getMeleeDefCrush() + stats.getDcrush());
-			player.setMeleeDefStab(player.getMeleeDefStab() + stats.getDstab());
-			player.setMeleeDefSlash(player.getMeleeDefSlash() + stats.getDslash());
-			player.setMeleeDefence(player.getMeleeDefence() + ((stats.getDcrush() + stats.getDslash() + stats.getDstab()) / 3));
-			player.setMagicAttack(player.getMagicAttack() + stats.getAmagic());
-			player.setRangeAttack(player.getRangeAttack() + stats.getArange());
-			player.setMagicDefence(player.getMagicDefence() + stats.getDmagic());
-			player.setRangeDefence(player.getRangeDefence() + stats.getDrange());
-			player.setRangeStr(player.getRangeStr() + stats.getRstr());
-			player.setMeleeStr(player.getMeleeStr() + stats.getStr());
-			player.setMagicStr(player.getMagicStr() + stats.getMdmg());
+			speed += stats.getAspeed();
+			meleeAtkCrush += stats.getAcrush();
+			meleeAtkStab += stats.getAstab();
+			meleeAtkSlash += stats.getAslash();
+			meleeDefCrush += stats.getDcrush();
+			meleeDefStab += stats.getDstab();
+			meleeDefSlash += stats.getDslash();
+			magicAttack += stats.getAmagic();
+			rangeAttack += stats.getArange();
+			magicDefence += stats.getDmagic();
+			rangeDefence += stats.getDrange();
+			rangeStr += stats.getRstr();
+			meleeStr += stats.getStr();
+			magicStr += stats.getMdmg();
 
 			if (ItemReclaimCost.breaksOnDeath(id))
 			{
@@ -362,6 +375,25 @@ public class PlayerManager
 				prices.put(id, itemManager.getItemPrice(id, false));
 			}
 		}
+
+		player.setCombatStats(new CombatStats(
+			magicAttack,
+			magicDefence,
+			magicStr,
+			meleeAtkCrush,
+			meleeAtkSlash,
+			meleeAtkStab,
+			(meleeAtkCrush + meleeAtkSlash + meleeAtkStab) / 3,
+			meleeDefCrush,
+			(meleeDefCrush + meleeDefSlash + meleeDefStab) / 3,
+			meleeDefSlash,
+			meleeDefStab,
+			meleeStr,
+			rangeAttack,
+			rangeDefence,
+			rangeStr,
+			speed
+		));
 		updateGear(player, prices);
 		updateMeleeStyle(player);
 	}
@@ -382,11 +414,11 @@ public class PlayerManager
 
 		if (player.getPlayer().getSkullIcon() == null)
 		{
-			removeEntries(player.getRiskedGear(), player.getPrayer() <= 25 ? 3 : 4);
+			removeEntries(player.getRiskedGear(), player.getPrayerLevel() <= 25 ? 3 : 4);
 		}
 		else
 		{
-			removeEntries(player.getRiskedGear(), player.getPrayer() <= 25 ? 0 : 1);
+			removeEntries(player.getRiskedGear(), player.getPrayerLevel() <= 25 ? 0 : 1);
 		}
 
 		player.getRiskedGear().values().forEach(price -> player.setRisk(player.getRisk() + price));
@@ -395,15 +427,17 @@ public class PlayerManager
 
 	private void updateMeleeStyle(PlayerContainer player)
 	{
-		if (player.getMeleeAtkCrush() >= player.getMeleeAtkSlash() && player.getMeleeAtkCrush() >= player.getMeleeAtkStab())
+		final CombatStats stats = player.getCombatStats();
+
+		if (stats.getMeleeAtkCrush() >= stats.getMeleeAtkSlash() && stats.getMeleeAtkCrush() >= stats.getMeleeAtkStab())
 		{
 			player.setMeleeStyle(PlayerContainer.MeleeStyle.CRUSH);
 		}
-		else if (player.getMeleeAtkSlash() >= player.getMeleeAtkCrush() && player.getMeleeAtkSlash() >= player.getMeleeAtkStab())
+		else if (stats.getMeleeAtkSlash() >= stats.getMeleeAtkCrush() && stats.getMeleeAtkSlash() >= stats.getMeleeAtkStab())
 		{
 			player.setMeleeStyle(PlayerContainer.MeleeStyle.SLASH);
 		}
-		else if (player.getMeleeAtkStab() >= player.getMeleeAtkSlash() && player.getMeleeAtkStab() >= player.getMeleeAtkCrush())
+		else
 		{
 			player.setMeleeStyle(PlayerContainer.MeleeStyle.STAB);
 		}
@@ -436,15 +470,17 @@ public class PlayerManager
 			return;
 		}
 
-		if (player.getMagicStr() >= player.getRangeStr() && player.getMagicStr() >= player.getMeleeStr())
+		final CombatStats stats = player.getCombatStats();
+
+		if (stats.getMagicStr() >= stats.getRangeStr() && stats.getMagicStr() >= stats.getMeleeStr())
 		{
 			player.setAttackStyle(AttackStyle.MAGE);
 		}
-		else if (player.getRangeStr() >= player.getMagicStr() && player.getRangeStr() >= player.getMeleeStr())
+		else if (stats.getRangeStr() >= stats.getMagicStr() && stats.getRangeStr() >= stats.getMeleeStr())
 		{
 			player.setAttackStyle(AttackStyle.RANGE);
 		}
-		else if (player.getMeleeStr() >= player.getMagicStr() && player.getMeleeStr() >= player.getRangeStr())
+		else
 		{
 			player.setAttackStyle(AttackStyle.MELEE);
 		}
@@ -459,15 +495,17 @@ public class PlayerManager
 
 	private void updateWeakness(PlayerContainer player)
 	{
-		if (player.getMagicDefence() <= player.getRangeDefence() && player.getMagicDefence() <= player.getMeleeDefence())
+		final CombatStats stats = player.getCombatStats();
+
+		if (stats.getMagicDefence() <= stats.getRangeDefence() && stats.getMagicDefence() <= stats.getMeleeDefence())
 		{
 			player.setWeakness(AttackStyle.MAGE);
 		}
-		else if (player.getRangeDefence() <= player.getMagicDefence() && player.getRangeDefence() <= player.getMeleeDefence())
+		else if (stats.getRangeDefence() <= stats.getMagicDefence() && stats.getRangeDefence() <= stats.getMeleeDefence())
 		{
 			player.setWeakness(AttackStyle.RANGE);
 		}
-		else if (player.getMeleeDefence() <= player.getRangeDefence() && player.getMeleeDefence() <= player.getMagicDefence())
+		else
 		{
 			player.setWeakness(AttackStyle.MELEE);
 		}
