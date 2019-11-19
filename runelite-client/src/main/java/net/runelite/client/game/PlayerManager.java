@@ -159,6 +159,7 @@ public class PlayerManager
 		executorService.submit(() ->
 		{
 			player.setHttpRetry(true);
+			int timeout = 0;
 			HiscoreResult result;
 			do
 			{
@@ -168,7 +169,13 @@ public class PlayerManager
 				}
 				catch (IOException ex)
 				{
+					if (timeout == 10)
+					{
+						log.error("HiScore Lookup timed out on: {}", player.getName());
+						return;
+					}
 					result = null;
+					timeout++;
 					try
 					{
 						Thread.sleep(1000);
