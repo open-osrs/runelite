@@ -78,9 +78,6 @@ public class FpsPlugin extends Plugin
 	private EventBus eventBus;
 
 	@Getter(AccessLevel.PACKAGE)
-	private FpsLimitMode limitMode;
-
-	@Getter(AccessLevel.PACKAGE)
 	private boolean drawFps;
 
 	@Provides
@@ -95,7 +92,6 @@ public class FpsPlugin extends Plugin
 		{
 			drawListener.reloadConfig();
 
-			limitMode = fpsConfig.limitMode();
 			drawFps = fpsConfig.drawFps();
 		}
 	}
@@ -111,7 +107,6 @@ public class FpsPlugin extends Plugin
 	{
 		addSubscriptions();
 
-		limitMode = fpsConfig.limitMode();
 		drawFps = fpsConfig.drawFps();
 		overlayManager.add(overlay);
 		drawManager.registerEveryFrameListener(drawListener);

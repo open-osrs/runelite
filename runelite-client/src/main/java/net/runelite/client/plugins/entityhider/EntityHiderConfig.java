@@ -176,6 +176,17 @@ public interface EntityHiderConfig extends Config
 
 	@ConfigItem(
 		position = 13,
+		keyName = "hidePets",
+		name = "Hide Pets",
+		description = "Configures whether or not other player pets are hidden"
+	)
+	default boolean hidePets()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 14,
 		keyName = "hideNPCs",
 		name = "Hide NPCs",
 		description = "Configures whether or not NPCs are hidden",
@@ -187,7 +198,7 @@ public interface EntityHiderConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 14,
+		position = 15,
 		keyName = "hideNPCs2D",
 		name = "Hide NPCs 2D",
 		description = "Configures whether or not NPCs 2D elements are hidden",
@@ -199,7 +210,7 @@ public interface EntityHiderConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 15,
+		position = 16,
 		keyName = "hideNPCsNames",
 		name = "Hide NPCs Names",
 		description = "Configures which NPCs to hide",
@@ -211,7 +222,7 @@ public interface EntityHiderConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 16,
+		position = 17,
 		keyName = "hideDeadNPCs",
 		name = "Hide Dead NPCs",
 		description = "Configures whether or not NPCs that just died are hidden",
@@ -223,7 +234,7 @@ public interface EntityHiderConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 17,
+		position = 18,
 		keyName = "hideNPCsOnDeath",
 		name = "Hide NPCs On Death",
 		description = "Configures which NPCs to hide when they die",
@@ -238,7 +249,7 @@ public interface EntityHiderConfig extends Config
 		keyName = "miscTitle",
 		name = "Miscellaneous",
 		description = "",
-		position = 18
+		position = 19
 	)
 	default Title miscTitle()
 	{
@@ -246,7 +257,7 @@ public interface EntityHiderConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 19,
+		position = 20,
 		keyName = "hideProjectiles",
 		name = "Hide Projectiles",
 		description = "Configures whether or not projectiles are hidden",
