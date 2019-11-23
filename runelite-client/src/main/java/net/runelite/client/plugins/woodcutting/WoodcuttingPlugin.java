@@ -52,7 +52,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.game.ItemManager;
@@ -96,9 +96,6 @@ public class WoodcuttingPlugin extends Plugin
 	@Inject
 	private ItemManager itemManager;
 
-	@Inject
-	private EventBus eventBus;
-
 	@Getter(AccessLevel.PACKAGE)
 	private WoodcuttingSession session;
 
@@ -137,7 +134,6 @@ public class WoodcuttingPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		updateConfig();
-		addSubscriptions();
 
 		overlayManager.add(overlay);
 		overlayManager.add(treesOverlay);
@@ -146,8 +142,6 @@ public class WoodcuttingPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 		overlayManager.remove(treesOverlay);
 		respawns.clear();
@@ -156,19 +150,7 @@ public class WoodcuttingPlugin extends Plugin
 		axe = null;
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
-		eventBus.subscribe(GameObjectSpawned.class, this, this::onGameObjectSpawned);
-		eventBus.subscribe(GameObjectDespawned.class, this, this::onGameObjectDespawned);
-		eventBus.subscribe(GameObjectChanged.class, this, this::onGameObjectChanged);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
-		eventBus.subscribe(OverlayMenuClicked.class, this, this::onOverlayMenuClicked);
-	}
-
+	@Subscribe
 	private void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked)
 	{
 		OverlayMenuEntry overlayMenuEntry = overlayMenuClicked.getEntry();
@@ -180,6 +162,7 @@ public class WoodcuttingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameTick(GameTick gameTick)
 	{
 		recentlyLoggedIn = false;
@@ -201,6 +184,7 @@ public class WoodcuttingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	void onChatMessage(ChatMessage event)
 	{
 		if (event.getType() == ChatMessageType.SPAM || event.getType() == ChatMessageType.GAMEMESSAGE)
@@ -270,6 +254,7 @@ public class WoodcuttingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameObjectSpawned(final GameObjectSpawned event)
 	{
 		GameObject gameObject = event.getGameObject();
@@ -281,6 +266,7 @@ public class WoodcuttingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameObjectDespawned(final GameObjectDespawned event)
 	{
 		final GameObject object = event.getGameObject();
@@ -302,11 +288,13 @@ public class WoodcuttingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameObjectChanged(final GameObjectChanged event)
 	{
 		treeObjects.remove(event.getGameObject());
 	}
 
+	@Subscribe
 	private void onGameStateChanged(final GameStateChanged event)
 	{
 		switch (event.getGameState())
@@ -325,6 +313,7 @@ public class WoodcuttingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onAnimationChanged(final AnimationChanged event)
 	{
 		Player local = client.getLocalPlayer();
@@ -342,6 +331,7 @@ public class WoodcuttingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("woodcutting"))
