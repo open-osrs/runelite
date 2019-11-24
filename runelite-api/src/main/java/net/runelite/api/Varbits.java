@@ -73,6 +73,13 @@ public enum Varbits
 	RUNE_POUCH_AMOUNT3(1626),
 
 	/**
+	 * Runestone
+	 */
+
+	RUNESTONE_NORTH_DEPLETED(4927),
+	RUNESTONE_SOUTH_DEPLETED(4928),
+
+	/**
 	 * Prayers
 	 */
 	QUICK_PRAYER(4103),
