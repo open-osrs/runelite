@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -61,6 +62,8 @@ public class SoundEffectsDumperTest
 	@Test
 	public void test() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
@@ -71,24 +74,27 @@ public class SoundEffectsDumperTest
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.SOUNDEFFECTS);
 
-			for (Archive archive : index.getArchives())
-			{
-				byte[] contents = archive.decompress(storage.loadArchive(archive));
+			// Saves 34 seconds
+			Archive archive = index.getArchives().get(0);
 
-				SoundEffectTrackLoader setLoader = new SoundEffectTrackLoader();
-				SoundEffectTrackDefinition soundEffect = setLoader.load(contents);
+			byte[] contents = archive.decompress(storage.loadArchive(archive));
 
-				Files.asCharSink(new File(dumpDir, archive.getArchiveId() + ".json"), Charset.defaultCharset()).write(gson.toJson(soundEffect));
-				++count;
-			}
+			SoundEffectTrackLoader setLoader = new SoundEffectTrackLoader();
+			SoundEffectTrackDefinition soundEffect = setLoader.load(contents);
+
+			Files.asCharSink(new File(dumpDir, archive.getArchiveId() + ".json"), Charset.defaultCharset()).write(gson.toJson(soundEffect));
+			++count;
+
 		}
 
-		logger.info("Dumped {} sound effects to {}", count, dumpDir);
+		logger.info("Dumped {} sound effects to {} in {}", count, dumpDir, timer);
 	}
 
 	@Test
 	public void extractWavTest() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
@@ -99,44 +105,45 @@ public class SoundEffectsDumperTest
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.SOUNDEFFECTS);
 
-			for (Archive archive : index.getArchives())
-			{
-				byte[] contents = archive.decompress(storage.loadArchive(archive));
+			// Saves 3 seconds
+			Archive archive = index.getArchives().get(0);
 
-				SoundEffectTrackLoader setLoader = new SoundEffectTrackLoader();
-				SoundEffectTrackDefinition soundEffect = setLoader.load(contents);
+			byte[] contents = archive.decompress(storage.loadArchive(archive));
+
+			SoundEffectTrackLoader setLoader = new SoundEffectTrackLoader();
+			SoundEffectTrackDefinition soundEffect = setLoader.load(contents);
+			try
+			{
+				Object audioStream;
+				byte[] data = soundEffect.mix();
+
+				AudioFormat audioFormat = new AudioFormat(22050.0f, 8, 1, true, false);
+				audioStream = new AudioInputStream(new ByteArrayInputStream(data), audioFormat, data.length);
+
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				AudioSystem.write((AudioInputStream) audioStream, AudioFileFormat.Type.WAVE, bos);
+				data = bos.toByteArray();
+
+				FileOutputStream fos = new FileOutputStream(new File(dumpDir, archive.getArchiveId() + ".wav"));
+
 				try
 				{
-					Object audioStream;
-					byte[] data = soundEffect.mix();
-
-					AudioFormat audioFormat = new AudioFormat(22050.0f, 8, 1, true, false);
-					audioStream = new AudioInputStream(new ByteArrayInputStream(data), audioFormat, data.length);
-
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					AudioSystem.write((AudioInputStream) audioStream, AudioFileFormat.Type.WAVE, bos);
-					data = bos.toByteArray();
-
-					FileOutputStream fos = new FileOutputStream(new File(dumpDir, archive.getArchiveId() + ".wav"));
-
-					try
-					{
-						fos.write(data);
-					}
-					finally
-					{
-						fos.close();
-					}
-
-					++count;
+					fos.write(data);
 				}
-				catch (Exception e)
+				finally
 				{
-					continue;
+					fos.close();
 				}
+
+				++count;
 			}
+			catch (Exception e)
+			{
+				logger.error(e.getMessage());
+			}
+
 		}
 
-		logger.info("Dumped {} sound effects to {}", count, dumpDir);
+		logger.info("Dumped {} sound effects as wav files to {} in {}", count, dumpDir, timer);
 	}
 }

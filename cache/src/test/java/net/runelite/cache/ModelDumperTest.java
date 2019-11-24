@@ -25,6 +25,7 @@
 
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
@@ -49,6 +50,8 @@ public class ModelDumperTest
 	@Test
 	public void test() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File modelDir = folder.newFolder("models");
 		int count = 0;
 
@@ -59,7 +62,9 @@ public class ModelDumperTest
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.MODELS);
 
-			for (Archive archive : index.getArchives())
+
+			// saves ~15 mins
+			Archive archive = index.getArchives().get(0);
 			{
 				byte[] contents = archive.decompress(storage.loadArchive(archive));
 
@@ -71,6 +76,6 @@ public class ModelDumperTest
 			}
 		}
 
-		logger.info("Dumped {} models to {}", count, modelDir);
+		logger.info("Dumped {} models to {} in {}", count, modelDir, timer);
 	}
 }

@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,15 +46,14 @@ import org.slf4j.LoggerFactory;
 public class FramemapDumper
 {
 	private static final Logger logger = LoggerFactory.getLogger(FramemapDumper.class);
-
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
-
-	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
 	public void extract() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
 		File base = StoreLocation.LOCATION,
 			outDir = folder.newFolder();
 
@@ -66,19 +66,20 @@ public class FramemapDumper
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.FRAMEMAPS);
 
-			for (Archive archive : index.getArchives())
-			{
-				byte[] archiveData = storage.loadArchive(archive);
-				byte[] contents = archive.decompress(archiveData);
+			// Saves 15 seconds
+			Archive archive = index.getArchives().get(0);
 
-				FramemapLoader loader = new FramemapLoader();
-				FramemapDefinition framemap = loader.load(0, contents);
+			byte[] archiveData = storage.loadArchive(archive);
+			byte[] contents = archive.decompress(archiveData);
 
-				Files.asCharSink(new File(outDir, archive.getArchiveId() + ".json"), Charset.defaultCharset()).write(gson.toJson(framemap));
-				++count;
-			}
+			FramemapLoader loader = new FramemapLoader();
+			FramemapDefinition framemap = loader.load(0, contents);
+
+			Files.asCharSink(new File(outDir, archive.getArchiveId() + ".json"), Charset.defaultCharset()).write(gson.toJson(framemap));
+			++count;
+
 		}
 
-		logger.info("Dumped {} framemaps to {}", count, outDir);
+		logger.info("Dumped {} framemaps to {} in {}", count, outDir, timer);
 	}
 }

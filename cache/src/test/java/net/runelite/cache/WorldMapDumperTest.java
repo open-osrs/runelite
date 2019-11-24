@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,6 +57,8 @@ public class WorldMapDumperTest
 	@Test
 	public void extract() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File base = StoreLocation.LOCATION,
 			outDir = folder.newFolder();
 
@@ -82,6 +85,6 @@ public class WorldMapDumperTest
 			}
 		}
 
-		logger.info("Dumped {} world map data to {}", count, outDir);
+		logger.info("Dumped {} world map data to {} in {}", count, outDir, timer);
 	}
 }

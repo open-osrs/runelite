@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,15 +42,14 @@ import org.slf4j.LoggerFactory;
 public class AreaDumper
 {
 	private static final Logger logger = LoggerFactory.getLogger(AreaDumper.class);
-
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
-
-	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
 	public void extract() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
 		File base = StoreLocation.LOCATION,
 			outDir = folder.newFolder();
 
@@ -62,13 +62,14 @@ public class AreaDumper
 			AreaManager areaManager = new AreaManager(store);
 			areaManager.load();
 
-			for (AreaDefinition area : areaManager.getAreas())
-			{
-				Files.asCharSink(new File(outDir, area.id + ".json"),  Charset.defaultCharset()).write(gson.toJson(area));
-				++count;
-			}
+			// saves 6 seconds
+			AreaDefinition area = areaManager.getArea(0);
+
+			Files.asCharSink(new File(outDir, area.id + ".json"), Charset.defaultCharset()).write(gson.toJson(area));
+			++count;
+
 		}
 
-		logger.info("Dumped {} areas to {}", count, outDir);
+		logger.info("Dumped {} areas to {} in {}", count, outDir, timer);
 	}
 }

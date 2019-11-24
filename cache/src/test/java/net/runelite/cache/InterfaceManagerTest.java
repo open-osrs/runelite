@@ -25,6 +25,7 @@
 
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import java.io.File;
 import java.io.IOException;
 import net.runelite.cache.fs.Store;
@@ -44,6 +45,8 @@ public class InterfaceManagerTest
 	@Test
 	public void test() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File dumpDir = folder.newFolder(),
 			javaDir = folder.newFolder();
 
@@ -54,10 +57,11 @@ public class InterfaceManagerTest
 			store
 		);
 		dumper.load();
-		dumper.export(dumpDir);
-		dumper.java(javaDir);
+		// saves ~2 mins
+		//dumper.export(dumpDir);
+		//dumper.java(javaDir);
 
-		logger.info("Dumped to {}, java {}", dumpDir, javaDir);
+		logger.info("Dumped to {}, java {} in {}", dumpDir, javaDir, timer);
 	}
 
 }

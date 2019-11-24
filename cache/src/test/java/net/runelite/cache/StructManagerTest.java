@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,6 +52,8 @@ public class StructManagerTest
 	@Test
 	public void test() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
@@ -69,6 +72,6 @@ public class StructManagerTest
 			}
 		}
 
-		logger.info("Dumped {} structs to {}", count, dumpDir);
+		logger.info("Dumped {} structs to {} in {}", count, dumpDir, timer);
 	}
 }

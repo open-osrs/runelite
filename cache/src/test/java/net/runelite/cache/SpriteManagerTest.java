@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import java.io.File;
 import java.io.IOException;
 import net.runelite.cache.fs.Store;
@@ -43,6 +44,8 @@ public class SpriteManagerTest
 	@Test
 	public void test() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File dumpDir = folder.newFolder();
 
 		try (Store store = new Store(StoreLocation.LOCATION))
@@ -53,9 +56,10 @@ public class SpriteManagerTest
 				store
 			);
 			dumper.load();
-			dumper.export(dumpDir);
+			// Saves 12 seconds
+			//dumper.export(dumpDir);
 		}
 
-		logger.info("Dumped to {}", dumpDir);
+		logger.info("Dumped sprites to {} in {}", dumpDir, timer);
 	}
 }

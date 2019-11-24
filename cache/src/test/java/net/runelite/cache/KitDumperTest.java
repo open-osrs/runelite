@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,6 +57,8 @@ public class KitDumperTest
 	@Test
 	public void test() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
@@ -72,7 +75,8 @@ public class KitDumperTest
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
-			for (FSFile file : files.getFiles())
+			// Saves 1 second
+			FSFile file = files.getFiles().get(0);
 			{
 				byte[] b = file.getContents();
 
@@ -83,6 +87,6 @@ public class KitDumperTest
 			}
 		}
 
-		logger.info("Dumped {} kits to {}", count, dumpDir);
+		logger.info("Dumped {} kits to {} in {}", count, dumpDir, timer);
 	}
 }

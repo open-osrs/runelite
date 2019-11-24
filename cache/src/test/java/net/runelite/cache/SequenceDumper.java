@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,15 +48,15 @@ import org.slf4j.LoggerFactory;
 public class SequenceDumper
 {
 	private static final Logger logger = LoggerFactory.getLogger(SequenceDumper.class);
-
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
-
-	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
 	public void extract() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File base = StoreLocation.LOCATION,
 			outDir = folder.newFolder();
 
@@ -63,6 +64,7 @@ public class SequenceDumper
 
 		try (Store store = new Store(base))
 		{
+
 			store.load();
 
 			Storage storage = store.getStorage();
@@ -71,17 +73,17 @@ public class SequenceDumper
 
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
+			// saves 1 minute
+			FSFile file = files.getFiles().get(0);
 
-			for (FSFile file : files.getFiles())
-			{
-				SequenceLoader loader = new SequenceLoader();
-				SequenceDefinition seq = loader.load(file.getFileId(), file.getContents());
+			SequenceLoader loader = new SequenceLoader();
+			SequenceDefinition seq = loader.load(file.getFileId(), file.getContents());
 
-				Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(seq));
-				++count;
-			}
+			Files.asCharSink(new File(outDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(seq));
+			++count;
+
 		}
 
-		logger.info("Dumped {} sequences to {}", count, outDir);
+		logger.info("Dumped {} sequences to {} in {}", count, outDir, timer);
 	}
 }

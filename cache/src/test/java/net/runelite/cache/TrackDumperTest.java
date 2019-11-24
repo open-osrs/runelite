@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,6 +57,8 @@ public class TrackDumperTest
 	@Test
 	public void test() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File dumpDir1 = folder.newFolder(),
 			dumpDir2 = folder.newFolder();
 		int idx1 = 0, idx2 = 0;
@@ -83,7 +86,8 @@ public class TrackDumperTest
 			}
 		}
 
-		logger.info("Dumped {} sound tracks ({} idx1, {} idx2) to {} and {}", idx1 + idx2, idx1, idx2, dumpDir1, dumpDir2);
+		logger.info("Dumped {} sound tracks ({} idx1, {} idx2) to {} and {} in {}", idx1 + idx2, idx1, idx2, dumpDir1,
+			dumpDir2, timer);
 	}
 
 	private void dumpTrackArchive(File dumpDir, Storage storage, Archive archive) throws IOException

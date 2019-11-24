@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,6 +48,8 @@ public class TitleDumper
 	@Test
 	public void extract() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File base = StoreLocation.LOCATION;
 		File outFile = folder.newFile();
 
@@ -62,6 +65,6 @@ public class TitleDumper
 			Files.write(outFile.toPath(), contents);
 		}
 
-		logger.info("Dumped to {}", outFile);
+		logger.info("Dumped titles to {} in {}", outFile, timer);
 	}
 }

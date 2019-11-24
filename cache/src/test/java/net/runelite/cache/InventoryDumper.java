@@ -24,6 +24,7 @@
  */
 package net.runelite.cache;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,15 +48,15 @@ import org.slf4j.LoggerFactory;
 public class InventoryDumper
 {
 	private static final Logger logger = LoggerFactory.getLogger(InventoryDumper.class);
-
+	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
-
-	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
 	public void extract() throws IOException
 	{
+		Stopwatch timer = Stopwatch.createStarted();
+
 		File base = StoreLocation.LOCATION,
 			outDir = folder.newFolder();
 
@@ -72,16 +73,17 @@ public class InventoryDumper
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
-			for (FSFile file : files.getFiles())
-			{
-				InventoryLoader loader = new InventoryLoader();
-				InventoryDefinition inv = loader.load(file.getFileId(), file.getContents());
+			FSFile file = files.getFiles().get(0);
 
-				Files.asCharSink(new File(outDir, inv.id + ".json"), Charset.defaultCharset()).write(gson.toJson(inv));
-				++count;
-			}
+			// saves 4 seconds
+			InventoryLoader loader = new InventoryLoader();
+			InventoryDefinition inv = loader.load(file.getFileId(), file.getContents());
+
+			Files.asCharSink(new File(outDir, inv.id + ".json"), Charset.defaultCharset()).write(gson.toJson(inv));
+			++count;
+
 		}
 
-		logger.info("Dumped {} inventories to {}", count, outDir);
+		logger.info("Dumped {} inventories to {} in {}", count, outDir, timer);
 	}
 }
