@@ -41,7 +41,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Point;
-import static net.runelite.api.ScriptID.MAGIC_SPELLBOOK_REDRAW;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.GameStateChanged;
@@ -52,16 +51,11 @@ import net.runelite.api.util.Text;
 import net.runelite.api.vars.InterfaceTab;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
+import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK;
 import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTERED_BOUNDS;
-import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTERED_SPELLS_PARENT;
-import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTER_BUTTON;
-import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTER_BUTTONS_PARENT;
-import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTER_BUTTON_PARENT;
-import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTER_SECTION_PARENT;
-import static net.runelite.api.widgets.WidgetInfo.SPELL_TOOLTIP;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.menus.MenuManager;
@@ -123,9 +117,6 @@ public class SpellbookPlugin extends Plugin
 	@Inject
 	private SpellbookDragOverlay overlay;
 
-	@Inject
-	private EventBus eventBus;
-
 	@Getter
 	private boolean dragging;
 
@@ -152,7 +143,6 @@ public class SpellbookPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		addSubscriptions();
 		updateConfig();
 		refreshMagicTabOption();
 	}
@@ -160,7 +150,6 @@ public class SpellbookPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
-		eventBus.unregister(this);
 		clearMagicTabMenus();
 		saveSpells();
 		config.canDrag(false);
@@ -168,16 +157,7 @@ public class SpellbookPlugin extends Plugin
 		mouseManager.unregisterMouseWheelListener(mouseListener);
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(VarClientIntChanged.class, this, this::onVarCIntChanged);
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventBus.subscribe(WidgetMenuOptionClicked.class, this, this::onWidgetMenuOptionClicked);
-		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
-	}
-
-	private void updateConfig()
+private void updateConfig()
 	{
 		loadFilter();
 		this.enableMobile = config.enableMobile();
@@ -186,6 +166,7 @@ public class SpellbookPlugin extends Plugin
 		this.size = config.size();
 	}
 
+	@Subscribe
 	private void onConfigChanged(final ConfigChanged event)
 	{
 		if (!"spellbook".equals(event.getGroup()))
@@ -225,6 +206,7 @@ public class SpellbookPlugin extends Plugin
 		loadSpells();
 	}
 
+	@Subscribe
 	private void onGameStateChanged(final GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
@@ -234,6 +216,7 @@ public class SpellbookPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onVarCIntChanged(final VarClientIntChanged event)
 	{
 		if (event.getIndex() != VarClientInt.INTERFACE_TAB.getIndex())
@@ -264,6 +247,7 @@ public class SpellbookPlugin extends Plugin
 		config.canDrag(false);
 	}
 
+	@Subscribe
 	private void onWidgetMenuOptionClicked(final WidgetMenuOptionClicked event)
 	{
 		if (event.getWidget() != WidgetInfo.FIXED_VIEWPORT_MAGIC_TAB
@@ -335,6 +319,7 @@ public class SpellbookPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onScriptCallbackEvent(final ScriptCallbackEvent event)
 	{
 		if (client.getVar(Varbits.FILTER_SPELLBOOK) != 0
@@ -485,10 +470,7 @@ public class SpellbookPlugin extends Plugin
 			return;
 		}
 
-		// CHECKSTYLE:OFF
-		final Collection<Spell> gson = GSON.fromJson(cfg, new TypeToken<List<Spell>>()  {}
-		.getType());
-		// CHECKSTYLE:ON
+		final Collection<Spell> gson = GSON.fromJson(cfg, new TypeToken<List<Spell>>()  {}.getType());
 
 		for (final Spell s : gson)
 		{
@@ -517,23 +499,17 @@ public class SpellbookPlugin extends Plugin
 		// The magic numbers probably are mobile specific widgetids
 		// openosrs mobile when?
 		clientThread.invoke(() ->
-			client.runScript(
-				MAGIC_SPELLBOOK_REDRAW,
-				SPELLBOOK_FILTERED_BOUNDS.getId(),
-				0x00da00b3,
-				SPELL_TOOLTIP.getId(),
-				SPELLBOOK_FILTERED_SPELLS_PARENT.getId(),
-				SPELLBOOK_FILTER_BUTTON_PARENT.getId(),
-				0x00da00ba,
-				SPELLBOOK_FILTER_BUTTON.getId(),
-				0x00da0002,
-				SPELLBOOK_FILTER_SECTION_PARENT.getId(),
-				SPELLBOOK_FILTER_BUTTONS_PARENT.getId(),
-				"Info",
-				"Filters",
-				false
-			)
-		);
+		{
+			final Widget spellWidget = client.getWidget(SPELLBOOK);
+			if (spellWidget != null)
+			{
+				final Object[] args = spellWidget.getOnInvTransmit();
+				if (args != null)
+				{
+					client.runScript(args);
+				}
+			}
+		});
 	}
 
 	boolean isNotOnSpellWidget()
