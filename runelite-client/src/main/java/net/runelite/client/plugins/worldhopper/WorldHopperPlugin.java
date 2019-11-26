@@ -518,24 +518,46 @@ public class WorldHopperPlugin extends Plugin
 
 	private void fetchWorlds()
 	{
-		log.debug("Fetching worlds");
-
 		worldClient.lookupWorlds()
-			.subscribeOn(Schedulers.io())
-			.take(1)
-			.subscribe(
+				.subscribeOn(Schedulers.io())
+				.take(1)
+				.subscribe(
 				(worldResult) ->
-				{
-					if (worldResult != null)
-					{
-						worldResult.getWorlds().sort(Comparator.comparingInt(World::getId));
-						this.worldResult = worldResult;
-						this.lastFetch = Instant.now();
-						updateList();
-					}
-				},
-				(ex) -> log.warn("Error looking up worlds", ex)
-			);
+						{
+							if (worldResult != null)
+							{
+								log.debug("Fetching worlds Locally");
+								worldResult.getWorlds().sort(Comparator.comparingInt(World::getId));
+								this.worldResult = worldResult;
+								this.lastFetch = Instant.now();
+								updateList();
+							}
+						},
+						(ex) ->
+						{
+							log.debug("Error looking up worlds");
+							if (config.fallBackRuneLite())
+							{
+								worldClient.lookupWorldsRunelite()
+										.subscribeOn(Schedulers.io())
+										.take(1)
+										.subscribe(
+												(worldResult) ->
+												{
+													if (worldResult != null)
+													{
+														log.debug("Fetching worlds from RuneLite");
+														worldResult.getWorlds().sort(Comparator.comparingInt(World::getId));
+														this.worldResult = worldResult;
+														this.lastFetch = Instant.now();
+														updateList();
+													}
+												},
+												(exr) -> log.debug("Error looking up worlds from RuneLite", exr)
+										);
+							}
+						}
+				);
 	}
 
 	/**

@@ -59,6 +59,7 @@ public class RuneLiteAPI
 	public static final Gson GSON = new Gson();
 	public static final MediaType JSON = MediaType.parse("application/json");
 	public static String userAgent;
+	public static final String RUNELITE_WORLDS = getApiBase() + "/worlds.js";
 
 	private static final String BASE = "https://api.runelite.net";
 	private static final String WSBASE = "https://api.runelite.net/ws";
