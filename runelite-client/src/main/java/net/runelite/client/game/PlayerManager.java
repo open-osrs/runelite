@@ -199,7 +199,6 @@ public class PlayerManager
 
 	private void onAppearenceChanged(PlayerAppearanceChanged event)
 	{
-		log.info("|{}| Appearance Changed", event.getPlayer().getName());
 		final PlayerContainer player = playerMap.get(event.getPlayer().getName());
 
 		if (player == null)
