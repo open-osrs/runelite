@@ -54,7 +54,7 @@ class GrandExchangeItemPanel extends JPanel
 {
 	private static final Dimension ICON_SIZE = new Dimension(32, 32);
 
-	GrandExchangeItemPanel(AsyncBufferedImage icon, String name, int itemID, int gePrice, int
+	GrandExchangeItemPanel(AsyncBufferedImage icon, String name, int itemID, int gePrice, int osbPrice, int
 		haPrice, int geItemLimit)
 	{
 		BorderLayout layout = new BorderLayout();
@@ -110,7 +110,7 @@ class GrandExchangeItemPanel extends JPanel
 		add(itemIcon, BorderLayout.LINE_START);
 
 		// Item details panel
-		JPanel rightPanel = new JPanel(new GridLayout(3, 1));
+		JPanel rightPanel = new JPanel(new GridLayout(4, 1));
 		panels.add(rightPanel);
 		rightPanel.setBackground(background);
 
@@ -134,6 +134,19 @@ class GrandExchangeItemPanel extends JPanel
 		}
 		gePriceLabel.setForeground(ColorScheme.GRAND_EXCHANGE_PRICE);
 		rightPanel.add(gePriceLabel);
+
+		// OSB Price
+		JLabel osbPricelabel = new JLabel();
+		if (osbPrice > 0)
+		{
+			osbPricelabel.setText("OSB Price: " + QuantityFormatter.formatNumber(osbPrice) + " gp");
+		}
+		else
+		{
+			osbPricelabel.setText("N/A");
+		}
+		osbPricelabel.setForeground(ColorScheme.GRAND_EXCHANGE_PRICE);
+		rightPanel.add(osbPricelabel);
 
 		JPanel alchAndLimitPanel = new JPanel(new BorderLayout());
 		panels.add(alchAndLimitPanel);
