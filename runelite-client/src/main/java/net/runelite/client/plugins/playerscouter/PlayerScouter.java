@@ -44,6 +44,7 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.PlayerContainer;
@@ -75,6 +76,7 @@ public class PlayerScouter extends Plugin
 	private static final DiscordClient DISCORD_CLIENT = new DiscordClient();
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("MMM dd h:mm a z");
 	private static final String ICON_URL = "https://www.osrsbox.com/osrsbox-db/items-icons/"; // Add item id + ".png"
+
 	@Inject
 	private Client client;
 	@Inject
@@ -82,9 +84,8 @@ public class PlayerScouter extends Plugin
 	@Inject
 	private PlayerScouterConfig config;
 	@Inject
-	private EventBus eventBus;
-	@Inject
 	private PlayerManager playerManager;
+
 	private final Map<String, Integer> blacklist = new HashMap<>();
 	private HttpUrl webhook;
 	private int minimumRisk;
@@ -107,7 +108,6 @@ public class PlayerScouter extends Plugin
 	protected void startUp()
 	{
 		blacklist.clear();
-		addSubscriptions();
 		updateConfig();
 	}
 
@@ -115,16 +115,9 @@ public class PlayerScouter extends Plugin
 	protected void shutDown()
 	{
 		blacklist.clear();
-		eventBus.unregister(this);
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-	}
-
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("playerscouter"))
@@ -135,6 +128,7 @@ public class PlayerScouter extends Plugin
 		updateConfig();
 	}
 
+	@Subscribe
 	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
@@ -145,6 +139,7 @@ public class PlayerScouter extends Plugin
 		blacklist.clear();
 	}
 
+	@Subscribe
 	private void onGameTick(GameTick event)
 	{
 		resetBlacklist();

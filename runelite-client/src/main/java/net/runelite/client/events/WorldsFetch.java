@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Matthew Steglinski <https://github.com/sainttx>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,17 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.client.events;
+
+import lombok.Value;
+import net.runelite.api.events.Event;
+import net.runelite.http.api.worlds.WorldResult;
 
 /**
- * An event when the local player dies.
+ * Fired when the @{link net.runelite.client.game.WorldService} refreshes the world list
  */
-public class LocalPlayerDeath implements Event
+@Value
+public class WorldsFetch implements Event
 {
-	public static final LocalPlayerDeath INSTANCE = new LocalPlayerDeath();
-
-	private LocalPlayerDeath()
-	{
-		// noop
-	}
+	private final WorldResult worldResult;
 }

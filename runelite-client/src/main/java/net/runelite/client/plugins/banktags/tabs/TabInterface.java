@@ -56,8 +56,8 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.Point;
 import net.runelite.api.ScriptEvent;
 import net.runelite.api.ScriptID;
@@ -68,6 +68,7 @@ import net.runelite.api.VarClientStr;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.util.Text;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.ItemQuantityMode;
 import net.runelite.api.widgets.JavaScriptCallback;
@@ -90,7 +91,6 @@ import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.NewTab;
 import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.Tab;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.api.util.Text;
 
 @Singleton
 public class TabInterface
@@ -131,7 +131,7 @@ public class TabInterface
 	private final Rectangle bounds = new Rectangle();
 	private final Rectangle canvasBounds = new Rectangle();
 
-	private ChatboxItemSearch searchProvider;
+	private final ChatboxItemSearch searchProvider;
 	private TagTab activeTab;
 	private int maxTabs;
 	private int currentTabIndex;
@@ -302,7 +302,7 @@ public class TabInterface
 
 					final Iterator<String> dataIter = Text.fromCSV(dataString).iterator();
 					String name = dataIter.next();
-					StringBuffer sb = new StringBuffer();
+					StringBuilder sb = new StringBuilder();
 					for (char c : name.toCharArray())
 					{
 						if (FILTERED_CHARS.test(c))
@@ -324,7 +324,7 @@ public class TabInterface
 
 					while (dataIter.hasNext())
 					{
-						final int itemId = Integer.valueOf(dataIter.next());
+						final int itemId = Integer.parseInt(dataIter.next());
 						tagManager.addTag(itemId, name, itemId < 0);
 					}
 
@@ -600,10 +600,10 @@ public class TabInterface
 		}
 
 		if ((event.getIdentifier() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
-				|| event.getIdentifier() == WidgetInfo.BANK_INVENTORY_ITEMS_CONTAINER.getId())
+			|| event.getIdentifier() == WidgetInfo.BANK_INVENTORY_ITEMS_CONTAINER.getId())
 			&& event.getMenuOpcode() == MenuOpcode.EXAMINE_ITEM_BANK_EQ
 			&& (event.getOption().equalsIgnoreCase("withdraw-x")
-				|| event.getOption().equalsIgnoreCase("deposit-x")))
+			|| event.getOption().equalsIgnoreCase("deposit-x")))
 		{
 			waitSearchTick = true;
 			rememberedSearch = client.getVar(VarClientStr.INPUT_TEXT);

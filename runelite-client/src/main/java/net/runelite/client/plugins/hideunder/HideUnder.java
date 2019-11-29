@@ -52,28 +52,21 @@ public class HideUnder extends Plugin
 	@Inject
 	private Client client;
 	@Inject
-	private EventBus eventBus;
-	@Inject
 	private PlayerManager playerManager;
+
 
 	@Override
 	protected void startUp()
 	{
-		addSubscriptions();
 	}
 
 	@Override
 	protected void shutDown()
 	{
-		eventBus.unregister(this);
+
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-	}
-
+	@Subscribe
 	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
@@ -82,6 +75,7 @@ public class HideUnder extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameTick(GameTick event)
 	{
 		if (client.getLocalPlayer() == null)

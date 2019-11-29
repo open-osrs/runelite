@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.equipmentinspector;
 
-
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
@@ -48,7 +47,7 @@ import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.PlayerContainer;
@@ -88,8 +87,6 @@ public class EquipmentInspectorPlugin extends Plugin
 	@Inject
 	private ClientToolbar pluginToolbar;
 	@Inject
-	private EventBus eventBus;
-	@Inject
 	private PlayerManager playerManager;
 
 	private NavigationButton navButton;
@@ -105,10 +102,9 @@ public class EquipmentInspectorPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		updateConfig();
-		addSubscriptions();
 
 		equipmentInspectorPanel = injector.getInstance(EquipmentInspectorPanel.class);
 		if (client != null)
@@ -130,20 +126,13 @@ public class EquipmentInspectorPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		menuManager.removePlayerMenuItem(INSPECT_EQUIPMENT);
 		pluginToolbar.removeNavigation(navButton);
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(PlayerMenuOptionClicked.class, this, this::onPlayerMenuOptionClicked);
-	}
-
+	@Subscribe
 	private void onPlayerMenuOptionClicked(PlayerMenuOptionClicked event)
 	{
 		if (!event.getMenuOption().equals(INSPECT_EQUIPMENT))
@@ -229,6 +218,8 @@ public class EquipmentInspectorPlugin extends Plugin
 			equipmentInspectorPanel.update(playerEquipment, playerName);
 		});
 	}
+
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equalsIgnoreCase("equipmentinspector"))

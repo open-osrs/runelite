@@ -31,7 +31,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
@@ -62,8 +62,7 @@ public class PrayAgainstPlayerPlugin extends Plugin
 	private PrayAgainstPlayerOverlayPrayerTab overlayPrayerTab;
 	@Inject
 	private PrayAgainstPlayerConfig config;
-	@Inject
-	private EventBus eventBus;
+
 	private boolean ignoreFriends;
 	private boolean ignoreClanMates;
 	private boolean drawTargetPrayAgainstPrayerTab;
@@ -78,24 +77,18 @@ public class PrayAgainstPlayerPlugin extends Plugin
 	protected void startUp()
 	{
 		updateConfig();
-		addSubscriptions();
 		overlayManager.add(overlay);
 		overlayManager.add(overlayPrayerTab);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
 		overlayManager.remove(overlay);
 		overlayManager.remove(overlayPrayerTab);
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-	}
-
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("prayagainstplayer"))

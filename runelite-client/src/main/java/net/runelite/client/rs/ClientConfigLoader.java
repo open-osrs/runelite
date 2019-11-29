@@ -42,7 +42,7 @@ class ClientConfigLoader
 	}
 
 	private static final String CONFIG_URL = "http://oldschool.runescape.com/jav_config.ws";
-	private static final int MAX_ATTEMPTS = 16;
+	private static final int MAX_ATTEMPTS = 100;
 
 	static Single<RSConfig> fetch()
 	{
@@ -70,7 +70,8 @@ class ClientConfigLoader
 							supplier = new HostSupplier();
 						}
 
-						url = supplier.get();
+						String host = supplier.get();
+						url = url.newBuilder().host(host).build();
 						continue;
 					}
 
