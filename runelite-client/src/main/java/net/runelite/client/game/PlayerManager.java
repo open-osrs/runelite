@@ -28,6 +28,7 @@ import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.EventScheduler;
 import net.runelite.client.events.AttackStyleChanged;
 import net.runelite.client.util.PvPUtil;
 import net.runelite.http.api.hiscore.HiscoreClient;
@@ -37,6 +38,7 @@ import net.runelite.http.api.item.ItemStats;
 
 @Singleton
 @Slf4j
+@SuppressWarnings("unused")
 public class PlayerManager
 {
 	private static final HiscoreClient HISCORE_CLIENT = new HiscoreClient();
@@ -60,7 +62,7 @@ public class PlayerManager
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(PlayerSpawned.class, this, this::onPlayerSpawned);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
-		eventBus.subscribe(PlayerAppearanceChanged.class, this, this::onAppearenceChanged);
+		eventBus.subscribe(PlayerAppearanceChanged.class, this, this::onAppearenceChanged, -1, EventScheduler.DEFAULT, EventScheduler.COMPUTATION);
 	}
 
 	/**
@@ -197,6 +199,7 @@ public class PlayerManager
 
 	private void onAppearenceChanged(PlayerAppearanceChanged event)
 	{
+		log.info("|{}| Appearance Changed", event.getPlayer().getName());
 		final PlayerContainer player = playerMap.get(event.getPlayer().getName());
 
 		if (player == null)

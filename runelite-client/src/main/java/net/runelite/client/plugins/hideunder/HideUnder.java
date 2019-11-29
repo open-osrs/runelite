@@ -32,7 +32,7 @@ import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.PlayerContainer;
 import net.runelite.client.game.PlayerManager;
 import net.runelite.client.plugins.Plugin;
