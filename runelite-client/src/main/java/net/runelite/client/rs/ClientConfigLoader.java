@@ -42,6 +42,7 @@ class ClientConfigLoader
 	}
 
 	// private static final String CONFIG_URL = "http://oldschool.runescape.com/jav_config.ws";
+	
 	private static final String CONFIG_URL = "https://openosrs.com/jav_config.ws";
 	private static final int MAX_ATTEMPTS = 100;
 
