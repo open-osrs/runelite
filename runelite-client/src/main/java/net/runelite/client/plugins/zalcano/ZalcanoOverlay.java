@@ -31,6 +31,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
+import java.awt.Rectangle;
+import java.awt.Font;
 import java.util.List;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +41,7 @@ import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.GraphicsObject;
 import net.runelite.api.Perspective;
+import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.Overlay;
@@ -81,6 +84,7 @@ public class ZalcanoOverlay extends Overlay
 		this.client = client;
 
 		setLayer(OverlayLayer.ABOVE_SCENE);
+		setLayer(OverlayLayer.ABOVE_MAP);
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 	}
@@ -112,6 +116,14 @@ public class ZalcanoOverlay extends Overlay
 		if (config.highlightZalcanoHull())
 		{
 			renderZalcano(graphics);
+		}
+		if (config.playerCountAtZalcano())
+		{
+			renderPlayerCount(graphics);
+		}
+		if (config.highlightMiningSpotAtMap())
+		{
+			renderRockToMineAtMaP(graphics);
 		}
 
 		//has their own configs within this method
@@ -166,6 +178,25 @@ public class ZalcanoOverlay extends Overlay
 				OverlayUtil.renderPolygon(graphics, poly, !util.projectileExists() ? green : Color.RED);
 				OverlayUtil.renderTextLocation(graphics, glowingRock.getCanvasLocation(), !util.projectileExists() ? ZalcanoUtil.mine : ZalcanoUtil.warning, !util.projectileExists() ? green : Color.RED);
 			}
+		}
+	}
+
+	private void renderRockToMineAtMaP(Graphics2D graphics)
+	{
+		GameObject glowingRock = util.getGlowingRock();
+
+		if (glowingRock != null)
+		{
+			Point rockPoint = glowingRock.getMinimapLocation();
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint, new Color(19, 5, 231));
+			Point rockPoint1 = new Point (rockPoint.getX() + 4, rockPoint.getY());
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint1, new Color(249, 29, 151));
+			Point rockPoint2 = new Point (rockPoint.getX() - 4, rockPoint.getY());
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint2, new Color(249, 29, 151));
+			Point rockPoint3 = new Point (rockPoint.getX(), rockPoint.getY() + 4);
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint3, new Color(249, 29, 151));
+			Point rockPoint4 = new Point (rockPoint.getX(), rockPoint.getY() - 4);
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint4, new Color(249, 29, 151));
 		}
 	}
 
@@ -235,6 +266,18 @@ public class ZalcanoOverlay extends Overlay
 			OverlayUtil.renderPolygon(graphics, poly, color);
 			OverlayUtil.renderTextLocation(graphics, plugin.getZalcano().getCanvasTextLocation(graphics, text, plugin.getZalcano().getLogicalHeight() / 2), text, color);
 		}
+	}
+
+	private void renderPlayerCount(Graphics2D graphics)
+	{
+		Rectangle rect = new Rectangle(client.getCanvasWidth() / 2 - 15, 0, 40, 25);
+		int[] xpoints = {rect.x, rect.x + rect.width, rect.x + rect.width, rect.x};
+		int[] ypoints = {rect.y, rect.y, rect.y + rect.height, rect.y + rect.height};
+
+		graphics.setFont(new Font("Comic Sans", Font.BOLD, 20));
+		OverlayUtil.renderFilledPolygon(graphics, rect, new Color(0, 0, 0));
+		String playerCount = java.lang.Integer.toString(plugin.getPlayers().size());
+		OverlayUtil.renderTextLocation( graphics, new Point(client.getCanvasWidth() / 2, 20), playerCount, new Color(255, 255, 255));
 	}
 
 

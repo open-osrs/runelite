@@ -37,9 +37,14 @@ import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
+import net.runelite.api.Player;
+import net.runelite.api.GameState;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.PlayerSpawned;
+import net.runelite.api.events.PlayerDespawned;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -48,6 +53,8 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
+import java.util.ArrayList;
+import java.util.List;
 
 @PluginDescriptor(
 	name = "Zalcano",
@@ -85,6 +92,9 @@ public class ZalcanoPlugin extends Plugin
 
 	@Getter(AccessLevel.PACKAGE)
 	private NPC golem;
+
+	@Getter(AccessLevel.PACKAGE)
+	private final List<Player> Players = new ArrayList<>();
 
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
@@ -160,6 +170,50 @@ public class ZalcanoPlugin extends Plugin
 				golem = null;
 				break;
 		}
+	}
+
+	@Subscribe
+	private void onPlayerSpawned(PlayerSpawned pSpawned)
+	{
+		Player player = pSpawned.getPlayer();
+
+		if (player != null)
+		{
+			Players.add(player);
+		}
+	}
+
+	@Subscribe
+	private void onPlayerDefinitionChanged(PlayerSpawned pChanged)
+	{
+		Player player = pChanged.getPlayer();
+
+		if (player != null && !Players.contains(player))
+		{
+			Players.add(player);
+		}
+	}
+
+	@Subscribe
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGIN_SCREEN || event.getGameState() == GameState.HOPPING)
+		{
+			Players.clear();
+		}
+	}
+
+	@Subscribe
+	private void onPlayerDespawned(PlayerDespawned pDespawned)
+	{
+		if (Players.isEmpty())
+		{
+			return;
+		}
+
+		Player player = pDespawned.getPlayer();
+		Players.remove(player);
+
 	}
 
 	//23905 //ore
