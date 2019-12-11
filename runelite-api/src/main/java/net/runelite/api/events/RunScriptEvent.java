@@ -24,6 +24,7 @@
  */
 package net.runelite.api.events;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -42,5 +43,5 @@ public class RunScriptEvent implements Event
 	 * Arguments being parsed by the script.
 	 * Element 0 is scriptId
 	 */
-	private Object[] arguments;
+	private List<Object> arguments;
 }
