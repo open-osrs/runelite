@@ -17,7 +17,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 @Slf4j
-public class miniZalcanoOverlay extends Overlay
+public class MiniZalcanoOverlay extends Overlay
 {
 
 	private final ZalcanoPlugin plugin;
@@ -26,7 +26,7 @@ public class miniZalcanoOverlay extends Overlay
 	private final Client client;
 
 	@Inject
-	miniZalcanoOverlay(final ZalcanoPlugin plugin, final ZalcanoConfig config, final ZalcanoUtil util, final Client client)
+	MiniZalcanoOverlay(final ZalcanoPlugin plugin, final ZalcanoConfig config, final ZalcanoUtil util, final Client client)
 	{
 		super(plugin);
 		this.plugin = plugin;

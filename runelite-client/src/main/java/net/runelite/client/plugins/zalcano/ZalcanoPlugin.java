@@ -71,7 +71,7 @@ public class ZalcanoPlugin extends Plugin
 	private ZalcanoOverlay overlay;
 
 	@Inject
-	private miniZalcanoOverlay miniOverlay;
+	private MiniZalcanoOverlay miniOverlay;
 
 	@Inject
 	private ZalcanoStepsOverlay stepsOverlay;
