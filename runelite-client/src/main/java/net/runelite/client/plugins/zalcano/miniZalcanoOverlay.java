@@ -64,15 +64,19 @@ public class miniZalcanoOverlay extends Overlay
 		if (glowingRock != null)
 		{
 			Point rockPoint = glowingRock.getMinimapLocation();
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint, Color.BLUE);
-			Point rockPoint1 = new Point (rockPoint.getX() + 4, rockPoint.getY());
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint1, Color.MAGENTA);
-			Point rockPoint2 = new Point (rockPoint.getX() - 4, rockPoint.getY());
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint2, Color.MAGENTA);
-			Point rockPoint3 = new Point (rockPoint.getX(), rockPoint.getY() + 4);
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint3, Color.MAGENTA);
-			Point rockPoint4 = new Point (rockPoint.getX(), rockPoint.getY() - 4);
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint4, Color.MAGENTA);
+
+			if (rockPoint!=null)
+			{
+				OverlayUtil.renderMinimapLocation(graphics, rockPoint, Color.BLUE);
+				Point rockPoint1 = new Point(rockPoint.getX() + 4, rockPoint.getY());
+				OverlayUtil.renderMinimapLocation(graphics, rockPoint1, Color.MAGENTA);
+				Point rockPoint2 = new Point(rockPoint.getX() - 4, rockPoint.getY());
+				OverlayUtil.renderMinimapLocation(graphics, rockPoint2, Color.MAGENTA);
+				Point rockPoint3 = new Point(rockPoint.getX(), rockPoint.getY() + 4);
+				OverlayUtil.renderMinimapLocation(graphics, rockPoint3, Color.MAGENTA);
+				Point rockPoint4 = new Point(rockPoint.getX(), rockPoint.getY() - 4);
+				OverlayUtil.renderMinimapLocation(graphics, rockPoint4, Color.MAGENTA);
+			}
 		}
 	}
 
