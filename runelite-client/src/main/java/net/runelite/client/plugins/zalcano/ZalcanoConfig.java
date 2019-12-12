@@ -38,10 +38,10 @@ public interface ZalcanoConfig extends Config
 {
 
 	@ConfigTitleSection(
-			keyName = "zalcanoTitle",
-			name = "Zalcano",
-			description = "",
-			position = 0
+	keyName = "zalcanoTitle",
+	name = "Zalcano",
+	description = "",
+	position = 0
 	)
 	default Title zalcanoTitle()
 	{
@@ -49,11 +49,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "highlightZalcanoHull",
-			name = "Highlight Zalcano",
-			description = "Highlight Zalcano\'s convex hull.",
-			titleSection = "zalcanoTitle",
-			position = 1
+		keyName = "highlightZalcanoHull",
+		name = "Highlight Zalcano",
+		description = "Highlight Zalcano\'s convex hull.",
+		titleSection = "zalcanoTitle",
+		position = 1
 	)
 	default boolean highlightZalcanoHull()
 	{
