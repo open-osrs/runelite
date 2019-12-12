@@ -123,7 +123,7 @@ public class ZalcanoOverlay extends Overlay
 		}
 		if (config.highlightMiningSpotAtMap())
 		{
-			renderRockToMineAtMaP(graphics);
+			renderRockToMineAtMap(graphics);
 		}
 
 		//has their own configs within this method
@@ -181,7 +181,7 @@ public class ZalcanoOverlay extends Overlay
 		}
 	}
 
-	private void renderRockToMineAtMaP(Graphics2D graphics)
+	private void renderRockToMineAtMap(Graphics2D graphics)
 	{
 		GameObject glowingRock = util.getGlowingRock();
 
