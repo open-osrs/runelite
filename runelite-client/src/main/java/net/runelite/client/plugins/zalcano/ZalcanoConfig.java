@@ -38,10 +38,10 @@ public interface ZalcanoConfig extends Config
 {
 
 	@ConfigTitleSection(
-				keyName = "zalcanoTitle",
-				name = "Zalcano",
-				description = "",
-				position = 0
+			keyName = "zalcanoTitle",
+			name = "Zalcano",
+			description = "",
+			position = 0
 	)
 	default Title zalcanoTitle()
 	{
@@ -196,7 +196,7 @@ public interface ZalcanoConfig extends Config
 
 	@ConfigItem(
 			keyName = "playerCountAtZalcano",
-			name = "Counts players amount at Zalcano cave",
+			name = "Player count at cave",
 			description = "Maybe limited by render distance",
 			titleSection = "helperTitle",
 			position = 13
