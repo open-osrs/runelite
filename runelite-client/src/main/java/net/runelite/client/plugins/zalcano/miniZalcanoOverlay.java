@@ -65,7 +65,7 @@ public class miniZalcanoOverlay extends Overlay
 		{
 			Point rockPoint = glowingRock.getMinimapLocation();
 
-			if (rockPoint!=null)
+			if (rockPoint != null)
 			{
 				OverlayUtil.renderMinimapLocation(graphics, rockPoint, Color.BLUE);
 				Point rockPoint1 = new Point(rockPoint.getX() + 4, rockPoint.getY());
