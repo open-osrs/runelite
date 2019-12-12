@@ -38,10 +38,10 @@ public interface ZalcanoConfig extends Config
 {
 
 	@ConfigTitleSection(
-	keyName = "zalcanoTitle",
-	name = "Zalcano",
-	description = "",
-	position = 0
+		keyName = "zalcanoTitle",
+		name = "Zalcano",
+		description = "",
+		position = 0
 	)
 	default Title zalcanoTitle()
 	{
@@ -61,11 +61,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "zalcanoHullColor",
-			name = "Color for highlight",
-			description = "",
-			titleSection = "zalcanoTitle",
-			position = 2
+		keyName = "zalcanoHullColor",
+		name = "Color for highlight",
+		description = "",
+		titleSection = "zalcanoTitle",
+		position = 2
 	)
 	default Color zalcanoHullColor()
 	{
@@ -73,10 +73,10 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigTitleSection(
-			keyName = "zalcanoAoesTitle",
-			name = "Area of Effect",
-			description = "",
-			position = 3
+		keyName = "zalcanoAoesTitle",
+		name = "Area of Effect",
+		description = "",
+		position = 3
 	)
 	default Title zalcanoAoesTitle()
 	{
@@ -84,11 +84,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "showAoeZalcanoWakeup",
-			name = "Zalcano Wakeup",
-			description = "Shows an AOE warning for Zalcano waking back up.",
-			titleSection = "zalcanoAoesTitle",
-			position = 4
+		keyName = "showAoeZalcanoWakeup",
+		name = "Zalcano Wakeup",
+		description = "Shows an AOE warning for Zalcano waking back up.",
+		titleSection = "zalcanoAoesTitle",
+		position = 4
 	)
 	default boolean showAoeZalcanoWakeup()
 	{
@@ -96,11 +96,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "showAoeForRockfall",
-			name = "Small Rocks",
-			description = "Shows an AOE warning for the rocks that fall occasionally.",
-			titleSection = "zalcanoAoesTitle",
-			position = 5
+		keyName = "showAoeForRockfall",
+		name = "Small Rocks",
+		description = "Shows an AOE warning for the rocks that fall occasionally.",
+		titleSection = "zalcanoAoesTitle",
+		position = 5
 	)
 	default boolean showAoeForRockfall()
 	{
@@ -108,11 +108,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "showAoeForRedSymbols",
-			name = "Red Symbols",
-			description = "Shows an AOE warning for the 3x3 red symbols that appear.",
-			titleSection = "zalcanoAoesTitle",
-			position = 6
+		keyName = "showAoeForRedSymbols",
+		name = "Red Symbols",
+		description = "Shows an AOE warning for the 3x3 red symbols that appear.",
+		titleSection = "zalcanoAoesTitle",
+		position = 6
 	)
 	default boolean showAoeForRedSymbols()
 	{
@@ -120,11 +120,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "highlightMiningSpot",
-			name = "Mining spot",
-			description = "Highlights the glowing rock and warns you if Zalcano attacks it.",
-			titleSection = "zalcanoAoesTitle",
-			position = 7
+		keyName = "highlightMiningSpot",
+		name = "Mining spot",
+		description = "Highlights the glowing rock and warns you if Zalcano attacks it.",
+		titleSection = "zalcanoAoesTitle",
+		position = 7
 	)
 	default boolean highlightMiningSpot()
 	{
@@ -132,11 +132,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "highlightMiningSpotAtMap",
-			name = "Mining spot at minimap",
-			description = "Highlights the glowing rock at minimap.",
-			titleSection = "zalcanoAoesTitle",
-			position = 8
+		keyName = "highlightMiningSpotAtMap",
+		name = "Mining spot at minimap",
+		description = "Highlights the glowing rock at minimap.",
+		titleSection = "zalcanoAoesTitle",
+		position = 8
 	)
 	default boolean highlightMiningSpotAtMap()
 	{
@@ -144,10 +144,10 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigTitleSection(
-			keyName = "helperTitle",
-			name = "Helpers",
-			description = "",
-			position = 9
+		keyName = "helperTitle",
+		name = "Helpers",
+		description = "",
+		position = 9
 	)
 	default Title helperTitle()
 	{
@@ -158,12 +158,12 @@ public interface ZalcanoConfig extends Config
 	 * TODO: improve helper
 	 */
 	@ConfigItem(
-			keyName = "showSteps",
-			name = "Show Step",
-			description = "",
-			titleSection = "helperTitle",
-			position = 10,
-			hidden = true //hidden until fully functional
+		keyName = "showSteps",
+		name = "Show Step",
+		description = "",
+		titleSection = "helperTitle",
+		position = 10,
+		hidden = true //hidden until fully functional
 	)
 	default boolean showSteps()
 	{
@@ -171,11 +171,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "showAoeZalcanoMineable",
-			name = "Zalcano Mineable",
-			description = "Highlights Zalcano if she is mineable.",
-			titleSection = "helperTitle",
-			position = 11
+		keyName = "showAoeZalcanoMineable",
+		name = "Zalcano Mineable",
+		description = "Highlights Zalcano if she is mineable.",
+		titleSection = "helperTitle",
+		position = 11
 	)
 	default boolean showAoeZalcanoMineable()
 	{
@@ -183,11 +183,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "highlightGolem",
-			name = "Highlight Golem",
-			description = "Highlights the Golem that Zalcano spawns in.",
-			titleSection = "helperTitle",
-			position = 12
+		keyName = "highlightGolem",
+		name = "Highlight Golem",
+		description = "Highlights the Golem that Zalcano spawns in.",
+		titleSection = "helperTitle",
+		position = 12
 	)
 	default boolean highlightGolem()
 	{
@@ -195,11 +195,11 @@ public interface ZalcanoConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "playerCountAtZalcano",
-			name = "Player count at cave",
-			description = "Maybe limited by render distance",
-			titleSection = "helperTitle",
-			position = 13
+		keyName = "playerCountAtZalcano",
+		name = "Player count at cave",
+		description = "Maybe limited by render distance",
+		titleSection = "helperTitle",
+		position = 13
 	)
 	default boolean playerCountAtZalcano()
 	{
