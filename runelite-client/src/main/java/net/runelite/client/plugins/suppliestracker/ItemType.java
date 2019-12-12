@@ -29,6 +29,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import static net.runelite.api.ItemID.COINS_995;
+
 /**
  * The potential types that supplies can be along with a categorization function
  * that assigns the supplies to these categories
@@ -40,7 +42,9 @@ public enum ItemType
 	POTION("Potions"),
 	RUNE("Runes"),
 	AMMO("Ammo"),
-	TELEPORT("Teleports");
+	TELEPORT("Teleports"),
+	COINS("Coins"),
+	CHARGES("Charges");
 
 	@Getter(AccessLevel.PACKAGE)
 	private String label;
@@ -73,6 +77,10 @@ public enum ItemType
 		if (item.getName().toLowerCase().contains("teleport"))
 		{
 			return ItemType.TELEPORT;
+		}
+		if(item.getId() == COINS_995)
+		{
+			return ItemType.COINS;
 		}
 		return ItemType.FOOD;
 	}
