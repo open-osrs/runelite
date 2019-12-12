@@ -38,10 +38,10 @@ public interface ZalcanoConfig extends Config
 {
 
 	@ConfigTitleSection(
-			keyName = "zalcanoTitle",
-			name = "Zalcano",
-			description = "",
-			position = 0
+				keyName = "zalcanoTitle",
+				name = "Zalcano",
+				description = "",
+				position = 0
 	)
 	default Title zalcanoTitle()
 	{
