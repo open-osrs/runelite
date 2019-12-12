@@ -38,7 +38,7 @@ public interface ZalcanoConfig extends Config
 {
 
 	@ConfigTitleSection(
-	        keyName = "zalcanoTitle",
+			keyName = "zalcanoTitle",
 			name = "Zalcano",
 			description = "",
 			position = 0
