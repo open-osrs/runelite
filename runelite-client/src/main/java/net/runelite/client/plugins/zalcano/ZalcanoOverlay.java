@@ -83,8 +83,7 @@ public class ZalcanoOverlay extends Overlay
 		this.util = util;
 		this.client = client;
 
-		setLayer(OverlayLayer.ABOVE_SCENE);
-		setLayer(OverlayLayer.ABOVE_MAP);
+		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 	}
@@ -188,15 +187,15 @@ public class ZalcanoOverlay extends Overlay
 		if (glowingRock != null)
 		{
 			Point rockPoint = glowingRock.getMinimapLocation();
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint, new Color(19, 5, 231));
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint, Color.BLUE);
 			Point rockPoint1 = new Point (rockPoint.getX() + 4, rockPoint.getY());
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint1, new Color(249, 29, 151));
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint1, Color.MAGENTA);
 			Point rockPoint2 = new Point (rockPoint.getX() - 4, rockPoint.getY());
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint2, new Color(249, 29, 151));
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint2, Color.MAGENTA);
 			Point rockPoint3 = new Point (rockPoint.getX(), rockPoint.getY() + 4);
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint3, new Color(249, 29, 151));
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint3, Color.MAGENTA);
 			Point rockPoint4 = new Point (rockPoint.getX(), rockPoint.getY() - 4);
-			OverlayUtil.renderMinimapLocation(graphics, rockPoint4, new Color(249, 29, 151));
+			OverlayUtil.renderMinimapLocation(graphics, rockPoint4, Color.MAGENTA);
 		}
 	}
 
@@ -275,9 +274,9 @@ public class ZalcanoOverlay extends Overlay
 		int[] ypoints = {rect.y, rect.y, rect.y + rect.height, rect.y + rect.height};
 
 		graphics.setFont(new Font("Comic Sans", Font.BOLD, 20));
-		OverlayUtil.renderFilledPolygon(graphics, rect, new Color(0, 0, 0));
-		String playerCount = java.lang.Integer.toString(plugin.getPlayers().size());
-		OverlayUtil.renderTextLocation( graphics, new Point(client.getCanvasWidth() / 2, 20), playerCount, new Color(255, 255, 255));
+		OverlayUtil.renderFilledPolygon(graphics, rect, Color.BLACK);
+		String playerCount = java.lang.Integer.toString(client.getPlayers().size());
+		OverlayUtil.renderTextLocation( graphics, new Point(client.getCanvasWidth() / 2, 20), playerCount, Color.WHITE);
 	}
 
 
