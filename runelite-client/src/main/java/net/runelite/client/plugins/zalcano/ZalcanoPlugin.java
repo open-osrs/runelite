@@ -71,6 +71,9 @@ public class ZalcanoPlugin extends Plugin
 	private ZalcanoOverlay overlay;
 
 	@Inject
+	private miniZalcanoOverlay miniOverlay;
+
+	@Inject
 	private ZalcanoStepsOverlay stepsOverlay;
 
 	@Inject
@@ -109,6 +112,7 @@ public class ZalcanoPlugin extends Plugin
 	{
 		eventBus.unregister("regionchecker");
 		overlayManager.remove(overlay);
+		overlayManager.remove(miniOverlay);
 		overlayManager.remove(stepsOverlay);
 	}
 
@@ -126,6 +130,7 @@ public class ZalcanoPlugin extends Plugin
 			util.manuallyFindZalcano(); //this is here because the new subscribed npcspawn doesn't catch a pre existing zalcano
 
 			overlayManager.add(overlay);
+			overlayManager.add(miniOverlay);
 			overlayManager.add(stepsOverlay);
 
 			eventBus.unregister("regionchecker");
