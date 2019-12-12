@@ -41,11 +41,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
-import static net.runelite.api.AnimationID.BARRAGE_ANIMATION;
-import static net.runelite.api.AnimationID.BLITZ_ANIMATION;
-import static net.runelite.api.AnimationID.BLOWPIPE_ATTACK;
-import static net.runelite.api.AnimationID.HIGH_LEVEL_MAGIC_ATTACK;
-import static net.runelite.api.AnimationID.LOW_LEVEL_MAGIC_ATTACK;
 import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.InventoryID;
@@ -53,6 +48,8 @@ import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
+
+import static net.runelite.api.AnimationID.*;
 import static net.runelite.api.ItemID.*;
 import net.runelite.api.Player;
 import net.runelite.api.VarPlayer;
@@ -383,6 +380,12 @@ public class SuppliesTrackerPlugin extends Plugin
 					MenuAction newAction = new MenuAction(CAST, old.getItems());
 					actionStack.push(newAction);
 				}
+			}
+			else if (animationChanged.getActor().getAnimation() == SCYTHE_OF_VITUR_ANIMATION )
+			{
+				buildChargesEntries(SCYTHE_OF_VITUR, 1);
+				//buildEntries(BLOOD_RUNE, 3);
+				//buildEntries(COINS_995, itemManager.getItemPrice(VIAL_OF_BLOOD_22446)/100);
 			}
 		}
 	}
@@ -728,6 +731,48 @@ public class SuppliesTrackerPlugin extends Plugin
 		suppliesEntry.put(itemId, newEntry);
 		SwingUtilities.invokeLater(() ->
 			panel.addItem(newEntry));
+	}
+
+	/**
+	 * Add an item to the supply tracker
+	 *
+	 * @param itemId the id of the item
+	 * @param count  the amount of the item to add to the tracker
+	 */
+	private void buildChargesEntries(int itemId, int count)
+	{
+		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
+		String name = itemComposition.getName();
+		long calculatedPrice;
+
+
+		int newQuantity;
+		if (suppliesEntry.containsKey(itemId))
+		{
+			newQuantity = suppliesEntry.get(itemId).getQuantity() + count;
+		}
+		else
+		{
+			newQuantity = count;
+		}
+
+		// calculate price for amount of doses used
+		calculatedPrice = ((long) itemManager.getItemPrice(itemId)) * ((long) newQuantity);
+
+		if(itemId == SCYTHE_OF_VITUR){
+			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3) + (long)(itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * newQuantity / 100);
+		}
+
+		// write the new quantity and calculated price for this entry
+		SuppliesTrackerItem newEntry = new SuppliesTrackerItem(
+				itemId,
+				name,
+				newQuantity,
+				calculatedPrice);
+
+		suppliesEntry.put(itemId, newEntry);
+		SwingUtilities.invokeLater(() ->
+				panel.addChargesItem(newEntry));
 	}
 
 	/**
