@@ -197,7 +197,7 @@ public class ZalcanoPlugin extends Plugin
 	@Subscribe
 	private void onGameStateChanged(GameStateChanged event)
 	{
-		if (event.getGameState() == GameState.LOGIN_SCREEN || event.getGameState() == GameState.HOPPING)
+		if (event.getGameState() != GameState.LOGGED_IN)
 		{
 			Players.clear();
 		}
