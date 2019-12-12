@@ -131,11 +131,23 @@ public interface ZalcanoConfig extends Config
 		return true;
 	}
 
+	@ConfigItem(
+			keyName = "highlightMiningSpotAtMap",
+			name = "Mining spot at minimap",
+			description = "Highlights the glowing rock at minimap.",
+			titleSection = "zalcanoAoesTitle",
+			position = 8
+	)
+	default boolean highlightMiningSpotAtMap()
+	{
+		return false;
+	}
+
 	@ConfigTitleSection(
 			keyName = "helperTitle",
 			name = "Helpers",
 			description = "",
-			position = 8
+			position = 9
 	)
 	default Title helperTitle()
 	{
@@ -150,7 +162,7 @@ public interface ZalcanoConfig extends Config
 			name = "Show Step",
 			description = "",
 			titleSection = "helperTitle",
-			position = 9,
+			position = 10,
 			hidden = true //hidden until fully functional
 	)
 	default boolean showSteps()
@@ -163,7 +175,7 @@ public interface ZalcanoConfig extends Config
 			name = "Zalcano Mineable",
 			description = "Highlights Zalcano if she is mineable.",
 			titleSection = "helperTitle",
-			position = 10
+			position = 11
 	)
 	default boolean showAoeZalcanoMineable()
 	{
@@ -175,11 +187,23 @@ public interface ZalcanoConfig extends Config
 			name = "Highlight Golem",
 			description = "Highlights the Golem that Zalcano spawns in.",
 			titleSection = "helperTitle",
-			position = 11
+			position = 12
 	)
 	default boolean highlightGolem()
 	{
 		return true;
+	}
+
+	@ConfigItem(
+			keyName = "playerCountAtZalcano",
+			name = "Player count at cave",
+			description = "Maybe limited by render distance",
+			titleSection = "helperTitle",
+			position = 13
+	)
+	default boolean playerCountAtZalcano()
+	{
+		return false;
 	}
 
 
