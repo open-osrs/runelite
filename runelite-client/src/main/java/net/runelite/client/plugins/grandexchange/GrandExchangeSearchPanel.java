@@ -252,7 +252,6 @@ class GrandExchangeSearchPanel extends JPanel
 						.subscribe(
 							(osbresult) -> {
 								osbPrice[0] = osbresult.getOverall_average();
-								log.debug("GE : Osbuddy Price: {}", osbresult.getOverall_average());
 							},
 							(e) -> log.debug("GE : Error getting price of item {}", item.getItemId(), e)
 						);
