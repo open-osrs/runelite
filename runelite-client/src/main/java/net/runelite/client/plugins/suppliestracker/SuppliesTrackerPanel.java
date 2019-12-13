@@ -58,6 +58,7 @@ class SuppliesTrackerPanel extends PluginPanel
 
 	private final List<SuppliesBox> boxList = new ArrayList<>();
 	private ChargesBox chargesBox;
+	private JewelleryBox jewelleryBox;
 
 	private final PluginErrorPanel errorPanel = new PluginErrorPanel();
 
@@ -105,7 +106,9 @@ class SuppliesTrackerPanel extends PluginPanel
 			boxList.add(newBox);
 		}
 		chargesBox = new ChargesBox(itemManager, "Charges", plugin, this, ItemType.CHARGES);
+		jewelleryBox = new JewelleryBox(itemManager, "Jewellery", plugin, this, ItemType.JEWELLERY);
 
+		logsContainer.add(jewelleryBox);
 		logsContainer.add(chargesBox);
 
 		// Create reset all menu
@@ -190,6 +193,13 @@ class SuppliesTrackerPanel extends PluginPanel
 		updateOverall();
 	}
 
+	void addJewelleryItem(SuppliesTrackerItem item)
+	{
+		jewelleryBox.update(item);
+		jewelleryBox.rebuild();
+		updateOverall();
+	}
+
 	/**
 	 * Updates overall stats to calculate overall used and overall cost from
 	 * the info in each box
@@ -203,6 +213,7 @@ class SuppliesTrackerPanel extends PluginPanel
 		}
 
 		overallSuppliesUsed += chargesBox.getTotalSupplies();
+		overallSuppliesUsed += jewelleryBox.getTotalSupplies();
 
 		overallCost = 0;
 		for (SuppliesBox box : boxList)
@@ -211,6 +222,7 @@ class SuppliesTrackerPanel extends PluginPanel
 		}
 
 		overallCost += chargesBox.getTotalPrice();
+		overallCost += jewelleryBox.getTotalPrice();
 
 		overallSuppliesUsedLabel.setText(htmlLabel("Total Supplies: ", overallSuppliesUsed));
 		overallCostLabel.setText(htmlLabel("Total Cost: ", overallCost));
