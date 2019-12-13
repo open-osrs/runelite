@@ -82,12 +82,7 @@ public class CoxInfoBox extends Overlay
 
 			final PrayAgainst prayAgainst = plugin.getPrayAgainstOlm();
 
-			if (prayAgainst == null)
-			{
-				return null;
-			}
-
-			if (System.currentTimeMillis() < plugin.getLastPrayTime() + 120000)
+			if (System.currentTimeMillis() < plugin.getLastPrayTime() + 120000 && prayAgainst != null)
 			{
 				final int scale = plugin.getPrayAgainstSize();
 				InfoBoxComponent prayComponent = new InfoBoxComponent();
