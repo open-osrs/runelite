@@ -28,7 +28,6 @@ package net.runelite.client.plugins.suppliestracker;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import static net.runelite.api.ItemID.COINS_995;
 
 /**
@@ -79,7 +78,7 @@ public enum ItemType
 		{
 			return ItemType.TELEPORT;
 		}
-		if(item.getId() == COINS_995)
+		if (item.getId() == COINS_995)
 		{
 			return ItemType.COINS;
 		}

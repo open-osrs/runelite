@@ -41,12 +41,144 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
-
-import static net.runelite.api.AnimationID.*;
-import static net.runelite.api.ItemID.*;
-
-import net.runelite.api.events.*;
+import static net.runelite.api.AnimationID.BARRAGE_ANIMATION;
+import static net.runelite.api.AnimationID.BLITZ_ANIMATION;
+import static net.runelite.api.AnimationID.BLOWPIPE_ATTACK;
+import static net.runelite.api.AnimationID.HIGH_LEVEL_MAGIC_ATTACK;
+import static net.runelite.api.AnimationID.LOW_LEVEL_MAGIC_ATTACK;
+import static net.runelite.api.AnimationID.SCYTHE_OF_VITUR_ANIMATION;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.Client;
+import net.runelite.api.EquipmentInventorySlot;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemID;
+import static net.runelite.api.ItemID.ACCUMULATOR_MAX_CAPE;
+import static net.runelite.api.ItemID.ADAMANT_DART;
+import static net.runelite.api.ItemID.ADAMANT_KNIFE;
+import static net.runelite.api.ItemID.ADAMANT_THROWNAXE;
+import static net.runelite.api.ItemID.ADMIRAL_PIE;
+import static net.runelite.api.ItemID.AIR_RUNE;
+import static net.runelite.api.ItemID.AMULET_OF_GLORY6;
+import static net.runelite.api.ItemID.ANCHOVY_PIZZA;
+import static net.runelite.api.ItemID.APPLE_PIE;
+import static net.runelite.api.ItemID.ASSEMBLER_MAX_CAPE;
+import static net.runelite.api.ItemID.ASTRAL_RUNE;
+import static net.runelite.api.ItemID.AVAS_ACCUMULATOR;
+import static net.runelite.api.ItemID.AVAS_ACCUMULATOR_23609;
+import static net.runelite.api.ItemID.AVAS_ASSEMBLER;
+import static net.runelite.api.ItemID.AVAS_ASSEMBLER_L;
+import static net.runelite.api.ItemID.AVAS_ATTRACTOR;
+import static net.runelite.api.ItemID.BLACK_CHINCHOMPA;
+import static net.runelite.api.ItemID.BLACK_DART;
+import static net.runelite.api.ItemID.BLACK_KNIFE;
+import static net.runelite.api.ItemID.BLOOD_RUNE;
+import static net.runelite.api.ItemID.BODY_RUNE;
+import static net.runelite.api.ItemID.BOTANICAL_PIE;
+import static net.runelite.api.ItemID.BRONZE_DART;
+import static net.runelite.api.ItemID.BRONZE_KNIFE;
+import static net.runelite.api.ItemID.BRONZE_THROWNAXE;
+import static net.runelite.api.ItemID.BURNING_AMULET5;
+import static net.runelite.api.ItemID.CAKE;
+import static net.runelite.api.ItemID.CANNONBALL;
+import static net.runelite.api.ItemID.CHAOS_RUNE;
+import static net.runelite.api.ItemID.CHINCHOMPA_10033;
+import static net.runelite.api.ItemID.CHOCOLATE_CAKE;
+import static net.runelite.api.ItemID.CHOCOLATE_SLICE;
+import static net.runelite.api.ItemID.COINS_995;
+import static net.runelite.api.ItemID.COMBAT_BRACELET6;
+import static net.runelite.api.ItemID.COSMIC_RUNE;
+import static net.runelite.api.ItemID.DEATH_RUNE;
+import static net.runelite.api.ItemID.DRAGON_DART;
+import static net.runelite.api.ItemID.DRAGON_KNIFE;
+import static net.runelite.api.ItemID.DRAGON_KNIFEP;
+import static net.runelite.api.ItemID.DRAGON_KNIFEP_22808;
+import static net.runelite.api.ItemID.DRAGON_KNIFEP_22810;
+import static net.runelite.api.ItemID.DRAGON_KNIFE_22812;
+import static net.runelite.api.ItemID.DRAGON_KNIFE_22814;
+import static net.runelite.api.ItemID.DRAGON_THROWNAXE;
+import static net.runelite.api.ItemID.DUST_RUNE;
+import static net.runelite.api.ItemID.EARTH_RUNE;
+import static net.runelite.api.ItemID.FIRE_RUNE;
+import static net.runelite.api.ItemID.FISH_PIE;
+import static net.runelite.api.ItemID.GAMES_NECKLACE8;
+import static net.runelite.api.ItemID.GARDEN_PIE;
+import static net.runelite.api.ItemID.HALF_AN_ADMIRAL_PIE;
+import static net.runelite.api.ItemID.HALF_AN_APPLE_PIE;
+import static net.runelite.api.ItemID.HALF_A_BOTANICAL_PIE;
+import static net.runelite.api.ItemID.HALF_A_FISH_PIE;
+import static net.runelite.api.ItemID.HALF_A_GARDEN_PIE;
+import static net.runelite.api.ItemID.HALF_A_MEAT_PIE;
+import static net.runelite.api.ItemID.HALF_A_MUSHROOM_PIE;
+import static net.runelite.api.ItemID.HALF_A_REDBERRY_PIE;
+import static net.runelite.api.ItemID.HALF_A_SUMMER_PIE;
+import static net.runelite.api.ItemID.HALF_A_WILD_PIE;
+import static net.runelite.api.ItemID.IRON_DART;
+import static net.runelite.api.ItemID.IRON_KNIFE;
+import static net.runelite.api.ItemID.IRON_THROWNAXE;
+import static net.runelite.api.ItemID.LAVA_RUNE;
+import static net.runelite.api.ItemID.LAW_RUNE;
+import static net.runelite.api.ItemID.MEAT_PIE;
+import static net.runelite.api.ItemID.MEAT_PIZZA;
+import static net.runelite.api.ItemID.MIND_RUNE;
+import static net.runelite.api.ItemID.MIST_RUNE;
+import static net.runelite.api.ItemID.MITHRIL_DART;
+import static net.runelite.api.ItemID.MITHRIL_KNIFE;
+import static net.runelite.api.ItemID.MITHRIL_THROWNAXE;
+import static net.runelite.api.ItemID.MUD_RUNE;
+import static net.runelite.api.ItemID.MUSHROOM_PIE;
+import static net.runelite.api.ItemID.NATURE_RUNE;
+import static net.runelite.api.ItemID.NECKLACE_OF_PASSAGE5;
+import static net.runelite.api.ItemID.PINEAPPLE_PIZZA;
+import static net.runelite.api.ItemID.PLAIN_PIZZA;
+import static net.runelite.api.ItemID.RANGING_CAPE;
+import static net.runelite.api.ItemID.REDBERRY_PIE;
+import static net.runelite.api.ItemID.RED_CHINCHOMPA_10034;
+import static net.runelite.api.ItemID.RING_OF_DUELING8;
+import static net.runelite.api.ItemID.RING_OF_WEALTH_5;
+import static net.runelite.api.ItemID.RUNE_DART;
+import static net.runelite.api.ItemID.RUNE_KNIFE;
+import static net.runelite.api.ItemID.RUNE_THROWNAXE;
+import static net.runelite.api.ItemID.SANGUINESTI_STAFF;
+import static net.runelite.api.ItemID.SCYTHE_OF_VITUR;
+import static net.runelite.api.ItemID.SKILLS_NECKLACE6;
+import static net.runelite.api.ItemID.SLICE_OF_CAKE;
+import static net.runelite.api.ItemID.SMOKE_RUNE;
+import static net.runelite.api.ItemID.SOUL_RUNE;
+import static net.runelite.api.ItemID.STEAM_RUNE;
+import static net.runelite.api.ItemID.STEEL_DART;
+import static net.runelite.api.ItemID.STEEL_KNIFE;
+import static net.runelite.api.ItemID.STEEL_THROWNAXE;
+import static net.runelite.api.ItemID.SUMMER_PIE;
+import static net.runelite.api.ItemID.TRIDENT_OF_THE_SEAS;
+import static net.runelite.api.ItemID.TRIDENT_OF_THE_SEAS_E;
+import static net.runelite.api.ItemID.TRIDENT_OF_THE_SEAS_FULL;
+import static net.runelite.api.ItemID.TRIDENT_OF_THE_SWAMP;
+import static net.runelite.api.ItemID.TRIDENT_OF_THE_SWAMP_E;
+import static net.runelite.api.ItemID.UNCHARGED_TOXIC_TRIDENT;
+import static net.runelite.api.ItemID.UNCHARGED_TOXIC_TRIDENT_E;
+import static net.runelite.api.ItemID.VIAL_OF_BLOOD_22446;
+import static net.runelite.api.ItemID.WATER_RUNE;
+import static net.runelite.api.ItemID.WILD_PIE;
+import static net.runelite.api.ItemID.WRATH_RUNE;
+import static net.runelite.api.ItemID.ZULRAHS_SCALES;
+import static net.runelite.api.ItemID._12_ANCHOVY_PIZZA;
+import static net.runelite.api.ItemID._12_MEAT_PIZZA;
+import static net.runelite.api.ItemID._12_PINEAPPLE_PIZZA;
+import static net.runelite.api.ItemID._12_PLAIN_PIZZA;
+import static net.runelite.api.ItemID._23_CAKE;
+import static net.runelite.api.ItemID._23_CHOCOLATE_CAKE;
+import net.runelite.api.Player;
+import net.runelite.api.VarPlayer;
+import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.CannonballFired;
+import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
@@ -119,8 +251,8 @@ public class SuppliesTrackerPlugin extends Plugin
 	private SuppliesTrackerPanel panel;
 	private NavigationButton navButton;
 	private final String[] RAIDS_CONSUMABLES = new String[]{"xeric's", "elder", "twisted", "revitalisation", "overload", "prayer enhance", "pysk", "suphi", "leckish", "brawk", "mycil", "roqed", "kyren", "guanic", "prael", "giral", "phluxia", "kryket", "murng", "psykk"};
-	private final int[] TRIDENT_OF_THE_SEAS_IDS = new int[]{TRIDENT_OF_THE_SEAS,TRIDENT_OF_THE_SEAS_E,TRIDENT_OF_THE_SEAS_FULL};
-	private final int[] TRIDENT_OF_THE_SWAMP_IDS = new int[]{TRIDENT_OF_THE_SWAMP_E,TRIDENT_OF_THE_SWAMP,UNCHARGED_TOXIC_TRIDENT_E,UNCHARGED_TOXIC_TRIDENT};
+	private final int[] TRIDENT_OF_THE_SEAS_IDS = new int[]{TRIDENT_OF_THE_SEAS, TRIDENT_OF_THE_SEAS_E, TRIDENT_OF_THE_SEAS_FULL};
+	private final int[] TRIDENT_OF_THE_SWAMP_IDS = new int[]{TRIDENT_OF_THE_SWAMP_E, TRIDENT_OF_THE_SWAMP, UNCHARGED_TOXIC_TRIDENT_E, UNCHARGED_TOXIC_TRIDENT};
 
 	private int attackStyleVarbit = -1;
 	private int ticks = 0;
@@ -319,7 +451,7 @@ public class SuppliesTrackerPlugin extends Plugin
 			if (animationChanged.getActor().getAnimation() == HIGH_LEVEL_MAGIC_ATTACK)
 			{
 				//Trident of the seas
-				for(int tridentOfTheSeas: TRIDENT_OF_THE_SEAS_IDS)
+				for (int tridentOfTheSeas: TRIDENT_OF_THE_SEAS_IDS)
 				{
 					if (mainHand == tridentOfTheSeas)
 					{
@@ -338,9 +470,10 @@ public class SuppliesTrackerPlugin extends Plugin
 					}
 				}
 				//Trident of the swamp
-				for(int tridentOfTheSwamp: TRIDENT_OF_THE_SWAMP_IDS)
+				for (int tridentOfTheSwamp: TRIDENT_OF_THE_SWAMP_IDS)
 				{
-					if (mainHand == tridentOfTheSwamp) {
+					if (mainHand == tridentOfTheSwamp)
+					{
 						if (config.chargesBox())
 						{
 							buildChargesEntries(TRIDENT_OF_THE_SWAMP, 1);
@@ -399,7 +532,7 @@ public class SuppliesTrackerPlugin extends Plugin
 				else
 				{
 					buildEntries(BLOOD_RUNE, 3);
-					buildEntries(COINS_995, itemManager.getItemPrice(VIAL_OF_BLOOD_22446)/100);
+					buildEntries(COINS_995, itemManager.getItemPrice(VIAL_OF_BLOOD_22446) / 100);
 				}
 			}
 		}
@@ -624,35 +757,35 @@ public class SuppliesTrackerPlugin extends Plugin
 		String message = event.getMessage();
 		if (event.getType() == ChatMessageType.GAMEMESSAGE || event.getType() == ChatMessageType.SPAM)
 		{
-			if(message.toLowerCase().contains("your amulet has") || message.toLowerCase().contains("your amulet's last charge"))
+			if (message.toLowerCase().contains("your amulet has") || message.toLowerCase().contains("your amulet's last charge"))
 			{
 				buildJewelEntries(AMULET_OF_GLORY6, 1);
 			}
-			else if(message.toLowerCase().contains("your ring of dueling has") || message.toLowerCase().contains("your ring of dueling crumbles"))
+			else if (message.toLowerCase().contains("your ring of dueling has") || message.toLowerCase().contains("your ring of dueling crumbles"))
 			{
 				buildJewelEntries(RING_OF_DUELING8, 1);
 			}
-			else if(message.toLowerCase().contains("your ring of wealth has"))
+			else if (message.toLowerCase().contains("your ring of wealth has"))
 			{
 				buildJewelEntries(RING_OF_WEALTH_5, 1);
 			}
-			else if(message.toLowerCase().contains("your combat bracelet has") || message.toLowerCase().contains("your combat bracelet's last charge"))
+			else if (message.toLowerCase().contains("your combat bracelet has") || message.toLowerCase().contains("your combat bracelet's last charge"))
 			{
 				buildJewelEntries(COMBAT_BRACELET6, 1);
 			}
-			else if(message.toLowerCase().contains("your games necklace has") || message.toLowerCase().contains("your games necklace crumbles"))
+			else if (message.toLowerCase().contains("your games necklace has") || message.toLowerCase().contains("your games necklace crumbles"))
 			{
 				buildJewelEntries(GAMES_NECKLACE8, 1);
 			}
-			else if(message.toLowerCase().contains("your skills necklace has") || message.toLowerCase().contains("your skills necklace's last charge"))
+			else if (message.toLowerCase().contains("your skills necklace has") || message.toLowerCase().contains("your skills necklace's last charge"))
 			{
 				buildJewelEntries(SKILLS_NECKLACE6, 1);
 			}
-			else if(message.toLowerCase().contains("your necklace of passage has") || message.toLowerCase().contains("your necklace of passage crumbles"))
+			else if (message.toLowerCase().contains("your necklace of passage has") || message.toLowerCase().contains("your necklace of passage crumbles"))
 			{
 				buildJewelEntries(NECKLACE_OF_PASSAGE5, 1);
 			}
-			else if(message.toLowerCase().contains("your burning amulet has") || message.toLowerCase().contains("your burning amulet crumbles"))
+			else if (message.toLowerCase().contains("your burning amulet has") || message.toLowerCase().contains("your burning amulet crumbles"))
 			{
 				buildJewelEntries(BURNING_AMULET5, 1);
 			}
@@ -812,19 +945,19 @@ public class SuppliesTrackerPlugin extends Plugin
 			newQuantity = count;
 		}
 
-		if(itemId == SCYTHE_OF_VITUR)
+		if (itemId == SCYTHE_OF_VITUR)
 		{
 			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3) + (long)(itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * newQuantity / 100);
 		}
-		if(itemId == TRIDENT_OF_THE_SWAMP)
+		if (itemId == TRIDENT_OF_THE_SWAMP)
 		{
 			calculatedPrice = (long)(itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(DEATH_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(ZULRAHS_SCALES) * newQuantity);
 		}
-		if(itemId == TRIDENT_OF_THE_SEAS)
+		if (itemId == TRIDENT_OF_THE_SEAS)
 		{
 			calculatedPrice = (long)(itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(DEATH_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(COINS_995) * newQuantity * 10);
 		}
-		if(itemId == SANGUINESTI_STAFF)
+		if (itemId == SANGUINESTI_STAFF)
 		{
 			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
 		}
@@ -863,7 +996,7 @@ public class SuppliesTrackerPlugin extends Plugin
 			newQuantity = count;
 		}
 
-		switch(itemId)
+		switch (itemId)
 		{
 			case AMULET_OF_GLORY6:
 				calculatedPrice = ((itemManager.getItemPrice(AMULET_OF_GLORY6) * newQuantity) / 6);
