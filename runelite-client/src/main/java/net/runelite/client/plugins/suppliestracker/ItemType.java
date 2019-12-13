@@ -44,6 +44,7 @@ public enum ItemType
 	AMMO("Ammo"),
 	TELEPORT("Teleports"),
 	COINS("Coins"),
+	JEWELLERY("Jewellery"),
 	CHARGES("Charges");
 
 	@Getter(AccessLevel.PACKAGE)
@@ -81,6 +82,10 @@ public enum ItemType
 		if(item.getId() == COINS_995)
 		{
 			return ItemType.COINS;
+		}
+		if (item.getName().toLowerCase().contains("ring of") || item.getName().toLowerCase().contains("amulet of") || item.getName().toLowerCase().contains("bracelet") || item.getName().toLowerCase().contains("necklace"))
+		{
+			return ItemType.JEWELLERY;
 		}
 		return ItemType.FOOD;
 	}
