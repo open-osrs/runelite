@@ -110,7 +110,7 @@ class GrandExchangeItemPanel extends JPanel
 		add(itemIcon, BorderLayout.LINE_START);
 
 		// Item details panel
-		JPanel rightPanel = new JPanel(new GridLayout(4, 1));
+		JPanel rightPanel = new JPanel(new GridLayout(5, 1));
 		panels.add(rightPanel);
 		rightPanel.setBackground(background);
 
@@ -126,7 +126,7 @@ class GrandExchangeItemPanel extends JPanel
 		JLabel gePriceLabel = new JLabel();
 		if (gePrice > 0)
 		{
-			gePriceLabel.setText(QuantityFormatter.formatNumber(gePrice) + " gp");
+			gePriceLabel.setText("GE Price: " + QuantityFormatter.formatNumber(gePrice) + " gp");
 		}
 		else
 		{
@@ -148,25 +148,20 @@ class GrandExchangeItemPanel extends JPanel
 		osbPricelabel.setForeground(ColorScheme.GRAND_EXCHANGE_PRICE);
 		rightPanel.add(osbPricelabel);
 
-		JPanel alchAndLimitPanel = new JPanel(new BorderLayout());
-		panels.add(alchAndLimitPanel);
-		alchAndLimitPanel.setBackground(background);
 
 		// Alch price
 		JLabel haPriceLabel = new JLabel();
-		haPriceLabel.setText(QuantityFormatter.formatNumber(haPrice) + " alch");
+		haPriceLabel.setText("Alch Price: " + QuantityFormatter.formatNumber(haPrice) + " gp");
 		haPriceLabel.setForeground(ColorScheme.GRAND_EXCHANGE_ALCH);
-		alchAndLimitPanel.add(haPriceLabel, BorderLayout.WEST);
+		rightPanel.add(haPriceLabel);
 
 		// GE Limit
 		JLabel geLimitLabel = new JLabel();
-		String limitLabelText = geItemLimit == 0 ? "" : "Limit " + QuantityFormatter.formatNumber(geItemLimit);
+		String limitLabelText = geItemLimit == 0 ? "" : "Buy Limit " + QuantityFormatter.formatNumber(geItemLimit);
 		geLimitLabel.setText(limitLabelText);
 		geLimitLabel.setForeground(ColorScheme.GRAND_EXCHANGE_LIMIT);
 		geLimitLabel.setBorder(new CompoundBorder(geLimitLabel.getBorder(), new EmptyBorder(0, 0, 0, 7)));
-		alchAndLimitPanel.add(geLimitLabel, BorderLayout.EAST);
-
-		rightPanel.add(alchAndLimitPanel);
+		rightPanel.add(geLimitLabel);
 
 		add(rightPanel, BorderLayout.CENTER);
 	}
