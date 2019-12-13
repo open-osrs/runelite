@@ -45,13 +45,35 @@ public interface SuppliesTrackerConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "blowpipeAmmo",
-		name = "Ammo",
-		description = "What type of dart are you using in your toxic blowpipe",
-		titleSection = "blowpipeTitle"
+			keyName = "blowpipeAmmo",
+			name = "Ammo",
+			description = "What type of dart are you using in your toxic blowpipe",
+			titleSection = "blowpipeTitle"
 	)
 	default BlowpipeDartType blowpipeAmmo()
 	{
 		return BlowpipeDartType.MITHRIL;
 	}
+
+	@ConfigTitleSection(
+			keyName = "chargesBoxTitle",
+			name = "Charges Box",
+			description = "",
+			position = 2
+	)
+	default Title chargesBoxTitle()
+	{
+		return new Title();
+	}
+
+	@ConfigItem(
+		keyName = "chargesBox",
+		name = "Display separate charges box?",
+		description = "Separates items with charges to show how many of those charges you used.",
+		titleSection = "chargesBoxTitle"
+)
+default boolean chargesBox()
+{
+	return false;
+}
 }
