@@ -207,7 +207,6 @@ public class SuppliesTrackerPlugin extends Plugin
 		if (equipment != null && equipment.getItems().length > EQUIPMENT_CAPE_SLOT)
 		{
 			int capeID = equipment.getItems()[EQUIPMENT_CAPE_SLOT].getId();
-			System.out.println(itemManager.getItemDefinition(capeID).getName());
 			switch (capeID)
 			{
 				case AVAS_ASSEMBLER:
@@ -227,7 +226,6 @@ public class SuppliesTrackerPlugin extends Plugin
 					break;
 			}
 		}
-		System.out.println(percent);
 		return percent;
 	}
 
@@ -814,16 +812,20 @@ public class SuppliesTrackerPlugin extends Plugin
 			newQuantity = count;
 		}
 
-		if(itemId == SCYTHE_OF_VITUR){
+		if(itemId == SCYTHE_OF_VITUR)
+		{
 			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3) + (long)(itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * newQuantity / 100);
 		}
-		if(itemId == TRIDENT_OF_THE_SWAMP){
+		if(itemId == TRIDENT_OF_THE_SWAMP)
+		{
 			calculatedPrice = (long)(itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(DEATH_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(ZULRAHS_SCALES) * newQuantity);
 		}
-		if(itemId == TRIDENT_OF_THE_SEAS){
+		if(itemId == TRIDENT_OF_THE_SEAS)
+		{
 			calculatedPrice = (long)(itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(DEATH_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(COINS_995) * newQuantity * 10);
 		}
-		if(itemId == SANGUINESTI_STAFF){
+		if(itemId == SANGUINESTI_STAFF)
+		{
 			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
 		}
 
@@ -851,7 +853,6 @@ public class SuppliesTrackerPlugin extends Plugin
 		String name = itemComposition.getName();
 		long calculatedPrice = 0;
 
-
 		int newQuantity;
 		if (suppliesEntry.containsKey(itemId))
 		{
@@ -862,7 +863,8 @@ public class SuppliesTrackerPlugin extends Plugin
 			newQuantity = count;
 		}
 
-		switch(itemId){
+		switch(itemId)
+		{
 			case AMULET_OF_GLORY6:
 				calculatedPrice = ((itemManager.getItemPrice(AMULET_OF_GLORY6) * newQuantity) / 6);
 				break;
