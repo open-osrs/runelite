@@ -157,7 +157,7 @@ class GrandExchangeItemPanel extends JPanel
 
 		// GE Limit
 		JLabel geLimitLabel = new JLabel();
-		String limitLabelText = geItemLimit == 0 ? "" : "Buy Limit " + QuantityFormatter.formatNumber(geItemLimit);
+		String limitLabelText = geItemLimit == 0 ? "" : "Buy Limit: " + QuantityFormatter.formatNumber(geItemLimit);
 		geLimitLabel.setText(limitLabelText);
 		geLimitLabel.setForeground(ColorScheme.GRAND_EXCHANGE_LIMIT);
 		geLimitLabel.setBorder(new CompoundBorder(geLimitLabel.getBorder(), new EmptyBorder(0, 0, 0, 7)));
