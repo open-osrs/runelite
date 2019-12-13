@@ -70,6 +70,12 @@ class GrandExchangeItemPanel extends JPanel
 		MouseAdapter itemPanelMouseListener = new MouseAdapter()
 		{
 			@Override
+			public void mouseReleased(MouseEvent e)
+			{
+				geLink(name, itemID);
+			}
+
+			@Override
 			public void mouseEntered(MouseEvent e)
 			{
 				for (JPanel panel : panels)
@@ -88,12 +94,6 @@ class GrandExchangeItemPanel extends JPanel
 				}
 				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
-
-			@Override
-			public void mouseReleased(MouseEvent e)
-			{
-				geLink(name, itemID);
-			}
 		};
 
 		addMouseListener(itemPanelMouseListener);
@@ -110,7 +110,7 @@ class GrandExchangeItemPanel extends JPanel
 		add(itemIcon, BorderLayout.LINE_START);
 
 		// Item details panel
-		JPanel rightPanel = new JPanel(new GridLayout(5, 1));
+		JPanel rightPanel = new JPanel(new GridLayout((osbPrice > 0) ? 5 : 4, 1));
 		panels.add(rightPanel);
 		rightPanel.setBackground(background);
 
@@ -136,18 +136,13 @@ class GrandExchangeItemPanel extends JPanel
 		rightPanel.add(gePriceLabel);
 
 		// OSB Price
-		JLabel osbPricelabel = new JLabel();
 		if (osbPrice > 0)
 		{
+			JLabel osbPricelabel = new JLabel();
 			osbPricelabel.setText("OSB Price: " + QuantityFormatter.formatNumber(osbPrice) + " gp");
+			osbPricelabel.setForeground(ColorScheme.GRAND_EXCHANGE_PRICE);
+			rightPanel.add(osbPricelabel);
 		}
-		else
-		{
-			osbPricelabel.setText("N/A");
-		}
-		osbPricelabel.setForeground(ColorScheme.GRAND_EXCHANGE_PRICE);
-		rightPanel.add(osbPricelabel);
-
 
 		// Alch price
 		JLabel haPriceLabel = new JLabel();
@@ -157,22 +152,13 @@ class GrandExchangeItemPanel extends JPanel
 
 		// GE Limit
 		JLabel geLimitLabel = new JLabel();
-		String limitLabelText = geItemLimit == 0 ? "" : "Buy Limit: " + QuantityFormatter.formatNumber(geItemLimit);
+		String limitLabelText = geItemLimit == 0 ? "" : "Buy Limit " + QuantityFormatter.formatNumber(geItemLimit);
 		geLimitLabel.setText(limitLabelText);
 		geLimitLabel.setForeground(ColorScheme.GRAND_EXCHANGE_LIMIT);
 		geLimitLabel.setBorder(new CompoundBorder(geLimitLabel.getBorder(), new EmptyBorder(0, 0, 0, 7)));
 		rightPanel.add(geLimitLabel);
 
 		add(rightPanel, BorderLayout.CENTER);
-	}
-
-	private void matchComponentBackground(JPanel panel, Color color)
-	{
-		panel.setBackground(color);
-		for (Component c : panel.getComponents())
-		{
-			c.setBackground(color);
-		}
 	}
 
 	static void geLink(String name, int itemID)
@@ -183,5 +169,14 @@ class GrandExchangeItemPanel extends JPanel
 			+ itemID;
 
 		LinkBrowser.browse(url);
+	}
+
+	private void matchComponentBackground(JPanel panel, Color color)
+	{
+		panel.setBackground(color);
+		for (Component c : panel.getComponents())
+		{
+			c.setBackground(color);
+		}
 	}
 }
