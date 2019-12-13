@@ -207,13 +207,16 @@ public class SuppliesTrackerPlugin extends Plugin
 		if (equipment != null && equipment.getItems().length > EQUIPMENT_CAPE_SLOT)
 		{
 			int capeID = equipment.getItems()[EQUIPMENT_CAPE_SLOT].getId();
+			System.out.println(itemManager.getItemDefinition(capeID).getName());
 			switch (capeID)
 			{
 				case AVAS_ASSEMBLER:
+				case AVAS_ASSEMBLER_L:
 				case ASSEMBLER_MAX_CAPE:
 					percent = ASSEMBLER_PERCENT;
 					break;
 				case AVAS_ACCUMULATOR:
+				case AVAS_ACCUMULATOR_23609:
 				case ACCUMULATOR_MAX_CAPE:
 					// TODO: the ranging cape can be used as an attractor so this could be wrong
 				case RANGING_CAPE:
@@ -224,6 +227,7 @@ public class SuppliesTrackerPlugin extends Plugin
 					break;
 			}
 		}
+		System.out.println(percent);
 		return percent;
 	}
 
@@ -622,9 +626,37 @@ public class SuppliesTrackerPlugin extends Plugin
 		String message = event.getMessage();
 		if (event.getType() == ChatMessageType.GAMEMESSAGE || event.getType() == ChatMessageType.SPAM)
 		{
-			if(message.toLowerCase().contains("your amulet has"))
+			if(message.toLowerCase().contains("your amulet has") || message.toLowerCase().contains("your amulet's last charge"))
 			{
 				buildJewelEntries(AMULET_OF_GLORY6, 1);
+			}
+			else if(message.toLowerCase().contains("your ring of dueling has") || message.toLowerCase().contains("your ring of dueling crumbles"))
+			{
+				buildJewelEntries(RING_OF_DUELING8, 1);
+			}
+			else if(message.toLowerCase().contains("your ring of wealth has"))
+			{
+				buildJewelEntries(RING_OF_WEALTH_5, 1);
+			}
+			else if(message.toLowerCase().contains("your combat bracelet has") || message.toLowerCase().contains("your combat bracelet's last charge"))
+			{
+				buildJewelEntries(COMBAT_BRACELET6, 1);
+			}
+			else if(message.toLowerCase().contains("your games necklace has") || message.toLowerCase().contains("your games necklace crumbles"))
+			{
+				buildJewelEntries(GAMES_NECKLACE8, 1);
+			}
+			else if(message.toLowerCase().contains("your skills necklace has") || message.toLowerCase().contains("your skills necklace's last charge"))
+			{
+				buildJewelEntries(SKILLS_NECKLACE6, 1);
+			}
+			else if(message.toLowerCase().contains("your necklace of passage has") || message.toLowerCase().contains("your necklace of passage crumbles"))
+			{
+				buildJewelEntries(NECKLACE_OF_PASSAGE5, 1);
+			}
+			else if(message.toLowerCase().contains("your burning amulet has") || message.toLowerCase().contains("your burning amulet crumbles"))
+			{
+				buildJewelEntries(BURNING_AMULET5, 1);
 			}
 		}
 	}
@@ -769,7 +801,7 @@ public class SuppliesTrackerPlugin extends Plugin
 	{
 		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
 		String name = itemComposition.getName();
-		long calculatedPrice;
+		long calculatedPrice = 0;
 
 
 		int newQuantity;
@@ -781,9 +813,6 @@ public class SuppliesTrackerPlugin extends Plugin
 		{
 			newQuantity = count;
 		}
-
-		// calculate price for amount of doses used
-		calculatedPrice = ((long) itemManager.getItemPrice(itemId)) * ((long) newQuantity);
 
 		if(itemId == SCYTHE_OF_VITUR){
 			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3) + (long)(itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * newQuantity / 100);
@@ -820,7 +849,7 @@ public class SuppliesTrackerPlugin extends Plugin
 	{
 		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
 		String name = itemComposition.getName();
-		long calculatedPrice;
+		long calculatedPrice = 0;
 
 
 		int newQuantity;
@@ -833,12 +862,33 @@ public class SuppliesTrackerPlugin extends Plugin
 			newQuantity = count;
 		}
 
-		// calculate price for amount of doses used
-		calculatedPrice = ((long) itemManager.getItemPrice(itemId)) * ((long) newQuantity);
-
-		if(itemId == AMULET_OF_GLORY6){
-			calculatedPrice = (long)((itemManager.getItemPrice(AMULET_OF_GLORY6) * newQuantity) / 6);
+		switch(itemId){
+			case AMULET_OF_GLORY6:
+				calculatedPrice = ((itemManager.getItemPrice(AMULET_OF_GLORY6) * newQuantity) / 6);
+				break;
+			case RING_OF_DUELING8:
+				calculatedPrice = ((itemManager.getItemPrice(RING_OF_DUELING8) * newQuantity) / 8);
+				break;
+			case RING_OF_WEALTH_5:
+				calculatedPrice = ((itemManager.getItemPrice(RING_OF_WEALTH_5) * newQuantity) / 5);
+				break;
+			case COMBAT_BRACELET6:
+				calculatedPrice = ((itemManager.getItemPrice(COMBAT_BRACELET6) * newQuantity) / 6);
+				break;
+			case GAMES_NECKLACE8:
+				calculatedPrice = ((itemManager.getItemPrice(GAMES_NECKLACE8) * newQuantity) / 8);
+				break;
+			case SKILLS_NECKLACE6:
+				calculatedPrice = ((itemManager.getItemPrice(SKILLS_NECKLACE6) * newQuantity) / 6);
+				break;
+			case NECKLACE_OF_PASSAGE5:
+				calculatedPrice = ((itemManager.getItemPrice(NECKLACE_OF_PASSAGE5) * newQuantity) / 5);
+				break;
+			case BURNING_AMULET5:
+				calculatedPrice = ((itemManager.getItemPrice(BURNING_AMULET5) * newQuantity) / 5);
+				break;
 		}
+
 
 		// write the new quantity and calculated price for this entry
 		SuppliesTrackerItem newEntry = new SuppliesTrackerItem(
@@ -849,7 +899,7 @@ public class SuppliesTrackerPlugin extends Plugin
 
 		suppliesEntry.put(itemId, newEntry);
 		SwingUtilities.invokeLater(() ->
-				panel.addChargesItem(newEntry));
+				panel.addJewelleryItem(newEntry));
 	}
 
 	/**
@@ -944,7 +994,6 @@ public class SuppliesTrackerPlugin extends Plugin
 			case HALF_A_MEAT_PIE:
 				itemId = MEAT_PIE;
 				break;
-			// note behavior of case means both below cases return CAKE
 			case _23_CAKE:
 			case SLICE_OF_CAKE:
 				itemId = CAKE;
