@@ -68,7 +68,7 @@ public interface SuppliesTrackerConfig extends Config
 
 	@ConfigItem(
 		keyName = "chargesBox",
-		name = "Display separate charges box?",
+		name = "Show weapons charges used box?",
 		description = "Separates items with charges to show how many of those charges you used.",
 		titleSection = "chargesBoxTitle"
 )
