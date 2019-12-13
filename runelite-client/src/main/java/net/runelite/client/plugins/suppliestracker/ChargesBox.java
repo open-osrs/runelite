@@ -2,6 +2,17 @@ package net.runelite.client.plugins.suppliestracker;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import static net.runelite.api.ItemID.BLOOD_RUNE;
+import static net.runelite.api.ItemID.CHAOS_RUNE;
+import static net.runelite.api.ItemID.COINS_995;
+import static net.runelite.api.ItemID.DEATH_RUNE;
+import static net.runelite.api.ItemID.FIRE_RUNE;
+import static net.runelite.api.ItemID.SANGUINESTI_STAFF;
+import static net.runelite.api.ItemID.SCYTHE_OF_VITUR;
+import static net.runelite.api.ItemID.TRIDENT_OF_THE_SEAS;
+import static net.runelite.api.ItemID.TRIDENT_OF_THE_SWAMP;
+import static net.runelite.api.ItemID.VIAL_OF_BLOOD_22446;
+import static net.runelite.api.ItemID.ZULRAHS_SCALES;
 import net.runelite.api.util.Text;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
@@ -14,14 +25,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.runelite.api.ItemID.*;
 
 public class ChargesBox extends JPanel
 {
