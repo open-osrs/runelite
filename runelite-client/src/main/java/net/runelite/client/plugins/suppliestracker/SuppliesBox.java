@@ -46,7 +46,7 @@ class SuppliesBox extends Box
 		ItemDefinition item = itemManager.getItemDefinition(itemId);
 		final String name = item.getName();
 
-		if(SuppliesTrackerPlugin.isPotion(name))
+		if (SuppliesTrackerPlugin.isPotion(name))
 		{
 			final long price = itemManager.getItemPrice(plugin.getPotionID(name.replaceAll(POTION_PATTERN, "(4)"))) / 4;
 			return name + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
