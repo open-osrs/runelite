@@ -10,7 +10,7 @@ public interface InfoConfig extends Config
 	@ConfigItem(
 		keyName = "showGithub",
 		name = "Show the OpenOSRS Github",
-		description = "configures if you want to show the OpenOSRS github or not.",
+		description = "Configures if you want to show the OpenOSRS Github or not.",
 		position = 0
 	)
 	default boolean showGithub()
@@ -21,7 +21,7 @@ public interface InfoConfig extends Config
 	@ConfigItem(
 		keyName = "showLauncher",
 		name = "Show the Launcher download",
-		description = "configures if you want to show the OpenOSRS launcher download or not.",
+		description = "Configures if you want to show the OpenOSRS Launcher download or not.",
 		position = 1
 	)
 	default boolean showLauncher()
@@ -31,8 +31,8 @@ public interface InfoConfig extends Config
 
 	@ConfigItem(
 		keyName = "showLogDir",
-		name = "Show log directory",
-		description = "configures if you want to show the log directory or not.",
+		name = "Show Log Directory",
+		description = "Configures if you want to show the Log Directory or not.",
 		position = 2
 	)
 	default boolean showLogDir()
@@ -42,8 +42,8 @@ public interface InfoConfig extends Config
 
 	@ConfigItem(
 		keyName = "showRuneliteDir",
-		name = "Show runelite directory",
-		description = "configures if you want to show the runelite directory or not.",
+		name = "Show Runelite Directory",
+		description = "Configures if you want to show the Runelite directory or not.",
 		position = 3
 	)
 	default boolean showRuneliteDir()
@@ -53,8 +53,8 @@ public interface InfoConfig extends Config
 
 	@ConfigItem(
 		keyName = "showPluginsDir",
-		name = "Show plugins directory",
-		description = "configures if you want to show the plugins directory or not.",
+		name = "Show Plugins Directory",
+		description = "Configures if you want to show the Plugins Directory or not.",
 		position = 4
 	)
 	default boolean showPluginsDir()
@@ -64,8 +64,8 @@ public interface InfoConfig extends Config
 
 	@ConfigItem(
 		keyName = "showScreenshotsDir",
-		name = "Show screenshots directory",
-		description = "configures if you want to show the screenshots directory or not.",
+		name = "Show Screenshots Directory",
+		description = "Configures if you want to show the Screenshots Directory or not.",
 		position = 5
 	)
 	default boolean showScreenshotsDir()
@@ -75,13 +75,13 @@ public interface InfoConfig extends Config
 
 	@ConfigItem(
 		keyName = "showPhysicalDir",
-		name = "Show Physical directories",
-		description = "configures if you want to show the physical directory locations or not.",
+		name = "Show Physical Locations",
+		description = "Configures if you want to show the Physical Directory Locations or not.",
 		position = 6
 	)
 	default boolean showPhysicalDir()
 	{
-		return false;
+		return true;
 	}
 
 }

@@ -141,31 +141,31 @@ class InfoPanel extends PluginPanel
 		});
 
 		actionsContainer.add(buildLinkPanel(GITHUB_ICON, "License info", "for distribution", "https://github.com/open-osrs/runelite/blob/master/LICENSE"));
-		actionsContainer.add(buildLinkPanel(PATREON_ICON, "Patreon to support", "the OpenOSRS devs", RuneLiteProperties.getPatreonLink()));
-		actionsContainer.add(buildLinkPanel(DISCORD_ICON, "Talk to us on our", "discord server", "https://discord.gg/OpenOSRS"));
+		actionsContainer.add(buildLinkPanel(PATREON_ICON, "Patreon to support", "the OpenOSRS Devs", RuneLiteProperties.getPatreonLink()));
+		actionsContainer.add(buildLinkPanel(DISCORD_ICON, "Talk to us on our", "Discord Server", "https://discord.gg/OpenOSRS"));
 		if (plugin.isShowGithub())
 		{
-			actionsContainer.add(buildLinkPanel(GITHUB_ICON, "OpenOSRS github", "", "https://github.com/open-osrs"));
+			actionsContainer.add(buildLinkPanel(GITHUB_ICON, "OpenOSRS Github", "", "https://github.com/open-osrs"));
 		}
 		if (plugin.isShowLauncher())
 		{
-			actionsContainer.add(buildLinkPanel(IMPORT_ICON, "Launcher download", "for the latest launcher", "https://github.com/open-osrs/launcher/releases"));
+			actionsContainer.add(buildLinkPanel(IMPORT_ICON, "Launcher Download", "for the latest launcher", "https://github.com/open-osrs/launcher/releases"));
 		}
 		if (plugin.isShowRuneliteDir())
 		{
-			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Runelite directory", "for your .properties file", RUNELITE_DIR));
+			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Runelite Directory", "for your .properties file", RUNELITE_DIR));
 		}
 		if (plugin.isShowLogDir())
 		{
-			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open logs directory", "for bug reports", LOGS_DIR));
+			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Logs Directory", "for bug reports", LOGS_DIR));
 		}
 		if (plugin.isShowPluginsDir())
 		{
-			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open plugins directory", "for external plugins", PLUGINS_DIR));
+			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Plugins Directory", "for external plugins", PLUGINS_DIR));
 		}
 		if (plugin.isShowScreenshotsDir())
 		{
-			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open screenshots directory", "for your screenshots", SCREENSHOT_DIR));
+			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Screenshots Directory", "for your screenshots", SCREENSHOT_DIR));
 		}
 
 		if (plugin.isShowPhysicalDir())
