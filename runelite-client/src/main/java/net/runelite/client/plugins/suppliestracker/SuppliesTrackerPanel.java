@@ -57,6 +57,8 @@ class SuppliesTrackerPanel extends PluginPanel
 	private final JPanel logsContainer = new JPanel();
 
 	private final List<SuppliesBox> boxList = new ArrayList<>();
+	private ChargesBox chargesBox;
+	private JewelleryBox jewelleryBox;
 
 	private final PluginErrorPanel errorPanel = new PluginErrorPanel();
 
@@ -103,6 +105,11 @@ class SuppliesTrackerPanel extends PluginPanel
 			logsContainer.add(newBox);
 			boxList.add(newBox);
 		}
+		chargesBox = new ChargesBox(itemManager, "Charges", plugin, this, ItemType.CHARGES);
+		jewelleryBox = new JewelleryBox(itemManager, "Jewellery", plugin, this, ItemType.JEWELLERY);
+
+		logsContainer.add(jewelleryBox);
+		logsContainer.add(chargesBox);
 
 		// Create reset all menu
 		final JMenuItem reset = new JMenuItem("Reset All");
@@ -115,6 +122,7 @@ class SuppliesTrackerPanel extends PluginPanel
 			{
 				box.clearAll();
 			}
+			chargesBox.clearAll();
 			updateOverall();
 			logsContainer.repaint();
 		});
@@ -178,6 +186,20 @@ class SuppliesTrackerPanel extends PluginPanel
 		updateOverall();
 	}
 
+	void addChargesItem(SuppliesTrackerItem item)
+	{
+		chargesBox.update(item);
+		chargesBox.rebuild();
+		updateOverall();
+	}
+
+	void addJewelleryItem(SuppliesTrackerItem item)
+	{
+		jewelleryBox.update(item);
+		jewelleryBox.rebuild();
+		updateOverall();
+	}
+
 	/**
 	 * Updates overall stats to calculate overall used and overall cost from
 	 * the info in each box
@@ -190,11 +212,17 @@ class SuppliesTrackerPanel extends PluginPanel
 			overallSuppliesUsed += box.getTotalSupplies();
 		}
 
+		overallSuppliesUsed += chargesBox.getTotalSupplies();
+		overallSuppliesUsed += jewelleryBox.getTotalSupplies();
+
 		overallCost = 0;
 		for (SuppliesBox box : boxList)
 		{
 			overallCost += box.getTotalPrice();
 		}
+
+		overallCost += chargesBox.getTotalPrice();
+		overallCost += jewelleryBox.getTotalPrice();
 
 		overallSuppliesUsedLabel.setText(htmlLabel("Total Supplies: ", overallSuppliesUsed));
 		overallCostLabel.setText(htmlLabel("Total Cost: ", overallCost));

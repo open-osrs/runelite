@@ -28,6 +28,7 @@ package net.runelite.client.plugins.suppliestracker;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import static net.runelite.api.ItemID.COINS_995;
 
 /**
  * The potential types that supplies can be along with a categorization function
@@ -40,7 +41,10 @@ public enum ItemType
 	POTION("Potions"),
 	RUNE("Runes"),
 	AMMO("Ammo"),
-	TELEPORT("Teleports");
+	TELEPORT("Teleports"),
+	COINS("Coins"),
+	JEWELLERY("Jewellery"),
+	CHARGES("Charges");
 
 	@Getter(AccessLevel.PACKAGE)
 	private String label;
@@ -73,6 +77,14 @@ public enum ItemType
 		if (item.getName().toLowerCase().contains("teleport"))
 		{
 			return ItemType.TELEPORT;
+		}
+		if (item.getId() == COINS_995)
+		{
+			return ItemType.COINS;
+		}
+		if (item.getName().toLowerCase().contains("ring of") || item.getName().toLowerCase().contains("amulet of") || item.getName().toLowerCase().contains("bracelet") || item.getName().toLowerCase().contains("necklace"))
+		{
+			return ItemType.JEWELLERY;
 		}
 		return ItemType.FOOD;
 	}
