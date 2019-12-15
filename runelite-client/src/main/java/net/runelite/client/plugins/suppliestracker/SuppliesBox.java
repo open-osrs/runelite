@@ -36,7 +36,13 @@ class SuppliesBox extends Box
 {
 
 
-	SuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type)
+	SuppliesBox(
+				ItemManager itemManager,
+				String id,
+				SuppliesTrackerPlugin plugin,
+				SuppliesTrackerPanel panel,
+				ItemType type
+	)
 	{
 		super(itemManager, id, plugin, panel, type);
 	}
@@ -53,7 +59,7 @@ class SuppliesBox extends Box
 		}
 		else
 		{
-			final long price = item.getPrice();
+			final long price = itemManager.getItemPrice(itemId);
 			return name + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
 		}
 	}
