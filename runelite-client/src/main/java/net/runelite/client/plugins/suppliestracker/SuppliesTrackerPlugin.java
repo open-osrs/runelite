@@ -84,34 +84,40 @@ import net.runelite.http.api.item.ItemPrice;
 @Slf4j
 public class SuppliesTrackerPlugin extends Plugin
 {
+	//Regex patterns
 	static final String POTION_PATTERN = "[(]\\d[)]";
-
 	private static final String EAT_PATTERN = "^eat";
 	private static final String DRINK_PATTERN = "^drink";
 	private static final String TELEPORT_PATTERN = "^teleport";
 	private static final String TELETAB_PATTERN = "^break";
 	private static final String SPELL_PATTERN = "^cast|^grand\\sexchange|^outside|^seers|^yanille";
 
+	//Equipment slot constants
 	private static final int EQUIPMENT_MAINHAND_SLOT = EquipmentInventorySlot.WEAPON.getSlotIdx();
 	private static final int EQUIPMENT_AMMO_SLOT = EquipmentInventorySlot.AMMO.getSlotIdx();
 	private static final int EQUIPMENT_CAPE_SLOT = EquipmentInventorySlot.CAPE.getSlotIdx();
 
+	//Ava's calculations
 	private static final double NO_AVAS_PERCENT = 1.0;
 	private static final double ASSEMBLER_PERCENT = 0.20;
 	private static final double ACCUMULATOR_PERCENT = 0.28;
 	private static final double ATTRACTOR_PERCENT = 0.40;
 
+	//blowpipe attack timings
 	private static final int BLOWPIPE_TICKS_RAPID_PVM = 2;
 	private static final int BLOWPIPE_TICKS_RAPID_PVP = 3;
 	private static final int BLOWPIPE_TICKS_NORMAL_PVM = 3;
 	private static final int BLOWPIPE_TICKS_NORMAL_PVP = 4;
 
+	//blowpipe scale usage
 	private static final double SCALES_PERCENT = 0.66;
 
+	//Max use amounts
 	private static final int POTION_DOSES = 4, CAKE_DOSES = 3, PIZZA_PIE_DOSES = 2;
 
 	private static final Random random = new Random();
 
+	// id array for checking thrown items and runes
 	private static final int[] THROWING_IDS = new int[]{BRONZE_DART, IRON_DART, STEEL_DART, BLACK_DART, MITHRIL_DART, ADAMANT_DART, RUNE_DART, DRAGON_DART, BRONZE_KNIFE, IRON_KNIFE, STEEL_KNIFE, BLACK_KNIFE, MITHRIL_KNIFE, ADAMANT_KNIFE, RUNE_KNIFE, BRONZE_THROWNAXE, IRON_THROWNAXE, STEEL_THROWNAXE, MITHRIL_THROWNAXE, ADAMANT_THROWNAXE, RUNE_THROWNAXE, DRAGON_KNIFE, DRAGON_KNIFE_22812, DRAGON_KNIFE_22814, DRAGON_KNIFEP_22808, DRAGON_KNIFEP_22810, DRAGON_KNIFEP, DRAGON_THROWNAXE, CHINCHOMPA_10033, RED_CHINCHOMPA_10034, BLACK_CHINCHOMPA};
 	private static final int[] RUNE_IDS = new int[]{AIR_RUNE, WATER_RUNE, EARTH_RUNE, MIND_RUNE, BODY_RUNE, COSMIC_RUNE, CHAOS_RUNE, NATURE_RUNE, LAW_RUNE, DEATH_RUNE, ASTRAL_RUNE, BLOOD_RUNE, SOUL_RUNE, WRATH_RUNE, MIST_RUNE, DUST_RUNE, MUD_RUNE, SMOKE_RUNE, STEAM_RUNE, LAVA_RUNE};
 
@@ -127,8 +133,11 @@ public class SuppliesTrackerPlugin extends Plugin
 	private boolean throwingAmmoLoaded = false;
 	private boolean mainHandThrowing = false;
 	private int mainHand = 0;
+
 	private SuppliesTrackerPanel panel;
 	private NavigationButton navButton;
+
+	//Item arrays
 	private final String[] RAIDS_CONSUMABLES = new String[]{"xeric's", "elder", "twisted", "revitalisation", "overload", "prayer enhance", "pysk", "suphi", "leckish", "brawk", "mycil", "roqed", "kyren", "guanic", "prael", "giral", "phluxia", "kryket", "murng", "psykk"};
 	private final int[] TRIDENT_OF_THE_SEAS_IDS = new int[]{TRIDENT_OF_THE_SEAS, TRIDENT_OF_THE_SEAS_E, TRIDENT_OF_THE_SEAS_FULL};
 	private final int[] TRIDENT_OF_THE_SWAMP_IDS = new int[]{TRIDENT_OF_THE_SWAMP_E, TRIDENT_OF_THE_SWAMP, UNCHARGED_TOXIC_TRIDENT_E, UNCHARGED_TOXIC_TRIDENT};
@@ -188,7 +197,8 @@ public class SuppliesTrackerPlugin extends Plugin
 		{
 			ticks++;
 		}
-		if (ticks == ticksInAnimation && (player.getAnimation() == BLOWPIPE_ATTACK))
+		if (ticks == ticksInAnimation &&
+			(player.getAnimation() == BLOWPIPE_ATTACK))
 		{
 			double ava_percent = getAccumulatorPercent();
 			// randomize the usage of supplies since we CANNOT actually get real supplies used
@@ -243,10 +253,12 @@ public class SuppliesTrackerPlugin extends Plugin
 	@Subscribe
 	private void onVarbitChanged(VarbitChanged event)
 	{
-		if (attackStyleVarbit == -1 || attackStyleVarbit != client.getVar(VarPlayer.ATTACK_STYLE))
+		if (attackStyleVarbit == -1 ||
+			attackStyleVarbit != client.getVar(VarPlayer.ATTACK_STYLE))
 		{
 			attackStyleVarbit = client.getVar(VarPlayer.ATTACK_STYLE);
-			if (attackStyleVarbit == 0 || attackStyleVarbit == 3)
+			if (attackStyleVarbit == 0 ||
+				attackStyleVarbit == 3)
 			{
 				ticksInAnimation = BLOWPIPE_TICKS_NORMAL_PVM;
 				if (client.getLocalPlayer() != null &&
@@ -294,7 +306,8 @@ public class SuppliesTrackerPlugin extends Plugin
 						break;
 					}
 				}
-				if (isRune && (newItem.getId() != oldItem.getId() || newItem.getQuantity() != oldItem.getQuantity()))
+				if (isRune && (newItem.getId() != oldItem.getId() ||
+					newItem.getQuantity() != oldItem.getQuantity()))
 				{
 					int quantity = oldItem.getQuantity();
 					if (newItem.getId() == oldItem.getId())
@@ -391,7 +404,8 @@ public class SuppliesTrackerPlugin extends Plugin
 					actionStack.push(newAction);
 				}
 			}
-			else if (animationChanged.getActor().getAnimation() == BARRAGE_ANIMATION || animationChanged.getActor().getAnimation() == BLITZ_ANIMATION )
+			else if (animationChanged.getActor().getAnimation() == BARRAGE_ANIMATION ||
+					animationChanged.getActor().getAnimation() == BLITZ_ANIMATION )
 			{
 				old = client.getItemContainer(InventoryID.INVENTORY);
 
@@ -422,7 +436,8 @@ public class SuppliesTrackerPlugin extends Plugin
 	{
 		ItemContainer itemContainer = itemContainerChanged.getItemContainer();
 
-		if (itemContainer == client.getItemContainer(InventoryID.INVENTORY) && old != null)
+		if (itemContainer == client.getItemContainer(InventoryID.INVENTORY) &&
+			old != null)
 		{
 			while (!actionStack.isEmpty())
 			{
@@ -445,7 +460,8 @@ public class SuppliesTrackerPlugin extends Plugin
 						itemFrame = (MenuAction.ItemAction) frame;
 						int teleid = itemFrame.getItemID();
 						int slot = itemFrame.getSlot();
-						if (itemContainer.getItems()[slot].getId() != oldInv[slot].getId() || itemContainer.getItems()[slot].getQuantity() != oldInv[slot].getQuantity())
+						if (itemContainer.getItems()[slot].getId() != oldInv[slot].getId() ||
+							itemContainer.getItems()[slot].getQuantity() != oldInv[slot].getQuantity())
 						{
 							buildEntries(teleid);
 						}
@@ -604,8 +620,9 @@ public class SuppliesTrackerPlugin extends Plugin
 			old = client.getItemContainer(InventoryID.INVENTORY);
 
 			// Makes stack only contains one teleport type to stop from adding multiple of one teleport
-			if (old != null && old.getItems() != null && actionStack.stream().noneMatch(a ->
-				a.getType() == TELEPORT))
+			if (old != null && old.getItems() != null &&
+				actionStack.stream().noneMatch(a ->
+					a.getType() == TELEPORT))
 			{
 				int teleid = event.getIdentifier();
 				MenuAction newAction = new MenuAction.ItemAction(TELEPORT, old.getItems(), teleid, event.getParam0());
@@ -636,11 +653,13 @@ public class SuppliesTrackerPlugin extends Plugin
 		String message = event.getMessage();
 		if (event.getType() == ChatMessageType.GAMEMESSAGE || event.getType() == ChatMessageType.SPAM)
 		{
-			if (message.toLowerCase().contains("your amulet has") || message.toLowerCase().contains("your amulet's last charge"))
+			if (message.toLowerCase().contains("your amulet has") ||
+				message.toLowerCase().contains("your amulet's last charge"))
 			{
 				buildJewelEntries(AMULET_OF_GLORY6, 1);
 			}
-			else if (message.toLowerCase().contains("your ring of dueling has") || message.toLowerCase().contains("your ring of dueling crumbles"))
+			else if (message.toLowerCase().contains("your ring of dueling has") ||
+					message.toLowerCase().contains("your ring of dueling crumbles"))
 			{
 				buildJewelEntries(RING_OF_DUELING8, 1);
 			}
@@ -648,23 +667,28 @@ public class SuppliesTrackerPlugin extends Plugin
 			{
 				buildJewelEntries(RING_OF_WEALTH_5, 1);
 			}
-			else if (message.toLowerCase().contains("your combat bracelet has") || message.toLowerCase().contains("your combat bracelet's last charge"))
+			else if (message.toLowerCase().contains("your combat bracelet has") ||
+					message.toLowerCase().contains("your combat bracelet's last charge"))
 			{
 				buildJewelEntries(COMBAT_BRACELET6, 1);
 			}
-			else if (message.toLowerCase().contains("your games necklace has") || message.toLowerCase().contains("your games necklace crumbles"))
+			else if (message.toLowerCase().contains("your games necklace has") ||
+					message.toLowerCase().contains("your games necklace crumbles"))
 			{
 				buildJewelEntries(GAMES_NECKLACE8, 1);
 			}
-			else if (message.toLowerCase().contains("your skills necklace has") || message.toLowerCase().contains("your skills necklace's last charge"))
+			else if (message.toLowerCase().contains("your skills necklace has") ||
+					message.toLowerCase().contains("your skills necklace's last charge"))
 			{
 				buildJewelEntries(SKILLS_NECKLACE6, 1);
 			}
-			else if (message.toLowerCase().contains("your necklace of passage has") || message.toLowerCase().contains("your necklace of passage crumbles"))
+			else if (message.toLowerCase().contains("your necklace of passage has") ||
+					message.toLowerCase().contains("your necklace of passage crumbles"))
 			{
 				buildJewelEntries(NECKLACE_OF_PASSAGE5, 1);
 			}
-			else if (message.toLowerCase().contains("your burning amulet has") || message.toLowerCase().contains("your burning amulet crumbles"))
+			else if (message.toLowerCase().contains("your burning amulet has") ||
+					message.toLowerCase().contains("your burning amulet crumbles"))
 			{
 				buildJewelEntries(BURNING_AMULET5, 1);
 			}
@@ -679,7 +703,10 @@ public class SuppliesTrackerPlugin extends Plugin
 	 */
 	static boolean isPotion(String name)
 	{
-		return name.contains("(4)") || name.contains("(3)") || name.contains("(2)") || name.contains("(1)");
+		return name.contains("(4)") ||
+				name.contains("(3)") ||
+				name.contains("(2)") ||
+				name.contains("(1)");
 	}
 
 	/**
@@ -690,12 +717,14 @@ public class SuppliesTrackerPlugin extends Plugin
 	 */
 	static boolean isPizzaPie(String name)
 	{
-		return name.toLowerCase().contains("pizza") || name.toLowerCase().contains(" pie");
+		return name.toLowerCase().contains("pizza") ||
+				name.toLowerCase().contains(" pie");
 	}
 
 	static boolean isCake(String name, int itemId)
 	{
-		return name.toLowerCase().contains("cake") || itemId == ItemID.CHOCOLATE_SLICE;
+		return name.toLowerCase().contains("cake") ||
+				itemId == ItemID.CHOCOLATE_SLICE;
 	}
 
 	/**

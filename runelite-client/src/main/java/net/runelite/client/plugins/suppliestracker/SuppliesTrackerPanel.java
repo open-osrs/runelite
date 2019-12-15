@@ -53,9 +53,10 @@ class SuppliesTrackerPanel extends PluginPanel
 	private static final String HTML_LABEL_TEMPLATE =
 		"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
 
-	// Handle loot logs
+	// Handle supplies logs
 	private final JPanel logsContainer = new JPanel();
 
+	//Boxes for holding supplies
 	private final List<SuppliesBox> boxList = new ArrayList<>();
 	private ChargesBox chargesBox;
 	private JewelleryBox jewelleryBox;
@@ -99,15 +100,18 @@ class SuppliesTrackerPanel extends PluginPanel
 		overallPanel.add(overallIcon, BorderLayout.WEST);
 		overallPanel.add(overallInfo, BorderLayout.CENTER);
 
+		//Sorts boxes into usage types
 		for (ItemType type : ItemType.values())
 		{
 			SuppliesBox newBox = new SuppliesBox(itemManager, type.getLabel(), plugin, this, type);
 			logsContainer.add(newBox);
 			boxList.add(newBox);
 		}
+
 		chargesBox = new ChargesBox(itemManager, "Charges", plugin, this, ItemType.CHARGES);
 		jewelleryBox = new JewelleryBox(itemManager, "Jewellery", plugin, this, ItemType.JEWELLERY);
 
+		//adds Jewellery and charges boxes
 		logsContainer.add(jewelleryBox);
 		logsContainer.add(chargesBox);
 
@@ -186,6 +190,11 @@ class SuppliesTrackerPanel extends PluginPanel
 		updateOverall();
 	}
 
+	/**
+	 * Add an item to the supply panel by placing it into the charges box
+	 *
+	 * @param item the item to add
+	 */
 	void addChargesItem(SuppliesTrackerItem item)
 	{
 		chargesBox.update(item);
@@ -193,6 +202,11 @@ class SuppliesTrackerPanel extends PluginPanel
 		updateOverall();
 	}
 
+	/**
+	 * Add an item to the supply panel by placing it into the jewellery box
+	 *
+	 * @param item the item to add
+	 */
 	void addJewelleryItem(SuppliesTrackerItem item)
 	{
 		jewelleryBox.update(item);
@@ -216,11 +230,14 @@ class SuppliesTrackerPanel extends PluginPanel
 		overallSuppliesUsed += jewelleryBox.getTotalSupplies();
 
 		overallCost = 0;
+
+		//Checks all supply boxes for total price
 		for (SuppliesBox box : boxList)
 		{
 			overallCost += box.getTotalPrice();
 		}
 
+		//add total prices from charges and jewellery boxes
 		overallCost += chargesBox.getTotalPrice();
 		overallCost += jewelleryBox.getTotalPrice();
 

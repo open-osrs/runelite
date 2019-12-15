@@ -24,24 +24,31 @@ import static net.runelite.api.ItemID.*;
 public abstract class Box extends JPanel
 {
 	private static final int ITEMS_PER_ROW = 5;
+
+
 	private final JPanel itemContainer = new JPanel();
 	private final JLabel priceLabel = new JLabel();
 	private final JLabel subTitleLabel = new JLabel();
+
 	@Getter(AccessLevel.PACKAGE)
 	public final ItemManager itemManager;
-	@Getter(AccessLevel.PACKAGE)
-	private final String id;
 	protected final SuppliesTrackerPlugin plugin;
 	private final SuppliesTrackerPanel panel;
+
 	@Getter(AccessLevel.PACKAGE)
-	private final List<SuppliesTrackerItem> trackedItems = new ArrayList<>();
-	private long totalPrice;
+	private final String id;
 	@Getter(AccessLevel.PACKAGE)
 	private final ItemType type;
 
-	Box(final ItemManager itemManager, final String id,
-				final SuppliesTrackerPlugin plugin, final SuppliesTrackerPanel panel,
-				final ItemType type)
+	@Getter(AccessLevel.PACKAGE)
+	private final List<SuppliesTrackerItem> trackedItems = new ArrayList<>();
+	private long totalPrice;
+
+	Box(final ItemManager itemManager,
+		final String id,
+		final SuppliesTrackerPlugin plugin,
+		final SuppliesTrackerPanel panel,
+		final ItemType type)
 	{
 		this.id = id;
 		this.itemManager = itemManager;
