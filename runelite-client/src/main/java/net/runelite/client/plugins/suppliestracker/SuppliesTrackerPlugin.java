@@ -205,7 +205,6 @@ public class SuppliesTrackerPlugin extends Plugin
 			if (random.nextDouble() <= ava_percent)
 			{
 				buildEntries(config.blowpipeAmmo().getDartID());
-
 			}
 			if (random.nextDouble() <= SCALES_PERCENT)
 			{
@@ -349,7 +348,7 @@ public class SuppliesTrackerPlugin extends Plugin
 					{
 						if (config.chargesBox())
 						{
-							buildChargesEntries(TRIDENT_OF_THE_SEAS, 1);
+							buildChargesEntries(TRIDENT_OF_THE_SEAS);
 						}
 						else
 						{
@@ -368,7 +367,7 @@ public class SuppliesTrackerPlugin extends Plugin
 					{
 						if (config.chargesBox())
 						{
-							buildChargesEntries(TRIDENT_OF_THE_SWAMP, 1);
+							buildChargesEntries(TRIDENT_OF_THE_SWAMP);
 						}
 						else
 						{
@@ -385,7 +384,7 @@ public class SuppliesTrackerPlugin extends Plugin
 				{
 					if (config.chargesBox())
 					{
-						buildChargesEntries(SANGUINESTI_STAFF, 1);
+						buildChargesEntries(SANGUINESTI_STAFF);
 					}
 					else
 					{
@@ -420,7 +419,7 @@ public class SuppliesTrackerPlugin extends Plugin
 			{
 				if (config.chargesBox())
 				{
-					buildChargesEntries(SCYTHE_OF_VITUR, 1);
+					buildChargesEntries(SCYTHE_OF_VITUR);
 				}
 				else
 				{
@@ -656,41 +655,41 @@ public class SuppliesTrackerPlugin extends Plugin
 			if (message.toLowerCase().contains("your amulet has") ||
 				message.toLowerCase().contains("your amulet's last charge"))
 			{
-				buildJewelEntries(AMULET_OF_GLORY6, 1);
+				buildChargesEntries(AMULET_OF_GLORY6);
 			}
 			else if (message.toLowerCase().contains("your ring of dueling has") ||
 					message.toLowerCase().contains("your ring of dueling crumbles"))
 			{
-				buildJewelEntries(RING_OF_DUELING8, 1);
+				buildChargesEntries(RING_OF_DUELING8);
 			}
 			else if (message.toLowerCase().contains("your ring of wealth has"))
 			{
-				buildJewelEntries(RING_OF_WEALTH_5, 1);
+				buildChargesEntries(RING_OF_WEALTH_5);
 			}
 			else if (message.toLowerCase().contains("your combat bracelet has") ||
 					message.toLowerCase().contains("your combat bracelet's last charge"))
 			{
-				buildJewelEntries(COMBAT_BRACELET6, 1);
+				buildChargesEntries(COMBAT_BRACELET6);
 			}
 			else if (message.toLowerCase().contains("your games necklace has") ||
 					message.toLowerCase().contains("your games necklace crumbles"))
 			{
-				buildJewelEntries(GAMES_NECKLACE8, 1);
+				buildChargesEntries(GAMES_NECKLACE8);
 			}
 			else if (message.toLowerCase().contains("your skills necklace has") ||
 					message.toLowerCase().contains("your skills necklace's last charge"))
 			{
-				buildJewelEntries(SKILLS_NECKLACE6, 1);
+				buildChargesEntries(SKILLS_NECKLACE6);
 			}
 			else if (message.toLowerCase().contains("your necklace of passage has") ||
 					message.toLowerCase().contains("your necklace of passage crumbles"))
 			{
-				buildJewelEntries(NECKLACE_OF_PASSAGE5, 1);
+				buildChargesEntries(NECKLACE_OF_PASSAGE5);
 			}
 			else if (message.toLowerCase().contains("your burning amulet has") ||
 					message.toLowerCase().contains("your burning amulet crumbles"))
 			{
-				buildJewelEntries(BURNING_AMULET5, 1);
+				buildChargesEntries(BURNING_AMULET5);
 			}
 		}
 	}
@@ -834,9 +833,8 @@ public class SuppliesTrackerPlugin extends Plugin
 	 * Add an item to the supply tracker
 	 *
 	 * @param itemId the id of the item
-	 * @param count  the amount of the item to add to the tracker
 	 */
-	private void buildChargesEntries(int itemId, int count)
+	private void buildChargesEntries(int itemId)
 	{
 		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
 		String name = itemComposition.getName();
@@ -846,62 +844,11 @@ public class SuppliesTrackerPlugin extends Plugin
 		int newQuantity;
 		if (suppliesEntry.containsKey(itemId))
 		{
-			newQuantity = suppliesEntry.get(itemId).getQuantity() + count;
+			newQuantity = suppliesEntry.get(itemId).getQuantity() + 1;
 		}
 		else
 		{
-			newQuantity = count;
-		}
-
-		if (itemId == SCYTHE_OF_VITUR)
-		{
-			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3) + (long)(itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * newQuantity / 100);
-		}
-		if (itemId == TRIDENT_OF_THE_SWAMP)
-		{
-			calculatedPrice = (long)(itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(DEATH_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(ZULRAHS_SCALES) * newQuantity);
-		}
-		if (itemId == TRIDENT_OF_THE_SEAS)
-		{
-			calculatedPrice = (long)(itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(DEATH_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (long)(itemManager.getItemPrice(COINS_995) * newQuantity * 10);
-		}
-		if (itemId == SANGUINESTI_STAFF)
-		{
-			calculatedPrice = (long)(itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
-		}
-
-		// write the new quantity and calculated price for this entry
-		SuppliesTrackerItem newEntry = new SuppliesTrackerItem(
-				itemId,
-				name,
-				newQuantity,
-				calculatedPrice);
-
-		suppliesEntry.put(itemId, newEntry);
-		SwingUtilities.invokeLater(() ->
-				panel.addChargesItem(newEntry));
-	}
-
-	/**
-	 * Add an item to the supply tracker
-	 *
-	 * @param itemId the id of the item
-	 * @param count  the amount of the item to add to the tracker
-	 */
-	private void buildJewelEntries(int itemId, int count)
-	{
-		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
-		String name = itemComposition.getName();
-		long calculatedPrice = 0;
-
-		int newQuantity;
-		if (suppliesEntry.containsKey(itemId))
-		{
-			newQuantity = suppliesEntry.get(itemId).getQuantity() + count;
-		}
-		else
-		{
-			newQuantity = count;
+			newQuantity = 1;
 		}
 
 		switch (itemId)
@@ -930,6 +877,21 @@ public class SuppliesTrackerPlugin extends Plugin
 			case BURNING_AMULET5:
 				calculatedPrice = ((itemManager.getItemPrice(BURNING_AMULET5) * newQuantity) / 5);
 				break;
+			case SCYTHE_OF_VITUR:
+				calculatedPrice = (itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3) + (itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * newQuantity / 100);
+				break;
+			case TRIDENT_OF_THE_SWAMP:
+				calculatedPrice = (itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (itemManager.getItemPrice(DEATH_RUNE) * newQuantity) +
+									(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (itemManager.getItemPrice(ZULRAHS_SCALES) * newQuantity);
+				break;
+			case TRIDENT_OF_THE_SEAS:
+				calculatedPrice = (itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (itemManager.getItemPrice(DEATH_RUNE) * newQuantity) +
+									(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (itemManager.getItemPrice(COINS_995) * newQuantity * 10);
+				break;
+			case SANGUINESTI_STAFF:
+				calculatedPrice = (itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
+				System.out.println("Staff of sang" + itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
+				break;
 		}
 
 		// write the new quantity and calculated price for this entry
@@ -941,8 +903,9 @@ public class SuppliesTrackerPlugin extends Plugin
 
 		suppliesEntry.put(itemId, newEntry);
 		SwingUtilities.invokeLater(() ->
-				panel.addJewelleryItem(newEntry));
+				panel.addItem(newEntry));
 	}
+
 
 	/**
 	 * reset all item stacks
