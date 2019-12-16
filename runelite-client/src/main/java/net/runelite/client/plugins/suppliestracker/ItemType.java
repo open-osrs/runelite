@@ -87,7 +87,7 @@ public enum ItemType
 		{
 			return ItemType.JEWELLERY;
 		}
-		if (item.getId() == SCYTHE_OF_VITUR || item.getId() == SANGUINESTI_STAFF||
+		if (item.getId() == SCYTHE_OF_VITUR || item.getId() == SANGUINESTI_STAFF ||
 				item.getId() == TRIDENT_OF_THE_SEAS || item.getId() == TRIDENT_OF_THE_SWAMP)
 		{
 			return ItemType.CHARGES;
