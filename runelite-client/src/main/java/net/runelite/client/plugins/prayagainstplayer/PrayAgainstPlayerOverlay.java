@@ -70,6 +70,7 @@ class PrayAgainstPlayerOverlay extends Overlay
 			{
 				continue;
 			}
+			
 			if (plugin.isHighlightAttackers())
 			{
 				outlineRenderer.drawOutline(player.getPlayer(), plugin.getHighlightWidth(), player.getAttackStyle().getColor());
