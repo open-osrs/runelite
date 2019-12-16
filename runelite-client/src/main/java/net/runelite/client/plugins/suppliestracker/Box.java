@@ -30,7 +30,7 @@ public abstract class Box extends JPanel
 	private final JLabel priceLabel = new JLabel();
 	private final JLabel subTitleLabel = new JLabel();
 
-	@Getter(AccessLevel.PACKAGE)
+
 	public final ItemManager itemManager;
 	protected final SuppliesTrackerPlugin plugin;
 	private final SuppliesTrackerPanel panel;
@@ -274,7 +274,7 @@ public abstract class Box extends JPanel
 	}
 
 	//Switches full cake ids to get the image for slice
-	private int getSlice(int itemId)
+	private static int getSlice(int itemId)
 	{
 		switch (itemId)
 		{
@@ -289,7 +289,7 @@ public abstract class Box extends JPanel
 	}
 
 	//Switches full pizza and pie ids to get the image for half
-	private int getHalf(int itemId)
+	private static int getHalf(int itemId)
 	{
 		switch (itemId)
 		{
