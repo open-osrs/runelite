@@ -45,10 +45,10 @@ public interface SuppliesTrackerConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "blowpipeAmmo",
-			name = "Ammo",
-			description = "What type of dart are you using in your toxic blowpipe",
-			titleSection = "blowpipeTitle"
+		keyName = "blowpipeAmmo",
+		name = "Ammo",
+		description = "What type of dart are you using in your toxic blowpipe",
+		titleSection = "blowpipeTitle"
 	)
 	default BlowpipeDartType blowpipeAmmo()
 	{
@@ -56,10 +56,10 @@ public interface SuppliesTrackerConfig extends Config
 	}
 
 	@ConfigTitleSection(
-			keyName = "chargesBoxTitle",
-			name = "Charges Box",
-			description = "",
-			position = 2
+		keyName = "chargesBoxTitle",
+		name = "Charges Box",
+		description = "",
+		position = 2
 	)
 	default Title chargesBoxTitle()
 	{
