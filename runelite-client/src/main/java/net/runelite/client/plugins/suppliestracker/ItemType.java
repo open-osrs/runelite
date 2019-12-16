@@ -28,7 +28,7 @@ package net.runelite.client.plugins.suppliestracker;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import static net.runelite.api.ItemID.COINS_995;
+import static net.runelite.api.ItemID.*;
 
 /**
  * The potential types that supplies can be along with a categorization function
@@ -86,6 +86,11 @@ public enum ItemType
 				item.getName().toLowerCase().contains("bracelet") || item.getName().toLowerCase().contains("necklace"))
 		{
 			return ItemType.JEWELLERY;
+		}
+		if (item.getId() == SCYTHE_OF_VITUR || item.getId() == SANGUINESTI_STAFF||
+				item.getId() == TRIDENT_OF_THE_SEAS || item.getId() == TRIDENT_OF_THE_SWAMP)
+		{
+			return ItemType.CHARGES;
 		}
 		return ItemType.FOOD;
 	}

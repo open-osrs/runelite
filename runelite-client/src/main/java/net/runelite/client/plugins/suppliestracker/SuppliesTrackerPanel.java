@@ -58,8 +58,6 @@ class SuppliesTrackerPanel extends PluginPanel
 
 	//Boxes for holding supplies
 	private final List<SuppliesBox> boxList = new ArrayList<>();
-	private ChargesBox chargesBox;
-	private JewelleryBox jewelleryBox;
 
 	private final PluginErrorPanel errorPanel = new PluginErrorPanel();
 
@@ -108,13 +106,6 @@ class SuppliesTrackerPanel extends PluginPanel
 			boxList.add(newBox);
 		}
 
-		chargesBox = new ChargesBox(itemManager, "Charges", plugin, this, ItemType.CHARGES);
-		jewelleryBox = new JewelleryBox(itemManager, "Jewellery", plugin, this, ItemType.JEWELLERY);
-
-		//adds Jewellery and charges boxes
-		logsContainer.add(jewelleryBox);
-		logsContainer.add(chargesBox);
-
 		// Create reset all menu
 		final JMenuItem reset = new JMenuItem("Reset All");
 		reset.addActionListener(e ->
@@ -126,7 +117,6 @@ class SuppliesTrackerPanel extends PluginPanel
 			{
 				box.clearAll();
 			}
-			chargesBox.clearAll();
 			updateOverall();
 			logsContainer.repaint();
 		});
@@ -191,30 +181,6 @@ class SuppliesTrackerPanel extends PluginPanel
 	}
 
 	/**
-	 * Add an item to the supply panel by placing it into the charges box
-	 *
-	 * @param item the item to add
-	 */
-	void addChargesItem(SuppliesTrackerItem item)
-	{
-		chargesBox.update(item);
-		chargesBox.rebuild();
-		updateOverall();
-	}
-
-	/**
-	 * Add an item to the supply panel by placing it into the jewellery box
-	 *
-	 * @param item the item to add
-	 */
-	void addJewelleryItem(SuppliesTrackerItem item)
-	{
-		jewelleryBox.update(item);
-		jewelleryBox.rebuild();
-		updateOverall();
-	}
-
-	/**
 	 * Updates overall stats to calculate overall used and overall cost from
 	 * the info in each box
 	 */
@@ -226,9 +192,6 @@ class SuppliesTrackerPanel extends PluginPanel
 			overallSuppliesUsed += box.getTotalSupplies();
 		}
 
-		overallSuppliesUsed += chargesBox.getTotalSupplies();
-		overallSuppliesUsed += jewelleryBox.getTotalSupplies();
-
 		overallCost = 0;
 
 		//Checks all supply boxes for total price
@@ -236,10 +199,6 @@ class SuppliesTrackerPanel extends PluginPanel
 		{
 			overallCost += box.getTotalPrice();
 		}
-
-		//add total prices from charges and jewellery boxes
-		overallCost += chargesBox.getTotalPrice();
-		overallCost += jewelleryBox.getTotalPrice();
 
 		overallSuppliesUsedLabel.setText(htmlLabel("Total Supplies: ", overallSuppliesUsed));
 		overallCostLabel.setText(htmlLabel("Total Cost: ", overallCost));
