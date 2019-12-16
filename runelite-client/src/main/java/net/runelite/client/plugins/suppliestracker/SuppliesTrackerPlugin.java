@@ -54,7 +54,7 @@ import static net.runelite.api.ItemID.*;
 import net.runelite.api.Player;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.events.AnimationChanged;
-import net.runelite.api.events.CannonballFired;
+import net.runelite.api.events.CannonChanged;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
@@ -71,7 +71,6 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.http.api.item.ItemPrice;
-
 
 @PluginDescriptor(
 	name = "Supplies Used Tracker",
@@ -90,6 +89,7 @@ public class SuppliesTrackerPlugin extends Plugin
 	private static final String DRINK_PATTERN = "^drink";
 	private static final String TELEPORT_PATTERN = "^teleport";
 	private static final String TELETAB_PATTERN = "^break";
+	private static final String TELEPORT_SCROLL_BOOK_PATTERN = "teleport scroll$";
 	private static final String SPELL_PATTERN = "^cast|^grand\\sexchange|^outside|^seers|^yanille";
 
 	//Equipment slot constants
@@ -123,8 +123,14 @@ public class SuppliesTrackerPlugin extends Plugin
 
 	//Hold Supply Data
 	private static final Map<Integer, SuppliesTrackerItem> suppliesEntry = new HashMap<>();
-	private ItemContainer old;
 	private final Deque<MenuAction> actionStack = new ArrayDeque<>();
+
+	//Item arrays
+	private final String[] RAIDS_CONSUMABLES = new String[]{"xeric's", "elder", "twisted", "revitalisation", "overload", "prayer enhance", "pysk", "suphi", "leckish", "brawk", "mycil", "roqed", "kyren", "guanic", "prael", "giral", "phluxia", "kryket", "murng", "psykk"};
+	private final int[] TRIDENT_OF_THE_SEAS_IDS = new int[]{TRIDENT_OF_THE_SEAS, TRIDENT_OF_THE_SEAS_E, TRIDENT_OF_THE_SEAS_FULL};
+	private final int[] TRIDENT_OF_THE_SWAMP_IDS = new int[]{TRIDENT_OF_THE_SWAMP_E, TRIDENT_OF_THE_SWAMP, UNCHARGED_TOXIC_TRIDENT_E, UNCHARGED_TOXIC_TRIDENT};
+
+	private ItemContainer old;
 	private int ammoId = 0;
 	private int ammoAmount = 0;
 	private int thrownId = 0;
@@ -133,15 +139,8 @@ public class SuppliesTrackerPlugin extends Plugin
 	private boolean throwingAmmoLoaded = false;
 	private boolean mainHandThrowing = false;
 	private int mainHand = 0;
-
 	private SuppliesTrackerPanel panel;
 	private NavigationButton navButton;
-
-	//Item arrays
-	private final String[] RAIDS_CONSUMABLES = new String[]{"xeric's", "elder", "twisted", "revitalisation", "overload", "prayer enhance", "pysk", "suphi", "leckish", "brawk", "mycil", "roqed", "kyren", "guanic", "prael", "giral", "phluxia", "kryket", "murng", "psykk"};
-	private final int[] TRIDENT_OF_THE_SEAS_IDS = new int[]{TRIDENT_OF_THE_SEAS, TRIDENT_OF_THE_SEAS_E, TRIDENT_OF_THE_SEAS_FULL};
-	private final int[] TRIDENT_OF_THE_SWAMP_IDS = new int[]{TRIDENT_OF_THE_SWAMP_E, TRIDENT_OF_THE_SWAMP, UNCHARGED_TOXIC_TRIDENT_E, UNCHARGED_TOXIC_TRIDENT};
-
 	private int attackStyleVarbit = -1;
 	private int ticks = 0;
 	private int ticksInAnimation;
@@ -157,6 +156,38 @@ public class SuppliesTrackerPlugin extends Plugin
 
 	@Inject
 	private Client client;
+
+	/**
+	 * Checks if item name is potion
+	 *
+	 * @param name the name of the item
+	 * @return if the item is a potion - i.e. has a (1) (2) (3) or (4) in the name
+	 */
+	static boolean isPotion(String name)
+	{
+		return name.contains("(4)") ||
+			name.contains("(3)") ||
+			name.contains("(2)") ||
+			name.contains("(1)");
+	}
+
+	/**
+	 * Checks if item name is pizza or pie
+	 *
+	 * @param name the name of the item
+	 * @return if the item is a pizza or a pie - i.e. has pizza or pie in the name
+	 */
+	static boolean isPizzaPie(String name)
+	{
+		return name.toLowerCase().contains("pizza") ||
+			name.toLowerCase().contains(" pie");
+	}
+
+	static boolean isCake(String name, int itemId)
+	{
+		return name.toLowerCase().contains("cake") ||
+			itemId == ItemID.CHOCOLATE_SLICE;
+	}
 
 	@Override
 	protected void startUp()
@@ -329,8 +360,12 @@ public class SuppliesTrackerPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onCannonballFired(CannonballFired cannonballFired)
+	private void onCannonballFired(CannonChanged cannonChanged)
 	{
+		if (cannonChanged.getCannonballId() == null)
+		{
+			return;
+		}
 		buildEntries(CANNONBALL);
 	}
 
@@ -342,7 +377,7 @@ public class SuppliesTrackerPlugin extends Plugin
 			if (animationChanged.getActor().getAnimation() == HIGH_LEVEL_MAGIC_ATTACK)
 			{
 				//Trident of the seas
-				for (int tridentOfTheSeas: TRIDENT_OF_THE_SEAS_IDS)
+				for (int tridentOfTheSeas : TRIDENT_OF_THE_SEAS_IDS)
 				{
 					if (mainHand == tridentOfTheSeas)
 					{
@@ -361,7 +396,7 @@ public class SuppliesTrackerPlugin extends Plugin
 					}
 				}
 				//Trident of the swamp
-				for (int tridentOfTheSwamp: TRIDENT_OF_THE_SWAMP_IDS)
+				for (int tridentOfTheSwamp : TRIDENT_OF_THE_SWAMP_IDS)
 				{
 					if (mainHand == tridentOfTheSwamp)
 					{
@@ -404,18 +439,18 @@ public class SuppliesTrackerPlugin extends Plugin
 				}
 			}
 			else if (animationChanged.getActor().getAnimation() == BARRAGE_ANIMATION ||
-					animationChanged.getActor().getAnimation() == BLITZ_ANIMATION )
+				animationChanged.getActor().getAnimation() == BLITZ_ANIMATION)
 			{
 				old = client.getItemContainer(InventoryID.INVENTORY);
 
 				if (old != null && old.getItems() != null && actionStack.stream().noneMatch(a ->
-						a.getType() == CAST))
+					a.getType() == CAST))
 				{
 					MenuAction newAction = new MenuAction(CAST, old.getItems());
 					actionStack.push(newAction);
 				}
 			}
-			else if (animationChanged.getActor().getAnimation() == SCYTHE_OF_VITUR_ANIMATION )
+			else if (animationChanged.getActor().getAnimation() == SCYTHE_OF_VITUR_ANIMATION)
 			{
 				if (config.chargesBox())
 				{
@@ -638,10 +673,66 @@ public class SuppliesTrackerPlugin extends Plugin
 			old = client.getItemContainer(InventoryID.INVENTORY);
 
 			if (old != null && old.getItems() != null && actionStack.stream().noneMatch(a ->
-				a.getType() == CAST))
+					a.getType() == CAST))
 			{
 				MenuAction newAction = new MenuAction(CAST, old.getItems());
 				actionStack.push(newAction);
+			}
+
+		}
+
+		Pattern scrollPattern = Pattern.compile(TELEPORT_SCROLL_BOOK_PATTERN);
+
+		if (event.getOption().toLowerCase().equals("activate"))
+		{
+			String target = event.getTarget();
+			if (target.toLowerCase().contains("teleport scroll"))
+			{
+				switch (target.toLowerCase().substring(target.indexOf(">") + 1))
+				{
+					case "watson teleport scroll":
+						buildEntries(WATSON_TELEPORT);
+						break;
+					case "zul-andra teleport scroll":
+						buildEntries(ZULANDRA_TELEPORT);
+						break;
+					case "nardah teleport scroll":
+						buildEntries(NARDAH_TELEPORT);
+						break;
+					case "digsite teleport scroll":
+						buildEntries(DIGSITE_TELEPORT);
+						break;
+					case "feldip hills teleport scroll":
+						buildEntries(FELDIP_HILLS_TELEPORT);
+						break;
+					case "lunar isle teleport scroll":
+						buildEntries(LUNAR_ISLE_TELEPORT);
+						break;
+					case "mort'ton teleport scroll":
+						buildEntries(MORTTON_TELEPORT);
+						break;
+					case "pest control teleport scroll":
+						buildEntries(PEST_CONTROL_TELEPORT);
+						break;
+					case "piscatoris teleport scroll":
+						buildEntries(PISCATORIS_TELEPORT);
+						break;
+					case "iorwerth camp teleport scroll":
+						buildEntries(IORWERTH_CAMP_TELEPORT);
+						break;
+					case "mos le'harmless teleport scroll":
+						buildEntries(MOS_LEHARMLESS_TELEPORT);
+						break;
+					case "lumberyard teleport scroll":
+						buildEntries(LUMBERYARD_TELEPORT);
+						break;
+					case "revenant cave teleport scroll":
+						buildEntries(REVENANT_CAVE_TELEPORT);
+						break;
+					case "tai bwo wannai teleport scroll":
+						buildEntries(TAI_BWO_WANNAI_TELEPORT);
+						break;
+				}
 			}
 		}
 	}
@@ -658,7 +749,7 @@ public class SuppliesTrackerPlugin extends Plugin
 				buildChargesEntries(AMULET_OF_GLORY6);
 			}
 			else if (message.toLowerCase().contains("your ring of dueling has") ||
-					message.toLowerCase().contains("your ring of dueling crumbles"))
+				message.toLowerCase().contains("your ring of dueling crumbles"))
 			{
 				buildChargesEntries(RING_OF_DUELING8);
 			}
@@ -667,63 +758,31 @@ public class SuppliesTrackerPlugin extends Plugin
 				buildChargesEntries(RING_OF_WEALTH_5);
 			}
 			else if (message.toLowerCase().contains("your combat bracelet has") ||
-					message.toLowerCase().contains("your combat bracelet's last charge"))
+				message.toLowerCase().contains("your combat bracelet's last charge"))
 			{
 				buildChargesEntries(COMBAT_BRACELET6);
 			}
 			else if (message.toLowerCase().contains("your games necklace has") ||
-					message.toLowerCase().contains("your games necklace crumbles"))
+				message.toLowerCase().contains("your games necklace crumbles"))
 			{
 				buildChargesEntries(GAMES_NECKLACE8);
 			}
 			else if (message.toLowerCase().contains("your skills necklace has") ||
-					message.toLowerCase().contains("your skills necklace's last charge"))
+				message.toLowerCase().contains("your skills necklace's last charge"))
 			{
 				buildChargesEntries(SKILLS_NECKLACE6);
 			}
 			else if (message.toLowerCase().contains("your necklace of passage has") ||
-					message.toLowerCase().contains("your necklace of passage crumbles"))
+				message.toLowerCase().contains("your necklace of passage crumbles"))
 			{
 				buildChargesEntries(NECKLACE_OF_PASSAGE5);
 			}
 			else if (message.toLowerCase().contains("your burning amulet has") ||
-					message.toLowerCase().contains("your burning amulet crumbles"))
+				message.toLowerCase().contains("your burning amulet crumbles"))
 			{
 				buildChargesEntries(BURNING_AMULET5);
 			}
 		}
-	}
-
-	/**
-	 * Checks if item name is potion
-	 *
-	 * @param name the name of the item
-	 * @return if the item is a potion - i.e. has a (1) (2) (3) or (4) in the name
-	 */
-	static boolean isPotion(String name)
-	{
-		return name.contains("(4)") ||
-				name.contains("(3)") ||
-				name.contains("(2)") ||
-				name.contains("(1)");
-	}
-
-	/**
-	 * Checks if item name is pizza or pie
-	 *
-	 * @param name the name of the item
-	 * @return if the item is a pizza or a pie - i.e. has pizza or pie in the name
-	 */
-	static boolean isPizzaPie(String name)
-	{
-		return name.toLowerCase().contains("pizza") ||
-				name.toLowerCase().contains(" pie");
-	}
-
-	static boolean isCake(String name, int itemId)
-	{
-		return name.toLowerCase().contains("cake") ||
-				itemId == ItemID.CHOCOLATE_SLICE;
 	}
 
 	/**
@@ -824,6 +883,7 @@ public class SuppliesTrackerPlugin extends Plugin
 			newQuantity,
 			calculatedPrice);
 
+
 		suppliesEntry.put(itemId, newEntry);
 		SwingUtilities.invokeLater(() ->
 			panel.addItem(newEntry));
@@ -882,28 +942,27 @@ public class SuppliesTrackerPlugin extends Plugin
 				break;
 			case TRIDENT_OF_THE_SWAMP:
 				calculatedPrice = (itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (itemManager.getItemPrice(DEATH_RUNE) * newQuantity) +
-									(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (itemManager.getItemPrice(ZULRAHS_SCALES) * newQuantity);
+					(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (itemManager.getItemPrice(ZULRAHS_SCALES) * newQuantity);
 				break;
 			case TRIDENT_OF_THE_SEAS:
 				calculatedPrice = (itemManager.getItemPrice(CHAOS_RUNE) * newQuantity) + (itemManager.getItemPrice(DEATH_RUNE) * newQuantity) +
-									(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (itemManager.getItemPrice(COINS_995) * newQuantity * 10);
+					(itemManager.getItemPrice(FIRE_RUNE) * newQuantity) + (itemManager.getItemPrice(COINS_995) * newQuantity * 10);
 				break;
 			case SANGUINESTI_STAFF:
 				calculatedPrice = (itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
-				System.out.println("Staff of sang" + itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
 				break;
 		}
 
 		// write the new quantity and calculated price for this entry
 		SuppliesTrackerItem newEntry = new SuppliesTrackerItem(
-				itemId,
-				name,
-				newQuantity,
-				calculatedPrice);
+			itemId,
+			name,
+			newQuantity,
+			calculatedPrice);
 
 		suppliesEntry.put(itemId, newEntry);
 		SwingUtilities.invokeLater(() ->
-				panel.addItem(newEntry));
+			panel.addItem(newEntry));
 	}
 
 

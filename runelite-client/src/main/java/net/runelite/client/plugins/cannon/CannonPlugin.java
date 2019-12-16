@@ -47,6 +47,8 @@ import net.runelite.api.Projectile;
 import static net.runelite.api.ProjectileID.CANNONBALL;
 import static net.runelite.api.ProjectileID.GRANITE_CANNONBALL;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.CannonChanged;
+import net.runelite.api.events.CannonPlaced;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameTick;
@@ -72,13 +74,10 @@ import net.runelite.client.util.ItemUtil;
 )
 public class CannonPlugin extends Plugin
 {
-	private static final Pattern NUMBER_PATTERN = Pattern.compile("([0-9]+)");
-	private static final int MAX_CBALLS = 30;
 	private static final ImmutableSet<Integer> CANNON_PARTS = ImmutableSet.of(
 		ItemID.CANNON_BASE, ItemID.CANNON_STAND, ItemID.CANNON_BARRELS, ItemID.CANNON_FURNACE
 	);
 	private CannonCounter counter;
-	private boolean skipProjectileCheckThisTick;
 
 	@Getter(AccessLevel.PACKAGE)
 	private int cballsLeft;
@@ -161,7 +160,6 @@ public class CannonPlugin extends Plugin
 		lock = false;
 		cballsLeft = 0;
 		removeCounter();
-		skipProjectileCheckThisTick = false;
 		spotPoints.clear();
 	}
 
@@ -221,34 +219,17 @@ public class CannonPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(GameObjectSpawned event)
+	private void onCannonPlaced(CannonPlaced cannonPlacedEvent)
 	{
-		final GameObject gameObject = event.getGameObject();
-
-		final Player localPlayer = client.getLocalPlayer();
-		if (gameObject.getId() == CANNON_BASE && !cannonPlaced &&
-			localPlayer.getWorldLocation().distanceTo(gameObject.getWorldLocation()) <= 2 &&
-			localPlayer.getAnimation() == AnimationID.BURYING_BONES)
-		{
-			cannonPosition = gameObject.getWorldLocation();
-			cannon = gameObject;
-		}
+		cannonPlaced = cannonPlacedEvent.isPlaced();
+		cannonPosition = cannonPlacedEvent.getCannonLocation();
+		cannon = cannonPlacedEvent.getCannon();
 	}
 
 	@Subscribe
-	private void onProjectileSpawned(ProjectileSpawned event)
+	private void onCannonballFired(CannonChanged cannonChangedEvent)
 	{
-		final Projectile projectile = event.getProjectile();
-
-		if ((projectile.getId() == CANNONBALL || projectile.getId() == GRANITE_CANNONBALL) && cannonPosition != null)
-		{
-			final WorldPoint projectileLoc = WorldPoint.fromLocal(client, projectile.getX1(), projectile.getY1(), client.getPlane());
-
-			if (projectileLoc.equals(cannonPosition) && !skipProjectileCheckThisTick)
-			{
-				cballsLeft--;
-			}
-		}
+		cballsLeft = cannonChangedEvent.getCannonballs();
 	}
 
 	@Subscribe
@@ -261,84 +242,14 @@ public class CannonPlugin extends Plugin
 
 		if (event.getMessage().equals("You add the furnace."))
 		{
-			cannonPlaced = true;
 			addCounter();
-			cballsLeft = 0;
 		}
 
 		if (event.getMessage().contains("You pick up the cannon")
 			|| event.getMessage().contains("Your cannon has decayed. Speak to Nulodion to get a new one!"))
 		{
-			cannonPlaced = false;
-			cballsLeft = 0;
 			removeCounter();
 		}
-
-		if (event.getMessage().startsWith("You load the cannon with"))
-		{
-			Matcher m = NUMBER_PATTERN.matcher(event.getMessage());
-			if (m.find())
-			{
-				// The cannon will usually refill to MAX_CBALLS, but if the
-				// player didn't have enough cannonballs in their inventory,
-				// it could fill up less than that. Filling the cannon to
-				// cballsLeft + amt is not always accurate though because our
-				// counter doesn't decrease if the player has been too far away
-				// from the cannon due to the projectiels not being in memory,
-				// so our counter can be higher than it is supposed to be.
-				int amt = Integer.parseInt(m.group());
-				if (cballsLeft + amt >= MAX_CBALLS)
-				{
-					skipProjectileCheckThisTick = true;
-					cballsLeft = MAX_CBALLS;
-				}
-				else
-				{
-					cballsLeft += amt;
-				}
-			}
-			else if (event.getMessage().equals("You load the cannon with one cannonball."))
-			{
-				if (cballsLeft + 1 >= MAX_CBALLS)
-				{
-					skipProjectileCheckThisTick = true;
-					cballsLeft = MAX_CBALLS;
-				}
-				else
-				{
-					cballsLeft++;
-				}
-			}
-		}
-
-		if (event.getMessage().contains("Your cannon is out of ammo!"))
-		{
-			skipProjectileCheckThisTick = true;
-
-			// If the player was out of range of the cannon, some cannonballs
-			// may have been used without the client knowing, so having this
-			// extra check is a good idea.
-			cballsLeft = 0;
-
-			if (this.showEmptyCannonNotification)
-			{
-				notifier.notify("Your cannon is out of ammo!");
-			}
-		}
-
-		if (event.getMessage().startsWith("You unload your cannon and receive Cannonball")
-			|| event.getMessage().startsWith("You unload your cannon and receive Granite cannonball"))
-		{
-			skipProjectileCheckThisTick = true;
-
-			cballsLeft = 0;
-		}
-	}
-
-	@Subscribe
-	private void onGameTick(GameTick event)
-	{
-		skipProjectileCheckThisTick = false;
 	}
 
 	Color getStateColor()

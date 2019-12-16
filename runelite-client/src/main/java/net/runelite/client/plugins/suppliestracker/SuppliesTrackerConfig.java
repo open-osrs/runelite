@@ -71,9 +71,9 @@ public interface SuppliesTrackerConfig extends Config
 		name = "Show weapons charges used box?",
 		description = "Separates items with charges to show how many of those charges you used.",
 		titleSection = "chargesBoxTitle"
-)
-default boolean chargesBox()
-{
-	return false;
-}
+	)
+	default boolean chargesBox()
+	{
+		return false;
+	}
 }
