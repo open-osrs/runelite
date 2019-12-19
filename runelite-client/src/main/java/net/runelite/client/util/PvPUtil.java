@@ -57,12 +57,12 @@ public class PvPUtil
 		int wildernessLevel = 0;
 		if (!(client.getVar(Varbits.IN_WILDERNESS) == 1
 				|| WorldType.isPvpWorld(client.getWorldType())
-				|| client.getWorldType().contains(WorldType.DEADMAN)
+				|| WorldType.isDeadmanWorld(client.getWorldType())
 		))
 		{
 			return false;
 		}
-		if (client.getWorldType().contains(WorldType.DEADMAN))
+		if (WorldType.isDeadmanWorld(client.getWorldType()))
 		{
 			return true;
 		}
