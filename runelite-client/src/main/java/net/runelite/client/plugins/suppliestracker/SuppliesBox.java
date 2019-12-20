@@ -39,7 +39,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.ItemDefinition;
 import static net.runelite.api.ItemID.*;
 import net.runelite.api.util.Text;
 import net.runelite.client.game.ItemManager;
@@ -316,8 +315,7 @@ abstract class SuppliesBox extends JPanel
 		@Override
 		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
 		{
-			ItemDefinition itemDef = itemManager.getItemDefinition(itemId);
-			final String name = itemDef.getName();
+			final String name = item.getName();
 			StringBuilder tooltip = new StringBuilder();
 
 			if (name.toLowerCase().contains("glory"))
@@ -429,13 +427,17 @@ abstract class SuppliesBox extends JPanel
 					return tooltip.toString();
 
 				case SANGUINESTI_STAFF:
-
 					tooltip.append("Blood Rune x ")
 						.append(qty * 3).append(" (")
 						.append(QuantityFormatter.quantityToStackSize(
 							itemManager.getItemPrice(BLOOD_RUNE) * qty * 3)
 						)
 						.append("gp)");
+					return tooltip.toString();
+
+				case BLADE_OF_SAELDOR:
+					tooltip.append("Crystal Shard x ")
+						.append(qty).append(" / 100");
 					return tooltip.toString();
 
 				case TRIDENT_OF_THE_SEAS:
@@ -536,11 +538,10 @@ abstract class SuppliesBox extends JPanel
 		@Override
 		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
 		{
-			ItemDefinition itemDef = itemManager.getItemDefinition(itemId);
-			final String name = itemDef.getName();
+			final String name = item.getName();
 
 			final long price = itemManager.getItemPrice(itemId);
-			return name + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
+			return item.getName() + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
 		}
 
 		@Override
@@ -636,11 +637,10 @@ abstract class SuppliesBox extends JPanel
 		@Override
 		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
 		{
-			ItemDefinition itemDef = itemManager.getItemDefinition(itemId);
-			final String name = itemDef.getName();
+			final String name = item.getName();
 
-			final long price = itemManager.getItemPrice(plugin.getPotionID(name.replaceAll(POTION_PATTERN, "(4)"))) / 4;
-			return name + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
+			final long price = itemManager.getItemPrice(plugin.getPotionID(item.getName().replaceAll(POTION_PATTERN, "(4)"))) / 4;
+			return item.getName() + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
 		}
 
 		@Override
@@ -684,12 +684,11 @@ abstract class SuppliesBox extends JPanel
 		@Override
 		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
 		{
-			ItemDefinition itemDef = itemManager.getItemDefinition(itemId);
-			final String name = itemDef.getName();
+			final String name = item.getName();
 
 
 			final long price = itemManager.getItemPrice(itemId);
-			return name + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
+			return item.getName() + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
 		}
 
 		@Override

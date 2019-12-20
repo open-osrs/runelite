@@ -118,7 +118,7 @@ public class SuppliesTrackerPlugin extends Plugin
 
 	// id array for checking thrown items and runes
 	private static final int[] THROWING_IDS = new int[]{BRONZE_DART, IRON_DART, STEEL_DART, BLACK_DART, MITHRIL_DART, ADAMANT_DART, RUNE_DART, DRAGON_DART, BRONZE_KNIFE, IRON_KNIFE, STEEL_KNIFE, BLACK_KNIFE, MITHRIL_KNIFE, ADAMANT_KNIFE, RUNE_KNIFE, BRONZE_THROWNAXE, IRON_THROWNAXE, STEEL_THROWNAXE, MITHRIL_THROWNAXE, ADAMANT_THROWNAXE, RUNE_THROWNAXE, DRAGON_KNIFE, DRAGON_KNIFE_22812, DRAGON_KNIFE_22814, DRAGON_KNIFEP_22808, DRAGON_KNIFEP_22810, DRAGON_KNIFEP, DRAGON_THROWNAXE, CHINCHOMPA_10033, RED_CHINCHOMPA_10034, BLACK_CHINCHOMPA};
-	private static final int[] RUNE_IDS = new int[]{AIR_RUNE, WATER_RUNE, EARTH_RUNE, MIND_RUNE, BODY_RUNE, COSMIC_RUNE, CHAOS_RUNE, NATURE_RUNE, LAW_RUNE, DEATH_RUNE, ASTRAL_RUNE, BLOOD_RUNE, SOUL_RUNE, WRATH_RUNE, MIST_RUNE, DUST_RUNE, MUD_RUNE, SMOKE_RUNE, STEAM_RUNE, LAVA_RUNE};
+	private static final int[] RUNE_IDS = new int[]{FIRE_RUNE, AIR_RUNE, WATER_RUNE, EARTH_RUNE, MIND_RUNE, BODY_RUNE, COSMIC_RUNE, CHAOS_RUNE, NATURE_RUNE, LAW_RUNE, DEATH_RUNE, ASTRAL_RUNE, BLOOD_RUNE, SOUL_RUNE, WRATH_RUNE, MIST_RUNE, DUST_RUNE, MUD_RUNE, SMOKE_RUNE, STEAM_RUNE, LAVA_RUNE};
 
 	//Hold Supply Data
 	private static final Map<Integer, SuppliesTrackerItem> suppliesEntry = new HashMap<>();
@@ -461,6 +461,11 @@ public class SuppliesTrackerPlugin extends Plugin
 					buildEntries(COINS_995, itemManager.getItemPrice(VIAL_OF_BLOOD_22446) / 100);
 				}
 			}
+			else if (animationChanged.getActor().getAnimation() == ONEHAND_SLASH_SWORD_ANIMATION ||
+				animationChanged.getActor().getAnimation() == ONEHAND_STAB_SWORD_ANIMATION)
+			{
+				buildChargesEntries(BLADE_OF_SAELDOR);
+			}
 		}
 	}
 
@@ -672,7 +677,7 @@ public class SuppliesTrackerPlugin extends Plugin
 			old = client.getItemContainer(InventoryID.INVENTORY);
 
 			if (old != null && old.getItems() != null && actionStack.stream().noneMatch(a ->
-					a.getType() == CAST))
+				a.getType() == CAST))
 			{
 				MenuAction newAction = new MenuAction(CAST, old.getItems());
 				actionStack.push(newAction);
@@ -950,6 +955,9 @@ public class SuppliesTrackerPlugin extends Plugin
 				break;
 			case SANGUINESTI_STAFF:
 				calculatedPrice = (itemManager.getItemPrice(BLOOD_RUNE) * newQuantity * 3);
+				break;
+			case BLADE_OF_SAELDOR:
+				calculatedPrice = 0;
 				break;
 		}
 
