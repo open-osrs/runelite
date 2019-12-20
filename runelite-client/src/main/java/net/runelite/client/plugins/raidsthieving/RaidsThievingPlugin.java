@@ -26,6 +26,10 @@ package net.runelite.client.plugins.raidsthieving;
 
 import com.google.inject.Provides;
 import java.awt.Color;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -38,13 +42,13 @@ import net.runelite.api.ObjectID;
 import net.runelite.api.Point;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GraphicsObjectCreated;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -52,10 +56,6 @@ import net.runelite.client.plugins.raidsthieving.BatSolver.BatSolver;
 import net.runelite.client.plugins.raidsthieving.BatSolver.ChestIdentifier;
 import net.runelite.client.plugins.raidsthieving.BatSolver.ThievingRoomType;
 import net.runelite.client.ui.overlay.OverlayManager;
-import javax.inject.Inject;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
 
 @PluginDescriptor(
 	name = "Raids Bat Finder",
@@ -71,16 +71,18 @@ public class RaidsThievingPlugin extends Plugin
 
 	@Inject
 	private Client client;
+
 	@Inject
 	private OverlayManager overlayManager;
+
 	@Inject
 	private ChestOverlay overlay;
+
 	@Inject
 	private Notifier notifier;
+
 	@Inject
 	private RaidsThievingConfig config;
-	@Inject
-	private EventBus eventBus;
 
 	@Getter(AccessLevel.PACKAGE)
 	private final Map<WorldPoint, ThievingChest> chests = new HashMap<>();
@@ -110,29 +112,20 @@ public class RaidsThievingPlugin extends Plugin
 	{
 		reset();
 		updateConfig();
-		addSubscriptions();
 
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		overlayManager.remove(overlay);
 		lastActionTime = Instant.ofEpochMilli(0);
 		chests.clear();
 
-		eventBus.unregister(this);
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameObjectSpawned.class, this, this::onGameObjectSpawned);
-		eventBus.subscribe(GraphicsObjectCreated.class, this, this::onGraphicsObjectCreated);
-		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-	}
-
+	@Subscribe
 	private void onGameObjectSpawned(GameObjectSpawned event)
 	{
 		GameObject obj = event.getGameObject();
@@ -176,7 +169,7 @@ public class RaidsThievingPlugin extends Plugin
 		if (obj.getId() == ObjectID.CHEST_29744 || obj.getId() == ObjectID.CHEST_29745)
 		{
 			ThievingChest chest = chests.get(obj.getWorldLocation());
-			if (solver != null && chest.getChestId() != -1)
+			if (solver != null && chest != null && chest.getChestId() != -1)
 			{
 				chest.setEverOpened(true);
 				solver.addGrubsChest(chest.getChestId());
@@ -197,6 +190,7 @@ public class RaidsThievingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGraphicsObjectCreated(GraphicsObjectCreated event)
 	{
 		GraphicsObject obj = event.getGraphicsObject();
@@ -213,6 +207,7 @@ public class RaidsThievingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onVarbitChanged(VarbitChanged event)
 	{
 		boolean setting = client.getVar(Varbits.IN_RAID) == 1;
@@ -224,6 +219,7 @@ public class RaidsThievingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals("raidsthievingplugin"))

@@ -3,12 +3,18 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ej")
+@ObfuscatedName("eh")
 @Implements("UserComparator10")
 public class UserComparator10 extends AbstractUserComparator {
-	@ObfuscatedName("i")
-	static int[][] field1964;
-	@ObfuscatedName("a")
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		signature = "Lhz;"
+	)
+	@Export("ItemDefinition_archive")
+	static AbstractArchive ItemDefinition_archive;
+	@ObfuscatedName("bm")
+	static String field1943;
+	@ObfuscatedName("f")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -16,10 +22,10 @@ public class UserComparator10 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(Ljx;Ljx;I)I",
-		garbageValue = "251102733"
+		signature = "(Ljt;Ljt;B)I",
+		garbageValue = "-21"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -34,39 +40,45 @@ public class UserComparator10 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(Lkc;Llr;B)Llr;",
-		garbageValue = "0"
+		signature = "(Lhz;I)V",
+		garbageValue = "-1966676528"
 	)
-	@Export("readStringIntParameters")
-	static final IterableNodeHashTable readStringIntParameters(Buffer var0, IterableNodeHashTable var1) {
-		int var2 = var0.readUnsignedByte();
-		int var3;
-		if (var1 == null) {
-			int var4 = var2 - 1;
-			var4 |= var4 >>> 1;
-			var4 |= var4 >>> 2;
-			var4 |= var4 >>> 4;
-			var4 |= var4 >>> 8;
-			var4 |= var4 >>> 16;
-			var3 = var4 + 1;
-			var1 = new IterableNodeHashTable(var3);
-		}
+	public static void method3335(AbstractArchive var0) {
+		InvDefinition.InvDefinition_archive = var0;
+	}
 
-		for (var3 = 0; var3 < var2; ++var3) {
-			boolean var7 = var0.readUnsignedByte() == 1;
-			int var5 = var0.readMedium();
-			Object var6;
-			if (var7) {
-				var6 = new ObjectNode(var0.readStringCp1252NullTerminated());
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(Lhz;Lhz;I)V",
+		garbageValue = "-854242738"
+	)
+	public static void method3336(AbstractArchive var0, AbstractArchive var1) {
+		HealthBarDefinition.HealthBarDefinition_archive = var0;
+		HealthBarDefinition.HitSplatDefinition_spritesArchive = var1;
+	}
+
+	@ObfuscatedName("gc")
+	@ObfuscatedSignature(
+		signature = "(I)V",
+		garbageValue = "197475100"
+	)
+	static final void method3337() {
+		for (GraphicsObject var0 = (GraphicsObject)Client.graphicsObjects.last(); var0 != null; var0 = (GraphicsObject)Client.graphicsObjects.previous()) {
+			if (var0.plane == UrlRequest.Client_plane && !var0.isFinished) {
+				if (Client.cycle >= var0.cycleStart) {
+					var0.advance(Client.field690);
+					if (var0.isFinished) {
+						var0.remove();
+					} else {
+						class14.scene.drawEntity(var0.plane, var0.x, var0.y, var0.height, 60, var0, 0, -1L, false);
+					}
+				}
 			} else {
-				var6 = new IntegerNode(var0.readInt());
+				var0.remove();
 			}
-
-			var1.put((Node)var6, (long)var5);
 		}
 
-		return var1;
 	}
 }

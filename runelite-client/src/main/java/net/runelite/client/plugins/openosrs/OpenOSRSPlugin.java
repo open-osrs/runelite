@@ -29,12 +29,28 @@ package net.runelite.client.plugins.openosrs;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.AnimationID;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
+import net.runelite.api.GameObject;
+import static net.runelite.api.ObjectID.CANNON_BASE;
+import net.runelite.api.Player;
+import net.runelite.api.Projectile;
+import static net.runelite.api.ProjectileID.CANNONBALL;
+import static net.runelite.api.ProjectileID.GRANITE_CANNONBALL;
 import static net.runelite.api.ScriptID.BANK_PIN_OP;
-import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.CannonChanged;
+import net.runelite.api.events.CannonPlaced;
+import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.GameObjectSpawned;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ProjectileSpawned;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.widgets.WidgetID;
 import static net.runelite.api.widgets.WidgetInfo.*;
@@ -42,6 +58,8 @@ import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
@@ -60,7 +78,7 @@ import net.runelite.client.util.HotkeyListener;
 public class OpenOSRSPlugin extends Plugin
 {
 	private final openosrsKeyListener keyListener = new openosrsKeyListener();
-	private final List<String> colorOptions = Arrays.asList("externalColor", "pvmColor", "pvpColor", "skillingColor", "utilityColor");
+	private static final List<String> HidePlugins = Arrays.asList("hidePlugins", "hidePvmPlugins", "hidePvpPlugins", "hideSkillingPlugins", "hideUtilityPlugins", "hideExternalPlugins");
 
 	@Inject
 	private OpenOSRSConfig config;
@@ -75,9 +93,22 @@ public class OpenOSRSPlugin extends Plugin
 	private ClientThread clientThread;
 
 	@Inject
-	private EventBus eventbus;
+	private EventBus eventBus;
 
-	private HotkeyListener hotkeyListener = new HotkeyListener(() -> this.keybind)
+	private static final Pattern NUMBER_PATTERN = Pattern.compile("([0-9]+)");
+	private static final int MAX_CBALLS = 30;
+	private int cballsLeft;
+	private WorldPoint cannonPosition;
+	private GameObject cannon;
+	private boolean cannonPlaced;
+	private boolean skipProjectileCheckThisTick;
+
+	private int entered = -1;
+	private int enterIdx;
+	private boolean expectInput;
+	private boolean detach;
+	private Keybind keybind;
+	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> this.keybind)
 	{
 		@Override
 		public void hotkeyPressed()
@@ -87,17 +118,10 @@ public class OpenOSRSPlugin extends Plugin
 			client.setOculusOrbNormalSpeed(detach ? 36 : 12);
 		}
 	};
-	private int entered = -1;
-	private int enterIdx;
-	private boolean expectInput;
-	private boolean detach;
-	private Keybind keybind;
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
-		addSubscriptions();
-
 		entered = -1;
 		enterIdx = 0;
 		expectInput = false;
@@ -106,10 +130,8 @@ public class OpenOSRSPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventbus.unregister(this);
-
 		entered = 0;
 		enterIdx = 0;
 		expectInput = false;
@@ -117,6 +139,7 @@ public class OpenOSRSPlugin extends Plugin
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("openosrs"))
@@ -124,7 +147,7 @@ public class OpenOSRSPlugin extends Plugin
 			return;
 		}
 
-		if (colorOptions.stream().anyMatch(option -> option.equals(event.getKey())))
+		if (HidePlugins.stream().anyMatch(option -> option.equals(event.getKey())))
 		{
 			updatePlugins();
 		}
@@ -145,12 +168,7 @@ public class OpenOSRSPlugin extends Plugin
 		}
 	}
 
-	private void addSubscriptions()
-	{
-		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventbus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
-	}
-
+	@Subscribe
 	private void onScriptCallbackEvent(ScriptCallbackEvent e)
 	{
 		if (!config.keyboardPin())
@@ -183,6 +201,136 @@ public class OpenOSRSPlugin extends Plugin
 
 			this.enterIdx = enterIdx;
 			expectInput = true;
+		}
+	}
+
+	@Subscribe
+	private void onChatMessage(ChatMessage event)
+	{
+		if (event.getType() != ChatMessageType.SPAM && event.getType() != ChatMessageType.GAMEMESSAGE)
+		{
+			return;
+		}
+
+		if (event.getMessage().equals("You add the furnace."))
+		{
+			cballsLeft = 0;
+			eventBus.post(CannonPlaced.class, new CannonPlaced(true, cannonPosition, cannon));
+			eventBus.post(CannonChanged.class, new CannonChanged(null, cballsLeft));
+			cannonPlaced = true;
+		}
+
+		if (event.getMessage().contains("You pick up the cannon")
+			|| event.getMessage().contains("Your cannon has decayed. Speak to Nulodion to get a new one!"))
+		{
+			cballsLeft = 0;
+			eventBus.post(CannonPlaced.class, new CannonPlaced(false, null, null));
+			eventBus.post(CannonChanged.class, new CannonChanged(null, cballsLeft));
+			cannonPlaced = false;
+		}
+
+		if (event.getMessage().startsWith("You load the cannon with"))
+		{
+			Matcher m = NUMBER_PATTERN.matcher(event.getMessage());
+			if (m.find())
+			{
+				// The cannon will usually refill to MAX_CBALLS, but if the
+				// player didn't have enough cannonballs in their inventory,
+				// it could fill up less than that. Filling the cannon to
+				// cballsLeft + amt is not always accurate though because our
+				// counter doesn't decrease if the player has been too far away
+				// from the cannon due to the projectiels not being in memory,
+				// so our counter can be higher than it is supposed to be.
+				int amt = Integer.parseInt(m.group());
+				if (cballsLeft + amt >= MAX_CBALLS)
+				{
+					skipProjectileCheckThisTick = true;
+					cballsLeft = MAX_CBALLS;
+				}
+				else
+				{
+					cballsLeft += amt;
+				}
+			}
+			else if (event.getMessage().equals("You load the cannon with one cannonball."))
+			{
+				if (cballsLeft + 1 >= MAX_CBALLS)
+				{
+					skipProjectileCheckThisTick = true;
+					cballsLeft = MAX_CBALLS;
+				}
+				else
+				{
+					cballsLeft++;
+				}
+			}
+
+			eventBus.post(CannonChanged.class, new CannonChanged(null, cballsLeft));
+		}
+
+		if (event.getMessage().contains("Your cannon is out of ammo!"))
+		{
+			skipProjectileCheckThisTick = true;
+
+			// If the player was out of range of the cannon, some cannonballs
+			// may have been used without the client knowing, so having this
+			// extra check is a good idea.
+			cballsLeft = 0;
+
+			eventBus.post(CannonChanged.class, new CannonChanged(null, cballsLeft));
+		}
+
+		if (event.getMessage().startsWith("You unload your cannon and receive Cannonball")
+			|| event.getMessage().startsWith("You unload your cannon and receive Granite cannonball"))
+		{
+			skipProjectileCheckThisTick = true;
+
+			cballsLeft = 0;
+
+			eventBus.post(CannonChanged.class, new CannonChanged(null, cballsLeft));
+		}
+	}
+
+	@Subscribe
+	private void onGameTick(GameTick event)
+	{
+		skipProjectileCheckThisTick = false;
+	}
+
+	@Subscribe
+	private void onGameObjectSpawned(GameObjectSpawned event)
+	{
+		final GameObject gameObject = event.getGameObject();
+
+		final Player localPlayer = client.getLocalPlayer();
+		if (gameObject.getId() == CANNON_BASE && !cannonPlaced &&
+			localPlayer != null && localPlayer.getWorldLocation().distanceTo(gameObject.getWorldLocation()) <= 2 &&
+			localPlayer.getAnimation() == AnimationID.BURYING_BONES)
+		{
+			cannonPosition = gameObject.getWorldLocation();
+			cannon = gameObject;
+		}
+	}
+
+	@Subscribe
+	private void onProjectileSpawned(ProjectileSpawned event)
+	{
+		if (!cannonPlaced)
+		{
+			return;
+		}
+
+		final Projectile projectile = event.getProjectile();
+
+		if ((projectile.getId() == CANNONBALL || projectile.getId() == GRANITE_CANNONBALL) && cannonPosition != null)
+		{
+			final WorldPoint projectileLoc = WorldPoint.fromLocal(client, projectile.getX1(), projectile.getY1(), client.getPlane());
+
+			if (projectileLoc.equals(cannonPosition) && !skipProjectileCheckThisTick)
+			{
+				cballsLeft--;
+				eventBus.post(CannonChanged.class, new CannonChanged(projectile.getId(), cballsLeft));
+			}
 		}
 	}
 
@@ -230,6 +378,20 @@ public class OpenOSRSPlugin extends Plugin
 		}
 	}
 
+	private void updatePlugins()
+	{
+		ConfigPanel.pluginList.forEach(listItem ->
+		{
+			if (listItem.getPluginType() == PluginType.GENERAL_USE || listItem.getPluginType() == PluginType.IMPORTANT)
+			{
+				return;
+			}
+
+			listItem.setColor(ConfigPanel.getColorByCategory(config, listItem.getPluginType()));
+			listItem.setHidden(ConfigPanel.getHiddenByCategory(config, listItem.getPluginType()));
+		});
+	}
+
 	private class openosrsKeyListener implements KeyListener
 	{
 		private int lastKeyCycle;
@@ -263,19 +425,5 @@ public class OpenOSRSPlugin extends Plugin
 		public void keyReleased(KeyEvent keyEvent)
 		{
 		}
-	}
-
-	private void updatePlugins()
-	{
-		ConfigPanel.pluginList.forEach(listItem ->
-		{
-			if (listItem.getPluginType() == PluginType.GENERAL_USE || listItem.getPluginType() == PluginType.IMPORTANT)
-			{
-				return;
-			}
-
-			listItem.setColor(ConfigPanel.getColorByCategory(config, listItem.getPluginType()));
-			listItem.setHidden(ConfigPanel.getHiddenByCategory(config, listItem.getPluginType()));
-		});
 	}
 }

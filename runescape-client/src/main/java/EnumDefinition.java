@@ -4,46 +4,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ih")
+@ObfuscatedName("ik")
 @Implements("EnumDefinition")
 public class EnumDefinition extends DualNode {
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		signature = "Lhq;"
-	)
-	@Export("EnumDefinition_archive")
-	static AbstractArchive EnumDefinition_archive;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "Leb;"
 	)
 	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@Export("inputType")
 	public char inputType;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@Export("outputType")
 	public char outputType;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -308571373
+		intValue = 1935496033
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1084759985
+		intValue = 2015380105
 	)
 	@Export("outputCount")
 	public int outputCount;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@Export("keys")
 	public int[] keys;
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@Export("intVals")
 	public int[] intVals;
 	@ObfuscatedName("d")
@@ -59,10 +53,10 @@ public class EnumDefinition extends DualNode {
 		this.outputCount = 0;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Lkc;S)V",
-		garbageValue = "-15054"
+		signature = "(Lkq;I)V",
+		garbageValue = "-1351538350"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -76,10 +70,10 @@ public class EnumDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Lkc;II)V",
-		garbageValue = "1118644647"
+		signature = "(Lkq;II)V",
+		garbageValue = "789591005"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -116,40 +110,13 @@ public class EnumDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "(I)I",
-		garbageValue = "-1832582259"
+		garbageValue = "-1025007031"
 	)
 	@Export("size")
 	public int size() {
 		return this.outputCount;
-	}
-
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "(IIII)I",
-		garbageValue = "-1010207116"
-	)
-	@Export("hslToRgb")
-	static final int hslToRgb(int var0, int var1, int var2) {
-		if (var2 > 179) {
-			var1 /= 2;
-		}
-
-		if (var2 > 192) {
-			var1 /= 2;
-		}
-
-		if (var2 > 217) {
-			var1 /= 2;
-		}
-
-		if (var2 > 243) {
-			var1 /= 2;
-		}
-
-		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2;
-		return var3;
 	}
 }

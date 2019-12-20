@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage;
 import static java.lang.Math.min;
 import java.util.List;
 import javax.inject.Inject;
+import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -42,15 +43,15 @@ import net.runelite.api.Player;
 import net.runelite.api.Skill;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.AreaSoundEffectPlayed;
-import net.runelite.api.events.BoostedLevelChanged;
 import net.runelite.api.events.CommandExecuted;
-import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.SoundEffectPlayed;
+import net.runelite.api.events.StatChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
@@ -67,7 +68,7 @@ import org.slf4j.LoggerFactory;
 	tags = {"panel"},
 	developerPlugin = true
 )
-@Getter
+@Getter(AccessLevel.PACKAGE)
 public class DevToolsPlugin extends Plugin
 {
 	private static final List<MenuOpcode> EXAMINE_MENU_ACTIONS = ImmutableList.of(MenuOpcode.EXAMINE_ITEM,
@@ -141,9 +142,8 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
-		addSubscriptions();
 
 		players = new DevToolsButton("Players");
 		npcs = new DevToolsButton("NPCs");
@@ -205,10 +205,8 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 		overlayManager.remove(locationOverlay);
 		overlayManager.remove(sceneOverlay);
@@ -219,14 +217,7 @@ public class DevToolsPlugin extends Plugin
 		clientToolbar.removeNavigation(navButton);
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(CommandExecuted.class, this, this::onCommandExecuted);
-		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
-		eventBus.subscribe(AreaSoundEffectPlayed.class, this, this::onAreaSoundEffectPlayed);
-		eventBus.subscribe(SoundEffectPlayed.class, this, this::onSoundEffectPlayed);
-	}
-
+	@Subscribe
 	private void onCommandExecuted(CommandExecuted commandExecuted)
 	{
 		String[] args = commandExecuted.getArguments();
@@ -301,9 +292,13 @@ public class DevToolsPlugin extends Plugin
 
 				client.queueChangedSkill(skill);
 
-				ExperienceChanged experienceChanged = new ExperienceChanged();
-				experienceChanged.setSkill(skill);
-				eventBus.post(ExperienceChanged.class, experienceChanged);
+				StatChanged statChanged = new StatChanged(
+					skill,
+					totalXp,
+					level,
+					level
+				);
+				eventBus.post(StatChanged.class, statChanged);
 				break;
 			}
 			case "setstat":
@@ -320,13 +315,13 @@ public class DevToolsPlugin extends Plugin
 
 				client.queueChangedSkill(skill);
 
-				ExperienceChanged experienceChanged = new ExperienceChanged();
-				experienceChanged.setSkill(skill);
-				eventBus.post(ExperienceChanged.class, experienceChanged);
-
-				BoostedLevelChanged boostedLevelChanged = new BoostedLevelChanged();
-				boostedLevelChanged.setSkill(skill);
-				eventBus.post(BoostedLevelChanged.class, boostedLevelChanged);
+				StatChanged statChanged = new StatChanged(
+					skill,
+					xp,
+					level,
+					level
+				);
+				eventBus.post(StatChanged.class, statChanged);
 				break;
 			}
 			case "anim":
@@ -376,6 +371,7 @@ public class DevToolsPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onMenuEntryAdded(MenuEntryAdded entry)
 	{
 		if (!examine.isActive())
@@ -411,6 +407,7 @@ public class DevToolsPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onSoundEffectPlayed(SoundEffectPlayed event)
 	{
 		if (!getSoundEffects().isActive() || soundEffectOverlay == null)
@@ -421,6 +418,7 @@ public class DevToolsPlugin extends Plugin
 		soundEffectOverlay.onSoundEffectPlayed(event);
 	}
 
+	@Subscribe
 	private void onAreaSoundEffectPlayed(AreaSoundEffectPlayed event)
 	{
 		if (!getSoundEffects().isActive() || soundEffectOverlay == null)

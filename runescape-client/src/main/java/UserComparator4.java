@@ -4,13 +4,10 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ec")
+@ObfuscatedName("ei")
 @Implements("UserComparator4")
 public class UserComparator4 implements Comparator {
-	@ObfuscatedName("sj")
-	@Export("foundItemIds")
-	static short[] foundItemIds;
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -18,10 +15,10 @@ public class UserComparator4 implements Comparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(Ljx;Ljx;I)I",
-		garbageValue = "1036024151"
+		signature = "(Ljt;Ljt;I)I",
+		garbageValue = "-949245767"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(Buddy var1, Buddy var2) {
@@ -34,24 +31,5 @@ public class UserComparator4 implements Comparator {
 
 	public boolean equals(Object var1) {
 		return super.equals(var1);
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-616459830"
-	)
-	public static int method3502() {
-		return ++MouseHandler.MouseHandler_idleCycles - 1;
-	}
-
-	@ObfuscatedName("fe")
-	@ObfuscatedSignature(
-		signature = "(I)Llo;",
-		garbageValue = "1928339538"
-	)
-	@Export("getWorldMap")
-	static WorldMap getWorldMap() {
-		return Login.worldMap;
 	}
 }

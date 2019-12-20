@@ -2,17 +2,18 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("fi")
+@ObfuscatedName("ey")
 @Implements("UserComparator6")
 public class UserComparator6 extends AbstractUserComparator {
-	@ObfuscatedName("k")
+	@ObfuscatedName("qy")
 	@ObfuscatedSignature(
-		signature = "Lho;"
+		signature = "Lcw;"
 	)
-	@Export("NetCache_currentResponse")
-	public static NetFileRequest NetCache_currentResponse;
-	@ObfuscatedName("a")
+	@Export("pcmPlayer0")
+	static PcmPlayer pcmPlayer0;
+	@ObfuscatedName("f")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -20,10 +21,10 @@ public class UserComparator6 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(Ljx;Ljx;B)I",
-		garbageValue = "67"
+		signature = "(Ljt;Ljt;I)I",
+		garbageValue = "-226396145"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -38,13 +39,58 @@ public class UserComparator6 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("bx")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)I",
-		garbageValue = "-1069282044"
+		signature = "(CII)Ljava/lang/String;",
+		garbageValue = "953231357"
 	)
-	@Export("stringCp1252NullTerminatedByteSize")
-	public static int stringCp1252NullTerminatedByteSize(String var0) {
-		return var0.length() + 1;
+	public static String method3370(char var0, int var1) {
+		char[] var2 = new char[var1];
+
+		for (int var3 = 0; var3 < var1; ++var3) {
+			var2[var3] = var0;
+		}
+
+		return new String(var2);
+	}
+
+	@ObfuscatedName("az")
+	@ObfuscatedSignature(
+		signature = "(ILcu;ZI)I",
+		garbageValue = "1830751012"
+	)
+	static int method3369(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.GETWINDOWMODE) {
+			Interpreter.Interpreter_intStack[++class188.Interpreter_intStackSize - 1] = ItemDefinition.getWindowedMode();
+			return 1;
+		} else {
+			int var3;
+			if (var0 == ScriptOpcodes.SETWINDOWMODE) {
+				var3 = Interpreter.Interpreter_intStack[--class188.Interpreter_intStackSize];
+				if (var3 == 1 || var3 == 2) {
+					class60.setWindowedMode(var3);
+				}
+
+				return 1;
+			} else if (var0 == ScriptOpcodes.GETDEFAULTWINDOWMODE) {
+				Interpreter.Interpreter_intStack[++class188.Interpreter_intStackSize - 1] = Interpreter.clientPreferences.windowMode;
+				return 1;
+			} else if (var0 != ScriptOpcodes.SETDEFAULTWINDOWMODE) {
+				if (var0 == 5310) {
+					--class188.Interpreter_intStackSize;
+					return 1;
+				} else {
+					return 2;
+				}
+			} else {
+				var3 = Interpreter.Interpreter_intStack[--class188.Interpreter_intStackSize];
+				if (var3 == 1 || var3 == 2) {
+					Interpreter.clientPreferences.windowMode = var3;
+					FriendSystem.savePreferences();
+				}
+
+				return 1;
+			}
+		}
 	}
 }

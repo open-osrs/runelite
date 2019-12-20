@@ -4,87 +4,87 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bf")
+@ObfuscatedName("br")
 @Implements("ObjectSound")
 public final class ObjectSound extends Node {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Ljb;"
+		signature = "Ljs;"
 	)
 	@Export("objectSounds")
 	static NodeDeque objectSounds;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1227010727
+		intValue = -1656698135
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -286465655
+		intValue = 1779559040
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1852994176
+		intValue = -718591763
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 451765888
+		intValue = 787274277
 	)
-	int field1060;
-	@ObfuscatedName("l")
+	int field1064;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1453778816
-	)
-	int field1053;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = -186868357
+		intValue = -1137525137
 	)
 	int field1052;
-	@ObfuscatedName("o")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1676549815
+		intValue = 245525821
+	)
+	int field1053;
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = 1263233623
 	)
 	@Export("soundEffectId")
 	int soundEffectId;
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		signature = "Ldg;"
 	)
 	@Export("stream1")
 	RawPcmStream stream1;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 180162911
+		intValue = -938588117
 	)
-	int field1057;
-	@ObfuscatedName("m")
+	int field1060;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -648009507
+		intValue = -1891052931
 	)
-	int field1058;
-	@ObfuscatedName("p")
+	int field1061;
+	@ObfuscatedName("o")
 	@Export("soundEffectIds")
 	int[] soundEffectIds;
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 423706127
+		intValue = 2003220669
 	)
-	int field1054;
+	int field1055;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		signature = "Ldg;"
 	)
 	@Export("stream2")
 	RawPcmStream stream2;
-	@ObfuscatedName("x")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Lix;"
+		signature = "Lig;"
 	)
 	@Export("obj")
 	ObjectDefinition obj;
@@ -96,10 +96,10 @@ public final class ObjectSound extends Node {
 	ObjectSound() {
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-23"
+		signature = "(I)V",
+		garbageValue = "448933263"
 	)
 	@Export("set")
 	void set() {
@@ -107,37 +107,22 @@ public final class ObjectSound extends Node {
 		ObjectDefinition var2 = this.obj.transform();
 		if (var2 != null) {
 			this.soundEffectId = var2.ambientSoundId;
-			this.field1052 = var2.int4 * 128;
-			this.field1057 = var2.int5;
-			this.field1058 = var2.int6;
+			this.field1053 = var2.int4 * 128;
+			this.field1060 = var2.int5;
+			this.field1061 = var2.int6;
 			this.soundEffectIds = var2.soundEffectIds;
 		} else {
 			this.soundEffectId = -1;
-			this.field1052 = 0;
-			this.field1057 = 0;
-			this.field1058 = 0;
+			this.field1053 = 0;
+			this.field1060 = 0;
+			this.field1061 = 0;
 			this.soundEffectIds = null;
 		}
 
 		if (var1 != this.soundEffectId && this.stream1 != null) {
-			FloorUnderlayDefinition.pcmStreamMixer.removeSubStream(this.stream1);
+			Tiles.pcmStreamMixer.removeSubStream(this.stream1);
 			this.stream1 = null;
 		}
 
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "(Lhi;IIII)V",
-		garbageValue = "1790951666"
-	)
-	@Export("Widget_setKeyRate")
-	static final void Widget_setKeyRate(Widget var0, int var1, int var2, int var3) {
-		if (var0.field2628 == null) {
-			throw new RuntimeException();
-		} else {
-			var0.field2628[var1] = var2;
-			var0.field2626[var1] = var3;
-		}
 	}
 }

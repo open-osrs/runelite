@@ -2,13 +2,22 @@ import java.awt.Component;
 import java.awt.Graphics;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ai")
+@ObfuscatedName("af")
 @Implements("Canvas")
 public final class Canvas extends java.awt.Canvas {
-	@ObfuscatedName("a")
+	@ObfuscatedName("qn")
+	@ObfuscatedGetter(
+		intValue = 739574061
+	)
+	static int field397;
+	@ObfuscatedName("gk")
+	@Export("xteaKeys")
+	static int[][] xteaKeys;
+	@ObfuscatedName("f")
 	@Export("component")
 	Component component;
 
@@ -16,83 +25,76 @@ public final class Canvas extends java.awt.Canvas {
 		this.component = var1;
 	}
 
-	public final void paint(Graphics var1) {
-		this.component.paint(var1);
-	}
-
 	public final void update(Graphics var1) {
 		this.component.update(var1);
 	}
 
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		signature = "(IIB)I",
-		garbageValue = "-116"
-	)
-	static int method935(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var2 == null) {
-			return 0;
-		} else if (var1 == -1) {
-			return 0;
-		} else {
-			int var3 = 0;
-
-			for (int var4 = 0; var4 < var2.quantities.length; ++var4) {
-				if (var2.ids[var4] == var1) {
-					var3 += var2.quantities[var4];
-				}
-			}
-
-			return var3;
-		}
+	public final void paint(Graphics var1) {
+		this.component.paint(var1);
 	}
 
-	@ObfuscatedName("il")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)V",
-		garbageValue = "-1452803850"
+		signature = "(IIIIB)V",
+		garbageValue = "-7"
 	)
-	static void method934(int var0, String var1) {
-		int var2 = Players.Players_count;
-		int[] var3 = Players.Players_indices;
-		boolean var4 = false;
-		Username var5 = new Username(var1, class60.loginType);
+	@Export("itemContainerSetItem")
+	static void itemContainerSetItem(int var0, int var1, int var2, int var3) {
+		ItemContainer var4 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var4 == null) {
+			var4 = new ItemContainer();
+			ItemContainer.itemContainers.put(var4, (long)var0);
+		}
 
-		for (int var6 = 0; var6 < var2; ++var6) {
-			Player var7 = Client.players[var3[var6]];
-			if (var7 != null && var7 != class215.localPlayer && var7.username != null && var7.username.equals(var5)) {
-				PacketBufferNode var8;
-				if (var0 == 1) {
-					var8 = SoundSystem.getPacketBufferNode(ClientPacket.field2193, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.writeShort(var3[var6]);
-					var8.packetBuffer.writeByte(0);
-					Client.packetWriter.addNode(var8);
-				} else if (var0 == 4) {
-					var8 = SoundSystem.getPacketBufferNode(ClientPacket.field2229, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.writeShortLE(var3[var6]);
-					var8.packetBuffer.method5634(0);
-					Client.packetWriter.addNode(var8);
-				} else if (var0 == 6) {
-					var8 = SoundSystem.getPacketBufferNode(ClientPacket.field2236, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.method5635(0);
-					var8.packetBuffer.writeShort(var3[var6]);
-					Client.packetWriter.addNode(var8);
-				} else if (var0 == 7) {
-					var8 = SoundSystem.getPacketBufferNode(ClientPacket.field2251, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.method5643(var3[var6]);
-					var8.packetBuffer.writeByte(0);
-					Client.packetWriter.addNode(var8);
-				}
+		if (var4.ids.length <= var1) {
+			int[] var5 = new int[var1 + 1];
+			int[] var6 = new int[var1 + 1];
 
-				var4 = true;
-				break;
+			int var7;
+			for (var7 = 0; var7 < var4.ids.length; ++var7) {
+				var5[var7] = var4.ids[var7];
+				var6[var7] = var4.quantities[var7];
 			}
+
+			for (var7 = var4.ids.length; var7 < var1; ++var7) {
+				var5[var7] = -1;
+				var6[var7] = 0;
+			}
+
+			var4.ids = var5;
+			var4.quantities = var6;
 		}
 
-		if (!var4) {
-			class30.addGameMessage(4, "", "Unable to find " + var1);
+		var4.ids[var1] = var2;
+		var4.quantities[var1] = var3;
+	}
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		signature = "(Lhz;Ljava/lang/String;Ljava/lang/String;I)Lli;",
+		garbageValue = "-1768952191"
+	)
+	@Export("SpriteBuffer_getIndexedSpriteByName")
+	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
+		int var3 = var0.getGroupId(var1);
+		int var4 = var0.getFileId(var3, var2);
+		IndexedSprite var5;
+		if (!HitSplatDefinition.method4586(var0, var3, var4)) {
+			var5 = null;
+		} else {
+			var5 = WorldMapDecoration.method327();
 		}
 
+		return var5;
+	}
+
+	@ObfuscatedName("ey")
+	@ObfuscatedSignature(
+		signature = "(I)Lld;",
+		garbageValue = "-228805350"
+	)
+	@Export("getWorldMap")
+	static WorldMap getWorldMap() {
+		return GrandExchangeEvent.worldMap;
 	}
 }

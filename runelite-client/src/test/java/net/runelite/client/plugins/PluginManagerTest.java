@@ -38,6 +38,7 @@ import java.applet.Applet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,10 +47,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import net.runelite.api.Client;
+import net.runelite.api.events.Event;
 import net.runelite.client.RuneLite;
 import net.runelite.client.RuneLiteModule;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.eventbus.AccessorGenerator;
+import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Rule;
@@ -108,7 +113,6 @@ public class PluginManagerTest
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testLoadPlugins() throws Exception
 	{
@@ -190,4 +194,35 @@ public class PluginManagerTest
 		}
 	}
 
+	@Test
+	public void testEventbusAnnotations() throws PluginInstantiationException
+	{
+		EventBus eventbus = new EventBus();
+		PluginManager pluginManager = new PluginManager(true, eventbus, null, null, null, null)
+		{
+			@Override
+			public boolean isPluginEnabled(Plugin plugin)
+			{
+				return true;
+			}
+		};
+
+		class TestEvent implements Event {}
+		class TestPlugin extends Plugin
+		{
+			private boolean thisShouldBeTrue = false;
+
+			@Subscribe
+			private void doSomething(TestEvent event)
+			{
+				thisShouldBeTrue = true;
+			}
+		}
+
+		TestPlugin plugin = new TestPlugin();
+		AccessorGenerator.scanSubscribes(MethodHandles.lookup(), plugin)
+			.forEach(s -> s.subscribe(eventbus, plugin));
+		eventbus.post(TestEvent.class, new TestEvent());
+		assert plugin.thisShouldBeTrue;
+	}
 }

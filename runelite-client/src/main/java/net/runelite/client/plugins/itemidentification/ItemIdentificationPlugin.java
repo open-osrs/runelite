@@ -30,9 +30,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -53,9 +53,6 @@ public class ItemIdentificationPlugin extends Plugin
 
 	@Inject
 	private ItemIdentificationConfig config;
-
-	@Inject
-	private EventBus eventBus;
 
 	@Getter(AccessLevel.PACKAGE)
 	private ItemIdentificationMode identificationType;
@@ -82,19 +79,16 @@ public class ItemIdentificationPlugin extends Plugin
 	protected void startUp()
 	{
 		updateConfig();
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-
 		overlayManager.add(overlay);
 	}
 
 	@Override
 	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("itemidentification"))

@@ -55,7 +55,6 @@ import net.runelite.api.Skill;
 import net.runelite.api.SoundEffectID;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.AnimationChanged;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameObjectDespawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GameStateChanged;
@@ -68,9 +67,12 @@ import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.NpcLootReceived;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SkillIconManager;
+import net.runelite.client.game.XpDropEvent;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -78,7 +80,6 @@ import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.LIGHTNING;
 import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.MAGIC;
 import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.PRAYER;
 import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.RANGE;
-import net.runelite.client.game.XpDropEvent;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.Counter;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
@@ -114,43 +115,57 @@ public class GauntletPlugin extends Plugin
 	);
 	private static final int GATHERING_HERB = 0;
 	private static final int GATHERING_CLOTH = 1;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private Client client;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private ClientThread clientThread;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private OverlayManager overlayManager;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private GauntletOverlay overlay;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private GauntletInfoBoxOverlay infoboxoverlay;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private GauntletConfig config;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private EventBus eventBus;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private GauntletTimer timer;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private SkillIconManager skillIconManager;
+
 	@Inject
 	@Getter(AccessLevel.NONE)
 	private GauntletCounter GauntletCounter;
+
 	@Setter(AccessLevel.PACKAGE)
 	@Nullable
 	private Hunllef hunllef;
+
 	@Inject
 	private InfoBoxManager infoBoxManager;
+
 	@Inject
 	private ItemManager itemManager;
+
 	private boolean attackVisualOutline;
 	private boolean completeStartup = false;
 	private boolean displayTimerChat;
@@ -201,7 +216,6 @@ public class GauntletPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		addSubscriptions();
 		updateConfig();
 		initializeCounters();
 		overlayManager.add(overlay);
@@ -216,7 +230,8 @@ public class GauntletPlugin extends Plugin
 		if (client.getGameState() != GameState.STARTING && client.getGameState() != GameState.UNKNOWN)
 		{
 			completeStartup = false;
-			clientThread.invoke(() -> {
+			clientThread.invoke(() ->
+			{
 				timer.initStates();
 				completeStartup = true;
 			});
@@ -271,7 +286,6 @@ public class GauntletPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
-		eventBus.unregister(this);
 		timer.resetStates();
 		if (timerVisible)
 		{
@@ -299,23 +313,7 @@ public class GauntletPlugin extends Plugin
 		countersVisible = false;
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameObjectDespawned.class, this, this::onGameObjectDespawned);
-		eventBus.subscribe(GameObjectSpawned.class, this, this::onGameObjectSpawned);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
-		eventBus.subscribe(NpcSpawned.class, this, this::onNpcSpawned);
-		eventBus.subscribe(ProjectileSpawned.class, this, this::onProjectileSpawned);
-		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-		eventBus.subscribe(XpDropEvent.class, this, this::onXpDropEvent);
-		eventBus.subscribe(NpcLootReceived.class, this, this::onNpcLootReceived);
-		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
-	}
-
+	@Subscribe
 	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked)
 	{
 		if (menuOptionClicked.getTarget().toUpperCase().contains("LINUM"))
@@ -328,6 +326,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onNpcLootReceived(NpcLootReceived npcLootReceived)
 	{
 		fishGathered += (int) npcLootReceived.getItems().stream().filter(item -> item.getId() == ItemID.RAW_PADDLEFISH).count();
@@ -335,6 +334,7 @@ public class GauntletPlugin extends Plugin
 		updateCounters();
 	}
 
+	@Subscribe
 	private void onXpDropEvent(XpDropEvent experienceChanged)
 	{
 		if (experienceChanged.getSkill().compareTo(Skill.MINING) == 0)
@@ -363,6 +363,7 @@ public class GauntletPlugin extends Plugin
 		updateCounters();
 	}
 
+	@Subscribe
 	private void onAnimationChanged(AnimationChanged event)
 	{
 		if (hunllef == null)
@@ -378,7 +379,7 @@ public class GauntletPlugin extends Plugin
 			final Player player = (Player) actor;
 			final int anim = player.getAnimation();
 
-			if (!player.getName().equals(client.getLocalPlayer().getName()) || anim == -1 || !PLAYER_ANIMATIONS.contains(anim))
+			if (player.getName() == null || client.getLocalPlayer() == null || !player.getName().equals(client.getLocalPlayer().getName()) || anim == -1 || !PLAYER_ANIMATIONS.contains(anim))
 			{
 				return;
 			}
@@ -433,6 +434,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("Gauntlet"))
@@ -469,6 +471,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameObjectDespawned(GameObjectDespawned event)
 	{
 		final GameObject obj = event.getGameObject();
@@ -478,6 +481,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameObjectSpawned(GameObjectSpawned event)
 	{
 		final GameObject obj = event.getGameObject();
@@ -487,6 +491,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOADING)
@@ -495,6 +500,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameTick(GameTick event)
 	{
 		// This handles the timer based on player health.
@@ -515,6 +521,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onNpcDespawned(NpcDespawned event)
 	{
 		final NPC npc = event.getNpc();
@@ -529,6 +536,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onNpcSpawned(NpcSpawned event)
 	{
 		final NPC npc = event.getNpc();
@@ -542,6 +550,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onProjectileSpawned(ProjectileSpawned event)
 	{
 		if (hunllef == null)
@@ -573,6 +582,7 @@ public class GauntletPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onVarbitChanged(VarbitChanged event)
 	{
 		if (this.completeStartup)

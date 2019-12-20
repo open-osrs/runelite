@@ -4,80 +4,52 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dx")
+@ObfuscatedName("du")
 @Implements("FloorDecoration")
 public final class FloorDecoration {
-	@ObfuscatedName("na")
-	@ObfuscatedGetter(
-		intValue = 379430595
-	)
-	@Export("widgetDragDuration")
-	static int widgetDragDuration;
-	@ObfuscatedName("pe")
+	@ObfuscatedName("ds")
 	@ObfuscatedSignature(
-		signature = "Llx;"
+		signature = "Lif;"
 	)
-	@Export("sceneMinimapSprite")
-	static Sprite sceneMinimapSprite;
-	@ObfuscatedName("a")
+	@Export("archive4")
+	static Archive archive4;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1575825247
+		intValue = -813492053
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -455882757
+		intValue = -508707057
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 733154095
+		intValue = 1453565009
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		signature = "Lep;"
 	)
 	@Export("entity")
 	public Entity entity;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		longValue = -4694647978187683379L
+		longValue = 5434856025712210831L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -984240523
+		intValue = -1187671267
 	)
 	@Export("flags")
 	int flags;
 
 	FloorDecoration() {
-	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		signature = "(IIIIIIB)I",
-		garbageValue = "30"
-	)
-	public static int method3010(int var0, int var1, int var2, int var3, int var4, int var5) {
-		if ((var5 & 1) == 1) {
-			int var6 = var3;
-			var3 = var4;
-			var4 = var6;
-		}
-
-		var2 &= 3;
-		if (var2 == 0) {
-			return var0;
-		} else if (var2 == 1) {
-			return var1;
-		} else {
-			return var2 == 2 ? 7 - var0 - (var3 - 1) : 7 - var1 - (var4 - 1);
-		}
 	}
 }

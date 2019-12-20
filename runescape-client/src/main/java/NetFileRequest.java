@@ -7,49 +7,53 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ho")
 @Implements("NetFileRequest")
 public class NetFileRequest extends DualNode {
-	@ObfuscatedName("df")
+	@ObfuscatedName("cv")
+	@Export("mouseCam")
+	static boolean mouseCam;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Lij;"
-	)
-	@Export("archive4")
-	static Archive archive4;
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		signature = "Lij;"
+		signature = "Lif;"
 	)
 	@Export("archive")
 	public Archive archive;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 925703943
+		intValue = -1793018397
 	)
 	@Export("crc")
 	public int crc;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@Export("padding")
 	public byte padding;
 
 	NetFileRequest() {
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("kz")
 	@ObfuscatedSignature(
-		signature = "(II)Lii;",
-		garbageValue = "-2050258581"
+		signature = "(Ljava/lang/String;ZI)Ljava/lang/String;",
+		garbageValue = "1995619175"
 	)
-	public static HitSplatDefinition method4298(int var0) {
-		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = HitSplatDefinition.HitSplatDefinition_archive.takeFile(32, var0);
-			var1 = new HitSplatDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0);
-			return var1;
+	static String method4121(String var0, boolean var1) {
+		String var2 = var1 ? "https://" : "http://";
+		if (Client.gameBuild == 1) {
+			var0 = var0 + "-wtrc";
+		} else if (Client.gameBuild == 2) {
+			var0 = var0 + "-wtqa";
+		} else if (Client.gameBuild == 3) {
+			var0 = var0 + "-wtwip";
+		} else if (Client.gameBuild == 5) {
+			var0 = var0 + "-wti";
+		} else if (Client.gameBuild == 4) {
+			var0 = "local";
 		}
+
+		String var3 = "";
+		if (UserComparator10.field1943 != null) {
+			var3 = "/p=" + UserComparator10.field1943;
+		}
+
+		String var4 = "runescape.com";
+		return var2 + var0 + "." + var4 + "/l=" + Varps.clientLanguage + "/a=" + MouseRecorder.field564 + var3 + "/";
 	}
 }

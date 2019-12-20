@@ -3,81 +3,75 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bi")
+@ObfuscatedName("bm")
 @Implements("ScriptEvent")
 public class ScriptEvent extends Node {
-	@ObfuscatedName("sc")
-	@ObfuscatedSignature(
-		signature = "Lbw;"
-	)
-	@Export("clientPreferences")
-	static ClientPreferences clientPreferences;
-	@ObfuscatedName("fz")
+	@ObfuscatedName("fw")
 	@ObfuscatedGetter(
-		intValue = -1497740127
+		intValue = -2041683927
 	)
-	static int field563;
-	@ObfuscatedName("a")
+	@Export("baseY")
+	static int baseY;
+	@ObfuscatedName("f")
 	@Export("args")
 	Object[] args;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lhi;"
+		signature = "Lha;"
 	)
 	@Export("widget")
 	Widget widget;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -2022022571
+		intValue = 884179391
 	)
 	@Export("mouseX")
 	int mouseX;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 2109741703
+		intValue = 990811435
 	)
 	@Export("mouseY")
 	int mouseY;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -668858451
+		intValue = 1259454631
 	)
 	@Export("opIndex")
 	int opIndex;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lhi;"
+		signature = "Lha;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -649087669
+		intValue = 49600395
 	)
 	@Export("keyTyped")
 	int keyTyped;
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1510622969
+		intValue = -601686953
 	)
 	@Export("keyPressed")
 	int keyPressed;
 	@ObfuscatedName("d")
 	@Export("targetName")
 	String targetName;
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1448697707
+		intValue = -1957089865
 	)
-	int field550;
-	@ObfuscatedName("p")
+	int field557;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 251797665
+		intValue = 1339404961
 	)
 	@Export("type")
 	int type;
@@ -86,307 +80,118 @@ public class ScriptEvent extends Node {
 		this.type = 76;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/Object;B)V",
-		garbageValue = "0"
+		signature = "([Ljava/lang/Object;I)V",
+		garbageValue = "-2080962304"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
 		this.args = var1;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-1079010061"
+		signature = "(IB)V",
+		garbageValue = "33"
 	)
 	@Export("setType")
 	public void setType(int var1) {
 		this.type = var1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(IIILix;IB)V",
-		garbageValue = "24"
+		signature = "(B)V",
+		garbageValue = "-9"
 	)
-	static void method1274(int var0, int var1, int var2, ObjectDefinition var3, int var4) {
-		ObjectSound var5 = new ObjectSound();
-		var5.plane = var0;
-		var5.x = var1 * 128;
-		var5.y = var2 * 16384;
-		int var6 = var3.sizeX;
-		int var7 = var3.sizeY;
-		if (var4 == 1 || var4 == 3) {
-			var6 = var3.sizeY;
-			var7 = var3.sizeX;
-		}
-
-		var5.field1060 = (var6 + var1) * 16384;
-		var5.field1053 = (var7 + var2) * 16384;
-		var5.soundEffectId = var3.ambientSoundId;
-		var5.field1052 = var3.int4 * 128;
-		var5.field1057 = var3.int5;
-		var5.field1058 = var3.int6;
-		var5.soundEffectIds = var3.soundEffectIds;
-		if (var3.transforms != null) {
-			var5.obj = var3;
-			var5.set();
-		}
-
-		ObjectSound.objectSounds.addFirst(var5);
-		if (var5.soundEffectIds != null) {
-			var5.field1054 = var5.field1057 + (int)(Math.random() * (double)(var5.field1058 - var5.field1057));
+	public static void method1183() {
+		if (class297.NetCache_socket != null) {
+			class297.NetCache_socket.close();
 		}
 
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
-		garbageValue = "-1199782761"
+		signature = "(III)I",
+		garbageValue = "-135239713"
 	)
-	static String method1277() {
-		String var0;
-		if (clientPreferences.hideUsername) {
-			String var2 = Login.Login_username;
-			int var4 = var2.length();
-			char[] var5 = new char[var4];
-
-			for (int var6 = 0; var6 < var4; ++var6) {
-				var5[var6] = '*';
+	static final int method1184(int var0, int var1) {
+		if (var0 == -2) {
+			return 12345678;
+		} else if (var0 == -1) {
+			if (var1 < 2) {
+				var1 = 2;
+			} else if (var1 > 126) {
+				var1 = 126;
 			}
 
-			String var3 = new String(var5);
-			var0 = var3;
+			return var1;
 		} else {
-			var0 = Login.Login_username;
-		}
-
-		return var0;
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "(CLgw;B)I",
-		garbageValue = "86"
-	)
-	@Export("lowercaseChar")
-	static int lowercaseChar(char var0, Language var1) {
-		int var2 = var0 << 4;
-		if (Character.isUpperCase(var0) || Character.isTitleCase(var0)) {
-			var0 = Character.toLowerCase(var0);
-			var2 = (var0 << 4) + 1;
-		}
-
-		if (var0 == 241 && var1 == Language.Language_ES) {
-			var2 = 1762;
-		}
-
-		return var2;
-	}
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-1588093923"
-	)
-	public static int method1272(int var0) {
-		return UserComparator8.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]);
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "(IIIIIZB)Llx;",
-		garbageValue = "1"
-	)
-	@Export("getItemSprite")
-	public static final Sprite getItemSprite(int var0, int var1, int var2, int var3, int var4, boolean var5) {
-		if (var1 == -1) {
-			var4 = 0;
-		} else if (var4 == 2 && var1 != 1) {
-			var4 = 1;
-		}
-
-		long var6 = ((long)var3 << 42) + ((long)var4 << 40) + ((long)var1 << 16) + (long)var0 + ((long)var2 << 38);
-		Sprite var8;
-		if (!var5) {
-			var8 = (Sprite)ItemDefinition.ItemDefinition_cachedSprites.get(var6);
-			if (var8 != null) {
-				return var8;
-			}
-		}
-
-		ItemDefinition var9 = class222.ItemDefinition_get(var0);
-		if (var1 > 1 && var9.countobj != null) {
-			int var10 = -1;
-
-			for (int var11 = 0; var11 < 10; ++var11) {
-				if (var1 >= var9.countco[var11] && var9.countco[var11] != 0) {
-					var10 = var9.countobj[var11];
-				}
+			var1 = (var0 & 127) * var1 / 128;
+			if (var1 < 2) {
+				var1 = 2;
+			} else if (var1 > 126) {
+				var1 = 126;
 			}
 
-			if (var10 != -1) {
-				var9 = class222.ItemDefinition_get(var10);
-			}
+			return (var0 & 65408) + var1;
 		}
+	}
 
-		Model var21 = var9.getModel(1);
-		if (var21 == null) {
-			return null;
+	@ObfuscatedName("gk")
+	@ObfuscatedSignature(
+		signature = "(Lbv;I)V",
+		garbageValue = "-2035180318"
+	)
+	static final void method1180(Actor var0) {
+		int var1 = var0.field950 - Client.cycle;
+		int var2 = var0.field921 * 128 + var0.field925 * 64;
+		int var3 = var0.field966 * 128 + var0.field925 * 64;
+		var0.x += (var2 - var0.x) / var1;
+		var0.y += (var3 - var0.y) / var1;
+		var0.field980 = 0;
+		var0.orientation = var0.field970;
+	}
+
+	@ObfuscatedName("hx")
+	@ObfuscatedSignature(
+		signature = "(IIII)I",
+		garbageValue = "1464658365"
+	)
+	@Export("getTileHeight")
+	static final int getTileHeight(int var0, int var1, int var2) {
+		int var3 = var0 >> 7;
+		int var4 = var1 >> 7;
+		if (var3 >= 0 && var4 >= 0 && var3 <= 103 && var4 <= 103) {
+			int var5 = var2;
+			if (var2 < 3 && (Tiles.Tiles_renderFlags[1][var3][var4] & 2) == 2) {
+				var5 = var2 + 1;
+			}
+
+			int var6 = var0 & 127;
+			int var7 = var1 & 127;
+			int var8 = (128 - var6) * Tiles.Tiles_heights[var5][var3][var4] + var6 * Tiles.Tiles_heights[var5][var3 + 1][var4] >> 7;
+			int var9 = var6 * Tiles.Tiles_heights[var5][var3 + 1][var4 + 1] + Tiles.Tiles_heights[var5][var3][var4 + 1] * (128 - var6) >> 7;
+			return var9 * var7 + var8 * (128 - var7) >> 7;
 		} else {
-			Sprite var22 = null;
-			if (var9.noteTemplate != -1) {
-				var22 = getItemSprite(var9.note, 10, 1, 0, 0, true);
-				if (var22 == null) {
-					return null;
-				}
-			} else if (var9.notedId != -1) {
-				var22 = getItemSprite(var9.unnotedId, var1, var2, var3, 0, false);
-				if (var22 == null) {
-					return null;
-				}
-			} else if (var9.placeholderTemplate != -1) {
-				var22 = getItemSprite(var9.placeholder, var1, 0, 0, 0, false);
-				if (var22 == null) {
-					return null;
-				}
-			}
-
-			int[] var12 = Rasterizer2D.Rasterizer2D_pixels;
-			int var13 = Rasterizer2D.Rasterizer2D_width;
-			int var14 = Rasterizer2D.Rasterizer2D_height;
-			int[] var15 = new int[4];
-			Rasterizer2D.Rasterizer2D_getClipArray(var15);
-			var8 = new Sprite(36, 32);
-			Rasterizer2D.Rasterizer2D_replace(var8.pixels, 36, 32);
-			Rasterizer2D.Rasterizer2D_clear();
-			Rasterizer3D.Rasterizer3D_setClipFromRasterizer2D();
-			Rasterizer3D.method3131(16, 16);
-			Rasterizer3D.field1739 = false;
-			if (var9.placeholderTemplate != -1) {
-				var22.drawTransBgAt(0, 0);
-			}
-
-			int var16 = var9.zoom2d;
-			if (var5) {
-				var16 = (int)(1.5D * (double)var16);
-			} else if (var2 == 2) {
-				var16 = (int)(1.04D * (double)var16);
-			}
-
-			int var17 = var16 * Rasterizer3D.Rasterizer3D_sine[var9.xan2d] >> 16;
-			int var18 = var16 * Rasterizer3D.Rasterizer3D_cosine[var9.xan2d] >> 16;
-			var21.calculateBoundsCylinder();
-			var21.method3044(0, var9.yan2d, var9.zan2d, var9.xan2d, var9.offsetX2d, var21.height / 2 + var17 + var9.offsetY2d, var18 + var9.offsetY2d);
-			if (var9.notedId != -1) {
-				var22.drawTransBgAt(0, 0);
-			}
-
-			if (var2 >= 1) {
-				var8.outline(1);
-			}
-
-			if (var2 >= 2) {
-				var8.outline(16777215);
-			}
-
-			if (var3 != 0) {
-				var8.shadow(var3);
-			}
-
-			Rasterizer2D.Rasterizer2D_replace(var8.pixels, 36, 32);
-			if (var9.noteTemplate != -1) {
-				var22.drawTransBgAt(0, 0);
-			}
-
-			if (var4 == 1 || var4 == 2 && var9.isStackable == 1) {
-				Font var19 = class30.ItemDefinition_fontPlain11;
-				String var20;
-				if (var1 < 100000) {
-					var20 = "<col=ffff00>" + var1 + "</col>";
-				} else if (var1 < 10000000) {
-					var20 = "<col=ffffff>" + var1 / 1000 + "K" + "</col>";
-				} else {
-					var20 = "<col=00ff80>" + var1 / 1000000 + "M" + "</col>";
-				}
-
-				var19.draw(var20, 0, 9, 16776960, 1);
-			}
-
-			if (!var5) {
-				ItemDefinition.ItemDefinition_cachedSprites.put(var8, var6);
-			}
-
-			Rasterizer2D.Rasterizer2D_replace(var12, var13, var14);
-			Rasterizer2D.Rasterizer2D_setClipArray(var15);
-			Rasterizer3D.Rasterizer3D_setClipFromRasterizer2D();
-			Rasterizer3D.field1739 = true;
-			return var8;
+			return 0;
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("jv")
 	@ObfuscatedSignature(
-		signature = "(ILcj;ZB)I",
-		garbageValue = "-66"
+		signature = "(IB)Z",
+		garbageValue = "103"
 	)
-	static int method1263(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? class96.field1301 : ReflectionCheck.field1310;
-		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = UserComparator5.method3551(class195.getWidgetClickMask(var3));
-			return 1;
-		} else if (var0 != ScriptOpcodes.CC_GETOP) {
-			if (var0 == ScriptOpcodes.CC_GETOPBASE) {
-				if (var3.dataText == null) {
-					Interpreter.Interpreter_stringStack[++WorldMapDecoration.Interpreter_stringStackSize - 1] = "";
-				} else {
-					Interpreter.Interpreter_stringStack[++WorldMapDecoration.Interpreter_stringStackSize - 1] = var3.dataText;
-				}
-
-				return 1;
-			} else {
-				return 2;
+	static boolean method1185(int var0) {
+		for (int var1 = 0; var1 < Client.field849; ++var1) {
+			if (Client.field851[var1] == var0) {
+				return true;
 			}
-		} else {
-			int var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			--var4;
-			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) {
-				Interpreter.Interpreter_stringStack[++WorldMapDecoration.Interpreter_stringStackSize - 1] = var3.actions[var4];
-			} else {
-				Interpreter.Interpreter_stringStack[++WorldMapDecoration.Interpreter_stringStackSize - 1] = "";
-			}
-
-			return 1;
 		}
-	}
 
-	@ObfuscatedName("jb")
-	@ObfuscatedSignature(
-		signature = "(IIIIIIIII)V",
-		garbageValue = "-1558725091"
-	)
-	@Export("drawWidgets")
-	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		if (TextureProvider.loadInterface(var0)) {
-			VarcInt.field3218 = null;
-			IgnoreList.drawInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7);
-			if (VarcInt.field3218 != null) {
-				IgnoreList.drawInterface(VarcInt.field3218, -1412584499, var1, var2, var3, var4, TriBool.field3600, GrandExchangeEvent.field46, var7);
-				VarcInt.field3218 = null;
-			}
-
-		} else {
-			if (var7 != -1) {
-				Client.field842[var7] = true;
-			} else {
-				for (int var8 = 0; var8 < 100; ++var8) {
-					Client.field842[var8] = true;
-				}
-			}
-
-		}
+		return false;
 	}
 }

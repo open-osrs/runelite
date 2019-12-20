@@ -26,12 +26,13 @@ package net.runelite.client.plugins.implings;
 
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.NpcID;
 
 @AllArgsConstructor
-@Getter
+@Getter(AccessLevel.PACKAGE)
 enum Impling
 {
 	BABY(ImplingType.BABY, NpcID.BABY_IMPLING),
@@ -84,7 +85,7 @@ enum Impling
 
 	LUCKY(ImplingType.LUCKY, NpcID.LUCKY_IMPLING),
 	LUCKY_2(ImplingType.LUCKY, NpcID.LUCKY_IMPLING_7302);
-	
+
 	private ImplingType implingType;
 	private final int npcId;
 

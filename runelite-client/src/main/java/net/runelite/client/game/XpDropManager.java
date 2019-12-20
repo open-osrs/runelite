@@ -8,8 +8,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
-import net.runelite.api.events.ExperienceChanged;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.StatChanged;
 import net.runelite.client.eventbus.EventBus;
 
 @Singleton
@@ -21,9 +21,8 @@ public class XpDropManager
 	private int damage = 0;
 	@Getter(AccessLevel.PACKAGE)
 	private int tickShow = 0;
-	private int previousExpGained;
-	private Client client;
-	private EventBus eventBus;
+	private final Client client;
+	private final EventBus eventBus;
 
 	@Inject
 	private XpDropManager(
@@ -34,7 +33,7 @@ public class XpDropManager
 		this.client = client;
 		this.eventBus = eventBus;
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventBus.subscribe(ExperienceChanged.class, this, this::onExperienceChanged);
+		eventBus.subscribe(StatChanged.class, this, this::onStatChanged);
 	}
 
 	private void onGameStateChanged(GameStateChanged event)
@@ -43,14 +42,14 @@ public class XpDropManager
 		tickShow = 0;
 	}
 
-	private void onExperienceChanged(ExperienceChanged event)
+	private void onStatChanged(StatChanged event)
 	{
 		final Skill skill = event.getSkill();
 		final int xp = client.getSkillExperience(skill);
 		Integer previous = previousSkillExpTable.put(skill, xp);
 		if (previous != null)
 		{
-			previousExpGained = xp - previous;
+			int previousExpGained = xp - previous;
 			XpDropEvent xpDropEvent = new XpDropEvent();
 			xpDropEvent.setExp(previousExpGained);
 			xpDropEvent.setSkill(skill);

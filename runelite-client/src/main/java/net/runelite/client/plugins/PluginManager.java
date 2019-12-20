@@ -25,6 +25,7 @@
 package net.runelite.client.plugins;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.graph.Graph;
@@ -218,13 +219,17 @@ public class PluginManager
 	public void startCorePlugins()
 	{
 		List<Plugin> scannedPlugins = new ArrayList<>(plugins);
-		int loaded = 0;
+		int loaded = 0, started = 0;
 
+		final Stopwatch timer = Stopwatch.createStarted();
 		for (Plugin plugin : scannedPlugins)
 		{
 			try
 			{
-				startPlugin(plugin);
+				if (startPlugin(plugin))
+				{
+					++started;
+				}
 			}
 			catch (PluginInstantiationException ex)
 			{
@@ -236,6 +241,8 @@ public class PluginManager
 
 			RuneLiteSplashScreen.stage(.80, 1, "Starting plugins", loaded, scannedPlugins.size());
 		}
+
+		log.debug("Started {}/{} plugins in {}", started, loaded, timer);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -376,6 +383,8 @@ public class PluginManager
 				}
 			});
 
+			plugin.addAnnotatedSubscriptions(eventBus);
+
 			log.debug("Plugin {} is now running", plugin.getClass().getSimpleName());
 			if (!isOutdated && sceneTileManager != null)
 			{
@@ -386,7 +395,6 @@ public class PluginManager
 				}
 			}
 
-			// eventBus.register(plugin);
 			schedule(plugin);
 			eventBus.post(PluginChanged.class, new PluginChanged(plugin, true));
 		}
@@ -423,6 +431,8 @@ public class PluginManager
 					throw new RuntimeException(ex);
 				}
 			});
+
+			plugin.removeAnnotatedSubscriptions(eventBus);
 
 			log.debug("Plugin {} is now stopped", plugin.getClass().getSimpleName());
 			eventBus.post(PluginChanged.class, new PluginChanged(plugin, false));
@@ -567,6 +577,7 @@ public class PluginManager
 	 * Plugins in group 2 has dependents in group 1, etc.
 	 * This allows for loading dependent groups serially, starting from the last group,
 	 * while loading plugins within each group in parallel.
+	 *
 	 * @param graph
 	 * @param <T>
 	 * @return

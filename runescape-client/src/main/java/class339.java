@@ -1,11 +1,14 @@
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mx")
+@ObfuscatedName("mp")
 public class class339 {
-	@ObfuscatedName("be")
-	@ObfuscatedGetter(
-		intValue = 566181067
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		signature = "(II)I",
+		garbageValue = "321161362"
 	)
-	static int field4041;
+	public static int method6563(int var0) {
+		return var0 >> 17 & 7;
+	}
 }

@@ -9,37 +9,35 @@
 
 package net.runelite.client.plugins.wildernesslocations;
 
-
 import com.google.inject.Provides;
 import java.awt.Color;
-import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.Player;
 import net.runelite.api.ScriptID;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
-import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarClientStrChanged;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.Keybind;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.game.WorldLocation;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
-import net.runelite.client.game.WorldLocation;
 
 @Slf4j
 @PluginDescriptor(
@@ -52,7 +50,6 @@ import net.runelite.client.game.WorldLocation;
 @Singleton
 public class WildernessLocationsPlugin extends Plugin
 {
-
 	@Inject
 	private Client client;
 
@@ -62,10 +59,10 @@ public class WildernessLocationsPlugin extends Plugin
 	@Inject
 	private WildernessLocationsOverlay overlay = new WildernessLocationsOverlay(this);
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean renderLocation;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private String locationString = "";
 
 	@Inject
@@ -78,15 +75,11 @@ public class WildernessLocationsPlugin extends Plugin
 	private KeyManager keyManager;
 
 	@Inject
-	private EventBus eventBus;
-
-	@Inject
 	private WildernessLocationsMapOverlay wildernessLocationsMapOverlay;
 
 	private String oldChat = "";
 	private int currentCooldown = 0;
 	private WorldPoint worldPoint = null;
-	private static final Map<WorldArea, String> wildLocs = WorldLocation.getLocationMap();
 
 	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> this.keybind)
 	{
@@ -101,13 +94,13 @@ public class WildernessLocationsPlugin extends Plugin
 	private boolean drawOverlay;
 	private boolean pvpWorld;
 	private Keybind keybind;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean worldMapNames;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private Color mapOverlayColor;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean outlineLocations;
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private boolean worldMapOverlay;
 
 
@@ -118,9 +111,8 @@ public class WildernessLocationsPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
-		addSubscriptions();
 
 		updateConfig();
 
@@ -140,13 +132,7 @@ public class WildernessLocationsPlugin extends Plugin
 		this.worldMapOverlay = this.worldMapNames || this.outlineLocations;
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-		eventBus.subscribe(VarClientStrChanged.class, this, this::onVarClientStrChanged);
-	}
-
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("wildernesslocations"))
@@ -158,26 +144,27 @@ public class WildernessLocationsPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 		overlayManager.remove(wildernessLocationsMapOverlay);
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
+	@Subscribe
 	private void onGameTick(GameTick event)
 	{
 		if (currentCooldown != 0)
 		{
 			currentCooldown--;
 		}
-		renderLocation = (client.getVar(Varbits.IN_WILDERNESS) == 1
-			|| (this.pvpWorld && WorldType.isAllPvpWorld(client.getWorldType())));
+
+		renderLocation = (client.getVar(Varbits.IN_WILDERNESS) == 1 || (this.pvpWorld && WorldType.isAllPvpWorld(client.getWorldType())));
+
 		if (renderLocation)
 		{
-			if (client.getLocalPlayer().getWorldLocation() != worldPoint)
+			final Player player = client.getLocalPlayer();
+			if (player != null && player.getWorldLocation() != worldPoint)
 			{
 				locationString = WorldLocation.location(client.getLocalPlayer().getWorldLocation());
 				worldPoint = client.getLocalPlayer().getWorldLocation();
@@ -190,6 +177,7 @@ public class WildernessLocationsPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onVarClientStrChanged(VarClientStrChanged varClient)
 	{
 		String newChat = client.getVar(VarClientStr.CHATBOX_TYPED_TEXT);

@@ -4,182 +4,240 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eh")
+@ObfuscatedName("en")
 @Implements("Occluder")
 public final class Occluder {
-	@ObfuscatedName("dt")
-	@ObfuscatedSignature(
-		signature = "Lij;"
-	)
-	@Export("archive12")
-	static Archive archive12;
-	@ObfuscatedName("iz")
+	@ObfuscatedName("ix")
 	@ObfuscatedGetter(
-		intValue = 1014742579
+		intValue = 1520705785
 	)
-	@Export("selectedItemId")
-	static int selectedItemId;
-	@ObfuscatedName("a")
+	@Export("selectedItemWidget")
+	static int selectedItemWidget;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 2096461427
+		intValue = -2004521327
 	)
 	@Export("minTileX")
 	int minTileX;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 658025365
+		intValue = -1674295637
 	)
 	@Export("maxTileX")
 	int maxTileX;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -423718345
+		intValue = 1042040177
 	)
 	@Export("minTileY")
 	int minTileY;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1740624753
+		intValue = 1841371547
 	)
 	@Export("maxTileY")
 	int maxTileY;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 954528249
+		intValue = 261600229
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1732339879
+		intValue = -471906197
 	)
 	@Export("minX")
 	int minX;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1301635755
+		intValue = 1905687081
 	)
 	@Export("maxX")
 	int maxX;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -258867493
+		intValue = -528006911
 	)
 	@Export("minZ")
 	int minZ;
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1337393049
+		intValue = -1092367399
 	)
 	@Export("maxZ")
 	int maxZ;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1306653599
+		intValue = 1309728231
 	)
 	@Export("minY")
 	int minY;
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1760102387
+		intValue = -1242772351
 	)
 	@Export("maxY")
 	int maxY;
-	@ObfuscatedName("p")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1764224557
+		intValue = 574320151
 	)
-	int field1869;
-	@ObfuscatedName("h")
+	int field1877;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1705634243
+		intValue = -1784945639
 	)
-	int field1887;
+	int field1878;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -682629895
+		intValue = -894832855
+	)
+	int field1879;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -350981301
 	)
 	int field1880;
-	@ObfuscatedName("x")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1219807155
+		intValue = -186008605
 	)
-	int field1883;
+	int field1881;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = 512854933
+	)
+	int field1875;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 168844503
+		intValue = -503970767
 	)
-	int field1884;
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = -1533789259
-	)
-	int field1882;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = 1431077503
-	)
-	int field1885;
+	int field1872;
 
 	Occluder() {
 	}
 
-	@ObfuscatedName("ir")
+	@ObfuscatedName("ka")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "-1093183807"
+		signature = "(Lha;IIIB)V",
+		garbageValue = "1"
 	)
-	static final boolean method3415(int var0) {
-		if (var0 < 0) {
-			return false;
-		} else {
-			int var1 = Client.menuOpcodes[var0];
-			if (var1 >= 2000) {
-				var1 -= 2000;
-			}
+	@Export("drawMinimap")
+	static final void drawMinimap(Widget var0, int var1, int var2, int var3) {
+		WorldMapLabel.playPcmPlayers();
+		SpriteMask var4 = var0.getSpriteMask(false);
+		if (var4 != null) {
+			Rasterizer2D.Rasterizer2D_setClip(var1, var2, var4.width + var1, var2 + var4.height);
+			if (Client.minimapState != 2 && Client.minimapState != 5) {
+				int var5 = Client.camAngleY & 2047;
+				int var6 = Message.localPlayer.x / 32 + 48;
+				int var7 = 464 - Message.localPlayer.y / 32;
+				Language.sceneMinimapSprite.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, var6, var7, var5, 256, var4.xStarts, var4.xWidths);
 
-			return var1 == 1007;
-		}
-	}
-
-	@ObfuscatedName("ih")
-	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "0"
-	)
-	static final void method3416() {
-		boolean var0 = false;
-
-		while (!var0) {
-			var0 = true;
-
-			for (int var1 = 0; var1 < Client.menuOptionsCount - 1; ++var1) {
-				if (Client.menuOpcodes[var1] < 1000 && Client.menuOpcodes[var1 + 1] > 1000) {
-					String var2 = Client.menuTargets[var1];
-					Client.menuTargets[var1] = Client.menuTargets[var1 + 1];
-					Client.menuTargets[var1 + 1] = var2;
-					String var3 = Client.menuActions[var1];
-					Client.menuActions[var1] = Client.menuActions[var1 + 1];
-					Client.menuActions[var1 + 1] = var3;
-					int var4 = Client.menuOpcodes[var1];
-					Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1];
-					Client.menuOpcodes[var1 + 1] = var4;
-					var4 = Client.menuArguments1[var1];
-					Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1];
-					Client.menuArguments1[var1 + 1] = var4;
-					var4 = Client.menuArguments2[var1];
-					Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1];
-					Client.menuArguments2[var1 + 1] = var4;
-					var4 = Client.menuIdentifiers[var1];
-					Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1];
-					Client.menuIdentifiers[var1 + 1] = var4;
-					boolean var5 = Client.menuShiftClick[var1];
-					Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1];
-					Client.menuShiftClick[var1 + 1] = var5;
-					var0 = false;
+				int var8;
+				int var9;
+				int var10;
+				for (var8 = 0; var8 < Client.mapIconCount; ++var8) {
+					var9 = Client.mapIconXs[var8] * 4 + 2 - Message.localPlayer.x / 32;
+					var10 = Client.mapIconYs[var8] * 4 + 2 - Message.localPlayer.y / 32;
+					GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var9, var10, Client.mapIcons[var8], var4);
 				}
-			}
-		}
 
+				int var11;
+				int var12;
+				for (var8 = 0; var8 < 104; ++var8) {
+					for (var9 = 0; var9 < 104; ++var9) {
+						NodeDeque var15 = Client.groundItems[UrlRequest.Client_plane][var8][var9];
+						if (var15 != null) {
+							var11 = var8 * 4 + 2 - Message.localPlayer.x / 32;
+							var12 = var9 * 4 + 2 - Message.localPlayer.y / 32;
+							GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var11, var12, WorldMapLabel.mapDotSprites[0], var4);
+						}
+					}
+				}
+
+				for (var8 = 0; var8 < Client.npcCount; ++var8) {
+					NPC var16 = Client.npcs[Client.npcIndices[var8]];
+					if (var16 != null && var16.isVisible()) {
+						NPCDefinition var18 = var16.definition;
+						if (var18 != null && var18.transforms != null) {
+							var18 = var18.transform();
+						}
+
+						if (var18 != null && var18.drawMapDot && var18.isInteractable) {
+							var11 = var16.x / 32 - Message.localPlayer.x / 32;
+							var12 = var16.y / 32 - Message.localPlayer.y / 32;
+							GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var11, var12, WorldMapLabel.mapDotSprites[1], var4);
+						}
+					}
+				}
+
+				var8 = Players.Players_count;
+				int[] var19 = Players.Players_indices;
+
+				for (var10 = 0; var10 < var8; ++var10) {
+					Player var17 = Client.players[var19[var10]];
+					if (var17 != null && var17.isVisible() && !var17.isHidden && var17 != Message.localPlayer) {
+						var12 = var17.x / 32 - Message.localPlayer.x / 32;
+						int var13 = var17.y / 32 - Message.localPlayer.y / 32;
+						boolean var14 = false;
+						if (Message.localPlayer.team != 0 && var17.team != 0 && var17.team == Message.localPlayer.team) {
+							var14 = true;
+						}
+
+						if (var17.isFriend()) {
+							GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var12, var13, WorldMapLabel.mapDotSprites[3], var4);
+						} else if (var14) {
+							GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var12, var13, WorldMapLabel.mapDotSprites[4], var4);
+						} else if (var17.isClanMember()) {
+							GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var12, var13, WorldMapLabel.mapDotSprites[5], var4);
+						} else {
+							GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var12, var13, WorldMapLabel.mapDotSprites[2], var4);
+						}
+					}
+				}
+
+				if (Client.hintArrowType != 0 && Client.cycle % 20 < 10) {
+					if (Client.hintArrowType == 1 && Client.hintArrowNpcIndex >= 0 && Client.hintArrowNpcIndex < Client.npcs.length) {
+						NPC var20 = Client.npcs[Client.hintArrowNpcIndex];
+						if (var20 != null) {
+							var11 = var20.x / 32 - Message.localPlayer.x / 32;
+							var12 = var20.y / 32 - Message.localPlayer.y / 32;
+							InvDefinition.worldToMinimap(var1, var2, var11, var12, Varps.mapMarkerSprites[1], var4);
+						}
+					}
+
+					if (Client.hintArrowType == 2) {
+						var10 = Client.hintArrowX * 4 - MusicPatchPcmStream.baseX * 256 + 2 - Message.localPlayer.x / 32;
+						var11 = Client.hintArrowY * 4 - ScriptEvent.baseY * 256 + 2 - Message.localPlayer.y / 32;
+						InvDefinition.worldToMinimap(var1, var2, var10, var11, Varps.mapMarkerSprites[1], var4);
+					}
+
+					if (Client.hintArrowType == 10 && Client.hintArrowPlayerIndex >= 0 && Client.hintArrowPlayerIndex < Client.players.length) {
+						Player var21 = Client.players[Client.hintArrowPlayerIndex];
+						if (var21 != null) {
+							var11 = var21.x / 32 - Message.localPlayer.x / 32;
+							var12 = var21.y / 32 - Message.localPlayer.y / 32;
+							InvDefinition.worldToMinimap(var1, var2, var11, var12, Varps.mapMarkerSprites[1], var4);
+						}
+					}
+				}
+
+				if (Client.destinationX != 0) {
+					var10 = Client.destinationX * 4 + 2 - Message.localPlayer.x / 32;
+					var11 = Client.destinationY * 4 + 2 - Message.localPlayer.y / 32;
+					GrandExchangeOfferNameComparator.drawSpriteOnMinimap(var1, var2, var10, var11, Varps.mapMarkerSprites[0], var4);
+				}
+
+				if (!Message.localPlayer.isHidden) {
+					Rasterizer2D.Rasterizer2D_fillRectangle(var4.width / 2 + var1 - 1, var4.height / 2 + var2 - 1, 3, 3, 16777215);
+				}
+			} else {
+				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths);
+			}
+
+			Client.field834[var3] = true;
+		}
 	}
 }

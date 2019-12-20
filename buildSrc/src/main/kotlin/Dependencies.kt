@@ -23,34 +23,31 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-const val kotlinVersion = "1.3.50"
-
 object ProjectVersions {
     const val launcherVersion = "2.0.4"
-    const val rlVersion = "1.5.39-SNAPSHOT"
+    const val rlVersion = "1.5.44-SNAPSHOT"
 
-    const val openosrsVersion = "2.1.9.1"
+    const val openosrsVersion = "2.1.19-SNAPSHOT"
 
-    const val rsversion = 185
+    const val rsversion = 187
     const val cacheversion = 165
 }
 
 object Plugins {
     val grgitPlugin = "org.ajoberstar:grgit:2.3.0"
     val versionsPlugin = "com.github.ben-manes:gradle-versions-plugin:0.27.0"
-    val injectorPlugin = "com.openosrs:injector-plugin:1.0.0"
+    val injectorPlugin = "com.openosrs:injector-plugin:1.0.2"
     val testLogger = Pair("com.adarshr.test-logger", "2.0.0")
     val versions = Pair("com.github.ben-manes.versions", "0.27.0")
-    val buildScan = Pair("com.gradle.build-scan", "3.0")
-    val latestVersion = Pair("se.patrikerdes.use-latest-versions", "0.2.12")
+    val latestVersion = Pair("se.patrikerdes.use-latest-versions", "0.2.13")
     val grgit = Pair("org.ajoberstar.grgit", "4.0.0-rc.1")
     val jarTest = Pair("com.github.hauner.jarTest", "1.0.1")
-    val shadow = Pair("com.github.johnrengelman.shadow", "5.1.0")
+    val shadow = Pair("com.github.johnrengelman.shadow", "5.2.0")
 }
 
 object Libraries {
     private object Versions {
-        const val annotations = "17.0.0"
+        const val annotations = "18.0.0"
         const val antlr = "4.7.2"
         const val apacheCommonsCompress = "1.19"
         const val apacheCommonsCsv = "1.7"
@@ -65,18 +62,13 @@ object Libraries {
         const val guice = "4.2.2"
         const val h2 = "1.4.200"
         const val hamcrest = "2.2"
-        const val httpcore = "4.4.12"
-        const val httpmime = "4.5.10"
-        const val javassist = "3.26.0-GA"
         const val javax = "1.3.2"
         const val javaxInject = "1"
-        const val jbsdiff = "1.0"
-        const val jclCore = "2.8"
         const val jedis = "3.1.0"
-        const val jna = "5.4.0"
+        const val jna = "5.5.0"
         const val jogamp = "2.3.2"
         const val jopt = "5.0.4"
-        const val jooq = "3.12.2"
+        const val jooq = "3.12.3"
         const val junit = "4.12"
         const val jupiter = "5.6.0-M1"
         const val logback = "1.2.3"
@@ -87,21 +79,22 @@ object Libraries {
         const val mavenPluginApi = "3.6.2"
         const val minio = "6.0.11"
         const val mockito = "3.1.0"
-        const val mongodbDriverSync = "3.11.1"
+        const val mongodbDriverSync = "3.11.2"
         const val mysqlConnectorJava = "8.0.18"
         const val naturalMouse = "2.0.2"
-        const val netty = "4.1.42.Final"
+        const val netty = "4.1.43.Final"
         const val okhttp3 = "4.2.2"
         const val orangeExtensions = "1.0"
         const val petitparser = "2.2.0"
         const val plexus = "3.3.0"
-        const val rxjava = "2.2.13"
+        const val rxjava = "2.2.14"
         const val rxrelay = "2.1.1"
         const val scribejava = "6.9.0"
-        const val sisu = "0.3.3"
-        const val slf4j = "1.7.28"
-        const val springJdbc = "5.2.0.RELEASE"
-        const val springboot = "2.2.0.RELEASE"
+        const val sisu = "0.3.4"
+        const val sentry = "1.7.28"
+        const val slf4j = "1.7.29"
+        const val springJdbc = "5.2.1.RELEASE"
+        const val springboot = "2.2.1.RELEASE"
         const val sql2o = "1.6.0"
         const val substance = "8.0.02"
         const val trident = "1.5.00"
@@ -114,7 +107,6 @@ object Libraries {
     const val apacheCommonsText = "org.apache.commons:commons-text:${Versions.apacheCommonsText}"
     const val asmAll = "org.ow2.asm:asm:${Versions.asm}"
     const val asmUtil = "org.ow2.asm:asm-util:${Versions.asm}"
-    const val asmTree = "org.ow2.asm:asm-tree:${Versions.asm}"
     const val commonsCli = "commons-cli:commons-cli:${Versions.commonsCli}"
     const val discord = "net.runelite:discord:${Versions.discord}"
     const val fernflower = "net.runelite:fernflower:${Versions.fernflower}"
@@ -126,13 +118,8 @@ object Libraries {
     const val guiceTestlib = "com.google.inject.extensions:guice-testlib:${Versions.guice}"
     const val h2 = "com.h2database:h2:${Versions.h2}"
     const val hamcrest = "org.hamcrest:hamcrest-library:${Versions.hamcrest}"
-    const val httpcore = "org.apache.httpcomponents:httpcore:${Versions.httpcore}"
-    const val httpmime = "org.apache.httpcomponents:httpmime:${Versions.httpmime}"
-    const val javassist = "org.javassist:javassist:${Versions.javassist}"
     const val javax = "javax.annotation:javax.annotation-api:${Versions.javax}"
     const val javaxInject = "javax.inject:javax.inject:${Versions.javaxInject}"
-    const val jbsdiff = "io.sigpipe:jbsdiff:${Versions.jbsdiff}"
-    const val jclCore = "org.xeustechnologies:jcl-core:${Versions.jclCore}"
     const val jedis = "redis.clients:jedis:${Versions.jedis}"
     const val jna = "net.java.dev.jna:jna:${Versions.jna}"
     const val jnaPlatform = "net.java.dev.jna:jna-platform:${Versions.jna}"
@@ -179,6 +166,7 @@ object Libraries {
     const val slf4jApi = "org.slf4j:slf4j-api:${Versions.slf4j}"
     const val slf4jNop = "org.slf4j:slf4j-nop:${Versions.slf4j}"
     const val slf4jSimple = "org.slf4j:slf4j-simple:${Versions.slf4j}"
+    const val sentry = "io.sentry:sentry:${Versions.sentry}"
     const val springbootDevtools = "org.springframework.boot:spring-boot-devtools:${Versions.springboot}"
     const val springbootStarter = "org.springframework.boot:spring-boot-starter:${Versions.springboot}"
     const val springbootStarterWeb = "org.springframework.boot:spring-boot-starter-web:${Versions.springboot}"

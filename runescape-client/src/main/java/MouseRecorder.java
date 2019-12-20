@@ -1,37 +1,49 @@
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("be")
+@ObfuscatedName("bo")
 @Implements("MouseRecorder")
 public class MouseRecorder implements Runnable {
-	@ObfuscatedName("le")
+	@ObfuscatedName("bo")
 	@ObfuscatedGetter(
-		intValue = 640967809
+		intValue = 1462457493
 	)
-	@Export("selectedItemSlot")
-	static int selectedItemSlot;
-	@ObfuscatedName("a")
+	static int field564;
+	@ObfuscatedName("dt")
+	@ObfuscatedSignature(
+		signature = "Lif;"
+	)
+	@Export("archive7")
+	static Archive archive7;
+	@ObfuscatedName("ee")
+	@ObfuscatedGetter(
+		intValue = -365482057
+	)
+	@Export("port2")
+	static int port2;
+	@ObfuscatedName("f")
 	@Export("isRunning")
 	boolean isRunning;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@Export("lock")
 	Object lock;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1581840103
+		intValue = -134768521
 	)
 	@Export("index")
 	int index;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@Export("xs")
 	int[] xs;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@Export("ys")
 	int[] ys;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@Export("millis")
 	long[] millis;
 
@@ -45,7 +57,7 @@ public class MouseRecorder implements Runnable {
 	}
 
 	public void run() {
-		for (; this.isRunning; ClanChat.method5367(50L)) {
+		for (; this.isRunning; ServerBuild.method4111(50L)) {
 			synchronized(this.lock) {
 				if (this.index < 500) {
 					this.xs[this.index] = MouseHandler.MouseHandler_x;
@@ -58,56 +70,56 @@ public class MouseRecorder implements Runnable {
 
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(Lbk;I)V",
-		garbageValue = "1813919369"
+		signature = "(I)Z",
+		garbageValue = "1809769909"
 	)
-	@Export("changeWorld")
-	static void changeWorld(World var0) {
-		if (var0.isMembersOnly() != Client.isMembersWorld) {
-			Client.isMembersWorld = var0.isMembersOnly();
-			boolean var1 = var0.isMembersOnly();
-			if (var1 != ItemDefinition.ItemDefinition_inMembersWorld) {
-				FriendSystem.method2038();
-				ItemDefinition.ItemDefinition_inMembersWorld = var1;
+	@Export("loadWorlds")
+	static boolean loadWorlds() {
+		try {
+			if (Login.World_request == null) {
+				Login.World_request = BufferedNetSocket.urlRequester.request(new URL(TextureProvider.field1510));
+			} else if (Login.World_request.isDone()) {
+				byte[] var0 = Login.World_request.getResponse();
+				Buffer var1 = new Buffer(var0);
+				var1.readInt();
+				World.World_count = var1.readUnsignedShort();
+				class162.World_worlds = new World[World.World_count];
+
+				World var3;
+				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) {
+					var3 = class162.World_worlds[var2] = new World();
+					var3.id = var1.readUnsignedShort();
+					var3.properties = var1.readInt();
+					var3.host = var1.readStringCp1252NullTerminated();
+					var3.activity = var1.readStringCp1252NullTerminated();
+					var3.location = var1.readUnsignedByte();
+					var3.population = var1.readShort();
+				}
+
+				class192.sortWorlds(class162.World_worlds, 0, class162.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2);
+				Login.World_request = null;
+				return true;
 			}
+		} catch (Exception var4) {
+			var4.printStackTrace();
+			Login.World_request = null;
 		}
 
-		WorldMapAreaData.worldHost = var0.host;
-		Client.worldId = var0.id;
-		Client.worldProperties = var0.properties;
-		class222.port1 = Client.gameBuild == 0 ? 43594 : var0.id + 40000;
-		Decimator.port2 = Client.gameBuild == 0 ? 443 : var0.id + 50000;
-		GrandExchangeOfferUnitPriceComparator.port3 = class222.port1;
+		return false;
 	}
 
-	@ObfuscatedName("go")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Lbj;IIB)V",
-		garbageValue = "-6"
+		signature = "(I)V",
+		garbageValue = "171278603"
 	)
-	@Export("performPlayerAnimation")
-	static void performPlayerAnimation(Player var0, int var1, int var2) {
-		if (var0.sequence == var1 && var1 != -1) {
-			int var3 = PlayerType.SequenceDefinition_get(var1).field3521;
-			if (var3 == 1) {
-				var0.sequenceFrame = 0;
-				var0.sequenceFrameCycle = 0;
-				var0.sequenceDelay = var2;
-				var0.field960 = 0;
+	static void method1187() {
+		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) {
+			if (var0.obj != null) {
+				var0.set();
 			}
-
-			if (var3 == 2) {
-				var0.field960 = 0;
-			}
-		} else if (var1 == -1 || var0.sequence == -1 || PlayerType.SequenceDefinition_get(var1).field3519 >= PlayerType.SequenceDefinition_get(var0.sequence).field3519) {
-			var0.sequence = var1;
-			var0.sequenceFrame = 0;
-			var0.sequenceFrameCycle = 0;
-			var0.sequenceDelay = var2;
-			var0.field960 = 0;
-			var0.field983 = var0.pathLength;
 		}
 
 	}

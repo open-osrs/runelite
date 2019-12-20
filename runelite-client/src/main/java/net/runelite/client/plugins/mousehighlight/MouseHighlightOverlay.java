@@ -30,8 +30,8 @@ import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -146,7 +146,7 @@ class MouseHighlightOverlay extends Overlay
 	private boolean shouldNotRenderMenuAction(int type)
 	{
 		return type == MenuOpcode.RUNELITE_OVERLAY.getId()
-				|| (!plugin.isRightClickTooltipEnabled() && isMenuActionRightClickOnly(type));
+			|| (!plugin.isRightClickTooltipEnabled() && isMenuActionRightClickOnly(type));
 	}
 
 	private boolean isMenuActionRightClickOnly(int type)

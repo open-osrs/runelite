@@ -44,27 +44,26 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
+import static net.runelite.api.ItemID.RING_OF_RECOIL;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
-import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
+import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.events.VarbitChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
-import net.runelite.api.util.Text;
-
-import static net.runelite.api.ItemID.RING_OF_RECOIL;
 
 @PluginDescriptor(
 	name = "Item Charges",
@@ -169,9 +168,6 @@ public class ItemChargePlugin extends Plugin
 	@Inject
 	private ItemChargeConfig config;
 
-	@Inject
-	private EventBus eventBus;
-
 	// Limits destroy callback to once per tick
 	private int lastCheckTick;
 
@@ -248,7 +244,6 @@ public class ItemChargePlugin extends Plugin
 	protected void startUp()
 	{
 		updateConfig();
-		addSubscriptions();
 
 		overlayManager.add(overlay);
 		overlayManager.add(recoilOverlay);
@@ -256,27 +251,15 @@ public class ItemChargePlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 		overlayManager.remove(recoilOverlay);
 		infoBoxManager.removeIf(ItemChargeInfobox.class::isInstance);
 		lastCheckTick = -1;
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
-		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
-		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-		eventBus.subscribe(SpotAnimationChanged.class, this, this::onSpotAnimationChanged);
-		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
-		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-	}
-
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("itemCharge"))
@@ -329,6 +312,7 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	void onChatMessage(ChatMessage event)
 	{
 		String message = event.getMessage();
@@ -491,6 +475,7 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onItemContainerChanged(ItemContainerChanged event)
 	{
 		if (event.getItemContainer() != client.getItemContainer(InventoryID.EQUIPMENT) || !this.showInfoboxes)
@@ -537,6 +522,7 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameTick(GameTick event)
 	{
 		Widget braceletBreakWidget = client.getWidget(WidgetInfo.DIALOG_SPRITE_TEXT);
@@ -561,27 +547,25 @@ public class ItemChargePlugin extends Plugin
 		ringOfRecoilAvailable = false;
 		ringOfRecoilEquipped = false;
 
-		Item ring = null;
-		if (equipment != null && equipment.getItems().length >= EquipmentInventorySlot.RING.getSlotIdx())
+		if (equipment != null && inventory != null)
 		{
-			ring = equipment.getItems()[EquipmentInventorySlot.RING.getSlotIdx()];
-		}
-		if (ring != null && ring.getId() == RING_OF_RECOIL)
-		{
-			ringOfRecoilEquipped = true;
-			ringOfRecoilAvailable = true;
-		}
-		Item[] items = new Item[0];
-		if (inventory != null)
-		{
-			items = inventory.getItems();
-		}
-		for (Item item : items)
-		{
-			if (item.getId() == RING_OF_RECOIL)
+			for (Item item : equipment.getItems())
 			{
-				ringOfRecoilAvailable = true;
-				break;
+				if (item.getId() == RING_OF_RECOIL)
+				{
+					ringOfRecoilEquipped = true;
+					ringOfRecoilAvailable = true;
+					break;
+				}
+			}
+
+			for (Item item : inventory.getItems())
+			{
+				if (item.getId() == RING_OF_RECOIL)
+				{
+					ringOfRecoilAvailable = true;
+					break;
+				}
 			}
 		}
 
@@ -638,6 +622,7 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onSpotAnimationChanged(SpotAnimationChanged event)
 	{
 		if (event.getActor() == client.getLocalPlayer() && client.getLocalPlayer().getSpotAnimation() == GraphicID.XERIC_TELEPORT)
@@ -647,6 +632,7 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onScriptCallbackEvent(ScriptCallbackEvent event)
 	{
 		if (!"destroyOnOpKey".equals(event.getEventName()))
@@ -661,6 +647,7 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onVarbitChanged(VarbitChanged event)
 	{
 		int explorerRingCharge = client.getVar(Varbits.EXPLORER_RING_ALCHS);

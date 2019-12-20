@@ -1,34 +1,33 @@
-import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fc")
+@ObfuscatedName("fx")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1359594725
+		intValue = 1026996041
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1078998847
+		intValue = 229527517
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1265963087
+		intValue = 309902599
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1331790243
+		intValue = 762948669
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -36,120 +35,86 @@ public abstract class RouteStrategy {
 	protected RouteStrategy() {
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(IIILfm;B)Z",
-		garbageValue = "16"
+		signature = "(IIILfp;I)Z",
+		garbageValue = "1339159810"
 	)
 	@Export("hasArrived")
-	protected abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
+	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/String;[SIII)V",
-		garbageValue = "1742711992"
+		signature = "(Ljava/lang/CharSequence;I)[B",
+		garbageValue = "959122064"
 	)
-	@Export("sortItemsByName")
-	public static void sortItemsByName(String[] var0, short[] var1, int var2, int var3) {
-		if (var2 < var3) {
-			int var4 = (var3 + var2) / 2;
-			int var5 = var2;
-			String var6 = var0[var4];
-			var0[var4] = var0[var3];
-			var0[var3] = var6;
-			short var7 = var1[var4];
-			var1[var4] = var1[var3];
-			var1[var3] = var7;
+	public static byte[] method3566(CharSequence var0) {
+		int var1 = var0.length();
+		byte[] var2 = new byte[var1];
 
-			for (int var8 = var2; var8 < var3; ++var8) {
-				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) {
-					String var9 = var0[var8];
-					var0[var8] = var0[var5];
-					var0[var5] = var9;
-					short var10 = var1[var8];
-					var1[var8] = var1[var5];
-					var1[var5++] = var10;
-				}
-			}
-
-			var0[var3] = var0[var5];
-			var0[var5] = var6;
-			var1[var3] = var1[var5];
-			var1[var5] = var7;
-			sortItemsByName(var0, var1, var2, var5 - 1);
-			sortItemsByName(var0, var1, var5 + 1, var3);
-		}
-
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "([BI)Lks;",
-		garbageValue = "-794293590"
-	)
-	static Font method3738(byte[] var0) {
-		if (var0 == null) {
-			return null;
-		} else {
-			Font var1 = new Font(var0, SecureRandomFuture.SpriteBuffer_xOffsets, HealthBar.SpriteBuffer_yOffsets, SecureRandomCallable.SpriteBuffer_spriteWidths, AttackOption.SpriteBuffer_spriteHeights, class325.SpriteBuffer_spritePalette, class325.SpriteBuffer_pixels);
-			WorldMapData_1.method787();
-			return var1;
-		}
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "-1542036969"
-	)
-	static final int method3736(int var0, int var1) {
-		int var2 = DevicePcmPlayerProvider.method918(var0 - 1, var1 - 1) + DevicePcmPlayerProvider.method918(1 + var0, var1 - 1) + DevicePcmPlayerProvider.method918(var0 - 1, 1 + var1) + DevicePcmPlayerProvider.method918(1 + var0, 1 + var1);
-		int var3 = DevicePcmPlayerProvider.method918(var0 - 1, var1) + DevicePcmPlayerProvider.method918(var0 + 1, var1) + DevicePcmPlayerProvider.method918(var0, var1 - 1) + DevicePcmPlayerProvider.method918(var0, 1 + var1);
-		int var4 = DevicePcmPlayerProvider.method918(var0, var1);
-		return var2 / 16 + var3 / 8 + var4 / 4;
-	}
-
-	@ObfuscatedName("he")
-	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
-		garbageValue = "-39"
-	)
-	static final void method3734(int var0, int var1, int var2, int var3) {
-		WorldMapSection1.method622();
-	}
-
-	@ObfuscatedName("lt")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;S)V",
-		garbageValue = "-1363"
-	)
-	static void method3735(String var0) {
-		MilliClock.field1994 = var0;
-
-		try {
-			String var1 = WorldMapID.client.getParameter(Integer.toString(18));
-			String var2 = WorldMapID.client.getParameter(Integer.toString(13));
-			String var3 = var1 + "settings=" + var0 + "; version=1; path=/; domain=" + var2;
-			if (var0.length() == 0) {
-				var3 = var3 + "; Expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0";
+		for (int var3 = 0; var3 < var1; ++var3) {
+			char var4 = var0.charAt(var3);
+			if (var4 > 0 && var4 < 128 || var4 >= 160 && var4 <= 255) {
+				var2[var3] = (byte)var4;
+			} else if (var4 == 8364) {
+				var2[var3] = -128;
+			} else if (var4 == 8218) {
+				var2[var3] = -126;
+			} else if (var4 == 402) {
+				var2[var3] = -125;
+			} else if (var4 == 8222) {
+				var2[var3] = -124;
+			} else if (var4 == 8230) {
+				var2[var3] = -123;
+			} else if (var4 == 8224) {
+				var2[var3] = -122;
+			} else if (var4 == 8225) {
+				var2[var3] = -121;
+			} else if (var4 == 710) {
+				var2[var3] = -120;
+			} else if (var4 == 8240) {
+				var2[var3] = -119;
+			} else if (var4 == 352) {
+				var2[var3] = -118;
+			} else if (var4 == 8249) {
+				var2[var3] = -117;
+			} else if (var4 == 338) {
+				var2[var3] = -116;
+			} else if (var4 == 381) {
+				var2[var3] = -114;
+			} else if (var4 == 8216) {
+				var2[var3] = -111;
+			} else if (var4 == 8217) {
+				var2[var3] = -110;
+			} else if (var4 == 8220) {
+				var2[var3] = -109;
+			} else if (var4 == 8221) {
+				var2[var3] = -108;
+			} else if (var4 == 8226) {
+				var2[var3] = -107;
+			} else if (var4 == 8211) {
+				var2[var3] = -106;
+			} else if (var4 == 8212) {
+				var2[var3] = -105;
+			} else if (var4 == 732) {
+				var2[var3] = -104;
+			} else if (var4 == 8482) {
+				var2[var3] = -103;
+			} else if (var4 == 353) {
+				var2[var3] = -102;
+			} else if (var4 == 8250) {
+				var2[var3] = -101;
+			} else if (var4 == 339) {
+				var2[var3] = -100;
+			} else if (var4 == 382) {
+				var2[var3] = -98;
+			} else if (var4 == 376) {
+				var2[var3] = -97;
 			} else {
-				String var4 = var3 + "; Expires=";
-				long var6 = PlayerAppearance.currentTimeMillis() + 94608000000L;
-				Calendar.Calendar_calendar.setTime(new Date(var6));
-				int var8 = Calendar.Calendar_calendar.get(7);
-				int var9 = Calendar.Calendar_calendar.get(5);
-				int var10 = Calendar.Calendar_calendar.get(2);
-				int var11 = Calendar.Calendar_calendar.get(1);
-				int var12 = Calendar.Calendar_calendar.get(11);
-				int var13 = Calendar.Calendar_calendar.get(12);
-				int var14 = Calendar.Calendar_calendar.get(13);
-				String var5 = Calendar.DAYS_OF_THE_WEEK[var8 - 1] + ", " + var9 / 10 + var9 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var10] + "-" + var11 + " " + var12 / 10 + var12 % 10 + ":" + var13 / 10 + var13 % 10 + ":" + var14 / 10 + var14 % 10 + " GMT";
-				var3 = var4 + var5 + "; Max-Age=" + 94608000L;
+				var2[var3] = 63;
 			}
-
-			class47.method922(WorldMapID.client, "document.cookie=\"" + var3 + "\"");
-		} catch (Throwable var15) {
 		}
 
+		return var2;
 	}
 }

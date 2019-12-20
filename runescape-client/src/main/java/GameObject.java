@@ -4,89 +4,89 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ex")
+@ObfuscatedName("el")
 @Implements("GameObject")
 public final class GameObject {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1950933673
+		intValue = -1053912573
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1570818829
+		intValue = 684195751
 	)
 	@Export("height")
 	int height;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1477915037
+		intValue = -2140499041
 	)
 	@Export("centerX")
 	int centerX;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1448814329
+		intValue = 1955373001
 	)
 	@Export("centerY")
 	int centerY;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "Lep;"
 	)
 	@Export("entity")
 	public Entity entity;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1886669661
+		intValue = -472959783
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -564679873
+		intValue = 1045037505
 	)
 	@Export("startX")
 	int startX;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -441030449
+		intValue = 820155369
 	)
 	@Export("endX")
 	int endX;
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -187063391
+		intValue = -1317685703
 	)
 	@Export("startY")
 	int startY;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1484089673
+		intValue = -1799608733
 	)
 	@Export("endY")
 	int endY;
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -875771859
+		intValue = 262139045
 	)
-	int field1912;
-	@ObfuscatedName("p")
+	int field1909;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1503559581
+		intValue = -792485469
 	)
 	@Export("lastDrawn")
 	int lastDrawn;
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		longValue = -3849133574729992117L
+		longValue = -9063285699696577959L
 	)
 	@Export("tag")
 	public long tag;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 823124257
+		intValue = 1504732917
 	)
 	@Export("flags")
 	int flags;
@@ -96,48 +96,35 @@ public final class GameObject {
 		this.flags = 0;
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(Lhi;I[B[BB)V",
-		garbageValue = "-22"
+		signature = "(Lgo;S)V",
+		garbageValue = "-26939"
 	)
-	@Export("Widget_setKey")
-	static final void Widget_setKey(Widget var0, int var1, byte[] var2, byte[] var3) {
-		if (var0.field2623 == null) {
-			if (var2 == null) {
-				return;
-			}
-
-			var0.field2623 = new byte[11][];
-			var0.field2624 = new byte[11][];
-			var0.field2628 = new int[11];
-			var0.field2626 = new int[11];
-		}
-
-		var0.field2623[var1] = var2;
-		if (var2 != null) {
-			var0.field2606 = true;
-		} else {
-			var0.field2606 = false;
-
-			for (int var4 = 0; var4 < var0.field2623.length; ++var4) {
-				if (var0.field2623[var4] != null) {
-					var0.field2606 = true;
-					break;
-				}
-			}
-		}
-
-		var0.field2624[var1] = var3;
+	public static void method3296(Huffman var0) {
+		class206.huffman = var0;
 	}
 
-	@ObfuscatedName("ii")
+	@ObfuscatedName("hd")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;IIIIB)V",
-		garbageValue = "-59"
+		signature = "(I)Z",
+		garbageValue = "1099485994"
 	)
-	@Export("insertMenuItemNoShift")
-	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
-		ArchiveDiskAction.insertMenuItem(var0, var1, var2, var3, var4, var5, false);
+	static boolean method3298() {
+		return (Client.drawPlayerNames & 1) != 0;
+	}
+
+	@ObfuscatedName("if")
+	@ObfuscatedSignature(
+		signature = "(IIIIB)V",
+		garbageValue = "3"
+	)
+	static final void method3297(int var0, int var1, int var2, int var3) {
+		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) {
+			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetHeights[var4] + Client.rootWidgetYs[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) {
+				Client.field833[var4] = true;
+			}
+		}
+
 	}
 }

@@ -26,6 +26,7 @@ package net.runelite.client.plugins.stonedtracker.data;
 
 import com.google.common.collect.ImmutableMultimap;
 import java.util.Collection;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -34,7 +35,7 @@ import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
 
 @RequiredArgsConstructor
-@Getter
+@Getter(AccessLevel.PUBLIC)
 public enum UniqueItem
 {
 	// "Uniques" which are actually dropped by multiple bosses
@@ -51,7 +52,7 @@ public enum UniqueItem
 	// Other
 	DRAGON_CHAINBODY(ItemID.DRAGON_CHAINBODY_3140, BossTab.THERMONUCLEAR_SMOKE_DEVIL, BossTab.KALPHITE_QUEEN),
 	DRAGON_AXE(ItemID.DRAGON_AXE, BossTab.DAGANNOTH_REX, BossTab.DAGANNOTH_PRIME, BossTab.DAGANNOTH_SUPREME, BossTab.WINTERTODT),
-	UNCUT_ONYX(ItemID.UNCUT_ONYX, BossTab.ZULRAH, BossTab.SKOTIZO),
+	UNCUT_ONYX(ItemID.UNCUT_ONYX, BossTab.ZULRAH, BossTab.SKOTIZO, BossTab.ZALCANO),
 
 	// Unique Items
 	// Barrows Uniques
@@ -868,7 +869,11 @@ public enum UniqueItem
 	MYSTIC_ROBE_BOTTOM_DUSK(ItemID.MYSTIC_ROBE_BOTTOM_DUSK, BossTab.BRIMSTONE_CHEST, 0),
 	MYSTIC_GLOVES_DUSK(ItemID.MYSTIC_GLOVES_DUSK, BossTab.BRIMSTONE_CHEST, 0),
 	MYSTIC_BOOTS_DUSK(ItemID.MYSTIC_BOOTS_DUSK, BossTab.BRIMSTONE_CHEST, 0),
-	BROKEN_DRAGON_HASTA(ItemID.BROKEN_DRAGON_HASTA, BossTab.BRIMSTONE_CHEST, 0);
+	BROKEN_DRAGON_HASTA(ItemID.BROKEN_DRAGON_HASTA, BossTab.BRIMSTONE_CHEST, 0),
+
+	CRYSTAL_TOOL_SEED(ItemID.CRYSTAL_TOOL_SEED, BossTab.ZALCANO, -1),
+	ZALCANO_SHARD(ItemID.ZALCANO_SHARD, BossTab.ZALCANO, -1),
+	SMOLCANO(ItemID.SMOLCANO, BossTab.ZALCANO, -1);
 
 	private static final ImmutableMultimap<String, UniqueItem> BOSS_MAP;
 

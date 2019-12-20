@@ -1,46 +1,42 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cx")
+@ObfuscatedName("co")
 @Implements("HealthBar")
 public class HealthBar extends Node {
-	@ObfuscatedName("v")
-	@Export("SpriteBuffer_yOffsets")
-	public static int[] SpriteBuffer_yOffsets;
-	@ObfuscatedName("fj")
-	@ObfuscatedGetter(
-		intValue = 1157381415
-	)
-	@Export("baseY")
-	static int baseY;
-	@ObfuscatedName("n")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lil;"
+		signature = "Ldk;"
+	)
+	@Export("soundSystem")
+	static SoundSystem soundSystem;
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		signature = "Lio;"
 	)
 	@Export("definition")
 	HealthBarDefinition definition;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Ljm;"
+		signature = "Ljl;"
 	)
 	@Export("updates")
 	IterableNodeDeque updates;
 
 	@ObfuscatedSignature(
-		signature = "(Lil;)V"
+		signature = "(Lio;)V"
 	)
 	HealthBar(HealthBarDefinition var1) {
 		this.updates = new IterableNodeDeque();
 		this.definition = var1;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		signature = "(IIIII)V",
-		garbageValue = "703172784"
+		garbageValue = "76773386"
 	)
 	@Export("put")
 	void put(int var1, int var2, int var3, int var4) {
@@ -73,10 +69,10 @@ public class HealthBar extends Node {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(II)Lbo;",
-		garbageValue = "1147155972"
+		signature = "(II)Lbu;",
+		garbageValue = "-2132773081"
 	)
 	@Export("get")
 	HealthBarUpdate get(int var1) {
@@ -98,33 +94,13 @@ public class HealthBar extends Node {
 		}
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "-47"
+		signature = "(I)Z",
+		garbageValue = "1427646863"
 	)
 	@Export("isEmpty")
 	boolean isEmpty() {
-		return this.updates.method5004();
-	}
-
-	@ObfuscatedName("ap")
-	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "2136910933"
-	)
-	protected static final void method2161() {
-		GameShell.clock.mark();
-
-		int var0;
-		for (var0 = 0; var0 < 32; ++var0) {
-			GameShell.graphicsTickTimes[var0] = 0L;
-		}
-
-		for (var0 = 0; var0 < 32; ++var0) {
-			GameShell.clientTickTimes[var0] = 0L;
-		}
-
-		ArchiveLoader.gameCyclesToDo = 0;
+		return this.updates.method4843();
 	}
 }

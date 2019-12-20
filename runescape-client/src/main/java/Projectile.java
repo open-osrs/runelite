@@ -4,129 +4,135 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cy")
+@ObfuscatedName("ch")
 @Implements("Projectile")
 public final class Projectile extends Entity {
-	@ObfuscatedName("a")
+	@ObfuscatedName("pu")
+	@Export("ClanChat_inClanChat")
+	static boolean ClanChat_inClanChat;
+	@ObfuscatedName("gq")
+	@Export("regionLandArchives")
+	static byte[][] regionLandArchives;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -464791279
+		intValue = -1703591311
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 458201439
+		intValue = -845014759
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -2076592615
+		intValue = -328168931
 	)
 	@Export("sourceX")
 	int sourceX;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 623427875
+		intValue = 1855488401
 	)
 	@Export("sourceY")
 	int sourceY;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -2041358603
+		intValue = 737715987
 	)
 	@Export("sourceZ")
 	int sourceZ;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -10892035
+		intValue = 2134502189
 	)
 	@Export("endHeight")
 	int endHeight;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -2134033129
+		intValue = -1548140981
 	)
 	@Export("cycleStart")
 	int cycleStart;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1813713909
+		intValue = 880668883
 	)
 	@Export("cycleEnd")
 	int cycleEnd;
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -580647449
+		intValue = 1309211807
 	)
 	@Export("slope")
 	int slope;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1691147323
+		intValue = 293583689
 	)
 	@Export("startHeight")
 	int startHeight;
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1840141045
+		intValue = -829767875
 	)
 	@Export("targetIndex")
 	int targetIndex;
-	@ObfuscatedName("p")
+	@ObfuscatedName("o")
 	@Export("isMoving")
 	boolean isMoving;
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@Export("x")
 	double x;
 	@ObfuscatedName("k")
 	@Export("y")
 	double y;
-	@ObfuscatedName("x")
+	@ObfuscatedName("s")
 	@Export("z")
 	double z;
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@Export("speedX")
 	double speedX;
-	@ObfuscatedName("r")
+	@ObfuscatedName("t")
 	@Export("speedY")
 	double speedY;
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@Export("speed")
 	double speed;
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("speedZ")
 	double speedZ;
-	@ObfuscatedName("b")
+	@ObfuscatedName("u")
 	@Export("accelerationZ")
 	double accelerationZ;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -893857759
+		intValue = -361002303
 	)
 	@Export("yaw")
 	int yaw;
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 915982703
+		intValue = 1134638097
 	)
 	@Export("pitch")
 	int pitch;
-	@ObfuscatedName("g")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "Liv;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("w")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 83831929
+		intValue = 1878850511
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("u")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 324172471
+		intValue = -321232817
 	)
 	@Export("frameCycle")
 	int frameCycle;
@@ -147,19 +153,19 @@ public final class Projectile extends Entity {
 		this.targetIndex = var10;
 		this.endHeight = var11;
 		this.isMoving = false;
-		int var12 = MenuAction.SpotAnimationDefinition_get(this.id).sequence;
+		int var12 = ClientPacket.SpotAnimationDefinition_get(this.id).sequence;
 		if (var12 != -1) {
-			this.sequenceDefinition = PlayerType.SequenceDefinition_get(var12);
+			this.sequenceDefinition = WorldMapSection0.SequenceDefinition_get(var12);
 		} else {
 			this.sequenceDefinition = null;
 		}
 
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "-1390758796"
+		signature = "(IIIIS)V",
+		garbageValue = "3907"
 	)
 	@Export("setDestination")
 	final void setDestination(int var1, int var2, int var3, int var4) {
@@ -167,35 +173,35 @@ public final class Projectile extends Entity {
 		if (!this.isMoving) {
 			var5 = (double)(var1 - this.sourceX);
 			double var7 = (double)(var2 - this.sourceY);
-			double var9 = Math.sqrt(var5 * var5 + var7 * var7);
-			this.x = (double)this.sourceX + (double)this.startHeight * var5 / var9;
-			this.y = (double)this.sourceY + (double)this.startHeight * var7 / var9;
+			double var9 = Math.sqrt(var7 * var7 + var5 * var5);
+			this.x = (double)this.sourceX + var5 * (double)this.startHeight / var9;
+			this.y = var7 * (double)this.startHeight / var9 + (double)this.sourceY;
 			this.z = (double)this.sourceZ;
 		}
 
 		var5 = (double)(this.cycleEnd + 1 - var4);
 		this.speedX = ((double)var1 - this.x) / var5;
 		this.speedY = ((double)var2 - this.y) / var5;
-		this.speed = Math.sqrt(this.speedY * this.speedY + this.speedX * this.speedX);
+		this.speed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY);
 		if (!this.isMoving) {
-			this.speedZ = -this.speed * Math.tan(0.02454369D * (double)this.slope);
+			this.speedZ = -this.speed * Math.tan((double)this.slope * 0.02454369D);
 		}
 
-		this.accelerationZ = 2.0D * ((double)var3 - this.z - var5 * this.speedZ) / (var5 * var5);
+		this.accelerationZ = 2.0D * ((double)var3 - this.z - this.speedZ * var5) / (var5 * var5);
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "(II)V",
-		garbageValue = "931373856"
+		garbageValue = "-1141116795"
 	)
 	@Export("advance")
 	final void advance(int var1) {
 		this.isMoving = true;
 		this.x += this.speedX * (double)var1;
-		this.y += (double)var1 * this.speedY;
-		this.z += this.accelerationZ * 0.5D * (double)var1 * (double)var1 + this.speedZ * (double)var1;
-		this.speedZ += this.accelerationZ * (double)var1;
+		this.y += this.speedY * (double)var1;
+		this.z += (double)var1 * this.accelerationZ * 0.5D * (double)var1 + this.speedZ * (double)var1;
+		this.speedZ += (double)var1 * this.accelerationZ;
 		this.yaw = (int)(Math.atan2(this.speedX, this.speedY) * 325.949D) + 1024 & 2047;
 		this.pitch = (int)(Math.atan2(this.speedZ, this.speed) * 325.949D) & 2047;
 		if (this.sequenceDefinition != null) {
@@ -220,14 +226,14 @@ public final class Projectile extends Entity {
 		}
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(B)Ldv;",
-		garbageValue = "-40"
+		signature = "(I)Ldw;",
+		garbageValue = "822221372"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		SpotAnimationDefinition var1 = MenuAction.SpotAnimationDefinition_get(this.id);
+		SpotAnimationDefinition var1 = ClientPacket.SpotAnimationDefinition_get(this.id);
 		Model var2 = var1.getModel(this.frame);
 		if (var2 == null) {
 			return null;
@@ -237,26 +243,16 @@ public final class Projectile extends Entity {
 		}
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)I",
-		garbageValue = "1093152418"
+		signature = "(II)Ljava/lang/String;",
+		garbageValue = "919404016"
 	)
-	public static int method2268(CharSequence var0) {
-		int var1 = var0.length();
-		int var2 = 0;
-
-		for (int var3 = 0; var3 < var1; ++var3) {
-			char var4 = var0.charAt(var3);
-			if (var4 <= 127) {
-				++var2;
-			} else if (var4 <= 2047) {
-				var2 += 2;
-			} else {
-				var2 += 3;
-			}
+	static final String method2129(int var0) {
+		if (var0 < 100000) {
+			return "<col=ffff00>" + var0 + "</col>";
+		} else {
+			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>";
 		}
-
-		return var2;
 	}
 }

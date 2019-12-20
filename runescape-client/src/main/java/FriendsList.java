@@ -1,32 +1,33 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jh")
+@ObfuscatedName("jr")
 @Implements("FriendsList")
 public class FriendsList extends UserList {
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+		signature = "Lll;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 823977789
+		intValue = 1316127355
 	)
 	int field3603;
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lja;"
+		signature = "Ljw;"
 	)
 	@Export("friendLoginUpdates")
 	public LinkDeque friendLoginUpdates;
 
 	@ObfuscatedSignature(
-		signature = "(Lln;)V"
+		signature = "(Lll;)V"
 	)
 	public FriendsList(LoginType var1) {
 		super(400);
@@ -35,30 +36,30 @@ public class FriendsList extends UserList {
 		this.loginType = var1;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(I)Ljg;",
-		garbageValue = "-706396611"
+		signature = "(B)Ljy;",
+		garbageValue = "68"
 	)
 	@Export("newInstance")
 	User newInstance() {
 		return new Friend();
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(II)[Ljg;",
-		garbageValue = "1510983955"
+		signature = "(IB)[Ljy;",
+		garbageValue = "32"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
 		return new Friend[var1];
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Lju;ZI)Z",
-		garbageValue = "-163065823"
+		signature = "(Ljc;ZI)Z",
+		garbageValue = "-1998488053"
 	)
 	@Export("isFriended")
 	public boolean isFriended(Username var1, boolean var2) {
@@ -70,10 +71,10 @@ public class FriendsList extends UserList {
 		}
 	}
 
-	@ObfuscatedName("cw")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Lkc;II)V",
-		garbageValue = "1371210383"
+		signature = "(Lkq;IB)V",
+		garbageValue = "-60"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
@@ -139,15 +140,15 @@ public class FriendsList extends UserList {
 					if (var6 != var11.world) {
 						var11.int2 = ++this.field3603 - 1;
 						if (var11.world == -1 && var6 == 0) {
-							var11.int2 = -(var11.int2 * 357239599) * 1797004239;
+							var11.int2 = -(var11.int2 * 604472963) * 509966379;
 						}
 
 						var11.world = var6;
 					}
 
 					var11.rank = var7;
-					var11.field3613 = var9;
-					var11.field3611 = var10;
+					var11.field3617 = var9;
+					var11.field3618 = var10;
 					continue;
 				}
 
@@ -159,17 +160,67 @@ public class FriendsList extends UserList {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Llr;III)I",
-		garbageValue = "2102175416"
+		signature = "(Lky;ZI)V",
+		garbageValue = "491459043"
 	)
-	static int method5306(IterableNodeHashTable var0, int var1, int var2) {
-		if (var0 == null) {
-			return var2;
-		} else {
-			IntegerNode var3 = (IntegerNode)var0.get((long)var1);
-			return var3 == null ? var2 : var3.integer;
+	public static void method5229(AbstractSocket var0, boolean var1) {
+		if (class297.NetCache_socket != null) {
+			try {
+				class297.NetCache_socket.close();
+			} catch (Exception var6) {
+			}
+
+			class297.NetCache_socket = null;
+		}
+
+		class297.NetCache_socket = var0;
+		BuddyRankComparator.method3362(var1);
+		NetCache.NetCache_responseHeaderBuffer.offset = 0;
+		PrivateChatMode.NetCache_currentResponse = null;
+		NetCache.NetCache_responseArchiveBuffer = null;
+		NetCache.field3150 = 0;
+
+		while (true) {
+			NetFileRequest var2 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.first();
+			if (var2 == null) {
+				while (true) {
+					var2 = (NetFileRequest)NetCache.NetCache_pendingResponses.first();
+					if (var2 == null) {
+						if (NetCache.field3145 != 0) {
+							try {
+								Buffer var7 = new Buffer(4);
+								var7.writeByte(4);
+								var7.writeByte(NetCache.field3145);
+								var7.writeShort(0);
+								class297.NetCache_socket.write(var7.array, 0, 4);
+							} catch (IOException var5) {
+								try {
+									class297.NetCache_socket.close();
+								} catch (Exception var4) {
+								}
+
+								++NetCache.NetCache_ioExceptions;
+								class297.NetCache_socket = null;
+							}
+						}
+
+						NetCache.NetCache_loadTime = 0;
+						NetCache.field3138 = WorldMapID.currentTimeMillis();
+						return;
+					}
+
+					NetCache.NetCache_pendingWritesQueue.addLast(var2);
+					NetCache.NetCache_pendingWrites.put(var2, var2.key);
+					++NetCache.NetCache_pendingWritesCount;
+					--NetCache.NetCache_pendingResponsesCount;
+				}
+			}
+
+			NetCache.NetCache_pendingPriorityWrites.put(var2, var2.key);
+			++NetCache.NetCache_pendingPriorityWritesCount;
+			--NetCache.NetCache_pendingPriorityResponsesCount;
 		}
 	}
 }

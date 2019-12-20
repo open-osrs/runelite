@@ -1,29 +1,28 @@
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ee")
+@ObfuscatedName("ek")
 @Implements("Skeleton")
 public class Skeleton extends Node {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -567509563
+		intValue = 802738175
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 774941897
+		intValue = -1993583785
 	)
 	@Export("count")
 	int count;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@Export("transformTypes")
 	int[] transformTypes;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@Export("labels")
 	int[][] labels;
 
@@ -51,38 +50,23 @@ public class Skeleton extends Node {
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(I)Lbw;",
-		garbageValue = "25013403"
+		signature = "(I)V",
+		garbageValue = "1307556055"
 	)
-	static ClientPreferences method3201() {
-		AccessFile var0 = null;
-		ClientPreferences var1 = new ClientPreferences();
+	protected static final void method3088() {
+		Varps.clock.mark();
 
-		try {
-			var0 = CollisionMap.getPreferencesFile("", MouseHandler.field458.name, false);
-			byte[] var2 = new byte[(int)var0.length()];
-
-			int var4;
-			for (int var3 = 0; var3 < var2.length; var3 += var4) {
-				var4 = var0.read(var2, var3, var2.length - var3);
-				if (var4 == -1) {
-					throw new IOException();
-				}
-			}
-
-			var1 = new ClientPreferences(new Buffer(var2));
-		} catch (Exception var6) {
+		int var0;
+		for (var0 = 0; var0 < 32; ++var0) {
+			GameShell.graphicsTickTimes[var0] = 0L;
 		}
 
-		try {
-			if (var0 != null) {
-				var0.close();
-			}
-		} catch (Exception var5) {
+		for (var0 = 0; var0 < 32; ++var0) {
+			GameShell.clientTickTimes[var0] = 0L;
 		}
 
-		return var1;
+		GameShell.gameCyclesToDo = 0;
 	}
 }

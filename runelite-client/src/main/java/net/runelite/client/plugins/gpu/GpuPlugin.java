@@ -56,22 +56,22 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.BufferProvider;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
+import net.runelite.api.Entity;
 import net.runelite.api.GameState;
 import net.runelite.api.Model;
 import net.runelite.api.NodeCache;
 import net.runelite.api.Perspective;
-import net.runelite.api.Entity;
 import net.runelite.api.Scene;
-import net.runelite.api.TileModel;
-import net.runelite.api.TilePaint;
 import net.runelite.api.Texture;
 import net.runelite.api.TextureProvider;
-import net.runelite.api.events.ConfigChanged;
+import net.runelite.api.TileModel;
+import net.runelite.api.TilePaint;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
@@ -120,9 +120,6 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 
 	@Inject
 	private PluginManager pluginManager;
-
-	@Inject
-	private EventBus eventbus;
 
 	private Canvas canvas;
 	private JAWTWindow jawtWindow;
@@ -243,6 +240,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	private int fogCircularity;
 	private int fogDensity;
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals("gpu"))
@@ -263,10 +261,9 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		updateConfig();
-		addSubscriptions();
 
 		clientThread.invoke(() ->
 		{
@@ -374,8 +371,6 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	@Override
 	protected void shutDown()
 	{
-		eventbus.unregister(this);
-
 		clientThread.invoke(() ->
 		{
 			client.setGpu(false);
@@ -443,12 +438,6 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			// force main buffer provider rebuild to turn off alpha channel
 			client.resizeCanvas();
 		});
-	}
-
-	private void addSubscriptions()
-	{
-		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventbus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 	}
 
 	@Provides
@@ -827,7 +816,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 				shutDown();
 				startUp();
 			}
-			catch (Exception e)
+			catch (Exception ignored)
 			{
 			}
 			return;
@@ -1194,7 +1183,9 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			glDrawable.swapBuffers();
 		}
 		catch (GLException ignored)
-		{ }
+		{
+			// Ignore
+		}
 
 		drawManager.processDrawComplete(this::screenshot);
 	}
@@ -1315,6 +1306,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		textureManager.animate(texture, diff);
 	}
 
+	@Subscribe
 	private void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
 		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)

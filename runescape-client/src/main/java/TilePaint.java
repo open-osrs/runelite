@@ -2,47 +2,46 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eg")
+@ObfuscatedName("ef")
 @Implements("TilePaint")
 public final class TilePaint {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1607728329
+		intValue = 4463315
 	)
 	@Export("swColor")
 	int swColor;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -293038201
+		intValue = 404094577
 	)
 	@Export("seColor")
 	int seColor;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1492739509
+		intValue = -1273471255
 	)
 	@Export("neColor")
 	int neColor;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 276503717
+		intValue = -1327164447
 	)
 	@Export("nwColor")
 	int nwColor;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1272946255
+		intValue = 111176121
 	)
 	@Export("texture")
 	int texture;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@Export("isFlat")
 	boolean isFlat;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 609514679
+		intValue = -387555393
 	)
 	@Export("rgb")
 	int rgb;
@@ -56,36 +55,5 @@ public final class TilePaint {
 		this.texture = var5;
 		this.rgb = var6;
 		this.isFlat = var7;
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		signature = "([BIIII[Lfm;I)V",
-		garbageValue = "1145128419"
-	)
-	static final void method3200(byte[] var0, int var1, int var2, int var3, int var4, CollisionMap[] var5) {
-		int var7;
-		int var8;
-		for (int var6 = 0; var6 < 4; ++var6) {
-			for (var7 = 0; var7 < 64; ++var7) {
-				for (var8 = 0; var8 < 64; ++var8) {
-					if (var7 + var1 > 0 && var7 + var1 < 103 && var8 + var2 > 0 && var8 + var2 < 103) {
-						int[] var10000 = var5[var6].flags[var7 + var1];
-						var10000[var8 + var2] &= -16777217;
-					}
-				}
-			}
-		}
-
-		Buffer var10 = new Buffer(var0);
-
-		for (var7 = 0; var7 < 4; ++var7) {
-			for (var8 = 0; var8 < 64; ++var8) {
-				for (int var9 = 0; var9 < 64; ++var9) {
-					class312.loadTerrain(var10, var7, var8 + var1, var9 + var2, var3, var4, 0);
-				}
-			}
-		}
-
 	}
 }

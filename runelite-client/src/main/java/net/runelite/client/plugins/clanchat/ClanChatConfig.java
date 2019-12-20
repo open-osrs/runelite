@@ -137,7 +137,7 @@ public interface ClanChatConfig extends Config
 	{
 		return false;
 	}
-	
+
 	@ConfigItem(
 		position = 9,
 		keyName = "clanname",
@@ -147,5 +147,16 @@ public interface ClanChatConfig extends Config
 	default String clanname()
 	{
 		return "";
+	}
+
+	@ConfigItem(
+		keyName = "confirmKicks",
+		name = "Confirm Kicks",
+		description = "Shows a chat prompt to confirm kicks",
+		position = 10
+	)
+	default boolean confirmKicks()
+	{
+		return false;
 	}
 }

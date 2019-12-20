@@ -31,9 +31,9 @@ import com.google.inject.Singleton;
 import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -56,9 +56,6 @@ public class InventoryGridPlugin extends Plugin
 	@Inject
 	private InventoryGridConfig config;
 
-	@Inject
-	private EventBus eventBus;
-
 	@Getter(AccessLevel.PACKAGE)
 	private boolean showItem;
 	@Getter(AccessLevel.PACKAGE)
@@ -76,16 +73,12 @@ public class InventoryGridPlugin extends Plugin
 	public void startUp()
 	{
 		updateConfig();
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-
 		overlayManager.add(overlay);
 	}
 
 	@Override
 	public void shutDown()
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 	}
 
@@ -95,6 +88,7 @@ public class InventoryGridPlugin extends Plugin
 		return configManager.getConfig(InventoryGridConfig.class);
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged config)
 	{
 		if (config.getGroup().equals("inventorygrid"))

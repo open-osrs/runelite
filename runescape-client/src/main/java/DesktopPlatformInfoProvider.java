@@ -1,3 +1,5 @@
+import java.io.DataInputStream;
+import java.net.URL;
 import java.util.Random;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
@@ -5,44 +7,38 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lf")
+@ObfuscatedName("lb")
 @Implements("DesktopPlatformInfoProvider")
 public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
-	@ObfuscatedName("eg")
-	@ObfuscatedSignature(
-		signature = "Lij;"
-	)
-	@Export("archive17")
-	static Archive archive17;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1279916099
+		intValue = 2108856267
 	)
-	int field3895;
-	@ObfuscatedName("v")
+	int field3897;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1801255819
+		intValue = -526176171
 	)
 	int field3896;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 10853499
+		intValue = -1221750841
 	)
 	int field3899;
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(I)Llk;",
-		garbageValue = "-1540970685"
+		signature = "(B)Llx;",
+		garbageValue = "-83"
 	)
 	@Export("get")
 	public PlatformInfo get() {
 		byte var1;
-		if (class96.field1299.startsWith("win")) {
+		if (class81.field1129.startsWith("win")) {
 			var1 = 1;
-		} else if (class96.field1299.startsWith("mac")) {
+		} else if (class81.field1129.startsWith("mac")) {
 			var1 = 2;
-		} else if (class96.field1299.startsWith("linux")) {
+		} else if (class81.field1129.startsWith("linux")) {
 			var1 = 3;
 		} else {
 			var1 = 4;
@@ -140,11 +136,11 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 			var8 = 4;
 		}
 
-		this.method6392(var5);
+		this.method6317(var5);
 		Runtime.getRuntime();
 		int var10 = (int)((long)((new Random()).nextInt(31457280) + 230686720) / 1048576L) + 1;
 		int var11;
-		if (this.field3895 > 3) {
+		if (this.field3897 > 3) {
 			var11 = Runtime.getRuntime().availableProcessors();
 		} else {
 			var11 = 0;
@@ -158,33 +154,33 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		String var17 = "";
 		String var18 = "";
 		int[] var23 = new int[3];
-		return new PlatformInfo(var1, var24, var7, var8, this.field3895, this.field3896, this.field3899, false, var10, var11, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, "");
+		return new PlatformInfo(var1, var24, var7, var8, this.field3897, this.field3896, this.field3899, false, var10, var11, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, "");
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;S)V",
-		garbageValue = "4097"
+		signature = "(Ljava/lang/String;B)V",
+		garbageValue = "-1"
 	)
-	void method6392(String var1) {
+	void method6317(String var1) {
 		if (var1.startsWith("1.")) {
-			this.method6390(var1);
+			this.method6316(var1);
 		} else {
-			this.method6395(var1);
+			this.method6324(var1);
 		}
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		signature = "(Ljava/lang/String;B)V",
-		garbageValue = "4"
+		garbageValue = "50"
 	)
-	void method6390(String var1) {
+	void method6316(String var1) {
 		String[] var2 = var1.split("\\.");
 
 		try {
-			this.field3895 = Integer.parseInt(var2[1]);
+			this.field3897 = Integer.parseInt(var2[1]);
 			var2 = var2[2].split("_");
 			this.field3896 = Integer.parseInt(var2[0]);
 			this.field3899 = Integer.parseInt(var2[1]);
@@ -193,20 +189,63 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
-		garbageValue = "1"
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "1412850976"
 	)
-	void method6395(String var1) {
+	void method6324(String var1) {
 		String[] var2 = var1.split("\\.");
 
 		try {
-			this.field3895 = Integer.parseInt(var2[0]);
+			this.field3897 = Integer.parseInt(var2[0]);
 			this.field3896 = Integer.parseInt(var2[1]);
 			this.field3899 = Integer.parseInt(var2[2]);
 		} catch (Exception var4) {
 		}
 
+	}
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/String;Ljava/lang/Throwable;B)V",
+		garbageValue = "0"
+	)
+	@Export("RunException_sendStackTrace")
+	public static void RunException_sendStackTrace(String var0, Throwable var1) {
+		if (var1 != null) {
+			var1.printStackTrace();
+		} else {
+			try {
+				String var2 = "";
+				if (var1 != null) {
+					var2 = GrandExchangeOfferUnitPriceComparator.method124(var1);
+				}
+
+				if (var0 != null) {
+					if (var1 != null) {
+						var2 = var2 + " | ";
+					}
+
+					var2 = var2 + var0;
+				}
+
+				System.out.println("Error: " + var2);
+				var2 = var2.replace(':', '.');
+				var2 = var2.replace('@', '_');
+				var2 = var2.replace('&', '_');
+				var2 = var2.replace('#', '_');
+				if (RunException.RunException_applet == null) {
+					return;
+				}
+
+				URL var3 = new URL(RunException.RunException_applet.getCodeBase(), "clienterror.ws?c=" + RunException.RunException_revision + "&u=" + RunException.localPlayerName + "&v1=" + TaskHandler.javaVendor + "&v2=" + TaskHandler.javaVersion + "&ct=" + RunException.clientType + "&e=" + var2);
+				DataInputStream var4 = new DataInputStream(var3.openStream());
+				var4.read();
+				var4.close();
+			} catch (Exception var5) {
+			}
+
+		}
 	}
 }

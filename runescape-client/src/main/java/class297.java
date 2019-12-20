@@ -1,14 +1,13 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kj")
+@ObfuscatedName("ks")
 public class class297 {
-	@ObfuscatedName("ag")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(Lcc;B)V",
-		garbageValue = "23"
+		signature = "Lky;"
 	)
-	public static final void method5550(class99 var0) {
-		class188.pcmPlayerProvider = var0;
-	}
+	@Export("NetCache_socket")
+	public static AbstractSocket NetCache_socket;
 }

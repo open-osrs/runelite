@@ -3,24 +3,18 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ju")
+@ObfuscatedName("jc")
 @Implements("Username")
 public class Username implements Comparable {
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "[Lbk;"
-	)
-	@Export("World_worlds")
-	static World[] World_worlds;
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@Export("name")
 	String name;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@Export("cleanName")
 	String cleanName;
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Lln;)V"
+		signature = "(Ljava/lang/String;Lll;)V"
 	)
 	public Username(String var1, LoginType var2) {
 		this.name = var1;
@@ -28,36 +22,187 @@ public class Username implements Comparable {
 		if (var1 == null) {
 			var4 = null;
 		} else {
-			int var5 = 0;
+			label164: {
+				int var5 = 0;
 
-			int var6;
-			for (var6 = var1.length(); var5 < var6 && class13.method200(var1.charAt(var5)); ++var5) {
-			}
-
-			while (var6 > var5 && class13.method200(var1.charAt(var6 - 1))) {
-				--var6;
-			}
-
-			int var7 = var6 - var5;
-			if (var7 >= 1 && var7 <= WorldMapDecoration.method388(var2)) {
-				StringBuilder var8 = new StringBuilder(var7);
-
-				for (int var9 = var5; var9 < var6; ++var9) {
-					char var10 = var1.charAt(var9);
-					if (WallDecoration.method3420(var10)) {
-						char var11 = Buddy.method5286(var10);
-						if (var11 != 0) {
-							var8.append(var11);
-						}
+				int var6;
+				boolean var7;
+				char var8;
+				for (var6 = var1.length(); var5 < var6; ++var5) {
+					var8 = var1.charAt(var5);
+					var7 = var8 == 160 || var8 == ' ' || var8 == '_' || var8 == '-';
+					if (!var7) {
+						break;
 					}
 				}
 
-				if (var8.length() == 0) {
-					var4 = null;
-				} else {
-					var4 = var8.toString();
+				while (var6 > var5) {
+					var8 = var1.charAt(var6 - 1);
+					var7 = var8 == 160 || var8 == ' ' || var8 == '_' || var8 == '-';
+					if (!var7) {
+						break;
+					}
+
+					--var6;
 				}
-			} else {
+
+				int var17 = var6 - var5;
+				if (var17 >= 1) {
+					byte var9;
+					if (var2 == null) {
+						var9 = 12;
+					} else {
+						switch(var2.field4029) {
+						case 4:
+							var9 = 20;
+							break;
+						default:
+							var9 = 12;
+						}
+					}
+
+					if (var17 <= var9) {
+						StringBuilder var15 = new StringBuilder(var17);
+
+						for (int var18 = var5; var18 < var6; ++var18) {
+							char var10 = var1.charAt(var18);
+							boolean var11;
+							if (Character.isISOControl(var10)) {
+								var11 = false;
+							} else if (class191.isAlphaNumeric(var10)) {
+								var11 = true;
+							} else {
+								char[] var16 = class338.field4037;
+								int var13 = 0;
+
+								label117:
+								while (true) {
+									char var14;
+									if (var13 >= var16.length) {
+										var16 = class338.field4035;
+
+										for (var13 = 0; var13 < var16.length; ++var13) {
+											var14 = var16[var13];
+											if (var14 == var10) {
+												var11 = true;
+												break label117;
+											}
+										}
+
+										var11 = false;
+										break;
+									}
+
+									var14 = var16[var13];
+									if (var10 == var14) {
+										var11 = true;
+										break;
+									}
+
+									++var13;
+								}
+							}
+
+							if (var11) {
+								char var12;
+								switch(var10) {
+								case ' ':
+								case '-':
+								case '_':
+								case ' ':
+									var12 = '_';
+									break;
+								case '#':
+								case '[':
+								case ']':
+									var12 = var10;
+									break;
+								case 'À':
+								case 'Á':
+								case 'Â':
+								case 'Ã':
+								case 'Ä':
+								case 'à':
+								case 'á':
+								case 'â':
+								case 'ã':
+								case 'ä':
+									var12 = 'a';
+									break;
+								case 'Ç':
+								case 'ç':
+									var12 = 'c';
+									break;
+								case 'È':
+								case 'É':
+								case 'Ê':
+								case 'Ë':
+								case 'è':
+								case 'é':
+								case 'ê':
+								case 'ë':
+									var12 = 'e';
+									break;
+								case 'Í':
+								case 'Î':
+								case 'Ï':
+								case 'í':
+								case 'î':
+								case 'ï':
+									var12 = 'i';
+									break;
+								case 'Ñ':
+								case 'ñ':
+									var12 = 'n';
+									break;
+								case 'Ò':
+								case 'Ó':
+								case 'Ô':
+								case 'Õ':
+								case 'Ö':
+								case 'ò':
+								case 'ó':
+								case 'ô':
+								case 'õ':
+								case 'ö':
+									var12 = 'o';
+									break;
+								case 'Ù':
+								case 'Ú':
+								case 'Û':
+								case 'Ü':
+								case 'ù':
+								case 'ú':
+								case 'û':
+								case 'ü':
+									var12 = 'u';
+									break;
+								case 'ß':
+									var12 = 'b';
+									break;
+								case 'ÿ':
+								case 'Ÿ':
+									var12 = 'y';
+									break;
+								default:
+									var12 = Character.toLowerCase(var10);
+								}
+
+								if (var12 != 0) {
+									var15.append(var12);
+								}
+							}
+						}
+
+						if (var15.length() == 0) {
+							var4 = null;
+						} else {
+							var4 = var15.toString();
+						}
+						break label164;
+					}
+				}
+
 				var4 = null;
 			}
 		}
@@ -65,30 +210,30 @@ public class Username implements Comparable {
 		this.cleanName = var4;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		signature = "(I)Ljava/lang/String;",
-		garbageValue = "-1911798816"
+		garbageValue = "-2024242176"
 	)
 	@Export("getName")
 	public String getName() {
 		return this.name;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "121"
+		signature = "(I)Z",
+		garbageValue = "-190673782"
 	)
 	@Export("hasCleanName")
 	public boolean hasCleanName() {
 		return this.cleanName != null;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Lju;S)I",
-		garbageValue = "-11004"
+		signature = "(Ljc;I)I",
+		garbageValue = "-2128174200"
 	)
 	@Export("compareToTyped")
 	public int compareToTyped(Username var1) {
@@ -124,42 +269,5 @@ public class Username implements Comparable {
 
 	public int compareTo(Object var1) {
 		return this.compareToTyped((Username)var1);
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-300654930"
-	)
-	@Export("ViewportMouse_unpackX")
-	public static int ViewportMouse_unpackX(int var0) {
-		long var2 = ViewportMouse.ViewportMouse_entityTags[var0];
-		int var1 = (int)(var2 >>> 14 & 3L);
-		return var1;
-	}
-
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		signature = "(I)Llx;",
-		garbageValue = "-2059953793"
-	)
-	static Sprite method5338() {
-		Sprite var0 = new Sprite();
-		var0.width = class325.SpriteBuffer_spriteWidth;
-		var0.height = class325.SpriteBuffer_spriteHeight;
-		var0.xOffset = SecureRandomFuture.SpriteBuffer_xOffsets[0];
-		var0.yOffset = HealthBar.SpriteBuffer_yOffsets[0];
-		var0.subWidth = SecureRandomCallable.SpriteBuffer_spriteWidths[0];
-		var0.subHeight = AttackOption.SpriteBuffer_spriteHeights[0];
-		int var1 = var0.subHeight * var0.subWidth;
-		byte[] var2 = class325.SpriteBuffer_pixels[0];
-		var0.pixels = new int[var1];
-
-		for (int var3 = 0; var3 < var1; ++var3) {
-			var0.pixels[var3] = class325.SpriteBuffer_spritePalette[var2[var3] & 255];
-		}
-
-		WorldMapData_1.method787();
-		return var0;
 	}
 }

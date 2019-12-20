@@ -1,3 +1,6 @@
+import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.ManagementFactory;
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -7,49 +10,44 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("z")
 @Implements("WorldMapSectionType")
 public enum WorldMapSectionType implements Enumerated {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		signature = "Lz;"
 	)
 	@Export("WORLDMAPSECTIONTYPE0")
 	WORLDMAPSECTIONTYPE0(3, (byte)0),
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "Lz;"
 	)
 	@Export("WORLDMAPSECTIONTYPE1")
-	WORLDMAPSECTIONTYPE1(1, (byte)1),
-	@ObfuscatedName("n")
+	WORLDMAPSECTIONTYPE1(0, (byte)1),
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		signature = "Lz;"
 	)
 	@Export("WORLDMAPSECTIONTYPE2")
-	WORLDMAPSECTIONTYPE2(2, (byte)2),
-	@ObfuscatedName("q")
+	WORLDMAPSECTIONTYPE2(1, (byte)2),
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		signature = "Lz;"
 	)
 	@Export("WORLDMAPSECTIONTYPE3")
-	WORLDMAPSECTIONTYPE3(0, (byte)3);
+	WORLDMAPSECTIONTYPE3(2, (byte)3);
 
-	@ObfuscatedName("sg")
-	@ObfuscatedSignature(
-		signature = "Lke;"
-	)
-	@Export("masterDisk")
-	static ArchiveDisk masterDisk;
-	@ObfuscatedName("fq")
+	@ObfuscatedName("hi")
 	@ObfuscatedGetter(
-		intValue = 16953731
+		intValue = 75470723
 	)
-	static int field140;
-	@ObfuscatedName("v")
+	@Export("oculusOrbFocalPointX")
+	static int oculusOrbFocalPointX;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1080856111
+		intValue = -814445795
 	)
 	@Export("type")
 	final int type;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@Export("id")
 	final byte id;
 
@@ -58,199 +56,174 @@ public enum WorldMapSectionType implements Enumerated {
 		this.id = var4;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1993081102"
+		signature = "(B)I",
+		garbageValue = "-57"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(II)Liq;",
-		garbageValue = "-1193696463"
+		signature = "(I)[Lz;",
+		garbageValue = "198707251"
 	)
-	@Export("getInvDefinition")
-	public static InvDefinition getInvDefinition(int var0) {
-		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
+	static WorldMapSectionType[] method235() {
+		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE0};
+	}
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(B)V",
+		garbageValue = "125"
+	)
+	static void method236() {
+		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) {
+			if (var0.stream1 != null) {
+				Tiles.pcmStreamMixer.removeSubStream(var0.stream1);
+				var0.stream1 = null;
+			}
+
+			if (var0.stream2 != null) {
+				Tiles.pcmStreamMixer.removeSubStream(var0.stream2);
+				var0.stream2 = null;
+			}
+		}
+
+		ObjectSound.objectSounds.clear();
+	}
+
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		signature = "(B)I",
+		garbageValue = "20"
+	)
+	@Export("getGcDuration")
+	protected static int getGcDuration() {
+		int var0 = 0;
+		if (Interpreter.garbageCollector == null || !Interpreter.garbageCollector.isValid()) {
+			try {
+				Iterator var1 = ManagementFactory.getGarbageCollectorMXBeans().iterator();
+
+				while (var1.hasNext()) {
+					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next();
+					if (var2.isValid()) {
+						Interpreter.garbageCollector = var2;
+						GameShell.garbageCollectorLastCheckTimeMs = -1L;
+						GameShell.garbageCollectorLastCollectionTime = -1L;
+					}
+				}
+			} catch (Throwable var11) {
+			}
+		}
+
+		if (Interpreter.garbageCollector != null) {
+			long var9 = WorldMapID.currentTimeMillis();
+			long var3 = Interpreter.garbageCollector.getCollectionTime();
+			if (GameShell.garbageCollectorLastCollectionTime != -1L) {
+				long var5 = var3 - GameShell.garbageCollectorLastCollectionTime;
+				long var7 = var9 - GameShell.garbageCollectorLastCheckTimeMs;
+				if (0L != var7) {
+					var0 = (int)(var5 * 100L / var7);
+				}
+			}
+
+			GameShell.garbageCollectorLastCollectionTime = var3;
+			GameShell.garbageCollectorLastCheckTimeMs = var9;
+		}
+
+		return var0;
+	}
+
+	@ObfuscatedName("gq")
+	@ObfuscatedSignature(
+		signature = "(Lbv;I)V",
+		garbageValue = "-821947807"
+	)
+	static final void method239(Actor var0) {
+		if (var0.field969 == Client.cycle || var0.sequence == -1 || var0.sequenceDelay != 0 || var0.sequenceFrameCycle + 1 > WorldMapSection0.SequenceDefinition_get(var0.sequence).frameLengths[var0.sequenceFrame]) {
+			int var1 = var0.field969 - var0.field950;
+			int var2 = Client.cycle - var0.field950;
+			int var3 = var0.field921 * 128 + var0.field925 * 64;
+			int var4 = var0.field966 * 128 + var0.field925 * 64;
+			int var5 = var0.field965 * 128 + var0.field925 * 64;
+			int var6 = var0.field929 * 128 + var0.field925 * 64;
+			var0.x = (var2 * var5 + var3 * (var1 - var2)) / var1;
+			var0.y = (var2 * var6 + var4 * (var1 - var2)) / var1;
+		}
+
+		var0.field980 = 0;
+		var0.orientation = var0.field970;
+		var0.rotation = var0.orientation;
+	}
+
+	@ObfuscatedName("jl")
+	@ObfuscatedSignature(
+		signature = "(IB)Ljava/lang/String;",
+		garbageValue = "24"
+	)
+	@Export("formatItemStacks")
+	static final String formatItemStacks(int var0) {
+		String var1 = Integer.toString(var0);
+
+		for (int var2 = var1.length() - 3; var2 > 0; var2 -= 3) {
+			var1 = var1.substring(0, var2) + "," + var1.substring(var2);
+		}
+
+		if (var1.length() > 9) {
+			return " " + NPC.colorStartTag(65408) + var1.substring(0, var1.length() - 8) + "M" + " " + " (" + var1 + ")" + "</col>";
 		} else {
-			byte[] var2 = class1.InvDefinition_archive.takeFile(5, var0);
-			var1 = new InvDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			InvDefinition.InvDefinition_cached.put(var1, (long)var0);
-			return var1;
+			return var1.length() > 6 ? " " + NPC.colorStartTag(16777215) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + NPC.colorStartTag(16776960) + var1 + "</col>";
 		}
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("lp")
 	@ObfuscatedSignature(
-		signature = "(CB)C",
-		garbageValue = "27"
+		signature = "(Ljava/lang/String;ZB)V",
+		garbageValue = "-1"
 	)
-	static char method296(char var0) {
-		if (var0 == 198) {
-			return 'E';
-		} else if (var0 == 230) {
-			return 'e';
-		} else if (var0 == 223) {
-			return 's';
-		} else if (var0 == 338) {
-			return 'E';
-		} else {
-			return (char)(var0 == 339 ? 'e' : '\u0000');
-		}
-	}
+	@Export("findItemDefinitions")
+	static void findItemDefinitions(String var0, boolean var1) {
+		var0 = var0.toLowerCase();
+		short[] var2 = new short[16];
+		int var3 = 0;
 
-	@ObfuscatedName("fv")
-	@ObfuscatedSignature(
-		signature = "(IZZZI)Lij;",
-		garbageValue = "-1053216303"
-	)
-	@Export("newArchive")
-	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
-		ArchiveDisk var4 = null;
-		if (JagexCache.JagexCache_dat2File != null) {
-			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, ArchiveLoader.JagexCache_idxFiles[var0], 1000000);
-		}
+		for (int var4 = 0; var4 < ItemDefinition.ItemDefinition_fileCount; ++var4) {
+			ItemDefinition var5 = PacketBufferNode.ItemDefinition_get(var4);
+			if ((!var1 || var5.isTradable) && var5.noteTemplate == -1 && var5.name.toLowerCase().indexOf(var0) != -1) {
+				if (var3 >= 250) {
+					KeyHandler.foundItemIdCount = -1;
+					class269.foundItemIds = null;
+					return;
+				}
 
-		return new Archive(var4, masterDisk, var0, var1, var2, var3);
-	}
+				if (var3 >= var2.length) {
+					short[] var6 = new short[var2.length * 2];
 
-	@ObfuscatedName("hd")
-	@ObfuscatedSignature(
-		signature = "(IIZI)V",
-		garbageValue = "1770012537"
-	)
-	static final void method290(int var0, int var1, boolean var2) {
-		if (!var2 || var0 != field140 || ScriptEvent.field563 != var1) {
-			field140 = var0;
-			ScriptEvent.field563 = var1;
-			Tile.updateGameState(25);
-			GrandExchangeEvents.drawLoadingMessage("Loading - please wait.", true);
-			int var3 = UserComparator8.baseX * 64;
-			int var4 = HealthBar.baseY * 64;
-			UserComparator8.baseX = (var0 - 6) * 8;
-			HealthBar.baseY = (var1 - 6) * 8;
-			int var5 = UserComparator8.baseX * 64 - var3;
-			int var6 = HealthBar.baseY * 64 - var4;
-			var3 = UserComparator8.baseX * 64;
-			var4 = HealthBar.baseY * 64;
-
-			int var7;
-			int var9;
-			int[] var10000;
-			for (var7 = 0; var7 < 32768; ++var7) {
-				NPC var8 = Client.npcs[var7];
-				if (var8 != null) {
-					for (var9 = 0; var9 < 10; ++var9) {
-						var10000 = var8.pathX;
-						var10000[var9] -= var5;
-						var10000 = var8.pathY;
-						var10000[var9] -= var6;
+					for (int var7 = 0; var7 < var3; ++var7) {
+						var6[var7] = var2[var7];
 					}
 
-					var8.x -= var5 * 128;
-					var8.y -= var6 * 128;
+					var2 = var6;
 				}
+
+				var2[var3++] = (short)var4;
 			}
-
-			for (var7 = 0; var7 < 2048; ++var7) {
-				Player var21 = Client.players[var7];
-				if (var21 != null) {
-					for (var9 = 0; var9 < 10; ++var9) {
-						var10000 = var21.pathX;
-						var10000[var9] -= var5;
-						var10000 = var21.pathY;
-						var10000[var9] -= var6;
-					}
-
-					var21.x -= var5 * 128;
-					var21.y -= var6 * 128;
-				}
-			}
-
-			byte var20 = 0;
-			byte var18 = 104;
-			byte var22 = 1;
-			if (var5 < 0) {
-				var20 = 103;
-				var18 = -1;
-				var22 = -1;
-			}
-
-			byte var10 = 0;
-			byte var11 = 104;
-			byte var12 = 1;
-			if (var6 < 0) {
-				var10 = 103;
-				var11 = -1;
-				var12 = -1;
-			}
-
-			int var14;
-			for (int var13 = var20; var13 != var18; var13 += var22) {
-				for (var14 = var10; var11 != var14; var14 += var12) {
-					int var15 = var13 + var5;
-					int var16 = var6 + var14;
-
-					for (int var17 = 0; var17 < 4; ++var17) {
-						if (var15 >= 0 && var16 >= 0 && var15 < 104 && var16 < 104) {
-							Client.groundItems[var17][var13][var14] = Client.groundItems[var17][var15][var16];
-						} else {
-							Client.groundItems[var17][var13][var14] = null;
-						}
-					}
-				}
-			}
-
-			for (PendingSpawn var19 = (PendingSpawn)Client.pendingSpawns.last(); var19 != null; var19 = (PendingSpawn)Client.pendingSpawns.previous()) {
-				var19.x -= var5;
-				var19.y -= var6;
-				if (var19.x < 0 || var19.y < 0 || var19.x >= 104 || var19.y >= 104) {
-					var19.remove();
-				}
-			}
-
-			if (Client.destinationX != 0) {
-				Client.destinationX -= var5;
-				Client.destinationY -= var6;
-			}
-
-			Client.soundEffectCount = 0;
-			Client.isCameraLocked = false;
-			UrlRequester.cameraX -= var5 << 7;
-			GrandExchangeOfferAgeComparator.cameraZ -= var6 << 7;
-			IgnoreList.oculusOrbFocalPointX -= var5 << 7;
-			AbstractArchive.oculusOrbFocalPointY -= var6 << 7;
-			Client.field856 = -1;
-			Client.graphicsObjects.clear();
-			Client.projectiles.clear();
-
-			for (var14 = 0; var14 < 4; ++var14) {
-				Client.collisionMaps[var14].clear();
-			}
-
-		}
-	}
-
-	@ObfuscatedName("kt")
-	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1414236502"
-	)
-	static final void method294() {
-		for (int var0 = 0; var0 < Players.Players_count; ++var0) {
-			Player var1 = Client.players[Players.Players_indices[var0]];
-			var1.clearIsInClanChat();
 		}
 
+		class269.foundItemIds = var2;
+		class189.foundItemIndex = 0;
+		KeyHandler.foundItemIdCount = var3;
+		String[] var8 = new String[KeyHandler.foundItemIdCount];
+
+		for (int var9 = 0; var9 < KeyHandler.foundItemIdCount; ++var9) {
+			var8[var9] = PacketBufferNode.ItemDefinition_get(var2[var9]).name;
+		}
+
+		short[] var10 = class269.foundItemIds;
+		ParamDefinition.sortItemsByName(var8, var10, 0, var8.length - 1);
 	}
 }

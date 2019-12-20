@@ -32,11 +32,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.annotation.Nullable;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.ItemID;
 
-@Getter
+@Getter(AccessLevel.PUBLIC)
 @AllArgsConstructor
 public enum BossTab
 {
@@ -82,6 +83,7 @@ public enum BossTab
 	CORPOREAL_BEAST("Corporeal Beast", ItemID.PET_CORPOREAL_CRITTER, "Other"),
 	SARACHNIS("Sarachnis", ItemID.SRARACHA, "Other"),
 	THE_GAUNTLET("The Gauntlet", ItemID.YOUNGLLEF, "Other"),
+	ZALCANO("Zalcano", ItemID.SMOLCANO, "Other"),
 
 	// Skilling
 	WINTERTODT("Wintertodt", ItemID.PHOENIX, "Skilling"),

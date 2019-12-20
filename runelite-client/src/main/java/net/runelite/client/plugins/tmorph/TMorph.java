@@ -40,13 +40,14 @@ import net.runelite.api.GameState;
 import net.runelite.api.Player;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.CommandExecuted;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.kit.KitType;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -86,10 +87,13 @@ public class TMorph extends Plugin
 
 	@Inject
 	private Client client;
+
 	@Inject
 	private TMorphConfig config;
+
 	@Inject
 	private EventBus eventBus;
+
 	private Map<String, String> set1;
 	private Map<String, String> set2;
 	private Map<String, String> set3;
@@ -107,21 +111,20 @@ public class TMorph extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		updateConfig();
 		addSubscriptions();
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		eventBus.unregister(this);
 	}
 
 	private void addSubscriptions()
 	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 		eventBus.subscribe(SpotAnimationChanged.class, this, this::onSpotAnimationChanged);
@@ -184,6 +187,7 @@ public class TMorph extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals("TMorph"))

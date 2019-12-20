@@ -46,6 +46,7 @@ import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.client.Notifier;
+import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.game.SoundManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,6 +82,10 @@ public class IdleNotifierPluginTest
 	@Bind
 	private Notifier notifier;
 
+	@Mock
+	@Bind
+	private OpenOSRSConfig openOSRSConfig;
+
 	@Inject
 	private IdleNotifierPlugin plugin;
 
@@ -99,13 +104,13 @@ public class IdleNotifierPluginTest
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 
 		// Mock monster
-		final String[] monsterActions = new String[] { "Attack", "Examine" };
+		final String[] monsterActions = new String[]{"Attack", "Examine"};
 		final NPCDefinition monsterComp = mock(NPCDefinition.class);
 		when(monsterComp.getActions()).thenReturn(monsterActions);
 		when(monster.getDefinition()).thenReturn(monsterComp);
 
 		// Mock random event
-		final String[] randomEventActions = new String[] { "Talk-to", "Dismiss", "Examine" };
+		final String[] randomEventActions = new String[]{"Talk-to", "Dismiss", "Examine"};
 		final NPCDefinition randomEventComp = mock(NPCDefinition.class);
 		when(randomEventComp.getActions()).thenReturn(randomEventActions);
 		when(randomEvent.getDefinition()).thenReturn(randomEventComp);

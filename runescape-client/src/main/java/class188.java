@@ -1,44 +1,40 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gn")
+@ObfuscatedName("gq")
 public class class188 {
-	@ObfuscatedName("a")
-	static int[] field2313;
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		signature = "Lcc;"
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = 1663251439
 	)
-	@Export("pcmPlayerProvider")
-	static class99 pcmPlayerProvider;
+	@Export("Interpreter_intStackSize")
+	static int Interpreter_intStackSize;
+	@ObfuscatedName("bq")
+	@ObfuscatedSignature(
+		signature = "Lll;"
+	)
+	@Export("loginType")
+	static LoginType loginType;
 
-	static {
-		new Object();
-		field2313 = new int[33];
-		field2313[0] = 0;
-		int var0 = 2;
-
-		for (int var1 = 1; var1 < 33; ++var1) {
-			field2313[var1] = var0 - 1;
-			var0 += var0;
+	@ObfuscatedName("i")
+	static final void method3604(long var0) {
+		try {
+			Thread.sleep(var0);
+		} catch (InterruptedException var3) {
 		}
 
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		signature = "(B)[Llt;",
-		garbageValue = "80"
+		signature = "(ZZB)I",
+		garbageValue = "1"
 	)
-	@Export("FillMode_values")
-	public static FillMode[] FillMode_values() {
-		return new FillMode[]{FillMode.SOLID, FillMode.field3849, FillMode.field3847};
-	}
-
-	@ObfuscatedName("t")
-	static boolean method3793(long var0) {
-		int var2 = (int)(var0 >>> 14 & 3L);
-		return var2 == 2;
+	public static int method3601(boolean var0, boolean var1) {
+		byte var2 = 0;
+		int var3 = var2 + NetCache.NetCache_pendingPriorityResponsesCount + NetCache.NetCache_pendingPriorityWritesCount;
+		return var3;
 	}
 }

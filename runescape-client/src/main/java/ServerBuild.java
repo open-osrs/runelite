@@ -4,41 +4,47 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hr")
+@ObfuscatedName("hi")
 @Implements("ServerBuild")
 public class ServerBuild {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Lhr;"
+		signature = "Lhi;"
 	)
 	@Export("LIVE")
 	public static final ServerBuild LIVE;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Lhr;"
+		signature = "Lhi;"
 	)
 	@Export("BUILDLIVE")
 	public static final ServerBuild BUILDLIVE;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lhr;"
+		signature = "Lhi;"
 	)
 	@Export("RC")
 	public static final ServerBuild RC;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lhr;"
+		signature = "Lhi;"
 	)
 	@Export("WIP")
 	public static final ServerBuild WIP;
-	@ObfuscatedName("v")
+	@ObfuscatedName("dv")
+	@ObfuscatedSignature(
+		signature = "Lif;"
+	)
+	@Export("archive10")
+	static Archive archive10;
+	@ObfuscatedName("p")
 	@Export("name")
 	public final String name;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -96016129
+		intValue = 135493903
 	)
-	public final int field3088;
+	public final int field3081;
 
 	static {
 		LIVE = new ServerBuild("LIVE", 0);
@@ -49,18 +55,19 @@ public class ServerBuild {
 
 	ServerBuild(String var1, int var2) {
 		this.name = var1;
-		this.field3088 = var2;
+		this.field3081 = var2;
 	}
 
-	@ObfuscatedName("ju")
-	@ObfuscatedSignature(
-		signature = "(IIIIIIII)V",
-		garbageValue = "1070520785"
-	)
-	@Export("updateRootInterface")
-	static final void updateRootInterface(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		if (TextureProvider.loadInterface(var0)) {
-			ArchiveLoader.updateInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6);
+	@ObfuscatedName("f")
+	public static final void method4111(long var0) {
+		if (var0 > 0L) {
+			if (var0 % 10L == 0L) {
+				class188.method3604(var0 - 1L);
+				class188.method3604(1L);
+			} else {
+				class188.method3604(var0);
+			}
+
 		}
 	}
 }

@@ -1,29 +1,35 @@
+import java.io.File;
+import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fx")
+@ObfuscatedName("ft")
 public class class173 {
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@Export("directions")
-	static int[][] directions;
-	@ObfuscatedName("q")
+	public static int[][] directions;
+	@ObfuscatedName("w")
 	@Export("distances")
-	static int[][] distances;
-	@ObfuscatedName("v")
+	public static int[][] distances;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1388693747
+		intValue = -1981163643
 	)
-	static int field2070;
-	@ObfuscatedName("o")
+	public static int field2072;
+	@ObfuscatedName("x")
 	@Export("bufferX")
-	static int[] bufferX;
-	@ObfuscatedName("i")
+	public static int[] bufferX;
+	@ObfuscatedName("a")
 	@Export("bufferY")
-	static int[] bufferY;
-	@ObfuscatedName("ed")
-	static int[] field2074;
+	public static int[] bufferY;
+	@ObfuscatedName("ca")
+	@ObfuscatedSignature(
+		signature = "Lbo;"
+	)
+	@Export("mouseRecorder")
+	static MouseRecorder mouseRecorder;
 
 	static {
 		directions = new int[128][128];
@@ -32,21 +38,62 @@ public class class173 {
 		bufferY = new int[4096];
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(CI)C",
-		garbageValue = "-1784750626"
+		signature = "(Lhz;IIIZI)V",
+		garbageValue = "1828345963"
 	)
-	static char method3720(char var0) {
-		return var0 != 181 && var0 != 402 ? Character.toTitleCase(var0) : var0;
+	@Export("playMusicTrack")
+	public static void playMusicTrack(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
+		class197.field2392 = 1;
+		Coord.musicTrackArchive = var0;
+		class16.musicTrackGroupId = var1;
+		GrandExchangeOffer.musicTrackFileId = var2;
+		class197.musicTrackVolume = var3;
+		WorldMapDecoration.musicTrackBoolean = var4;
+		ParamDefinition.field3275 = 10000;
 	}
 
-	@ObfuscatedName("jr")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(IB)Ljava/lang/String;",
-		garbageValue = "0"
+		signature = "(Ljava/io/File;ZI)Z",
+		garbageValue = "969136252"
 	)
-	static final String method3728(int var0) {
-		return var0 < 999999999 ? Integer.toString(var0) : "*";
+	static boolean method3561(File var0, boolean var1) {
+		try {
+			RandomAccessFile var2 = new RandomAccessFile(var0, "rw");
+			int var3 = var2.read();
+			var2.seek(0L);
+			var2.write(var3);
+			var2.seek(0L);
+			var2.close();
+			if (var1) {
+				var0.delete();
+			}
+
+			return true;
+		} catch (Exception var4) {
+			return false;
+		}
+	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		signature = "(I)V",
+		garbageValue = "-974427465"
+	)
+	public static void method3560() {
+		while (true) {
+			ArchiveDiskAction var0;
+			synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
+				var0 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_responseQueue.removeLast();
+			}
+
+			if (var0 == null) {
+				return;
+			}
+
+			var0.archive.load(var0.archiveDisk, (int)var0.key, var0.data, false);
+		}
 	}
 }

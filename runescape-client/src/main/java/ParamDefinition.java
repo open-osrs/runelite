@@ -4,40 +4,39 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iy")
+@ObfuscatedName("ij")
 @Implements("ParamDefinition")
 public class ParamDefinition extends DualNode {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+		signature = "Lhz;"
 	)
 	@Export("ParamDefinition_archive")
 	public static AbstractArchive ParamDefinition_archive;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "Leb;"
 	)
 	@Export("ParamDefinition_cached")
-	public static EvictingDualNodeHashTable ParamDefinition_cached;
-	@ObfuscatedName("i")
+	static EvictingDualNodeHashTable ParamDefinition_cached;
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -508885991
+		intValue = 975160711
 	)
-	@Export("PcmPlayer_count")
-	public static int PcmPlayer_count;
-	@ObfuscatedName("n")
+	public static int field3275;
+	@ObfuscatedName("y")
 	@Export("type")
 	char type;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1697387683
+		intValue = -2128344831
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@Export("autoDisable")
 	boolean autoDisable;
 
@@ -49,19 +48,19 @@ public class ParamDefinition extends DualNode {
 		this.autoDisable = true;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-767348576"
+		signature = "(B)V",
+		garbageValue = "1"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Lkc;I)V",
-		garbageValue = "95444095"
+		signature = "(Lkq;I)V",
+		garbageValue = "1148377951"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -75,15 +74,15 @@ public class ParamDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Lkc;II)V",
-		garbageValue = "130264768"
+		signature = "(Lkq;II)V",
+		garbageValue = "-301062602"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) {
-			this.type = Ignored.method5284(var1.readByte());
+			this.type = AbstractArchive.method4124(var1.readByte());
 		} else if (var2 == 2) {
 			this.defaultInt = var1.readInt();
 		} else if (var2 == 4) {
@@ -94,13 +93,51 @@ public class ParamDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "1179619328"
+		garbageValue = "-22777972"
 	)
 	@Export("isString")
 	public boolean isString() {
 		return this.type == 's';
+	}
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "([Ljava/lang/String;[SIII)V",
+		garbageValue = "1392375255"
+	)
+	@Export("sortItemsByName")
+	public static void sortItemsByName(String[] var0, short[] var1, int var2, int var3) {
+		if (var2 < var3) {
+			int var4 = (var3 + var2) / 2;
+			int var5 = var2;
+			String var6 = var0[var4];
+			var0[var4] = var0[var3];
+			var0[var3] = var6;
+			short var7 = var1[var4];
+			var1[var4] = var1[var3];
+			var1[var3] = var7;
+
+			for (int var8 = var2; var8 < var3; ++var8) {
+				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) {
+					String var9 = var0[var8];
+					var0[var8] = var0[var5];
+					var0[var5] = var9;
+					short var10 = var1[var8];
+					var1[var8] = var1[var5];
+					var1[var5++] = var10;
+				}
+			}
+
+			var0[var3] = var0[var5];
+			var0[var5] = var6;
+			var1[var3] = var1[var5];
+			var1[var5] = var7;
+			sortItemsByName(var0, var1, var2, var5 - 1);
+			sortItemsByName(var0, var1, var5 + 1, var3);
+		}
+
 	}
 }

@@ -4,103 +4,106 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gp")
+@ObfuscatedName("gt")
 @Implements("MusicPatchNode2")
 public class MusicPatchNode2 {
-	@ObfuscatedName("a")
-	byte[] field2364;
-	@ObfuscatedName("t")
-	byte[] field2361;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = -269057751
+	@ObfuscatedName("dz")
+	@ObfuscatedSignature(
+		signature = "Lif;"
 	)
-	int field2371;
-	@ObfuscatedName("q")
+	@Export("archive19")
+	static Archive archive19;
+	@ObfuscatedName("hx")
 	@ObfuscatedGetter(
-		intValue = -390074671
+		intValue = -1785627297
 	)
-	int field2366;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -1385616309
-	)
-	int field2363;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = 1962896855
-	)
-	int field2365;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = 353135561
-	)
-	int field2360;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = -538931737
-	)
-	int field2367;
+	@Export("cameraX")
+	static int cameraX;
+	@ObfuscatedName("f")
+	byte[] field2385;
 	@ObfuscatedName("i")
+	byte[] field2377;
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1418952589
+		intValue = 1329513341
 	)
-	int field2368;
+	int field2378;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 12708137
+	)
+	int field2387;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		intValue = 1693996309
+	)
+	int field2376;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = 1410109429
+	)
+	int field2384;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = 2019355135
+	)
+	int field2382;
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = 27248727
+	)
+	int field2383;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = -1172401863
+	)
+	int field2380;
 
 	MusicPatchNode2() {
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1508520519"
+		signature = "(B)V",
+		garbageValue = "-69"
 	)
-	static void method3829() {
-		class237.field3174 = new int[2000];
-		int var0 = 0;
-		int var1 = 240;
-
-		int var3;
-		for (byte var2 = 12; var0 < 16; var1 -= var2) {
-			var3 = WorldMapSprite.method472((double)((float)var1 / 360.0F), 0.9998999834060669D, (double)((float)var0 * 0.425F / 16.0F + 0.075F));
-			class237.field3174[var0] = var3;
-			++var0;
-		}
-
-		var1 = 48;
-
-		for (int var5 = var1 / 6; var0 < class237.field3174.length; var1 -= var5) {
-			var3 = var0 * 2;
-
-			for (int var4 = WorldMapSprite.method472((double)((float)var1 / 360.0F), 0.9998999834060669D, 0.5D); var0 < var3 && var0 < class237.field3174.length; ++var0) {
-				class237.field3174[var0] = var4;
-			}
-		}
-
+	static void method3669() {
+		class14.field88 = null;
+		Tiles.field498 = null;
+		Tiles.field494 = null;
+		Tiles.field493 = null;
+		Tiles.field501 = null;
+		Tiles.field496 = null;
+		ArchiveLoader.field512 = null;
+		UrlRequest.Tiles_hue = null;
+		MenuAction.Tiles_saturation = null;
+		PacketBufferNode.Tiles_lightness = null;
+		Tiles.Tiles_hueMultiplier = null;
+		Varcs.field1244 = null;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		signature = "(Lhq;I)V",
-		garbageValue = "-1954771173"
+		signature = "(B)V",
+		garbageValue = "1"
 	)
-	public static void method3831(AbstractArchive var0) {
-		FloorUnderlayDefinition.FloorUnderlayDefinition_archive = var0;
+	public static void method3668() {
+		SpotAnimationDefinition.SpotAnimationDefinition_cached.clear();
+		SpotAnimationDefinition.SpotAnimationDefinition_cachedModels.clear();
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Lhq;IIIZI)V",
-		garbageValue = "1856110966"
+		signature = "(Lkq;J)V"
 	)
-	@Export("playMusicTrack")
-	public static void playMusicTrack(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
-		class197.field2377 = 1;
-		class247.musicTrackArchive = var0;
-		class189.musicTrackGroupId = var1;
-		class197.musicTrackFileId = var2;
-		class197.musicTrackVolume = var3;
-		ScriptFrame.musicTrackBoolean = var4;
-		class197.field2384 = 10000;
+	static void method3670(Buffer var0, long var1) {
+		var1 /= 10L;
+		if (var1 < 0L) {
+			var1 = 0L;
+		} else if (var1 > 65535L) {
+			var1 = 65535L;
+		}
+
+		var0.writeShort((int)var1);
 	}
 }

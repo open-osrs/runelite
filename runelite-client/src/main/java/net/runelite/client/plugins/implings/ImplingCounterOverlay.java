@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
-import net.runelite.client.ui.overlay.components.PanelComponent;
 
 @Singleton
 public class ImplingCounterOverlay extends Overlay
@@ -40,7 +40,7 @@ public class ImplingCounterOverlay extends Overlay
 
 		for (Map.Entry<ImplingType, Integer> entry : plugin.getImplingCounterMap().entrySet())
 		{
-			if (plugin.showImplingType(entry.getKey()) && entry.getValue() != 0)
+			if (plugin.showImplingType(entry.getKey()) != ImplingsConfig.ImplingMode.NONE && entry.getValue() != 0)
 			{
 				tableComponent.addRow(entry.getKey().getName(), entry.getValue().toString());
 			}

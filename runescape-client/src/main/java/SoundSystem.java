@@ -3,14 +3,21 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dl")
+@ObfuscatedName("dk")
 @Implements("SoundSystem")
 public class SoundSystem implements Runnable {
-	@ObfuscatedName("q")
-	static byte[][][] field1414;
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
+	@Export("BZip2Decompressor_block")
+	static int[] BZip2Decompressor_block;
+	@ObfuscatedName("dq")
 	@ObfuscatedSignature(
-		signature = "[Ldq;"
+		signature = "Lif;"
+	)
+	@Export("archive12")
+	static Archive archive12;
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "[Lcw;"
 	)
 	@Export("players")
 	volatile PcmPlayer[] players;
@@ -28,42 +35,52 @@ public class SoundSystem implements Runnable {
 				}
 			}
 		} catch (Exception var4) {
-			User.RunException_sendStackTrace((String)null, var4);
+			DesktopPlatformInfoProvider.RunException_sendStackTrace((String)null, var4);
 		}
 
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("kf")
 	@ObfuscatedSignature(
-		signature = "(Lgx;Llm;I)Lgk;",
-		garbageValue = "-1503020688"
+		signature = "(Lha;B)V",
+		garbageValue = "9"
 	)
-	@Export("getPacketBufferNode")
-	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {
-		PacketBufferNode var2;
-		if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) {
-			var2 = new PacketBufferNode();
-		} else {
-			var2 = PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount];
-		}
+	static final void method2507(Widget var0) {
+		int var1 = var0.contentType;
+		if (var1 == 324) {
+			if (Client.field893 == -1) {
+				Client.field893 = var0.spriteId2;
+				Client.field894 = var0.spriteId;
+			}
 
-		var2.clientPacket = var0;
-		var2.clientPacketLength = var0.length;
-		if (var2.clientPacketLength == -1) {
-			var2.packetBuffer = new PacketBuffer(260);
-		} else if (var2.clientPacketLength == -2) {
-			var2.packetBuffer = new PacketBuffer(10000);
-		} else if (var2.clientPacketLength <= 18) {
-			var2.packetBuffer = new PacketBuffer(20);
-		} else if (var2.clientPacketLength <= 98) {
-			var2.packetBuffer = new PacketBuffer(100);
-		} else {
-			var2.packetBuffer = new PacketBuffer(260);
-		}
+			if (Client.playerAppearance.isFemale) {
+				var0.spriteId2 = Client.field893;
+			} else {
+				var0.spriteId2 = Client.field894;
+			}
 
-		var2.packetBuffer.setIsaacCipher(var1);
-		var2.packetBuffer.writeByteIsaac(var2.clientPacket.id);
-		var2.index = 0;
-		return var2;
+		} else if (var1 == 325) {
+			if (Client.field893 == -1) {
+				Client.field893 = var0.spriteId2;
+				Client.field894 = var0.spriteId;
+			}
+
+			if (Client.playerAppearance.isFemale) {
+				var0.spriteId2 = Client.field894;
+			} else {
+				var0.spriteId2 = Client.field893;
+			}
+
+		} else if (var1 == 327) {
+			var0.modelAngleX = 150;
+			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
+			var0.modelType = 5;
+			var0.modelId = 0;
+		} else if (var1 == 328) {
+			var0.modelAngleX = 150;
+			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
+			var0.modelType = 5;
+			var0.modelId = 1;
+		}
 	}
 }

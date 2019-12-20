@@ -4,54 +4,61 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dy")
+@ObfuscatedName("dc")
 @Implements("TileItemPile")
 public final class TileItemPile {
-	@ObfuscatedName("a")
+	@ObfuscatedName("so")
 	@ObfuscatedGetter(
-		intValue = 960185027
+		longValue = 3482799438459679755L
+	)
+	static long field1522;
+	@ObfuscatedName("cn")
+	public static char field1521;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 2053459421
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 518288239
+		intValue = 972029952
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1518597633
+		intValue = 1850274101
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		signature = "Lep;"
 	)
 	@Export("first")
 	Entity first;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "Lep;"
 	)
 	@Export("second")
 	Entity second;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		signature = "Lep;"
 	)
 	@Export("third")
 	Entity third;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		longValue = 1765844833924880689L
+		longValue = 6402708744668809381L
 	)
 	@Export("tag")
 	long tag;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -483031039
+		intValue = 790929517
 	)
 	@Export("height")
 	int height;
@@ -59,18 +66,12 @@ public final class TileItemPile {
 	TileItemPile() {
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Lhq;Lhq;Lhq;Lhq;I)V",
-		garbageValue = "320810810"
+		signature = "(I)I",
+		garbageValue = "-2014741616"
 	)
-	@Export("Widget_setArchives")
-	public static void Widget_setArchives(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2, AbstractArchive var3) {
-		Coord.Widget_archive = var0;
-		StructDefinition.Widget_modelsArchive = var1;
-		Widget.Widget_spritesArchive = var2;
-		Widget.Widget_fontsArchive = var3;
-		Widget.Widget_interfaceComponents = new Widget[Coord.Widget_archive.getGroupCount()][];
-		class215.Widget_loadedInterfaces = new boolean[Coord.Widget_archive.getGroupCount()];
+	static final int method2797() {
+		return ViewportMouse.ViewportMouse_y;
 	}
 }

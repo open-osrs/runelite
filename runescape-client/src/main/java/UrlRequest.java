@@ -1,25 +1,35 @@
 import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("er")
+@ObfuscatedName("ex")
 @Implements("UrlRequest")
 public class UrlRequest {
-	@ObfuscatedName("dw")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lij;"
+		signature = "Lls;"
 	)
-	@Export("archive13")
-	static Archive archive13;
-	@ObfuscatedName("a")
+	@Export("leftTitleSprite")
+	static Sprite leftTitleSprite;
+	@ObfuscatedName("d")
+	@Export("Tiles_hue")
+	static int[] Tiles_hue;
+	@ObfuscatedName("jr")
+	@ObfuscatedGetter(
+		intValue = -1130751947
+	)
+	@Export("Client_plane")
+	static int Client_plane;
+	@ObfuscatedName("f")
 	@Export("url")
 	final URL url;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@Export("isDone0")
 	volatile boolean isDone0;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@Export("response0")
 	volatile byte[] response0;
 
@@ -27,20 +37,20 @@ public class UrlRequest {
 		this.url = var1;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "-340522486"
+		garbageValue = "186206860"
 	)
 	@Export("isDone")
 	public boolean isDone() {
 		return this.isDone0;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "(I)[B",
-		garbageValue = "-14894560"
+		garbageValue = "-2113635317"
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {

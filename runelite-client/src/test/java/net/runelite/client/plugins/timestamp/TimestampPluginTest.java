@@ -30,8 +30,9 @@ import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import java.util.TimeZone;
 import javax.inject.Inject;
 import net.runelite.api.Client;
-import net.runelite.api.events.ConfigChanged;
-import static org.junit.Assert.assertTrue;
+import net.runelite.client.config.OpenOSRSConfig;
+import net.runelite.client.events.ConfigChanged;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,6 +50,10 @@ public class TimestampPluginTest
 	@Mock
 	@Bind
 	TimestampConfig config;
+
+	@Mock
+	@Bind
+	private OpenOSRSConfig openOSRSConfig;
 
 	@Inject
 	TimestampPlugin plugin;
@@ -74,6 +79,6 @@ public class TimestampPluginTest
 		String testOutput = "[2019:04:07:15:03:58:36]";
 		TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
 		plugin.getFormatter().setTimeZone(timeZone);
-		assertTrue(plugin.generateTimestamp(testInput, timeZone.toZoneId()).equals(testOutput));
+		assertEquals(plugin.generateTimestamp(testInput, timeZone.toZoneId()), testOutput);
 	}
 }

@@ -181,6 +181,10 @@ class LootPanel extends JPanel
 
 		switch (name)
 		{
+			case "master farmer":
+				currentText = "Current pick-pocket count:";
+				loggedText = "Pickpockets logged:";
+				break;
 			case "Wintertodt":
 				currentText = "Current Killcount:";
 				loggedText = "Crates logged:";
@@ -197,12 +201,12 @@ class LootPanel extends JPanel
 				currentText = "Chests opened:";
 				loggedText = "Chests logged:";
 				break;
-			case  "Clue Scroll (Beginner)":
-			case  "Clue Scroll (Easy)":
-			case  "Clue Scroll (Medium)":
-			case  "Clue Scroll (Hard)":
-			case  "Clue Scroll (Elite)":
-			case  "Clue Scroll (Master)":
+			case "Clue Scroll (Beginner)":
+			case "Clue Scroll (Easy)":
+			case "Clue Scroll (Medium)":
+			case "Clue Scroll (Hard)":
+			case "Clue Scroll (Elite)":
+			case "Clue Scroll (Master)":
 				currentText = "Clues completed:";
 				loggedText = "Clues logged:";
 				break;

@@ -54,16 +54,15 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.client.RuneLite;
 import static net.runelite.client.RuneLite.PROFILES_DIR;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.util.ColorUtil;
 import org.apache.commons.lang3.StringUtils;
 
@@ -81,7 +80,6 @@ public class ConfigManager
 
 	private final ConfigInvocationHandler handler = new ConfigInvocationHandler(this);
 	private final Properties properties = new Properties();
-	private final Map<String, Object> configObjectCache = new HashMap<>();
 	private final Map<String, String> pendingChanges = new HashMap<>();
 
 	@Inject
@@ -154,6 +152,7 @@ public class ConfigManager
 
 	private synchronized void loadFromFile()
 	{
+		handler.invalidate();
 		properties.clear();
 
 		try (FileInputStream in = new FileInputStream(SETTINGS_FILE))
@@ -219,20 +218,6 @@ public class ConfigManager
 		}
 	}
 
-	// Attempts to fetch the config value from the cache if present. Otherwise it calls the get value function and caches the result
-	Object getConfigObjectFromCacheOrElse(String groupName, String key, Function<String, Object> getValue)
-	{
-		String configItemKey = groupName + "." + key;
-		return configObjectCache.computeIfAbsent(configItemKey, getValue);
-	}
-
-	// Posts the configchanged event to the event bus and remove the changed key from the cache
-	private void postConfigChanged(ConfigChanged configChanged)
-	{
-		configObjectCache.remove(configChanged.getGroup() + "." + configChanged.getKey());
-		eventBus.post(ConfigChanged.class, configChanged);
-	}
-
 	@SuppressWarnings("unchecked")
 	public <T> T getConfig(Class<T> clazz)
 	{
@@ -255,11 +240,6 @@ public class ConfigManager
 	public String getConfiguration(String groupName, String key)
 	{
 		return properties.getProperty(groupName + "." + key);
-	}
-
-	public String getConfiguration(String propertyKey)
-	{
-		return properties.getProperty(propertyKey);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -290,6 +270,7 @@ public class ConfigManager
 		}
 
 		log.debug("Setting configuration value for {}.{} to {}", groupName, key, value);
+		handler.invalidate();
 
 		synchronized (pendingChanges)
 		{
@@ -302,7 +283,7 @@ public class ConfigManager
 		configChanged.setOldValue(oldValue);
 		configChanged.setNewValue(value);
 
-		postConfigChanged(configChanged);
+		eventBus.post(ConfigChanged.class, configChanged);
 	}
 
 	public void setConfiguration(String groupName, String key, Object value)
@@ -320,6 +301,7 @@ public class ConfigManager
 		}
 
 		log.debug("Unsetting configuration value for {}.{}", groupName, key);
+		handler.invalidate();
 
 		synchronized (pendingChanges)
 		{
@@ -466,6 +448,10 @@ public class ConfigManager
 		if (type == int.class)
 		{
 			return Integer.parseInt(str);
+		}
+		if (type == long.class)
+		{
+			return Long.parseLong(str);
 		}
 		if (type == Color.class)
 		{
@@ -632,6 +618,10 @@ public class ConfigManager
 		if (object instanceof EnumSet)
 		{
 			return ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + "{" + object.toString() + "}";
+		}
+		if (object instanceof Number)
+		{
+			return String.valueOf(object);
 		}
 		return object.toString();
 	}

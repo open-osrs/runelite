@@ -3,21 +3,15 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hd")
+@ObfuscatedName("hv")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
-	@ObfuscatedName("fh")
-	@ObfuscatedSignature(
-		signature = "Lev;"
-	)
-	@Export("urlRequester")
-	static UrlRequester urlRequester;
 
 	static {
 		Skills_enabled = new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false};
@@ -33,25 +27,89 @@ public class Skills {
 
 	}
 
-	@ObfuscatedName("kc")
+	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "3031310"
+		signature = "([BI)[B",
+		garbageValue = "1842420439"
 	)
-	static final void method4271() {
-		PacketBufferNode var0 = SoundSystem.getPacketBufferNode(ClientPacket.field2265, Client.packetWriter.isaacCipher);
-		Client.packetWriter.addNode(var0);
+	@Export("decompressBytes")
+	static final byte[] decompressBytes(byte[] var0) {
+		Buffer var1 = new Buffer(var0);
+		int var2 = var1.readUnsignedByte();
+		int var3 = var1.readInt();
+		if (var3 < 0 || AbstractArchive.field3118 != 0 && var3 > AbstractArchive.field3118) {
+			throw new RuntimeException();
+		} else if (var2 == 0) {
+			byte[] var4 = new byte[var3];
+			var1.readBytes(var4, 0, var3);
+			return var4;
+		} else {
+			int var6 = var1.readInt();
+			if (var6 >= 0 && (AbstractArchive.field3118 == 0 || var6 <= AbstractArchive.field3118)) {
+				byte[] var5 = new byte[var6];
+				if (var2 == 1) {
+					BZip2Decompressor.BZip2Decompressor_decompress(var5, var6, var0, var3, 9);
+				} else {
+					AbstractArchive.gzipDecompressor.decompress(var1, var5);
+				}
 
-		for (InterfaceParent var1 = (InterfaceParent)Client.interfaceParents.first(); var1 != null; var1 = (InterfaceParent)Client.interfaceParents.next()) {
-			if (var1.type == 0 || var1.type == 3) {
-				GrandExchangeOfferOwnWorldComparator.closeInterface(var1, true);
+				return var5;
+			} else {
+				throw new RuntimeException();
 			}
 		}
+	}
 
-		if (Client.meslayerContinueWidget != null) {
-			GrandExchangeOfferAgeComparator.invalidateWidget(Client.meslayerContinueWidget);
-			Client.meslayerContinueWidget = null;
+	@ObfuscatedName("hp")
+	@ObfuscatedSignature(
+		signature = "(III)V",
+		garbageValue = "381562265"
+	)
+	@Export("updateItemPile")
+	static final void updateItemPile(int var0, int var1) {
+		NodeDeque var2 = Client.groundItems[UrlRequest.Client_plane][var0][var1];
+		if (var2 == null) {
+			class14.scene.removeGroundItemPile(UrlRequest.Client_plane, var0, var1);
+		} else {
+			long var3 = -99999999L;
+			TileItem var5 = null;
+
+			TileItem var6;
+			for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) {
+				ItemDefinition var7 = PacketBufferNode.ItemDefinition_get(var6.id);
+				long var8 = (long)var7.price;
+				if (var7.isStackable == 1) {
+					var8 *= (long)(var6.quantity + 1);
+				}
+
+				if (var8 > var3) {
+					var3 = var8;
+					var5 = var6;
+				}
+			}
+
+			if (var5 == null) {
+				class14.scene.removeGroundItemPile(UrlRequest.Client_plane, var0, var1);
+			} else {
+				var2.addLast(var5);
+				TileItem var12 = null;
+				TileItem var11 = null;
+
+				for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) {
+					if (var5.id != var6.id) {
+						if (var12 == null) {
+							var12 = var6;
+						}
+
+						if (var12.id != var6.id && var11 == null) {
+							var11 = var6;
+						}
+					}
+				}
+
+				long var9 = KeyHandler.calculateTag(var0, var1, 3, false, 0);
+				class14.scene.newGroundItemPile(UrlRequest.Client_plane, var0, var1, ScriptEvent.getTileHeight(var0 * 128 + 64, var1 * 128 + 64, UrlRequest.Client_plane), var5, var9, var12, var11);
+			}
 		}
-
 	}
 }

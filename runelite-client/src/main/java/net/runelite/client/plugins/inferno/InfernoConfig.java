@@ -96,7 +96,7 @@ public interface InfernoConfig extends Config
 	{
 		return false;
 	}
-	
+
 	@ConfigSection(
 		name = "Bats",
 		description = "Configuration options for Bats",
@@ -107,7 +107,7 @@ public interface InfernoConfig extends Config
 	{
 		return false;
 	}
-	
+
 	@ConfigSection(
 		name = "Blobs",
 		description = "Configuration options for Blobs",
@@ -129,7 +129,7 @@ public interface InfernoConfig extends Config
 	{
 		return false;
 	}
-	
+
 	@ConfigSection(
 		name = "Rangers",
 		description = "Configuration options for Rangers",
@@ -140,7 +140,7 @@ public interface InfernoConfig extends Config
 	{
 		return false;
 	}
-	
+
 	@ConfigSection(
 		name = "Magers",
 		description = "Configuration options for Magers",
@@ -196,7 +196,7 @@ public interface InfernoConfig extends Config
 		return false;
 	}
 
-	
+
 	@ConfigItem(
 		position = 0,
 		keyName = "prayerDisplayMode",
@@ -940,6 +940,18 @@ public interface InfernoConfig extends Config
 		section = "ZukSection"
 	)
 	default boolean hideZukDeath()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		position = 4,
+		keyName = "ticksOnNpcZukShield",
+		name = "Ticks on Zuk Shield",
+		description = "Draws the amount of ticks before Zuk attacks on the floating shield",
+		section = "ZukSection"
+	)
+	default boolean ticksOnNpcZukShield()
 	{
 		return false;
 	}

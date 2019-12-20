@@ -32,9 +32,9 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -48,8 +48,8 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.FocusChanged;
@@ -187,7 +187,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 		// Set font rendering properties like the OS's font rendering
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		Map desktopHints = (Map)(tk.getDesktopProperty("awt.font.desktophints"));
+		Map desktopHints = (Map) (tk.getDesktopProperty("awt.font.desktophints"));
 		if (desktopHints != null)
 		{
 			graphics.addRenderingHints(desktopHints);
@@ -325,7 +325,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 						graphics.setColor(previous);
 					}
 
-					if (menuEntries == null && !client.isMenuOpen() && bounds.contains(mouse))
+					if (menuEntries == null && !client.isMenuOpen() && !client.isSpellSelected() && bounds.contains(mouse))
 					{
 						menuEntries = createRightClickMenuEntries(overlay);
 					}
@@ -511,6 +511,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 
 		graphics.translate(point.x, point.y);
+		overlay.getBounds().setLocation(point);
 
 		final Dimension overlayDimension;
 		try
@@ -524,7 +525,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 
 		final Dimension dimension = MoreObjects.firstNonNull(overlayDimension, new Dimension());
-		overlay.setBounds(new Rectangle(point, dimension));
+		overlay.getBounds().setSize(dimension);
 	}
 
 	private boolean shouldInvalidateBounds()

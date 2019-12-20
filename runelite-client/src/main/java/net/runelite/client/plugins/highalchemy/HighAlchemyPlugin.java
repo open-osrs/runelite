@@ -36,7 +36,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.events.ConfigChanged;
 import static net.runelite.api.widgets.WidgetID.BANK_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.BANK_INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.DEPOSIT_BOX_GROUP_ID;
@@ -46,7 +45,8 @@ import static net.runelite.api.widgets.WidgetID.GUIDE_PRICES_INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.SHOP_INVENTORY_GROUP_ID;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -76,9 +76,6 @@ public class HighAlchemyPlugin extends Plugin
 	@Inject
 	private HighAlchemyOverlay overlay;
 
-	@Inject
-	private EventBus eventBus;
-
 	@Provides
 	HighAlchemyConfig getConfig(ConfigManager configManager)
 	{
@@ -95,21 +92,20 @@ public class HighAlchemyPlugin extends Plugin
 	private boolean usingFireRunes;
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		updateConfig();
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-
 		buildGroupList();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		overlayManager.remove(overlay);
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals(CONFIG_GROUP))

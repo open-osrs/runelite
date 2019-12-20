@@ -34,7 +34,6 @@ import net.runelite.client.config.ConfigSection;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.plugins.menuentryswapper.util.ArdougneCloakMode;
 import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
-import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
 import net.runelite.client.plugins.menuentryswapper.util.ConstructionCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.ConstructionMode;
@@ -826,18 +825,6 @@ public interface MenuEntrySwapperConfig extends Config
 		return false;
 	}
 
-	@ConfigItem(
-		keyName = "charterOption",
-		name = "Trader Crew",
-		description = "Configure whether you want Charter or Trade to be the first option of Trader Crewmembers.",
-		position = 27,
-		section = "miscellaneousSection"
-	)
-	default CharterOption charterOption()
-	{
-		return CharterOption.TRADE;
-	}
-
 	//------------------------------------------------------------//
 	// Shop / Stores
 	//------------------------------------------------------------//
@@ -1320,17 +1307,6 @@ public interface MenuEntrySwapperConfig extends Config
 	//------------------------------------------------------------//
 
 	@ConfigItem(
-		keyName = "lastJewel",
-		name = "Last Destination for Jewellery Box",
-		description = "Adds a \"Last-destination\" menu option when Jewellery Boxes are right clicked",
-		section = "teleportationSection"
-	)
-	default boolean lastJewel()
-	{
-		return true;
-	}
-
-	@ConfigItem(
 		keyName = "swapFairyRing",
 		name = "Fairy Ring",
 		description = "Swap 'Zanaris' with 'Last-destination' or 'Configure' on Fairy rings.",
@@ -1357,11 +1333,11 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "swapFairyTree",
-			name = "Fairy Tree",
-			description = "Swap options on PoH Fairy Tree",
-			position = 2,
-			section = "teleportationSection"
+		keyName = "swapFairyTree",
+		name = "Fairy Tree",
+		description = "Swap options on PoH Fairy Tree",
+		position = 2,
+		section = "teleportationSection"
 	)
 	default boolean swapFairyTree()
 	{
@@ -1369,13 +1345,13 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "fairyTree",
-			name = "Mode",
-			description = "",
-			position = 3,
-			section = "teleportationSection",
-			hidden = true,
-			unhide = "swapFairyTree"
+		keyName = "fairyTree",
+		name = "Mode",
+		description = "",
+		position = 3,
+		section = "teleportationSection",
+		hidden = true,
+		unhide = "swapFairyTree"
 	)
 	default FairyTreeMode swapFairyTreeMode()
 	{
@@ -1730,6 +1706,18 @@ public interface MenuEntrySwapperConfig extends Config
 		return SlayerRingMode.CHECK;
 	}
 
+	@ConfigItem(
+		keyName = "swapJewelleryBox",
+		name = "Jewellery Box",
+		description = "Swap Teleport Menu with previous destination on Jewellery Box",
+		position = 31,
+		section = "teleportationSection"
+	)
+	default boolean swapJewelleryBox()
+	{
+		return false;
+	}
+
 	//------------------------------------------------------------//
 	// Right Click Options
 	//------------------------------------------------------------//
@@ -1951,23 +1939,4 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return "cure other, energy transfer, heal other, vengeance other";
 	}
-
-	@ConfigItem(
-		keyName = "lastDes",
-		name = "",
-		description = "Last jewellery box destination (option)",
-		hidden = true
-	)
-	default String lastDes()
-	{
-		return "";
-	}
-
-	@ConfigItem(
-		keyName = "lastDes",
-		name = "",
-		description = "Last jewellery box destination (option)",
-		hidden = true
-	)
-	void lastDes(String des);
 }

@@ -1,69 +1,63 @@
-import java.awt.Image;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bk")
+@ObfuscatedName("be")
 @Implements("World")
 public class World {
-	@ObfuscatedName("n")
-	@Export("Interpreter_intLocals")
-	static int[] Interpreter_intLocals;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 494221483
+		intValue = 1287165751
 	)
 	@Export("World_count")
 	static int World_count;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1998589339
+		intValue = 583854419
 	)
 	@Export("World_listCount")
 	static int World_listCount;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@Export("World_sortOption2")
 	static int[] World_sortOption2;
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@Export("World_sortOption1")
 	static int[] World_sortOption1;
-	@ObfuscatedName("am")
-	static Image field996;
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -962932589
+		intValue = -1519088655
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("p")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -932185849
+		intValue = 1545527697
 	)
 	@Export("properties")
 	int properties;
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -148659453
+		intValue = 1058065385
 	)
 	@Export("population")
 	int population;
 	@ObfuscatedName("k")
 	@Export("host")
 	String host;
-	@ObfuscatedName("x")
+	@ObfuscatedName("s")
 	@Export("activity")
 	String activity;
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1478384809
+		intValue = -511848303
 	)
 	@Export("location")
 	int location;
-	@ObfuscatedName("r")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -556966481
+		intValue = -1131143169
 	)
 	@Export("index")
 	int index;
@@ -78,10 +72,10 @@ public class World {
 	World() {
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1210336025"
+		signature = "(S)Z",
+		garbageValue = "-26711"
 	)
 	@Export("isMembersOnly")
 	boolean isMembersOnly() {
@@ -91,67 +85,79 @@ public class World {
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "-293217805"
+		garbageValue = "-1453157769"
 	)
-	boolean method1917() {
+	boolean method1782() {
 		return (2 & this.properties) != 0;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "726558642"
+		garbageValue = "-2060131341"
 	)
 	@Export("isPvp")
 	boolean isPvp() {
 		return (4 & this.properties) != 0;
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "526640456"
+		garbageValue = "1753772408"
 	)
-	boolean method1885() {
+	boolean method1780() {
 		return (8 & this.properties) != 0;
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "-771328937"
+		garbageValue = "1313707308"
 	)
 	@Export("isDeadman")
 	boolean isDeadman() {
 		return (536870912 & this.properties) != 0;
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "-188040655"
+		garbageValue = "-1940654935"
 	)
 	@Export("isBeta")
 	boolean isBeta() {
 		return (33554432 & this.properties) != 0;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "-320413166"
+		garbageValue = "-44264871"
 	)
-	boolean method1887() {
+	boolean method1775() {
 		return (1073741824 & this.properties) != 0;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(IB)[B",
-		garbageValue = "-113"
+		signature = "(IB)Lik;",
+		garbageValue = "20"
 	)
-	@Export("ByteArrayPool_getArray")
-	public static synchronized byte[] ByteArrayPool_getArray(int var0) {
-		return ByteArrayPool.ByteArrayPool_getArrayBool(var0, false);
+	@Export("getEnum")
+	public static EnumDefinition getEnum(int var0) {
+		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = class286.EnumDefinition_archive.takeFile(8, var0);
+			var1 = new EnumDefinition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
+			}
+
+			EnumDefinition.EnumDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
 	}
 }

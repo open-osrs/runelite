@@ -3,7 +3,6 @@ package net.runelite.client.plugins.deathindicator;
 import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,13 +15,12 @@ import net.runelite.client.config.ConfigManager;
 import static net.runelite.http.api.RuneLiteAPI.GSON;
 
 @Slf4j
-public class Bones
+class Bones
 {
 	private static final String CONFIG_GROUP = "deathIndicator";
 	private static final String BONES_PREFIX = "bones_";
 
 	private ImmutableMap<Integer, Map<WorldPoint, List<Bone>>> map;
-	private boolean changed = false;
 
 	void init(Client client, ConfigManager configManager)
 	{
@@ -31,14 +29,14 @@ public class Bones
 		Bone[][] bones = getBones(configManager, regions);
 		if (log.isDebugEnabled())
 		{
-			log.debug("Regions are now {}", Arrays.toString(regions));
+			log.trace("Regions are now {}", Arrays.toString(regions));
 
 			int n = 0;
 			for (Bone[] ar : bones)
 			{
 				n += ar.length;
 			}
-				log.debug("Loaded {} Bones", n);
+			log.debug("Loaded {} Bones", n);
 		}
 
 		initMap(regions, bones);
@@ -81,7 +79,7 @@ public class Bones
 			Bone[] boneA = bones[i];
 			if (boneA.length == 0)
 			{
-				builder.put(region, Collections.EMPTY_MAP);
+				builder.put(region, new HashMap<>());
 				continue;
 			}
 
@@ -103,45 +101,38 @@ public class Bones
 		this.forEach(bone -> bone.addToScene(scene));
 	}
 
-	void save(ConfigManager configManager)
+	void save(ConfigManager configManager, int region)
 	{
-		if (this.map == null || !changed)
+		final Map<WorldPoint, List<Bone>> regionBones = this.map.get(region);
+		if (regionBones == null)
 		{
-			this.changed = false;
 			return;
 		}
 
-		for (Map.Entry<Integer, Map<WorldPoint, List<Bone>>> entry : this.map.entrySet())
+		final String key = BONES_PREFIX + region;
+
+		if (regionBones.size() == 0)
 		{
-			final String key = BONES_PREFIX + entry.getKey();
-			final Map<WorldPoint, List<Bone>> map = entry.getValue();
-			if (map.size() == 0)
-			{
-				configManager.unsetConfiguration(CONFIG_GROUP, key);
-				continue;
-			}
-
-			List<Bone> list = new ArrayList<>(map.values().size());
-			for (List<Bone> lb : map.values())
-			{
-				list.addAll(lb);
-			}
-
-			String val = GSON.toJson(list.toArray(new Bone[0]));
-			configManager.setConfiguration(CONFIG_GROUP, key, val);
+			configManager.unsetConfiguration(CONFIG_GROUP, key);
 		}
 
-		this.changed = false;
+		List<Bone> list = new ArrayList<>(regionBones.values().size());
+		for (List<Bone> lb : regionBones.values())
+		{
+			list.addAll(lb);
+		}
+
+		String val = GSON.toJson(list.toArray(new Bone[0]));
+		configManager.setConfiguration(CONFIG_GROUP, key, val);
 	}
 
 	public boolean add(Bone bone)
 	{
-		if (this.map == null)
+		if (this.map == null || bone == null)
 		{
 			return false;
 		}
 
-		this.changed = true;
 		final int region = bone.getLoc().getRegionID();
 		final Map<WorldPoint, List<Bone>> map = this.map.get(region);
 		final List<Bone> list = map.computeIfAbsent(bone.getLoc(), wp -> new ArrayList<>());
@@ -151,7 +142,6 @@ public class Bones
 
 	public void remove(Bone bone)
 	{
-		this.changed = true;
 		final int region = bone.getLoc().getRegionID();
 		final Map<WorldPoint, List<Bone>> map = this.map.get(region);
 		final List<Bone> list = map.get(bone.getLoc());

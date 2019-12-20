@@ -27,23 +27,22 @@
 package net.runelite.client.plugins.entityhider;
 
 import com.google.inject.Provides;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @PluginDescriptor(
 	name = "Entity Hider",
@@ -60,9 +59,6 @@ public class EntityHiderPlugin extends Plugin
 	@Inject
 	private EntityHiderConfig config;
 
-	@Inject
-	private EventBus eventBus;
-
 	@Provides
 	EntityHiderConfig provideConfig(ConfigManager configManager)
 	{
@@ -73,31 +69,30 @@ public class EntityHiderPlugin extends Plugin
 	protected void startUp()
 	{
 		updateConfig();
-		addSubscriptions();
 
 		Text.fromCSV(config.hideNPCsNames()).forEach(client::addHiddenNpcName);
 		Text.fromCSV(config.hideNPCsOnDeath()).forEach(client::addHiddenNpcDeath);
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-	}
-
+	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals("entityhider"))
 		{
 			updateConfig();
 
+			if (event.getOldValue() == null || event.getNewValue() == null)
+			{
+				return;
+			}
+
 			if (event.getKey().equals("hideNPCsNames"))
 			{
 				List<String> oldList = Text.fromCSV(event.getOldValue());
 				List<String> newList = Text.fromCSV(event.getNewValue());
 
-				ArrayList<String> removed = oldList.stream().filter(s -> !newList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
-				ArrayList<String> added = newList.stream().filter(s -> !oldList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+				List<String> removed = oldList.stream().filter(s -> !newList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
+				List<String> added = newList.stream().filter(s -> !oldList.contains(s)).collect(Collectors.toCollection(ArrayList::new));
 
 				removed.forEach(client::removeHiddenNpcName);
 				added.forEach(client::addHiddenNpcName);
@@ -117,6 +112,7 @@ public class EntityHiderPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	public void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() == GameState.LOGGED_IN)
@@ -144,6 +140,8 @@ public class EntityHiderPlugin extends Plugin
 		//client.setNPCsNames(Text.fromCSV(config.hideNPCsNames()));
 		//client.setNPCsHiddenOnDeath(Text.fromCSV(config.hideNPCsOnDeath()));
 
+		client.setPetsHidden(config.hidePets());
+
 		client.setAttackersHidden(config.hideAttackers());
 
 		client.setProjectilesHidden(config.hideProjectiles());
@@ -152,10 +150,8 @@ public class EntityHiderPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		client.setIsHidingEntities(false);
 
 		client.setPlayersHidden(false);
@@ -169,6 +165,8 @@ public class EntityHiderPlugin extends Plugin
 
 		client.setNPCsHidden(false);
 		client.setNPCsHidden2D(false);
+
+		client.setPetsHidden(false);
 
 		client.setAttackersHidden(false);
 
@@ -189,7 +187,8 @@ public class EntityHiderPlugin extends Plugin
 			return true;
 		}
 
-		final int playerRegionID = WorldPoint.fromLocalInstance(client, localPlayer.getLocalLocation()).getRegionID();
+		final WorldPoint worldPoint = WorldPoint.fromLocalInstance(client, client.getLocalPlayer().getLocalLocation());
+		final int playerRegionID = worldPoint == null ? 0 : worldPoint.getRegionID();
 
 		// 9520 = Castle Wars
 		return playerRegionID != 9520;

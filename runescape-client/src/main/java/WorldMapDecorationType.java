@@ -4,128 +4,128 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hv")
+@ObfuscatedName("hs")
 @Implements("WorldMapDecorationType")
 public enum WorldMapDecorationType implements Enumerated {
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2703(0, 0),
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2719(1, 0),
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2717(2, 0),
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2704(3, 0),
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2705(9, 2),
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2706(4, 1),
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2712(5, 1),
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2708(6, 1),
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2709(7, 1),
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2707(8, 1),
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2711(12, 2),
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2701(13, 2),
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2713(14, 2),
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2714(15, 2),
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2715(16, 2),
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2716(17, 2),
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2720(18, 2),
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2718(19, 2),
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2702(20, 2),
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2710(21, 2),
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		signature = "Lhv;"
-	)
-	field2721(10, 2),
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Lhv;"
+		signature = "Lhs;"
 	)
-	field2722(11, 2),
-	@ObfuscatedName("g")
+	field2719(0, 0),
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Lhv;"
+		signature = "Lhs;"
 	)
-	field2723(22, 3);
-
+	field2706(1, 0),
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2710(2, 0),
 	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2708(3, 0),
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2707(9, 2),
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2711(4, 1),
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2724(5, 1),
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2712(6, 1),
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2713(7, 1),
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2714(8, 1),
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2715(12, 2),
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2716(13, 2),
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2723(14, 2),
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2721(15, 2),
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2722(16, 2),
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2720(17, 2),
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2718(18, 2),
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2717(19, 2),
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2705(20, 2),
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2709(21, 2),
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2725(10, 2),
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2726(11, 2),
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "Lhs;"
+	)
+	field2727(22, 3);
+
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -649990391
+		intValue = -1693964609
 	)
 	@Export("id")
 	public final int id;
@@ -138,81 +138,147 @@ public enum WorldMapDecorationType implements Enumerated {
 		this.id = var3;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1993081102"
+		signature = "(B)I",
+		garbageValue = "-57"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(IB)Lix;",
-		garbageValue = "0"
+		signature = "(Lhz;I)V",
+		garbageValue = "1637716955"
 	)
-	@Export("getObjectDefinition")
-	public static ObjectDefinition getObjectDefinition(int var0) {
-		ObjectDefinition var1 = (ObjectDefinition)ObjectDefinition.ObjectDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = ObjectDefinition.ObjectDefinition_archive.takeFile(6, var0);
-			var1 = new ObjectDefinition();
-			var1.id = var0;
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			if (var1.isSolid) {
-				var1.interactType = 0;
-				var1.boolean1 = false;
-			}
-
-			ObjectDefinition.ObjectDefinition_cached.put(var1, (long)var0);
-			return var1;
-		}
+	public static void method4079(AbstractArchive var0) {
+		FloorUnderlayDefinition.FloorUnderlayDefinition_archive = var0;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/CharSequence;IIB)Ljava/lang/String;",
-		garbageValue = "-18"
+		signature = "(III)I",
+		garbageValue = "500637540"
 	)
-	public static String method4270(CharSequence[] var0, int var1, int var2) {
+	public static int method4085(int var0, int var1) {
+		return (var0 << 8) + var1;
+	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		signature = "(Lkl;IB)Z",
+		garbageValue = "17"
+	)
+	@Export("updateExternalPlayer")
+	static boolean updateExternalPlayer(PacketBuffer var0, int var1) {
+		int var2 = var0.readBits(2);
+		int var3;
+		int var4;
+		int var7;
+		int var8;
+		int var9;
+		int var10;
 		if (var2 == 0) {
-			return "";
+			if (var0.readBits(1) != 0) {
+				updateExternalPlayer(var0, var1);
+			}
+
+			var3 = var0.readBits(13);
+			var4 = var0.readBits(13);
+			boolean var12 = var0.readBits(1) == 1;
+			if (var12) {
+				Players.Players_pendingUpdateIndices[++Players.Players_pendingUpdateCount - 1] = var1;
+			}
+
+			if (Client.players[var1] != null) {
+				throw new RuntimeException();
+			} else {
+				Player var6 = Client.players[var1] = new Player();
+				var6.index = var1;
+				if (Players.field1228[var1] != null) {
+					var6.read(Players.field1228[var1]);
+				}
+
+				var6.orientation = Players.Players_orientations[var1];
+				var6.targetIndex = Players.Players_targetIndices[var1];
+				var7 = Players.Players_regions[var1];
+				var8 = var7 >> 28;
+				var9 = var7 >> 14 & 255;
+				var10 = var7 & 255;
+				var6.pathTraversed[0] = Players.field1231[var1];
+				var6.plane = (byte)var8;
+				var6.resetPath((var9 << 13) + var3 - MusicPatchPcmStream.baseX * 64, (var10 << 13) + var4 - ScriptEvent.baseY * 64);
+				var6.field616 = false;
+				return true;
+			}
 		} else if (var2 == 1) {
-			CharSequence var3 = var0[var1];
-			return var3 == null ? "null" : var3.toString();
+			var3 = var0.readBits(2);
+			var4 = Players.Players_regions[var1];
+			Players.Players_regions[var1] = (var4 & 268435455) + (((var4 >> 28) + var3 & 3) << 28);
+			return false;
 		} else {
-			int var8 = var2 + var1;
-			int var4 = 0;
-
-			for (int var5 = var1; var5 < var8; ++var5) {
-				CharSequence var6 = var0[var5];
-				if (var6 == null) {
-					var4 += 4;
-				} else {
-					var4 += var6.length();
+			int var5;
+			int var11;
+			if (var2 == 2) {
+				var3 = var0.readBits(5);
+				var4 = var3 >> 3;
+				var5 = var3 & 7;
+				var11 = Players.Players_regions[var1];
+				var7 = (var11 >> 28) + var4 & 3;
+				var8 = var11 >> 14 & 255;
+				var9 = var11 & 255;
+				if (var5 == 0) {
+					--var8;
+					--var9;
 				}
-			}
 
-			StringBuilder var9 = new StringBuilder(var4);
-
-			for (int var10 = var1; var10 < var8; ++var10) {
-				CharSequence var7 = var0[var10];
-				if (var7 == null) {
-					var9.append("null");
-				} else {
-					var9.append(var7);
+				if (var5 == 1) {
+					--var9;
 				}
-			}
 
-			return var9.toString();
+				if (var5 == 2) {
+					++var8;
+					--var9;
+				}
+
+				if (var5 == 3) {
+					--var8;
+				}
+
+				if (var5 == 4) {
+					++var8;
+				}
+
+				if (var5 == 5) {
+					--var8;
+					++var9;
+				}
+
+				if (var5 == 6) {
+					++var9;
+				}
+
+				if (var5 == 7) {
+					++var8;
+					++var9;
+				}
+
+				Players.Players_regions[var1] = (var8 << 14) + var9 + (var7 << 28);
+				return false;
+			} else {
+				var3 = var0.readBits(18);
+				var4 = var3 >> 16;
+				var5 = var3 >> 8 & 255;
+				var11 = var3 & 255;
+				var7 = Players.Players_regions[var1];
+				var8 = (var7 >> 28) + var4 & 3;
+				var9 = var5 + (var7 >> 14) & 255;
+				var10 = var7 + var11 & 255;
+				Players.Players_regions[var1] = (var9 << 14) + var10 + (var8 << 28);
+				return false;
+			}
 		}
 	}
 }

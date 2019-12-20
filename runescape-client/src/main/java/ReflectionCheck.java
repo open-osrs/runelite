@@ -6,72 +6,55 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ck")
+@ObfuscatedName("dn")
 @Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "Lhi;"
+		signature = "Lko;"
 	)
-	static Widget field1310;
-	@ObfuscatedName("dc")
-	@ObfuscatedSignature(
-		signature = "Lij;"
-	)
-	@Export("archive19")
-	static Archive archive19;
-	@ObfuscatedName("a")
+	@Export("ItemDefinition_fontPlain11")
+	static Font ItemDefinition_fontPlain11;
+	@ObfuscatedName("m")
+	@Export("userHomeDirectory")
+	static String userHomeDirectory;
+	@ObfuscatedName("mp")
 	@ObfuscatedGetter(
-		intValue = 1464057187
+		intValue = -942024519
+	)
+	@Export("selectedSpellFlags")
+	static int selectedSpellFlags;
+	@ObfuscatedName("f")
+	@Export("intReplaceValues")
+	int[] intReplaceValues;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = -1153531937
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("t")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -828282983
+		intValue = 1226139147
 	)
 	@Export("size")
 	int size;
-	@ObfuscatedName("n")
+	@ObfuscatedName("w")
 	@Export("operations")
 	int[] operations;
-	@ObfuscatedName("q")
+	@ObfuscatedName("p")
 	@Export("creationErrors")
 	int[] creationErrors;
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@Export("fields")
 	Field[] fields;
-	@ObfuscatedName("l")
-	@Export("intReplaceValues")
-	int[] intReplaceValues;
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@Export("methods")
 	Method[] methods;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@Export("arguments")
 	byte[][][] arguments;
 
 	ReflectionCheck() {
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-2"
-	)
-	public static void method2438() {
-		class197.midiPcmStream.clear();
-		class197.field2377 = 1;
-		class247.musicTrackArchive = null;
-	}
-
-	@ObfuscatedName("jv")
-	@ObfuscatedSignature(
-		signature = "(ZI)V",
-		garbageValue = "-1720039753"
-	)
-	@Export("setTapToDrop")
-	static void setTapToDrop(boolean var0) {
-		Client.tapToDrop = var0;
 	}
 }

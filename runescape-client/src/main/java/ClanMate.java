@@ -1,20 +1,31 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jn")
+@ObfuscatedName("jd")
 @Implements("ClanMate")
 public class ClanMate extends Buddy {
-	@ObfuscatedName("a")
+	@ObfuscatedName("ex")
+	@ObfuscatedGetter(
+		intValue = -1283772433
+	)
+	static int field3566;
+	@ObfuscatedName("fm")
+	@ObfuscatedGetter(
+		intValue = 1387790873
+	)
+	static int field3567;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Ljs;"
+		signature = "Ljf;"
 	)
 	@Export("friend")
 	TriBool friend;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Ljs;"
+		signature = "Ljf;"
 	)
 	@Export("ignored")
 	TriBool ignored;
@@ -24,20 +35,20 @@ public class ClanMate extends Buddy {
 		this.ignored = TriBool.TriBool_unknown;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "1787297671"
+		garbageValue = "1521819508"
 	)
 	@Export("clearIsFriend")
 	void clearIsFriend() {
 		this.friend = TriBool.TriBool_unknown;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "2015099973"
+		garbageValue = "2007555671"
 	)
 	@Export("isFriend")
 	public final boolean isFriend() {
@@ -48,30 +59,30 @@ public class ClanMate extends Buddy {
 		return this.friend == TriBool.TriBool_true;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "36"
+		signature = "(I)V",
+		garbageValue = "-1569748469"
 	)
 	@Export("fillIsFriend")
 	void fillIsFriend() {
-		this.friend = PacketWriter.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
+		this.friend = Message.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-59"
+		signature = "(S)V",
+		garbageValue = "3103"
 	)
 	@Export("clearIsIgnored")
 	void clearIsIgnored() {
 		this.ignored = TriBool.TriBool_unknown;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "-8"
+		signature = "(I)Z",
+		garbageValue = "-732818208"
 	)
 	@Export("isIgnored")
 	public final boolean isIgnored() {
@@ -82,26 +93,40 @@ public class ClanMate extends Buddy {
 		return this.ignored == TriBool.TriBool_true;
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "-1162251482"
+		garbageValue = "-1631625166"
 	)
 	@Export("fillIsIgnored")
 	void fillIsIgnored() {
-		this.ignored = PacketWriter.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
+		this.ignored = Message.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
 	}
 
-	@ObfuscatedName("lx")
+	@ObfuscatedName("jp")
 	@ObfuscatedSignature(
-		signature = "([BIB)V",
-		garbageValue = "81"
+		signature = "(IIIIII)V",
+		garbageValue = "2022495737"
 	)
-	static void method5151(byte[] var0, int var1) {
-		if (Client.randomDatData == null) {
-			Client.randomDatData = new byte[24];
+	@Export("drawScrollBar")
+	static final void drawScrollBar(int var0, int var1, int var2, int var3, int var4) {
+		class60.scrollBarSprites[0].drawAt(var0, var1);
+		class60.scrollBarSprites[1].drawAt(var0, var3 + var1 - 16);
+		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1 + 16, 16, var3 - 32, Client.field691);
+		int var5 = var3 * (var3 - 32) / var4;
+		if (var5 < 8) {
+			var5 = 8;
 		}
 
-		class300.writeRandomDat(var0, var1, Client.randomDatData, 0, 24);
+		int var6 = (var3 - 32 - var5) * var2 / (var4 - var3);
+		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var6 + var1 + 16, 16, var5, Client.field692);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0, var6 + var1 + 16, var5, Client.field694);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 1, var6 + var1 + 16, var5, Client.field694);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 16, 16, Client.field694);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 17, 16, Client.field694);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 15, var6 + var1 + 16, var5, Client.field693);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 14, var6 + var1 + 17, var5 - 1, Client.field693);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var5 + var6 + var1 + 15, 16, Client.field693);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0 + 1, var6 + var5 + var1 + 14, 15, Client.field693);
 	}
 }

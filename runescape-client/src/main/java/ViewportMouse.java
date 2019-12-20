@@ -4,61 +4,62 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dc")
+@ObfuscatedName("dz")
 @Implements("ViewportMouse")
 public class ViewportMouse {
-	@ObfuscatedName("rd")
-	@ObfuscatedGetter(
-		intValue = -645347533
-	)
-	static int field1713;
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@Export("ViewportMouse_isInViewport")
 	public static boolean ViewportMouse_isInViewport;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1568349329
+		intValue = -52069035
 	)
 	@Export("ViewportMouse_x")
 	public static int ViewportMouse_x;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1582090041
+		intValue = -819033673
 	)
 	@Export("ViewportMouse_y")
 	public static int ViewportMouse_y;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@Export("ViewportMouse_false0")
 	public static boolean ViewportMouse_false0;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1490381659
+		intValue = 945572255
 	)
 	static int field1717;
-	@ObfuscatedName("l")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1887189981
+		intValue = -45541993
 	)
 	static int field1718;
-	@ObfuscatedName("o")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 355686719
+		intValue = -1585979181
 	)
 	static int field1719;
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1299455817
+		intValue = -1002877627
 	)
 	static int field1720;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 702740743
+		intValue = 1949057711
 	)
 	@Export("ViewportMouse_entityCount")
 	public static int ViewportMouse_entityCount;
-	@ObfuscatedName("x")
+	@ObfuscatedName("s")
 	@Export("ViewportMouse_entityTags")
 	public static long[] ViewportMouse_entityTags;
+	@ObfuscatedName("hb")
+	@ObfuscatedGetter(
+		intValue = -1167251555
+	)
+	@Export("cameraPitch")
+	static int cameraPitch;
 
 	static {
 		ViewportMouse_isInViewport = false;
@@ -69,13 +70,26 @@ public class ViewportMouse {
 		ViewportMouse_entityTags = new long[1000];
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1115855205"
+		signature = "(II)I",
+		garbageValue = "1626465516"
 	)
-	@Export("WorldMapRegion_clearCachedSprites")
-	static void WorldMapRegion_clearCachedSprites() {
-		WorldMapRegion.WorldMapRegion_cachedSprites.clear();
+	public static int method2993(int var0) {
+		if (var0 > 0) {
+			return 1;
+		} else {
+			return var0 < 0 ? -1 : 0;
+		}
+	}
+
+	@ObfuscatedName("bg")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/String;B)I",
+		garbageValue = "-8"
+	)
+	@Export("stringCp1252NullTerminatedByteSize")
+	public static int stringCp1252NullTerminatedByteSize(String var0) {
+		return var0.length() + 1;
 	}
 }

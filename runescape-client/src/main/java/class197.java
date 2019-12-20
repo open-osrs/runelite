@@ -3,87 +3,83 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gh")
+@ObfuscatedName("gv")
 public class class197 {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+		signature = "Lhz;"
 	)
 	@Export("musicPatchesArchive")
 	public static AbstractArchive musicPatchesArchive;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+		signature = "Lhz;"
 	)
 	@Export("musicSamplesArchive")
 	public static AbstractArchive musicSamplesArchive;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+		signature = "Lhz;"
 	)
 	@Export("soundEffectsArchive")
 	public static AbstractArchive soundEffectsArchive;
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "Lgg;"
-	)
-	@Export("midiPcmStream")
-	public static MidiPcmStream midiPcmStream;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1610594971
+		intValue = -680038187
 	)
-	public static int field2377;
-	@ObfuscatedName("o")
+	public static int field2392;
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 319435127
-	)
-	@Export("musicTrackFileId")
-	public static int musicTrackFileId;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -1006961815
+		intValue = 1263500685
 	)
 	@Export("musicTrackVolume")
-	public static int musicTrackVolume;
-	@ObfuscatedName("d")
-	@ObfuscatedGetter(
-		intValue = -1415687209
-	)
-	public static int field2384;
-	@ObfuscatedName("p")
+	static int musicTrackVolume;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgb;"
+		signature = "Lgh;"
 	)
 	@Export("musicTrack")
 	public static MusicTrack musicTrack;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		signature = "Lha;"
+	)
+	static Widget field2398;
+	@ObfuscatedName("an")
+	@ObfuscatedSignature(
+		signature = "Llh;"
+	)
+	static Bounds field2397;
+	@ObfuscatedName("en")
+	@ObfuscatedGetter(
+		intValue = -54870407
+	)
+	@Export("port1")
+	static int port1;
 
 	static {
-		field2377 = 0;
+		field2392 = 0;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Lhq;Lhq;Lhq;I)V",
-		garbageValue = "1749712810"
+		signature = "(II)Lip;",
+		garbageValue = "760670759"
 	)
-	public static void method3845(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2) {
-		SequenceDefinition.SequenceDefinition_archive = var0;
-		DevicePcmPlayerProvider.SequenceDefinition_animationsArchive = var1;
-		SequenceDefinition.SequenceDefinition_skeletonsArchive = var2;
-	}
-
-	@ObfuscatedName("lr")
-	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-224459169"
-	)
-	static void method3844(int var0) {
-		for (IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.first(); var1 != null; var1 = (IntegerNode)Client.widgetClickMasks.next()) {
-			if ((long)var0 == (var1.key >> 48 & 65535L)) {
-				var1.remove();
+	@Export("getInvDefinition")
+	public static InvDefinition getInvDefinition(int var0) {
+		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0);
+			var1 = new InvDefinition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
 			}
-		}
 
+			InvDefinition.InvDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
 	}
 }

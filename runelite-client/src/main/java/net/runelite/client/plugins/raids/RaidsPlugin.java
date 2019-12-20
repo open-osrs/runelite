@@ -63,9 +63,9 @@ import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ClientTick;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetHiddenChanged;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
@@ -75,6 +75,8 @@ import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SpriteManager;
@@ -93,13 +95,12 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.api.util.Text;
-import org.apache.commons.lang3.StringUtils;
-import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 import net.runelite.client.ws.PartyMember;
 import net.runelite.client.ws.PartyService;
 import net.runelite.client.ws.WSClient;
 import net.runelite.http.api.ws.messages.party.PartyChatMessage;
+import org.apache.commons.lang3.StringUtils;
+import static org.apache.commons.lang3.StringUtils.containsIgnoreCase;
 
 @PluginDescriptor(
 	name = "CoX Scouter",
@@ -156,51 +157,67 @@ public class RaidsPlugin extends Plugin
 		"SCFPC.CSPCF - #WSWWNE#WSEENE" //good crabs first rare crabs second
 	);
 	private static final Pattern PUZZLES = Pattern.compile("Puzzle - (\\w+)");
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private ChatMessageManager chatMessageManager;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private InfoBoxManager infoBoxManager;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private Client client;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private RaidsConfig config;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private OverlayManager overlayManager;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private RaidsOverlay overlay;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private RaidsPointsOverlay pointsOverlay;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private RaidsPartyOverlay partyOverlay;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private LayoutSolver layoutSolver;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private SpriteManager spriteManager;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private ClientThread clientThread;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private TooltipManager tooltipManager;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private ClientToolbar clientToolbar;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private ItemManager itemManager;
+
 	@Getter(AccessLevel.NONE)
 	@Inject
 	private EventBus eventBus;
+
 	private boolean raidStarted;
 
 	@Inject
@@ -287,10 +304,9 @@ public class RaidsPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		updateConfig();
-		addSubscriptions();
 
 		overlayManager.add(overlay);
 		overlayManager.add(pointsOverlay);
@@ -314,10 +330,8 @@ public class RaidsPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		overlayManager.remove(overlay);
 		overlayManager.remove(pointsOverlay);
 		clientToolbar.removeNavigation(navButton);
@@ -334,16 +348,7 @@ public class RaidsPlugin extends Plugin
 		reset();
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(WidgetHiddenChanged.class, this, this::onWidgetHiddenChanged);
-		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
-		eventBus.subscribe(ClientTick.class, this, this::onClientTick);
-		eventBus.subscribe(OverlayMenuClicked.class, this, this::onOverlayMenuClicked);
-	}
-
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("raids"))
@@ -375,6 +380,7 @@ public class RaidsPlugin extends Plugin
 		clientThread.invokeLater(() -> checkRaidPresence(true));
 	}
 
+	@Subscribe
 	private void onWidgetHiddenChanged(WidgetHiddenChanged event)
 	{
 		if (!inRaidChambers || event.isHidden())
@@ -390,6 +396,7 @@ public class RaidsPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onVarbitChanged(VarbitChanged event)
 	{
 		checkRaidPresence(false);
@@ -399,6 +406,7 @@ public class RaidsPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onChatMessage(ChatMessage event)
 	{
 		if (inRaidChambers && event.getType() == ChatMessageType.FRIENDSCHATNOTIFICATION)
@@ -531,6 +539,7 @@ public class RaidsPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onClientTick(ClientTick event)
 	{
 		if (!this.raidsTimer
@@ -547,6 +556,7 @@ public class RaidsPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onOverlayMenuClicked(OverlayMenuClicked event)
 	{
 		OverlayMenuEntry entry = event.getEntry();
@@ -722,11 +732,11 @@ public class RaidsPlugin extends Plugin
 		final String rooms = getRaid().toRoomString();
 		final String raidData = "[" + layout + "]: " + rooms;
 		layoutMessage = new ChatMessageBuilder()
-				.append(ChatColorType.HIGHLIGHT)
-				.append("Layout: ")
-				.append(ChatColorType.NORMAL)
-				.append(raidData)
-				.build();
+			.append(ChatColorType.HIGHLIGHT)
+			.append("Layout: ")
+			.append(ChatColorType.NORMAL)
+			.append(raidData)
+			.build();
 
 		final PartyMember localMember = party.getLocalMember();
 		if (party.getMembers().isEmpty() || localMember == null)
@@ -1100,7 +1110,7 @@ public class RaidsPlugin extends Plugin
 		return room;
 	}
 
-	public void reset()
+	private void reset()
 	{
 		raid = null;
 		upperTime = -1;

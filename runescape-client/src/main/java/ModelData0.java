@@ -3,264 +3,144 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ef")
+@ObfuscatedName("ew")
 @Implements("ModelData0")
 public class ModelData0 {
-	@ObfuscatedName("fl")
+	@ObfuscatedName("df")
 	@ObfuscatedSignature(
-		signature = "Lko;"
+		signature = "Lky;"
 	)
-	@Export("WorldMapElement_fonts")
-	static Fonts WorldMapElement_fonts;
+	@Export("js5Socket")
+	static AbstractSocket js5Socket;
 
 	ModelData0() {
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
-		garbageValue = "1770861677"
+		signature = "(IIB)I",
+		garbageValue = "-54"
 	)
-	public static boolean method3379(int var0, int var1) {
-		return (var0 >> var1 + 1 & 1) != 0;
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "(IIIZIZI)V",
-		garbageValue = "1985291940"
-	)
-	@Export("doWorldSorting")
-	static void doWorldSorting(int var0, int var1, int var2, boolean var3, int var4, boolean var5) {
-		if (var0 < var1) {
-			int var6 = (var0 + var1) / 2;
-			int var7 = var0;
-			World var8 = Username.World_worlds[var6];
-			Username.World_worlds[var6] = Username.World_worlds[var1];
-			Username.World_worlds[var1] = var8;
-
-			for (int var9 = var0; var9 < var1; ++var9) {
-				World var11 = Username.World_worlds[var9];
-				int var12 = ScriptFrame.compareWorlds(var11, var8, var2, var3);
-				int var10;
-				if (var12 != 0) {
-					if (var3) {
-						var10 = -var12;
-					} else {
-						var10 = var12;
-					}
-				} else if (var4 == -1) {
-					var10 = 0;
-				} else {
-					int var13 = ScriptFrame.compareWorlds(var11, var8, var4, var5);
-					if (var5) {
-						var10 = -var13;
-					} else {
-						var10 = var13;
-					}
-				}
-
-				if (var10 <= 0) {
-					World var14 = Username.World_worlds[var9];
-					Username.World_worlds[var9] = Username.World_worlds[var7];
-					Username.World_worlds[var7++] = var14;
-				}
+	public static int method3266(int var0, int var1) {
+		int var2;
+		for (var2 = 1; var1 > 1; var1 >>= 1) {
+			if ((var1 & 1) != 0) {
+				var2 = var0 * var2;
 			}
 
-			Username.World_worlds[var1] = Username.World_worlds[var7];
-			Username.World_worlds[var7] = var8;
-			doWorldSorting(var0, var7 - 1, var2, var3, var4, var5);
-			doWorldSorting(var7 + 1, var1, var2, var3, var4, var5);
+			var0 *= var0;
 		}
 
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1344492505"
-	)
-	static final void method3380() {
-		Object var10000 = null;
-		String var0 = "Your ignore list is full. Max of 100 for free users, and 400 for members";
-		class30.addGameMessage(30, "", var0);
-	}
-
-	@ObfuscatedName("gx")
-	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-39"
-	)
-	static final void method3378() {
-		if (Ignored.ClanChat_inClanChat) {
-			if (class4.clanChat != null) {
-				class4.clanChat.sort();
-			}
-
-			WorldMapSectionType.method294();
-			Ignored.ClanChat_inClanChat = false;
-		}
-
-	}
-
-	@ObfuscatedName("gm")
-	@ObfuscatedSignature(
-		signature = "(Lbz;I)V",
-		garbageValue = "-1736230875"
-	)
-	static final void method3377(Actor var0) {
-		var0.movementSequence = var0.readySequence;
-		if (var0.pathLength == 0) {
-			var0.field982 = 0;
+		if (var1 == 1) {
+			return var0 * var2;
 		} else {
-			if (var0.sequence != -1 && var0.sequenceDelay == 0) {
-				SequenceDefinition var1 = PlayerType.SequenceDefinition_get(var0.sequence);
-				if (var0.field983 > 0 && var1.field3504 == 0) {
-					++var0.field982;
-					return;
-				}
+			return var2;
+		}
+	}
 
-				if (var0.field983 <= 0 && var1.field3513 == 0) {
-					++var0.field982;
-					return;
-				}
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		signature = "(I)[Llg;",
+		garbageValue = "-19364585"
+	)
+	@Export("FillMode_values")
+	public static FillMode[] FillMode_values() {
+		return new FillMode[]{FillMode.field3850, FillMode.SOLID, FillMode.field3853};
+	}
+
+	@ObfuscatedName("fr")
+	@ObfuscatedSignature(
+		signature = "(IB)V",
+		garbageValue = "-21"
+	)
+	@Export("getLoginError")
+	static void getLoginError(int var0) {
+		if (var0 == -3) {
+			AbstractWorldMapData.setLoginResponseString("Connection timed out.", "Please try using a different world.", "");
+		} else if (var0 == -2) {
+			AbstractWorldMapData.setLoginResponseString("Error connecting to server.", "Please try using a different world.", "");
+		} else if (var0 == -1) {
+			AbstractWorldMapData.setLoginResponseString("No response from server.", "Please try using a different world.", "");
+		} else if (var0 == 3) {
+			Login.loginIndex = 3;
+			Login.field1181 = 1;
+		} else if (var0 == 4) {
+			Login.loginIndex = 12;
+			Login.field1167 = 0;
+		} else if (var0 == 5) {
+			Login.field1181 = 2;
+			AbstractWorldMapData.setLoginResponseString("Your account has not logged out from its last", "session or the server is too busy right now.", "Please try again in a few minutes.");
+		} else if (var0 == 68 || !Client.onMobile && var0 == 6) {
+			AbstractWorldMapData.setLoginResponseString("RuneScape has been updated!", "Please reload this page.", "");
+		} else if (var0 == 7) {
+			AbstractWorldMapData.setLoginResponseString("This world is full.", "Please use a different world.", "");
+		} else if (var0 == 8) {
+			AbstractWorldMapData.setLoginResponseString("Unable to connect.", "Login server offline.", "");
+		} else if (var0 == 9) {
+			AbstractWorldMapData.setLoginResponseString("Login limit exceeded.", "Too many connections from your address.", "");
+		} else if (var0 == 10) {
+			AbstractWorldMapData.setLoginResponseString("Unable to connect.", "Bad session id.", "");
+		} else if (var0 == 11) {
+			AbstractWorldMapData.setLoginResponseString("We suspect someone knows your password.", "Press 'change your password' on front page.", "");
+		} else if (var0 == 12) {
+			AbstractWorldMapData.setLoginResponseString("You need a members account to login to this world.", "Please subscribe, or use a different world.", "");
+		} else if (var0 == 13) {
+			AbstractWorldMapData.setLoginResponseString("Could not complete login.", "Please try using a different world.", "");
+		} else if (var0 == 14) {
+			AbstractWorldMapData.setLoginResponseString("The server is being updated.", "Please wait 1 minute and try again.", "");
+		} else if (var0 == 16) {
+			AbstractWorldMapData.setLoginResponseString("Too many login attempts.", "Please wait a few minutes before trying again.", "");
+		} else if (var0 == 17) {
+			AbstractWorldMapData.setLoginResponseString("You are standing in a members-only area.", "To play on this world move to a free area first", "");
+		} else if (var0 == 18) {
+			Login.loginIndex = 12;
+			Login.field1167 = 1;
+		} else if (var0 == 19) {
+			AbstractWorldMapData.setLoginResponseString("This world is running a closed Beta.", "Sorry invited players only.", "Please use a different world.");
+		} else if (var0 == 20) {
+			AbstractWorldMapData.setLoginResponseString("Invalid loginserver requested.", "Please try using a different world.", "");
+		} else if (var0 == 22) {
+			AbstractWorldMapData.setLoginResponseString("Malformed login packet.", "Please try again.", "");
+		} else if (var0 == 23) {
+			AbstractWorldMapData.setLoginResponseString("No reply from loginserver.", "Please wait 1 minute and try again.", "");
+		} else if (var0 == 24) {
+			AbstractWorldMapData.setLoginResponseString("Error loading your profile.", "Please contact customer support.", "");
+		} else if (var0 == 25) {
+			AbstractWorldMapData.setLoginResponseString("Unexpected loginserver response.", "Please try using a different world.", "");
+		} else if (var0 == 26) {
+			AbstractWorldMapData.setLoginResponseString("This computers address has been blocked", "as it was used to break our rules.", "");
+		} else if (var0 == 27) {
+			AbstractWorldMapData.setLoginResponseString("", "Service unavailable.", "");
+		} else if (var0 == 31) {
+			AbstractWorldMapData.setLoginResponseString("Your account must have a displayname set", "in order to play the game.  Please set it", "via the website, or the main game.");
+		} else if (var0 == 32) {
+			AbstractWorldMapData.setLoginResponseString("Your attempt to log into your account was", "unsuccessful.  Don't worry, you can sort", "this out by visiting the billing system.");
+		} else if (var0 == 37) {
+			AbstractWorldMapData.setLoginResponseString("Your account is currently inaccessible.", "Please try again in a few minutes.", "");
+		} else if (var0 == 38) {
+			AbstractWorldMapData.setLoginResponseString("You need to vote to play!", "Visit runescape.com and vote,", "and then come back here!");
+		} else if (var0 == 55) {
+			Login.loginIndex = 8;
+		} else {
+			if (var0 == 56) {
+				AbstractWorldMapData.setLoginResponseString("Enter the 6-digit code generated by your", "authenticator app.", "");
+				class195.updateGameState(11);
+				return;
 			}
 
-			int var10 = var0.x;
-			int var2 = var0.y;
-			int var3 = var0.pathX[var0.pathLength - 1] * 128 + var0.field927 * 64;
-			int var4 = var0.pathY[var0.pathLength - 1] * 128 + var0.field927 * 64;
-			if (var10 < var3) {
-				if (var2 < var4) {
-					var0.orientation = 1280;
-				} else if (var2 > var4) {
-					var0.orientation = 1792;
-				} else {
-					var0.orientation = 1536;
-				}
-			} else if (var10 > var3) {
-				if (var2 < var4) {
-					var0.orientation = 768;
-				} else if (var2 > var4) {
-					var0.orientation = 256;
-				} else {
-					var0.orientation = 512;
-				}
-			} else if (var2 < var4) {
-				var0.orientation = 1024;
-			} else if (var2 > var4) {
-				var0.orientation = 0;
+			if (var0 == 57) {
+				AbstractWorldMapData.setLoginResponseString("The code you entered was incorrect.", "Please try again.", "");
+				class195.updateGameState(11);
+				return;
 			}
 
-			byte var5 = var0.pathTraversed[var0.pathLength - 1];
-			if (var3 - var10 <= 256 && var3 - var10 >= -256 && var4 - var2 <= 256 && var4 - var2 >= -256) {
-				int var6 = var0.orientation - var0.rotation & 2047;
-				if (var6 > 1024) {
-					var6 -= 2048;
-				}
-
-				int var7 = var0.walkBackSequence;
-				if (var6 >= -256 && var6 <= 256) {
-					var7 = var0.walkSequence;
-				} else if (var6 >= 256 && var6 < 768) {
-					var7 = var0.walkRightSequence;
-				} else if (var6 >= -768 && var6 <= -256) {
-					var7 = var0.walkLeftSequence;
-				}
-
-				if (var7 == -1) {
-					var7 = var0.walkSequence;
-				}
-
-				var0.movementSequence = var7;
-				int var8 = 4;
-				boolean var9 = true;
-				if (var0 instanceof NPC) {
-					var9 = ((NPC)var0).definition.isClickable;
-				}
-
-				if (var9) {
-					if (var0.orientation != var0.rotation && var0.targetIndex == -1 && var0.field977 != 0) {
-						var8 = 2;
-					}
-
-					if (var0.pathLength > 2) {
-						var8 = 6;
-					}
-
-					if (var0.pathLength > 3) {
-						var8 = 8;
-					}
-
-					if (var0.field982 > 0 && var0.pathLength > 1) {
-						var8 = 8;
-						--var0.field982;
-					}
-				} else {
-					if (var0.pathLength > 1) {
-						var8 = 6;
-					}
-
-					if (var0.pathLength > 2) {
-						var8 = 8;
-					}
-
-					if (var0.field982 > 0 && var0.pathLength > 1) {
-						var8 = 8;
-						--var0.field982;
-					}
-				}
-
-				if (var5 == 2) {
-					var8 <<= 1;
-				}
-
-				if (var8 >= 8 && var0.movementSequence == var0.walkSequence && var0.runSequence != -1) {
-					var0.movementSequence = var0.runSequence;
-				}
-
-				if (var10 != var3 || var4 != var2) {
-					if (var10 < var3) {
-						var0.x += var8;
-						if (var0.x > var3) {
-							var0.x = var3;
-						}
-					} else if (var10 > var3) {
-						var0.x -= var8;
-						if (var0.x < var3) {
-							var0.x = var3;
-						}
-					}
-
-					if (var2 < var4) {
-						var0.y += var8;
-						if (var0.y > var4) {
-							var0.y = var4;
-						}
-					} else if (var2 > var4) {
-						var0.y -= var8;
-						if (var0.y < var4) {
-							var0.y = var4;
-						}
-					}
-				}
-
-				if (var3 == var0.x && var4 == var0.y) {
-					--var0.pathLength;
-					if (var0.field983 > 0) {
-						--var0.field983;
-					}
-				}
-
+			if (var0 == 61) {
+				Login.loginIndex = 7;
 			} else {
-				var0.x = var3;
-				var0.y = var4;
-				--var0.pathLength;
-				if (var0.field983 > 0) {
-					--var0.field983;
-				}
-
+				AbstractWorldMapData.setLoginResponseString("Unexpected server response", "Please try using a different world.", "");
 			}
 		}
+
+		class195.updateGameState(10);
 	}
 }

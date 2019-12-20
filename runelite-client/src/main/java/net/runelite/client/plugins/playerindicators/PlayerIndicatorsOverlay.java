@@ -61,8 +61,8 @@ public class PlayerIndicatorsOverlay extends Overlay
 		"no-agility.png");
 	private final BufferedImage skullIcon = ImageUtil.getResourceStreamFromClass(PlayerIndicatorsPlugin.class,
 		"skull.png");
-	private PlayerIndicatorsPlugin plugin;
-	private PlayerIndicatorsService playerIndicatorsService;
+	private final PlayerIndicatorsPlugin plugin;
+	private final PlayerIndicatorsService playerIndicatorsService;
 	@Inject
 	private Client client;
 	@Inject
@@ -180,14 +180,14 @@ public class PlayerIndicatorsOverlay extends Overlay
 								textLocation.getY() - height),
 							ImageUtil.resizeImage(agilityIcon, height, height));
 					}
-					else if (level >= plugin.getAgilitySecondThreshold())
+					if (level >= plugin.getAgilitySecondThreshold())
 					{
 						OverlayUtil.renderImageLocation(graphics,
 							new Point(textLocation.getX() + agilityIcon.getWidth() + width,
 								textLocation.getY() - height),
 							ImageUtil.resizeImage(agilityIcon, height, height));
 					}
-					else if (level < plugin.getAgilityFirstThreshold())
+					if (level < plugin.getAgilityFirstThreshold())
 					{
 						OverlayUtil.renderImageLocation(graphics,
 							new Point(textLocation.getX() + 5 + width,

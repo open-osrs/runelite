@@ -1,19 +1,38 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hj")
+@ObfuscatedName("hu")
 @Implements("Varps")
 public class Varps {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@Export("Varps_masks")
 	static int[] Varps_masks;
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@Export("Varps_temp")
 	public static int[] Varps_temp;
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@Export("Varps_main")
 	public static int[] Varps_main;
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		signature = "Lfc;"
+	)
+	@Export("clock")
+	static Clock clock;
+	@ObfuscatedName("by")
+	@ObfuscatedSignature(
+		signature = "Lgs;"
+	)
+	@Export("clientLanguage")
+	static Language clientLanguage;
+	@ObfuscatedName("gh")
+	@ObfuscatedSignature(
+		signature = "[Lls;"
+	)
+	@Export("mapMarkerSprites")
+	static Sprite[] mapMarkerSprites;
 
 	static {
 		Varps_masks = new int[32];

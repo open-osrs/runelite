@@ -4,149 +4,165 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jt")
+@ObfuscatedName("jx")
 @Implements("Timer")
 public class Timer {
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		longValue = -5009265909251557427L
+		longValue = 1687468324454291725L
 	)
-	long field3567;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		longValue = 3656163850803388837L
-	)
-	long field3569;
-	@ObfuscatedName("n")
-	public boolean field3568;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		longValue = -5484170024319161763L
-	)
-	long field3570;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		longValue = -1992086956533447559L
-	)
-	long field3571;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		longValue = 5115114623583473447L
-	)
-	long field3572;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = -1585759455
-	)
-	int field3573;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 1782421563
-	)
-	int field3574;
+	long field3560;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 303521947
+		longValue = 7655978754782259035L
 	)
-	int field3575;
+	long field3554;
+	@ObfuscatedName("y")
+	public boolean field3555;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		longValue = 1665338134164527579L
+	)
+	long field3556;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		longValue = -779441764559487179L
+	)
+	long field3559;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		longValue = 4469164127837216533L
+	)
+	long field3558;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = 602333417
+	)
+	int field3562;
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = 1059100831
+	)
+	int field3557;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = 1625866105
+	)
+	int field3561;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 19440131
+		intValue = -463850423
 	)
-	int field3576;
+	int field3563;
 
 	public Timer() {
-		this.field3567 = -1L;
-		this.field3569 = -1L;
-		this.field3568 = false;
-		this.field3570 = 0L;
-		this.field3571 = 0L;
-		this.field3572 = 0L;
-		this.field3573 = 0;
-		this.field3574 = 0;
-		this.field3575 = 0;
-		this.field3576 = 0;
+		this.field3560 = -1L;
+		this.field3554 = -1L;
+		this.field3555 = false;
+		this.field3556 = 0L;
+		this.field3559 = 0L;
+		this.field3558 = 0L;
+		this.field3562 = 0;
+		this.field3557 = 0;
+		this.field3561 = 0;
+		this.field3563 = 0;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "-1653711688"
+		garbageValue = "-1677674321"
 	)
-	public void method5115() {
-		this.field3567 = PlayerAppearance.currentTimeMillis();
+	public void method5016() {
+		this.field3560 = WorldMapID.currentTimeMillis();
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "2049281372"
+		garbageValue = "608753777"
 	)
-	public void method5123() {
-		if (this.field3567 != -1L) {
-			this.field3571 = PlayerAppearance.currentTimeMillis() - this.field3567;
-			this.field3567 = -1L;
+	public void method5025() {
+		if (-1L != this.field3560) {
+			this.field3559 = WorldMapID.currentTimeMillis() - this.field3560;
+			this.field3560 = -1L;
 		}
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		signature = "(II)V",
-		garbageValue = "-1105909109"
+		garbageValue = "45949945"
 	)
-	public void method5118(int var1) {
-		this.field3569 = PlayerAppearance.currentTimeMillis();
-		this.field3573 = var1;
+	public void method5017(int var1) {
+		this.field3554 = WorldMapID.currentTimeMillis();
+		this.field3562 = var1;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "-1135526321"
+		garbageValue = "1761247014"
 	)
-	public void method5119() {
-		if (-1L != this.field3569) {
-			this.field3570 = PlayerAppearance.currentTimeMillis() - this.field3569;
-			this.field3569 = -1L;
+	public void method5037() {
+		if (this.field3554 != -1L) {
+			this.field3556 = WorldMapID.currentTimeMillis() - this.field3554;
+			this.field3554 = -1L;
 		}
 
-		++this.field3575;
-		this.field3568 = true;
+		++this.field3561;
+		this.field3555 = true;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "179505930"
+		garbageValue = "-1677674321"
 	)
-	public void method5120() {
-		this.field3568 = false;
-		this.field3574 = 0;
+	public void method5039() {
+		this.field3555 = false;
+		this.field3557 = 0;
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "-287296961"
+		garbageValue = "541541745"
 	)
-	public void method5121() {
-		this.method5119();
+	public void method5020() {
+		this.method5037();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lkc;I)V",
-		garbageValue = "-549220155"
+		signature = "(Lkq;I)V",
+		garbageValue = "1449461967"
 	)
 	@Export("write")
 	public void write(Buffer var1) {
-		WorldMapIcon_1.method354(var1, this.field3571);
-		WorldMapIcon_1.method354(var1, this.field3570);
-		WorldMapIcon_1.method354(var1, this.field3572);
-		var1.writeShort(this.field3573);
-		var1.writeShort(this.field3574);
-		var1.writeShort(this.field3575);
-		var1.writeShort(this.field3576);
+		MusicPatchNode2.method3670(var1, this.field3559);
+		MusicPatchNode2.method3670(var1, this.field3556);
+		MusicPatchNode2.method3670(var1, this.field3558);
+		var1.writeShort(this.field3562);
+		var1.writeShort(this.field3557);
+		var1.writeShort(this.field3561);
+		var1.writeShort(this.field3563);
+	}
+
+	@ObfuscatedName("ad")
+	@ObfuscatedSignature(
+		signature = "([BIII)I",
+		garbageValue = "880088989"
+	)
+	public static int method5033(byte[] var0, int var1, int var2) {
+		int var3 = -1;
+
+		for (int var4 = var1; var4 < var2; ++var4) {
+			var3 = var3 >>> 8 ^ Buffer.crc32Table[(var3 ^ var0[var4]) & 255];
+		}
+
+		var3 = ~var3;
+		return var3;
 	}
 }

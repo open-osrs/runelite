@@ -51,7 +51,14 @@ class ContainerCalculation
 	ContainerPrices calculate(Item[] items)
 	{
 		// Returns last calculation if inventory hasn't changed
-		final int newHash =  hashItems(items);
+
+		if (items == null)
+		{
+			return null;
+		}
+
+		final int newHash = hashItems(items);
+
 		if (containerPrices != null && hash == newHash)
 		{
 			return containerPrices;

@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
@@ -62,23 +61,18 @@ import static net.runelite.api.Varbits.WITHDRAW_X_AMOUNT;
 import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ClientTick;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.Menu;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.util.Text;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetID;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.menus.AbstractComparableEntry;
 import static net.runelite.client.menus.ComparableEntries.newBankComparableEntry;
@@ -97,7 +91,6 @@ import net.runelite.client.plugins.menuentryswapper.comparables.ShopComparableEn
 import net.runelite.client.plugins.menuentryswapper.comparables.WithdrawComparableEntry;
 import net.runelite.client.plugins.menuentryswapper.util.ArdougneCloakMode;
 import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
-import net.runelite.client.plugins.menuentryswapper.util.CharterOption;
 import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
 import net.runelite.client.plugins.menuentryswapper.util.ConstructionCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.ConstructionMode;
@@ -109,7 +102,6 @@ import net.runelite.client.plugins.menuentryswapper.util.GamesNecklaceMode;
 import net.runelite.client.plugins.menuentryswapper.util.GloryMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseAdvertisementMode;
 import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
-import net.runelite.client.plugins.menuentryswapper.util.JewelleryBoxDestination;
 import net.runelite.client.plugins.menuentryswapper.util.MaxCapeMode;
 import net.runelite.client.plugins.menuentryswapper.util.NecklaceOfPassageMode;
 import net.runelite.client.plugins.menuentryswapper.util.ObeliskMode;
@@ -124,7 +116,6 @@ import net.runelite.client.plugins.pvptools.PvpToolsConfig;
 import net.runelite.client.plugins.pvptools.PvpToolsPlugin;
 import net.runelite.client.util.HotkeyListener;
 import static net.runelite.client.util.MenuUtil.swap;
-import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
 	name = "Menu Entry Swapper",
@@ -141,20 +132,31 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private static final Object CONTROL = new Object();
 	private static final Object HOTKEY_CHECK = new Object();
 	private static final Object CONTROL_CHECK = new Object();
-	private static final Object JEWEL_CLICKED = new Object();
-	private static final Object JEWEL_TELE = new Object();
-	private static final Object JEWEL_WIDGET = new Object();
-
 	private static final int PURO_PURO_REGION_ID = 10307;
 	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
 		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
 		MenuOpcode.NPC_FOURTH_OPTION, MenuOpcode.NPC_FIFTH_OPTION, MenuOpcode.EXAMINE_NPC
 	);
+	private static final List<String> jewelleryBox = Arrays.asList(
+		"duel arena", "castle wars", "clan wars", "burthorpe", "barbarian outpost", "corporeal beast",
+		"tears of guthix", "wintertodt camp", "warriors' guild", "champions' guild", "monastery", "ranging guild",
+		"fishing guild", "mining guild", "crafting guild", "cooking guild", "woodcutting guild", "farming guild",
+		"miscellania", "grand exchange", "falador park", "dondakan's rock", "edgeville", "karamja",
+		"draynor village", "al kharid"
+	);
+
 	private static final Splitter NEWLINE_SPLITTER = Splitter
 		.on("\n")
 		.omitEmptyStrings()
 		.trimResults();
-
+	private final Map<AbstractComparableEntry, Integer> customSwaps = new HashMap<>();
+	private final Map<AbstractComparableEntry, Integer> customShiftSwaps = new HashMap<>();
+	private final Map<AbstractComparableEntry, AbstractComparableEntry> dePrioSwaps = new HashMap<>();
+	// 1, 5, 10, 50
+	private final AbstractComparableEntry[][] buyEntries = new AbstractComparableEntry[4][];
+	private final AbstractComparableEntry[][] sellEntries = new AbstractComparableEntry[4][];
+	// 1, 5, 10, X, All
+	private final AbstractComparableEntry[][] withdrawEntries = new AbstractComparableEntry[5][];
 	@Inject
 	private Client client;
 	@Inject
@@ -173,12 +175,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private PvpToolsPlugin pvpTools;
 	@Inject
 	private PvpToolsConfig pvpToolsConfig;
-	/**
-	 * Migrates old custom swaps config
-	 * This should be removed after a reasonable amount of time.
-	 */
-	@Inject
-	private ConfigManager configManager;
 	private boolean buildingMode;
 	private boolean inTobRaid = false;
 	private boolean inCoxRaid = false;
@@ -186,21 +182,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean hotkeyActive;
 	@Setter(AccessLevel.PRIVATE)
 	private boolean controlActive;
-	private final Map<AbstractComparableEntry, Integer> customSwaps = new HashMap<>();
-	private final Map<AbstractComparableEntry, Integer> customShiftSwaps = new HashMap<>();
-	private final Map<AbstractComparableEntry, AbstractComparableEntry> dePrioSwaps = new HashMap<>();
-
-	// 1, 5, 10, 50
-	private final AbstractComparableEntry[][] buyEntries = new AbstractComparableEntry[4][];
-	private final AbstractComparableEntry[][] sellEntries = new AbstractComparableEntry[4][];
-	// 1, 5, 10, X, All
-	private final AbstractComparableEntry[][] withdrawEntries = new AbstractComparableEntry[5][];
-
 	private String[] removedObjects;
 
 	private List<String> bankItemNames = new ArrayList<>();
 	private BurningAmuletMode getBurningAmuletMode;
-	private CharterOption charterOption;
 	private CombatBraceletMode getCombatBraceletMode;
 	private ArdougneCloakMode ardougneCloakMode;
 	private ConstructionCapeMode constructionCapeMode;
@@ -275,6 +260,38 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapBoxTrap;
 	private boolean swapChase;
 	private boolean swapClimbUpDown;
+	private final HotkeyListener hotkey = new HotkeyListener(() -> this.hotkeyMod)
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			startHotkey();
+			setHotkeyActive(true);
+		}
+
+		@Override
+		public void hotkeyReleased()
+		{
+			stopHotkey();
+			setHotkeyActive(false);
+		}
+	};
+	private final HotkeyListener ctrlHotkey = new HotkeyListener(() -> Keybind.CTRL)
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			startControl();
+			setControlActive(true);
+		}
+
+		@Override
+		public void hotkeyReleased()
+		{
+			stopControl();
+			setControlActive(false);
+		}
+	};
 	private boolean swapCoalBag;
 	private boolean swapContract;
 	private boolean swapEnchant;
@@ -301,8 +318,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean swapTrade;
 	private boolean swapTravel;
 	private boolean swapWildernessLever;
-
-	private JewelleryBoxDestination lastDes;
+	private boolean swapJewelleryBox;
 
 	@Provides
 	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
@@ -313,11 +329,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Override
 	public void startUp()
 	{
-		this.lastDes = JewelleryBoxDestination.withOption(config.lastDes());
 
-		migrateConfig();
 		updateConfig();
-		addSubscriptions();
+
 		addSwaps();
 		loadConstructionItems();
 		loadCustomSwaps(config.customSwaps(), customSwaps);
@@ -341,8 +355,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Override
 	public void shutDown()
 	{
-		eventBus.unregister(this);
-
 		loadCustomSwaps("", customSwaps); // Removes all custom swaps
 		removeSwaps();
 		removeBuySellEntries();
@@ -358,21 +370,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventBus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-		eventBus.subscribe(MenuOpened.class, this, this::onMenuOpened);
-		eventBus.subscribe(MenuEntryAdded.class, this, this::onMenuEntryAdded);
-		eventBus.subscribe(FocusChanged.class, this, this::onFocusChanged);
-
-		if (config.lastJewel())
-		{
-			eventBus.subscribe(MenuOptionClicked.class, JEWEL_CLICKED, this::onMenuOptionClicked);
-		}
-	}
-
+	@Subscribe
 	private void onFocusChanged(FocusChanged event)
 	{
 		if (!event.isFocused())
@@ -382,6 +380,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!"menuentryswapper".equals(event.getGroup()))
@@ -425,16 +424,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 			case "removedObjects":
 				updateRemovedObjects();
 				return;
-			case "lastJewel":
-				if (config.lastJewel())
-				{
-					eventBus.subscribe(MenuOptionClicked.class, JEWEL_CLICKED, this::onMenuOptionClicked);
-				}
-				else
-				{
-					eventBus.unregister(JEWEL_CLICKED);
-				}
-				return;
 		}
 
 		if (event.getKey().startsWith("swapSell") || event.getKey().startsWith("swapBuy") ||
@@ -452,6 +441,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameStateChanged(GameStateChanged event)
 	{
 		if (event.getGameState() != GameState.LOGGED_IN)
@@ -466,6 +456,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		keyManager.registerKeyListener(hotkey);
 	}
 
+	@Subscribe
 	private void onVarbitChanged(VarbitChanged event)
 	{
 		buildingMode = client.getVar(BUILDING_MODE) == 1;
@@ -474,6 +465,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		setCastOptions(false);
 	}
 
+	@Subscribe
 	private void onMenuOpened(MenuOpened event)
 	{
 		Player localPlayer = client.getLocalPlayer();
@@ -559,21 +551,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 				}
 			}
 
-			if (config.lastJewel() && option.equals("teleport") && entry.getTarget().contains("Jewellery Box") && lastDes != null)
-			{
-				final MenuEntry lastDesEntry = new MenuEntry();
-
-				lastDesEntry.setOpcode(MenuOpcode.PRIO_RUNELITE.getId());
-				lastDesEntry.setOption(lastDes.getOption());
-
-				lastDesEntry.setTarget(entry.getTarget());
-				lastDesEntry.setIdentifier(entry.getIdentifier());
-				lastDesEntry.setParam0(entry.getParam0());
-				lastDesEntry.setParam1(entry.getParam1());
-
-				menu_entries.add(lastDesEntry);
-			}
-
 			menu_entries.add(entry);
 		}
 
@@ -581,6 +558,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		event.setModified();
 	}
 
+	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
 		if (client.getGameState() != GameState.LOGGED_IN)
@@ -739,83 +717,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 					break;
 			}
 		}
-	}
-
-	private void onMenuOptionClicked(MenuOptionClicked entry)
-	{
-		if (entry.getOpcode() == MenuOpcode.WIDGET_DEFAULT.getId() &&
-			WidgetInfo.TO_GROUP(entry.getParam1()) == WidgetID.JEWELLERY_BOX_GROUP_ID)
-		{
-			if (entry.getOption().equals(lastDes == null ? null : lastDes.getOption()))
-			{
-				return;
-			}
-
-			JewelleryBoxDestination newDest = JewelleryBoxDestination.withOption(entry.getOption());
-			if (newDest == null)
-			{
-				return;
-			}
-
-			lastDes = newDest;
-			config.lastDes(lastDes.getOption());
-		}
-		else if (entry.getOption().equals("Teleport") && entry.getTarget().contains("Jewellery Box"))
-		{
-			eventBus.unregister(JEWEL_WIDGET);
-		}
-		else if (lastDes != null &&
-			entry.getOpcode() == MenuOpcode.PRIO_RUNELITE.getId() &&
-			entry.getOption().equals(lastDes.getOption()))
-		{
-			entry.setOption("Teleport");
-			entry.setOpcode(MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId());
-
-			eventBus.subscribe(ScriptCallbackEvent.class, JEWEL_WIDGET, this::onScriptCallback);
-		}
-	}
-
-	private void onScriptCallback(ScriptCallbackEvent event)
-	{
-		if (!event.getEventName().equals("jewelleryBoxDone"))
-		{
-			return;
-		}
-
-		eventBus.unregister(JEWEL_WIDGET);
-
-		// Use a event so we don't accidentally run another script before returning
-		// menu also is when jagex is probably expecting input like this so :)
-		eventBus.subscribe(Menu.class, JEWEL_TELE, this::teleportInputs);
-	}
-
-	private void teleportInputs(Menu menu)
-	{
-		final Widget parent = client.getWidget(lastDes.getParent());
-		if (parent == null)
-		{
-			return;
-		}
-
-		final Widget child = parent.getChild(lastDes.getChildIndex());
-		if (child == null)
-		{
-			return;
-		}
-
-		Object[] args = child.getOnOp();
-		if (args == null)
-		{
-			return;
-		}
-
-		// Replace opIndex with 1
-		args[ArrayUtils.indexOf(args, 0x80000004)] = 1;
-
-		client.runScript(args);
-		eventBus.unregister(JEWEL_TELE);
-
-		menu.dontRun();
 	}
 
 	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map)
@@ -1018,6 +919,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 			menuManager.addPriorityEntry("Rellekka");
 			menuManager.addPriorityEntry("Follow", "Elkoy").setPriority(10);
 			menuManager.addPriorityEntry("Transport");
+		}
+
+		if (this.swapAbyssTeleport)
+		{
 			menuManager.addPriorityEntry("Teleport", "Mage of zamorak").setPriority(10);
 		}
 
@@ -1304,6 +1209,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			menuManager.addPriorityEntry(new GrimyHerbComparableEntry(this.swapGrimyHerbMode, client));
 		}
+
+		if (this.swapJewelleryBox)
+		{
+			for (String jewellerybox : jewelleryBox)
+			{
+				menuManager.addPriorityEntry(jewellerybox);
+			}
+		}
 	}
 
 	private void removeSwaps()
@@ -1426,7 +1339,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		menuManager.removePriorityEntry(this.swapHouseAdMode.getEntry());
 		menuManager.removeSwap("Bury", "bone", "Use");
-		
+		for (String jewellerybox : jewelleryBox)
+		{
+			menuManager.removePriorityEntry(jewellerybox);
+		}
+
 		switch (this.swapFairyRingMode)
 		{
 			case OFF:
@@ -1494,6 +1411,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 				menuManager.removePriorityEntry("Friend's house");
 				break;
 		}
+
 	}
 
 	private boolean isPuroPuro()
@@ -1687,7 +1605,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 	private void updateConfig()
 	{
-		this.charterOption = config.charterOption();
 		this.configCustomShiftSwaps = config.shiftCustomSwaps();
 		this.configCustomSwaps = config.customSwaps();
 		this.ardougneCloakMode = config.ardougneCloakMode();
@@ -1789,6 +1706,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		this.swapWildernessLever = config.swapWildernessLever();
 		this.swapHouseAd = config.swapHouseAd();
 		this.swapHouseAdMode = config.swapHouseAdMode();
+		this.swapJewelleryBox = config.swapJewelleryBox();
 	}
 
 	private void addBuySellEntries()
@@ -2043,122 +1961,4 @@ public class MenuEntrySwapperPlugin extends Plugin
 			removedObjects = null;
 		}
 	}
-
-	/**
-	 * Migrates old custom swaps config
-	 * This should be removed after a reasonable amount of time.
-	 */
-	private static boolean oldParse(String value)
-	{
-		try
-		{
-			final StringBuilder sb = new StringBuilder();
-
-			for (String str : value.split("\n"))
-			{
-				if (!str.startsWith("//"))
-				{
-					sb.append(str).append("\n");
-				}
-			}
-
-			NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
-			return true;
-		}
-		catch (IllegalArgumentException ex)
-		{
-			return false;
-		}
-	}
-
-	/**
-	 * Migrates old custom swaps config
-	 * This should be removed after a reasonable amount of time.
-	 */
-	private void migrateConfig()
-	{
-		final String customSwaps = config.customSwaps();
-
-		if (!CustomSwapParse.parse(customSwaps) && oldParse(customSwaps))
-		{
-			final StringBuilder sb = new StringBuilder();
-
-			for (String str : customSwaps.split("\n"))
-			{
-				if (!str.startsWith("//"))
-				{
-					sb.append(str).append("\n");
-				}
-			}
-
-			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
-
-			sb.setLength(0);
-
-			for (Map.Entry<String, String> entry : split.entrySet())
-			{
-				String val = entry.getValue();
-				if (!val.contains(","))
-				{
-					continue;
-				}
-
-				sb.append(entry.getValue()).append(":0\n");
-			}
-
-			configManager.setConfiguration("menuentryswapper", "customSwaps", sb.toString());
-		}
-
-		// Ugly band-aid i'm sorry
-		configManager.setConfiguration("menuentryswapper", "customSwaps",
-			Arrays.stream(config.customSwaps()
-				.split("\n"))
-				.distinct()
-				.filter(swap -> !"walk here"
-					.equals(swap.
-						split(":")[0]
-						.trim()
-						.toLowerCase()))
-				.filter(swap -> !"cancel"
-					.equals(swap
-						.split(":")[0]
-						.trim()
-						.toLowerCase()))
-				.collect(Collectors.joining("\n"))
-		);
-	}
-
-	private final HotkeyListener hotkey = new HotkeyListener(() -> this.hotkeyMod)
-	{
-		@Override
-		public void hotkeyPressed()
-		{
-			startHotkey();
-			setHotkeyActive(true);
-		}
-
-		@Override
-		public void hotkeyReleased()
-		{
-			stopHotkey();
-			setHotkeyActive(false);
-		}
-	};
-
-	private final HotkeyListener ctrlHotkey = new HotkeyListener(() -> Keybind.CTRL)
-	{
-		@Override
-		public void hotkeyPressed()
-		{
-			startControl();
-			setControlActive(true);
-		}
-
-		@Override
-		public void hotkeyReleased()
-		{
-			stopControl();
-			setControlActive(false);
-		}
-	};
 }
