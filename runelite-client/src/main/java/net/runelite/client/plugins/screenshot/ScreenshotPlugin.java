@@ -329,7 +329,7 @@ public class ScreenshotPlugin extends Plugin
 	@Subscribe
 	private void onPlayerDeath(PlayerDeath event)
 	{
-		if (event.getPlayer() == client.getLocalPlayer() && config.screenshotPlayerDeath())
+		if (event.getPlayer() == client.getLocalPlayer() && this.screenshotPlayerDeath)
 		{
 			takeScreenshot(client.getLocalPlayer().getName() + " dead " + format(new Date()), "Deaths");
 		}
