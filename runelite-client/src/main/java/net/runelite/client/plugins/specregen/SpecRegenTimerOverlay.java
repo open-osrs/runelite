@@ -52,6 +52,10 @@ public class SpecRegenTimerOverlay extends Overlay
 	public Dimension render(Graphics2D graphics2D)
 	{
 		final Widget widget = client.getWidget(WidgetInfo.MINIMAP_SPEC_ORB);
+		if (widget == null)
+		{
+			return null;
+		}
 		final Rectangle bounds = widget.getBounds();
 		final Point mousePosition = client.getMouseCanvasPosition();
 		if (bounds.contains(mousePosition.getX(), mousePosition.getY()))
@@ -76,6 +80,10 @@ public class SpecRegenTimerOverlay extends Overlay
 	public void updateSpec()
 	{
 		//0.2% spec restore per tick
+		if (client.getItemContainer(InventoryID.EQUIPMENT) == null)
+		{
+			return;
+		}
 		currentSpec = Math.floor((client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT) / 10) + (plugin.getSpecialPercentage() * 10));
 		int specTarget = 100;
 		final Item[] items = client.getItemContainer(InventoryID.EQUIPMENT).getItems();
