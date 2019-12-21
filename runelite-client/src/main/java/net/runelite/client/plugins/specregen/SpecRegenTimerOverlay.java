@@ -87,7 +87,7 @@ public class SpecRegenTimerOverlay extends Overlay
 		currentSpec = Math.floor((client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT) / 10) + (plugin.getSpecialPercentage() * 10));
 		int specTarget = 100;
 		final Item[] items = client.getItemContainer(InventoryID.EQUIPMENT).getItems();
-		if(items.length<=EquipmentInventorySlot.WEAPON.getSlotIdx())
+		if (items.length <= EquipmentInventorySlot.WEAPON.getSlotIdx())
 		{
 			return;
 		}
