@@ -46,7 +46,7 @@ public enum ItemType
 	JEWELLERY("Jewellery"),
 	CHARGES("Charges");
 
-	@Getter(AccessLevel.PACKAGE)
+	@Getter(AccessLevel.PUBLIC)
 	private String label;
 
 	/**
