@@ -185,12 +185,11 @@ class DevToolsOverlay extends Overlay
 				}
 			}
 
-			String text = String.format("%s (ID: %d) (A: %d) (G: %d) (IDX: %d)",
+			String text = String.format("%s (ID: %d) (A: %d) (G: %d)",
 				composition.getName(),
 				composition.getId(),
 				npc.getAnimation(),
-				npc.getSpotAnimation(),
-				npc.getIndex());
+				npc.getSpotAnimation());
 
 			OverlayUtil.renderActorOverlay(graphics, npc, text, color);
 		}
