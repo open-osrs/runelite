@@ -24,8 +24,6 @@
  */
 package net.runelite.api;
 
-import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.coords.WorldPoint;
 import java.util.List;
 
 /**
@@ -88,13 +86,6 @@ public interface Tile extends TileObject
 	 * @return the scene location
 	 */
 	Point getSceneLocation();
-
-	/**
-	 * Gets the plane that this tile is on.
-	 *
-	 * @return the plane
-	 */
-	int getPlane();
 
 	/**
 	 * Get the plane this tile is rendered on, which is where the tile heights are from.
