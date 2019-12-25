@@ -48,6 +48,11 @@ public class RenameUnique implements Deobfuscator
 		{
 			if (cf.getName().length() > Deob.OBFUSCATED_NAME_MAX_LEN)
 			{
+				if (cf.getName().startsWith("android")||
+						cf.getName().startsWith("butterknife")||
+						cf.getName().startsWith("com/android")||
+						cf.getName().startsWith("com/appsflyer")||
+						cf.getName().startsWith("com/google"))
 				continue;
 			}
 

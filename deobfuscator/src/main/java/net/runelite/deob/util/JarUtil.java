@@ -159,6 +159,7 @@ public class JarUtil
 		catch (Exception ex)
 		{
 			logger.warn("Class {} failed validation", name, ex);
+			System.out.println(name + " failed validation.");
 		}
 	}
 }

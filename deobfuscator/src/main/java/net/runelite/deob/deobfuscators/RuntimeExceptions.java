@@ -52,9 +52,28 @@ public class RuntimeExceptions implements Deobfuscator
 				if (c == null)
 					continue;
 
+				// Mobile init contains <>
+				String init = "";
+				if (cf.getName().equals("client"))
+				{
+					for (Method meth : cf.getMethods())
+					{
+						if (meth.getName().equals("init"))
+							init = "init";
+						else if (meth.getName().equals("<init>"))
+							init = "<init>";
+					}
+
+					if (!init.equals(""))
+					{
+						foundInit = true;
+						continue;
+					}
+				}
+
 				// Keep one handler in the client so the deobfuscator
 				// keeps the client error handling related methods
-				if (cf.getName().equals("client") && m.getName().equals("init"))
+				if (cf.getName().equals("client") && m.getName().equals(init))
 				{
 					foundInit = true;
 					continue;
