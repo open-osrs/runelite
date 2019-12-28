@@ -51,10 +51,19 @@ import net.runelite.api.ObjectID;
 import net.runelite.api.Player;
 import net.runelite.api.Projectile;
 import net.runelite.api.ProjectileID;
-import net.runelite.api.Skill;
 import net.runelite.api.SoundEffectID;
 import net.runelite.api.Varbits;
-import net.runelite.api.events.*;
+import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.GameObjectDespawned;
+import net.runelite.api.events.GameObjectSpawned;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.NpcDespawned;
+import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.ProjectileSpawned;
+import net.runelite.api.events.StatChanged;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -63,7 +72,6 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.NpcLootReceived;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SkillIconManager;
-import net.runelite.client.game.XpDropEvent;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -359,7 +367,8 @@ public class GauntletPlugin extends Plugin
 				if (currentFarmingAction == GATHERING_HERB)
 				{
 					herbGathered++;
-					farmingXp = event.getXp();				}
+					farmingXp = event.getXp();
+				}
 				else if (currentFarmingAction == GATHERING_CLOTH)
 				{
 					clothGathered++;
