@@ -344,45 +344,40 @@ public class GauntletPlugin extends Plugin
 	@Subscribe
 	private void onStatsChanged(StatChanged event)
 	{
-		if (event.getSkill().name().toLowerCase().equals("mining"))
+		switch (event.getSkill())
 		{
-			if (miningXp != event.getXp())
+			case MINING:
+				if (miningXp != event.getXp())
 			{
 				oresGathered++;
 				miningXp = event.getXp();
 			}
-		}
-		if (event.getSkill().name().toLowerCase().equals("woodcutting"))
-		{
-			if (woodcuttingXp != event.getXp())
-			{
-				woodGathered++;
-				woodcuttingXp = event.getXp();
-			}
-		}
-		if (event.getSkill().name().toLowerCase().equals("farming"))
-		{
-			if (farmingXp != event.getXp())
-			{
-				if (currentFarmingAction == GATHERING_HERB)
+			case FARMING:
+				if (fishingXp != event.getXp())
 				{
-					herbGathered++;
-					farmingXp = event.getXp();
+					fishGathered++;
+					fishingXp = event.getXp();
 				}
-				else if (currentFarmingAction == GATHERING_CLOTH)
+			case WOODCUTTING:
+				if (woodcuttingXp != event.getXp())
 				{
-					clothGathered++;
-					farmingXp = event.getXp();
+					woodGathered++;
+					woodcuttingXp = event.getXp();
 				}
-			}
-		}
-		if (event.getSkill().name().toLowerCase().equals("fishing"))
-		{
-			if (fishingXp != event.getXp())
-			{
-				fishGathered++;
-				fishingXp = event.getXp();
-			}
+			case FISHING:
+				if (farmingXp != event.getXp())
+				{
+					if (currentFarmingAction == GATHERING_HERB)
+					{
+						herbGathered++;
+						farmingXp = event.getXp();
+					}
+					else if (currentFarmingAction == GATHERING_CLOTH)
+					{
+						clothGathered++;
+						farmingXp = event.getXp();
+					}
+				}
 		}
 		updateCounters();
 	}
