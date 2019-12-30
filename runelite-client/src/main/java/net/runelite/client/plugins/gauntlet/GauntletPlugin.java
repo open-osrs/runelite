@@ -352,19 +352,22 @@ public class GauntletPlugin extends Plugin
 				oresGathered++;
 				miningXp = event.getXp();
 			}
-			case FARMING:
+				break;
+			case FISHING:
 				if (fishingXp != event.getXp())
 				{
 					fishGathered++;
 					fishingXp = event.getXp();
 				}
+				break;
 			case WOODCUTTING:
 				if (woodcuttingXp != event.getXp())
 				{
 					woodGathered++;
 					woodcuttingXp = event.getXp();
 				}
-			case FISHING:
+				break;
+			case FARMING:
 				if (farmingXp != event.getXp())
 				{
 					if (currentFarmingAction == GATHERING_HERB)
@@ -378,6 +381,7 @@ public class GauntletPlugin extends Plugin
 						farmingXp = event.getXp();
 					}
 				}
+				break;
 		}
 		updateCounters();
 	}
