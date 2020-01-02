@@ -67,7 +67,6 @@ public class StatusOrbsOverlay extends Overlay
 	private static final Color OVERLAY_COLOR = new Color(255, 255, 255, 60);
 	private static final double DIAMETER = 26D;
 	private static final int OFFSET = 27;
-
 	private final Client client;
 	private final StatusOrbsPlugin plugin;
 	private final TooltipManager tooltipManager;
