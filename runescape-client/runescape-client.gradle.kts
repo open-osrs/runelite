@@ -27,7 +27,7 @@ group = "com.openosrs.rs"
 description = "RuneScape Client"
 
 dependencies {
-    implementation(project(":runescape-api"))
+    implementation(project(":injection-annotations"))
 
     testImplementation(Libraries.junit)
     testImplementation(Libraries.slf4jApi)
