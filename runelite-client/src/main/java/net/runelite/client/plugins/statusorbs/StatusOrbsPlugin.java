@@ -32,6 +32,7 @@ import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import lombok.AccessLevel;
+import lombok.extern.slf4j.Slf4j;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
@@ -60,6 +61,7 @@ import net.runelite.client.util.Graceful;
 import net.runelite.client.util.ImageUtil;
 import org.apache.commons.lang3.StringUtils;
 
+@Slf4j
 @PluginDescriptor(
 	name = "Status Orbs",
 	description = "Configure settings for the Minimap orbs",
@@ -70,6 +72,9 @@ public class StatusOrbsPlugin extends Plugin
 	private static final BufferedImage HEART_DISEASE;
 	private static final BufferedImage HEART_POISON;
 	private static final BufferedImage HEART_VENOM;
+	private static final int SPEC_REGEN_TICKS = 50;
+	private static final int NORMAL_HP_REGEN_TICKS = 100;
+	private static final int TWISTED_LEAGUE_ENDLESS_ENDURANCE_RELIC = 2;
 
 	static
 	{
@@ -77,10 +82,6 @@ public class StatusOrbsPlugin extends Plugin
 		HEART_POISON = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(StatusOrbsPlugin.class, "1067-POISON.png"), 26, 26);
 		HEART_VENOM = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(StatusOrbsPlugin.class, "1067-VENOM.png"), 26, 26);
 	}
-
-	private static final int SPEC_REGEN_TICKS = 50;
-	private static final int NORMAL_HP_REGEN_TICKS = 100;
-	private static final int TWISTED_LEAGUE_ENDLESS_ENDURANCE_RELIC = 2;
 
 	@Inject
 	private Client client;
@@ -139,6 +140,8 @@ public class StatusOrbsPlugin extends Plugin
 	private boolean showRun;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean replaceOrbText;
+	@Getter(AccessLevel.PACKAGE)
+	private boolean showSpecialInfo;
 
 	@Provides
 	StatusOrbsConfig provideConfig(ConfigManager configManager)
@@ -227,7 +230,7 @@ public class StatusOrbsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
+	public void onGameTick(GameTick event)
 	{
 		if (client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT) == 1000)
 		{
@@ -239,6 +242,7 @@ public class StatusOrbsPlugin extends Plugin
 			ticksSinceSpecRegen = (ticksSinceSpecRegen + 1) % SPEC_REGEN_TICKS;
 		}
 		specialPercentage = ticksSinceSpecRegen / (double) SPEC_REGEN_TICKS;
+		overlay.updateSpec();
 
 		int ticksPerHPRegen = NORMAL_HP_REGEN_TICKS;
 		hpPerMs = ticksPerHPRegen / (double) 6000000;
@@ -454,6 +458,7 @@ public class StatusOrbsPlugin extends Plugin
 		this.showWhenNoChange = config.showWhenNoChange();
 		this.getNotifyBeforeHpRegenSeconds = config.getNotifyBeforeHpRegenSeconds();
 		this.showSpecial = config.showSpecial();
+		this.showSpecialInfo = config.showSpecialInfo();
 		this.showRun = config.showRun();
 		this.replaceOrbText = config.replaceOrbText();
 	}

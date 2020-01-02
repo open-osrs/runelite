@@ -116,6 +116,18 @@ public interface StatusOrbsConfig extends Config
 		return true;
 	}
 
+	@ConfigItem(
+		keyName = "showSpecialInfo",
+		name = "Show Spec. Attack Info",
+		description = "Show a tool tip when hovering the Special Attack orb",
+		titleSection = "spec",
+		position = 6
+	)
+	default boolean showSpecialInfo()
+	{
+		return true;
+	}
+
 	@ConfigTitleSection(
 		keyName = "run",
 		name = "Run energy",
