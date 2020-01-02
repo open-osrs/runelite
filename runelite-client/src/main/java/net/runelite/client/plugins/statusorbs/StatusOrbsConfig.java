@@ -121,7 +121,7 @@ public interface StatusOrbsConfig extends Config
 		name = "Show Spec. Attack Info",
 		description = "Show a tool tip when hovering the Special Attack orb",
 		titleSection = "spec",
-		position = 6
+		position = 7
 	)
 	default boolean showSpecialInfo()
 	{
@@ -132,7 +132,7 @@ public interface StatusOrbsConfig extends Config
 		keyName = "run",
 		name = "Run energy",
 		description = "",
-		position = 7
+		position = 8
 	)
 	default Title run()
 	{
@@ -143,7 +143,7 @@ public interface StatusOrbsConfig extends Config
 		keyName = "showRun",
 		name = "Show run energy regen",
 		description = "Show a ring around the run regen orb",
-		position = 8,
+		position = 9,
 		titleSection = "run"
 	)
 	default boolean showRun()
@@ -155,7 +155,7 @@ public interface StatusOrbsConfig extends Config
 		keyName = "replaceOrbText",
 		name = "Replace run orb text with run time left",
 		description = "Show the remaining run time (in seconds) next in the energy orb",
-		position = 9,
+		position = 10,
 		titleSection = "run"
 	)
 	default boolean replaceOrbText()
