@@ -57,7 +57,7 @@ public enum VarPlayer
 	SPECIAL_ATTACK_ENABLED(301),
 
 	/**
-	 * This has a value of 1 if you have auto retaliate enabled and a value of 0 if you do not
+	 * This has a value of 0 if you have auto retaliate enabled and a value of 1 if you do not
 	 */
 	AUTO_RETALIATE(172),
 
