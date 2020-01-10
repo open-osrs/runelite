@@ -28,6 +28,7 @@ import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 
 @ConfigGroup("npcindicators")
 public interface NpcIndicatorsConfig extends Config
@@ -76,8 +77,23 @@ public interface NpcIndicatorsConfig extends Config
 		return Color.RED;
 	}
 
+	@Range(
+			min = 1,
+			max = 255
+	)
 	@ConfigItem(
-		position = 3,
+			position = 3,
+			keyName = "opacity",
+			name = "Opacity",
+			description = "Changes the opacity of the npc highlight."
+	)
+	default int getOpacity()
+	{
+		return 255;
+	}
+
+	@ConfigItem(
+		position = 4,
 		keyName = "drawNames",
 		name = "Draw names above NPC",
 		description = "Configures whether or not NPC names should be drawn above the NPC"
@@ -88,7 +104,7 @@ public interface NpcIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 4,
+		position = 5,
 		keyName = "drawInteracting",
 		name = "Draw target name above NPC",
 		description = "Configures whether the name of the NPC's target is drawn above it's head"
@@ -99,7 +115,7 @@ public interface NpcIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 5,
+		position = 6,
 		keyName = "drawMinimapNames",
 		name = "Draw names on minimap",
 		description = "Configures whether or not NPC names should be drawn on the minimap"
@@ -110,7 +126,7 @@ public interface NpcIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 6,
+		position = 7,
 		keyName = "highlightMenuNames",
 		name = "Highlight menu names",
 		description = "Highlight NPC names in right click menu"
@@ -121,7 +137,7 @@ public interface NpcIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
-		position = 7,
+		position = 8,
 		keyName = "showRespawnTimer",
 		name = "Show respawn timer",
 		description = "Show respawn timer of tagged NPCs")

@@ -195,6 +195,8 @@ public class NpcIndicatorsPlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private Color getInteractingColor;
 	@Getter(AccessLevel.PACKAGE)
+	private int getOpacity;
+	@Getter(AccessLevel.PACKAGE)
 	private boolean drawNames;
 	@Getter(AccessLevel.PACKAGE)
 	private boolean drawInteracting;
@@ -655,5 +657,6 @@ public class NpcIndicatorsPlugin extends Plugin
 		this.drawMinimapNames = config.drawMinimapNames();
 		this.highlightMenuNames = config.highlightMenuNames();
 		this.showRespawnTimer = config.showRespawnTimer();
+		this.getOpacity = config.getOpacity();
 	}
 }
