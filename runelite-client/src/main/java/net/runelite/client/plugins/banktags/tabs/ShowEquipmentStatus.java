@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
- * Copyright (c) 2018, Ron Young <https://github.com/raiyni>
+ * Copyright (c) 2020, Gamer1120 <https://github.com/Gamer1120>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,27 +24,10 @@
  */
 package net.runelite.client.plugins.banktags.tabs;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.runelite.client.game.SpriteOverride;
 
 @RequiredArgsConstructor
-public enum TabSprites implements SpriteOverride
+public enum ShowEquipmentStatus
 {
-	INCINERATOR(-200, "incinerator.png"),
-	TAB_BACKGROUND(-201, "tag-tab.png"),
-	TAB_BACKGROUND_ACTIVE(-202, "tag-tab-active.png"),
-	UP_ARROW(-203, "up-arrow.png"),
-	DOWN_ARROW(-204, "down-arrow.png"),
-	NEW_TAB(-205, "new-tab.png"),
-	WEARABLES(-206, "wearables.png"),
-	WEARABLES_ACTIVE(-207, "wearables-active.png"),
-	WEARABLES_OTHERS(-208, "wearables-others.png");
-
-	@Getter(AccessLevel.PUBLIC)
-	private final int spriteId;
-
-	@Getter(AccessLevel.PUBLIC)
-	private final String fileName;
+	EQUIPMENT, OTHERS, ALL;
 }

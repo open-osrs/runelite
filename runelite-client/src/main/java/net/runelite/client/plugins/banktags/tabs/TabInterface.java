@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * Copyright (c) 2018, Ron Young <https://github.com/raiyni>
+ * Copyright (c) 2020, Gamer1120 <https://github.com/Gamer1120>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,8 +42,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.IntPredicate;
@@ -82,6 +85,7 @@ import net.runelite.client.callback.ClientThread;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.chatbox.ChatboxItemSearch;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
+import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.banktags.BankTagsConfig;
 import net.runelite.client.plugins.banktags.BankTagsPlugin;
 import static net.runelite.client.plugins.banktags.BankTagsPlugin.TAG_SEARCH;
@@ -110,6 +114,7 @@ public class TabInterface
 	private static final String REMOVE_TAG = "Remove-tag";
 	private static final String TAG_GEAR = "Tag-equipment";
 	private static final String TAG_INVENTORY = "Tag-inventory";
+	private static final String WEARABLES = "Wearables";
 	private static final int TAB_HEIGHT = 40;
 	private static final int TAB_WIDTH = 39;
 	private static final int BUTTON_HEIGHT = 20;
@@ -128,6 +133,7 @@ public class TabInterface
 	private final BankTagsConfig config;
 	private final Notifier notifier;
 	private final BankSearch bankSearch;
+	private final MenuManager menuManager;
 	private final Rectangle bounds = new Rectangle();
 	private final Rectangle canvasBounds = new Rectangle();
 
@@ -149,7 +155,17 @@ public class TabInterface
 	private Widget newTab;
 
 	@Getter
+	private Widget wearablesButton;
+
+	@Getter
 	private Widget parent;
+
+	@Getter
+	private ShowEquipmentStatus showEquipment;
+
+	@Getter
+	private Map<String, String> priorityMenuEntries;
+
 
 	@Inject
 	private TabInterface(
@@ -162,7 +178,8 @@ public class TabInterface
 		final BankTagsConfig config,
 		final Notifier notifier,
 		final BankSearch bankSearch,
-		final ChatboxItemSearch searchProvider)
+		final ChatboxItemSearch searchProvider,
+		final MenuManager menuManager)
 	{
 		this.client = client;
 		this.clientThread = clientThread;
@@ -174,6 +191,9 @@ public class TabInterface
 		this.notifier = notifier;
 		this.bankSearch = bankSearch;
 		this.searchProvider = searchProvider;
+		this.menuManager = menuManager;
+		this.showEquipment = ShowEquipmentStatus.ALL;
+		this.priorityMenuEntries = new HashMap<>();
 	}
 
 	public boolean isActive()
@@ -211,6 +231,10 @@ public class TabInterface
 		newTab.setAction(1, NEW_TAB);
 		newTab.setAction(2, IMPORT_TAB);
 		newTab.setOnOpListener((JavaScriptCallback) this::handleNewTab);
+
+		wearablesButton = createGraphic("", TabSprites.WEARABLES.getSpriteId(), -1, TAB_WIDTH, TAB_HEIGHT, 421, 42, true);
+		wearablesButton.setAction(1, WEARABLES);
+		wearablesButton.setOnOpListener((JavaScriptCallback) this::toggleWearables);
 
 		tabManager.clear();
 		tabManager.getAllTabs().forEach(this::loadTab);
@@ -343,6 +367,43 @@ public class TabInterface
 				{
 					notifier.notify("Failed to import tag tab from clipboard, invalid format.");
 				}
+		}
+	}
+
+	private void toggleWearables(ScriptEvent event)
+	{
+		String rememberedSearch = client.getVar(VarClientStr.INPUT_TEXT);
+		switch (showEquipment)
+		{
+			case ALL:
+				showEquipment = ShowEquipmentStatus.EQUIPMENT;
+				break;
+			case EQUIPMENT:
+				showEquipment = ShowEquipmentStatus.OTHERS;
+				break;
+			case OTHERS:
+				showEquipment = ShowEquipmentStatus.ALL;
+				break;
+		}
+		if (showEquipment == ShowEquipmentStatus.EQUIPMENT)
+		{
+			wearablesButton.setSpriteId(-207);
+		} else if (showEquipment == ShowEquipmentStatus.OTHERS) {
+			wearablesButton.setSpriteId(-208);
+			for (String target: priorityMenuEntries.keySet()) {
+				String option = priorityMenuEntries.get(target);
+				menuManager.removePriorityEntry(option, target);
+			}
+			priorityMenuEntries = new HashMap<>();
+		} else {
+			wearablesButton.setSpriteId(-206);
+		}
+		bankSearch.search(InputType.NONE, rememberedSearch, true);
+		if (showEquipment != ShowEquipmentStatus.ALL) {
+			for (String target: priorityMenuEntries.keySet()){
+				String option = priorityMenuEntries.get(target);
+				menuManager.addPriorityEntry(option, target);
+			}
 		}
 	}
 

@@ -3,6 +3,7 @@
  * Copyright (c) 2018, Ron Young <https://github.com/raiyni>
  * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * Copyright (c) 2018, Lucas <https://github.com/Lucwousin>
+ * Copyright (c) 2020, Gamer1120 <https://github.com/Gamer1120>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,6 +36,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -80,6 +82,7 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDependency;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.banktags.tabs.BankSearch;
+import net.runelite.client.plugins.banktags.tabs.ShowEquipmentStatus;
 import net.runelite.client.plugins.banktags.tabs.TabInterface;
 import static net.runelite.client.plugins.banktags.tabs.TabInterface.FILTERED_CHARS;
 import net.runelite.client.plugins.banktags.tabs.TabSprites;
@@ -247,7 +250,6 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 	private void onScriptCallbackEvent(ScriptCallbackEvent event)
 	{
 		String eventName = event.getEventName();
-
 		int[] intStack = client.getIntStack();
 		String[] stringStack = client.getStringStack();
 		int intStackSize = client.getIntStackSize();
@@ -287,6 +289,32 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 					{
 						// return true
 						intStack[intStackSize - 2] = 1;
+					}
+					if (tabInterface.getShowEquipment() == ShowEquipmentStatus.EQUIPMENT)
+					{
+						ItemDefinition definition = itemManager.getItemDefinition(itemManager.canonicalize(itemId));
+						String[] inventoryActions = definition.getInventoryActions();
+						String equipOption = null;
+						List<String> inventoryActionsList = Arrays.asList(inventoryActions);
+						if (inventoryActionsList.contains("Wield")) {
+							equipOption = "Wield";
+						} else if (inventoryActionsList.contains("Wear")) {
+							equipOption = "Wear";
+						}
+						if (equipOption == null)
+						{
+							intStack[intStackSize - 2] = 0;
+						} else {
+							tabInterface.getPriorityMenuEntries().put(definition.getName(), equipOption);
+						}
+					} else if (tabInterface.getShowEquipment() == ShowEquipmentStatus.OTHERS)
+					{
+						ItemDefinition definition = itemManager.getItemDefinition(itemManager.canonicalize(itemId));
+						String[] inventoryActions = definition.getInventoryActions();
+						List<String> inventoryActionsList = Arrays.asList(inventoryActions);
+						if (inventoryActionsList.contains("Wield") || inventoryActionsList.contains("Wear")) {
+							intStack[intStackSize - 2] = 0;
+						}
 					}
 					break;
 				}
