@@ -40,7 +40,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
