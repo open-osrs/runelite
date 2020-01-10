@@ -1966,7 +1966,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	default boolean bankWieldItem()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -1979,7 +1979,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	default boolean bankWearItem()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -1992,7 +1992,7 @@ public interface MenuEntrySwapperConfig extends Config
 
 	default boolean bankEatItem()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -2005,6 +2005,6 @@ public interface MenuEntrySwapperConfig extends Config
 
 	default boolean bankDrinkItem()
 	{
-		return true;
+		return false;
 	}
 }
