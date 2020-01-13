@@ -29,7 +29,6 @@ import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import static net.runelite.api.GameState.CONNECTION_LOST;
 import net.runelite.api.events.GameStateChanged;
@@ -54,9 +53,10 @@ import net.runelite.client.util.ImageUtil;
 	name = "Bank Value Tracking",
 	description = "Track the value of your bank over time",
 	tags = {"bank", "value", "history", "tracking"},
-	type = PluginType.MISCELLANEOUS
+	type = PluginType.MISCELLANEOUS,
+	enabledByDefault = false
 )
-@Slf4j
+
 public class BankHistoryPlugin extends Plugin
 {
 	@Inject
