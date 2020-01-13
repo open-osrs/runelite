@@ -187,7 +187,7 @@ public class StatusOrbsOverlay extends Overlay
 			{
 				double recoverRate = (48 + client.getBoostedSkillLevel(Skill.AGILITY)) / 360000.0;
 
-				recoverRate *= Graceful.calculateRecoveryRate(client.getItemContainer(InventoryID.EQUIPMENT));
+				recoverRate *= plugin.getRecoverRate();
 
 				percentRun += ms * recoverRate;
 			}
