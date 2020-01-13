@@ -45,6 +45,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
@@ -52,7 +53,8 @@ import net.runelite.client.util.ImageUtil;
 @PluginDescriptor(
 	name = "Bank Value Tracking",
 	description = "Track the value of your bank over time",
-	tags = {"bank", "value", "history", "tracking"}
+	tags = {"bank", "value", "history", "tracking"},
+	type = PluginType.MISCELLANEOUS
 )
 @Slf4j
 public class BankHistoryPlugin extends Plugin
