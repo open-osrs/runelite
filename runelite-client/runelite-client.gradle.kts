@@ -52,6 +52,8 @@ dependencies {
     implementation(Libraries.rxrelay)
     implementation(Libraries.okhttp3)
     implementation(Libraries.rxjava)
+    implementation(Libraries.jdatepicker)
+    implementation(Libraries.jfree)
     implementation(Libraries.jna)
     implementation(Libraries.jnaPlatform)
     implementation(Libraries.discord)
