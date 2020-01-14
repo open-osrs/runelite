@@ -75,6 +75,7 @@ public class BankValueHistoryTracker
 		RuneLiteAPI.GSON.newBuilder().registerTypeAdapter(BankValueHistoryContainer.class,
 			new BankValueHistoryDeserializer()).create();
 	private static final String EXTENTION = ".json";
+	BankHistoryPanel panel;
 
 	static
 	{
@@ -84,10 +85,13 @@ public class BankValueHistoryTracker
 
 	@Inject
 	private Client client;
+
 	@Inject
 	private ClientThread clientThread;
+
 	@Inject
 	private BankHistoryPlugin plugin;
+
 	@Inject
 	private ContainerCalculation bankCalculation;
 
@@ -138,7 +142,6 @@ public class BankValueHistoryTracker
 
 		try (FileReader reader = new FileReader(playerHistoryFile))
 		{
-			playerHistoryFile.createNewFile();
 			log.debug("Creating bank history cache file at {}", playerHistoryFile.getAbsolutePath());
 			BankValueHistoryContainer container = GSON.fromJson(reader, BankValueHistoryContainer.class);
 			if (container == null)
@@ -164,7 +167,21 @@ public class BankValueHistoryTracker
 	 */
 	public File getFileForUser(String username)
 	{
-		return new File(HISTORY_CACHE, username + EXTENTION);
+		File file = new File(HISTORY_CACHE, username + EXTENTION);
+		try
+		{
+			file.createNewFile();
+			if (panel != null)
+			{
+				panel.hidePanels();
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return file;
 	}
 
 
@@ -193,12 +210,19 @@ public class BankValueHistoryTracker
 	/**
 	 * Gets the last time something was added to the file cache.
 	 *
-	 * @param username
-	 * @return
+	 * @param username username
+	 * @param tab      number of the tab
+	 * @return LocalDateTime last data entry
 	 */
 	public LocalDateTime getLastDataEntry(String username, int tab)
 	{
 		BankValueHistoryContainer container = getBankValueHistory(username);
+
+		if (container == null)
+		{
+			return null;
+		}
+
 		Set<LocalDateTime> times =
 			container
 				.getPricesMap()
@@ -208,7 +232,7 @@ public class BankValueHistoryTracker
 				.map(Map.Entry::getKey)
 				.collect(Collectors.toSet());
 
-		if (times == null || times.isEmpty())
+		if (times.isEmpty())
 		{
 			return null;
 		}

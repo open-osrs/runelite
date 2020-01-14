@@ -28,8 +28,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 import java.util.function.Consumer;
@@ -42,12 +44,13 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import static net.runelite.client.plugins.bankhistory.BankHistoryPanel.getComboBoxModel;
 import net.runelite.client.ui.ColorScheme;
+import org.apache.commons.lang3.StringUtils;
 import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-import org.apache.commons.lang3.StringUtils;
 
 public class DatePickerPanel extends JPanel
 {
@@ -67,15 +70,15 @@ public class DatePickerPanel extends JPanel
 		this.callback = callback;
 	}
 
-	protected static Vector<String> getArrayOfIntegers(int start, int end, boolean pad)
+	protected static List<String> getArrayOfIntegers(int start, int end, boolean pad)
 	{
 		return Stream.iterate(start, n -> n + 1)
 			.limit(end)
 			.map(v -> getFormattedTimeString(String.valueOf(v), pad))
-			.collect(Collectors.toCollection(Vector::new));
+			.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-	protected static Vector<String> getArrayOfIntegers(int start, int end)
+	protected static List<String> getArrayOfIntegers(int start, int end)
 	{
 		return getArrayOfIntegers(start, end, true);
 	}
@@ -99,9 +102,11 @@ public class DatePickerPanel extends JPanel
 
 		picker.setTextEditable(true);
 
-		hour = new JComboBox<>(getArrayOfIntegers(1, 12));
+		hour = new JComboBox<>();
+		hour.setModel(getComboBoxModel(getArrayOfIntegers(1, 12)));
 		hour.setSelectedItem("12");
-		minute = new JComboBox<>(getArrayOfIntegers(0, 60));
+		minute = new JComboBox<>();
+		minute.setModel(getComboBoxModel(getArrayOfIntegers(0, 60)));
 		minute.setSelectedItem("00");
 		amPm = new JComboBox<>(new Vector<>(Arrays.asList("AM", "PM")));
 		amPm.setSelectedItem("AM");
@@ -138,7 +143,7 @@ public class DatePickerPanel extends JPanel
 
 	public LocalDateTime getLocalDateTime()
 	{
-		if (hour == null || amPm == null || model == null || minute == null)
+		if (hour == null || amPm == null || model == null || minute == null || minute.getSelectedItem() == null)
 		{
 			return null;
 		}

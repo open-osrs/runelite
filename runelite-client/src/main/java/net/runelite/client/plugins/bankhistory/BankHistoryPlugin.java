@@ -29,7 +29,6 @@ import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.Client;
 import static net.runelite.api.GameState.CONNECTION_LOST;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
@@ -38,7 +37,6 @@ import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -59,12 +57,6 @@ import net.runelite.client.util.ImageUtil;
 
 public class BankHistoryPlugin extends Plugin
 {
-	@Inject
-	private Client client;
-
-	@Inject
-	private ClientThread clientThread;
-
 	@Inject
 	private BankHistoryConfig config;
 
@@ -107,6 +99,7 @@ public class BankHistoryPlugin extends Plugin
 			.priority(10)
 			.panel(bankHistoryPanel)
 			.build();
+		tracker.panel = bankHistoryPanel;
 
 		clientToolbar.addNavigation(navButton);
 	}
@@ -160,7 +153,7 @@ public class BankHistoryPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onConfigChanged (ConfigChanged event)
+	public void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("bankhistory"))
 		{

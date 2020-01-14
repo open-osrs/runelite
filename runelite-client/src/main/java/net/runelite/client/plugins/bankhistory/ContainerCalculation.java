@@ -27,7 +27,6 @@ package net.runelite.client.plugins.bankhistory;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import net.runelite.api.Item;
 import net.runelite.api.ItemID;
@@ -45,7 +44,6 @@ class ContainerCalculation
 		this.itemManager = itemManager;
 	}
 
-	@Nullable
 	long calculate(Item[] items)
 	{
 		// Returns last calculation if inventory hasn't changed
@@ -82,6 +80,8 @@ class ContainerCalculation
 					break;
 			}
 		}
+
+		gePrice = ge;
 
 		return ge;
 	}
