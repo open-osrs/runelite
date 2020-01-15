@@ -145,7 +145,8 @@ class MouseHighlightOverlay extends Overlay
 
 	private boolean shouldNotRenderMenuAction(int type)
 	{
-		return type == MenuOpcode.RUNELITE_OVERLAY.getId()
+		return type == MenuOpcode.RUNELITE_OVERLAY.getId() 
+			|| type == MenuAction.CC_OP_LOW_PRIORITY.getId()
 			|| (!plugin.isRightClickTooltipEnabled() && isMenuActionRightClickOnly(type));
 	}
 

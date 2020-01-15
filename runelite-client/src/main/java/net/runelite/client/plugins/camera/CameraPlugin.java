@@ -129,7 +129,7 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded menuEntryAdded)
 	{
-		if (menuEntryAdded.getOpcode() == MenuOpcode.WIDGET_DEFAULT.getId() && menuEntryAdded.getOption().equals(LOOK_NORTH) && cameraConfig.compassLook())
+		if (menuEntryAdded.getOpcode() == MenuOpcode.CC_OP.getId() && menuEntryAdded.getOption().equals(LOOK_NORTH) && cameraConfig.compassLook())
 		{
 			MenuEntry[] menuEntries = client.getMenuEntries();
 			int len = menuEntries.length;
@@ -153,7 +153,7 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 		m.setOption(option);
 		m.setTarget(lookNorth.getTarget());
 		m.setIdentifier(identifier);
-		m.setOpcode(MenuOpcode.WIDGET_DEFAULT.getId());
+		m.setOpcode(MenuOpcode.CC_OP.getId());
 		m.setParam0(lookNorth.getParam0());
 		m.setParam1(lookNorth.getParam1());
 		return m;
@@ -283,7 +283,7 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 				case EXAMINE_NPC:
 				case EXAMINE_ITEM_GROUND:
 				case EXAMINE_ITEM:
-				case EXAMINE_ITEM_BANK_EQ:
+				case CC_OP_LOW_PRIORITY:
 					if (cameraConfig.ignoreExamine())
 					{
 						break;
