@@ -1546,9 +1546,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 		menuManager.removePriorityEntry("climb-up");
 		
 		for (String npccontact : npcContact)
-			{
-				menuManager.removePriorityEntry(npccontact, "npc contact");
-			}
+		{
+			menuManager.removePriorityEntry(npccontact, "npc contact");
+		}
 
 		loadCustomSwaps("", customShiftSwaps);
 		eventBus.unregister(HOTKEY);
