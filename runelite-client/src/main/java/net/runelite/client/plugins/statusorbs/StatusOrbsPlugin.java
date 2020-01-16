@@ -82,7 +82,6 @@ public class StatusOrbsPlugin extends Plugin
 
 	private static final int SPEC_REGEN_TICKS = 50;
 	private static final int NORMAL_HP_REGEN_TICKS = 100;
-	private static final int TWISTED_LEAGUE_ENDLESS_ENDURANCE_RELIC = 2;
 
 	@Inject
 	private Client client;
@@ -127,6 +126,8 @@ public class StatusOrbsPlugin extends Plugin
 	private int lastEnergy = 0;
 	private boolean localPlayerRunningToDestination;
 	private WorldPoint prevLocalPlayerLocation;
+	@Getter(AccessLevel.PACKAGE)
+	private double recoverRate = 1;
 
 	private BufferedImage heart;
 
@@ -250,12 +251,6 @@ public class StatusOrbsPlugin extends Plugin
 			hpPerMs *= 2;
 		}
 
-		if (client.getVar(Varbits.TWISTED_LEAGUE_RELIC_1) == TWISTED_LEAGUE_ENDLESS_ENDURANCE_RELIC)
-		{
-			ticksPerHPRegen /= 4;
-			hpPerMs *= 4;
-		}
-
 		ticksSinceHPRegen = (ticksSinceHPRegen + 1) % ticksPerHPRegen;
 		hitpointsPercentage = ticksSinceHPRegen / (double) ticksPerHPRegen;
 
@@ -288,6 +283,8 @@ public class StatusOrbsPlugin extends Plugin
 				prevLocalPlayerLocation.distanceTo(client.getLocalPlayer().getWorldLocation()) > 1;
 
 		prevLocalPlayerLocation = client.getLocalPlayer().getWorldLocation();
+
+		recoverRate = Graceful.calculateRecoveryRate(client.getItemContainer(InventoryID.EQUIPMENT));
 
 		if (this.replaceOrbText)
 		{

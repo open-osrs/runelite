@@ -1597,6 +1597,14 @@ public interface Client extends GameShell
 	void setDeadNPCsHidden(boolean state);
 
 	/**
+	 * The provided ids will not be hidden when the
+	 * entity-hider attempts to hide dead {@link NPC}'s.
+	 *
+	 * @param blacklist set of npc ids.
+	 */
+	void setBlacklistDeadNpcs(Set<Integer> blacklist);
+
+	/**
 	 * Gets an array of tile collision data.
 	 * <p>
 	 * The index into the array is the plane/z-axis coordinate.
@@ -1928,4 +1936,10 @@ public interface Client extends GameShell
 	 * when a inventory item is clicked and dragged.
 	 */
 	void setTempMenuEntry(MenuEntry entry);
+
+	void setShowMouseCross(boolean show);
+
+	void setMouseIdleTicks(int cycles);
+
+	void setKeyboardIdleTicks(int cycles);
 }

@@ -1955,12 +1955,25 @@ public interface MenuEntrySwapperConfig extends Config
 	{
 		return "";
 	}
+	
+	@ConfigItem(
+		keyName = "swapNpcContact",
+		name = "NPC Contact",
+		description = "Enables Hotkey Left Click NPC Contact With Last Contacted NPC.",
+		position = 2,
+		section = "hotkeySwapping"
+	)
+
+	default boolean swapNpcContact()
+	{
+		return false;
+	}
 
 	@ConfigItem(
 		keyName = "bankWieldItem",
-		name = "Left Click 'Wield' In Bank Screen",
-		description = "Enables Hotkey Left Click 'Wield' In Bank When Pressing The Hotkey",
-		position = 2,
+		name = "Bank - Left Click 'Wield'",
+		description = "Enables Hotkey Left Click 'Wield' In The Bank Screen.",
+		position = 3,
 		section = "hotkeySwapping"
 	)
 
@@ -1971,9 +1984,9 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "bankWearItem",
-		name = "Left Click 'Wear' In Bank Screen",
-		description = "Enables Hotkey Left Click 'Wear' In Bank When Pressing The Hotkey",
-		position = 3,
+		name = "Bank - Left Click 'Wear'",
+		description = "Enables Hotkey Left Click 'Wear' In The Bank Screen.",
+		position = 4,
 		section = "hotkeySwapping"
 	)
 
@@ -1984,9 +1997,9 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "bankEatItem",
-		name = "Left Click 'Eat' In Bank Screen",
-		description = "Enables Left Click 'Eat' In Bank When Pressing The Hotkey",
-		position = 4,
+		name = "Bank - Left Click 'Eat'",
+		description = "Enables Left Click 'Eat' In The Bank Screen.",
+		position = 5,
 		section = "hotkeySwapping"
 	)
 
@@ -1997,13 +2010,39 @@ public interface MenuEntrySwapperConfig extends Config
 
 	@ConfigItem(
 		keyName = "bankDrinkItem",
-		name = "Left Click 'Drink' In Bank Screen",
-		description = "Enables Left Click 'Drink' In Bank When Pressing The Hotkey",
-		position = 5,
+		name = "Bank - Left Click 'Drink'",
+		description = "Enables Left Click 'Drink' In The Bank Screen.",
+		position = 6,
 		section = "hotkeySwapping"
 	)
 
 	default boolean bankDrinkItem()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "bankEquipItem",
+		name = "Bank - Left Click 'Equip'",
+		description = "Enables Left Click 'Equip' In The Bank Screen.",
+		position = 7,
+		section = "hotkeySwapping"
+	)
+
+	default boolean bankEquipItem()
+	{
+		return false;
+	}
+	
+	@ConfigItem(
+		keyName = "bankInvigorateItem",
+		name = "Bank - Left Click 'Invigorate'",
+		description = "Enables Left Click 'Invigorate' In The Bank Screen.",
+		position = 8,
+		section = "hotkeySwapping"
+	)
+
+	default boolean bankInvigorateItem()
 	{
 		return false;
 	}
