@@ -211,7 +211,7 @@ public interface ScreenshotConfig extends Config
 	@ConfigItem(
 		keyName = "hideOverlays",
 		name = "Hide Overlays",
-		description = "Hides Runelite and OpenOSRS overlays for screenshots",
+		description = "Hides overlays when taking a screenshot.",
 		position = 16
 	)
 	default boolean hideOverlays()
