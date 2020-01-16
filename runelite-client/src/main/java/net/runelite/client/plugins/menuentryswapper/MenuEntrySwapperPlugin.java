@@ -265,7 +265,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private boolean bankEatItem;
 	private boolean bankDrinkItem;
 	private boolean bankEquipItem;
-	private boolean bankInvigorateItem
+	private boolean bankInvigorateItem;
 	private final HotkeyListener hotkey = new HotkeyListener(() -> this.hotkeyMod)
 	{
 		@Override
