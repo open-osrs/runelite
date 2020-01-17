@@ -47,6 +47,10 @@ dependencies {
 }
 
 tasks {
+    jar {
+        finalizedBy("publish")
+    }
+
     processResources {
         finalizedBy("filterResources")
     }

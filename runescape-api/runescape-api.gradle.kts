@@ -30,3 +30,9 @@ dependencies {
     api(project(":runelite-api"))
     api(project(":injection-annotations"))
 }
+
+tasks {
+    jar {
+        finalizedBy("publish")
+    }
+}
