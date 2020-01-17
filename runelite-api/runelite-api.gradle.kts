@@ -37,8 +37,3 @@ dependencies {
 
     testImplementation(Libraries.junit)
 }
-tasks {
-    jar {
-        finalizedBy("publish")
-    }
-}

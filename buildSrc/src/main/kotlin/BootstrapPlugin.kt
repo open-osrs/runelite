@@ -30,6 +30,12 @@ class BootstrapPlugin : Plugin<Project> {
 
         tasks.withType<BootstrapTask> {
             dependsOn(bootstrapDependencies)
+
+            dependsOn(project(":runelite-api").tasks["publish"])
+            dependsOn(project(":runescape-api").tasks["publish"])
+            dependsOn(project(":http-api").tasks["publish"])
+            dependsOn(project(":injected-client").tasks["publish"])
+
             this.clientJar = clientJar.singleFile
 
             doLast {

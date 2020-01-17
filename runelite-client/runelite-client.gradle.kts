@@ -141,7 +141,6 @@ tasks {
         manifest {
             attributes(mutableMapOf("Main-Class" to "net.runelite.client.RuneLite"))
         }
-        finalizedBy("publish")
     }
 
     shadowJar {
