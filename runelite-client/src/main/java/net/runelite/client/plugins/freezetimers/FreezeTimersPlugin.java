@@ -191,11 +191,11 @@ public class FreezeTimersPlugin extends Plugin
 				{
 					timers.setTimerReApply(actor, TimerType.TELEBLOCK, System.currentTimeMillis());
 				}
-				else if (WorldType.isDeadmanWorld(worldTypes) &&
+				/*else if (WorldType.isDeadmanWorld(worldTypes) &&
 					MapLocations.getDeadmanSafeZones(actorLoc.getPlane()).contains(actorLoc.getX(), actorLoc.getY()))
 				{
 					timers.setTimerReApply(actor, TimerType.TELEBLOCK, System.currentTimeMillis());
-				}
+				}*/
 			}
 		}
 	}
