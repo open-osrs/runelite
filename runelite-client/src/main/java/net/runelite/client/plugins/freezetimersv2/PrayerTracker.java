@@ -28,7 +28,6 @@ import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
@@ -38,10 +37,8 @@ import java.util.Map;
 @Singleton
 class PrayerTracker
 {
-
 	@Inject
 	private Client client;
-
 	private final Map<Actor, HashMap<String, Integer>> lastTick = new HashMap<>();
 	private final Map<Actor, HashMap<String, Integer>> newTick = new HashMap<>();
 
@@ -68,7 +65,8 @@ class PrayerTracker
 		}
 		if (actor instanceof Player)
 		{
-			newTick.get(actor).put("PrayerIcon", ((Player) actor).getOverheadIcon() == null ? -1 : ((Player) actor).getOverheadIcon().ordinal());
+			newTick.get(actor).put("PrayerIcon",
+				((Player) actor).getOverheadIcon() == null ? -1 : ((Player) actor).getOverheadIcon().ordinal());
 		}
 		newTick.get(actor).put("SpotAnim", actor.getSpotAnimation());
 	}

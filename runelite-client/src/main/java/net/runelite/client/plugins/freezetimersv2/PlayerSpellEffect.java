@@ -65,5 +65,4 @@ public enum PlayerSpellEffect
 		}
 		return NONE;
 	}
-
 }
