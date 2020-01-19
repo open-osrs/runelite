@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Value;
 import lombok.experimental.NonFinal;
 import net.runelite.api.Client;
-
 import java.awt.image.BufferedImage;
 
 @Value
