@@ -40,8 +40,7 @@ public enum PlayerSpellEffect
 	BARRAGE("Ice Barrage", 369, 32, false, TimerType.FREEZE),
 	TELEBLOCK("Teleblock", 345, 500, true, TimerType.TELEBLOCK),
 	VENG("Vengeance", 726, 50, false, TimerType.VENG),
-	VENG_OTHER("Vengeance Other", 725, 50, false, TimerType.VENG),
-	NONE("Nothing", -69, 420, true, TimerType.ITS_FUCKING_BROKEN);
+	VENG_OTHER("Vengeance Other", 725, 50, false, TimerType.VENG);
 
 	@Getter(AccessLevel.PACKAGE)
 	private final String name;
@@ -63,6 +62,6 @@ public enum PlayerSpellEffect
 				return effect;
 			}
 		}
-		return NONE;
+		return null;
 	}
 }
