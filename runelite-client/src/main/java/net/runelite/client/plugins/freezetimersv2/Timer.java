@@ -13,18 +13,20 @@ public class Timer
 {
 	private Client client;
 	private int ticksStart;
+	private long startMillis;
 	private int ticksLength;
 	@NonFinal
 	private TimerType type;
 	@NonFinal
 	private boolean shutdown = false;
 
-	public Timer(Client client, int length, TimerType type)
+	public Timer(Client client, PlayerSpellEffect effect)
 	{
 		this.client = client;
 		this.ticksStart = client.getTickCount();
-		this.ticksLength = length;
-		this.type = type;
+		this.startMillis = System.currentTimeMillis();
+		this.ticksLength = effect == null ? 0 : effect.getTimerLengthTicks() + effect.getType().getImmunityLength();
+		this.type = effect == null ? null : effect.getType();
 	}
 
 	public void setTimerTypeIfNull(TimerType set)
@@ -54,13 +56,15 @@ public class Timer
 			return false;
 		}
 
-		return ticksRemaining() < type.getImmunityLength();
+		return ticksRemaining() < (type == null ? 0 : type.getImmunityLength());
 	}
 
-	public int ticksRemainingForDisplay()
+	public long millisRemainingForDisplay()
 	{
-		return ticksRemaining() - type.getImmunityLength(); // this will cause all immunities to be negative, making it easier to render later
-	}
+		return -1;
+		/*long millisRemaining = (ticksLength * 600) - (System.currentTimeMillis() - startMillis);
+		return millisRemaining - ((type == null ? 0 : type.getImmunityLength()) * 600); // this will cause all immunities to be negative, making it easier to render later
+	*/}
 
 	public BufferedImage getIcon()
 	{

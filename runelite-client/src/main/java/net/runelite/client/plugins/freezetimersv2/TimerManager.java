@@ -1,8 +1,8 @@
 package net.runelite.client.plugins.freezetimersv2;
 
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Actor;
 import net.runelite.api.Client;
-import net.runelite.api.Player;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
@@ -13,35 +13,35 @@ public class TimerManager
 {
 	@Inject
 	private Client client;
-	private HashMap<Player, HashMap<TimerType, Timer>> timerMap = new HashMap<>();
+	private HashMap<Actor, HashMap<TimerType, Timer>> timerMap = new HashMap<>();
 
-	private HashMap<TimerType, Timer> getTimersFor(Player player)
+	private HashMap<TimerType, Timer> getTimersFor(Actor actor)
 	{
-		if (!timerMap.containsKey(player) || timerMap.get(player) == null)
+		if (!timerMap.containsKey(actor) || timerMap.get(actor) == null)
 		{
-			timerMap.put(player, new HashMap<>());
+			timerMap.put(actor, new HashMap<>());
 		}
-		return timerMap.get(player);
+		return timerMap.get(actor);
 	}
 
-	public boolean hasTimerActive(Player player, TimerType type)
+	public boolean hasTimerActive(Actor actor, TimerType type)
 	{
-		return getTimerFor(player, type).isActive();
+		return getTimerFor(actor, type).isActive();
 	}
 
-	public Timer getTimerFor(Player player, TimerType type)
+	public Timer getTimerFor(Actor actor, TimerType type)
 	{
-		if (getTimersFor(player).get(type) == null)
+		if (getTimersFor(actor).get(type) == null)
 		{
-			getTimersFor(player).put(type, new Timer(client, 0, type));
+			getTimersFor(actor).put(type, new Timer(client, null));
 		}
-		return getTimersFor(player).get(type);
+		return getTimersFor(actor).get(type);
 	}
 
-	public void setTimerFor(Player player, TimerType type, Timer timer)
+	public void setTimerFor(Actor actor, TimerType type, Timer timer)
 	{
 		timer.setTimerTypeIfNull(type);
-		getTimersFor(player).put(type, timer);
+		getTimersFor(actor).put(type, timer);
 	}
 
 }
