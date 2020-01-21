@@ -122,10 +122,21 @@ public interface FreezeTimersV2Config extends Config
 	}
 
 	@ConfigItem(
+		name = "Show Icons",
+		keyName = "showIcons",
+		description = "Should we render the icons? Note disabling this will override all colors",
+		position = 9
+	)
+	default boolean showIcons()
+	{
+		return true;
+	}
+
+	@ConfigItem(
 		name = "Debug Keybind",
 		keyName = "debugKeybind",
 		description = "Don't press this unless you know what it does :)",
-		position = 9,
+		position = 10,
 		hidden = true
 	)
 	default Keybind debugKeybind()
@@ -137,7 +148,7 @@ public interface FreezeTimersV2Config extends Config
 		name = "Debug Integer",
 		keyName = "debugInteger",
 		description = "Related to the keybind in some way :)",
-		position = 10,
+		position = 11,
 		hidden = true
 	)
 	default int debugInteger()

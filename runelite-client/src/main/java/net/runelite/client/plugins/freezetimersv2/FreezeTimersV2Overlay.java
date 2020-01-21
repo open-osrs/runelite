@@ -139,15 +139,20 @@ public class FreezeTimersV2Overlay extends Overlay
 		int yOffset = (offset * (g.getFontMetrics().getHeight() + 2));
 		Rectangle rect = actor.getConvexHull().getBounds();
 		int xOffset = (int) rect.getWidth();
+
 		BufferedImage image = timer.getIcon();
 		Point actorCIL = actor.getCanvasImageLocation(image, 0);
-
 		Point textLocation = new Point(actorCIL.getX() + xOffset, actorCIL.getY() + yOffset);
-		g.drawImage(image, textLocation.getX(), textLocation.getY(), null);
-		xOffset = image.getWidth() + 1;
-		yOffset = (image.getHeight() - g.getFontMetrics().getHeight());
-		textLocation = new Point(textLocation.getX() + xOffset, textLocation.getY() + image.getHeight() - yOffset);
-		OverlayUtil.renderTextLocation(g, textLocation, text, timer.getTimerState() == Timer.TimerState.COOLDOWN ? config.cooldownColor() : config.timerColor());
+
+		if (config.showIcons())
+		{
+			g.drawImage(image, textLocation.getX(), textLocation.getY(), null);
+			xOffset = image.getWidth() + 1;
+			yOffset = (image.getHeight() - g.getFontMetrics().getHeight());
+			textLocation = new Point(textLocation.getX() + xOffset, textLocation.getY() + image.getHeight() - yOffset);
+		}
+
+		OverlayUtil.renderTextLocation(g, textLocation, text, timer.determineColor());
 
 		return true;
 	}
