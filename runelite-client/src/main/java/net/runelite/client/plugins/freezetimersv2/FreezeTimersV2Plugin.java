@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.freezetimersv2;
 
 import com.google.inject.Provides;
+import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -62,6 +63,7 @@ public class FreezeTimersV2Plugin extends Plugin
 	private static final int VORKATH_REGION = 9023;
 
 	@Inject
+	@Getter
 	private Client client;
 	@Inject
 	private OverlayManager overlayManager;
@@ -84,6 +86,11 @@ public class FreezeTimersV2Plugin extends Plugin
 			fakeSpotAnim = config.debugInteger();
 		}
 	};
+
+	public FreezeTimersV2Config getConfig()
+	{
+		return config;
+	}
 
 	@Provides
 	public FreezeTimersV2Config getConfig(ConfigManager configManager)
@@ -127,7 +134,7 @@ public class FreezeTimersV2Plugin extends Plugin
 				|| (WorldType.isPvpWorld(worldTypes) &&
 					MapLocations.getPvpSafeZones(actorLoc.getPlane()).contains(actorLoc.getX(), actorLoc.getY())))
 			{
-				timerManager.setTimerFor(actor, TimerType.TELEBLOCK, new Timer(client, null));
+				timerManager.setTimerFor(actor, TimerType.TELEBLOCK, new Timer(this, null));
 			}
 		}
 	}
@@ -155,7 +162,7 @@ public class FreezeTimersV2Plugin extends Plugin
 			return;
 		}
 
-		timerManager.setTimerFor(actor, effect.getType(), new Timer(client, effect));
+		timerManager.setTimerFor(actor, effect.getType(), new Timer(this, effect));
 	}
 
 	@Subscribe
@@ -193,7 +200,7 @@ public class FreezeTimersV2Plugin extends Plugin
 		if (npc.getName().contains("Zombified Spawn"))
 		{
 			// TODO: not sure if we're meant to jump to cooldown here or just remove the timer completely, doesn't mechanically make a difference though
-			timerManager.setTimerFor(client.getLocalPlayer(), TimerType.FREEZE, new Timer(client, null)); // empty timer
+			timerManager.setTimerFor(client.getLocalPlayer(), TimerType.FREEZE, new Timer(this, null)); // empty timer
 		}
 	}
 
@@ -202,7 +209,7 @@ public class FreezeTimersV2Plugin extends Plugin
 	{
 		for (TimerType type : TimerType.values())
 		{
-			timerManager.setTimerFor(event.getPlayer(), type, new Timer(client, null));
+			timerManager.setTimerFor(event.getPlayer(), type, new Timer(this, null));
 		}
 	}
 }

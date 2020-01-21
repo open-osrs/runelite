@@ -28,12 +28,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Setter;
 import lombok.ToString;
 import net.runelite.api.Client;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 @ToString
 @EqualsAndHashCode
 public class Timer
 {
+	private FreezeTimersV2Plugin plugin;
 	private Client client;
 	@Setter
 	private int ticksStart;
@@ -45,9 +47,10 @@ public class Timer
 	private TimerType type;
 	private boolean shutdown = false;
 
-	public Timer(Client client, PlayerSpellEffect effect)
+	public Timer(FreezeTimersV2Plugin plugin, PlayerSpellEffect effect)
 	{
-		this.client = client;
+		this.plugin = plugin;
+		this.client = plugin.getClient();
 		this.ticksStart = client.getTickCount();
 		this.startMillis = System.currentTimeMillis();
 		this.ticksLength = effect == null ? 0 : effect.getTimerLengthTicks();
@@ -120,6 +123,18 @@ public class Timer
 	public BufferedImage getIcon()
 	{
 		return getTimerState() == TimerState.COOLDOWN ? type.getCooldownIcon() : type.getIcon();
+	}
+
+	public Color determineColor()
+	{
+		if (plugin.getConfig().showIcons())
+		{
+			return getTimerState() == TimerState.COOLDOWN ? plugin.getConfig().cooldownColor() : plugin.getConfig().timerColor();
+		}
+		else
+		{
+			return getTimerState() == TimerState.COOLDOWN ? type.getDefaultColor().darker() : type.getDefaultColor();
+		}
 	}
 
 	public enum TimerState

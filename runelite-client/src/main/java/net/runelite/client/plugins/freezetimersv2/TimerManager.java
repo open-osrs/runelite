@@ -26,7 +26,6 @@ package net.runelite.client.plugins.freezetimersv2;
 
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
-import net.runelite.api.Client;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.HashMap;
@@ -36,7 +35,7 @@ import java.util.HashMap;
 public class TimerManager
 {
 	@Inject
-	private Client client;
+	private FreezeTimersV2Plugin plugin;
 	private HashMap<Actor, HashMap<TimerType, Timer>> timerMap = new HashMap<>();
 
 	private HashMap<TimerType, Timer> getTimersFor(Actor actor)
@@ -62,7 +61,7 @@ public class TimerManager
 	{
 		if (getTimersFor(actor).get(type) == null)
 		{
-			getTimersFor(actor).put(type, new Timer(client, null));
+			getTimersFor(actor).put(type, new Timer(plugin, null));
 		}
 		return getTimersFor(actor).get(type);
 	}
@@ -78,7 +77,7 @@ public class TimerManager
 	{
 		Timer timer = getTimerFor(actor, type);
 		timer.setStartMillis(System.currentTimeMillis());
-		timer.setTicksStart(client.getTickCount());
+		timer.setTicksStart(plugin.getClient().getTickCount());
 		timer.setTicksLength(0);
 	}
 
