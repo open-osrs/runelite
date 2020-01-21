@@ -1667,6 +1667,20 @@ public interface Client extends GameShell
 	void setTickCount(int tickCount);
 
 	/**
+	 * Gets the millisecond that the last server tick occurred on
+	 *
+	 * @return the millisecond the last tick happened on
+	 */
+	long getLastTickMillisTime();
+
+	/**
+	 * Sets the millisecond that the last server tick occurred on
+	 *
+	 * @param tickTime the millisecond the last tick happened on
+	 */
+	void setLastTickMillisTime(long tickTime);
+
+	/**
 	 * Sets the inventory drag delay in client game cycles (20ms).
 	 *
 	 * @param delay the number of game cycles to delay dragging
