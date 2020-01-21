@@ -4,17 +4,27 @@ import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import net.runelite.api.Client;
+import net.runelite.client.config.OpenOSRSConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import javax.inject.Inject;
+import java.util.concurrent.ScheduledExecutorService;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FreezeTimersV2OverlayTest
 {
+	@Mock
+	@Bind
+	private ScheduledExecutorService scheduledExecutorService;
+
+	@Mock
+	@Bind
+	private OpenOSRSConfig openOSRSConfig;
+
 	@Mock
 	@Bind
 	private Client client;
@@ -24,7 +34,7 @@ public class FreezeTimersV2OverlayTest
 	private FreezeTimersV2Config config;
 
 	@Inject
-	FreezeTimersV2Overlay timersOverlay;
+	private FreezeTimersV2Overlay timersOverlay;
 
 	@Before
 	public void before()
