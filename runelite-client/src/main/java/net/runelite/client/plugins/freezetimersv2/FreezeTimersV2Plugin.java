@@ -29,6 +29,8 @@ import net.runelite.api.Actor;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
+import net.runelite.api.WorldType;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
@@ -40,10 +42,13 @@ import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.plugins.multiindicators.MapLocations;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
+import net.runelite.client.util.PvPUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import javax.inject.Inject;
+import java.util.EnumSet;
 
 @PluginDescriptor(
 	name = "Freeze Timers v2",
@@ -110,6 +115,20 @@ public class FreezeTimersV2Plugin extends Plugin
 			SpotAnimationChanged event = new SpotAnimationChanged();
 			event.setActor(client.getLocalPlayer());
 			onSpotAnimChanged(event);
+		}
+
+		EnumSet<WorldType> worldTypes = client.getWorldType();
+
+		for (Actor actor : client.getPlayers())
+		{
+			WorldPoint actorLoc = actor.getWorldLocation();
+
+			if ((!WorldType.isAllPvpWorld(worldTypes) && PvPUtil.getWildernessLevelFrom(actorLoc) <= 0)
+				|| (WorldType.isPvpWorld(worldTypes) &&
+					MapLocations.getPvpSafeZones(actorLoc.getPlane()).contains(actorLoc.getX(), actorLoc.getY())))
+			{
+				timerManager.setTimerFor(actor, TimerType.TELEBLOCK, new Timer(client, null));
+			}
 		}
 	}
 
