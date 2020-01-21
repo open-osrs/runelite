@@ -151,9 +151,6 @@ public abstract class RSClientMixin implements RSClient
 	private static int tickCount;
 
 	@Inject
-	private static long lastTickMillisTime;
-
-	@Inject
 	private static boolean interpolatePlayerAnimations;
 
 	@Inject
@@ -1437,20 +1434,6 @@ public abstract class RSClientMixin implements RSClient
 	public void setTickCount(int tick)
 	{
 		tickCount = tick;
-	}
-
-	@Override
-	@Inject
-	public long getLastTickMillisTime()
-	{
-		return lastTickMillisTime;
-	}
-
-	@Override
-	@Inject
-	public void setLastTickMillisTime(long newValue)
-	{
-		lastTickMillisTime = newValue;
 	}
 
 	@Inject
