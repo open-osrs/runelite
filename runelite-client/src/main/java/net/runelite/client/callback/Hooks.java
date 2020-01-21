@@ -184,6 +184,7 @@ public class Hooks implements Callbacks
 
 			int tick = client.getTickCount();
 			client.setTickCount(tick + 1);
+			client.setLastTickMillisTime(System.currentTimeMillis());
 		}
 
 		eventBus.post(BeforeRender.class, BeforeRender.INSTANCE);
