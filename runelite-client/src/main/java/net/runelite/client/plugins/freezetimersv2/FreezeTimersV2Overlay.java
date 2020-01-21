@@ -92,7 +92,7 @@ public class FreezeTimersV2Overlay extends Overlay
 		{
 			if (timerType.shouldRender(configManager))
 			{
-				if (timerManager.hasTimerActive(actor, timerType))
+				if (timerManager.isTimerValid(actor, timerType) && timerManager.hasTimerActive(actor, timerType))
 				{
 					if (renderTimer(g, actor, timerType, offset))
 					{
@@ -105,14 +105,30 @@ public class FreezeTimersV2Overlay extends Overlay
 
 	private boolean renderTimer(Graphics2D g, Actor actor, TimerType timerType, int offset)
 	{
+		String text;
 		Timer timer = timerManager.getTimerFor(actor, timerType);
-		long millisRemaining = timer.millisRemainingForDisplay();
-		if (millisRemaining < 0)
+		switch (config.timeMode())
 		{
-			millisRemaining = (timerType.getImmunityLength() * 600) - Math.abs(millisRemaining);
+			case SECONDS:
+				long millisRemaining = timer.getMillisForRender();
+				if (millisRemaining == -1)
+				{
+					return false; // this shouldnt happen but just in case
+				}
+				text = formatTime(millisRemaining);
+				break;
+			case TICKS:
+				int tfr = timer.getTicksForRender();
+				if (tfr == -1)
+				{
+					return false;
+				}
+				text = Integer.toString(tfr);
+				break;
+			default:
+				return false;
 		}
 
-		String text = formatTime(millisRemaining);
 		Point canvasLocation = actor.getCanvasTextLocation(g, text, 0);
 
 		if (canvasLocation == null)
@@ -131,7 +147,7 @@ public class FreezeTimersV2Overlay extends Overlay
 		xOffset = image.getWidth() + 1;
 		yOffset = (image.getHeight() - g.getFontMetrics().getHeight());
 		textLocation = new Point(textLocation.getX() + xOffset, textLocation.getY() + image.getHeight() - yOffset);
-		OverlayUtil.renderTextLocation(g, textLocation, text, timer.isInCooldown() ? config.cooldownColor() : config.timerColor());
+		OverlayUtil.renderTextLocation(g, textLocation, text, timer.getTimerState() == Timer.TimerState.COOLDOWN ? config.cooldownColor() : config.timerColor());
 
 		return true;
 	}

@@ -26,8 +26,13 @@ package net.runelite.client.plugins.freezetimersv2;
 
 import com.google.inject.Provides;
 import net.runelite.api.Actor;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
+import net.runelite.api.NPC;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.NpcDespawned;
+import net.runelite.api.events.PlayerDeath;
 import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -37,6 +42,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
+import org.apache.commons.lang3.ArrayUtils;
 import javax.inject.Inject;
 
 @PluginDescriptor(
@@ -48,6 +54,8 @@ import javax.inject.Inject;
 )
 public class FreezeTimersV2Plugin extends Plugin
 {
+	private static final int VORKATH_REGION = 9023;
+
 	@Inject
 	private Client client;
 	@Inject
@@ -129,5 +137,53 @@ public class FreezeTimersV2Plugin extends Plugin
 		}
 
 		timerManager.setTimerFor(actor, effect.getType(), new Timer(client, effect));
+	}
+
+	@Subscribe
+	public void onChatMessage(ChatMessage event)
+	{
+		if (event.getType() != ChatMessageType.GAMEMESSAGE
+			|| !event.getMessage().contains("Your Tele Block has been removed"))
+		{
+			return;
+		}
+
+		timerManager.jumpToCooldown(client.getLocalPlayer(), TimerType.TELEBLOCK);
+	}
+
+	private boolean isAtVorkath()
+	{
+		return ArrayUtils.contains(client.getMapRegions(), VORKATH_REGION);
+	}
+
+	@Subscribe
+	public void onNpcDespawned(NpcDespawned event)
+	{
+		if (!isAtVorkath())
+		{
+			return;
+		}
+
+		final NPC npc = event.getNpc();
+
+		if (npc.getName() == null)
+		{
+			return;
+		}
+
+		if (npc.getName().contains("Zombified Spawn"))
+		{
+			// TODO: not sure if we're meant to jump to cooldown here or just remove the timer completely, doesn't mechanically make a difference though
+			timerManager.setTimerFor(client.getLocalPlayer(), TimerType.FREEZE, new Timer(client, null)); // empty timer
+		}
+	}
+
+	@Subscribe
+	public void onPlayerDeath(PlayerDeath event)
+	{
+		for (TimerType type : TimerType.values())
+		{
+			timerManager.setTimerFor(event.getPlayer(), type, new Timer(client, null));
+		}
 	}
 }

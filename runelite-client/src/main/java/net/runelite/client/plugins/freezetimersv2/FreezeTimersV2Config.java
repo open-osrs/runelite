@@ -56,10 +56,21 @@ public interface FreezeTimersV2Config extends Config
 	}
 
 	@ConfigItem(
+		name = "Time Mode",
+		keyName = "timeMode",
+		description = "How should we display the time?",
+		position = 3
+	)
+	default TimeMode timeMode()
+	{
+		return TimeMode.TICKS;
+	}
+
+	@ConfigItem(
 		name = "Timer Color",
 		keyName = "timerColor",
 		description = "Color for timers not on cooldown",
-		position = 3
+		position = 4
 	)
 	default Color timerColor()
 	{
@@ -70,7 +81,7 @@ public interface FreezeTimersV2Config extends Config
 		name = "Cooldown Color",
 		keyName = "cooldownColor",
 		description = "Color for timers on cooldown",
-		position = 4
+		position = 5
 	)
 	default Color cooldownColor()
 	{
@@ -81,7 +92,7 @@ public interface FreezeTimersV2Config extends Config
 		name = "Freeze Timers",
 		keyName = "freezeTimers",
 		description = "Should we render freeze timers?",
-		position = 5
+		position = 6
 	)
 	default boolean freezeTimers()
 	{
@@ -92,7 +103,7 @@ public interface FreezeTimersV2Config extends Config
 		name = "Teleblock Timers",
 		keyName = "teleblockTimers",
 		description = "Should we render teleblock timers?",
-		position = 6
+		position = 7
 	)
 	default boolean teleblockTimers()
 	{
@@ -103,7 +114,7 @@ public interface FreezeTimersV2Config extends Config
 		name = "Vengeance Timers",
 		keyName = "vengTimers",
 		description = "Should we render vengeance timers?",
-		position = 7
+		position = 8
 	)
 	default boolean vengTimers()
 	{
@@ -114,7 +125,8 @@ public interface FreezeTimersV2Config extends Config
 		name = "Debug Keybind",
 		keyName = "debugKeybind",
 		description = "Don't press this unless you know what it does :)",
-		position = 8
+		position = 9,
+		hidden = true
 	)
 	default Keybind debugKeybind()
 	{
@@ -125,7 +137,8 @@ public interface FreezeTimersV2Config extends Config
 		name = "Debug Integer",
 		keyName = "debugInteger",
 		description = "Related to the keybind in some way :)",
-		position = 9
+		position = 10,
+		hidden = true
 	)
 	default int debugInteger()
 	{
