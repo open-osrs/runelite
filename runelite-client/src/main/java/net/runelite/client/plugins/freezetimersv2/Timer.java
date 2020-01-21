@@ -24,25 +24,25 @@
  */
 package net.runelite.client.plugins.freezetimersv2;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Value;
-import lombok.experimental.NonFinal;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
+import lombok.ToString;
 import net.runelite.api.Client;
 import java.awt.image.BufferedImage;
 
-@Value
-@Getter(AccessLevel.NONE)
+@ToString
+@EqualsAndHashCode
 public class Timer
 {
 	private Client client;
+	@Setter
 	private int ticksStart;
+	@Setter
 	private long startMillis;
+	@Setter
 	private int ticksLength;
 	private int cooldownLength;
-	@NonFinal
 	private TimerType type;
-	@NonFinal
 	private boolean shutdown = false;
 
 	public Timer(Client client, PlayerSpellEffect effect)
@@ -55,6 +55,30 @@ public class Timer
 		this.type = effect == null ? null : effect.getType();
 	}
 
+	public boolean isValid()
+	{
+		return type != null;
+	}
+
+	public int getTicksElapsed()
+	{
+		return client.getTickCount() - ticksStart;
+	}
+
+	public TimerState getTimerState()
+	{
+		int ticksElapsed = getTicksElapsed();
+		if (ticksElapsed > ticksLength + cooldownLength)
+		{
+			return TimerState.INACTIVE;
+		}
+		else if (ticksElapsed > ticksLength)
+		{
+			return TimerState.COOLDOWN;
+		}
+		return TimerState.ACTIVE;
+	}
+
 	public void setTimerTypeIfNull(TimerType set)
 	{
 		if (type == null)
@@ -63,38 +87,46 @@ public class Timer
 		}
 	}
 
-	private int ticksRemaining()
+	public long getMillisForRender()
 	{
-		int ticksElapsed = client.getTickCount() - ticksStart;
-
-		return ticksLength - ticksElapsed;
-	}
-
-	public boolean isActive()
-	{
-		return ticksRemaining() > 0;
-	}
-
-	public boolean isInCooldown()
-	{
-		if (!isActive())
+		long millisElapsed = System.currentTimeMillis() - startMillis;
+		long millisRemaining = ((ticksLength * 600) + (cooldownLength * 600)) - millisElapsed;
+		switch (getTimerState())
 		{
-			return false;
+			case ACTIVE:
+				return millisRemaining - (cooldownLength * 600);
+			case COOLDOWN:
+				return millisRemaining;
+			default:
+				return -1;
 		}
-
-		return ticksRemaining() < (type == null ? 0 : type.getImmunityLength());
 	}
 
-	public long millisRemainingForDisplay()
+	public int getTicksForRender()
 	{
-		return -1;
-		/*long millisRemaining = (ticksLength * 600) - (System.currentTimeMillis() - startMillis);
-		return millisRemaining - ((type == null ? 0 : type.getImmunityLength()) * 600); // this will cause all immunities to be negative, making it easier to render later
-	*/}
+		int ticksRemaining = (ticksLength + cooldownLength) - getTicksElapsed();
+		ticksRemaining++; // so it renders nicely
+		switch (getTimerState())
+		{
+			case ACTIVE:
+				return ticksRemaining - cooldownLength;
+			case COOLDOWN:
+				return ticksRemaining;
+			default:
+				return -1;
+		}
+	}
 
 	public BufferedImage getIcon()
 	{
-		return isInCooldown() ? type.getCooldownIcon() : type.getIcon();
+		return getTimerState() == TimerState.COOLDOWN ? type.getCooldownIcon() : type.getIcon();
+	}
+
+	public enum TimerState
+	{
+		ACTIVE,
+		COOLDOWN,
+		INACTIVE
 	}
 
 }
