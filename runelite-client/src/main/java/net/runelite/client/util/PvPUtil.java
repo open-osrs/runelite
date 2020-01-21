@@ -51,13 +51,13 @@ public class PvPUtil
 	 */
 	public static int getWildernessLevelFrom(WorldPoint point)
 	{
-		if (NOT_WILDERNESS_BLACK_KNIGHTS.contains(point.getX(), point.getY()))
-		{
-			return 0;
-		}
-
 		if (MAIN_WILDERNESS_CUBOID.contains(point))
 		{
+			if (NOT_WILDERNESS_BLACK_KNIGHTS.contains(point.getX(), point.getY()))
+			{
+				return 0;
+			}
+
 			return ((point.getY() - 3520) / 8) + 1; // calc(((coordz(coord) - (55 * 64)) / 8) + 1)
 		}
 		else if (GOD_WARS_WILDERNESS_CUBOID.contains(point))
