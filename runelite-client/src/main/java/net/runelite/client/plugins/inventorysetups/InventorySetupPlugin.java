@@ -46,7 +46,7 @@ import net.runelite.api.Varbits;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
-import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.events.VarClientIntChanged;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.client.account.AccountSession;
@@ -61,6 +61,7 @@ import net.runelite.client.game.ItemVariationMapping;
 import net.runelite.client.game.chatbox.ChatboxItemSearch;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.game.chatbox.ChatboxTextInput;
+import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.banktags.tabs.BankSearch;
@@ -68,6 +69,7 @@ import net.runelite.client.plugins.runepouch.Runes;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
+import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
 import javax.inject.Inject;
 import javax.swing.JOptionPane;
@@ -78,7 +80,9 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @PluginDescriptor(
@@ -130,6 +134,8 @@ public class InventorySetupPlugin extends Plugin
 	@Inject
 	private BankSearch bankSearch;
 	@Inject
+	private KeyManager keyManager;
+	@Inject
 	private ChatboxItemSearch itemSearch;
 	@Inject
 	private ChatboxPanelManager chatboxPanelManager;
@@ -141,6 +147,41 @@ public class InventorySetupPlugin extends Plugin
 	private boolean highlightUnorderedDifference;
 	private boolean highlightDifference;
 	private Color highlightColor;
+	private Keybind returnToSetupsHotkey;
+	private Keybind filterBankHotkey;
+	
+	private final HotkeyListener returnToSetupsHotkeyListener = new HotkeyListener(() -> this.returnToSetupsHotkey)
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			panel.returnToOverviewPanel();
+		}
+	};
+
+	private final HotkeyListener filterBankHotkeyListener = new HotkeyListener(() -> this.filterBankHotkey)
+	{
+		@Override
+		public void hotkeyPressed()
+		{
+			// you must wait at least one game tick otherwise
+			// the bank filter will work but then go back to the previous tab.
+			// For some reason this can still happen but it is very rare,
+			// and only when the user clicks a tab and the hot key extremely shortly after.
+			int gameTick = client.getTickCount();
+			clientThread.invokeLater(() ->
+			{
+				int gameTick2 = client.getTickCount();
+				if (gameTick2 <= gameTick)
+				{
+					return false;
+				}
+
+				doBankSearch();
+				return true;
+			});
+		}
+	};
 
 	@Provides
 	InventorySetupConfig getConfig(ConfigManager configManager)
@@ -164,6 +205,8 @@ public class InventorySetupPlugin extends Plugin
 			.build();
 
 		clientToolbar.addNavigation(navButton);
+		keyManager.registerKeyListener(returnToSetupsHotkeyListener);
+		keyManager.registerKeyListener(filterBankHotkeyListener);
 
 		// load all the inventory setups from the config file
 		clientThread.invokeLater(() ->
@@ -237,15 +280,12 @@ public class InventorySetupPlugin extends Plugin
 		updateConfig();
 	}
 
-	@Subscribe
-	public void onWidgetLoaded(WidgetLoaded event)
+	public List<InventorySetup> filterSetups(String textToFilter)
 	{
-		if (event.getGroupId() != WidgetID.BANK_GROUP_ID)
-		{
-			return;
-		}
-
-		doBankSearch();
+		final String textToFilterLower = textToFilter.toLowerCase();
+		return inventorySetups.stream()
+				.filter(i -> i.getName().toLowerCase().contains(textToFilterLower))
+				.collect(Collectors.toList());
 	}
 
 	public void doBankSearch()
@@ -257,6 +297,26 @@ public class InventorySetupPlugin extends Plugin
 			client.setVarbit(Varbits.CURRENT_BANK_TAB, 0);
 			bankSearch.search(InputType.SEARCH, INV_SEARCH + currentSelectedSetup.getName(), true);
 		}
+	}
+	
+	@Subscribe
+	public void onVarClientIntChanged(VarClientIntChanged event)
+	{
+		if (event.getIndex() != 386)
+		{
+			return;
+		}
+
+		// must be invoked later otherwise causes freezing.
+		clientThread.invokeLater(() ->
+		{
+			// checks to see if the hide worn items button was clicked or bank was opened
+			int value = client.getVarcIntValue(386);
+			if (value == 0)
+			{
+				doBankSearch();
+			}
+		});
 	}
 
 	public void resetBankSearch()
@@ -877,6 +937,8 @@ public class InventorySetupPlugin extends Plugin
 		this.highlightUnorderedDifference = config.highlightUnorderedDifference();
 		this.highlightDifference = config.highlightDifference();
 		this.highlightColor = config.highlightColor();
+		this.returnToSetupsHotkey = config.returnToSetupsHotkey();
+		this.filterBankHotkey = config.filterBankHotkey();
 	}
 
 }
