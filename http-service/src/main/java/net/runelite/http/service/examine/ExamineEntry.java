@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,65 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.service.examine;
 
-rootProject.name = "OpenOSRS"
+import java.time.Instant;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class ExamineEntry
+{
+	private ExamineType type;
+	private int id;
+	private Instant time;
+	private int count;
+	private String text;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	public ExamineType getType()
+	{
+		return type;
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	public void setType(ExamineType type)
+	{
+		this.type = type;
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+	public Instant getTime()
+	{
+		return time;
+	}
+
+	public void setTime(Instant time)
+	{
+		this.time = time;
+	}
+
+	public int getCount()
+	{
+		return count;
+	}
+
+	public void setCount(int count)
+	{
+		this.count = count;
+	}
+
+	public String getText()
+	{
+		return text;
+	}
+
+	public void setText(String text)
+	{
+		this.text = text;
+	}
 }

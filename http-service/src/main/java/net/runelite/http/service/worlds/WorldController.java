@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.service.worlds;
 
-rootProject.name = "OpenOSRS"
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import net.runelite.http.api.worlds.WorldResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+@RestController
+@RequestMapping("/worlds")
+public class WorldController
+{
+	@Autowired
+	private WorldsService worldsService;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	private WorldResult worldResult;
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	@GetMapping
+	public ResponseEntity<WorldResult> listWorlds() throws IOException
+	{
+		return ResponseEntity.ok()
+			.cacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES).cachePublic())
+			.body(worldResult);
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	@Scheduled(fixedDelay = 60_000L)
+	public void refreshWorlds() throws IOException
+	{
+		worldResult = worldsService.getWorlds();
+	}
 }

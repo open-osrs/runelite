@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.protocol.handshake;
 
-rootProject.name = "OpenOSRS"
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToByteEncoder;
+import net.runelite.protocol.api.handshake.HandshakeType;
+import net.runelite.protocol.api.handshake.LoginHandshakePacket;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class LoginHandshakeEncoder extends MessageToByteEncoder<LoginHandshakePacket>
+{
+	@Override
+	protected void encode(ChannelHandlerContext ctx, LoginHandshakePacket packet, ByteBuf buf) throws Exception
+	{
+		buf.writeByte(HandshakeType.LOGIN.getValue());
+	}
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
-
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
 }

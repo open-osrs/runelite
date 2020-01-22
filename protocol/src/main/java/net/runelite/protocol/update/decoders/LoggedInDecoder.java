@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.protocol.update.decoders;
 
-rootProject.name = "OpenOSRS"
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
+import java.util.List;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class LoggedInDecoder extends ByteToMessageDecoder
+{
+	@Override
+	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> list) throws Exception
+	{
+		if (in.getByte(in.readerIndex()) != UpdateOpcodes.CLIENT_LOGGED_IN)
+		{
+			ctx.fireChannelRead(in.retain());
+			return;
+		}
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+		in.skipBytes(4);
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
 }

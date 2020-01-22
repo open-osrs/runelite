@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, AeonLucid <https://github.com/AeonLucid>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.service.osbuddy;
 
-rootProject.name = "OpenOSRS"
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+@RestController
+@RequestMapping("/osb/ge")
+public class OSBGrandExchangeController
+{
+	private final OSBGrandExchangeService grandExchangeService;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	@Autowired
+	public OSBGrandExchangeController(OSBGrandExchangeService grandExchangeService)
+	{
+		this.grandExchangeService = grandExchangeService;
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	@GetMapping
+	public ResponseEntity<GrandExchangeEntry> get(@RequestParam("itemId") int itemId) throws ExecutionException
+	{
+		GrandExchangeEntry grandExchangeEntry = grandExchangeService.get(itemId);
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+		return ResponseEntity.ok()
+			.cacheControl(CacheControl.maxAge(30, TimeUnit.MINUTES).cachePublic())
+			.body(grandExchangeEntry);
+	}
 }

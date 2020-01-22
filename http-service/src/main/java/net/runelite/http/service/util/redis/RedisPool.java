@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.service.util.redis;
 
-rootProject.name = "OpenOSRS"
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import redis.clients.jedis.Jedis;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+@Component
+public class RedisPool
+{
+	private final BlockingQueue<Jedis> queue;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	RedisPool(@Value("${redis.pool.size:10}") int queueSize, @Value("${redis.host:localhost}") String redisHost)
+	{
+		queue = new ArrayBlockingQueue<>(queueSize);
+		for (int i = 0; i < queueSize; ++i)
+		{
+			Jedis jedis = new PooledJedis(redisHost);
+			queue.offer(jedis);
+		}
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	public Jedis getResource()
+	{
+		Jedis jedis;
+		try
+		{
+			jedis = queue.poll(1, TimeUnit.SECONDS);
+		}
+		catch (InterruptedException e)
+		{
+			throw new RuntimeException(e);
+		}
+		if (jedis == null)
+		{
+			throw new RuntimeException("Unable to acquire connection from pool, timeout");
+		}
+		return jedis;
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	class PooledJedis extends Jedis
+	{
+		PooledJedis(String host)
+		{
+			super(host);
+		}
+
+		@Override
+		public void close()
+		{
+			queue.offer(this);
+		}
+	}
 }

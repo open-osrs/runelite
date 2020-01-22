@@ -23,38 +23,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "OpenOSRS"
+description = "Cache Updater"
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+dependencies {
+    annotationProcessor(Libraries.lombok)
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+    compileOnly(Libraries.lombok)
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+    implementation(Libraries.minio)
+    implementation(Libraries.mysqlConnectorJava)
+    implementation(Libraries.springbootDevtools)
+    implementation(Libraries.springbootStarter)
+    implementation(Libraries.springbootStarterJdbc)
+    implementation(Libraries.sql2o)
+    implementation(project(":cache-client"))
 }

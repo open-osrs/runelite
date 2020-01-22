@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.service.xp;
 
-rootProject.name = "OpenOSRS"
+import java.time.Instant;
+import net.runelite.http.api.xp.XpData;
+import net.runelite.http.service.xp.beans.XpEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+@RestController
+@RequestMapping("/xp")
+public class XpTrackerController
+{
+	@Autowired
+	private XpTrackerService xpTrackerService;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	@GetMapping("/update")
+	public void update(@RequestParam String username)
+	{
+		xpTrackerService.tryUpdate(username);
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	@GetMapping("/get")
+	public XpData get(@RequestParam String username, @RequestParam(required = false) Instant time)
+	{
+		if (time == null)
+		{
+			time = Instant.now();
+		}
+		XpEntity xpEntity = xpTrackerService.findXpAtTime(username, time);
+		return XpMapper.INSTANCE.xpEntityToXpData(xpEntity);
+	}
 }

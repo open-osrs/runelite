@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, AeonLucid <https://github.com/AeonLucid>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.service.osbuddy;
 
-rootProject.name = "OpenOSRS"
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Map;
+import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.service.osbuddy.beans.OsbuddySummaryItem;
+import okhttp3.HttpUrl;
+import okhttp3.Request;
+import okhttp3.Response;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class OsbuddyClient
+{
+	public Map<Integer, OsbuddySummaryItem> getSummary() throws IOException
+	{
+		HttpUrl httpUrl = new HttpUrl.Builder()
+			.scheme("https")
+			.host("storage.googleapis.com")
+			.addPathSegment("osb-exchange")
+			.addPathSegment("summary.json")
+			.build();
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+		Request request = new Request.Builder()
+			.url(httpUrl)
+			.header("User-Agent", "RuneLite")
+			.build();
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+		try (Response responseOk = RuneLiteAPI.CLIENT.newCall(request).execute())
+		{
+			if (!responseOk.isSuccessful())
+			{
+				throw new IOException("Error retrieving summary from OSBuddy: " + responseOk.message());
+			}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+			Type type = new TypeToken<Map<Integer, OsbuddySummaryItem>>() {}.getType();
+
+			return RuneLiteAPI.GSON.fromJson(responseOk.body().string(), type);
+		}
+		catch (JsonSyntaxException ex)
+		{
+			throw new IOException(ex);
+		}
+	}
 }

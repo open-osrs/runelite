@@ -23,38 +23,27 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "OpenOSRS"
+description = "Cache Client"
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
+dependencies {
+    api(project(":cache"))
+    api(project(":protocol"))
+
+    implementation(Libraries.guava)
+    implementation(Libraries.nettyAll)
+    implementation(Libraries.slf4jApi)
+
+    testImplementation(Libraries.junit)
+    testImplementation(Libraries.slf4jSimple)
+    testImplementation(project(path = ":cache", configuration = "testArchives"))
 }
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+tasks {
+    register<JavaExec>("download") {
+        dependsOn(":cache-client:build")
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
+        classpath = project.sourceSets.main.get().runtimeClasspath
+        main = "net.runelite.cache.client.CacheClient"
+        args(listOf(ProjectVersions.rsversion))
     }
 }

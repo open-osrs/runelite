@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,65 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.protocol.api.login;
 
-rootProject.name = "OpenOSRS"
+public enum HandshakeResponseType
+{
+	RESPONSE_OK(0),
+	LOGGED_IN(2),
+	INVALID_USERNAME_OR_PASSWORD(3),
+	ACCOUNT_DISABLED(4),
+	ACCOUNT_ONLINE(5),
+	RESPONSE_OUTDATED(6),
+	WORLD_FULL(7),
+	SERVER_OFFLINE(8),
+	LIMITED_EXCEEDED(9),
+	BAD_SESSION_ID(10),
+	ACCOUNT_HIJACK(11),
+	MEMBERS_WORLD(12),
+	COULD_NOT_COMPLETE_LOGIN(13),
+	SERVER_BEING_UPDATED(14),
+	TOO_MANY_ATTEMPTS(16),
+	MEMBERS_ONLY_AREA(17),
+	ACCOUNT_LOCKED(18),
+	CLOSED_BETA(19),
+	INVALID_LOGINSERVER(20),
+	PROFILE_TRANSFER(21),
+	MALFORMED_PACKET(22),
+	NO_REPLY_FROM_LOGINSERVER(23),
+	ERR_LOADING_PROFILE(24),
+	UNEXPECTED_LOGINSERVER_RESPONSE(25),
+	IP_BANNED(26),
+	SERVICE_UNAVAILABLE(27),
+	NO_DISPLAY_NAME(31),
+	BILLING_ERROR(32),
+	ACCOUNT_INACCESSABLE(37),
+	VOTE_TO_PLAY(38),
+	NOT_ELIGIBLE(55),
+	NEED_AUTHENTICATOR(56),
+	AUTHENTICATOR_CODE_WRONG(57);
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+	private final byte value;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	HandshakeResponseType(int value)
+	{
+		this.value = (byte) value;
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	public byte getValue()
+	{
+		return value;
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	public static HandshakeResponseType of(byte value)
+	{
+		for (HandshakeResponseType type : values())
+		{
+			if (type.value == value)
+			{
+				return type;
+			}
+		}
+		return null;
+	}
 }

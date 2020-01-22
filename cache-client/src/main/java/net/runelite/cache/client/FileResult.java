@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,71 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.cache.client;
 
-rootProject.name = "OpenOSRS"
+import java.io.IOException;
+import net.runelite.cache.fs.Container;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class FileResult
+{
+	private final int index;
+	private final int fileId;
+	private final byte[] compressedData;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	private byte[] contents;
+	private int revision;
+	private int crc;
+	private int compression; // compression method used by archive data
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	public FileResult(int index, int fileId, byte[] compressedData)
+	{
+		this.index = index;
+		this.fileId = fileId;
+		this.compressedData = compressedData;
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	public int getIndex()
+	{
+		return index;
+	}
+
+	public int getFileId()
+	{
+		return fileId;
+	}
+
+	public byte[] getCompressedData()
+	{
+		return compressedData;
+	}
+
+	public void decompress(int[] keys) throws IOException
+	{
+		Container res = Container.decompress(compressedData, keys);
+
+		contents = res.data;
+		revision = res.revision;
+		crc = res.crc;
+		compression = res.compression;
+	}
+
+	public byte[] getContents()
+	{
+		return contents;
+	}
+
+	public int getRevision()
+	{
+		return revision;
+	}
+
+	public int getCrc()
+	{
+		return crc;
+	}
+
+	public int getCompression()
+	{
+		return compression;
+	}
 }

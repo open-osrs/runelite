@@ -23,38 +23,42 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "OpenOSRS"
-
 plugins {
-    id("com.gradle.enterprise").version("3.0")
+    war
 }
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+description = "Web Service"
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+dependencies {
+    annotationProcessor(Libraries.mapstructProcessor)
+    annotationProcessor(Libraries.lombok)
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
+    api(project(":cache"))
+    api(project(":http-api"))
+    api(project(":runelite-api"))
+
+    implementation(Libraries.scribejava)
+    implementation(Libraries.gson)
+    implementation(Libraries.guava)
+    implementation(Libraries.minio)
+    implementation(Libraries.mapstruct)
+    implementation(Libraries.mongodbDriverSync)
+    implementation(Libraries.slf4jApi)
+    implementation(Libraries.springbootJdbc)
+    implementation(Libraries.springbootDevtools)
+    implementation(Libraries.springbootStarterWeb)
+    implementation(Libraries.sql2o)
+    implementation(Libraries.jedis) {
+        exclude(module = "commons-pool2")
+    }
+
+    providedCompile(Libraries.mariadbJdbc)
+    providedCompile(Libraries.lombok)
+    providedCompile(Libraries.springbootStarterTomcat)
+
+    testImplementation(Libraries.h2)
+    testImplementation(Libraries.okhttp3Webserver)
+    testImplementation(Libraries.springbootStarterTest) {
+        exclude(module = "commons-logging")
     }
 }

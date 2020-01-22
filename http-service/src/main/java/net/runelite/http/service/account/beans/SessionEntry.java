@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.service.account.beans;
 
-rootProject.name = "OpenOSRS"
+import java.time.Instant;
+import java.util.UUID;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class SessionEntry
+{
+	private int user;
+	private UUID uuid;
+	private Instant created;
+	private Instant lastUsed;
 
-include(":http-api")
-include(":cache")
-include(":runelite-api")
-include(":protocol-api")
-include(":protocol")
-include(":cache-client")
-include(":cache-updater")
-include(":runescape-api")
-include(":runescape-client")
-include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
-include(":runelite-client")
-include(":runelite-mixins")
-include(":injected-client")
-include("injection-annotations")
-include(":runelite-plugin-archetype")
-include(":http-service")
-include(":http-service-openosrs")
-include(":wiki-scraper")
+	public int getUser()
+	{
+		return user;
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	public void setUser(int user)
+	{
+		this.user = user;
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	public UUID getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(UUID uuid)
+	{
+		this.uuid = uuid;
+	}
+
+	public Instant getCreated()
+	{
+		return created;
+	}
+
+	public void setCreated(Instant created)
+	{
+		this.created = created;
+	}
+
+	public Instant getLastUsed()
+	{
+		return lastUsed;
+	}
+
+	public void setLastUsed(Instant lastUsed)
+	{
+		this.lastUsed = lastUsed;
+	}
 }
