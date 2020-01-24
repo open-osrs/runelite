@@ -61,7 +61,6 @@ import java.util.EnumSet;
 public class FreezeTimersV2Plugin extends Plugin
 {
 	private static final int VORKATH_REGION = 9023;
-
 	@Inject
 	@Getter
 	private Client client;
@@ -77,7 +76,6 @@ public class FreezeTimersV2Plugin extends Plugin
 	private FreezeTimersV2Config config;
 	@Inject
 	private KeyManager keyManager;
-
 	private int fakeSpotAnim = -1;
 	private HotkeyListener hotkeyListener = new HotkeyListener(() -> config.debugKeybind())
 	{
@@ -128,6 +126,11 @@ public class FreezeTimersV2Plugin extends Plugin
 
 		for (Actor actor : client.getPlayers())
 		{
+			if (!timerManager.hasTimerActive(actor, TimerType.TELEBLOCK))
+			{
+				continue;
+			}
+
 			WorldPoint actorLoc = actor.getWorldLocation();
 
 			if ((!WorldType.isAllPvpWorld(worldTypes) && PvPUtil.getWildernessLevelFrom(actorLoc) <= 0)
