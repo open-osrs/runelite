@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,24 +22,56 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.wiki;
+package net.runelite.client.plugins.sounds;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import net.runelite.api.SpriteID;
-import net.runelite.client.game.SpriteOverride;
+import java.io.IOException;
+import java.util.HashMap;
+import javax.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Client;
+import net.runelite.api.events.SoundEffectPlayed;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.http.api.sounds.SoundsClient;
+import org.apache.commons.lang3.ArrayUtils;
 
-@RequiredArgsConstructor
-public enum WikiSprite implements SpriteOverride
+@PluginDescriptor(
+	name = "Sounds",
+	hidden = true
+)
+@Slf4j
+public class SoundsPlugin extends Plugin
 {
-	WIKI_ICON(-300, "wiki.png"),
-	WIKI_SELECTED_ICON(-301, "wiki_selected.png"),
-	FIXED_MODE_MINIMAP_CLICKMASK(SpriteID.MINIMAP_CLICK_MASK, "fixed_mode_minimap_clickmask.png");
+	private final SoundsClient soundsClient = new SoundsClient();
 
-	@Getter(AccessLevel.PUBLIC)
-	private final int spriteId;
+	private HashMap<Integer, int[]> sounds;
+	@Inject
+	private Client client;
 
-	@Getter(AccessLevel.PUBLIC)
-	private final String fileName;
+	{
+		try
+		{
+			sounds = soundsClient.get();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Subscribe
+	private void onSoundEffectPlayed(SoundEffectPlayed event)
+	{
+		if (event.getNpcid() != -1)
+		{
+			if (ArrayUtils.contains(sounds.get(event.getNpcid()), event.getSoundId()))
+			{
+				return;
+			}
+			int[] newSounds = ArrayUtils.add(sounds.get(event.getNpcid()), event.getSoundId());
+			sounds.put(event.getNpcid(), newSounds);
+			soundsClient.submit(event.getNpcid(), event.getSoundId());
+		}
+	}
 }

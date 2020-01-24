@@ -36,6 +36,7 @@ public class SoundEffectPlayed implements Event
 
 	private int soundId;
 	private int delay;
+	private int npcid;
 
 	private boolean consumed;
 
