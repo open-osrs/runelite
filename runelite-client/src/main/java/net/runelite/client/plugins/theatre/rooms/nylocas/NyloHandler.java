@@ -39,6 +39,8 @@ import net.runelite.client.plugins.theatre.RoomHandler;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
+import net.runelite.client.util.WeaponMap;
+import net.runelite.client.util.WeaponStyle;
 import org.apache.commons.lang3.ObjectUtils;
 
 @Slf4j
