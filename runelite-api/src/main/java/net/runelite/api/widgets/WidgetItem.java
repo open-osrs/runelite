@@ -66,7 +66,7 @@ public class WidgetItem
 	/**
 	 * Whether or not this widget item is being dragged.
 	 */
-	private final boolean dragging;
+	// private final boolean dragging;
 
 	/**
 	 * Gets the upper-left coordinate of where the widget is being drawn
