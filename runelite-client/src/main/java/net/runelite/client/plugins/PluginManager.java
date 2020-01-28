@@ -83,7 +83,6 @@ import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.RuneLiteSplashScreen;
 import net.runelite.client.util.GameEventManager;
-import net.runelite.client.util.ReflectUtil;
 
 @Singleton
 @Slf4j
@@ -562,7 +561,7 @@ public class PluginManager
 			try
 			{
 				final Class<?> clazz = method.getDeclaringClass();
-				final MethodHandles.Lookup caller = ReflectUtil.privateLookupIn(clazz);
+				final MethodHandles.Lookup caller = MethodHandles.privateLookupIn(clazz);
 				final MethodType subscription = MethodType.methodType(method.getReturnType(), method.getParameterTypes());
 				final MethodHandle target = caller.findVirtual(clazz, method.getName(), subscription);
 				final CallSite site = LambdaMetafactory.metafactory(
