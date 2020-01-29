@@ -37,19 +37,19 @@ import net.runelite.api.HealthBar;
 import net.runelite.api.Sprite;
 import net.runelite.api.SpriteID;
 import net.runelite.api.events.BeforeMenuRender;
-import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.PostHealthBar;
 import net.runelite.api.events.WidgetPositioned;
-import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.ImageUtil;
 
 @Slf4j
@@ -57,7 +57,8 @@ import net.runelite.client.util.ImageUtil;
 	name = "Interface Styles",
 	description = "Change the interface style to the 2005/2010 interface",
 	tags = {"2005", "2010", "skin", "theme", "ui"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	type = PluginType.MISCELLANEOUS
 )
 @Singleton
 public class InterfaceStylesPlugin extends Plugin
@@ -74,9 +75,6 @@ public class InterfaceStylesPlugin extends Plugin
 	@Inject
 	private SpriteManager spriteManager;
 
-	@Inject
-	private EventBus eventBus;
-
 	private Sprite[] defaultCrossSprites;
 
 	private Skin skin;
@@ -91,18 +89,15 @@ public class InterfaceStylesPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		updateConfig();
-		addSubscriptions();
 		clientThread.invoke(this::updateAllOverrides);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
-		eventBus.unregister(this);
-
 		clientThread.invoke(() ->
 		{
 			restoreWidgetDimensions();
@@ -112,16 +107,7 @@ public class InterfaceStylesPlugin extends Plugin
 		});
 	}
 
-	private void addSubscriptions()
-	{
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventBus.subscribe(WidgetPositioned.class, this, this::onWidgetPositioned);
-		eventBus.subscribe(PostHealthBar.class, this, this::onPostHealthBar);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventBus.subscribe(BeforeMenuRender.class, this, this::onBeforeMenuRender);
-		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
-	}
-
+	@Subscribe
 	private void onConfigChanged(ConfigChanged config)
 	{
 		if (config.getGroup().equals("interfaceStyles"))
@@ -131,11 +117,13 @@ public class InterfaceStylesPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onWidgetPositioned(WidgetPositioned widgetPositioned)
 	{
 		adjustWidgetDimensions();
 	}
-
+	
+	@Subscribe
 	public void onScriptCallbackEvent(ScriptCallbackEvent event)
 	{
 		String eventName = event.getEventName();
@@ -148,6 +136,7 @@ public class InterfaceStylesPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onPostHealthBar(PostHealthBar postHealthBar)
 	{
 		if (!this.hdHealthBars)
@@ -166,6 +155,7 @@ public class InterfaceStylesPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
 	private void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
 		if (gameStateChanged.getGameState() != GameState.LOGIN_SCREEN)
@@ -192,6 +182,7 @@ public class InterfaceStylesPlugin extends Plugin
 		overrideCrossSprites();
 	}
 
+	@Subscribe
 	private void onBeforeMenuRender(BeforeMenuRender event)
 	{
 		if (this.hdMenu)
