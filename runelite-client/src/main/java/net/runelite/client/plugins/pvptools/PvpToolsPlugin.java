@@ -632,7 +632,7 @@ public class PvpToolsPlugin extends Plugin
 		{
 			if ((client.getVar(Varbits.IN_RAID) == 1 || client.getVar(Varbits.THEATRE_OF_BLOOD) == 2)
 				|| (client.getVar(Varbits.IN_WILDERNESS) != 1 && !WorldType.isAllPvpWorld(client.getWorldType()))
-				|| (client.getVar(Varbits.IN_PVP_AREA) ==1))
+				|| (client.getVar(Varbits.IN_PVP_AREA) ==1 ))
 			{
 				return;
 			}
