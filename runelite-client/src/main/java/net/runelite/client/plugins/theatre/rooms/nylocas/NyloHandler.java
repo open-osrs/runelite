@@ -424,6 +424,7 @@ public class NyloHandler extends RoomHandler
 			for (NPC npc : pillars.keySet())
 			{
 				LocalPoint lp = npc.getLocalLocation();
+
 				if (lp.getSceneX() < minX)
 				{
 					minX = lp.getSceneX();
