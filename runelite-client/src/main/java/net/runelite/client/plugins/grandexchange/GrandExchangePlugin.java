@@ -28,40 +28,16 @@
 package net.runelite.client.plugins.grandexchange;
 
 import com.google.common.reflect.TypeToken;
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import com.google.inject.Provides;
 import io.reactivex.schedulers.Schedulers;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.SwingUtilities;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.GrandExchangeOffer;
-import net.runelite.api.GrandExchangeOfferState;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.ItemDefinition;
-import static net.runelite.api.ItemID.COINS_995;
-import net.runelite.api.MenuOpcode;
-import net.runelite.api.Varbits;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.FocusChanged;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GrandExchangeOfferChanged;
-import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.ScriptCallbackEvent;
-import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.*;
+import net.runelite.api.events.*;
 import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
@@ -90,6 +66,21 @@ import net.runelite.http.api.ge.GrandExchangeClient;
 import net.runelite.http.api.ge.GrandExchangeTrade;
 import net.runelite.http.api.osbuddy.OSBGrandExchangeClient;
 import net.runelite.http.api.osbuddy.OSBGrandExchangeResult;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
+
+import static net.runelite.api.ItemID.COINS_995;
 
 @PluginDescriptor(
 	name = "Grand Exchange",
@@ -197,11 +188,67 @@ public class GrandExchangePlugin extends Plugin
 	private void setOffer(int slot, SavedOffer offer)
 	{
 		configManager.setConfiguration("geoffer." + client.getUsername().toLowerCase(), Integer.toString(slot), RuneLiteAPI.GSON.toJson(offer));
+		System.out.println("Set offer");
+		recordOfferToExcel(offer, slot);
 	}
 
 	private void deleteOffer(int slot)
 	{
+		String offer = configManager.getConfiguration("geoffer." + client.getUsername().toLowerCase(), Integer.toString(slot));
+		SavedOffer soffer = RuneLiteAPI.GSON.fromJson(offer, SavedOffer.class);
+
 		configManager.unsetConfiguration("geoffer." + client.getUsername().toLowerCase(), Integer.toString(slot));
+
+		System.out.println("Delete offer");
+		recordOfferToExcel(soffer, slot);
+	}
+
+	private final HttpClient httpClient = HttpClient.newBuilder()
+			.version(HttpClient.Version.HTTP_2)
+			.build();
+	private void recordOfferToExcel(SavedOffer offer, int slot) {
+		if (offer == null) {
+			return;
+		}
+
+		System.out.println(client.getUsername().toLowerCase());
+		System.out.println(slot);
+		System.out.println(offer.getItemId());
+		System.out.println(itemManager.getItemDefinition(offer.getItemId()).getName());
+		System.out.println(offer.getQuantitySold());
+		System.out.println(offer.getTotalQuantity());
+		System.out.println(offer.getSpent());
+		System.out.println(offer.getState().name());
+		System.out.println("\n");
+
+		JsonObject event = new JsonObject();
+		event.addProperty("username", client.getUsername().toLowerCase());
+		event.addProperty("slot", slot);
+		event.addProperty("item_id", offer.getItemId());
+		event.addProperty("item_name", itemManager.getItemDefinition(offer.getItemId()).getName());
+		event.addProperty("quantity_sold", offer.getQuantitySold());
+		event.addProperty("total_quantity", offer.getTotalQuantity());
+		event.addProperty("spent", offer.getSpent());
+		event.addProperty("state", offer.getState().name());
+
+		String payload = event.toString();
+		System.out.println(payload);
+
+		// add json header
+		HttpRequest request = HttpRequest.newBuilder()
+				.POST(HttpRequest.BodyPublishers.ofString(payload))
+				.uri(URI.create("https://runescape.herokuapp.com/api/sheets"))
+				.header("Content-Type", "application/json")
+				.build();
+
+		HttpResponse<String> response = null;
+		try {
+			response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Provides

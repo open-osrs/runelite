@@ -56,6 +56,14 @@ fun isNonStable(version: String): Boolean {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("com.google.code.gson:gson:2.8.6")
+}
+
 allprojects {
     group = "com.openosrs"
     version = ProjectVersions.rlVersion
@@ -77,17 +85,6 @@ subprojects {
 
     project.extra["gitCommit"] = localGitCommit
     project.extra["rootPath"] = rootDir.toString().replace("\\", "/")
-
-    if (this.name != "runescape-client") {
-        apply<CheckstylePlugin>()
-
-        configure<CheckstyleExtension> {
-            maxWarnings = 0
-            toolVersion = "8.25"
-            isShowViolations = true
-            isIgnoreFailures = false
-        }
-    }
 
     configure<PublishingExtension> {
         repositories {
