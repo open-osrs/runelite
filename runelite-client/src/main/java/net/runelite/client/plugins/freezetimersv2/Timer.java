@@ -49,11 +49,16 @@ public class Timer
 
 	public Timer(FreezeTimersV2Plugin plugin, PlayerSpellEffect effect)
 	{
+		this(plugin, effect, false);
+	}
+
+	public Timer(FreezeTimersV2Plugin plugin, PlayerSpellEffect effect, boolean half)
+	{
 		this.plugin = plugin;
 		this.client = plugin.getClient();
 		this.ticksStart = client.getTickCount();
 		this.startMillis = System.currentTimeMillis();
-		this.ticksLength = effect == null ? 0 : effect.getTimerLengthTicks();
+		this.ticksLength = effect == null ? 0 : half ? effect.getTimerLengthTicks() / 2 : effect.getTimerLengthTicks();
 		this.cooldownLength = effect == null ? 0 : effect.getType().getImmunityLength();
 		this.type = effect == null ? null : effect.getType();
 	}

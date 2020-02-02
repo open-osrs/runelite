@@ -167,7 +167,7 @@ public class FreezeTimersV2Plugin extends Plugin
 			return;
 		}
 
-		timerManager.setTimerFor(actor, effect.getType(), new Timer(this, effect));
+		timerManager.setTimerFor(actor, effect.getType(), new Timer(this, effect, effect.isHalvable() && prayerTracker.getPrayerIconLastTick(actor) == HeadIcons.MAGIC));
 	}
 
 	@Subscribe
