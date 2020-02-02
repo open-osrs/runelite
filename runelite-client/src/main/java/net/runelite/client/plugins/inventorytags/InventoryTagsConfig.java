@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.inventorytags;
 
 import java.awt.Color;
-import javax.naming.NoInitialContextException;
 import lombok.RequiredArgsConstructor;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
