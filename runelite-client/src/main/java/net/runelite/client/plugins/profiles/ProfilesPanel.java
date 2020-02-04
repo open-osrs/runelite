@@ -121,15 +121,17 @@ class ProfilesPanel extends PluginPanel
 		JButton btnImportAccounts = new JButton(IMPORT_ACCOUNTS);
 		btnImportAccounts.addActionListener(e -> {
 			JFileChooser chooser = new JFileChooser();
-			if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				try {
+			if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+			{
+				try
+				{
 					String content = Files.readString(Paths.get(chooser.getSelectedFile().getPath()));
 					addAccounts(content);
-				} catch (IOException ex) {
-					ex.printStackTrace();
 				}
-			} else {
-				// user changed their mind
+				catch (IOException ex)
+				{
+					log.error(ex.toString());
+				}
 			}
 		});
 
