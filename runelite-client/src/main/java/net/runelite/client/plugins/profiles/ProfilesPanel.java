@@ -32,8 +32,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
@@ -43,9 +41,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -74,7 +69,6 @@ class ProfilesPanel extends PluginPanel
 	private static final String UNLOCK_PASSWORD = "Encryption Password";
 	private static final String ACCOUNT_USERNAME = "Account Username";
 	private static final String ACCOUNT_LABEL = "Account Label";
-	private static final String IMPORT_LABEL = "Import Accounts";
 	private static final String PASSWORD_LABEL = "Account Password";
 	private static final String HELP = "To add and load accounts, first enter a password into the Encryption Password " +
 		"field then press %s. <br /><br /> You can now add as many accounts as you would like. <br /><br /> The next time you restart " +
@@ -126,9 +120,13 @@ class ProfilesPanel extends PluginPanel
 				try
 				{
 					String content = Files.readString(Paths.get(chooser.getSelectedFile().getPath()));
-					addAccounts(content);
+					String[] lines = content.split("\n");
+					for (String line: lines)
+					{
+						addProfile(line);
+					}
 				}
-				catch (IOException ex)
+				catch (Exception ex)
 				{
 					log.error(ex.toString());
 				}
