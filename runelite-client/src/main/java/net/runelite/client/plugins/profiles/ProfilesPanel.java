@@ -32,6 +32,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -39,6 +43,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -50,13 +57,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -73,6 +74,7 @@ class ProfilesPanel extends PluginPanel
 	private static final String UNLOCK_PASSWORD = "Encryption Password";
 	private static final String ACCOUNT_USERNAME = "Account Username";
 	private static final String ACCOUNT_LABEL = "Account Label";
+	private static final String IMPORT_LABEL = "Import Accounts";
 	private static final String PASSWORD_LABEL = "Account Password";
 	private static final String HELP = "To add and load accounts, first enter a password into the Encryption Password " +
 		"field then press %s. <br /><br /> You can now add as many accounts as you would like. <br /><br /> The next time you restart " +
@@ -114,6 +116,22 @@ class ProfilesPanel extends PluginPanel
 		helpLabel.setFont(smallFont);
 
 		helpPanel.add(helpLabel);
+
+		final String IMPORT_ACCOUNTS = "Import Accounts";
+		JButton btnImportAccounts = new JButton(IMPORT_ACCOUNTS);
+		btnImportAccounts.addActionListener(e -> {
+			JFileChooser chooser = new JFileChooser();
+			if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				try {
+					String content = Files.readString(Paths.get(chooser.getSelectedFile().getPath()));
+					addAccounts(content);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			} else {
+				// user changed their mind
+			}
+		});
 
 		loginPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		loginPanel.setBorder(new EmptyBorder(10, 10, 10, 3));
@@ -243,7 +261,6 @@ class ProfilesPanel extends PluginPanel
 
 		txtPasswordLogin.setEchoChar((char) 0);
 		txtPasswordLogin.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
-		txtPasswordLogin.setToolTipText(PASSWORD_LABEL);
 		txtPasswordLogin.addFocusListener(new FocusListener()
 		{
 			@Override
@@ -357,6 +374,7 @@ class ProfilesPanel extends PluginPanel
 			}
 		});
 
+		accountPanel.add(btnImportAccounts);
 		accountPanel.add(txtAccountLabel);
 		accountPanel.add(txtAccountLogin);
 		if (profilesPlugin.isRememberPassword())
@@ -397,6 +415,7 @@ class ProfilesPanel extends PluginPanel
 		}
 
 		remove(loginPanel);
+
 		add(accountPanel, BorderLayout.CENTER);
 
 		profilesPanel.setLayout(new DynamicGridLayout(0, 1, 0, 3));
