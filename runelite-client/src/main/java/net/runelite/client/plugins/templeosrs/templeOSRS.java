@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Elias <Ezivoz@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -140,7 +140,7 @@ public class templeOSRS extends Plugin
 			.build();
 
 		Request request = new Request.Builder()
-			.header("User-Agent", "RuneLite")
+			.header("User-Agent", "OpenOSRS")
 			.url(httpUrl)
 			.build();
 
