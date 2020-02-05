@@ -28,13 +28,20 @@ import java.io.IOException;
 import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import com.google.inject.Provides;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -49,7 +56,7 @@ import org.jetbrains.annotations.NotNull;
 
 @PluginDescriptor(
 	name = "Crystal Math Labs",
-	description = "Automatically updates your stats on Crystal Math Labs when you log out",
+	description = "Automatically updates your stats on Crystal Math Labs (and templeOSRS if enabled) when you log out",
 	tags = {"cml", "external", "integration"},
 	enabledByDefault = false,
 	type = PluginType.MISCELLANEOUS
@@ -61,7 +68,11 @@ public class CrystalMathLabs extends Plugin
 	/**
 	 * Amount of EXP that must be gained for an update to be submitted.
 	 */
-	private static final int XP_THRESHOLD = 10000;
+	private static final int XP_THRESHOLD = 1;
+
+	@Inject
+	@Getter(AccessLevel.NONE)
+	private CrystalMathLabsConfig config;
 
 	@Inject
 	private Client client;
@@ -73,11 +84,22 @@ public class CrystalMathLabs extends Plugin
 	private boolean fetchXp;
 	private long lastXp;
 
+	@Setter(AccessLevel.PACKAGE)
+	private boolean templeOSRS;
+
+	@Provides
+	CrystalMathLabsConfig getConfig(ConfigManager configManager)
+	{
+
+
+		return configManager.getConfig(CrystalMathLabsConfig.class);
+	}
+
 	@Override
 	protected void startUp()
 	{
+		updateConfig();
 		fetchXp = true;
-
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 	}
@@ -86,6 +108,15 @@ public class CrystalMathLabs extends Plugin
 	protected void shutDown()
 	{
 		eventBus.unregister(this);
+	}
+
+	@Subscribe
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("CML"))
+		{
+			updateConfig();
+		}
 	}
 
 	private void onGameStateChanged(GameStateChanged gameStateChanged)
@@ -160,5 +191,41 @@ public class CrystalMathLabs extends Plugin
 				response.close();
 			}
 		});
+
+		if (templeOSRS)
+		{
+			HttpUrl httpUrlTOSRS = new HttpUrl.Builder()
+				.scheme("https")
+				.host("templeosrs.com")
+				.addPathSegment("php")
+				.addPathSegment("add_datapoint.php")
+				.addQueryParameter("player", reformedUsername)
+				.build();
+
+			Request requestTOSRS = new Request.Builder()
+				.header("User-Agent", "RuneLite")
+				.url(httpUrlTOSRS)
+				.build();
+
+			httpClient.newCall(requestTOSRS).enqueue(new Callback()
+			{
+				@Override
+				public void onFailure(@NotNull Call call, @NotNull IOException e)
+				{
+					log.warn("Error submitting TempleOSRS update, caused by {}.", e.getMessage());
+				}
+
+				@Override
+				public void onResponse(@NotNull Call call, @NotNull Response response)
+				{
+					response.close();
+				}
+			});
+		}
+	}
+
+	private void updateConfig()
+	{
+		this.templeOSRS = config.templeOSRS();
 	}
 }
