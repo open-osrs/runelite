@@ -103,15 +103,15 @@ public class NightmarePlugin extends Plugin
             inFight = true;
             for (final NPC npc : client.getNpcs())
             {
-                if (npc.getName() != null && npc.getName().contains("The Nightmare") && !npc.isDead())
+                if (npc.getName() != null && npc.getName().contains("Nightmare") && !npc.isDead())
                 {
                     nm = npc;
                 }
             }
             if (inFight && nm != null)
             {
-                if (nm.getId() >= 9425 && nm.getId() <= 9433)        //TODO: change to THE_NIGHTMARE_#### once in client
-                {
+//                if (nm.getId() >= 9425 && nm.getId() <= 9433)        //TODO: change to THE_NIGHTMARE_#### once in client
+//                {
                     if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation())
                     {
                         prayAgainst = NightmareAttack.MELEE;
@@ -124,11 +124,11 @@ public class NightmarePlugin extends Plugin
                     {
                         prayAgainst = NightmareAttack.MAGIC;
                     }
-                }
-                else
-                {
-                    prayAgainst = null;
-                }
+//                }
+//                else
+//                {
+//                    prayAgainst = null;
+//                }
             }
 //        }
 //        else
