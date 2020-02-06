@@ -13,8 +13,6 @@ import net.runelite.api.NPC;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.game.SpriteManager;
-import net.runelite.client.plugins.grotesqueguardians.DuskAttack;
-import net.runelite.client.plugins.grotesqueguardians.GrotesqueGuardiansPlugin;
 import net.runelite.client.plugins.nightmare.NightmareAttack;
 import net.runelite.client.plugins.nightmare.NightmarePlugin;
 import net.runelite.client.ui.overlay.Overlay;
@@ -24,6 +22,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
+
 
 @Singleton
 public class NightmarePrayerOverlay extends Overlay
@@ -41,6 +40,7 @@ public class NightmarePrayerOverlay extends Overlay
         setLayer(OverlayLayer.ABOVE_SCENE);
         setPriority(OverlayPriority.HIGH);
         setPosition(OverlayPosition.DYNAMIC);
+        setPosition(OverlayPosition.BOTTOM_RIGHT);
         this.client = client;
         this.plugin = plugin;
         this.spriteManager = spriteManager;
@@ -60,13 +60,15 @@ public class NightmarePrayerOverlay extends Overlay
             NPC nm = plugin.getNm();
             imagePanelComponent.getChildren().add(new ImageComponent(prayerImage));
 
+            //imagePanelComponent.setPreferredLocation();
 
-            LocalPoint nmPoint = new LocalPoint(nm.getLocalLocation().getX() + 128 * (Objects.requireNonNull(nm.getTransformedDefinition()).getSize() - 1) / 2, nm.getLocalLocation().getY() + 128 * (nm.getTransformedDefinition().getSize() - 1) / 2);
-            net.runelite.api.Point nmLoc = Perspective.getCanvasImageLocation(client, nmPoint, prayerImage, 400);
-            if (nmLoc != null)
-            {
-                imagePanelComponent.setPreferredLocation(new java.awt.Point(nmLoc.getX(), nmLoc.getY()));
-            }
+
+//            LocalPoint nmPoint = new LocalPoint(nm.getLocalLocation().getX() + 128 * (Objects.requireNonNull(nm.getTransformedDefinition()).getSize() - 1) / 2, nm.getLocalLocation().getY() + 128 * (nm.getTransformedDefinition().getSize() - 1) / 2);
+//            net.runelite.api.Point nmLoc = Perspective.getCanvasImageLocation(client, nmPoint, prayerImage, 400);
+//            if (nmLoc != null)
+//            {
+//                imagePanelComponent.setPreferredLocation(new java.awt.Point(nmLoc.getX(), nmLoc.getY()));
+//            }
             return imagePanelComponent.render(graphics);
         }else{
                     final ArrayList<Integer> regions = new ArrayList<>();
