@@ -23,3 +23,5 @@ runelite-client/dependencies.txt
 .staging/
 .vscode
 .factorypath
+/runelite-client/src/main/resources/open.osrs.properties
+/runelite-client/src/main/resources/openosrs.png
