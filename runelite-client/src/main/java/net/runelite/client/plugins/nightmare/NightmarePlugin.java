@@ -11,6 +11,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import lombok.Getter;
+import lombok.AccessLevel;
 //import static net.runelite.api.NpcID.nightmarewhenitsupdated;                     //TODO: this here is the thing to change
 
 
@@ -48,12 +50,16 @@ public class NightmarePlugin extends Plugin {
 	private NightmarePrayerOverlay prayerOverlay;
 
 	@Nullable
+	@Getter(AccessLevel.PACKAGE)
 	private NightmareAttack prayAgainst;
 
 	@Nullable
+	@Getter(AccessLevel.PACKAGE)
 	private NPC nm;
 
+	@Getter(AccessLevel.PACKAGE)
 	private boolean inFight;
+
 	private boolean cursed;
 	private int attackCount;
 	private int curseStartID;
@@ -131,19 +137,5 @@ public class NightmarePlugin extends Plugin {
 			}
 
         }
-	}
-
-	@Nullable
-	NightmareAttack getPrayAgainst() {
-		return prayAgainst;
-	}
-
-	@Nullable
-	NPC getNm() {
-		return nm;
-	}
-
-	boolean isInFight() {
-		return inFight;
 	}
 }

@@ -25,3 +25,4 @@ runelite-client/dependencies.txt
 .factorypath
 /runelite-client/src/main/resources/open.osrs.properties
 /runelite-client/src/main/resources/openosrs.png
+hs_err_pid*.log
