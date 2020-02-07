@@ -25,16 +25,16 @@
  */
 package net.runelite.client.plugins.screenmarkers;
 
-import java.awt.Color;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.awt.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScreenMarker
-{
+public class ScreenMarker {
 	private long id;
 	private String name;
 	private int borderThickness;

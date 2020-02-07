@@ -24,16 +24,16 @@
  */
 package net.runelite.client.plugins.xptracker;
 
-import java.util.EnumSet;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.Skill;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 @RequiredArgsConstructor
-class XpPauseStateSingle
-{
+class XpPauseStateSingle {
 	@Getter(AccessLevel.PACKAGE)
 	private final Skill skill;
 	private final Set<XpPauseReason> pauseReasons = EnumSet.noneOf(XpPauseReason.class);
@@ -42,48 +42,39 @@ class XpPauseStateSingle
 	@Getter(AccessLevel.PACKAGE)
 	private long xp;
 
-	boolean isPaused()
-	{
+	boolean isPaused() {
 		return !pauseReasons.isEmpty();
 	}
 
-	boolean login()
-	{
+	boolean login() {
 		return pauseReasons.remove(XpPauseReason.PAUSED_LOGOUT);
 	}
 
-	boolean logout()
-	{
+	boolean logout() {
 		return pauseReasons.add(XpPauseReason.PAUSED_LOGOUT);
 	}
 
-	boolean timeout()
-	{
+	boolean timeout() {
 		return pauseReasons.add(XpPauseReason.PAUSED_TIMEOUT);
 	}
 
-	boolean manualPause()
-	{
+	boolean manualPause() {
 		return pauseReasons.add(XpPauseReason.PAUSE_MANUAL);
 	}
 
-	boolean xpChanged(long xp)
-	{
+	boolean xpChanged(long xp) {
 		this.xp = xp;
 		this.lastChangeMillis = System.currentTimeMillis();
 		return clearAll();
 	}
 
-	boolean unpause()
-	{
+	boolean unpause() {
 		this.lastChangeMillis = System.currentTimeMillis();
 		return clearAll();
 	}
 
-	private boolean clearAll()
-	{
-		if (pauseReasons.isEmpty())
-		{
+	private boolean clearAll() {
+		if (pauseReasons.isEmpty()) {
 			return false;
 		}
 
@@ -91,8 +82,7 @@ class XpPauseStateSingle
 		return true;
 	}
 
-	private enum XpPauseReason
-	{
+	private enum XpPauseReason {
 		PAUSE_MANUAL,
 		PAUSED_LOGOUT,
 		PAUSED_TIMEOUT

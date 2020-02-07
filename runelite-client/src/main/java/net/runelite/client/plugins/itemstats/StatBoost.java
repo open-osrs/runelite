@@ -30,8 +30,7 @@ import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.client.plugins.itemstats.stats.Stat;
 
-public abstract class StatBoost extends SingleEffect
-{
+public abstract class StatBoost extends SingleEffect {
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
 	private Stat stat;
@@ -39,8 +38,7 @@ public abstract class StatBoost extends SingleEffect
 	@Setter(AccessLevel.PUBLIC)
 	private boolean boost;
 
-	protected StatBoost(Stat stat, boolean boost)
-	{
+	protected StatBoost(Stat stat, boolean boost) {
 		this.stat = stat;
 		this.boost = boost;
 	}
@@ -48,45 +46,35 @@ public abstract class StatBoost extends SingleEffect
 	protected abstract int heals(Client client);
 
 	@Override
-	public StatChange effect(Client client)
-	{
+	public StatChange effect(Client client) {
 		int value = stat.getValue(client);
 		int max = stat.getMaximum(client);
 
 		boolean hitCap = false;
 
 		int calcedDelta = heals(client);
-		if (boost && calcedDelta > 0)
-		{
+		if (boost && calcedDelta > 0) {
 			max += calcedDelta;
 		}
-		if (value > max)
-		{
+		if (value > max) {
 			max = value;
 		}
 		int newValue = value + calcedDelta;
-		if (newValue > max)
-		{
+		if (newValue > max) {
 			newValue = max;
 			hitCap = true;
 		}
-		if (newValue < 0)
-		{
+		if (newValue < 0) {
 			newValue = 0;
 		}
 		int delta = newValue - value;
 		StatChange out = new StatChange();
 		out.setStat(stat);
-		if (delta > 0)
-		{
+		if (delta > 0) {
 			out.setPositivity(hitCap ? Positivity.BETTER_CAPPED : Positivity.BETTER_UNCAPPED);
-		}
-		else if (delta == 0)
-		{
+		} else if (delta == 0) {
 			out.setPositivity(Positivity.NO_CHANGE);
-		}
-		else
-		{
+		} else {
 			out.setPositivity(Positivity.WORSE);
 		}
 		out.setAbsolute(newValue);

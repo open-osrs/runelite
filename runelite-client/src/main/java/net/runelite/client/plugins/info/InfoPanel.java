@@ -26,26 +26,7 @@
 package net.runelite.client.plugins.info;
 
 import com.google.inject.Inject;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import javax.annotation.Nullable;
-import javax.inject.Singleton;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import net.runelite.api.Client;
-import static net.runelite.client.RuneLite.LOGS_DIR;
-import static net.runelite.client.RuneLite.PLUGINS_DIR;
-import static net.runelite.client.RuneLite.RUNELITE_DIR;
-import static net.runelite.client.RuneLite.SCREENSHOT_DIR;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.ui.ColorScheme;
@@ -54,9 +35,19 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 
+import javax.annotation.Nullable;
+import javax.inject.Singleton;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+
+import static net.runelite.client.RuneLite.*;
+
 @Singleton
-class InfoPanel extends PluginPanel
-{
+class InfoPanel extends PluginPanel {
 	private static final ImageIcon ARROW_RIGHT_ICON;
 	private static final ImageIcon GITHUB_ICON;
 	private static final ImageIcon FOLDER_ICON;
@@ -68,8 +59,7 @@ class InfoPanel extends PluginPanel
 	private static final String PLUGINS_DIRECTORY = RUNELITE_DIRECTORY + "\\plugins";
 	private static final String SCREENSHOT_DIRECTORY = RUNELITE_DIRECTORY + "\\screenshots";
 
-	static
-	{
+	static {
 		ARROW_RIGHT_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(InfoPanel.class, "/util/arrow_right.png"));
 		GITHUB_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(InfoPanel.class, "github_icon.png"));
 		FOLDER_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(InfoPanel.class, "folder_icon.png"));
@@ -88,8 +78,7 @@ class InfoPanel extends PluginPanel
 	private InfoPlugin plugin;
 
 	@Inject
-	public InfoPanel(final InfoPlugin plugin, final Client client)
-	{
+	public InfoPanel(final InfoPlugin plugin, final Client client) {
 
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -112,8 +101,7 @@ class InfoPanel extends PluginPanel
 		revision.setFont(smallFont);
 
 		String engineVer = "Unknown";
-		if (client != null)
-		{
+		if (client != null) {
 			engineVer = String.format("Rev %d", client.getRevision());
 		}
 
@@ -130,12 +118,11 @@ class InfoPanel extends PluginPanel
 		syncPanel = buildLinkPanel(IMPORT_ICON, "Import local settings", "to remote RuneLite account", () ->
 		{
 			final int result = JOptionPane.showOptionDialog(syncPanel,
-				"This will replace your current RuneLite account settings with settings from your local profile.",
-				"Are you sure?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
-				null, new String[]{"Yes", "No"}, "No");
+					"This will replace your current RuneLite account settings with settings from your local profile.",
+					"Are you sure?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
+					null, new String[]{"Yes", "No"}, "No");
 
-			if (result == JOptionPane.YES_OPTION)
-			{
+			if (result == JOptionPane.YES_OPTION) {
 				configManager.importLocal();
 			}
 		});
@@ -143,33 +130,26 @@ class InfoPanel extends PluginPanel
 		actionsContainer.add(buildLinkPanel(GITHUB_ICON, "License info", "for distribution", "https://github.com/open-osrs/runelite/blob/master/LICENSE"));
 		actionsContainer.add(buildLinkPanel(PATREON_ICON, "Patreon to support", "the OpenOSRS Devs", RuneLiteProperties.getPatreonLink()));
 		actionsContainer.add(buildLinkPanel(DISCORD_ICON, "Talk to us on our", "Discord Server", "https://discord.gg/OpenOSRS"));
-		if (plugin.isShowGithub())
-		{
+		if (plugin.isShowGithub()) {
 			actionsContainer.add(buildLinkPanel(GITHUB_ICON, "OpenOSRS Github", "", "https://github.com/open-osrs"));
 		}
-		if (plugin.isShowLauncher())
-		{
+		if (plugin.isShowLauncher()) {
 			actionsContainer.add(buildLinkPanel(IMPORT_ICON, "Launcher Download", "for the latest launcher", "https://github.com/open-osrs/launcher/releases"));
 		}
-		if (plugin.isShowRuneliteDir())
-		{
+		if (plugin.isShowRuneliteDir()) {
 			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Runelite Directory", "for your .properties file", RUNELITE_DIR));
 		}
-		if (plugin.isShowLogDir())
-		{
+		if (plugin.isShowLogDir()) {
 			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Logs Directory", "for bug reports", LOGS_DIR));
 		}
-		if (plugin.isShowPluginsDir())
-		{
+		if (plugin.isShowPluginsDir()) {
 			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Plugins Directory", "for external plugins", PLUGINS_DIR));
 		}
-		if (plugin.isShowScreenshotsDir())
-		{
+		if (plugin.isShowScreenshotsDir()) {
 			actionsContainer.add(buildLinkPanel(FOLDER_ICON, "Open Screenshots Directory", "for your screenshots", SCREENSHOT_DIR));
 		}
 
-		if (plugin.isShowPhysicalDir())
-		{
+		if (plugin.isShowPhysicalDir()) {
 			JPanel pathPanel = new JPanel();
 			pathPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			pathPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -202,16 +182,14 @@ class InfoPanel extends PluginPanel
 	/**
 	 * Builds a link panel with a given icon, text and url to redirect to.
 	 */
-	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, String url)
-	{
+	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, String url) {
 		return buildLinkPanel(icon, topText, bottomText, () -> LinkBrowser.browse(url));
 	}
 
 	/**
 	 * Builds a link panel with a given icon, text and callable to call.
 	 */
-	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, Runnable callback)
-	{
+	private static JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, Runnable callback) {
 		JPanel container = new JPanel();
 		container.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		container.setLayout(new BorderLayout());
@@ -228,34 +206,29 @@ class InfoPanel extends PluginPanel
 		textContainer.setLayout(new GridLayout(2, 1));
 		textContainer.setBorder(new EmptyBorder(5, 10, 5, 10));
 
-		container.addMouseListener(new MouseAdapter()
-		{
+		container.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				container.setBackground(pressedColor);
 				textContainer.setBackground(pressedColor);
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e)
-			{
+			public void mouseReleased(MouseEvent e) {
 				callback.run();
 				container.setBackground(hoverColor);
 				textContainer.setBackground(hoverColor);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e)
-			{
+			public void mouseEntered(MouseEvent e) {
 				container.setBackground(hoverColor);
 				textContainer.setBackground(hoverColor);
 				container.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e)
-			{
+			public void mouseExited(MouseEvent e) {
 				container.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 				textContainer.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 				container.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -281,16 +254,14 @@ class InfoPanel extends PluginPanel
 		return container;
 	}
 
-	private static String htmlLabel(String key, String value)
-	{
+	private static String htmlLabel(String key, String value) {
 		return "<html><body style = 'color:#a5a5a5'>" + key + "<span style = 'color:white'>" + value + "</span></body></html>";
 	}
 
 	/**
 	 * Builds a link panel with a given icon, text and directory to open.
 	 */
-	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, File dir)
-	{
+	private JPanel buildLinkPanel(ImageIcon icon, String topText, String bottomText, File dir) {
 		return buildLinkPanel(icon, topText, bottomText, () -> LinkBrowser.openLocalFile(dir));
 	}
 }

@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.slayer;
 
-public enum RenderStyle
-{
+public enum RenderStyle {
 	TILE("Tile"),
 	HULL("Hull"),
 	SOUTH_WEST_TILE("South West Tile"),
@@ -13,14 +12,12 @@ public enum RenderStyle
 
 	private final String name;
 
-	RenderStyle(final String name)
-	{
+	RenderStyle(final String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

@@ -26,14 +26,14 @@
 package net.runelite.client.plugins.bosstimer;
 
 import com.google.common.collect.ImmutableMap;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.Map;
 import net.runelite.api.ItemID;
 import net.runelite.api.NpcID;
 
-enum Boss
-{
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.Map;
+
+enum Boss {
 	GENERAL_GRAARDOR(NpcID.GENERAL_GRAARDOR, 90, ChronoUnit.SECONDS, ItemID.PET_GENERAL_GRAARDOR),
 	KRIL_TSUTSAROTH(NpcID.KRIL_TSUTSAROTH, 90, ChronoUnit.SECONDS, ItemID.PET_KRIL_TSUTSAROTH),
 	KREEARRA(NpcID.KREEARRA, 90, ChronoUnit.SECONDS, ItemID.PET_KREEARRA),
@@ -67,42 +67,35 @@ enum Boss
 	private final Duration spawnTime;
 	private final int itemSpriteId;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, Boss> builder = new ImmutableMap.Builder<>();
 
-		for (Boss boss : values())
-		{
+		for (Boss boss : values()) {
 			builder.put(boss.getId(), boss);
 		}
 
 		bosses = builder.build();
 	}
 
-	Boss(int id, long period, ChronoUnit unit, int itemSpriteId)
-	{
+	Boss(int id, long period, ChronoUnit unit, int itemSpriteId) {
 		this.id = id;
 		this.spawnTime = Duration.of(period, unit);
 		this.itemSpriteId = itemSpriteId;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public Duration getSpawnTime()
-	{
+	public Duration getSpawnTime() {
 		return spawnTime;
 	}
 
-	public int getItemSpriteId()
-	{
+	public int getItemSpriteId() {
 		return itemSpriteId;
 	}
 
-	public static Boss find(int id)
-	{
+	public static Boss find(int id) {
 		return bosses.get(id);
 	}
 }

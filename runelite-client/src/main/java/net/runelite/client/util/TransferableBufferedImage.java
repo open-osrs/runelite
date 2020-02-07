@@ -26,43 +26,37 @@
  */
 package net.runelite.client.util;
 
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.image.BufferedImage;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.image.BufferedImage;
+
 @AllArgsConstructor
-class TransferableBufferedImage implements Transferable
-{
+class TransferableBufferedImage implements Transferable {
 	@NonNull
 	private final BufferedImage image;
 
 	@NotNull
 	@Override
-	public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
-	{
-		if (flavor.equals(DataFlavor.imageFlavor))
-		{
+	public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
+		if (flavor.equals(DataFlavor.imageFlavor)) {
 			return image;
-		}
-		else
-		{
+		} else {
 			throw new UnsupportedFlavorException(flavor);
 		}
 	}
 
 	@Override
-	public DataFlavor[] getTransferDataFlavors()
-	{
+	public DataFlavor[] getTransferDataFlavors() {
 		return new DataFlavor[]{DataFlavor.imageFlavor};
 	}
 
 	@Override
-	public boolean isDataFlavorSupported(DataFlavor flavor)
-	{
+	public boolean isDataFlavorSupported(DataFlavor flavor) {
 		return flavor.equals(DataFlavor.imageFlavor);
 	}
 }

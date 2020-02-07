@@ -24,19 +24,6 @@
  */
 package net.runelite.client.plugins.stonedtracker.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.image.BufferedImage;
-import java.util.Collection;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.game.ItemManager;
@@ -46,9 +33,15 @@ import net.runelite.client.util.AsyncBufferedImage;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.QuantityFormatter;
 
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Collection;
+
 @Getter(AccessLevel.PACKAGE)
-class UniqueItemPanel extends JPanel
-{
+class UniqueItemPanel extends JPanel {
 	private final static float alphaMissing = 0.35f;
 	private final static float alphaHas = 1.0f;
 
@@ -56,8 +49,7 @@ class UniqueItemPanel extends JPanel
 	private static final Border panelBorder = new EmptyBorder(3, 0, 3, 0);
 	private static final Color panelBackgroundColor = ColorScheme.DARK_GRAY_COLOR;
 
-	UniqueItemPanel(final Collection<UniqueItem> items, final ItemManager itemManager)
-	{
+	UniqueItemPanel(final Collection<UniqueItem> items, final ItemManager itemManager) {
 		final JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		panel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
@@ -76,8 +68,7 @@ class UniqueItemPanel extends JPanel
 		c.ipady = 5;
 
 		// Add each Unique Item icon to the panel
-		for (final UniqueItem l : items)
-		{
+		for (final UniqueItem l : items) {
 			final int quantity = l.getQty();
 			final float alpha = (quantity > 0 ? alphaHas : alphaMissing);
 			final AsyncBufferedImage image = itemManager.getImage(l.getItemID(), quantity, quantity > 1);
@@ -104,19 +95,15 @@ class UniqueItemPanel extends JPanel
 		this.add(panel, BorderLayout.NORTH);
 	}
 
-	private static String buildToolTip(final UniqueItem item, final int qty)
-	{
+	private static String buildToolTip(final UniqueItem item, final int qty) {
 		String s = "<html>" + item.getName();
-		if (qty > 0)
-		{
+		if (qty > 0) {
 			s += " x " + QuantityFormatter.formatNumber(qty);
 		}
-		if (item.getPrice() > 0)
-		{
+		if (item.getPrice() > 0) {
 			s += "<br/>Price: " + QuantityFormatter.quantityToStackSize(item.getPrice());
 			// Check for qty here as well as we should only show Total if the item has a value as well
-			if (qty > 0)
-			{
+			if (qty > 0) {
 				s += "<br/>Total: " + QuantityFormatter.quantityToStackSize(qty * item.getPrice()) + "</html";
 			}
 		}

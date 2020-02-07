@@ -31,8 +31,7 @@ import lombok.Getter;
 import net.runelite.api.widgets.WidgetInfo;
 
 @Getter(AccessLevel.PACKAGE)
-enum WidgetOffset
-{
+enum WidgetOffset {
 	RESIZABLE_2010_COMBAT_HIGHLIGHT(Skin.AROUND_2010, WidgetInfo.RESIZABLE_VIEWPORT_COMBAT_TAB, -4, 1, null, null),
 	RESIZABLE_2010_COMBAT_ICON(Skin.AROUND_2010, WidgetInfo.RESIZABLE_VIEWPORT_COMBAT_ICON, 5, null, null, null),
 	RESIZABLE_2010_STATS_HIGHLIGHT(Skin.AROUND_2010, WidgetInfo.RESIZABLE_VIEWPORT_STATS_TAB, 35, 1, null, null),
@@ -154,8 +153,7 @@ enum WidgetOffset
 	private Integer width;
 	private Integer height;
 
-	WidgetOffset(Skin skin, WidgetInfo widgetInfo, Integer offsetX, Integer offsetY, Integer width, Integer height)
-	{
+	WidgetOffset(Skin skin, WidgetInfo widgetInfo, Integer offsetX, Integer offsetY, Integer width, Integer height) {
 		this.skin = skin;
 		this.widgetInfo = widgetInfo;
 		this.offsetX = offsetX;

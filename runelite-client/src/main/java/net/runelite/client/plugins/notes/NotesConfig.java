@@ -30,40 +30,37 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 
 @ConfigGroup("notes")
-public interface NotesConfig extends Config
-{
+public interface NotesConfig extends Config {
 	String CONFIG_GROUP = "notes";
 	String NOTES = "notes";
 
 	@ConfigItem(
-		keyName = "notesData",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "notesData",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default String notesData()
-	{
+	default String notesData() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "notesData",
-		name = "",
-		description = ""
+			keyName = "notesData",
+			name = "",
+			description = ""
 	)
 	void notesData(String str);
 
 	@Range(
-		min = 1,
-		max = 5
+			min = 1,
+			max = 5
 	)
 	@ConfigItem(
-		keyName = "maxNotes",
-		name = "Max Notes",
-		description = "Desired maximum amount of notes"
+			keyName = "maxNotes",
+			name = "Max Notes",
+			description = "Desired maximum amount of notes"
 	)
-	default int maxNotes()
-	{
+	default int maxNotes() {
 		return 5;
 	}
 }

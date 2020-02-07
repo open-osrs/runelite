@@ -24,16 +24,6 @@
  */
 package net.runelite.client.game;
 
-import java.io.IOException;
-import java.util.Comparator;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -44,10 +34,16 @@ import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldClient;
 import net.runelite.http.api.worlds.WorldResult;
 
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.concurrent.*;
+
 @Singleton
 @Slf4j
-public class WorldService
-{
+public class WorldService {
 	private static final int WORLD_FETCH_TIMER = 10; // minutes
 
 	private final Client client;
@@ -60,8 +56,7 @@ public class WorldService
 
 	@Inject
 	private WorldService(Client client, ScheduledExecutorService scheduledExecutorService, WorldClient worldClient,
-					EventBus eventBus)
-	{
+						 EventBus eventBus) {
 		this.client = client;
 		this.scheduledExecutorService = scheduledExecutorService;
 		this.worldClient = worldClient;
@@ -70,54 +65,39 @@ public class WorldService
 		scheduledExecutorService.scheduleWithFixedDelay(RunnableExceptionLogger.wrap(this::tick), 0, WORLD_FETCH_TIMER, TimeUnit.MINUTES);
 	}
 
-	private void tick()
-	{
-		try
-		{
-			if (worlds == null || client.getGameState() == GameState.LOGGED_IN)
-			{
+	private void tick() {
+		try {
+			if (worlds == null || client.getGameState() == GameState.LOGGED_IN) {
 				fetch();
 			}
-		}
-		finally
-		{
+		} finally {
 			firstRunFuture.complete(worlds);
 		}
 	}
 
-	private void fetch()
-	{
+	private void fetch() {
 		log.debug("Fetching worlds");
 
-		try
-		{
+		try {
 			WorldResult worldResult = worldClient.lookupWorlds();
 			worldResult.getWorlds().sort(Comparator.comparingInt(World::getId));
 			worlds = worldResult;
 			eventBus.post(WorldsFetch.class, new WorldsFetch(worldResult));
-		}
-		catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			log.warn("Error looking up worlds", ex);
 		}
 	}
 
-	public void refresh()
-	{
+	public void refresh() {
 		scheduledExecutorService.execute(this::fetch);
 	}
 
 	@Nullable
-	public WorldResult getWorlds()
-	{
-		if (!firstRunFuture.isDone())
-		{
-			try
-			{
+	public WorldResult getWorlds() {
+		if (!firstRunFuture.isDone()) {
+			try {
 				return firstRunFuture.get(10, TimeUnit.SECONDS);
-			}
-			catch (InterruptedException | ExecutionException | TimeoutException e)
-			{
+			} catch (InterruptedException | ExecutionException | TimeoutException e) {
 				log.warn("Failed to retrieve worlds on first run", e);
 			}
 		}

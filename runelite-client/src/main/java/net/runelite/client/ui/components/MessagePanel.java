@@ -24,28 +24,20 @@
  */
 package net.runelite.client.ui.components;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JViewport;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.RuneLiteSplashScreen;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.plaf.basic.BasicProgressBarUI;
+import java.awt.*;
+
 @Getter
-public class MessagePanel extends JPanel
-{
+public class MessagePanel extends JPanel {
 	private static final Dimension PANEL_SIZE = new Dimension(RuneLiteSplashScreen.FRAME_SIZE.width - InfoPanel.PANEL_SIZE.width, RuneLiteSplashScreen.FRAME_SIZE.height);
 	private static final Dimension BAR_SIZE = new Dimension(PANEL_SIZE.width, 30);
 	private static final int MESSAGE_AREA_PADDING = 15;
@@ -58,8 +50,7 @@ public class MessagePanel extends JPanel
 	@Getter(AccessLevel.NONE)
 	private final JScrollPane scrollPane;
 
-	public MessagePanel()
-	{
+	public MessagePanel() {
 		this.setPreferredSize(PANEL_SIZE);
 		this.setLayout(new GridBagLayout());
 		this.setBackground(ColorScheme.DARKER_GRAY_COLOR);
@@ -80,11 +71,9 @@ public class MessagePanel extends JPanel
 		c.gridy++;
 
 		// alternate message action
-		messageArea = new JLabel("<html><div style='text-align:center;'>Open-source client for Old School RuneScape with more functionality and less restrictions.</div></html>")
-		{
+		messageArea = new JLabel("<html><div style='text-align:center;'>Open-source client for Old School RuneScape with more functionality and less restrictions.</div></html>") {
 			@Override
-			public Dimension getPreferredSize()
-			{
+			public Dimension getPreferredSize() {
 				final Dimension results = super.getPreferredSize();
 				results.width = PANEL_SIZE.width - MESSAGE_AREA_PADDING;
 				return results;
@@ -123,15 +112,12 @@ public class MessagePanel extends JPanel
 		bar.setMinimumSize(BAR_SIZE);
 		bar.setMaximumSize(BAR_SIZE);
 		bar.setBorder(new MatteBorder(0, 0, 0, 0, Color.LIGHT_GRAY));
-		bar.setUI(new BasicProgressBarUI()
-		{
-			protected Color getSelectionBackground()
-			{
+		bar.setUI(new BasicProgressBarUI() {
+			protected Color getSelectionBackground() {
 				return ColorScheme.DARKER_GRAY_COLOR;
 			}
 
-			protected Color getSelectionForeground()
-			{
+			protected Color getSelectionForeground() {
 				return ColorScheme.DARKER_GRAY_COLOR;
 			}
 		});
@@ -141,10 +127,8 @@ public class MessagePanel extends JPanel
 		c.gridy++;
 	}
 
-	public void setMessageContent(String content)
-	{
-		if (!content.startsWith("<html"))
-		{
+	public void setMessageContent(String content) {
+		if (!content.startsWith("<html")) {
 			content = "<html><div style='width: 100%; text-align:center;'>" + content + "</div></html>";
 		}
 
@@ -153,8 +137,7 @@ public class MessagePanel extends JPanel
 		messageArea.repaint();
 	}
 
-	public void setMessageTitle(String text)
-	{
+	public void setMessageTitle(String text) {
 		titleLabel.setText(text);
 		titleLabel.revalidate();
 		titleLabel.repaint();

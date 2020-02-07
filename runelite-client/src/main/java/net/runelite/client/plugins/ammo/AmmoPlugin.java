@@ -24,15 +24,7 @@
  */
 package net.runelite.client.plugins.ammo;
 
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.api.Client;
-import net.runelite.api.EquipmentInventorySlot;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.ItemDefinition;
+import net.runelite.api.*;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.eventbus.Subscribe;
@@ -42,15 +34,18 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.image.BufferedImage;
+
 @PluginDescriptor(
-	name = "Ammo",
-	description = "Shows the current ammo the player has equipped",
-	tags = {"bolts", "darts", "chinchompa", "equipment"},
-	type = PluginType.UTILITY
+		name = "Ammo",
+		description = "Shows the current ammo the player has equipped",
+		tags = {"bolts", "darts", "chinchompa", "equipment"},
+		type = PluginType.UTILITY
 )
 @Singleton
-public class AmmoPlugin extends Plugin
-{
+public class AmmoPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -66,55 +61,46 @@ public class AmmoPlugin extends Plugin
 	private AmmoCounter counterBox;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		clientThread.invokeLater(() ->
 		{
 			final ItemContainer container = client.getItemContainer(InventoryID.EQUIPMENT);
 
-			if (container != null)
-			{
+			if (container != null) {
 				checkInventory(container.getItems());
 			}
 		});
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		infoBoxManager.removeInfoBox(counterBox);
 		counterBox = null;
 	}
 
 	@Subscribe
-	private void onItemContainerChanged(ItemContainerChanged event)
-	{
-		if (event.getItemContainer() != client.getItemContainer(InventoryID.EQUIPMENT))
-		{
+	private void onItemContainerChanged(ItemContainerChanged event) {
+		if (event.getItemContainer() != client.getItemContainer(InventoryID.EQUIPMENT)) {
 			return;
 		}
 
 		checkInventory(event.getItemContainer().getItems());
 	}
 
-	private void checkInventory(final Item[] items)
-	{
+	private void checkInventory(final Item[] items) {
 		// Check for weapon slot items. This overrides the ammo slot,
 		// as the player will use the thrown weapon (eg. chinchompas, knives, darts)
-		if (items.length > EquipmentInventorySlot.WEAPON.getSlotIdx())
-		{
+		if (items.length > EquipmentInventorySlot.WEAPON.getSlotIdx()) {
 			final Item weapon = items[EquipmentInventorySlot.WEAPON.getSlotIdx()];
 			final ItemDefinition weaponComp = itemManager.getItemDefinition(weapon.getId());
-			if (weaponComp.isStackable())
-			{
+			if (weaponComp.isStackable()) {
 				updateInfobox(weapon, weaponComp);
 				return;
 			}
 		}
 
-		if (items.length <= EquipmentInventorySlot.AMMO.getSlotIdx())
-		{
+		if (items.length <= EquipmentInventorySlot.AMMO.getSlotIdx()) {
 			removeInfobox();
 			return;
 		}
@@ -122,8 +108,7 @@ public class AmmoPlugin extends Plugin
 		final Item ammo = items[EquipmentInventorySlot.AMMO.getSlotIdx()];
 		final ItemDefinition comp = itemManager.getItemDefinition(ammo.getId());
 
-		if (!comp.isStackable())
-		{
+		if (!comp.isStackable()) {
 			removeInfobox();
 			return;
 		}
@@ -131,10 +116,8 @@ public class AmmoPlugin extends Plugin
 		updateInfobox(ammo, comp);
 	}
 
-	private void updateInfobox(final Item item, final ItemDefinition comp)
-	{
-		if (counterBox != null && counterBox.getItemID() == item.getId())
-		{
+	private void updateInfobox(final Item item, final ItemDefinition comp) {
+		if (counterBox != null && counterBox.getItemID() == item.getId()) {
 			counterBox.setCount(item.getQuantity());
 			return;
 		}
@@ -145,8 +128,7 @@ public class AmmoPlugin extends Plugin
 		infoBoxManager.addInfoBox(counterBox);
 	}
 
-	private void removeInfobox()
-	{
+	private void removeInfobox() {
 		infoBoxManager.removeInfoBox(counterBox);
 		counterBox = null;
 	}

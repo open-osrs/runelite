@@ -27,20 +27,20 @@ package net.runelite.client.plugins.stonedtracker.data;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import javax.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.ItemID;
 
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 @Getter(AccessLevel.PUBLIC)
 @AllArgsConstructor
-public enum BossTab
-{
+public enum BossTab {
 	// Chest Rewards
 	BARROWS("Barrows", ItemID.BARROWS_TELEPORT, "Other"),
 	CHAMBERS_OF_XERIC("Chambers of Xeric", ItemID.OLMLET, "Other"),
@@ -112,13 +112,11 @@ public enum BossTab
 	private static final Map<String, BossTab> NAME_MAP;
 	private static final Multimap<String, BossTab> CATEGORY_MAP;
 
-	static
-	{
+	static {
 		final ImmutableMap.Builder<String, BossTab> byName = ImmutableMap.builder();
 		final ImmutableMultimap.Builder<String, BossTab> categoryMap = ImmutableMultimap.builder();
 
-		for (BossTab tab : values())
-		{
+		for (BossTab tab : values()) {
 			byName.put(tab.getName().toUpperCase(), tab);
 			categoryMap.put(tab.getCategory(), tab);
 		}
@@ -132,18 +130,15 @@ public enum BossTab
 	private final String category;
 
 	@Nullable
-	public static BossTab getByName(final String name)
-	{
+	public static BossTab getByName(final String name) {
 		return NAME_MAP.get(name.toUpperCase());
 	}
 
-	public static Collection<BossTab> getByCategoryName(final String name)
-	{
+	public static Collection<BossTab> getByCategoryName(final String name) {
 		return CATEGORY_MAP.get(name);
 	}
 
-	public static Set<String> getCategories()
-	{
+	public static Set<String> getCategories() {
 		return new TreeSet<>(CATEGORY_MAP.keySet());
 	}
 }

@@ -30,8 +30,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.ItemID;
 
-enum Pouch
-{
+enum Pouch {
 	SMALL(3),
 	MEDIUM(6, 3),
 	LARGE(9, 7),
@@ -49,21 +48,17 @@ enum Pouch
 	@Setter(AccessLevel.PACKAGE)
 	private boolean unknown = true;
 
-	Pouch(int holdAmount)
-	{
+	Pouch(int holdAmount) {
 		this(holdAmount, -1);
 	}
 
-	Pouch(int holdAmount, int degradedHoldAmount)
-	{
+	Pouch(int holdAmount, int degradedHoldAmount) {
 		this.baseHoldAmount = holdAmount;
 		this.degradedBaseHoldAmount = degradedHoldAmount;
 	}
 
-	static Pouch forItem(int itemId)
-	{
-		switch (itemId)
-		{
+	static Pouch forItem(int itemId) {
+		switch (itemId) {
 			case ItemID.SMALL_POUCH:
 				return SMALL;
 			case ItemID.MEDIUM_POUCH:
@@ -80,36 +75,29 @@ enum Pouch
 		}
 	}
 
-	int getHoldAmount()
-	{
+	int getHoldAmount() {
 		return degraded ? degradedBaseHoldAmount : baseHoldAmount;
 	}
 
-	int getRemaining()
-	{
+	int getRemaining() {
 		final int holdAmount = degraded ? degradedBaseHoldAmount : baseHoldAmount;
 		return holdAmount - holding;
 	}
 
-	void addHolding(int delta)
-	{
+	void addHolding(int delta) {
 		holding += delta;
 
 		final int holdAmount = degraded ? degradedBaseHoldAmount : baseHoldAmount;
-		if (holding < 0)
-		{
+		if (holding < 0) {
 			holding = 0;
 		}
-		if (holding > holdAmount)
-		{
+		if (holding > holdAmount) {
 			holding = holdAmount;
 		}
 	}
 
-	void degrade(boolean state)
-	{
-		if (state != degraded)
-		{
+	void degrade(boolean state) {
+		if (state != degraded) {
 			degraded = state;
 			final int holdAmount = degraded ? degradedBaseHoldAmount : baseHoldAmount;
 			holding = Math.min(holding, holdAmount);

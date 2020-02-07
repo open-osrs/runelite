@@ -24,8 +24,6 @@
  */
 package net.runelite.client.plugins.maxhit;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -42,42 +40,39 @@ import net.runelite.client.plugins.maxhit.calculators.MagicMaxHitCalculator;
 import net.runelite.client.plugins.maxhit.calculators.MeleeMaxHitCalculator;
 import net.runelite.client.plugins.maxhit.calculators.RangeMaxHitCalculator;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 @PluginDescriptor(
-	name = "Max Hit",
-	description = "Adds the max hit of the equipped weapon to the equipment and stats widget",
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Max Hit",
+		description = "Adds the max hit of the equipped weapon to the equipment and stats widget",
+		type = PluginType.UTILITY,
+		enabledByDefault = false
 )
 @Singleton
-public class MaxHitPlugin extends Plugin
-{
+public class MaxHitPlugin extends Plugin {
 
 	@Inject
 	private Client client;
 
 	@Subscribe
-	private void onItemContainerChanged(final ItemContainerChanged event)
-	{
+	private void onItemContainerChanged(final ItemContainerChanged event) {
 		this.updateMaxHitWidget();
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged event)
-	{
+	private void onVarbitChanged(VarbitChanged event) {
 		this.updateMaxHitWidget();
 	}
 
-	private void updateMaxHitWidget()
-	{
+	private void updateMaxHitWidget() {
 		Widget equipmentStats = client.getWidget(WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER);
 
 		ItemContainer equipmentContainer = client.getItemContainer(InventoryID.EQUIPMENT);
 		Item[] equipedItems = new Item[14];
 
-		if (equipmentStats != null && !equipmentStats.isHidden())
-		{
-			if (equipmentContainer != null)
-			{
+		if (equipmentStats != null && !equipmentStats.isHidden()) {
+			if (equipmentContainer != null) {
 				equipedItems = equipmentContainer.getItems();
 			}
 
@@ -90,8 +85,7 @@ public class MaxHitPlugin extends Plugin
 		}
 	}
 
-	private void setWidgetMaxHit(MaxHit maxhit)
-	{
+	private void setWidgetMaxHit(MaxHit maxhit) {
 		Widget equipYourCharacter = client.getWidget(WidgetInfo.EQUIP_YOUR_CHARACTER);
 		String maxHitText = "Melee Max Hit: " + maxhit.getMaxMeleeHit();
 		maxHitText += "<br>Range Max Hit: " + maxhit.getMaxRangeHit();
@@ -101,31 +95,26 @@ public class MaxHitPlugin extends Plugin
 		equipYourCharacter.setText(maxHitText);
 	}
 
-	private static class MaxHit
-	{
+	private static class MaxHit {
 		private final double maxMeleeHit;
 		private final double maxRangeHit;
 		private final double maxMagicHit;
 
-		MaxHit(double maxMeleeHit, double maxRangeHit, double maxMagicHit)
-		{
+		MaxHit(double maxMeleeHit, double maxRangeHit, double maxMagicHit) {
 			this.maxMeleeHit = maxMeleeHit;
 			this.maxRangeHit = maxRangeHit;
 			this.maxMagicHit = maxMagicHit;
 		}
 
-		double getMaxMeleeHit()
-		{
+		double getMaxMeleeHit() {
 			return maxMeleeHit;
 		}
 
-		double getMaxRangeHit()
-		{
+		double getMaxRangeHit() {
 			return maxRangeHit;
 		}
 
-		double getMaxMagicHit()
-		{
+		double getMaxMagicHit() {
 			return maxMagicHit;
 		}
 	}

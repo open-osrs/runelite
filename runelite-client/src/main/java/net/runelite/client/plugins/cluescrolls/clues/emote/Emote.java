@@ -26,11 +26,11 @@ package net.runelite.client.plugins.cluescrolls.clues.emote;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+
 import static net.runelite.api.SpriteID.*;
 
 @Getter(AccessLevel.PUBLIC)
-public enum Emote
-{
+public enum Emote {
 	BULL_ROARER("Bull Roarer", -1),
 	YES("Yes", EMOTE_YES),
 	NO("No", EMOTE_NO),
@@ -63,14 +63,12 @@ public enum Emote
 	private String name;
 	private int spriteId;
 
-	Emote(String name, int spriteId)
-	{
+	Emote(String name, int spriteId) {
 		this.name = name;
 		this.spriteId = spriteId;
 	}
 
-	public boolean hasSprite()
-	{
+	public boolean hasSprite() {
 		return spriteId != -1;
 	}
 }

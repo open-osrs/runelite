@@ -24,156 +24,140 @@
 
 package net.runelite.client.plugins.runedoku;
 
-import java.awt.Color;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigTitleSection;
-import net.runelite.client.config.Title;
+import net.runelite.client.config.*;
+
+import java.awt.*;
 
 @ConfigGroup("runedoku")
-public interface RunedokuConfig extends Config
-{
+public interface RunedokuConfig extends Config {
 
 	@ConfigTitleSection(
-		keyName = "colorTitle",
-		position = 0,
-		name = "Colors",
-		description = "" //stubs don't show descriptions when hovered over
+			keyName = "colorTitle",
+			position = 0,
+			name = "Colors",
+			description = "" //stubs don't show descriptions when hovered over
 	)
-	default Title colorTitle()
-	{
+	default Title colorTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 1,
-		keyName = "mindRuneColor",
-		name = "Mind Rune Color",
-		description = "Color used to highlight Mind runes.",
-		titleSection = "colorTitle"
+			position = 1,
+			keyName = "mindRuneColor",
+			name = "Mind Rune Color",
+			description = "Color used to highlight Mind runes.",
+			titleSection = "colorTitle"
 	)
-	default Color mindRuneColor()
-	{
+	default Color mindRuneColor() {
 		return Color.PINK;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "fireRuneColor",
-		name = "Fire Rune Color",
-		description = "Color used to highlight Fire runes.",
-		titleSection = "colorTitle"
+			position = 2,
+			keyName = "fireRuneColor",
+			name = "Fire Rune Color",
+			description = "Color used to highlight Fire runes.",
+			titleSection = "colorTitle"
 	)
-	default Color fireRuneColor()
-	{
+	default Color fireRuneColor() {
 		return Color.RED;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "bodyRuneColor",
-		name = "Body Rune Color",
-		description = "Color used to highlight Body runes.",
-		titleSection = "colorTitle"
+			position = 3,
+			keyName = "bodyRuneColor",
+			name = "Body Rune Color",
+			description = "Color used to highlight Body runes.",
+			titleSection = "colorTitle"
 	)
-	default Color bodyRuneColor()
-	{
+	default Color bodyRuneColor() {
 		return Color.MAGENTA;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "airRuneColor",
-		name = "Air Rune Color",
-		description = "Color used to highlight Air runes.",
-		titleSection = "colorTitle"
+			position = 4,
+			keyName = "airRuneColor",
+			name = "Air Rune Color",
+			description = "Color used to highlight Air runes.",
+			titleSection = "colorTitle"
 	)
-	default Color airRuneColor()
-	{
+	default Color airRuneColor() {
 		return Color.WHITE;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "deathRuneColor",
-		name = "Death Rune Color",
-		description = "Color used to highlight Death runes.",
-		titleSection = "colorTitle"
+			position = 5,
+			keyName = "deathRuneColor",
+			name = "Death Rune Color",
+			description = "Color used to highlight Death runes.",
+			titleSection = "colorTitle"
 	)
-	default Color deathRuneColor()
-	{
+	default Color deathRuneColor() {
 		return Color.BLACK;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "waterRuneColor",
-		name = "Water Rune Color",
-		description = "Color used to highlight Water runes.",
-		titleSection = "colorTitle"
+			position = 6,
+			keyName = "waterRuneColor",
+			name = "Water Rune Color",
+			description = "Color used to highlight Water runes.",
+			titleSection = "colorTitle"
 	)
-	default Color waterRuneColor()
-	{
+	default Color waterRuneColor() {
 		return Color.BLUE;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "chaosRuneColor",
-		name = "Chaos Rune Color",
-		description = "Color used to highlight Chaos runes.",
-		titleSection = "colorTitle"
+			position = 7,
+			keyName = "chaosRuneColor",
+			name = "Chaos Rune Color",
+			description = "Color used to highlight Chaos runes.",
+			titleSection = "colorTitle"
 	)
-	default Color chaosRuneColor()
-	{
+	default Color chaosRuneColor() {
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "earthRuneColor",
-		name = "Earth Rune Color",
-		description = "Color used to highlight Earth runes.",
-		titleSection = "colorTitle"
+			position = 8,
+			keyName = "earthRuneColor",
+			name = "Earth Rune Color",
+			description = "Color used to highlight Earth runes.",
+			titleSection = "colorTitle"
 	)
-	default Color earthRuneColor()
-	{
+	default Color earthRuneColor() {
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "lawRuneColor",
-		name = "Law Rune Color",
-		description = "Color used to highlight Law runes.",
-		titleSection = "colorTitle"
+			position = 9,
+			keyName = "lawRuneColor",
+			name = "Law Rune Color",
+			description = "Color used to highlight Law runes.",
+			titleSection = "colorTitle"
 	)
-	default Color lawRuneColor()
-	{
+	default Color lawRuneColor() {
 		return Color.CYAN;
 	}
 
 	@ConfigTitleSection(
-		keyName = "miscFeature",
-		position = 10,
-		name = "Miscellaneous Features",
-		description = ""
+			keyName = "miscFeature",
+			position = 10,
+			name = "Miscellaneous Features",
+			description = ""
 	)
-	default Title miscFeature()
-	{
+	default Title miscFeature() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 11,
-		keyName = "onlyHighlightSelectedPiece",
-		name = "Only Highlight Selected Piece",
-		description = "Instead of showing all, this option only show what rune you have selected.",
-		titleSection = "miscFeature"
+			position = 11,
+			keyName = "onlyHighlightSelectedPiece",
+			name = "Only Highlight Selected Piece",
+			description = "Instead of showing all, this option only show what rune you have selected.",
+			titleSection = "miscFeature"
 	)
-	default boolean onlyHighlightSelectedPiece()
-	{
+	default boolean onlyHighlightSelectedPiece() {
 		return false;
 	}
 

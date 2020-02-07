@@ -4,8 +4,7 @@ import io.reactivex.functions.Consumer;
 import lombok.Value;
 
 @Value
-public class Subscription
-{
+public class Subscription {
 	private final Class type;
 	private final Consumer method;
 	private final int takeUntil;
@@ -13,8 +12,7 @@ public class Subscription
 	private final EventScheduler observe;
 
 	@SuppressWarnings("unchecked")
-	public void subscribe(EventBus eventBus, Object lifecycle)
-	{
+	public void subscribe(EventBus eventBus, Object lifecycle) {
 		eventBus.subscribe(type, lifecycle, method, takeUntil, subscribe, observe);
 	}
 }

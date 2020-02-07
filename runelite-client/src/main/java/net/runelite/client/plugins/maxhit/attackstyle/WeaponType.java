@@ -26,10 +26,10 @@ package net.runelite.client.plugins.maxhit.attackstyle;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import static net.runelite.client.plugins.maxhit.attackstyle.AttackStyle.*;
 
-public enum WeaponType
-{
+public enum WeaponType {
 	TYPE_0(ACCURATE, AGGRESSIVE, null, DEFENSIVE),
 	TYPE_1(ACCURATE, AGGRESSIVE, AGGRESSIVE, DEFENSIVE),
 	TYPE_2(ACCURATE, AGGRESSIVE, null, DEFENSIVE),
@@ -61,28 +61,23 @@ public enum WeaponType
 
 	private static final Map<Integer, WeaponType> weaponTypes = new HashMap<>();
 
-	static
-	{
-		for (WeaponType weaponType : values())
-		{
+	static {
+		for (WeaponType weaponType : values()) {
 			weaponTypes.put(weaponType.ordinal(), weaponType);
 		}
 	}
 
 	private final AttackStyle[] attackStyles;
 
-	WeaponType(AttackStyle... attackStyles)
-	{
+	WeaponType(AttackStyle... attackStyles) {
 		this.attackStyles = attackStyles;
 	}
 
-	public static WeaponType getWeaponType(int id)
-	{
+	public static WeaponType getWeaponType(int id) {
 		return weaponTypes.get(id);
 	}
 
-	public AttackStyle[] getAttackStyles()
-	{
+	public AttackStyle[] getAttackStyles() {
 		return attackStyles;
 	}
 }

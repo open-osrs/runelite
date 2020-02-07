@@ -25,14 +25,13 @@
  */
 package net.runelite.client.plugins.worldmap;
 
-import java.awt.image.BufferedImage;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 
-class QuestStartPoint extends WorldMapPoint
-{
-	QuestStartPoint(WorldPoint location, BufferedImage icon, String tooltip)
-	{
+import java.awt.image.BufferedImage;
+
+class QuestStartPoint extends WorldMapPoint {
+	QuestStartPoint(WorldPoint location, BufferedImage icon, String tooltip) {
 		super(location, icon);
 		setTooltip(tooltip);
 	}

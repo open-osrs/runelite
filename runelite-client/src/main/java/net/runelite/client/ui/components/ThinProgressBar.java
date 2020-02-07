@@ -25,25 +25,22 @@
  */
 package net.runelite.client.ui.components;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JPanel;
 import lombok.Getter;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A progress bar to be displayed underneath the GE offer item panels
  */
-public class ThinProgressBar extends JPanel
-{
+public class ThinProgressBar extends JPanel {
 	@Getter
 	private int maximumValue = 1;
 
 	@Getter
 	private int value;
 
-	public ThinProgressBar()
-	{
+	public ThinProgressBar() {
 		setForeground(Color.GREEN);
 		setMaximumSize(new Dimension(Integer.MAX_VALUE, 4));
 		setMinimumSize(new Dimension(0, 4));
@@ -52,37 +49,31 @@ public class ThinProgressBar extends JPanel
 		setOpaque(true);
 	}
 
-	public double getPercentage()
-	{
+	public double getPercentage() {
 		return (value * 100) / (double) maximumValue;
 	}
 
 	@Override
-	public void setForeground(Color color)
-	{
+	public void setForeground(Color color) {
 		super.setForeground(color);
 		setBackground(color.darker());
 	}
 
-	public void setMaximumValue(int maximumValue)
-	{
-		if (maximumValue < 1)
-		{
+	public void setMaximumValue(int maximumValue) {
+		if (maximumValue < 1) {
 			maximumValue = 1;
 		}
 		this.maximumValue = maximumValue;
 		repaint();
 	}
 
-	public void setValue(int value)
-	{
+	public void setValue(int value) {
 		this.value = value;
 		repaint();
 	}
 
 	@Override
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int w = getWidth();
 		int h = getHeight();

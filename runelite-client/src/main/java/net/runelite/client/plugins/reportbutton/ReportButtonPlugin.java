@@ -25,18 +25,6 @@
 package net.runelite.client.plugins.reportbutton;
 
 import com.google.inject.Provides;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.GameStateChanged;
@@ -51,15 +39,27 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.task.Schedule;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 @PluginDescriptor(
-	name = "Report Button",
-	description = "Replace the text on the Report button with the current time",
-	tags = {"time", "utc"},
-	type = PluginType.MISCELLANEOUS
+		name = "Report Button",
+		description = "Replace the text on the Report button with the current time",
+		tags = {"time", "utc"},
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class ReportButtonPlugin extends Plugin
-{
+public class ReportButtonPlugin extends Plugin {
 	private static final ZoneId UTC = ZoneId.of("UTC");
 	private static final ZoneId JAGEX = ZoneId.of("Europe/London");
 
@@ -81,47 +81,40 @@ public class ReportButtonPlugin extends Plugin
 	private TimeStyle timeStyle;
 
 	@Provides
-	ReportButtonConfig provideConfig(ConfigManager configManager)
-	{
+	ReportButtonConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(ReportButtonConfig.class);
 	}
 
 	@Override
-	public void startUp()
-	{
+	public void startUp() {
 
 		this.timeStyle = config.time();
 		clientThread.invoke(this::updateReportButtonTime);
 	}
 
 	@Override
-	public void shutDown()
-	{
+	public void shutDown() {
 		clientThread.invoke(() ->
 		{
 			Widget reportButton = client.getWidget(WidgetInfo.CHATBOX_REPORT_TEXT);
-			if (reportButton != null)
-			{
+			if (reportButton != null) {
 				reportButton.setText("Report");
 			}
 		});
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
+	private void onGameStateChanged(GameStateChanged event) {
 		GameState state = event.getGameState();
 
-		switch (state)
-		{
+		switch (state) {
 			case LOGGING_IN:
 			case HOPPING:
 			case CONNECTION_LOST:
 				ready = true;
 				break;
 			case LOGGED_IN:
-				if (ready)
-				{
+				if (ready) {
 					loginTime = Instant.now();
 					ready = false;
 				}
@@ -130,29 +123,24 @@ public class ReportButtonPlugin extends Plugin
 	}
 
 	@Schedule(
-		period = 500,
-		unit = ChronoUnit.MILLIS
+			period = 500,
+			unit = ChronoUnit.MILLIS
 	)
-	public void updateSchedule()
-	{
+	public void updateSchedule() {
 		updateReportButtonTime();
 	}
 
-	private void updateReportButtonTime()
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	private void updateReportButtonTime() {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		Widget reportButton = client.getWidget(WidgetInfo.CHATBOX_REPORT_TEXT);
-		if (reportButton == null)
-		{
+		if (reportButton == null) {
 			return;
 		}
 
-		switch (this.timeStyle)
-		{
+		switch (this.timeStyle) {
 			case UTC:
 				reportButton.setText(getUTCTime());
 				break;
@@ -174,10 +162,8 @@ public class ReportButtonPlugin extends Plugin
 		}
 	}
 
-	private String getLoginTime()
-	{
-		if (loginTime == null)
-		{
+	private String getLoginTime() {
+		if (loginTime == null) {
 			return "Report";
 		}
 
@@ -186,33 +172,27 @@ public class ReportButtonPlugin extends Plugin
 		return time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 	}
 
-	private static String getLocalTime()
-	{
+	private static String getLocalTime() {
 		return LocalTime.now().format(DATE_TIME_FORMAT);
 	}
 
-	private static String getUTCTime()
-	{
+	private static String getUTCTime() {
 		LocalTime time = LocalTime.now(UTC);
 		return time.format(DATE_TIME_FORMAT);
 	}
 
-	private static String getJagexTime()
-	{
+	private static String getJagexTime() {
 		LocalTime time = LocalTime.now(JAGEX);
 		return time.format(DATE_TIME_FORMAT);
 	}
 
-	private static String getDate()
-	{
+	private static String getDate() {
 		return DATE_FORMAT.format(new Date());
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("reportButton"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("reportButton")) {
 			this.timeStyle = config.time();
 		}
 	}

@@ -24,37 +24,32 @@
  */
 package net.runelite.client.plugins.npchighlight;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
 import net.runelite.client.input.KeyListener;
 
-class NpcIndicatorsInput implements KeyListener
-{
+import javax.inject.Inject;
+import java.awt.event.KeyEvent;
+
+class NpcIndicatorsInput implements KeyListener {
 	private static final int HOTKEY = KeyEvent.VK_SHIFT;
 
 	@Inject
 	private NpcIndicatorsPlugin plugin;
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (e.getKeyCode() == HOTKEY)
-		{
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == HOTKEY) {
 			plugin.setHotKeyPressed(true);
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (e.getKeyCode() == HOTKEY)
-		{
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == HOTKEY) {
 			plugin.setHotKeyPressed(false);
 		}
 	}

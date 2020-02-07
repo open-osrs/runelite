@@ -27,9 +27,6 @@
 
 package net.runelite.client.plugins.statusbars.renderer;
 
-import java.awt.Color;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
@@ -38,24 +35,25 @@ import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 @Singleton
-public class PrayerRenderer extends BarRenderer
-{
+public class PrayerRenderer extends BarRenderer {
 	private static final Color COLOR_STANDARD = new Color(50, 200, 200, 175);
 	private static final Color COLOR_ACTIVE = new Color(57, 255, 186, 225);
 	private static final int SIZE = 17;
 
 	@Inject
-	public PrayerRenderer(final StatusBarsPlugin plugin, final SkillIconManager iconManager)
-	{
+	public PrayerRenderer(final StatusBarsPlugin plugin, final SkillIconManager iconManager) {
 		super(plugin);
 		icon = ImageUtil.resizeImage(iconManager.getSkillImage(Skill.PRAYER, true), SIZE, SIZE);
 		restoreColor = new Color(57, 255, 186, 75);
 	}
 
 	@Override
-	protected void update(Client client, StatusBarsOverlay overlay)
-	{
+	protected void update(Client client, StatusBarsOverlay overlay) {
 		maximumValue = client.getRealSkillLevel(Skill.PRAYER);
 		currentValue = client.getBoostedSkillLevel(Skill.PRAYER);
 		standardColor = client.getVar(Varbits.QUICK_PRAYER) == 1 ? COLOR_ACTIVE : COLOR_STANDARD;

@@ -24,10 +24,6 @@
  */
 package net.runelite.client.plugins.config;
 
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.swing.SwingUtilities;
 import net.runelite.api.MenuOpcode;
 import net.runelite.client.config.ChatColorConfig;
 import net.runelite.client.config.ConfigManager;
@@ -44,13 +40,17 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+
 @PluginDescriptor(
-	name = "Configuration",
-	loadWhenOutdated = true,
-	hidden = true // prevent users from disabling
+		name = "Configuration",
+		loadWhenOutdated = true,
+		hidden = true // prevent users from disabling
 )
-public class ConfigPlugin extends Plugin
-{
+public class ConfigPlugin extends Plugin {
 	@Inject
 	private ClientToolbar clientToolbar;
 
@@ -74,52 +74,47 @@ public class ConfigPlugin extends Plugin
 	private NavigationButton navButton;
 
 	@Override
-	protected void startUp() throws Exception
-	{
+	protected void startUp() throws Exception {
 		pluginListPanel = pluginListPanelProvider.get();
 		pluginListPanel.addFakePlugin(
-			new PluginConfigurationDescriptor(
-				"OpenOSRS", "OpenOSRS client settings", PluginType.IMPORTANT, new String[]{"client"},
-				null, openOSRSConfig, configManager.getConfigDescriptor(openOSRSConfig)
-			),
-			new PluginConfigurationDescriptor(
-				"RuneLite", "RuneLite client settings", PluginType.IMPORTANT, new String[]{"client"},
-				null, runeLiteConfig, configManager.getConfigDescriptor(runeLiteConfig)
-			),
-			new PluginConfigurationDescriptor(
-				"Chat Color", "Recolor chat text", PluginType.MISCELLANEOUS, new String[]{"colour", "messages"},
-				null, chatColorConfig, configManager.getConfigDescriptor(chatColorConfig)
-			));
+				new PluginConfigurationDescriptor(
+						"OpenOSRS", "OpenOSRS client settings", PluginType.IMPORTANT, new String[]{"client"},
+						null, openOSRSConfig, configManager.getConfigDescriptor(openOSRSConfig)
+				),
+				new PluginConfigurationDescriptor(
+						"RuneLite", "RuneLite client settings", PluginType.IMPORTANT, new String[]{"client"},
+						null, runeLiteConfig, configManager.getConfigDescriptor(runeLiteConfig)
+				),
+				new PluginConfigurationDescriptor(
+						"Chat Color", "Recolor chat text", PluginType.MISCELLANEOUS, new String[]{"colour", "messages"},
+						null, chatColorConfig, configManager.getConfigDescriptor(chatColorConfig)
+				));
 		pluginListPanel.rebuildPluginList();
 
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "config_icon.png");
 
 		navButton = NavigationButton.builder()
-			.tooltip("Configuration")
-			.icon(icon)
-			.priority(0)
-			.panel(pluginListPanel.getMuxer())
-			.build();
+				.tooltip("Configuration")
+				.icon(icon)
+				.priority(0)
+				.panel(pluginListPanel.getMuxer())
+				.build();
 
 		clientToolbar.addNavigation(navButton);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
-	{
+	protected void shutDown() throws Exception {
 		clientToolbar.removeNavigation(navButton);
 	}
 
 	@Subscribe
-	public void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked)
-	{
+	public void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked) {
 		OverlayMenuEntry overlayMenuEntry = overlayMenuClicked.getEntry();
-		if (overlayMenuEntry.getMenuOpcode() == MenuOpcode.RUNELITE_OVERLAY_CONFIG)
-		{
+		if (overlayMenuEntry.getMenuOpcode() == MenuOpcode.RUNELITE_OVERLAY_CONFIG) {
 			Overlay overlay = overlayMenuClicked.getOverlay();
 			Plugin plugin = overlay.getPlugin();
-			if (plugin == null)
-			{
+			if (plugin == null) {
 				return;
 			}
 
@@ -127,8 +122,7 @@ public class ConfigPlugin extends Plugin
 			PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
 			SwingUtilities.invokeLater(() ->
 			{
-				if (!navButton.isSelected())
-				{
+				if (!navButton.isSelected()) {
 					navButton.getOnSelect().run();
 				}
 				pluginListPanel.openConfigurationPanel(descriptor.name());

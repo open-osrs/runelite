@@ -27,22 +27,13 @@ package net.runelite.client.plugins.ticktimers;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import java.awt.Color;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import net.runelite.api.Actor;
-import net.runelite.api.AnimationID;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCDefinition;
-import net.runelite.api.NpcID;
-import net.runelite.api.Prayer;
+import lombok.*;
+import net.runelite.api.*;
+
+import java.awt.*;
 
 @Getter(AccessLevel.PACKAGE)
-class NPCContainer
-{
+class NPCContainer {
 	private NPC npc;
 	private int npcIndex;
 	private String npcName;
@@ -56,8 +47,7 @@ class NPCContainer
 	@Setter(AccessLevel.PACKAGE)
 	private AttackStyle attackStyle;
 
-	NPCContainer(final NPC npc, final int attackSpeed)
-	{
+	NPCContainer(final NPC npc, final int attackSpeed) {
 		this.npc = npc;
 		this.npcName = npc.getName();
 		this.npcIndex = npc.getIndex();
@@ -69,23 +59,20 @@ class NPCContainer
 
 		BossMonsters monster = BossMonsters.of(npc.getId());
 
-		if (monster == null)
-		{
+		if (monster == null) {
 			throw new IllegalStateException();
 		}
 
 		this.animations = monster.animations;
 		this.attackStyle = monster.attackStyle;
 
-		if (composition != null)
-		{
+		if (composition != null) {
 			this.npcSize = composition.getSize();
 		}
 	}
 
 	@RequiredArgsConstructor
-	enum BossMonsters
-	{
+	enum BossMonsters {
 		SERGEANT_STRONGSTACK(NpcID.SERGEANT_STRONGSTACK, AttackStyle.MELEE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
 		SERGEANT_STEELWILL(NpcID.SERGEANT_STEELWILL, AttackStyle.MAGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO3)),
 		SERGEANT_GRIMSPIKE(NpcID.SERGEANT_GRIMSPIKE, AttackStyle.RANGE, ImmutableSet.of(AnimationID.MINION_AUTO1, AnimationID.MINION_AUTO2, AnimationID.MINION_AUTO4)),
@@ -112,12 +99,10 @@ class NPCContainer
 
 		private static final ImmutableMap<Integer, BossMonsters> idMap;
 
-		static
-		{
+		static {
 			ImmutableMap.Builder<Integer, BossMonsters> builder = ImmutableMap.builder();
 
-			for (BossMonsters monster : values())
-			{
+			for (BossMonsters monster : values()) {
 				builder.put(monster.npcID, monster);
 			}
 
@@ -128,16 +113,14 @@ class NPCContainer
 		private final AttackStyle attackStyle;
 		private final ImmutableSet<Integer> animations;
 
-		static BossMonsters of(int npcID)
-		{
+		static BossMonsters of(int npcID) {
 			return idMap.get(npcID);
 		}
 	}
 
 	@AllArgsConstructor
 	@Getter
-	public enum AttackStyle
-	{
+	public enum AttackStyle {
 		MAGE("Mage", Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
 		RANGE("Range", Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
 		MELEE("Melee", Color.RED, Prayer.PROTECT_FROM_MELEE),

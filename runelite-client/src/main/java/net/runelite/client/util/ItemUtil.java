@@ -24,21 +24,16 @@
  */
 package net.runelite.client.util;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.runelite.api.Item;
 import net.runelite.http.api.loottracker.GameItem;
+
+import javax.annotation.Nullable;
+import java.util.*;
 
 /**
  * Utility class for Item arrays.
  */
-public class ItemUtil
-{
+public class ItemUtil {
 	/**
 	 * Converts itemArray into a GameItem collection limited to the passed ids
 	 * Consolidates all matching Item's qty, by id
@@ -47,17 +42,13 @@ public class ItemUtil
 	 * @param ids       item ids to include in result
 	 * @return Map of GameItem by item id
 	 */
-	public static Map<Integer, GameItem> toGameItemMap(Item[] itemArray, @Nullable Set<Integer> ids)
-	{
+	public static Map<Integer, GameItem> toGameItemMap(Item[] itemArray, @Nullable Set<Integer> ids) {
 		final Map<Integer, GameItem> map = new HashMap<>();
-		for (Item i : itemArray)
-		{
+		for (Item i : itemArray) {
 			final int id = i.getId();
-			if (ids == null || ids.contains(id))
-			{
+			if (ids == null || ids.contains(id)) {
 				int qty = i.getQuantity();
-				if (map.containsKey(id))
-				{
+				if (map.containsKey(id)) {
 					qty += map.get(id).getQty();
 				}
 				map.put(id, new GameItem(id, qty));
@@ -74,8 +65,7 @@ public class ItemUtil
 	 * @param itemArray item array to work on
 	 * @return Map of GameItem by item id
 	 */
-	public static Map<Integer, GameItem> toGameItemMap(Item[] itemArray)
-	{
+	public static Map<Integer, GameItem> toGameItemMap(Item[] itemArray) {
 		return toGameItemMap(itemArray, null);
 	}
 
@@ -86,18 +76,14 @@ public class ItemUtil
 	 * @param ids       item ids to check for
 	 * @return true if itemArray contains all requested item ids
 	 */
-	public static boolean containsAllItemIds(Item[] itemArray, Set<Integer> ids)
-	{
+	public static boolean containsAllItemIds(Item[] itemArray, Set<Integer> ids) {
 		final Set<Integer> found = new HashSet<>();
-		for (Item i : itemArray)
-		{
+		for (Item i : itemArray) {
 			final int id = i.getId();
-			if (ids.contains(id))
-			{
+			if (ids.contains(id)) {
 				found.add(id);
 				// Early break if possible
-				if (found.size() == ids.size())
-				{
+				if (found.size() == ids.size()) {
 					return true;
 				}
 			}
@@ -114,13 +100,10 @@ public class ItemUtil
 	 * @param ids       item ids to check for
 	 * @return true if any item in itemArray contains any id from ids
 	 */
-	public static boolean containsAnyItemId(Item[] itemArray, Set<Integer> ids)
-	{
-		for (Item i : itemArray)
-		{
+	public static boolean containsAnyItemId(Item[] itemArray, Set<Integer> ids) {
+		for (Item i : itemArray) {
 			final int id = i.getId();
-			if (ids.contains(id))
-			{
+			if (ids.contains(id)) {
 				return true;
 			}
 		}
@@ -135,12 +118,9 @@ public class ItemUtil
 	 * @param itemID    item id to check for
 	 * @return true if any item in itemArray matches itemID
 	 */
-	public static boolean containsItemId(Item[] itemArray, int itemID)
-	{
-		for (Item i : itemArray)
-		{
-			if (i.getId() == itemID)
-			{
+	public static boolean containsItemId(Item[] itemArray, int itemID) {
+		for (Item i : itemArray) {
+			if (i.getId() == itemID) {
 				return true;
 			}
 		}
@@ -155,10 +135,8 @@ public class ItemUtil
 	 * @param index     index to grab
 	 * @return null if index is bigger than array otherwise array content
 	 */
-	public static Item safeGetItemAtIndex(Item[] itemArray, int index)
-	{
-		if (itemArray.length <= index)
-		{
+	public static Item safeGetItemAtIndex(Item[] itemArray, int index) {
+		if (itemArray.length <= index) {
 			return null;
 		}
 
@@ -172,10 +150,8 @@ public class ItemUtil
 	 * @param index     index to grab
 	 * @return -1 if index is bigger than array otherwise array contents `id` value
 	 */
-	public static Integer safeGetItemIdAtIndex(Item[] itemArray, int index)
-	{
-		if (itemArray.length <= index)
-		{
+	public static Integer safeGetItemIdAtIndex(Item[] itemArray, int index) {
+		if (itemArray.length <= index) {
 			return -1;
 		}
 
@@ -190,20 +166,16 @@ public class ItemUtil
 	 * @param requestedItems Collection of GameItems which contain the item id & minimum qty
 	 * @return true if contains all requestedItems
 	 */
-	public static boolean containsAllGameItems(Item[] itemArray, Collection<GameItem> requestedItems)
-	{
+	public static boolean containsAllGameItems(Item[] itemArray, Collection<GameItem> requestedItems) {
 		final Map<Integer, GameItem> map = toGameItemMap(itemArray, null);
-		for (GameItem i : requestedItems)
-		{
+		for (GameItem i : requestedItems) {
 			final int id = i.getId();
 			GameItem item = map.get(id);
-			if (item == null)
-			{
+			if (item == null) {
 				return false;
 			}
 
-			if (item.getQty() < i.getQty())
-			{
+			if (item.getQty() < i.getQty()) {
 				return false;
 			}
 		}
@@ -219,8 +191,7 @@ public class ItemUtil
 	 * @param requestedItems GameItem(s) to request
 	 * @return true if contains all requestedItems
 	 */
-	public static boolean containsAllGameItems(Item[] itemArray, GameItem... requestedItems)
-	{
+	public static boolean containsAllGameItems(Item[] itemArray, GameItem... requestedItems) {
 		return containsAllGameItems(itemArray, Arrays.asList(requestedItems));
 	}
 }

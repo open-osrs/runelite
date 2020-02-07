@@ -24,14 +24,12 @@
  */
 package net.runelite.client.ui.components;
 
-import java.awt.Dimension;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
-public class MinimumSizedPanel extends JPanel
-{
+public class MinimumSizedPanel extends JPanel {
 	@Override
-	public Dimension getPreferredSize()
-	{
+	public Dimension getPreferredSize() {
 		final Dimension pref = super.getPreferredSize();
 		final Dimension minimum = super.getMinimumSize();
 		return new Dimension(Math.max(pref.width, minimum.width), Math.max(pref.height, minimum.height));

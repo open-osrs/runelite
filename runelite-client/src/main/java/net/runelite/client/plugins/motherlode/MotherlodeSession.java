@@ -24,18 +24,18 @@
  */
 package net.runelite.client.plugins.motherlode;
 
-import java.time.Duration;
-import java.time.Instant;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemID;
 
+import javax.inject.Singleton;
+import java.time.Duration;
+import java.time.Instant;
+
 @Slf4j
 @Singleton
-public class MotherlodeSession
-{
+public class MotherlodeSession {
 	private static final Duration HOUR = Duration.ofHours(1);
 
 	private int perHour;
@@ -79,12 +79,10 @@ public class MotherlodeSession
 	@Getter(AccessLevel.PACKAGE)
 	private int runiteFound;
 
-	void incrementGemFound(int gemID)
-	{
+	void incrementGemFound(int gemID) {
 		lastGemFound = Instant.now();
 
-		switch (gemID)
-		{
+		switch (gemID) {
 			case ItemID.UNCUT_DIAMOND:
 				diamondsFound++;
 				break;
@@ -106,10 +104,8 @@ public class MotherlodeSession
 		}
 	}
 
-	void updateOreFound(int item, int count)
-	{
-		switch (item)
-		{
+	void updateOreFound(int item, int count) {
+		switch (item) {
 			case ItemID.GOLDEN_NUGGET:
 				nuggetsFound += count;
 				break;
@@ -133,49 +129,41 @@ public class MotherlodeSession
 		}
 	}
 
-	void incrementPayDirtMined()
-	{
+	void incrementPayDirtMined() {
 		Instant now = Instant.now();
 
 		lastPayDirtMined = now;
 		++totalMined;
 
-		if (recentMined == 0)
-		{
+		if (recentMined == 0) {
 			recentPayDirtMined = now;
 		}
 		++recentMined;
 
 		Duration timeSinceStart = Duration.between(recentPayDirtMined, now);
-		if (!timeSinceStart.isZero())
-		{
+		if (!timeSinceStart.isZero()) {
 			perHour = (int) ((double) recentMined * (double) HOUR.toMillis() / (double) timeSinceStart.toMillis());
 		}
 	}
 
-	void resetRecent()
-	{
+	void resetRecent() {
 		recentPayDirtMined = null;
 		recentMined = 0;
 	}
 
-	int getPerHour()
-	{
+	int getPerHour() {
 		return perHour;
 	}
 
-	Instant getLastPayDirtMined()
-	{
+	Instant getLastPayDirtMined() {
 		return lastPayDirtMined;
 	}
 
-	int getTotalMined()
-	{
+	int getTotalMined() {
 		return totalMined;
 	}
 
-	int getRecentMined()
-	{
+	int getRecentMined() {
 		return recentMined;
 	}
 }

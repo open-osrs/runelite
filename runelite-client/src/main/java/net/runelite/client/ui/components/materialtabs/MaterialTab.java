@@ -25,20 +25,17 @@
 package net.runelite.client.ui.components.materialtabs;
 
 import com.google.common.base.Strings;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.function.BooleanSupplier;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.ui.ColorScheme;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.function.BooleanSupplier;
 
 /**
  * This class represents a Material Design inspired tab.
@@ -48,14 +45,13 @@ import net.runelite.client.ui.ColorScheme;
  *
  * @author Psikoi
  */
-public class MaterialTab extends JLabel
-{
+public class MaterialTab extends JLabel {
 	private static final Border SELECTED_BORDER = new CompoundBorder(
-		BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.BRAND_BLUE),
-		BorderFactory.createEmptyBorder(5, 10, 4, 10));
+			BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.BRAND_BLUE),
+			BorderFactory.createEmptyBorder(5, 10, 4, 10));
 
 	private static final Border UNSELECTED_BORDER = BorderFactory
-		.createEmptyBorder(5, 10, 5, 10);
+			.createEmptyBorder(5, 10, 5, 10);
 
 	/* The tab's associated content display */
 	@Getter
@@ -68,48 +64,37 @@ public class MaterialTab extends JLabel
 	@Getter
 	private boolean selected;
 
-	public MaterialTab(String string, MaterialTabGroup group, JComponent content)
-	{
+	public MaterialTab(String string, MaterialTabGroup group, JComponent content) {
 		super(string);
 
 		/* The tab's containing group */
 		this.content = content;
 
-		if (selected)
-		{
+		if (selected) {
 			select();
-		}
-		else
-		{
+		} else {
 			unselect();
 		}
 
-		addMouseListener(new MouseAdapter()
-		{
+		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				group.select(MaterialTab.this);
 			}
 		});
 
-		if (!Strings.isNullOrEmpty(string))
-		{
-			addMouseListener(new MouseAdapter()
-			{
+		if (!Strings.isNullOrEmpty(string)) {
+			addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseEntered(MouseEvent e)
-				{
+				public void mouseEntered(MouseEvent e) {
 					MaterialTab tab = (MaterialTab) e.getSource();
 					tab.setForeground(Color.WHITE);
 				}
 
 				@Override
-				public void mouseExited(MouseEvent e)
-				{
+				public void mouseExited(MouseEvent e) {
 					MaterialTab tab = (MaterialTab) e.getSource();
-					if (!tab.isSelected())
-					{
+					if (!tab.isSelected()) {
 						tab.setForeground(Color.GRAY);
 					}
 				}
@@ -117,8 +102,7 @@ public class MaterialTab extends JLabel
 		}
 	}
 
-	public MaterialTab(ImageIcon icon, MaterialTabGroup group, JComponent content)
-	{
+	public MaterialTab(ImageIcon icon, MaterialTabGroup group, JComponent content) {
 		this("", group, content);
 		setIcon(icon);
 		setOpaque(true);
@@ -126,18 +110,15 @@ public class MaterialTab extends JLabel
 		setHorizontalAlignment(SwingConstants.CENTER);
 		setBackground(ColorScheme.DARKER_GRAY_COLOR);
 
-		addMouseListener(new MouseAdapter()
-		{
+		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent e)
-			{
+			public void mouseEntered(MouseEvent e) {
 				MaterialTab tab = (MaterialTab) e.getSource();
 				tab.setBackground(ColorScheme.DARKER_GRAY_HOVER_COLOR);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e)
-			{
+			public void mouseExited(MouseEvent e) {
 				MaterialTab tab = (MaterialTab) e.getSource();
 				tab.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			}
@@ -145,12 +126,9 @@ public class MaterialTab extends JLabel
 
 	}
 
-	public boolean select()
-	{
-		if (onSelectEvent != null)
-		{
-			if (!onSelectEvent.getAsBoolean())
-			{
+	public boolean select() {
+		if (onSelectEvent != null) {
+			if (!onSelectEvent.getAsBoolean()) {
 				return false;
 			}
 		}
@@ -160,8 +138,7 @@ public class MaterialTab extends JLabel
 		return selected = true;
 	}
 
-	public void unselect()
-	{
+	public void unselect() {
 		setBorder(UNSELECTED_BORDER);
 		setForeground(Color.GRAY);
 		selected = false;

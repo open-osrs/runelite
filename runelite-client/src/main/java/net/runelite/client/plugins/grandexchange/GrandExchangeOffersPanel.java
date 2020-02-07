@@ -25,24 +25,21 @@
  */
 package net.runelite.client.plugins.grandexchange;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import javax.inject.Singleton;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import net.runelite.api.GrandExchangeOffer;
 import net.runelite.api.GrandExchangeOfferState;
 import net.runelite.api.ItemDefinition;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.components.PluginErrorPanel;
 
+import javax.inject.Singleton;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+
 @Singleton
-class GrandExchangeOffersPanel extends JPanel
-{
+class GrandExchangeOffersPanel extends JPanel {
 	private static final String ERROR_PANEL = "ERROR_PANEL";
 	private static final String OFFERS_PANEL = "OFFERS_PANEL";
 
@@ -59,8 +56,7 @@ class GrandExchangeOffersPanel extends JPanel
 
 	private final GrandExchangeOfferSlot[] offerSlotPanels = new GrandExchangeOfferSlot[MAX_OFFERS];
 
-	GrandExchangeOffersPanel()
-	{
+	GrandExchangeOffersPanel() {
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 
@@ -96,20 +92,16 @@ class GrandExchangeOffersPanel extends JPanel
 		resetOffers();
 	}
 
-	void resetOffers()
-	{
+	void resetOffers() {
 		offerPanel.removeAll();
 		Arrays.fill(offerSlotPanels, null);
 		updateEmptyOffersPanel();
 	}
 
-	void updateOffer(ItemDefinition item, BufferedImage itemImage, GrandExchangeOffer newOffer, int slot)
-	{
+	void updateOffer(ItemDefinition item, BufferedImage itemImage, GrandExchangeOffer newOffer, int slot) {
 		/* If slot was previously filled, and is now empty, remove it from the list */
-		if (newOffer == null || newOffer.getState() == GrandExchangeOfferState.EMPTY)
-		{
-			if (offerSlotPanels[slot] != null)
-			{
+		if (newOffer == null || newOffer.getState() == GrandExchangeOfferState.EMPTY) {
+			if (offerSlotPanels[slot] != null) {
 				offerPanel.remove(offerSlotPanels[slot]);
 				offerSlotPanels[slot] = null;
 				revalidate();
@@ -122,8 +114,7 @@ class GrandExchangeOffersPanel extends JPanel
 		}
 
 		/* If slot was empty, and is now filled, add it to the list */
-		if (offerSlotPanels[slot] == null)
-		{
+		if (offerSlotPanels[slot] == null) {
 			GrandExchangeOfferSlot newSlot = new GrandExchangeOfferSlot();
 			offerSlotPanels[slot] = newSlot;
 			offerPanel.add(newSlot, constraints);
@@ -143,11 +134,9 @@ class GrandExchangeOffersPanel extends JPanel
 	/**
 	 * Reset the border for the first offer slot.
 	 */
-	private void removeTopMargin()
-	{
+	private void removeTopMargin() {
 
-		if (offerPanel.getComponentCount() <= 0)
-		{
+		if (offerPanel.getComponentCount() <= 0) {
 			return;
 		}
 
@@ -159,24 +148,18 @@ class GrandExchangeOffersPanel extends JPanel
 	 * This method calculates the amount of empty ge offer slots, if all slots are empty,
 	 * it shows the error panel.
 	 */
-	private void updateEmptyOffersPanel()
-	{
+	private void updateEmptyOffersPanel() {
 		int nullCount = 0;
-		for (GrandExchangeOfferSlot slot : offerSlotPanels)
-		{
-			if (slot == null)
-			{
+		for (GrandExchangeOfferSlot slot : offerSlotPanels) {
+			if (slot == null) {
 				nullCount++;
 			}
 		}
 
-		if (nullCount == MAX_OFFERS)
-		{
+		if (nullCount == MAX_OFFERS) {
 			offerPanel.removeAll();
 			cardLayout.show(container, ERROR_PANEL);
-		}
-		else
-		{
+		} else {
 			cardLayout.show(container, OFFERS_PANEL);
 		}
 

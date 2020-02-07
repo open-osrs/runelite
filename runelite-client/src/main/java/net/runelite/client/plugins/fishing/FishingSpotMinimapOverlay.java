@@ -24,11 +24,6 @@
  */
 package net.runelite.client.plugins.fishing;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.GraphicID;
@@ -38,51 +33,47 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 @Singleton
-class FishingSpotMinimapOverlay extends Overlay
-{
+class FishingSpotMinimapOverlay extends Overlay {
 	private final FishingPlugin plugin;
 
 	@Setter(AccessLevel.PACKAGE)
 	private boolean hidden;
 
 	@Inject
-	public FishingSpotMinimapOverlay(final FishingPlugin plugin)
-	{
+	public FishingSpotMinimapOverlay(final FishingPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.plugin = plugin;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (hidden)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (hidden) {
 			return null;
 		}
 
-		for (NPC npc : plugin.getFishingSpots())
-		{
+		for (NPC npc : plugin.getFishingSpots()) {
 			FishingSpot spot = FishingSpot.findSpot(npc.getId());
 
-			if (spot == null)
-			{
+			if (spot == null) {
 				continue;
 			}
 
-			if (plugin.isOnlyCurrentSpot() && plugin.getCurrentSpot() != null && plugin.getCurrentSpot() != spot)
-			{
+			if (plugin.isOnlyCurrentSpot() && plugin.getCurrentSpot() != null && plugin.getCurrentSpot() != spot) {
 				continue;
 			}
 
 			Color color = npc.getSpotAnimation() == GraphicID.FLYING_FISH
-				? plugin.getMinnowsOverlayColor()
-				: plugin.getOverlayColor();
+					? plugin.getMinnowsOverlayColor()
+					: plugin.getOverlayColor();
 
 			net.runelite.api.Point minimapLocation = npc.getMinimapLocation();
-			if (minimapLocation != null)
-			{
+			if (minimapLocation != null) {
 				OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color.darker());
 			}
 		}

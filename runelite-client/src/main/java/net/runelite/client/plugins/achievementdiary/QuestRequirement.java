@@ -31,21 +31,17 @@ import net.runelite.api.Quest;
 
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-public class QuestRequirement implements Requirement
-{
+public class QuestRequirement implements Requirement {
 	private final Quest quest;
 	private final boolean started;
 
-	public QuestRequirement(Quest quest)
-	{
+	public QuestRequirement(Quest quest) {
 		this(quest, false);
 	}
 
 	@Override
-	public String toString()
-	{
-		if (started)
-		{
+	public String toString() {
+		if (started) {
 			return "Started " + quest.getName();
 		}
 

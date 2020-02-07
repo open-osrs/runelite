@@ -30,8 +30,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-public enum BarMode
-{
+public enum BarMode {
 	DISABLED("Disabled"),
 	HITPOINTS("Hitpoints"),
 	PRAYER("Prayer"),
@@ -41,8 +40,7 @@ public enum BarMode
 	private final String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

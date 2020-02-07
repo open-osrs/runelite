@@ -25,16 +25,13 @@
 
 package net.runelite.client.plugins.banktags.tabs;
 
-class MenuIndexes
-{
-	static class NewTab
-	{
+class MenuIndexes {
+	static class NewTab {
 		static final int NEW_TAB = 2;
 		static final int IMPORT_TAB = 3;
 	}
 
-	static class Tab
-	{
+	static class Tab {
 		static final int OPEN_TAG = 2;
 		static final int CHANGE_ICON = 3;
 		static final int DELETE_TAB = 4;

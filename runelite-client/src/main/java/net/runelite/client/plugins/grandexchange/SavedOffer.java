@@ -28,8 +28,7 @@ import lombok.Data;
 import net.runelite.api.GrandExchangeOfferState;
 
 @Data
-class SavedOffer
-{
+class SavedOffer {
 	private int itemId;
 	private int quantitySold;
 	private int totalQuantity;

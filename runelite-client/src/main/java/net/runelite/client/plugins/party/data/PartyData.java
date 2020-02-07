@@ -24,8 +24,6 @@
  */
 package net.runelite.client.plugins.party.data;
 
-import java.awt.Color;
-import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +31,13 @@ import lombok.Setter;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 
+import java.awt.*;
+import java.util.UUID;
+
 @Setter(AccessLevel.PUBLIC)
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-public class PartyData
-{
+public class PartyData {
 	private final UUID memberId;
 	private final String name;
 	private final WorldMapPoint worldMapPoint;

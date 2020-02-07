@@ -26,8 +26,7 @@ package net.runelite.client.plugins.mta.telekinetic;
 
 import net.runelite.api.coords.LocalPoint;
 
-public enum Maze
-{
+public enum Maze {
 	MAZE_1(100, new LocalPoint(6848, 3904)),
 	MAZE_2(124, new LocalPoint(4928, 6848)),
 	MAZE_3(129, new LocalPoint(7104, 5312)),
@@ -42,18 +41,14 @@ public enum Maze
 	private final int walls;
 	private final LocalPoint start;
 
-	Maze(final int walls, final LocalPoint start)
-	{
+	Maze(final int walls, final LocalPoint start) {
 		this.walls = walls;
 		this.start = start;
 	}
 
-	public static Maze fromWalls(int walls)
-	{
-		for (Maze maze : values())
-		{
-			if (maze.getWalls() == walls)
-			{
+	public static Maze fromWalls(int walls) {
+		for (Maze maze : values()) {
+			if (maze.getWalls() == walls) {
 				return maze;
 			}
 		}
@@ -61,13 +56,11 @@ public enum Maze
 		return null;
 	}
 
-	public int getWalls()
-	{
+	public int getWalls() {
 		return walls;
 	}
 
-	public LocalPoint getStart()
-	{
+	public LocalPoint getStart() {
 		return start;
 	}
 }

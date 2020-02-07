@@ -25,8 +25,6 @@
 package net.runelite.client.plugins.mta;
 
 import com.google.inject.Provides;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -40,15 +38,17 @@ import net.runelite.client.plugins.mta.graveyard.GraveyardRoom;
 import net.runelite.client.plugins.mta.telekinetic.TelekineticRoom;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 @PluginDescriptor(
-	name = "Mage Training Arena",
-	description = "Show helpful information for the Mage Training Arena minigame",
-	tags = {"mta", "magic", "minigame", "overlay"},
-	type = PluginType.MINIGAME
+		name = "Mage Training Arena",
+		description = "Show helpful information for the Mage Training Arena minigame",
+		tags = {"mta", "magic", "minigame", "overlay"},
+		type = PluginType.MINIGAME
 )
 @Singleton
-public class MTAPlugin extends Plugin
-{
+public class MTAPlugin extends Plugin {
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -77,14 +77,12 @@ public class MTAPlugin extends Plugin
 	private MTARoom[] rooms;
 
 	@Provides
-	public MTAConfig getConfig(ConfigManager manager)
-	{
+	public MTAConfig getConfig(ConfigManager manager) {
 		return manager.getConfig(MTAConfig.class);
 	}
 
 	@Override
-	public void startUp()
-	{
+	public void startUp() {
 		overlayManager.add(sceneOverlay);
 		overlayManager.add(inventoryOverlay);
 
@@ -92,13 +90,11 @@ public class MTAPlugin extends Plugin
 	}
 
 	@Override
-	public void shutDown()
-	{
+	public void shutDown() {
 		overlayManager.remove(sceneOverlay);
 		overlayManager.remove(inventoryOverlay);
 
-		for (MTARoom room : rooms)
-		{
+		for (MTARoom room : rooms) {
 			eventBus.unregister(room);
 		}
 

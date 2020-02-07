@@ -24,15 +24,7 @@
  */
 package net.runelite.client.plugins.motherlode;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.time.Duration;
-import java.time.Instant;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -40,16 +32,23 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.time.Duration;
+import java.time.Instant;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-public class MotherlodeGemOverlay extends Overlay
-{
+public class MotherlodeGemOverlay extends Overlay {
 	private final MotherlodePlugin plugin;
 	private final MotherlodeSession motherlodeSession;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	MotherlodeGemOverlay(final MotherlodePlugin plugin, final MotherlodeSession motherlodeSession)
-	{
+	MotherlodeGemOverlay(final MotherlodePlugin plugin, final MotherlodeSession motherlodeSession) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.plugin = plugin;
@@ -58,20 +57,17 @@ public class MotherlodeGemOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		MotherlodeSession session = motherlodeSession;
 
-		if (session.getLastGemFound() == null || !plugin.isInMlm() || !plugin.isShowGemsFound())
-		{
+		if (session.getLastGemFound() == null || !plugin.isInMlm() || !plugin.isShowGemsFound()) {
 			return null;
 		}
 
 		Duration statTimeout = Duration.ofMinutes(plugin.getStatTimeout());
 		Duration sinceCut = Duration.between(session.getLastGemFound(), Instant.now());
 
-		if (sinceCut.compareTo(statTimeout) >= 0)
-		{
+		if (sinceCut.compareTo(statTimeout) >= 0) {
 			return null;
 		}
 
@@ -86,23 +82,19 @@ public class MotherlodeGemOverlay extends Overlay
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		if (diamondsFound > 0)
-		{
+		if (diamondsFound > 0) {
 			tableComponent.addRow("Diamonds:", Integer.toString(diamondsFound));
 		}
 
-		if (rubiesFound > 0)
-		{
+		if (rubiesFound > 0) {
 			tableComponent.addRow("Rubies:", Integer.toString(rubiesFound));
 		}
 
-		if (emeraldsFound > 0)
-		{
+		if (emeraldsFound > 0) {
 			tableComponent.addRow("Emeralds:", Integer.toString(emeraldsFound));
 		}
 
-		if (sapphiresFound > 0)
-		{
+		if (sapphiresFound > 0) {
 			tableComponent.addRow("Sapphires:", Integer.toString(sapphiresFound));
 		}
 

@@ -26,14 +26,6 @@
  */
 package net.runelite.client.plugins.devtools;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.widgets.Widget;
@@ -43,18 +35,21 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 @Singleton
-public class WidgetInspectorOverlay extends Overlay
-{
+public class WidgetInspectorOverlay extends Overlay {
 	private final Client client;
 	private final WidgetInspector inspector;
 
 	@Inject
 	public WidgetInspectorOverlay(
-		Client client,
-		WidgetInspector inspector
-	)
-	{
+			Client client,
+			WidgetInspector inspector
+	) {
 		this.client = client;
 		this.inspector = inspector;
 
@@ -64,32 +59,26 @@ public class WidgetInspectorOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D g)
-	{
+	public Dimension render(Graphics2D g) {
 		Widget w = inspector.getSelectedWidget();
-		if (w != null)
-		{
+		if (w != null) {
 			Object wiw = w;
-			if (inspector.getSelectedItem() != -1)
-			{
+			if (inspector.getSelectedItem() != -1) {
 				wiw = w.getWidgetItem(inspector.getSelectedItem());
 			}
 
 			renderWiw(g, wiw, WidgetInspector.SELECTED_WIDGET_COLOR);
 		}
 
-		if (inspector.isPickerSelected())
-		{
+		if (inspector.isPickerSelected()) {
 			boolean menuOpen = client.isMenuOpen();
 
 			MenuEntry[] entries = client.getMenuEntries();
-			for (int i = menuOpen ? 0 : entries.length - 1; i < entries.length; i++)
-			{
+			for (int i = menuOpen ? 0 : entries.length - 1; i < entries.length; i++) {
 				MenuEntry e = entries[i];
 
 				Object wiw = inspector.getWidgetOrWidgetItemForMenuOption(e.getOpcode(), e.getParam0(), e.getParam1());
-				if (wiw == null)
-				{
+				if (wiw == null) {
 					continue;
 				}
 
@@ -101,12 +90,10 @@ public class WidgetInspectorOverlay extends Overlay
 		return null;
 	}
 
-	private void renderWiw(Graphics2D g, Object wiw, Color color)
-	{
+	private void renderWiw(Graphics2D g, Object wiw, Color color) {
 		g.setColor(color);
 
-		if (wiw instanceof WidgetItem)
-		{
+		if (wiw instanceof WidgetItem) {
 			WidgetItem wi = (WidgetItem) wiw;
 			Rectangle bounds = wi.getCanvasBounds();
 			g.draw(bounds);
@@ -122,9 +109,7 @@ public class WidgetInspectorOverlay extends Overlay
 			g.drawString(text, textX + 1, textY + 1);
 			g.setColor(Color.ORANGE);
 			g.drawString(text, textX, textY);
-		}
-		else
-		{
+		} else {
 			Widget w = (Widget) wiw;
 			g.draw(w.getBounds());
 		}

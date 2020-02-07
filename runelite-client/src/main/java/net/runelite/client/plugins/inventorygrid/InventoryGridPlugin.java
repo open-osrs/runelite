@@ -28,7 +28,6 @@ package net.runelite.client.plugins.inventorygrid;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -39,16 +38,17 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import java.awt.*;
+
 @PluginDescriptor(
-	name = "Inventory Grid",
-	description = "Shows a grid over the inventory and a preview of where items will be dragged",
-	tags = {"items", "overlay"},
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Inventory Grid",
+		description = "Shows a grid over the inventory and a preview of where items will be dragged",
+		tags = {"items", "overlay"},
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
-public class InventoryGridPlugin extends Plugin
-{
+public class InventoryGridPlugin extends Plugin {
 	@Inject
 	private InventoryGridOverlay overlay;
 
@@ -72,35 +72,29 @@ public class InventoryGridPlugin extends Plugin
 	private Color highlightColor;
 
 	@Override
-	public void startUp()
-	{
+	public void startUp() {
 		updateConfig();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	public void shutDown()
-	{
+	public void shutDown() {
 		overlayManager.remove(overlay);
 	}
 
 	@Provides
-	InventoryGridConfig getConfig(ConfigManager configManager)
-	{
+	InventoryGridConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(InventoryGridConfig.class);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged config)
-	{
-		if (config.getGroup().equals("inventorygrid"))
-		{
+	private void onConfigChanged(ConfigChanged config) {
+		if (config.getGroup().equals("inventorygrid")) {
 			updateConfig();
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.showItem = config.showItem();
 		this.showGrid = config.showGrid();
 		this.showHighlight = config.showHighlight();

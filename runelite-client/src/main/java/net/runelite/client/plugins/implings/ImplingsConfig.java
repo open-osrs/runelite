@@ -24,329 +24,300 @@
  */
 package net.runelite.client.plugins.implings;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+
+import java.awt.*;
 
 /**
  * @author robin
  */
 @ConfigGroup("implings")
-public interface ImplingsConfig extends Config
-{
-	enum ImplingMode
-	{
+public interface ImplingsConfig extends Config {
+	enum ImplingMode {
 		NONE,
 		HIGHLIGHT,
 		NOTIFY
 	}
 
 	@ConfigItem(
-		position = 1,
-		keyName = "showbaby",
-		name = "Show Baby implings",
-		description = "Configures whether or not Baby impling tags are displayed"
+			position = 1,
+			keyName = "showbaby",
+			name = "Show Baby implings",
+			description = "Configures whether or not Baby impling tags are displayed"
 	)
-	default ImplingMode showBaby()
-	{
+	default ImplingMode showBaby() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "babyColor",
-		name = "Baby impling color",
-		description = "Text color for Baby implings"
+			position = 2,
+			keyName = "babyColor",
+			name = "Baby impling color",
+			description = "Text color for Baby implings"
 	)
-	default Color getBabyColor()
-	{
+	default Color getBabyColor() {
 		return new Color(177, 143, 179);
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "showyoung",
-		name = "Show Young implings",
-		description = "Configures whether or not Young impling tags are displayed"
+			position = 3,
+			keyName = "showyoung",
+			name = "Show Young implings",
+			description = "Configures whether or not Young impling tags are displayed"
 	)
-	default ImplingMode showYoung()
-	{
+	default ImplingMode showYoung() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "youngColor",
-		name = "Young impling color",
-		description = "Text color for Young implings"
+			position = 4,
+			keyName = "youngColor",
+			name = "Young impling color",
+			description = "Text color for Young implings"
 	)
-	default Color getYoungColor()
-	{
+	default Color getYoungColor() {
 		return new Color(175, 164, 136);
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "showgourmet",
-		name = "Show Gourmet implings",
-		description = "Configures whether or not Gourmet impling tags are displayed"
+			position = 5,
+			keyName = "showgourmet",
+			name = "Show Gourmet implings",
+			description = "Configures whether or not Gourmet impling tags are displayed"
 	)
-	default ImplingMode showGourmet()
-	{
+	default ImplingMode showGourmet() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "gourmetColor",
-		name = "Gourmet impling color",
-		description = "Text color for Gourmet implings"
+			position = 6,
+			keyName = "gourmetColor",
+			name = "Gourmet impling color",
+			description = "Text color for Gourmet implings"
 	)
-	default Color getGourmetColor()
-	{
+	default Color getGourmetColor() {
 		return new Color(169, 131, 98);
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "showearth",
-		name = "Show Earth implings",
-		description = "Configures whether or not Earth impling tags are displayed"
+			position = 7,
+			keyName = "showearth",
+			name = "Show Earth implings",
+			description = "Configures whether or not Earth impling tags are displayed"
 	)
-	default ImplingMode showEarth()
-	{
+	default ImplingMode showEarth() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "earthColor",
-		name = "Earth impling color",
-		description = "Text color for Earth implings"
+			position = 8,
+			keyName = "earthColor",
+			name = "Earth impling color",
+			description = "Text color for Earth implings"
 	)
-	default Color getEarthColor()
-	{
+	default Color getEarthColor() {
 		return new Color(62, 86, 64);
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "showessence",
-		name = "Show Essence implings",
-		description = "Configures whether or not Essence impling tags are displayed"
+			position = 9,
+			keyName = "showessence",
+			name = "Show Essence implings",
+			description = "Configures whether or not Essence impling tags are displayed"
 	)
-	default ImplingMode showEssence()
-	{
+	default ImplingMode showEssence() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 10,
-		keyName = "essenceColor",
-		name = "Essence impling color",
-		description = "Text color for Essence implings"
+			position = 10,
+			keyName = "essenceColor",
+			name = "Essence impling color",
+			description = "Text color for Essence implings"
 	)
-	default Color getEssenceColor()
-	{
+	default Color getEssenceColor() {
 		return new Color(32, 89, 90);
 	}
 
 	@ConfigItem(
-		position = 11,
-		keyName = "showeclectic",
-		name = "Show Eclectic implings",
-		description = "Configures whether or not Eclectic impling tags are displayed"
+			position = 11,
+			keyName = "showeclectic",
+			name = "Show Eclectic implings",
+			description = "Configures whether or not Eclectic impling tags are displayed"
 	)
-	default ImplingMode showEclectic()
-	{
+	default ImplingMode showEclectic() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 12,
-		keyName = "eclecticColor",
-		name = "Eclectic impling color",
-		description = "Text color for Eclectic implings"
+			position = 12,
+			keyName = "eclecticColor",
+			name = "Eclectic impling color",
+			description = "Text color for Eclectic implings"
 	)
-	default Color getEclecticColor()
-	{
+	default Color getEclecticColor() {
 		return new Color(145, 155, 69);
 	}
 
 	@ConfigItem(
-		position = 13,
-		keyName = "shownature",
-		name = "Show Nature implings",
-		description = "Configures whether or not Nature impling tags are displayed"
+			position = 13,
+			keyName = "shownature",
+			name = "Show Nature implings",
+			description = "Configures whether or not Nature impling tags are displayed"
 	)
-	default ImplingMode showNature()
-	{
+	default ImplingMode showNature() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 14,
-		keyName = "natureColor",
-		name = "Nature impling color",
-		description = "Text color for Nature implings"
+			position = 14,
+			keyName = "natureColor",
+			name = "Nature impling color",
+			description = "Text color for Nature implings"
 	)
-	default Color getNatureColor()
-	{
+	default Color getNatureColor() {
 		return new Color(92, 138, 95);
 	}
 
 	@ConfigItem(
-		position = 15,
-		keyName = "showmagpie",
-		name = "Show Magpie implings",
-		description = "Configures whether or not Magpie impling tags are displayed"
+			position = 15,
+			keyName = "showmagpie",
+			name = "Show Magpie implings",
+			description = "Configures whether or not Magpie impling tags are displayed"
 	)
-	default ImplingMode showMagpie()
-	{
+	default ImplingMode showMagpie() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 16,
-		keyName = "magpieColor",
-		name = "Magpie impling color",
-		description = "Text color for Magpie implings"
+			position = 16,
+			keyName = "magpieColor",
+			name = "Magpie impling color",
+			description = "Text color for Magpie implings"
 	)
-	default Color getMagpieColor()
-	{
+	default Color getMagpieColor() {
 		return new Color(142, 142, 19);
 	}
 
 	@ConfigItem(
-		position = 17,
-		keyName = "showninja",
-		name = "Show Ninja implings",
-		description = "Configures whether or not Ninja impling tags are displayed"
+			position = 17,
+			keyName = "showninja",
+			name = "Show Ninja implings",
+			description = "Configures whether or not Ninja impling tags are displayed"
 	)
-	default ImplingMode showNinja()
-	{
+	default ImplingMode showNinja() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 18,
-		keyName = "ninjaColor",
-		name = "Ninja impling color",
-		description = "Text color for Ninja implings"
+			position = 18,
+			keyName = "ninjaColor",
+			name = "Ninja impling color",
+			description = "Text color for Ninja implings"
 	)
-	default Color getNinjaColor()
-	{
+	default Color getNinjaColor() {
 		return new Color(71, 70, 75);
 	}
 
 	@ConfigItem(
-		position = 19,
-		keyName = "showCrystal",
-		name = "Show Crystal implings",
-		description = "Configures whether or not Crystal impling tags are displayed"
+			position = 19,
+			keyName = "showCrystal",
+			name = "Show Crystal implings",
+			description = "Configures whether or not Crystal impling tags are displayed"
 	)
-	default ImplingMode showCrystal()
-	{
+	default ImplingMode showCrystal() {
 		return ImplingMode.NONE;
 	}
 
 	@ConfigItem(
-		position = 20,
-		keyName = "crystalColor",
-		name = "Crystal impling color",
-		description = "Text color for Crystal implings"
+			position = 20,
+			keyName = "crystalColor",
+			name = "Crystal impling color",
+			description = "Text color for Crystal implings"
 	)
-	default Color getCrystalColor()
-	{
+	default Color getCrystalColor() {
 		return new Color(93, 188, 210);
 	}
 
 	@ConfigItem(
-		position = 21,
-		keyName = "showdragon",
-		name = "Show Dragon implings",
-		description = "Configures whether or not Dragon impling tags are displayed"
+			position = 21,
+			keyName = "showdragon",
+			name = "Show Dragon implings",
+			description = "Configures whether or not Dragon impling tags are displayed"
 	)
-	default ImplingMode showDragon()
-	{
+	default ImplingMode showDragon() {
 		return ImplingMode.HIGHLIGHT;
 	}
 
 	@ConfigItem(
-		position = 22,
-		keyName = "dragonColor",
-		name = "Dragon impling color",
-		description = "Text color for Dragon implings"
+			position = 22,
+			keyName = "dragonColor",
+			name = "Dragon impling color",
+			description = "Text color for Dragon implings"
 	)
-	default Color getDragonColor()
-	{
+	default Color getDragonColor() {
 		return new Color(210, 85, 75);
 	}
 
 	@ConfigItem(
-		position = 23,
-		keyName = "showlucky",
-		name = "Show Lucky implings",
-		description = "Configures whether or not Lucky impling tags are displayed"
+			position = 23,
+			keyName = "showlucky",
+			name = "Show Lucky implings",
+			description = "Configures whether or not Lucky impling tags are displayed"
 	)
-	default ImplingMode showLucky()
-	{
+	default ImplingMode showLucky() {
 		return ImplingMode.HIGHLIGHT;
 	}
 
 	@ConfigItem(
-		position = 24,
-		keyName = "luckyColor",
-		name = "Lucky impling color",
-		description = "Text color for Lucky implings"
+			position = 24,
+			keyName = "luckyColor",
+			name = "Lucky impling color",
+			description = "Text color for Lucky implings"
 	)
-	default Color getLuckyColor()
-	{
+	default Color getLuckyColor() {
 		return new Color(102, 7, 101);
 	}
 
 	@ConfigItem(
-		position = 25,
-		keyName = "showspawn",
-		name = "Show Spawn locations",
-		description = "Configures whether or not spawn locations are displayed in Puro Puro"
+			position = 25,
+			keyName = "showspawn",
+			name = "Show Spawn locations",
+			description = "Configures whether or not spawn locations are displayed in Puro Puro"
 	)
-	default boolean showSpawn()
-	{
+	default boolean showSpawn() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 26,
-		keyName = "spawnColor",
-		name = "Impling spawn color",
-		description = "Text color for impling spawns in Puro Puro"
+			position = 26,
+			keyName = "spawnColor",
+			name = "Impling spawn color",
+			description = "Text color for impling spawns in Puro Puro"
 	)
-	default Color getSpawnColor()
-	{
+	default Color getSpawnColor() {
 		return Color.WHITE;
 	}
 
 	@ConfigItem(
-		position = 27,
-		keyName = "showname",
-		name = "Show name on minimap",
-		description = "Configures whether or not impling names are displayed on minimap"
+			position = 27,
+			keyName = "showname",
+			name = "Show name on minimap",
+			description = "Configures whether or not impling names are displayed on minimap"
 	)
-	default boolean showName()
-	{
+	default boolean showName() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 28,
-		keyName = "spawnColorDynamic",
-		name = "Impling dynamic spawn color",
-		description = "Text color for dynamic impling spawns in Puro Puro"
+			position = 28,
+			keyName = "spawnColorDynamic",
+			name = "Impling dynamic spawn color",
+			description = "Text color for dynamic impling spawns in Puro Puro"
 	)
-	default Color getDynamicSpawnColor()
-	{
+	default Color getDynamicSpawnColor() {
 		return Color.WHITE;
 	}
 }

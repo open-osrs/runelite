@@ -24,66 +24,61 @@
  */
 package net.runelite.client.plugins.hunter;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("hunterplugin")
-public interface HunterConfig extends Config
-{
+public interface HunterConfig extends Config {
 	@ConfigItem(
-		position = 1,
-		keyName = "hexColorOpenTrap",
-		name = "Open trap",
-		description = "Color of open trap timer"
+			position = 1,
+			keyName = "hexColorOpenTrap",
+			name = "Open trap",
+			description = "Color of open trap timer"
 	)
-	default Color getOpenTrapColor()
-	{
+	default Color getOpenTrapColor() {
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "hexColorFullTrap",
-		name = "Full trap",
-		description = "Color of full trap timer"
+			position = 2,
+			keyName = "hexColorFullTrap",
+			name = "Full trap",
+			description = "Color of full trap timer"
 	)
-	default Color getFullTrapColor()
-	{
+	default Color getFullTrapColor() {
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "hexColorEmptyTrap",
-		name = "Empty trap",
-		description = "Color of empty trap timer"
+			position = 3,
+			keyName = "hexColorEmptyTrap",
+			name = "Empty trap",
+			description = "Color of empty trap timer"
 	)
-	default Color getEmptyTrapColor()
-	{
+	default Color getEmptyTrapColor() {
 		return Color.RED;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "hexColorTransTrap",
-		name = "Transitioning trap",
-		description = "Color of transitioning trap timer"
+			position = 4,
+			keyName = "hexColorTransTrap",
+			name = "Transitioning trap",
+			description = "Color of transitioning trap timer"
 	)
-	default Color getTransTrapColor()
-	{
+	default Color getTransTrapColor() {
 		return Color.ORANGE;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "maniacalMonkeyNotify",
-		name = "Maniacal monkey notification",
-		description = "Send notification when maniacal monkey is caught or you fail to catch."
+			position = 5,
+			keyName = "maniacalMonkeyNotify",
+			name = "Maniacal monkey notification",
+			description = "Send notification when maniacal monkey is caught or you fail to catch."
 	)
-	default boolean maniacalMonkeyNotify()
-	{
+	default boolean maniacalMonkeyNotify() {
 		return false;
 	}
 }

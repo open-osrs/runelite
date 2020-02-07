@@ -26,19 +26,19 @@
 package net.runelite.client.plugins.itemskeptondeath;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Map;
-import javax.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ItemID;
+
+import javax.annotation.Nullable;
+import java.util.Map;
 
 /**
  * Some items have a fixed price that is added to its default value when calculating death prices.
  * These are typically imbued items, such as Berserker ring (i), to help it protect over the non-imbued variants.
  */
 @Getter(AccessLevel.PACKAGE)
-enum FixedPriceItem
-{
+enum FixedPriceItem {
 	IMBUED_BLACK_MASK_I(ItemID.BLACK_MASK_I, 5000),
 	IMBUED_BLACK_MASK_1_I(ItemID.BLACK_MASK_1_I, 5000),
 	IMBUED_BLACK_MASK_2_I(ItemID.BLACK_MASK_2_I, 5000),
@@ -228,31 +228,26 @@ enum FixedPriceItem
 
 	private static final Map<Integer, FixedPriceItem> FIXED_ITEMS;
 
-	static
-	{
+	static {
 		final ImmutableMap.Builder<Integer, FixedPriceItem> map = ImmutableMap.builder();
-		for (final FixedPriceItem p : values())
-		{
+		for (final FixedPriceItem p : values()) {
 			map.put(p.itemId, p);
 		}
 		FIXED_ITEMS = map.build();
 	}
 
-	FixedPriceItem(final int itemId, final int offset, final int baseId)
-	{
+	FixedPriceItem(final int itemId, final int offset, final int baseId) {
 		this.itemId = itemId;
 		this.offset = offset;
 		this.baseId = baseId;
 	}
 
-	FixedPriceItem(final int itemId, final int offset)
-	{
+	FixedPriceItem(final int itemId, final int offset) {
 		this(itemId, offset, -1);
 	}
 
 	@Nullable
-	static FixedPriceItem find(int itemId)
-	{
+	static FixedPriceItem find(int itemId) {
 		return FIXED_ITEMS.get(itemId);
 	}
 }

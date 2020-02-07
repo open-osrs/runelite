@@ -29,8 +29,7 @@ package net.runelite.client.plugins.fairyring;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-public enum FairyRings
-{
+public enum FairyRings {
 	// A
 	AIQ("Mudskipper Point"),
 	AIR("(Island) South-east of Ardougne"),
@@ -90,13 +89,11 @@ public enum FairyRings
 	@Getter(AccessLevel.PACKAGE)
 	private final String tags;
 
-	FairyRings(String destination)
-	{
+	FairyRings(String destination) {
 		this(destination, "");
 	}
 
-	FairyRings(String destination, String tags)
-	{
+	FairyRings(String destination, String tags) {
 		this.destination = destination;
 		this.tags = tags.toLowerCase() + " " + destination.toLowerCase();
 	}

@@ -26,17 +26,17 @@
 package net.runelite.client.plugins.vorkath;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Map;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.AnimationID;
 import net.runelite.api.ProjectileID;
 
+import java.util.Map;
+
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public enum VorkathAttack
-{
+public enum VorkathAttack {
 	/**
 	 * Vorkath's melee attack (see VorkathPlugin#onAnimationChanged)
 	 */
@@ -85,26 +85,23 @@ public enum VorkathAttack
 	private static final Map<Integer, VorkathAttack> VORKATH_ATTACKS;
 	private static final Map<Integer, VorkathAttack> VORKATH_BASIC_ATTACKS;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, VorkathAttack> builder = new ImmutableMap.Builder<>();
-		for (VorkathAttack vorkathAttack : values())
-		{
+		for (VorkathAttack vorkathAttack : values()) {
 			builder.put(vorkathAttack.getProjectileID(), vorkathAttack);
 		}
 		VORKATH_ATTACKS = builder.build();
 	}
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, VorkathAttack> builder = new ImmutableMap.Builder<>();
 		builder.put(FIRE_BREATH.getProjectileID(), FIRE_BREATH)
-			.put(PRAYER_BREATH.getProjectileID(), PRAYER_BREATH)
-			.put(VENOM_BREATH.getProjectileID(), VENOM_BREATH)
-			.put(SPIKE.getProjectileID(), SPIKE)
-			.put(ICE.getProjectileID(), ICE)
-			.put(FIRE_BOMB.getProjectileID(), FIRE_BOMB)
-			.put(FIRE_BALL.getProjectileID(), FIRE_BALL);
+				.put(PRAYER_BREATH.getProjectileID(), PRAYER_BREATH)
+				.put(VENOM_BREATH.getProjectileID(), VENOM_BREATH)
+				.put(SPIKE.getProjectileID(), SPIKE)
+				.put(ICE.getProjectileID(), ICE)
+				.put(FIRE_BOMB.getProjectileID(), FIRE_BOMB)
+				.put(FIRE_BALL.getProjectileID(), FIRE_BALL);
 		// FIRE_BOMB and FIRE_BALL are also basic attacks
 		// Although SLASH_ATTACK is a basic attack, we're going to handle it differently
 		VORKATH_BASIC_ATTACKS = builder.build();
@@ -117,8 +114,7 @@ public enum VorkathAttack
 	 * @param projectileID id of projectile
 	 * @return {@link VorkathAttack} associated with the specified projectile
 	 */
-	public static VorkathAttack getVorkathAttack(int projectileID)
-	{
+	public static VorkathAttack getVorkathAttack(int projectileID) {
 		return VORKATH_ATTACKS.get(projectileID);
 	}
 
@@ -127,8 +123,7 @@ public enum VorkathAttack
 	 * @return true if the projectile id matches a {@link VorkathAttack#getProjectileID()} within {@link VorkathAttack#VORKATH_BASIC_ATTACKS},
 	 * false otherwise
 	 */
-	public static boolean isBasicAttack(int projectileID)
-	{
+	public static boolean isBasicAttack(int projectileID) {
 		return VORKATH_BASIC_ATTACKS.get(projectileID) != null;
 	}
 }

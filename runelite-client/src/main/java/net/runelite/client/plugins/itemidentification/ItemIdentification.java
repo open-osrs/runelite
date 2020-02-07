@@ -25,11 +25,11 @@
 package net.runelite.client.plugins.itemidentification;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Map;
 import net.runelite.api.ItemID;
 
-enum ItemIdentification
-{
+import java.util.Map;
+
+enum ItemIdentification {
 	//Seeds
 	GUAM_SEED(Type.SEED, "Guam", "G", ItemID.GUAM_SEED),
 	MARRENTILL_SEED(Type.SEED, "Marren", "M", ItemID.MARRENTILL_SEED),
@@ -197,8 +197,7 @@ enum ItemIdentification
 	final String shortName;
 	private final int[] itemIDs;
 
-	ItemIdentification(Type type, String medName, String shortName, int... ids)
-	{
+	ItemIdentification(Type type, String medName, String shortName, int... ids) {
 		this.type = type;
 		this.medName = medName;
 		this.shortName = shortName;
@@ -207,14 +206,11 @@ enum ItemIdentification
 
 	private static final Map<Integer, ItemIdentification> itemIdentifications;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, ItemIdentification> builder = new ImmutableMap.Builder<>();
 
-		for (ItemIdentification i : values())
-		{
-			for (int id : i.itemIDs)
-			{
+		for (ItemIdentification i : values()) {
+			for (int id : i.itemIDs) {
 				builder.put(id, i);
 			}
 		}
@@ -222,13 +218,11 @@ enum ItemIdentification
 		itemIdentifications = builder.build();
 	}
 
-	static ItemIdentification get(int id)
-	{
+	static ItemIdentification get(int id) {
 		return itemIdentifications.get(id);
 	}
 
-	enum Type
-	{
+	enum Type {
 		SEED,
 		HERB,
 		SAPLING,

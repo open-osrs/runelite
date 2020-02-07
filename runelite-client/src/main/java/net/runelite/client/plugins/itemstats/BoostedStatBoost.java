@@ -31,19 +31,16 @@ import net.runelite.client.plugins.itemstats.stats.Stat;
 /**
  * A stat boost using the current boosted (or drained) stat.
  */
-public class BoostedStatBoost extends StatBoost
-{
+public class BoostedStatBoost extends StatBoost {
 	private final DeltaCalculator deltaCalculator;
 
-	public BoostedStatBoost(Stat stat, boolean boost, DeltaCalculator deltaCalculator)
-	{
+	public BoostedStatBoost(Stat stat, boolean boost, DeltaCalculator deltaCalculator) {
 		super(stat, boost);
 		this.deltaCalculator = deltaCalculator;
 	}
 
 	@Override
-	public int heals(Client client)
-	{
+	public int heals(Client client) {
 		int value = getStat().getValue(client);
 		return deltaCalculator.calculateDelta(value);
 	}

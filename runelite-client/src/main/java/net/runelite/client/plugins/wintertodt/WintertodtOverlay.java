@@ -25,18 +25,9 @@
  */
 package net.runelite.client.plugins.wintertodt;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Skill;
-import static net.runelite.client.plugins.wintertodt.WintertodtPlugin.WINTERTODT_KINDLING_MULTIPLIER;
-import static net.runelite.client.plugins.wintertodt.WintertodtPlugin.WINTERTODT_ROOTS_MULTIPLIER;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -45,9 +36,17 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.plugins.wintertodt.WintertodtPlugin.WINTERTODT_KINDLING_MULTIPLIER;
+import static net.runelite.client.plugins.wintertodt.WintertodtPlugin.WINTERTODT_ROOTS_MULTIPLIER;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-class WintertodtOverlay extends Overlay
-{
+class WintertodtOverlay extends Overlay {
 	@Inject
 	private Client client;
 
@@ -55,8 +54,7 @@ class WintertodtOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private WintertodtOverlay(final WintertodtPlugin plugin)
-	{
+	private WintertodtOverlay(final WintertodtPlugin plugin) {
 		super(plugin);
 		this.plugin = plugin;
 		setPosition(OverlayPosition.BOTTOM_LEFT);
@@ -64,10 +62,8 @@ class WintertodtOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isInWintertodt())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isInWintertodt()) {
 			return null;
 		}
 
@@ -75,9 +71,9 @@ class WintertodtOverlay extends Overlay
 		panelComponent.setPreferredSize(new Dimension(180, 0));
 
 		panelComponent.getChildren().add(TitleComponent.builder()
-			.text("Points in inventory")
-			.color(Color.WHITE)
-			.build());
+				.text("Points in inventory")
+				.color(Color.WHITE)
+				.build());
 
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);

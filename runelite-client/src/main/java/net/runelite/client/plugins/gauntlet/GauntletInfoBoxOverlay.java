@@ -24,13 +24,6 @@
  */
 package net.runelite.client.plugins.gauntlet;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Prayer;
 import net.runelite.api.SpriteID;
@@ -42,8 +35,11 @@ import net.runelite.client.ui.overlay.components.ComponentConstants;
 import net.runelite.client.ui.overlay.components.InfoBoxComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
-public class GauntletInfoBoxOverlay extends Overlay
-{
+import javax.inject.Inject;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+public class GauntletInfoBoxOverlay extends Overlay {
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 	private final Client client;
 	private final GauntletPlugin plugin;
@@ -51,8 +47,7 @@ public class GauntletInfoBoxOverlay extends Overlay
 	private final SpriteManager spriteManager;
 
 	@Inject
-	GauntletInfoBoxOverlay(final Client client, final GauntletPlugin plugin, final SpriteManager spriteManager)
-	{
+	GauntletInfoBoxOverlay(final Client client, final GauntletPlugin plugin, final SpriteManager spriteManager) {
 		this.client = client;
 		this.plugin = plugin;
 		this.spriteManager = spriteManager;
@@ -61,12 +56,10 @@ public class GauntletInfoBoxOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		panelComponent.getChildren().clear();
 
-		if (!plugin.isHighlightPrayerInfobox() || !plugin.fightingBoss() || plugin.getHunllef() == null)
-		{
+		if (!plugin.isHighlightPrayerInfobox() || !plugin.fightingBoss() || plugin.getHunllef() == null) {
 			return null;
 		}
 
@@ -74,12 +67,10 @@ public class GauntletInfoBoxOverlay extends Overlay
 		final Hunllef.BossAttackPhase phase = hunllef.getCurrentPhase();
 		Prayer prayer = phase.getPrayer();
 
-		if (plugin.getHunllef() == null || !plugin.startedGauntlet())
-		{
+		if (plugin.getHunllef() == null || !plugin.startedGauntlet()) {
 			return null;
 		}
-		if (prayer == null)
-		{
+		if (prayer == null) {
 			return null;
 		}
 
@@ -88,8 +79,8 @@ public class GauntletInfoBoxOverlay extends Overlay
 		prayComponent.setImage(prayImg);
 		prayComponent.setColor(Color.WHITE);
 		prayComponent.setBackgroundColor(client.isPrayerActive(prayer)
-			? ComponentConstants.STANDARD_BACKGROUND_COLOR
-			: NOT_ACTIVATED_BACKGROUND_COLOR);
+				? ComponentConstants.STANDARD_BACKGROUND_COLOR
+				: NOT_ACTIVATED_BACKGROUND_COLOR);
 		prayComponent.setPreferredSize(new Dimension(40, 40));
 		panelComponent.getChildren().add(prayComponent);
 		panelComponent.setPreferredSize(new Dimension(40, 40));
@@ -97,10 +88,8 @@ public class GauntletInfoBoxOverlay extends Overlay
 		return panelComponent.render(graphics);
 	}
 
-	private BufferedImage getPrayerImage(Prayer prayer)
-	{
-		switch (prayer)
-		{
+	private BufferedImage getPrayerImage(Prayer prayer) {
+		switch (prayer) {
 			case PROTECT_FROM_MAGIC:
 				return spriteManager.getSprite(SpriteID.PRAYER_PROTECT_FROM_MAGIC, 0);
 			case PROTECT_FROM_MELEE:
@@ -111,10 +100,8 @@ public class GauntletInfoBoxOverlay extends Overlay
 		return null;
 	}
 
-	private static BufferedImage scaleImg(final BufferedImage img)
-	{
-		if (img == null)
-		{
+	private static BufferedImage scaleImg(final BufferedImage img) {
+		if (img == null) {
 			return null;
 		}
 		final double width = img.getWidth(null);

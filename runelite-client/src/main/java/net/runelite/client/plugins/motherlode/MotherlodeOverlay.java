@@ -24,14 +24,6 @@
  */
 package net.runelite.client.plugins.motherlode;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.time.Duration;
-import java.time.Instant;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -40,9 +32,16 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.time.Duration;
+import java.time.Instant;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY;
+
 @Singleton
-class MotherlodeOverlay extends Overlay
-{
+class MotherlodeOverlay extends Overlay {
 	private final MotherlodePlugin plugin;
 	private final MotherlodeSession motherlodeSession;
 	private final PanelComponent panelComponent = new PanelComponent();
@@ -50,8 +49,7 @@ class MotherlodeOverlay extends Overlay
 	static final String MINING_RESET = "Reset";
 
 	@Inject
-	MotherlodeOverlay(final MotherlodePlugin plugin, final MotherlodeSession motherlodeSession)
-	{
+	MotherlodeOverlay(final MotherlodePlugin plugin, final MotherlodeSession motherlodeSession) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.plugin = plugin;
@@ -60,45 +58,37 @@ class MotherlodeOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isInMlm() || !plugin.isShowMiningStats())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isInMlm() || !plugin.isShowMiningStats()) {
 			return null;
 		}
 
 		MotherlodeSession session = motherlodeSession;
 
-		if (session.getLastPayDirtMined() == null)
-		{
+		if (session.getLastPayDirtMined() == null) {
 			return null;
 		}
 
 		Duration statTimeout = Duration.ofMinutes(plugin.getStatTimeout());
 		Duration sinceCut = Duration.between(session.getLastPayDirtMined(), Instant.now());
 
-		if (sinceCut.compareTo(statTimeout) >= 0)
-		{
+		if (sinceCut.compareTo(statTimeout) >= 0) {
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 
-		if (plugin.isShowMiningState())
-		{
-			if (plugin.isMining())
-			{
+		if (plugin.isShowMiningState()) {
+			if (plugin.isMining()) {
 				panelComponent.getChildren().add(TitleComponent.builder()
-					.text("Mining")
-					.color(Color.GREEN)
-					.build());
-			}
-			else
-			{
+						.text("Mining")
+						.color(Color.GREEN)
+						.build());
+			} else {
 				panelComponent.getChildren().add(TitleComponent.builder()
-					.text("NOT mining")
-					.color(Color.RED)
-					.build());
+						.text("NOT mining")
+						.color(Color.RED)
+						.build());
 			}
 		}
 

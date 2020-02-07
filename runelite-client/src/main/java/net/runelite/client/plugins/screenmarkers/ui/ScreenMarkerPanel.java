@@ -25,27 +25,6 @@
  */
 package net.runelite.client.plugins.screenmarkers.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import javax.inject.Singleton;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 import net.runelite.client.plugins.screenmarkers.ScreenMarkerOverlay;
 import net.runelite.client.plugins.screenmarkers.ScreenMarkerPlugin;
 import net.runelite.client.ui.ColorScheme;
@@ -54,14 +33,24 @@ import net.runelite.client.ui.components.FlatTextField;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Singleton;
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
 @Singleton
-class ScreenMarkerPanel extends JPanel
-{
+class ScreenMarkerPanel extends JPanel {
 	private static final int DEFAULT_FILL_OPACITY = 75;
 
 	private static final Border NAME_BOTTOM_BORDER = new CompoundBorder(
-		BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
-		BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
+			BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
+			BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
 
 	private static final ImageIcon BORDER_COLOR_ICON;
 	private static final ImageIcon BORDER_COLOR_HOVER_ICON;
@@ -105,8 +94,7 @@ class ScreenMarkerPanel extends JPanel
 
 	private boolean visible;
 
-	static
-	{
+	static {
 		final BufferedImage borderImg = ImageUtil.getResourceStreamFromClass(ScreenMarkerPlugin.class, "border_color_icon.png");
 		final BufferedImage borderImgHover = ImageUtil.luminanceOffset(borderImg, -150);
 		BORDER_COLOR_ICON = new ImageIcon(borderImg);
@@ -144,8 +132,7 @@ class ScreenMarkerPanel extends JPanel
 		DELETE_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(deleteImg, -100));
 	}
 
-	ScreenMarkerPanel(final ScreenMarkerPlugin plugin, final ScreenMarkerOverlay marker)
-	{
+	ScreenMarkerPanel(final ScreenMarkerPlugin plugin, final ScreenMarkerOverlay marker) {
 		this.plugin = plugin;
 		this.marker = marker;
 		this.visible = marker.getMarker().isVisible();
@@ -164,11 +151,9 @@ class ScreenMarkerPanel extends JPanel
 		save.setVisible(false);
 		save.setFont(FontManager.getRunescapeSmallFont());
 		save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR);
-		save.addMouseListener(new MouseAdapter()
-		{
+		save.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				marker.getMarker().setName(nameInput.getText());
 				plugin.updateConfig();
 
@@ -178,14 +163,12 @@ class ScreenMarkerPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR.darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR);
 			}
 		});
@@ -193,11 +176,9 @@ class ScreenMarkerPanel extends JPanel
 		cancel.setVisible(false);
 		cancel.setFont(FontManager.getRunescapeSmallFont());
 		cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR);
-		cancel.addMouseListener(new MouseAdapter()
-		{
+		cancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				nameInput.setEditable(false);
 				nameInput.setText(marker.getMarker().getName());
 				updateNameActions(false);
@@ -205,38 +186,32 @@ class ScreenMarkerPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR.darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR);
 			}
 		});
 
 		rename.setFont(FontManager.getRunescapeSmallFont());
 		rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker());
-		rename.addMouseListener(new MouseAdapter()
-		{
+		rename.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				nameInput.setEditable(true);
 				updateNameActions(true);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker().darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker());
 			}
 		});
@@ -264,45 +239,37 @@ class ScreenMarkerPanel extends JPanel
 		leftActions.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 
 		borderColorIndicator.setToolTipText("Edit border color");
-		borderColorIndicator.addMouseListener(new MouseAdapter()
-		{
+		borderColorIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				openBorderColorPicker();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				borderColorIndicator.setIcon(marker.getMarker().getBorderThickness() == 0 ? NO_BORDER_COLOR_HOVER_ICON : BORDER_COLOR_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				borderColorIndicator.setIcon(marker.getMarker().getBorderThickness() == 0 ? NO_BORDER_COLOR_ICON : BORDER_COLOR_ICON);
 			}
 		});
 
 		fillColorIndicator.setToolTipText("Edit fill color");
-		fillColorIndicator.addMouseListener(new MouseAdapter()
-		{
+		fillColorIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				openFillColorPicker();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				fillColorIndicator.setIcon(marker.getMarker().getFill().getAlpha() == 0 ? NO_FILL_COLOR_HOVER_ICON : FILL_COLOR_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				fillColorIndicator.setIcon(marker.getMarker().getFill().getAlpha() == 0 ? NO_FILL_COLOR_ICON : FILL_COLOR_ICON);
 			}
 		});
@@ -312,19 +279,14 @@ class ScreenMarkerPanel extends JPanel
 		thicknessSpinner.addChangeListener(ce -> updateThickness(true));
 
 		opacityIndicator.setToolTipText("Toggle background transparency");
-		opacityIndicator.addMouseListener(new MouseAdapter()
-		{
+		opacityIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				final Color fill = marker.getMarker().getFill();
 
-				if (fill.getAlpha() == 0)
-				{
+				if (fill.getAlpha() == 0) {
 					marker.getMarker().setFill(new Color(fill.getRed(), fill.getGreen(), fill.getBlue(), DEFAULT_FILL_OPACITY));
-				}
-				else
-				{
+				} else {
 					marker.getMarker().setFill(new Color(fill.getRed(), fill.getGreen(), fill.getBlue(), 0));
 				}
 
@@ -333,14 +295,12 @@ class ScreenMarkerPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				opacityIndicator.setIcon(marker.getMarker().getFill().getAlpha() == 0 ? NO_OPACITY_HOVER_ICON : FULL_OPACITY_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				opacityIndicator.setIcon(marker.getMarker().getFill().getAlpha() == 0 ? NO_OPACITY_ICON : FULL_OPACITY_ICON);
 			}
 		});
@@ -354,11 +314,9 @@ class ScreenMarkerPanel extends JPanel
 		rightActions.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 
 		visibilityLabel.setToolTipText(visible ? "Hide screen marker" : "Show screen marker");
-		visibilityLabel.addMouseListener(new MouseAdapter()
-		{
+		visibilityLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				visible = !visible;
 				marker.getMarker().setVisible(visible);
 				plugin.updateConfig();
@@ -366,44 +324,37 @@ class ScreenMarkerPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				visibilityLabel.setIcon(visible ? VISIBLE_HOVER_ICON : INVISIBLE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				updateVisibility();
 			}
 		});
 
 		deleteLabel.setIcon(DELETE_ICON);
 		deleteLabel.setToolTipText("Delete screen marker");
-		deleteLabel.addMouseListener(new MouseAdapter()
-		{
+		deleteLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				int confirm = JOptionPane.showConfirmDialog(ScreenMarkerPanel.this,
-					"Are you sure you want to permanently delete this screen marker?",
-					"Warning", JOptionPane.OK_CANCEL_OPTION);
+						"Are you sure you want to permanently delete this screen marker?",
+						"Warning", JOptionPane.OK_CANCEL_OPTION);
 
-				if (confirm == 0)
-				{
+				if (confirm == 0) {
 					plugin.deleteMarker(marker);
 				}
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				deleteLabel.setIcon(DELETE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				deleteLabel.setIcon(DELETE_ICON);
 			}
 		});
@@ -424,45 +375,36 @@ class ScreenMarkerPanel extends JPanel
 
 	}
 
-	private void updateNameActions(boolean saveAndCancel)
-	{
+	private void updateNameActions(boolean saveAndCancel) {
 		save.setVisible(saveAndCancel);
 		cancel.setVisible(saveAndCancel);
 		rename.setVisible(!saveAndCancel);
 
-		if (saveAndCancel)
-		{
+		if (saveAndCancel) {
 			nameInput.getTextField().requestFocusInWindow();
 			nameInput.getTextField().selectAll();
 		}
 	}
 
 	/* Updates the thickness without saving on config */
-	private void updateThickness(boolean save)
-	{
+	private void updateThickness(boolean save) {
 		marker.getMarker().setBorderThickness((Integer) thicknessSpinner.getValue());
 		updateBorder();
-		if (save)
-		{
+		if (save) {
 			plugin.updateConfig();
 		}
 	}
 
-	private void updateVisibility()
-	{
+	private void updateVisibility() {
 		visibilityLabel.setIcon(visible ? VISIBLE_ICON : INVISIBLE_ICON);
 	}
 
-	private void updateFill()
-	{
+	private void updateFill() {
 		final boolean isFullyTransparent = marker.getMarker().getFill().getAlpha() == 0;
 
-		if (isFullyTransparent)
-		{
+		if (isFullyTransparent) {
 			fillColorIndicator.setBorder(null);
-		}
-		else
-		{
+		} else {
 			Color color = marker.getMarker().getFill();
 			Color fullColor = new Color(color.getRed(), color.getGreen(), color.getBlue());
 			fillColorIndicator.setBorder(new MatteBorder(0, 0, 3, 0, fullColor));
@@ -472,14 +414,10 @@ class ScreenMarkerPanel extends JPanel
 		opacityIndicator.setIcon(isFullyTransparent ? NO_OPACITY_ICON : FULL_OPACITY_ICON);
 	}
 
-	private void updateBorder()
-	{
-		if (marker.getMarker().getBorderThickness() == 0)
-		{
+	private void updateBorder() {
+		if (marker.getMarker().getBorderThickness() == 0) {
 			borderColorIndicator.setBorder(null);
-		}
-		else
-		{
+		} else {
 			Color color = marker.getMarker().getColor();
 			borderColorIndicator.setBorder(new MatteBorder(0, 0, 3, 0, color));
 		}
@@ -487,13 +425,12 @@ class ScreenMarkerPanel extends JPanel
 		borderColorIndicator.setIcon(marker.getMarker().getBorderThickness() == 0 ? NO_BORDER_COLOR_ICON : BORDER_COLOR_ICON);
 	}
 
-	private void openFillColorPicker()
-	{
+	private void openFillColorPicker() {
 		RuneliteColorPicker colorPicker = plugin.getColorPickerManager().create(
-			SwingUtilities.windowForComponent(this),
-			marker.getMarker().getFill(),
-			marker.getMarker().getName() + " Fill",
-			false);
+				SwingUtilities.windowForComponent(this),
+				marker.getMarker().getFill(),
+				marker.getMarker().getName() + " Fill",
+				false);
 		colorPicker.setLocation(getLocationOnScreen());
 		colorPicker.setOnColorChange(c ->
 		{
@@ -504,13 +441,12 @@ class ScreenMarkerPanel extends JPanel
 		colorPicker.setVisible(true);
 	}
 
-	private void openBorderColorPicker()
-	{
+	private void openBorderColorPicker() {
 		RuneliteColorPicker colorPicker = plugin.getColorPickerManager().create(
-			SwingUtilities.windowForComponent(this),
-			marker.getMarker().getColor(),
-			marker.getMarker().getName() + " Border",
-			false);
+				SwingUtilities.windowForComponent(this),
+				marker.getMarker().getColor(),
+				marker.getMarker().getName() + " Border",
+				false);
 		colorPicker.setLocation(getLocationOnScreen());
 		colorPicker.setOnColorChange(c ->
 		{

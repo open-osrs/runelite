@@ -24,8 +24,6 @@
  */
 package net.runelite.client.plugins.demonicgorilla;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,8 +31,10 @@ import net.runelite.api.Hitsplat;
 import net.runelite.api.Player;
 import net.runelite.api.coords.WorldArea;
 
-class MemorizedPlayer
-{
+import java.util.ArrayList;
+import java.util.List;
+
+class MemorizedPlayer {
 	@Getter(AccessLevel.PACKAGE)
 	private Player player;
 
@@ -45,8 +45,7 @@ class MemorizedPlayer
 	@Getter(AccessLevel.PACKAGE)
 	private List<Hitsplat> recentHitsplats;
 
-	MemorizedPlayer(final Player player)
-	{
+	MemorizedPlayer(final Player player) {
 		this.player = player;
 		this.recentHitsplats = new ArrayList<>();
 	}

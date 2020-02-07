@@ -24,13 +24,12 @@
  */
 package net.runelite.client.ui;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * This class serves to hold commonly used UI colors.
  */
-public class ColorScheme
-{
+public class ColorScheme {
 	/* The blue color used for the branding's accents */
 	public static final Color BRAND_BLUE = new Color(25, 194, 255);
 

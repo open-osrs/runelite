@@ -24,27 +24,20 @@
 
 package net.runelite.client.plugins.pileindicators;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.util.List;
+import net.runelite.api.Actor;
+import net.runelite.client.ui.overlay.*;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.api.Actor;
-import net.runelite.client.ui.overlay.Overlay;
-import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.ui.overlay.OverlayUtil;
+import java.awt.*;
+import java.util.List;
 
 @Singleton
-public class PileIndicatorsOverlay extends Overlay
-{
+public class PileIndicatorsOverlay extends Overlay {
 	private final PileIndicatorsPlugin plugin;
 
 	@Inject
-	PileIndicatorsOverlay(final PileIndicatorsPlugin plugin)
-	{
+	PileIndicatorsOverlay(final PileIndicatorsPlugin plugin) {
 		super(plugin);
 		this.plugin = plugin;
 
@@ -54,34 +47,26 @@ public class PileIndicatorsOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		List<List<Actor>> stackList = plugin.getStacks();
 
-		if (stackList != null)
-		{
-			for (List<Actor> actorArrayList : stackList)
-			{
+		if (stackList != null) {
+			for (List<Actor> actorArrayList : stackList) {
 				PileType pileType = plugin.getPileType(actorArrayList);
 				Color pileColor = plugin.getColorByPileType(pileType);
 
-				try
-				{
+				try {
 					Actor actorToRender = actorArrayList.get(0); //guaranteed to have at least two players
 					final String pileTypeStr = pileType == PileType.PLAYER_PILE ? "PLAYER" : pileType == PileType.NPC_PILE ? "NPC" : pileType == PileType.MIXED_PILE ? "MIXED" : "";
 					final String text = plugin.isNumberOnly() ? "" + actorArrayList.size() : (pileTypeStr + " PILE SIZE: " + actorArrayList.size());
-					if (plugin.isDrawPileTile())
-					{
+					if (plugin.isDrawPileTile()) {
 						OverlayUtil.renderPolygon(graphics, actorToRender.getCanvasTilePoly(), pileColor);
 					}
-					if (plugin.isDrawPileHull())
-					{
+					if (plugin.isDrawPileHull()) {
 						OverlayUtil.renderPolygon(graphics, actorToRender.getConvexHull(), pileColor);
 					}
 					OverlayUtil.renderTextLocation(graphics, actorToRender.getCanvasTextLocation(graphics, text, 40), text, pileColor);
-				}
-				catch (Exception ignored)
-				{
+				} catch (Exception ignored) {
 				}
 			}
 		}

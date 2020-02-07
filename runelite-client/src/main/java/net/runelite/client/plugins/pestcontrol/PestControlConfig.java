@@ -24,171 +24,157 @@
  */
 package net.runelite.client.plugins.pestcontrol;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.plugins.pestcontrol.config.HighlightPortalOption;
 import net.runelite.client.plugins.pestcontrol.config.NpcHighlightStyle;
 
+import java.awt.*;
+
 @ConfigGroup("pestcontrol")
-public interface PestControlConfig extends Config
-{
+public interface PestControlConfig extends Config {
 	@ConfigItem(
-		keyName = "showHintArrow",
-		name = "Show hint arrows",
-		description = "Show hint arrows to the portals that can be attacked.",
-		position = 1
+			keyName = "showHintArrow",
+			name = "Show hint arrows",
+			description = "Show hint arrows to the portals that can be attacked.",
+			position = 1
 	)
-	default boolean showHintArrow()
-	{
+	default boolean showHintArrow() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showPortalWeakness",
-		name = "Show portal weakness",
-		description = "Show the combat style weakness of the portals. For melee the attack styles are shown: Stab/Crush/Slash",
-		position = 2
+			keyName = "showPortalWeakness",
+			name = "Show portal weakness",
+			description = "Show the combat style weakness of the portals. For melee the attack styles are shown: Stab/Crush/Slash",
+			position = 2
 	)
-	default boolean showPortalWeakness()
-	{
+	default boolean showPortalWeakness() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "highlightGangplanks",
-		name = "Highlight gangplanks",
-		description = "Highlight the boarding gangplanks and show the required combat level.",
-		position = 3
+			keyName = "highlightGangplanks",
+			name = "Highlight gangplanks",
+			description = "Highlight the boarding gangplanks and show the required combat level.",
+			position = 3
 	)
-	default boolean highlightGangplanks()
-	{
+	default boolean highlightGangplanks() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "highlightPortals",
-		name = "Highlight portals",
-		description = "Highlight all, active or shielded portals.",
-		position = 4
+			keyName = "highlightPortals",
+			name = "Highlight portals",
+			description = "Highlight all, active or shielded portals.",
+			position = 4
 	)
-	default HighlightPortalOption portalHighlight()
-	{
+	default HighlightPortalOption portalHighlight() {
 		return HighlightPortalOption.ACTIVE;
 	}
 
 	@ConfigItem(
-		keyName = "activePortalColor",
-		name = "Active portal color",
-		description = "Color of the portals that can be attacked.",
-		position = 5
+			keyName = "activePortalColor",
+			name = "Active portal color",
+			description = "Color of the portals that can be attacked.",
+			position = 5
 	)
-	default Color activePortalColor()
-	{
+	default Color activePortalColor() {
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-		keyName = "shieldedPortalColor",
-		name = "Shielded portal color",
-		description = "Color of the portals that are shielded.",
-		position = 6
+			keyName = "shieldedPortalColor",
+			name = "Shielded portal color",
+			description = "Color of the portals that are shielded.",
+			position = 6
 	)
-	default Color shieldedPortalColor()
-	{
+	default Color shieldedPortalColor() {
 		return Color.BLUE;
 	}
 
 	@ConfigItem(
-		keyName = "highlightSpinners",
-		name = "Highlight Spinners",
-		description = "Highlights Spinners. Highlighting them is recommended as Spinners heal the portals.",
-		position = 7
+			keyName = "highlightSpinners",
+			name = "Highlight Spinners",
+			description = "Highlights Spinners. Highlighting them is recommended as Spinners heal the portals.",
+			position = 7
 	)
-	default NpcHighlightStyle highlightSpinners()
-	{
+	default NpcHighlightStyle highlightSpinners() {
 		return NpcHighlightStyle.BOTH;
 	}
 
 	@ConfigItem(
-		keyName = "spinnerColor",
-		name = "Spinner color",
-		description = "Color of highlighted Spinners.",
-		position = 8
+			keyName = "spinnerColor",
+			name = "Spinner color",
+			description = "Color of highlighted Spinners.",
+			position = 8
 	)
-	default Color spinnerColor()
-	{
+	default Color spinnerColor() {
 		return Color.CYAN;
 	}
 
 	@ConfigItem(
-		keyName = "highlightBrawlers",
-		name = "Highlight Brawlers",
-		description = "Highlights Brawlers.",
-		position = 9
+			keyName = "highlightBrawlers",
+			name = "Highlight Brawlers",
+			description = "Highlights Brawlers.",
+			position = 9
 	)
-	default NpcHighlightStyle highlightBrawlers()
-	{
+	default NpcHighlightStyle highlightBrawlers() {
 		return NpcHighlightStyle.TILE;
 	}
 
 	@ConfigItem(
-		keyName = "brawlerColor",
-		name = "Brawler color",
-		description = "Color of highlighted Brawlers.",
-		position = 10
+			keyName = "brawlerColor",
+			name = "Brawler color",
+			description = "Color of highlighted Brawlers.",
+			position = 10
 	)
-	default Color brawlerColor()
-	{
+	default Color brawlerColor() {
 		return Color.ORANGE;
 	}
 
 	@ConfigItem(
-		keyName = "highlightRepairables",
-		name = "Highlight repairables",
-		description = "Highlight repairable barricades and gates.",
-		position = 11
+			keyName = "highlightRepairables",
+			name = "Highlight repairables",
+			description = "Highlight repairable barricades and gates.",
+			position = 11
 	)
-	default boolean highlightRepairables()
-	{
+	default boolean highlightRepairables() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "repairableColor",
-		name = "Repairable color",
-		description = "Color of highlighted repairables.",
-		position = 12
+			keyName = "repairableColor",
+			name = "Repairable color",
+			description = "Color of highlighted repairables.",
+			position = 12
 	)
 	/*default Color repairableColor()
 	{
 		return new Color(193, 141, 255);
 	}*/
-	default Color repairableColor()
-	{
+	default Color repairableColor() {
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-		keyName = "showPoints",
-		name = "Show points indicator",
-		description = "Always display your points when on the island or in the minigame.",
-		position = 13
+			keyName = "showPoints",
+			name = "Show points indicator",
+			description = "Always display your points when on the island or in the minigame.",
+			position = 13
 	)
-	default boolean showPoints()
-	{
+	default boolean showPoints() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showTimeTillNextPortal",
-		name = "Show time till next portal",
-		description = "Show a timer that counts down till the next portal is attackable.",
-		position = 14
+			keyName = "showTimeTillNextPortal",
+			name = "Show time till next portal",
+			description = "Show a timer that counts down till the next portal is attackable.",
+			position = 14
 	)
-	default boolean showTimeTillNextPortal()
-	{
+	default boolean showTimeTillNextPortal() {
 		return true;
 	}
 }

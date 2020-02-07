@@ -29,7 +29,6 @@ import net.runelite.api.events.Event;
 import net.runelite.client.ui.NavigationButton;
 
 @Value
-public class NavigationButtonRemoved implements Event
-{
+public class NavigationButtonRemoved implements Event {
 	private NavigationButton button;
 }

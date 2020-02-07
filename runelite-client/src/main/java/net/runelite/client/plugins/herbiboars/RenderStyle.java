@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.herbiboars;
 
-public enum RenderStyle
-{
+public enum RenderStyle {
 	THIN_OUTLINE("Thin outline"),
 	OUTLINE("Outline"),
 	THIN_GLOW("Thin glow"),
@@ -9,14 +8,12 @@ public enum RenderStyle
 
 	private final String name;
 
-	RenderStyle(final String name)
-	{
+	RenderStyle(final String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

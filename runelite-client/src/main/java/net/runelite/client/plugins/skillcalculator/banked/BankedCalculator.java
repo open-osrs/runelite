@@ -26,21 +26,6 @@ package net.runelite.client.plugins.skillcalculator.banked;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ItemEvent;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -63,9 +48,15 @@ import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.AsyncBufferedImage;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.*;
+
 @Slf4j
-public class BankedCalculator extends JPanel
-{
+public class BankedCalculator extends JPanel {
 	public static final DecimalFormat XP_FORMAT_COMMA = new DecimalFormat("#,###.#");
 
 	private final Client client;
@@ -92,8 +83,7 @@ public class BankedCalculator extends JPanel
 	@Getter(AccessLevel.PUBLIC)
 	private float xpFactor = 1.0f;
 
-	BankedCalculator(UICalculatorInputArea uiInput, Client client, SkillCalculatorConfig config, ItemManager itemManager)
-	{
+	BankedCalculator(UICalculatorInputArea uiInput, Client client, SkillCalculatorConfig config, ItemManager itemManager) {
 		this.uiInput = uiInput;
 		this.client = client;
 		this.config = config;
@@ -108,10 +98,8 @@ public class BankedCalculator extends JPanel
 	/**
 	 * opens the Banked Calculator for this skill
 	 */
-	void open(final Skill newSkill)
-	{
-		if (newSkill.equals(currentSkill))
-		{
+	void open(final Skill newSkill) {
+		if (newSkill.equals(currentSkill)) {
 			return;
 		}
 
@@ -119,8 +107,7 @@ public class BankedCalculator extends JPanel
 		removeAll();
 		xpFactor = 1.0f;
 
-		if (bankMap.size() <= 0)
-		{
+		if (bankMap.size() <= 0) {
 			add(new JLabel("Please visit a bank!", JLabel.CENTER));
 			revalidate();
 			repaint();
@@ -140,8 +127,7 @@ public class BankedCalculator extends JPanel
 		recreateBankedItemMap();
 
 		final Collection<XpModifiers> modifiers = XpModifiers.getModifiersBySkill(this.currentSkill);
-		for (final XpModifiers modifier : modifiers)
-		{
+		for (final XpModifiers modifier : modifiers) {
 			JPanel uiOption = new JPanel(new BorderLayout());
 			JLabel uiLabel = new JLabel(modifier.getName());
 			JCheckBox btn = new JCheckBox();
@@ -155,8 +141,7 @@ public class BankedCalculator extends JPanel
 
 			btn.addItemListener((event) ->
 			{
-				switch (event.getStateChange())
-				{
+				switch (event.getStateChange()) {
 					case ItemEvent.DESELECTED:
 						xpFactor = 1.0f;
 						break;
@@ -184,12 +169,9 @@ public class BankedCalculator extends JPanel
 		recreateItemGrid();
 
 		// This should only be null if there are no items in their bank for this skill
-		if (itemGrid.getSelectedItem() == null)
-		{
+		if (itemGrid.getSelectedItem() == null) {
 			add(new JLabel("Couldn't find any items for this skill.", JLabel.CENTER));
-		}
-		else
-		{
+		} else {
 			add(totalXpLabel);
 			add(modifyPanel);
 			add(itemGrid);
@@ -199,26 +181,22 @@ public class BankedCalculator extends JPanel
 		repaint();
 	}
 
-	private void recreateBankedItemMap()
-	{
+	private void recreateBankedItemMap() {
 		bankedItemMap.clear();
 		linkedMap.clear();
 
 		final Collection<CriticalItem> items = CriticalItem.getBySkill(currentSkill);
 		log.debug("Critical Items for the {} Skill: {}", currentSkill.getName(), items);
 
-		for (final CriticalItem item : items)
-		{
+		for (final CriticalItem item : items) {
 			final BankedItem banked = new BankedItem(item, bankMap.getOrDefault(item.getItemID(), 0));
 			bankedItemMap.put(item, banked);
 
 			Activity a = item.getSelectedActivity();
 			final int level = config.limitToCurrentLevel() ? skillLevel : -1;
-			if (a == null || (level > 0 && level < a.getLevel()))
-			{
+			if (a == null || (level > 0 && level < a.getLevel())) {
 				final List<Activity> activities = Activity.getByCriticalItem(item, level);
-				if (activities.size() == 0)
-				{
+				if (activities.size() == 0) {
 					item.setSelectedActivity(null);
 					continue;
 				}
@@ -226,8 +204,7 @@ public class BankedCalculator extends JPanel
 				a = activities.get(0);
 			}
 
-			if (a.getLinkedItem() != null)
-			{
+			if (a.getLinkedItem() != null) {
 				linkedMap.put(a.getLinkedItem(), banked);
 			}
 		}
@@ -238,8 +215,7 @@ public class BankedCalculator extends JPanel
 	/**
 	 * Populates the detailContainer with the necessary BankedItemPanels
 	 */
-	private void recreateItemGrid()
-	{
+	private void recreateItemGrid() {
 		// Selection grid will only display values with > 0 items
 		itemGrid = new SelectionGrid(this, bankedItemMap.values(), itemManager);
 		itemGrid.setOnSelectEvent(() ->
@@ -262,8 +238,7 @@ public class BankedCalculator extends JPanel
 		calculateBankedXpTotal();
 	}
 
-	public double getItemXpRate(final BankedItem bankedItem)
-	{
+	public double getItemXpRate(final BankedItem bankedItem) {
 		return bankedItem.getXpRate() * (bankedItem.getItem().isIgnoreBonus() ? 1.0f : xpFactor);
 	}
 
@@ -273,12 +248,10 @@ public class BankedCalculator extends JPanel
 	 * @param item starting item
 	 * @return item qty including linked items
 	 */
-	public int getItemQty(final BankedItem item)
-	{
+	public int getItemQty(final BankedItem item) {
 		int qty = item.getQty();
 
-		if (!config.cascadeBankedXp())
-		{
+		if (!config.cascadeBankedXp()) {
 			return qty;
 		}
 
@@ -288,13 +261,10 @@ public class BankedCalculator extends JPanel
 		return qty + linkedQty;
 	}
 
-	private void calculateBankedXpTotal()
-	{
+	private void calculateBankedXpTotal() {
 		double total = 0.0;
-		for (final GridItem i : itemGrid.getPanelMap().values())
-		{
-			if (i.isIgnored())
-			{
+		for (final GridItem i : itemGrid.getPanelMap().values()) {
+			if (i.isIgnored()) {
 				continue;
 			}
 
@@ -319,20 +289,17 @@ public class BankedCalculator extends JPanel
 	 * @param i BankedItem item the activity is tied to
 	 * @param a Activity the selected activity
 	 */
-	public void activitySelected(final BankedItem i, final Activity a)
-	{
+	public void activitySelected(final BankedItem i, final Activity a) {
 		final CriticalItem item = i.getItem();
 		final Activity old = item.getSelectedActivity();
-		if (a.equals(old))
-		{
+		if (a.equals(old)) {
 			return;
 		}
 
 		item.setSelectedActivity(a);
 
 		// Cascade activity changes if necessary.
-		if (config.cascadeBankedXp() && (old.getLinkedItem() != a.getLinkedItem()))
-		{
+		if (config.cascadeBankedXp() && (old.getLinkedItem() != a.getLinkedItem())) {
 			// Update Linked Map
 			linkedMap.remove(old.getLinkedItem(), i);
 			linkedMap.put(a.getLinkedItem(), i);
@@ -354,10 +321,8 @@ public class BankedCalculator extends JPanel
 	 *
 	 * @param activity the starting {@link Activity} to start the cascade from
 	 */
-	private void updateLinkedItems(final Activity activity)
-	{
-		if (activity == null)
-		{
+	private void updateLinkedItems(final Activity activity) {
+		if (activity == null) {
 			return;
 		}
 
@@ -365,11 +330,9 @@ public class BankedCalculator extends JPanel
 		boolean panelAmountChange = false;
 
 		CriticalItem i = activity.getLinkedItem();
-		while (i != null)
-		{
+		while (i != null) {
 			final BankedItem bi = bankedItemMap.get(i);
-			if (bi == null)
-			{
+			if (bi == null) {
 				break;
 			}
 
@@ -386,21 +349,18 @@ public class BankedCalculator extends JPanel
 			foundSelected = foundSelected || itemGrid.getSelectedItem().equals(bi);
 
 			final Activity a = bi.getItem().getSelectedActivity();
-			if (a == null)
-			{
+			if (a == null) {
 				break;
 			}
 
 			i = a.getLinkedItem();
 		}
 
-		if (panelAmountChange)
-		{
+		if (panelAmountChange) {
 			itemGrid.refreshGridDisplay();
 		}
 
-		if (foundSelected)
-		{
+		if (foundSelected) {
 			// Refresh current modify panel if the cascade effects it
 			modifyPanel.setBankedItem(itemGrid.getSelectedItem());
 		}
@@ -412,37 +372,30 @@ public class BankedCalculator extends JPanel
 	 * @param item starting item
 	 * @return Map of CriticalItem to bank qty
 	 */
-	public Map<CriticalItem, Integer> createLinksMap(final BankedItem item)
-	{
+	public Map<CriticalItem, Integer> createLinksMap(final BankedItem item) {
 		final Map<CriticalItem, Integer> qtyMap = new HashMap<>();
 
 		final Activity a = item.getItem().getSelectedActivity();
-		if (a == null)
-		{
+		if (a == null) {
 			return qtyMap;
 		}
 
 		final Collection<BankedItem> linkedBank = linkedMap.get(item.getItem());
-		if (linkedBank == null || linkedBank.size() == 0)
-		{
+		if (linkedBank == null || linkedBank.size() == 0) {
 			return qtyMap;
 		}
 
-		for (final BankedItem linked : linkedBank)
-		{
+		for (final BankedItem linked : linkedBank) {
 			// Check if the item is ignored in the grid
-			if (itemGrid != null)
-			{
+			if (itemGrid != null) {
 				final GridItem grid = itemGrid.getPanelMap().get(linked);
-				if (grid != null && grid.isIgnored())
-				{
+				if (grid != null && grid.isIgnored()) {
 					continue;
 				}
 			}
 
 			final int qty = linked.getQty();
-			if (qty > 0)
-			{
+			if (qty > 0) {
 				qtyMap.put(linked.getItem(), qty);
 			}
 			qtyMap.putAll(createLinksMap(linked));
@@ -451,15 +404,13 @@ public class BankedCalculator extends JPanel
 		return qtyMap;
 	}
 
-	private void modifierUpdated()
-	{
+	private void modifierUpdated() {
 		itemGrid.getPanelMap().values().forEach(GridItem::updateToolTip);
 		modifyPanel.setBankedItem(modifyPanel.getBankedItem());
 		calculateBankedXpTotal();
 	}
 
-	public int getItemQtyFromBank(final int id)
-	{
+	public int getItemQtyFromBank(final int id) {
 		return bankMap.getOrDefault(id, 0);
 	}
 }

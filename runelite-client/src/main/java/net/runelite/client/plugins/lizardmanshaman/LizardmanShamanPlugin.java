@@ -25,10 +25,6 @@
 package net.runelite.client.plugins.lizardmanshaman;
 
 import com.google.inject.Provides;
-import java.awt.Color;
-import java.util.Objects;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -38,20 +34,25 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import static net.runelite.client.plugins.lizardmanshaman.LizardmanShamanConfig.SpawnOverlayConfig;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.Objects;
+
+import static net.runelite.client.plugins.lizardmanshaman.LizardmanShamanConfig.SpawnOverlayConfig;
+
 @PluginDescriptor(
-	name = "Lizardman Shamans",
-	description = "Display an overlay for spawn explosion tiles",
-	tags = {"lizardman", "shaman", "lizard"},
-	type = PluginType.PVM,
-	enabledByDefault = false
+		name = "Lizardman Shamans",
+		description = "Display an overlay for spawn explosion tiles",
+		tags = {"lizardman", "shaman", "lizard"},
+		type = PluginType.PVM,
+		enabledByDefault = false
 )
 @Slf4j
 @Singleton
-public class LizardmanShamanPlugin extends Plugin
-{
+public class LizardmanShamanPlugin extends Plugin {
 	private static final String CONFIG_GROUP_NAME = "lizardmanshaman";
 
 	@Getter(AccessLevel.PACKAGE)
@@ -79,36 +80,30 @@ public class LizardmanShamanPlugin extends Plugin
 	private LizardmanShamanConfig config;
 
 	@Provides
-	LizardmanShamanConfig getConfig(ConfigManager configManager)
-	{
+	LizardmanShamanConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(LizardmanShamanConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		initConfig();
 
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (Objects.equals(event.getGroup(), CONFIG_GROUP_NAME))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (Objects.equals(event.getGroup(), CONFIG_GROUP_NAME)) {
 			initConfig();
 		}
 	}
 
-	private void initConfig()
-	{
+	private void initConfig() {
 		this.spawnOverlayConfig = config.showSpawnOverlay();
 
 		this.explosionBorderColor = config.explosionBorderColor();

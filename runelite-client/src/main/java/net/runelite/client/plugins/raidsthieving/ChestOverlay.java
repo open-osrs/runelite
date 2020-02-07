@@ -24,13 +24,6 @@
  */
 package net.runelite.client.plugins.raidsthieving;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.util.Map;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -42,20 +35,24 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Represents the overlay that shows timers on traps that are placed by the
  * player.
  */
 @Singleton
-public class ChestOverlay extends Overlay
-{
+public class ChestOverlay extends Overlay {
 
 	private final Client client;
 	private final RaidsThievingPlugin plugin;
 
 	@Inject
-	ChestOverlay(final Client client, final RaidsThievingPlugin plugin)
-	{
+	ChestOverlay(final Client client, final RaidsThievingPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
@@ -63,8 +60,7 @@ public class ChestOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		drawChests(graphics);
 		return null;
 	}
@@ -75,41 +71,33 @@ public class ChestOverlay extends Overlay
 	 *
 	 * @param graphics
 	 */
-	private void drawChests(Graphics2D graphics)
-	{
-		for (Map.Entry<WorldPoint, ThievingChest> entry : plugin.getChests().entrySet())
-		{
+	private void drawChests(Graphics2D graphics) {
+		for (Map.Entry<WorldPoint, ThievingChest> entry : plugin.getChests().entrySet()) {
 			ThievingChest chest = entry.getValue();
 			WorldPoint pos = entry.getKey();
 
-			if (chest != null)
-			{
-				if (!plugin.isBatsFound() && !chest.isEverOpened() && shouldDrawChest(pos))
-				{
+			if (chest != null) {
+				if (!plugin.isBatsFound() && !chest.isEverOpened() && shouldDrawChest(pos)) {
 					Color drawColor = new Color(plugin.getPotentialBatColor().getRed(),
-						plugin.getPotentialBatColor().getGreen(),
-						plugin.getPotentialBatColor().getBlue(),
-						getChestOpacity(pos));
+							plugin.getPotentialBatColor().getGreen(),
+							plugin.getPotentialBatColor().getBlue(),
+							getChestOpacity(pos));
 					drawCircleOnTrap(graphics, chest, drawColor);
 				}
-				if (chest.isPoison())
-				{
+				if (chest.isPoison()) {
 					drawCircleOnTrap(graphics, chest, plugin.getPoisonTrapColor());
 				}
 			}
 		}
 	}
 
-	private boolean shouldDrawChest(WorldPoint chestPos)
-	{
-		if (plugin.numberOfEmptyChestsFound() == 0)
-		{
+	private boolean shouldDrawChest(WorldPoint chestPos) {
+		if (plugin.numberOfEmptyChestsFound() == 0) {
 			return true;
 		}
 		int chestId = plugin.getChestId(chestPos);
 		BatSolver solver = plugin.getSolver();
-		if (solver != null && chestId != -1)
-		{
+		if (solver != null && chestId != -1) {
 			Set<Integer> matches = solver.matchSolutions();
 			return matches.contains(chestId) || matches.size() == 0;
 		}
@@ -123,16 +111,13 @@ public class ChestOverlay extends Overlay
 	 * @param chest    The chest on which the circle needs to be drawn
 	 * @param fill     The fill color of the timer
 	 */
-	private void drawCircleOnTrap(Graphics2D graphics, ThievingChest chest, Color fill)
-	{
-		if (chest.getWorldPoint().getPlane() != client.getPlane())
-		{
+	private void drawCircleOnTrap(Graphics2D graphics, ThievingChest chest, Color fill) {
+		if (chest.getWorldPoint().getPlane() != client.getPlane()) {
 			return;
 		}
 
 		LocalPoint localLoc = LocalPoint.fromWorld(client, chest.getWorldPoint());
-		if (localLoc == null)
-		{
+		if (localLoc == null) {
 			return;
 		}
 
@@ -142,18 +127,15 @@ public class ChestOverlay extends Overlay
 		pie.setBorderColor(Color.BLACK);
 		pie.setPosition(loc);
 		pie.setProgress(1);
-		if (graphics != null && loc != null)
-		{
+		if (graphics != null && loc != null) {
 			pie.render(graphics);
 		}
 	}
 
-	private int getChestOpacity(WorldPoint chestPos)
-	{
+	private int getChestOpacity(WorldPoint chestPos) {
 		int chestId = plugin.getChestId(chestPos);
 		BatSolver solver = plugin.getSolver();
-		if (solver != null && chestId != -1)
-		{
+		if (solver != null && chestId != -1) {
 			return (int) (255 * solver.relativeLikelihoodPoison(chestId));
 		}
 		return 255;

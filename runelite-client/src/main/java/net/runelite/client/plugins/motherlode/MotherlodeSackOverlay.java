@@ -26,18 +26,11 @@
  */
 package net.runelite.client.plugins.motherlode;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Varbits;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
@@ -46,9 +39,15 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-class MotherlodeSackOverlay extends Overlay
-{
+class MotherlodeSackOverlay extends Overlay {
 	private static final Color DANGER = new Color(150, 0, 0, 150);
 	private final Client client;
 	private final MotherlodePlugin plugin;
@@ -56,8 +55,7 @@ class MotherlodeSackOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	MotherlodeSackOverlay(final Client client, final MotherlodePlugin plugin)
-	{
+	MotherlodeSackOverlay(final Client client, final MotherlodePlugin plugin) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -66,10 +64,8 @@ class MotherlodeSackOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isInMlm())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isInMlm()) {
 			return null;
 		}
 
@@ -81,33 +77,25 @@ class MotherlodeSackOverlay extends Overlay
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		if (sack != null)
-		{
+		if (sack != null) {
 			sack.setHidden(true);
 
-			if (plugin.isShowSack())
-			{
-				if (plugin.getCurSackSize() >= plugin.getMaxSackSize())
-				{
+			if (plugin.isShowSack()) {
+				if (plugin.getCurSackSize() >= plugin.getMaxSackSize()) {
 					panelComponent.setBackgroundColor(DANGER);
 				}
 
 				tableComponent.addRow("Pay-dirt in sack:", String.valueOf(client.getVar(Varbits.SACK_NUMBER)));
 			}
 
-			if (plugin.isShowDepositsLeft())
-			{
+			if (plugin.isShowDepositsLeft()) {
 				final Integer depositsLeft = plugin.getDepositsLeft();
 				Color color = Color.WHITE;
 
-				if (depositsLeft != null)
-				{
-					if (depositsLeft == 0)
-					{
+				if (depositsLeft != null) {
+					if (depositsLeft == 0) {
 						panelComponent.setBackgroundColor(DANGER);
-					}
-					else if (depositsLeft == 1)
-					{
+					} else if (depositsLeft == 1) {
 						color = Color.RED;
 					}
 				}

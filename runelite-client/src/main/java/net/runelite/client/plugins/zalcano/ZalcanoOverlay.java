@@ -26,26 +26,15 @@
 
 package net.runelite.client.plugins.zalcano;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.Shape;
-import java.util.List;
-import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.AnimationID;
-import net.runelite.api.Client;
-import net.runelite.api.GameObject;
-import net.runelite.api.GraphicsObject;
-import net.runelite.api.Perspective;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.client.ui.overlay.Overlay;
-import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.ui.overlay.OverlayUtil;
+import net.runelite.client.ui.overlay.*;
+
+import javax.inject.Inject;
+import java.awt.*;
+import java.util.List;
 
 /**
  * some ids
@@ -63,8 +52,7 @@ import net.runelite.client.ui.overlay.OverlayUtil;
  * 23905, 23906, 23907
  */
 @Slf4j
-public class ZalcanoOverlay extends Overlay
-{
+public class ZalcanoOverlay extends Overlay {
 
 	private final ZalcanoPlugin plugin;
 	private final ZalcanoConfig config;
@@ -72,8 +60,7 @@ public class ZalcanoOverlay extends Overlay
 	private final Client client;
 
 	@Inject
-	ZalcanoOverlay(final ZalcanoPlugin plugin, final ZalcanoConfig config, final ZalcanoUtil util, final Client client)
-	{
+	ZalcanoOverlay(final ZalcanoPlugin plugin, final ZalcanoConfig config, final ZalcanoUtil util, final Client client) {
 		super(plugin);
 		this.plugin = plugin;
 		this.config = config;
@@ -86,31 +73,24 @@ public class ZalcanoOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!util.isInZalcanoRegion())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!util.isInZalcanoRegion()) {
 			return null;
 		}
 
-		if (config.showAoeForRockfall())
-		{
+		if (config.showAoeForRockfall()) {
 			renderBadTiles(graphics);
 		}
-		if (config.showAoeForRedSymbols())
-		{
+		if (config.showAoeForRedSymbols()) {
 			renderRedSymbols(graphics);
 		}
-		if (config.highlightMiningSpot())
-		{
+		if (config.highlightMiningSpot()) {
 			renderRockToMine(graphics);
 		}
-		if (config.highlightGolem())
-		{
+		if (config.highlightGolem()) {
 			renderGolem(graphics);
 		}
-		if (config.highlightZalcanoHull())
-		{
+		if (config.highlightZalcanoHull()) {
 			renderZalcano(graphics);
 		}
 
@@ -120,48 +100,38 @@ public class ZalcanoOverlay extends Overlay
 		return null;
 	}
 
-	private void renderBadTiles(Graphics2D graphics)
-	{
+	private void renderBadTiles(Graphics2D graphics) {
 		List<GraphicsObject> rockFall = util.getRockfall();
 
-		if (rockFall != null)
-		{
-			for (GraphicsObject graphicsObject : rockFall)
-			{
+		if (rockFall != null) {
+			for (GraphicsObject graphicsObject : rockFall) {
 				WorldPoint worldPoint = WorldPoint.fromLocal(client, graphicsObject.getLocation());
 				OverlayUtil.drawTiles(graphics, client, worldPoint, client.getLocalPlayer().getWorldLocation(), Color.RED, 2, 150, 50);
 			}
 		}
 	}
 
-	private void renderRedSymbols(Graphics2D graphics)
-	{
+	private void renderRedSymbols(Graphics2D graphics) {
 		List<GameObject> symbolsToRender = util.getRedSymbols();
 
-		if (symbolsToRender != null)
-		{
-			for (GameObject gameObject : symbolsToRender)
-			{
+		if (symbolsToRender != null) {
+			for (GameObject gameObject : symbolsToRender) {
 				final LocalPoint loc = gameObject.getLocalLocation();
 				final Polygon poly = Perspective.getCanvasTileAreaPoly(client, loc, 3);
-				if (poly != null)
-				{
+				if (poly != null) {
 					OverlayUtil.renderPolygon(graphics, poly, new Color(249, 47, 30));
 				}
 			}
 		}
 	}
 
-	private void renderRockToMine(Graphics2D graphics)
-	{
+	private void renderRockToMine(Graphics2D graphics) {
 		GameObject glowingRock = util.getGlowingRock();
 
-		if (glowingRock != null)
-		{
+		if (glowingRock != null) {
 			final Polygon poly = Perspective.getCanvasTileAreaPoly(client, glowingRock.getLocalLocation(), !util.projectileExists() ? 2 : 4);
 
-			if (poly != null)
-			{
+			if (poly != null) {
 				final Color green = new Color(140, 255, 60);
 				OverlayUtil.renderPolygon(graphics, poly, !util.projectileExists() ? green : Color.RED);
 				OverlayUtil.renderTextLocation(graphics, glowingRock.getCanvasLocation(), !util.projectileExists() ? ZalcanoUtil.mine : ZalcanoUtil.warning, !util.projectileExists() ? green : Color.RED);
@@ -169,47 +139,36 @@ public class ZalcanoOverlay extends Overlay
 		}
 	}
 
-	private void renderGolem(Graphics2D graphics)
-	{
-		if (plugin.getGolem() != null)
-		{
+	private void renderGolem(Graphics2D graphics) {
+		if (plugin.getGolem() != null) {
 			Shape hull = plugin.getGolem().getConvexHull();
-			if (hull != null)
-			{
+			if (hull != null) {
 				OverlayUtil.renderPolygon(graphics, hull, new Color(206, 41, 231));
 			}
 
 		}
 	}
 
-	private void renderZalcano(Graphics2D graphics)
-	{
-		if (plugin.getZalcano() != null)
-		{
+	private void renderZalcano(Graphics2D graphics) {
+		if (plugin.getZalcano() != null) {
 			Shape hull = plugin.getZalcano().getConvexHull();
-			if (hull != null)
-			{
+			if (hull != null) {
 				OverlayUtil.renderPolygon(graphics, hull, config.zalcanoHullColor());
 			}
 
 		}
 	}
 
-	private void renderZalcanoAnimations(Graphics2D graphics)
-	{
-		if (plugin.getZalcano() != null)
-		{
-			switch (plugin.getZalcano().getAnimation())
-			{
+	private void renderZalcanoAnimations(Graphics2D graphics) {
+		if (plugin.getZalcano() != null) {
+			switch (plugin.getZalcano().getAnimation()) {
 				case AnimationID.ZALCANO_KNOCKED_DOWN:
-					if (config.showAoeZalcanoMineable())
-					{
+					if (config.showAoeZalcanoMineable()) {
 						renderZalcanoMineable(graphics);
 					}
 					break;
 				case AnimationID.ZALCANO_WAKEUP:
-					if (config.showAoeZalcanoWakeup())
-					{
+					if (config.showAoeZalcanoWakeup()) {
 						renderZalcanoWakeup(graphics);
 					}
 					break;
@@ -217,21 +176,17 @@ public class ZalcanoOverlay extends Overlay
 		}
 	}
 
-	private void renderZalcanoMineable(Graphics2D graphics)
-	{
+	private void renderZalcanoMineable(Graphics2D graphics) {
 		renderZalcanoAOE(graphics, 4, ZalcanoUtil.mine, Color.GREEN);
 	}
 
-	private void renderZalcanoWakeup(Graphics2D graphics)
-	{
+	private void renderZalcanoWakeup(Graphics2D graphics) {
 		renderZalcanoAOE(graphics, 6, ZalcanoUtil.warning, Color.RED);
 	}
 
-	private void renderZalcanoAOE(Graphics2D graphics, int polySize, String text, Color color)
-	{
+	private void renderZalcanoAOE(Graphics2D graphics, int polySize, String text, Color color) {
 		Polygon poly = Perspective.getCanvasTileAreaPoly(client, plugin.getZalcano().getLocalLocation(), polySize);
-		if (poly != null)
-		{
+		if (poly != null) {
 			OverlayUtil.renderPolygon(graphics, poly, color);
 			OverlayUtil.renderTextLocation(graphics, plugin.getZalcano().getCanvasTextLocation(graphics, text, plugin.getZalcano().getLogicalHeight() / 2), text, color);
 		}

@@ -31,8 +31,7 @@ import net.runelite.api.ItemID;
 
 @Getter
 @RequiredArgsConstructor
-public enum UntradeableItemMapping
-{
+public enum UntradeableItemMapping {
 	MARK_OF_GRACE(ItemID.MARK_OF_GRACE, 10, ItemID.AMYLASE_CRYSTAL),
 	GRACEFUL_HOOD(ItemID.GRACEFUL_HOOD, 28, ItemID.MARK_OF_GRACE),
 	GRACEFUL_TOP(ItemID.GRACEFUL_TOP, 44, ItemID.MARK_OF_GRACE),
@@ -72,18 +71,15 @@ public enum UntradeableItemMapping
 	private final int quantity;
 	private final int priceID;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, UntradeableItemMapping> map = ImmutableMap.builder();
-		for (UntradeableItemMapping p : values())
-		{
+		for (UntradeableItemMapping p : values()) {
 			map.put(p.getItemID(), p);
 		}
 		UNTRADEABLE_RECLAIM_MAP = map.build();
 	}
 
-	public static UntradeableItemMapping map(int itemId)
-	{
+	public static UntradeableItemMapping map(int itemId) {
 		return UNTRADEABLE_RECLAIM_MAP.get(itemId);
 	}
 }

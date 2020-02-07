@@ -25,12 +25,12 @@
 package net.runelite.client.plugins.loottracker;
 
 import com.google.gson.annotations.SerializedName;
-import java.time.Instant;
 import lombok.Value;
 
+import java.time.Instant;
+
 @Value
-class LootTrackerRecord
-{
+class LootTrackerRecord {
 	private final String title;
 	private String localUsername;
 	private final String subTitle;
@@ -44,10 +44,8 @@ class LootTrackerRecord
 	 * @param id other record id
 	 * @return true if match is made
 	 */
-	boolean matches(final String id)
-	{
-		if (id == null)
-		{
+	boolean matches(final String id) {
+		if (id == null) {
 			return true;
 		}
 

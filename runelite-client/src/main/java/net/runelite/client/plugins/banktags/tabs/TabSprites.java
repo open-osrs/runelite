@@ -31,8 +31,7 @@ import lombok.RequiredArgsConstructor;
 import net.runelite.client.game.SpriteOverride;
 
 @RequiredArgsConstructor
-public enum TabSprites implements SpriteOverride
-{
+public enum TabSprites implements SpriteOverride {
 	INCINERATOR(-200, "incinerator.png"),
 	TAB_BACKGROUND(-201, "tag-tab.png"),
 	TAB_BACKGROUND_ACTIVE(-202, "tag-tab-active.png"),

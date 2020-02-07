@@ -29,12 +29,12 @@ package net.runelite.client.plugins.interfacestyles;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.SpriteID;
+
 import static net.runelite.client.plugins.interfacestyles.Skin.AROUND_2005;
 import static net.runelite.client.plugins.interfacestyles.Skin.AROUND_2010;
 
 @Getter(AccessLevel.PACKAGE)
-enum SpriteOverride
-{
+enum SpriteOverride {
 	TAB_COMBAT(SpriteID.TAB_COMBAT, AROUND_2005, AROUND_2010),
 	TAB_STATS(SpriteID.TAB_STATS, AROUND_2005, AROUND_2010),
 	TAB_QUESTS(SpriteID.TAB_QUESTS, AROUND_2005),
@@ -146,8 +146,7 @@ enum SpriteOverride
 	private int spriteID;
 	private Skin[] skin;
 
-	SpriteOverride(int spriteID, Skin... skin)
-	{
+	SpriteOverride(int spriteID, Skin... skin) {
 		this.spriteID = spriteID;
 		this.skin = skin;
 	}

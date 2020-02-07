@@ -24,26 +24,25 @@
  */
 package net.runelite.client.ui;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.NavigationButtonAdded;
 import net.runelite.client.events.NavigationButtonRemoved;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Plugin toolbar buttons holder.
  */
 @Singleton
-public class ClientToolbar
-{
+public class ClientToolbar {
 	private final EventBus eventBus;
 	private final Set<NavigationButton> buttons = new HashSet<>();
 
 	@Inject
-	private ClientToolbar(final EventBus eventBus)
-	{
+	private ClientToolbar(final EventBus eventBus) {
 		this.eventBus = eventBus;
 	}
 
@@ -52,15 +51,12 @@ public class ClientToolbar
 	 *
 	 * @param button the button
 	 */
-	public void addNavigation(final NavigationButton button)
-	{
-		if (buttons.contains(button))
-		{
+	public void addNavigation(final NavigationButton button) {
+		if (buttons.contains(button)) {
 			return;
 		}
 
-		if (buttons.add(button))
-		{
+		if (buttons.add(button)) {
 			eventBus.post(NavigationButtonAdded.class, new NavigationButtonAdded(button));
 		}
 	}
@@ -70,10 +66,8 @@ public class ClientToolbar
 	 *
 	 * @param button the button
 	 */
-	public void removeNavigation(final NavigationButton button)
-	{
-		if (buttons.remove(button))
-		{
+	public void removeNavigation(final NavigationButton button) {
+		if (buttons.remove(button)) {
 			eventBus.post(NavigationButtonRemoved.class, new NavigationButtonRemoved(button));
 		}
 	}

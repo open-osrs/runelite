@@ -30,105 +30,95 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("discord")
-public interface DiscordConfig extends Config
-{
+public interface DiscordConfig extends Config {
 	@ConfigItem(
-		keyName = "actionTimeout",
-		name = "Action timeout",
-		description = "Configures after how long of not updating status will be reset (in minutes)",
-		position = 0
+			keyName = "actionTimeout",
+			name = "Action timeout",
+			description = "Configures after how long of not updating status will be reset (in minutes)",
+			position = 0
 	)
 	@Units(Units.MINUTES)
-	default int actionTimeout()
-	{
+	default int actionTimeout() {
 		return 5;
 	}
 
 	@ConfigItem(
-		keyName = "hideElapsedTime",
-		name = "Hide elapsed time",
-		description = "Configures if the elapsed time of your activity should be hidden.",
-		position = 1
+			keyName = "hideElapsedTime",
+			name = "Hide elapsed time",
+			description = "Configures if the elapsed time of your activity should be hidden.",
+			position = 1
 	)
-	default boolean hideElapsedTime()
-	{
+	default boolean hideElapsedTime() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "alwaysShowParty",
-		name = "Always show party",
-		description = "Configures if the party counter should be always shown (this also makes party invites always work).",
-		position = 1
+			keyName = "alwaysShowParty",
+			name = "Always show party",
+			description = "Configures if the party counter should be always shown (this also makes party invites always work).",
+			position = 1
 	)
-	default boolean alwaysShowParty()
-	{
+	default boolean alwaysShowParty() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "showSkillActivity",
-		name = "Show activity while skilling",
-		description = "Configures if your activity while training skills should be shown.",
-		position = 3
+			keyName = "showSkillActivity",
+			name = "Show activity while skilling",
+			description = "Configures if your activity while training skills should be shown.",
+			position = 3
 	)
-	default boolean showSkillingActivity()
-	{
+	default boolean showSkillingActivity() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showBossActivity",
-		name = "Show activity at bosses",
-		description = "Configures if your activity at bosses should be shown.",
-		position = 4
+			keyName = "showBossActivity",
+			name = "Show activity at bosses",
+			description = "Configures if your activity at bosses should be shown.",
+			position = 4
 	)
-	default boolean showBossActivity()
-	{
+	default boolean showBossActivity() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showCityActivity",
-		name = "Show activity at cities",
-		description = "Configures if your activity at cities should be shown.",
-		position = 5
+			keyName = "showCityActivity",
+			name = "Show activity at cities",
+			description = "Configures if your activity at cities should be shown.",
+			position = 5
 	)
-	default boolean showCityActivity()
-	{
+	default boolean showCityActivity() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showDungeonActivity",
-		name = "Show activity at dungeons",
-		description = "Configures if your activity at dungeons should be shown.",
-		position = 6
+			keyName = "showDungeonActivity",
+			name = "Show activity at dungeons",
+			description = "Configures if your activity at dungeons should be shown.",
+			position = 6
 	)
-	default boolean showDungeonActivity()
-	{
+	default boolean showDungeonActivity() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showMinigameActivity",
-		name = "Show activity at minigames",
-		description = "Configures if your activity at minigames should be shown.",
-		position = 7
+			keyName = "showMinigameActivity",
+			name = "Show activity at minigames",
+			description = "Configures if your activity at minigames should be shown.",
+			position = 7
 	)
-	default boolean showMinigameActivity()
-	{
+	default boolean showMinigameActivity() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showRaidingActivity",
-		name = "Show activity at raids",
-		description = "Configures if your activity at raids should be shown.",
-		position = 8
+			keyName = "showRaidingActivity",
+			name = "Show activity at raids",
+			description = "Configures if your activity at raids should be shown.",
+			position = 8
 	)
-	default boolean showRaidingActivity()
-	{
+	default boolean showRaidingActivity() {
 		return true;
 	}
 }

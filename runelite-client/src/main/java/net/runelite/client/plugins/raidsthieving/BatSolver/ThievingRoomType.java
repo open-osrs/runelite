@@ -29,8 +29,7 @@ package net.runelite.client.plugins.raidsthieving.BatSolver;
 
 import net.runelite.api.Point;
 
-public enum ThievingRoomType
-{
+public enum ThievingRoomType {
 	LEFT_TURN(3271, 5389),
 	RIGHT_TURN(3350, 5399),
 	STRAIGHT(3317, 5397);
@@ -38,19 +37,15 @@ public enum ThievingRoomType
 	private final int x;
 	private final int y;
 
-	ThievingRoomType(final int x, final int y)
-	{
+	ThievingRoomType(final int x, final int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public static ThievingRoomType identifyByInstancePoint(Point point)
-	{
-		for (ThievingRoomType type : ThievingRoomType.values())
-		{
+	public static ThievingRoomType identifyByInstancePoint(Point point) {
+		for (ThievingRoomType type : ThievingRoomType.values()) {
 			if (Math.abs(type.x - point.getX()) <= 1 &&
-				Math.abs(type.y - point.getY()) <= 1)
-			{
+					Math.abs(type.y - point.getY()) <= 1) {
 				return type;
 			}
 		}

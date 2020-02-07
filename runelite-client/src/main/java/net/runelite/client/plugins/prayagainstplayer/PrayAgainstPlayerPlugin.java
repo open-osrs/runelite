@@ -25,8 +25,6 @@
 package net.runelite.client.plugins.prayagainstplayer;
 
 import com.google.inject.Provides;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -39,17 +37,19 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 @PluginDescriptor(
-	name = "Pray Against Player",
-	description = "Use plugin in PvP situations for best results!!",
-	tags = {"highlight", "pvp", "overlay", "players"},
-	type = PluginType.PVP,
-	enabledByDefault = false
+		name = "Pray Against Player",
+		description = "Use plugin in PvP situations for best results!!",
+		tags = {"highlight", "pvp", "overlay", "players"},
+		type = PluginType.PVP,
+		enabledByDefault = false
 )
 @Singleton
 @Getter(AccessLevel.PACKAGE)
-public class PrayAgainstPlayerPlugin extends Plugin
-{
+public class PrayAgainstPlayerPlugin extends Plugin {
 	@Inject
 	private Client client;
 	@Inject
@@ -70,51 +70,42 @@ public class PrayAgainstPlayerPlugin extends Plugin
 	private int highlightWidth;
 
 	@Provides
-	PrayAgainstPlayerConfig provideConfig(ConfigManager configManager)
-	{
+	PrayAgainstPlayerConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(PrayAgainstPlayerConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		overlayManager.add(overlay);
 		overlayManager.add(overlayPrayerTab);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(overlayPrayerTab);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("prayagainstplayer"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("prayagainstplayer")) {
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.ignoreFriends = config.ignoreFriends();
 		this.ignoreClanMates = config.ignoreClanMates();
 		this.drawTargetPrayAgainstPrayerTab = config.drawTargetPrayAgainstPrayerTab();
 		this.highlightAttackers = config.highlightAttackers();
 		this.highlightWidth = config.highlightWidth();
 
-		if (this.drawTargetPrayAgainstPrayerTab)
-		{
+		if (this.drawTargetPrayAgainstPrayerTab) {
 			overlayManager.add(overlayPrayerTab);
-		}
-		else
-		{
+		} else {
 			overlayManager.remove(overlayPrayerTab);
 		}
 	}

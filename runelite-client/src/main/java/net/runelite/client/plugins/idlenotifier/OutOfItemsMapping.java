@@ -26,33 +26,27 @@ package net.runelite.client.plugins.idlenotifier;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import java.util.Collection;
-import static net.runelite.api.ItemID.BLUEGILL;
-import static net.runelite.api.ItemID.COMMON_TENCH;
-import static net.runelite.api.ItemID.GREATER_SIREN;
-import static net.runelite.api.ItemID.MOTTLED_EEL;
 
-public enum OutOfItemsMapping
-{
+import java.util.Collection;
+
+import static net.runelite.api.ItemID.*;
+
+public enum OutOfItemsMapping {
 	AERIAL_FISHING_CUTTING(BLUEGILL, COMMON_TENCH, MOTTLED_EEL, GREATER_SIREN);
 
 	private static final Multimap<Integer, Integer> MAPPINGS = HashMultimap.create();
 	private final int groupedItemKey;
 	private final int[] groupedItemIDs;
 
-	static
-	{
-		for (final OutOfItemsMapping item : values())
-		{
-			for (int itemId : item.groupedItemIDs)
-			{
+	static {
+		for (final OutOfItemsMapping item : values()) {
+			for (int itemId : item.groupedItemIDs) {
 				MAPPINGS.put(itemId, item.groupedItemKey);
 			}
 		}
 	}
 
-	OutOfItemsMapping(int groupedItemKey, int... groupedItemIDs)
-	{
+	OutOfItemsMapping(int groupedItemKey, int... groupedItemIDs) {
 		this.groupedItemKey = groupedItemKey;
 		this.groupedItemIDs = groupedItemIDs;
 	}
@@ -65,12 +59,10 @@ public enum OutOfItemsMapping
 	 * Map an item that is part of a group of items that are consumed by a single
 	 * action to the first item in that group.
 	 */
-	public static int mapFirst(int itemId)
-	{
+	public static int mapFirst(int itemId) {
 		final Collection<Integer> mapping = MAPPINGS.get(itemId);
 
-		if (mapping == null || mapping.isEmpty())
-		{
+		if (mapping == null || mapping.isEmpty()) {
 			return itemId;
 		}
 

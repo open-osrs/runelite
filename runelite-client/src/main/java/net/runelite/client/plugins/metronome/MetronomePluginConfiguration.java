@@ -25,89 +25,77 @@
  */
 package net.runelite.client.plugins.metronome;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.Range;
-import net.runelite.client.config.Units;
+import net.runelite.client.config.*;
 
 @ConfigGroup("metronome")
-public interface MetronomePluginConfiguration extends Config
-{
+public interface MetronomePluginConfiguration extends Config {
 	@ConfigItem(
-		keyName = "tickCount",
-		name = "Tick count",
-		description = "Configures the number of game ticks between metronome sounds"
+			keyName = "tickCount",
+			name = "Tick count",
+			description = "Configures the number of game ticks between metronome sounds"
 	)
 	@Units(Units.TICKS)
-	default int tickCount()
-	{
+	default int tickCount() {
 		return 1;
 	}
 
 	@ConfigItem(
-		keyName = "enableTock",
-		name = "Enable tock (alternating) sound",
-		description = "Toggles whether to play \"tock\" sounds"
+			keyName = "enableTock",
+			name = "Enable tock (alternating) sound",
+			description = "Toggles whether to play \"tock\" sounds"
 	)
-	default boolean enableTock()
-	{
+	default boolean enableTock() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "tockNumber",
-		name = "Tock every nth \"tick\"",
-		description = "Configures how many \"ticks\" between each \"tock\""
+			keyName = "tockNumber",
+			name = "Tock every nth \"tick\"",
+			description = "Configures how many \"ticks\" between each \"tock\""
 	)
 	@Units(Units.TICKS)
-	default int tockNumber()
-	{
+	default int tockNumber() {
 		return 2;
 	}
 
 	@ConfigItem(
-		keyName = "tickOffset",
-		name = "Offset",
-		description = "Amount of ticks to offset the metronome (only useful for \"tocks\")"
+			keyName = "tickOffset",
+			name = "Offset",
+			description = "Amount of ticks to offset the metronome (only useful for \"tocks\")"
 	)
-	default int tickOffset()
-	{
+	default int tickOffset() {
 		return 0;
 	}
 
 	@ConfigItem(
-		keyName = "tickSoundFilePath",
-		name = "Tick .wav file path",
-		description = "The path to the file to be used for \"tick\" sounds (short .wav only)"
+			keyName = "tickSoundFilePath",
+			name = "Tick .wav file path",
+			description = "The path to the file to be used for \"tick\" sounds (short .wav only)"
 	)
-	default String tickPath()
-	{
+	default String tickPath() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "tockSoundFilePath",
-		name = "Tock .wav file path",
-		description = "The path to the file to be used for \"tock\" sounds (short .wav only)"
+			keyName = "tockSoundFilePath",
+			name = "Tock .wav file path",
+			description = "The path to the file to be used for \"tock\" sounds (short .wav only)"
 	)
-	default String tockPath()
-	{
+	default String tockPath() {
 		return "";
 	}
 
 	@Range(
-		min = 0,
-		max = 100
+			min = 0,
+			max = 100
 	)
 	@ConfigItem(
-		keyName = "volume",
-		name = "Volume modification",
-		description = "Configures tick/tock volume; only effects custom sounds."
+			keyName = "volume",
+			name = "Volume modification",
+			description = "Configures tick/tock volume; only effects custom sounds."
 	)
 	@Units(Units.PERCENT)
-	default int volume()
-	{
+	default int volume() {
 		return 35;
 	}
 }

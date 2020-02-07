@@ -28,34 +28,27 @@ import net.runelite.api.Client;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
 
-public class MultipleOfItemRequirement implements ItemRequirement
-{
+public class MultipleOfItemRequirement implements ItemRequirement {
 	private final int itemId;
 	private final int quantity;
 
-	public MultipleOfItemRequirement(int itemId, int quantity)
-	{
+	public MultipleOfItemRequirement(int itemId, int quantity) {
 		this.itemId = itemId;
 		this.quantity = quantity;
 	}
 
 	@Override
-	public boolean fulfilledBy(int itemId)
-	{
+	public boolean fulfilledBy(int itemId) {
 		return itemId == this.itemId && this.quantity == 1;
 	}
 
 	@Override
-	public boolean fulfilledBy(Item[] items)
-	{
+	public boolean fulfilledBy(Item[] items) {
 		int quantityFound = 0;
-		for (Item item : items)
-		{
-			if (item.getId() == itemId)
-			{
+		for (Item item : items) {
+			if (item.getId() == itemId) {
 				quantityFound += item.getQuantity();
-				if (quantityFound >= quantity)
-				{
+				if (quantityFound >= quantity) {
 					return true;
 				}
 			}
@@ -65,12 +58,10 @@ public class MultipleOfItemRequirement implements ItemRequirement
 	}
 
 	@Override
-	public String getCollectiveName(Client client)
-	{
+	public String getCollectiveName(Client client) {
 		ItemDefinition definition = client.getItemDefinition(itemId);
 
-		if (definition == null)
-		{
+		if (definition == null) {
 			return "N/A";
 		}
 

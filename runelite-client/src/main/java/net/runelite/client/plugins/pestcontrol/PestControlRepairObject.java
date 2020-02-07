@@ -25,52 +25,49 @@
 package net.runelite.client.plugins.pestcontrol;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ObjectID;
 
+import java.util.Set;
+
 @Getter(AccessLevel.PACKAGE)
-class PestControlRepairObject
-{
+class PestControlRepairObject {
 	@Getter(AccessLevel.PACKAGE)
 	private static final Set<Integer> repairableBarricades = ImmutableSet.of(
-		//ObjectID.BARRICADE_14224,
-		ObjectID.BARRICADE_14227,
-		ObjectID.BARRICADE_14228,
-		ObjectID.BARRICADE_14229,
-		ObjectID.BARRICADE_14230,
-		ObjectID.BARRICADE_14231,
-		ObjectID.BARRICADE_14232
+			//ObjectID.BARRICADE_14224,
+			ObjectID.BARRICADE_14227,
+			ObjectID.BARRICADE_14228,
+			ObjectID.BARRICADE_14229,
+			ObjectID.BARRICADE_14230,
+			ObjectID.BARRICADE_14231,
+			ObjectID.BARRICADE_14232
 	);
 
 	@Getter(AccessLevel.PACKAGE)
 	private static final Set<Integer> repairableGates = ImmutableSet.of(
-		ObjectID.GATE_14238,
-		ObjectID.GATE_14239,
-		ObjectID.GATE_14240,
-		ObjectID.GATE_14241,
-		ObjectID.GATE_14242,
-		ObjectID.GATE_14243,
-		ObjectID.GATE_14244,
-		ObjectID.GATE_14245,
-		ObjectID.GATE_14246,
-		ObjectID.GATE_14247,
-		ObjectID.GATE_14248
+			ObjectID.GATE_14238,
+			ObjectID.GATE_14239,
+			ObjectID.GATE_14240,
+			ObjectID.GATE_14241,
+			ObjectID.GATE_14242,
+			ObjectID.GATE_14243,
+			ObjectID.GATE_14244,
+			ObjectID.GATE_14245,
+			ObjectID.GATE_14246,
+			ObjectID.GATE_14247,
+			ObjectID.GATE_14248
 	);
 
-	static boolean isRepairableBarricadeId(int objectId)
-	{
+	static boolean isRepairableBarricadeId(int objectId) {
 		return repairableBarricades.contains(objectId);
 	}
 
-	static boolean isRepairableGateId(int objectId)
-	{
+	static boolean isRepairableGateId(int objectId) {
 		return repairableGates.contains(objectId);
 	}
 
-	static boolean isRepairableId(int objectId)
-	{
+	static boolean isRepairableId(int objectId) {
 		return isRepairableBarricadeId(objectId) || isRepairableGateId(objectId);
 	}
 }

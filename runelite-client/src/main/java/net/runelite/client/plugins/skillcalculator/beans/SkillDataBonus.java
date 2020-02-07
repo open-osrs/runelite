@@ -28,8 +28,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter(AccessLevel.PUBLIC)
-public class SkillDataBonus
-{
+public class SkillDataBonus {
 	private String name;
 	private float value;
 }

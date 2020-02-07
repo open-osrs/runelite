@@ -24,11 +24,7 @@
  */
 package net.runelite.client.ui;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.util.function.Function;
 
 /**
@@ -36,62 +32,48 @@ import java.util.function.Function;
  * <p>
  * See https://www.javaworld.com/article/2077486/core-java/java-tip-121--flex-your-grid-layout.html
  */
-public class DynamicGridLayout extends GridLayout
-{
-	public DynamicGridLayout()
-	{
+public class DynamicGridLayout extends GridLayout {
+	public DynamicGridLayout() {
 		this(1, 0, 0, 0);
 	}
 
-	public DynamicGridLayout(int rows, int cols)
-	{
+	public DynamicGridLayout(int rows, int cols) {
 		this(rows, cols, 0, 0);
 	}
 
-	public DynamicGridLayout(int rows, int cols, int hgap, int vgap)
-	{
+	public DynamicGridLayout(int rows, int cols, int hgap, int vgap) {
 		super(rows, cols, hgap, vgap);
 	}
 
 	@Override
-	public Dimension preferredLayoutSize(Container parent)
-	{
-		synchronized (parent.getTreeLock())
-		{
+	public Dimension preferredLayoutSize(Container parent) {
+		synchronized (parent.getTreeLock()) {
 			return calculateSize(parent, Component::getPreferredSize);
 		}
 	}
 
 	@Override
-	public Dimension minimumLayoutSize(Container parent)
-	{
-		synchronized (parent.getTreeLock())
-		{
+	public Dimension minimumLayoutSize(Container parent) {
+		synchronized (parent.getTreeLock()) {
 			return calculateSize(parent, Component::getMinimumSize);
 		}
 	}
 
 	@Override
-	public void layoutContainer(Container parent)
-	{
-		synchronized (parent.getTreeLock())
-		{
+	public void layoutContainer(Container parent) {
+		synchronized (parent.getTreeLock()) {
 			final Insets insets = parent.getInsets();
 			final int ncomponents = parent.getComponentCount();
 			int nrows = getRows();
 			int ncols = getColumns();
 
-			if (ncomponents == 0)
-			{
+			if (ncomponents == 0) {
 				return;
 			}
 
-			if (nrows > 0)
-			{
+			if (nrows > 0) {
 				ncols = (ncomponents + nrows - 1) / nrows;
-			}
-			else
-			{
+			} else {
 				nrows = (ncomponents + ncols - 1) / ncols;
 			}
 
@@ -110,8 +92,7 @@ public class DynamicGridLayout extends GridLayout
 			final int[] h = new int[nrows];
 
 			// calculate dimensions for all components + apply scaling
-			for (int i = 0; i < ncomponents; i++)
-			{
+			for (int i = 0; i < ncomponents; i++) {
 				final int r = i / ncols;
 				final int c = i % ncols;
 				final Component comp = parent.getComponent(i);
@@ -119,26 +100,21 @@ public class DynamicGridLayout extends GridLayout
 				d.width = (int) (sw * d.width);
 				d.height = (int) (sh * d.height);
 
-				if (w[c] < d.width)
-				{
+				if (w[c] < d.width) {
 					w[c] = d.width;
 				}
 
-				if (h[r] < d.height)
-				{
+				if (h[r] < d.height) {
 					h[r] = d.height;
 				}
 			}
 
 			// Apply new bounds to all child components
-			for (int c = 0, x = insets.left; c < ncols; c++)
-			{
-				for (int r = 0, y = insets.top; r < nrows; r++)
-				{
+			for (int c = 0, x = insets.left; c < ncols; c++) {
+				for (int r = 0, y = insets.top; r < nrows; r++) {
 					int i = r * ncols + c;
 
-					if (i < ncomponents)
-					{
+					if (i < ncomponents) {
 						parent.getComponent(i).setBounds(x, y, w[c], h[r]);
 					}
 
@@ -157,18 +133,14 @@ public class DynamicGridLayout extends GridLayout
 	 * @param sizer  functioning returning dimension of the child component
 	 * @return outer size
 	 */
-	private Dimension calculateSize(final Container parent, final Function<Component, Dimension> sizer)
-	{
+	private Dimension calculateSize(final Container parent, final Function<Component, Dimension> sizer) {
 		final int ncomponents = parent.getComponentCount();
 		int nrows = getRows();
 		int ncols = getColumns();
 
-		if (nrows > 0)
-		{
+		if (nrows > 0) {
 			ncols = (ncomponents + nrows - 1) / nrows;
-		}
-		else
-		{
+		} else {
 			nrows = (ncomponents + ncols - 1) / ncols;
 		}
 
@@ -176,20 +148,17 @@ public class DynamicGridLayout extends GridLayout
 		final int[] h = new int[nrows];
 
 		// Calculate dimensions for all components
-		for (int i = 0; i < ncomponents; i++)
-		{
+		for (int i = 0; i < ncomponents; i++) {
 			final int r = i / ncols;
 			final int c = i % ncols;
 			final Component comp = parent.getComponent(i);
 			final Dimension d = sizer.apply(comp);
 
-			if (w[c] < d.width)
-			{
+			if (w[c] < d.width) {
 				w[c] = d.width;
 			}
 
-			if (h[r] < d.height)
-			{
+			if (h[r] < d.height) {
 				h[r] = d.height;
 			}
 		}
@@ -197,15 +166,13 @@ public class DynamicGridLayout extends GridLayout
 		// Calculate total width and height of the layout
 		int nw = 0;
 
-		for (int j = 0; j < ncols; j++)
-		{
+		for (int j = 0; j < ncols; j++) {
 			nw += w[j];
 		}
 
 		int nh = 0;
 
-		for (int i = 0; i < nrows; i++)
-		{
+		for (int i = 0; i < nrows; i++) {
 			nh += h[i];
 		}
 
@@ -213,7 +180,7 @@ public class DynamicGridLayout extends GridLayout
 
 		// Apply insets and horizontal and vertical gap to layout
 		return new Dimension(
-			insets.left + insets.right + nw + (ncols - 1) * getHgap(),
-			insets.top + insets.bottom + nh + (nrows - 1) * getVgap());
+				insets.left + insets.right + nw + (ncols - 1) * getHgap(),
+				insets.top + insets.bottom + nh + (nrows - 1) * getVgap());
 	}
 }

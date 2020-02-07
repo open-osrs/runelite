@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.NPC;
 
-class Nylos
-{
+class Nylos {
 	@Getter(AccessLevel.PUBLIC)
 	private NPC npc;
 	@Getter(AccessLevel.PUBLIC)
@@ -16,8 +15,7 @@ class Nylos
 	@Setter(AccessLevel.PUBLIC)
 	private SpawnLocation spawnLocation;
 
-	Nylos(NPC npc, SpawnLocation spawnLocation)
-	{
+	Nylos(NPC npc, SpawnLocation spawnLocation) {
 		this.npc = npc;
 		this.npcIndex = npc.getIndex();
 		this.spawnLocation = spawnLocation;
@@ -25,8 +23,7 @@ class Nylos
 
 	@Getter(AccessLevel.PACKAGE)
 	@AllArgsConstructor
-	enum SpawnLocation
-	{
+	enum SpawnLocation {
 		N1("n1"),
 		N2("n2"),
 		S1("s1"),

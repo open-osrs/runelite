@@ -24,15 +24,15 @@
  */
 package net.runelite.client.plugins.stealingartefacts;
 
-import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.coords.WorldPoint;
 
+import java.util.Objects;
+
 @RequiredArgsConstructor
-enum StealingArtefactsHouse
-{
+enum StealingArtefactsHouse {
 	NORTH("Northern", "North", new WorldPoint(1767, 3751, 0)),
 	NORTH_WESTERN("North-Western", "N.West", new WorldPoint(1750, 3763, 1)),
 	SOUTH("Southern", "South", new WorldPoint(1764, 3735, 1)),
@@ -50,26 +50,21 @@ enum StealingArtefactsHouse
 	private final WorldPoint worldPoint;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return this.name;
 	}
 
-	public static StealingArtefactsHouse fromName(String name)
-	{
+	public static StealingArtefactsHouse fromName(String name) {
 		StealingArtefactsHouse stealingArtefactsHouse = null;
 
-		for (StealingArtefactsHouse house : StealingArtefactsHouse.values())
-		{
-			if (Objects.equals(house.name, name))
-			{
+		for (StealingArtefactsHouse house : StealingArtefactsHouse.values()) {
+			if (Objects.equals(house.name, name)) {
 				stealingArtefactsHouse = house;
 				break;
 			}
 		}
 
-		if (stealingArtefactsHouse == null)
-		{
+		if (stealingArtefactsHouse == null) {
 			throw new IllegalArgumentException();
 		}
 

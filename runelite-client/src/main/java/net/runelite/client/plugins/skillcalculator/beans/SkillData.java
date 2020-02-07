@@ -28,8 +28,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter(AccessLevel.PUBLIC)
-public class SkillData
-{
+public class SkillData {
 	private SkillDataEntry[] actions;
 	private SkillDataBonus[] bonuses;
 }

@@ -27,24 +27,18 @@ package net.runelite.client.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WildcardMatcher
-{
+public class WildcardMatcher {
 	private static final Pattern WILDCARD_PATTERN = Pattern.compile("(?i)[^*]+|(\\*)");
 
-	public static boolean matches(String pattern, String text)
-	{
+	public static boolean matches(String pattern, String text) {
 		final Matcher matcher = WILDCARD_PATTERN.matcher(pattern);
 		final StringBuffer buffer = new StringBuffer();
 
 		buffer.append("(?i)");
-		while (matcher.find())
-		{
-			if (matcher.group(1) != null)
-			{
+		while (matcher.find()) {
+			if (matcher.group(1) != null) {
 				matcher.appendReplacement(buffer, ".*");
-			}
-			else
-			{
+			} else {
 				matcher.appendReplacement(buffer, "\\\\Q" + matcher.group(0) + "\\\\E");
 			}
 		}

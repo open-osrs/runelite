@@ -24,32 +24,25 @@
  */
 package net.runelite.client.plugins.xptracker;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Experience;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Skill;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.SkillColor;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.components.ComponentOrientation;
-import net.runelite.client.ui.overlay.components.ImageComponent;
-import net.runelite.client.ui.overlay.components.LineComponent;
-import net.runelite.client.ui.overlay.components.PanelComponent;
-import net.runelite.client.ui.overlay.components.ProgressBarComponent;
-import net.runelite.client.ui.overlay.components.SplitComponent;
+import net.runelite.client.ui.overlay.components.*;
 import net.runelite.client.util.QuantityFormatter;
 
-class XpInfoBoxOverlay extends Overlay
-{
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
+class XpInfoBoxOverlay extends Overlay {
 	private static final int PANEL_PREFERRED_WIDTH = 150;
 	private static final int BORDER_SIZE = 2;
 	private static final int XP_AND_PROGRESS_BAR_GAP = 2;
@@ -65,10 +58,9 @@ class XpInfoBoxOverlay extends Overlay
 	private final BufferedImage icon;
 
 	XpInfoBoxOverlay(
-		XpTrackerPlugin plugin,
-		Skill skill,
-		BufferedImage icon)
-	{
+			XpTrackerPlugin plugin,
+			Skill skill,
+			BufferedImage icon) {
 		super(plugin);
 		this.plugin = plugin;
 		this.skill = skill;
@@ -83,8 +75,7 @@ class XpInfoBoxOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		panel.getChildren().clear();
 		iconXpSplitPanel.getChildren().clear();
 
@@ -96,8 +87,7 @@ class XpInfoBoxOverlay extends Overlay
 		final String leftStr;
 		final int rightNum;
 
-		switch (plugin.getOnScreenDisplayMode())
-		{
+		switch (plugin.getOnScreenDisplayMode()) {
 			case ACTIONS_DONE:
 				leftStr = snapshot.getActionType().getLabel() + " Done";
 				rightNum = snapshot.getActionsInSession();
@@ -118,15 +108,14 @@ class XpInfoBoxOverlay extends Overlay
 		}
 
 		final LineComponent xpLine = LineComponent.builder()
-			.left(leftStr + ":")
-			.right(QuantityFormatter.quantityToRSDecimalStack(rightNum, true))
-			.build();
+				.left(leftStr + ":")
+				.right(QuantityFormatter.quantityToRSDecimalStack(rightNum, true))
+				.build();
 
 		final String bottemLeftStr;
 		final int bottomRightNum;
 
-		switch (plugin.getOnScreenDisplayModeBottom())
-		{
+		switch (plugin.getOnScreenDisplayModeBottom()) {
 			case ACTIONS_HOUR:
 				bottemLeftStr = snapshot.getActionType().getLabel() + "/Hour";
 				bottomRightNum = snapshot.getActionsPerHour();
@@ -139,23 +128,23 @@ class XpInfoBoxOverlay extends Overlay
 		}
 
 		final LineComponent xpLineBottom = LineComponent.builder()
-			.left(bottemLeftStr + ":")
-			.right(QuantityFormatter.quantityToRSDecimalStack(bottomRightNum, true))
-			.build();
+				.left(bottemLeftStr + ":")
+				.right(QuantityFormatter.quantityToRSDecimalStack(bottomRightNum, true))
+				.build();
 
 		final SplitComponent xpSplit = SplitComponent.builder()
-			.first(xpLine)
-			.second(xpLineBottom)
-			.orientation(ComponentOrientation.VERTICAL)
-			.build();
+				.first(xpLine)
+				.second(xpLineBottom)
+				.orientation(ComponentOrientation.VERTICAL)
+				.build();
 
 		final ImageComponent imageComponent = new ImageComponent(icon);
 		final SplitComponent iconXpSplit = SplitComponent.builder()
-			.first(imageComponent)
-			.second(xpSplit)
-			.orientation(ComponentOrientation.HORIZONTAL)
-			.gap(new Point(XP_AND_ICON_GAP, 0))
-			.build();
+				.first(imageComponent)
+				.second(xpSplit)
+				.orientation(ComponentOrientation.HORIZONTAL)
+				.gap(new Point(XP_AND_ICON_GAP, 0))
+				.build();
 
 		iconXpSplitPanel.getChildren().add(iconXpSplit);
 
@@ -166,8 +155,8 @@ class XpInfoBoxOverlay extends Overlay
 
 		progressBarComponent.setLeftLabel(String.valueOf(snapshot.getStartLevel()));
 		progressBarComponent.setRightLabel(snapshot.getEndGoalXp() == Experience.MAX_SKILL_XP
-			? "200M"
-			: String.valueOf(snapshot.getEndLevel()));
+				? "200M"
+				: String.valueOf(snapshot.getEndLevel()));
 
 		progressBarComponent.setValue(snapshot.getSkillProgressToGoal());
 
@@ -178,8 +167,7 @@ class XpInfoBoxOverlay extends Overlay
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return super.getName() + skill.getName();
 	}
 }

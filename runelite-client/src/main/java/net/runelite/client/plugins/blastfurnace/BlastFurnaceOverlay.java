@@ -24,25 +24,25 @@
  */
 package net.runelite.client.plugins.blastfurnace;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ComponentOrientation;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-class BlastFurnaceOverlay extends Overlay
-{
+class BlastFurnaceOverlay extends Overlay {
 	private final Client client;
 	private final BlastFurnacePlugin plugin;
 	private final PanelComponent imagePanelComponent = new PanelComponent();
@@ -51,8 +51,7 @@ class BlastFurnaceOverlay extends Overlay
 	private ItemManager itemManager;
 
 	@Inject
-	BlastFurnaceOverlay(final Client client, final BlastFurnacePlugin plugin)
-	{
+	BlastFurnaceOverlay(final Client client, final BlastFurnacePlugin plugin) {
 		super(plugin);
 		this.plugin = plugin;
 		this.client = client;
@@ -62,21 +61,17 @@ class BlastFurnaceOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.getConveyorBelt() == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.getConveyorBelt() == null) {
 			return null;
 		}
 
 		imagePanelComponent.getChildren().clear();
 
-		for (BarsOres varbit : BarsOres.values())
-		{
+		for (BarsOres varbit : BarsOres.values()) {
 			int amount = client.getVar(varbit.getVarbit());
 
-			if (amount == 0)
-			{
+			if (amount == 0) {
 				continue;
 			}
 
@@ -86,8 +81,7 @@ class BlastFurnaceOverlay extends Overlay
 		return imagePanelComponent.render(graphics);
 	}
 
-	private BufferedImage getImage(int itemID, int amount)
-	{
+	private BufferedImage getImage(int itemID, int amount) {
 		return itemManager.getImage(itemID, amount, true);
 	}
 }

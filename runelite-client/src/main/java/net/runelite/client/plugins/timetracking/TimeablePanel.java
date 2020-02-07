@@ -25,13 +25,6 @@
  */
 package net.runelite.client.plugins.timetracking;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Constants;
@@ -40,16 +33,18 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.ThinProgressBar;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+
 @Getter(AccessLevel.PUBLIC)
-public class TimeablePanel<T> extends JPanel
-{
+public class TimeablePanel<T> extends JPanel {
 	private final T timeable;
 	private final JLabel icon = new JLabel();
 	private final JLabel estimate = new JLabel();
 	private final ThinProgressBar progress = new ThinProgressBar();
 
-	public TimeablePanel(T timeable, String title, int maximumProgressValue)
-	{
+	public TimeablePanel(T timeable, String title, int maximumProgressValue) {
 		this.timeable = timeable;
 
 		setLayout(new BorderLayout());

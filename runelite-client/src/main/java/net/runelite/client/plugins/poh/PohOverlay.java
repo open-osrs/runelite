@@ -24,13 +24,6 @@
  */
 package net.runelite.client.plugins.poh;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -40,16 +33,22 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
-@Singleton
-public class PohOverlay extends Overlay
-{
-	private static final PohIcons[] PORTALS = new PohIcons[]
-		{
-			PohIcons.LUMBRIDGE, PohIcons.FALADOR, PohIcons.VARROCK, PohIcons.CAMELOT, PohIcons.ARDOUGNE,
-			PohIcons.YANILLE, PohIcons.LUNARISLE, PohIcons.WATERBIRTH, PohIcons.FISHINGGUILD,
-			PohIcons.SENNTISTEN, PohIcons.KHARYLL, PohIcons.ANNAKARL, PohIcons.KOUREND, PohIcons.MARIM, PohIcons.TROLLSTRONGHOLD, PohIcons.CARRALLANGAR, PohIcons.CATHERBY, PohIcons.GHORROCK
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-		};
+@Singleton
+public class PohOverlay extends Overlay {
+	private static final PohIcons[] PORTALS = new PohIcons[]
+			{
+					PohIcons.LUMBRIDGE, PohIcons.FALADOR, PohIcons.VARROCK, PohIcons.CAMELOT, PohIcons.ARDOUGNE,
+					PohIcons.YANILLE, PohIcons.LUNARISLE, PohIcons.WATERBIRTH, PohIcons.FISHINGGUILD,
+					PohIcons.SENNTISTEN, PohIcons.KHARYLL, PohIcons.ANNAKARL, PohIcons.KOUREND, PohIcons.MARIM, PohIcons.TROLLSTRONGHOLD, PohIcons.CARRALLANGAR, PohIcons.CATHERBY, PohIcons.GHORROCK
+
+			};
 
 	private static final int MAX_DISTANCE = 2350;
 
@@ -60,8 +59,7 @@ public class PohOverlay extends Overlay
 	private final PohPlugin plugin;
 
 	@Inject
-	public PohOverlay(final Client client, final PohPlugin plugin)
-	{
+	public PohOverlay(final Client client, final PohPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
@@ -69,22 +67,18 @@ public class PohOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		LocalPoint localLocation = client.getLocalPlayer().getLocalLocation();
 		plugin.getPohObjects().forEach((object, tile) ->
 		{
 			LocalPoint location = object.getLocalLocation();
-			if (tile.getPlane() == client.getPlane() && localLocation.distanceTo(location) <= MAX_DISTANCE)
-			{
+			if (tile.getPlane() == client.getPlane() && localLocation.distanceTo(location) <= MAX_DISTANCE) {
 				PohIcons icon = PohIcons.getIcon(object.getId());
 
-				if (icon != null && iconList.contains(icon))
-				{
+				if (icon != null && iconList.contains(icon)) {
 					net.runelite.api.Point minimapLoc = Perspective.getMiniMapImageLocation(client, object.getLocalLocation(), icon.getImage());
 
-					if (minimapLoc != null)
-					{
+					if (minimapLoc != null) {
 						graphics.drawImage(icon.getImage(), minimapLoc.getX(), minimapLoc.getY(), null);
 					}
 				}
@@ -94,55 +88,42 @@ public class PohOverlay extends Overlay
 		return null;
 	}
 
-	public void updateConfig()
-	{
+	public void updateConfig() {
 		iconList.clear();
-		if (plugin.isShowPortals())
-		{
+		if (plugin.isShowPortals()) {
 			Collections.addAll(iconList, PORTALS);
 		}
-		if (plugin.isShowAltar())
-		{
+		if (plugin.isShowAltar()) {
 			iconList.add(PohIcons.ALTAR);
 		}
-		if (plugin.isShowGlory())
-		{
+		if (plugin.isShowGlory()) {
 			iconList.add(PohIcons.GLORY);
 		}
-		if (plugin.isShowRepairStand())
-		{
+		if (plugin.isShowRepairStand()) {
 			iconList.add(PohIcons.REPAIR);
 		}
-		if (plugin.isShowPools())
-		{
+		if (plugin.isShowPools()) {
 			iconList.add(PohIcons.POOLS);
 		}
-		if (plugin.isShowExitPortal())
-		{
+		if (plugin.isShowExitPortal()) {
 			iconList.add(PohIcons.EXITPORTAL);
 		}
-		if (plugin.isShowSpellbook())
-		{
+		if (plugin.isShowSpellbook()) {
 			iconList.add(PohIcons.SPELLBOOKALTAR);
 		}
-		if (plugin.isShowJewelleryBox())
-		{
+		if (plugin.isShowJewelleryBox()) {
 			iconList.add(PohIcons.JEWELLERYBOX);
 		}
-		if (plugin.isShowMagicTravel())
-		{
+		if (plugin.isShowMagicTravel()) {
 			iconList.add(PohIcons.MAGICTRAVEL);
 		}
-		if (plugin.isShowPortalNexus())
-		{
+		if (plugin.isShowPortalNexus()) {
 			iconList.add(PohIcons.PORTALNEXUS);
 		}
-		if (plugin.isShowDigsitePendant())
-		{
+		if (plugin.isShowDigsitePendant()) {
 			iconList.add(PohIcons.DIGSITEPENDANT);
 		}
-		if (plugin.isShowXericsTalisman())
-		{
+		if (plugin.isShowXericsTalisman()) {
 			iconList.add(PohIcons.XERICSTALISMAN);
 		}
 	}

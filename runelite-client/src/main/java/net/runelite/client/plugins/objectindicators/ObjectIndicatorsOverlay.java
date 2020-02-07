@@ -25,28 +25,18 @@
  */
 package net.runelite.client.plugins.objectindicators;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Shape;
-import static java.lang.Math.floor;
+import net.runelite.api.*;
+import net.runelite.client.graphics.ModelOutlineRenderer;
+import net.runelite.client.ui.overlay.*;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.api.Client;
-import net.runelite.api.DecorativeObject;
-import net.runelite.api.GameObject;
-import net.runelite.api.TileObject;
-import net.runelite.api.WallObject;
-import net.runelite.client.graphics.ModelOutlineRenderer;
-import net.runelite.client.ui.overlay.Overlay;
-import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.ui.overlay.OverlayUtil;
+import java.awt.*;
+
+import static java.lang.Math.floor;
 
 @Singleton
-class ObjectIndicatorsOverlay extends Overlay
-{
+class ObjectIndicatorsOverlay extends Overlay {
 	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
 	private final Client client;
@@ -54,8 +44,7 @@ class ObjectIndicatorsOverlay extends Overlay
 	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	private ObjectIndicatorsOverlay(final Client client, final ObjectIndicatorsPlugin plugin, final ModelOutlineRenderer modelOutliner)
-	{
+	private ObjectIndicatorsOverlay(final Client client, final ObjectIndicatorsPlugin plugin, final ModelOutlineRenderer modelOutliner) {
 		this.client = client;
 		this.plugin = plugin;
 		this.modelOutliner = modelOutliner;
@@ -65,12 +54,9 @@ class ObjectIndicatorsOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		for (TileObject object : plugin.getObjects())
-		{
-			if (object.getPlane() != client.getPlane())
-			{
+	public Dimension render(Graphics2D graphics) {
+		for (TileObject object : plugin.getObjects()) {
+			if (object.getPlane() != client.getPlane()) {
 				continue;
 			}
 
@@ -78,11 +64,9 @@ class ObjectIndicatorsOverlay extends Overlay
 			int opacity = (int) floor(plugin.getObjectMarkerAlpha() * 2.55);
 			Color objectColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), opacity);
 
-			switch (plugin.getObjectMarkerRenderStyle())
-			{
+			switch (plugin.getObjectMarkerRenderStyle()) {
 				case OUTLINE:
-					switch (plugin.getObjectMarkerOutlineRenderStyle())
-					{
+					switch (plugin.getObjectMarkerOutlineRenderStyle()) {
 						case THIN_OUTLINE:
 							modelOutliner.drawOutline(object, 1, objectColor);
 							break;
@@ -104,39 +88,29 @@ class ObjectIndicatorsOverlay extends Overlay
 					final Shape polygon;
 					Shape polygon2 = null;
 
-					if (object instanceof GameObject)
-					{
+					if (object instanceof GameObject) {
 						polygon = ((GameObject) object).getConvexHull();
-					}
-					else if (object instanceof WallObject)
-					{
+					} else if (object instanceof WallObject) {
 						polygon = ((WallObject) object).getConvexHull();
 						polygon2 = ((WallObject) object).getConvexHull2();
-					}
-					else if (object instanceof DecorativeObject)
-					{
+					} else if (object instanceof DecorativeObject) {
 						polygon = ((DecorativeObject) object).getConvexHull();
 						polygon2 = ((DecorativeObject) object).getConvexHull2();
-					}
-					else
-					{
+					} else {
 						polygon = object.getCanvasTilePoly();
 					}
 
-					if (polygon != null)
-					{
+					if (polygon != null) {
 						OverlayUtil.renderPolygon(graphics, polygon, objectColor);
 					}
 
-					if (polygon2 != null)
-					{
+					if (polygon2 != null) {
 						OverlayUtil.renderPolygon(graphics, polygon2, objectColor);
 					}
 					break;
 				case CLICKBOX:
 					Shape clickbox = object.getClickbox();
-					if (clickbox != null)
-					{
+					if (clickbox != null) {
 						OverlayUtil.renderHoverableArea(graphics, object.getClickbox(), client.getMouseCanvasPosition(), TRANSPARENT, objectColor, objectColor.darker());
 					}
 					break;

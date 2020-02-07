@@ -29,82 +29,74 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("grandexchange")
-public interface GrandExchangeConfig extends Config
-{
+public interface GrandExchangeConfig extends Config {
 	@ConfigItem(
-		position = 1,
-		keyName = "quickLookup",
-		name = "Hotkey lookup (Alt + Left click)",
-		description = "Configures whether to enable the hotkey lookup for ge searches"
+			position = 1,
+			keyName = "quickLookup",
+			name = "Hotkey lookup (Alt + Left click)",
+			description = "Configures whether to enable the hotkey lookup for ge searches"
 	)
-	default boolean quickLookup()
-	{
+	default boolean quickLookup() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "enableNotifications",
-		name = "Enable Notifications",
-		description = "Configures whether to enable notifications when an offer updates"
+			position = 2,
+			keyName = "enableNotifications",
+			name = "Enable Notifications",
+			description = "Configures whether to enable notifications when an offer updates"
 	)
-	default boolean enableNotifications()
-	{
+	default boolean enableNotifications() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "enableOsbPrices",
-		name = "Enable OSB actively traded prices",
-		description = "Shows the OSBuddy actively traded price at the GE"
+			position = 3,
+			keyName = "enableOsbPrices",
+			name = "Enable OSB actively traded prices",
+			description = "Shows the OSBuddy actively traded price at the GE"
 	)
-	default boolean enableOsbPrices()
-	{
+	default boolean enableOsbPrices() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "enableGeLimits",
-		name = "Enable GE Limits on GE",
-		description = "Shows the GE Limits on the GE"
+			position = 4,
+			keyName = "enableGeLimits",
+			name = "Enable GE Limits on GE",
+			description = "Shows the GE Limits on the GE"
 	)
-	default boolean enableGELimits()
-	{
+	default boolean enableGELimits() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "showTotal",
-		name = "Show grand exchange total",
-		description = "Show grand exchange total"
+			position = 5,
+			keyName = "showTotal",
+			name = "Show grand exchange total",
+			description = "Show grand exchange total"
 	)
-	default boolean showTotal()
-	{
+	default boolean showTotal() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "showExact",
-		name = "Show exact total value",
-		description = "Show exact total value"
+			position = 6,
+			keyName = "showExact",
+			name = "Show exact total value",
+			description = "Show exact total value"
 	)
-	default boolean showExact()
-	{
+	default boolean showExact() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "enableAfford",
-		name = "Enable Afford quantity on GE",
-		description = "Shows the quantity you can buy on the GE"
+			position = 7,
+			keyName = "enableAfford",
+			name = "Enable Afford quantity on GE",
+			description = "Shows the quantity you can buy on the GE"
 	)
-	default boolean enableAfford()
-	{
+	default boolean enableAfford() {
 		return true;
 	}
 }

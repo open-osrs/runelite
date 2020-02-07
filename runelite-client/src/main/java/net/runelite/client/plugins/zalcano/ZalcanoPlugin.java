@@ -32,11 +32,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.AnimationID;
-import net.runelite.api.Client;
-import net.runelite.api.ItemID;
-import net.runelite.api.NPC;
-import net.runelite.api.NpcID;
+import net.runelite.api.*;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
@@ -50,14 +46,13 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Zalcano",
-	description = "Highlights Zalcano AOEs and useful stuff",
-	tags = {"zalcano", "aoe", "prifddinas", "elf", "boss"},
-	type = PluginType.PVM
+		name = "Zalcano",
+		description = "Highlights Zalcano AOEs and useful stuff",
+		tags = {"zalcano", "aoe", "prifddinas", "elf", "boss"},
+		type = PluginType.PVM
 )
 @Slf4j
-public class ZalcanoPlugin extends Plugin
-{
+public class ZalcanoPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -93,34 +88,28 @@ public class ZalcanoPlugin extends Plugin
 	private int ores = 0;
 
 	@Provides
-	ZalcanoConfig getConfig(ConfigManager configManager)
-	{
+	ZalcanoConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(ZalcanoConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		eventBus.subscribe(GameTick.class, "regionchecker", this::onGameTickCheckRegion);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		eventBus.unregister("regionchecker");
 		overlayManager.remove(overlay);
 		overlayManager.remove(stepsOverlay);
 	}
 
 	@Override
-	public void configure(Binder binder)
-	{
+	public void configure(Binder binder) {
 	}
 
-	private void onGameTickCheckRegion(GameTick gameTick)
-	{
-		if (util.isInZalcanoRegion())
-		{
+	private void onGameTickCheckRegion(GameTick gameTick) {
+		if (util.isInZalcanoRegion()) {
 			log.debug("region check complete loading other events");
 
 			util.manuallyFindZalcano(); //this is here because the new subscribed npcspawn doesn't catch a pre existing zalcano
@@ -133,10 +122,8 @@ public class ZalcanoPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned npcSpawned)
-	{
-		switch (npcSpawned.getNpc().getId())
-		{
+	private void onNpcSpawned(NpcSpawned npcSpawned) {
+		switch (npcSpawned.getNpc().getId()) {
 			case NpcID.ZALCANO:
 				log.debug("zalcano spawned");
 				zalcano = npcSpawned.getNpc();
@@ -149,10 +136,8 @@ public class ZalcanoPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned npcDespawned)
-	{
-		switch (npcDespawned.getNpc().getId())
-		{
+	private void onNpcDespawned(NpcDespawned npcDespawned) {
+		switch (npcDespawned.getNpc().getId()) {
 			case NpcID.ZALCANO:
 				zalcano = null;
 				break;
@@ -173,46 +158,37 @@ public class ZalcanoPlugin extends Plugin
 	 * @param gameTick
 	 */
 	@Subscribe
-	private void gameTickStepMachine(GameTick gameTick)
-	{
-		if (!config.showSteps())
-		{
+	private void gameTickStepMachine(GameTick gameTick) {
+		if (!config.showSteps()) {
 			return;
 		}
 
-		if (getZalcano() != null)
-		{
+		if (getZalcano() != null) {
 			if (getZalcano().getAnimation() == AnimationID.ZALCANO_KNOCKED_DOWN) //zalcano got knocked down
 			{
 				setStep(Step.MINE_ZALCANO);
 				return;
 			}
 		}
-		if (util.countItemInInventory(ItemID.TEPHRA) < 3 && util.countItemInInventory(ItemID.REFINED_TEPHRA) < 3 && util.countStackInInventory(ItemID.IMBUED_TEPHRA) < 3)
-		{
-			if (client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) == ItemID.IMBUED_TEPHRA)
-			{
+		if (util.countItemInInventory(ItemID.TEPHRA) < 3 && util.countItemInInventory(ItemID.REFINED_TEPHRA) < 3 && util.countStackInInventory(ItemID.IMBUED_TEPHRA) < 3) {
+			if (client.getLocalPlayer().getPlayerAppearance().getEquipmentId(KitType.WEAPON) == ItemID.IMBUED_TEPHRA) {
 				setStep(Step.THROW);
 				return;
 			}
-			if (getZalcano() != null && util.countItemInInventory(ItemID.REFINED_TEPHRA) == 0 && util.countItemInInventory(ItemID.IMBUED_TEPHRA) == 0)
-			{
+			if (getZalcano() != null && util.countItemInInventory(ItemID.REFINED_TEPHRA) == 0 && util.countItemInInventory(ItemID.IMBUED_TEPHRA) == 0) {
 				setStep(Step.MINE);
 				return;
 			}
 		}
-		if (util.countItemInInventory(ItemID.TEPHRA) >= 3)
-		{
+		if (util.countItemInInventory(ItemID.TEPHRA) >= 3) {
 			setStep(Step.SMELT);
 			return;
 		}
-		if (util.countItemInInventory(ItemID.REFINED_TEPHRA) >= 3 && ores == 0)
-		{
+		if (util.countItemInInventory(ItemID.REFINED_TEPHRA) >= 3 && ores == 0) {
 			setStep(Step.RUNECRAFT);
 			return;
 		}
-		if (util.countStackInInventory(ItemID.IMBUED_TEPHRA) >= 3)
-		{
+		if (util.countStackInInventory(ItemID.IMBUED_TEPHRA) >= 3) {
 			setStep(Step.THROW);
 			return;
 		}
@@ -220,10 +196,8 @@ public class ZalcanoPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void gameTickOreListener(GameTick gameTick)
-	{
-		if (!config.showSteps())
-		{
+	private void gameTickOreListener(GameTick gameTick) {
+		if (!config.showSteps()) {
 			return;
 		}
 		ores = util.countItemInInventory(ItemID.TEPHRA);

@@ -31,8 +31,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface ConfigItem
-{
+public @interface ConfigItem {
 	int position() default -1;
 
 	String keyName();

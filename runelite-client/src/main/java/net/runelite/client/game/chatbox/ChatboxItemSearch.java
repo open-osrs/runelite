@@ -27,27 +27,21 @@ package net.runelite.client.game.chatbox;
 
 import com.google.common.primitives.Ints;
 import com.google.inject.Inject;
+import lombok.Getter;
+import net.runelite.api.Client;
+import net.runelite.api.ItemDefinition;
+import net.runelite.api.widgets.*;
+import net.runelite.client.callback.ClientThread;
+import net.runelite.client.game.ItemManager;
+
+import javax.inject.Singleton;
 import java.awt.event.KeyEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-import javax.inject.Singleton;
-import lombok.Getter;
-import net.runelite.api.Client;
-import net.runelite.api.ItemDefinition;
-import net.runelite.api.widgets.ItemQuantityMode;
-import net.runelite.api.widgets.JavaScriptCallback;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetPositionMode;
-import net.runelite.api.widgets.WidgetSizeMode;
-import net.runelite.api.widgets.WidgetTextAlignment;
-import net.runelite.api.widgets.WidgetType;
-import net.runelite.client.callback.ClientThread;
-import net.runelite.client.game.ItemManager;
 
 @Singleton
-public class ChatboxItemSearch extends ChatboxTextInput
-{
+public class ChatboxItemSearch extends ChatboxTextInput {
 	private static final int ICON_HEIGHT = 32;
 	private static final int ICON_WIDTH = 36;
 	private static final int PADDING = 6;
@@ -68,8 +62,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 
 	@Inject
 	private ChatboxItemSearch(ChatboxPanelManager chatboxPanelManager, ClientThread clientThread,
-							ItemManager itemManager, Client client)
-	{
+							  ItemManager itemManager, Client client) {
 		super(chatboxPanelManager, clientThread);
 		this.chatboxPanelManager = chatboxPanelManager;
 		this.itemManager = itemManager;
@@ -78,16 +71,15 @@ public class ChatboxItemSearch extends ChatboxTextInput
 		lines(1);
 		prompt("Item Search");
 		onChanged(searchString ->
-			clientThread.invokeLater(() ->
-			{
-				filterResults();
-				update();
-			}));
+				clientThread.invokeLater(() ->
+				{
+					filterResults();
+					update();
+				}));
 	}
 
 	@Override
-	protected void update()
-	{
+	protected void update() {
 		Widget container = chatboxPanelManager.getContainerWidget();
 		container.deleteAllChildren();
 
@@ -121,8 +113,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 		int x = PADDING;
 		int y = PADDING * 3;
 		int idx = 0;
-		for (ItemDefinition itemDefinition : results.values())
-		{
+		for (ItemDefinition itemDefinition : results.values()) {
 			Widget item = container.createChild(-1, WidgetType.GRAPHIC);
 			item.setXPositionMode(WidgetPositionMode.ABSOLUTE_LEFT);
 			item.setYPositionMode(WidgetPositionMode.ABSOLUTE_TOP);
@@ -138,20 +129,16 @@ public class ChatboxItemSearch extends ChatboxTextInput
 			item.setAction(0, tooltipText);
 			item.setHasListener(true);
 
-			if (index == idx)
-			{
+			if (index == idx) {
 				item.setOpacity(HOVERED_OPACITY);
-			}
-			else
-			{
+			} else {
 				item.setOnMouseOverListener((JavaScriptCallback) ev -> item.setOpacity(HOVERED_OPACITY));
 				item.setOnMouseLeaveListener((JavaScriptCallback) ev -> item.setOpacity(0));
 			}
 
 			item.setOnOpListener((JavaScriptCallback) ev ->
 			{
-				if (onItemSelected != null)
-				{
+				if (onItemSelected != null) {
 					onItemSelected.accept(itemDefinition.getId());
 				}
 
@@ -159,8 +146,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 			});
 
 			x += ICON_WIDTH + PADDING;
-			if (x + ICON_WIDTH >= container.getWidth())
-			{
+			if (x + ICON_WIDTH >= container.getWidth()) {
 				y += ICON_HEIGHT + PADDING;
 				x = PADDING;
 			}
@@ -171,16 +157,12 @@ public class ChatboxItemSearch extends ChatboxTextInput
 	}
 
 	@Override
-	public void keyPressed(KeyEvent ev)
-	{
-		switch (ev.getKeyCode())
-		{
+	public void keyPressed(KeyEvent ev) {
+		switch (ev.getKeyCode()) {
 			case KeyEvent.VK_ENTER:
 				ev.consume();
-				if (index > -1)
-				{
-					if (onItemSelected != null)
-					{
+				if (index > -1) {
+					if (onItemSelected != null) {
 						onItemSelected.accept(results.keySet().toArray(new Integer[0])[index]);
 					}
 
@@ -190,11 +172,9 @@ public class ChatboxItemSearch extends ChatboxTextInput
 			case KeyEvent.VK_TAB:
 			case KeyEvent.VK_RIGHT:
 				ev.consume();
-				if (!results.isEmpty())
-				{
+				if (!results.isEmpty()) {
 					index++;
-					if (index >= results.size())
-					{
+					if (index >= results.size()) {
 						index = 0;
 					}
 					clientThread.invokeLater(this::update);
@@ -202,11 +182,9 @@ public class ChatboxItemSearch extends ChatboxTextInput
 				break;
 			case KeyEvent.VK_LEFT:
 				ev.consume();
-				if (!results.isEmpty())
-				{
+				if (!results.isEmpty()) {
 					index--;
-					if (index < 0)
-					{
+					if (index < 0) {
 						index = results.size() - 1;
 					}
 					clientThread.invokeLater(this::update);
@@ -214,17 +192,12 @@ public class ChatboxItemSearch extends ChatboxTextInput
 				break;
 			case KeyEvent.VK_UP:
 				ev.consume();
-				if (results.size() >= (MAX_RESULTS / 2))
-				{
+				if (results.size() >= (MAX_RESULTS / 2)) {
 					index -= MAX_RESULTS / 2;
-					if (index < 0)
-					{
-						if (results.size() == MAX_RESULTS)
-						{
+					if (index < 0) {
+						if (results.size() == MAX_RESULTS) {
 							index += results.size();
-						}
-						else
-						{
+						} else {
 							index += MAX_RESULTS;
 						}
 						index = Ints.constrainToRange(index, 0, results.size() - 1);
@@ -235,17 +208,12 @@ public class ChatboxItemSearch extends ChatboxTextInput
 				break;
 			case KeyEvent.VK_DOWN:
 				ev.consume();
-				if (results.size() >= (MAX_RESULTS / 2))
-				{
+				if (results.size() >= (MAX_RESULTS / 2)) {
 					index += MAX_RESULTS / 2;
-					if (index >= MAX_RESULTS)
-					{
-						if (results.size() == MAX_RESULTS)
-						{
+					if (index >= MAX_RESULTS) {
+						if (results.size() == MAX_RESULTS) {
 							index -= results.size();
-						}
-						else
-						{
+						} else {
 							index -= MAX_RESULTS;
 						}
 						index = Ints.constrainToRange(index, 0, results.size() - 1);
@@ -260,8 +228,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 	}
 
 	@Override
-	protected void close()
-	{
+	protected void close() {
 		// Clear search string when closed
 		value("");
 		results.clear();
@@ -271,43 +238,36 @@ public class ChatboxItemSearch extends ChatboxTextInput
 
 	@Override
 	@Deprecated
-	public ChatboxTextInput onDone(Consumer<String> onDone)
-	{
+	public ChatboxTextInput onDone(Consumer<String> onDone) {
 		throw new UnsupportedOperationException();
 	}
 
-	private void filterResults()
-	{
+	private void filterResults() {
 		results.clear();
 		index = -1;
 
 		String search = getValue().toLowerCase();
-		if (search.isEmpty())
-		{
+		if (search.isEmpty()) {
 			return;
 		}
 
-		for (int i = 0; i < client.getItemCount() && results.size() < MAX_RESULTS; i++)
-		{
+		for (int i = 0; i < client.getItemCount() && results.size() < MAX_RESULTS; i++) {
 			ItemDefinition itemComposition = itemManager.getItemDefinition(itemManager.canonicalize(i));
 			String name = itemComposition.getName().toLowerCase();
 			// The client assigns "null" to item names of items it doesn't know about
-			if (!name.equals("null") && name.contains(search))
-			{
+			if (!name.equals("null") && name.contains(search)) {
 				// This may already be in the map due to canonicalize mapping the item to something we've already seen
 				results.putIfAbsent(itemComposition.getId(), itemComposition);
 			}
 		}
 	}
 
-	public ChatboxItemSearch onItemSelected(Consumer<Integer> onItemSelected)
-	{
+	public ChatboxItemSearch onItemSelected(Consumer<Integer> onItemSelected) {
 		this.onItemSelected = onItemSelected;
 		return this;
 	}
 
-	public ChatboxItemSearch tooltipText(final String text)
-	{
+	public ChatboxItemSearch tooltipText(final String text) {
 		tooltipText = text;
 		return this;
 	}

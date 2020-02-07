@@ -25,9 +25,6 @@
 package net.runelite.client.plugins.tileindicators;
 
 import com.google.inject.Provides;
-import java.awt.Color;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -38,16 +35,19 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 @PluginDescriptor(
-	name = "Tile Indicators",
-	description = "Highlight the tile you are currently moving to",
-	tags = {"highlight", "overlay"},
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Tile Indicators",
+		description = "Highlight the tile you are currently moving to",
+		tags = {"highlight", "overlay"},
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
-public class TileIndicatorsPlugin extends Plugin
-{
+public class TileIndicatorsPlugin extends Plugin {
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -77,37 +77,31 @@ public class TileIndicatorsPlugin extends Plugin
 	private boolean thinHoveredTile;
 
 	@Provides
-	TileIndicatorsConfig provideConfig(ConfigManager configManager)
-	{
+	TileIndicatorsConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(TileIndicatorsConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!"tileindicators".equals(event.getGroup()))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!"tileindicators".equals(event.getGroup())) {
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.highlightDestinationColor = config.highlightDestinationColor();
 		this.highlightDestinationTile = config.highlightDestinationTile();
 		this.thinDestinationTile = config.thinDestinationTile();

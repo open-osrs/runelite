@@ -24,17 +24,7 @@
  */
 package net.runelite.client.plugins.mta.graveyard;
 
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import net.runelite.api.Client;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
-import static net.runelite.api.ItemID.ANIMALS_BONES;
-import static net.runelite.api.ItemID.ANIMALS_BONES_6905;
-import static net.runelite.api.ItemID.ANIMALS_BONES_6906;
-import static net.runelite.api.ItemID.ANIMALS_BONES_6907;
-import net.runelite.api.Player;
+import net.runelite.api.*;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.eventbus.EventBus;
@@ -45,8 +35,12 @@ import net.runelite.client.plugins.mta.MTAPlugin;
 import net.runelite.client.plugins.mta.MTARoom;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
-public class GraveyardRoom extends MTARoom
-{
+import javax.inject.Inject;
+import java.awt.image.BufferedImage;
+
+import static net.runelite.api.ItemID.*;
+
+public class GraveyardRoom extends MTARoom {
 	static final int MIN_SCORE = 16;
 	private static final int MTA_GRAVEYARD_REGION = 13462;
 	private final Client client;
@@ -60,8 +54,7 @@ public class GraveyardRoom extends MTARoom
 	private boolean graveyard;
 
 	@Inject
-	private GraveyardRoom(final MTAConfig config, final Client client, final MTAPlugin plugin, final ItemManager itemManager, final InfoBoxManager infoBoxManager, final EventBus eventBus)
-	{
+	private GraveyardRoom(final MTAConfig config, final Client client, final MTAPlugin plugin, final ItemManager itemManager, final InfoBoxManager infoBoxManager, final EventBus eventBus) {
 		super(config);
 		this.client = client;
 		this.plugin = plugin;
@@ -74,45 +67,37 @@ public class GraveyardRoom extends MTARoom
 		addSubscriptions();
 	}
 
-	private void addSubscriptions()
-	{
+	private void addSubscriptions() {
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 		eventBus.subscribe(ItemContainerChanged.class, this, this::onItemContainerChanged);
 	}
 
 	@Override
-	public boolean inside()
-	{
+	public boolean inside() {
 		Player player = client.getLocalPlayer();
 		return player != null && player.getWorldLocation().getRegionID() == MTA_GRAVEYARD_REGION
-			&& player.getWorldLocation().getPlane() == 1;
+				&& player.getWorldLocation().getPlane() == 1;
 	}
 
-	private void onGameTick(GameTick tick)
-	{
-		if ((!inside() || !this.graveyard) && this.counter != null)
-		{
+	private void onGameTick(GameTick tick) {
+		if ((!inside() || !this.graveyard) && this.counter != null) {
 			infoBoxManager.removeIf(e -> e instanceof GraveyardCounter);
 			this.counter = null;
 		}
 	}
 
-	private void onItemContainerChanged(ItemContainerChanged event)
-	{
-		if (!inside())
-		{
+	private void onItemContainerChanged(ItemContainerChanged event) {
+		if (!inside()) {
 			return;
 		}
 
 		ItemContainer container = event.getItemContainer();
 
-		if (container == client.getItemContainer(InventoryID.INVENTORY))
-		{
+		if (container == client.getItemContainer(InventoryID.INVENTORY)) {
 			int score = score(container.getItems());
 
-			if (counter == null)
-			{
+			if (counter == null) {
 				BufferedImage image = itemManager.getImage(ANIMALS_BONES);
 				counter = new GraveyardCounter(image, plugin);
 				infoBoxManager.addInfoBox(counter);
@@ -121,37 +106,30 @@ public class GraveyardRoom extends MTARoom
 		}
 	}
 
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("mta") || !event.getKey().equals("graveyard"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("mta") || !event.getKey().equals("graveyard")) {
 			return;
 		}
 
 		this.graveyard = config.graveyard();
 	}
 
-	private int score(Item[] items)
-	{
+	private int score(Item[] items) {
 		int score = 0;
 
-		if (items == null)
-		{
+		if (items == null) {
 			return score;
 		}
 
-		for (Item item : items)
-		{
+		for (Item item : items) {
 			score += getPoints(item.getId());
 		}
 
 		return score;
 	}
 
-	private int getPoints(int id)
-	{
-		switch (id)
-		{
+	private int getPoints(int id) {
+		switch (id) {
 			case ANIMALS_BONES:
 				return 1;
 			case ANIMALS_BONES_6905:

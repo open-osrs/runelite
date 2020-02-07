@@ -31,8 +31,7 @@ import net.runelite.api.events.Event;
  * Called when another discord user wants to join the game of the logged in user
  */
 @Value
-public class DiscordJoinRequest implements Event
-{
+public class DiscordJoinRequest implements Event {
 	/**
 	 * The userId for the user that requests to join
 	 */

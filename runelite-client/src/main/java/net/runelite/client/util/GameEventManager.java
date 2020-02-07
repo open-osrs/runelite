@@ -24,44 +24,26 @@
  */
 package net.runelite.client.util;
 
+import net.runelite.api.*;
+import net.runelite.api.events.*;
+import net.runelite.client.callback.ClientThread;
+import net.runelite.client.eventbus.EventBus;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.api.Client;
-import net.runelite.api.Constants;
-import net.runelite.api.GameState;
-import net.runelite.api.InventoryID;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.NPC;
-import net.runelite.api.Node;
-import net.runelite.api.Player;
-import net.runelite.api.Scene;
-import net.runelite.api.Tile;
-import net.runelite.api.TileItem;
-import net.runelite.api.events.DecorativeObjectSpawned;
-import net.runelite.api.events.GameObjectSpawned;
-import net.runelite.api.events.GroundObjectSpawned;
-import net.runelite.api.events.ItemContainerChanged;
-import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.NpcSpawned;
-import net.runelite.api.events.PlayerSpawned;
-import net.runelite.api.events.WallObjectSpawned;
-import net.runelite.client.callback.ClientThread;
-import net.runelite.client.eventbus.EventBus;
 
 @Singleton
-public class GameEventManager
-{
+public class GameEventManager {
 	private final EventBus eventBus = new EventBus();
 	private final Client client;
 	private final ClientThread clientThread;
 
 	@Inject
-	private GameEventManager(Client client, ClientThread clientThread)
-	{
+	private GameEventManager(Client client, ClientThread clientThread) {
 		this.client = client;
 		this.clientThread = clientThread;
 	}
@@ -71,21 +53,16 @@ public class GameEventManager
 	 *
 	 * @param consumer consumer accepting tile as parameter
 	 */
-	private void forEachTile(Consumer<Tile> consumer)
-	{
+	private void forEachTile(Consumer<Tile> consumer) {
 		final Scene scene = client.getScene();
 		final Tile[][][] tiles = scene.getTiles();
 
-		for (int z = 0; z < Constants.MAX_Z; ++z)
-		{
-			for (int x = 0; x < Constants.SCENE_SIZE; ++x)
-			{
-				for (int y = 0; y < Constants.SCENE_SIZE; ++y)
-				{
+		for (int z = 0; z < Constants.MAX_Z; ++z) {
+			for (int x = 0; x < Constants.SCENE_SIZE; ++x) {
+				for (int y = 0; y < Constants.SCENE_SIZE; ++y) {
 					Tile tile = tiles[z][x][y];
 
-					if (tile == null)
-					{
+					if (tile == null) {
 						continue;
 					}
 
@@ -100,10 +77,8 @@ public class GameEventManager
 	 *
 	 * @param subscriber EventBus subscriber
 	 */
-	public void simulateGameEvents(Object subscriber)
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	public void simulateGameEvents(Object subscriber) {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
@@ -112,29 +87,23 @@ public class GameEventManager
 
 			// eventBus.register(subscriber);
 
-			for (final InventoryID inventory : InventoryID.values())
-			{
+			for (final InventoryID inventory : InventoryID.values()) {
 				final ItemContainer itemContainer = client.getItemContainer(inventory);
 
-				if (itemContainer != null)
-				{
+				if (itemContainer != null) {
 					eventBus.post(ItemContainerChanged.class, new ItemContainerChanged(inventory.getId(), itemContainer));
 				}
 			}
 
-			for (NPC npc : client.getCachedNPCs())
-			{
-				if (npc != null)
-				{
+			for (NPC npc : client.getCachedNPCs()) {
+				if (npc != null) {
 					final NpcSpawned npcSpawned = new NpcSpawned(npc);
 					eventBus.post(NpcSpawned.class, npcSpawned);
 				}
 			}
 
-			for (Player player : client.getCachedPlayers())
-			{
-				if (player != null)
-				{
+			for (Player player : client.getCachedPlayers()) {
+				if (player != null) {
 					final PlayerSpawned playerSpawned = new PlayerSpawned(player);
 					eventBus.post(PlayerSpawned.class, playerSpawned);
 				}
@@ -167,21 +136,20 @@ public class GameEventManager
 				});
 
 				Arrays.stream(tile.getGameObjects())
-					.filter(Objects::nonNull)
-					.forEach(object ->
-					{
-						final GameObjectSpawned objectSpawned = new GameObjectSpawned();
-						objectSpawned.setTile(tile);
-						objectSpawned.setGameObject(object);
-						eventBus.post(GameObjectSpawned.class, objectSpawned);
-					});
+						.filter(Objects::nonNull)
+						.forEach(object ->
+						{
+							final GameObjectSpawned objectSpawned = new GameObjectSpawned();
+							objectSpawned.setTile(tile);
+							objectSpawned.setGameObject(object);
+							eventBus.post(GameObjectSpawned.class, objectSpawned);
+						});
 
 				Optional.ofNullable(tile.getItemLayer()).ifPresent(itemLayer ->
 				{
 					Node current = itemLayer.getBottom();
 
-					while (current instanceof TileItem)
-					{
+					while (current instanceof TileItem) {
 						final TileItem item = (TileItem) current;
 
 						current = current.getNext();

@@ -4,8 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.NPC;
 
-public class NPCPresence
-{
+public class NPCPresence {
 
 	private static final int FADE_TIMER_START = 20;
 
@@ -17,31 +16,26 @@ public class NPCPresence
 
 	private int fadeTimer;
 
-	private NPCPresence(final String name, final int combatLevel)
-	{
+	private NPCPresence(final String name, final int combatLevel) {
 		this.name = name;
 		this.combatLevel = combatLevel;
 		this.fadeTimer = FADE_TIMER_START;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name + "[" + combatLevel + "]";
 	}
 
-	boolean shouldExist()
-	{
+	boolean shouldExist() {
 		return fadeTimer > 0;
 	}
 
-	void tickExistence()
-	{
+	void tickExistence() {
 		fadeTimer--;
 	}
 
-	static NPCPresence buildPresence(NPC npc)
-	{
+	static NPCPresence buildPresence(NPC npc) {
 		return new NPCPresence(npc.getName(), npc.getCombatLevel());
 	}
 

@@ -27,8 +27,7 @@ package net.runelite.client.plugins.maxhit.config;
 import net.runelite.api.Varbits;
 import net.runelite.client.plugins.maxhit.calculators.MaxHitCalculator;
 
-public enum PrayerBonusConfig
-{
+public enum PrayerBonusConfig {
 	BURST_OF_STRENGTH(MaxHitCalculator.CombatMethod.MELEE, Varbits.PRAYER_BURST_OF_STRENGTH, 0.05),
 	SUPERHUMAN_STRENGTH(MaxHitCalculator.CombatMethod.MELEE, Varbits.PRAYER_SUPERHUMAN_STRENGTH, 0.1),
 	ULTIMATE_STRENGTH(MaxHitCalculator.CombatMethod.MELEE, Varbits.PRAYER_ULTIMATE_STRENGTH, 0.15),
@@ -44,25 +43,21 @@ public enum PrayerBonusConfig
 	private final Varbits prayerVarbit;
 	private final double strengthBonus;
 
-	PrayerBonusConfig(MaxHitCalculator.CombatMethod combatMethod, Varbits prayerVarbit, double strengthBonus)
-	{
+	PrayerBonusConfig(MaxHitCalculator.CombatMethod combatMethod, Varbits prayerVarbit, double strengthBonus) {
 		this.combatMethod = combatMethod;
 		this.prayerVarbit = prayerVarbit;
 		this.strengthBonus = strengthBonus;
 	}
 
-	public MaxHitCalculator.CombatMethod getCombatMethod()
-	{
+	public MaxHitCalculator.CombatMethod getCombatMethod() {
 		return combatMethod;
 	}
 
-	public Varbits getPrayerVarbit()
-	{
+	public Varbits getPrayerVarbit() {
 		return prayerVarbit;
 	}
 
-	public double getStrengthBonus()
-	{
+	public double getStrengthBonus() {
 		return strengthBonus;
 	}
 }

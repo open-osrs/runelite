@@ -26,11 +26,6 @@ package net.runelite.client.plugins.timetracking.farming;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.time.Instant;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Set;
-import javax.annotation.Nullable;
 import net.runelite.api.Client;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
@@ -41,9 +36,14 @@ import net.runelite.client.plugins.timetracking.SummaryState;
 import net.runelite.client.plugins.timetracking.Tab;
 import net.runelite.client.plugins.timetracking.TimeTrackingConfig;
 
+import javax.annotation.Nullable;
+import java.time.Instant;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Set;
+
 @Singleton
-public class FarmingTracker
-{
+public class FarmingTracker {
 	private final Client client;
 	private final ItemManager itemManager;
 	private final ConfigManager configManager;
@@ -59,8 +59,7 @@ public class FarmingTracker
 	private final Map<Tab, Long> completionTimes = new EnumMap<>(Tab.class);
 
 	@Inject
-	private FarmingTracker(Client client, ItemManager itemManager, ConfigManager configManager, TimeTrackingConfig config, FarmingWorld farmingWorld)
-	{
+	private FarmingTracker(Client client, ItemManager itemManager, ConfigManager configManager, TimeTrackingConfig config, FarmingWorld farmingWorld) {
 		this.client = client;
 		this.itemManager = itemManager;
 		this.configManager = configManager;
@@ -69,59 +68,48 @@ public class FarmingTracker
 	}
 
 
-	public FarmingTabPanel createTabPanel(Tab tab)
-	{
+	public FarmingTabPanel createTabPanel(Tab tab) {
 		return new FarmingTabPanel(this, itemManager, config, farmingWorld.getTabs().get(tab));
 	}
 
 	/**
 	 * Updates tracker data for the current region. Returns true if any data was changed.
 	 */
-	public boolean updateData(WorldPoint location)
-	{
+	public boolean updateData(WorldPoint location) {
 		boolean changed = false;
 
 		{
 			String group = TimeTrackingConfig.CONFIG_GROUP + "." + client.getUsername();
 			String autoweed = Integer.toString(client.getVar(Varbits.AUTOWEED));
-			if (!autoweed.equals(configManager.getConfiguration(group, TimeTrackingConfig.AUTOWEED)))
-			{
+			if (!autoweed.equals(configManager.getConfiguration(group, TimeTrackingConfig.AUTOWEED))) {
 				configManager.setConfiguration(group, TimeTrackingConfig.AUTOWEED, autoweed);
 				changed = true;
 			}
 		}
 
 		FarmingRegion region = farmingWorld.getRegions().get(location.getRegionID());
-		if (region != null && region.isInBounds(location))
-		{
+		if (region != null && region.isInBounds(location)) {
 			// Write config with new varbits
 			// timetracking.<login-username>.<regionID>.<VarbitID>=<varbitValue>:<unix time>
 			String group = TimeTrackingConfig.CONFIG_GROUP + "." + client.getUsername() + "." + region.getRegionID();
 			long unixNow = Instant.now().getEpochSecond();
-			for (FarmingPatch patch : region.getPatches())
-			{
+			for (FarmingPatch patch : region.getPatches()) {
 				// Write the config value if it doesn't match what is current, or it is more than 5 minutes old
 				Varbits varbit = patch.getVarbit();
 				String key = Integer.toString(varbit.getId());
 				String strVarbit = Integer.toString(client.getVar(varbit));
 				String storedValue = configManager.getConfiguration(group, key);
 
-				if (storedValue != null)
-				{
+				if (storedValue != null) {
 					String[] parts = storedValue.split(":");
-					if (parts.length == 2 && parts[0].equals(strVarbit))
-					{
+					if (parts.length == 2 && parts[0].equals(strVarbit)) {
 						long unixTime = 0;
-						try
-						{
+						try {
 							unixTime = Long.parseLong(parts[1]);
-						}
-						catch (NumberFormatException e)
-						{
+						} catch (NumberFormatException e) {
 							// ignored
 						}
-						if (unixTime + (5 * 60) > unixNow && unixNow + 30 > unixTime)
-						{
+						if (unixTime + (5 * 60) > unixNow && unixNow + 30 > unixTime) {
 							continue;
 						}
 					}
@@ -133,8 +121,7 @@ public class FarmingTracker
 			}
 		}
 
-		if (changed)
-		{
+		if (changed) {
 			updateCompletionTime();
 		}
 
@@ -142,23 +129,21 @@ public class FarmingTracker
 	}
 
 	@Nullable
-	public PatchPrediction predictPatch(FarmingPatch patch)
-	{
+	public PatchPrediction predictPatch(FarmingPatch patch) {
 		long unixNow = Instant.now().getEpochSecond();
 
 		boolean autoweed;
 		{
 			String group = TimeTrackingConfig.CONFIG_GROUP + "." + client.getUsername();
 			autoweed = Integer.toString(Autoweed.ON.ordinal())
-				.equals(configManager.getConfiguration(group, TimeTrackingConfig.AUTOWEED));
+					.equals(configManager.getConfiguration(group, TimeTrackingConfig.AUTOWEED));
 		}
 
 		String group = TimeTrackingConfig.CONFIG_GROUP + "." + client.getUsername() + "." + patch.getRegion().getRegionID();
 		String key = Integer.toString(patch.getVarbit().getId());
 		String storedValue = configManager.getConfiguration(group, key);
 
-		if (storedValue == null)
-		{
+		if (storedValue == null) {
 			return null;
 		}
 
@@ -166,28 +151,22 @@ public class FarmingTracker
 		int value = 0;
 		{
 			String[] parts = storedValue.split(":");
-			if (parts.length == 2)
-			{
-				try
-				{
+			if (parts.length == 2) {
+				try {
 					value = Integer.parseInt(parts[0]);
 					unixTime = Long.parseLong(parts[1]);
-				}
-				catch (NumberFormatException ignored)
-				{
+				} catch (NumberFormatException ignored) {
 				}
 			}
 		}
 
-		if (unixTime <= 0)
-		{
+		if (unixTime <= 0) {
 			return null;
 		}
 
 		PatchState state = patch.getImplementation().forVarbitValue(value);
 
-		if (state == null)
-		{
+		if (state == null) {
 			return null;
 		}
 
@@ -195,16 +174,14 @@ public class FarmingTracker
 		int stages = state.getStages();
 		int tickrate = state.getTickRate() * 60;
 
-		if (autoweed && state.getProduce() == Produce.WEEDS)
-		{
+		if (autoweed && state.getProduce() == Produce.WEEDS) {
 			stage = 0;
 			stages = 1;
 			tickrate = 0;
 		}
 
 		long doneEstimate = 0;
-		if (tickrate > 0)
-		{
+		if (tickrate > 0) {
 			long tickNow = (unixNow + (5 * 60)) / tickrate;
 			long tickTime = (unixTime + (5 * 60)) / tickrate;
 			int delta = (int) (tickNow - tickTime);
@@ -212,30 +189,27 @@ public class FarmingTracker
 			doneEstimate = ((stages - 1 - stage) + tickTime) * tickrate + (5 * 60);
 
 			stage += delta;
-			if (stage >= stages)
-			{
+			if (stage >= stages) {
 				stage = stages - 1;
 			}
 		}
 
 		return new PatchPrediction(
-			state.getProduce(),
-			state.getCropState(),
-			doneEstimate,
-			stage,
-			stages
+				state.getProduce(),
+				state.getCropState(),
+				doneEstimate,
+				stage,
+				stages
 		);
 	}
 
-	public void loadCompletionTimes()
-	{
+	public void loadCompletionTimes() {
 		summaries.clear();
 		completionTimes.clear();
 		updateCompletionTime();
 	}
 
-	public SummaryState getSummary(Tab patchType)
-	{
+	public SummaryState getSummary(Tab patchType) {
 		SummaryState summary = summaries.get(patchType);
 		return summary == null ? SummaryState.UNKNOWN : summary;
 	}
@@ -245,8 +219,7 @@ public class FarmingTracker
 	 *
 	 * @see #completionTimes
 	 */
-	public long getCompletionTime(Tab patchType)
-	{
+	public long getCompletionTime(Tab patchType) {
 		Long completionTime = completionTimes.get(patchType);
 		return completionTime == null ? -1 : completionTime;
 	}
@@ -256,26 +229,21 @@ public class FarmingTracker
 	 *
 	 * @see #completionTimes
 	 */
-	private void updateCompletionTime()
-	{
-		for (Map.Entry<Tab, Set<FarmingPatch>> tab : farmingWorld.getTabs().entrySet())
-		{
+	private void updateCompletionTime() {
+		for (Map.Entry<Tab, Set<FarmingPatch>> tab : farmingWorld.getTabs().entrySet()) {
 			long maxCompletionTime = 0;
 			boolean allUnknown = true;
 			boolean allEmpty = true;
 
-			for (FarmingPatch patch : tab.getValue())
-			{
+			for (FarmingPatch patch : tab.getValue()) {
 				PatchPrediction prediction = predictPatch(patch);
-				if (prediction == null || prediction.getProduce().getItemID() < 0)
-				{
+				if (prediction == null || prediction.getProduce().getItemID() < 0) {
 					continue; // unknown state
 				}
 
 				allUnknown = false;
 
-				if (prediction.getProduce() != Produce.WEEDS && prediction.getProduce() != Produce.SCARECROW)
-				{
+				if (prediction.getProduce() != Produce.WEEDS && prediction.getProduce() != Produce.SCARECROW) {
 					allEmpty = false;
 
 					// update max duration if this patch takes longer to grow
@@ -286,23 +254,16 @@ public class FarmingTracker
 			final SummaryState state;
 			final long completionTime;
 
-			if (allUnknown)
-			{
+			if (allUnknown) {
 				state = SummaryState.UNKNOWN;
 				completionTime = -1L;
-			}
-			else if (allEmpty)
-			{
+			} else if (allEmpty) {
 				state = SummaryState.EMPTY;
 				completionTime = -1L;
-			}
-			else if (maxCompletionTime <= Instant.now().getEpochSecond())
-			{
+			} else if (maxCompletionTime <= Instant.now().getEpochSecond()) {
 				state = SummaryState.COMPLETED;
 				completionTime = 0;
-			}
-			else
-			{
+			} else {
 				state = SummaryState.IN_PROGRESS;
 				completionTime = maxCompletionTime;
 			}

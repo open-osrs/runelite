@@ -9,8 +9,7 @@
 
 package net.runelite.client.plugins.playerindicators;
 
-public enum PlayerRelation
-{
+public enum PlayerRelation {
 	SELF,
 	FRIEND,
 	CLAN,

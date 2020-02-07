@@ -24,9 +24,6 @@
  */
 package net.runelite.client.plugins.sounds;
 
-import java.io.IOException;
-import java.util.HashMap;
-import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.events.SoundEffectPlayed;
@@ -36,13 +33,16 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.http.api.sounds.SoundsClient;
 import org.apache.commons.lang3.ArrayUtils;
 
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.HashMap;
+
 @PluginDescriptor(
-	name = "Sounds",
-	hidden = true
+		name = "Sounds",
+		hidden = true
 )
 @Slf4j
-public class SoundsPlugin extends Plugin
-{
+public class SoundsPlugin extends Plugin {
 	private final SoundsClient soundsClient = new SoundsClient();
 
 	private HashMap<Integer, int[]> sounds;
@@ -50,23 +50,17 @@ public class SoundsPlugin extends Plugin
 	private Client client;
 
 	{
-		try
-		{
+		try {
 			sounds = soundsClient.get();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Subscribe
-	private void onSoundEffectPlayed(SoundEffectPlayed event)
-	{
-		if (event.getNpcid() != -1)
-		{
-			if (ArrayUtils.contains(sounds.get(event.getNpcid()), event.getSoundId()))
-			{
+	private void onSoundEffectPlayed(SoundEffectPlayed event) {
+		if (event.getNpcid() != -1) {
+			if (ArrayUtils.contains(sounds.get(event.getNpcid()), event.getSoundId())) {
 				return;
 			}
 			int[] newSounds = ArrayUtils.add(sounds.get(event.getNpcid()), event.getSoundId());

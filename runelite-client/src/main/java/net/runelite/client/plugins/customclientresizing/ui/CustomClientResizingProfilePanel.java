@@ -1,26 +1,5 @@
 package net.runelite.client.plugins.customclientresizing.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeListener;
 import net.runelite.client.plugins.customclientresizing.CustomClientResizingPlugin;
 import net.runelite.client.plugins.customclientresizing.CustomClientResizingProfile;
 import net.runelite.client.ui.ColorScheme;
@@ -28,13 +7,22 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.FlatTextField;
 import net.runelite.client.util.ImageUtil;
 
-public class CustomClientResizingProfilePanel extends JPanel
-{
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
+public class CustomClientResizingProfilePanel extends JPanel {
 	private static final int DEFAULT_FILL_OPACITY = 75;
 
 	private static final Border NAME_BOTTOM_BORDER = new CompoundBorder(
-		BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
-		BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
+			BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
+			BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
 
 	private static final ImageIcon VISIBLE_ICON;
 	private static final ImageIcon VISIBLE_HOVER_ICON;
@@ -43,8 +31,7 @@ public class CustomClientResizingProfilePanel extends JPanel
 	private static final ImageIcon DELETE_ICON;
 	private static final ImageIcon DELETE_HOVER_ICON;
 
-	static
-	{
+	static {
 		final BufferedImage visibleImg = ImageUtil.getResourceStreamFromClass(CustomClientResizingPlugin.class, "visible_icon.png");
 		VISIBLE_ICON = new ImageIcon(visibleImg);
 		VISIBLE_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(visibleImg, -100));
@@ -67,8 +54,7 @@ public class CustomClientResizingProfilePanel extends JPanel
 	private final JLabel cancel = new JLabel("Cancel");
 	private final JLabel rename = new JLabel("Rename");
 
-	CustomClientResizingProfilePanel(CustomClientResizingPlugin plugin, CustomClientResizingProfile profile)
-	{
+	CustomClientResizingProfilePanel(CustomClientResizingPlugin plugin, CustomClientResizingProfile profile) {
 		this.plugin = plugin;
 		this.profile = profile;
 
@@ -86,11 +72,9 @@ public class CustomClientResizingProfilePanel extends JPanel
 		save.setVisible(false);
 		save.setFont(FontManager.getRunescapeSmallFont());
 		save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR);
-		save.addMouseListener(new MouseAdapter()
-		{
+		save.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				profile.setName(nameInput.getText());
 				plugin.updateConfig();
 
@@ -100,14 +84,12 @@ public class CustomClientResizingProfilePanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR.darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR);
 			}
 		});
@@ -115,11 +97,9 @@ public class CustomClientResizingProfilePanel extends JPanel
 		cancel.setVisible(false);
 		cancel.setFont(FontManager.getRunescapeSmallFont());
 		cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR);
-		cancel.addMouseListener(new MouseAdapter()
-		{
+		cancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				nameInput.setEditable(false);
 				nameInput.setText(profile.getName());
 				updateNameActions(false);
@@ -127,38 +107,32 @@ public class CustomClientResizingProfilePanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR.darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR);
 			}
 		});
 
 		rename.setFont(FontManager.getRunescapeSmallFont());
 		rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker());
-		rename.addMouseListener(new MouseAdapter()
-		{
+		rename.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				nameInput.setEditable(true);
 				updateNameActions(true);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker().darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker());
 			}
 		});
@@ -195,13 +169,10 @@ public class CustomClientResizingProfilePanel extends JPanel
 		rightActions.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 
 		visibilityLabel.setToolTipText(profile.isVisible() ? "Deactivated" : "Activate resize profile");
-		visibilityLabel.addMouseListener(new MouseAdapter()
-		{
+		visibilityLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
-				if (profile.isVisible())
-				{
+			public void mousePressed(MouseEvent mouseEvent) {
+				if (profile.isVisible()) {
 					return;
 				}
 				plugin.disableProfiles();
@@ -210,44 +181,37 @@ public class CustomClientResizingProfilePanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				visibilityLabel.setIcon(profile.isVisible() ? VISIBLE_HOVER_ICON : INVISIBLE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				updateVisibility();
 			}
 		});
 
 		deleteLabel.setIcon(DELETE_ICON);
 		deleteLabel.setToolTipText("Delete resize profile");
-		deleteLabel.addMouseListener(new MouseAdapter()
-		{
+		deleteLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				int confirm = JOptionPane.showConfirmDialog(CustomClientResizingProfilePanel.this,
-					"Are you sure you want to permanently delete this resize profile?",
-					"Warning", JOptionPane.OK_CANCEL_OPTION);
+						"Are you sure you want to permanently delete this resize profile?",
+						"Warning", JOptionPane.OK_CANCEL_OPTION);
 
-				if (confirm == 0)
-				{
+				if (confirm == 0) {
 					plugin.deleteProfile(profile);
 				}
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				deleteLabel.setIcon(DELETE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				deleteLabel.setIcon(DELETE_ICON);
 			}
 		});
@@ -264,8 +228,7 @@ public class CustomClientResizingProfilePanel extends JPanel
 		updateVisibility();
 	}
 
-	private JPanel createPositionPanel(int width, int height)
-	{
+	private JPanel createPositionPanel(int width, int height) {
 		JPanel dimensionPanel = new JPanel();
 		dimensionPanel.setLayout(new BorderLayout());
 
@@ -284,8 +247,7 @@ public class CustomClientResizingProfilePanel extends JPanel
 		return dimensionPanel;
 	}
 
-	private JPanel createSizePanel(int width, int height)
-	{
+	private JPanel createSizePanel(int width, int height) {
 		JPanel dimensionPanel = new JPanel();
 		dimensionPanel.setLayout(new BorderLayout());
 
@@ -304,8 +266,7 @@ public class CustomClientResizingProfilePanel extends JPanel
 		return dimensionPanel;
 	}
 
-	private JSpinner createSpinner(int value)
-	{
+	private JSpinner createSpinner(int value) {
 		SpinnerModel model = new SpinnerNumberModel(value, Integer.MIN_VALUE, Integer.MAX_VALUE, 1);
 		JSpinner spinner = new JSpinner(model);
 		Component editor = spinner.getEditor();
@@ -315,33 +276,28 @@ public class CustomClientResizingProfilePanel extends JPanel
 		return spinner;
 	}
 
-	private void updateNameActions(boolean saveAndCancel)
-	{
+	private void updateNameActions(boolean saveAndCancel) {
 		save.setVisible(saveAndCancel);
 		cancel.setVisible(saveAndCancel);
 		rename.setVisible(!saveAndCancel);
 
-		if (saveAndCancel)
-		{
+		if (saveAndCancel) {
 			nameInput.getTextField().requestFocusInWindow();
 			nameInput.getTextField().selectAll();
 		}
 	}
 
-	private void updateVisibility()
-	{
+	private void updateVisibility() {
 		visibilityLabel.setIcon(profile.isVisible() ? VISIBLE_ICON : INVISIBLE_ICON);
 		plugin.updateConfig();
 	}
 
-	private void updatePosition(int x, int y)
-	{
+	private void updatePosition(int x, int y) {
 		profile.setPosition(new Dimension(x, y));
 		plugin.updateConfig();
 	}
 
-	private void updateSize(int w, int h)
-	{
+	private void updateSize(int w, int h) {
 		profile.setSize(new Dimension(w, h));
 		plugin.updateConfig();
 	}

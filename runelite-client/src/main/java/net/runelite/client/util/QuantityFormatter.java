@@ -24,6 +24,8 @@
  */
 package net.runelite.client.util;
 
+import net.runelite.client.RuneLite;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -34,13 +36,11 @@ import java.time.format.FormatStyle;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.runelite.client.RuneLite;
 
 /**
  * A set of utility functions to use when formatting quantities
  */
-public class QuantityFormatter
-{
+public class QuantityFormatter {
 	/**
 	 * A list of suffixes to use when formatting stack sizes.
 	 */
@@ -54,13 +54,13 @@ public class QuantityFormatter
 	private static final NumberFormat NUMBER_FORMATTER = NumberFormat.getInstance(Locale.ENGLISH);
 
 	private static final NumberFormat DECIMAL_FORMATTER = new DecimalFormat(
-		"#,###.#",
-		DecimalFormatSymbols.getInstance(Locale.ENGLISH)
+			"#,###.#",
+			DecimalFormatSymbols.getInstance(Locale.ENGLISH)
 	);
 
 	private static final NumberFormat PRECISE_DECIMAL_FORMATTER = new DecimalFormat(
-		"#,###.###",
-		DecimalFormatSymbols.getInstance(Locale.ENGLISH)
+			"#,###.###",
+			DecimalFormatSymbols.getInstance(Locale.ENGLISH)
 	);
 
 	/**
@@ -69,8 +69,7 @@ public class QuantityFormatter
 	 * @param formatStyle The format style to use for the formatter
 	 * @return The localized DateTimeFormatter
 	 */
-	public static DateTimeFormatter getLocalizedDateTimeFormatter(FormatStyle formatStyle)
-	{
+	public static DateTimeFormatter getLocalizedDateTimeFormatter(FormatStyle formatStyle) {
 		return DateTimeFormatter.ofLocalizedTime(formatStyle).withLocale(RuneLite.SYSTEM_LOCALE);
 	}
 
@@ -83,15 +82,11 @@ public class QuantityFormatter
 	 * @param quantity The quantity to convert.
 	 * @return a 6 or less character string, possibly with a decimal point, commas or K/M/B suffix
 	 */
-	public static synchronized String quantityToStackSize(long quantity)
-	{
-		if (quantity < 0)
-		{
+	public static synchronized String quantityToStackSize(long quantity) {
+		if (quantity < 0) {
 			// Long.MIN_VALUE = -1 * Long.MIN_VALUE so we need to correct for it.
 			return "-" + quantityToStackSize(quantity == Long.MIN_VALUE ? Long.MAX_VALUE : -quantity);
-		}
-		else if (quantity < 10_000)
-		{
+		} else if (quantity < 10_000) {
 			return NUMBER_FORMATTER.format(quantity);
 		}
 
@@ -100,11 +95,9 @@ public class QuantityFormatter
 
 		// determine correct suffix by iterating backward through the list
 		// of suffixes until the suffix results in a value >= 1
-		for (int i = (SUFFIXES.length - 1); i >= 0; i--)
-		{
+		for (int i = (SUFFIXES.length - 1); i >= 0; i--) {
 			divideBy = (long) Math.pow(10, i * 3);
-			if ((double) quantity / divideBy >= 1)
-			{
+			if ((double) quantity / divideBy >= 1) {
 				suffix = SUFFIXES[i];
 				break;
 			}
@@ -128,8 +121,7 @@ public class QuantityFormatter
 	 *
 	 * @see #quantityToRSDecimalStack(int, boolean)
 	 */
-	public static String quantityToRSDecimalStack(int quantity)
-	{
+	public static String quantityToRSDecimalStack(int quantity) {
 		return quantityToRSDecimalStack(quantity, false);
 	}
 
@@ -143,11 +135,9 @@ public class QuantityFormatter
 	 * @param precise If true, allow thousandths precision if {@code quantity} is larger than 1 million.
 	 *                Otherwise have at most a single decimal
 	 */
-	public static synchronized String quantityToRSDecimalStack(int quantity, boolean precise)
-	{
+	public static synchronized String quantityToRSDecimalStack(int quantity, boolean precise) {
 		String quantityStr = String.valueOf(quantity);
-		if (quantityStr.length() <= 4)
-		{
+		if (quantityStr.length() <= 4) {
 			return quantityStr;
 		}
 
@@ -155,8 +145,8 @@ public class QuantityFormatter
 
 		// Output thousandths for values above a million
 		NumberFormat format = precise && power >= 6
-			? PRECISE_DECIMAL_FORMATTER
-			: DECIMAL_FORMATTER;
+				? PRECISE_DECIMAL_FORMATTER
+				: DECIMAL_FORMATTER;
 
 		return format.format(quantity / (Math.pow(10, (power / 3) * 3))) + SUFFIXES[power / 3];
 	}
@@ -168,8 +158,7 @@ public class QuantityFormatter
 	 * @param string The string to convert.
 	 * @return A long representation of it.
 	 */
-	public static synchronized long parseQuantity(String string) throws ParseException
-	{
+	public static synchronized long parseQuantity(String string) throws ParseException {
 		int multiplier = getMultiplier(string);
 		float parsedValue = NUMBER_FORMATTER.parse(string).floatValue();
 		return (long) (parsedValue * multiplier);
@@ -180,8 +169,7 @@ public class QuantityFormatter
 	 * <p>
 	 * example: {@code 10,123,351}, {@code 5}
 	 */
-	public static synchronized String formatNumber(final long number)
-	{
+	public static synchronized String formatNumber(final long number) {
 		return NUMBER_FORMATTER.format(number);
 	}
 
@@ -192,8 +180,7 @@ public class QuantityFormatter
 	 * <p>
 	 * example: {@code 10,123,351}, {@code 5.612}
 	 */
-	public static synchronized String formatNumber(double number)
-	{
+	public static synchronized String formatNumber(double number) {
 		return NUMBER_FORMATTER.format(number);
 	}
 
@@ -205,33 +192,24 @@ public class QuantityFormatter
 	 * @return The value of the value denominator.
 	 * @throws ParseException When the denominator does not match a known value.
 	 */
-	private static int getMultiplier(String string) throws ParseException
-	{
+	private static int getMultiplier(String string) throws ParseException {
 		String suffix;
 		Matcher matcher = SUFFIX_PATTERN.matcher(string);
-		if (matcher.find())
-		{
+		if (matcher.find()) {
 			suffix = matcher.group(1);
-		}
-		else
-		{
+		} else {
 			throw new ParseException(string + " does not resemble a properly formatted stack.", string.length() - 1);
 		}
 
-		if (!suffix.equals(""))
-		{
-			for (int i = 1; i < SUFFIXES.length; i++)
-			{
-				if (SUFFIXES[i].equals(suffix.toUpperCase()))
-				{
+		if (!suffix.equals("")) {
+			for (int i = 1; i < SUFFIXES.length; i++) {
+				if (SUFFIXES[i].equals(suffix.toUpperCase())) {
 					return (int) Math.pow(10, i * 3);
 				}
 			}
 
 			throw new ParseException("Invalid Suffix: " + suffix, string.length() - 1);
-		}
-		else
-		{
+		} else {
 			return 1;
 		}
 	}
@@ -244,10 +222,8 @@ public class QuantityFormatter
 	 * @param localDateTime The LocalDateTime object to format as a string
 	 * @return The formatted string.
 	 */
-	public static String getPlatformTimeStringFromLocalDateTime(LocalDateTime localDateTime)
-	{
-		if (OSType.getOSType() == OSType.Windows)
-		{
+	public static String getPlatformTimeStringFromLocalDateTime(LocalDateTime localDateTime) {
+		if (OSType.getOSType() == OSType.Windows) {
 			return WinApi.getTimeFormatString(localDateTime);
 		}
 		return QuantityFormatter.getLocalizedDateTimeFormatter(FormatStyle.SHORT).format(localDateTime.toLocalTime());

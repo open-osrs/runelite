@@ -30,8 +30,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum Spellbook
-{
+public enum Spellbook {
 	STANDARD(0, "standard"),
 	ANCIENT(1, "ancient"),
 	LUNAR(2, "lunar"),
@@ -45,18 +44,15 @@ public enum Spellbook
 
 	private static final ImmutableMap<Integer, Spellbook> map;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, Spellbook> builder = new ImmutableMap.Builder<>();
-		for (Spellbook s : values())
-		{
+		for (Spellbook s : values()) {
 			builder.put(s.id, s);
 		}
 		map = builder.build();
 	}
 
-	public static Spellbook getByID(int id)
-	{
+	public static Spellbook getByID(int id) {
 		return map.get(id);
 	}
 }

@@ -26,7 +26,6 @@
 package net.runelite.client.plugins.puzzlesolver;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +33,11 @@ import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 
+import java.util.Map;
+
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-enum VarrockMuseumAnswer
-{
+enum VarrockMuseumAnswer {
 	LIZARD_1("How does a lizard regulate body heat?", "Sunlight."),
 	LIZARD_2("Who discovered how to kill lizards?", "The Slayer Masters."),
 	LIZARD_3("How many eyes does a lizard have?", "Three."),
@@ -138,12 +138,10 @@ enum VarrockMuseumAnswer
 
 	private static final Map<String, String> MATCHES;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
 
-		for (VarrockMuseumAnswer varrockMuseumAnswer : VarrockMuseumAnswer.values())
-		{
+		for (VarrockMuseumAnswer varrockMuseumAnswer : VarrockMuseumAnswer.values()) {
 			builder.put(varrockMuseumAnswer.question, varrockMuseumAnswer.answer);
 		}
 
@@ -153,16 +151,13 @@ enum VarrockMuseumAnswer
 	private final String question;
 	private final String answer;
 
-	static Widget findCorrect(final Client client, final String question, final WidgetInfo... widgets)
-	{
+	static Widget findCorrect(final Client client, final String question, final WidgetInfo... widgets) {
 		final String s = MATCHES.get(question);
 
-		for (WidgetInfo widgetInfo : widgets)
-		{
+		for (WidgetInfo widgetInfo : widgets) {
 			final Widget widget = client.getWidget(widgetInfo);
 
-			if (widget != null && widget.getText().equals(s))
-			{
+			if (widget != null && widget.getText().equals(s)) {
 				return widget;
 			}
 		}

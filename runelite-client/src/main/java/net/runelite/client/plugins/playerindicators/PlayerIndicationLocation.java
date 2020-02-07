@@ -11,8 +11,7 @@ package net.runelite.client.plugins.playerindicators;
 
 import com.google.common.collect.ImmutableList;
 
-public enum PlayerIndicationLocation
-{
+public enum PlayerIndicationLocation {
 	/**
 	 * Indicates the player by rendering their username above their head
 	 */

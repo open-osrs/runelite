@@ -31,8 +31,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface ConfigTitleSection
-{
+public @interface ConfigTitleSection {
 	int position();
 
 	String keyName();

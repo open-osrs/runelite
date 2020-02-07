@@ -25,18 +25,16 @@
  */
 package net.runelite.client.plugins.devtools;
 
-import java.awt.GridLayout;
-import java.awt.TrayIcon;
-import javax.inject.Inject;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import net.runelite.api.Client;
 import net.runelite.client.Notifier;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
 
-class DevToolsPanel extends PluginPanel
-{
+import javax.inject.Inject;
+import javax.swing.*;
+import java.awt.*;
+
+class DevToolsPanel extends PluginPanel {
 	private final Client client;
 	private final Notifier notifier;
 	private final DevToolsPlugin plugin;
@@ -45,8 +43,7 @@ class DevToolsPanel extends PluginPanel
 	private final VarInspector varInspector;
 
 	@Inject
-	private DevToolsPanel(Client client, DevToolsPlugin plugin, WidgetInspector widgetInspector, VarInspector varInspector, Notifier notifier)
-	{
+	private DevToolsPanel(Client client, DevToolsPlugin plugin, WidgetInspector widgetInspector, VarInspector varInspector, Notifier notifier) {
 		super();
 		this.client = client;
 		this.plugin = plugin;
@@ -59,8 +56,7 @@ class DevToolsPanel extends PluginPanel
 		add(createOptionsPanel());
 	}
 
-	private JPanel createOptionsPanel()
-	{
+	private JPanel createOptionsPanel() {
 		final JPanel container = new JPanel();
 		container.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		container.setLayout(new GridLayout(0, 2, 3, 3));
@@ -102,12 +98,9 @@ class DevToolsPanel extends PluginPanel
 		container.add(plugin.getWidgetInspector());
 		plugin.getWidgetInspector().addActionListener((ev) ->
 		{
-			if (plugin.getWidgetInspector().isActive())
-			{
+			if (plugin.getWidgetInspector().isActive()) {
 				widgetInspector.close();
-			}
-			else
-			{
+			} else {
 				widgetInspector.open();
 			}
 		});
@@ -115,12 +108,9 @@ class DevToolsPanel extends PluginPanel
 		container.add(plugin.getVarInspector());
 		plugin.getVarInspector().addActionListener((ev) ->
 		{
-			if (plugin.getVarInspector().isActive())
-			{
+			if (plugin.getVarInspector().isActive()) {
 				varInspector.close();
-			}
-			else
-			{
+			} else {
 				varInspector.open();
 			}
 		});
@@ -128,12 +118,9 @@ class DevToolsPanel extends PluginPanel
 		container.add(plugin.getLogMenuActions());
 		plugin.getLogMenuActions().addActionListener((ev) ->
 		{
-			if (plugin.getLogMenuActions().isActive())
-			{
+			if (plugin.getLogMenuActions().isActive()) {
 				client.setPrintMenuActions(false);
-			}
-			else
-			{
+			} else {
 				client.setPrintMenuActions(true);
 			}
 		});

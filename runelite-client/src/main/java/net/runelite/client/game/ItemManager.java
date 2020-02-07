@@ -30,30 +30,9 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableMap;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.Constants;
-import static net.runelite.api.Constants.CLIENT_DEFAULT_ZOOM;
-import static net.runelite.api.Constants.HIGH_ALCHEMY_MULTIPLIER;
-import net.runelite.api.GameState;
-import net.runelite.api.ItemDefinition;
-import net.runelite.api.ItemID;
-import static net.runelite.api.ItemID.*;
-import net.runelite.api.Sprite;
+import net.runelite.api.*;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.PostItemDefinition;
 import net.runelite.client.callback.ClientThread;
@@ -64,72 +43,89 @@ import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.item.ItemStats;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import static net.runelite.api.Constants.CLIENT_DEFAULT_ZOOM;
+import static net.runelite.api.Constants.HIGH_ALCHEMY_MULTIPLIER;
+import static net.runelite.api.ItemID.*;
+
 @Singleton
 @Slf4j
-public class ItemManager
-{
+public class ItemManager {
 	// Worn items with weight reducing property have a different worn and inventory ItemID
 	private static final ImmutableMap<Integer, Integer> WORN_ITEMS = ImmutableMap.<Integer, Integer>builder().
-		put(BOOTS_OF_LIGHTNESS_89, BOOTS_OF_LIGHTNESS).
-		put(PENANCE_GLOVES_10554, PENANCE_GLOVES).
+			put(BOOTS_OF_LIGHTNESS_89, BOOTS_OF_LIGHTNESS).
+			put(PENANCE_GLOVES_10554, PENANCE_GLOVES).
 
-		put(GRACEFUL_HOOD_11851, GRACEFUL_HOOD).
-		put(GRACEFUL_CAPE_11853, GRACEFUL_CAPE).
-		put(GRACEFUL_TOP_11855, GRACEFUL_TOP).
-		put(GRACEFUL_LEGS_11857, GRACEFUL_LEGS).
-		put(GRACEFUL_GLOVES_11859, GRACEFUL_GLOVES).
-		put(GRACEFUL_BOOTS_11861, GRACEFUL_BOOTS).
-		put(GRACEFUL_HOOD_13580, GRACEFUL_HOOD_13579).
-		put(GRACEFUL_CAPE_13582, GRACEFUL_CAPE_13581).
-		put(GRACEFUL_TOP_13584, GRACEFUL_TOP_13583).
-		put(GRACEFUL_LEGS_13586, GRACEFUL_LEGS_13585).
-		put(GRACEFUL_GLOVES_13588, GRACEFUL_GLOVES_13587).
-		put(GRACEFUL_BOOTS_13590, GRACEFUL_BOOTS_13589).
-		put(GRACEFUL_HOOD_13592, GRACEFUL_HOOD_13591).
-		put(GRACEFUL_CAPE_13594, GRACEFUL_CAPE_13593).
-		put(GRACEFUL_TOP_13596, GRACEFUL_TOP_13595).
-		put(GRACEFUL_LEGS_13598, GRACEFUL_LEGS_13597).
-		put(GRACEFUL_GLOVES_13600, GRACEFUL_GLOVES_13599).
-		put(GRACEFUL_BOOTS_13602, GRACEFUL_BOOTS_13601).
-		put(GRACEFUL_HOOD_13604, GRACEFUL_HOOD_13603).
-		put(GRACEFUL_CAPE_13606, GRACEFUL_CAPE_13605).
-		put(GRACEFUL_TOP_13608, GRACEFUL_TOP_13607).
-		put(GRACEFUL_LEGS_13610, GRACEFUL_LEGS_13609).
-		put(GRACEFUL_GLOVES_13612, GRACEFUL_GLOVES_13611).
-		put(GRACEFUL_BOOTS_13614, GRACEFUL_BOOTS_13613).
-		put(GRACEFUL_HOOD_13616, GRACEFUL_HOOD_13615).
-		put(GRACEFUL_CAPE_13618, GRACEFUL_CAPE_13617).
-		put(GRACEFUL_TOP_13620, GRACEFUL_TOP_13619).
-		put(GRACEFUL_LEGS_13622, GRACEFUL_LEGS_13621).
-		put(GRACEFUL_GLOVES_13624, GRACEFUL_GLOVES_13623).
-		put(GRACEFUL_BOOTS_13626, GRACEFUL_BOOTS_13625).
-		put(GRACEFUL_HOOD_13628, GRACEFUL_HOOD_13627).
-		put(GRACEFUL_CAPE_13630, GRACEFUL_CAPE_13629).
-		put(GRACEFUL_TOP_13632, GRACEFUL_TOP_13631).
-		put(GRACEFUL_LEGS_13634, GRACEFUL_LEGS_13633).
-		put(GRACEFUL_GLOVES_13636, GRACEFUL_GLOVES_13635).
-		put(GRACEFUL_BOOTS_13638, GRACEFUL_BOOTS_13637).
-		put(GRACEFUL_HOOD_13668, GRACEFUL_HOOD_13667).
-		put(GRACEFUL_CAPE_13670, GRACEFUL_CAPE_13669).
-		put(GRACEFUL_TOP_13672, GRACEFUL_TOP_13671).
-		put(GRACEFUL_LEGS_13674, GRACEFUL_LEGS_13673).
-		put(GRACEFUL_GLOVES_13676, GRACEFUL_GLOVES_13675).
-		put(GRACEFUL_BOOTS_13678, GRACEFUL_BOOTS_13677).
-		put(GRACEFUL_HOOD_21063, GRACEFUL_HOOD_21061).
-		put(GRACEFUL_CAPE_21066, GRACEFUL_CAPE_21064).
-		put(GRACEFUL_TOP_21069, GRACEFUL_TOP_21067).
-		put(GRACEFUL_LEGS_21072, GRACEFUL_LEGS_21070).
-		put(GRACEFUL_GLOVES_21075, GRACEFUL_GLOVES_21073).
-		put(GRACEFUL_BOOTS_21078, GRACEFUL_BOOTS_21076).
+			put(GRACEFUL_HOOD_11851, GRACEFUL_HOOD).
+			put(GRACEFUL_CAPE_11853, GRACEFUL_CAPE).
+			put(GRACEFUL_TOP_11855, GRACEFUL_TOP).
+			put(GRACEFUL_LEGS_11857, GRACEFUL_LEGS).
+			put(GRACEFUL_GLOVES_11859, GRACEFUL_GLOVES).
+			put(GRACEFUL_BOOTS_11861, GRACEFUL_BOOTS).
+			put(GRACEFUL_HOOD_13580, GRACEFUL_HOOD_13579).
+			put(GRACEFUL_CAPE_13582, GRACEFUL_CAPE_13581).
+			put(GRACEFUL_TOP_13584, GRACEFUL_TOP_13583).
+			put(GRACEFUL_LEGS_13586, GRACEFUL_LEGS_13585).
+			put(GRACEFUL_GLOVES_13588, GRACEFUL_GLOVES_13587).
+			put(GRACEFUL_BOOTS_13590, GRACEFUL_BOOTS_13589).
+			put(GRACEFUL_HOOD_13592, GRACEFUL_HOOD_13591).
+			put(GRACEFUL_CAPE_13594, GRACEFUL_CAPE_13593).
+			put(GRACEFUL_TOP_13596, GRACEFUL_TOP_13595).
+			put(GRACEFUL_LEGS_13598, GRACEFUL_LEGS_13597).
+			put(GRACEFUL_GLOVES_13600, GRACEFUL_GLOVES_13599).
+			put(GRACEFUL_BOOTS_13602, GRACEFUL_BOOTS_13601).
+			put(GRACEFUL_HOOD_13604, GRACEFUL_HOOD_13603).
+			put(GRACEFUL_CAPE_13606, GRACEFUL_CAPE_13605).
+			put(GRACEFUL_TOP_13608, GRACEFUL_TOP_13607).
+			put(GRACEFUL_LEGS_13610, GRACEFUL_LEGS_13609).
+			put(GRACEFUL_GLOVES_13612, GRACEFUL_GLOVES_13611).
+			put(GRACEFUL_BOOTS_13614, GRACEFUL_BOOTS_13613).
+			put(GRACEFUL_HOOD_13616, GRACEFUL_HOOD_13615).
+			put(GRACEFUL_CAPE_13618, GRACEFUL_CAPE_13617).
+			put(GRACEFUL_TOP_13620, GRACEFUL_TOP_13619).
+			put(GRACEFUL_LEGS_13622, GRACEFUL_LEGS_13621).
+			put(GRACEFUL_GLOVES_13624, GRACEFUL_GLOVES_13623).
+			put(GRACEFUL_BOOTS_13626, GRACEFUL_BOOTS_13625).
+			put(GRACEFUL_HOOD_13628, GRACEFUL_HOOD_13627).
+			put(GRACEFUL_CAPE_13630, GRACEFUL_CAPE_13629).
+			put(GRACEFUL_TOP_13632, GRACEFUL_TOP_13631).
+			put(GRACEFUL_LEGS_13634, GRACEFUL_LEGS_13633).
+			put(GRACEFUL_GLOVES_13636, GRACEFUL_GLOVES_13635).
+			put(GRACEFUL_BOOTS_13638, GRACEFUL_BOOTS_13637).
+			put(GRACEFUL_HOOD_13668, GRACEFUL_HOOD_13667).
+			put(GRACEFUL_CAPE_13670, GRACEFUL_CAPE_13669).
+			put(GRACEFUL_TOP_13672, GRACEFUL_TOP_13671).
+			put(GRACEFUL_LEGS_13674, GRACEFUL_LEGS_13673).
+			put(GRACEFUL_GLOVES_13676, GRACEFUL_GLOVES_13675).
+			put(GRACEFUL_BOOTS_13678, GRACEFUL_BOOTS_13677).
+			put(GRACEFUL_HOOD_21063, GRACEFUL_HOOD_21061).
+			put(GRACEFUL_CAPE_21066, GRACEFUL_CAPE_21064).
+			put(GRACEFUL_TOP_21069, GRACEFUL_TOP_21067).
+			put(GRACEFUL_LEGS_21072, GRACEFUL_LEGS_21070).
+			put(GRACEFUL_GLOVES_21075, GRACEFUL_GLOVES_21073).
+			put(GRACEFUL_BOOTS_21078, GRACEFUL_BOOTS_21076).
 
-		put(MAX_CAPE_13342, MAX_CAPE).
+			put(MAX_CAPE_13342, MAX_CAPE).
 
-		put(SPOTTED_CAPE_10073, SPOTTED_CAPE).
-		put(SPOTTIER_CAPE_10074, SPOTTIER_CAPE).
+			put(SPOTTED_CAPE_10073, SPOTTED_CAPE).
+			put(SPOTTIER_CAPE_10074, SPOTTIER_CAPE).
 
-		put(AGILITY_CAPET_13341, AGILITY_CAPET).
-		put(AGILITY_CAPE_13340, AGILITY_CAPE).
-		build();
+			put(AGILITY_CAPET_13341, AGILITY_CAPET).
+			put(AGILITY_CAPE_13340, AGILITY_CAPE).
+			build();
 	private final Client client;
 	private final ClientThread clientThread;
 	private final ItemClient itemClient;
@@ -141,13 +137,12 @@ public class ItemManager
 
 	@Inject
 	public ItemManager(
-		Client client,
-		ScheduledExecutorService executor,
-		ClientThread clientThread,
-		EventBus eventbus,
-		ItemClient itemClient
-	)
-	{
+			Client client,
+			ScheduledExecutorService executor,
+			ClientThread clientThread,
+			EventBus eventbus,
+			ItemClient itemClient
+	) {
 		this.client = client;
 		this.clientThread = clientThread;
 		this.itemClient = itemClient;
@@ -156,84 +151,73 @@ public class ItemManager
 		executor.submit(this::loadStats);
 
 		itemImages = CacheBuilder.newBuilder()
-			.maximumSize(128L)
-			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<ImageKey, AsyncBufferedImage>()
-			{
-				@Override
-				public AsyncBufferedImage load(@NotNull ImageKey key)
-				{
-					return loadImage(key.itemId, key.itemQuantity, key.stackable);
-				}
-			});
+				.maximumSize(128L)
+				.expireAfterAccess(1, TimeUnit.HOURS)
+				.build(new CacheLoader<ImageKey, AsyncBufferedImage>() {
+					@Override
+					public AsyncBufferedImage load(@NotNull ImageKey key) {
+						return loadImage(key.itemId, key.itemQuantity, key.stackable);
+					}
+				});
 
 		itemDefinitions = CacheBuilder.newBuilder()
-			.maximumSize(1024L)
-			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<Integer, ItemDefinition>()
-			{
-				@Override
-				public ItemDefinition load(@NotNull Integer key)
-				{
-					return client.getItemDefinition(key);
-				}
-			});
+				.maximumSize(1024L)
+				.expireAfterAccess(1, TimeUnit.HOURS)
+				.build(new CacheLoader<Integer, ItemDefinition>() {
+					@Override
+					public ItemDefinition load(@NotNull Integer key) {
+						return client.getItemDefinition(key);
+					}
+				});
 
 		itemOutlines = CacheBuilder.newBuilder()
-			.maximumSize(128L)
-			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<OutlineKey, BufferedImage>()
-			{
-				@Override
-				public BufferedImage load(@NotNull OutlineKey key)
-				{
-					return loadItemOutline(key.itemId, key.itemQuantity, key.outlineColor);
-				}
-			});
+				.maximumSize(128L)
+				.expireAfterAccess(1, TimeUnit.HOURS)
+				.build(new CacheLoader<OutlineKey, BufferedImage>() {
+					@Override
+					public BufferedImage load(@NotNull OutlineKey key) {
+						return loadItemOutline(key.itemId, key.itemQuantity, key.outlineColor);
+					}
+				});
 
 		eventbus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventbus.subscribe(PostItemDefinition.class, this, this::onPostItemDefinition);
 
 		Completable.fromAction(ItemVariationMapping::load)
-			.subscribeOn(Schedulers.computation())
-			.subscribe(
-				() -> log.debug("Loaded {} item variations", ItemVariationMapping.getSize()),
-				ex -> log.warn("Error loading item variations", ex)
-			);
+				.subscribeOn(Schedulers.computation())
+				.subscribe(
+						() -> log.debug("Loaded {} item variations", ItemVariationMapping.getSize()),
+						ex -> log.warn("Error loading item variations", ex)
+				);
 	}
 
-	private void loadPrices()
-	{
+	private void loadPrices() {
 		itemClient.getPrices()
-			.subscribeOn(Schedulers.io())
-			.subscribe(
-				m -> itemPrices = m,
-				e -> log.warn("Error loading prices", e),
-				() -> log.debug("Loaded {} prices", itemPrices.size())
-			);
+				.subscribeOn(Schedulers.io())
+				.subscribe(
+						m -> itemPrices = m,
+						e -> log.warn("Error loading prices", e),
+						() -> log.debug("Loaded {} prices", itemPrices.size())
+				);
 	}
 
-	private void loadStats()
-	{
+	private void loadStats() {
 		itemClient.getStats()
-			.subscribeOn(Schedulers.io())
-			.subscribe(
-				m -> itemStats = m,
-				e -> log.warn("Error fetching stats", e),
-				() -> log.debug("Loaded {} stats", itemStats.size())
-			);
+				.subscribeOn(Schedulers.io())
+				.subscribe(
+						m -> itemStats = m,
+						e -> log.warn("Error fetching stats", e),
+						() -> log.debug("Loaded {} stats", itemStats.size())
+				);
 	}
 
-	private void onGameStateChanged(final GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.HOPPING || event.getGameState() == GameState.LOGIN_SCREEN)
-		{
+	private void onGameStateChanged(final GameStateChanged event) {
+		if (event.getGameState() == GameState.HOPPING || event.getGameState() == GameState.LOGIN_SCREEN) {
 			itemDefinitions.invalidateAll();
 		}
 	}
 
-	private void onPostItemDefinition(PostItemDefinition event)
-	{
+	private void onPostItemDefinition(PostItemDefinition event) {
 		itemDefinitions.put(event.getItemDefinition().getId(), event.getItemDefinition());
 	}
 
@@ -242,8 +226,7 @@ public class ItemManager
 	 *
 	 * @see Client#getItemDefinitionCache()
 	 */
-	public void invalidateItemDefinitionCache()
-	{
+	public void invalidateItemDefinitionCache() {
 		itemDefinitions.invalidateAll();
 	}
 
@@ -253,8 +236,7 @@ public class ItemManager
 	 * @param itemID item id
 	 * @return item price
 	 */
-	public int getItemPrice(int itemID)
-	{
+	public int getItemPrice(int itemID) {
 		return getItemPrice(itemID, false);
 	}
 
@@ -265,32 +247,25 @@ public class ItemManager
 	 * @param ignoreUntradeableMap should the price returned ignore the {@link UntradeableItemMapping}
 	 * @return item price
 	 */
-	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
-	{
-		if (itemID == ItemID.COINS_995)
-		{
+	public int getItemPrice(int itemID, boolean ignoreUntradeableMap) {
+		if (itemID == ItemID.COINS_995) {
 			return 1;
 		}
-		if (itemID == ItemID.PLATINUM_TOKEN)
-		{
+		if (itemID == ItemID.PLATINUM_TOKEN) {
 			return 1000;
 		}
 
-		if (!ignoreUntradeableMap)
-		{
+		if (!ignoreUntradeableMap) {
 			UntradeableItemMapping p = UntradeableItemMapping.map(ItemVariationMapping.map(itemID));
-			if (p != null)
-			{
+			if (p != null) {
 				return getItemPrice(p.getPriceID()) * p.getQuantity();
 			}
 		}
 
 		int price = 0;
-		for (int mappedID : ItemMapping.map(itemID))
-		{
+		for (int mappedID : ItemMapping.map(itemID)) {
 			ItemPrice ip = itemPrices.get(mappedID);
-			if (ip != null)
-			{
+			if (ip != null) {
 				price += ip.getPrice();
 			}
 		}
@@ -298,47 +273,37 @@ public class ItemManager
 		return price;
 	}
 
-	public int getAlchValue(ItemDefinition composition)
-	{
-		if (composition.getId() == ItemID.COINS_995)
-		{
+	public int getAlchValue(ItemDefinition composition) {
+		if (composition.getId() == ItemID.COINS_995) {
 			return 1;
 		}
-		if (composition.getId() == ItemID.PLATINUM_TOKEN)
-		{
+		if (composition.getId() == ItemID.PLATINUM_TOKEN) {
 			return 1000;
 		}
 
 		return (int) Math.max(1, composition.getPrice() * HIGH_ALCHEMY_MULTIPLIER);
 	}
 
-	public int getAlchValue(int itemID)
-	{
-		if (itemID == ItemID.COINS_995)
-		{
+	public int getAlchValue(int itemID) {
+		if (itemID == ItemID.COINS_995) {
 			return 1;
 		}
-		if (itemID == ItemID.PLATINUM_TOKEN)
-		{
+		if (itemID == ItemID.PLATINUM_TOKEN) {
 			return 1000;
 		}
 
 		return (int) Math.max(1, getItemDefinition(itemID).getPrice() * HIGH_ALCHEMY_MULTIPLIER);
 	}
 
-	public int getRepairValue(int itemId)
-	{
+	public int getRepairValue(int itemId) {
 		return getRepairValue(itemId, false);
 	}
 
-	private int getRepairValue(int itemId, boolean fullValue)
-	{
+	private int getRepairValue(int itemId, boolean fullValue) {
 		final ItemReclaimCost b = ItemReclaimCost.of(itemId);
 
-		if (b != null)
-		{
-			if (fullValue || b.getItemID() == GRANITE_MAUL_24225 || b.getItemID() == GRANITE_MAUL_24227)
-			{
+		if (b != null) {
+			if (fullValue || b.getItemID() == GRANITE_MAUL_24225 || b.getItemID() == GRANITE_MAUL_24227) {
 				return b.getValue();
 			}
 			return (int) (b.getValue() * (75.0f / 100.0f));
@@ -354,12 +319,10 @@ public class ItemManager
 	 * @return item stats
 	 */
 	@Nullable
-	public ItemStats getItemStats(int itemId, boolean allowNote)
-	{
+	public ItemStats getItemStats(int itemId, boolean allowNote) {
 		ItemDefinition itemDefinition = getItemDefinition(itemId);
 
-		if (!allowNote && itemDefinition.getNote() != -1)
-		{
+		if (!allowNote && itemDefinition.getNote() != -1) {
 			return null;
 		}
 
@@ -372,16 +335,13 @@ public class ItemManager
 	 * @param itemName item name
 	 * @return
 	 */
-	public List<ItemPrice> search(String itemName)
-	{
+	public List<ItemPrice> search(String itemName) {
 		itemName = itemName.toLowerCase();
 
 		List<ItemPrice> result = new ArrayList<>();
-		for (ItemPrice itemPrice : itemPrices.values())
-		{
+		for (ItemPrice itemPrice : itemPrices.values()) {
 			final String name = itemPrice.getName();
-			if (name.toLowerCase().contains(itemName))
-			{
+			if (name.toLowerCase().contains(itemName)) {
 				result.add(itemPrice);
 			}
 		}
@@ -395,8 +355,7 @@ public class ItemManager
 	 * @return item composition
 	 */
 	@Nonnull
-	public ItemDefinition getItemDefinition(int itemId)
-	{
+	public ItemDefinition getItemDefinition(int itemId) {
 		assert client.isClientThread() : "getItemDefinition must be called on client thread";
 		return itemDefinitions.getUnchecked(itemId);
 	}
@@ -404,17 +363,14 @@ public class ItemManager
 	/**
 	 * Get an item's un-noted, un-placeholdered ID
 	 */
-	public int canonicalize(int itemID)
-	{
+	public int canonicalize(int itemID) {
 		ItemDefinition itemDefinition = getItemDefinition(itemID);
 
-		if (itemDefinition.getNote() != -1)
-		{
+		if (itemDefinition.getNote() != -1) {
 			return itemDefinition.getLinkedNoteId();
 		}
 
-		if (itemDefinition.getPlaceholderTemplateId() != -1)
-		{
+		if (itemDefinition.getPlaceholderTemplateId() != -1) {
 			return itemDefinition.getPlaceholderId();
 		}
 
@@ -427,19 +383,16 @@ public class ItemManager
 	 * @param itemId
 	 * @return
 	 */
-	private AsyncBufferedImage loadImage(int itemId, int quantity, boolean stackable)
-	{
+	private AsyncBufferedImage loadImage(int itemId, int quantity, boolean stackable) {
 		AsyncBufferedImage img = new AsyncBufferedImage(Constants.ITEM_SPRITE_WIDTH, Constants.ITEM_SPRITE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		clientThread.invoke(() ->
 		{
-			if (client.getGameState().ordinal() < GameState.LOGIN_SCREEN.ordinal())
-			{
+			if (client.getGameState().ordinal() < GameState.LOGIN_SCREEN.ordinal()) {
 				return false;
 			}
 			Sprite sprite = client.createItemSprite(itemId, quantity, 1, Sprite.DEFAULT_SHADOW_COLOR,
-				stackable ? 1 : 0, false, CLIENT_DEFAULT_ZOOM);
-			if (sprite == null)
-			{
+					stackable ? 1 : 0, false, CLIENT_DEFAULT_ZOOM);
+			if (sprite == null) {
 				return false;
 			}
 			sprite.toBufferedImage(img);
@@ -459,8 +412,7 @@ public class ItemManager
 	 * @param itemId
 	 * @return
 	 */
-	public AsyncBufferedImage getImage(int itemId)
-	{
+	public AsyncBufferedImage getImage(int itemId) {
 		return getImage(itemId, 1, false);
 	}
 
@@ -475,14 +427,10 @@ public class ItemManager
 	 * @param quantity
 	 * @return
 	 */
-	public AsyncBufferedImage getImage(int itemId, int quantity, boolean stackable)
-	{
-		try
-		{
+	public AsyncBufferedImage getImage(int itemId, int quantity, boolean stackable) {
+		try {
 			return itemImages.get(new ImageKey(itemId, quantity, stackable));
-		}
-		catch (ExecutionException ex)
-		{
+		} catch (ExecutionException ex) {
 			return null;
 		}
 	}
@@ -495,8 +443,7 @@ public class ItemManager
 	 * @param outlineColor outline color
 	 * @return image
 	 */
-	private BufferedImage loadItemOutline(final int itemId, final int itemQuantity, final Color outlineColor)
-	{
+	private BufferedImage loadItemOutline(final int itemId, final int itemQuantity, final Color outlineColor) {
 		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, true, 710);
 		return itemSprite.toBufferedOutline(outlineColor);
 	}
@@ -509,29 +456,23 @@ public class ItemManager
 	 * @param outlineColor outline color
 	 * @return image
 	 */
-	public BufferedImage getItemOutline(final int itemId, final int itemQuantity, final Color outlineColor)
-	{
-		try
-		{
+	public BufferedImage getItemOutline(final int itemId, final int itemQuantity, final Color outlineColor) {
+		try {
 			return itemOutlines.get(new OutlineKey(itemId, itemQuantity, outlineColor));
-		}
-		catch (ExecutionException e)
-		{
+		} catch (ExecutionException e) {
 			return null;
 		}
 	}
 
 	@Value
-	private static class ImageKey
-	{
+	private static class ImageKey {
 		private final int itemId;
 		private final int itemQuantity;
 		private final boolean stackable;
 	}
 
 	@Value
-	private static class OutlineKey
-	{
+	private static class OutlineKey {
 		private final int itemId;
 		private final int itemQuantity;
 		private final Color outlineColor;

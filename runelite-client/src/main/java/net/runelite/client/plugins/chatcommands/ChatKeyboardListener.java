@@ -24,9 +24,6 @@
  */
 package net.runelite.client.plugins.chatcommands;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
 import net.runelite.api.VarClientInt;
@@ -35,9 +32,12 @@ import net.runelite.api.vars.InputType;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.input.KeyListener;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.event.KeyEvent;
+
 @Singleton
-class ChatKeyboardListener implements KeyListener
-{
+class ChatKeyboardListener implements KeyListener {
 	@Inject
 	private ChatCommandsConfig chatCommandsConfig;
 
@@ -48,68 +48,53 @@ class ChatKeyboardListener implements KeyListener
 	private ClientThread clientThread;
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (chatCommandsConfig.clearSingleWord().matches(e))
-		{
+	public void keyPressed(KeyEvent e) {
+		if (chatCommandsConfig.clearSingleWord().matches(e)) {
 			int inputTye = client.getVar(VarClientInt.INPUT_TYPE);
 			String input = inputTye == InputType.NONE.getType()
-				? client.getVar(VarClientStr.CHATBOX_TYPED_TEXT)
-				: client.getVar(VarClientStr.INPUT_TEXT);
+					? client.getVar(VarClientStr.CHATBOX_TYPED_TEXT)
+					: client.getVar(VarClientStr.INPUT_TEXT);
 
-			if (input != null)
-			{
+			if (input != null) {
 				// remove trailing space
-				while (input.endsWith(" "))
-				{
+				while (input.endsWith(" ")) {
 					input = input.substring(0, input.length() - 1);
 				}
 
 				// find next word
 				int idx = input.lastIndexOf(' ');
 				final String replacement;
-				if (idx != -1)
-				{
+				if (idx != -1) {
 					replacement = input.substring(0, idx);
-				}
-				else
-				{
+				} else {
 					replacement = "";
 				}
 
 				clientThread.invoke(() -> applyText(inputTye, replacement));
 			}
-		}
-		else if (chatCommandsConfig.clearChatBox().matches(e))
-		{
+		} else if (chatCommandsConfig.clearChatBox().matches(e)) {
 			int inputTye = client.getVar(VarClientInt.INPUT_TYPE);
 			clientThread.invoke(() -> applyText(inputTye, ""));
 		}
 	}
 
-	private void applyText(int inputType, String replacement)
-	{
-		if (inputType == InputType.NONE.getType())
-		{
+	private void applyText(int inputType, String replacement) {
+		if (inputType == InputType.NONE.getType()) {
 			client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, replacement);
 			client.runScript(ScriptID.CHAT_PROMPT_INIT);
-		}
-		else if (inputType == InputType.PRIVATE_MESSAGE.getType())
-		{
+		} else if (inputType == InputType.PRIVATE_MESSAGE.getType()) {
 			client.setVar(VarClientStr.INPUT_TEXT, replacement);
 			client.runScript(ScriptID.CHAT_TEXT_INPUT_REBUILD, "");
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 
 	}
 }

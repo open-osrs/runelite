@@ -31,14 +31,12 @@ import net.runelite.api.Skill;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public class SkillRequirement implements Requirement
-{
+public class SkillRequirement implements Requirement {
 	private final Skill skill;
 	private final int level;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return level + " " + skill.getName();
 	}
 }

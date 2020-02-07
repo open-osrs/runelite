@@ -24,19 +24,19 @@
  */
 package net.runelite.client.plugins.ammo;
 
-import java.awt.image.BufferedImage;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.Duration;
-import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.Counter;
 import net.runelite.client.util.QuantityFormatter;
 
-class AmmoCounter extends Counter
-{
+import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.Duration;
+import java.time.Instant;
+
+class AmmoCounter extends Counter {
 	@Getter(AccessLevel.PACKAGE)
 	private int itemID;
 	private final String name;
@@ -44,8 +44,7 @@ class AmmoCounter extends Counter
 	private final Instant time;
 	private BigDecimal ammoPerHour;
 
-	AmmoCounter(Plugin plugin, int itemID, int count, String name, BufferedImage image)
-	{
+	AmmoCounter(Plugin plugin, int itemID, int count, String name, BufferedImage image) {
 		super(image, plugin, count);
 		this.total = count;
 		this.itemID = itemID;
@@ -54,40 +53,30 @@ class AmmoCounter extends Counter
 	}
 
 	@Override
-	public String getText()
-	{
+	public String getText() {
 		return QuantityFormatter.quantityToRSDecimalStack(getCount());
 	}
 
 	@Override
-	public String getTooltip()
-	{
-		if (lossRate() >= 1)
-		{
+	public String getTooltip() {
+		if (lossRate() >= 1) {
 			return String.format("%s</br>Loss Rate: %s/h", name, lossRate());
-		}
-		else
-		{
+		} else {
 			return "Need more data";
 		}
 	}
 
-	private int lossRate()
-	{
+	private int lossRate() {
 		BigDecimal diff = BigDecimal.valueOf(total).subtract(BigDecimal.valueOf(getCount()));
 		BigDecimal timeSinceStart = BigDecimal.valueOf(Duration.between(time, Instant.now()).getSeconds())
-			.setScale(6, RoundingMode.UP);
-		if (timeSinceStart.compareTo(BigDecimal.ZERO) != 0)
-		{
+				.setScale(6, RoundingMode.UP);
+		if (timeSinceStart.compareTo(BigDecimal.ZERO) != 0) {
 			BigDecimal timeSinceStartInHours = timeSinceStart.divide(BigDecimal.valueOf(3600), RoundingMode.UP);
 			ammoPerHour = diff.divide(timeSinceStartInHours, RoundingMode.HALF_UP);
 		}
-		if (ammoPerHour != null)
-		{
+		if (ammoPerHour != null) {
 			return ammoPerHour.intValue();
-		}
-		else
-		{
+		} else {
 			return 0;
 		}
 	}

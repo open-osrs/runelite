@@ -30,8 +30,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-class LootTrackerItem
-{
+class LootTrackerItem {
 	@Getter(AccessLevel.PACKAGE)
 	private final int id;
 	@Getter(AccessLevel.PACKAGE)

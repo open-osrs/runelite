@@ -24,12 +24,6 @@
  */
 package net.runelite.client.ui.overlay.worldmap;
 
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.SwingUtilities;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.RenderOverview;
@@ -38,40 +32,39 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.input.MouseAdapter;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
 @Singleton
-public class WorldMapOverlayMouseListener extends MouseAdapter
-{
+public class WorldMapOverlayMouseListener extends MouseAdapter {
 	private final Client client;
 	private final WorldMapPointManager worldMapPointManager;
 	private WorldMapPoint tooltipPoint = null;
 
 	@Inject
-	private WorldMapOverlayMouseListener(Client client, WorldMapPointManager worldMapPointManager)
-	{
+	private WorldMapOverlayMouseListener(Client client, WorldMapPointManager worldMapPointManager) {
 		this.client = client;
 		this.worldMapPointManager = worldMapPointManager;
 	}
 
 	@Override
-	public MouseEvent mousePressed(MouseEvent e)
-	{
+	public MouseEvent mousePressed(MouseEvent e) {
 		final List<WorldMapPoint> worldMapPoints = worldMapPointManager.getWorldMapPoints();
 
-		if (SwingUtilities.isLeftMouseButton(e) && !worldMapPoints.isEmpty())
-		{
+		if (SwingUtilities.isLeftMouseButton(e) && !worldMapPoints.isEmpty()) {
 			Point mousePos = client.getMouseCanvasPosition();
 
-			for (WorldMapPoint worldMapPoint : worldMapPoints)
-			{
+			for (WorldMapPoint worldMapPoint : worldMapPoints) {
 				Rectangle clickbox = worldMapPoint.getClickbox();
-				if (clickbox != null && clickbox.contains(mousePos.getX(), mousePos.getY()))
-				{
-					if (worldMapPoint.isJumpOnClick())
-					{
+				if (clickbox != null && clickbox.contains(mousePos.getX(), mousePos.getY())) {
+					if (worldMapPoint.isJumpOnClick()) {
 						// jump map to target, or position of point
 						WorldPoint target = worldMapPoint.getTarget();
-						if (target == null)
-						{
+						if (target == null) {
 							target = worldMapPoint.getWorldPoint();
 						}
 						RenderOverview renderOverview = client.getRenderOverview();
@@ -85,70 +78,56 @@ public class WorldMapOverlayMouseListener extends MouseAdapter
 	}
 
 	@Override
-	public MouseEvent mouseMoved(MouseEvent mouseEvent)
-	{
+	public MouseEvent mouseMoved(MouseEvent mouseEvent) {
 		final List<WorldMapPoint> worldMapPoints = worldMapPointManager.getWorldMapPoints();
 
-		if (worldMapPoints.isEmpty())
-		{
+		if (worldMapPoints.isEmpty()) {
 			return mouseEvent;
 		}
 
 		final Point mousePos = client.getMouseCanvasPosition();
 		final Widget view = client.getWidget(WidgetInfo.WORLD_MAP_VIEW);
 
-		if (view == null)
-		{
+		if (view == null) {
 			return mouseEvent;
 		}
 
 		final Rectangle worldMapDisplay = view.getBounds();
 
-		if (worldMapDisplay == null || !worldMapDisplay.contains(mousePos.getX(), mousePos.getY()))
-		{
-			if (tooltipPoint != null)
-			{
+		if (worldMapDisplay == null || !worldMapDisplay.contains(mousePos.getX(), mousePos.getY())) {
+			if (tooltipPoint != null) {
 				tooltipPoint.setTooltipVisible(false);
 				tooltipPoint = null;
 				final Widget rsTooltip = client.getWidget(WidgetInfo.WORLD_MAP_TOOLTIP);
-				if (rsTooltip != null)
-				{
+				if (rsTooltip != null) {
 					rsTooltip.setHidden(false);
 				}
 			}
 			return mouseEvent;
 		}
 
-		if (tooltipPoint != null)
-		{
+		if (tooltipPoint != null) {
 			if (tooltipPoint.getClickbox() != null
-				&& tooltipPoint.getClickbox().contains(mousePos.getX(), mousePos.getY()))
-			{
+					&& tooltipPoint.getClickbox().contains(mousePos.getX(), mousePos.getY())) {
 				return mouseEvent;
-			}
-			else
-			{
+			} else {
 				tooltipPoint.setTooltipVisible(false);
 				tooltipPoint = null;
 				final Widget rsTooltip = client.getWidget(WidgetInfo.WORLD_MAP_TOOLTIP);
-				if (rsTooltip != null)
-				{
+				if (rsTooltip != null) {
 					rsTooltip.setHidden(false);
 				}
 			}
 		}
 
-		for (WorldMapPoint worldMapPoint : worldMapPointManager.getWorldMapPoints())
-		{
+		for (WorldMapPoint worldMapPoint : worldMapPointManager.getWorldMapPoints()) {
 			if (worldMapPoint.getClickbox() != null
-				&& worldMapPoint.getClickbox().contains(mousePos.getX(), mousePos.getY())
-				&& worldMapPoint.getTooltip() != null)
-			{
+					&& worldMapPoint.getClickbox().contains(mousePos.getX(), mousePos.getY())
+					&& worldMapPoint.getTooltip() != null) {
 				worldMapPoint.setTooltipVisible(true);
 				tooltipPoint = worldMapPoint;
 				final Widget rsTooltip = client.getWidget(WidgetInfo.WORLD_MAP_TOOLTIP);
-				if (rsTooltip != null)
-				{
+				if (rsTooltip != null) {
 					rsTooltip.setHidden(true);
 				}
 				return mouseEvent;

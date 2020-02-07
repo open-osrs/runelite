@@ -26,14 +26,14 @@
 package net.runelite.client.plugins.itemcharges;
 
 import com.google.common.collect.Sets;
-import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.EquipmentInventorySlot;
 
+import java.util.Set;
+
 @Getter(AccessLevel.PACKAGE)
-enum ItemWithSlot
-{
+enum ItemWithSlot {
 	ABYSSAL_BRACELET(ItemChargeType.ABYSSAL_BRACELET, EquipmentInventorySlot.GLOVES),
 	BRACELET_OF_SLAUGHTER(ItemChargeType.BRACELET_OF_SLAUGHTER, EquipmentInventorySlot.GLOVES),
 	EXPEDITIOUS_BRACELET(ItemChargeType.EXPEDITIOUS_BRACELET, EquipmentInventorySlot.GLOVES),
@@ -46,8 +46,7 @@ enum ItemWithSlot
 	private final ItemChargeType type;
 	private final Set<EquipmentInventorySlot> slots;
 
-	ItemWithSlot(final ItemChargeType type, final EquipmentInventorySlot... slots)
-	{
+	ItemWithSlot(final ItemChargeType type, final EquipmentInventorySlot... slots) {
 		this.type = type;
 		this.slots = Sets.newHashSet(slots);
 	}

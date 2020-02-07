@@ -32,32 +32,27 @@ import net.runelite.api.coords.WorldPoint;
 
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
-class Portal
-{
+class Portal {
 	private PortalColor color;
 	private WidgetPortal widget;
 	private WorldPoint location;
 
 	private PortalState portalState = PortalState.SHIELDED;
 
-	Portal(final PortalColor color, final WidgetPortal widget)
-	{
+	Portal(final PortalColor color, final WidgetPortal widget) {
 		this.color = color;
 		this.widget = widget;
 	}
 
-	boolean isNotShielded()
-	{
+	boolean isNotShielded() {
 		return portalState != PortalState.SHIELDED;
 	}
 
-	public boolean isDead()
-	{
+	public boolean isDead() {
 		return portalState == PortalState.DEAD;
 	}
 
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return (isNotShielded() && !isDead());
 	}
 }

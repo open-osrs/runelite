@@ -25,10 +25,6 @@
 package net.runelite.client.plugins.playerinfo;
 
 import com.google.inject.Provides;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -40,19 +36,24 @@ import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import static net.runelite.client.plugins.playerinfo.PlayerInfoCustomIndicator.IndicatorType;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static net.runelite.client.plugins.playerinfo.PlayerInfoCustomIndicator.IndicatorType;
+
 @PluginDescriptor(
-	name = "Player Information",
-	description = "An alternative to the Minimap Orbs",
-	tags = {"combat", "overlay"},
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Player Information",
+		description = "An alternative to the Minimap Orbs",
+		tags = {"combat", "overlay"},
+		type = PluginType.UTILITY,
+		enabledByDefault = false
 )
 @Singleton
-public class PlayerInfoPlugin extends Plugin
-{
+public class PlayerInfoPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -86,20 +87,17 @@ public class PlayerInfoPlugin extends Plugin
 	private Color colorLow;
 
 	@Provides
-	PlayerInfoConfig provideConfig(ConfigManager configManager)
-	{
+	PlayerInfoConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(PlayerInfoConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		clientThread.invoke(() ->
 		{
-			if (client.getGameState().ordinal() < GameState.LOGIN_SCREEN.ordinal())
-			{
+			if (client.getGameState().ordinal() < GameState.LOGIN_SCREEN.ordinal()) {
 				return false;
 			}
 
@@ -120,13 +118,11 @@ public class PlayerInfoPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		infoBoxManager.removeIf(i -> i instanceof PlayerInfoCustomIndicator);
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.enableHealth = config.enableHealth();
 		this.enablePrayer = config.enablePrayer();
 		this.enableEnergy = config.enableEnergy();

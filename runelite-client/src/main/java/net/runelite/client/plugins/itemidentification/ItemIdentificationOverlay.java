@@ -26,29 +26,23 @@ package net.runelite.client.plugins.itemidentification;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import static net.runelite.api.widgets.WidgetID.GUIDE_PRICE_GROUP_ID;
-import static net.runelite.api.widgets.WidgetID.KEPT_ON_DEATH_GROUP_ID;
-import static net.runelite.api.widgets.WidgetID.KINGDOM_GROUP_ID;
-import static net.runelite.api.widgets.WidgetID.LOOTING_BAG_GROUP_ID;
-import static net.runelite.api.widgets.WidgetID.SEED_BOX_GROUP_ID;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
+import java.awt.*;
+
+import static net.runelite.api.widgets.WidgetID.*;
+
 @Singleton
-class ItemIdentificationOverlay extends WidgetItemOverlay
-{
+class ItemIdentificationOverlay extends WidgetItemOverlay {
 	private final ItemIdentificationPlugin plugin;
 	private final ItemManager itemManager;
 
 	@Inject
-	ItemIdentificationOverlay(ItemIdentificationPlugin plugin, ItemManager itemManager)
-	{
+	ItemIdentificationOverlay(ItemIdentificationPlugin plugin, ItemManager itemManager) {
 		this.plugin = plugin;
 		this.itemManager = itemManager;
 
@@ -58,49 +52,40 @@ class ItemIdentificationOverlay extends WidgetItemOverlay
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
-	{
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget) {
 		ItemIdentification iden = findItemIdentification(itemId);
-		if (iden == null)
-		{
+		if (iden == null) {
 			return;
 		}
 
-		switch (iden.type)
-		{
+		switch (iden.type) {
 			case SEED:
-				if (!plugin.isShowSeeds())
-				{
+				if (!plugin.isShowSeeds()) {
 					return;
 				}
 				break;
 			case HERB:
-				if (!plugin.isShowHerbs())
-				{
+				if (!plugin.isShowHerbs()) {
 					return;
 				}
 				break;
 			case SAPLING:
-				if (!plugin.isShowSaplings())
-				{
+				if (!plugin.isShowSaplings()) {
 					return;
 				}
 				break;
 			case ORE:
-				if (!plugin.isShowOres())
-				{
+				if (!plugin.isShowOres()) {
 					return;
 				}
 				break;
 			case GEM:
-				if (!plugin.isShowGems())
-				{
+				if (!plugin.isShowGems()) {
 					return;
 				}
 				break;
 			case POTION:
-				if (!plugin.isShowPotions())
-				{
+				if (!plugin.isShowPotions()) {
 					return;
 				}
 				break;
@@ -110,13 +95,11 @@ class ItemIdentificationOverlay extends WidgetItemOverlay
 		renderText(graphics, itemWidget.getCanvasBounds(), iden);
 	}
 
-	private void renderText(Graphics2D graphics, Rectangle bounds, ItemIdentification iden)
-	{
+	private void renderText(Graphics2D graphics, Rectangle bounds, ItemIdentification iden) {
 		final TextComponent textComponent = new TextComponent();
 		textComponent.setPosition(new Point(bounds.x - 1, bounds.y + bounds.height - 1));
 		textComponent.setColor(plugin.getTextColor());
-		switch (plugin.getIdentificationType())
-		{
+		switch (plugin.getIdentificationType()) {
 			case SHORT:
 				textComponent.setText(iden.shortName);
 				break;
@@ -127,8 +110,7 @@ class ItemIdentificationOverlay extends WidgetItemOverlay
 		textComponent.render(graphics);
 	}
 
-	private ItemIdentification findItemIdentification(final int itemID)
-	{
+	private ItemIdentification findItemIdentification(final int itemID) {
 		final int realItemId = itemManager.canonicalize(itemID);
 		return ItemIdentification.get(realItemId);
 	}

@@ -9,26 +9,20 @@
 
 package net.runelite.client.plugins.pvptools;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import javax.inject.Singleton;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.plugins.info.JRichTextPane;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 
+import javax.inject.Singleton;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+
 @Slf4j
 @Singleton
-class PvpToolsPanel extends PluginPanel
-{
+class PvpToolsPanel extends PluginPanel {
 
 	private final JLabel loggedLabel = new JLabel();
 	private final JRichTextPane emailLabel = new JRichTextPane();
@@ -46,13 +40,11 @@ class PvpToolsPanel extends PluginPanel
 	private final JPanel missingPlayersPanel = new JPanel();
 
 
-	public static String htmlLabel(String key, String value)
-	{
+	public static String htmlLabel(String key, String value) {
 		return "<html><body style = 'color:#a5a5a5'>" + key + "<span style = 'color:white'>" + value + "</span></body></html>";
 	}
 
-	void init()
-	{
+	void init() {
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -127,16 +119,14 @@ class PvpToolsPanel extends PluginPanel
 
 	}
 
-	void disablePlayerCount()
-	{
+	void disablePlayerCount() {
 		this.numOther.setText("Disabled");
 		this.numCC.setText("Disabled");
 		this.numCC.repaint();
 		this.numOther.repaint();
 	}
 
-	void disablePrayerCount()
-	{
+	void disablePrayerCount() {
 		this.numMageJLabel.setText("disabled");
 		this.numRangeJLabel.setText("disabled");
 		this.numMeleeJLabel.setText("disabled");
@@ -145,8 +135,7 @@ class PvpToolsPanel extends PluginPanel
 		this.numMeleeJLabel.repaint();
 	}
 
-	void disableRiskCalculator()
-	{
+	void disableRiskCalculator() {
 		this.totalRiskLabel.setText("disabled");
 		this.riskProtectingItem.setText("disabled");
 		this.biggestItemLabel.setText("disabled");

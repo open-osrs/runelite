@@ -29,8 +29,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ItemInfo
-{
+public class ItemInfo {
 	private String name;
 	private boolean stackable;
 }

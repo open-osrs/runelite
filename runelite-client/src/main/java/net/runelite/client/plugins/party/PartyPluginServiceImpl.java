@@ -24,26 +24,24 @@
  */
 package net.runelite.client.plugins.party;
 
-import java.util.UUID;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.client.plugins.party.data.PartyData;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.UUID;
+
 @Singleton
-public class PartyPluginServiceImpl implements PartyPluginService
-{
+public class PartyPluginServiceImpl implements PartyPluginService {
 	private final PartyPlugin plugin;
 
 	@Inject
-	private PartyPluginServiceImpl(final PartyPlugin plugin)
-	{
+	private PartyPluginServiceImpl(final PartyPlugin plugin) {
 
 		this.plugin = plugin;
 	}
 
 	@Override
-	public PartyData getPartyData(UUID memberId)
-	{
+	public PartyData getPartyData(UUID memberId) {
 		return plugin.getPartyData(memberId);
 	}
 }

@@ -30,13 +30,11 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public class QuestPointRequirement implements Requirement
-{
+public class QuestPointRequirement implements Requirement {
 	private final int qp;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return qp + " " + "Quest points";
 	}
 }

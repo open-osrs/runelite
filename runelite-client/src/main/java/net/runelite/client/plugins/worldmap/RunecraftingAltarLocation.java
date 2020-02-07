@@ -30,8 +30,7 @@ import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
 
 @Getter(AccessLevel.PACKAGE)
-enum RunecraftingAltarLocation
-{
+enum RunecraftingAltarLocation {
 	AIR_ALTAR("Air Altar", 1, new WorldPoint(2985, 3293, 0), "air_altar_icon.png"),
 	MIND_ALTAR("Mind Altar", 2, new WorldPoint(2982, 3514, 0), "mind_altar_icon.png"),
 	WATER_ALTAR("Water Altar", 5, new WorldPoint(3185, 3165, 0), "water_altar_icon.png"),
@@ -53,8 +52,7 @@ enum RunecraftingAltarLocation
 	private final int levelReq;
 	private final String iconPath;
 
-	RunecraftingAltarLocation(String description, int level, WorldPoint location, String iconPath)
-	{
+	RunecraftingAltarLocation(String description, int level, WorldPoint location, String iconPath) {
 		this.tooltip = description + " - Level " + level;
 		this.location = location;
 		this.levelReq = level;

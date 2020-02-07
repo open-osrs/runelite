@@ -24,137 +24,125 @@
  */
 package net.runelite.client.plugins.itemstats;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("itemstat")
-public interface ItemStatConfig extends Config
-{
+public interface ItemStatConfig extends Config {
 	@ConfigItem(
-		keyName = "consumableStats",
-		name = "Enable consumable stats",
-		description = "Enables tooltips for consumable items (food, boosts)"
+			keyName = "consumableStats",
+			name = "Enable consumable stats",
+			description = "Enables tooltips for consumable items (food, boosts)"
 	)
-	default boolean consumableStats()
-	{
+	default boolean consumableStats() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "equipmentStats",
-		name = "Enable equipment stats",
-		description = "Enables tooltips for equipment items (combat bonuses, weight, prayer bonuses)"
+			keyName = "equipmentStats",
+			name = "Enable equipment stats",
+			description = "Enables tooltips for equipment items (combat bonuses, weight, prayer bonuses)"
 	)
-	default boolean equipmentStats()
-	{
+	default boolean equipmentStats() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "geStats",
-		name = "Enable GE item information",
-		description = "Shows an item information panel when buying items in the GE"
+			keyName = "geStats",
+			name = "Enable GE item information",
+			description = "Shows an item information panel when buying items in the GE"
 	)
-	default boolean geStats()
-	{
+	default boolean geStats() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "relative",
-		name = "Show Relative",
-		description = "Show relative stat change in tooltip"
+			keyName = "relative",
+			name = "Show Relative",
+			description = "Show relative stat change in tooltip"
 	)
-	default boolean relative()
-	{
+	default boolean relative() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "absolute",
-		name = "Show Absolute",
-		description = "Show absolute stat change in tooltip"
+			keyName = "absolute",
+			name = "Show Absolute",
+			description = "Show absolute stat change in tooltip"
 	)
-	default boolean absolute()
-	{
+	default boolean absolute() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "theoretical",
-		name = "Show Theoretical",
-		description = "Show theoretical stat change in tooltip"
+			keyName = "theoretical",
+			name = "Show Theoretical",
+			description = "Show theoretical stat change in tooltip"
 	)
-	default boolean theoretical()
-	{
+	default boolean theoretical() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "showWeight",
-		name = "Show Weight",
-		description = "Show weight in tooltip"
+			keyName = "showWeight",
+			name = "Show Weight",
+			description = "Show weight in tooltip"
 	)
-	default boolean showWeight()
-	{
+	default boolean showWeight() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "colorBetterUncapped",
-		name = "Better (Uncapped)",
-		description = "Color to show when the stat change is fully consumed",
-		position = 10
+			keyName = "colorBetterUncapped",
+			name = "Better (Uncapped)",
+			description = "Color to show when the stat change is fully consumed",
+			position = 10
 	)
-	default Color colorBetterUncapped()
-	{
+	default Color colorBetterUncapped() {
 		return new Color(0x33EE33);
 	}
 
 	@ConfigItem(
-		keyName = "colorBetterSomecapped",
-		name = "Better (Some capped)",
-		description = "Color to show when some stat changes are capped, but some ar not",
-		position = 11
+			keyName = "colorBetterSomecapped",
+			name = "Better (Some capped)",
+			description = "Color to show when some stat changes are capped, but some ar not",
+			position = 11
 	)
-	default Color colorBetterSomeCapped()
-	{
+	default Color colorBetterSomeCapped() {
 		return new Color(0x9CEE33);
 	}
 
 
 	@ConfigItem(
-		keyName = "colorBetterCapped",
-		name = "Better (Capped)",
-		description = "Color to show when the stat change is positive, but not fully consumed",
-		position = 12
+			keyName = "colorBetterCapped",
+			name = "Better (Capped)",
+			description = "Color to show when the stat change is positive, but not fully consumed",
+			position = 12
 	)
-	default Color colorBetterCapped()
-	{
+	default Color colorBetterCapped() {
 		return new Color(0xEEEE33);
 	}
 
 	@ConfigItem(
-		keyName = "colorNoChange",
-		name = "No change",
-		description = "Color to show when there is no change",
-		position = 13
+			keyName = "colorNoChange",
+			name = "No change",
+			description = "Color to show when there is no change",
+			position = 13
 	)
-	default Color colorNoChange()
-	{
+	default Color colorNoChange() {
 		return new Color(0xEEEEEE);
 	}
 
 	@ConfigItem(
-		keyName = "colorWorse",
-		name = "Worse",
-		description = "Color to show when the stat goes down",
-		position = 14
+			keyName = "colorWorse",
+			name = "Worse",
+			description = "Color to show when the stat goes down",
+			position = 14
 	)
-	default Color colorWorse()
-	{
+	default Color colorWorse() {
 		return new Color(0xEE3333);
 	}
 }

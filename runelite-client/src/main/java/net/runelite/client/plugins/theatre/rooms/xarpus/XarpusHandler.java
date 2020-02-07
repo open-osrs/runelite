@@ -1,23 +1,9 @@
 package net.runelite.client.plugins.theatre.rooms.xarpus;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GroundObject;
-import net.runelite.api.NPC;
-import net.runelite.api.NpcID;
-import net.runelite.api.Perspective;
 import net.runelite.api.Point;
-import net.runelite.api.Varbits;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.GroundObjectSpawned;
 import net.runelite.api.events.NpcDespawned;
@@ -28,8 +14,12 @@ import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
 
-public class XarpusHandler extends RoomHandler
-{
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class XarpusHandler extends RoomHandler {
 
 	private final Map<GroundObject, Integer> exhumes = new HashMap<>();
 	private int previousTurn;
@@ -48,44 +38,37 @@ public class XarpusHandler extends RoomHandler
 
 	private XarpusCounter overlay = null;
 
-	public XarpusHandler(final Client client, final TheatrePlugin plugin)
-	{
+	public XarpusHandler(final Client client, final TheatrePlugin plugin) {
 		super(client, plugin);
 	}
 
 	@Override
-	public void onStart()
-	{
-		if (this.plugin.getRoom() == TheatreRoom.XARPUS)
-		{
+	public void onStart() {
+		if (this.plugin.getRoom() == TheatreRoom.XARPUS) {
 			return;
 		}
 
 		this.reset();
 		this.plugin.setRoom(TheatreRoom.XARPUS);
 
-		if (overlay == null)
-		{
+		if (overlay == null) {
 			overlay = new XarpusCounter(plugin, this);
 			plugin.getOverlayManager().add(overlay);
 		}
 	}
 
 	@Override
-	public void onStop()
-	{
+	public void onStop() {
 		this.reset();
 		this.plugin.setRoom(TheatreRoom.UNKNOWN);
 
-		if (overlay != null)
-		{
+		if (overlay != null) {
 			plugin.getOverlayManager().remove(overlay);
 			overlay = null;
 		}
 	}
 
-	private void reset()
-	{
+	private void reset() {
 		exhumesCount = 0;
 		xarpusFlag = false;
 
@@ -98,17 +81,14 @@ public class XarpusHandler extends RoomHandler
 		this.exhumes.clear();
 	}
 
-	public void render(Graphics2D graphics)
-	{
-		if (npc == null)
-		{
+	public void render(Graphics2D graphics) {
+		if (npc == null) {
 			return;
 		}
 
 		if (npc.getId() == NpcID.XARPUS_8340) //&& !staring&& config.showXarpusTick())
 		{
-			if (!this.up)
-			{
+			if (!this.up) {
 				this.up = true;
 				long elapsedTime = System.currentTimeMillis() - this.startTime;
 				long seconds = elapsedTime / 1000L;
@@ -117,8 +97,7 @@ public class XarpusHandler extends RoomHandler
 				seconds = seconds % 60;
 
 				this.ticksUntilShoot = 8;
-				if (plugin.isExtraTimers())
-				{
+				if (plugin.isExtraTimers()) {
 					this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'Xarpus - Recovery' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
 				}
 			}
@@ -128,13 +107,10 @@ public class XarpusHandler extends RoomHandler
 			renderTextLocation(graphics, ticksLeftStr, 12, Font.BOLD, Color.WHITE, canvasPoint);
 		}
 
-		if (npc.getId() == NpcID.XARPUS_8339 && plugin.isShowXarpusHeals())
-		{
-			for (Map.Entry<GroundObject, Integer> exhum : exhumes.entrySet())
-			{
+		if (npc.getId() == NpcID.XARPUS_8339 && plugin.isShowXarpusHeals()) {
+			for (Map.Entry<GroundObject, Integer> exhum : exhumes.entrySet()) {
 				Polygon poly = exhum.getKey().getCanvasTilePoly();
-				if (poly != null)
-				{
+				if (poly != null) {
 					Color c = new Color(0, 255, 0, 130);
 					graphics.setColor(c);
 					graphics.setStroke(new BasicStroke(1));
@@ -143,8 +119,7 @@ public class XarpusHandler extends RoomHandler
 					String count = Integer.toString(exhum.getValue() + 1);
 					LocalPoint lp = exhum.getKey().getLocalLocation();
 					Point point = Perspective.getCanvasTextLocation(client, graphics, lp, count, 0);
-					if (point != null)
-					{
+					if (point != null) {
 						renderTextLocation(graphics, count, 14, Font.BOLD, Color.WHITE, point);
 					}
 				}
@@ -152,32 +127,21 @@ public class XarpusHandler extends RoomHandler
 		}
 	}
 
-	public void onVarbitChanged(VarbitChanged event)
-	{
+	public void onVarbitChanged(VarbitChanged event) {
 		if ((client.getVar(Varbits.MULTICOMBAT_AREA) == 1 ||
-			client.getVarbitValue(client.getVarps(), TheatreConstant.DOOR_VARP) == 2) &&
-			!xarpusFlag)
-		{
+				client.getVarbitValue(client.getVarps(), TheatreConstant.DOOR_VARP) == 2) &&
+				!xarpusFlag) {
 			int players = client.getPlayers().size();
 
-			if (players == 5)
-			{
+			if (players == 5) {
 				exhumesCount = 18;
-			}
-			else if (players == 4)
-			{
+			} else if (players == 4) {
 				exhumesCount = 15;
-			}
-			else if (players == 3)
-			{
+			} else if (players == 3) {
 				exhumesCount = 12;
-			}
-			else if (players == 2)
-			{
+			} else if (players == 2) {
 				exhumesCount = 9;
-			}
-			else
-			{
+			} else {
 				exhumesCount = 7;
 			}
 
@@ -185,39 +149,31 @@ public class XarpusHandler extends RoomHandler
 		}
 	}
 
-	public void onNpcSpawned(NpcSpawned event)
-	{
+	public void onNpcSpawned(NpcSpawned event) {
 		NPC npc = event.getNpc();
 
-		if (npc.getName() != null && npc.getName().equals("Xarpus"))
-		{
+		if (npc.getName() != null && npc.getName().equals("Xarpus")) {
 			this.onStart();
 			this.npc = npc;
 		}
 	}
 
-	public void onNpcDespawned(NpcDespawned event)
-	{
+	public void onNpcDespawned(NpcDespawned event) {
 		NPC npc = event.getNpc();
 
-		if (npc.getName() != null && npc.getName().equals("Xarpus"))
-		{
+		if (npc.getName() != null && npc.getName().equals("Xarpus")) {
 			this.onStop();
 		}
 	}
 
-	public void onGroundObjectSpawned(GroundObjectSpawned event)
-	{
-		if (plugin.getRoom() != TheatreRoom.XARPUS)
-		{
+	public void onGroundObjectSpawned(GroundObjectSpawned event) {
+		if (plugin.getRoom() != TheatreRoom.XARPUS) {
 			return;
 		}
 
 		GroundObject o = event.getGroundObject();
-		if (o.getId() == TheatreConstant.GROUNDOBJECT_ID_EXHUMED)
-		{
-			if (this.startTime == 0)
-			{
+		if (o.getId() == TheatreConstant.GROUNDOBJECT_ID_EXHUMED) {
+			if (this.startTime == 0) {
 				this.startTime = System.currentTimeMillis() - 2000L;
 			}
 
@@ -226,31 +182,23 @@ public class XarpusHandler extends RoomHandler
 		}
 	}
 
-	public void onGameTick()
-	{
-		if (plugin.getRoom() != TheatreRoom.XARPUS)
-		{
+	public void onGameTick() {
+		if (plugin.getRoom() != TheatreRoom.XARPUS) {
 			return;
 		}
 
-		for (GroundObject key : new ArrayList<>(exhumes.keySet()))
-		{
+		for (GroundObject key : new ArrayList<>(exhumes.keySet())) {
 			int i = exhumes.get(key) - 1;
-			if (i >= 0)
-			{
+			if (i >= 0) {
 				exhumes.replace(key, i);
-			}
-			else
-			{
+			} else {
 				exhumes.remove(key);
 				this.exhumesCount--;
 			}
 		}
 
-		if (npc.getOverheadText() != null)
-		{
-			if (!staring)
-			{
+		if (npc.getOverheadText() != null) {
+			if (!staring) {
 				staring = true;
 
 				long elapsedTime = System.currentTimeMillis() - this.startTime;
@@ -258,8 +206,7 @@ public class XarpusHandler extends RoomHandler
 
 				long minutes = seconds / 60L;
 				seconds = seconds % 60;
-				if (plugin.isExtraTimers())
-				{
+				if (plugin.isExtraTimers()) {
 					this.client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Wave 'Xarpus - Acid' completed! Duration: <col=ff0000>" + minutes + ":" + twoDigitString(seconds), null);
 				}
 			}
@@ -269,19 +216,14 @@ public class XarpusHandler extends RoomHandler
 
 		ticksUntilShoot--;
 		ticksUntilShoot = Math.max(0, ticksUntilShoot);
-		if (ticksUntilShoot <= 0)
-		{
+		if (ticksUntilShoot <= 0) {
 			ticksUntilShoot = 4;
 		}
 
-		if (previousTurn != npc.getOrientation())
-		{
-			if (staring)
-			{
+		if (previousTurn != npc.getOrientation()) {
+			if (staring) {
 				ticksUntilShoot = 8;
-			}
-			else
-			{
+			} else {
 				ticksUntilShoot = 4;
 			}
 

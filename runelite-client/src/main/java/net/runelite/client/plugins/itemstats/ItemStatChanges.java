@@ -26,18 +26,7 @@
 package net.runelite.client.plugins.itemstats;
 
 import com.google.inject.Singleton;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import static net.runelite.api.ItemID.*;
-import static net.runelite.client.plugins.itemstats.Builders.boost;
-import static net.runelite.client.plugins.itemstats.Builders.combo;
-import static net.runelite.client.plugins.itemstats.Builders.dec;
-import static net.runelite.client.plugins.itemstats.Builders.food;
-import static net.runelite.client.plugins.itemstats.Builders.heal;
-import static net.runelite.client.plugins.itemstats.Builders.perc;
-import static net.runelite.client.plugins.itemstats.Builders.range;
 import net.runelite.client.plugins.itemstats.food.Anglerfish;
 import net.runelite.client.plugins.itemstats.potions.GauntletPotion;
 import net.runelite.client.plugins.itemstats.potions.PrayerPotion;
@@ -45,40 +34,44 @@ import net.runelite.client.plugins.itemstats.potions.SaradominBrew;
 import net.runelite.client.plugins.itemstats.potions.SuperRestore;
 import net.runelite.client.plugins.itemstats.special.CastleWarsBandage;
 import net.runelite.client.plugins.itemstats.special.SpicyStew;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
+import static net.runelite.api.ItemID.*;
+import static net.runelite.client.plugins.itemstats.Builders.*;
 import static net.runelite.client.plugins.itemstats.stats.Stats.*;
 
 @Singleton
 @Slf4j
-class ItemStatChanges
-{
-	ItemStatChanges()
-	{
+class ItemStatChanges {
+	ItemStatChanges() {
 		init();
 	}
 
-	private void init()
-	{
+	private void init() {
 		add(food(-5), POISON_KARAMBWAN);
 		add(food(1), POTATO, ONION, CABBAGE, POT_OF_CREAM, CHOPPED_ONION, ANCHOVIES);
 		add(food(2), TOMATO, CHOPPED_TOMATO, BANANA, SLICED_BANANA, ORANGE, ORANGE_SLICES, ORANGE_CHUNKS,
-			PINEAPPLE_RING, PINEAPPLE_CHUNKS, SPICY_SAUCE, CHEESE, SPINACH_ROLL, LEMON, LEMON_CHUNKS, LEMON_SLICES,
-			LIME, LIME_CHUNKS, LIME_SLICES, DWELLBERRIES);
+				PINEAPPLE_RING, PINEAPPLE_CHUNKS, SPICY_SAUCE, CHEESE, SPINACH_ROLL, LEMON, LEMON_CHUNKS, LEMON_SLICES,
+				LIME, LIME_CHUNKS, LIME_SLICES, DWELLBERRIES);
 		add(food(3), SHRIMPS, COOKED_MEAT, COOKED_CHICKEN, ROE, CHOCOLATE_BAR);
 		add(food(4), SARDINE, CAKE, _23_CAKE, SLICE_OF_CAKE, CHOCOLATEY_MILK, BAKED_POTATO, EDIBLE_SEAWEED, MOONLIGHT_MEAD);
 		add(food(5), BREAD, HERRING, CHOCOLATE_CAKE, _23_CHOCOLATE_CAKE, CHOCOLATE_SLICE, COOKED_RABBIT, CHILLI_CON_CARNE,
-			FRIED_MUSHROOMS, FRIED_ONIONS, REDBERRY_PIE, HALF_A_REDBERRY_PIE, CAVIAR, PYSK_FISH_0);
+				FRIED_MUSHROOMS, FRIED_ONIONS, REDBERRY_PIE, HALF_A_REDBERRY_PIE, CAVIAR, PYSK_FISH_0);
 		add(food(6), CHOCICE, MACKEREL, MEAT_PIE, HALF_A_MEAT_PIE, GUANIC_BAT_0, ROAST_BIRD_MEAT,
-			SQUARE_SANDWICH, ROLL, BAGUETTE, TRIANGLE_SANDWICH, GIANT_CARP);
+				SQUARE_SANDWICH, ROLL, BAGUETTE, TRIANGLE_SANDWICH, GIANT_CARP);
 		add(food(7), TROUT, COD, PLAIN_PIZZA, _12_PLAIN_PIZZA, APPLE_PIE, HALF_AN_APPLE_PIE, ROAST_RABBIT,
-			PREMADE_CH_CRUNCH, CHOCCHIP_CRUNCHIES, PREMADE_SY_CRUNCH, SPICY_CRUNCHIES);
+				PREMADE_CH_CRUNCH, CHOCCHIP_CRUNCHIES, PREMADE_SY_CRUNCH, SPICY_CRUNCHIES);
 		add(food(8), PIKE, ROAST_BEAST_MEAT, MEAT_PIZZA, _12_MEAT_PIZZA, PREMADE_WM_CRUN, WORM_CRUNCHIES, PREMADE_TD_CRUNCH,
-			TOAD_CRUNCHIES, EGG_AND_TOMATO, PRAEL_BAT_1, PEACH, SUPHI_FISH_1);
+				TOAD_CRUNCHIES, EGG_AND_TOMATO, PRAEL_BAT_1, PEACH, SUPHI_FISH_1);
 		add(food(9), PREMADE_P_PUNCH, PINEAPPLE_PUNCH, PREMADE_FR_BLAST, FRUIT_BLAST, SALMON, ANCHOVY_PIZZA,
-			_12_ANCHOVY_PIZZA);
+				_12_ANCHOVY_PIZZA);
 		add(food(10), TUNA, COOKED_CRAB_MEAT, CHOPPED_TUNA, COOKED_CHOMPY, FIELD_RATION);
 		add(food(11), RAINBOW_FISH, STEW, PINEAPPLE_PIZZA, _12_PINEAPPLE_PIZZA, COOKED_FISHCAKE,
-			PREMADE_VEG_BATTA, VEGETABLE_BATTA, PREMADE_WM_BATTA, WORM_BATTA, PREMADE_TD_BATTA, TOAD_BATTA, PREMADE_CT_BATTA,
-			CHEESETOM_BATTA, PREMADE_FRT_BATTA, FRUIT_BATTA, MUSHROOM__ONION, GIRAL_BAT_2, LAVA_EEL, LECKISH_FISH_2);
+				PREMADE_VEG_BATTA, VEGETABLE_BATTA, PREMADE_WM_BATTA, WORM_BATTA, PREMADE_TD_BATTA, TOAD_BATTA, PREMADE_CT_BATTA,
+				CHEESETOM_BATTA, PREMADE_FRT_BATTA, FRUIT_BATTA, MUSHROOM__ONION, GIRAL_BAT_2, LAVA_EEL, LECKISH_FISH_2);
 		add(food(12), LOBSTER, PREMADE_WORM_HOLE, WORM_HOLE, PREMADE_VEG_BALL, VEG_BALL);
 		add(food(13), BASS, TUNA_AND_CORN);
 		add(food(14), POTATO_WITH_BUTTER, CHILLI_POTATO, SWORDFISH, PHLUXIA_BAT_3, PUMPKIN, EASTER_EGG, BRAWK_FISH_3);
@@ -103,7 +96,7 @@ class ItemStatChanges
 
 		// Dorgeshuun Cuisine
 		add(food(2), BAT_SHISH, COATED_FROGS_LEGS, FILLETS, FINGERS, FROGBURGER, FROGSPAWN_GUMBO, GREEN_GLOOP_SOUP,
-			GRUBS__LA_MODE, MUSHROOMS, ROAST_FROG);
+				GRUBS__LA_MODE, MUSHROOMS, ROAST_FROG);
 		add(food(3), LOACH);
 		add(range(food(3), food(6)), FROG_SPAWN);
 		add(range(food(6), food(10)), COOKED_SLIMY_EEL);
@@ -220,18 +213,15 @@ class ItemStatChanges
 
 	private final Map<Integer, Effect> effects = new HashMap<>();
 
-	private void add(Effect effect, int... items)
-	{
+	private void add(Effect effect, int... items) {
 		assert items.length > 0;
-		for (int item : items)
-		{
+		for (int item : items) {
 			Effect prev = effects.put(item, effect);
 			assert prev == null : "Item already added";
 		}
 	}
 
-	public Effect get(int id)
-	{
+	public Effect get(int id) {
 		return effects.get(id);
 	}
 }

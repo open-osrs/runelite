@@ -26,34 +26,29 @@
  */
 package net.runelite.client.plugins.puzzlesolver.solver.heuristics;
 
+import net.runelite.client.plugins.puzzlesolver.solver.PuzzleState;
+
 import static net.runelite.client.plugins.puzzlesolver.solver.PuzzleSolver.BLANK_TILE_VALUE;
 import static net.runelite.client.plugins.puzzlesolver.solver.PuzzleSolver.DIMENSION;
-import net.runelite.client.plugins.puzzlesolver.solver.PuzzleState;
 
 /**
  * An implementation of the manhattan distance heuristic function.
  * <p>
  * https://heuristicswiki.wikispaces.com/Manhattan+Distance
  */
-public class ManhattanDistance implements Heuristic
-{
+public class ManhattanDistance implements Heuristic {
 	@Override
-	public int computeValue(PuzzleState state)
-	{
+	public int computeValue(PuzzleState state) {
 		int value = 0;
 
 		PuzzleState parent = state.getParent();
 
-		if (parent == null)
-		{
-			for (int x = 0; x < DIMENSION; x++)
-			{
-				for (int y = 0; y < DIMENSION; y++)
-				{
+		if (parent == null) {
+			for (int x = 0; x < DIMENSION; x++) {
+				for (int y = 0; y < DIMENSION; y++) {
 					int piece = state.getPiece(x, y);
 
-					if (piece == BLANK_TILE_VALUE)
-					{
+					if (piece == BLANK_TILE_VALUE) {
 						continue;
 					}
 
@@ -63,9 +58,7 @@ public class ManhattanDistance implements Heuristic
 					value += Math.abs(x - goalX) + Math.abs(y - goalY);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			/*
 				If the Manhattan distance for the parent has already been
 				calculated, we can take advantage of that and just
@@ -83,59 +76,40 @@ public class ManhattanDistance implements Heuristic
 
 			int piece = state.getPiece(x, y);
 
-			if (x2 > x)
-			{
+			if (x2 > x) {
 				int targetX = piece % DIMENSION;
 
 				// right
-				if (targetX > x)
-				{
+				if (targetX > x) {
 					value++;
-				}
-				else
-				{
+				} else {
 					value--;
 				}
-			}
-			else if (x2 < x)
-			{
+			} else if (x2 < x) {
 				int targetX = piece % DIMENSION;
 
 				// left
-				if (targetX < x)
-				{
+				if (targetX < x) {
 					value++;
-				}
-				else
-				{
+				} else {
 					value--;
 				}
-			}
-			else if (y2 > y)
-			{
+			} else if (y2 > y) {
 				int targetY = piece / DIMENSION;
 
 				// down
-				if (targetY > y)
-				{
+				if (targetY > y) {
 					value++;
-				}
-				else
-				{
+				} else {
 					value--;
 				}
-			}
-			else
-			{
+			} else {
 				int targetY = piece / DIMENSION;
 
 				// up
-				if (targetY < y)
-				{
+				if (targetY < y) {
 					value++;
-				}
-				else
-				{
+				} else {
 					value--;
 				}
 			}

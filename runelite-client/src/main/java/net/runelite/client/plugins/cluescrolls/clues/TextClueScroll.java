@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.cluescrolls.clues;
 
-public interface TextClueScroll
-{
+public interface TextClueScroll {
 	String getText();
 }

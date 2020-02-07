@@ -25,29 +25,24 @@
 package net.runelite.client.discord;
 
 import com.google.common.base.Strings;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLiteProperties;
-import net.runelite.client.discord.events.DiscordDisconnected;
-import net.runelite.client.discord.events.DiscordErrored;
-import net.runelite.client.discord.events.DiscordJoinGame;
-import net.runelite.client.discord.events.DiscordJoinRequest;
-import net.runelite.client.discord.events.DiscordReady;
-import net.runelite.client.discord.events.DiscordSpectateGame;
+import net.runelite.client.discord.events.*;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.discord.DiscordEventHandlers;
 import net.runelite.discord.DiscordRPC;
 import net.runelite.discord.DiscordRichPresence;
 import net.runelite.discord.DiscordUser;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 @Singleton
 @Slf4j
-public class DiscordService implements AutoCloseable
-{
+public class DiscordService implements AutoCloseable {
 	private final EventBus eventBus;
 	private final ScheduledExecutorService executorService;
 	private final DiscordRPC discordRPC;
@@ -60,9 +55,8 @@ public class DiscordService implements AutoCloseable
 
 	@Inject
 	private DiscordService(
-		final EventBus eventBus,
-		final ScheduledExecutorService executorService)
-	{
+			final EventBus eventBus,
+			final ScheduledExecutorService executorService) {
 
 		this.eventBus = eventBus;
 		this.executorService = executorService;
@@ -70,13 +64,10 @@ public class DiscordService implements AutoCloseable
 		DiscordRPC discordRPC = null;
 		DiscordEventHandlers discordEventHandlers = null;
 
-		try
-		{
+		try {
 			discordRPC = DiscordRPC.INSTANCE;
 			discordEventHandlers = new DiscordEventHandlers();
-		}
-		catch (Error e)
-		{
+		} catch (Error e) {
 			log.warn("Failed to load Discord library, Discord support will be disabled.");
 		}
 
@@ -89,10 +80,8 @@ public class DiscordService implements AutoCloseable
 	 * events every 2 seconds.
 	 * Before closing the application it is recommended to call {@link #close()}
 	 */
-	public void init()
-	{
-		if (discordEventHandlers == null)
-		{
+	public void init() {
+		if (discordEventHandlers == null) {
 			return;
 		}
 
@@ -112,10 +101,8 @@ public class DiscordService implements AutoCloseable
 	 * If not currently connected, this does nothing.
 	 */
 	@Override
-	public void close()
-	{
-		if (discordRPC != null)
-		{
+	public void close() {
+		if (discordRPC != null) {
 			discordRPC.Discord_Shutdown();
 		}
 	}
@@ -127,10 +114,8 @@ public class DiscordService implements AutoCloseable
 	 *
 	 * @param discordPresence The new presence to use
 	 */
-	public void updatePresence(DiscordPresence discordPresence)
-	{
-		if (discordRPC == null)
-		{
+	public void updatePresence(DiscordPresence discordPresence) {
+		if (discordRPC == null) {
 			return;
 		}
 
@@ -138,18 +123,17 @@ public class DiscordService implements AutoCloseable
 		discordRichPresence.state = discordPresence.getState();
 		discordRichPresence.details = discordPresence.getDetails();
 		discordRichPresence.startTimestamp = discordPresence.getStartTimestamp() != null
-			? discordPresence.getStartTimestamp().getEpochSecond()
-			: 0;
+				? discordPresence.getStartTimestamp().getEpochSecond()
+				: 0;
 		discordRichPresence.endTimestamp = discordPresence.getEndTimestamp() != null
-			? discordPresence.getEndTimestamp().getEpochSecond()
-			: 0;
+				? discordPresence.getEndTimestamp().getEpochSecond()
+				: 0;
 		discordRichPresence.largeImageKey = Strings.isNullOrEmpty(discordPresence.getLargeImageKey())
-			? "default"
-			: discordPresence.getLargeImageKey();
+				? "default"
+				: discordPresence.getLargeImageKey();
 		discordRichPresence.largeImageText = discordPresence.getLargeImageText();
 
-		if (!Strings.isNullOrEmpty(discordPresence.getSmallImageKey()))
-		{
+		if (!Strings.isNullOrEmpty(discordPresence.getSmallImageKey())) {
 			discordRichPresence.smallImageKey = discordPresence.getSmallImageKey();
 		}
 
@@ -169,10 +153,8 @@ public class DiscordService implements AutoCloseable
 	/**
 	 * Clears the currently set presence.
 	 */
-	public void clearPresence()
-	{
-		if (discordRPC != null)
-		{
+	public void clearPresence() {
+		if (discordRPC != null) {
 			discordRPC.Discord_ClearPresence();
 		}
 	}
@@ -183,52 +165,44 @@ public class DiscordService implements AutoCloseable
 	 * @param userId The id of the user to respond to
 	 * @param reply  The reply type
 	 */
-	public void respondToRequest(String userId, DiscordReplyType reply)
-	{
-		if (discordRPC != null)
-		{
+	public void respondToRequest(String userId, DiscordReplyType reply) {
+		if (discordRPC != null) {
 			discordRPC.Discord_Respond(userId, reply.ordinal());
 		}
 	}
 
-	private void ready(DiscordUser user)
-	{
+	private void ready(DiscordUser user) {
 		log.info("Discord RPC service is ready with user {}.", user.username);
 		currentUser = user;
 		eventBus.post(DiscordReady.class, new DiscordReady(
-			user.userId,
-			user.username,
-			user.discriminator,
-			user.avatar));
+				user.userId,
+				user.username,
+				user.discriminator,
+				user.avatar));
 	}
 
-	private void disconnected(int errorCode, String message)
-	{
+	private void disconnected(int errorCode, String message) {
 		eventBus.post(DiscordDisconnected.class, new DiscordDisconnected(errorCode, message));
 	}
 
-	private void errored(int errorCode, String message)
-	{
+	private void errored(int errorCode, String message) {
 		log.warn("Discord error: {} - {}", errorCode, message);
 		eventBus.post(DiscordErrored.class, new DiscordErrored(errorCode, message));
 	}
 
-	private void joinGame(String joinSecret)
-	{
+	private void joinGame(String joinSecret) {
 		eventBus.post(DiscordJoinGame.class, new DiscordJoinGame(joinSecret));
 	}
 
-	private void spectateGame(String spectateSecret)
-	{
+	private void spectateGame(String spectateSecret) {
 		eventBus.post(DiscordSpectateGame.class, new DiscordSpectateGame(spectateSecret));
 	}
 
-	private void joinRequest(DiscordUser user)
-	{
+	private void joinRequest(DiscordUser user) {
 		eventBus.post(DiscordJoinRequest.class, new DiscordJoinRequest(
-			user.userId,
-			user.username,
-			user.discriminator,
-			user.avatar));
+				user.userId,
+				user.username,
+				user.discriminator,
+				user.avatar));
 	}
 }

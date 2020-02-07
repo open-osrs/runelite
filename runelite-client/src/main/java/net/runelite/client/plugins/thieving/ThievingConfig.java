@@ -26,76 +26,65 @@
  */
 package net.runelite.client.plugins.thieving;
 
-import java.awt.Color;
-import net.runelite.client.config.Alpha;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigSection;
-import net.runelite.client.config.Range;
-import net.runelite.client.config.Units;
+import net.runelite.client.config.*;
+
+import java.awt.*;
 
 @ConfigGroup("thieving")
-public interface ThievingConfig extends Config
-{
+public interface ThievingConfig extends Config {
 	@ConfigItem(
-		position = 1,
-		keyName = "statTimeout",
-		name = "Reset stats",
-		description = "Change the time until the thieving session is reset and the overlay is hidden"
+			position = 1,
+			keyName = "statTimeout",
+			name = "Reset stats",
+			description = "Change the time until the thieving session is reset and the overlay is hidden"
 	)
 	@Units(Units.MINUTES)
-	default int statTimeout()
-	{
+	default int statTimeout() {
 		return 5;
 	}
 
 	@ConfigSection(
-		name = "Chest",
-		description = "",
-		position = 2,
-		keyName = "chestSection"
+			name = "Chest",
+			description = "",
+			position = 2,
+			keyName = "chestSection"
 	)
-	default boolean chestSection()
-	{
+	default boolean chestSection() {
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "respawnColor",
-		name = "Respawn timer color",
-		description = "Configures the color of the respawn timer",
-		section = "chestSection"
+			keyName = "respawnColor",
+			name = "Respawn timer color",
+			description = "Configures the color of the respawn timer",
+			section = "chestSection"
 	)
-	default Color respawnColor()
-	{
+	default Color respawnColor() {
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-		keyName = "respawnPieInverted",
-		name = "Invert respawn timer",
-		description = "Configures whether the respawn timer goes from empty to full or the other way around",
-		section = "chestSection"
+			keyName = "respawnPieInverted",
+			name = "Invert respawn timer",
+			description = "Configures whether the respawn timer goes from empty to full or the other way around",
+			section = "chestSection"
 	)
-	default boolean respawnPieInverted()
-	{
+	default boolean respawnPieInverted() {
 		return false;
 	}
 
 	@Range(
-		min = 1,
-		max = 50
+			min = 1,
+			max = 50
 	)
 	@ConfigItem(
-		keyName = "respawnPieDiameter",
-		name = "Respawn pie diameter",
-		description = "Configures how big the respawn timer pie is",
-		section = "chestSection"
+			keyName = "respawnPieDiameter",
+			name = "Respawn pie diameter",
+			description = "Configures how big the respawn timer pie is",
+			section = "chestSection"
 	)
-	default int respawnPieDiameter()
-	{
+	default int respawnPieDiameter() {
 		return 30;
 	}
 }

@@ -26,11 +26,6 @@
 package net.runelite.client.plugins.keyremapping;
 
 import com.google.common.base.Strings;
-import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.VarClientStr;
@@ -38,9 +33,14 @@ import net.runelite.client.callback.ClientThread;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseAdapter;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
+
 @Singleton
-class KeyRemappingListener extends MouseAdapter implements KeyListener
-{
+class KeyRemappingListener extends MouseAdapter implements KeyListener {
 
 	@Inject
 	private KeyRemappingPlugin plugin;
@@ -54,39 +54,27 @@ class KeyRemappingListener extends MouseAdapter implements KeyListener
 	private final Map<Integer, Integer> modified = new HashMap<>();
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (client.getGameState() == GameState.LOGIN_SCREEN || !plugin.chatboxFocused())
-		{
+	public void keyPressed(KeyEvent e) {
+		if (client.getGameState() == GameState.LOGIN_SCREEN || !plugin.chatboxFocused()) {
 			return;
 		}
 
-		if (!plugin.isTyping())
-		{
-			if (plugin.isCameraRemap())
-			{
-				if (plugin.getUp().matches(e))
-				{
+		if (!plugin.isTyping()) {
+			if (plugin.isCameraRemap()) {
+				if (plugin.getUp().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_UP);
 					e.setKeyCode(KeyEvent.VK_UP);
-				}
-				else if (plugin.getDown().matches(e))
-				{
+				} else if (plugin.getDown().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_DOWN);
 					e.setKeyCode(KeyEvent.VK_DOWN);
-				}
-				else if (plugin.getLeft().matches(e))
-				{
+				} else if (plugin.getLeft().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_LEFT);
 					e.setKeyCode(KeyEvent.VK_LEFT);
-				}
-				else if (plugin.getRight().matches(e))
-				{
+				} else if (plugin.getRight().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_RIGHT);
 					e.setKeyCode(KeyEvent.VK_RIGHT);
 				}
@@ -95,92 +83,59 @@ class KeyRemappingListener extends MouseAdapter implements KeyListener
 			// In addition to the above checks, the F-key remapping shouldn't
 			// activate when dialogs are open which listen for number keys
 			// to select options
-			if (plugin.isFkeyRemap() && !plugin.isDialogOpen())
-			{
-				if (plugin.getF1().matches(e))
-				{
+			if (plugin.isFkeyRemap() && !plugin.isDialogOpen()) {
+				if (plugin.getF1().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F1);
 					e.setKeyCode(KeyEvent.VK_F1);
-				}
-				else if (plugin.getF2().matches(e))
-				{
+				} else if (plugin.getF2().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F2);
 					e.setKeyCode(KeyEvent.VK_F2);
-				}
-				else if (plugin.getF3().matches(e))
-				{
+				} else if (plugin.getF3().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F3);
 					e.setKeyCode(KeyEvent.VK_F3);
-				}
-				else if (plugin.getF4().matches(e))
-				{
+				} else if (plugin.getF4().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F4);
 					e.setKeyCode(KeyEvent.VK_F4);
-				}
-				else if (plugin.getF5().matches(e))
-				{
+				} else if (plugin.getF5().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F5);
 					e.setKeyCode(KeyEvent.VK_F5);
-				}
-				else if (plugin.getF6().matches(e))
-				{
+				} else if (plugin.getF6().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F6);
 					e.setKeyCode(KeyEvent.VK_F6);
-				}
-				else if (plugin.getF7().matches(e))
-				{
+				} else if (plugin.getF7().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F7);
 					e.setKeyCode(KeyEvent.VK_F7);
-				}
-				else if (plugin.getF8().matches(e))
-				{
+				} else if (plugin.getF8().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F8);
 					e.setKeyCode(KeyEvent.VK_F8);
-				}
-				else if (plugin.getF9().matches(e))
-				{
+				} else if (plugin.getF9().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F9);
 					e.setKeyCode(KeyEvent.VK_F9);
-				}
-				else if (plugin.getF10().matches(e))
-				{
+				} else if (plugin.getF10().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F10);
 					e.setKeyCode(KeyEvent.VK_F10);
-				}
-				else if (plugin.getF11().matches(e))
-				{
+				} else if (plugin.getF11().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F11);
 					e.setKeyCode(KeyEvent.VK_F11);
-				}
-				else if (plugin.getF12().matches(e))
-				{
+				} else if (plugin.getF12().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_F12);
 					e.setKeyCode(KeyEvent.VK_F12);
-				}
-				else if (plugin.getEsc().matches(e))
-				{
+				} else if (plugin.getEsc().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_ESCAPE);
 					e.setKeyCode(KeyEvent.VK_ESCAPE);
-				}
-				else if (plugin.getCtrl().matches(e))
-				{
+				} else if (plugin.getCtrl().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_CONTROL);
 					e.setKeyCode(KeyEvent.VK_CONTROL);
-				}
-				else if (plugin.getAlt().matches(e))
-				{
+				} else if (plugin.getAlt().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_ALT);
 					e.setKeyCode(KeyEvent.VK_ALT);
-				}
-				else if (plugin.getShift().matches(e))
-				{
+				} else if (plugin.getShift().matches(e)) {
 					modified.put(e.getKeyCode(), KeyEvent.VK_SHIFT);
 					e.setKeyCode(KeyEvent.VK_SHIFT);
 				}
 			}
 
-			switch (e.getKeyCode())
-			{
+			switch (e.getKeyCode()) {
 				case KeyEvent.VK_ENTER:
 				case KeyEvent.VK_SLASH:
 				case KeyEvent.VK_COLON:
@@ -190,11 +145,8 @@ class KeyRemappingListener extends MouseAdapter implements KeyListener
 					break;
 			}
 
-		}
-		else
-		{
-			switch (e.getKeyCode())
-			{
+		} else {
+			switch (e.getKeyCode()) {
 				case KeyEvent.VK_ESCAPE:
 					// When exiting typing mode, block the escape key
 					// so that it doesn't trigger the in-game hotkeys
@@ -212,8 +164,7 @@ class KeyRemappingListener extends MouseAdapter implements KeyListener
 					break;
 				case KeyEvent.VK_BACK_SPACE:
 					// Only lock chat on backspace when the typed text is now empty
-					if (Strings.isNullOrEmpty(client.getVar(VarClientStr.CHATBOX_TYPED_TEXT)))
-					{
+					if (Strings.isNullOrEmpty(client.getVar(VarClientStr.CHATBOX_TYPED_TEXT))) {
 						plugin.setTyping(false);
 						clientThread.invoke(plugin::lockChat);
 					}
@@ -223,111 +174,65 @@ class KeyRemappingListener extends MouseAdapter implements KeyListener
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (client.getGameState() == GameState.LOGIN_SCREEN)
-		{
+	public void keyReleased(KeyEvent e) {
+		if (client.getGameState() == GameState.LOGIN_SCREEN) {
 			return;
 		}
 
-		if (plugin.chatboxFocused() && !plugin.isTyping())
-		{
+		if (plugin.chatboxFocused() && !plugin.isTyping()) {
 			modified.remove(e.getKeyCode());
 
-			if (plugin.isCameraRemap())
-			{
-				if (plugin.getUp().matches(e))
-				{
+			if (plugin.isCameraRemap()) {
+				if (plugin.getUp().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_UP);
-				}
-				else if (plugin.getDown().matches(e))
-				{
+				} else if (plugin.getDown().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_DOWN);
-				}
-				else if (plugin.getLeft().matches(e))
-				{
+				} else if (plugin.getLeft().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_LEFT);
-				}
-				else if (plugin.getRight().matches(e))
-				{
+				} else if (plugin.getRight().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_RIGHT);
 				}
 			}
 
-			if (plugin.isFkeyRemap())
-			{
-				if (plugin.getF1().matches(e))
-				{
+			if (plugin.isFkeyRemap()) {
+				if (plugin.getF1().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F1);
-				}
-				else if (plugin.getF2().matches(e))
-				{
+				} else if (plugin.getF2().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F2);
-				}
-				else if (plugin.getF3().matches(e))
-				{
+				} else if (plugin.getF3().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F3);
-				}
-				else if (plugin.getF4().matches(e))
-				{
+				} else if (plugin.getF4().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F4);
-				}
-				else if (plugin.getF5().matches(e))
-				{
+				} else if (plugin.getF5().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F5);
-				}
-				else if (plugin.getF6().matches(e))
-				{
+				} else if (plugin.getF6().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F6);
-				}
-				else if (plugin.getF7().matches(e))
-				{
+				} else if (plugin.getF7().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F7);
-				}
-				else if (plugin.getF8().matches(e))
-				{
+				} else if (plugin.getF8().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F8);
-				}
-				else if (plugin.getF9().matches(e))
-				{
+				} else if (plugin.getF9().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F9);
-				}
-				else if (plugin.getF10().matches(e))
-				{
+				} else if (plugin.getF10().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F10);
-				}
-				else if (plugin.getF11().matches(e))
-				{
+				} else if (plugin.getF11().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F11);
-				}
-				else if (plugin.getF12().matches(e))
-				{
+				} else if (plugin.getF12().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_F12);
-				}
-				else if (plugin.getEsc().matches(e))
-				{
+				} else if (plugin.getEsc().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_ESCAPE);
-				}
-				else if (plugin.getCtrl().matches(e))
-				{
+				} else if (plugin.getCtrl().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_CONTROL);
-				}
-				else if (plugin.getAlt().matches(e))
-				{
+				} else if (plugin.getAlt().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_ALT);
-				}
-				else if (plugin.getShift().matches(e))
-				{
+				} else if (plugin.getShift().matches(e)) {
 					e.setKeyCode(KeyEvent.VK_SHIFT);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			// press d + enter + release d - causes the right arrow to never be released
 			Integer m = modified.get(e.getKeyCode());
-			if (m != null)
-			{
+			if (m != null) {
 				modified.remove(e.getKeyCode());
 				e.setKeyCode(m);
 			}

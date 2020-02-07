@@ -25,21 +25,19 @@
  */
 package net.runelite.client.plugins.puzzlesolver.solver.pathfinding;
 
-import java.util.List;
 import net.runelite.client.plugins.puzzlesolver.solver.PuzzleState;
 import net.runelite.client.plugins.puzzlesolver.solver.heuristics.Heuristic;
 
-public abstract class Pathfinder
-{
+import java.util.List;
+
+public abstract class Pathfinder {
 	private final Heuristic heuristic;
 
-	Pathfinder(Heuristic heuristic)
-	{
+	Pathfinder(Heuristic heuristic) {
 		this.heuristic = heuristic;
 	}
 
-	Heuristic getHeuristic()
-	{
+	Heuristic getHeuristic() {
 		return heuristic;
 	}
 

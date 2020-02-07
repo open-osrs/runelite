@@ -24,16 +24,16 @@
  */
 package net.runelite.client.plugins.tithefarm;
 
-import java.time.Duration;
-import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.GameObject;
 import net.runelite.api.coords.WorldPoint;
 
-class TitheFarmPlant
-{
+import java.time.Duration;
+import java.time.Instant;
+
+class TitheFarmPlant {
 	private static final Duration PLANT_TIME = Duration.ofMinutes(1);
 
 	@Getter(AccessLevel.PACKAGE)
@@ -52,8 +52,7 @@ class TitheFarmPlant
 	@Getter(AccessLevel.PACKAGE)
 	private final WorldPoint worldLocation;
 
-	TitheFarmPlant(final TitheFarmPlantState state, final TitheFarmPlantType type, final GameObject gameObject)
-	{
+	TitheFarmPlant(final TitheFarmPlantState state, final TitheFarmPlantType type, final GameObject gameObject) {
 		this.planted = Instant.now();
 		this.state = state;
 		this.type = type;
@@ -61,8 +60,7 @@ class TitheFarmPlant
 		this.worldLocation = gameObject.getWorldLocation();
 	}
 
-	double getPlantTimeRelative()
-	{
+	double getPlantTimeRelative() {
 		Duration duration = Duration.between(planted, Instant.now());
 		return duration.compareTo(PLANT_TIME) < 0 ? (double) duration.toMillis() / PLANT_TIME.toMillis() : 1;
 	}

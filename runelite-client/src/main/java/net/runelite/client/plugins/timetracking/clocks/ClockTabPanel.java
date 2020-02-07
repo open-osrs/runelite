@@ -24,18 +24,6 @@
  */
 package net.runelite.client.plugins.timetracking.clocks;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import net.runelite.client.plugins.timetracking.TabContentPanel;
 import net.runelite.client.plugins.timetracking.TimeTrackingPlugin;
 import net.runelite.client.ui.ColorScheme;
@@ -45,8 +33,15 @@ import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
 
-public class ClockTabPanel extends TabContentPanel
-{
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClockTabPanel extends TabContentPanel {
 	static final ImageIcon DELETE_ICON;
 	static final ImageIcon DELETE_ICON_HOVER;
 	static final ImageIcon LAP_ICON;
@@ -65,8 +60,7 @@ public class ClockTabPanel extends TabContentPanel
 
 	private final List<ClockPanel> clockPanels = new ArrayList<>();
 
-	static
-	{
+	static {
 		BufferedImage deleteIcon = ImageUtil.getResourceStreamFromClass(TimeTrackingPlugin.class, "delete_icon.png");
 		BufferedImage lapIcon = ImageUtil.getResourceStreamFromClass(TimeTrackingPlugin.class, "lap_icon.png");
 		BufferedImage pauseIcon = ImageUtil.getResourceStreamFromClass(TimeTrackingPlugin.class, "pause_icon.png");
@@ -88,8 +82,7 @@ public class ClockTabPanel extends TabContentPanel
 		ADD_ICON_HOVER = new ImageIcon(ImageUtil.alphaOffset(addIcon, 0.53f));
 	}
 
-	ClockTabPanel(ClockManager clockManager)
-	{
+	ClockTabPanel(ClockManager clockManager) {
 		this.clockManager = clockManager;
 
 		setLayout(new DynamicGridLayout(0, 1, 0, 4));
@@ -102,46 +95,40 @@ public class ClockTabPanel extends TabContentPanel
 	 * Clears and recreates the components of this panel.
 	 * This should be done whenever a clock is added or removed.
 	 */
-	void rebuild()
-	{
+	void rebuild() {
 		removeAll();
 		clockPanels.clear();
 
 		add(createHeaderPanel("Timers", "timer", false, e -> clockManager.addTimer()));
 
-		for (Timer timer : clockManager.getTimers())
-		{
+		for (Timer timer : clockManager.getTimers()) {
 			TimerPanel panel = new TimerPanel(clockManager, timer);
 
 			clockPanels.add(panel);
 			add(panel);
 		}
 
-		if (clockManager.getTimers().isEmpty())
-		{
+		if (clockManager.getTimers().isEmpty()) {
 			add(createInfoPanel("Click the + button to add a timer."));
 		}
 
 		add(createHeaderPanel("Stopwatches", "stopwatch", true, e -> clockManager.addStopwatch()));
 
-		for (Stopwatch stopwatch : clockManager.getStopwatches())
-		{
+		for (Stopwatch stopwatch : clockManager.getStopwatches()) {
 			StopwatchPanel panel = new StopwatchPanel(clockManager, stopwatch);
 
 			clockPanels.add(panel);
 			add(panel);
 		}
 
-		if (clockManager.getStopwatches().isEmpty())
-		{
+		if (clockManager.getStopwatches().isEmpty()) {
 			add(createInfoPanel("Click the + button to add a stopwatch."));
 		}
 
 		revalidate();
 	}
 
-	private JPanel createHeaderPanel(String title, String type, boolean largePadding, ActionListener actionListener)
-	{
+	private JPanel createHeaderPanel(String title, String type, boolean largePadding, ActionListener actionListener) {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setBorder(new EmptyBorder(largePadding ? 11 : 0, 0, 0, 0));
 		panel.setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -162,8 +149,7 @@ public class ClockTabPanel extends TabContentPanel
 		return panel;
 	}
 
-	private JPanel createInfoPanel(String text)
-	{
+	private JPanel createInfoPanel(String text) {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setBorder(new EmptyBorder(7, 8, 6, 8));
 		panel.setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -177,18 +163,14 @@ public class ClockTabPanel extends TabContentPanel
 	}
 
 	@Override
-	public int getUpdateInterval()
-	{
+	public int getUpdateInterval() {
 		return 1; // 200 milliseconds
 	}
 
 	@Override
-	public void update()
-	{
-		for (ClockPanel panel : clockPanels)
-		{
-			if (panel.getClock().isActive())
-			{
+	public void update() {
+		for (ClockPanel panel : clockPanels) {
+			if (panel.getClock().isActive()) {
 				panel.updateDisplayInput();
 			}
 		}

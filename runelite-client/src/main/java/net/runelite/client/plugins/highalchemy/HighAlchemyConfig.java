@@ -27,72 +27,67 @@
 
 package net.runelite.client.plugins.highalchemy;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 
+import java.awt.*;
+
 @ConfigGroup("highalchemy")
-public interface HighAlchemyConfig extends Config
-{
+public interface HighAlchemyConfig extends Config {
 	int lowerLimit = Integer.MIN_VALUE;
 
 	@ConfigItem(
-		keyName = "showBank",
-		name = "Highlight Bank Items",
-		description = "Show highlight on bank items.",
-		position = 0
+			keyName = "showBank",
+			name = "Highlight Bank Items",
+			description = "Show highlight on bank items.",
+			position = 0
 	)
-	default boolean showBank()
-	{
+	default boolean showBank() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "showInventory",
-		name = "Highlight Inventory Items",
-		description = "Show highlight on inventory items.",
-		position = 1
+			keyName = "showInventory",
+			name = "Highlight Inventory Items",
+			description = "Show highlight on inventory items.",
+			position = 1
 	)
-	default boolean showInventory()
-	{
+	default boolean showInventory() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "getHighlightColor",
-		name = "Highlight Color",
-		description = "Choose the color of the highlight.",
-		position = 2
+			keyName = "getHighlightColor",
+			name = "Highlight Color",
+			description = "Choose the color of the highlight.",
+			position = 2
 	)
-	default Color getHighlightColor()
-	{
+	default Color getHighlightColor() {
 		return Color.WHITE;
 	}
 
 	@Range(
-		min = lowerLimit
+			min = lowerLimit
 	)
 	@ConfigItem(
-		keyName = "minProfit",
-		name = "Profit Target",
-		description = "Minimal desired profit from casting High Alchemy",
-		position = 3
+			keyName = "minProfit",
+			name = "Profit Target",
+			description = "Minimal desired profit from casting High Alchemy",
+			position = 3
 	)
-	default int minProfit()
-	{
+	default int minProfit() {
 		return 1;
 	}
 
 	@ConfigItem(
-		keyName = "usingFireRunes",
-		name = "Using Fire Runes",
-		description = "Change the equation to include the price of fire runes.",
-		position = 4
+			keyName = "usingFireRunes",
+			name = "Using Fire Runes",
+			description = "Change the equation to include the price of fire runes.",
+			position = 4
 	)
-	default boolean usingFireRunes()
-	{
+	default boolean usingFireRunes() {
 		return false;
 	}
 

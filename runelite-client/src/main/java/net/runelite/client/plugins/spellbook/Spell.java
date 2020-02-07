@@ -29,8 +29,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode
-class Spell
-{
+class Spell {
 	private int widget;
 	private int x;
 	private int y;

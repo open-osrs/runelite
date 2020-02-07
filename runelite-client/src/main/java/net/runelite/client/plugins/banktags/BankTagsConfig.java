@@ -29,85 +29,78 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("banktags")
-public interface BankTagsConfig extends Config
-{
+public interface BankTagsConfig extends Config {
 	@ConfigItem(
-		keyName = "useTabs",
-		name = "Use Tag Tabs",
-		description = "Enable the ability to add tabs to your bank which allow fast access to tags.",
-		position = 1
+			keyName = "useTabs",
+			name = "Use Tag Tabs",
+			description = "Enable the ability to add tabs to your bank which allow fast access to tags.",
+			position = 1
 	)
-	default boolean tabs()
-	{
+	default boolean tabs() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "rememberTab",
-		name = "Remember last Tag Tab",
-		description = "Enable the ability to remember last Tag Tab when closing/opening the bank.",
-		position = 2
+			keyName = "rememberTab",
+			name = "Remember last Tag Tab",
+			description = "Enable the ability to remember last Tag Tab when closing/opening the bank.",
+			position = 2
 	)
-	default boolean rememberTab()
-	{
+	default boolean rememberTab() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "removeSeparators",
-		name = "Remove tab separators in Tag Tabs",
-		description = "Removes tab separators and corrects item layouts in Tag Tabs to mimic a regular tab",
-		position = 3
+			keyName = "removeSeparators",
+			name = "Remove tab separators in Tag Tabs",
+			description = "Removes tab separators and corrects item layouts in Tag Tabs to mimic a regular tab",
+			position = 3
 	)
-	default boolean removeSeparators()
-	{
+	default boolean removeSeparators() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "hidePlaceholders",
-		name = "Hide placeholders",
-		description = "Hide placeholders in tag tabs or tag search.",
-		position = 4
+			keyName = "hidePlaceholders",
+			name = "Hide placeholders",
+			description = "Hide placeholders in tag tabs or tag search.",
+			position = 4
 	)
-	default boolean hidePlaceholders()
-	{
+	default boolean hidePlaceholders() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "position",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "position",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default int position()
-	{
+	default int position() {
 		return 0;
 	}
 
 	@ConfigItem(
-		keyName = "position",
-		name = "",
-		description = ""
+			keyName = "position",
+			name = "",
+			description = ""
 	)
 	void position(int idx);
 
 	@ConfigItem(
-		keyName = "tab",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "tab",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default String tab()
-	{
+	default String tab() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "tab",
-		name = "",
-		description = ""
+			keyName = "tab",
+			name = "",
+			description = ""
 	)
 	void tab(String tab);
 }

@@ -32,8 +32,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-class ObjectPoint
-{
+class ObjectPoint {
 	private int id = -1;
 	private String name;
 	private int regionId;

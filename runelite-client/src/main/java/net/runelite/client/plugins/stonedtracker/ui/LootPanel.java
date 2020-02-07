@@ -27,19 +27,6 @@ package net.runelite.client.plugins.stonedtracker.ui;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Multimap;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.loottracker.localstorage.LTItemEntry;
@@ -48,9 +35,14 @@ import net.runelite.client.plugins.stonedtracker.ItemSortTypes;
 import net.runelite.client.plugins.stonedtracker.data.UniqueItem;
 import net.runelite.client.ui.ColorScheme;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Slf4j
-class LootPanel extends JPanel
-{
+class LootPanel extends JPanel {
 	private final String name;
 	private final Collection<LTRecord> records;
 	private final Collection<UniqueItem> uniques;
@@ -65,14 +57,13 @@ class LootPanel extends JPanel
 	private boolean cancelPlayback = false;
 
 	LootPanel(
-		final String name,
-		final Collection<LTRecord> records,
-		final Collection<UniqueItem> uniques,
-		final boolean hideUnqiues,
-		final ItemSortTypes sort,
-		final boolean itemBreakdown,
-		final ItemManager itemManager)
-	{
+			final String name,
+			final Collection<LTRecord> records,
+			final Collection<UniqueItem> uniques,
+			final boolean hideUnqiues,
+			final ItemSortTypes sort,
+			final boolean itemBreakdown,
+			final ItemManager itemManager) {
 		this.name = name;
 		this.records = records;
 		this.uniques = uniques;
@@ -94,23 +85,19 @@ class LootPanel extends JPanel
 	 * @param sortType The {@link ItemSortTypes} describing how these entries should be sorted
 	 * @return returns the sorted list
 	 */
-	private static Comparator<LTItemEntry> createLTItemEntryComparator(final ItemSortTypes sortType)
-	{
+	private static Comparator<LTItemEntry> createLTItemEntryComparator(final ItemSortTypes sortType) {
 		return (o1, o2) ->
 		{
-			switch (sortType)
-			{
+			switch (sortType) {
 				case ITEM_ID:
 					return o1.getId() - o2.getId();
 				case PRICE:
-					if (o1.getPrice() != o2.getPrice())
-					{
+					if (o1.getPrice() != o2.getPrice()) {
 						return o1.getPrice() > o2.getPrice() ? -1 : 1;
 					}
 					break;
 				case VALUE:
-					if (o1.getTotal() != o2.getTotal())
-					{
+					if (o1.getTotal() != o2.getTotal()) {
 						return o1.getTotal() > o2.getTotal() ? -1 : 1;
 					}
 					break;
@@ -127,16 +114,14 @@ class LootPanel extends JPanel
 		};
 	}
 
-	private void createPanel(final Collection<LTRecord> records, final boolean reconsolidate)
-	{
+	private void createPanel(final Collection<LTRecord> records, final boolean reconsolidate) {
 		final GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		c.gridx = 0;
 		c.gridy = 0;
 
-		if (reconsolidate)
-		{
+		if (reconsolidate) {
 			this.consolidated.clear();
 			final Collection<LTItemEntry> consolidatedLTItemEntries = LTRecord.consolidateLTItemEntries(records);
 			final Map<Integer, LTItemEntry> itemMap = LTItemEntry.consolidateItemEntires(consolidatedLTItemEntries);
@@ -149,8 +134,7 @@ class LootPanel extends JPanel
 
 		// Loop over all UniqueItems and check how many the player has received as a drop for each
 		// Also add all Item IDs for uniques to a Set for easy hiding later on.
-		for (final UniqueItem item : this.uniques)
-		{
+		for (final UniqueItem item : this.uniques) {
 			final int id = item.getItemID();
 			final int linkedId = item.getLinkedID();
 			uniqueIds.add(id);
@@ -163,8 +147,7 @@ class LootPanel extends JPanel
 			positionMap.put(item.getPosition(), item);
 		}
 
-		for (final int position : positionMap.keySet())
-		{
+		for (final int position : positionMap.keySet()) {
 			final Collection<UniqueItem> uniques = positionMap.get(position);
 
 			final UniqueItemPanel p = new UniqueItemPanel(uniques, this.itemManager);
@@ -179,8 +162,7 @@ class LootPanel extends JPanel
 
 		log.debug(name);
 
-		switch (name)
-		{
+		switch (name) {
 			case "master farmer":
 				currentText = "Current pick-pocket count:";
 				loggedText = "Pickpockets logged:";
@@ -216,11 +198,9 @@ class LootPanel extends JPanel
 				break;
 		}
 
-		if (amount > 0)
-		{
+		if (amount > 0) {
 			final LTRecord entry = Iterators.get(records.iterator(), (amount - 1));
-			if (entry.getKillCount() != -1)
-			{
+			if (entry.getKillCount() != -1) {
 				final TextPanel p = new TextPanel(currentText, entry.getKillCount());
 				this.add(p, c);
 				c.gridy++;
@@ -239,23 +219,18 @@ class LootPanel extends JPanel
 
 
 		final Collection<LTItemEntry> itemsToDisplay = consolidated.values().stream()
-			.filter(e -> !(hideUniques && uniqueIds.contains(e.getId())))
-			.sorted(createLTItemEntryComparator(sortType))
-			.collect(Collectors.toList());
+				.filter(e -> !(hideUniques && uniqueIds.contains(e.getId())))
+				.sorted(createLTItemEntryComparator(sortType))
+				.collect(Collectors.toList());
 
-		if (itemsToDisplay.size() > 0)
-		{
-			if (itemBreakdown)
-			{
-				for (final LTItemEntry e : itemsToDisplay)
-				{
+		if (itemsToDisplay.size() > 0) {
+			if (itemBreakdown) {
+				for (final LTItemEntry e : itemsToDisplay) {
 					final ItemPanel p = new ItemPanel(e, itemManager);
 					this.add(p, c);
 					c.gridy++;
 				}
-			}
-			else
-			{
+			} else {
 				final LootGrid grid = new LootGrid(itemsToDisplay.toArray(new LTItemEntry[0]), itemManager);
 				this.add(grid, c);
 				c.gridy++;
@@ -263,22 +238,18 @@ class LootPanel extends JPanel
 		}
 
 		// Only add the total value element if it has something useful to display
-		if (totalValue > 0)
-		{
+		if (totalValue > 0) {
 			c.gridy = totalValueIndex;
 			final TextPanel totalPanel = new TextPanel("Total Value:", totalValue);
 			this.add(totalPanel, c);
 		}
 	}
 
-	void addedRecord(final LTRecord record)
-	{
+	void addedRecord(final LTRecord record) {
 		records.add(record);
-		for (final LTItemEntry entry : record.getDrops())
-		{
+		for (final LTItemEntry entry : record.getDrops()) {
 			final LTItemEntry current = consolidated.get(entry.getId());
-			if (current != null)
-			{
+			if (current != null) {
 				entry.setQuantity(entry.getQuantity() + current.getQuantity());
 			}
 			consolidated.put(entry.getId(), entry);
@@ -293,29 +264,23 @@ class LootPanel extends JPanel
 		this.repaint();
 	}
 
-	void playback()
-	{
-		if (playbackPlaying)
-		{
+	void playback() {
+		if (playbackPlaying) {
 			cancelPlayback = true;
 			return;
 		}
 
 		playbackPlaying = true;
 
-		if (this.records.size() > 0)
-		{
+		if (this.records.size() > 0) {
 			final Collection<LTRecord> recs = new ArrayList<>();
-			for (final LTRecord r : this.records)
-			{
+			for (final LTRecord r : this.records) {
 				recs.add(r);
 
 				SwingUtilities.invokeLater(() -> refreshPlayback(recs));
 
-				try
-				{
-					if (cancelPlayback)
-					{
+				try {
+					if (cancelPlayback) {
 						playbackPlaying = false;
 						cancelPlayback = false;
 						SwingUtilities.invokeLater(() -> refreshPlayback(this.records));
@@ -323,9 +288,7 @@ class LootPanel extends JPanel
 					}
 					// TODO: Allow this rate to be configurable?
 					Thread.sleep(250);
-				}
-				catch (InterruptedException e)
-				{
+				} catch (InterruptedException e) {
 					System.out.println(e.getMessage());
 				}
 			}
@@ -334,8 +297,7 @@ class LootPanel extends JPanel
 		playbackPlaying = false;
 	}
 
-	private void refreshPlayback(final Collection<LTRecord> recs)
-	{
+	private void refreshPlayback(final Collection<LTRecord> recs) {
 		this.removeAll();
 
 		this.createPanel(recs, true);

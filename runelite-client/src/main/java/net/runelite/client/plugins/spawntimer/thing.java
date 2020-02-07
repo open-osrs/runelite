@@ -2,28 +2,23 @@ package net.runelite.client.plugins.spawntimer;
 
 import net.runelite.api.NPC;
 
-class thing
-{
+class thing {
 	private NPC npc;
 	private int tick;
 
-	public void setNpc(NPC n)
-	{
+	public void setNpc(NPC n) {
 		npc = n;
 	}
 
-	NPC getNpc()
-	{
+	NPC getNpc() {
 		return npc;
 	}
 
-	public void setTick(int n)
-	{
+	public void setTick(int n) {
 		tick = n;
 	}
 
-	int getTick()
-	{
+	int getTick() {
 		return tick;
 	}
 }

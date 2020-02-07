@@ -26,31 +26,16 @@
 
 package net.runelite.client.plugins.zalcano;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import net.runelite.api.AnimationID;
-import net.runelite.api.Client;
-import net.runelite.api.Constants;
-import net.runelite.api.DynamicObject;
-import net.runelite.api.Entity;
-import net.runelite.api.GameObject;
-import net.runelite.api.GraphicsObject;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.NPC;
-import net.runelite.api.NpcID;
-import net.runelite.api.ObjectID;
-import net.runelite.api.Projectile;
-import net.runelite.api.ProjectileID;
-import net.runelite.api.Tile;
+import net.runelite.api.*;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 
-public class ZalcanoUtil
-{
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ZalcanoUtil {
 
 	private final Client client;
 	private final ZalcanoPlugin plugin;
@@ -60,26 +45,20 @@ public class ZalcanoUtil
 	private static final int ZALCANO_REGION = 12126;
 
 	@Inject
-	ZalcanoUtil(Client client, ZalcanoPlugin plugin)
-	{
+	ZalcanoUtil(Client client, ZalcanoPlugin plugin) {
 		this.client = client;
 		this.plugin = plugin;
 	}
 
-	boolean isInZalcanoRegion()
-	{
+	boolean isInZalcanoRegion() {
 		return client.getLocalPlayer().getWorldLocation().getRegionID() == ZALCANO_REGION;
 	}
 
 
-	boolean projectileExists()
-	{
-		for (Projectile projectile : client.getProjectiles())
-		{
-			if (projectile != null)
-			{
-				if (projectile.getId() == ProjectileID.ZALCANO_PROJECTILE)
-				{
+	boolean projectileExists() {
+		for (Projectile projectile : client.getProjectiles()) {
+			if (projectile != null) {
+				if (projectile.getId() == ProjectileID.ZALCANO_PROJECTILE) {
 					return true;
 				}
 			}
@@ -88,20 +67,15 @@ public class ZalcanoUtil
 	}
 
 	//this should be a project-wide standard
-	private List<GameObject> getGameObjects()
-	{
+	private List<GameObject> getGameObjects() {
 		List<GameObject> gameObjectArrayList = new ArrayList<>();
 
-		for (int x = 0; x < Constants.SCENE_SIZE; x++)
-		{
-			for (int y = 0; y < Constants.SCENE_SIZE; y++)
-			{
+		for (int x = 0; x < Constants.SCENE_SIZE; x++) {
+			for (int y = 0; y < Constants.SCENE_SIZE; y++) {
 				Tile tile = client.getScene().getTiles()[client.getPlane()][x][y];
 
-				if (tile.getGameObjects() != null)
-				{
-					for (GameObject gameObject : tile.getGameObjects())
-					{
+				if (tile.getGameObjects() != null) {
+					for (GameObject gameObject : tile.getGameObjects()) {
 						if (gameObject != null) //im aware this can still give null objects
 						{
 							gameObjectArrayList.add(gameObject);
@@ -113,21 +87,14 @@ public class ZalcanoUtil
 		return gameObjectArrayList;
 	}
 
-	GameObject getGlowingRock()
-	{
-		for (GameObject gameObject : getGameObjects())
-		{
-			if (gameObject != null)
-			{
-				if (gameObject.getId() == ObjectID.ROCK_FORMATION_GLOWING)
-				{
-					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
-					{
+	GameObject getGlowingRock() {
+		for (GameObject gameObject : getGameObjects()) {
+			if (gameObject != null) {
+				if (gameObject.getId() == ObjectID.ROCK_FORMATION_GLOWING) {
+					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400) {
 						Entity entity = gameObject.getEntity();
-						if (entity instanceof DynamicObject)
-						{
-							if (((DynamicObject) entity).getAnimationID() == AnimationID.ZALCANO_ROCK_GLOWING)
-							{
+						if (entity instanceof DynamicObject) {
+							if (((DynamicObject) entity).getAnimationID() == AnimationID.ZALCANO_ROCK_GLOWING) {
 								return gameObject;
 							}
 						}
@@ -138,20 +105,14 @@ public class ZalcanoUtil
 		return null;
 	}
 
-	List<GameObject> getRedSymbols()
-	{
+	List<GameObject> getRedSymbols() {
 		List<GameObject> list = new ArrayList<>();
-		for (GameObject gameObject : getGameObjects())
-		{
-			if (gameObject != null)
-			{
-				if (gameObject.getId() == ObjectID.DEMONIC_SYMBOL)
-				{
-					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400)
-					{
+		for (GameObject gameObject : getGameObjects()) {
+			if (gameObject != null) {
+				if (gameObject.getId() == ObjectID.DEMONIC_SYMBOL) {
+					if (client.getLocalPlayer().getLocalLocation().distanceTo(gameObject.getLocalLocation()) <= 2400) {
 						Entity entity = gameObject.getEntity();
-						if (entity instanceof DynamicObject)
-						{
+						if (entity instanceof DynamicObject) {
 							list.add(gameObject);
 						}
 					}
@@ -161,15 +122,11 @@ public class ZalcanoUtil
 		return list.size() > 0 ? list : null;
 	}
 
-	List<GraphicsObject> getRockfall()
-	{
+	List<GraphicsObject> getRockfall() {
 		List<GraphicsObject> list = new ArrayList<>();
-		for (GraphicsObject graphicsObject : client.getGraphicsObjects())
-		{
-			if (graphicsObject != null)
-			{
-				if (graphicsObject.getId() == 1727/*<-- not sure where to add that*/)
-				{
+		for (GraphicsObject graphicsObject : client.getGraphicsObjects()) {
+			if (graphicsObject != null) {
+				if (graphicsObject.getId() == 1727/*<-- not sure where to add that*/) {
 					list.add(graphicsObject);
 				}
 			}
@@ -177,14 +134,11 @@ public class ZalcanoUtil
 		return list.size() > 0 ? list : null;
 	}
 
-	int countItemInInventory(int itemID)
-	{
+	int countItemInInventory(int itemID) {
 		int i = 0;
 		Widget widget = client.getWidget(WidgetInfo.INVENTORY);
-		for (WidgetItem widgetItem : widget.getWidgetItems())
-		{
-			if (widgetItem.getId() == itemID)
-			{
+		for (WidgetItem widgetItem : widget.getWidgetItems()) {
+			if (widgetItem.getId() == itemID) {
 				i++;
 			}
 		}
@@ -197,19 +151,14 @@ public class ZalcanoUtil
 	 * @param itemId
 	 * @return
 	 */
-	int countStackInInventory(int itemId)
-	{
+	int countStackInInventory(int itemId) {
 		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
-		if (inventory != null)
-		{
+		if (inventory != null) {
 			Item[] items = inventory.getItems();
-			for (int i = 0; i < 28; ++i)
-			{
-				if (i < items.length)
-				{
+			for (int i = 0; i < 28; ++i) {
+				if (i < items.length) {
 					Item item = items[i];
-					if (item.getId() >= 0 && item.getId() == itemId)
-					{
+					if (item.getId() >= 0 && item.getId() == itemId) {
 						return item.getQuantity();
 					}
 				}
@@ -218,14 +167,10 @@ public class ZalcanoUtil
 		return 0;
 	}
 
-	void manuallyFindZalcano()
-	{
-		for (NPC npc : client.getNpcs())
-		{
-			if (npc != null)
-			{
-				if (npc.getId() == NpcID.ZALCANO)
-				{
+	void manuallyFindZalcano() {
+		for (NPC npc : client.getNpcs()) {
+			if (npc != null) {
+				if (npc.getId() == NpcID.ZALCANO) {
 					plugin.setZalcano(npc);
 				}
 			}

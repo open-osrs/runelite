@@ -27,42 +27,11 @@
 package net.runelite.client.plugins.mining;
 
 import com.google.inject.Provides;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GameObject;
-import net.runelite.api.GameState;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.ItemID;
-import net.runelite.api.MenuOpcode;
-import static net.runelite.api.ObjectID.DEPLETED_VEIN_26665;
-import static net.runelite.api.ObjectID.DEPLETED_VEIN_26666;
-import static net.runelite.api.ObjectID.DEPLETED_VEIN_26667;
-import static net.runelite.api.ObjectID.DEPLETED_VEIN_26668;
-import static net.runelite.api.ObjectID.EMPTY_WALL;
-import static net.runelite.api.ObjectID.ORE_VEIN_26661;
-import static net.runelite.api.ObjectID.ORE_VEIN_26662;
-import static net.runelite.api.ObjectID.ORE_VEIN_26663;
-import static net.runelite.api.ObjectID.ORE_VEIN_26664;
-import net.runelite.api.WallObject;
+import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.GameObjectDespawned;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.WallObjectSpawned;
+import net.runelite.api.events.*;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -72,16 +41,26 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static net.runelite.api.ObjectID.*;
+
 @PluginDescriptor(
-	name = "Mining",
-	description = "Show ore respawn timers and coal bag overlay",
-	tags = {"overlay", "skilling", "timers", "coal", "coalbag", "coal bag"},
-	enabledByDefault = false,
-	type = PluginType.SKILLING
+		name = "Mining",
+		description = "Show ore respawn timers and coal bag overlay",
+		tags = {"overlay", "skilling", "timers", "coal", "coalbag", "coal bag"},
+		enabledByDefault = false,
+		type = PluginType.SKILLING
 )
 @Singleton
-public class MiningPlugin extends Plugin
-{
+public class MiningPlugin extends Plugin {
 	private static final int MINING_GUILD_REGION = 12183;
 	private static final int ROCK_DISTANCE = 14;
 
@@ -120,8 +99,7 @@ public class MiningPlugin extends Plugin
 	private int amountOfCoalInCoalBag;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		this.showCoalBagOverlay = config.showCoalBagOverlay();
 		this.amountOfCoalInCoalBag = config.amountOfCoalInCoalBag();
@@ -131,24 +109,20 @@ public class MiningPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(miningOverlay);
 		overlayManager.remove(coalBagOverlay);
 		respawns.clear();
 	}
 
 	@Provides
-	MiningConfig provideConfig(ConfigManager configManager)
-	{
+	MiningConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(MiningConfig.class);
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		switch (event.getGameState())
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		switch (event.getGameState()) {
 			case LOADING:
 			case HOPPING:
 				respawns.clear();
@@ -163,16 +137,13 @@ public class MiningPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick gameTick)
-	{
+	private void onGameTick(GameTick gameTick) {
 		recentlyLoggedIn = false;
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event)
-	{
-		if (client.getGameState() != GameState.LOGGED_IN || recentlyLoggedIn)
-		{
+	private void onGameObjectDespawned(GameObjectDespawned event) {
+		if (client.getGameState() != GameState.LOGGED_IN || recentlyLoggedIn) {
 			return;
 		}
 
@@ -180,28 +151,23 @@ public class MiningPlugin extends Plugin
 		final int region = client.getLocalPlayer().getWorldLocation().getRegionID();
 
 		Rock rock = Rock.getRock(object.getId());
-		if (rock != null)
-		{
+		if (rock != null) {
 			RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(region).toMillis(), rock.getZOffset());
 			respawns.add(rockRespawn);
 		}
 	}
 
 	@Subscribe
-	private void onWallObjectSpawned(WallObjectSpawned event)
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	private void onWallObjectSpawned(WallObjectSpawned event) {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		final WallObject object = event.getWallObject();
 		final int region = client.getLocalPlayer().getWorldLocation().getRegionID();
 
-		switch (object.getId())
-		{
-			case EMPTY_WALL:
-			{
+		switch (object.getId()) {
+			case EMPTY_WALL: {
 				Rock rock = Rock.AMETHYST;
 				RockRespawn rockRespawn = new RockRespawn(rock, object.getWorldLocation(), Instant.now(), (int) rock.getRespawnTime(region).toMillis(), rock.getZOffset());
 				respawns.add(rockRespawn);
@@ -231,23 +197,19 @@ public class MiningPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked event)
-	{
+	private void onMenuOptionClicked(MenuOptionClicked event) {
 		//TODO: should work hopefully
-		if (event.getMenuOpcode() != MenuOpcode.RUNELITE || event.getParam1() != WidgetInfo.INVENTORY.getId())
-		{
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE || event.getParam1() != WidgetInfo.INVENTORY.getId()) {
 			return;
 		}
 
 		ItemContainer inventoryItemContainer = client.getItemContainer(InventoryID.INVENTORY);
 		Item[] inventoryItems = new Item[0];
-		if (inventoryItemContainer != null)
-		{
+		if (inventoryItemContainer != null) {
 			inventoryItems = inventoryItemContainer.getItems();
 		}
 
-		switch (event.getOption().toLowerCase())
-		{
+		switch (event.getOption().toLowerCase()) {
 			case FILL_OPTION:
 				int coalInInventoryCount = (int) Arrays.stream(inventoryItems).filter(i -> i.getId() == ItemID.COAL).count();
 				updateAmountOfCoalInBag(coalInInventoryCount);
@@ -262,27 +224,19 @@ public class MiningPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage event)
-	{
-		if (event.getType() != ChatMessageType.GAMEMESSAGE)
-		{
+	private void onChatMessage(ChatMessage event) {
+		if (event.getType() != ChatMessageType.GAMEMESSAGE) {
 			return;
 		}
 
 		String chatMsg = event.getMessage();
-		if (COAL_BAG_EMPTY_MESSAGE.matcher(chatMsg).find())
-		{
+		if (COAL_BAG_EMPTY_MESSAGE.matcher(chatMsg).find()) {
 			updateAmountOfCoalInBag(0);
-		}
-		else if (COAL_BAG_ONE_MESSAGE.matcher(chatMsg).find())
-		{
+		} else if (COAL_BAG_ONE_MESSAGE.matcher(chatMsg).find()) {
 			updateAmountOfCoalInBag(1);
-		}
-		else
-		{
+		} else {
 			Matcher matcher = COAL_BAG_AMOUNT_MESSAGE.matcher(chatMsg);
-			if (matcher.find())
-			{
+			if (matcher.find()) {
 				updateAmountOfCoalInBag(Integer.parseInt(matcher.group(1)) - this.amountOfCoalInCoalBag);
 			}
 		}
@@ -294,8 +248,7 @@ public class MiningPlugin extends Plugin
 	 * @param delta How much to add/subtract from the amount.
 	 *              Supply a negative number to subtract, or positive number to add.
 	 */
-	private void updateAmountOfCoalInBag(int delta)
-	{
+	private void updateAmountOfCoalInBag(int delta) {
 		// check for upper/lower bounds of amount of coal in a bag
 		// 0 <= X <= 27
 		int coalbagAmount = Math.max(0, Math.min(FULL_COAL_BAG_AMOUNT, this.amountOfCoalInCoalBag + delta));
@@ -303,16 +256,13 @@ public class MiningPlugin extends Plugin
 		this.amountOfCoalInCoalBag = coalbagAmount;
 	}
 
-	private boolean inMiningGuild()
-	{
+	private boolean inMiningGuild() {
 		return client.getLocalPlayer().getWorldLocation().getRegionID() == MINING_GUILD_REGION;
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("mining"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("mining")) {
 			return;
 		}
 

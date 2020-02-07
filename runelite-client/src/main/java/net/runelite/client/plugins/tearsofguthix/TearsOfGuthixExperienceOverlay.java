@@ -25,10 +25,6 @@
 
 package net.runelite.client.plugins.tearsofguthix;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -37,9 +33,12 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 @Singleton
-class TearsOfGuthixExperienceOverlay extends Overlay
-{
+class TearsOfGuthixExperienceOverlay extends Overlay {
 	private final TearsOfGuthixPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
@@ -47,18 +46,15 @@ class TearsOfGuthixExperienceOverlay extends Overlay
 	private Client client;
 
 	@Inject
-	private TearsOfGuthixExperienceOverlay(final TearsOfGuthixPlugin plugin)
-	{
+	private TearsOfGuthixExperienceOverlay(final TearsOfGuthixPlugin plugin) {
 		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
 		setPriority(OverlayPriority.LOW);
 		this.plugin = plugin;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.getPlayerLowestSkill() == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.getPlayerLowestSkill() == null) {
 			return null;
 		}
 
@@ -69,8 +65,7 @@ class TearsOfGuthixExperienceOverlay extends Overlay
 
 		tableComponent.addRow(plugin.getPlayerLowestSkill().getName(), "Lvl - " + client.getRealSkillLevel(plugin.getPlayerLowestSkill()) + "");
 
-		if (!tableComponent.isEmpty())
-		{
+		if (!tableComponent.isEmpty()) {
 			panelComponent.getChildren().add(tableComponent);
 		}
 

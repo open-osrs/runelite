@@ -32,39 +32,32 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.plugins.maxhit.attackstyle.AttackStyle;
 import net.runelite.client.plugins.maxhit.config.EquipmentBonusConfig;
 
-public class MeleeMaxHitCalculator extends MaxHitCalculator
-{
+public class MeleeMaxHitCalculator extends MaxHitCalculator {
 
-	public MeleeMaxHitCalculator(Client client, Item[] equipedItems)
-	{
+	public MeleeMaxHitCalculator(Client client, Item[] equipedItems) {
 		super(client, CombatMethod.MELEE, equipedItems);
 	}
 
-	MeleeMaxHitCalculator(Client client, CombatMethod combatMethod, Item[] equipedItems)
-	{
+	MeleeMaxHitCalculator(Client client, CombatMethod combatMethod, Item[] equipedItems) {
 		super(client, combatMethod, equipedItems);
 	}
 
 	@Override
-	protected String getSkillStrengthText(String equipmentText)
-	{
+	protected String getSkillStrengthText(String equipmentText) {
 		return equipmentText.replace("Melee strength: ", "");
 	}
 
 	@Override
-	public Widget equipmentSkillPower()
-	{
+	public Widget equipmentSkillPower() {
 		return this.client.getWidget(WidgetInfo.EQUIPMENT_MELEE_STRENGTH);
 	}
 
 	@Override
-	public double getCurrentSkillPower()
-	{
+	public double getCurrentSkillPower() {
 		return this.client.getBoostedSkillLevel(Skill.STRENGTH);
 	}
 
-	private double getEffectiveLevel()
-	{
+	private double getEffectiveLevel() {
 //      a. Take the visible strength or ranged level from the skills interface.
 		double skillPower = this.getCurrentSkillPower();
 
@@ -97,8 +90,7 @@ public class MeleeMaxHitCalculator extends MaxHitCalculator
 	}
 
 	//  3.3 Take the melee or ranged strength bonus from the equipment stats interface and let this equal 'B' in the formula in 3.1.
-	private double getEquipmentBonus()
-	{
+	private double getEquipmentBonus() {
 		return this.getSkillStrength();
 	}
 
@@ -108,8 +100,7 @@ public class MeleeMaxHitCalculator extends MaxHitCalculator
 	 * Section 3.1
 	 * */
 	@Override
-	public double calculate()
-	{
+	public double calculate() {
 
 //      a. Max hit = 0.5 + A * (B+64) /640 (A is effective level, B is Equipment bonus)
 		double maxHit = 0.5 + this.getEffectiveLevel() * (this.getEquipmentBonus() + 64) / 640;

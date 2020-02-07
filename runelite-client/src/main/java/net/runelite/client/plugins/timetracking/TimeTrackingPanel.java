@@ -25,19 +25,6 @@
  */
 package net.runelite.client.plugins.timetracking;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.Nullable;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.timetracking.clocks.ClockManager;
 import net.runelite.client.plugins.timetracking.farming.FarmingTracker;
@@ -48,8 +35,15 @@ import net.runelite.client.ui.components.materialtabs.MaterialTab;
 import net.runelite.client.ui.components.materialtabs.MaterialTabGroup;
 import net.runelite.client.util.AsyncBufferedImage;
 
-class TimeTrackingPanel extends PluginPanel
-{
+import javax.annotation.Nullable;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
+
+class TimeTrackingPanel extends PluginPanel {
 	private final ItemManager itemManager;
 	private final TimeTrackingConfig config;
 
@@ -64,8 +58,7 @@ class TimeTrackingPanel extends PluginPanel
 	private TabContentPanel activeTabPanel = null;
 
 	TimeTrackingPanel(ItemManager itemManager, TimeTrackingConfig config,
-					FarmingTracker farmingTracker, BirdHouseTracker birdHouseTracker, ClockManager clockManager)
-	{
+					  FarmingTracker farmingTracker, BirdHouseTracker birdHouseTracker, ClockManager clockManager) {
 		super(false);
 
 		this.itemManager = itemManager;
@@ -86,14 +79,12 @@ class TimeTrackingPanel extends PluginPanel
 		addTab(Tab.CLOCK, clockManager.getClockTabPanel());
 		addTab(Tab.BIRD_HOUSE, birdHouseTracker.createBirdHouseTabPanel());
 
-		for (Tab tab : Tab.FARMING_TABS)
-		{
+		for (Tab tab : Tab.FARMING_TABS) {
 			addTab(tab, farmingTracker.createTabPanel(tab));
 		}
 	}
 
-	private void addTab(Tab tab, TabContentPanel tabContentPanel)
-	{
+	private void addTab(Tab tab, TabContentPanel tabContentPanel) {
 		JPanel wrapped = new JPanel(new BorderLayout());
 		wrapped.add(tabContentPanel, BorderLayout.NORTH);
 		wrapped.setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -131,32 +122,27 @@ class TimeTrackingPanel extends PluginPanel
 		uiTabs.put(tab, materialTab);
 		tabGroup.addTab(materialTab);
 
-		if (config.activeTab() == tab)
-		{
+		if (config.activeTab() == tab) {
 			tabGroup.select(materialTab);
 		}
 	}
 
-	void switchTab(Tab tab)
-	{
+	void switchTab(Tab tab) {
 		tabGroup.select(uiTabs.get(tab));
 	}
 
 	/**
 	 * Gets the update interval of the active tab panel, in units of 200 milliseconds.
 	 */
-	int getUpdateInterval()
-	{
+	int getUpdateInterval() {
 		return activeTabPanel == null ? Integer.MAX_VALUE : activeTabPanel.getUpdateInterval();
 	}
 
 	/**
 	 * Updates the active tab panel, if this plugin panel is displayed.
 	 */
-	void update()
-	{
-		if (!active || activeTabPanel == null)
-		{
+	void update() {
+		if (!active || activeTabPanel == null) {
 			return;
 		}
 
@@ -164,15 +150,13 @@ class TimeTrackingPanel extends PluginPanel
 	}
 
 	@Override
-	public void onActivate()
-	{
+	public void onActivate() {
 		active = true;
 		update();
 	}
 
 	@Override
-	public void onDeactivate()
-	{
+	public void onDeactivate() {
 		active = false;
 	}
 }

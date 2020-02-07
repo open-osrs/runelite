@@ -12,8 +12,6 @@ package net.runelite.client.plugins.learntoclick;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
@@ -30,19 +28,21 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import org.apache.commons.lang3.ArrayUtils;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 @PluginDescriptor(
-	name = "Learn to Click",
-	description = "A few modifications to prevent misclicks",
-	tags = {"pk", "misclick", "compass", "map", "auto retaliate"},
-	type = PluginType.PVP,
-	enabledByDefault = false
+		name = "Learn to Click",
+		description = "A few modifications to prevent misclicks",
+		tags = {"pk", "misclick", "compass", "map", "auto retaliate"},
+		type = PluginType.PVP,
+		enabledByDefault = false
 )
 @Slf4j
 @Singleton
-public class LearnToClickPlugin extends Plugin
-{
+public class LearnToClickPlugin extends Plugin {
 	private static final ImmutableList<WidgetInfo> ORB_WIDGETS = ImmutableList.of(WidgetInfo.MINIMAP_WORLDMAP_ORB,
-		WidgetInfo.MINIMAP_SPEC_ORB);
+			WidgetInfo.MINIMAP_SPEC_ORB);
 
 	@Inject
 	private LearnToClickConfig config;
@@ -59,73 +59,58 @@ public class LearnToClickPlugin extends Plugin
 	private boolean hideOrbs;
 
 	@Provides
-	LearnToClickConfig provideConfig(ConfigManager configManager)
-	{
+	LearnToClickConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(LearnToClickConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		forceRightClickFlag = false;
 		hideOrbWidgets(false);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("learntoclick"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("learntoclick")) {
 			return;
 		}
 
 		updateConfig();
 
-		if (this.hideOrbs)
-		{
+		if (this.hideOrbs) {
 			hideOrbWidgets(true);
-		}
-		else
-		{
+		} else {
 			hideOrbWidgets(false);
 		}
 
 	}
 
 	@Subscribe
-	private void onWidgetLoaded(WidgetLoaded event)
-	{
-		if (!this.hideOrbs)
-		{
+	private void onWidgetLoaded(WidgetLoaded event) {
+		if (!this.hideOrbs) {
 			return;
 		}
-		if (event.getGroupId() == WidgetID.MINIMAP_GROUP_ID)
-		{
+		if (event.getGroupId() == WidgetID.MINIMAP_GROUP_ID) {
 			hideOrbWidgets(true);
 		}
 	}
 
 	@Subscribe
-	private void onMenuShouldLeftClick(MenuShouldLeftClick event)
-	{
-		if (!forceRightClickFlag)
-		{
+	private void onMenuShouldLeftClick(MenuShouldLeftClick event) {
+		if (!forceRightClickFlag) {
 			return;
 		}
 		forceRightClickFlag = false;
 		MenuEntry[] menuEntries = client.getMenuEntries();
-		for (MenuEntry entry : menuEntries)
-		{
+		for (MenuEntry entry : menuEntries) {
 			if ((entry.getOption().equals("Floating <col=ff9040>World Map</col>") && this.shouldRightClickMap) ||
-				(entry.getTarget().equals("<col=ff9040>XP drops</col>") && this.shouldRightClickXp) ||
-				(entry.getOption().equals("Auto retaliate") && this.shouldRightClickRetaliate))
-			{
+					(entry.getTarget().equals("<col=ff9040>XP drops</col>") && this.shouldRightClickXp) ||
+					(entry.getOption().equals("Auto retaliate") && this.shouldRightClickRetaliate)) {
 				event.setForceRightClick(true);
 				return;
 			}
@@ -133,21 +118,16 @@ public class LearnToClickPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded event)
-	{
+	private void onMenuEntryAdded(MenuEntryAdded event) {
 		if ((event.getOption().equals("Floating <col=ff9040>World Map</col>") && this.shouldRightClickMap) ||
-			(event.getTarget().equals("<col=ff9040>XP drops</col>") && this.shouldRightClickXp) ||
-			(event.getOption().equals("Auto retaliate") && this.shouldRightClickRetaliate))
-		{
+				(event.getTarget().equals("<col=ff9040>XP drops</col>") && this.shouldRightClickXp) ||
+				(event.getOption().equals("Auto retaliate") && this.shouldRightClickRetaliate)) {
 			forceRightClickFlag = true;
 		}
 		MenuEntry[] entries = client.getMenuEntries();
-		if (this.shouldBlockCompass)
-		{
-			for (int i = entries.length - 1; i >= 0; i--)
-			{
-				if (entries[i].getOption().equals("Look North"))
-				{
+		if (this.shouldBlockCompass) {
+			for (int i = entries.length - 1; i >= 0; i--) {
+				if (entries[i].getOption().equals("Look North")) {
 					entries = ArrayUtils.remove(entries, i);
 					i--;
 				}
@@ -161,13 +141,11 @@ public class LearnToClickPlugin extends Plugin
 	 *
 	 * @param hidden - hides the Widgets if true, un-hides them if false
 	 */
-	private void hideOrbWidgets(boolean hidden)
-	{
+	private void hideOrbWidgets(boolean hidden) {
 		ORB_WIDGETS.forEach(widgetInfo -> client.getWidget(widgetInfo).setHidden(hidden));
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.shouldBlockCompass = config.shouldBlockCompass();
 		this.shouldRightClickMap = config.shouldRightClickMap();
 		this.shouldRightClickXp = config.shouldRightClickXp();

@@ -27,11 +27,6 @@
 package net.runelite.client.plugins.skillcalculator;
 
 import com.google.inject.Provides;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.swing.SwingUtilities;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -54,14 +49,19 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Inject;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
+
 @PluginDescriptor(
-	name = "Skill Calculator",
-	description = "Enable the Skill Calculator panel",
-	tags = {"panel", "skilling"},
-	type = PluginType.MISCELLANEOUS
+		name = "Skill Calculator",
+		description = "Enable the Skill Calculator panel",
+		tags = {"panel", "skilling"},
+		type = PluginType.MISCELLANEOUS
 )
-public class SkillCalculatorPlugin extends Plugin
-{
+public class SkillCalculatorPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -90,24 +90,22 @@ public class SkillCalculatorPlugin extends Plugin
 	private int bankHash = -1;
 
 	@Provides
-	SkillCalculatorConfig getConfig(ConfigManager configManager)
-	{
+	SkillCalculatorConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(SkillCalculatorConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "calc.png");
 		final SkillCalculatorPanel uiPanel = new SkillCalculatorPanel(skillIconManager, client, spriteManager, itemManager);
 
 		uiNavigationButton = NavigationButton.builder()
-			.tooltip("Skill Calculator")
-			.icon(icon)
-			.priority(6)
-			.panel(uiPanel)
-			.build();
+				.tooltip("Skill Calculator")
+				.icon(icon)
+				.priority(6)
+				.panel(uiPanel)
+				.build();
 
 		clientToolbar.addNavigation(uiNavigationButton);
 
@@ -115,55 +113,46 @@ public class SkillCalculatorPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		clientToolbar.removeNavigation(uiNavigationButton);
-		if (bankedUiNavigationButton != null)
-		{
+		if (bankedUiNavigationButton != null) {
 			clientToolbar.removeNavigation(bankedUiNavigationButton);
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("skillCalculator") && event.getKey().equals("enabledBankedXp"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("skillCalculator") && event.getKey().equals("enabledBankedXp")) {
 			toggleBankedXpPanel();
 		}
 	}
 
 	@Subscribe
-	public void onScriptCallbackEvent(ScriptCallbackEvent event)
-	{
-		if (!event.getEventName().equals("setBankTitle") || !skillCalculatorConfig.showBankedXp())
-		{
+	public void onScriptCallbackEvent(ScriptCallbackEvent event) {
+		if (!event.getEventName().equals("setBankTitle") || !skillCalculatorConfig.showBankedXp()) {
 			return;
 		}
 
 		updateBankItems();
 	}
 
-	private void toggleBankedXpPanel()
-	{
-		if (skillCalculatorConfig.showBankedXp())
-		{
+	private void toggleBankedXpPanel() {
+		if (skillCalculatorConfig.showBankedXp()) {
 			final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "banked.png");
 
 			bankedUiPanel = new BankedCalculatorPanel(client, skillCalculatorConfig, skillIconManager, itemManager);
 			bankedUiNavigationButton = NavigationButton.builder()
-				.tooltip("Banked XP")
-				.icon(icon)
-				.priority(6)
-				.panel(bankedUiPanel)
-				.build();
+					.tooltip("Banked XP")
+					.icon(icon)
+					.priority(6)
+					.panel(bankedUiPanel)
+					.build();
 
 			clientToolbar.addNavigation(bankedUiNavigationButton);
 
 			clientThread.invoke(() ->
 			{
-				switch (client.getGameState())
-				{
+				switch (client.getGameState()) {
 					case LOGIN_SCREEN:
 					case LOGIN_SCREEN_AUTHENTICATOR:
 					case LOGGING_IN:
@@ -178,11 +167,8 @@ public class SkillCalculatorPlugin extends Plugin
 						return false;
 				}
 			});
-		}
-		else
-		{
-			if (bankedUiNavigationButton == null)
-			{
+		} else {
+			if (bankedUiNavigationButton == null) {
 				return;
 			}
 
@@ -193,29 +179,24 @@ public class SkillCalculatorPlugin extends Plugin
 	}
 
 	// Check if bank contents changed and if so send to UI
-	private void updateBankItems()
-	{
+	private void updateBankItems() {
 		final ItemContainer c = client.getItemContainer(InventoryID.BANK);
-		if (c == null)
-		{
+		if (c == null) {
 			return;
 		}
 
 		final Item[] widgetItems = c.getItems();
-		if (widgetItems == null || widgetItems.length == 0)
-		{
+		if (widgetItems == null || widgetItems.length == 0) {
 			return;
 		}
 
 		final Map<Integer, Integer> m = new HashMap<>();
-		for (Item widgetItem : widgetItems)
-		{
+		for (Item widgetItem : widgetItems) {
 			m.put(widgetItem.getId(), widgetItem.getQuantity());
 		}
 
 		final int curHash = m.hashCode();
-		if (bankHash != curHash)
-		{
+		if (bankHash != curHash) {
 			bankHash = curHash;
 			SwingUtilities.invokeLater(() -> bankedUiPanel.setBankMap(m));
 		}

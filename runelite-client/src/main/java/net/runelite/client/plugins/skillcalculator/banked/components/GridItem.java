@@ -24,16 +24,6 @@
  */
 package net.runelite.client.plugins.skillcalculator.banked.components;
 
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.function.BooleanSupplier;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,9 +33,15 @@ import net.runelite.client.plugins.skillcalculator.banked.beans.BankedItem;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.AsyncBufferedImage;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.function.BooleanSupplier;
+
 @Getter(AccessLevel.PUBLIC)
-public class GridItem extends JLabel
-{
+public class GridItem extends JLabel {
 	private final static String IGNORE = "Ignore Item";
 	private final static String INCLUDE = "Include Item";
 
@@ -70,8 +66,7 @@ public class GridItem extends JLabel
 	private boolean selected = false;
 	private boolean ignored = false;
 
-	GridItem(final SelectionGrid parent, final BankedItem item, final AsyncBufferedImage icon, final int amount)
-	{
+	GridItem(final SelectionGrid parent, final BankedItem item, final AsyncBufferedImage icon, final int amount) {
 		super("");
 
 		this.parent = parent;
@@ -87,27 +82,22 @@ public class GridItem extends JLabel
 		updateIcon(icon, amount);
 		updateToolTip();
 
-		this.addMouseListener(new MouseAdapter()
-		{
+		this.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
-				if (mouseEvent.getButton() == MouseEvent.BUTTON1)
-				{
+			public void mousePressed(MouseEvent mouseEvent) {
+				if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
 					select();
 				}
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e)
-			{
+			public void mouseEntered(MouseEvent e) {
 				final GridItem item = (GridItem) e.getSource();
 				item.setBackground(getHoverBackgroundColor());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e)
-			{
+			public void mouseExited(MouseEvent e) {
 				final GridItem item = (GridItem) e.getSource();
 				item.setBackground(getBackgroundColor());
 			}
@@ -118,8 +108,7 @@ public class GridItem extends JLabel
 			// Update ignored flag now so event knows new state
 			this.ignored = !this.ignored;
 
-			if (onIgnoreEvent != null && !onIgnoreEvent.getAsBoolean())
-			{
+			if (onIgnoreEvent != null && !onIgnoreEvent.getAsBoolean()) {
 				// Reset state
 				this.ignored = !this.ignored;
 				return;
@@ -136,20 +125,16 @@ public class GridItem extends JLabel
 		this.setComponentPopupMenu(popupMenu);
 	}
 
-	private Color getBackgroundColor()
-	{
+	private Color getBackgroundColor() {
 		return ignored ? IGNORED_BACKGROUND : (selected ? SELECTED_BACKGROUND : UNSELECTED_BACKGROUND);
 	}
 
-	private Color getHoverBackgroundColor()
-	{
+	private Color getHoverBackgroundColor() {
 		return ignored ? IGNORED_HOVER_BACKGROUND : (selected ? SELECTED_HOVER_BACKGROUND : UNSELECTED_HOVER_BACKGROUND);
 	}
 
-	public void select()
-	{
-		if (onSelectEvent != null && !onSelectEvent.getAsBoolean())
-		{
+	public void select() {
+		if (onSelectEvent != null && !onSelectEvent.getAsBoolean()) {
 			return;
 		}
 
@@ -157,37 +142,30 @@ public class GridItem extends JLabel
 		setBackground(getBackgroundColor());
 	}
 
-	void unselect()
-	{
+	void unselect() {
 		selected = false;
 		setBackground(getBackgroundColor());
 	}
 
-	public void updateIcon(final AsyncBufferedImage icon, final int amount)
-	{
+	public void updateIcon(final AsyncBufferedImage icon, final int amount) {
 		icon.addTo(this);
 		this.amount = amount;
 	}
 
-	public void updateToolTip()
-	{
+	public void updateToolTip() {
 		this.setToolTipText(buildToolTip());
 	}
 
-	private String buildToolTip()
-	{
+	private String buildToolTip() {
 		String tip = "<html>" + bankedItem.getItem().getItemInfo().getName();
 
 		final Activity a = bankedItem.getItem().getSelectedActivity();
-		if (a != null)
-		{
+		if (a != null) {
 			final double xp = parent.getCalc().getItemXpRate(bankedItem);
 			tip += "<br/>Activity: " + a.getName();
 			tip += "<br/>Xp/Action: " + BankedCalculator.XP_FORMAT_COMMA.format(xp);
 			tip += "<br/>Total Xp: " + BankedCalculator.XP_FORMAT_COMMA.format(xp * amount);
-		}
-		else
-		{
+		} else {
 			tip += "<br/>Unusable at current level";
 		}
 

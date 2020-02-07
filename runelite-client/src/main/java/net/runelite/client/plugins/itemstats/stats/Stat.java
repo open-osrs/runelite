@@ -29,17 +29,14 @@ import net.runelite.api.Client;
 /**
  * Abstract stat of a player.
  */
-public abstract class Stat
-{
+public abstract class Stat {
 	private final String name;
 
-	Stat(String name)
-	{
+	Stat(String name) {
 		this.name = name;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 

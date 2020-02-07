@@ -30,51 +30,45 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum RoomType
-{
-    START("Start", '#'),
-    END("End", '¤'),
-    SCAVENGERS("Scavengers", 'S'),
-    FARMING("Farming", 'F'),
-    EMPTY("Empty", ' '),
-    COMBAT("Combat", 'C'),
-    PUZZLE("Puzzle", 'P');
+public enum RoomType {
+	START("Start", '#'),
+	END("End", '¤'),
+	SCAVENGERS("Scavengers", 'S'),
+	FARMING("Farming", 'F'),
+	EMPTY("Empty", ' '),
+	COMBAT("Combat", 'C'),
+	PUZZLE("Puzzle", 'P');
 
-    private final String name;
-    private final char code;
+	private final String name;
+	private final char code;
 
-    RaidRoom getUnsolvedRoom()
-    {
-        switch (this)
-        {
-            case START:
-                return RaidRoom.START;
-            case END:
-                return RaidRoom.END;
-            case SCAVENGERS:
-                return RaidRoom.SCAVENGERS;
-            case FARMING:
-                return RaidRoom.FARMING;
-            case COMBAT:
-                return RaidRoom.UNKNOWN_COMBAT;
-            case PUZZLE:
-                return RaidRoom.UNKNOWN_PUZZLE;
-            case EMPTY:
-            default:
-                return RaidRoom.EMPTY;
-        }
-    }
+	RaidRoom getUnsolvedRoom() {
+		switch (this) {
+			case START:
+				return RaidRoom.START;
+			case END:
+				return RaidRoom.END;
+			case SCAVENGERS:
+				return RaidRoom.SCAVENGERS;
+			case FARMING:
+				return RaidRoom.FARMING;
+			case COMBAT:
+				return RaidRoom.UNKNOWN_COMBAT;
+			case PUZZLE:
+				return RaidRoom.UNKNOWN_PUZZLE;
+			case EMPTY:
+			default:
+				return RaidRoom.EMPTY;
+		}
+	}
 
-    static RoomType fromCode(char code)
-    {
-        for (RoomType type : values())
-        {
-            if (type.getCode() == code)
-            {
-                return type;
-            }
-        }
+	static RoomType fromCode(char code) {
+		for (RoomType type : values()) {
+			if (type.getCode() == code) {
+				return type;
+			}
+		}
 
-        return EMPTY;
-    }
+		return EMPTY;
+	}
 }

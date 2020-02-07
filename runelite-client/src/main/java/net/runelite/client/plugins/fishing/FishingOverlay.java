@@ -24,19 +24,11 @@
  */
 package net.runelite.client.plugins.fishing;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GraphicID;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -44,9 +36,16 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY;
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-class FishingOverlay extends Overlay
-{
+class FishingOverlay extends Overlay {
 	private static final String FISHING_SPOT = "Fishing spot";
 	static final String FISHING_RESET = "Reset";
 
@@ -57,8 +56,7 @@ class FishingOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public FishingOverlay(final Client client, final FishingPlugin plugin, final XpTrackerService xpTrackerService)
-	{
+	public FishingOverlay(final Client client, final FishingPlugin plugin, final XpTrackerService xpTrackerService) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -69,41 +67,34 @@ class FishingOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isShowFishingStats() || plugin.getSession().getLastFishCaught() == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isShowFishingStats() || plugin.getSession().getLastFishCaught() == null) {
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 		if (client.getLocalPlayer().getInteracting() != null
-			&& client.getLocalPlayer().getInteracting().getName().contains(FISHING_SPOT)
-			&& client.getLocalPlayer().getInteracting().getSpotAnimation() != GraphicID.FLYING_FISH)
-		{
+				&& client.getLocalPlayer().getInteracting().getName().contains(FISHING_SPOT)
+				&& client.getLocalPlayer().getInteracting().getSpotAnimation() != GraphicID.FLYING_FISH) {
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("Fishing")
-				.color(Color.GREEN)
-				.build());
-		}
-		else
-		{
+					.text("Fishing")
+					.color(Color.GREEN)
+					.build());
+		} else {
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("NOT fishing")
-				.color(Color.RED)
-				.build());
+					.text("NOT fishing")
+					.color(Color.RED)
+					.build());
 		}
 
 		int actions = xpTrackerService.getActions(Skill.FISHING);
-		if (actions > 0)
-		{
+		if (actions > 0) {
 			TableComponent tableComponent = new TableComponent();
 			tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
 			tableComponent.addRow("Caught fish:", Integer.toString(actions));
 
-			if (actions > 2)
-			{
+			if (actions > 2) {
 				tableComponent.addRow("Fish/hr:", Integer.toString(xpTrackerService.getActionsHr(Skill.FISHING)));
 			}
 

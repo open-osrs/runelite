@@ -32,12 +32,11 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
-import javax.inject.Inject;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 
-class KourendLibraryTutorialOverlay extends Overlay
-{
+import javax.inject.Inject;
+import java.awt.*;
+
+class KourendLibraryTutorialOverlay extends Overlay {
 	private final Client client;
 	private final KourendLibraryConfig config;
 	private final Library library;
@@ -49,8 +48,7 @@ class KourendLibraryTutorialOverlay extends Overlay
 	private final LineComponent sidebarMessageComponent;
 
 	@Inject
-	private KourendLibraryTutorialOverlay(Client client, KourendLibraryConfig config, Library library)
-	{
+	private KourendLibraryTutorialOverlay(Client client, KourendLibraryConfig config, Library library) {
 		this.client = client;
 		this.config = config;
 		this.library = library;
@@ -68,29 +66,24 @@ class KourendLibraryTutorialOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!config.showTutorialOverlay())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!config.showTutorialOverlay()) {
 			return null;
 		}
 
 		Player player = client.getLocalPlayer();
-		if (player == null)
-		{
+		if (player == null) {
 			return null;
 		}
 
 		WorldPoint playerLoc = player.getWorldLocation();
-		if (playerLoc.getRegionID() != KourendLibraryPlugin.REGION)
-		{
+		if (playerLoc.getRegionID() != KourendLibraryPlugin.REGION) {
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 
-		switch (library.getState())
-		{
+		switch (library.getState()) {
 			case NO_DATA:
 				panelComponent.getChildren().add(noDataMessageComponent);
 				break;

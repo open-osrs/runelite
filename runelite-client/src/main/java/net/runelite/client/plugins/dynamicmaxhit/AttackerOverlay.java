@@ -24,16 +24,6 @@
 package net.runelite.client.plugins.dynamicmaxhit;
 
 import com.google.common.base.Strings;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Point;
 import net.runelite.client.ui.FontManager;
@@ -42,17 +32,22 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 @Singleton
 @Slf4j
-public class AttackerOverlay extends Overlay
-{
+public class AttackerOverlay extends Overlay {
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#");
 	private final Font timerFont = FontManager.getRunescapeBoldFont().deriveFont(14.0f);
 	private final DynamicMaxHit plugin;
 
 	@Inject
-	public AttackerOverlay(final DynamicMaxHit plugin)
-	{
+	public AttackerOverlay(final DynamicMaxHit plugin) {
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGHEST);
@@ -60,21 +55,17 @@ public class AttackerOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		final Map<String, Victim> temp = new HashMap<>(plugin.getVictims());
 
-		if (temp.isEmpty())
-		{
+		if (temp.isEmpty()) {
 			return null;
 		}
 
-		for (Victim player : temp.values())
-		{
+		for (Victim player : temp.values()) {
 			final AttackStyle attackStyle = player.getAttackStyle();
 
-			if (player.getMaxHit() < 1)
-			{
+			if (player.getMaxHit() < 1) {
 				continue;
 			}
 
@@ -83,33 +74,26 @@ public class AttackerOverlay extends Overlay
 			final Point textLocation;
 			final Point specTextLocation;
 
-			if (player.getPlayer().getSkullIcon() == null)
-			{
+			if (player.getPlayer().getSkullIcon() == null) {
 				textLocation = player.getPlayer().getCanvasTextLocation(graphics, text, player.getPlayer().getLogicalHeight() + 40);
 				specTextLocation = player.getPlayer().getCanvasTextLocation(graphics, specText, player.getPlayer().getLogicalHeight() + 80);
-			}
-			else
-			{
+			} else {
 				textLocation = player.getPlayer().getCanvasTextLocation(graphics, text, player.getPlayer().getLogicalHeight() - 40);
 				specTextLocation = player.getPlayer().getCanvasTextLocation(graphics, specText, player.getPlayer().getLogicalHeight() - 80);
 			}
 
-			if (textLocation != null)
-			{
+			if (textLocation != null) {
 				renderTextLocation(graphics, textLocation, text, attackStyle.getColor());
 			}
-			if (specTextLocation != null && !specText.equals(text))
-			{
+			if (specTextLocation != null && !specText.equals(text)) {
 				renderTextLocation(graphics, specTextLocation, specText, Color.ORANGE);
 			}
 		}
 		return null;
 	}
 
-	private void renderTextLocation(Graphics2D graphics, Point txtLoc, String text, Color color)
-	{
-		if (Strings.isNullOrEmpty(text))
-		{
+	private void renderTextLocation(Graphics2D graphics, Point txtLoc, String text, Color color) {
+		if (Strings.isNullOrEmpty(text)) {
 			return;
 		}
 

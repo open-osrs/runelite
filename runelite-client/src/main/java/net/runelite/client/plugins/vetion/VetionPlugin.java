@@ -24,11 +24,6 @@
  */
 package net.runelite.client.plugins.vetion;
 
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -40,16 +35,21 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
+
 @PluginDescriptor(
-	name = "Vetion Helper",
-	description = "Tracks Vet'ion's special attacks",
-	tags = {"bosses", "combat", "pve", "overlay"},
-	type = PluginType.PVM,
-	enabledByDefault = false
+		name = "Vetion Helper",
+		description = "Tracks Vet'ion's special attacks",
+		tags = {"bosses", "combat", "pve", "overlay"},
+		type = PluginType.PVM,
+		enabledByDefault = false
 )
 @Singleton
-public class VetionPlugin extends Plugin
-{
+public class VetionPlugin extends Plugin {
 
 	@Inject
 	private OverlayManager overlayManager;
@@ -61,25 +61,21 @@ public class VetionPlugin extends Plugin
 	private Map<Actor, Instant> vetions;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		vetions = new HashMap<>();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		vetions = null;
 	}
 
 	@Subscribe
-	private void onAnimationChanged(AnimationChanged event)
-	{
-		if (event.getActor().getAnimation() == AnimationID.VETION_EARTHQUAKE)
-		{
+	private void onAnimationChanged(AnimationChanged event) {
+		if (event.getActor().getAnimation() == AnimationID.VETION_EARTHQUAKE) {
 			Actor vet = event.getActor();
 			vetions.remove(vet, Instant.now());
 			vetions.put(vet, Instant.now());

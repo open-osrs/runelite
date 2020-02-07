@@ -26,22 +26,19 @@
 package net.runelite.client.ui.components.colorpicker;
 
 import com.google.common.collect.EvictingQueue;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import net.runelite.api.util.Text;
+import net.runelite.client.config.ConfigManager;
+import net.runelite.client.util.ColorUtil;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
-import javax.swing.JPanel;
-import net.runelite.api.util.Text;
-import net.runelite.client.config.ConfigManager;
-import static net.runelite.client.ui.components.colorpicker.RuneliteColorPicker.CONFIG_GROUP;
-import net.runelite.client.util.ColorUtil;
 
-final class RecentColors
-{
+import static net.runelite.client.ui.components.colorpicker.RuneliteColorPicker.CONFIG_GROUP;
+
+final class RecentColors {
 	private static final String CONFIG_KEY = "recentColors";
 	private static final int MAX = 16;
 	private static final int BOX_SIZE = 16;
@@ -49,24 +46,19 @@ final class RecentColors
 	private final EvictingQueue<String> recentColors = EvictingQueue.create(MAX);
 	private final ConfigManager configManager;
 
-	RecentColors(final ConfigManager configManager)
-	{
+	RecentColors(final ConfigManager configManager) {
 		this.configManager = configManager;
 	}
 
-	private void load()
-	{
+	private void load() {
 		String str = configManager.getConfiguration(CONFIG_GROUP, CONFIG_KEY);
-		if (str != null)
-		{
+		if (str != null) {
 			recentColors.addAll(Text.fromCSV(str));
 		}
 	}
 
-	void add(final String color)
-	{
-		if (ColorUtil.fromString(color) == null)
-		{
+	void add(final String color) {
+		if (ColorUtil.fromString(color) == null) {
 			return;
 		}
 
@@ -76,8 +68,7 @@ final class RecentColors
 		configManager.setConfiguration(CONFIG_GROUP, CONFIG_KEY, Text.toCSV(recentColors));
 	}
 
-	JPanel build(final Consumer<Color> consumer, final boolean alphaHidden)
-	{
+	JPanel build(final Consumer<Color> consumer, final boolean alphaHidden) {
 		load();
 
 		JPanel container = new JPanel(new GridBagLayout());
@@ -88,17 +79,14 @@ final class RecentColors
 		cx.gridx = 0;
 		cx.anchor = GridBagConstraints.WEST;
 
-		for (String s : recentColors)
-		{
-			if (cx.gridx == MAX / 2)
-			{
+		for (String s : recentColors) {
+			if (cx.gridx == MAX / 2) {
 				cx.gridy++;
 				cx.gridx = 0;
 			}
 
 			// Make sure the last element stays in line with all of the others
-			if (container.getComponentCount() == recentColors.size() - 1)
-			{
+			if (container.getComponentCount() == recentColors.size() - 1) {
 				cx.weightx = 1;
 				cx.gridwidth = MAX / 2 - cx.gridx;
 			}
@@ -110,8 +98,7 @@ final class RecentColors
 		return container;
 	}
 
-	private static JPanel createBox(final Color color, final Consumer<Color> consumer, final boolean alphaHidden)
-	{
+	private static JPanel createBox(final Color color, final Consumer<Color> consumer, final boolean alphaHidden) {
 		final JPanel box = new JPanel();
 		String hex = alphaHidden ? ColorUtil.colorToHexCode(color) : ColorUtil.colorToAlphaHexCode(color);
 
@@ -119,11 +106,9 @@ final class RecentColors
 		box.setOpaque(true);
 		box.setPreferredSize(new Dimension(BOX_SIZE, BOX_SIZE));
 		box.setToolTipText("#" + hex.toUpperCase());
-		box.addMouseListener(new MouseAdapter()
-		{
+		box.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				consumer.accept(color);
 			}
 		});

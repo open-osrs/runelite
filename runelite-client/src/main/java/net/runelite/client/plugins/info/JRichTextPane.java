@@ -24,25 +24,23 @@
  */
 package net.runelite.client.plugins.info;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.inject.Singleton;
-import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
+import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLEditorKit;
-import lombok.extern.slf4j.Slf4j;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @Slf4j
 @Singleton
-public class JRichTextPane extends JEditorPane
-{
+public class JRichTextPane extends JEditorPane {
 	private HyperlinkListener linkHandler;
 
-	public JRichTextPane()
-	{
+	public JRichTextPane() {
 		super();
 		setHighlighter(null);
 		setEditable(false);
@@ -53,45 +51,34 @@ public class JRichTextPane extends JEditorPane
 		ek.getStyleSheet().addRule("a {color: #DDDDDD }");
 	}
 
-	private JRichTextPane(String type, String text)
-	{
+	private JRichTextPane(String type, String text) {
 		this();
 		setContentType(type);
 		setText(text);
 	}
 
-	private void enableAutoLinkHandler(boolean enable)
-	{
-		if (enable == (linkHandler == null))
-		{
-			if (enable)
-			{
+	private void enableAutoLinkHandler(boolean enable) {
+		if (enable == (linkHandler == null)) {
+			if (enable) {
 				linkHandler = e ->
 				{
-					if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType()) && e.getURL() != null && Desktop.isDesktopSupported())
-					{
-						try
-						{
+					if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType()) && e.getURL() != null && Desktop.isDesktopSupported()) {
+						try {
 							Desktop.getDesktop().browse(e.getURL().toURI());
-						}
-						catch (URISyntaxException | IOException ex)
-						{
+						} catch (URISyntaxException | IOException ex) {
 							log.warn("Error opening link", ex);
 						}
 					}
 				};
 				addHyperlinkListener(linkHandler);
-			}
-			else
-			{
+			} else {
 				removeHyperlinkListener(linkHandler);
 				linkHandler = null;
 			}
 		}
 	}
 
-	public boolean getAutoLinkHandlerEnabled()
-	{
+	public boolean getAutoLinkHandlerEnabled() {
 		return linkHandler != null;
 	}
 }

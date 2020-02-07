@@ -27,12 +27,6 @@
 package net.runelite.client.plugins.thieving;
 
 import com.google.inject.Provides;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -53,17 +47,23 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
 @PluginDescriptor(
-	name = "Thieving",
-	description = "Show thieving overlay",
-	tags = {"overlay", "skilling", "thieving", "pickpocketing"},
-	type = PluginType.SKILLING,
-	enabledByDefault = false
+		name = "Thieving",
+		description = "Show thieving overlay",
+		tags = {"overlay", "skilling", "thieving", "pickpocketing"},
+		type = PluginType.SKILLING,
+		enabledByDefault = false
 )
 @Singleton
 @PluginDependency(XpTrackerPlugin.class)
-public class ThievingPlugin extends Plugin
-{
+public class ThievingPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -89,14 +89,12 @@ public class ThievingPlugin extends Plugin
 	private boolean recentlyLoggedIn = false;
 
 	@Provides
-	ThievingConfig getConfig(ConfigManager configManager)
-	{
+	ThievingConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(ThievingConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		this.statTimeout = config.statTimeout();
 
@@ -111,65 +109,52 @@ public class ThievingPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(chestOverlay);
 		session = null;
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOGGED_IN)
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() == GameState.LOGGED_IN) {
 			recentlyLoggedIn = true;
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick gameTick)
-	{
+	private void onGameTick(GameTick gameTick) {
 		recentlyLoggedIn = false;
 
-		if (session == null || this.statTimeout == 0)
-		{
+		if (session == null || this.statTimeout == 0) {
 			return;
 		}
 
 		Duration statTimeout = Duration.ofMinutes(this.statTimeout);
 		Duration sinceCut = Duration.between(session.getLastTheivingAction(), Instant.now());
 
-		if (sinceCut.compareTo(statTimeout) >= 0)
-		{
+		if (sinceCut.compareTo(statTimeout) >= 0) {
 			session = null;
 		}
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage event)
-	{
-		if (event.getType() != ChatMessageType.SPAM)
-		{
+	private void onChatMessage(ChatMessage event) {
+		if (event.getType() != ChatMessageType.SPAM) {
 			return;
 		}
 
 		final String message = event.getMessage();
 
-		if (message.startsWith("You pickpocket") || message.startsWith("You pick-pocket") || message.startsWith("You steal") || message.startsWith("You successfully pick-pocket") || message.startsWith("You successfully pick") || message.startsWith("You successfully steal"))
-		{
-			if (session == null)
-			{
+		if (message.startsWith("You pickpocket") || message.startsWith("You pick-pocket") || message.startsWith("You steal") || message.startsWith("You successfully pick-pocket") || message.startsWith("You successfully pick") || message.startsWith("You successfully steal")) {
+			if (session == null) {
 				session = new ThievingSession();
 			}
 
 			session.updateLastThevingAction();
 			session.hasSucceeded();
-		}
-		else if (message.startsWith("You fail to pick") || message.startsWith("You fail to steal"))
-		{
-			if (session == null)
-			{
+		} else if (message.startsWith("You fail to pick") || message.startsWith("You fail to steal")) {
+			if (session == null) {
 				session = new ThievingSession();
 			}
 
@@ -179,28 +164,23 @@ public class ThievingPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event)
-	{
-		if (client.getGameState() != GameState.LOGGED_IN || recentlyLoggedIn)
-		{
+	private void onGameObjectDespawned(GameObjectDespawned event) {
+		if (client.getGameState() != GameState.LOGGED_IN || recentlyLoggedIn) {
 			return;
 		}
 
 		final GameObject object = event.getGameObject();
 
 		Chest chest = Chest.of(object.getId());
-		if (chest != null)
-		{
+		if (chest != null) {
 			ChestRespawn chestRespawn = new ChestRespawn(chest, object.getWorldLocation(), Instant.now().plus(chest.getRespawnTime()), client.getWorld());
 			respawns.add(chestRespawn);
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!"thieving".equals(event.getGroup()))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!"thieving".equals(event.getGroup())) {
 			return;
 		}
 

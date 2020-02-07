@@ -10,11 +10,6 @@
 
 package net.runelite.client.plugins.whalewatchers;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -22,19 +17,21 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 /**
  * The overlay for the smiteable warning
  */
 @Singleton
-public class WhaleWatchersSmiteableOverlay extends Overlay
-{
+public class WhaleWatchersSmiteableOverlay extends Overlay {
 	private final WhaleWatchersPlugin plugin;
 	private final PanelComponent panelComponent;
 
 
 	@Inject
-	public WhaleWatchersSmiteableOverlay(final WhaleWatchersPlugin plugin)
-	{
+	public WhaleWatchersSmiteableOverlay(final WhaleWatchersPlugin plugin) {
 		this.plugin = plugin;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPriority(OverlayPriority.HIGH);
@@ -43,27 +40,23 @@ public class WhaleWatchersSmiteableOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		String subText = "You could be smited in 1 tick";
 		panelComponent.getChildren().clear();
-		if (plugin.isDisplaySmiteOverlay())
-		{
+		if (plugin.isDisplaySmiteOverlay()) {
 			panelComponent.setBackgroundColor(Color.WHITE);
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("LOW PRAYER WARNING")
-				.color(Color.BLACK)
-				.build());
+					.text("LOW PRAYER WARNING")
+					.color(Color.BLACK)
+					.build());
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text(subText)
-				.color(Color.BLACK)
-				.build());
+					.text(subText)
+					.color(Color.BLACK)
+					.build());
 
 			panelComponent.setPreferredSize(new Dimension(graphics.getFontMetrics().stringWidth(subText)
-				+ 20, 0));
-		}
-		else
-		{
+					+ 20, 0));
+		} else {
 			panelComponent.getChildren().clear();
 		}
 		return panelComponent.render(graphics);

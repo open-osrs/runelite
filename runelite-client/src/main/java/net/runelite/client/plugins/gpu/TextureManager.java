@@ -25,25 +25,23 @@
 package net.runelite.client.plugins.gpu;
 
 import com.jogamp.opengl.GL4;
-import java.nio.ByteBuffer;
-import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Texture;
 import net.runelite.api.TextureProvider;
 
+import javax.inject.Singleton;
+import java.nio.ByteBuffer;
+
 @Singleton
 @Slf4j
-class TextureManager
-{
+class TextureManager {
 	private static final float PERC_64 = 1f / 64f;
 	private static final float PERC_128 = 1f / 128f;
 
 	private static final int TEXTURE_SIZE = 128;
 
-	int initTextureArray(TextureProvider textureProvider, GL4 gl)
-	{
-		if (!allTexturesLoaded(textureProvider))
-		{
+	int initTextureArray(TextureProvider textureProvider, GL4 gl) {
+		if (!allTexturesLoaded(textureProvider)) {
 			return -1;
 		}
 
@@ -73,8 +71,7 @@ class TextureManager
 		return textureArrayId;
 	}
 
-	void freeTextureArray(GL4 gl, int textureArrayId)
-	{
+	void freeTextureArray(GL4 gl, int textureArrayId) {
 		GLUtil.glDeleteTexture(gl, textureArrayId);
 	}
 
@@ -84,22 +81,17 @@ class TextureManager
 	 * @param textureProvider
 	 * @return
 	 */
-	private static boolean allTexturesLoaded(TextureProvider textureProvider)
-	{
+	private static boolean allTexturesLoaded(TextureProvider textureProvider) {
 		Texture[] textures = textureProvider.getTextures();
-		if (textures == null || textures.length == 0)
-		{
+		if (textures == null || textures.length == 0) {
 			return false;
 		}
 
-		for (int textureId = 0; textureId < textures.length; textureId++)
-		{
+		for (int textureId = 0; textureId < textures.length; textureId++) {
 			Texture texture = textures[textureId];
-			if (texture != null)
-			{
+			if (texture != null) {
 				int[] pixels = textureProvider.load(textureId);
-				if (pixels == null)
-				{
+				if (pixels == null) {
 					return false;
 				}
 			}
@@ -108,29 +100,24 @@ class TextureManager
 		return true;
 	}
 
-	private static void updateTextures(TextureProvider textureProvider, GL4 gl, int textureArrayId)
-	{
+	private static void updateTextures(TextureProvider textureProvider, GL4 gl, int textureArrayId) {
 		Texture[] textures = textureProvider.getTextures();
 
 		gl.glBindTexture(gl.GL_TEXTURE_2D_ARRAY, textureArrayId);
 
 		int cnt = 0;
-		for (int textureId = 0; textureId < textures.length; textureId++)
-		{
+		for (int textureId = 0; textureId < textures.length; textureId++) {
 			Texture texture = textures[textureId];
-			if (texture != null)
-			{
+			if (texture != null) {
 				int[] srcPixels = textureProvider.load(textureId);
-				if (srcPixels == null)
-				{
+				if (srcPixels == null) {
 					log.warn("No pixels for texture {}!", textureId);
 					continue; // this can't happen
 				}
 
 				++cnt;
 
-				if (srcPixels.length != TEXTURE_SIZE * TEXTURE_SIZE)
-				{
+				if (srcPixels.length != TEXTURE_SIZE * TEXTURE_SIZE) {
 					// The texture storage is 128x128 bytes, and will only work correctly with the
 					// 128x128 textures from high detail mode
 					log.warn("Texture size for {} is {}!", textureId, srcPixels.length);
@@ -140,15 +127,14 @@ class TextureManager
 				byte[] pixels = convertPixels(srcPixels, TEXTURE_SIZE, TEXTURE_SIZE, TEXTURE_SIZE, TEXTURE_SIZE);
 				ByteBuffer pixelBuffer = ByteBuffer.wrap(pixels);
 				gl.glTexSubImage3D(gl.GL_TEXTURE_2D_ARRAY, 0, 0, 0, textureId, TEXTURE_SIZE, TEXTURE_SIZE,
-					1, gl.GL_RGBA, gl.GL_UNSIGNED_BYTE, pixelBuffer);
+						1, gl.GL_RGBA, gl.GL_UNSIGNED_BYTE, pixelBuffer);
 			}
 		}
 
 		log.debug("Uploaded textures {}", cnt);
 	}
 
-	private static byte[] convertPixels(int[] srcPixels, int width, int height, int textureWidth, int textureHeight)
-	{
+	private static byte[] convertPixels(int[] srcPixels, int width, int height, int textureWidth, int textureHeight) {
 		byte[] pixels = new byte[textureWidth * textureHeight * 4];
 
 		int pixelIdx = 0;
@@ -156,20 +142,15 @@ class TextureManager
 
 		int offset = (textureWidth - width) * 4;
 
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 				int rgb = srcPixels[srcPixelIdx++];
-				if (rgb != 0)
-				{
+				if (rgb != 0) {
 					pixels[pixelIdx++] = (byte) (rgb >> 16);
 					pixels[pixelIdx++] = (byte) (rgb >> 8);
 					pixels[pixelIdx++] = (byte) rgb;
 					pixels[pixelIdx++] = (byte) -1;
-				}
-				else
-				{
+				} else {
 					pixelIdx += 4;
 				}
 			}
@@ -184,11 +165,9 @@ class TextureManager
 	 * @param texture
 	 * @param diff    Number of elapsed client ticks since last animation
 	 */
-	void animate(Texture texture, int diff)
-	{
+	void animate(Texture texture, int diff) {
 		final int[] pixels = texture.getPixels();
-		if (pixels == null)
-		{
+		if (pixels == null) {
 			return;
 		}
 
@@ -201,33 +180,28 @@ class TextureManager
 		int offset = animationSpeed * diff;
 		float d = (float) offset * uvdiff;
 
-		switch (texture.getAnimationDirection())
-		{
+		switch (texture.getAnimationDirection()) {
 			case 1:
 				v -= d;
-				if (v < 0f)
-				{
+				if (v < 0f) {
 					v += 1f;
 				}
 				break;
 			case 3:
 				v += d;
-				if (v > 1f)
-				{
+				if (v > 1f) {
 					v -= 1f;
 				}
 				break;
 			case 2:
 				u -= d;
-				if (u < 0f)
-				{
+				if (u < 0f) {
 					u += 1f;
 				}
 				break;
 			case 4:
 				u += d;
-				if (u > 1f)
-				{
+				if (u > 1f) {
 					u -= 1f;
 				}
 				break;

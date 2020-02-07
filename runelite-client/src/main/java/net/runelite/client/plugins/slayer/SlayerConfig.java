@@ -25,266 +25,247 @@
  */
 package net.runelite.client.plugins.slayer;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
+import java.awt.*;
+
 @ConfigGroup("slayer")
-public interface SlayerConfig extends Config
-{
+public interface SlayerConfig extends Config {
 
 	@ConfigItem(
-		position = 1,
-		keyName = "infobox",
-		name = "Task InfoBox",
-		description = "Display task information in an InfoBox"
+			position = 1,
+			keyName = "infobox",
+			name = "Task InfoBox",
+			description = "Display task information in an InfoBox"
 	)
-	default boolean showInfobox()
-	{
+	default boolean showInfobox() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "itemoverlay",
-		name = "Count on Items",
-		description = "Display task count remaining on slayer items"
+			position = 2,
+			keyName = "itemoverlay",
+			name = "Count on Items",
+			description = "Display task count remaining on slayer items"
 	)
-	default boolean showItemOverlay()
-	{
+	default boolean showItemOverlay() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "superiornotification",
-		name = "Superior foe notification",
-		description = "Toggles notifications on superior foe encounters"
+			position = 3,
+			keyName = "superiornotification",
+			name = "Superior foe notification",
+			description = "Toggles notifications on superior foe encounters"
 	)
-	default boolean showSuperiorNotification()
-	{
+	default boolean showSuperiorNotification() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "statTimeout",
-		name = "InfoBox Expiry",
-		description = "Set the time until the InfoBox expires"
+			position = 4,
+			keyName = "statTimeout",
+			name = "InfoBox Expiry",
+			description = "Set the time until the InfoBox expires"
 	)
 	@Units(Units.MINUTES)
-	default int statTimeout()
-	{
+	default int statTimeout() {
 		return 5;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "highlightTargets",
-		name = "Highlight Targets",
-		description = "Highlight monsters you can kill for your current slayer assignment"
+			position = 5,
+			keyName = "highlightTargets",
+			name = "Highlight Targets",
+			description = "Highlight monsters you can kill for your current slayer assignment"
 	)
-	default boolean highlightTargets()
-	{
+	default boolean highlightTargets() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "highlightStyle",
-		name = "Highlight Style",
-		description = "Highlight setting"
+			position = 7,
+			keyName = "highlightStyle",
+			name = "Highlight Style",
+			description = "Highlight setting"
 	)
-	default RenderStyle renderStyle()
-	{
+	default RenderStyle renderStyle() {
 		return RenderStyle.THIN_OUTLINE;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "targetColor",
-		name = "Target Color",
-		description = "Color of the highlighted targets"
+			position = 7,
+			keyName = "targetColor",
+			name = "Target Color",
+			description = "Color of the highlighted targets"
 	)
-	default Color getTargetColor()
-	{
+	default Color getTargetColor() {
 		return Color.RED;
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "superiorColor",
-		name = "Superior Color",
-		description = "Color of the highlighted superior slayer creatures"
+			position = 8,
+			keyName = "superiorColor",
+			name = "Superior Color",
+			description = "Color of the highlighted superior slayer creatures"
 	)
-	default Color getSuperiorColor()
-	{
+	default Color getSuperiorColor() {
 		return Color.MAGENTA;
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "drawNames",
-		name = "Draw names above NPC",
-		description = "Configures whether or not NPC names should be drawn above the NPC"
+			position = 9,
+			keyName = "drawNames",
+			name = "Draw names above NPC",
+			description = "Configures whether or not NPC names should be drawn above the NPC"
 	)
-	default boolean drawNames()
-	{
+	default boolean drawNames() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 10,
-		keyName = "drawMinimapNames",
-		name = "Draw names on minimap",
-		description = "Configures whether or not NPC names should be drawn on the minimap"
+			position = 10,
+			keyName = "drawMinimapNames",
+			name = "Draw names on minimap",
+			description = "Configures whether or not NPC names should be drawn on the minimap"
 	)
-	default boolean drawMinimapNames()
-	{
+	default boolean drawMinimapNames() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 12,
-		keyName = "weaknessPrompt",
-		name = "Show Monster Weakness",
-		description = "Show an overlay on a monster when it is weak enough to finish off (Only Lizards, Gargoyles & Rockslugs)"
+			position = 12,
+			keyName = "weaknessPrompt",
+			name = "Show Monster Weakness",
+			description = "Show an overlay on a monster when it is weak enough to finish off (Only Lizards, Gargoyles & Rockslugs)"
 	)
-	default boolean weaknessPrompt()
-	{
+	default boolean weaknessPrompt() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 13,
-		keyName = "taskCommand",
-		name = "Task Command",
-		description = "Configures whether the slayer task command is enabled<br> !task"
+			position = 13,
+			keyName = "taskCommand",
+			name = "Task Command",
+			description = "Configures whether the slayer task command is enabled<br> !task"
 	)
-	default boolean taskCommand()
-	{
+	default boolean taskCommand() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 14,
-		keyName = "pointsCommand",
-		name = "Points Command",
-		description = "Configures whether the slayer points command is enabled<br> !points"
+			position = 14,
+			keyName = "pointsCommand",
+			name = "Points Command",
+			description = "Configures whether the slayer points command is enabled<br> !points"
 	)
-	default boolean pointsCommand()
-	{
+	default boolean pointsCommand() {
 		return true;
 	}
 
 	// Stored data
 	@ConfigItem(
-		keyName = "taskName",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "taskName",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default String taskName()
-	{
+	default String taskName() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "taskName",
-		name = "",
-		description = ""
+			keyName = "taskName",
+			name = "",
+			description = ""
 	)
 	void taskName(String key);
 
 	@ConfigItem(
-		keyName = "amount",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "amount",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default int amount()
-	{
+	default int amount() {
 		return -1;
 	}
 
 	@ConfigItem(
-		keyName = "amount",
-		name = "",
-		description = ""
+			keyName = "amount",
+			name = "",
+			description = ""
 	)
 	void amount(int amt);
 
 	@ConfigItem(
-		keyName = "initialAmount",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "initialAmount",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default int initialAmount()
-	{
+	default int initialAmount() {
 		return -1;
 	}
 
 	@ConfigItem(
-		keyName = "initialAmount",
-		name = "",
-		description = ""
+			keyName = "initialAmount",
+			name = "",
+			description = ""
 	)
 	void initialAmount(int initialAmount);
 
 	@ConfigItem(
-		keyName = "taskLocation",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "taskLocation",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default String taskLocation()
-	{
+	default String taskLocation() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "taskLocation",
-		name = "",
-		description = ""
+			keyName = "taskLocation",
+			name = "",
+			description = ""
 	)
 	void taskLocation(String key);
 
 	@ConfigItem(
-		keyName = "lastCertainAmount",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "lastCertainAmount",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default int lastCertainAmount()
-	{
+	default int lastCertainAmount() {
 		return -1;
 	}
 
 	@ConfigItem(
-		keyName = "lastCertainAmount",
-		name = "",
-		description = ""
+			keyName = "lastCertainAmount",
+			name = "",
+			description = ""
 	)
 	void lastCertainAmount(int lastCertainAmount);
 
 	@ConfigItem(
-		keyName = "streak",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "streak",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default int streak()
-	{
+	default int streak() {
 		return -1;
 	}
 
 	@ConfigItem(
-		keyName = "streak",
-		name = "",
-		description = ""
+			keyName = "streak",
+			name = "",
+			description = ""
 	)
 	void streak(int streak);
 }

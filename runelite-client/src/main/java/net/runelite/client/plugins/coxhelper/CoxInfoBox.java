@@ -24,13 +24,6 @@
  */
 package net.runelite.client.plugins.coxhelper;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.NpcID;
 import net.runelite.api.SpriteID;
@@ -47,9 +40,13 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 @Singleton
-public class CoxInfoBox extends Overlay
-{
+public class CoxInfoBox extends Overlay {
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 	private final CoxPlugin plugin;
 	private final Client client;
@@ -58,8 +55,7 @@ public class CoxInfoBox extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	CoxInfoBox(CoxPlugin plugin, Client client, SpriteManager spriteManager)
-	{
+	CoxInfoBox(CoxPlugin plugin, Client client, SpriteManager spriteManager) {
 		this.plugin = plugin;
 		this.client = client;
 		this.spriteManager = spriteManager;
@@ -68,27 +64,24 @@ public class CoxInfoBox extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		panelComponent.getChildren().clear();
-		if (plugin.inRaid())
-		{
+		if (plugin.inRaid()) {
 			prayAgainstPanel.getChildren().clear();
 
 			final PrayAgainst prayAgainst = plugin.getPrayAgainstOlm();
 
-			if (System.currentTimeMillis() < plugin.getLastPrayTime() + 120000 && prayAgainst != null && plugin.isConfigPrayAgainstOlm())
-			{
+			if (System.currentTimeMillis() < plugin.getLastPrayTime() + 120000 && prayAgainst != null && plugin.isConfigPrayAgainstOlm()) {
 				final int scale = plugin.getPrayAgainstSize();
 				InfoBoxComponent prayComponent = new InfoBoxComponent();
 				BufferedImage prayImg = ImageUtil.resizeImage(
-					getPrayerImage(plugin.getPrayAgainstOlm()), scale, scale
+						getPrayerImage(plugin.getPrayAgainstOlm()), scale, scale
 				);
 				prayComponent.setImage(prayImg);
 				prayComponent.setColor(Color.WHITE);
 				prayComponent.setBackgroundColor(client.isPrayerActive(prayAgainst.getPrayer())
-					? ComponentConstants.STANDARD_BACKGROUND_COLOR
-					: NOT_ACTIVATED_BACKGROUND_COLOR
+						? ComponentConstants.STANDARD_BACKGROUND_COLOR
+						: NOT_ACTIVATED_BACKGROUND_COLOR
 				);
 				prayComponent.setPreferredSize(new Dimension(scale + 4, scale + 4));
 				prayAgainstPanel.getChildren().add(prayComponent);
@@ -96,37 +89,32 @@ public class CoxInfoBox extends Overlay
 				prayAgainstPanel.setPreferredSize(new Dimension(scale + 4, scale + 4));
 				prayAgainstPanel.setBorder(new Rectangle(0, 0, 0, 0));
 				return prayAgainstPanel.render(graphics);
-			}
-			else
-			{
+			} else {
 				plugin.setPrayAgainstOlm(null);
 			}
 
-			if (plugin.isVangHealth() && plugin.getVanguards() > 0)
-			{
+			if (plugin.isVangHealth() && plugin.getVanguards() > 0) {
 				panelComponent.getChildren().add(TitleComponent.builder()
-					.text("Vanguards")
-					.color(Color.pink)
-					.build());
+						.text("Vanguards")
+						.color(Color.pink)
+						.build());
 
 				TableComponent tableComponent = new TableComponent();
 				tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
-				for (NPCContainer npcs : plugin.getNpcContainer().values())
-				{
+				for (NPCContainer npcs : plugin.getNpcContainer().values()) {
 					float percent = (float) npcs.getNpc().getHealthRatio() / npcs.getNpc().getHealth() * 100;
-					switch (npcs.getNpc().getId())
-					{
+					switch (npcs.getNpc().getId()) {
 						case NpcID.VANGUARD_7527:
 							tableComponent.addRow(ColorUtil.prependColorTag("Melee", npcs.getAttackStyle().getColor()),
-								Integer.toString((int) percent));
+									Integer.toString((int) percent));
 							break;
 						case NpcID.VANGUARD_7528:
 							tableComponent.addRow(ColorUtil.prependColorTag("Range", npcs.getAttackStyle().getColor()),
-								Integer.toString((int) percent));
+									Integer.toString((int) percent));
 							break;
 						case NpcID.VANGUARD_7529:
 							tableComponent.addRow(ColorUtil.prependColorTag("Mage", npcs.getAttackStyle().getColor()),
-								Integer.toString((int) percent));
+									Integer.toString((int) percent));
 							break;
 					}
 				}
@@ -136,17 +124,14 @@ public class CoxInfoBox extends Overlay
 				return panelComponent.render(graphics);
 			}
 		}
-		if (client.getLocalPlayer().getWorldLocation().getRegionID() == 4919)
-		{
+		if (client.getLocalPlayer().getWorldLocation().getRegionID() == 4919) {
 			plugin.setPrayAgainstOlm(null);
 		}
 		return null;
 	}
 
-	private BufferedImage getPrayerImage(PrayAgainst prayAgainst)
-	{
-		switch (prayAgainst)
-		{
+	private BufferedImage getPrayerImage(PrayAgainst prayAgainst) {
+		switch (prayAgainst) {
 			case MAGIC:
 				return spriteManager.getSprite(SpriteID.PRAYER_PROTECT_FROM_MAGIC, 0);
 			case MELEE:

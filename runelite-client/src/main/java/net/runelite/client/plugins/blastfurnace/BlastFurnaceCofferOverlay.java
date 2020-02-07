@@ -24,17 +24,10 @@
  */
 package net.runelite.client.plugins.blastfurnace;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-import static net.runelite.api.Varbits.BLAST_FURNACE_COFFER;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -42,16 +35,22 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.QuantityFormatter;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.api.Varbits.BLAST_FURNACE_COFFER;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-class BlastFurnaceCofferOverlay extends Overlay
-{
+class BlastFurnaceCofferOverlay extends Overlay {
 	private final Client client;
 	private final BlastFurnacePlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private BlastFurnaceCofferOverlay(final Client client, final BlastFurnacePlugin plugin)
-	{
+	private BlastFurnaceCofferOverlay(final Client client, final BlastFurnacePlugin plugin) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -60,10 +59,8 @@ class BlastFurnaceCofferOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.getConveyorBelt() == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.getConveyorBelt() == null) {
 			return null;
 		}
 
@@ -74,15 +71,13 @@ class BlastFurnaceCofferOverlay extends Overlay
 
 		panelComponent.getChildren().clear();
 
-		if (sack != null)
-		{
+		if (sack != null) {
 			sack.setHidden(true);
 
 			tableComponent.addRow("Coffer:", QuantityFormatter.quantityToStackSize(client.getVar(BLAST_FURNACE_COFFER)) + " gp");
 		}
 
-		if (!tableComponent.isEmpty())
-		{
+		if (!tableComponent.isEmpty()) {
 			panelComponent.getChildren().add(tableComponent);
 		}
 

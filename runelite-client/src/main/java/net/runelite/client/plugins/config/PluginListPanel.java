@@ -25,73 +25,41 @@
 package net.runelite.client.plugins.config;
 
 import com.google.common.collect.ImmutableList;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.inject.Singleton;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.util.Text;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigDescriptor;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.config.OpenOSRSConfig;
-import net.runelite.client.config.RuneLiteConfig;
+import net.runelite.client.config.*;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.PluginChanged;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginInstantiationException;
-import net.runelite.client.plugins.PluginManager;
-import net.runelite.client.plugins.PluginType;
-import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.ui.DynamicGridLayout;
-import net.runelite.client.ui.FontManager;
-import net.runelite.client.ui.MultiplexingPluginPanel;
-import net.runelite.client.ui.PluginPanel;
+import net.runelite.client.plugins.*;
+import net.runelite.client.ui.*;
 import net.runelite.client.ui.components.IconTextField;
 import net.runelite.client.ui.components.MinimumSizedPanel;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.inject.Singleton;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.List;
+import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Slf4j
 @Singleton
-public class PluginListPanel extends PluginPanel
-{
+public class PluginListPanel extends PluginPanel {
 	private static final int OFFSET = 6;
 
 	private static final ImageIcon SECTION_EXPAND_ICON;
@@ -122,8 +90,7 @@ public class PluginListPanel extends PluginPanel
 
 	public static List<PluginListItem> pluginList;
 
-	static
-	{
+	static {
 		final BufferedImage backIcon = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "config_back_icon.png");
 		final BufferedImage orangeBackIcon = ImageUtil.fillImage(backIcon, ColorScheme.BRAND_BLUE);
 
@@ -138,13 +105,12 @@ public class PluginListPanel extends PluginPanel
 
 	@Inject
 	public PluginListPanel(
-		ConfigManager configManager,
-		PluginManager pluginManager,
-		ScheduledExecutorService executorService,
-		Provider<ConfigPanel> configPanelProvider,
-		OpenOSRSConfig openOSRSConfig,
-		EventBus eventBus)
-	{
+			ConfigManager configManager,
+			PluginManager pluginManager,
+			ScheduledExecutorService executorService,
+			Provider<ConfigPanel> configPanelProvider,
+			OpenOSRSConfig openOSRSConfig,
+			EventBus eventBus) {
 		super(false);
 
 		this.configManager = configManager;
@@ -154,27 +120,22 @@ public class PluginListPanel extends PluginPanel
 		this.openOSRSConfig = openOSRSConfig;
 
 		eventBus.subscribe(ConfigChanged.class, this, ev -> {
-			if (!ev.getGroup().equals("openosrs"))
-			{
+			if (!ev.getGroup().equals("openosrs")) {
 				return;
 			}
 
-			if (ev.getKey().equals("enableCategories") || ev.getKey().equals("pluginSortMode"))
-			{
+			if (ev.getKey().equals("enableCategories") || ev.getKey().equals("pluginSortMode")) {
 				rebuildPluginList();
 			}
 
-			if (ev.getKey().equals("pluginSortMode"))
-			{
+			if (ev.getKey().equals("pluginSortMode")) {
 				sortPluginList(null);
 			}
 
-			if (colorOptions.stream().anyMatch(option -> option.equals(ev.getKey())))
-			{
+			if (colorOptions.stream().anyMatch(option -> option.equals(ev.getKey()))) {
 				pluginList.forEach(listItem ->
 				{
-					if (listItem.getPluginType() == PluginType.IMPORTANT)
-					{
+					if (listItem.getPluginType() == PluginType.IMPORTANT) {
 						return;
 					}
 
@@ -190,23 +151,19 @@ public class PluginListPanel extends PluginPanel
 		searchBar.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH - 20, 30));
 		searchBar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		searchBar.setHoverBackgroundColor(ColorScheme.DARK_GRAY_HOVER_COLOR);
-		searchBar.getDocument().addDocumentListener(new DocumentListener()
-		{
+		searchBar.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
-			public void insertUpdate(DocumentEvent e)
-			{
+			public void insertUpdate(DocumentEvent e) {
 				onSearchBarChanged();
 			}
 
 			@Override
-			public void removeUpdate(DocumentEvent e)
-			{
+			public void removeUpdate(DocumentEvent e) {
 				onSearchBarChanged();
 			}
 
 			@Override
-			public void changedUpdate(DocumentEvent e)
-			{
+			public void changedUpdate(DocumentEvent e) {
 				onSearchBarChanged();
 			}
 		});
@@ -234,30 +191,29 @@ public class PluginListPanel extends PluginPanel
 		add(scrollPane, BorderLayout.CENTER);
 	}
 
-	void rebuildPluginList()
-	{
+	void rebuildPluginList() {
 		final List<String> pinnedPlugins = getPinnedPluginNames();
 
 		// populate pluginList with all non-hidden plugins
 		pluginList = Stream.concat(
-			fakePlugins.stream(),
-			pluginManager.getPlugins().stream()
-				.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).hidden())
-				.map(plugin ->
-				{
-					PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
-					Config config = pluginManager.getPluginConfigProxy(plugin);
-					ConfigDescriptor configDescriptor = config == null ? null : configManager.getConfigDescriptor(config);
+				fakePlugins.stream(),
+				pluginManager.getPlugins().stream()
+						.filter(plugin -> !plugin.getClass().getAnnotation(PluginDescriptor.class).hidden())
+						.map(plugin ->
+						{
+							PluginDescriptor descriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
+							Config config = pluginManager.getPluginConfigProxy(plugin);
+							ConfigDescriptor configDescriptor = config == null ? null : configManager.getConfigDescriptor(config);
 
-					return new PluginConfigurationDescriptor(
-						descriptor.name(),
-						descriptor.description(),
-						descriptor.type(),
-						descriptor.tags(),
-						plugin,
-						config,
-						configDescriptor);
-				})
+							return new PluginConfigurationDescriptor(
+									descriptor.name(),
+									descriptor.description(),
+									descriptor.type(),
+									descriptor.tags(),
+									plugin,
+									config,
+									configDescriptor);
+						})
 		).map(desc ->
 		{
 			PluginListItem listItem = new PluginListItem(this, desc);
@@ -272,19 +228,16 @@ public class PluginListPanel extends PluginPanel
 		refresh();
 	}
 
-	void addFakePlugin(PluginConfigurationDescriptor... descriptor)
-	{
+	void addFakePlugin(PluginConfigurationDescriptor... descriptor) {
 		Collections.addAll(fakePlugins, descriptor);
 	}
 
-	void refresh()
-	{
+	void refresh() {
 		// update enabled / disabled status of all items
 		pluginList.forEach(listItem ->
 		{
 			final Plugin plugin = listItem.getPluginConfig().getPlugin();
-			if (plugin != null)
-			{
+			if (plugin != null) {
 				listItem.setPluginEnabled(pluginManager.isPluginEnabled(plugin));
 			}
 		});
@@ -298,8 +251,7 @@ public class PluginListPanel extends PluginPanel
 		scrollPane.getVerticalScrollBar().setValue(scrollBarPosition);
 	}
 
-	private void onSearchBarChanged()
-	{
+	private void onSearchBarChanged() {
 		final String text = searchBar.getText();
 
 		pluginList.forEach(mainPanel::remove);
@@ -313,16 +265,12 @@ public class PluginListPanel extends PluginPanel
 		revalidate();
 	}
 
-	private void generatePluginList(List<PluginListItem> pluginListItems)
-	{
+	private void generatePluginList(List<PluginListItem> pluginListItems) {
 		final Map<String, JPanel> sections = new HashMap<>();
 
-		for (PluginListItem pluginListItem : pluginListItems)
-		{
-			if (pluginListItem.isPinned())
-			{
-				if (!sections.containsKey("Pinned"))
-				{
+		for (PluginListItem pluginListItem : pluginListItems) {
+			if (pluginListItem.isPinned()) {
+				if (!sections.containsKey("Pinned")) {
 					sections.put("Pinned", addSection("Pinned"));
 				}
 
@@ -332,8 +280,7 @@ public class PluginListPanel extends PluginPanel
 
 			String sectionName = pluginListItem.getPluginConfig().getPluginType().getName();
 
-			if (!sections.containsKey(sectionName))
-			{
+			if (!sections.containsKey(sectionName)) {
 				sections.put(sectionName, addSection(sectionName));
 			}
 
@@ -345,157 +292,122 @@ public class PluginListPanel extends PluginPanel
 			Container parent = value.getParent();
 			JToggleButton collapseButton = (JToggleButton) ((JPanel) parent.getComponent(0)).getComponent(0);
 
-			if (searchBar.getText().equals(""))
-			{
+			if (searchBar.getText().equals("")) {
 				resetSection(key, collapseButton, value);
-			}
-			else
-			{
+			} else {
 				forceExpandSection(collapseButton, value);
 			}
 		});
 	}
 
-	private void showMatchingPlugins(boolean pinned, String text)
-	{
+	private void showMatchingPlugins(boolean pinned, String text) {
 		final List<PluginListItem> plugins = new ArrayList<>();
 
-		if (text.isEmpty())
-		{
-			if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.ALPHABETICALLY || !openOSRSConfig.enableCategories())
-			{
+		if (text.isEmpty()) {
+			if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.ALPHABETICALLY || !openOSRSConfig.enableCategories()) {
 				pluginList.stream().filter(item -> pinned == item.isPinned()).forEach(mainPanel::add);
-			}
-			else
-			{
+			} else {
 				pluginList.stream().filter(item -> pinned == item.isPinned()).forEach(plugins::add);
 			}
-		}
-		else
-		{
+		} else {
 			final String[] searchTerms = text.toLowerCase().split(" ");
 			pluginList.forEach(listItem ->
 			{
-				if (pinned == listItem.isPinned() && listItem.matchesSearchTerms(searchTerms))
-				{
-					if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.ALPHABETICALLY || !openOSRSConfig.enableCategories())
-					{
+				if (pinned == listItem.isPinned() && listItem.matchesSearchTerms(searchTerms)) {
+					if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.ALPHABETICALLY || !openOSRSConfig.enableCategories()) {
 						mainPanel.add(listItem);
-					}
-					else
-					{
+					} else {
 						plugins.add(listItem);
 					}
 				}
 			});
 		}
 
-		if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.CATEGORY && openOSRSConfig.enableCategories())
-		{
+		if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.CATEGORY && openOSRSConfig.enableCategories()) {
 			generatePluginList(plugins);
 		}
 	}
 
-	void openConfigurationPanel(String configGroup)
-	{
-		for (PluginListItem pluginListItem : pluginList)
-		{
-			if (pluginListItem.getPluginConfig().getName().equals(configGroup))
-			{
+	void openConfigurationPanel(String configGroup) {
+		for (PluginListItem pluginListItem : pluginList) {
+			if (pluginListItem.getPluginConfig().getName().equals(configGroup)) {
 				openConfigurationPanel(pluginListItem.getPluginConfig());
 				break;
 			}
 		}
 	}
 
-	void openConfigurationPanel(PluginConfigurationDescriptor plugin)
-	{
+	void openConfigurationPanel(PluginConfigurationDescriptor plugin) {
 		ConfigPanel panel = configPanelProvider.get();
 		panel.init(plugin);
 		muxer.pushState(panel);
 	}
 
-	void startPlugin(Plugin plugin)
-	{
+	void startPlugin(Plugin plugin) {
 		executorService.submit(() ->
 		{
 			pluginManager.setPluginEnabled(plugin, true);
 
-			try
-			{
+			try {
 				pluginManager.startPlugin(plugin);
-			}
-			catch (PluginInstantiationException ex)
-			{
+			} catch (PluginInstantiationException ex) {
 				log.warn("Error when starting plugin {}", plugin.getClass().getSimpleName(), ex);
 			}
 		});
 	}
 
-	void stopPlugin(Plugin plugin)
-	{
+	void stopPlugin(Plugin plugin) {
 		executorService.submit(() ->
 		{
 			pluginManager.setPluginEnabled(plugin, false);
 
-			try
-			{
+			try {
 				pluginManager.stopPlugin(plugin);
-			}
-			catch (PluginInstantiationException ex)
-			{
+			} catch (PluginInstantiationException ex) {
 				log.warn("Error when stopping plugin {}", plugin.getClass().getSimpleName(), ex);
 			}
 		});
 	}
 
-	private List<String> getPinnedPluginNames()
-	{
+	private List<String> getPinnedPluginNames() {
 		final String config = configManager.getConfiguration(RUNELITE_GROUP_NAME, PINNED_PLUGINS_CONFIG_KEY);
 
-		if (config == null)
-		{
+		if (config == null) {
 			return Collections.emptyList();
 		}
 
 		return Text.fromCSV(config);
 	}
 
-	void savePinnedPlugins()
-	{
+	void savePinnedPlugins() {
 		final String value = pluginList.stream()
-			.filter(PluginListItem::isPinned)
-			.map(p -> p.getPluginConfig().getName())
-			.collect(Collectors.joining(","));
+				.filter(PluginListItem::isPinned)
+				.map(p -> p.getPluginConfig().getName())
+				.collect(Collectors.joining(","));
 
 		configManager.setConfiguration(RUNELITE_GROUP_NAME, PINNED_PLUGINS_CONFIG_KEY, value);
 	}
 
 	@Subscribe
-	public void onPluginChanged(PluginChanged event)
-	{
+	public void onPluginChanged(PluginChanged event) {
 		SwingUtilities.invokeLater(this::refresh);
 	}
 
 	@Override
-	public Dimension getPreferredSize()
-	{
+	public Dimension getPreferredSize() {
 		return new Dimension(PANEL_WIDTH + SCROLLBAR_WIDTH, super.getPreferredSize().height);
 	}
 
 	@Override
-	public void onActivate()
-	{
+	public void onActivate() {
 		super.onActivate();
 
-		if (searchBar.getParent() != null)
-		{
+		if (searchBar.getParent() != null) {
 			searchBar.requestFocusInWindow();
 		}
 	}
 
-	private JPanel addSection(String name)
-	{
+	private JPanel addSection(String name) {
 		final MinimumSizedPanel section = new MinimumSizedPanel();
 		section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
 		section.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
@@ -537,11 +449,9 @@ public class PluginListPanel extends PluginPanel
 		sectionContents.setVisible(state);
 
 		// Add listeners to each part of the header so that it's easier to toggle them
-		final MouseAdapter adapter = new MouseAdapter()
-		{
+		final MouseAdapter adapter = new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				toggleSection(name, collapse, sectionContents);
 			}
 		};
@@ -555,10 +465,8 @@ public class PluginListPanel extends PluginPanel
 		return sectionContents;
 	}
 
-	private void toggleSection(String key, JToggleButton button, JPanel contents)
-	{
-		if (!button.isEnabled())
-		{
+	private void toggleSection(String key, JToggleButton button, JPanel contents) {
+		if (!button.isEnabled()) {
 			return;
 		}
 
@@ -574,8 +482,7 @@ public class PluginListPanel extends PluginPanel
 		});
 	}
 
-	private void forceExpandSection(JToggleButton button, JPanel contents)
-	{
+	private void forceExpandSection(JToggleButton button, JPanel contents) {
 		button.setSelected(true);
 		button.setToolTipText(null);
 		button.setEnabled(false);
@@ -588,8 +495,7 @@ public class PluginListPanel extends PluginPanel
 		});
 	}
 
-	private void resetSection(String key, JToggleButton button, JPanel contents)
-	{
+	private void resetSection(String key, JToggleButton button, JPanel contents) {
 		boolean newState = Boolean.parseBoolean(configManager.getConfiguration("pluginlist", key));
 		button.setSelected(newState);
 		button.setToolTipText(newState ? "Retract" : "Expand");
@@ -601,15 +507,12 @@ public class PluginListPanel extends PluginPanel
 		});
 	}
 
-	private Color getColorByCategory(PluginType pluginType)
-	{
-		if (!openOSRSConfig.enabledColors())
-		{
+	private Color getColorByCategory(PluginType pluginType) {
+		if (!openOSRSConfig.enabledColors()) {
 			return Color.LIGHT_GRAY;
 		}
 
-		switch (pluginType)
-		{
+		switch (pluginType) {
 			case EXTERNAL:
 				return openOSRSConfig.externalColor();
 			case PVM:
@@ -633,20 +536,15 @@ public class PluginListPanel extends PluginPanel
 		return Color.LIGHT_GRAY;
 	}
 
-	public void sortPluginList(Comparator<PluginListItem> comparator)
-	{
-		if (comparator != null)
-		{
+	public void sortPluginList(Comparator<PluginListItem> comparator) {
+		if (comparator != null) {
 			pluginList.sort(comparator.thenComparing(ev -> ev.getPluginConfig().getName()));
 			return;
 		}
 
-		if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.CATEGORY)
-		{
+		if (openOSRSConfig.pluginSortMode() == net.runelite.client.config.OpenOSRSConfig.SortStyle.CATEGORY) {
 			pluginList.sort(categoryComparator.thenComparing(ev -> ev.getPluginConfig().getName()));
-		}
-		else
-		{
+		} else {
 			pluginList.sort(Comparator.comparing(ev -> ev.getPluginConfig().getName()));
 		}
 	}

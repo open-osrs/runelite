@@ -29,8 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum UIScalingMode
-{
+public enum UIScalingMode {
 	NEAREST("Nearest Neighbor", 0),
 	LINEAR("Bilinear", 0),
 	MITCHELL("Bicubic (Mitchell)", 1),
@@ -41,8 +40,7 @@ public enum UIScalingMode
 	private final int mode;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

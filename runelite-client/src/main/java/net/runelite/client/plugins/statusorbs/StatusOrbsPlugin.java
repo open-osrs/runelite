@@ -29,19 +29,9 @@
 package net.runelite.client.plugins.statusorbs;
 
 import com.google.inject.Provides;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.Client;
-import net.runelite.api.Constants;
-import net.runelite.api.GameState;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Prayer;
-import net.runelite.api.Skill;
-import net.runelite.api.SpriteID;
-import net.runelite.api.VarPlayer;
-import net.runelite.api.Varbits;
+import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
@@ -61,20 +51,21 @@ import net.runelite.client.util.Graceful;
 import net.runelite.client.util.ImageUtil;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
+import java.awt.image.BufferedImage;
+
 @PluginDescriptor(
-	name = "Status Orbs",
-	description = "Configure settings for the Minimap orbs",
-	tags = {"minimap", "orb", "regen", "energy", "special"},
-	type = PluginType.UTILITY
+		name = "Status Orbs",
+		description = "Configure settings for the Minimap orbs",
+		tags = {"minimap", "orb", "regen", "energy", "special"},
+		type = PluginType.UTILITY
 )
-public class StatusOrbsPlugin extends Plugin
-{
+public class StatusOrbsPlugin extends Plugin {
 	private static final BufferedImage HEART_DISEASE;
 	private static final BufferedImage HEART_POISON;
 	private static final BufferedImage HEART_VENOM;
 
-	static
-	{
+	static {
 		HEART_DISEASE = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(StatusOrbsPlugin.class, "1067-DISEASE.png"), 26, 26);
 		HEART_POISON = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(StatusOrbsPlugin.class, "1067-POISON.png"), 26, 26);
 		HEART_VENOM = ImageUtil.resizeCanvas(ImageUtil.getResourceStreamFromClass(StatusOrbsPlugin.class, "1067-VENOM.png"), 26, 26);
@@ -144,57 +135,45 @@ public class StatusOrbsPlugin extends Plugin
 	private boolean replaceOrbText;
 
 	@Provides
-	StatusOrbsConfig provideConfig(ConfigManager configManager)
-	{
+	StatusOrbsConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(StatusOrbsConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		overlayManager.add(overlay);
-		if (this.dynamicHpHeart && client.getGameState().equals(GameState.LOGGED_IN))
-		{
+		if (this.dynamicHpHeart && client.getGameState().equals(GameState.LOGGED_IN)) {
 			clientThread.invoke(this::checkHealthIcon);
 		}
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		localPlayerRunningToDestination = false;
 		prevLocalPlayerLocation = null;
 		resetRunOrbText();
-		if (this.dynamicHpHeart)
-		{
+		if (this.dynamicHpHeart) {
 			clientThread.invoke(this::resetHealthIcon);
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("statusorbs"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("statusorbs")) {
 			updateConfig();
-			switch (event.getKey())
-			{
+			switch (event.getKey()) {
 				case "replaceOrbText":
-					if (!this.replaceOrbText)
-					{
+					if (!this.replaceOrbText) {
 						resetRunOrbText();
 					}
 					break;
 				case "dynamicHpHeart":
-					if (this.dynamicHpHeart)
-					{
+					if (this.dynamicHpHeart) {
 						checkHealthIcon();
-					}
-					else
-					{
+					} else {
 						resetHealthIcon();
 					}
 					break;
@@ -203,26 +182,21 @@ public class StatusOrbsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged e)
-	{
-		if (this.dynamicHpHeart)
-		{
+	private void onVarbitChanged(VarbitChanged e) {
+		if (this.dynamicHpHeart) {
 			checkHealthIcon();
 		}
 
 		boolean isRapidHeal = client.isPrayerActive(Prayer.RAPID_HEAL);
-		if (wasRapidHeal != isRapidHeal)
-		{
+		if (wasRapidHeal != isRapidHeal) {
 			ticksSinceHPRegen = 0;
 		}
 		wasRapidHeal = isRapidHeal;
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged ev)
-	{
-		if (ev.getGameState() == GameState.HOPPING || ev.getGameState() == GameState.LOGIN_SCREEN)
-		{
+	private void onGameStateChanged(GameStateChanged ev) {
+		if (ev.getGameState() == GameState.HOPPING || ev.getGameState() == GameState.LOGIN_SCREEN) {
 			ticksSinceHPRegen = -2; // For some reason this makes this accurate
 			ticksSinceSpecRegen = 0;
 			ticksSinceRunRegen = -1;
@@ -230,23 +204,18 @@ public class StatusOrbsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
-		if (client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT) == 1000)
-		{
+	private void onGameTick(GameTick event) {
+		if (client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT) == 1000) {
 			// The recharge doesn't tick when at 100%
 			ticksSinceSpecRegen = 0;
-		}
-		else
-		{
+		} else {
 			ticksSinceSpecRegen = (ticksSinceSpecRegen + 1) % SPEC_REGEN_TICKS;
 		}
 		specialPercentage = ticksSinceSpecRegen / (double) SPEC_REGEN_TICKS;
 
 		int ticksPerHPRegen = NORMAL_HP_REGEN_TICKS;
 		hpPerMs = ticksPerHPRegen / (double) 6000000;
-		if (client.isPrayerActive(Prayer.RAPID_HEAL))
-		{
+		if (client.isPrayerActive(Prayer.RAPID_HEAL)) {
 			ticksPerHPRegen /= 2;
 			hpPerMs *= 2;
 		}
@@ -256,61 +225,48 @@ public class StatusOrbsPlugin extends Plugin
 
 		int currentHP = client.getBoostedSkillLevel(Skill.HITPOINTS);
 		int maxHP = client.getRealSkillLevel(Skill.HITPOINTS);
-		if (currentHP == maxHP && !this.showWhenNoChange)
-		{
+		if (currentHP == maxHP && !this.showWhenNoChange) {
 			hitpointsPercentage = 0;
-		}
-		else if (currentHP > maxHP)
-		{
+		} else if (currentHP > maxHP) {
 			// Show it going down
 			hitpointsPercentage = 1 - hitpointsPercentage;
 		}
 
 		// Run Energy
 		localPlayerRunningToDestination =
-			prevLocalPlayerLocation != null &&
-				client.getLocalDestinationLocation() != null &&
-				prevLocalPlayerLocation.distanceTo(client.getLocalPlayer().getWorldLocation()) > 1;
+				prevLocalPlayerLocation != null &&
+						client.getLocalDestinationLocation() != null &&
+						prevLocalPlayerLocation.distanceTo(client.getLocalPlayer().getWorldLocation()) > 1;
 
-		if (this.getNotifyBeforeHpRegenSeconds > 0 && currentHP < maxHP && shouldNotifyHpRegenThisTick(ticksPerHPRegen))
-		{
+		if (this.getNotifyBeforeHpRegenSeconds > 0 && currentHP < maxHP && shouldNotifyHpRegenThisTick(ticksPerHPRegen)) {
 			notifier.notify("[" + client.getLocalPlayer().getName() + "] regenerates their next hitpoint soon!");
 		}
 
 		localPlayerRunningToDestination =
-			prevLocalPlayerLocation != null &&
-				client.getLocalDestinationLocation() != null &&
-				prevLocalPlayerLocation.distanceTo(client.getLocalPlayer().getWorldLocation()) > 1;
+				prevLocalPlayerLocation != null &&
+						client.getLocalDestinationLocation() != null &&
+						prevLocalPlayerLocation.distanceTo(client.getLocalPlayer().getWorldLocation()) > 1;
 
 		prevLocalPlayerLocation = client.getLocalPlayer().getWorldLocation();
 
 		recoverRate = Graceful.calculateRecoveryRate(client.getItemContainer(InventoryID.EQUIPMENT));
 
-		if (this.replaceOrbText)
-		{
+		if (this.replaceOrbText) {
 			setRunOrbText(getEstimatedRunTimeRemaining(true));
 		}
 
 		int currEnergy = client.getEnergy();
 		WorldPoint currPoint = client.getLocalPlayer().getWorldLocation();
-		if (currEnergy == 100 || (prevLocalPlayerLocation != null && currPoint.distanceTo(prevLocalPlayerLocation) > 1) || currEnergy < lastEnergy)
-		{
+		if (currEnergy == 100 || (prevLocalPlayerLocation != null && currPoint.distanceTo(prevLocalPlayerLocation) > 1) || currEnergy < lastEnergy) {
 			ticksSinceRunRegen = 0;
-		}
-		else if (currEnergy > lastEnergy)
-		{
-			if (runPercentage < 1)
-			{
+		} else if (currEnergy > lastEnergy) {
+			if (runPercentage < 1) {
 				ticksSinceRunRegen = (1 - runPercentage) / runRegenPerTick();
 				ticksSinceRunRegen = ticksSinceRunRegen > 1 ? 1 : ticksSinceRunRegen;
-			}
-			else
-			{
+			} else {
 				ticksSinceRunRegen = (runPercentage - 1) / runRegenPerTick();
 			}
-		}
-		else
-		{
+		} else {
 			ticksSinceRunRegen += 1;
 		}
 		runPercentage = ticksSinceRunRegen * runRegenPerTick();
@@ -318,38 +274,32 @@ public class StatusOrbsPlugin extends Plugin
 		lastEnergy = currEnergy;
 	}
 
-	private boolean shouldNotifyHpRegenThisTick(int ticksPerHPRegen)
-	{
+	private boolean shouldNotifyHpRegenThisTick(int ticksPerHPRegen) {
 		// if the configured duration lies between two ticks, choose the earlier tick
 		final int ticksBeforeHPRegen = ticksPerHPRegen - ticksSinceHPRegen;
 		final int notifyTick = (int) Math.ceil(this.getNotifyBeforeHpRegenSeconds * 1000d / Constants.GAME_TICK_LENGTH);
 		return ticksBeforeHPRegen == notifyTick;
 	}
 
-	private void setRunOrbText(String text)
-	{
+	private void setRunOrbText(String text) {
 		Widget runOrbText = client.getWidget(WidgetInfo.MINIMAP_RUN_ORB_TEXT);
 
-		if (runOrbText != null)
-		{
+		if (runOrbText != null) {
 			runOrbText.setText(text);
 		}
 	}
 
-	private void resetRunOrbText()
-	{
+	private void resetRunOrbText() {
 		setRunOrbText(Integer.toString(client.getEnergy()));
 	}
 
-	String getEstimatedRunTimeRemaining(boolean inSeconds)
-	{
+	String getEstimatedRunTimeRemaining(boolean inSeconds) {
 		// Calculate the amount of energy lost every 2 ticks (0.6 seconds).
 		// Negative weight has the same depletion effect as 0 kg.
 		final int effectiveWeight = Math.max(client.getWeight(), 0);
 		double lossRate = (Math.min(effectiveWeight, 64) / 100.0) + 0.64;
 
-		if (client.getVar(Varbits.RUN_SLOWED_DEPLETION_ACTIVE) != 0)
-		{
+		if (client.getVar(Varbits.RUN_SLOWED_DEPLETION_ACTIVE) != 0) {
 			lossRate *= 0.3; // Stamina effect reduces energy depletion to 30%
 		}
 
@@ -357,12 +307,9 @@ public class StatusOrbsPlugin extends Plugin
 		final double secondsLeft = (client.getEnergy() * 0.6) / lossRate;
 
 		// Return the text
-		if (inSeconds)
-		{
+		if (inSeconds) {
 			return (int) Math.floor(secondsLeft) + "s";
-		}
-		else
-		{
+		} else {
 			final int minutes = (int) Math.floor(secondsLeft / 60.0);
 			final int seconds = (int) Math.floor(secondsLeft - (minutes * 60.0));
 
@@ -370,10 +317,8 @@ public class StatusOrbsPlugin extends Plugin
 		}
 	}
 
-	int getEstimatedRecoverTimeRemaining()
-	{
-		if (localPlayerRunningToDestination)
-		{
+	int getEstimatedRecoverTimeRemaining() {
+		if (localPlayerRunningToDestination) {
 			return -1;
 		}
 
@@ -389,41 +334,31 @@ public class StatusOrbsPlugin extends Plugin
 	/**
 	 * Check player afflictions to determine health icon
 	 */
-	private void checkHealthIcon()
-	{
+	private void checkHealthIcon() {
 		BufferedImage newHeart;
 
 		int poison = client.getVar(VarPlayer.IS_POISONED);
-		if (poison >= 1000000)
-		{
+		if (poison >= 1000000) {
 			newHeart = HEART_VENOM;
-		}
-		else if (poison > 0)
-		{
+		} else if (poison > 0) {
 			newHeart = HEART_POISON;
-		}
-		else if (client.getVar(VarPlayer.DISEASE_VALUE) > 0)
-		{
+		} else if (client.getVar(VarPlayer.DISEASE_VALUE) > 0) {
 			newHeart = HEART_DISEASE;
-		}
-		else
-		{
+		} else {
 			heart = null;
 			resetHealthIcon();
 			return;
 		}
 
 		// Only update sprites when the heart icon actually changes
-		if (newHeart != heart)
-		{
+		if (newHeart != heart) {
 			heart = newHeart;
 			client.getWidgetSpriteCache().reset();
 			client.getSpriteOverrides().put(SpriteID.MINIMAP_ORB_HITPOINTS_ICON, ImageUtil.getImageSprite(heart, client));
 		}
 	}
 
-	private double runRegenPerTick()
-	{
+	private double runRegenPerTick() {
 		double recoverRate = (client.getBoostedSkillLevel(Skill.AGILITY) / 6d + 8) / 100;
 		recoverRate *= Graceful.calculateRecoveryRate(client.getItemContainer(InventoryID.EQUIPMENT));
 
@@ -433,14 +368,12 @@ public class StatusOrbsPlugin extends Plugin
 	/**
 	 * Ensure the HP Heart is the default Sprite
 	 */
-	private void resetHealthIcon()
-	{
+	private void resetHealthIcon() {
 		client.getWidgetSpriteCache().reset();
 		client.getSpriteOverrides().remove(SpriteID.MINIMAP_ORB_HITPOINTS_ICON);
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.dynamicHpHeart = config.dynamicHpHeart();
 		this.showHitpoints = config.showHitpoints();
 		this.showWhenNoChange = config.showWhenNoChange();

@@ -25,34 +25,32 @@
 
 package net.runelite.client.plugins.skybox;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.plugins.skybox.config.SkyOverrideMode;
 
+import java.awt.*;
+
 @ConfigGroup("skybox")
-public interface SkyboxPluginConfig extends Config
-{
+public interface SkyboxPluginConfig extends Config {
 	@ConfigItem(
-		keyName = "customColor",
-		name = "Custom sky color",
-		description = "Set a color here to use for the sky",
-		position = 1
+			keyName = "customColor",
+			name = "Custom sky color",
+			description = "Set a color here to use for the sky",
+			position = 1
 	)
-	default Color customColor()
-	{
+	default Color customColor() {
 		return Color.BLACK;
 	}
 
 	@ConfigItem(
-		keyName = "skyOverrideMode",
-		name = "Mode",
-		description = "Replace the sky color in just the overworld, or everywhere",
-		position = 2
+			keyName = "skyOverrideMode",
+			name = "Mode",
+			description = "Replace the sky color in just the overworld, or everywhere",
+			position = 2
 	)
-	default SkyOverrideMode overrideMode()
-	{
+	default SkyOverrideMode overrideMode() {
 		return SkyOverrideMode.NONE;
 	}
 }

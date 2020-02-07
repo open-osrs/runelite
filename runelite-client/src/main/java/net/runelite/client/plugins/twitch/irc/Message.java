@@ -24,43 +24,39 @@
  */
 package net.runelite.client.plugins.twitch.irc;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
-class Message
-{
+class Message {
 	private final Map<String, String> tags = new HashMap<>();
 	private String source;
 	private String command;
 	private String[] arguments;
 
-	public static Message parse(String in)
-	{
+	public static Message parse(String in) {
 		Message message = new Message();
-		if (in.startsWith("@"))
-		{
+		if (in.startsWith("@")) {
 			String[] tags = in.substring(1)
-				.split(";");
-			for (String tag : tags)
-			{
+					.split(";");
+			for (String tag : tags) {
 				int eq = tag.indexOf('=');
-				if (eq == -1)
-				{
+				if (eq == -1) {
 					continue;
 				}
 
 				String key = tag.substring(0, eq);
 				String value = tag.substring(eq + 1)
-					.replace("\\:", ";")
-					.replace("\\s", " ")
-					.replace("\\\\", "\\")
-					.replace("\\r", "\r")
-					.replace("\\n", "\n");
+						.replace("\\:", ";")
+						.replace("\\s", " ")
+						.replace("\\\\", "\\")
+						.replace("\\r", "\r")
+						.replace("\\n", "\n");
 
 				message.tags.put(key, value);
 			}
@@ -69,8 +65,7 @@ class Message
 			in = in.substring(sp + 1);
 		}
 
-		if (in.startsWith(":"))
-		{
+		if (in.startsWith(":")) {
 			int sp = in.indexOf(' ');
 			message.source = in.substring(1, sp);
 
@@ -78,8 +73,7 @@ class Message
 		}
 
 		int sp = in.indexOf(' ');
-		if (sp == -1)
-		{
+		if (sp == -1) {
 			message.command = in;
 			message.arguments = new String[0];
 			return message;
@@ -89,16 +83,12 @@ class Message
 
 		String args = in.substring(sp + 1);
 		List<String> argList = new ArrayList<>();
-		do
-		{
+		do {
 			String arg;
-			if (args.startsWith(":"))
-			{
+			if (args.startsWith(":")) {
 				arg = args.substring(1);
 				sp = -1;
-			}
-			else
-			{
+			} else {
 				sp = args.indexOf(' ');
 				arg = sp == -1 ? args : args.substring(0, sp);
 			}

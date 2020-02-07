@@ -25,33 +25,33 @@
 package net.runelite.client.plugins.tithefarm;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ObjectID;
 
-public enum TitheFarmPlantType
-{
+import java.util.Map;
+
+public enum TitheFarmPlantType {
 	EMPTY("Empty", ObjectID.TITHE_PATCH,
-		ObjectID.TITHE_PATCH
+			ObjectID.TITHE_PATCH
 	),
 	GOLOVANOVA("Golovanova", ObjectID.GOLOVANOVA_PLANT_27393,
-		ObjectID.GOLOVANOVA_SEEDLING, ObjectID.GOLOVANOVA_SEEDLING_27385, ObjectID.BLIGHTED_GOLOVANOVA_SEEDLING,
-		ObjectID.GOLOVANOVA_PLANT, ObjectID.GOLOVANOVA_PLANT_27388, ObjectID.BLIGHTED_GOLOVANOVA_PLANT,
-		ObjectID.GOLOVANOVA_PLANT_27390, ObjectID.GOLOVANOVA_PLANT_27391, ObjectID.BLIGHTED_GOLOVANOVA_PLANT_27392,
-		ObjectID.GOLOVANOVA_PLANT_27393, ObjectID.BLIGHTED_GOLOVANOVA_PLANT_27394
+			ObjectID.GOLOVANOVA_SEEDLING, ObjectID.GOLOVANOVA_SEEDLING_27385, ObjectID.BLIGHTED_GOLOVANOVA_SEEDLING,
+			ObjectID.GOLOVANOVA_PLANT, ObjectID.GOLOVANOVA_PLANT_27388, ObjectID.BLIGHTED_GOLOVANOVA_PLANT,
+			ObjectID.GOLOVANOVA_PLANT_27390, ObjectID.GOLOVANOVA_PLANT_27391, ObjectID.BLIGHTED_GOLOVANOVA_PLANT_27392,
+			ObjectID.GOLOVANOVA_PLANT_27393, ObjectID.BLIGHTED_GOLOVANOVA_PLANT_27394
 	),
 	BOLOGANO("Bologano", ObjectID.BOLOGANO_PLANT_27404,
-		ObjectID.BOLOGANO_SEEDLING, ObjectID.BOLOGANO_SEEDLING_27396, ObjectID.BLIGHTED_BOLOGANO_SEEDLING,
-		ObjectID.BOLOGANO_PLANT, ObjectID.BOLOGANO_PLANT_27399, ObjectID.BLIGHTED_BOLOGANO_PLANT,
-		ObjectID.BOLOGANO_PLANT_27401, ObjectID.BOLOGANO_PLANT_27402, ObjectID.BLIGHTED_BOLOGANO_PLANT_27403,
-		ObjectID.BOLOGANO_PLANT_27404, ObjectID.BLIGHTED_BOLOGANO_PLANT_27405
+			ObjectID.BOLOGANO_SEEDLING, ObjectID.BOLOGANO_SEEDLING_27396, ObjectID.BLIGHTED_BOLOGANO_SEEDLING,
+			ObjectID.BOLOGANO_PLANT, ObjectID.BOLOGANO_PLANT_27399, ObjectID.BLIGHTED_BOLOGANO_PLANT,
+			ObjectID.BOLOGANO_PLANT_27401, ObjectID.BOLOGANO_PLANT_27402, ObjectID.BLIGHTED_BOLOGANO_PLANT_27403,
+			ObjectID.BOLOGANO_PLANT_27404, ObjectID.BLIGHTED_BOLOGANO_PLANT_27405
 	),
 	LOGAVANO("Logavano", ObjectID.LOGAVANO_PLANT_27415,
-		ObjectID.LOGAVANO_SEEDLING, ObjectID.LOGAVANO_SEEDLING_27407, ObjectID.BLIGHTED_LOGAVANO_SEEDLING,
-		ObjectID.LOGAVANO_PLANT, ObjectID.LOGAVANO_PLANT_27410, ObjectID.BLIGHTED_LOGAVANO_PLANT,
-		ObjectID.LOGAVANO_PLANT_27412, ObjectID.LOGAVANO_PLANT_27413, ObjectID.BLIGHTED_LOGAVANO_PLANT_27414,
-		ObjectID.LOGAVANO_PLANT_27415, ObjectID.BLIGHTED_LOGAVANO_PLANT_27416
+			ObjectID.LOGAVANO_SEEDLING, ObjectID.LOGAVANO_SEEDLING_27407, ObjectID.BLIGHTED_LOGAVANO_SEEDLING,
+			ObjectID.LOGAVANO_PLANT, ObjectID.LOGAVANO_PLANT_27410, ObjectID.BLIGHTED_LOGAVANO_PLANT,
+			ObjectID.LOGAVANO_PLANT_27412, ObjectID.LOGAVANO_PLANT_27413, ObjectID.BLIGHTED_LOGAVANO_PLANT_27414,
+			ObjectID.LOGAVANO_PLANT_27415, ObjectID.BLIGHTED_LOGAVANO_PLANT_27416
 	);
 
 	@Getter(AccessLevel.PACKAGE)
@@ -63,14 +63,11 @@ public enum TitheFarmPlantType
 
 	private static final Map<Integer, TitheFarmPlantType> plantTypes;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, TitheFarmPlantType> builder = new ImmutableMap.Builder<>();
 
-		for (TitheFarmPlantType type : values())
-		{
-			for (int spotId : type.getObjectIds())
-			{
+		for (TitheFarmPlantType type : values()) {
+			for (int spotId : type.getObjectIds()) {
 				builder.put(spotId, type);
 			}
 		}
@@ -78,15 +75,13 @@ public enum TitheFarmPlantType
 		plantTypes = builder.build();
 	}
 
-	TitheFarmPlantType(final String name, final int baseId, final int... objectIds)
-	{
+	TitheFarmPlantType(final String name, final int baseId, final int... objectIds) {
 		this.name = name;
 		this.baseId = baseId;
 		this.objectIds = objectIds;
 	}
 
-	public static TitheFarmPlantType getPlantType(int objectId)
-	{
+	public static TitheFarmPlantType getPlantType(int objectId) {
 		return plantTypes.get(objectId);
 	}
 }

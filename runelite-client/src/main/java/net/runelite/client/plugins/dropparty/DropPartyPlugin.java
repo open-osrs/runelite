@@ -28,11 +28,6 @@
 package net.runelite.client.plugins.dropparty;
 
 import com.google.inject.Provides;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -48,17 +43,22 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @PluginDescriptor(
-	name = "Drop Party",
-	description = "Marks where a user ran, for drop partys",
-	tags = {"Drop", "Party", "marker", "player"},
-	type = PluginType.MISCELLANEOUS,
-	enabledByDefault = false
+		name = "Drop Party",
+		description = "Marks where a user ran, for drop partys",
+		tags = {"Drop", "Party", "marker", "player"},
+		type = PluginType.MISCELLANEOUS,
+		enabledByDefault = false
 )
 @Singleton
-public class DropPartyPlugin extends Plugin
-{
+public class DropPartyPlugin extends Plugin {
 	@Inject
 	private DropPartyConfig config;
 	@Getter(AccessLevel.PACKAGE)
@@ -88,79 +88,64 @@ public class DropPartyPlugin extends Plugin
 	private int textSize;
 
 	@Provides
-	DropPartyConfig getConfig(ConfigManager configManager)
-	{
+	DropPartyConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(DropPartyConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		overlayManager.add(coreOverlay);
 		reset();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(coreOverlay);
 		reset();
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
+	private void onGameTick(GameTick event) {
 		shuffleList();
-		if (playerName.equalsIgnoreCase(""))
-		{
+		if (playerName.equalsIgnoreCase("")) {
 			return;
 		}
 
 		runningPlayer = null;
 
-		for (Player player : client.getPlayers())
-		{
-			if (player.getName() == null)
-			{
+		for (Player player : client.getPlayers()) {
+			if (player.getName() == null) {
 				continue;
 			}
-			if (Text.standardize(player.getName()).equalsIgnoreCase(playerName))
-			{
+			if (Text.standardize(player.getName()).equalsIgnoreCase(playerName)) {
 				runningPlayer = player;
 				break;
 			}
 
 		}
 
-		if (runningPlayer == null)
-		{
+		if (runningPlayer == null) {
 			cordsError();
 			return;
 		}
 		addCords();
 	}
 
-	private void cordsError()
-	{
+	private void cordsError() {
 		playerPath.add(null);
 
 	}
 
-	private void shuffleList()
-	{
-		if (playerPath.size() > MAXPATHSIZE - 1)
-		{
+	private void shuffleList() {
+		if (playerPath.size() > MAXPATHSIZE - 1) {
 			playerPath.remove(0);
 		}
 	}
 
-	private void addCords()
-	{
-		while (true)
-		{
-			if (playerPath.size() >= MAXPATHSIZE)
-			{
+	private void addCords() {
+		while (true) {
+			if (playerPath.size() >= MAXPATHSIZE) {
 				playerPath.add(runningPlayer.getWorldLocation());
 				break;
 			}
@@ -172,10 +157,8 @@ public class DropPartyPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("drop"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("drop")) {
 			return;
 		}
 
@@ -183,15 +166,13 @@ public class DropPartyPlugin extends Plugin
 	}
 
 
-	private void reset()
-	{
+	private void reset() {
 		playerPath.clear();
 
 	}
 
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.playerName = config.playerName();
 		this.showAmmount = config.showAmmount();
 		this.overlayColor = config.overlayColor();

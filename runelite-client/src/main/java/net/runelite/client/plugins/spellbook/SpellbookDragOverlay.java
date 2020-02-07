@@ -24,11 +24,6 @@
  */
 package net.runelite.client.plugins.spellbook;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Sprite;
 import net.runelite.client.ui.overlay.Overlay;
@@ -36,15 +31,17 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 @Singleton
-public class SpellbookDragOverlay extends Overlay
-{
+public class SpellbookDragOverlay extends Overlay {
 	private final SpellbookPlugin plugin;
 	private final Client client;
 
 	@Inject
-	private SpellbookDragOverlay(final SpellbookPlugin plugin, final Client client)
-	{
+	private SpellbookDragOverlay(final SpellbookPlugin plugin, final Client client) {
 		this.plugin = plugin;
 		this.client = client;
 		setPosition(OverlayPosition.TOOLTIP);
@@ -53,10 +50,8 @@ public class SpellbookDragOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(final Graphics2D g)
-	{
-		if (!plugin.isDragging())
-		{
+	public Dimension render(final Graphics2D g) {
+		if (!plugin.isDragging()) {
 			return null;
 		}
 
@@ -65,8 +60,7 @@ public class SpellbookDragOverlay extends Overlay
 		final Sprite sprite = plugin.getDraggingWidget().getSprite();
 		final Point drawPos = new Point(mouseCanvasPosition.getX() - draggingLocation.getX(), mouseCanvasPosition.getY() - draggingLocation.getY());
 
-		if (sprite != null)
-		{
+		if (sprite != null) {
 			sprite.drawAt(drawPos.x, drawPos.y);
 		}
 

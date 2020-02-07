@@ -25,14 +25,14 @@
  */
 package net.runelite.client.plugins.cooking;
 
-import java.time.Instant;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 
+import javax.inject.Singleton;
+import java.time.Instant;
+
 @Singleton
-class CookingSession
-{
+class CookingSession {
 	@Getter(AccessLevel.PACKAGE)
 	private Instant lastCookingAction;
 	@Getter(AccessLevel.PACKAGE)
@@ -40,23 +40,19 @@ class CookingSession
 	@Getter(AccessLevel.PACKAGE)
 	private int burnAmount;
 
-	void updateLastCookingAction()
-	{
+	void updateLastCookingAction() {
 		this.lastCookingAction = Instant.now();
 	}
 
-	void increaseCookAmount()
-	{
+	void increaseCookAmount() {
 		this.cookAmount++;
 	}
 
-	void increaseBurnAmount()
-	{
+	void increaseBurnAmount() {
 		this.burnAmount++;
 	}
 
-	double getBurntPercentage()
-	{
+	double getBurntPercentage() {
 		return ((double) getBurnAmount() / (getCookAmount() + getBurnAmount())) * 100;
 	}
 }

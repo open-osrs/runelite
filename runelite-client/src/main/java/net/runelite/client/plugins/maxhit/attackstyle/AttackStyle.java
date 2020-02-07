@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.maxhit.attackstyle;
 
-public enum AttackStyle
-{
+public enum AttackStyle {
 	ACCURATE(0),
 	AGGRESSIVE(3),
 	DEFENSIVE(0),
@@ -39,13 +38,11 @@ public enum AttackStyle
 
 	private final int maxHitBonus;
 
-	AttackStyle(int maxHitBonus)
-	{
+	AttackStyle(int maxHitBonus) {
 		this.maxHitBonus = maxHitBonus;
 	}
 
-	public double getMaxHitBonus()
-	{
+	public double getMaxHitBonus() {
 		return this.maxHitBonus;
 	}
 }

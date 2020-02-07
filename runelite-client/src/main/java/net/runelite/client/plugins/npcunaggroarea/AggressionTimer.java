@@ -24,37 +24,34 @@
  */
 package net.runelite.client.plugins.npcunaggroarea;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.Timer;
 
-class AggressionTimer extends Timer
-{
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
+class AggressionTimer extends Timer {
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
 	private boolean visible;
 
-	AggressionTimer(final Duration duration, final BufferedImage image, final Plugin plugin, final boolean visible)
-	{
+	AggressionTimer(final Duration duration, final BufferedImage image, final Plugin plugin, final boolean visible) {
 		super(duration.toMillis(), ChronoUnit.MILLIS, image, plugin);
 		setTooltip("Time until NPCs become unaggressive");
 		this.visible = visible;
 	}
 
 	@Override
-	public Color getTextColor()
-	{
+	public Color getTextColor() {
 		Duration timeLeft = Duration.between(Instant.now(), getEndTime());
 
-		if (timeLeft.getSeconds() < 60)
-		{
+		if (timeLeft.getSeconds() < 60) {
 			return Color.RED.brighter();
 		}
 
@@ -62,8 +59,7 @@ class AggressionTimer extends Timer
 	}
 
 	@Override
-	public boolean render()
-	{
+	public boolean render() {
 		return visible && super.render();
 	}
 }

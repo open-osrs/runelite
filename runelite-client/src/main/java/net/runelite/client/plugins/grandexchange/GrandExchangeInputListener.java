@@ -24,42 +24,38 @@
  */
 package net.runelite.client.plugins.grandexchange;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.SwingUtilities;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.util.Text;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseAdapter;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 import static net.runelite.client.plugins.grandexchange.GrandExchangePlugin.SEARCH_GRAND_EXCHANGE;
 
 @Singleton
-public class GrandExchangeInputListener extends MouseAdapter implements KeyListener
-{
+public class GrandExchangeInputListener extends MouseAdapter implements KeyListener {
 	private final Client client;
 	private final GrandExchangePlugin plugin;
 
 	@Inject
-	private GrandExchangeInputListener(final Client client, final GrandExchangePlugin plugin)
-	{
+	private GrandExchangeInputListener(final Client client, final GrandExchangePlugin plugin) {
 		this.client = client;
 		this.plugin = plugin;
 	}
 
 	@Override
-	public MouseEvent mouseClicked(MouseEvent e)
-	{
+	public MouseEvent mouseClicked(MouseEvent e) {
 		// Check if left click + alt
-		if (e.getButton() == MouseEvent.BUTTON1 && e.isAltDown())
-		{
+		if (e.getButton() == MouseEvent.BUTTON1 && e.isAltDown()) {
 			final MenuEntry[] menuEntries = client.getMenuEntries();
-			for (final MenuEntry menuEntry : menuEntries)
-			{
-				if (menuEntry.getOption().equals(SEARCH_GRAND_EXCHANGE))
-				{
+			for (final MenuEntry menuEntry : menuEntries) {
+				if (menuEntry.getOption().equals(SEARCH_GRAND_EXCHANGE)) {
 					search(Text.removeTags(menuEntry.getTarget()));
 					e.consume();
 					break;
@@ -70,14 +66,12 @@ public class GrandExchangeInputListener extends MouseAdapter implements KeyListe
 		return super.mouseClicked(e);
 	}
 
-	private void search(final String itemName)
-	{
+	private void search(final String itemName) {
 		SwingUtilities.invokeLater(() ->
 		{
 			plugin.getPanel().showSearch();
 
-			if (!plugin.getButton().isSelected())
-			{
+			if (!plugin.getButton().isSelected()) {
 				plugin.getButton().getOnSelect().run();
 			}
 
@@ -86,25 +80,20 @@ public class GrandExchangeInputListener extends MouseAdapter implements KeyListe
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (e.isAltDown())
-		{
+	public void keyPressed(KeyEvent e) {
+		if (e.isAltDown()) {
 			plugin.setHotKeyPressed(true);
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (!e.isAltDown())
-		{
+	public void keyReleased(KeyEvent e) {
+		if (!e.isAltDown()) {
 			plugin.setHotKeyPressed(false);
 		}
 	}

@@ -25,12 +25,6 @@
  */
 package net.runelite.client.plugins.itemcharges;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ImageComponent;
@@ -38,33 +32,34 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 @Singleton
-class ItemRecoilOverlay extends Overlay
-{
+class ItemRecoilOverlay extends Overlay {
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 	private static final Color ACTIVATED_BACKGROUND_COLOR = new Color(0, 150, 0, 150);
 	private final ItemChargePlugin plugin;
 	private final PanelComponent imagePanelComponent = new PanelComponent();
 
 	@Inject
-	public ItemRecoilOverlay(final ItemChargePlugin plugin)
-	{
+	public ItemRecoilOverlay(final ItemChargePlugin plugin) {
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.plugin = plugin;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
 		this.imagePanelComponent.getChildren().clear();
-		if (plugin.isShowrecoil() && plugin.isRingOfRecoilAvailable())
-		{
+		if (plugin.isShowrecoil() && plugin.isRingOfRecoilAvailable()) {
 			BufferedImage recoilImage = plugin.getRecoilRingImage();
 			imagePanelComponent.setBackgroundColor(plugin
-				.isRingOfRecoilEquipped() ? ACTIVATED_BACKGROUND_COLOR : NOT_ACTIVATED_BACKGROUND_COLOR);
+					.isRingOfRecoilEquipped() ? ACTIVATED_BACKGROUND_COLOR : NOT_ACTIVATED_BACKGROUND_COLOR);
 			imagePanelComponent.getChildren().add(new ImageComponent(recoilImage));
 
 			imagePanelComponent.getChildren().add(tableComponent);

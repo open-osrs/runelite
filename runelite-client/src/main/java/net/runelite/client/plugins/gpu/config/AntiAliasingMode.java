@@ -30,8 +30,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-public enum AntiAliasingMode
-{
+public enum AntiAliasingMode {
 	DISABLED("Disabled", 0),
 	MSAA_2("MSAA x2", 2),
 	MSAA_4("MSAA x4", 4),
@@ -42,8 +41,7 @@ public enum AntiAliasingMode
 	private final int samples;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

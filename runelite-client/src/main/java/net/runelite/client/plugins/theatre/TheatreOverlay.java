@@ -8,23 +8,21 @@
 
 package net.runelite.client.plugins.theatre;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 @Singleton
-public class TheatreOverlay extends Overlay
-{
+public class TheatreOverlay extends Overlay {
 	private final TheatrePlugin plugin;
 
 	@Inject
-	private TheatreOverlay(final TheatrePlugin plugin)
-	{
+	private TheatreOverlay(final TheatrePlugin plugin) {
 		this.plugin = plugin;
 
 		setPosition(OverlayPosition.DYNAMIC);
@@ -33,10 +31,8 @@ public class TheatreOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		switch (plugin.getRoom())
-		{
+	public Dimension render(Graphics2D graphics) {
+		switch (plugin.getRoom()) {
 			case MAIDEN:
 				plugin.getMaidenHandler().render(graphics);
 				break;

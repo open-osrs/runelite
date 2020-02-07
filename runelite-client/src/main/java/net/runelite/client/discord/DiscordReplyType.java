@@ -27,8 +27,7 @@ package net.runelite.client.discord;
 /**
  * Discord reply type for request
  */
-public enum DiscordReplyType
-{
+public enum DiscordReplyType {
 	/**
 	 * Used to decline a request
 	 */

@@ -25,20 +25,20 @@
 package net.runelite.client.plugins.cluescrolls.clues.hotcold;
 
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import javax.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.util.Text;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+
 @AllArgsConstructor
 @Getter(AccessLevel.PUBLIC)
-public enum HotColdTemperature
-{
+public enum HotColdTemperature {
 	ICE_COLD("ice cold", 500, 5000),
 	VERY_COLD("very cold", 200, 499),
 	COLD("cold", 150, 199),
@@ -51,24 +51,24 @@ public enum HotColdTemperature
 	MASTER_VISIBLY_SHAKING("visibly shaking", 0, 4);
 
 	public static final Set<HotColdTemperature> BEGINNER_HOT_COLD_TEMPERATURES = Sets.immutableEnumSet(
-		ICE_COLD,
-		VERY_COLD,
-		COLD,
-		WARM,
-		HOT,
-		VERY_HOT,
-		BEGINNER_INCREDIBLY_HOT,
-		BEGINNER_VISIBLY_SHAKING
+			ICE_COLD,
+			VERY_COLD,
+			COLD,
+			WARM,
+			HOT,
+			VERY_HOT,
+			BEGINNER_INCREDIBLY_HOT,
+			BEGINNER_VISIBLY_SHAKING
 	);
 	public static final Set<HotColdTemperature> MASTER_HOT_COLD_TEMPERATURES = Sets.immutableEnumSet(
-		ICE_COLD,
-		VERY_COLD,
-		COLD,
-		WARM,
-		HOT,
-		VERY_HOT,
-		MASTER_INCREDIBLY_HOT,
-		MASTER_VISIBLY_SHAKING
+			ICE_COLD,
+			VERY_COLD,
+			COLD,
+			WARM,
+			HOT,
+			VERY_HOT,
+			MASTER_INCREDIBLY_HOT,
+			MASTER_VISIBLY_SHAKING
 	);
 
 	private final String text;
@@ -88,28 +88,24 @@ public enum HotColdTemperature
 	 * temperature (say, two temperatures with identical text values), the behavior is undefined.
 	 */
 	@Nullable
-	public static HotColdTemperature getFromTemperatureSet(final Set<HotColdTemperature> temperatureSet, final String message)
-	{
-		if (!message.startsWith(DEVICE_USED_START_TEXT) || temperatureSet == null)
-		{
+	public static HotColdTemperature getFromTemperatureSet(final Set<HotColdTemperature> temperatureSet, final String message) {
+		if (!message.startsWith(DEVICE_USED_START_TEXT) || temperatureSet == null) {
 			return null;
 		}
 
 		final String messageStart = Text.fromCSV(message).get(0);
 		final List<HotColdTemperature> possibleTemperatures = new ArrayList<>();
 
-		for (final HotColdTemperature temperature : temperatureSet)
-		{
-			if (messageStart.contains(temperature.getText()))
-			{
+		for (final HotColdTemperature temperature : temperatureSet) {
+			if (messageStart.contains(temperature.getText())) {
 				possibleTemperatures.add(temperature);
 			}
 		}
 
 		return possibleTemperatures.stream()
-			// For messages such as "The device is very cold", this will choose the Enum with text of greatest length so
-			// that VERY_COLD would be selected over COLD, though both Enums have matching text for this message.
-			.max(Comparator.comparingInt(x -> (x.getText()).length()))
-			.orElse(null);
+				// For messages such as "The device is very cold", this will choose the Enum with text of greatest length so
+				// that VERY_COLD would be selected over COLD, though both Enums have matching text for this message.
+				.max(Comparator.comparingInt(x -> (x.getText()).length()))
+				.orElse(null);
 	}
 }

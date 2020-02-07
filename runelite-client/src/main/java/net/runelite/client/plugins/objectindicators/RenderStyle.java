@@ -25,8 +25,7 @@
 
 package net.runelite.client.plugins.objectindicators;
 
-public enum RenderStyle
-{
+public enum RenderStyle {
 	CLICKBOX,
 	HULL,
 	OUTLINE

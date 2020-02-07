@@ -26,32 +26,9 @@
 
 package net.runelite.client.plugins.grandexchange;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import javax.annotation.Nullable;
-import javax.inject.Singleton;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.border.EmptyBorder;
 import net.runelite.api.GrandExchangeOffer;
 import net.runelite.api.GrandExchangeOfferState;
-import static net.runelite.api.GrandExchangeOfferState.CANCELLED_BUY;
-import static net.runelite.api.GrandExchangeOfferState.CANCELLED_SELL;
-import static net.runelite.api.GrandExchangeOfferState.EMPTY;
 import net.runelite.api.ItemDefinition;
-import static net.runelite.client.plugins.grandexchange.GrandExchangeItemPanel.geLink;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.ThinProgressBar;
@@ -59,9 +36,22 @@ import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.QuantityFormatter;
 
+import javax.annotation.Nullable;
+import javax.inject.Singleton;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+
+import static net.runelite.api.GrandExchangeOfferState.*;
+import static net.runelite.client.plugins.grandexchange.GrandExchangeItemPanel.geLink;
+
 @Singleton
-class GrandExchangeOfferSlot extends JPanel
-{
+class GrandExchangeOfferSlot extends JPanel {
 	private static final String FACE_CARD = "FACE_CARD";
 	private static final String DETAILS_CARD = "DETAILS_CARD";
 
@@ -84,8 +74,7 @@ class GrandExchangeOfferSlot extends JPanel
 
 	private boolean showingFace = true;
 
-	static
-	{
+	static {
 		final BufferedImage rightArrow = ImageUtil.alphaOffset(ImageUtil.getResourceStreamFromClass(GrandExchangeOfferSlot.class, "/util/arrow_right.png"), 0.25f);
 		RIGHT_ARROW_ICON = new ImageIcon(rightArrow);
 		LEFT_ARROW_ICON = new ImageIcon(ImageUtil.flipImage(rightArrow, true, false));
@@ -95,30 +84,25 @@ class GrandExchangeOfferSlot extends JPanel
 	 * This (sub)panel is used for each GE slot displayed
 	 * in the sidebar
 	 */
-	GrandExchangeOfferSlot()
-	{
+	GrandExchangeOfferSlot() {
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		setBorder(new EmptyBorder(7, 0, 0, 0));
 
-		final MouseListener ml = new MouseAdapter()
-		{
+		final MouseListener ml = new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				super.mousePressed(mouseEvent);
 				switchPanel();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				super.mouseEntered(mouseEvent);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				super.mouseExited(mouseEvent);
 			}
 		};
@@ -204,32 +188,27 @@ class GrandExchangeOfferSlot extends JPanel
 		add(progressBar, BorderLayout.SOUTH);
 	}
 
-	void updateOffer(ItemDefinition offerItem, BufferedImage itemImage, @Nullable GrandExchangeOffer newOffer)
-	{
-		if (newOffer == null || newOffer.getState() == EMPTY)
-		{
+	void updateOffer(ItemDefinition offerItem, BufferedImage itemImage, @Nullable GrandExchangeOffer newOffer) {
+		if (newOffer == null || newOffer.getState() == EMPTY) {
 			return;
-		}
-		else
-		{
+		} else {
 			cardLayout.show(container, FACE_CARD);
 
 			itemName.setText(offerItem.getName());
 			itemIcon.setIcon(new ImageIcon(itemImage));
 
-			for (ActionListener al : geLink.getActionListeners())
-			{
+			for (ActionListener al : geLink.getActionListeners()) {
 				geLink.removeActionListener(al);
 			}
 			geLink.addActionListener(actionEvent -> geLink(offerItem.getName(), offerItem.getId()));
 
 			boolean buying = newOffer.getState() == GrandExchangeOfferState.BOUGHT
-				|| newOffer.getState() == GrandExchangeOfferState.BUYING
-				|| newOffer.getState() == GrandExchangeOfferState.CANCELLED_BUY;
+					|| newOffer.getState() == GrandExchangeOfferState.BUYING
+					|| newOffer.getState() == GrandExchangeOfferState.CANCELLED_BUY;
 
 			String offerState = (buying ? "Bought " : "Sold ")
-				+ QuantityFormatter.quantityToRSDecimalStack(newOffer.getQuantitySold()) + " / "
-				+ QuantityFormatter.quantityToRSDecimalStack(newOffer.getTotalQuantity());
+					+ QuantityFormatter.quantityToRSDecimalStack(newOffer.getQuantitySold()) + " / "
+					+ QuantityFormatter.quantityToRSDecimalStack(newOffer.getTotalQuantity());
 
 			offerInfo.setText(offerState);
 
@@ -238,7 +217,7 @@ class GrandExchangeOfferSlot extends JPanel
 			String action = buying ? "Spent: " : "Received: ";
 
 			offerSpent.setText(htmlLabel(action, QuantityFormatter.formatNumber(newOffer.getSpent()) + " / "
-				+ QuantityFormatter.formatNumber(newOffer.getPrice() * newOffer.getTotalQuantity())));
+					+ QuantityFormatter.formatNumber(newOffer.getPrice() * newOffer.getTotalQuantity())));
 
 			progressBar.setForeground(getProgressColor(newOffer));
 			progressBar.setMaximumValue(newOffer.getTotalQuantity());
@@ -246,10 +225,8 @@ class GrandExchangeOfferSlot extends JPanel
 
 			/* Couldn't set the tooltip for the container panel as the children override it, so I'm setting
 			 * the tooltips on the children instead. */
-			for (Component c : container.getComponents())
-			{
-				if (c instanceof JPanel)
-				{
+			for (Component c : container.getComponents()) {
+				if (c instanceof JPanel) {
 					JPanel panel = (JPanel) c;
 					panel.setToolTipText(htmlTooltip(((int) progressBar.getPercentage()) + "%"));
 				}
@@ -260,31 +237,25 @@ class GrandExchangeOfferSlot extends JPanel
 		repaint();
 	}
 
-	private String htmlTooltip(String value)
-	{
+	private String htmlTooltip(String value) {
 		return "<html><body style = 'color:" + ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR) + "'>Progress: <span style = 'color:white'>" + value + "</span></body></html>";
 	}
 
-	private String htmlLabel(String key, String value)
-	{
+	private String htmlLabel(String key, String value) {
 		return "<html><body style = 'color:white'>" + key + "<span style = 'color:" + ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR) + "'>" + value + "</span></body></html>";
 	}
 
-	private void switchPanel()
-	{
+	private void switchPanel() {
 		this.showingFace = !this.showingFace;
 		cardLayout.show(container, showingFace ? FACE_CARD : DETAILS_CARD);
 	}
 
-	private Color getProgressColor(GrandExchangeOffer offer)
-	{
-		if (offer.getState() == CANCELLED_BUY || offer.getState() == CANCELLED_SELL)
-		{
+	private Color getProgressColor(GrandExchangeOffer offer) {
+		if (offer.getState() == CANCELLED_BUY || offer.getState() == CANCELLED_SELL) {
 			return ColorScheme.PROGRESS_ERROR_COLOR;
 		}
 
-		if (offer.getQuantitySold() == offer.getTotalQuantity())
-		{
+		if (offer.getQuantitySold() == offer.getTotalQuantity()) {
 			return ColorScheme.PROGRESS_COMPLETE_COLOR;
 		}
 

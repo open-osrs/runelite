@@ -24,69 +24,52 @@
  */
 package net.runelite.client.plugins.runecraft;
 
-import static java.lang.Math.min;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.DecorativeObject;
-import net.runelite.api.GameState;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.ItemID;
-import net.runelite.api.NPC;
-import net.runelite.api.NpcID;
-import net.runelite.api.VarPlayer;
-import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.DecorativeObjectDespawned;
-import net.runelite.api.events.DecorativeObjectSpawned;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.ItemContainerChanged;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.NpcDespawned;
-import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.*;
+import net.runelite.api.events.*;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.menus.BaseComparableEntry;
-import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.menuentryswapper.comparables.BankComparableEntry;
 import net.runelite.client.plugins.menuentryswapper.comparables.EquipmentComparableEntry;
-import static net.runelite.client.plugins.runecraft.AbyssRifts.*;
 import net.runelite.client.ui.overlay.OverlayManager;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.Math.min;
+import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
+import static net.runelite.client.plugins.runecraft.AbyssRifts.*;
 
 
 @PluginDescriptor(
-	name = "Runecraft",
-	description = "Show minimap icons and clickboxes for abyssal rifts",
-	tags = {"abyssal", "minimap", "overlay", "rifts", "rc", "runecrafting"},
-	type = PluginType.SKILLING
+		name = "Runecraft",
+		description = "Show minimap icons and clickboxes for abyssal rifts",
+		tags = {"abyssal", "minimap", "overlay", "rifts", "rc", "runecrafting"},
+		type = PluginType.SKILLING
 )
 @Singleton
 @Getter(AccessLevel.PACKAGE)
 @Slf4j
-public class RunecraftPlugin extends Plugin
-{
+public class RunecraftPlugin extends Plugin {
 	private static final int MEDIUM_DEGRADE = 46;
 	private static final int LARGE_DEGRADE = 30;
 	private static final int GIANT_DEGRADE = 11;
@@ -102,27 +85,27 @@ public class RunecraftPlugin extends Plugin
 	private static final String POUCH_DECAYED_NOTIFICATION_MESSAGE = "Your rune pouch has decayed.";
 	private static final int FIRE_ALTAR = 10315;
 	private static final Set<Integer> DEGRADED_POUCHES = ImmutableSet.of(
-		ItemID.MEDIUM_POUCH_5511,
-		ItemID.LARGE_POUCH_5513,
-		ItemID.GIANT_POUCH_5515
+			ItemID.MEDIUM_POUCH_5511,
+			ItemID.LARGE_POUCH_5513,
+			ItemID.GIANT_POUCH_5515
 	);
 	private static final int INVENTORY_SIZE = 28;
 	private static final Pattern POUCH_CHECK_MESSAGE = Pattern.compile("^There (?:is|are) ([a-z]+)(?: pure)? essences? in this pouch\\.$");
 	private static final ImmutableMap<String, Integer> TEXT_TO_NUMBER = ImmutableMap.<String, Integer>builder()
-		.put("no", 0)
-		.put("one", 1)
-		.put("two", 2)
-		.put("three", 3)
-		.put("four", 4)
-		.put("five", 5)
-		.put("six", 6)
-		.put("seven", 7)
-		.put("eight", 8)
-		.put("nine", 9)
-		.put("ten", 10)
-		.put("eleven", 11)
-		.put("twelve", 12)
-		.build();
+			.put("no", 0)
+			.put("one", 1)
+			.put("two", 2)
+			.put("three", 3)
+			.put("four", 4)
+			.put("five", 5)
+			.put("six", 6)
+			.put("seven", 7)
+			.put("eight", 8)
+			.put("nine", 9)
+			.put("ten", 10)
+			.put("eleven", 11)
+			.put("twelve", 12)
+			.build();
 
 	private final Deque<ClickOperation> clickedItems = new ArrayDeque<>();
 	private final Deque<ClickOperation> checkedPouches = new ArrayDeque<>();
@@ -171,14 +154,12 @@ public class RunecraftPlugin extends Plugin
 	private NPC darkMage;
 
 	@Provides
-	RunecraftConfig getConfig(ConfigManager configManager)
-	{
+	RunecraftConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(RunecraftConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		overlayManager.add(abyssOverlay);
 		overlayManager.add(abyssMinimapOverlay);
@@ -186,8 +167,7 @@ public class RunecraftPlugin extends Plugin
 		overlayManager.add(essencePouchOverlay);
 		handleSwaps();
 
-		for (Pouch pouch : Pouch.values())
-		{
+		for (Pouch pouch : Pouch.values()) {
 			pouch.setHolding(0);
 			pouch.setUnknown(true);
 			pouch.degrade(false);
@@ -197,8 +177,7 @@ public class RunecraftPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		abyssObjects.clear();
 		darkMage = null;
 		degradedPouchInInventory = false;
@@ -209,88 +188,65 @@ public class RunecraftPlugin extends Plugin
 		removeSwaps();
 	}
 
-	private void onGameTick(GameTick event)
-	{
+	private void onGameTick(GameTick event) {
 		final int before = pouchVar;
 		pouchVar = client.getVar(VarPlayer.POUCH_STATUS);
 
-		if (pouchVar == before)
-		{
+		if (pouchVar == before) {
 			return;
 		}
 
-		if ((pouchVar & 0x8) > 0 && (before & 0x8) <= 0)
-		{
-			if (giantCharges > 0)
-			{
+		if ((pouchVar & 0x8) > 0 && (before & 0x8) <= 0) {
+			if (giantCharges > 0) {
 				giantCharges--;
 			}
 		}
-		if ((pouchVar & 0x4) > 0 && (before & 0x4) <= 0)
-		{
-			if (largeCharges > 0)
-			{
+		if ((pouchVar & 0x4) > 0 && (before & 0x4) <= 0) {
+			if (largeCharges > 0) {
 				largeCharges--;
 			}
 		}
-		if ((pouchVar & 0x2) > 0 && (before & 0x2) <= 0)
-		{
-			if (mediumCharges > 0)
-			{
+		if ((pouchVar & 0x2) > 0 && (before & 0x2) <= 0) {
+			if (mediumCharges > 0) {
 				mediumCharges--;
 			}
 		}
 	}
 
 	@Subscribe
-	private void onItemContainerChanged(ItemContainerChanged event)
-	{
+	private void onItemContainerChanged(ItemContainerChanged event) {
 		final ItemContainer container = event.getItemContainer();
 
-		if (container == client.getItemContainer(InventoryID.INVENTORY))
-		{
+		if (container == client.getItemContainer(InventoryID.INVENTORY)) {
 			degradedPouchInInventory = false;
 
-			for (Item item : container.getItems())
-			{
-				if (!medDegrade && item.getId() == ItemID.MEDIUM_POUCH_5511)
-				{
+			for (Item item : container.getItems()) {
+				if (!medDegrade && item.getId() == ItemID.MEDIUM_POUCH_5511) {
 					medDegrade = true;
 					mediumCharges = 0;
 					degradedPouchInInventory = true;
-				}
-				else if (!largeDegrade && item.getId() == ItemID.LARGE_POUCH_5513)
-				{
+				} else if (!largeDegrade && item.getId() == ItemID.LARGE_POUCH_5513) {
 					largeDegrade = true;
 					largeCharges = 0;
 					degradedPouchInInventory = true;
-				}
-				else if (!giantDegrade && item.getId() == ItemID.GIANT_POUCH_5515)
-				{
+				} else if (!giantDegrade && item.getId() == ItemID.GIANT_POUCH_5515) {
 					giantDegrade = true;
 					giantCharges = 0;
 					degradedPouchInInventory = true;
-				}
-				else if (medDegrade && item.getId() == ItemID.MEDIUM_POUCH)
-				{
+				} else if (medDegrade && item.getId() == ItemID.MEDIUM_POUCH) {
 					medDegrade = false;
 					mediumCharges = MEDIUM_DEGRADE;
-				}
-				else if (largeDegrade && item.getId() == ItemID.LARGE_POUCH)
-				{
+				} else if (largeDegrade && item.getId() == ItemID.LARGE_POUCH) {
 					largeDegrade = false;
 					largeCharges = LARGE_DEGRADE;
-				}
-				else if (giantDegrade && item.getId() == ItemID.GIANT_POUCH)
-				{
+				} else if (giantDegrade && item.getId() == ItemID.GIANT_POUCH) {
 					giantDegrade = false;
 					giantCharges = GIANT_DEGRADE;
 				}
 			}
 		}
 
-		if (InventoryID.INVENTORY.getId() != event.getContainerId())
-		{
+		if (InventoryID.INVENTORY.getId() != event.getContainerId()) {
 			return;
 		}
 
@@ -300,10 +256,8 @@ public class RunecraftPlugin extends Plugin
 		int newSpace = 0;
 
 		// Count ess/space, and change pouch states
-		for (Item item : items)
-		{
-			switch (item.getId())
-			{
+		for (Item item : items) {
+			switch (item.getId()) {
 				case ItemID.PURE_ESSENCE:
 					newEss += 1;
 					break;
@@ -324,21 +278,18 @@ public class RunecraftPlugin extends Plugin
 					break;
 			}
 		}
-		if (items.length < INVENTORY_SIZE)
-		{
+		if (items.length < INVENTORY_SIZE) {
 			// Pad newSpace for unallocated inventory slots
 			newSpace += INVENTORY_SIZE - items.length;
 		}
 
-		if (clickedItems.isEmpty())
-		{
+		if (clickedItems.isEmpty()) {
 			lastSpace = newSpace;
 			lastEssence = newEss;
 			return;
 		}
 
-		if (lastEssence == -1 || lastSpace == -1)
-		{
+		if (lastEssence == -1 || lastSpace == -1) {
 			lastSpace = newSpace;
 			lastEssence = newEss;
 			clickedItems.clear();
@@ -351,16 +302,13 @@ public class RunecraftPlugin extends Plugin
 		int space = lastSpace;
 
 
-		while (essence != newEss)
-		{
+		while (essence != newEss) {
 			ClickOperation op = clickedItems.poll();
-			if (op == null)
-			{
+			if (op == null) {
 				break;
 			}
 
-			if (tick > op.tick)
-			{
+			if (tick > op.tick) {
 				continue;
 			}
 
@@ -374,8 +322,7 @@ public class RunecraftPlugin extends Plugin
 
 			// if we have enough essence or space to fill or empty the entire pouch, it no
 			// longer becomes unknown
-			if (pouch.isUnknown() && (fill ? essence : space) >= pouch.getHoldAmount())
-			{
+			if (pouch.isUnknown() && (fill ? essence : space) >= pouch.getHoldAmount()) {
 				pouch.setUnknown(false);
 			}
 
@@ -386,8 +333,7 @@ public class RunecraftPlugin extends Plugin
 			pouch.addHolding(essenceGot);
 		}
 
-		if (!clickedItems.isEmpty())
-		{
+		if (!clickedItems.isEmpty()) {
 			return;
 		}
 
@@ -396,10 +342,8 @@ public class RunecraftPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onMenuOptionClicked(MenuOptionClicked event)
-	{
-		switch (event.getMenuOpcode())
-		{
+	public void onMenuOptionClicked(MenuOptionClicked event) {
+		switch (event.getMenuOpcode()) {
 			case ITEM_FIRST_OPTION:
 			case ITEM_SECOND_OPTION:
 			case ITEM_THIRD_OPTION:
@@ -413,14 +357,12 @@ public class RunecraftPlugin extends Plugin
 
 		final int id = event.getIdentifier();
 		final Pouch pouch = Pouch.forItem(id);
-		if (pouch == null)
-		{
+		if (pouch == null) {
 			return;
 		}
 
 		final int tick = client.getTickCount() + 3;
-		switch (event.getOption())
-		{
+		switch (event.getOption()) {
 			case "Fill":
 				clickedItems.add(new ClickOperation(pouch, tick, 1));
 				break;
@@ -438,47 +380,37 @@ public class RunecraftPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("runecraft"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("runecraft")) {
 			return;
 		}
 
 		updateConfig();
 
-		if (event.getKey().equals("essPouch") || event.getKey().equals("Lavas"))
-		{
+		if (event.getKey().equals("essPouch") || event.getKey().equals("Lavas")) {
 			removeSwaps();
 			handleSwaps();
 		}
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage event)
-	{
-		if (event.getType() != ChatMessageType.GAMEMESSAGE)
-		{
+	private void onChatMessage(ChatMessage event) {
+		if (event.getType() != ChatMessageType.GAMEMESSAGE) {
 			return;
 		}
 
-		if (this.degradingNotification && event.getMessage().contains(POUCH_DECAYED_MESSAGE))
-		{
+		if (this.degradingNotification && event.getMessage().contains(POUCH_DECAYED_MESSAGE)) {
 			notifier.notify(POUCH_DECAYED_NOTIFICATION_MESSAGE);
 		}
 
-		if (!checkedPouches.isEmpty())
-		{
+		if (!checkedPouches.isEmpty()) {
 			Matcher matcher = POUCH_CHECK_MESSAGE.matcher(event.getMessage());
-			if (matcher.matches())
-			{
+			if (matcher.matches()) {
 				final int num = TEXT_TO_NUMBER.get(matcher.group(1));
 				// Keep getting operations until we get a valid one
-				do
-				{
+				do {
 					final ClickOperation op = checkedPouches.pop();
-					if (op.tick >= client.getTickCount())
-					{
+					if (op.tick >= client.getTickCount()) {
 						Pouch pouch = op.pouch;
 						pouch.setHolding(num);
 						pouch.setUnknown(false);
@@ -491,29 +423,24 @@ public class RunecraftPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onDecorativeObjectSpawned(DecorativeObjectSpawned event)
-	{
+	private void onDecorativeObjectSpawned(DecorativeObjectSpawned event) {
 		final DecorativeObject decorativeObject = event.getDecorativeObject();
-		if (AbyssRifts.getRift(decorativeObject.getId()) != null)
-		{
+		if (AbyssRifts.getRift(decorativeObject.getId()) != null) {
 			abyssObjects.add(decorativeObject);
 		}
 	}
 
 	@Subscribe
-	private void onDecorativeObjectDespawned(DecorativeObjectDespawned event)
-	{
+	private void onDecorativeObjectDespawned(DecorativeObjectDespawned event) {
 		final DecorativeObject decorativeObject = event.getDecorativeObject();
 		abyssObjects.remove(decorativeObject);
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
+	private void onGameStateChanged(GameStateChanged event) {
 		final GameState gameState = event.getGameState();
 
-		switch (gameState)
-		{
+		switch (gameState) {
 			case LOADING:
 				abyssObjects.clear();
 				break;
@@ -530,39 +457,31 @@ public class RunecraftPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned event)
-	{
+	private void onNpcSpawned(NpcSpawned event) {
 		final NPC npc = event.getNpc();
 
-		if (npc.getId() == NpcID.DARK_MAGE)
-		{
+		if (npc.getId() == NpcID.DARK_MAGE) {
 			darkMage = npc;
 		}
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned event)
-	{
+	private void onNpcDespawned(NpcDespawned event) {
 		final NPC npc = event.getNpc();
 
-		if (npc != null && npc == darkMage)
-		{
+		if (npc != null && npc == darkMage) {
 			darkMage = null;
 		}
 	}
 
-	private void handleSwaps()
-	{
-		if (this.essPouch)
-		{
+	private void handleSwaps() {
+		if (this.essPouch) {
 			menuManager.addPriorityEntry(POUCH).setPriority(100);
 			menuManager.addPriorityEntry(EMPTY_SMALL).setPriority(10);
 			menuManager.addPriorityEntry(EMPTY_MEDIUM).setPriority(10);
 			menuManager.addPriorityEntry(EMPTY_LARGE).setPriority(10);
 			menuManager.addPriorityEntry(EMPTY_GIANT).setPriority(10);
-		}
-		else
-		{
+		} else {
 			menuManager.removePriorityEntry(POUCH);
 			menuManager.removePriorityEntry(EMPTY_SMALL);
 			menuManager.removePriorityEntry(EMPTY_MEDIUM);
@@ -570,22 +489,18 @@ public class RunecraftPlugin extends Plugin
 			menuManager.removePriorityEntry(EMPTY_GIANT);
 		}
 
-		if (client.getLocalPlayer() == null || !this.lavas)
-		{
+		if (client.getLocalPlayer() == null || !this.lavas) {
 			menuManager.removeHiddenEntry("craft", "altar", false, false);
 			menuManager.removeHiddenEntry("use", "pure essence", false, true);
 			return;
 		}
 
-		if (client.getLocalPlayer().getWorldLocation().getRegionID() != FIRE_ALTAR)
-		{
+		if (client.getLocalPlayer().getWorldLocation().getRegionID() != FIRE_ALTAR) {
 			menuManager.removeHiddenEntry("craft", "altar", false, false);
 			menuManager.removeHiddenEntry("use", "Pure essence", false, true);
 			menuManager.addPriorityEntry(DUEL_ARENA).setPriority(100);
 			menuManager.removePriorityEntry(CASTLE_WARS);
-		}
-		else if (client.getLocalPlayer().getWorldLocation().getRegionID() == FIRE_ALTAR)
-		{
+		} else if (client.getLocalPlayer().getWorldLocation().getRegionID() == FIRE_ALTAR) {
 			menuManager.addHiddenEntry("craft", "altar", false, false);
 			menuManager.addHiddenEntry("use", "Pure essence", false, true);
 			menuManager.addPriorityEntry(CASTLE_WARS).setPriority(100);
@@ -593,8 +508,7 @@ public class RunecraftPlugin extends Plugin
 		}
 	}
 
-	private void removeSwaps()
-	{
+	private void removeSwaps() {
 		menuManager.removeHiddenEntry("craft", "altar", false, false);
 		menuManager.removeHiddenEntry("use", "Pure essence", false, true);
 		menuManager.removePriorityEntry(POUCH);
@@ -606,8 +520,7 @@ public class RunecraftPlugin extends Plugin
 		menuManager.removePriorityEntry(DUEL_ARENA);
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.lavas = config.lavas();
 		this.essPouch = config.essPouch();
 		this.hightlightDarkMage = config.hightlightDarkMage();
@@ -617,22 +530,16 @@ public class RunecraftPlugin extends Plugin
 		this.degradeOverlay = config.degradeOverlay();
 		this.essenceOverlay = config.essenceOverlay();
 
-		if (this.essenceOverlay)
-		{
+		if (this.essenceOverlay) {
 			overlayManager.add(essencePouchOverlay);
-		}
-		else
-		{
+		} else {
 			overlayManager.remove(essencePouchOverlay);
 		}
 
-		if (this.degradeOverlay)
-		{
+		if (this.degradeOverlay) {
 			overlayManager.add(pouchOverlay);
 			eventBus.subscribe(GameTick.class, POUCH_TICK, this::onGameTick);
-		}
-		else
-		{
+		} else {
 			overlayManager.remove(pouchOverlay);
 			eventBus.unregister(POUCH_TICK);
 		}
@@ -640,59 +547,45 @@ public class RunecraftPlugin extends Plugin
 		updateRifts();
 	}
 
-	private void updateRifts()
-	{
+	private void updateRifts() {
 		rifts.clear();
-		if (config.showAir())
-		{
+		if (config.showAir()) {
 			rifts.add(AIR_RIFT);
 		}
-		if (config.showBlood())
-		{
+		if (config.showBlood()) {
 			rifts.add(BLOOD_RIFT);
 		}
-		if (config.showBody())
-		{
+		if (config.showBody()) {
 			rifts.add(BODY_RIFT);
 		}
-		if (config.showChaos())
-		{
+		if (config.showChaos()) {
 			rifts.add(CHAOS_RIFT);
 		}
-		if (config.showCosmic())
-		{
+		if (config.showCosmic()) {
 			rifts.add(COSMIC_RIFT);
 		}
-		if (config.showDeath())
-		{
+		if (config.showDeath()) {
 			rifts.add(DEATH_RIFT);
 		}
-		if (config.showEarth())
-		{
+		if (config.showEarth()) {
 			rifts.add(EARTH_RIFT);
 		}
-		if (config.showFire())
-		{
+		if (config.showFire()) {
 			rifts.add(FIRE_RIFT);
 		}
-		if (config.showLaw())
-		{
+		if (config.showLaw()) {
 			rifts.add(LAW_RIFT);
 		}
-		if (config.showMind())
-		{
+		if (config.showMind()) {
 			rifts.add(MIND_RIFT);
 		}
-		if (config.showNature())
-		{
+		if (config.showNature()) {
 			rifts.add(NATURE_RIFT);
 		}
-		if (config.showSoul())
-		{
+		if (config.showSoul()) {
 			rifts.add(SOUL_RIFT);
 		}
-		if (config.showWater())
-		{
+		if (config.showWater()) {
 			rifts.add(WATER_RIFT);
 		}
 	}

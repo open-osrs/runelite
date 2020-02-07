@@ -24,26 +24,22 @@
  */
 package net.runelite.client.plugins.leftclickonly;
 
-import java.awt.event.MouseEvent;
 import net.runelite.client.input.MouseAdapter;
 
-public class RightClickConsumer extends MouseAdapter
-{
+import java.awt.event.MouseEvent;
+
+public class RightClickConsumer extends MouseAdapter {
 	@Override
-	public MouseEvent mouseClicked(MouseEvent event)
-	{
-		if (event.getButton() != MouseEvent.BUTTON1)
-		{
+	public MouseEvent mouseClicked(MouseEvent event) {
+		if (event.getButton() != MouseEvent.BUTTON1) {
 			event.consume();
 		}
 		return event;
 	}
 
 	@Override
-	public MouseEvent mousePressed(MouseEvent event)
-	{
-		if (event.getButton() != MouseEvent.BUTTON1)
-		{
+	public MouseEvent mousePressed(MouseEvent event) {
+		if (event.getButton() != MouseEvent.BUTTON1) {
 			event.consume();
 		}
 		return event;

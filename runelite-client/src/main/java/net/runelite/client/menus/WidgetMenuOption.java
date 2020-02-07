@@ -24,13 +24,13 @@
  */
 package net.runelite.client.menus;
 
-import java.awt.Color;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
 
-public final class WidgetMenuOption
-{
+import java.awt.*;
+
+public final class WidgetMenuOption {
 	/**
 	 * The left hand text to be displayed on the menu option. Ex. the option of "Drop Bones" is "Drop"
 	 */
@@ -56,15 +56,13 @@ public final class WidgetMenuOption
 	 * @param menuTarget Target text of this right click option
 	 * @param widget     The widget to attach this option to
 	 */
-	public WidgetMenuOption(String menuOption, String menuTarget, WidgetInfo widget)
-	{
+	public WidgetMenuOption(String menuOption, String menuTarget, WidgetInfo widget) {
 		this.menuOption = menuOption;
 		this.menuTarget = menuTarget;
 		this.widget = widget;
 	}
 
-	public void setMenuOption(String option)
-	{
+	public void setMenuOption(String option) {
 		menuOption = option;
 	}
 
@@ -73,33 +71,27 @@ public final class WidgetMenuOption
 	 *
 	 * @param target The target text without color code.
 	 */
-	public void setMenuTarget(String target)
-	{
+	public void setMenuTarget(String target) {
 		menuTarget = ColorUtil.wrapWithColorTag(target, color);
 	}
 
-	public String getMenuOption()
-	{
+	public String getMenuOption() {
 		return menuOption;
 	}
 
-	public String getMenuTarget()
-	{
+	public String getMenuTarget() {
 		return menuTarget;
 	}
 
-	public WidgetInfo getWidget()
-	{
+	public WidgetInfo getWidget() {
 		return widget;
 	}
 
-	public Color getColor()
-	{
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(Color col)
-	{
+	public void setColor(Color col) {
 		color = col;
 	}
 }

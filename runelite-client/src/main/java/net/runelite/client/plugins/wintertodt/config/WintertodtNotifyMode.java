@@ -31,8 +31,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-public enum WintertodtNotifyMode
-{
+public enum WintertodtNotifyMode {
 	NONE("None"),
 	WHEN_DAMAGED("Damage Taken"),
 	ONLY_WHEN_INTERRUPTED("Action Interrupted"),
@@ -41,8 +40,7 @@ public enum WintertodtNotifyMode
 	private final String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

@@ -24,12 +24,7 @@
  */
 package net.runelite.client.plugins.devtools;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
 import net.runelite.api.Client;
-import static net.runelite.api.Constants.CHUNK_SIZE;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.Overlay;
@@ -39,15 +34,18 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
-public class LocationOverlay extends Overlay
-{
+import javax.inject.Inject;
+import java.awt.*;
+
+import static net.runelite.api.Constants.CHUNK_SIZE;
+
+public class LocationOverlay extends Overlay {
 	private final Client client;
 	private final DevToolsPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	LocationOverlay(Client client, DevToolsPlugin plugin)
-	{
+	LocationOverlay(Client client, DevToolsPlugin plugin) {
 		this.client = client;
 		this.plugin = plugin;
 		panelComponent.setPreferredSize(new Dimension(150, 0));
@@ -55,10 +53,8 @@ public class LocationOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.getLocation().isActive())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.getLocation().isActive()) {
 			return null;
 		}
 
@@ -71,8 +67,7 @@ public class LocationOverlay extends Overlay
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		if (client.isInInstancedRegion())
-		{
+		if (client.isInInstancedRegion()) {
 			tableComponent.addRow("Instance", "");
 
 			int[][][] instanceTemplateChunks = client.getInstanceTemplateChunks();
@@ -91,8 +86,7 @@ public class LocationOverlay extends Overlay
 		tableComponent.addRow("Scene", localPoint.getSceneX() + ", " + localPoint.getSceneY());
 		tableComponent.addRow("Tile", localWorld.getX() + ", " + localWorld.getY() + ", " + client.getPlane());
 
-		for (int i = 0; i < client.getMapRegions().length; i++)
-		{
+		for (int i = 0; i < client.getMapRegions().length; i++) {
 			int region = client.getMapRegions()[i];
 
 			tableComponent.addRow((i == 0) ? "Map regions" : " ", ColorUtil.prependColorTag(String.valueOf(region), (region == regionID) ? Color.GREEN : Color.WHITE));

@@ -29,56 +29,51 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("loginscreen")
-public interface LoginScreenConfig extends Config
-{
+public interface LoginScreenConfig extends Config {
 	@ConfigItem(
-		keyName = "syncusername",
-		name = "Sync username",
-		description = "Syncs the username that is currently remembered between computers",
-		position = 1
+			keyName = "syncusername",
+			name = "Sync username",
+			description = "Syncs the username that is currently remembered between computers",
+			position = 1
 	)
-	default boolean syncUsername()
-	{
+	default boolean syncUsername() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "pasteenabled",
-		name = "Ctrl-V paste",
-		description = "Enables Ctrl+V pasting on the login screen",
-		position = 2
+			keyName = "pasteenabled",
+			name = "Ctrl-V paste",
+			description = "Enables Ctrl+V pasting on the login screen",
+			position = 2
 	)
-	default boolean pasteEnabled()
-	{
+	default boolean pasteEnabled() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "hideDisconnect",
-		name = "Hide 5 min log message",
-		description = "Hides the \"You have been disconnected\" message which appears when you get 5 minute logged",
-		position = 3
+			keyName = "hideDisconnect",
+			name = "Hide 5 min log message",
+			description = "Hides the \"You have been disconnected\" message which appears when you get 5 minute logged",
+			position = 3
 	)
-	default boolean hideDisconnected()
-	{
+	default boolean hideDisconnected() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "username",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "username",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default String username()
-	{
+	default String username() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "username",
-		name = "",
-		description = ""
+			keyName = "username",
+			name = "",
+			description = ""
 	)
 	void username(String key);
 }

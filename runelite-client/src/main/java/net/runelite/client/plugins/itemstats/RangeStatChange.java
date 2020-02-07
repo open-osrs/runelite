@@ -32,8 +32,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RangeStatChange extends StatChange
-{
+public class RangeStatChange extends StatChange {
 	/**
 	 * Minimum relative change that will occur if the stat boost is applied now.
 	 * In this class, {@code relative} is representative of the maximum relative change that will
@@ -65,8 +64,7 @@ public class RangeStatChange extends StatChange
 	 * @return The formatted relative boost amount
 	 */
 	@Override
-	public String getFormattedRelative()
-	{
+	public String getFormattedRelative() {
 		return concat(minRelative, getRelative());
 	}
 
@@ -80,19 +78,14 @@ public class RangeStatChange extends StatChange
 	 * @return The formatted theoretical boost amount
 	 */
 	@Override
-	public String getFormattedTheoretical()
-	{
+	public String getFormattedTheoretical() {
 		return concat(minTheoretical, getTheoretical());
 	}
 
-	private static String concat(int changeA, int changeB)
-	{
-		if (changeA == changeB)
-		{
+	private static String concat(int changeA, int changeB) {
+		if (changeA == changeB) {
 			return formatBoost(changeA);
-		}
-		else if (changeA * -1 == changeB)
-		{
+		} else if (changeA * -1 == changeB) {
 			return "±" + Math.abs(changeA);
 		}
 
@@ -103,12 +96,9 @@ public class RangeStatChange extends StatChange
 
 		// If they share a operator, strip b's duplicate
 		if (changeA < 0 && changeB < 0
-			|| changeA >= 0 && changeB >= 0)
-		{
+				|| changeA >= 0 && changeB >= 0) {
 			sb.append(Math.abs(changeB));
-		}
-		else
-		{
+		} else {
 			sb.append(String.format("%+d", changeB));
 		}
 

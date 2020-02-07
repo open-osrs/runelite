@@ -26,14 +26,6 @@
 package net.runelite.client.ui.overlay.infobox;
 
 import com.google.common.base.Strings;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.ui.overlay.Overlay;
@@ -45,9 +37,13 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.List;
+
 @Singleton
-public class InfoBoxOverlay extends Overlay
-{
+public class InfoBoxOverlay extends Overlay {
 	private final PanelComponent panelComponent = new PanelComponent();
 	private final InfoBoxManager infoboxManager;
 	private final TooltipManager tooltipManager;
@@ -56,11 +52,10 @@ public class InfoBoxOverlay extends Overlay
 
 	@Inject
 	private InfoBoxOverlay(
-		InfoBoxManager infoboxManager,
-		TooltipManager tooltipManager,
-		Client client,
-		RuneLiteConfig config)
-	{
+			InfoBoxManager infoboxManager,
+			TooltipManager tooltipManager,
+			Client client,
+			RuneLiteConfig config) {
 		this.tooltipManager = tooltipManager;
 		this.infoboxManager = infoboxManager;
 		this.client = client;
@@ -73,26 +68,22 @@ public class InfoBoxOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		final List<InfoBox> infoBoxes = infoboxManager.getInfoBoxes();
 
-		if (infoBoxes.isEmpty())
-		{
+		if (infoBoxes.isEmpty()) {
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 		panelComponent.setWrapping(config.infoBoxWrap());
 		panelComponent.setOrientation(config.infoBoxVertical()
-			? ComponentOrientation.VERTICAL
-			: ComponentOrientation.HORIZONTAL);
+				? ComponentOrientation.VERTICAL
+				: ComponentOrientation.HORIZONTAL);
 		panelComponent.setPreferredSize(new Dimension(config.infoBoxSize(), config.infoBoxSize()));
 
-		for (InfoBox box : infoBoxes)
-		{
-			if (!box.render())
-			{
+		for (InfoBox box : infoBoxes) {
+			if (!box.render()) {
 				continue;
 			}
 
@@ -101,8 +92,7 @@ public class InfoBoxOverlay extends Overlay
 
 			final InfoBoxComponent infoBoxComponent = new InfoBoxComponent();
 			infoBoxComponent.setText(text);
-			if (color != null)
-			{
+			if (color != null) {
 				infoBoxComponent.setColor(color);
 			}
 			infoBoxComponent.setImage(box.getScaledImage());
@@ -115,20 +105,16 @@ public class InfoBoxOverlay extends Overlay
 		// Handle tooltips
 		final Point mouse = new Point(client.getMouseCanvasPosition().getX(), client.getMouseCanvasPosition().getY());
 
-		for (final LayoutableRenderableEntity child : panelComponent.getChildren())
-		{
-			if (child instanceof InfoBoxComponent)
-			{
+		for (final LayoutableRenderableEntity child : panelComponent.getChildren()) {
+			if (child instanceof InfoBoxComponent) {
 				final InfoBoxComponent component = (InfoBoxComponent) child;
 
-				if (!Strings.isNullOrEmpty(component.getTooltip()))
-				{
+				if (!Strings.isNullOrEmpty(component.getTooltip())) {
 					// Create intersection rectangle
 					final Rectangle intersectionRectangle = new Rectangle(component.getBounds());
 					intersectionRectangle.translate(getBounds().x, getBounds().y);
 
-					if (intersectionRectangle.contains(mouse))
-					{
+					if (intersectionRectangle.contains(mouse)) {
 						tooltipManager.add(new Tooltip(component.getTooltip()));
 					}
 				}

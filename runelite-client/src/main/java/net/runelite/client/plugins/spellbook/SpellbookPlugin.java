@@ -29,21 +29,10 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Provides;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.Point;
-import net.runelite.api.VarClientInt;
-import net.runelite.api.Varbits;
+import net.runelite.api.*;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarClientIntChanged;
@@ -52,8 +41,6 @@ import net.runelite.api.util.Text;
 import net.runelite.api.vars.InterfaceTab;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
-import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK;
-import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTERED_BOUNDS;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -65,20 +52,26 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
-import static net.runelite.client.util.MiscUtils.clamp;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.*;
+
+import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK;
+import static net.runelite.api.widgets.WidgetInfo.SPELLBOOK_FILTERED_BOUNDS;
+import static net.runelite.client.util.MiscUtils.clamp;
+
 @PluginDescriptor(
-	name = "Spellbook",
-	description = "Modifications to the spellbook",
-	tags = {"resize", "spell", "mobile", "lowers", "pvp", "skill", "level"},
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Spellbook",
+		description = "Modifications to the spellbook",
+		tags = {"resize", "spell", "mobile", "lowers", "pvp", "skill", "level"},
+		type = PluginType.UTILITY,
+		enabledByDefault = false
 )
 @Singleton
 @Slf4j
-public class SpellbookPlugin extends Plugin
-{
+public class SpellbookPlugin extends Plugin {
 	private static final int FULL_WIDTH = 184;
 	private static final int FULL_HEIGHT = 240;
 	private static final Gson GSON = new Gson();
@@ -136,21 +129,18 @@ public class SpellbookPlugin extends Plugin
 	private int size;
 
 	@Provides
-	SpellbookConfig getConfig(ConfigManager configManager)
-	{
+	SpellbookConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(SpellbookConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		refreshMagicTabOption();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		clearMagicTabMenus();
 		saveSpells();
 		config.canDrag(false);
@@ -158,8 +148,7 @@ public class SpellbookPlugin extends Plugin
 		mouseManager.unregisterMouseWheelListener(mouseListener);
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		loadFilter();
 		this.enableMobile = config.enableMobile();
 		this.dragSpells = config.dragSpells();
@@ -168,15 +157,12 @@ public class SpellbookPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(final ConfigChanged event)
-	{
-		if (!"spellbook".equals(event.getGroup()))
-		{
+	private void onConfigChanged(final ConfigChanged event) {
+		if (!"spellbook".equals(event.getGroup())) {
 			return;
 		}
 
-		switch (event.getKey())
-		{
+		switch (event.getKey()) {
 			case "filter":
 				loadFilter();
 				break;
@@ -200,46 +186,38 @@ public class SpellbookPlugin extends Plugin
 		refreshMagicTabOption();
 	}
 
-	private void loadFilter()
-	{
+	private void loadFilter() {
 		notFilteredSpells = ImmutableSet.copyOf(Text.fromCSV(config.filter().toLowerCase()));
 		saveSpells();
 		loadSpells();
 	}
 
 	@Subscribe
-	private void onGameStateChanged(final GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOGGED_IN)
-		{
+	private void onGameStateChanged(final GameStateChanged event) {
+		if (event.getGameState() == GameState.LOGGED_IN) {
 			mageTabOpen = client.getVar(VarClientInt.INTERFACE_TAB) == InterfaceTab.SPELLBOOK.getId();
 			refreshMagicTabOption();
 		}
 	}
 
 	@Subscribe
-	private void onVarCIntChanged(final VarClientIntChanged event)
-	{
-		if (event.getIndex() != VarClientInt.INTERFACE_TAB.getIndex())
-		{
+	private void onVarCIntChanged(final VarClientIntChanged event) {
+		if (event.getIndex() != VarClientInt.INTERFACE_TAB.getIndex()) {
 			return;
 		}
 
 		final boolean intfTab = client.getVar(VarClientInt.INTERFACE_TAB) == InterfaceTab.SPELLBOOK.getId();
-		if (intfTab != mageTabOpen)
-		{
+		if (intfTab != mageTabOpen) {
 			mageTabOpen = intfTab;
 			refreshMagicTabOption();
 		}
 
-		if (!config.canDrag() || client.getGameState() != GameState.LOGGED_IN)
-		{
+		if (!config.canDrag() || client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		final boolean shouldBeAbleToDrag = mageTabOpen && client.getVar(Varbits.FILTER_SPELLBOOK) == 0;
-		if (shouldBeAbleToDrag)
-		{
+		if (shouldBeAbleToDrag) {
 			return;
 		}
 
@@ -249,33 +227,27 @@ public class SpellbookPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onWidgetMenuOptionClicked(final WidgetMenuOptionClicked event)
-	{
+	private void onWidgetMenuOptionClicked(final WidgetMenuOptionClicked event) {
 		if (event.getWidget() != WidgetInfo.FIXED_VIEWPORT_MAGIC_TAB
-			&& event.getWidget() != WidgetInfo.RESIZABLE_VIEWPORT_MAGIC_TAB
-			&& event.getWidget() != WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_MAGIC_TAB)
-		{
+				&& event.getWidget() != WidgetInfo.RESIZABLE_VIEWPORT_MAGIC_TAB
+				&& event.getWidget() != WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_MAGIC_TAB) {
 			return;
 		}
 
 		saveSpells();
 		loadSpells();
 
-		if (event.getMenuOption().equals(UNLOCK))
-		{
+		if (event.getMenuOption().equals(UNLOCK)) {
 			config.canDrag(true);
 
 			overlayManager.add(overlay);
 
 			mouseManager.registerMouseListener(mouseListener);
 
-			if (this.scroll)
-			{
+			if (this.scroll) {
 				mouseManager.registerMouseWheelListener(mouseListener);
 			}
-		}
-		else if (event.getMenuOption().equals(LOCK))
-		{
+		} else if (event.getMenuOption().equals(LOCK)) {
 			config.canDrag(false);
 
 			overlayManager.remove(overlay);
@@ -287,8 +259,7 @@ public class SpellbookPlugin extends Plugin
 		refreshMagicTabOption();
 	}
 
-	private void clearMagicTabMenus()
-	{
+	private void clearMagicTabMenus() {
 		menuManager.removeManagedCustomMenu(FIXED_MAGIC_TAB_LOCK);
 		menuManager.removeManagedCustomMenu(RESIZABLE_MAGIC_TAB_LOCK);
 		menuManager.removeManagedCustomMenu(RESIZABLE_BOTTOM_LINE_MAGIC_TAB_LOCK);
@@ -297,23 +268,18 @@ public class SpellbookPlugin extends Plugin
 		menuManager.removeManagedCustomMenu(RESIZABLE_BOTTOM_LINE_MAGIC_TAB_UNLOCK);
 	}
 
-	private void refreshMagicTabOption()
-	{
+	private void refreshMagicTabOption() {
 		clearMagicTabMenus();
 
-		if (!this.dragSpells || !mageTabOpen)
-		{
+		if (!this.dragSpells || !mageTabOpen) {
 			return;
 		}
 
-		if (config.canDrag())
-		{
+		if (config.canDrag()) {
 			menuManager.addManagedCustomMenu(FIXED_MAGIC_TAB_LOCK);
 			menuManager.addManagedCustomMenu(RESIZABLE_MAGIC_TAB_LOCK);
 			menuManager.addManagedCustomMenu(RESIZABLE_BOTTOM_LINE_MAGIC_TAB_LOCK);
-		}
-		else
-		{
+		} else {
 			menuManager.addManagedCustomMenu(FIXED_MAGIC_TAB_UNLOCK);
 			menuManager.addManagedCustomMenu(RESIZABLE_MAGIC_TAB_UNLOCK);
 			menuManager.addManagedCustomMenu(RESIZABLE_BOTTOM_LINE_MAGIC_TAB_UNLOCK);
@@ -321,12 +287,10 @@ public class SpellbookPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(final ScriptCallbackEvent event)
-	{
+	private void onScriptCallbackEvent(final ScriptCallbackEvent event) {
 		if (client.getVar(Varbits.FILTER_SPELLBOOK) != 0
-			|| !this.enableMobile
-			|| !event.getEventName().toLowerCase().contains("spell"))
-		{
+				|| !this.enableMobile
+				|| !event.getEventName().toLowerCase().contains("spell")) {
 			return;
 		}
 
@@ -336,26 +300,22 @@ public class SpellbookPlugin extends Plugin
 		final String[] sStack = client.getStringStack();
 		final int sStackSize = client.getStringStackSize();
 
-		switch (event.getEventName())
-		{
+		switch (event.getEventName()) {
 			case "startSpellRedraw":
 				final Spellbook pook = Spellbook.getByID(client.getVar(Varbits.SPELLBOOK));
 
-				if (pook != spellbook)
-				{
+				if (pook != spellbook) {
 					saveSpells();
 					spellbook = pook;
 					loadSpells();
 				}
 
 				break;
-			case "shouldFilterSpell":
-			{
+			case "shouldFilterSpell": {
 				final String spell = sStack[sStackSize - 1].toLowerCase();
 				final int widget = iStack[iStackSize - 1];
 
-				if (!spells.containsKey(widget))
-				{
+				if (!spells.containsKey(widget)) {
 					final Spell s = new Spell();
 					s.setWidget(widget);
 					s.setX(-1);
@@ -366,8 +326,7 @@ public class SpellbookPlugin extends Plugin
 					spells.put(widget, s);
 				}
 
-				if (notFilteredSpells.isEmpty())
-				{
+				if (notFilteredSpells.isEmpty()) {
 					return;
 				}
 
@@ -380,8 +339,7 @@ public class SpellbookPlugin extends Plugin
 			case "resizeSpell":
 				final int size = this.size;
 
-				if (size == 0)
-				{
+				if (size == 0) {
 					return;
 				}
 
@@ -391,30 +349,25 @@ public class SpellbookPlugin extends Plugin
 				iStack[iStackSize - 1] = columns;
 				break;
 			case "setSpellAreaSize":
-				if (!this.dragSpells)
-				{
+				if (!this.dragSpells) {
 					return;
 				}
 
 				iStack[iStackSize - 2] = FULL_WIDTH;
 				iStack[iStackSize - 1] = FULL_HEIGHT;
 				break;
-			case "resizeIndividualSpells":
-			{
+			case "resizeIndividualSpells": {
 				final int widget = iStack[iStackSize - 1];
 
 				int visibleCount = 0;
-				for (Spell spell : spells.values())
-				{
+				for (Spell spell : spells.values()) {
 					final String s = spell.getName();
-					if (isUnfiltered(s, notFilteredSpells))
-					{
+					if (isUnfiltered(s, notFilteredSpells)) {
 						visibleCount++;
 					}
 				}
 
-				if (visibleCount > 20 || visibleCount == 0)
-				{
+				if (visibleCount > 20 || visibleCount == 0) {
 					return;
 				}
 
@@ -425,10 +378,8 @@ public class SpellbookPlugin extends Plugin
 				iStack[iStackSize - 2] = newSize;
 				break;
 			}
-			case "setSpellPosition":
-			{
-				if (!this.dragSpells)
-				{
+			case "setSpellPosition": {
+				if (!this.dragSpells) {
 					return;
 				}
 
@@ -437,8 +388,7 @@ public class SpellbookPlugin extends Plugin
 				final int x = s.getX();
 				final int y = s.getY();
 
-				if (x == -1 || y == -1)
-				{
+				if (x == -1 || y == -1) {
 					return;
 				}
 
@@ -449,50 +399,42 @@ public class SpellbookPlugin extends Plugin
 		}
 	}
 
-	private void loadSpells()
-	{
+	private void loadSpells() {
 		spells.clear();
 
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
-		if (spellbook == null)
-		{
+		if (spellbook == null) {
 			log.debug("Spellbook is null?");
 			return;
 		}
 
 		final String cfg = configManager.getConfiguration("spellbook", spellbook.getConfigKey());
 
-		if (Strings.isNullOrEmpty(cfg))
-		{
+		if (Strings.isNullOrEmpty(cfg)) {
 			return;
 		}
 
-		final Collection<Spell> gson = GSON.fromJson(cfg, new TypeToken<List<Spell>>() {}.getType());
+		final Collection<Spell> gson = GSON.fromJson(cfg, new TypeToken<List<Spell>>() {
+		}.getType());
 
-		for (final Spell s : gson)
-		{
+		for (final Spell s : gson) {
 			spells.put(s.getWidget(), s);
 		}
 	}
 
-	private void saveSpells()
-	{
-		if (spells.isEmpty())
-		{
+	private void saveSpells() {
+		if (spells.isEmpty()) {
 			return;
 		}
 
 		configManager.setConfiguration("spellbook", spellbook.getConfigKey(), GSON.toJson(spells.values()));
 	}
 
-	private void runRebuild()
-	{
-		if (client.getGameState() != GameState.LOGGED_IN || !mageTabOpen)
-		{
+	private void runRebuild() {
+		if (client.getGameState() != GameState.LOGGED_IN || !mageTabOpen) {
 			return;
 		}
 
@@ -502,39 +444,31 @@ public class SpellbookPlugin extends Plugin
 		clientThread.invoke(() ->
 		{
 			final Widget spellWidget = client.getWidget(SPELLBOOK);
-			if (spellWidget != null)
-			{
+			if (spellWidget != null) {
 				final Object[] args = spellWidget.getOnInvTransmit();
-				if (args != null)
-				{
+				if (args != null) {
 					client.runScript(args);
 				}
 			}
 		});
 	}
 
-	boolean isNotOnSpellWidget()
-	{
-		if (client.isMenuOpen() || !mageTabOpen)
-		{
+	boolean isNotOnSpellWidget() {
+		if (client.isMenuOpen() || !mageTabOpen) {
 			return true;
 		}
 
 		return currentWidget() == null;
 	}
 
-	private Widget currentWidget()
-	{
+	private Widget currentWidget() {
 		final Widget parent = client.getWidget(SPELLBOOK_FILTERED_BOUNDS);
-		if (parent == null)
-		{
+		if (parent == null) {
 			return null;
 		}
 
-		for (final Widget w : parent.getStaticChildren())
-		{
-			if (w.containsMouse())
-			{
+		for (final Widget w : parent.getStaticChildren()) {
+			if (w.containsMouse()) {
 				return w;
 			}
 		}
@@ -542,12 +476,10 @@ public class SpellbookPlugin extends Plugin
 		return null;
 	}
 
-	void startDragging(final java.awt.Point point)
-	{
+	void startDragging(final java.awt.Point point) {
 		draggingWidget = currentWidget();
 
-		if (draggingWidget == null)
-		{
+		if (draggingWidget == null) {
 			return;
 		}
 
@@ -561,8 +493,7 @@ public class SpellbookPlugin extends Plugin
 		dragging = true;
 	}
 
-	void completeDragging(final java.awt.Point point)
-	{
+	void completeDragging(final java.awt.Point point) {
 		final Point parentPos = client.getWidget(SPELLBOOK_FILTERED_BOUNDS).getCanvasLocation();
 
 		int x = point.x - draggingLocation.getX() - parentPos.getX();
@@ -584,26 +515,22 @@ public class SpellbookPlugin extends Plugin
 		runRebuild();
 	}
 
-	void increaseSize()
-	{
+	void increaseSize() {
 		final Widget scrolledWidget = currentWidget();
 
-		if (scrolledWidget == null || dragging)
-		{
+		if (scrolledWidget == null || dragging) {
 			return;
 		}
 
 		final int scrolledWidgetId = scrolledWidget.getId();
 		final Spell scrolledSpell = spells.get(scrolledWidgetId);
 
-		if (scrolledSpell.getX() == -1 || scrolledSpell.getY() == -1)
-		{
+		if (scrolledSpell.getX() == -1 || scrolledSpell.getY() == -1) {
 			scrolledSpell.setX(scrolledWidget.getRelativeX());
 			scrolledSpell.setY(scrolledWidget.getRelativeY());
 		}
 
-		if (trueSize(scrolledSpell) > FULL_WIDTH - 2)
-		{
+		if (trueSize(scrolledSpell) > FULL_WIDTH - 2) {
 			scrolledSpell.setX(0);
 			scrolledSpell.setY(clamp(scrolledSpell.getY(), 0, FULL_HEIGHT - FULL_WIDTH));
 			return;
@@ -617,12 +544,10 @@ public class SpellbookPlugin extends Plugin
 		runRebuild();
 	}
 
-	void decreaseSize()
-	{
+	void decreaseSize() {
 		final Widget scrolledWidget = currentWidget();
 
-		if (scrolledWidget == null || dragging)
-		{
+		if (scrolledWidget == null || dragging) {
 			return;
 		}
 
@@ -630,15 +555,13 @@ public class SpellbookPlugin extends Plugin
 		final Spell scrolledSpell = spells.get(scrolledWidgetId);
 
 		// People probably don't want to scroll on a single pixel
-		if (trueSize(scrolledSpell) <= 5)
-		{
+		if (trueSize(scrolledSpell) <= 5) {
 			return;
 		}
 
 		scrolledSpell.setSize(scrolledSpell.getSize() - 1);
 
-		if (scrolledSpell.getX() == -1 || scrolledSpell.getY() == -1)
-		{
+		if (scrolledSpell.getX() == -1 || scrolledSpell.getY() == -1) {
 			scrolledSpell.setX(scrolledWidget.getRelativeX());
 			scrolledSpell.setY(scrolledWidget.getRelativeY());
 		}
@@ -649,12 +572,10 @@ public class SpellbookPlugin extends Plugin
 		runRebuild();
 	}
 
-	void resetSize()
-	{
+	void resetSize() {
 		final Widget clickedWidget = currentWidget();
 
-		if (clickedWidget == null || dragging || !this.scroll)
-		{
+		if (clickedWidget == null || dragging || !this.scroll) {
 			return;
 		}
 
@@ -663,13 +584,11 @@ public class SpellbookPlugin extends Plugin
 
 		final int oldSize = clickedSpell.getSize();
 
-		if (oldSize == 0)
-		{
+		if (oldSize == 0) {
 			return;
 		}
 
-		if (clickedSpell.getX() == -1 || clickedSpell.getY() == -1)
-		{
+		if (clickedSpell.getX() == -1 || clickedSpell.getY() == -1) {
 			clickedSpell.setX(clickedWidget.getRelativeX());
 			clickedSpell.setY(clickedWidget.getRelativeY());
 		}
@@ -685,12 +604,10 @@ public class SpellbookPlugin extends Plugin
 	// I know this still opens menu but else you
 	// wouldn't be able to get out of the spellbook
 	// mode thing lol
-	void resetLocation()
-	{
+	void resetLocation() {
 		final Widget clickedWidget = currentWidget();
 
-		if (clickedWidget == null || dragging)
-		{
+		if (clickedWidget == null || dragging) {
 			return;
 		}
 
@@ -703,44 +620,31 @@ public class SpellbookPlugin extends Plugin
 		runRebuild();
 	}
 
-	private int trueSize(final Spell s)
-	{
+	private int trueSize(final Spell s) {
 		return s.getSize() * 2 + this.size;
 	}
 
-	private static boolean isUnfiltered(final String spell, final Set<String> unfiltereds)
-	{
-		for (final String str : unfiltereds)
-		{
+	private static boolean isUnfiltered(final String spell, final Set<String> unfiltereds) {
+		for (final String str : unfiltereds) {
 			boolean b;
 
-			if (str.length() == 0)
-			{
+			if (str.length() == 0) {
 				continue;
 			}
 
-			if (str.charAt(0) == '\"')
-			{
-				if (str.charAt(str.length() - 1) == '\"')
-				{
+			if (str.charAt(0) == '\"') {
+				if (str.charAt(str.length() - 1) == '\"') {
 					b = spell.equalsIgnoreCase(str.substring(1, str.length() - 1));
-				}
-				else
-				{
+				} else {
 					b = StringUtils.startsWithIgnoreCase(spell, str.substring(1));
 				}
-			}
-			else if (str.charAt(str.length() - 1) == '\"')
-			{
+			} else if (str.charAt(str.length() - 1) == '\"') {
 				b = StringUtils.endsWithIgnoreCase(spell, StringUtils.chop(str));
-			}
-			else
-			{
+			} else {
 				b = StringUtils.containsIgnoreCase(spell, str);
 			}
 
-			if (b)
-			{
+			if (b) {
 				return true;
 			}
 		}

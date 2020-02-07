@@ -24,37 +24,33 @@
  */
 package net.runelite.client.plugins.clanchat;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.infobox.Counter;
 
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 @Singleton
-class ClanChatIndicator extends Counter
-{
+class ClanChatIndicator extends Counter {
 	private final ClanChatPlugin plugin;
 
-	ClanChatIndicator(final BufferedImage image, final ClanChatPlugin plugin)
-	{
+	ClanChatIndicator(final BufferedImage image, final ClanChatPlugin plugin) {
 		super(image, plugin, plugin.getClanAmount());
 		this.plugin = plugin;
 	}
 
 	@Override
-	public int getCount()
-	{
+	public int getCount() {
 		return plugin.getClanAmount();
 	}
 
 	@Override
-	public String getTooltip()
-	{
+	public String getTooltip() {
 		return plugin.getClanAmount() + " clan member(s) near you";
 	}
 
 	@Override
-	public Color getTextColor()
-	{
+	public Color getTextColor() {
 		return Color.WHITE;
 	}
 }

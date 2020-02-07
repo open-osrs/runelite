@@ -30,71 +30,64 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("chatfilter")
-public interface ChatFilterConfig extends Config
-{
+public interface ChatFilterConfig extends Config {
 	@ConfigItem(
-		keyName = "filterType",
-		name = "Filter type",
-		description = "Configures how the messages are filtered",
-		position = 1
+			keyName = "filterType",
+			name = "Filter type",
+			description = "Configures how the messages are filtered",
+			position = 1
 	)
-	default ChatFilterType filterType()
-	{
+	default ChatFilterType filterType() {
 		return ChatFilterType.CENSOR_WORDS;
 	}
 
 	@ConfigItem(
-		keyName = "filteredWords",
-		name = "Filtered Words",
-		description = "List of filtered words, separated by commas",
-		position = 2
+			keyName = "filteredWords",
+			name = "Filtered Words",
+			description = "List of filtered words, separated by commas",
+			position = 2
 	)
-	default String filteredWords()
-	{
+	default String filteredWords() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "filteredRegex",
-		name = "Filtered Regex",
-		description = "List of regular expressions to filter, one per line",
-		position = 3
+			keyName = "filteredRegex",
+			name = "Filtered Regex",
+			description = "List of regular expressions to filter, one per line",
+			position = 3
 	)
-	default String filteredRegex()
-	{
+	default String filteredRegex() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "filterFriends",
-		name = "Filter Friends",
-		description = "Filter your friends' messages",
-		position = 4
+			keyName = "filterFriends",
+			name = "Filter Friends",
+			description = "Filter your friends' messages",
+			position = 4
 	)
-	default boolean filterFriends()
-	{
+	default boolean filterFriends() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "filterClan",
-		name = "Filter Clan Chat Members",
-		description = "Filter your clan chat members' messages",
-		position = 5
+			keyName = "filterClan",
+			name = "Filter Clan Chat Members",
+			description = "Filter your clan chat members' messages",
+			position = 5
 	)
-	default boolean filterClan()
-	{
+	default boolean filterClan() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "filterLogin",
-		name = "Filter Logged In/Out Messages",
-		description = "Filter your private chat to remove logged in/out messages",
-		position = 6
+			keyName = "filterLogin",
+			name = "Filter Logged In/Out Messages",
+			description = "Filter your private chat to remove logged in/out messages",
+			position = 6
 	)
-	default boolean filterLogin()
-	{
+	default boolean filterLogin() {
 		return false;
 	}
 }

@@ -24,17 +24,16 @@
  */
 package net.runelite.client.plugins.minimap;
 
-import java.awt.Color;
 import net.runelite.api.Client;
 import net.runelite.api.Sprite;
 
-class MinimapDot
-{
+import java.awt.*;
+
+class MinimapDot {
 	private static final int MAP_DOT_WIDTH = 4;
 	private static final int MAP_DOT_HEIGHT = 5;
 
-	private static int[] createPixels(Color color)
-	{
+	private static int[] createPixels(Color color) {
 		int rgb = color.getRGB();
 
 		int[] pixels = new int[MAP_DOT_HEIGHT * MAP_DOT_WIDTH];
@@ -67,8 +66,7 @@ class MinimapDot
 		return pixels;
 	}
 
-	public static Sprite create(Client client, Color color)
-	{
+	public static Sprite create(Client client, Color color) {
 		int[] pixels = createPixels(color);
 
 		return client.createSprite(pixels, MAP_DOT_WIDTH, MAP_DOT_HEIGHT);

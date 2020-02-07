@@ -29,135 +29,121 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("poh")
-public interface PohConfig extends Config
-{
+public interface PohConfig extends Config {
 	@ConfigItem(
-		keyName = "showPortals",
-		name = "Show Portals",
-		description = "Configures whether to display teleport portals"
+			keyName = "showPortals",
+			name = "Show Portals",
+			description = "Configures whether to display teleport portals"
 	)
-	default boolean showPortals()
-	{
+	default boolean showPortals() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showAltar",
-		name = "Show Altar",
-		description = "Configures whether or not the altar is displayed"
+			keyName = "showAltar",
+			name = "Show Altar",
+			description = "Configures whether or not the altar is displayed"
 	)
-	default boolean showAltar()
-	{
+	default boolean showAltar() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showGlory",
-		name = "Show Glory mount",
-		description = "Configures whether or not the mounted glory is displayed"
+			keyName = "showGlory",
+			name = "Show Glory mount",
+			description = "Configures whether or not the mounted glory is displayed"
 	)
-	default boolean showGlory()
-	{
+	default boolean showGlory() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showPools",
-		name = "Show Pools",
-		description = "Configures whether or not the pools are displayed"
+			keyName = "showPools",
+			name = "Show Pools",
+			description = "Configures whether or not the pools are displayed"
 	)
-	default boolean showPools()
-	{
+	default boolean showPools() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showRepairStand",
-		name = "Show Repair stand",
-		description = "Configures whether or not the repair stand is displayed"
+			keyName = "showRepairStand",
+			name = "Show Repair stand",
+			description = "Configures whether or not the repair stand is displayed"
 	)
-	default boolean showRepairStand()
-	{
+	default boolean showRepairStand() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showExitPortal",
-		name = "Show Exit portal",
-		description = "Configures whether or not the exit portal is displayed"
+			keyName = "showExitPortal",
+			name = "Show Exit portal",
+			description = "Configures whether or not the exit portal is displayed"
 	)
-	default boolean showExitPortal()
-	{
+	default boolean showExitPortal() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showBurner",
-		name = "Show Incense Burner timers",
-		description = "Configures whether or not unlit/lit burners are displayed"
+			keyName = "showBurner",
+			name = "Show Incense Burner timers",
+			description = "Configures whether or not unlit/lit burners are displayed"
 	)
-	default boolean showBurner()
-	{
+	default boolean showBurner() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showSpellbook",
-		name = "Show Spellbook altar",
-		description = "Configures whether or not the Spellbook altar is displayed"
+			keyName = "showSpellbook",
+			name = "Show Spellbook altar",
+			description = "Configures whether or not the Spellbook altar is displayed"
 	)
-	default boolean showSpellbook()
-	{
+	default boolean showSpellbook() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showJewelleryBox",
-		name = "Show Jewellery Box",
-		description = "Configures whether or not the jewellery box is displayed"
+			keyName = "showJewelleryBox",
+			name = "Show Jewellery Box",
+			description = "Configures whether or not the jewellery box is displayed"
 	)
-	default boolean showJewelleryBox()
-	{
+	default boolean showJewelleryBox() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showMagicTravel",
-		name = "Show Fairy/ Spirit Tree/ Obelisk",
-		description = "Configures whether or not the Fairy ring, Spirit tree or Obelisk is displayed"
+			keyName = "showMagicTravel",
+			name = "Show Fairy/ Spirit Tree/ Obelisk",
+			description = "Configures whether or not the Fairy ring, Spirit tree or Obelisk is displayed"
 	)
-	default boolean showMagicTravel()
-	{
+	default boolean showMagicTravel() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showPortalNexus",
-		name = "Show Portal Nexus",
-		description = "Configures whether or not the Portal Nexus is displayed"
+			keyName = "showPortalNexus",
+			name = "Show Portal Nexus",
+			description = "Configures whether or not the Portal Nexus is displayed"
 	)
-	default boolean showPortalNexus()
-	{
+	default boolean showPortalNexus() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showDigsitePendant",
-		name = "Show Digsite Pendant",
-		description = "Configures whether or not the Digsite Pendant is displayed"
+			keyName = "showDigsitePendant",
+			name = "Show Digsite Pendant",
+			description = "Configures whether or not the Digsite Pendant is displayed"
 	)
-	default boolean showDigsitePendant()
-	{
+	default boolean showDigsitePendant() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showXericsTalisman",
-		name = "Show Xeric's Talisman",
-		description = "Configures whether or not the Xeric's Talisman is displayed"
+			keyName = "showXericsTalisman",
+			name = "Show Xeric's Talisman",
+			description = "Configures whether or not the Xeric's Talisman is displayed"
 	)
-	default boolean showXericsTalisman()
-	{
+	default boolean showXericsTalisman() {
 		return true;
 	}
 }

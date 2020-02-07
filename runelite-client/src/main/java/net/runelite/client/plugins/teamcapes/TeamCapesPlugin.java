@@ -25,15 +25,6 @@
 package net.runelite.client.plugins.teamcapes;
 
 import com.google.inject.Provides;
-import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
@@ -44,16 +35,21 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
+
 @PluginDescriptor(
-	name = "Team Capes",
-	description = "Show the different team capes in your area and the amount of each",
-	tags = {"overlay", "players"},
-	enabledByDefault = false,
-	type = PluginType.MISCELLANEOUS
+		name = "Team Capes",
+		description = "Show the different team capes in your area and the amount of each",
+		tags = {"overlay", "players"},
+		enabledByDefault = false,
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class TeamCapesPlugin extends Plugin
-{
+public class TeamCapesPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -67,47 +63,37 @@ public class TeamCapesPlugin extends Plugin
 	private Map<Integer, Integer> teams = new HashMap<>();
 
 	@Provides
-	TeamCapesConfig provideConfig(ConfigManager configManager)
-	{
+	TeamCapesConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(TeamCapesConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		teams.clear();
 	}
 
 	@Schedule(
-		period = 1800,
-		unit = ChronoUnit.MILLIS
+			period = 1800,
+			unit = ChronoUnit.MILLIS
 	)
-	public void update()
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	public void update() {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 		List<Player> players = client.getPlayers();
 		teams.clear();
-		for (Player player : players)
-		{
+		for (Player player : players) {
 			int team = player.getTeam();
-			if (team > 0)
-			{
-				if (teams.containsKey(team))
-				{
+			if (team > 0) {
+				if (teams.containsKey(team)) {
 					teams.put(team, teams.get(team) + 1);
-				}
-				else
-				{
+				} else {
 					teams.put(team, 1);
 				}
 			}
@@ -115,15 +101,14 @@ public class TeamCapesPlugin extends Plugin
 
 		// Sort teams by value in descending order and then by key in ascending order, limited to 5 entries
 		teams = teams.entrySet().stream()
-			.sorted(
-				Comparator.comparing(Map.Entry<Integer, Integer>::getValue, Comparator.reverseOrder())
-					.thenComparingInt(Map.Entry::getKey)
-			)
-			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+				.sorted(
+						Comparator.comparing(Map.Entry<Integer, Integer>::getValue, Comparator.reverseOrder())
+								.thenComparingInt(Map.Entry::getKey)
+				)
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 	}
 
-	public Map<Integer, Integer> getTeams()
-	{
+	public Map<Integer, Integer> getTeams() {
 		return teams;
 	}
 

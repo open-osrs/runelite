@@ -25,110 +25,101 @@
  */
 package net.runelite.client.plugins.multiindicators;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("multiindicators")
-public interface MultiIndicatorsConfig extends Config
-{
+public interface MultiIndicatorsConfig extends Config {
 	@ConfigItem(
-		keyName = "multicombatZoneVisibility",
-		name = "Multicombat zones",
-		description = "Determine where multicombat zones should be shown",
-		position = 1
+			keyName = "multicombatZoneVisibility",
+			name = "Multicombat zones",
+			description = "Determine where multicombat zones should be shown",
+			position = 1
 	)
-	default ZoneVisibility multicombatZoneVisibility()
-	{
+	default ZoneVisibility multicombatZoneVisibility() {
 		return ZoneVisibility.SHOW_IN_PVP;
 	}
 
 	@ConfigItem(
-		keyName = "pvpSafeZones",
-		name = "PvP safe zones",
-		description = "Show safe zones in PvP worlds",
-		position = 2
+			keyName = "pvpSafeZones",
+			name = "PvP safe zones",
+			description = "Show safe zones in PvP worlds",
+			position = 2
 	)
-	default boolean showPvpSafeZones()
-	{
+	default boolean showPvpSafeZones() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "deadmanSafeZones",
-		name = "Deadman safe zones",
-		description = "Show safe zones in Deadman worlds",
-		position = 3
+			keyName = "deadmanSafeZones",
+			name = "Deadman safe zones",
+			description = "Show safe zones in Deadman worlds",
+			position = 3
 	)
-	default boolean showDeadmanSafeZones()
-	{
+	default boolean showDeadmanSafeZones() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "wildernessLevelLines",
-		name = "Wilderness level lines",
-		description = "Show wilderness level lines",
-		position = 4
+			keyName = "wildernessLevelLines",
+			name = "Wilderness level lines",
+			description = "Show wilderness level lines",
+			position = 4
 	)
-	default boolean showWildernessLevelLines()
-	{
+	default boolean showWildernessLevelLines() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "showMinimapLines",
-		name = "Show on minimap",
-		description = "Show multicombat and safe zones on the minimap",
-		position = 5
+			keyName = "showMinimapLines",
+			name = "Show on minimap",
+			description = "Show multicombat and safe zones on the minimap",
+			position = 5
 	)
-	default boolean showMinimapLines()
-	{
+	default boolean showMinimapLines() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "multicombatColor",
-		name = "Multicombat zone color",
-		description = "Choose color to use for marking multicombat zones",
-		position = 6
+			keyName = "multicombatColor",
+			name = "Multicombat zone color",
+			description = "Choose color to use for marking multicombat zones",
+			position = 6
 	)
-	default Color multicombatColor()
-	{
+	default Color multicombatColor() {
 		return Color.MAGENTA;
 	}
 
 	@ConfigItem(
-		keyName = "safeZoneColor",
-		name = "Safe zone color",
-		description = "Choose color to use for marking safe zones in PvP/Deadman",
-		position = 7
+			keyName = "safeZoneColor",
+			name = "Safe zone color",
+			description = "Choose color to use for marking safe zones in PvP/Deadman",
+			position = 7
 	)
-	default Color safeZoneColor()
-	{
+	default Color safeZoneColor() {
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-		keyName = "wildernessLevelLinesColor",
-		name = "Wilderness level lines color",
-		description = "Choose color to use for marking wilderness level lines",
-		position = 8
+			keyName = "wildernessLevelLinesColor",
+			name = "Wilderness level lines color",
+			description = "Choose color to use for marking wilderness level lines",
+			position = 8
 	)
-	default Color wildernessLevelLinesColor()
-	{
+	default Color wildernessLevelLinesColor() {
 		return Color.WHITE;
 	}
 
 	@ConfigItem(
-		keyName = "thinnerLines",
-		name = "Thin lines",
-		description = "Render multi lines, safe zone lines, and wildy level lines as 1 pixel wide instead of 2",
-		position = 9
+			keyName = "thinnerLines",
+			name = "Thin lines",
+			description = "Render multi lines, safe zone lines, and wildy level lines as 1 pixel wide instead of 2",
+			position = 9
 	)
-	default boolean thinnerLines()
-	{
+	default boolean thinnerLines() {
 		return false;
 	}
 

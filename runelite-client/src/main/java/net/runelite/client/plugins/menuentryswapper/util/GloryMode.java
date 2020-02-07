@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum GloryMode
-{
+public enum GloryMode {
 	EDGEVILLE("Edgeville"),
 	KARAMJA("Karamja"),
 	DRAYNOR_VILLAGE("Draynor Village"),
@@ -33,14 +32,12 @@ public enum GloryMode
 
 	private final String name;
 
-	GloryMode(String name)
-	{
+	GloryMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

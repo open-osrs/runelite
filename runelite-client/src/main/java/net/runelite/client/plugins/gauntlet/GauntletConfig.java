@@ -26,25 +26,18 @@
 
 package net.runelite.client.plugins.gauntlet;
 
-import java.awt.Color;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.ConfigTitleSection;
-import net.runelite.client.config.Range;
-import net.runelite.client.config.Title;
-import net.runelite.client.config.Units;
+import net.runelite.client.config.*;
+
+import java.awt.*;
 
 @ConfigGroup("Gauntlet")
 
-public interface GauntletConfig extends Config
-{
+public interface GauntletConfig extends Config {
 	@Getter
 	@AllArgsConstructor
-	enum CounterDisplay
-	{
+	enum CounterDisplay {
 		ONBOSS("On Boss"),
 		INFOBOX("Info Box"),
 		BOTH("Both"),
@@ -53,286 +46,263 @@ public interface GauntletConfig extends Config
 		private String name;
 
 		@Override
-		public String toString()
-		{
+		public String toString() {
 			return getName();
 		}
 	}
 
 	@ConfigTitleSection(
-		keyName = "resources",
-		position = 0,
-		name = "Resources",
-		description = ""
+			keyName = "resources",
+			position = 0,
+			name = "Resources",
+			description = ""
 	)
-	default Title resources()
-	{
+	default Title resources() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 1,
-		keyName = "highlightResources",
-		name = "Highlight Resources (Outline)",
-		description = "Highlights all the resources in each room with an outline.",
-		titleSection = "resources"
+			position = 1,
+			keyName = "highlightResources",
+			name = "Highlight Resources (Outline)",
+			description = "Highlights all the resources in each room with an outline.",
+			titleSection = "resources"
 	)
-	default boolean highlightResources()
-	{
+	default boolean highlightResources() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "highlightResourcesColor",
-		name = "Highlight Color",
-		description = "Highlights all the resources in each room with this color.",
-		titleSection = "resources",
-		hidden = true,
-		unhide = "highlightResources"
+			position = 2,
+			keyName = "highlightResourcesColor",
+			name = "Highlight Color",
+			description = "Highlights all the resources in each room with this color.",
+			titleSection = "resources",
+			hidden = true,
+			unhide = "highlightResources"
 	)
-	default Color highlightResourcesColor()
-	{
+	default Color highlightResourcesColor() {
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "highlightResourcesIcons",
-		name = "Highlight Resources (Icon)",
-		description = "Highlights all the icons in each room with an icon.",
-		titleSection = "resources",
-		hidden = true,
-		unhide = "highlightResources"
+			position = 3,
+			keyName = "highlightResourcesIcons",
+			name = "Highlight Resources (Icon)",
+			description = "Highlights all the icons in each room with an icon.",
+			titleSection = "resources",
+			hidden = true,
+			unhide = "highlightResources"
 	)
-	default boolean highlightResourcesIcons()
-	{
+	default boolean highlightResourcesIcons() {
 		return false;
 	}
 
 	@Range(
-		min = 1,
-		max = 50
+			min = 1,
+			max = 50
 	)
 	@ConfigItem(
-		position = 4,
-		keyName = "resourceIconSize",
-		name = "Resource Icon Size",
-		description = " change the size of resource icons.",
-		hidden = true,
-		unhide = "highlightResources",
-		titleSection = "resources"
+			position = 4,
+			keyName = "resourceIconSize",
+			name = "Resource Icon Size",
+			description = " change the size of resource icons.",
+			hidden = true,
+			unhide = "highlightResources",
+			titleSection = "resources"
 	)
-	default int resourceIconSize()
-	{
+	default int resourceIconSize() {
 		return 20;
 	}
 
 	@ConfigTitleSection(
-		keyName = "boss",
-		position = 5,
-		name = "Boss",
-		description = ""
+			keyName = "boss",
+			position = 5,
+			name = "Boss",
+			description = ""
 	)
-	default Title boss()
-	{
+	default Title boss() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "countAttacks",
-		name = "Count Attacks Display",
-		description = "Count the attacks until the Hunllef switches their attack style and prayer.",
-		titleSection = "boss"
+			position = 6,
+			keyName = "countAttacks",
+			name = "Count Attacks Display",
+			description = "Count the attacks until the Hunllef switches their attack style and prayer.",
+			titleSection = "boss"
 	)
-	default CounterDisplay countAttacks()
-	{
+	default CounterDisplay countAttacks() {
 		return CounterDisplay.NONE;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "highlightWidget",
-		name = "Highlight Prayer (Prayer Tab)",
-		description = "Highlights the correct prayer to use in your prayer book.",
-		titleSection = "boss"
+			position = 7,
+			keyName = "highlightWidget",
+			name = "Highlight Prayer (Prayer Tab)",
+			description = "Highlights the correct prayer to use in your prayer book.",
+			titleSection = "boss"
 	)
-	default boolean highlightWidget()
-	{
+	default boolean highlightWidget() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "highlightPrayerInfobox",
-		name = "Highlight Prayer (InfoBox)",
-		description = "Highlights the correct prayer to use in an Infobox.",
-		titleSection = "boss"
+			position = 8,
+			keyName = "highlightPrayerInfobox",
+			name = "Highlight Prayer (InfoBox)",
+			description = "Highlights the correct prayer to use in an Infobox.",
+			titleSection = "boss"
 	)
-	default boolean highlightPrayerInfobox()
-	{
+	default boolean highlightPrayerInfobox() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "flashOnWrongAttack",
-		name = "Flash screen on Wrong Attack",
-		description = "This will flash your screen if you attack with the wrong stlye.",
-		titleSection = "boss"
+			position = 9,
+			keyName = "flashOnWrongAttack",
+			name = "Flash screen on Wrong Attack",
+			description = "This will flash your screen if you attack with the wrong stlye.",
+			titleSection = "boss"
 	)
-	default boolean flashOnWrongAttack()
-	{
+	default boolean flashOnWrongAttack() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 10,
-		keyName = "uniquePrayerAudio",
-		name = "Prayer Audio Warning",
-		description = "Plays a unique sound whenever the boss is about to shut down your prayer.",
-		titleSection = "boss"
+			position = 10,
+			keyName = "uniquePrayerAudio",
+			name = "Prayer Audio Warning",
+			description = "Plays a unique sound whenever the boss is about to shut down your prayer.",
+			titleSection = "boss"
 	)
-	default boolean uniquePrayerAudio()
-	{
+	default boolean uniquePrayerAudio() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 11,
-		keyName = "uniquePrayerVisual",
-		name = "Prayer Attack (Icon)",
-		description = "Prayer attacks will have a unique overlay visual.",
-		titleSection = "boss"
+			position = 11,
+			keyName = "uniquePrayerVisual",
+			name = "Prayer Attack (Icon)",
+			description = "Prayer attacks will have a unique overlay visual.",
+			titleSection = "boss"
 	)
-	default boolean uniquePrayerVisual()
-	{
+	default boolean uniquePrayerVisual() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 12,
-		keyName = "uniqueAttackVisual",
-		name = "Magic & Range Attack (Icon)",
-		description = "Magic and Range attacks will have a unique overlay visual.",
-		titleSection = "boss"
+			position = 12,
+			keyName = "uniqueAttackVisual",
+			name = "Magic & Range Attack (Icon)",
+			description = "Magic and Range attacks will have a unique overlay visual.",
+			titleSection = "boss"
 	)
-	default boolean uniqueAttackVisual()
-	{
+	default boolean uniqueAttackVisual() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 13,
-		keyName = "attackVisualOutline",
-		name = "Hunllefs' attacks (Outline)",
-		description = "Outline the Hunllefs' attacks.",
-		titleSection = "boss"
+			position = 13,
+			keyName = "attackVisualOutline",
+			name = "Hunllefs' attacks (Outline)",
+			description = "Outline the Hunllefs' attacks.",
+			titleSection = "boss"
 	)
-	default boolean attackVisualOutline()
-	{
+	default boolean attackVisualOutline() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 14,
-		keyName = "overlayBoss",
-		name = "Outline Hunllef (Color)",
-		description = "Overlay Hunllef while you are on the wrong prayer with an color denoting it's current attack style.",
-		titleSection = "boss"
+			position = 14,
+			keyName = "overlayBoss",
+			name = "Outline Hunllef (Color)",
+			description = "Overlay Hunllef while you are on the wrong prayer with an color denoting it's current attack style.",
+			titleSection = "boss"
 	)
-	default boolean overlayBoss()
-	{
+	default boolean overlayBoss() {
 		return false;
 	}
 
 
 	@ConfigItem(
-		position = 15,
-		keyName = "overlayBossPrayer",
-		name = "Hunllef Overlay (Icons)",
-		description = "Overlay the Hunllef with an icon denoting it's current attack style.",
-		titleSection = "boss"
+			position = 15,
+			keyName = "overlayBossPrayer",
+			name = "Hunllef Overlay (Icons)",
+			description = "Overlay the Hunllef with an icon denoting it's current attack style.",
+			titleSection = "boss"
 	)
-	default boolean overlayBossPrayer()
-	{
+	default boolean overlayBossPrayer() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 16,
-		keyName = "overlayTornadoes",
-		name = "Show Tornado Decay",
-		description = "Display the amount of ticks left until the tornadoes decay.",
-		titleSection = "boss"
+			position = 16,
+			keyName = "overlayTornadoes",
+			name = "Show Tornado Decay",
+			description = "Display the amount of ticks left until the tornadoes decay.",
+			titleSection = "boss"
 	)
-	default boolean overlayTornadoes()
-	{
+	default boolean overlayTornadoes() {
 		return false;
 	}
 
 	@Range(
-		min = 1,
-		max = 50
+			min = 1,
+			max = 50
 	)
 	@ConfigItem(
-		position = 17,
-		keyName = "projectileIconSize",
-		name = "Hunllef Projectile Icon Size",
-		description = " change the size of Projectile icons.",
-		titleSection = "boss"
+			position = 17,
+			keyName = "projectileIconSize",
+			name = "Hunllef Projectile Icon Size",
+			description = " change the size of Projectile icons.",
+			titleSection = "boss"
 	)
 	@Units(Units.PIXELS)
-	default int projectileIconSize()
-	{
+	default int projectileIconSize() {
 		return 20;
 	}
 
 	@ConfigTitleSection(
-		keyName = "timer",
-		position = 18,
-		name = "Timer",
-		description = ""
+			keyName = "timer",
+			position = 18,
+			name = "Timer",
+			description = ""
 	)
-	default Title timer()
-	{
+	default Title timer() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 19,
-		keyName = "displayTimerWidget",
-		name = "Show Gauntlet timer overlay",
-		description = "Display a timer widget that tracks your gauntlet progress.",
-		titleSection = "timer"
+			position = 19,
+			keyName = "displayTimerWidget",
+			name = "Show Gauntlet timer overlay",
+			description = "Display a timer widget that tracks your gauntlet progress.",
+			titleSection = "timer"
 	)
-	default boolean displayTimerWidget()
-	{
+	default boolean displayTimerWidget() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 20,
-		keyName = "displayTimerChat",
-		name = "Show Gauntlet timer chat message",
-		description = "Display a chat message that tracks your gauntlet progress.",
-		titleSection = "timer"
+			position = 20,
+			keyName = "displayTimerChat",
+			name = "Show Gauntlet timer chat message",
+			description = "Display a chat message that tracks your gauntlet progress.",
+			titleSection = "timer"
 	)
-	default boolean displayTimerChat()
-	{
+	default boolean displayTimerChat() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 21,
-		keyName = "displayResources",
-		name = "Show raw resources gathered",
-		description = "Displays how much of each resource you have gathered.",
-		titleSection = "resources"
+			position = 21,
+			keyName = "displayResources",
+			name = "Show raw resources gathered",
+			description = "Displays how much of each resource you have gathered.",
+			titleSection = "resources"
 	)
-	default boolean displayGatheredResources()
-	{
+	default boolean displayGatheredResources() {
 		return false;
 	}
 }

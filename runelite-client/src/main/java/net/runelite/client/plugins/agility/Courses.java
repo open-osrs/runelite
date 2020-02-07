@@ -25,13 +25,13 @@
 package net.runelite.client.plugins.agility;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
 
-enum Courses
-{
+import java.util.Map;
+
+enum Courses {
 	GNOME(86.5, 46, 9781),
 	DRAYNOR(120.0, 79, 12338),
 	AL_KHARID(180.0, 30, 13105, new WorldPoint(3299, 3194, 0)),
@@ -64,28 +64,24 @@ enum Courses
 	@Getter(AccessLevel.PACKAGE)
 	private final WorldPoint[] courseEndWorldPoints;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, Courses> builder = new ImmutableMap.Builder<>();
 
-		for (Courses course : values())
-		{
+		for (Courses course : values()) {
 			builder.put(course.regionId, course);
 		}
 
 		coursesByRegion = builder.build();
 	}
 
-	Courses(double totalXp, int lastObstacleXp, int regionId, WorldPoint... courseEndWorldPoints)
-	{
+	Courses(double totalXp, int lastObstacleXp, int regionId, WorldPoint... courseEndWorldPoints) {
 		this.totalXp = totalXp;
 		this.lastObstacleXp = lastObstacleXp;
 		this.regionId = regionId;
 		this.courseEndWorldPoints = courseEndWorldPoints;
 	}
 
-	static Courses getCourse(int regionId)
-	{
+	static Courses getCourse(int regionId) {
 		return coursesByRegion.get(regionId);
 	}
 }

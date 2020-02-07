@@ -30,29 +30,25 @@ import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
 
 @Getter(AccessLevel.PACKAGE)
-public class FarmingRegion
-{
+public class FarmingRegion {
 	private final String name;
 	private final int regionID;
 	private final FarmingPatch[] patches;
 	private final Varbits[] varbits;
 
-	FarmingRegion(String name, int regionID, FarmingPatch... patches)
-	{
+	FarmingRegion(String name, int regionID, FarmingPatch... patches) {
 		this.name = name;
 		this.regionID = regionID;
 		this.patches = patches;
 		this.varbits = new Varbits[patches.length];
-		for (int i = 0; i < patches.length; i++)
-		{
+		for (int i = 0; i < patches.length; i++) {
 			FarmingPatch p = patches[i];
 			p.setRegion(this);
 			varbits[i] = p.getVarbit();
 		}
 	}
 
-	public boolean isInBounds(WorldPoint loc)
-	{
+	public boolean isInBounds(WorldPoint loc) {
 		return true;
 	}
 }

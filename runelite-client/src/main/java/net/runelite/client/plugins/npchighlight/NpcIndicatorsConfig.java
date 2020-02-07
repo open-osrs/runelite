@@ -24,134 +24,123 @@
  */
 package net.runelite.client.plugins.npchighlight;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
+import java.awt.*;
+
 @ConfigGroup("npcindicators")
-public interface NpcIndicatorsConfig extends Config
-{
+public interface NpcIndicatorsConfig extends Config {
 	@ConfigItem(
-		position = 0,
-		keyName = "highlightStyle",
-		name = "Highlight Style",
-		description = "Highlight setting"
+			position = 0,
+			keyName = "highlightStyle",
+			name = "Highlight Style",
+			description = "Highlight setting"
 	)
-	default RenderStyle renderStyle()
-	{
+	default RenderStyle renderStyle() {
 		return RenderStyle.THIN_OUTLINE;
 	}
 
 	@ConfigItem(
-		position = 1,
-		keyName = "npcToHighlight",
-		name = "NPCs to Highlight",
-		description = "List of NPC names to highlight"
+			position = 1,
+			keyName = "npcToHighlight",
+			name = "NPCs to Highlight",
+			description = "List of NPC names to highlight"
 	)
-	default String getNpcToHighlight()
-	{
+	default String getNpcToHighlight() {
 		return "";
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "npcColor",
-		name = "Highlight Color",
-		description = "Color of the NPC highlight"
+			position = 2,
+			keyName = "npcColor",
+			name = "Highlight Color",
+			description = "Color of the NPC highlight"
 	)
-	default Color getHighlightColor()
-	{
+	default Color getHighlightColor() {
 		return Color.CYAN;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "interactingColor",
-		name = "Interacting Color",
-		description = "Color of the NPC highlight when targeting local player"
+			position = 2,
+			keyName = "interactingColor",
+			name = "Interacting Color",
+			description = "Color of the NPC highlight when targeting local player"
 	)
-	default Color getInteractingColor()
-	{
+	default Color getInteractingColor() {
 		return Color.RED;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "drawNames",
-		name = "Draw names above NPC",
-		description = "Configures whether or not NPC names should be drawn above the NPC"
+			position = 3,
+			keyName = "drawNames",
+			name = "Draw names above NPC",
+			description = "Configures whether or not NPC names should be drawn above the NPC"
 	)
-	default boolean drawNames()
-	{
+	default boolean drawNames() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "drawInteracting",
-		name = "Draw target name above NPC",
-		description = "Configures whether the name of the NPC's target is drawn above it's head"
+			position = 4,
+			keyName = "drawInteracting",
+			name = "Draw target name above NPC",
+			description = "Configures whether the name of the NPC's target is drawn above it's head"
 	)
-	default boolean drawInteracting()
-	{
+	default boolean drawInteracting() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "drawMinimapNames",
-		name = "Draw names on minimap",
-		description = "Configures whether or not NPC names should be drawn on the minimap"
+			position = 5,
+			keyName = "drawMinimapNames",
+			name = "Draw names on minimap",
+			description = "Configures whether or not NPC names should be drawn on the minimap"
 	)
-	default boolean drawMinimapNames()
-	{
+	default boolean drawMinimapNames() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "highlightMenuNames",
-		name = "Highlight menu names",
-		description = "Highlight NPC names in right click menu"
+			position = 6,
+			keyName = "highlightMenuNames",
+			name = "Highlight menu names",
+			description = "Highlight NPC names in right click menu"
 	)
-	default boolean highlightMenuNames()
-	{
+	default boolean highlightMenuNames() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "showRespawnTimer",
-		name = "Show respawn timer",
-		description = "Show respawn timer of tagged NPCs"
+			position = 7,
+			keyName = "showRespawnTimer",
+			name = "Show respawn timer",
+			description = "Show respawn timer of tagged NPCs"
 	)
-	default boolean showRespawnTimer()
-	{
+	default boolean showRespawnTimer() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "notifyOnRespawn",
-		name = "Notify on Respawn",
-		description = "Enable notification on respawn"
+			position = 7,
+			keyName = "notifyOnRespawn",
+			name = "Notify on Respawn",
+			description = "Enable notification on respawn"
 	)
-	default boolean getNotifyOnRespawn()
-	{
+	default boolean getNotifyOnRespawn() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "notifyOnRespawnDelay",
-		name = "Notification Delay",
-		description = "Notify when NPC is x ms from respawning"
+			position = 8,
+			keyName = "notifyOnRespawnDelay",
+			name = "Notification Delay",
+			description = "Notify when NPC is x ms from respawning"
 	)
 	@Units(Units.MILLISECONDS)
-	default int getNotifyOnRespawnDelay()
-	{
+	default int getNotifyOnRespawnDelay() {
 		return -1;
 	}
 }

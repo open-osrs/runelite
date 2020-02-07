@@ -32,8 +32,7 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Zamorak
-{
+public enum Zamorak {
 	DISABLED("Disabled"),
 	ZAMORAK_CHEAP("Low LVL Melee"),
 	ZAMORAK_EXPENSIVE("Piety");
@@ -41,8 +40,7 @@ public enum Zamorak
 	private String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
 }

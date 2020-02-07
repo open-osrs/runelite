@@ -26,25 +26,24 @@ package net.runelite.client.plugins.slayer;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
-class SlayerXpDropLookup
-{
+class SlayerXpDropLookup {
 	private Map<String, List<Double>> xpMap;
 
 	// floating point math equality
 	private static final double EPSILON = 1e-6;
 
-	private void loadXpJson() throws IOException
-	{
-		try (final InputStream xpFile = getClass().getResourceAsStream("/slayer_xp.json"))
-		{
+	private void loadXpJson() throws IOException {
+		try (final InputStream xpFile = getClass().getResourceAsStream("/slayer_xp.json")) {
 			Gson gson = new Gson();
-			xpMap = gson.fromJson(new InputStreamReader(xpFile), new TypeToken<Map<String, List<Double>>>() {}.getType());
+			xpMap = gson.fromJson(new InputStreamReader(xpFile), new TypeToken<Map<String, List<Double>>>() {
+			}.getType());
 		}
 	}
 
@@ -76,52 +75,38 @@ class SlayerXpDropLookup
 	 * @param npc the npc we are estimating slayer xp for
 	 * @return our best guess for the slayer xp for this npc
 	 */
-	double findXpForNpc(NPCPresence npc)
-	{
+	double findXpForNpc(NPCPresence npc) {
 		List<Double> xpCombatLevel = xpMap.get(npc.getName());
-		if (xpCombatLevel == null)
-		{
+		if (xpCombatLevel == null) {
 			return -1;
 		}
 		boolean givesSlayerXp = false;
-		for (int i = 0; i < xpCombatLevel.size() - 1; i += 2)
-		{
-			if (xpCombatLevel.get(i) > 0)
-			{
+		for (int i = 0; i < xpCombatLevel.size() - 1; i += 2) {
+			if (xpCombatLevel.get(i) > 0) {
 				givesSlayerXp = true;
 				break;
 			}
 		}
-		if (!givesSlayerXp)
-		{
+		if (!givesSlayerXp) {
 			return -1;
 		}
 		boolean foundCombatLevel = false;
-		for (int i = 0; i < xpCombatLevel.size() - 1; i += 2)
-		{
+		for (int i = 0; i < xpCombatLevel.size() - 1; i += 2) {
 			if (Math.abs(xpCombatLevel.get(i + 1) - npc.getCombatLevel()) < EPSILON
-				&& xpCombatLevel.get(i) > 0)
-			{
+					&& xpCombatLevel.get(i) > 0) {
 				foundCombatLevel = true;
 				break;
 			}
 		}
-		if (foundCombatLevel)
-		{
-			for (int i = 0; i < xpCombatLevel.size() - 1; i += 2)
-			{
-				if (Math.abs(xpCombatLevel.get(i + 1) - npc.getCombatLevel()) < EPSILON)
-				{
+		if (foundCombatLevel) {
+			for (int i = 0; i < xpCombatLevel.size() - 1; i += 2) {
+				if (Math.abs(xpCombatLevel.get(i + 1) - npc.getCombatLevel()) < EPSILON) {
 					return xpCombatLevel.get(i);
 				}
 			}
-		}
-		else
-		{
-			for (int i = 0; i < xpCombatLevel.size() - 1; i += 2)
-			{
-				if (xpCombatLevel.get(i) > 0)
-				{
+		} else {
+			for (int i = 0; i < xpCombatLevel.size() - 1; i += 2) {
+				if (xpCombatLevel.get(i) > 0) {
 					return xpCombatLevel.get(i);
 				}
 			}
@@ -129,14 +114,10 @@ class SlayerXpDropLookup
 		return -1;
 	}
 
-	SlayerXpDropLookup()
-	{
-		try
-		{
+	SlayerXpDropLookup() {
+		try {
 			loadXpJson();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

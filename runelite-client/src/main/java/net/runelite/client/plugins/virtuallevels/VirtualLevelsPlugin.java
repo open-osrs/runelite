@@ -27,32 +27,9 @@
 package net.runelite.client.plugins.virtuallevels;
 
 import com.google.inject.Provides;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.api.Client;
-import net.runelite.api.Experience;
-import net.runelite.api.FontID;
-import net.runelite.api.GameState;
-import net.runelite.api.ScriptID;
-import net.runelite.api.Skill;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.ScriptCallbackEvent;
-import net.runelite.api.events.StatChanged;
-import net.runelite.api.events.WidgetLoaded;
-import net.runelite.api.widgets.JavaScriptCallback;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetID;
-import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.api.widgets.WidgetPositionMode;
-import net.runelite.api.widgets.WidgetSizeMode;
-import net.runelite.api.widgets.WidgetTextAlignment;
-import net.runelite.api.widgets.WidgetType;
+import net.runelite.api.*;
+import net.runelite.api.events.*;
+import net.runelite.api.widgets.*;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -65,16 +42,23 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
 @PluginDescriptor(
-	name = "Virtual Levels",
-	description = "Shows virtual levels (beyond 99) and virtual skill total on the skills tab.",
-	tags = {"skill", "total", "max"},
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Virtual Levels",
+		description = "Shows virtual levels (beyond 99) and virtual skill total on the skills tab.",
+		tags = {"skill", "total", "max"},
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
-public class VirtualLevelsPlugin extends Plugin implements KeyListener
-{
+public class VirtualLevelsPlugin extends Plugin implements KeyListener {
 	private static final String TOTAL_LEVEL_TEXT_PREFIX = "Total level:<br>";
 	private static final int X_OFFSET = 13;
 	private static final int Y_OFFSET = 16;
@@ -102,35 +86,29 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 	private boolean messageOpen;
 
 	@Provides
-	VirtualLevelsConfig provideConfig(ConfigManager configManager)
-	{
+	VirtualLevelsConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(VirtualLevelsConfig.class);
 	}
 
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		clientThread.invoke(this::simulateSkillChange);
 		keyManager.unregisterKeyListener(this);
 	}
 
 	@Subscribe
-	private void onPluginChanged(PluginChanged pluginChanged)
-	{
+	private void onPluginChanged(PluginChanged pluginChanged) {
 		// this is guaranteed to be called after the plugin has been registered by the eventbus. startUp is not.
-		if (pluginChanged.getPlugin() == this)
-		{
+		if (pluginChanged.getPlugin() == this) {
 			keyManager.registerKeyListener(this);
 			clientThread.invoke(this::simulateSkillChange);
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged configChanged)
-	{
-		if (!configChanged.getGroup().equals("virtuallevels"))
-		{
+	private void onConfigChanged(ConfigChanged configChanged) {
+		if (!configChanged.getGroup().equals("virtuallevels")) {
 			return;
 		}
 
@@ -138,8 +116,7 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent e)
-	{
+	private void onScriptCallbackEvent(ScriptCallbackEvent e) {
 		final String eventName = e.getEventName();
 
 		final int[] intStack = client.getIntStack();
@@ -147,8 +124,7 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 		final String[] stringStack = client.getStringStack();
 		final int stringStackSize = client.getStringStackSize();
 
-		switch (eventName)
-		{
+		switch (eventName) {
 			case "skillTabBaseLevel":
 				final int skillId = intStack[intStackSize - 2];
 				final Skill skill = Skill.values()[skillId];
@@ -162,16 +138,13 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 				intStack[intStackSize - 1] = Experience.MAX_VIRT_LEVEL;
 				break;
 			case "skillTabTotalLevel":
-				if (!config.virtualTotalLevel())
-				{
+				if (!config.virtualTotalLevel()) {
 					break;
 				}
 				int level = 0;
 
-				for (Skill s : Skill.values())
-				{
-					if (s == Skill.OVERALL)
-					{
+				for (Skill s : Skill.values()) {
+					if (s == Skill.OVERALL) {
 						continue;
 					}
 
@@ -183,24 +156,19 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	private void simulateSkillChange()
-	{
+	private void simulateSkillChange() {
 		// this fires widgets listening for all skill changes
-		for (Skill skill : Skill.values())
-		{
-			if (skill != Skill.OVERALL)
-			{
+		for (Skill skill : Skill.values()) {
+			if (skill != Skill.OVERALL) {
 				client.queueChangedSkill(skill);
 			}
 		}
 	}
 
-	private void buildVirtualLevelUp(Skill skill)
-	{
+	private void buildVirtualLevelUp(Skill skill) {
 		Widget chatboxContainer = client.getWidget(WidgetInfo.CHATBOX_CONTAINER);
 
-		if (chatboxContainer == null)
-		{
+		if (chatboxContainer == null) {
 			return;
 		}
 
@@ -228,7 +196,7 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 		levelUpLevel.revalidate();
 
 		levelUpText.setText((skill == Skill.HITPOINTS ? "Your Hitpoints are now " + skillLevel :
-			"Your " + skillName + " level is now " + skillLevel) + ".");
+				"Your " + skillName + " level is now " + skillLevel) + ".");
 		levelUpText.setFontId(FontID.QUILL_8);
 		levelUpText.setXPositionMode(WidgetPositionMode.ABSOLUTE_TOP);
 		levelUpText.setOriginalX(73 + X_OFFSET);
@@ -260,21 +228,18 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 		levelUpContinue.setHasListener(true);
 		levelUpContinue.revalidate();
 
-		for (SkillModel skillModel : skillModels)
-		{
+		for (SkillModel skillModel : skillModels) {
 			buildWidgetModel(chatboxContainer, skillModel);
 		}
 
 		messageOpen = true;
 	}
 
-	private void buildWidgetModel(Widget chatboxContainer, SkillModel model)
-	{
+	private void buildWidgetModel(Widget chatboxContainer, SkillModel model) {
 		int iconWidth = 32;
 		int iconHeight = 32;
 
-		if (model.getSkill() == Skill.CONSTRUCTION)
-		{
+		if (model.getSkill() == Skill.CONSTRUCTION) {
 			iconWidth = 49;
 			iconHeight = 61;
 		}
@@ -295,10 +260,8 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 		levelUpModel.revalidate();
 	}
 
-	private void closeNextTick()
-	{
-		if (!messageOpen)
-		{
+	private void closeNextTick() {
+		if (!messageOpen) {
 			return;
 		}
 
@@ -311,28 +274,23 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 	}
 
 	@Subscribe
-	public void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOGIN_SCREEN)
-		{
+	public void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() == GameState.LOGIN_SCREEN) {
 			loginTick = true;
 			return;
 		}
 
-		if (event.getGameState() != GameState.LOGGED_IN)
-		{
+		if (event.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
-		for (Skill skill : Skill.values())
-		{
+		for (Skill skill : Skill.values()) {
 			previousXpMap.put(skill, client.getSkillExperience(skill));
 		}
 	}
 
 	@Subscribe
-	public void onStatChanged(StatChanged event)
-	{
+	public void onStatChanged(StatChanged event) {
 		Skill skill = event.getSkill();
 
 		int xpAfter = client.getSkillExperience(skill);
@@ -343,42 +301,36 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 
 		previousXpMap.put(skill, xpAfter);
 
-		if (!config.virtualMessage() || levelAfter < 100 || levelBefore >= levelAfter)
-		{
+		if (!config.virtualMessage() || levelAfter < 100 || levelBefore >= levelAfter) {
 			return;
 		}
 
-		if (!loginTick)
-		{
+		if (!loginTick) {
 			skillsLeveledUp.add(skill);
 		}
 	}
 
 	@Subscribe
-	public void onGameTick(GameTick event)
-	{
+	public void onGameTick(GameTick event) {
 		loginTick = false;
 
-		if (closeMessage)
-		{
+		if (closeMessage) {
 			clientThread.invoke(() -> client.runScript(
-				ScriptID.MESSAGE_LAYER_CLOSE,
-				1,
-				1
+					ScriptID.MESSAGE_LAYER_CLOSE,
+					1,
+					1
 			));
 
 			closeMessage = false;
 		}
 
-		if (skillsLeveledUp.isEmpty())
-		{
+		if (skillsLeveledUp.isEmpty()) {
 			return;
 		}
 
 		Widget chatboxContainer = client.getWidget(WidgetInfo.CHATBOX_CONTAINER);
 
-		if (chatboxContainer != null && !chatboxContainer.isHidden())
-		{
+		if (chatboxContainer != null && !chatboxContainer.isHidden()) {
 			return;
 		}
 
@@ -394,26 +346,21 @@ public class VirtualLevelsPlugin extends Plugin implements KeyListener
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		if (e.getKeyChar() != ' ')
-		{
+	public void keyTyped(KeyEvent e) {
+		if (e.getKeyChar() != ' ') {
 			return;
 		}
 
-		if (messageOpen)
-		{
+		if (messageOpen) {
 			closeNextTick();
 		}
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 	}
 }

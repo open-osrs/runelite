@@ -25,15 +25,6 @@
  */
 package net.runelite.client.plugins.statusorbs;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
-import java.awt.geom.Arc2D;
-import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.Skill;
@@ -47,8 +38,11 @@ import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import org.apache.commons.lang3.StringUtils;
 
-public class StatusOrbsOverlay extends Overlay
-{
+import javax.inject.Inject;
+import java.awt.*;
+import java.awt.geom.Arc2D;
+
+public class StatusOrbsOverlay extends Overlay {
 	private static final Color HITPOINTS_COLOR = brighter(0x9B0703);
 	private static final Color SPECIAL_COLOR = brighter(0x1E95B0);
 	private static final Color RUN_COLOR = new Color(255, 215, 0);
@@ -68,16 +62,14 @@ public class StatusOrbsOverlay extends Overlay
 	private double percentRun;
 	private double lastRun;
 
-	private static Color brighter(int color)
-	{
+	private static Color brighter(int color) {
 		float[] hsv = new float[3];
 		Color.RGBtoHSB(color >>> 16, (color >> 8) & 0xFF, color & 0xFF, hsv);
 		return Color.getHSBColor(hsv[0], 1.f, 1.f);
 	}
 
 	@Inject
-	public StatusOrbsOverlay(Client client, StatusOrbsPlugin plugin, TooltipManager tooltipManager)
-	{
+	public StatusOrbsOverlay(Client client, StatusOrbsPlugin plugin, TooltipManager tooltipManager) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
@@ -86,50 +78,39 @@ public class StatusOrbsOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D g)
-	{
+	public Dimension render(Graphics2D g) {
 		g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
 		long current = System.nanoTime();
 		double ms = (current - last) / (double) 1000000;
 
-		if (plugin.isShowHitpoints())
-		{
-			if (lastHp == plugin.getHitpointsPercentage() && plugin.getHitpointsPercentage() != 0)
-			{
+		if (plugin.isShowHitpoints()) {
+			if (lastHp == plugin.getHitpointsPercentage() && plugin.getHitpointsPercentage() != 0) {
 				percentHp += ms * plugin.getHpPerMs();
-			}
-			else
-			{
+			} else {
 				percentHp = plugin.getHitpointsPercentage();
 				lastHp = plugin.getHitpointsPercentage();
 			}
 			renderRegen(g, WidgetInfo.MINIMAP_HEALTH_ORB, percentHp, HITPOINTS_COLOR);
 		}
 
-		if (plugin.isShowSpecial())
-		{
-			if (client.getVar(VarPlayer.SPECIAL_ATTACK_ENABLED) == 1)
-			{
+		if (plugin.isShowSpecial()) {
+			if (client.getVar(VarPlayer.SPECIAL_ATTACK_ENABLED) == 1) {
 				final Widget widget = client.getWidget(WidgetInfo.MINIMAP_SPEC_ORB);
 
-				if (widget != null && !widget.isHidden())
-				{
+				if (widget != null && !widget.isHidden()) {
 					final Rectangle bounds = widget.getBounds();
 					g.setColor(OVERLAY_COLOR);
 					g.fillOval(
-						bounds.x + OFFSET,
-						bounds.y + (int) (bounds.height / 2 - (DIAMETER) / 2),
-						(int) DIAMETER, (int) DIAMETER);
+							bounds.x + OFFSET,
+							bounds.y + (int) (bounds.height / 2 - (DIAMETER) / 2),
+							(int) DIAMETER, (int) DIAMETER);
 				}
 			}
 
-			if (lastSpec == plugin.getSpecialPercentage() && plugin.getSpecialPercentage() != 0)
-			{
+			if (lastSpec == plugin.getSpecialPercentage() && plugin.getSpecialPercentage() != 0) {
 				percentSpec += ms * plugin.getSpecPerMs();
-			}
-			else
-			{
+			} else {
 				percentSpec = plugin.getSpecialPercentage();
 				lastSpec = plugin.getSpecialPercentage();
 			}
@@ -139,37 +120,30 @@ public class StatusOrbsOverlay extends Overlay
 
 		final Widget runOrb = client.getWidget(WidgetInfo.MINIMAP_TOGGLE_RUN_ORB);
 
-		if (runOrb == null || runOrb.isHidden())
-		{
+		if (runOrb == null || runOrb.isHidden()) {
 			return null;
 		}
 
 		final Rectangle bounds = runOrb.getBounds();
 
-		if (bounds.getX() <= 0)
-		{
+		if (bounds.getX() <= 0) {
 			return null;
 		}
 
 		final Point mousePosition = client.getMouseCanvasPosition();
 
-		if (bounds.contains(mousePosition.getX(), mousePosition.getY()))
-		{
+		if (bounds.contains(mousePosition.getX(), mousePosition.getY())) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Weight: ").append(client.getWeight()).append(" kg</br>");
 
-			if (plugin.isReplaceOrbText())
-			{
+			if (plugin.isReplaceOrbText()) {
 				sb.append("Run Energy: ").append(client.getEnergy()).append("%");
-			}
-			else
-			{
+			} else {
 				sb.append("Run Time Remaining: ").append(plugin.getEstimatedRunTimeRemaining(false));
 			}
 
 			int secondsUntil100 = plugin.getEstimatedRecoverTimeRemaining();
-			if (secondsUntil100 > 0)
-			{
+			if (secondsUntil100 > 0) {
 				final int minutes = (int) Math.floor(secondsUntil100 / 60.0);
 				final int seconds = (int) Math.floor(secondsUntil100 - (minutes * 60.0));
 
@@ -179,18 +153,14 @@ public class StatusOrbsOverlay extends Overlay
 			tooltipManager.add(new Tooltip(sb.toString()));
 		}
 
-		if (plugin.isShowRun())
-		{
-			if (lastRun == plugin.getRunPercentage() && plugin.getRunPercentage() != 0)
-			{
+		if (plugin.isShowRun()) {
+			if (lastRun == plugin.getRunPercentage() && plugin.getRunPercentage() != 0) {
 				double recoverRate = (48 + client.getBoostedSkillLevel(Skill.AGILITY)) / 360000.0;
 
 				recoverRate *= plugin.getRecoverRate();
 
 				percentRun += ms * recoverRate;
-			}
-			else
-			{
+			} else {
 				percentRun = plugin.getRunPercentage();
 				lastRun = plugin.getRunPercentage();
 			}
@@ -202,11 +172,9 @@ public class StatusOrbsOverlay extends Overlay
 		return null;
 	}
 
-	private void renderRegen(Graphics2D g, WidgetInfo widgetInfo, double percent, Color color)
-	{
+	private void renderRegen(Graphics2D g, WidgetInfo widgetInfo, double percent, Color color) {
 		Widget widget = client.getWidget(widgetInfo);
-		if (widget == null || widget.isHidden())
-		{
+		if (widget == null || widget.isHidden()) {
 			return;
 		}
 		Rectangle bounds = widget.getBounds();

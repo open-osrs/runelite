@@ -24,32 +24,27 @@
 
 package net.runelite.client.plugins.runedoku;
 
-import java.awt.Color;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetItem;
 
-class RunedokuUtil
-{
+import javax.inject.Inject;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+class RunedokuUtil {
 
 	private final RunedokuPlugin plugin;
 
 	@Inject
-	RunedokuUtil(final RunedokuPlugin plugin)
-	{
+	RunedokuUtil(final RunedokuPlugin plugin) {
 		this.plugin = plugin;
 	}
 
-	Color sudokuPieceToColor(int i)
-	{
-		switch (i)
-		{
+	Color sudokuPieceToColor(int i) {
+		switch (i) {
 			case 1:
 				return plugin.getMindRuneColor();
 			case 2:
@@ -73,10 +68,8 @@ class RunedokuUtil
 		}
 	}
 
-	Color referenceColors(int i)
-	{
-		switch (i)
-		{
+	Color referenceColors(int i) {
+		switch (i) {
 			case 121: //earth
 				return plugin.getEarthRuneColor();
 			case 122: //water
@@ -106,13 +99,10 @@ class RunedokuUtil
 	 * @param board
 	 * @return
 	 */
-	List<Integer> makeSimple(int[][] board)
-	{
+	List<Integer> makeSimple(int[][] board) {
 		List<Integer> list = new ArrayList<>();
-		for (int i = 0; i < 9; i++)
-		{
-			for (int ii = 0; ii < 9; ii++)
-			{
+		for (int i = 0; i < 9; i++) {
+			for (int ii = 0; ii < 9; ii++) {
 				list.add(board[i][ii]);
 			}
 		}
@@ -125,8 +115,7 @@ class RunedokuUtil
 	 * @param rect
 	 * @return
 	 */
-	static Polygon rectangleToPolygon(Rectangle rect)
-	{
+	static Polygon rectangleToPolygon(Rectangle rect) {
 		int[] xpoints = {rect.x, rect.x + rect.width, rect.x + rect.width, rect.x};
 		int[] ypoints = {rect.y, rect.y, rect.y + rect.height, rect.y + rect.height};
 		return new Polygon(xpoints, ypoints, 4);
@@ -139,42 +128,29 @@ class RunedokuUtil
 	 * @return sudoku table that the client currently sees in a 2d array
 	 * @author gazivodag
 	 */
-	int[][] createTable(Client client)
-	{
+	int[][] createTable(Client client) {
 		int[][] myArr = new int[9][9];
 		Widget sudokuScreen = client.getWidget(288, 131);
-		for (int i = 0; i < 9; i++)
-		{
-			for (int ii = 0; ii < 9; ii++)
-			{
+		for (int i = 0; i < 9; i++) {
+			for (int ii = 0; ii < 9; ii++) {
 				WidgetItem item;
 				int myIndex;
-				if (i > 0)
-				{
+				if (i > 0) {
 					myIndex = ((i * 10) + ii) - i;
-				}
-				else
-				{
+				} else {
 					myIndex = ii;
 				}
-				if (myIndex == 81)
-				{
+				if (myIndex == 81) {
 					break;
 				}
 				item = sudokuScreen.getWidgetItem(myIndex);
-				if (item != null)
-				{
-					if (item.getId() != -1)
-					{
+				if (item != null) {
+					if (item.getId() != -1) {
 						myArr[i][ii] = Objects.requireNonNull(RunedokuPiece.getById(item.getId())).getPieceForSudoku();
-					}
-					else
-					{
+					} else {
 						myArr[i][ii] = 0;
 					}
-				}
-				else
-				{
+				} else {
 					myArr[i][ii] = 0;
 				}
 			}
@@ -186,15 +162,11 @@ class RunedokuUtil
 	 * @param client
 	 * @return
 	 */
-	int getSelectedPiece(Client client)
-	{
-		for (int i = 91; i < 100; i++)
-		{
+	int getSelectedPiece(Client client) {
+		for (int i = 91; i < 100; i++) {
 			Widget selectedPieceWidget = client.getWidget(288, i);
-			if (!selectedPieceWidget.isHidden())
-			{
-				switch (i)
-				{
+			if (!selectedPieceWidget.isHidden()) {
+				switch (i) {
 					case 91:
 						return 8;
 					case 92:

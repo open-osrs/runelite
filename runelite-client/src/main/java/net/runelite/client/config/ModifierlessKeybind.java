@@ -26,18 +26,15 @@ package net.runelite.client.config;
 
 import java.awt.event.KeyEvent;
 
-public class ModifierlessKeybind extends Keybind
-{
-	public ModifierlessKeybind(int keyCode, int modifiers)
-	{
+public class ModifierlessKeybind extends Keybind {
+	public ModifierlessKeybind(int keyCode, int modifiers) {
 		super(keyCode, modifiers, true);
 	}
 
 	/**
 	 * Constructs a keybind with that matches the passed KeyEvent
 	 */
-	public ModifierlessKeybind(KeyEvent e)
-	{
+	public ModifierlessKeybind(KeyEvent e) {
 		this(e.getExtendedKeyCode(), e.getModifiersEx());
 
 		assert matches(e);
@@ -49,8 +46,7 @@ public class ModifierlessKeybind extends Keybind
 	 * KeyReleased event this returns if the event is this hotkey being
 	 * released
 	 */
-	public boolean matches(KeyEvent e)
-	{
+	public boolean matches(KeyEvent e) {
 		return matches(e, true);
 	}
 }

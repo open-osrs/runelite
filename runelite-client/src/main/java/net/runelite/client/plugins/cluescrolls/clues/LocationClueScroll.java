@@ -26,12 +26,10 @@ package net.runelite.client.plugins.cluescrolls.clues;
 
 import net.runelite.api.coords.WorldPoint;
 
-public interface LocationClueScroll
-{
+public interface LocationClueScroll {
 	WorldPoint getLocation();
 
-	default WorldPoint[] getLocations()
-	{
+	default WorldPoint[] getLocations() {
 		WorldPoint location = getLocation();
 		return location == null ? new WorldPoint[0] : new WorldPoint[]{location};
 	}

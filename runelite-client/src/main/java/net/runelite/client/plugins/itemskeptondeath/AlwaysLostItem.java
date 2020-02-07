@@ -38,8 +38,7 @@ import net.runelite.api.ItemID;
  */
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum AlwaysLostItem
-{
+enum AlwaysLostItem {
 	RUNE_POUCH(ItemID.RUNE_POUCH, true),
 	LOOTING_BAG(ItemID.LOOTING_BAG, false),
 	CLUE_BOX(ItemID.CLUE_BOX, false),
@@ -51,18 +50,15 @@ enum AlwaysLostItem
 
 	private static final ImmutableMap<Integer, AlwaysLostItem> ID_MAP;
 
-	static
-	{
+	static {
 		final ImmutableMap.Builder<Integer, AlwaysLostItem> map = ImmutableMap.builder();
-		for (final AlwaysLostItem p : values())
-		{
+		for (final AlwaysLostItem p : values()) {
 			map.put(p.itemID, p);
 		}
 		ID_MAP = map.build();
 	}
 
-	static AlwaysLostItem getByItemID(final int itemID)
-	{
+	static AlwaysLostItem getByItemID(final int itemID) {
 		return ID_MAP.get(itemID);
 	}
 }

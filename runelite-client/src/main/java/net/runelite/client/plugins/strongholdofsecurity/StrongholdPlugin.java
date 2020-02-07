@@ -35,18 +35,18 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.ColorUtil;
+
 import javax.inject.Inject;
-import java.awt.Color;
+import java.awt.*;
 
 @PluginDescriptor(
-	name = "Stronghold",
-	description = "Highlights the correct answer to Stronghold of Security questions",
-	tags = {"stronghold", "security", "overlay", "answer", "highlight"},
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Stronghold",
+		description = "Highlights the correct answer to Stronghold of Security questions",
+		tags = {"stronghold", "security", "overlay", "answer", "highlight"},
+		type = PluginType.UTILITY,
+		enabledByDefault = false
 )
-public class StrongholdPlugin extends Plugin
-{
+public class StrongholdPlugin extends Plugin {
 	private static final Color ANSWER_COLOR = new Color(230, 0, 230);
 
 	@Inject
@@ -57,10 +57,8 @@ public class StrongholdPlugin extends Plugin
 	private String questionCache;
 
 	@Subscribe
-	public void onWidgetLoaded(WidgetLoaded widgetLoaded)
-	{
-		switch (widgetLoaded.getGroupId())
-		{
+	public void onWidgetLoaded(WidgetLoaded widgetLoaded) {
+		switch (widgetLoaded.getGroupId()) {
 			case WidgetID.DIALOG_NPC_GROUP_ID:
 				queueNPCDialogue = true;
 				break;
@@ -71,46 +69,37 @@ public class StrongholdPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onClientTick(ClientTick t)
-	{
-		if (queueNPCDialogue)
-		{
+	public void onClientTick(ClientTick t) {
+		if (queueNPCDialogue) {
 			queueNPCDialogue = false;
 			onNPCDialogue();
 		}
-		if (queueNPCOption)
-		{
+		if (queueNPCOption) {
 			queueNPCOption = false;
 			onNPCOption();
 		}
 	}
 
-	private void onNPCDialogue()
-	{
+	private void onNPCDialogue() {
 		final Widget debugWidget = client.getWidget(WidgetInfo.DIALOG_NPC_TEXT);
 
-		if (debugWidget == null)
-		{
+		if (debugWidget == null) {
 			return;
 		}
 
 		final String npcText = debugWidget.getText();
-		if (StrongholdAnswer.MATCHES.containsKey(npcText))
-		{
+		if (StrongholdAnswer.MATCHES.containsKey(npcText)) {
 			questionCache = npcText;
 		}
 	}
 
-	private void onNPCOption()
-	{
-		if (questionCache == null)
-		{
+	private void onNPCOption() {
+		if (questionCache == null) {
 			return;
 		}
 
 		final Widget optionsWidget = client.getWidget(WidgetInfo.DIALOG_OPTION);
-		if (optionsWidget == null)
-		{
+		if (optionsWidget == null) {
 			return;
 		}
 
@@ -118,8 +107,7 @@ public class StrongholdPlugin extends Plugin
 
 		final Widget answerWidget = StrongholdAnswer.findCorrect(questionCache, widgets);
 		questionCache = null;
-		if (answerWidget == null)
-		{
+		if (answerWidget == null) {
 			return;
 		}
 

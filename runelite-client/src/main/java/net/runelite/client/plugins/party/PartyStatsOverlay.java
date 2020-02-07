@@ -24,15 +24,6 @@
  */
 package net.runelite.client.plugins.party;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.Map;
-import java.util.UUID;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.MenuOpcode;
 import net.runelite.client.plugins.party.data.PartyData;
 import net.runelite.client.ui.overlay.Overlay;
@@ -43,9 +34,14 @@ import net.runelite.client.ui.overlay.components.ProgressBarComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.ws.PartyService;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.Map;
+import java.util.UUID;
+
 @Singleton
-public class PartyStatsOverlay extends Overlay
-{
+public class PartyStatsOverlay extends Overlay {
 	private static final Color HP_FG = new Color(0, 146, 54, 230);
 	private static final Color HP_BG = new Color(102, 15, 16, 230);
 	private static final Color PRAY_FG = new Color(0, 149, 151);
@@ -56,8 +52,7 @@ public class PartyStatsOverlay extends Overlay
 	private final PanelComponent body = new PanelComponent();
 
 	@Inject
-	private PartyStatsOverlay(final PartyPlugin plugin, final PartyService party)
-	{
+	private PartyStatsOverlay(final PartyPlugin plugin, final PartyService party) {
 		super(plugin);
 		this.plugin = plugin;
 		this.party = party;
@@ -67,16 +62,13 @@ public class PartyStatsOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isStats())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isStats()) {
 			return null;
 		}
 
 		final Map<UUID, PartyData> partyDataMap = plugin.getPartyDataMap();
-		if (partyDataMap.isEmpty())
-		{
+		if (partyDataMap.isEmpty()) {
 			return null;
 		}
 
@@ -85,18 +77,15 @@ public class PartyStatsOverlay extends Overlay
 
 		boolean only1 = plugin.getPartyDataMap().size() == 1;
 
-		synchronized (plugin.getPartyDataMap())
-		{
+		synchronized (plugin.getPartyDataMap()) {
 			partyDataMap.forEach((k, v) ->
 			{
-				if (party.getLocalMember() != null && party.getLocalMember().getMemberId().equals(k))
-				{
-					if (only1)
-					{
+				if (party.getLocalMember() != null && party.getLocalMember().getMemberId().equals(k)) {
+					if (only1) {
 						body.getChildren().add(TitleComponent.builder()
-							.text("No other party members")
-							.color(Color.RED)
-							.build());
+								.text("No other party members")
+								.color(Color.RED)
+								.build());
 					}
 
 					return;
@@ -106,14 +95,13 @@ public class PartyStatsOverlay extends Overlay
 				panel.getChildren().clear();
 
 				final TitleComponent name = TitleComponent.builder()
-					.text(v.getName())
-					.color(plugin.isRecolorNames() ? v.getColor() : Color.WHITE)
-					.build();
+						.text(v.getName())
+						.color(plugin.isRecolorNames() ? v.getColor() : Color.WHITE)
+						.build();
 
 				panel.getChildren().add(name);
 
-				if (v.getMaxHitpoints() > 0)
-				{
+				if (v.getMaxHitpoints() > 0) {
 					final ProgressBarComponent hpBar = new ProgressBarComponent();
 					hpBar.setBackgroundColor(HP_BG);
 					hpBar.setForegroundColor(HP_FG);
@@ -123,8 +111,7 @@ public class PartyStatsOverlay extends Overlay
 					panel.getChildren().add(hpBar);
 				}
 
-				if (v.getMaxPrayer() > 0)
-				{
+				if (v.getMaxPrayer() > 0) {
 					final ProgressBarComponent prayBar = new ProgressBarComponent();
 					prayBar.setBackgroundColor(PRAY_BG);
 					prayBar.setForegroundColor(PRAY_FG);

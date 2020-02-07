@@ -25,94 +25,86 @@
 package net.runelite.client.plugins.slayer;
 
 import com.google.common.collect.ImmutableSet;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.ItemID;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.Set;
+
 @Singleton
-class SlayerOverlay extends WidgetItemOverlay
-{
+class SlayerOverlay extends WidgetItemOverlay {
 	private final static Set<Integer> SLAYER_JEWELRY = ImmutableSet.of(
-		ItemID.SLAYER_RING_1,
-		ItemID.SLAYER_RING_2,
-		ItemID.SLAYER_RING_3,
-		ItemID.SLAYER_RING_4,
-		ItemID.SLAYER_RING_5,
-		ItemID.SLAYER_RING_6,
-		ItemID.SLAYER_RING_7,
-		ItemID.SLAYER_RING_8,
-		ItemID.BRACELET_OF_SLAUGHTER,
-		ItemID.EXPEDITIOUS_BRACELET
+			ItemID.SLAYER_RING_1,
+			ItemID.SLAYER_RING_2,
+			ItemID.SLAYER_RING_3,
+			ItemID.SLAYER_RING_4,
+			ItemID.SLAYER_RING_5,
+			ItemID.SLAYER_RING_6,
+			ItemID.SLAYER_RING_7,
+			ItemID.SLAYER_RING_8,
+			ItemID.BRACELET_OF_SLAUGHTER,
+			ItemID.EXPEDITIOUS_BRACELET
 	);
 
 	private final static Set<Integer> ALL_SLAYER_ITEMS = ImmutableSet.of(
-		ItemID.SLAYER_HELMET,
-		ItemID.SLAYER_HELMET_I,
-		ItemID.BLACK_SLAYER_HELMET,
-		ItemID.BLACK_SLAYER_HELMET_I,
-		ItemID.GREEN_SLAYER_HELMET,
-		ItemID.GREEN_SLAYER_HELMET_I,
-		ItemID.PURPLE_SLAYER_HELMET,
-		ItemID.PURPLE_SLAYER_HELMET_I,
-		ItemID.RED_SLAYER_HELMET,
-		ItemID.RED_SLAYER_HELMET_I,
-		ItemID.TURQUOISE_SLAYER_HELMET,
-		ItemID.TURQUOISE_SLAYER_HELMET_I,
-		ItemID.HYDRA_SLAYER_HELMET,
-		ItemID.HYDRA_SLAYER_HELMET_I,
-		ItemID.SLAYER_RING_ETERNAL,
-		ItemID.ENCHANTED_GEM,
-		ItemID.ETERNAL_GEM,
-		ItemID.BRACELET_OF_SLAUGHTER,
-		ItemID.EXPEDITIOUS_BRACELET,
-		ItemID.SLAYER_RING_1,
-		ItemID.SLAYER_RING_2,
-		ItemID.SLAYER_RING_3,
-		ItemID.SLAYER_RING_4,
-		ItemID.SLAYER_RING_5,
-		ItemID.SLAYER_RING_6,
-		ItemID.SLAYER_RING_7,
-		ItemID.SLAYER_RING_8
+			ItemID.SLAYER_HELMET,
+			ItemID.SLAYER_HELMET_I,
+			ItemID.BLACK_SLAYER_HELMET,
+			ItemID.BLACK_SLAYER_HELMET_I,
+			ItemID.GREEN_SLAYER_HELMET,
+			ItemID.GREEN_SLAYER_HELMET_I,
+			ItemID.PURPLE_SLAYER_HELMET,
+			ItemID.PURPLE_SLAYER_HELMET_I,
+			ItemID.RED_SLAYER_HELMET,
+			ItemID.RED_SLAYER_HELMET_I,
+			ItemID.TURQUOISE_SLAYER_HELMET,
+			ItemID.TURQUOISE_SLAYER_HELMET_I,
+			ItemID.HYDRA_SLAYER_HELMET,
+			ItemID.HYDRA_SLAYER_HELMET_I,
+			ItemID.SLAYER_RING_ETERNAL,
+			ItemID.ENCHANTED_GEM,
+			ItemID.ETERNAL_GEM,
+			ItemID.BRACELET_OF_SLAUGHTER,
+			ItemID.EXPEDITIOUS_BRACELET,
+			ItemID.SLAYER_RING_1,
+			ItemID.SLAYER_RING_2,
+			ItemID.SLAYER_RING_3,
+			ItemID.SLAYER_RING_4,
+			ItemID.SLAYER_RING_5,
+			ItemID.SLAYER_RING_6,
+			ItemID.SLAYER_RING_7,
+			ItemID.SLAYER_RING_8
 	);
 
 	private final SlayerPlugin plugin;
 
 	@Inject
-	private SlayerOverlay(final SlayerPlugin plugin)
-	{
+	private SlayerOverlay(final SlayerPlugin plugin) {
 		this.plugin = plugin;
 		showOnInventory();
 		showOnEquipment();
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
-	{
-		if (!ALL_SLAYER_ITEMS.contains(itemId))
-		{
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget) {
+		if (!ALL_SLAYER_ITEMS.contains(itemId)) {
 			return;
 		}
 
-		if (!plugin.isShowItemOverlay())
-		{
+		if (!plugin.isShowItemOverlay()) {
 			return;
 		}
 
-		if (plugin.getCurrentTask() == null)
-		{
+		if (plugin.getCurrentTask() == null) {
 			return;
 		}
 
 		int amount = plugin.getCurrentTask().getAmount();
-		if (amount <= 0)
-		{
+		if (amount <= 0) {
 			return;
 		}
 
@@ -123,8 +115,8 @@ class SlayerOverlay extends WidgetItemOverlay
 
 		// Draw the counter in the bottom left for equipment, and top left for jewelry
 		textComponent.setPosition(new Point(bounds.x - 1, bounds.y - 1 + (SLAYER_JEWELRY.contains(itemId)
-			? bounds.height
-			: graphics.getFontMetrics().getHeight())));
+				? bounds.height
+				: graphics.getFontMetrics().getHeight())));
 		textComponent.render(graphics);
 	}
 }

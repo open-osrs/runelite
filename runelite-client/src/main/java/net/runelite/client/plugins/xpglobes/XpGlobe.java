@@ -24,18 +24,18 @@
  */
 package net.runelite.client.plugins.xpglobes;
 
-import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.Skill;
 
+import java.time.Instant;
+
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-class XpGlobe
-{
+class XpGlobe {
 	private Skill skill;
 	private int currentXp;
 	private int currentLevel;

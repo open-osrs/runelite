@@ -26,8 +26,7 @@ package net.runelite.client.plugins.tmorph;
 import lombok.Data;
 
 @Data
-public class TmorphSet
-{
+public class TmorphSet {
 	private String name;
 	private int helmet;
 	private int cape;

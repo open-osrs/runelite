@@ -24,15 +24,6 @@
  */
 package net.runelite.client.plugins.fightcave;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -41,9 +32,16 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 @Singleton
-class WaveOverlay extends Overlay
-{
+class WaveOverlay extends Overlay {
 	private static final Color HEADER_COLOR = ColorScheme.BRAND_BLUE;
 
 	private final FightCaveConfig config;
@@ -51,21 +49,18 @@ class WaveOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private WaveOverlay(final FightCaveConfig config, final FightCavePlugin plugin)
-	{
+	private WaveOverlay(final FightCaveConfig config, final FightCavePlugin plugin) {
 		this.config = config;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.TOP_RIGHT);
 	}
 
-	private static Collection<String> buildWaveLines(final Map<WaveMonster, Integer> wave)
-	{
+	private static Collection<String> buildWaveLines(final Map<WaveMonster, Integer> wave) {
 		final List<Map.Entry<WaveMonster, Integer>> monsters = new ArrayList<>(wave.entrySet());
 		monsters.sort(Map.Entry.comparingByKey());
 		final List<String> outputLines = new ArrayList<>();
 
-		for (Map.Entry<WaveMonster, Integer> monsterEntry : monsters)
-		{
+		for (Map.Entry<WaveMonster, Integer> monsterEntry : monsters) {
 			final WaveMonster monster = monsterEntry.getKey();
 			final int quantity = monsterEntry.getValue();
 			final String line = FightCavePlugin.formatMonsterQuantity(monster, quantity);
@@ -77,10 +72,8 @@ class WaveOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isValidRegion() || plugin.getCurrentWave() < 0)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isValidRegion() || plugin.getCurrentWave() < 0) {
 			return null;
 		}
 
@@ -90,17 +83,15 @@ class WaveOverlay extends Overlay
 		final int waveIndex = currentWave - 1;
 
 		if (config.waveDisplay() == WaveDisplayMode.CURRENT
-			|| config.waveDisplay() == WaveDisplayMode.BOTH)
-		{
+				|| config.waveDisplay() == WaveDisplayMode.BOTH) {
 			final Map<WaveMonster, Integer> waveContents = FightCavePlugin.getWAVES().get(waveIndex);
 
 			addWaveInfo("Wave " + plugin.getCurrentWave(), waveContents);
 		}
 
 		if ((config.waveDisplay() == WaveDisplayMode.NEXT
-			|| config.waveDisplay() == WaveDisplayMode.BOTH)
-			&& currentWave != FightCavePlugin.MAX_WAVE)
-		{
+				|| config.waveDisplay() == WaveDisplayMode.BOTH)
+				&& currentWave != FightCavePlugin.MAX_WAVE) {
 			final Map<WaveMonster, Integer> waveContents = FightCavePlugin.getWAVES().get(waveIndex + 1);
 
 			addWaveInfo("Next wave", waveContents);
@@ -109,24 +100,21 @@ class WaveOverlay extends Overlay
 		return panelComponent.render(graphics);
 	}
 
-	private void addWaveInfo(final String headerText, final Map<WaveMonster, Integer> waveContents)
-	{
+	private void addWaveInfo(final String headerText, final Map<WaveMonster, Integer> waveContents) {
 		panelComponent.getChildren().add(TitleComponent.builder()
-			.text(headerText)
-			.color(HEADER_COLOR)
-			.build());
+				.text(headerText)
+				.color(HEADER_COLOR)
+				.build());
 
 
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.CENTER);
 
-		for (String line : buildWaveLines(waveContents))
-		{
+		for (String line : buildWaveLines(waveContents)) {
 			tableComponent.addRow(line);
 		}
 
-		if (!tableComponent.isEmpty())
-		{
+		if (!tableComponent.isEmpty()) {
 			panelComponent.getChildren().add(tableComponent);
 		}
 	}

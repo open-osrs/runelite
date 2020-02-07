@@ -24,20 +24,16 @@
  */
 package net.runelite.client.ui.overlay.components;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
-public class PanelComponent implements LayoutableRenderableEntity
-{
+import javax.annotation.Nullable;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PanelComponent implements LayoutableRenderableEntity {
 	@Getter
 	private final Rectangle bounds = new Rectangle();
 
@@ -62,10 +58,10 @@ public class PanelComponent implements LayoutableRenderableEntity
 
 	@Setter
 	private Rectangle border = new Rectangle(
-		ComponentConstants.STANDARD_BORDER,
-		ComponentConstants.STANDARD_BORDER,
-		ComponentConstants.STANDARD_BORDER,
-		ComponentConstants.STANDARD_BORDER);
+			ComponentConstants.STANDARD_BORDER,
+			ComponentConstants.STANDARD_BORDER,
+			ComponentConstants.STANDARD_BORDER,
+			ComponentConstants.STANDARD_BORDER);
 
 	@Setter
 	private Point gap = new Point(0, 0);
@@ -73,23 +69,20 @@ public class PanelComponent implements LayoutableRenderableEntity
 	private final Dimension childDimensions = new Dimension();
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		children.removeIf(child -> child instanceof TableComponent && ((TableComponent) child).isEmpty());
 
-		if (children.isEmpty())
-		{
+		if (children.isEmpty()) {
 			return null;
 		}
 
 		// Calculate panel dimension
 		final Dimension dimension = new Dimension(
-			border.x + childDimensions.width + border.width,
-			border.y + childDimensions.height + border.height);
+				border.x + childDimensions.width + border.width,
+				border.y + childDimensions.height + border.height);
 
 		// Render background
-		if (backgroundColor != null)
-		{
+		if (backgroundColor != null) {
 			final BackgroundComponent backgroundComponent = new BackgroundComponent();
 			backgroundComponent.setRectangle(new Rectangle(preferredLocation, dimension));
 			backgroundComponent.setBackgroundColor(backgroundColor);
@@ -106,24 +99,22 @@ public class PanelComponent implements LayoutableRenderableEntity
 
 		// Create child preferred size
 		final Dimension childPreferredSize = new Dimension(
-			preferredSize.width - border.x - border.width,
-			preferredSize.height - border.y - border.height);
+				preferredSize.width - border.x - border.width,
+				preferredSize.height - border.y - border.height);
 
 		// Calculate max width/height for infoboxes
 		int totalHeight = 0;
 		int totalWidth = 0;
 
 		// Render all children
-		for (int i = 0; i < children.size(); i++)
-		{
+		for (int i = 0; i < children.size(); i++) {
 			final LayoutableRenderableEntity child = children.get(i);
 
 			child.setPreferredLocation(new Point(x, y));
 			child.setPreferredSize(childPreferredSize);
 			final Dimension childDimension = child.render(graphics);
 
-			switch (orientation)
-			{
+			switch (orientation) {
 				case VERTICAL:
 					height += childDimension.height + gap.y;
 					y = baseY + height;
@@ -140,12 +131,9 @@ public class PanelComponent implements LayoutableRenderableEntity
 			totalWidth = Math.max(totalWidth, width);
 			totalHeight = Math.max(totalHeight, height);
 
-			if (wrapping > 0 && i < children.size() - 1 && (i + 1) % wrapping == 0)
-			{
-				switch (orientation)
-				{
-					case VERTICAL:
-					{
+			if (wrapping > 0 && i < children.size() - 1 && (i + 1) % wrapping == 0) {
+				switch (orientation) {
+					case VERTICAL: {
 						height = 0;
 						y = baseY;
 						int diff = childDimension.width + gap.x;
@@ -153,8 +141,7 @@ public class PanelComponent implements LayoutableRenderableEntity
 						width += diff;
 						break;
 					}
-					case HORIZONTAL:
-					{
+					case HORIZONTAL: {
 						width = 0;
 						x = baseX;
 						int diff = childDimension.height + gap.y;

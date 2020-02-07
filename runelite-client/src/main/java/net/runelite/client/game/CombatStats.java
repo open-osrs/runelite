@@ -3,8 +3,7 @@ package net.runelite.client.game;
 import lombok.Value;
 
 @Value
-public class CombatStats
-{
+public class CombatStats {
 	private int magicAttack;
 	private int magicDefence;
 	private int magicStr;

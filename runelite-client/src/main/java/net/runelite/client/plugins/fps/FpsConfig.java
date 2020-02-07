@@ -24,78 +24,68 @@
  */
 package net.runelite.client.plugins.fps;
 
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.config.Range;
-import net.runelite.client.config.Units;
+import net.runelite.client.config.*;
 
 @ConfigGroup(FpsPlugin.CONFIG_GROUP_KEY)
-public interface FpsConfig extends Config
-{
+public interface FpsConfig extends Config {
 	@ConfigItem(
-		keyName = "limitFps",
-		name = "Limit Global FPS",
-		description = "Global FPS limit in effect regardless of<br>" +
-			"whether window is in focus or not",
-		position = 1
+			keyName = "limitFps",
+			name = "Limit Global FPS",
+			description = "Global FPS limit in effect regardless of<br>" +
+					"whether window is in focus or not",
+			position = 1
 	)
-	default boolean limitFps()
-	{
+	default boolean limitFps() {
 		return false;
 	}
 
 	@Range(
-		min = 1,
-		max = 50
+			min = 1,
+			max = 50
 	)
 	@ConfigItem(
-		keyName = "maxFps",
-		name = "Global FPS target",
-		description = "Desired max global frames per second",
-		position = 2
+			keyName = "maxFps",
+			name = "Global FPS target",
+			description = "Desired max global frames per second",
+			position = 2
 	)
 	@Units(Units.FPS)
-	default int maxFps()
-	{
+	default int maxFps() {
 		return 50;
 	}
 
 	@ConfigItem(
-		keyName = "limitFpsUnfocused",
-		name = "Limit FPS unfocused",
-		description = "FPS limit while window is out of focus",
-		position = 3
+			keyName = "limitFpsUnfocused",
+			name = "Limit FPS unfocused",
+			description = "FPS limit while window is out of focus",
+			position = 3
 	)
-	default boolean limitFpsUnfocused()
-	{
+	default boolean limitFpsUnfocused() {
 		return false;
 	}
 
 	@Range(
-		min = 1,
-		max = 50
+			min = 1,
+			max = 50
 	)
 	@ConfigItem(
-		keyName = "maxFpsUnfocused",
-		name = "Unfocused FPS target",
-		description = "Desired max frames per second for unfocused",
-		position = 4
+			keyName = "maxFpsUnfocused",
+			name = "Unfocused FPS target",
+			description = "Desired max frames per second for unfocused",
+			position = 4
 	)
 	@Units(Units.FPS)
-	default int maxFpsUnfocused()
-	{
+	default int maxFpsUnfocused() {
 		return 50;
 	}
 
 	@ConfigItem(
-		keyName = "drawFps",
-		name = "Draw FPS indicator",
-		description = "Show a number in the corner for the current FPS",
-		position = 5
+			keyName = "drawFps",
+			name = "Draw FPS indicator",
+			description = "Show a number in the corner for the current FPS",
+			position = 5
 	)
-	default boolean drawFps()
-	{
+	default boolean drawFps() {
 		return true;
 	}
 }

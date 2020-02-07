@@ -24,18 +24,11 @@
  */
 package net.runelite.client.plugins.barrows;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Varbits;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -44,15 +37,20 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-public class BarrowsBrotherSlainOverlay extends Overlay
-{
+public class BarrowsBrotherSlainOverlay extends Overlay {
 	private final Client client;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private BarrowsBrotherSlainOverlay(final BarrowsPlugin plugin, final Client client)
-	{
+	private BarrowsBrotherSlainOverlay(final BarrowsPlugin plugin, final Client client) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.LOW);
@@ -61,19 +59,16 @@ public class BarrowsBrotherSlainOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		// Do not display overlay if potential is null/hidden
 		final Widget potential = client.getWidget(WidgetInfo.BARROWS_POTENTIAL);
-		if (potential == null || potential.isHidden())
-		{
+		if (potential == null || potential.isHidden()) {
 			return null;
 		}
 
 		// Hide original overlay
 		final Widget barrowsBrothers = client.getWidget(WidgetInfo.BARROWS_BROTHERS);
-		if (barrowsBrothers != null)
-		{
+		if (barrowsBrothers != null) {
 			barrowsBrothers.setHidden(true);
 			potential.setHidden(true);
 		}
@@ -82,8 +77,7 @@ public class BarrowsBrotherSlainOverlay extends Overlay
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		for (BarrowsBrothers brother : BarrowsBrothers.values())
-		{
+		for (BarrowsBrothers brother : BarrowsBrothers.values()) {
 			final boolean brotherSlain = client.getVar(brother.getKilledVarbit()) > 0;
 			String slain = brotherSlain ? "\u2713" : "\u2717";
 			tableComponent.addRow(brother.getName(), ColorUtil.prependColorTag(slain, brotherSlain ? Color.GREEN : Color.RED));

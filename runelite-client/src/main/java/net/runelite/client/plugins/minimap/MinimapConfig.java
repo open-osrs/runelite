@@ -24,29 +24,28 @@
  */
 package net.runelite.client.plugins.minimap;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("minimap")
-public interface MinimapConfig extends Config
-{
+public interface MinimapConfig extends Config {
 	@ConfigItem(
-		keyName = "hdMinimapEnabled",
-		name = "HD minimap",
-		description = "Configures whether to show the minimap in higher detail (relog to see changes)",
-		position = 1
+			keyName = "hdMinimapEnabled",
+			name = "HD minimap",
+			description = "Configures whether to show the minimap in higher detail (relog to see changes)",
+			position = 1
 	)
-	default boolean hdMinimapEnabled()
-	{
+	default boolean hdMinimapEnabled() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "item",
-		name = "Item color",
-		description = "Set the minimap color items are drawn in"
+			keyName = "item",
+			name = "Item color",
+			description = "Set the minimap color items are drawn in"
 	)
 	default Color itemColor() //mapdot 0
 	{
@@ -54,9 +53,9 @@ public interface MinimapConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "npc",
-		name = "NPC color",
-		description = "Set the minimap color NPCs are drawn in"
+			keyName = "npc",
+			name = "NPC color",
+			description = "Set the minimap color NPCs are drawn in"
 	)
 	default Color npcColor() //mapdot 1
 	{
@@ -64,9 +63,9 @@ public interface MinimapConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "player",
-		name = "Player color",
-		description = "Set the minimap Color players are drawn in"
+			keyName = "player",
+			name = "Player color",
+			description = "Set the minimap Color players are drawn in"
 	)
 	default Color playerColor() //mapdot 2
 	{
@@ -74,9 +73,9 @@ public interface MinimapConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "friend",
-		name = "Friends color",
-		description = "Set the minimap color your friends are drawn in"
+			keyName = "friend",
+			name = "Friends color",
+			description = "Set the minimap color your friends are drawn in"
 	)
 	default Color friendColor() //mapdot 3
 	{
@@ -84,9 +83,9 @@ public interface MinimapConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "team",
-		name = "Team color",
-		description = "Set the minimap color your team is drawn in"
+			keyName = "team",
+			name = "Team color",
+			description = "Set the minimap color your team is drawn in"
 	)
 	default Color teamColor() //mapdot 4
 	{
@@ -94,9 +93,9 @@ public interface MinimapConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "clan",
-		name = "Clan color",
-		description = "Set the minimap color your clan is drawn in"
+			keyName = "clan",
+			name = "Clan color",
+			description = "Set the minimap color your clan is drawn in"
 	)
 	default Color clanColor() //mapdot 5
 	{
@@ -104,12 +103,11 @@ public interface MinimapConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "hideMinimap",
-		name = "Hide minimap",
-		description = "Do not show the minimap on screen (Resizable only)"
+			keyName = "hideMinimap",
+			name = "Hide minimap",
+			description = "Do not show the minimap on screen (Resizable only)"
 	)
-	default boolean hideMinimap()
-	{
+	default boolean hideMinimap() {
 		return false;
 	}
 }

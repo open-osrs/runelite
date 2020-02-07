@@ -26,12 +26,6 @@
  */
 package net.runelite.client.plugins.slayer;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -39,39 +33,37 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.Set;
+
 @Singleton
-public class TargetMinimapOverlay extends Overlay
-{
+public class TargetMinimapOverlay extends Overlay {
 	private final SlayerPlugin plugin;
 
 	@Inject
-	TargetMinimapOverlay(final SlayerPlugin plugin)
-	{
+	TargetMinimapOverlay(final SlayerPlugin plugin) {
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isHighlightTargets())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isHighlightTargets()) {
 			return null;
 		}
 
 		Set<NPC> targets = plugin.getHighlightedTargets();
-		for (NPC target : targets)
-		{
-			if (target == null || target.getName() == null)
-			{
+		for (NPC target : targets) {
+			if (target == null || target.getName() == null) {
 				continue;
 			}
 
 			Color coloration = plugin.getGetTargetColor();
 
-			if (plugin.isSuperior(target.getName()))
-			{
+			if (plugin.isSuperior(target.getName())) {
 				coloration = plugin.getGetSuperiorColor();
 			}
 
@@ -81,15 +73,12 @@ public class TargetMinimapOverlay extends Overlay
 		return null;
 	}
 
-	private void renderTargetOverlay(Graphics2D graphics, NPC actor, String name, Color color)
-	{
+	private void renderTargetOverlay(Graphics2D graphics, NPC actor, String name, Color color) {
 		Point minimapLocation = actor.getMinimapLocation();
-		if (minimapLocation != null)
-		{
+		if (minimapLocation != null) {
 			OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color);
 
-			if (plugin.isDrawMinimapNames())
-			{
+			if (plugin.isDrawMinimapNames()) {
 				OverlayUtil.renderTextLocation(graphics, minimapLocation, name, color);
 			}
 		}

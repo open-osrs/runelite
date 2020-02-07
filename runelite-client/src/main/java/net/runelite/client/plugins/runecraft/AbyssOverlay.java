@@ -26,11 +26,6 @@ package net.runelite.client.plugins.runecraft;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.Shape;
 import net.runelite.api.Client;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.NPC;
@@ -40,15 +35,15 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
+import java.awt.*;
+
 @Singleton
-class AbyssOverlay extends Overlay
-{
+class AbyssOverlay extends Overlay {
 	private final Client client;
 	private final RunecraftPlugin plugin;
 
 	@Inject
-	AbyssOverlay(final Client client, final RunecraftPlugin plugin)
-	{
+	AbyssOverlay(final Client client, final RunecraftPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
@@ -56,64 +51,50 @@ class AbyssOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.isShowRifts())
-		{
-			for (DecorativeObject object : plugin.getAbyssObjects())
-			{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.isShowRifts()) {
+			for (DecorativeObject object : plugin.getAbyssObjects()) {
 				renderRift(graphics, object);
 			}
 		}
 
-		if (plugin.isHightlightDarkMage())
-		{
+		if (plugin.isHightlightDarkMage()) {
 			highlightDarkMage(graphics);
 		}
 
 		return null;
 	}
 
-	private void highlightDarkMage(Graphics2D graphics)
-	{
-		if (!plugin.isDegradedPouchInInventory())
-		{
+	private void highlightDarkMage(Graphics2D graphics) {
+		if (!plugin.isDegradedPouchInInventory()) {
 			return;
 		}
 
 		NPC darkMage = plugin.getDarkMage();
-		if (darkMage == null)
-		{
+		if (darkMage == null) {
 			return;
 		}
 
 		Polygon tilePoly = darkMage.getCanvasTilePoly();
-		if (tilePoly == null)
-		{
+		if (tilePoly == null) {
 			return;
 		}
 
 		OverlayUtil.renderPolygon(graphics, tilePoly, Color.green);
 	}
 
-	private void renderRift(Graphics2D graphics, DecorativeObject object)
-	{
+	private void renderRift(Graphics2D graphics, DecorativeObject object) {
 		AbyssRifts rift = AbyssRifts.getRift(object.getId());
-		if (rift == null || !plugin.getRifts().contains(rift))
-		{
+		if (rift == null || !plugin.getRifts().contains(rift)) {
 			return;
 		}
 
 		Point mousePosition = client.getMouseCanvasPosition();
 		Shape objectClickbox = object.getClickbox();
-		if (objectClickbox != null)
-		{
-			if (objectClickbox.contains(mousePosition.getX(), mousePosition.getY()))
-			{
+		if (objectClickbox != null) {
+			if (objectClickbox.contains(mousePosition.getX(), mousePosition.getY())) {
 				graphics.setColor(Color.MAGENTA.darker());
-			}
-			else
-			{
+			} else {
 				graphics.setColor(Color.MAGENTA);
 			}
 			graphics.draw(objectClickbox);

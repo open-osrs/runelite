@@ -29,27 +29,11 @@ import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Provides;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import static net.runelite.api.Constants.CHUNK_SIZE;
-import net.runelite.api.GameState;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.MenuOpcode;
-import net.runelite.api.Tile;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.FocusChanged;
@@ -67,16 +51,25 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.List;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static net.runelite.api.Constants.CHUNK_SIZE;
+
 @Slf4j
 @PluginDescriptor(
-	name = "Ground Markers",
-	description = "Enable marking of tiles using the Shift key",
-	tags = {"overlay", "tiles"},
-	type = PluginType.UTILITY
+		name = "Ground Markers",
+		description = "Enable marking of tiles using the Shift key",
+		tags = {"overlay", "tiles"},
+		type = PluginType.UTILITY
 )
 @Singleton
-public class GroundMarkerPlugin extends Plugin
-{
+public class GroundMarkerPlugin extends Plugin {
 	private static final String CONFIG_GROUP = "groundMarker";
 	private static final String MARK = "Mark tile";
 	private static final Pattern GROUP_MATCHER = Pattern.compile(".*ark tile \\(Group (\\d{1,2})\\)");
@@ -117,10 +110,8 @@ public class GroundMarkerPlugin extends Plugin
 	@Inject
 	private KeyManager keyManager;
 
-	private void savePoints(int regionId, Collection<GroundMarkerPoint> points)
-	{
-		if (points == null || points.isEmpty())
-		{
+	private void savePoints(int regionId, Collection<GroundMarkerPoint> points) {
+		if (points == null || points.isEmpty()) {
 			configManager.unsetConfiguration(CONFIG_GROUP, REGION_PREFIX + regionId);
 			return;
 		}
@@ -129,18 +120,15 @@ public class GroundMarkerPlugin extends Plugin
 		configManager.setConfiguration(CONFIG_GROUP, REGION_PREFIX + regionId, json);
 	}
 
-	private Collection<GroundMarkerPoint> getPoints(int regionId)
-	{
+	private Collection<GroundMarkerPoint> getPoints(int regionId) {
 		String json = configManager.getConfiguration(CONFIG_GROUP, REGION_PREFIX + regionId);
-		if (Strings.isNullOrEmpty(json))
-		{
+		if (Strings.isNullOrEmpty(json)) {
 			return Collections.emptyList();
 		}
 		return GSON.fromJson(json, new GroundMarkerListTypeToken().getType());
 	}
 
-	private static class GroundMarkerListTypeToken extends TypeToken<List<GroundMarkerPoint>>
-	{
+	private static class GroundMarkerListTypeToken extends TypeToken<List<GroundMarkerPoint>> {
 	}
 
 	private GroundMarkerConfig.amount amount;
@@ -176,24 +164,20 @@ public class GroundMarkerPlugin extends Plugin
 	private boolean thinMarkers;
 
 	@Provides
-	GroundMarkerConfig provideConfig(ConfigManager configManager)
-	{
+	GroundMarkerConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(GroundMarkerConfig.class);
 	}
 
-	private void loadPoints()
-	{
+	private void loadPoints() {
 		points.clear();
 
 		int[] regions = client.getMapRegions();
 
-		if (regions == null)
-		{
+		if (regions == null) {
 			return;
 		}
 
-		for (int regionId : regions)
-		{
+		for (int regionId : regions) {
 			// load points for region
 			log.debug("Loading points for region {}", regionId);
 			Collection<GroundMarkerPoint> regionPoints = getPoints(regionId);
@@ -209,16 +193,13 @@ public class GroundMarkerPlugin extends Plugin
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private Collection<GroundMarkerWorldPoint> translateToWorld(Collection<GroundMarkerPoint> points)
-	{
-		if (points.isEmpty())
-		{
+	private Collection<GroundMarkerWorldPoint> translateToWorld(Collection<GroundMarkerPoint> points) {
+		if (points.isEmpty()) {
 			return Collections.EMPTY_LIST;
 		}
 
 		List<GroundMarkerWorldPoint> worldPoints = new ArrayList<>();
-		for (GroundMarkerPoint point : points)
-		{
+		for (GroundMarkerPoint point : points) {
 			int regionId = point.getRegionId();
 			int regionX = point.getRegionX();
 			int regionY = point.getRegionY();
@@ -226,28 +207,24 @@ public class GroundMarkerPlugin extends Plugin
 
 			WorldPoint worldPoint = WorldPoint.fromRegion(regionId, regionX, regionY, z);
 
-			if (!client.isInInstancedRegion())
-			{
+			if (!client.isInInstancedRegion()) {
 				worldPoints.add(new GroundMarkerWorldPoint(point, worldPoint));
 				continue;
 			}
 
 			// find instance chunks using the template point. there might be more than one.
 			int[][][] instanceTemplateChunks = client.getInstanceTemplateChunks();
-			for (int x = 0; x < instanceTemplateChunks[z].length; ++x)
-			{
-				for (int y = 0; y < instanceTemplateChunks[z][x].length; ++y)
-				{
+			for (int x = 0; x < instanceTemplateChunks[z].length; ++x) {
+				for (int y = 0; y < instanceTemplateChunks[z][x].length; ++y) {
 					int chunkData = instanceTemplateChunks[z][x][y];
 					int rotation = chunkData >> 1 & 0x3;
 					int templateChunkY = (chunkData >> 3 & 0x7FF) * CHUNK_SIZE;
 					int templateChunkX = (chunkData >> 14 & 0x3FF) * CHUNK_SIZE;
 					if (worldPoint.getX() >= templateChunkX && worldPoint.getX() < templateChunkX + CHUNK_SIZE
-						&& worldPoint.getY() >= templateChunkY && worldPoint.getY() < templateChunkY + CHUNK_SIZE)
-					{
+							&& worldPoint.getY() >= templateChunkY && worldPoint.getY() < templateChunkY + CHUNK_SIZE) {
 						WorldPoint p = new WorldPoint(client.getBaseX() + x * CHUNK_SIZE + (worldPoint.getX() & (CHUNK_SIZE - 1)),
-							client.getBaseY() + y * CHUNK_SIZE + (worldPoint.getY() & (CHUNK_SIZE - 1)),
-							worldPoint.getPlane());
+								client.getBaseY() + y * CHUNK_SIZE + (worldPoint.getY() & (CHUNK_SIZE - 1)),
+								worldPoint.getPlane());
 						p = rotate(p, rotation);
 						worldPoints.add(new GroundMarkerWorldPoint(point, p));
 					}
@@ -264,8 +241,7 @@ public class GroundMarkerPlugin extends Plugin
 	 * @param rotation rotation
 	 * @return world point
 	 */
-	private static WorldPoint rotateInverse(WorldPoint point, int rotation)
-	{
+	private static WorldPoint rotateInverse(WorldPoint point, int rotation) {
 		return rotate(point, 4 - rotation);
 	}
 
@@ -276,14 +252,12 @@ public class GroundMarkerPlugin extends Plugin
 	 * @param rotation rotation
 	 * @return world point
 	 */
-	private static WorldPoint rotate(WorldPoint point, int rotation)
-	{
+	private static WorldPoint rotate(WorldPoint point, int rotation) {
 		int chunkX = point.getX() & -CHUNK_SIZE;
 		int chunkY = point.getY() & -CHUNK_SIZE;
 		int x = point.getX() & (CHUNK_SIZE - 1);
 		int y = point.getY() & (CHUNK_SIZE - 1);
-		switch (rotation)
-		{
+		switch (rotation) {
 			case 1:
 				return new WorldPoint(chunkX + y, chunkY + (CHUNK_SIZE - 1 - x), point.getPlane());
 			case 2:
@@ -295,10 +269,8 @@ public class GroundMarkerPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)
-		{
+	private void onGameStateChanged(GameStateChanged gameStateChanged) {
+		if (gameStateChanged.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
@@ -307,23 +279,18 @@ public class GroundMarkerPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onFocusChanged(FocusChanged focusChanged)
-	{
-		if (!focusChanged.isFocused())
-		{
+	private void onFocusChanged(FocusChanged focusChanged) {
+		if (!focusChanged.isFocused()) {
 			hotKeyPressed = false;
 		}
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded event)
-	{
-		if (hotKeyPressed && event.getOption().equals(WALK_HERE))
-		{
+	private void onMenuEntryAdded(MenuEntryAdded event) {
+		if (hotKeyPressed && event.getOption().equals(WALK_HERE)) {
 			final Tile selectedSceneTile = client.getSelectedSceneTile();
 
-			if (selectedSceneTile == null)
-			{
+			if (selectedSceneTile == null) {
 				return;
 			}
 
@@ -333,19 +300,16 @@ public class GroundMarkerPlugin extends Plugin
 			menuEntries = Arrays.copyOf(menuEntries, lastIndex + this.amount.toInt());
 
 			final Tile tile = client.getSelectedSceneTile();
-			if (tile == null)
-			{
+			if (tile == null) {
 				return;
 			}
 			final WorldPoint loc = WorldPoint.fromLocalInstance(client, tile.getLocalLocation());
-			if (loc == null)
-			{
+			if (loc == null) {
 				return;
 			}
 			final int regionId = loc.getRegionID();
 
-			for (int i = this.amount.toInt(); i > 0; i--)
-			{
+			for (int i = this.amount.toInt(); i > 0; i--) {
 				MenuEntry menuEntry = menuEntries[lastIndex] = new MenuEntry();
 
 				final GroundMarkerPoint point = new GroundMarkerPoint(regionId, loc.getRegionX(), loc.getRegionY(), client.getPlane(), i);
@@ -363,32 +327,27 @@ public class GroundMarkerPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked event)
-	{
-		if (!event.getOption().contains(MARK) && !event.getOption().contains(UNMARK))
-		{
+	private void onMenuOptionClicked(MenuOptionClicked event) {
+		if (!event.getOption().contains(MARK) && !event.getOption().contains(UNMARK)) {
 			return;
 		}
 
 		int group = 1;
 		Matcher m = GROUP_MATCHER.matcher(event.getOption());
-		if (m.matches())
-		{
+		if (m.matches()) {
 			group = Integer.parseInt(m.group(1));
 		}
 
 		Tile target = client.getSelectedSceneTile();
 
-		if (target == null)
-		{
+		if (target == null) {
 			return;
 		}
 		markTile(target.getLocalLocation(), group);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		overlayManager.add(overlay);
@@ -398,25 +357,21 @@ public class GroundMarkerPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(minimapOverlay);
 		keyManager.unregisterKeyListener(inputListener);
 		points.clear();
 	}
 
-	private void markTile(LocalPoint localPoint, int group)
-	{
-		if (localPoint == null)
-		{
+	private void markTile(LocalPoint localPoint, int group) {
+		if (localPoint == null) {
 			return;
 		}
 
 		WorldPoint worldPoint = WorldPoint.fromLocalInstance(client, localPoint);
 
-		if (worldPoint == null)
-		{
+		if (worldPoint == null) {
 			return;
 		}
 
@@ -425,18 +380,14 @@ public class GroundMarkerPlugin extends Plugin
 		log.debug("Updating point: {} - {}", point, worldPoint);
 
 		List<GroundMarkerPoint> points = new ArrayList<>(getPoints(regionId));
-		if (points.contains(point))
-		{
+		if (points.contains(point)) {
 			GroundMarkerPoint old = points.get(points.indexOf(point));
 			points.remove(point);
 
-			if (old.getGroup() != group)
-			{
+			if (old.getGroup() != group) {
 				points.add(point);
 			}
-		}
-		else
-		{
+		} else {
 			points.add(point);
 		}
 
@@ -445,11 +396,9 @@ public class GroundMarkerPlugin extends Plugin
 		loadPoints();
 	}
 
-	private Color getColor(int group)
-	{
+	private Color getColor(int group) {
 		Color color = this.markerColor;
-		switch (group)
-		{
+		switch (group) {
 			case 2:
 				color = this.markerColor2;
 				break;
@@ -488,16 +437,13 @@ public class GroundMarkerPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("groundMarker"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("groundMarker")) {
 			updateConfig();
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.amount = config.getAmount();
 		this.markerColor = config.markerColor();
 		this.markerColor2 = config.markerColor2();

@@ -24,20 +24,19 @@
  */
 package net.runelite.client.plugins.deathindicator;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 
-class DeathWorldMapPoint extends WorldMapPoint
-{
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+class DeathWorldMapPoint extends WorldMapPoint {
 	private final DeathIndicatorPlugin plugin;
 	private final BufferedImage worldmapHintArrow;
 	private final Point worldmapHintArrowPoint;
 
-	DeathWorldMapPoint(final WorldPoint worldPoint, final DeathIndicatorPlugin plugin)
-	{
+	DeathWorldMapPoint(final WorldPoint worldPoint, final DeathIndicatorPlugin plugin) {
 		super(worldPoint, null);
 
 		worldmapHintArrow = new BufferedImage(plugin.getMapArrow().getWidth(), plugin.getMapArrow().getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -45,8 +44,8 @@ class DeathWorldMapPoint extends WorldMapPoint
 		graphics.drawImage(plugin.getMapArrow(), 0, 0, null);
 		graphics.drawImage(plugin.getBonesImage(), 0, 0, null);
 		worldmapHintArrowPoint = new Point(
-			worldmapHintArrow.getWidth() / 2,
-			worldmapHintArrow.getHeight());
+				worldmapHintArrow.getWidth() / 2,
+				worldmapHintArrow.getHeight());
 
 		this.plugin = plugin;
 		this.setSnapToEdge(true);
@@ -57,16 +56,14 @@ class DeathWorldMapPoint extends WorldMapPoint
 	}
 
 	@Override
-	public void onEdgeSnap()
-	{
+	public void onEdgeSnap() {
 		this.setImage(plugin.getBonesImage());
 		this.setImagePoint(null);
 		this.setTooltip(null);
 	}
 
 	@Override
-	public void onEdgeUnsnap()
-	{
+	public void onEdgeUnsnap() {
 		this.setImage(worldmapHintArrow);
 		this.setImagePoint(worldmapHintArrowPoint);
 		this.setTooltip("Death Location");

@@ -32,8 +32,7 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Vorkath
-{
+public enum Vorkath {
 	DISABLED("Disabled"),
 	VORKATH_CHEAP("Eagle Eye"),
 	VORKATH_EXPENSIVE("Rigour");
@@ -41,8 +40,7 @@ public enum Vorkath
 	private String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
 }

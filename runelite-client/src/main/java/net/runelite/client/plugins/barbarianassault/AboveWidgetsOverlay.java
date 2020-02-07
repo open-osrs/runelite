@@ -25,13 +25,6 @@
  */
 package net.runelite.client.plugins.barbarianassault;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.Widget;
@@ -43,9 +36,13 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 @Singleton
-class AboveWidgetsOverlay extends Overlay
-{
+class AboveWidgetsOverlay extends Overlay {
 	private static final int OFFSET_X_TEXT_QUANTITY = 0;
 	private static final int OFFSET_Y_TEXT_QUANTITY = 10;
 
@@ -53,8 +50,7 @@ class AboveWidgetsOverlay extends Overlay
 	private final BarbarianAssaultPlugin game;
 
 	@Inject
-	private AboveWidgetsOverlay(final Client client, final BarbarianAssaultPlugin game)
-	{
+	private AboveWidgetsOverlay(final Client client, final BarbarianAssaultPlugin game) {
 		super(game);
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -63,65 +59,51 @@ class AboveWidgetsOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!game.isInGame() || game.getRole() == null || game.isUsingGloryHorn())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!game.isInGame() || game.getRole() == null || game.isUsingGloryHorn()) {
 			return null;
 		}
 
 		Role role = game.getRole();
 
-		if (game.isShowTimer())
-		{
+		if (game.isShowTimer()) {
 			renderTimer(graphics, role);
 		}
 
-		switch (role)
-		{
+		switch (role) {
 			case ATTACKER:
-				if (game.isHighlightArrows())
-				{
+				if (game.isHighlightArrows()) {
 					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), game.getHighlightArrowColor());
 				}
 				break;
 
 			case DEFENDER:
-				if (game.isHighlightBait())
-				{
+				if (game.isHighlightBait()) {
 					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), game.getHighlightBaitColor());
 				}
 				break;
 
 			case HEALER:
-				if (game.isHighlightPoison())
-				{
+				if (game.isHighlightPoison()) {
 					renderInventoryHighlights(graphics, game.getRole().getListenItem(game.getLastListenText()), game.getHighlightPoisonColor());
 				}
 		}
 		return null;
 	}
 
-	private void renderTimer(Graphics2D graphics, Role role)
-	{
+	private void renderTimer(Graphics2D graphics, Role role) {
 		Widget roleText = client.getWidget(role.getRoleText());
 		Widget roleSprite = client.getWidget(role.getRoleSprite());
 
-		if (roleText == null || roleSprite == null)
-		{
+		if (roleText == null || roleSprite == null) {
 			return;
 		}
 
-		if (role == Role.COLLECTOR && game.isShowEggCountOverlay() && game.getWave() != null)
-		{
+		if (role == Role.COLLECTOR && game.isShowEggCountOverlay() && game.getWave() != null) {
 			roleText.setText("(" + game.getWave().getCollectedEggCount() + ") " + formatClock());
-		}
-		else if (role == Role.HEALER && game.isShowHpCountOverlay() && game.getWave() != null)
-		{
+		} else if (role == Role.HEALER && game.isShowHpCountOverlay() && game.getWave() != null) {
 			roleText.setText("(" + game.getWave().getHpHealed() + ") " + formatClock());
-		}
-		else
-		{
+		} else {
 			roleText.setText(formatClock());
 		}
 
@@ -130,48 +112,36 @@ class AboveWidgetsOverlay extends Overlay
 		roleSprite.setHidden(true);
 	}
 
-	private void renderInventoryHighlights(Graphics2D graphics, int itemID, Color color)
-	{
+	private void renderInventoryHighlights(Graphics2D graphics, int itemID, Color color) {
 		Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
 
-		if (inventory == null || inventory.isHidden() || itemID == -1)
-		{
+		if (inventory == null || inventory.isHidden() || itemID == -1) {
 			return;
 		}
 
 		Color highlight = new Color(color.getRed(), color.getGreen(), color.getBlue(), 150);
 		BufferedImage image = ImageUtil.fillImage(client.createItemSprite(itemID, 300, 2, 0, 0, true, 710).toBufferedImage(), highlight);
-		for (WidgetItem item : inventory.getWidgetItems())
-		{
-			if (item.getId() == itemID)
-			{
+		for (WidgetItem item : inventory.getWidgetItems()) {
+			if (item.getId() == itemID) {
 				OverlayUtil.renderImageLocation(graphics, item.getCanvasLocation(), image);
 				//The item's text quantity is rendered after the sprite's image is rendered so that the text appears on top
-				if (item.getQuantity() > 1)
-				{
+				if (item.getQuantity() > 1) {
 					OverlayUtil.renderTextLocation(graphics,
-						new Point(item.getCanvasLocation().getX() + OFFSET_X_TEXT_QUANTITY, item.getCanvasLocation().getY() + OFFSET_Y_TEXT_QUANTITY),
-						String.valueOf(item.getQuantity()), Color.YELLOW);
+							new Point(item.getCanvasLocation().getX() + OFFSET_X_TEXT_QUANTITY, item.getCanvasLocation().getY() + OFFSET_Y_TEXT_QUANTITY),
+							String.valueOf(item.getQuantity()), Color.YELLOW);
 				}
 			}
 		}
 	}
 
-	private String formatClock()
-	{
-		if (game.getCallTimer() == null)
-		{
+	private String formatClock() {
+		if (game.getCallTimer() == null) {
 			return "- - -";
-		}
-		else
-		{
+		} else {
 			long timeLeft = game.getTimeToChange();
-			if (timeLeft < 0)
-			{
+			if (timeLeft < 0) {
 				return "00:00";
-			}
-			else
-			{
+			} else {
 				return String.format("00:%02d", timeLeft);
 			}
 		}

@@ -28,35 +28,28 @@ import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.Item;
 
-public class SlotLimitationRequirement implements ItemRequirement
-{
+public class SlotLimitationRequirement implements ItemRequirement {
 	private final String description;
 	private final EquipmentInventorySlot[] slots;
 
-	public SlotLimitationRequirement(String description, EquipmentInventorySlot... slots)
-	{
+	public SlotLimitationRequirement(String description, EquipmentInventorySlot... slots) {
 		this.description = description;
 		this.slots = slots;
 	}
 
 	@Override
-	public boolean fulfilledBy(int itemId)
-	{
+	public boolean fulfilledBy(int itemId) {
 		return false;
 	}
 
 	@Override
-	public boolean fulfilledBy(Item[] items)
-	{
-		for (EquipmentInventorySlot slot : slots)
-		{
-			if (slot.getSlotIdx() >= items.length)
-			{
+	public boolean fulfilledBy(Item[] items) {
+		for (EquipmentInventorySlot slot : slots) {
+			if (slot.getSlotIdx() >= items.length) {
 				continue; //We can't check the slot, because there is nothing in it, the array hasn't been resized
 			}
 
-			if (items[slot.getSlotIdx()].getId() != -1)
-			{
+			if (items[slot.getSlotIdx()].getId() != -1) {
 				return false;
 			}
 		}
@@ -65,8 +58,7 @@ public class SlotLimitationRequirement implements ItemRequirement
 	}
 
 	@Override
-	public String getCollectiveName(Client client)
-	{
+	public String getCollectiveName(Client client) {
 		return description;
 	}
 }

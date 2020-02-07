@@ -24,20 +24,14 @@
  */
 package net.runelite.client.plugins.nightmarezone;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -47,9 +41,15 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.QuantityFormatter;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 @Singleton
-class NightmareZoneOverlay extends Overlay
-{
+class NightmareZoneOverlay extends Overlay {
 	private final Client client;
 	private final NightmareZonePlugin plugin;
 	private final InfoBoxManager infoBoxManager;
@@ -60,11 +60,10 @@ class NightmareZoneOverlay extends Overlay
 
 	@Inject
 	NightmareZoneOverlay(
-		final Client client,
-		final NightmareZonePlugin plugin,
-		final InfoBoxManager infoBoxManager,
-		final ItemManager itemManager)
-	{
+			final Client client,
+			final NightmareZonePlugin plugin,
+			final InfoBoxManager infoBoxManager,
+			final ItemManager itemManager) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.LOW);
@@ -76,17 +75,13 @@ class NightmareZoneOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.isNotInNightmareZone() || !plugin.isMoveOverlay())
-		{
-			if (absorptionCounter != null)
-			{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.isNotInNightmareZone() || !plugin.isMoveOverlay()) {
+			if (absorptionCounter != null) {
 				removeAbsorptionCounter();
 				// Restore original widget
 				Widget nmzWidget = client.getWidget(WidgetInfo.NIGHTMARE_ZONE);
-				if (nmzWidget != null)
-				{
+				if (nmzWidget != null) {
 					nmzWidget.setHidden(false);
 				}
 			}
@@ -95,8 +90,7 @@ class NightmareZoneOverlay extends Overlay
 
 		Widget nmzWidget = client.getWidget(WidgetInfo.NIGHTMARE_ZONE);
 
-		if (nmzWidget != null)
-		{
+		if (nmzWidget != null) {
 			nmzWidget.setHidden(true);
 		}
 
@@ -112,8 +106,7 @@ class NightmareZoneOverlay extends Overlay
 		tableComponent.addRow("Points:", QuantityFormatter.formatNumber(currentPoints));
 		tableComponent.addRow("Points/Hour:", QuantityFormatter.formatNumber(plugin.getPointsPerHour()));
 
-		if (plugin.isShowtotalpoints())
-		{
+		if (plugin.isShowtotalpoints()) {
 			tableComponent.addRow("Total:", QuantityFormatter.formatNumber(totalPoints));
 		}
 
@@ -122,48 +115,36 @@ class NightmareZoneOverlay extends Overlay
 		return panelComponent.render(graphics);
 	}
 
-	private void renderAbsorptionCounter()
-	{
+	private void renderAbsorptionCounter() {
 		int absorptionPoints = client.getVar(Varbits.NMZ_ABSORPTION);
-		if (absorptionPoints == 0)
-		{
-			if (absorptionCounter != null)
-			{
+		if (absorptionPoints == 0) {
+			if (absorptionCounter != null) {
 				removeAbsorptionCounter();
 				absorptionCounter = null;
 			}
-		}
-		else if (plugin.isMoveOverlay())
-		{
-			if (absorptionCounter == null)
-			{
+		} else if (plugin.isMoveOverlay()) {
+			if (absorptionCounter == null) {
 				addAbsorptionCounter(absorptionPoints);
-			}
-			else
-			{
+			} else {
 				absorptionCounter.setCount(absorptionPoints);
 			}
 		}
 	}
 
-	private void addAbsorptionCounter(int startValue)
-	{
+	private void addAbsorptionCounter(int startValue) {
 		absorptionCounter = new AbsorptionCounter(itemManager.getImage(ItemID.ABSORPTION_4), plugin, startValue, plugin.getAbsorptionThreshold());
 		absorptionCounter.setAboveThresholdColor(plugin.getAbsorptionColorAboveThreshold());
 		absorptionCounter.setBelowThresholdColor(plugin.getAbsorptionColorBelowThreshold());
 		infoBoxManager.addInfoBox(absorptionCounter);
 	}
 
-	public void removeAbsorptionCounter()
-	{
+	public void removeAbsorptionCounter() {
 		infoBoxManager.removeInfoBox(absorptionCounter);
 		absorptionCounter = null;
 	}
 
-	public void updateConfig()
-	{
-		if (absorptionCounter != null)
-		{
+	public void updateConfig() {
+		if (absorptionCounter != null) {
 			absorptionCounter.setAboveThresholdColor(plugin.getAbsorptionColorAboveThreshold());
 			absorptionCounter.setBelowThresholdColor(plugin.getAbsorptionColorBelowThreshold());
 			absorptionCounter.setThreshold(plugin.getAbsorptionThreshold());

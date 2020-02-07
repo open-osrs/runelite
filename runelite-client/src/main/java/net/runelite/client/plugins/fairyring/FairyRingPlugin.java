@@ -30,29 +30,14 @@ package net.runelite.client.plugins.fairyring;
 
 import com.google.common.base.Strings;
 import com.google.inject.Provides;
-import java.util.Collection;
-import java.util.Map;
-import java.util.TreeMap;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.ScriptEvent;
-import net.runelite.api.ScriptID;
-import net.runelite.api.SoundEffectID;
-import net.runelite.api.SpriteID;
-import net.runelite.api.Varbits;
+import net.runelite.api.*;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.util.Text;
-import net.runelite.api.widgets.JavaScriptCallback;
-import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetID;
-import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.api.widgets.WidgetType;
+import net.runelite.api.widgets.*;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -63,16 +48,22 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
+
 @Slf4j
 @PluginDescriptor(
-	name = "Fairy Rings",
-	description = "Show the location of the fairy ring teleport",
-	tags = {"teleportation"},
-	type = PluginType.UTILITY
+		name = "Fairy Rings",
+		description = "Show the location of the fairy ring teleport",
+		tags = {"teleportation"},
+		type = PluginType.UTILITY
 )
 @Singleton
-public class FairyRingPlugin extends Plugin
-{
+public class FairyRingPlugin extends Plugin {
 	private static final String[] leftDial = new String[]{"A", "D", "C", "B"};
 	private static final String[] middleDial = new String[]{"I", "L", "K", "J"};
 	private static final String[] rightDial = new String[]{"P", "S", "R", "Q"};
@@ -101,8 +92,7 @@ public class FairyRingPlugin extends Plugin
 	private boolean autoOpen;
 
 	@Data
-	private static class CodeWidgets
-	{
+	private static class CodeWidgets {
 		// The fairy hideout has both of these null, because its not the same as the rest of them
 		@Nullable
 		private Widget favorite;
@@ -114,16 +104,13 @@ public class FairyRingPlugin extends Plugin
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		this.autoOpen = config.autoOpen();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("fairyrings"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("fairyrings")) {
 			return;
 		}
 
@@ -131,27 +118,22 @@ public class FairyRingPlugin extends Plugin
 	}
 
 	@Provides
-	FairyRingConfig getConfig(ConfigManager configManager)
-	{
+	FairyRingConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(FairyRingConfig.class);
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged event)
-	{
+	private void onVarbitChanged(VarbitChanged event) {
 		setWidgetTextToDestination();
 	}
 
 	@Subscribe
-	private void onWidgetLoaded(WidgetLoaded widgetLoaded)
-	{
-		if (widgetLoaded.getGroupId() == WidgetID.FAIRY_RING_PANEL_GROUP_ID)
-		{
+	private void onWidgetLoaded(WidgetLoaded widgetLoaded) {
+		if (widgetLoaded.getGroupId() == WidgetID.FAIRY_RING_PANEL_GROUP_ID) {
 			setWidgetTextToDestination();
 
 			Widget header = client.getWidget(WidgetInfo.FAIRY_RING_HEADER);
-			if (header != null)
-			{
+			if (header != null) {
 				searchBtn = header.createChild(-1, WidgetType.GRAPHIC);
 				searchBtn.setSpriteId(SpriteID.GE_SEARCH);
 				searchBtn.setOriginalWidth(17);
@@ -166,41 +148,33 @@ public class FairyRingPlugin extends Plugin
 
 				codes = null;
 
-				if (this.autoOpen)
-				{
+				if (this.autoOpen) {
 					openSearch();
 				}
 			}
 		}
 	}
 
-	private void menuOpen(ScriptEvent e)
-	{
+	private void menuOpen(ScriptEvent e) {
 		openSearch();
 		client.playSoundEffect(SoundEffectID.UI_BOOP);
 	}
 
-	private void menuClose(ScriptEvent e)
-	{
+	private void menuClose(ScriptEvent e) {
 		updateFilter("");
 		chatboxPanelManager.close();
 		client.playSoundEffect(SoundEffectID.UI_BOOP);
 	}
 
-	private void setWidgetTextToDestination()
-	{
+	private void setWidgetTextToDestination() {
 		Widget fairyRingTeleportButton = client.getWidget(WidgetInfo.FAIRY_RING_TELEPORT_BUTTON);
-		if (fairyRingTeleportButton != null && !fairyRingTeleportButton.isHidden())
-		{
+		if (fairyRingTeleportButton != null && !fairyRingTeleportButton.isHidden()) {
 			String destination;
-			try
-			{
+			try {
 				FairyRings fairyRingDestination = getFairyRingDestination(client.getVar(Varbits.FAIRY_RING_DIAL_ADCB),
-					client.getVar(Varbits.FAIRY_RIGH_DIAL_ILJK), client.getVar(Varbits.FAIRY_RING_DIAL_PSRQ));
+						client.getVar(Varbits.FAIRY_RIGH_DIAL_ILJK), client.getVar(Varbits.FAIRY_RING_DIAL_PSRQ));
 				destination = fairyRingDestination.getDestination();
-			}
-			catch (IllegalArgumentException ex)
-			{
+			} catch (IllegalArgumentException ex) {
 				destination = "Invalid location";
 			}
 
@@ -208,94 +182,78 @@ public class FairyRingPlugin extends Plugin
 		}
 	}
 
-	private FairyRings getFairyRingDestination(int varbitValueDialLeft, int varbitValueDialMiddle, int varbitValueDialRight)
-	{
+	private FairyRings getFairyRingDestination(int varbitValueDialLeft, int varbitValueDialMiddle, int varbitValueDialRight) {
 		return FairyRings.valueOf(leftDial[varbitValueDialLeft] + middleDial[varbitValueDialMiddle] + rightDial[varbitValueDialRight]);
 	}
 
-	private void openSearch()
-	{
+	private void openSearch() {
 		updateFilter("");
 		searchBtn.setAction(1, MENU_CLOSE);
 		searchBtn.setOnOpListener((JavaScriptCallback) this::menuClose);
 		searchInput = chatboxPanelManager.openTextInput("Filter fairy rings")
-			.onChanged(s -> clientThread.invokeLater(() -> updateFilter(s)))
-			.onClose(() ->
-			{
-				clientThread.invokeLater(() -> updateFilter(""));
-				searchBtn.setOnOpListener((JavaScriptCallback) this::menuOpen);
-				searchBtn.setAction(1, MENU_OPEN);
-			})
-			.build();
+				.onChanged(s -> clientThread.invokeLater(() -> updateFilter(s)))
+				.onClose(() ->
+				{
+					clientThread.invokeLater(() -> updateFilter(""));
+					searchBtn.setOnOpListener((JavaScriptCallback) this::menuOpen);
+					searchBtn.setAction(1, MENU_OPEN);
+				})
+				.build();
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick t)
-	{
+	private void onGameTick(GameTick t) {
 		// This has to happen because the only widget that gets hidden is the tli one
 		Widget fairyRingTeleportButton = client.getWidget(WidgetInfo.FAIRY_RING_TELEPORT_BUTTON);
 		boolean fairyRingWidgetOpen = fairyRingTeleportButton != null && !fairyRingTeleportButton.isHidden();
 		boolean chatboxOpen = searchInput != null && chatboxPanelManager.getCurrentInput() == searchInput;
 
-		if (!fairyRingWidgetOpen && chatboxOpen)
-		{
+		if (!fairyRingWidgetOpen && chatboxOpen) {
 			chatboxPanelManager.close();
 		}
 	}
 
-	private void updateFilter(String filter)
-	{
+	private void updateFilter(String filter) {
 		filter = filter.toLowerCase();
 		final Widget list = client.getWidget(WidgetInfo.FAIRY_RING_LIST);
 		final Widget favorites = client.getWidget(WidgetInfo.FAIRY_RING_FAVORITES);
 
-		if (list == null)
-		{
+		if (list == null) {
 			return;
 		}
 
 		if (codes != null &&
-			// Check to make sure the list hasn't been rebuild since we were last her
-			// Do this by making sure the list's dynamic children are the same as when we last saw them
-			codes.stream().noneMatch(w ->
-			{
-				Widget codeWidget = w.getCode();
-				if (codeWidget == null)
+				// Check to make sure the list hasn't been rebuild since we were last her
+				// Do this by making sure the list's dynamic children are the same as when we last saw them
+				codes.stream().noneMatch(w ->
 				{
-					return false;
-				}
-				return list.getChild(codeWidget.getIndex()) == codeWidget;
-			}))
-		{
+					Widget codeWidget = w.getCode();
+					if (codeWidget == null) {
+						return false;
+					}
+					return list.getChild(codeWidget.getIndex()) == codeWidget;
+				})) {
 			codes = null;
 		}
 
-		if (codes == null)
-		{
+		if (codes == null) {
 			// Find all of the widgets that we care about, grouping by their Y value
 			Map<Integer, CodeWidgets> codeMap = new TreeMap<>();
 
-			for (Widget w : list.getStaticChildren())
-			{
-				if (w.isSelfHidden())
-				{
+			for (Widget w : list.getStaticChildren()) {
+				if (w.isSelfHidden()) {
 					continue;
 				}
 
-				if (w.getSpriteId() != -1)
-				{
+				if (w.getSpriteId() != -1) {
 					codeMap.computeIfAbsent(w.getRelativeY(), k -> new CodeWidgets()).setFavorite(w);
-				}
-				else if (!Strings.isNullOrEmpty(w.getText()))
-				{
+				} else if (!Strings.isNullOrEmpty(w.getText())) {
 					codeMap.computeIfAbsent(w.getRelativeY(), k -> new CodeWidgets()).setDescription(w);
 				}
 			}
 
-			for (Widget w : list.getDynamicChildren())
-			{
-				if (w.isSelfHidden())
-				{
+			for (Widget w : list.getDynamicChildren()) {
+				if (w.isSelfHidden()) {
 					continue;
 				}
 
@@ -309,47 +267,38 @@ public class FairyRingPlugin extends Plugin
 		// Relayout the panel
 		int y = 0;
 
-		if (favorites != null)
-		{
+		if (favorites != null) {
 			boolean hide = !filter.isEmpty();
 			favorites.setHidden(hide);
-			if (!hide)
-			{
+			if (!hide) {
 				y += favorites.getOriginalHeight() + ENTRY_PADDING;
 			}
 		}
 
-		for (CodeWidgets c : codes)
-		{
+		for (CodeWidgets c : codes) {
 			String code = Text.removeTags(c.getDescription().getName()).replaceAll(" ", "");
 			String tags = null;
 
-			if (!code.isEmpty())
-			{
-				try
-				{
+			if (!code.isEmpty()) {
+				try {
 					FairyRings ring = FairyRings.valueOf(code);
 					tags = ring.getTags();
-				}
-				catch (IllegalArgumentException e)
-				{
+				} catch (IllegalArgumentException e) {
 					log.warn("Unable to find ring with code '{}'", code, e);
 				}
 			}
 
 			boolean hidden = !(filter.isEmpty()
-				|| Text.removeTags(c.getDescription().getText()).toLowerCase().contains(filter)
-				|| code.toLowerCase().contains(filter)
-				|| tags != null && tags.contains(filter));
+					|| Text.removeTags(c.getDescription().getText()).toLowerCase().contains(filter)
+					|| code.toLowerCase().contains(filter)
+					|| tags != null && tags.contains(filter));
 
-			if (c.getCode() != null)
-			{
+			if (c.getCode() != null) {
 				c.getCode().setHidden(hidden);
 				c.getCode().setOriginalY(y);
 			}
 
-			if (c.getFavorite() != null)
-			{
+			if (c.getFavorite() != null) {
 				c.getFavorite().setHidden(hidden);
 				c.getFavorite().setOriginalY(y);
 			}
@@ -357,32 +306,29 @@ public class FairyRingPlugin extends Plugin
 			c.getDescription().setHidden(hidden);
 			c.getDescription().setOriginalY(y);
 
-			if (!hidden)
-			{
+			if (!hidden) {
 				y += c.getDescription().getHeight() + ENTRY_PADDING;
 			}
 		}
 
 		y -= ENTRY_PADDING;
 
-		if (y < 0)
-		{
+		if (y < 0) {
 			y = 0;
 		}
 
 		int newHeight = 0;
-		if (list.getScrollHeight() > 0)
-		{
+		if (list.getScrollHeight() > 0) {
 			newHeight = (list.getScrollY() * y) / list.getScrollHeight();
 		}
 
 		list.setScrollHeight(y);
 		list.revalidateScroll();
 		client.runScript(
-			ScriptID.UPDATE_SCROLLBAR,
-			WidgetInfo.FAIRY_RING_LIST_SCROLLBAR.getId(),
-			WidgetInfo.FAIRY_RING_LIST.getId(),
-			newHeight
+				ScriptID.UPDATE_SCROLLBAR,
+				WidgetInfo.FAIRY_RING_LIST_SCROLLBAR.getId(),
+				WidgetInfo.FAIRY_RING_LIST.getId(),
+				newHeight
 		);
 	}
 }

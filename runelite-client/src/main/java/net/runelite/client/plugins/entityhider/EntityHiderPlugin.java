@@ -27,13 +27,6 @@
 package net.runelite.client.plugins.entityhider;
 
 import com.google.inject.Provides;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.GameStateChanged;
@@ -45,16 +38,23 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @PluginDescriptor(
-	name = "Entity Hider",
-	description = "Hide players, NPCs, and/or projectiles",
-	tags = {"npcs", "players", "projectiles"},
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Entity Hider",
+		description = "Hide players, NPCs, and/or projectiles",
+		tags = {"npcs", "players", "projectiles"},
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
-public class EntityHiderPlugin extends Plugin
-{
+public class EntityHiderPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -62,14 +62,12 @@ public class EntityHiderPlugin extends Plugin
 	private EntityHiderConfig config;
 
 	@Provides
-	EntityHiderConfig provideConfig(ConfigManager configManager)
-	{
+	EntityHiderConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(EntityHiderConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		Text.fromCSV(config.hideNPCsNames()).forEach(client::addHiddenNpcName);
@@ -77,35 +75,27 @@ public class EntityHiderPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("entityhider"))
-		{
+	public void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("entityhider")) {
 			updateConfig();
 
 			final Set<Integer> blacklist = new HashSet<>();
 
-			for (String s : Text.COMMA_SPLITTER.split(config.blacklistDeadNpcs()))
-			{
-				try
-				{
+			for (String s : Text.COMMA_SPLITTER.split(config.blacklistDeadNpcs())) {
+				try {
 					blacklist.add(Integer.parseInt(s));
-				}
-				catch (NumberFormatException ignored)
-				{
+				} catch (NumberFormatException ignored) {
 				}
 
 			}
 
 			client.setBlacklistDeadNpcs(blacklist);
 
-			if (event.getOldValue() == null || event.getNewValue() == null)
-			{
+			if (event.getOldValue() == null || event.getNewValue() == null) {
 				return;
 			}
 
-			if (event.getKey().equals("hideNPCsNames"))
-			{
+			if (event.getKey().equals("hideNPCsNames")) {
 				List<String> oldList = Text.fromCSV(event.getOldValue());
 				List<String> newList = Text.fromCSV(event.getNewValue());
 
@@ -116,8 +106,7 @@ public class EntityHiderPlugin extends Plugin
 				added.forEach(client::addHiddenNpcName);
 			}
 
-			if (event.getKey().equals("hideNPCsOnDeath"))
-			{
+			if (event.getKey().equals("hideNPCsOnDeath")) {
 				List<String> oldList = Text.fromCSV(event.getOldValue());
 				List<String> newList = Text.fromCSV(event.getNewValue());
 
@@ -131,16 +120,13 @@ public class EntityHiderPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOGGED_IN)
-		{
+	public void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() == GameState.LOGGED_IN) {
 			client.setIsHidingEntities(true);
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		client.setIsHidingEntities(true);
 		client.setPlayersHidden(config.hidePlayers());
 		client.setPlayersHidden2D(config.hidePlayers2D());
@@ -158,8 +144,7 @@ public class EntityHiderPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		client.setIsHidingEntities(false);
 		client.setPlayersHidden(false);
 		client.setPlayersHidden2D(false);

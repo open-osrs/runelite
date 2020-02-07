@@ -29,16 +29,14 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("teamCapes")
-public interface TeamCapesConfig extends Config
-{
+public interface TeamCapesConfig extends Config {
 	@ConfigItem(
-		keyName = "minimumCapeCount",
-		name = "Minimum Cape Count",
-		description = "Configures the minimum number of team capes which must be present before being displayed.",
-		position = 0
+			keyName = "minimumCapeCount",
+			name = "Minimum Cape Count",
+			description = "Configures the minimum number of team capes which must be present before being displayed.",
+			position = 0
 	)
-	default int getMinimumCapeCount()
-	{
+	default int getMinimumCapeCount() {
 		return 1;
 	}
 }

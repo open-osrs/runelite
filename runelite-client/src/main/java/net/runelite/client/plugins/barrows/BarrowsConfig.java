@@ -24,77 +24,71 @@
  */
 package net.runelite.client.plugins.barrows;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("barrows")
-public interface BarrowsConfig extends Config
-{
+public interface BarrowsConfig extends Config {
 	@ConfigItem(
-		keyName = "showMinimap",
-		name = "Show Minimap in tunnels",
-		description = "Configures whether or not the minimap is displayed",
-		position = 0
+			keyName = "showMinimap",
+			name = "Show Minimap in tunnels",
+			description = "Configures whether or not the minimap is displayed",
+			position = 0
 	)
-	default boolean showMinimap()
-	{
+	default boolean showMinimap() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showBrotherLoc",
-		name = "Show Brothers location",
-		description = "Configures whether or not the brothers location is displayed",
-		position = 1
+			keyName = "showBrotherLoc",
+			name = "Show Brothers location",
+			description = "Configures whether or not the brothers location is displayed",
+			position = 1
 	)
-	default boolean showBrotherLoc()
-	{
+	default boolean showBrotherLoc() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "brotherLocColor",
-		name = "Brother location color",
-		description = "Change the color of the name displayed on the minimap",
-		position = 2
+			keyName = "brotherLocColor",
+			name = "Brother location color",
+			description = "Change the color of the name displayed on the minimap",
+			position = 2
 	)
-	default Color brotherLocColor()
-	{
+	default Color brotherLocColor() {
 		return Color.CYAN;
 	}
 
 	@ConfigItem(
-		keyName = "deadBrotherLocColor",
-		name = "Dead Brother loc. color",
-		description = "Change the color of the name displayed on the minimap for a dead brother",
-		position = 3
+			keyName = "deadBrotherLocColor",
+			name = "Dead Brother loc. color",
+			description = "Change the color of the name displayed on the minimap for a dead brother",
+			position = 3
 	)
-	default Color deadBrotherLocColor()
-	{
+	default Color deadBrotherLocColor() {
 		return Color.RED;
 	}
 
 	@ConfigItem(
-		keyName = "showPuzzleAnswer",
-		name = "Show Puzzle Answer",
-		description = "Configures if the puzzle answer should be shown.",
-		position = 4
+			keyName = "showPuzzleAnswer",
+			name = "Show Puzzle Answer",
+			description = "Configures if the puzzle answer should be shown.",
+			position = 4
 	)
-	default boolean showPuzzleAnswer()
-	{
+	default boolean showPuzzleAnswer() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showPrayerDrainTimer",
-		name = "Show Prayer Drain Timer",
-		description = "Configure whether or not a countdown until the next prayer drain is displayed",
-		position = 5
+			keyName = "showPrayerDrainTimer",
+			name = "Show Prayer Drain Timer",
+			description = "Configure whether or not a countdown until the next prayer drain is displayed",
+			position = 5
 	)
-	default boolean showPrayerDrainTimer()
-	{
+	default boolean showPrayerDrainTimer() {
 		return true;
 	}
 }

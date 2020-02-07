@@ -25,31 +25,10 @@
  */
 package net.runelite.client.plugins.grounditems;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.api.Client;
-import net.runelite.api.Perspective;
-import net.runelite.api.Player;
 import net.runelite.api.Point;
-import net.runelite.api.Tile;
+import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import static net.runelite.client.plugins.grounditems.config.ItemHighlightMode.MENU;
 import net.runelite.client.plugins.grounditems.config.PriceDisplayMode;
 import net.runelite.client.plugins.grounditems.config.TimerDisplayMode;
 import net.runelite.client.ui.overlay.Overlay;
@@ -61,9 +40,19 @@ import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 import net.runelite.client.ui.overlay.components.TextComponent;
 import net.runelite.client.util.QuantityFormatter;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.List;
+import java.util.*;
+
+import static net.runelite.client.plugins.grounditems.config.ItemHighlightMode.MENU;
+
 @Singleton
-public class GroundItemsOverlay extends Overlay
-{
+public class GroundItemsOverlay extends Overlay {
 	private static final int MAX_DISTANCE = 2500;
 	// We must offset the text on the z-axis such that
 	// it doesn't obscure the ground items below it.
@@ -92,8 +81,7 @@ public class GroundItemsOverlay extends Overlay
 	private final Map<WorldPoint, Integer> offsetMap = new HashMap<>();
 
 	@Inject
-	private GroundItemsOverlay(final Client client, final GroundItemsPlugin plugin)
-	{
+	private GroundItemsOverlay(final Client client, final GroundItemsPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
@@ -101,20 +89,17 @@ public class GroundItemsOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		final boolean dontShowOverlay = (plugin.getItemHighlightMode() == MENU || plugin.isHideAll()) && !plugin.isHotKeyPressed();
 
-		if (dontShowOverlay && !plugin.isHighlightTiles())
-		{
+		if (dontShowOverlay && !plugin.isHighlightTiles()) {
 			return null;
 		}
 
 		final FontMetrics fm = graphics.getFontMetrics();
 		final Player player = client.getLocalPlayer();
 
-		if (player == null || client.getViewportWidget() == null)
-		{
+		if (player == null || client.getViewportWidget() == null) {
 			return null;
 		}
 
@@ -124,49 +109,42 @@ public class GroundItemsOverlay extends Overlay
 		Collection<GroundItem> groundItemList = GroundItemsPlugin.getCollectedGroundItems().values();
 		GroundItem topGroundItem = null;
 
-		if (plugin.isHotKeyPressed())
-		{
+		if (plugin.isHotKeyPressed()) {
 			// Make copy of ground items because we are going to modify them here, and the array list supports our
 			// desired behaviour here
 			groundItemList = new ArrayList<>(groundItemList);
 			final java.awt.Point awtMousePos = new java.awt.Point(mousePos.getX(), mousePos.getY());
 			GroundItem groundItem = null;
 
-			for (GroundItem item : groundItemList)
-			{
+			for (GroundItem item : groundItemList) {
 				item.setOffset(offsetMap.compute(item.getLocation(), (k, v) -> v != null ? v + 1 : 0));
 
-				if (groundItem != null)
-				{
+				if (groundItem != null) {
 					continue;
 				}
 
 				if (plugin.getTextBoxBounds() != null
-					&& item.equals(plugin.getTextBoxBounds().getValue())
-					&& plugin.getTextBoxBounds().getKey().contains(awtMousePos))
-				{
+						&& item.equals(plugin.getTextBoxBounds().getValue())
+						&& plugin.getTextBoxBounds().getKey().contains(awtMousePos)) {
 					groundItem = item;
 					continue;
 				}
 
 				if (plugin.getHiddenBoxBounds() != null
-					&& item.equals(plugin.getHiddenBoxBounds().getValue())
-					&& plugin.getHiddenBoxBounds().getKey().contains(awtMousePos))
-				{
+						&& item.equals(plugin.getHiddenBoxBounds().getValue())
+						&& plugin.getHiddenBoxBounds().getKey().contains(awtMousePos)) {
 					groundItem = item;
 					continue;
 				}
 
 				if (plugin.getHighlightBoxBounds() != null
-					&& item.equals(plugin.getHighlightBoxBounds().getValue())
-					&& plugin.getHighlightBoxBounds().getKey().contains(awtMousePos))
-				{
+						&& item.equals(plugin.getHighlightBoxBounds().getValue())
+						&& plugin.getHighlightBoxBounds().getKey().contains(awtMousePos)) {
 					groundItem = item;
 				}
 			}
 
-			if (groundItem != null)
-			{
+			if (groundItem != null) {
 				groundItemList.remove(groundItem);
 				groundItemList.add(groundItem);
 				topGroundItem = groundItem;
@@ -185,164 +163,135 @@ public class GroundItemsOverlay extends Overlay
 		Comparator<GroundItem> compareByGePrice = Comparator.comparingInt(GroundItem::getGePrice);
 		groundItemListAsList.sort(plugin.isSortByGEPrice() ? compareByGePrice : compareByHaPrice);
 
-		for (GroundItem item : groundItemListAsList)
-		{
+		for (GroundItem item : groundItemListAsList) {
 			final LocalPoint groundPoint = LocalPoint.fromWorld(client, item.getLocation());
 
 			if (groundPoint == null || localLocation.distanceTo(groundPoint) > MAX_DISTANCE
-				|| (onlyShowLoot && !item.isMine()))
-			{
+					|| (onlyShowLoot && !item.isMine())) {
 				continue;
 			}
 
 			Color highlighted = plugin.getHighlighted(item.getName(), item.getGePrice(), item.getHaPrice());
 
 			//Process skill items
-			if (!plugin.hiddenItems.getUnchecked(item.getName()))
-			{
-				if (plugin.highlightHerblore)
-				{
-					if (GroundItemsPlugin.herbloreItems.contains(item.getId()))
-					{
+			if (!plugin.hiddenItems.getUnchecked(item.getName())) {
+				if (plugin.highlightHerblore) {
+					if (GroundItemsPlugin.herbloreItems.contains(item.getId())) {
 						highlighted = plugin.getHerbloreColor();
 					}
 				}
-				if (plugin.highlightPrayer)
-				{
-					if (GroundItemsPlugin.prayerItems.contains(item.getId()))
-					{
+				if (plugin.highlightPrayer) {
+					if (GroundItemsPlugin.prayerItems.contains(item.getId())) {
 						highlighted = plugin.getPrayerColor();
 					}
 				}
 			}
 
 			// Value overrides skill
-			if (plugin.getHighlighted(item.getName(), item.getGePrice(), item.getHaPrice()) != null)
-			{
-				if (plugin.getHighlighted(item.getName(), item.getGePrice(), item.getHaPrice()).getRGB() != highlighted.getRGB())
-				{
+			if (plugin.getHighlighted(item.getName(), item.getGePrice(), item.getHaPrice()) != null) {
+				if (plugin.getHighlighted(item.getName(), item.getGePrice(), item.getHaPrice()).getRGB() != highlighted.getRGB()) {
 					highlighted = plugin.getHighlighted(item.getName(), item.getGePrice(), item.getHaPrice());
 				}
 			}
 
 			final Color hidden = plugin.getHidden(item.getName(), item.getGePrice(), item.getHaPrice(), item.isTradeable());
 
-			if (highlighted == null && !plugin.isHotKeyPressed())
-			{
+			if (highlighted == null && !plugin.isHotKeyPressed()) {
 				// Do not display hidden items
-				if (hidden != null)
-				{
+				if (hidden != null) {
 					continue;
 				}
 
 				// Do not display non-highlighted items
-				if (plugin.isShowHighlightedOnly())
-				{
+				if (plugin.isShowHighlightedOnly()) {
 					continue;
 				}
 			}
 
 			final Color color = plugin.getItemColor(highlighted, hidden);
 
-			if (plugin.isHighlightTiles())
-			{
+			if (plugin.isHighlightTiles()) {
 				final Polygon poly = Perspective.getCanvasTilePoly(client, groundPoint);
 
-				if (poly != null)
-				{
+				if (poly != null) {
 					OverlayUtil.renderPolygon(graphics, poly, color);
 				}
 			}
 
-			if (dontShowOverlay)
-			{
+			if (dontShowOverlay) {
 				continue;
 			}
 
 			itemStringBuilder.append(item.getName());
 
-			if (item.getQuantity() > 1)
-			{
-				if (item.getQuantity() >= MAX_QUANTITY)
-				{
+			if (item.getQuantity() > 1) {
+				if (item.getQuantity() >= MAX_QUANTITY) {
 					itemStringBuilder.append(" (Lots!)");
-				}
-				else
-				{
+				} else {
 					itemStringBuilder.append(" (")
-						.append(QuantityFormatter.quantityToStackSize(item.getQuantity()))
-						.append(")");
+							.append(QuantityFormatter.quantityToStackSize(item.getQuantity()))
+							.append(")");
 				}
 			}
 
-			if (plugin.getPriceDisplayMode() == PriceDisplayMode.BOTH)
-			{
-				if (item.getGePrice() > 0)
-				{
+			if (plugin.getPriceDisplayMode() == PriceDisplayMode.BOTH) {
+				if (item.getGePrice() > 0) {
 					itemStringBuilder.append(" (EX: ")
-						.append(QuantityFormatter.quantityToStackSize(item.getGePrice()))
-						.append(" gp)");
+							.append(QuantityFormatter.quantityToStackSize(item.getGePrice()))
+							.append(" gp)");
 				}
 
-				if (item.getHaPrice() > 0)
-				{
+				if (item.getHaPrice() > 0) {
 					itemStringBuilder.append(" (HA: ")
-						.append(QuantityFormatter.quantityToStackSize(item.getHaPrice()))
-						.append(" gp)");
+							.append(QuantityFormatter.quantityToStackSize(item.getHaPrice()))
+							.append(" gp)");
 				}
-			}
-			else if (plugin.getPriceDisplayMode() != PriceDisplayMode.OFF)
-			{
+			} else if (plugin.getPriceDisplayMode() != PriceDisplayMode.OFF) {
 				final int price = plugin.getPriceDisplayMode() == PriceDisplayMode.GE
-					? item.getGePrice()
-					: item.getHaPrice();
+						? item.getGePrice()
+						: item.getHaPrice();
 
-				if (price > 0)
-				{
+				if (price > 0) {
 					itemStringBuilder
-						.append(" (")
-						.append(QuantityFormatter.quantityToStackSize(price))
-						.append(" gp)");
+							.append(" (")
+							.append(QuantityFormatter.quantityToStackSize(price))
+							.append(" gp)");
 				}
 			}
 
-			if (item.getTicks() > 0 && plugin.isShowTimer())
-			{
+			if (item.getTicks() > 0 && plugin.isShowTimer()) {
 				itemStringBuilder
-					.append(" - ")
-					.append(item.getTicks());
+						.append(" - ")
+						.append(item.getTicks());
 			}
 
 			final String itemString = itemStringBuilder.toString();
 			itemStringBuilder.setLength(0);
 
-			if (item.getHeight() == -1)
-			{
+			if (item.getHeight() == -1) {
 				final Tile[][][] sceneTiles = client.getScene().getTiles();
 				final Tile itemTile = sceneTiles[client.getPlane()][groundPoint.getSceneX()][groundPoint.getSceneY()];
 				item.setHeight(itemTile.getItemLayer().getHeight());
 			}
 
 			final Point textPoint = Perspective.getCanvasTextLocation(client,
-				graphics,
-				groundPoint,
-				itemString,
-				item.getHeight() + OFFSET_Z);
+					graphics,
+					groundPoint,
+					itemString,
+					item.getHeight() + OFFSET_Z);
 
-			if (textPoint == null)
-			{
+			if (textPoint == null) {
 				continue;
 			}
 
 			final int offset = plugin.isHotKeyPressed()
-				? item.getOffset()
-				: offsetMap.compute(item.getLocation(), (k, v) -> v != null ? v + 1 : 0);
+					? item.getOffset()
+					: offsetMap.compute(item.getLocation(), (k, v) -> v != null ? v + 1 : 0);
 
 			final int textX = textPoint.getX();
 			final int textY = textPoint.getY() - (STRING_GAP * offset);
 
-			if (plugin.isHotKeyPressed())
-			{
+			if (plugin.isHotKeyPressed()) {
 				final int stringWidth = fm.stringWidth(itemString);
 				final int stringHeight = fm.getHeight();
 
@@ -367,29 +316,22 @@ public class GroundItemsOverlay extends Overlay
 				boolean mouseInHiddenBox = itemHiddenBox.contains(mousePos.getX(), mousePos.getY());
 				boolean mouseInHighlightBox = itemHighlightBox.contains(mousePos.getX(), mousePos.getY());
 
-				if (mouseInBox)
-				{
+				if (mouseInBox) {
 					plugin.setTextBoxBounds(new SimpleEntry<>(itemBounds, item));
-				}
-				else if (mouseInHiddenBox)
-				{
+				} else if (mouseInHiddenBox) {
 					plugin.setHiddenBoxBounds(new SimpleEntry<>(itemHiddenBox, item));
 
-				}
-				else if (mouseInHighlightBox)
-				{
+				} else if (mouseInHighlightBox) {
 					plugin.setHighlightBoxBounds(new SimpleEntry<>(itemHighlightBox, item));
 				}
 
 				boolean topItem = false;
-				if (topGroundItem != null)
-				{
+				if (topGroundItem != null) {
 					topItem = topGroundItem.equals(item);
 				}
 
 				// Draw background if hovering
-				if (topItem && (mouseInBox || mouseInHiddenBox || mouseInHighlightBox))
-				{
+				if (topItem && (mouseInBox || mouseInHiddenBox || mouseInHighlightBox)) {
 					backgroundComponent.setRectangle(itemBounds);
 					backgroundComponent.render(graphics);
 				}
@@ -402,13 +344,11 @@ public class GroundItemsOverlay extends Overlay
 			}
 
 			if (plugin.getShowGroundItemDuration() == TimerDisplayMode.ALWAYS
-				|| (plugin.getShowGroundItemDuration() == TimerDisplayMode.HOTKEY_PRESSED && plugin.isHotKeyPressed()))
-			{
+					|| (plugin.getShowGroundItemDuration() == TimerDisplayMode.HOTKEY_PRESSED && plugin.isHotKeyPressed())) {
 				drawTimerOverlay(graphics, new java.awt.Point(textX, textY), item);
 			}
 
-			if (plugin.isToggleOutline())
-			{
+			if (plugin.isToggleOutline()) {
 				final Color bordercolor = plugin.getBordercolor();
 				graphics.setColor(bordercolor);
 				graphics.drawString(itemString, textX + 1, textY + 1);
@@ -425,45 +365,41 @@ public class GroundItemsOverlay extends Overlay
 		return null;
 	}
 
-	private void drawRectangle(Graphics2D graphics, Rectangle rect, Color color, boolean inList, boolean hiddenBox)
-	{
+	private void drawRectangle(Graphics2D graphics, Rectangle rect, Color color, boolean inList, boolean hiddenBox) {
 		graphics.setColor(Color.BLACK);
 		graphics.drawRect(rect.x + 1, rect.y + 1, rect.width, rect.height);
 
 		graphics.setColor(color);
 		graphics.draw(rect);
 
-		if (inList)
-		{
+		if (inList) {
 			graphics.fill(rect);
 		}
 
 		graphics.setColor(Color.WHITE);
 		// Minus symbol
 		graphics.drawLine
-			(
-				rect.x + 2,
-				rect.y + (rect.height / 2),
-				rect.x + rect.width - 2,
-				rect.y + (rect.height / 2)
-			);
+				(
+						rect.x + 2,
+						rect.y + (rect.height / 2),
+						rect.x + rect.width - 2,
+						rect.y + (rect.height / 2)
+				);
 
-		if (!hiddenBox)
-		{
+		if (!hiddenBox) {
 			// Plus symbol
 			graphics.drawLine
-				(
-					rect.x + (rect.width / 2),
-					rect.y + 2,
-					rect.x + (rect.width / 2),
-					rect.y + rect.height - 2
-				);
+					(
+							rect.x + (rect.width / 2),
+							rect.y + 2,
+							rect.x + (rect.width / 2),
+							rect.y + rect.height - 2
+					);
 		}
 
 	}
 
-	private void drawTimerOverlay(Graphics2D graphics, java.awt.Point location, GroundItem item)
-	{
+	private void drawTimerOverlay(Graphics2D graphics, java.awt.Point location, GroundItem item) {
 		progressPieComponent.setDiameter(TIMER_OVERLAY_DIAMETER);
 
 		int x = (int) location.getX() - TIMER_OVERLAY_DIAMETER;
@@ -476,37 +412,27 @@ public class GroundItemsOverlay extends Overlay
 		double timeLeftRelative;
 		Color fillColor;
 
-		if (isPubliclyVisible || !item.isOwnedByPlayer())
-		{
-			if (item.isOwnedByPlayer())
-			{
+		if (isPubliclyVisible || !item.isOwnedByPlayer()) {
+			if (item.isOwnedByPlayer()) {
 				timeLeftRelative = getTimeLeftRelative(millisOnGround - PUBLIC_ITEM_DURATION_MILLIS, PUBLIC_ITEM_DURATION_MILLIS);
 
-			}
-			else
-			{
+			} else {
 				timeLeftRelative = getTimeLeftRelative(millisOnGround, PUBLIC_ITEM_DURATION_MILLIS);
 			}
 
-			if (timeLeftRelative < WARNING_THRESHOLD)
-			{
+			if (timeLeftRelative < WARNING_THRESHOLD) {
 				fillColor = PUBLIC_WARNING_TIMER_COLOR;
-			}
-			else
-			{
+			} else {
 				fillColor = PUBLIC_TIMER_COLOR;
 			}
-		}
-		else
-		{
+		} else {
 			timeLeftRelative = getTimeLeftRelative(millisOnGround, item.getDurationMillis());
 			fillColor = PRIVATE_TIMER_COLOR;
 
 		}
 
 		// don't draw timer for any permanently spawned items or broken edge cases
-		if (timeLeftRelative > 1 || timeLeftRelative < 0)
-		{
+		if (timeLeftRelative > 1 || timeLeftRelative < 0) {
 			return;
 		}
 
@@ -516,8 +442,7 @@ public class GroundItemsOverlay extends Overlay
 		progressPieComponent.render(graphics);
 	}
 
-	private double getTimeLeftRelative(double millisOnGround, int duration)
-	{
+	private double getTimeLeftRelative(double millisOnGround, int duration) {
 		return (duration - millisOnGround) / duration;
 	}
 }

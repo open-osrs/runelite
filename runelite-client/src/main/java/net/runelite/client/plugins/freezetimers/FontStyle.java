@@ -23,15 +23,15 @@
  */
 package net.runelite.client.plugins.freezetimers;
 
-import java.awt.Font;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.awt.*;
+
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum FontStyle
-{
+public enum FontStyle {
 	BOLD("Bold", Font.BOLD),
 	ITALIC("Italic", Font.ITALIC),
 	PLAIN("Plain", Font.PLAIN);
@@ -40,8 +40,7 @@ public enum FontStyle
 	private int font;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
 }

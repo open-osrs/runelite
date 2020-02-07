@@ -25,42 +25,37 @@
 package net.runelite.client.plugins.raids;
 
 import com.google.common.base.Joiner;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.plugins.raids.solver.Layout;
 import net.runelite.client.plugins.raids.solver.Room;
 
-class Raid
-{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Raid {
 	@Getter(AccessLevel.PACKAGE)
 	private final RaidRoom[] rooms = new RaidRoom[16];
 
 	@Getter(AccessLevel.PACKAGE)
 	private Layout layout;
 
-	void updateLayout(Layout layout)
-	{
-		if (layout == null)
-		{
+	void updateLayout(Layout layout) {
+		if (layout == null) {
 			return;
 		}
 
 		this.layout = layout;
 
-		for (int i = 0; i < rooms.length; i++)
-		{
-			if (layout.getRoomAt(i) == null)
-			{
+		for (int i = 0; i < rooms.length; i++) {
+			if (layout.getRoomAt(i) == null) {
 				continue;
 			}
 
 			RaidRoom room = rooms[i];
 
-			if (room == null)
-			{
+			if (room == null) {
 				RoomType type = RoomType.fromCode(layout.getRoomAt(i).getSymbol());
 				room = type.getUnsolvedRoom();
 				setRoom(room, i);
@@ -68,32 +63,25 @@ class Raid
 		}
 	}
 
-	public RaidRoom getRoom(int position)
-	{
+	public RaidRoom getRoom(int position) {
 		return rooms[position];
 	}
 
-	void setRoom(RaidRoom room, int position)
-	{
-		if (position < rooms.length)
-		{
+	void setRoom(RaidRoom room, int position) {
+		if (position < rooms.length) {
 			rooms[position] = room;
 		}
 	}
 
-	RaidRoom[] getCombatRooms()
-	{
+	RaidRoom[] getCombatRooms() {
 		List<RaidRoom> combatRooms = new ArrayList<>();
 
-		for (Room room : layout.getRooms())
-		{
-			if (room == null)
-			{
+		for (Room room : layout.getRooms()) {
+			if (room == null) {
 				continue;
 			}
 
-			if (rooms[room.getPosition()].getType() == RoomType.COMBAT)
-			{
+			if (rooms[room.getPosition()].getType() == RoomType.COMBAT) {
 				combatRooms.add(rooms[room.getPosition()]);
 			}
 		}
@@ -101,19 +89,15 @@ class Raid
 		return combatRooms.toArray(new RaidRoom[0]);
 	}
 
-	String getRotationString()
-	{
+	String getRotationString() {
 		return Joiner.on(",").join(Arrays.stream(getCombatRooms()).map(RaidRoom::getName).toArray());
 	}
 
-	private RaidRoom[] getAllRooms()
-	{
+	private RaidRoom[] getAllRooms() {
 		List<RaidRoom> getAllRooms = new ArrayList<>();
 
-		for (Room room : layout.getRooms())
-		{
-			if (room == null)
-			{
+		for (Room room : layout.getRooms()) {
+			if (room == null) {
 				continue;
 			}
 
@@ -123,42 +107,32 @@ class Raid
 		return getAllRooms.toArray(new RaidRoom[0]);
 	}
 
-	String getFullRotationString()
-	{
+	String getFullRotationString() {
 		return Joiner.on(",").join(Arrays.stream(getAllRooms()).toArray());
 	}
 
-	void setCombatRooms(RaidRoom[] combatRooms)
-	{
+	void setCombatRooms(RaidRoom[] combatRooms) {
 		int index = 0;
 
-		for (Room room : layout.getRooms())
-		{
-			if (room == null)
-			{
+		for (Room room : layout.getRooms()) {
+			if (room == null) {
 				continue;
 			}
 
-			if (rooms[room.getPosition()].getType() == RoomType.COMBAT)
-			{
+			if (rooms[room.getPosition()].getType() == RoomType.COMBAT) {
 				rooms[room.getPosition()] = combatRooms[index];
 				index++;
 			}
 		}
 	}
 
-	String toCode()
-	{
+	String toCode() {
 		StringBuilder builder = new StringBuilder();
 
-		for (RaidRoom room : rooms)
-		{
-			if (room != null)
-			{
+		for (RaidRoom room : rooms) {
+			if (room != null) {
 				builder.append(room.getType().getCode());
-			}
-			else
-			{
+			} else {
 				builder.append(" ");
 			}
 		}
@@ -168,18 +142,16 @@ class Raid
 
 	/**
 	 * Get the raid rooms in the order they are in the raid
+	 *
 	 * @return
 	 */
-	List<RaidRoom> getOrderedRooms()
-	{
+	List<RaidRoom> getOrderedRooms() {
 		List<RaidRoom> orderedRooms = new ArrayList<>();
-		for (Room r : getLayout().getRooms())
-		{
+		for (Room r : getLayout().getRooms()) {
 			final int position = r.getPosition();
 			final RaidRoom room = getRoom(position);
 
-			if (room == null)
-			{
+			if (room == null) {
 				continue;
 			}
 
@@ -189,22 +161,18 @@ class Raid
 		return orderedRooms;
 	}
 
-	String toRoomString()
-	{
+	String toRoomString() {
 		final StringBuilder sb = new StringBuilder();
 
-		for (Room r : getLayout().getRooms())
-		{
+		for (Room r : getLayout().getRooms()) {
 			final int position = r.getPosition();
 			final RaidRoom room = getRoom(position);
 
-			if (room == null)
-			{
+			if (room == null) {
 				continue;
 			}
 
-			switch (room.getType())
-			{
+			switch (room.getType()) {
 				case PUZZLE:
 				case COMBAT:
 					sb.append(room.getName()).append(", ");

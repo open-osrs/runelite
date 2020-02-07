@@ -24,132 +24,121 @@
  */
 package net.runelite.client.plugins.nightmarezone;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("nightmareZone")
-public interface NightmareZoneConfig extends Config
-{
+public interface NightmareZoneConfig extends Config {
 	@ConfigItem(
-		keyName = "moveoverlay",
-		name = "Override NMZ overlay",
-		description = "Overrides the overlay so it doesn't conflict with other RuneLite plugins",
-		position = 0
+			keyName = "moveoverlay",
+			name = "Override NMZ overlay",
+			description = "Overrides the overlay so it doesn't conflict with other RuneLite plugins",
+			position = 0
 	)
-	default boolean moveOverlay()
-	{
+	default boolean moveOverlay() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showtotalpoints",
-		name = "Total points NMZ overlay",
-		description = "Shows total points to overlay",
-		position = 1
+			keyName = "showtotalpoints",
+			name = "Total points NMZ overlay",
+			description = "Shows total points to overlay",
+			position = 1
 	)
-	default boolean showtotalpoints()
-	{
+	default boolean showtotalpoints() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "powersurgenotification",
-		name = "Power surge notification",
-		description = "Toggles notifications when a power surge power-up appears",
-		position = 2
+			keyName = "powersurgenotification",
+			name = "Power surge notification",
+			description = "Toggles notifications when a power surge power-up appears",
+			position = 2
 	)
-	default boolean powerSurgeNotification()
-	{
+	default boolean powerSurgeNotification() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "recurrentdamagenotification",
-		name = "Recurrent damage notification",
-		description = "Toggles notifications when a recurrent damage power-up appears",
-		position = 3
+			keyName = "recurrentdamagenotification",
+			name = "Recurrent damage notification",
+			description = "Toggles notifications when a recurrent damage power-up appears",
+			position = 3
 	)
-	default boolean recurrentDamageNotification()
-	{
+	default boolean recurrentDamageNotification() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "zappernotification",
-		name = "Zapper notification",
-		description = "Toggles notifications when a zapper power-up appears",
-		position = 4
+			keyName = "zappernotification",
+			name = "Zapper notification",
+			description = "Toggles notifications when a zapper power-up appears",
+			position = 4
 	)
-	default boolean zapperNotification()
-	{
+	default boolean zapperNotification() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "ultimateforcenotification",
-		name = "Ultimate Force notification",
-		description = "Toggles notifications when an ultimate force power-up appears",
-		position = 5
+			keyName = "ultimateforcenotification",
+			name = "Ultimate Force notification",
+			description = "Toggles notifications when an ultimate force power-up appears",
+			position = 5
 	)
-	default boolean ultimateForceNotification()
-	{
+	default boolean ultimateForceNotification() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "overloadnotification",
-		name = "Overload notification",
-		description = "Toggles notifications when your overload runs out",
-		position = 6
+			keyName = "overloadnotification",
+			name = "Overload notification",
+			description = "Toggles notifications when your overload runs out",
+			position = 6
 	)
-	default boolean overloadNotification()
-	{
+	default boolean overloadNotification() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "absorptionnotification",
-		name = "Absorption notification",
-		description = "Toggles notifications when your absorption points gets below your threshold",
-		position = 7
+			keyName = "absorptionnotification",
+			name = "Absorption notification",
+			description = "Toggles notifications when your absorption points gets below your threshold",
+			position = 7
 	)
-	default boolean absorptionNotification()
-	{
+	default boolean absorptionNotification() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "absorptionthreshold",
-		name = "Absorption Threshold",
-		description = "The amount of absorption points to send a notification at",
-		position = 8
+			keyName = "absorptionthreshold",
+			name = "Absorption Threshold",
+			description = "The amount of absorption points to send a notification at",
+			position = 8
 	)
-	default int absorptionThreshold()
-	{
+	default int absorptionThreshold() {
 		return 50;
 	}
 
 	@ConfigItem(
-		keyName = "absorptioncoloroverthreshold",
-		name = "Color above threshold",
-		description = "Configures the color for the absorption widget when above the threshold",
-		position = 9
+			keyName = "absorptioncoloroverthreshold",
+			name = "Color above threshold",
+			description = "Configures the color for the absorption widget when above the threshold",
+			position = 9
 	)
-	default Color absorptionColorAboveThreshold()
-	{
+	default Color absorptionColorAboveThreshold() {
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-		keyName = "absorptioncolorbelowthreshold",
-		name = "Color below threshold",
-		description = "Configures the color for the absorption widget when below the threshold",
-		position = 10
+			keyName = "absorptioncolorbelowthreshold",
+			name = "Color below threshold",
+			description = "Configures the color for the absorption widget when below the threshold",
+			position = 10
 	)
-	default Color absorptionColorBelowThreshold()
-	{
+	default Color absorptionColorBelowThreshold() {
 		return Color.RED;
 	}
 

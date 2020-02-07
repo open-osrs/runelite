@@ -24,15 +24,6 @@
  */
 package net.runelite.client.plugins.thieving;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -45,9 +36,16 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Iterator;
+import java.util.List;
+
 @Singleton
-class ChestOverlay extends Overlay
-{
+class ChestOverlay extends Overlay {
 	private final Client client;
 	private final List<ChestRespawn> respawns;
 
@@ -61,8 +59,7 @@ class ChestOverlay extends Overlay
 	private int respawnPieDiameter;
 
 	@Inject
-	private ChestOverlay(final Client client, final ThievingPlugin plugin)
-	{
+	private ChestOverlay(final Client client, final ThievingPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.respawns = plugin.getRespawns();
@@ -70,45 +67,37 @@ class ChestOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (respawns.isEmpty())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (respawns.isEmpty()) {
 			return null;
 		}
 
 		Instant now = Instant.now();
-		for (Iterator<ChestRespawn> it = respawns.iterator(); it.hasNext(); )
-		{
+		for (Iterator<ChestRespawn> it = respawns.iterator(); it.hasNext(); ) {
 			ChestRespawn chestRespawn = it.next();
 
 			float percent = 1.0f - (now.until(chestRespawn.getEndTime(), ChronoUnit.MILLIS) / (float) chestRespawn.getRespawnTime());
-			if (percent > 1.0f)
-			{
+			if (percent > 1.0f) {
 				it.remove();
 				continue;
 			}
 
-			if (chestRespawn.getWorld() != client.getWorld())
-			{
+			if (chestRespawn.getWorld() != client.getWorld()) {
 				continue;
 			}
 
 			WorldPoint worldPoint = chestRespawn.getWorldPoint();
 			LocalPoint loc = LocalPoint.fromWorld(client, worldPoint);
-			if (loc == null)
-			{
+			if (loc == null) {
 				continue;
 			}
 
 			Point point = Perspective.localToCanvas(client, loc, client.getPlane(), 0);
-			if (point == null)
-			{
+			if (point == null) {
 				continue;
 			}
 
-			if (respawnPieInverted)
-			{
+			if (respawnPieInverted) {
 				percent = 1.0f - percent;
 			}
 

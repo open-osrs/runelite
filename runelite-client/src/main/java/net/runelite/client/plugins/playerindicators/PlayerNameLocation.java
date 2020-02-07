@@ -27,8 +27,7 @@ package net.runelite.client.plugins.playerindicators;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum PlayerNameLocation
-{
+public enum PlayerNameLocation {
 
 	DISABLED("Disabled"),
 	ABOVE_HEAD("Above head"),
@@ -38,8 +37,7 @@ public enum PlayerNameLocation
 	private final String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

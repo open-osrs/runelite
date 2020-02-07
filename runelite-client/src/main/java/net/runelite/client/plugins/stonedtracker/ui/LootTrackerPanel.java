@@ -24,27 +24,6 @@
  */
 package net.runelite.client.plugins.stonedtracker.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.loottracker.localstorage.LTRecord;
@@ -55,9 +34,24 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.PluginErrorPanel;
 import net.runelite.client.util.ImageUtil;
 
+import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
 @Slf4j
-public class LootTrackerPanel extends PluginPanel
-{
+public class LootTrackerPanel extends PluginPanel {
 	private static final BufferedImage ICON_DELETE;
 	private static final BufferedImage ICON_REFRESH;
 	private static final BufferedImage ICON_BACK;
@@ -66,8 +60,7 @@ public class LootTrackerPanel extends PluginPanel
 	private final static Color BACKGROUND_COLOR = ColorScheme.DARK_GRAY_COLOR;
 	private final static Color BUTTON_HOVER_COLOR = ColorScheme.DARKER_GRAY_HOVER_COLOR;
 
-	static
-	{
+	static {
 		ICON_DELETE = ImageUtil.getResourceStreamFromClass(StonedTrackerPlugin.class, "delete-white.png");
 		ICON_REFRESH = ImageUtil.getResourceStreamFromClass(StonedTrackerPlugin.class, "refresh-white.png");
 		ICON_BACK = ImageUtil.getResourceStreamFromClass(StonedTrackerPlugin.class, "back-arrow-white.png");
@@ -81,8 +74,7 @@ public class LootTrackerPanel extends PluginPanel
 	private String currentView = null;
 	private LootPanel lootPanel;
 
-	public LootTrackerPanel(final ItemManager itemManager, final StonedTrackerPlugin plugin)
-	{
+	public LootTrackerPanel(final ItemManager itemManager, final StonedTrackerPlugin plugin) {
 		super(false);
 		this.itemManager = itemManager;
 		this.plugin = plugin;
@@ -94,8 +86,7 @@ public class LootTrackerPanel extends PluginPanel
 	}
 
 	// Loot Selection view
-	public void showSelectionView()
-	{
+	public void showSelectionView() {
 		this.removeAll();
 		currentView = null;
 		lootPanel = null;
@@ -114,8 +105,7 @@ public class LootTrackerPanel extends PluginPanel
 	}
 
 	// Loot breakdown view
-	public void showLootView(final String name)
-	{
+	public void showLootView(final String name) {
 		this.removeAll();
 		currentView = name;
 
@@ -123,8 +113,7 @@ public class LootTrackerPanel extends PluginPanel
 
 		// Grab all Uniques for this NPC/Activity
 		Collection<UniqueItem> uniques = UniqueItem.getUniquesForBoss(name);
-		if (uniques == null)
-		{
+		if (uniques == null) {
 			uniques = new ArrayList<>();
 		}
 
@@ -141,12 +130,11 @@ public class LootTrackerPanel extends PluginPanel
 	}
 
 	// Title element for Loot breakdown view
-	private JPanel createLootViewTitle(final String name)
-	{
+	private JPanel createLootViewTitle(final String name) {
 		final JPanel title = new JPanel();
 		title.setBorder(new CompoundBorder(
-			new EmptyBorder(10, 8, 8, 8),
-			new MatteBorder(0, 0, 1, 0, Color.GRAY)
+				new EmptyBorder(10, 8, 8, 8),
+				new MatteBorder(0, 0, 1, 0, Color.GRAY)
 		));
 		title.setLayout(new BorderLayout());
 		title.setBackground(BACKGROUND_COLOR);
@@ -156,11 +144,9 @@ public class LootTrackerPanel extends PluginPanel
 
 		// Back Button
 		final JLabel back = createIconLabel(ICON_BACK);
-		back.addMouseListener(new MouseAdapter()
-		{
+		back.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				showSelectionView();
 			}
 		});
@@ -177,11 +163,9 @@ public class LootTrackerPanel extends PluginPanel
 
 		// Refresh Data button
 		final JLabel refresh = createIconLabel(ICON_REFRESH);
-		refresh.addMouseListener(new MouseAdapter()
-		{
+		refresh.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				showLootView(name);
 			}
 		});
@@ -189,11 +173,9 @@ public class LootTrackerPanel extends PluginPanel
 
 		// Clear data button
 		final JLabel clear = createIconLabel(ICON_DELETE);
-		clear.addMouseListener(new MouseAdapter()
-		{
+		clear.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				clearData(name);
 			}
 		});
@@ -201,11 +183,9 @@ public class LootTrackerPanel extends PluginPanel
 
 		// Clear data button
 		final JLabel replay = createIconLabel(ICON_REPLAY);
-		replay.addMouseListener(new MouseAdapter()
-		{
+		replay.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				playbackLoot();
 			}
 		});
@@ -221,24 +201,20 @@ public class LootTrackerPanel extends PluginPanel
 		return title;
 	}
 
-	private JLabel createIconLabel(final BufferedImage icon)
-	{
+	private JLabel createIconLabel(final BufferedImage icon) {
 		final JLabel label = new JLabel();
 		label.setIcon(new ImageIcon(icon));
 		label.setOpaque(true);
 		label.setBackground(BACKGROUND_COLOR);
 
-		label.addMouseListener(new MouseAdapter()
-		{
+		label.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent e)
-			{
+			public void mouseEntered(MouseEvent e) {
 				label.setBackground(BUTTON_HOVER_COLOR);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e)
-			{
+			public void mouseExited(MouseEvent e) {
 				label.setBackground(BACKGROUND_COLOR);
 			}
 		});
@@ -247,8 +223,7 @@ public class LootTrackerPanel extends PluginPanel
 	}
 
 	// Wrap the panel inside a scroll pane
-	private JScrollPane wrapContainer(final JPanel container)
-	{
+	private JScrollPane wrapContainer(final JPanel container) {
 		final JPanel wrapped = new JPanel(new BorderLayout());
 		wrapped.add(container, BorderLayout.NORTH);
 		wrapped.setBackground(BACKGROUND_COLOR);
@@ -262,15 +237,12 @@ public class LootTrackerPanel extends PluginPanel
 	}
 
 	// Clear stored data and return to selection screen
-	private void clearData(final String name)
-	{
+	private void clearData(final String name) {
 		// Confirm delete action
 		final int delete = JOptionPane.showConfirmDialog(this.getRootPane(), "<html>Are you sure you want to clear all data for this tab?<br/>There is no way to undo this action.</html>", "Warning", JOptionPane.YES_NO_OPTION);
-		if (delete == JOptionPane.YES_OPTION)
-		{
+		if (delete == JOptionPane.YES_OPTION) {
 			boolean deleted = plugin.clearStoredDataByName(name);
-			if (!deleted)
-			{
+			if (!deleted) {
 				JOptionPane.showMessageDialog(this.getRootPane(), "Unable to clear stored data, please try again.");
 				return;
 			}
@@ -280,43 +252,32 @@ public class LootTrackerPanel extends PluginPanel
 		}
 	}
 
-	public void addLog(final LTRecord r)
-	{
-		if (currentView == null)
-		{
+	public void addLog(final LTRecord r) {
+		if (currentView == null) {
 			showLootView(r.getName());
-		}
-		else if (currentView.equalsIgnoreCase(r.getName()))
-		{
+		} else if (currentView.equalsIgnoreCase(r.getName())) {
 			lootPanel.addedRecord(r);
 		}
 	}
 
 	// Refresh panel when config options are changed
-	public void refreshUI()
-	{
+	public void refreshUI() {
 		log.debug("Refreshing UI");
-		if (currentView == null)
-		{
+		if (currentView == null) {
 			showSelectionView();
-		}
-		else
-		{
+		} else {
 			showLootView(currentView);
 		}
 	}
 
-	private void playbackLoot()
-	{
-		if (lootPanel == null)
-		{
+	private void playbackLoot() {
+		if (lootPanel == null) {
 			return;
 		}
 
 		// Create a new thread for this so it doesn't cause swing freezes
 		final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
-		if (currentView != null)
-		{
+		if (currentView != null) {
 			ex.schedule(lootPanel::playback, 0, TimeUnit.SECONDS);
 		}
 	}

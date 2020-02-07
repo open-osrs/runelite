@@ -24,13 +24,13 @@
  */
 package net.runelite.client.config;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-public class ConfigPanelItem
-{
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConfigPanelItem {
 
 	@Getter(AccessLevel.PUBLIC)
 	private ConfigPanelItem parent;
@@ -41,8 +41,7 @@ public class ConfigPanelItem
 	@Getter(AccessLevel.PUBLIC)
 	private ConfigItemDescriptor item;
 
-	public ConfigPanelItem(ConfigPanelItem parent, ConfigItemDescriptor item)
-	{
+	public ConfigPanelItem(ConfigPanelItem parent, ConfigItemDescriptor item) {
 		this.parent = parent;
 		this.children = new ArrayList<>();
 		this.item = item;

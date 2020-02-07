@@ -24,22 +24,19 @@
  */
 package net.runelite.client.plugins.pvptools;
 
-public enum AttackMode
-{
+public enum AttackMode {
 	CLAN("Clan"),
 	FRIENDS("Friends"),
 	BOTH("Both");
 
 	private final String name;
 
-	AttackMode(final String name)
-	{
+	AttackMode(final String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

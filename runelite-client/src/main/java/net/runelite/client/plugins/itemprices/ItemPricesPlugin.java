@@ -25,8 +25,6 @@
 package net.runelite.client.plugins.itemprices;
 
 import com.google.inject.Provides;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -37,16 +35,18 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 @PluginDescriptor(
-	name = "Item Prices",
-	description = "Show prices on hover for items in your inventory and bank",
-	tags = {"bank", "inventory", "overlay", "high", "alchemy", "grand", "exchange", "tooltips"},
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Item Prices",
+		description = "Show prices on hover for items in your inventory and bank",
+		tags = {"bank", "inventory", "overlay", "high", "alchemy", "grand", "exchange", "tooltips"},
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
-public class ItemPricesPlugin extends Plugin
-{
+public class ItemPricesPlugin extends Plugin {
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -70,37 +70,31 @@ public class ItemPricesPlugin extends Plugin
 	private boolean showWhileAlching;
 
 	@Provides
-	ItemPricesConfig getConfig(ConfigManager configManager)
-	{
+	ItemPricesConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(ItemPricesConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("itemprices"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("itemprices")) {
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.showGEPrice = config.showGEPrice();
 		this.showHAValue = config.showHAValue();
 		this.showEA = config.showEA();

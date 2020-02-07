@@ -31,104 +31,94 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("dailytaskindicators")
-public interface DailyTasksConfig extends Config
-{
+public interface DailyTasksConfig extends Config {
 	@ConfigItem(
-		position = 1,
-		keyName = "showHerbBoxes",
-		name = "Show Herb Boxes",
-		description = "Show a message when you can collect your daily herb boxes at NMZ."
+			position = 1,
+			keyName = "showHerbBoxes",
+			name = "Show Herb Boxes",
+			description = "Show a message when you can collect your daily herb boxes at NMZ."
 	)
-	default boolean showHerbBoxes()
-	{
+	default boolean showHerbBoxes() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "showStaves",
-		name = "Show Claimable Staves",
-		description = "Show a message when you can collect your daily battlestaves from Zaff."
+			position = 2,
+			keyName = "showStaves",
+			name = "Show Claimable Staves",
+			description = "Show a message when you can collect your daily battlestaves from Zaff."
 	)
-	default boolean showStaves()
-	{
+	default boolean showStaves() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "showEssence",
-		name = "Show Claimable Essence",
-		description = "Show a message when you can collect your daily pure essence from Wizard Cromperty."
+			position = 3,
+			keyName = "showEssence",
+			name = "Show Claimable Essence",
+			description = "Show a message when you can collect your daily pure essence from Wizard Cromperty."
 	)
-	default boolean showEssence()
-	{
+	default boolean showEssence() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "showRunes",
-		name = "Show Claimable Random Runes",
-		description = "Show a message when you can collect your daily random runes from Lundail."
+			position = 4,
+			keyName = "showRunes",
+			name = "Show Claimable Random Runes",
+			description = "Show a message when you can collect your daily random runes from Lundail."
 	)
-	default boolean showRunes()
-	{
+	default boolean showRunes() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "showSand",
-		name = "Show Claimable Sand",
-		description = "Show a message when you can collect your daily sand from Bert."
+			position = 5,
+			keyName = "showSand",
+			name = "Show Claimable Sand",
+			description = "Show a message when you can collect your daily sand from Bert."
 	)
-	default boolean showSand()
-	{
+	default boolean showSand() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "showFlax",
-		name = "Show Claimable Bow Strings",
-		description = "Show a message when you can convert noted flax to bow strings with the Flax keeper."
+			position = 6,
+			keyName = "showFlax",
+			name = "Show Claimable Bow Strings",
+			description = "Show a message when you can convert noted flax to bow strings with the Flax keeper."
 	)
-	default boolean showFlax()
-	{
+	default boolean showFlax() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "showBonemeal",
-		name = "Show Claimable Bonemeal & Slime",
-		description = "Show a message when you can collect bonemeal & slime from Robin."
+			position = 7,
+			keyName = "showBonemeal",
+			name = "Show Claimable Bonemeal & Slime",
+			description = "Show a message when you can collect bonemeal & slime from Robin."
 	)
-	default boolean showBonemeal()
-	{
+	default boolean showBonemeal() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "showArrows",
-		name = "Show Claimable Ogre Arrows",
-		description = "Show a message when you can collect ogre arrows from Rantz."
+			position = 8,
+			keyName = "showArrows",
+			name = "Show Claimable Ogre Arrows",
+			description = "Show a message when you can collect ogre arrows from Rantz."
 	)
-	default boolean showArrows()
-	{
+	default boolean showArrows() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "showDynamite",
-		name = "Show Claimable Dynamite",
-		description = "Show a message when you can collect Dynamite from Thirus."
+			position = 9,
+			keyName = "showDynamite",
+			name = "Show Claimable Dynamite",
+			description = "Show a message when you can collect Dynamite from Thirus."
 	)
-	default boolean showDynamite()
-	{
+	default boolean showDynamite() {
 		return false;
 	}
 }

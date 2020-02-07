@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.clanchat;
 
-enum ClanActivityType
-{
+enum ClanActivityType {
 	JOINED,
 	LEFT
 }

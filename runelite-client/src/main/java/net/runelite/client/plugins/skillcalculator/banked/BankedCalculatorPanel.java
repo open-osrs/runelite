@@ -25,15 +25,6 @@
 package net.runelite.client.plugins.skillcalculator.banked;
 
 import com.google.common.collect.ImmutableSet;
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ItemEvent;
-import java.awt.image.BufferedImage;
-import java.util.Map;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
@@ -46,17 +37,22 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.ComboBoxIconEntry;
 import net.runelite.client.ui.components.ComboBoxListRenderer;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.image.BufferedImage;
+import java.util.Map;
+
 @Slf4j
-public class BankedCalculatorPanel extends PluginPanel
-{
+public class BankedCalculatorPanel extends PluginPanel {
 	private final static ImmutableSet<Skill> BANKABLE_SKILLS = ImmutableSet.of(
-		Skill.CONSTRUCTION, Skill.COOKING, Skill.CRAFTING, Skill.FARMING, Skill.FIREMAKING, Skill.FLETCHING, Skill.HERBLORE, Skill.PRAYER, Skill.SMITHING
+			Skill.CONSTRUCTION, Skill.COOKING, Skill.CRAFTING, Skill.FARMING, Skill.FIREMAKING, Skill.FLETCHING, Skill.HERBLORE, Skill.PRAYER, Skill.SMITHING
 	);
 
 	private final BankedCalculator calculator;
 
-	public BankedCalculatorPanel(Client client, SkillCalculatorConfig config, SkillIconManager skillIconManager, ItemManager itemManager)
-	{
+	public BankedCalculatorPanel(Client client, SkillCalculatorConfig config, SkillIconManager skillIconManager, ItemManager itemManager) {
 		super();
 
 		setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -81,8 +77,7 @@ public class BankedCalculatorPanel extends PluginPanel
 		//noinspection unchecked
 		dropdown.setRenderer(renderer);
 
-		for (final Skill skill : BANKABLE_SKILLS)
-		{
+		for (final Skill skill : BANKABLE_SKILLS) {
 			final BufferedImage img = skillIconManager.getSkillImage(skill, true);
 			final ComboBoxIconEntry entry = new ComboBoxIconEntry(new ImageIcon(img), skill.getName(), skill);
 			dropdown.addItem(entry);
@@ -91,11 +86,9 @@ public class BankedCalculatorPanel extends PluginPanel
 		// Add click event handler now to prevent above code from triggering it.
 		dropdown.addItemListener(e ->
 		{
-			if (e.getStateChange() == ItemEvent.SELECTED)
-			{
+			if (e.getStateChange() == ItemEvent.SELECTED) {
 				final ComboBoxIconEntry source = (ComboBoxIconEntry) e.getItem();
-				if (source.getData() instanceof Skill)
-				{
+				if (source.getData() instanceof Skill) {
 					final Skill skill = (Skill) source.getData();
 					this.calculator.open(skill);
 				}
@@ -117,8 +110,7 @@ public class BankedCalculatorPanel extends PluginPanel
 		add(calculator, c);
 	}
 
-	public void setBankMap(final Map<Integer, Integer> bankMap)
-	{
+	public void setBankMap(final Map<Integer, Integer> bankMap) {
 		calculator.setBankMap(bankMap);
 	}
 }

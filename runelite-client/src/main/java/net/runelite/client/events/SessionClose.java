@@ -35,4 +35,5 @@ import net.runelite.api.events.Event;
  * it has nothing to do with whether an account is being logged out.
  */
 @Data
-public class SessionClose implements Event {}
+public class SessionClose implements Event {
+}

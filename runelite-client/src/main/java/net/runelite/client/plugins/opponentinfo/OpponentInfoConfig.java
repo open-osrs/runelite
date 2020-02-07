@@ -24,90 +24,83 @@
  */
 package net.runelite.client.plugins.opponentinfo;
 
-import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("opponentinfo")
-public interface OpponentInfoConfig extends Config
-{
+public interface OpponentInfoConfig extends Config {
 	@ConfigItem(
-		keyName = "lookupOnInteraction",
-		name = "Lookup players on interaction",
-		description = "Display a combat stat comparison panel on player interaction. (follow, trade, challenge, attack, etc.)",
-		position = 0
+			keyName = "lookupOnInteraction",
+			name = "Lookup players on interaction",
+			description = "Display a combat stat comparison panel on player interaction. (follow, trade, challenge, attack, etc.)",
+			position = 0
 	)
-	default boolean lookupOnInteraction()
-	{
+	default boolean lookupOnInteraction() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "hitpointsDisplayStyle",
-		name = "Hitpoints display style",
-		description = "Show opponent's hitpoints as a value (if known), percentage, or both",
-		position = 1
+			keyName = "hitpointsDisplayStyle",
+			name = "Hitpoints display style",
+			description = "Show opponent's hitpoints as a value (if known), percentage, or both",
+			position = 1
 	)
-	default HitpointsDisplayStyle hitpointsDisplayStyle()
-	{
+	default HitpointsDisplayStyle hitpointsDisplayStyle() {
 		return HitpointsDisplayStyle.HITPOINTS;
 	}
 
 	@ConfigItem(
-		keyName = "showOpponentsOpponent",
-		name = "Show opponent's opponent",
-		description = "Toggle showing opponent's opponent if within a multi-combat area",
-		position = 2
+			keyName = "showOpponentsOpponent",
+			name = "Show opponent's opponent",
+			description = "Toggle showing opponent's opponent if within a multi-combat area",
+			position = 2
 	)
-	default boolean showOpponentsOpponent()
-	{
+	default boolean showOpponentsOpponent() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showAttackersMenu",
-		name = "Show attackers in menu",
-		description = "Marks attackers' names in menus with a *<br>",
-		position = 3,
-		warning = "NOTE: This'll also mark people who are following you/interacting with you in any other way. Don't blindly trust this in pvp!"
+			keyName = "showAttackersMenu",
+			name = "Show attackers in menu",
+			description = "Marks attackers' names in menus with a *<br>",
+			position = 3,
+			warning = "NOTE: This'll also mark people who are following you/interacting with you in any other way. Don't blindly trust this in pvp!"
 	)
-	default boolean showAttackersMenu()
-	{
+	default boolean showAttackersMenu() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "showAttackingMenu",
-		name = "Green main target",
-		description = "Display main target's name colored in menus (Players and NPCs)",
-		position = 4,
-		warning = "NOTE: This'll also show green when following/interacting in any other way. Don't blindly trust this in pvp!"
+			keyName = "showAttackingMenu",
+			name = "Green main target",
+			description = "Display main target's name colored in menus (Players and NPCs)",
+			position = 4,
+			warning = "NOTE: This'll also show green when following/interacting in any other way. Don't blindly trust this in pvp!"
 	)
-	default boolean showAttackingMenu()
-	{
+	default boolean showAttackingMenu() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "attackingColor",
-		name = "Target color",
-		description = "The color your target will be highlighted with",
-		position = 5
+			keyName = "attackingColor",
+			name = "Target color",
+			description = "The color your target will be highlighted with",
+			position = 5
 	)
-	default Color attackingColor()
-	{
+	default Color attackingColor() {
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-		keyName = "showHitpointsMenu",
-		name = "Show NPC hp in menu",
-		description = "Show NPC hp in menu. Useful when barraging",
-		position = 6
+			keyName = "showHitpointsMenu",
+			name = "Show NPC hp in menu",
+			description = "Show NPC hp in menu. Useful when barraging",
+			position = 6
 	)
-	default boolean showHitpointsMenu()
-	{
+	default boolean showHitpointsMenu() {
 		return false;
 	}
 }

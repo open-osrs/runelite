@@ -24,15 +24,6 @@
  */
 package net.runelite.client.plugins.npcunaggroarea;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.GeneralPath;
-import java.time.Instant;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -43,17 +34,21 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.time.Instant;
+
 @Singleton
-class NpcAggroAreaOverlay extends Overlay
-{
+class NpcAggroAreaOverlay extends Overlay {
 	private static final int MAX_LOCAL_DRAW_LENGTH = 20 * Perspective.LOCAL_TILE_SIZE;
 
 	private final Client client;
 	private final NpcAggroAreaPlugin plugin;
 
 	@Inject
-	private NpcAggroAreaOverlay(final Client client, final NpcAggroAreaPlugin plugin)
-	{
+	private NpcAggroAreaOverlay(final Client client, final NpcAggroAreaPlugin plugin) {
 		this.client = client;
 		this.plugin = plugin;
 
@@ -63,31 +58,25 @@ class NpcAggroAreaOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isActive() || plugin.getSafeCenters()[1] == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isActive() || plugin.getSafeCenters()[1] == null) {
 			return null;
 		}
 
 		GeneralPath lines = plugin.getLinesToDisplay()[client.getPlane()];
-		if (lines == null)
-		{
+		if (lines == null) {
 			return null;
 		}
 
 		Color outlineColor = plugin.getAggroAreaColor();
 		AggressionTimer timer = plugin.getCurrentTimer();
-		if (timer == null || Instant.now().compareTo(timer.getEndTime()) < 0)
-		{
+		if (timer == null || Instant.now().compareTo(timer.getEndTime()) < 0) {
 			outlineColor = new Color(
-				outlineColor.getRed(),
-				outlineColor.getGreen(),
-				outlineColor.getBlue(),
-				100);
-		}
-		else
-		{
+					outlineColor.getRed(),
+					outlineColor.getGreen(),
+					outlineColor.getBlue(),
+					100);
+		} else {
 			plugin.doNotification();
 		}
 
@@ -95,27 +84,25 @@ class NpcAggroAreaOverlay extends Overlay
 		return null;
 	}
 
-	private void renderPath(Graphics2D graphics, GeneralPath path, Color color)
-	{
+	private void renderPath(Graphics2D graphics, GeneralPath path, Color color) {
 		LocalPoint playerLp = client.getLocalPlayer().getLocalLocation();
 		Rectangle viewArea = new Rectangle(
-			playerLp.getX() - MAX_LOCAL_DRAW_LENGTH,
-			playerLp.getY() - MAX_LOCAL_DRAW_LENGTH,
-			MAX_LOCAL_DRAW_LENGTH * 2,
-			MAX_LOCAL_DRAW_LENGTH * 2);
+				playerLp.getX() - MAX_LOCAL_DRAW_LENGTH,
+				playerLp.getY() - MAX_LOCAL_DRAW_LENGTH,
+				MAX_LOCAL_DRAW_LENGTH * 2,
+				MAX_LOCAL_DRAW_LENGTH * 2);
 
 		graphics.setColor(color);
 		graphics.setStroke(new BasicStroke(1));
 
 		path = Geometry.clipPath(path, viewArea);
 		path = Geometry.filterPath(path, (p1, p2) ->
-			Perspective.localToCanvas(client, new LocalPoint((int) p1[0], (int) p1[1]), client.getPlane()) != null &&
-				Perspective.localToCanvas(client, new LocalPoint((int) p2[0], (int) p2[1]), client.getPlane()) != null);
+				Perspective.localToCanvas(client, new LocalPoint((int) p1[0], (int) p1[1]), client.getPlane()) != null &&
+						Perspective.localToCanvas(client, new LocalPoint((int) p2[0], (int) p2[1]), client.getPlane()) != null);
 		path = Geometry.transformPath(path, coords ->
 		{
 			Point point = Perspective.localToCanvas(client, new LocalPoint((int) coords[0], (int) coords[1]), client.getPlane());
-			if (point != null)
-			{
+			if (point != null) {
 				coords[0] = point.getX();
 				coords[1] = point.getY();
 			}

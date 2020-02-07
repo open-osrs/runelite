@@ -24,29 +24,26 @@
  */
 package net.runelite.client.ui.overlay.tooltip;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Singleton;
 import lombok.Getter;
 
+import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
+
 @Singleton
-public class TooltipManager
-{
+public class TooltipManager {
 	@Getter
 	private final List<Tooltip> tooltips = new ArrayList<>();
 
-	public void add(Tooltip tooltip)
-	{
+	public void add(Tooltip tooltip) {
 		tooltips.add(tooltip);
 	}
 
-	public void addFront(Tooltip tooltip)
-	{
+	public void addFront(Tooltip tooltip) {
 		tooltips.add(0, tooltip);
 	}
 
-	public void clear()
-	{
+	public void clear() {
 		tooltips.clear();
 	}
 }

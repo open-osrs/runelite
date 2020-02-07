@@ -24,20 +24,19 @@
  */
 package net.runelite.client.plugins.cluescrolls;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 
-class ClueScrollWorldMapPoint extends WorldMapPoint
-{
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+class ClueScrollWorldMapPoint extends WorldMapPoint {
 	private final ClueScrollPlugin plugin;
 	private final BufferedImage clueScrollWorldImage;
 	private final Point clueScrollWorldImagePoint;
 
-	ClueScrollWorldMapPoint(final WorldPoint worldPoint, final ClueScrollPlugin plugin)
-	{
+	ClueScrollWorldMapPoint(final WorldPoint worldPoint, final ClueScrollPlugin plugin) {
 		super(worldPoint, null);
 
 		clueScrollWorldImage = new BufferedImage(plugin.getMapArrow().getWidth(), plugin.getMapArrow().getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -45,8 +44,8 @@ class ClueScrollWorldMapPoint extends WorldMapPoint
 		graphics.drawImage(plugin.getMapArrow(), 0, 0, null);
 		graphics.drawImage(plugin.getClueScrollImage(), 0, 0, null);
 		clueScrollWorldImagePoint = new Point(
-			clueScrollWorldImage.getWidth() / 2,
-			clueScrollWorldImage.getHeight());
+				clueScrollWorldImage.getWidth() / 2,
+				clueScrollWorldImage.getHeight());
 
 		this.plugin = plugin;
 		this.setSnapToEdge(true);
@@ -56,15 +55,13 @@ class ClueScrollWorldMapPoint extends WorldMapPoint
 	}
 
 	@Override
-	public void onEdgeSnap()
-	{
+	public void onEdgeSnap() {
 		this.setImage(plugin.getClueScrollImage());
 		this.setImagePoint(null);
 	}
 
 	@Override
-	public void onEdgeUnsnap()
-	{
+	public void onEdgeUnsnap() {
 		this.setImage(clueScrollWorldImage);
 		this.setImagePoint(clueScrollWorldImagePoint);
 	}

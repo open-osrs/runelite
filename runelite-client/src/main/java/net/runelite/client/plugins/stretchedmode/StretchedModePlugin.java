@@ -26,8 +26,6 @@
 package net.runelite.client.plugins.stretchedmode;
 
 import com.google.inject.Provides;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.events.ResizeableChanged;
 import net.runelite.client.config.ConfigManager;
@@ -38,16 +36,18 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 @PluginDescriptor(
-	name = "Stretched Mode",
-	description = "Stretches the game in fixed and resizable modes.",
-	tags = {"resize", "ui", "interface", "stretch", "scaling", "fixed"},
-	enabledByDefault = false,
-	type = PluginType.MISCELLANEOUS
+		name = "Stretched Mode",
+		description = "Stretches the game in fixed and resizable modes.",
+		tags = {"resize", "ui", "interface", "stretch", "scaling", "fixed"},
+		enabledByDefault = false,
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class StretchedModePlugin extends Plugin
-{
+public class StretchedModePlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -64,14 +64,12 @@ public class StretchedModePlugin extends Plugin
 	private TranslateMouseWheelListener mouseWheelListener;
 
 	@Provides
-	StretchedModeConfig provideConfig(ConfigManager configManager)
-	{
+	StretchedModeConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(StretchedModeConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		mouseManager.registerMouseListener(0, mouseListener);
 		mouseManager.registerMouseWheelListener(0, mouseWheelListener);
@@ -81,8 +79,7 @@ public class StretchedModePlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		client.setStretchedEnabled(false);
 		client.invalidateStretching(true);
 
@@ -91,24 +88,20 @@ public class StretchedModePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onResizeableChanged(ResizeableChanged event)
-	{
+	private void onResizeableChanged(ResizeableChanged event) {
 		client.invalidateStretching(true);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("stretchedmode"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("stretchedmode")) {
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		client.setStretchedIntegerScaling(config.integerScaling());
 		client.setStretchedKeepAspectRatio(config.keepAspectRatio());
 		client.setStretchedFast(config.increasedPerformance());

@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.pestcontrol;
 
-public enum PortalState
-{
+public enum PortalState {
 	ACTIVE,
 	SHIELDED,
 	DEAD

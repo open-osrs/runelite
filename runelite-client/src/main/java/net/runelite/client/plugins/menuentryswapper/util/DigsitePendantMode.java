@@ -25,22 +25,19 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum DigsitePendantMode
-{
+public enum DigsitePendantMode {
 	DIGSITE("Digsite"),
 	FOSSIL_ISLAND("Fossil Island"),
 	LITHKREN("Lithkren Dungeon");
 
 	private final String name;
 
-	DigsitePendantMode(String name)
-	{
+	DigsitePendantMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

@@ -35,22 +35,17 @@ for mouse motion.
 package net.runelite.client.flexo;
 
 import com.github.joonasvali.naturalmouse.api.MouseMotionFactory;
-import java.awt.AWTException;
-import java.awt.Color;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
-import java.awt.Robot;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.util.Random;
-import java.util.logging.Logger;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.client.ui.ClientUI;
 
-public class Flexo extends Robot
-{
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+import java.util.logging.Logger;
+
+public class Flexo extends Robot {
 	public ThreadGroup flexoThreads = new ThreadGroup("flexo");
 	public static boolean isActive;
 	public static double scale;
@@ -64,41 +59,30 @@ public class Flexo extends Robot
 	public boolean pausedIndefinitely = false;
 	private Robot peer;
 
-	public Flexo() throws AWTException
-	{
-		if (GraphicsEnvironment.isHeadless())
-		{
+	public Flexo() throws AWTException {
+		if (GraphicsEnvironment.isHeadless()) {
 			throw new AWTException("headless environment");
 		}
 		init(GraphicsEnvironment.getLocalGraphicsEnvironment()
-			.getDefaultScreenDevice());
+				.getDefaultScreenDevice());
 	}
 
-	private void init(GraphicsDevice screen)
-	{
-		try
-		{
+	private void init(GraphicsDevice screen) {
+		try {
 			peer = new Robot();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			client.getLogger().error("Flexo not supported on this system configuration.");
 		}
 	}
 
 	private transient Object anchor = new Object();
 
-	private void pauseMS(int delayMS)
-	{
+	private void pauseMS(int delayMS) {
 		long initialMS = System.currentTimeMillis();
-		while (System.currentTimeMillis() < initialMS + delayMS)
-		{
-			try
-			{
+		while (System.currentTimeMillis() < initialMS + delayMS) {
+			try {
 				Thread.sleep(10);
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -106,38 +90,28 @@ public class Flexo extends Robot
 	}
 
 	@Override
-	public synchronized void mouseMove(int x, int y)
-	{
-		try
-		{
+	public synchronized void mouseMove(int x, int y) {
+		try {
 			//TODO: Must be better way to determine titlebar width
 			currentMouseMotionFactory.build(ClientUI.frame.getX() + x + determineHorizontalOffset(), ClientUI.frame.getY() + y + determineVerticalOffset()).move();
 			this.delay(getMinDelay());
-		}
-		catch (InterruptedException e)
-		{
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public synchronized void mouseMove(Point p)
-	{
+	public synchronized void mouseMove(Point p) {
 		mouseMove((int) p.getX(), (int) p.getY());
-		try
-		{
+		try {
 			Thread.sleep(150);
-		}
-		catch (InterruptedException e)
-		{
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public synchronized void mousePress(int buttonID)
-	{
-		if (buttonID < 1 || buttonID > 5)
-		{
+	public synchronized void mousePress(int buttonID) {
+		if (buttonID < 1 || buttonID > 5) {
 			Logger.getAnonymousLogger().warning("Invalid mouse button ID. please use 1-5.");
 			return;
 		}
@@ -145,10 +119,8 @@ public class Flexo extends Robot
 		this.delay(getMinDelay());
 	}
 
-	public synchronized void mousePressAndRelease(int buttonID)
-	{
-		if (buttonID < 1 || buttonID > 5)
-		{
+	public synchronized void mousePressAndRelease(int buttonID) {
+		if (buttonID < 1 || buttonID > 5) {
 			Logger.getAnonymousLogger().warning("Invalid mouse button ID. please use 1-5.");
 			return;
 		}
@@ -159,13 +131,11 @@ public class Flexo extends Robot
 	}
 
 	//TODO: Symbols are nut supported at this time
-	public synchronized void typeMessage(String message)
-	{
+	public synchronized void typeMessage(String message) {
 
 		Random r = new Random();
 		char[] charArray = message.toCharArray();
-		for (char c : charArray)
-		{
+		for (char c : charArray) {
 			keyPress(KeyEvent.getExtendedKeyCodeForChar(c));
 			this.delay(93 + r.nextInt(getMinDelay()));
 		}
@@ -176,10 +146,8 @@ public class Flexo extends Robot
 
 
 	@Override
-	public synchronized void mouseRelease(int buttonID)
-	{
-		if (buttonID < 1 || buttonID > 5)
-		{
+	public synchronized void mouseRelease(int buttonID) {
+		if (buttonID < 1 || buttonID > 5) {
 			Logger.getAnonymousLogger().warning("Invalid mouse button ID. please use 1-5.");
 			return;
 		}
@@ -187,23 +155,19 @@ public class Flexo extends Robot
 		this.delay(getMinDelay());
 	}
 
-	private int getMinDelay()
-	{
+	private int getMinDelay() {
 		Random random = new Random();
 		int random1 = random.nextInt(minDelay);
-		if (random1 < minDelay / 2)
-		{
+		if (random1 < minDelay / 2) {
 			random1 = random.nextInt(minDelay / 2) + minDelay / 2 + random.nextInt(minDelay / 2);
 		}
 		return random1;
 	}
 
-	private int getWheelDelay()
-	{
+	private int getWheelDelay() {
 		Random random = new Random();
 		int random1 = random.nextInt(minDelay);
-		if (random1 < minDelay / 2)
-		{
+		if (random1 < minDelay / 2) {
 			random1 = random.nextInt(minDelay / 2) + minDelay / 2 + random.nextInt(minDelay / 2);
 		}
 		return random1;
@@ -218,10 +182,8 @@ public class Flexo extends Robot
 	 * @since 1.4
 	 */
 	@Override
-	public synchronized void mouseWheel(int wheelAmt)
-	{
-		for (int i : new int[wheelAmt])
-		{
+	public synchronized void mouseWheel(int wheelAmt) {
+		for (int i : new int[wheelAmt]) {
 			peer.mouseWheel(wheelAmt);
 			this.delay(getWheelDelay());
 		}
@@ -242,47 +204,38 @@ public class Flexo extends Robot
 	 * @see java.awt.event.KeyEvent
 	 */
 	@Override
-	public synchronized void keyPress(int keycode)
-	{
+	public synchronized void keyPress(int keycode) {
 		peer.keyPress(keycode);
 		this.delay(getMinDelay());
 	}
 
 	@Override
-	public synchronized void keyRelease(int keycode)
-	{
+	public synchronized void keyRelease(int keycode) {
 		peer.keyRelease(keycode);
 		this.delay(getMinDelay());
 	}
 
-	public synchronized void holdKey(int keycode, int timeMS)
-	{
+	public synchronized void holdKey(int keycode, int timeMS) {
 		new Thread(() ->
 		{
 			peer.keyPress(keycode);
 			long startTime = System.currentTimeMillis();
-			while ((startTime + timeMS) > System.currentTimeMillis())
-			{
+			while ((startTime + timeMS) > System.currentTimeMillis()) {
 			}
 			peer.keyRelease(keycode);
 			this.delay(getMinDelay());
 		}).start();
 	}
 
-	public synchronized void holdKeyIndefinitely(int keycode)
-	{
+	public synchronized void holdKeyIndefinitely(int keycode) {
 		Thread holdKeyThread = new Thread(() ->
 		{
 			pausedIndefinitely = true;
 			peer.keyPress(keycode);
-			while (pausedIndefinitely)
-			{
-				try
-				{
+			while (pausedIndefinitely) {
+				try {
 					Thread.sleep(10);
-				}
-				catch (InterruptedException e)
-				{
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
@@ -293,24 +246,20 @@ public class Flexo extends Robot
 
 	}
 
-	public Color getPixelColor(int x, int y)
-	{
+	public Color getPixelColor(int x, int y) {
 		return peer.getPixelColor(x, y);
 	}
 
 	@Override
-	public void delay(int ms)
-	{
+	public void delay(int ms) {
 		pauseMS(ms);
 	}
 
-	public int determineHorizontalOffset()
-	{
+	public int determineHorizontalOffset() {
 		return clientUI.getCanvasOffset().getX();
 	}
 
-	public int determineVerticalOffset()
-	{
+	public int determineVerticalOffset() {
 		return clientUI.getCanvasOffset().getY();
 	}
 

@@ -25,26 +25,12 @@
 package net.runelite.client.plugins.npcstatus;
 
 import com.google.inject.Provides;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.GraphicID;
-import net.runelite.api.Hitsplat;
-import net.runelite.api.NPC;
+import net.runelite.api.*;
 import net.runelite.api.coords.WorldArea;
-import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.HitsplatApplied;
-import net.runelite.api.events.NpcDespawned;
-import net.runelite.api.events.NpcSpawned;
-import net.runelite.api.events.SpotAnimationChanged;
+import net.runelite.api.events.*;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -54,17 +40,22 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 @Slf4j
 @PluginDescriptor(
-	name = "NPC Status Timer",
-	description = "Adds a timer on NPC's for their attacks and flinching.",
-	tags = {"flinch", "npc"},
-	type = PluginType.PVM,
-	enabledByDefault = false
+		name = "NPC Status Timer",
+		description = "Adds a timer on NPC's for their attacks and flinching.",
+		tags = {"flinch", "npc"},
+		type = PluginType.PVM,
+		enabledByDefault = false
 )
 @Singleton
-public class NpcStatusPlugin extends Plugin
-{
+public class NpcStatusPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -93,87 +84,69 @@ public class NpcStatusPlugin extends Plugin
 	private WorldArea lastPlayerLocation;
 
 	@Provides
-	NpcStatusConfig provideConfig(ConfigManager configManager)
-	{
+	NpcStatusConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(NpcStatusConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		this.getRange = config.getRange();
 		overlayManager.add(npcStatusOverlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(npcStatusOverlay);
 		memorizedNPCs.clear();
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned npcSpawned)
-	{
+	private void onNpcSpawned(NpcSpawned npcSpawned) {
 		final NPC npc = npcSpawned.getNpc();
 		final String npcName = npc.getName();
 
-		if (npcName == null || !Arrays.asList(npc.getDefinition().getActions()).contains("Attack"))
-		{
+		if (npcName == null || !Arrays.asList(npc.getDefinition().getActions()).contains("Attack")) {
 			return;
 		}
 		int AttackSpeed = npcManager.getAttackSpeed(npc.getId());
-		if (AttackSpeed == 0)
-		{
+		if (AttackSpeed == 0) {
 			AttackSpeed = 4;
 		}
 		memorizedNPCs.add(new MemorizedNPC(npc, AttackSpeed, npc.getWorldArea()));
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned npcDespawned)
-	{
+	private void onNpcDespawned(NpcDespawned npcDespawned) {
 		final NPC npc = npcDespawned.getNpc();
 		memorizedNPCs.removeIf(c -> c.getNpc() == npc);
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
+	private void onGameStateChanged(GameStateChanged event) {
 		if (event.getGameState() == GameState.LOGIN_SCREEN ||
-			event.getGameState() == GameState.HOPPING)
-		{
+				event.getGameState() == GameState.HOPPING) {
 			memorizedNPCs.clear();
 		}
 	}
 
 	@Subscribe
-	private void onHitsplatApplied(HitsplatApplied event)
-	{
-		if (event.getActor().getInteracting() != client.getLocalPlayer())
-		{
+	private void onHitsplatApplied(HitsplatApplied event) {
+		if (event.getActor().getInteracting() != client.getLocalPlayer()) {
 			return;
 		}
 		final Hitsplat hitsplat = event.getHitsplat();
-		if ((hitsplat.getHitsplatType() == Hitsplat.HitsplatType.DAMAGE || hitsplat.getHitsplatType() == Hitsplat.HitsplatType.BLOCK) && event.getActor() instanceof NPC)
-		{
-			for (MemorizedNPC mn : memorizedNPCs)
-			{
-				if (mn.getNpcIndex() != ((NPC) event.getActor()).getIndex())
-				{
+		if ((hitsplat.getHitsplatType() == Hitsplat.HitsplatType.DAMAGE || hitsplat.getHitsplatType() == Hitsplat.HitsplatType.BLOCK) && event.getActor() instanceof NPC) {
+			for (MemorizedNPC mn : memorizedNPCs) {
+				if (mn.getNpcIndex() != ((NPC) event.getActor()).getIndex()) {
 					continue;
 				}
-				if (mn.getStatus() == MemorizedNPC.Status.OUT_OF_COMBAT || (mn.getStatus() == MemorizedNPC.Status.IN_COMBAT && mn.getCombatTimerEnd() - client.getTickCount() < 1) || mn.getLastinteracted() == null)
-				{
+				if (mn.getStatus() == MemorizedNPC.Status.OUT_OF_COMBAT || (mn.getStatus() == MemorizedNPC.Status.IN_COMBAT && mn.getCombatTimerEnd() - client.getTickCount() < 1) || mn.getLastinteracted() == null) {
 					mn.setStatus(MemorizedNPC.Status.FLINCHING);
 					mn.setCombatTimerEnd(-1);
-					if (isCustomAttSpeed())
-					{
+					if (isCustomAttSpeed()) {
 						mn.setFlinchTimerEnd(client.getTickCount() + getCustomAttSpeed / 2 + 1);
-					}
-					else
-					{
+					} else {
 						mn.setFlinchTimerEnd(client.getTickCount() + mn.getAttackSpeed() / 2 + 1);
 					}
 				}
@@ -183,26 +156,18 @@ public class NpcStatusPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onSpotAnimationChanged(SpotAnimationChanged event)
-	{
-		if ((event.getActor().getSpotAnimation() == GraphicID.SPLASH) && event.getActor() instanceof NPC)
-		{
-			for (MemorizedNPC mn : memorizedNPCs)
-			{
-				if (mn.getNpcIndex() != ((NPC) event.getActor()).getIndex())
-				{
+	private void onSpotAnimationChanged(SpotAnimationChanged event) {
+		if ((event.getActor().getSpotAnimation() == GraphicID.SPLASH) && event.getActor() instanceof NPC) {
+			for (MemorizedNPC mn : memorizedNPCs) {
+				if (mn.getNpcIndex() != ((NPC) event.getActor()).getIndex()) {
 					continue;
 				}
-				if (mn.getStatus() == MemorizedNPC.Status.OUT_OF_COMBAT || (mn.getStatus() == MemorizedNPC.Status.IN_COMBAT && mn.getCombatTimerEnd() - client.getTickCount() < 2) || event.getActor().getInteracting() == null)
-				{
+				if (mn.getStatus() == MemorizedNPC.Status.OUT_OF_COMBAT || (mn.getStatus() == MemorizedNPC.Status.IN_COMBAT && mn.getCombatTimerEnd() - client.getTickCount() < 2) || event.getActor().getInteracting() == null) {
 					mn.setStatus(MemorizedNPC.Status.FLINCHING);
 					mn.setCombatTimerEnd(-1);
-					if (isCustomAttSpeed())
-					{
+					if (isCustomAttSpeed()) {
 						mn.setFlinchTimerEnd(client.getTickCount() + getCustomAttSpeed / 2 + 2);
-					}
-					else
-					{
+					} else {
 						mn.setFlinchTimerEnd(client.getTickCount() + mn.getAttackSpeed() / 2 + 2);
 					}
 				}
@@ -210,60 +175,48 @@ public class NpcStatusPlugin extends Plugin
 		}
 	}
 
-	private void checkStatus()
-	{
-		if (lastPlayerLocation == null)
-		{
+	private void checkStatus() {
+		if (lastPlayerLocation == null) {
 			return;
 		}
-		for (MemorizedNPC npc : memorizedNPCs)
-		{
+		for (MemorizedNPC npc : memorizedNPCs) {
 			final double CombatTime = npc.getCombatTimerEnd() - client.getTickCount();
 			final double FlinchTime = npc.getFlinchTimerEnd() - client.getTickCount();
-			if (npc.getNpc().getWorldArea() == null)
-			{
+			if (npc.getNpc().getWorldArea() == null) {
 				continue;
 			}
-			if (npc.getNpc().getInteracting() == client.getLocalPlayer())
-			{
+			if (npc.getNpc().getInteracting() == client.getLocalPlayer()) {
 				//Checks: will the NPC attack this tick?
 				if (((npc.getNpc().getWorldArea().canMelee(client, lastPlayerLocation) && this.getRange == 1) //Separate mechanics for meleerange-only NPC's because they have extra collisiondata checks (fences etc.) and can't attack diagonally
-					|| (lastPlayerLocation.hasLineOfSightTo(client, npc.getNpc().getWorldArea()) && npc.getNpc().getWorldArea().distanceTo(lastPlayerLocation) <= this.getRange && this.getRange > 1))
-					&& ((npc.getStatus() != MemorizedNPC.Status.FLINCHING && CombatTime < 9) || (npc.getStatus() == MemorizedNPC.Status.FLINCHING && FlinchTime < 2))
-					&& npc.getNpc().getAnimation() != -1 //Failsafe, attacking NPC's always have an animation.
-					&& !(npc.getLastnpcarea().distanceTo(lastPlayerLocation) == 0 && npc.getLastnpcarea() != npc.getNpc().getWorldArea())) //Weird mechanic: NPC's can't attack on the tick they do a random move
+						|| (lastPlayerLocation.hasLineOfSightTo(client, npc.getNpc().getWorldArea()) && npc.getNpc().getWorldArea().distanceTo(lastPlayerLocation) <= this.getRange && this.getRange > 1))
+						&& ((npc.getStatus() != MemorizedNPC.Status.FLINCHING && CombatTime < 9) || (npc.getStatus() == MemorizedNPC.Status.FLINCHING && FlinchTime < 2))
+						&& npc.getNpc().getAnimation() != -1 //Failsafe, attacking NPC's always have an animation.
+						&& !(npc.getLastnpcarea().distanceTo(lastPlayerLocation) == 0 && npc.getLastnpcarea() != npc.getNpc().getWorldArea())) //Weird mechanic: NPC's can't attack on the tick they do a random move
 				{
 					npc.setStatus(MemorizedNPC.Status.IN_COMBAT_DELAY);
 					npc.setLastnpcarea(npc.getNpc().getWorldArea());
 					npc.setLastinteracted(npc.getNpc().getInteracting());
-					if (isCustomAttSpeed())
-					{
+					if (isCustomAttSpeed()) {
 						npc.setCombatTimerEnd(client.getTickCount() + getCustomAttSpeed + 8);
-					}
-					else
-					{
+					} else {
 						npc.setCombatTimerEnd(client.getTickCount() + npc.getAttackSpeed() + 8);
 					}
 					continue;
 				}
 			}
-			switch (npc.getStatus())
-			{
+			switch (npc.getStatus()) {
 				case IN_COMBAT:
-					if (CombatTime < 2)
-					{
+					if (CombatTime < 2) {
 						npc.setStatus(MemorizedNPC.Status.OUT_OF_COMBAT);
 					}
 					break;
 				case IN_COMBAT_DELAY:
-					if (CombatTime < 9)
-					{
+					if (CombatTime < 9) {
 						npc.setStatus(MemorizedNPC.Status.IN_COMBAT);
 					}
 					break;
 				case FLINCHING:
-					if (FlinchTime < 2)
-					{
+					if (FlinchTime < 2) {
 						npc.setStatus(MemorizedNPC.Status.IN_COMBAT);
 						npc.setCombatTimerEnd(client.getTickCount() + 8);
 					}
@@ -274,17 +227,14 @@ public class NpcStatusPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
+	private void onGameTick(GameTick event) {
 		checkStatus();
 		lastPlayerLocation = client.getLocalPlayer().getWorldArea();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged configChanged)
-	{
-		if (!configChanged.getGroup().equals("npcstatus"))
-		{
+	private void onConfigChanged(ConfigChanged configChanged) {
+		if (!configChanged.getGroup().equals("npcstatus")) {
 			return;
 		}
 

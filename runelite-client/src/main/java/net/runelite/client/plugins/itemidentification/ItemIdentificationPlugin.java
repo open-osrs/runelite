@@ -25,9 +25,6 @@
 package net.runelite.client.plugins.itemidentification;
 
 import com.google.inject.Provides;
-import java.awt.Color;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -38,15 +35,18 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+
 @PluginDescriptor(
-	name = "Item Identification",
-	description = "Show identifying text over items with difficult to distinguish sprites",
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Item Identification",
+		description = "Show identifying text over items with difficult to distinguish sprites",
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
-public class ItemIdentificationPlugin extends Plugin
-{
+public class ItemIdentificationPlugin extends Plugin {
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -74,37 +74,31 @@ public class ItemIdentificationPlugin extends Plugin
 	private boolean showPotions;
 
 	@Provides
-	ItemIdentificationConfig getConfig(ConfigManager configManager)
-	{
+	ItemIdentificationConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(ItemIdentificationConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("itemidentification"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("itemidentification")) {
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.identificationType = config.identificationType();
 		this.textColor = config.textColor();
 		this.showSeeds = config.showSeeds();

@@ -24,13 +24,6 @@
  */
 package net.runelite.client.plugins.pestcontrol;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.coords.WorldPoint;
@@ -38,15 +31,20 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Singleton
-public class HintArrowOverlay extends Overlay
-{
+public class HintArrowOverlay extends Overlay {
 	private final PestControlPlugin plugin;
 	private final Client client;
 
 	@Inject
-	HintArrowOverlay(final PestControlPlugin plugin, final Client client)
-	{
+	HintArrowOverlay(final PestControlPlugin plugin, final Client client) {
 		this.plugin = plugin;
 		this.client = client;
 
@@ -55,33 +53,26 @@ public class HintArrowOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.getGame() == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.getGame() == null) {
 			return null;
 		}
 
 		List<NPC> visibleActivePortals = new ArrayList<>();
 
-		for (NPC npc : client.getNpcs())
-		{
-			if (PestControlNpc.isActivePortalId(npc.getId()))
-			{
+		for (NPC npc : client.getNpcs()) {
+			if (PestControlNpc.isActivePortalId(npc.getId())) {
 				visibleActivePortals.add(npc);
 			}
 		}
 
-		if (!visibleActivePortals.isEmpty())
-		{
+		if (!visibleActivePortals.isEmpty()) {
 			NPC closestPortalNpc = getClosestNpc(visibleActivePortals);
 
-			if (closestPortalNpc != null)
-			{
+			if (closestPortalNpc != null) {
 				NPC currentHintArrowTarget = client.getHintArrowNpc();
 
-				if (currentHintArrowTarget == null || currentHintArrowTarget != closestPortalNpc)
-				{
+				if (currentHintArrowTarget == null || currentHintArrowTarget != closestPortalNpc) {
 					client.setHintArrow(closestPortalNpc);
 				}
 			}
@@ -91,13 +82,11 @@ public class HintArrowOverlay extends Overlay
 
 		Portal closestActivePortal = getClosestPortal(PortalState.ACTIVE);
 
-		if (closestActivePortal != null)
-		{
+		if (closestActivePortal != null) {
 			WorldPoint currentHintArrowLocation = client.getHintArrowPoint();
 			WorldPoint closestActivePortalLocation = closestActivePortal.getLocation();
 
-			if (currentHintArrowLocation == null || currentHintArrowLocation != closestActivePortalLocation)
-			{
+			if (currentHintArrowLocation == null || currentHintArrowLocation != closestActivePortalLocation) {
 				client.setHintArrow(closestActivePortalLocation);
 			}
 
@@ -106,8 +95,7 @@ public class HintArrowOverlay extends Overlay
 
 		Collection<Portal> nextPortalList = plugin.getGame().getNextPortals();
 
-		if (nextPortalList.size() == 1)
-		{
+		if (nextPortalList.size() == 1) {
 			client.setHintArrow(nextPortalList.iterator().next().getLocation());
 
 			return null;
@@ -116,28 +104,22 @@ public class HintArrowOverlay extends Overlay
 		return null;
 	}
 
-	private NPC getClosestNpc(List<NPC> npcList)
-	{
+	private NPC getClosestNpc(List<NPC> npcList) {
 		WorldPoint currentLocation = client.getLocalPlayer().getWorldLocation();
 
 		NPC closestNpc = null;
 		int currentShortestDistance = 1337;
 		int distanceToNpc;
 
-		for (NPC npc : npcList)
-		{
-			if (closestNpc != null)
-			{
+		for (NPC npc : npcList) {
+			if (closestNpc != null) {
 				distanceToNpc = npc.getWorldLocation().distanceTo(currentLocation);
 
-				if (distanceToNpc < currentShortestDistance)
-				{
+				if (distanceToNpc < currentShortestDistance) {
 					closestNpc = npc;
 					currentShortestDistance = distanceToNpc;
 				}
-			}
-			else
-			{
+			} else {
 				closestNpc = npc;
 			}
 		}
@@ -145,25 +127,21 @@ public class HintArrowOverlay extends Overlay
 		return closestNpc;
 	}
 
-	private Portal getClosestPortal(PortalState portalState)
-	{
+	private Portal getClosestPortal(PortalState portalState) {
 		WorldPoint currentLocation = client.getLocalPlayer().getWorldLocation();
 
 		Portal closestPortal = null;
 		int currentShortestDistance = 1337;
 		int distanceToWorldPoint;
 
-		for (Portal portal : plugin.getGame().getPortals())
-		{
-			if (portal.getPortalState() != portalState)
-			{
+		for (Portal portal : plugin.getGame().getPortals()) {
+			if (portal.getPortalState() != portalState) {
 				continue;
 			}
 
 			distanceToWorldPoint = portal.getLocation().distanceTo(currentLocation);
 
-			if (distanceToWorldPoint < currentShortestDistance)
-			{
+			if (distanceToWorldPoint < currentShortestDistance) {
 				closestPortal = portal;
 				currentShortestDistance = distanceToWorldPoint;
 			}

@@ -26,18 +26,9 @@ package net.runelite.client.plugins.cannon;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
-import java.awt.Color;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GameObject;
-import net.runelite.api.InventoryID;
-import net.runelite.api.ItemID;
+import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.CannonChanged;
 import net.runelite.api.events.CannonPlaced;
@@ -57,16 +48,21 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.ItemUtil;
 
+import javax.inject.Inject;
+import java.awt.*;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
 @PluginDescriptor(
-	name = "Cannon",
-	description = "Show information about cannon placement and/or amount of cannonballs",
-	tags = {"combat", "notifications", "ranged", "overlay"},
-	type = PluginType.UTILITY
+		name = "Cannon",
+		description = "Show information about cannon placement and/or amount of cannonballs",
+		tags = {"combat", "notifications", "ranged", "overlay"},
+		type = PluginType.UTILITY
 )
-public class CannonPlugin extends Plugin
-{
+public class CannonPlugin extends Plugin {
 	private static final ImmutableSet<Integer> CANNON_PARTS = ImmutableSet.of(
-		ItemID.CANNON_BASE, ItemID.CANNON_STAND, ItemID.CANNON_BARRELS, ItemID.CANNON_FURNACE
+			ItemID.CANNON_BASE, ItemID.CANNON_STAND, ItemID.CANNON_BARRELS, ItemID.CANNON_FURNACE
 	);
 	private CannonCounter counter;
 
@@ -125,14 +121,12 @@ public class CannonPlugin extends Plugin
 	private boolean notifyAmmoLeft;
 
 	@Provides
-	CannonConfig provideConfig(ConfigManager configManager)
-	{
+	CannonConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(CannonConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		overlayManager.add(cannonOverlay);
@@ -141,8 +135,7 @@ public class CannonPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		cannonSpotOverlay.setHidden(true);
 		overlayManager.remove(cannonOverlay);
 		overlayManager.remove(cannonSpotOverlay);
@@ -155,10 +148,8 @@ public class CannonPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onItemContainerChanged(ItemContainerChanged event)
-	{
-		if (event.getItemContainer() != client.getItemContainer(InventoryID.INVENTORY))
-		{
+	private void onItemContainerChanged(ItemContainerChanged event) {
+		if (event.getItemContainer() != client.getItemContainer(InventoryID.INVENTORY)) {
 			return;
 		}
 
@@ -166,20 +157,14 @@ public class CannonPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("cannon"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("cannon")) {
 			updateConfig();
 
-			if (!this.showInfobox)
-			{
+			if (!this.showInfobox) {
 				removeCounter();
-			}
-			else
-			{
-				if (cannonPlaced)
-				{
+			} else {
+				if (cannonPlaced) {
 					clientThread.invoke(this::addCounter);
 				}
 			}
@@ -187,21 +172,17 @@ public class CannonPlugin extends Plugin
 	}
 
 	@Schedule(
-		period = 1,
-		unit = ChronoUnit.SECONDS
+			period = 1,
+			unit = ChronoUnit.SECONDS
 	)
-	public void checkSpots()
-	{
-		if (!config.showCannonSpots())
-		{
+	public void checkSpots() {
+		if (!config.showCannonSpots()) {
 			return;
 		}
 
 		spotPoints.clear();
-		for (WorldPoint spot : CannonSpots.getCannonSpots())
-		{
-			if (spot.getPlane() != client.getPlane() || !spot.isInScene(client))
-			{
+		for (WorldPoint spot : CannonSpots.getCannonSpots()) {
+			if (spot.getPlane() != client.getPlane() || !spot.isInScene(client)) {
 				continue;
 			}
 
@@ -210,52 +191,40 @@ public class CannonPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onCannonPlaced(CannonPlaced cannonPlacedEvent)
-	{
+	private void onCannonPlaced(CannonPlaced cannonPlacedEvent) {
 		cannonPlaced = cannonPlacedEvent.isPlaced();
 		cannonPosition = cannonPlacedEvent.getCannonLocation();
 		cannon = cannonPlacedEvent.getCannon();
 	}
 
 	@Subscribe
-	private void onCannonballFired(CannonChanged cannonChangedEvent)
-	{
+	private void onCannonballFired(CannonChanged cannonChangedEvent) {
 		cballsLeft = cannonChangedEvent.getCannonballs();
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage event)
-	{
-		if (event.getType() != ChatMessageType.SPAM && event.getType() != ChatMessageType.GAMEMESSAGE)
-		{
+	private void onChatMessage(ChatMessage event) {
+		if (event.getType() != ChatMessageType.SPAM && event.getType() != ChatMessageType.GAMEMESSAGE) {
 			return;
 		}
 
-		if (event.getMessage().equals("You add the furnace."))
-		{
+		if (event.getMessage().equals("You add the furnace.")) {
 			addCounter();
 		}
 
 		if (event.getMessage().contains("You pick up the cannon")
-			|| event.getMessage().contains("Your cannon has decayed. Speak to Nulodion to get a new one!"))
-		{
+				|| event.getMessage().contains("Your cannon has decayed. Speak to Nulodion to get a new one!")) {
 			removeCounter();
 		}
 	}
 
-	Color getStateColor()
-	{
-		if (cballsLeft > 15)
-		{
+	Color getStateColor() {
+		if (cballsLeft > 15) {
 			lock = false;
 			return Color.green;
-		}
-		else if (cballsLeft > 5)
-		{
+		} else if (cballsLeft > 5) {
 			return Color.orange;
-		}
-		else if (cballsLeft <= this.ammoAmount && this.notifyAmmoLeft && !lock)
-		{
+		} else if (cballsLeft <= this.ammoAmount && this.notifyAmmoLeft && !lock) {
 			notifier.notify("Your cannon has " + this.ammoAmount + " balls left!");
 			lock = true;
 		}
@@ -263,10 +232,8 @@ public class CannonPlugin extends Plugin
 		return Color.red;
 	}
 
-	private void addCounter()
-	{
-		if (!this.showInfobox || counter != null)
-		{
+	private void addCounter() {
+		if (!this.showInfobox || counter != null) {
 			return;
 		}
 
@@ -276,10 +243,8 @@ public class CannonPlugin extends Plugin
 		infoBoxManager.addInfoBox(counter);
 	}
 
-	private void removeCounter()
-	{
-		if (counter == null)
-		{
+	private void removeCounter() {
+		if (counter == null) {
 			return;
 		}
 
@@ -287,8 +252,7 @@ public class CannonPlugin extends Plugin
 		counter = null;
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.showEmptyCannonNotification = config.showEmptyCannonNotification();
 		this.showInfobox = config.showInfobox();
 		this.showDoubleHitSpot = config.showDoubleHitSpot();

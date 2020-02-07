@@ -24,13 +24,12 @@
  */
 package net.runelite.client.ui;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * This class serves to hold colors used in Oldschool RuneScape that are also used in client code.
  */
-public class JagexColors
-{
+public class JagexColors {
 	/*
 	 * Colors of chat text when displayed on an opaque background.
 	 */

@@ -25,36 +25,28 @@
 package net.runelite.client.util;
 
 import com.google.common.primitives.Ints;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.awt.image.DirectColorModel;
-import java.awt.image.PixelGrabber;
-import java.awt.image.RescaleOp;
-import java.awt.image.WritableRaster;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.GrayFilter;
-import java.util.function.Predicate;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.Sprite;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
  * Various Image/BufferedImage utilities.
  */
 @Slf4j
-public class ImageUtil
-{
-	static
-	{
+public class ImageUtil {
+	static {
 		ImageIO.setUseCache(false);
 	}
 
@@ -62,12 +54,10 @@ public class ImageUtil
 	 * Creates a {@link BufferedImage} from an {@link Image}.
 	 *
 	 * @param image An Image to be converted to a BufferedImage.
-	 * @return      A BufferedImage instance of the same given image.
+	 * @return A BufferedImage instance of the same given image.
 	 */
-	public static BufferedImage bufferedImageFromImage(final Image image)
-	{
-		if (image instanceof BufferedImage)
-		{
+	public static BufferedImage bufferedImageFromImage(final Image image) {
+		if (image instanceof BufferedImage) {
 			return (BufferedImage) image;
 		}
 
@@ -77,10 +67,8 @@ public class ImageUtil
 	/**
 	 * Creates an ARGB {@link BufferedImage} from an {@link Image}.
 	 */
-	public static BufferedImage toARGB(final Image image)
-	{
-		if (image instanceof BufferedImage && ((BufferedImage) image).getType() == BufferedImage.TYPE_INT_ARGB)
-		{
+	public static BufferedImage toARGB(final Image image) {
+		if (image instanceof BufferedImage && ((BufferedImage) image).getType() == BufferedImage.TYPE_INT_ARGB) {
 			return (BufferedImage) image;
 		}
 
@@ -94,13 +82,12 @@ public class ImageUtil
 	/**
 	 * Offsets an image's luminance by a given value.
 	 *
-	 * @param rawImg  The image to be darkened or brightened.
+	 * @param rawImg The image to be darkened or brightened.
 	 * @param offset A signed 8-bit integer value to brighten or darken the image with.
 	 *               Values above 0 will brighten, and values below 0 will darken.
-	 * @return       The given image with its brightness adjusted by the given offset.
+	 * @return The given image with its brightness adjusted by the given offset.
 	 */
-	public static BufferedImage luminanceOffset(final Image rawImg, final int offset)
-	{
+	public static BufferedImage luminanceOffset(final Image rawImg, final int offset) {
 		BufferedImage image = toARGB(rawImg);
 		final float offsetFloat = (float) offset;
 		final int numComponents = image.getColorModel().getNumComponents();
@@ -108,8 +95,7 @@ public class ImageUtil
 		final float[] offsets = new float[numComponents];
 
 		Arrays.fill(scales, 1f);
-		for (int i = 0; i < numComponents; i++)
-		{
+		for (int i = 0; i < numComponents; i++) {
 			offsets[i] = offsetFloat;
 		}
 		// Set alpha to not offset
@@ -121,21 +107,19 @@ public class ImageUtil
 	/**
 	 * Changes an images luminance by a scaling factor
 	 *
-	 * @param rawImg      The image to be darkened or brightened.
+	 * @param rawImg     The image to be darkened or brightened.
 	 * @param percentage The ratio to darken or brighten the given image.
 	 *                   Values above 1 will brighten, and values below 1 will darken.
-	 * @return           The given image with its brightness scaled by the given percentage.
+	 * @return The given image with its brightness scaled by the given percentage.
 	 */
-	public static BufferedImage luminanceScale(final Image rawImg, final float percentage)
-	{
+	public static BufferedImage luminanceScale(final Image rawImg, final float percentage) {
 		BufferedImage image = toARGB(rawImg);
 		final int numComponents = image.getColorModel().getNumComponents();
 		final float[] scales = new float[numComponents];
 		final float[] offsets = new float[numComponents];
 
 		Arrays.fill(offsets, 0f);
-		for (int i = 0; i < numComponents; i++)
-		{
+		for (int i = 0; i < numComponents; i++) {
 			scales[i] = percentage;
 		}
 		// Set alpha to not scale
@@ -147,14 +131,13 @@ public class ImageUtil
 	/**
 	 * Offsets an image's alpha component by a given offset.
 	 *
-	 * @param rawImg  The image to be made more or less transparent.
+	 * @param rawImg The image to be made more or less transparent.
 	 * @param offset A signed 8-bit integer value to modify the image's alpha component with.
 	 *               Values above 0 will increase transparency, and values below 0 will decrease
 	 *               transparency.
-	 * @return       The given image with its alpha component adjusted by the given offset.
+	 * @return The given image with its alpha component adjusted by the given offset.
 	 */
-	public static BufferedImage alphaOffset(final Image rawImg, final int offset)
-	{
+	public static BufferedImage alphaOffset(final Image rawImg, final int offset) {
 		BufferedImage image = toARGB(rawImg);
 		final float offsetFloat = (float) offset;
 		final int numComponents = image.getColorModel().getNumComponents();
@@ -170,14 +153,13 @@ public class ImageUtil
 	/**
 	 * Offsets an image's alpha component by a given percentage.
 	 *
-	 * @param rawImg      The image to be made more or less transparent.
+	 * @param rawImg     The image to be made more or less transparent.
 	 * @param percentage The ratio to modify the image's alpha component with.
 	 *                   Values above 1 will increase transparency, and values below 1 will decrease
 	 *                   transparency.
-	 * @return           The given image with its alpha component scaled by the given percentage.
+	 * @return The given image with its alpha component scaled by the given percentage.
 	 */
-	public static BufferedImage alphaOffset(final Image rawImg, final float percentage)
-	{
+	public static BufferedImage alphaOffset(final Image rawImg, final float percentage) {
 		BufferedImage image = toARGB(rawImg);
 		final int numComponents = image.getColorModel().getNumComponents();
 		final float[] scales = new float[numComponents];
@@ -193,10 +175,9 @@ public class ImageUtil
 	 * Creates a grayscale image from the given image.
 	 *
 	 * @param image The source image to be converted.
-	 * @return      A copy of the given imnage, with colors converted to grayscale.
+	 * @return A copy of the given imnage, with colors converted to grayscale.
 	 */
-	public static BufferedImage grayscaleImage(final BufferedImage image)
-	{
+	public static BufferedImage grayscaleImage(final BufferedImage image) {
 		final Image grayImage = GrayFilter.createDisabledImage(image);
 		return ImageUtil.bufferedImageFromImage(grayImage);
 	}
@@ -204,13 +185,12 @@ public class ImageUtil
 	/**
 	 * Re-size a BufferedImage to the given dimensions.
 	 *
-	 * @param image the BufferedImage.
-	 * @param newWidth The width to set the BufferedImage to.
+	 * @param image     the BufferedImage.
+	 * @param newWidth  The width to set the BufferedImage to.
 	 * @param newHeight The height to set the BufferedImage to.
 	 * @return The BufferedImage with the specified dimensions
 	 */
-	public static BufferedImage resizeImage(final BufferedImage image, final int newWidth, final int newHeight)
-	{
+	public static BufferedImage resizeImage(final BufferedImage image, final int newWidth, final int newHeight) {
 		final Image resized = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 		return ImageUtil.bufferedImageFromImage(resized);
 	}
@@ -221,10 +201,9 @@ public class ImageUtil
 	 * @param image     The image whose canvas should be re-sized.
 	 * @param newWidth  The width to set the BufferedImage to.
 	 * @param newHeight The height to set the BufferedImage to.
-	 * @return          The BufferedImage centered within canvas of given dimensions.
+	 * @return The BufferedImage centered within canvas of given dimensions.
 	 */
-	public static BufferedImage resizeCanvas(final BufferedImage image, final int newWidth, final int newHeight)
-	{
+	public static BufferedImage resizeCanvas(final BufferedImage image, final int newWidth, final int newHeight) {
 		final BufferedImage dimg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
 		final int centeredX = newWidth / 2 - image.getWidth() / 2;
 		final int centeredY = newHeight / 2 - image.getHeight() / 2;
@@ -240,10 +219,9 @@ public class ImageUtil
 	 *
 	 * @param image The image to be rotated.
 	 * @param theta The number of radians to rotate the image.
-	 * @return      The given image, rotated by the given theta.
+	 * @return The given image, rotated by the given theta.
 	 */
-	public static BufferedImage rotateImage(final BufferedImage image, final double theta)
-	{
+	public static BufferedImage rotateImage(final BufferedImage image, final double theta) {
 		AffineTransform transform = new AffineTransform();
 		transform.rotate(theta, image.getWidth() / 2.0, image.getHeight() / 2.0);
 		AffineTransformOp transformOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
@@ -256,10 +234,9 @@ public class ImageUtil
 	 * @param image      The image to be flipped.
 	 * @param horizontal Whether the image should be flipped horizontally.
 	 * @param vertical   Whether the image should be flipped vertically.
-	 * @return           The given image, flipped horizontally and/or vertically.
+	 * @return The given image, flipped horizontally and/or vertically.
 	 */
-	public static BufferedImage flipImage(final BufferedImage image, final boolean horizontal, final boolean vertical)
-	{
+	public static BufferedImage flipImage(final BufferedImage image, final boolean horizontal, final boolean vertical) {
 		int x = 0;
 		int y = 0;
 		int w = image.getWidth();
@@ -268,14 +245,12 @@ public class ImageUtil
 		final BufferedImage out = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D g2d = out.createGraphics();
 
-		if (horizontal)
-		{
+		if (horizontal) {
 			x = w;
 			w *= -1;
 		}
 
-		if (vertical)
-		{
+		if (vertical) {
 			y = h;
 			h *= -1;
 		}
@@ -291,10 +266,9 @@ public class ImageUtil
 	 *
 	 * @param image The image to be outlined.
 	 * @param color The color to use for the outline.
-	 * @return      The BufferedImage with its edges outlined with the given color.
+	 * @return The BufferedImage with its edges outlined with the given color.
 	 */
-	public static BufferedImage outlineImage(final BufferedImage image, final Color color)
-	{
+	public static BufferedImage outlineImage(final BufferedImage image, final Color color) {
 		return outlineImage(image, color, ColorUtil::isNotFullyTransparent, false);
 	}
 
@@ -305,10 +279,9 @@ public class ImageUtil
 	 * @param image         The image to be outlined.
 	 * @param color         The color to use for the outline.
 	 * @param fillCondition The predicate to be consumed by {@link #fillImage(BufferedImage, Color, Predicate) fillImage(BufferedImage, Color, Predicate)}
-	 * @return              The BufferedImage with its edges outlined with the given color.
+	 * @return The BufferedImage with its edges outlined with the given color.
 	 */
-	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition)
-	{
+	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition) {
 		return outlineImage(image, color, fillCondition, false);
 	}
 
@@ -319,11 +292,10 @@ public class ImageUtil
 	 * @param image          The image to be outlined.
 	 * @param color          The color to use for the outline.
 	 * @param outlineCorners Whether to draw an outline around corners, or only around edges.
-	 * @return               The BufferedImage with its edges--and optionally, corners--outlined
-	 *                       with the given color.
+	 * @return The BufferedImage with its edges--and optionally, corners--outlined
+	 * with the given color.
 	 */
-	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Boolean outlineCorners)
-	{
+	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Boolean outlineCorners) {
 		return outlineImage(image, color, ColorUtil::isNotFullyTransparent, outlineCorners);
 	}
 
@@ -335,22 +307,18 @@ public class ImageUtil
 	 * @param color          The color to use for the outline.
 	 * @param fillCondition  The predicate to be consumed by {@link #fillImage(BufferedImage, Color, Predicate) fillImage(BufferedImage, Color, Predicate)}
 	 * @param outlineCorners Whether to draw an outline around corners, or only around edges.
-	 * @return               The BufferedImage with its edges--and optionally, corners--outlined
-	 * 	                     with the given color.
+	 * @return The BufferedImage with its edges--and optionally, corners--outlined
+	 * with the given color.
 	 */
-	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition, final Boolean outlineCorners)
-	{
+	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition, final Boolean outlineCorners) {
 		final BufferedImage filledImage = fillImage(image, color, fillCondition);
 		final BufferedImage outlinedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 		final Graphics2D g2d = outlinedImage.createGraphics();
-		for (int x = -1; x <= 1; x++)
-		{
-			for (int y = -1; y <= 1; y++)
-			{
+		for (int x = -1; x <= 1; x++) {
+			for (int y = -1; y <= 1; y++) {
 				if ((x == 0 && y == 0)
-					|| (!outlineCorners && Math.abs(x) + Math.abs(y) != 1))
-				{
+						|| (!outlineCorners && Math.abs(x) + Math.abs(y) != 1)) {
 					continue;
 				}
 
@@ -370,23 +338,16 @@ public class ImageUtil
 	 *
 	 * @param c    The class to be referenced for resource path.
 	 * @param path The path, relative to the given class.
-	 * @return     A {@link BufferedImage} of the loaded image resource from the given path.
+	 * @return A {@link BufferedImage} of the loaded image resource from the given path.
 	 */
-	public static BufferedImage getResourceStreamFromClass(final Class c, final String path)
-	{
-		try
-		{
-			synchronized (ImageIO.class)
-			{
+	public static BufferedImage getResourceStreamFromClass(final Class c, final String path) {
+		try {
+			synchronized (ImageIO.class) {
 				return ImageIO.read(c.getResourceAsStream(path));
 			}
-		}
-		catch (IllegalArgumentException e)
-		{
+		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException(path, e);
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			throw new RuntimeException(path, e);
 		}
 	}
@@ -396,33 +357,28 @@ public class ImageUtil
 	 *
 	 * @param image The image which should have its non-transparent pixels filled.
 	 * @param color The color with which to fill pixels.
-	 * @return      The given image with all non-transparent pixels set to the given color.
+	 * @return The given image with all non-transparent pixels set to the given color.
 	 */
-	public static BufferedImage fillImage(final BufferedImage image, final Color color)
-	{
+	public static BufferedImage fillImage(final BufferedImage image, final Color color) {
 		return fillImage(image, color, ColorUtil::isNotFullyTransparent);
 	}
 
 	/**
-	 * 	Fills pixels of the given image with the given color based on a given fill condition
-	 * 	predicate.
+	 * Fills pixels of the given image with the given color based on a given fill condition
+	 * predicate.
 	 *
 	 * @param image         The image which should have its non-transparent pixels filled.
 	 * @param color         The color with which to fill pixels.
 	 * @param fillCondition The condition on which to fill pixels with the given color.
-	 * @return              The given image with all pixels fulfilling the fill condition predicate
-	 *                      set to the given color.
+	 * @return The given image with all pixels fulfilling the fill condition predicate
+	 * set to the given color.
 	 */
-	static BufferedImage fillImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition)
-	{
+	static BufferedImage fillImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition) {
 		final BufferedImage filledImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		for (int x = 0; x < filledImage.getWidth(); x++)
-		{
-			for (int y = 0; y < filledImage.getHeight(); y++)
-			{
+		for (int x = 0; x < filledImage.getWidth(); x++) {
+			for (int y = 0; y < filledImage.getHeight(); y++) {
 				final Color pixelColor = new Color(image.getRGB(x, y), true);
-				if (!fillCondition.test(pixelColor))
-				{
+				if (!fillCondition.test(pixelColor)) {
 					continue;
 				}
 
@@ -442,16 +398,12 @@ public class ImageUtil
 	 * @return The given image with all pixels fulfilling the recolor condition predicate
 	 * set to the given color.
 	 */
-	public static BufferedImage recolorImage(final BufferedImage image, final Color color, final Predicate<Color> recolorCondition)
-	{
+	public static BufferedImage recolorImage(final BufferedImage image, final Color color, final Predicate<Color> recolorCondition) {
 		final BufferedImage recoloredImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		for (int x = 0; x < recoloredImage.getWidth(); x++)
-		{
-			for (int y = 0; y < recoloredImage.getHeight(); y++)
-			{
+		for (int x = 0; x < recoloredImage.getWidth(); x++) {
+			for (int y = 0; y < recoloredImage.getHeight(); y++) {
 				final Color pixelColor = new Color(image.getRGB(x, y), true);
-				if (!recolorCondition.test(pixelColor))
-				{
+				if (!recolorCondition.test(pixelColor)) {
 					recoloredImage.setRGB(x, y, image.getRGB(x, y));
 					continue;
 				}
@@ -462,16 +414,13 @@ public class ImageUtil
 		return recoloredImage;
 	}
 
-	public static BufferedImage recolorImage(BufferedImage image, final Color color)
-	{
+	public static BufferedImage recolorImage(BufferedImage image, final Color color) {
 		int width = image.getWidth();
 		int height = image.getHeight();
 		WritableRaster raster = image.getRaster();
 
-		for (int xx = 0; xx < width; xx++)
-		{
-			for (int yy = 0; yy < height; yy++)
-			{
+		for (int xx = 0; xx < width; xx++) {
+			for (int yy = 0; yy < height; yy++) {
 				int[] pixels = raster.getPixel(xx, yy, (int[]) null);
 				pixels[0] = color.getRed();
 				pixels[1] = color.getGreen();
@@ -488,42 +437,36 @@ public class ImageUtil
 	 * @param image   The image to be adjusted.
 	 * @param scales  An array of scale operations to be performed on the image's color components.
 	 * @param offsets An array of offset operations to be performed on the image's color components.
-	 * @return        The modified image after applying the given adjustments.
+	 * @return The modified image after applying the given adjustments.
 	 */
-	private static BufferedImage offset(final BufferedImage image, final float[] scales, final float[] offsets)
-	{
+	private static BufferedImage offset(final BufferedImage image, final float[] scales, final float[] offsets) {
 		return new RescaleOp(scales, offsets, null).filter(image, null);
 	}
 
 
 	/**
 	 * Converts the buffered image into a sprite image and returns it
+	 *
 	 * @param image  The image to be converted
 	 * @param client Current client instance
-	 * @return       The buffered image as a sprite image
+	 * @return The buffered image as a sprite image
 	 */
-	public static Sprite getImageSprite(BufferedImage image, Client client)
-	{
+	public static Sprite getImageSprite(BufferedImage image, Client client) {
 		int[] pixels = new int[image.getWidth() * image.getHeight()];
 
-		try
-		{
+		try {
 			PixelGrabber g = new PixelGrabber(image, 0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 			g.setColorModel(new DirectColorModel(32, 0xff0000, 0xff00, 0xff, 0xff000000));
 			g.grabPixels();
 
 			// Make any fully transparent pixels fully black, because the sprite draw routines
 			// check for == 0, not actual transparency
-			for (int i = 0; i < pixels.length; i++)
-			{
-				if ((pixels[i] & 0xFF000000) == 0)
-				{
+			for (int i = 0; i < pixels.length; i++) {
+				if ((pixels[i] & 0xFF000000) == 0) {
 					pixels[i] = 0;
 				}
 			}
-		}
-		catch (InterruptedException ex)
-		{
+		} catch (InterruptedException ex) {
 			log.debug("PixelGrabber was interrupted: ", ex);
 		}
 
@@ -532,15 +475,14 @@ public class ImageUtil
 
 	/**
 	 * Converts an image into an {@code IndexedSprite} instance.
-	 *
+	 * <p>
 	 * The passed in image can only have at max 255 different colors.
 	 *
 	 * @param image  The image to be converted
 	 * @param client Current client instance
-	 * @return		 The image as an {@code IndexedSprite}
+	 * @return The image as an {@code IndexedSprite}
 	 */
-	public static IndexedSprite getImageIndexedSprite(BufferedImage image, Client client)
-	{
+	public static IndexedSprite getImageIndexedSprite(BufferedImage image, Client client) {
 		final byte[] pixels = new byte[image.getWidth() * image.getHeight()];
 		final List<Integer> palette = new ArrayList<>();
 		/*
@@ -550,14 +492,13 @@ public class ImageUtil
 		palette.add(0);
 
 		final int[] sourcePixels = image.getRGB(0, 0,
-			image.getWidth(), image.getHeight(),
-			null, 0, image.getWidth());
+				image.getWidth(), image.getHeight(),
+				null, 0, image.getWidth());
 
 		/*
 			Build a color palette and assign the pixels to positions in the palette.
 		 */
-		for (int j = 0; j < sourcePixels.length; j++)
-		{
+		for (int j = 0; j < sourcePixels.length; j++) {
 			final int argb = sourcePixels[j];
 			final int a = (argb >> 24) & 0xFF;
 			final int rgb = argb & 0xFF_FF_FF;
@@ -566,12 +507,10 @@ public class ImageUtil
 			int paletteIdx = 0;
 
 			// If the pixel is fully opaque, draw it.
-			if (a == 0xFF)
-			{
+			if (a == 0xFF) {
 				paletteIdx = palette.indexOf(rgb);
 
-				if (paletteIdx == -1)
-				{
+				if (paletteIdx == -1) {
 					paletteIdx = palette.size();
 					palette.add(rgb);
 				}
@@ -580,10 +519,9 @@ public class ImageUtil
 			pixels[j] = (byte) paletteIdx;
 		}
 
-		if (palette.size() > 256)
-		{
+		if (palette.size() > 256) {
 			throw new RuntimeException("Passed in image had " + (palette.size() - 1)
-				+ " different colors, exceeding the max of 255.");
+					+ " different colors, exceeding the max of 255.");
 		}
 
 		final IndexedSprite sprite = client.createIndexedSprite();
@@ -603,15 +541,13 @@ public class ImageUtil
 	/**
 	 * Resize Sprite sprite to given width (newW) and height (newH)
 	 */
-	public static Sprite resizeSprite(final Client client, final Sprite sprite, int newW, int newH)
-	{
+	public static Sprite resizeSprite(final Client client, final Sprite sprite, int newW, int newH) {
 		assert newW > 0 && newH > 0;
 
 		final int oldW = sprite.getWidth();
 		final int oldH = sprite.getHeight();
 
-		if (oldW == newW && oldH == newH)
-		{
+		if (oldW == newW && oldH == newH) {
 			return sprite;
 		}
 
@@ -633,55 +569,47 @@ public class ImageUtil
 		int yOffset = 0;
 
 		int canvasIdx;
-		if (sprite.getOffsetX() > 0)
-		{
+		if (sprite.getOffsetX() > 0) {
 			canvasIdx = (pixelW + (sprite.getOffsetX() << 16) - 1) / pixelW;
 			xOffset += canvasIdx;
 			pixelX += canvasIdx * pixelW - (sprite.getOffsetX() << 16);
 		}
 
-		if (sprite.getOffsetY() > 0)
-		{
+		if (sprite.getOffsetY() > 0) {
 			canvasIdx = (pixelH + (sprite.getOffsetY() << 16) - 1) / pixelH;
 			yOffset += canvasIdx;
 			pixelY += canvasIdx * pixelH - (sprite.getOffsetY() << 16);
 		}
 
-		if (oldW < oldMaxW)
-		{
+		if (oldW < oldMaxW) {
 			newW = (pixelW + ((oldW << 16) - pixelX) - 1) / pixelW;
 		}
 
-		if (oldH < oldMaxH)
-		{
+		if (oldH < oldMaxH) {
 			newH = (pixelH + ((oldH << 16) - pixelY) - 1) / pixelH;
 		}
 
 		canvasIdx = xOffset + yOffset * newW;
 		int canvasOffset = 0;
-		if (yOffset + newH > newH)
-		{
+		if (yOffset + newH > newH) {
 			newH -= yOffset + newH - newH;
 		}
 
 		int tmp;
-		if (yOffset < 0)
-		{
+		if (yOffset < 0) {
 			tmp = -yOffset;
 			newH -= tmp;
 			canvasIdx += tmp * newW;
 			pixelY += pixelH * tmp;
 		}
 
-		if (newW + xOffset > newW)
-		{
+		if (newW + xOffset > newW) {
 			tmp = newW + xOffset - newW;
 			newW -= tmp;
 			canvasOffset += tmp;
 		}
 
-		if (xOffset < 0)
-		{
+		if (xOffset < 0) {
 			tmp = -xOffset;
 			newW -= tmp;
 			canvasIdx += tmp;
@@ -697,8 +625,7 @@ public class ImageUtil
 	/**
 	 * Draw fg centered on top of bg
 	 */
-	public static Sprite mergeSprites(final Client client, final Sprite bg, final Sprite fg)
-	{
+	public static Sprite mergeSprites(final Client client, final Sprite bg, final Sprite fg) {
 		assert fg.getHeight() <= bg.getHeight() && fg.getWidth() <= bg.getWidth() : "Background has to be larger than foreground";
 
 		final int[] canvas = Arrays.copyOf(bg.getPixels(), bg.getWidth() * bg.getHeight());
@@ -713,15 +640,12 @@ public class ImageUtil
 
 		final int[] fgPixels = fg.getPixels();
 
-		for (int y1 = yOffset, y2 = 0; y2 < fgHgt; y1++, y2++)
-		{
+		for (int y1 = yOffset, y2 = 0; y2 < fgHgt; y1++, y2++) {
 			int i1 = y1 * bgWid + xOffset;
 			int i2 = y2 * fgWid;
 
-			for (int x = 0; x < fgWid; x++, i1++, i2++)
-			{
-				if (fgPixels[i2] > 0)
-				{
+			for (int x = 0; x < fgWid; x++, i1++, i2++) {
+				if (fgPixels[i2] > 0) {
 					canvas[i1] = fgPixels[i2];
 				}
 			}

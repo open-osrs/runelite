@@ -31,8 +31,7 @@ import lombok.Value;
 
 @Value
 @EqualsAndHashCode(exclude = {"group"})
-class GroundMarkerPoint
-{
+class GroundMarkerPoint {
 	private int regionId;
 	private int regionX;
 	private int regionY;

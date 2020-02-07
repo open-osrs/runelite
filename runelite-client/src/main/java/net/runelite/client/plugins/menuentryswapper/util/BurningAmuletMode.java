@@ -25,22 +25,19 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum BurningAmuletMode
-{
+public enum BurningAmuletMode {
 	CHAOS_TEMPLE("Chaos Temple"),
 	BANDIT_CAMP("Bandit Camp"),
 	LAVA_MAZE("Lava Maze");
 
 	private final String name;
 
-	BurningAmuletMode(String name)
-	{
+	BurningAmuletMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

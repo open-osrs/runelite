@@ -24,15 +24,12 @@
  */
 package net.runelite.client.util;
 
-public class VerificationException extends Exception
-{
-	public VerificationException(String message)
-	{
+public class VerificationException extends Exception {
+	public VerificationException(String message) {
 		super(message);
 	}
 
-	public VerificationException(String message, Throwable cause)
-	{
+	public VerificationException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }

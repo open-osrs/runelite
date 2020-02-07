@@ -23,12 +23,6 @@
  */
 package net.runelite.client.plugins.tmorph.ui;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.kit.KitType;
@@ -43,15 +37,18 @@ import net.runelite.http.api.item.ItemEquipmentStats;
 import net.runelite.http.api.item.ItemStats;
 import org.pushingpixels.substance.internal.utils.SubstanceDropDownButton;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Getter
-public class EquipSlot extends JComboBox<ComboBoxIconEntry>
-{
+public class EquipSlot extends JComboBox<ComboBoxIconEntry> {
 	private final ComboBoxIconEntry original;
 	private Map<Integer, ComboBoxIconEntry> boxMap;
 	private KitType kitType;
 
-	EquipSlot(KitType kitType)
-	{
+	EquipSlot(KitType kitType) {
 		super();
 		this.kitType = kitType;
 		this.boxMap = new LinkedHashMap<>();
@@ -59,62 +56,53 @@ public class EquipSlot extends JComboBox<ComboBoxIconEntry>
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		setRenderer(new ComboBoxListRenderer());
 		original = new ComboBoxIconEntry(
-			new ImageIcon(ImageUtil.getResourceStreamFromClass(TMorph.class, kitType.getName().toLowerCase() + ".png")),
-			kitType.getName(),
-			null
+				new ImageIcon(ImageUtil.getResourceStreamFromClass(TMorph.class, kitType.getName().toLowerCase() + ".png")),
+				kitType.getName(),
+				null
 		);
 		addItem(original);
 		setSelectedIndex(0);
-		for (Component component : getComponents())
-		{
-			if (component instanceof SubstanceDropDownButton)
-			{
+		for (Component component : getComponents()) {
+			if (component instanceof SubstanceDropDownButton) {
 				remove(component);
 			}
 		}
 	}
 
-	public void populate(Client client, ItemManager itemManager)
-	{
+	public void populate(Client client, ItemManager itemManager) {
 		assert client.isClientThread() : "Populate must be called on client thread";
 
-		for (int i = 0; i < client.getItemCount(); i++)
-		{
+		for (int i = 0; i < client.getItemCount(); i++) {
 			ItemStats stats = itemManager.getItemStats(i, false);
 
-			if (stats == null)
-			{
+			if (stats == null) {
 				continue;
 			}
 
-			if (!stats.isEquipable())
-			{
+			if (!stats.isEquipable()) {
 				continue;
 			}
 
 			ItemEquipmentStats equipment = stats.getEquipment();
 
-			if (equipment == null)
-			{
+			if (equipment == null) {
 				continue;
 			}
 
-			if (equipment.getSlot() != kitType.getIndex())
-			{
+			if (equipment.getSlot() != kitType.getIndex()) {
 				continue;
 			}
 
 			AsyncBufferedImage image = itemManager.getImage(i);
 
-			if (image == null)
-			{
+			if (image == null) {
 				continue;
 			}
 
 			final ComboBoxIconEntry entry = new ComboBoxIconEntry(
-				new ImageIcon(image),
-				client.getItemDefinition(i).getName(),
-				client.getItemDefinition(i)
+					new ImageIcon(image),
+					client.getItemDefinition(i).getName(),
+					client.getItemDefinition(i)
 			);
 			boxMap.put(i, entry);
 			addItem(entry);
