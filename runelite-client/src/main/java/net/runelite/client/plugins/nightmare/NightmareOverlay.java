@@ -1,5 +1,6 @@
 package net.runelite.client.plugins.nightmare;
 
+import net.runelite.api.Point;
 import net.runelite.api.Client;
 import net.runelite.api.GraphicsObject;
 import net.runelite.api.Perspective;
@@ -11,6 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Font;
 
 @Singleton
 class NightmareOverlay extends Overlay {
@@ -74,5 +76,18 @@ class NightmareOverlay extends Overlay {
 			}
 		}
 		return null;
+	}
+
+	protected void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint)
+	{
+		graphics.setFont(new Font("Arial", fontStyle, fontSize));
+		if (canvasPoint != null)
+		{
+			final Point canvasCenterPoint = new Point(canvasPoint.getX(), canvasPoint.getY());
+			final Point canvasCenterPointShadow = new Point(canvasPoint.getX() + 1, canvasPoint.getY() + 1);
+
+			OverlayUtil.renderTextLocation(graphics, canvasCenterPointShadow, txtString, Color.BLACK);
+			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
+		}
 	}
 }

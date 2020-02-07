@@ -40,6 +40,12 @@ public class NightmarePrayerOverlay extends Overlay {
 
 	public Dimension render(Graphics2D graphics) {
 		imagePanelComponent.getChildren().clear();
+
+		if (!plugin.isPrayerHelper())
+		{
+			return null;
+		}
+
 		if ((plugin.isInFight()) && (plugin.getPrayAgainst() != null) && (plugin.getNm() != null)) {
 			NightmareAttack attack = plugin.getPrayAgainst();
 			BufferedImage prayerImage;

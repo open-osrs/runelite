@@ -1,12 +1,16 @@
 package net.runelite.client.plugins.nightmare;
 
+import com.google.inject.Provides;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.events.GameTick;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.ui.overlay.OverlayManager;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -44,6 +48,9 @@ public class NightmarePlugin extends Plugin {
 	private Client client;
 
 	@Inject
+	private NightmareConfig config;
+
+	@Inject
 	private OverlayManager overlayManager;
 
 	@Inject
@@ -64,8 +71,20 @@ public class NightmarePlugin extends Plugin {
 	private int attackCount;
 	private int curseStartID;
 
+	@Getter(AccessLevel.PACKAGE)
+	private boolean prayerHelper;
+
+	@Getter(AccessLevel.PACKAGE)
+	private int ticksUntilNextAttack = 0;
+
 	public NightmarePlugin() {
 		inFight = false;
+	}
+
+	@Provides
+	NightmareConfig provideConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(NightmareConfig.class);
 	}
 
 	@Inject
@@ -73,6 +92,7 @@ public class NightmarePlugin extends Plugin {
 
 	@Override
 	protected void startUp() {
+		updateConfig();
 		overlayManager.add(overlay);
 		overlayManager.add(prayerOverlay);
 		nm = null;
@@ -80,6 +100,7 @@ public class NightmarePlugin extends Plugin {
 		cursed = false;
 		attackCount = 0;
 		curseStartID = -1;		//not best solution im sure
+		ticksUntilNextAttack = 0;
 	}
 
 	@Override
@@ -91,6 +112,15 @@ public class NightmarePlugin extends Plugin {
 		cursed = false;
 		attackCount = 0;
 		curseStartID = -1;
+	}
+
+	@Subscribe
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("betterNightmare"))
+		{
+			return;
+		}
 	}
 
 	@Subscribe
@@ -137,5 +167,10 @@ public class NightmarePlugin extends Plugin {
 			}
 
         }
+	}
+
+	private void updateConfig()
+	{
+		this.prayerHelper = config.prayerHelper();
 	}
 }
