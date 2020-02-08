@@ -204,10 +204,14 @@ public class NightmarePlugin extends Plugin {
 		ticksUntilNextAttack--;
 	}
 
+	private boolean isNightmareNpc(int id)
+	{
+		return id >= 9425 && id <= 9433;
+	}
+
 	private void updateConfig()
 	{
 		this.prayerHelper = config.prayerHelper();
-
 		this.tickCounter = config.ticksCounter();
 	}
 }
