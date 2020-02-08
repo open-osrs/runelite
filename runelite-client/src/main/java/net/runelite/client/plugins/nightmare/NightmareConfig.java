@@ -47,4 +47,13 @@ public interface NightmareConfig extends Config {
         section = "features"
     )
     default boolean prayerHelper() { return true; }
+
+    @ConfigItem(
+            keyName = "tickCounter",
+            name = "Show Ticks",
+            description = "Displays the number of ticks until next attack",
+            position = 1,
+            section = "features"
+    )
+    default boolean ticksCounter() { return true; }
 }

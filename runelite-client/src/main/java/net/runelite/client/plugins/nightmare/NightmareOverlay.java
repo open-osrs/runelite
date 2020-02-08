@@ -75,6 +75,17 @@ class NightmareOverlay extends Overlay {
 				OverlayUtil.renderPolygon(graphics, poly, color);
 			}
 		}
+
+		if (plugin.isTickCounter() && plugin.getTicksUntilNextAttack() > 0 && plugin.getNm() != null)
+		{
+			String str = Integer.toString(plugin.getTicksUntilNextAttack());
+
+			LocalPoint lp = plugin.getNm().getLocalLocation();
+			Point point = Perspective.getCanvasTextLocation(client, graphics, lp, str, 0);
+
+			renderTextLocation(graphics, str, 20, Font.BOLD, Color.CYAN, point);
+		}
+
 		return null;
 	}
 
