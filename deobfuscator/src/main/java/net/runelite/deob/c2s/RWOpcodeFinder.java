@@ -33,8 +33,7 @@ import net.runelite.asm.attributes.code.instruction.types.InvokeInstruction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RWOpcodeFinder
-{
+public class RWOpcodeFinder {
 	private static final Logger logger = LoggerFactory.getLogger(RWOpcodeFinder.class);
 
 	private final ClassGroup group;
@@ -42,41 +41,33 @@ public class RWOpcodeFinder
 	private Method readOpcode;
 	private Method writeOpcode;
 
-	public RWOpcodeFinder(ClassGroup group)
-	{
+	public RWOpcodeFinder(ClassGroup group) {
 		this.group = group;
 	}
 
-	public Method getReadOpcode()
-	{
+	public Method getReadOpcode() {
 		return readOpcode;
 	}
 
-	public Method getWriteOpcode()
-	{
+	public Method getWriteOpcode() {
 		return writeOpcode;
 	}
 
-	public ClassFile getSecretBuffer()
-	{
+	public ClassFile getSecretBuffer() {
 		assert writeOpcode.getClassFile() == readOpcode.getClassFile();
 		return writeOpcode.getClassFile();
 	}
 
-	public ClassFile getBuffer()
-	{
+	public ClassFile getBuffer() {
 		return getSecretBuffer().getParent();
 	}
 
-	public void find()
-	{
+	public void find() {
 		IsaacCipherFinder ic = new IsaacCipherFinder(group);
 		ic.find();
 
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method m : cf.getMethods())
-			{
+		for (ClassFile cf : group.getClasses()) {
+			for (Method m : cf.getMethods()) {
 				Code code = m.getCode();
 
 				find(ic, m, code);
@@ -86,26 +77,18 @@ public class RWOpcodeFinder
 		logger.debug("Found readOpcode {}, writeOpcode {}", readOpcode, writeOpcode);
 	}
 
-	private void find(IsaacCipherFinder ic, Method method, Code code)
-	{
-		if (code == null)
-		{
+	private void find(IsaacCipherFinder ic, Method method, Code code) {
+		if (code == null) {
 			return;
 		}
 
-		for (Instruction i : code.getInstructions().getInstructions())
-		{
-			if (i instanceof InvokeInstruction)
-			{
-				if (((InvokeInstruction) i).getMethods().contains(ic.getGetNext()))
-				{
-					if (method.getDescriptor().size() == 0)
-					{
+		for (Instruction i : code.getInstructions().getInstructions()) {
+			if (i instanceof InvokeInstruction) {
+				if (((InvokeInstruction) i).getMethods().contains(ic.getGetNext())) {
+					if (method.getDescriptor().size() == 0) {
 						// read opcode
 						readOpcode = method;
-					}
-					else
-					{
+					} else {
 						// write opcode
 						writeOpcode = method;
 					}

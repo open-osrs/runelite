@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.Socket;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -15,25 +16,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Bounds {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -743788715
+			intValue = -743788715
 	)
 	@Export("lowX")
 	public int lowX;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 390143547
+			intValue = 390143547
 	)
 	@Export("lowY")
 	public int lowY;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1967964901
+			intValue = -1967964901
 	)
 	@Export("highX")
 	public int highX;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1178395907
+			intValue = 1178395907
 	)
 	@Export("highY")
 	public int highY;
@@ -49,8 +50,8 @@ public class Bounds {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "2024948285"
+			signature = "(III)V",
+			garbageValue = "2024948285"
 	)
 	@Export("setLow")
 	public void setLow(int var1, int var2) {
@@ -60,8 +61,8 @@ public class Bounds {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
-		garbageValue = "-30"
+			signature = "(IIB)V",
+			garbageValue = "-30"
 	)
 	@Export("setHigh")
 	public void setHigh(int var1, int var2) {
@@ -71,8 +72,8 @@ public class Bounds {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lll;Lll;I)V",
-		garbageValue = "-782590696"
+			signature = "(Lll;Lll;I)V",
+			garbageValue = "-782590696"
 	)
 	public void method6031(Bounds var1, Bounds var2) {
 		this.method6032(var1, var2);
@@ -81,8 +82,8 @@ public class Bounds {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lll;Lll;I)V",
-		garbageValue = "-997217284"
+			signature = "(Lll;Lll;I)V",
+			garbageValue = "-997217284"
 	)
 	void method6032(Bounds var1, Bounds var2) {
 		var2.lowX = this.lowX;
@@ -104,8 +105,8 @@ public class Bounds {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Lll;Lll;I)V",
-		garbageValue = "1896853998"
+			signature = "(Lll;Lll;I)V",
+			garbageValue = "1896853998"
 	)
 	void method6033(Bounds var1, Bounds var2) {
 		var2.lowY = this.lowY;
@@ -127,8 +128,8 @@ public class Bounds {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "1353685285"
+			signature = "(I)I",
+			garbageValue = "1353685285"
 	)
 	int method6034() {
 		return this.lowX + this.highX;
@@ -136,8 +137,8 @@ public class Bounds {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-155482088"
+			signature = "(I)I",
+			garbageValue = "-155482088"
 	)
 	int method6035() {
 		return this.highY + this.lowY;
@@ -149,13 +150,13 @@ public class Bounds {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Throwable;I)Ljava/lang/String;",
-		garbageValue = "1378927694"
+			signature = "(Ljava/lang/Throwable;I)Ljava/lang/String;",
+			garbageValue = "1378927694"
 	)
 	static String method6058(Throwable var0) throws IOException {
 		String var1;
 		if (var0 instanceof RunException) {
-			RunException var2 = (RunException)var0;
+			RunException var2 = (RunException) var0;
 			var1 = var2.message + " | ";
 			var0 = var2.throwable;
 		} else {
@@ -202,8 +203,8 @@ public class Bounds {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		signature = "(Ljava/net/Socket;IIB)Lkr;",
-		garbageValue = "-41"
+			signature = "(Ljava/net/Socket;IIB)Lkr;",
+			garbageValue = "-41"
 	)
 	public static AbstractSocket method6040(Socket var0, int var1, int var2) throws IOException {
 		return new BufferedNetSocket(var0, var1, var2);

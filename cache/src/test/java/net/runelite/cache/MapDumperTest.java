@@ -27,11 +27,13 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import net.runelite.cache.definitions.LocationsDefinition;
 import net.runelite.cache.definitions.MapDefinition;
 import net.runelite.cache.definitions.loaders.LocationsLoader;
@@ -48,8 +50,7 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MapDumperTest
-{
+public class MapDumperTest {
 	private static final Logger logger = LoggerFactory.getLogger(MapDumperTest.class);
 
 	private static final int MAX_REGIONS = 32768;
@@ -60,22 +61,19 @@ public class MapDumperTest
 
 	@Test
 	@Ignore
-	public void dumpRaw() throws IOException
-	{
+	public void dumpRaw() throws IOException {
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = folder.newFolder();
 		XteaKeyManager keyManager = new XteaKeyManager();
 		keyManager.loadKeys();
 
-		try (Store store = new Store(base))
-		{
+		try (Store store = new Store(base)) {
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.MAPS);
 
-			for (int i = 0; i < MAX_REGIONS; i++)
-			{
+			for (int i = 0; i < MAX_REGIONS; i++) {
 				int[] keys = keyManager.getKeys(i);
 
 				int x = i >> 8;
@@ -86,8 +84,7 @@ public class MapDumperTest
 
 				assert (map == null) == (land == null);
 
-				if (map == null || land == null)
-				{
+				if (map == null || land == null) {
 					continue;
 				}
 
@@ -95,14 +92,10 @@ public class MapDumperTest
 
 				Files.write(data, new File(outDir, "m" + x + "_" + y + ".dat"));
 
-				if (keys != null)
-				{
-					try
-					{
+				if (keys != null) {
+					try {
 						data = land.decompress(storage.loadArchive(land), keys);
-					}
-					catch (IOException ex)
-					{
+					} catch (IOException ex) {
 						logger.info("Unable to decompress and load land " + x + "," + y + " (bad keys?)", ex);
 						continue;
 					}
@@ -115,16 +108,14 @@ public class MapDumperTest
 		}
 	}
 
-	private Map<MapDefinition, LocationsDefinition> loadRegions(Store store) throws IOException
-	{
+	private Map<MapDefinition, LocationsDefinition> loadRegions(Store store) throws IOException {
 		Map<MapDefinition, LocationsDefinition> mapMap = new HashMap<>();
 		Storage storage = store.getStorage();
 		Index index = store.getIndex(IndexType.MAPS);
 		XteaKeyManager keyManager = new XteaKeyManager();
 		keyManager.loadKeys();
 
-		for (int i = 0; i < MAX_REGIONS; ++i)
-		{
+		for (int i = 0; i < MAX_REGIONS; ++i) {
 			int x = i >> 8;
 			int y = i & 0xFF;
 
@@ -133,8 +124,7 @@ public class MapDumperTest
 
 			assert (map == null) == (land == null);
 
-			if (map == null || land == null)
-			{
+			if (map == null || land == null) {
 				continue;
 			}
 
@@ -143,14 +133,10 @@ public class MapDumperTest
 			LocationsDefinition locDef = null;
 
 			int[] keys = keyManager.getKeys(i);
-			if (keys != null)
-			{
-				try
-				{
+			if (keys != null) {
+				try {
 					data = land.decompress(storage.loadArchive(land), keys);
-				}
-				catch (IOException ex)
-				{
+				} catch (IOException ex) {
 					continue;
 				}
 
@@ -165,27 +151,23 @@ public class MapDumperTest
 
 	@Test
 	@Ignore
-	public void dumpJson() throws IOException
-	{
+	public void dumpJson() throws IOException {
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = folder.newFolder();
 
-		try (Store store = new Store(base))
-		{
+		try (Store store = new Store(base)) {
 			store.load();
 
 			Map<MapDefinition, LocationsDefinition> regions = loadRegions(store);
 
-			for (Entry<MapDefinition, LocationsDefinition> entry : regions.entrySet())
-			{
+			for (Entry<MapDefinition, LocationsDefinition> entry : regions.entrySet()) {
 				MapDefinition key = entry.getKey();
 				LocationsDefinition value = entry.getValue();
 
 				int x = key.getRegionX();
 				int y = key.getRegionY();
 				Files.write(gson.toJson(key).getBytes(), new File(outDir, "m" + x + "_" + y + ".json"));
-				if (value != null)
-				{
+				if (value != null) {
 					Files.write(gson.toJson(value).getBytes(), new File(outDir, "l" + x + "_" + y + ".json"));
 				}
 			}

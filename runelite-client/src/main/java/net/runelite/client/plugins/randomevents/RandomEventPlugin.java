@@ -27,9 +27,11 @@ package net.runelite.client.plugins.randomevents;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+
 import java.util.Arrays;
 import java.util.Set;
 import javax.inject.Inject;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
@@ -49,41 +51,40 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
 @PluginDescriptor(
-	name = "Random Events",
-	description = "Notify when random events appear and remove talk/dismiss options on events that aren't yours.",
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Random Events",
+		description = "Notify when random events appear and remove talk/dismiss options on events that aren't yours.",
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Slf4j
-public class RandomEventPlugin extends Plugin
-{
+public class RandomEventPlugin extends Plugin {
 	private static final Set<Integer> EVENT_NPCS = ImmutableSet.of(
-		NpcID.DR_JEKYLL, NpcID.DR_JEKYLL_314,
-		NpcID.BEE_KEEPER_6747,
-		NpcID.CAPT_ARNAV,
-		NpcID.SERGEANT_DAMIEN_6743,
-		NpcID.DRUNKEN_DWARF,
-		NpcID.FREAKY_FORESTER_6748,
-		NpcID.GENIE, NpcID.GENIE_327,
-		NpcID.EVIL_BOB, NpcID.EVIL_BOB_6754,
-		NpcID.POSTIE_PETE_6738,
-		NpcID.LEO_6746,
-		NpcID.MYSTERIOUS_OLD_MAN_6750, NpcID.MYSTERIOUS_OLD_MAN_6751,
-		NpcID.MYSTERIOUS_OLD_MAN_6752, NpcID.MYSTERIOUS_OLD_MAN_6753,
-		NpcID.PILLORY_GUARD,
-		NpcID.FLIPPA_6744,
-		NpcID.QUIZ_MASTER_6755,
-		NpcID.RICK_TURPENTINE, NpcID.RICK_TURPENTINE_376,
-		NpcID.SANDWICH_LADY,
-		NpcID.DUNCE_6749,
-		NpcID.NILES, NpcID.NILES_5439,
-		NpcID.MILES, NpcID.MILES_5440,
-		NpcID.GILES, NpcID.GILES_5441,
-		NpcID.FROG_5429
+			NpcID.DR_JEKYLL, NpcID.DR_JEKYLL_314,
+			NpcID.BEE_KEEPER_6747,
+			NpcID.CAPT_ARNAV,
+			NpcID.SERGEANT_DAMIEN_6743,
+			NpcID.DRUNKEN_DWARF,
+			NpcID.FREAKY_FORESTER_6748,
+			NpcID.GENIE, NpcID.GENIE_327,
+			NpcID.EVIL_BOB, NpcID.EVIL_BOB_6754,
+			NpcID.POSTIE_PETE_6738,
+			NpcID.LEO_6746,
+			NpcID.MYSTERIOUS_OLD_MAN_6750, NpcID.MYSTERIOUS_OLD_MAN_6751,
+			NpcID.MYSTERIOUS_OLD_MAN_6752, NpcID.MYSTERIOUS_OLD_MAN_6753,
+			NpcID.PILLORY_GUARD,
+			NpcID.FLIPPA_6744,
+			NpcID.QUIZ_MASTER_6755,
+			NpcID.RICK_TURPENTINE, NpcID.RICK_TURPENTINE_376,
+			NpcID.SANDWICH_LADY,
+			NpcID.DUNCE_6749,
+			NpcID.NILES, NpcID.NILES_5439,
+			NpcID.MILES, NpcID.MILES_5440,
+			NpcID.GILES, NpcID.GILES_5441,
+			NpcID.FROG_5429
 	);
 	private static final Set<String> EVENT_OPTIONS = ImmutableSet.of(
-		"Talk-to",
-		"Dismiss"
+			"Talk-to",
+			"Dismiss"
 	);
 	private static final int RANDOM_EVENT_TIMEOUT = 150;
 
@@ -111,27 +112,23 @@ public class RandomEventPlugin extends Plugin
 	private boolean notifyDunce;
 
 	@Provides
-	RandomEventConfig getConfig(ConfigManager configManager)
-	{
+	RandomEventConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(RandomEventConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		lastNotificationTick = 0;
 		currentRandomEvent = null;
 	}
 
 	@Subscribe
-	private void onInteractingChanged(InteractingChanged event)
-	{
+	private void onInteractingChanged(InteractingChanged event) {
 		Actor source = event.getSource();
 		Actor target = event.getTarget();
 		Player player = client.getLocalPlayer();
@@ -139,11 +136,10 @@ public class RandomEventPlugin extends Plugin
 		// Check that the npc is interacting with the player and the player isn't interacting with the npc, so
 		// that the notification doesn't fire from talking to other user's randoms
 		if (player == null
-			|| target != player
-			|| player.getInteracting() == source
-			|| !(source instanceof NPC)
-			|| !EVENT_NPCS.contains(((NPC) source).getId()))
-		{
+				|| target != player
+				|| player.getInteracting() == source
+				|| !(source instanceof NPC)
+				|| !EVENT_NPCS.contains(((NPC) source).getId())) {
 			return;
 		}
 
@@ -151,52 +147,42 @@ public class RandomEventPlugin extends Plugin
 
 		currentRandomEvent = (NPC) source;
 
-		if (client.getTickCount() - lastNotificationTick > RANDOM_EVENT_TIMEOUT)
-		{
+		if (client.getTickCount() - lastNotificationTick > RANDOM_EVENT_TIMEOUT) {
 			lastNotificationTick = client.getTickCount();
 
-			if (shouldNotify(currentRandomEvent.getId()))
-			{
+			if (shouldNotify(currentRandomEvent.getId())) {
 				notifier.notify("Random event spawned: " + currentRandomEvent.getName());
 			}
 		}
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned npcDespawned)
-	{
+	private void onNpcDespawned(NpcDespawned npcDespawned) {
 		NPC npc = npcDespawned.getNpc();
 
-		if (npc == currentRandomEvent)
-		{
+		if (npc == currentRandomEvent) {
 			currentRandomEvent = null;
 		}
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded event)
-	{
+	private void onMenuEntryAdded(MenuEntryAdded event) {
 		if (event.getOpcode() >= MenuOpcode.NPC_FIRST_OPTION.getId()
-			&& event.getOpcode() <= MenuOpcode.NPC_FIFTH_OPTION.getId()
-			&& EVENT_OPTIONS.contains(event.getOption()))
-		{
+				&& event.getOpcode() <= MenuOpcode.NPC_FIFTH_OPTION.getId()
+				&& EVENT_OPTIONS.contains(event.getOption())) {
 			NPC npc = client.getCachedNPCs()[event.getIdentifier()];
-			if (npc != null && EVENT_NPCS.contains(npc.getId()) && npc != currentRandomEvent && config.removeMenuOptions())
-			{
+			if (npc != null && EVENT_NPCS.contains(npc.getId()) && npc != currentRandomEvent && config.removeMenuOptions()) {
 				client.setMenuEntries(Arrays.copyOf(client.getMenuEntries(), client.getMenuEntries().length - 1));
 			}
 		}
 	}
 
-	private boolean shouldNotify(int id)
-	{
-		if (this.notifyAllEvents)
-		{
+	private boolean shouldNotify(int id) {
+		if (this.notifyAllEvents) {
 			return true;
 		}
 
-		switch (id)
-		{
+		switch (id) {
 			case NpcID.SERGEANT_DAMIEN_6743:
 				return this.notifyDemon;
 			case NpcID.FREAKY_FORESTER_6748:
@@ -226,18 +212,15 @@ public class RandomEventPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!"randomevents".equals(event.getGroup()))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!"randomevents".equals(event.getGroup())) {
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.notifyAllEvents = config.notifyAllEvents();
 		this.notifyDemon = config.notifyDemon();
 		this.notifyForester = config.notifyForester();

@@ -10,7 +10,7 @@ import net.runelite.rs.ScriptOpcodes;
 public class MenuAction {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -171831145
+			intValue = -171831145
 	)
 	@Export("param0")
 	int param0;
@@ -19,19 +19,19 @@ public class MenuAction {
 	String action;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -923254575
+			intValue = -923254575
 	)
 	@Export("param1")
 	int param1;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1388301791
+			intValue = -1388301791
 	)
 	@Export("opcode")
 	int opcode;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 455082071
+			intValue = 455082071
 	)
 	@Export("identifier")
 	int identifier;
@@ -41,8 +41,8 @@ public class MenuAction {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lks;I)V",
-		garbageValue = "-1231997766"
+			signature = "(Lks;I)V",
+			garbageValue = "-1231997766"
 	)
 	@Export("updatePlayer")
 	static final void updatePlayer(PacketBuffer var0) {
@@ -51,7 +51,7 @@ public class MenuAction {
 		Player var2 = class192.localPlayer = Client.players[var1] = new Player();
 		var2.index = var1;
 		int var3 = var0.readBits(30);
-		byte var4 = (byte)(var3 >> 28);
+		byte var4 = (byte) (var3 >> 28);
 		int var5 = var3 >> 14 & 16383;
 		int var6 = var3 & 16383;
 		var2.pathX[0] = var5 - Messages.baseX * 64;
@@ -87,8 +87,8 @@ public class MenuAction {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "1513709763"
+			signature = "(ILce;ZI)I",
+			garbageValue = "1513709763"
 	)
 	static int method2106(int var0, Script var1, boolean var2) {
 		int var3 = -1;
@@ -148,8 +148,8 @@ public class MenuAction {
 
 	@ObfuscatedName("kg")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-879378563"
+			signature = "(I)V",
+			garbageValue = "-879378563"
 	)
 	@Export("Clan_leaveChat")
 	static final void Clan_leaveChat() {

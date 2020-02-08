@@ -26,27 +26,24 @@ package net.runelite.client.plugins.mta;
 
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 
-public abstract class MTARoom
-{
+public abstract class MTARoom {
 	@Getter(AccessLevel.PROTECTED)
 	protected final MTAConfig config;
 
 	@Inject
-	protected MTARoom(final MTAConfig config)
-	{
+	protected MTARoom(final MTAConfig config) {
 		this.config = config;
 	}
 
 	public abstract boolean inside();
 
-	public void under(Graphics2D graphics2D)
-	{
+	public void under(Graphics2D graphics2D) {
 	}
 
-	public void over(Graphics2D graphics2D)
-	{
+	public void over(Graphics2D graphics2D) {
 	}
 }

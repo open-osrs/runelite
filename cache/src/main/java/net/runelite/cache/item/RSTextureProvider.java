@@ -28,8 +28,7 @@ import net.runelite.cache.definitions.TextureDefinition;
 import net.runelite.cache.definitions.providers.SpriteProvider;
 import net.runelite.cache.definitions.providers.TextureProvider;
 
-public class RSTextureProvider
-{
+public class RSTextureProvider {
 	private final SpriteProvider spriteProvider;
 	TextureDefinition[] textures;
 	int maxSize;
@@ -37,8 +36,7 @@ public class RSTextureProvider
 	double brightness;
 	int width;
 
-	public RSTextureProvider(TextureProvider textureProvider, SpriteProvider spriteProvider)
-	{
+	public RSTextureProvider(TextureProvider textureProvider, SpriteProvider spriteProvider) {
 		this.spriteProvider = spriteProvider;
 		this.size = 0;
 		this.brightness = 1.0D;
@@ -49,28 +47,22 @@ public class RSTextureProvider
 		this.width = 128;
 
 		int max = -1;
-		for (TextureDefinition textureDefinition : textureProvider.provide())
-		{
-			if (textureDefinition.getId() > max)
-			{
+		for (TextureDefinition textureDefinition : textureProvider.provide()) {
+			if (textureDefinition.getId() > max) {
 				max = textureDefinition.getId();
 			}
 		}
 
 		textures = new TextureDefinition[max + 1];
-		for (TextureDefinition textureDefinition : textureProvider.provide())
-		{
+		for (TextureDefinition textureDefinition : textureProvider.provide()) {
 			textures[textureDefinition.getId()] = textureDefinition;
 		}
 	}
 
-	public int[] load(int var1)
-	{
+	public int[] load(int var1) {
 		TextureDefinition var2 = this.textures[var1];
-		if (var2 != null)
-		{
-			if (var2.pixels != null)
-			{
+		if (var2 != null) {
+			if (var2.pixels != null) {
 				return var2.pixels;
 			}
 
@@ -82,20 +74,17 @@ public class RSTextureProvider
 	}
 
 
-	public int getAverageTextureRGB(int var1)
-	{
+	public int getAverageTextureRGB(int var1) {
 		return this.textures[var1] != null ? this.textures[var1].field1777 : 0;
 	}
 
 
-	public boolean vmethod3057(int var1)
-	{
+	public boolean vmethod3057(int var1) {
 		return this.textures[var1].field1778;
 	}
 
 
-	public boolean vmethod3066(int var1)
-	{
+	public boolean vmethod3066(int var1) {
 		return this.width == 64;
 	}
 }

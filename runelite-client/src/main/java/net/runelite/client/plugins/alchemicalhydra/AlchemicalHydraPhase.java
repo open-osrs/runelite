@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.alchemicalhydra;
 
 import java.awt.image.BufferedImage;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,7 @@ import net.runelite.client.util.ImageUtil;
 
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-enum AlchemicalHydraPhase
-{
+enum AlchemicalHydraPhase {
 	ONE(3, AnimationID.HYDRA_1_1, AnimationID.HYDRA_1_2, ProjectileID.HYDRA_POISON, 0, SpriteID.BIG_ASS_GUTHIX_SPELL, new WorldPoint(1371, 10263, 0)),
 	TWO(3, AnimationID.HYDRA_2_1, AnimationID.HYDRA_2_2, 0, AnimationID.HYDRA_LIGHTNING, SpriteID.BIG_SPEC_TRANSFER, new WorldPoint(1371, 10272, 0)),
 	THREE(3, AnimationID.HYDRA_3_1, AnimationID.HYDRA_3_2, 0, AnimationID.HYDRA_FIRE, SpriteID.BIG_SUPERHEAT, new WorldPoint(1362, 10272, 0)),
@@ -56,10 +56,8 @@ enum AlchemicalHydraPhase
 
 	private BufferedImage specImage;
 
-	BufferedImage getSpecImage(SpriteManager spriteManager)
-	{
-		if (specImage == null)
-		{
+	BufferedImage getSpecImage(SpriteManager spriteManager) {
+		if (specImage == null) {
 			BufferedImage tmp = spriteManager.getSprite(specImageID, 0);
 			specImage = tmp == null ? null : ImageUtil.resizeImage(tmp, AlchemicalHydraOverlay.IMGSIZE, AlchemicalHydraOverlay.IMGSIZE);
 		}

@@ -31,7 +31,6 @@ import lombok.Value;
  * Event when the world list is loaded for the world switcher
  */
 @Value
-public class WorldListLoad implements Event
-{
+public class WorldListLoad implements Event {
 	private final World[] worlds;
 }

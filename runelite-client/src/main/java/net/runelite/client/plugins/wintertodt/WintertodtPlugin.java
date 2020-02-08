@@ -26,22 +26,28 @@
 package net.runelite.client.plugins.wintertodt;
 
 import com.google.inject.Provides;
+
 import java.awt.Color;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
 import static net.runelite.api.AnimationID.*;
+
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
+
 import static net.runelite.api.ItemID.BRUMA_KINDLING;
 import static net.runelite.api.ItemID.BRUMA_ROOT;
+
 import net.runelite.api.MessageNode;
 import net.runelite.api.Player;
 import net.runelite.api.Varbits;
@@ -63,15 +69,14 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 
 @PluginDescriptor(
-	name = "Wintertodt",
-	description = "Show helpful information for the Wintertodt boss",
-	tags = {"minigame", "firemaking", "boss"},
-	type = PluginType.MINIGAME
+		name = "Wintertodt",
+		description = "Show helpful information for the Wintertodt boss",
+		tags = {"minigame", "firemaking", "boss"},
+		type = PluginType.MINIGAME
 )
 @Slf4j
 @Singleton
-public class WintertodtPlugin extends Plugin
-{
+public class WintertodtPlugin extends Plugin {
 	private static final int WINTERTODT_REGION = 6462;
 
 	static final int WINTERTODT_ROOTS_MULTIPLIER = 10;
@@ -114,14 +119,12 @@ public class WintertodtPlugin extends Plugin
 	private Color damageNotificationColor;
 
 	@Provides
-	WintertodtConfig getConfig(ConfigManager configManager)
-	{
+	WintertodtConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(WintertodtConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		this.notifyCondition = config.notifyCondition();
 		this.damageNotificationColor = config.damageNotificationColor();
 
@@ -130,8 +133,7 @@ public class WintertodtPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
-	{
+	protected void shutDown() throws Exception {
 		super.shutDown();
 
 		overlayManager.remove(overlay);
@@ -139,10 +141,8 @@ public class WintertodtPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("wintertodt"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("wintertodt")) {
 			return;
 		}
 
@@ -150,18 +150,15 @@ public class WintertodtPlugin extends Plugin
 		this.damageNotificationColor = config.damageNotificationColor();
 	}
 
-	private void reset()
-	{
+	private void reset() {
 		numRoots = 0;
 		numKindling = 0;
 		currentActivity = WintertodtActivity.IDLE;
 		lastActionTime = null;
 	}
 
-	private boolean isInWintertodtRegion()
-	{
-		if (client.getLocalPlayer() != null)
-		{
+	private boolean isInWintertodtRegion() {
+		if (client.getLocalPlayer() != null) {
 			return client.getLocalPlayer().getWorldLocation().getRegionID() == WINTERTODT_REGION;
 		}
 
@@ -169,12 +166,9 @@ public class WintertodtPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick gameTick)
-	{
-		if (!isInWintertodtRegion())
-		{
-			if (isInWintertodt)
-			{
+	private void onGameTick(GameTick gameTick) {
+		if (!isInWintertodtRegion()) {
+			if (isInWintertodt) {
 				log.debug("Left Wintertodt!");
 				reset();
 			}
@@ -183,8 +177,7 @@ public class WintertodtPlugin extends Plugin
 			return;
 		}
 
-		if (!isInWintertodt)
-		{
+		if (!isInWintertodt) {
 			reset();
 			log.debug("Entered Wintertodt!");
 		}
@@ -194,21 +187,17 @@ public class WintertodtPlugin extends Plugin
 	}
 
 	@Subscribe
-	void onVarbitChanged(VarbitChanged varbitChanged)
-	{
+	void onVarbitChanged(VarbitChanged varbitChanged) {
 		int timerValue = client.getVar(Varbits.WINTERTODT_TIMER);
-		if (timerValue != previousTimerValue)
-		{
+		if (timerValue != previousTimerValue) {
 			int timeToNotify = config.roundNotification();
-			if (timeToNotify > 0)
-			{
+			if (timeToNotify > 0) {
 				int timeInSeconds = timerValue * 30 / 50;
 				int prevTimeInSeconds = previousTimerValue * 30 / 50;
 
 				log.debug("Seconds left until round start: {}", timeInSeconds);
 
-				if (prevTimeInSeconds > timeToNotify && timeInSeconds <= timeToNotify)
-				{
+				if (prevTimeInSeconds > timeToNotify && timeInSeconds <= timeToNotify) {
 					notifier.notify("Wintertodt round is about to start");
 				}
 			}
@@ -217,81 +206,57 @@ public class WintertodtPlugin extends Plugin
 		}
 	}
 
-	private void checkActionTimeout()
-	{
-		if (currentActivity == WintertodtActivity.IDLE)
-		{
+	private void checkActionTimeout() {
+		if (currentActivity == WintertodtActivity.IDLE) {
 			return;
 		}
 
 		int currentAnimation = client.getLocalPlayer() != null ? client.getLocalPlayer().getAnimation() : -1;
-		if (currentAnimation != IDLE || lastActionTime == null)
-		{
+		if (currentAnimation != IDLE || lastActionTime == null) {
 			return;
 		}
 
 		Duration actionTimeout = Duration.ofSeconds(3);
 		Duration sinceAction = Duration.between(lastActionTime, Instant.now());
 
-		if (sinceAction.compareTo(actionTimeout) >= 0)
-		{
+		if (sinceAction.compareTo(actionTimeout) >= 0) {
 			log.debug("Activity timeout!");
 			currentActivity = WintertodtActivity.IDLE;
 		}
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage chatMessage)
-	{
-		if (!isInWintertodt)
-		{
+	private void onChatMessage(ChatMessage chatMessage) {
+		if (!isInWintertodt) {
 			return;
 		}
 
 		ChatMessageType chatMessageType = chatMessage.getType();
 
-		if (chatMessageType != ChatMessageType.GAMEMESSAGE && chatMessageType != ChatMessageType.SPAM)
-		{
+		if (chatMessageType != ChatMessageType.GAMEMESSAGE && chatMessageType != ChatMessageType.SPAM) {
 			return;
 		}
 
 		MessageNode messageNode = chatMessage.getMessageNode();
 		final WintertodtInterruptType interruptType;
 
-		if (messageNode.getValue().startsWith("The cold of"))
-		{
+		if (messageNode.getValue().startsWith("The cold of")) {
 			interruptType = WintertodtInterruptType.COLD;
-		}
-		else if (messageNode.getValue().startsWith("The freezing cold attack"))
-		{
+		} else if (messageNode.getValue().startsWith("The freezing cold attack")) {
 			interruptType = WintertodtInterruptType.SNOWFALL;
-		}
-		else if (messageNode.getValue().startsWith("The brazier is broken and shrapnel"))
-		{
+		} else if (messageNode.getValue().startsWith("The brazier is broken and shrapnel")) {
 			interruptType = WintertodtInterruptType.BRAZIER;
-		}
-		else if (messageNode.getValue().startsWith("You have run out of bruma roots"))
-		{
+		} else if (messageNode.getValue().startsWith("You have run out of bruma roots")) {
 			interruptType = WintertodtInterruptType.OUT_OF_ROOTS;
-		}
-		else if (messageNode.getValue().startsWith("Your inventory is too full"))
-		{
+		} else if (messageNode.getValue().startsWith("Your inventory is too full")) {
 			interruptType = WintertodtInterruptType.INVENTORY_FULL;
-		}
-		else if (messageNode.getValue().startsWith("You fix the brazier"))
-		{
+		} else if (messageNode.getValue().startsWith("You fix the brazier")) {
 			interruptType = WintertodtInterruptType.FIXED_BRAZIER;
-		}
-		else if (messageNode.getValue().startsWith("You light the brazier"))
-		{
+		} else if (messageNode.getValue().startsWith("You light the brazier")) {
 			interruptType = WintertodtInterruptType.LIT_BRAZIER;
-		}
-		else if (messageNode.getValue().startsWith("The brazier has gone out."))
-		{
+		} else if (messageNode.getValue().startsWith("The brazier has gone out.")) {
 			interruptType = WintertodtInterruptType.BRAZIER_WENT_OUT;
-		}
-		else
-		{
+		} else {
 			return;
 		}
 
@@ -299,8 +264,7 @@ public class WintertodtPlugin extends Plugin
 		boolean wasDamaged = false;
 		boolean neverNotify = false;
 
-		switch (interruptType)
-		{
+		switch (interruptType) {
 			case COLD:
 			case BRAZIER:
 			case SNOWFALL:
@@ -312,8 +276,7 @@ public class WintertodtPlugin extends Plugin
 				client.refreshChat();
 
 				// all actions except woodcutting and idle are interrupted from damage
-				if (currentActivity != WintertodtActivity.WOODCUTTING && currentActivity != WintertodtActivity.IDLE)
-				{
+				if (currentActivity != WintertodtActivity.WOODCUTTING && currentActivity != WintertodtActivity.IDLE) {
 					wasInterrupted = true;
 				}
 
@@ -330,21 +293,17 @@ public class WintertodtPlugin extends Plugin
 				break;
 		}
 
-		if (!neverNotify)
-		{
+		if (!neverNotify) {
 			boolean shouldNotify = false;
 
-			switch (this.notifyCondition)
-			{
+			switch (this.notifyCondition) {
 				case ONLY_WHEN_INTERRUPTED:
-					if (wasInterrupted)
-					{
+					if (wasInterrupted) {
 						shouldNotify = true;
 					}
 					break;
 				case WHEN_DAMAGED:
-					if (wasDamaged)
-					{
+					if (wasDamaged) {
 						shouldNotify = true;
 					}
 					break;
@@ -353,26 +312,22 @@ public class WintertodtPlugin extends Plugin
 					break;
 			}
 
-			if (shouldNotify)
-			{
+			if (shouldNotify) {
 				notifyInterrupted(interruptType, wasInterrupted);
 			}
 		}
 
-		if (wasInterrupted)
-		{
+		if (wasInterrupted) {
 			currentActivity = WintertodtActivity.IDLE;
 		}
 	}
 
-	private void notifyInterrupted(WintertodtInterruptType interruptType, boolean wasActivityInterrupted)
-	{
+	private void notifyInterrupted(WintertodtInterruptType interruptType, boolean wasActivityInterrupted) {
 		final StringBuilder str = new StringBuilder();
 
 		str.append("Wintertodt: ");
 
-		if (wasActivityInterrupted)
-		{
+		if (wasActivityInterrupted) {
 			str.append(currentActivity.getActionString());
 			str.append(" interrupted! ");
 		}
@@ -385,23 +340,19 @@ public class WintertodtPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onAnimationChanged(final AnimationChanged event)
-	{
-		if (!isInWintertodt)
-		{
+	private void onAnimationChanged(final AnimationChanged event) {
+		if (!isInWintertodt) {
 			return;
 		}
 
 		final Player local = client.getLocalPlayer();
 
-		if (event.getActor() != local)
-		{
+		if (event.getActor() != local) {
 			return;
 		}
 
 		final int animId = local.getAnimation();
-		switch (animId)
-		{
+		switch (animId) {
 			case WOODCUTTING_BRONZE:
 			case WOODCUTTING_IRON:
 			case WOODCUTTING_STEEL:
@@ -435,12 +386,10 @@ public class WintertodtPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onItemContainerChanged(ItemContainerChanged event)
-	{
+	private void onItemContainerChanged(ItemContainerChanged event) {
 		final ItemContainer container = event.getItemContainer();
 
-		if (!isInWintertodt || container != client.getItemContainer(InventoryID.INVENTORY))
-		{
+		if (!isInWintertodt || container != client.getItemContainer(InventoryID.INVENTORY)) {
 			return;
 		}
 
@@ -449,10 +398,8 @@ public class WintertodtPlugin extends Plugin
 		numRoots = 0;
 		numKindling = 0;
 
-		for (Item item : inv)
-		{
-			switch (item.getId())
-			{
+		for (Item item : inv) {
+			switch (item.getId()) {
 				case BRUMA_ROOT:
 					++numRoots;
 					break;
@@ -463,19 +410,16 @@ public class WintertodtPlugin extends Plugin
 		}
 
 		//If we're currently fletching but there are no more roots, go ahead and abort fletching immediately
-		if (numRoots == 0 && currentActivity == WintertodtActivity.FLETCHING)
-		{
+		if (numRoots == 0 && currentActivity == WintertodtActivity.FLETCHING) {
 			currentActivity = WintertodtActivity.IDLE;
 		}
 		//Otherwise, if we're currently feeding the brazier but we've run out of both roots and kindling, abort the feeding activity
-		else if (numRoots == 0 && numKindling == 0 && currentActivity == WintertodtActivity.FEEDING_BRAZIER)
-		{
+		else if (numRoots == 0 && numKindling == 0 && currentActivity == WintertodtActivity.FEEDING_BRAZIER) {
 			currentActivity = WintertodtActivity.IDLE;
 		}
 	}
 
-	private void setActivity(WintertodtActivity action)
-	{
+	private void setActivity(WintertodtActivity action) {
 		currentActivity = action;
 		lastActionTime = Instant.now();
 	}

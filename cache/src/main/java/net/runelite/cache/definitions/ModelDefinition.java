@@ -1,14 +1,14 @@
 package net.runelite.cache.definitions;
 
 import java.util.Arrays;
+
 import lombok.Data;
 import net.runelite.cache.models.CircularAngle;
 import net.runelite.cache.models.FaceNormal;
 import net.runelite.cache.models.VertexNormal;
 
 @Data
-public class ModelDefinition
-{
+public class ModelDefinition {
 	public int id;
 
 	public int vertexCount = 0;
@@ -60,23 +60,19 @@ public class ModelDefinition
 
 	public static transient int animOffsetX, animOffsetY, animOffsetZ;
 
-	public void computeNormals()
-	{
-		if (this.vertexNormals != null)
-		{
+	public void computeNormals() {
+		if (this.vertexNormals != null) {
 			return;
 		}
 
 		this.vertexNormals = new VertexNormal[this.vertexCount];
 
 		int var1;
-		for (var1 = 0; var1 < this.vertexCount; ++var1)
-		{
+		for (var1 = 0; var1 < this.vertexCount; ++var1) {
 			this.vertexNormals[var1] = new VertexNormal();
 		}
 
-		for (var1 = 0; var1 < this.faceCount; ++var1)
-		{
+		for (var1 = 0; var1 < this.faceCount; ++var1) {
 			int vertexA = this.faceVertexIndices1[var1];
 			int vertexB = this.faceVertexIndices2[var1];
 			int vertexC = this.faceVertexIndices3[var1];
@@ -94,16 +90,14 @@ public class ModelDefinition
 			int var12 = zA * xB - zB * xA;
 			int var13 = xA * yB - xB * yA;
 
-			while (var11 > 8192 || var12 > 8192 || var13 > 8192 || var11 < -8192 || var12 < -8192 || var13 < -8192)
-			{
+			while (var11 > 8192 || var12 > 8192 || var13 > 8192 || var11 < -8192 || var12 < -8192 || var13 < -8192) {
 				var11 >>= 1;
 				var12 >>= 1;
 				var13 >>= 1;
 			}
 
 			int length = (int) Math.sqrt((double) (var11 * var11 + var12 * var12 + var13 * var13));
-			if (length <= 0)
-			{
+			if (length <= 0) {
 				length = 1;
 			}
 
@@ -112,17 +106,13 @@ public class ModelDefinition
 			var13 = var13 * 256 / length;
 
 			byte var15;
-			if (this.faceRenderTypes == null)
-			{
+			if (this.faceRenderTypes == null) {
 				var15 = 0;
-			}
-			else
-			{
+			} else {
 				var15 = this.faceRenderTypes[var1];
 			}
 
-			if (var15 == 0)
-			{
+			if (var15 == 0) {
 				VertexNormal var16 = this.vertexNormals[vertexA];
 				var16.x += var11;
 				var16.y += var12;
@@ -140,11 +130,8 @@ public class ModelDefinition
 				var16.y += var12;
 				var16.z += var13;
 				++var16.magnitude;
-			}
-			else if (var15 == 1)
-			{
-				if (this.faceNormals == null)
-				{
+			} else if (var15 == 1) {
+				if (this.faceNormals == null) {
 					this.faceNormals = new FaceNormal[this.faceCount];
 				}
 
@@ -160,40 +147,30 @@ public class ModelDefinition
 	 * Computes the UV coordinates for every three-vertex face that has a
 	 * texture.
 	 */
-	public void computeTextureUVCoordinates()
-	{
+	public void computeTextureUVCoordinates() {
 		this.faceTextureUCoordinates = new float[faceCount][];
 		this.faceTextureVCoordinates = new float[faceCount][];
 
-		for (int i = 0; i < faceCount; i++)
-		{
+		for (int i = 0; i < faceCount; i++) {
 			int textureCoordinate;
-			if (textureCoordinates == null)
-			{
+			if (textureCoordinates == null) {
 				textureCoordinate = -1;
-			}
-			else
-			{
+			} else {
 				textureCoordinate = textureCoordinates[i];
 			}
 
 			int textureIdx;
-			if (faceTextures == null)
-			{
+			if (faceTextures == null) {
 				textureIdx = -1;
-			}
-			else
-			{
+			} else {
 				textureIdx = faceTextures[i] & 0xFFFF;
 			}
 
-			if (textureIdx != -1)
-			{
+			if (textureIdx != -1) {
 				float[] u = new float[3];
 				float[] v = new float[3];
 
-				if (textureCoordinate == -1)
-				{
+				if (textureCoordinate == -1) {
 					u[0] = 0.0F;
 					v[0] = 1.0F;
 
@@ -202,19 +179,15 @@ public class ModelDefinition
 
 					u[2] = 0.0F;
 					v[2] = 0.0F;
-				}
-				else
-				{
+				} else {
 					textureCoordinate &= 0xFF;
 
 					byte textureRenderType = 0;
-					if (textureRenderTypes != null)
-					{
+					if (textureRenderTypes != null) {
 						textureRenderType = textureRenderTypes[textureCoordinate];
 					}
 
-					if (textureRenderType == 0)
-					{
+					if (textureRenderType == 0) {
 						int faceVertexIdx1 = faceVertexIndices1[i];
 						int faceVertexIdx2 = faceVertexIndices2[i];
 						int faceVertexIdx3 = faceVertexIndices3[i];
@@ -272,34 +245,28 @@ public class ModelDefinition
 		}
 	}
 
-	public void computeAnimationTables()
-	{
-		if (this.vertexSkins != null)
-		{
+	public void computeAnimationTables() {
+		if (this.vertexSkins != null) {
 			int[] groupCounts = new int[256];
 			int numGroups = 0;
 			int var3, var4;
 
-			for (var3 = 0; var3 < this.vertexCount; ++var3)
-			{
+			for (var3 = 0; var3 < this.vertexCount; ++var3) {
 				var4 = this.vertexSkins[var3];
 				++groupCounts[var4];
-				if (var4 > numGroups)
-				{
+				if (var4 > numGroups) {
 					numGroups = var4;
 				}
 			}
 
 			this.vertexGroups = new int[numGroups + 1][];
 
-			for (var3 = 0; var3 <= numGroups; ++var3)
-			{
+			for (var3 = 0; var3 <= numGroups; ++var3) {
 				this.vertexGroups[var3] = new int[groupCounts[var3]];
 				groupCounts[var3] = 0;
 			}
 
-			for (var3 = 0; var3 < this.vertexCount; this.vertexGroups[var4][groupCounts[var4]++] = var3++)
-			{
+			for (var3 = 0; var3 < this.vertexCount; this.vertexGroups[var4][groupCounts[var4]++] = var3++) {
 				var4 = this.vertexSkins[var3];
 			}
 
@@ -309,16 +276,14 @@ public class ModelDefinition
 		// triangleSkinValues is here
 	}
 
-	public void rotate(int orientation)
-	{
+	public void rotate(int orientation) {
 		int sin = CircularAngle.SINE[orientation];
 		int cos = CircularAngle.COSINE[orientation];
 
 		assert vertexPositionsX.length == vertexPositionsY.length;
 		assert vertexPositionsY.length == vertexPositionsZ.length;
 
-		for (int i = 0; i < vertexPositionsX.length; ++i)
-		{
+		for (int i = 0; i < vertexPositionsX.length; ++i) {
 			vertexPositionsX[i] = vertexPositionsX[i] * cos + vertexPositionsZ[i] * sin >> 16;
 			vertexPositionsZ[i] = vertexPositionsZ[i] * cos - vertexPositionsX[i] * sin >> 16;
 		}
@@ -326,10 +291,8 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void resetAnim()
-	{
-		if (origVX == null)
-		{
+	public void resetAnim() {
+		if (origVX == null) {
 			return;
 		}
 
@@ -338,10 +301,8 @@ public class ModelDefinition
 		System.arraycopy(origVZ, 0, vertexPositionsZ, 0, origVZ.length);
 	}
 
-	public void animate(int type, int[] frameMap, int dx, int dy, int dz)
-	{
-		if (origVX == null)
-		{
+	public void animate(int type, int[] frameMap, int dx, int dy, int dz) {
+		if (origVX == null) {
 			origVX = Arrays.copyOf(vertexPositionsX, vertexPositionsX.length);
 			origVY = Arrays.copyOf(vertexPositionsY, vertexPositionsY.length);
 			origVZ = Arrays.copyOf(vertexPositionsZ, vertexPositionsZ.length);
@@ -355,22 +316,18 @@ public class ModelDefinition
 		int var8;
 		int var11;
 		int var12;
-		if (type == 0)
-		{
+		if (type == 0) {
 			var7 = 0;
 			animOffsetX = 0;
 			animOffsetY = 0;
 			animOffsetZ = 0;
 
-			for (var8 = 0; var8 < var6; ++var8)
-			{
+			for (var8 = 0; var8 < var6; ++var8) {
 				int var9 = frameMap[var8];
-				if (var9 < this.vertexGroups.length)
-				{
+				if (var9 < this.vertexGroups.length) {
 					int[] var10 = this.vertexGroups[var9];
 
-					for (var11 = 0; var11 < var10.length; ++var11)
-					{
+					for (var11 = 0; var11 < var10.length; ++var11) {
 						var12 = var10[var11];
 						animOffsetX += verticesX[var12];
 						animOffsetY += verticesY[var12];
@@ -380,35 +337,26 @@ public class ModelDefinition
 				}
 			}
 
-			if (var7 > 0)
-			{
+			if (var7 > 0) {
 				animOffsetX = dx + animOffsetX / var7;
 				animOffsetY = dy + animOffsetY / var7;
 				animOffsetZ = dz + animOffsetZ / var7;
-			}
-			else
-			{
+			} else {
 				animOffsetX = dx;
 				animOffsetY = dy;
 				animOffsetZ = dz;
 			}
 
-		}
-		else
-		{
+		} else {
 			int[] var18;
 			int var19;
-			if (type == 1)
-			{
-				for (var7 = 0; var7 < var6; ++var7)
-				{
+			if (type == 1) {
+				for (var7 = 0; var7 < var6; ++var7) {
 					var8 = frameMap[var7];
-					if (var8 < this.vertexGroups.length)
-					{
+					if (var8 < this.vertexGroups.length) {
 						var18 = this.vertexGroups[var8];
 
-						for (var19 = 0; var19 < var18.length; ++var19)
-						{
+						for (var19 = 0; var19 < var18.length; ++var19) {
 							var11 = var18[var19];
 							verticesX[var11] += dx;
 							verticesY[var11] += dy;
@@ -417,18 +365,13 @@ public class ModelDefinition
 					}
 				}
 
-			}
-			else if (type == 2)
-			{
-				for (var7 = 0; var7 < var6; ++var7)
-				{
+			} else if (type == 2) {
+				for (var7 = 0; var7 < var6; ++var7) {
 					var8 = frameMap[var7];
-					if (var8 < this.vertexGroups.length)
-					{
+					if (var8 < this.vertexGroups.length) {
 						var18 = this.vertexGroups[var8];
 
-						for (var19 = 0; var19 < var18.length; ++var19)
-						{
+						for (var19 = 0; var19 < var18.length; ++var19) {
 							var11 = var18[var19];
 							verticesX[var11] -= animOffsetX;
 							verticesY[var11] -= animOffsetY;
@@ -439,8 +382,7 @@ public class ModelDefinition
 							int var15;
 							int var16;
 							int var17;
-							if (var14 != 0)
-							{
+							if (var14 != 0) {
 								var15 = CircularAngle.SINE[var14];
 								var16 = CircularAngle.COSINE[var14];
 								var17 = var15 * verticesY[var11] + var16 * verticesX[var11] >> 16;
@@ -448,8 +390,7 @@ public class ModelDefinition
 								verticesX[var11] = var17;
 							}
 
-							if (var12 != 0)
-							{
+							if (var12 != 0) {
 								var15 = CircularAngle.SINE[var12];
 								var16 = CircularAngle.COSINE[var12];
 								var17 = var16 * verticesY[var11] - var15 * verticesZ[var11] >> 16;
@@ -457,8 +398,7 @@ public class ModelDefinition
 								verticesY[var11] = var17;
 							}
 
-							if (var13 != 0)
-							{
+							if (var13 != 0) {
 								var15 = CircularAngle.SINE[var13];
 								var16 = CircularAngle.COSINE[var13];
 								var17 = var15 * verticesZ[var11] + var16 * verticesX[var11] >> 16;
@@ -473,18 +413,13 @@ public class ModelDefinition
 					}
 				}
 
-			}
-			else if (type == 3)
-			{
-				for (var7 = 0; var7 < var6; ++var7)
-				{
+			} else if (type == 3) {
+				for (var7 = 0; var7 < var6; ++var7) {
 					var8 = frameMap[var7];
-					if (var8 < this.vertexGroups.length)
-					{
+					if (var8 < this.vertexGroups.length) {
 						var18 = this.vertexGroups[var8];
 
-						for (var19 = 0; var19 < var18.length; ++var19)
-						{
+						for (var19 = 0; var19 < var18.length; ++var19) {
 							var11 = var18[var19];
 							verticesX[var11] -= animOffsetX;
 							verticesY[var11] -= animOffsetY;
@@ -499,24 +434,19 @@ public class ModelDefinition
 					}
 				}
 
-			}
-			else if (type == 5)
-			{
+			} else if (type == 5) {
 				// alpha animation
 			}
 		}
 	}
 
-	public void method1493()
-	{
+	public void method1493() {
 		int var1;
-		for (var1 = 0; var1 < this.vertexCount; ++var1)
-		{
+		for (var1 = 0; var1 < this.vertexCount; ++var1) {
 			this.vertexPositionsZ[var1] = -this.vertexPositionsZ[var1];
 		}
 
-		for (var1 = 0; var1 < this.faceCount; ++var1)
-		{
+		for (var1 = 0; var1 < this.faceCount; ++var1) {
 			int var2 = this.faceVertexIndices1[var1];
 			this.faceVertexIndices1[var1] = this.faceVertexIndices3[var1];
 			this.faceVertexIndices3[var1] = var2;
@@ -525,10 +455,8 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void rotate1()
-	{
-		for (int var1 = 0; var1 < this.vertexCount; ++var1)
-		{
+	public void rotate1() {
+		for (int var1 = 0; var1 < this.vertexCount; ++var1) {
 			int var2 = this.vertexPositionsX[var1];
 			this.vertexPositionsX[var1] = this.vertexPositionsZ[var1];
 			this.vertexPositionsZ[var1] = -var2;
@@ -537,10 +465,8 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void rotate2()
-	{
-		for (int var1 = 0; var1 < this.vertexCount; ++var1)
-		{
+	public void rotate2() {
+		for (int var1 = 0; var1 < this.vertexCount; ++var1) {
 			this.vertexPositionsX[var1] = -this.vertexPositionsX[var1];
 			this.vertexPositionsZ[var1] = -this.vertexPositionsZ[var1];
 		}
@@ -548,10 +474,8 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void rotate3()
-	{
-		for (int var1 = 0; var1 < this.vertexCount; ++var1)
-		{
+	public void rotate3() {
+		for (int var1 = 0; var1 < this.vertexCount; ++var1) {
 			int var2 = this.vertexPositionsZ[var1];
 			this.vertexPositionsZ[var1] = this.vertexPositionsX[var1];
 			this.vertexPositionsX[var1] = -var2;
@@ -560,17 +484,14 @@ public class ModelDefinition
 		reset();
 	}
 
-	private void reset()
-	{
+	private void reset() {
 		vertexNormals = null;
 		faceNormals = null;
 		faceTextureUCoordinates = faceTextureVCoordinates = null;
 	}
 
-	public void resize(int var1, int var2, int var3)
-	{
-		for (int var4 = 0; var4 < this.vertexCount; ++var4)
-		{
+	public void resize(int var1, int var2, int var3) {
+		for (int var4 = 0; var4 < this.vertexCount; ++var4) {
 			this.vertexPositionsX[var4] = this.vertexPositionsX[var4] * var1 / 128;
 			this.vertexPositionsY[var4] = var2 * this.vertexPositionsY[var4] / 128;
 			this.vertexPositionsZ[var4] = var3 * this.vertexPositionsZ[var4] / 128;
@@ -579,26 +500,19 @@ public class ModelDefinition
 		reset();
 	}
 
-	public void recolor(short var1, short var2)
-	{
-		for (int var3 = 0; var3 < this.faceCount; ++var3)
-		{
-			if (this.faceColors[var3] == var1)
-			{
+	public void recolor(short var1, short var2) {
+		for (int var3 = 0; var3 < this.faceCount; ++var3) {
+			if (this.faceColors[var3] == var1) {
 				this.faceColors[var3] = var2;
 			}
 		}
 
 	}
 
-	public void retexture(short var1, short var2)
-	{
-		if (this.faceTextures != null)
-		{
-			for (int var3 = 0; var3 < this.faceCount; ++var3)
-			{
-				if (this.faceTextures[var3] == var1)
-				{
+	public void retexture(short var1, short var2) {
+		if (this.faceTextures != null) {
+			for (int var3 = 0; var3 < this.faceCount; ++var3) {
+				if (this.faceTextures[var3] == var1) {
 					this.faceTextures[var3] = var2;
 				}
 			}
@@ -606,10 +520,8 @@ public class ModelDefinition
 		}
 	}
 
-	public void move(int xOffset, int yOffset, int zOffset)
-	{
-		for (int i = 0; i < this.vertexCount; i++)
-		{
+	public void move(int xOffset, int yOffset, int zOffset) {
+		for (int i = 0; i < this.vertexCount; i++) {
 			this.vertexPositionsX[i] += xOffset;
 			this.vertexPositionsY[i] += yOffset;
 			this.vertexPositionsZ[i] += zOffset;
@@ -617,17 +529,13 @@ public class ModelDefinition
 		this.reset();
 	}
 
-	public void computeMaxPriority()
-	{
-		if (faceRenderPriorities == null)
-		{
+	public void computeMaxPriority() {
+		if (faceRenderPriorities == null) {
 			return;
 		}
 
-		for (int i = 0; i < faceCount; ++i)
-		{
-			if (faceRenderPriorities[i] > maxPriority)
-			{
+		for (int i = 0; i < faceCount; ++i) {
+			if (faceRenderPriorities[i] > maxPriority) {
 				maxPriority = faceRenderPriorities[i];
 			}
 		}

@@ -5,19 +5,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class60 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IIIB)Llt;",
-		garbageValue = "-75"
+			signature = "(IIIB)Llt;",
+			garbageValue = "-75"
 	)
 	static Sprite method1187(int var0, int var1, int var2) {
 		DemotingHashTable var3 = WorldMapRegion.WorldMapRegion_cachedSprites;
-		long var4 = (long)(var2 << 16 | var0 << 8 | var1);
-		return (Sprite)var3.get(var4);
+		long var4 = (long) (var2 << 16 | var0 << 8 | var1);
+		return (Sprite) var3.get(var4);
 	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "399191905"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "399191905"
 	)
 	static final void method1188(String var0) {
 		ClientPreferences.addGameMessage(30, "", var0);
@@ -25,8 +25,8 @@ public class class60 {
 
 	@ObfuscatedName("in")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-42"
+			signature = "(B)V",
+			garbageValue = "-42"
 	)
 	static final void method1186() {
 		boolean var0 = false;

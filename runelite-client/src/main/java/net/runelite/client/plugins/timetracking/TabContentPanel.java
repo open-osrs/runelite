@@ -29,10 +29,10 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import javax.swing.JPanel;
+
 import net.runelite.client.util.QuantityFormatter;
 
-public abstract class TabContentPanel extends JPanel
-{
+public abstract class TabContentPanel extends JPanel {
 	/**
 	 * Gets the update interval of this panel, in units of 200 milliseconds
 	 * (the plugin panel checks if its contents should be updated every 200 ms;
@@ -42,36 +42,28 @@ public abstract class TabContentPanel extends JPanel
 
 	public abstract void update();
 
-	protected static String getFormattedEstimate(long remainingSeconds, boolean useRelativeTime)
-	{
-		if (useRelativeTime)
-		{
+	protected static String getFormattedEstimate(long remainingSeconds, boolean useRelativeTime) {
+		if (useRelativeTime) {
 			StringBuilder sb = new StringBuilder("in ");
 			long duration = (remainingSeconds + 59) / 60;
 			long minutes = duration % 60;
 			long hours = (duration / 60) % 24;
 			long days = duration / (60 * 24);
-			if (days > 0)
-			{
+			if (days > 0) {
 				sb.append(days).append("d ");
 			}
-			if (hours > 0)
-			{
+			if (hours > 0) {
 				sb.append(hours).append("h ");
 			}
-			if (minutes > 0)
-			{
+			if (minutes > 0) {
 				sb.append(minutes).append("m ");
 			}
 			return sb.toString();
-		}
-		else
-		{
+		} else {
 			StringBuilder sb = new StringBuilder();
 			LocalDateTime endTime = LocalDateTime.now().plus(remainingSeconds, ChronoUnit.SECONDS);
 			LocalDateTime currentTime = LocalDateTime.now();
-			if (endTime.getDayOfWeek() != currentTime.getDayOfWeek())
-			{
+			if (endTime.getDayOfWeek() != currentTime.getDayOfWeek()) {
 				sb.append(endTime.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault())).append(" ");
 			}
 

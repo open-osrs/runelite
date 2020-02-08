@@ -1,19 +1,16 @@
 package net.runelite.cache.models;
 
-public class VertexNormal
-{
+public class VertexNormal {
 	public int x;
 	public int y;
 	public int z;
 	public int magnitude;
 
-	public Vector3f normalize()
-	{
+	public Vector3f normalize() {
 		Vector3f v = new Vector3f();
 
 		int length = (int) Math.sqrt((double) (x * x + y * y + z * z));
-		if (length == 0)
-		{
+		if (length == 0) {
 			length = 1;
 		}
 

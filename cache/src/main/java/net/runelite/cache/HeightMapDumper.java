@@ -27,14 +27,14 @@ package net.runelite.cache;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import net.runelite.cache.fs.Store;
 import net.runelite.cache.region.Region;
 import net.runelite.cache.region.RegionLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HeightMapDumper
-{
+public class HeightMapDumper {
 	private static final Logger logger = LoggerFactory.getLogger(HeightMapDumper.class);
 
 	private static final int MAP_SCALE = 1;
@@ -43,20 +43,17 @@ public class HeightMapDumper
 	private final Store store;
 	private RegionLoader regionLoader;
 
-	public HeightMapDumper(Store store)
-	{
+	public HeightMapDumper(Store store) {
 		this.store = store;
 	}
 
-	public void load() throws IOException
-	{
+	public void load() throws IOException {
 		regionLoader = new RegionLoader(store);
 		regionLoader.loadRegions();
 		regionLoader.calculateBounds();
 	}
 
-	public BufferedImage drawHeightMap(int z)
-	{
+	public BufferedImage drawHeightMap(int z) {
 		int minX = regionLoader.getLowestX().getBaseX();
 		int minY = regionLoader.getLowestY().getBaseY();
 
@@ -76,13 +73,11 @@ public class HeightMapDumper
 		return image;
 	}
 
-	private void draw(BufferedImage image, int z)
-	{
+	private void draw(BufferedImage image, int z) {
 		int max = Integer.MIN_VALUE;
 		int min = Integer.MAX_VALUE;
 
-		for (Region region : regionLoader.getRegions())
-		{
+		for (Region region : regionLoader.getRegions()) {
 			int baseX = region.getBaseX();
 			int baseY = region.getBaseY();
 
@@ -93,21 +88,17 @@ public class HeightMapDumper
 			// region has the greatest y, so invert
 			int drawBaseY = regionLoader.getHighestY().getBaseY() - baseY;
 
-			for (int x = 0; x < Region.X; ++x)
-			{
+			for (int x = 0; x < Region.X; ++x) {
 				int drawX = drawBaseX + x;
 
-				for (int y = 0; y < Region.Y; ++y)
-				{
+				for (int y = 0; y < Region.Y; ++y) {
 					int drawY = drawBaseY + (Region.Y - 1 - y);
 
 					int height = region.getTileHeight(z, x, y);
-					if (height > max)
-					{
+					if (height > max) {
 						max = height;
 					}
-					if (height < min)
-					{
+					if (height < min) {
 						min = height;
 					}
 
@@ -121,8 +112,7 @@ public class HeightMapDumper
 		System.out.println("min " + min);
 	}
 
-	private int toColor(int height)
-	{
+	private int toColor(int height) {
 		// height seems to be between -2040 and 0, inclusive
 		height = -height;
 		// Convert to between 0 and 1
@@ -133,15 +123,12 @@ public class HeightMapDumper
 		return new Color(color, color, color).getRGB();
 	}
 
-	private void drawMapSquare(BufferedImage image, int x, int y, int rgb)
-	{
+	private void drawMapSquare(BufferedImage image, int x, int y, int rgb) {
 		x *= MAP_SCALE;
 		y *= MAP_SCALE;
 
-		for (int i = 0; i < MAP_SCALE; ++i)
-		{
-			for (int j = 0; j < MAP_SCALE; ++j)
-			{
+		for (int i = 0; i < MAP_SCALE; ++i) {
+			for (int j = 0; j < MAP_SCALE; ++j) {
 				image.setRGB(x + i, y + j, rgb);
 			}
 		}

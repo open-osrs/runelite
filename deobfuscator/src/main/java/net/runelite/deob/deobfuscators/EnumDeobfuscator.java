@@ -27,6 +27,7 @@ package net.runelite.deob.deobfuscators;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -46,23 +47,19 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EnumDeobfuscator implements Deobfuscator
-{
+public class EnumDeobfuscator implements Deobfuscator {
 	private static final Logger logger = LoggerFactory.getLogger(EnumDeobfuscator.class);
 
 	private static final net.runelite.asm.pool.Method ENUM_INIT = new net.runelite.asm.pool.Method(
-		new net.runelite.asm.pool.Class("java/lang/Enum"),
-		"<init>",
-		new Signature("(Ljava/lang/String;I)V")
+			new net.runelite.asm.pool.Class("java/lang/Enum"),
+			"<init>",
+			new Signature("(Ljava/lang/String;I)V")
 	);
 
 	@Override
-	public void run(ClassGroup group)
-	{
-		for (ClassFile cf : group.getClasses())
-		{
-			if (!isEnum(cf) || cf.isEnum())
-			{
+	public void run(ClassGroup group) {
+		for (ClassFile cf : group.getClasses()) {
+			if (!isEnum(cf) || cf.isEnum()) {
 				continue;
 			}
 
@@ -71,39 +68,33 @@ public class EnumDeobfuscator implements Deobfuscator
 		}
 	}
 
-	private boolean isEnum(ClassFile cf)
-	{
+	private boolean isEnum(ClassFile cf) {
 		if (cf.getInterfaces().getMyInterfaces().size() != 1
-			|| cf.getInterfaces().getInterfaces().size() != 1)
-		{
+				|| cf.getInterfaces().getInterfaces().size() != 1) {
 			return false;
 		}
 
-		if (!interfaceIsEnum(cf.getInterfaces().getMyInterfaces().get(0)))
-		{
+		if (!interfaceIsEnum(cf.getInterfaces().getMyInterfaces().get(0))) {
 			return false;
 		}
 
 		// number of non static methods should be 1
 		long count = cf.getMethods()
-			.stream()
-			.filter(m -> !m.isStatic())
-			.filter(m -> !m.getName().startsWith("<"))
-			.count();
-		if (count != 1)
-		{
+				.stream()
+				.filter(m -> !m.isStatic())
+				.filter(m -> !m.getName().startsWith("<"))
+				.count();
+		if (count != 1) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private boolean interfaceIsEnum(ClassFile cf)
-	{
+	private boolean interfaceIsEnum(ClassFile cf) {
 		assert cf.isInterface();
 
-		if (cf.getMethods().size() != 1)
-		{
+		if (cf.getMethods().size() != 1) {
 			return false;
 		}
 
@@ -111,8 +102,7 @@ public class EnumDeobfuscator implements Deobfuscator
 		return method.getDescriptor().toString().equals("()I"); // ordinal
 	}
 
-	private void makeEnum(ClassFile cf)
-	{
+	private void makeEnum(ClassFile cf) {
 		cf.setEnum(); // make class an enum
 
 		// enums super class is java/lang/Enum
@@ -120,37 +110,32 @@ public class EnumDeobfuscator implements Deobfuscator
 		cf.setSuperName("java/lang/Enum");
 
 		// all static fields of the type of the class become enum members
-		for (Field field : cf.getFields())
-		{
-			if (field.isStatic() && field.getType().equals(new Type("L" + cf.getName() + ";")))
-			{
+		for (Field field : cf.getFields()) {
+			if (field.isStatic() && field.getType().equals(new Type("L" + cf.getName() + ";"))) {
 				field.setEnum();
 			}
 		}
 
-		for (Method method : cf.getMethods())
-		{
-			if (!method.getName().equals("<init>"))
-			{
+		for (Method method : cf.getMethods()) {
+			if (!method.getName().equals("<init>")) {
 				continue;
 			}
 
 			// Add string as first argument, which is the field name,
 			// and ordinal as second argument
 			Signature signature = new Signature.Builder()
-				.setReturnType(method.getDescriptor().getReturnValue())
-				.addArgument(Type.STRING)
-				.addArgument(Type.INT)
-				.addArguments(method.getDescriptor().getArguments())
-				.build();
+					.setReturnType(method.getDescriptor().getReturnValue())
+					.addArgument(Type.STRING)
+					.addArgument(Type.INT)
+					.addArguments(method.getDescriptor().getArguments())
+					.build();
 
 			method.setDescriptor(signature);
 
 			// Remove instructions up to invokespecial
 			Instructions ins = method.getCode().getInstructions();
 			Instruction i;
-			do
-			{
+			do {
 				i = ins.getInstructions().get(0);
 				ins.remove(i);
 			}
@@ -162,16 +147,13 @@ public class EnumDeobfuscator implements Deobfuscator
 			ins.addInstruction(3, new InvokeSpecial(ins, ENUM_INIT)); // invoke enum constructor
 
 			// Shift all indexes after this up +2 because of the new String and int argument
-			for (int j = 4; j < ins.getInstructions().size(); ++j)
-			{
+			for (int j = 4; j < ins.getInstructions().size(); ++j) {
 				i = ins.getInstructions().get(j);
 
-				if (i instanceof LVTInstruction)
-				{
+				if (i instanceof LVTInstruction) {
 					LVTInstruction lvt = ((LVTInstruction) i);
 					int idx = lvt.getVariableIndex();
-					if (idx != 0)
-					{
+					if (idx != 0) {
 						lvt.setVariableIndex(idx + 2);
 					}
 				}
@@ -182,10 +164,8 @@ public class EnumDeobfuscator implements Deobfuscator
 		// the enum fields are actually in
 		List<Field> order = new ArrayList<>();
 
-		for (Method method : cf.getMethods())
-		{
-			if (!method.getName().equals("<clinit>"))
-			{
+		for (Method method : cf.getMethods()) {
+			if (!method.getName().equals("<clinit>")) {
 				continue;
 			}
 
@@ -195,36 +175,31 @@ public class EnumDeobfuscator implements Deobfuscator
 			// sometimes there is new new invokespecial invokespecial putfield
 			// for eg enum member field30(1, 2, String.class, new class5());
 			boolean seenDup = false;
-			for (int j = 0; j < ins.getInstructions().size(); ++j)
-			{
+			for (int j = 0; j < ins.getInstructions().size(); ++j) {
 				Instruction i = ins.getInstructions().get(j);
 
-				if (i.getType() == InstructionType.DUP && !seenDup)
-				{
+				if (i.getType() == InstructionType.DUP && !seenDup) {
 					// XXX this should actually be the field name, but it seems to have no effect on fernflower
 					ins.addInstruction(j + 1, new LDC(ins, "runelite"));
 					ins.addInstruction(j + 2, new LDC(ins, count++));
 					seenDup = true;
-				}
-				else if (i.getType() == InstructionType.INVOKESPECIAL)
-				{
+				} else if (i.getType() == InstructionType.INVOKESPECIAL) {
 					Instruction next = ins.getInstructions().get(j + 1);
 
 					// check if this is the invokespecial on the enum, putstatic comes next
-					if (next.getType() == InstructionType.PUTSTATIC)
-					{
+					if (next.getType() == InstructionType.PUTSTATIC) {
 						InvokeSpecial is = (InvokeSpecial) i;
 						PutStatic ps = (PutStatic) next;
 
 						net.runelite.asm.pool.Method pmethod = new net.runelite.asm.pool.Method(
-							is.getMethod().getClazz(),
-							is.getMethod().getName(),
-							new Signature.Builder()
-								.setReturnType(is.getMethod().getType().getReturnValue())
-								.addArgument(Type.STRING)
-								.addArgument(Type.INT)
-								.addArguments(is.getMethod().getType().getArguments())
-								.build()
+								is.getMethod().getClazz(),
+								is.getMethod().getName(),
+								new Signature.Builder()
+										.setReturnType(is.getMethod().getType().getReturnValue())
+										.addArgument(Type.STRING)
+										.addArgument(Type.INT)
+										.addArguments(is.getMethod().getType().getArguments())
+										.build()
 						);
 
 						is.setMethod(pmethod);
@@ -246,12 +221,10 @@ public class EnumDeobfuscator implements Deobfuscator
 			int idx1 = order.indexOf(f1);
 			int idx2 = order.indexOf(f2);
 
-			if (idx1 == -1)
-			{
+			if (idx1 == -1) {
 				idx1 = Integer.MAX_VALUE;
 			}
-			if (idx2 == -1)
-			{
+			if (idx2 == -1) {
 				idx2 = Integer.MAX_VALUE;
 			}
 

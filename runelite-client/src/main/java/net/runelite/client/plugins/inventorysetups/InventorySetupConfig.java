@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.inventorysetups;
 
 import java.awt.Color;
+
 import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
@@ -32,94 +33,85 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Keybind;
 
 @ConfigGroup(InventorySetupPlugin.CONFIG_GROUP)
-public interface InventorySetupConfig extends Config
-{
+public interface InventorySetupConfig extends Config {
 	@ConfigItem(
-		keyName = "bankFilter",
-		name = "Default Filter Bank",
-		description = "Configures the default setting for bank filtering in new setups",
-		position = 0
+			keyName = "bankFilter",
+			name = "Default Filter Bank",
+			description = "Configures the default setting for bank filtering in new setups",
+			position = 0
 	)
-	default boolean bankFilter()
-	{
+	default boolean bankFilter() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "highlightStackDifference",
-		name = "Default Highlight Stack Difference",
-		description = "Configures the default setting for highlighting stack differences in new setups",
-		position = 1
+			keyName = "highlightStackDifference",
+			name = "Default Highlight Stack Difference",
+			description = "Configures the default setting for highlighting stack differences in new setups",
+			position = 1
 	)
-	default boolean highlightStackDifference()
-	{
+	default boolean highlightStackDifference() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "highlightVarianceDifference",
-		name = "Default Highlight Variation Difference",
-		description = "Configures the default setting for highlighting variations in new setups",
-		position = 2
+			keyName = "highlightVarianceDifference",
+			name = "Default Highlight Variation Difference",
+			description = "Configures the default setting for highlighting variations in new setups",
+			position = 2
 	)
-	default boolean highlightVariationDifference()
-	{
+	default boolean highlightVariationDifference() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "highlightUnorderedDifference",
-		name = "Default Highlight Unordered Difference",
-		description = "Configures the default setting for unordered highlighting in new setups",
-		position = 3
+			keyName = "highlightUnorderedDifference",
+			name = "Default Highlight Unordered Difference",
+			description = "Configures the default setting for unordered highlighting in new setups",
+			position = 3
 	)
-	default boolean highlightUnorderedDifference()
-	{
+	default boolean highlightUnorderedDifference() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "highlightDifference",
-		name = "Default Highlight",
-		description = "Configures the default setting for highlighting differences in new setups",
-		position = 4
+			keyName = "highlightDifference",
+			name = "Default Highlight",
+			description = "Configures the default setting for highlighting differences in new setups",
+			position = 4
 	)
-	default boolean highlightDifference()
-	{
+	default boolean highlightDifference() {
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "highlightColor",
-		name = "Default Highlight Color",
-		description = "Configures the default highlighting color in new setups",
-		position = 5
+			keyName = "highlightColor",
+			name = "Default Highlight Color",
+			description = "Configures the default highlighting color in new setups",
+			position = 5
 	)
-	default Color highlightColor()
-	{
+	default Color highlightColor() {
 		return Color.RED;
 	}
-	
+
 	@ConfigItem(
-		keyName = "returnToSetupsHotkey",
-		name = "Return To Setups Hotkey",
-		description = "Configures the hotkey for returning to setups",
-		position = 6
+			keyName = "returnToSetupsHotkey",
+			name = "Return To Setups Hotkey",
+			description = "Configures the hotkey for returning to setups",
+			position = 6
 	)
-	default Keybind returnToSetupsHotkey()
-	{
+	default Keybind returnToSetupsHotkey() {
 		return Keybind.NOT_SET;
 	}
 
 	@ConfigItem(
-		keyName = "filterBankHotkey",
-		name = "Filter Bank Hotkey",
-		description = "Configures the hotkey for filtering the bank",
-		position = 7
+			keyName = "filterBankHotkey",
+			name = "Filter Bank Hotkey",
+			description = "Configures the hotkey for filtering the bank",
+			position = 7
 	)
-	default Keybind filterBankHotkey()
-	{
+	default Keybind filterBankHotkey() {
 		return Keybind.NOT_SET;
 	}
 }

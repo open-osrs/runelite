@@ -26,6 +26,7 @@ package net.runelite.client.plugins.account;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.account.AccountSession;
 import net.runelite.client.account.SessionManager;
@@ -35,26 +36,23 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
 @PluginDescriptor(
-	name = "Account",
-	description = "Sync RuneLite config settings with your Google account",
-	tags = {"external", "google", "integration"},
-	loadWhenOutdated = true,
-	hidden = true
+		name = "Account",
+		description = "Sync RuneLite config settings with your Google account",
+		tags = {"external", "google", "integration"},
+		loadWhenOutdated = true,
+		hidden = true
 )
 @Slf4j
 @Singleton
-public class AccountPlugin extends Plugin
-{
+public class AccountPlugin extends Plugin {
 	@Inject
 	private SessionManager sessionManager;
 
 	@Subscribe
-	private void onSessionOpen(SessionOpen sessionOpen)
-	{
+	private void onSessionOpen(SessionOpen sessionOpen) {
 		AccountSession session = sessionManager.getAccountSession();
 
-		if (session.getUsername() == null)
-		{
+		if (session.getUsername() == null) {
 			return; // No username yet
 		}
 

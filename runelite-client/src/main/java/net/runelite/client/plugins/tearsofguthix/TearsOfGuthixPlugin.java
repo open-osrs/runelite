@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -46,14 +47,13 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Tears Of Guthix",
-	description = "Show timers for the Tears Of Guthix streams",
-	tags = {"minigame", "overlay", "skilling", "timers", "tog"},
-	type = PluginType.MINIGAME
+		name = "Tears Of Guthix",
+		description = "Show timers for the Tears Of Guthix streams",
+		tags = {"minigame", "overlay", "skilling", "timers", "tog"},
+		type = PluginType.MINIGAME
 )
 @Singleton
-public class TearsOfGuthixPlugin extends Plugin
-{
+public class TearsOfGuthixPlugin extends Plugin {
 	private static final int TOG_REGION = 12948;
 
 	@Inject
@@ -75,16 +75,14 @@ public class TearsOfGuthixPlugin extends Plugin
 	private Skill playerLowestSkill = null;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		overlayManager.add(overlay);
 		overlayManager.add(experienceOverlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(experienceOverlay);
 		streams.clear();
@@ -92,55 +90,43 @@ public class TearsOfGuthixPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		switch (event.getGameState())
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		switch (event.getGameState()) {
 			case LOADING:
 			case LOGIN_SCREEN:
 			case HOPPING:
 				streams.clear();
 		}
 
-		if (event.getGameState() == GameState.LOGGED_IN && client.getLocalPlayer() != null)
-		{
-			if (client.getLocalPlayer().getWorldLocation().getRegionID() == TOG_REGION)
-			{
-				if (playerLowestSkill != null)
-				{
+		if (event.getGameState() == GameState.LOGGED_IN && client.getLocalPlayer() != null) {
+			if (client.getLocalPlayer().getWorldLocation().getRegionID() == TOG_REGION) {
+				if (playerLowestSkill != null) {
 					return;
 				}
 
-				if (client.getSkillExperience(Skill.HITPOINTS) > 0)
-				{
+				if (client.getSkillExperience(Skill.HITPOINTS) > 0) {
 					playerLowestSkill = getLowestPlayerSkill();
 				}
-			}
-			else
-			{
+			} else {
 				playerLowestSkill = null;
 			}
 		}
 	}
 
 	@Subscribe
-	private void onDecorativeObjectSpawned(DecorativeObjectSpawned event)
-	{
+	private void onDecorativeObjectSpawned(DecorativeObjectSpawned event) {
 		DecorativeObject object = event.getDecorativeObject();
 
 		if ((object.getId() == ObjectID.BLUE_TEARS ||
-			object.getId() == ObjectID.BLUE_TEARS_6665) &&
-			client.getLocalPlayer().getWorldLocation().getRegionID() == TOG_REGION)
-		{
+				object.getId() == ObjectID.BLUE_TEARS_6665) &&
+				client.getLocalPlayer().getWorldLocation().getRegionID() == TOG_REGION) {
 			streams.put(event.getDecorativeObject(), Instant.now());
 		}
 	}
 
 	@Subscribe
-	private void onDecorativeObjectDespawned(DecorativeObjectDespawned event)
-	{
-		if (streams.isEmpty())
-		{
+	private void onDecorativeObjectDespawned(DecorativeObjectDespawned event) {
+		if (streams.isEmpty()) {
 			return;
 		}
 
@@ -148,18 +134,15 @@ public class TearsOfGuthixPlugin extends Plugin
 		streams.remove(object);
 	}
 
-	private Skill getLowestPlayerSkill()
-	{
+	private Skill getLowestPlayerSkill() {
 		final Skill[] playerSkills = Skill.values();
 		Skill lowestExperienceSkill = null;
 		int lowestExperienceAmount = Integer.MAX_VALUE;
 
-		for (Skill skill : playerSkills)
-		{
+		for (Skill skill : playerSkills) {
 			int currentSkillExp = client.getSkillExperience(skill);
 
-			if (currentSkillExp < lowestExperienceAmount)
-			{
+			if (currentSkillExp < lowestExperienceAmount) {
 				lowestExperienceAmount = currentSkillExp;
 				lowestExperienceSkill = skill;
 			}

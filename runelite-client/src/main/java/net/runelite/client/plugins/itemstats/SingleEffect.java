@@ -26,11 +26,9 @@ package net.runelite.client.plugins.itemstats;
 
 import net.runelite.api.Client;
 
-public abstract class SingleEffect implements Effect
-{
+public abstract class SingleEffect implements Effect {
 	@Override
-	public final StatsChanges calculate(Client client)
-	{
+	public final StatsChanges calculate(Client client) {
 		StatsChanges c = new StatsChanges(1);
 		StatChange[] statChanges = c.getStatChanges();
 		statChanges[0] = effect(client);

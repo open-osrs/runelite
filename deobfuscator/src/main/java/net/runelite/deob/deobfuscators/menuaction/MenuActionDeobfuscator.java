@@ -26,22 +26,26 @@ package net.runelite.deob.deobfuscators.menuaction;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
+
 import static net.runelite.asm.attributes.code.InstructionType.IF_ICMPEQ;
 import static net.runelite.asm.attributes.code.InstructionType.IF_ICMPGE;
 import static net.runelite.asm.attributes.code.InstructionType.IF_ICMPGT;
 import static net.runelite.asm.attributes.code.InstructionType.IF_ICMPLE;
 import static net.runelite.asm.attributes.code.InstructionType.IF_ICMPLT;
 import static net.runelite.asm.attributes.code.InstructionType.IF_ICMPNE;
+
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.LVTInstruction;
@@ -62,29 +66,23 @@ import org.slf4j.LoggerFactory;
  *
  * @author Adam
  */
-public class MenuActionDeobfuscator implements Deobfuscator
-{
+public class MenuActionDeobfuscator implements Deobfuscator {
 	private static final Logger logger = LoggerFactory.getLogger(MenuActionDeobfuscator.class);
 
 	private static final int THRESHOLD_EQ = 50;
 	private static final int THRESHOLD_LT = 1;
 
 	@Override
-	public void run(ClassGroup group)
-	{
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method m : cf.getMethods())
-			{
+	public void run(ClassGroup group) {
+		for (ClassFile cf : group.getClasses()) {
+			for (Method m : cf.getMethods()) {
 				run(m);
 			}
 		}
 	}
 
-	private void run(Method method)
-	{
-		if (method.getCode() == null)
-		{
+	private void run(Method method) {
+		if (method.getCode() == null) {
 			return;
 		}
 
@@ -99,14 +97,12 @@ public class MenuActionDeobfuscator implements Deobfuscator
 			Instruction i = ictx.getInstruction();
 			Frame frame = ictx.getFrame();
 
-			if (i instanceof If)
-			{
+			if (i instanceof If) {
 				InstructionContext ctx1 = ictx.getPops().get(0).getPushed(); // constant
 				InstructionContext ctx2 = ictx.getPops().get(1).getPushed(); // lvt
 
 				if (ctx1.getInstruction() instanceof PushConstantInstruction
-					&& ctx2.getInstruction() instanceof LVTInstruction)
-				{
+						&& ctx2.getInstruction() instanceof LVTInstruction) {
 					Comparison comparison = new Comparison();
 					comparison.cmp = i;
 					comparison.ldc = ctx1.getInstruction();
@@ -119,29 +115,26 @@ public class MenuActionDeobfuscator implements Deobfuscator
 
 		execution.run();
 
-		for (int i : comps.keySet())
-		{
+		for (int i : comps.keySet()) {
 			Collection<Comparison> get = comps.get(i);
 			long l = get.stream().filter(c -> c.cmp.getType() == IF_ICMPGE
-				|| c.cmp.getType() == IF_ICMPGT
-				|| c.cmp.getType() == IF_ICMPLE
-				|| c.cmp.getType() == IF_ICMPLT
+					|| c.cmp.getType() == IF_ICMPGT
+					|| c.cmp.getType() == IF_ICMPLE
+					|| c.cmp.getType() == IF_ICMPLT
 			).count();
 
 			List<Comparison> eqcmp = get.stream()
-				.filter(c -> c.cmp.getType() == IF_ICMPEQ || c.cmp.getType() == IF_ICMPNE)
-				.collect(Collectors.toList());
+					.filter(c -> c.cmp.getType() == IF_ICMPEQ || c.cmp.getType() == IF_ICMPNE)
+					.collect(Collectors.toList());
 
-			if (get.size() > THRESHOLD_EQ && l <= THRESHOLD_LT)
-			{
+			if (get.size() > THRESHOLD_EQ && l <= THRESHOLD_LT) {
 				logger.info("Sorting {} comparisons in {}", eqcmp.size(), method);
 				insert(method, eqcmp);
 			}
 		}
 	}
 
-	private void insert(Method method, List<Comparison> comparisons)
-	{
+	private void insert(Method method, List<Comparison> comparisons) {
 		Instructions instructions = method.getCode().getInstructions();
 		List<Instruction> ins = instructions.getInstructions();
 
@@ -153,19 +146,14 @@ public class MenuActionDeobfuscator implements Deobfuscator
 		// currently...
 		int min = -1;
 
-		for (Comparison comp : comparisons)
-		{
-			if (min == -1)
-			{
+		for (Comparison comp : comparisons) {
+			if (min == -1) {
 				min = ins.indexOf(comp.lvt);
-			}
-			else
-			{
+			} else {
 				min = Math.min(min, ins.indexOf(comp.lvt));
 			}
 
-			if (comp.cmp.getType() == InstructionType.IF_ICMPEQ)
-			{
+			if (comp.cmp.getType() == InstructionType.IF_ICMPEQ) {
 				If cmp = (If) comp.cmp;
 
 				// remove
@@ -174,9 +162,7 @@ public class MenuActionDeobfuscator implements Deobfuscator
 				instructions.remove(comp.cmp);
 
 				comp.next = cmp.getJumps().get(0);
-			}
-			else if (comp.cmp.getType() == InstructionType.IF_ICMPNE)
-			{
+			} else if (comp.cmp.getType() == InstructionType.IF_ICMPNE) {
 				// replace with goto dest
 				If cmp = (If) comp.cmp;
 
@@ -188,9 +174,7 @@ public class MenuActionDeobfuscator implements Deobfuscator
 				instructions.remove((Instruction) comp.lvt);
 
 				instructions.replace(comp.cmp, new Goto(instructions, cmp.getJumps().get(0)));
-			}
-			else
-			{
+			} else {
 				throw new IllegalStateException();
 			}
 		}
@@ -202,8 +186,7 @@ public class MenuActionDeobfuscator implements Deobfuscator
 		Collections.sort(sortedComparisons, (c1, c2) -> compare(comparisons, c1, c2));
 
 		// reinsert jumps
-		for (int i = 0; i < sortedComparisons.size(); ++i)
-		{
+		for (int i = 0; i < sortedComparisons.size(); ++i) {
 			Comparison comp = sortedComparisons.get(i);
 			Instruction lvt = (Instruction) comp.lvt;
 
@@ -215,13 +198,10 @@ public class MenuActionDeobfuscator implements Deobfuscator
 
 			// use if_icmpeq if what follows also jumps to the same location
 			boolean multiple = i + 1 < sortedComparisons.size()
-				&& sortedComparisons.get(i + 1).next == comp.next;
-			if (multiple)
-			{
+					&& sortedComparisons.get(i + 1).next == comp.next;
+			if (multiple) {
 				instructions.addInstruction(min++, new IfICmpEq(instructions, comp.next));
-			}
-			else
-			{
+			} else {
 
 				// fernflower decompiles a series of if_icmpeq as chains of not equal expressions
 				Label label = instructions.createLabelFor(ins.get(min));
@@ -232,8 +212,7 @@ public class MenuActionDeobfuscator implements Deobfuscator
 		}
 	}
 
-	private int compare(List<Comparison> comparisons, Comparison c1, Comparison c2)
-	{
+	private int compare(List<Comparison> comparisons, Comparison c1, Comparison c2) {
 		// Compare by constant
 
 		assert comparisons.contains(c1);
@@ -243,14 +222,14 @@ public class MenuActionDeobfuscator implements Deobfuscator
 		// if all jumps to the same label are in the same location fernflower will decompile
 		// to if (foo || bar)
 		Comparison mc1 = comparisons.stream()
-			.filter(c -> c1.next == c.next)
-			.min((m1, m2) -> Integer.compare(m1.getConstant().intValue(), m2.getConstant().intValue()))
-			.get();
+				.filter(c -> c1.next == c.next)
+				.min((m1, m2) -> Integer.compare(m1.getConstant().intValue(), m2.getConstant().intValue()))
+				.get();
 
 		Comparison mc2 = comparisons.stream()
-			.filter(c -> c2.next == c.next)
-			.min((m1, m2) -> Integer.compare(m1.getConstant().intValue(), m2.getConstant().intValue()))
-			.get();
+				.filter(c -> c2.next == c.next)
+				.min((m1, m2) -> Integer.compare(m1.getConstant().intValue(), m2.getConstant().intValue()))
+				.get();
 
 		return Integer.compare(mc1.getConstant().intValue(), mc2.getConstant().intValue());
 	}

@@ -10,22 +10,19 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSVarcs;
 
 @Mixin(RSVarcs.class)
-public abstract class RSVarcsMixin implements RSVarcs
-{
+public abstract class RSVarcsMixin implements RSVarcs {
 	@Shadow("client")
 	private static RSClient client;
 
 	@MethodHook(value = "setInt", end = true)
 	@Inject
-	public void onVarCIntChanged(int id, int value)
-	{
+	public void onVarCIntChanged(int id, int value) {
 		client.getCallbacks().post(VarClientIntChanged.class, new VarClientIntChanged(id));
 	}
 
 	@MethodHook(value = "setString", end = true)
 	@Inject
-	public void onVarCStrChanged(int id, String value)
-	{
+	public void onVarCStrChanged(int id, String value) {
 		client.getCallbacks().post(VarClientStrChanged.class, new VarClientStrChanged(id));
 	}
 }

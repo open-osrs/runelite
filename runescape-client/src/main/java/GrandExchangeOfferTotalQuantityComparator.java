@@ -1,4 +1,5 @@
 import java.util.Comparator;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,8 +14,8 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ll;Ll;B)I",
-		garbageValue = "14"
+			signature = "(Ll;Ll;B)I",
+			garbageValue = "14"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -22,7 +23,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
+		return this.compare_bridged((GrandExchangeEvent) var1, (GrandExchangeEvent) var2);
 	}
 
 	public boolean equals(Object var1) {
@@ -31,8 +32,8 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lkp;Ljava/lang/String;I)I",
-		garbageValue = "1410846723"
+			signature = "(Lkp;Ljava/lang/String;I)I",
+			garbageValue = "1410846723"
 	)
 	public static int method104(Buffer var0, String var1) {
 		int var2 = var0.offset;
@@ -44,8 +45,8 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)[B",
-		garbageValue = "-265400137"
+			signature = "(II)[B",
+			garbageValue = "-265400137"
 	)
 	@Export("ByteArrayPool_getArray")
 	public static synchronized byte[] ByteArrayPool_getArray(int var0) {
@@ -54,8 +55,8 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 
 	@ObfuscatedName("jw")
 	@ObfuscatedSignature(
-		signature = "(Lhn;IB)I",
-		garbageValue = "1"
+			signature = "(Lhn;IB)I",
+			garbageValue = "1"
 	)
 	static final int method106(Widget var0, int var1) {
 		if (var0.cs1Instructions != null && var1 < var0.cs1Instructions.length) {
@@ -217,8 +218,8 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 
 	@ObfuscatedName("jx")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-4522127"
+			signature = "(III)V",
+			garbageValue = "-4522127"
 	)
 	static void method105(int var0, int var1) {
 		MenuAction var2 = WorldMapRegion.tempMenuAction;

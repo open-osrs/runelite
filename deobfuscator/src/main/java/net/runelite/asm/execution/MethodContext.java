@@ -26,38 +26,34 @@ package net.runelite.asm.execution;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import java.util.Collection;
+
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.code.Instruction;
 
-public class MethodContext
-{
+public class MethodContext {
 	private Execution execution;
 	private Method method;
 	private Multimap<InstructionContext, Instruction> visited = HashMultimap.create();
 	public Multimap<Instruction, InstructionContext> contexts = HashMultimap.create();
 
-	public MethodContext(Execution execution, Method method)
-	{
+	public MethodContext(Execution execution, Method method) {
 		this.execution = execution;
 		this.method = method;
 	}
 
-	public Execution getExecution()
-	{
+	public Execution getExecution() {
 		return execution;
 	}
 
-	public Method getMethod()
-	{
+	public Method getMethod() {
 		return method;
 	}
 
-	protected boolean hasJumped(InstructionContext from, Instruction to)
-	{
+	protected boolean hasJumped(InstructionContext from, Instruction to) {
 		Collection<Instruction> i = visited.get(from);
-		if (i != null && i.contains(to))
-		{
+		if (i != null && i.contains(to)) {
 			return true;
 		}
 
@@ -65,18 +61,15 @@ public class MethodContext
 		return false;
 	}
 
-	public Collection<InstructionContext> getInstructonContexts(Instruction i)
-	{
+	public Collection<InstructionContext> getInstructonContexts(Instruction i) {
 		return contexts.get(i);
 	}
 
-	public Collection<InstructionContext> getInstructionContexts()
-	{
+	public Collection<InstructionContext> getInstructionContexts() {
 		return contexts.values();
 	}
 
-	public void reset()
-	{
+	public void reset() {
 		contexts.clear();
 		visited.clear();
 	}

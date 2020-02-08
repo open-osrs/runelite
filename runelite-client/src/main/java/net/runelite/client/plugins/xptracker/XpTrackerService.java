@@ -26,8 +26,7 @@ package net.runelite.client.plugins.xptracker;
 
 import net.runelite.api.Skill;
 
-public interface XpTrackerService
-{
+public interface XpTrackerService {
 	/**
 	 * Get the number of actions done
 	 */

@@ -25,8 +25,10 @@
 package net.runelite.cache.script.disassembler;
 
 import com.google.common.io.Files;
+
 import java.io.File;
 import java.io.IOException;
+
 import net.runelite.cache.IndexType;
 import net.runelite.cache.StoreLocation;
 import net.runelite.cache.definitions.ScriptDefinition;
@@ -41,33 +43,28 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DisassemblerTest
-{
+public class DisassemblerTest {
 	private static final Logger logger = LoggerFactory.getLogger(DisassemblerTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException
-	{
+	public void test() throws IOException {
 		File outDir = folder.newFolder();
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION))
-		{
+		try (Store store = new Store(StoreLocation.LOCATION)) {
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.CLIENTSCRIPT);
 			ScriptLoader loader = new ScriptLoader();
 
-			for (Archive archive : index.getArchives())
-			{
+			for (Archive archive : index.getArchives()) {
 				byte[] contents = archive.decompress(storage.loadArchive(archive));
 
-				if (contents == null)
-				{
+				if (contents == null) {
 					continue;
 				}
 

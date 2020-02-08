@@ -24,8 +24,7 @@
  */
 package net.runelite.http.api.worlds;
 
-public enum WorldType
-{
+public enum WorldType {
 	MEMBERS,
 	PVP,
 	BOUNTY,

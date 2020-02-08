@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -50,16 +51,15 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Tarn's Lair",
-	description = "Mark tiles and clickboxes to help traverse the maze",
-	tags = {"agility", "maze", "minigame", "overlay"},
-	type = PluginType.MINIGAME,
-	enabledByDefault = false
+		name = "Tarn's Lair",
+		description = "Mark tiles and clickboxes to help traverse the maze",
+		tags = {"agility", "maze", "minigame", "overlay"},
+		type = PluginType.MINIGAME,
+		enabledByDefault = false
 )
 @Singleton
 @Slf4j
-public class TarnsLairPlugin extends Plugin
-{
+public class TarnsLairPlugin extends Plugin {
 	private static final int TARNS_LAIR_NORTH_REGION = 12616;
 	private static final int TARNS_LAIR_SOUTH_REGION = 12615;
 
@@ -85,14 +85,12 @@ public class TarnsLairPlugin extends Plugin
 	private TarnsLairOverlay overlay;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		staircases.clear();
 		wallTraps.clear();
@@ -101,76 +99,63 @@ public class TarnsLairPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
+	private void onGameTick(GameTick event) {
 		int regionID = client.getLocalPlayer().getWorldLocation().getRegionID();
 		inLair = (regionID == TARNS_LAIR_NORTH_REGION || regionID == TARNS_LAIR_SOUTH_REGION);
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(GameObjectSpawned event)
-	{
+	private void onGameObjectSpawned(GameObjectSpawned event) {
 		onTileObject(event.getTile(), null, event.getGameObject());
 	}
 
 	@Subscribe
-	private void onGameObjectChanged(GameObjectChanged event)
-	{
+	private void onGameObjectChanged(GameObjectChanged event) {
 		onTileObject(event.getTile(), event.getPrevious(), event.getGameObject());
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event)
-	{
+	private void onGameObjectDespawned(GameObjectDespawned event) {
 		onTileObject(event.getTile(), event.getGameObject(), null);
 	}
 
 	@Subscribe
-	private void onGroundObjectSpawned(GroundObjectSpawned event)
-	{
+	private void onGroundObjectSpawned(GroundObjectSpawned event) {
 		onTileObject(event.getTile(), null, event.getGroundObject());
 	}
 
 	@Subscribe
-	private void onGroundObjectChanged(GroundObjectChanged event)
-	{
+	private void onGroundObjectChanged(GroundObjectChanged event) {
 		onTileObject(event.getTile(), event.getPrevious(), event.getGroundObject());
 	}
 
 	@Subscribe
-	private void onGroundObjectDespawned(GroundObjectDespawned event)
-	{
+	private void onGroundObjectDespawned(GroundObjectDespawned event) {
 		onTileObject(event.getTile(), event.getGroundObject(), null);
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOADING)
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() == GameState.LOADING) {
 			staircases.clear();
 			wallTraps.clear();
 			floorTraps.clear();
 		}
 	}
 
-	private void onTileObject(Tile tile, TileObject oldObject, TileObject newObject)
-	{
+	private void onTileObject(Tile tile, TileObject oldObject, TileObject newObject) {
 		staircases.remove(oldObject);
-		if (newObject != null && Obstacles.STAIRCASE_IDS.contains(newObject.getId()))
-		{
+		if (newObject != null && Obstacles.STAIRCASE_IDS.contains(newObject.getId())) {
 			staircases.put(newObject, tile);
 		}
 
 		wallTraps.remove(oldObject);
-		if (newObject != null && Obstacles.WALL_TRAP_IDS.contains(newObject.getId()))
-		{
+		if (newObject != null && Obstacles.WALL_TRAP_IDS.contains(newObject.getId())) {
 			wallTraps.put(newObject, tile);
 		}
 
 		floorTraps.remove(oldObject);
-		if (newObject != null && Obstacles.FLOOR_TRAP_IDS.contains(newObject.getId()))
-		{
+		if (newObject != null && Obstacles.FLOOR_TRAP_IDS.contains(newObject.getId())) {
 			floorTraps.put(newObject, tile);
 		}
 	}

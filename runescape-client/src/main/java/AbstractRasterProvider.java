@@ -12,13 +12,13 @@ public abstract class AbstractRasterProvider {
 	public int[] pixels;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -677565243
+			intValue = -677565243
 	)
 	@Export("width")
 	public int width;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1515017949
+			intValue = 1515017949
 	)
 	@Export("height")
 	public int height;
@@ -28,24 +28,24 @@ public abstract class AbstractRasterProvider {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-529782293"
+			signature = "(III)V",
+			garbageValue = "-529782293"
 	)
 	@Export("drawFull")
 	public abstract void drawFull(int var1, int var2);
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "934582222"
+			signature = "(IIIII)V",
+			garbageValue = "934582222"
 	)
 	@Export("draw")
 	public abstract void draw(int var1, int var2, int var3, int var4);
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-96"
+			signature = "(B)V",
+			garbageValue = "-96"
 	)
 	@Export("apply")
 	public final void apply() {
@@ -54,13 +54,13 @@ public abstract class AbstractRasterProvider {
 
 	@ObfuscatedName("fx")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-569880085"
+			signature = "(I)Z",
+			garbageValue = "-569880085"
 	)
 	static boolean method6151() {
 		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
 			while (Client.archiveLoadersDone < Client.archiveLoaders.size()) {
-				ArchiveLoader var0 = (ArchiveLoader)Client.archiveLoaders.get(Client.archiveLoadersDone);
+				ArchiveLoader var0 = (ArchiveLoader) Client.archiveLoaders.get(Client.archiveLoadersDone);
 				if (!var0.isLoaded()) {
 					return false;
 				}

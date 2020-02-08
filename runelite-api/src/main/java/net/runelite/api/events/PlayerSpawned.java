@@ -32,15 +32,13 @@ import lombok.Value;
  * An event where a {@link Player} has spawned.
  */
 @Value
-public class PlayerSpawned implements Event
-{
+public class PlayerSpawned implements Event {
 	/**
 	 * The spawned player.
 	 */
 	private final Player player;
 
-	public Actor getActor()
-	{
+	public Actor getActor() {
 		return player;
 	}
 }

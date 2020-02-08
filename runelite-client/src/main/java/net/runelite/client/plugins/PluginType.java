@@ -6,8 +6,7 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PUBLIC)
 @AllArgsConstructor
-public enum PluginType
-{
+public enum PluginType {
 	PVM("PvM"),
 	PVP("PvP"),
 	SKILLING("Skilling"),
@@ -22,8 +21,7 @@ public enum PluginType
 	private String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
 }

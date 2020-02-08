@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -13,8 +14,7 @@ import net.runelite.api.events.StatChanged;
 import net.runelite.client.eventbus.EventBus;
 
 @Singleton
-public class XpDropManager
-{
+public class XpDropManager {
 
 	private final Map<Skill, Integer> previousSkillExpTable = new EnumMap<>(Skill.class);
 	@Getter(AccessLevel.PACKAGE)
@@ -26,29 +26,25 @@ public class XpDropManager
 
 	@Inject
 	private XpDropManager(
-		final EventBus eventBus,
-		final Client client
-	)
-	{
+			final EventBus eventBus,
+			final Client client
+	) {
 		this.client = client;
 		this.eventBus = eventBus;
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(StatChanged.class, this, this::onStatChanged);
 	}
 
-	private void onGameStateChanged(GameStateChanged event)
-	{
+	private void onGameStateChanged(GameStateChanged event) {
 		damage = 0;
 		tickShow = 0;
 	}
 
-	private void onStatChanged(StatChanged event)
-	{
+	private void onStatChanged(StatChanged event) {
 		final Skill skill = event.getSkill();
 		final int xp = client.getSkillExperience(skill);
 		Integer previous = previousSkillExpTable.put(skill, xp);
-		if (previous != null)
-		{
+		if (previous != null) {
 			int previousExpGained = xp - previous;
 			XpDropEvent xpDropEvent = new XpDropEvent();
 			xpDropEvent.setExp(previousExpGained);

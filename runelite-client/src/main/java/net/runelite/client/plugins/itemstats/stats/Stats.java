@@ -26,8 +26,7 @@ package net.runelite.client.plugins.itemstats.stats;
 
 import net.runelite.api.Skill;
 
-public class Stats
-{
+public class Stats {
 	public static final Stat ATTACK = new SkillStat(Skill.ATTACK);
 	public static final Stat DEFENCE = new SkillStat(Skill.DEFENCE);
 	public static final Stat STRENGTH = new SkillStat(Skill.STRENGTH);

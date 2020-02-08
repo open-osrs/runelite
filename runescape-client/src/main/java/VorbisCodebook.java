@@ -85,7 +85,7 @@ public class VorbisCodebook {
 
 					for (var11 = 0; var11 < this.dimensions; ++var11) {
 						int var12 = var8 / var10 % var7;
-						float var13 = (float)this.field1334[var12] * var16 + var15 + var9;
+						float var13 = (float) this.field1334[var12] * var16 + var15 + var9;
 						this.field1335[var8][var11] = var13;
 						if (var6) {
 							var9 = var13;
@@ -100,7 +100,7 @@ public class VorbisCodebook {
 					var10 = var8 * this.dimensions;
 
 					for (var11 = 0; var11 < this.dimensions; ++var11) {
-						float var17 = (float)this.field1334[var10] * var16 + var15 + var9;
+						float var17 = (float) this.field1334[var10] * var16 + var15 + var9;
 						this.field1335[var8][var11] = var17;
 						if (var6) {
 							var9 = var17;
@@ -225,7 +225,7 @@ public class VorbisCodebook {
 	@ObfuscatedName("c")
 	@Export("mapType1QuantValues")
 	static int mapType1QuantValues(int var0, int var1) {
-		int var2 = (int)Math.pow((double)var0, 1.0D / (double)var1) + 1;
+		int var2 = (int) Math.pow((double) var0, 1.0D / (double) var1) + 1;
 
 		while (true) {
 			int var4 = var2;

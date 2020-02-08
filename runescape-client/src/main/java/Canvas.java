@@ -1,5 +1,6 @@
 import java.awt.Component;
 import java.awt.Graphics;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,7 +11,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class Canvas extends java.awt.Canvas {
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("SequenceDefinition_animationsArchive")
 	static AbstractArchive SequenceDefinition_animationsArchive;
@@ -32,8 +33,8 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("fq")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-97"
+			signature = "(B)V",
+			garbageValue = "-97"
 	)
 	static final void method861() {
 		if (FileSystem.ClanChat_inClanChat) {
@@ -49,8 +50,8 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("hf")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
-		garbageValue = "-77"
+			signature = "(IIB)I",
+			garbageValue = "-77"
 	)
 	static int method864(int var0, int var1) {
 		int var2 = var1 - 334;

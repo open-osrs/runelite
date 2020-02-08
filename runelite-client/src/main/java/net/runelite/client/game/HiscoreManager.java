@@ -26,11 +26,13 @@ package net.runelite.client.game;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
+
 import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.runelite.api.Client;
@@ -40,12 +42,10 @@ import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
 
 @Singleton
-public class HiscoreManager
-{
+public class HiscoreManager {
 	@AllArgsConstructor
 	@Data
-	static class HiscoreKey
-	{
+	static class HiscoreKey {
 		String username;
 		HiscoreEndpoint type;
 	}
@@ -57,12 +57,11 @@ public class HiscoreManager
 	private final LoadingCache<HiscoreKey, HiscoreResult> hiscoreCache;
 
 	@Inject
-	public HiscoreManager(Client client, ScheduledExecutorService executor, ClientThread clientThread)
-	{
+	public HiscoreManager(Client client, ScheduledExecutorService executor, ClientThread clientThread) {
 		hiscoreCache = CacheBuilder.newBuilder()
-			.maximumSize(128L)
-			.expireAfterWrite(1, TimeUnit.HOURS)
-			.build(new HiscoreLoader(executor, hiscoreClient));
+				.maximumSize(128L)
+				.expireAfterWrite(1, TimeUnit.HOURS)
+				.build(new HiscoreLoader(executor, hiscoreClient));
 	}
 
 	/**
@@ -73,18 +72,15 @@ public class HiscoreManager
 	 * @return HiscoreResult or null
 	 * @throws IOException Upon error in fetching hiscore
 	 */
-	public HiscoreResult lookup(String username, HiscoreEndpoint endpoint) throws IOException
-	{
+	public HiscoreResult lookup(String username, HiscoreEndpoint endpoint) throws IOException {
 		HiscoreKey hiscoreKey = new HiscoreKey(username, endpoint);
 		HiscoreResult hiscoreResult = hiscoreCache.getIfPresent(hiscoreKey);
-		if (hiscoreResult != null && hiscoreResult != EMPTY)
-		{
+		if (hiscoreResult != null && hiscoreResult != EMPTY) {
 			return hiscoreResult == NONE ? null : hiscoreResult;
 		}
 
 		hiscoreResult = hiscoreClient.lookup(username, endpoint);
-		if (hiscoreResult == null)
-		{
+		if (hiscoreResult == null) {
 			hiscoreCache.put(hiscoreKey, NONE);
 			return null;
 		}
@@ -100,12 +96,10 @@ public class HiscoreManager
 	 * @param endpoint Hiscore endpoint
 	 * @return HiscoreResult or null
 	 */
-	public HiscoreResult lookupAsync(String username, HiscoreEndpoint endpoint)
-	{
+	public HiscoreResult lookupAsync(String username, HiscoreEndpoint endpoint) {
 		HiscoreKey hiscoreKey = new HiscoreKey(username, endpoint);
 		HiscoreResult hiscoreResult = hiscoreCache.getIfPresent(hiscoreKey);
-		if (hiscoreResult != null && hiscoreResult != EMPTY)
-		{
+		if (hiscoreResult != null && hiscoreResult != EMPTY) {
 			return hiscoreResult == NONE ? null : hiscoreResult;
 		}
 

@@ -27,8 +27,7 @@ package net.runelite.api;
 /**
  * Represents a message in the chatbox.
  */
-public interface MessageNode
-{
+public interface MessageNode {
 	/**
 	 * Get the id for this message node
 	 *

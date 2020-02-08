@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.alchemicalhydra;
 
 import java.awt.Color;
+
 import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
@@ -32,154 +33,141 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 
 @ConfigGroup("betterHydra")
-public interface AlchemicalHydraConfig extends Config
-{
+public interface AlchemicalHydraConfig extends Config {
 	@ConfigSection(
-		keyName = "features",
-		name = "Features",
-		description = "Feathers. Jk, features",
-		position = 0
+			keyName = "features",
+			name = "Features",
+			description = "Feathers. Jk, features",
+			position = 0
 	)
-	default boolean features()
-	{
+	default boolean features() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "counting",
-		name = "Prayer helper",
-		description = "Basically everything this plugin is known for. Also has attacks between specs and poison overlay. Shouldn't NOT use this tbh",
-		position = 1,
-		section = "features"
+			keyName = "counting",
+			name = "Prayer helper",
+			description = "Basically everything this plugin is known for. Also has attacks between specs and poison overlay. Shouldn't NOT use this tbh",
+			position = 1,
+			section = "features"
 	)
-	default boolean counting()
-	{
+	default boolean counting() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "fountain",
-		name = "Fountain helper",
-		description = "Indicates if hydra is on a fountain",
-		position = 2,
-		section = "features"
+			keyName = "fountain",
+			name = "Fountain helper",
+			description = "Indicates if hydra is on a fountain",
+			position = 2,
+			section = "features"
 	)
-	default boolean fountain()
-	{
+	default boolean fountain() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "stun",
-		name = "Stun timer",
-		description = "Shows when you can walk in fire phase",
-		position = 3,
-		section = "features"
+			keyName = "stun",
+			name = "Stun timer",
+			description = "Shows when you can walk in fire phase",
+			position = 3,
+			section = "features"
 	)
-	default boolean stun()
-	{
+	default boolean stun() {
 		return false;
 	}
 
 	@ConfigSection(
-		keyName = "colours",
-		name = "Colours",
-		description = "colours...",
-		position = 2
+			keyName = "colours",
+			name = "Colours",
+			description = "colours...",
+			position = 2
 	)
-	default boolean colours()
-	{
+	default boolean colours() {
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "safeCol",
-		name = "Safe colour",
-		description = "Colour overlay will be when there's >2 attacks left",
-		position = 1,
-		section = "colours"
+			keyName = "safeCol",
+			name = "Safe colour",
+			description = "Colour overlay will be when there's >2 attacks left",
+			position = 1,
+			section = "colours"
 	)
-	default Color safeCol()
-	{
+	default Color safeCol() {
 		return new Color(0, 156, 0, 156);
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "medCol",
-		name = "Medium colour",
-		description = "Colour overlay will be when a input is coming up",
-		position = 2,
-		section = "colours"
+			keyName = "medCol",
+			name = "Medium colour",
+			description = "Colour overlay will be when a input is coming up",
+			position = 2,
+			section = "colours"
 	)
-	default Color medCol()
-	{
+	default Color medCol() {
 		return new Color(200, 156, 0, 156);
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "badCol",
-		name = "Bad colour",
-		description = "Colour overlay will be when you have to do something NOW",
-		position = 3,
-		section = "colours"
+			keyName = "badCol",
+			name = "Bad colour",
+			description = "Colour overlay will be when you have to do something NOW",
+			position = 3,
+			section = "colours"
 	)
-	default Color badCol()
-	{
+	default Color badCol() {
 		return new Color(156, 0, 0, 156);
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "poisonBorderCol",
-		name = "Poison border colour",
-		description = "Colour the edges of the area highlighted by poison special will be",
-		position = 4,
-		section = "colours"
+			keyName = "poisonBorderCol",
+			name = "Poison border colour",
+			description = "Colour the edges of the area highlighted by poison special will be",
+			position = 4,
+			section = "colours"
 	)
-	default Color poisonBorderCol()
-	{
+	default Color poisonBorderCol() {
 		return new Color(255, 0, 0, 100);
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "poisonCol",
-		name = "Poison colour",
-		description = "Colour the fill of the area highlighted by poison special will be",
-		position = 5,
-		section = "colours"
+			keyName = "poisonCol",
+			name = "Poison colour",
+			description = "Colour the fill of the area highlighted by poison special will be",
+			position = 5,
+			section = "colours"
 	)
-	default Color poisonCol()
-	{
+	default Color poisonCol() {
 		return new Color(255, 0, 0, 50);
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "fountainColA",
-		name = "Fountain colour (not on top)",
-		description = "Fountain colour (not on top)",
-		position = 6,
-		section = "colours"
+			keyName = "fountainColA",
+			name = "Fountain colour (not on top)",
+			description = "Fountain colour (not on top)",
+			position = 6,
+			section = "colours"
 	)
-	default Color fountainColA()
-	{
+	default Color fountainColA() {
 		return new Color(255, 0, 0, 100);
 	}
 
 	@Alpha
 	@ConfigItem(
-		keyName = "fountainColB",
-		name = "Fountain colour (on top)",
-		description = "Fountain colour (on top)",
-		position = 7,
-		section = "colours"
+			keyName = "fountainColB",
+			name = "Fountain colour (on top)",
+			description = "Fountain colour (on top)",
+			position = 7,
+			section = "colours"
 	)
-	default Color fountainColB()
-	{
+	default Color fountainColB() {
 		return new Color(0, 255, 0, 100);
 	}
 }

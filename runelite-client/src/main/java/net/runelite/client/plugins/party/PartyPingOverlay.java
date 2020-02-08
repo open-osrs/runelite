@@ -31,6 +31,7 @@ import java.awt.Polygon;
 import java.util.Iterator;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -40,37 +41,30 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-class PartyPingOverlay extends Overlay
-{
+class PartyPingOverlay extends Overlay {
 	private final Client client;
 	private final PartyPlugin plugin;
 
 	@Inject
-	private PartyPingOverlay(final Client client, final PartyPlugin plugin)
-	{
+	private PartyPingOverlay(final Client client, final PartyPlugin plugin) {
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.getPartyDataMap().isEmpty())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.getPartyDataMap().isEmpty()) {
 			return null;
 		}
 
-		synchronized (plugin.getPendingTilePings())
-		{
+		synchronized (plugin.getPendingTilePings()) {
 			final Iterator<PartyTilePingData> iterator = plugin.getPendingTilePings().iterator();
 
-			while (iterator.hasNext())
-			{
+			while (iterator.hasNext()) {
 				PartyTilePingData next = iterator.next();
 
-				if (next.getAlpha() <= 0)
-				{
+				if (next.getAlpha() <= 0) {
 					iterator.remove();
 					continue;
 				}
@@ -83,27 +77,24 @@ class PartyPingOverlay extends Overlay
 		return null;
 	}
 
-	private void renderPing(final Graphics2D graphics, final PartyTilePingData ping)
-	{
+	private void renderPing(final Graphics2D graphics, final PartyTilePingData ping) {
 		final LocalPoint localPoint = LocalPoint.fromWorld(client, ping.getPoint());
 
-		if (localPoint == null)
-		{
+		if (localPoint == null) {
 			return;
 		}
 
 		final Polygon poly = Perspective.getCanvasTilePoly(client, localPoint);
 
-		if (poly == null)
-		{
+		if (poly == null) {
 			return;
 		}
 
 		final Color color = new Color(
-			ping.getColor().getRed(),
-			ping.getColor().getGreen(),
-			ping.getColor().getBlue(),
-			ping.getAlpha());
+				ping.getColor().getRed(),
+				ping.getColor().getGreen(),
+				ping.getColor().getBlue(),
+				ping.getAlpha());
 
 		OverlayUtil.renderPolygon(graphics, poly, color);
 	}

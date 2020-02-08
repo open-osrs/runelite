@@ -30,64 +30,55 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.client.input.MouseListener;
 
 @Singleton
-public class TranslateMouseListener implements MouseListener
-{
+public class TranslateMouseListener implements MouseListener {
 	private final Client client;
 
 	@Inject
-	public TranslateMouseListener(final Client client)
-	{
+	public TranslateMouseListener(final Client client) {
 		this.client = client;
 	}
 
 	@Override
-	public MouseEvent mouseClicked(MouseEvent mouseEvent)
-	{
+	public MouseEvent mouseClicked(MouseEvent mouseEvent) {
 		return translateEvent(mouseEvent);
 	}
 
 	@Override
-	public MouseEvent mousePressed(MouseEvent mouseEvent)
-	{
+	public MouseEvent mousePressed(MouseEvent mouseEvent) {
 		return translateEvent(mouseEvent);
 	}
 
 	@Override
-	public MouseEvent mouseReleased(MouseEvent mouseEvent)
-	{
+	public MouseEvent mouseReleased(MouseEvent mouseEvent) {
 		return translateEvent(mouseEvent);
 	}
 
 	@Override
-	public MouseEvent mouseEntered(MouseEvent mouseEvent)
-	{
+	public MouseEvent mouseEntered(MouseEvent mouseEvent) {
 		return translateEvent(mouseEvent);
 	}
 
 	@Override
-	public MouseEvent mouseExited(MouseEvent mouseEvent)
-	{
+	public MouseEvent mouseExited(MouseEvent mouseEvent) {
 		return translateEvent(mouseEvent);
 	}
 
 	@Override
-	public MouseEvent mouseDragged(MouseEvent mouseEvent)
-	{
+	public MouseEvent mouseDragged(MouseEvent mouseEvent) {
 		return translateEvent(mouseEvent);
 	}
 
 	@Override
-	public MouseEvent mouseMoved(MouseEvent mouseEvent)
-	{
+	public MouseEvent mouseMoved(MouseEvent mouseEvent) {
 		return translateEvent(mouseEvent);
 	}
 
-	private MouseEvent translateEvent(MouseEvent e)
-	{
+	private MouseEvent translateEvent(MouseEvent e) {
 		Dimension stretchedDimensions = client.getStretchedDimensions();
 		Dimension realDimensions = client.getRealDimensions();
 
@@ -95,6 +86,6 @@ public class TranslateMouseListener implements MouseListener
 		int newY = (int) (e.getY() / (stretchedDimensions.height / realDimensions.getHeight()));
 
 		return new MouseEvent((Component) e.getSource(), e.getID(), e.getWhen(), e.getModifiersEx(),
-			newX, newY, e.getClickCount(), e.isPopupTrigger(), e.getButton());
+				newX, newY, e.getClickCount(), e.isPopupTrigger(), e.getButton());
 	}
 }

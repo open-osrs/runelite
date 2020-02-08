@@ -25,8 +25,7 @@
 
 package net.runelite.client.plugins.objectindicators;
 
-public enum OutlineRenderStyle
-{
+public enum OutlineRenderStyle {
 	THIN_OUTLINE,
 	NORMAL_OUTLINE,
 	THIN_GLOW,

@@ -29,8 +29,7 @@ import lombok.Value;
 
 @Value
 @RequiredArgsConstructor
-class PixelDistanceAlpha
-{
+class PixelDistanceAlpha {
 	private final int outerAlpha;
 	private final int distArrayPos;
 }

@@ -25,20 +25,19 @@
 package net.runelite.asm.execution;
 
 import java.io.File;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.DeobTestProperties;
 import net.runelite.deob.util.JarUtil;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class ExecutionTest
-{
+public class ExecutionTest {
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
 
 	@Test
-	public void test() throws Exception
-	{
+	public void test() throws Exception {
 		ClassGroup group1 = JarUtil.loadJar(new File(properties.getVanillaClient()));
 		Execution e = new Execution(group1);
 		e.populateInitialMethods();

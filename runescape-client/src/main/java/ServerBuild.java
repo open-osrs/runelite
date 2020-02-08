@@ -9,36 +9,36 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ServerBuild {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+			signature = "Lhq;"
 	)
 	@Export("LIVE")
 	static final ServerBuild LIVE;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+			signature = "Lhq;"
 	)
 	@Export("BUILDLIVE")
 	static final ServerBuild BUILDLIVE;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+			signature = "Lhq;"
 	)
 	@Export("RC")
 	static final ServerBuild RC;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lhq;"
+			signature = "Lhq;"
 	)
 	@Export("WIP")
 	static final ServerBuild WIP;
 	@ObfuscatedName("dc")
 	@ObfuscatedGetter(
-		longValue = 1863736648599346965L
+			longValue = 1863736648599346965L
 	)
 	static long field3111;
 	@ObfuscatedName("gl")
 	@ObfuscatedSignature(
-		signature = "Lem;"
+			signature = "Lem;"
 	)
 	@Export("scene")
 	static Scene scene;
@@ -47,7 +47,7 @@ public class ServerBuild {
 	public final String name;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1460040921
+			intValue = 1460040921
 	)
 	final int field3108;
 
@@ -65,8 +65,8 @@ public class ServerBuild {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(BI)C",
-		garbageValue = "798764142"
+			signature = "(BI)C",
+			garbageValue = "798764142"
 	)
 	public static char method4209(byte var0) {
 		int var1 = var0 & 255;
@@ -82,7 +82,7 @@ public class ServerBuild {
 				var1 = var2;
 			}
 
-			return (char)var1;
+			return (char) var1;
 		}
 	}
 }

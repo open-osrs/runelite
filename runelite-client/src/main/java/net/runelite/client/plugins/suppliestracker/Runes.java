@@ -26,10 +26,13 @@ package net.runelite.client.plugins.suppliestracker;
 
 
 import com.google.common.collect.ImmutableMap;
+
 import java.awt.image.BufferedImage;
 import java.util.Map;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import static net.runelite.api.ItemID.AIR_RUNE;
 import static net.runelite.api.ItemID.ASTRAL_RUNE;
 import static net.runelite.api.ItemID.BLOOD_RUNE;
@@ -52,8 +55,7 @@ import static net.runelite.api.ItemID.STEAM_RUNE;
 import static net.runelite.api.ItemID.WATER_RUNE;
 import static net.runelite.api.ItemID.WRATH_RUNE;
 
-public enum Runes
-{
+public enum Runes {
 	AIR(1, AIR_RUNE),
 	WATER(2, WATER_RUNE),
 	EARTH(3, EARTH_RUNE),
@@ -78,11 +80,9 @@ public enum Runes
 
 	private static final Map<Integer, Runes> runes;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, Runes> builder = new ImmutableMap.Builder<>();
-		for (Runes rune : values())
-		{
+		for (Runes rune : values()) {
 			builder.put(rune.getId(), rune);
 		}
 		runes = builder.build();
@@ -96,19 +96,16 @@ public enum Runes
 	@Setter
 	private BufferedImage image;
 
-	Runes(int id, int itemId)
-	{
+	Runes(int id, int itemId) {
 		this.id = id;
 		this.itemId = itemId;
 	}
 
-	public static Runes getRune(int varbit)
-	{
+	public static Runes getRune(int varbit) {
 		return runes.get(varbit);
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		String name = this.name();
 		name = name.substring(0, 1) + name.substring(1).toLowerCase();
 		return name;

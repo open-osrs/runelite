@@ -25,13 +25,13 @@
 package net.runelite.http.api.xp;
 
 import java.time.Instant;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(exclude = "time")
-public class XpData
-{
+public class XpData {
 	private Instant time;
 
 	private int attack_xp;

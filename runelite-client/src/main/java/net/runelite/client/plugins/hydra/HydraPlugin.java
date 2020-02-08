@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.hydra;
 
 import com.google.inject.Provides;
+
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,6 +35,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -59,19 +61,18 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Hydra Helper",
-	description = "Overlays for normal Hydras.",
-	tags = {"hydra", "helper", "baby", "small", "normal", "regular"},
-	type = PluginType.PVM,
-	enabledByDefault = false
+		name = "Hydra Helper",
+		description = "Overlays for normal Hydras.",
+		tags = {"hydra", "helper", "baby", "small", "normal", "regular"},
+		type = PluginType.PVM,
+		enabledByDefault = false
 )
 @Slf4j
 @Singleton
-public class HydraPlugin extends Plugin
-{
+public class HydraPlugin extends Plugin {
 	static final Set<HydraAnimation> VALID_HYDRA_ANIMATIONS = EnumSet.of(
-		HydraAnimation.RANGE,
-		HydraAnimation.MAGIC
+			HydraAnimation.RANGE,
+			HydraAnimation.MAGIC
 	);
 
 	private static final String CONFIG_GROUP_NAME = "hydra";
@@ -114,27 +115,22 @@ public class HydraPlugin extends Plugin
 	private NPC interactingNpc = null;
 
 	@Provides
-	HydraConfig provideConfig(final ConfigManager configManager)
-	{
+	HydraConfig provideConfig(final ConfigManager configManager) {
 		return configManager.getConfig(HydraConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
-		if (hydraConfig.isAttackCounterOverlay())
-		{
+	protected void startUp() {
+		if (hydraConfig.isAttackCounterOverlay()) {
 			overlayManager.add(hydraAttackCounterOverlay);
 		}
 
-		if (hydraConfig.isPrayerOverlay())
-		{
+		if (hydraConfig.isPrayerOverlay()) {
 			overlayManager.add(hydraPrayerOverlay);
 			overlayManager.add(hydraPrayerAttackCounterOverlay);
 		}
 
-		if (hydraConfig.isPoisonOverlay())
-		{
+		if (hydraConfig.isPoisonOverlay()) {
 			overlayManager.add(hydraPoisonOverlay);
 		}
 
@@ -151,8 +147,7 @@ public class HydraPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(hydraAttackCounterOverlay);
 		overlayManager.remove(hydraPrayerOverlay);
 		overlayManager.remove(hydraPrayerAttackCounterOverlay);
@@ -163,46 +158,34 @@ public class HydraPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(final ConfigChanged event)
-	{
-		if (!event.getGroup().equals(CONFIG_GROUP_NAME))
-		{
+	private void onConfigChanged(final ConfigChanged event) {
+		if (!event.getGroup().equals(CONFIG_GROUP_NAME)) {
 			return;
 		}
 
 		final boolean newConfigValue = Boolean.parseBoolean(event.getNewValue());
 
-		switch (event.getKey())
-		{
+		switch (event.getKey()) {
 			case CONFIG_ITEM_ATTACK_COUNTER:
-				if (newConfigValue)
-				{
+				if (newConfigValue) {
 					overlayManager.add(hydraAttackCounterOverlay);
-				}
-				else
-				{
+				} else {
 					overlayManager.remove(hydraAttackCounterOverlay);
 				}
 				break;
 			case CONFIG_ITEM_PRAYER_OVERLAY:
-				if (newConfigValue)
-				{
+				if (newConfigValue) {
 					overlayManager.add(hydraPrayerOverlay);
 					overlayManager.add(hydraPrayerAttackCounterOverlay);
-				}
-				else
-				{
+				} else {
 					overlayManager.remove(hydraPrayerOverlay);
 					overlayManager.remove(hydraPrayerAttackCounterOverlay);
 				}
 				break;
 			case CONFIG_ITEM_POISON_PROJECTILE_OVERLAY:
-				if (newConfigValue)
-				{
+				if (newConfigValue) {
 					overlayManager.add(hydraPoisonOverlay);
-				}
-				else
-				{
+				} else {
 					overlayManager.remove(hydraPoisonOverlay);
 				}
 				break;
@@ -215,35 +198,29 @@ public class HydraPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onNpcSpawned(final NpcSpawned event)
-	{
+	private void onNpcSpawned(final NpcSpawned event) {
 		final NPC npc = event.getNpc();
 
-		if (isActorHydra(npc))
-		{
+		if (isActorHydra(npc)) {
 			addHydra(npc);
 		}
 	}
 
 	@Subscribe
-	private void onNpcDespawned(final NpcDespawned event)
-	{
+	private void onNpcDespawned(final NpcDespawned event) {
 		final NPC npc = event.getNpc();
 
-		if (isActorHydra(npc))
-		{
+		if (isActorHydra(npc)) {
 			removeHydra(npc);
 			poisonProjectiles.clear();
 		}
 	}
 
 	@Subscribe
-	private void onInteractingChanged(final InteractingChanged event)
-	{
+	private void onInteractingChanged(final InteractingChanged event) {
 		final Actor source = event.getSource();
 
-		if (!isActorHydra(source))
-		{
+		if (!isActorHydra(source)) {
 			return;
 		}
 
@@ -254,12 +231,10 @@ public class HydraPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onAnimationChanged(final AnimationChanged event)
-	{
+	private void onAnimationChanged(final AnimationChanged event) {
 		final Actor actor = event.getActor();
 
-		if (!isActorHydra(actor))
-		{
+		if (!isActorHydra(actor)) {
 			return;
 		}
 
@@ -270,32 +245,24 @@ public class HydraPlugin extends Plugin
 
 		HydraAnimation hydraAnimation;
 
-		try
-		{
+		try {
 			hydraAnimation = HydraAnimation.fromId(npc.getAnimation());
-		}
-		catch (final IllegalArgumentException e)
-		{
+		} catch (final IllegalArgumentException e) {
 			hydraAnimation = null;
 		}
 
-		if (hydraAnimation == null || !VALID_HYDRA_ANIMATIONS.contains(hydraAnimation))
-		{
+		if (hydraAnimation == null || !VALID_HYDRA_ANIMATIONS.contains(hydraAnimation)) {
 			// If the animation is not range/magic then do nothing.
 			return;
 		}
 
 		final Hydra hydra = hydras.get(npc.getIndex());
 
-		if (hydra.getHydraAnimation() == null)
-		{
+		if (hydra.getHydraAnimation() == null) {
 			// If this is the first observed animation then set it
 			hydra.setHydraAnimation(hydraAnimation);
-		}
-		else
-		{
-			if (!Objects.equals(hydra.getHydraAnimation(), hydraAnimation))
-			{
+		} else {
+			if (!Objects.equals(hydra.getHydraAnimation(), hydraAnimation)) {
 				// If the animation switched from range/magic then set it and reset attack count
 				hydra.setHydraAnimation(hydraAnimation);
 				hydra.resetAttackCount();
@@ -304,8 +271,7 @@ public class HydraPlugin extends Plugin
 
 		hydra.updateAttackCount();
 
-		if (!poisonProjectiles.isEmpty())
-		{
+		if (!poisonProjectiles.isEmpty()) {
 			updatePoisonProjectiles();
 		}
 	}
@@ -317,10 +283,8 @@ public class HydraPlugin extends Plugin
 	 * @param event event object
 	 */
 	@Subscribe
-	private void onProjectileMoved(final ProjectileMoved event)
-	{
-		if (interactingNpc == null || client.getGameCycle() >= event.getProjectile().getStartMovementCycle())
-		{
+	private void onProjectileMoved(final ProjectileMoved event) {
+		if (interactingNpc == null || client.getGameCycle() >= event.getProjectile().getStartMovementCycle()) {
 			return;
 		}
 
@@ -328,8 +292,7 @@ public class HydraPlugin extends Plugin
 
 		final int projectileId = projectile.getId();
 
-		if (projectileId == ProjectileID.HYDRA_POISON)
-		{
+		if (projectileId == ProjectileID.HYDRA_POISON) {
 			poisonProjectiles.put(event.getPosition(), projectile);
 		}
 	}
@@ -338,37 +301,30 @@ public class HydraPlugin extends Plugin
 	 * See net.runelite.client.plugins.alchemicalhydra.AlchemicalHydraPlugin
 	 * Copyright (c) 2019, Lucas <https://github.com/lucwousin>
 	 */
-	private void updatePoisonProjectiles()
-	{
+	private void updatePoisonProjectiles() {
 		final Set<LocalPoint> expiredPoisonProjectiles = new HashSet<>();
 
-		for (final Map.Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet())
-		{
-			if (entry.getValue().getEndCycle() < client.getGameCycle())
-			{
+		for (final Map.Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet()) {
+			if (entry.getValue().getEndCycle() < client.getGameCycle()) {
 				expiredPoisonProjectiles.add(entry.getKey());
 			}
 		}
 
-		for (final LocalPoint projectileLocalPoint : expiredPoisonProjectiles)
-		{
+		for (final LocalPoint projectileLocalPoint : expiredPoisonProjectiles) {
 			poisonProjectiles.remove(projectileLocalPoint);
 		}
 	}
 
-	boolean isPlayerAtHydraRegion()
-	{
+	boolean isPlayerAtHydraRegion() {
 		final Player player = client.getLocalPlayer();
 
-		if (player == null)
-		{
+		if (player == null) {
 			return false;
 		}
 
 		final WorldPoint worldPoint = player.getWorldLocation();
 
-		if (worldPoint == null)
-		{
+		if (worldPoint == null) {
 			return false;
 		}
 
@@ -377,44 +333,36 @@ public class HydraPlugin extends Plugin
 		return regionId == HYDRA_REGION_1 || regionId == HYDRA_REGION_2;
 	}
 
-	private static boolean isActorHydra(final Actor actor)
-	{
+	private static boolean isActorHydra(final Actor actor) {
 		return Objects.equals(actor.getName(), NPC_NAME_HYDRA);
 	}
 
-	private void updateInteractingNpc(final NPC npc)
-	{
+	private void updateInteractingNpc(final NPC npc) {
 		if (!Objects.equals(interactingNpc, npc) &&
-			Objects.equals(npc.getInteracting(), client.getLocalPlayer()))
-		{
+				Objects.equals(npc.getInteracting(), client.getLocalPlayer())) {
 			interactingNpc = npc;
 		}
 	}
 
-	private void addHydra(final NPC npc)
-	{
+	private void addHydra(final NPC npc) {
 		final int npcIndex = npc.getIndex();
 
-		if (!hydras.containsKey(npcIndex))
-		{
+		if (!hydras.containsKey(npcIndex)) {
 			hydras.put(npcIndex, new Hydra(npc));
 		}
 	}
 
-	private void removeHydra(final NPC npc)
-	{
+	private void removeHydra(final NPC npc) {
 		final int npcIndex = npc.getIndex();
 
 		hydras.remove(npcIndex);
 
-		if (Objects.equals(interactingNpc, npc))
-		{
+		if (Objects.equals(interactingNpc, npc)) {
 			interactingNpc = null;
 		}
 	}
 
-	private void resetHydras()
-	{
+	private void resetHydras() {
 		hydras.clear();
 		interactingNpc = null;
 	}

@@ -29,55 +29,49 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("party")
-public interface PartyConfig extends Config
-{
+public interface PartyConfig extends Config {
 	@ConfigItem(
-		keyName = "stats",
-		name = "Stats",
-		description = "Enables party stats overlay showing HP, prayer and player name"
+			keyName = "stats",
+			name = "Stats",
+			description = "Enables party stats overlay showing HP, prayer and player name"
 	)
-	default boolean stats()
-	{
+	default boolean stats() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "pings",
-		name = "Pings",
-		description = "Enables party pings (shift + left-click)"
+			keyName = "pings",
+			name = "Pings",
+			description = "Enables party pings (shift + left-click)"
 	)
-	default boolean pings()
-	{
+	default boolean pings() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "sounds",
-		name = "Sound on ping",
-		description = "Enables sound notification on party ping"
+			keyName = "sounds",
+			name = "Sound on ping",
+			description = "Enables sound notification on party ping"
 	)
-	default boolean sounds()
-	{
+	default boolean sounds() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "messages",
-		name = "Join messages",
-		description = "Enables join/leave game messages"
+			keyName = "messages",
+			name = "Join messages",
+			description = "Enables join/leave game messages"
 	)
-	default boolean messages()
-	{
+	default boolean messages() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "recolorNames",
-		name = "Recolor names",
-		description = "Recolor stats overlay names based on unique color hash"
+			keyName = "recolorNames",
+			name = "Recolor names",
+			description = "Recolor stats overlay names based on unique color hash"
 	)
-	default boolean recolorNames()
-	{
+	default boolean recolorNames() {
 		return true;
 	}
 }

@@ -27,8 +27,7 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class WorldMapType0 implements WorldMapTypeBase
-{
+public class WorldMapType0 implements WorldMapTypeBase {
 	public int chunk_xHigh;
 	public int xLow;
 	public int chunk_xLow;

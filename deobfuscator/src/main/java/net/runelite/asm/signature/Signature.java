@@ -31,27 +31,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import net.runelite.asm.Type;
 
-public class Signature
-{
+public class Signature {
 	private static Pattern paramRetPattern = Pattern.compile("\\((.*)\\)(.*)"),
-		paramsPattern = Pattern.compile("(\\[*(?:B|C|Z|S|I|J|F|D|(?:L[^;]*;)))");
+			paramsPattern = Pattern.compile("(\\[*(?:B|C|Z|S|I|J|F|D|(?:L[^;]*;)))");
 
 	private final List<Type> arguments;
 	private final Type rv;
 
-	private Signature(List<Type> arguments, Type rv)
-	{
+	private Signature(List<Type> arguments, Type rv) {
 		this.arguments = new ArrayList<>(arguments);
 		this.rv = rv;
 	}
 
-	public Signature(String str)
-	{
+	public Signature(String str) {
 		Matcher m = paramRetPattern.matcher(str);
-		if (!m.find())
-		{
+		if (!m.find()) {
 			throw new IllegalArgumentException("Signature has no arguments");
 		}
 
@@ -59,8 +56,7 @@ public class Signature
 
 		m = paramsPattern.matcher(args);
 		arguments = new ArrayList<>();
-		while (m.find())
-		{
+		while (m.find()) {
 			String arg = m.group(1);
 			arguments.add(new Type(arg));
 		}
@@ -68,17 +64,14 @@ public class Signature
 		rv = new Type(ret);
 	}
 
-	public Signature(Signature other)
-	{
+	public Signature(Signature other) {
 		arguments = new ArrayList<>(other.arguments);
 		rv = other.rv;
 	}
 
 	@Override
-	public boolean equals(Object other)
-	{
-		if (!(other instanceof Signature))
-		{
+	public boolean equals(Object other) {
+		if (!(other instanceof Signature)) {
 			return false;
 		}
 
@@ -87,8 +80,7 @@ public class Signature
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		int hash = 5;
 		hash = 97 * hash + Objects.hashCode(this.arguments);
 		hash = 97 * hash + Objects.hashCode(this.rv);
@@ -96,12 +88,10 @@ public class Signature
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append('(');
-		for (Type a : arguments)
-		{
+		for (Type a : arguments) {
 			sb.append(a);
 		}
 		sb.append(')');
@@ -109,73 +99,60 @@ public class Signature
 		return sb.toString();
 	}
 
-	public int size()
-	{
+	public int size() {
 		return arguments.size();
 	}
 
-	public void remove(int i)
-	{
+	public void remove(int i) {
 		arguments.remove(i);
 	}
 
-	public Type getTypeOfArg(int i)
-	{
+	public Type getTypeOfArg(int i) {
 		return arguments.get(i);
 	}
 
-	public Type getReturnValue()
-	{
+	public Type getReturnValue() {
 		return rv;
 	}
 
-	public List<Type> getArguments()
-	{
+	public List<Type> getArguments() {
 		return Collections.unmodifiableList(arguments);
 	}
 
-	public boolean isVoid()
-	{
+	public boolean isVoid() {
 		return rv.equals(Type.VOID);
 	}
 
-	public static class Builder
-	{
+	public static class Builder {
 		private final List<Type> arguments = new ArrayList<>();
 		private Type rv;
 
-		public Builder setReturnType(Type type)
-		{
+		public Builder setReturnType(Type type) {
 			rv = type;
 			return this;
 		}
 
-		public Builder addArgument(Type type)
-		{
+		public Builder addArgument(Type type) {
 			arguments.add(type);
 			return this;
 		}
 
-		public Builder addArgument(int idx, Type type)
-		{
+		public Builder addArgument(int idx, Type type) {
 			arguments.add(idx, type);
 			return this;
 		}
 
-		public Builder addArguments(Collection<Type> types)
-		{
+		public Builder addArguments(Collection<Type> types) {
 			arguments.addAll(types);
 			return this;
 		}
 
-		public Signature build()
-		{
+		public Signature build() {
 			return new Signature(arguments, rv);
 		}
 	}
 
-	public Signature rsApiToRsClient()
-	{
+	public Signature rsApiToRsClient() {
 		return new Signature(this.toString().replaceAll("net/runelite/(rs/)?api/(RS)?", ""));
 	}
 }

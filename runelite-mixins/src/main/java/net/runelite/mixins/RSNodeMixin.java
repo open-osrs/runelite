@@ -30,17 +30,14 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSNode;
 
 @Mixin(RSNode.class)
-public abstract class RSNodeMixin implements RSNode
-{
+public abstract class RSNodeMixin implements RSNode {
 	@Inject
-	public void onUnlink()
-	{
+	public void onUnlink() {
 	}
 
 	@Inject
 	@MethodHook("remove")
-	public void rl$unlink()
-	{
+	public void rl$unlink() {
 		onUnlink();
 	}
 }

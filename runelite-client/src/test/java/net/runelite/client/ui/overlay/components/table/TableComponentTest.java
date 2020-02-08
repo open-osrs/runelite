@@ -28,29 +28,27 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
 
-public class TableComponentTest
-{
+public class TableComponentTest {
 	@Mock
 	private Graphics2D graphics;
 
 	private BufferedImage dest;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		dest = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		graphics = (Graphics2D) dest.getGraphics();
 	}
 
 	@Test
-	public void testRender()
-	{
+	public void testRender() {
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.addRow("test");
 		tableComponent.setDefaultAlignment(TableAlignment.CENTER);
@@ -59,8 +57,7 @@ public class TableComponentTest
 	}
 
 	@Test
-	public void testColors()
-	{
+	public void testColors() {
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.addRow("test", "test", "test", "<col=ffff00>test", "test");
 		tableComponent.setColumns("", "", "");
@@ -72,8 +69,7 @@ public class TableComponentTest
 	}
 
 	@After
-	public void after()
-	{
+	public void after() {
 		graphics.dispose();
 		dest.flush();
 	}

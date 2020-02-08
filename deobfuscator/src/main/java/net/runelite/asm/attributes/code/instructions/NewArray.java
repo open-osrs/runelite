@@ -37,38 +37,32 @@ import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 import org.objectweb.asm.MethodVisitor;
 
-public class NewArray extends Instruction implements IntInstruction
-{
+public class NewArray extends Instruction implements IntInstruction {
 	private int type;
 
-	public NewArray(Instructions instructions, InstructionType type)
-	{
+	public NewArray(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
-	public int getArrayType()
-	{
+	public int getArrayType() {
 		return type;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		visitor.visitIntInsn(this.getType().getCode(), type & 0xFF);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext count = stack.pop();
 		ins.pop(count);
-		
+
 		String t;
-		switch (type)
-		{
+		switch (type) {
 			case 4:
 				t = "[Z";
 				break;
@@ -99,21 +93,19 @@ public class NewArray extends Instruction implements IntInstruction
 
 		StackContext ctx = new StackContext(ins, new Type(t), Value.newArray(count.getValue()));
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 
 	@Override
-	public int getOperand()
-	{
+	public int getOperand() {
 		return type;
 	}
 
 	@Override
-	public void setOperand(int operand)
-	{
+	public void setOperand(int operand) {
 		type = operand;
 	}
 

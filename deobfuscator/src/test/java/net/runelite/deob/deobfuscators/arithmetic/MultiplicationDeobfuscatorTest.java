@@ -54,8 +54,7 @@ import net.runelite.deob.Deobfuscator;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MultiplicationDeobfuscatorTest
-{
+public class MultiplicationDeobfuscatorTest {
 	//   aload                 2
 	//   ldc_w                 1587543155
 	//   iload                 4
@@ -68,8 +67,7 @@ public class MultiplicationDeobfuscatorTest
 	//   imul
 	//   putstatic             class29/field949 I
 	@Test
-	public void test1()
-	{
+	public void test1() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -78,39 +76,37 @@ public class MultiplicationDeobfuscatorTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, 1587543155),
-			constant2 = new LDC(ins, -2130376517),
-			constant3 = new LDC(ins, -67313687);
+				constant2 = new LDC(ins, -2130376517),
+				constant3 = new LDC(ins, -67313687);
 
 		Instruction body[] =
-		{
-			new LDC(ins, 0), // for dup_x1 to place before this
-			constant1,
-			new ILoad(ins, 0),
-			new IMul(ins),
-			new Dup_X1(ins),
-			constant2,
-			new IMul(ins),
-			new Pop(ins),
-			new Pop(ins),
-			constant3,
-			new IMul(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						new LDC(ins, 0), // for dup_x1 to place before this
+						constant1,
+						new ILoad(ins, 0),
+						new IMul(ins),
+						new Dup_X1(ins),
+						constant2,
+						new IMul(ins),
+						new Pop(ins),
+						new Pop(ins),
+						constant3,
+						new IMul(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -144,8 +140,7 @@ public class MultiplicationDeobfuscatorTest
 	//   ldc                   561453169
 	//   imul
 	@Test
-	public void test2()
-	{
+	public void test2() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -154,41 +149,39 @@ public class MultiplicationDeobfuscatorTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, -2079217519),
-			constant2 = new LDC(ins, -2079217519),
-			constant3 = new LDC(ins, 561453169),
-			constant4 = new LDC(ins, 561453169);
+				constant2 = new LDC(ins, -2079217519),
+				constant3 = new LDC(ins, 561453169),
+				constant4 = new LDC(ins, 561453169);
 
 		Instruction body[] =
-		{
-			new LDC(ins, 0), // for dup_x1 to place before this
-			new ILoad(ins, 0),
-			constant1,
-			new IMul(ins),
-			constant2,
-			new IAdd(ins),
-			new Dup_X1(ins), // result, 0, result
-			constant3,
-			new IMul(ins),
-			new Pop(ins),
-			new Pop(ins),
-			constant4,
-			new IMul(ins),
-			new VReturn(ins)
-		};
+				{
+						new LDC(ins, 0), // for dup_x1 to place before this
+						new ILoad(ins, 0),
+						constant1,
+						new IMul(ins),
+						constant2,
+						new IAdd(ins),
+						new Dup_X1(ins), // result, 0, result
+						constant3,
+						new IMul(ins),
+						new Pop(ins),
+						new Pop(ins),
+						constant4,
+						new IMul(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -209,8 +202,7 @@ public class MultiplicationDeobfuscatorTest
 	}
 
 	@Test
-	public void test3()
-	{
+	public void test3() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -218,46 +210,44 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(2);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0),
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0),
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, 1381104939),
-			constant2 = new LDC(ins, 1381104939),
-			constant3 = new LDC(ins, 981643079),
-			constant4 = new LDC(ins, 1807370871),
-			constant5 = new LDC(ins, 981643079);
+				constant2 = new LDC(ins, 1381104939),
+				constant3 = new LDC(ins, 981643079),
+				constant4 = new LDC(ins, 1807370871),
+				constant5 = new LDC(ins, 981643079);
 
 		Label label1 = new Label(ins);
 
 		Instruction body[] =
-		{
-			constant4,
-			constant1,
-			new ILoad(ins, 0),
-			new IMul(ins),
-			new LDC(ins, 0),
-			new IfEq(ins, label1),
-			constant2,
-			new IMul(ins),
-			label1,
-			constant3,
-			new IMul(ins),
-			new IMul(ins), // constant4
-			constant5,
-			new IMul(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						constant4,
+						constant1,
+						new ILoad(ins, 0),
+						new IMul(ins),
+						new LDC(ins, 0),
+						new IfEq(ins, label1),
+						constant2,
+						new IMul(ins),
+						label1,
+						constant3,
+						new IMul(ins),
+						new IMul(ins), // constant4
+						constant5,
+						new IMul(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -286,8 +276,7 @@ public class MultiplicationDeobfuscatorTest
 	}
 
 	@Test
-	public void test4()
-	{
+	public void test4() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -295,13 +284,12 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(2);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0),
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0),
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
@@ -311,24 +299,23 @@ public class MultiplicationDeobfuscatorTest
 		Label label1 = new Label(ins);
 
 		Instruction body[] =
-		{
-			new ILoad(ins, 0),
-			new LDC(ins, 2),
-			new IMul(ins),
-			new LDC(ins, 0),
-			new IfEq(ins, label1),
-			new Pop(ins),
-			new LDC(ins, 3),
-			label1,
-			constant1,
-			new IMul(ins),
-			constant2,
-			new IMul(ins),
-			new VReturn(ins)
-		};
+				{
+						new ILoad(ins, 0),
+						new LDC(ins, 2),
+						new IMul(ins),
+						new LDC(ins, 0),
+						new IfEq(ins, label1),
+						new Pop(ins),
+						new LDC(ins, 3),
+						label1,
+						constant1,
+						new IMul(ins),
+						constant2,
+						new IMul(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -346,8 +333,7 @@ public class MultiplicationDeobfuscatorTest
 	}
 
 	@Test
-	public void test5()
-	{
+	public void test5() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -355,40 +341,38 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(2);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0),
-			new LDC(ins, 2),
-			new IStore(ins, 1)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0),
+						new LDC(ins, 2),
+						new IStore(ins, 1)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, -2079217519),
-			constant2 = new LDC(ins, -2079217519),
-			constant3 = new LDC(ins, 561453169);
+				constant2 = new LDC(ins, -2079217519),
+				constant3 = new LDC(ins, 561453169);
 
 		Instruction body[] =
-		{
-			new ILoad(ins, 0),
-			constant1,
-			new IMul(ins),
-			new IStore(ins, 2),
-			new ILoad(ins, 2),
-			new ILoad(ins, 1),
-			constant2,
-			new IMul(ins),
-			new IAdd(ins),
-			constant3,
-			new IMul(ins),
-			new VReturn(ins)
-		};
+				{
+						new ILoad(ins, 0),
+						constant1,
+						new IMul(ins),
+						new IStore(ins, 2),
+						new ILoad(ins, 2),
+						new ILoad(ins, 1),
+						constant2,
+						new IMul(ins),
+						new IAdd(ins),
+						constant3,
+						new IMul(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -407,8 +391,7 @@ public class MultiplicationDeobfuscatorTest
 	}
 
 	@Test
-	public void test6()
-	{
+	public void test6() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -416,15 +399,14 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(2);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0),
-			new LDC(ins, 2),
-			new IStore(ins, 1)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0),
+						new LDC(ins, 2),
+						new IStore(ins, 1)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
@@ -432,22 +414,21 @@ public class MultiplicationDeobfuscatorTest
 		LDC constant2 = new LDC(ins, -497786999);
 
 		Instruction body[] =
-		{
-			new ILoad(ins, 0),
-			new ILoad(ins, 1),
-			new Dup_X1(ins),
-			new Pop(ins),
-			new Pop(ins),
-			constant1,
-			new IMul(ins),
-			constant2,
-			new IMul(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						new ILoad(ins, 0),
+						new ILoad(ins, 1),
+						new Dup_X1(ins),
+						new Pop(ins),
+						new Pop(ins),
+						constant1,
+						new IMul(ins),
+						constant2,
+						new IMul(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -465,8 +446,7 @@ public class MultiplicationDeobfuscatorTest
 	}
 
 	@Test
-	public void test7()
-	{
+	public void test7() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -474,35 +454,33 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(2);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0),
-			new LDC(ins, 2),
-			new IStore(ins, 1)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0),
+						new LDC(ins, 2),
+						new IStore(ins, 1)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, 2131037801),
-			constant2 = new LDC(ins, -1306959399),
-			constant3 = new LDC(ins, -1);
+				constant2 = new LDC(ins, -1306959399),
+				constant3 = new LDC(ins, -1);
 
 		Instruction body[] =
-		{
-			constant3,
-			constant1,
-			new IMul(ins),
-			constant2,
-			new IMul(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						constant3,
+						constant1,
+						new IMul(ins),
+						constant2,
+						new IMul(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -521,8 +499,7 @@ public class MultiplicationDeobfuscatorTest
 	}
 
 	@Test
-	public void test8()
-	{
+	public void test8() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -530,13 +507,12 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(2);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
@@ -544,31 +520,30 @@ public class MultiplicationDeobfuscatorTest
 		LDC constant2 = new LDC(ins, 2747837);
 
 		Label label1 = new Label(ins),
-			label2 = new Label(ins),
-			label3 = new Label(ins);
+				label2 = new Label(ins),
+				label3 = new Label(ins);
 
 		Instruction body[] =
-		{
-			constant1,
-			constant2,
-			new IMul(ins),
-			new ILoad(ins, 0),
-			new LDC(ins, 42),
-			new IfEq(ins, label1),
-			new Goto(ins, label2),
-			label1,
-			new LDC(ins, -1),
-			new Goto(ins, label3),
-			label2,
-			new LDC(ins, 0),
-			new Goto(ins, label3),
-			label3,
-			new InvokeStatic(ins, group.findClass("test").findMethod("func2").getPoolMethod()),
-			new VReturn(ins)
-		};
+				{
+						constant1,
+						constant2,
+						new IMul(ins),
+						new ILoad(ins, 0),
+						new LDC(ins, 42),
+						new IfEq(ins, label1),
+						new Goto(ins, label2),
+						label1,
+						new LDC(ins, -1),
+						new Goto(ins, label3),
+						label2,
+						new LDC(ins, 0),
+						new Goto(ins, label3),
+						label3,
+						new InvokeStatic(ins, group.findClass("test").findMethod("func2").getPoolMethod()),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -599,8 +574,7 @@ public class MultiplicationDeobfuscatorTest
 	//   lmul
 	//   putfield              class227/field3196 J
 	@Test
-	public void test9()
-	{
+	public void test9() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -608,40 +582,38 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(3);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 1L),
-			new LStore(ins, 0)
-		};
+				{
+						new LDC(ins, 1L),
+						new LStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, -81013729583719545L),
-			constant2 = new LDC(ins, -6236978337732675017L),
-			constant3 = new LDC(ins, -6236978337732675017L);
+				constant2 = new LDC(ins, -6236978337732675017L),
+				constant3 = new LDC(ins, -6236978337732675017L);
 
 		Instruction body[] =
-		{
-			new LDC(ins, 0),
-			new LLoad(ins, 0),
-			constant1,
-			new LMul(ins),
-			new Dup2_X1(ins), // lmul, 0, lmul
+				{
+						new LDC(ins, 0),
+						new LLoad(ins, 0),
+						constant1,
+						new LMul(ins),
+						new Dup2_X1(ins), // lmul, 0, lmul
 
-			constant2,
-			new LMul(ins),
-			new Pop(ins),
-			new Pop(ins),
-			constant3,
-			new LMul(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+						constant2,
+						new LMul(ins),
+						new Pop(ins),
+						new Pop(ins),
+						constant3,
+						new LMul(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -660,8 +632,7 @@ public class MultiplicationDeobfuscatorTest
 	}
 
 	@Test
-	public void test10()
-	{
+	public void test10() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -670,13 +641,12 @@ public class MultiplicationDeobfuscatorTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
@@ -684,17 +654,16 @@ public class MultiplicationDeobfuscatorTest
 		LDC constant2 = new LDC(ins, -143176743);
 
 		Instruction body[] =
-		{
-			new ILoad(ins, 0),
-			constant1,
-			new IMul(ins),
-			constant2,
-			new IMul(ins),
-			new VReturn(ins)
-		};
+				{
+						new ILoad(ins, 0),
+						constant1,
+						new IMul(ins),
+						constant2,
+						new IMul(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -727,8 +696,7 @@ public class MultiplicationDeobfuscatorTest
 	//032   imul
 	//033   putfield              class81/field1326 I
 	@Test
-	public void test11()
-	{
+	public void test11() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -736,44 +704,42 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(5);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 1),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 1),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, 1129258489),
-			constant2 = new LDC(ins, -1692330935),
-			constant3 = new LDC(ins, 1641298955),
-			constant4 = new LDC(ins, 1043501435);
+				constant2 = new LDC(ins, -1692330935),
+				constant3 = new LDC(ins, 1641298955),
+				constant4 = new LDC(ins, 1043501435);
 
 		Instruction body[] =
-		{
-			new AConstNull(ins), // this
-			new AConstNull(ins), // this
-			new ILoad(ins, 0),
-			constant1,
-			new IMul(ins),
-			new Dup_X1(ins),
-			constant2,
-			new IMul(ins),
-			new Pop2(ins), // putfield
+				{
+						new AConstNull(ins), // this
+						new AConstNull(ins), // this
+						new ILoad(ins, 0),
+						constant1,
+						new IMul(ins),
+						new Dup_X1(ins),
+						constant2,
+						new IMul(ins),
+						new Pop2(ins), // putfield
 
-			constant3,
-			new IMul(ins),
-			constant4,
-			new IMul(ins),
-			new Pop2(ins), // putfield
+						constant3,
+						new IMul(ins),
+						constant4,
+						new IMul(ins),
+						new Pop2(ins), // putfield
 
-			new VReturn(ins)
-		};
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -811,8 +777,7 @@ public class MultiplicationDeobfuscatorTest
 	//035   imul
 	//036   putfield              class81/field1326 I
 	@Test
-	public void test12()
-	{
+	public void test12() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -820,13 +785,12 @@ public class MultiplicationDeobfuscatorTest
 		code.setMaxStack(5);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 1),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 1),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
@@ -834,26 +798,25 @@ public class MultiplicationDeobfuscatorTest
 		LDC constant2 = new LDC(ins, -1692330935);
 
 		Instruction body[] =
-		{
-			new AConstNull(ins), // this
-			new AConstNull(ins), // this
-			new ILoad(ins, 0),
-			constant1,
-			new IMul(ins),
-			new Swap(ins), // null, mul, null
+				{
+						new AConstNull(ins), // this
+						new AConstNull(ins), // this
+						new ILoad(ins, 0),
+						constant1,
+						new IMul(ins),
+						new Swap(ins), // null, mul, null
 
-			new ILoad(ins, 0),
-			new Pop2(ins), // putfield
+						new ILoad(ins, 0),
+						new Pop2(ins), // putfield
 
-			constant2,
-			new IMul(ins),
-			new Pop2(ins), // putfield
+						constant2,
+						new IMul(ins),
+						new Pop2(ins), // putfield
 
-			new VReturn(ins)
-		};
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -877,8 +840,7 @@ public class MultiplicationDeobfuscatorTest
 	//imul
 	//putstatic             class134/field2009 I
 	@Test
-	public void test13()
-	{
+	public void test13() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -889,18 +851,17 @@ public class MultiplicationDeobfuscatorTest
 		LDC constant2 = new LDC(ins, -585812297);
 
 		Instruction body[] =
-		{
-			new SiPush(ins, (short) 512),
-			constant1,
-			new IMul(ins),
-			constant2,
-			new IMul(ins),
+				{
+						new SiPush(ins, (short) 512),
+						constant1,
+						new IMul(ins),
+						constant2,
+						new IMul(ins),
 
-			new VReturn(ins)
-		};
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 

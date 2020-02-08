@@ -25,9 +25,11 @@
 package net.runelite.client.game.chatbox;
 
 import com.google.inject.Inject;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -40,12 +42,10 @@ import net.runelite.api.widgets.WidgetTextAlignment;
 import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.input.KeyListener;
 
-public class ChatboxTextMenuInput extends ChatboxInput implements KeyListener
-{
+public class ChatboxTextMenuInput extends ChatboxInput implements KeyListener {
 	@Data
 	@AllArgsConstructor
-	private static final class Entry
-	{
+	private static final class Entry {
 		private String text;
 		private Runnable callback;
 	}
@@ -62,38 +62,31 @@ public class ChatboxTextMenuInput extends ChatboxInput implements KeyListener
 	private Runnable onClose;
 
 	@Inject
-	protected ChatboxTextMenuInput(ChatboxPanelManager chatboxPanelManager)
-	{
+	protected ChatboxTextMenuInput(ChatboxPanelManager chatboxPanelManager) {
 		this.chatboxPanelManager = chatboxPanelManager;
 	}
 
-	public ChatboxTextMenuInput title(String title)
-	{
+	public ChatboxTextMenuInput title(String title) {
 		this.title = title;
 		return this;
 	}
 
-	public ChatboxTextMenuInput option(String text, Runnable callback)
-	{
+	public ChatboxTextMenuInput option(String text, Runnable callback) {
 		options.add(new Entry(text, callback));
 		return this;
 	}
 
-	public ChatboxTextMenuInput onClose(Runnable onClose)
-	{
+	public ChatboxTextMenuInput onClose(Runnable onClose) {
 		this.onClose = onClose;
 		return this;
 	}
 
-	public ChatboxTextMenuInput build()
-	{
-		if (title == null)
-		{
+	public ChatboxTextMenuInput build() {
+		if (title == null) {
 			throw new IllegalStateException("Title must be set");
 		}
 
-		if (options.size() < 1)
-		{
+		if (options.size() < 1) {
 			throw new IllegalStateException("You must have atleast 1 option");
 		}
 
@@ -102,8 +95,7 @@ public class ChatboxTextMenuInput extends ChatboxInput implements KeyListener
 	}
 
 	@Override
-	protected void open()
-	{
+	protected void open() {
 		Widget container = chatboxPanelManager.getContainerWidget();
 
 		Widget prompt = container.createChild(-1, WidgetType.TEXT);
@@ -124,15 +116,13 @@ public class ChatboxTextMenuInput extends ChatboxInput implements KeyListener
 		int height = container.getHeight() - y - 8;
 		int step = height / options.size();
 		int maxStep = options.size() >= 3 ? 25 : 30;
-		if (step > maxStep)
-		{
+		if (step > maxStep) {
 			int ds = step - maxStep;
 			step = maxStep;
 			y += (ds * options.size()) / 2;
 		}
 
-		for (Entry option : options)
-		{
+		for (Entry option : options) {
 			Widget optWidget = container.createChild(-1, WidgetType.TEXT);
 			optWidget.setText(option.text);
 			optWidget.setFontId(FontID.QUILL_8);
@@ -155,8 +145,7 @@ public class ChatboxTextMenuInput extends ChatboxInput implements KeyListener
 		}
 	}
 
-	private void callback(Entry entry)
-	{
+	private void callback(Entry entry) {
 		Widget container = chatboxPanelManager.getContainerWidget();
 		container.setOnKeyListener((Object[]) null);
 
@@ -166,46 +155,38 @@ public class ChatboxTextMenuInput extends ChatboxInput implements KeyListener
 	}
 
 	@Override
-	protected void close()
-	{
-		if (onClose != null)
-		{
+	protected void close() {
+		if (onClose != null) {
 			onClose.run();
 		}
 	}
 
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
 
-		if (c == '\033')
-		{
+		if (c == '\033') {
 			chatboxPanelManager.close();
 			e.consume();
 			return;
 		}
 
 		int n = c - '1';
-		if (n >= 0 && n < options.size())
-		{
+		if (n >= 0 && n < options.size()) {
 			callback(options.get(n));
 			e.consume();
 		}
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
-		{
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			e.consume();
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 	}
 }

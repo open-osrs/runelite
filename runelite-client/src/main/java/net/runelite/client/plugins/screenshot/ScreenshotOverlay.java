@@ -39,6 +39,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.MainBufferProvider;
 import net.runelite.client.ui.DrawManager;
@@ -49,8 +50,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
 @Singleton
-class ScreenshotOverlay extends Overlay
-{
+class ScreenshotOverlay extends Overlay {
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MMM. dd, yyyy");
 	private static final int REPORT_BUTTON_X_OFFSET = 404;
 
@@ -61,8 +61,7 @@ class ScreenshotOverlay extends Overlay
 	private final Queue<Consumer<Image>> consumers = new ConcurrentLinkedQueue<>();
 
 	@Inject
-	private ScreenshotOverlay(final Client client, final DrawManager drawManager, final ScreenshotPlugin plugin)
-	{
+	private ScreenshotOverlay(final Client client, final DrawManager drawManager, final ScreenshotPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -72,10 +71,8 @@ class ScreenshotOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (consumers.isEmpty())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (consumers.isEmpty()) {
 			return null;
 		}
 
@@ -104,18 +101,15 @@ class ScreenshotOverlay extends Overlay
 		// Request the queued screenshots to be taken,
 		// now that the timestamp is visible.
 		Consumer<Image> consumer;
-		while ((consumer = consumers.poll()) != null)
-		{
+		while ((consumer = consumers.poll()) != null) {
 			drawManager.requestNextFrameListener(consumer);
 		}
 
 		return null;
 	}
 
-	void queueForTimestamp(Consumer<Image> screenshotConsumer)
-	{
-		if (plugin.getReportButton() == null)
-		{
+	void queueForTimestamp(Consumer<Image> screenshotConsumer) {
+		if (plugin.getReportButton() == null) {
 			return;
 		}
 

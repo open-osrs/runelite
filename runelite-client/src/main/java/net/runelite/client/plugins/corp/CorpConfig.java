@@ -29,27 +29,24 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("corp")
-public interface CorpConfig extends Config
-{
+public interface CorpConfig extends Config {
 	@ConfigItem(
-		keyName = "leftClickCore",
-		name = "Left click walk on core",
-		description = "Prioritizes Walk here over Attack on the Dark energy core",
-		position = 1
+			keyName = "leftClickCore",
+			name = "Left click walk on core",
+			description = "Prioritizes Walk here over Attack on the Dark energy core",
+			position = 1
 	)
-	default boolean leftClickCore()
-	{
+	default boolean leftClickCore() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showDamage",
-		name = "Show damage overlay",
-		description = "Show total damage overlay",
-		position = 2
+			keyName = "showDamage",
+			name = "Show damage overlay",
+			description = "Show total damage overlay",
+			position = 2
 	)
-	default boolean showDamage()
-	{
+	default boolean showDamage() {
 		return true;
 	}
 }

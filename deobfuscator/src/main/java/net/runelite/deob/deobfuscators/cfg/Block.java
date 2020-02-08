@@ -26,10 +26,10 @@ package net.runelite.deob.deobfuscators.cfg;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.asm.attributes.code.Instruction;
 
-public class Block
-{
+public class Block {
 	private int id = -1;
 	private boolean jumptarget; // block is unconditionally jumped to
 
@@ -58,107 +58,86 @@ public class Block
 	 */
 	private final List<Instruction> instructions = new ArrayList<>();
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public boolean isJumptarget()
-	{
+	public boolean isJumptarget() {
 		return jumptarget;
 	}
 
-	public void setJumptarget(boolean jumptarget)
-	{
+	public void setJumptarget(boolean jumptarget) {
 		this.jumptarget = jumptarget;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Block ID ").append(id).append("\n");
-		if (flowsFrom != null)
-		{
+		if (flowsFrom != null) {
 			sb.append(" flows from ").append(flowsFrom.id).append("\n");
 		}
-		for (Instruction i : instructions)
-		{
+		for (Instruction i : instructions) {
 			sb.append("  ").append(i.toString()).append("\n");
 		}
-		if (flowsInto != null)
-		{
+		if (flowsInto != null) {
 			sb.append(" flows into ").append(flowsInto.id).append("\n");
 		}
 		sb.append("\n");
 		return sb.toString();
 	}
 
-	public void addInstruction(int idx, Instruction i)
-	{
+	public void addInstruction(int idx, Instruction i) {
 		assert !instructions.contains(i);
 		instructions.add(idx, i);
 	}
 
-	public void addInstruction(Instruction i)
-	{
+	public void addInstruction(Instruction i) {
 		assert !instructions.contains(i);
 		instructions.add(i);
 	}
 
-	public List<Instruction> getInstructions()
-	{
+	public List<Instruction> getInstructions() {
 		return instructions;
 	}
 
-	public void addPrev(Block block)
-	{
-		if (!prev.contains(block))
-		{
+	public void addPrev(Block block) {
+		if (!prev.contains(block)) {
 			prev.add(block);
 		}
 	}
 
-	public List<Block> getPrev()
-	{
+	public List<Block> getPrev() {
 		return prev;
 	}
 
-	public void addNext(Block block)
-	{
-		if (!next.contains(block))
-		{
+	public void addNext(Block block) {
+		if (!next.contains(block)) {
 			next.add(block);
 		}
 	}
 
-	public List<Block> getNext()
-	{
+	public List<Block> getNext() {
 		return next;
 	}
 
-	public Block getFlowsFrom()
-	{
+	public Block getFlowsFrom() {
 		return flowsFrom;
 	}
 
-	public void setFlowsFrom(Block flowsFrom)
-	{
+	public void setFlowsFrom(Block flowsFrom) {
 		this.flowsFrom = flowsFrom;
 	}
 
-	public Block getFlowsInto()
-	{
+	public Block getFlowsInto() {
 		return flowsInto;
 	}
 
-	public void setFlowsInto(Block flowsInto)
-	{
+	public void setFlowsInto(Block flowsInto) {
 		this.flowsInto = flowsInto;
 	}
 }

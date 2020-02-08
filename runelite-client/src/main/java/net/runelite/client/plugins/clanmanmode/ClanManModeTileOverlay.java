@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -12,14 +13,12 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class ClanManModeTileOverlay extends Overlay
-{
+public class ClanManModeTileOverlay extends Overlay {
 	private final ClanManModeService ClanManModeService;
 	private final ClanManModeConfig config;
 
 	@Inject
-	private ClanManModeTileOverlay(final ClanManModeConfig config, final ClanManModeService ClanManModeService)
-	{
+	private ClanManModeTileOverlay(final ClanManModeConfig config, final ClanManModeService ClanManModeService) {
 		this.config = config;
 		this.ClanManModeService = ClanManModeService;
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -28,10 +27,8 @@ public class ClanManModeTileOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!config.drawTiles())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!config.drawTiles()) {
 			return null;
 		}
 
@@ -39,8 +36,7 @@ public class ClanManModeTileOverlay extends Overlay
 		{
 			final Polygon poly = player.getCanvasTilePoly();
 
-			if (poly != null)
-			{
+			if (poly != null) {
 				OverlayUtil.renderPolygon(graphics, poly, color);
 			}
 		});

@@ -34,10 +34,13 @@ import java.util.Collection;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
+
 import static net.runelite.api.Perspective.getCanvasTileAreaPoly;
+
 import net.runelite.api.Projectile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
@@ -47,8 +50,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Singleton
-class AlchemicalHydraSceneOverlay extends Overlay
-{
+class AlchemicalHydraSceneOverlay extends Overlay {
 	@Setter(AccessLevel.PACKAGE)
 	private Color poisonBorder;
 
@@ -65,8 +67,7 @@ class AlchemicalHydraSceneOverlay extends Overlay
 	private final Client client;
 
 	@Inject
-	public AlchemicalHydraSceneOverlay(final Client client, final AlchemicalHydraPlugin plugin)
-	{
+	public AlchemicalHydraSceneOverlay(final Client client, final AlchemicalHydraPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.UNDER_WIDGETS);
 		this.plugin = plugin;
@@ -74,40 +75,33 @@ class AlchemicalHydraSceneOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		AlchemicalHydra hydra = plugin.getHydra();
 		final Map<LocalPoint, Projectile> poisonProjectiles = plugin.getPoisonProjectiles();
 
-		if (plugin.isCounting() && !poisonProjectiles.isEmpty())
-		{
+		if (plugin.isCounting() && !poisonProjectiles.isEmpty()) {
 			drawPoisonArea(graphics, poisonProjectiles);
 		}
 
-		if (plugin.isFountain() && hydra.getPhase().getFountain() != null)
-		{
+		if (plugin.isFountain() && hydra.getPhase().getFountain() != null) {
 			drawFountain(graphics, hydra);
 		}
 
 		return null;
 	}
 
-	private void drawPoisonArea(Graphics2D graphics, Map<LocalPoint, Projectile> poisonProjectiles)
-	{
+	private void drawPoisonArea(Graphics2D graphics, Map<LocalPoint, Projectile> poisonProjectiles) {
 		Area poisonTiles = new Area();
 
-		for (Map.Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet())
-		{
-			if (entry.getValue().getEndCycle() < client.getGameCycle())
-			{
+		for (Map.Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet()) {
+			if (entry.getValue().getEndCycle() < client.getGameCycle()) {
 				continue;
 			}
 
 			LocalPoint point = entry.getKey();
 			Polygon poly = getCanvasTileAreaPoly(client, point, 3);
 
-			if (poly != null)
-			{
+			if (poly != null) {
 				poisonTiles.add(new Area(poly));
 			}
 		}
@@ -119,8 +113,7 @@ class AlchemicalHydraSceneOverlay extends Overlay
 		graphics.fill(poisonTiles);
 	}
 
-	private void drawFountain(Graphics2D graphics, AlchemicalHydra hydra)
-	{
+	private void drawFountain(Graphics2D graphics, AlchemicalHydra hydra) {
 		Collection<WorldPoint> fountainWorldPoint = WorldPoint.toLocalInstance(client, hydra.getPhase().getFountain()); // thanks
 		if (fountainWorldPoint.size() > 1) // for
 		{
@@ -142,8 +135,7 @@ class AlchemicalHydraSceneOverlay extends Overlay
 
 		final Polygon poly = getCanvasTileAreaPoly(client, fountainPoint, 3); // don't
 
-		if (poly == null)
-		{
+		if (poly == null) {
 			return;
 		}
 
@@ -152,9 +144,7 @@ class AlchemicalHydraSceneOverlay extends Overlay
 		if (hydra.getNpc().getWorldArea().intersectsWith(new WorldArea(wp, 1, 1)))    // coords
 		{                                                                                            // WHICH FUCKING RETARD DID X, Y, dX, dY, Z???? IT'S XYZdXdY REEEEEEEEEE
 			color = goodFountain;
-		}
-		else
-		{
+		} else {
 			color = badFountain;
 		}
 

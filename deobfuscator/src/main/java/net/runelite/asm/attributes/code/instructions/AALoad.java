@@ -35,46 +35,39 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
-public class AALoad extends Instruction implements ArrayLoad
-{
-	public AALoad(Instructions instructions, InstructionType type)
-	{
+public class AALoad extends Instruction implements ArrayLoad {
+	public AALoad(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
-	public AALoad(Instructions instructions)
-	{
+	public AALoad(Instructions instructions) {
 		super(instructions, InstructionType.AALOAD);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext index = stack.pop();
 		StackContext array = stack.pop();
-		
+
 		ins.pop(index, array);
 
 		Type subtype;
 
-		if (array.getType().isArray())
-		{
+		if (array.getType().isArray()) {
 			subtype = array.getType().getSubtype();
-		}
-		else
-		{
+		} else {
 			// This will happen from aaloading from a aconst_null
 			subtype = array.getType();
 		}
-		
+
 		StackContext ctx = new StackContext(ins, subtype, array.getValue().arrayGet(index.getValue()));
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 }

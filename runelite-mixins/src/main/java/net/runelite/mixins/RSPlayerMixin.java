@@ -27,16 +27,20 @@ package net.runelite.mixins;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.util.ArrayList;
+
 import net.runelite.api.HeadIcon;
+
 import static net.runelite.api.HeadIcon.MAGIC;
 import static net.runelite.api.HeadIcon.MELEE;
 import static net.runelite.api.HeadIcon.RANGED;
 import static net.runelite.api.HeadIcon.REDEMPTION;
 import static net.runelite.api.HeadIcon.RETRIBUTION;
 import static net.runelite.api.HeadIcon.SMITE;
+
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
 import net.runelite.api.SkullIcon;
+
 import static net.runelite.api.SkullIcon.DEAD_MAN_FIVE;
 import static net.runelite.api.SkullIcon.DEAD_MAN_FOUR;
 import static net.runelite.api.SkullIcon.DEAD_MAN_ONE;
@@ -44,6 +48,7 @@ import static net.runelite.api.SkullIcon.DEAD_MAN_THREE;
 import static net.runelite.api.SkullIcon.DEAD_MAN_TWO;
 import static net.runelite.api.SkullIcon.SKULL;
 import static net.runelite.api.SkullIcon.SKULL_FIGHT_PIT;
+
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.mixins.Copy;
@@ -59,8 +64,7 @@ import net.runelite.rs.api.RSPlayer;
 import net.runelite.rs.api.RSUsername;
 
 @Mixin(RSPlayer.class)
-public abstract class RSPlayerMixin implements RSPlayer
-{
+public abstract class RSPlayerMixin implements RSPlayer {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -69,19 +73,16 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 	@Inject
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		final RSUsername rsName = getRsName();
 
-		if (rsName == null)
-		{
+		if (rsName == null) {
 			return null;
 		}
 
 		String name = rsName.getName();
 
-		if (name == null)
-		{
+		if (name == null) {
 			return null;
 		}
 
@@ -90,10 +91,8 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 	@Inject
 	@Override
-	public HeadIcon getOverheadIcon()
-	{
-		switch (getRsOverheadIcon())
-		{
+	public HeadIcon getOverheadIcon() {
+		switch (getRsOverheadIcon()) {
 			case 0:
 				return MELEE;
 			case 1:
@@ -113,10 +112,8 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 	@Inject
 	@Override
-	public SkullIcon getSkullIcon()
-	{
-		switch (getRsSkullIcon())
-		{
+	public SkullIcon getSkullIcon() {
+		switch (getRsSkullIcon()) {
 			case 0:
 				return SKULL;
 			case 1:
@@ -138,12 +135,10 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 	@Inject
 	@Override
-	public Polygon[] getPolygons()
-	{
+	public Polygon[] getPolygons() {
 		Model model = getModel();
 
-		if (model == null)
-		{
+		if (model == null) {
 			return null;
 		}
 
@@ -162,17 +157,16 @@ public abstract class RSPlayerMixin implements RSPlayer
 		int[] trianglesY = model.getTrianglesY();
 		int[] trianglesZ = model.getTrianglesZ();
 
-		for (int triangle = 0; triangle < model.getTrianglesCount(); ++triangle)
-		{
+		for (int triangle = 0; triangle < model.getTrianglesCount(); ++triangle) {
 			int[] xx =
-				{
-					x2d[trianglesX[triangle]], x2d[trianglesY[triangle]], x2d[trianglesZ[triangle]]
-				};
+					{
+							x2d[trianglesX[triangle]], x2d[trianglesY[triangle]], x2d[trianglesZ[triangle]]
+					};
 
 			int[] yy =
-				{
-					y2d[trianglesX[triangle]], y2d[trianglesY[triangle]], y2d[trianglesZ[triangle]]
-				};
+					{
+							y2d[trianglesX[triangle]], y2d[trianglesY[triangle]], y2d[trianglesZ[triangle]]
+					};
 
 			polys.add(new Polygon(xx, yy, 3));
 		}
@@ -182,11 +176,9 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 	@Inject
 	@Override
-	public Shape getConvexHull()
-	{
+	public Shape getConvexHull() {
 		RSModel model = getModel();
-		if (model == null)
-		{
+		if (model == null) {
 			return null;
 		}
 
@@ -199,26 +191,21 @@ public abstract class RSPlayerMixin implements RSPlayer
 	public abstract RSModel rs$getModel();
 
 	@Replace("getModel")
-	public RSModel rl$getModel()
-	{
-		if (!client.isInterpolatePlayerAnimations())
-		{
+	public RSModel rl$getModel() {
+		if (!client.isInterpolatePlayerAnimations()) {
 			return rs$getModel();
 		}
 		int actionFrame = getActionFrame();
 		int poseFrame = getPoseFrame();
 		int spotAnimFrame = getSpotAnimationFrame();
-		try
-		{
+		try {
 			// combine the frames with the frame cycle so we can access this information in the sequence methods
 			// without having to change method calls
 			setActionFrame(Integer.MIN_VALUE | getActionFrameCycle() << 16 | actionFrame);
 			setPoseFrame(Integer.MIN_VALUE | getPoseFrameCycle() << 16 | poseFrame);
 			setSpotAnimationFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
 			return rs$getModel();
-		}
-		finally
-		{
+		} finally {
 			// reset frames
 			setActionFrame(actionFrame);
 			setPoseFrame(poseFrame);
@@ -227,15 +214,13 @@ public abstract class RSPlayerMixin implements RSPlayer
 	}
 
 	@Inject
-	public boolean isFriended()
-	{
+	public boolean isFriended() {
 		return isFriend() || friended;
 	}
 
 	@Inject
 	@MethodHook(value = "checkIsFriend", end = true)
-	void updateFriended()
-	{
+	void updateFriended() {
 		friended = client.getFriendManager().isFriended(getRsName(), false);
 	}
 
@@ -243,14 +228,12 @@ public abstract class RSPlayerMixin implements RSPlayer
 	public abstract void rs$read(RSBuffer buffer);
 
 	@Replace("read")
-	public void rl$read(RSBuffer buffer)
-	{
+	public void rl$read(RSBuffer buffer) {
 		final long appearanceHash = getPlayerAppearance() == null ? 0 : getPlayerAppearance().getHash();
 
 		rs$read(buffer);
 
-		if (getPlayerAppearance().getHash() != appearanceHash)
-		{
+		if (getPlayerAppearance().getHash() != appearanceHash) {
 			client.getCallbacks().post(PlayerAppearanceChanged.class, new PlayerAppearanceChanged(this));
 		}
 	}

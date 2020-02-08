@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.coxhelper;
 
 import com.google.common.collect.ImmutableSet;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -52,15 +54,13 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class CoxOverlay extends Overlay
-{
+public class CoxOverlay extends Overlay {
 	private static final Set<Integer> GAP = ImmutableSet.of(34, 33, 26, 25, 18, 17, 10, 9, 2, 1);
 	private final Client client;
 	private final CoxPlugin plugin;
 
 	@Inject
-	private CoxOverlay(final Client client, final CoxPlugin plugin)
-	{
+	private CoxOverlay(final Client client, final CoxPlugin plugin) {
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -69,76 +69,58 @@ public class CoxOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		for (WorldPoint point : plugin.getOlm_Heal())
-		{
+	public Dimension render(Graphics2D graphics) {
+		for (WorldPoint point : plugin.getOlm_Heal()) {
 			drawTile(graphics, point, plugin.getTpColor(), 2, 150);
 		}
 
-		for (WorldPoint point : plugin.getOlm_TP())
-		{
+		for (WorldPoint point : plugin.getOlm_TP()) {
 			client.setHintArrow(point);
 			drawTile(graphics, point, plugin.getTpColor(), 2, 150);
 		}
 
-		if (plugin.inRaid())
-		{
-			for (NPCContainer npcs : plugin.getNpcContainer().values())
-			{
+		if (plugin.inRaid()) {
+			for (NPCContainer npcs : plugin.getNpcContainer().values()) {
 				Color color;
 				List<WorldPoint> hitSquares;
 				int ticksLeft;
-				switch (npcs.getNpc().getId())
-				{
+				switch (npcs.getNpc().getId()) {
 					case NpcID.TEKTON:
 					case NpcID.TEKTON_7541:
 					case NpcID.TEKTON_7542:
 					case NpcID.TEKTON_7545:
 					case NpcID.TEKTON_ENRAGED:
 					case NpcID.TEKTON_ENRAGED_7544:
-						if (plugin.isTekton())
-						{
+						if (plugin.isTekton()) {
 							hitSquares = getHitSquares(npcs.getNpc().getWorldLocation(), npcs.getNpcSize(), 1, false);
-							for (WorldPoint p : hitSquares)
-							{
+							for (WorldPoint p : hitSquares) {
 								drawTile(graphics, p, plugin.getTektonColor(), 0, 0);
 							}
-							if (plugin.isTektonTickCounter())
-							{
+							if (plugin.isTektonTickCounter()) {
 								ticksLeft = npcs.getTicksUntilAttack();
 								final int attackTicksleft = plugin.getTektonAttackTicks();
 								String attacksLeftStr;
 								Color attackcolor;
-								if (ticksLeft > 0)
-								{
-									if (ticksLeft == 1)
-									{
+								if (ticksLeft > 0) {
+									if (ticksLeft == 1) {
 										color = npcs.getAttackStyle().getColor();
-									}
-									else
-									{
+									} else {
 										color = Color.WHITE;
 									}
 									final String ticksLeftStr = String.valueOf(ticksLeft);
 									Point canvasPoint = npcs.getNpc().getCanvasTextLocation(graphics, ticksLeftStr, 0);
 									renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), color, canvasPoint);
 								}
-								if (attackTicksleft >= 0 && plugin.isTektonActive())
-								{
-									if (attackTicksleft <= 1)
-									{
+								if (attackTicksleft >= 0 && plugin.isTektonActive()) {
+									if (attackTicksleft <= 1) {
 										attackcolor = new Color(255, 0, 0, 255);
 										attacksLeftStr = "Phase Over";
-									}
-									else
-									{
+									} else {
 										attackcolor = new Color(255, 255, 255, 255);
 										attacksLeftStr = String.valueOf(attackTicksleft);
 									}
 
-									if (npcs.getNpc() != null)
-									{
+									if (npcs.getNpc() != null) {
 										Point canvasPoint = npcs.getNpc().getCanvasTextLocation(graphics, attacksLeftStr, 0);
 										renderTextLocationAbove(graphics, attacksLeftStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), attackcolor, canvasPoint);
 									}
@@ -149,11 +131,9 @@ public class CoxOverlay extends Overlay
 					case NpcID.MUTTADILE:
 					case NpcID.MUTTADILE_7562:
 					case NpcID.MUTTADILE_7563:
-						if (plugin.isMuttadile())
-						{
+						if (plugin.isMuttadile()) {
 							hitSquares = getHitSquares(npcs.getNpc().getWorldLocation(), npcs.getNpcSize(), 1, false);
-							for (WorldPoint p : hitSquares)
-							{
+							for (WorldPoint p : hitSquares) {
 								drawTile(graphics, p, plugin.getMuttaColor(), 0, 0);
 							}
 						}
@@ -162,25 +142,18 @@ public class CoxOverlay extends Overlay
 					case NpcID.GUARDIAN_7570:
 					case NpcID.GUARDIAN_7571:
 					case NpcID.GUARDIAN_7572:
-						if (plugin.isGuardians())
-						{
+						if (plugin.isGuardians()) {
 							hitSquares = getHitSquares(npcs.getNpc().getWorldLocation(), npcs.getNpcSize(), 2, true);
-							for (WorldPoint p : hitSquares)
-							{
+							for (WorldPoint p : hitSquares) {
 								drawTile(graphics, p, plugin.getGuardColor(), 0, 0);
 							}
 						}
-						if (plugin.isGuardinTickCounter())
-						{
+						if (plugin.isGuardinTickCounter()) {
 							ticksLeft = npcs.getTicksUntilAttack();
-							if (ticksLeft > 0)
-							{
-								if (ticksLeft == 1)
-								{
+							if (ticksLeft > 0) {
+								if (ticksLeft == 1) {
 									color = npcs.getAttackStyle().getColor();
-								}
-								else
-								{
+								} else {
 									color = Color.WHITE;
 								}
 								final String ticksLeftStr = String.valueOf(ticksLeft);
@@ -193,16 +166,14 @@ public class CoxOverlay extends Overlay
 					case NpcID.VANGUARD_7527:
 					case NpcID.VANGUARD_7528:
 					case NpcID.VANGUARD_7529:
-						if (plugin.isVangHighlight())
-						{
+						if (plugin.isVangHighlight()) {
 							OverlayUtil.renderPolygon(graphics, npcs.getNpc().getConvexHull(), npcs.getAttackStyle().getColor());
 						}
 						break;
 				}
 			}
 
-			if (plugin.isHandCripple())
-			{
+			if (plugin.isHandCripple()) {
 				int tick = plugin.getCrippleTimer();
 				NPC olmHand = plugin.getHand();
 				final String tickStr = String.valueOf(tick);
@@ -210,26 +181,19 @@ public class CoxOverlay extends Overlay
 				renderTextLocation(graphics, tickStr, plugin.getTextSize(), plugin.getFontStyle().getFont(), Color.GRAY, canvasPoint);
 			}
 
-			if (plugin.isTimers())
-			{
-				if (plugin.getVictims().size() > 0)
-				{
+			if (plugin.isTimers()) {
+				if (plugin.getVictims().size() > 0) {
 					plugin.getVictims().forEach(victim ->
 					{
 						final int ticksLeft = victim.getTicks();
 						String ticksLeftStr = String.valueOf(ticksLeft);
 						Color tickcolor;
-						switch (victim.getType())
-						{
+						switch (victim.getType()) {
 							case ACID:
-								if (ticksLeft > 0)
-								{
-									if (ticksLeft > 1)
-									{
+								if (ticksLeft > 0) {
+									if (ticksLeft > 1) {
 										tickcolor = new Color(69, 241, 44, 255);
-									}
-									else
-									{
+									} else {
 										tickcolor = new Color(255, 255, 255, 255);
 									}
 									Point canvasPoint = victim.getPlayer().getCanvasTextLocation(graphics, ticksLeftStr, 0);
@@ -237,15 +201,11 @@ public class CoxOverlay extends Overlay
 								}
 								break;
 							case BURN:
-								if (ticksLeft > 0)
-								{
-									if (GAP.contains(ticksLeft))
-									{
+								if (ticksLeft > 0) {
+									if (GAP.contains(ticksLeft)) {
 										tickcolor = new Color(255, 0, 0, 255);
 										ticksLeftStr = "GAP";
-									}
-									else
-									{
+									} else {
 										tickcolor = new Color(255, 255, 255, 255);
 									}
 									Point canvasPoint = victim.getPlayer().getCanvasTextLocation(graphics, ticksLeftStr, 0);
@@ -253,16 +213,11 @@ public class CoxOverlay extends Overlay
 								}
 								break;
 							case TELEPORT:
-								if (plugin.isTpOverlay())
-								{
-									if (ticksLeft > 0)
-									{
-										if (ticksLeft > 1)
-										{
+								if (plugin.isTpOverlay()) {
+									if (ticksLeft > 0) {
+										if (ticksLeft > 1) {
 											tickcolor = new Color(193, 255, 245, 255);
-										}
-										else
-										{
+										} else {
 											tickcolor = new Color(255, 255, 255, 255);
 										}
 										Point canvasPoint = victim.getPlayer().getCanvasTextLocation(graphics, ticksLeftStr, 0);
@@ -276,24 +231,19 @@ public class CoxOverlay extends Overlay
 				}
 			}
 
-			if (plugin.isRunOlm())
-			{
+			if (plugin.isRunOlm()) {
 				NPC boss = plugin.getOlm_NPC();
 
-				if (plugin.isOlmTick())
-				{
-					if (boss != null)
-					{
+				if (plugin.isOlmTick()) {
+					if (boss != null) {
 						final int tick = plugin.getOlm_TicksUntilAction();
 						final int cycle = plugin.getOlm_ActionCycle();
 						final int spec = plugin.getOlm_NextSpec();
 						final String tickStr = String.valueOf(tick);
 						String cycleStr = "?";
-						switch (cycle)
-						{
+						switch (cycle) {
 							case 1:
-								switch (spec)
-								{
+								switch (spec) {
 									case 1:
 										cycleStr = "Portals";
 										break;
@@ -335,22 +285,18 @@ public class CoxOverlay extends Overlay
 		return null;
 	}
 
-	private void drawTile(Graphics2D graphics, WorldPoint point, Color color, int strokeWidth, int outlineAlpha)
-	{
+	private void drawTile(Graphics2D graphics, WorldPoint point, Color color, int strokeWidth, int outlineAlpha) {
 		WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
-		if (point.distanceTo(playerLocation) >= 32)
-		{
+		if (point.distanceTo(playerLocation) >= 32) {
 			return;
 		}
 		LocalPoint lp = LocalPoint.fromWorld(client, point);
-		if (lp == null)
-		{
+		if (lp == null) {
 			return;
 		}
 
 		Polygon poly = Perspective.getCanvasTilePoly(client, lp);
-		if (poly == null)
-		{
+		if (poly == null) {
 			return;
 		}
 		//OverlayUtil.renderPolygon(graphics, poly, color);
@@ -361,14 +307,12 @@ public class CoxOverlay extends Overlay
 		graphics.fill(poly);
 	}
 
-	private void renderActorOverlay(Graphics2D graphics, Actor actor, Color color)
-	{
+	private void renderActorOverlay(Graphics2D graphics, Actor actor, Color color) {
 		final int size = 1;
 		final LocalPoint lp = actor.getLocalLocation();
 		final Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, lp, size);
 
-		if (tilePoly != null)
-		{
+		if (tilePoly != null) {
 			graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100));
 			graphics.setStroke(new BasicStroke(2));
 			graphics.draw(tilePoly);
@@ -377,50 +321,42 @@ public class CoxOverlay extends Overlay
 		}
 	}
 
-	private void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint)
-	{
+	private void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint) {
 		graphics.setFont(new Font("Arial", fontStyle, fontSize));
-		if (canvasPoint != null)
-		{
+		if (canvasPoint != null) {
 			final Point canvasCenterPoint = new Point(
-				canvasPoint.getX(),
-				canvasPoint.getY());
+					canvasPoint.getX(),
+					canvasPoint.getY());
 			final Point canvasCenterPoint_shadow = new Point(
-				canvasPoint.getX() + 1,
-				canvasPoint.getY() + 1);
-			if (plugin.isShadows())
-			{
+					canvasPoint.getX() + 1,
+					canvasPoint.getY() + 1);
+			if (plugin.isShadows()) {
 				OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
 			}
 			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
 		}
 	}
 
-	private void renderTextLocationAbove(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint)
-	{
+	private void renderTextLocationAbove(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint) {
 		graphics.setFont(new Font("Arial", fontStyle, fontSize));
-		if (canvasPoint != null)
-		{
+		if (canvasPoint != null) {
 			final Point canvasCenterPoint = new Point(
-				canvasPoint.getX(),
-				canvasPoint.getY() + 20);
+					canvasPoint.getX(),
+					canvasPoint.getY() + 20);
 			final Point canvasCenterPoint_shadow = new Point(
-				canvasPoint.getX() + 1,
-				canvasPoint.getY() + 21);
-			if (plugin.isShadows())
-			{
+					canvasPoint.getX() + 1,
+					canvasPoint.getY() + 21);
+			if (plugin.isShadows()) {
 				OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
 			}
 			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
 		}
 	}
 
-	private List<WorldPoint> getHitSquares(WorldPoint npcLoc, int npcSize, int thickness, boolean includeUnder)
-	{
+	private List<WorldPoint> getHitSquares(WorldPoint npcLoc, int npcSize, int thickness, boolean includeUnder) {
 		final List<WorldPoint> little = new WorldArea(npcLoc, npcSize, npcSize).toWorldPointList();
 		final List<WorldPoint> big = new WorldArea(npcLoc.getX() - thickness, npcLoc.getY() - thickness, npcSize + (thickness * 2), npcSize + (thickness * 2), npcLoc.getPlane()).toWorldPointList();
-		if (!includeUnder)
-		{
+		if (!includeUnder) {
 			big.removeIf(little::contains);
 		}
 		return big;

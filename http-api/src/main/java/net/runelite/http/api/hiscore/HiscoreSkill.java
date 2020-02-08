@@ -26,14 +26,14 @@ package net.runelite.http.api.hiscore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import static net.runelite.http.api.hiscore.HiscoreSkillType.SKILL;
 import static net.runelite.http.api.hiscore.HiscoreSkillType.ACTIVITY;
 import static net.runelite.http.api.hiscore.HiscoreSkillType.BOSS;
 
 @AllArgsConstructor
 @Getter
-public enum HiscoreSkill
-{
+public enum HiscoreSkill {
 	OVERALL("Overall", HiscoreSkillType.OVERALL),
 	ATTACK("Attack", SKILL),
 	DEFENCE("Defence", SKILL),

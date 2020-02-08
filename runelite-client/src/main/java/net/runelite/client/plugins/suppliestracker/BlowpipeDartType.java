@@ -27,6 +27,7 @@ package net.runelite.client.plugins.suppliestracker;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import static net.runelite.api.ItemID.ADAMANT_DART;
 import static net.runelite.api.ItemID.BRONZE_DART;
 import static net.runelite.api.ItemID.DRAGON_DART;
@@ -39,8 +40,7 @@ import static net.runelite.api.ItemID.STEEL_DART;
  * Type of darts that can be put into the blowpipe
  */
 @AllArgsConstructor
-public enum BlowpipeDartType
-{
+public enum BlowpipeDartType {
 	BRONZE(BRONZE_DART),
 	IRON(IRON_DART),
 	STEEL(STEEL_DART),

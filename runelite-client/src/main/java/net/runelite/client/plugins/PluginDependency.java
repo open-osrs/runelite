@@ -35,7 +35,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Documented
 @Repeatable(PluginDependencies.class)
-public @interface PluginDependency
-{
+public @interface PluginDependency {
 	Class<? extends Plugin> value();
 }

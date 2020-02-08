@@ -29,8 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum NpcHighlightStyle
-{
+public enum NpcHighlightStyle {
 	OFF("Off"),
 	TILE("Tile"),
 	HULL("Hull"),
@@ -39,8 +38,7 @@ public enum NpcHighlightStyle
 	private final String style;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return style;
 	}
 }

@@ -10,6 +10,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.awt.Color;
@@ -67,8 +68,7 @@ class NightmareOverlay extends Overlay {
 
 			if (graphicsObject.getId() == NIGHTMARE_SHADOW) {
 				color = Color.ORANGE;
-			}
-			else {
+			} else {
 				continue;
 			}
 
@@ -81,15 +81,14 @@ class NightmareOverlay extends Overlay {
 		}
 
 		int ticksUntilNext = plugin.getTicksUntilNextAttack();
-		if (plugin.isTickCounter() && ticksUntilNext > 0 && plugin.getNm() != null)
-		{
+		if (plugin.isTickCounter() && ticksUntilNext > 0 && plugin.getNm() != null) {
 			String str = Integer.toString(ticksUntilNext);
 
 			LocalPoint lp = plugin.getNm().getLocalLocation();
 			Point point = Perspective.getCanvasTextLocation(client, graphics, lp, str, 0);
 
 			Color tickColor = Color.WHITE;
-			if(ticksUntilNext == 4){
+			if (ticksUntilNext == 4) {
 				tickColor = plugin.getTickColor();
 			}
 
@@ -99,11 +98,9 @@ class NightmareOverlay extends Overlay {
 		return null;
 	}
 
-	protected void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint)
-	{
+	protected void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint) {
 		graphics.setFont(new Font("Arial", fontStyle, fontSize));
-		if (canvasPoint != null)
-		{
+		if (canvasPoint != null) {
 			final Point canvasCenterPoint = new Point(canvasPoint.getX(), canvasPoint.getY());
 			final Point canvasCenterPointShadow = new Point(canvasPoint.getX() + 1, canvasPoint.getY() + 1);
 

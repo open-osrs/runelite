@@ -27,8 +27,7 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class InterfaceDefinition
-{
+public class InterfaceDefinition {
 	public int id = -1;
 	public boolean isIf3 = false;
 	public int type;
@@ -104,7 +103,7 @@ public class InterfaceDefinition
 	public int[] invTransmitTriggers;
 	public int[] statTransmitTriggers;
 	public boolean hasListener;
-	
+
 	public int menuType;
 	// This is set to a siblings' child id when that widget should get a hover effect when this one is hovered
 	public int hoveredSiblingId;

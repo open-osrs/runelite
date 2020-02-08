@@ -26,28 +26,29 @@ package net.runelite.client.rs;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.After;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
-public class ClientConfigLoaderTest
-{
+public class ClientConfigLoaderTest {
 	private final MockWebServer server = new MockWebServer();
 
 	@Before
-	public void before() throws IOException
-	{
+	public void before() throws IOException {
 		String response;
-		try (InputStream in = getClass().getResourceAsStream("jav_config.ws"))
-		{
+		try (InputStream in = getClass().getResourceAsStream("jav_config.ws")) {
 			response = CharStreams.toString(new InputStreamReader(
-				in, Charsets.UTF_8));
+					in, Charsets.UTF_8));
 		}
 		server.enqueue(new MockResponse().setBody(response));
 
@@ -55,14 +56,12 @@ public class ClientConfigLoaderTest
 	}
 
 	@After
-	public void after() throws IOException
-	{
+	public void after() throws IOException {
 		server.shutdown();
 	}
 
 	@Test
-	public void testFetch() throws IOException
-	{
+	public void testFetch() throws IOException {
 		final RSConfig config = ClientConfigLoader.fetch(server.url("/"));
 		assertEquals("http://oldschool1.runescape.com/", config.getCodeBase());
 	}

@@ -28,83 +28,66 @@ package net.runelite.asm.attributes.code;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.pool.Class;
 
-public class Exception implements Cloneable
-{
+public class Exception implements Cloneable {
 	private Exceptions exceptions;
 
 	private Label start, end, handler;
 	private Class catchType;
 
-	public Exception(Exceptions exceptions)
-	{
+	public Exception(Exceptions exceptions) {
 		this.exceptions = exceptions;
 	}
-	
+
 	@Override
-	public Exception clone()
-	{
-		try
-		{
+	public Exception clone() {
+		try {
 			return (Exception) super.clone();
-		}
-		catch (CloneNotSupportedException ex)
-		{
+		} catch (CloneNotSupportedException ex) {
 			throw new RuntimeException();
 		}
 	}
-	
-	public Exceptions getExceptions()
-	{
+
+	public Exceptions getExceptions() {
 		return exceptions;
 	}
-	
-	public void setExceptions(Exceptions exceptions)
-	{
+
+	public void setExceptions(Exceptions exceptions) {
 		this.exceptions = exceptions;
 	}
-	
-	public Label getStart()
-	{
+
+	public Label getStart() {
 		return start;
 	}
-	
-	public void setStart(Label ins)
-	{
+
+	public void setStart(Label ins) {
 		start = ins;
 	}
-	
-	public Label getEnd()
-	{
+
+	public Label getEnd() {
 		return end;
 	}
 
-	public void setEnd(Label end)
-	{
+	public void setEnd(Label end) {
 		this.end = end;
 	}
-	
-	public Label getHandler()
-	{
+
+	public Label getHandler() {
 		return handler;
 	}
 
-	public void setHandler(Label handler)
-	{
+	public void setHandler(Label handler) {
 		this.handler = handler;
 	}
-	
-	public Class getCatchType()
-	{
+
+	public Class getCatchType() {
 		return catchType;
 	}
 
-	public void setCatchType(Class catchType)
-	{
+	public void setCatchType(Class catchType) {
 		this.catchType = catchType;
 	}
-	
-	public void renameClass(ClassFile cf, String name)
-	{
+
+	public void renameClass(ClassFile cf, String name) {
 		if (catchType != null && cf.getName().equals(catchType.getName()))
 			catchType = new Class(name);
 	}

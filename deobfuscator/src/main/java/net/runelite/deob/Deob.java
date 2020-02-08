@@ -25,8 +25,10 @@
 package net.runelite.deob;
 
 import com.google.common.base.Stopwatch;
+
 import java.io.File;
 import java.io.IOException;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.execution.Execution;
 import net.runelite.deob.deobfuscators.CastNull;
@@ -59,17 +61,14 @@ import net.runelite.deob.util.JarUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Deob
-{
+public class Deob {
 	private static final Logger logger = LoggerFactory.getLogger(Deob.class);
 
 	public static final int OBFUSCATED_NAME_MAX_LEN = 3;
 	private static final boolean CHECK_EXEC = false;
 
-	public static void main(String[] args) throws IOException
-	{
-		if (args == null || args.length < 2)
-		{
+	public static void main(String[] args) throws IOException {
+		if (args == null || args.length < 2) {
 			System.err.println("Syntax: input_jar output_jar");
 			System.exit(-1);
 		}
@@ -82,8 +81,7 @@ public class Deob
 
 		run(group, new StaticShouldBeInstance());
 
-		if (args.length <= 2 || !args[2].equals("rl"))
-		{
+		if (args.length <= 2 || !args[2].equals("rl")) {
 			// remove except RuntimeException
 			run(group, new RuntimeExceptions());
 
@@ -149,10 +147,8 @@ public class Deob
 		logger.info("Done in {}", stopwatch);
 	}
 
-	public static boolean isObfuscated(String name)
-	{
-		if (name.length() <= OBFUSCATED_NAME_MAX_LEN)
-		{
+	public static boolean isObfuscated(String name) {
+		if (name.length() <= OBFUSCATED_NAME_MAX_LEN) {
 			return !name.equals("run") && !name.equals("add");
 		}
 		return name.startsWith("method")
@@ -162,14 +158,12 @@ public class Deob
 				|| name.startsWith("__");
 	}
 
-	private static void runMath(ClassGroup group)
-	{
+	private static void runMath(ClassGroup group) {
 		ModArith mod = new ModArith();
 		mod.run(group);
 
 		int last = -1, cur;
-		while ((cur = mod.runOnce()) > 0)
-		{
+		while ((cur = mod.runOnce()) > 0) {
 			new MultiplicationDeobfuscator().run(group);
 
 			// do not remove 1 * field so that ModArith can detect
@@ -178,8 +172,7 @@ public class Deob
 
 			new MultiplyZeroDeobfuscator().run(group);
 
-			if (last == cur)
-			{
+			if (last == cur) {
 				break;
 			}
 
@@ -192,8 +185,7 @@ public class Deob
 		mod.annotateEncryption();
 	}
 
-	private static void run(ClassGroup group, Deobfuscator deob)
-	{
+	private static void run(ClassGroup group, Deobfuscator deob) {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 		deob.run(group);
 		stopwatch.stop();
@@ -201,8 +193,7 @@ public class Deob
 		logger.info("{} took {}", deob.getClass().getSimpleName(), stopwatch);
 
 		// check code is still correct
-		if (CHECK_EXEC)
-		{
+		if (CHECK_EXEC) {
 			Execution execution = new Execution(group);
 			execution.populateInitialMethods();
 			execution.run();

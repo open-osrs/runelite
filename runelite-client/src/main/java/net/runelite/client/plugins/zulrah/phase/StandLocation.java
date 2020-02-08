@@ -25,8 +25,7 @@
  */
 package net.runelite.client.plugins.zulrah.phase;
 
-public enum StandLocation
-{
+public enum StandLocation {
 	WEST,
 	EAST,
 	SOUTH,

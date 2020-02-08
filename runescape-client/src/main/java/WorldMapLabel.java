@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapLabel {
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "[[Lhn;"
+			signature = "[[Lhn;"
 	)
 	@Export("Widget_interfaceComponents")
 	public static Widget[][] Widget_interfaceComponents;
 	@ObfuscatedName("fs")
 	@ObfuscatedGetter(
-		longValue = 2387271044298976721L
+			longValue = 2387271044298976721L
 	)
 	static long field250;
 	@ObfuscatedName("c")
@@ -23,25 +23,25 @@ public class WorldMapLabel {
 	String text;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -2063978581
+			intValue = -2063978581
 	)
 	@Export("width")
 	int width;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1586627561
+			intValue = 1586627561
 	)
 	@Export("height")
 	int height;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lq;"
+			signature = "Lq;"
 	)
 	@Export("size")
 	WorldMapLabelSize size;
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;IILq;)V"
+			signature = "(Ljava/lang/String;IILq;)V"
 	)
 	WorldMapLabel(String var1, int var2, int var3, WorldMapLabelSize var4) {
 		this.text = var1;
@@ -52,8 +52,8 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
-		garbageValue = "104"
+			signature = "(IIB)I",
+			garbageValue = "104"
 	)
 	public static int method440(int var0, int var1) {
 		int var2 = var0 >>> 31;
@@ -62,8 +62,8 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "43"
+			signature = "(B)V",
+			garbageValue = "43"
 	)
 	static final void method439() {
 		class60.method1188("You can't add yourself to your own friend list");
@@ -71,8 +71,8 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("fp")
 	@ObfuscatedSignature(
-		signature = "(Lia;Ljava/lang/String;I)V",
-		garbageValue = "16711680"
+			signature = "(Lia;Ljava/lang/String;I)V",
+			garbageValue = "16711680"
 	)
 	static void method438(Archive var0, String var1) {
 		ArchiveLoader var2 = new ArchiveLoader(var0, var1);
@@ -82,8 +82,8 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("hb")
 	@ObfuscatedSignature(
-		signature = "(ZLks;I)V",
-		garbageValue = "-1660108888"
+			signature = "(ZLks;I)V",
+			garbageValue = "-1660108888"
 	)
 	@Export("loadRegions")
 	static final void loadRegions(boolean var0, PacketBuffer var1) {

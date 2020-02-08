@@ -27,27 +27,24 @@ package net.runelite.asm.execution;
 
 import java.util.Arrays;
 import java.util.List;
+
 import net.runelite.asm.Method;
 import net.runelite.asm.Type;
 
-public class Stack
-{
+public class Stack {
 	private int size;
 	private final StackContext[] stack;
 
-	public Stack(int sz)
-	{
+	public Stack(int sz) {
 		stack = new StackContext[sz * 2]; // XXX FIXME
 	}
 
-	public Stack(Stack other)
-	{
+	public Stack(Stack other) {
 		this.size = other.size;
 		this.stack = other.stack.clone();
 	}
 
-	private void printStack(StackContext ctx, int level)
-	{
+	private void printStack(StackContext ctx, int level) {
 		for (int i = 0; i < level; ++i)
 			System.err.print(" ");
 		System.err.println(ctx.getType() + " pushed by " + ctx.getPushed().getInstruction().getType().getName());// + " at " + ctx.getPushed().getInstruction().getPc());
@@ -55,10 +52,8 @@ public class Stack
 			printStack(c, level + 2);
 	}
 
-	public void push(StackContext i)
-	{
-		if (size == stack.length)
-		{
+	public void push(StackContext i) {
+		if (size == stack.length) {
 			Method m = i.getPushed().getInstruction().getInstructions().getCode().getMethod();
 			System.err.println("stack overflow in " + m.getClassFile().getName() + " method " + m.getName());
 			for (int c = 0; c < stack.length; ++c)
@@ -72,21 +67,18 @@ public class Stack
 		++size;
 	}
 
-	public StackContext pop()
-	{
+	public StackContext pop() {
 		if (size <= 0)
 			throw new RuntimeException("Stack underflow");
 
 		return stack[--size];
 	}
 
-	public int getSize()
-	{
+	public int getSize() {
 		return size;
 	}
 
-	public List<StackContext> getStack()
-	{
+	public List<StackContext> getStack() {
 		return Arrays.asList(stack);
 	}
 }

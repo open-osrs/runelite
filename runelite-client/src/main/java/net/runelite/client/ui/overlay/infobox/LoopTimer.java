@@ -25,25 +25,25 @@
 package net.runelite.client.ui.overlay.infobox;
 
 import com.google.common.base.Preconditions;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+
 import lombok.Getter;
 import lombok.ToString;
 import net.runelite.client.plugins.Plugin;
 
 @Getter
 @ToString
-public class LoopTimer extends InfoBox
-{
+public class LoopTimer extends InfoBox {
 	private final Instant startTime;
 	private final Duration duration;
 	private final boolean reverse;
 
-	public LoopTimer(long period, ChronoUnit unit, BufferedImage image, Plugin plugin, boolean reverse)
-	{
+	public LoopTimer(long period, ChronoUnit unit, BufferedImage image, Plugin plugin, boolean reverse) {
 		super(image, plugin);
 
 		Preconditions.checkArgument(period > 0, "negative period!");
@@ -53,14 +53,12 @@ public class LoopTimer extends InfoBox
 		this.reverse = reverse;
 	}
 
-	public LoopTimer(long period, ChronoUnit unit, BufferedImage image, Plugin plugin)
-	{
+	public LoopTimer(long period, ChronoUnit unit, BufferedImage image, Plugin plugin) {
 		this(period, unit, image, plugin, false);
 	}
 
 	@Override
-	public String getText()
-	{
+	public String getText() {
 		final Duration progress = getProgress();
 		final int seconds = (int) (progress.toMillis() / 1000L);
 		final int minutes = (seconds % 3600) / 60;
@@ -69,28 +67,25 @@ public class LoopTimer extends InfoBox
 	}
 
 	@Override
-	public Color getTextColor()
-	{
+	public Color getTextColor() {
 		final Duration progress = getProgress();
 
 		// check if timer has 10% of time left
-		if (progress.getSeconds() < (duration.getSeconds() * .10))
-		{
+		if (progress.getSeconds() < (duration.getSeconds() * .10)) {
 			return Color.RED.brighter();
 		}
 
 		return Color.WHITE;
 	}
 
-	private Duration getProgress()
-	{
+	private Duration getProgress() {
 		final Duration passed = Duration.between(startTime, Instant.now());
 		final long passedMillis = passed.toMillis();
 		final long durationMillis = duration.toMillis();
 		final long progress = passedMillis % durationMillis;
 
 		return Duration.ofMillis(reverse
-			? durationMillis - progress
-			: progress);
+				? durationMillis - progress
+				: progress);
 	}
 }

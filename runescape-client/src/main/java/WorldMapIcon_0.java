@@ -9,53 +9,53 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	@ObfuscatedName("nl")
 	@ObfuscatedGetter(
-		intValue = 801956047
+			intValue = 801956047
 	)
 	static int field142;
 	@ObfuscatedName("sn")
 	@ObfuscatedSignature(
-		signature = "Lly;"
+			signature = "Lly;"
 	)
 	@Export("worldMap")
 	static WorldMap worldMap;
 	@ObfuscatedName("dv")
 	@ObfuscatedSignature(
-		signature = "Lkr;"
+			signature = "Lkr;"
 	)
 	@Export("js5Socket")
 	static AbstractSocket js5Socket;
 	@ObfuscatedName("eg")
 	@ObfuscatedGetter(
-		intValue = -201961779
+			intValue = -201961779
 	)
 	static int field148;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -204680949
+			intValue = -204680949
 	)
 	@Export("element")
 	final int element;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Laz;"
+			signature = "Laz;"
 	)
 	@Export("label")
 	final WorldMapLabel label;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 844262399
+			intValue = 844262399
 	)
 	@Export("subWidth")
 	final int subWidth;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1735837545
+			intValue = 1735837545
 	)
 	@Export("subHeight")
 	final int subHeight;
 
 	@ObfuscatedSignature(
-		signature = "(Lhj;Lhj;ILaz;)V"
+			signature = "(Lhj;Lhj;ILaz;)V"
 	)
 	WorldMapIcon_0(Coord var1, Coord var2, int var3, WorldMapLabel var4) {
 		super(var1, var2);
@@ -75,8 +75,8 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "1499764486"
+			signature = "(I)I",
+			garbageValue = "1499764486"
 	)
 	@Export("getElement")
 	public int getElement() {
@@ -85,8 +85,8 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(B)Laz;",
-		garbageValue = "124"
+			signature = "(B)Laz;",
+			garbageValue = "124"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
@@ -95,8 +95,8 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(S)I",
-		garbageValue = "-26101"
+			signature = "(S)I",
+			garbageValue = "-26101"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
@@ -105,8 +105,8 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "1"
+			signature = "(B)I",
+			garbageValue = "1"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
@@ -115,8 +115,8 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)J",
-		garbageValue = "74"
+			signature = "(B)J",
+			garbageValue = "74"
 	)
 	@Export("currentTimeMillis")
 	public static final synchronized long currentTimeMillis() {
@@ -131,8 +131,8 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lks;I)V",
-		garbageValue = "-2023034499"
+			signature = "(Lks;I)V",
+			garbageValue = "-2023034499"
 	)
 	static final void method206(PacketBuffer var0) {
 		int var1 = 0;
@@ -148,13 +148,13 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 				if (var1 > 0) {
 					--var1;
 					var10000 = Players.field1236;
-					var10000[var3] = (byte)(var10000[var3] | 2);
+					var10000[var3] = (byte) (var10000[var3] | 2);
 				} else {
 					var4 = var0.readBits(1);
 					if (var4 == 0) {
 						var1 = class80.method2094(var0);
 						var10000 = Players.field1236;
-						var10000[var3] = (byte)(var10000[var3] | 2);
+						var10000[var3] = (byte) (var10000[var3] | 2);
 					} else {
 						class208.readPlayerUpdate(var0, var3);
 					}
@@ -174,13 +174,13 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 					if (var1 > 0) {
 						--var1;
 						var10000 = Players.field1236;
-						var10000[var3] = (byte)(var10000[var3] | 2);
+						var10000[var3] = (byte) (var10000[var3] | 2);
 					} else {
 						var4 = var0.readBits(1);
 						if (var4 == 0) {
 							var1 = class80.method2094(var0);
 							var10000 = Players.field1236;
-							var10000[var3] = (byte)(var10000[var3] | 2);
+							var10000[var3] = (byte) (var10000[var3] | 2);
 						} else {
 							class208.readPlayerUpdate(var0, var3);
 						}
@@ -200,16 +200,16 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 						if (var1 > 0) {
 							--var1;
 							var10000 = Players.field1236;
-							var10000[var3] = (byte)(var10000[var3] | 2);
+							var10000[var3] = (byte) (var10000[var3] | 2);
 						} else {
 							var4 = var0.readBits(1);
 							if (var4 == 0) {
 								var1 = class80.method2094(var0);
 								var10000 = Players.field1236;
-								var10000[var3] = (byte)(var10000[var3] | 2);
+								var10000[var3] = (byte) (var10000[var3] | 2);
 							} else if (class40.updateExternalPlayer(var0, var3)) {
 								var10000 = Players.field1236;
-								var10000[var3] = (byte)(var10000[var3] | 2);
+								var10000[var3] = (byte) (var10000[var3] | 2);
 							}
 						}
 					}
@@ -227,16 +227,16 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 							if (var1 > 0) {
 								--var1;
 								var10000 = Players.field1236;
-								var10000[var3] = (byte)(var10000[var3] | 2);
+								var10000[var3] = (byte) (var10000[var3] | 2);
 							} else {
 								var4 = var0.readBits(1);
 								if (var4 == 0) {
 									var1 = class80.method2094(var0);
 									var10000 = Players.field1236;
-									var10000[var3] = (byte)(var10000[var3] | 2);
+									var10000[var3] = (byte) (var10000[var3] | 2);
 								} else if (class40.updateExternalPlayer(var0, var3)) {
 									var10000 = Players.field1236;
-									var10000[var3] = (byte)(var10000[var3] | 2);
+									var10000[var3] = (byte) (var10000[var3] | 2);
 								}
 							}
 						}
@@ -251,7 +251,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 						for (var2 = 1; var2 < 2048; ++var2) {
 							var10000 = Players.field1236;
-							var10000[var2] = (byte)(var10000[var2] >> 1);
+							var10000[var2] = (byte) (var10000[var2] >> 1);
 							Player var5 = Client.players[var2];
 							if (var5 != null) {
 								Players.Players_indices[++Players.Players_count - 1] = var2;
@@ -268,12 +268,12 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("ks")
 	@ObfuscatedSignature(
-		signature = "(Lhn;I)I",
-		garbageValue = "2118498909"
+			signature = "(Lhn;I)I",
+			garbageValue = "2118498909"
 	)
 	@Export("getWidgetClickMask")
 	static int getWidgetClickMask(Widget var0) {
-		IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.get((long)var0.childIndex + ((long)var0.id << 32));
+		IntegerNode var1 = (IntegerNode) Client.widgetClickMasks.get((long) var0.childIndex + ((long) var0.id << 32));
 		return var1 != null ? var1.integer : var0.clickMask;
 	}
 }

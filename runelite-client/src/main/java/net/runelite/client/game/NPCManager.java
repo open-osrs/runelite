@@ -29,43 +29,40 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.stream.JsonReader;
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Singleton
-public class NPCManager
-{
+public class NPCManager {
 	private ImmutableMap<Integer, NPCStats> statsMap;
 
 	@Inject
-	private NPCManager()
-	{
+	private NPCManager() {
 		Completable.fromAction(this::loadStats)
-			.subscribeOn(Schedulers.computation())
-			.subscribe(
-				() -> log.debug("Loaded {} NPC stats", statsMap.size()),
-				ex -> log.warn("Error loading NPC stats", ex)
-			);
+				.subscribeOn(Schedulers.computation())
+				.subscribe(
+						() -> log.debug("Loaded {} NPC stats", statsMap.size()),
+						ex -> log.warn("Error loading NPC stats", ex)
+				);
 	}
 
-	private void loadStats() throws IOException
-	{
-		try (JsonReader reader = new JsonReader(new InputStreamReader(NPCManager.class.getResourceAsStream("/npc_stats.json"), StandardCharsets.UTF_8)))
-		{
+	private void loadStats() throws IOException {
+		try (JsonReader reader = new JsonReader(new InputStreamReader(NPCManager.class.getResourceAsStream("/npc_stats.json"), StandardCharsets.UTF_8))) {
 			ImmutableMap.Builder<Integer, NPCStats> builder = ImmutableMap.builderWithExpectedSize(2821);
 			reader.beginObject();
 
-			while (reader.hasNext())
-			{
+			while (reader.hasNext()) {
 				builder.put(
-					Integer.parseInt(reader.nextName()),
-					NPCStats.NPC_STATS_TYPE_ADAPTER.read(reader)
+						Integer.parseInt(reader.nextName()),
+						NPCStats.NPC_STATS_TYPE_ADAPTER.read(reader)
 				);
 			}
 
@@ -81,8 +78,7 @@ public class NPCManager
 	 * @return the {@link NPCStats} or null if unknown
 	 */
 	@Nullable
-	public NPCStats getStats(final int npcId)
-	{
+	public NPCStats getStats(final int npcId) {
 		return statsMap.get(npcId);
 	}
 
@@ -92,11 +88,9 @@ public class NPCManager
 	 * @param npcId NPC id
 	 * @return health or null if unknown
 	 */
-	public int getHealth(final int npcId)
-	{
+	public int getHealth(final int npcId) {
 		final NPCStats s = statsMap.get(npcId);
-		if (s == null || s.getHitpoints() == -1)
-		{
+		if (s == null || s.getHitpoints() == -1) {
 			return -1;
 		}
 
@@ -109,11 +103,9 @@ public class NPCManager
 	 * @param npcId NPC id
 	 * @return attack speed in game ticks for NPC ID.
 	 */
-	public int getAttackSpeed(final int npcId)
-	{
+	public int getAttackSpeed(final int npcId) {
 		final NPCStats s = statsMap.get(npcId);
-		if (s == null || s.getAttackSpeed() == -1)
-		{
+		if (s == null || s.getAttackSpeed() == -1) {
 			return -1;
 		}
 
@@ -126,11 +118,9 @@ public class NPCManager
 	 * @param npcId NPC id
 	 * @return npcs exp modifier. Assumes default xp rate if npc stats are unknown (returns 1)
 	 */
-	public double getXpModifier(final int npcId)
-	{
+	public double getXpModifier(final int npcId) {
 		final NPCStats s = statsMap.get(npcId);
-		if (s == null)
-		{
+		if (s == null) {
 			return 1;
 		}
 

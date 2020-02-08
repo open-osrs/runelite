@@ -31,8 +31,7 @@ import lombok.Getter;
  * An enumeration of possible instance templates and the area they occupy.
  */
 @AllArgsConstructor
-public enum InstanceTemplates
-{
+public enum InstanceTemplates {
 	RAIDS_LOBBY(3264, 5184, 0, 96, 32),
 	RAIDS_START(3264, 5696, 0, 96, 32),
 	RAIDS_END(3264, 5152, 0, 64, 32),
@@ -89,19 +88,16 @@ public enum InstanceTemplates
 	 * @param chunkData the chunk data
 	 * @return the instance the chunk is in
 	 */
-	public static InstanceTemplates findMatch(int chunkData)
-	{
+	public static InstanceTemplates findMatch(int chunkData) {
 		int rotation = chunkData >> 1 & 0x3; //unused, but shows us the rotation of the chunk
 		int y = (chunkData >> 3 & 0x7FF) * 8;
 		int x = (chunkData >> 14 & 0x3FF) * 8;
 		int plane = chunkData >> 24 & 0x3;
 
-		for (InstanceTemplates template : InstanceTemplates.values())
-		{
+		for (InstanceTemplates template : InstanceTemplates.values()) {
 			if (plane == template.getPlane()
 					&& x >= template.getBaseX() && x < template.getBaseX() + template.getWidth()
-					&& y >= template.getBaseY() && y < template.getBaseY() + template.getHeight())
-			{
+					&& y >= template.getBaseY() && y < template.getBaseY() + template.getHeight()) {
 				return template;
 			}
 		}

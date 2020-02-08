@@ -24,17 +24,14 @@
  */
 package net.runelite.asm.execution.tests;
 
-public class TableSwitch
-{
+public class TableSwitch {
 	public static int field1;
 	public static int field2;
 	public static int field3;
 	public static int field4;
 
-	public static void method()
-	{
-		switch (field1)
-		{
+	public static void method() {
+		switch (field1) {
 			case 0:
 				field2 = 2;
 				break;

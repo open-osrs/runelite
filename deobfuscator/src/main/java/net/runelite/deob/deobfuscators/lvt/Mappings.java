@@ -26,12 +26,12 @@ package net.runelite.deob.deobfuscators.lvt;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.asm.attributes.code.instruction.types.LVTInstructionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Mappings
-{
+public class Mappings {
 	private static final Logger logger = LoggerFactory.getLogger(Mappings.class);
 
 	private final int maxVariables;
@@ -39,15 +39,12 @@ public class Mappings
 	private Map<Integer, LVTType> map = new HashMap<>();
 	private Map<MapKey, Integer> newIdxMap = new HashMap<>();
 
-	public Mappings(int maxVariables)
-	{
+	public Mappings(int maxVariables) {
 		this.maxVariables = maxVariables;
 	}
 
-	private static LVTType toLvtType(LVTInstructionType type)
-	{
-		switch (type)
-		{
+	private static LVTType toLvtType(LVTInstructionType type) {
+		switch (type) {
 			case DOUBLE:
 			case LONG:
 				return LVTType.LONG;
@@ -61,21 +58,16 @@ public class Mappings
 		}
 	}
 
-	public Integer remap(int idx, LVTInstructionType type)
-	{
+	public Integer remap(int idx, LVTInstructionType type) {
 		LVTType seen = map.get(idx);
 
-		if (seen == null)
-		{
+		if (seen == null) {
 			map.put(idx, toLvtType(type));
-		}
-		else if (toLvtType(type) != seen)
-		{
+		} else if (toLvtType(type) != seen) {
 			MapKey key = new MapKey(idx, toLvtType(type));
 
 			Integer newIdx = newIdxMap.get(key);
-			if (newIdx == null)
-			{
+			if (newIdx == null) {
 				newIdx = maxVariables + offset;
 				newIdxMap.put(key, newIdx);
 

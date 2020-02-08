@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.callback.ClientThread;
@@ -43,8 +44,7 @@ import net.runelite.client.ui.components.materialtabs.MaterialTab;
 import net.runelite.client.ui.components.materialtabs.MaterialTabGroup;
 
 @Singleton
-class GrandExchangePanel extends PluginPanel
-{
+class GrandExchangePanel extends PluginPanel {
 
 	// this panel will hold either the ge search panel or the ge offers panel
 	private final JPanel display = new JPanel();
@@ -58,8 +58,7 @@ class GrandExchangePanel extends PluginPanel
 	private GrandExchangeOffersPanel offersPanel;
 
 	@Inject
-	private GrandExchangePanel(ClientThread clientThread, ItemManager itemManager, ScheduledExecutorService executor, GrandExchangeConfig config)
-	{
+	private GrandExchangePanel(ClientThread clientThread, ItemManager itemManager, ScheduledExecutorService executor, GrandExchangeConfig config) {
 		super(false);
 
 		setLayout(new BorderLayout());
@@ -83,10 +82,8 @@ class GrandExchangePanel extends PluginPanel
 		add(display, BorderLayout.CENTER);
 	}
 
-	void showSearch()
-	{
-		if (searchPanel.isShowing())
-		{
+	void showSearch() {
+		if (searchPanel.isShowing()) {
 			return;
 		}
 
@@ -94,8 +91,7 @@ class GrandExchangePanel extends PluginPanel
 		revalidate();
 	}
 
-	void setGELimits(Map<Integer, Integer> itemGELimits)
-	{
+	void setGELimits(Map<Integer, Integer> itemGELimits) {
 		searchPanel.setItemGELimits(itemGELimits);
 	}
 }

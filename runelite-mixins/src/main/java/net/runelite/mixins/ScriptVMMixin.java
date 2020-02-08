@@ -26,8 +26,11 @@ package net.runelite.mixins;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import net.runelite.api.Client;
+
 import static net.runelite.api.Opcodes.RUNELITE_EXECUTE;
+
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
@@ -40,8 +43,7 @@ import net.runelite.rs.api.RSScript;
 import net.runelite.rs.api.RSScriptEvent;
 
 @Mixin(RSClient.class)
-public abstract class ScriptVMMixin implements RSClient
-{
+public abstract class ScriptVMMixin implements RSClient {
 	@Shadow("client")
 	private static Client client;
 
@@ -55,28 +57,23 @@ public abstract class ScriptVMMixin implements RSClient
 
 	// Call is injected into runScript by the ScriptVM raw injector
 	@Inject
-	static boolean vmExecuteOpcode(int opcode)
-	{
-		if (opcode == RUNELITE_EXECUTE)
-		{
+	static boolean vmExecuteOpcode(int opcode) {
+		if (opcode == RUNELITE_EXECUTE) {
 			assert currentScript.getInstructions()[currentScriptPC] == RUNELITE_EXECUTE;
 
 			int stringStackSize = client.getStringStackSize();
 			String stringOp = client.getStringStack()[--stringStackSize];
 			client.setStringStackSize(stringStackSize);
 
-			if ("debug".equals(stringOp))
-			{
+			if ("debug".equals(stringOp)) {
 				int intStackSize = client.getIntStackSize();
 
 				String fmt = client.getStringStack()[--stringStackSize];
 				StringBuffer out = new StringBuffer();
 				Matcher m = Pattern.compile("%(.)").matcher(fmt);
-				for (; m.find(); )
-				{
+				for (; m.find(); ) {
 					m.appendReplacement(out, "");
-					switch (m.group(1).charAt(0))
-					{
+					switch (m.group(1).charAt(0)) {
 						case 'i':
 						case 'd':
 							out.append(client.getIntStack()[--intStackSize]);
@@ -107,42 +104,32 @@ public abstract class ScriptVMMixin implements RSClient
 	}
 
 	@Copy("runScript")
-	static void rs$runScript(RSScriptEvent event, int maxExecutionTime)
-	{
+	static void rs$runScript(RSScriptEvent event, int maxExecutionTime) {
 		throw new RuntimeException();
 	}
 
 	@Replace("runScript")
-	static void rl$runScript(RSScriptEvent event, int maxExecutionTime)
-	{
+	static void rl$runScript(RSScriptEvent event, int maxExecutionTime) {
 		Object[] arguments = event.getArguments();
-		if (arguments != null && arguments.length > 0 && arguments[0] instanceof JavaScriptCallback)
-		{
-			try
-			{
+		if (arguments != null && arguments.length > 0 && arguments[0] instanceof JavaScriptCallback) {
+			try {
 				((JavaScriptCallback) arguments[0]).run(event);
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				client.getLogger().error("Error in JavaScriptCallback", e);
 			}
 			return;
 		}
 
-		try
-		{
+		try {
 			rs$runScript(event, maxExecutionTime);
-		}
-		finally
-		{
+		} finally {
 			currentScript = null;
 		}
 	}
 
 	@Inject
 	@Override
-	public void runScript(Object... args)
-	{
+	public void runScript(Object... args) {
 		assert isClientThread();
 		assert currentScript == null;
 		assert args[0] instanceof Integer || args[0] instanceof JavaScriptCallback : "The first argument should always be a ScriptID!";

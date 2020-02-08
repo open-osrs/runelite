@@ -32,6 +32,7 @@ import java.awt.Rectangle;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
@@ -42,14 +43,12 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class TimersOverlay extends Overlay
-{
+public class TimersOverlay extends Overlay {
 	private final TickTimersPlugin plugin;
 	private final Client client;
 
 	@Inject
-	TimersOverlay(final TickTimersPlugin plugin, final Client client)
-	{
+	TimersOverlay(final TickTimersPlugin plugin, final Client client) {
 		this.plugin = plugin;
 		this.client = client;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -58,12 +57,9 @@ public class TimersOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		for (NPCContainer npc : plugin.getNpcContainer())
-		{
-			if (npc.getNpc() == null)
-			{
+	public Dimension render(Graphics2D graphics) {
+		for (NPCContainer npc : plugin.getNpcContainer()) {
+			if (npc.getNpc() == null) {
 				continue;
 			}
 
@@ -71,16 +67,13 @@ public class TimersOverlay extends Overlay
 			final List<WorldPoint> hitSquares = OverlayUtil.getHitSquares(npc.getNpc().getWorldLocation(), npc.getNpcSize(), 1, false);
 			final NPCContainer.AttackStyle attackStyle = npc.getAttackStyle();
 
-			if (plugin.isShowHitSquares() && attackStyle.getName().equals("Melee"))
-			{
-				for (WorldPoint p : hitSquares)
-				{
+			if (plugin.isShowHitSquares() && attackStyle.getName().equals("Melee")) {
+				for (WorldPoint p : hitSquares) {
 					OverlayUtil.drawTiles(graphics, client, p, client.getLocalPlayer().getWorldLocation(), attackStyle.getColor(), 0, 0, 50);
 				}
 			}
 
-			if (ticksLeft <= 0)
-			{
+			if (ticksLeft <= 0) {
 				continue;
 			}
 
@@ -89,8 +82,7 @@ public class TimersOverlay extends Overlay
 			final boolean shadows = plugin.isShadows();
 			Color color = (ticksLeft <= 1 ? Color.WHITE : attackStyle.getColor());
 
-			if (!plugin.isChangeTickColor())
-			{
+			if (!plugin.isChangeTickColor()) {
 				color = attackStyle.getColor();
 			}
 
@@ -98,12 +90,10 @@ public class TimersOverlay extends Overlay
 
 			OverlayUtil.renderTextLocation(graphics, ticksLeftStr, plugin.getTextSize(), font, color, canvasPoint, shadows, 0);
 
-			if (plugin.isShowPrayerWidgetHelper() && attackStyle.getPrayer() != null)
-			{
+			if (plugin.isShowPrayerWidgetHelper() && attackStyle.getPrayer() != null) {
 				Rectangle bounds = OverlayUtil.renderPrayerOverlay(graphics, client, attackStyle.getPrayer(), color);
 
-				if (bounds != null)
-				{
+				if (bounds != null) {
 					renderTextLocation(graphics, ticksLeftStr, 16, plugin.getFontStyle().getFont(), color, centerPoint(bounds), shadows);
 				}
 			}
@@ -111,27 +101,23 @@ public class TimersOverlay extends Overlay
 		return null;
 	}
 
-	private void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint, boolean shadows)
-	{
+	private void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint, boolean shadows) {
 		graphics.setFont(new Font("Arial", fontStyle, fontSize));
-		if (canvasPoint != null)
-		{
+		if (canvasPoint != null) {
 			final Point canvasCenterPoint = new Point(
-				canvasPoint.getX() - 3,
-				canvasPoint.getY() + 6);
+					canvasPoint.getX() - 3,
+					canvasPoint.getY() + 6);
 			final Point canvasCenterPoint_shadow = new Point(
-				canvasPoint.getX() - 2,
-				canvasPoint.getY() + 7);
-			if (shadows)
-			{
+					canvasPoint.getX() - 2,
+					canvasPoint.getY() + 7);
+			if (shadows) {
 				OverlayUtil.renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
 			}
 			OverlayUtil.renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
 		}
 	}
 
-	private Point centerPoint(Rectangle rect)
-	{
+	private Point centerPoint(Rectangle rect) {
 		int x = (int) (rect.getX() + rect.getWidth() / 2);
 		int y = (int) (rect.getY() + rect.getHeight() / 2);
 		return new Point(x, y);

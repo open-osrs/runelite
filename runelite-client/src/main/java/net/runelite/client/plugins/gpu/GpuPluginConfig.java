@@ -30,188 +30,175 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigTitleSection;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Title;
+
 import static net.runelite.client.plugins.gpu.GpuPlugin.MAX_DISTANCE;
 import static net.runelite.client.plugins.gpu.GpuPlugin.MAX_FOG_DEPTH;
+
 import net.runelite.client.plugins.gpu.config.AnisotropicFilteringMode;
 import net.runelite.client.plugins.gpu.config.AntiAliasingMode;
 import net.runelite.client.plugins.gpu.config.UIScalingMode;
 
 @ConfigGroup("gpu")
-public interface GpuPluginConfig extends Config
-{
+public interface GpuPluginConfig extends Config {
 	@ConfigTitleSection(
-		keyName = "drawingTitle",
-		name = "Drawing",
-		description = "",
-		position = 1
+			keyName = "drawingTitle",
+			name = "Drawing",
+			description = "",
+			position = 1
 	)
-	default Title drawingTitle()
-	{
+	default Title drawingTitle() {
 		return new Title();
 	}
 
 	@Range(
-		min = 20,
-		max = MAX_DISTANCE
+			min = 20,
+			max = MAX_DISTANCE
 	)
 	@ConfigItem(
-		keyName = "drawDistance",
-		name = "Draw Distance",
-		description = "Draw distance",
-		position = 2,
-		titleSection = "drawingTitle"
+			keyName = "drawDistance",
+			name = "Draw Distance",
+			description = "Draw distance",
+			position = 2,
+			titleSection = "drawingTitle"
 	)
-	default int drawDistance()
-	{
+	default int drawDistance() {
 		return 25;
 	}
 
 	@ConfigItem(
-		keyName = "smoothBanding",
-		name = "Remove Color Banding",
-		description = "Smooths out the color banding that is present in the CPU renderer",
-		position = 3,
-		titleSection = "drawingTitle"
+			keyName = "smoothBanding",
+			name = "Remove Color Banding",
+			description = "Smooths out the color banding that is present in the CPU renderer",
+			position = 3,
+			titleSection = "drawingTitle"
 	)
-	default boolean smoothBanding()
-	{
+	default boolean smoothBanding() {
 		return false;
 	}
 
 	@ConfigTitleSection(
-		keyName = "scalingTitle",
-		name = "Scaling",
-		description = "",
-		position = 4
+			keyName = "scalingTitle",
+			name = "Scaling",
+			description = "",
+			position = 4
 	)
-	default Title scalingTitle()
-	{
+	default Title scalingTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "uiScalingMode",
-		name = "UI scaling mode",
-		description = "Sampling function to use for the UI in stretched mode",
-		titleSection = "scalingTitle",
-		position = 5
+			keyName = "uiScalingMode",
+			name = "UI scaling mode",
+			description = "Sampling function to use for the UI in stretched mode",
+			titleSection = "scalingTitle",
+			position = 5
 	)
-	default UIScalingMode uiScalingMode()
-	{
+	default UIScalingMode uiScalingMode() {
 		return UIScalingMode.CATMULL_ROM;
 	}
 
 	@ConfigTitleSection(
-		keyName = "ppTitle",
-		name = "Post processing",
-		description = "",
-		position = 6
+			keyName = "ppTitle",
+			name = "Post processing",
+			description = "",
+			position = 6
 	)
-	default Title ppTitle()
-	{
+	default Title ppTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "antiAliasingMode",
-		name = "Anti Aliasing",
-		description = "Configures the anti-aliasing mode",
-		position = 7,
-		titleSection = "ppTitle"
+			keyName = "antiAliasingMode",
+			name = "Anti Aliasing",
+			description = "Configures the anti-aliasing mode",
+			position = 7,
+			titleSection = "ppTitle"
 	)
-	default AntiAliasingMode antiAliasingMode()
-	{
+	default AntiAliasingMode antiAliasingMode() {
 		return AntiAliasingMode.DISABLED;
 	}
 
 	@ConfigItem(
-		keyName = "anisotropicFilteringMode",
-		name = "Anisotropic Filtering",
-		description = "Configures the anisotropic filtering mode",
-		position = 8,
-		titleSection = "ppTitle"
+			keyName = "anisotropicFilteringMode",
+			name = "Anisotropic Filtering",
+			description = "Configures the anisotropic filtering mode",
+			position = 8,
+			titleSection = "ppTitle"
 	)
-	default AnisotropicFilteringMode anisotropicFilteringMode()
-	{
+	default AnisotropicFilteringMode anisotropicFilteringMode() {
 		return AnisotropicFilteringMode.DISABLED;
 	}
 
 	@ConfigTitleSection(
-		keyName = "fogTitle",
-		name = "Fog",
-		description = "",
-		position = 9
+			keyName = "fogTitle",
+			name = "Fog",
+			description = "",
+			position = 9
 	)
-	default Title fogTitle()
-	{
+	default Title fogTitle() {
 		return new Title();
 	}
 
 	@Range(
-		max = MAX_FOG_DEPTH
+			max = MAX_FOG_DEPTH
 	)
 	@ConfigItem(
-		keyName = "fogDepth",
-		name = "Depth",
-		description = "Distance from the scene edge the fog starts",
-		position = 10,
-		titleSection = "fogTitle"
+			keyName = "fogDepth",
+			name = "Depth",
+			description = "Distance from the scene edge the fog starts",
+			position = 10,
+			titleSection = "fogTitle"
 	)
-	default int fogDepth()
-	{
+	default int fogDepth() {
 		return 30;
 	}
 
 	@Range(
-		max = MAX_FOG_DEPTH
+			max = MAX_FOG_DEPTH
 	)
 	@ConfigItem(
-		keyName = "fogCircularity",
-		name = "Roundness",
-		description = "Fog circularity in %",
-		position = 11,
-		titleSection = "fogTitle"
+			keyName = "fogCircularity",
+			name = "Roundness",
+			description = "Fog circularity in %",
+			position = 11,
+			titleSection = "fogTitle"
 	)
-	default int fogCircularity()
-	{
+	default int fogCircularity() {
 		return 30;
 	}
 
 	@Range(
-		max = MAX_FOG_DEPTH
+			max = MAX_FOG_DEPTH
 	)
 	@ConfigItem(
-		keyName = "fogDensity",
-		name = "Density",
-		description = "Relative fog thickness",
-		position = 12,
-		titleSection = "fogTitle"
+			keyName = "fogDensity",
+			name = "Density",
+			description = "Relative fog thickness",
+			position = 12,
+			titleSection = "fogTitle"
 	)
-	default int fogDensity()
-	{
+	default int fogDensity() {
 		return 10;
 	}
 
 	@ConfigTitleSection(
-		keyName = "effectsTitle",
-		name = "Effects",
-		description = "",
-		position = 13
+			keyName = "effectsTitle",
+			name = "Effects",
+			description = "",
+			position = 13
 	)
-	default Title effectsTitle()
-	{
+	default Title effectsTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "ambientLighting",
-		name = "Ambient Lighting",
-		description = "Produces global lighting based on current fog color",
-		position = 14,
-		titleSection = "effectsTitle"
+			keyName = "ambientLighting",
+			name = "Ambient Lighting",
+			description = "Produces global lighting based on current fog color",
+			position = 14,
+			titleSection = "effectsTitle"
 	)
-	default boolean ambientLighting()
-	{
+	default boolean ambientLighting() {
 		return false;
 	}
 }

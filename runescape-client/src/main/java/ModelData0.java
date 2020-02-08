@@ -10,8 +10,8 @@ public class ModelData0 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
-		garbageValue = "-1209977249"
+			signature = "(IIII)I",
+			garbageValue = "-1209977249"
 	)
 	public static int method3322(int var0, int var1, int var2) {
 		var2 &= 3;
@@ -26,8 +26,8 @@ public class ModelData0 {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "-1996001757"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "-1996001757"
 	)
 	static final void method3323(String var0) {
 		class60.method1188(var0 + " is already on your ignore list");

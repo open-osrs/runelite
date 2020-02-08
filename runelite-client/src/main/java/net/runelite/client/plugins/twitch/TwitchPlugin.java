@@ -26,10 +26,12 @@ package net.runelite.client.plugins.twitch;
 
 import com.google.common.base.Strings;
 import com.google.inject.Provides;
+
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -51,15 +53,14 @@ import net.runelite.client.plugins.twitch.irc.TwitchListener;
 import net.runelite.client.task.Schedule;
 
 @PluginDescriptor(
-	name = "Twitch",
-	description = "Integrates Twitch chat",
-	enabledByDefault = false,
-	type = PluginType.MISCELLANEOUS
+		name = "Twitch",
+		description = "Integrates Twitch chat",
+		enabledByDefault = false,
+		type = PluginType.MISCELLANEOUS
 )
 @Slf4j
 @Singleton
-public class TwitchPlugin extends Plugin implements TwitchListener
-{
+public class TwitchPlugin extends Plugin implements TwitchListener {
 	@Inject
 	private TwitchConfig twitchConfig;
 
@@ -75,70 +76,58 @@ public class TwitchPlugin extends Plugin implements TwitchListener
 	private TwitchIRCClient twitchIRCClient;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		connect();
 	}
 
 	@Override
-	protected void shutDown()
-	{
-		if (twitchIRCClient != null)
-		{
+	protected void shutDown() {
+		if (twitchIRCClient != null) {
 			twitchIRCClient.close();
 			twitchIRCClient = null;
 		}
 	}
 
 	@Provides
-	TwitchConfig provideConfig(ConfigManager configManager)
-	{
+	TwitchConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(TwitchConfig.class);
 	}
 
-	private synchronized void connect()
-	{
-		if (twitchIRCClient != null)
-		{
+	private synchronized void connect() {
+		if (twitchIRCClient != null) {
 			log.debug("Terminating Twitch client {}", twitchIRCClient);
 			twitchIRCClient.close();
 			twitchIRCClient = null;
 		}
 
 		if (!Strings.isNullOrEmpty(twitchConfig.username())
-			&& !Strings.isNullOrEmpty(twitchConfig.oauthToken())
-			&& !Strings.isNullOrEmpty(twitchConfig.channel()))
-		{
+				&& !Strings.isNullOrEmpty(twitchConfig.oauthToken())
+				&& !Strings.isNullOrEmpty(twitchConfig.channel())) {
 			String channel = twitchConfig.channel().toLowerCase();
-			if (!channel.startsWith("#"))
-			{
+			if (!channel.startsWith("#")) {
 				channel = "#" + channel;
 			}
 
 			log.debug("Connecting to Twitch as {}", twitchConfig.username());
 
 			twitchIRCClient = new TwitchIRCClient(
-				this,
-				twitchConfig.username(),
-				twitchConfig.oauthToken(),
-				channel
+					this,
+					twitchConfig.username(),
+					twitchConfig.oauthToken(),
+					channel
 			);
 			twitchIRCClient.start();
 		}
 	}
 
 	@Schedule(period = 30, unit = ChronoUnit.SECONDS, asynchronous = true)
-	public void checkClient()
-	{
-		if (twitchIRCClient != null)
-		{
-			if (twitchIRCClient.isConnected())
-			{
+	public void checkClient() {
+		if (twitchIRCClient != null) {
+			if (twitchIRCClient.isConnected()) {
 				twitchIRCClient.pingCheck();
 			}
 
-			if (!twitchIRCClient.isConnected())
-			{
+			if (!twitchIRCClient.isConnected()) {
 				log.debug("Reconnecting...");
 
 				connect();
@@ -147,37 +136,32 @@ public class TwitchPlugin extends Plugin implements TwitchListener
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged configChanged)
-	{
-		if (!configChanged.getGroup().equals("twitch"))
-		{
+	private void onConfigChanged(ConfigChanged configChanged) {
+		if (!configChanged.getGroup().equals("twitch")) {
 			return;
 		}
 
 		connect();
 	}
 
-	private void addChatMessage(String sender, String message)
-	{
+	private void addChatMessage(String sender, String message) {
 		String chatMessage = new ChatMessageBuilder()
-			.append(ChatColorType.NORMAL)
-			.append(message)
-			.build();
+				.append(ChatColorType.NORMAL)
+				.append(message)
+				.build();
 
 		chatMessageManager.queue(QueuedMessage.builder()
-			.type(ChatMessageType.FRIENDSCHAT)
-			.sender("Twitch")
-			.name(sender)
-			.runeLiteFormattedMessage(chatMessage)
-			.timestamp((int) (System.currentTimeMillis() / 1000))
-			.build());
+				.type(ChatMessageType.FRIENDSCHAT)
+				.sender("Twitch")
+				.name(sender)
+				.runeLiteFormattedMessage(chatMessage)
+				.timestamp((int) (System.currentTimeMillis() / 1000))
+				.build());
 	}
 
 	@Override
-	public void privmsg(Map<String, String> tags, String message)
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	public void privmsg(Map<String, String> tags, String message) {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
@@ -186,18 +170,15 @@ public class TwitchPlugin extends Plugin implements TwitchListener
 	}
 
 	@Override
-	public void roomstate(Map<String, String> tags)
-	{
+	public void roomstate(Map<String, String> tags) {
 		log.debug("Room state: {}", tags);
 	}
 
 	@Override
-	public void usernotice(Map<String, String> tags, String message)
-	{
+	public void usernotice(Map<String, String> tags, String message) {
 		log.debug("Usernotice tags: {} message: {}", tags, message);
 
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
@@ -206,17 +187,14 @@ public class TwitchPlugin extends Plugin implements TwitchListener
 	}
 
 	@Subscribe
-	private void onChatboxInput(ChatboxInput chatboxInput)
-	{
+	private void onChatboxInput(ChatboxInput chatboxInput) {
 		String message = chatboxInput.getValue();
-		if (!message.startsWith("//"))
-		{
+		if (!message.startsWith("//")) {
 			return;
 		}
 
 		message = message.substring(2);
-		if (!message.isEmpty() && twitchIRCClient != null)
-		{
+		if (!message.isEmpty() && twitchIRCClient != null) {
 			twitchIRCClient.privmsg(message);
 			addChatMessage(twitchConfig.username(), message);
 		}

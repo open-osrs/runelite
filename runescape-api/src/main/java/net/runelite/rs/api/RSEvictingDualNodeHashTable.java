@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.NodeCache;
 import net.runelite.mapping.Import;
 
-public interface RSEvictingDualNodeHashTable extends NodeCache
-{
+public interface RSEvictingDualNodeHashTable extends NodeCache {
 	@Import("get")
 	RSDualNode get(long id);
 

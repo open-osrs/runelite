@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.TileModel;
 import net.runelite.mapping.Import;
 
-public interface RSTileModel extends TileModel
-{
+public interface RSTileModel extends TileModel {
 	@Import("underlayRgb")
 	@Override
 	int getModelUnderlay();

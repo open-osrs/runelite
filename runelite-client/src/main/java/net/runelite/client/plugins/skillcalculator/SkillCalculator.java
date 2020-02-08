@@ -42,6 +42,7 @@ import javax.swing.Box;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.Skill;
@@ -59,8 +60,7 @@ import net.runelite.client.ui.components.IconTextField;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-class SkillCalculator extends JPanel
-{
+class SkillCalculator extends JPanel {
 	private static final int MAX_XP = 200_000_000;
 	private static final DecimalFormat XP_FORMAT = new DecimalFormat("#.#");
 
@@ -83,8 +83,7 @@ class SkillCalculator extends JPanel
 	private float xpFactor = 1.0f;
 	private float lastBonus = 0.0f;
 
-	SkillCalculator(Client client, UICalculatorInputArea uiInput, SpriteManager spriteManager, ItemManager itemManager)
-	{
+	SkillCalculator(Client client, UICalculatorInputArea uiInput, SpriteManager spriteManager, ItemManager itemManager) {
 		this.client = client;
 		this.uiInput = uiInput;
 		this.spriteManager = spriteManager;
@@ -124,8 +123,7 @@ class SkillCalculator extends JPanel
 		uiInput.getUiFieldTargetXP().addFocusListener(buildFocusAdapter(e -> onFieldTargetXPUpdated()));
 	}
 
-	void openCalculator(CalculatorType calculatorType)
-	{
+	void openCalculator(CalculatorType calculatorType) {
 		// Load the skill data.
 		skillData = cacheSkillData.getSkillData(calculatorType.getDataFile());
 
@@ -137,13 +135,10 @@ class SkillCalculator extends JPanel
 		currentLevel = Experience.getLevelForXp(currentXP);
 		VarPlayer endGoalVarp = endGoalVarpForSkill(calculatorType.getSkill());
 		int endGoal = client.getVar(endGoalVarp);
-		if (endGoal != -1)
-		{
+		if (endGoal != -1) {
 			targetLevel = Experience.getLevelForXp(endGoal);
 			targetXP = endGoal;
-		}
-		else
-		{
+		} else {
 			targetLevel = enforceSkillBounds(currentLevel + 1);
 			targetXP = Experience.getXpForLevel(targetLevel);
 		}
@@ -173,19 +168,13 @@ class SkillCalculator extends JPanel
 		updateInputFields();
 	}
 
-	private void updateCombinedAction()
-	{
+	private void updateCombinedAction() {
 		int size = combinedActionSlots.size();
-		if (size > 1)
-		{
+		if (size > 1) {
 			combinedActionSlot.setTitle(size + " actions selected");
-		}
-		else if (size == 1)
-		{
+		} else if (size == 1) {
 			combinedActionSlot.setTitle("1 action selected");
-		}
-		else
-		{
+		} else {
 			combinedActionSlot.setTitle("No action selected");
 			combinedActionSlot.setText("Shift-click to select multiple");
 			return;
@@ -195,13 +184,11 @@ class SkillCalculator extends JPanel
 		int neededXP = targetXP - currentXP;
 		double xp = 0;
 
-		for (UIActionSlot slot : combinedActionSlots)
-		{
+		for (UIActionSlot slot : combinedActionSlots) {
 			xp += slot.getValue();
 		}
 
-		if (neededXP > 0)
-		{
+		if (neededXP > 0) {
 			assert xp != 0;
 			actionCount = (int) Math.ceil(neededXP / xp);
 		}
@@ -209,25 +196,20 @@ class SkillCalculator extends JPanel
 		combinedActionSlot.setText(formatXPActionString(xp, actionCount, "exp - "));
 	}
 
-	private void clearCombinedSlots()
-	{
-		for (UIActionSlot slot : combinedActionSlots)
-		{
+	private void clearCombinedSlots() {
+		for (UIActionSlot slot : combinedActionSlots) {
 			slot.setSelected(false);
 		}
 
 		combinedActionSlots.clear();
 	}
 
-	private void renderBonusOptions()
-	{
-		if (skillData.getBonuses() != null)
-		{
+	private void renderBonusOptions() {
+		if (skillData.getBonuses() != null) {
 			List<JCheckBox> uiCheckBoxList = new ArrayList<>();
 			lastBonus = 0.0f;
 
-			for (SkillDataBonus bonus : skillData.getBonuses())
-			{
+			for (SkillDataBonus bonus : skillData.getBonuses()) {
 				Pair<JPanel, List<JCheckBox>> combinedCheckboxPanel = buildCheckboxPanel(bonus, uiCheckBoxList);
 				JPanel checkboxPanel = combinedCheckboxPanel.getKey();
 				uiCheckBoxList = combinedCheckboxPanel.getValue();
@@ -239,8 +221,7 @@ class SkillCalculator extends JPanel
 		}
 	}
 
-	private Pair<JPanel, List<JCheckBox>> buildCheckboxPanel(SkillDataBonus bonus, List<JCheckBox> uiCheckBoxList)
-	{
+	private Pair<JPanel, List<JCheckBox>> buildCheckboxPanel(SkillDataBonus bonus, List<JCheckBox> uiCheckBoxList) {
 		JPanel uiOption = new JPanel(new BorderLayout());
 		JLabel uiLabel = new JLabel(bonus.getName());
 		JCheckBox uiCheckbox = new JCheckBox();
@@ -255,21 +236,16 @@ class SkillCalculator extends JPanel
 		uiCheckBox.setBackground(ColorScheme.MEDIUM_GRAY_COLOR);
 		uiCheckBox.addActionListener(e ->
 		{
-			if (uiCheckBox.isSelected())
-			{
+			if (uiCheckBox.isSelected()) {
 				adjustXPBonus(uiCheckBox.isSelected(), bonus.getValue());
 				lastBonus = bonus.getValue();
 
-				for (JCheckBox checkBox : uiCheckBoxList)
-				{
-					if (checkBox != uiCheckBox)
-					{
+				for (JCheckBox checkBox : uiCheckBoxList) {
+					if (checkBox != uiCheckBox) {
 						checkBox.setSelected(false);
 					}
 				}
-			}
-			else if (xpFactor > 1.0)
-			{
+			} else if (xpFactor > 1.0) {
 				xpFactor = 1.0f;
 				lastBonus = 0.0f;
 				calculate();
@@ -288,22 +264,17 @@ class SkillCalculator extends JPanel
 		return new ImmutablePair<>(uiOption, uiCheckBoxList);
 	}
 
-	private void renderActionSlots()
-	{
+	private void renderActionSlots() {
 		// Wipe the list of references to the slot components.
 		uiActionSlots.clear();
 
 		// Create new components for the action slots.
-		for (SkillDataEntry action : skillData.getActions())
-		{
+		for (SkillDataEntry action : skillData.getActions()) {
 			JLabel uiIcon = new JLabel();
 
-			if (action.getIcon() != null)
-			{
+			if (action.getIcon() != null) {
 				itemManager.getImage(action.getIcon()).addTo(uiIcon);
-			}
-			else if (action.getSprite() != null)
-			{
+			} else if (action.getSprite() != null) {
 				spriteManager.addSpriteTo(uiIcon, action.getSprite(), 0);
 			}
 
@@ -311,22 +282,16 @@ class SkillCalculator extends JPanel
 			uiActionSlots.add(slot); // Keep our own reference.
 			add(slot); // Add component to the panel.
 
-			slot.addMouseListener(new MouseAdapter()
-			{
+			slot.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mousePressed(MouseEvent e)
-				{
-					if (!e.isShiftDown())
-					{
+				public void mousePressed(MouseEvent e) {
+					if (!e.isShiftDown()) {
 						clearCombinedSlots();
 					}
 
-					if (slot.isSelected())
-					{
+					if (slot.isSelected()) {
 						combinedActionSlots.remove(slot);
-					}
-					else
-					{
+					} else {
 						combinedActionSlots.add(slot);
 					}
 
@@ -341,17 +306,14 @@ class SkillCalculator extends JPanel
 		repaint();
 	}
 
-	private void calculate()
-	{
-		for (UIActionSlot slot : uiActionSlots)
-		{
+	private void calculate() {
+		for (UIActionSlot slot : uiActionSlots) {
 			int actionCount = 0;
 			int neededXP = targetXP - currentXP;
 			SkillDataEntry action = slot.getAction();
 			double xp = (action.isIgnoreBonus()) ? action.getXp() : action.getXp() * xpFactor;
 
-			if (neededXP > 0)
-			{
+			if (neededXP > 0) {
 				actionCount = (int) Math.ceil(neededXP / xp);
 			}
 
@@ -364,15 +326,12 @@ class SkillCalculator extends JPanel
 		updateCombinedAction();
 	}
 
-	private String formatXPActionString(double xp, int actionCount, String expExpression)
-	{
+	private String formatXPActionString(double xp, int actionCount, String expExpression) {
 		return XP_FORMAT.format(xp) + expExpression + NumberFormat.getIntegerInstance().format(actionCount) + (actionCount > 1 ? " actions" : " action");
 	}
 
-	private void updateInputFields()
-	{
-		if (targetXP < currentXP)
-		{
+	private void updateInputFields() {
+		if (targetXP < currentXP) {
 			targetLevel = enforceSkillBounds(currentLevel + 1);
 			targetXP = Experience.getXpForLevel(targetLevel);
 		}
@@ -384,68 +343,56 @@ class SkillCalculator extends JPanel
 		calculate();
 	}
 
-	private void adjustXPBonus(boolean addBonus, float value)
-	{
+	private void adjustXPBonus(boolean addBonus, float value) {
 		clearLastBonus();
 		xpFactor += addBonus ? value : -value;
 		calculate();
 	}
 
-	private void clearLastBonus()
-	{
+	private void clearLastBonus() {
 		xpFactor -= lastBonus;
 		calculate();
 	}
 
-	private void onFieldCurrentLevelUpdated()
-	{
+	private void onFieldCurrentLevelUpdated() {
 		currentLevel = enforceSkillBounds(uiInput.getCurrentLevelInput());
 		currentXP = Experience.getXpForLevel(currentLevel);
 		updateInputFields();
 	}
 
-	private void onFieldCurrentXPUpdated()
-	{
+	private void onFieldCurrentXPUpdated() {
 		currentXP = enforceXPBounds(uiInput.getCurrentXPInput());
 		currentLevel = Experience.getLevelForXp(currentXP);
 		updateInputFields();
 	}
 
-	private void onFieldTargetLevelUpdated()
-	{
+	private void onFieldTargetLevelUpdated() {
 		targetLevel = enforceSkillBounds(uiInput.getTargetLevelInput());
 		targetXP = Experience.getXpForLevel(targetLevel);
 		updateInputFields();
 	}
 
-	private void onFieldTargetXPUpdated()
-	{
+	private void onFieldTargetXPUpdated() {
 		targetXP = enforceXPBounds(uiInput.getTargetXPInput());
 		targetLevel = Experience.getLevelForXp(targetXP);
 		updateInputFields();
 	}
 
-	private static int enforceSkillBounds(int input)
-	{
+	private static int enforceSkillBounds(int input) {
 		return Math.min(Experience.MAX_VIRT_LEVEL, Math.max(1, input));
 	}
 
-	private static int enforceXPBounds(int input)
-	{
+	private static int enforceXPBounds(int input) {
 		return Math.min(MAX_XP, Math.max(0, input));
 	}
 
-	private void onSearch()
-	{
+	private void onSearch() {
 		//only show slots that match our search text
 		uiActionSlots.forEach(slot ->
 		{
-			if (slotContainsText(slot, searchBar.getText()))
-			{
+			if (slotContainsText(slot, searchBar.getText())) {
 				super.add(slot);
-			}
-			else
-			{
+			} else {
 				super.remove(slot);
 			}
 
@@ -453,27 +400,21 @@ class SkillCalculator extends JPanel
 		});
 	}
 
-	private boolean slotContainsText(UIActionSlot slot, String text)
-	{
+	private boolean slotContainsText(UIActionSlot slot, String text) {
 		return slot.getAction().getName().toLowerCase().contains(text.toLowerCase());
 	}
 
-	private FocusAdapter buildFocusAdapter(Consumer<FocusEvent> focusLostConsumer)
-	{
-		return new FocusAdapter()
-		{
+	private FocusAdapter buildFocusAdapter(Consumer<FocusEvent> focusLostConsumer) {
+		return new FocusAdapter() {
 			@Override
-			public void focusLost(FocusEvent e)
-			{
+			public void focusLost(FocusEvent e) {
 				focusLostConsumer.accept(e);
 			}
 		};
 	}
 
-	private static VarPlayer endGoalVarpForSkill(final Skill skill)
-	{
-		switch (skill)
-		{
+	private static VarPlayer endGoalVarpForSkill(final Skill skill) {
+		switch (skill) {
 			case ATTACK:
 				return VarPlayer.ATTACK_GOAL_END;
 			case MINING:

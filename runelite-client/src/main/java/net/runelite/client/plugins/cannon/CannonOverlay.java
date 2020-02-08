@@ -30,9 +30,12 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
+
 import static net.runelite.api.Perspective.LOCAL_TILE_SIZE;
+
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
@@ -42,8 +45,7 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
 @Singleton
-class CannonOverlay extends Overlay
-{
+class CannonOverlay extends Overlay {
 	private static final int MAX_DISTANCE = 2500;
 
 	private final Client client;
@@ -51,8 +53,7 @@ class CannonOverlay extends Overlay
 	private final TextComponent textComponent = new TextComponent();
 
 	@Inject
-	CannonOverlay(final Client client, final CannonPlugin plugin)
-	{
+	CannonOverlay(final Client client, final CannonPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);
 		this.client = client;
@@ -60,39 +61,33 @@ class CannonOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isCannonPlaced() || plugin.getCannonPosition() == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isCannonPlaced() || plugin.getCannonPosition() == null) {
 			return null;
 		}
 
 		LocalPoint cannonPoint = LocalPoint.fromWorld(client, plugin.getCannonPosition());
 
-		if (cannonPoint == null)
-		{
+		if (cannonPoint == null) {
 			return null;
 		}
 
 		LocalPoint localLocation = client.getLocalPlayer().getLocalLocation();
 
-		if (localLocation.distanceTo(cannonPoint) <= MAX_DISTANCE)
-		{
+		if (localLocation.distanceTo(cannonPoint) <= MAX_DISTANCE) {
 			Point cannonLoc = Perspective.getCanvasTextLocation(client,
-				graphics,
-				cannonPoint,
-				String.valueOf(plugin.getCballsLeft()), 150);
+					graphics,
+					cannonPoint,
+					String.valueOf(plugin.getCballsLeft()), 150);
 
-			if (cannonLoc != null)
-			{
+			if (cannonLoc != null) {
 				textComponent.setText(String.valueOf(plugin.getCballsLeft()));
 				textComponent.setPosition(new java.awt.Point(cannonLoc.getX(), cannonLoc.getY()));
 				textComponent.setColor(plugin.getStateColor());
 				textComponent.render(graphics);
 			}
 
-			if (plugin.isShowDoubleHitSpot())
-			{
+			if (plugin.isShowDoubleHitSpot()) {
 				Color color = plugin.getHighlightDoubleHitColor();
 				drawDoubleHitSpots(graphics, cannonPoint, color);
 			}
@@ -107,20 +102,15 @@ class CannonOverlay extends Overlay
 	 *
 	 * @param startTile The position of the cannon
 	 */
-	private void drawDoubleHitSpots(Graphics2D graphics, LocalPoint startTile, Color color)
-	{
-		for (int x = -3; x <= 3; x++)
-		{
-			for (int y = -3; y <= 3; y++)
-			{
-				if (y != 1 && x != 1 && y != -1 && x != -1)
-				{
+	private void drawDoubleHitSpots(Graphics2D graphics, LocalPoint startTile, Color color) {
+		for (int x = -3; x <= 3; x++) {
+			for (int y = -3; y <= 3; y++) {
+				if (y != 1 && x != 1 && y != -1 && x != -1) {
 					continue;
 				}
 
 				//Ignore center square
-				if (y >= -1 && y <= 1 && x >= -1 && x <= 1)
-				{
+				if (y >= -1 && y <= 1 && x >= -1 && x <= 1) {
 					continue;
 				}
 
@@ -130,8 +120,7 @@ class CannonOverlay extends Overlay
 				LocalPoint marker = new LocalPoint(xPos, yPos);
 				Polygon poly = Perspective.getCanvasTilePoly(client, marker);
 
-				if (poly == null)
-				{
+				if (poly == null) {
 					continue;
 				}
 

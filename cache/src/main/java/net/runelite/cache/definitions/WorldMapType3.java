@@ -27,8 +27,7 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class WorldMapType3 implements WorldMapTypeBase
-{
+public class WorldMapType3 implements WorldMapTypeBase {
 	public int chunk_oldXHigh;
 	public int numberOfPlanes;
 	public int oldX;

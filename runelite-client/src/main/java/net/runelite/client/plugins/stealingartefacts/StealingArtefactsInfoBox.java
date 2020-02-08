@@ -26,15 +26,14 @@ package net.runelite.client.plugins.stealingartefacts;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.ui.overlay.infobox.InfoBoxPriority;
 
-class StealingArtefactsInfoBox extends InfoBox
-{
+class StealingArtefactsInfoBox extends InfoBox {
 	private final StealingArtefactsPlugin stealingArtefactsPlugin;
 
-	StealingArtefactsInfoBox(BufferedImage image, StealingArtefactsPlugin stealingArtefactsPlugin)
-	{
+	StealingArtefactsInfoBox(BufferedImage image, StealingArtefactsPlugin stealingArtefactsPlugin) {
 		super(image, stealingArtefactsPlugin);
 		this.stealingArtefactsPlugin = stealingArtefactsPlugin;
 		setTooltip("Stealing Artefacts");
@@ -42,14 +41,12 @@ class StealingArtefactsInfoBox extends InfoBox
 	}
 
 	@Override
-	public String getText()
-	{
+	public String getText() {
 		return stealingArtefactsPlugin.getStealingArtefactsHouse().getShortName();
 	}
 
 	@Override
-	public Color getTextColor()
-	{
+	public Color getTextColor() {
 		return Color.CYAN;
 	}
 }

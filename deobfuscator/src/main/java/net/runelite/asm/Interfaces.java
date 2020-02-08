@@ -28,79 +28,64 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import net.runelite.asm.pool.Class;
 import net.runelite.deob.DeobAnnotations;
 import org.jetbrains.annotations.NotNull;
 
-public class Interfaces implements Iterable<Class>
-{
+public class Interfaces implements Iterable<Class> {
 	private final ClassFile classFile;
 
 	private final List<Class> interfaces = new ArrayList<>();
 
-	Interfaces(ClassFile c)
-	{
+	Interfaces(ClassFile c) {
 		classFile = c;
 	}
 
-	public void addInterface(Class clazz)
-	{
-		if (!interfaces.contains(clazz))
-		{
+	public void addInterface(Class clazz) {
+		if (!interfaces.contains(clazz)) {
 			interfaces.add(clazz);
 		}
 	}
 
-	public List<Class> getInterfaces()
-	{
+	public List<Class> getInterfaces() {
 		return interfaces;
 	}
 
-	public void clear()
-	{
+	public void clear() {
 		interfaces.clear();
 	}
 
-	public List<ClassFile> getMyInterfaces()
-	{
+	public List<ClassFile> getMyInterfaces() {
 		List<ClassFile> l = new ArrayList<>();
-		for (Class clazz : interfaces)
-		{
+		for (Class clazz : interfaces) {
 			ClassFile iface = classFile.getGroup().findClass(clazz.getName());
-			if (iface != null)
-			{
+			if (iface != null) {
 				l.add(iface);
 			}
 		}
 		return l;
 	}
 
-	public List<Class> getNonMyInterfaces()
-	{
+	public List<Class> getNonMyInterfaces() {
 		return interfaces.stream().filter(clazz -> classFile.getGroup().findClass(clazz.getName()) == null).collect(Collectors.toList());
 	}
 
-	public boolean instanceOf(ClassFile cf)
-	{
-		for (Class clazz : interfaces)
-		{
+	public boolean instanceOf(ClassFile cf) {
+		for (Class clazz : interfaces) {
 			ClassFile iface = classFile.getGroup().findClass(clazz.getName());
-			if (iface.instanceOf(cf))
-			{
+			if (iface.instanceOf(cf)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public List<String> getIntfNames()
-	{
+	public List<String> getIntfNames() {
 		final List<String> names = new ArrayList<>();
-		for (ClassFile c : getMyInterfaces())
-		{
+		for (ClassFile c : getMyInterfaces()) {
 			String name = DeobAnnotations.getObfuscatedName(c.getAnnotations());
-			if (name == null)
-			{
+			if (name == null) {
 				continue;
 			}
 
@@ -111,8 +96,7 @@ public class Interfaces implements Iterable<Class>
 	}
 
 	@NotNull
-	public Iterator<Class> iterator()
-	{
+	public Iterator<Class> iterator() {
 		return this.interfaces.iterator();
 	}
 }

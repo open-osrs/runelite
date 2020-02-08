@@ -26,40 +26,37 @@ package net.runelite.deob.updater;
 
 import java.io.File;
 import java.io.IOException;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Type;
 import net.runelite.deob.util.JarUtil;
 import org.junit.After;
 import org.junit.Before;
 
-public class AnnotationCopierTest
-{
+public class AnnotationCopierTest {
 	private static final Type EXPORT = new Type("Lnet/runelite/mapping/Export;");
 	private static final Type IMPLEMENTS = new Type("Lnet/runelite/mapping/Implements;");
 	private static final Type REPLACE = new Type("Lnet/runelite/mapping/Replace;");
-	
+
 	private static final String JAR1 = "C:\\Users\\Adam\\.m2\\repository\\net\\runelite\\rs\\rs-client\\116.2-SNAPSHOT\\in.jar",
-		JAR2 = "d:/rs/07/gamepack_116_deobfuscated.jar",
-		OUT = "d:/rs/07/adamout.jar";
+			JAR2 = "d:/rs/07/gamepack_116_deobfuscated.jar",
+			OUT = "d:/rs/07/adamout.jar";
 
 	private ClassGroup group1, group2;
 
 	@Before
-	public void before() throws IOException
-	{
+	public void before() throws IOException {
 		group1 = JarUtil.loadJar(new File(JAR1));
 		group2 = JarUtil.loadJar(new File(JAR2));
 	}
 
 	@After
-	public void after() throws IOException
-	{
+	public void after() throws IOException {
 		JarUtil.saveJar(group2, new File(OUT));
 	}
 
 	//@Test
-	public void testCopy()
-	{
+	public void testCopy() {
 		AnnotationCopier ac = new AnnotationCopier(group1, group2, EXPORT, IMPLEMENTS, REPLACE);
 		ac.copy();
 	}

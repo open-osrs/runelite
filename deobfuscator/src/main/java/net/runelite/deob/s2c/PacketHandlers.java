@@ -25,46 +25,39 @@
 package net.runelite.deob.s2c;
 
 import java.util.List;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 
-public class PacketHandlers
-{
+public class PacketHandlers {
 	private final ClassGroup group;
 	private final Field packetType;
 	private final List<PacketHandler> handlers;
 
-	public PacketHandlers(ClassGroup group, Field packetType, List<PacketHandler> handlers)
-	{
+	public PacketHandlers(ClassGroup group, Field packetType, List<PacketHandler> handlers) {
 		this.group = group;
 		this.packetType = packetType;
 		this.handlers = handlers;
 	}
 
-	public PacketHandler find(int opcode)
-	{
-		for (PacketHandler handler : handlers)
-		{
-			if (handler.getOpcode() == opcode)
-			{
+	public PacketHandler find(int opcode) {
+		for (PacketHandler handler : handlers) {
+			if (handler.getOpcode() == opcode) {
 				return handler;
 			}
 		}
 		return null;
 	}
 
-	public ClassGroup getGroup()
-	{
+	public ClassGroup getGroup() {
 		return group;
 	}
 
-	public Field getPacketType()
-	{
+	public Field getPacketType() {
 		return packetType;
 	}
 
-	public List<PacketHandler> getHandlers()
-	{
+	public List<PacketHandler> getHandlers() {
 		return handlers;
 	}
 }

@@ -36,14 +36,17 @@ import javax.inject.Singleton;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import static javax.swing.JOptionPane.YES_OPTION;
 import static javax.swing.JOptionPane.getRootFrame;
+
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
@@ -57,8 +60,7 @@ import net.runelite.client.util.ImageUtil;
 
 @Slf4j
 @Singleton
-class NotesPanel extends PluginPanel
-{
+class NotesPanel extends PluginPanel {
 	@Inject
 	private NotesManager notesManager;
 
@@ -72,8 +74,7 @@ class NotesPanel extends PluginPanel
 	private List<MaterialTab> tabs = new ArrayList<>();
 	private NotesConfig config;
 
-	void init(final NotesConfig mConfig)
-	{
+	void init(final NotesConfig mConfig) {
 		config = mConfig;
 
 		eventBus.subscribe(PageAdded.class, this, this::onPageAdded);
@@ -96,8 +97,7 @@ class NotesPanel extends PluginPanel
 		add(display, BorderLayout.CENTER);
 	}
 
-	private void buildAddTab()
-	{
+	private void buildAddTab() {
 		addTab = new MaterialTab(addIcon, tabGroup, new JPanel());
 		addTab.setOnSelectEvent(() ->
 		{
@@ -106,27 +106,23 @@ class NotesPanel extends PluginPanel
 		});
 	}
 
-	void rebuild()
-	{
+	void rebuild() {
 		tabs = new LinkedList<>();
 		tabGroup.removeAll();
 
 		int totalNotes = notesManager.getNotes().size();
 
-		for (int i = 0; i < totalNotes; i++)
-		{
+		for (int i = 0; i < totalNotes; i++) {
 			MaterialTab tab = buildTab(i);
 			tabs.add(tab);
 			tabGroup.addTab(tab);
 		}
 
-		if (totalNotes < config.maxNotes())
-		{
+		if (totalNotes < config.maxNotes()) {
 			tabGroup.addTab(addTab);
 		}
 
-		if (tabs.size() > 0)
-		{
+		if (tabs.size() > 0) {
 			// select the first tab
 			tabGroup.select(tabGroup.getTab(0));
 		}
@@ -135,26 +131,22 @@ class NotesPanel extends PluginPanel
 		repaint();
 	}
 
-	private void onConfigChanged(ConfigChanged e)
-	{
-		if (!e.getGroup().equals(NotesConfig.CONFIG_GROUP))
-		{
+	private void onConfigChanged(ConfigChanged e) {
+		if (!e.getGroup().equals(NotesConfig.CONFIG_GROUP)) {
 			return;
 		}
 
 		rebuild();
 	}
 
-	private void onPageAdded(PageAdded e)
-	{
+	private void onPageAdded(PageAdded e) {
 		MaterialTab tab = buildTab(e.getIndex());
 		tabs.add(tab);
 		tabGroup.addTab(tab);
 
 		// re-add add button to make it last
 		tabGroup.removeTab(addTab);
-		if (notesManager.getNotes().size() < config.maxNotes())
-		{
+		if (notesManager.getNotes().size() < config.maxNotes()) {
 			tabGroup.addTab(addTab);
 		}
 
@@ -162,13 +154,11 @@ class NotesPanel extends PluginPanel
 		repaint();
 	}
 
-	private void onPageDeleted(PageDeleted e)
-	{
+	private void onPageDeleted(PageDeleted e) {
 		rebuild();
 	}
 
-	private MaterialTab buildTab(int index)
-	{
+	private MaterialTab buildTab(int index) {
 		String name = String.valueOf(index + 1);
 		NoteTab noteTab = new NoteTab(notesManager, index);
 
@@ -181,19 +171,15 @@ class NotesPanel extends PluginPanel
 
 		deleteMenuItem.addActionListener(e ->
 		{
-			if (JOptionPane.showConfirmDialog(getRootFrame(), String.format("Delete note page %s?", name), "Notes", YES_NO_OPTION) != YES_OPTION)
-			{
+			if (JOptionPane.showConfirmDialog(getRootFrame(), String.format("Delete note page %s?", name), "Notes", YES_NO_OPTION) != YES_OPTION) {
 				return;
 			}
-			try
-			{
+			try {
 				notesManager.deletePage(index);
-			}
-			catch (DeleteOnlyPageException err)
-			{
+			} catch (DeleteOnlyPageException err) {
 				SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(getRootFrame(),
-					"Cannot delete the last page",
-					"Notes", ERROR_MESSAGE));
+						"Cannot delete the last page",
+						"Notes", ERROR_MESSAGE));
 			}
 		});
 

@@ -5,8 +5,7 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSTilePaint;
 
 @Mixin(RSTilePaint.class)
-public abstract class RSTilePaintMixin implements RSTilePaint
-{
+public abstract class RSTilePaintMixin implements RSTilePaint {
 	@Inject
 	private int rl$paintModelBufferOffset;
 
@@ -18,43 +17,37 @@ public abstract class RSTilePaintMixin implements RSTilePaint
 
 	@Inject
 	@Override
-	public int getBufferOffset()
-	{
+	public int getBufferOffset() {
 		return rl$paintModelBufferOffset;
 	}
 
 	@Inject
 	@Override
-	public void setBufferOffset(int bufferOffset)
-	{
+	public void setBufferOffset(int bufferOffset) {
 		rl$paintModelBufferOffset = bufferOffset;
 	}
 
 	@Inject
 	@Override
-	public int getUvBufferOffset()
-	{
+	public int getUvBufferOffset() {
 		return rl$paintModelUvBufferOffset;
 	}
 
 	@Inject
 	@Override
-	public void setUvBufferOffset(int bufferOffset)
-	{
+	public void setUvBufferOffset(int bufferOffset) {
 		rl$paintModelUvBufferOffset = bufferOffset;
 	}
 
 	@Inject
 	@Override
-	public int getBufferLen()
-	{
+	public int getBufferLen() {
 		return rl$paintModelBufferLen;
 	}
 
 	@Inject
 	@Override
-	public void setBufferLen(int bufferLen)
-	{
+	public void setBufferLen(int bufferLen) {
 		rl$paintModelBufferLen = bufferLen;
 	}
 }

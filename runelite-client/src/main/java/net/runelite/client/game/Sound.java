@@ -1,7 +1,6 @@
 package net.runelite.client.game;
 
-public enum Sound
-{
+public enum Sound {
 	FIFTEEN_SECONDS(1, "net/runelite/client/game/sounds/15seconds.wav"),
 	FIVE_SECONDS(2, "net/runelite/client/game/sounds/5seconds.wav"),
 	ATTACK_WITH_MAGIC(3, "net/runelite/client/game/sounds/attackmagic.wav"),
@@ -24,19 +23,16 @@ public enum Sound
 	private final String filePath;
 	private final int id;
 
-	Sound(int id, String filePath)
-	{
+	Sound(int id, String filePath) {
 		this.id = id;
 		this.filePath = filePath;
 	}
 
-	public String getFilePath()
-	{
+	public String getFilePath() {
 		return this.filePath;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return this.id;
 	}
 }

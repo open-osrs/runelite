@@ -27,16 +27,20 @@ package net.runelite.http.api.loottracker;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
+
 import static net.runelite.http.api.RuneLiteAPI.JSON;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -46,97 +50,83 @@ import okhttp3.Response;
 
 @Slf4j
 @AllArgsConstructor
-public class LootTrackerClient
-{
+public class LootTrackerClient {
 	private static final Gson GSON = RuneLiteAPI.GSON;
 
 	private final UUID uuid;
 
-	public void submit(Collection<LootRecord> lootRecords)
-	{
+	public void submit(Collection<LootRecord> lootRecords) {
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("loottracker")
-			.build();
+				.addPathSegment("loottracker")
+				.build();
 
 		RequestBody body = RequestBody.Companion.create(GSON.toJson(lootRecords), JSON);
 		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.post(body)
-			.url(url)
-			.build();
+				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+				.post(body)
+				.url(url)
+				.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
-		{
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
 			@Override
-			public void onFailure(Call call, IOException e)
-			{
+			public void onFailure(Call call, IOException e) {
 				log.warn("unable to submit loot", e);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response)
-			{
+			public void onResponse(Call call, Response response) {
 				log.debug("Submitted loot");
 				response.close();
 			}
 		});
 	}
 
-	public Collection<LootRecord> get() throws IOException
-	{
+	public Collection<LootRecord> get() throws IOException {
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("loottracker")
-			.build();
+				.addPathSegment("loottracker")
+				.build();
 
 		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.url(url)
-			.build();
+				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+				.url(url)
+				.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
-		{
-			if (!response.isSuccessful())
-			{
+		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
+			if (!response.isSuccessful()) {
 				log.debug("Error looking up loot: {}", response);
 				return null;
 			}
 
 			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<List<LootRecord>>() {}.getType());
-		}
-		catch (JsonParseException ex)
-		{
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<List<LootRecord>>() {
+			}.getType());
+		} catch (JsonParseException ex) {
 			throw new IOException(ex);
 		}
 	}
 
-	public void delete(String eventId)
-	{
+	public void delete(String eventId) {
 		HttpUrl.Builder builder = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("loottracker");
+				.addPathSegment("loottracker");
 
-		if (eventId != null)
-		{
+		if (eventId != null) {
 			builder.addQueryParameter("eventId", eventId);
 		}
 
 		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.delete()
-			.url(builder.build())
-			.build();
+				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+				.delete()
+				.url(builder.build())
+				.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
-		{
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
 			@Override
-			public void onFailure(Call call, IOException e)
-			{
+			public void onFailure(Call call, IOException e) {
 				log.warn("unable to delete loot", e);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response)
-			{
+			public void onResponse(Call call, Response response) {
 				log.debug("Deleted loot");
 				response.close();
 			}

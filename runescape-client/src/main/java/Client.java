@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -18,24 +19,24 @@ import netscape.javascript.JSObject;
 public final class Client extends GameShell implements Usernamed {
 	@ObfuscatedName("mg")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("clickedWidget")
 	static Widget clickedWidget;
 	@ObfuscatedName("oh")
 	@ObfuscatedGetter(
-		intValue = -2146709593
+			intValue = -2146709593
 	)
 	@Export("rootWidgetCount")
 	static int rootWidgetCount;
 	@ObfuscatedName("of")
 	@ObfuscatedGetter(
-		intValue = -1865852327
+			intValue = -1865852327
 	)
 	static int field850;
 	@ObfuscatedName("od")
 	@ObfuscatedGetter(
-		longValue = 3639588590521619509L
+			longValue = 3639588590521619509L
 	)
 	static long field859;
 	@ObfuscatedName("qa")
@@ -52,7 +53,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean field824;
 	@ObfuscatedName("nh")
 	@ObfuscatedGetter(
-		intValue = 1483646797
+			intValue = 1483646797
 	)
 	@Export("cycleCntr")
 	static int cycleCntr;
@@ -61,46 +62,46 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean isResizable;
 	@ObfuscatedName("nu")
 	@ObfuscatedGetter(
-		intValue = 1169531803
+			intValue = 1169531803
 	)
 	static int field839;
 	@ObfuscatedName("sa")
 	@ObfuscatedGetter(
-		intValue = 1909140369
+			intValue = 1909140369
 	)
 	public static int field888;
 	@ObfuscatedName("mi")
 	@ObfuscatedGetter(
-		intValue = 1522690023
+			intValue = 1522690023
 	)
 	@Export("widgetClickX")
 	static int widgetClickX;
 	@ObfuscatedName("mr")
 	@ObfuscatedGetter(
-		intValue = 708609409
+			intValue = 708609409
 	)
 	@Export("widgetClickY")
 	static int widgetClickY;
 	@ObfuscatedName("nz")
 	@ObfuscatedGetter(
-		intValue = 1648334173
+			intValue = 1648334173
 	)
 	static int field919;
 	@ObfuscatedName("mw")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("clickedWidgetParent")
 	static Widget clickedWidgetParent;
 	@ObfuscatedName("on")
 	@ObfuscatedGetter(
-		intValue = 1447905711
+			intValue = 1447905711
 	)
 	@Export("gameDrawingMode")
 	static int gameDrawingMode;
 	@ObfuscatedName("nf")
 	@ObfuscatedGetter(
-		intValue = -393886603
+			intValue = -393886603
 	)
 	static int field826;
 	@ObfuscatedName("oi")
@@ -111,7 +112,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] rootWidgetWidths;
 	@ObfuscatedName("mq")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("viewportWidget")
 	static Widget viewportWidget;
@@ -120,7 +121,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] rootWidgetYs;
 	@ObfuscatedName("mk")
 	@ObfuscatedGetter(
-		intValue = -1785096625
+			intValue = -1785096625
 	)
 	@Export("staffModLevel")
 	static int staffModLevel;
@@ -129,46 +130,46 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] rootWidgetHeights;
 	@ObfuscatedName("tc")
 	@ObfuscatedSignature(
-		signature = "Lbm;"
+			signature = "Lbm;"
 	)
 	static final class65 field809;
 	@ObfuscatedName("oq")
 	@ObfuscatedGetter(
-		intValue = 1929690709
+			intValue = 1929690709
 	)
 	@Export("mouseWheelRotation")
 	static int mouseWheelRotation;
 	@ObfuscatedName("oe")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+			signature = "Lln;"
 	)
 	@Export("widgetClickMasks")
 	static NodeHashTable widgetClickMasks;
 	@ObfuscatedName("nw")
 	@ObfuscatedGetter(
-		intValue = 1341246229
+			intValue = 1341246229
 	)
 	static int field864;
 	@ObfuscatedName("nn")
 	@ObfuscatedGetter(
-		intValue = 1361957455
+			intValue = 1361957455
 	)
 	static int field829;
 	@ObfuscatedName("ot")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	@Export("scriptEvents")
 	static NodeDeque scriptEvents;
 	@ObfuscatedName("px")
 	@ObfuscatedGetter(
-		intValue = 1776210233
+			intValue = 1776210233
 	)
 	@Export("destinationX")
 	static int destinationX;
 	@ObfuscatedName("pl")
 	@ObfuscatedGetter(
-		intValue = 1779344353
+			intValue = 1779344353
 	)
 	@Export("destinationY")
 	static int destinationY;
@@ -178,7 +179,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] field921;
 	@ObfuscatedName("pn")
 	@ObfuscatedGetter(
-		intValue = -391943327
+			intValue = -391943327
 	)
 	@Export("publicChatMode")
 	static int publicChatMode;
@@ -187,13 +188,13 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean isDraggingWidget;
 	@ObfuscatedName("py")
 	@ObfuscatedGetter(
-		intValue = -1040328597
+			intValue = -1040328597
 	)
 	@Export("tradeChatMode")
 	static int tradeChatMode;
 	@ObfuscatedName("sl")
 	@ObfuscatedSignature(
-		signature = "[Lm;"
+			signature = "[Lm;"
 	)
 	@Export("grandExchangeOffers")
 	static GrandExchangeOffer[] grandExchangeOffers;
@@ -202,44 +203,44 @@ public final class Client extends GameShell implements Usernamed {
 	static ArrayList archiveLoaders;
 	@ObfuscatedName("ss")
 	@ObfuscatedGetter(
-		intValue = 2033282957
+			intValue = 2033282957
 	)
 	@Export("archiveLoadersDone")
 	static int archiveLoadersDone;
 	@ObfuscatedName("mf")
 	@ObfuscatedGetter(
-		intValue = -89243397
+			intValue = -89243397
 	)
 	@Export("runEnergy")
 	static int runEnergy;
 	@ObfuscatedName("qg")
 	@ObfuscatedGetter(
-		intValue = -1907233593
+			intValue = -1907233593
 	)
 	@Export("currentTrackGroupId")
 	static int currentTrackGroupId;
 	@ObfuscatedName("ma")
 	@ObfuscatedGetter(
-		intValue = 1843511131
+			intValue = 1843511131
 	)
 	@Export("weight")
 	static int weight;
 	@ObfuscatedName("qu")
 	@ObfuscatedGetter(
-		intValue = -1100066023
+			intValue = -1100066023
 	)
 	@Export("musicVolume")
 	static int musicVolume;
 	@ObfuscatedName("nt")
 	@ObfuscatedGetter(
-		intValue = -1399282537
+			intValue = -1399282537
 	)
 	static int field841;
 	@ObfuscatedName("rk")
 	static boolean[] field775;
 	@ObfuscatedName("qb")
 	@ObfuscatedGetter(
-		intValue = 569870541
+			intValue = 569870541
 	)
 	@Export("areaSoundEffectVolume")
 	static int areaSoundEffectVolume;
@@ -249,20 +250,20 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] field699;
 	@ObfuscatedName("sh")
 	@ObfuscatedGetter(
-		intValue = 1166836543
+			intValue = 1166836543
 	)
 	static int field910;
 	@ObfuscatedName("rx")
 	static int[] field894;
 	@ObfuscatedName("mc")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("draggedOnWidget")
 	static Widget draggedOnWidget;
 	@ObfuscatedName("rl")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+			signature = "Lhp;"
 	)
 	@Export("playerAppearance")
 	static PlayerAppearance playerAppearance;
@@ -270,13 +271,13 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] field895;
 	@ObfuscatedName("mb")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("meslayerContinueWidget")
 	static Widget meslayerContinueWidget;
 	@ObfuscatedName("sw")
 	@ObfuscatedGetter(
-		intValue = -1075965475
+			intValue = -1075965475
 	)
 	static int field911;
 	@ObfuscatedName("nk")
@@ -286,22 +287,22 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] changedItemContainers;
 	@ObfuscatedName("nm")
 	@ObfuscatedGetter(
-		intValue = 584378815
+			intValue = 584378815
 	)
 	static int field823;
 	@ObfuscatedName("nv")
 	@ObfuscatedGetter(
-		intValue = 1832354705
+			intValue = 1832354705
 	)
 	static int field833;
 	@ObfuscatedName("nr")
 	@ObfuscatedGetter(
-		intValue = 1067328579
+			intValue = 1067328579
 	)
 	static int field835;
 	@ObfuscatedName("qh")
 	@ObfuscatedGetter(
-		intValue = 1605243509
+			intValue = 1605243509
 	)
 	@Export("soundEffectCount")
 	static int soundEffectCount;
@@ -316,19 +317,19 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] queuedSoundEffectDelays;
 	@ObfuscatedName("si")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+			signature = "Llz;"
 	)
 	@Export("platformInfoProvider")
 	static PlatformInfoProvider platformInfoProvider;
 	@ObfuscatedName("qy")
 	@ObfuscatedSignature(
-		signature = "[Lcs;"
+			signature = "[Lcs;"
 	)
 	@Export("soundEffects")
 	static SoundEffect[] soundEffects;
 	@ObfuscatedName("qe")
 	@ObfuscatedGetter(
-		intValue = -1155592801
+			intValue = -1155592801
 	)
 	@Export("minimapState")
 	static int minimapState;
@@ -340,23 +341,23 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean isCameraLocked;
 	@ObfuscatedName("pj")
 	@ObfuscatedGetter(
-		intValue = 1175842115
+			intValue = 1175842115
 	)
 	static int field704;
 	@ObfuscatedName("pp")
 	@ObfuscatedGetter(
-		longValue = -1084323639285145485L
+			longValue = -1084323639285145485L
 	)
 	static long field702;
 	@ObfuscatedName("qt")
 	@ObfuscatedGetter(
-		intValue = 1226020911
+			intValue = 1226020911
 	)
 	@Export("soundEffectVolume")
 	static int soundEffectVolume;
 	@ObfuscatedName("pu")
 	@ObfuscatedGetter(
-		intValue = -1024835233
+			intValue = -1024835233
 	)
 	@Export("mapIconCount")
 	static int mapIconCount;
@@ -368,18 +369,18 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] mapIconYs;
 	@ObfuscatedName("sm")
 	@ObfuscatedGetter(
-		intValue = -1315339885
+			intValue = -1315339885
 	)
 	static int field813;
 	@ObfuscatedName("pg")
 	@ObfuscatedSignature(
-		signature = "[Llt;"
+			signature = "[Llt;"
 	)
 	@Export("mapIcons")
 	static Sprite[] mapIcons;
 	@ObfuscatedName("my")
 	@ObfuscatedGetter(
-		intValue = 712982519
+			intValue = 712982519
 	)
 	@Export("chatEffects")
 	static int chatEffects;
@@ -390,7 +391,7 @@ public final class Client extends GameShell implements Usernamed {
 	static short field908;
 	@ObfuscatedName("np")
 	@ObfuscatedGetter(
-		intValue = 539828499
+			intValue = 539828499
 	)
 	@Export("changedSkillsCount")
 	static int changedSkillsCount;
@@ -400,7 +401,7 @@ public final class Client extends GameShell implements Usernamed {
 	static short field819;
 	@ObfuscatedName("mp")
 	@ObfuscatedGetter(
-		intValue = 1687250363
+			intValue = 1687250363
 	)
 	static int field811;
 	@ObfuscatedName("rr")
@@ -409,7 +410,7 @@ public final class Client extends GameShell implements Usernamed {
 	static short field673;
 	@ObfuscatedName("ri")
 	@ObfuscatedGetter(
-		intValue = -589414587
+			intValue = -589414587
 	)
 	@Export("viewportZoom")
 	static int viewportZoom;
@@ -417,42 +418,42 @@ public final class Client extends GameShell implements Usernamed {
 	static short field900;
 	@ObfuscatedName("rz")
 	@ObfuscatedGetter(
-		intValue = 1429063259
+			intValue = 1429063259
 	)
 	@Export("viewportWidth")
 	static int viewportWidth;
 	@ObfuscatedName("ra")
 	@ObfuscatedGetter(
-		intValue = 846238467
+			intValue = 846238467
 	)
 	@Export("viewportHeight")
 	static int viewportHeight;
 	@ObfuscatedName("ne")
 	@ObfuscatedGetter(
-		intValue = -114993345
+			intValue = -114993345
 	)
 	static int field842;
 	@ObfuscatedName("mz")
 	@ObfuscatedGetter(
-		intValue = 1973962691
+			intValue = 1973962691
 	)
 	@Export("followerIndex")
 	static int followerIndex;
 	@ObfuscatedName("rt")
 	@ObfuscatedGetter(
-		intValue = -1457697577
+			intValue = -1457697577
 	)
 	@Export("viewportOffsetX")
 	static int viewportOffsetX;
 	@ObfuscatedName("rw")
 	@ObfuscatedGetter(
-		intValue = 1641050699
+			intValue = 1641050699
 	)
 	@Export("viewportOffsetY")
 	static int viewportOffsetY;
 	@ObfuscatedName("pz")
 	@ObfuscatedGetter(
-		intValue = 1835135495
+			intValue = 1835135495
 	)
 	static int field762;
 	@ObfuscatedName("pf")
@@ -462,7 +463,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean playerMod;
 	@ObfuscatedName("nq")
 	@ObfuscatedGetter(
-		intValue = -2044772591
+			intValue = -2044772591
 	)
 	static int field795;
 	@ObfuscatedName("pm")
@@ -471,17 +472,17 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] field868;
 	@ObfuscatedName("om")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	static NodeDeque field846;
 	@ObfuscatedName("ol")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	static NodeDeque field847;
 	@ObfuscatedName("pi")
 	@ObfuscatedGetter(
-		intValue = -1435172975
+			intValue = -1435172975
 	)
 	static int field715;
 	@ObfuscatedName("rq")
@@ -492,17 +493,17 @@ public final class Client extends GameShell implements Usernamed {
 	static short zoomWidth;
 	@ObfuscatedName("mu")
 	@ObfuscatedGetter(
-		intValue = 206170513
+			intValue = 206170513
 	)
 	static int field808;
 	@ObfuscatedName("ms")
 	@ObfuscatedGetter(
-		intValue = 1466636235
+			intValue = 1466636235
 	)
 	static int field664;
 	@ObfuscatedName("ny")
 	@ObfuscatedGetter(
-		intValue = -2045672721
+			intValue = -2045672721
 	)
 	@Export("chatCycle")
 	static int chatCycle;
@@ -512,13 +513,13 @@ public final class Client extends GameShell implements Usernamed {
 	static String field780;
 	@ObfuscatedName("sb")
 	@ObfuscatedSignature(
-		signature = "Lbd;"
+			signature = "Lbd;"
 	)
 	@Export("GrandExchangeEvents_worldComparator")
 	static GrandExchangeOfferOwnWorldComparator GrandExchangeEvents_worldComparator;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "[Lfv;"
+			signature = "[Lfv;"
 	)
 	@Export("collisionMaps")
 	static CollisionMap[] collisionMaps;
@@ -526,19 +527,19 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean field922;
 	@ObfuscatedName("bq")
 	@ObfuscatedGetter(
-		intValue = 1070916763
+			intValue = 1070916763
 	)
 	@Export("worldId")
 	public static int worldId;
 	@ObfuscatedName("bf")
 	@ObfuscatedGetter(
-		intValue = -1124780897
+			intValue = -1124780897
 	)
 	@Export("worldProperties")
 	static int worldProperties;
 	@ObfuscatedName("bk")
 	@ObfuscatedGetter(
-		intValue = 762805581
+			intValue = 762805581
 	)
 	@Export("gameBuild")
 	static int gameBuild;
@@ -550,12 +551,12 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean isLowDetail;
 	@ObfuscatedName("bt")
 	@ObfuscatedGetter(
-		intValue = 2121027027
+			intValue = 2121027027
 	)
 	static int field672;
 	@ObfuscatedName("bn")
 	@ObfuscatedGetter(
-		intValue = 1947983405
+			intValue = 1947983405
 	)
 	@Export("clientType")
 	static int clientType;
@@ -564,7 +565,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean onMobile;
 	@ObfuscatedName("ba")
 	@ObfuscatedGetter(
-		intValue = -873301681
+			intValue = -873301681
 	)
 	@Export("gameState")
 	static int gameState;
@@ -573,29 +574,29 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean isLoading;
 	@ObfuscatedName("ct")
 	@ObfuscatedGetter(
-		intValue = 996993213
+			intValue = 996993213
 	)
 	@Export("cycle")
 	static int cycle;
 	@ObfuscatedName("cb")
 	@ObfuscatedGetter(
-		longValue = -3748954884429607225L
+			longValue = -3748954884429607225L
 	)
 	@Export("mouseLastLastPressedTimeMillis")
 	static long mouseLastLastPressedTimeMillis;
 	@ObfuscatedName("cm")
 	@ObfuscatedGetter(
-		intValue = -241635753
+			intValue = -241635753
 	)
 	static int field657;
 	@ObfuscatedName("cz")
 	@ObfuscatedGetter(
-		intValue = 235164627
+			intValue = 235164627
 	)
 	static int field912;
 	@ObfuscatedName("cu")
 	@ObfuscatedGetter(
-		longValue = -8326458938814166675L
+			longValue = -8326458938814166675L
 	)
 	static long field745;
 	@ObfuscatedName("cy")
@@ -606,134 +607,134 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean displayFps;
 	@ObfuscatedName("cw")
 	@ObfuscatedGetter(
-		intValue = -1706106531
+			intValue = -1706106531
 	)
 	@Export("rebootTimer")
 	static int rebootTimer;
 	@ObfuscatedName("cq")
 	@ObfuscatedGetter(
-		intValue = 2120122053
+			intValue = 2120122053
 	)
 	@Export("hintArrowType")
 	static int hintArrowType;
 	@ObfuscatedName("ci")
 	@ObfuscatedGetter(
-		intValue = -1436156017
+			intValue = -1436156017
 	)
 	@Export("hintArrowNpcIndex")
 	static int hintArrowNpcIndex;
 	@ObfuscatedName("ca")
 	@ObfuscatedGetter(
-		intValue = 1200698835
+			intValue = 1200698835
 	)
 	@Export("hintArrowPlayerIndex")
 	static int hintArrowPlayerIndex;
 	@ObfuscatedName("cc")
 	@ObfuscatedGetter(
-		intValue = -59894547
+			intValue = -59894547
 	)
 	@Export("hintArrowX")
 	static int hintArrowX;
 	@ObfuscatedName("ch")
 	@ObfuscatedGetter(
-		intValue = 228888197
+			intValue = 228888197
 	)
 	@Export("hintArrowY")
 	static int hintArrowY;
 	@ObfuscatedName("cx")
 	@ObfuscatedGetter(
-		intValue = -1687993100
+			intValue = -1687993100
 	)
 	@Export("hintArrowHeight")
 	static int hintArrowHeight;
 	@ObfuscatedName("cl")
 	@ObfuscatedGetter(
-		intValue = 1422789440
+			intValue = 1422789440
 	)
 	@Export("hintArrowSubX")
 	static int hintArrowSubX;
 	@ObfuscatedName("cs")
 	@ObfuscatedGetter(
-		intValue = -1150277369
+			intValue = -1150277369
 	)
 	@Export("hintArrowSubY")
 	static int hintArrowSubY;
 	@ObfuscatedName("cv")
 	@ObfuscatedSignature(
-		signature = "Lcd;"
+			signature = "Lcd;"
 	)
 	@Export("playerAttackOption")
 	static AttackOption playerAttackOption;
 	@ObfuscatedName("dm")
 	@ObfuscatedSignature(
-		signature = "Lcd;"
+			signature = "Lcd;"
 	)
 	@Export("npcAttackOption")
 	static AttackOption npcAttackOption;
 	@ObfuscatedName("ds")
 	@ObfuscatedGetter(
-		intValue = 544123225
+			intValue = 544123225
 	)
 	@Export("titleLoadingStage")
 	static int titleLoadingStage;
 	@ObfuscatedName("do")
 	@ObfuscatedGetter(
-		intValue = 802630795
+			intValue = 802630795
 	)
 	@Export("js5ConnectState")
 	static int js5ConnectState;
 	@ObfuscatedName("di")
 	@ObfuscatedGetter(
-		intValue = 679409999
+			intValue = 679409999
 	)
 	static int field675;
 	@ObfuscatedName("dy")
 	@ObfuscatedSignature(
-		signature = "Lia;"
+			signature = "Lia;"
 	)
 	@Export("archive4")
 	static Archive archive4;
 	@ObfuscatedName("ee")
 	@ObfuscatedSignature(
-		signature = "Lia;"
+			signature = "Lia;"
 	)
 	@Export("archive17")
 	static Archive archive17;
 	@ObfuscatedName("ec")
 	@ObfuscatedGetter(
-		intValue = 788466911
+			intValue = 788466911
 	)
 	@Export("js5Errors")
 	static int js5Errors;
 	@ObfuscatedName("el")
 	@ObfuscatedGetter(
-		intValue = 598488389
+			intValue = 598488389
 	)
 	@Export("loginState")
 	static int loginState;
 	@ObfuscatedName("eq")
 	@ObfuscatedGetter(
-		intValue = 1283349071
+			intValue = 1283349071
 	)
 	static int field679;
 	@ObfuscatedName("eu")
 	@ObfuscatedGetter(
-		intValue = -1801662641
+			intValue = -1801662641
 	)
 	static int field680;
 	@ObfuscatedName("et")
 	@ObfuscatedGetter(
-		intValue = -1956928739
+			intValue = -1956928739
 	)
 	static int field681;
 	@ObfuscatedName("es")
 	@ObfuscatedSignature(
-		signature = "Lfn;"
+			signature = "Lfn;"
 	)
 	static class160 field682;
 	@ObfuscatedName("en")
 	@ObfuscatedGetter(
-		intValue = -1694065133
+			intValue = -1694065133
 	)
 	@Export("port2")
 	static int port2;
@@ -742,7 +743,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean Login_isUsernameRemembered;
 	@ObfuscatedName("eb")
 	@ObfuscatedSignature(
-		signature = "Lcm;"
+			signature = "Lcm;"
 	)
 	@Export("secureRandomFuture")
 	static SecureRandomFuture secureRandomFuture;
@@ -751,13 +752,13 @@ public final class Client extends GameShell implements Usernamed {
 	static byte[] randomDatData;
 	@ObfuscatedName("ew")
 	@ObfuscatedSignature(
-		signature = "[Lcg;"
+			signature = "[Lcg;"
 	)
 	@Export("npcs")
 	static NPC[] npcs;
 	@ObfuscatedName("ed")
 	@ObfuscatedGetter(
-		intValue = 1706473169
+			intValue = 1706473169
 	)
 	@Export("npcCount")
 	static int npcCount;
@@ -766,20 +767,20 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] npcIndices;
 	@ObfuscatedName("fp")
 	@ObfuscatedGetter(
-		intValue = 1670938007
+			intValue = 1670938007
 	)
 	static int field690;
 	@ObfuscatedName("fx")
 	static int[] field867;
 	@ObfuscatedName("fh")
 	@ObfuscatedSignature(
-		signature = "Lci;"
+			signature = "Lci;"
 	)
 	@Export("packetWriter")
 	public static final PacketWriter packetWriter;
 	@ObfuscatedName("fz")
 	@ObfuscatedGetter(
-		intValue = -446741929
+			intValue = -446741929
 	)
 	@Export("logoutTimer")
 	static int logoutTimer;
@@ -790,7 +791,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean useBufferedSocket;
 	@ObfuscatedName("ff")
 	@ObfuscatedSignature(
-		signature = "Ljn;"
+			signature = "Ljn;"
 	)
 	@Export("timer")
 	static Timer timer;
@@ -799,27 +800,27 @@ public final class Client extends GameShell implements Usernamed {
 	static HashMap fontsMap;
 	@ObfuscatedName("fc")
 	@ObfuscatedGetter(
-		intValue = 1167098885
+			intValue = 1167098885
 	)
 	static int field791;
 	@ObfuscatedName("ft")
 	@ObfuscatedGetter(
-		intValue = 1435781107
+			intValue = 1435781107
 	)
 	static int field884;
 	@ObfuscatedName("fr")
 	@ObfuscatedGetter(
-		intValue = 1220114723
+			intValue = 1220114723
 	)
 	static int field700;
 	@ObfuscatedName("gb")
 	@ObfuscatedGetter(
-		intValue = -920973165
+			intValue = -920973165
 	)
 	static int field733;
 	@ObfuscatedName("gi")
 	@ObfuscatedGetter(
-		intValue = 1525628521
+			intValue = 1525628521
 	)
 	static int field695;
 	@ObfuscatedName("gx")
@@ -832,140 +833,140 @@ public final class Client extends GameShell implements Usernamed {
 	static final int[] field743;
 	@ObfuscatedName("gf")
 	@ObfuscatedGetter(
-		intValue = -115001383
+			intValue = -115001383
 	)
 	static int field707;
 	@ObfuscatedName("ht")
 	@ObfuscatedGetter(
-		intValue = 1088390909
+			intValue = 1088390909
 	)
 	static int field870;
 	@ObfuscatedName("hc")
 	@ObfuscatedGetter(
-		intValue = -1687869927
+			intValue = -1687869927
 	)
 	static int field709;
 	@ObfuscatedName("hi")
 	@ObfuscatedGetter(
-		intValue = -2107893215
+			intValue = -2107893215
 	)
 	static int field710;
 	@ObfuscatedName("hf")
 	@ObfuscatedGetter(
-		intValue = 404388609
+			intValue = 404388609
 	)
 	static int field711;
 	@ObfuscatedName("hb")
 	static boolean field712;
 	@ObfuscatedName("hj")
 	@ObfuscatedGetter(
-		intValue = -922297079
+			intValue = -922297079
 	)
 	@Export("alternativeScrollbarWidth")
 	static int alternativeScrollbarWidth;
 	@ObfuscatedName("hm")
 	@ObfuscatedGetter(
-		intValue = 2017298607
+			intValue = 2017298607
 	)
 	@Export("camAngleX")
 	static int camAngleX;
 	@ObfuscatedName("hg")
 	@ObfuscatedGetter(
-		intValue = 715685771
+			intValue = 715685771
 	)
 	@Export("camAngleY")
 	static int camAngleY;
 	@ObfuscatedName("hy")
 	@ObfuscatedGetter(
-		intValue = -1271117347
+			intValue = -1271117347
 	)
 	@Export("camAngleDY")
 	static int camAngleDY;
 	@ObfuscatedName("hk")
 	@ObfuscatedGetter(
-		intValue = -502249305
+			intValue = -502249305
 	)
 	@Export("camAngleDX")
 	static int camAngleDX;
 	@ObfuscatedName("hv")
 	@ObfuscatedGetter(
-		intValue = 1265592985
+			intValue = 1265592985
 	)
 	@Export("mouseCamClickedX")
 	static int mouseCamClickedX;
 	@ObfuscatedName("ho")
 	@ObfuscatedGetter(
-		intValue = -229935521
+			intValue = -229935521
 	)
 	@Export("mouseCamClickedY")
 	static int mouseCamClickedY;
 	@ObfuscatedName("hz")
 	@ObfuscatedGetter(
-		intValue = 573387673
+			intValue = 573387673
 	)
 	@Export("oculusOrbState")
 	static int oculusOrbState;
 	@ObfuscatedName("hh")
 	@ObfuscatedGetter(
-		intValue = -758522723
+			intValue = -758522723
 	)
 	@Export("camFollowHeight")
 	static int camFollowHeight;
 	@ObfuscatedName("hr")
 	@ObfuscatedGetter(
-		intValue = -654913029
+			intValue = -654913029
 	)
 	static int field647;
 	@ObfuscatedName("he")
 	@ObfuscatedGetter(
-		intValue = 1993254297
+			intValue = 1993254297
 	)
 	static int field723;
 	@ObfuscatedName("ii")
 	@ObfuscatedGetter(
-		intValue = 955066829
+			intValue = 955066829
 	)
 	static int field724;
 	@ObfuscatedName("ia")
 	@ObfuscatedGetter(
-		intValue = -1010817559
+			intValue = -1010817559
 	)
 	@Export("oculusOrbNormalSpeed")
 	static int oculusOrbNormalSpeed;
 	@ObfuscatedName("ib")
 	@ObfuscatedGetter(
-		intValue = 2046982327
+			intValue = 2046982327
 	)
 	@Export("oculusOrbSlowedSpeed")
 	static int oculusOrbSlowedSpeed;
 	@ObfuscatedName("in")
 	@ObfuscatedGetter(
-		intValue = 631186879
+			intValue = 631186879
 	)
 	static int field727;
 	@ObfuscatedName("ic")
 	static boolean field728;
 	@ObfuscatedName("id")
 	@ObfuscatedGetter(
-		intValue = 1899106867
+			intValue = 1899106867
 	)
 	static int field729;
 	@ObfuscatedName("ij")
 	static boolean field730;
 	@ObfuscatedName("im")
 	@ObfuscatedGetter(
-		intValue = 1534235447
+			intValue = 1534235447
 	)
 	static int field818;
 	@ObfuscatedName("ie")
 	@ObfuscatedGetter(
-		intValue = 489065879
+			intValue = 489065879
 	)
 	@Export("overheadTextCount")
 	static int overheadTextCount;
 	@ObfuscatedName("iu")
 	@ObfuscatedGetter(
-		intValue = 546122341
+			intValue = 546122341
 	)
 	@Export("overheadTextLimit")
 	static int overheadTextLimit;
@@ -1001,43 +1002,43 @@ public final class Client extends GameShell implements Usernamed {
 	static int[][] tileLastDrawnActor;
 	@ObfuscatedName("ih")
 	@ObfuscatedGetter(
-		intValue = 2113059389
+			intValue = 2113059389
 	)
 	@Export("viewportDrawCount")
 	static int viewportDrawCount;
 	@ObfuscatedName("ig")
 	@ObfuscatedGetter(
-		intValue = 770836743
+			intValue = 770836743
 	)
 	@Export("viewportTempX")
 	static int viewportTempX;
 	@ObfuscatedName("ip")
 	@ObfuscatedGetter(
-		intValue = 1799484349
+			intValue = 1799484349
 	)
 	@Export("viewportTempY")
 	static int viewportTempY;
 	@ObfuscatedName("jq")
 	@ObfuscatedGetter(
-		intValue = -247632533
+			intValue = -247632533
 	)
 	@Export("mouseCrossX")
 	static int mouseCrossX;
 	@ObfuscatedName("jj")
 	@ObfuscatedGetter(
-		intValue = 217544107
+			intValue = 217544107
 	)
 	@Export("mouseCrossY")
 	static int mouseCrossY;
 	@ObfuscatedName("jw")
 	@ObfuscatedGetter(
-		intValue = 250308260
+			intValue = 250308260
 	)
 	@Export("mouseCrossState")
 	static int mouseCrossState;
 	@ObfuscatedName("jr")
 	@ObfuscatedGetter(
-		intValue = 14031919
+			intValue = 14031919
 	)
 	@Export("mouseCrossColor")
 	static int mouseCrossColor;
@@ -1046,35 +1047,35 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean showMouseCross;
 	@ObfuscatedName("jb")
 	@ObfuscatedGetter(
-		intValue = -1559592119
+			intValue = -1559592119
 	)
 	static int field751;
 	@ObfuscatedName("jo")
 	@ObfuscatedGetter(
-		intValue = -769809143
+			intValue = -769809143
 	)
 	static int field752;
 	@ObfuscatedName("ji")
 	@ObfuscatedGetter(
-		intValue = 680963965
+			intValue = 680963965
 	)
 	@Export("dragItemSlotSource")
 	static int dragItemSlotSource;
 	@ObfuscatedName("jc")
 	@ObfuscatedGetter(
-		intValue = -509412397
+			intValue = -509412397
 	)
 	@Export("draggedWidgetX")
 	static int draggedWidgetX;
 	@ObfuscatedName("jn")
 	@ObfuscatedGetter(
-		intValue = 24720215
+			intValue = 24720215
 	)
 	@Export("draggedWidgetY")
 	static int draggedWidgetY;
 	@ObfuscatedName("jt")
 	@ObfuscatedGetter(
-		intValue = -200424637
+			intValue = -200424637
 	)
 	@Export("dragItemSlotDestination")
 	static int dragItemSlotDestination;
@@ -1082,13 +1083,13 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean field757;
 	@ObfuscatedName("jx")
 	@ObfuscatedGetter(
-		intValue = 1665305383
+			intValue = 1665305383
 	)
 	@Export("itemDragDuration")
 	static int itemDragDuration;
 	@ObfuscatedName("jf")
 	@ObfuscatedGetter(
-		intValue = 1608164289
+			intValue = 1608164289
 	)
 	static int field759;
 	@ObfuscatedName("jp")
@@ -1096,19 +1097,19 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean showLoadingMessages;
 	@ObfuscatedName("jh")
 	@ObfuscatedSignature(
-		signature = "[Lba;"
+			signature = "[Lba;"
 	)
 	@Export("players")
 	static Player[] players;
 	@ObfuscatedName("jd")
 	@ObfuscatedGetter(
-		intValue = 356089511
+			intValue = 356089511
 	)
 	@Export("localPlayerIndex")
 	static int localPlayerIndex;
 	@ObfuscatedName("jz")
 	@ObfuscatedGetter(
-		intValue = -2132889429
+			intValue = -2132889429
 	)
 	static int field763;
 	@ObfuscatedName("jl")
@@ -1116,13 +1117,13 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean renderSelf;
 	@ObfuscatedName("kh")
 	@ObfuscatedGetter(
-		intValue = 1701089391
+			intValue = 1701089391
 	)
 	@Export("drawPlayerNames")
 	static int drawPlayerNames;
 	@ObfuscatedName("kj")
 	@ObfuscatedGetter(
-		intValue = -425837641
+			intValue = -425837641
 	)
 	static int field766;
 	@ObfuscatedName("kq")
@@ -1141,31 +1142,31 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] defaultRotations;
 	@ObfuscatedName("kt")
 	@ObfuscatedGetter(
-		intValue = -1908938957
+			intValue = -1908938957
 	)
 	@Export("combatTargetPlayerIndex")
 	static int combatTargetPlayerIndex;
 	@ObfuscatedName("ks")
 	@ObfuscatedSignature(
-		signature = "[[[Ljw;"
+			signature = "[[[Ljw;"
 	)
 	@Export("groundItems")
 	static NodeDeque[][][] groundItems;
 	@ObfuscatedName("kp")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	@Export("pendingSpawns")
 	static NodeDeque pendingSpawns;
 	@ObfuscatedName("kd")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	@Export("projectiles")
 	static NodeDeque projectiles;
 	@ObfuscatedName("ka")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	@Export("graphicsObjects")
 	static NodeDeque graphicsObjects;
@@ -1180,7 +1181,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] experience;
 	@ObfuscatedName("kw")
 	@ObfuscatedGetter(
-		intValue = 1989694785
+			intValue = 1989694785
 	)
 	@Export("leftClickOpensMenu")
 	static int leftClickOpensMenu;
@@ -1189,7 +1190,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean isMenuOpen;
 	@ObfuscatedName("ld")
 	@ObfuscatedGetter(
-		intValue = -1335676379
+			intValue = -1335676379
 	)
 	@Export("menuOptionsCount")
 	static int menuOptionsCount;
@@ -1228,29 +1229,29 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean showMouseOverText;
 	@ObfuscatedName("lx")
 	@ObfuscatedGetter(
-		intValue = -1770752135
+			intValue = -1770752135
 	)
 	@Export("viewportX")
 	static int viewportX;
 	@ObfuscatedName("lm")
 	@ObfuscatedGetter(
-		intValue = 1940696691
+			intValue = 1940696691
 	)
 	@Export("viewportY")
 	static int viewportY;
 	@ObfuscatedName("lv")
 	@ObfuscatedGetter(
-		intValue = 1680914597
+			intValue = 1680914597
 	)
 	static int field796;
 	@ObfuscatedName("le")
 	@ObfuscatedGetter(
-		intValue = 1451138947
+			intValue = 1451138947
 	)
 	static int field797;
 	@ObfuscatedName("ly")
 	@ObfuscatedGetter(
-		intValue = 353529783
+			intValue = 353529783
 	)
 	@Export("isItemSelected")
 	static int isItemSelected;
@@ -1259,13 +1260,13 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean isSpellSelected;
 	@ObfuscatedName("ls")
 	@ObfuscatedGetter(
-		intValue = -678517667
+			intValue = -678517667
 	)
 	@Export("selectedSpellChildIndex")
 	static int selectedSpellChildIndex;
 	@ObfuscatedName("mv")
 	@ObfuscatedGetter(
-		intValue = 259223343
+			intValue = 259223343
 	)
 	static int field802;
 	@ObfuscatedName("mn")
@@ -1276,13 +1277,13 @@ public final class Client extends GameShell implements Usernamed {
 	static String selectedSpellName;
 	@ObfuscatedName("me")
 	@ObfuscatedGetter(
-		intValue = 1383553915
+			intValue = 1383553915
 	)
 	@Export("rootInterface")
 	static int rootInterface;
 	@ObfuscatedName("mx")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+			signature = "Lln;"
 	)
 	@Export("interfaceParents")
 	static NodeHashTable interfaceParents;
@@ -1566,8 +1567,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1781530375"
+			signature = "(I)V",
+			garbageValue = "1781530375"
 	)
 	@Export("resizeGame")
 	protected final void resizeGame() {
@@ -1581,8 +1582,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "159835862"
+			signature = "(I)V",
+			garbageValue = "159835862"
 	)
 	@Export("setUp")
 	protected final void setUp() {
@@ -1604,7 +1605,7 @@ public final class Client extends GameShell implements Usernamed {
 
 		try {
 			var2 = WorldMapRectangle.getPreferencesFile("", class14.field102.name, false);
-			byte[] var4 = new byte[(int)var2.length()];
+			byte[] var4 = new byte[(int) var2.length()];
 
 			int var6;
 			for (int var5 = 0; var5 < var4.length; var5 += var6) {
@@ -1643,8 +1644,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1684911639"
+			signature = "(I)V",
+			garbageValue = "1684911639"
 	)
 	@Export("doCycle")
 	protected final void doCycle() {
@@ -2093,7 +2094,7 @@ public final class Client extends GameShell implements Usernamed {
 
 						UserComparator3.playPcmPlayers();
 
-						for (PendingSpawn var52 = (PendingSpawn)pendingSpawns.last(); var52 != null; var52 = (PendingSpawn)pendingSpawns.previous()) {
+						for (PendingSpawn var52 = (PendingSpawn) pendingSpawns.last(); var52 != null; var52 = (PendingSpawn) pendingSpawns.previous()) {
 							if (var52.hitpoints == -1) {
 								var52.delay = 0;
 								WorldMapDecoration.method347(var52);
@@ -2149,8 +2150,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
-		garbageValue = "-1486807503"
+			signature = "(ZI)V",
+			garbageValue = "-1486807503"
 	)
 	@Export("draw")
 	protected final void draw(boolean var1) {
@@ -2225,8 +2226,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-2144356516"
+			signature = "(I)V",
+			garbageValue = "-2144356516"
 	)
 	@Export("kill0")
 	protected final void kill0() {
@@ -2242,7 +2243,7 @@ public final class Client extends GameShell implements Usernamed {
 		packetWriter.close();
 		DevicePcmPlayerProvider.method855();
 		if (MouseHandler.MouseHandler_instance != null) {
-			synchronized(MouseHandler.MouseHandler_instance) {
+			synchronized (MouseHandler.MouseHandler_instance) {
 				MouseHandler.MouseHandler_instance = null;
 			}
 		}
@@ -2257,7 +2258,7 @@ public final class Client extends GameShell implements Usernamed {
 		}
 
 		WorldMapElement.method4470();
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) {
+		synchronized (ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) {
 			if (ArchiveDiskActionHandler.field3150 != 0) {
 				ArchiveDiskActionHandler.field3150 = 1;
 
@@ -2289,8 +2290,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-2"
+			signature = "(B)V",
+			garbageValue = "-2"
 	)
 	protected final void vmethod1478() {
 	}
@@ -2301,62 +2302,62 @@ public final class Client extends GameShell implements Usernamed {
 				for (int var1 = 0; var1 <= 19; ++var1) {
 					String var2 = this.getParameter(Integer.toString(var1));
 					if (var2 != null) {
-						switch(var1) {
-						case 1:
-							useBufferedSocket = Integer.parseInt(var2) != 0;
-						case 2:
-						case 11:
-						case 13:
-						case 16:
-						default:
-							break;
-						case 3:
-							if (var2.equalsIgnoreCase("true")) {
-								isMembersWorld = true;
-							} else {
-								isMembersWorld = false;
-							}
-							break;
-						case 4:
-							if (clientType == -1) {
-								clientType = Integer.parseInt(var2);
-							}
-							break;
-						case 5:
-							worldProperties = Integer.parseInt(var2);
-							break;
-						case 6:
-							FriendLoginUpdate.clientLanguage = Language.method3711(Integer.parseInt(var2));
-							break;
-						case 7:
-							BuddyRankComparator.field1987 = class2.method31(Integer.parseInt(var2));
-							break;
-						case 8:
-							if (var2.equalsIgnoreCase("true")) {
-							}
-							break;
-						case 9:
-							GameShell.field477 = var2;
-							break;
-						case 10:
-							class14.field102 = (StudioGame)WorldMapSection0.findEnumerated(MusicPatchNode.method3898(), Integer.parseInt(var2));
-							if (StudioGame.oldscape == class14.field102) {
-								class192.loginType = LoginType.oldscape;
-							} else {
-								class192.loginType = LoginType.field4029;
-							}
-							break;
-						case 12:
-							worldId = Integer.parseInt(var2);
-							break;
-						case 14:
-							field672 = Integer.parseInt(var2);
-							break;
-						case 15:
-							gameBuild = Integer.parseInt(var2);
-							break;
-						case 17:
-							StructDefinition.field3307 = var2;
+						switch (var1) {
+							case 1:
+								useBufferedSocket = Integer.parseInt(var2) != 0;
+							case 2:
+							case 11:
+							case 13:
+							case 16:
+							default:
+								break;
+							case 3:
+								if (var2.equalsIgnoreCase("true")) {
+									isMembersWorld = true;
+								} else {
+									isMembersWorld = false;
+								}
+								break;
+							case 4:
+								if (clientType == -1) {
+									clientType = Integer.parseInt(var2);
+								}
+								break;
+							case 5:
+								worldProperties = Integer.parseInt(var2);
+								break;
+							case 6:
+								FriendLoginUpdate.clientLanguage = Language.method3711(Integer.parseInt(var2));
+								break;
+							case 7:
+								BuddyRankComparator.field1987 = class2.method31(Integer.parseInt(var2));
+								break;
+							case 8:
+								if (var2.equalsIgnoreCase("true")) {
+								}
+								break;
+							case 9:
+								GameShell.field477 = var2;
+								break;
+							case 10:
+								class14.field102 = (StudioGame) WorldMapSection0.findEnumerated(MusicPatchNode.method3898(), Integer.parseInt(var2));
+								if (StudioGame.oldscape == class14.field102) {
+									class192.loginType = LoginType.oldscape;
+								} else {
+									class192.loginType = LoginType.field4029;
+								}
+								break;
+							case 12:
+								worldId = Integer.parseInt(var2);
+								break;
+							case 14:
+								field672 = Integer.parseInt(var2);
+								break;
+							case 15:
+								gameBuild = Integer.parseInt(var2);
+								break;
+							case 17:
+								StructDefinition.field3307 = var2;
 						}
 					}
 				}
@@ -2463,7 +2464,7 @@ public final class Client extends GameShell implements Usernamed {
 						MilliClock.JagexCache_idxFiles[var13] = new BufferedFile(new AccessFile(UserComparator3.getFile("main_file_cache.idx" + var13), "rw", 1048576L), 6000, 0);
 					}
 				} catch (Exception var18) {
-					class225.RunException_sendStackTrace((String)null, var18);
+					class225.RunException_sendStackTrace((String) null, var18);
 				}
 
 				Username.client = this;
@@ -2477,8 +2478,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ew")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1362908208"
+			signature = "(I)V",
+			garbageValue = "1362908208"
 	)
 	@Export("doCycleJs5")
 	void doCycleJs5() {
@@ -2493,8 +2494,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ed")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "59"
+			signature = "(B)V",
+			garbageValue = "59"
 	)
 	@Export("doCycleJs5Connect")
 	void doCycleJs5Connect() {
@@ -2533,9 +2534,9 @@ public final class Client extends GameShell implements Usernamed {
 
 					if (js5ConnectState == 2) {
 						if (useBufferedSocket) {
-							WorldMapIcon_0.js5Socket = Bounds.method6040((Socket)TileItemPile.js5SocketTask.result, 40000, 5000);
+							WorldMapIcon_0.js5Socket = Bounds.method6040((Socket) TileItemPile.js5SocketTask.result, 40000, 5000);
 						} else {
-							WorldMapIcon_0.js5Socket = new NetSocket((Socket)TileItemPile.js5SocketTask.result, GameShell.taskHandler, 5000);
+							WorldMapIcon_0.js5Socket = new NetSocket((Socket) TileItemPile.js5SocketTask.result, GameShell.taskHandler, 5000);
 						}
 
 						Buffer var1 = new Buffer(5);
@@ -2581,10 +2582,10 @@ public final class Client extends GameShell implements Usernamed {
 						NetCache.field3181 = 0;
 
 						while (true) {
-							NetFileRequest var3 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.first();
+							NetFileRequest var3 = (NetFileRequest) NetCache.NetCache_pendingPriorityResponses.first();
 							if (var3 == null) {
 								while (true) {
-									var3 = (NetFileRequest)NetCache.NetCache_pendingResponses.first();
+									var3 = (NetFileRequest) NetCache.NetCache_pendingResponses.first();
 									if (var3 == null) {
 										if (NetCache.field3184 != 0) {
 											try {
@@ -2635,8 +2636,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("fl")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
-		garbageValue = "-52"
+			signature = "(IB)V",
+			garbageValue = "-52"
 	)
 	@Export("js5Error")
 	void js5Error(int var1) {
@@ -2673,8 +2674,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("fz")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1666234502"
+			signature = "(I)V",
+			garbageValue = "1666234502"
 	)
 	@Export("doCycleLoggedOut")
 	final void doCycleLoggedOut() {
@@ -2691,7 +2692,7 @@ public final class Client extends GameShell implements Usernamed {
 
 				if (ScriptEvent.secureRandom != null) {
 					if (var1 != null) {
-						((AbstractSocket)var1).close();
+						((AbstractSocket) var1).close();
 						var1 = null;
 					}
 
@@ -2713,12 +2714,12 @@ public final class Client extends GameShell implements Usernamed {
 
 				if (NetFileRequest.socketTask.status == 1) {
 					if (useBufferedSocket) {
-						var1 = Bounds.method6040((Socket)NetFileRequest.socketTask.result, 40000, 5000);
+						var1 = Bounds.method6040((Socket) NetFileRequest.socketTask.result, 40000, 5000);
 					} else {
-						var1 = new NetSocket((Socket)NetFileRequest.socketTask.result, GameShell.taskHandler, 5000);
+						var1 = new NetSocket((Socket) NetFileRequest.socketTask.result, GameShell.taskHandler, 5000);
 					}
 
-					packetWriter.setSocket((AbstractSocket)var1);
+					packetWriter.setSocket((AbstractSocket) var1);
 					NetFileRequest.socketTask = null;
 					loginState = 2;
 				}
@@ -2749,12 +2750,12 @@ public final class Client extends GameShell implements Usernamed {
 				}
 
 				var14 = true;
-				if (useBufferedSocket && !((AbstractSocket)var1).isAvailable(1)) {
+				if (useBufferedSocket && !((AbstractSocket) var1).isAvailable(1)) {
 					var14 = false;
 				}
 
 				if (var14) {
-					var15 = ((AbstractSocket)var1).readUnsignedByte();
+					var15 = ((AbstractSocket) var1).readUnsignedByte();
 					if (WorldMapLabelSize.pcmPlayer0 != null) {
 						WorldMapLabelSize.pcmPlayer0.method2489();
 					}
@@ -2776,13 +2777,13 @@ public final class Client extends GameShell implements Usernamed {
 			int var33;
 			if (loginState == 4) {
 				if (var2.offset < 8) {
-					var33 = ((AbstractSocket)var1).available();
+					var33 = ((AbstractSocket) var1).available();
 					if (var33 > 8 - var2.offset) {
 						var33 = 8 - var2.offset;
 					}
 
 					if (var33 > 0) {
-						((AbstractSocket)var1).read(var2.array, var2.offset, var33);
+						((AbstractSocket) var1).read(var2.array, var2.offset, var33);
 						var2.offset += var33;
 					}
 				}
@@ -2813,26 +2814,26 @@ public final class Client extends GameShell implements Usernamed {
 					var3.writeInt(WorldMapSection1.field295[3]);
 				} else {
 					var3.writeByte(field682.rsOrdinal());
-					switch(field682.field1992) {
-					case 0:
-					case 3:
-						var3.writeMedium(Frames.field1885);
-						++var3.offset;
-						break;
-					case 1:
-						LinkedHashMap var6 = WorldMapSection2.clientPreferences.parameters;
-						String var8 = Login.Login_username;
-						int var9 = var8.length();
-						int var10 = 0;
+					switch (field682.field1992) {
+						case 0:
+						case 3:
+							var3.writeMedium(Frames.field1885);
+							++var3.offset;
+							break;
+						case 1:
+							LinkedHashMap var6 = WorldMapSection2.clientPreferences.parameters;
+							String var8 = Login.Login_username;
+							int var9 = var8.length();
+							int var10 = 0;
 
-						for (int var11 = 0; var11 < var9; ++var11) {
-							var10 = (var10 << 5) - var10 + var8.charAt(var11);
-						}
+							for (int var11 = 0; var11 < var9; ++var11) {
+								var10 = (var10 << 5) - var10 + var8.charAt(var11);
+							}
 
-						var3.writeInt((Integer)var6.get(var10));
-						break;
-					case 2:
-						var3.offset += 4;
+							var3.writeInt((Integer) var6.get(var10));
+							break;
+						case 2:
+							var3.offset += 4;
 					}
 
 					var3.writeByte(class313.field3815.rsOrdinal());
@@ -2932,8 +2933,8 @@ public final class Client extends GameShell implements Usernamed {
 				loginState = 6;
 			}
 
-			if (loginState == 6 && ((AbstractSocket)var1).available() > 0) {
-				var33 = ((AbstractSocket)var1).readUnsignedByte();
+			if (loginState == 6 && ((AbstractSocket) var1).available() > 0) {
+				var33 = ((AbstractSocket) var1).readUnsignedByte();
 				if (var33 == 21 && gameState == 20) {
 					loginState = 9;
 				} else if (var33 == 2) {
@@ -2956,19 +2957,19 @@ public final class Client extends GameShell implements Usernamed {
 				}
 			}
 
-			if (loginState == 7 && ((AbstractSocket)var1).available() > 0) {
-				WorldMapIcon_0.field148 = ((AbstractSocket)var1).readUnsignedByte();
+			if (loginState == 7 && ((AbstractSocket) var1).available() > 0) {
+				WorldMapIcon_0.field148 = ((AbstractSocket) var1).readUnsignedByte();
 				loginState = 8;
 			}
 
-			if (loginState == 8 && ((AbstractSocket)var1).available() >= WorldMapIcon_0.field148) {
-				((AbstractSocket)var1).read(var2.array, 0, WorldMapIcon_0.field148);
+			if (loginState == 8 && ((AbstractSocket) var1).available() >= WorldMapIcon_0.field148) {
+				((AbstractSocket) var1).read(var2.array, 0, WorldMapIcon_0.field148);
 				var2.offset = 0;
 				loginState = 6;
 			}
 
-			if (loginState == 9 && ((AbstractSocket)var1).available() > 0) {
-				field681 = (((AbstractSocket)var1).readUnsignedByte() + 3) * 60;
+			if (loginState == 9 && ((AbstractSocket) var1).available() > 0) {
+				field681 = (((AbstractSocket) var1).readUnsignedByte() + 3) * 60;
 				loginState = 10;
 			}
 
@@ -2980,14 +2981,14 @@ public final class Client extends GameShell implements Usernamed {
 				}
 
 			} else {
-				if (loginState == 11 && ((AbstractSocket)var1).available() >= 1) {
-					class189.field2353 = ((AbstractSocket)var1).readUnsignedByte();
+				if (loginState == 11 && ((AbstractSocket) var1).available() >= 1) {
+					class189.field2353 = ((AbstractSocket) var1).readUnsignedByte();
 					loginState = 12;
 				}
 
-				if (loginState == 12 && ((AbstractSocket)var1).available() >= class189.field2353) {
-					var14 = ((AbstractSocket)var1).readUnsignedByte() == 1;
-					((AbstractSocket)var1).read(var2.array, 0, 4);
+				if (loginState == 12 && ((AbstractSocket) var1).available() >= class189.field2353) {
+					var14 = ((AbstractSocket) var1).readUnsignedByte() == 1;
+					((AbstractSocket) var1).read(var2.array, 0, 4);
 					var2.offset = 0;
 					boolean var34 = false;
 					if (var14) {
@@ -3012,13 +3013,13 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					WorldMapData_1.savePreferences();
-					staffModLevel = ((AbstractSocket)var1).readUnsignedByte();
-					playerMod = ((AbstractSocket)var1).readUnsignedByte() == 1;
-					localPlayerIndex = ((AbstractSocket)var1).readUnsignedByte();
+					staffModLevel = ((AbstractSocket) var1).readUnsignedByte();
+					playerMod = ((AbstractSocket) var1).readUnsignedByte() == 1;
+					localPlayerIndex = ((AbstractSocket) var1).readUnsignedByte();
 					localPlayerIndex <<= 8;
-					localPlayerIndex += ((AbstractSocket)var1).readUnsignedByte();
-					field763 = ((AbstractSocket)var1).readUnsignedByte();
-					((AbstractSocket)var1).read(var2.array, 0, 1);
+					localPlayerIndex += ((AbstractSocket) var1).readUnsignedByte();
+					field763 = ((AbstractSocket) var1).readUnsignedByte();
+					((AbstractSocket) var1).read(var2.array, 0, 1);
 					var2.offset = 0;
 					ServerPacket[] var5 = Occluder.ServerPacket_values();
 					int var22 = var2.readSmartByteShortIsaac();
@@ -3028,7 +3029,7 @@ public final class Client extends GameShell implements Usernamed {
 
 					packetWriter.serverPacket = var5[var22];
 					packetWriter.serverPacketLength = packetWriter.serverPacket.length;
-					((AbstractSocket)var1).read(var2.array, 0, 2);
+					((AbstractSocket) var1).read(var2.array, 0, 2);
 					var2.offset = 0;
 					packetWriter.serverPacketLength = var2.readUnsignedShort();
 
@@ -3041,9 +3042,9 @@ public final class Client extends GameShell implements Usernamed {
 				}
 
 				if (loginState == 13) {
-					if (((AbstractSocket)var1).available() >= packetWriter.serverPacketLength) {
+					if (((AbstractSocket) var1).available() >= packetWriter.serverPacketLength) {
 						var2.offset = 0;
-						((AbstractSocket)var1).read(var2.array, 0, packetWriter.serverPacketLength);
+						((AbstractSocket) var1).read(var2.array, 0, packetWriter.serverPacketLength);
 						timer.method5047();
 						class2.method32();
 						MenuAction.updatePlayer(var2);
@@ -3053,17 +3054,17 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 				} else {
-					if (loginState == 14 && ((AbstractSocket)var1).available() >= 2) {
+					if (loginState == 14 && ((AbstractSocket) var1).available() >= 2) {
 						var2.offset = 0;
-						((AbstractSocket)var1).read(var2.array, 0, 2);
+						((AbstractSocket) var1).read(var2.array, 0, 2);
 						var2.offset = 0;
 						FontName.field3650 = var2.readUnsignedShort();
 						loginState = 15;
 					}
 
-					if (loginState == 15 && ((AbstractSocket)var1).available() >= FontName.field3650) {
+					if (loginState == 15 && ((AbstractSocket) var1).available() >= FontName.field3650) {
 						var2.offset = 0;
-						((AbstractSocket)var1).read(var2.array, 0, FontName.field3650);
+						((AbstractSocket) var1).read(var2.array, 0, FontName.field3650);
 						var2.offset = 0;
 						String var27 = var2.readStringCp1252NullTerminated();
 						String var29 = var2.readStringCp1252NullTerminated();
@@ -3074,17 +3075,17 @@ public final class Client extends GameShell implements Usernamed {
 
 					if (loginState == 16) {
 						if (packetWriter.serverPacketLength == -1) {
-							if (((AbstractSocket)var1).available() < 2) {
+							if (((AbstractSocket) var1).available() < 2) {
 								return;
 							}
 
-							((AbstractSocket)var1).read(var2.array, 0, 2);
+							((AbstractSocket) var1).read(var2.array, 0, 2);
 							var2.offset = 0;
 							packetWriter.serverPacketLength = var2.readUnsignedShort();
 						}
 
-						if (((AbstractSocket)var1).available() >= packetWriter.serverPacketLength) {
-							((AbstractSocket)var1).read(var2.array, 0, packetWriter.serverPacketLength);
+						if (((AbstractSocket) var1).available() >= packetWriter.serverPacketLength) {
+							((AbstractSocket) var1).read(var2.array, 0, packetWriter.serverPacketLength);
 							var2.offset = 0;
 							var33 = packetWriter.serverPacketLength;
 							timer.method5046();
@@ -3131,8 +3132,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("fe")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "14"
+			signature = "(B)V",
+			garbageValue = "14"
 	)
 	@Export("doCycleLoggedIn")
 	final void doCycleLoggedIn() {
@@ -3188,7 +3189,7 @@ public final class Client extends GameShell implements Usernamed {
 				int var10;
 				int var11;
 				int var12;
-				synchronized(class16.mouseRecorder.lock) {
+				synchronized (class16.mouseRecorder.lock) {
 					if (!field922) {
 						class16.mouseRecorder.index = 0;
 					} else if (MouseHandler.MouseHandler_lastButton != 0 || class16.mouseRecorder.index >= 40) {
@@ -3228,8 +3229,8 @@ public final class Client extends GameShell implements Usernamed {
 								if (-1L != field745) {
 									var10 = var9 - field657;
 									var11 = var8 - field912;
-									var12 = (int)((class16.mouseRecorder.millis[var7] - field745) / 20L);
-									var5 = (int)((long)var5 + (class16.mouseRecorder.millis[var7] - field745) % 20L);
+									var12 = (int) ((class16.mouseRecorder.millis[var7] - field745) / 20L);
+									var5 = (int) ((long) var5 + (class16.mouseRecorder.millis[var7] - field745) % 20L);
 								} else {
 									var10 = var9;
 									var11 = var8;
@@ -3311,7 +3312,7 @@ public final class Client extends GameShell implements Usernamed {
 						var4 = Username.canvasWidth;
 					}
 
-					var5 = (int)var16;
+					var5 = (int) var16;
 					PacketBufferNode var18 = TilePaint.getPacketBufferNode(ClientPacket.field2275, packetWriter.isaacCipher);
 					var18.packetBuffer.writeShort((MouseHandler.MouseHandler_lastButton == 2 ? 1 : 0) + (var5 << 1));
 					var18.packetBuffer.writeShort(var4);
@@ -3333,7 +3334,7 @@ public final class Client extends GameShell implements Usernamed {
 
 						field702 = var19;
 						var14.packetBuffer.writeByte(KeyHandler.field404[var5]);
-						var14.packetBuffer.method5619((int)var21);
+						var14.packetBuffer.method5619((int) var21);
 					}
 
 					var14.packetBuffer.writeLengthShort(var14.packetBuffer.offset - var2);
@@ -3402,8 +3403,8 @@ public final class Client extends GameShell implements Usernamed {
 						}
 					}
 
-					var4 = (238 + (int)(Math.random() * 20.0D) - 10 << 16) + (238 + (int)(Math.random() * 20.0D) - 10 << 8) + (238 + (int)(Math.random() * 20.0D) - 10);
-					var5 = 238 + (int)(Math.random() * 20.0D) - 10 << 16;
+					var4 = (238 + (int) (Math.random() * 20.0D) - 10 << 16) + (238 + (int) (Math.random() * 20.0D) - 10 << 8) + (238 + (int) (Math.random() * 20.0D) - 10);
+					var5 = 238 + (int) (Math.random() * 20.0D) - 10 << 16;
 					WorldMapRectangle.sceneMinimapSprite.setRaster();
 
 					for (var6 = 1; var6 < 103; ++var6) {
@@ -3440,7 +3441,7 @@ public final class Client extends GameShell implements Usernamed {
 				}
 
 				if (gameState == 30) {
-					for (PendingSpawn var34 = (PendingSpawn)pendingSpawns.last(); var34 != null; var34 = (PendingSpawn)pendingSpawns.previous()) {
+					for (PendingSpawn var34 = (PendingSpawn) pendingSpawns.last(); var34 != null; var34 = (PendingSpawn) pendingSpawns.previous()) {
 						if (var34.hitpoints > 0) {
 							--var34.hitpoints;
 						}
@@ -3559,15 +3560,15 @@ public final class Client extends GameShell implements Usernamed {
 							ScriptEvent var40;
 							Widget var41;
 							do {
-								var40 = (ScriptEvent)field846.removeLast();
+								var40 = (ScriptEvent) field846.removeLast();
 								if (var40 == null) {
 									while (true) {
 										do {
-											var40 = (ScriptEvent)field847.removeLast();
+											var40 = (ScriptEvent) field847.removeLast();
 											if (var40 == null) {
 												while (true) {
 													do {
-														var40 = (ScriptEvent)scriptEvents.removeLast();
+														var40 = (ScriptEvent) scriptEvents.removeLast();
 														if (var40 == null) {
 															this.menu();
 															if (WorldMapIcon_0.worldMap != null) {
@@ -3910,9 +3911,9 @@ public final class Client extends GameShell implements Usernamed {
 																var6 = var3 - HitSplatDefinition.cameraX;
 																var7 = var5 - class51.cameraY;
 																var8 = var4 - Actor.cameraZ;
-																var9 = (int)Math.sqrt((double)(var8 * var8 + var6 * var6));
-																var10 = (int)(Math.atan2((double)var7, (double)var9) * 325.949D) & 2047;
-																var11 = (int)(Math.atan2((double)var6, (double)var8) * -325.949D) & 2047;
+																var9 = (int) Math.sqrt((double) (var8 * var8 + var6 * var6));
+																var10 = (int) (Math.atan2((double) var7, (double) var9) * 325.949D) & 2047;
+																var11 = (int) (Math.atan2((double) var6, (double) var8) * -325.949D) & 2047;
 																if (var10 < 128) {
 																	var10 = 128;
 																}
@@ -4004,7 +4005,7 @@ public final class Client extends GameShell implements Usernamed {
 														}
 
 														var27 = Varps.getWidget(var41.parentId);
-													} while(var27 == null || var27.children == null || var41.childIndex >= var27.children.length || var41 != var27.children[var41.childIndex]);
+													} while (var27 == null || var27.children == null || var41.childIndex >= var27.children.length || var41 != var27.children[var41.childIndex]);
 
 													class4.runScriptEvent(var40);
 												}
@@ -4016,7 +4017,7 @@ public final class Client extends GameShell implements Usernamed {
 											}
 
 											var27 = Varps.getWidget(var41.parentId);
-										} while(var27 == null || var27.children == null || var41.childIndex >= var27.children.length || var41 != var27.children[var41.childIndex]);
+										} while (var27 == null || var27.children == null || var41.childIndex >= var27.children.length || var41 != var27.children[var41.childIndex]);
 
 										class4.runScriptEvent(var40);
 									}
@@ -4028,7 +4029,7 @@ public final class Client extends GameShell implements Usernamed {
 								}
 
 								var27 = Varps.getWidget(var41.parentId);
-							} while(var27 == null || var27.children == null || var41.childIndex >= var27.children.length || var41 != var27.children[var41.childIndex]);
+							} while (var27 == null || var27.children == null || var41.childIndex >= var27.children.length || var41 != var27.children[var41.childIndex]);
 
 							class4.runScriptEvent(var40);
 						}
@@ -4040,8 +4041,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("gx")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "2"
+			signature = "(B)V",
+			garbageValue = "2"
 	)
 	@Export("resizeJS")
 	void resizeJS() {
@@ -4068,8 +4069,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("gp")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1323665648"
+			signature = "(I)V",
+			garbageValue = "1323665648"
 	)
 	@Export("drawLoggedIn")
 	final void drawLoggedIn() {
@@ -4130,7 +4131,7 @@ public final class Client extends GameShell implements Usernamed {
 		int var3 = class192.localPlayer.y;
 		int var4 = field707;
 
-		for (ObjectSound var5 = (ObjectSound)ObjectSound.objectSounds.last(); var5 != null; var5 = (ObjectSound)ObjectSound.objectSounds.previous()) {
+		for (ObjectSound var5 = (ObjectSound) ObjectSound.objectSounds.last(); var5 != null; var5 = (ObjectSound) ObjectSound.objectSounds.previous()) {
 			if (var5.soundEffectId != -1 || var5.soundEffectIds != null) {
 				int var6 = 0;
 				if (var2 > var5.field1069 * 16384) {
@@ -4171,7 +4172,7 @@ public final class Client extends GameShell implements Usernamed {
 
 					if (var5.stream2 == null) {
 						if (var5.soundEffectIds != null && (var5.field1077 -= var4) <= 0) {
-							int var12 = (int)(Math.random() * (double)var5.soundEffectIds.length);
+							int var12 = (int) (Math.random() * (double) var5.soundEffectIds.length);
 							var10000 = null;
 							SoundEffect var13 = SoundEffect.readSoundEffect(archive4, var5.soundEffectIds[var12], 0);
 							if (var13 != null) {
@@ -4180,7 +4181,7 @@ public final class Client extends GameShell implements Usernamed {
 								var11.setNumLoops(0);
 								class2.pcmStreamMixer.addSubStream(var11);
 								var5.stream2 = var11;
-								var5.field1077 = var5.field1074 + (int)(Math.random() * (double)(var5.field1075 - var5.field1074));
+								var5.field1077 = var5.field1074 + (int) (Math.random() * (double) (var5.field1075 - var5.field1074));
 							}
 						}
 					} else {
@@ -4208,8 +4209,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("hs")
 	@ObfuscatedSignature(
-		signature = "(Lci;I)Z",
-		garbageValue = "1768904673"
+			signature = "(Lci;I)Z",
+			garbageValue = "1768904673"
 	)
 	final boolean method1363(PacketWriter var1) {
 		AbstractSocket var2 = var1.getSocket();
@@ -4532,7 +4533,7 @@ public final class Client extends GameShell implements Usernamed {
 						}
 					}
 
-					for (PendingSpawn var42 = (PendingSpawn)pendingSpawns.last(); var42 != null; var42 = (PendingSpawn)pendingSpawns.previous()) {
+					for (PendingSpawn var42 = (PendingSpawn) pendingSpawns.last(); var42 != null; var42 = (PendingSpawn) pendingSpawns.previous()) {
 						if (var42.x >= SecureRandomCallable.field531 && var42.x < SecureRandomCallable.field531 + 8 && var42.y >= FontName.field3663 && var42.y < FontName.field3663 + 8 && var42.plane == Clock.Client_plane) {
 							var42.hitpoints = 0;
 						}
@@ -4682,7 +4683,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					for (var8 = var6; var8 <= var7; ++var8) {
-						var20 = ((long)var5 << 32) + (long)var8;
+						var20 = ((long) var5 << 32) + (long) var8;
 						Node var44 = widgetClickMasks.get(var20);
 						if (var44 != null) {
 							var44.remove();
@@ -4816,9 +4817,9 @@ public final class Client extends GameShell implements Usernamed {
 						var7 = var17 - HitSplatDefinition.cameraX;
 						var8 = var6 - class51.cameraY;
 						var9 = var5 - Actor.cameraZ;
-						var10 = (int)Math.sqrt((double)(var9 * var9 + var7 * var7));
-						GrandExchangeOffer.cameraPitch = (int)(Math.atan2((double)var8, (double)var10) * 325.949D) & 2047;
-						FriendSystem.cameraYaw = (int)(Math.atan2((double)var7, (double)var9) * -325.949D) & 2047;
+						var10 = (int) Math.sqrt((double) (var9 * var9 + var7 * var7));
+						GrandExchangeOffer.cameraPitch = (int) (Math.atan2((double) var8, (double) var10) * 325.949D) & 2047;
+						FriendSystem.cameraYaw = (int) (Math.atan2((double) var7, (double) var9) * -325.949D) & 2047;
 						if (GrandExchangeOffer.cameraPitch < 128) {
 							GrandExchangeOffer.cameraPitch = 128;
 						}
@@ -4955,15 +4956,15 @@ public final class Client extends GameShell implements Usernamed {
 				if (ServerPacket.field2174 == var1.serverPacket) {
 					var17 = var3.method5625();
 					var5 = var3.method5665();
-					InterfaceParent var55 = (InterfaceParent)interfaceParents.get((long)var5);
-					var19 = (InterfaceParent)interfaceParents.get((long)var17);
+					InterfaceParent var55 = (InterfaceParent) interfaceParents.get((long) var5);
+					var19 = (InterfaceParent) interfaceParents.get((long) var17);
 					if (var19 != null) {
 						class185.closeInterface(var19, var55 == null || var55.group != var19.group);
 					}
 
 					if (var55 != null) {
 						var55.remove();
-						interfaceParents.put(var55, (long)var17);
+						interfaceParents.put(var55, (long) var17);
 					}
 
 					var23 = Varps.getWidget(var5);
@@ -5010,9 +5011,9 @@ public final class Client extends GameShell implements Usernamed {
 				long var26;
 				if (ServerPacket.field2151 == var1.serverPacket) {
 					var38 = var3.readStringCp1252NullTerminated();
-					var24 = (long)var3.readUnsignedShort();
-					var26 = (long)var3.readMedium();
-					PlayerType var28 = (PlayerType)WorldMapSection0.findEnumerated(SecureRandomFuture.PlayerType_values(), var3.readUnsignedByte());
+					var24 = (long) var3.readUnsignedShort();
+					var26 = (long) var3.readMedium();
+					PlayerType var28 = (PlayerType) WorldMapSection0.findEnumerated(SecureRandomFuture.PlayerType_values(), var3.readUnsignedByte());
 					long var29 = (var24 << 32) + var26;
 					boolean var12 = false;
 
@@ -5070,9 +5071,9 @@ public final class Client extends GameShell implements Usernamed {
 				if (ServerPacket.field2142 == var1.serverPacket) {
 					var38 = var3.readStringCp1252NullTerminated();
 					var24 = var3.readLong();
-					var26 = (long)var3.readUnsignedShort();
-					var20 = (long)var3.readMedium();
-					PlayerType var11 = (PlayerType)WorldMapSection0.findEnumerated(SecureRandomFuture.PlayerType_values(), var3.readUnsignedByte());
+					var26 = (long) var3.readUnsignedShort();
+					var20 = (long) var3.readMedium();
+					PlayerType var11 = (PlayerType) WorldMapSection0.findEnumerated(SecureRandomFuture.PlayerType_values(), var3.readUnsignedByte());
 					var32 = var20 + (var26 << 32);
 					boolean var14 = false;
 
@@ -5104,7 +5105,7 @@ public final class Client extends GameShell implements Usernamed {
 
 				if (ServerPacket.field2162 == var1.serverPacket) {
 					var17 = var3.readInt();
-					InterfaceParent var47 = (InterfaceParent)interfaceParents.get((long)var17);
+					InterfaceParent var47 = (InterfaceParent) interfaceParents.get((long) var17);
 					if (var47 != null) {
 						class185.closeInterface(var47, true);
 					}
@@ -5245,7 +5246,7 @@ public final class Client extends GameShell implements Usernamed {
 					var17 = var3.method5614();
 					var5 = var3.method5606();
 					var6 = var3.method5625();
-					var19 = (InterfaceParent)interfaceParents.get((long)var6);
+					var19 = (InterfaceParent) interfaceParents.get((long) var6);
 					if (var19 != null) {
 						class185.closeInterface(var19, var17 != var19.group);
 					}
@@ -5497,7 +5498,7 @@ public final class Client extends GameShell implements Usernamed {
 						var7 = var3.readInt();
 						var8 = var3.readUnsignedShort();
 						var9 = var3.readUnsignedByte();
-						var22 = (InterfaceParent)interfaceParents.get((long)var7);
+						var22 = (InterfaceParent) interfaceParents.get((long) var7);
 						if (var22 != null && var8 != var22.group) {
 							class185.closeInterface(var22, true);
 							var22 = null;
@@ -5508,7 +5509,7 @@ public final class Client extends GameShell implements Usernamed {
 						}
 					}
 
-					for (var19 = (InterfaceParent)interfaceParents.first(); var19 != null; var19 = (InterfaceParent)interfaceParents.next()) {
+					for (var19 = (InterfaceParent) interfaceParents.first(); var19 != null; var19 = (InterfaceParent) interfaceParents.next()) {
 						if (var19.field568) {
 							var19.field568 = false;
 						} else {
@@ -5525,7 +5526,7 @@ public final class Client extends GameShell implements Usernamed {
 						var10 = var3.readInt();
 
 						for (int var35 = var8; var35 <= var9; ++var35) {
-							var32 = ((long)var7 << 32) + (long)var35;
+							var32 = ((long) var7 << 32) + (long) var35;
 							widgetClickMasks.put(new IntegerNode(var10), var32);
 						}
 					}
@@ -5561,7 +5562,7 @@ public final class Client extends GameShell implements Usernamed {
 					return true;
 				}
 
-				class225.RunException_sendStackTrace("" + (var1.serverPacket != null ? var1.serverPacket.id : -1) + "," + (var1.field1305 != null ? var1.field1305.id : -1) + "," + (var1.field1307 != null ? var1.field1307.id : -1) + "," + var1.serverPacketLength, (Throwable)null);
+				class225.RunException_sendStackTrace("" + (var1.serverPacket != null ? var1.serverPacket.id : -1) + "," + (var1.field1305 != null ? var1.field1305.id : -1) + "," + (var1.field1307 != null ? var1.field1307.id : -1) + "," + var1.serverPacketLength, (Throwable) null);
 				class30.logOut();
 			} catch (IOException var36) {
 				WorldMapIcon_1.method308();
@@ -5582,8 +5583,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("hh")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1020734975"
+			signature = "(I)V",
+			garbageValue = "1020734975"
 	)
 	@Export("menu")
 	final void menu() {
@@ -5593,7 +5594,8 @@ public final class Client extends GameShell implements Usernamed {
 				int var2;
 				int var5;
 				int var6;
-				label320: {
+				label320:
+				{
 					int var1 = MouseHandler.MouseHandler_lastButton;
 					int var4;
 					int var7;
@@ -5731,8 +5733,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("hu")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-2097265219"
+			signature = "(I)Z",
+			garbageValue = "-2097265219"
 	)
 	@Export("shouldLeftClickOpenMenu")
 	final boolean shouldLeftClickOpenMenu() {
@@ -5742,8 +5744,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("hq")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
-		garbageValue = "-53"
+			signature = "(IIB)V",
+			garbageValue = "-53"
 	)
 	@Export("openMenu")
 	final void openMenu(int var1, int var2) {
@@ -5788,8 +5790,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("it")
 	@ObfuscatedSignature(
-		signature = "(ZS)V",
-		garbageValue = "32113"
+			signature = "(ZS)V",
+			garbageValue = "32113"
 	)
 	@Export("resizeRoot")
 	final void resizeRoot(boolean var1) {
@@ -5798,8 +5800,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("iw")
 	@ObfuscatedSignature(
-		signature = "(Lhn;I)V",
-		garbageValue = "-1172183202"
+			signature = "(Lhn;I)V",
+			garbageValue = "-1172183202"
 	)
 	@Export("alignWidget")
 	void alignWidget(Widget var1) {
@@ -5820,8 +5822,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("jk")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "75"
+			signature = "(B)V",
+			garbageValue = "75"
 	)
 	final void method1541() {
 		NPCDefinition.invalidateWidget(clickedWidget);
@@ -5907,8 +5909,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ky")
 	@ObfuscatedSignature(
-		signature = "(I)Ljz;",
-		garbageValue = "2135870107"
+			signature = "(I)Ljz;",
+			garbageValue = "2135870107"
 	)
 	@Export("username")
 	public Username username() {
@@ -5917,8 +5919,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Lgl;I)I",
-		garbageValue = "505977953"
+			signature = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Lgl;I)I",
+			garbageValue = "505977953"
 	)
 	@Export("compareStrings")
 	public static int compareStrings(CharSequence var0, CharSequence var1, Language var2) {
@@ -5940,7 +5942,7 @@ public final class Client extends GameShell implements Usernamed {
 
 			char var9;
 			if (var7 != 0) {
-				var9 = (char)var7;
+				var9 = (char) var7;
 				boolean var14 = false;
 			} else {
 				var9 = var0.charAt(var5++);
@@ -5948,7 +5950,7 @@ public final class Client extends GameShell implements Usernamed {
 
 			char var10;
 			if (var8 != 0) {
-				var10 = (char)var8;
+				var10 = (char) var8;
 				boolean var15 = false;
 			} else {
 				var10 = var1.charAt(var6++);
@@ -6039,8 +6041,8 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)Lfu;",
-		garbageValue = "4"
+			signature = "(B)Lfu;",
+			garbageValue = "4"
 	)
 	public static Clock method1432() {
 		try {

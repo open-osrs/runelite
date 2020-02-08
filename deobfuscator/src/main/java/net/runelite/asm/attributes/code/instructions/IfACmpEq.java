@@ -32,58 +32,45 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public class IfACmpEq extends If
-{
-	public IfACmpEq(Instructions instructions, InstructionType type)
-	{
+public class IfACmpEq extends If {
+	public IfACmpEq(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
-	public IfACmpEq(Instructions instructions, Label to)
-	{
+	public IfACmpEq(Instructions instructions, Label to) {
 		super(instructions, InstructionType.IF_ACMPEQ, to);
 	}
-	
+
 	@Override
-	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
-	{
+	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
 		if (!this.isSameField(thisIc, otherIc))
 			return false;
-		
+
 		if (thisIc.getInstruction().getClass() == otherIc.getInstruction().getClass())
 			return true;
-		
-		if (otherIc.getInstruction() instanceof IfNull || otherIc.getInstruction() instanceof IfNonNull)
-		{
+
+		if (otherIc.getInstruction() instanceof IfNull || otherIc.getInstruction() instanceof IfNonNull) {
 			StackContext s1 = thisIc.getPops().get(0),
-				s2 = thisIc.getPops().get(1);
-			
-			if (s1.getPushed().getInstruction() instanceof AConstNull)
-			{
+					s2 = thisIc.getPops().get(1);
+
+			if (s1.getPushed().getInstruction() instanceof AConstNull) {
 				return true;
 			}
-			if (s2.getPushed().getInstruction() instanceof AConstNull)
-			{
+			if (s2.getPushed().getInstruction() instanceof AConstNull) {
 				return true;
 			}
-		}
-		else if (otherIc.getInstruction() instanceof IfACmpNe)
-		{
+		} else if (otherIc.getInstruction() instanceof IfACmpNe) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
-	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
-		if (other.getInstruction() instanceof IfACmpNe || other.getInstruction() instanceof IfNonNull)
-		{
+	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
+		if (other.getInstruction() instanceof IfACmpNe || other.getInstruction() instanceof IfNonNull) {
 			super.mapOtherBranch(mapping, ctx, other);
-		}
-		else
-		{
+		} else {
 			super.map(mapping, ctx, other);
 		}
 	}

@@ -27,36 +27,31 @@ package net.runelite.client.rs;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.Getter;
 
 @Getter
-class RSConfig
-{
+class RSConfig {
 	private final Map<String, String> appletProperties = new HashMap<>();
 	private final Map<String, String> classLoaderProperties = new HashMap<>();
 
-	String getCodeBase()
-	{
+	String getCodeBase() {
 		return classLoaderProperties.get("codebase");
 	}
 
-	void setCodebase(String codebase)
-	{
+	void setCodebase(String codebase) {
 		classLoaderProperties.put("codebase", codebase);
 	}
 
-	String getInitialJar()
-	{
+	String getInitialJar() {
 		return classLoaderProperties.get("initial_jar");
 	}
 
-	String getInitialClass()
-	{
+	String getInitialClass() {
 		return classLoaderProperties.get("initial_class").replace(".class", "");
 	}
 
-	String getRuneLiteWorldParam()
-	{
+	String getRuneLiteWorldParam() {
 		return classLoaderProperties.get("runelite.worldparam");
 	}
 }

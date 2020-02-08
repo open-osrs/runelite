@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.poh;
 
 import java.time.Instant;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,8 +36,7 @@ import lombok.Setter;
 @Setter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
 @AllArgsConstructor
-class IncenseBurner
-{
+class IncenseBurner {
 	private final Instant start = Instant.now();
 	private final int id;
 	private double countdownTimer;

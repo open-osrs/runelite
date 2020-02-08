@@ -9,18 +9,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FriendLoginUpdate extends Link {
 	@ObfuscatedName("by")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+			signature = "Lgl;"
 	)
 	@Export("clientLanguage")
 	static Language clientLanguage;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 625683847
+			intValue = 625683847
 	)
 	public int field3632;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Ljz;"
+			signature = "Ljz;"
 	)
 	@Export("username")
 	public Username username;
@@ -29,12 +29,12 @@ public class FriendLoginUpdate extends Link {
 	public short world;
 
 	@ObfuscatedSignature(
-		signature = "(Ljz;I)V"
+			signature = "(Ljz;I)V"
 	)
 	FriendLoginUpdate(Username var1, int var2) {
-		this.field3632 = (int)(WorldMapIcon_0.currentTimeMillis() / 1000L);
+		this.field3632 = (int) (WorldMapIcon_0.currentTimeMillis() / 1000L);
 		this.username = var1;
-		this.world = (short)var2;
+		this.world = (short) var2;
 	}
 
 	@ObfuscatedName("c")
@@ -52,8 +52,8 @@ public class FriendLoginUpdate extends Link {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/String;[SIII)V",
-		garbageValue = "2127417563"
+			signature = "([Ljava/lang/String;[SIII)V",
+			garbageValue = "2127417563"
 	)
 	@Export("sortItemsByName")
 	public static void sortItemsByName(String[] var0, short[] var1, int var2, int var3) {
@@ -90,8 +90,8 @@ public class FriendLoginUpdate extends Link {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "1669041813"
+			signature = "(II)Z",
+			garbageValue = "1669041813"
 	)
 	public static boolean method5326(int var0) {
 		return (var0 >> 29 & 1) != 0;

@@ -28,6 +28,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
@@ -53,73 +55,59 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnusedParameters implements Deobfuscator
-{
+public class UnusedParameters implements Deobfuscator {
 	private static final Logger logger = LoggerFactory.getLogger(UnusedParameters.class);
 
 	private final Map<List<Method>, Collection<Integer>> unused = new HashMap<>();
 	private final Multimap<Instruction, InstructionContext> invokes = HashMultimap.create();
 
-	private void visit(InstructionContext ictx)
-	{
+	private void visit(InstructionContext ictx) {
 		Instruction i = ictx.getInstruction();
 
-		if (!(i instanceof InvokeInstruction))
-		{
+		if (!(i instanceof InvokeInstruction)) {
 			return;
 		}
 
 		invokes.put(i, ictx);
 	}
 
-	private void buildUnused(ClassGroup group)
-	{
+	private void buildUnused(ClassGroup group) {
 		unused.clear();
 
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method m : cf.getMethods())
-			{
-				if (!Deob.isObfuscated(m.getName()))
-				{
+		for (ClassFile cf : group.getClasses()) {
+			for (Method m : cf.getMethods()) {
+				if (!Deob.isObfuscated(m.getName())) {
 					continue;
 				}
 
 				List<Method> ms = VirtualMethods.getVirtualMethods(m);
 				Collection<Integer> u = this.findUnusedParameters(ms);
-				if (!u.isEmpty())
-				{
+				if (!u.isEmpty()) {
 					unused.put(ms, u);
 				}
 			}
 		}
 	}
 
-	private boolean shouldRemove(Method m, int parameter)
-	{
+	private boolean shouldRemove(Method m, int parameter) {
 		Signature obSig = DeobAnnotations.getObfuscatedSignature(m);
-		if (obSig == null)
-		{
+		if (obSig == null) {
 			return false;
 		}
 
 		return parameter + 1 == obSig.size();
 	}
 
-	private int processUnused(Execution execution, ClassGroup group)
-	{
+	private int processUnused(Execution execution, ClassGroup group) {
 		int count = 0;
 
-		for (List<Method> m : unused.keySet())
-		{
+		for (List<Method> m : unused.keySet()) {
 			Collection<Integer> u = unused.get(m);
 
 			int offset = m.size() == 1 && m.get(0).isStatic() ? 0 : 1;
 
-			for (int unusedParameter : u)
-			{
-				if (!shouldRemove(m.get(0), unusedParameter))
-				{
+			for (int unusedParameter : u) {
+				if (!shouldRemove(m.get(0), unusedParameter)) {
 					continue;
 				}
 
@@ -139,19 +127,16 @@ public class UnusedParameters implements Deobfuscator
 		return count;
 	}
 
-	private Set<Integer> findUnusedParameters(Method method)
-	{
+	private Set<Integer> findUnusedParameters(Method method) {
 		int offset = method.isStatic() ? 0 : 1;
 		Signature signature = method.getDescriptor();
 		List<Integer> unusedParams = new ArrayList<>();
 
 		for (int variableIndex = 0, lvtIndex = offset;
-			variableIndex < signature.size();
-			lvtIndex += signature.getTypeOfArg(variableIndex++).getSize())
-		{
+			 variableIndex < signature.size();
+			 lvtIndex += signature.getTypeOfArg(variableIndex++).getSize()) {
 			List<? extends Instruction> lv = method.findLVTInstructionsForVariable(lvtIndex);
-			if (lv == null || lv.isEmpty())
-			{
+			if (lv == null || lv.isEmpty()) {
 				unusedParams.add(variableIndex);
 			}
 		}
@@ -160,30 +145,25 @@ public class UnusedParameters implements Deobfuscator
 	}
 
 	@SuppressWarnings("empty-statement")
-	private int getLvtIndex(Signature signature, int offset, int parameter)
-	{
+	private int getLvtIndex(Signature signature, int offset, int parameter) {
 		// get lvt index for parameter
 		int lvtIndex = offset;
 		for (int variableIndex = 0;
-			variableIndex < parameter;
-			lvtIndex += signature.getTypeOfArg(variableIndex++).getSize());
+			 variableIndex < parameter;
+			 lvtIndex += signature.getTypeOfArg(variableIndex++).getSize())
+			;
 		return lvtIndex;
 	}
 
-	public Collection<Integer> findUnusedParameters(Collection<Method> methods)
-	{
+	public Collection<Integer> findUnusedParameters(Collection<Method> methods) {
 		Set<Integer> list = null;
 
-		for (Method m : methods)
-		{
+		for (Method m : methods) {
 			Set<Integer> p = findUnusedParameters(m);
 
-			if (list == null)
-			{
+			if (list == null) {
 				list = p;
-			}
-			else
-			{
+			} else {
 				list = Sets.intersection(list, p);
 			}
 		}
@@ -194,32 +174,25 @@ public class UnusedParameters implements Deobfuscator
 		return l;
 	}
 
-	public void removeParameter(ClassGroup group, List<Method> methods, Signature signature, Execution execution, int paramIndex, int lvtIndex)
-	{
+	public void removeParameter(ClassGroup group, List<Method> methods, Signature signature, Execution execution, int paramIndex, int lvtIndex) {
 		int slots = signature.getTypeOfArg(paramIndex).getSize();
 
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method m : cf.getMethods())
-			{
+		for (ClassFile cf : group.getClasses()) {
+			for (Method m : cf.getMethods()) {
 				Code c = m.getCode();
 
-				if (c == null)
-				{
+				if (c == null) {
 					continue;
 				}
 
-				for (Instruction i : new ArrayList<>(c.getInstructions().getInstructions()))
-				{
-					if (!(i instanceof InvokeInstruction))
-					{
+				for (Instruction i : new ArrayList<>(c.getInstructions().getInstructions())) {
+					if (!(i instanceof InvokeInstruction)) {
 						continue;
 					}
 
 					InvokeInstruction ii = (InvokeInstruction) i;
 
-					if (!ii.getMethods().stream().anyMatch(me -> methods.contains(me)))
-					{
+					if (!ii.getMethods().stream().anyMatch(me -> methods.contains(me))) {
 						continue;
 					}
 
@@ -227,15 +200,12 @@ public class UnusedParameters implements Deobfuscator
 
 					Collection<InstructionContext> ics = invokes.get(i);
 					assert ics != null;
-					if (ics != null)
-					{
-						for (InstructionContext ins : ics)
-						{
+					if (ics != null) {
+						for (InstructionContext ins : ics) {
 							int pops = signature.size() - paramIndex - 1; // index from top of stack of parameter. 0 is the last parameter
 
 							StackContext sctx = ins.getPops().get(pops);
-							if (sctx.getPushed().getInstruction().getInstructions() == null)
-							{
+							if (sctx.getPushed().getInstruction().getInstructions() == null) {
 								continue;
 							}
 
@@ -246,23 +216,19 @@ public class UnusedParameters implements Deobfuscator
 			}
 		}
 
-		for (Method method : methods)
-		{
+		for (Method method : methods) {
 			if (method.getCode() != null)
 			// adjust lvt indexes to get rid of idx in the method
 			{
-				for (Instruction ins : method.getCode().getInstructions().getInstructions())
-				{
-					if (ins instanceof LVTInstruction)
-					{
+				for (Instruction ins : method.getCode().getInstructions().getInstructions()) {
+					if (ins instanceof LVTInstruction) {
 						LVTInstruction lins = (LVTInstruction) ins;
 
 						int i = lins.getVariableIndex();
 						assert i != lvtIndex; // current unused variable detection just looks for no accesses
 
 						// reassign
-						if (i > lvtIndex)
-						{
+						if (i > lvtIndex) {
 							assert i > 0;
 							assert i >= lvtIndex + slots;
 
@@ -274,8 +240,7 @@ public class UnusedParameters implements Deobfuscator
 			}
 		}
 
-		for (Method method : methods)
-		{
+		for (Method method : methods) {
 			method.getDescriptor().remove(paramIndex);
 		}
 	}
@@ -283,12 +248,10 @@ public class UnusedParameters implements Deobfuscator
 	private int count;
 
 	@Override
-	public void run(ClassGroup group)
-	{
+	public void run(ClassGroup group) {
 		int i;
 		int pnum = 1;
-		do
-		{
+		do {
 			group.buildClassGraph();
 
 			invokes.clear();
@@ -309,8 +272,7 @@ public class UnusedParameters implements Deobfuscator
 		logger.info("Removed {} unused parameters", count);
 	}
 
-	public int getCount()
-	{
+	public int getCount() {
 		return count;
 	}
 }

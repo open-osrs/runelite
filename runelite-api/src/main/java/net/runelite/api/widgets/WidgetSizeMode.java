@@ -24,8 +24,7 @@
  */
 package net.runelite.api.widgets;
 
-public final class WidgetSizeMode
-{
+public final class WidgetSizeMode {
 	/**
 	 * dim = originalDim
 	 */

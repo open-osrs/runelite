@@ -26,17 +26,17 @@ package net.runelite.cache.definitions.loaders;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.io.InputStream;
+
 import static net.runelite.cache.script.Opcodes.SCONST;
 import static net.runelite.cache.script.Opcodes.POP_INT;
 import static net.runelite.cache.script.Opcodes.POP_STRING;
 import static net.runelite.cache.script.Opcodes.RETURN;
 
-public class ScriptLoader
-{
-	public ScriptDefinition load(int id, byte[] b)
-	{
+public class ScriptLoader {
+	public ScriptDefinition load(int id, byte[] b) {
 		ScriptDefinition def = new ScriptDefinition();
 		def.setId(id);
 		InputStream in = new InputStream(b);
@@ -54,18 +54,15 @@ public class ScriptLoader
 		int stringStackCount = in.readUnsignedShort();
 
 		int numSwitches = in.readUnsignedByte();
-		if (numSwitches > 0)
-		{
+		if (numSwitches > 0) {
 			@SuppressWarnings("unchecked") Map<Integer, Integer>[] switches = new Map[numSwitches];
 			def.setSwitches(switches);
 
-			for (int i = 0; i < numSwitches; ++i)
-			{
+			for (int i = 0; i < numSwitches; ++i) {
 				switches[i] = new HashMap<>();
 
 				int count = in.readUnsignedShort();
-				while (count-- > 0)
-				{
+				while (count-- > 0) {
 					int key = in.readInt(); // int from stack is compared to this
 					int pcOffset = in.readInt(); // pc jumps by this
 
@@ -91,19 +88,13 @@ public class ScriptLoader
 		def.setStringOperands(stringOperands);
 
 		int opcode;
-		for (int i = 0; in.getOffset() < endIdx; instructions[i++] = opcode)
-		{
+		for (int i = 0; in.getOffset() < endIdx; instructions[i++] = opcode) {
 			opcode = in.readUnsignedShort();
-			if (opcode == SCONST)
-			{
+			if (opcode == SCONST) {
 				stringOperands[i] = in.readString();
-			}
-			else if (opcode < 100 && opcode != RETURN && opcode != POP_INT && opcode != POP_STRING)
-			{
+			} else if (opcode < 100 && opcode != RETURN && opcode != POP_INT && opcode != POP_STRING) {
 				intOperands[i] = in.readInt();
-			}
-			else
-			{
+			} else {
 				intOperands[i] = in.readUnsignedByte();
 			}
 		}

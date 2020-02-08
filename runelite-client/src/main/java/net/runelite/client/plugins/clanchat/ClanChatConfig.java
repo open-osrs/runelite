@@ -30,133 +30,121 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("clanchat")
-public interface ClanChatConfig extends Config
-{
+public interface ClanChatConfig extends Config {
 	@ConfigItem(
-		keyName = "clanChatIcons",
-		name = "Clan Chat Icons",
-		description = "Show clan chat icons next to clan members.",
-		position = 1
+			keyName = "clanChatIcons",
+			name = "Clan Chat Icons",
+			description = "Show clan chat icons next to clan members.",
+			position = 1
 	)
-	default boolean clanChatIcons()
-	{
+	default boolean clanChatIcons() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "recentChats",
-		name = "Recent Chats",
-		description = "Show recent clan chats.",
-		position = 2
+			keyName = "recentChats",
+			name = "Recent Chats",
+			description = "Show recent clan chats.",
+			position = 2
 	)
-	default boolean recentChats()
-	{
+	default boolean recentChats() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "clanCounter",
-		name = "Clan Members Counter",
-		description = "Show the amount of clan members near you.",
-		position = 3
+			keyName = "clanCounter",
+			name = "Clan Members Counter",
+			description = "Show the amount of clan members near you.",
+			position = 3
 	)
-	default boolean showClanCounter()
-	{
+	default boolean showClanCounter() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "chatsData",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "chatsData",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default String chatsData()
-	{
+	default String chatsData() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "chatsData",
-		name = "",
-		description = ""
+			keyName = "chatsData",
+			name = "",
+			description = ""
 	)
 	void chatsData(String str);
 
 	@ConfigItem(
-		keyName = "showJoinLeave",
-		name = "Show Join/Leave",
-		description = "Adds a temporary message notifying when a member joins or leaves.",
-		position = 4
+			keyName = "showJoinLeave",
+			name = "Show Join/Leave",
+			description = "Adds a temporary message notifying when a member joins or leaves.",
+			position = 4
 	)
-	default boolean showJoinLeave()
-	{
+	default boolean showJoinLeave() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "joinLeaveRank",
-		name = "Join/Leave rank",
-		description = "Only show join/leave messages for members at or above this rank.",
-		position = 5
+			keyName = "joinLeaveRank",
+			name = "Join/Leave rank",
+			description = "Only show join/leave messages for members at or above this rank.",
+			position = 5
 	)
-	default ClanMemberRank joinLeaveRank()
-	{
+	default ClanMemberRank joinLeaveRank() {
 		return ClanMemberRank.UNRANKED;
 	}
 
 	@ConfigItem(
-		keyName = "privateMessageIcons",
-		name = "Private Message Icons",
-		description = "Add clan chat rank icons to private messages received from clan mates.",
-		position = 6
+			keyName = "privateMessageIcons",
+			name = "Private Message Icons",
+			description = "Add clan chat rank icons to private messages received from clan mates.",
+			position = 6
 	)
-	default boolean privateMessageIcons()
-	{
+	default boolean privateMessageIcons() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "publicChatIcons",
-		name = "Public Chat Icons",
-		description = "Add clan chat rank icons to public chat messages from clan mates.",
-		position = 7
+			keyName = "publicChatIcons",
+			name = "Public Chat Icons",
+			description = "Add clan chat rank icons to public chat messages from clan mates.",
+			position = 7
 	)
-	default boolean publicChatIcons()
-	{
+	default boolean publicChatIcons() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "clanTabChat",
-		name = "Clan Tab Chat",
-		description = "Allows clan chat without prepending '/' to messages when on clan tab",
-		position = 8
+			keyName = "clanTabChat",
+			name = "Clan Tab Chat",
+			description = "Allows clan chat without prepending '/' to messages when on clan tab",
+			position = 8
 	)
-	default boolean clanTabChat()
-	{
+	default boolean clanTabChat() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "clanname",
-		name = "Default Clan Name",
-		description = "Clan name to always remember"
+			position = 9,
+			keyName = "clanname",
+			name = "Default Clan Name",
+			description = "Clan name to always remember"
 	)
-	default String clanname()
-	{
+	default String clanname() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "confirmKicks",
-		name = "Confirm Kicks",
-		description = "Shows a chat prompt to confirm kicks",
-		position = 10
+			keyName = "confirmKicks",
+			name = "Confirm Kicks",
+			description = "Shows a chat prompt to confirm kicks",
+			position = 10
 	)
-	default boolean confirmKicks()
-	{
+	default boolean confirmKicks() {
 		return false;
 	}
 }

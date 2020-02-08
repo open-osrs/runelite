@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum MaxCapeMode
-{
+public enum MaxCapeMode {
 	WARRIORS_GUILD("Warriors' Guild"),
 	FISHING_TELEPORT("Fishing Teleport"),
 	CRAFTING_GUILD("Crafting Guild"),
@@ -13,14 +12,12 @@ public enum MaxCapeMode
 
 	private final String name;
 
-	MaxCapeMode(String name)
-	{
+	MaxCapeMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

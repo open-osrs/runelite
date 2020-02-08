@@ -32,6 +32,7 @@ import java.awt.Polygon;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -43,14 +44,12 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class GroundMarkerOverlay extends Overlay
-{
+public class GroundMarkerOverlay extends Overlay {
 	private final Client client;
 	private final GroundMarkerPlugin plugin;
 
 	@Inject
-	private GroundMarkerOverlay(final Client client, final GroundMarkerPlugin plugin)
-	{
+	private GroundMarkerOverlay(final Client client, final GroundMarkerPlugin plugin) {
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -59,40 +58,33 @@ public class GroundMarkerOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		List<GroundMarkerWorldPoint> points = plugin.getPoints();
-		for (GroundMarkerWorldPoint groundMarkerWorldPoint : points)
-		{
+		for (GroundMarkerWorldPoint groundMarkerWorldPoint : points) {
 			drawTile(graphics, groundMarkerWorldPoint);
 		}
 
 		return null;
 	}
 
-	private void drawTile(Graphics2D graphics, GroundMarkerWorldPoint groundMarkerWorldPoint)
-	{
+	private void drawTile(Graphics2D graphics, GroundMarkerWorldPoint groundMarkerWorldPoint) {
 		WorldPoint point = groundMarkerWorldPoint.getWorldPoint();
-		if (point.getPlane() != client.getPlane())
-		{
+		if (point.getPlane() != client.getPlane()) {
 			return;
 		}
 
 		LocalPoint lp = LocalPoint.fromWorld(client, point);
-		if (lp == null)
-		{
+		if (lp == null) {
 			return;
 		}
 
 		Polygon poly = Perspective.getCanvasTilePoly(client, lp);
-		if (poly == null)
-		{
+		if (poly == null) {
 			return;
 		}
 
 		Color color = plugin.getMarkerColor();
-		switch (groundMarkerWorldPoint.getGroundMarkerPoint().getGroup())
-		{
+		switch (groundMarkerWorldPoint.getGroundMarkerPoint().getGroup()) {
 			case 2:
 				color = plugin.getMarkerColor2();
 				break;
@@ -126,12 +118,9 @@ public class GroundMarkerOverlay extends Overlay
 			case 12:
 				color = plugin.getMarkerColor12();
 		}
-		if (plugin.isThinMarkers())
-		{
+		if (plugin.isThinMarkers()) {
 			OverlayUtil.renderPolygonThin(graphics, poly, color);
-		}
-		else
-		{
+		} else {
 			OverlayUtil.renderPolygon(graphics, poly, color);
 		}
 	}

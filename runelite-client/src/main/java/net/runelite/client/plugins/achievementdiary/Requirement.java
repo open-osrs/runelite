@@ -24,4 +24,5 @@
  */
 package net.runelite.client.plugins.achievementdiary;
 
-public interface Requirement {}
+public interface Requirement {
+}

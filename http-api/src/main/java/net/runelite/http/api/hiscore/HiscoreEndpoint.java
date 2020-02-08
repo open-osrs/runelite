@@ -28,8 +28,7 @@ package net.runelite.http.api.hiscore;
 
 import okhttp3.HttpUrl;
 
-public enum HiscoreEndpoint
-{
+public enum HiscoreEndpoint {
 	NORMAL("Normal", "https://services.runescape.com/m=hiscore_oldschool/index_lite.ws"),
 	IRONMAN("Ironman", "https://services.runescape.com/m=hiscore_oldschool_ironman/index_lite.ws"),
 	HARDCORE_IRONMAN("Hardcore Ironman", "https://services.runescape.com/m=hiscore_oldschool_hardcore_ironman/index_lite.ws"),
@@ -40,19 +39,16 @@ public enum HiscoreEndpoint
 	private final String name;
 	private final HttpUrl hiscoreURL;
 
-	HiscoreEndpoint(String name, String hiscoreURL)
-	{
+	HiscoreEndpoint(String name, String hiscoreURL) {
 		this.name = name;
 		this.hiscoreURL = HttpUrl.parse(hiscoreURL);
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public HttpUrl getHiscoreURL()
-	{
+	public HttpUrl getHiscoreURL() {
 		return hiscoreURL;
 	}
 }

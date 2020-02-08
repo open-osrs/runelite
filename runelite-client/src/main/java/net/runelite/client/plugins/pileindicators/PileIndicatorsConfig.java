@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.pileindicators;
 
 import java.awt.Color;
+
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -33,183 +34,167 @@ import net.runelite.client.config.Range;
 import net.runelite.client.config.Title;
 
 @ConfigGroup("pileindicators")
-public interface PileIndicatorsConfig extends Config
-{
+public interface PileIndicatorsConfig extends Config {
 	@ConfigTitleSection(
-		keyName = "playerPilesTitle",
-		name = "Player Piles",
-		description = "",
-		position = 0
+			keyName = "playerPilesTitle",
+			name = "Player Piles",
+			description = "",
+			position = 0
 	)
-	default Title playerPilesTitle()
-	{
+	default Title playerPilesTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 1,
-		keyName = "enablePlayers",
-		name = "Enable Player Piling",
-		description = "Enable the option to highlight players when they pile.",
-		titleSection = "playerPilesTitle"
+			position = 1,
+			keyName = "enablePlayers",
+			name = "Enable Player Piling",
+			description = "Enable the option to highlight players when they pile.",
+			titleSection = "playerPilesTitle"
 	)
-	default boolean enablePlayers()
-	{
+	default boolean enablePlayers() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "wildyOnlyPlayer",
-		name = "Wilderness Only",
-		description = "Show player piling only when in the Wilderness.",
-		titleSection = "playerPilesTitle"
+			position = 2,
+			keyName = "wildyOnlyPlayer",
+			name = "Wilderness Only",
+			description = "Show player piling only when in the Wilderness.",
+			titleSection = "playerPilesTitle"
 	)
-	default boolean wildyOnlyPlayer()
-	{
+	default boolean wildyOnlyPlayer() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "playerPileColor",
-		name = "Player Pile Color",
-		description = "Color used for player piles.",
-		titleSection = "playerPilesTitle"
+			position = 3,
+			keyName = "playerPileColor",
+			name = "Player Pile Color",
+			description = "Color used for player piles.",
+			titleSection = "playerPilesTitle"
 	)
-	default Color playerPileColor()
-	{
+	default Color playerPileColor() {
 		return Color.RED;
 	}
 
 	@ConfigTitleSection(
-		keyName = "npcPilesTitle",
-		name = "NPC Piles",
-		description = "",
-		position = 4
+			keyName = "npcPilesTitle",
+			name = "NPC Piles",
+			description = "",
+			position = 4
 	)
-	default Title npcPilesTitle()
-	{
+	default Title npcPilesTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "enableNPCS",
-		name = "Enable NPC Piling",
-		description = "Enable the option to highlight NPCs when they pile.",
-		titleSection = "npcPilesTitle"
+			position = 5,
+			keyName = "enableNPCS",
+			name = "Enable NPC Piling",
+			description = "Enable the option to highlight NPCs when they pile.",
+			titleSection = "npcPilesTitle"
 	)
-	default boolean enableNPCS()
-	{
+	default boolean enableNPCS() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "npcPileColor",
-		name = "NPC Pile Color",
-		description = "Color used for NPC piles.",
-		titleSection = "npcPilesTitle"
+			position = 6,
+			keyName = "npcPileColor",
+			name = "NPC Pile Color",
+			description = "Color used for NPC piles.",
+			titleSection = "npcPilesTitle"
 	)
-	default Color npcPileColor()
-	{
+	default Color npcPileColor() {
 		return Color.BLUE;
 	}
 
 	@ConfigTitleSection(
-		keyName = "mixedPilesTitle",
-		name = "Mixed Piles",
-		description = "",
-		position = 7
+			keyName = "mixedPilesTitle",
+			name = "Mixed Piles",
+			description = "",
+			position = 7
 	)
-	default Title mixedPilesTitle()
-	{
+	default Title mixedPilesTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "mixedPileColor",
-		name = "Mixed Pile Color",
-		description = "Color used for mixed piles.",
-		titleSection = "mixedPilesTitle"
+			position = 8,
+			keyName = "mixedPileColor",
+			name = "Mixed Pile Color",
+			description = "Color used for mixed piles.",
+			titleSection = "mixedPilesTitle"
 	)
-	default Color mixedPileColor()
-	{
+	default Color mixedPileColor() {
 		return new Color(255, 0, 255);
 	}
 
 	@ConfigTitleSection(
-		keyName = "pilesSizeTitle",
-		name = "Pile size",
-		description = "",
-		position = 9
+			keyName = "pilesSizeTitle",
+			name = "Pile size",
+			description = "",
+			position = 9
 	)
-	default Title pilesSizeTitle()
-	{
+	default Title pilesSizeTitle() {
 		return new Title();
 	}
 
 	@Range(
-		min = 2
+			min = 2
 	)
 	@ConfigItem(
-		position = 10,
-		keyName = "minimumPileSize",
-		name = "Minimum Pile Size",
-		description = "Any pile under this size will not show up. (Minimum: 2)",
-		titleSection = "pilesSizeTitle"
+			position = 10,
+			keyName = "minimumPileSize",
+			name = "Minimum Pile Size",
+			description = "Any pile under this size will not show up. (Minimum: 2)",
+			titleSection = "pilesSizeTitle"
 	)
-	default int minimumPileSize()
-	{
+	default int minimumPileSize() {
 		return 2;
 	}
 
 	@ConfigTitleSection(
-		keyName = "miscellaneousTitle",
-		name = "Miscellaneous",
-		description = "",
-		position = 11
+			keyName = "miscellaneousTitle",
+			name = "Miscellaneous",
+			description = "",
+			position = 11
 	)
-	default Title miscellaneousTitle()
-	{
+	default Title miscellaneousTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		position = 12,
-		keyName = "numberOnly",
-		name = "Display Number Only",
-		description = "Shorten \"PILE SIZE: 1\" to \"1\"",
-		titleSection = "miscellaneousTitle"
+			position = 12,
+			keyName = "numberOnly",
+			name = "Display Number Only",
+			description = "Shorten \"PILE SIZE: 1\" to \"1\"",
+			titleSection = "miscellaneousTitle"
 	)
-	default boolean numberOnly()
-	{
+	default boolean numberOnly() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 13,
-		keyName = "drawPileTile",
-		name = "Draw Pile Tile",
-		description = "Draws the tile of the pile for best visibility.",
-		titleSection = "miscellaneousTitle"
+			position = 13,
+			keyName = "drawPileTile",
+			name = "Draw Pile Tile",
+			description = "Draws the tile of the pile for best visibility.",
+			titleSection = "miscellaneousTitle"
 	)
-	default boolean drawPileTile()
-	{
+	default boolean drawPileTile() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 14,
-		keyName = "drawPileHull",
-		name = "Draw Pile Convex Hull",
-		description = "Draws the hull of the pile for best visibility.",
-		titleSection = "miscellaneousTitle"
+			position = 14,
+			keyName = "drawPileHull",
+			name = "Draw Pile Convex Hull",
+			description = "Draws the hull of the pile for best visibility.",
+			titleSection = "miscellaneousTitle"
 	)
-	default boolean drawPileHull()
-	{
+	default boolean drawPileHull() {
 		return false;
 	}
 

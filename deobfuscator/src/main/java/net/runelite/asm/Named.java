@@ -1,6 +1,5 @@
 package net.runelite.asm;
 
-public interface Named
-{
+public interface Named {
 	String getName();
 }

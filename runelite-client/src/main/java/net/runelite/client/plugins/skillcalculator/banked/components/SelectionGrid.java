@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 import javax.swing.JPanel;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,8 +44,7 @@ import net.runelite.client.util.AsyncBufferedImage;
 /**
  * A grid that supports mouse events
  */
-public class SelectionGrid extends JPanel
-{
+public class SelectionGrid extends JPanel {
 	private static final int ITEMS_PER_ROW = 5;
 
 	@Getter(AccessLevel.PUBLIC)
@@ -67,12 +67,10 @@ public class SelectionGrid extends JPanel
 	@Getter(AccessLevel.PUBLIC)
 	private final BankedCalculator calc;
 
-	public SelectionGrid(final BankedCalculator calc, final Collection<BankedItem> items, final ItemManager itemManager)
-	{
+	public SelectionGrid(final BankedCalculator calc, final Collection<BankedItem> items, final ItemManager itemManager) {
 		this.calc = calc;
 		// Create a panel for every item
-		for (final BankedItem item : items)
-		{
+		for (final BankedItem item : items) {
 			final int qty = calc.getItemQty(item);
 			final boolean stackable = item.getItem().getItemInfo().isStackable() || qty > 1;
 			final AsyncBufferedImage img = itemManager.getImage(item.getItem().getItemID(), qty, stackable);
@@ -87,8 +85,7 @@ public class SelectionGrid extends JPanel
 		refreshGridDisplay();
 	}
 
-	public void refreshGridDisplay()
-	{
+	public void refreshGridDisplay() {
 		this.removeAll();
 
 		final List<GridItem> items = panelMap.values().stream().filter(gi -> gi.getAmount() > 0).collect(Collectors.toList());
@@ -97,11 +94,9 @@ public class SelectionGrid extends JPanel
 		final int rowSize = ((items.size() % ITEMS_PER_ROW == 0) ? 0 : 1) + items.size() / ITEMS_PER_ROW;
 		setLayout(new GridLayout(rowSize, ITEMS_PER_ROW, 1, 1));
 
-		for (final GridItem gridItem : items)
-		{
+		for (final GridItem gridItem : items) {
 			// Select the first option
-			if (selectedItem == null)
-			{
+			if (selectedItem == null) {
 				gridItem.select();
 			}
 
@@ -109,33 +104,28 @@ public class SelectionGrid extends JPanel
 		}
 	}
 
-	private boolean selected(final BankedItem item)
-	{
+	private boolean selected(final BankedItem item) {
 		final BankedItem old = this.selectedItem;
-		if (item.equals(old))
-		{
+		if (item.equals(old)) {
 			return false;
 		}
 
 		// Set selected item now so the boolean can see what was just clicked
 		this.selectedItem = item;
-		if (onSelectEvent != null && !onSelectEvent.getAsBoolean())
-		{
+		if (onSelectEvent != null && !onSelectEvent.getAsBoolean()) {
 			this.selectedItem = old;
 			return false;
 		}
 
 		final GridItem gridItem = panelMap.get(old);
-		if (gridItem != null)
-		{
+		if (gridItem != null) {
 			gridItem.unselect();
 		}
 
 		return true;
 	}
 
-	private boolean ignore(final BankedItem item)
-	{
+	private boolean ignore(final BankedItem item) {
 		this.lastIgnoredItem = item;
 		return onIgnoreEvent.getAsBoolean();
 	}

@@ -43,6 +43,7 @@ import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.ui.ColorScheme;
@@ -52,8 +53,7 @@ import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 
 @Slf4j
-public class InfoPanel extends JPanel
-{
+public class InfoPanel extends JPanel {
 	private static final String RUNELITE_VERSION = "runelite.version";
 	private static final String RUNELITE_PLUS_VERSION = "open.osrs.version";
 	private static final String RUNELITE_PLUS_DATE = "open.osrs.builddate";
@@ -65,15 +65,11 @@ public class InfoPanel extends JPanel
 	private static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".runelite");
 	private static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
 
-	public InfoPanel()
-	{
+	public InfoPanel() {
 		Properties properties = new Properties();
-		try (InputStream in = getClass().getResourceAsStream("/open.osrs.properties"))
-		{
+		try (InputStream in = getClass().getResourceAsStream("/open.osrs.properties")) {
 			properties.load(in);
-		}
-		catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			log.warn("unable to load propertries", ex);
 		}
 
@@ -90,8 +86,7 @@ public class InfoPanel extends JPanel
 
 		// Logo
 		final ImageIcon transparentLogo = new ImageIcon();
-		if (TRANSPARENT_LOGO != null)
-		{
+		if (TRANSPARENT_LOGO != null) {
 			transparentLogo.setImage(TRANSPARENT_LOGO.getScaledInstance(128, 128, Image.SCALE_SMOOTH));
 		}
 		final JLabel logo = new JLabel(transparentLogo);
@@ -128,8 +123,7 @@ public class InfoPanel extends JPanel
 		c.gridy++;
 	}
 
-	private static JLabel createPanelTextButton(final String title)
-	{
+	private static JLabel createPanelTextButton(final String title) {
 		final JLabel textButton = new JLabel(title);
 		textButton.setFont(FontManager.getRunescapeSmallFont());
 		textButton.setHorizontalAlignment(JLabel.CENTER);
@@ -142,8 +136,7 @@ public class InfoPanel extends JPanel
 		return textButton;
 	}
 
-	private static JLabel createPanelButton(final String name, final String tooltip, final Runnable runnable)
-	{
+	private static JLabel createPanelButton(final String name, final String tooltip, final Runnable runnable) {
 		final JLabel btn = new JLabel(name, JLabel.CENTER);
 		btn.setToolTipText(tooltip);
 		btn.setOpaque(true);
@@ -151,28 +144,24 @@ public class InfoPanel extends JPanel
 		btn.setForeground(Color.WHITE);
 		btn.setFont(FontManager.getRunescapeFont());
 		btn.setBorder(new CompoundBorder(
-			new MatteBorder(1, 0, 0, 0, DARK_GREY),
-			new EmptyBorder(3, 0, 3, 0))
+				new MatteBorder(1, 0, 0, 0, DARK_GREY),
+				new EmptyBorder(3, 0, 3, 0))
 		);
 		btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn.addMouseListener(new MouseAdapter()
-		{
+		btn.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				runnable.run();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e)
-			{
+			public void mouseEntered(MouseEvent e) {
 				btn.setBackground(new Color(60, 60, 60));
 				btn.repaint();
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e)
-			{
+			public void mouseExited(MouseEvent e) {
 				btn.setBackground(null);
 				btn.repaint();
 			}

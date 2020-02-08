@@ -4,6 +4,7 @@ import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.pool.Field;
@@ -23,21 +25,18 @@ import net.runelite.deob.updater.mappingdumper.MappingDump;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MappingDumper
-{
+public class MappingDumper {
 	private static ClassGroup group;
 	private final Logger log = LoggerFactory.getLogger(MappingDumper.class);
 	private static final Map<ClassFile, MappedClass> classMap = new HashMap<>();
 	private static final Map<Field, MappedField> fieldMap = new HashMap<>();
 	private static final Map<Method, MappedMethod> methodMap = new HashMap<>();
 
-	public MappingDumper(ClassGroup group)
-	{
+	public MappingDumper(ClassGroup group) {
 		MappingDumper.group = group;
 	}
 
-	public void dump(final File outputFile)
-	{
+	public void dump(final File outputFile) {
 		Stopwatch st = Stopwatch.createStarted();
 		group.buildClassGraph();
 
@@ -55,11 +54,9 @@ public class MappingDumper
 	}
 
 	// Without this stack'll overflow :P
-	private void writeJson(MappingDump dump, File outputFile)
-	{
+	private void writeJson(MappingDump dump, File outputFile) {
 		final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		try (JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(outputFile), StandardCharsets.UTF_8)))
-		{
+		try (JsonWriter writer = new JsonWriter(new OutputStreamWriter(new FileOutputStream(outputFile), StandardCharsets.UTF_8))) {
 			writer.setIndent("  ");
 			writer.beginObject();
 			writer.name("revision").value(dump.revision);
@@ -79,51 +76,41 @@ public class MappingDumper
 			writer.name("totalNamedStaticMethods").value(dump.totalNamedStaticMethods);
 			writer.name("mappedClasses");
 			writer.beginArray();
-			for (MappedClass mc : dump.classes)
-			{
+			for (MappedClass mc : dump.classes) {
 				gson.toJson(mc, MappedClass.class, writer);
 			}
 			writer.endArray();
 			writer.endObject();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			log.error("Error saving json: ", e);
 		}
 	}
 
-	public static ClassGroup getGroup()
-	{
+	public static ClassGroup getGroup() {
 		return group;
 	}
 
-	public static void putMap(ClassFile clazz, MappedClass mc)
-	{
+	public static void putMap(ClassFile clazz, MappedClass mc) {
 		classMap.put(clazz, mc);
 	}
 
-	public static MappedClass getMap(ClassFile clazz)
-	{
+	public static MappedClass getMap(ClassFile clazz) {
 		return classMap.get(clazz);
 	}
 
-	public static void putMap(Field field, MappedField mf)
-	{
+	public static void putMap(Field field, MappedField mf) {
 		fieldMap.put(field, mf);
 	}
 
-	public static MappedField getMap(Field field)
-	{
+	public static MappedField getMap(Field field) {
 		return fieldMap.get(field);
 	}
 
-	public static void putMap(Method method, MappedMethod mm)
-	{
+	public static void putMap(Method method, MappedMethod mm) {
 		methodMap.put(method, mm);
 	}
 
-	public static MappedMethod getMap(Method method)
-	{
+	public static MappedMethod getMap(Method method) {
 		return methodMap.get(method);
 	}
 

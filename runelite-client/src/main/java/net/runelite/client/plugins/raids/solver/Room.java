@@ -28,8 +28,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Room
-{
+public class Room {
 	@Getter(AccessLevel.PUBLIC)
 	private final int position;
 
@@ -44,8 +43,7 @@ public class Room
 	@Setter(AccessLevel.PACKAGE)
 	private Room previous;
 
-	Room(final int position, final char symbol)
-	{
+	Room(final int position, final char symbol) {
 		this.position = position;
 		this.symbol = symbol;
 	}

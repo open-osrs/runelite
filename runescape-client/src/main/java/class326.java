@@ -6,13 +6,13 @@ import net.runelite.mapping.ObfuscatedName;
 public class class326 {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1194876757
+			intValue = 1194876757
 	)
 	@Export("SpriteBuffer_spriteCount")
 	public static int SpriteBuffer_spriteCount;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -7287781
+			intValue = -7287781
 	)
 	@Export("SpriteBuffer_spriteHeight")
 	public static int SpriteBuffer_spriteHeight;

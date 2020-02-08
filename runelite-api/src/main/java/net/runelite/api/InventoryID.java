@@ -27,8 +27,7 @@ package net.runelite.api;
 /**
  * An enumeration of possible inventory types.
  */
-public enum InventoryID
-{
+public enum InventoryID {
 	/**
 	 * Reward from fishing trawler
 	 */
@@ -81,8 +80,7 @@ public enum InventoryID
 
 	private final int id;
 
-	InventoryID(int id)
-	{
+	InventoryID(int id) {
 		this.id = id;
 	}
 
@@ -91,17 +89,13 @@ public enum InventoryID
 	 *
 	 * @return inventory type
 	 */
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public static InventoryID getValue(int value)
-	{
-		for (InventoryID e : InventoryID.values())
-		{
-			if (e.id == value)
-			{
+	public static InventoryID getValue(int value) {
+		for (InventoryID e : InventoryID.values()) {
+			if (e.id == value) {
 				return e;
 			}
 		}

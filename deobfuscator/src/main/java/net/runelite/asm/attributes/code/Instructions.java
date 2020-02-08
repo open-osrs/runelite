@@ -30,42 +30,36 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+
 import net.runelite.asm.attributes.Code;
 import org.jetbrains.annotations.NotNull;
 
-public class Instructions implements Iterable<Instruction>
-{
+public class Instructions implements Iterable<Instruction> {
 	private final Code code;
 	private final List<Instruction> instructions = new ArrayList<>();
 	private final Map<org.objectweb.asm.Label, Label> labelMap = new HashMap<>();
 
-	public Instructions(Code code)
-	{
+	public Instructions(Code code) {
 		this.code = code;
 	}
 
-	public Label createLabelFor(Instruction target)
-	{
+	public Label createLabelFor(Instruction target) {
 		return createLabelFor(target, false);
 	}
 
-	public Label createLabelFor(Instruction target, boolean forceCreate)
-	{
+	public Label createLabelFor(Instruction target, boolean forceCreate) {
 		assert target.getInstructions() == this;
 		assert instructions.contains(target);
 
-		if (target instanceof Label)
-		{
+		if (target instanceof Label) {
 			return (Label) target;
 		}
 
 		int i = instructions.indexOf(target);
-		if (i > 0)
-		{
+		if (i > 0) {
 			Instruction before = instructions.get(i - 1);
 
-			if (!forceCreate && before instanceof Label)
-			{
+			if (!forceCreate && before instanceof Label) {
 				return (Label) before;
 			}
 		}
@@ -77,18 +71,15 @@ public class Instructions implements Iterable<Instruction>
 		return label;
 	}
 
-	public Label findLabel(org.objectweb.asm.Label l)
-	{
+	public Label findLabel(org.objectweb.asm.Label l) {
 		Label label = labelMap.get(l);
 		assert label != null;
 		return label;
 	}
 
-	public Label findOrCreateLabel(org.objectweb.asm.Label l)
-	{
+	public Label findOrCreateLabel(org.objectweb.asm.Label l) {
 		Label label = labelMap.get(l);
-		if (label != null)
-		{
+		if (label != null) {
 			return label;
 		}
 
@@ -98,16 +89,13 @@ public class Instructions implements Iterable<Instruction>
 		return label;
 	}
 
-	public void rebuildLabels()
-	{
+	public void rebuildLabels() {
 		labelMap.clear();
 
 		// ow2 asm requires new Labels each time you write out a class
 		// with ClassWriter, or else it crytpically fails
-		for (Instruction i : instructions)
-		{
-			if (i instanceof Label)
-			{
+		for (Instruction i : instructions) {
+			if (i instanceof Label) {
 				org.objectweb.asm.Label label = new org.objectweb.asm.Label();
 				((Label) i).setLabel(label);
 
@@ -116,64 +104,52 @@ public class Instructions implements Iterable<Instruction>
 		}
 	}
 
-	public List<Instruction> getInstructions()
-	{
+	public List<Instruction> getInstructions() {
 		return instructions;
 	}
 
-	public void addInstruction(Instruction i)
-	{
+	public void addInstruction(Instruction i) {
 		assert i.getInstructions() == this;
 		instructions.add(i);
 	}
 
-	public void addInstruction(int idx, Instruction i)
-	{
+	public void addInstruction(int idx, Instruction i) {
 		assert i.getInstructions() == this;
 		instructions.add(idx, i);
 	}
 
-	public void remove(Instruction ins)
-	{
+	public void remove(Instruction ins) {
 		assert ins.getInstructions() == this;
 		ins.remove();
 		instructions.remove(ins);
 		ins.setInstructions(null);
 	}
 
-	public void clear()
-	{
-		for (Instruction ins : instructions)
-		{
+	public void clear() {
+		for (Instruction ins : instructions) {
 			ins.remove();
 			ins.setInstructions(null);
 		}
 		instructions.clear();
 	}
 
-	public Code getCode()
-	{
+	public Code getCode() {
 		return code;
 	}
 
-	public void lookup()
-	{
-		for (Instruction i : instructions)
-		{
+	public void lookup() {
+		for (Instruction i : instructions) {
 			i.lookup();
 		}
 	}
 
-	public void regeneratePool()
-	{
-		for (Instruction i : instructions)
-		{
+	public void regeneratePool() {
+		for (Instruction i : instructions) {
 			i.regeneratePool();
 		}
 	}
 
-	public int replace(Instruction oldi, Instruction newi)
-	{
+	public int replace(Instruction oldi, Instruction newi) {
 		assert oldi != newi;
 
 		assert oldi.getInstructions() == this;
@@ -190,24 +166,20 @@ public class Instructions implements Iterable<Instruction>
 		return i;
 	}
 
-	public int size()
-	{
+	public int size() {
 		return this.instructions.size();
 	}
 
 	@NotNull
-	public Iterator<Instruction> iterator()
-	{
+	public Iterator<Instruction> iterator() {
 		return this.instructions.iterator();
 	}
 
-	public ListIterator<Instruction> listIterator()
-	{
+	public ListIterator<Instruction> listIterator() {
 		return this.instructions.listIterator();
 	}
 
-	public ListIterator<Instruction> listIterator(int i)
-	{
+	public ListIterator<Instruction> listIterator(int i) {
 		return this.instructions.listIterator(i);
 	}
 }

@@ -25,8 +25,10 @@
 package net.runelite.client.plugins.animsmoothing;
 
 import com.google.inject.Provides;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -36,15 +38,14 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
 @PluginDescriptor(
-	name = "Animation Smoothing",
-	description = "Show smoother player, NPC, and object animations",
-	tags = {"npcs", "objects", "players"},
-	enabledByDefault = false,
-	type = PluginType.MISCELLANEOUS
+		name = "Animation Smoothing",
+		description = "Show smoother player, NPC, and object animations",
+		tags = {"npcs", "objects", "players"},
+		enabledByDefault = false,
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class AnimationSmoothingPlugin extends Plugin
-{
+public class AnimationSmoothingPlugin extends Plugin {
 	static final String CONFIG_GROUP = "animationSmoothing";
 
 	@Inject
@@ -54,20 +55,17 @@ public class AnimationSmoothingPlugin extends Plugin
 	private AnimationSmoothingConfig config;
 
 	@Provides
-	AnimationSmoothingConfig getConfig(ConfigManager configManager)
-	{
+	AnimationSmoothingConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(AnimationSmoothingConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		update();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		client.setInterpolatePlayerAnimations(false);
 		client.setInterpolateNpcAnimations(false);
 		client.setInterpolateObjectAnimations(false);
@@ -75,16 +73,13 @@ public class AnimationSmoothingPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals(CONFIG_GROUP))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals(CONFIG_GROUP)) {
 			update();
 		}
 	}
 
-	private void update()
-	{
+	private void update() {
 		client.setInterpolatePlayerAnimations(config.smoothPlayerAnimations());
 		client.setInterpolateNpcAnimations(config.smoothNpcAnimations());
 		client.setInterpolateObjectAnimations(config.smoothObjectAnimations());

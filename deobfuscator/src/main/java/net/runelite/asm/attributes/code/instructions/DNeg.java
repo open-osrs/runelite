@@ -35,35 +35,31 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 
-public class DNeg extends Instruction
-{
-	public DNeg(Instructions instructions, InstructionType type)
-	{
+public class DNeg extends Instruction {
+	public DNeg(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext value = stack.pop();
 		ins.pop(value);
-		
+
 		Value result = Value.UNKNOWN;
-		if (!value.getValue().isUnknownOrNull())
-		{
+		if (!value.getValue().isUnknownOrNull()) {
 			double d = (double) value.getValue().getValue();
-			
+
 			result = new Value(-d);
 		}
-		
+
 		StackContext ctx = new StackContext(ins, Type.DOUBLE, result);
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 }

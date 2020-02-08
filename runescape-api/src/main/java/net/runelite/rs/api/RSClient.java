@@ -26,6 +26,7 @@ package net.runelite.rs.api;
 
 import java.math.BigInteger;
 import java.util.Map;
+
 import net.runelite.api.Client;
 import net.runelite.api.Sprite;
 import net.runelite.api.World;
@@ -33,8 +34,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
 
-public interface RSClient extends RSGameShell, Client
-{
+public interface RSClient extends RSGameShell, Client {
 	@Import("cameraX")
 	@Override
 	int getCameraX();

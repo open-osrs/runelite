@@ -30,8 +30,7 @@ import lombok.Setter;
 import net.runelite.http.api.ws.messages.party.PartyMemberMessage;
 
 @Getter(AccessLevel.PACKAGE)
-class Performance extends PartyMemberMessage
-{
+class Performance extends PartyMemberMessage {
 	private static final double TICK_LENGTH = 0.6;
 
 	@Setter(AccessLevel.PACKAGE)
@@ -47,35 +46,29 @@ class Performance extends PartyMemberMessage
 	@Setter(AccessLevel.PACKAGE)
 	double ticksSpent = 0;
 
-	void addDamageDealt(double a, int currentTick)
-	{
+	void addDamageDealt(double a, int currentTick) {
 		damageDealt += a;
-		if (a > highestHitDealt)
-		{
+		if (a > highestHitDealt) {
 			highestHitDealt = a;
 		}
 
 		this.lastActivityTick = currentTick;
 	}
 
-	void addDamageTaken(double a, int currentTick)
-	{
+	void addDamageTaken(double a, int currentTick) {
 		damageTaken += a;
-		if (a > highestHitTaken)
-		{
+		if (a > highestHitTaken) {
 			highestHitTaken = a;
 		}
 
 		this.lastActivityTick = currentTick;
 	}
 
-	void incrementTicksSpent()
-	{
+	void incrementTicksSpent() {
 		ticksSpent++;
 	}
 
-	void reset()
-	{
+	void reset() {
 		damageDealt = 0;
 		highestHitDealt = 0;
 		damageTaken = 0;
@@ -84,21 +77,17 @@ class Performance extends PartyMemberMessage
 		ticksSpent = 0;
 	}
 
-	private double getSecondsSpent()
-	{
+	private double getSecondsSpent() {
 		return Math.round(this.ticksSpent * TICK_LENGTH);
 	}
 
-	double getDPS()
-	{
+	double getDPS() {
 		return Math.round((this.damageDealt / this.getSecondsSpent()) * 100) / 100.00;
 	}
 
-	String getHumanReadableSecondsSpent()
-	{
+	String getHumanReadableSecondsSpent() {
 		final double secondsSpent = getSecondsSpent();
-		if (secondsSpent <= 60)
-		{
+		if (secondsSpent <= 60) {
 			return String.format("%2.0f", secondsSpent) + "s";
 		}
 

@@ -29,40 +29,36 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("kingdomofmiscellania")
-public interface KingdomConfig extends Config
-{
+public interface KingdomConfig extends Config {
 	@ConfigItem(
-		keyName = "showInfoboxAnywhere",
-		name = "Show kingdom infobox anywhere",
-		description = "Show the infobox containing your favor/coffer amount even when outside Miscellania",
-		position = 0
+			keyName = "showInfoboxAnywhere",
+			name = "Show kingdom infobox anywhere",
+			description = "Show the infobox containing your favor/coffer amount even when outside Miscellania",
+			position = 0
 	)
-	default boolean showInfoboxAnywhere()
-	{
+	default boolean showInfoboxAnywhere() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "notifyFavorThreshold",
-		name = "Notify chat favor",
-		description = "Sends a message to your chatbox when your kingdom favor percentage is below the threshold. Leave at 0 to disable.",
-		position = 1
+			keyName = "notifyFavorThreshold",
+			name = "Notify chat favor",
+			description = "Sends a message to your chatbox when your kingdom favor percentage is below the threshold. Leave at 0 to disable.",
+			position = 1
 
 	)
-	default int notifyFavorThreshold()
-	{
+	default int notifyFavorThreshold() {
 		return 0;
 	}
 
 	@ConfigItem(
-		keyName = "notifyCofferThreshold",
-		name = "Notify chat coffer value",
-		description = "Sends a message to your chatbox when your kingdom's coffer is below the threshold. Leave at 0 to disable.",
-		position = 2
+			keyName = "notifyCofferThreshold",
+			name = "Notify chat coffer value",
+			description = "Sends a message to your chatbox when your kingdom's coffer is below the threshold. Leave at 0 to disable.",
+			position = 2
 	)
 	@Units(Units.GP)
-	default int notifyCofferThreshold()
-	{
+	default int notifyCofferThreshold() {
 		return 0;
 	}
 }

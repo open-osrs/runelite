@@ -31,8 +31,7 @@ import lombok.Getter;
  * An enumeration of hint arrow types.
  */
 @AllArgsConstructor
-public enum HintArrowType
-{
+public enum HintArrowType {
 	/**
 	 * No hint arrow present.
 	 */

@@ -26,6 +26,7 @@ package net.runelite.client.plugins.gauntlet;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,8 +38,7 @@ import net.runelite.client.game.SkillIconManager;
 
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
-public class Hunllef
-{
+public class Hunllef {
 	private NPC npc;
 	private int bossAttacks;
 	private int playerAttacks;
@@ -47,8 +47,7 @@ public class Hunllef
 	private BufferedImage range;
 	private BossAttackPhase currentPhase;
 
-	Hunllef(NPC npc, SkillIconManager skillIconManager)
-	{
+	Hunllef(NPC npc, SkillIconManager skillIconManager) {
 		this.npc = npc;
 		this.bossAttacks = 0;
 		this.playerAttacks = 6;
@@ -58,58 +57,41 @@ public class Hunllef
 		this.currentPhase = BossAttackPhase.UNKNOWN;
 	}
 
-	void updatePlayerAttack()
-	{
+	void updatePlayerAttack() {
 		playerAttacks--;
-		if (playerAttacks <= 0)
-		{
+		if (playerAttacks <= 0) {
 			playerAttacks = 6;
 		}
 	}
 
-	void updateAttack(BossAttack style)
-	{
+	void updateAttack(BossAttack style) {
 		ticksUntilAttack = 6;
-		if (style == BossAttack.PRAYER)
-		{
+		if (style == BossAttack.PRAYER) {
 			style = BossAttack.MAGIC;
 		}
 
-		if (style == BossAttack.LIGHTNING)
-		{
+		if (style == BossAttack.LIGHTNING) {
 			bossAttacks--;
-		}
-		else if (style == BossAttack.RANGE)
-		{
-			if (currentPhase != BossAttackPhase.RANGE)
-			{
+		} else if (style == BossAttack.RANGE) {
+			if (currentPhase != BossAttackPhase.RANGE) {
 				currentPhase = BossAttackPhase.RANGE;
 				bossAttacks = 3;
-			}
-			else
-			{
+			} else {
 				bossAttacks--;
 			}
-		}
-		else if (style == BossAttack.MAGIC)
-		{
-			if (currentPhase != BossAttackPhase.MAGIC)
-			{
+		} else if (style == BossAttack.MAGIC) {
+			if (currentPhase != BossAttackPhase.MAGIC) {
 				currentPhase = BossAttackPhase.MAGIC;
 				bossAttacks = 3;
-			}
-			else
-			{
+			} else {
 				bossAttacks--;
 			}
 		}
 
-		if (bossAttacks <= 0)
-		{
+		if (bossAttacks <= 0) {
 			BossAttackPhase nextPhase;
 
-			switch (currentPhase)
-			{
+			switch (currentPhase) {
 				case MAGIC:
 					bossAttacks = 4;
 					nextPhase = BossAttackPhase.RANGE;
@@ -129,8 +111,7 @@ public class Hunllef
 
 	@AllArgsConstructor
 	@Getter(AccessLevel.PACKAGE)
-	enum BossAttackPhase
-	{
+	enum BossAttackPhase {
 		MAGIC(Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
 		RANGE(Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
 		UNKNOWN(Color.WHITE, null);
@@ -139,8 +120,7 @@ public class Hunllef
 		private Prayer prayer;
 	}
 
-	enum BossAttack
-	{
+	enum BossAttack {
 		MAGIC,
 		RANGE,
 		PRAYER,

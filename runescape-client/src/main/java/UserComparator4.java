@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Comparator;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -21,8 +22,8 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lje;Lje;I)I",
-		garbageValue = "-1549144493"
+			signature = "(Lje;Lje;I)I",
+			garbageValue = "-1549144493"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(Buddy var1, Buddy var2) {
@@ -34,13 +35,13 @@ public class UserComparator4 implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((Buddy)var1, (Buddy)var2);
+		return this.compare_bridged((Buddy) var1, (Buddy) var2);
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "80"
+			signature = "(B)V",
+			garbageValue = "80"
 	)
 	static void method3451() {
 		if (TaskHandler.javaVendor.toLowerCase().indexOf("microsoft") != -1) {
@@ -75,8 +76,8 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
-		garbageValue = "0"
+			signature = "(IIB)I",
+			garbageValue = "0"
 	)
 	static final int method3450(int var0, int var1) {
 		int var2 = class289.method5358(var0 - 1, var1 - 1) + class289.method5358(var0 + 1, var1 - 1) + class289.method5358(var0 - 1, 1 + var1) + class289.method5358(1 + var0, var1 + 1);
@@ -87,8 +88,8 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("hp")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
-		garbageValue = "1183662404"
+			signature = "(ZI)V",
+			garbageValue = "1183662404"
 	)
 	static final void method3442(boolean var0) {
 		UserComparator3.playPcmPlayers();

@@ -25,15 +25,15 @@
 package net.runelite.client.plugins.timetracking.clocks;
 
 import java.time.format.DateTimeParseException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class ClockPanelTest
-{
+public class ClockPanelTest {
 	@Test
-	public void properColonSeparatedTimeStringShouldReturnCorrectSeconds()
-	{
+	public void properColonSeparatedTimeStringShouldReturnCorrectSeconds() {
 		assertEquals(5, ClockPanel.stringToSeconds("5"));
 		assertEquals(50, ClockPanel.stringToSeconds("50"));
 		assertEquals(120, ClockPanel.stringToSeconds("2:00"));
@@ -51,8 +51,7 @@ public class ClockPanelTest
 	}
 
 	@Test
-	public void properIntuitiveTimeStringShouldReturnCorrectSeconds()
-	{
+	public void properIntuitiveTimeStringShouldReturnCorrectSeconds() {
 		assertEquals(5, ClockPanel.stringToSeconds("5s"));
 		assertEquals(50, ClockPanel.stringToSeconds("50s"));
 		assertEquals(120, ClockPanel.stringToSeconds("2m"));
@@ -71,8 +70,7 @@ public class ClockPanelTest
 	}
 
 	@Test
-	public void incorrectTimeStringShouldThrowException()
-	{
+	public void incorrectTimeStringShouldThrowException() {
 		Class numberEx = NumberFormatException.class;
 		Class dateTimeEx = DateTimeParseException.class;
 
@@ -87,15 +85,11 @@ public class ClockPanelTest
 		tryFail("20hh10m10s", dateTimeEx);
 	}
 
-	private void tryFail(String input, Class<?> expectedException)
-	{
-		try
-		{
+	private void tryFail(String input, Class<?> expectedException) {
+		try {
 			ClockPanel.stringToSeconds(input);
 			fail("Should have thrown " + expectedException.getSimpleName());
-		}
-		catch (Exception exception)
-		{
+		} catch (Exception exception) {
 			assertEquals(expectedException, exception.getClass());
 		}
 	}

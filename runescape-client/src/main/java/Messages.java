@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -24,25 +25,25 @@ public class Messages {
 	static final Map Messages_channels;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Llp;"
+			signature = "Llp;"
 	)
 	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljb;"
+			signature = "Ljb;"
 	)
 	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 679666473
+			intValue = 679666473
 	)
 	@Export("Messages_count")
 	static int Messages_count;
 	@ObfuscatedName("fa")
 	@ObfuscatedGetter(
-		intValue = -334817875
+			intValue = -334817875
 	)
 	@Export("baseX")
 	static int baseX;
@@ -56,12 +57,12 @@ public class Messages {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IB)Lij;",
-		garbageValue = "126"
+			signature = "(IB)Lij;",
+			garbageValue = "126"
 	)
 	@Export("VarpDefinition_get")
 	public static VarpDefinition VarpDefinition_get(int var0) {
-		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0);
+		VarpDefinition var1 = (VarpDefinition) VarpDefinition.VarpDefinition_cached.get((long) var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -71,19 +72,19 @@ public class Messages {
 				var1.decode(new Buffer(var2));
 			}
 
-			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0);
+			VarpDefinition.VarpDefinition_cached.put(var1, (long) var0);
 			return var1;
 		}
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lks;I)V",
-		garbageValue = "1739946612"
+			signature = "(Lks;I)V",
+			garbageValue = "1739946612"
 	)
 	@Export("performReflectionCheck")
 	public static void performReflectionCheck(PacketBuffer var0) {
-		ReflectionCheck var1 = (ReflectionCheck)class96.reflectionChecks.last();
+		ReflectionCheck var1 = (ReflectionCheck) class96.reflectionChecks.last();
 		if (var1 != null) {
 			int var2 = var0.offset;
 			var0.writeInt(var1.id);
@@ -98,12 +99,12 @@ public class Messages {
 						int var6;
 						if (var4 == 0) {
 							var5 = var1.fields[var3];
-							var6 = Reflection.getInt(var5, (Object)null);
+							var6 = Reflection.getInt(var5, (Object) null);
 							var0.writeByte(0);
 							var0.writeInt(var6);
 						} else if (var4 == 1) {
 							var5 = var1.fields[var3];
-							Reflection.setInt(var5, (Object)null, var1.intReplaceValues[var3]);
+							Reflection.setInt(var5, (Object) null, var1.intReplaceValues[var3]);
 							var0.writeByte(0);
 						} else if (var4 == 2) {
 							var5 = var1.fields[var3];
@@ -130,15 +131,15 @@ public class Messages {
 								var7[var8] = var9.readObject();
 							}
 
-							Object var11 = Reflection.invoke(var25, (Object)null, var7);
+							Object var11 = Reflection.invoke(var25, (Object) null, var7);
 							if (var11 == null) {
 								var0.writeByte(0);
 							} else if (var11 instanceof Number) {
 								var0.writeByte(1);
-								var0.writeLong(((Number)var11).longValue());
+								var0.writeLong(((Number) var11).longValue());
 							} else if (var11 instanceof String) {
 								var0.writeByte(2);
-								var0.writeStringCp1252NullTerminated((String)var11);
+								var0.writeStringCp1252NullTerminated((String) var11);
 							} else {
 								var0.writeByte(4);
 							}

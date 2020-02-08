@@ -31,10 +31,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(
-	{
-		ElementType.FIELD, ElementType.METHOD, ElementType.TYPE
-	})
-public @interface ObfuscatedName
-{
+		{
+				ElementType.FIELD, ElementType.METHOD, ElementType.TYPE
+		})
+public @interface ObfuscatedName {
 	String value();
 }

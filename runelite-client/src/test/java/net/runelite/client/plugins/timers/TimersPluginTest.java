@@ -28,7 +28,9 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.util.EnumSet;
+
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.WorldType;
@@ -38,19 +40,22 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TimersPluginTest
-{
+public class TimersPluginTest {
 	private static final String DMM_HALF_TELEBLOCK_MESSAGE = "<col=4f006f>A Tele Block spell has been cast on you by Runelite. It will expire in 1 minute, 15 seconds.</col>";
 	private static final String FULL_TELEBLOCK_MESSAGE = "<col=4f006f>A Tele Block spell has been cast on you by Runelite. It will expire in 5 minutes.</col>";
 	private static final String HALF_TELEBLOCK_MESSAGE = "<col=4f006f>A Tele Block spell has been cast on you by Runelite. It will expire in 2 minutes, 30 seconds.</col>";
@@ -83,14 +88,12 @@ public class TimersPluginTest
 	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testHalfTeleblock()
-	{
+	public void testHalfTeleblock() {
 		timersPlugin.setShowTeleblock(true);
 		when(client.getWorldType()).thenReturn(EnumSet.of(WorldType.MEMBERS));
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", HALF_TELEBLOCK_MESSAGE, "", 0);
@@ -103,8 +106,7 @@ public class TimersPluginTest
 	}
 
 	@Test
-	public void testFullTeleblock()
-	{
+	public void testFullTeleblock() {
 		timersPlugin.setShowTeleblock(true);
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", FULL_TELEBLOCK_MESSAGE, "", 0);
 		timersPlugin.onChatMessage(chatMessage);
@@ -116,8 +118,7 @@ public class TimersPluginTest
 	}
 
 	@Test
-	public void testDmmHalfTb()
-	{
+	public void testDmmHalfTb() {
 		timersPlugin.setShowTeleblock(true);
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", DMM_HALF_TELEBLOCK_MESSAGE, "", 0);
 		timersPlugin.onChatMessage(chatMessage);
@@ -129,8 +130,7 @@ public class TimersPluginTest
 	}
 
 	@Test
-	public void testDmmFullTb()
-	{
+	public void testDmmFullTb() {
 		timersPlugin.setShowTeleblock(true);
 		when(client.getWorldType()).thenReturn(EnumSet.of(WorldType.DEADMAN));
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", HALF_TELEBLOCK_MESSAGE, "", 0);

@@ -28,8 +28,7 @@ import lombok.Value;
 import net.runelite.client.util.AsyncBufferedImage;
 
 @Value
-class GrandExchangeItems
-{
+class GrandExchangeItems {
 	private final AsyncBufferedImage icon;
 	private final String name;
 	private final int itemId;

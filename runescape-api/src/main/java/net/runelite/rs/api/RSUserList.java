@@ -2,8 +2,7 @@ package net.runelite.rs.api;
 
 import net.runelite.mapping.Import;
 
-public interface RSUserList<T extends RSUser>
-{
+public interface RSUserList<T extends RSUser> {
 	@Import("getSize")
 	int getCount();
 
@@ -18,6 +17,7 @@ public interface RSUserList<T extends RSUser>
 
 	/**
 	 * Method called by the container when an element is added
+	 *
 	 * @param name
 	 * @param prevName
 	 */
@@ -25,6 +25,7 @@ public interface RSUserList<T extends RSUser>
 
 	/**
 	 * Method called by the container when an element is removed
+	 *
 	 * @param nameable
 	 */
 	void rl$remove(RSUser nameable);

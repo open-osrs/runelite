@@ -32,8 +32,7 @@ import java.util.Arrays;
  *
  * @author Adam
  */
-public class RLISAACCipher
-{
+public class RLISAACCipher {
 	private final int[] randResult = new int[256];    // output of last generation
 	private int valuesLeft;                           // the number of values already left in randResult
 
@@ -41,21 +40,17 @@ public class RLISAACCipher
 	private final int[] mm = new int[256];
 	private int aa, bb, cc;
 
-	public RLISAACCipher(int[] key)
-	{
+	public RLISAACCipher(int[] key) {
 		init(key);
 	}
 
-	private void generateMoreResults()
-	{
+	private void generateMoreResults() {
 		cc++;
 		bb += cc;
 
-		for (int i = 0; i < 256; i++)
-		{
+		for (int i = 0; i < 256; i++) {
 			int x = mm[i];
-			switch (i & 3)
-			{
+			switch (i & 3) {
 				case 0:
 					aa = aa ^ (aa << 13);
 					break;
@@ -77,8 +72,7 @@ public class RLISAACCipher
 		valuesLeft = 256;
 	}
 
-	private static void mix(int[] s)
-	{
+	private static void mix(int[] s) {
 		s[0] ^= s[1] << 11;
 		s[3] += s[0];
 		s[1] += s[2];
@@ -105,63 +99,50 @@ public class RLISAACCipher
 		s[0] += s[1];
 	}
 
-	private void init(int[] seed)
-	{
-		if (seed != null && seed.length != 256)
-		{
+	private void init(int[] seed) {
+		if (seed != null && seed.length != 256) {
 			seed = Arrays.copyOf(seed, 256);
 		}
 		aa = bb = cc = 0;
 		int[] initState = new int[8];
-		Arrays.fill(initState, 0x9e3779b9);	// the golden ratio
+		Arrays.fill(initState, 0x9e3779b9);    // the golden ratio
 
-		for (int i = 0; i < 4; i++)
-		{
+		for (int i = 0; i < 4; i++) {
 			mix(initState);
 		}
 
-		for (int i = 0; i < 256; i += 8)
-		{
-			if (seed != null)
-			{
-				for (int j = 0; j < 8; j++)
-				{
+		for (int i = 0; i < 256; i += 8) {
+			if (seed != null) {
+				for (int j = 0; j < 8; j++) {
 					initState[j] += seed[i + j];
 				}
 			}
 
 			mix(initState);
-			for (int j = 0; j < 8; j++)
-			{
+			for (int j = 0; j < 8; j++) {
 				mm[i + j] = initState[j];
 			}
 		}
 
-		if (seed != null)
-		{
-			for (int i = 0; i < 256; i += 8)
-			{
-				for (int j = 0; j < 8; j++)
-				{
+		if (seed != null) {
+			for (int i = 0; i < 256; i += 8) {
+				for (int j = 0; j < 8; j++) {
 					initState[j] += mm[i + j];
 				}
 
 				mix(initState);
 
-				for (int j = 0; j < 8; j++)
-				{
+				for (int j = 0; j < 8; j++) {
 					mm[i + j] = initState[j];
 				}
 			}
 		}
 
-		valuesLeft = 0;	// Make sure generateMoreResults() will be called by the next nextInt() call.
+		valuesLeft = 0;    // Make sure generateMoreResults() will be called by the next nextInt() call.
 	}
 
-	public int nextInt()
-	{
-		if (valuesLeft == 0)
-		{
+	public int nextInt() {
+		if (valuesLeft == 0) {
 			generateMoreResults();
 			assert valuesLeft == 256;
 		}

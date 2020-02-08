@@ -32,7 +32,6 @@ import net.runelite.http.api.worlds.WorldResult;
  * Fired when the @{link net.runelite.client.game.WorldService} refreshes the world list
  */
 @Value
-public class WorldsFetch implements Event
-{
+public class WorldsFetch implements Event {
 	private final WorldResult worldResult;
 }

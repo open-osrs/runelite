@@ -38,8 +38,7 @@ import net.runelite.rs.api.RSEntity;
 import net.runelite.rs.api.RSModel;
 
 @Mixin(RSDynamicObject.class)
-public abstract class RSDynamicObjectMixin implements RSDynamicObject
-{
+public abstract class RSDynamicObjectMixin implements RSDynamicObject {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -50,24 +49,18 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	public abstract RSModel rs$getModel();
 
 	@Replace("getModel")
-	public RSModel rl$getModel()
-	{
-		try
-		{
+	public RSModel rl$getModel() {
+		try {
 			// reset frame because it may have been set from the constructor
 			// it should be set again inside the getModel method
 			int animFrame = getAnimFrame();
-			if (animFrame < 0)
-			{
+			if (animFrame < 0) {
 				setAnimFrame((animFrame ^ Integer.MIN_VALUE) & 0xFFFF);
 			}
 			return rs$getModel();
-		}
-		finally
-		{
+		} finally {
 			int animFrame = getAnimFrame();
-			if (animFrame < 0)
-			{
+			if (animFrame < 0) {
 				setAnimFrame((animFrame ^ Integer.MIN_VALUE) & 0xFFFF);
 			}
 		}
@@ -75,10 +68,8 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 
 	@FieldHook("cycleStart")
 	@Inject
-	public void onAnimCycleCountChanged(int idx)
-	{
-		if (client.isInterpolateObjectAnimations())
-		{
+	public void onAnimCycleCountChanged(int idx) {
+		if (client.isInterpolateObjectAnimations()) {
 			// sets the packed anim frame with the frame cycle
 			int objectFrameCycle = client.getGameCycle() - getAnimCycleCount();
 			setAnimFrame(Integer.MIN_VALUE | objectFrameCycle << 16 | getAnimFrame());
@@ -87,12 +78,10 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 
 	@MethodHook(value = "<init>", end = true)
 	@Inject
-	public void rl$init(int id, int type, int orientation, int plane, int x, int y, int animationID, boolean var8, RSEntity var9)
-	{
+	public void rl$init(int id, int type, int orientation, int plane, int x, int y, int animationID, boolean var8, RSEntity var9) {
 		this.animationID = animationID;
 
-		if (animationID != -1)
-		{
+		if (animationID != -1) {
 			DynamicObjectAnimationChanged dynamicObjectAnimationChanged = new DynamicObjectAnimationChanged();
 			dynamicObjectAnimationChanged.setObject(id);
 			dynamicObjectAnimationChanged.setAnimation(animationID);
@@ -102,8 +91,7 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 
 	@Inject
 	@Override
-	public int getAnimationID()
-	{
+	public int getAnimationID() {
 		return animationID;
 	}
 }

@@ -27,6 +27,7 @@ package net.runelite.asm.attributes.code.instructions;
 
 import java.util.Collections;
 import java.util.List;
+
 import net.runelite.asm.Field;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
@@ -44,36 +45,31 @@ import net.runelite.deob.deobfuscators.mapping.MappingExecutorUtil;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 import org.objectweb.asm.MethodVisitor;
 
-public abstract class If0 extends Instruction implements JumpingInstruction, ComparisonInstruction, MappableInstruction
-{
+public abstract class If0 extends Instruction implements JumpingInstruction, ComparisonInstruction, MappableInstruction {
 	private org.objectweb.asm.Label asmlabel;
 	private Label to;
 
-	public If0(Instructions instructions, InstructionType type)
-	{
+	public If0(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
-	
-	public If0(Instructions instructions, InstructionType type, Label to)
-	{
+
+	public If0(Instructions instructions, InstructionType type, Label to) {
 		super(instructions, type);
-		
+
 		assert to.getInstructions() == this.getInstructions();
-		
+
 		this.to = to;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		assert getJumps().size() == 1;
 
 		visitor.visitJumpInsn(this.getType().getCode(), getJumps().get(0).getLabel());
 	}
-	
+
 	@Override
-	public void resolve()
-	{
+	public void resolve() {
 		Instructions ins = this.getInstructions();
 
 		to = ins.findLabel(asmlabel);
@@ -81,59 +77,54 @@ public abstract class If0 extends Instruction implements JumpingInstruction, Com
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext one = stack.pop();
-		
+
 		ins.pop(one);
-		
+
 		Frame other = frame.dup();
 		other.jump(ins, to);
-		
+
 		ins.branch(other);
-		
+
 		return ins;
 	}
 
 	@Override
-	public List<Label> getJumps()
-	{
+	public List<Label> getJumps() {
 		return Collections.singletonList(to);
 	}
 
 	@Override
-	public void setJumps(List<Label> labels)
-	{
+	public void setJumps(List<Label> labels) {
 		assert labels.size() == 1;
 		to = labels.get(0);
 	}
-	
+
 	// duplicated from If
 	@Override
-	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
+	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
 		Frame branch1 = ctx.getBranches().get(0),
-			branch2 = other.getBranches().get(0);
-		
+				branch2 = other.getBranches().get(0);
+
 		assert branch1.other == null;
 		assert branch2.other == null;
-		
+
 		branch1.setOther(branch2);
 		branch2.setOther(branch1);
-		
+
 		this.mapArguments(mapping, ctx, other);
 	}
-	
+
 	// duplicated from If
-	protected void mapOtherBranch(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
+	protected void mapOtherBranch(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
 		Frame f1 = ctx.getFrame(),
-			f2 = other.getFrame(),
-			branch1 = ctx.getBranches().get(0),
-			branch2 = other.getBranches().get(0);
+				f2 = other.getFrame(),
+				branch1 = ctx.getBranches().get(0),
+				branch2 = other.getBranches().get(0);
 
 		assert branch1.other == null;
 		assert branch2.other == null;
@@ -152,79 +143,70 @@ public abstract class If0 extends Instruction implements JumpingInstruction, Com
 
 		this.mapArguments(mapping, ctx, other);
 	}
-	
-	private void mapArguments(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
+
+	private void mapArguments(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
 		Field f1 = getComparedField(ctx), f2 = getComparedField(other);
 		if (f1 == null || f2 == null)
 			return;
 
 		assert MappingExecutorUtil.isMaybeEqual(f1.getType(), f2.getType());
-		
+
 		mapping.map(this, f1, f2);
 	}
-	
-	private Field getComparedField(InstructionContext ctx)
-	{
+
+	private Field getComparedField(InstructionContext ctx) {
 		GetFieldInstruction gfi = null;
-		
-		for (StackContext sctx : ctx.getPops())
-		{
+
+		for (StackContext sctx : ctx.getPops()) {
 			InstructionContext base = MappingExecutorUtil.resolve(sctx.getPushed(), sctx);
-			
-			if (base.getInstruction() instanceof GetFieldInstruction)
-			{
+
+			if (base.getInstruction() instanceof GetFieldInstruction) {
 				if (gfi != null)
 					return null;
-				
+
 				gfi = (GetFieldInstruction) base.getInstruction();
 			}
 		}
-		
+
 		if (gfi == null)
 			return null;
-		
+
 		return gfi.getMyField();
 	}
-	
-	protected boolean isSameField(InstructionContext thisIc, InstructionContext otherIc)
-	{
+
+	protected boolean isSameField(InstructionContext thisIc, InstructionContext otherIc) {
 		Field f1 = getComparedField(thisIc), f2 = getComparedField(otherIc);
 		if ((f1 != null) != (f2 != null))
 			return false;
-		
+
 		if (f1 == null || f2 == null)
 			return true;
-		
+
 		if (f1.isStatic() != f2.isStatic())
 			return false;
 
 		if (!f1.isStatic())
 			if (!MappingExecutorUtil.isMaybeEqual(f1.getClassFile(), f2.getClassFile()))
 				return false;
-		
+
 		return MappingExecutorUtil.isMaybeEqual(f1.getType(), f2.getType());
 	}
-	
+
 	@Override
-	public boolean canMap(InstructionContext thisIc)
-	{
+	public boolean canMap(InstructionContext thisIc) {
 		return true;
 	}
 
 	@Override
-	public void setLabel(org.objectweb.asm.Label label)
-	{
+	public void setLabel(org.objectweb.asm.Label label) {
 		asmlabel = label;
 	}
 
-	public Label getTo()
-	{
+	public Label getTo() {
 		return to;
 	}
 
-	public void setTo(Label to)
-	{
+	public void setTo(Label to) {
 		this.to = to;
 	}
 }

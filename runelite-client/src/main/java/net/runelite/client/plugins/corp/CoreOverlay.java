@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.NPC;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -37,27 +38,22 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-class CoreOverlay extends Overlay
-{
+class CoreOverlay extends Overlay {
 	private final CorpPlugin corpPlugin;
 
 	@Inject
-	private CoreOverlay(final CorpPlugin corpPlugin)
-	{
+	private CoreOverlay(final CorpPlugin corpPlugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.corpPlugin = corpPlugin;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		NPC core = corpPlugin.getCore();
-		if (core != null)
-		{
+		if (core != null) {
 			Polygon canvasTilePoly = core.getCanvasTilePoly();
-			if (canvasTilePoly != null)
-			{
+			if (canvasTilePoly != null) {
 				OverlayUtil.renderPolygon(graphics, canvasTilePoly, Color.RED.brighter());
 			}
 		}

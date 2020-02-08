@@ -28,8 +28,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
-public enum PortalColor
-{
+public enum PortalColor {
 	BLUE,
 	PURPLE,
 	YELLOW,

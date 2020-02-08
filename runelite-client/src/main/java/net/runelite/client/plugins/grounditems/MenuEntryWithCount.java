@@ -30,16 +30,14 @@ import lombok.RequiredArgsConstructor;
 import net.runelite.api.MenuEntry;
 
 @RequiredArgsConstructor
-class MenuEntryWithCount
-{
+class MenuEntryWithCount {
 	@Getter(AccessLevel.PACKAGE)
 	private final MenuEntry entry;
 
 	@Getter(AccessLevel.PACKAGE)
 	private int count = 1;
 
-	void increment()
-	{
+	void increment() {
 		count++;
 	}
 }

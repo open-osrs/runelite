@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.code.Instruction;
@@ -39,8 +40,7 @@ import net.runelite.deob.deobfuscators.packethandler.PacketRead;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PacketHandler implements Cloneable
-{
+public class PacketHandler implements Cloneable {
 	private static final Logger logger = LoggerFactory.getLogger(PacketHandler.class);
 
 	private final Method method;
@@ -62,8 +62,7 @@ public class PacketHandler implements Cloneable
 	public Set<Method> methodInvokes = new HashSet<>();
 	public List<Object> constants = new ArrayList<>();
 
-	public PacketHandler(Method method, Instruction jump, Instruction start, Instruction push, int opcode)
-	{
+	public PacketHandler(Method method, Instruction jump, Instruction start, Instruction push, int opcode) {
 		this.method = method;
 		this.jump = jump;
 		this.start = start;
@@ -72,88 +71,69 @@ public class PacketHandler implements Cloneable
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "PacketHandler{" + "start=" + start + ", opcode=" + opcode + '}';
 	}
 
 	@Override
-	public PacketHandler clone()
-	{
-		try
-		{
+	public PacketHandler clone() {
+		try {
 			return (PacketHandler) super.clone();
-		}
-		catch (CloneNotSupportedException ex)
-		{
+		} catch (CloneNotSupportedException ex) {
 			throw new RuntimeException(ex);
 		}
 	}
 
-	public Method getMethod()
-	{
+	public Method getMethod() {
 		return method;
 	}
 
-	public Instruction getJump()
-	{
+	public Instruction getJump() {
 		return jump;
 	}
 
-	public Instruction getStart()
-	{
+	public Instruction getStart() {
 		return start;
 	}
 
-	public Instruction getPush()
-	{
+	public Instruction getPush() {
 		return push;
 	}
 
-	public Instruction getAfterRead()
-	{
-		if (reads.isEmpty())
-		{
+	public Instruction getAfterRead() {
+		if (reads.isEmpty()) {
 			return null;
 		}
 
 		PacketRead last = reads.get(reads.size() - 1);
-		if (last.getStore() == null)
-		{
+		if (last.getStore() == null) {
 			return null;
 		}
 
 		List<Instruction> ins = method.getCode().getInstructions().getInstructions();
 		int idx = ins.indexOf(last.getStore());
-		if (idx == -1)
-		{
+		if (idx == -1) {
 			return null; // can be a read in not this function
 		}
 
 		return ins.get(idx + 1);
 	}
 
-	public int getOpcode()
-	{
+	public int getOpcode() {
 		return opcode;
 	}
 
-	public boolean hasPacketRead(Instruction i)
-	{
-		for (PacketRead pr : reads)
-		{
-			if (pr.getInvoke() == i)
-			{
+	public boolean hasPacketRead(Instruction i) {
+		for (PacketRead pr : reads) {
+			if (pr.getInvoke() == i) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public void findReorderableReads()
-	{
-		for (PacketRead pr : reads)
-		{
+	public void findReorderableReads() {
+		for (PacketRead pr : reads) {
 			//InstructionContext invokeCtx = pr.getInvokeCtx();
 			List<Instruction> instructions = pr.getInvoke().getInstructions().getInstructions();
 
@@ -162,11 +142,9 @@ public class PacketHandler implements Cloneable
 			assert invokeIdx != -1;
 
 			Instruction next = instructions.get(invokeIdx + 1);
-			if (next instanceof LVTInstruction)
-			{
+			if (next instanceof LVTInstruction) {
 				LVTInstruction lvt = (LVTInstruction) next;
-				if (lvt.store())
-				{
+				if (lvt.store()) {
 					logger.info("Found lvt store {} for {}", next, pr.getInvoke());
 					pr.setStore(next);
 				}

@@ -27,25 +27,20 @@ package net.runelite.cache.definitions.loaders;
 import net.runelite.cache.definitions.VarbitDefinition;
 import net.runelite.cache.io.InputStream;
 
-public class VarbitLoader
-{
-	public VarbitDefinition load(int id, byte[] b)
-	{
+public class VarbitLoader {
+	public VarbitDefinition load(int id, byte[] b) {
 		VarbitDefinition def = new VarbitDefinition();
 		InputStream is = new InputStream(b);
 
 		def.setId(id);
 
-		for (;;)
-		{
+		for (; ; ) {
 			int opcode = is.readUnsignedByte();
-			if (opcode == 0)
-			{
+			if (opcode == 0) {
 				break;
 			}
 
-			if (opcode == 1)
-			{
+			if (opcode == 1) {
 				def.setIndex(is.readUnsignedShort());
 				def.setLeastSignificantBit(is.readUnsignedByte());
 				def.setMostSignificantBit(is.readUnsignedByte());

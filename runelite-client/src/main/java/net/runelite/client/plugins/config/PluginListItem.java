@@ -39,6 +39,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+
 import lombok.Getter;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.ColorScheme;
@@ -47,8 +48,7 @@ import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
 import org.apache.commons.text.similarity.JaroWinklerDistance;
 
-public class PluginListItem extends JPanel
-{
+public class PluginListItem extends JPanel {
 	private static final JaroWinklerDistance DISTANCE = new JaroWinklerDistance();
 
 	private static final ImageIcon CONFIG_ICON;
@@ -69,8 +69,7 @@ public class PluginListItem extends JPanel
 
 	private Color color = null;
 
-	static
-	{
+	static {
 		BufferedImage configIcon = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "config_edit_icon.png");
 		BufferedImage onStar = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "star_on.png");
 		CONFIG_ICON = new ImageIcon(configIcon);
@@ -78,14 +77,13 @@ public class PluginListItem extends JPanel
 		CONFIG_ICON_HOVER = new ImageIcon(ImageUtil.luminanceOffset(configIcon, -100));
 
 		BufferedImage offStar = ImageUtil.luminanceScale(
-			ImageUtil.grayscaleImage(onStar),
-			0.77f
+				ImageUtil.grayscaleImage(onStar),
+				0.77f
 		);
 		OFF_STAR = new ImageIcon(offStar);
 	}
 
-	PluginListItem(PluginListPanel pluginListPanel, PluginConfigurationDescriptor pluginConfig)
-	{
+	PluginListItem(PluginListPanel pluginListPanel, PluginConfigurationDescriptor pluginConfig) {
 		this.pluginListPanel = pluginListPanel;
 		this.pluginConfig = pluginConfig;
 
@@ -99,8 +97,7 @@ public class PluginListItem extends JPanel
 		nameLabel = new JLabel(pluginConfig.getName());
 		nameLabel.setForeground(Color.WHITE);
 
-		if (!pluginConfig.getDescription().isEmpty())
-		{
+		if (!pluginConfig.getDescription().isEmpty()) {
 			nameLabel.setToolTipText("<html>" + pluginConfig.getName() + ":<br>" + pluginConfig.getDescription() + "</html>");
 		}
 
@@ -121,8 +118,7 @@ public class PluginListItem extends JPanel
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		add(buttonPanel, BorderLayout.LINE_END);
 
-		if (pluginConfig.hasConfigurables())
-		{
+		if (pluginConfig.hasConfigurables()) {
 			JButton configButton = new JButton(CONFIG_ICON);
 			configButton.setRolloverIcon(CONFIG_ICON_HOVER);
 			SwingUtil.removeButtonDecorations(configButton);
@@ -145,50 +141,38 @@ public class PluginListItem extends JPanel
 
 		onOffToggle = new PluginToggleButton();
 		buttonPanel.add(onOffToggle);
-		if (pluginConfig.getPlugin() != null)
-		{
+		if (pluginConfig.getPlugin() != null) {
 			onOffToggle.addItemListener(i ->
 			{
-				if (onOffToggle.isSelected())
-				{
+				if (onOffToggle.isSelected()) {
 					pluginListPanel.startPlugin(pluginConfig.getPlugin());
-				}
-				else
-				{
+				} else {
 					pluginListPanel.stopPlugin(pluginConfig.getPlugin());
 				}
 			});
-		}
-		else
-		{
+		} else {
 			onOffToggle.setVisible(false);
 		}
 	}
 
-	boolean isPinned()
-	{
+	boolean isPinned() {
 		return pinButton.isSelected();
 	}
 
-	void setPinned(boolean pinned)
-	{
+	void setPinned(boolean pinned) {
 		pinButton.setSelected(pinned);
 	}
 
-	public PluginType getPluginType()
-	{
+	public PluginType getPluginType() {
 		return pluginConfig.getPluginType();
 	}
 
-	public Color getColor()
-	{
+	public Color getColor() {
 		return this.color == null ? Color.WHITE : this.color;
 	}
 
-	public void setColor(Color color)
-	{
-		if (color == null)
-		{
+	public void setColor(Color color) {
+		if (color == null) {
 			return;
 		}
 
@@ -196,8 +180,7 @@ public class PluginListItem extends JPanel
 		this.nameLabel.setForeground(color);
 	}
 
-	void setPluginEnabled(boolean enabled)
-	{
+	void setPluginEnabled(boolean enabled) {
 		onOffToggle.setSelected(enabled);
 	}
 
@@ -206,21 +189,17 @@ public class PluginListItem extends JPanel
 	 *
 	 * @return true if all search terms matches at least one keyword, or false if otherwise.
 	 */
-	boolean matchesSearchTerms(String[] searchTerms)
-	{
-		for (String term : searchTerms)
-		{
+	boolean matchesSearchTerms(String[] searchTerms) {
+		for (String term : searchTerms) {
 			if (keywords.stream().noneMatch((t) -> t.contains(term) ||
-				DISTANCE.apply(t, term) > 0.9))
-			{
+					DISTANCE.apply(t, term) > 0.9)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	private void openGroupConfigPanel()
-	{
+	private void openGroupConfigPanel() {
 		pluginListPanel.openConfigurationPanel(pluginConfig);
 	}
 
@@ -229,24 +208,20 @@ public class PluginListItem extends JPanel
 	 *
 	 * @param label The label to attach the mouseover and click effects to
 	 */
-	static void addLabelMouseOver(final JLabel label)
-	{
+	static void addLabelMouseOver(final JLabel label) {
 		final Color labelForeground = label.getForeground();
 
-		label.addMouseListener(new MouseAdapter()
-		{
+		label.addMouseListener(new MouseAdapter() {
 			private Color lastForeground;
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				lastForeground = label.getForeground();
 				label.setForeground(ColorScheme.BRAND_BLUE);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				label.setForeground(lastForeground);
 			}
 		});

@@ -32,8 +32,7 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Zulrah
-{
+public enum Zulrah {
 	DISABLED("Disabled"),
 	ZULRAH_CHEAP("Eagle/Mystic"),
 	ZULRAH_EXPENSIVE("Augury/Rigour");
@@ -41,8 +40,7 @@ public enum Zulrah
 	private String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
 }

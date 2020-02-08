@@ -24,8 +24,7 @@
  */
 package net.runelite.client.ui.overlay.infobox;
 
-public enum InfoBoxPriority
-{
+public enum InfoBoxPriority {
 	HIGH,
 	MED,
 	NONE,

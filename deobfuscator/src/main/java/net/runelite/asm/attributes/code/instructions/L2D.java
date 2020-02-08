@@ -36,27 +36,24 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
 
-public class L2D extends Instruction implements ConversionInstruction
-{
-	public L2D(Instructions instructions, InstructionType type)
-	{
+public class L2D extends Instruction implements ConversionInstruction {
+	public L2D(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext object = stack.pop();
 		ins.pop(object);
-		
+
 		StackContext ctx = new StackContext(ins, Type.DOUBLE, object.getValue().cast(double.class));
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 }

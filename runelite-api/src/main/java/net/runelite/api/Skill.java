@@ -3,8 +3,7 @@ package net.runelite.api;
 /**
  * An enumeration of skills that a player can level.
  */
-public enum Skill
-{
+public enum Skill {
 	ATTACK("Attack"),
 	DEFENCE("Defence"),
 	STRENGTH("Strength"),
@@ -35,8 +34,7 @@ public enum Skill
 
 	private final String name;
 
-	Skill(String name)
-	{
+	Skill(String name) {
 		this.name = name;
 	}
 
@@ -45,8 +43,7 @@ public enum Skill
 	 *
 	 * @return the skill name
 	 */
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 }

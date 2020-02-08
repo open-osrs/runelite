@@ -4,8 +4,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.ScriptEvent;
 import net.runelite.mapping.Import;
 
-public interface RSScriptEvent extends ScriptEvent
-{
+public interface RSScriptEvent extends ScriptEvent {
 	@Import("args")
 	Object[] getArguments();
 

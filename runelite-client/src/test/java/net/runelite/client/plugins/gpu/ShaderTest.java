@@ -34,27 +34,30 @@ import com.jogamp.opengl.GLContext;
 import com.jogamp.opengl.GLDrawable;
 import com.jogamp.opengl.GLDrawableFactory;
 import com.jogamp.opengl.GLProfile;
+
 import java.awt.Canvas;
 import java.util.function.Function;
 import javax.swing.JFrame;
+
 import static net.runelite.client.plugins.gpu.GLUtil.inputStreamToString;
+
 import net.runelite.client.plugins.gpu.template.Template;
+
 import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class ShaderTest
-{
+public class ShaderTest {
 	private static final String VERTEX_SHADER = "" +
-		"void main() {" +
-		"       gl_Position = vec4(1.0, 1.0, 1.0, 1.0);" +
-		"}";
+			"void main() {" +
+			"       gl_Position = vec4(1.0, 1.0, 1.0, 1.0);" +
+			"}";
 	private GL4 gl;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Canvas canvas = new Canvas();
 		JFrame frame = new JFrame();
 		frame.setSize(100, 100);
@@ -65,7 +68,7 @@ public class ShaderTest
 
 		GLCapabilities glCaps = new GLCapabilities(glProfile);
 		AbstractGraphicsConfiguration config = AWTGraphicsConfiguration.create(canvas.getGraphicsConfiguration(),
-			glCaps, glCaps);
+				glCaps, glCaps);
 
 		JAWTWindow jawtWindow = (JAWTWindow) NativeWindowFactory.getNativeWindow(canvas, config);
 
@@ -77,8 +80,7 @@ public class ShaderTest
 
 		GLContext glContext = glDrawable.createContext(null);
 		int res = glContext.makeCurrent();
-		if (res == GLContext.CONTEXT_NOT_CURRENT)
-		{
+		if (res == GLContext.CONTEXT_NOT_CURRENT) {
 			fail("error making context current");
 		}
 
@@ -87,26 +89,21 @@ public class ShaderTest
 
 	@Test
 	@Ignore
-	public void testUnordered() throws ShaderException
-	{
+	public void testUnordered() throws ShaderException {
 		int glComputeProgram = gl.glCreateProgram();
 		int glComputeShader = gl.glCreateShader(gl.GL_COMPUTE_SHADER);
-		try
-		{
+		try {
 			Function<String, String> func = (s) -> inputStreamToString(getClass().getResourceAsStream(s));
 			Template template = new Template(func);
 			String source = template.process(func.apply("comp_unordered.glsl"));
 
 			int line = 0;
-			for (String str : source.split("\\n"))
-			{
+			for (String str : source.split("\\n")) {
 				System.out.println(++line + " " + str);
 			}
 
 			GLUtil.loadComputeShader(gl, glComputeProgram, glComputeShader, source);
-		}
-		finally
-		{
+		} finally {
 			gl.glDeleteShader(glComputeShader);
 			gl.glDeleteProgram(glComputeProgram);
 		}
@@ -114,26 +111,21 @@ public class ShaderTest
 
 	@Test
 	@Ignore
-	public void testSmall() throws ShaderException
-	{
+	public void testSmall() throws ShaderException {
 		int glComputeProgram = gl.glCreateProgram();
 		int glComputeShader = gl.glCreateShader(gl.GL_COMPUTE_SHADER);
-		try
-		{
+		try {
 			Function<String, String> func = (s) -> inputStreamToString(getClass().getResourceAsStream(s));
 			Template template = new Template(func);
 			String source = template.process(func.apply("comp_small.glsl"));
 
 			int line = 0;
-			for (String str : source.split("\\n"))
-			{
+			for (String str : source.split("\\n")) {
 				System.out.println(++line + " " + str);
 			}
 
 			GLUtil.loadComputeShader(gl, glComputeProgram, glComputeShader, source);
-		}
-		finally
-		{
+		} finally {
 			gl.glDeleteShader(glComputeShader);
 			gl.glDeleteProgram(glComputeProgram);
 		}
@@ -141,26 +133,21 @@ public class ShaderTest
 
 	@Test
 	@Ignore
-	public void testComp() throws ShaderException
-	{
+	public void testComp() throws ShaderException {
 		int glComputeProgram = gl.glCreateProgram();
 		int glComputeShader = gl.glCreateShader(gl.GL_COMPUTE_SHADER);
-		try
-		{
+		try {
 			Function<String, String> func = (s) -> inputStreamToString(getClass().getResourceAsStream(s));
 			Template template = new Template(func);
 			String source = template.process(func.apply("comp.glsl"));
 
 			int line = 0;
-			for (String str : source.split("\\n"))
-			{
+			for (String str : source.split("\\n")) {
 				System.out.println(++line + " " + str);
 			}
 
 			GLUtil.loadComputeShader(gl, glComputeProgram, glComputeShader, source);
-		}
-		finally
-		{
+		} finally {
 			gl.glDeleteShader(glComputeShader);
 			gl.glDeleteProgram(glComputeProgram);
 		}
@@ -168,28 +155,23 @@ public class ShaderTest
 
 	@Test
 	@Ignore
-	public void testGeom() throws ShaderException
-	{
+	public void testGeom() throws ShaderException {
 		int glComputeProgram = gl.glCreateProgram();
 		int glVertexShader = gl.glCreateShader(gl.GL_VERTEX_SHADER);
 		int glGeometryShader = gl.glCreateShader(gl.GL_GEOMETRY_SHADER);
 		int glFragmentShader = gl.glCreateShader(gl.GL_FRAGMENT_SHADER);
-		try
-		{
+		try {
 			Function<String, String> func = (s) -> inputStreamToString(getClass().getResourceAsStream(s));
 			Template template = new Template(func);
 			String source = template.process(func.apply("geom.glsl"));
 
 			int line = 0;
-			for (String str : source.split("\\n"))
-			{
+			for (String str : source.split("\\n")) {
 				System.out.println(++line + " " + str);
 			}
 
 			GLUtil.loadShaders(gl, glComputeProgram, glVertexShader, glGeometryShader, glFragmentShader, VERTEX_SHADER, source, "");
-		}
-		finally
-		{
+		} finally {
 			gl.glDeleteShader(glVertexShader);
 			gl.glDeleteShader(glGeometryShader);
 			gl.glDeleteShader(glFragmentShader);

@@ -27,14 +27,14 @@ package net.runelite.client.plugins.kourendlibrary;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.util.AsyncBufferedImage;
 
-enum Book
-{
+enum Book {
 	DARK_MANUSCRIPT_13514(ItemID.DARK_MANUSCRIPT),
 	DARK_MANUSCRIPT_13515(ItemID.DARK_MANUSCRIPT_13515),
 	DARK_MANUSCRIPT_13516(ItemID.DARK_MANUSCRIPT_13516),
@@ -67,36 +67,29 @@ enum Book
 
 	private static final Map<String, Book> BY_NAME = buildByName();
 
-	private static Map<Integer, Book> buildById()
-	{
+	private static Map<Integer, Book> buildById() {
 		HashMap<Integer, Book> byId = new HashMap<>();
-		for (Book b : Book.values())
-		{
+		for (Book b : Book.values()) {
 			byId.put(b.item, b);
 		}
 		return Collections.unmodifiableMap(byId);
 	}
 
-	private static Map<String, Book> buildByName()
-	{
+	private static Map<String, Book> buildByName() {
 		HashMap<String, Book> byName = new HashMap<>();
-		for (Book b : Book.values())
-		{
-			if (!b.isDarkManuscript)
-			{
+		for (Book b : Book.values()) {
+			if (!b.isDarkManuscript) {
 				byName.put(b.name, b);
 			}
 		}
 		return Collections.unmodifiableMap(byName);
 	}
 
-	static Book byId(int id)
-	{
+	static Book byId(int id) {
 		return BY_ID.get(id);
 	}
 
-	static Book byName(String name)
-	{
+	static Book byName(String name) {
 		return BY_NAME.get(name);
 	}
 
@@ -115,26 +108,22 @@ enum Book
 	@Getter(AccessLevel.PACKAGE)
 	private final boolean isDarkManuscript;
 
-	Book(final int id, final String shortName, final String name)
-	{
+	Book(final int id, final String shortName, final String name) {
 		this.item = id;
 		this.isDarkManuscript = false;
 		this.shortName = shortName;
 		this.name = name;
 	}
 
-	Book(final int id)
-	{
+	Book(final int id) {
 		this.item = id;
 		this.isDarkManuscript = true;
 		this.name = "Dark Manuscript";
 		this.shortName = "Dark Manuscript";
 	}
 
-	static void fillImages(ItemManager itemManager)
-	{
-		for (Book b : values())
-		{
+	static void fillImages(ItemManager itemManager) {
+		for (Book b : values()) {
 			b.icon = itemManager.getImage(b.item);
 		}
 	}

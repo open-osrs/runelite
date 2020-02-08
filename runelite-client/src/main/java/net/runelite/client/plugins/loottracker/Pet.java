@@ -26,13 +26,13 @@ package net.runelite.client.plugins.loottracker;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ItemID;
 
 @Getter(AccessLevel.PACKAGE)
-public enum Pet
-{
+public enum Pet {
 	// GWD Pets
 	PET_GENERAL_GRAARDOR(ItemID.PET_GENERAL_GRAARDOR, "General graador"),
 	PET_KREEARRA(ItemID.PET_KREEARRA, "Kree'arra"),
@@ -75,25 +75,20 @@ public enum Pet
 	private final String[] bossNames;
 	private static final Map<String, Pet> byBossName = buildBossMap();
 
-	Pet(int id, String... bossNames)
-	{
+	Pet(int id, String... bossNames) {
 		this.petID = id;
 		this.bossNames = bossNames;
 	}
 
-	public static Pet getByBossName(String name)
-	{
+	public static Pet getByBossName(String name) {
 		return byBossName.get(name.toUpperCase());
 	}
 
-	private static Map<String, Pet> buildBossMap()
-	{
+	private static Map<String, Pet> buildBossMap() {
 		Map<String, Pet> byName = new HashMap<>();
-		for (Pet pet : values())
-		{
+		for (Pet pet : values()) {
 			String[] droppingBosses = pet.getBossNames();
-			for (String bossName : droppingBosses)
-			{
+			for (String bossName : droppingBosses) {
 				byName.put(bossName.toUpperCase(), pet);
 			}
 		}

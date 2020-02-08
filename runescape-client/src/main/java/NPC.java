@@ -11,7 +11,7 @@ public final class NPC extends Actor {
 	public static int[] SpriteBuffer_yOffsets;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Liz;"
+			signature = "Liz;"
 	)
 	@Export("definition")
 	NPCDefinition definition;
@@ -21,8 +21,8 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IBI)V",
-		garbageValue = "-1099283793"
+			signature = "(IBI)V",
+			garbageValue = "-1099283793"
 	)
 	final void method2083(int var1, byte var2) {
 		int var3 = super.pathX[0];
@@ -84,8 +84,8 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IIZB)V",
-		garbageValue = "0"
+			signature = "(IIZB)V",
+			garbageValue = "0"
 	)
 	final void method2077(int var1, int var2, boolean var3) {
 		if (super.sequence != -1 && GraphicsDefaults.SequenceDefinition_get(super.sequence).field3524 == 1) {
@@ -124,8 +124,8 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)Ldx;",
-		garbageValue = "-2133076860"
+			signature = "(I)Ldx;",
+			garbageValue = "-2133076860"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
@@ -160,8 +160,8 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-515224238"
+			signature = "(I)Z",
+			garbageValue = "-515224238"
 	)
 	@Export("isVisible")
 	final boolean isVisible() {
@@ -170,8 +170,8 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "-728200028"
+			signature = "(II)Z",
+			garbageValue = "-728200028"
 	)
 	public static boolean method2088(int var0) {
 		return (var0 >> 21 & 1) != 0;
@@ -179,8 +179,8 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-213957915"
+			signature = "(I)V",
+			garbageValue = "-213957915"
 	)
 	static void method2079() {
 		Login.loginIndex = 24;
@@ -189,8 +189,8 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("ib")
 	@ObfuscatedSignature(
-		signature = "(IIIILjava/lang/String;I)V",
-		garbageValue = "-1867991224"
+			signature = "(IIIILjava/lang/String;I)V",
+			garbageValue = "-1867991224"
 	)
 	@Export("widgetDefaultMenuAction")
 	static void widgetDefaultMenuAction(int var0, int var1, int var2, int var3, String var4) {

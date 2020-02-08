@@ -25,29 +25,27 @@
 package net.runelite.client.plugins.raids;
 
 import com.google.common.base.Splitter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class Parse
-{
-	public static boolean parse(String value)
-	{
+public class Parse {
+	public static boolean parse(String value) {
 		final ArrayList<String> rooms = new ArrayList<>();
 		Collections.addAll(rooms, "tekton", "muttadiles", "guardians", "vespula", "shamans", "vasa", "vanguards", "mystics", "crabs", "ice demon", "tightrope", "thieving", "unknown");
 
 		List<String> enteredRooms = Splitter
-			.on(",")
-			.trimResults()
-			.omitEmptyStrings()
-			.splitToList(value);
+				.on(",")
+				.trimResults()
+				.omitEmptyStrings()
+				.splitToList(value);
 
-		for (String room : enteredRooms)
-		{
-			if (!rooms.contains(room.toLowerCase()))
-			{
+		for (String room : enteredRooms) {
+			if (!rooms.contains(room.toLowerCase())) {
 				return false;
 			}
 		}

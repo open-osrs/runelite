@@ -40,41 +40,38 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LvtTest
-{
+public class LvtTest {
 	private static final Logger logger = LoggerFactory.getLogger(LvtTest.class);
 
 	@Test
-	public void testReuseIndex()
-	{
+	public void testReuseIndex() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
 
 		Instruction body[] =
-		{
-			// var0 = null
-			new AConstNull(ins),
-			new AStore(ins, 0),
-			// var0 = 0
-			// this forces a reindex to varn
-			new LDC(ins, 0),
-			new IStore(ins, 0),
-			// var2 = null
-			new AConstNull(ins),
-			new AStore(ins, 2),
-			// var2 = 0
-			// this forces a reindex to varn+1
-			new LDC(ins, 0),
-			new IStore(ins, 2),
-			//var0 = 0L
-			new LDC(ins, 0L),
-			new LStore(ins, 0),
-			new VReturn(ins)
-		};
+				{
+						// var0 = null
+						new AConstNull(ins),
+						new AStore(ins, 0),
+						// var0 = 0
+						// this forces a reindex to varn
+						new LDC(ins, 0),
+						new IStore(ins, 0),
+						// var2 = null
+						new AConstNull(ins),
+						new AStore(ins, 2),
+						// var2 = 0
+						// this forces a reindex to varn+1
+						new LDC(ins, 0),
+						new IStore(ins, 2),
+						//var0 = 0L
+						new LDC(ins, 0L),
+						new LStore(ins, 0),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 

@@ -10,8 +10,7 @@ import net.runelite.api.Tile;
 import net.runelite.api.WallObject;
 import net.runelite.mapping.Import;
 
-public interface RSTile extends Tile
-{
+public interface RSTile extends Tile {
 	@Import("gameObjects")
 	@Override
 	GameObject[] getGameObjects();

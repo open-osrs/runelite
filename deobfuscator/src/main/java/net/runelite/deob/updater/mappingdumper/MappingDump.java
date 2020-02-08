@@ -3,6 +3,7 @@ package net.runelite.deob.updater.mappingdumper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.pool.Class;
@@ -10,10 +11,10 @@ import net.runelite.asm.pool.Field;
 import net.runelite.asm.pool.Method;
 import net.runelite.asm.signature.Signature;
 import net.runelite.deob.updater.MappingDumper;
+
 import static org.objectweb.asm.Opcodes.ACC_STATIC;
 
-public class MappingDump
-{
+public class MappingDump {
 	public int revision;
 
 	public int totalClasses = 0;
@@ -41,15 +42,12 @@ public class MappingDump
 
 	private ClassGroup group;
 
-	public MappingDump visitGroup(ClassGroup group)
-	{
+	public MappingDump visitGroup(ClassGroup group) {
 		this.group = group;
 		classes = new ArrayList<>();
 
-		for (ClassFile c : group.getClasses())
-		{
-			if (c.getName().contains("runelite"))
-			{
+		for (ClassFile c : group.getClasses()) {
+			if (c.getName().contains("runelite")) {
 				continue;
 			}
 
@@ -59,42 +57,35 @@ public class MappingDump
 
 		totalClasses = classes.size();
 
-		for (MappedClass c : classes)
-		{
-			if (c.implementingName != null)
-			{
+		for (MappedClass c : classes) {
+			if (c.implementingName != null) {
 				totalNamedClasses++;
 			}
 
-			for (MappedMethod mm : c.methods)
-			{
-				for (Map.Entry<Field, Integer> entry : mm.fieldGets.entrySet())
-				{
+			for (MappedMethod mm : c.methods) {
+				for (Map.Entry<Field, Integer> entry : mm.fieldGets.entrySet()) {
 					MappedField mf = MappingDumper.getMap(entry.getKey());
-					if (mf == null)
-					{
+					if (mf == null) {
 						continue;
 					}
 					mf.gets.put(
-						new Method(
-							new Class(mm.owner),
-							mm.obfuscatedName,
-							new Signature(mm.descriptor)),
-						entry.getValue());
+							new Method(
+									new Class(mm.owner),
+									mm.obfuscatedName,
+									new Signature(mm.descriptor)),
+							entry.getValue());
 				}
-				for (Map.Entry<Field, Integer> entry : mm.fieldPuts.entrySet())
-				{
+				for (Map.Entry<Field, Integer> entry : mm.fieldPuts.entrySet()) {
 					MappedField mf = MappingDumper.getMap(entry.getKey());
-					if (mf == null)
-					{
+					if (mf == null) {
 						continue;
 					}
 					mf.puts.put(
-						new Method(
-							new Class(mm.owner),
-							mm.obfuscatedName,
-							new Signature(mm.descriptor)),
-						entry.getValue());
+							new Method(
+									new Class(mm.owner),
+									mm.obfuscatedName,
+									new Signature(mm.descriptor)),
+							entry.getValue());
 				}
 			}
 
@@ -108,41 +99,39 @@ public class MappingDump
 		return this;
 	}
 
-	private void grabAmountInfo(MappedClass c)
-	{
+	private void grabAmountInfo(MappedClass c) {
 		totalFields += c.fields.size();
 		totalNamedFields += c.fields
-			.stream()
-			.filter(f -> f.exportedName != null)
-			.count();
+				.stream()
+				.filter(f -> f.exportedName != null)
+				.count();
 		totalStaticFields += c.fields
-			.stream()
-			.filter(f -> (f.access & ACC_STATIC) != 0)
-			.count();
+				.stream()
+				.filter(f -> (f.access & ACC_STATIC) != 0)
+				.count();
 		totalNamedStaticFields += c.fields
-			.stream()
-			.filter(f -> f.exportedName != null
-				&& (f.access & ACC_STATIC) != 0)
-			.count();
+				.stream()
+				.filter(f -> f.exportedName != null
+						&& (f.access & ACC_STATIC) != 0)
+				.count();
 
 		totalMethods += c.methods.size();
 		totalNamedMethods += c.methods
-			.stream()
-			.filter(f -> f.exportedName != null)
-			.count();
+				.stream()
+				.filter(f -> f.exportedName != null)
+				.count();
 		totalStaticMethods += c.methods
-			.stream()
-			.filter(f -> (f.access & ACC_STATIC) != 0)
-			.count();
+				.stream()
+				.filter(f -> (f.access & ACC_STATIC) != 0)
+				.count();
 		totalNamedStaticMethods += c.methods
-			.stream()
-			.filter(f -> f.exportedName != null
-				&& (f.access & ACC_STATIC) != 0)
-			.count();
+				.stream()
+				.filter(f -> f.exportedName != null
+						&& (f.access & ACC_STATIC) != 0)
+				.count();
 	}
 
-	ClassGroup getGroup()
-	{
+	ClassGroup getGroup() {
 		return group;
 	}
 }

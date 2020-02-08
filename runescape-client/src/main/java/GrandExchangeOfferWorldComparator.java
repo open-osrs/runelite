@@ -1,4 +1,5 @@
 import java.util.Comparator;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -9,15 +10,15 @@ import net.runelite.mapping.ObfuscatedSignature;
 final class GrandExchangeOfferWorldComparator implements Comparator {
 	@ObfuscatedName("df")
 	@ObfuscatedSignature(
-		signature = "Lia;"
+			signature = "Lia;"
 	)
 	@Export("archive2")
 	static Archive archive2;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ll;Ll;I)I",
-		garbageValue = "250420083"
+			signature = "(Ll;Ll;I)I",
+			garbageValue = "250420083"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -29,13 +30,13 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
+		return this.compare_bridged((GrandExchangeEvent) var1, (GrandExchangeEvent) var2);
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "362180230"
+			signature = "(II)Z",
+			garbageValue = "362180230"
 	)
 	public static boolean method76(int var0) {
 		return (var0 >> 20 & 1) != 0;
@@ -43,8 +44,8 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lhn;IIII)V",
-		garbageValue = "1571239297"
+			signature = "(Lhn;IIII)V",
+			garbageValue = "1571239297"
 	)
 	@Export("Widget_setKeyRate")
 	static final void Widget_setKeyRate(Widget var0, int var1, int var2, int var3) {
@@ -58,8 +59,8 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 
 	@ObfuscatedName("hn")
 	@ObfuscatedSignature(
-		signature = "(Lgy;I)V",
-		garbageValue = "356089511"
+			signature = "(Lgy;I)V",
+			garbageValue = "356089511"
 	)
 	static final void method77(class185 var0) {
 		PacketBuffer var1 = Client.packetWriter.packetBuffer;
@@ -116,7 +117,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 				if (var4 >= 0 && var5 >= 0 && var4 < 104 && var5 < 104) {
 					NodeDeque var31 = Client.groundItems[Clock.Client_plane][var4][var5];
 					if (var31 != null) {
-						for (var32 = (TileItem)var31.last(); var32 != null; var32 = (TileItem)var31.previous()) {
+						for (var32 = (TileItem) var31.last(); var32 != null; var32 = (TileItem) var31.previous()) {
 							if ((var2 & 32767) == var32.id) {
 								var32.remove();
 								break;
@@ -354,7 +355,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 						if (var6 >= 0 && var7 >= 0 && var6 < 104 && var7 < 104) {
 							NodeDeque var35 = Client.groundItems[Clock.Client_plane][var6][var7];
 							if (var35 != null) {
-								for (TileItem var36 = (TileItem)var35.last(); var36 != null; var36 = (TileItem)var35.previous()) {
+								for (TileItem var36 = (TileItem) var35.last(); var36 != null; var36 = (TileItem) var35.previous()) {
 									if ((var2 & 32767) == var36.id && var4 == var36.quantity) {
 										var36.quantity = var3;
 										break;
@@ -373,8 +374,8 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 
 	@ObfuscatedName("iv")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIB)V",
-		garbageValue = "-87"
+			signature = "(IIIIIIB)V",
+			garbageValue = "-87"
 	)
 	static final void method74(int var0, int var1, int var2, int var3, int var4, int var5) {
 		int var6 = var2 - var0;

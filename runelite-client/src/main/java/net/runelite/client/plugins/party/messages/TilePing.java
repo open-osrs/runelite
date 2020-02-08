@@ -32,7 +32,6 @@ import net.runelite.http.api.ws.messages.party.PartyMemberMessage;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class TilePing extends PartyMemberMessage implements Event
-{
+public class TilePing extends PartyMemberMessage implements Event {
 	private final WorldPoint point;
 }

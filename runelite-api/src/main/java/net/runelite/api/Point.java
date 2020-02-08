@@ -27,20 +27,17 @@ package net.runelite.api;
 /**
  * A two-dimensional coordinate on the canvas.
  */
-public class Point
-{
+public class Point {
 	private final int x;
 	private final int y;
 
-	public Point(int x, int y)
-	{
+	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Point{" + "x=" + x + ", y=" + y + '}';
 	}
 
@@ -49,8 +46,7 @@ public class Point
 	 *
 	 * @return the x-axis coordinate
 	 */
-	public int getX()
-	{
+	public int getX() {
 		return x;
 	}
 
@@ -59,8 +55,7 @@ public class Point
 	 *
 	 * @return the y-axis coordinate
 	 */
-	public int getY()
-	{
+	public int getY() {
 		return y;
 	}
 
@@ -70,14 +65,12 @@ public class Point
 	 * @param other other point
 	 * @return the distance
 	 */
-	public int distanceTo(Point other)
-	{
+	public int distanceTo(Point other) {
 		return (int) Math.hypot(getX() - other.getX(), getY() - other.getY());
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		int hash = 3;
 		hash = 23 * hash + this.x;
 		hash = 23 * hash + this.y;
@@ -85,23 +78,18 @@ public class Point
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-		{
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if (obj == null)
-		{
+		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		final Point other = (Point) obj;
-		if (this.x != other.x)
-		{
+		if (this.x != other.x) {
 			return false;
 		}
 		return this.y == other.y;

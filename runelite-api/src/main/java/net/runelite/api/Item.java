@@ -27,8 +27,7 @@ package net.runelite.api;
 import lombok.Value;
 
 @Value
-public class Item
-{
+public class Item {
 	private final int id;
 	private final int quantity;
 }

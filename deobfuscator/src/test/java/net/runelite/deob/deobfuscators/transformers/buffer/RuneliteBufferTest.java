@@ -25,17 +25,15 @@
 package net.runelite.deob.deobfuscators.transformers.buffer;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Adam
  */
-public class RuneliteBufferTest
-{
+public class RuneliteBufferTest {
 	@Test
-	public void testRuneliteFinishPacket()
-	{
+	public void testRuneliteFinishPacket() {
 		RuneliteBuffer buffer = new RuneliteBuffer();
 		byte[] b = new byte[7];
 

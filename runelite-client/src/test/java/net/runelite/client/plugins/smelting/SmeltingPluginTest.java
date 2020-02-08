@@ -27,13 +27,17 @@ package net.runelite.client.plugins.smelting;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import javax.inject.Inject;
+
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.ui.overlay.OverlayManager;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,8 +45,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SmeltingPluginTest
-{
+public class SmeltingPluginTest {
 	private static final String SMELT_CANNONBALL = "You remove the cannonballs from the mould";
 	private static final String SMELT_BAR = "You retrieve a bar of steel.";
 
@@ -66,14 +69,12 @@ public class SmeltingPluginTest
 	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testCannonballs()
-	{
+	public void testCannonballs() {
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", SMELT_CANNONBALL, "", 0);
 		smeltingPlugin.onChatMessage(chatMessage);
 
@@ -83,8 +84,7 @@ public class SmeltingPluginTest
 	}
 
 	@Test
-	public void testBars()
-	{
+	public void testBars() {
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", SMELT_BAR, "", 0);
 		smeltingPlugin.onChatMessage(chatMessage);
 

@@ -28,9 +28,12 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
+
 import static net.runelite.api.NpcID.DUSK_7888;
+
 import net.runelite.api.events.GameTick;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -40,15 +43,14 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 
 @PluginDescriptor(
-	name = "Grotesque Guardians",
-	description = "Show various helpful utitiles during the Grotesque Gaurdians (Gargoyles) fight",
-	tags = {"bosses", "combat", "gargs", "overlay", "grotesque", "pve", "pvm"},
-	type = PluginType.PVM,
-	enabledByDefault = false
+		name = "Grotesque Guardians",
+		description = "Show various helpful utitiles during the Grotesque Gaurdians (Gargoyles) fight",
+		tags = {"bosses", "combat", "gargs", "overlay", "grotesque", "pve", "pvm"},
+		type = PluginType.PVM,
+		enabledByDefault = false
 )
 @Singleton
-public class GrotesqueGuardiansPlugin extends Plugin
-{
+public class GrotesqueGuardiansPlugin extends Plugin {
 	private static final int GARGOYLES_REGION = 6727;
 
 	@Inject
@@ -69,8 +71,7 @@ public class GrotesqueGuardiansPlugin extends Plugin
 	private boolean inGargs;
 	private boolean needingToRun;
 
-	public GrotesqueGuardiansPlugin()
-	{
+	public GrotesqueGuardiansPlugin() {
 		inGargs = false;
 		needingToRun = false;
 	}
@@ -79,8 +80,7 @@ public class GrotesqueGuardiansPlugin extends Plugin
 	private GrotesqueGuardiansOverlay overlay;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		overlayManager.add(overlay);
 		overlayManager.add(prayerOverlay);
@@ -89,8 +89,7 @@ public class GrotesqueGuardiansPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(prayerOverlay);
 		dusk = null;
@@ -98,46 +97,32 @@ public class GrotesqueGuardiansPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(final GameTick event)
-	{
+	private void onGameTick(final GameTick event) {
 		final ArrayList<Integer> regions = new ArrayList<>();
-		for (final int intValue : client.getMapRegions())
-		{
+		for (final int intValue : client.getMapRegions()) {
 			regions.add(intValue);
 		}
-		if (regions.contains(GARGOYLES_REGION))
-		{
+		if (regions.contains(GARGOYLES_REGION)) {
 			dusk = null;
 			inGargs = true;
-			for (final NPC npc : client.getNpcs())
-			{
-				if (npc.getName() != null && npc.getName().contains("Dusk") && !npc.isDead())
-				{
+			for (final NPC npc : client.getNpcs()) {
+				if (npc.getName() != null && npc.getName().contains("Dusk") && !npc.isDead()) {
 					dusk = npc;
 				}
 			}
-			if (inGargs && dusk != null)
-			{
-				if (dusk.getId() == DUSK_7888)
-				{
-					if (dusk.getAnimation() == DuskAttack.MELEE.getAnimation())
-					{
+			if (inGargs && dusk != null) {
+				if (dusk.getId() == DUSK_7888) {
+					if (dusk.getAnimation() == DuskAttack.MELEE.getAnimation()) {
 						prayAgainst = DuskAttack.MELEE;
-					}
-					else if (dusk.getAnimation() == DuskAttack.RANGE.getAnimation())
-					{
+					} else if (dusk.getAnimation() == DuskAttack.RANGE.getAnimation()) {
 						prayAgainst = DuskAttack.RANGE;
 					}
-				}
-				else
-				{
+				} else {
 					prayAgainst = null;
 				}
 				needingToRun = dusk.getAnimation() == 7802;
 			}
-		}
-		else
-		{
+		} else {
 			inGargs = false;
 			prayAgainst = null;
 			dusk = null;
@@ -145,24 +130,20 @@ public class GrotesqueGuardiansPlugin extends Plugin
 	}
 
 	@Nullable
-	DuskAttack getPrayAgainst()
-	{
+	DuskAttack getPrayAgainst() {
 		return prayAgainst;
 	}
 
 	@Nullable
-	NPC getDusk()
-	{
+	NPC getDusk() {
 		return dusk;
 	}
 
-	boolean isInGargs()
-	{
+	boolean isInGargs() {
 		return inGargs;
 	}
 
-	boolean isNeedingToRun()
-	{
+	boolean isNeedingToRun() {
 		return needingToRun;
 	}
 

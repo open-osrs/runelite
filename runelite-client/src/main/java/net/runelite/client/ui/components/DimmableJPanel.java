@@ -26,10 +26,10 @@ package net.runelite.client.ui.components;
 
 import java.awt.Color;
 import javax.swing.JPanel;
+
 import lombok.Getter;
 
-public class DimmableJPanel extends JPanel
-{
+public class DimmableJPanel extends JPanel {
 	// Dimming state, allows for restoring original colors before dimming
 	@Getter
 	private boolean dimmed = false;
@@ -39,30 +39,26 @@ public class DimmableJPanel extends JPanel
 	private Color undimmedBackground = null;
 
 	@Override
-	public void setForeground(Color color)
-	{
+	public void setForeground(Color color) {
 		undimmedForeground = color;
 		dimmedForeground = color.darker();
 		super.setForeground(color);
 	}
 
 	@Override
-	public void setBackground(Color color)
-	{
+	public void setBackground(Color color) {
 		undimmedBackground = color;
 		dimmedBackground = color.darker();
 		super.setBackground(color);
 	}
 
 	@Override
-	public Color getForeground()
-	{
+	public Color getForeground() {
 		return dimmed ? dimmedForeground : undimmedForeground;
 	}
 
 	@Override
-	public Color getBackground()
-	{
+	public Color getBackground() {
 		return dimmed ? dimmedBackground : undimmedBackground;
 	}
 
@@ -73,17 +69,13 @@ public class DimmableJPanel extends JPanel
 	 *
 	 * @param dimmed
 	 */
-	void setDimmed(boolean dimmed)
-	{
+	void setDimmed(boolean dimmed) {
 		this.dimmed = dimmed;
 
-		if (dimmed)
-		{
+		if (dimmed) {
 			super.setBackground(dimmedBackground);
 			super.setForeground(dimmedForeground);
-		}
-		else
-		{
+		} else {
 			super.setBackground(undimmedBackground);
 			super.setForeground(undimmedForeground);
 		}

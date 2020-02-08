@@ -30,46 +30,40 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DataFile implements Closeable
-{
+public class DataFile implements Closeable {
 	private static final Logger logger = LoggerFactory.getLogger(DataFile.class);
 
 	private static final int SECTOR_SIZE = 520;
 
 	private final RandomAccessFile dat;
 
-	public DataFile(File file) throws FileNotFoundException
-	{
+	public DataFile(File file) throws FileNotFoundException {
 		this.dat = new RandomAccessFile(file, "rw");
 	}
 
 	@Override
-	public void close() throws IOException
-	{
+	public void close() throws IOException {
 		dat.close();
 	}
 
-	public void clear() throws IOException
-	{
+	public void clear() throws IOException {
 		dat.setLength(0L);
 	}
 
 	/**
-	 *
-	 * @param indexId expected index of archive of contents being read
+	 * @param indexId   expected index of archive of contents being read
 	 * @param archiveId expected archive of contents being read
-	 * @param sector sector to start reading at
-	 * @param size size of file
+	 * @param sector    sector to start reading at
+	 * @param size      size of file
 	 * @return
 	 * @throws IOException
 	 */
-	public byte[] read(int indexId, int archiveId, int sector, int size) throws IOException
-	{
-		if (sector <= 0L || dat.length() / SECTOR_SIZE < (long) sector)
-		{
+	public byte[] read(int indexId, int archiveId, int sector, int size) throws IOException {
+		if (sector <= 0L || dat.length() / SECTOR_SIZE < (long) sector) {
 			logger.warn("bad read, dat length {}, requested sector {}", dat.length(), sector);
 			return null;
 		}
@@ -78,11 +72,9 @@ public class DataFile implements Closeable
 		ByteBuffer buffer = ByteBuffer.allocate(size);
 
 		for (int part = 0, readBytesCount = 0, nextSector;
-			size > readBytesCount;
-			sector = nextSector)
-		{
-			if (sector == 0)
-			{
+			 size > readBytesCount;
+			 sector = nextSector) {
+			if (sector == 0) {
 				logger.warn("Unexpected end of file");
 				return null;
 			}
@@ -94,67 +86,58 @@ public class DataFile implements Closeable
 			int currentIndex;
 			int currentPart;
 			int currentArchive;
-			if (archiveId > 0xFFFF)
-			{
+			if (archiveId > 0xFFFF) {
 				headerSize = 10;
-				if (dataBlockSize > SECTOR_SIZE - headerSize)
-				{
+				if (dataBlockSize > SECTOR_SIZE - headerSize) {
 					dataBlockSize = SECTOR_SIZE - headerSize;
 				}
 
 				int i = dat.read(readBuffer, 0, headerSize + dataBlockSize);
-				if (i != headerSize + dataBlockSize)
-				{
+				if (i != headerSize + dataBlockSize) {
 					logger.warn("Short read when reading file data for {}/{}", indexId, archiveId);
 					return null;
 				}
 
 				currentArchive = ((readBuffer[0] & 0xFF) << 24)
-					| ((readBuffer[1] & 0xFF) << 16)
-					| ((readBuffer[2] & 0xFF) << 8)
-					| (readBuffer[3] & 0xFF);
+						| ((readBuffer[1] & 0xFF) << 16)
+						| ((readBuffer[2] & 0xFF) << 8)
+						| (readBuffer[3] & 0xFF);
 				currentPart = ((readBuffer[4] & 0xFF) << 8) + (readBuffer[5] & 0xFF);
 				nextSector = ((readBuffer[6] & 0xFF) << 16)
-					| ((readBuffer[7] & 0xFF) << 8)
-					| (readBuffer[8] & 0xFF);
+						| ((readBuffer[7] & 0xFF) << 8)
+						| (readBuffer[8] & 0xFF);
 				currentIndex = readBuffer[9] & 0xFF;
-			}
-			else
-			{
+			} else {
 				headerSize = 8;
-				if (dataBlockSize > SECTOR_SIZE - headerSize)
-				{
+				if (dataBlockSize > SECTOR_SIZE - headerSize) {
 					dataBlockSize = SECTOR_SIZE - headerSize;
 				}
 
 				int i = dat.read(readBuffer, 0, headerSize + dataBlockSize);
-				if (i != headerSize + dataBlockSize)
-				{
+				if (i != headerSize + dataBlockSize) {
 					logger.warn("short read");
 					return null;
 				}
 
 				currentArchive = ((readBuffer[0] & 0xFF) << 8)
-					| (readBuffer[1] & 0xFF);
+						| (readBuffer[1] & 0xFF);
 				currentPart = ((readBuffer[2] & 0xFF) << 8)
-					| (readBuffer[3] & 0xFF);
+						| (readBuffer[3] & 0xFF);
 				nextSector = ((readBuffer[4] & 0xFF) << 16)
-					| ((readBuffer[5] & 0xFF) << 8)
-					| (readBuffer[6] & 0xFF);
+						| ((readBuffer[5] & 0xFF) << 8)
+						| (readBuffer[6] & 0xFF);
 				currentIndex = readBuffer[7] & 0xFF;
 			}
 
-			if (archiveId != currentArchive || currentPart != part || indexId != currentIndex)
-			{
+			if (archiveId != currentArchive || currentPart != part || indexId != currentIndex) {
 				logger.warn("data mismatch {} != {}, {} != {}, {} != {}",
-					archiveId, currentArchive,
-					part, currentPart,
-					indexId, currentIndex);
+						archiveId, currentArchive,
+						part, currentPart,
+						indexId, currentIndex);
 				return null;
 			}
 
-			if (nextSector < 0 || dat.length() / SECTOR_SIZE < (long) nextSector)
-			{
+			if (nextSector < 0 || dat.length() / SECTOR_SIZE < (long) nextSector) {
 				logger.warn("Invalid next sector");
 				return null;
 			}
@@ -169,8 +152,7 @@ public class DataFile implements Closeable
 		return buffer.array();
 	}
 
-	public DataFileWriteResult write(int indexId, int archiveId, byte[] compressedData) throws IOException
-	{
+	public DataFileWriteResult write(int indexId, int archiveId, byte[] compressedData) throws IOException {
 		int sector;
 		int startSector;
 
@@ -178,21 +160,17 @@ public class DataFile implements Closeable
 		ByteBuffer data = ByteBuffer.wrap(compressedData);
 
 		sector = (int) ((dat.length() + (long) (SECTOR_SIZE - 1)) / (long) SECTOR_SIZE);
-		if (sector == 0)
-		{
+		if (sector == 0) {
 			sector = 1;
 		}
 		startSector = sector;
 
-		for (int part = 0; data.hasRemaining(); ++part)
-		{
+		for (int part = 0; data.hasRemaining(); ++part) {
 			int nextSector = sector + 1; // we always just append sectors
 			int dataToWrite;
 
-			if (0xFFFF < archiveId)
-			{
-				if (data.remaining() <= 510)
-				{
+			if (0xFFFF < archiveId) {
+				if (data.remaining() <= 510) {
 					nextSector = 0;
 				}
 
@@ -210,15 +188,11 @@ public class DataFile implements Closeable
 				dat.write(writeBuffer, 0, 10);
 
 				dataToWrite = data.remaining();
-				if (dataToWrite > 510)
-				{
+				if (dataToWrite > 510) {
 					dataToWrite = 510;
 				}
-			}
-			else
-			{
-				if (data.remaining() <= 512)
-				{
+			} else {
+				if (data.remaining() <= 512) {
 					nextSector = 0;
 				}
 
@@ -234,8 +208,7 @@ public class DataFile implements Closeable
 				dat.write(writeBuffer, 0, 8);
 
 				dataToWrite = data.remaining();
-				if (dataToWrite > 512)
-				{
+				if (dataToWrite > 512) {
 					dataToWrite = 512;
 				}
 			}

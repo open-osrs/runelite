@@ -25,9 +25,11 @@
 package net.runelite.script;
 
 import com.google.common.io.Files;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import net.runelite.cache.IndexType;
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.definitions.savers.ScriptSaver;
@@ -41,29 +43,25 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 @Mojo(
-	name = "assemble",
-	defaultPhase = LifecyclePhase.GENERATE_RESOURCES
+		name = "assemble",
+		defaultPhase = LifecyclePhase.GENERATE_RESOURCES
 )
-public class AssembleMojo extends AbstractMojo
-{
+public class AssembleMojo extends AbstractMojo {
 	@Parameter(required = true)
 	private File scriptDirectory;
 
 	@Parameter(required = true)
 	private File outputDirectory;
 
-	private AssembleMojo(File scriptDirectory, File outputDirectory)
-	{
+	private AssembleMojo(File scriptDirectory, File outputDirectory) {
 		this.scriptDirectory = scriptDirectory;
 		this.outputDirectory = outputDirectory;
 	}
 
 	private final Log log = getLog();
 
-	public static void main(String[] args) throws Exception
-	{
-		if (args.length < 2)
-		{
+	public static void main(String[] args) throws Exception {
+		if (args.length < 2) {
 			throw new IllegalArgumentException("Usage: inputfile outputfile");
 		}
 
@@ -74,8 +72,7 @@ public class AssembleMojo extends AbstractMojo
 	}
 
 	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException
-	{
+	public void execute() throws MojoExecutionException, MojoFailureException {
 		RuneLiteInstructions instructions = new RuneLiteInstructions();
 		instructions.init();
 
@@ -86,12 +83,10 @@ public class AssembleMojo extends AbstractMojo
 		File scriptOut = new File(outputDirectory, Integer.toString(IndexType.CLIENTSCRIPT.getNumber()));
 		scriptOut.mkdirs();
 
-		for (File scriptFile : scriptDirectory.listFiles((dir, name) -> name.endsWith(".rs2asm")))
-		{
+		for (File scriptFile : scriptDirectory.listFiles((dir, name) -> name.endsWith(".rs2asm"))) {
 			log.debug("Assembling " + scriptFile);
 
-			try (FileInputStream fin = new FileInputStream(scriptFile))
-			{
+			try (FileInputStream fin = new FileInputStream(scriptFile)) {
 				ScriptDefinition script = assembler.assemble(fin);
 				byte[] packedScript = saver.save(script);
 
@@ -101,19 +96,15 @@ public class AssembleMojo extends AbstractMojo
 				// Copy hash file
 
 				File hashFile = new File(scriptDirectory, Files.getNameWithoutExtension(scriptFile.getName()) + ".hash");
-				if (hashFile.exists())
-				{
+				if (hashFile.exists()) {
 					Files.copy(hashFile, new File(scriptOut, Integer.toString(script.getId()) + ".hash"));
-				}
-				else if (script.getId() < 10000) // Scripts >=10000 are RuneLite scripts, so they shouldn't have a .hash
+				} else if (script.getId() < 10000) // Scripts >=10000 are RuneLite scripts, so they shouldn't have a .hash
 				{
 					throw new MojoExecutionException("Unable to find hash file for " + scriptFile);
 				}
 
 				++count;
-			}
-			catch (IOException ex)
-			{
+			} catch (IOException ex) {
 				throw new MojoFailureException("unable to open file", ex);
 			}
 		}

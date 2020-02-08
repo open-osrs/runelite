@@ -26,11 +26,11 @@ package net.runelite.client.ws;
 
 import java.awt.image.BufferedImage;
 import java.util.UUID;
+
 import lombok.Data;
 
 @Data
-public class PartyMember
-{
+public class PartyMember {
 	private final UUID memberId;
 	private final String name;
 	private BufferedImage avatar;

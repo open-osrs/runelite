@@ -30,17 +30,14 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("boosts")
-public interface BoostsConfig extends Config
-{
-	enum DisplayChangeMode
-	{
+public interface BoostsConfig extends Config {
+	enum DisplayChangeMode {
 		ALWAYS,
 		BOOSTED,
 		NEVER
 	}
 
-	enum DisplayBoosts
-	{
+	enum DisplayBoosts {
 		NONE,
 		COMBAT,
 		NON_COMBAT,
@@ -48,102 +45,93 @@ public interface BoostsConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "displayBoosts",
-		name = "Display Boosts",
-		description = "Configures which skill boosts to display",
-		position = 1
+			keyName = "displayBoosts",
+			name = "Display Boosts",
+			description = "Configures which skill boosts to display",
+			position = 1
 	)
-	default DisplayBoosts displayBoosts()
-	{
+	default DisplayBoosts displayBoosts() {
 		return DisplayBoosts.BOTH;
 	}
 
 	@ConfigItem(
-		keyName = "relativeBoost",
-		name = "Use Relative Boosts",
-		description = "Configures whether or not relative boost is used",
-		position = 2
+			keyName = "relativeBoost",
+			name = "Use Relative Boosts",
+			description = "Configures whether or not relative boost is used",
+			position = 2
 	)
-	default boolean useRelativeBoost()
-	{
+	default boolean useRelativeBoost() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "displayIndicators",
-		name = "Display as infoboxes",
-		description = "Configures whether or not to display the boost as infoboxes",
-		position = 3
+			keyName = "displayIndicators",
+			name = "Display as infoboxes",
+			description = "Configures whether or not to display the boost as infoboxes",
+			position = 3
 	)
-	default boolean displayInfoboxes()
-	{
+	default boolean displayInfoboxes() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "displayIconPanel",
-		name = "Icons",
-		description = "Show boosts next to icons (transparent background)",
-		position = 4
+			keyName = "displayIconPanel",
+			name = "Icons",
+			description = "Show boosts next to icons (transparent background)",
+			position = 4
 	)
-	default boolean displayIcons()
-	{
+	default boolean displayIcons() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "boldIconFont",
-		name = "Bold Font for Icons",
-		description = "",
-		position = 5
+			keyName = "boldIconFont",
+			name = "Bold Font for Icons",
+			description = "",
+			position = 5
 	)
-	default boolean boldIconFont()
-	{
+	default boolean boldIconFont() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "displayNextBuffChange",
-		name = "Display next buff change",
-		description = "Configures whether or not to display when the next buffed stat change will be",
-		position = 6
+			keyName = "displayNextBuffChange",
+			name = "Display next buff change",
+			description = "Configures whether or not to display when the next buffed stat change will be",
+			position = 6
 	)
-	default DisplayChangeMode displayNextBuffChange()
-	{
+	default DisplayChangeMode displayNextBuffChange() {
 		return DisplayChangeMode.BOOSTED;
 	}
 
 	@ConfigItem(
-		keyName = "displayNextDebuffChange",
-		name = "Display next debuff change",
-		description = "Configures whether or not to display when the next debuffed stat change will be",
-		position = 7
+			keyName = "displayNextDebuffChange",
+			name = "Display next debuff change",
+			description = "Configures whether or not to display when the next debuffed stat change will be",
+			position = 7
 	)
-	default DisplayChangeMode displayNextDebuffChange()
-	{
+	default DisplayChangeMode displayNextDebuffChange() {
 		return DisplayChangeMode.NEVER;
 	}
 
 	@ConfigItem(
-		keyName = "boostThreshold",
-		name = "Boost Amount Threshold",
-		description = "The amount of levels boosted to send a notification at. A value of 0 will disable notification.",
-		position = 8
+			keyName = "boostThreshold",
+			name = "Boost Amount Threshold",
+			description = "The amount of levels boosted to send a notification at. A value of 0 will disable notification.",
+			position = 8
 	)
 	@Units(Units.LEVELS)
-	default int boostThreshold()
-	{
+	default int boostThreshold() {
 		return 0;
 	}
 
 	@ConfigItem(
-		keyName = "groupNotifications",
-		name = "Group Notifications",
-		description = "Configures whether or not to group notifications for multiple skills into a single notification",
-		position = 9
+			keyName = "groupNotifications",
+			name = "Group Notifications",
+			description = "Configures whether or not to group notifications for multiple skills into a single notification",
+			position = 9
 	)
-	default boolean groupNotifications()
-	{
+	default boolean groupNotifications() {
 		return false;
 	}
 }

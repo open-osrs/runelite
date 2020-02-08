@@ -31,28 +31,25 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("cooking")
-public interface CookingConfig extends Config
-{
+public interface CookingConfig extends Config {
 	@ConfigItem(
-		position = 1,
-		keyName = "statTimeout",
-		name = "Reset stats",
-		description = "Configures the time until the session resets and the overlay is hidden (0 = Disable feature)"
+			position = 1,
+			keyName = "statTimeout",
+			name = "Reset stats",
+			description = "Configures the time until the session resets and the overlay is hidden (0 = Disable feature)"
 	)
 	@Units(Units.MINUTES)
-	default int statTimeout()
-	{
+	default int statTimeout() {
 		return 5;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "fermentTimer",
-		name = "Show wine ferment timer",
-		description = "Configures if the timer before wines are fermented is shown"
+			position = 2,
+			keyName = "fermentTimer",
+			name = "Show wine ferment timer",
+			description = "Configures if the timer before wines are fermented is shown"
 	)
-	default boolean fermentTimer()
-	{
+	default boolean fermentTimer() {
 		return true;
 	}
 }

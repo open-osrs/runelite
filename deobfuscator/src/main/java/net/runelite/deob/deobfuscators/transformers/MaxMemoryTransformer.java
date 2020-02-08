@@ -44,19 +44,15 @@ import net.runelite.deob.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MaxMemoryTransformer implements Transformer
-{
+public class MaxMemoryTransformer implements Transformer {
 	private static final Logger logger = LoggerFactory.getLogger(MaxMemoryTransformer.class);
 
 	private boolean done = false;
 
 	@Override
-	public void transform(ClassGroup group)
-	{
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method m : cf.getMethods())
-			{
+	public void transform(ClassGroup group) {
+		for (ClassFile cf : group.getClasses()) {
+			for (Method m : cf.getMethods()) {
 				transform(m);
 			}
 		}
@@ -64,21 +60,17 @@ public class MaxMemoryTransformer implements Transformer
 		logger.info("Transformed: " + done);
 	}
 
-	private void transform(Method m)
-	{
+	private void transform(Method m) {
 		Code code = m.getCode();
 
-		if (code == null)
-		{
+		if (code == null) {
 			return;
 		}
 
 		Instructions ins = code.getInstructions();
 
-		for (Instruction i : ins.getInstructions())
-		{
-			if (i instanceof InvokeVirtual)
-			{
+		for (Instruction i : ins.getInstructions()) {
+			if (i instanceof InvokeVirtual) {
 				/*
 					invokestatic          java/lang/Runtime/getRuntime()Ljava/lang/Runtime;
 					invokevirtual         java/lang/Runtime/maxMemory()J
@@ -86,8 +78,7 @@ public class MaxMemoryTransformer implements Transformer
 					ldiv
 					l2i
 				 */
-				if (((InvokeVirtual) i).getMethod().getName().equals("maxMemory"))
-				{
+				if (((InvokeVirtual) i).getMethod().getName().equals("maxMemory")) {
 					insert(ins, ins.getInstructions().indexOf(i));
 					done = true;
 					break;
@@ -96,10 +87,9 @@ public class MaxMemoryTransformer implements Transformer
 		}
 	}
 
-	private void insert(Instructions ins, int idx)
-	{
+	private void insert(Instructions ins, int idx) {
 		Class randomClass = new net.runelite.asm.pool.Class("java/util/Random");
-		
+
 		ins.getInstructions().remove(idx);
 		ins.getInstructions().add(idx++, new Pop(ins)); // pop runtime
 		ins.getInstructions().add(idx++, new New(ins, randomClass));

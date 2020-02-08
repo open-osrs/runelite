@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.WallObject;
 import net.runelite.mapping.Import;
 
-public interface RSBoundaryObject extends WallObject
-{
+public interface RSBoundaryObject extends WallObject {
 	@Import("tag")
 	@Override
 	long getHash();

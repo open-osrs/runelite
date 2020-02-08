@@ -27,8 +27,7 @@ package net.runelite.api;
 /**
  * Represents data on the world map.
  */
-public interface WorldMapData
-{
+public interface WorldMapData {
 	/**
 	 * Checks whether the passed coordinates are on the surface of the
 	 * world map.

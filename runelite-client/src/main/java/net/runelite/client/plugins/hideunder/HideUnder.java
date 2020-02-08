@@ -24,6 +24,7 @@
 package net.runelite.client.plugins.hideunder;
 
 import javax.inject.Inject;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -39,15 +40,14 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
 @PluginDescriptor(
-	name = "Hide Under",
-	description = "Hide local player when under targeted players",
-	tags = {"hide", "local", "player", "under"},
-	type = PluginType.PVP,
-	enabledByDefault = false
+		name = "Hide Under",
+		description = "Hide local player when under targeted players",
+		tags = {"hide", "local", "player", "under"},
+		type = PluginType.PVP,
+		enabledByDefault = false
 )
 @Slf4j
-public class HideUnder extends Plugin
-{
+public class HideUnder extends Plugin {
 	@Inject
 	private Client client;
 	@Inject
@@ -55,30 +55,24 @@ public class HideUnder extends Plugin
 
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOGGED_IN)
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() == GameState.LOGGED_IN) {
 			client.setIsHidingEntities(true);
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
-		if (client.getLocalPlayer() == null)
-		{
+	private void onGameTick(GameTick event) {
+		if (client.getLocalPlayer() == null) {
 			return;
 		}
 
@@ -87,20 +81,16 @@ public class HideUnder extends Plugin
 		final WorldPoint localPlayerWp = WorldPoint.fromLocalInstance(client, client.getLocalPlayer().getLocalLocation());
 		final WorldPoint lp = client.getLocalPlayer().getWorldLocation();
 
-		for (PlayerContainer player : playerManager.getAllAttackers())
-		{
-			if (client.getVar(Varbits.LMS_IN_GAME) == 1)
-			{
+		for (PlayerContainer player : playerManager.getAllAttackers()) {
+			if (client.getVar(Varbits.LMS_IN_GAME) == 1) {
 				final WorldPoint playerWp = WorldPoint.fromLocalInstance(client, player.getPlayer().getLocalLocation());
-				if (localPlayerWp != null && localPlayerWp.distanceTo(playerWp) == 0)
-				{
+				if (localPlayerWp != null && localPlayerWp.distanceTo(playerWp) == 0) {
 					client.setLocalPlayerHidden(true);
 				}
 				continue;
 			}
 
-			if (lp != null && player.getPlayer().getWorldLocation().distanceTo(lp) == 0)
-			{
+			if (lp != null && player.getPlayer().getWorldLocation().distanceTo(lp) == 0) {
 				client.setLocalPlayerHidden(true);
 			}
 		}

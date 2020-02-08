@@ -25,15 +25,18 @@
 package net.runelite.deob.deobfuscators.exprargorder;
 
 import java.util.List;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.attributes.code.Instruction;
+
 import static net.runelite.asm.attributes.code.InstructionType.IADD;
 import static net.runelite.asm.attributes.code.InstructionType.IAND;
 import static net.runelite.asm.attributes.code.InstructionType.IF_ICMPEQ;
 import static net.runelite.asm.attributes.code.InstructionType.ILOAD;
 import static net.runelite.asm.attributes.code.InstructionType.LDC;
 import static net.runelite.asm.attributes.code.InstructionType.SIPUSH;
+
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instructions.IAdd;
@@ -47,14 +50,14 @@ import net.runelite.asm.attributes.code.instructions.Pop;
 import net.runelite.asm.attributes.code.instructions.SiPush;
 import net.runelite.asm.attributes.code.instructions.VReturn;
 import net.runelite.deob.ClassGroupFactory;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class ExprArgOrderTest
-{
+public class ExprArgOrderTest {
 	@Test
-	public void test()
-	{
+	public void test() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -63,28 +66,26 @@ public class ExprArgOrderTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		Instruction body[] =
-		{
-			// 3 + var0 -> var0 + 3
-			new LDC(ins, 3), // 2
-			new ILoad(ins, 0),
-			new IAdd(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						// 3 + var0 -> var0 + 3
+						new LDC(ins, 3), // 2
+						new ILoad(ins, 0),
+						new IAdd(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -99,8 +100,7 @@ public class ExprArgOrderTest
 	}
 
 	@Test
-	public void test2()
-	{
+	public void test2() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -109,35 +109,33 @@ public class ExprArgOrderTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		Instruction body[] =
-		{
-			// var0 + 3 -> var0 + 3
-			new ILoad(ins, 0), // 2
-			new LDC(ins, 3),
-			new IAdd(ins),
-			new Pop(ins),
-			// (3 + var0) + 512 -> (var0 + 3) + 512
-			new LDC(ins, 3), // 6
-			new ILoad(ins, 0),
-			new IAdd(ins),
-			new SiPush(ins, (short) 512),
-			new IAdd(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						// var0 + 3 -> var0 + 3
+						new ILoad(ins, 0), // 2
+						new LDC(ins, 3),
+						new IAdd(ins),
+						new Pop(ins),
+						// (3 + var0) + 512 -> (var0 + 3) + 512
+						new LDC(ins, 3), // 6
+						new ILoad(ins, 0),
+						new IAdd(ins),
+						new SiPush(ins, (short) 512),
+						new IAdd(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -160,8 +158,7 @@ public class ExprArgOrderTest
 	}
 
 	@Test
-	public void test3()
-	{
+	public void test3() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -170,30 +167,28 @@ public class ExprArgOrderTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		Instruction body[] =
-		{
-			// 512 + (3 + var1) -> var1 + 3 + 512
-			new LDC(ins, 512),
-			new LDC(ins, 3),
-			new ILoad(ins, 0),
-			new IAdd(ins),
-			new IAdd(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						// 512 + (3 + var1) -> var1 + 3 + 512
+						new LDC(ins, 512),
+						new LDC(ins, 3),
+						new ILoad(ins, 0),
+						new IAdd(ins),
+						new IAdd(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -212,8 +207,7 @@ public class ExprArgOrderTest
 	}
 
 	@Test
-	public void test4()
-	{
+	public void test4() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -222,35 +216,33 @@ public class ExprArgOrderTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		Instruction body[] =
-		{
-			new SiPush(ins, (short) 600),
-			new ILoad(ins, 0),
-			new LDC(ins, 3),
-			new IMul(ins),
-			new IAdd(ins),
-			new Pop(ins),
-			new ILoad(ins, 0),
-			new LDC(ins, 3),
-			new IMul(ins),
-			new SiPush(ins, (short) 600),
-			new IAdd(ins),
-			new Pop(ins),
-			new VReturn(ins)
-		};
+				{
+						new SiPush(ins, (short) 600),
+						new ILoad(ins, 0),
+						new LDC(ins, 3),
+						new IMul(ins),
+						new IAdd(ins),
+						new Pop(ins),
+						new ILoad(ins, 0),
+						new LDC(ins, 3),
+						new IMul(ins),
+						new SiPush(ins, (short) 600),
+						new IAdd(ins),
+						new Pop(ins),
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -259,15 +251,13 @@ public class ExprArgOrderTest
 
 		List<Instruction> instructions = ins.getInstructions();
 
-		for (int i = 2; i <= 7; ++i)
-		{
+		for (int i = 2; i <= 7; ++i) {
 			assertEquals(instructions.get(i).getType(), instructions.get(i + 6).getType());
 		}
 	}
 
 	@Test
-	public void test5()
-	{
+	public void test5() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -276,32 +266,30 @@ public class ExprArgOrderTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		Label label = new Label(ins);
 
 		Instruction body[] =
-		{
-			// if (0 == 3 + var0) -> if (var0 + 3 == 0)
-			new LDC(ins, 0),
-			new LDC(ins, 3),
-			new ILoad(ins, 0),
-			new IAdd(ins),
-			new IfICmpEq(ins, label),
-			label,
-			new VReturn(ins)
-		};
+				{
+						// if (0 == 3 + var0) -> if (var0 + 3 == 0)
+						new LDC(ins, 0),
+						new LDC(ins, 3),
+						new ILoad(ins, 0),
+						new IAdd(ins),
+						new IfICmpEq(ins, label),
+						label,
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -321,8 +309,7 @@ public class ExprArgOrderTest
 	}
 
 	@Test
-	public void test6()
-	{
+	public void test6() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -331,13 +318,12 @@ public class ExprArgOrderTest
 
 		// vars[0] = 3
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 3),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 3),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
@@ -353,20 +339,19 @@ public class ExprArgOrderTest
 		if_icmpeq             LABEL0x49
 		 */
 		Instruction body[] =
-		{
-			new LDC(ins, 0),
-			new LDC(ins, 8388608),
-			new ILoad(ins, 0),
-			new IAdd(ins),
-			new LDC(ins, -16777216),
-			new IAnd(ins),
-			new IfICmpEq(ins, label), // 8
-			label,
-			new VReturn(ins)
-		};
+				{
+						new LDC(ins, 0),
+						new LDC(ins, 8388608),
+						new ILoad(ins, 0),
+						new IAdd(ins),
+						new LDC(ins, -16777216),
+						new IAnd(ins),
+						new IfICmpEq(ins, label), // 8
+						label,
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 

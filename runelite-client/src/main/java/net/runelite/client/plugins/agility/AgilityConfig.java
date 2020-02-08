@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.agility;
 
 import java.awt.Color;
+
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -33,219 +34,201 @@ import net.runelite.client.config.Title;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("agility")
-public interface AgilityConfig extends Config
-{
+public interface AgilityConfig extends Config {
 	@ConfigTitleSection(
-		keyName = "mainConfig",
-		position = 0,
-		name = "Main Config",
-		description = ""
+			keyName = "mainConfig",
+			position = 0,
+			name = "Main Config",
+			description = ""
 	)
-	default Title mainConfig()
-	{
+	default Title mainConfig() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "removeDistanceCap",
-		name = "Remove Distance Cap",
-		description = "This will remove the distance cap on rendering overlays for agility.",
-		warning = "<html><center>Enabling this setting on a low end machine may severely affect your fps." +
-			"<br>Click yes to enable this setting, knowing it might affect performance.</center></html>",
-		position = 0,
-		titleSection = "mainConfig"
+			keyName = "removeDistanceCap",
+			name = "Remove Distance Cap",
+			description = "This will remove the distance cap on rendering overlays for agility.",
+			warning = "<html><center>Enabling this setting on a low end machine may severely affect your fps." +
+					"<br>Click yes to enable this setting, knowing it might affect performance.</center></html>",
+			position = 0,
+			titleSection = "mainConfig"
 	)
-	default boolean removeDistanceCap()
-	{
+	default boolean removeDistanceCap() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "showCourseClickboxes",
-		name = "Show course Clickboxes",
-		description = "Show agility course obstacle clickboxes",
-		position = 1
+			keyName = "showCourseClickboxes",
+			name = "Show course Clickboxes",
+			description = "Show agility course obstacle clickboxes",
+			position = 1
 	)
-	default boolean showCourseClickboxes()
-	{
+	default boolean showCourseClickboxes() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showLapCount",
-		name = "Show Lap Count",
-		description = "Enable/disable the lap counter",
-		position = 2,
-		titleSection = "mainConfig"
+			keyName = "showLapCount",
+			name = "Show Lap Count",
+			description = "Enable/disable the lap counter",
+			position = 2,
+			titleSection = "mainConfig"
 	)
-	default boolean showLapCount()
-	{
+	default boolean showLapCount() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "lapTimeout",
-		name = "Hide Lap Count",
-		description = "Time in minutes until the lap counter hides/resets",
-		position = 3,
-		titleSection = "mainConfig",
-		hidden = true,
-		unhide = "showLapCount"
+			keyName = "lapTimeout",
+			name = "Hide Lap Count",
+			description = "Time in minutes until the lap counter hides/resets",
+			position = 3,
+			titleSection = "mainConfig",
+			hidden = true,
+			unhide = "showLapCount"
 	)
 	@Units(Units.MINUTES)
-	default int lapTimeout()
-	{
+	default int lapTimeout() {
 		return 5;
 	}
 
 	@ConfigItem(
-		keyName = "lapsToLevel",
-		name = "Show Laps Until Level",
-		description = "Show number of laps remaining until next level is reached.",
-		position = 4,
-		titleSection = "mainConfig",
-		hidden = true,
-		unhide = "showLapCount"
+			keyName = "lapsToLevel",
+			name = "Show Laps Until Level",
+			description = "Show number of laps remaining until next level is reached.",
+			position = 4,
+			titleSection = "mainConfig",
+			hidden = true,
+			unhide = "showLapCount"
 	)
-	default boolean lapsToLevel()
-	{
+	default boolean lapsToLevel() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "lapsToGoal",
-		name = "Show Laps Until Goal",
-		description = "Show number of laps remaining until experience tracker goal is reached",
-		position = 5,
-		titleSection = "mainConfig",
-		hidden = true,
-		unhide = "showLapCount"
+			keyName = "lapsToGoal",
+			name = "Show Laps Until Goal",
+			description = "Show number of laps remaining until experience tracker goal is reached",
+			position = 5,
+			titleSection = "mainConfig",
+			hidden = true,
+			unhide = "showLapCount"
 	)
-	default boolean lapsToGoal()
-	{
+	default boolean lapsToGoal() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "agilityArenaTimer",
-		name = "Agility Arena timer",
-		description = "Configures whether Agility Arena timer is displayed",
-		position = 6,
-		titleSection = "mainConfig"
+			keyName = "agilityArenaTimer",
+			name = "Agility Arena timer",
+			description = "Configures whether Agility Arena timer is displayed",
+			position = 6,
+			titleSection = "mainConfig"
 	)
-	default boolean showAgilityArenaTimer()
-	{
+	default boolean showAgilityArenaTimer() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "addLevelsToShortcutOptions",
-		name = "Show Shortcut Agility Reqs",
-		description = "Enable/disable showing shortcut agility level requirements in right-click options",
-		position = 7,
-		titleSection = "mainConfig"
+			keyName = "addLevelsToShortcutOptions",
+			name = "Show Shortcut Agility Reqs",
+			description = "Enable/disable showing shortcut agility level requirements in right-click options",
+			position = 7,
+			titleSection = "mainConfig"
 	)
-	default boolean showShortcutLevel()
-	{
+	default boolean showShortcutLevel() {
 		return false;
 	}
 
 	@ConfigTitleSection(
-		keyName = "miscConfig",
-		position = 8,
-		name = "Misc Config",
-		description = ""
+			keyName = "miscConfig",
+			position = 8,
+			name = "Misc Config",
+			description = ""
 	)
-	default Title miscConfig()
-	{
+	default Title miscConfig() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "highlightMarks",
-		name = "Highlight Marks of Grace",
-		description = "Enable/disable the highlighting of retrievable Marks of Grace",
-		position = 9,
-		titleSection = "miscConfig"
+			keyName = "highlightMarks",
+			name = "Highlight Marks of Grace",
+			description = "Enable/disable the highlighting of retrievable Marks of Grace",
+			position = 9,
+			titleSection = "miscConfig"
 	)
-	default boolean highlightMarks()
-	{
+	default boolean highlightMarks() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "highlightShortcuts",
-		name = "Highlight Agility Shortcuts",
-		description = "Enable/disable the highlighting of Agility shortcuts",
-		position = 10,
-		titleSection = "miscConfig"
+			keyName = "highlightShortcuts",
+			name = "Highlight Agility Shortcuts",
+			description = "Enable/disable the highlighting of Agility shortcuts",
+			position = 10,
+			titleSection = "miscConfig"
 	)
-	default boolean highlightShortcuts()
-	{
+	default boolean highlightShortcuts() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showTrapOverlay",
-		name = "Highlight Traps",
-		description = "Enable/disable the highlighting of traps on Agility courses",
-		position = 11,
-		titleSection = "miscConfig"
+			keyName = "showTrapOverlay",
+			name = "Highlight Traps",
+			description = "Enable/disable the highlighting of traps on Agility courses",
+			position = 11,
+			titleSection = "miscConfig"
 	)
-	default boolean showTrapOverlay()
-	{
+	default boolean showTrapOverlay() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "agilityArenaNotifier",
-		name = "Agility Arena notifier",
-		description = "Notify on ticket location change in Agility Arena",
-		position = 12,
-		titleSection = "miscConfig"
+			keyName = "agilityArenaNotifier",
+			name = "Agility Arena notifier",
+			description = "Notify on ticket location change in Agility Arena",
+			position = 12,
+			titleSection = "miscConfig"
 	)
-	default boolean notifyAgilityArena()
-	{
+	default boolean notifyAgilityArena() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "overlayColor",
-		name = "Global Overlay Color",
-		description = "Color of Agility overlay",
-		position = 13,
-		titleSection = "miscConfig"
+			keyName = "overlayColor",
+			name = "Global Overlay Color",
+			description = "Color of Agility overlay",
+			position = 13,
+			titleSection = "miscConfig"
 	)
-	default Color getOverlayColor()
-	{
+	default Color getOverlayColor() {
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-		keyName = "trapHighlight",
-		name = "Trap Overlay Color",
-		description = "Color of Agility trap overlay",
-		position = 14,
-		titleSection = "miscConfig",
-		hidden = true,
-		unhide = "showTrapOverlay"
+			keyName = "trapHighlight",
+			name = "Trap Overlay Color",
+			description = "Color of Agility trap overlay",
+			position = 14,
+			titleSection = "miscConfig",
+			hidden = true,
+			unhide = "showTrapOverlay"
 	)
-	default Color getTrapColor()
-	{
+	default Color getTrapColor() {
 		return Color.RED;
 	}
 
 	@ConfigItem(
-		keyName = "markHighlight",
-		name = "Mark Highlight Color",
-		description = "Color of highlighted Marks of Grace",
-		position = 15,
-		titleSection = "miscConfig",
-		hidden = true,
-		unhide = "highlightMarks"
+			keyName = "markHighlight",
+			name = "Mark Highlight Color",
+			description = "Color of highlighted Marks of Grace",
+			position = 15,
+			titleSection = "miscConfig",
+			hidden = true,
+			unhide = "highlightMarks"
 	)
-	default Color getMarkColor()
-	{
+	default Color getMarkColor() {
 		return Color.RED;
 	}
 }

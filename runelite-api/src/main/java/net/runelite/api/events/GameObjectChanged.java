@@ -32,8 +32,7 @@ import net.runelite.api.Tile;
  * An event where a {@link GameObject} on a {@link Tile} has been replaced.
  */
 @Data
-public class GameObjectChanged implements Event
-{
+public class GameObjectChanged implements Event {
 	/**
 	 * The affected tile.
 	 */

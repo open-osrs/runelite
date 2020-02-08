@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.woodcutting;
 
 import com.google.inject.Provides;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -65,16 +67,15 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 
 @PluginDescriptor(
-	name = "Woodcutting",
-	description = "Show woodcutting statistics and/or bird nest notifications",
-	tags = {"birds", "nest", "notifications", "overlay", "skilling", "wc"},
-	enabledByDefault = false,
-	type = PluginType.SKILLING
+		name = "Woodcutting",
+		description = "Show woodcutting statistics and/or bird nest notifications",
+		tags = {"birds", "nest", "notifications", "overlay", "skilling", "wc"},
+		enabledByDefault = false,
+		type = PluginType.SKILLING
 )
 @PluginDependency(XpTrackerPlugin.class)
 @Slf4j
-public class WoodcuttingPlugin extends Plugin
-{
+public class WoodcuttingPlugin extends Plugin {
 	private static final Pattern WOOD_CUT_PATTERN = Pattern.compile("You get (?:some|an)[\\w ]+(?:logs?|mushrooms)\\.");
 
 	@Getter
@@ -117,21 +118,18 @@ public class WoodcuttingPlugin extends Plugin
 	private int currentPlane;
 
 	@Provides
-	WoodcuttingConfig getConfig(ConfigManager configManager)
-	{
+	WoodcuttingConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(WoodcuttingConfig.class);
 	}
 
 	@Override
-	protected void startUp() throws Exception
-	{
+	protected void startUp() throws Exception {
 		overlayManager.add(overlay);
 		overlayManager.add(treesOverlay);
 	}
 
 	@Override
-	protected void shutDown() throws Exception
-	{
+	protected void shutDown() throws Exception {
 		overlayManager.remove(overlay);
 		overlayManager.remove(treesOverlay);
 		respawns.clear();
@@ -141,49 +139,40 @@ public class WoodcuttingPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked)
-	{
+	private void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked) {
 		OverlayMenuEntry overlayMenuEntry = overlayMenuClicked.getEntry();
 		if (overlayMenuEntry.getMenuOpcode() == MenuOpcode.RUNELITE_OVERLAY
-			&& overlayMenuClicked.getEntry().getOption().equals(WoodcuttingOverlay.WOODCUTTING_RESET)
-			&& overlayMenuClicked.getOverlay() == overlay)
-		{
+				&& overlayMenuClicked.getEntry().getOption().equals(WoodcuttingOverlay.WOODCUTTING_RESET)
+				&& overlayMenuClicked.getOverlay() == overlay) {
 			session = null;
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick gameTick)
-	{
+	private void onGameTick(GameTick gameTick) {
 		recentlyLoggedIn = false;
 		currentPlane = client.getPlane();
 
 		respawns.removeIf(TreeRespawn::isExpired);
 
-		if (session == null || session.getLastLogCut() == null)
-		{
+		if (session == null || session.getLastLogCut() == null) {
 			return;
 		}
 
 		Duration statTimeout = Duration.ofMinutes(config.statTimeout());
 		Duration sinceCut = Duration.between(session.getLastLogCut(), Instant.now());
 
-		if (sinceCut.compareTo(statTimeout) >= 0)
-		{
+		if (sinceCut.compareTo(statTimeout) >= 0) {
 			session = null;
 			axe = null;
 		}
 	}
 
 	@Subscribe
-	void onChatMessage(ChatMessage event)
-	{
-		if (event.getType() == ChatMessageType.SPAM || event.getType() == ChatMessageType.GAMEMESSAGE)
-		{
-			if (WOOD_CUT_PATTERN.matcher(event.getMessage()).matches())
-			{
-				if (session == null)
-				{
+	void onChatMessage(ChatMessage event) {
+		if (event.getType() == ChatMessageType.SPAM || event.getType() == ChatMessageType.GAMEMESSAGE) {
+			if (WOOD_CUT_PATTERN.matcher(event.getMessage()).matches()) {
+				if (session == null) {
 					session = new WoodcuttingSession();
 					gpEarned = 0;
 				}
@@ -194,35 +183,29 @@ public class WoodcuttingPlugin extends Plugin
 				gpEarned += itemManager.getItemPrice(treeTypeID);
 			}
 
-			if (event.getMessage().contains("A bird's nest falls out of the tree") && config.showNestNotification())
-			{
+			if (event.getMessage().contains("A bird's nest falls out of the tree") && config.showNestNotification()) {
 				notifier.notify("A bird nest has spawned!");
 			}
 		}
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(final GameObjectSpawned event)
-	{
+	private void onGameObjectSpawned(final GameObjectSpawned event) {
 		GameObject gameObject = event.getGameObject();
 		Tree tree = Tree.findTree(gameObject.getId());
 
-		if (tree == Tree.REDWOOD)
-		{
+		if (tree == Tree.REDWOOD) {
 			treeObjects.add(gameObject);
 		}
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(final GameObjectDespawned event)
-	{
+	private void onGameObjectDespawned(final GameObjectDespawned event) {
 		final GameObject object = event.getGameObject();
 
 		Tree tree = Tree.findTree(object.getId());
-		if (tree != null)
-		{
-			if (tree.getRespawnTime() != null && !recentlyLoggedIn && currentPlane == object.getPlane())
-			{
+		if (tree != null) {
+			if (tree.getRespawnTime() != null && !recentlyLoggedIn && currentPlane == object.getPlane()) {
 				Point max = object.getSceneMaxLocation();
 				Point min = object.getSceneMinLocation();
 				int lenX = max.getX() - min.getX();
@@ -234,24 +217,20 @@ public class WoodcuttingPlugin extends Plugin
 				respawns.add(treeRespawn);
 			}
 
-			if (tree == Tree.REDWOOD)
-			{
+			if (tree == Tree.REDWOOD) {
 				treeObjects.remove(event.getGameObject());
 			}
 		}
 	}
 
 	@Subscribe
-	private void onGameObjectChanged(final GameObjectChanged event)
-	{
+	private void onGameObjectChanged(final GameObjectChanged event) {
 		treeObjects.remove(event.getGameObject());
 	}
 
 	@Subscribe
-	private void onGameStateChanged(final GameStateChanged event)
-	{
-		switch (event.getGameState())
-		{
+	private void onGameStateChanged(final GameStateChanged event) {
+		switch (event.getGameState()) {
 			case HOPPING:
 				respawns.clear();
 			case LOADING:
@@ -267,63 +246,40 @@ public class WoodcuttingPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onAnimationChanged(final AnimationChanged event)
-	{
+	private void onAnimationChanged(final AnimationChanged event) {
 		Player local = client.getLocalPlayer();
 
-		if (event.getActor() != local)
-		{
+		if (event.getActor() != local) {
 			return;
 		}
 
 		int animId = local.getAnimation();
 		Axe axe = Axe.findAxeByAnimId(animId);
-		if (axe != null)
-		{
+		if (axe != null) {
 			this.axe = axe;
 		}
 	}
 
-	private void typeOfLogCut(String message)
-	{
-		if (message.contains("mushrooms."))
-		{
+	private void typeOfLogCut(String message) {
+		if (message.contains("mushrooms.")) {
 			return; //TO DO Add valuation for scullicep mushroom cutting.
-		}
-		else if (message.contains("oak"))
-		{
+		} else if (message.contains("oak")) {
 			treeTypeID = ItemID.OAK_LOGS;
-		}
-		else if (message.contains("willow"))
-		{
+		} else if (message.contains("willow")) {
 			treeTypeID = ItemID.WILLOW_LOGS;
-		}
-		else if (message.contains("yew"))
-		{
+		} else if (message.contains("yew")) {
 			treeTypeID = ItemID.YEW_LOGS;
-		}
-		else if (message.contains("redwood"))
-		{
+		} else if (message.contains("redwood")) {
 			treeTypeID = ItemID.REDWOOD_LOGS;
-		}
-		else if (message.contains("magic"))
-		{
+		} else if (message.contains("magic")) {
 			treeTypeID = ItemID.MAGIC_LOGS;
-		}
-		else if (message.contains("teak"))
-		{
+		} else if (message.contains("teak")) {
 			treeTypeID = ItemID.TEAK_LOGS;
-		}
-		else if (message.contains("mahogany"))
-		{
+		} else if (message.contains("mahogany")) {
 			treeTypeID = ItemID.MAHOGANY_LOGS;
-		}
-		else if (message.contains("maple"))
-		{
+		} else if (message.contains("maple")) {
 			treeTypeID = ItemID.MAPLE_LOGS;
-		}
-		else
-		{
+		} else {
 			treeTypeID = ItemID.LOGS;
 		}
 	}

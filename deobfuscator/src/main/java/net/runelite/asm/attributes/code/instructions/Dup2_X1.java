@@ -27,6 +27,7 @@ package net.runelite.asm.attributes.code.instructions;
 
 import java.util.Arrays;
 import java.util.List;
+
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
@@ -36,94 +37,84 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
-public class Dup2_X1 extends Instruction implements DupInstruction
-{
-	public Dup2_X1(Instructions instructions, InstructionType type)
-	{
+public class Dup2_X1 extends Instruction implements DupInstruction {
+	public Dup2_X1(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
-	
-	public Dup2_X1(Instructions instructions)
-	{
+
+	public Dup2_X1(Instructions instructions) {
 		super(instructions, InstructionType.DUP2_X1);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext one = stack.pop();
 		StackContext two = null;
 		if (one.getType().getSize() == 1)
 			two = stack.pop();
 		StackContext three = stack.pop();
-		
+
 		ins.pop(one);
 		if (two != null)
 			ins.pop(two);
 		ins.pop(three);
-		
-		if (two != null)
-		{
+
+		if (two != null) {
 			StackContext ctx = new StackContext(ins, two.getType(), two.getValue());
 			stack.push(ctx);
-			
+
 			ins.push(ctx);
 		}
-		
+
 		StackContext ctx = new StackContext(ins, one.getType(), one.getValue());
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		ctx = new StackContext(ins, three.getType(), three.getValue());
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
-		if (two != null)
-		{
+
+		if (two != null) {
 			ctx = new StackContext(ins, two.getType(), two.getValue());
 			stack.push(ctx);
-			
+
 			ins.push(ctx);
 		}
-		
+
 		ctx = new StackContext(ins, one.getType(), one.getValue());
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
-	
+
 	@Override
-	public boolean removeStack()
-	{
+	public boolean removeStack() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public StackContext getOriginal(StackContext sctx)
-	{
+	public StackContext getOriginal(StackContext sctx) {
 		InstructionContext ctx = sctx.getPushed();
-		
+
 		assert ctx.getInstruction() == this;
 		assert ctx.getPushes().contains(sctx);
 		int idx = ctx.getPushes().indexOf(sctx);
-		
+
 		// 2 1 0 -> 1 0 2 1 0 OR 1 0 -> 0 1 0
-		
+
 		assert ctx.getPushes().size() == 5 || ctx.getPushes().size() == 3;
-		
+
 		int orig;
-		
-		if (ctx.getPushes().size() == 5)
-		{
-			switch (idx)
-			{
+
+		if (ctx.getPushes().size() == 5) {
+			switch (idx) {
 				case 0:
 					orig = 1;
 					break;
@@ -142,11 +133,8 @@ public class Dup2_X1 extends Instruction implements DupInstruction
 				default:
 					throw new IllegalStateException();
 			}
-		}
-		else if (ctx.getPushes().size() == 3)
-		{
-			switch (idx)
-			{
+		} else if (ctx.getPushes().size() == 3) {
+			switch (idx) {
 				case 0:
 					orig = 0;
 					break;
@@ -159,32 +147,27 @@ public class Dup2_X1 extends Instruction implements DupInstruction
 				default:
 					throw new IllegalStateException();
 			}
-		}
-		else
-		{
+		} else {
 			throw new IllegalStateException();
 		}
-				
+
 		return ctx.getPops().get(orig);
 	}
 
 	@Override
-	public StackContext getOtherBranch(StackContext sctx)
-	{
+	public StackContext getOtherBranch(StackContext sctx) {
 		InstructionContext ctx = sctx.getPushed();
 		assert ctx.getInstruction() == this;
-		
+
 		assert ctx.getPushes().contains(sctx);
 		int idx = ctx.getPushes().indexOf(sctx);
-		
+
 		// 2 1 0 -> 1 0 2 1 0 OR 1 0 -> 0 1 0
-		
+
 		int other;
-		
-		if (ctx.getPushes().size() == 5)
-		{
-			switch (idx)
-			{
+
+		if (ctx.getPushes().size() == 5) {
+			switch (idx) {
 				case 0:
 					other = 3;
 					break;
@@ -200,11 +183,8 @@ public class Dup2_X1 extends Instruction implements DupInstruction
 				default:
 					return null;
 			}
-		}
-		else if (ctx.getPushes().size() == 3)
-		{
-			switch (idx)
-			{
+		} else if (ctx.getPushes().size() == 3) {
+			switch (idx) {
 				case 0:
 					other = 2;
 					break;
@@ -214,48 +194,34 @@ public class Dup2_X1 extends Instruction implements DupInstruction
 				default:
 					return null;
 			}
-		}
-		else
-		{
+		} else {
 			throw new IllegalStateException();
 		}
-				
+
 		return ctx.getPushes().get(other);
 	}
 
 	@Override
-	public List<StackContext> getDuplicated(InstructionContext ictx)
-	{
-		if (ictx.getPushes().size() == 5)
-		{
+	public List<StackContext> getDuplicated(InstructionContext ictx) {
+		if (ictx.getPushes().size() == 5) {
 			// 0, 1
 			return Arrays.asList(ictx.getPops().get(0), ictx.getPops().get(1));
-		}
-		else if (ictx.getPushes().size() == 3)
-		{
+		} else if (ictx.getPushes().size() == 3) {
 			// 0
 			return Arrays.asList(ictx.getPops().get(0));
-		}
-		else
-		{
+		} else {
 			throw new IllegalStateException();
 		}
 	}
 
 	@Override
-	public List<StackContext> getCopies(InstructionContext ictx)
-	{
-		if (ictx.getPushes().size() == 5)
-		{
+	public List<StackContext> getCopies(InstructionContext ictx) {
+		if (ictx.getPushes().size() == 5) {
 			return Arrays.asList(ictx.getPushes().get(0), ictx.getPushes().get(1));
-		}
-		else if (ictx.getPushes().size() == 3)
-		{
+		} else if (ictx.getPushes().size() == 3) {
 			// 0
 			return Arrays.asList(ictx.getPushes().get(0));
-		}
-		else
-		{
+		} else {
 			throw new IllegalStateException();
 		}
 	}

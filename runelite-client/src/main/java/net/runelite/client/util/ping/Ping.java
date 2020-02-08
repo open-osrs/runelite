@@ -26,47 +26,41 @@ package net.runelite.client.util.ping;
 
 import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.util.OSType;
 import net.runelite.http.api.worlds.World;
 
 @Slf4j
-public class Ping
-{
+public class Ping {
 	private static final String RUNELITE_PING = "RuneLitePing";
 
 	private static final int TIMEOUT = 2000;
 	private static final int PORT = 43594;
 
-	public static int ping(World world)
-	{
+	public static int ping(World world) {
 		return ping(world.getAddress());
 	}
 
-	public static int ping(String address)
-	{
-		try
-		{
-			if (OSType.getOSType() == OSType.Windows)
-			{
+	public static int ping(String address) {
+		try {
+			if (OSType.getOSType() == OSType.Windows) {
 				return windowsPing(address);
 			}
 			return tcpPing(address);
-		}
-		catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			log.warn("error pinging", ex);
 			return -1;
 		}
 	}
 
-	private static int windowsPing(String worldAddress) throws UnknownHostException
-	{
+	private static int windowsPing(String worldAddress) throws UnknownHostException {
 		IPHlpAPI ipHlpAPI = IPHlpAPI.INSTANCE;
 		Pointer ptr = ipHlpAPI.IcmpCreateFile();
 		InetAddress inetAddress = InetAddress.getByName(worldAddress);
@@ -79,8 +73,7 @@ public class Ping
 		assert icmpEchoReply.size() == IcmpEchoReply.SIZE;
 		int packed = (address[0] & 0xff) | ((address[1] & 0xff) << 8) | ((address[2] & 0xff) << 16) | ((address[3] & 0xff) << 24);
 		int ret = ipHlpAPI.IcmpSendEcho(ptr, packed, data, (short) (dataLength), Pointer.NULL, icmpEchoReply, IcmpEchoReply.SIZE + dataLength, TIMEOUT);
-		if (ret != 1)
-		{
+		if (ret != 1) {
 			ipHlpAPI.IcmpCloseHandle(ptr);
 			return -1;
 		}
@@ -91,10 +84,8 @@ public class Ping
 		return rtt;
 	}
 
-	private static int tcpPing(String worldAddress) throws IOException
-	{
-		try (Socket socket = new Socket())
-		{
+	private static int tcpPing(String worldAddress) throws IOException {
+		try (Socket socket = new Socket()) {
 			socket.setSoTimeout(TIMEOUT);
 			InetAddress inetAddress = InetAddress.getByName(worldAddress);
 			long start = System.nanoTime();

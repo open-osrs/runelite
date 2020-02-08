@@ -26,8 +26,7 @@ package net.runelite.asm.attributes.code;
 
 import org.objectweb.asm.Label;
 
-public class LocalVariable
-{
+public class LocalVariable {
 	private final String name;
 	private final String desc;
 	private final String signature;
@@ -35,8 +34,7 @@ public class LocalVariable
 	private final Label end;
 	private final int index;
 
-	public LocalVariable(String name, String desc, String signature, Label start, Label end, int index)
-	{
+	public LocalVariable(String name, String desc, String signature, Label start, Label end, int index) {
 		this.name = name;
 		this.desc = desc;
 		this.signature = signature;
@@ -45,33 +43,27 @@ public class LocalVariable
 		this.index = index;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public String getDesc()
-	{
+	public String getDesc() {
 		return desc;
 	}
 
-	public String getSignature()
-	{
+	public String getSignature() {
 		return signature;
 	}
 
-	public Label getStart()
-	{
+	public Label getStart() {
 		return start;
 	}
 
-	public Label getEnd()
-	{
+	public Label getEnd() {
 		return end;
 	}
 
-	public int getIndex()
-	{
+	public int getIndex() {
 		return index;
 	}
 }

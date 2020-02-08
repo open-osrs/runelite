@@ -29,8 +29,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum InterfaceTab
-{
+public enum InterfaceTab {
 	COMBAT(0),
 	STATS(1),
 	QUEST(2),

@@ -25,18 +25,19 @@
 package net.runelite.client.ui.overlay.components;
 
 import java.awt.FontMetrics;
+
 import static net.runelite.client.ui.overlay.components.TooltipComponent.calculateTextWidth;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TooltipComponentTest
-{
+public class TooltipComponentTest {
 	@Test
-	public void testCalculateTextWidth()
-	{
+	public void testCalculateTextWidth() {
 		FontMetrics fontMetics = mock(FontMetrics.class);
 		when(fontMetics.stringWidth(anyString())).thenAnswer((invocation) -> ((String) invocation.getArguments()[0]).length());
 

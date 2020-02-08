@@ -27,7 +27,9 @@ package net.runelite.client.plugins.skybox;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.Provides;
+
 import java.io.IOException;
+
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
@@ -42,15 +44,14 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.skybox.config.SkyOverrideMode;
 
 @PluginDescriptor(
-	name = "Skybox",
-	description = "Draws an oldschool styled skybox",
-	enabledByDefault = false,
-	tags = {"sky"},
-	type = PluginType.MISCELLANEOUS
+		name = "Skybox",
+		description = "Draws an oldschool styled skybox",
+		enabledByDefault = false,
+		tags = {"sky"},
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class SkyboxPlugin extends Plugin
-{
+public class SkyboxPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -60,34 +61,29 @@ public class SkyboxPlugin extends Plugin
 	private Skybox skybox;
 
 	@Override
-	public void startUp() throws IOException
-	{
+	public void startUp() throws IOException {
 
 		skybox = new Skybox(SkyboxPlugin.class.getResourceAsStream("skybox.txt"), "skybox.txt");
 	}
 
 	@Override
-	public void shutDown()
-	{
+	public void shutDown() {
 		client.setSkyboxColor(0);
 		skybox = null;
 	}
 
 	@Provides
-	SkyboxPluginConfig provideConfig(ConfigManager configManager)
-	{
+	SkyboxPluginConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(SkyboxPluginConfig.class);
 	}
 
-	private int mapChunk(int cx, int cy, int plane)
-	{
+	private int mapChunk(int cx, int cy, int plane) {
 		cx -= client.getBaseX() / 8;
 		cy -= client.getBaseY() / 8;
 
 		int[][] instanceTemplateChunks = client.getInstanceTemplateChunks()[plane];
 		// Blending can access this out of bounds, so do a range check
-		if (cx < 0 || cx >= instanceTemplateChunks.length || cy < 0 || cy >= instanceTemplateChunks[cx].length)
-		{
+		if (cx < 0 || cx >= instanceTemplateChunks.length || cy < 0 || cy >= instanceTemplateChunks[cx].length) {
 			return -1;
 		}
 
@@ -95,38 +91,31 @@ public class SkyboxPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onBeforeRender(BeforeRender r)
-	{
-		if (skybox == null || client.getGameState() != GameState.LOGGED_IN)
-		{
+	private void onBeforeRender(BeforeRender r) {
+		if (skybox == null || client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		Player player = client.getLocalPlayer();
-		if (player == null)
-		{
+		if (player == null) {
 			return;
 		}
 
 		if
 		(
-			config.overrideMode() == SkyOverrideMode.ALL ||
-			(config.overrideMode() == SkyOverrideMode.OVERWORLD && client.getLocalPlayer().getWorldLocation().getY() < 4200)
-		)
-		{
+				config.overrideMode() == SkyOverrideMode.ALL ||
+						(config.overrideMode() == SkyOverrideMode.OVERWORLD && client.getLocalPlayer().getWorldLocation().getY() < 4200)
+		) {
 			client.setSkyboxColor(config.customColor().getRGB());
 			return;
 		}
 
 
 		int px, py;
-		if (client.getOculusOrbState() == 1)
-		{
+		if (client.getOculusOrbState() == 1) {
 			px = client.getOculusOrbFocalPointX();
 			py = client.getOculusOrbFocalPointY();
-		}
-		else
-		{
+		} else {
 			LocalPoint p = client.getLocalPlayer().getLocalLocation();
 			px = p.getX();
 			py = p.getY();
@@ -140,21 +129,19 @@ public class SkyboxPlugin extends Plugin
 		int baseY = client.getBaseY();
 
 		client.setSkyboxColor(skybox.getColorForPoint(
-			baseX + ((px + spx) / 128.f),
-			baseY + ((py + spy) / 128.f),
-			baseX + (px / 128),
-			baseY + (py / 128),
-			client.getPlane(),
-			client.getTextureProvider().getBrightness(),
-			client.isInInstancedRegion() ? this::mapChunk : null
+				baseX + ((px + spx) / 128.f),
+				baseY + ((py + spy) / 128.f),
+				baseX + (px / 128),
+				baseY + (py / 128),
+				client.getPlane(),
+				client.getTextureProvider().getBrightness(),
+				client.isInInstancedRegion() ? this::mapChunk : null
 		));
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (gameStateChanged.getGameState() == GameState.LOGIN_SCREEN)
-		{
+	private void onGameStateChanged(GameStateChanged gameStateChanged) {
+		if (gameStateChanged.getGameState() == GameState.LOGIN_SCREEN) {
 			client.setSkyboxColor(0);
 		}
 	}

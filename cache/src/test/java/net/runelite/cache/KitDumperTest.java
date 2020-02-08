@@ -27,9 +27,11 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+
 import net.runelite.cache.definitions.KitDefinition;
 import net.runelite.cache.definitions.loaders.KitLoader;
 import net.runelite.cache.fs.Archive;
@@ -44,8 +46,7 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class KitDumperTest
-{
+public class KitDumperTest {
 	private static final Logger logger = LoggerFactory.getLogger(KitDumperTest.class);
 
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -54,13 +55,11 @@ public class KitDumperTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException
-	{
+	public void test() throws IOException {
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION))
-		{
+		try (Store store = new Store(StoreLocation.LOCATION)) {
 			store.load();
 
 			Storage storage = store.getStorage();
@@ -72,8 +71,7 @@ public class KitDumperTest
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
-			for (FSFile file : files.getFiles())
-			{
+			for (FSFile file : files.getFiles()) {
 				byte[] b = file.getContents();
 
 				KitDefinition def = loader.load(file.getFileId(), b);

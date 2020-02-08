@@ -1,5 +1,6 @@
 import java.io.DataInputStream;
 import java.net.URL;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -8,8 +9,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class225 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/Throwable;I)V",
-		garbageValue = "1575191798"
+			signature = "(Ljava/lang/String;Ljava/lang/Throwable;I)V",
+			garbageValue = "1575191798"
 	)
 	@Export("RunException_sendStackTrace")
 	public static void RunException_sendStackTrace(String var0, Throwable var1) {
@@ -51,8 +52,8 @@ public class class225 {
 
 	@ObfuscatedName("fh")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "48"
+			signature = "(B)V",
+			garbageValue = "48"
 	)
 	@Export("load")
 	static void load() {
@@ -171,9 +172,9 @@ public class class225 {
 					Login.Login_loadingText = "Loading fonts - " + Client.fontsMap.size() * 100 / var1 + "%";
 					Login.Login_loadingPercent = 40;
 				} else {
-					WorldMapData_0.fontPlain11 = (Font)Client.fontsMap.get(FontName.FontName_plain11);
-					class13.fontPlain12 = (Font)Client.fontsMap.get(FontName.FontName_plain12);
-					class1.fontBold12 = (Font)Client.fontsMap.get(FontName.FontName_bold12);
+					WorldMapData_0.fontPlain11 = (Font) Client.fontsMap.get(FontName.FontName_plain11);
+					class13.fontPlain12 = (Font) Client.fontsMap.get(FontName.FontName_plain12);
+					class1.fontBold12 = (Font) Client.fontsMap.get(FontName.FontName_bold12);
 					NetSocket.platformInfo = Client.platformInfoProvider.get();
 					Login.Login_loadingText = "Loaded fonts";
 					Login.Login_loadingPercent = 40;
@@ -514,10 +515,10 @@ public class class225 {
 					} else {
 						AbstractFont.AbstractFont_modIconSprites = InterfaceParent.modIconSprites;
 						ArchiveLoader.redHintArrowSprite.normalize();
-						var1 = (int)(Math.random() * 21.0D) - 10;
-						int var31 = (int)(Math.random() * 21.0D) - 10;
-						var27 = (int)(Math.random() * 21.0D) - 10;
-						int var4 = (int)(Math.random() * 41.0D) - 20;
+						var1 = (int) (Math.random() * 21.0D) - 10;
+						int var31 = (int) (Math.random() * 21.0D) - 10;
+						var27 = (int) (Math.random() * 21.0D) - 10;
+						int var4 = (int) (Math.random() * 41.0D) - 20;
 						VertexNormal.mapSceneSprites[0].shiftColors(var1 + var4, var4 + var31, var27 + var4);
 						Login.Login_loadingText = "Loaded sprites";
 						Login.Login_loadingPercent = 70;

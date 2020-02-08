@@ -29,27 +29,24 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("templetrekking")
-public interface TempleTrekkingConfig extends Config
-{
+public interface TempleTrekkingConfig extends Config {
 	@ConfigItem(
-		keyName = "bogMapActive",
-		name = "Bog Map",
-		description = "Marks out a safe route through the bog event",
-		position = 0
+			keyName = "bogMapActive",
+			name = "Bog Map",
+			description = "Marks out a safe route through the bog event",
+			position = 0
 	)
-	default boolean bogMapActive()
-	{
+	default boolean bogMapActive() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "pointTrackerActive",
-		name = "Point Tracker",
-		description = "Track your Temple Trek reward points, which determine the size of your reward.",
-		position = 1
+			keyName = "pointTrackerActive",
+			name = "Point Tracker",
+			description = "Track your Temple Trek reward points, which determine the size of your reward.",
+			position = 1
 	)
-	default boolean pointTrackerActive()
-	{
+	default boolean pointTrackerActive() {
 		return true;
 	}
 }

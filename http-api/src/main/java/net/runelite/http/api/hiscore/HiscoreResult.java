@@ -27,8 +27,7 @@ package net.runelite.http.api.hiscore;
 import lombok.Data;
 
 @Data
-public class HiscoreResult
-{
+public class HiscoreResult {
 	private String player;
 	private Skill overall;
 	private Skill attack;
@@ -109,10 +108,8 @@ public class HiscoreResult
 	private Skill zalcano;
 	private Skill zulrah;
 
-	public Skill getSkill(HiscoreSkill skill)
-	{
-		switch (skill)
-		{
+	public Skill getSkill(HiscoreSkill skill) {
+		switch (skill) {
 			case ATTACK:
 				return getAttack();
 			case DEFENCE:

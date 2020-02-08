@@ -25,6 +25,7 @@
 package net.runelite.client.discord;
 
 import java.time.Instant;
+
 import lombok.Builder;
 import lombok.Value;
 
@@ -33,8 +34,7 @@ import lombok.Value;
  */
 @Builder
 @Value
-public class DiscordPresence
-{
+public class DiscordPresence {
 	/**
 	 * The user's current party status.
 	 * Example: "Looking to Play", "Playing Solo", "In a Group"

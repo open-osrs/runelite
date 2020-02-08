@@ -33,6 +33,7 @@ import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.ItemID;
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
@@ -42,15 +43,13 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class ShayzienInfirmaryOverlay extends Overlay
-{
+public class ShayzienInfirmaryOverlay extends Overlay {
 	private final ShayzienInfirmaryPlugin plugin;
 
 	private final BufferedImage medPackImage;
 
 	@Inject
-	public ShayzienInfirmaryOverlay(final ShayzienInfirmaryPlugin plugin, final ItemManager itemManager)
-	{
+	public ShayzienInfirmaryOverlay(final ShayzienInfirmaryPlugin plugin, final ItemManager itemManager) {
 		setPosition(OverlayPosition.DYNAMIC);
 		this.plugin = plugin;
 
@@ -58,20 +57,16 @@ public class ShayzienInfirmaryOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.isNotAtInfirmary())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.isNotAtInfirmary()) {
 			return null;
 		}
 
-		for (NPC npc : plugin.getUnhealedSoldiers())
-		{
+		for (NPC npc : plugin.getUnhealedSoldiers()) {
 
 			Polygon tilePoly = npc.getCanvasTilePoly();
 
-			if (tilePoly == null)
-			{
+			if (tilePoly == null) {
 				continue;
 			}
 
@@ -79,8 +74,7 @@ public class ShayzienInfirmaryOverlay extends Overlay
 
 			Point imageLocation = npc.getCanvasImageLocation(medPackImage, 25);
 
-			if (imageLocation == null)
-			{
+			if (imageLocation == null) {
 				continue;
 			}
 

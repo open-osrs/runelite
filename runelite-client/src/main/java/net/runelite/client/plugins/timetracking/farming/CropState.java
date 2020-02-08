@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.timetracking.farming;
 
 import java.awt.Color;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,7 @@ import net.runelite.client.ui.ColorScheme;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public enum CropState
-{
+public enum CropState {
 	HARVESTABLE(ColorScheme.PROGRESS_COMPLETE_COLOR),
 	GROWING(ColorScheme.PROGRESS_COMPLETE_COLOR),
 	DISEASED(ColorScheme.PROGRESS_INPROGRESS_COLOR),

@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Coord {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 995034769
+			intValue = 995034769
 	)
 	@Export("plane")
 	public int plane;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1797414909
+			intValue = 1797414909
 	)
 	@Export("x")
 	public int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1015808091
+			intValue = 1015808091
 	)
 	@Export("y")
 	public int y;
 
 	@ObfuscatedSignature(
-		signature = "(Lhj;)V"
+			signature = "(Lhj;)V"
 	)
 	public Coord(Coord var1) {
 		this.plane = var1.plane;
@@ -54,8 +54,8 @@ public class Coord {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "6116423"
+			signature = "(I)I",
+			garbageValue = "6116423"
 	)
 	@Export("packed")
 	public int packed() {
@@ -64,8 +64,8 @@ public class Coord {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lhj;I)Z",
-		garbageValue = "-557558477"
+			signature = "(Lhj;I)Z",
+			garbageValue = "-557558477"
 	)
 	@Export("equalsCoord")
 	boolean equalsCoord(Coord var1) {
@@ -80,8 +80,8 @@ public class Coord {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "-120"
+			signature = "(Ljava/lang/String;B)Ljava/lang/String;",
+			garbageValue = "-120"
 	)
 	@Export("toString")
 	String toString(String var1) {
@@ -100,7 +100,7 @@ public class Coord {
 		if (this == var1) {
 			return true;
 		} else {
-			return !(var1 instanceof Coord) ? false : this.equalsCoord((Coord)var1);
+			return !(var1 instanceof Coord) ? false : this.equalsCoord((Coord) var1);
 		}
 	}
 }

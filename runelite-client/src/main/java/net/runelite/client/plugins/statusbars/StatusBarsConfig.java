@@ -31,83 +31,75 @@ import net.runelite.client.config.Units;
 import net.runelite.client.plugins.statusbars.config.BarMode;
 
 @ConfigGroup("statusbars")
-public interface StatusBarsConfig extends Config
-{
+public interface StatusBarsConfig extends Config {
 	@ConfigItem(
-		position = 1,
-		keyName = "enableCounter",
-		name = "Show counters",
-		description = "Shows the numeric value of HP and Prayer on the status bar"
+			position = 1,
+			keyName = "enableCounter",
+			name = "Show counters",
+			description = "Shows the numeric value of HP and Prayer on the status bar"
 	)
-	default boolean enableCounter()
-	{
+	default boolean enableCounter() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "enableSkillIcon",
-		name = "Show icons",
-		description = "Adds skill icons at the top of the bars."
+			position = 2,
+			keyName = "enableSkillIcon",
+			name = "Show icons",
+			description = "Adds skill icons at the top of the bars."
 	)
-	default boolean enableSkillIcon()
-	{
+	default boolean enableSkillIcon() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "enableRestorationBars",
-		name = "Show restores",
-		description = "Visually shows how much will be restored to your status bar."
+			position = 3,
+			keyName = "enableRestorationBars",
+			name = "Show restores",
+			description = "Visually shows how much will be restored to your status bar."
 	)
-	default boolean enableRestorationBars()
-	{
+	default boolean enableRestorationBars() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "leftBarMode",
-		name = "Left Status Bar",
-		description = "Configures the left status bar"
+			position = 4,
+			keyName = "leftBarMode",
+			name = "Left Status Bar",
+			description = "Configures the left status bar"
 	)
-	default BarMode leftBarMode()
-	{
+	default BarMode leftBarMode() {
 		return BarMode.HITPOINTS;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "rightBarMode",
-		name = "Right Status Bar",
-		description = "Configures the right status bar"
+			position = 5,
+			keyName = "rightBarMode",
+			name = "Right Status Bar",
+			description = "Configures the right status bar"
 	)
-	default BarMode rightBarMode()
-	{
+	default BarMode rightBarMode() {
 		return BarMode.PRAYER;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "toggleRestorationBars",
-		name = "Toggle to hide when not in combat",
-		description = "Visually hides the Status Bars when player is out of combat."
+			position = 6,
+			keyName = "toggleRestorationBars",
+			name = "Toggle to hide when not in combat",
+			description = "Visually hides the Status Bars when player is out of combat."
 	)
-	default boolean toggleRestorationBars()
-	{
+	default boolean toggleRestorationBars() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "hideStatusBarDelay",
-		name = "Delay",
-		description = "Number of seconds after combat to hide the status bars."
+			position = 7,
+			keyName = "hideStatusBarDelay",
+			name = "Delay",
+			description = "Number of seconds after combat to hide the status bars."
 	)
 	@Units(Units.SECONDS)
-	default int hideStatusBarDelay()
-	{
+	default int hideStatusBarDelay() {
 		return 3;
 	}
 }

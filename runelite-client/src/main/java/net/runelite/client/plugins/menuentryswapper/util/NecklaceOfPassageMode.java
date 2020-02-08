@@ -25,22 +25,19 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum NecklaceOfPassageMode
-{
+public enum NecklaceOfPassageMode {
 	WIZARDS_TOWER("Wizards' Tower"),
 	THE_OUTPOST("The Outpost"),
 	EAGLES_EYRIE("Eagles' Eyrie");
 
 	private final String name;
 
-	NecklaceOfPassageMode(String name)
-	{
+	NecklaceOfPassageMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

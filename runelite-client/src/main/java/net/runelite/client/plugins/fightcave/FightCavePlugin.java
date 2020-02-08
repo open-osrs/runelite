@@ -26,6 +26,7 @@
 package net.runelite.client.plugins.fightcave;
 
 import com.google.inject.Provides;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -36,6 +37,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -61,16 +63,15 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-	name = "Fight Cave",
-	description = "Displays current and upcoming wave monsters in the Fight Caves",
-	tags = {"bosses", "combat", "minigame", "overlay", "pve", "pvm", "jad", "fire", "cape", "wave"},
-	type = PluginType.PVM,
-	enabledByDefault = false
+		name = "Fight Cave",
+		description = "Displays current and upcoming wave monsters in the Fight Caves",
+		tags = {"bosses", "combat", "minigame", "overlay", "pve", "pvm", "jad", "fire", "cape", "wave"},
+		type = PluginType.PVM,
+		enabledByDefault = false
 )
 @Singleton
 @Slf4j
-public class FightCavePlugin extends Plugin
-{
+public class FightCavePlugin extends Plugin {
 	static final int MAX_WAVE = 63;
 	@Getter(AccessLevel.PACKAGE)
 	static final List<EnumMap<WaveMonster, Integer>> WAVES = new ArrayList<>();
@@ -78,8 +79,7 @@ public class FightCavePlugin extends Plugin
 	private static final int FIGHT_CAVE_REGION = 9551;
 	private static final int MAX_MONSTERS_OF_TYPE_PER_WAVE = 2;
 
-	static
-	{
+	static {
 		final WaveMonster[] waveMonsters = WaveMonster.values();
 
 		// Add wave 1, future waves are derived from its contents
@@ -87,24 +87,20 @@ public class FightCavePlugin extends Plugin
 		waveOne.put(waveMonsters[0], 1);
 		WAVES.add(waveOne);
 
-		for (int wave = 1; wave < MAX_WAVE; wave++)
-		{
+		for (int wave = 1; wave < MAX_WAVE; wave++) {
 			final EnumMap<WaveMonster, Integer> prevWave = WAVES.get(wave - 1).clone();
 			int maxMonsterOrdinal = -1;
 
-			for (int i = 0; i < waveMonsters.length; i++)
-			{
+			for (int i = 0; i < waveMonsters.length; i++) {
 				final int ordinalMonsterQuantity = prevWave.getOrDefault(waveMonsters[i], 0);
 
-				if (ordinalMonsterQuantity == MAX_MONSTERS_OF_TYPE_PER_WAVE)
-				{
+				if (ordinalMonsterQuantity == MAX_MONSTERS_OF_TYPE_PER_WAVE) {
 					maxMonsterOrdinal = i;
 					break;
 				}
 			}
 
-			if (maxMonsterOrdinal >= 0)
-			{
+			if (maxMonsterOrdinal >= 0) {
 				prevWave.remove(waveMonsters[maxMonsterOrdinal]);
 			}
 
@@ -149,8 +145,7 @@ public class FightCavePlugin extends Plugin
 	@Getter(AccessLevel.PACKAGE)
 	private List<Integer> meleeTicks = new ArrayList<>();
 
-	static String formatMonsterQuantity(final WaveMonster monster, final int quantity)
-	{
+	static String formatMonsterQuantity(final WaveMonster monster, final int quantity) {
 		return String.format("%dx %s", quantity, monster);
 	}
 
@@ -167,18 +162,15 @@ public class FightCavePlugin extends Plugin
 	private boolean shadows;
 
 	@Provides
-	FightCaveConfig provideConfig(ConfigManager configManager)
-	{
+	FightCaveConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(FightCaveConfig.class);
 	}
 
 	@Override
-	public void startUp()
-	{
+	public void startUp() {
 		updateConfig();
 
-		if (client.getGameState() == GameState.LOGGED_IN && regionCheck())
-		{
+		if (client.getGameState() == GameState.LOGGED_IN && regionCheck()) {
 			validRegion = true;
 			overlayManager.add(waveOverlay);
 			overlayManager.add(fightCaveOverlay);
@@ -186,18 +178,15 @@ public class FightCavePlugin extends Plugin
 	}
 
 	@Override
-	public void shutDown()
-	{
+	public void shutDown() {
 		overlayManager.remove(waveOverlay);
 		overlayManager.remove(fightCaveOverlay);
 		currentWave = -1;
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("fightcave"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("fightcave")) {
 			return;
 		}
 
@@ -205,17 +194,14 @@ public class FightCavePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage event)
-	{
-		if (!validRegion)
-		{
+	private void onChatMessage(ChatMessage event) {
+		if (!validRegion) {
 			return;
 		}
 
 		final Matcher waveMatcher = WAVE_PATTERN.matcher(event.getMessage());
 
-		if (event.getType() != ChatMessageType.GAMEMESSAGE || !waveMatcher.matches())
-		{
+		if (event.getType() != ChatMessageType.GAMEMESSAGE || !waveMatcher.matches()) {
 			return;
 		}
 
@@ -223,21 +209,16 @@ public class FightCavePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() != GameState.LOGGED_IN)
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
-		if (regionCheck())
-		{
+		if (regionCheck()) {
 			validRegion = true;
 			overlayManager.add(waveOverlay);
 			overlayManager.add(fightCaveOverlay);
-		}
-		else
-		{
+		} else {
 			validRegion = false;
 			overlayManager.remove(fightCaveOverlay);
 			overlayManager.remove(fightCaveOverlay);
@@ -247,17 +228,14 @@ public class FightCavePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned event)
-	{
-		if (!validRegion)
-		{
+	private void onNpcSpawned(NpcSpawned event) {
+		if (!validRegion) {
 			return;
 		}
 
 		NPC npc = event.getNpc();
 
-		switch (npc.getId())
-		{
+		switch (npc.getId()) {
 			case NpcID.TOKXIL_3121:
 			case NpcID.TOKXIL_3122:
 			case NpcID.YTMEJKOT:
@@ -272,17 +250,14 @@ public class FightCavePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned event)
-	{
-		if (!validRegion)
-		{
+	private void onNpcDespawned(NpcDespawned event) {
+		if (!validRegion) {
 			return;
 		}
 
 		NPC npc = event.getNpc();
 
-		switch (npc.getId())
-		{
+		switch (npc.getId()) {
 			case NpcID.TOKXIL_3121:
 			case NpcID.TOKXIL_3122:
 			case NpcID.YTMEJKOT:
@@ -297,10 +272,8 @@ public class FightCavePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick Event)
-	{
-		if (!validRegion)
-		{
+	private void onGameTick(GameTick Event) {
+		if (!validRegion) {
 			return;
 		}
 
@@ -308,24 +281,18 @@ public class FightCavePlugin extends Plugin
 		rangedTicks.clear();
 		meleeTicks.clear();
 
-		for (FightCaveContainer npc : fightCaveContainer)
-		{
-			if (npc.getTicksUntilAttack() >= 0)
-			{
+		for (FightCaveContainer npc : fightCaveContainer) {
+			if (npc.getTicksUntilAttack() >= 0) {
 				npc.setTicksUntilAttack(npc.getTicksUntilAttack() - 1);
 			}
 
-			for (int anims : npc.getAnimations())
-			{
-				if (anims == npc.getNpc().getAnimation())
-				{
-					if (npc.getTicksUntilAttack() < 1)
-					{
+			for (int anims : npc.getAnimations()) {
+				if (anims == npc.getNpc().getAnimation()) {
+					if (npc.getTicksUntilAttack() < 1) {
 						npc.setTicksUntilAttack(npc.getAttackSpeed());
 					}
 
-					switch (anims)
-					{
+					switch (anims) {
 						case AnimationID.TZTOK_JAD_RANGE_ATTACK:
 							npc.setAttackStyle(FightCaveContainer.AttackStyle.RANGE);
 							break;
@@ -339,28 +306,23 @@ public class FightCavePlugin extends Plugin
 				}
 			}
 
-			if (npc.getNpcName().equals("TzTok-Jad"))
-			{
+			if (npc.getNpcName().equals("TzTok-Jad")) {
 				continue;
 			}
 
-			switch (npc.getAttackStyle())
-			{
+			switch (npc.getAttackStyle()) {
 				case RANGE:
-					if (npc.getTicksUntilAttack() > 0)
-					{
+					if (npc.getTicksUntilAttack() > 0) {
 						rangedTicks.add(npc.getTicksUntilAttack());
 					}
 					break;
 				case MELEE:
-					if (npc.getTicksUntilAttack() > 0)
-					{
+					if (npc.getTicksUntilAttack() > 0) {
 						meleeTicks.add(npc.getTicksUntilAttack());
 					}
 					break;
 				case MAGE:
-					if (npc.getTicksUntilAttack() > 0)
-					{
+					if (npc.getTicksUntilAttack() > 0) {
 						mageTicks.add(npc.getTicksUntilAttack());
 					}
 					break;
@@ -372,13 +334,11 @@ public class FightCavePlugin extends Plugin
 		Collections.sort(meleeTicks);
 	}
 
-	private boolean regionCheck()
-	{
+	private boolean regionCheck() {
 		return ArrayUtils.contains(client.getMapRegions(), FIGHT_CAVE_REGION);
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.waveDisplay = config.waveDisplay();
 		this.tickTimersWidget = config.tickTimersWidget();
 		this.fontStyle = config.fontStyle();

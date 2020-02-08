@@ -36,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.game.ItemManager;
@@ -46,8 +47,7 @@ import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 import net.runelite.client.util.QuantityFormatter;
 
 @Getter(AccessLevel.PACKAGE)
-class ItemPanel extends JPanel
-{
+class ItemPanel extends JPanel {
 	private static final GridBagLayout LAYOUT = new GridBagLayout();
 	private static final Dimension PANEL_SIZE = new Dimension(215, 50);
 
@@ -59,8 +59,7 @@ class ItemPanel extends JPanel
 	private final LTItemEntry record;
 	private final long total;
 
-	ItemPanel(final LTItemEntry record, final ItemManager itemManager)
-	{
+	ItemPanel(final LTItemEntry record, final ItemManager itemManager) {
 		setLayout(LAYOUT);
 		setBorder(PANEL_BORDER);
 		setBackground(PANEL_BACKGROUND_COLOR);
@@ -108,24 +107,21 @@ class ItemPanel extends JPanel
 		this.setToolTipText(buildToolTip(this.record));
 	}
 
-	private static String buildToolTip(final LTItemEntry record)
-	{
+	private static String buildToolTip(final LTItemEntry record) {
 		final String name = record.getName();
 		final int quantity = record.getQuantity();
 		final long price = record.getPrice();
 
 		return "<html>" + name + " x " + QuantityFormatter.formatNumber(quantity)
-			+ "<br/>Price: " + QuantityFormatter.quantityToStackSize(price)
-			+ "<br/>Total: " + QuantityFormatter.quantityToStackSize(quantity * price) + "</html>";
+				+ "<br/>Price: " + QuantityFormatter.quantityToStackSize(price)
+				+ "<br/>Total: " + QuantityFormatter.quantityToStackSize(quantity * price) + "</html>";
 	}
 
-	private static Color getRSValueColor(long val)
-	{
+	private static Color getRSValueColor(long val) {
 		return (val >= 10000000) ? Color.GREEN : (val >= 100000) ? Color.WHITE : Color.YELLOW;
 	}
 
-	private JPanel createPanel()
-	{
+	private JPanel createPanel() {
 		final JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		panel.setBorder(CONTAINER_BORDER);

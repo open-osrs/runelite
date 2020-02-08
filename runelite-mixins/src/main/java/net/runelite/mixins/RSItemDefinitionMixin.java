@@ -12,8 +12,7 @@ import net.runelite.rs.api.RSItemDefinition;
 import net.runelite.rs.api.RSModel;
 
 @Mixin(RSItemDefinition.class)
-public abstract class RSItemDefinitionMixin implements RSItemDefinition
-{
+public abstract class RSItemDefinitionMixin implements RSItemDefinition {
 	private static final int DEFAULT_CUSTOM_SHIFT_CLICK_INDEX = -2;
 
 	@Shadow("client")
@@ -27,27 +26,23 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 
 	@Override
 	@Inject
-	public void setModelOverride(int id)
-	{
+	public void setModelOverride(int id) {
 		modelOverride = id;
 	}
 
 	@Inject
-	RSItemDefinitionMixin()
-	{
+	RSItemDefinitionMixin() {
 	}
 
 	@Inject
 	@Override
-	public boolean isStackable()
-	{
+	public boolean isStackable() {
 		return getIsStackable() != 0;
 	}
 
 	@Inject
 	@Override
-	public void setShiftClickActionIndex(int shiftClickActionIndex)
-	{
+	public void setShiftClickActionIndex(int shiftClickActionIndex) {
 		this.shiftClickActionIndex = shiftClickActionIndex;
 	}
 
@@ -55,22 +50,19 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 	abstract int rs$getShiftClickActionIndex();
 
 	@Replace("getShiftClickIndex")
-	public int getShiftClickActionIndex()
-	{
+	public int getShiftClickActionIndex() {
 		return shiftClickActionIndex == DEFAULT_CUSTOM_SHIFT_CLICK_INDEX ? rs$getShiftClickActionIndex() : shiftClickActionIndex;
 	}
 
 	@Inject
 	@Override
-	public void resetShiftClickActionIndex()
-	{
+	public void resetShiftClickActionIndex() {
 		shiftClickActionIndex = DEFAULT_CUSTOM_SHIFT_CLICK_INDEX;
 	}
 
 	@Inject
 	@MethodHook(value = "post", end = true)
-	public void post()
-	{
+	public void post() {
 		final PostItemDefinition event = new PostItemDefinition();
 		event.setItemDefinition(this);
 		client.getCallbacks().post(PostItemDefinition.class, event);
@@ -80,10 +72,8 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 	public abstract RSModel rs$getModel(int quantity);
 
 	@Replace("getModel")
-	public RSModel getModel(int quantity)
-	{
-		if (modelOverride == -1)
-		{
+	public RSModel getModel(int quantity) {
+		if (modelOverride == -1) {
 			return rs$getModel(quantity);
 		}
 

@@ -26,34 +26,30 @@
 package net.runelite.osb.inject;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClassHook
-{
+public class ClassHook {
 	@SerializedName("class")
 	private String clazz;
 	private Map<String, FieldHook> fields = new HashMap<>();
 	private Map<String, MethodHook> methods = new HashMap<>();
 	private Map<String, MethodHook> callbacks = new HashMap<>();
 
-	public String getClazz()
-	{
+	public String getClazz() {
 		return clazz;
 	}
 
-	public Map<String, FieldHook> getFields()
-	{
+	public Map<String, FieldHook> getFields() {
 		return fields;
 	}
 
-	public Map<String, MethodHook> getMethods()
-	{
+	public Map<String, MethodHook> getMethods() {
 		return methods;
 	}
 
-	public Map<String, MethodHook> getCallbacks()
-	{
+	public Map<String, MethodHook> getCallbacks() {
 		return callbacks;
 	}
 }

@@ -25,6 +25,7 @@
 package net.runelite.mixins;
 
 import static net.runelite.api.Perspective.SCENE_SIZE;
+
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSClient;
@@ -32,12 +33,10 @@ import net.runelite.rs.api.RSScene;
 import net.runelite.rs.api.RSSprite;
 
 @Mixin(RSClient.class)
-public abstract class MinimapMixin implements RSClient
-{
+public abstract class MinimapMixin implements RSClient {
 	@Inject
 	@Override
-	public RSSprite drawInstanceMap(int z)
-	{
+	public RSSprite drawInstanceMap(int z) {
 		RSSprite ourSprite = createSprite(new int[512 * 512], 512, 512);
 		RSSprite theirSprite = getMinimapSprite();
 
@@ -45,24 +44,19 @@ public abstract class MinimapMixin implements RSClient
 		int[] pixels = ourSprite.getPixels();
 		byte[][][] tileSettings = getTileSettings();
 
-		try
-		{
+		try {
 			setMinimapSprite(ourSprite);
 
 			int var4;
-			for (int x = 1; x < SCENE_SIZE - 1; ++x)
-			{
+			for (int x = 1; x < SCENE_SIZE - 1; ++x) {
 				var4 = (103 - x) * 2048 + 24628;
 
-				for (int y = 1; y < SCENE_SIZE - 1; ++y)
-				{
-					if ((tileSettings[z][y][x] & 24) == 0)
-					{
+				for (int y = 1; y < SCENE_SIZE - 1; ++y) {
+					if ((tileSettings[z][y][x] & 24) == 0) {
 						scene.drawTile(pixels, var4, 512, z, y, x);
 					}
 
-					if (z < 3 && (tileSettings[z + 1][y][x] & 8) != 0)
-					{
+					if (z < 3 && (tileSettings[z + 1][y][x] & 8) != 0) {
 						scene.drawTile(pixels, var4, 512, z + 1, y, x);
 					}
 
@@ -74,24 +68,18 @@ public abstract class MinimapMixin implements RSClient
 			int color2 = 238 + (int) (Math.random() * 20.0D) - 10 << 16;
 			ourSprite.setRaster();
 
-			for (int y = 1; y < SCENE_SIZE - 1; ++y)
-			{
-				for (int x = 1; x < SCENE_SIZE - 1; ++x)
-				{
-					if ((tileSettings[z][x][y] & 24) == 0)
-					{
+			for (int y = 1; y < SCENE_SIZE - 1; ++y) {
+				for (int x = 1; x < SCENE_SIZE - 1; ++x) {
+					if ((tileSettings[z][x][y] & 24) == 0) {
 						drawObject(z, x, y, color1, color2);
 					}
 
-					if (z < 3 && (tileSettings[z + 1][x][y] & 8) != 0)
-					{
+					if (z < 3 && (tileSettings[z + 1][x][y] & 8) != 0) {
 						drawObject(z + 1, x, y, color1, color2);
 					}
 				}
 			}
-		}
-		finally
-		{
+		} finally {
 			getBufferProvider().setRaster();
 			setMinimapSprite(theirSprite);
 		}

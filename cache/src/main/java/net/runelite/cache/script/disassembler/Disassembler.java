@@ -27,6 +27,7 @@ package net.runelite.cache.script.disassembler;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.script.Instruction;
 import net.runelite.cache.script.Instructions;
@@ -34,21 +35,17 @@ import net.runelite.cache.script.Opcodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Disassembler
-{
+public class Disassembler {
 	private static final Logger logger = LoggerFactory.getLogger(Disassembler.class);
 
 	private final Instructions instructions = new Instructions();
 
-	public Disassembler()
-	{
+	public Disassembler() {
 		instructions.init();
 	}
 
-	private boolean isJump(int opcode)
-	{
-		switch (opcode)
-		{
+	private boolean isJump(int opcode) {
+		switch (opcode) {
 			case Opcodes.JUMP:
 			case Opcodes.IF_ICMPEQ:
 			case Opcodes.IF_ICMPGE:
@@ -62,25 +59,21 @@ public class Disassembler
 		}
 	}
 
-	private boolean[] needLabel(ScriptDefinition script)
-	{
+	private boolean[] needLabel(ScriptDefinition script) {
 		int[] instructions = script.getInstructions();
 		int[] iops = script.getIntOperands();
 		Map<Integer, Integer>[] switches = script.getSwitches();
 
 		boolean[] jumped = new boolean[instructions.length];
 
-		for (int i = 0; i < instructions.length; ++i)
-		{
+		for (int i = 0; i < instructions.length; ++i) {
 			int opcode = instructions[i];
 			int iop = iops[i];
 
-			if (opcode == Opcodes.SWITCH)
-			{
+			if (opcode == Opcodes.SWITCH) {
 				Map<Integer, Integer> switchMap = switches[iop];
 
-				for (Entry<Integer, Integer> entry : switchMap.entrySet())
-				{
+				for (Entry<Integer, Integer> entry : switchMap.entrySet()) {
 					int offset = entry.getValue();
 
 					int to = i + offset + 1;
@@ -89,8 +82,7 @@ public class Disassembler
 				}
 			}
 
-			if (!isJump(opcode))
-			{
+			if (!isJump(opcode)) {
 				continue;
 			}
 
@@ -106,8 +98,7 @@ public class Disassembler
 		return jumped;
 	}
 
-	public String disassemble(ScriptDefinition script) throws IOException
-	{
+	public String disassemble(ScriptDefinition script) throws IOException {
 		int[] instructions = script.getInstructions();
 		int[] iops = script.getIntOperands();
 		String[] sops = script.getStringOperands();
@@ -121,59 +112,46 @@ public class Disassembler
 		StringBuilder writer = new StringBuilder();
 		writerHeader(writer, script);
 
-		for (int i = 0; i < instructions.length; ++i)
-		{
+		for (int i = 0; i < instructions.length; ++i) {
 			int opcode = instructions[i];
 			int iop = iops[i];
 			String sop = sops[i];
 
 			Instruction ins = this.instructions.find(opcode);
-			if (ins == null)
-			{
+			if (ins == null) {
 				logger.warn("Unknown instruction {} in script {}", opcode, script.getId());
 			}
 
-			if (jumps[i])
-			{
+			if (jumps[i]) {
 				// something jumps here
 				writer.append("LABEL").append(i).append(":\n");
 			}
 
 			String name;
-			if (ins != null && ins.getName() != null)
-			{
+			if (ins != null && ins.getName() != null) {
 				name = ins.getName();
-			}
-			else
-			{
+			} else {
 				name = String.format("%03d", opcode);
 			}
 
 			writer.append(String.format("   %-22s", name));
 
-			if (shouldWriteIntOperand(opcode, iop))
-			{
-				if (isJump(opcode))
-				{
+			if (shouldWriteIntOperand(opcode, iop)) {
+				if (isJump(opcode)) {
 					writer.append(" LABEL").append(i + iop + 1);
-				}
-				else
-				{
+				} else {
 					writer.append(" ").append(iop);
 				}
 			}
 
-			if (sop != null)
-			{
+			if (sop != null) {
 				writer.append(" \"").append(sop).append("\"");
 			}
 
-			if (opcode == Opcodes.SWITCH)
-			{
+			if (opcode == Opcodes.SWITCH) {
 				Map<Integer, Integer> switchMap = switches[iop];
 
-				for (Entry<Integer, Integer> entry : switchMap.entrySet())
-				{
+				for (Entry<Integer, Integer> entry : switchMap.entrySet()) {
 					int value = entry.getKey();
 					int jump = entry.getValue();
 
@@ -188,22 +166,18 @@ public class Disassembler
 		return writer.toString();
 	}
 
-	private boolean shouldWriteIntOperand(int opcode, int operand)
-	{
-		if (opcode == Opcodes.SWITCH)
-		{
+	private boolean shouldWriteIntOperand(int opcode, int operand) {
+		if (opcode == Opcodes.SWITCH) {
 			// table follows instruction
 			return false;
 		}
 
-		if (operand != 0)
-		{
+		if (operand != 0) {
 			// always write non-zero operand
 			return true;
 		}
 
-		switch (opcode)
-		{
+		switch (opcode) {
 			case Opcodes.ICONST:
 			case Opcodes.ILOAD:
 			case Opcodes.SLOAD:
@@ -216,8 +190,7 @@ public class Disassembler
 		return false;
 	}
 
-	private void writerHeader(StringBuilder writer, ScriptDefinition script)
-	{
+	private void writerHeader(StringBuilder writer, ScriptDefinition script) {
 		int id = script.getId();
 		int intStackCount = script.getIntStackCount();
 		int stringStackCount = script.getStringStackCount();

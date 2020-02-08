@@ -28,8 +28,10 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import static net.runelite.client.plugins.gauntlet.GauntletConfig.CounterDisplay.NONE;
 import static net.runelite.client.plugins.gauntlet.GauntletConfig.CounterDisplay.ONBOSS;
+
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -40,37 +42,33 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-public class GauntletCounter extends Overlay
-{
+public class GauntletCounter extends Overlay {
 	private final GauntletPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	GauntletCounter(final GauntletPlugin plugin)
-	{
+	GauntletCounter(final GauntletPlugin plugin) {
 		this.plugin = plugin;
 		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
 		setPriority(OverlayPriority.HIGH);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		panelComponent.getChildren().clear();
 		final Hunllef hunllef = plugin.getHunllef();
 
 		if (!plugin.fightingBoss() ||
-			hunllef == null ||
-			plugin.getCountAttacks() == NONE ||
-			plugin.getCountAttacks() == ONBOSS)
-		{
+				hunllef == null ||
+				plugin.getCountAttacks() == NONE ||
+				plugin.getCountAttacks() == ONBOSS) {
 			return null;
 		}
 
 		panelComponent.getChildren().add(TitleComponent.builder()
-			.text("Hunllef")
-			.color(Color.pink)
-			.build());
+				.text("Hunllef")
+				.color(Color.pink)
+				.build());
 
 
 		Color color = hunllef.getPlayerAttacks() == 1 ? Color.RED : Color.WHITE;

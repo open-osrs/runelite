@@ -11,19 +11,19 @@ public final class NodeHashTable {
 	int size;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "[Lft;"
+			signature = "[Lft;"
 	)
 	@Export("buckets")
 	Node[] buckets;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lft;"
+			signature = "Lft;"
 	)
 	@Export("currentGet")
 	Node currentGet;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lft;"
+			signature = "Lft;"
 	)
 	@Export("current")
 	Node current;
@@ -46,11 +46,11 @@ public final class NodeHashTable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(J)Lft;"
+			signature = "(J)Lft;"
 	)
 	@Export("get")
 	public Node get(long var1) {
-		Node var3 = this.buckets[(int)(var1 & (long)(this.size - 1))];
+		Node var3 = this.buckets[(int) (var1 & (long) (this.size - 1))];
 
 		for (this.currentGet = var3.previous; var3 != this.currentGet; this.currentGet = this.currentGet.previous) {
 			if (this.currentGet.key == var1) {
@@ -66,7 +66,7 @@ public final class NodeHashTable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lft;J)V"
+			signature = "(Lft;J)V"
 	)
 	@Export("put")
 	public void put(Node var1, long var2) {
@@ -74,7 +74,7 @@ public final class NodeHashTable {
 			var1.remove();
 		}
 
-		Node var4 = this.buckets[(int)(var2 & (long)(this.size - 1))];
+		Node var4 = this.buckets[(int) (var2 & (long) (this.size - 1))];
 		var1.next = var4.next;
 		var1.previous = var4;
 		var1.next.previous = var1;
@@ -84,7 +84,7 @@ public final class NodeHashTable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("first")
 	public Node first() {
@@ -94,7 +94,7 @@ public final class NodeHashTable {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("next")
 	public Node next() {
@@ -110,7 +110,7 @@ public final class NodeHashTable {
 				}
 
 				var1 = this.buckets[this.index++].previous;
-			} while(var1 == this.buckets[this.index - 1]);
+			} while (var1 == this.buckets[this.index - 1]);
 
 			this.current = var1.previous;
 			return var1;

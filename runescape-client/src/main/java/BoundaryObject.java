@@ -9,55 +9,55 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class BoundaryObject {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -432640287
+			intValue = -432640287
 	)
 	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -970419585
+			intValue = -970419585
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1222089633
+			intValue = -1222089633
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 778552875
+			intValue = 778552875
 	)
 	@Export("orientationA")
 	int orientationA;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -829648765
+			intValue = -829648765
 	)
 	@Export("orientationB")
 	int orientationB;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Leq;"
+			signature = "Leq;"
 	)
 	@Export("entity1")
 	public Entity entity1;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Leq;"
+			signature = "Leq;"
 	)
 	@Export("entity2")
 	public Entity entity2;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		longValue = 515248560912133581L
+			longValue = 515248560912133581L
 	)
 	@Export("tag")
 	public long tag;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1262947559
+			intValue = -1262947559
 	)
 	@Export("flags")
 	int flags;
@@ -69,11 +69,11 @@ public final class BoundaryObject {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "2085601803"
+			signature = "(I)V",
+			garbageValue = "2085601803"
 	)
 	public static void method3333() {
-		synchronized(KeyHandler.KeyHandler_instance) {
+		synchronized (KeyHandler.KeyHandler_instance) {
 			++KeyHandler.KeyHandler_idleCycles;
 			KeyHandler.field406 = KeyHandler.field408;
 			KeyHandler.field405 = 0;

@@ -37,20 +37,23 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.config.OpenOSRSConfig;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EmojiPluginTest
-{
+public class EmojiPluginTest {
 	@Mock
 	@Bind
 	private Client client;
@@ -67,14 +70,12 @@ public class EmojiPluginTest
 	private EmojiPlugin emojiPlugin;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testOnChatMessage()
-	{
+	public void testOnChatMessage() {
 		when(client.getGameState()).thenReturn(GameState.LOGGED_IN);
 		when(client.getModIcons()).thenReturn(new IndexedSprite[0]);
 		when(client.createIndexedSprite()).thenReturn(mock(IndexedSprite.class));
@@ -98,8 +99,7 @@ public class EmojiPluginTest
 	}
 
 	@Test
-	public void testGtLt()
-	{
+	public void testGtLt() {
 		when(client.getGameState()).thenReturn(GameState.LOGGED_IN);
 		when(client.getModIcons()).thenReturn(new IndexedSprite[0]);
 		when(client.createIndexedSprite()).thenReturn(mock(IndexedSprite.class));
@@ -122,8 +122,7 @@ public class EmojiPluginTest
 	}
 
 	@Test
-	public void testEmojiUpdateMessage()
-	{
+	public void testEmojiUpdateMessage() {
 		String PARTY_POPPER = "<img=" + (-1 + Emoji.getEmoji("@@@").ordinal()) + '>';
 		String OPEN_MOUTH = "<img=" + (-1 + Emoji.getEmoji(":O").ordinal()) + '>';
 		assertNull(emojiPlugin.updateMessage("@@@@@"));

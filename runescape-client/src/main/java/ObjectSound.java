@@ -9,63 +9,63 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class ObjectSound extends Node {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	@Export("objectSounds")
 	static NodeDeque objectSounds;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1573103385
+			intValue = -1573103385
 	)
 	@Export("plane")
 	int plane;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1434930617
+			intValue = 1434930617
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1295537280
+			intValue = 1295537280
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 393514941
+			intValue = 393514941
 	)
 	int field1069;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -840891776
+			intValue = -840891776
 	)
 	int field1080;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 210061871
+			intValue = 210061871
 	)
 	int field1070;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 2754531
+			intValue = 2754531
 	)
 	@Export("soundEffectId")
 	int soundEffectId;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lde;"
+			signature = "Lde;"
 	)
 	@Export("stream1")
 	RawPcmStream stream1;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1469470179
+			intValue = -1469470179
 	)
 	int field1074;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1106113547
+			intValue = -1106113547
 	)
 	int field1075;
 	@ObfuscatedName("h")
@@ -73,18 +73,18 @@ public final class ObjectSound extends Node {
 	int[] soundEffectIds;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -52141537
+			intValue = -52141537
 	)
 	int field1077;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lde;"
+			signature = "Lde;"
 	)
 	@Export("stream2")
 	RawPcmStream stream2;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Lir;"
+			signature = "Lir;"
 	)
 	@Export("obj")
 	ObjectDefinition obj;
@@ -98,8 +98,8 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-280548434"
+			signature = "(I)V",
+			garbageValue = "-280548434"
 	)
 	@Export("set")
 	void set() {
@@ -128,8 +128,8 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(IIILir;II)V",
-		garbageValue = "1319023386"
+			signature = "(IIILir;II)V",
+			garbageValue = "1319023386"
 	)
 	static void method1931(int var0, int var1, int var2, ObjectDefinition var3, int var4) {
 		ObjectSound var5 = new ObjectSound();
@@ -157,15 +157,15 @@ public final class ObjectSound extends Node {
 
 		objectSounds.addFirst(var5);
 		if (var5.soundEffectIds != null) {
-			var5.field1077 = var5.field1074 + (int)(Math.random() * (double)(var5.field1075 - var5.field1074));
+			var5.field1077 = var5.field1074 + (int) (Math.random() * (double) (var5.field1075 - var5.field1074));
 		}
 
 	}
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
-		garbageValue = "1"
+			signature = "(IB)V",
+			garbageValue = "1"
 	)
 	public static void method1933(int var0) {
 		if (var0 != -1) {
@@ -196,8 +196,8 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("jv")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
-		garbageValue = "-1074092886"
+			signature = "(ZI)V",
+			garbageValue = "-1074092886"
 	)
 	@Export("setTapToDrop")
 	static void setTapToDrop(boolean var0) {
@@ -206,8 +206,8 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("lh")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "1"
+			signature = "(B)V",
+			garbageValue = "1"
 	)
 	static void method1934() {
 		if (class218.field2716 != null) {

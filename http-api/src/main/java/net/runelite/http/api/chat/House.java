@@ -28,8 +28,7 @@ import lombok.Data;
 import net.runelite.http.api.RuneLiteAPI;
 
 @Data
-public class House
-{
+public class House {
 	private String owner;
 	private boolean guildedAltarPresent;
 	private boolean occultAltarPresent;
@@ -40,8 +39,7 @@ public class House
 	private boolean combatDummyPresent;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return RuneLiteAPI.GSON.toJson(this);
 	}
 }

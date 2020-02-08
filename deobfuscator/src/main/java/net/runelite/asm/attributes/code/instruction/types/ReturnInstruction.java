@@ -25,4 +25,5 @@
 
 package net.runelite.asm.attributes.code.instruction.types;
 
-public interface ReturnInstruction {}
+public interface ReturnInstruction {
+}

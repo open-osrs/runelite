@@ -27,4 +27,5 @@ package net.runelite.api;
 /**
  * Represents the friend and ignore list manager.
  */
-public interface FriendManager {}
+public interface FriendManager {
+}

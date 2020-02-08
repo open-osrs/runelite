@@ -26,10 +26,12 @@ package net.runelite.http.api.xtea;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,71 +41,59 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XteaClient
-{
+public class XteaClient {
 	private static final Logger logger = LoggerFactory.getLogger(XteaClient.class);
 
-	public void submit(int region, int[] keys)
-	{
+	public void submit(int region, int[] keys) {
 
 		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
-			.addPathSegment("submit")
-			.addQueryParameter("region", String.valueOf(region))
-			.addQueryParameter("key1", String.valueOf(keys[0]))
-			.addQueryParameter("key2", String.valueOf(keys[1]))
-			.addQueryParameter("key3", String.valueOf(keys[2]))
-			.addQueryParameter("key4", String.valueOf(keys[3]))
-			.build();
+				.addPathSegment("submit")
+				.addQueryParameter("region", String.valueOf(region))
+				.addQueryParameter("key1", String.valueOf(keys[0]))
+				.addQueryParameter("key2", String.valueOf(keys[1]))
+				.addQueryParameter("key3", String.valueOf(keys[2]))
+				.addQueryParameter("key4", String.valueOf(keys[3]))
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
-		{
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
 			@Override
-			public void onFailure(Call call, IOException e)
-			{
+			public void onFailure(Call call, IOException e) {
 				logger.warn("unable to submit xtea keys", e);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response)
-			{
-				try
-				{
-					if (!response.isSuccessful())
-					{
+			public void onResponse(Call call, Response response) {
+				try {
+					if (!response.isSuccessful()) {
 						logger.debug("unsuccessful xtea response");
 					}
-				}
-				finally
-				{
+				} finally {
 					response.close();
 				}
 			}
 		});
 	}
 
-	public HashMap<Integer, int[]> get() throws IOException
-	{
+	public HashMap<Integer, int[]> get() throws IOException {
 		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
-			.addPathSegment("get")
-			.build();
+				.addPathSegment("get")
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
-		{
+		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
 			InputStream in = response.body().byteStream();
 			// CHECKSTYLE:OFF
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<HashMap<Integer, Integer[]>>() {}.getType());
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<HashMap<Integer, Integer[]>>() {
+			}.getType());
 			// CHECKSTYLE:ON
-		}
-		catch (JsonParseException ex)
-		{
+		} catch (JsonParseException ex) {
 			throw new IOException(ex);
 		}
 	}

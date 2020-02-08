@@ -27,7 +27,9 @@ package net.runelite.client.plugins.fightcave;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+
 import java.awt.Color;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,8 +43,7 @@ import net.runelite.api.NpcID;
 import net.runelite.api.Prayer;
 
 @Getter(AccessLevel.PACKAGE)
-class FightCaveContainer
-{
+class FightCaveContainer {
 	private NPC npc;
 	private String npcName;
 	private int npcIndex;
@@ -57,8 +58,7 @@ class FightCaveContainer
 	@Setter(AccessLevel.PACKAGE)
 	private AttackStyle attackStyle;
 
-	FightCaveContainer(NPC npc, int attackSpeed)
-	{
+	FightCaveContainer(NPC npc, int attackSpeed) {
 		this.npc = npc;
 		this.npcName = npc.getName();
 		this.npcIndex = npc.getIndex();
@@ -70,8 +70,7 @@ class FightCaveContainer
 
 		BossMonsters monster = BossMonsters.of(npc.getId());
 
-		if (monster == null)
-		{
+		if (monster == null) {
 			throw new IllegalStateException();
 		}
 
@@ -79,15 +78,13 @@ class FightCaveContainer
 		this.attackStyle = monster.attackStyle;
 		this.priority = monster.priority;
 
-		if (composition != null)
-		{
+		if (composition != null) {
 			this.npcSize = composition.getSize();
 		}
 	}
 
 	@RequiredArgsConstructor
-	enum BossMonsters
-	{
+	enum BossMonsters {
 		TOK_XIL1(NpcID.TOKXIL_3121, AttackStyle.RANGE, ImmutableSet.of(AnimationID.TOK_XIL_RANGE_ATTACK, AnimationID.TOK_XIL_MELEE_ATTACK), 1),
 		TOK_XIL2(NpcID.TOKXIL_3122, AttackStyle.RANGE, ImmutableSet.of(AnimationID.TOK_XIL_RANGE_ATTACK, AnimationID.TOK_XIL_MELEE_ATTACK), 1),
 		KETZEK1(NpcID.KETZEK, AttackStyle.MAGE, ImmutableSet.of(AnimationID.KET_ZEK_MAGE_ATTACK, AnimationID.KET_ZEK_MELEE_ATTACK), 0),
@@ -99,12 +96,10 @@ class FightCaveContainer
 
 		private static final ImmutableMap<Integer, BossMonsters> idMap;
 
-		static
-		{
+		static {
 			ImmutableMap.Builder<Integer, BossMonsters> builder = ImmutableMap.builder();
 
-			for (BossMonsters monster : values())
-			{
+			for (BossMonsters monster : values()) {
 				builder.put(monster.npcID, monster);
 			}
 
@@ -116,16 +111,14 @@ class FightCaveContainer
 		private final ImmutableSet<Integer> animations;
 		private final int priority;
 
-		static BossMonsters of(int npcID)
-		{
+		static BossMonsters of(int npcID) {
 			return idMap.get(npcID);
 		}
 	}
 
 	@Getter(AccessLevel.PACKAGE)
 	@AllArgsConstructor
-	enum AttackStyle
-	{
+	enum AttackStyle {
 		MAGE("Mage", Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
 		RANGE("Range", Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
 		MELEE("Melee", Color.RED, Prayer.PROTECT_FROM_MELEE),

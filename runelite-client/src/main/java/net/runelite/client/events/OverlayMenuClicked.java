@@ -35,8 +35,7 @@ import net.runelite.client.ui.overlay.OverlayMenuEntry;
  */
 @Data
 @AllArgsConstructor
-public class OverlayMenuClicked implements Event
-{
+public class OverlayMenuClicked implements Event {
 	private OverlayMenuEntry entry;
 	private Overlay overlay;
 }

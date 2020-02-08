@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class188 {
 	@ObfuscatedName("rg")
 	@ObfuscatedGetter(
-		intValue = -1778980480
+			intValue = -1778980480
 	)
 	static int field2346;
 	@ObfuscatedName("c")
@@ -27,11 +27,11 @@ public class class188 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "568041026"
+			signature = "(I)V",
+			garbageValue = "568041026"
 	)
 	static void method3708() {
-		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) {
+		for (ObjectSound var0 = (ObjectSound) ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound) ObjectSound.objectSounds.previous()) {
 			if (var0.obj != null) {
 				var0.set();
 			}

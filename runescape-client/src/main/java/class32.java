@@ -6,13 +6,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class32 {
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "Llt;"
+			signature = "Llt;"
 	)
 	@Export("rightTitleSprite")
 	static Sprite rightTitleSprite;
 	@ObfuscatedName("bm")
 	@ObfuscatedSignature(
-		signature = "Lli;"
+			signature = "Lli;"
 	)
 	@Export("worldSelectRightSprite")
 	static IndexedSprite worldSelectRightSprite;

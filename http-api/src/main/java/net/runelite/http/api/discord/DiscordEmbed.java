@@ -28,6 +28,7 @@ package net.runelite.http.api.discord;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,8 +47,7 @@ import net.runelite.http.api.discord.embed.VideoEmbed;
 @Builder
 @AllArgsConstructor
 @ToString
-public class DiscordEmbed
-{
+public class DiscordEmbed {
 	String title;
 	String type;
 	String description;
@@ -63,8 +63,7 @@ public class DiscordEmbed
 	AuthorEmbed author;
 	final List<FieldEmbed> fields = new ArrayList<>();
 
-	public DiscordEmbed(AuthorEmbed author, ThumbnailEmbed thumb, String description, FooterEmbed footer, String color, List<FieldEmbed> fields)
-	{
+	public DiscordEmbed(AuthorEmbed author, ThumbnailEmbed thumb, String description, FooterEmbed footer, String color, List<FieldEmbed> fields) {
 		this.author = author;
 		this.thumbnail = thumb;
 		this.description = description;
@@ -73,8 +72,7 @@ public class DiscordEmbed
 		this.fields.addAll(fields);
 	}
 
-	public DiscordMessage toDiscordMessage(String username, String content, String avatarUrl)
-	{
+	public DiscordMessage toDiscordMessage(String username, String content, String avatarUrl) {
 		return new DiscordMessage(username, content, avatarUrl, this);
 	}
 }

@@ -30,24 +30,21 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import javax.inject.Inject;
+
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
-class EssencePouchOverlay extends WidgetItemOverlay
-{
+class EssencePouchOverlay extends WidgetItemOverlay {
 	@Inject
-	EssencePouchOverlay()
-	{
+	EssencePouchOverlay() {
 		showOnInventory();
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
-	{
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget) {
 		final Pouch pouch = Pouch.forItem(itemId);
-		if (pouch == null)
-		{
+		if (pouch == null) {
 			return;
 		}
 
@@ -55,12 +52,9 @@ class EssencePouchOverlay extends WidgetItemOverlay
 		final TextComponent textComponent = new TextComponent();
 		textComponent.setPosition(new Point(bounds.x - 1, bounds.y + 8));
 		textComponent.setColor(Color.CYAN);
-		if (pouch.isUnknown())
-		{
+		if (pouch.isUnknown()) {
 			textComponent.setText("?");
-		}
-		else
-		{
+		} else {
 			textComponent.setText(Integer.toString(pouch.getHolding()));
 		}
 		textComponent.render(graphics);

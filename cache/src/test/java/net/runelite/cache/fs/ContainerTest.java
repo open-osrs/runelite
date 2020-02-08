@@ -26,20 +26,20 @@ package net.runelite.cache.fs;
 
 import java.io.IOException;
 import java.util.Random;
+
 import static net.runelite.cache.fs.jagex.CompressionType.GZ;
 import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
 
-public class ContainerTest
-{
+public class ContainerTest {
 
 	@Test
-	public void testCompress() throws IOException
-	{
+	public void testCompress() throws IOException {
 		int[] keys = new int[]
-		{
-			4, 8, 15, 16
-		};
+				{
+						4, 8, 15, 16
+				};
 		Random random = new Random(42L);
 		byte[] data = new byte[1024];
 		random.nextBytes(data);

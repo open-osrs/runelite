@@ -27,22 +27,20 @@ package net.runelite.client.plugins.cluescrolls;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.client.plugins.cluescrolls.clues.ClueScroll;
 
 @Singleton
-class ClueScrollServiceImpl implements ClueScrollService
-{
+class ClueScrollServiceImpl implements ClueScrollService {
 	private final ClueScrollPlugin plugin;
 
 	@Inject
-	private ClueScrollServiceImpl(final ClueScrollPlugin plugin)
-	{
+	private ClueScrollServiceImpl(final ClueScrollPlugin plugin) {
 		this.plugin = plugin;
 	}
 
 	@Override
-	public ClueScroll getClue()
-	{
+	public ClueScroll getClue() {
 		return plugin.getClue();
 	}
 }

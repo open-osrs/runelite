@@ -40,17 +40,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.components.FlatTextField;
 import net.runelite.client.util.SwingUtil;
 
-abstract class ClockPanel extends JPanel
-{
+abstract class ClockPanel extends JPanel {
 	private static final Border NAME_BOTTOM_BORDER = new CompoundBorder(
-		BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
-		BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
+			BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
+			BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
 
 	private static final Color ACTIVE_CLOCK_COLOR = ColorScheme.LIGHT_GRAY_COLOR.brighter();
 	private static final Color INACTIVE_CLOCK_COLOR = ColorScheme.LIGHT_GRAY_COLOR.darker();
@@ -73,8 +73,7 @@ abstract class ClockPanel extends JPanel
 	private final String clockType;
 	private final boolean editable;
 
-	ClockPanel(ClockManager clockManager, Clock clock, String clockType, boolean editable)
-	{
+	ClockPanel(ClockManager clockManager, Clock clock, String clockType, boolean editable) {
 		this.clock = clock;
 		this.clockType = clockType;
 		this.editable = editable;
@@ -94,17 +93,14 @@ abstract class ClockPanel extends JPanel
 		nameInput.getTextField().setBorder(new EmptyBorder(0, 8, 0, 0));
 		nameInput.addActionListener(e -> getParent().requestFocusInWindow());
 
-		nameInput.getTextField().addFocusListener(new FocusListener()
-		{
+		nameInput.getTextField().addFocusListener(new FocusListener() {
 			@Override
-			public void focusGained(FocusEvent e)
-			{
+			public void focusGained(FocusEvent e) {
 				nameInput.getTextField().selectAll();
 			}
 
 			@Override
-			public void focusLost(FocusEvent e)
-			{
+			public void focusLost(FocusEvent e) {
 				clock.setName(nameInput.getText());
 				clockManager.saveToConfig();
 			}
@@ -127,26 +123,20 @@ abstract class ClockPanel extends JPanel
 		displayInput.getTextField().setHorizontalAlignment(SwingConstants.CENTER);
 		displayInput.addActionListener(e -> getParent().requestFocusInWindow());
 
-		displayInput.getTextField().addFocusListener(new FocusListener()
-		{
+		displayInput.getTextField().addFocusListener(new FocusListener() {
 			@Override
-			public void focusGained(FocusEvent e)
-			{
+			public void focusGained(FocusEvent e) {
 				displayInput.getTextField().setForeground(INACTIVE_CLOCK_COLOR);
 				displayInput.getTextField().selectAll();
 			}
 
 			@Override
-			public void focusLost(FocusEvent e)
-			{
+			public void focusLost(FocusEvent e) {
 				long duration = 0;
 
-				try
-				{
+				try {
 					duration = stringToSeconds(displayInput.getText());
-				}
-				catch (Exception ignored)
-				{
+				} catch (Exception ignored) {
 				}
 
 				clock.setDuration(Math.max(0, duration));
@@ -178,12 +168,9 @@ abstract class ClockPanel extends JPanel
 
 		startPauseButton.addActionListener(e ->
 		{
-			if (!startPauseButton.isSelected())
-			{
+			if (!startPauseButton.isSelected()) {
 				clock.pause();
-			}
-			else if (!clock.start())
-			{
+			} else if (!clock.start()) {
 				return;
 			}
 
@@ -220,22 +207,18 @@ abstract class ClockPanel extends JPanel
 		add(mainContainer, BorderLayout.CENTER);
 	}
 
-	void reset()
-	{
+	void reset() {
 		updateDisplayInput();
 		updateActivityStatus();
 	}
 
-	void updateDisplayInput()
-	{
-		if (!displayInput.getTextField().hasFocus())
-		{
+	void updateDisplayInput() {
+		if (!displayInput.getTextField().hasFocus()) {
 			displayInput.setText(getFormattedDuration(clock.getDisplayTime()));
 		}
 	}
 
-	private void updateActivityStatus()
-	{
+	private void updateActivityStatus() {
 		boolean isActive = clock.isActive();
 
 		displayInput.setEditable(editable && !isActive);
@@ -243,14 +226,12 @@ abstract class ClockPanel extends JPanel
 		startPauseButton.setToolTipText(isActive ? "Pause " + clockType : "Start " + clockType);
 		startPauseButton.setSelected(isActive);
 
-		if (editable && clock.getDisplayTime() == 0 && !isActive)
-		{
+		if (editable && clock.getDisplayTime() == 0 && !isActive) {
 			displayInput.getTextField().setForeground(ColorScheme.PROGRESS_ERROR_COLOR.darker());
 		}
 	}
 
-	static String getFormattedDuration(long duration)
-	{
+	static String getFormattedDuration(long duration) {
 		long hours = duration / (60 * 60);
 		long mins = (duration / 60) % 60;
 		long seconds = duration % 60;
@@ -258,22 +239,17 @@ abstract class ClockPanel extends JPanel
 		return String.format("%02d:%02d:%02d", hours, mins, seconds);
 	}
 
-	static long stringToSeconds(String time) throws NumberFormatException, DateTimeParseException
-	{
+	static long stringToSeconds(String time) throws NumberFormatException, DateTimeParseException {
 		long duration = 0;
 
-		if (time.matches(INPUT_HMS_REGEX))
-		{
+		if (time.matches(INPUT_HMS_REGEX)) {
 			String textWithoutWhitespaces = time.replaceAll(WHITESPACE_REGEX, "");
 			//parse input using ISO-8601 Duration format (e.g. 'PT1h30m10s')
 			duration = Duration.parse("PT" + textWithoutWhitespaces).toMillis() / 1000;
-		}
-		else
-		{
+		} else {
 			String[] parts = time.split(":");
 			// parse from back to front, so as to accept hour:min:sec, min:sec, and sec formats
-			for (int i = parts.length - 1, multiplier = 1; i >= 0 && multiplier <= 3600; i--, multiplier *= 60)
-			{
+			for (int i = parts.length - 1, multiplier = 1; i >= 0 && multiplier <= 3600; i--, multiplier *= 60) {
 				duration += Integer.parseInt(parts[i].trim()) * multiplier;
 			}
 		}

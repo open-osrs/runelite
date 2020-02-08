@@ -9,56 +9,56 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PlatformInfo extends Node {
 	@ObfuscatedName("ay")
 	@ObfuscatedGetter(
-		intValue = 673816071
+			intValue = 673816071
 	)
 	int field3911;
 	@ObfuscatedName("aa")
 	boolean field3904;
 	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
-		intValue = 1159209885
+			intValue = 1159209885
 	)
 	int field3913;
 	@ObfuscatedName("as")
 	@ObfuscatedGetter(
-		intValue = 2116751685
+			intValue = 2116751685
 	)
 	int field3914;
 	@ObfuscatedName("ak")
 	@ObfuscatedGetter(
-		intValue = -1612963129
+			intValue = -1612963129
 	)
 	int field3915;
 	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = -544797125
+			intValue = -544797125
 	)
 	int field3916;
 	@ObfuscatedName("aw")
 	@ObfuscatedGetter(
-		intValue = 1024722961
+			intValue = 1024722961
 	)
 	int field3917;
 	@ObfuscatedName("ar")
 	boolean field3935;
 	@ObfuscatedName("av")
 	@ObfuscatedGetter(
-		intValue = 1351692389
+			intValue = 1351692389
 	)
 	int field3919;
 	@ObfuscatedName("al")
 	@ObfuscatedGetter(
-		intValue = 2094154461
+			intValue = 2094154461
 	)
 	int field3920;
 	@ObfuscatedName("am")
 	@ObfuscatedGetter(
-		intValue = 555115055
+			intValue = 555115055
 	)
 	int field3921;
 	@ObfuscatedName("ao")
 	@ObfuscatedGetter(
-		intValue = -2000907591
+			intValue = -2000907591
 	)
 	int field3922;
 	@ObfuscatedName("at")
@@ -71,22 +71,22 @@ public class PlatformInfo extends Node {
 	String field3926;
 	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = -2099364457
+			intValue = -2099364457
 	)
 	int field3927;
 	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
-		intValue = 1890356539
+			intValue = 1890356539
 	)
 	int field3928;
 	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -1529496749
+			intValue = -1529496749
 	)
 	int field3929;
 	@ObfuscatedName("bq")
 	@ObfuscatedGetter(
-		intValue = -735779413
+			intValue = -735779413
 	)
 	int field3930;
 	@ObfuscatedName("bf")
@@ -97,7 +97,7 @@ public class PlatformInfo extends Node {
 	int[] field3933;
 	@ObfuscatedName("bb")
 	@ObfuscatedGetter(
-		intValue = -1285130001
+			intValue = -1285130001
 	)
 	int field3923;
 	@ObfuscatedName("bi")
@@ -134,8 +134,8 @@ public class PlatformInfo extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lkp;I)V",
-		garbageValue = "-119977532"
+			signature = "(Lkp;I)V",
+			garbageValue = "-119977532"
 	)
 	@Export("write")
 	public void write(Buffer var1) {
@@ -173,8 +173,8 @@ public class PlatformInfo extends Node {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "0"
+			signature = "(B)I",
+			garbageValue = "0"
 	)
 	@Export("size")
 	public int size() {

@@ -25,8 +25,11 @@
 package net.runelite.cache.fs;
 
 import static com.google.common.primitives.Bytes.concat;
+
 import com.google.common.primitives.Ints;
+
 import java.io.IOException;
+
 import net.runelite.cache.fs.jagex.CompressionType;
 import net.runelite.cache.io.InputStream;
 import net.runelite.cache.io.OutputStream;
@@ -37,8 +40,7 @@ import net.runelite.cache.util.Xtea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Container
-{
+public class Container {
 	private static final Logger logger = LoggerFactory.getLogger(Container.class);
 
 	public byte[] data;
@@ -46,20 +48,17 @@ public class Container
 	public int revision;
 	public int crc; // crc of compressed data
 
-	public Container(int compression, int revision)
-	{
+	public Container(int compression, int revision) {
 		this.compression = compression;
 		this.revision = revision;
 	}
 
-	public void compress(byte[] data, int[] keys) throws IOException
-	{
+	public void compress(byte[] data, int[] keys) throws IOException {
 		OutputStream stream = new OutputStream();
 
 		byte[] compressedData;
 		int length;
-		switch (compression)
-		{
+		switch (compression) {
 			case CompressionType.NONE:
 				compressedData = data;
 				length = compressedData.length;
@@ -82,22 +81,19 @@ public class Container
 		stream.writeInt(length);
 
 		stream.writeBytes(compressedData);
-		if (revision != -1)
-		{
+		if (revision != -1) {
 			stream.writeShort(revision);
 		}
 
 		this.data = stream.flip();
 	}
 
-	public static Container decompress(byte[] b, int[] keys) throws IOException
-	{
+	public static Container decompress(byte[] b, int[] keys) throws IOException {
 		InputStream stream = new InputStream(b);
 
 		int compression = stream.readUnsignedByte();
 		int compressedLength = stream.readInt();
-		if (compressedLength < 0 || compressedLength > 1000000)
-		{
+		if (compressedLength < 0 || compressedLength > 1000000) {
 			throw new RuntimeException("Invalid data");
 		}
 
@@ -106,18 +102,15 @@ public class Container
 
 		byte[] data;
 		int revision = -1;
-		switch (compression)
-		{
-			case CompressionType.NONE:
-			{
+		switch (compression) {
+			case CompressionType.NONE: {
 				byte[] encryptedData = new byte[compressedLength];
 				stream.readBytes(encryptedData, 0, compressedLength);
 
 				crc32.update(encryptedData, 0, compressedLength);
 				byte[] decryptedData = decrypt(encryptedData, encryptedData.length, keys);
 
-				if (stream.remaining() >= 2)
-				{
+				if (stream.remaining() >= 2) {
 					revision = stream.readUnsignedShort();
 					assert revision != -1;
 				}
@@ -126,16 +119,14 @@ public class Container
 
 				break;
 			}
-			case CompressionType.BZ2:
-			{
+			case CompressionType.BZ2: {
 				byte[] encryptedData = new byte[compressedLength + 4];
 				stream.readBytes(encryptedData);
 
 				crc32.update(encryptedData, 0, encryptedData.length);
 				byte[] decryptedData = decrypt(encryptedData, encryptedData.length, keys);
 
-				if (stream.remaining() >= 2)
-				{
+				if (stream.remaining() >= 2) {
 					revision = stream.readUnsignedShort();
 					assert revision != -1;
 				}
@@ -145,8 +136,7 @@ public class Container
 				int decompressedLength = stream.readInt();
 				data = BZip2.decompress(stream.getRemaining(), compressedLength);
 
-				if (data == null)
-				{
+				if (data == null) {
 					return null;
 				}
 
@@ -154,16 +144,14 @@ public class Container
 
 				break;
 			}
-			case CompressionType.GZ:
-			{
+			case CompressionType.GZ: {
 				byte[] encryptedData = new byte[compressedLength + 4];
 				stream.readBytes(encryptedData);
 
 				crc32.update(encryptedData, 0, encryptedData.length);
 				byte[] decryptedData = decrypt(encryptedData, encryptedData.length, keys);
 
-				if (stream.remaining() >= 2)
-				{
+				if (stream.remaining() >= 2) {
 					revision = stream.readUnsignedShort();
 					assert revision != -1;
 				}
@@ -173,8 +161,7 @@ public class Container
 				int decompressedLength = stream.readInt();
 				data = GZip.decompress(stream.getRemaining(), compressedLength);
 
-				if (data == null)
-				{
+				if (data == null) {
 					return null;
 				}
 
@@ -192,10 +179,8 @@ public class Container
 		return container;
 	}
 
-	private static byte[] decrypt(byte[] data, int length, int[] keys)
-	{
-		if (keys == null)
-		{
+	private static byte[] decrypt(byte[] data, int length, int[] keys) {
+		if (keys == null) {
 			return data;
 		}
 
@@ -203,10 +188,8 @@ public class Container
 		return xtea.decrypt(data, length);
 	}
 
-	private static byte[] encrypt(byte[] data, int length, int[] keys)
-	{
-		if (keys == null)
-		{
+	private static byte[] encrypt(byte[] data, int length, int[] keys) {
+		if (keys == null) {
 			return data;
 		}
 

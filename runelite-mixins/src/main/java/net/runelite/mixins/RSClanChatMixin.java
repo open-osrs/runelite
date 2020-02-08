@@ -12,18 +12,15 @@ import net.runelite.rs.api.RSUser;
 import net.runelite.rs.api.RSUsername;
 
 @Mixin(RSClanChat.class)
-public abstract class RSClanChatMixin implements RSClanChat
-{
+public abstract class RSClanChatMixin implements RSClanChat {
 	@Shadow("client")
 	private static RSClient client;
 
 	@Inject
 	@Override
-	public void rl$add(RSUsername name, RSUsername prevName)
-	{
+	public void rl$add(RSUsername name, RSUsername prevName) {
 		RSClanMate member = findByName(name);
-		if (member == null)
-		{
+		if (member == null) {
 			return;
 		}
 
@@ -33,11 +30,9 @@ public abstract class RSClanChatMixin implements RSClanChat
 
 	@Inject
 	@Override
-	public void rl$remove(RSUser nameable)
-	{
+	public void rl$remove(RSUser nameable) {
 		RSClanMate member = findByName(nameable.getRsName());
-		if (member == null)
-		{
+		if (member == null) {
 			return;
 		}
 

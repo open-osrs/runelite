@@ -27,10 +27,12 @@ package net.runelite.client.config;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.time.Instant;
 import java.util.UUID;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.client.account.AccountSession;
 import net.runelite.client.eventbus.EventBus;
@@ -42,8 +44,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ConfigManagerTest
-{
+public class ConfigManagerTest {
 	@Mock
 	@Bind
 	Client client;
@@ -68,14 +69,12 @@ public class ConfigManagerTest
 	ConfigManager manager;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testGetConfig()
-	{
+	public void testGetConfig() {
 		AccountSession accountSession = new AccountSession(UUID.randomUUID(), Instant.now());
 		accountSession.setUsername("test");
 
@@ -86,8 +85,7 @@ public class ConfigManagerTest
 	}
 
 	@Test
-	public void testGetConfigDefault()
-	{
+	public void testGetConfigDefault() {
 		AccountSession accountSession = new AccountSession(UUID.randomUUID(), Instant.now());
 		accountSession.setUsername("test");
 
@@ -96,8 +94,7 @@ public class ConfigManagerTest
 	}
 
 	@Test
-	public void testSetConfig()
-	{
+	public void testSetConfig() {
 		AccountSession accountSession = new AccountSession(UUID.randomUUID(), Instant.now());
 		accountSession.setUsername("test");
 
@@ -108,8 +105,7 @@ public class ConfigManagerTest
 	}
 
 	@Test
-	public void testGetConfigDescriptor()
-	{
+	public void testGetConfigDescriptor() {
 		AccountSession accountSession = new AccountSession(UUID.randomUUID(), Instant.now());
 		accountSession.setUsername("test");
 

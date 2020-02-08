@@ -32,19 +32,19 @@ import net.runelite.client.util.AsyncBufferedImage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GrandExchangeOfferSlotTest
-{
+public class GrandExchangeOfferSlotTest {
 	@Mock
 	private GrandExchangeOffer offer;
 
 	@Test
-	public void testUpdateOffer()
-	{
+	public void testUpdateOffer() {
 		when(offer.getState()).thenReturn(GrandExchangeOfferState.CANCELLED_BUY);
 
 		GrandExchangeOfferSlot offerSlot = new GrandExchangeOfferSlot();

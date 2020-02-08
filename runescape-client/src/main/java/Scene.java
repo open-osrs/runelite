@@ -59,7 +59,7 @@ public class Scene {
 	static int Scene_cameraYawCosine;
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "[Lea;"
+			signature = "[Lea;"
 	)
 	@Export("gameObjects")
 	static GameObject[] gameObjects;
@@ -92,7 +92,7 @@ public class Scene {
 	static int[] Scene_planeOccluderCounts;
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "[[Ler;"
+			signature = "[[Ler;"
 	)
 	@Export("Scene_planeOccluders")
 	static Occluder[][] Scene_planeOccluders;
@@ -101,13 +101,13 @@ public class Scene {
 	static int Scene_currentOccludersCount;
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "[Ler;"
+			signature = "[Ler;"
 	)
 	@Export("Scene_currentOccluders")
 	static Occluder[] Scene_currentOccluders;
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+			signature = "Ljw;"
 	)
 	@Export("Scene_tilesDeque")
 	static NodeDeque Scene_tilesDeque;
@@ -163,7 +163,7 @@ public class Scene {
 	int[][][] tileHeights;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "[[[Ldz;"
+			signature = "[[[Ldz;"
 	)
 	@Export("tiles")
 	Tile[][][] tiles;
@@ -175,7 +175,7 @@ public class Scene {
 	int tempGameObjectsCount;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "[Lea;"
+			signature = "[Lea;"
 	)
 	@Export("tempGameObjects")
 	GameObject[] tempGameObjects;
@@ -355,7 +355,7 @@ public class Scene {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(IIIILeq;JI)V"
+			signature = "(IIIILeq;JI)V"
 	)
 	@Export("newFloorDecoration")
 	public void newFloorDecoration(int var1, int var2, int var3, int var4, Entity var5, long var6, int var8) {
@@ -377,7 +377,7 @@ public class Scene {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(IIIILeq;JLeq;Leq;)V"
+			signature = "(IIIILeq;JLeq;Leq;)V"
 	)
 	@Export("newGroundItemPile")
 	public void newGroundItemPile(int var1, int var2, int var3, int var4, Entity var5, long var6, Entity var8, Entity var9) {
@@ -394,7 +394,7 @@ public class Scene {
 		if (var12 != null) {
 			for (int var13 = 0; var13 < var12.gameObjectsCount; ++var13) {
 				if ((var12.gameObjects[var13].flags & 256) == 256 && var12.gameObjects[var13].entity instanceof Model) {
-					Model var14 = (Model)var12.gameObjects[var13].entity;
+					Model var14 = (Model) var12.gameObjects[var13].entity;
 					var14.calculateBoundsCylinder();
 					if (var14.height > var11) {
 						var11 = var14.height;
@@ -413,7 +413,7 @@ public class Scene {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIIILeq;Leq;IIJI)V"
+			signature = "(IIIILeq;Leq;IIJI)V"
 	)
 	@Export("newBoundaryObject")
 	public void newBoundaryObject(int var1, int var2, int var3, int var4, Entity var5, Entity var6, int var7, int var8, long var9, int var11) {
@@ -441,7 +441,7 @@ public class Scene {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIIILeq;Leq;IIIIJI)V"
+			signature = "(IIIILeq;Leq;IIIIJI)V"
 	)
 	@Export("newWallDecoration")
 	public void newWallDecoration(int var1, int var2, int var3, int var4, Entity var5, Entity var6, int var7, int var8, int var9, int var10, long var11, int var13) {
@@ -471,7 +471,7 @@ public class Scene {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IIIIIILeq;IJI)Z"
+			signature = "(IIIIIILeq;IJI)Z"
 	)
 	public boolean method3165(int var1, int var2, int var3, int var4, int var5, int var6, Entity var7, int var8, long var9, int var11) {
 		if (var7 == null) {
@@ -485,7 +485,7 @@ public class Scene {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IIIIILeq;IJZ)Z"
+			signature = "(IIIIILeq;IJZ)Z"
 	)
 	@Export("drawEntity")
 	public boolean drawEntity(int var1, int var2, int var3, int var4, int var5, Entity var6, int var7, long var8, boolean var10) {
@@ -524,7 +524,7 @@ public class Scene {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(IIIIILeq;IJIIII)Z"
+			signature = "(IIIIILeq;IJIIII)Z"
 	)
 	@Export("addNullableObject")
 	public boolean addNullableObject(int var1, int var2, int var3, int var4, int var5, Entity var6, int var7, long var8, int var10, int var11, int var12, int var13) {
@@ -533,7 +533,7 @@ public class Scene {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIILeq;IZJI)Z"
+			signature = "(IIIIIIIILeq;IZJI)Z"
 	)
 	@Export("newGameObject")
 	boolean newGameObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, Entity var9, int var10, boolean var11, long var12, int var14) {
@@ -619,7 +619,7 @@ public class Scene {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Lea;)V"
+			signature = "(Lea;)V"
 	)
 	@Export("removeGameObject")
 	void removeGameObject(GameObject var1) {
@@ -719,7 +719,7 @@ public class Scene {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(III)Leu;"
+			signature = "(III)Leu;"
 	)
 	public BoundaryObject method3177(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -728,7 +728,7 @@ public class Scene {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		signature = "(III)Len;"
+			signature = "(III)Len;"
 	)
 	public WallDecoration method3178(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -737,7 +737,7 @@ public class Scene {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "(III)Lea;"
+			signature = "(III)Lea;"
 	)
 	public GameObject method3203(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -757,7 +757,7 @@ public class Scene {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(III)Ldu;"
+			signature = "(III)Ldu;"
 	)
 	@Export("getFloorDecoration")
 	public FloorDecoration getFloorDecoration(int var1, int var2, int var3) {
@@ -837,10 +837,10 @@ public class Scene {
 						BoundaryObject var8 = var7.boundaryObject;
 						ModelData var10;
 						if (var8 != null && var8.entity1 instanceof ModelData) {
-							ModelData var9 = (ModelData)var8.entity1;
+							ModelData var9 = (ModelData) var8.entity1;
 							this.method3212(var9, var4, var5, var6, 1, 1);
 							if (var8.entity2 instanceof ModelData) {
-								var10 = (ModelData)var8.entity2;
+								var10 = (ModelData) var8.entity2;
 								this.method3212(var10, var4, var5, var6, 1, 1);
 								ModelData.method2849(var9, var10, 0, 0, 0, false);
 								var8.entity2 = var10.toModel(var10.ambient, var10.contrast, var1, var2, var3);
@@ -852,7 +852,7 @@ public class Scene {
 						for (int var12 = 0; var12 < var7.gameObjectsCount; ++var12) {
 							GameObject var14 = var7.gameObjects[var12];
 							if (var14 != null && var14.entity instanceof ModelData) {
-								ModelData var11 = (ModelData)var14.entity;
+								ModelData var11 = (ModelData) var14.entity;
 								this.method3212(var11, var4, var5, var6, var14.endX - var14.startX + 1, var14.endY - var14.startY + 1);
 								var14.entity = var11.toModel(var11.ambient, var11.contrast, var1, var2, var3);
 							}
@@ -860,7 +860,7 @@ public class Scene {
 
 						FloorDecoration var13 = var7.floorDecoration;
 						if (var13 != null && var13.entity instanceof ModelData) {
-							var10 = (ModelData)var13.entity;
+							var10 = (ModelData) var13.entity;
 							this.method3187(var10, var4, var5, var6);
 							var13.entity = var10.toModel(var10.ambient, var10.contrast, var1, var2, var3);
 						}
@@ -873,7 +873,7 @@ public class Scene {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(Ldg;III)V"
+			signature = "(Ldg;III)V"
 	)
 	void method3187(ModelData var1, int var2, int var3, int var4) {
 		Tile var5;
@@ -881,7 +881,7 @@ public class Scene {
 		if (var3 < this.xSize) {
 			var5 = this.tiles[var2][var3 + 1][var4];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.entity instanceof ModelData) {
-				var6 = (ModelData)var5.floorDecoration.entity;
+				var6 = (ModelData) var5.floorDecoration.entity;
 				ModelData.method2849(var1, var6, 128, 0, 0, true);
 			}
 		}
@@ -889,7 +889,7 @@ public class Scene {
 		if (var4 < this.xSize) {
 			var5 = this.tiles[var2][var3][var4 + 1];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.entity instanceof ModelData) {
-				var6 = (ModelData)var5.floorDecoration.entity;
+				var6 = (ModelData) var5.floorDecoration.entity;
 				ModelData.method2849(var1, var6, 0, 0, 128, true);
 			}
 		}
@@ -897,7 +897,7 @@ public class Scene {
 		if (var3 < this.xSize && var4 < this.ySize) {
 			var5 = this.tiles[var2][var3 + 1][var4 + 1];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.entity instanceof ModelData) {
-				var6 = (ModelData)var5.floorDecoration.entity;
+				var6 = (ModelData) var5.floorDecoration.entity;
 				ModelData.method2849(var1, var6, 128, 0, 128, true);
 			}
 		}
@@ -905,7 +905,7 @@ public class Scene {
 		if (var3 < this.xSize && var4 > 0) {
 			var5 = this.tiles[var2][var3 + 1][var4 - 1];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.entity instanceof ModelData) {
-				var6 = (ModelData)var5.floorDecoration.entity;
+				var6 = (ModelData) var5.floorDecoration.entity;
 				ModelData.method2849(var1, var6, 128, 0, -128, true);
 			}
 		}
@@ -914,7 +914,7 @@ public class Scene {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(Ldg;IIIII)V"
+			signature = "(Ldg;IIIII)V"
 	)
 	void method3212(ModelData var1, int var2, int var3, int var4, int var5, int var6) {
 		boolean var7 = true;
@@ -936,12 +936,12 @@ public class Scene {
 									if (var17 != null) {
 										ModelData var18;
 										if (var17.entity1 instanceof ModelData) {
-											var18 = (ModelData)var17.entity1;
+											var18 = (ModelData) var17.entity1;
 											ModelData.method2849(var1, var18, (1 - var5) * 64 + (var13 - var3) * 128, var16, (var14 - var4) * 128 + (1 - var6) * 64, var7);
 										}
 
 										if (var17.entity2 instanceof ModelData) {
-											var18 = (ModelData)var17.entity2;
+											var18 = (ModelData) var17.entity2;
 											ModelData.method2849(var1, var18, (1 - var5) * 64 + (var13 - var3) * 128, var16, (var14 - var4) * 128 + (1 - var6) * 64, var7);
 										}
 									}
@@ -949,7 +949,7 @@ public class Scene {
 									for (int var23 = 0; var23 < var15.gameObjectsCount; ++var23) {
 										GameObject var19 = var15.gameObjects[var23];
 										if (var19 != null && var19.entity instanceof ModelData) {
-											ModelData var20 = (ModelData)var19.entity;
+											ModelData var20 = (ModelData) var19.entity;
 											int var21 = var19.endX - var19.startX + 1;
 											int var22 = var19.endY - var19.startY + 1;
 											ModelData.method2849(var1, var20, (var21 - var5) * 64 + (var19.startX - var3) * 128, var16, (var19.startY - var4) * 128 + (var22 - var6) * 64, var7);
@@ -1252,7 +1252,7 @@ public class Scene {
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(Ldz;Z)V"
+			signature = "(Ldz;Z)V"
 	)
 	@Export("drawTile")
 	void drawTile(Tile var1, boolean var2) {
@@ -1288,11 +1288,11 @@ public class Scene {
 										Tile var36;
 										while (true) {
 											do {
-												var3 = (Tile)Scene_tilesDeque.removeLast();
+												var3 = (Tile) Scene_tilesDeque.removeLast();
 												if (var3 == null) {
 													return;
 												}
-											} while(!var3.drawSecondary);
+											} while (!var3.drawSecondary);
 
 											var4 = var3.x;
 											var5 = var3.y;
@@ -1652,36 +1652,36 @@ public class Scene {
 											break;
 										}
 									}
-								} while(!var3.drawSecondary);
-							} while(var3.drawGameObjectEdges != 0);
+								} while (!var3.drawSecondary);
+							} while (var3.drawGameObjectEdges != 0);
 
 							if (var4 > Scene_cameraXTile || var4 <= Scene_cameraXTileMin) {
 								break;
 							}
 
 							var9 = var8[var4 - 1][var5];
-						} while(var9 != null && var9.drawSecondary);
+						} while (var9 != null && var9.drawSecondary);
 
 						if (var4 < Scene_cameraXTile || var4 >= Scene_cameraXTileMax - 1) {
 							break;
 						}
 
 						var9 = var8[var4 + 1][var5];
-					} while(var9 != null && var9.drawSecondary);
+					} while (var9 != null && var9.drawSecondary);
 
 					if (var5 > Scene_cameraYTile || var5 <= Scene_cameraYTileMin) {
 						break;
 					}
 
 					var9 = var8[var4][var5 - 1];
-				} while(var9 != null && var9.drawSecondary);
+				} while (var9 != null && var9.drawSecondary);
 
 				if (var5 < Scene_cameraYTile || var5 >= Scene_cameraYTileMax - 1) {
 					break;
 				}
 
 				var9 = var8[var4][var5 + 1];
-			} while(var9 != null && var9.drawSecondary);
+			} while (var9 != null && var9.drawSecondary);
 
 			var3.drawSecondary = false;
 			--tileUpdateCount;
@@ -1782,7 +1782,7 @@ public class Scene {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(Lee;IIIIIII)V"
+			signature = "(Lee;IIIIIII)V"
 	)
 	@Export("drawTileUnderlay")
 	void drawTileUnderlay(TilePaint var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
@@ -1893,7 +1893,7 @@ public class Scene {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(Ldt;IIIIII)V"
+			signature = "(Ldt;IIIIII)V"
 	)
 	@Export("drawTileOverlay")
 	void drawTileOverlay(TileModel var1, int var2, int var3, int var4, int var5, int var6, int var7) {

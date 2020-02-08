@@ -26,6 +26,7 @@ package net.runelite.deob.deobfuscators;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.ClassUtil;
@@ -39,8 +40,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class UnusedClassTest
-{
+public class UnusedClassTest {
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
 
@@ -50,40 +50,36 @@ public class UnusedClassTest
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException
-	{
+	public void before() throws IOException {
 		group = new ClassGroup();
 
 		load("EmptyInterface.class");
 		load("ClassA.class");
 		ClassFile emptyClass = load("EmptyClass.class");
-		
+
 		emptyClass.removeMethod(emptyClass.findMethod("<init>"));
 	}
 
-	private ClassFile load(String name) throws IOException
-	{
+	private ClassFile load(String name) throws IOException {
 		InputStream in = UnusedClassTest.class.getResourceAsStream("unusedclass/" + name);
 		Assert.assertNotNull(in);
 
 		ClassFile cf = ClassUtil.loadClass(in);
 		group.addClass(cf);
-		
+
 		return cf;
 	}
 
 	@After
-	public void after() throws IOException
-	{
+	public void after() throws IOException {
 		JarUtil.saveJar(group, folder.newFile());
 	}
 
 	@Test
-	public void testRun()
-	{
+	public void testRun() {
 		UnusedClass uc = new UnusedClass();
 		uc.run(group);
-		
+
 		Assert.assertNotNull(group.findClass("net/runelite/deob/deobfuscators/unusedclass/ClassA"));
 		Assert.assertNull(group.findClass("net/runelite/deob/deobfuscators/unusedclass/EmptyClass"));
 		Assert.assertNotNull(group.findClass("net/runelite/deob/deobfuscators/unusedclass/EmptyInterface"));

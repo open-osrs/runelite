@@ -3,8 +3,7 @@ package net.runelite.api;
 /**
  * Represents a widget as an iterable node.
  */
-public interface WidgetNode extends Node
-{
+public interface WidgetNode extends Node {
 	/**
 	 * The ID of the widget.
 	 *

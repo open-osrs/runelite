@@ -33,57 +33,48 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-public class BatSolver
-{
+public class BatSolver {
 	private Map<Integer, Integer> numberOfSolutionsWithPoison;
 	private final SolutionSet solution;
 	private final ThievingRoomType roomType;
 	private final Set<Integer> grubsChests;
 
-	public BatSolver(final ThievingRoomType roomType)
-	{
+	public BatSolver(final ThievingRoomType roomType) {
 		solution = new SolutionSet();
 		grubsChests = new HashSet<>();
 		this.roomType = roomType;
 	}
 
-	public void addEmptyChest(int chestId)
-	{
+	public void addEmptyChest(int chestId) {
 		// When a new empty chest is found, add it to the current solution set
 		solution.addEmptyChest(chestId);
 		calculateChanceOfPoison();
 	}
 
-	public void addGrubsChest(int chestId)
-	{
+	public void addGrubsChest(int chestId) {
 		// When a chest with grubs is found, keep track of it to invalidate solutions
 		grubsChests.add(chestId);
 		calculateChanceOfPoison();
 	}
 
-	public Set<Integer> matchSolutions()
-	{
+	public Set<Integer> matchSolutions() {
 		Set<Integer> possibleEmptyChests = new TreeSet<>();
 
 		List<Set<Integer>> sols = SolutionSet.SOLUTION_SETS.get(roomType).stream()
-			.filter(this::matchSolution)
-			.map(SolutionSet::getEmptyChests)
-			.collect(Collectors.toList());
+				.filter(this::matchSolution)
+				.map(SolutionSet::getEmptyChests)
+				.collect(Collectors.toList());
 
-		for (Set<Integer> sol : sols)
-		{
+		for (Set<Integer> sol : sols) {
 			possibleEmptyChests.addAll(sol);
 		}
 
 		return possibleEmptyChests;
 	}
 
-	private boolean matchSolution(SolutionSet testSolution)
-	{
-		for (Integer grubsChest : grubsChests)
-		{
-			if (testSolution.containsChest(grubsChest))
-			{
+	private boolean matchSolution(SolutionSet testSolution) {
+		for (Integer grubsChest : grubsChests) {
+			if (testSolution.containsChest(grubsChest)) {
 				// If one of the chests is known to have grubs, it cannot be a solution
 				return false;
 			}
@@ -91,35 +82,24 @@ public class BatSolver
 
 		boolean matchesAll = true;
 		boolean everMatched = false;
-		for (int i : solution.getEmptyChests())
-		{
-			if (!testSolution.containsChest(i))
-			{
+		for (int i : solution.getEmptyChests()) {
+			if (!testSolution.containsChest(i)) {
 				matchesAll = false;
-			}
-			else
-			{
+			} else {
 				everMatched = true;
 			}
 		}
 		return matchesAll && everMatched;
 	}
 
-	private void calculateChanceOfPoison()
-	{
+	private void calculateChanceOfPoison() {
 		numberOfSolutionsWithPoison = new HashMap<>();
-		for (SolutionSet sol : getPosssibleSolutions())
-		{
-			if (solution.getEmptyChests().size() == 0 || matchSolution(sol))
-			{
-				for (Integer i : sol.getEmptyChests())
-				{
-					if (numberOfSolutionsWithPoison.containsKey(i))
-					{
+		for (SolutionSet sol : getPosssibleSolutions()) {
+			if (solution.getEmptyChests().size() == 0 || matchSolution(sol)) {
+				for (Integer i : sol.getEmptyChests()) {
+					if (numberOfSolutionsWithPoison.containsKey(i)) {
 						numberOfSolutionsWithPoison.put(i, numberOfSolutionsWithPoison.get(i) + 1);
-					}
-					else
-					{
+					} else {
 						numberOfSolutionsWithPoison.put(i, 1);
 					}
 				}
@@ -127,52 +107,41 @@ public class BatSolver
 		}
 	}
 
-	private List<SolutionSet> getPosssibleSolutions()
-	{
+	private List<SolutionSet> getPosssibleSolutions() {
 		List<SolutionSet> possibleSolutions = new ArrayList<>();
-		for (SolutionSet soln : SolutionSet.SOLUTION_SETS.get(roomType))
-		{
+		for (SolutionSet soln : SolutionSet.SOLUTION_SETS.get(roomType)) {
 			// Check if we've found grubs in one of the chests, invalidating it as an solution
 			boolean foundMatch = false;
-			for (int i : grubsChests)
-			{
-				if (soln.containsChest(i))
-				{
+			for (int i : grubsChests) {
+				if (soln.containsChest(i)) {
 					foundMatch = true;
 				}
 			}
-			if (!foundMatch)
-			{
+			if (!foundMatch) {
 				possibleSolutions.add(soln);
 			}
 		}
 		return possibleSolutions;
 	}
 
-	public double relativeLikelihoodPoison(int chestId)
-	{
+	public double relativeLikelihoodPoison(int chestId) {
 		// Returns a double between 0 and 1 of how likely the chest has poison based on the number of possible solutions
 		// Uses a Sigmoid like function to give good contrast in drawn opacity,
 		// perhaps could be changed to something more accurate quantitavely.
-		if (numberOfSolutionsWithPoison == null)
-		{
+		if (numberOfSolutionsWithPoison == null) {
 			calculateChanceOfPoison();
 		}
-		if (numberOfSolutionsWithPoison == null)
-		{
+		if (numberOfSolutionsWithPoison == null) {
 			return 1.0;
 		}
 		int mostFrequentPoison = 0;
-		for (Map.Entry<Integer, Integer> entry : numberOfSolutionsWithPoison.entrySet())
-		{
-			if (entry.getValue() > mostFrequentPoison)
-			{
+		for (Map.Entry<Integer, Integer> entry : numberOfSolutionsWithPoison.entrySet()) {
+			if (entry.getValue() > mostFrequentPoison) {
 				mostFrequentPoison = entry.getValue();
 			}
 		}
 		int timesFound = 0;
-		if (numberOfSolutionsWithPoison.containsKey(chestId))
-		{
+		if (numberOfSolutionsWithPoison.containsKey(chestId)) {
 			timesFound = numberOfSolutionsWithPoison.get(chestId);
 		}
 		double chestChance = (double) (timesFound) / (double) (mostFrequentPoison);

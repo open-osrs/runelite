@@ -26,8 +26,7 @@ package net.runelite.client.plugins.attackstyles;
 
 import net.runelite.api.Skill;
 
-public enum AttackStyle
-{
+public enum AttackStyle {
 	ACCURATE("Accurate", Skill.ATTACK),
 	AGGRESSIVE("Aggressive", Skill.STRENGTH),
 	DEFENSIVE("Defensive", Skill.DEFENCE),
@@ -41,19 +40,16 @@ public enum AttackStyle
 	private final String name;
 	private final Skill[] skills;
 
-	AttackStyle(String name, Skill... skills)
-	{
+	AttackStyle(String name, Skill... skills) {
 		this.name = name;
 		this.skills = skills;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public Skill[] getSkills()
-	{
+	public Skill[] getSkills() {
 		return skills;
 	}
 }

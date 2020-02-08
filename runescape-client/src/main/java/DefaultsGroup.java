@@ -9,12 +9,12 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class DefaultsGroup {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+			signature = "Lkn;"
 	)
 	static final DefaultsGroup field3793;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1864717017
+			intValue = 1864717017
 	)
 	@Export("group")
 	final int group;
@@ -29,8 +29,8 @@ public class DefaultsGroup {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)Lbg;",
-		garbageValue = "310437659"
+			signature = "(I)Lbg;",
+			garbageValue = "310437659"
 	)
 	@Export("getNextWorldListWorld")
 	static World getNextWorldListWorld() {
@@ -39,8 +39,8 @@ public class DefaultsGroup {
 
 	@ObfuscatedName("kz")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-245092845"
+			signature = "(I)V",
+			garbageValue = "-245092845"
 	)
 	static final void method5953() {
 		for (int var0 = 0; var0 < Players.Players_count; ++var0) {

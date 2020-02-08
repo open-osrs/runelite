@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
@@ -48,16 +49,14 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
 @Slf4j
-public class ArrowWorldOverlay extends Overlay
-{
+public class ArrowWorldOverlay extends Overlay {
 	private static final int Z_OFFSET = 20;
 
 	private final ArrowPointManager arrowPointManager;
 	private final Client client;
 
 	@Inject
-	private ArrowWorldOverlay(Client client, ArrowPointManager arrowPointManager)
-	{
+	private ArrowWorldOverlay(Client client, ArrowPointManager arrowPointManager) {
 		this.client = client;
 		this.arrowPointManager = arrowPointManager;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -66,65 +65,48 @@ public class ArrowWorldOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		final Collection<ArrowPoint> points = arrowPointManager.getArrowPoints().values();
 
-		if (points.isEmpty())
-		{
+		if (points.isEmpty()) {
 			return null;
 		}
 
 		WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
 
-		for (ArrowPoint arrowPoint : points)
-		{
+		for (ArrowPoint arrowPoint : points) {
 			WorldPoint point = arrowPoint.getWorldPoint();
 
-			if (point.distanceTo(playerLocation) < client.getScene().getDrawDistance())
-			{
+			if (point.distanceTo(playerLocation) < client.getScene().getDrawDistance()) {
 				LocalPoint fallBackPoint = LocalPoint.fromWorld(client, point);
-				if (arrowPoint.types.contains(ArrowType.NPC))
-				{
+				if (arrowPoint.types.contains(ArrowType.NPC)) {
 					boolean found = false;
-					for (NPC npc : client.getCachedNPCs())
-					{
-						if (npc != null && arrowPoint.getNpcIDs().contains(npc.getId()))
-						{
+					for (NPC npc : client.getCachedNPCs()) {
+						if (npc != null && arrowPoint.getNpcIDs().contains(npc.getId())) {
 							found = true;
 							renderWorldArrow(graphics, arrowPoint, npc.getLocalLocation(), npc.getLogicalHeight() + Z_OFFSET);
 						}
 					}
-					if (found || fallBackPoint == null)
-					{
+					if (found || fallBackPoint == null) {
 						continue;
 					}
 
 					renderWorldArrow(graphics, arrowPoint, fallBackPoint);
-				}
-				else if (arrowPoint.types.contains(ArrowType.OBJECT))
-				{
+				} else if (arrowPoint.types.contains(ArrowType.OBJECT)) {
 
 					List<GameObject> objects = ArrowUtil.getObjects(client, arrowPoint.getObjectIDs());
-					if (objects.isEmpty() && fallBackPoint != null)
-					{
+					if (objects.isEmpty() && fallBackPoint != null) {
 						renderWorldArrow(graphics, arrowPoint, fallBackPoint);
 						continue;
 					}
-					for (GameObject object : objects)
-					{
-						if (object.getEntity().getModel() == null)
-						{
+					for (GameObject object : objects) {
+						if (object.getEntity().getModel() == null) {
 							renderWorldArrow(graphics, arrowPoint, object.getLocalLocation(), 0);
-						}
-						else
-						{
+						} else {
 							renderWorldArrow(graphics, arrowPoint, object.getLocalLocation(), object.getEntity().getModel().getModelHeight() + Z_OFFSET);
 						}
 					}
-				}
-				else if (arrowPoint.types.contains(ArrowType.WORLD_POINT))
-				{
+				} else if (arrowPoint.types.contains(ArrowType.WORLD_POINT)) {
 					renderWorldArrow(graphics, arrowPoint, fallBackPoint);
 				}
 			}
@@ -132,26 +114,22 @@ public class ArrowWorldOverlay extends Overlay
 		return null;
 	}
 
-	private void renderWorldArrow(Graphics2D graphics, ArrowPoint arrowPoint, LocalPoint localPoint)
-	{
+	private void renderWorldArrow(Graphics2D graphics, ArrowPoint arrowPoint, LocalPoint localPoint) {
 		renderWorldArrow(graphics, arrowPoint, localPoint, 0);
 	}
 
-	private void renderWorldArrow(Graphics2D graphics, ArrowPoint arrowPoint, LocalPoint localPoint, int zOffset)
-	{
+	private void renderWorldArrow(Graphics2D graphics, ArrowPoint arrowPoint, LocalPoint localPoint, int zOffset) {
 		final BufferedImage worldImage = arrowPoint.getWorldImage();
 		//Draw Tile
 		Polygon poly = Perspective.getCanvasTilePoly(client, localPoint);
-		if (poly != null)
-		{
+		if (poly != null) {
 			OverlayUtil.renderPolygon(graphics, poly, arrowPoint.getTileColor());
 		}
 
 		Point worldIconOffset = arrowPoint.getWorldImageOffset();
 		//Draw World Arrow
 		Point canvasPoint = Perspective.getCanvasImageLocation(client, localPoint, worldImage, zOffset);
-		if (canvasPoint != null)
-		{
+		if (canvasPoint != null) {
 			graphics.drawImage(worldImage, canvasPoint.getX() + worldIconOffset.getX(), canvasPoint.getY() + worldIconOffset.getY(), null);
 		}
 	}

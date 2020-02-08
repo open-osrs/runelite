@@ -33,6 +33,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import lombok.Setter;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
@@ -40,8 +41,7 @@ import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 /**
  * A progress bar to be displayed underneath the GE offer item panels
  */
-public class ProgressBar extends DimmableJPanel
-{
+public class ProgressBar extends DimmableJPanel {
 	@Setter
 	private int maximumValue;
 
@@ -60,8 +60,7 @@ public class ProgressBar extends DimmableJPanel
 	private String centerLabelText = "";
 	private String dimmedText = "";
 
-	public ProgressBar()
-	{
+	public ProgressBar() {
 		setLayout(new BorderLayout());
 		// The background color should be overridden
 		setBackground(Color.GREEN.darker());
@@ -71,9 +70,8 @@ public class ProgressBar extends DimmableJPanel
 
 		int topIndent = 0;
 		if (getFont().equals(FontManager.getRunescapeSmallFont())
-			|| getFont().equals(FontManager.getRunescapeFont())
-			|| getFont().equals(FontManager.getRunescapeBoldFont()))
-		{
+				|| getFont().equals(FontManager.getRunescapeFont())
+				|| getFont().equals(FontManager.getRunescapeBoldFont())) {
 			topIndent = 2;
 		}
 
@@ -97,8 +95,7 @@ public class ProgressBar extends DimmableJPanel
 	}
 
 	@Override
-	public void paint(Graphics g)
-	{
+	public void paint(Graphics g) {
 		int percentage = getPercentage();
 		int topWidth = (int) (getSize().width * (percentage / 100f));
 
@@ -106,11 +103,9 @@ public class ProgressBar extends DimmableJPanel
 		g.setColor(getForeground());
 		g.fillRect(0, 0, topWidth, 16);
 
-		for (final Integer position : positions)
-		{
+		for (final Integer position : positions) {
 			final int xCord = getSize().width * position / maximumValue;
-			if (xCord > topWidth)
-			{
+			if (xCord > topWidth) {
 				g.fillRect(xCord, 0, positionWidth, 16);
 			}
 		}
@@ -119,50 +114,40 @@ public class ProgressBar extends DimmableJPanel
 	}
 
 	@Override
-	public void setDimmed(boolean dimmed)
-	{
+	public void setDimmed(boolean dimmed) {
 		super.setDimmed(dimmed);
 
-		if (dimmed)
-		{
+		if (dimmed) {
 			leftLabel.setForeground(Color.GRAY);
 			rightLabel.setForeground(Color.GRAY);
 			centerLabel.setText(dimmedText);
-		}
-		else
-		{
+		} else {
 			leftLabel.setForeground(Color.WHITE);
 			rightLabel.setForeground(Color.WHITE);
 			centerLabel.setText(centerLabelText);
 		}
 	}
 
-	public void setLeftLabel(String txt)
-	{
+	public void setLeftLabel(String txt) {
 		leftLabel.setText(txt);
 	}
 
-	public void setRightLabel(String txt)
-	{
+	public void setRightLabel(String txt) {
 		rightLabel.setText(txt);
 	}
 
-	public void setCenterLabel(String txt)
-	{
+	public void setCenterLabel(String txt) {
 		centerLabelText = txt;
 		centerLabel.setText(isDimmed() ? dimmedText : txt);
 	}
 
-	public void setDimmedText(String txt)
-	{
+	public void setDimmedText(String txt) {
 		dimmedText = txt;
 		centerLabel.setText(isDimmed() ? txt : centerLabelText);
 	}
 
-	private int getPercentage()
-	{
-		if (value == 0)
-		{
+	private int getPercentage() {
+		if (value == 0) {
 			return 0;
 		}
 

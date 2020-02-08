@@ -29,27 +29,22 @@ import net.runelite.cache.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnderlayLoader
-{
+public class UnderlayLoader {
 	private static final Logger logger = LoggerFactory.getLogger(UnderlayLoader.class);
 
-	public UnderlayDefinition load(int id, byte[] b)
-	{
+	public UnderlayDefinition load(int id, byte[] b) {
 		UnderlayDefinition def = new UnderlayDefinition();
 		InputStream is = new InputStream(b);
 
 		def.setId(id);
 
-		for (;;)
-		{
+		for (; ; ) {
 			int opcode = is.readUnsignedByte();
-			if (opcode == 0)
-			{
+			if (opcode == 0) {
 				break;
 			}
 
-			if (opcode == 1)
-			{
+			if (opcode == 1) {
 				int color = is.read24BitInt();
 				def.setColor(color);
 			}

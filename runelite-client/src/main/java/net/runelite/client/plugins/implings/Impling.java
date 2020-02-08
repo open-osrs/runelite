@@ -25,7 +25,9 @@
 package net.runelite.client.plugins.implings;
 
 import com.google.common.collect.ImmutableMap;
+
 import java.util.Map;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,8 +35,7 @@ import net.runelite.api.NpcID;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum Impling
-{
+enum Impling {
 	BABY(ImplingType.BABY, NpcID.BABY_IMPLING),
 	BABY_2(ImplingType.BABY, NpcID.BABY_IMPLING_1645),
 
@@ -91,20 +92,17 @@ enum Impling
 
 	private static final Map<Integer, Impling> IMPLINGS;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, Impling> builder = new ImmutableMap.Builder<>();
 
-		for (Impling impling : values())
-		{
+		for (Impling impling : values()) {
 			builder.put(impling.npcId, impling);
 		}
 
 		IMPLINGS = builder.build();
 	}
 
-	static Impling findImpling(int npcId)
-	{
+	static Impling findImpling(int npcId) {
 		return IMPLINGS.get(npcId);
 	}
 }

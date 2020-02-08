@@ -12,55 +12,55 @@ public final class TileItemPile {
 	static int[] field1529;
 	@ObfuscatedName("dl")
 	@ObfuscatedSignature(
-		signature = "Lfw;"
+			signature = "Lfw;"
 	)
 	@Export("js5SocketTask")
 	static Task js5SocketTask;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -2033716223
+			intValue = -2033716223
 	)
 	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1107292427
+			intValue = -1107292427
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -23532387
+			intValue = -23532387
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Leq;"
+			signature = "Leq;"
 	)
 	@Export("first")
 	Entity first;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Leq;"
+			signature = "Leq;"
 	)
 	@Export("second")
 	Entity second;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Leq;"
+			signature = "Leq;"
 	)
 	@Export("third")
 	Entity third;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		longValue = -3787059622854517303L
+			longValue = -3787059622854517303L
 	)
 	@Export("tag")
 	long tag;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1744299723
+			intValue = -1744299723
 	)
 	@Export("height")
 	int height;
@@ -75,8 +75,8 @@ public final class TileItemPile {
 
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZB)I",
-		garbageValue = "-128"
+			signature = "(ILce;ZB)I",
+			garbageValue = "-128"
 	)
 	static int method2834(int var0, Script var1, boolean var2) {
 		int var3;
@@ -107,11 +107,11 @@ public final class TileItemPile {
 			return 1;
 		} else if (var0 == ScriptOpcodes.RANDOM) {
 			var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-			Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)(Math.random() * (double)var3);
+			Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) (Math.random() * (double) var3);
 			return 1;
 		} else if (var0 == ScriptOpcodes.RANDOMINC) {
 			var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-			Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)(Math.random() * (double)(var3 + 1));
+			Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) (Math.random() * (double) (var3 + 1));
 			return 1;
 		} else if (var0 == ScriptOpcodes.INTERPOLATE) {
 			class320.Interpreter_intStackSize -= 5;
@@ -159,7 +159,7 @@ public final class TileItemPile {
 			if (var3 == 0) {
 				Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = 0;
 			} else {
-				Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)Math.pow((double)var3, (double)var4);
+				Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) Math.pow((double) var3, (double) var4);
 			}
 
 			return 1;
@@ -171,24 +171,24 @@ public final class TileItemPile {
 				Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = 0;
 				return 1;
 			} else {
-				switch(var4) {
-				case 0:
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = Integer.MAX_VALUE;
-					break;
-				case 1:
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = var3;
-					break;
-				case 2:
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)Math.sqrt((double)var3);
-					break;
-				case 3:
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)Math.cbrt((double)var3);
-					break;
-				case 4:
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)Math.sqrt(Math.sqrt((double)var3));
-					break;
-				default:
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)Math.pow((double)var3, 1.0D / (double)var4);
+				switch (var4) {
+					case 0:
+						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = Integer.MAX_VALUE;
+						break;
+					case 1:
+						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = var3;
+						break;
+					case 2:
+						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) Math.sqrt((double) var3);
+						break;
+					case 3:
+						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) Math.cbrt((double) var3);
+						break;
+					case 4:
+						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) Math.sqrt(Math.sqrt((double) var3));
+						break;
+					default:
+						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) Math.pow((double) var3, 1.0D / (double) var4);
 				}
 
 				return 1;
@@ -207,10 +207,10 @@ public final class TileItemPile {
 			return 1;
 		} else if (var0 == ScriptOpcodes.SCALE) {
 			class320.Interpreter_intStackSize -= 3;
-			long var9 = (long)Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize];
-			long var11 = (long)Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1];
-			long var13 = (long)Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 2];
-			Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int)(var9 * var13 / var11);
+			long var9 = (long) Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize];
+			long var11 = (long) Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1];
+			long var13 = (long) Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 2];
+			Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (int) (var9 * var13 / var11);
 			return 1;
 		} else {
 			return 2;
@@ -219,8 +219,8 @@ public final class TileItemPile {
 
 	@ObfuscatedName("gz")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "182557525"
+			signature = "(I)V",
+			garbageValue = "182557525"
 	)
 	static final void method2835() {
 		Client.field759 = 0;

@@ -27,20 +27,24 @@ package net.runelite.client.plugins.pyramidplunder;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
+
 import static net.runelite.api.Constants.GAME_TICK_LENGTH;
 import static net.runelite.api.ItemID.PHARAOHS_SCEPTRE;
 import static net.runelite.api.ObjectID.SPEARTRAP_21280;
 import static net.runelite.api.ObjectID.TOMB_DOOR_20948;
 import static net.runelite.api.ObjectID.TOMB_DOOR_20949;
+
 import net.runelite.api.Player;
 import net.runelite.api.Tile;
 import net.runelite.api.TileObject;
@@ -65,15 +69,14 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
 @PluginDescriptor(
-	name = "PyramidPlunder",
-	description = "Highlights doors and spear traps in pyramid plunder and adds a numerical timer",
-	tags = {"pyramidplunder", "pyramid", "plunder", "overlay", "skilling", "thieving"},
-	type = PluginType.MINIGAME,
-	enabledByDefault = false
+		name = "PyramidPlunder",
+		description = "Highlights doors and spear traps in pyramid plunder and adds a numerical timer",
+		tags = {"pyramidplunder", "pyramid", "plunder", "overlay", "skilling", "thieving"},
+		type = PluginType.MINIGAME,
+		enabledByDefault = false
 )
 @Singleton
-public class PyramidPlunderPlugin extends Plugin
-{
+public class PyramidPlunderPlugin extends Plugin {
 	private static final int PYRAMID_PLUNDER_REGION_ID = 7749;
 	private static final int PYRAMID_PLUNDER_TIMER_MAX = 500;
 	static final int TRAP = SPEARTRAP_21280;
@@ -96,7 +99,7 @@ public class PyramidPlunderPlugin extends Plugin
 //		URN_21267
 //	);
 	private static final Set<Integer> DOOR_WALL_IDS = ImmutableSet.of(
-		26618, 26619, 26620, 26621
+			26618, 26619, 26620, 26621
 	);
 
 	@Getter
@@ -138,80 +141,67 @@ public class PyramidPlunderPlugin extends Plugin
 	private int secondWarningTime;
 
 	@Provides
-	PyramidPlunderConfig getConfig(ConfigManager configManager)
-	{
+	PyramidPlunderConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(PyramidPlunderConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(pyramidPlunderOverlay);
 		highlighted.clear();
 		reset();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!"pyramidplunder".equals(event.getGroup()))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!"pyramidplunder".equals(event.getGroup())) {
 			return;
 		}
 
 		updateConfig();
 
-		if (!this.showTimer)
-		{
+		if (!this.showTimer) {
 			removeTimer();
 		}
 
-		if (this.showTimer && isInGame)
-		{
+		if (this.showTimer && isInGame) {
 			int remainingTime = GAME_TICK_LENGTH * (PYRAMID_PLUNDER_TIMER_MAX - pyramidTimer);
 
-			if (remainingTime >= 2)
-			{
+			if (remainingTime >= 2) {
 				showTimer(remainingTime, ChronoUnit.MILLIS);
 			}
 		}
 	}
 
-	private void removeTimer()
-	{
+	private void removeTimer() {
 		infoBoxManager.removeIf(infoBox -> infoBox instanceof PyramidPlunderTimer);
 	}
 
-	private void showTimer()
-	{
+	private void showTimer() {
 		showTimer(5, ChronoUnit.MINUTES);
 	}
 
-	private void showTimer(int period, ChronoUnit chronoUnit)
-	{
+	private void showTimer(int period, ChronoUnit chronoUnit) {
 		removeTimer();
 
 		infoBoxManager.addInfoBox(
-			new PyramidPlunderTimer(
-				this,
-				itemManager.getImage(PHARAOHS_SCEPTRE),
-				period,
-				chronoUnit
-			)
+				new PyramidPlunderTimer(
+						this,
+						itemManager.getImage(PHARAOHS_SCEPTRE),
+						period,
+						chronoUnit
+				)
 		);
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		switch (event.getGameState())
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		switch (event.getGameState()) {
 			case HOPPING:
 			case LOGIN_SCREEN:
 				reset();
@@ -220,19 +210,16 @@ public class PyramidPlunderPlugin extends Plugin
 				highlighted.clear();
 				break;
 			case LOGGED_IN:
-				if (!isInRegion())
-				{
+				if (!isInRegion()) {
 					reset();
 				}
 				break;
 		}
 	}
 
-	private boolean isInRegion()
-	{
+	private boolean isInRegion() {
 		Player local = client.getLocalPlayer();
-		if (local == null)
-		{
+		if (local == null) {
 			return false;
 		}
 
@@ -242,95 +229,79 @@ public class PyramidPlunderPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged event)
-	{
+	private void onVarbitChanged(VarbitChanged event) {
 		int lastValue = pyramidTimer;
 		pyramidTimer = client.getVar(Varbits.PYRAMID_PLUNDER_TIMER);
 
-		if (lastValue == pyramidTimer)
-		{
+		if (lastValue == pyramidTimer) {
 			return;
 		}
 
-		if (pyramidTimer == 0)
-		{
+		if (pyramidTimer == 0) {
 			reset();
 			return;
 		}
 
-		if (pyramidTimer == 1)
-		{
+		if (pyramidTimer == 1) {
 			overlayManager.add(pyramidPlunderOverlay);
 			isInGame = true;
-			if (this.showTimer)
-			{
+			if (this.showTimer) {
 				showTimer();
 			}
 		}
 	}
 
-	private void reset()
-	{
+	private void reset() {
 		isInGame = false;
 		overlayManager.remove(pyramidPlunderOverlay);
 		removeTimer();
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(GameObjectSpawned event)
-	{
+	private void onGameObjectSpawned(GameObjectSpawned event) {
 		onTileObject(event.getTile(), null, event.getGameObject());
 	}
 
 	@Subscribe
-	private void onGameObjectChanged(GameObjectChanged event)
-	{
+	private void onGameObjectChanged(GameObjectChanged event) {
 		onTileObject(event.getTile(), event.getPrevious(), event.getGameObject());
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event)
-	{
+	private void onGameObjectDespawned(GameObjectDespawned event) {
 		onTileObject(event.getTile(), event.getGameObject(), null);
 	}
 
 	@Subscribe
-	private void onWallObjectSpawned(WallObjectSpawned event)
-	{
+	private void onWallObjectSpawned(WallObjectSpawned event) {
 		onTileObject(event.getTile(), null, event.getWallObject());
 	}
 
 	@Subscribe
-	private void onWallObjectChanged(WallObjectChanged event)
-	{
+	private void onWallObjectChanged(WallObjectChanged event) {
 		onTileObject(event.getTile(), event.getPrevious(), event.getWallObject());
 	}
 
 	@Subscribe
-	private void onWallObjectDespawned(WallObjectDespawned event)
-	{
+	private void onWallObjectDespawned(WallObjectDespawned event) {
 		onTileObject(event.getTile(), event.getWallObject(), null);
 	}
 
-	private void onTileObject(Tile tile, TileObject oldObject, TileObject newObject)
-	{
+	private void onTileObject(Tile tile, TileObject oldObject, TileObject newObject) {
 		highlighted.remove(oldObject);
 
-		if (newObject == null)
-		{
+		if (newObject == null) {
 			return;
 		}
 
 		int id = newObject.getId();
 		if (id == TRAP && this.highlightSpearTrap ||
-			(DOOR_WALL_IDS.contains(id) || id == OPENED_DOOR || id == CLOSED_DOOR) && this.highlightDoors)
-		{
+				(DOOR_WALL_IDS.contains(id) || id == OPENED_DOOR || id == CLOSED_DOOR) && this.highlightDoors) {
 			highlighted.put(newObject, tile);
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.showPlunderStatus = config.showPlunderStatus();
 		this.highlightDoors = config.highlightDoors();
 		this.highlightSpearTrap = config.highlightSpearTrap();

@@ -27,11 +27,11 @@ package net.runelite.deob.deobfuscators.constparam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.code.Instruction;
 
-class ConstantMethodParameter
-{
+class ConstantMethodParameter {
 	List<Method> methods; // methods this is a parameter for
 	int paramIndex;
 	int lvtIndex;
@@ -41,8 +41,7 @@ class ConstantMethodParameter
 	boolean invalid;
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		int hash = 3;
 		hash = 47 * hash + Objects.hashCode(this.methods);
 		hash = 47 * hash + this.lvtIndex;
@@ -50,23 +49,18 @@ class ConstantMethodParameter
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-		{
+	public boolean equals(Object obj) {
+		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		final ConstantMethodParameter other = (ConstantMethodParameter) obj;
-		if (!Objects.equals(this.methods, other.methods))
-		{
+		if (!Objects.equals(this.methods, other.methods)) {
 			return false;
 		}
-		if (this.lvtIndex != other.lvtIndex)
-		{
+		if (this.lvtIndex != other.lvtIndex) {
 			return false;
 		}
 		return true;

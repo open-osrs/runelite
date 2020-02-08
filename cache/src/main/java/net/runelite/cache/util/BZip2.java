@@ -30,29 +30,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream;
 import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BZip2
-{
+public class BZip2 {
 	private static final Logger logger = LoggerFactory.getLogger(BZip2.class);
 
 	private static final byte[] BZIP_HEADER = new byte[]
-	{
-		'B', 'Z', // magic
-		'h',      // 'h' for Bzip2 ('H'uffman coding)
-		'1'       // block size
-	};
+			{
+					'B', 'Z', // magic
+					'h',      // 'h' for Bzip2 ('H'uffman coding)
+					'1'       // block size
+			};
 
-	public static byte[] compress(byte[] bytes) throws IOException
-	{
+	public static byte[] compress(byte[] bytes) throws IOException {
 		InputStream is = new ByteArrayInputStream(bytes);
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		try (OutputStream os = new BZip2CompressorOutputStream(bout, 1))
-		{
+		try (OutputStream os = new BZip2CompressorOutputStream(bout, 1)) {
 			IOUtils.copy(is, os);
 		}
 
@@ -66,8 +64,7 @@ public class BZip2
 		return Arrays.copyOfRange(out, BZIP_HEADER.length, out.length); // remove header..
 	}
 
-	public static byte[] decompress(byte[] bytes, int len) throws IOException
-	{
+	public static byte[] decompress(byte[] bytes, int len) throws IOException {
 		byte[] data = new byte[len + BZIP_HEADER.length];
 
 		// add header
@@ -76,8 +73,7 @@ public class BZip2
 
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 
-		try (InputStream is = new BZip2CompressorInputStream(new ByteArrayInputStream(data)))
-		{
+		try (InputStream is = new BZip2CompressorInputStream(new ByteArrayInputStream(data))) {
 			IOUtils.copy(is, os);
 		}
 

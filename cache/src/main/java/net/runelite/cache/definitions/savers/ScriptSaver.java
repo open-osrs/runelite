@@ -26,17 +26,17 @@ package net.runelite.cache.definitions.savers;
 
 import java.util.Map;
 import java.util.Map.Entry;
+
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.io.OutputStream;
+
 import static net.runelite.cache.script.Opcodes.SCONST;
 import static net.runelite.cache.script.Opcodes.POP_INT;
 import static net.runelite.cache.script.Opcodes.POP_STRING;
 import static net.runelite.cache.script.Opcodes.RETURN;
 
-public class ScriptSaver
-{
-	public byte[] save(ScriptDefinition script)
-	{
+public class ScriptSaver {
+	public byte[] save(ScriptDefinition script) {
 		int[] instructions = script.getInstructions();
 		int[] intOperands = script.getIntOperands();
 		String[] stringOperands = script.getStringOperands();
@@ -44,20 +44,14 @@ public class ScriptSaver
 
 		OutputStream out = new OutputStream();
 		out.writeByte(0); // null string
-		for (int i = 0; i < instructions.length; ++i)
-		{
+		for (int i = 0; i < instructions.length; ++i) {
 			int opcode = instructions[i];
 			out.writeShort(opcode);
-			if (opcode == SCONST)
-			{
+			if (opcode == SCONST) {
 				out.writeString(stringOperands[i]);
-			}
-			else if (opcode < 100 && opcode != RETURN && opcode != POP_INT && opcode != POP_STRING)
-			{
+			} else if (opcode < 100 && opcode != RETURN && opcode != POP_INT && opcode != POP_STRING) {
 				out.writeInt(intOperands[i]);
-			}
-			else
-			{
+			} else {
 				out.writeByte(intOperands[i]);
 			}
 		}
@@ -67,18 +61,13 @@ public class ScriptSaver
 		out.writeShort(script.getIntStackCount());
 		out.writeShort(script.getStringStackCount());
 		int switchStart = out.getOffset();
-		if (switches == null)
-		{
+		if (switches == null) {
 			out.writeByte(0);
-		}
-		else
-		{
+		} else {
 			out.writeByte(switches.length);
-			for (Map<Integer, Integer> s : switches)
-			{
+			for (Map<Integer, Integer> s : switches) {
 				out.writeShort(s.size());
-				for (Entry<Integer, Integer> e : s.entrySet())
-				{
+				for (Entry<Integer, Integer> e : s.entrySet()) {
 					out.writeInt(e.getKey());
 					out.writeInt(e.getValue());
 				}

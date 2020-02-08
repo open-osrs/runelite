@@ -8,8 +8,7 @@ import net.runelite.api.MenuEntry;
 @Getter
 @Setter
 @EqualsAndHashCode
-public abstract class AbstractComparableEntry
-{
+public abstract class AbstractComparableEntry {
 	String option = null;
 
 	String target = null;

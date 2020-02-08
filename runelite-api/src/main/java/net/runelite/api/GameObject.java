@@ -25,6 +25,7 @@
 package net.runelite.api;
 
 import java.awt.Shape;
+
 import net.runelite.api.coords.Angle;
 
 /**
@@ -33,8 +34,7 @@ import net.runelite.api.coords.Angle;
  * Most object in the RuneScape world are considered as game objects. Things
  * such as trees, anvils, boxes, etc are all game objects.
  */
-public interface GameObject extends TileObject
-{
+public interface GameObject extends TileObject {
 
 	/**
 	 * Gets the minimum x and y scene coordinate pair for this game object.

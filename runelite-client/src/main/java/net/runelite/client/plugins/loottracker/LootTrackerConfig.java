@@ -31,212 +31,194 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 
 @ConfigGroup("loottracker")
-public interface LootTrackerConfig extends Config
-{
+public interface LootTrackerConfig extends Config {
 	@ConfigSection(
-		position = 1,
-		keyName = "filterSection",
-		name = "Filter",
-		description = ""
+			position = 1,
+			keyName = "filterSection",
+			name = "Filter",
+			description = ""
 	)
-	default boolean filterSection()
-	{
+	default boolean filterSection() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "ignoredItems",
-		name = "Ignored items",
-		description = "Configures which items should be ignored when calculating loot prices.",
-		position = 0,
-		section = "filterSection"
+			keyName = "ignoredItems",
+			name = "Ignored items",
+			description = "Configures which items should be ignored when calculating loot prices.",
+			position = 0,
+			section = "filterSection"
 	)
-	default String getIgnoredItems()
-	{
+	default String getIgnoredItems() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "ignoredItems",
-		name = "",
-		description = ""
+			keyName = "ignoredItems",
+			name = "",
+			description = ""
 	)
 	void setIgnoredItems(String key);
 
 	@ConfigItem(
-		keyName = "ignoredNPCs",
-		name = "Ignored NPCs",
-		description = "Configures which NPCs should be ignored ",
-		position = 1,
-		section = "filterSection"
+			keyName = "ignoredNPCs",
+			name = "Ignored NPCs",
+			description = "Configures which NPCs should be ignored ",
+			position = 1,
+			section = "filterSection"
 	)
-	default String getIgnoredNPCs()
-	{
+	default String getIgnoredNPCs() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "ignoredNPCs",
-		name = "",
-		description = ""
+			keyName = "ignoredNPCs",
+			name = "",
+			description = ""
 	)
 	void setIgnoredNPCs(String key);
 
 	@ConfigItem(
-		keyName = "saveLoot",
-		name = "Submit loot tracker data",
-		description = "Submit loot tracker data (requires being logged in)"
+			keyName = "saveLoot",
+			name = "Submit loot tracker data",
+			description = "Submit loot tracker data (requires being logged in)"
 	)
-	default boolean saveLoot()
-	{
+	default boolean saveLoot() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "chestLootChat",
-		name = "Show chest loot value in chat",
-		description = "Show the value of items from CoX/ToB/Barrows chests in chat"
+			keyName = "chestLootChat",
+			name = "Show chest loot value in chat",
+			description = "Show the value of items from CoX/ToB/Barrows chests in chat"
 	)
-	default boolean chestLootChat()
-	{
+	default boolean chestLootChat() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "syncPanel",
-		name = "Synchronize panel contents",
-		description = "Synchronize your local loot tracker with your online (requires being logged in). This means" +
-			" that panel is filled with portion of your remote data on startup and deleting data in panel deletes them" +
-			" also on server."
+			keyName = "syncPanel",
+			name = "Synchronize panel contents",
+			description = "Synchronize your local loot tracker with your online (requires being logged in). This means" +
+					" that panel is filled with portion of your remote data on startup and deleting data in panel deletes them" +
+					" also on server."
 	)
-	default boolean syncPanel()
-	{
+	default boolean syncPanel() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "localPersistence",
-		name = "Local Record Persistence",
-		description = "Stores/syncs loot records locally in the JSON format. Note: records will not be saved locally" +
-			" if they are successfully saved online. "
+			keyName = "localPersistence",
+			name = "Local Record Persistence",
+			description = "Stores/syncs loot records locally in the JSON format. Note: records will not be saved locally" +
+					" if they are successfully saved online. "
 	)
-	default boolean localPersistence()
-	{
+	default boolean localPersistence() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "sortType",
-		name = "Sorting",
-		description = "The method for sorting Loot Tracker entries"
+			keyName = "sortType",
+			name = "Sorting",
+			description = "The method for sorting Loot Tracker entries"
 	)
-	default LootRecordSortType sortType()
-	{
+	default LootRecordSortType sortType() {
 		return LootRecordSortType.TIMESTAMP;
 	}
 
 	@ConfigItem(
-		keyName = "whitelistEnabled",
-		name = "NPC Whitelist",
-		description = "Only track drops from specific NPCs",
-		position = 1,
-		section = "filterSection",
-		disabledBy = "blacklistEnabled"
+			keyName = "whitelistEnabled",
+			name = "NPC Whitelist",
+			description = "Only track drops from specific NPCs",
+			position = 1,
+			section = "filterSection",
+			disabledBy = "blacklistEnabled"
 	)
-	default boolean whitelistEnabled()
-	{
+	default boolean whitelistEnabled() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "getWhitelist",
-		name = "Whitelist",
-		description = "Comma-separated list of NPCs to track drops from",
-		position = 2,
-		section = "filterSection",
-		hidden = true,
-		unhide = "whitelistEnabled"
+			keyName = "getWhitelist",
+			name = "Whitelist",
+			description = "Comma-separated list of NPCs to track drops from",
+			position = 2,
+			section = "filterSection",
+			hidden = true,
+			unhide = "whitelistEnabled"
 	)
-	default String getWhitelist()
-	{
+	default String getWhitelist() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "blacklistEnabled",
-		name = "NPC Blacklist",
-		description = "Track drops from all NPCs except for specified ones",
-		position = 3,
-		section = "filterSection",
-		disabledBy = "whitelistEnabled"
+			keyName = "blacklistEnabled",
+			name = "NPC Blacklist",
+			description = "Track drops from all NPCs except for specified ones",
+			position = 3,
+			section = "filterSection",
+			disabledBy = "whitelistEnabled"
 	)
-	default boolean blacklistEnabled()
-	{
+	default boolean blacklistEnabled() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "getBlacklist",
-		name = "Blacklist",
-		description = "Comma-separated list of NPCs to not track drops from",
-		position = 4,
-		section = "filterSection",
-		hidden = true,
-		unhide = "blacklistEnabled"
+			keyName = "getBlacklist",
+			name = "Blacklist",
+			description = "Comma-separated list of NPCs to not track drops from",
+			position = 4,
+			section = "filterSection",
+			hidden = true,
+			unhide = "blacklistEnabled"
 	)
-	default String getBlacklist()
-	{
+	default String getBlacklist() {
 		return "";
 	}
 
 	@ConfigItem(
-		keyName = "lootValueMessage",
-		name = "Loot Value Messages",
-		description = "Sends a game message with the total value you of your loot when you get a kill",
-		position = 5
+			keyName = "lootValueMessage",
+			name = "Loot Value Messages",
+			description = "Sends a game message with the total value you of your loot when you get a kill",
+			position = 5
 	)
-	default boolean sendLootValueMessages()
-	{
+	default boolean sendLootValueMessages() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showDeaths",
-		name = "Show PvP Deaths",
-		description = "Shows your deaths to help you calculate PvP profit"
+			keyName = "showDeaths",
+			name = "Show PvP Deaths",
+			description = "Shows your deaths to help you calculate PvP profit"
 	)
-	default boolean showDeaths()
-	{
+	default boolean showDeaths() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "displayDate",
-		name = "Display Date",
-		description = "Displays the date the loot was received"
+			keyName = "displayDate",
+			name = "Display Date",
+			description = "Displays the date the loot was received"
 	)
-	default boolean displayDate()
-	{
+	default boolean displayDate() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "priceType",
-		name = "Price Type",
-		description = "What type of price to use for calculating value."
+			keyName = "priceType",
+			name = "Price Type",
+			description = "What type of price to use for calculating value."
 	)
-	default LootTrackerPriceType priceType()
-	{
+	default LootTrackerPriceType priceType() {
 		return LootTrackerPriceType.GRAND_EXCHANGE;
 	}
 
 	@ConfigItem(
-		keyName = "showPriceType",
-		name = "Show Price Type",
-		description = "Whether to show a GE: or HA: next to the total values in the tracker"
+			keyName = "showPriceType",
+			name = "Show Price Type",
+			description = "Whether to show a GE: or HA: next to the total values in the tracker"
 	)
-	default boolean showPriceType()
-	{
+	default boolean showPriceType() {
 		return false;
 	}
 }

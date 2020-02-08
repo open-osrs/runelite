@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.hiscore;
 
 import com.google.inject.Inject;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
@@ -36,6 +37,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
@@ -43,8 +45,7 @@ import net.runelite.api.Friend;
 import net.runelite.api.Player;
 
 @Slf4j
-class NameAutocompleter implements KeyListener
-{
+class NameAutocompleter implements KeyListener {
 	/**
 	 * Non-breaking space character.
 	 */
@@ -68,32 +69,27 @@ class NameAutocompleter implements KeyListener
 	private Pattern autocompleteNamePattern;
 
 	@Inject
-	private NameAutocompleter(@Nullable final Client client)
-	{
+	private NameAutocompleter(@Nullable final Client client) {
 		this.client = client;
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 		final JTextComponent input = (JTextComponent) e.getSource();
 		final String inputText = input.getText();
 
 		// Only autocomplete if the selection end is at the end of the text.
-		if (input.getSelectionEnd() != inputText.length())
-		{
+		if (input.getSelectionEnd() != inputText.length()) {
 			return;
 		}
 
@@ -103,74 +99,60 @@ class NameAutocompleter implements KeyListener
 		// Don't attempt to autocomplete if the name is invalid.
 		// This condition is also true when the user presses a key like backspace.
 		if (INVALID_CHARS.matcher(charToInsert).find()
-			|| INVALID_CHARS.matcher(inputText).find())
-		{
+				|| INVALID_CHARS.matcher(inputText).find()) {
 			return;
 		}
 
 		// Check if we are already autocompleting.
-		if (autocompleteName != null && autocompleteNamePattern.matcher(inputText).matches())
-		{
-			if (isExpectedNext(input, charToInsert))
-			{
-				try
-				{
+		if (autocompleteName != null && autocompleteNamePattern.matcher(inputText).matches()) {
+			if (isExpectedNext(input, charToInsert)) {
+				try {
 					// Insert the character and move the selection.
 					final int insertIndex = input.getSelectionStart();
 					Document doc = input.getDocument();
 					doc.remove(insertIndex, 1);
 					doc.insertString(insertIndex, charToInsert, null);
 					input.select(insertIndex + 1, input.getSelectionEnd());
-				}
-				catch (BadLocationException ex)
-				{
+				} catch (BadLocationException ex) {
 					log.warn("Could not insert character.", ex);
 				}
 
 				// Prevent default behavior.
 				e.consume();
-			}
-			else // Character to insert does not match current autocompletion. Look for another name.
+			} else // Character to insert does not match current autocompletion. Look for another name.
 			{
 				newAutocomplete(e);
 			}
-		}
-		else // Search for a name to autocomplete
+		} else // Search for a name to autocomplete
 		{
 			newAutocomplete(e);
 		}
 	}
 
-	private void newAutocomplete(KeyEvent e)
-	{
+	private void newAutocomplete(KeyEvent e) {
 		final JTextComponent input = (JTextComponent) e.getSource();
 		final String inputText = input.getText();
 		final String nameStart = inputText.substring(0, input.getSelectionStart()) + e.getKeyChar();
 
-		if (findAutocompleteName(nameStart))
-		{
+		if (findAutocompleteName(nameStart)) {
 			// Assert this.autocompleteName != null
 			final String name = this.autocompleteName;
 			SwingUtilities.invokeLater(() ->
 			{
-				try
-				{
+				try {
 					input.getDocument().insertString(
-						nameStart.length(),
-						name.substring(nameStart.length()),
-						null);
+							nameStart.length(),
+							name.substring(nameStart.length()),
+							null);
 					input.select(nameStart.length(), name.length());
-				}
-				catch (BadLocationException ex)
-				{
+				} catch (BadLocationException ex) {
 					log.warn("Could not autocomplete name.", ex);
 				}
 			});
 		}
 	}
 
-	private boolean findAutocompleteName(String nameStart)
-	{
+	private boolean findAutocompleteName(String nameStart) {
 		final Pattern pattern;
 		Optional<String> autocompleteName;
 
@@ -180,10 +162,9 @@ class NameAutocompleter implements KeyListener
 		// Matching non-breaking spaces is necessary because the API
 		// returns non-breaking spaces when a name has whitespace.
 		pattern = Pattern.compile(
-			"(?i)^" + nameStart.replaceAll("[ _-]", "[ _" + NBSP + "-]") + ".+?");
+				"(?i)^" + nameStart.replaceAll("[ _-]", "[ _" + NBSP + "-]") + ".+?");
 
-		if (client == null)
-		{
+		if (client == null) {
 			return false;
 		}
 
@@ -192,48 +173,41 @@ class NameAutocompleter implements KeyListener
 		// TODO: Search lookup history
 
 		Friend[] friends = client.getFriends();
-		if (friends != null)
-		{
+		if (friends != null) {
 			autocompleteName = Arrays.stream(friends)
-				.filter(Objects::nonNull)
-				.map(Friend::getName)
-				.filter(n -> pattern.matcher(n).matches())
-				.findFirst();
+					.filter(Objects::nonNull)
+					.map(Friend::getName)
+					.filter(n -> pattern.matcher(n).matches())
+					.findFirst();
 		}
 
 		// Search clan if a friend wasn't found
-		if (!autocompleteName.isPresent())
-		{
+		if (!autocompleteName.isPresent()) {
 			final ClanMember[] clannies = client.getClanMembers();
-			if (clannies != null)
-			{
+			if (clannies != null) {
 				autocompleteName = Arrays.stream(clannies)
-					.filter(Objects::nonNull)
-					.map(ClanMember::getUsername)
-					.filter(n -> pattern.matcher(n).matches())
-					.findFirst();
+						.filter(Objects::nonNull)
+						.map(ClanMember::getUsername)
+						.filter(n -> pattern.matcher(n).matches())
+						.findFirst();
 			}
 		}
 
 		// Search cached players if a clannie wasn't found.
-		if (!autocompleteName.isPresent())
-		{
+		if (!autocompleteName.isPresent()) {
 			final Player[] cachedPlayers = client.getCachedPlayers();
 			autocompleteName = Arrays.stream(cachedPlayers)
-				.filter(Objects::nonNull)
-				.map(Player::getName)
-				.filter(n -> pattern.matcher(n).matches())
-				.findFirst();
+					.filter(Objects::nonNull)
+					.map(Player::getName)
+					.filter(n -> pattern.matcher(n).matches())
+					.findFirst();
 		}
 
-		if (autocompleteName.isPresent())
-		{
+		if (autocompleteName.isPresent()) {
 			this.autocompleteName = autocompleteName.get().replace(NBSP, " ");
 			this.autocompleteNamePattern = Pattern.compile(
-				"(?i)^" + this.autocompleteName.replaceAll("[ _-]", "[ _-]") + "$");
-		}
-		else
-		{
+					"(?i)^" + this.autocompleteName.replaceAll("[ _-]", "[ _-]") + "$");
+		} else {
 			this.autocompleteName = null;
 			this.autocompleteNamePattern = null;
 		}
@@ -241,23 +215,16 @@ class NameAutocompleter implements KeyListener
 		return autocompleteName.isPresent();
 	}
 
-	private boolean isExpectedNext(JTextComponent input, String nextChar)
-	{
+	private boolean isExpectedNext(JTextComponent input, String nextChar) {
 		String expected;
-		if (input.getSelectionStart() < input.getSelectionEnd())
-		{
-			try
-			{
+		if (input.getSelectionStart() < input.getSelectionEnd()) {
+			try {
 				expected = input.getText(input.getSelectionStart(), 1);
-			}
-			catch (BadLocationException ex)
-			{
+			} catch (BadLocationException ex) {
 				log.warn("Could not get first character from input selection.", ex);
 				return false;
 			}
-		}
-		else
-		{
+		} else {
 			expected = "";
 		}
 		return nextChar.equalsIgnoreCase(expected);

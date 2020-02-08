@@ -30,14 +30,14 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Builder
-public class TitleComponent implements LayoutableRenderableEntity
-{
+public class TitleComponent implements LayoutableRenderableEntity {
 	private String text;
 
 	@Builder.Default
@@ -54,8 +54,7 @@ public class TitleComponent implements LayoutableRenderableEntity
 	private final Rectangle bounds = new Rectangle();
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		final int baseX = preferredLocation.x;
 		final int baseY = preferredLocation.y;
 		final FontMetrics metrics = graphics.getFontMetrics();
@@ -63,8 +62,8 @@ public class TitleComponent implements LayoutableRenderableEntity
 		titleComponent.setText(text);
 		titleComponent.setColor(color);
 		titleComponent.setPosition(new Point(
-			baseX + ((preferredSize.width - metrics.stringWidth(text)) / 2),
-			baseY + metrics.getHeight()));
+				baseX + ((preferredSize.width - metrics.stringWidth(text)) / 2),
+				baseY + metrics.getHeight()));
 		final Dimension rendered = titleComponent.render(graphics);
 		final Dimension dimension = new Dimension(preferredSize.width, rendered.height);
 		bounds.setLocation(preferredLocation);

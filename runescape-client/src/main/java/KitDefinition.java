@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class KitDefinition extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("KitDefinition_archive")
 	public static AbstractArchive KitDefinition_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("KitDefinition_modelsArchive")
 	public static AbstractArchive KitDefinition_modelsArchive;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Leh;"
+			signature = "Leh;"
 	)
 	@Export("KitDefinition_cached")
 	static EvictingDualNodeHashTable KitDefinition_cached;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1923547411
+			intValue = -1923547411
 	)
 	@Export("bodypartID")
 	public int bodypartID;
@@ -65,8 +65,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lkp;B)V",
-		garbageValue = "1"
+			signature = "(Lkp;B)V",
+			garbageValue = "1"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -82,8 +82,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkp;II)V",
-		garbageValue = "1396664482"
+			signature = "(Lkp;II)V",
+			garbageValue = "1396664482"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -107,8 +107,8 @@ public class KitDefinition extends DualNode {
 				this.recolorTo = new short[var3];
 
 				for (var4 = 0; var4 < var3; ++var4) {
-					this.recolorFrom[var4] = (short)var1.readUnsignedShort();
-					this.recolorTo[var4] = (short)var1.readUnsignedShort();
+					this.recolorFrom[var4] = (short) var1.readUnsignedShort();
+					this.recolorTo[var4] = (short) var1.readUnsignedShort();
 				}
 			} else if (var2 == 41) {
 				var3 = var1.readUnsignedByte();
@@ -116,8 +116,8 @@ public class KitDefinition extends DualNode {
 				this.retextureTo = new short[var3];
 
 				for (var4 = 0; var4 < var3; ++var4) {
-					this.retextureFrom[var4] = (short)var1.readUnsignedShort();
-					this.retextureTo[var4] = (short)var1.readUnsignedShort();
+					this.retextureFrom[var4] = (short) var1.readUnsignedShort();
+					this.retextureTo[var4] = (short) var1.readUnsignedShort();
 				}
 			} else if (var2 >= 60 && var2 < 70) {
 				this.models[var2 - 60] = var1.readUnsignedShort();
@@ -128,8 +128,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "16777215"
+			signature = "(I)Z",
+			garbageValue = "16777215"
 	)
 	@Export("ready")
 	public boolean ready() {
@@ -150,8 +150,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)Ldg;",
-		garbageValue = "847526652"
+			signature = "(I)Ldg;",
+			garbageValue = "847526652"
 	)
 	@Export("getModelData")
 	public ModelData getModelData() {
@@ -190,8 +190,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-464506453"
+			signature = "(I)Z",
+			garbageValue = "-464506453"
 	)
 	public boolean method4533() {
 		boolean var1 = true;
@@ -207,8 +207,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)Ldg;",
-		garbageValue = "-2095950315"
+			signature = "(I)Ldg;",
+			garbageValue = "-2095950315"
 	)
 	@Export("getKitDefinitionModels")
 	public ModelData getKitDefinitionModels() {
@@ -240,8 +240,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
-		garbageValue = "116"
+			signature = "(IIIIB)V",
+			garbageValue = "116"
 	)
 	static final void method4532(int var0, int var1, int var2, int var3) {
 		for (int var4 = var1; var4 <= var3 + var1; ++var4) {
@@ -271,8 +271,8 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;IZB)I",
-		garbageValue = "93"
+			signature = "(Ljava/lang/CharSequence;IZB)I",
+			garbageValue = "93"
 	)
 	@Export("parseIntCustomRadix")
 	static int parseIntCustomRadix(CharSequence var0, int var1, boolean var2) {

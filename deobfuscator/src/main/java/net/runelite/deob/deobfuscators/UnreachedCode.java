@@ -27,6 +27,7 @@ package net.runelite.deob.deobfuscators;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
@@ -38,72 +39,61 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnreachedCode implements Deobfuscator
-{
+public class UnreachedCode implements Deobfuscator {
 	private static final Logger logger = LoggerFactory.getLogger(UnreachedCode.class);
 
 	private Execution execution;
-	
-	private int removeUnused(Method m)
-	{
+
+	private int removeUnused(Method m) {
 		Instructions ins = m.getCode().getInstructions();
-		
+
 		int count = 0;
 		List<Instruction> insCopy = new ArrayList<>(ins.getInstructions());
-		
-		for (int j = 0; j < insCopy.size(); ++j)
-		{
+
+		for (int j = 0; j < insCopy.size(); ++j) {
 			Instruction i = insCopy.get(j);
-			
-			if (!execution.executed.contains(i))
-			{
+
+			if (!execution.executed.contains(i)) {
 				// if this is an exception handler, the exception handler is never used...
-				for (net.runelite.asm.attributes.code.Exception e : new ArrayList<>(m.getCode().getExceptions().getExceptions()))
-				{
-					if (e.getStart().next() == i)
-					{
+				for (net.runelite.asm.attributes.code.Exception e : new ArrayList<>(m.getCode().getExceptions().getExceptions())) {
+					if (e.getStart().next() == i) {
 						e.setStart(ins.createLabelFor(insCopy.get(j + 1)));
 
-						if (e.getStart().next() == e.getEnd().next())
-						{
+						if (e.getStart().next() == e.getEnd().next()) {
 							m.getCode().getExceptions().remove(e);
 							continue;
 						}
 					}
-					if (e.getHandler().next() == i)
-					{
+					if (e.getHandler().next() == i) {
 						m.getCode().getExceptions().remove(e);
 					}
 				}
 
 				if (i instanceof Label)
 					continue;
-				
+
 				ins.remove(i);
 				++count;
 			}
 		}
 		return count;
 	}
-	
+
 	@Override
-	public void run(ClassGroup group)
-	{
+	public void run(ClassGroup group) {
 		group.buildClassGraph();
-		
+
 		execution = new Execution(group);
 		execution.populateInitialMethods();
 		execution.run();
-		
+
 		int count = 0;
-		
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method m : cf.getMethods())
-			{
+
+		for (ClassFile cf : group.getClasses()) {
+			for (Method m : cf.getMethods()) {
 				if (m.getCode() == null)
 					continue;
-				
+
 				count += removeUnused(m);
 			}
 		}

@@ -30,16 +30,13 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PUBLIC)
-public class BankedItem
-{
+public class BankedItem {
 	private final CriticalItem item;
 	private final int qty;
 
-	public double getXpRate()
-	{
+	public double getXpRate() {
 		final Activity selectedActivity = item.getSelectedActivity();
-		if (selectedActivity == null)
-		{
+		if (selectedActivity == null) {
 			return 0;
 		}
 
@@ -47,8 +44,7 @@ public class BankedItem
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return item.name() + " x " + qty;
 	}
 }

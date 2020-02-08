@@ -35,30 +35,26 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 
-public class BankSearch
-{
+public class BankSearch {
 	private final Client client;
 	private final ClientThread clientThread;
 
 	@Inject
 	private BankSearch(
-		final Client client,
-		final ClientThread clientThread
-	)
-	{
+			final Client client,
+			final ClientThread clientThread
+	) {
 		this.client = client;
 		this.clientThread = clientThread;
 	}
 
-	public void search(InputType inputType, String search, boolean closeInput)
-	{
+	public void search(InputType inputType, String search, boolean closeInput) {
 		clientThread.invoke(() ->
 		{
 
 			// This ensures that any chatbox input (e.g from search) will not remain visible when
 			// selecting/changing tab
-			if (closeInput)
-			{
+			if (closeInput) {
 				client.runScript(ScriptID.MESSAGE_LAYER_CLOSE, 0, 0);
 			}
 
@@ -69,26 +65,22 @@ public class BankSearch
 		});
 	}
 
-	public void layoutBank()
-	{
+	public void layoutBank() {
 		Widget bankContainer = client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER);
-		if (bankContainer == null || bankContainer.isHidden())
-		{
+		if (bankContainer == null || bankContainer.isHidden()) {
 			return;
 		}
 
 		Object[] scriptArgs = bankContainer.getOnInvTransmit();
 
-		if (scriptArgs == null)
-		{
+		if (scriptArgs == null) {
 			return;
 		}
 
 		client.runScript(scriptArgs);
 	}
 
-	public void reset(boolean closeChat)
-	{
+	public void reset(boolean closeChat) {
 		search(InputType.NONE, "", closeChat);
 	}
 }

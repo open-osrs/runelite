@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.inventorysetups;
 
-public enum InventorySetupSlotID
-{
+public enum InventorySetupSlotID {
 	INVENTORY(0),
 	EQUIPMENT(1),
 	RUNE_POUCH(2),
@@ -9,13 +8,11 @@ public enum InventorySetupSlotID
 
 	private final int id;
 
-	InventorySetupSlotID(int id)
-	{
+	InventorySetupSlotID(int id) {
 		this.id = id;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 }

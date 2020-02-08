@@ -24,32 +24,22 @@
  */
 package net.runelite.deob.deobfuscators.unreachedcode;
 
-public class UnreachableTest
-{
-	public UnreachableTest()
-	{
+public class UnreachableTest {
+	public UnreachableTest() {
 	}
 
-	public void entry()
-	{
-		try
-		{
+	public void entry() {
+		try {
 			System.out.println("used");
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			System.out.println("should be hit");
 		}
 	}
 
-	public void method1Unused()
-	{
-		try
-		{
+	public void method1Unused() {
+		try {
 			System.out.println("unused");
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			System.out.println("oh no, an exception");
 		}
 	}

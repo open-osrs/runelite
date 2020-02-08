@@ -29,8 +29,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ItemStack
-{
+public class ItemStack {
 	private int id;
 	private int qty;
 }

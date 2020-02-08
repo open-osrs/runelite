@@ -29,15 +29,20 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
+
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+
 import net.runelite.api.Varbits;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
+
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ComponentOrientation;
@@ -45,16 +50,14 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
 @Singleton
-class BlastMineOreCountOverlay extends Overlay
-{
+class BlastMineOreCountOverlay extends Overlay {
 	private final Client client;
 	private final BlastMinePlugin plugin;
 	private final ItemManager itemManager;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private BlastMineOreCountOverlay(final BlastMinePlugin plugin, final Client client, final ItemManager itemManager)
-	{
+	private BlastMineOreCountOverlay(final BlastMinePlugin plugin, final Client client, final ItemManager itemManager) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -65,36 +68,30 @@ class BlastMineOreCountOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		final Widget blastMineWidget = client.getWidget(WidgetInfo.BLAST_MINE);
 
-		if (blastMineWidget == null)
-		{
+		if (blastMineWidget == null) {
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 
-		if (plugin.isShowOreOverlay())
-		{
+		if (plugin.isShowOreOverlay()) {
 			blastMineWidget.setHidden(true);
 			panelComponent.getChildren().add(new ImageComponent(getImage(ItemID.COAL, client.getVar(Varbits.BLAST_MINE_COAL))));
 			panelComponent.getChildren().add(new ImageComponent(getImage(ItemID.GOLD_ORE, client.getVar(Varbits.BLAST_MINE_GOLD))));
 			panelComponent.getChildren().add(new ImageComponent(getImage(ItemID.MITHRIL_ORE, client.getVar(Varbits.BLAST_MINE_MITHRIL))));
 			panelComponent.getChildren().add(new ImageComponent(getImage(ItemID.ADAMANTITE_ORE, client.getVar(Varbits.BLAST_MINE_ADAMANTITE))));
 			panelComponent.getChildren().add(new ImageComponent(getImage(ItemID.RUNITE_ORE, client.getVar(Varbits.BLAST_MINE_RUNITE))));
-		}
-		else
-		{
+		} else {
 			blastMineWidget.setHidden(false);
 		}
 
 		return panelComponent.render(graphics);
 	}
 
-	private BufferedImage getImage(int itemID, int amount)
-	{
+	private BufferedImage getImage(int itemID, int amount) {
 		return itemManager.getImage(itemID, amount, true);
 	}
 }

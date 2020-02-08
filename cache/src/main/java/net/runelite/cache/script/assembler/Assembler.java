@@ -26,6 +26,7 @@ package net.runelite.cache.script.assembler;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.script.Instructions;
 import net.runelite.cache.script.assembler.rs2asmParser.ProgContext;
@@ -33,17 +34,14 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-public class Assembler
-{
+public class Assembler {
 	private final Instructions instructions;
 
-	public Assembler(Instructions instructions)
-	{
+	public Assembler(Instructions instructions) {
 		this.instructions = instructions;
 	}
 
-	public ScriptDefinition assemble(InputStream in) throws IOException
-	{
+	public ScriptDefinition assemble(InputStream in) throws IOException {
 		// Get our lexer
 		rs2asmLexer lexer = new rs2asmLexer(CharStreams.fromStream(in));
 
@@ -59,8 +57,7 @@ public class Assembler
 		// Specify our entry point
 		ProgContext progContext = parser.prog();
 
-		if (errorListener.getErrors() > 0)
-		{
+		if (errorListener.getErrors() > 0) {
 			throw new RuntimeException("syntax error");
 		}
 

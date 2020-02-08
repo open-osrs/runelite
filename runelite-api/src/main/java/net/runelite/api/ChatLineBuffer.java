@@ -29,8 +29,7 @@ package net.runelite.api;
 /**
  * Represents the buffer containing all messages in the chatbox.
  */
-public interface ChatLineBuffer
-{
+public interface ChatLineBuffer {
 	/**
 	 * Gets an array of message nodes currently in the chatbox.
 	 *

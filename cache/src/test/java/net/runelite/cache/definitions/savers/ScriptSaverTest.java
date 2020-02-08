@@ -25,25 +25,25 @@
 package net.runelite.cache.definitions.savers;
 
 import java.io.IOException;
+
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.definitions.loaders.ScriptLoader;
 import net.runelite.cache.script.Instructions;
 import net.runelite.cache.script.assembler.Assembler;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 /**
- *
  * @author Adam
  */
-public class ScriptSaverTest
-{
+public class ScriptSaverTest {
 	private static final String SCRIPT_RESOURCE = "/net/runelite/cache/script/assembler/91.rs2asm";
 	private static final String SCRIPT_RESOURCE_UNICODE = "/net/runelite/cache/script/assembler/Unicode.rs2asm";
 
 	@Test
-	public void testSave() throws IOException
-	{
+	public void testSave() throws IOException {
 		Instructions instructions = new Instructions();
 		instructions.init();
 		ScriptDefinition script = new Assembler(instructions).assemble(getClass().getResourceAsStream(SCRIPT_RESOURCE));
@@ -53,8 +53,7 @@ public class ScriptSaverTest
 	}
 
 	@Test
-	public void testSaveUnicode() throws IOException
-	{
+	public void testSaveUnicode() throws IOException {
 		Instructions instructions = new Instructions();
 		instructions.init();
 		ScriptDefinition script = new Assembler(instructions).assemble(getClass().getResourceAsStream(SCRIPT_RESOURCE_UNICODE));

@@ -11,7 +11,7 @@ public class SoundEffect {
 	int start;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "[Ldq;"
+			signature = "[Ldq;"
 	)
 	@Export("instruments")
 	Instrument[] instruments;
@@ -20,7 +20,7 @@ public class SoundEffect {
 	int end;
 
 	@ObfuscatedSignature(
-		signature = "(Lkp;)V"
+			signature = "(Lkp;)V"
 	)
 	SoundEffect(Buffer var1) {
 		this.instruments = new Instrument[10];
@@ -40,7 +40,7 @@ public class SoundEffect {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "()Lcv;"
+			signature = "()Lcv;"
 	)
 	@Export("toRawSound")
 	public RawSound toRawSound() {
@@ -113,7 +113,7 @@ public class SoundEffect {
 							var9 = var9 >> 31 ^ 127;
 						}
 
-						var3[var8 + var6] = (byte)var9;
+						var3[var8 + var6] = (byte) var9;
 					}
 				}
 			}
@@ -124,7 +124,7 @@ public class SoundEffect {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lii;II)Lcs;"
+			signature = "(Lii;II)Lcs;"
 	)
 	@Export("readSoundEffect")
 	public static SoundEffect readSoundEffect(AbstractArchive var0, int var1, int var2) {

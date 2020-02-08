@@ -27,6 +27,7 @@ package net.runelite.cache.fs;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
 import net.runelite.cache.StoreLocation;
 import net.runelite.cache.index.FileData;
 import org.junit.Assert;
@@ -34,18 +35,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class StoreTest
-{
+public class StoreTest {
 	private static final int NUMBER_OF_FILES = 1024;
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void testOneFile() throws IOException
-	{
-		try (Store store = new Store(folder.getRoot()))
-		{
+	public void testOneFile() throws IOException {
+		try (Store store = new Store(folder.getRoot())) {
 			Index index = store.addIndex(0);
 			Archive archive = index.addArchive(0);
 			archive.setFileData(new FileData[1]);
@@ -55,8 +53,7 @@ public class StoreTest
 
 			store.save();
 
-			try (Store store2 = new Store(folder.getRoot()))
-			{
+			try (Store store2 = new Store(folder.getRoot())) {
 				store2.load();
 
 				Assert.assertEquals(store, store2);
@@ -65,20 +62,17 @@ public class StoreTest
 	}
 
 	@Test
-	public void testManyFiles() throws IOException
-	{
+	public void testManyFiles() throws IOException {
 		Random random = new Random(42L);
 		File root = folder.newFolder();
 
-		try (Store store = new Store(root))
-		{
+		try (Store store = new Store(root)) {
 			Index index = store.addIndex(0);
 			Archive archive = index.addArchive(0);
 			archive.setNameHash(random.nextInt());
 			archive.setFileData(new FileData[NUMBER_OF_FILES]);
 
-			for (int i = 0; i < NUMBER_OF_FILES; ++i)
-			{
+			for (int i = 0; i < NUMBER_OF_FILES; ++i) {
 				FileData[] fileData = archive.getFileData();
 				FileData file = fileData[i] = new FileData();
 				file.setId(i);
@@ -87,8 +81,7 @@ public class StoreTest
 
 			store.save();
 
-			try (Store store2 = new Store(root))
-			{
+			try (Store store2 = new Store(root)) {
 				store2.load();
 
 				Assert.assertEquals(store, store2);
@@ -97,13 +90,11 @@ public class StoreTest
 	}
 
 	@Test
-	public void testMultipleArchives() throws IOException
-	{
+	public void testMultipleArchives() throws IOException {
 		Random random = new Random(43L);
 		File root = folder.newFolder();
 
-		try (Store store = new Store(root))
-		{
+		try (Store store = new Store(root)) {
 			Index index = store.addIndex(0);
 			Index index2 = store.addIndex(1);
 
@@ -117,22 +108,19 @@ public class StoreTest
 			Archive archive3 = index2.addArchive(0);
 			archive3.setFileData(new FileData[NUMBER_OF_FILES]);
 
-			for (int i = 0; i < NUMBER_OF_FILES; ++i)
-			{
+			for (int i = 0; i < NUMBER_OF_FILES; ++i) {
 				FileData[] fileData = archive.getFileData();
 				FileData file = fileData[i] = new FileData();
 				file.setNameHash(random.nextInt(Integer.MAX_VALUE));
 			}
 
-			for (int i = 0; i < NUMBER_OF_FILES; ++i)
-			{
+			for (int i = 0; i < NUMBER_OF_FILES; ++i) {
 				FileData[] fileData = archive2.getFileData();
 				FileData file = fileData[i] = new FileData();
 				file.setNameHash(random.nextInt(Integer.MAX_VALUE));
 			}
 
-			for (int i = 0; i < NUMBER_OF_FILES; ++i)
-			{
+			for (int i = 0; i < NUMBER_OF_FILES; ++i) {
 				FileData[] fileData = archive3.getFileData();
 				FileData file = fileData[i] = new FileData();
 				file.setNameHash(random.nextInt(Integer.MAX_VALUE));
@@ -140,8 +128,7 @@ public class StoreTest
 
 			store.save();
 
-			try (Store store2 = new Store(root))
-			{
+			try (Store store2 = new Store(root)) {
 				store2.load();
 
 				Assert.assertEquals(store, store2);

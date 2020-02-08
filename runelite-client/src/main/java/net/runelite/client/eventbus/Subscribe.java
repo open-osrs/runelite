@@ -36,9 +36,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Documented
-public @interface Subscribe
-{
+public @interface Subscribe {
 	int takeUntil() default -1;
+
 	EventScheduler subscribe() default EventScheduler.DEFAULT;
+
 	EventScheduler observe() default EventScheduler.DEFAULT;
 }

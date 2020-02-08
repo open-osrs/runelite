@@ -9,67 +9,67 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class DynamicObject extends Entity {
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "[Lli;"
+			signature = "[Lli;"
 	)
 	@Export("worldSelectStars")
 	static IndexedSprite[] worldSelectStars;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1669181917
+			intValue = 1669181917
 	)
 	@Export("id")
 	int id;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -433017079
+			intValue = -433017079
 	)
 	@Export("type")
 	int type;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -857154587
+			intValue = -857154587
 	)
 	@Export("orientation")
 	int orientation;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1092550967
+			intValue = 1092550967
 	)
 	@Export("plane")
 	int plane;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -660680399
+			intValue = -660680399
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 74739559
+			intValue = 74739559
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lip;"
+			signature = "Lip;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1110728841
+			intValue = -1110728841
 	)
 	@Export("frame")
 	int frame;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1571006873
+			intValue = -1571006873
 	)
 	@Export("cycleStart")
 	int cycleStart;
 
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIZLeq;)V"
+			signature = "(IIIIIIIZLeq;)V"
 	)
 	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Entity var9) {
 		this.id = var1;
@@ -83,7 +83,7 @@ public class DynamicObject extends Entity {
 			this.frame = 0;
 			this.cycleStart = Client.cycle - 1;
 			if (this.sequenceDefinition.field3516 == 0 && var9 != null && var9 instanceof DynamicObject) {
-				DynamicObject var10 = (DynamicObject)var9;
+				DynamicObject var10 = (DynamicObject) var9;
 				if (this.sequenceDefinition == var10.sequenceDefinition) {
 					this.frame = var10.frame;
 					this.cycleStart = var10.cycleStart;
@@ -92,8 +92,8 @@ public class DynamicObject extends Entity {
 			}
 
 			if (var8 && this.sequenceDefinition.frameCount != -1) {
-				this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length);
-				this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]);
+				this.frame = (int) (Math.random() * (double) this.sequenceDefinition.frameIds.length);
+				this.cycleStart -= (int) (Math.random() * (double) this.sequenceDefinition.frameLengths[this.frame]);
 			}
 		}
 
@@ -101,8 +101,8 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)Ldx;",
-		garbageValue = "-2133076860"
+			signature = "(I)Ldx;",
+			garbageValue = "-2133076860"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
@@ -112,7 +112,8 @@ public class DynamicObject extends Entity {
 				var1 = 100;
 			}
 
-			label57: {
+			label57:
+			{
 				do {
 					do {
 						if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) {
@@ -121,10 +122,10 @@ public class DynamicObject extends Entity {
 
 						var1 -= this.sequenceDefinition.frameLengths[this.frame];
 						++this.frame;
-					} while(this.frame < this.sequenceDefinition.frameIds.length);
+					} while (this.frame < this.sequenceDefinition.frameIds.length);
 
 					this.frame -= this.sequenceDefinition.frameCount;
-				} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length);
+				} while (this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length);
 
 				this.sequenceDefinition = null;
 			}
@@ -164,8 +165,8 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
-		garbageValue = "2"
+			signature = "(IB)I",
+			garbageValue = "2"
 	)
 	public static int method2293(int var0) {
 		--var0;
@@ -179,7 +180,7 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Lkp;J)V"
+			signature = "(Lkp;J)V"
 	)
 	static void method2291(Buffer var0, long var1) {
 		var1 /= 10L;
@@ -189,13 +190,13 @@ public class DynamicObject extends Entity {
 			var1 = 65535L;
 		}
 
-		var0.writeShort((int)var1);
+		var0.writeShort((int) var1);
 	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1735804307"
+			signature = "(I)V",
+			garbageValue = "-1735804307"
 	)
 	public static void method2292() {
 		Huffman.SpriteBuffer_xOffsets = null;
@@ -208,8 +209,8 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
-		garbageValue = "-75"
+			signature = "(IIB)I",
+			garbageValue = "-75"
 	)
 	static final int method2286(int var0, int var1) {
 		if (var0 == -1) {

@@ -25,27 +25,24 @@
 package net.runelite.client.plugins.maxhit.requirements;
 
 import java.util.List;
+
 import net.runelite.api.Client;
 import net.runelite.api.Varbits;
 import net.runelite.client.plugins.maxhit.config.SpellBaseDamageConfig;
 
-public class AutocastSpellRequirement implements Requirement
-{
+public class AutocastSpellRequirement implements Requirement {
 
 	private final List<SpellBaseDamageConfig> autocastSpells;
 
-	public AutocastSpellRequirement(List<SpellBaseDamageConfig> autocastSpells)
-	{
+	public AutocastSpellRequirement(List<SpellBaseDamageConfig> autocastSpells) {
 		this.autocastSpells = autocastSpells;
 	}
 
 	@Override
-	public boolean meetsRequirements(Client client)
-	{
+	public boolean meetsRequirements(Client client) {
 		int autoCastSpellId = client.getVar(Varbits.AUTO_CAST_SPELL);
 
-		if (autoCastSpellId == 0)
-		{
+		if (autoCastSpellId == 0) {
 
 			return false;
 

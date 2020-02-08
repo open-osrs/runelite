@@ -25,8 +25,7 @@
 
 package net.runelite.client.util;
 
-public enum ImageUploadStyle
-{
+public enum ImageUploadStyle {
 	NEITHER,
 	IMGUR,
 	CLIPBOARD

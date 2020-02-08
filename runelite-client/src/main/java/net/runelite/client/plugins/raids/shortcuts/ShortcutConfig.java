@@ -4,15 +4,13 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("shortcut")
-public interface ShortcutConfig
-{
+public interface ShortcutConfig {
 	@ConfigItem(
-		keyName = "highlightShortcuts",
-		name = "Highlight shortcuts",
-		description = "Displays which shortcut it is"
+			keyName = "highlightShortcuts",
+			name = "Highlight shortcuts",
+			description = "Displays which shortcut it is"
 	)
-	default boolean highlightShortcuts()
-	{
+	default boolean highlightShortcuts() {
 		return true;
 	}
 }

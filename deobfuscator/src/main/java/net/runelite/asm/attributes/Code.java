@@ -27,6 +27,7 @@ package net.runelite.asm.attributes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.code.Exceptions;
 import net.runelite.asm.attributes.code.Instruction;
@@ -35,38 +36,32 @@ import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.LVTInstruction;
 import net.runelite.asm.signature.Signature;
 
-public class Code
-{
+public class Code {
 	private Method method;
 	private int maxStack;
 	private Instructions instructions;
 	private final Exceptions exceptions;
 
-	public Code(Method method)
-	{
+	public Code(Method method) {
 		this.method = method;
 
 		exceptions = new Exceptions(this);
 		instructions = new Instructions(this);
 	}
 
-	public Method getMethod()
-	{
+	public Method getMethod() {
 		return method;
 	}
 
-	public int getMaxStack()
-	{
+	public int getMaxStack() {
 		return maxStack;
 	}
 
-	public void setMaxStack(int maxStack)
-	{
+	public void setMaxStack(int maxStack) {
 		this.maxStack = maxStack;
 	}
 
-	private int getMaxLocalsFromSig()
-	{
+	private int getMaxLocalsFromSig() {
 		Method m = getMethod();
 		int num = m.isStatic() ? 0 : 1;
 		Signature sig = m.getDescriptor();
@@ -78,19 +73,15 @@ public class Code
 	/**
 	 * calculates the size of the lvt required for this method
 	 */
-	public int getMaxLocals()
-	{
+	public int getMaxLocals() {
 		int max = -1;
 
-		for (Instruction ins : instructions.getInstructions())
-		{
-			if (ins instanceof LVTInstruction)
-			{
+		for (Instruction ins : instructions.getInstructions()) {
+			if (ins instanceof LVTInstruction) {
 				LVTInstruction lvt = (LVTInstruction) ins;
 
 				int sizeRequired = lvt.getVariableIndex() + lvt.type().getSlots();
-				if (sizeRequired > max)
-				{
+				if (sizeRequired > max) {
 					max = sizeRequired;
 				}
 			}
@@ -103,30 +94,24 @@ public class Code
 		return max;
 	}
 
-	public Exceptions getExceptions()
-	{
+	public Exceptions getExceptions() {
 		return exceptions;
 	}
 
-	public Instructions getInstructions()
-	{
+	public Instructions getInstructions() {
 		return instructions;
 	}
 
-	public List<Integer> getLineNumbers()
-	{
+	public List<Integer> getLineNumbers() {
 		final List<Integer> lineNumbers = new ArrayList<>();
 
-		for (Instruction i : instructions.getInstructions())
-		{
-			if (!(i instanceof Label))
-			{
+		for (Instruction i : instructions.getInstructions()) {
+			if (!(i instanceof Label)) {
 				continue;
 			}
 
 			Integer lineNumber = ((Label) i).getLineNumber();
-			if (lineNumber == null)
-			{
+			if (lineNumber == null) {
 				continue;
 			}
 

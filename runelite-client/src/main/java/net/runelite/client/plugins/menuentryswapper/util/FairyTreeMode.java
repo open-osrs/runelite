@@ -29,8 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum FairyTreeMode
-{
+public enum FairyTreeMode {
 	TREE("Tree"),
 	RING_ZANARIS("Zanaris"),
 	RING_CONFIGURE("Configure"),
@@ -40,8 +39,7 @@ public enum FairyTreeMode
 	private final String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

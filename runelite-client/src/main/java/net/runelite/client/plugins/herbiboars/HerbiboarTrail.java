@@ -27,6 +27,7 @@ package net.runelite.client.plugins.herbiboars;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,8 +36,7 @@ import net.runelite.api.coords.WorldPoint;
 
 //Location of GameObjects which show TRAIL_xxxxx when used
 @AllArgsConstructor
-public enum HerbiboarTrail
-{
+public enum HerbiboarTrail {
 	TRAIL_31303(31303, Varbits.HB_TRAIL_31303, null, new WorldPoint(3697, 3875, 0), null, new WorldPoint(3699, 3875, 0)),
 	TRAIL_31306(31306, Varbits.HB_TRAIL_31306, null, new WorldPoint(3672, 3890, 0), null, new WorldPoint(3670, 3889, 0)),
 	TRAIL_31309(31309, Varbits.HB_TRAIL_31309, null, new WorldPoint(3681, 3859, 0), null, new WorldPoint(3681, 3860, 0)),
@@ -76,10 +76,8 @@ public enum HerbiboarTrail
 	@Getter(AccessLevel.PACKAGE)
 	private static Set<WorldPoint> allObjectLocs = new HashSet<>();
 
-	static
-	{
-		for (HerbiboarTrail trail : values())
-		{
+	static {
+		for (HerbiboarTrail trail : values()) {
 			trailIds.add(trail.trailId);
 			trailIds.add(trail.trailId + 1);
 
@@ -88,10 +86,8 @@ public enum HerbiboarTrail
 		}
 	}
 
-	public WorldPoint[] getObjectLocs(int varbitValue)
-	{
-		switch (varbitValue)
-		{
+	public WorldPoint[] getObjectLocs(int varbitValue) {
+		switch (varbitValue) {
 			case 1:
 				return new WorldPoint[]{objectLoc1, objectLoc3};
 			case 2:
@@ -103,8 +99,7 @@ public enum HerbiboarTrail
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return String.format("trailId=%s obj1=%s obj2=%s obj3=%s obj4=%s", trailId, objectLoc1, objectLoc2, objectLoc3, objectLoc4);
 	}
 }

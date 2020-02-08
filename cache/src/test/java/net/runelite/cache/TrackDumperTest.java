@@ -25,11 +25,13 @@
 package net.runelite.cache;
 
 import com.google.common.io.Files;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequencer;
+
 import net.runelite.cache.definitions.TrackDefinition;
 import net.runelite.cache.definitions.loaders.TrackLoader;
 import net.runelite.cache.fs.Archive;
@@ -44,8 +46,7 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TrackDumperTest
-{
+public class TrackDumperTest {
 	private static final Logger logger = LoggerFactory.getLogger(TrackDumperTest.class);
 
 	@Rule
@@ -54,30 +55,26 @@ public class TrackDumperTest
 	private final Djb2Manager djb2 = new Djb2Manager();
 
 	@Test
-	public void test() throws IOException
-	{
+	public void test() throws IOException {
 		File dumpDir1 = folder.newFolder(),
-			dumpDir2 = folder.newFolder();
+				dumpDir2 = folder.newFolder();
 		int idx1 = 0, idx2 = 0;
 
 		djb2.load();
 
-		try (Store store = new Store(StoreLocation.LOCATION))
-		{
+		try (Store store = new Store(StoreLocation.LOCATION)) {
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.TRACK1);
 			Index index2 = store.getIndex(IndexType.TRACK2);
 
-			for (Archive archive : index.getArchives())
-			{
+			for (Archive archive : index.getArchives()) {
 				dumpTrackArchive(dumpDir1, storage, archive);
 				++idx1;
 			}
 
-			for (Archive archive : index2.getArchives())
-			{
+			for (Archive archive : index2.getArchives()) {
 				dumpTrackArchive(dumpDir2, storage, archive);
 				++idx2;
 			}
@@ -86,12 +83,10 @@ public class TrackDumperTest
 		logger.info("Dumped {} sound tracks ({} idx1, {} idx2) to {} and {}", idx1 + idx2, idx1, idx2, dumpDir1, dumpDir2);
 	}
 
-	private void dumpTrackArchive(File dumpDir, Storage storage, Archive archive) throws IOException
-	{
+	private void dumpTrackArchive(File dumpDir, Storage storage, Archive archive) throws IOException {
 		byte[] contents = archive.decompress(storage.loadArchive(archive));
 
-		if (contents == null)
-		{
+		if (contents == null) {
 			return;
 		}
 
@@ -99,16 +94,12 @@ public class TrackDumperTest
 		TrackDefinition def = loader.load(contents);
 
 		String name;
-		if (archive.getNameHash() != 0)
-		{
+		if (archive.getNameHash() != 0) {
 			name = djb2.getName(archive.getNameHash());
-			if (name == null)
-			{
+			if (name == null) {
 				name = "name-" + archive.getNameHash();
 			}
-		}
-		else
-		{
+		} else {
 			name = "archive-" + archive.getArchiveId();
 		}
 
@@ -120,8 +111,7 @@ public class TrackDumperTest
 
 	@Test
 	@Ignore
-	public void play() throws Exception
-	{
+	public void play() throws Exception {
 		// Obtains the default Sequencer connected to a default device.
 		Sequencer sequencer = MidiSystem.getSequencer();
 
@@ -129,8 +119,7 @@ public class TrackDumperTest
 		// system resources it requires and become operational.
 		sequencer.open();
 
-		try
-		{
+		try {
 			// create a stream from a file
 			java.io.InputStream is = new FileInputStream(new File("D:\\rs\\07\\cache\\track1\\name-687938017.midi"));
 
@@ -141,13 +130,10 @@ public class TrackDumperTest
 			// Starts playback of the MIDI data in the currently loaded sequence.
 			sequencer.start();
 
-			while (sequencer.isRunning())
-			{
+			while (sequencer.isRunning()) {
 				Thread.sleep(1000L);
 			}
-		}
-		finally
-		{
+		} finally {
 			sequencer.close();
 		}
 	}

@@ -7,36 +7,36 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class197 {
 	@ObfuscatedName("og")
 	@ObfuscatedSignature(
-		signature = "Lcu;"
+			signature = "Lcu;"
 	)
 	@Export("varcs")
 	static Varcs varcs;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("musicPatchesArchive")
 	static AbstractArchive musicPatchesArchive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("musicSamplesArchive")
 	static AbstractArchive musicSamplesArchive;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lgw;"
+			signature = "Lgw;"
 	)
 	@Export("midiPcmStream")
 	public static MidiPcmStream midiPcmStream;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1658116117
+			intValue = 1658116117
 	)
 	public static int field2414;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1762609869
+			intValue = -1762609869
 	)
 	@Export("musicTrackGroupId")
 	public static int musicTrackGroupId;
@@ -45,18 +45,18 @@ public class class197 {
 	static boolean[] Widget_loadedInterfaces;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("Widget_archive")
 	static AbstractArchive Widget_archive;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -623019541
+			intValue = -623019541
 	)
 	public static int field2412;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "Ldv;"
+			signature = "Ldv;"
 	)
 	@Export("soundCache")
 	public static SoundCache soundCache;
@@ -67,8 +67,8 @@ public class class197 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IIII)Lce;",
-		garbageValue = "473257926"
+			signature = "(IIII)Lce;",
+			garbageValue = "473257926"
 	)
 	@Export("getWorldMapScript")
 	static Script getWorldMapScript(int var0, int var1, int var2) {
@@ -85,8 +85,8 @@ public class class197 {
 
 	@ObfuscatedName("go")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZI)V",
-		garbageValue = "-802729568"
+			signature = "(Ljava/lang/String;ZI)V",
+			garbageValue = "-802729568"
 	)
 	@Export("drawLoadingMessage")
 	static final void drawLoadingMessage(String var0, boolean var1) {

@@ -25,24 +25,20 @@
 
 package net.runelite.osb.inject;
 
-public class MethodHook
-{
+public class MethodHook {
 	private String method; // ob method name
 	private String desc; // deob desc
 	private String clientDesc; // ob desc
 
-	public String getMethod()
-	{
+	public String getMethod() {
 		return method;
 	}
 
-	public String getDesc()
-	{
+	public String getDesc() {
 		return desc;
 	}
 
-	public String getClientDesc()
-	{
+	public String getClientDesc() {
 		return clientDesc;
 	}
 }

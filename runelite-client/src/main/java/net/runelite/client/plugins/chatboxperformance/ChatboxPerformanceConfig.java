@@ -29,16 +29,14 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("chatboxperformance")
-public interface ChatboxPerformanceConfig extends Config
-{
+public interface ChatboxPerformanceConfig extends Config {
 	@ConfigItem(
-		position = 1,
-		keyName = "Chatbox",
-		name = "Toggle gradient",
-		description = "Toggles the gradient inside the chatbox."
+			position = 1,
+			keyName = "Chatbox",
+			name = "Toggle gradient",
+			description = "Toggles the gradient inside the chatbox."
 	)
-	default boolean transparentChatBox()
-	{
+	default boolean transparentChatBox() {
 		return true; //default enabled, just like in game.
 	}
 }

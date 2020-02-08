@@ -31,8 +31,7 @@ package net.runelite.rs.api;
 import net.runelite.api.widgets.Widget;
 import net.runelite.mapping.Import;
 
-public interface RSWidget extends Widget
-{
+public interface RSWidget extends Widget {
 	@Import("children")
 	@Override
 	RSWidget[] getChildren();

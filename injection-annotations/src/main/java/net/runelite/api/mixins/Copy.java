@@ -37,8 +37,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Documented
-public @interface Copy
-{
+public @interface Copy {
 	/**
 	 * Method to copy
 	 *

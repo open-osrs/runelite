@@ -24,6 +24,7 @@
 package net.runelite.client.plugins.dynamicmaxhit;
 
 import java.awt.Color;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,8 +32,7 @@ import net.runelite.api.Prayer;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public enum AttackStyle
-{
+public enum AttackStyle {
 	MAGE("Mage", Color.CYAN, Prayer.PROTECT_FROM_MAGIC),
 	RANGE("Range", Color.GREEN, Prayer.PROTECT_FROM_MISSILES),
 	MELEE("Melee", Color.RED, Prayer.PROTECT_FROM_MELEE),

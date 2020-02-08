@@ -2,8 +2,7 @@ package net.runelite.rs.api;
 
 import net.runelite.mapping.Import;
 
-public interface RSModelData extends RSEntity
-{
+public interface RSModelData extends RSEntity {
 	@Import("faceCount")
 	int getTriangleFaceCount();
 

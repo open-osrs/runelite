@@ -28,28 +28,22 @@ import net.runelite.api.Client;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
 
-public class SingleItemRequirement implements ItemRequirement
-{
+public class SingleItemRequirement implements ItemRequirement {
 	private final int itemId;
 
-	public SingleItemRequirement(int itemId)
-	{
+	public SingleItemRequirement(int itemId) {
 		this.itemId = itemId;
 	}
 
 	@Override
-	public boolean fulfilledBy(int itemId)
-	{
+	public boolean fulfilledBy(int itemId) {
 		return this.itemId == itemId;
 	}
 
 	@Override
-	public boolean fulfilledBy(Item[] items)
-	{
-		for (Item item : items)
-		{
-			if (item.getId() == itemId)
-			{
+	public boolean fulfilledBy(Item[] items) {
+		for (Item item : items) {
+			if (item.getId() == itemId) {
 				return true;
 			}
 		}
@@ -58,12 +52,10 @@ public class SingleItemRequirement implements ItemRequirement
 	}
 
 	@Override
-	public String getCollectiveName(Client client)
-	{
+	public String getCollectiveName(Client client) {
 		ItemDefinition definition = client.getItemDefinition(itemId);
 
-		if (definition == null)
-		{
+		if (definition == null) {
 			return "N/A";
 		}
 

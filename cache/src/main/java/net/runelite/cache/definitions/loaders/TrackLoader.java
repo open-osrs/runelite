@@ -28,8 +28,7 @@ import net.runelite.cache.definitions.TrackDefinition;
 import net.runelite.cache.io.InputStream;
 import net.runelite.cache.io.OutputStream;
 
-public class TrackLoader
-{
+public class TrackLoader {
 	// Headers
 	private static final int MTHD_MAGIC = 1297377380;
 	private static final int MTRK_MAGIC = 1297379947;
@@ -77,15 +76,13 @@ public class TrackLoader
 	private static final int JAG_END_OF_TRACK = 7;
 	private static final int JAG_TEMPO = 23;
 
-	public TrackDefinition load(byte[] b)
-	{
+	public TrackDefinition load(byte[] b) {
 		TrackDefinition def = new TrackDefinition();
 		load(def, new InputStream(b));
 		return def;
 	}
 
-	private void load(TrackDefinition def, InputStream var1)
-	{
+	private void load(TrackDefinition def, InputStream var1) {
 		// Some of the names are from https://www.rune-server.ee/runescape-development/rs-503-client-server/snippets/311669-rs-music-file-structure-conversion.html
 		var1.setOffset(var1.getLength() - 3);
 		int tracks = var1.readUnsignedByte();
@@ -104,58 +101,37 @@ public class TrackLoader
 		int var13;
 		int opcode;
 		int controlChangeIndex;
-		for (var13 = 0; var13 < tracks; ++var13)
-		{
+		for (var13 = 0; var13 < tracks; ++var13) {
 			opcode = -1;
 
-			while (true)
-			{
+			while (true) {
 				controlChangeIndex = var1.readUnsignedByte();
-				if (controlChangeIndex != opcode)
-				{
+				if (controlChangeIndex != opcode) {
 					++offset;
 				}
 
 				opcode = controlChangeIndex & 15;
-				if (controlChangeIndex == JAG_END_OF_TRACK)
-				{
+				if (controlChangeIndex == JAG_END_OF_TRACK) {
 					break;
 				}
 
-				if (controlChangeIndex == JAG_TEMPO)
-				{
+				if (controlChangeIndex == JAG_TEMPO) {
 					++tempoOpcodes;
-				}
-				else if (opcode == JAG_NOTE_ON)
-				{
+				} else if (opcode == JAG_NOTE_ON) {
 					++noteOnOpcodes;
-				}
-				else if (opcode == JAG_NOTE_OFF)
-				{
+				} else if (opcode == JAG_NOTE_OFF) {
 					++noteOffOpcodes;
-				}
-				else if (opcode == JAG_CONTROL_CHANGE)
-				{
+				} else if (opcode == JAG_CONTROL_CHANGE) {
 					++ctrlChangeOpcodes;
-				}
-				else if (opcode == JAG_PITCH_BEND)
-				{
+				} else if (opcode == JAG_PITCH_BEND) {
 					++wheelChangeOpcodes;
-				}
-				else if (opcode == JAG_CHANNEL_PRESSURE)
-				{
+				} else if (opcode == JAG_CHANNEL_PRESSURE) {
 					++chnnlAfterTchOpcodes;
-				}
-				else if (opcode == JAG_POLY_PRESSURE)
-				{
+				} else if (opcode == JAG_POLY_PRESSURE) {
 					++keyAfterTchOpcodes;
-				}
-				else if (opcode == JAG_PROGRAM_CHANGE)
-				{
+				} else if (opcode == JAG_PROGRAM_CHANGE) {
 					++progmChangeOpcodes;
-				}
-				else
-				{
+				} else {
 					throw new RuntimeException();
 				}
 			}
@@ -167,8 +143,7 @@ public class TrackLoader
 		var13 = var1.getOffset();
 		opcode = tracks + tempoOpcodes + ctrlChangeOpcodes + noteOnOpcodes + noteOffOpcodes + wheelChangeOpcodes + chnnlAfterTchOpcodes + keyAfterTchOpcodes + progmChangeOpcodes;
 
-		for (controlChangeIndex = 0; controlChangeIndex < opcode; ++controlChangeIndex)
-		{
+		for (controlChangeIndex = 0; controlChangeIndex < opcode; ++controlChangeIndex) {
 			var1.readVarInt();
 		}
 
@@ -189,63 +164,37 @@ public class TrackLoader
 		int controllerNumber = 0;
 
 		int var29;
-		for (var29 = 0; var29 < ctrlChangeOpcodes; ++var29)
-		{
+		for (var29 = 0; var29 < ctrlChangeOpcodes; ++var29) {
 			controllerNumber = controllerNumber + var1.readUnsignedByte() & 127;
-			if (controllerNumber == CONTROLLER_BANK_SELECT || controllerNumber == CONTROLLER_BANK_SELECT_2)
-			{
+			if (controllerNumber == CONTROLLER_BANK_SELECT || controllerNumber == CONTROLLER_BANK_SELECT_2) {
 				++progmChangeOpcodes;
-			}
-			else if (controllerNumber == CONTROLLER_MODULATION_WHEEL)
-			{
+			} else if (controllerNumber == CONTROLLER_MODULATION_WHEEL) {
 				++modulationWheelSize;
-			}
-			else if (controllerNumber == CONTROLLER_MODULATION_WHEEL2)
-			{
+			} else if (controllerNumber == CONTROLLER_MODULATION_WHEEL2) {
 				++modulationWheel2Size;
-			}
-			else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME)
-			{
+			} else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME) {
 				++channelVolumeSize;
-			}
-			else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME_2)
-			{
+			} else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME_2) {
 				++channelVolume2Size;
-			}
-			else if (controllerNumber == CONTROLLER_PAN)
-			{
+			} else if (controllerNumber == CONTROLLER_PAN) {
 				++panSize;
-			}
-			else if (controllerNumber == CONTROLLER_PAN_2)
-			{
+			} else if (controllerNumber == CONTROLLER_PAN_2) {
 				++pan2Size;
-			}
-			else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_MSB)
-			{
+			} else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_MSB) {
 				++nonRegisteredMsbSize;
-			}
-			else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_LSB)
-			{
+			} else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_LSB) {
 				++nonRegisteredLsbSize;
-			}
-			else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_MSB)
-			{
+			} else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_MSB) {
 				++registeredNumberMsb;
-			}
-			else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_LSB)
-			{
+			} else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_LSB) {
 				++registeredLsbSize;
-			}
-			else if (controllerNumber != CONTROLLER_DAMPER_PEDAL
-				&& controllerNumber != CONTROLLER_PORTAMENTO
-				&& controllerNumber != CONTROLLER_ALL_SOUND_OFF
-				&& controllerNumber != CONTROLLER_RESET_ALL_CONTROLLERS
-				&& controllerNumber != CONTROLLER_ALL_NOTES_OFF)
-			{
+			} else if (controllerNumber != CONTROLLER_DAMPER_PEDAL
+					&& controllerNumber != CONTROLLER_PORTAMENTO
+					&& controllerNumber != CONTROLLER_ALL_SOUND_OFF
+					&& controllerNumber != CONTROLLER_RESET_ALL_CONTROLLERS
+					&& controllerNumber != CONTROLLER_ALL_NOTES_OFF) {
 				++otherSize;
-			}
-			else
-			{
+			} else {
 				++commandsSize;
 			}
 		}
@@ -311,22 +260,19 @@ public class TrackLoader
 		controllerNumber = 0;
 
 		label361:
-		for (int var60 = 0; var60 < tracks; ++var60)
-		{
+		for (int var60 = 0; var60 < tracks; ++var60) {
 			var51.writeInt(MTRK_MAGIC); // MTrk
 			var51.skip(4); // length gets written here later
 			int var61 = var51.getOffset();
 			int var62 = -1;
 
-			while (true)
-			{
+			while (true) {
 				int deltaTick = var1.readVarInt();
 				var51.writeVarInt(deltaTick); // delta time
 				int status = var1.getArray()[var29++] & 255;
 				boolean var65 = status != var62;
 				var62 = status & 15;
-				if (status == JAG_END_OF_TRACK)
-				{
+				if (status == JAG_END_OF_TRACK) {
 					//if (var65) -- client has this if, but it causes broken midi to be produced
 					{
 						var51.writeByte(META);
@@ -338,8 +284,7 @@ public class TrackLoader
 					continue label361;
 				}
 
-				if (status == JAG_TEMPO)
-				{
+				if (status == JAG_TEMPO) {
 					//if (var65) -- client has this if, but it causes broken midi to be produced
 					{
 						var51.writeByte(META); // meta event FF
@@ -350,14 +295,10 @@ public class TrackLoader
 					var51.writeByte(var1.getArray()[tempoOffset++]);
 					var51.writeByte(var1.getArray()[tempoOffset++]);
 					var51.writeByte(var1.getArray()[tempoOffset++]);
-				}
-				else
-				{
+				} else {
 					channel ^= status >> 4;
-					if (var62 == JAG_NOTE_ON)
-					{
-						if (var65)
-						{
+					if (var62 == JAG_NOTE_ON) {
+						if (var65) {
 							var51.writeByte(NOTE_ON + channel);
 						}
 
@@ -365,11 +306,8 @@ public class TrackLoader
 						var54 += var1.getArray()[notesOnIndex++];
 						var51.writeByte(var53 & 127);
 						var51.writeByte(var54 & 127);
-					}
-					else if (var62 == JAG_NOTE_OFF)
-					{
-						if (var65)
-						{
+					} else if (var62 == JAG_NOTE_OFF) {
+						if (var65) {
 							var51.writeByte(NOTE_OFF + channel);
 						}
 
@@ -377,82 +315,51 @@ public class TrackLoader
 						var55 += var1.getArray()[notesOffIndex++];
 						var51.writeByte(var53 & 127);
 						var51.writeByte(var55 & 127);
-					}
-					else if (var62 == JAG_CONTROL_CHANGE)
-					{
-						if (var65)
-						{
+					} else if (var62 == JAG_CONTROL_CHANGE) {
+						if (var65) {
 							var51.writeByte(CONTROL_CHANGE + channel);
 						}
 
 						controllerNumber = controllerNumber + var1.getArray()[controlChangeIndex++] & 127;
 						var51.writeByte(controllerNumber);
 						byte var66;
-						if (controllerNumber == CONTROLLER_BANK_SELECT || controllerNumber == CONTROLLER_BANK_SELECT_2)
-						{
+						if (controllerNumber == CONTROLLER_BANK_SELECT || controllerNumber == CONTROLLER_BANK_SELECT_2) {
 							var66 = var1.getArray()[programChangeIndex++];
-						}
-						else if (controllerNumber == CONTROLLER_MODULATION_WHEEL)
-						{
+						} else if (controllerNumber == CONTROLLER_MODULATION_WHEEL) {
 							var66 = var1.getArray()[modulationWheelOffset++];
-						}
-						else if (controllerNumber == CONTROLLER_MODULATION_WHEEL2)
-						{
+						} else if (controllerNumber == CONTROLLER_MODULATION_WHEEL2) {
 							var66 = var1.getArray()[modulationWheel2Offset++];
-						}
-						else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME)
-						{
+						} else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME) {
 							var66 = var1.getArray()[channelVolumeOffset++];
-						}
-						else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME_2)
-						{
+						} else if (controllerNumber == CONTROLLER_CHANNEL_VOLUME_2) {
 							var66 = var1.getArray()[channelVolume2Offset++];
-						}
-						else if (controllerNumber == CONTROLLER_PAN)
-						{
+						} else if (controllerNumber == CONTROLLER_PAN) {
 							var66 = var1.getArray()[panOffset++];
-						}
-						else if (controllerNumber == CONTROLLER_PAN_2)
-						{
+						} else if (controllerNumber == CONTROLLER_PAN_2) {
 							var66 = var1.getArray()[pan2Offset++];
-						}
-						else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_MSB)
-						{
+						} else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_MSB) {
 							var66 = var1.getArray()[nonRegisteredMsbIndex++];
-						}
-						else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_LSB)
-						{
+						} else if (controllerNumber == CONTROLLER_NON_REGISTERED_PARAMETER_NUMBER_LSB) {
 							var66 = var1.getArray()[nonRegisteredLsbIndex++];
-						}
-						else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_MSB)
-						{
+						} else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_MSB) {
 							var66 = var1.getArray()[registeredMsbIndex++];
-						}
-						else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_LSB)
-						{
+						} else if (controllerNumber == CONTROLLER_REGISTERED_PARAMETER_NUMBER_LSB) {
 							var66 = var1.getArray()[registeredLsbIndex++];
-						}
-						else if (controllerNumber != CONTROLLER_DAMPER_PEDAL
-							&& controllerNumber != CONTROLLER_PORTAMENTO
-							&& controllerNumber != CONTROLLER_ALL_SOUND_OFF
-							&& controllerNumber != CONTROLLER_RESET_ALL_CONTROLLERS
-							&& controllerNumber != CONTROLLER_ALL_NOTES_OFF)
-						{
+						} else if (controllerNumber != CONTROLLER_DAMPER_PEDAL
+								&& controllerNumber != CONTROLLER_PORTAMENTO
+								&& controllerNumber != CONTROLLER_ALL_SOUND_OFF
+								&& controllerNumber != CONTROLLER_RESET_ALL_CONTROLLERS
+								&& controllerNumber != CONTROLLER_ALL_NOTES_OFF) {
 							var66 = var1.getArray()[otherIndex++];
-						}
-						else
-						{
+						} else {
 							var66 = var1.getArray()[commandsIndex++];
 						}
 
 						int var67 = var66 + var59[controllerNumber];
 						var59[controllerNumber] = var67;
 						var51.writeByte(var67 & 127);
-					}
-					else if (var62 == JAG_PITCH_BEND)
-					{
-						if (var65)
-						{
+					} else if (var62 == JAG_PITCH_BEND) {
+						if (var65) {
 							var51.writeByte(PITCH_WHEEL_CHANGE + channel);
 						}
 
@@ -460,21 +367,15 @@ public class TrackLoader
 						var56 += var1.getArray()[pitchWheelHighIndex++] << 7;
 						var51.writeByte(var56 & 127);
 						var51.writeByte(var56 >> 7 & 127);
-					}
-					else if (var62 == JAG_CHANNEL_PRESSURE)
-					{
-						if (var65)
-						{
+					} else if (var62 == JAG_CHANNEL_PRESSURE) {
+						if (var65) {
 							var51.writeByte(CHANNEL_PRESSURE + channel);
 						}
 
 						var57 += var1.getArray()[channelPressureIndex++];
 						var51.writeByte(var57 & 127);
-					}
-					else if (var62 == JAG_POLY_PRESSURE)
-					{
-						if (var65)
-						{
+					} else if (var62 == JAG_POLY_PRESSURE) {
+						if (var65) {
 							var51.writeByte(POLYPHONIC_KEY_PRESSURE + channel);
 						}
 
@@ -482,19 +383,14 @@ public class TrackLoader
 						var58 += var1.getArray()[polyPressureIndex++];
 						var51.writeByte(var53 & 127);
 						var51.writeByte(var58 & 127);
-					}
-					else if (var62 == JAG_PROGRAM_CHANGE)
-					{
+					} else if (var62 == JAG_PROGRAM_CHANGE) {
 
-						if (var65)
-						{
+						if (var65) {
 							var51.writeByte(PROGRAM_CHANGE + channel);
 						}
 
 						var51.writeByte(var1.getArray()[programChangeIndex++]);
-					}
-					else
-					{
+					} else {
 						throw new RuntimeException();
 					}
 				}

@@ -27,8 +27,7 @@ package net.runelite.api;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 
-public interface Locatable
-{
+public interface Locatable {
 	/**
 	 * Gets the server-side location of the actor.
 	 * <p>

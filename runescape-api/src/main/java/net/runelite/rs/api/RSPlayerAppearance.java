@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.PlayerAppearance;
 import net.runelite.mapping.Import;
 
-public interface RSPlayerAppearance extends PlayerAppearance
-{
+public interface RSPlayerAppearance extends PlayerAppearance {
 	@Import("isFemale")
 	boolean isFemale();
 

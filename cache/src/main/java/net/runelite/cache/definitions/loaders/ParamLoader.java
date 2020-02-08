@@ -28,23 +28,18 @@ import net.runelite.cache.definitions.ParamDefinition;
 import net.runelite.cache.io.InputStream;
 import net.runelite.cache.util.ScriptVarType;
 
-public class ParamLoader
-{
-	public ParamDefinition load(byte[] data)
-	{
+public class ParamLoader {
+	public ParamDefinition load(byte[] data) {
 		ParamDefinition def = new ParamDefinition();
 		InputStream b = new InputStream(data);
 
-		for (; ; )
-		{
+		for (; ; ) {
 			int opcode = b.readUnsignedByte();
 
-			switch (opcode)
-			{
+			switch (opcode) {
 				case 0:
 					return def;
-				case 1:
-				{
+				case 1: {
 					int idx = b.readByte();
 					def.setType(ScriptVarType.forCharKey((char) idx));
 					break;

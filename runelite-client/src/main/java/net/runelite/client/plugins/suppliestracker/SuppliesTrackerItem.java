@@ -30,8 +30,7 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PUBLIC)
 @AllArgsConstructor
-public class SuppliesTrackerItem
-{
+public class SuppliesTrackerItem {
 	private int id;
 	private String name;
 	private int quantity;

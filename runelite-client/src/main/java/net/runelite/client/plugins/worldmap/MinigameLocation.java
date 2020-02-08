@@ -30,8 +30,7 @@ import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
 
 @Getter(AccessLevel.PACKAGE)
-enum MinigameLocation
-{
+enum MinigameLocation {
 	BARBARIAN_ASSAULT("Barbarian Assault", new WorldPoint(2531, 3569, 0)),
 	BURGH_DE_ROTT_RAMBLE("Burgh de Rott Ramble", new WorldPoint(3434, 3487, 0)),
 	CASTLE_WARS("Castle Wars", new WorldPoint(2439, 3092, 0)),
@@ -77,8 +76,7 @@ enum MinigameLocation
 	private final String tooltip;
 	private final WorldPoint location;
 
-	MinigameLocation(String tooltip, WorldPoint location)
-	{
+	MinigameLocation(String tooltip, WorldPoint location) {
 		this.tooltip = tooltip;
 		this.location = location;
 	}

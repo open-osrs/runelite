@@ -25,14 +25,13 @@
 package net.runelite.cache.util;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
-public class Djb2Test
-{
+public class Djb2Test {
 
 	@Test
-	public void testHash()
-	{
+	public void testHash() {
 		int hash = Djb2.hash("l49_52");
 		assertEquals(-1153204821, hash);
 	}

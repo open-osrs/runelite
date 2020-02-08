@@ -32,8 +32,7 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Cerberus
-{
+public enum Cerberus {
 	DISABLED("Disabled"),
 	CERBERUS_CHEAP("Low LVL Melee"),
 	CERBERUS_EXPENSIVE("Melee Piety"),
@@ -43,8 +42,7 @@ public enum Cerberus
 	private String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
 }

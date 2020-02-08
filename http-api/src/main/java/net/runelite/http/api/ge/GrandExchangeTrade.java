@@ -25,11 +25,11 @@
 package net.runelite.http.api.ge;
 
 import java.time.Instant;
+
 import lombok.Data;
 
 @Data
-public class GrandExchangeTrade
-{
+public class GrandExchangeTrade {
 	private boolean buy;
 	private int itemId;
 	private int quantity;

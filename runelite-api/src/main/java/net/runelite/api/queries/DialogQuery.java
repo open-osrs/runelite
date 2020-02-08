@@ -29,46 +29,40 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 import net.runelite.api.Client;
 import net.runelite.api.QueryResults;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 
-public class DialogQuery extends WidgetItemQuery
-{
+public class DialogQuery extends WidgetItemQuery {
 
 	@Override
-	public QueryResults<WidgetItem> result(Client client)
-	{
+	public QueryResults<WidgetItem> result(Client client) {
 		Collection<WidgetItem> widgetItems = getDialogs(client);
 		return new QueryResults<>(widgetItems.stream()
-			.filter(Objects::nonNull)
-			.filter(predicate)
-			.collect(Collectors.toList()));
+				.filter(Objects::nonNull)
+				.filter(predicate)
+				.collect(Collectors.toList()));
 	}
 
-	private Collection<WidgetItem> getDialogs(Client client)
-	{
+	private Collection<WidgetItem> getDialogs(Client client) {
 		boolean npcDialog = false;
 		Collection<WidgetItem> widgetItems = new ArrayList<>();
 		Widget dialog = client.getWidget(219, 1);
-		if (dialog == null || dialog.isHidden())
-		{
+		if (dialog == null || dialog.isHidden()) {
 			dialog = client.getWidget(WidgetInfo.DIALOG_NPC);
 			npcDialog = true;
 		}
-		if (dialog == null || dialog.isHidden())
-		{
+		if (dialog == null || dialog.isHidden()) {
 			dialog = client.getWidget(WidgetInfo.DIALOG_PLAYER);
 			npcDialog = true;
 		}
 
-		if (dialog != null && !dialog.isHidden())
-		{
+		if (dialog != null && !dialog.isHidden()) {
 			Widget[] children = npcDialog ? dialog.getStaticChildren() : dialog.getDynamicChildren();
-			for (int i = 1; i < children.length; i++)
-			{
+			for (int i = 1; i < children.length; i++) {
 				Widget child = children[i];
 				// set bounds to same size as default inventory
 				Rectangle bounds = child.getBounds();
@@ -79,17 +73,13 @@ public class DialogQuery extends WidgetItemQuery
 		return widgetItems;
 	}
 
-	public WidgetItemQuery textContains(String... texts)
-	{
+	public WidgetItemQuery textContains(String... texts) {
 		predicate = and(widgetItem ->
 		{
-			for (String text : texts)
-			{
-				if (widgetItem.getWidget() != null)
-				{
+			for (String text : texts) {
+				if (widgetItem.getWidget() != null) {
 					String widgetText = widgetItem.getWidget().getText();
-					if (widgetText != null && widgetText.contains(text))
-					{
+					if (widgetText != null && widgetText.contains(text)) {
 						return true;
 					}
 				}

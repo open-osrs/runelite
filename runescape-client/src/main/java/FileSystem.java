@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.Hashtable;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -22,7 +23,7 @@ public class FileSystem {
 	static Hashtable FileSystem_cacheFiles;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lgk;"
+			signature = "Lgk;"
 	)
 	@Export("musicTrack")
 	public static MusicTrack musicTrack;
@@ -34,8 +35,8 @@ public class FileSystem {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
-		garbageValue = "-1674158829"
+			signature = "(III)Z",
+			garbageValue = "-1674158829"
 	)
 	static boolean method3572(int var0, int var1) {
 		return var0 != 4 || var1 < 8;

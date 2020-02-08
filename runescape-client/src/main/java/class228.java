@@ -9,8 +9,8 @@ public class class228 {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Lii;III)Z",
-		garbageValue = "-1380695861"
+			signature = "(Lii;III)Z",
+			garbageValue = "-1380695861"
 	)
 	public static boolean method4199(AbstractArchive var0, int var1, int var2) {
 		byte[] var3 = var0.takeFile(var1, var2);

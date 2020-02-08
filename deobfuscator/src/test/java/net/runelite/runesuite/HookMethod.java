@@ -2,8 +2,7 @@ package net.runelite.runesuite;
 
 import java.util.List;
 
-public class HookMethod
-{
+public class HookMethod {
 	String method;
 	String owner;
 	String name;
@@ -11,8 +10,7 @@ public class HookMethod
 	String descriptor;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return method +
 				owner +
 				name;

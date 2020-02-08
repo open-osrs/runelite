@@ -28,23 +28,21 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("devtools")
-public interface DevToolsConfig
-{
+public interface DevToolsConfig {
 	@ConfigItem(
-		keyName = "inspectorAlwaysOnTop",
-		name = "",
-		description = "",
-		hidden = true
+			keyName = "inspectorAlwaysOnTop",
+			name = "",
+			description = "",
+			hidden = true
 	)
-	default boolean inspectorAlwaysOnTop()
-	{
+	default boolean inspectorAlwaysOnTop() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "inspectorAlwaysOnTop",
-		name = "",
-		description = ""
+			keyName = "inspectorAlwaysOnTop",
+			name = "",
+			description = ""
 	)
 	void inspectorAlwaysOnTop(boolean value);
 }

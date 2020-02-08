@@ -26,13 +26,13 @@ package net.runelite.client.account;
 
 import java.time.Instant;
 import java.util.UUID;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = "uuid")
-public class AccountSession
-{
+public class AccountSession {
 	private final UUID uuid;
 	private final Instant created;
 	private String username;

@@ -1,15 +1,16 @@
 package net.runelite.deob.updater.mappingdumper;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.asm.Field;
 import net.runelite.asm.pool.Method;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.updater.MappingDumper;
 
-public class MappedField
-{
+public class MappedField {
 	@SerializedName("field")
 	public String exportedName;
 	public String owner;
@@ -22,8 +23,7 @@ public class MappedField
 	public Map<Method, Integer> puts = new HashMap<>();
 	public Map<Method, Integer> gets = new HashMap<>();
 
-	public MappedField visitField(final Field f, final MappingDump dump)
-	{
+	public MappedField visitField(final Field f, final MappingDump dump) {
 		MappingDumper.putMap(f.getPoolField(), this);
 
 		exportedName = DeobAnnotations.getExportedName(f.getAnnotations());
@@ -31,8 +31,7 @@ public class MappedField
 		owner = MappingDumper.getMap(f.getClassFile()).obfuscatedName;
 
 		obfuscatedName = DeobAnnotations.getObfuscatedName(f.getAnnotations());
-		if (obfuscatedName == null)
-		{
+		if (obfuscatedName == null) {
 			obfuscatedName = f.getName();
 		}
 

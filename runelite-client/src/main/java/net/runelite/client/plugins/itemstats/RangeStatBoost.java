@@ -26,13 +26,11 @@ package net.runelite.client.plugins.itemstats;
 
 import net.runelite.api.Client;
 
-public class RangeStatBoost extends SingleEffect
-{
+public class RangeStatBoost extends SingleEffect {
 	private final StatBoost a;
 	private final StatBoost b;
 
-	RangeStatBoost(StatBoost a, StatBoost b)
-	{
+	RangeStatBoost(StatBoost a, StatBoost b) {
 		assert a.getStat() == b.getStat();
 
 		this.a = a;
@@ -40,8 +38,7 @@ public class RangeStatBoost extends SingleEffect
 	}
 
 	@Override
-	public StatChange effect(Client client)
-	{
+	public StatChange effect(Client client) {
 		final StatChange changeA = this.a.effect(client);
 		final StatChange changeB = this.b.effect(client);
 

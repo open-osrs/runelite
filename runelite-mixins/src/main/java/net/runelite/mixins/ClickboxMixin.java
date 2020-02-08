@@ -12,8 +12,7 @@ import net.runelite.rs.api.RSModel;
  * Class to check clickboxes of models. Mostly refactored code from the client.
  */
 @Mixin(RSClient.class)
-public abstract class ClickboxMixin implements RSClient
-{
+public abstract class ClickboxMixin implements RSClient {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -29,30 +28,25 @@ public abstract class ClickboxMixin implements RSClient
 	private static final int[] rl$modelViewportYs = new int[4700];
 
 	@Inject
-	public void checkClickbox(Model rlModel, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int _x, int _y, int _z, long hash)
-	{
+	public void checkClickbox(Model rlModel, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int _x, int _y, int _z, long hash) {
 		RSModel model = (RSModel) rlModel;
 		boolean hasFlag = hash != 0L && (int) (hash >>> 16 & 1L) != 1;
 		boolean viewportContainsMouse = client.getViewportContainsMouse();
 
-		if (!hasFlag || !viewportContainsMouse)
-		{
+		if (!hasFlag || !viewportContainsMouse) {
 			return;
 		}
 
-		if (!boundingboxCheck(model, _x, _y, _z))
-		{
+		if (!boundingboxCheck(model, _x, _y, _z)) {
 			return;
 		}
 
-		if (Math.sqrt(_x * _x + _z * _z) > OBJECT_INTERACTION_FAR * Perspective.LOCAL_TILE_SIZE)
-		{
+		if (Math.sqrt(_x * _x + _z * _z) > OBJECT_INTERACTION_FAR * Perspective.LOCAL_TILE_SIZE) {
 			return;
 		}
 
 		// only need a boundingbox check?
-		if (model.isClickable())
-		{
+		if (model.isClickable()) {
 			addHashAtMouse(hash);
 			return;
 		}
@@ -78,21 +72,18 @@ public abstract class ClickboxMixin implements RSClient
 
 		int sin = 0;
 		int cos = 0;
-		if (orientation != 0)
-		{
+		if (orientation != 0) {
 			sin = Perspective.SINE[orientation];
 			cos = Perspective.COSINE[orientation];
 		}
 
-		for (int i = 0; i < vertexCount; ++i)
-		{
+		for (int i = 0; i < vertexCount; ++i) {
 			int x = vertexX[i];
 			int y = vertexY[i];
 			int z = vertexZ[i];
 
 			int var42;
-			if (orientation != 0)
-			{
+			if (orientation != 0) {
 				var42 = z * sin + x * cos >> 16;
 				z = z * cos - x * sin >> 16;
 				x = var42;
@@ -108,13 +99,10 @@ public abstract class ClickboxMixin implements RSClient
 			var42 = pitchCos * y - z * pitchSin >> 16;
 			z = y * pitchSin + pitchCos * z >> 16;
 
-			if (z >= 50)
-			{
+			if (z >= 50) {
 				rl$modelViewportYs[i] = x * zoom / z + centerX;
 				rl$modelViewportXs[i] = var42 * zoom / z + centerY;
-			}
-			else
-			{
+			} else {
 				rl$modelViewportYs[i] = -5000;
 			}
 		}
@@ -122,10 +110,8 @@ public abstract class ClickboxMixin implements RSClient
 		final int viewportMouseX = client.getViewportMouseX();
 		final int viewportMouseY = client.getViewportMouseY();
 
-		for (int i = 0; i < triangleCount; ++i)
-		{
-			if (color3[i] == -2)
-			{
+		for (int i = 0; i < triangleCount; ++i) {
+			if (color3[i] == -2) {
 				continue;
 			}
 
@@ -141,8 +127,7 @@ public abstract class ClickboxMixin implements RSClient
 			int x2 = rl$modelViewportXs[vB];
 			int x3 = rl$modelViewportXs[vC];
 
-			if (y1 == -5000 || y2 == -5000 || y3 == -5000)
-			{
+			if (y1 == -5000 || y2 == -5000 || y3 == -5000) {
 				continue;
 			}
 
@@ -150,41 +135,28 @@ public abstract class ClickboxMixin implements RSClient
 
 			int var18 = radius + viewportMouseY;
 			boolean var34;
-			if (var18 < x1 && var18 < x2 && var18 < x3)
-			{
+			if (var18 < x1 && var18 < x2 && var18 < x3) {
 				var34 = false;
-			}
-			else
-			{
+			} else {
 				var18 = viewportMouseY - radius;
-				if (var18 > x1 && var18 > x2 && var18 > x3)
-				{
+				if (var18 > x1 && var18 > x2 && var18 > x3) {
 					var34 = false;
-				}
-				else
-				{
+				} else {
 					var18 = radius + viewportMouseX;
-					if (var18 < y1 && var18 < y2 && var18 < y3)
-					{
+					if (var18 < y1 && var18 < y2 && var18 < y3) {
 						var34 = false;
-					}
-					else
-					{
+					} else {
 						var18 = viewportMouseX - radius;
-						if (var18 > y1 && var18 > y2 && var18 > y3)
-						{
+						if (var18 > y1 && var18 > y2 && var18 > y3) {
 							var34 = false;
-						}
-						else
-						{
+						} else {
 							var34 = true;
 						}
 					}
 				}
 			}
 
-			if (var34)
-			{
+			if (var34) {
 				addHashAtMouse(hash);
 				break;
 			}
@@ -192,20 +164,17 @@ public abstract class ClickboxMixin implements RSClient
 	}
 
 	@Inject
-	private void addHashAtMouse(long hash)
-	{
+	private void addHashAtMouse(long hash) {
 		long[] entitiesAtMouse = client.getEntitiesAtMouse();
 		int count = client.getEntitiesAtMouseCount();
-		if (count < MAX_ENTITES_AT_MOUSE)
-		{
+		if (count < MAX_ENTITES_AT_MOUSE) {
 			entitiesAtMouse[count] = hash;
 			client.setEntitiesAtMouseCount(count + 1);
 		}
 	}
 
 	@Inject
-	private boolean boundingboxCheck(Model model, int x, int y, int z)
-	{
+	private boolean boundingboxCheck(Model model, int x, int y, int z) {
 		final int cameraPitch = client.getCameraPitch();
 		final int cameraYaw = client.getCameraYaw();
 
@@ -261,32 +230,19 @@ public abstract class ClickboxMixin implements RSClient
 		int var46 = field528 - var40;
 
 		boolean passes;
-		if (Math.abs(var44) > var41 + field1722)
-		{
+		if (Math.abs(var44) > var41 + field1722) {
 			passes = false;
-		}
-		else if (Math.abs(var45) > var42 + field601)
-		{
+		} else if (Math.abs(var45) > var42 + field601) {
 			passes = false;
-		}
-		else if (Math.abs(var46) > var43 + field38)
-		{
+		} else if (Math.abs(var46) > var43 + field38) {
 			passes = false;
-		}
-		else if (Math.abs(var46 * field638 - var45 * field1846) > var42 * field38 + var43 * field601)
-		{
+		} else if (Math.abs(var46 * field638 - var45 * field1846) > var42 * field38 + var43 * field601) {
 			passes = false;
-		}
-		else if (Math.abs(var44 * field1846 - var46 * field1720) > var43 * field1722 + var41 * field38)
-		{
+		} else if (Math.abs(var44 * field1846 - var46 * field1720) > var43 * field1722 + var41 * field38) {
 			passes = false;
-		}
-		else if (Math.abs(var45 * field1720 - var44 * field638) > var42 * field1722 + var41 * field601)
-		{
+		} else if (Math.abs(var45 * field1720 - var44 * field638) > var42 * field1722 + var41 * field601) {
 			passes = false;
-		}
-		else
-		{
+		} else {
 			passes = true;
 		}
 
@@ -294,26 +250,22 @@ public abstract class ClickboxMixin implements RSClient
 	}
 
 	@Inject
-	private static int rl$rot1(int var0, int var1, int var2, int var3)
-	{
+	private static int rl$rot1(int var0, int var1, int var2, int var3) {
 		return var0 * var2 + var3 * var1 >> 16;
 	}
 
 	@Inject
-	private static int rl$rot2(int var0, int var1, int var2, int var3)
-	{
+	private static int rl$rot2(int var0, int var1, int var2, int var3) {
 		return var2 * var1 - var3 * var0 >> 16;
 	}
 
 	@Inject
-	private static int rl$rot3(int var0, int var1, int var2, int var3)
-	{
+	private static int rl$rot3(int var0, int var1, int var2, int var3) {
 		return var0 * var2 - var3 * var1 >> 16;
 	}
 
 	@Inject
-	private static int rl$rot4(int var0, int var1, int var2, int var3)
-	{
+	private static int rl$rot4(int var0, int var1, int var2, int var3) {
 		return var3 * var0 + var2 * var1 >> 16;
 	}
 }

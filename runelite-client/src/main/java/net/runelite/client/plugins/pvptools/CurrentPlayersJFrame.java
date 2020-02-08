@@ -23,15 +23,14 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import net.runelite.api.Client;
 import net.runelite.client.ui.FontManager;
 
 @Singleton
-class CurrentPlayersJFrame extends JFrame
-{
+class CurrentPlayersJFrame extends JFrame {
 
-	CurrentPlayersJFrame(final Client client, final PvpToolsPlugin pvpToolsPlugin, final List<String> list)
-	{
+	CurrentPlayersJFrame(final Client client, final PvpToolsPlugin pvpToolsPlugin, final List<String> list) {
 		super();
 		int x = client.getCanvas().getLocationOnScreen().x + client.getCanvas().getWidth();
 		int y = client.getCanvas().getLocationOnScreen().y;

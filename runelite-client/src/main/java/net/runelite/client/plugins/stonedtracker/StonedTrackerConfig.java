@@ -29,49 +29,44 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("stonedtracker")
-public interface StonedTrackerConfig extends Config
-{
+public interface StonedTrackerConfig extends Config {
 	@ConfigItem(
-		position = 0,
-		keyName = "hideUniques",
-		name = "Hide uniques",
-		description = "Hides unique items from the item breakdown"
+			position = 0,
+			keyName = "hideUniques",
+			name = "Hide uniques",
+			description = "Hides unique items from the item breakdown"
 	)
-	default boolean hideUniques()
-	{
+	default boolean hideUniques() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 1,
-		keyName = "itemSortType",
-		name = "Sort Items by",
-		description = "Sorts items by the requested value inside the UI. (Doesn't effect session/box view)"
+			position = 1,
+			keyName = "itemSortType",
+			name = "Sort Items by",
+			description = "Sorts items by the requested value inside the UI. (Doesn't effect session/box view)"
 	)
-	default ItemSortTypes itemSortType()
-	{
+	default ItemSortTypes itemSortType() {
 		return ItemSortTypes.ALPHABETICAL;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "itemBreakdown",
-		name = "Breakdown individual items",
-		description = "Toggles whether the Individual item UI should be used inside npc-specific tabs"
+			position = 2,
+			keyName = "itemBreakdown",
+			name = "Breakdown individual items",
+			description = "Toggles whether the Individual item UI should be used inside npc-specific tabs"
 	)
-	default boolean itemBreakdown()
-	{
+	default boolean itemBreakdown() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "bossButtons",
-		name = "Show boss icons",
-		description = "Toggles whether the selection screen will use the boss icons"
+			position = 3,
+			keyName = "bossButtons",
+			name = "Show boss icons",
+			description = "Toggles whether the selection screen will use the boss icons"
 	)
-	default boolean bossButtons()
-	{
+	default boolean bossButtons() {
 		return true;
 	}
 }

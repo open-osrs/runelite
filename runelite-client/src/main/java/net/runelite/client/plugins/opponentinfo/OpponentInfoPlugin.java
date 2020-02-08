@@ -26,11 +26,13 @@
 package net.runelite.client.plugins.opponentinfo;
 
 import com.google.inject.Provides;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.EnumSet;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -64,15 +66,14 @@ import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
 
 @PluginDescriptor(
-	name = "Opponent Information",
-	description = "Show name and hitpoints information about the NPC you are fighting",
-	tags = {"combat", "health", "hitpoints", "npcs", "overlay"},
-	type = PluginType.UTILITY
+		name = "Opponent Information",
+		description = "Show name and hitpoints information about the NPC you are fighting",
+		tags = {"combat", "health", "hitpoints", "npcs", "overlay"},
+		type = PluginType.UTILITY
 )
 @Singleton
 @Slf4j
-public class OpponentInfoPlugin extends Plugin
-{
+public class OpponentInfoPlugin extends Plugin {
 	private static final Duration WAIT = Duration.ofSeconds(5);
 	private static final Object MENU = new Object();
 	private static final int COLOR_TAG_LENGTH = 12;
@@ -125,14 +126,12 @@ public class OpponentInfoPlugin extends Plugin
 	private boolean showHitpoints;
 
 	@Provides
-	OpponentInfoConfig provideConfig(ConfigManager configManager)
-	{
+	OpponentInfoConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(OpponentInfoConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		this.attackingColTag = ColorUtil.colorTag(config.attackingColor());
 		this.showAttackers = config.showAttackersMenu();
 		this.showAttacking = config.showAttackingMenu();
@@ -146,8 +145,7 @@ public class OpponentInfoPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		eventBus.unregister(MENU);
 
 		lastOpponent = null;
@@ -156,54 +154,40 @@ public class OpponentInfoPlugin extends Plugin
 		overlayManager.remove(playerComparisonOverlay);
 	}
 
-	private void updateMenuSubs()
-	{
-		if (showAttackers || showAttacking || showHitpoints)
-		{
+	private void updateMenuSubs() {
+		if (showAttackers || showAttacking || showHitpoints) {
 			eventBus.subscribe(BeforeRender.class, MENU, this::onBeforeRender);
 			eventBus.subscribe(MenuOpened.class, MENU, this::onMenuOpened);
-		}
-		else
-		{
+		} else {
 			eventBus.unregister(MENU);
 		}
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)
-		{
+	private void onGameStateChanged(GameStateChanged gameStateChanged) {
+		if (gameStateChanged.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		final EnumSet<WorldType> worldType = client.getWorldType();
-		if (worldType.contains(WorldType.DEADMAN))
-		{
+		if (worldType.contains(WorldType.DEADMAN)) {
 			hiscoreEndpoint = HiscoreEndpoint.DEADMAN;
-		}
-		else if (worldType.contains(WorldType.LEAGUE))
-		{
+		} else if (worldType.contains(WorldType.LEAGUE)) {
 			hiscoreEndpoint = HiscoreEndpoint.LEAGUE;
-		}
-		else
-		{
+		} else {
 			hiscoreEndpoint = HiscoreEndpoint.NORMAL;
 		}
 	}
 
 	@Subscribe
-	private void onInteractingChanged(InteractingChanged event)
-	{
-		if (event.getSource() != client.getLocalPlayer())
-		{
+	private void onInteractingChanged(InteractingChanged event) {
+		if (event.getSource() != client.getLocalPlayer()) {
 			return;
 		}
 
 		Actor opponent = event.getTarget();
 
-		if (opponent == null)
-		{
+		if (opponent == null) {
 			lastTime = Instant.now();
 			return;
 		}
@@ -212,28 +196,23 @@ public class OpponentInfoPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick gameTick)
-	{
+	private void onGameTick(GameTick gameTick) {
 		if (lastOpponent != null
-			&& lastTime != null
-			&& client.getLocalPlayer().getInteracting() == null
-			&& Duration.between(lastTime, Instant.now()).compareTo(WAIT) > 0)
-		{
+				&& lastTime != null
+				&& client.getLocalPlayer().getInteracting() == null
+				&& Duration.between(lastTime, Instant.now()).compareTo(WAIT) > 0) {
 			lastOpponent = null;
 		}
 
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("opponentinfo"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("opponentinfo")) {
 			return;
 		}
 
-		switch (event.getKey())
-		{
+		switch (event.getKey()) {
 			case "showAttackersMenu":
 				this.showAttackers = config.showAttackersMenu();
 				updateMenuSubs();
@@ -254,60 +233,48 @@ public class OpponentInfoPlugin extends Plugin
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.lookupOnInteraction = config.lookupOnInteraction();
 		this.hitpointsDisplayStyle = config.hitpointsDisplayStyle();
 		this.showOpponentsOpponent = config.showOpponentsOpponent();
 	}
 
-	private void onBeforeRender(BeforeRender event)
-	{
-		if (client.getMenuOptionCount() <= 0)
-		{
+	private void onBeforeRender(BeforeRender event) {
+		if (client.getMenuOptionCount() <= 0) {
 			return;
 		}
-		if (client.isMenuOpen())
-		{
+		if (client.isMenuOpen()) {
 			boolean changed = false;
 			final MenuEntry[] entries = client.getMenuEntries();
-			for (final MenuEntry entry : entries)
-			{
+			for (final MenuEntry entry : entries) {
 				changed |= fixup(entry);
 			}
 
-			if (changed)
-			{
+			if (changed) {
 				client.setMenuEntries(entries);
 			}
 			return;
 		}
 
 		final MenuEntry entry = client.getLeftClickMenuEntry();
-		if (modify(entry))
-		{
+		if (modify(entry)) {
 			client.setLeftClickMenuEntry(entry);
 		}
 	}
 
-	private void onMenuOpened(MenuOpened event)
-	{
+	private void onMenuOpened(MenuOpened event) {
 		boolean changed = false;
-		for (MenuEntry entry : event.getMenuEntries())
-		{
+		for (MenuEntry entry : event.getMenuEntries()) {
 			changed |= modify(entry);
 		}
 
-		if (changed)
-		{
+		if (changed) {
 			event.setModified();
 		}
 	}
 
-	private boolean modify(MenuEntry entry)
-	{
-		if (isNotAttackEntry(entry))
-		{
+	private boolean modify(MenuEntry entry) {
+		if (isNotAttackEntry(entry)) {
 			return false;
 		}
 
@@ -316,38 +283,32 @@ public class OpponentInfoPlugin extends Plugin
 		int index = entry.getIdentifier();
 		Actor actor = getActorFromIndex(index);
 
-		if (actor == null)
-		{
+		if (actor == null) {
 			return false;
 		}
 
-		if (actor instanceof Player)
-		{
+		if (actor instanceof Player) {
 			index -= 32768;
 		}
 
 		String target = entry.getTarget();
 
 		if (showAttacking &&
-			client.getLocalPlayer().getRSInteracting() == index)
-		{
+				client.getLocalPlayer().getRSInteracting() == index) {
 			target = attackingColTag + target.substring(COLOR_TAG_LENGTH);
 			changed = true;
 		}
 
 		if (showAttackers &&
-			actor.getRSInteracting() - 32768 == client.getLocalPlayerIndex())
-		{
+				actor.getRSInteracting() - 32768 == client.getLocalPlayerIndex()) {
 			target = '*' + target;
 			changed = true;
 		}
 
 		if (showHitpoints &&
-			actor.getHealth() > 0)
-		{
+				actor.getHealth() > 0) {
 			int lvlIndex = target.lastIndexOf("(level-");
-			if (lvlIndex != -1)
-			{
+			if (lvlIndex != -1) {
 				String levelReplacement = getHpString(actor, true);
 
 				target = target.substring(0, lvlIndex) + levelReplacement;
@@ -355,8 +316,7 @@ public class OpponentInfoPlugin extends Plugin
 			}
 		}
 
-		if (changed)
-		{
+		if (changed) {
 			entry.setTarget(target);
 			return true;
 		}
@@ -364,10 +324,8 @@ public class OpponentInfoPlugin extends Plugin
 		return false;
 	}
 
-	private boolean fixup(MenuEntry entry)
-	{
-		if (isNotAttackEntry(entry))
-		{
+	private boolean fixup(MenuEntry entry) {
+		if (isNotAttackEntry(entry)) {
 			return false;
 		}
 
@@ -375,13 +333,11 @@ public class OpponentInfoPlugin extends Plugin
 
 		Actor actor = getActorFromIndex(index);
 
-		if (actor == null)
-		{
+		if (actor == null) {
 			return false;
 		}
 
-		if (actor instanceof Player)
-		{
+		if (actor instanceof Player) {
 			index -= 32768;
 		}
 
@@ -397,49 +353,37 @@ public class OpponentInfoPlugin extends Plugin
 		boolean hpChanged = showHitpoints && hasHp == target.contains("(level-");
 
 		if (!aggroChanged &&
-			!targetChanged &&
-			!hasHp &&
-			!hpChanged)
-		{
+				!targetChanged &&
+				!hasHp &&
+				!hpChanged) {
 			return false;
 		}
 
-		if (targetChanged)
-		{
+		if (targetChanged) {
 			boolean player = actor instanceof Player;
 			final int start = hadAggro ? 1 + COLOR_TAG_LENGTH : COLOR_TAG_LENGTH;
 			target =
-				(hasAggro ? '*' : "") +
-					(isTarget ? attackingColTag :
-						player ? ColorUtil.colorStartTag(0xffffff) : ColorUtil.colorStartTag(0xffff00)) +
-					target.substring(start);
-		}
-		else if (aggroChanged)
-		{
-			if (hasAggro)
-			{
+					(hasAggro ? '*' : "") +
+							(isTarget ? attackingColTag :
+									player ? ColorUtil.colorStartTag(0xffffff) : ColorUtil.colorStartTag(0xffff00)) +
+							target.substring(start);
+		} else if (aggroChanged) {
+			if (hasAggro) {
 				target = '*' + target;
-			}
-			else
-			{
+			} else {
 				target = target.substring(1);
 			}
 		}
 
-		if (hpChanged || hasHp)
-		{
+		if (hpChanged || hasHp) {
 			final int braceIdx;
 
-			if (!hasHp)
-			{
+			if (!hasHp) {
 				braceIdx = target.lastIndexOf("<col=ff0000>(");
-				if (braceIdx != -1)
-				{
+				if (braceIdx != -1) {
 					target = target.substring(0, braceIdx - 1) + "(level-" + actor.getCombatLevel() + ")";
 				}
-			}
-			else if ((braceIdx = target.lastIndexOf('(')) != -1)
-			{
+			} else if ((braceIdx = target.lastIndexOf('(')) != -1) {
 				final String hpString = getHpString(actor, hpChanged);
 
 				target = target.substring(0, braceIdx) + hpString;
@@ -450,47 +394,36 @@ public class OpponentInfoPlugin extends Plugin
 		return true;
 	}
 
-	private boolean isNotAttackEntry(MenuEntry entry)
-	{
+	private boolean isNotAttackEntry(MenuEntry entry) {
 		return entry.getOpcode() != MenuOpcode.NPC_SECOND_OPTION.getId() &&
-			entry.getOpcode() != menuManager.getPlayerAttackOpcode()
-			|| !entry.getOption().equals("Attack");
+				entry.getOpcode() != menuManager.getPlayerAttackOpcode()
+				|| !entry.getOption().equals("Attack");
 	}
 
-	private String getHpString(Actor actor, boolean withColorTag)
-	{
+	private String getHpString(Actor actor, boolean withColorTag) {
 		int maxHp = getMaxHp(actor);
 		int health = actor.getHealth();
 		int ratio = actor.getHealthRatio();
 
 		final String result;
-		if (maxHp != -1)
-		{
+		if (maxHp != -1) {
 			final int exactHealth = OpponentInfoOverlay.getExactHp(ratio, health, maxHp);
 			result = "(" + exactHealth + "/" + maxHp + ")";
-		}
-		else
-		{
+		} else {
 			result = "(" + (100 * ratio) / health + "%)";
 		}
 
 		return withColorTag ? ColorUtil.colorStartTag(0xff0000) + result : result;
 	}
 
-	int getMaxHp(Actor actor)
-	{
-		if (actor instanceof NPC)
-		{
+	int getMaxHp(Actor actor) {
+		if (actor instanceof NPC) {
 			return npcManager.getHealth(((NPC) actor).getId());
-		}
-		else
-		{
+		} else {
 			final HiscoreResult hiscoreResult = hiscoreManager.lookupAsync(Text.removeTags(actor.getName()), getHiscoreEndpoint());
-			if (hiscoreResult != null)
-			{
+			if (hiscoreResult != null) {
 				final int hp = hiscoreResult.getHitpoints().getLevel();
-				if (hp > 0)
-				{
+				if (hp > 0) {
 					return hp;
 				}
 			}
@@ -499,14 +432,10 @@ public class OpponentInfoPlugin extends Plugin
 		}
 	}
 
-	private Actor getActorFromIndex(int index)
-	{
-		if (index < 32768)
-		{
+	private Actor getActorFromIndex(int index) {
+		if (index < 32768) {
 			return client.getCachedNPCs()[index];
-		}
-		else
-		{
+		} else {
 			return client.getCachedPlayers()[index - 32768];
 		}
 	}

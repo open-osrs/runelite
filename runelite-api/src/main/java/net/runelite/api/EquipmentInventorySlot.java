@@ -34,8 +34,7 @@ package net.runelite.api;
  * @see Client#getItemContainer(InventoryID)
  * @see InventoryID#EQUIPMENT
  */
-public enum EquipmentInventorySlot
-{
+public enum EquipmentInventorySlot {
 	HEAD(0),
 	CAPE(1),
 	AMULET(2),
@@ -50,8 +49,7 @@ public enum EquipmentInventorySlot
 
 	private final int slotIdx;
 
-	EquipmentInventorySlot(int slotIdx)
-	{
+	EquipmentInventorySlot(int slotIdx) {
 		this.slotIdx = slotIdx;
 	}
 
@@ -61,8 +59,7 @@ public enum EquipmentInventorySlot
 	 *
 	 * @return the raw index
 	 */
-	public int getSlotIdx()
-	{
+	public int getSlotIdx() {
 		return slotIdx;
 	}
 

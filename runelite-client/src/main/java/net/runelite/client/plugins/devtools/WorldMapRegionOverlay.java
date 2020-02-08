@@ -31,6 +31,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.RenderOverview;
@@ -41,8 +42,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
-class WorldMapRegionOverlay extends Overlay
-{
+class WorldMapRegionOverlay extends Overlay {
 	private static final Color WHITE_TRANSLUCENT = new Color(255, 255, 255, 127);
 	private static final int LABEL_PADDING = 4;
 	private static final int REGION_SIZE = 1 << 6;
@@ -53,8 +53,7 @@ class WorldMapRegionOverlay extends Overlay
 	private final DevToolsPlugin plugin;
 
 	@Inject
-	private WorldMapRegionOverlay(Client client, DevToolsPlugin plugin)
-	{
+	private WorldMapRegionOverlay(Client client, DevToolsPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 		setLayer(OverlayLayer.ABOVE_MAP);
@@ -63,10 +62,8 @@ class WorldMapRegionOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.getWorldMapLocation().isActive())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.getWorldMapLocation().isActive()) {
 			return null;
 		}
 
@@ -74,14 +71,12 @@ class WorldMapRegionOverlay extends Overlay
 		return null;
 	}
 
-	private void drawRegionOverlay(Graphics2D graphics)
-	{
+	private void drawRegionOverlay(Graphics2D graphics) {
 		RenderOverview ro = client.getRenderOverview();
 		Widget map = client.getWidget(WidgetInfo.WORLD_MAP_VIEW);
 		float pixelsPerTile = ro.getWorldMapZoom();
 
-		if (map == null)
-		{
+		if (map == null) {
 			return;
 		}
 
@@ -101,10 +96,8 @@ class WorldMapRegionOverlay extends Overlay
 		int yRegionMax = ((worldMapPosition.getY() + heightInTiles / 2) & REGION_TRUNCATE) + REGION_SIZE;
 		int regionPixelSize = (int) Math.ceil(REGION_SIZE * pixelsPerTile);
 
-		for (int x = xRegionMin; x < xRegionMax; x += REGION_SIZE)
-		{
-			for (int y = yRegionMin; y < yRegionMax; y += REGION_SIZE)
-			{
+		for (int x = xRegionMin; x < xRegionMax; x += REGION_SIZE) {
+			for (int y = yRegionMin; y < yRegionMax; y += REGION_SIZE) {
 				graphics.setColor(WHITE_TRANSLUCENT);
 
 				int yTileOffset = -(yTileMin - y);

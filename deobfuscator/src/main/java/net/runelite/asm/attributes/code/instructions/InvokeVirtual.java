@@ -26,6 +26,7 @@ package net.runelite.asm.attributes.code.instructions;
 
 import java.util.Arrays;
 import java.util.List;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -48,50 +49,43 @@ import net.runelite.deob.deobfuscators.mapping.MappingExecutorUtil;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 import org.objectweb.asm.MethodVisitor;
 
-public class InvokeVirtual extends Instruction implements InvokeInstruction
-{
+public class InvokeVirtual extends Instruction implements InvokeInstruction {
 	private Method method;
 	private net.runelite.asm.Method myMethod;
 	private List<net.runelite.asm.Method> myMethods;
 
-	public InvokeVirtual(Instructions instructions, InstructionType type)
-	{
+	public InvokeVirtual(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
-	public InvokeVirtual(Instructions instructions, Method method)
-	{
+	public InvokeVirtual(Instructions instructions, Method method) {
 		super(instructions, InstructionType.INVOKEVIRTUAL);
 
 		this.method = method;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		visitor.visitMethodInsn(this.getType().getCode(),
-			method.getClazz().getName(),
-			method.getName(),
-			method.getType().toString(),
-			false);
+				method.getClazz().getName(),
+				method.getName(),
+				method.getType().toString(),
+				false);
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "invokevirtual " + method + " in " + this.getInstructions().getCode().getMethod();// + " at pc 0x" + Integer.toHexString(this.getPc());
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
 		int count = method.getType().size();
 
-		for (int i = 0; i < count; ++i)
-		{
+		for (int i = 0; i < count; ++i) {
 			StackContext arg = stack.pop();
 			ins.pop(arg);
 		}
@@ -99,23 +93,20 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 		StackContext object = stack.pop();
 		ins.pop(object);
 
-		if (!method.getType().isVoid())
-		{
+		if (!method.getType().isVoid()) {
 			StackContext ctx = new StackContext(ins,
-				method.getType().getReturnValue(),
-				Value.UNKNOWN
+					method.getType().getReturnValue(),
+					Value.UNKNOWN
 			);
 			stack.push(ctx);
 
 			ins.push(ctx);
 		}
 
-		for (net.runelite.asm.Method method : getMethods())
-		{
+		for (net.runelite.asm.Method method : getMethods()) {
 			ins.invoke(method);
 
-			if (method.getCode() == null)
-			{
+			if (method.getCode() == null) {
 				continue;
 			}
 
@@ -124,10 +115,8 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 			execution.invoke(ins, method);
 		}
 
-		if (myMethods != null)
-		{
-			for (net.runelite.asm.Method method : myMethods)
-			{
+		if (myMethods != null) {
+			for (net.runelite.asm.Method method : myMethods) {
 				frame.getExecution().order(frame, method);
 			}
 		}
@@ -136,14 +125,12 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 	}
 
 	@Override
-	public List<net.runelite.asm.Method> getMethods()
-	{
+	public List<net.runelite.asm.Method> getMethods() {
 		return myMethods != null ? myMethods : Arrays.asList();
 	}
 
 	@Override
-	public void removeParameter(int idx)
-	{
+	public void removeParameter(int idx) {
 		net.runelite.asm.pool.Class clazz = method.getClazz();
 
 		// create new signature
@@ -155,29 +142,24 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 	}
 
 	@Override
-	public Method getMethod()
-	{
+	public Method getMethod() {
 		return method;
 	}
 
-	private List<net.runelite.asm.Method> lookupMethods()
-	{
+	private List<net.runelite.asm.Method> lookupMethods() {
 		net.runelite.asm.Method m = lookupMethod();
-		if (m == null)
-		{
+		if (m == null) {
 			return null;
 		}
 
 		return VirtualMethods.getVirtualMethods(m);
 	}
 
-	private net.runelite.asm.Method lookupMethod()
-	{
+	private net.runelite.asm.Method lookupMethod() {
 		ClassGroup group = this.getInstructions().getCode().getMethod().getClassFile().getGroup();
 
 		ClassFile otherClass = group.findClass(method.getClazz().getName());
-		if (otherClass == null)
-		{
+		if (otherClass == null) {
 			return null; // not our class
 		}
 
@@ -186,17 +168,14 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 	}
 
 	@Override
-	public void lookup()
-	{
+	public void lookup() {
 		myMethods = lookupMethods();
 		myMethod = lookupMethod();
 	}
 
 	@Override
-	public void regeneratePool()
-	{
-		if (myMethods == null)
-		{
+	public void regeneratePool() {
+		if (myMethods == null) {
 			return;
 		}
 
@@ -204,36 +183,28 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 	}
 
 	@Override
-	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
+	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
 		InvokeVirtual otherIv = (InvokeVirtual) other.getInstruction();
 
 		List<net.runelite.asm.Method> myMethods = this.getMethods(),
-			otherMethods = otherIv.getMethods();
+				otherMethods = otherIv.getMethods();
 
 		assert MappingExecutorUtil.isMaybeEqual(method.getType(), otherIv.method.getType());
 		assert myMethods.size() == otherMethods.size();
 
-		for (int i = 0; i < myMethods.size(); ++i)
-		{
+		for (int i = 0; i < myMethods.size(); ++i) {
 			net.runelite.asm.Method m1 = myMethods.get(i), otherMethod = null;
 			ClassFile c1 = m1.getClassFile();
 
-			if (myMethods.size() == 1)
-			{
+			if (myMethods.size() == 1) {
 				otherMethod = otherMethods.get(0);
-			}
-			else
-			{
-				for (int j = 0; j < myMethods.size(); ++j)
-				{
+			} else {
+				for (int j = 0; j < myMethods.size(); ++j) {
 					net.runelite.asm.Method m2 = otherMethods.get(j);
 					ClassFile c2 = m2.getClassFile();
 
-					if (MappingExecutorUtil.isMaybeEqual(c1, c2))
-					{
-						if (otherMethod != null)
-						{
+					if (MappingExecutorUtil.isMaybeEqual(c1, c2)) {
+						if (otherMethod != null) {
 							otherMethod = null;
 							break;
 						}
@@ -243,8 +214,7 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 				}
 			}
 
-			if (otherMethod != null)
-			{
+			if (otherMethod != null) {
 				mapping.map(this, m1, otherMethod);
 			}
 		}
@@ -252,24 +222,21 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 		/* map arguments */
 		assert ctx.getPops().size() == other.getPops().size();
 
-		for (int i = 0; i < ctx.getPops().size(); ++i)
-		{
+		for (int i = 0; i < ctx.getPops().size(); ++i) {
 			StackContext s1 = ctx.getPops().get(i),
-				s2 = other.getPops().get(i);
+					s2 = other.getPops().get(i);
 
 			InstructionContext base1 = MappingExecutorUtil.resolve(s1.getPushed(), s1);
 			InstructionContext base2 = MappingExecutorUtil.resolve(s2.getPushed(), s2);
 
-			if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction)
-			{
+			if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction) {
 				GetFieldInstruction gf1 = (GetFieldInstruction) base1.getInstruction(),
-					gf2 = (GetFieldInstruction) base2.getInstruction();
+						gf2 = (GetFieldInstruction) base2.getInstruction();
 
 				Field f1 = gf1.getMyField(),
-					f2 = gf2.getMyField();
+						f2 = gf2.getMyField();
 
-				if (f1 != null && f2 != null)
-				{
+				if (f1 != null && f2 != null) {
 					mapping.map(this, f1, f2);
 				}
 			}
@@ -277,59 +244,51 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 
 		/* map field that was invoked on */
 		StackContext object1 = ctx.getPops().get(method.getType().size()),
-			object2 = other.getPops().get(otherIv.method.getType().size());
+				object2 = other.getPops().get(otherIv.method.getType().size());
 
 		InstructionContext base1 = MappingExecutorUtil.resolve(object1.getPushed(), object1);
 		InstructionContext base2 = MappingExecutorUtil.resolve(object2.getPushed(), object2);
 
-		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction)
-		{
+		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction) {
 			GetFieldInstruction gf1 = (GetFieldInstruction) base1.getInstruction(),
-				gf2 = (GetFieldInstruction) base2.getInstruction();
+					gf2 = (GetFieldInstruction) base2.getInstruction();
 
 			Field f1 = gf1.getMyField(),
-				f2 = gf2.getMyField();
+					f2 = gf2.getMyField();
 
-			if (f1 != null && f2 != null)
-			{
+			if (f1 != null && f2 != null) {
 				mapping.map(this, f1, f2);
 			}
 		}
 	}
 
 	@Override
-	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
-	{
-		if (thisIc.getInstruction().getClass() != otherIc.getInstruction().getClass())
-		{
+	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
+		if (thisIc.getInstruction().getClass() != otherIc.getInstruction().getClass()) {
 			return false;
 		}
 
 		InvokeVirtual thisIi = (InvokeVirtual) thisIc.getInstruction(),
-			otherIi = (InvokeVirtual) otherIc.getInstruction();
+				otherIi = (InvokeVirtual) otherIc.getInstruction();
 
-		if (!MappingExecutorUtil.isMaybeEqual(thisIi.method.getType(), otherIi.method.getType()))
-		{
+		if (!MappingExecutorUtil.isMaybeEqual(thisIi.method.getType(), otherIi.method.getType())) {
 			return false;
 		}
 
 		List<net.runelite.asm.Method> thisMethods = thisIi.getMethods(),
-			otherMethods = otherIi.getMethods();
+				otherMethods = otherIi.getMethods();
 
-		if (thisMethods.size() != otherMethods.size())
-		{
+		if (thisMethods.size() != otherMethods.size()) {
 			return false;
 		}
 
-		for (int i = 0; i < thisMethods.size(); ++i)
-		{
+		for (int i = 0; i < thisMethods.size(); ++i) {
 			net.runelite.asm.Method m1 = thisMethods.get(i);
 			net.runelite.asm.Method m2 = otherMethods.get(i);
 
 			// order of methods in thisMethods/otherMethods depends on order classes
 			// were loaded, which might not be the same
-			if (!MappingExecutorUtil.isMaybeEqual(m1.getDescriptor(), m2.getDescriptor()))
-			{
+			if (!MappingExecutorUtil.isMaybeEqual(m1.getDescriptor(), m2.getDescriptor())) {
 				return false;
 			}
 
@@ -339,24 +298,21 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 		/* check arguments */
 		assert thisIc.getPops().size() == otherIc.getPops().size();
 
-		for (int i = 0; i < thisIc.getPops().size(); ++i)
-		{
+		for (int i = 0; i < thisIc.getPops().size(); ++i) {
 			StackContext s1 = thisIc.getPops().get(i),
-				s2 = otherIc.getPops().get(i);
+					s2 = otherIc.getPops().get(i);
 
 			InstructionContext base1 = MappingExecutorUtil.resolve(s1.getPushed(), s1);
 			InstructionContext base2 = MappingExecutorUtil.resolve(s2.getPushed(), s2);
 
-			if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction)
-			{
+			if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction) {
 				GetFieldInstruction gf1 = (GetFieldInstruction) base1.getInstruction(),
-					gf2 = (GetFieldInstruction) base2.getInstruction();
+						gf2 = (GetFieldInstruction) base2.getInstruction();
 
 				Field f1 = gf1.getMyField(),
-					f2 = gf2.getMyField();
+						f2 = gf2.getMyField();
 
-				if (!MappingExecutorUtil.isMaybeEqual(f1, f2))
-				{
+				if (!MappingExecutorUtil.isMaybeEqual(f1, f2)) {
 					return false;
 				}
 			}
@@ -364,21 +320,19 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 
 		/* check field that was invoked on */
 		StackContext object1 = thisIc.getPops().get(thisIi.method.getType().size()),
-			object2 = otherIc.getPops().get(otherIi.method.getType().size());
+				object2 = otherIc.getPops().get(otherIi.method.getType().size());
 
 		InstructionContext base1 = MappingExecutorUtil.resolve(object1.getPushed(), object1);
 		InstructionContext base2 = MappingExecutorUtil.resolve(object2.getPushed(), object2);
 
-		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction)
-		{
+		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction) {
 			GetFieldInstruction gf1 = (GetFieldInstruction) base1.getInstruction(),
-				gf2 = (GetFieldInstruction) base2.getInstruction();
+					gf2 = (GetFieldInstruction) base2.getInstruction();
 
 			Field f1 = gf1.getMyField(),
-				f2 = gf2.getMyField();
+					f2 = gf2.getMyField();
 
-			if (!MappingExecutorUtil.isMaybeEqual(f1, f2))
-			{
+			if (!MappingExecutorUtil.isMaybeEqual(f1, f2)) {
 				return false;
 			}
 		}
@@ -387,27 +341,22 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 	}
 
 	@Override
-	public boolean canMap(InstructionContext thisIc)
-	{
+	public boolean canMap(InstructionContext thisIc) {
 		return MappingExecutorUtil.isMappable(this);
 	}
 
 	@Override
-	public void setMethod(Method method)
-	{
+	public void setMethod(Method method) {
 		this.method = method;
 	}
 
 	@Override
-	public void renameClass(String oldName, String newName)
-	{
-		if (myMethods != null)
-		{
+	public void renameClass(String oldName, String newName) {
+		if (myMethods != null) {
 			return;
 		}
 
-		if (method.getClazz().getName().equals(oldName))
-		{
+		if (method.getClazz().getName().equals(oldName)) {
 			method = new Method(new Class(newName), method.getName(), method.getType());
 		}
 	}

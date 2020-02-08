@@ -25,26 +25,30 @@
 package net.runelite.client.util;
 
 import java.awt.Color;
+
 import static java.awt.Color.BLACK;
 import static java.awt.Color.BLUE;
 import static java.awt.Color.GRAY;
 import static java.awt.Color.GREEN;
 import static java.awt.Color.RED;
 import static java.awt.Color.WHITE;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferInt;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.ArrayUtils;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-public class ImageUtilTest
-{
+public class ImageUtilTest {
 	private static final Color BLACK_HALF_TRANSPARENT = new Color(0, 0, 0, 128);
 	private static final Color BLACK_TRANSPARENT = new Color(0, true);
 	private static final int CORNER_SIZE = 2;
@@ -55,8 +59,7 @@ public class ImageUtilTest
 	private static final BufferedImage BLACK_PIXEL_BOTTOM_LEFT;
 	private static final BufferedImage BLACK_PIXEL_BOTTOM_RIGHT;
 
-	static
-	{
+	static {
 		BLACK_PIXEL_TOP_LEFT = new BufferedImage(CORNER_SIZE, CORNER_SIZE, BufferedImage.TYPE_INT_ARGB);
 		BLACK_PIXEL_TOP_LEFT.setRGB(0, 0, BLACK.getRGB());
 
@@ -71,15 +74,13 @@ public class ImageUtilTest
 	}
 
 	@Test
-	public void bufferedImageFromImage()
-	{
+	public void bufferedImageFromImage() {
 		final BufferedImage buffered = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		assertEquals(buffered, ImageUtil.bufferedImageFromImage(buffered));
 	}
 
 	@Test
-	public void grayscaleOffset()
-	{
+	public void grayscaleOffset() {
 		// grayscaleOffset(BufferedImage image, int offset)
 		assertTrue(bufferedImagesEqual(oneByOne(BLACK), ImageUtil.luminanceOffset(oneByOne(BLACK), -255)));
 		assertTrue(bufferedImagesEqual(oneByOne(new Color(50, 50, 50)), ImageUtil.luminanceOffset(oneByOne(BLACK), 50)));
@@ -103,8 +104,7 @@ public class ImageUtilTest
 	}
 
 	@Test
-	public void alphaOffset()
-	{
+	public void alphaOffset() {
 		// alphaOffset(BufferedImage image, int offset)
 		assertTrue(bufferedImagesEqual(oneByOne(BLACK_TRANSPARENT), ImageUtil.alphaOffset(oneByOne(BLACK_TRANSPARENT), -255)));
 		assertTrue(bufferedImagesEqual(oneByOne(new Color(0, 0, 0, 50)), ImageUtil.alphaOffset(oneByOne(BLACK_TRANSPARENT), 50)));
@@ -128,38 +128,33 @@ public class ImageUtilTest
 	}
 
 	@Test
-	public void grayscaleImage()
-	{
+	public void grayscaleImage() {
 		final BufferedImage[] grayscaleColors = new BufferedImage[]{
-			oneByOne(WHITE),
-			oneByOne(GRAY),
-			oneByOne(BLACK),
-			oneByOne(BLACK_HALF_TRANSPARENT),
-			oneByOne(BLACK_TRANSPARENT),
+				oneByOne(WHITE),
+				oneByOne(GRAY),
+				oneByOne(BLACK),
+				oneByOne(BLACK_HALF_TRANSPARENT),
+				oneByOne(BLACK_TRANSPARENT),
 		};
 		final BufferedImage[] nonGrayscaleColors = new BufferedImage[]{
-			oneByOne(RED),
-			oneByOne(GREEN),
-			oneByOne(BLUE),
+				oneByOne(RED),
+				oneByOne(GREEN),
+				oneByOne(BLUE),
 		};
 
-		for (BufferedImage image : grayscaleColors)
-		{
+		for (BufferedImage image : grayscaleColors) {
 			assertTrue(isGrayscale(image));
 		}
-		for (BufferedImage image : nonGrayscaleColors)
-		{
+		for (BufferedImage image : nonGrayscaleColors) {
 			assertFalse(isGrayscale(image));
 		}
-		for (BufferedImage image : ArrayUtils.addAll(grayscaleColors, nonGrayscaleColors))
-		{
+		for (BufferedImage image : ArrayUtils.addAll(grayscaleColors, nonGrayscaleColors)) {
 			assertTrue(isGrayscale(ImageUtil.grayscaleImage(image)));
 		}
 	}
 
 	@Test
-	public void resizeImage()
-	{
+	public void resizeImage() {
 		// TODO: test image contents after changing size
 
 		final BufferedImage larger = ImageUtil.resizeImage(oneByOne(BLACK), 46, 46);
@@ -174,31 +169,29 @@ public class ImageUtilTest
 		assertEquals(34, stretched.getHeight());
 
 		final BufferedImage[] assertSameAfterResize = new BufferedImage[]{
-			oneByOne(WHITE),
-			oneByOne(GRAY),
-			oneByOne(BLACK),
-			oneByOne(RED),
-			oneByOne(GREEN),
-			oneByOne(BLUE),
-			oneByOne(BLACK_HALF_TRANSPARENT),
-			oneByOne(BLACK_TRANSPARENT),
-			centeredPixel(WHITE),
-			centeredPixel(GRAY),
-			centeredPixel(BLACK),
-			BLACK_PIXEL_TOP_LEFT,
-			BLACK_PIXEL_TOP_RIGHT,
-			BLACK_PIXEL_BOTTOM_LEFT,
-			BLACK_PIXEL_BOTTOM_RIGHT,
+				oneByOne(WHITE),
+				oneByOne(GRAY),
+				oneByOne(BLACK),
+				oneByOne(RED),
+				oneByOne(GREEN),
+				oneByOne(BLUE),
+				oneByOne(BLACK_HALF_TRANSPARENT),
+				oneByOne(BLACK_TRANSPARENT),
+				centeredPixel(WHITE),
+				centeredPixel(GRAY),
+				centeredPixel(BLACK),
+				BLACK_PIXEL_TOP_LEFT,
+				BLACK_PIXEL_TOP_RIGHT,
+				BLACK_PIXEL_BOTTOM_LEFT,
+				BLACK_PIXEL_BOTTOM_RIGHT,
 		};
-		for (BufferedImage image : assertSameAfterResize)
-		{
+		for (BufferedImage image : assertSameAfterResize) {
 			assertTrue(bufferedImagesEqual(image, ImageUtil.resizeImage(image, image.getWidth(), image.getHeight())));
 		}
 	}
 
 	@Test
-	public void resizeCanvas()
-	{
+	public void resizeCanvas() {
 		assertTrue(bufferedImagesEqual(centeredPixel(BLACK), ImageUtil.resizeCanvas(oneByOne(BLACK), 3, 3)));
 		assertTrue(bufferedImagesEqual(oneByOne(BLACK), ImageUtil.resizeCanvas(oneByOne(BLACK), 1, 1)));
 		assertTrue(bufferedImagesEqual(oneByOne(BLACK), ImageUtil.resizeCanvas(centeredPixel(BLACK), 1, 1)));
@@ -213,8 +206,7 @@ public class ImageUtilTest
 	}
 
 	@Test
-	public void rotateImage()
-	{
+	public void rotateImage() {
 		// TODO: Test more than 90° rotations
 
 		// Evenly-sized images (2x2)
@@ -241,8 +233,7 @@ public class ImageUtilTest
 	}
 
 	@Test
-	public void flipImage()
-	{
+	public void flipImage() {
 		assertTrue(bufferedImagesEqual(BLACK_PIXEL_TOP_LEFT, ImageUtil.flipImage(BLACK_PIXEL_TOP_LEFT, false, false)));
 		assertTrue(bufferedImagesEqual(BLACK_PIXEL_TOP_RIGHT, ImageUtil.flipImage(BLACK_PIXEL_TOP_LEFT, true, false)));
 		assertTrue(bufferedImagesEqual(BLACK_PIXEL_BOTTOM_LEFT, ImageUtil.flipImage(BLACK_PIXEL_TOP_LEFT, false, true)));
@@ -250,8 +241,7 @@ public class ImageUtilTest
 	}
 
 	@Test
-	public void fillImage()
-	{
+	public void fillImage() {
 		// fillImage(BufferedImage image, Color color)
 		assertTrue(bufferedImagesEqual(centeredPixel(GRAY), ImageUtil.fillImage(centeredPixel(BLACK), GRAY)));
 		assertTrue(bufferedImagesEqual(solidColor(3, 3, GREEN), ImageUtil.fillImage(solidColor(3, 3, BLACK), GREEN)));
@@ -264,16 +254,12 @@ public class ImageUtilTest
 	}
 
 	@Test
-	public void outlineImage()
-	{
+	public void outlineImage() {
 		// outlineImage(BufferedImage image, Color color)
 		BufferedImage expected = new BufferedImage(CENTERED_SIZE, CENTERED_SIZE, BufferedImage.TYPE_INT_ARGB);
-		for (int x = 0; x < expected.getWidth(); x++)
-		{
-			for (int y = 0; y < expected.getHeight(); y++)
-			{
-				if (x != 1 && y != 1)
-				{
+		for (int x = 0; x < expected.getWidth(); x++) {
+			for (int y = 0; y < expected.getHeight(); y++) {
+				if (x != 1 && y != 1) {
 					continue;
 				}
 				expected.setRGB(x, y, BLACK.getRGB());
@@ -329,15 +315,12 @@ public class ImageUtilTest
 	 * @param actual   The second {@link BufferedImage} to be compared.
 	 * @return A boolean indicating whether the given {@link BufferedImage}s are of the same image data.
 	 */
-	private boolean bufferedImagesEqual(final @Nonnull BufferedImage expected, final @Nonnull BufferedImage actual)
-	{
-		if (expected.getWidth() != actual.getWidth())
-		{
+	private boolean bufferedImagesEqual(final @Nonnull BufferedImage expected, final @Nonnull BufferedImage actual) {
+		if (expected.getWidth() != actual.getWidth()) {
 			return false;
 		}
 
-		if (!expected.getColorModel().equals(actual.getColorModel()))
-		{
+		if (!expected.getColorModel().equals(actual.getColorModel())) {
 			return false;
 		}
 
@@ -346,17 +329,14 @@ public class ImageUtilTest
 		final DataBufferInt aBufferInt = (DataBufferInt) aBuffer;
 		final DataBufferInt bBufferInt = (DataBufferInt) bBuffer;
 
-		if (aBufferInt.getNumBanks() != bBufferInt.getNumBanks())
-		{
+		if (aBufferInt.getNumBanks() != bBufferInt.getNumBanks()) {
 			return false;
 		}
 
-		for (int i = 0; i < aBufferInt.getNumBanks(); i++)
-		{
+		for (int i = 0; i < aBufferInt.getNumBanks(); i++) {
 			final int[] aDataBank = aBufferInt.getData(i);
 			final int[] bDataBank = bBufferInt.getData(i);
-			if (!Arrays.equals(aDataBank, bDataBank))
-			{
+			if (!Arrays.equals(aDataBank, bDataBank)) {
 				return false;
 			}
 		}
@@ -370,19 +350,15 @@ public class ImageUtilTest
 	 * @param image The image to be checked.
 	 * @return A boolean indicating whether all of the given image's pixels are grayscale.
 	 */
-	private boolean isGrayscale(final @Nonnull BufferedImage image)
-	{
-		for (int x = 0; x < image.getWidth(); x++)
-		{
-			for (int y = 0; y < image.getHeight(); y++)
-			{
+	private boolean isGrayscale(final @Nonnull BufferedImage image) {
+		for (int x = 0; x < image.getWidth(); x++) {
+			for (int y = 0; y < image.getHeight(); y++) {
 				final int color = image.getRGB(x, y);
 				final int red = (color & 0xff0000) >> 16;
 				final int green = (color & 0xff00) >> 8;
 				final int blue = color & 0xff;
 				if (red != green
-					|| green != blue)
-				{
+						|| green != blue) {
 					return false;
 				}
 			}
@@ -396,8 +372,7 @@ public class ImageUtilTest
 	 * @param color The color to use for the image's single pixel.
 	 * @return A {@link BufferedImage} containing a single pixel of the given color.
 	 */
-	private BufferedImage oneByOne(final @Nonnull Color color)
-	{
+	private BufferedImage oneByOne(final @Nonnull Color color) {
 		return solidColor(1, 1, color);
 	}
 
@@ -409,8 +384,7 @@ public class ImageUtilTest
 	 * @return A {@link BufferedImage} with completely transparent pixels and one pixel of the
 	 * given color in the center.
 	 */
-	private BufferedImage centeredPixel(final @Nonnull Color color)
-	{
+	private BufferedImage centeredPixel(final @Nonnull Color color) {
 		final BufferedImage out = new BufferedImage(CENTERED_SIZE, CENTERED_SIZE, BufferedImage.TYPE_INT_ARGB);
 		out.setRGB(1, 1, color.getRGB());
 		return out;
@@ -424,13 +398,10 @@ public class ImageUtilTest
 	 * @param color  The desired color of the image.
 	 * @return A {@link BufferedImage} of given dimensions filled with the given color.
 	 */
-	private BufferedImage solidColor(final int width, final int height, final @Nonnull Color color)
-	{
+	private BufferedImage solidColor(final int width, final int height, final @Nonnull Color color) {
 		final BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		for (int x = 0; x < width; x++)
-		{
-			for (int y = 0; y < height; y++)
-			{
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
 				out.setRGB(x, y, color.getRGB());
 			}
 		}

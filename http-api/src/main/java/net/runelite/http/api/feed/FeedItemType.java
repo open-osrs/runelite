@@ -24,8 +24,7 @@
  */
 package net.runelite.http.api.feed;
 
-public enum FeedItemType
-{
+public enum FeedItemType {
 	BLOG_POST,
 	TWEET,
 	OSRS_NEWS

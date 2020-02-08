@@ -28,18 +28,15 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
-public class LexerErrorListener extends BaseErrorListener
-{
+public class LexerErrorListener extends BaseErrorListener {
 	private int errors;
 
 	@Override
-	public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e)
-	{
+	public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
 		++errors;
 	}
 
-	public int getErrors()
-	{
+	public int getErrors() {
 		return errors;
 	}
 

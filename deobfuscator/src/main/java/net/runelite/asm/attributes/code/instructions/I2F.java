@@ -36,27 +36,24 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
 
-public class I2F extends Instruction implements ConversionInstruction
-{
-	public I2F(Instructions instructions, InstructionType type)
-	{
+public class I2F extends Instruction implements ConversionInstruction {
+	public I2F(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext object = stack.pop();
 		ins.pop(object);
-		
+
 		StackContext ctx = new StackContext(ins, Type.FLOAT, object.getValue().cast(float.class));
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 }

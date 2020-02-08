@@ -31,20 +31,16 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSRunException;
 
 @Mixin(RSClient.class)
-public abstract class ProcessClientErrorMixin implements RSClient
-{
+public abstract class ProcessClientErrorMixin implements RSClient {
 	@Shadow("client")
 	private static RSClient client;
 
 	@Replace("RunException_sendStackTrace")
-	static void rl$processClientError(String string, Throwable throwable)
-	{
-		if (throwable != null)
-		{
+	static void rl$processClientError(String string, Throwable throwable) {
+		if (throwable != null) {
 			Throwable throwableToScan = throwable;
 
-			if (throwable instanceof RSRunException)
-			{
+			if (throwable instanceof RSRunException) {
 				throwableToScan = ((RSRunException) throwable).getParent();
 			}
 

@@ -28,19 +28,16 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-class ItemStatChangesServiceImpl implements ItemStatChangesService
-{
+class ItemStatChangesServiceImpl implements ItemStatChangesService {
 	private final ItemStatChanges itemstatchanges;
 
 	@Inject
-	private ItemStatChangesServiceImpl(ItemStatChanges itemstatchanges)
-	{
+	private ItemStatChangesServiceImpl(ItemStatChanges itemstatchanges) {
 		this.itemstatchanges = itemstatchanges;
 	}
 
 	@Override
-	public Effect getItemStatChanges(int id)
-	{
+	public Effect getItemStatChanges(int id) {
 		return itemstatchanges.get(id);
 	}
 }

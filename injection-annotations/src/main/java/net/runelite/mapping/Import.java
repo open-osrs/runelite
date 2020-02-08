@@ -31,10 +31,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(
-{
-	ElementType.FIELD, ElementType.METHOD
-})
-public @interface Import
-{
+		{
+				ElementType.FIELD, ElementType.METHOD
+		})
+public @interface Import {
 	String value();
 }

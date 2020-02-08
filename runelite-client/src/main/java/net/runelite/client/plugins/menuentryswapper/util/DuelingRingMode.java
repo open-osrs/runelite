@@ -24,22 +24,19 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum DuelingRingMode
-{
+public enum DuelingRingMode {
 	DUEL_ARENA("Duel Arena"),
 	CASTLE_WARS("Castle Wars"),
 	CLAN_WARS("Clan Wars");
 
 	private final String name;
 
-	DuelingRingMode(String name)
-	{
+	DuelingRingMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

@@ -27,47 +27,36 @@ package net.runelite.asm.attributes.code;
 import net.runelite.asm.attributes.code.instructions.NOP;
 import org.objectweb.asm.MethodVisitor;
 
-public class Label extends NOP
-{
+public class Label extends NOP {
 	private org.objectweb.asm.Label label;
 	private Integer lineNumber;
 
-	public Label(Instructions instructions)
-	{
+	public Label(Instructions instructions) {
 		super(instructions);
 	}
 
-	public Label(Instructions instructions, org.objectweb.asm.Label label)
-	{
+	public Label(Instructions instructions, org.objectweb.asm.Label label) {
 		super(instructions);
 		this.label = label;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String string;
 
-		if (this.getInstructions() == null)
-		{
+		if (this.getInstructions() == null) {
 			string = "label <unattached>";
-		}
-		else
-		{
+		} else {
 			Instruction next = next();
 
-			if (next == null)
-			{
+			if (next == null) {
 				string = "label with no next instruction";
-			}
-			else
-			{
+			} else {
 				string = "label " + next.toString();
 			}
 		}
 
-		if (lineNumber != null)
-		{
+		if (lineNumber != null) {
 			string += " on line number " + lineNumber;
 		}
 
@@ -75,8 +64,7 @@ public class Label extends NOP
 	}
 
 	@Override
-	public Instruction clone()
-	{
+	public Instruction clone() {
 		Label l = (Label) super.clone();
 		l.label = new org.objectweb.asm.Label();
 		l.lineNumber = lineNumber;
@@ -84,45 +72,37 @@ public class Label extends NOP
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		visitor.visitLabel(label);
 
-		if (lineNumber != null)
-		{
+		if (lineNumber != null) {
 			visitor.visitLineNumber(lineNumber, label);
 		}
 	}
 
-	public org.objectweb.asm.Label getLabel()
-	{
+	public org.objectweb.asm.Label getLabel() {
 		return label;
 	}
 
-	public void setLabel(org.objectweb.asm.Label label)
-	{
+	public void setLabel(org.objectweb.asm.Label label) {
 		this.label = label;
 	}
 
-	public void setLineNumber(Integer lineNumber)
-	{
+	public void setLineNumber(Integer lineNumber) {
 		this.lineNumber = lineNumber;
 	}
 
-	public Integer getLineNumber()
-	{
+	public Integer getLineNumber() {
 		return this.lineNumber;
 	}
 
-	public Instruction next()
-	{
+	public Instruction next() {
 		Instructions ins = this.getInstructions();
 		int i = ins.getInstructions().indexOf(this);
 		assert i != -1;
 
 		Instruction next;
-		do
-		{
+		do {
 			next = ins.getInstructions().get(i + 1);
 			++i;
 		}

@@ -39,6 +39,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
@@ -49,79 +50,63 @@ import net.runelite.cache.index.FileData;
  * A Storage that stores the cache as a series of flat files, designed
  * to be git revisioned.
  */
-public class FlatStorage implements Storage
-{
+public class FlatStorage implements Storage {
 	protected static final String EXTENSION = ".flatcache";
 
 	private final File directory;
 	private final Map<Long, byte[]> data = new HashMap<>();
 
-	public FlatStorage(File directory) throws IOException
-	{
+	public FlatStorage(File directory) throws IOException {
 		this.directory = directory;
 	}
 
-	protected FlatStorage()
-	{
+	protected FlatStorage() {
 		this.directory = null;
 	}
 
-	protected InputStream openReader(String filename) throws IOException
-	{
+	protected InputStream openReader(String filename) throws IOException {
 		return new FileInputStream(new File(directory, filename));
 	}
 
-	protected OutputStream openWriter(String filename) throws IOException
-	{
+	protected OutputStream openWriter(String filename) throws IOException {
 		return new FileOutputStream(new File(directory, filename));
 	}
 
-	protected String[] listFlatcacheFiles() throws IOException
-	{
+	protected String[] listFlatcacheFiles() throws IOException {
 		return directory.list((dir, name) -> name.endsWith(EXTENSION));
 	}
 
 	@Override
-	public void init(Store store) throws IOException
-	{
+	public void init(Store store) throws IOException {
 		String[] idxs = listFlatcacheFiles();
-		for (String idx : idxs)
-		{
+		for (String idx : idxs) {
 			int id = Integer.parseInt(idx.substring(0, idx.length() - EXTENSION.length()));
 			store.addIndex(id);
 		}
 	}
 
 	@Override
-	public void close() throws IOException
-	{
+	public void close() throws IOException {
 	}
 
 	@Override
-	public void load(Store store) throws IOException
-	{
-		for (Index idx : store.getIndexes())
-		{
+	public void load(Store store) throws IOException {
+		for (Index idx : store.getIndexes()) {
 			String file = idx.getId() + EXTENSION;
-			try (BufferedReader br = new BufferedReader(new InputStreamReader(openReader(file))))
-			{
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(openReader(file)))) {
 				int lineNo = 0;
 				Archive archive = null;
 				List<FileData> fileData = null;
-				for (String line = br.readLine(); line != null; line = br.readLine())
-				{
+				for (String line = br.readLine(); line != null; line = br.readLine()) {
 					lineNo++;
 
-					try
-					{
+					try {
 						int lidx = line.indexOf('=');
 						String key = line.substring(0, lidx);
 						String value = line.substring(lidx + 1);
 
-						if ("file".equals(key))
-						{
-							if (fileData == null)
-							{
+						if ("file".equals(key)) {
+							if (fileData == null) {
 								fileData = new ArrayList<>();
 							}
 
@@ -131,23 +116,18 @@ public class FlatStorage implements Storage
 							fd.setNameHash(Integer.parseInt(value.substring(vidx + 1)));
 							fileData.add(fd);
 							continue;
-						}
-						else if (fileData != null)
-						{
+						} else if (fileData != null) {
 							archive.setFileData(fileData.toArray(new FileData[0]));
 							fileData = null;
 						}
 
-						if ("id".equals(key))
-						{
+						if ("id".equals(key)) {
 							archive = idx.addArchive(Integer.parseInt(value));
 							continue;
 						}
 
-						if (archive == null)
-						{
-							switch (key)
-							{
+						if (archive == null) {
+							switch (key) {
 								case "protocol":
 									idx.setProtocol(Integer.parseInt(value));
 									continue;
@@ -164,11 +144,8 @@ public class FlatStorage implements Storage
 									idx.setNamed(Boolean.parseBoolean(value));
 									continue;
 							}
-						}
-						else
-						{
-							switch (key)
-							{
+						} else {
+							switch (key) {
 								case "namehash":
 									archive.setNameHash(Integer.parseInt(value));
 									continue;
@@ -190,15 +167,12 @@ public class FlatStorage implements Storage
 							}
 						}
 						throw new IOException("unknown key: \"" + key + "\"");
-					}
-					catch (Exception e)
-					{
+					} catch (Exception e) {
 						throw new IOException("error reading flatcache at " + file + ":" + lineNo, e);
 					}
 				}
 
-				if (fileData != null)
-				{
+				if (fileData != null) {
 					archive.setFileData(fileData.toArray(new FileData[0]));
 					fileData = null;
 				}
@@ -207,14 +181,11 @@ public class FlatStorage implements Storage
 	}
 
 	@Override
-	public void save(Store store) throws IOException
-	{
+	public void save(Store store) throws IOException {
 		store.getIndexes().sort(Comparator.comparing(Index::getId));
-		for (Index idx : store.getIndexes())
-		{
+		for (Index idx : store.getIndexes()) {
 			String file = idx.getId() + EXTENSION;
-			try (PrintStream br = new PrintStream(openWriter(file)))
-			{
+			try (PrintStream br = new PrintStream(openWriter(file))) {
 				br.printf("protocol=%d\n", idx.getProtocol());
 				br.printf("revision=%d\n", idx.getRevision());
 				br.printf("compression=%d\n", idx.getCompression());
@@ -222,31 +193,27 @@ public class FlatStorage implements Storage
 				br.printf("named=%b\n", idx.getCompression());
 
 				idx.getArchives().sort(Comparator.comparing(Archive::getArchiveId));
-				for (Archive archive : idx.getArchives())
-				{
+				for (Archive archive : idx.getArchives()) {
 					br.printf("id=%d\n", archive.getArchiveId());
 					br.printf("namehash=%d\n", archive.getNameHash());
 					br.printf("revision=%d\n", archive.getRevision());
 					br.printf("crc=%d\n", archive.getCrc());
 
-					if (archive.getHash() != null)
-					{
+					if (archive.getHash() != null) {
 						br.append("hash=");
 						br.write(Base64.getEncoder().encode(archive.getHash()));
 						br.append("\n");
 					}
 
 					byte[] contents = store.getStorage().loadArchive(archive);
-					if (contents != null)
-					{
+					if (contents != null) {
 						br.append("contents=");
 						br.write(Base64.getEncoder().encode(contents));
 						br.append("\n");
 					}
 
 					br.printf("compression=%d\n", archive.getCompression());
-					for (FileData fd : archive.getFileData())
-					{
+					for (FileData fd : archive.getFileData()) {
 						br.printf("file=%d=%d\n", fd.getId(), fd.getNameHash());
 					}
 				}
@@ -255,14 +222,12 @@ public class FlatStorage implements Storage
 	}
 
 	@Override
-	public byte[] loadArchive(Archive archive) throws IOException
-	{
+	public byte[] loadArchive(Archive archive) throws IOException {
 		return data.get((long) archive.getIndex().getId() << 32 | archive.getArchiveId());
 	}
 
 	@Override
-	public void saveArchive(Archive archive, byte[] bytes) throws IOException
-	{
+	public void saveArchive(Archive archive, byte[] bytes) throws IOException {
 		data.put((long) archive.getIndex().getId() << 32 | archive.getArchiveId(), bytes);
 	}
 }

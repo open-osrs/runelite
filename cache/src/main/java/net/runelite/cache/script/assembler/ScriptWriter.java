@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.script.Instruction;
 import net.runelite.cache.script.Instructions;
@@ -36,8 +37,7 @@ import net.runelite.cache.script.Opcodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ScriptWriter extends rs2asmBaseListener
-{
+public class ScriptWriter extends rs2asmBaseListener {
 	private static final Logger logger = LoggerFactory.getLogger(ScriptWriter.class);
 
 	private final Instructions instructions;
@@ -54,60 +54,51 @@ public class ScriptWriter extends rs2asmBaseListener
 	private List<String> sops = new ArrayList<>();
 	private List<LookupSwitch> switches = new ArrayList<>();
 
-	public ScriptWriter(Instructions instructions, LabelVisitor labelVisitor)
-	{
+	public ScriptWriter(Instructions instructions, LabelVisitor labelVisitor) {
 		this.instructions = instructions;
 		this.labelVisitor = labelVisitor;
 	}
 
 	@Override
-	public void enterId_value(rs2asmParser.Id_valueContext ctx)
-	{
+	public void enterId_value(rs2asmParser.Id_valueContext ctx) {
 		int value = Integer.parseInt(ctx.getText());
 		id = value;
 	}
 
 	@Override
-	public void enterInt_stack_value(rs2asmParser.Int_stack_valueContext ctx)
-	{
+	public void enterInt_stack_value(rs2asmParser.Int_stack_valueContext ctx) {
 		int value = Integer.parseInt(ctx.getText());
 		intStackCount = value;
 	}
 
 	@Override
-	public void enterString_stack_value(rs2asmParser.String_stack_valueContext ctx)
-	{
+	public void enterString_stack_value(rs2asmParser.String_stack_valueContext ctx) {
 		int value = Integer.parseInt(ctx.getText());
 		stringStackCount = value;
 	}
 
 	@Override
-	public void enterInt_var_value(rs2asmParser.Int_var_valueContext ctx)
-	{
+	public void enterInt_var_value(rs2asmParser.Int_var_valueContext ctx) {
 		int value = Integer.parseInt(ctx.getText());
 		localIntCount = value;
 	}
 
 	@Override
-	public void enterString_var_value(rs2asmParser.String_var_valueContext ctx)
-	{
+	public void enterString_var_value(rs2asmParser.String_var_valueContext ctx) {
 		int value = Integer.parseInt(ctx.getText());
 		localStringCount = value;
 	}
 
 	@Override
-	public void exitInstruction(rs2asmParser.InstructionContext ctx)
-	{
+	public void exitInstruction(rs2asmParser.InstructionContext ctx) {
 		++pos;
 	}
 
 	@Override
-	public void enterName_string(rs2asmParser.Name_stringContext ctx)
-	{
+	public void enterName_string(rs2asmParser.Name_stringContext ctx) {
 		String text = ctx.getText();
 		Instruction i = instructions.find(text);
-		if (i == null)
-		{
+		if (i == null) {
 			logger.warn("Unknown instruction {}", text);
 			throw new RuntimeException("Unknown instruction " + text);
 		}
@@ -117,15 +108,13 @@ public class ScriptWriter extends rs2asmBaseListener
 	}
 
 	@Override
-	public void enterName_opcode(rs2asmParser.Name_opcodeContext ctx)
-	{
+	public void enterName_opcode(rs2asmParser.Name_opcodeContext ctx) {
 		String text = ctx.getText();
 		int opcode = Integer.parseInt(text);
 		addOpcode(opcode);
 	}
 
-	private void addOpcode(int opcode)
-	{
+	private void addOpcode(int opcode) {
 		assert opcodes.size() == pos;
 		assert iops.size() == pos;
 		assert sops.size() == pos;
@@ -138,28 +127,24 @@ public class ScriptWriter extends rs2asmBaseListener
 	}
 
 	@Override
-	public void enterOperand_int(rs2asmParser.Operand_intContext ctx)
-	{
+	public void enterOperand_int(rs2asmParser.Operand_intContext ctx) {
 		String text = ctx.getText();
 		int value = Integer.parseInt(text);
 		iops.set(pos, value);
 	}
 
 	@Override
-	public void enterOperand_qstring(rs2asmParser.Operand_qstringContext ctx)
-	{
+	public void enterOperand_qstring(rs2asmParser.Operand_qstringContext ctx) {
 		String text = ctx.getText();
 		text = text.substring(1, text.length() - 1);
 		sops.set(pos, text);
 	}
 
 	@Override
-	public void enterOperand_label(rs2asmParser.Operand_labelContext ctx)
-	{
+	public void enterOperand_label(rs2asmParser.Operand_labelContext ctx) {
 		String text = ctx.getText();
 		Integer instruction = labelVisitor.getInstructionForLabel(text);
-		if (instruction == null)
-		{
+		if (instruction == null) {
 			throw new RuntimeException("reference to unknown label " + text);
 		}
 
@@ -168,10 +153,8 @@ public class ScriptWriter extends rs2asmBaseListener
 	}
 
 	@Override
-	public void enterSwitch_lookup(rs2asmParser.Switch_lookupContext ctx)
-	{
-		if (switches.get(pos - 1) != null)
-		{
+	public void enterSwitch_lookup(rs2asmParser.Switch_lookupContext ctx) {
+		if (switches.get(pos - 1) != null) {
 			return;
 		}
 
@@ -180,8 +163,7 @@ public class ScriptWriter extends rs2asmBaseListener
 	}
 
 	@Override
-	public void exitSwitch_key(rs2asmParser.Switch_keyContext ctx)
-	{
+	public void exitSwitch_key(rs2asmParser.Switch_keyContext ctx) {
 		String text = ctx.getText();
 		int key = Integer.parseInt(text);
 
@@ -195,18 +177,16 @@ public class ScriptWriter extends rs2asmBaseListener
 	}
 
 	@Override
-	public void exitSwitch_value(rs2asmParser.Switch_valueContext ctx)
-	{
+	public void exitSwitch_value(rs2asmParser.Switch_valueContext ctx) {
 		String text = ctx.getText();
 		Integer instruction = labelVisitor.getInstructionForLabel(text);
-		if (instruction == null)
-		{
+		if (instruction == null) {
 			throw new RuntimeException("reference to unknown label " + text);
 		}
 
 		int target = instruction // target instruction index
-			- (pos - 1) // pos is already at the instruction after the switch, so - 1
-			- 1; // to go to the instruction prior to target
+				- (pos - 1) // pos is already at the instruction after the switch, so - 1
+				- 1; // to go to the instruction prior to target
 
 		LookupSwitch ls = switches.get(pos - 1);
 		assert ls != null;
@@ -215,8 +195,7 @@ public class ScriptWriter extends rs2asmBaseListener
 		scase.setOffset(target);
 	}
 
-	public ScriptDefinition buildScript()
-	{
+	public ScriptDefinition buildScript() {
 		setSwitchOperands();
 
 		ScriptDefinition script = new ScriptDefinition();
@@ -227,21 +206,18 @@ public class ScriptWriter extends rs2asmBaseListener
 		script.setLocalStringCount(localStringCount);
 		script.setInstructions(opcodes.stream().mapToInt(Integer::valueOf).toArray());
 		script.setIntOperands(iops.stream()
-			.map(i -> i == null ? 0 : i)
-			.mapToInt(Integer::valueOf)
-			.toArray());
+				.map(i -> i == null ? 0 : i)
+				.mapToInt(Integer::valueOf)
+				.toArray());
 		script.setStringOperands(sops.toArray(new String[0]));
 		script.setSwitches(buildSwitches());
 		return script;
 	}
 
-	private void setSwitchOperands()
-	{
+	private void setSwitchOperands() {
 		int count = 0;
-		for (int i = 0; i < opcodes.size(); ++i)
-		{
-			if (opcodes.get(i) != Opcodes.SWITCH)
-			{
+		for (int i = 0; i < opcodes.size(); ++i) {
+			if (opcodes.get(i) != Opcodes.SWITCH) {
 				continue;
 			}
 
@@ -249,28 +225,23 @@ public class ScriptWriter extends rs2asmBaseListener
 		}
 	}
 
-	private Map<Integer, Integer>[] buildSwitches()
-	{
+	private Map<Integer, Integer>[] buildSwitches() {
 		int count = (int) switches.stream().filter(Objects::nonNull).count();
 
-		if (count == 0)
-		{
+		if (count == 0) {
 			return null;
 		}
 
 		int index = 0;
 		@SuppressWarnings("unchecked") Map<Integer, Integer>[] maps = new Map[count];
-		for (LookupSwitch lswitch : switches)
-		{
-			if (lswitch == null)
-			{
+		for (LookupSwitch lswitch : switches) {
+			if (lswitch == null) {
 				continue;
 			}
 
 			Map<Integer, Integer> map = maps[index++] = new HashMap<>();
 
-			for (LookupCase scase : lswitch.getCases())
-			{
+			for (LookupCase scase : lswitch.getCases()) {
 				map.put(scase.getValue(), scase.getOffset());
 			}
 		}

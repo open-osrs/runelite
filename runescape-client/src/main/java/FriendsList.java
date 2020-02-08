@@ -12,24 +12,24 @@ public class FriendsList extends UserList {
 	static int[] regions;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lmv;"
+			signature = "Lmv;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1784077363
+			intValue = -1784077363
 	)
 	int field3606;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Ljr;"
+			signature = "Ljr;"
 	)
 	@Export("friendLoginUpdates")
 	public LinkDeque friendLoginUpdates;
 
 	@ObfuscatedSignature(
-		signature = "(Lmv;)V"
+			signature = "(Lmv;)V"
 	)
 	public FriendsList(LoginType var1) {
 		super(400);
@@ -40,8 +40,8 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(S)Ljk;",
-		garbageValue = "30683"
+			signature = "(S)Ljk;",
+			garbageValue = "30683"
 	)
 	@Export("newInstance")
 	User newInstance() {
@@ -50,8 +50,8 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IB)[Ljk;",
-		garbageValue = "19"
+			signature = "(IB)[Ljk;",
+			garbageValue = "19"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
@@ -60,12 +60,12 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljz;ZI)Z",
-		garbageValue = "-1382316514"
+			signature = "(Ljz;ZI)Z",
+			garbageValue = "-1382316514"
 	)
 	@Export("isFriended")
 	public boolean isFriended(Username var1, boolean var2) {
-		Friend var3 = (Friend)this.getByUsername(var1);
+		Friend var3 = (Friend) this.getByUsername(var1);
 		if (var3 == null) {
 			return false;
 		} else {
@@ -75,8 +75,8 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkp;IB)V",
-		garbageValue = "118"
+			signature = "(Lkp;IB)V",
+			garbageValue = "118"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
@@ -98,9 +98,9 @@ public class FriendsList extends UserList {
 
 				var1.readStringCp1252NullTerminated();
 				if (var4 != null && var4.hasCleanName()) {
-					Friend var11 = (Friend)this.getByCurrentUsername(var4);
+					Friend var11 = (Friend) this.getByCurrentUsername(var4);
 					if (var3) {
-						Friend var12 = (Friend)this.getByCurrentUsername(var5);
+						Friend var12 = (Friend) this.getByCurrentUsername(var5);
 						if (var12 != null && var11 != var12) {
 							if (var11 != null) {
 								this.remove(var12);
@@ -115,7 +115,7 @@ public class FriendsList extends UserList {
 						if (var6 != var11.world) {
 							boolean var14 = true;
 
-							for (FriendLoginUpdate var13 = (FriendLoginUpdate)this.friendLoginUpdates.last(); var13 != null; var13 = (FriendLoginUpdate)this.friendLoginUpdates.previous()) {
+							for (FriendLoginUpdate var13 = (FriendLoginUpdate) this.friendLoginUpdates.last(); var13 != null; var13 = (FriendLoginUpdate) this.friendLoginUpdates.previous()) {
 								if (var13.username.equals(var4)) {
 									if (var6 != 0 && var13.world == 0) {
 										var13.remove();
@@ -136,7 +136,7 @@ public class FriendsList extends UserList {
 							continue;
 						}
 
-						var11 = (Friend)this.addLast(var4, var5);
+						var11 = (Friend) this.addLast(var4, var5);
 					}
 
 					if (var6 != var11.world) {

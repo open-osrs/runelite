@@ -25,12 +25,16 @@
 package net.runelite.http.api.ge;
 
 import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
+
 import static net.runelite.http.api.RuneLiteAPI.JSON;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -40,36 +44,31 @@ import okhttp3.Response;
 
 @Slf4j
 @AllArgsConstructor
-public class GrandExchangeClient
-{
+public class GrandExchangeClient {
 	private static final Gson GSON = RuneLiteAPI.GSON;
 
 	private final UUID uuid;
 
-	public void submit(GrandExchangeTrade grandExchangeTrade)
-	{
+	public void submit(GrandExchangeTrade grandExchangeTrade) {
 		final HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("ge")
-			.build();
+				.addPathSegment("ge")
+				.build();
 
 		RequestBody body = RequestBody.Companion.create(GSON.toJson(grandExchangeTrade), JSON);
 		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.post(body)
-			.url(url)
-			.build();
+				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+				.post(body)
+				.url(url)
+				.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
-		{
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
 			@Override
-			public void onFailure(Call call, IOException e)
-			{
+			public void onFailure(Call call, IOException e) {
 				log.debug("unable to submit trade", e);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response)
-			{
+			public void onResponse(Call call, Response response) {
 				log.debug("Submitted trade");
 				response.close();
 			}

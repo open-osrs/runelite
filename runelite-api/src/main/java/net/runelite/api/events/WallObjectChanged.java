@@ -32,8 +32,7 @@ import lombok.Data;
  * An event where the {@link WallObject} of a {@link Tile} has been changed.
  */
 @Data
-public class WallObjectChanged implements Event
-{
+public class WallObjectChanged implements Event {
 	/**
 	 * The affected tile.
 	 */

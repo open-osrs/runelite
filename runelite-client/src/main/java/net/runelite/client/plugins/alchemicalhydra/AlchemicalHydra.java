@@ -26,6 +26,7 @@ package net.runelite.client.plugins.alchemicalhydra;
 
 import java.awt.image.BufferedImage;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -40,12 +41,10 @@ import net.runelite.client.util.ImageUtil;
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
 @Singleton
-class AlchemicalHydra
-{
+class AlchemicalHydra {
 	@Getter(AccessLevel.PACKAGE)
 	@RequiredArgsConstructor
-	enum AttackStyle
-	{
+	enum AttackStyle {
 		MAGIC(ProjectileID.HYDRA_MAGIC, Prayer.PROTECT_FROM_MAGIC, SpriteID.PRAYER_PROTECT_FROM_MAGIC),
 		RANGED(ProjectileID.HYDRA_RANGED, Prayer.PROTECT_FROM_MISSILES, SpriteID.PRAYER_PROTECT_FROM_MISSILES);
 
@@ -56,10 +55,8 @@ class AlchemicalHydra
 		@Getter(AccessLevel.NONE)
 		private BufferedImage image;
 
-		BufferedImage getImage(SpriteManager spriteManager)
-		{
-			if (image == null)
-			{
+		BufferedImage getImage(SpriteManager spriteManager) {
+			if (image == null) {
 				BufferedImage tmp = spriteManager.getSprite(spriteID, 0);
 				image = tmp == null ? null : ImageUtil.resizeImage(tmp, AlchemicalHydraOverlay.IMGSIZE, AlchemicalHydraOverlay.IMGSIZE);
 			}
@@ -84,34 +81,28 @@ class AlchemicalHydra
 	@Setter(AccessLevel.PACKAGE)
 	private boolean weakened = false;
 
-	void changePhase(AlchemicalHydraPhase newPhase)
-	{
+	void changePhase(AlchemicalHydraPhase newPhase) {
 		phase = newPhase;
 		nextSpecial = 3;
 		attackCount = 0;
 		weakened = false;
 
-		if (newPhase == AlchemicalHydraPhase.FOUR)
-		{
+		if (newPhase == AlchemicalHydraPhase.FOUR) {
 			weakened = true;
 			switchStyles();
 			nextSwitch = phase.getAttacksPerSwitch();
 		}
 	}
 
-	private void switchStyles()
-	{
+	private void switchStyles() {
 		nextAttack = lastAttack == AlchemicalHydra.AttackStyle.MAGIC
-			? AlchemicalHydra.AttackStyle.RANGED
-			: AlchemicalHydra.AttackStyle.MAGIC;
+				? AlchemicalHydra.AttackStyle.RANGED
+				: AlchemicalHydra.AttackStyle.MAGIC;
 	}
 
-	void handleAttack(int id)
-	{
-		if (id != nextAttack.getProjectileID())
-		{
-			if (id == lastAttack.getProjectileID())
-			{
+	void handleAttack(int id) {
+		if (id != nextAttack.getProjectileID()) {
+			if (id == lastAttack.getProjectileID()) {
 				// If the current attack isn't what was expected and we accidentally counted 1 too much
 				return;
 			}
@@ -119,24 +110,20 @@ class AlchemicalHydra
 			// If the current attack isn't what was expected and we should have switched prayers
 			switchStyles();
 			nextSwitch = phase.getAttacksPerSwitch() - 1;
-		}
-		else
-		{
+		} else {
 			nextSwitch--;
 		}
 
 		lastAttack = nextAttack;
 		attackCount++;
 
-		if (nextSwitch <= 0)
-		{
+		if (nextSwitch <= 0) {
 			switchStyles();
 			nextSwitch = phase.getAttacksPerSwitch();
 		}
 	}
 
-	int getNextSpecialRelative()
-	{
+	int getNextSpecialRelative() {
 		return nextSpecial - attackCount;
 	}
 }

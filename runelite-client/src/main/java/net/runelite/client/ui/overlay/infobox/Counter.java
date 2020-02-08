@@ -26,33 +26,30 @@ package net.runelite.client.ui.overlay.infobox;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.runelite.client.plugins.Plugin;
 
 @ToString
-public class Counter extends InfoBox
-{
+public class Counter extends InfoBox {
 	@Getter
 	@Setter
 	private int count;
 
-	public Counter(BufferedImage image, Plugin plugin, int count)
-	{
+	public Counter(BufferedImage image, Plugin plugin, int count) {
 		super(image, plugin);
 		this.count = count;
 	}
 
 	@Override
-	public String getText()
-	{
+	public String getText() {
 		return Integer.toString(getCount());
 	}
 
 	@Override
-	public Color getTextColor()
-	{
+	public Color getTextColor() {
 		return Color.WHITE;
 	}
 

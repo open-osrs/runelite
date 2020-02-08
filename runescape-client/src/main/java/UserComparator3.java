@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.LinkedHashMap;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -19,8 +20,8 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lje;Lje;I)I",
-		garbageValue = "-1179985017"
+			signature = "(Lje;Lje;I)I",
+			garbageValue = "-1179985017"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -32,20 +33,20 @@ public class UserComparator3 extends AbstractUserComparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2);
+		return this.compareBuddy((Buddy) var1, (Buddy) var2);
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)Ljava/io/File;",
-		garbageValue = "1177059768"
+			signature = "(Ljava/lang/String;I)Ljava/io/File;",
+			garbageValue = "1177059768"
 	)
 	@Export("getFile")
 	public static File getFile(String var0) {
 		if (!FileSystem.FileSystem_hasPermissions) {
 			throw new RuntimeException("");
 		} else {
-			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0);
+			File var1 = (File) FileSystem.FileSystem_cacheFiles.get(var0);
 			if (var1 != null) {
 				return var1;
 			} else {
@@ -83,12 +84,12 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "184774945"
+			signature = "(III)I",
+			garbageValue = "184774945"
 	)
 	@Export("ItemContainer_getCount")
 	static int ItemContainer_getCount(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		ItemContainer var2 = (ItemContainer) ItemContainer.itemContainers.get((long) var0);
 		if (var2 == null) {
 			return 0;
 		} else {
@@ -98,17 +99,17 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
-		garbageValue = "-49"
+			signature = "(IB)I",
+			garbageValue = "-49"
 	)
 	static int method3499(int var0) {
-		return (int)((Math.log((double)var0) / Interpreter.field1097 - 7.0D) * 256.0D);
+		return (int) ((Math.log((double) var0) / Interpreter.field1097 - 7.0D) * 256.0D);
 	}
 
 	@ObfuscatedName("fu")
 	@ObfuscatedSignature(
-		signature = "(ZB)V",
-		garbageValue = "-62"
+			signature = "(ZB)V",
+			garbageValue = "-62"
 	)
 	static final void method3497(boolean var0) {
 		if (var0) {
@@ -130,8 +131,8 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("fv")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "762095007"
+			signature = "(I)V",
+			garbageValue = "762095007"
 	)
 	@Export("playPcmPlayers")
 	static final void playPcmPlayers() {

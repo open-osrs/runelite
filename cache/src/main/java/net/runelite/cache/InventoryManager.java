@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import net.runelite.cache.definitions.InventoryDefinition;
 import net.runelite.cache.definitions.loaders.InventoryLoader;
 import net.runelite.cache.fs.Archive;
@@ -37,18 +38,15 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 
-public class InventoryManager
-{
+public class InventoryManager {
 	private final Store store;
 	private final List<InventoryDefinition> inventories = new ArrayList<>();
 
-	public InventoryManager(Store store)
-	{
+	public InventoryManager(Store store) {
 		this.store = store;
 	}
 
-	public void load() throws IOException
-	{
+	public void load() throws IOException {
 		InventoryLoader loader = new InventoryLoader();
 
 		Storage storage = store.getStorage();
@@ -58,24 +56,19 @@ public class InventoryManager
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile file : files.getFiles())
-		{
+		for (FSFile file : files.getFiles()) {
 			InventoryDefinition inv = loader.load(file.getFileId(), file.getContents());
 			inventories.add(inv);
 		}
 	}
 
-	public List<InventoryDefinition> getInventories()
-	{
+	public List<InventoryDefinition> getInventories() {
 		return Collections.unmodifiableList(inventories);
 	}
 
-	public InventoryDefinition findInventory(int id)
-	{
-		for (InventoryDefinition def : inventories)
-		{
-			if (def.id == id)
-			{
+	public InventoryDefinition findInventory(int id) {
+		for (InventoryDefinition def : inventories) {
+			if (def.id == id) {
 				return def;
 			}
 		}

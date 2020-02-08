@@ -29,8 +29,7 @@ import java.awt.Shape;
 /**
  * Represents a decorative object, such as an object on a wall.
  */
-public interface DecorativeObject extends TileObject
-{
+public interface DecorativeObject extends TileObject {
 	/**
 	 * Gets the convex hull of the objects model.
 	 *
@@ -38,9 +37,11 @@ public interface DecorativeObject extends TileObject
 	 * @see api.model.Jarvis
 	 */
 	Shape getConvexHull();
+
 	Shape getConvexHull2();
 
 	Entity getEntity1();
+
 	Entity getEntity2();
 
 	Model getModel1();

@@ -26,28 +26,25 @@ package net.runelite.deob.deobfuscators.packetwrite;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.instruction.types.PushConstantInstruction;
 import net.runelite.asm.execution.InstructionContext;
 
-class PacketWrite
-{
+class PacketWrite {
 	InstructionContext putOpcode;
 	List<InstructionContext> writes = new ArrayList<>();
 
-	Instruction getOpcodeIns()
-	{
+	Instruction getOpcodeIns() {
 		return putOpcode.getPops().get(0).getPushed().getInstruction();
 	}
 
-	public int getOpcode()
-	{
+	public int getOpcode() {
 		return ((Number) ((PushConstantInstruction) getOpcodeIns()).getConstant()).intValue();
 	}
 
-	Instructions getInstructions()
-	{
+	Instructions getInstructions() {
 		return putOpcode.getInstruction().getInstructions();
 	}
 }

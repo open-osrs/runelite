@@ -41,19 +41,15 @@ import net.runelite.deob.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientErrorTransformer implements Transformer
-{
+public class ClientErrorTransformer implements Transformer {
 	private static final Logger logger = LoggerFactory.getLogger(ClientErrorTransformer.class);
 
 	private boolean done = false;
 
 	@Override
-	public void transform(ClassGroup group)
-	{
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method m : cf.getMethods())
-			{
+	public void transform(ClassGroup group) {
+		for (ClassFile cf : group.getClasses()) {
+			for (Method m : cf.getMethods()) {
 				transform(m);
 			}
 		}
@@ -61,11 +57,10 @@ public class ClientErrorTransformer implements Transformer
 		logger.info("Transformed: " + done);
 	}
 
-	private void transform(Method m)
-	{
+	private void transform(Method m) {
 		if (!m.isStatic() || m.getDescriptor().size() != 2
-			|| !m.getDescriptor().getTypeOfArg(0).equals(Type.STRING)
-			|| !m.getDescriptor().getTypeOfArg(1).equals(Type.THROWABLE))
+				|| !m.getDescriptor().getTypeOfArg(0).equals(Type.STRING)
+				|| !m.getDescriptor().getTypeOfArg(1).equals(Type.THROWABLE))
 			return;
 
 		Code code = m.getCode();
@@ -84,11 +79,11 @@ public class ClientErrorTransformer implements Transformer
 		Instruction aload1 = new ALoad(ins, 1); // load throwable
 
 		InvokeVirtual printStackTrace = new InvokeVirtual(ins,
-			new net.runelite.asm.pool.Method(
-				new net.runelite.asm.pool.Class("java/lang/Throwable"),
-				"printStackTrace",
-				new Signature("()V")
-			)
+				new net.runelite.asm.pool.Method(
+						new net.runelite.asm.pool.Class("java/lang/Throwable"),
+						"printStackTrace",
+						new Signature("()V")
+				)
 		);
 
 		Instruction ret = new VReturn(ins);

@@ -27,12 +27,10 @@ package net.runelite.cache.script.assembler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LookupSwitch
-{
+public class LookupSwitch {
 	private final List<LookupCase> cases = new ArrayList<>();
 
-	public List<LookupCase> getCases()
-	{
+	public List<LookupCase> getCases() {
 		return cases;
 	}
 }

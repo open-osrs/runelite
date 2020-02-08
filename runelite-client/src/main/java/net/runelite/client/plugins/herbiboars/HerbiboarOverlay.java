@@ -27,10 +27,12 @@ package net.runelite.client.plugins.herbiboars;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Set;
+
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
@@ -43,8 +45,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-class HerbiboarOverlay extends Overlay
-{
+class HerbiboarOverlay extends Overlay {
 	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
 	private final Client client;
@@ -53,8 +54,7 @@ class HerbiboarOverlay extends Overlay
 	private final ModelOutlineRenderer modelOutlineRenderer;
 
 	@Inject
-	public HerbiboarOverlay(final HerbiboarPlugin plugin, ModelOutlineRenderer modelOutlineRenderer, Client client)
-	{
+	public HerbiboarOverlay(final HerbiboarPlugin plugin, ModelOutlineRenderer modelOutlineRenderer, Client client) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
@@ -63,10 +63,8 @@ class HerbiboarOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isInHerbiboarArea())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isInHerbiboarArea()) {
 			return null;
 		}
 
@@ -75,56 +73,43 @@ class HerbiboarOverlay extends Overlay
 		int finishId = plugin.getFinishId();
 
 		// Draw start objects
-		if (plugin.isStartShown() && currentTrail == null && finishId == 0 && !plugin.isHerbiboarRendered())
-		{
+		if (plugin.isStartShown() && currentTrail == null && finishId == 0 && !plugin.isHerbiboarRendered()) {
 			plugin.getStarts().values().forEach((obj) ->
-				OverlayUtil.renderTileOverlay(graphics, obj, "", plugin.getGetStartColor()));
+					OverlayUtil.renderTileOverlay(graphics, obj, "", plugin.getGetStartColor()));
 		}
 
 		// Draw trails
 		Set<Integer> shownTrailIds;
-		if (plugin.isTrailShown())
-		{
-			if (plugin.isOnlyCurrentTrailShown())
-			{
+		if (plugin.isTrailShown()) {
+			if (plugin.isOnlyCurrentTrailShown()) {
 				shownTrailIds = plugin.getCurrentTrailIds();
-			}
-			else
-			{
+			} else {
 				shownTrailIds = plugin.getShownTrails();
 			}
 			plugin.getTrails().values().forEach((x) ->
 			{
 				int id = x.getId();
-				if (shownTrailIds.contains(id) && (finishId > 0 || (currentTrail != null && currentTrail.getTrailId() != id && currentTrail.getTrailId() + 1 != id)))
-				{
+				if (shownTrailIds.contains(id) && (finishId > 0 || (currentTrail != null && currentTrail.getTrailId() != id && currentTrail.getTrailId() + 1 != id))) {
 					OverlayUtil.renderTileOverlay(graphics, x, "", plugin.getGetTrailColor());
 				}
 			});
 		}
 
 		// Draw trail objects (mushrooms, mud, etc)
-		if (plugin.isObjectShown() && currentTrail != null)
-		{
+		if (plugin.isObjectShown() && currentTrail != null) {
 			int currentPath = plugin.getCurrentPath();
 			WorldPoint[] trailLocs = currentTrail.getObjectLocs(currentPath);
-			for (WorldPoint trailLoc : trailLocs)
-			{
-				if (trailLoc == null)
-				{
+			for (WorldPoint trailLoc : trailLocs) {
+				if (trailLoc == null) {
 					continue;
 				}
 
 				TileObject object = plugin.getTrailObjects().get(trailLoc);
 
-				if (object != null)
-				{
-					if (plugin.isShowOutlines())
-					{
+				if (object != null) {
+					if (plugin.isShowOutlines()) {
 						renderOutline(object, new Color(255, 0, 255, 20));
-					}
-					else
-					{
+					} else {
 						OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetObjectColor());
 					}
 				}
@@ -132,31 +117,23 @@ class HerbiboarOverlay extends Overlay
 		}
 
 		// Draw finish tunnels
-		if (plugin.isTunnelShown() && finishId > 0)
-		{
+		if (plugin.isTunnelShown() && finishId > 0) {
 			WorldPoint finishLoc = plugin.getEndLocations().get(finishId - 1);
 			TileObject object = plugin.getTunnels().get(finishLoc);
-			if (object != null)
-			{
-				if (plugin.isShowOutlines())
-				{
+			if (object != null) {
+				if (plugin.isShowOutlines()) {
 					Color col = plugin.getGetObjectColor();
 					renderOutline(object, new Color(col.getRed(), col.getGreen(), col.getBlue(), 20));
-				}
-				else
-				{
+				} else {
 					OverlayUtil.renderTileOverlay(graphics, object, "", plugin.getGetTunnelColor());
 				}
 			}
 		}
 
 		// Draw herbiboar
-		if (plugin.isHerbiboarRendered())
-		{
-			for (NPC npc : client.getNpcs())
-			{
-				if (npc.getId() == NpcID.HERBIBOAR || npc.getId() == NpcID.HERBIBOAR_7786)
-				{
+		if (plugin.isHerbiboarRendered()) {
+			for (NPC npc : client.getNpcs()) {
+				if (npc.getId() == NpcID.HERBIBOAR || npc.getId() == NpcID.HERBIBOAR_7786) {
 					modelOutlineRenderer.drawOutline(npc, 2, plugin.getGetObjectColor());
 				}
 			}
@@ -164,10 +141,8 @@ class HerbiboarOverlay extends Overlay
 		return null;
 	}
 
-	private void renderOutline(TileObject object, Color color)
-	{
-		switch (plugin.getOutlineStyle())
-		{
+	private void renderOutline(TileObject object, Color color) {
+		switch (plugin.getOutlineStyle()) {
 			case THIN_OUTLINE:
 				modelOutlineRenderer.drawOutline(object, 1, color);
 				break;

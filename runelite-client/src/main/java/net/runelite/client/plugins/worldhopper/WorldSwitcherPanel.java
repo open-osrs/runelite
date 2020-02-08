@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.worldhopper;
 
 import com.google.common.collect.Ordering;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,6 +38,7 @@ import java.util.Map;
 import java.util.function.Function;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.client.ui.ColorScheme;
@@ -45,8 +47,7 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldType;
 
-class WorldSwitcherPanel extends PluginPanel
-{
+class WorldSwitcherPanel extends PluginPanel {
 	private static final Color ODD_ROW = new Color(44, 44, 44);
 
 	private static final int WORLD_COLUMN_WIDTH = 60;
@@ -68,8 +69,7 @@ class WorldSwitcherPanel extends PluginPanel
 	@Setter(AccessLevel.PACKAGE)
 	private SubscriptionFilterMode filterMode;
 
-	WorldSwitcherPanel(WorldHopperPlugin plugin)
-	{
+	WorldSwitcherPanel(WorldHopperPlugin plugin) {
 		this.plugin = plugin;
 
 		setBorder(null);
@@ -83,52 +83,39 @@ class WorldSwitcherPanel extends PluginPanel
 		add(listContainer);
 	}
 
-	void switchCurrentHighlight(int newWorld, int lastWorld)
-	{
-		for (WorldTableRow row : rows)
-		{
-			if (row.getWorld().getId() == newWorld)
-			{
+	void switchCurrentHighlight(int newWorld, int lastWorld) {
+		for (WorldTableRow row : rows) {
+			if (row.getWorld().getId() == newWorld) {
 				row.recolour(true);
-			}
-			else if (row.getWorld().getId() == lastWorld)
-			{
+			} else if (row.getWorld().getId() == lastWorld) {
 				row.recolour(false);
 			}
 		}
 	}
 
-	void updateListData(Map<Integer, Integer> worldData)
-	{
-		for (WorldTableRow worldTableRow : rows)
-		{
+	void updateListData(Map<Integer, Integer> worldData) {
+		for (WorldTableRow worldTableRow : rows) {
 			World world = worldTableRow.getWorld();
 			Integer playerCount = worldData.get(world.getId());
-			if (playerCount != null)
-			{
+			if (playerCount != null) {
 				worldTableRow.updatePlayerCount(playerCount);
 			}
 		}
 
 		// If the list is being ordered by player count, then it has to be re-painted
 		// to properly display the new data
-		if (orderIndex == WorldOrder.PLAYERS)
-		{
+		if (orderIndex == WorldOrder.PLAYERS) {
 			updateList();
 		}
 	}
 
-	void updatePing(int world, int ping)
-	{
-		for (WorldTableRow worldTableRow : rows)
-		{
-			if (worldTableRow.getWorld().getId() == world)
-			{
+	void updatePing(int world, int ping) {
+		for (WorldTableRow worldTableRow : rows) {
+			if (worldTableRow.getWorld().getId() == world) {
 				worldTableRow.setPing(ping);
 
 				// If the panel is sorted by ping, re-sort it
-				if (orderIndex == WorldOrder.PING)
-				{
+				if (orderIndex == WorldOrder.PING) {
 					updateList();
 				}
 				break;
@@ -136,28 +123,22 @@ class WorldSwitcherPanel extends PluginPanel
 		}
 	}
 
-	void hidePing()
-	{
-		for (WorldTableRow worldTableRow : rows)
-		{
+	void hidePing() {
+		for (WorldTableRow worldTableRow : rows) {
 			worldTableRow.hidePing();
 		}
 	}
 
-	void showPing()
-	{
-		for (WorldTableRow worldTableRow : rows)
-		{
+	void showPing() {
+		for (WorldTableRow worldTableRow : rows) {
 			worldTableRow.showPing();
 		}
 	}
 
-	void updateList()
-	{
+	void updateList() {
 		rows.sort((r1, r2) ->
 		{
-			switch (orderIndex)
-			{
+			switch (orderIndex) {
 				case PING:
 					// Leave worlds with unknown ping at the bottom
 					return getCompareValue(r1, r2, row ->
@@ -190,8 +171,7 @@ class WorldSwitcherPanel extends PluginPanel
 
 		listContainer.removeAll();
 
-		for (int i = 0; i < rows.size(); i++)
-		{
+		for (int i = 0; i < rows.size(); i++) {
 			WorldTableRow row = rows.get(i);
 			row.setBackground(i % 2 == 0 ? ODD_ROW : ColorScheme.DARK_GRAY_COLOR);
 			listContainer.add(row);
@@ -201,56 +181,44 @@ class WorldSwitcherPanel extends PluginPanel
 		listContainer.repaint();
 	}
 
-	private int getCompareValue(WorldTableRow row1, WorldTableRow row2, Function<WorldTableRow, Comparable> compareByFn)
-	{
+	private int getCompareValue(WorldTableRow row1, WorldTableRow row2, Function<WorldTableRow, Comparable> compareByFn) {
 		Ordering<Comparable> ordering = Ordering.natural();
-		if (!ascendingOrder)
-		{
+		if (!ascendingOrder) {
 			ordering = ordering.reverse();
 		}
 		ordering = ordering.nullsLast();
 		return ordering.compare(compareByFn.apply(row1), compareByFn.apply(row2));
 	}
 
-	void updateFavoriteMenu(int world, boolean favorite)
-	{
-		for (WorldTableRow row : rows)
-		{
-			if (row.getWorld().getId() == world)
-			{
+	void updateFavoriteMenu(int world, boolean favorite) {
+		for (WorldTableRow row : rows) {
+			if (row.getWorld().getId() == world) {
 				row.setFavoriteMenu(favorite);
 			}
 		}
 	}
 
-	void resetAllFavoriteMenus()
-	{
-		for (WorldTableRow row : rows)
-		{
+	void resetAllFavoriteMenus() {
+		for (WorldTableRow row : rows) {
 			row.setFavoriteMenu(false);
 		}
 
 	}
 
-	void populate(List<World> worlds)
-	{
+	void populate(List<World> worlds) {
 		rows.clear();
 
-		for (int i = 0; i < worlds.size(); i++)
-		{
+		for (int i = 0; i < worlds.size(); i++) {
 			World world = worlds.get(i);
 
-			switch (filterMode)
-			{
+			switch (filterMode) {
 				case FREE:
-					if (world.getTypes().contains(WorldType.MEMBERS))
-					{
+					if (world.getTypes().contains(WorldType.MEMBERS)) {
 						continue;
 					}
 					break;
 				case MEMBERS:
-					if (!world.getTypes().contains(WorldType.MEMBERS))
-					{
+					if (!world.getTypes().contains(WorldType.MEMBERS)) {
 						continue;
 					}
 					break;
@@ -262,15 +230,13 @@ class WorldSwitcherPanel extends PluginPanel
 		updateList();
 	}
 
-	private void orderBy(WorldOrder order)
-	{
+	private void orderBy(WorldOrder order) {
 		pingHeader.highlight(false, ascendingOrder);
 		worldHeader.highlight(false, ascendingOrder);
 		playersHeader.highlight(false, ascendingOrder);
 		activityHeader.highlight(false, ascendingOrder);
 
-		switch (order)
-		{
+		switch (order) {
 			case PING:
 				pingHeader.highlight(true, ascendingOrder);
 				break;
@@ -292,21 +258,17 @@ class WorldSwitcherPanel extends PluginPanel
 	/**
 	 * Builds the entire table header.
 	 */
-	private JPanel buildHeader()
-	{
+	private JPanel buildHeader() {
 		JPanel header = new JPanel(new BorderLayout());
 		JPanel leftSide = new JPanel(new BorderLayout());
 		JPanel rightSide = new JPanel(new BorderLayout());
 
 		pingHeader = new WorldTableHeader("Ping", orderIndex == WorldOrder.PING, ascendingOrder, plugin::refresh);
 		pingHeader.setPreferredSize(new Dimension(PING_COLUMN_WIDTH, 0));
-		pingHeader.addMouseListener(new MouseAdapter()
-		{
+		pingHeader.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
-				if (SwingUtilities.isRightMouseButton(mouseEvent))
-				{
+			public void mousePressed(MouseEvent mouseEvent) {
+				if (SwingUtilities.isRightMouseButton(mouseEvent)) {
 					return;
 				}
 				ascendingOrder = orderIndex != WorldOrder.PING || !ascendingOrder;
@@ -316,13 +278,10 @@ class WorldSwitcherPanel extends PluginPanel
 
 		worldHeader = new WorldTableHeader("World", orderIndex == WorldOrder.WORLD, ascendingOrder, plugin::refresh);
 		worldHeader.setPreferredSize(new Dimension(WORLD_COLUMN_WIDTH, 0));
-		worldHeader.addMouseListener(new MouseAdapter()
-		{
+		worldHeader.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
-				if (SwingUtilities.isRightMouseButton(mouseEvent))
-				{
+			public void mousePressed(MouseEvent mouseEvent) {
+				if (SwingUtilities.isRightMouseButton(mouseEvent)) {
 					return;
 				}
 				ascendingOrder = orderIndex != WorldOrder.WORLD || !ascendingOrder;
@@ -332,13 +291,10 @@ class WorldSwitcherPanel extends PluginPanel
 
 		playersHeader = new WorldTableHeader("#", orderIndex == WorldOrder.PLAYERS, ascendingOrder, plugin::refresh);
 		playersHeader.setPreferredSize(new Dimension(PLAYERS_COLUMN_WIDTH, 0));
-		playersHeader.addMouseListener(new MouseAdapter()
-		{
+		playersHeader.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
-				if (SwingUtilities.isRightMouseButton(mouseEvent))
-				{
+			public void mousePressed(MouseEvent mouseEvent) {
+				if (SwingUtilities.isRightMouseButton(mouseEvent)) {
 					return;
 				}
 				ascendingOrder = orderIndex != WorldOrder.PLAYERS || !ascendingOrder;
@@ -347,13 +303,10 @@ class WorldSwitcherPanel extends PluginPanel
 		});
 
 		activityHeader = new WorldTableHeader("Activity", orderIndex == WorldOrder.ACTIVITY, ascendingOrder, plugin::refresh);
-		activityHeader.addMouseListener(new MouseAdapter()
-		{
+		activityHeader.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
-				if (SwingUtilities.isRightMouseButton(mouseEvent))
-				{
+			public void mousePressed(MouseEvent mouseEvent) {
+				if (SwingUtilities.isRightMouseButton(mouseEvent)) {
 					return;
 				}
 				ascendingOrder = orderIndex != WorldOrder.ACTIVITY || !ascendingOrder;
@@ -376,23 +329,19 @@ class WorldSwitcherPanel extends PluginPanel
 	/**
 	 * Builds a table row, that displays the world's information.
 	 */
-	private WorldTableRow buildRow(World world, boolean stripe, boolean current, boolean favorite)
-	{
+	private WorldTableRow buildRow(World world, boolean stripe, boolean current, boolean favorite) {
 		WorldTableRow row = new WorldTableRow(world, current, favorite, plugin.getStoredPing(world),
-			plugin::hopTo,
-			(world12, add) ->
-			{
-				if (add)
+				plugin::hopTo,
+				(world12, add) ->
 				{
-					plugin.addToFavorites(world12);
-				}
-				else
-				{
-					plugin.removeFromFavorites(world12);
-				}
+					if (add) {
+						plugin.addToFavorites(world12);
+					} else {
+						plugin.removeFromFavorites(world12);
+					}
 
-				updateList();
-			}
+					updateList();
+				}
 		);
 		row.setBackground(stripe ? ODD_ROW : ColorScheme.DARK_GRAY_COLOR);
 		return row;
@@ -401,8 +350,7 @@ class WorldSwitcherPanel extends PluginPanel
 	/**
 	 * Enumerates the multiple ordering options for the world list.
 	 */
-	private enum WorldOrder
-	{
+	private enum WorldOrder {
 		WORLD,
 		PLAYERS,
 		ACTIVITY,

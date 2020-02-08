@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.customcursor;
 
 import com.google.inject.Provides;
+
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -34,6 +35,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -45,14 +47,13 @@ import net.runelite.client.ui.ClientUI;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Custom Cursor",
-	description = "Replaces your mouse cursor image",
-	enabledByDefault = false,
-	type = PluginType.MISCELLANEOUS
+		name = "Custom Cursor",
+		description = "Replaces your mouse cursor image",
+		enabledByDefault = false,
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class CustomCursorPlugin extends Plugin
-{
+public class CustomCursorPlugin extends Plugin {
 	@Inject
 	private ClientUI clientUI;
 
@@ -63,61 +64,48 @@ public class CustomCursorPlugin extends Plugin
 	private int volume = 35;
 
 	@Provides
-	CustomCursorConfig provideConfig(ConfigManager configManager)
-	{
+	CustomCursorConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(CustomCursorConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateCursor();
 
-		try (AudioInputStream ais = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("specs-rage.wav")))
-		{
+		try (AudioInputStream ais = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream("specs-rage.wav"))) {
 			skillSpecsRage = AudioSystem.getClip();
 			skillSpecsRage.open(ais);
 			FloatControl gain = (FloatControl) skillSpecsRage.getControl(FloatControl.Type.MASTER_GAIN);
 			float gainVal = (((float) volume) * 40f / 100f) - 35f;
 			gain.setValue(gainVal);
-		}
-		catch (UnsupportedAudioFileException | IOException | LineUnavailableException e)
-		{
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			log.warn("Error opening audiostream from specs-rage.wav", e);
 			skillSpecsRage = null;
 		}
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		clientUI.resetCursor();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("customcursor") && event.getKey().equals("cursorStyle"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("customcursor") && event.getKey().equals("cursorStyle")) {
 			updateCursor();
 		}
 
-		if (event.getGroup().equals("metronome") && event.getKey().equals("volume"))
-		{
+		if (event.getGroup().equals("metronome") && event.getKey().equals("volume")) {
 			this.volume = Integer.parseInt(event.getNewValue());
 		}
 	}
 
-	private void updateCursor()
-	{
+	private void updateCursor() {
 		CustomCursor selectedCursor = config.selectedCursor();
 
-		if (selectedCursor == CustomCursor.SKILL_SPECS)
-		{
-			if (skillSpecsRage != null)
-			{
-				if (skillSpecsRage.isRunning())
-				{
+		if (selectedCursor == CustomCursor.SKILL_SPECS) {
+			if (skillSpecsRage != null) {
+				if (skillSpecsRage.isRunning()) {
 					skillSpecsRage.stop();
 				}
 

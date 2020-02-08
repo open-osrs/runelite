@@ -26,17 +26,16 @@ package net.runelite.deob;
 
 import java.io.InputStream;
 import java.util.Properties;
+
 import org.junit.rules.ExternalResource;
 
-public class DeobTestProperties extends ExternalResource
-{
+public class DeobTestProperties extends ExternalResource {
 	private String rsClient;
 	private int rsVersion;
 	private String vanillaClient;
 
 	@Override
-	protected void before() throws Throwable
-	{
+	protected void before() throws Throwable {
 		Properties properties = new Properties();
 		InputStream resourceAsStream = getClass().getResourceAsStream("/deob-test.properties");
 		properties.load(resourceAsStream);
@@ -46,18 +45,15 @@ public class DeobTestProperties extends ExternalResource
 		vanillaClient = (String) properties.get("vanilla.client");
 	}
 
-	public String getRsClient()
-	{
+	public String getRsClient() {
 		return rsClient;
 	}
 
-	public int getRsVersion()
-	{
+	public int getRsVersion() {
 		return rsVersion;
 	}
 
-	public String getVanillaClient()
-	{
+	public String getVanillaClient() {
 		return vanillaClient;
 	}
 }

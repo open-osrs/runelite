@@ -10,13 +10,13 @@ public class class40 {
 	static int[] Tiles_hueMultiplier;
 	@ObfuscatedName("gr")
 	@ObfuscatedSignature(
-		signature = "[Llt;"
+			signature = "[Llt;"
 	)
 	@Export("headIconPrayerSprites")
 	static Sprite[] headIconPrayerSprites;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -207951793
+			intValue = -207951793
 	)
 	@Export("pixelsPerTile")
 	int pixelsPerTile;
@@ -30,8 +30,8 @@ public class class40 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIII)V",
-		garbageValue = "-1008655546"
+			signature = "(IIIIIIIII)V",
+			garbageValue = "-1008655546"
 	)
 	void method736(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		if (var7 != 0 && this.pixelsPerTile != 0 && this.tileTemplates != null) {
@@ -43,8 +43,8 @@ public class class40 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "-88869818"
+			signature = "(III)I",
+			garbageValue = "-88869818"
 	)
 	int method737(int var1, int var2) {
 		if (var2 == 9) {
@@ -64,8 +64,8 @@ public class class40 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
-		garbageValue = "-50"
+			signature = "(IB)I",
+			garbageValue = "-50"
 	)
 	int method740(int var1) {
 		if (var1 != 9 && var1 != 10) {
@@ -77,8 +77,8 @@ public class class40 {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1894948040"
+			signature = "(I)V",
+			garbageValue = "1894948040"
 	)
 	@Export("init")
 	void init() {
@@ -97,8 +97,8 @@ public class class40 {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-382009936"
+			signature = "(I)V",
+			garbageValue = "-382009936"
 	)
 	@Export("init0")
 	void init0() {
@@ -164,8 +164,8 @@ public class class40 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1984222504"
+			signature = "(I)V",
+			garbageValue = "1984222504"
 	)
 	@Export("init1")
 	void init1() {
@@ -235,8 +235,8 @@ public class class40 {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "728163043"
+			signature = "(I)V",
+			garbageValue = "728163043"
 	)
 	@Export("init2")
 	void init2() {
@@ -302,8 +302,8 @@ public class class40 {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1802429738"
+			signature = "(I)V",
+			garbageValue = "-1802429738"
 	)
 	@Export("init3")
 	void init3() {
@@ -369,8 +369,8 @@ public class class40 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-647414873"
+			signature = "(I)V",
+			garbageValue = "-647414873"
 	)
 	@Export("init4")
 	void init4() {
@@ -436,8 +436,8 @@ public class class40 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1171855086"
+			signature = "(I)V",
+			garbageValue = "-1171855086"
 	)
 	@Export("init5")
 	void init5() {
@@ -505,8 +505,8 @@ public class class40 {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "0"
+			signature = "(B)V",
+			garbageValue = "0"
 	)
 	@Export("init6")
 	void init6() {
@@ -574,8 +574,8 @@ public class class40 {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-106861274"
+			signature = "(I)V",
+			garbageValue = "-106861274"
 	)
 	@Export("init7")
 	void init7() {
@@ -643,8 +643,8 @@ public class class40 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lks;II)Z",
-		garbageValue = "-1391671587"
+			signature = "(Lks;II)Z",
+			garbageValue = "-1391671587"
 	)
 	@Export("updateExternalPlayer")
 	static boolean updateExternalPlayer(PacketBuffer var0, int var1) {
@@ -683,7 +683,7 @@ public class class40 {
 				var9 = var7 >> 14 & 255;
 				var10 = var7 & 255;
 				var6.pathTraversed[0] = Players.field1237[var1];
-				var6.plane = (byte)var8;
+				var6.plane = (byte) var8;
 				var6.resetPath((var9 << 13) + var3 - Messages.baseX * 64, (var10 << 13) + var4 - Language.baseY * 64);
 				var6.field621 = false;
 				return true;
@@ -759,8 +759,8 @@ public class class40 {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "-56"
+			signature = "(Ljava/lang/String;B)Ljava/lang/String;",
+			garbageValue = "-56"
 	)
 	public static String method735(String var0) {
 		int var1 = var0.length();

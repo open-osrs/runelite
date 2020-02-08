@@ -34,22 +34,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-public class RectangleUnionTest
-{
+public class RectangleUnionTest {
 	private static final int ITERATIONS = 100;
 	private static final int WIDTH = 1000;
 	private static final int MAX_RECTS = 50;
 
 	@Test
-	public void test() throws IOException
-	{
-		for (int count = 1; count < MAX_RECTS; count++)
-		{
-			for (int r = 0; r < ITERATIONS; r++)
-			{
+	public void test() throws IOException {
+		for (int count = 1; count < MAX_RECTS; count++) {
+			for (int r = 0; r < ITERATIONS; r++) {
 				Random rand = new Random(count << 16 | r);
 				String id = count + "rects_iteration" + r;
 
@@ -63,19 +60,16 @@ public class RectangleUnionTest
 
 				List<RectangleUnion.Rectangle> rects = new ArrayList<>(count);
 
-				for (int i = 0; i < count; i++)
-				{
+				for (int i = 0; i < count; i++) {
 					int x1, y1, x2, y2;
 
-					do
-					{
+					do {
 						x1 = rand.nextInt(WIDTH);
 						x2 = rand.nextInt(WIDTH);
 					}
 					while (x1 >= x2);
 
-					do
-					{
+					do {
 						y1 = rand.nextInt(WIDTH);
 						y2 = rand.nextInt(WIDTH);
 					}
@@ -92,12 +86,9 @@ public class RectangleUnionTest
 				gg.fill(union);
 
 				loop:
-				for (int x = 0; x < WIDTH; x++)
-				{
-					for (int y = 0; y < WIDTH; y++)
-					{
-						if (wanted.getRGB(x, y) != got.getRGB(x, y))
-						{
+				for (int x = 0; x < WIDTH; x++) {
+					for (int y = 0; y < WIDTH; y++) {
+						if (wanted.getRGB(x, y) != got.getRGB(x, y)) {
 							File tmp = new File(System.getProperty("java.io.tmpdir"));
 							ImageIO.write(wanted, "png", new File(tmp, id + "_wanted.png"));
 							ImageIO.write(got, "png", new File(tmp, id + "_got.png"));

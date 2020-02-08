@@ -27,8 +27,7 @@ package net.runelite.api;
 /**
  * IDs of fonts in the cache
  */
-public final class FontID
-{
+public final class FontID {
 	public static final int PLAIN_11 = 494;
 	public static final int PLAIN_12 = 495;
 

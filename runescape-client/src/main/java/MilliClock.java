@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class MilliClock extends Clock {
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "[Lme;"
+			signature = "[Lme;"
 	)
 	@Export("JagexCache_idxFiles")
 	public static BufferedFile[] JagexCache_idxFiles;
@@ -17,7 +17,7 @@ public class MilliClock extends Clock {
 	public static String field2015;
 	@ObfuscatedName("db")
 	@ObfuscatedSignature(
-		signature = "Lia;"
+			signature = "Lia;"
 	)
 	@Export("archive12")
 	static Archive archive12;
@@ -25,27 +25,27 @@ public class MilliClock extends Clock {
 	long[] field2011;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1924438695
+			intValue = 1924438695
 	)
 	int field2009;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 990081357
+			intValue = 990081357
 	)
 	int field2008;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		longValue = 1282621302724329393L
+			longValue = 1282621302724329393L
 	)
 	long field2013;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -552407369
+			intValue = -552407369
 	)
 	int field2012;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1470332853
+			intValue = 1470332853
 	)
 	int field2014;
 
@@ -64,8 +64,8 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "29"
+			signature = "(B)V",
+			garbageValue = "29"
 	)
 	@Export("mark")
 	public void mark() {
@@ -77,8 +77,8 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "-561232674"
+			signature = "(III)I",
+			garbageValue = "-561232674"
 	)
 	@Export("wait")
 	public int wait(int var1, int var2) {
@@ -91,7 +91,7 @@ public class MilliClock extends Clock {
 			this.field2009 = var3;
 			this.field2008 = var4;
 		} else if (this.field2013 > this.field2011[this.field2014]) {
-			this.field2009 = (int)((long)(var1 * 2560) / (this.field2013 - this.field2011[this.field2014]));
+			this.field2009 = (int) ((long) (var1 * 2560) / (this.field2013 - this.field2011[this.field2014]));
 		}
 
 		if (this.field2009 < 25) {
@@ -100,7 +100,7 @@ public class MilliClock extends Clock {
 
 		if (this.field2009 > 256) {
 			this.field2009 = 256;
-			this.field2008 = (int)((long)var1 - (this.field2013 - this.field2011[this.field2014]) / 10L);
+			this.field2008 = (int) ((long) var1 - (this.field2013 - this.field2011[this.field2014]) / 10L);
 		}
 
 		if (this.field2008 > var1) {
@@ -113,7 +113,7 @@ public class MilliClock extends Clock {
 		if (this.field2008 > 1) {
 			for (var5 = 0; var5 < 10; ++var5) {
 				if (0L != this.field2011[var5]) {
-					this.field2011[var5] += (long)this.field2008;
+					this.field2011[var5] += (long) this.field2008;
 				}
 			}
 		}
@@ -122,7 +122,7 @@ public class MilliClock extends Clock {
 			this.field2008 = var2;
 		}
 
-		FriendLoginUpdate.method5325((long)this.field2008);
+		FriendLoginUpdate.method5325((long) this.field2008);
 
 		for (var5 = 0; this.field2012 < 256; this.field2012 += this.field2009) {
 			++var5;
@@ -134,11 +134,11 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)Lce;",
-		garbageValue = "-230494464"
+			signature = "(III)Lce;",
+			garbageValue = "-230494464"
 	)
 	static Script method3529(int var0, int var1) {
-		Script var2 = (Script)Script.Script_cached.get((long)(var0 << 16));
+		Script var2 = (Script) Script.Script_cached.get((long) (var0 << 16));
 		if (var2 != null) {
 			return var2;
 		} else {
@@ -155,7 +155,7 @@ public class MilliClock extends Clock {
 
 					var2 = Clock.newScript(var5);
 					if (var2 != null) {
-						Script.Script_cached.put(var2, (long)(var0 << 16));
+						Script.Script_cached.put(var2, (long) (var0 << 16));
 						return var2;
 					}
 				}
@@ -167,8 +167,8 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1997111110"
+			signature = "(I)V",
+			garbageValue = "-1997111110"
 	)
 	public static void method3535() {
 		Widget.Widget_cachedSprites.clear();

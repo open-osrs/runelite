@@ -27,8 +27,10 @@
 package net.runelite.client.plugins.blackjack;
 
 import com.google.inject.Provides;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -54,16 +56,15 @@ import org.apache.commons.lang3.RandomUtils;
  * Authors gazivodag longstreet
  */
 @PluginDescriptor(
-	name = "Blackjack",
-	description = "Allows for one-click blackjacking, both knocking out and pickpocketing",
-	tags = {"blackjack", "thieving"},
-	type = PluginType.SKILLING,
-	enabledByDefault = false
+		name = "Blackjack",
+		description = "Allows for one-click blackjacking, both knocking out and pickpocketing",
+		tags = {"blackjack", "thieving"},
+		type = PluginType.SKILLING,
+		enabledByDefault = false
 )
 @Singleton
 @Slf4j
-public class BlackjackPlugin extends Plugin
-{
+public class BlackjackPlugin extends Plugin {
 	private static final int POLLNIVNEACH_REGION = 13358;
 
 	private static final String SUCCESS_BLACKJACK = "You smack the bandit over the head and render them unconscious.";
@@ -96,22 +97,19 @@ public class BlackjackPlugin extends Plugin
 	private long nextKnockOutTick = 0;
 
 	@Provides
-	BlackjackConfig getConfig(ConfigManager configManager)
-	{
+	BlackjackConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(BlackjackConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		menuManager.addPriorityEntry(KNOCKOUT_BANDIT);
 		menuManager.addPriorityEntry(KNOCKOUT_MENAPHITE);
 		this.pickpocketOnAggro = config.pickpocketOnAggro();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		menuManager.removePriorityEntry(PICKPOCKET_BANDIT);
 		menuManager.removePriorityEntry(PICKPOCKET_MENAPHITE);
 		menuManager.removePriorityEntry(KNOCKOUT_BANDIT);
@@ -120,10 +118,8 @@ public class BlackjackPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() != GameState.LOGGED_IN || !ArrayUtils.contains(client.getMapRegions(), POLLNIVNEACH_REGION))
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() != GameState.LOGGED_IN || !ArrayUtils.contains(client.getMapRegions(), POLLNIVNEACH_REGION)) {
 			eventBus.unregister("poll");
 			return;
 		}
@@ -133,19 +129,15 @@ public class BlackjackPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("blackjack"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("blackjack")) {
 			this.pickpocketOnAggro = config.pickpocketOnAggro();
 			this.random = config.random();
 		}
 	}
 
-	private void onGameTick(GameTick event)
-	{
-		if (client.getTickCount() >= nextKnockOutTick)
-		{
+	private void onGameTick(GameTick event) {
+		if (client.getTickCount() >= nextKnockOutTick) {
 			menuManager.removePriorityEntry(PICKPOCKET_BANDIT);
 			menuManager.removePriorityEntry(PICKPOCKET_MENAPHITE);
 			menuManager.addPriorityEntry(KNOCKOUT_BANDIT);
@@ -153,12 +145,10 @@ public class BlackjackPlugin extends Plugin
 		}
 	}
 
-	private void onChatMessage(ChatMessage event)
-	{
+	private void onChatMessage(ChatMessage event) {
 		final String msg = event.getMessage();
 
-		if (event.getType() == ChatMessageType.SPAM && (msg.equals(SUCCESS_BLACKJACK) || (msg.equals(FAILED_BLACKJACK) && this.pickpocketOnAggro)))
-		{
+		if (event.getType() == ChatMessageType.SPAM && (msg.equals(SUCCESS_BLACKJACK) || (msg.equals(FAILED_BLACKJACK) && this.pickpocketOnAggro))) {
 			menuManager.removePriorityEntry(KNOCKOUT_BANDIT);
 			menuManager.removePriorityEntry(KNOCKOUT_MENAPHITE);
 			menuManager.addPriorityEntry(PICKPOCKET_BANDIT);
@@ -168,12 +158,9 @@ public class BlackjackPlugin extends Plugin
 		}
 	}
 
-	private static class BJComparableEntry extends AbstractComparableEntry
-	{
-		private BJComparableEntry(final String npc, final boolean pickpocket)
-		{
-			if (!BANDIT.equals(npc) && !MENAPHITE.equals(npc))
-			{
+	private static class BJComparableEntry extends AbstractComparableEntry {
+		private BJComparableEntry(final String npc, final boolean pickpocket) {
+			if (!BANDIT.equals(npc) && !MENAPHITE.equals(npc)) {
 				throw new IllegalArgumentException("Only bandits or menaphites are valid");
 			}
 
@@ -183,10 +170,9 @@ public class BlackjackPlugin extends Plugin
 		}
 
 		@Override
-		public boolean matches(MenuEntry entry)
-		{
+		public boolean matches(MenuEntry entry) {
 			return entry.getOption().equalsIgnoreCase(this.getOption()) &&
-				Text.removeTags(entry.getTarget(), true).equalsIgnoreCase(this.getTarget());
+					Text.removeTags(entry.getTarget(), true).equalsIgnoreCase(this.getTarget());
 		}
 	}
 }

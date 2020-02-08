@@ -27,8 +27,10 @@ package net.runelite.client.plugins.attackstyles;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.util.Set;
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.api.VarPlayer;
@@ -40,22 +42,25 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.ui.overlay.OverlayManager;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AttackStylesPluginTest
-{
+public class AttackStylesPluginTest {
 	@Mock
 	@Bind
 	Client client;
@@ -76,8 +81,7 @@ public class AttackStylesPluginTest
 	AttackStylesPlugin attackPlugin;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
@@ -86,8 +90,7 @@ public class AttackStylesPluginTest
 	 * in one of the unwanted skills.
 	 */
 	@Test
-	public void testWarning()
-	{
+	public void testWarning() {
 		ConfigChanged warnForAttackEvent = new ConfigChanged();
 		warnForAttackEvent.setGroup("attackIndicator");
 		warnForAttackEvent.setKey("warnForAttack");
@@ -119,8 +122,7 @@ public class AttackStylesPluginTest
 	 * Verify that attack style widgets are hidden when filtered with the AttackStylesPlugin.
 	 */
 	@Test
-	public void testHiddenWidget()
-	{
+	public void testHiddenWidget() {
 		ConfigChanged warnForAttackEvent = new ConfigChanged();
 		warnForAttackEvent.setGroup("attackIndicator");
 		warnForAttackEvent.setKey("warnForAttack");
@@ -173,17 +175,16 @@ public class AttackStylesPluginTest
 
 		// verify that the aggressive and accurate attack style widgets are no longer hidden
 		assertFalse(attackPlugin.getHiddenWidgets().get(WeaponType.TYPE_4,
-			WidgetInfo.COMBAT_STYLE_ONE));
+				WidgetInfo.COMBAT_STYLE_ONE));
 		assertFalse(attackPlugin.getHiddenWidgets().get(WeaponType.TYPE_4,
-			WidgetInfo.COMBAT_STYLE_THREE));
+				WidgetInfo.COMBAT_STYLE_THREE));
 	}
 
 	/*
 	 * Verify that the defensive style is hidden when switching from bludgeon to bow
 	 */
 	@Test
-	public void testHiddenLongrange()
-	{
+	public void testHiddenLongrange() {
 		final ArgumentCaptor<Boolean> captor = ArgumentCaptor.forClass(Boolean.class);
 		final ConfigChanged warnForAttackEvent = new ConfigChanged();
 		warnForAttackEvent.setGroup("attackIndicator");
@@ -233,19 +234,15 @@ public class AttackStylesPluginTest
 		assertTrue(captor.getValue());
 	}
 
-	private boolean isAtkHidden()
-	{
-		if (attackPlugin.getHiddenWidgets().size() == 0)
-		{
+	private boolean isAtkHidden() {
+		if (attackPlugin.getHiddenWidgets().size() == 0) {
 			return false;
 		}
 		return attackPlugin.getHiddenWidgets().get(WeaponType.TYPE_4, WidgetInfo.COMBAT_STYLE_ONE);
 	}
 
-	private boolean isStrHidden()
-	{
-		if (attackPlugin.getHiddenWidgets().size() == 0)
-		{
+	private boolean isStrHidden() {
+		if (attackPlugin.getHiddenWidgets().size() == 0) {
 			return false;
 		}
 		return attackPlugin.getHiddenWidgets().get(WeaponType.TYPE_4, WidgetInfo.COMBAT_STYLE_TWO);

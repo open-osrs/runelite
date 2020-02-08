@@ -26,11 +26,13 @@ package net.runelite.http.api.npc;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Map;
+
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
@@ -41,40 +43,33 @@ import okhttp3.Response;
 
 @Slf4j
 @Value
-public class NpcInfoClient
-{
+public class NpcInfoClient {
 	private final OkHttpClient client;
 
-	public Map<Integer, NpcInfo> getNpcs() throws IOException
-	{
+	public Map<Integer, NpcInfo> getNpcs() throws IOException {
 		HttpUrl.Builder urlBuilder = RuneLiteAPI.getStaticBase().newBuilder()
-			.addPathSegment("npcs")
-			.addPathSegment("npcs.min.json");
+				.addPathSegment("npcs")
+				.addPathSegment("npcs.min.json");
 
 		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
-		try (Response response = client.newCall(request).execute())
-		{
-			if (!response.isSuccessful())
-			{
+		try (Response response = client.newCall(request).execute()) {
+			if (!response.isSuccessful()) {
 				log.warn("Error looking up npcs: {}", response);
 				return null;
 			}
 
 			InputStream in = response.body().byteStream();
-			final Type typeToken = new TypeToken<Map<Integer, NpcInfo>>()
-			{
+			final Type typeToken = new TypeToken<Map<Integer, NpcInfo>>() {
 			}.getType();
 			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), typeToken);
-		}
-		catch (JsonParseException ex)
-		{
+		} catch (JsonParseException ex) {
 			throw new IOException(ex);
 		}
 	}

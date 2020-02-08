@@ -25,6 +25,7 @@
 package net.runelite.mixins;
 
 import java.awt.Shape;
+
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.Angle;
@@ -38,60 +39,49 @@ import net.runelite.rs.api.RSGameObject;
 import net.runelite.rs.api.RSModel;
 
 @Mixin(RSGameObject.class)
-public abstract class RSGameObjectMixin implements RSGameObject
-{
+public abstract class RSGameObjectMixin implements RSGameObject {
 	@Shadow("client")
 	private static RSClient client;
 
 	@Inject
 	@Override
-	public Point getSceneMinLocation()
-	{
+	public Point getSceneMinLocation() {
 		return new Point(getRelativeX(), getRelativeY());
 	}
 
 	@Inject
 	@Override
-	public Point getSceneMaxLocation()
-	{
+	public Point getSceneMaxLocation() {
 		return new Point(getOffsetX(), getOffsetY());
 	}
 
 	@Inject
 	@Override
-	public RSModel getModel()
-	{
+	public RSModel getModel() {
 		RSEntity renderable = getEntity();
-		if (renderable == null)
-		{
+		if (renderable == null) {
 			return null;
 		}
 
-		if (renderable instanceof RSModel)
-		{
+		if (renderable instanceof RSModel) {
 			return (RSModel) renderable;
-		}
-		else
-		{
+		} else {
 			return renderable.getModel();
 		}
 	}
 
 	@Inject
 	@Override
-	public Shape getClickbox()
-	{
+	public Shape getClickbox() {
 		return Perspective.getClickbox(client, getModel(), getRsOrientation(), getLocalLocation());
 	}
 
 	@Inject
 	@Override
-	public Shape getConvexHull()
-	{
+	public Shape getConvexHull() {
 		RSModel model = getModel();
 
-		if (model == null)
-		{
+		if (model == null) {
 			return null;
 		}
 
@@ -102,8 +92,7 @@ public abstract class RSGameObjectMixin implements RSGameObject
 
 	@Override
 	@Inject
-	public Angle getOrientation()
-	{
+	public Angle getOrientation() {
 		int orientation = getRsOrientation();
 		int rotation = (getFlags() >> 6) & 3;
 		return new Angle(rotation * 512 + orientation);

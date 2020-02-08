@@ -26,8 +26,7 @@ package net.runelite.client.plugins.freezetimers;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-public enum TimerType
-{
+public enum TimerType {
 	FREEZE(3000),
 	VENG(0),
 	TELEBLOCK(45000),
@@ -36,8 +35,7 @@ public enum TimerType
 	@Getter(AccessLevel.PACKAGE)
 	private final int immunityTime;
 
-	TimerType(int immunityTime)
-	{
+	TimerType(int immunityTime) {
 		this.immunityTime = immunityTime;
 	}
 }

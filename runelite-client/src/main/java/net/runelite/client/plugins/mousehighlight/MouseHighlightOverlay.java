@@ -25,10 +25,12 @@
 package net.runelite.client.plugins.mousehighlight;
 
 import com.google.common.base.Strings;
+
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
@@ -41,15 +43,13 @@ import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 
 @Singleton
-class MouseHighlightOverlay extends Overlay
-{
+class MouseHighlightOverlay extends Overlay {
 	private final TooltipManager tooltipManager;
 	private final Client client;
 	private final MouseHighlightPlugin plugin;
 
 	@Inject
-	MouseHighlightOverlay(final Client client, final TooltipManager tooltipManager, final MouseHighlightPlugin plugin)
-	{
+	MouseHighlightOverlay(final Client client, final TooltipManager tooltipManager, final MouseHighlightPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;
 		this.tooltipManager = tooltipManager;
@@ -57,18 +57,15 @@ class MouseHighlightOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (client.isMenuOpen())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (client.isMenuOpen()) {
 			return null;
 		}
 
 		MenuEntry[] menuEntries = client.getMenuEntries();
 		int last = menuEntries.length - 1;
 
-		if (last < 0)
-		{
+		if (last < 0) {
 			return null;
 		}
 
@@ -77,27 +74,23 @@ class MouseHighlightOverlay extends Overlay
 		String option = menuEntry.getOption();
 		int type = menuEntry.getOpcode();
 
-		if (shouldNotRenderMenuAction(type))
-		{
+		if (shouldNotRenderMenuAction(type)) {
 			return null;
 		}
 
-		if (Strings.isNullOrEmpty(option))
-		{
+		if (Strings.isNullOrEmpty(option)) {
 			return null;
 		}
 
 		// Trivial options that don't need to be highlighted, add more as they appear.
-		switch (option)
-		{
+		switch (option) {
 			case "Walk here":
 			case "Cancel":
 			case "Continue":
 				return null;
 			case "Move":
 				// Hide overlay on sliding puzzle boxes
-				if (target.contains("Sliding piece"))
-				{
+				if (target.contains("Sliding piece")) {
 					return null;
 				}
 		}
@@ -107,35 +100,29 @@ class MouseHighlightOverlay extends Overlay
 		final int childId = WidgetInfo.TO_CHILD(widgetId);
 		final Widget widget = client.getWidget(groupId, childId);
 
-		if (!plugin.isUiTooltip() && widget != null)
-		{
+		if (!plugin.isUiTooltip() && widget != null) {
 			return null;
 		}
 
-		if (!plugin.isChatboxTooltip() && groupId == WidgetInfo.CHATBOX.getGroupId())
-		{
+		if (!plugin.isChatboxTooltip() && groupId == WidgetInfo.CHATBOX.getGroupId()) {
 			return null;
 		}
 
-		if (widget != null)
-		{
+		if (widget != null) {
 			// If this varc is set, some CS is showing tooltip
 			int tooltipTimeout = client.getVar(VarClientInt.TOOLTIP_TIMEOUT);
-			if (tooltipTimeout > client.getGameCycle())
-			{
+			if (tooltipTimeout > client.getGameCycle()) {
 				return null;
 			}
 		}
 
-		if (widget == null && !plugin.isMainTooltip())
-		{
+		if (widget == null && !plugin.isMainTooltip()) {
 			return null;
 		}
 
 		// If this varc is set, a tooltip is already being displayed
 		int tooltipDisplayed = client.getVar(VarClientInt.TOOLTIP_VISIBLE);
-		if (tooltipDisplayed == 1)
-		{
+		if (tooltipDisplayed == 1) {
 			return null;
 		}
 
@@ -143,15 +130,13 @@ class MouseHighlightOverlay extends Overlay
 		return null;
 	}
 
-	private boolean shouldNotRenderMenuAction(int type)
-	{
-		return type == MenuOpcode.RUNELITE_OVERLAY.getId() 
-			|| type == MenuOpcode.CC_OP_LOW_PRIORITY.getId()
-			|| (!plugin.isRightClickTooltipEnabled() && isMenuActionRightClickOnly(type));
+	private boolean shouldNotRenderMenuAction(int type) {
+		return type == MenuOpcode.RUNELITE_OVERLAY.getId()
+				|| type == MenuOpcode.CC_OP_LOW_PRIORITY.getId()
+				|| (!plugin.isRightClickTooltipEnabled() && isMenuActionRightClickOnly(type));
 	}
 
-	private boolean isMenuActionRightClickOnly(int type)
-	{
+	private boolean isMenuActionRightClickOnly(int type) {
 		return type == MenuOpcode.CC_OP_LOW_PRIORITY.getId();
 	}
 }

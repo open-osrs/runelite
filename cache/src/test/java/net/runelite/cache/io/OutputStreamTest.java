@@ -25,13 +25,12 @@
 package net.runelite.cache.io;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class OutputStreamTest
-{
+public class OutputStreamTest {
 	@Test
-	public void testWriteBigSmart()
-	{
+	public void testWriteBigSmart() {
 		OutputStream os = new OutputStream();
 		os.writeBigSmart(42);
 		os.writeBigSmart(70000);
@@ -44,8 +43,7 @@ public class OutputStreamTest
 	}
 
 	@Test
-	public void testWriteString()
-	{
+	public void testWriteString() {
 		char[] c = new char[]{32, 160};
 		String str = new String(c, 0, c.length);
 

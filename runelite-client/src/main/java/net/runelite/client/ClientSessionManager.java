@@ -25,76 +25,69 @@
 package net.runelite.client;
 
 import io.reactivex.schedulers.Schedulers;
+
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.task.Schedule;
 
 @Singleton
 @Slf4j
-public class ClientSessionManager
-{
+public class ClientSessionManager {
 	private final SessionClient sessionClient;
 	private final ClientThread clientThread;
 	private UUID sessionId;
 
 
 	@Inject
-	ClientSessionManager(ClientThread clientThread)
-	{
+	ClientSessionManager(ClientThread clientThread) {
 		this.sessionClient = new SessionClient();
 		this.clientThread = clientThread;
 	}
 
-	void start()
-	{
+	void start() {
 		sessionClient.openSession()
-			.subscribeOn(Schedulers.io())
-			.observeOn(Schedulers.single())
-			.subscribe(this::setUuid, this::error);
+				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.single())
+				.subscribe(this::setUuid, this::error);
 	}
 
 	@Schedule(period = 10, unit = ChronoUnit.MINUTES, asynchronous = true)
-	public void ping()
-	{
-		if (sessionId == null)
-		{
+	public void ping() {
+		if (sessionId == null) {
 			start();
 			return;
 		}
 
 		sessionClient.pingSession(sessionId)
-			.subscribeOn(Schedulers.io())
-			.observeOn(Schedulers.single())
-			.doOnError(this::error)
-			.subscribe();
-	}
-
-	public void shutdown()
-	{
-		if (sessionId != null)
-		{
-			sessionClient.delete(sessionId)
 				.subscribeOn(Schedulers.io())
 				.observeOn(Schedulers.single())
 				.doOnError(this::error)
 				.subscribe();
+	}
+
+	public void shutdown() {
+		if (sessionId != null) {
+			sessionClient.delete(sessionId)
+					.subscribeOn(Schedulers.io())
+					.observeOn(Schedulers.single())
+					.doOnError(this::error)
+					.subscribe();
 
 			sessionId = null;
 		}
 	}
 
-	private void setUuid(UUID uuid)
-	{
+	private void setUuid(UUID uuid) {
 		this.sessionId = uuid;
 		log.debug("Opened session {}.", sessionId);
 	}
 
-	private void error(Throwable error)
-	{
+	private void error(Throwable error) {
 		log.debug("Error in client session.");
 		log.trace(null, error);
 	}

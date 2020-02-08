@@ -24,24 +24,19 @@
  */
 package net.runelite.asm.execution.mapper;
 
-public class StaticStepTest
-{
-	static void func2()
-	{
+public class StaticStepTest {
+	static void func2() {
 
 	}
 
-	static void func1()
-	{
+	static void func1() {
 		func2();
 	}
 
-	void map()
-	{
+	void map() {
 	}
 
-	static void entry()
-	{
+	static void entry() {
 		func1();
 		func1();
 		new StaticStepTest().map();

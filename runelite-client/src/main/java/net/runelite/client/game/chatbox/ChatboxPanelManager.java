@@ -49,8 +49,7 @@ import net.runelite.client.input.MouseWheelListener;
 
 @Singleton
 @Slf4j
-public class ChatboxPanelManager
-{
+public class ChatboxPanelManager {
 	private final Client client;
 	private final ClientThread clientThread;
 	private final EventBus eventBus;
@@ -67,8 +66,7 @@ public class ChatboxPanelManager
 	@Inject
 	private ChatboxPanelManager(EventBus eventBus, Client client, ClientThread clientThread,
 								KeyManager keyManager, MouseManager mouseManager,
-								Provider<ChatboxTextMenuInput> chatboxTextMenuInputProvider, Provider<ChatboxTextInput> chatboxTextInputProvider)
-	{
+								Provider<ChatboxTextMenuInput> chatboxTextMenuInputProvider, Provider<ChatboxTextInput> chatboxTextInputProvider) {
 		this.client = client;
 		this.clientThread = clientThread;
 		this.eventBus = eventBus;
@@ -84,44 +82,36 @@ public class ChatboxPanelManager
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 	}
 
-	public void close()
-	{
+	public void close() {
 		clientThread.invokeLater(this::unsafeCloseInput);
 	}
 
-	private void unsafeCloseInput()
-	{
+	private void unsafeCloseInput() {
 		client.runScript(
-			ScriptID.MESSAGE_LAYER_CLOSE,
-			0,
-			1
+				ScriptID.MESSAGE_LAYER_CLOSE,
+				0,
+				1
 		);
-		if (currentInput != null)
-		{
+		if (currentInput != null) {
 			killCurrentPanel();
 		}
 	}
 
-	private void unsafeOpenInput(ChatboxInput input)
-	{
+	private void unsafeOpenInput(ChatboxInput input) {
 		client.runScript(ScriptID.MESSAGE_LAYER_OPEN, 0);
 
 		// eventBus.register(input);
-		if (input instanceof KeyListener)
-		{
+		if (input instanceof KeyListener) {
 			keyManager.registerKeyListener((KeyListener) input);
 		}
-		if (input instanceof MouseListener)
-		{
+		if (input instanceof MouseListener) {
 			mouseManager.registerMouseListener((MouseListener) input);
 		}
-		if (input instanceof MouseWheelListener)
-		{
+		if (input instanceof MouseWheelListener) {
 			mouseManager.registerMouseWheelListener((MouseWheelListener) input);
 		}
 
-		if (currentInput != null)
-		{
+		if (currentInput != null) {
 			killCurrentPanel();
 		}
 
@@ -136,68 +126,53 @@ public class ChatboxPanelManager
 		input.open();
 	}
 
-	public void openInput(ChatboxInput input)
-	{
+	public void openInput(ChatboxInput input) {
 		clientThread.invokeLater(() -> unsafeOpenInput(input));
 	}
 
-	public ChatboxTextMenuInput openTextMenuInput(String title)
-	{
+	public ChatboxTextMenuInput openTextMenuInput(String title) {
 		return chatboxTextMenuInputProvider.get()
-			.title(title);
+				.title(title);
 	}
 
-	public ChatboxTextInput openTextInput(String prompt)
-	{
+	public ChatboxTextInput openTextInput(String prompt) {
 		return chatboxTextInputProvider.get()
-			.prompt(prompt);
+				.prompt(prompt);
 	}
 
-	private void onScriptCallbackEvent(ScriptCallbackEvent ev)
-	{
-		if (currentInput != null && "resetChatboxInput".equals(ev.getEventName()))
-		{
+	private void onScriptCallbackEvent(ScriptCallbackEvent ev) {
+		if (currentInput != null && "resetChatboxInput".equals(ev.getEventName())) {
 			killCurrentPanel();
 		}
 	}
 
-	private void onGameStateChanged(GameStateChanged ev)
-	{
-		if (currentInput != null && ev.getGameState() == GameState.LOGIN_SCREEN)
-		{
+	private void onGameStateChanged(GameStateChanged ev) {
+		if (currentInput != null && ev.getGameState() == GameState.LOGIN_SCREEN) {
 			killCurrentPanel();
 		}
 	}
 
-	private void killCurrentPanel()
-	{
-		try
-		{
+	private void killCurrentPanel() {
+		try {
 			currentInput.close();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			log.warn("Exception closing {}", currentInput.getClass(), e);
 		}
 
 		eventBus.unregister(currentInput);
-		if (currentInput instanceof KeyListener)
-		{
+		if (currentInput instanceof KeyListener) {
 			keyManager.unregisterKeyListener((KeyListener) currentInput);
 		}
-		if (currentInput instanceof MouseListener)
-		{
+		if (currentInput instanceof MouseListener) {
 			mouseManager.unregisterMouseListener((MouseListener) currentInput);
 		}
-		if (currentInput instanceof MouseWheelListener)
-		{
+		if (currentInput instanceof MouseWheelListener) {
 			mouseManager.unregisterMouseWheelListener((MouseWheelListener) currentInput);
 		}
 		currentInput = null;
 	}
 
-	public Widget getContainerWidget()
-	{
+	public Widget getContainerWidget() {
 		return client.getWidget(WidgetInfo.CHATBOX_CONTAINER);
 	}
 }

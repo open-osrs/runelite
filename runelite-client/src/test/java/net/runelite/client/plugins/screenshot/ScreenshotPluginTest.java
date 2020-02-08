@@ -27,39 +27,49 @@ package net.runelite.client.plugins.screenshot;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Consumer;
 import javax.inject.Inject;
+
 import static net.runelite.api.ChatMessageType.GAMEMESSAGE;
+
 import net.runelite.api.Client;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.Widget;
+
 import static net.runelite.api.widgets.WidgetID.DIALOG_SPRITE_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.LEVEL_UP_GROUP_ID;
 import static net.runelite.api.widgets.WidgetInfo.DIALOG_SPRITE_TEXT;
 import static net.runelite.api.widgets.WidgetInfo.LEVEL_UP_LEVEL;
+
 import net.runelite.client.Notifier;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.DrawManager;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ScreenshotPluginTest
-{
+public class ScreenshotPluginTest {
 	private static final String CLUE_SCROLL = "<col=3300ff>You have completed 28 medium Treasure Trails</col>";
 	private static final String BARROWS_CHEST = "Your Barrows chest count is <col=ff0000>310</col>";
 	private static final String CHAMBERS_OF_XERIC_CHEST = "Your completed Chambers of Xeric count is: <col=ff0000>489</col>.";
@@ -103,8 +113,7 @@ public class ScreenshotPluginTest
 	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 		screenshotPlugin.setScreenshotRewards(true);
 		screenshotPlugin.setScreenshotLevels(true);
@@ -113,8 +122,7 @@ public class ScreenshotPluginTest
 	}
 
 	@Test
-	public void testClueScroll()
-	{
+	public void testClueScroll() {
 		ChatMessage chatMessageEvent = new ChatMessage(null, GAMEMESSAGE, "Seth", CLUE_SCROLL, null, 0);
 		screenshotPlugin.onChatMessage(chatMessageEvent);
 
@@ -123,8 +131,7 @@ public class ScreenshotPluginTest
 	}
 
 	@Test
-	public void testBarrowsChest()
-	{
+	public void testBarrowsChest() {
 		ChatMessage chatMessageEvent = new ChatMessage(null, GAMEMESSAGE, "Seth", BARROWS_CHEST, null, 0);
 		screenshotPlugin.onChatMessage(chatMessageEvent);
 
@@ -132,8 +139,7 @@ public class ScreenshotPluginTest
 	}
 
 	@Test
-	public void testChambersOfXericChest()
-	{
+	public void testChambersOfXericChest() {
 		ChatMessage chatMessageEvent = new ChatMessage(null, GAMEMESSAGE, "Seth", CHAMBERS_OF_XERIC_CHEST, null, 0);
 		screenshotPlugin.onChatMessage(chatMessageEvent);
 
@@ -141,8 +147,7 @@ public class ScreenshotPluginTest
 	}
 
 	@Test
-	public void testTheatreOfBloodChest()
-	{
+	public void testTheatreOfBloodChest() {
 		ChatMessage chatMessageEvent = new ChatMessage(null, GAMEMESSAGE, "Magic fTail", THEATRE_OF_BLOOD_CHEST, null, 0);
 		screenshotPlugin.onChatMessage(chatMessageEvent);
 
@@ -151,8 +156,7 @@ public class ScreenshotPluginTest
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testValuableDrop()
-	{
+	public void testValuableDrop() {
 		ChatMessage chatMessageEvent = new ChatMessage(null, GAMEMESSAGE, "", VALUABLE_DROP, null, 0);
 		screenshotPlugin.onChatMessage(chatMessageEvent);
 
@@ -161,8 +165,7 @@ public class ScreenshotPluginTest
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testUntradeableDrop()
-	{
+	public void testUntradeableDrop() {
 		ChatMessage chatMessageEvent = new ChatMessage(null, GAMEMESSAGE, "", UNTRADEABLE_DROP, null, 0);
 		screenshotPlugin.onChatMessage(chatMessageEvent);
 
@@ -171,8 +174,7 @@ public class ScreenshotPluginTest
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testHitpointsLevel99()
-	{
+	public void testHitpointsLevel99() {
 		Widget levelChild = mock(Widget.class);
 		when(client.getWidget(eq(LEVEL_UP_LEVEL))).thenReturn(levelChild);
 
@@ -192,8 +194,7 @@ public class ScreenshotPluginTest
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testFiremakingLevel9()
-	{
+	public void testFiremakingLevel9() {
 		Widget levelChild = mock(Widget.class);
 		when(client.getWidget(eq(LEVEL_UP_LEVEL))).thenReturn(levelChild);
 
@@ -213,8 +214,7 @@ public class ScreenshotPluginTest
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testAttackLevel70()
-	{
+	public void testAttackLevel70() {
 		Widget levelChild = mock(Widget.class);
 		when(client.getWidget(eq(LEVEL_UP_LEVEL))).thenReturn(levelChild);
 
@@ -234,8 +234,7 @@ public class ScreenshotPluginTest
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testHunterLevel2()
-	{
+	public void testHunterLevel2() {
 		Widget levelChild = mock(Widget.class);
 		when(client.getWidget(eq(DIALOG_SPRITE_TEXT))).thenReturn(levelChild);
 

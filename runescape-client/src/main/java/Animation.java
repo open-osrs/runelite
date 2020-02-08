@@ -16,7 +16,7 @@ public class Animation {
 	static int[] field1623;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+			signature = "Lec;"
 	)
 	@Export("skeleton")
 	Skeleton skeleton;
@@ -47,7 +47,7 @@ public class Animation {
 	}
 
 	@ObfuscatedSignature(
-		signature = "([BLec;)V"
+			signature = "([BLec;)V"
 	)
 	Animation(byte[] var1, Skeleton var2) {
 		this.skeleton = null;

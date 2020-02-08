@@ -27,13 +27,13 @@ package net.runelite.client.plugins.experiencedrop;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Prayer;
+
 import static net.runelite.api.Prayer.*;
 import static net.runelite.client.plugins.experiencedrop.PrayerType.MAGIC;
 import static net.runelite.client.plugins.experiencedrop.PrayerType.MELEE;
 import static net.runelite.client.plugins.experiencedrop.PrayerType.RANGE;
 
-enum XpPrayer
-{
+enum XpPrayer {
 	XP_BURST_OF_STRENGTH(BURST_OF_STRENGTH, MELEE),
 	XP_CLARITY_OF_THOUGHT(CLARITY_OF_THOUGHT, MELEE),
 	XP_SHARP_EYE(SHARP_EYE, RANGE),
@@ -56,8 +56,7 @@ enum XpPrayer
 	@Getter(AccessLevel.PACKAGE)
 	private final PrayerType type;
 
-	XpPrayer(Prayer prayer, PrayerType type)
-	{
+	XpPrayer(Prayer prayer, PrayerType type) {
 		this.prayer = prayer;
 		this.type = type;
 	}

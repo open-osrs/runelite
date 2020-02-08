@@ -28,13 +28,11 @@ package net.runelite.cache.definitions.loaders;
 import net.runelite.cache.definitions.SpriteDefinition;
 import net.runelite.cache.io.InputStream;
 
-public class SpriteLoader
-{
+public class SpriteLoader {
 	public static final int FLAG_VERTICAL = 0b01;
-	public static final int FLAG_ALPHA    = 0b10;
+	public static final int FLAG_ALPHA = 0b10;
 
-	public SpriteDefinition[] load(int id, byte[] b)
-	{
+	public SpriteDefinition[] load(int id, byte[] b) {
 		InputStream is = new InputStream(b);
 
 		is.setOffset(is.getLength() - 2);
@@ -52,8 +50,7 @@ public class SpriteLoader
 		int height = is.readUnsignedShort();
 		int paletteLength = is.readUnsignedByte() + 1;
 
-		for (int i = 0; i < spriteCount; ++i)
-		{
+		for (int i = 0; i < spriteCount; ++i) {
 			sprites[i] = new SpriteDefinition();
 			sprites[i].setId(id);
 			sprites[i].setFrame(i);
@@ -61,23 +58,19 @@ public class SpriteLoader
 			sprites[i].setMaxHeight(height);
 		}
 
-		for (int i = 0; i < spriteCount; ++i)
-		{
+		for (int i = 0; i < spriteCount; ++i) {
 			sprites[i].setOffsetX(is.readUnsignedShort());
 		}
 
-		for (int i = 0; i < spriteCount; ++i)
-		{
+		for (int i = 0; i < spriteCount; ++i) {
 			sprites[i].setOffsetY(is.readUnsignedShort());
 		}
 
-		for (int i = 0; i < spriteCount; ++i)
-		{
+		for (int i = 0; i < spriteCount; ++i) {
 			sprites[i].setWidth(is.readUnsignedShort());
 		}
 
-		for (int i = 0; i < spriteCount; ++i)
-		{
+		for (int i = 0; i < spriteCount; ++i) {
 			sprites[i].setHeight(is.readUnsignedShort());
 		}
 
@@ -85,20 +78,17 @@ public class SpriteLoader
 		is.setOffset(is.getLength() - 7 - spriteCount * 8 - (paletteLength - 1) * 3);
 		int[] palette = new int[paletteLength];
 
-		for (int i = 1; i < paletteLength; ++i)
-		{
+		for (int i = 1; i < paletteLength; ++i) {
 			palette[i] = is.read24BitInt();
 
-			if (palette[i] == 0)
-			{
+			if (palette[i] == 0) {
 				palette[i] = 1;
 			}
 		}
 
 		is.setOffset(0);
 
-		for (int i = 0; i < spriteCount; ++i)
-		{
+		for (int i = 0; i < spriteCount; ++i) {
 			SpriteDefinition def = sprites[i];
 			int spriteWidth = def.getWidth();
 			int spriteHeight = def.getHeight();
@@ -110,54 +100,38 @@ public class SpriteLoader
 
 			int flags = is.readUnsignedByte();
 
-			if ((flags & FLAG_VERTICAL) == 0)
-			{
+			if ((flags & FLAG_VERTICAL) == 0) {
 				// read horizontally
-				for (int j = 0; j < dimension; ++j)
-				{
+				for (int j = 0; j < dimension; ++j) {
 					pixelPaletteIndicies[j] = is.readByte();
 				}
-			}
-			else
-			{
+			} else {
 				// read vertically
-				for (int j = 0; j < spriteWidth; ++j)
-				{
-					for (int k = 0; k < spriteHeight; ++k)
-					{
+				for (int j = 0; j < spriteWidth; ++j) {
+					for (int k = 0; k < spriteHeight; ++k) {
 						pixelPaletteIndicies[spriteWidth * k + j] = is.readByte();
 					}
 				}
 			}
 
 			// read alphas
-			if ((flags & FLAG_ALPHA) != 0)
-			{
-				if ((flags & FLAG_VERTICAL) == 0)
-				{
+			if ((flags & FLAG_ALPHA) != 0) {
+				if ((flags & FLAG_VERTICAL) == 0) {
 					// read horizontally
-					for (int j = 0; j < dimension; ++j)
-					{
+					for (int j = 0; j < dimension; ++j) {
 						pixelAlphas[j] = is.readByte();
 					}
-				}
-				else
-				{
+				} else {
 					// read vertically
-					for (int j = 0; j < spriteWidth; ++j)
-					{
-						for (int k = 0; k < spriteHeight; ++k)
-						{
+					for (int j = 0; j < spriteWidth; ++j) {
+						for (int k = 0; k < spriteHeight; ++k) {
 							pixelAlphas[spriteWidth * k + j] = is.readByte();
 						}
 					}
 				}
-			}
-			else
-			{
+			} else {
 				// everything non-zero is opaque
-				for (int j = 0; j < dimension; ++j)
-				{
+				for (int j = 0; j < dimension; ++j) {
 					int index = pixelPaletteIndicies[j];
 
 					if (index != 0)
@@ -168,8 +142,7 @@ public class SpriteLoader
 			int[] pixels = new int[dimension];
 
 			// build argb pixels from palette/alphas
-			for (int j = 0; j < dimension; ++j)
-			{
+			for (int j = 0; j < dimension; ++j) {
 				int index = pixelPaletteIndicies[j] & 0xFF;
 
 				pixels[j] = palette[index] | (pixelAlphas[j] << 24);

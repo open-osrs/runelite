@@ -7,8 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class TaskData
-{
+public class TaskData {
 	private long elapsedTime;
 	private int elapsedKills;
 	private int elapsedXp;
@@ -17,10 +16,8 @@ public class TaskData
 	private String taskName;
 	private boolean paused;
 
-	public void tick(long delta)
-	{
-		if (!paused)
-		{
+	public void tick(long delta) {
+		if (!paused) {
 			elapsedTime += delta;
 		}
 	}

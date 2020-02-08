@@ -28,7 +28,9 @@ package net.runelite.client.plugins.wintertodt;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.VarbitChanged;
@@ -40,14 +42,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WintertodtPluginTest
-{
+public class WintertodtPluginTest {
 	@Inject
 	WintertodtPlugin wintertodtPlugin;
 
@@ -80,14 +83,12 @@ public class WintertodtPluginTest
 	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void matchStartingNotification_shouldNotify_when15SecondsOptionSelected()
-	{
+	public void matchStartingNotification_shouldNotify_when15SecondsOptionSelected() {
 		when(config.roundNotification()).thenReturn(15);
 
 		when(client.getVar(Varbits.WINTERTODT_TIMER)).thenReturn(35);
@@ -100,8 +101,7 @@ public class WintertodtPluginTest
 	}
 
 	@Test
-	public void matchStartingNotification_shouldNotify_when10SecondsOptionSelected()
-	{
+	public void matchStartingNotification_shouldNotify_when10SecondsOptionSelected() {
 		when(config.roundNotification()).thenReturn(10);
 
 		when(client.getVar(Varbits.WINTERTODT_TIMER)).thenReturn(20);
@@ -114,8 +114,7 @@ public class WintertodtPluginTest
 	}
 
 	@Test
-	public void matchStartingNotification_shouldNotify_when5SecondsOptionSelected()
-	{
+	public void matchStartingNotification_shouldNotify_when5SecondsOptionSelected() {
 		when(config.roundNotification()).thenReturn(5);
 
 		when(client.getVar(Varbits.WINTERTODT_TIMER)).thenReturn(10);
@@ -128,8 +127,7 @@ public class WintertodtPluginTest
 	}
 
 	@Test
-	public void matchStartingNotification_shouldNotifyOnce()
-	{
+	public void matchStartingNotification_shouldNotifyOnce() {
 		when(config.roundNotification()).thenReturn(5);
 
 		when(client.getVar(Varbits.WINTERTODT_TIMER)).thenReturn(0);
@@ -149,8 +147,7 @@ public class WintertodtPluginTest
 	}
 
 	@Test
-	public void matchStartingNotification_shouldNotNotify_whenNoneOptionSelected()
-	{
+	public void matchStartingNotification_shouldNotNotify_whenNoneOptionSelected() {
 		when(config.roundNotification()).thenReturn(5);
 		when(client.getVar(Varbits.WINTERTODT_TIMER)).thenReturn(25);
 

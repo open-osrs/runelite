@@ -30,39 +30,31 @@ import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.execution.InstructionContext;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public class IfCmpLe extends If
-{
-	public IfCmpLe(Instructions instructions, InstructionType type)
-	{
+public class IfCmpLe extends If {
+	public IfCmpLe(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
-	{
+	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
 		if (!this.isSameField(thisIc, otherIc))
 			return false;
-		
+
 		if (thisIc.getInstruction().getClass() == otherIc.getInstruction().getClass())
 			return true;
-		
-		if (otherIc.getInstruction() instanceof IfCmpGt)
-		{
+
+		if (otherIc.getInstruction() instanceof IfCmpGt) {
 			return true;
 		}
-	
+
 		return false;
 	}
-	
+
 	@Override
-	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
-		if (other.getInstruction() instanceof IfCmpGt)
-		{
+	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
+		if (other.getInstruction() instanceof IfCmpGt) {
 			super.mapOtherBranch(mapping, ctx, other);
-		}
-		else
-		{
+		} else {
 			super.map(mapping, ctx, other);
 		}
 	}

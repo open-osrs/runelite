@@ -34,8 +34,7 @@ import net.runelite.api.coords.WorldPoint;
  */
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum ImplingSpawn
-{
+enum ImplingSpawn {
 	//Baby spawns
 	SPAWN_BABY1(new WorldPoint(2563, 4291, 0), ImplingType.BABY),
 	SPAWN_BABY2(new WorldPoint(2563, 4348, 0), ImplingType.BABY),

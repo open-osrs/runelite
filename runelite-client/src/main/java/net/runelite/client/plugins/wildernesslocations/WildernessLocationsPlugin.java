@@ -10,9 +10,11 @@
 package net.runelite.client.plugins.wildernesslocations;
 
 import com.google.inject.Provides;
+
 import java.awt.Color;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -41,15 +43,14 @@ import net.runelite.client.util.HotkeyListener;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Wild Locations",
-	description = "Indicates the players current location in the wild",
-	tags = {"Wildy", "Wilderness Location", "location", "loc", "pvp", "pklite"},
-	type = PluginType.PVP,
-	enabledByDefault = false
+		name = "Wild Locations",
+		description = "Indicates the players current location in the wild",
+		tags = {"Wildy", "Wilderness Location", "location", "loc", "pvp", "pklite"},
+		type = PluginType.PVP,
+		enabledByDefault = false
 )
 @Singleton
-public class WildernessLocationsPlugin extends Plugin
-{
+public class WildernessLocationsPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -81,11 +82,9 @@ public class WildernessLocationsPlugin extends Plugin
 	private int currentCooldown = 0;
 	private WorldPoint worldPoint = null;
 
-	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> this.keybind)
-	{
+	private final HotkeyListener hotkeyListener = new HotkeyListener(() -> this.keybind) {
 		@Override
-		public void hotkeyPressed()
-		{
+		public void hotkeyPressed() {
 			sendLocToCC();
 		}
 	};
@@ -105,14 +104,12 @@ public class WildernessLocationsPlugin extends Plugin
 
 
 	@Provides
-	WildernessLocationsConfig getConfig(ConfigManager configManager)
-	{
+	WildernessLocationsConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(WildernessLocationsConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		updateConfig();
 
@@ -121,8 +118,7 @@ public class WildernessLocationsPlugin extends Plugin
 		keyManager.registerKeyListener(hotkeyListener);
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.drawOverlay = wildyConfig.drawOverlay();
 		this.pvpWorld = wildyConfig.pvpWorld();
 		this.keybind = wildyConfig.keybind();
@@ -133,10 +129,8 @@ public class WildernessLocationsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("wildernesslocations"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("wildernesslocations")) {
 			return;
 		}
 
@@ -144,59 +138,47 @@ public class WildernessLocationsPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(wildernessLocationsMapOverlay);
 		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
-		if (currentCooldown != 0)
-		{
+	private void onGameTick(GameTick event) {
+		if (currentCooldown != 0) {
 			currentCooldown--;
 		}
 
 		renderLocation = (client.getVar(Varbits.IN_WILDERNESS) == 1 || (this.pvpWorld && WorldType.isAllPvpWorld(client.getWorldType())));
 
-		if (renderLocation)
-		{
+		if (renderLocation) {
 			final Player player = client.getLocalPlayer();
-			if (player != null && player.getWorldLocation() != worldPoint)
-			{
+			if (player != null && player.getWorldLocation() != worldPoint) {
 				locationString = WorldLocation.location(client.getLocalPlayer().getWorldLocation());
 				worldPoint = client.getLocalPlayer().getWorldLocation();
 			}
-		}
-		else
-		{
+		} else {
 			worldPoint = null;
 			locationString = "";
 		}
 	}
 
 	@Subscribe
-	private void onVarClientStrChanged(VarClientStrChanged varClient)
-	{
+	private void onVarClientStrChanged(VarClientStrChanged varClient) {
 		String newChat = client.getVar(VarClientStr.CHATBOX_TYPED_TEXT);
-		if (varClient.getIndex() == VarClientStr.CHATBOX_TYPED_TEXT.getIndex() && !newChat.equals(oldChat))
-		{
+		if (varClient.getIndex() == VarClientStr.CHATBOX_TYPED_TEXT.getIndex() && !newChat.equals(oldChat)) {
 			oldChat = newChat;
 		}
 	}
 
-	private boolean inClanChat()
-	{
+	private boolean inClanChat() {
 		return client.getWidget(WidgetInfo.CLAN_CHAT_TITLE) != null;
 	}
 
-	private void sendMessage(String text)
-	{
+	private void sendMessage(String text) {
 		int mode = 0;
-		if (inClanChat() && text.startsWith("/"))
-		{
+		if (inClanChat() && text.startsWith("/")) {
 			mode = 2;
 		}
 		int finalMode = mode;
@@ -211,15 +193,12 @@ public class WildernessLocationsPlugin extends Plugin
 		clientThread.invoke(r);
 	}
 
-	private void sendLocToCC()
-	{
-		if (currentCooldown != 0)
-		{
+	private void sendLocToCC() {
+		if (currentCooldown != 0) {
 			return;
 		}
 		String location = getLocationString();
-		if (location.equals(""))
-		{
+		if (location.equals("")) {
 			return;
 		}
 		sendMessage("/World: " + client.getWorld() + " Location: " + location);

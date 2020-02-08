@@ -41,16 +41,13 @@ import net.runelite.api.MenuEntry;
  * it seems that this event still triggers with the "Cancel" action.
  */
 @Getter
-public class MenuOptionClicked extends MenuEntry implements Event
-{
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
-	{
+public class MenuOptionClicked extends MenuEntry implements Event {
+	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick) {
 		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
 		authentic = true;
 	}
 
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick, boolean authentic, int mouseButton)
-	{
+	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick, boolean authentic, int mouseButton) {
 		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
 		this.authentic = authentic;
 		this.mouseButton = mouseButton;
@@ -73,8 +70,7 @@ public class MenuOptionClicked extends MenuEntry implements Event
 	 * option being clicked and that the event will not be passed on
 	 * for handling by vanilla client code.
 	 */
-	public void consume()
-	{
+	public void consume() {
 		this.consumed = true;
 	}
 
@@ -84,8 +80,7 @@ public class MenuOptionClicked extends MenuEntry implements Event
 	@Setter(AccessLevel.NONE)
 	private final boolean authentic;
 
-	public void setMenuEntry(MenuEntry e)
-	{
+	public void setMenuEntry(MenuEntry e) {
 		setOption(e.getOption());
 		setTarget(e.getTarget());
 		setIdentifier(e.getIdentifier());

@@ -26,22 +26,21 @@ package net.runelite.client.util;
 
 import java.text.ParseException;
 import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
 
-public class QuantityFormatterTest
-{
+public class QuantityFormatterTest {
 	@Before
-	public void setUp()
-	{
+	public void setUp() {
 		Locale.setDefault(Locale.ENGLISH);
 	}
 
 	@Test
-	public void quantityToRSDecimalStackSize()
-	{
+	public void quantityToRSDecimalStackSize() {
 		assertEquals("0", QuantityFormatter.quantityToRSDecimalStack(0));
 		assertEquals("8500", QuantityFormatter.quantityToRSDecimalStack(8_500));
 		assertEquals("10K", QuantityFormatter.quantityToRSDecimalStack(10_000));
@@ -60,8 +59,7 @@ public class QuantityFormatterTest
 	}
 
 	@Test
-	public void quantityToStackSize()
-	{
+	public void quantityToStackSize() {
 		assertEquals("0", QuantityFormatter.quantityToStackSize(0));
 		assertEquals("999", QuantityFormatter.quantityToStackSize(999));
 		assertEquals("1,000", QuantityFormatter.quantityToStackSize(1000));
@@ -82,8 +80,7 @@ public class QuantityFormatterTest
 	}
 
 	@Test
-	public void quantityToPreciseStackSize()
-	{
+	public void quantityToPreciseStackSize() {
 		assertEquals("0", QuantityFormatter.quantityToRSDecimalStack(0));
 		assertEquals("8500", QuantityFormatter.quantityToRSDecimalStack(8_500, true));
 		assertEquals("10K", QuantityFormatter.quantityToRSDecimalStack(10_000, true));
@@ -107,8 +104,7 @@ public class QuantityFormatterTest
 	}
 
 	@Test
-	public void stackSizeToQuantity() throws ParseException
-	{
+	public void stackSizeToQuantity() throws ParseException {
 		assertEquals(0, QuantityFormatter.parseQuantity("0"));
 		assertEquals(907, QuantityFormatter.parseQuantity("907"));
 		assertEquals(1200, QuantityFormatter.parseQuantity("1200"));
@@ -122,22 +118,16 @@ public class QuantityFormatterTest
 		assertEquals(-400_000, QuantityFormatter.parseQuantity("-400k"));
 		assertEquals(-40_543_000, QuantityFormatter.parseQuantity("-40.543M"));
 
-		try
-		{
+		try {
 			QuantityFormatter.parseQuantity("0L");
 			fail("Should have thrown an exception for invalid suffix.");
-		}
-		catch (ParseException ignore)
-		{
+		} catch (ParseException ignore) {
 		}
 
-		try
-		{
+		try {
 			QuantityFormatter.parseQuantity("badstack");
 			fail("Should have thrown an exception for improperly formatted stack.");
-		}
-		catch (ParseException ignore)
-		{
+		} catch (ParseException ignore) {
 		}
 	}
 }

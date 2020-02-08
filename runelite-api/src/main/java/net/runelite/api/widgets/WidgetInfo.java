@@ -29,8 +29,7 @@ package net.runelite.api.widgets;
  * <p>
  * For getting a specific widget from the client, see {@link net.runelite.api.Client#getWidget(WidgetInfo)}.
  */
-public enum WidgetInfo
-{
+public enum WidgetInfo {
 	FAIRY_RING_LEFT_ORB_CLOCKWISE(WidgetID.FAIRY_RING_GROUP_ID, WidgetID.FairyRing.LEFT_ORB_CLOCKWISE),
 	FAIRY_RING_LEFT_ORB_COUNTER_CLOCKWISE(WidgetID.FAIRY_RING_GROUP_ID, WidgetID.FairyRing.LEFT_ORB_COUNTER_CLOCKWISE),
 	FAIRY_RING_MIDDLE_ORB_CLOCKWISE(WidgetID.FAIRY_RING_GROUP_ID, WidgetID.FairyRing.MIDDLE_ORB_CLOCKWISE),
@@ -790,8 +789,7 @@ public enum WidgetInfo
 	private final int groupId;
 	private final int childId;
 
-	WidgetInfo(int groupId, int childId)
-	{
+	WidgetInfo(int groupId, int childId) {
 		this.groupId = groupId;
 		this.childId = childId;
 	}
@@ -801,8 +799,7 @@ public enum WidgetInfo
 	 *
 	 * @return the ID
 	 */
-	public int getId()
-	{
+	public int getId() {
 		return groupId << 16 | childId;
 	}
 
@@ -811,8 +808,7 @@ public enum WidgetInfo
 	 *
 	 * @return the group ID
 	 */
-	public int getGroupId()
-	{
+	public int getGroupId() {
 		return groupId;
 	}
 
@@ -821,8 +817,7 @@ public enum WidgetInfo
 	 *
 	 * @return the child ID
 	 */
-	public int getChildId()
-	{
+	public int getChildId() {
 		return childId;
 	}
 
@@ -831,8 +826,7 @@ public enum WidgetInfo
 	 *
 	 * @return the packed ID
 	 */
-	public int getPackedId()
-	{
+	public int getPackedId() {
 		return groupId << 16 | childId;
 	}
 
@@ -843,8 +837,7 @@ public enum WidgetInfo
 	 * @param id passed group-child ID
 	 * @return the group ID
 	 */
-	public static int TO_GROUP(int id)
-	{
+	public static int TO_GROUP(int id) {
 		return id >>> 16;
 	}
 
@@ -855,8 +848,7 @@ public enum WidgetInfo
 	 * @param id passed group-child ID
 	 * @return the child ID
 	 */
-	public static int TO_CHILD(int id)
-	{
+	public static int TO_CHILD(int id) {
 		return id & 0xFFFF;
 	}
 
@@ -867,8 +859,7 @@ public enum WidgetInfo
 	 * @param childId the child ID
 	 * @return the packed ID
 	 */
-	public static int PACK(int groupId, int childId)
-	{
+	public static int PACK(int groupId, int childId) {
 		return groupId << 16 | childId;
 	}
 

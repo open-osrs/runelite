@@ -35,30 +35,26 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 
-public class DCmpL extends Instruction
-{
-	public DCmpL(Instructions instructions, InstructionType type)
-	{
+public class DCmpL extends Instruction {
+	public DCmpL(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext two = stack.pop();
 		StackContext one = stack.pop();
-		
+
 		ins.pop(two, one);
-		
+
 		Value result = Value.UNKNOWN;
-		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull())
-		{
+		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull()) {
 			double d2 = (double) two.getValue().getValue(),
-				d1 = (double) one.getValue().getValue();
-			
+					d1 = (double) one.getValue().getValue();
+
 			if (d1 > d2)
 				result = new Value(1);
 			else if (d1 == d2)
@@ -66,12 +62,12 @@ public class DCmpL extends Instruction
 			else if (d1 < d2)
 				result = new Value(-1);
 		}
-		
+
 		StackContext ctx = new StackContext(ins, Type.INT, result);
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 }

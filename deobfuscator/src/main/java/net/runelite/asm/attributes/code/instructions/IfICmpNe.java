@@ -28,39 +28,34 @@ import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.ComparisonInstruction;
+
 import static net.runelite.asm.attributes.code.instructions.IfICmpEq.isOne;
 import static net.runelite.asm.attributes.code.instructions.IfICmpEq.isZero;
+
 import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public class IfICmpNe extends If
-{
-	public IfICmpNe(Instructions instructions, InstructionType type)
-	{
+public class IfICmpNe extends If {
+	public IfICmpNe(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
-	public IfICmpNe(Instructions instructions, Label to)
-	{
+	public IfICmpNe(Instructions instructions, Label to) {
 		super(instructions, InstructionType.IF_ICMPNE, to);
 	}
 
 	@Override
-	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
-	{
-		if (!(otherIc.getInstruction() instanceof ComparisonInstruction))
-		{
+	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
+		if (!(otherIc.getInstruction() instanceof ComparisonInstruction)) {
 			return false;
 		}
 
-		if (!this.isSameField(thisIc, otherIc))
-		{
+		if (!this.isSameField(thisIc, otherIc)) {
 			return false;
 		}
 
-		if (thisIc.getInstruction().getClass() == otherIc.getInstruction().getClass())
-		{
+		if (thisIc.getInstruction().getClass() == otherIc.getInstruction().getClass()) {
 			// see comment in ificmpeq
 //			Integer i1 = this.getConstantInstruction(thisIc);
 //			Integer i2 = this.getConstantInstruction(otherIc);
@@ -74,18 +69,14 @@ public class IfICmpNe extends If
 		}
 
 		// check for other being ifne and this has a constant 0
-		if (otherIc.getInstruction() instanceof IfNe || otherIc.getInstruction() instanceof IfEq)
-		{
+		if (otherIc.getInstruction() instanceof IfNe || otherIc.getInstruction() instanceof IfEq) {
 			StackContext s1 = thisIc.getPops().get(0),
-				s2 = thisIc.getPops().get(1);
+					s2 = thisIc.getPops().get(1);
 
-			if (isZero(s1) || isZero(s2) || isOne(s1) || isOne(s2))
-			{
+			if (isZero(s1) || isZero(s2) || isOne(s1) || isOne(s2)) {
 				return true;
 			}
-		}
-		else if (otherIc.getInstruction() instanceof IfICmpEq)
-		{
+		} else if (otherIc.getInstruction() instanceof IfICmpEq) {
 			return true;
 		}
 
@@ -93,50 +84,36 @@ public class IfICmpNe extends If
 	}
 
 	@Override
-	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
-		if (other.getInstruction() instanceof IfEq)
-		{
+	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
+		if (other.getInstruction() instanceof IfEq) {
 			StackContext s1 = ctx.getPops().get(0),
-				s2 = ctx.getPops().get(1);
+					s2 = ctx.getPops().get(1);
 
 			if (isZero(s1) || isZero(s2)) // ificmpne 0 vs ifeq
 			{
 				super.map(mapping, ctx, other);
-			}
-			else if (isOne(s1) || isOne(s2)) // ificmpne 1 vs ifeq
+			} else if (isOne(s1) || isOne(s2)) // ificmpne 1 vs ifeq
 			{
 				super.mapOtherBranch(mapping, ctx, other);
-			}
-			else
-			{
+			} else {
 				assert false;
 			}
-		}
-		else if (other.getInstruction() instanceof IfNe)
-		{
+		} else if (other.getInstruction() instanceof IfNe) {
 			StackContext s1 = ctx.getPops().get(0),
-				s2 = ctx.getPops().get(1);
+					s2 = ctx.getPops().get(1);
 
 			if (isZero(s1) || isZero(s2)) // ificmpne 0 vs ifne
 			{
 				super.map(mapping, ctx, other);
-			}
-			else if (isOne(s1) || isOne(s2)) // ificmpne 1 vs ifne
+			} else if (isOne(s1) || isOne(s2)) // ificmpne 1 vs ifne
 			{
 				super.mapOtherBranch(mapping, ctx, other);
-			}
-			else
-			{
+			} else {
 				assert false;
 			}
-		}
-		else if (other.getInstruction() instanceof IfICmpEq)
-		{
+		} else if (other.getInstruction() instanceof IfICmpEq) {
 			super.mapOtherBranch(mapping, ctx, other);
-		}
-		else
-		{
+		} else {
 			super.map(mapping, ctx, other);
 		}
 	}

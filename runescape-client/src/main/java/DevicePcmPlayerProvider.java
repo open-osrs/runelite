@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class DevicePcmPlayerProvider implements class99 {
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "Llc;"
+			signature = "Llc;"
 	)
 	@Export("rasterProvider")
 	public static AbstractRasterProvider rasterProvider;
@@ -18,8 +18,8 @@ public class DevicePcmPlayerProvider implements class99 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)Ldw;",
-		garbageValue = "-1842325799"
+			signature = "(I)Ldw;",
+			garbageValue = "-1842325799"
 	)
 	@Export("player")
 	public PcmPlayer player() {
@@ -28,12 +28,12 @@ public class DevicePcmPlayerProvider implements class99 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1589308129"
+			signature = "(I)V",
+			garbageValue = "-1589308129"
 	)
 	public static void method855() {
 		if (KeyHandler.KeyHandler_instance != null) {
-			synchronized(KeyHandler.KeyHandler_instance) {
+			synchronized (KeyHandler.KeyHandler_instance) {
 				KeyHandler.KeyHandler_instance = null;
 			}
 		}

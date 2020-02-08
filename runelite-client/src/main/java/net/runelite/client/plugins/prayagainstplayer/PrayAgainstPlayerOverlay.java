@@ -28,6 +28,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.client.game.PlayerContainer;
 import net.runelite.client.game.PlayerManager;
 import net.runelite.client.graphics.ModelOutlineRenderer;
@@ -37,19 +38,17 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
 @Singleton
-class PrayAgainstPlayerOverlay extends Overlay
-{
+class PrayAgainstPlayerOverlay extends Overlay {
 	private final PrayAgainstPlayerPlugin plugin;
 	private final PlayerManager playerManager;
 	private final ModelOutlineRenderer outlineRenderer;
 
 	@Inject
 	private PrayAgainstPlayerOverlay(
-		final PrayAgainstPlayerPlugin plugin,
-		final PlayerManager playerManager,
-		final ModelOutlineRenderer outlineRenderer
-	)
-	{
+			final PrayAgainstPlayerPlugin plugin,
+			final PlayerManager playerManager,
+			final ModelOutlineRenderer outlineRenderer
+	) {
 		this.plugin = plugin;
 		this.playerManager = playerManager;
 		this.outlineRenderer = outlineRenderer;
@@ -59,20 +58,16 @@ class PrayAgainstPlayerOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		for (PlayerContainer player : playerManager.getAllAttackers())
-		{
+	public Dimension render(Graphics2D graphics) {
+		for (PlayerContainer player : playerManager.getAllAttackers()) {
 			if (player.getPlayer() == null
-				|| (plugin.isIgnoreFriends() && player.isFriend()
-				|| (plugin.isIgnoreClanMates() && player.isClan()))
-			)
-			{
+					|| (plugin.isIgnoreFriends() && player.isFriend()
+					|| (plugin.isIgnoreClanMates() && player.isClan()))
+			) {
 				continue;
 			}
-			
-			if (plugin.isHighlightAttackers())
-			{
+
+			if (plugin.isHighlightAttackers()) {
 				outlineRenderer.drawOutline(player.getPlayer(), plugin.getHighlightWidth(), player.getAttackStyle().getColor());
 			}
 		}

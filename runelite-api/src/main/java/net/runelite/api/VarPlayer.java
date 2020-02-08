@@ -29,7 +29,7 @@ import lombok.Getter;
 
 /**
  * Server controlled "content-developer" integers.
- *
+ * <p>
  * VarPlayers are stored per RuneScape player save, and synchronized
  * from the server to the client. The client can change them preemptively
  * if it thinks they will change the next tick as a lag-hiding measure.
@@ -37,8 +37,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum VarPlayer
-{
+public enum VarPlayer {
 	POUCH_STATUS(261),
 	DUEL_PENDING(286),
 	ATTACK_STYLE(43),
@@ -63,16 +62,16 @@ public enum VarPlayer
 	/**
 	 * The 11 least significant bits of this var correspond to the player
 	 * you're currently fighting. Value is -1 when not fighting any player.
-	 *
+	 * <p>
 	 * Client.getVar(ATTACKING_PLAYER) & 2047 == Client.getLocalInteractingIndex();
 	 */
 	ATTACKING_PLAYER(1075),
 
 	/**
 	 * -1 : Poison immune
-	 *  Normal poison damage is ceil( this / 5.0f )
-	 *  If this is greater than or equal to 1000000, the player is envenomed.
-	 *  Venom damage is (this - 999997) * 2
+	 * Normal poison damage is ceil( this / 5.0f )
+	 * If this is greater than or equal to 1000000, the player is envenomed.
+	 * Venom damage is (this - 999997) * 2
 	 */
 	POISON(102),
 

@@ -31,8 +31,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface ObfuscatedGetter
-{
+public @interface ObfuscatedGetter {
 	int intValue() default 0;
 
 	long longValue() default 0L;

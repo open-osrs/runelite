@@ -26,7 +26,6 @@ package net.runelite.cache.definitions.providers;
 
 import net.runelite.cache.definitions.UnderlayDefinition;
 
-public interface UnderlayProvider
-{
+public interface UnderlayProvider {
 	UnderlayDefinition provide(int underlayId);
 }

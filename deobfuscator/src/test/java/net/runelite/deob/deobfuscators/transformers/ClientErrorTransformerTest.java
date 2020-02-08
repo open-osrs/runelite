@@ -27,6 +27,7 @@ package net.runelite.deob.deobfuscators.transformers;
 
 import java.io.File;
 import java.io.IOException;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.TemporyFolderLocation;
 import net.runelite.deob.util.JarUtil;
@@ -37,10 +38,9 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClientErrorTransformerTest
-{
+public class ClientErrorTransformerTest {
 	private static final Logger logger = LoggerFactory.getLogger(ClientErrorTransformerTest.class);
-	
+
 	private static final File GAMEPACK = new File("C:\\Users\\Adam\\.m2\\repository\\net\\runelite\\rs\\rs-client\\127.2-SNAPSHOT\\rs-client-127.2-SNAPSHOT.jar");
 
 	@Rule
@@ -49,14 +49,12 @@ public class ClientErrorTransformerTest
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException
-	{
+	public void before() throws IOException {
 		group = JarUtil.loadJar(GAMEPACK);
 	}
 
 	@After
-	public void after() throws IOException
-	{
+	public void after() throws IOException {
 		File out = folder.newFile();
 
 		JarUtil.saveJar(group, out);
@@ -65,8 +63,7 @@ public class ClientErrorTransformerTest
 	}
 
 	//@Test
-	public void testRun()
-	{
+	public void testRun() {
 		ClientErrorTransformer e = new ClientErrorTransformer();
 		e.transform(group);
 	}

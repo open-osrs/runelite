@@ -27,8 +27,10 @@
 package net.runelite.http.api.discord;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -36,8 +38,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DiscordMessage
-{
+public class DiscordMessage {
 	String username;
 	String content;
 	@SerializedName("avatar_url")
@@ -46,22 +47,17 @@ public class DiscordMessage
 	boolean textToSpeech;
 	final List<DiscordEmbed> embeds = new ArrayList<>();
 
-	DiscordMessage(String username, String content, String avatar_url, DiscordEmbed embed)
-	{
+	DiscordMessage(String username, String content, String avatar_url, DiscordEmbed embed) {
 		this.username = username;
 		this.content = content;
 		this.avatarUrl = avatar_url;
 		this.embeds.add(embed);
 	}
 
-	public void setUsername(String username)
-	{
-		if (username != null)
-		{
+	public void setUsername(String username) {
+		if (username != null) {
 			this.username = username.substring(0, Math.min(31, username.length()));
-		}
-		else
-		{
+		} else {
 			this.username = null;
 		}
 	}

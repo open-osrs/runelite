@@ -25,6 +25,7 @@
 package net.runelite.deob.deobfuscators;
 
 import java.io.IOException;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.ClassUtil;
@@ -39,16 +40,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class UnreachedCodeTest
-{
+public class UnreachedCodeTest {
 	@Rule
 	public TemporaryFolder folder = TemporyFolderLocation.getTemporaryFolder();
 
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException
-	{
+	public void before() throws IOException {
 		ClassFile cf = ClassUtil.loadClass(UnreachedCodeTest.class.getResourceAsStream("unreachedcode/UnreachableTest.class"));
 		Assert.assertNotNull(cf);
 
@@ -57,14 +56,12 @@ public class UnreachedCodeTest
 	}
 
 	@After
-	public void after() throws IOException
-	{
+	public void after() throws IOException {
 		JarUtil.saveJar(group, folder.newFile());
 	}
 
 	@Test
-	public void testRun() throws IOException
-	{
+	public void testRun() throws IOException {
 		UnreachedCode uc = new UnreachedCode();
 		uc.run(group);
 
@@ -77,7 +74,7 @@ public class UnreachedCodeTest
 		Assert.assertNotNull(method);
 		Assert.assertFalse(method.getCode().getInstructions().getInstructions().stream().filter(i -> !(i instanceof Label)).findAny().isPresent());
 		Assert.assertTrue(method.getCode().getExceptions().getExceptions().isEmpty());
-		
+
 		// Method is now invalid, remove so jar can be saved
 		cf.removeMethod(method);
 

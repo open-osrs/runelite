@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -12,37 +13,37 @@ public class Login {
 	static boolean field1163;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1501257187
+			intValue = 1501257187
 	)
 	@Export("xPadding")
 	static int xPadding;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lli;"
+			signature = "Lli;"
 	)
 	@Export("titlebuttonSprite")
 	static IndexedSprite titlebuttonSprite;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Llt;"
+			signature = "Llt;"
 	)
 	@Export("leftTitleSprite")
 	static Sprite leftTitleSprite;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "[Lli;"
+			signature = "[Lli;"
 	)
 	@Export("title_muteSprite")
 	static IndexedSprite[] title_muteSprite;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -130819791
+			intValue = -130819791
 	)
 	@Export("loginBoxX")
 	static int loginBoxX;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -515852009
+			intValue = -515852009
 	)
 	@Export("Login_loadingPercent")
 	static int Login_loadingPercent;
@@ -51,22 +52,22 @@ public class Login {
 	static String Login_loadingText;
 	@ObfuscatedName("ax")
 	@ObfuscatedGetter(
-		intValue = 591976709
+			intValue = 591976709
 	)
 	static int field1165;
 	@ObfuscatedName("ay")
 	@ObfuscatedGetter(
-		intValue = -366456801
+			intValue = -366456801
 	)
 	static int field1193;
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "Lll;"
+			signature = "Lll;"
 	)
 	static Bounds field1175;
 	@ObfuscatedName("ak")
 	@ObfuscatedGetter(
-		intValue = -2042925581
+			intValue = -2042925581
 	)
 	@Export("loginIndex")
 	static int loginIndex;
@@ -96,7 +97,7 @@ public class Login {
 	static boolean field1185;
 	@ObfuscatedName("bc")
 	@ObfuscatedGetter(
-		intValue = 2063292443
+			intValue = 2063292443
 	)
 	@Export("currentLoginField")
 	static int currentLoginField;
@@ -105,30 +106,30 @@ public class Login {
 	static boolean worldSelectOpen;
 	@ObfuscatedName("ba")
 	@ObfuscatedGetter(
-		intValue = -921814137
+			intValue = -921814137
 	)
 	@Export("hoveredWorldIndex")
 	static int hoveredWorldIndex;
 	@ObfuscatedName("bd")
 	@ObfuscatedGetter(
-		intValue = 1630219319
+			intValue = 1630219319
 	)
 	@Export("worldSelectPage")
 	static int worldSelectPage;
 	@ObfuscatedName("bs")
 	@ObfuscatedGetter(
-		intValue = -2032377127
+			intValue = -2032377127
 	)
 	@Export("worldSelectPagesCount")
 	static int worldSelectPagesCount;
 	@ObfuscatedName("bh")
 	@ObfuscatedGetter(
-		longValue = 5886153640443907315L
+			longValue = 5886153640443907315L
 	)
 	static long field1180;
 	@ObfuscatedName("bg")
 	@ObfuscatedGetter(
-		longValue = 3027012337338464175L
+			longValue = 3027012337338464175L
 	)
 	static long field1194;
 

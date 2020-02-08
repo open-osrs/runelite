@@ -27,13 +27,17 @@ package net.runelite.client.plugins.npchighlight;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.client.config.OpenOSRSConfig;
+
 import static org.junit.Assert.assertEquals;
+
 import net.runelite.client.Notifier;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,8 +46,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NpcIndicatorsPluginTest
-{
+public class NpcIndicatorsPluginTest {
 	@Mock
 	@Bind
 	private Client client;
@@ -68,14 +71,12 @@ public class NpcIndicatorsPluginTest
 	private NpcIndicatorsPlugin npcIndicatorsPlugin;
 
 	@Before
-	public void setUp()
-	{
+	public void setUp() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void getHighlights()
-	{
+	public void getHighlights() {
 		npcIndicatorsPlugin.setGetNpcToHighlight("goblin, , zulrah   , *wyvern, ,");
 		final List<String> highlightedNpcs = npcIndicatorsPlugin.getHighlights();
 		assertEquals("Length of parsed NPCs is incorrect", 3, highlightedNpcs.size());

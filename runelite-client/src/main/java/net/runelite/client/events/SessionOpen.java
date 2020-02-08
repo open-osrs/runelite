@@ -35,4 +35,5 @@ import net.runelite.api.events.Event;
  * it has nothing to do with whether an account is being logged in.
  */
 @Data
-public class SessionOpen implements Event {}
+public class SessionOpen implements Event {
+}

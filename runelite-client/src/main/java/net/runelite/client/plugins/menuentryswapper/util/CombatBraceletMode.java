@@ -25,8 +25,7 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum CombatBraceletMode
-{
+public enum CombatBraceletMode {
 	WARRIORS_GUILD("Warriors' Guild"),
 	CHAMPIONS_GUILD("Champions' Guild"),
 	EDGEVILLE_MONASTERY("Edgeville Monstery"),
@@ -34,14 +33,12 @@ public enum CombatBraceletMode
 
 	private final String name;
 
-	CombatBraceletMode(String name)
-	{
+	CombatBraceletMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

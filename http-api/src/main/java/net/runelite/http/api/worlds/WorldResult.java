@@ -26,26 +26,20 @@ package net.runelite.http.api.worlds;
 
 import java.util.List;
 
-public class WorldResult
-{
+public class WorldResult {
 	private List<World> worlds;
 
-	public List<World> getWorlds()
-	{
+	public List<World> getWorlds() {
 		return worlds;
 	}
 
-	public void setWorlds(List<World> worlds)
-	{
+	public void setWorlds(List<World> worlds) {
 		this.worlds = worlds;
 	}
 
-	public World findWorld(int worldNum)
-	{
-		for (World world : worlds)
-		{
-			if (world.getId() == worldNum)
-			{
+	public World findWorld(int worldNum) {
+		for (World world : worlds) {
+			if (world.getId() == worldNum) {
 				return world;
 			}
 		}

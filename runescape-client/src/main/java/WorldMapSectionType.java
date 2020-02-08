@@ -10,43 +10,43 @@ import net.runelite.rs.ScriptOpcodes;
 public enum WorldMapSectionType implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lf;"
+			signature = "Lf;"
 	)
 	@Export("WORLDMAPSECTIONTYPE0")
-	WORLDMAPSECTIONTYPE0(0, (byte)0),
+	WORLDMAPSECTIONTYPE0(0, (byte) 0),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lf;"
+			signature = "Lf;"
 	)
 	@Export("WORLDMAPSECTIONTYPE1")
-	WORLDMAPSECTIONTYPE1(2, (byte)1),
+	WORLDMAPSECTIONTYPE1(2, (byte) 1),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lf;"
+			signature = "Lf;"
 	)
 	@Export("WORLDMAPSECTIONTYPE2")
-	WORLDMAPSECTIONTYPE2(3, (byte)2),
+	WORLDMAPSECTIONTYPE2(3, (byte) 2),
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lf;"
+			signature = "Lf;"
 	)
 	@Export("WORLDMAPSECTIONTYPE3")
-	WORLDMAPSECTIONTYPE3(1, (byte)3);
+	WORLDMAPSECTIONTYPE3(1, (byte) 3);
 
 	@ObfuscatedName("pv")
 	@ObfuscatedSignature(
-		signature = "Lkx;"
+			signature = "Lkx;"
 	)
 	@Export("privateChatMode")
 	static PrivateChatMode privateChatMode;
 	@ObfuscatedName("hq")
 	@ObfuscatedGetter(
-		intValue = 1689470585
+			intValue = 1689470585
 	)
 	static int field166;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 262125779
+			intValue = 262125779
 	)
 	@Export("type")
 	final int type;
@@ -61,8 +61,8 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "1"
+			signature = "(B)I",
+			garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
@@ -71,8 +71,8 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(S)[Lf;",
-		garbageValue = "-3096"
+			signature = "(S)[Lf;",
+			garbageValue = "-3096"
 	)
 	static WorldMapSectionType[] method249() {
 		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE1};
@@ -80,8 +80,8 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "([BI)[B",
-		garbageValue = "84077862"
+			signature = "([BI)[B",
+			garbageValue = "84077862"
 	)
 	public static byte[] method250(byte[] var0) {
 		int var1 = var0.length;
@@ -92,8 +92,8 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "637615278"
+			signature = "(ILce;ZI)I",
+			garbageValue = "637615278"
 	)
 	static int method245(int var0, Script var1, boolean var2) {
 		if (var0 == ScriptOpcodes.LOGOUT) {
@@ -106,8 +106,8 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("hi")
 	@ObfuscatedSignature(
-		signature = "(IIIB)I",
-		garbageValue = "1"
+			signature = "(IIIB)I",
+			garbageValue = "1"
 	)
 	@Export("getTileHeight")
 	static final int getTileHeight(int var0, int var1, int var2) {

@@ -28,69 +28,63 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Mapper
-{
+public class Mapper {
 	private static final Logger logger = LoggerFactory.getLogger(Mapper.class);
 
 	private final ClassGroup source, target;
 	private ParallelExecutorMapping mapping;
 
-	public Mapper(ClassGroup source, ClassGroup target)
-	{
+	public Mapper(ClassGroup source, ClassGroup target) {
 		this.source = source;
 		this.target = target;
 	}
 
-	public ParallelExecutorMapping getMapping()
-	{
+	public ParallelExecutorMapping getMapping() {
 		return mapping;
 	}
 
-	public void run()
-	{
+	public void run() {
 		ParallelExecutorMapping finalm = new ParallelExecutorMapping(source, target);
 
 		finalm.merge(mapStaticMethods());
 		finalm.merge(mapMethods());
 
 		finalm.reduce();
-		
+
 		// map unexecuted methods (their mappings have not yet been merged)
-		while (mapUnexecutedMethods(finalm));
+		while (mapUnexecutedMethods(finalm)) ;
 
 		finalm.buildClasses();
 
 		mapMemberMethods(finalm);
 
 		new ConstructorMapper(source, target, finalm).mapConstructors();
-		
+
 		finalm.reduce();
 
 		mapping = finalm;
 	}
 
-	private ParallelExecutorMapping mapMethods()
-	{
+	private ParallelExecutorMapping mapMethods() {
 		MethodSignatureMapper msm = new MethodSignatureMapper();
 		msm.map(source, target);
 
 		List<ParallelExecutorMapping> pmes = new ArrayList<>();
 
-		for (Method m : msm.getMap().keySet())
-		{
+		for (Method m : msm.getMap().keySet()) {
 			Collection<Method> methods = msm.getMap().get(m);
 
 			ExecutionMapper em = new ExecutionMapper(m, methods);
 
 			ParallelExecutorMapping mapping = em.run();
-			if (mapping == null)
-			{
+			if (mapping == null) {
 				continue;
 			}
 
@@ -102,30 +96,26 @@ public class Mapper
 		}
 
 		ParallelExecutorMapping finalm = new ParallelExecutorMapping(source, target);
-		for (ParallelExecutorMapping pme : pmes)
-		{
+		for (ParallelExecutorMapping pme : pmes) {
 			finalm.merge(pme);
 		}
 
 		return finalm;
 	}
 
-	private ParallelExecutorMapping mapStaticMethods()
-	{
+	private ParallelExecutorMapping mapStaticMethods() {
 		StaticMethodSignatureMapper smsm = new StaticMethodSignatureMapper();
 		smsm.map(source, target);
 
 		List<ParallelExecutorMapping> pmes = new ArrayList<>();
 
-		for (Method m : smsm.getMap().keySet())
-		{
+		for (Method m : smsm.getMap().keySet()) {
 			Collection<Method> methods = smsm.getMap().get(m);
 
 			ExecutionMapper em = new ExecutionMapper(m, methods);
 
 			ParallelExecutorMapping mapping = em.run();
-			if (mapping == null)
-			{
+			if (mapping == null) {
 				continue;
 			}
 
@@ -139,23 +129,19 @@ public class Mapper
 		}
 
 		ParallelExecutorMapping finalm = new ParallelExecutorMapping(source, target);
-		for (ParallelExecutorMapping pme : pmes)
-		{
+		for (ParallelExecutorMapping pme : pmes) {
 			finalm.merge(pme);
 		}
 
 		return finalm;
 	}
 
-	private void mapMemberMethods(ParallelExecutorMapping mapping)
-	{
+	private void mapMemberMethods(ParallelExecutorMapping mapping) {
 		// pass #2 at method mapping, can use class file mappings learned
 
-		for (ClassFile cf : source.getClasses())
-		{
+		for (ClassFile cf : source.getClasses()) {
 			ClassFile other = (ClassFile) mapping.get(cf);
-			if (other == null)
-			{
+			if (other == null) {
 				continue;
 			}
 
@@ -168,33 +154,31 @@ public class Mapper
 			//}
 
 			List<Method> methods1 = cf.getMethods().stream()
-				.filter(m -> !m.isStatic())
-				.filter(m -> !m.getName().equals("<init>"))
-				.filter(m -> m.getCode() != null)
-				.collect(Collectors.toList());
+					.filter(m -> !m.isStatic())
+					.filter(m -> !m.getName().equals("<init>"))
+					.filter(m -> m.getCode() != null)
+					.collect(Collectors.toList());
 
 			List<Method> methods2 = other.getMethods().stream()
-				.filter(m -> !m.isStatic())
-				.filter(m -> !m.getName().equals("<init>"))
-				.filter(m -> m.getCode() != null)
-				.collect(Collectors.toList());
+					.filter(m -> !m.isStatic())
+					.filter(m -> !m.getName().equals("<init>"))
+					.filter(m -> m.getCode() != null)
+					.collect(Collectors.toList());
 
-			for (Method method : methods1)
-			{
+			for (Method method : methods1) {
 				if (mapping.get(method) != null) // already mapped
 				{
 					continue;
 				}
 
 				List<Method> possible = methods2.stream()
-					.filter(m -> MappingExecutorUtil.isMaybeEqual(m.getDescriptor(), method.getDescriptor()))
-					.collect(Collectors.toList());
+						.filter(m -> MappingExecutorUtil.isMaybeEqual(m.getDescriptor(), method.getDescriptor()))
+						.collect(Collectors.toList());
 
 				// Run over execution mapper
 				ExecutionMapper em = new ExecutionMapper(method, possible);
 				ParallelExecutorMapping map = em.run();
-				if (map == null)
-				{
+				if (map == null) {
 					continue;
 				}
 
@@ -210,26 +194,23 @@ public class Mapper
 	/**
 	 * execute and map already mapped methods that have not yet been "executed",
 	 * and apply their mappings
+	 *
 	 * @param mapping
 	 * @return
 	 */
-	private boolean mapUnexecutedMethods(ParallelExecutorMapping mapping)
-	{
+	private boolean mapUnexecutedMethods(ParallelExecutorMapping mapping) {
 		// map has already been reduced
 		boolean mapped = false;
-		for (Object o : mapping.getMap().keySet())
-		{
+		for (Object o : mapping.getMap().keySet()) {
 			Mapping m = mapping.getMappings(o).iterator().next();
 
-			if (m.wasExecuted || !(m.getFrom() instanceof Method))
-			{
+			if (m.wasExecuted || !(m.getFrom() instanceof Method)) {
 				continue;
 			}
 
 			Method m1 = (Method) m.getFrom(), m2 = (Method) m.getObject();
 
-			if (m1.getCode() == null || m2.getCode() == null)
-			{
+			if (m1.getCode() == null || m2.getCode() == null) {
 				continue;
 			}
 

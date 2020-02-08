@@ -25,59 +25,51 @@
 package net.runelite.deob.deobfuscators.packethandler;
 
 import java.util.Objects;
+
 import net.runelite.asm.Type;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.execution.InstructionContext;
 
-public class PacketRead
-{
+public class PacketRead {
 	private final Type type; // type of read, from return of function
 	private final Instruction getBuffer; // getstatic
 	private final InstructionContext invokeCtx;
 	private final Instruction invoke; // invoke instruction to read data
 	private Instruction store; // lvt store for reorderable reads
 
-	public PacketRead(Type type, Instruction getBuffer, InstructionContext invokeCtx)
-	{
+	public PacketRead(Type type, Instruction getBuffer, InstructionContext invokeCtx) {
 		this.type = type;
 		this.getBuffer = getBuffer;
 		this.invokeCtx = invokeCtx;
 		this.invoke = invokeCtx.getInstruction();
 	}
 
-	public Type getType()
-	{
+	public Type getType() {
 		return type;
 	}
 
-	public Instruction getGetBuffer()
-	{
+	public Instruction getGetBuffer() {
 		return getBuffer;
 	}
 
-	public InstructionContext getInvokeCtx()
-	{
+	public InstructionContext getInvokeCtx() {
 		return invokeCtx;
 	}
 
-	public Instruction getInvoke()
-	{
+	public Instruction getInvoke() {
 		return invoke;
 	}
 
-	public Instruction getStore()
-	{
+	public Instruction getStore() {
 		return store;
 	}
 
-	public void setStore(Instruction store)
-	{
+	public void setStore(Instruction store) {
 		this.store = store;
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		int hash = 5;
 		hash = 37 * hash + Objects.hashCode(this.type);
 		hash = 37 * hash + Objects.hashCode(this.invoke);
@@ -85,27 +77,21 @@ public class PacketRead
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-		{
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if (obj == null)
-		{
+		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		final PacketRead other = (PacketRead) obj;
-		if (!Objects.equals(this.type, other.type))
-		{
+		if (!Objects.equals(this.type, other.type)) {
 			return false;
 		}
-		if (!Objects.equals(this.invoke, other.invoke))
-		{
+		if (!Objects.equals(this.invoke, other.invoke)) {
 			return false;
 		}
 		return true;

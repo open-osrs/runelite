@@ -26,17 +26,15 @@
 package net.runelite.client.plugins.worldmap;
 
 import java.awt.image.BufferedImage;
+
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 
-class RareTreePoint extends WorldMapPoint
-{
-	RareTreePoint(WorldPoint point, String tooltip, BufferedImage icon, boolean showTooltip)
-	{
+class RareTreePoint extends WorldMapPoint {
+	RareTreePoint(WorldPoint point, String tooltip, BufferedImage icon, boolean showTooltip) {
 		super(point, icon);
 
-		if (showTooltip)
-		{
+		if (showTooltip) {
 			setTooltip(tooltip);
 		}
 	}

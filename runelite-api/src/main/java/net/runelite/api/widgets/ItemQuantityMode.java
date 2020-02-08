@@ -28,8 +28,7 @@ package net.runelite.api.widgets;
 /**
  * Utility class mapping Widget ItemQuantityMode values
  */
-public class ItemQuantityMode
-{
+public class ItemQuantityMode {
 	/**
 	 * Never show item quantity number
 	 */

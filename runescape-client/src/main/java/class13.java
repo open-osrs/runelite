@@ -1,5 +1,6 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -9,15 +10,15 @@ import net.runelite.rs.Reflection;
 public class class13 {
 	@ObfuscatedName("fu")
 	@ObfuscatedSignature(
-		signature = "Lko;"
+			signature = "Lko;"
 	)
 	@Export("fontPlain12")
 	static Font fontPlain12;
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lkp;IB)V",
-		garbageValue = "86"
+			signature = "(Lkp;IB)V",
+			garbageValue = "86"
 	)
 	@Export("readReflectionCheck")
 	public static void readReflectionCheck(Buffer var0, int var1) {
@@ -131,33 +132,33 @@ public class class13 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
-		garbageValue = "0"
+			signature = "(IB)I",
+			garbageValue = "0"
 	)
 	@Export("Messages_getNextChatID")
 	static int Messages_getNextChatID(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
+		Message var1 = (Message) Messages.Messages_hashTable.get((long) var0);
 		if (var1 == null) {
 			return -1;
 		} else {
-			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.previousDual).count;
+			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message) var1.previousDual).count;
 		}
 	}
 
 	@ObfuscatedName("fi")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "859526666"
+			signature = "(II)V",
+			garbageValue = "859526666"
 	)
 	@Export("forceDisconnect")
 	static final void forceDisconnect(int var0) {
 		class30.logOut();
-		switch(var0) {
-		case 1:
-			WorldMapCacheName.method634();
-			break;
-		case 2:
-			NPC.method2079();
+		switch (var0) {
+			case 1:
+				WorldMapCacheName.method634();
+				break;
+			case 2:
+				NPC.method2079();
 		}
 
 	}

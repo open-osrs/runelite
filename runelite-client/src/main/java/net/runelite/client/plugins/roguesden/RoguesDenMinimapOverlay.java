@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -37,14 +38,12 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-class RoguesDenMinimapOverlay extends Overlay
-{
+class RoguesDenMinimapOverlay extends Overlay {
 	private final Client client;
 	private final RoguesDenPlugin plugin;
 
 	@Inject
-	public RoguesDenMinimapOverlay(Client client, RoguesDenPlugin plugin)
-	{
+	public RoguesDenMinimapOverlay(Client client, RoguesDenPlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
@@ -52,26 +51,21 @@ class RoguesDenMinimapOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isHasGem())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isHasGem()) {
 			return null;
 		}
 
-		for (Obstacles.Obstacle obstacle : Obstacles.OBSTACLES)
-		{
+		for (Obstacles.Obstacle obstacle : Obstacles.OBSTACLES) {
 			final LocalPoint localPoint = LocalPoint.fromWorld(client, obstacle.getTile());
 
-			if (localPoint == null || obstacle.getTile().getPlane() != client.getPlane())
-			{
+			if (localPoint == null || obstacle.getTile().getPlane() != client.getPlane()) {
 				continue;
 			}
 
 			final Point minimapPoint = Perspective.localToMinimap(client, localPoint);
 
-			if (minimapPoint != null)
-			{
+			if (minimapPoint != null) {
 				OverlayUtil.renderMinimapLocation(graphics, minimapPoint, obstacle.getObjectId() == -1 ? Color.GREEN : Color.RED);
 			}
 		}

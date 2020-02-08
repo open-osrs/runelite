@@ -27,11 +27,13 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.cache.definitions.FrameDefinition;
 import net.runelite.cache.definitions.FramemapDefinition;
 import net.runelite.cache.definitions.loaders.FrameLoader;
@@ -49,8 +51,7 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FrameDumper
-{
+public class FrameDumper {
 	private static final Logger logger = LoggerFactory.getLogger(FrameDumper.class);
 
 	@Rule
@@ -60,30 +61,26 @@ public class FrameDumper
 
 	@Test
 	@Ignore
-	public void extract() throws IOException
-	{
+	public void extract() throws IOException {
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = folder.newFolder();
 
 		int count = 0;
 
-		try (Store store = new Store(base))
-		{
+		try (Store store = new Store(base)) {
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index frameIndex = store.getIndex(IndexType.FRAMES);
 			Index framemapIndex = store.getIndex(IndexType.FRAMEMAPS);
 
-			for (Archive archive : frameIndex.getArchives())
-			{
+			for (Archive archive : frameIndex.getArchives()) {
 				List<FrameDefinition> frames = new ArrayList<>();
 
 				byte[] archiveData = storage.loadArchive(archive);
 
 				ArchiveFiles archiveFiles = archive.getFiles(archiveData);
-				for (FSFile archiveFile : archiveFiles.getFiles())
-				{
+				for (FSFile archiveFile : archiveFiles.getFiles()) {
 					byte[] contents = archiveFile.getContents();
 
 					int framemapArchiveId = (contents[0] & 0xff) << 8 | contents[1] & 0xff;

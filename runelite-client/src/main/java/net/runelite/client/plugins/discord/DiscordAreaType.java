@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.discord;
 
-enum DiscordAreaType
-{
+enum DiscordAreaType {
 	BOSSES,
 	CITIES,
 	DUNGEONS,

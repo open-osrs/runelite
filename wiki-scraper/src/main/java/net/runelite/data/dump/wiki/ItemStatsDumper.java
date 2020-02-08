@@ -24,6 +24,7 @@
 package net.runelite.data.dump.wiki;
 
 import com.google.common.base.Strings;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,6 +32,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
+
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -44,12 +46,10 @@ import net.runelite.data.dump.MediaWiki;
 import net.runelite.data.dump.MediaWikiTemplate;
 
 @Slf4j
-public class ItemStatsDumper
-{
+public class ItemStatsDumper {
 	private final static Integer MAX_ITEMS_ON_PAGE = 50;
 
-	public static void dump(final Store store, final MediaWiki wiki, final File path) throws IOException
-	{
+	public static void dump(final Store store, final MediaWiki wiki, final File path) throws IOException {
 		log.info("Dumping item stats to {}", path);
 
 		final ItemManager itemManager = new ItemManager(store);
@@ -61,79 +61,68 @@ public class ItemStatsDumper
 
 		itemDefinitionStream.forEach(item ->
 		{
-			if (item.getNotedTemplate() != -1)
-			{
+			if (item.getNotedTemplate() != -1) {
 				return;
 			}
 
-			if (item.name.equalsIgnoreCase("NULL"))
-			{
+			if (item.name.equalsIgnoreCase("NULL")) {
 				return;
 			}
 
 			final String name = Namer
-				.removeTags(item.name)
-				.replace('\u00A0', ' ')
-				.trim();
+					.removeTags(item.name)
+					.replace('\u00A0', ' ')
+					.trim();
 
-			if (name.isEmpty())
-			{
+			if (name.isEmpty()) {
 				return;
 			}
 
 			String data = wiki.getSpecialLookupData("item", item.id, 0);
 
-			if (Strings.isNullOrEmpty(data))
-			{
+			if (Strings.isNullOrEmpty(data)) {
 				return;
 			}
 
 			MediaWikiTemplate base = MediaWikiTemplate.parseWikitext("Infobox Item", data);
 
-			if (base == null)
-			{
+			if (base == null) {
 				return;
 			}
 
 			final int nItems = findMaxIndex(base);
 			final ItemStats.ItemStatsBuilder itemStat = ItemStats.builder();
 
-			for (int index = 1; index <= nItems; index++)
-			{
+			for (int index = 1; index <= nItems; index++) {
 				final int offset = nItems == 1 ? 0 : index;
 				final String wikiName = getVarString(base, "name", offset);
 
 				// Skip this index if name or itemId doesn't match with wiki
-				if (nItems > 1 && !wikiName.equalsIgnoreCase(name))
-				{
+				if (nItems > 1 && !wikiName.equalsIgnoreCase(name)) {
 					continue;
 				}
 
 				itemStat.name(getVarString(base, "name", offset) == null ? getVarString(base, "name1", offset) : getVarString(base, "name", offset));
 				itemStat.quest(getVarBoolean(base, "quest", offset));
 				itemStat.equipable(getVarBoolean(base, "equipable", offset) == null
-					? getVarBoolean(base, "equipable1", offset) : getVarBoolean(base, "equipable", offset));
+						? getVarBoolean(base, "equipable1", offset) : getVarBoolean(base, "equipable", offset));
 				itemStat.weight(getVarDouble(base, "weight", offset));
 
 
-				if (Boolean.TRUE.equals(itemStat.equipable))
-				{
+				if (Boolean.TRUE.equals(itemStat.equipable)) {
 					MediaWikiTemplate stats = MediaWikiTemplate.parseWikitext("Infobox Bonuses", data);
 
-					if (stats == null)
-					{
+					if (stats == null) {
 						data = wiki.getSpecialLookupData("item", item.id, 1);
 
-						if (Strings.isNullOrEmpty(data))
-						{
+						if (Strings.isNullOrEmpty(data)) {
 							break;
 						}
 
 						stats = MediaWikiTemplate.parseWikitext("Infobox Bonuses", data);
 					}
 
-					if (stats == null)
-					{
+					if (stats == null) {
 						break;
 					}
 
@@ -160,8 +149,7 @@ public class ItemStatsDumper
 
 					final ItemEquipmentStats builtEqStat = equipmentStat.build();
 
-					if (!builtEqStat.equals(ItemEquipmentStats.builder().build()))
-					{
+					if (!builtEqStat.equals(ItemEquipmentStats.builder().build())) {
 						itemStat.equipment(builtEqStat);
 					}
 				}
@@ -171,8 +159,7 @@ public class ItemStatsDumper
 
 			final ItemStats val = itemStat.build();
 
-			if (ItemStats.DEFAULT.equals(val))
-			{
+			if (ItemStats.DEFAULT.equals(val)) {
 				return;
 			}
 
@@ -180,8 +167,7 @@ public class ItemStatsDumper
 			log.debug("Dumped item stat for {} {}", item.id, name);
 		});
 
-		try (FileWriter fw = new FileWriter(new File(path, "item_stats.json")))
-		{
+		try (FileWriter fw = new FileWriter(new File(path, "item_stats.json"))) {
 			fw.write(App.GSON.toJson(itemStats));
 		}
 
@@ -194,23 +180,17 @@ public class ItemStatsDumper
 	 * @param template media wiki template
 	 * @return item count
 	 */
-	private static int findMaxIndex(final MediaWikiTemplate template)
-	{
+	private static int findMaxIndex(final MediaWikiTemplate template) {
 		int nItems = 1;
 
-		if (template.getValue("version1") == null)
-		{
+		if (template.getValue("version1") == null) {
 			return nItems;
 		}
 
-		while (nItems < MAX_ITEMS_ON_PAGE)
-		{
-			if (template.getValue(fixIndex("name", nItems + 1)) != null || template.getValue(fixIndex("version", nItems + 1)) != null)
-			{
+		while (nItems < MAX_ITEMS_ON_PAGE) {
+			if (template.getValue(fixIndex("name", nItems + 1)) != null || template.getValue(fixIndex("version", nItems + 1)) != null) {
 				nItems++;
-			}
-			else
-			{
+			} else {
 				break;
 			}
 		}
@@ -225,68 +205,56 @@ public class ItemStatsDumper
 	 * @param index current index
 	 * @return string representation of index
 	 */
-	private static String fixIndex(final String base, final Integer index)
-	{
+	private static String fixIndex(final String base, final Integer index) {
 		return index == 0 ? base : base + index;
 	}
 
-	private static String getVarString(final MediaWikiTemplate template, final String key, final Integer index)
-	{
+	private static String getVarString(final MediaWikiTemplate template, final String key, final Integer index) {
 		final String var = template.getValue(fixIndex(key, index));
 
-		if (var != null)
-		{
+		if (var != null) {
 			return var;
 		}
 
 		return template.getValue(key);
 	}
 
-	private static Boolean getVarBoolean(final MediaWikiTemplate template, final String key, final Integer index)
-	{
+	private static Boolean getVarBoolean(final MediaWikiTemplate template, final String key, final Integer index) {
 		final Boolean var = template.getBoolean(fixIndex(key, index));
 
-		if (var != null)
-		{
+		if (var != null) {
 			return var;
 		}
 
 		return template.getBoolean(key);
 	}
 
-	private static Integer getVarInt(final MediaWikiTemplate template, final String key, final Integer index)
-	{
+	private static Integer getVarInt(final MediaWikiTemplate template, final String key, final Integer index) {
 		final Integer var = template.getInt(fixIndex(key, index));
 
-		if (var != null)
-		{
+		if (var != null) {
 			return var;
 		}
 
 		return template.getInt(key);
 	}
 
-	private static Double getVarDouble(final MediaWikiTemplate template, final String key, final Integer index)
-	{
+	private static Double getVarDouble(final MediaWikiTemplate template, final String key, final Integer index) {
 		final Double var = template.getDouble(fixIndex(key, index));
 
-		if (var != null)
-		{
+		if (var != null) {
 			return var;
 		}
 
 		return template.getDouble(key);
 	}
 
-	private static Integer toEquipmentSlot(final String slotName)
-	{
-		if (slotName == null)
-		{
+	private static Integer toEquipmentSlot(final String slotName) {
+		if (slotName == null) {
 			return null;
 		}
 
-		switch (slotName.toLowerCase())
-		{
+		switch (slotName.toLowerCase()) {
 			case "weapon":
 			case "2h":
 				// TODO: 2h should return both weapon and shield somehow
@@ -318,8 +286,7 @@ public class ItemStatsDumper
 
 	@Value
 	@Builder
-	private static final class ItemEquipmentStats
-	{
+	private static final class ItemEquipmentStats {
 		private final Integer slot;
 
 		private final Integer astab;
@@ -343,8 +310,7 @@ public class ItemStatsDumper
 
 	@Value
 	@Builder
-	private static final class ItemStats
-	{
+	private static final class ItemStats {
 		static final ItemStats DEFAULT = ItemStats.builder().build();
 
 		private final String name;

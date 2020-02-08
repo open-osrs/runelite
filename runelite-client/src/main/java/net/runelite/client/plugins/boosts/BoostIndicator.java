@@ -26,6 +26,7 @@ package net.runelite.client.plugins.boosts;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -33,16 +34,14 @@ import net.runelite.api.Skill;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.ui.overlay.infobox.InfoBoxPriority;
 
-public class BoostIndicator extends InfoBox
-{
+public class BoostIndicator extends InfoBox {
 	private final BoostsPlugin plugin;
 	private final Client client;
 
 	@Getter(AccessLevel.PACKAGE)
 	private final Skill skill;
 
-	BoostIndicator(final Skill skill, final BufferedImage image, final BoostsPlugin plugin, final Client client)
-	{
+	BoostIndicator(final Skill skill, final BufferedImage image, final BoostsPlugin plugin, final Client client) {
 		super(image, plugin);
 		this.plugin = plugin;
 		this.client = client;
@@ -52,17 +51,14 @@ public class BoostIndicator extends InfoBox
 	}
 
 	@Override
-	public String getText()
-	{
-		if (!plugin.isUseRelativeBoost())
-		{
+	public String getText() {
+		if (!plugin.isUseRelativeBoost()) {
 			return String.valueOf(client.getBoostedSkillLevel(skill));
 		}
 
 		int boost = client.getBoostedSkillLevel(skill) - client.getRealSkillLevel(skill);
 		String text = String.valueOf(boost);
-		if (boost > 0)
-		{
+		if (boost > 0) {
 			text = "+" + text;
 		}
 
@@ -70,13 +66,11 @@ public class BoostIndicator extends InfoBox
 	}
 
 	@Override
-	public Color getTextColor()
-	{
+	public Color getTextColor() {
 		int boosted = client.getBoostedSkillLevel(skill),
-			base = client.getRealSkillLevel(skill);
+				base = client.getRealSkillLevel(skill);
 
-		if (boosted < base)
-		{
+		if (boosted < base) {
 			return new Color(238, 51, 51);
 		}
 
@@ -84,10 +78,8 @@ public class BoostIndicator extends InfoBox
 	}
 
 	@Override
-	public boolean render()
-	{
-		if (plugin.isDisplayInfoboxes() && plugin.canShowBoosts() && plugin.getShownSkills().contains(getSkill()))
-		{
+	public boolean render() {
+		if (plugin.isDisplayInfoboxes() && plugin.canShowBoosts() && plugin.getShownSkills().contains(getSkill())) {
 			return client.getBoostedSkillLevel(skill) != client.getRealSkillLevel(skill);
 		}
 

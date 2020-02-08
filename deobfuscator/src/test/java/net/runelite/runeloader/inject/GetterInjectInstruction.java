@@ -1,7 +1,6 @@
 package net.runelite.runeloader.inject;
 
-public class GetterInjectInstruction
-{
+public class GetterInjectInstruction {
 	private final String className;
 	private final String getterMethodDesc;
 	private final String getterName;
@@ -10,8 +9,7 @@ public class GetterInjectInstruction
 	private final Integer multiplier;
 	private final boolean staticField;
 
-	public GetterInjectInstruction(String var1, String var2, String var3, String var4, String var5, Integer var6, boolean var7)
-	{
+	public GetterInjectInstruction(String var1, String var2, String var3, String var4, String var5, Integer var6, boolean var7) {
 		this.className = var1;
 		this.getterMethodDesc = "()" + var3;
 		this.getterName = var2;
@@ -22,43 +20,35 @@ public class GetterInjectInstruction
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "GetterInjectInstruction{" + "className=" + className + ", getterMethodDesc=" + getterMethodDesc + ", getterName=" + getterName + ", getterClassName=" + getterClassName + ", getterFieldName=" + getterFieldName + ", multiplier=" + multiplier + ", staticField=" + staticField + '}';
 	}
 
-	public String getClassName()
-	{
+	public String getClassName() {
 		return this.className;
 	}
 
-	public String getGetterMethodDesc()
-	{
+	public String getGetterMethodDesc() {
 		return this.getterMethodDesc;
 	}
 
-	public String getGetterName()
-	{
+	public String getGetterName() {
 		return this.getterName;
 	}
 
-	public String getGetterClassName()
-	{
+	public String getGetterClassName() {
 		return this.getterClassName;
 	}
 
-	public String getGetterFieldName()
-	{
+	public String getGetterFieldName() {
 		return this.getterFieldName;
 	}
 
-	public Integer getMultiplier()
-	{
+	public Integer getMultiplier() {
 		return this.multiplier;
 	}
 
-	public boolean isStaticField()
-	{
+	public boolean isStaticField() {
 		return this.staticField;
 	}
 }

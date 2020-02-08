@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FloorOverlayDefinition extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("FloorOverlayDefinition_archive")
 	public static AbstractArchive FloorOverlayDefinition_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Leh;"
+			signature = "Leh;"
 	)
 	@Export("FloorOverlayDefinition_cached")
 	static EvictingDualNodeHashTable FloorOverlayDefinition_cached;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 935951655
+			intValue = 935951655
 	)
 	@Export("primaryRgb")
 	public int primaryRgb;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1095526673
+			intValue = 1095526673
 	)
 	@Export("texture")
 	public int texture;
@@ -36,43 +36,43 @@ public class FloorOverlayDefinition extends DualNode {
 	public boolean hideUnderlay;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1729092423
+			intValue = -1729092423
 	)
 	@Export("secondaryRgb")
 	public int secondaryRgb;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -29355705
+			intValue = -29355705
 	)
 	@Export("hue")
 	public int hue;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1250783645
+			intValue = -1250783645
 	)
 	@Export("saturation")
 	public int saturation;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1922537883
+			intValue = -1922537883
 	)
 	@Export("lightness")
 	public int lightness;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 291644117
+			intValue = 291644117
 	)
 	@Export("secondaryHue")
 	public int secondaryHue;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1538627711
+			intValue = 1538627711
 	)
 	@Export("secondarySaturation")
 	public int secondarySaturation;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1197825263
+			intValue = 1197825263
 	)
 	@Export("secondaryLightness")
 	public int secondaryLightness;
@@ -90,8 +90,8 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "342799854"
+			signature = "(I)V",
+			garbageValue = "342799854"
 	)
 	@Export("postDecode")
 	void postDecode() {
@@ -107,8 +107,8 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkp;IB)V",
-		garbageValue = "-45"
+			signature = "(Lkp;IB)V",
+			garbageValue = "-45"
 	)
 	@Export("decode")
 	void decode(Buffer var1, int var2) {
@@ -124,8 +124,8 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lkp;IIB)V",
-		garbageValue = "16"
+			signature = "(Lkp;IIB)V",
+			garbageValue = "16"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
@@ -144,14 +144,14 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-1731410531"
+			signature = "(II)V",
+			garbageValue = "-1731410531"
 	)
 	@Export("setHsl")
 	void setHsl(int var1) {
-		double var2 = (double)(var1 >> 16 & 255) / 256.0D;
-		double var4 = (double)(var1 >> 8 & 255) / 256.0D;
-		double var6 = (double)(var1 & 255) / 256.0D;
+		double var2 = (double) (var1 >> 16 & 255) / 256.0D;
+		double var4 = (double) (var1 >> 8 & 255) / 256.0D;
+		double var6 = (double) (var1 & 255) / 256.0D;
 		double var8 = var2;
 		if (var4 < var2) {
 			var8 = var4;
@@ -192,9 +192,9 @@ public class FloorOverlayDefinition extends DualNode {
 		}
 
 		var12 /= 6.0D;
-		this.hue = (int)(var12 * 256.0D);
-		this.saturation = (int)(256.0D * var14);
-		this.lightness = (int)(var16 * 256.0D);
+		this.hue = (int) (var12 * 256.0D);
+		this.saturation = (int) (256.0D * var14);
+		this.lightness = (int) (var16 * 256.0D);
 		if (this.saturation < 0) {
 			this.saturation = 0;
 		} else if (this.saturation > 255) {
@@ -211,8 +211,8 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("iy")
 	@ObfuscatedSignature(
-		signature = "([Lhn;IIIIIIIIB)V",
-		garbageValue = "40"
+			signature = "([Lhn;IIIIIIIIB)V",
+			garbageValue = "40"
 	)
 	@Export("drawInterface")
 	static final void drawInterface(Widget[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
@@ -332,7 +332,7 @@ public class FloorOverlayDefinition extends DualNode {
 									class13.fontPlain12.drawRightAligned("Fps:" + GameShell.fps, var12 + var10.width, var13, 16776960, -1);
 									var13 += 15;
 									Runtime var38 = Runtime.getRuntime();
-									var20 = (int)((var38.totalMemory() - var38.freeMemory()) / 1024L);
+									var20 = (int) ((var38.totalMemory() - var38.freeMemory()) / 1024L);
 									var21 = 16776960;
 									if (var20 > 327680 && !Client.isLowDetail) {
 										var21 = 16711680;
@@ -398,7 +398,7 @@ public class FloorOverlayDefinition extends DualNode {
 								drawInterface(var10.children, var10.id, var15, var16, var17, var18, var12 - var10.scrollX, var13 - var10.scrollY, var11);
 							}
 
-							InterfaceParent var19 = (InterfaceParent)Client.interfaceParents.get((long)var10.id);
+							InterfaceParent var19 = (InterfaceParent) Client.interfaceParents.get((long) var10.id);
 							if (var19 != null) {
 								ServerPacket.drawWidgets(var19.group, var15, var16, var17, var18, var12, var13, var11);
 							}
@@ -529,19 +529,19 @@ public class FloorOverlayDefinition extends DualNode {
 									}
 
 									if (var10.fill) {
-										switch(var10.fillMode.value) {
-										case 1:
-											Rasterizer2D.Rasterizer2D_fillRectangleGradient(var12, var13, var10.width, var10.height, var10.color, var10.color2);
-											break;
-										case 2:
-											Rasterizer2D.Rasterizer2D_fillRectangleGradientAlpha(var12, var13, var10.width, var10.height, var10.color, var10.color2, 255 - (var10.transparencyTop & 255), 255 - (var10.transparencyBot & 255));
-											break;
-										default:
-											if (var14 == 0) {
-												Rasterizer2D.Rasterizer2D_fillRectangle(var12, var13, var10.width, var10.height, var30);
-											} else {
-												Rasterizer2D.Rasterizer2D_fillRectangleAlpha(var12, var13, var10.width, var10.height, var30, 256 - (var14 & 255));
-											}
+										switch (var10.fillMode.value) {
+											case 1:
+												Rasterizer2D.Rasterizer2D_fillRectangleGradient(var12, var13, var10.width, var10.height, var10.color, var10.color2);
+												break;
+											case 2:
+												Rasterizer2D.Rasterizer2D_fillRectangleGradientAlpha(var12, var13, var10.width, var10.height, var10.color, var10.color2, 255 - (var10.transparencyTop & 255), 255 - (var10.transparencyBot & 255));
+												break;
+											default:
+												if (var14 == 0) {
+													Rasterizer2D.Rasterizer2D_fillRectangle(var12, var13, var10.width, var10.height, var30);
+												} else {
+													Rasterizer2D.Rasterizer2D_fillRectangleAlpha(var12, var13, var10.width, var10.height, var30, 256 - (var14 & 255));
+												}
 										}
 									} else if (var14 == 0) {
 										Rasterizer2D.Rasterizer2D_drawRectangle(var12, var13, var10.width, var10.height, var30);
@@ -678,12 +678,12 @@ public class FloorOverlayDefinition extends DualNode {
 												}
 											} else if (var10.modelType == 5) {
 												if (var10.modelId == 0) {
-													var41 = Client.playerAppearance.getModel((SequenceDefinition)null, -1, (SequenceDefinition)null, -1);
+													var41 = Client.playerAppearance.getModel((SequenceDefinition) null, -1, (SequenceDefinition) null, -1);
 												} else {
 													var41 = class192.localPlayer.getModel();
 												}
 											} else if (var20 == -1) {
-												var41 = var10.getModel((SequenceDefinition)null, -1, var44, class192.localPlayer.appearance);
+												var41 = var10.getModel((SequenceDefinition) null, -1, var44, class192.localPlayer.appearance);
 												if (var41 == null && Widget.field2697) {
 													NPCDefinition.invalidateWidget(var10);
 												}
@@ -842,8 +842,8 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("kx")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-825352084"
+			signature = "(I)Z",
+			garbageValue = "-825352084"
 	)
 	public static boolean method4835() {
 		return Client.staffModLevel >= 2;

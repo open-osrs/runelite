@@ -26,45 +26,37 @@ package net.runelite.http.api.hiscore;
 
 import java.util.Objects;
 
-public class SingleHiscoreSkillResult
-{
+public class SingleHiscoreSkillResult {
 	private String player;
 	private String skillName;
 	private Skill skill;
 
-	public String getPlayer()
-	{
+	public String getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(String player)
-	{
+	public void setPlayer(String player) {
 		this.player = player;
 	}
 
-	public String getSkillName()
-	{
+	public String getSkillName() {
 		return skillName;
 	}
 
-	public void setSkillName(String skillName)
-	{
+	public void setSkillName(String skillName) {
 		this.skillName = skillName;
 	}
 
-	public Skill getSkill()
-	{
+	public Skill getSkill() {
 		return skill;
 	}
 
-	public void setSkill(Skill skill)
-	{
+	public void setSkill(Skill skill) {
 		this.skill = skill;
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		int hash = 7;
 		hash = 37 * hash + Objects.hashCode(this.player);
 		hash = 37 * hash + Objects.hashCode(this.skillName);
@@ -73,39 +65,31 @@ public class SingleHiscoreSkillResult
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-		{
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if (obj == null)
-		{
+		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		final SingleHiscoreSkillResult other = (SingleHiscoreSkillResult) obj;
-		if (!Objects.equals(this.player, other.player))
-		{
+		if (!Objects.equals(this.player, other.player)) {
 			return false;
 		}
-		if (!Objects.equals(this.skillName, other.skillName))
-		{
+		if (!Objects.equals(this.skillName, other.skillName)) {
 			return false;
 		}
-		if (!Objects.equals(this.skill, other.skill))
-		{
+		if (!Objects.equals(this.skill, other.skill)) {
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "SingleHiscoreSkillResult{" + "player=" + player + ", skillName=" + skillName + ", skill=" + skill + '}';
 	}
 }

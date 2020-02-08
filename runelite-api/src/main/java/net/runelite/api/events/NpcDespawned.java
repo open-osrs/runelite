@@ -32,15 +32,13 @@ import lombok.Value;
  * An event where an {@link NPC} has despawned.
  */
 @Value
-public class NpcDespawned implements Event
-{
+public class NpcDespawned implements Event {
 	/**
 	 * The despawned NPC.
 	 */
 	private final NPC npc;
 
-	public Actor getActor()
-	{
+	public Actor getActor() {
 		return npc;
 	}
 }

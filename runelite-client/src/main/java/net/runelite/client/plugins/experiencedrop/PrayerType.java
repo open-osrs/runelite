@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.experiencedrop;
 
-enum PrayerType
-{
+enum PrayerType {
 	MELEE,
 	RANGE,
 	MAGIC

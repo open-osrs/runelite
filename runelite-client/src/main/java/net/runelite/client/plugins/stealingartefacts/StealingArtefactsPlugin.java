@@ -25,12 +25,14 @@
 package net.runelite.client.plugins.stealingartefacts;
 
 import com.google.inject.Provides;
+
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -64,18 +66,17 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPointManager;
 
 @PluginDescriptor(
-	name = "Stealing Artefacts",
-	description = "A plugin for the Stealing Artefacts minigame.",
-	tags = {"stealing", "artefacts", "artifacts", "thieving", "minigame", "zeah"},
-	type = PluginType.MINIGAME,
-	enabledByDefault = false
+		name = "Stealing Artefacts",
+		description = "A plugin for the Stealing Artefacts minigame.",
+		tags = {"stealing", "artefacts", "artifacts", "thieving", "minigame", "zeah"},
+		type = PluginType.MINIGAME,
+		enabledByDefault = false
 )
 @Slf4j
 @Singleton
-public class StealingArtefactsPlugin extends Plugin
-{
+public class StealingArtefactsPlugin extends Plugin {
 	private static final String HOUSE_TEXT = "^You need to recover an artefact for me\\. It can be found in the " +
-		"([a-zA-Z\\-]+) house in the residential district over on the west side of town\\.$";
+			"([a-zA-Z\\-]+) house in the residential district over on the west side of town\\.$";
 
 	private static final String HOUSE_TEXT_PREFIX = HOUSE_TEXT.substring(1, 31);
 
@@ -90,7 +91,7 @@ public class StealingArtefactsPlugin extends Plugin
 	private static final String NPC_NAME_CAPTAIN_KHALED = "Captain Khaled";
 
 	private static final Set<Integer> REGION_IDS = Set.of(
-		6970, 6971, 7226, 7227
+			6970, 6971, 7226, 7227
 	);
 
 	private static final int REGION_ID_HOUSE = 6970;
@@ -98,11 +99,11 @@ public class StealingArtefactsPlugin extends Plugin
 	private static final int REGION_ID_CAPTAIN_KHALED = 7226;
 
 	private static final Set<Integer> ARTEFACTS = Set.of(
-		ItemID.STOLEN_PENDANT,
-		ItemID.STOLEN_GARNET_RING,
-		ItemID.STOLEN_CIRCLET,
-		ItemID.STOLEN_FAMILY_HEIRLOOM,
-		ItemID.STOLEN_JEWELRY_BOX
+			ItemID.STOLEN_PENDANT,
+			ItemID.STOLEN_GARNET_RING,
+			ItemID.STOLEN_CIRCLET,
+			ItemID.STOLEN_FAMILY_HEIRLOOM,
+			ItemID.STOLEN_JEWELRY_BOX
 	);
 
 	private boolean displayHouseInfoBox = false;
@@ -133,38 +134,31 @@ public class StealingArtefactsPlugin extends Plugin
 	private StealingArtefactsConfig stealingArtefactsConfig;
 
 	@Provides
-	StealingArtefactsConfig getStealingArtefactsConfig(ConfigManager configManager)
-	{
+	StealingArtefactsConfig getStealingArtefactsConfig(ConfigManager configManager) {
 		return configManager.getConfig(StealingArtefactsConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		initConfig();
 
-		if (displayHouseInfoBox)
-		{
+		if (displayHouseInfoBox) {
 			addHouseInfoBox();
-		}
-		else
-		{
+		} else {
 			removeHouseInfoBox();
 		}
 
 		removeWorldMapPoint();
 		removeHintArrow();
 
-		if (displayHintArrow)
-		{
+		if (displayHintArrow) {
 			addWorldMapPoint();
 			addHintArrow();
 		}
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		resetHouse();
 		removeHouseInfoBox();
 		removeWorldMapPoint();
@@ -172,21 +166,15 @@ public class StealingArtefactsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals(CONFIG_GROUP_NAME))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals(CONFIG_GROUP_NAME)) {
 			initConfig();
 
-			switch (event.getKey())
-			{
+			switch (event.getKey()) {
 				case CONFIG_ITEM_NAME_INFOBOX:
-					if (displayHouseInfoBox)
-					{
+					if (displayHouseInfoBox) {
 						addHouseInfoBox();
-					}
-					else
-					{
+					} else {
 						removeHouseInfoBox();
 					}
 					break;
@@ -194,8 +182,7 @@ public class StealingArtefactsPlugin extends Plugin
 					removeWorldMapPoint();
 					removeHintArrow();
 
-					if (displayHintArrow)
-					{
+					if (displayHintArrow) {
 						addWorldMapPoint();
 						addHintArrow();
 					}
@@ -207,31 +194,26 @@ public class StealingArtefactsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onWidgetLoaded(WidgetLoaded widgetLoaded)
-	{
+	private void onWidgetLoaded(WidgetLoaded widgetLoaded) {
 		if (isConfigSettingEnabled() &&
-			widgetLoaded.getGroupId() == WidgetID.DIALOG_NPC_GROUP_ID &&
-			isPlayerInRegion(REGION_ID_CAPTAIN_KHALED))
-		{
+				widgetLoaded.getGroupId() == WidgetID.DIALOG_NPC_GROUP_ID &&
+				isPlayerInRegion(REGION_ID_CAPTAIN_KHALED)) {
 			clientThread.invokeLater(this::updateStealingArtefactsHouse);
 		}
 	}
 
 	@Subscribe
-	private void onItemContainerChanged(ItemContainerChanged event)
-	{
+	private void onItemContainerChanged(ItemContainerChanged event) {
 		if (isConfigSettingEnabled() &&
-			!stealingArtefactsHouse.equals(StealingArtefactsHouse.CAPTAIN_KHALED) &&
-			event.getContainerId() == InventoryID.INVENTORY.getId() &&
-			isPlayerInRegion(REGION_ID_HOUSE) &&
-			containsArtefact(event.getItemContainer()))
-		{
+				!stealingArtefactsHouse.equals(StealingArtefactsHouse.CAPTAIN_KHALED) &&
+				event.getContainerId() == InventoryID.INVENTORY.getId() &&
+				isPlayerInRegion(REGION_ID_HOUSE) &&
+				containsArtefact(event.getItemContainer())) {
 			resetHouse();
 			removeWorldMapPoint();
 			removeHintArrow();
 
-			if (displayHintArrow)
-			{
+			if (displayHintArrow) {
 				addWorldMapPoint();
 				addHintArrow();
 			}
@@ -239,25 +221,21 @@ public class StealingArtefactsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned event)
-	{
+	private void onNpcSpawned(NpcSpawned event) {
 		NPC npc = event.getNpc();
 
 		if (displayHintArrow &&
-			Objects.equals(npc.getName(), NPC_NAME_CAPTAIN_KHALED) &&
-			stealingArtefactsHouse.equals(StealingArtefactsHouse.CAPTAIN_KHALED) &&
-			!client.getHintArrowType().equals(HintArrowType.NPC))
-		{
+				Objects.equals(npc.getName(), NPC_NAME_CAPTAIN_KHALED) &&
+				stealingArtefactsHouse.equals(StealingArtefactsHouse.CAPTAIN_KHALED) &&
+				!client.getHintArrowType().equals(HintArrowType.NPC)) {
 			removeHintArrow();
 			client.setHintArrow(npc);
 		}
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		if (displayHintArrow && event.getGameState().equals(GameState.LOGGED_IN))
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		if (displayHintArrow && event.getGameState().equals(GameState.LOGGED_IN)) {
 			removeWorldMapPoint();
 			removeHintArrow();
 			addWorldMapPoint();
@@ -265,8 +243,7 @@ public class StealingArtefactsPlugin extends Plugin
 		}
 	}
 
-	private void initConfig()
-	{
+	private void initConfig() {
 		displayHouseInfoBox = stealingArtefactsConfig.displayHouseInfoBox();
 		displayHintArrow = stealingArtefactsConfig.displayHintArrow();
 	}
@@ -274,27 +251,23 @@ public class StealingArtefactsPlugin extends Plugin
 	/**
 	 * Parses any existing npc dialog widget text and updates the artefact house and hint arrows if applicable.
 	 */
-	private void updateStealingArtefactsHouse()
-	{
+	private void updateStealingArtefactsHouse() {
 		Widget widgetDialogNpcText = client.getWidget(WidgetInfo.DIALOG_NPC_TEXT);
 
-		if (widgetDialogNpcText == null)
-		{
+		if (widgetDialogNpcText == null) {
 			return;
 		}
 
 		String text = widgetDialogNpcText.getText();
 
-		if (!text.startsWith(HOUSE_TEXT_PREFIX))
-		{
+		if (!text.startsWith(HOUSE_TEXT_PREFIX)) {
 			return;
 		}
 
 		StealingArtefactsHouse stealingArtefactsHouse =
-			getStealingArtefactsHouseFromNpcDialogText(Text.sanitizeMultilineText(text));
+				getStealingArtefactsHouseFromNpcDialogText(Text.sanitizeMultilineText(text));
 
-		if (stealingArtefactsHouse == null)
-		{
+		if (stealingArtefactsHouse == null) {
 			return;
 		}
 
@@ -303,29 +276,23 @@ public class StealingArtefactsPlugin extends Plugin
 		removeWorldMapPoint();
 		removeHintArrow();
 
-		if (displayHintArrow)
-		{
+		if (displayHintArrow) {
 			addWorldMapPoint();
 			addHintArrow();
 		}
 	}
 
-	private StealingArtefactsHouse getStealingArtefactsHouseFromNpcDialogText(String text)
-	{
+	private StealingArtefactsHouse getStealingArtefactsHouseFromNpcDialogText(String text) {
 		StealingArtefactsHouse stealingArtefactsHouse = null;
 
 		Matcher matcher = HOUSE_TEXT_PATTERN.matcher(text);
 
-		if (matcher.find())
-		{
+		if (matcher.find()) {
 			String houseName = matcher.group(1);
 
-			try
-			{
+			try {
 				stealingArtefactsHouse = StealingArtefactsHouse.fromName(houseName);
-			}
-			catch (IllegalArgumentException e)
-			{
+			} catch (IllegalArgumentException e) {
 				log.debug("Unsupported StealingArtefactsHouse name: {}", houseName);
 			}
 		}
@@ -333,16 +300,13 @@ public class StealingArtefactsPlugin extends Plugin
 		return stealingArtefactsHouse;
 	}
 
-	private boolean containsArtefact(ItemContainer itemContainer)
-	{
+	private boolean containsArtefact(ItemContainer itemContainer) {
 		boolean containsArtefact = false;
 
-		for (Item item : itemContainer.getItems())
-		{
+		for (Item item : itemContainer.getItems()) {
 			int itemId = item.getId();
 
-			if (ARTEFACTS.contains(itemId))
-			{
+			if (ARTEFACTS.contains(itemId)) {
 				containsArtefact = true;
 				break;
 			}
@@ -351,37 +315,28 @@ public class StealingArtefactsPlugin extends Plugin
 		return containsArtefact;
 	}
 
-	private void addHouseInfoBox()
-	{
-		if (stealingArtefactsInfoBox == null)
-		{
+	private void addHouseInfoBox() {
+		if (stealingArtefactsInfoBox == null) {
 			stealingArtefactsInfoBox = new StealingArtefactsInfoBox(itemManager.getImage(ItemID.HAIR_CLIP), this);
 			infoBoxManager.addInfoBox(stealingArtefactsInfoBox);
 		}
 	}
 
-	private void removeHouseInfoBox()
-	{
-		if (stealingArtefactsInfoBox != null)
-		{
+	private void removeHouseInfoBox() {
+		if (stealingArtefactsInfoBox != null) {
 			infoBoxManager.removeInfoBox(stealingArtefactsInfoBox);
 			stealingArtefactsInfoBox = null;
 		}
 	}
 
-	private void addHintArrow()
-	{
-		if (stealingArtefactsHouse == StealingArtefactsHouse.CAPTAIN_KHALED)
-		{
-			for (NPC npc : client.getCachedNPCs())
-			{
-				if (npc == null)
-				{
+	private void addHintArrow() {
+		if (stealingArtefactsHouse == StealingArtefactsHouse.CAPTAIN_KHALED) {
+			for (NPC npc : client.getCachedNPCs()) {
+				if (npc == null) {
 					continue;
 				}
 
-				if (Objects.equals(npc.getName(), NPC_NAME_CAPTAIN_KHALED))
-				{
+				if (Objects.equals(npc.getName(), NPC_NAME_CAPTAIN_KHALED)) {
 					client.setHintArrow(npc);
 					return;
 				}
@@ -391,21 +346,17 @@ public class StealingArtefactsPlugin extends Plugin
 		client.setHintArrow(stealingArtefactsHouse.getWorldPoint());
 	}
 
-	private void removeHintArrow()
-	{
-		if (client.hasHintArrow())
-		{
+	private void removeHintArrow() {
+		if (client.hasHintArrow()) {
 			client.clearHintArrow();
 		}
 	}
 
-	private void addWorldMapPoint()
-	{
-		if (isPlayerInStealingArtefactsRegion())
-		{
+	private void addWorldMapPoint() {
+		if (isPlayerInStealingArtefactsRegion()) {
 			StealingArtefactsWorldMapPoint stealingArtefactsWorldMapPoint =
-				new StealingArtefactsWorldMapPoint(stealingArtefactsHouse.getWorldPoint(),
-					itemManager.getImage(ItemID.HAIR_CLIP));
+					new StealingArtefactsWorldMapPoint(stealingArtefactsHouse.getWorldPoint(),
+							itemManager.getImage(ItemID.HAIR_CLIP));
 
 			stealingArtefactsWorldMapPoint.setTooltip(stealingArtefactsHouse.toString());
 
@@ -413,56 +364,47 @@ public class StealingArtefactsPlugin extends Plugin
 		}
 	}
 
-	private void removeWorldMapPoint()
-	{
+	private void removeWorldMapPoint() {
 		worldMapPointManager.removeIf(StealingArtefactsWorldMapPoint.class::isInstance);
 	}
 
-	private boolean isPlayerInStealingArtefactsRegion()
-	{
+	private boolean isPlayerInStealingArtefactsRegion() {
 		Player player = client.getLocalPlayer();
 
-		if (player == null)
-		{
+		if (player == null) {
 			return false;
 		}
 
 		WorldPoint worldPoint = player.getWorldLocation();
 
-		if (worldPoint == null)
-		{
+		if (worldPoint == null) {
 			return false;
 		}
 
 		return REGION_IDS.contains(worldPoint.getRegionID());
 	}
 
-	private boolean isPlayerInRegion(int regionId)
-	{
+	private boolean isPlayerInRegion(int regionId) {
 		Player player = client.getLocalPlayer();
 
-		if (player == null)
-		{
+		if (player == null) {
 			return false;
 		}
 
 		WorldPoint worldPoint = player.getWorldLocation();
 
-		if (worldPoint == null)
-		{
+		if (worldPoint == null) {
 			return false;
 		}
 
 		return worldPoint.getRegionID() == regionId;
 	}
 
-	private boolean isConfigSettingEnabled()
-	{
+	private boolean isConfigSettingEnabled() {
 		return displayHouseInfoBox || displayHintArrow;
 	}
 
-	private void resetHouse()
-	{
+	private void resetHouse() {
 		stealingArtefactsHouse = StealingArtefactsHouse.CAPTAIN_KHALED;
 	}
 }

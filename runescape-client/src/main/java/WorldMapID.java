@@ -10,17 +10,17 @@ import net.runelite.rs.ScriptOpcodes;
 public class WorldMapID {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lau;"
+			signature = "Lau;"
 	)
 	static final WorldMapID field277;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lau;"
+			signature = "Lau;"
 	)
 	static final WorldMapID field278;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -632156307
+			intValue = -632156307
 	)
 	@Export("value")
 	final int value;
@@ -36,8 +36,8 @@ public class WorldMapID {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)[Lhq;",
-		garbageValue = "1911999829"
+			signature = "(I)[Lhq;",
+			garbageValue = "1911999829"
 	)
 	static ServerBuild[] method572() {
 		return new ServerBuild[]{ServerBuild.RC, ServerBuild.BUILDLIVE, ServerBuild.WIP, ServerBuild.LIVE};
@@ -45,8 +45,8 @@ public class WorldMapID {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lbw;IB)V",
-		garbageValue = "0"
+			signature = "(Lbw;IB)V",
+			garbageValue = "0"
 	)
 	@Export("runScript")
 	static void runScript(ScriptEvent var0, int var1) {
@@ -54,11 +54,11 @@ public class WorldMapID {
 		Script var3;
 		int var17;
 		if (Username.isWorldMapEvent(var0.type)) {
-			WorldMapLabelSize.worldMapEvent = (WorldMapEvent)var2[0];
+			WorldMapLabelSize.worldMapEvent = (WorldMapEvent) var2[0];
 			WorldMapElement var4 = PacketBufferNode.WorldMapElement_get(WorldMapLabelSize.worldMapEvent.mapElement);
 			var3 = class197.getWorldMapScript(var0.type, var4.objectId, var4.category);
 		} else {
-			var17 = (Integer)var2[0];
+			var17 = (Integer) var2[0];
 			var3 = UserComparator9.getScript(var17);
 		}
 
@@ -84,7 +84,7 @@ public class WorldMapID {
 					String var18;
 					for (var10 = 1; var10 < var2.length; ++var10) {
 						if (var2[var10] instanceof Integer) {
-							var11 = (Integer)var2[var10];
+							var11 = (Integer) var2[var10];
 							if (var11 == -2147483647) {
 								var11 = var0.mouseX;
 							}
@@ -123,7 +123,7 @@ public class WorldMapID {
 
 							Interpreter.Interpreter_intLocals[var8++] = var11;
 						} else if (var2[var10] instanceof String) {
-							var18 = (String)var2[var10];
+							var18 = (String) var2[var10];
 							if (var18.equals("event_opbase")) {
 								var18 = var0.targetName;
 							}
@@ -153,14 +153,14 @@ public class WorldMapID {
 							}
 
 							var20 = LoginScreenAnimation.method1835(var29, var3, var32);
-							switch(var20) {
-							case 0:
-								return;
-							case 1:
-							default:
-								break;
-							case 2:
-								throw new IllegalStateException();
+							switch (var20) {
+								case 0:
+									return;
+								case 1:
+								default:
+									break;
+								case 2:
+									throw new IllegalStateException();
 							}
 						} else if (var29 == ScriptOpcodes.ICONST) {
 							Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = var6[var17];
@@ -301,7 +301,7 @@ public class WorldMapID {
 									}
 
 									IterableNodeHashTable var33 = var3.switches[var6[var17]];
-									IntegerNode var30 = (IntegerNode)var33.get((long)Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize]);
+									IntegerNode var30 = (IntegerNode) var33.get((long) Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize]);
 									if (var30 != null) {
 										var17 += var30.integer;
 									}
@@ -362,8 +362,8 @@ public class WorldMapID {
 
 	@ObfuscatedName("jq")
 	@ObfuscatedSignature(
-		signature = "(II)Ljava/lang/String;",
-		garbageValue = "1853943165"
+			signature = "(II)Ljava/lang/String;",
+			garbageValue = "1853943165"
 	)
 	static final String method570(int var0) {
 		return var0 < 999999999 ? Integer.toString(var0) : "*";
@@ -371,8 +371,8 @@ public class WorldMapID {
 
 	@ObfuscatedName("kj")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1218090205"
+			signature = "(I)V",
+			garbageValue = "-1218090205"
 	)
 	@Export("FriendSystem_invalidateFriends")
 	static final void FriendSystem_invalidateFriends() {
@@ -390,8 +390,8 @@ public class WorldMapID {
 
 	@ObfuscatedName("ko")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "1990682337"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "1990682337"
 	)
 	@Export("clanKickUser")
 	static final void clanKickUser(String var0) {

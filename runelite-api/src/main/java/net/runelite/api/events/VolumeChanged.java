@@ -28,10 +28,8 @@ package net.runelite.api.events;
 import lombok.Value;
 
 @Value
-public class VolumeChanged implements Event
-{
-	public enum Type
-	{
+public class VolumeChanged implements Event {
+	public enum Type {
 		MUSIC,
 		EFFECTS,
 		AREA

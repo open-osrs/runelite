@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class NodeDeque {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lft;"
+			signature = "Lft;"
 	)
 	@Export("sentinel")
 	public Node sentinel;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lft;"
+			signature = "Lft;"
 	)
 	@Export("current")
 	Node current;
@@ -41,7 +41,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lft;)V"
+			signature = "(Lft;)V"
 	)
 	@Export("addFirst")
 	public void addFirst(Node var1) {
@@ -57,7 +57,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lft;)V"
+			signature = "(Lft;)V"
 	)
 	@Export("addLast")
 	public void addLast(Node var1) {
@@ -73,7 +73,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("removeLast")
 	public Node removeLast() {
@@ -88,7 +88,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("removeFirst")
 	public Node removeFirst() {
@@ -103,7 +103,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("last")
 	public Node last() {
@@ -119,7 +119,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("first")
 	public Node first() {
@@ -135,7 +135,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("previous")
 	public Node previous() {
@@ -151,7 +151,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "()Lft;"
+			signature = "()Lft;"
 	)
 	@Export("next")
 	public Node next() {
@@ -167,7 +167,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lft;Lft;)V"
+			signature = "(Lft;Lft;)V"
 	)
 	@Export("NodeDeque_addBefore")
 	public static void NodeDeque_addBefore(Node var0, Node var1) {

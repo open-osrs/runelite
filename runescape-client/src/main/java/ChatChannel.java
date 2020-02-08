@@ -9,20 +9,20 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ChatChannel {
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -899235317
+			intValue = -899235317
 	)
 	public static int field1289;
 	@ObfuscatedName("k")
 	public static String[] field1291;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "[Lbn;"
+			signature = "[Lbn;"
 	)
 	@Export("messages")
 	Message[] messages;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -2026360781
+			intValue = -2026360781
 	)
 	@Export("count")
 	int count;
@@ -33,8 +33,8 @@ public class ChatChannel {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;B)Lbn;",
-		garbageValue = "0"
+			signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;B)Lbn;",
+			garbageValue = "0"
 	)
 	@Export("addMessage")
 	Message addMessage(int var1, String var2, String var3, String var4) {
@@ -64,8 +64,8 @@ public class ChatChannel {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(II)Lbn;",
-		garbageValue = "187354939"
+			signature = "(II)Lbn;",
+			garbageValue = "187354939"
 	)
 	@Export("getMessage")
 	Message getMessage(int var1) {
@@ -74,8 +74,8 @@ public class ChatChannel {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "40"
+			signature = "(B)I",
+			garbageValue = "40"
 	)
 	@Export("size")
 	int size() {
@@ -84,8 +84,8 @@ public class ChatChannel {
 
 	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
-		signature = "(IIZI)V",
-		garbageValue = "-1620265194"
+			signature = "(IIZI)V",
+			garbageValue = "-1620265194"
 	)
 	static final void method2302(int var0, int var1, boolean var2) {
 		if (!var2 || var0 != SecureRandomCallable.field530 || Language.field2359 != var1) {
@@ -169,7 +169,7 @@ public class ChatChannel {
 				}
 			}
 
-			for (PendingSpawn var19 = (PendingSpawn)Client.pendingSpawns.last(); var19 != null; var19 = (PendingSpawn)Client.pendingSpawns.previous()) {
+			for (PendingSpawn var19 = (PendingSpawn) Client.pendingSpawns.last(); var19 != null; var19 = (PendingSpawn) Client.pendingSpawns.previous()) {
 				var19.x -= var5;
 				var19.y -= var6;
 				if (var19.x < 0 || var19.y < 0 || var19.x >= 104 || var19.y >= 104) {

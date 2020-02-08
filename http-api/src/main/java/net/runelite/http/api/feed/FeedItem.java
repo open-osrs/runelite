@@ -31,8 +31,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class FeedItem
-{
+public class FeedItem {
 	private final FeedItemType type;
 	private String avatar;
 	private final String title;

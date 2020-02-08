@@ -6,6 +6,7 @@ import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.Perspective;
@@ -19,8 +20,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
 @Singleton
-public class ShortcutOverlay extends Overlay
-{
+public class ShortcutOverlay extends Overlay {
 	private final Client client;
 	private final ShortcutPlugin plugin;
 	private final BufferedImage treeIcon;
@@ -28,8 +28,7 @@ public class ShortcutOverlay extends Overlay
 	private final BufferedImage miningIcon;
 
 	@Inject
-	ShortcutOverlay(final Client client, final ShortcutPlugin plugin, final SkillIconManager iconManager)
-	{
+	ShortcutOverlay(final Client client, final ShortcutPlugin plugin, final SkillIconManager iconManager) {
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -42,26 +41,18 @@ public class ShortcutOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		for (TileObject shortcut : plugin.getShortcut())
-		{
-			if (shortcut.getPlane() == client.getPlane())
-			{
+	public Dimension render(Graphics2D graphics) {
+		for (TileObject shortcut : plugin.getShortcut()) {
+			if (shortcut.getPlane() == client.getPlane()) {
 				Shape poly;
-				if ((shortcut instanceof GameObject))
-				{
+				if ((shortcut instanceof GameObject)) {
 					poly = ((GameObject) shortcut).getConvexHull();
-				}
-				else
-				{
+				} else {
 					poly = shortcut.getCanvasTilePoly();
 				}
-				if (poly != null)
-				{
+				if (poly != null) {
 					String name;
-					switch (shortcut.getId())
-					{
+					switch (shortcut.getId()) {
 						case 29736:
 							name = "Tree";
 							break;
@@ -76,32 +67,25 @@ public class ShortcutOverlay extends Overlay
 						default:
 							name = "null";
 					}
-					if (plugin.isHighlightShortcuts())
-					{
-						if (name.equals("Tree"))
-						{
+					if (plugin.isHighlightShortcuts()) {
+						if (name.equals("Tree")) {
 							Point canvasLoc = Perspective.getCanvasImageLocation(client, shortcut.getLocalLocation(),
-								treeIcon, 150);
-							if (canvasLoc != null)
-							{
+									treeIcon, 150);
+							if (canvasLoc != null) {
 								graphics.drawImage(treeIcon, canvasLoc.getX(), canvasLoc.getY(), null);
 							}
 						}
-						if (name.equals("Rocks"))
-						{
+						if (name.equals("Rocks")) {
 							Point canvasLoc = Perspective.getCanvasImageLocation(client, shortcut.getLocalLocation(),
-								miningIcon, 150);
-							if (canvasLoc != null)
-							{
+									miningIcon, 150);
+							if (canvasLoc != null) {
 								graphics.drawImage(miningIcon, canvasLoc.getX(), canvasLoc.getY(), null);
 							}
 						}
-						if (name.equals("Boulder"))
-						{
+						if (name.equals("Boulder")) {
 							Point canvasLoc = Perspective.getCanvasImageLocation(client, shortcut.getLocalLocation(),
-								strengthIcon, 150);
-							if (canvasLoc != null)
-							{
+									strengthIcon, 150);
+							if (canvasLoc != null) {
 								graphics.drawImage(strengthIcon, canvasLoc.getX(), canvasLoc.getY(), null);
 							}
 						}

@@ -104,8 +104,8 @@ public class Huffman {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "([BII[BIS)I",
-		garbageValue = "4203"
+			signature = "([BII[BIS)I",
+			garbageValue = "4203"
 	)
 	@Export("compress")
 	int compress(byte[] var1, int var2, int var3, byte[] var4, int var5) {
@@ -125,23 +125,23 @@ public class Huffman {
 			var6 &= -var12 >> 31;
 			int var13 = (var10 + var12 - 1 >> 3) + var11;
 			var12 += 24;
-			var4[var11] = (byte)(var6 |= var9 >>> var12);
+			var4[var11] = (byte) (var6 |= var9 >>> var12);
 			if (var11 < var13) {
 				++var11;
 				var12 -= 8;
-				var4[var11] = (byte)(var6 = var9 >>> var12);
+				var4[var11] = (byte) (var6 = var9 >>> var12);
 				if (var11 < var13) {
 					++var11;
 					var12 -= 8;
-					var4[var11] = (byte)(var6 = var9 >>> var12);
+					var4[var11] = (byte) (var6 = var9 >>> var12);
 					if (var11 < var13) {
 						++var11;
 						var12 -= 8;
-						var4[var11] = (byte)(var6 = var9 >>> var12);
+						var4[var11] = (byte) (var6 = var9 >>> var12);
 						if (var11 < var13) {
 							++var11;
 							var12 -= 8;
-							var4[var11] = (byte)(var6 = var9 << -var12);
+							var4[var11] = (byte) (var6 = var9 << -var12);
 						}
 					}
 				}
@@ -155,8 +155,8 @@ public class Huffman {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "([BI[BIII)I",
-		garbageValue = "275908175"
+			signature = "([BI[BIII)I",
+			garbageValue = "275908175"
 	)
 	@Export("decompress")
 	int decompress(byte[] var1, int var2, byte[] var3, int var4, int var5) {
@@ -177,7 +177,7 @@ public class Huffman {
 
 				int var9;
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}
@@ -192,7 +192,7 @@ public class Huffman {
 				}
 
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}
@@ -207,7 +207,7 @@ public class Huffman {
 				}
 
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}
@@ -222,7 +222,7 @@ public class Huffman {
 				}
 
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}
@@ -237,7 +237,7 @@ public class Huffman {
 				}
 
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}
@@ -252,7 +252,7 @@ public class Huffman {
 				}
 
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}
@@ -267,7 +267,7 @@ public class Huffman {
 				}
 
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}
@@ -282,7 +282,7 @@ public class Huffman {
 				}
 
 				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
+					var3[var4++] = (byte) (~var9);
 					if (var4 >= var5) {
 						break;
 					}

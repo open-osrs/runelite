@@ -27,9 +27,11 @@
 package net.runelite.client.plugins.interfacestyles;
 
 import com.google.inject.Provides;
+
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -54,15 +56,14 @@ import net.runelite.client.util.ImageUtil;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Interface Styles",
-	description = "Change the interface style to the 2005/2010 interface",
-	tags = {"2005", "2010", "skin", "theme", "ui"},
-	enabledByDefault = false,
-	type = PluginType.MISCELLANEOUS
+		name = "Interface Styles",
+		description = "Change the interface style to the 2005/2010 interface",
+		tags = {"2005", "2010", "skin", "theme", "ui"},
+		enabledByDefault = false,
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class InterfaceStylesPlugin extends Plugin
-{
+public class InterfaceStylesPlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -83,21 +84,18 @@ public class InterfaceStylesPlugin extends Plugin
 	private boolean rsCrossSprites;
 
 	@Provides
-	InterfaceStylesConfig provideConfig(ConfigManager configManager)
-	{
+	InterfaceStylesConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(InterfaceStylesConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 		clientThread.invoke(this::updateAllOverrides);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		clientThread.invoke(() ->
 		{
 			restoreWidgetDimensions();
@@ -108,26 +106,21 @@ public class InterfaceStylesPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged config)
-	{
-		if (config.getGroup().equals("interfaceStyles"))
-		{
+	private void onConfigChanged(ConfigChanged config) {
+		if (config.getGroup().equals("interfaceStyles")) {
 			updateConfig();
 			clientThread.invoke(this::updateAllOverrides);
 		}
 	}
 
 	@Subscribe
-	private void onWidgetPositioned(WidgetPositioned widgetPositioned)
-	{
+	private void onWidgetPositioned(WidgetPositioned widgetPositioned) {
 		adjustWidgetDimensions();
 	}
 
 	@Subscribe
-	private void onPostHealthBar(PostHealthBar postHealthBar)
-	{
-		if (!this.hdHealthBars)
-		{
+	private void onPostHealthBar(PostHealthBar postHealthBar) {
+		if (!this.hdHealthBars) {
 			return;
 		}
 
@@ -135,18 +128,15 @@ public class InterfaceStylesPlugin extends Plugin
 		HealthbarOverride override = HealthbarOverride.get(healthBar.getHealthBarFrontSpriteId());
 
 		// Check if this is the health bar we are replacing
-		if (override != null)
-		{
+		if (override != null) {
 			// Increase padding to show some more green at very low hp percentages
 			healthBar.setPadding(override.getPadding());
 		}
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (gameStateChanged.getGameState() != GameState.LOGIN_SCREEN)
-		{
+	private void onGameStateChanged(GameStateChanged gameStateChanged) {
+		if (gameStateChanged.getGameState() != GameState.LOGIN_SCREEN) {
 			return;
 		}
 
@@ -158,8 +148,7 @@ public class InterfaceStylesPlugin extends Plugin
 		overrideCrossSprites();
 	}
 
-	private void updateAllOverrides()
-	{
+	private void updateAllOverrides() {
 		removeGameframe();
 		overrideSprites();
 		overrideWidgetSprites();
@@ -170,32 +159,23 @@ public class InterfaceStylesPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onBeforeMenuRender(BeforeMenuRender event)
-	{
-		if (this.hdMenu)
-		{
+	private void onBeforeMenuRender(BeforeMenuRender event) {
+		if (this.hdMenu) {
 			client.draw2010Menu();
 			event.consume();
 		}
 	}
 
-	private void overrideSprites()
-	{
-		for (SpriteOverride spriteOverride : SpriteOverride.values())
-		{
-			for (Skin skin : spriteOverride.getSkin())
-			{
-				if (skin == this.skin)
-				{
+	private void overrideSprites() {
+		for (SpriteOverride spriteOverride : SpriteOverride.values()) {
+			for (Skin skin : spriteOverride.getSkin()) {
+				if (skin == this.skin) {
 					String file = this.skin.toString() + "/" + spriteOverride.getSpriteID() + ".png";
 					Sprite spritePixels = getFileSpritePixels(file);
 
-					if (spriteOverride.getSpriteID() == SpriteID.COMPASS_TEXTURE)
-					{
+					if (spriteOverride.getSpriteID() == SpriteID.COMPASS_TEXTURE) {
 						client.setCompass(spritePixels);
-					}
-					else
-					{
+					} else {
 						client.getSpriteOverrides().put(spriteOverride.getSpriteID(), spritePixels);
 					}
 				}
@@ -203,29 +183,22 @@ public class InterfaceStylesPlugin extends Plugin
 		}
 	}
 
-	private void restoreSprites()
-	{
+	private void restoreSprites() {
 		client.getWidgetSpriteCache().reset();
 
-		for (SpriteOverride spriteOverride : SpriteOverride.values())
-		{
+		for (SpriteOverride spriteOverride : SpriteOverride.values()) {
 			client.getSpriteOverrides().remove(spriteOverride.getSpriteID());
 		}
 	}
 
-	private void overrideWidgetSprites()
-	{
-		for (WidgetOverride widgetOverride : WidgetOverride.values())
-		{
-			if (widgetOverride.getSkin() == this.skin)
-			{
+	private void overrideWidgetSprites() {
+		for (WidgetOverride widgetOverride : WidgetOverride.values()) {
+			if (widgetOverride.getSkin() == this.skin) {
 				String file = this.skin.toString() + "/widget/" + widgetOverride.getName() + ".png";
 				Sprite spritePixels = getFileSpritePixels(file);
 
-				if (spritePixels != null)
-				{
-					for (WidgetInfo widgetInfo : widgetOverride.getWidgetInfo())
-					{
+				if (spritePixels != null) {
+					for (WidgetInfo widgetInfo : widgetOverride.getWidgetInfo()) {
 						client.getWidgetSpriteOverrides().put(widgetInfo.getPackedId(), spritePixels);
 					}
 				}
@@ -233,174 +206,137 @@ public class InterfaceStylesPlugin extends Plugin
 		}
 	}
 
-	private void restoreWidgetSprites()
-	{
-		for (WidgetOverride widgetOverride : WidgetOverride.values())
-		{
-			for (WidgetInfo widgetInfo : widgetOverride.getWidgetInfo())
-			{
+	private void restoreWidgetSprites() {
+		for (WidgetOverride widgetOverride : WidgetOverride.values()) {
+			for (WidgetInfo widgetInfo : widgetOverride.getWidgetInfo()) {
 				client.getWidgetSpriteOverrides().remove(widgetInfo.getPackedId());
 			}
 		}
 	}
 
-	private Sprite getFileSpritePixels(String file)
-	{
-		try
-		{
+	private Sprite getFileSpritePixels(String file) {
+		try {
 			log.debug("Loading: {}", file);
 			BufferedImage image = ImageUtil.getResourceStreamFromClass(this.getClass(), file);
 			return ImageUtil.getImageSprite(image, client);
-		}
-		catch (RuntimeException ex)
-		{
+		} catch (RuntimeException ex) {
 			log.debug("Unable to load image: ", ex);
 		}
 
 		return null;
 	}
 
-	private void adjustWidgetDimensions()
-	{
-		for (WidgetOffset widgetOffset : WidgetOffset.values())
-		{
-			if (widgetOffset.getSkin() != this.skin)
-			{
+	private void adjustWidgetDimensions() {
+		for (WidgetOffset widgetOffset : WidgetOffset.values()) {
+			if (widgetOffset.getSkin() != this.skin) {
 				continue;
 			}
 
 			Widget widget = client.getWidget(widgetOffset.getWidgetInfo());
 
-			if (widget != null)
-			{
-				if (widgetOffset.getOffsetX() != null)
-				{
+			if (widget != null) {
+				if (widgetOffset.getOffsetX() != null) {
 					widget.setRelativeX(widgetOffset.getOffsetX());
 				}
 
-				if (widgetOffset.getOffsetY() != null)
-				{
+				if (widgetOffset.getOffsetY() != null) {
 					widget.setRelativeY(widgetOffset.getOffsetY());
 				}
 
-				if (widgetOffset.getWidth() != null)
-				{
+				if (widgetOffset.getWidth() != null) {
 					widget.setWidth(widgetOffset.getWidth());
 				}
 
-				if (widgetOffset.getHeight() != null)
-				{
+				if (widgetOffset.getHeight() != null) {
 					widget.setHeight(widgetOffset.getHeight());
 				}
 			}
 		}
 	}
 
-	private void overrideHealthBars()
-	{
-		if (this.hdHealthBars)
-		{
+	private void overrideHealthBars() {
+		if (this.hdHealthBars) {
 			spriteManager.addSpriteOverrides(HealthbarOverride.values());
 			// Reset health bar caches to apply the override
 			clientThread.invokeLater(client::resetHealthBarCaches);
-		}
-		else
-		{
+		} else {
 			restoreHealthBars();
 		}
 	}
 
-	private void restoreHealthBars()
-	{
+	private void restoreHealthBars() {
 		spriteManager.removeSpriteOverrides(HealthbarOverride.values());
 		clientThread.invokeLater(client::resetHealthBarCaches);
 	}
 
-	private void overrideCrossSprites()
-	{
-		if (this.rsCrossSprites)
-		{
+	private void overrideCrossSprites() {
+		if (this.rsCrossSprites) {
 			// If we've already replaced them,
 			// we don't need to replace them again
-			if (defaultCrossSprites != null)
-			{
+			if (defaultCrossSprites != null) {
 				return;
 			}
 
 			Sprite[] crossSprites = client.getCrossSprites();
 
-			if (crossSprites == null)
-			{
+			if (crossSprites == null) {
 				return;
 			}
 
 			defaultCrossSprites = new Sprite[crossSprites.length];
 			System.arraycopy(crossSprites, 0, defaultCrossSprites, 0, defaultCrossSprites.length);
 
-			for (int i = 0; i < crossSprites.length; i++)
-			{
+			for (int i = 0; i < crossSprites.length; i++) {
 				Sprite newSprite = getFileSpritePixels("rs3/cross_sprites/" + i + ".png");
 
-				if (newSprite == null)
-				{
+				if (newSprite == null) {
 					continue;
 				}
 
 				crossSprites[i] = newSprite;
 			}
-		}
-		else
-		{
+		} else {
 			restoreCrossSprites();
 		}
 	}
 
-	private void restoreCrossSprites()
-	{
-		if (defaultCrossSprites == null)
-		{
+	private void restoreCrossSprites() {
+		if (defaultCrossSprites == null) {
 			return;
 		}
 
 		Sprite[] crossSprites = client.getCrossSprites();
 
-		if (crossSprites != null && defaultCrossSprites.length == crossSprites.length)
-		{
+		if (crossSprites != null && defaultCrossSprites.length == crossSprites.length) {
 			System.arraycopy(defaultCrossSprites, 0, crossSprites, 0, defaultCrossSprites.length);
 		}
 
 		defaultCrossSprites = null;
 	}
 
-	private void restoreWidgetDimensions()
-	{
-		for (WidgetOffset widgetOffset : WidgetOffset.values())
-		{
+	private void restoreWidgetDimensions() {
+		for (WidgetOffset widgetOffset : WidgetOffset.values()) {
 			Widget widget = client.getWidget(widgetOffset.getWidgetInfo());
 
-			if (widget != null)
-			{
+			if (widget != null) {
 				widget.revalidate();
 			}
 		}
 	}
 
-	private void removeGameframe()
-	{
+	private void removeGameframe() {
 		restoreSprites();
 		restoreWidgetSprites();
 
 		BufferedImage compassImage = spriteManager.getSprite(SpriteID.COMPASS_TEXTURE, 0);
 
-		if (compassImage != null)
-		{
+		if (compassImage != null) {
 			Sprite compass = ImageUtil.getImageSprite(compassImage, client);
 			client.setCompass(compass);
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.skin = config.skin();
 		this.hdHealthBars = config.hdHealthBars();
 		this.hdMenu = config.hdMenu();

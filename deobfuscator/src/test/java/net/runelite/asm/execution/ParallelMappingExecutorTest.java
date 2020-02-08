@@ -26,6 +26,7 @@ package net.runelite.asm.execution;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.ClassUtil;
@@ -35,11 +36,9 @@ import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ParallelMappingExecutorTest
-{
+public class ParallelMappingExecutorTest {
 	@Test
-	public void testTableswitch() throws IOException
-	{
+	public void testTableswitch() throws IOException {
 		InputStream in = ParallelMappingExecutorTest.class.getResourceAsStream("tests/TableSwitch.class");
 		Assert.assertNotNull(in);
 

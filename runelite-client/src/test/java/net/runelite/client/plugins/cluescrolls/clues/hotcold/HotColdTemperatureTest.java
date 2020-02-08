@@ -27,49 +27,44 @@ package net.runelite.client.plugins.cluescrolls.clues.hotcold;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
 import org.junit.Test;
 
-public class HotColdTemperatureTest
-{
+public class HotColdTemperatureTest {
 	private static final String[] VALID_MESSAGES = {
-		"The device is warm, and warmer than last time.",
-		"The device is visibly shaking and burns to the touch. This must be the spot.",
-		"The device is cold.",
-		"The device is ice cold.",
-		"The device is very cold.",
-		"The device is hot.",
-		"The device is incredibly hot.",
+			"The device is warm, and warmer than last time.",
+			"The device is visibly shaking and burns to the touch. This must be the spot.",
+			"The device is cold.",
+			"The device is ice cold.",
+			"The device is very cold.",
+			"The device is hot.",
+			"The device is incredibly hot.",
 	};
 	private static final String[] INVALID_MESSAGES = {
-		"The device is an octopus, and is wetter than last time.",
-		"foobar",
-		"a q p w",
-		"My feet are cold, I should put them in some lukewarm water, or run hot water over them.",
+			"The device is an octopus, and is wetter than last time.",
+			"foobar",
+			"a q p w",
+			"My feet are cold, I should put them in some lukewarm water, or run hot water over them.",
 	};
 
 	@Test
-	public void testValidTemperatureMessages()
-	{
-		for (final String message : VALID_MESSAGES)
-		{
+	public void testValidTemperatureMessages() {
+		for (final String message : VALID_MESSAGES) {
 			assertNotNull(message, HotColdTemperature.getFromTemperatureSet(HotColdTemperature.BEGINNER_HOT_COLD_TEMPERATURES, message));
 			assertNotNull(message, HotColdTemperature.getFromTemperatureSet(HotColdTemperature.MASTER_HOT_COLD_TEMPERATURES, message));
 		}
 	}
 
 	@Test
-	public void testInvalidTemperatureMessages()
-	{
-		for (final String message : INVALID_MESSAGES)
-		{
+	public void testInvalidTemperatureMessages() {
+		for (final String message : INVALID_MESSAGES) {
 			assertNull(message, HotColdTemperature.getFromTemperatureSet(HotColdTemperature.BEGINNER_HOT_COLD_TEMPERATURES, message));
 			assertNull(message, HotColdTemperature.getFromTemperatureSet(HotColdTemperature.MASTER_HOT_COLD_TEMPERATURES, message));
 		}
 	}
 
 	@Test
-	public void testAmbiguousTemperatureMessages()
-	{
+	public void testAmbiguousTemperatureMessages() {
 		assertEquals(HotColdTemperature.ICE_COLD, HotColdTemperature.getFromTemperatureSet(HotColdTemperature.MASTER_HOT_COLD_TEMPERATURES, "The device is ice cold."));
 		assertEquals(HotColdTemperature.VERY_COLD, HotColdTemperature.getFromTemperatureSet(HotColdTemperature.MASTER_HOT_COLD_TEMPERATURES, "The device is very cold."));
 		assertEquals(HotColdTemperature.VERY_HOT, HotColdTemperature.getFromTemperatureSet(HotColdTemperature.MASTER_HOT_COLD_TEMPERATURES, "The device is very hot."));

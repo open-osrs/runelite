@@ -32,8 +32,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Getter
-public enum IconID
-{
+public enum IconID {
 	PLAYER_MODERATOR(0),
 	JAGEX_MODERATOR(1),
 	IRONMAN(2),
@@ -51,8 +50,7 @@ public enum IconID
 	private final int index;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "<img=" + String.valueOf(this.index) + ">";
 	}
 }

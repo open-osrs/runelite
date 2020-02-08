@@ -26,11 +26,11 @@ package net.runelite.cache.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum ScriptVarType
-{
+public enum ScriptVarType {
 	INTEGER('i', "integer"),
 	BOOLEAN('1', "boolean"),
 	SEQ('A', "seq"),
@@ -74,10 +74,8 @@ public enum ScriptVarType
 
 	private static final Map<Character, ScriptVarType> keyToTypeMap = new HashMap<>();
 
-	static
-	{
-		for (ScriptVarType type : values())
-		{
+	static {
+		for (ScriptVarType type : values()) {
 			keyToTypeMap.put(type.keyChar, type);
 		}
 	}
@@ -91,8 +89,7 @@ public enum ScriptVarType
 	 */
 	private final String fullName;
 
-	public static ScriptVarType forCharKey(char key)
-	{
+	public static ScriptVarType forCharKey(char key) {
 		return keyToTypeMap.get(key);
 	}
 

@@ -37,8 +37,7 @@ import net.runelite.asm.attributes.code.instructions.PutStatic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PacketLengthFinder
-{
+public class PacketLengthFinder {
 	private static final Logger logger = LoggerFactory.getLogger(PacketLengthFinder.class);
 
 	private final ClassGroup group;
@@ -50,43 +49,34 @@ public class PacketLengthFinder
 	private IALoad load;
 	private PutStatic store;
 
-	public PacketLengthFinder(ClassGroup group, PacketTypeFinder packetType)
-	{
+	public PacketLengthFinder(ClassGroup group, PacketTypeFinder packetType) {
 		this.group = group;
 		this.packetType = packetType;
 	}
 
-	public Field getPacketLength()
-	{
+	public Field getPacketLength() {
 		return packetLength;
 	}
 
-	public GetStatic getGetArray()
-	{
+	public GetStatic getGetArray() {
 		return getArray;
 	}
 
-	public GetStatic getGetType()
-	{
+	public GetStatic getGetType() {
 		return getType;
 	}
 
-	public IALoad getLoad()
-	{
+	public IALoad getLoad() {
 		return load;
 	}
 
-	public PutStatic getStore()
-	{
+	public PutStatic getStore() {
 		return store;
 	}
 
-	public void find()
-	{
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method method : cf.getMethods())
-			{
+	public void find() {
+		for (ClassFile cf : group.getClasses()) {
+			for (Method method : cf.getMethods()) {
 				run(method.getCode());
 			}
 		}
@@ -98,47 +88,39 @@ public class PacketLengthFinder
 	//   getstatic             Client/packetType I
 	//   iaload
 	//   putstatic             Client/packetLength I
-	private void run(Code code)
-	{
-		if (code == null)
-		{
+	private void run(Code code) {
+		if (code == null) {
 			return;
 		}
 
 		Instructions instructions = code.getInstructions();
 		Field type = packetType.getPacketType();
 
-		for (int i = 0; i < instructions.getInstructions().size() - 3; ++i)
-		{
+		for (int i = 0; i < instructions.getInstructions().size() - 3; ++i) {
 			Instruction i1 = instructions.getInstructions().get(i),
-				i2 = instructions.getInstructions().get(i + 1),
-				i3 = instructions.getInstructions().get(i + 2),
-				i4 = instructions.getInstructions().get(i + 3);
+					i2 = instructions.getInstructions().get(i + 1),
+					i3 = instructions.getInstructions().get(i + 2),
+					i4 = instructions.getInstructions().get(i + 3);
 
-			if (!(i1 instanceof GetStatic))
-			{
+			if (!(i1 instanceof GetStatic)) {
 				continue;
 			}
 
-			if (!(i2 instanceof GetStatic))
-			{
+			if (!(i2 instanceof GetStatic)) {
 				continue;
 			}
 
 			GetStatic gs = (GetStatic) i2;
 
-			if (gs.getMyField() != type)
-			{
+			if (gs.getMyField() != type) {
 				continue;
 			}
 
-			if (!(i3 instanceof IALoad))
-			{
+			if (!(i3 instanceof IALoad)) {
 				continue;
 			}
 
-			if (!(i4 instanceof PutStatic))
-			{
+			if (!(i4 instanceof PutStatic)) {
 				continue;
 			}
 

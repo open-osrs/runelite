@@ -31,10 +31,8 @@ import net.runelite.client.plugins.zulrah.phase.StandLocation;
 import net.runelite.client.plugins.zulrah.phase.ZulrahLocation;
 import net.runelite.client.plugins.zulrah.phase.ZulrahType;
 
-public class ZulrahPatternA extends ZulrahPattern
-{
-	public ZulrahPatternA()
-	{
+public class ZulrahPatternA extends ZulrahPattern {
+	public ZulrahPatternA() {
 		add(ZulrahLocation.NORTH, ZulrahType.RANGE, StandLocation.TOP_EAST, null);
 		add(ZulrahLocation.NORTH, ZulrahType.MELEE, StandLocation.TOP_EAST, null);
 		add(ZulrahLocation.NORTH, ZulrahType.MAGIC, StandLocation.PILLAR_WEST_INSIDE, Prayer.PROTECT_FROM_MAGIC);
@@ -48,8 +46,7 @@ public class ZulrahPatternA extends ZulrahPattern
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Pattern A";
 	}
 }

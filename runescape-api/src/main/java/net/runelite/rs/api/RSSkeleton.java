@@ -26,8 +26,7 @@ package net.runelite.rs.api;
 
 import net.runelite.mapping.Import;
 
-public interface RSSkeleton extends RSNode
-{
+public interface RSSkeleton extends RSNode {
 	@Import("count")
 	int getCount();
 

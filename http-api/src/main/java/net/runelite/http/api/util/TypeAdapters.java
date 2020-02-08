@@ -29,8 +29,10 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 import java.time.Instant;
+
 import net.runelite.http.api.item.ItemEquipmentStats;
 import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.item.ItemStats;
@@ -41,30 +43,24 @@ import net.runelite.http.api.item.ItemStats;
  * Kinda funny actually, cause the first time probably matters the most, especially
  * for jsons that only get deserialized once.
  */
-public class TypeAdapters
-{
-	public static final TypeAdapter<ItemStats> ITEMSTATS = new TypeAdapter<ItemStats>()
-	{
+public class TypeAdapters {
+	public static final TypeAdapter<ItemStats> ITEMSTATS = new TypeAdapter<ItemStats>() {
 		@Deprecated
 		@Override
-		public void write(JsonWriter out, ItemStats value)
-		{
+		public void write(JsonWriter out, ItemStats value) {
 			throw new UnsupportedOperationException("Not supported");
 		}
 
 		@Override
-		public ItemStats read(JsonReader in) throws IOException
-		{
+		public ItemStats read(JsonReader in) throws IOException {
 			in.beginObject();
 
 			boolean quest = false;
 			boolean equip = false;
 			double weight = 0;
 			ItemEquipmentStats stats = null;
-			while (in.peek() != JsonToken.END_OBJECT)
-			{
-				switch (in.nextName())
-				{
+			while (in.peek() != JsonToken.END_OBJECT) {
+				switch (in.nextName()) {
 					case "quest":
 						quest = in.nextBoolean();
 						break;
@@ -85,27 +81,22 @@ public class TypeAdapters
 		}
 	};
 
-	public static final TypeAdapter<ItemEquipmentStats> EQUIPMENTSTATS = new TypeAdapter<ItemEquipmentStats>()
-	{
+	public static final TypeAdapter<ItemEquipmentStats> EQUIPMENTSTATS = new TypeAdapter<ItemEquipmentStats>() {
 		@Deprecated
 		@Override
-		public void write(JsonWriter out, ItemEquipmentStats value)
-		{
+		public void write(JsonWriter out, ItemEquipmentStats value) {
 			throw new UnsupportedOperationException("Not supported");
 		}
 
 		@Override
-		public ItemEquipmentStats read(JsonReader in) throws IOException
-		{
+		public ItemEquipmentStats read(JsonReader in) throws IOException {
 			ItemEquipmentStats.Builder builder = ItemEquipmentStats.builder();
 
 			in.beginObject();
-			while (in.peek() != JsonToken.END_OBJECT)
-			{
+			while (in.peek() != JsonToken.END_OBJECT) {
 				String name = in.nextName();
 				int val = in.nextInt();
-				switch (name)
-				{
+				switch (name) {
 					case "slot":
 						builder.slot(val);
 						break;
@@ -162,17 +153,14 @@ public class TypeAdapters
 		}
 	};
 
-	public static final TypeAdapter<ItemPrice> ITEMPRICE = new TypeAdapter<ItemPrice>()
-	{
+	public static final TypeAdapter<ItemPrice> ITEMPRICE = new TypeAdapter<ItemPrice>() {
 		@Override
-		public void write(JsonWriter out, ItemPrice value)
-		{
+		public void write(JsonWriter out, ItemPrice value) {
 			throw new UnsupportedOperationException("Not supported");
 		}
 
 		@Override
-		public ItemPrice read(JsonReader in) throws IOException
-		{
+		public ItemPrice read(JsonReader in) throws IOException {
 			/*
 			 * The ItemPrice json hosted by runelite is 'perfect'
 			 * by that I mean every field always exists, even with value 0.

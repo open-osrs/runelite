@@ -29,8 +29,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class ChatboxInput extends ChatInput
-{
+public abstract class ChatboxInput extends ChatInput {
 	private final String value;
 	private final int chatType;
 }

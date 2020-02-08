@@ -28,6 +28,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
 import net.runelite.cache.fs.Store;
 import net.runelite.cache.region.Region;
 import net.runelite.cache.region.RegionLoader;
@@ -38,8 +39,7 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MapImageDumperTest
-{
+public class MapImageDumperTest {
 	private static final Logger logger = LoggerFactory.getLogger(MapImageDumperTest.class);
 
 	@Rule
@@ -47,20 +47,17 @@ public class MapImageDumperTest
 
 	@Test
 	@Ignore
-	public void dumpMap() throws IOException
-	{
+	public void dumpMap() throws IOException {
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = folder.newFolder();
 
-		try (Store store = new Store(base))
-		{
+		try (Store store = new Store(base)) {
 			store.load();
 
 			MapImageDumper dumper = new MapImageDumper(store);
 			dumper.load();
 
-			for (int i = 0; i < Region.Z; ++i)
-			{
+			for (int i = 0; i < Region.Z; ++i) {
 				BufferedImage image = dumper.drawMap(i);
 
 				File imageFile = new File(outDir, "img-" + i + ".png");
@@ -73,13 +70,11 @@ public class MapImageDumperTest
 
 	@Test
 	@Ignore
-	public void dumpRegions() throws Exception
-	{
+	public void dumpRegions() throws Exception {
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = folder.newFolder();
 
-		try (Store store = new Store(base))
-		{
+		try (Store store = new Store(base)) {
 			store.load();
 
 			RegionLoader regionLoader = new RegionLoader(store);
@@ -89,8 +84,7 @@ public class MapImageDumperTest
 			dumper.load();
 
 			int z = 0;
-			for (Region region : regionLoader.getRegions())
-			{
+			for (Region region : regionLoader.getRegions()) {
 				File imageFile = new File(outDir, "img-" + z + "-" + region.getRegionID() + ".png");
 				BufferedImage image = dumper.drawRegion(region, z);
 				ImageIO.write(image, "png", imageFile);

@@ -27,12 +27,10 @@ package net.runelite.api.events;
 /**
  * An event posted when the canvas size might have changed.
  */
-public class CanvasSizeChanged implements Event
-{
+public class CanvasSizeChanged implements Event {
 	public static final CanvasSizeChanged INSTANCE = new CanvasSizeChanged();
 
-	private CanvasSizeChanged()
-	{
+	private CanvasSizeChanged() {
 		// noop
 	}
 }

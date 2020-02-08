@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -44,8 +45,7 @@ import net.runelite.client.ui.overlay.components.LayoutableRenderableEntity;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
 @Setter
-public class TableComponent implements LayoutableRenderableEntity
-{
+public class TableComponent implements LayoutableRenderableEntity {
 	private static final TableElement EMPTY_ELEMENT = TableElement.builder().build();
 
 	@Getter
@@ -63,8 +63,7 @@ public class TableComponent implements LayoutableRenderableEntity
 	private Dimension preferredSize = new Dimension(ComponentConstants.STANDARD_WIDTH, 0);
 
 	@Override
-	public Dimension render(final Graphics2D graphics)
-	{
+	public Dimension render(final Graphics2D graphics) {
 		final FontMetrics metrics = graphics.getFontMetrics();
 		final TableRow colRow = TableRow.builder().elements(this.columns).build();
 		final int[] columnWidths = getColumnWidths(metrics, colRow);
@@ -74,8 +73,7 @@ public class TableComponent implements LayoutableRenderableEntity
 		// Display the columns first
 		int height = displayRow(graphics, colRow, 0, columnWidths, metrics);
 
-		for (TableRow row : this.rows)
-		{
+		for (TableRow row : this.rows) {
 			height = displayRow(graphics, row, height, columnWidths, metrics);
 		}
 
@@ -88,20 +86,17 @@ public class TableComponent implements LayoutableRenderableEntity
 		return dimension;
 	}
 
-	private int displayRow(Graphics2D graphics, TableRow row, int height, int[] columnWidths, FontMetrics metrics)
-	{
+	private int displayRow(Graphics2D graphics, TableRow row, int height, int[] columnWidths, FontMetrics metrics) {
 		int x = 0;
 		int startingRowHeight = height;
 
 		final List<TableElement> elements = row.getElements();
-		for (int i = 0; i < elements.size(); i++)
-		{
+		for (int i = 0; i < elements.size(); i++) {
 			int y = startingRowHeight;
 			final TableElement cell = elements.get(i);
 
 			final String content = cell.getContent();
-			if (content == null)
-			{
+			if (content == null) {
 				continue;
 			}
 
@@ -109,8 +104,7 @@ public class TableComponent implements LayoutableRenderableEntity
 			final TableAlignment alignment = getCellAlignment(row, i);
 			final Color color = getCellColor(row, i);
 
-			for (String line : lines)
-			{
+			for (String line : lines) {
 				final int alignmentOffset = getAlignedPosition(line, alignment, columnWidths[i], metrics);
 				final TextComponent leftLineComponent = new TextComponent();
 				y += metrics.getHeight();
@@ -134,11 +128,9 @@ public class TableComponent implements LayoutableRenderableEntity
 	 * @param metrics
 	 * @return int[] of column width
 	 */
-	private int[] getColumnWidths(final FontMetrics metrics, final TableRow columnRow)
-	{
+	private int[] getColumnWidths(final FontMetrics metrics, final TableRow columnRow) {
 		int numCols = columns.size();
-		for (final TableRow r : rows)
-		{
+		for (final TableRow r : rows) {
 			numCols = Math.max(r.getElements().size(), numCols);
 		}
 
@@ -151,28 +143,23 @@ public class TableComponent implements LayoutableRenderableEntity
 		final List<TableRow> rows = new ArrayList<>(this.rows);
 		rows.add(columnRow);
 
-		for (final TableRow r : rows)
-		{
+		for (final TableRow r : rows) {
 			final List<TableElement> elements = r.getElements();
-			for (int col = 0; col < elements.size(); col++)
-			{
+			for (int col = 0; col < elements.size(); col++) {
 				final TableElement ele = elements.get(col);
 				final String cell = ele.getContent();
-				if (cell == null)
-				{
+				if (cell == null) {
 					continue;
 				}
 
 				final int cellWidth = getTextWidth(metrics, cell);
 
 				maxtextw[col] = Math.max(maxtextw[col], cellWidth);
-				for (String word : cell.split(" "))
-				{
+				for (String word : cell.split(" ")) {
 					maxwordw[col] = Math.max(maxwordw[col], getTextWidth(metrics, word));
 				}
 
-				if (maxtextw[col] == cellWidth)
-				{
+				if (maxtextw[col] == cellWidth) {
 					wrap[col] = cell.contains(" ");
 				}
 			}
@@ -183,30 +170,23 @@ public class TableComponent implements LayoutableRenderableEntity
 		int nflex = 0;
 
 		// Determine whether columns should be flexible and assign width of non-flexible cells
-		for (int col = 0; col < numCols; col++)
-		{
+		for (int col = 0; col < numCols; col++) {
 			// This limit can be adjusted as needed
 			final double maxNonFlexLimit = 1.5 * avg;
 
 			flex[col] = maxtextw[col] > maxNonFlexLimit;
-			if (flex[col])
-			{
+			if (flex[col]) {
 				nflex++;
-			}
-			else
-			{
+			} else {
 				finalcolw[col] = maxtextw[col];
 				left -= finalcolw[col];
 			}
 		}
 
 		// If there is not enough space, make columns that could be word-wrapped flexible too
-		if (left < nflex * avg)
-		{
-			for (int col = 0; col < numCols; col++)
-			{
-				if (!flex[col] && wrap[col])
-				{
+		if (left < nflex * avg) {
+			for (int col = 0; col < numCols; col++) {
+				if (!flex[col] && wrap[col]) {
 					left += finalcolw[col];
 					finalcolw[col] = 0;
 					flex[col] = true;
@@ -218,10 +198,8 @@ public class TableComponent implements LayoutableRenderableEntity
 		// Calculate weights for flexible columns. The max width is capped at the table width to
 		// treat columns that have to be wrapped more or less equal
 		int tot = 0;
-		for (int col = 0; col < numCols; col++)
-		{
-			if (flex[col])
-			{
+		for (int col = 0; col < numCols; col++) {
+			if (flex[col]) {
 				maxtextw[col] = Math.min(maxtextw[col], preferredSize.width);
 				tot += maxtextw[col];
 			}
@@ -229,10 +207,8 @@ public class TableComponent implements LayoutableRenderableEntity
 
 		// Now assign the actual width for flexible columns. Make sure that it is at least as long
 		// as the longest word length
-		for (int col = 0; col < numCols; col++)
-		{
-			if (flex[col])
-			{
+		for (int col = 0; col < numCols; col++) {
+			if (flex[col]) {
 				finalcolw[col] = left * maxtextw[col] / tot;
 				finalcolw[col] = Math.max(finalcolw[col], maxwordw[col]);
 				left -= finalcolw[col];
@@ -242,8 +218,7 @@ public class TableComponent implements LayoutableRenderableEntity
 		// When the sum of column widths is less than the total space available, distribute the
 		// extra space equally across all columns
 		final int extraPerCol = left / numCols;
-		for (int col = 0; col < numCols; col++)
-		{
+		for (int col = 0; col < numCols; col++) {
 			finalcolw[col] += extraPerCol;
 			left -= extraPerCol;
 		}
@@ -253,36 +228,29 @@ public class TableComponent implements LayoutableRenderableEntity
 		return finalcolw;
 	}
 
-	private static int getTextWidth(final FontMetrics metrics, final String cell)
-	{
+	private static int getTextWidth(final FontMetrics metrics, final String cell) {
 		return metrics.stringWidth(TextComponent.textWithoutColTags(cell));
 	}
 
-	private static String[] lineBreakText(final String text, final int maxWidth, final FontMetrics metrics)
-	{
+	private static String[] lineBreakText(final String text, final int maxWidth, final FontMetrics metrics) {
 		final String[] words = text.split(" ");
 
-		if (words.length == 0)
-		{
+		if (words.length == 0) {
 			return new String[0];
 		}
 
 		final StringBuilder wrapped = new StringBuilder(words[0]);
 		int spaceLeft = maxWidth - getTextWidth(metrics, wrapped.toString());
 
-		for (int i = 1; i < words.length; i++)
-		{
+		for (int i = 1; i < words.length; i++) {
 			final String word = words[i];
 			final int wordLen = getTextWidth(metrics, word);
 			final int spaceWidth = metrics.stringWidth(" ");
 
-			if (wordLen + spaceWidth > spaceLeft)
-			{
+			if (wordLen + spaceWidth > spaceLeft) {
 				wrapped.append("\n").append(word);
 				spaceLeft = maxWidth - wordLen;
-			}
-			else
-			{
+			} else {
 				wrapped.append(" ").append(word);
 				spaceLeft -= spaceWidth + wordLen;
 			}
@@ -291,26 +259,21 @@ public class TableComponent implements LayoutableRenderableEntity
 		return wrapped.toString().split("\n");
 	}
 
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return columns.size() == 0 || rows.size() == 0;
 	}
 
-	private void ensureColumnSize(final int size)
-	{
-		while (size > columns.size())
-		{
+	private void ensureColumnSize(final int size) {
+		while (size > columns.size()) {
 			columns.add(TableElement.builder().build());
 		}
 	}
 
-	private static int getAlignedPosition(final String str, final TableAlignment alignment, final int columnWidth, final FontMetrics metrics)
-	{
+	private static int getAlignedPosition(final String str, final TableAlignment alignment, final int columnWidth, final FontMetrics metrics) {
 		final int stringWidth = getTextWidth(metrics, str);
 		int offset = 0;
 
-		switch (alignment)
-		{
+		switch (alignment) {
 			case LEFT:
 				break;
 			case CENTER:
@@ -330,30 +293,26 @@ public class TableComponent implements LayoutableRenderableEntity
 	 * @param row      TableRow element
 	 * @param colIndex column index
 	 */
-	private Color getCellColor(final TableRow row, final int colIndex)
-	{
+	private Color getCellColor(final TableRow row, final int colIndex) {
 		final List<TableElement> rowElements = row.getElements();
 		final TableElement cell = colIndex < rowElements.size() ? rowElements.get(colIndex) : EMPTY_ELEMENT;
 		final TableElement column = colIndex < columns.size() ? columns.get(colIndex) : EMPTY_ELEMENT;
 
 		return firstNonNull(
-			cell.getColor(),
-			row.getRowColor(),
-			column.getColor(),
-			defaultColor);
+				cell.getColor(),
+				row.getRowColor(),
+				column.getColor(),
+				defaultColor);
 	}
 
-	private void setColumnAlignment(final int col, final TableAlignment alignment)
-	{
+	private void setColumnAlignment(final int col, final TableAlignment alignment) {
 		assert columns.size() > col;
 		columns.get(col).setAlignment(alignment);
 	}
 
-	public void setColumnAlignments(@Nonnull final TableAlignment... alignments)
-	{
+	public void setColumnAlignments(@Nonnull final TableAlignment... alignments) {
 		ensureColumnSize(alignments.length);
-		for (int i = 0; i < alignments.length; i++)
-		{
+		for (int i = 0; i < alignments.length; i++) {
 			setColumnAlignment(i, alignments[i]);
 		}
 	}
@@ -365,31 +324,27 @@ public class TableComponent implements LayoutableRenderableEntity
 	 * @param row      TableRow element
 	 * @param colIndex column index
 	 */
-	private TableAlignment getCellAlignment(final TableRow row, final int colIndex)
-	{
+	private TableAlignment getCellAlignment(final TableRow row, final int colIndex) {
 		final List<TableElement> rowElements = row.getElements();
 		final TableElement cell = colIndex < rowElements.size() ? rowElements.get(colIndex) : EMPTY_ELEMENT;
 		final TableElement column = colIndex < columns.size() ? columns.get(colIndex) : EMPTY_ELEMENT;
 
 		return firstNonNull(
-			cell.getAlignment(),
-			row.getRowAlignment(),
-			column.getAlignment(),
-			defaultAlignment);
+				cell.getAlignment(),
+				row.getRowAlignment(),
+				column.getAlignment(),
+				defaultAlignment);
 	}
 
 	@SafeVarargs
-	private static <T> T firstNonNull(@Nullable T... elements)
-	{
-		if (elements == null || elements.length == 0)
-		{
+	private static <T> T firstNonNull(@Nullable T... elements) {
+		if (elements == null || elements.length == 0) {
 			return null;
 		}
 
 		int i = 0;
 		T cur = elements[0];
-		while (cur == null && i < elements.length)
-		{
+		while (cur == null && i < elements.length) {
 			cur = elements[i];
 			i++;
 		}
@@ -398,11 +353,9 @@ public class TableComponent implements LayoutableRenderableEntity
 	}
 
 	// Helper functions for cleaner overlay code
-	public void addRow(@Nonnull final String... cells)
-	{
+	public void addRow(@Nonnull final String... cells) {
 		final List<TableElement> elements = new ArrayList<>();
-		for (final String cell : cells)
-		{
+		for (final String cell : cells) {
 			elements.add(TableElement.builder().content(cell).build());
 		}
 
@@ -412,52 +365,42 @@ public class TableComponent implements LayoutableRenderableEntity
 		this.rows.add(row);
 	}
 
-	private void addRows(@Nonnull final String[]... rows)
-	{
-		for (String[] row : rows)
-		{
+	private void addRows(@Nonnull final String[]... rows) {
+		for (String[] row : rows) {
 			addRow(row);
 		}
 	}
 
-	public void addRows(@NonNull final TableRow... rows)
-	{
+	public void addRows(@NonNull final TableRow... rows) {
 		this.rows.addAll(Arrays.asList(rows));
 	}
 
-	public void setRows(@Nonnull final String[]... elements)
-	{
+	public void setRows(@Nonnull final String[]... elements) {
 		this.rows.clear();
 		addRows(elements);
 	}
 
-	public void setRows(@Nonnull final TableRow... elements)
-	{
+	public void setRows(@Nonnull final TableRow... elements) {
 		this.rows.clear();
 		this.rows.addAll(Arrays.asList(elements));
 	}
 
-	private void addColumn(@Nonnull final String col)
-	{
+	private void addColumn(@Nonnull final String col) {
 		this.columns.add(TableElement.builder().content(col).build());
 	}
 
-	public void addColumns(@NonNull final TableElement... columns)
-	{
+	public void addColumns(@NonNull final TableElement... columns) {
 		this.columns.addAll(Arrays.asList(columns));
 	}
 
-	public void setColumns(@Nonnull final TableElement... elements)
-	{
+	public void setColumns(@Nonnull final TableElement... elements) {
 		this.columns.clear();
 		this.columns.addAll(Arrays.asList(elements));
 	}
 
-	public void setColumns(@Nonnull final String... columns)
-	{
+	public void setColumns(@Nonnull final String... columns) {
 		this.columns.clear();
-		for (String col : columns)
-		{
+		for (String col : columns) {
 			addColumn(col);
 		}
 	}

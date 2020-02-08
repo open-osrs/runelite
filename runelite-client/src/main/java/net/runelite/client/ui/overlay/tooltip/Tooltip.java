@@ -29,7 +29,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Tooltip
-{
+public class Tooltip {
 	private final String text;
 }

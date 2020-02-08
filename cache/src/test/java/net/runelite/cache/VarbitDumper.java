@@ -27,9 +27,11 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+
 import net.runelite.cache.definitions.VarbitDefinition;
 import net.runelite.cache.definitions.loaders.VarbitLoader;
 import net.runelite.cache.fs.Archive;
@@ -44,8 +46,7 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VarbitDumper
-{
+public class VarbitDumper {
 	private static final Logger logger = LoggerFactory.getLogger(VarbitDumper.class);
 
 	@Rule
@@ -54,15 +55,13 @@ public class VarbitDumper
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
-	public void extract() throws IOException
-	{
+	public void extract() throws IOException {
 		File base = StoreLocation.LOCATION,
-			outDir = folder.newFolder();
+				outDir = folder.newFolder();
 
 		int count = 0;
 
-		try (Store store = new Store(base))
-		{
+		try (Store store = new Store(base)) {
 			store.load();
 
 			Storage storage = store.getStorage();
@@ -72,8 +71,7 @@ public class VarbitDumper
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
-			for (FSFile file : files.getFiles())
-			{
+			for (FSFile file : files.getFiles()) {
 				VarbitLoader loader = new VarbitLoader();
 				VarbitDefinition varbit = loader.load(file.getFileId(), file.getContents());
 

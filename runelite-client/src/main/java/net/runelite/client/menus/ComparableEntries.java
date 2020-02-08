@@ -3,8 +3,7 @@ package net.runelite.client.menus;
 import net.runelite.api.Client;
 import net.runelite.client.plugins.menuentryswapper.comparables.BankComparableEntry;
 
-public interface ComparableEntries
-{
+public interface ComparableEntries {
 	/**
 	 * BaseComparableEntries should only be used if there's
 	 * no better ComparableEntry available.
@@ -13,8 +12,7 @@ public interface ComparableEntries
 	 * @param target has to equal entry option
 	 * @return a new BaseComparableEntry
 	 */
-	static BaseComparableEntry newBaseComparableEntry(String option, String target)
-	{
+	static BaseComparableEntry newBaseComparableEntry(String option, String target) {
 		return new BaseComparableEntry(option, target, -1, -1, true, true);
 	}
 
@@ -27,8 +25,7 @@ public interface ComparableEntries
 	 * @param strictTarget read up one line
 	 * @return a new BaseComparableEntry
 	 */
-	static BaseComparableEntry newBaseComparableEntry(String option, String target, boolean strictTarget)
-	{
+	static BaseComparableEntry newBaseComparableEntry(String option, String target, boolean strictTarget) {
 		return new BaseComparableEntry(option, target, -1, -1, true, strictTarget);
 	}
 
@@ -44,8 +41,7 @@ public interface ComparableEntries
 	 * @param strictTarget strict target or nah
 	 * @return a new BaseComparableEntry
 	 */
-	static BaseComparableEntry newBaseComparableEntry(String option, String target, int id, int type, boolean strictOption, boolean strictTarget)
-	{
+	static BaseComparableEntry newBaseComparableEntry(String option, String target, int id, int type, boolean strictOption, boolean strictTarget) {
 		return new BaseComparableEntry(option, target, id, type, strictOption, strictTarget);
 	}
 
@@ -57,8 +53,7 @@ public interface ComparableEntries
 	 * <p>
 	 * This has to be ran on the clientthread!
 	 */
-	static ItemComparableEntry newInvItemComparableEntry(Client client, String option, String itemName)
-	{
+	static ItemComparableEntry newInvItemComparableEntry(Client client, String option, String itemName) {
 		return new ItemComparableEntry.InvItemComparableEntry(client, option, itemName);
 	}
 
@@ -66,8 +61,7 @@ public interface ComparableEntries
 	 * This will only match items in the bank or in
 	 * your inventory if the bank is open. Withdraw-x anyone?
 	 */
-	static BankComparableEntry newBankComparableEntry(String option, String itemName)
-	{
+	static BankComparableEntry newBankComparableEntry(String option, String itemName) {
 		return new BankComparableEntry(option, itemName, false);
 	}
 }

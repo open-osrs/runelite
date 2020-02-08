@@ -27,10 +27,10 @@ package net.runelite.asm.execution;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.asm.Type;
 
-public class VariableContext
-{
+public class VariableContext {
 	private StackContext ctx; // the value stored
 	private InstructionContext ic; // the instruction which stored it. also ctx.popped?
 	private Type type;
@@ -38,8 +38,7 @@ public class VariableContext
 	private Value value;
 	private boolean isParameter; // if is a parameter. ctx will be the invoking method (in another frame)
 
-	public VariableContext(InstructionContext i, StackContext ctx)
-	{
+	public VariableContext(InstructionContext i, StackContext ctx) {
 		ic = i;
 		this.ctx = ctx;
 		type = ctx.getType();
@@ -52,59 +51,49 @@ public class VariableContext
 		value = Value.UNKNOWN;
 	}
 
-	public VariableContext(InstructionContext i, VariableContext other)
-	{
+	public VariableContext(InstructionContext i, VariableContext other) {
 		ic = i;
 		ctx = other.ctx;
 		type = other.type;
 		value = other.value;
 	}
 
-	public VariableContext(InstructionContext i, Type type, Value value)
-	{
+	public VariableContext(InstructionContext i, Type type, Value value) {
 		ic = i;
 		this.type = type;
 		this.value = value;
 	}
 
-	public StackContext getStackContext()
-	{
+	public StackContext getStackContext() {
 		return ctx;
 	}
 
-	public InstructionContext getInstructionWhichStored()
-	{
+	public InstructionContext getInstructionWhichStored() {
 		return ic;
 	}
 
-	public Type getType()
-	{
+	public Type getType() {
 		return type;
 	}
 
-	public Value getValue()
-	{
+	public Value getValue() {
 		return value;
 	}
 
-	public void addRead(InstructionContext ctx)
-	{
+	public void addRead(InstructionContext ctx) {
 		if (!read.contains(ctx))
 			read.add(ctx);
 	}
 
-	public List<InstructionContext> getRead()
-	{
+	public List<InstructionContext> getRead() {
 		return read;
 	}
 
-	public boolean isIsParameter()
-	{
+	public boolean isIsParameter() {
 		return isParameter;
 	}
 
-	public VariableContext markParameter()
-	{
+	public VariableContext markParameter() {
 		isParameter = true;
 		return this;
 	}

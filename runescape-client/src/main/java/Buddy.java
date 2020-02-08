@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Buddy extends User {
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1462953665
+			intValue = -1462953665
 	)
 	@Export("world")
 	public int world;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 179134735
+			intValue = 179134735
 	)
 	@Export("int2")
 	public int int2;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1349530221
+			intValue = -1349530221
 	)
 	@Export("rank")
 	public int rank;
@@ -32,8 +32,8 @@ public class Buddy extends User {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "1991575010"
+			signature = "(III)V",
+			garbageValue = "1991575010"
 	)
 	@Export("set")
 	void set(int var1, int var2) {
@@ -43,8 +43,8 @@ public class Buddy extends User {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1822334974"
+			signature = "(I)I",
+			garbageValue = "-1822334974"
 	)
 	@Export("getWorld")
 	public int getWorld() {
@@ -53,8 +53,8 @@ public class Buddy extends User {
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "-101"
+			signature = "(B)Z",
+			garbageValue = "-101"
 	)
 	@Export("hasWorld")
 	public boolean hasWorld() {
@@ -63,8 +63,8 @@ public class Buddy extends User {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)I",
-		garbageValue = "631809601"
+			signature = "(Ljava/lang/CharSequence;I)I",
+			garbageValue = "631809601"
 	)
 	public static int method5234(CharSequence var0) {
 		int var1 = var0.length();
@@ -79,8 +79,8 @@ public class Buddy extends User {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)I",
-		garbageValue = "-2002208158"
+			signature = "(Ljava/lang/String;I)I",
+			garbageValue = "-2002208158"
 	)
 	@Export("stringCp1252NullTerminatedByteSize")
 	public static int stringCp1252NullTerminatedByteSize(String var0) {

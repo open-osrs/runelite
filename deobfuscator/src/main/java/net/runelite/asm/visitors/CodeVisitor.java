@@ -28,6 +28,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Method;
 import net.runelite.asm.Type;
@@ -59,6 +60,7 @@ import org.objectweb.asm.Handle;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+
 import static org.objectweb.asm.Opcodes.DCONST_0;
 import static org.objectweb.asm.Opcodes.DCONST_1;
 import static org.objectweb.asm.Opcodes.FCONST_0;
@@ -74,14 +76,12 @@ import static org.objectweb.asm.Opcodes.ICONST_M1;
 import static org.objectweb.asm.Opcodes.LCONST_0;
 import static org.objectweb.asm.Opcodes.LCONST_1;
 
-public class CodeVisitor extends MethodVisitor
-{
+public class CodeVisitor extends MethodVisitor {
 	private final ClassFile classFile;
 	private final Method method;
 	private Code code;
 
-	CodeVisitor(ClassFile classFile, int access, String name, Signature signature, String[] sexceptions)
-	{
+	CodeVisitor(ClassFile classFile, int access, String name, Signature signature, String[] sexceptions) {
 		super(Opcodes.ASM5);
 
 		this.classFile = classFile;
@@ -90,142 +90,117 @@ public class CodeVisitor extends MethodVisitor
 		method.setAccessFlags(access);
 
 		net.runelite.asm.attributes.Exceptions exceptions = method.getExceptions();
-		if (sexceptions != null)
-		{
-			for (String e : sexceptions)
-			{
+		if (sexceptions != null) {
+			for (String e : sexceptions) {
 				exceptions.addException(new net.runelite.asm.pool.Class(e));
 			}
 		}
 	}
 
 	@Override
-	public void visitCode()
-	{
+	public void visitCode() {
 		code = new Code(method);
 	}
 
 	@Override
-	public AnnotationVisitor visitAnnotation(String desc, boolean visible)
-	{
+	public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
 		Annotation element = new Annotation(new Type(desc));
 		this.method.getAnnotations().addAnnotation(element);
 		return new AnnotationElementVisitor(element);
 	}
 
 	@Override
-	public void visitParameter(String name, int access)
-	{
+	public void visitParameter(String name, int access) {
 		method.getParameters().add(new Parameter(name, access));
 	}
 
-	private Instruction createInstructionFromOpcode(int opcode)
-	{
+	private Instruction createInstructionFromOpcode(int opcode) {
 		InstructionType type = InstructionType.findInstructionFromCode(opcode);
 		assert type != null;
 
-		try
-		{
+		try {
 			Constructor<? extends Instruction> con = type.getInstructionClass().getConstructor(Instructions.class, InstructionType.class);
 			Instruction ins = con.newInstance(code.getInstructions(), type);
 
 			code.getInstructions().addInstruction(ins);
 			return ins;
-		}
-		catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex)
-		{
+		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
 			throw new RuntimeException(ex);
 		}
 
 	}
 
 	@Override
-	public void visitInsn(int opcode)
-	{
-		switch (opcode)
-		{
-			case DCONST_0:
-			{
+	public void visitInsn(int opcode) {
+		switch (opcode) {
+			case DCONST_0: {
 				Instruction i = new LDC(code.getInstructions(), 0d);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case DCONST_1:
-			{
+			case DCONST_1: {
 				Instruction i = new LDC(code.getInstructions(), 1d);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case FCONST_0:
-			{
+			case FCONST_0: {
 				Instruction i = new LDC(code.getInstructions(), 0f);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case FCONST_1:
-			{
+			case FCONST_1: {
 				Instruction i = new LDC(code.getInstructions(), 1f);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case FCONST_2:
-			{
+			case FCONST_2: {
 				Instruction i = new LDC(code.getInstructions(), 2f);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case ICONST_M1:
-			{
+			case ICONST_M1: {
 				Instruction i = new LDC(code.getInstructions(), -1);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case ICONST_0:
-			{
+			case ICONST_0: {
 				Instruction i = new LDC(code.getInstructions(), 0);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case ICONST_1:
-			{
-			{
-				Instruction i = new LDC(code.getInstructions(), 1);
-				code.getInstructions().addInstruction(i);
-				break;
+			case ICONST_1: {
+				{
+					Instruction i = new LDC(code.getInstructions(), 1);
+					code.getInstructions().addInstruction(i);
+					break;
+				}
 			}
-			}
-			case ICONST_2:
-			{
+			case ICONST_2: {
 				Instruction i = new LDC(code.getInstructions(), 2);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case ICONST_3:
-			{
+			case ICONST_3: {
 				Instruction i = new LDC(code.getInstructions(), 3);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case ICONST_4:
-			{
+			case ICONST_4: {
 				Instruction i = new LDC(code.getInstructions(), 4);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case ICONST_5:
-			{
+			case ICONST_5: {
 				Instruction i = new LDC(code.getInstructions(), 5);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case LCONST_0:
-			{
+			case LCONST_0: {
 				Instruction i = new LDC(code.getInstructions(), 0L);
 				code.getInstructions().addInstruction(i);
 				break;
 			}
-			case LCONST_1:
-			{
+			case LCONST_1: {
 				Instruction i = new LDC(code.getInstructions(), 1L);
 				code.getInstructions().addInstruction(i);
 				break;
@@ -236,42 +211,37 @@ public class CodeVisitor extends MethodVisitor
 	}
 
 	@Override
-	public void visitIntInsn(int opcode, int operand)
-	{
+	public void visitIntInsn(int opcode, int operand) {
 		IntInstruction i = (IntInstruction) createInstructionFromOpcode(opcode);
 		i.setOperand(operand);
 	}
 
 	@Override
-	public void visitVarInsn(int opcode, int var)
-	{
+	public void visitVarInsn(int opcode, int var) {
 		LVTInstruction lvt = (LVTInstruction) createInstructionFromOpcode(opcode);
 		lvt.setVariableIndex(var);
 	}
 
 	@Override
-	public void visitTypeInsn(int opcode, String type)
-	{
+	public void visitTypeInsn(int opcode, String type) {
 		TypeInstruction i = (TypeInstruction) createInstructionFromOpcode(opcode);
 		Type t = Type.fromAsmString(type);
 		i.setType(t);
 	}
 
 	@Override
-	public void visitFieldInsn(int opcode, String owner, String name, String desc)
-	{
+	public void visitFieldInsn(int opcode, String owner, String name, String desc) {
 		FieldInstruction i = (FieldInstruction) createInstructionFromOpcode(opcode);
 		Field field = new Field(
-			new net.runelite.asm.pool.Class(owner),
-			name,
-			new Type(desc)
+				new net.runelite.asm.pool.Class(owner),
+				name,
+				new Type(desc)
 		);
 		i.setField(field);
 	}
 
 	@Override
-	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf)
-	{
+	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		InvokeInstruction ii = (InvokeInstruction) createInstructionFromOpcode(opcode);
 
 		assert ii instanceof InvokeInterface == itf;
@@ -279,44 +249,38 @@ public class CodeVisitor extends MethodVisitor
 		Type type = new Type(owner);
 
 		net.runelite.asm.pool.Method entry = new net.runelite.asm.pool.Method(
-			new net.runelite.asm.pool.Class(type.getInternalName()),
-			name,
-			new Signature(desc)
+				new net.runelite.asm.pool.Class(type.getInternalName()),
+				name,
+				new Signature(desc)
 		);
 
 		ii.setMethod(entry);
 	}
 
 	@Override
-	public void visitInvokeDynamicInsn(String name, String desc, Handle bsm, Object[] bsmArgs)
-	{
+	public void visitInvokeDynamicInsn(String name, String desc, Handle bsm, Object[] bsmArgs) {
 		InvokeDynamic id = new InvokeDynamic(code.getInstructions(), name, desc, bsm, bsmArgs);
 		code.getInstructions().addInstruction(id);
 	}
 
 	@Override
-	public void visitJumpInsn(int opcode, Label label)
-	{
+	public void visitJumpInsn(int opcode, Label label) {
 		JumpingInstruction i = (JumpingInstruction) createInstructionFromOpcode(opcode);
 		i.setLabel(label);
 	}
 
 	@Override
-	public void visitLabel(Label label)
-	{
+	public void visitLabel(Label label) {
 		Instruction i = code.getInstructions().findOrCreateLabel(label);
 		code.getInstructions().addInstruction(i);
 	}
 
 	@Override
-	public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index)
-	{
+	public void visitLocalVariable(String name, String desc, String signature, Label start, Label end, int index) {
 		LocalVariable lv = new LocalVariable(name, desc, signature, start, end, index);
 
-		for (Parameter p : method.getParameters())
-		{
-			if (p.getName().equals(name))
-			{
+		for (Parameter p : method.getParameters()) {
+			if (p.getName().equals(name)) {
 				p.setLocalVariable(lv);
 				break;
 			}
@@ -324,12 +288,10 @@ public class CodeVisitor extends MethodVisitor
 	}
 
 	@Override
-	public void visitLdcInsn(Object cst)
-	{
+	public void visitLdcInsn(Object cst) {
 		Object entry = cst;
 
-		if (cst instanceof org.objectweb.asm.Type)
-		{
+		if (cst instanceof org.objectweb.asm.Type) {
 			org.objectweb.asm.Type t = (org.objectweb.asm.Type) cst;
 			entry = new net.runelite.asm.pool.Class(t.getClassName());
 		}
@@ -339,8 +301,7 @@ public class CodeVisitor extends MethodVisitor
 	}
 
 	@Override
-	public void visitIincInsn(int var, int increment)
-	{
+	public void visitIincInsn(int var, int increment) {
 		IInc iinc = new IInc(code.getInstructions(), InstructionType.IINC);
 		iinc.setVariableIndex(var);
 		iinc.setIncrement(increment);
@@ -348,37 +309,34 @@ public class CodeVisitor extends MethodVisitor
 	}
 
 	@Override
-	public void visitTableSwitchInsn(int min, int max, Label dflt, Label[] labels)
-	{
+	public void visitTableSwitchInsn(int min, int max, Label dflt, Label[] labels) {
 		TableSwitch tableSwitch = new TableSwitch(code.getInstructions(), InstructionType.TABLESWITCH);
 		tableSwitch.setLow(min);
 		tableSwitch.setHigh(max);
 		tableSwitch.setDefi(code.getInstructions().findOrCreateLabel(dflt));
 		tableSwitch.setBranchi(
-			Arrays.stream(labels)
-				.map(label -> code.getInstructions().findOrCreateLabel(label))
-				.collect(Collectors.toList())
+				Arrays.stream(labels)
+						.map(label -> code.getInstructions().findOrCreateLabel(label))
+						.collect(Collectors.toList())
 		);
 		code.getInstructions().addInstruction(tableSwitch);
 	}
 
 	@Override
-	public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels)
-	{
+	public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
 		LookupSwitch lookupSwitch = new LookupSwitch(code.getInstructions(), InstructionType.LOOKUPSWITCH);
 		lookupSwitch.setMatch(keys);
 		lookupSwitch.setDefi(code.getInstructions().findOrCreateLabel(dflt));
 		lookupSwitch.setBranchi(
-			Arrays.stream(labels)
-				.map(label -> code.getInstructions().findOrCreateLabel(label))
-				.collect(Collectors.toList())
+				Arrays.stream(labels)
+						.map(label -> code.getInstructions().findOrCreateLabel(label))
+						.collect(Collectors.toList())
 		);
 		code.getInstructions().addInstruction(lookupSwitch);
 	}
 
 	@Override
-	public void visitMultiANewArrayInsn(String desc, int dims)
-	{
+	public void visitMultiANewArrayInsn(String desc, int dims) {
 		MultiANewArray m = new MultiANewArray(code.getInstructions(), InstructionType.MULTIANEWARRAY);
 		m.setArrayType(new Type(desc));
 		m.setDimensions(dims);
@@ -386,8 +344,7 @@ public class CodeVisitor extends MethodVisitor
 	}
 
 	@Override
-	public void visitTryCatchBlock(Label start, Label end, Label handler, String type)
-	{
+	public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
 		Exceptions exceptions = code.getExceptions();
 		net.runelite.asm.attributes.code.Exception e = new net.runelite.asm.attributes.code.Exception(exceptions);
 
@@ -404,8 +361,7 @@ public class CodeVisitor extends MethodVisitor
 		e.setStart(startL);
 		e.setEnd(endL);
 		e.setHandler(handlerL);
-		if (type != null)
-		{
+		if (type != null) {
 			e.setCatchType(new net.runelite.asm.pool.Class(type));
 		}
 
@@ -413,29 +369,23 @@ public class CodeVisitor extends MethodVisitor
 	}
 
 	@Override
-	public void visitLineNumber(int line, Label start)
-	{
+	public void visitLineNumber(int line, Label start) {
 		net.runelite.asm.attributes.code.Label label = code.getInstructions().findLabel(start);
 
-		if (label != null)
-		{
+		if (label != null) {
 			label.setLineNumber(line);
 		}
 	}
 
 	@Override
-	public void visitMaxs(int maxStack, int maxLocals)
-	{
+	public void visitMaxs(int maxStack, int maxLocals) {
 		code.setMaxStack(maxStack);
 	}
 
 	@Override
-	public void visitEnd()
-	{
-		if (code != null)
-		{
-			for (Instruction i : code.getInstructions().getInstructions())
-			{
+	public void visitEnd() {
+		if (code != null) {
+			for (Instruction i : code.getInstructions().getInstructions()) {
 				i.resolve();
 			}
 

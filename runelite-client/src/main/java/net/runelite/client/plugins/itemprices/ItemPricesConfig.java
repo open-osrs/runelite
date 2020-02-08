@@ -29,71 +29,64 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("itemprices")
-public interface ItemPricesConfig extends Config
-{
+public interface ItemPricesConfig extends Config {
 	@ConfigItem(
-		keyName = "showGEPrice",
-		name = "Show Grand Exchange Prices",
-		description = "Grand exchange prices should be shown on tooltips",
-		position = 1
+			keyName = "showGEPrice",
+			name = "Show Grand Exchange Prices",
+			description = "Grand exchange prices should be shown on tooltips",
+			position = 1
 	)
-	default boolean showGEPrice()
-	{
+	default boolean showGEPrice() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showHAValue",
-		name = "Show High Alchemy Values",
-		description = "High Alchemy values should be shown on tooltips",
-		position = 2
+			keyName = "showHAValue",
+			name = "Show High Alchemy Values",
+			description = "High Alchemy values should be shown on tooltips",
+			position = 2
 	)
-	default boolean showHAValue()
-	{
+	default boolean showHAValue() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showEA",
-		name = "Show Price Each on Stacks",
-		description = "The price/value of each item should be shown on stacks",
-		position = 3
+			keyName = "showEA",
+			name = "Show Price Each on Stacks",
+			description = "The price/value of each item should be shown on stacks",
+			position = 3
 	)
-	default boolean showEA()
-	{
+	default boolean showEA() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "hideInventory",
-		name = "Hide Tooltips on Inventory Items",
-		description = "Tooltips should be hidden on items in the inventory",
-		position = 4
+			keyName = "hideInventory",
+			name = "Hide Tooltips on Inventory Items",
+			description = "Tooltips should be hidden on items in the inventory",
+			position = 4
 	)
-	default boolean hideInventory()
-	{
+	default boolean hideInventory() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showAlchProfit",
-		name = "Show High Alchemy Profit",
-		description = "Show the profit from casting high alchemy on items",
-		position = 5
+			keyName = "showAlchProfit",
+			name = "Show High Alchemy Profit",
+			description = "Show the profit from casting high alchemy on items",
+			position = 5
 	)
-	default boolean showAlchProfit()
-	{
+	default boolean showAlchProfit() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "showWhileAlching",
-		name = "Show prices while alching",
-		description = "Show the price overlay while using High Alchemy",
-		position = 6
+			keyName = "showWhileAlching",
+			name = "Show prices while alching",
+			description = "Show the price overlay while using High Alchemy",
+			position = 6
 	)
-	default boolean showWhileAlching()
-	{
+	default boolean showWhileAlching() {
 		return true;
 	}
 }

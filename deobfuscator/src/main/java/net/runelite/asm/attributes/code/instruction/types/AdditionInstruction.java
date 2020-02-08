@@ -31,19 +31,15 @@ import net.runelite.asm.execution.StackContext;
 import net.runelite.deob.deobfuscators.mapping.MappingExecutorUtil;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public interface AdditionInstruction extends MappableInstruction
-{
-	default InstructionContext findArrayLoad(InstructionContext ic1, InstructionContext ic2)
-	{
+public interface AdditionInstruction extends MappableInstruction {
+	default InstructionContext findArrayLoad(InstructionContext ic1, InstructionContext ic2) {
 		Instruction i1 = ic1.getInstruction();
 		Instruction i2 = ic2.getInstruction();
 
-		if (i1 instanceof ArrayLoad && !(i2 instanceof ArrayLoad))
-		{
+		if (i1 instanceof ArrayLoad && !(i2 instanceof ArrayLoad)) {
 			return ic1;
 		}
-		if (i2 instanceof ArrayLoad && !(i1 instanceof ArrayLoad))
-		{
+		if (i2 instanceof ArrayLoad && !(i1 instanceof ArrayLoad)) {
 			return ic2;
 		}
 
@@ -51,8 +47,7 @@ public interface AdditionInstruction extends MappableInstruction
 	}
 
 	@Override
-	default void map(ParallelExecutorMapping mappings, InstructionContext ctx, InstructionContext other)
-	{
+	default void map(ParallelExecutorMapping mappings, InstructionContext ctx, InstructionContext other) {
 		/* lhs/rhs of addition instructions are randomally swapped, but
 		 * we still map if each side is recognizable
 		 *
@@ -77,8 +72,7 @@ public interface AdditionInstruction extends MappableInstruction
 		InstructionContext al1 = findArrayLoad(rc1, rc2);
 		InstructionContext al2 = findArrayLoad(ro1, ro2);
 
-		if (al1 == null || al2 == null)
-		{
+		if (al1 == null || al2 == null) {
 			return;
 		}
 
@@ -88,8 +82,7 @@ public interface AdditionInstruction extends MappableInstruction
 		InstructionContext field1 = array1.getPushed().resolve(array1);
 		InstructionContext field2 = array2.getPushed().resolve(array2);
 
-		if (!(field1.getInstruction() instanceof GetFieldInstruction) || !(field2.getInstruction() instanceof GetFieldInstruction))
-		{
+		if (!(field1.getInstruction() instanceof GetFieldInstruction) || !(field2.getInstruction() instanceof GetFieldInstruction)) {
 			return;
 		}
 
@@ -99,8 +92,7 @@ public interface AdditionInstruction extends MappableInstruction
 		Field f1 = gf1.getMyField();
 		Field f2 = gf2.getMyField();
 
-		if (f1 == null || f2 == null || !MappingExecutorUtil.isMaybeEqual(f1, f2))
-		{
+		if (f1 == null || f2 == null || !MappingExecutorUtil.isMaybeEqual(f1, f2)) {
 			return;
 		}
 
@@ -108,14 +100,12 @@ public interface AdditionInstruction extends MappableInstruction
 	}
 
 	@Override
-	default boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
-	{
+	default boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
 		return this.getClass() == otherIc.getInstruction().getClass();
 	}
 
 	@Override
-	default boolean canMap(InstructionContext thisIc)
-	{
+	default boolean canMap(InstructionContext thisIc) {
 		return true;
 	}
 }

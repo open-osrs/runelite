@@ -27,12 +27,12 @@ package net.runelite.deob.deobfuscators.exprargorder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.MethodContext;
 
-public class Expression
-{
+public class Expression {
 	private final InstructionContext head;
 	private final List<Expression> exprs = new ArrayList<>();
 	private final List<Expression> comExprs = new ArrayList<>();
@@ -40,49 +40,39 @@ public class Expression
 	public List<Expression> sortedExprs;
 	private int exprHash;
 
-	public Expression(InstructionContext head)
-	{
+	public Expression(InstructionContext head) {
 		this.head = head;
 	}
 
-	public InstructionType getType()
-	{
+	public InstructionType getType() {
 		return head.getInstruction().getType();
 	}
 
-	public InstructionContext getHead()
-	{
+	public InstructionContext getHead() {
 		return head;
 	}
 
-	public void addExpr(Expression expr)
-	{
+	public void addExpr(Expression expr) {
 		exprs.add(expr);
 	}
 
-	public List<Expression> getExprs()
-	{
+	public List<Expression> getExprs() {
 		return Collections.unmodifiableList(exprs);
 	}
 
-	public void addComExpr(Expression expr)
-	{
+	public void addComExpr(Expression expr) {
 		comExprs.add(expr);
 	}
 
-	public List<Expression> getComExprs()
-	{
+	public List<Expression> getComExprs() {
 		return Collections.unmodifiableList(comExprs);
 	}
 
-	public void sort(MethodContext ctx)
-	{
-		for (Expression e : comExprs)
-		{
+	public void sort(MethodContext ctx) {
+		for (Expression e : comExprs) {
 			e.sort(ctx);
 		}
-		for (Expression e : exprs)
-		{
+		for (Expression e : exprs) {
 			e.sort(ctx);
 		}
 
@@ -91,8 +81,7 @@ public class Expression
 		Collections.reverse(sortedExprs);
 
 		int hash = 0;
-		for (Expression e : sortedExprs)
-		{
+		for (Expression e : sortedExprs) {
 			hash ^= e.exprHash;
 		}
 		exprHash = hash;

@@ -1,6 +1,7 @@
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -18,7 +19,7 @@ public class BufferedSource implements Runnable {
 	InputStream inputStream;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 276934727
+			intValue = 276934727
 	)
 	@Export("capacity")
 	int capacity;
@@ -27,13 +28,13 @@ public class BufferedSource implements Runnable {
 	byte[] buffer;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1985873745
+			intValue = 1985873745
 	)
 	@Export("position")
 	int position;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 738500389
+			intValue = 738500389
 	)
 	@Export("limit")
 	int limit;
@@ -54,15 +55,15 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
-		garbageValue = "89"
+			signature = "(IB)Z",
+			garbageValue = "89"
 	)
 	@Export("isAvailable")
 	boolean isAvailable(int var1) throws IOException {
 		if (var1 == 0) {
 			return true;
 		} else if (var1 > 0 && var1 < this.capacity) {
-			synchronized(this) {
+			synchronized (this) {
 				int var3;
 				if (this.position <= this.limit) {
 					var3 = this.limit - this.position;
@@ -88,12 +89,12 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-956188768"
+			signature = "(I)I",
+			garbageValue = "-956188768"
 	)
 	@Export("available")
 	int available() throws IOException {
-		synchronized(this) {
+		synchronized (this) {
 			int var2;
 			if (this.position <= this.limit) {
 				var2 = this.limit - this.position;
@@ -112,12 +113,12 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "0"
+			signature = "(B)I",
+			garbageValue = "0"
 	)
 	@Export("readUnsignedByte")
 	int readUnsignedByte() throws IOException {
-		synchronized(this) {
+		synchronized (this) {
 			if (this.position == this.limit) {
 				if (this.exception != null) {
 					throw new IOException(this.exception.toString());
@@ -135,13 +136,13 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "([BIII)I",
-		garbageValue = "-2106245122"
+			signature = "([BIII)I",
+			garbageValue = "-2106245122"
 	)
 	@Export("read")
 	int read(byte[] var1, int var2, int var3) throws IOException {
 		if (var3 >= 0 && var2 >= 0 && var3 + var2 <= var1.length) {
-			synchronized(this) {
+			synchronized (this) {
 				int var5;
 				if (this.position <= this.limit) {
 					var5 = this.limit - this.position;
@@ -176,12 +177,12 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-2102342981"
+			signature = "(I)V",
+			garbageValue = "-2102342981"
 	)
 	@Export("close")
 	void close() {
-		synchronized(this) {
+		synchronized (this) {
 			if (this.exception == null) {
 				this.exception = new IOException("");
 			}
@@ -199,7 +200,7 @@ public class BufferedSource implements Runnable {
 	public void run() {
 		while (true) {
 			int var1;
-			synchronized(this) {
+			synchronized (this) {
 				while (true) {
 					if (this.exception != null) {
 						return;
@@ -232,13 +233,13 @@ public class BufferedSource implements Runnable {
 				}
 			} catch (IOException var11) {
 				IOException var3 = var11;
-				synchronized(this) {
+				synchronized (this) {
 					this.exception = var3;
 					return;
 				}
 			}
 
-			synchronized(this) {
+			synchronized (this) {
 				this.limit = (var7 + this.limit) % this.capacity;
 			}
 		}
@@ -246,11 +247,11 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("jm")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "114"
+			signature = "(B)V",
+			garbageValue = "114"
 	)
 	static void method5934() {
-		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) {
+		for (InterfaceParent var0 = (InterfaceParent) Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent) Client.interfaceParents.next()) {
 			int var1 = var0.group;
 			if (ScriptFrame.loadInterface(var1)) {
 				boolean var2 = true;
@@ -265,7 +266,7 @@ public class BufferedSource implements Runnable {
 				}
 
 				if (!var2) {
-					var4 = (int)var0.key;
+					var4 = (int) var0.key;
 					Widget var5 = Varps.getWidget(var4);
 					if (var5 != null) {
 						NPCDefinition.invalidateWidget(var5);

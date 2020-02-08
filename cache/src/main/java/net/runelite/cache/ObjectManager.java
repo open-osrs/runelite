@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.cache.definitions.ObjectDefinition;
 import net.runelite.cache.definitions.exporters.ObjectExporter;
 import net.runelite.cache.definitions.loaders.ObjectLoader;
@@ -41,18 +42,15 @@ import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 import net.runelite.cache.util.IDClass;
 
-public class ObjectManager
-{
+public class ObjectManager {
 	private final Store store;
 	private final Map<Integer, ObjectDefinition> objects = new HashMap<>();
 
-	public ObjectManager(Store store)
-	{
+	public ObjectManager(Store store) {
 		this.store = store;
 	}
 
-	public void load() throws IOException
-	{
+	public void load() throws IOException {
 		ObjectLoader loader = new ObjectLoader();
 
 		Storage storage = store.getStorage();
@@ -62,29 +60,24 @@ public class ObjectManager
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile f : files.getFiles())
-		{
+		for (FSFile f : files.getFiles()) {
 			ObjectDefinition def = loader.load(f.getFileId(), f.getContents());
 			objects.put(f.getFileId(), def);
 		}
 	}
 
-	public Collection<ObjectDefinition> getObjects()
-	{
+	public Collection<ObjectDefinition> getObjects() {
 		return Collections.unmodifiableCollection(objects.values());
 	}
 
-	public ObjectDefinition getObject(int id)
-	{
+	public ObjectDefinition getObject(int id) {
 		return objects.get(id);
 	}
 
-	public void dump(File out) throws IOException
-	{
+	public void dump(File out) throws IOException {
 		out.mkdirs();
 
-		for (ObjectDefinition def : objects.values())
-		{
+		for (ObjectDefinition def : objects.values()) {
 			ObjectExporter exporter = new ObjectExporter(def);
 
 			File targ = new File(out, def.getId() + ".json");
@@ -92,21 +85,14 @@ public class ObjectManager
 		}
 	}
 
-	public void java(File java) throws IOException
-	{
+	public void java(File java) throws IOException {
 		java.mkdirs();
-		try (IDClass ids = IDClass.create(java, "ObjectID"))
-		{
-			try (IDClass nulls = IDClass.create(java, "NullObjectID"))
-			{
-				for (ObjectDefinition def : objects.values())
-				{
-					if ("null".equals(def.getName()))
-					{
+		try (IDClass ids = IDClass.create(java, "ObjectID")) {
+			try (IDClass nulls = IDClass.create(java, "NullObjectID")) {
+				for (ObjectDefinition def : objects.values()) {
+					if ("null".equals(def.getName())) {
 						nulls.add(def.getName(), def.getId());
-					}
-					else
-					{
+					} else {
 						ids.add(def.getName(), def.getId());
 					}
 				}

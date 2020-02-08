@@ -25,20 +25,19 @@
 package net.runelite.client.plugins.skillcalculator;
 
 import com.google.gson.Gson;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.client.plugins.skillcalculator.beans.SkillData;
 
-class CacheSkillData
-{
+class CacheSkillData {
 	private final Map<String, SkillData> cache = new HashMap<>();
 
-	SkillData getSkillData(String dataFile)
-	{
-		if (cache.containsKey(dataFile))
-		{
+	SkillData getSkillData(String dataFile) {
+		if (cache.containsKey(dataFile)) {
 			return cache.get(dataFile);
 		}
 

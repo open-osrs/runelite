@@ -27,9 +27,11 @@ package net.runelite.client.plugins.chatnotifications;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
+
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.MessageNode;
@@ -38,19 +40,22 @@ import net.runelite.api.util.Text;
 import net.runelite.client.Notifier;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.config.OpenOSRSConfig;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ChatNotificationsPluginTest
-{
+public class ChatNotificationsPluginTest {
 	@Mock
 	@Bind
 	private Client client;
@@ -75,14 +80,12 @@ public class ChatNotificationsPluginTest
 	private ChatNotificationsPlugin chatNotificationsPlugin;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void onChatMessage()
-	{
+	public void onChatMessage() {
 		when(config.highlightWordsString()).thenReturn("Deathbeam, Deathbeam OSRS , test");
 
 		MessageNode messageNode = mock(MessageNode.class);
@@ -99,8 +102,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void testLtGt()
-	{
+	public void testLtGt() {
 		when(config.highlightWordsString()).thenReturn("<test>");
 
 		String message = "test <lt>test<gt> test";
@@ -118,8 +120,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void testFullStop()
-	{
+	public void testFullStop() {
 		when(config.highlightWordsString()).thenReturn("test");
 
 		String message = "foo test. bar";
@@ -137,8 +138,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void testColor()
-	{
+	public void testColor() {
 		when(config.highlightWordsString()).thenReturn("you. It");
 
 		String message = "Your dodgy necklace protects you. <col=ff0000>It has 1 charge left.</col>";
@@ -156,8 +156,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void testPreceedingColor()
-	{
+	public void testPreceedingColor() {
 		when(config.highlightWordsString()).thenReturn("you. It");
 
 		String message = "Your dodgy <col=00ff00>necklace protects you. It has 1 charge left.</col>";
@@ -175,8 +174,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void testEmoji()
-	{
+	public void testEmoji() {
 		when(config.highlightWordsString()).thenReturn("test");
 
 		String message = "emoji test <img=29>";
@@ -194,8 +192,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void testNonMatchedColors()
-	{
+	public void testNonMatchedColors() {
 		when(config.highlightWordsString()).thenReturn("test");
 
 		String message = "<col=ff0000>color</col> test <img=29>";
@@ -213,8 +210,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void highlightListTest()
-	{
+	public void highlightListTest() {
 		when(config.highlightWordsString()).thenReturn("this,is, a                   , test, ");
 		final List<String> higlights = Text.fromCSV(config.highlightWordsString());
 		assertEquals(4, higlights.size());
@@ -227,8 +223,7 @@ public class ChatNotificationsPluginTest
 	}
 
 	@Test
-	public void testStripColor()
-	{
+	public void testStripColor() {
 		assertEquals("you. It", ChatNotificationsPlugin.stripColor("you. <col=ff0000>It"));
 	}
 }

@@ -36,8 +36,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Documented
-public @interface Units
-{
+public @interface Units {
 	String MILLISECONDS = "ms";
 	String MINUTES = " mins";
 	String PERCENT = "%";

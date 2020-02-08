@@ -28,23 +28,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class CacheProperties
-{
-	private static Properties getProperties() throws IOException
-	{
+public class CacheProperties {
+	private static Properties getProperties() throws IOException {
 		Properties properties = new Properties();
 		InputStream resourceAsStream = StoreLocation.class.getResourceAsStream("/cache.properties");
 		properties.load(resourceAsStream);
 		return properties;
 	}
 
-	public static int getRsVersion() throws IOException
-	{
+	public static int getRsVersion() throws IOException {
 		return Integer.parseInt(getProperties().getProperty("rs.version"));
 	}
 
-	public static int getCacheVersion() throws IOException
-	{
+	public static int getCacheVersion() throws IOException {
 		return Integer.parseInt(getProperties().getProperty("cache.version"));
 	}
 }

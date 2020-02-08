@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class Clock {
 	@ObfuscatedName("da")
 	@ObfuscatedSignature(
-		signature = "Lia;"
+			signature = "Lia;"
 	)
 	@Export("archive19")
 	static Archive archive19;
 	@ObfuscatedName("ju")
 	@ObfuscatedGetter(
-		intValue = 346699043
+			intValue = 346699043
 	)
 	@Export("Client_plane")
 	static int Client_plane;
@@ -25,24 +25,24 @@ public abstract class Clock {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "29"
+			signature = "(B)V",
+			garbageValue = "29"
 	)
 	@Export("mark")
 	public abstract void mark();
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "-561232674"
+			signature = "(III)I",
+			garbageValue = "-561232674"
 	)
 	@Export("wait")
 	public abstract int wait(int var1, int var2);
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "([BB)Lce;",
-		garbageValue = "-106"
+			signature = "([BB)Lce;",
+			garbageValue = "-106"
 	)
 	@Export("newScript")
 	static Script newScript(byte[] var0) {
@@ -71,7 +71,7 @@ public abstract class Clock {
 				while (var8-- > 0) {
 					int var10 = var2.readInt();
 					int var11 = var2.readInt();
-					var9.put(new IntegerNode(var11), (long)var10);
+					var9.put(new IntegerNode(var11), (long) var10);
 				}
 			}
 		}

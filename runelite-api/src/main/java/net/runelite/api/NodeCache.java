@@ -27,8 +27,7 @@ package net.runelite.api;
 /**
  * Represents a doubly linked node cache.
  */
-public interface NodeCache
-{
+public interface NodeCache {
 	/**
 	 * Resets cache.
 	 */

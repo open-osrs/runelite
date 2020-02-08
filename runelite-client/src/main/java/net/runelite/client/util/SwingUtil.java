@@ -61,13 +61,16 @@ import javax.swing.LookAndFeel;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.basic.BasicProgressBarUI;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
@@ -80,16 +83,14 @@ import org.pushingpixels.substance.internal.SubstanceSynapse;
  * Various Swing utilities.
  */
 @Slf4j
-public class SwingUtil
-{
+public class SwingUtil {
 	private static boolean lookAndFeelIsSet = false;
 
 	/**
 	 * Sets some sensible defaults for swing.
 	 * IMPORTANT! Needs to be called before main frame creation
 	 */
-	private static void setupDefaults()
-	{
+	private static void setupDefaults() {
 		// Force heavy-weight popups/tooltips.
 		// Prevents them from being obscured by the game applet.
 		ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
@@ -129,14 +130,10 @@ public class SwingUtil
 	 *
 	 * @param laf the swing look and feel
 	 */
-	private static void setTheme(@Nonnull final LookAndFeel laf)
-	{
-		try
-		{
+	private static void setTheme(@Nonnull final LookAndFeel laf) {
+		try {
 			UIManager.setLookAndFeel(laf);
-		}
-		catch (UnsupportedLookAndFeelException ex)
-		{
+		} catch (UnsupportedLookAndFeelException ex) {
 			log.warn("Unable to set look and feel", ex);
 		}
 	}
@@ -147,18 +144,15 @@ public class SwingUtil
 	 *
 	 * @param font the new font to use
 	 */
-	private static void setFont(@Nonnull final Font font)
-	{
+	private static void setFont(@Nonnull final Font font) {
 		final FontUIResource f = new FontUIResource(font);
 		final Enumeration keys = UIManager.getDefaults().keys();
 
-		while (keys.hasMoreElements())
-		{
+		while (keys.hasMoreElements()) {
 			final Object key = keys.nextElement();
 			final Object value = UIManager.get(key);
 
-			if (value instanceof FontUIResource)
-			{
+			if (value instanceof FontUIResource) {
 				UIManager.put(key, f);
 			}
 		}
@@ -173,10 +167,8 @@ public class SwingUtil
 	 * @return the tray icon
 	 */
 	@Nullable
-	public static TrayIcon createTrayIcon(@Nonnull final Image icon, @Nonnull final String title, @Nonnull final Frame frame)
-	{
-		if (!SystemTray.isSupported())
-		{
+	public static TrayIcon createTrayIcon(@Nonnull final Image icon, @Nonnull final String title, @Nonnull final Frame frame) {
+		if (!SystemTray.isSupported()) {
 			return null;
 		}
 
@@ -184,22 +176,17 @@ public class SwingUtil
 		final TrayIcon trayIcon = new TrayIcon(icon, title);
 		trayIcon.setImageAutoSize(true);
 
-		try
-		{
+		try {
 			systemTray.add(trayIcon);
-		}
-		catch (AWTException ex)
-		{
+		} catch (AWTException ex) {
 			log.debug("Unable to add system tray icon", ex);
 			return trayIcon;
 		}
 
 		// Bring to front when tray icon is clicked
-		trayIcon.addMouseListener(new MouseAdapter()
-		{
+		trayIcon.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
+			public void mouseClicked(MouseEvent e) {
 				frame.setVisible(true);
 				frame.setState(Frame.NORMAL); // Restore
 			}
@@ -215,34 +202,26 @@ public class SwingUtil
 	 * @param callback        the callback
 	 * @param confirmRequired the confirm required
 	 */
-	public static void addGracefulExitCallback(@Nonnull final JFrame frame, @Nonnull final Runnable callback, @Nonnull final Callable<Boolean> confirmRequired)
-	{
+	public static void addGracefulExitCallback(@Nonnull final JFrame frame, @Nonnull final Runnable callback, @Nonnull final Callable<Boolean> confirmRequired) {
 		frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		frame.addWindowListener(new WindowAdapter()
-		{
+		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosing(WindowEvent event)
-			{
+			public void windowClosing(WindowEvent event) {
 				int result = JOptionPane.OK_OPTION;
 
-				try
-				{
-					if (confirmRequired.call())
-					{
+				try {
+					if (confirmRequired.call()) {
 						result = JOptionPane.showConfirmDialog(
-							frame,
-							"Are you sure you want to exit?", "Exit",
-							JOptionPane.OK_CANCEL_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
+								frame,
+								"Are you sure you want to exit?", "Exit",
+								JOptionPane.OK_CANCEL_OPTION,
+								JOptionPane.QUESTION_MESSAGE);
 					}
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					log.warn("Unexpected exception occurred while check for confirm required", e);
 				}
 
-				if (result == JOptionPane.OK_OPTION)
-				{
+				if (result == JOptionPane.OK_OPTION) {
 					callback.run();
 					System.exit(0);
 				}
@@ -259,14 +238,13 @@ public class SwingUtil
 	 * @return the swing button
 	 */
 	public static JButton createSwingButton(
-		@Nonnull final NavigationButton navigationButton,
-		int iconSize,
-		@Nullable final BiConsumer<NavigationButton, JButton> specialCallback)
-	{
+			@Nonnull final NavigationButton navigationButton,
+			int iconSize,
+			@Nullable final BiConsumer<NavigationButton, JButton> specialCallback) {
 
 		final BufferedImage scaledImage = iconSize > 0
-			? ImageUtil.resizeImage(navigationButton.getIcon(), iconSize, iconSize)
-			: navigationButton.getIcon();
+				? ImageUtil.resizeImage(navigationButton.getIcon(), iconSize, iconSize)
+				: navigationButton.getIcon();
 
 		final JButton button = new JButton();
 		button.setSize(scaledImage.getWidth(), scaledImage.getHeight());
@@ -276,19 +254,16 @@ public class SwingUtil
 		button.setFocusable(false);
 		button.addActionListener(e ->
 		{
-			if (specialCallback != null)
-			{
+			if (specialCallback != null) {
 				specialCallback.accept(navigationButton, button);
 			}
 
-			if (navigationButton.getOnClick() != null)
-			{
+			if (navigationButton.getOnClick() != null) {
 				navigationButton.getOnClick().run();
 			}
 		});
 
-		if (navigationButton.getPopup() != null)
-		{
+		if (navigationButton.getPopup() != null) {
 			final JPopupMenu popupMenu = new JPopupMenu();
 
 			navigationButton.getPopup().forEach((name, callback) ->
@@ -313,12 +288,11 @@ public class SwingUtil
 	 * @param buttonOption the code to be set via {@link JOptionPane#setValue(Object)}
 	 * @return newly created {@link JButton}
 	 */
-	public static JButton createFlatButton(final String text, final int buttonOption)
-	{
+	public static JButton createFlatButton(final String text, final int buttonOption) {
 		final Border BUTTON_BORDER = new EmptyBorder(5, 17, 5, 17);
 		final Border BORDERED_BUTTON_BORDER = new CompoundBorder(
-			new MatteBorder(1, 1, 1, 1, Color.BLACK),
-			new EmptyBorder(4, 16, 4, 16)
+				new MatteBorder(1, 1, 1, 1, Color.BLACK),
+				new EmptyBorder(4, 16, 4, 16)
 		);
 
 		final JButton button = new JButton(text);
@@ -336,15 +310,11 @@ public class SwingUtil
 		button.addActionListener(e ->
 		{
 			JComponent component = (JComponent) e.getSource();
-			while (component != null)
-			{
-				if (component instanceof JOptionPane)
-				{
+			while (component != null) {
+				if (component instanceof JOptionPane) {
 					((JOptionPane) component).setValue(buttonOption);
 					component = null;
-				}
-				else
-				{
+				} else {
 					component = component.getParent() == null ? null : (JComponent) component.getParent();
 				}
 			}
@@ -372,8 +342,7 @@ public class SwingUtil
 	 * @param buttons    Buttons to display, created via {@link #createFlatButton(String, int)}
 	 * @return The Integer value representing the button selected
 	 */
-	public static int showRuneLiteOptionPane(final JComponent component, final String content, final int optionType, final JButton[] buttons)
-	{
+	public static int showRuneLiteOptionPane(final JComponent component, final String content, final int optionType, final JButton[] buttons) {
 		final JLabel contentLabel = new JLabel(content);
 		contentLabel.setFont(FontManager.getRunescapeFont());
 		contentLabel.setForeground(Color.WHITE);
@@ -385,11 +354,11 @@ public class SwingUtil
 		p.add(contentLabel, BorderLayout.NORTH);
 
 		final JOptionPane pane = new JOptionPane(p,
-			JOptionPane.ERROR_MESSAGE,
-			optionType,
-			null,
-			buttons,
-			buttons[1]);
+				JOptionPane.ERROR_MESSAGE,
+				optionType,
+				null,
+				buttons,
+				buttons[1]);
 		pane.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		pane.setForeground(Color.WHITE);
 		stylizeJPanels(pane);
@@ -409,9 +378,8 @@ public class SwingUtil
 			String prop = e.getPropertyName();
 
 			if (dialog.isVisible()
-				&& (e.getSource() == pane)
-				&& (prop.equals(JOptionPane.VALUE_PROPERTY)))
-			{
+					&& (e.getSource() == pane)
+					&& (prop.equals(JOptionPane.VALUE_PROPERTY))) {
 				dialog.setVisible(false);
 			}
 		});
@@ -424,12 +392,9 @@ public class SwingUtil
 		return (Integer) pane.getValue();
 	}
 
-	private static void stylizeJPanels(final JComponent component)
-	{
-		for (final Component c : component.getComponents())
-		{
-			if (c instanceof JPanel)
-			{
+	private static void stylizeJPanels(final JComponent component) {
+		for (final Component c : component.getComponents()) {
+			if (c instanceof JPanel) {
 				c.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 				c.setForeground(Color.WHITE);
 				stylizeJPanels((JComponent) c);
@@ -443,10 +408,8 @@ public class SwingUtil
 	 * set up the theme.
 	 * This must be run inside the Swing Event Dispatch thread.
 	 */
-	public static void setupRuneLiteLookAndFeel()
-	{
-		if (!lookAndFeelIsSet)
-		{
+	public static void setupRuneLiteLookAndFeel() {
+		if (!lookAndFeelIsSet) {
 			lookAndFeelIsSet = true;
 			// Set some sensible swing defaults
 			SwingUtil.setupDefaults();
@@ -459,8 +422,7 @@ public class SwingUtil
 		}
 	}
 
-	public static void removeButtonDecorations(AbstractButton button)
-	{
+	public static void removeButtonDecorations(AbstractButton button) {
 		button.setBorderPainted(false);
 		button.setContentAreaFilled(false);
 		button.setFocusPainted(false);
@@ -468,8 +430,7 @@ public class SwingUtil
 		button.setOpaque(false);
 	}
 
-	public static void addModalTooltip(AbstractButton button, String on, String off)
-	{
+	public static void addModalTooltip(AbstractButton button, String on, String off) {
 		button.addItemListener(l -> button.setToolTipText(button.isSelected() ? on : off));
 	}
 }

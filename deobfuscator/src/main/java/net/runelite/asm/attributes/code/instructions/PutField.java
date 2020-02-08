@@ -43,42 +43,36 @@ import net.runelite.deob.deobfuscators.mapping.MappingExecutorUtil;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 import org.objectweb.asm.MethodVisitor;
 
-public class PutField extends Instruction implements SetFieldInstruction
-{
+public class PutField extends Instruction implements SetFieldInstruction {
 	private Field field;
 	private net.runelite.asm.Field myField;
 
-	public PutField(Instructions instructions, InstructionType type)
-	{
+	public PutField(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
-	public PutField(Instructions instructions, net.runelite.asm.Field field)
-	{
+	public PutField(Instructions instructions, net.runelite.asm.Field field) {
 		super(instructions, InstructionType.PUTFIELD);
 		this.field = field.getPoolField();
 		this.myField = field;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		Method m = this.getInstructions().getCode().getMethod();
 		return "putfield " + field + " in " + m;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		visitor.visitFieldInsn(this.getType().getCode(),
-			field.getClazz().getName(),
-			field.getName(),
-			field.getType().toString());
+				field.getClazz().getName(),
+				field.getName(),
+				field.getType().toString());
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
@@ -86,8 +80,7 @@ public class PutField extends Instruction implements SetFieldInstruction
 		StackContext object = stack.pop();
 		ins.pop(value, object);
 
-		if (myField != null)
-		{
+		if (myField != null) {
 			frame.getExecution().order(frame, myField);
 		}
 
@@ -95,20 +88,17 @@ public class PutField extends Instruction implements SetFieldInstruction
 	}
 
 	@Override
-	public Field getField()
-	{
+	public Field getField() {
 		return field;
 	}
 
 	@Override
-	public net.runelite.asm.Field getMyField()
-	{
+	public net.runelite.asm.Field getMyField() {
 		Class clazz = field.getClazz();
 
 		ClassGroup group = this.getInstructions().getCode().getMethod().getClassFile().getGroup();
 		ClassFile cf = group.findClass(clazz.getName());
-		if (cf == null)
-		{
+		if (cf == null) {
 			return null;
 		}
 
@@ -117,26 +107,21 @@ public class PutField extends Instruction implements SetFieldInstruction
 	}
 
 	@Override
-	public void lookup()
-	{
+	public void lookup() {
 		myField = getMyField();
 	}
 
 	@Override
-	public void regeneratePool()
-	{
-		if (myField != null)
-		{
-			if (getMyField() != myField)
-			{
+	public void regeneratePool() {
+		if (myField != null) {
+			if (getMyField() != myField) {
 				field = myField.getPoolField();
 			}
 		}
 	}
 
 	@Override
-	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
-	{
+	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
 		net.runelite.asm.Field myField = this.getMyField();
 		net.runelite.asm.Field otherField = ((PutField) other.getInstruction()).getMyField();
 
@@ -146,7 +131,7 @@ public class PutField extends Instruction implements SetFieldInstruction
 
 		// map assignment
 		StackContext object1 = ctx.getPops().get(1),
-			object2 = other.getPops().get(1);
+				object2 = other.getPops().get(1);
 
 		InstructionContext base1 = MappingExecutorUtil.resolve(object1.getPushed(), object1);
 		InstructionContext base2 = MappingExecutorUtil.resolve(object2.getPushed(), object2);
@@ -163,29 +148,24 @@ public class PutField extends Instruction implements SetFieldInstruction
 		mapGetFieldInstructrions(mapping, base1, base2);
 	}
 
-	private void mapGetFieldInstructrions(ParallelExecutorMapping mapping, InstructionContext base1, InstructionContext base2)
-	{
-		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction)
-		{
+	private void mapGetFieldInstructrions(ParallelExecutorMapping mapping, InstructionContext base1, InstructionContext base2) {
+		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction) {
 			GetFieldInstruction gf1 = (GetFieldInstruction) base1.getInstruction(),
-				gf2 = (GetFieldInstruction) base2.getInstruction();
+					gf2 = (GetFieldInstruction) base2.getInstruction();
 
 			net.runelite.asm.Field f1 = gf1.getMyField();
 			net.runelite.asm.Field f2 = gf2.getMyField();
 
-			if (f1 != null && f2 != null)
-			{
+			if (f1 != null && f2 != null) {
 				mapping.map(this, f1, f2);
 			}
 		}
 	}
 
-	private boolean isMaybeEqual(InstructionContext base1, InstructionContext base2)
-	{
-		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction)
-		{
+	private boolean isMaybeEqual(InstructionContext base1, InstructionContext base2) {
+		if (base1.getInstruction() instanceof GetFieldInstruction && base2.getInstruction() instanceof GetFieldInstruction) {
 			GetFieldInstruction gf1 = (GetFieldInstruction) base1.getInstruction(),
-				gf2 = (GetFieldInstruction) base2.getInstruction();
+					gf2 = (GetFieldInstruction) base2.getInstruction();
 
 			net.runelite.asm.Field f1 = gf1.getMyField();
 			net.runelite.asm.Field f2 = gf2.getMyField();
@@ -197,39 +177,34 @@ public class PutField extends Instruction implements SetFieldInstruction
 	}
 
 	@Override
-	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
-	{
-		if (thisIc.getInstruction().getClass() != otherIc.getInstruction().getClass())
-		{
+	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
+		if (thisIc.getInstruction().getClass() != otherIc.getInstruction().getClass()) {
 			return false;
 		}
 
 		PutField thisPf = (PutField) thisIc.getInstruction(),
-			otherPf = (PutField) otherIc.getInstruction();
+				otherPf = (PutField) otherIc.getInstruction();
 
 		net.runelite.asm.Field f1 = thisPf.getMyField();
 		net.runelite.asm.Field f2 = otherPf.getMyField();
 
-		if ((f1 != null) != (f2 != null))
-		{
+		if ((f1 != null) != (f2 != null)) {
 			return false;
 		}
 
 		if (!MappingExecutorUtil.isMaybeEqual(f1.getClassFile(), f2.getClassFile())
-			|| !MappingExecutorUtil.isMaybeEqual(f1.getType(), f2.getType()))
-		{
+				|| !MappingExecutorUtil.isMaybeEqual(f1.getType(), f2.getType())) {
 			return false;
 		}
 
 		// check assignment
 		StackContext object1 = thisIc.getPops().get(1),
-			object2 = otherIc.getPops().get(1);
+				object2 = otherIc.getPops().get(1);
 
 		InstructionContext base1 = MappingExecutorUtil.resolve(object1.getPushed(), object1);
 		InstructionContext base2 = MappingExecutorUtil.resolve(object2.getPushed(), object2);
 
-		if (!isMaybeEqual(base1, base2))
-		{
+		if (!isMaybeEqual(base1, base2)) {
 			return false;
 		}
 
@@ -240,8 +215,7 @@ public class PutField extends Instruction implements SetFieldInstruction
 		base1 = MappingExecutorUtil.resolve(object1.getPushed(), object1);
 		base2 = MappingExecutorUtil.resolve(object2.getPushed(), object2);
 
-		if (!isMaybeEqual(base1, base2))
-		{
+		if (!isMaybeEqual(base1, base2)) {
 			return false;
 		}
 
@@ -249,17 +223,14 @@ public class PutField extends Instruction implements SetFieldInstruction
 	}
 
 	@Override
-	public boolean canMap(InstructionContext thisIc)
-	{
+	public boolean canMap(InstructionContext thisIc) {
 		StackContext value = thisIc.getPops().get(0);
 		Instruction i = value.getPushed().getInstruction();
 
 		// sometimes ConstantValue field attributes and inlined into the constructor,
 		// which are all constants, so we ignore those mappings here
-		if (thisIc.getFrame().getMethod().getName().equals("<init>"))
-		{
-			if (i instanceof PushConstantInstruction || i instanceof AConstNull)
-			{
+		if (thisIc.getFrame().getMethod().getName().equals("<init>")) {
+			if (i instanceof PushConstantInstruction || i instanceof AConstNull) {
 				return false;
 			}
 		}
@@ -268,8 +239,7 @@ public class PutField extends Instruction implements SetFieldInstruction
 	}
 
 	@Override
-	public void setField(Field field)
-	{
+	public void setField(Field field) {
 		this.field = field;
 	}
 }

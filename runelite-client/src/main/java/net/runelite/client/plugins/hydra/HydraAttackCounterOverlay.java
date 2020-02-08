@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -45,8 +46,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class HydraAttackCounterOverlay extends Overlay
-{
+public class HydraAttackCounterOverlay extends Overlay {
 	private final HydraPlugin hydraPlugin;
 
 	private final Client client;
@@ -58,8 +58,7 @@ public class HydraAttackCounterOverlay extends Overlay
 	private boolean isBoldAttackCounterOverlay;
 
 	@Inject
-	private HydraAttackCounterOverlay(final HydraPlugin hydraPlugin, final Client client)
-	{
+	private HydraAttackCounterOverlay(final HydraPlugin hydraPlugin, final Client client) {
 		this.hydraPlugin = hydraPlugin;
 		this.client = client;
 		this.hydras = new HashMap<>();
@@ -70,28 +69,21 @@ public class HydraAttackCounterOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(final Graphics2D graphics)
-	{
-		if (!hydraPlugin.isPlayerAtHydraRegion())
-		{
+	public Dimension render(final Graphics2D graphics) {
+		if (!hydraPlugin.isPlayerAtHydraRegion()) {
 			return null;
 		}
 
-		for (final NPC npc : client.getNpcs())
-		{
+		for (final NPC npc : client.getNpcs()) {
 			final Hydra hydra = hydras.get(npc.getIndex());
 
-			if (hydra == null)
-			{
+			if (hydra == null) {
 				continue;
 			}
 
-			if (isBoldAttackCounterOverlay)
-			{
+			if (isBoldAttackCounterOverlay) {
 				graphics.setFont(FontManager.getRunescapeBoldFont());
-			}
-			else
-			{
+			} else {
 				graphics.setFont(FontManager.getRunescapeFont());
 			}
 
@@ -102,51 +94,41 @@ public class HydraAttackCounterOverlay extends Overlay
 		return null;
 	}
 
-	private void renderAnimationAttackType(final Graphics2D graphics, final Hydra hydra)
-	{
+	private void renderAnimationAttackType(final Graphics2D graphics, final Hydra hydra) {
 		final HydraAnimation hydraAnimation = hydra.getHydraAnimation();
 
-		if (hydraAnimation == null)
-		{
+		if (hydraAnimation == null) {
 			return;
 		}
 
 		final int heightOffset = 100;
 
 		final Point textLocation = hydra.getCanvasTextLocation(graphics, "TEMP!",
-			hydra.getLogicalHeight() + heightOffset);
+				hydra.getLogicalHeight() + heightOffset);
 
-		if (textLocation == null)
-		{
+		if (textLocation == null) {
 			return;
 		}
 
 		final boolean attackCountIsMax = hydra.getAttackCount() == Hydra.MAX_ATTACK_COUNT;
 
-		switch (hydraAnimation)
-		{
+		switch (hydraAnimation) {
 			case RANGE:
-				if (attackCountIsMax)
-				{
+				if (attackCountIsMax) {
 					OverlayUtil.renderTextLocation(graphics, textLocation, HydraAnimation.MAGIC.getText(),
-						HydraAnimation.MAGIC.getColor());
-				}
-				else
-				{
+							HydraAnimation.MAGIC.getColor());
+				} else {
 					OverlayUtil.renderTextLocation(graphics, textLocation, HydraAnimation.RANGE.getText(),
-						HydraAnimation.RANGE.getColor());
+							HydraAnimation.RANGE.getColor());
 				}
 				break;
 			case MAGIC:
-				if (attackCountIsMax)
-				{
+				if (attackCountIsMax) {
 					OverlayUtil.renderTextLocation(graphics, textLocation, HydraAnimation.RANGE.getText(),
-						HydraAnimation.RANGE.getColor());
-				}
-				else
-				{
+							HydraAnimation.RANGE.getColor());
+				} else {
 					OverlayUtil.renderTextLocation(graphics, textLocation, HydraAnimation.MAGIC.getText(),
-						HydraAnimation.MAGIC.getColor());
+							HydraAnimation.MAGIC.getColor());
 				}
 				break;
 			default:
@@ -154,17 +136,15 @@ public class HydraAttackCounterOverlay extends Overlay
 		}
 	}
 
-	private void renderAttackCount(final Graphics2D graphics, final Hydra hydra)
-	{
+	private void renderAttackCount(final Graphics2D graphics, final Hydra hydra) {
 		final int attackCount = hydra.getAttackCount();
 
 		final int heightOffset = 30;
 
 		final Point textLocation = hydra.getCanvasTextLocation(graphics, Integer.toString(attackCount),
-			hydra.getLogicalHeight() + heightOffset);
+				hydra.getLogicalHeight() + heightOffset);
 
-		if (textLocation != null)
-		{
+		if (textLocation != null) {
 			OverlayUtil.renderTextLocation(graphics, textLocation, Integer.toString(attackCount), Color.WHITE);
 		}
 	}

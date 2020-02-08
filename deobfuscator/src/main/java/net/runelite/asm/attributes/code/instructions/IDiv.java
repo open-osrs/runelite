@@ -36,42 +36,37 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 
-public class IDiv extends Instruction implements DivisionInstruction
-{
-	public IDiv(Instructions instructions, InstructionType type)
-	{
+public class IDiv extends Instruction implements DivisionInstruction {
+	public IDiv(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
-	
-	public IDiv(Instructions instructions)
-	{
+
+	public IDiv(Instructions instructions) {
 		super(instructions, InstructionType.IDIV);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext two = stack.pop();
 		StackContext one = stack.pop();
-		
+
 		ins.pop(two, one);
-		
+
 		Value result = Value.UNKNOWN;
-		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull())
-		{
+		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull()) {
 			int i2 = (int) two.getValue().getValue(),
-				i1 = (int) one.getValue().getValue();
-			
+					i1 = (int) one.getValue().getValue();
+
 			if (i2 != 0)
 				result = new Value(i1 / i2);
 		}
-		
+
 		StackContext ctx = new StackContext(ins, Type.INT, result);
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
 
 		return ins;

@@ -12,13 +12,13 @@ public class WorldMapArchiveLoader {
 	String cacheName;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("archive")
 	AbstractArchive archive;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1269889337
+			intValue = -1269889337
 	)
 	@Export("percentLoaded")
 	int percentLoaded;
@@ -27,7 +27,7 @@ public class WorldMapArchiveLoader {
 	boolean loaded;
 
 	@ObfuscatedSignature(
-		signature = "(Lii;)V"
+			signature = "(Lii;)V"
 	)
 	WorldMapArchiveLoader(AbstractArchive var1) {
 		this.percentLoaded = 0;
@@ -37,8 +37,8 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
-		garbageValue = "101"
+			signature = "(Ljava/lang/String;B)V",
+			garbageValue = "101"
 	)
 	@Export("reset")
 	void reset(String var1) {
@@ -54,8 +54,8 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-2006696210"
+			signature = "(I)I",
+			garbageValue = "-2006696210"
 	)
 	@Export("load")
 	int load() {
@@ -89,8 +89,8 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1868224122"
+			signature = "(I)Z",
+			garbageValue = "-1868224122"
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
@@ -99,8 +99,8 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "170805497"
+			signature = "(I)I",
+			garbageValue = "170805497"
 	)
 	@Export("getPercentLoaded")
 	int getPercentLoaded() {

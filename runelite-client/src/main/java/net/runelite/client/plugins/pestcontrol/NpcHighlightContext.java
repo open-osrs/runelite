@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.pestcontrol;
 
 import java.awt.Color;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,8 +35,7 @@ import net.runelite.client.plugins.pestcontrol.config.NpcHighlightStyle;
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
-class NpcHighlightContext
-{
+class NpcHighlightContext {
 	private NpcHighlightStyle npcRenderStyle;
 	private Color color;
 	private boolean showNpcName;

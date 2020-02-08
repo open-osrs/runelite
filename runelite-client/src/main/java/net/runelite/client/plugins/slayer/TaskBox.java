@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
@@ -22,8 +23,7 @@ import net.runelite.client.ui.components.ProgressBar;
 import net.runelite.client.util.QuantityFormatter;
 
 @Singleton
-class TaskBox extends JPanel
-{
+class TaskBox extends JPanel {
 	private static final long MILLIS_PER_SECOND = 1000;
 	private static final long SECONDS_PER_MINUTE = 60;
 	private static final long MINUTES_PER_HOUR = 60;
@@ -34,12 +34,12 @@ class TaskBox extends JPanel
 
 	// Templates
 	private static final String HTML_TOOL_TIP_TEMPLATE =
-		"<html>%.1f Kills/hr<br/>" +
-			"%02d:%02d:%02d per kill</html>";
+			"<html>%.1f Kills/hr<br/>" +
+					"%02d:%02d:%02d per kill</html>";
 	private static final String HTML_LABEL_TEMPLATE =
-		"<html><body style='color:white'>%s</body></html>";
+			"<html><body style='color:white'>%s</body></html>";
 	private static final String HTML_TIME_LABEL_TEMPLATE =
-		"<html><body style='color:white'>%02d:%02d:%02d</span></body></html>";
+			"<html><body style='color:white'>%02d:%02d:%02d</span></body></html>";
 
 	// Instance members
 	private final JPanel panel;
@@ -69,8 +69,7 @@ class TaskBox extends JPanel
 
 	private boolean paused = false;
 
-	TaskBox(SlayerPlugin slayerPlugin, JPanel panel, TaskData taskData)
-	{
+	TaskBox(SlayerPlugin slayerPlugin, JPanel panel, TaskData taskData) {
 		this.panel = panel;
 		this.taskData = taskData;
 
@@ -154,8 +153,7 @@ class TaskBox extends JPanel
 
 		logTitle.add(subTitleLabel, BorderLayout.CENTER);
 
-		if (taskData.getTaskLocation() != null && !taskData.getTaskLocation().equals(""))
-		{
+		if (taskData.getTaskLocation() != null && !taskData.getTaskLocation().equals("")) {
 			final JLabel locationLabel = new JLabel(taskData.getTaskLocation());
 			locationLabel.setFont(FontManager.getRunescapeSmallFont());
 			locationLabel.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
@@ -170,17 +168,13 @@ class TaskBox extends JPanel
 		add(container, BorderLayout.NORTH);
 	}
 
-	void update(boolean updated, boolean paused, TaskData newData)
-	{
+	void update(boolean updated, boolean paused, TaskData newData) {
 		SwingUtilities.invokeLater(() -> rebuildAsync(updated, paused, newData));
 	}
 
-	private void rebuildAsync(boolean updated, boolean taskPaused, TaskData newData)
-	{
-		if (updated)
-		{
-			if (getParent() != panel)
-			{
+	private void rebuildAsync(boolean updated, boolean taskPaused, TaskData newData) {
+		if (updated) {
+			if (getParent() != panel) {
 				panel.add(this, 0);
 				panel.revalidate();
 			}
@@ -210,8 +204,7 @@ class TaskBox extends JPanel
 			progressBar.setPositions(Collections.emptyList());
 
 			double killsPerMillis = ((double) taskData.getElapsedKills() - 1) / ((double) taskData.getElapsedTime());
-			if (killsPerMillis > 0)
-			{
+			if (killsPerMillis > 0) {
 				double killsPerHour = killsPerMillis * MILLIS_PER_HOUR;
 				double millisPerKill = 1.0 / killsPerMillis;
 				long seconds = ((long) millisPerKill) / MILLIS_PER_SECOND;
@@ -220,41 +213,32 @@ class TaskBox extends JPanel
 				long hours = minutes / MINUTES_PER_HOUR;
 				minutes %= 60;
 				progressBar.setToolTipText(String.format(
-					HTML_TOOL_TIP_TEMPLATE,
-					killsPerHour,
-					hours,
-					minutes,
-					seconds
+						HTML_TOOL_TIP_TEMPLATE,
+						killsPerHour,
+						hours,
+						minutes,
+						seconds
 				));
 			}
 
-			if (taskData.getAmount() == 0 && taskData.getElapsedXp() == 0)
-			{
+			if (taskData.getAmount() == 0 && taskData.getElapsedXp() == 0) {
 				progressBar.setDimmedText("Skipped");
 				progressBar.setForeground(new Color(128, 0, 0));
-			}
-			else if ((taskData.getAmount() == 0 && taskData.getElapsedXp() > 0) || (int) (percentComplete * 100) >= 100)
-			{
+			} else if ((taskData.getAmount() == 0 && taskData.getElapsedXp() > 0) || (int) (percentComplete * 100) >= 100) {
 				progressBar.setDimmedText("Finished");
 				progressBar.setForeground(new Color(0, 128, 0));
-			}
-			else
-			{
+			} else {
 				progressBar.setDimmedText("Paused");
 			}
 
 			progressBar.setDimmed(taskPaused);
 			progressBar.repaint();
-		}
-		else if (!paused && taskPaused)
-		{
+		} else if (!paused && taskPaused) {
 			progressBar.setDimmedText("Paused");
 			progressBar.setDimmed(true);
 			progressBar.repaint();
 			paused = true;
-		}
-		else if (paused && !taskPaused)
-		{
+		} else if (paused && !taskPaused) {
 			progressBar.setDimmed(false);
 			progressBar.repaint();
 			paused = false;
@@ -268,12 +252,10 @@ class TaskBox extends JPanel
 		repaint();
 	}
 
-	private static long estimateRemainingTime(TaskData taskData)
-	{
+	private static long estimateRemainingTime(TaskData taskData) {
 		int kills = taskData.getElapsedKills();
 		int killsInElapsedTime = kills - 1; // b/c time only elapses after 1st slayer drop
-		if (killsInElapsedTime < 1)
-		{
+		if (killsInElapsedTime < 1) {
 			return Long.MAX_VALUE;
 		}
 		double timePerKill = ((double) taskData.getElapsedTime()) / ((double) killsInElapsedTime);
@@ -281,15 +263,11 @@ class TaskBox extends JPanel
 		return (long) timePerKill * taskData.getAmount();
 	}
 
-	private static String htmlLabel(long timeMillis)
-	{
-		if (timeMillis == Long.MAX_VALUE)
-		{
+	private static String htmlLabel(long timeMillis) {
+		if (timeMillis == Long.MAX_VALUE) {
 			String valueStr = "N/A";
 			return String.format(HTML_LABEL_TEMPLATE, valueStr);
-		}
-		else
-		{
+		} else {
 			long seconds = timeMillis / MILLIS_PER_SECOND;
 			long minutes = seconds / SECONDS_PER_MINUTE;
 			seconds %= 60;
@@ -299,8 +277,7 @@ class TaskBox extends JPanel
 		}
 	}
 
-	private static String htmlLabel(int value)
-	{
+	private static String htmlLabel(int value) {
 		String valueStr = QuantityFormatter.quantityToRSDecimalStack(value);
 		return String.format(HTML_LABEL_TEMPLATE, valueStr);
 	}

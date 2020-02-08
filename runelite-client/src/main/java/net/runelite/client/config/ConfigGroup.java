@@ -31,8 +31,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface ConfigGroup
-{
+public @interface ConfigGroup {
 	/**
 	 * The key name of the config group used for storing configuration within the config group.
 	 * This should typically be a lowercase version of your plugin name, with all spaces removed.

@@ -27,8 +27,7 @@ package net.runelite.rs.api;
 import net.runelite.api.Player;
 import net.runelite.mapping.Import;
 
-public interface RSPlayer extends RSActor, Player
-{
+public interface RSPlayer extends RSActor, Player {
 	@Import("username")
 	RSUsername getRsName();
 

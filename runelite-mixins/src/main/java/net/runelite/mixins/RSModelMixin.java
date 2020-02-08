@@ -27,6 +27,7 @@ package net.runelite.mixins;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
 import net.runelite.api.mixins.Copy;
@@ -45,8 +46,7 @@ import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSSkeleton;
 
 @Mixin(RSModel.class)
-public abstract class RSModelMixin implements RSModel
-{
+public abstract class RSModelMixin implements RSModel {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -67,14 +67,11 @@ public abstract class RSModelMixin implements RSModel
 
 	@MethodHook(value = "<init>", end = true)
 	@Inject
-	public void rl$init(RSModel[] models, int length)
-	{
+	public void rl$init(RSModel[] models, int length) {
 		int count = 0;
-		for (int i = 0; i < length; ++i)
-		{
+		for (int i = 0; i < length; ++i) {
 			RSModel model = models[i];
-			if (model != null)
-			{
+			if (model != null) {
 				count += model.getTrianglesCount();
 			}
 		}
@@ -83,18 +80,14 @@ public abstract class RSModelMixin implements RSModel
 		float[][] v = new float[count][];
 		int idx = 0;
 
-		for (int i = 0; i < length; ++i)
-		{
+		for (int i = 0; i < length; ++i) {
 			RSModel model = models[i];
-			if (model != null)
-			{
+			if (model != null) {
 				float[][] modelU = model.getFaceTextureUCoordinates();
 				float[][] modelV = model.getFaceTextureVCoordinates();
 
-				for (int j = 0; j < model.getTrianglesCount(); ++j)
-				{
-					if (modelU != null && modelV != null)
-					{
+				for (int j = 0; j < model.getTrianglesCount(); ++j) {
+					if (modelU != null && modelV != null) {
 						u[idx] = modelU[j];
 						v[idx] = modelV[j];
 					}
@@ -109,20 +102,18 @@ public abstract class RSModelMixin implements RSModel
 
 	@Override
 	@Inject
-	public List<Vertex> getVertices()
-	{
+	public List<Vertex> getVertices() {
 		int[] verticesX = getVerticesX();
 		int[] verticesY = getVerticesY();
 		int[] verticesZ = getVerticesZ();
 
 		List<Vertex> vertices = new ArrayList<Vertex>(getVerticesCount());
 
-		for (int i = 0; i < getVerticesCount(); ++i)
-		{
+		for (int i = 0; i < getVerticesCount(); ++i) {
 			Vertex v = new Vertex(
-				verticesX[i],
-				verticesY[i],
-				verticesZ[i]
+					verticesX[i],
+					verticesY[i],
+					verticesZ[i]
 			);
 			vertices.add(v);
 		}
@@ -132,8 +123,7 @@ public abstract class RSModelMixin implements RSModel
 
 	@Override
 	@Inject
-	public List<Triangle> getTriangles()
-	{
+	public List<Triangle> getTriangles() {
 		int[] trianglesX = getTrianglesX();
 		int[] trianglesY = getTrianglesY();
 		int[] trianglesZ = getTrianglesZ();
@@ -141,16 +131,15 @@ public abstract class RSModelMixin implements RSModel
 		List<Vertex> vertices = getVertices();
 		List<Triangle> triangles = new ArrayList<>(getTrianglesCount());
 
-		for (int i = 0; i < getTrianglesCount(); ++i)
-		{
+		for (int i = 0; i < getTrianglesCount(); ++i) {
 			int triangleX = trianglesX[i];
 			int triangleY = trianglesY[i];
 			int triangleZ = trianglesZ[i];
 
 			Triangle triangle = new Triangle(
-				vertices.get(triangleX),
-				vertices.get(triangleY),
-				vertices.get(triangleZ)
+					vertices.get(triangleX),
+					vertices.get(triangleY),
+					vertices.get(triangleZ)
 			);
 			triangles.add(triangle);
 		}
@@ -162,12 +151,10 @@ public abstract class RSModelMixin implements RSModel
 	public abstract Model rs$contourGround(int[][] tileHeights, int packedX, int height, int packedY, boolean copy, int contouredGround);
 
 	@Replace("contourGround")
-	public Model rl$contourGround(int[][] tileHeights, int packedX, int height, int packedY, boolean copy, int contouredGround)
-	{
+	public Model rl$contourGround(int[][] tileHeights, int packedX, int height, int packedY, boolean copy, int contouredGround) {
 		// With contouredGround >= 0 lighted models are countoured, so we need to copy uvs
 		Model model = rs$contourGround(tileHeights, packedX, height, packedY, copy, contouredGround);
-		if (model != null && model != this)
-		{
+		if (model != null && model != this) {
 			RSModel rsModel = (RSModel) model;
 			rsModel.setFaceTextureUCoordinates(rl$faceTextureUCoordinates);
 			rsModel.setFaceTextureVCoordinates(rl$faceTextureVCoordinates);
@@ -177,8 +164,7 @@ public abstract class RSModelMixin implements RSModel
 
 	@MethodHook("buildSharedModel")
 	@Inject
-	public void rl$buildSharedModel(boolean refTransparencies, Model sharedModel, byte[] transparencyBuffer)
-	{
+	public void rl$buildSharedModel(boolean refTransparencies, Model sharedModel, byte[] transparencyBuffer) {
 		// Animated models are usually a shared Model instance that is global
 		RSModel rsModel = (RSModel) sharedModel;
 		rsModel.setFaceTextureUCoordinates(rl$faceTextureUCoordinates);
@@ -186,20 +172,15 @@ public abstract class RSModelMixin implements RSModel
 	}
 
 	@Inject
-	public void interpolateFrames(RSFrames frames, int frameId, RSFrames nextFrames, int nextFrameId, int interval, int intervalCount)
-	{
-		if (getVertexGroups() != null)
-		{
-			if (frameId != -1)
-			{
+	public void interpolateFrames(RSFrames frames, int frameId, RSFrames nextFrames, int nextFrameId, int interval, int intervalCount) {
+		if (getVertexGroups() != null) {
+			if (frameId != -1) {
 				RSAnimation frame = frames.getFrames()[frameId];
 				RSSkeleton skin = frame.getSkin();
 				RSAnimation nextFrame = null;
-				if (nextFrames != null)
-				{
+				if (nextFrames != null) {
 					nextFrame = nextFrames.getFrames()[nextFrameId];
-					if (nextFrame.getSkin() != skin)
-					{
+					if (nextFrame.getSkin() != skin) {
 						nextFrame = null;
 					}
 				}
@@ -215,49 +196,38 @@ public abstract class RSModelMixin implements RSModel
 	}
 
 	@Inject
-	public void interpolateFrames(RSSkeleton skin, RSAnimation frame, RSAnimation nextFrame, int interval, int intervalCount)
-	{
-		if (nextFrame == null || interval == 0)
-		{
+	public void interpolateFrames(RSSkeleton skin, RSAnimation frame, RSAnimation nextFrame, int interval, int intervalCount) {
+		if (nextFrame == null || interval == 0) {
 			// if there is no next frame or interval then animate the model as we normally would
-			for (int i = 0; i < frame.getTransformCount(); i++)
-			{
+			for (int i = 0; i < frame.getTransformCount(); i++) {
 				int type = frame.getTransformTypes()[i];
 				this.animate(skin.getTypes()[type], skin.getList()[type], frame.getTranslatorX()[i],
 						frame.getTranslatorY()[i], frame.getTranslatorZ()[i]);
 			}
-		}
-		else
-		{
+		} else {
 			int transformIndex = 0;
 			int nextTransformIndex = 0;
-			for (int i = 0; i < skin.getCount(); i++)
-			{
+			for (int i = 0; i < skin.getCount(); i++) {
 				boolean frameValid = false;
 				if (transformIndex < frame.getTransformCount()
-						&& frame.getTransformTypes()[transformIndex] == i)
-				{
+						&& frame.getTransformTypes()[transformIndex] == i) {
 					frameValid = true;
 				}
 				boolean nextFrameValid = false;
 				if (nextTransformIndex < nextFrame.getTransformCount()
-						&& nextFrame.getTransformTypes()[nextTransformIndex] == i)
-				{
+						&& nextFrame.getTransformTypes()[nextTransformIndex] == i) {
 					nextFrameValid = true;
 				}
-				if (frameValid || nextFrameValid)
-				{
+				if (frameValid || nextFrameValid) {
 					int staticFrame = 0;
 					int type = skin.getTypes()[i];
-					if (type == 3 || type == 10)
-					{
+					if (type == 3 || type == 10) {
 						staticFrame = 128;
 					}
 					int currentTranslateX = staticFrame;
 					int currentTranslateY = staticFrame;
 					int currentTranslateZ = staticFrame;
-					if (frameValid)
-					{
+					if (frameValid) {
 						currentTranslateX = frame.getTranslatorX()[transformIndex];
 						currentTranslateY = frame.getTranslatorY()[transformIndex];
 						currentTranslateZ = frame.getTranslatorZ()[transformIndex];
@@ -266,8 +236,7 @@ public abstract class RSModelMixin implements RSModel
 					int nextTranslateX = staticFrame;
 					int nextTranslateY = staticFrame;
 					int nextTranslateZ = staticFrame;
-					if (nextFrameValid)
-					{
+					if (nextFrameValid) {
 						nextTranslateX = nextFrame.getTranslatorX()[nextTransformIndex];
 						nextTranslateY = nextFrame.getTranslatorY()[nextTransformIndex];
 						nextTranslateZ = nextFrame.getTranslatorZ()[nextTransformIndex];
@@ -276,37 +245,29 @@ public abstract class RSModelMixin implements RSModel
 					int translateX;
 					int translateY;
 					int translateZ;
-					if (type == 2)
-					{
+					if (type == 2) {
 						int deltaX = nextTranslateX - currentTranslateX & 0xFF;
 						int deltaY = nextTranslateY - currentTranslateY & 0xFF;
 						int deltaZ = nextTranslateZ - currentTranslateZ & 0xFF;
-						if (deltaX >= 128)
-						{
+						if (deltaX >= 128) {
 							deltaX -= 256;
 						}
-						if (deltaY >= 128)
-						{
+						if (deltaY >= 128) {
 							deltaY -= 256;
 						}
-						if (deltaZ >= 128)
-						{
+						if (deltaZ >= 128) {
 							deltaZ -= 256;
 						}
 						translateX = currentTranslateX + deltaX * interval / intervalCount & 0xFF;
 						translateY = currentTranslateY + deltaY * interval / intervalCount & 0xFF;
 						translateZ = currentTranslateZ + deltaZ * interval / intervalCount & 0xFF;
-					}
-					else if (type == 5)
-					{
+					} else if (type == 5) {
 						// don't interpolate alpha transformations
 						// alpha
 						translateX = currentTranslateX;
 						translateY = 0;
 						translateZ = 0;
-					}
-					else
-					{
+					} else {
 						translateX = currentTranslateX + (nextTranslateX - currentTranslateX) * interval / intervalCount;
 						translateY = currentTranslateY + (nextTranslateY - currentTranslateY) * interval / intervalCount;
 						translateZ = currentTranslateZ + (nextTranslateZ - currentTranslateZ) * interval / intervalCount;
@@ -320,8 +281,7 @@ public abstract class RSModelMixin implements RSModel
 
 	@Override
 	@Inject
-	public Shape getConvexHull(int localX, int localY, int orientation, int tileHeight)
-	{
+	public Shape getConvexHull(int localX, int localY, int orientation, int tileHeight) {
 		int[] x2d = new int[this.getVerticesCount()];
 		int[] y2d = new int[this.getVerticesCount()];
 
@@ -332,71 +292,61 @@ public abstract class RSModelMixin implements RSModel
 
 	@Inject
 	@Override
-	public int getSceneId()
-	{
+	public int getSceneId() {
 		return rl$sceneId;
 	}
 
 	@Inject
 	@Override
-	public void setSceneId(int sceneId)
-	{
+	public void setSceneId(int sceneId) {
 		this.rl$sceneId = sceneId;
 	}
 
 	@Inject
 	@Override
-	public int getBufferOffset()
-	{
+	public int getBufferOffset() {
 		return rl$bufferOffset;
 	}
 
 	@Inject
 	@Override
-	public void setBufferOffset(int bufferOffset)
-	{
+	public void setBufferOffset(int bufferOffset) {
 		rl$bufferOffset = bufferOffset;
 	}
 
 	@Inject
 	@Override
-	public int getUvBufferOffset()
-	{
+	public int getUvBufferOffset() {
 		return rl$uvBufferOffset;
 	}
 
 	@Inject
 	@Override
-	public void setUvBufferOffset(int bufferOffset)
-	{
+	public void setUvBufferOffset(int bufferOffset) {
 		rl$uvBufferOffset = bufferOffset;
 	}
 
 	@Inject
 	@Override
-	public float[][] getFaceTextureUCoordinates()
-	{
+	public float[][] getFaceTextureUCoordinates() {
 		return rl$faceTextureUCoordinates;
 	}
 
 	@Inject
 	@Override
-	public void setFaceTextureUCoordinates(float[][] faceTextureUCoordinates)
-	{
+	public void setFaceTextureUCoordinates(float[][] faceTextureUCoordinates) {
 		this.rl$faceTextureUCoordinates = faceTextureUCoordinates;
 	}
 
 	@Inject
 	@Override
-	public float[][] getFaceTextureVCoordinates()
-	{
+	public float[][] getFaceTextureVCoordinates() {
 		return rl$faceTextureVCoordinates;
 	}
 
 	@Inject
 	@Override
-	public void setFaceTextureVCoordinates(float[][] faceTextureVCoordinates)
-	{
+	public void setFaceTextureVCoordinates(float[][] faceTextureVCoordinates) {
 		this.rl$faceTextureVCoordinates = faceTextureVCoordinates;
 	}
 }

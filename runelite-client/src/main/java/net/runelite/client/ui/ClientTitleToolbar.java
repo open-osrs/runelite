@@ -25,6 +25,7 @@
 package net.runelite.client.ui;
 
 import com.google.common.collect.ComparisonChain;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -36,88 +37,73 @@ import javax.swing.JPanel;
 /**
  * Client title toolbar component.
  */
-class ClientTitleToolbar extends JPanel
-{
+class ClientTitleToolbar extends JPanel {
 	private static final int TITLEBAR_SIZE = 23;
 	private static final int ITEM_PADDING = 4;
 	private final Map<NavigationButton, Component> componentMap = new TreeMap<>((a, b) ->
-		ComparisonChain
-			.start()
-			.compare(a.getPriority(), b.getPriority())
-			.compare(a.getTooltip(), b.getTooltip())
-			.result());
+			ComparisonChain
+					.start()
+					.compare(a.getPriority(), b.getPriority())
+					.compare(a.getTooltip(), b.getTooltip())
+					.result());
 
 	/**
 	 * Instantiates a new Client title toolbar.
 	 */
-	ClientTitleToolbar()
-	{
+	ClientTitleToolbar() {
 		// The only other layout manager that would manage it's preferred size without padding
 		// was the GroupLayout manager, which doesn't work with dynamic layouts like this one.
 		// Primarily, it would not remove components unless it was immediately repainted.
-		setLayout(new LayoutManager2()
-		{
+		setLayout(new LayoutManager2() {
 			@Override
-			public void addLayoutComponent(String name, Component comp)
-			{
+			public void addLayoutComponent(String name, Component comp) {
 			}
 
 			@Override
-			public void addLayoutComponent(Component comp, Object constraints)
-			{
+			public void addLayoutComponent(Component comp, Object constraints) {
 			}
 
 			@Override
-			public void removeLayoutComponent(Component comp)
-			{
+			public void removeLayoutComponent(Component comp) {
 			}
 
 			@Override
-			public Dimension preferredLayoutSize(Container parent)
-			{
+			public Dimension preferredLayoutSize(Container parent) {
 				int width = parent.getComponentCount() * (TITLEBAR_SIZE + ITEM_PADDING);
 				return new Dimension(width, TITLEBAR_SIZE);
 			}
 
 			@Override
-			public Dimension minimumLayoutSize(Container parent)
-			{
+			public Dimension minimumLayoutSize(Container parent) {
 				return preferredLayoutSize(parent);
 			}
 
 			@Override
-			public Dimension maximumLayoutSize(Container parent)
-			{
+			public Dimension maximumLayoutSize(Container parent) {
 				return preferredLayoutSize(parent);
 			}
 
 			@Override
-			public float getLayoutAlignmentX(Container target)
-			{
+			public float getLayoutAlignmentX(Container target) {
 				return 0;
 			}
 
 			@Override
-			public float getLayoutAlignmentY(Container target)
-			{
+			public float getLayoutAlignmentY(Container target) {
 				return 0;
 			}
 
 			@Override
-			public void invalidateLayout(Container target)
-			{
+			public void invalidateLayout(Container target) {
 			}
 
 			@Override
-			public void layoutContainer(Container parent)
-			{
+			public void layoutContainer(Container parent) {
 				int x = 0;
-				for (Component c : parent.getComponents())
-				{
+				for (Component c : parent.getComponents()) {
 					x += ITEM_PADDING;
 					int height = c.getPreferredSize().height;
-					if (height > TITLEBAR_SIZE)
-					{
+					if (height > TITLEBAR_SIZE) {
 						height = TITLEBAR_SIZE;
 					}
 					c.setBounds(x, (TITLEBAR_SIZE - height) / 2, TITLEBAR_SIZE, height);
@@ -127,24 +113,19 @@ class ClientTitleToolbar extends JPanel
 		});
 	}
 
-	void addComponent(final NavigationButton button, final Component c)
-	{
-		if (componentMap.put(button, c) == null)
-		{
+	void addComponent(final NavigationButton button, final Component c) {
+		if (componentMap.put(button, c) == null) {
 			update();
 		}
 	}
 
-	void removeComponent(final NavigationButton button)
-	{
-		if (componentMap.remove(button) != null)
-		{
+	void removeComponent(final NavigationButton button) {
+		if (componentMap.remove(button) != null) {
 			update();
 		}
 	}
 
-	private void update()
-	{
+	private void update() {
 		removeAll();
 		componentMap.values().forEach(this::add);
 		repaint();

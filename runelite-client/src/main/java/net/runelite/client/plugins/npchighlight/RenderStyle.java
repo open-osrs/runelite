@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.npchighlight;
 
-public enum RenderStyle
-{
+public enum RenderStyle {
 	OFF,
 	TILE,
 	THIN_TILE,

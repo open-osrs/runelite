@@ -26,13 +26,13 @@ package net.runelite.client.util;
 
 import java.awt.event.KeyEvent;
 import java.util.function.Supplier;
+
 import lombok.RequiredArgsConstructor;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.input.KeyListener;
 
 @RequiredArgsConstructor
-public abstract class HotkeyListener implements KeyListener
-{
+public abstract class HotkeyListener implements KeyListener {
 	private final Supplier<Keybind> keybind;
 
 	private boolean isPressed = false;
@@ -40,27 +40,21 @@ public abstract class HotkeyListener implements KeyListener
 	private boolean isConsumingTyped = false;
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		if (isConsumingTyped)
-		{
+	public void keyTyped(KeyEvent e) {
+		if (isConsumingTyped) {
 			e.consume();
 		}
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
+	public void keyPressed(KeyEvent e) {
+		if (keybind.get().matches(e)) {
 			boolean wasPressed = isPressed;
 			isPressed = true;
-			if (!wasPressed)
-			{
+			if (!wasPressed) {
 				hotkeyPressed();
 			}
-			if (Keybind.getModifierForKeyCode(e.getKeyCode()) == null)
-			{
+			if (Keybind.getModifierForKeyCode(e.getKeyCode()) == null) {
 				isConsumingTyped = true;
 				// Only consume non modifier keys
 				e.consume();
@@ -69,12 +63,9 @@ public abstract class HotkeyListener implements KeyListener
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
-			if (isPressed)
-			{
+	public void keyReleased(KeyEvent e) {
+		if (keybind.get().matches(e)) {
+			if (isPressed) {
 				hotkeyReleased();
 			}
 			isPressed = false;
@@ -82,11 +73,9 @@ public abstract class HotkeyListener implements KeyListener
 		}
 	}
 
-	protected void hotkeyPressed()
-	{
+	protected void hotkeyPressed() {
 	}
 
-	protected void hotkeyReleased()
-	{
+	protected void hotkeyReleased() {
 	}
 }

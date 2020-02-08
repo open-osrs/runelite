@@ -28,10 +28,14 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
+
 import java.awt.image.BufferedImage;
+
 import static java.lang.Math.min;
+
 import java.util.List;
 import javax.inject.Inject;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -65,16 +69,15 @@ import net.runelite.client.util.MiscUtils;
 import org.slf4j.LoggerFactory;
 
 @PluginDescriptor(
-	name = "Developer Tools",
-	tags = {"panel"},
-	developerPlugin = true,
-	type = PluginType.MISCELLANEOUS
+		name = "Developer Tools",
+		tags = {"panel"},
+		developerPlugin = true,
+		type = PluginType.MISCELLANEOUS
 )
 @Getter(AccessLevel.PACKAGE)
-public class DevToolsPlugin extends Plugin
-{
+public class DevToolsPlugin extends Plugin {
 	private static final List<MenuOpcode> EXAMINE_MENU_ACTIONS = ImmutableList.of(MenuOpcode.EXAMINE_ITEM,
-		MenuOpcode.EXAMINE_ITEM_GROUND, MenuOpcode.EXAMINE_NPC, MenuOpcode.EXAMINE_OBJECT);
+			MenuOpcode.EXAMINE_ITEM_GROUND, MenuOpcode.EXAMINE_NPC, MenuOpcode.EXAMINE_OBJECT);
 
 	@Inject
 	private Client client;
@@ -138,14 +141,12 @@ public class DevToolsPlugin extends Plugin
 	private NavigationButton navButton;
 
 	@Provides
-	DevToolsConfig provideConfig(ConfigManager configManager)
-	{
+	DevToolsConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(DevToolsConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		players = new DevToolsButton("Players");
 		npcs = new DevToolsButton("NPCs");
@@ -197,18 +198,17 @@ public class DevToolsPlugin extends Plugin
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "devtools_icon.png");
 
 		navButton = NavigationButton.builder()
-			.tooltip("Developer Tools")
-			.icon(icon)
-			.priority(1)
-			.panel(panel)
-			.build();
+				.tooltip("Developer Tools")
+				.icon(icon)
+				.priority(1)
+				.panel(panel)
+				.build();
 
 		clientToolbar.addNavigation(navButton);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(locationOverlay);
 		overlayManager.remove(sceneOverlay);
@@ -220,24 +220,18 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onCommandExecuted(CommandExecuted commandExecuted)
-	{
+	private void onCommandExecuted(CommandExecuted commandExecuted) {
 		String[] args = commandExecuted.getArguments();
 
-		switch (commandExecuted.getCommand())
-		{
-			case "logger":
-			{
+		switch (commandExecuted.getCommand()) {
+			case "logger": {
 				final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 				String message;
 				Level currentLoggerLevel = logger.getLevel();
 
-				if (args.length < 1)
-				{
+				if (args.length < 1) {
 					message = "Logger level is currently set to " + currentLoggerLevel;
-				}
-				else
-				{
+				} else {
 					Level newLoggerLevel = Level.toLevel(args[0], currentLoggerLevel);
 					logger.setLevel(newLoggerLevel);
 					message = "Logger level has been set to " + newLoggerLevel;
@@ -246,15 +240,13 @@ public class DevToolsPlugin extends Plugin
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", message, null);
 				break;
 			}
-			case "getvarp":
-			{
+			case "getvarp": {
 				int varp = Integer.parseInt(args[0]);
 				int value = client.getVarpValue(client.getVarps(), varp);
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "VarPlayer " + varp + ": " + value, null);
 				break;
 			}
-			case "setvarp":
-			{
+			case "setvarp": {
 				int varp = Integer.parseInt(args[0]);
 				int value = Integer.parseInt(args[1]);
 				client.setVarpValue(client.getVarps(), varp, value);
@@ -264,15 +256,13 @@ public class DevToolsPlugin extends Plugin
 				eventBus.post(VarbitChanged.class, varbitChanged); // fake event
 				break;
 			}
-			case "getvarb":
-			{
+			case "getvarb": {
 				int varbit = Integer.parseInt(args[0]);
 				int value = client.getVarbitValue(client.getVarps(), varbit);
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Varbit " + varbit + ": " + value, null);
 				break;
 			}
-			case "setvarb":
-			{
+			case "setvarb": {
 				int varbit = Integer.parseInt(args[0]);
 				int value = Integer.parseInt(args[1]);
 				client.setVarbitValue(client.getVarps(), varbit, value);
@@ -280,8 +270,7 @@ public class DevToolsPlugin extends Plugin
 				eventBus.post(VarbitChanged.class, new VarbitChanged()); // fake event
 				break;
 			}
-			case "addxp":
-			{
+			case "addxp": {
 				Skill skill = Skill.valueOf(args[0].toUpperCase());
 				int xp = Integer.parseInt(args[1]);
 
@@ -295,16 +284,15 @@ public class DevToolsPlugin extends Plugin
 				client.queueChangedSkill(skill);
 
 				StatChanged statChanged = new StatChanged(
-					skill,
-					totalXp,
-					level,
-					level
+						skill,
+						totalXp,
+						level,
+						level
 				);
 				eventBus.post(StatChanged.class, statChanged);
 				break;
 			}
-			case "setstat":
-			{
+			case "setstat": {
 				Skill skill = Skill.valueOf(args[0].toUpperCase());
 				int level = Integer.parseInt(args[1]);
 
@@ -318,32 +306,29 @@ public class DevToolsPlugin extends Plugin
 				client.queueChangedSkill(skill);
 
 				StatChanged statChanged = new StatChanged(
-					skill,
-					xp,
-					level,
-					level
+						skill,
+						xp,
+						level,
+						level
 				);
 				eventBus.post(StatChanged.class, statChanged);
 				break;
 			}
-			case "anim":
-			{
+			case "anim": {
 				int id = Integer.parseInt(args[0]);
 				Player localPlayer = client.getLocalPlayer();
 				localPlayer.setAnimation(id);
 				localPlayer.setActionFrame(0);
 				break;
 			}
-			case "gfx":
-			{
+			case "gfx": {
 				int id = Integer.parseInt(args[0]);
 				Player localPlayer = client.getLocalPlayer();
 				localPlayer.setSpotAnimation(id);
 				localPlayer.setSpotAnimationFrame(0);
 				break;
 			}
-			case "transform":
-			{
+			case "transform": {
 				int id = Integer.parseInt(args[0]);
 				Player player = client.getLocalPlayer();
 				player.getPlayerAppearance().setTransformedNpcId(id);
@@ -351,22 +336,19 @@ public class DevToolsPlugin extends Plugin
 				player.setPoseAnimation(-1);
 				break;
 			}
-			case "cape":
-			{
+			case "cape": {
 				int id = Integer.parseInt(args[0]);
 				Player player = client.getLocalPlayer();
 				player.getPlayerAppearance().getEquipmentIds()[KitType.CAPE.getIndex()] = id + 512;
 				player.getPlayerAppearance().setHash();
 				break;
 			}
-			case "sound":
-			{
+			case "sound": {
 				int id = Integer.parseInt(args[0]);
 				client.playSoundEffect(id);
 				break;
 			}
-			case "msg":
-			{
+			case "msg": {
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", String.join(" ", args), "");
 				break;
 			}
@@ -374,31 +356,24 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded entry)
-	{
-		if (!examine.isActive())
-		{
+	private void onMenuEntryAdded(MenuEntryAdded entry) {
+		if (!examine.isActive()) {
 			return;
 		}
 
 		MenuOpcode action = MenuOpcode.of(entry.getOpcode());
 
-		if (EXAMINE_MENU_ACTIONS.contains(action))
-		{
+		if (EXAMINE_MENU_ACTIONS.contains(action)) {
 			final int identifier = entry.getIdentifier();
 			String info = "ID: ";
 
-			if (action == MenuOpcode.EXAMINE_NPC)
-			{
+			if (action == MenuOpcode.EXAMINE_NPC) {
 				NPC npc = client.getCachedNPCs()[identifier];
 				info += npc.getId();
-			}
-			else
-			{
+			} else {
 				info += identifier;
 
-				if (action == MenuOpcode.EXAMINE_OBJECT)
-				{
+				if (action == MenuOpcode.EXAMINE_OBJECT) {
 					WorldPoint point = WorldPoint.fromScene(client, entry.getParam0(), entry.getParam1(), client.getPlane());
 					info += " X: " + point.getX() + " Y: " + point.getY();
 				}
@@ -410,10 +385,8 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onSoundEffectPlayed(SoundEffectPlayed event)
-	{
-		if (!getSoundEffects().isActive() || soundEffectOverlay == null)
-		{
+	private void onSoundEffectPlayed(SoundEffectPlayed event) {
+		if (!getSoundEffects().isActive() || soundEffectOverlay == null) {
 			return;
 		}
 
@@ -421,10 +394,8 @@ public class DevToolsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onAreaSoundEffectPlayed(AreaSoundEffectPlayed event)
-	{
-		if (!getSoundEffects().isActive() || soundEffectOverlay == null)
-		{
+	private void onAreaSoundEffectPlayed(AreaSoundEffectPlayed event) {
+		if (!getSoundEffects().isActive() || soundEffectOverlay == null) {
 			return;
 		}
 

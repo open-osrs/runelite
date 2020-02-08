@@ -27,8 +27,7 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class VarbitDefinition
-{
+public class VarbitDefinition {
 	private int id;
 	private int index;
 	private int leastSignificantBit;

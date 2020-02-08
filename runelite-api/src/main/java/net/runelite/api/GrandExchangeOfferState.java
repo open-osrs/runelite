@@ -3,8 +3,7 @@ package net.runelite.api;
 /**
  * Describes the state of a Grand Exchange offer.
  */
-public enum GrandExchangeOfferState
-{
+public enum GrandExchangeOfferState {
 	/**
 	 * An empty slot.
 	 */

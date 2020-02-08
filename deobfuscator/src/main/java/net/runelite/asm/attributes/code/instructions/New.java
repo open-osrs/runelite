@@ -40,76 +40,65 @@ import net.runelite.asm.execution.Value;
 import net.runelite.asm.pool.Class;
 import org.objectweb.asm.MethodVisitor;
 
-public class New extends Instruction implements TypeInstruction
-{
+public class New extends Instruction implements TypeInstruction {
 	private Class clazz;
 	private ClassFile myClass;
 
-	public New(Instructions instructions, InstructionType type)
-	{
+	public New(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
-	public New(Instructions instructions, Class clazz)
-	{
+	public New(Instructions instructions, Class clazz) {
 		super(instructions, InstructionType.NEW);
 		this.clazz = clazz;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		visitor.visitTypeInsn(this.getType().getCode(), this.getType_().getInternalName());
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext ctx = new StackContext(ins, Type.getType(clazz), Value.UNKNOWN);
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
-	
-	public Class getNewClass()
-	{
+
+	public Class getNewClass() {
 		return clazz;
 	}
 
-	public void setNewClass(Class clazz)
-	{
+	public void setNewClass(Class clazz) {
 		this.clazz = clazz;
 		lookup();
 	}
-	
+
 	@Override
-	public void lookup()
-	{
+	public void lookup() {
 		ClassGroup group = this.getInstructions().getCode().getMethod().getClassFile().getGroup();
 		myClass = group.findClass(clazz.getName());
 	}
-	
+
 	@Override
-	public void regeneratePool()
-	{
+	public void regeneratePool() {
 		if (myClass != null)
 			clazz = myClass.getPoolClass();
 	}
 
 	@Override
-	public Type getType_()
-	{
+	public Type getType_() {
 		return Type.getType(clazz);
 	}
 
 	@Override
-	public void setType(Type type)
-	{
+	public void setType(Type type) {
 		clazz = new Class(type.getInternalName());
 	}
 }

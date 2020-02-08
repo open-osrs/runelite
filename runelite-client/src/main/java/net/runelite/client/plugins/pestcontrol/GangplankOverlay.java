@@ -26,11 +26,13 @@ package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
@@ -45,15 +47,13 @@ import net.runelite.client.util.ColorUtil;
 
 @Slf4j
 @Singleton
-public class GangplankOverlay extends Overlay
-{
+public class GangplankOverlay extends Overlay {
 	private final Client client;
 	private final PestControlPlugin plugin;
 	private final TooltipManager tooltipManager;
 
 	@Inject
-	GangplankOverlay(final Client client, final PestControlPlugin plugin, final TooltipManager toolTipManager)
-	{
+	GangplankOverlay(final Client client, final PestControlPlugin plugin, final TooltipManager toolTipManager) {
 		this.plugin = plugin;
 		this.client = client;
 		this.tooltipManager = toolTipManager;
@@ -63,17 +63,14 @@ public class GangplankOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isOnPestControlMainIsland())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isOnPestControlMainIsland()) {
 			return null;
 		}
 
 		Player localPlayer = client.getLocalPlayer();
 
-		if (localPlayer == null)
-		{
+		if (localPlayer == null) {
 			return null;
 		}
 
@@ -90,19 +87,16 @@ public class GangplankOverlay extends Overlay
 		Point mousePosition = client.getMouseCanvasPosition();
 		String tooltipString = null;
 
-		if (noviceGangplankTile != null)
-		{
+		if (noviceGangplankTile != null) {
 			Shape polygon = noviceGangplankTile.getGameObjects()[0].getConvexHull();
-			if (polygon != null)
-			{
+			if (polygon != null) {
 				graphics.setColor(noviceCbColor);
 				graphics.setStroke(new BasicStroke(2));
 				graphics.draw(polygon);
 				graphics.setColor(setColorAlpha(noviceCbColor, 45));
 				graphics.fill(polygon);
 
-				if (polygon.contains(mousePosition.getX(), mousePosition.getY()))
-				{
+				if (polygon.contains(mousePosition.getX(), mousePosition.getY())) {
 					tooltipString = ColorUtil.wrapWithColorTag("Combat 40+", noviceCbColor) + " (3 points)";
 					graphics.setColor(setColorAlpha(noviceCbColor, 65));
 					graphics.fill(polygon);
@@ -110,19 +104,16 @@ public class GangplankOverlay extends Overlay
 			}
 		}
 
-		if (intermediateGangplankTile != null)
-		{
+		if (intermediateGangplankTile != null) {
 			Shape polygon = intermediateGangplankTile.getGameObjects()[0].getConvexHull();
-			if (polygon != null)
-			{
+			if (polygon != null) {
 				graphics.setColor(intermediateCbColor);
 				graphics.setStroke(new BasicStroke(2));
 				graphics.draw(polygon);
 				graphics.setColor(setColorAlpha(intermediateCbColor, 45));
 				graphics.fill(polygon);
 
-				if (polygon.contains(mousePosition.getX(), mousePosition.getY()))
-				{
+				if (polygon.contains(mousePosition.getX(), mousePosition.getY())) {
 					tooltipString = ColorUtil.wrapWithColorTag("Combat 70+", intermediateCbColor) + " (4 points)";
 					graphics.setColor(setColorAlpha(intermediateCbColor, 65));
 					graphics.fill(polygon);
@@ -130,19 +121,16 @@ public class GangplankOverlay extends Overlay
 			}
 		}
 
-		if (veteranGangplankTile != null)
-		{
+		if (veteranGangplankTile != null) {
 			Shape polygon = veteranGangplankTile.getGameObjects()[0].getConvexHull();
-			if (polygon != null)
-			{
+			if (polygon != null) {
 				graphics.setColor(veteranCbColor);
 				graphics.setStroke(new BasicStroke(2));
 				graphics.draw(polygon);
 				graphics.setColor(setColorAlpha(veteranCbColor, 45));
 				graphics.fill(polygon);
 
-				if (polygon.contains(mousePosition.getX(), mousePosition.getY()))
-				{
+				if (polygon.contains(mousePosition.getX(), mousePosition.getY())) {
 					tooltipString = ColorUtil.wrapWithColorTag("Combat 100+", veteranCbColor) + " (5 points)";
 					graphics.setColor(setColorAlpha(veteranCbColor, 65));
 					graphics.fill(polygon);
@@ -150,21 +138,19 @@ public class GangplankOverlay extends Overlay
 			}
 		}
 
-		if (tooltipString != null)
-		{
+		if (tooltipString != null) {
 			tooltipManager.add(new Tooltip(tooltipString));
 		}
 
 		return null;
 	}
 
-	private Color setColorAlpha(Color color, int alpha)
-	{
+	private Color setColorAlpha(Color color, int alpha) {
 		return new Color(
-			color.getRed(),
-			color.getGreen(),
-			color.getBlue(),
-			alpha
+				color.getRed(),
+				color.getGreen(),
+				color.getBlue(),
+				alpha
 		);
 	}
 }

@@ -35,29 +35,26 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
-public class IALoad extends Instruction implements ArrayLoad
-{
-	public IALoad(Instructions instructions, InstructionType type)
-	{
+public class IALoad extends Instruction implements ArrayLoad {
+	public IALoad(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext index = stack.pop();
 		StackContext array = stack.pop();
-		
+
 		ins.pop(index, array);
-		
+
 		StackContext ctx = new StackContext(ins, Type.INT, array.getValue().arrayGet(index.getValue()).cast(int.class));
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 }

@@ -26,10 +26,12 @@ package net.runelite.client.plugins.statusbars;
 
 import com.google.common.base.Strings;
 import com.google.common.primitives.Ints;
+
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.Point;
@@ -45,8 +47,7 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Singleton
-public class StatusBarsOverlay extends Overlay
-{
+public class StatusBarsOverlay extends Overlay {
 	private static final int HEIGHT = 252;
 	private static final int RESIZED_BOTTOM_HEIGHT = 272;
 	private static final int RESIZED_BOTTOM_OFFSET_Y = 12;
@@ -57,8 +58,7 @@ public class StatusBarsOverlay extends Overlay
 	private final ItemStatChangesService itemStatService;
 
 	@Inject
-	private StatusBarsOverlay(final Client client, final StatusBarsPlugin plugin, final ItemStatChangesService itemstatservice)
-	{
+	private StatusBarsOverlay(final Client client, final StatusBarsPlugin plugin, final ItemStatChangesService itemstatservice) {
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
@@ -67,34 +67,27 @@ public class StatusBarsOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D g)
-	{
+	public Dimension render(Graphics2D g) {
 		final Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
-		if (widgetBankTitleBar != null && !widgetBankTitleBar.isHidden())
-		{
+		if (widgetBankTitleBar != null && !widgetBankTitleBar.isHidden()) {
 			return null;
 		}
 
 		Viewport curViewport = null;
 		Widget curWidget = null;
 
-		for (Viewport viewport : Viewport.values())
-		{
+		for (Viewport viewport : Viewport.values()) {
 			final Widget viewportWidget = client.getWidget(viewport.getViewport());
-			if (viewportWidget != null && !viewportWidget.isHidden())
-			{
+			if (viewportWidget != null && !viewportWidget.isHidden()) {
 				curViewport = viewport;
 				curWidget = viewportWidget;
 				break;
 			}
 		}
 
-		if (curViewport == null)
-		{
+		if (curViewport == null) {
 			return null;
-		}
-		else
-		{
+		} else {
 			curWidget.isHidden();
 		}
 
@@ -103,16 +96,13 @@ public class StatusBarsOverlay extends Overlay
 		final Point location = curWidget.getCanvasLocation();
 		final int height, offsetLeftBarX, offsetLeftBarY, offsetRightBarX, offsetRightBarY;
 
-		if (curViewport == Viewport.RESIZED_BOTTOM)
-		{
+		if (curViewport == Viewport.RESIZED_BOTTOM) {
 			height = RESIZED_BOTTOM_HEIGHT;
 			offsetLeftBarX = (location.getX() + RESIZED_BOTTOM_OFFSET_X - offsetLeft.getX());
 			offsetLeftBarY = (location.getY() - RESIZED_BOTTOM_OFFSET_Y - offsetRight.getY());
 			offsetRightBarX = (location.getX() + RESIZED_BOTTOM_OFFSET_X - offsetRight.getX());
 			offsetRightBarY = (location.getY() - RESIZED_BOTTOM_OFFSET_Y - offsetRight.getY());
-		}
-		else
-		{
+		} else {
 			height = HEIGHT;
 			offsetLeftBarX = (location.getX() - offsetLeft.getX());
 			offsetLeftBarY = (location.getY() - offsetLeft.getY());
@@ -123,58 +113,48 @@ public class StatusBarsOverlay extends Overlay
 		BarRenderer left = plugin.getBarRenderers().get(plugin.getLeftBarMode());
 		BarRenderer right = plugin.getBarRenderers().get(plugin.getRightBarMode());
 
-		if (left != null)
-		{
+		if (left != null) {
 			left.draw(client, this, g, offsetLeftBarX, offsetLeftBarY, height);
 		}
 
-		if (right != null)
-		{
+		if (right != null) {
 			right.draw(client, this, g, offsetRightBarX, offsetRightBarY, height);
 		}
 
 		return null;
 	}
 
-	public int getRestoreValue(String skill)
-	{
+	public int getRestoreValue(String skill) {
 		final MenuEntry[] menu = client.getMenuEntries();
 		final int menuSize = menu.length;
 		final MenuEntry entry = menuSize > 0 ? menu[menuSize - 1] : null;
 		int restoreValue = 0;
 
-		if (entry != null && entry.getParam1() == WidgetInfo.INVENTORY.getId())
-		{
+		if (entry != null && entry.getParam1() == WidgetInfo.INVENTORY.getId()) {
 			final Effect change = itemStatService.getItemStatChanges(entry.getIdentifier());
 
-			if (change != null)
-			{
+			if (change != null) {
 				final StatsChanges statsChanges = change.calculate(client);
 
-				for (final StatChange c : statsChanges.getStatChanges())
-				{
+				for (final StatChange c : statsChanges.getStatChanges()) {
 					//final String strVar = c.getTheoretical(); this was erroring
 					final String strVar = String.valueOf(c.getTheoretical());
 
-					if (Strings.isNullOrEmpty(strVar))
-					{
+					if (Strings.isNullOrEmpty(strVar)) {
 						continue;
 					}
 
 					final Integer value = Ints.tryParse(strVar.startsWith("+") ? strVar.substring(1) : strVar);
 
-					if (value == null)
-					{
+					if (value == null) {
 						continue;
 					}
 
-					if (c.getStat().getName().equals(skill))
-					{
+					if (c.getStat().getName().equals(skill)) {
 						restoreValue = value;
 					}
 
-					if (restoreValue != 0)
-					{
+					if (restoreValue != 0) {
 						break;
 					}
 				}

@@ -26,9 +26,11 @@
 package net.runelite.client.plugins.keyremapping;
 
 import com.google.inject.Provides;
+
 import java.awt.Color;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,15 +55,14 @@ import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
 
 @PluginDescriptor(
-	name = "Key Remapping",
-	description = "Allows use of WASD keys for camera movement with 'Press Enter to Chat', and remapping number keys to F-keys",
-	tags = {"enter", "chat", "wasd", "camera"},
-	enabledByDefault = false,
-	type = PluginType.MISCELLANEOUS
+		name = "Key Remapping",
+		description = "Allows use of WASD keys for camera movement with 'Press Enter to Chat', and remapping number keys to F-keys",
+		tags = {"enter", "chat", "wasd", "camera"},
+		enabledByDefault = false,
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class KeyRemappingPlugin extends Plugin
-{
+public class KeyRemappingPlugin extends Plugin {
 	private static final String PRESS_ENTER_TO_CHAT = "Press Enter to Chat...";
 	private static final String SCRIPT_EVENT_SET_CHATBOX_INPUT = "setChatboxInput";
 	private static final String SCRIPT_EVENT_BLOCK_CHAT_INPUT = "blockChatInput";
@@ -132,8 +133,7 @@ public class KeyRemappingPlugin extends Plugin
 	private ModifierlessKeybind shift;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		typing = false;
@@ -141,8 +141,7 @@ public class KeyRemappingPlugin extends Plugin
 
 		clientThread.invoke(() ->
 		{
-			if (client.getGameState() == GameState.LOGGED_IN)
-			{
+			if (client.getGameState() == GameState.LOGGED_IN) {
 				lockChat();
 				// Clear any typed text
 				client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, "");
@@ -151,12 +150,10 @@ public class KeyRemappingPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		clientThread.invoke(() ->
 		{
-			if (client.getGameState() == GameState.LOGGED_IN)
-			{
+			if (client.getGameState() == GameState.LOGGED_IN) {
 				unlockChat();
 			}
 		});
@@ -165,16 +162,13 @@ public class KeyRemappingPlugin extends Plugin
 	}
 
 	@Provides
-	KeyRemappingConfig getConfig(ConfigManager configManager)
-	{
+	KeyRemappingConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(KeyRemappingConfig.class);
 	}
 
-	boolean chatboxFocused()
-	{
+	boolean chatboxFocused() {
 		Widget chatboxParent = client.getWidget(WidgetInfo.CHATBOX_PARENT);
-		if (chatboxParent == null || chatboxParent.getOnKeyListener() == null)
-		{
+		if (chatboxParent == null || chatboxParent.getOnKeyListener() == null) {
 			return false;
 		}
 
@@ -190,56 +184,47 @@ public class KeyRemappingPlugin extends Plugin
 	 *
 	 * @return
 	 */
-	boolean isDialogOpen()
-	{
+	boolean isDialogOpen() {
 		// Most chat dialogs with numerical input are added without the chatbox or its key listener being removed,
 		// so chatboxFocused() is true. The chatbox onkey script uses the following logic to ignore key presses,
 		// so we will use it too to not remap F-keys.
 		return isHidden(WidgetInfo.CHATBOX_MESSAGES) || isHidden(WidgetInfo.CHATBOX_TRANSPARENT_LINES);
 	}
 
-	private boolean isHidden(WidgetInfo widgetInfo)
-	{
+	private boolean isHidden(WidgetInfo widgetInfo) {
 		Widget w = client.getWidget(widgetInfo);
 		return w == null || w.isSelfHidden();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged configChanged)
-	{
-		if (!configChanged.getGroup().equals("keyremapping"))
-		{
+	private void onConfigChanged(ConfigChanged configChanged) {
+		if (!configChanged.getGroup().equals("keyremapping")) {
 			return;
 		}
 
 		updateConfig();
 
 		clientThread.invoke(() ->
-			{
-				Widget chatboxInput = client.getWidget(WidgetInfo.CHATBOX_INPUT);
-				if (chatboxInput != null && chatboxInput.getText().endsWith(PRESS_ENTER_TO_CHAT))
 				{
-					setChatboxWidgetInput(chatboxInput, PRESS_ENTER_TO_CHAT);
+					Widget chatboxInput = client.getWidget(WidgetInfo.CHATBOX_INPUT);
+					if (chatboxInput != null && chatboxInput.getText().endsWith(PRESS_ENTER_TO_CHAT)) {
+						setChatboxWidgetInput(chatboxInput, PRESS_ENTER_TO_CHAT);
+					}
 				}
-			}
 		);
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
-	{
-		switch (scriptCallbackEvent.getEventName())
-		{
+	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent) {
+		switch (scriptCallbackEvent.getEventName()) {
 			case SCRIPT_EVENT_SET_CHATBOX_INPUT:
 				Widget chatboxInput = client.getWidget(WidgetInfo.CHATBOX_INPUT);
-				if (chatboxInput != null && chatboxFocused() && !typing)
-				{
+				if (chatboxInput != null && chatboxFocused() && !typing) {
 					setChatboxWidgetInput(chatboxInput, PRESS_ENTER_TO_CHAT);
 				}
 				break;
 			case SCRIPT_EVENT_BLOCK_CHAT_INPUT:
-				if (!typing)
-				{
+				if (!typing) {
 					int[] intStack = client.getIntStack();
 					int intStackSize = client.getIntStackSize();
 					intStack[intStackSize - 1] = 1;
@@ -248,45 +233,37 @@ public class KeyRemappingPlugin extends Plugin
 		}
 	}
 
-	void lockChat()
-	{
+	void lockChat() {
 		Widget chatboxInput = client.getWidget(WidgetInfo.CHATBOX_INPUT);
-		if (chatboxInput != null)
-		{
+		if (chatboxInput != null) {
 			setChatboxWidgetInput(chatboxInput, PRESS_ENTER_TO_CHAT);
 		}
 	}
 
-	void unlockChat()
-	{
+	void unlockChat() {
 		Widget chatboxInput = client.getWidget(WidgetInfo.CHATBOX_INPUT);
-		if (chatboxInput != null && client.getGameState() == GameState.LOGGED_IN)
-		{
+		if (chatboxInput != null && client.getGameState() == GameState.LOGGED_IN) {
 			final boolean isChatboxTransparent = client.isResized() && client.getVar(Varbits.TRANSPARENT_CHATBOX) == 1;
 			final Color textColor = isChatboxTransparent ? JagexColors.CHAT_TYPED_TEXT_TRANSPARENT_BACKGROUND : JagexColors.CHAT_TYPED_TEXT_OPAQUE_BACKGROUND;
 			setChatboxWidgetInput(chatboxInput, ColorUtil.wrapWithColorTag(client.getVar(VarClientStr.CHATBOX_TYPED_TEXT) + "*", textColor));
 		}
 	}
 
-	private void setChatboxWidgetInput(Widget widget, String input)
-	{
-		if (this.hideDisplayName)
-		{
+	private void setChatboxWidgetInput(Widget widget, String input) {
+		if (this.hideDisplayName) {
 			widget.setText(input);
 			return;
 		}
 
 		String text = widget.getText();
 		int idx = text.indexOf(':');
-		if (idx != -1)
-		{
+		if (idx != -1) {
 			String newText = text.substring(0, idx) + ": " + input;
 			widget.setText(newText);
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.hideDisplayName = config.hideDisplayName();
 		this.cameraRemap = config.cameraRemap();
 		this.up = config.up();

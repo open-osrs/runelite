@@ -27,28 +27,23 @@ package net.runelite.http.api.xtea;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XteaRequest
-{
+public class XteaRequest {
 	private int revision;
 	private List<XteaKey> keys = new ArrayList<>();
 
-	public int getRevision()
-	{
+	public int getRevision() {
 		return revision;
 	}
 
-	public void setRevision(int revision)
-	{
+	public void setRevision(int revision) {
 		this.revision = revision;
 	}
 
-	public List<XteaKey> getKeys()
-	{
+	public List<XteaKey> getKeys() {
 		return keys;
 	}
 
-	public void addKey(XteaKey key)
-	{
+	public void addKey(XteaKey key) {
 		keys.add(key);
 	}
 }

@@ -30,6 +30,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.GameObject;
@@ -44,34 +45,29 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Singleton
-class BlastFurnaceClickBoxOverlay extends Overlay
-{
+class BlastFurnaceClickBoxOverlay extends Overlay {
 	private static final int MAX_DISTANCE = 2350;
 
 	private final Client client;
 	private final BlastFurnacePlugin plugin;
 
 	@Inject
-	private BlastFurnaceClickBoxOverlay(final Client client, final BlastFurnacePlugin plugin)
-	{
+	private BlastFurnaceClickBoxOverlay(final Client client, final BlastFurnacePlugin plugin) {
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;
 		this.plugin = plugin;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		int dispenserState = client.getVar(Varbits.BAR_DISPENSER);
 
-		if (plugin.isShowConveyorBelt() && plugin.getConveyorBelt() != null)
-		{
+		if (plugin.isShowConveyorBelt() && plugin.getConveyorBelt() != null) {
 			Color color = dispenserState == 1 ? Color.RED : Color.GREEN;
 			renderObject(plugin.getConveyorBelt(), graphics, color);
 		}
 
-		if (plugin.isShowBarDispenser() && plugin.getBarDispenser() != null)
-		{
+		if (plugin.isShowBarDispenser() && plugin.getBarDispenser() != null) {
 			boolean hasIceGloves = hasIceGloves();
 			Color color = dispenserState == 2 && hasIceGloves ? Color.GREEN : (dispenserState == 3 ? Color.GREEN : Color.RED);
 
@@ -81,19 +77,16 @@ class BlastFurnaceClickBoxOverlay extends Overlay
 		return null;
 	}
 
-	private boolean hasIceGloves()
-	{
+	private boolean hasIceGloves() {
 		ItemContainer equipmentContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-		if (equipmentContainer == null)
-		{
+		if (equipmentContainer == null) {
 			return false;
 		}
 
 		Item[] items = equipmentContainer.getItems();
 		int idx = EquipmentInventorySlot.GLOVES.getSlotIdx();
 
-		if (items == null || idx >= items.length)
-		{
+		if (items == null || idx >= items.length) {
 			return false;
 		}
 
@@ -101,24 +94,18 @@ class BlastFurnaceClickBoxOverlay extends Overlay
 		return glove != null && glove.getId() == ItemID.ICE_GLOVES;
 	}
 
-	private void renderObject(GameObject object, Graphics2D graphics, Color color)
-	{
+	private void renderObject(GameObject object, Graphics2D graphics, Color color) {
 		LocalPoint localLocation = client.getLocalPlayer().getLocalLocation();
 		Point mousePosition = client.getMouseCanvasPosition();
 
 		LocalPoint location = object.getLocalLocation();
 
-		if (localLocation.distanceTo(location) <= MAX_DISTANCE)
-		{
+		if (localLocation.distanceTo(location) <= MAX_DISTANCE) {
 			Shape objectClickbox = object.getClickbox();
-			if (objectClickbox != null)
-			{
-				if (objectClickbox.contains(mousePosition.getX(), mousePosition.getY()))
-				{
+			if (objectClickbox != null) {
+				if (objectClickbox.contains(mousePosition.getX(), mousePosition.getY())) {
 					graphics.setColor(color.darker());
-				}
-				else
-				{
+				} else {
 					graphics.setColor(color);
 				}
 				graphics.draw(objectClickbox);

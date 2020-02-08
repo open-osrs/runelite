@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class EnumDefinition extends DualNode {
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Leh;"
+			signature = "Leh;"
 	)
 	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
@@ -24,13 +24,13 @@ public class EnumDefinition extends DualNode {
 	public String defaultStr;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 763609869
+			intValue = 763609869
 	)
 	@Export("defaultInt")
 	public int defaultInt;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1620263743
+			intValue = 1620263743
 	)
 	@Export("outputCount")
 	public int outputCount;
@@ -55,8 +55,8 @@ public class EnumDefinition extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lkp;I)V",
-		garbageValue = "-1295672156"
+			signature = "(Lkp;I)V",
+			garbageValue = "-1295672156"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -72,15 +72,15 @@ public class EnumDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkp;II)V",
-		garbageValue = "1239403484"
+			signature = "(Lkp;II)V",
+			garbageValue = "1239403484"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) {
-			this.inputType = (char)var1.readUnsignedByte();
+			this.inputType = (char) var1.readUnsignedByte();
 		} else if (var2 == 2) {
-			this.outputType = (char)var1.readUnsignedByte();
+			this.outputType = (char) var1.readUnsignedByte();
 		} else if (var2 == 3) {
 			this.defaultStr = var1.readStringCp1252NullTerminated();
 		} else if (var2 == 4) {
@@ -112,8 +112,8 @@ public class EnumDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1222306007"
+			signature = "(I)I",
+			garbageValue = "-1222306007"
 	)
 	@Export("size")
 	public int size() {
@@ -122,12 +122,12 @@ public class EnumDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)Les;",
-		garbageValue = "-1471944994"
+			signature = "(II)Les;",
+			garbageValue = "-1471944994"
 	)
 	@Export("getFrames")
 	static Frames getFrames(int var0) {
-		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0);
+		Frames var1 = (Frames) SequenceDefinition.SequenceDefinition_cachedFrames.get((long) var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -161,7 +161,7 @@ public class EnumDefinition extends DualNode {
 			}
 
 			if (var2 != null) {
-				SequenceDefinition.SequenceDefinition_cachedFrames.put(var2, (long)var0);
+				SequenceDefinition.SequenceDefinition_cachedFrames.put(var2, (long) var0);
 			}
 
 			return var2;

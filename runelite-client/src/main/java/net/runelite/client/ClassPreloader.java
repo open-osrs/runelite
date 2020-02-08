@@ -26,16 +26,15 @@ package net.runelite.client;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+
 import net.runelite.client.ui.FontManager;
 
 /**
  * Loads some slow to initialize classes (hopefully) before they are needed to streamline client startup
  */
 @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
-class ClassPreloader
-{
-	static void preload()
-	{
+class ClassPreloader {
+	static void preload() {
 		// This needs to enumerate the system fonts for some reason, and that takes a while
 		FontManager.getRunescapeSmallFont();
 

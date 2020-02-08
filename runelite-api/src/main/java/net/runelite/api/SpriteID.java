@@ -27,8 +27,7 @@ package net.runelite.api;
 
 // Note: This class won't always be complete: these sprites were manually gathered
 // through the cache and widget inspector. Please add new sprites as you happen to use them.
-public final class SpriteID
-{
+public final class SpriteID {
 	public static final int RS2_CHATBOX_BUTTONS = 0;
 	public static final int RS2_TABS_ROW_BOTTOM = 1;
 	public static final int RS2_TABS_ROW_TOP = 2;

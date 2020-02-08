@@ -7,29 +7,29 @@ import net.runelite.mapping.ObfuscatedSignature;
 final class class4 implements class0 {
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -905472929
+			intValue = -905472929
 	)
 	static int field26;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lkp;"
+			signature = "Lkp;"
 	)
 	@Export("NetCache_reference")
 	static Buffer NetCache_reference;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;Lkp;B)V",
-		garbageValue = "95"
+			signature = "(Ljava/lang/Object;Lkp;B)V",
+			garbageValue = "95"
 	)
 	public void vmethod55(Object var1, Buffer var2) {
-		this.method54((String)var1, var2);
+		this.method54((String) var1, var2);
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lkp;I)Ljava/lang/Object;",
-		garbageValue = "1665636232"
+			signature = "(Lkp;I)Ljava/lang/Object;",
+			garbageValue = "1665636232"
 	)
 	public Object vmethod53(Buffer var1) {
 		return var1.readStringCp1252NullTerminated();
@@ -37,8 +37,8 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Lkp;I)V",
-		garbageValue = "1837357255"
+			signature = "(Ljava/lang/String;Lkp;I)V",
+			garbageValue = "1837357255"
 	)
 	void method54(String var1, Buffer var2) {
 		var2.writeStringCp1252NullTerminated(var1);
@@ -46,8 +46,8 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "1447651687"
+			signature = "(I)I",
+			garbageValue = "1447651687"
 	)
 	static int method57() {
 		return ++Messages.Messages_count - 1;
@@ -55,8 +55,8 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lbw;I)V",
-		garbageValue = "1307142310"
+			signature = "(Lbw;I)V",
+			garbageValue = "1307142310"
 	)
 	@Export("runScriptEvent")
 	public static void runScriptEvent(ScriptEvent var0) {
@@ -65,8 +65,8 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("hz")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-2068371159"
+			signature = "(I)V",
+			garbageValue = "-2068371159"
 	)
 	static final void method64() {
 		int var0 = ArchiveDiskAction.menuX;

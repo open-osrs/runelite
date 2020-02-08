@@ -28,22 +28,20 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Djb2Manager
-{
+public class Djb2Manager {
 	private static final Logger logger = LoggerFactory.getLogger(Djb2Manager.class);
 
 	private final Map<Integer, String> hashes = new HashMap<>();
 
-	public void load() throws IOException
-	{
+	public void load() throws IOException {
 		Properties properties = new Properties();
 		properties.load(Djb2Manager.class.getResourceAsStream("/djb2.properties"));
 
-		for (Object key : properties.keySet())
-		{
+		for (Object key : properties.keySet()) {
 			int hash = Integer.parseInt((String) key);
 			String value = properties.getProperty((String) key);
 
@@ -53,8 +51,7 @@ public class Djb2Manager
 		logger.info("Loaded {} djb2 hashes", hashes.size());
 	}
 
-	public String getName(int hash)
-	{
+	public String getName(int hash) {
 		return hashes.get(hash);
 	}
 }

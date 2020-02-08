@@ -6,15 +6,15 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class267 {
 	@ObfuscatedName("dn")
 	@ObfuscatedSignature(
-		signature = "Lia;"
+			signature = "Lia;"
 	)
 	@Export("archive3")
 	static Archive archive3;
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "([BI)V",
-		garbageValue = "-1781109205"
+			signature = "([BI)V",
+			garbageValue = "-1781109205"
 	)
 	@Export("ByteArrayPool_release")
 	public static synchronized void ByteArrayPool_release(byte[] var0) {
@@ -39,8 +39,8 @@ public class class267 {
 
 	@ObfuscatedName("fc")
 	@ObfuscatedSignature(
-		signature = "(Lhn;III)V",
-		garbageValue = "1321817933"
+			signature = "(Lhn;III)V",
+			garbageValue = "1321817933"
 	)
 	@Export("checkIfMinimapClicked")
 	static final void checkIfMinimapClicked(Widget var0, int var1, int var2) {

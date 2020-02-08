@@ -10,8 +10,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSTileItem;
 
 @Mixin(RSTileItem.class)
-public abstract class RSTileItemMixin implements RSTileItem
-{
+public abstract class RSTileItemMixin implements RSTileItem {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -22,19 +21,16 @@ public abstract class RSTileItemMixin implements RSTileItem
 	private int rl$sceneY = -1;
 
 	@Inject
-	RSTileItemMixin()
-	{
+	RSTileItemMixin() {
 	}
 
 	@Inject
 	@Override
-	public Tile getTile()
-	{
+	public Tile getTile() {
 		int x = rl$sceneX;
 		int y = rl$sceneY;
 
-		if (x == -1 || y == -1)
-		{
+		if (x == -1 || y == -1) {
 			return null;
 		}
 
@@ -44,14 +40,11 @@ public abstract class RSTileItemMixin implements RSTileItem
 
 	@Inject
 	@Override
-	public void onUnlink()
-	{
-		if (rl$sceneX != -1)
-		{
+	public void onUnlink() {
+		if (rl$sceneX != -1) {
 			// on despawn, the first item unlinked is the item despawning. However on spawn
 			// items can be delinked in order to sort them, so we can't assume the item here is despawning
-			if (client.getLastItemDespawn() == null)
-			{
+			if (client.getLastItemDespawn() == null) {
 				client.setLastItemDespawn(this);
 			}
 		}
@@ -59,10 +52,8 @@ public abstract class RSTileItemMixin implements RSTileItem
 
 	@Inject
 	@FieldHook(value = "quantity", before = true)
-	public void quantityChanged(int quantity)
-	{
-		if (rl$sceneX != -1)
-		{
+	public void quantityChanged(int quantity) {
+		if (rl$sceneX != -1) {
 			client.getLogger().debug("Item quantity changed: {} ({} -> {})", getId(), getQuantity(), quantity);
 
 			ItemQuantityChanged itemQuantityChanged = new ItemQuantityChanged(this, getTile(), getQuantity(), quantity);
@@ -72,29 +63,25 @@ public abstract class RSTileItemMixin implements RSTileItem
 
 	@Inject
 	@Override
-	public int getX()
-	{
+	public int getX() {
 		return rl$sceneX;
 	}
 
 	@Inject
 	@Override
-	public void setX(int x)
-	{
+	public void setX(int x) {
 		rl$sceneX = x;
 	}
 
 	@Inject
 	@Override
-	public int getY()
-	{
+	public int getY() {
 		return rl$sceneY;
 	}
 
 	@Inject
 	@Override
-	public void setY(int y)
-	{
+	public void setY(int y) {
 		rl$sceneY = y;
 	}
 }

@@ -33,123 +33,112 @@ import net.runelite.client.config.Title;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("statusorbs")
-public interface StatusOrbsConfig extends Config
-{
+public interface StatusOrbsConfig extends Config {
 	@ConfigTitleSection(
-		keyName = "hp",
-		name = "Hitpoints",
-		description = "",
-		position = 0
+			keyName = "hp",
+			name = "Hitpoints",
+			description = "",
+			position = 0
 	)
-	default Title hp()
-	{
+	default Title hp() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "dynamicHpHeart",
-		name = "Dynamic hitpoints heart",
-		description = "Changes the HP heart color to match players current affliction",
-		titleSection = "hp",
-		position = 1
+			keyName = "dynamicHpHeart",
+			name = "Dynamic hitpoints heart",
+			description = "Changes the HP heart color to match players current affliction",
+			titleSection = "hp",
+			position = 1
 	)
-	default boolean dynamicHpHeart()
-	{
+	default boolean dynamicHpHeart() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showHitpoints",
-		name = "Show hitpoints regen",
-		description = "Show a ring around the hitpoints orb",
-		titleSection = "hp",
-		position = 2
+			keyName = "showHitpoints",
+			name = "Show hitpoints regen",
+			description = "Show a ring around the hitpoints orb",
+			titleSection = "hp",
+			position = 2
 	)
-	default boolean showHitpoints()
-	{
+	default boolean showHitpoints() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "showWhenNoChange",
-		name = "Show hitpoints regen at full hitpoints",
-		description = "Always show the hitpoints regen orb, even if there will be no stat change",
-		titleSection = "hp",
-		position = 3
+			keyName = "showWhenNoChange",
+			name = "Show hitpoints regen at full hitpoints",
+			description = "Always show the hitpoints regen orb, even if there will be no stat change",
+			titleSection = "hp",
+			position = 3
 	)
-	default boolean showWhenNoChange()
-	{
+	default boolean showWhenNoChange() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "notifyBeforeHpRegenDuration",
-		name = "Hitpoint Regen Notification",
-		description = "Notify approximately when your next hitpoint is about to regen. A value of 0 will disable notification.",
-		titleSection = "hp",
-		position = 4
+			keyName = "notifyBeforeHpRegenDuration",
+			name = "Hitpoint Regen Notification",
+			description = "Notify approximately when your next hitpoint is about to regen. A value of 0 will disable notification.",
+			titleSection = "hp",
+			position = 4
 	)
 	@Units(Units.SECONDS)
-	default int getNotifyBeforeHpRegenSeconds()
-	{
+	default int getNotifyBeforeHpRegenSeconds() {
 		return 0;
 	}
 
 	@ConfigTitleSection(
-		keyName = "spec",
-		name = "Special attack",
-		description = "",
-		position = 5
+			keyName = "spec",
+			name = "Special attack",
+			description = "",
+			position = 5
 	)
-	default Title spec()
-	{
+	default Title spec() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "showSpecial",
-		name = "Show Spec. Attack regen",
-		description = "Show a ring around the Special Attack orb",
-		titleSection = "spec",
-		position = 6
+			keyName = "showSpecial",
+			name = "Show Spec. Attack regen",
+			description = "Show a ring around the Special Attack orb",
+			titleSection = "spec",
+			position = 6
 	)
-	default boolean showSpecial()
-	{
+	default boolean showSpecial() {
 		return true;
 	}
 
 	@ConfigTitleSection(
-		keyName = "run",
-		name = "Run energy",
-		description = "",
-		position = 7
+			keyName = "run",
+			name = "Run energy",
+			description = "",
+			position = 7
 	)
-	default Title run()
-	{
+	default Title run() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "showRun",
-		name = "Show run energy regen",
-		description = "Show a ring around the run regen orb",
-		position = 8,
-		titleSection = "run"
+			keyName = "showRun",
+			name = "Show run energy regen",
+			description = "Show a ring around the run regen orb",
+			position = 8,
+			titleSection = "run"
 	)
-	default boolean showRun()
-	{
+	default boolean showRun() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "replaceOrbText",
-		name = "Replace run orb text with run time left",
-		description = "Show the remaining run time (in seconds) next in the energy orb",
-		position = 9,
-		titleSection = "run"
+			keyName = "replaceOrbText",
+			name = "Replace run orb text with run time left",
+			description = "Show the remaining run time (in seconds) next in the energy orb",
+			position = 9,
+			titleSection = "run"
 	)
-	default boolean replaceOrbText()
-	{
+	default boolean replaceOrbText() {
 		return false;
 	}
 }

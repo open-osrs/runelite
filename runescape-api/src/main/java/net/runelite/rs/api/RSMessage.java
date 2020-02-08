@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.MessageNode;
 import net.runelite.mapping.Import;
 
-public interface RSMessage extends MessageNode
-{
+public interface RSMessage extends MessageNode {
 	@Import("count")
 	@Override
 	int getId();

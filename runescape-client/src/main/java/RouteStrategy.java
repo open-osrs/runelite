@@ -9,30 +9,30 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class RouteStrategy {
 	@ObfuscatedName("cz")
 	@ObfuscatedGetter(
-		intValue = -1462817165
+			intValue = -1462817165
 	)
 	public static int field2102;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1839542313
+			intValue = -1839542313
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1525294437
+			intValue = 1525294437
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -860662491
+			intValue = -860662491
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1587561283
+			intValue = -1587561283
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -42,16 +42,16 @@ public abstract class RouteStrategy {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IIILfv;B)Z",
-		garbageValue = "50"
+			signature = "(IIILfv;B)Z",
+			garbageValue = "50"
 	)
 	@Export("hasArrived")
 	protected abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 
 	@ObfuscatedName("ht")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "-47058796"
+			signature = "(IIIII)V",
+			garbageValue = "-47058796"
 	)
 	static final void method3662(int var0, int var1, int var2, int var3) {
 		TileItemPile.method2835();
@@ -59,8 +59,8 @@ public abstract class RouteStrategy {
 
 	@ObfuscatedName("hl")
 	@ObfuscatedSignature(
-		signature = "(IIIIIB)V",
-		garbageValue = "67"
+			signature = "(IIIIIB)V",
+			garbageValue = "67"
 	)
 	@Export("drawObject")
 	static final void drawObject(int var0, int var1, int var2, int var3, int var4) {

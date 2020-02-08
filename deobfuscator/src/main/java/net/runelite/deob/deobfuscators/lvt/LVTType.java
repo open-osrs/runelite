@@ -24,8 +24,7 @@
  */
 package net.runelite.deob.deobfuscators.lvt;
 
-public enum LVTType
-{
+public enum LVTType {
 	INT,
 	LONG,
 	OBJECT

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -41,8 +42,8 @@ public class GrandExchangeEvents {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Lkp;Z)V",
-		garbageValue = "1"
+			signature = "(Lkp;Z)V",
+			garbageValue = "1"
 	)
 	public GrandExchangeEvents(Buffer var1, boolean var2) {
 		int var3 = var1.readUnsignedShort();
@@ -65,8 +66,8 @@ public class GrandExchangeEvents {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/Comparator;ZI)V",
-		garbageValue = "-221925974"
+			signature = "(Ljava/util/Comparator;ZI)V",
+			garbageValue = "-221925974"
 	)
 	@Export("sort")
 	public void sort(Comparator var1, boolean var2) {
@@ -80,8 +81,8 @@ public class GrandExchangeEvents {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Lbf;I)V",
-		garbageValue = "-711075472"
+			signature = "(Lbf;I)V",
+			garbageValue = "-711075472"
 	)
 	@Export("doCycleTitle")
 	static void doCycleTitle(GameShell var0) {
@@ -239,13 +240,13 @@ public class GrandExchangeEvents {
 								if (Login.field1175 != null) {
 									var25 = Login.field1175.highX / 2;
 									if (var3 == 1 && var20 >= Login.field1175.lowX - var25 && var20 <= var25 + Login.field1175.lowX && var21 >= var23 - 15 && var21 < var23) {
-										switch(Login.field1193) {
-										case 1:
-											Tiles.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address.");
-											Login.loginIndex = 5;
-											return;
-										case 2:
-											class215.openURL("https://support.runescape.com/hc/en-gb", true, false);
+										switch (Login.field1193) {
+											case 1:
+												Tiles.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address.");
+												Login.loginIndex = 5;
+												return;
+											case 2:
+												class215.openURL("https://support.runescape.com/hc/en-gb", true, false);
 										}
 									}
 								}
@@ -343,7 +344,7 @@ public class GrandExchangeEvents {
 
 													return;
 												}
-											} while(Login.currentLoginField != 1);
+											} while (Login.currentLoginField != 1);
 
 											if (RouteStrategy.field2102 == 85 && Login.Login_password.length() > 0) {
 												Login.Login_password = Login.Login_password.substring(0, Login.Login_password.length() - 1);
@@ -379,10 +380,10 @@ public class GrandExchangeEvents {
 												Login.Login_password = Login.Login_password + class51.field432;
 											}
 										}
-									} while(var11 <= 0);
+									} while (var11 <= 0);
 
 									try {
-										String var12 = (String)var10.getTransferData(DataFlavor.stringFlavor);
+										String var12 = (String) var10.getTransferData(DataFlavor.stringFlavor);
 										int var13 = Math.min(var11, var12.length());
 
 										for (int var14 = 0; var14 < var13; ++var14) {
@@ -568,15 +569,15 @@ public class GrandExchangeEvents {
 										}
 									} else if (Login.loginIndex == 12) {
 										String var17 = "";
-										switch(Login.field1165) {
-										case 0:
-											var17 = "https://support.runescape.com/hc/en-gb/articles/115002238729-Account-Bans";
-											break;
-										case 1:
-											var17 = "https://support.runescape.com/hc/en-gb/articles/206103939-My-account-is-locked";
-											break;
-										default:
-											ViewportMouse.Login_promptCredentials(false);
+										switch (Login.field1165) {
+											case 0:
+												var17 = "https://support.runescape.com/hc/en-gb/articles/115002238729-Account-Bans";
+												break;
+											case 1:
+												var17 = "https://support.runescape.com/hc/en-gb/articles/206103939-My-account-is-locked";
+												break;
+											default:
+												ViewportMouse.Login_promptCredentials(false);
 										}
 
 										var25 = Login.loginBoxX + 180;
@@ -611,7 +612,7 @@ public class GrandExchangeEvents {
 
 												return;
 											}
-										} while(RouteStrategy.field2102 != 84 && RouteStrategy.field2102 != 13);
+										} while (RouteStrategy.field2102 != 84 && RouteStrategy.field2102 != 13);
 
 										ViewportMouse.Login_promptCredentials(true);
 									}
@@ -628,13 +629,13 @@ public class GrandExchangeEvents {
 	@ObfuscatedName("m")
 	@Export("Entity_unpackID")
 	public static int Entity_unpackID(long var0) {
-		return (int)(var0 >>> 17 & 4294967295L);
+		return (int) (var0 >>> 17 & 4294967295L);
 	}
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(Lbg;I)V",
-		garbageValue = "-1842266265"
+			signature = "(Lbg;I)V",
+			garbageValue = "-1842266265"
 	)
 	@Export("changeWorld")
 	static void changeWorld(World var0) {
@@ -653,8 +654,8 @@ public class GrandExchangeEvents {
 
 	@ObfuscatedName("jr")
 	@ObfuscatedSignature(
-		signature = "(Lhn;Lif;IIZI)V",
-		garbageValue = "-1029339816"
+			signature = "(Lhn;Lif;IIZI)V",
+			garbageValue = "-1029339816"
 	)
 	@Export("addWidgetItemMenuItem")
 	static final void addWidgetItemMenuItem(Widget var0, ItemDefinition var1, int var2, int var3, boolean var4) {

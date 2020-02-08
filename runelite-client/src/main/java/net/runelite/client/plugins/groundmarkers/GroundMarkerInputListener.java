@@ -28,41 +28,35 @@ package net.runelite.client.plugins.groundmarkers;
 import java.awt.event.KeyEvent;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.client.input.KeyListener;
 
 @Singleton
-public class GroundMarkerInputListener implements KeyListener
-{
+public class GroundMarkerInputListener implements KeyListener {
 	private static final int HOTKEY = KeyEvent.VK_SHIFT;
 
 	private final GroundMarkerPlugin plugin;
 
 	@Inject
-	private GroundMarkerInputListener(final GroundMarkerPlugin plugin)
-	{
+	private GroundMarkerInputListener(final GroundMarkerPlugin plugin) {
 		this.plugin = plugin;
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (e.getKeyCode() == HOTKEY)
-		{
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == HOTKEY) {
 			plugin.setHotKeyPressed(true);
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (e.getKeyCode() == HOTKEY)
-		{
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == HOTKEY) {
 			plugin.setHotKeyPressed(false);
 		}
 	}

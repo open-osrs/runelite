@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.cache.definitions.ItemDefinition;
 import net.runelite.cache.definitions.exporters.ItemExporter;
 import net.runelite.cache.definitions.loaders.ItemLoader;
@@ -42,18 +43,15 @@ import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 import net.runelite.cache.util.IDClass;
 
-public class ItemManager implements ItemProvider
-{
+public class ItemManager implements ItemProvider {
 	private final Store store;
 	private final Map<Integer, ItemDefinition> items = new HashMap<>();
 
-	public ItemManager(Store store)
-	{
+	public ItemManager(Store store) {
 		this.store = store;
 	}
 
-	public void load() throws IOException
-	{
+	public void load() throws IOException {
 		ItemLoader loader = new ItemLoader();
 
 		Storage storage = store.getStorage();
@@ -63,29 +61,24 @@ public class ItemManager implements ItemProvider
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile f : files.getFiles())
-		{
+		for (FSFile f : files.getFiles()) {
 			ItemDefinition def = loader.load(f.getFileId(), f.getContents());
 			items.put(f.getFileId(), def);
 		}
 	}
 
-	public Collection<ItemDefinition> getItems()
-	{
+	public Collection<ItemDefinition> getItems() {
 		return Collections.unmodifiableCollection(items.values());
 	}
 
-	public ItemDefinition getItem(int itemId)
-	{
+	public ItemDefinition getItem(int itemId) {
 		return items.get(itemId);
 	}
 
-	public void export(File out) throws IOException
-	{
+	public void export(File out) throws IOException {
 		out.mkdirs();
 
-		for (ItemDefinition def : items.values())
-		{
+		for (ItemDefinition def : items.values()) {
 			ItemExporter exporter = new ItemExporter(def);
 
 			File targ = new File(out, def.id + ".json");
@@ -93,21 +86,14 @@ public class ItemManager implements ItemProvider
 		}
 	}
 
-	public void java(File java) throws IOException
-	{
+	public void java(File java) throws IOException {
 		java.mkdirs();
-		try (IDClass ids = IDClass.create(java, "ItemID"))
-		{
-			try (IDClass nulls = IDClass.create(java, "NullItemID"))
-			{
-				for (ItemDefinition def : items.values())
-				{
-					if (def.name.equalsIgnoreCase("NULL"))
-					{
+		try (IDClass ids = IDClass.create(java, "ItemID")) {
+			try (IDClass nulls = IDClass.create(java, "NullItemID")) {
+				for (ItemDefinition def : items.values()) {
+					if (def.name.equalsIgnoreCase("NULL")) {
 						nulls.add(def.name, def.id);
-					}
-					else
-					{
+					} else {
 						ids.add(def.name, def.id);
 					}
 				}
@@ -116,8 +102,7 @@ public class ItemManager implements ItemProvider
 	}
 
 	@Override
-	public ItemDefinition provide(int itemId)
-	{
+	public ItemDefinition provide(int itemId) {
 		return getItem(itemId);
 	}
 }

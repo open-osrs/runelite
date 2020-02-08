@@ -1,4 +1,5 @@
 import java.io.File;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -17,25 +18,25 @@ public class JagexCache {
 	public static File cacheDir;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -27692753
+			intValue = -27692753
 	)
 	@Export("idxCount")
 	public static int idxCount;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lme;"
+			signature = "Lme;"
 	)
 	@Export("JagexCache_randomDat")
 	public static BufferedFile JagexCache_randomDat;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "Lme;"
+			signature = "Lme;"
 	)
 	@Export("JagexCache_dat2File")
 	public static BufferedFile JagexCache_dat2File;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lme;"
+			signature = "Lme;"
 	)
 	@Export("JagexCache_idx255File")
 	public static BufferedFile JagexCache_idx255File;
@@ -51,8 +52,8 @@ public class JagexCache {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "-462100671"
+			signature = "(ILce;ZI)I",
+			garbageValue = "-462100671"
 	)
 	static int method3566(int var0, Script var1, boolean var2) {
 		boolean var3 = true;
@@ -115,8 +116,8 @@ public class JagexCache {
 					if (var0 == ScriptOpcodes.CC_SETOPTKEY) {
 						class320.Interpreter_intStackSize -= 2;
 						var5 = 10;
-						var9 = new byte[]{(byte)Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize]};
-						byte[] var10 = new byte[]{(byte)Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1]};
+						var9 = new byte[]{(byte) Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize]};
+						byte[] var10 = new byte[]{(byte) Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1]};
 						ClanChat.Widget_setKey(var4, var5, var9, var10);
 						return 1;
 					} else if (var0 == ScriptOpcodes.CC_SETOPKEYRATE) {
@@ -166,14 +167,14 @@ public class JagexCache {
 							var9 = new byte[var7 / 2];
 
 							for (var7 -= 2; var7 >= 0; var7 -= 2) {
-								var8[var7 / 2] = (byte)Interpreter.Interpreter_intStack[var7 + class320.Interpreter_intStackSize];
-								var9[var7 / 2] = (byte)Interpreter.Interpreter_intStack[var7 + class320.Interpreter_intStackSize + 1];
+								var8[var7 / 2] = (byte) Interpreter.Interpreter_intStack[var7 + class320.Interpreter_intStackSize];
+								var9[var7 / 2] = (byte) Interpreter.Interpreter_intStack[var7 + class320.Interpreter_intStackSize + 1];
 							}
 						}
 					} else {
 						class320.Interpreter_intStackSize -= 2;
-						var8 = new byte[]{(byte)Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize]};
-						var9 = new byte[]{(byte)Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1]};
+						var8 = new byte[]{(byte) Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize]};
+						var9 = new byte[]{(byte) Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1]};
 					}
 
 					var7 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize] - 1;

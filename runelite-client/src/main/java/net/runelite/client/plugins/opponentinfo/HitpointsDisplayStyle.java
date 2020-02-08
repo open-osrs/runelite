@@ -27,8 +27,7 @@ package net.runelite.client.plugins.opponentinfo;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum HitpointsDisplayStyle
-{
+public enum HitpointsDisplayStyle {
 	HITPOINTS("Hitpoints"),
 	PERCENTAGE("Percentage"),
 	BOTH("Both");
@@ -36,8 +35,7 @@ public enum HitpointsDisplayStyle
 	private final String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

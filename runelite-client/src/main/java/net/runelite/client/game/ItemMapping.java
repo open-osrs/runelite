@@ -27,15 +27,16 @@ package net.runelite.client.game;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import java.util.Collection;
 import java.util.Collections;
+
 import static net.runelite.api.ItemID.*;
 
 /**
  * Converts untradeable items to it's tradeable counterparts
  */
-public enum ItemMapping
-{
+public enum ItemMapping {
 	// Barrows equipment
 	ITEM_AHRIMS_HOOD(AHRIMS_HOOD, AHRIMS_HOOD_25, AHRIMS_HOOD_50, AHRIMS_HOOD_75, AHRIMS_HOOD_100),
 	ITEM_AHRIMS_ROBETOP(AHRIMS_ROBETOP, AHRIMS_ROBETOP_25, AHRIMS_ROBETOP_50, AHRIMS_ROBETOP_75, AHRIMS_ROBETOP_100),
@@ -211,10 +212,10 @@ public enum ItemMapping
 
 	// Slayer helm/black mask
 	ITEM_BLACK_MASK(
-		BLACK_MASK, BLACK_MASK_I, BLACK_MASK_1, BLACK_MASK_1_I, BLACK_MASK_2, BLACK_MASK_2_I, BLACK_MASK_3, BLACK_MASK_3_I, BLACK_MASK_4, BLACK_MASK_4_I, BLACK_MASK_5,
-		BLACK_MASK_5_I, BLACK_MASK_6, BLACK_MASK_6_I, BLACK_MASK_7, BLACK_MASK_7_I, BLACK_MASK_8, BLACK_MASK_8_I, BLACK_MASK_9, BLACK_MASK_9_I, BLACK_MASK_10_I,
-		SLAYER_HELMET, SLAYER_HELMET_I, BLACK_SLAYER_HELMET, BLACK_SLAYER_HELMET_I, PURPLE_SLAYER_HELMET, PURPLE_SLAYER_HELMET_I, RED_SLAYER_HELMET, RED_SLAYER_HELMET_I,
-		GREEN_SLAYER_HELMET, GREEN_SLAYER_HELMET_I, TURQUOISE_SLAYER_HELMET, TURQUOISE_SLAYER_HELMET_I, HYDRA_SLAYER_HELMET, HYDRA_SLAYER_HELMET_I),
+			BLACK_MASK, BLACK_MASK_I, BLACK_MASK_1, BLACK_MASK_1_I, BLACK_MASK_2, BLACK_MASK_2_I, BLACK_MASK_3, BLACK_MASK_3_I, BLACK_MASK_4, BLACK_MASK_4_I, BLACK_MASK_5,
+			BLACK_MASK_5_I, BLACK_MASK_6, BLACK_MASK_6_I, BLACK_MASK_7, BLACK_MASK_7_I, BLACK_MASK_8, BLACK_MASK_8_I, BLACK_MASK_9, BLACK_MASK_9_I, BLACK_MASK_10_I,
+			SLAYER_HELMET, SLAYER_HELMET_I, BLACK_SLAYER_HELMET, BLACK_SLAYER_HELMET_I, PURPLE_SLAYER_HELMET, PURPLE_SLAYER_HELMET_I, RED_SLAYER_HELMET, RED_SLAYER_HELMET_I,
+			GREEN_SLAYER_HELMET, GREEN_SLAYER_HELMET_I, TURQUOISE_SLAYER_HELMET, TURQUOISE_SLAYER_HELMET_I, HYDRA_SLAYER_HELMET, HYDRA_SLAYER_HELMET_I),
 
 	// Pharaoh's Sceptres
 	ITEM_PHARAOHS_SCEPTRE_1(PHARAOHS_SCEPTRE, PHARAOHS_SCEPTRE_1),
@@ -250,19 +251,15 @@ public enum ItemMapping
 	private final int tradeableItem;
 	private final int[] untradableItems;
 
-	static
-	{
-		for (final ItemMapping item : values())
-		{
-			for (int itemId : item.untradableItems)
-			{
+	static {
+		for (final ItemMapping item : values()) {
+			for (int itemId : item.untradableItems) {
 				MAPPINGS.put(itemId, item.tradeableItem);
 			}
 		}
 	}
 
-	ItemMapping(int tradeableItem, int... untradableItems)
-	{
+	ItemMapping(int tradeableItem, int... untradableItems) {
 		this.tradeableItem = tradeableItem;
 		this.untradableItems = untradableItems;
 	}
@@ -273,12 +270,10 @@ public enum ItemMapping
 	 * @param itemId the item id
 	 * @return the collection
 	 */
-	public static Collection<Integer> map(int itemId)
-	{
+	public static Collection<Integer> map(int itemId) {
 		final Collection<Integer> mapping = MAPPINGS.get(itemId);
 
-		if (mapping == null || mapping.isEmpty())
-		{
+		if (mapping == null || mapping.isEmpty()) {
 			return Collections.singleton(itemId);
 		}
 
@@ -291,20 +286,17 @@ public enum ItemMapping
 	 * @param itemId
 	 * @return
 	 */
-	public static int mapFirst(int itemId)
-	{
+	public static int mapFirst(int itemId) {
 		final Collection<Integer> mapping = MAPPINGS.get(itemId);
 
-		if (mapping == null || mapping.isEmpty())
-		{
+		if (mapping == null || mapping.isEmpty()) {
 			return itemId;
 		}
 
 		return mapping.iterator().next();
 	}
 
-	public static boolean isMapped(int itemId)
-	{
+	public static boolean isMapped(int itemId) {
 		return MAPPINGS.containsValue(itemId);
 	}
 }

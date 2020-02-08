@@ -1,4 +1,5 @@
 import java.util.Iterator;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -9,13 +10,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class IterableDualNodeQueue implements Iterable {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+			signature = "Lfa;"
 	)
 	@Export("sentinel")
 	public DualNode sentinel;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+			signature = "Lfa;"
 	)
 	@Export("head")
 	DualNode head;
@@ -37,7 +38,7 @@ public class IterableDualNodeQueue implements Iterable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lfa;)V"
+			signature = "(Lfa;)V"
 	)
 	@Export("add")
 	public void add(DualNode var1) {
@@ -53,7 +54,7 @@ public class IterableDualNodeQueue implements Iterable {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "()Lfa;"
+			signature = "()Lfa;"
 	)
 	@Export("removeLast")
 	public DualNode removeLast() {
@@ -68,16 +69,16 @@ public class IterableDualNodeQueue implements Iterable {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "()Lfa;"
+			signature = "()Lfa;"
 	)
 	@Export("last")
 	public DualNode last() {
-		return this.previousOrLast((DualNode)null);
+		return this.previousOrLast((DualNode) null);
 	}
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lfa;)Lfa;"
+			signature = "(Lfa;)Lfa;"
 	)
 	@Export("previousOrLast")
 	DualNode previousOrLast(DualNode var1) {
@@ -99,7 +100,7 @@ public class IterableDualNodeQueue implements Iterable {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "()Lfa;"
+			signature = "()Lfa;"
 	)
 	@Export("previous")
 	public DualNode previous() {
@@ -119,7 +120,7 @@ public class IterableDualNodeQueue implements Iterable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lfa;Lfa;)V"
+			signature = "(Lfa;Lfa;)V"
 	)
 	@Export("DualNodeDeque_addBefore")
 	public static void DualNodeDeque_addBefore(DualNode var0, DualNode var1) {

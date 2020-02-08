@@ -26,10 +26,12 @@ package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.time.Duration;
+
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.Widget;
@@ -40,14 +42,12 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class TimerOverlay extends Overlay
-{
+public class TimerOverlay extends Overlay {
 	private final PestControlPlugin plugin;
 	private final Client client;
 
 	@Inject
-	TimerOverlay(final PestControlPlugin plugin, final Client client)
-	{
+	TimerOverlay(final PestControlPlugin plugin, final Client client) {
 		this.plugin = plugin;
 		this.client = client;
 
@@ -56,17 +56,14 @@ public class TimerOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.getGame() == null)
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.getGame() == null) {
 			return null;
 		}
 
 		Widget timeWidget = client.getWidget(WidgetInfo.PEST_CONTROL_INFO_TIME);
 
-		if (timeWidget == null)
-		{
+		if (timeWidget == null) {
 			return null;
 		}
 
@@ -75,8 +72,7 @@ public class TimerOverlay extends Overlay
 
 		Duration timeTillNextPortal = plugin.getGame().getTimeTillNextPortal();
 
-		if (timeTillNextPortal != null)
-		{
+		if (timeTillNextPortal != null) {
 			String firstOrNext = (plugin.getGame().getShieldsDropped() == 0) ? "first" : "next";
 			String string = String.format("- %s portal: %ds", firstOrNext, timeTillNextPortal.getSeconds());
 

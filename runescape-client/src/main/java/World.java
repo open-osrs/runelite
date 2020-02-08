@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class World {
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1866587551
+			intValue = -1866587551
 	)
 	@Export("World_count")
 	static int World_count;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1158665881
+			intValue = 1158665881
 	)
 	@Export("World_listCount")
 	static int World_listCount;
@@ -27,25 +27,25 @@ public class World {
 	static int[] World_sortOption1;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Leg;"
+			signature = "Leg;"
 	)
 	@Export("World_request")
 	static UrlRequest World_request;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1411281577
+			intValue = 1411281577
 	)
 	@Export("id")
 	int id;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 2119129825
+			intValue = 2119129825
 	)
 	@Export("properties")
 	int properties;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 2120621835
+			intValue = 2120621835
 	)
 	@Export("population")
 	int population;
@@ -57,13 +57,13 @@ public class World {
 	String activity;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1248235399
+			intValue = 1248235399
 	)
 	@Export("location")
 	int location;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1361119187
+			intValue = 1361119187
 	)
 	@Export("index")
 	int index;
@@ -80,8 +80,8 @@ public class World {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "1"
+			signature = "(B)Z",
+			garbageValue = "1"
 	)
 	@Export("isMembersOnly")
 	boolean isMembersOnly() {
@@ -90,8 +90,8 @@ public class World {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "36"
+			signature = "(B)Z",
+			garbageValue = "36"
 	)
 	boolean method1760() {
 		return (2 & this.properties) != 0;
@@ -99,8 +99,8 @@ public class World {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-764508558"
+			signature = "(I)Z",
+			garbageValue = "-764508558"
 	)
 	@Export("isPvp")
 	boolean isPvp() {
@@ -109,8 +109,8 @@ public class World {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1545787389"
+			signature = "(I)Z",
+			garbageValue = "1545787389"
 	)
 	boolean method1787() {
 		return (8 & this.properties) != 0;
@@ -118,8 +118,8 @@ public class World {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "1"
+			signature = "(B)Z",
+			garbageValue = "1"
 	)
 	@Export("isDeadman")
 	boolean isDeadman() {
@@ -128,8 +128,8 @@ public class World {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1183174451"
+			signature = "(I)Z",
+			garbageValue = "1183174451"
 	)
 	@Export("isBeta")
 	boolean isBeta() {
@@ -138,8 +138,8 @@ public class World {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1307940370"
+			signature = "(I)Z",
+			garbageValue = "1307940370"
 	)
 	boolean method1767() {
 		return (1073741824 & this.properties) != 0;
@@ -156,8 +156,8 @@ public class World {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IILfk;Lfv;I)Z",
-		garbageValue = "-186074271"
+			signature = "(IILfk;Lfv;I)Z",
+			garbageValue = "-186074271"
 	)
 	public static final boolean method1770(int var0, int var1, RouteStrategy var2, CollisionMap var3) {
 		int var4 = var0;
@@ -263,8 +263,8 @@ public class World {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1273195728"
+			signature = "(I)V",
+			garbageValue = "1273195728"
 	)
 	static void method1762() {
 		if (UserComparator8.loadWorlds()) {

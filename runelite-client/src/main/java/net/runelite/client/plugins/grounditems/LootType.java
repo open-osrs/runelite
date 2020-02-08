@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.grounditems;
 
-enum LootType
-{
+enum LootType {
 	UNKNOWN,
 	DROPPED,
 	PVP,

@@ -25,13 +25,12 @@
 package net.runelite.api.util;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class TextTest
-{
+public class TextTest {
 	@Test
-	public void removeTags()
-	{
+	public void removeTags() {
 		assertEquals("Test", Text.removeTags("<col=FFFFFF>Test</col>"));
 		assertEquals("Test", Text.removeTags("<img=1><s>Test</s>"));
 		assertEquals("Zezima  (level-126)", Text.removeTags("<col=ffffff><img=2>Zezima<col=00ffff>  (level-126)"));
@@ -45,8 +44,7 @@ public class TextTest
 	}
 
 	@Test
-	public void toJagexName()
-	{
+	public void toJagexName() {
 		assertEquals("Whoever This Is Lmao", Text.toJagexName("-__- - \u00A0\u00A0 Whoever\uABCD\uABCD\u00A0T\uABBBhis  Is-Lmao"));
 	}
 }

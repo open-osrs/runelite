@@ -27,10 +27,8 @@ package net.runelite.cache.definitions.loaders;
 import net.runelite.cache.definitions.FramemapDefinition;
 import net.runelite.cache.io.InputStream;
 
-public class FramemapLoader
-{
-	public FramemapDefinition load(int id, byte[] b)
-	{
+public class FramemapLoader {
+	public FramemapDefinition load(int id, byte[] b) {
 		FramemapDefinition def = new FramemapDefinition();
 		InputStream in = new InputStream(b);
 
@@ -40,20 +38,16 @@ public class FramemapLoader
 		def.types = new int[def.length];
 		def.frameMaps = new int[def.length][];
 
-		for (int i = 0; i < def.length; ++i)
-		{
+		for (int i = 0; i < def.length; ++i) {
 			def.types[i] = in.readUnsignedByte();
 		}
 
-		for (int i = 0; i < def.length; ++i)
-		{
+		for (int i = 0; i < def.length; ++i) {
 			def.frameMaps[i] = new int[in.readUnsignedByte()];
 		}
 
-		for (int i = 0; i < def.length; ++i)
-		{
-			for (int j = 0; j < def.frameMaps[i].length; ++j)
-			{
+		for (int i = 0; i < def.length; ++i) {
+			for (int j = 0; j < def.frameMaps[i].length; ++j) {
 				def.frameMaps[i][j] = in.readUnsignedByte();
 			}
 		}

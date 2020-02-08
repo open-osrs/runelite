@@ -8,31 +8,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class SoundCache {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("soundEffectIndex")
 	AbstractArchive soundEffectIndex;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("musicSampleIndex")
 	AbstractArchive musicSampleIndex;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+			signature = "Lln;"
 	)
 	@Export("musicSamples")
 	NodeHashTable musicSamples;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+			signature = "Lln;"
 	)
 	@Export("rawSounds")
 	NodeHashTable rawSounds;
 
 	@ObfuscatedSignature(
-		signature = "(Lii;Lii;)V"
+			signature = "(Lii;Lii;)V"
 	)
 	public SoundCache(AbstractArchive var1, AbstractArchive var2) {
 		this.musicSamples = new NodeHashTable(256);
@@ -43,15 +43,15 @@ public class SoundCache {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II[II)Lcv;",
-		garbageValue = "-2049722880"
+			signature = "(II[II)Lcv;",
+			garbageValue = "-2049722880"
 	)
 	@Export("getSoundEffect0")
 	RawSound getSoundEffect0(int var1, int var2, int[] var3) {
 		int var4 = var2 ^ (var1 << 4 & 65535 | var1 >>> 12);
 		var4 |= var1 << 16;
-		long var5 = (long)var4;
-		RawSound var7 = (RawSound)this.rawSounds.get(var5);
+		long var5 = (long) var4;
+		RawSound var7 = (RawSound) this.rawSounds.get(var5);
 		if (var7 != null) {
 			return var7;
 		} else if (var3 != null && var3[0] <= 0) {
@@ -74,21 +74,21 @@ public class SoundCache {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(II[II)Lcv;",
-		garbageValue = "-207683218"
+			signature = "(II[II)Lcv;",
+			garbageValue = "-207683218"
 	)
 	@Export("getMusicSample0")
 	RawSound getMusicSample0(int var1, int var2, int[] var3) {
 		int var4 = var2 ^ (var1 << 4 & 65535 | var1 >>> 12);
 		var4 |= var1 << 16;
-		long var5 = (long)var4 ^ 4294967296L;
-		RawSound var7 = (RawSound)this.rawSounds.get(var5);
+		long var5 = (long) var4 ^ 4294967296L;
+		RawSound var7 = (RawSound) this.rawSounds.get(var5);
 		if (var7 != null) {
 			return var7;
 		} else if (var3 != null && var3[0] <= 0) {
 			return null;
 		} else {
-			VorbisSample var8 = (VorbisSample)this.musicSamples.get(var5);
+			VorbisSample var8 = (VorbisSample) this.musicSamples.get(var5);
 			if (var8 == null) {
 				var8 = VorbisSample.readMusicSample(this.musicSampleIndex, var1, var2);
 				if (var8 == null) {
@@ -111,8 +111,8 @@ public class SoundCache {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I[II)Lcv;",
-		garbageValue = "-1171903623"
+			signature = "(I[II)Lcv;",
+			garbageValue = "-1171903623"
 	)
 	@Export("getSoundEffect")
 	public RawSound getSoundEffect(int var1, int[] var2) {
@@ -127,8 +127,8 @@ public class SoundCache {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I[II)Lcv;",
-		garbageValue = "872034645"
+			signature = "(I[II)Lcv;",
+			garbageValue = "872034645"
 	)
 	@Export("getMusicSample")
 	public RawSound getMusicSample(int var1, int[] var2) {

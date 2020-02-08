@@ -1,4 +1,5 @@
 import java.util.Random;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -9,7 +10,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class AbstractFont extends Rasterizer2D {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "[Lli;"
+			signature = "[Lli;"
 	)
 	@Export("AbstractFont_modIconSprites")
 	public static IndexedSprite[] AbstractFont_modIconSprites;
@@ -193,7 +194,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 				if (var13 != 32 && var13 != 160) {
 					for (var8 = 0; var8 < 256; ++var8) {
 						if (var8 != 32 && var8 != 160) {
-							this.kerning[var8 + (var13 << 8)] = (byte)method5414(var11, var12, var4, this.advances, var10, var13, var8);
+							this.kerning[var8 + (var13 << 8)] = (byte) method5414(var11, var12, var4, this.advances, var10, var13, var8);
 						}
 					}
 				}
@@ -256,7 +257,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 					}
 
 					if (var2 == -1) {
-						var4 += this.advances[(char)(TextureProvider.charToByteCp1252(var6) & 255)];
+						var4 += this.advances[(char) (TextureProvider.charToByteCp1252(var6) & 255)];
 						if (this.kerning != null && var3 != -1) {
 							var4 += this.kerning[var6 + (var3 << 8)];
 						}
@@ -503,10 +504,10 @@ public abstract class AbstractFont extends Rasterizer2D {
 			int[] var7 = new int[var1.length()];
 
 			for (int var8 = 0; var8 < var1.length(); ++var8) {
-				var7[var8] = (int)(Math.sin((double)var8 / 2.0D + (double)var6 / 5.0D) * 5.0D);
+				var7[var8] = (int) (Math.sin((double) var8 / 2.0D + (double) var6 / 5.0D) * 5.0D);
 			}
 
-			this.drawWithOffsets0(var1, var2 - this.stringWidth(var1) / 2, var3, (int[])null, var7);
+			this.drawWithOffsets0(var1, var2 - this.stringWidth(var1) / 2, var3, (int[]) null, var7);
 		}
 	}
 
@@ -519,8 +520,8 @@ public abstract class AbstractFont extends Rasterizer2D {
 			int[] var8 = new int[var1.length()];
 
 			for (int var9 = 0; var9 < var1.length(); ++var9) {
-				var7[var9] = (int)(Math.sin((double)var9 / 5.0D + (double)var6 / 5.0D) * 5.0D);
-				var8[var9] = (int)(Math.sin((double)var9 / 3.0D + (double)var6 / 5.0D) * 5.0D);
+				var7[var9] = (int) (Math.sin((double) var9 / 5.0D + (double) var6 / 5.0D) * 5.0D);
+				var8[var9] = (int) (Math.sin((double) var9 / 3.0D + (double) var6 / 5.0D) * 5.0D);
 			}
 
 			this.drawWithOffsets0(var1, var2 - this.stringWidth(var1) / 2, var3, var7, var8);
@@ -532,7 +533,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 	public void drawCenteredShake(String var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		if (var1 != null) {
 			this.reset(var4, var5);
-			double var8 = 7.0D - (double)var7 / 8.0D;
+			double var8 = 7.0D - (double) var7 / 8.0D;
 			if (var8 < 0.0D) {
 				var8 = 0.0D;
 			}
@@ -540,10 +541,10 @@ public abstract class AbstractFont extends Rasterizer2D {
 			int[] var10 = new int[var1.length()];
 
 			for (int var11 = 0; var11 < var1.length(); ++var11) {
-				var10[var11] = (int)(Math.sin((double)var11 / 1.5D + (double)var6 / 1.0D) * var8);
+				var10[var11] = (int) (Math.sin((double) var11 / 1.5D + (double) var6 / 1.0D) * var8);
 			}
 
-			this.drawWithOffsets0(var1, var2 - this.stringWidth(var1) / 2, var3, (int[])null, var10);
+			this.drawWithOffsets0(var1, var2 - this.stringWidth(var1) / 2, var3, (int[]) null, var10);
 		}
 	}
 
@@ -552,7 +553,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 	public void drawRandomAlphaAndSpacing(String var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var1 != null) {
 			this.reset(var4, var5);
-			AbstractFont_random.setSeed((long)var6);
+			AbstractFont_random.setSeed((long) var6);
 			AbstractFont_alpha = 192 + (AbstractFont_random.nextInt() & 31);
 			int[] var7 = new int[var1.length()];
 			int var8 = 0;
@@ -564,7 +565,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 				}
 			}
 
-			this.drawWithOffsets0(var1, var2, var3, var7, (int[])null);
+			this.drawWithOffsets0(var1, var2, var3, var7, (int[]) null);
 		}
 	}
 
@@ -648,7 +649,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 
 		for (int var6 = 0; var6 < var1.length(); ++var6) {
 			if (var1.charAt(var6) != 0) {
-				char var7 = (char)(TextureProvider.charToByteCp1252(var1.charAt(var6)) & 255);
+				char var7 = (char) (TextureProvider.charToByteCp1252(var1.charAt(var6)) & 255);
 				if (var7 == '<') {
 					var4 = var6;
 				} else {
@@ -712,7 +713,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 
 						int var13 = this.advances[var7];
 						if (AbstractFont_strike != -1) {
-							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var13, AbstractFont_strike);
+							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int) ((double) this.ascent * 0.7D), var13, AbstractFont_strike);
 						}
 
 						if (AbstractFont_underline != -1) {
@@ -738,7 +739,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 
 		for (int var9 = 0; var9 < var1.length(); ++var9) {
 			if (var1.charAt(var9) != 0) {
-				char var10 = (char)(TextureProvider.charToByteCp1252(var1.charAt(var9)) & 255);
+				char var10 = (char) (TextureProvider.charToByteCp1252(var1.charAt(var9)) & 255);
 				if (var10 == '<') {
 					var6 = var9;
 				} else {
@@ -830,7 +831,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 
 						int var18 = this.advances[var10];
 						if (AbstractFont_strike != -1) {
-							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var18, AbstractFont_strike);
+							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int) ((double) this.ascent * 0.7D), var18, AbstractFont_strike);
 						}
 
 						if (AbstractFont_underline != -1) {

@@ -27,8 +27,7 @@ package net.runelite.http.api.chat;
 import lombok.Data;
 
 @Data
-public class Task
-{
+public class Task {
 	private String task;
 	private int amount;
 	private int initialAmount;

@@ -9,13 +9,13 @@ import net.runelite.rs.ScriptOpcodes;
 public class StructDefinition extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("StructDefinition_archive")
 	static AbstractArchive StructDefinition_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Leh;"
+			signature = "Leh;"
 	)
 	@Export("StructDefinition_cached")
 	static EvictingDualNodeHashTable StructDefinition_cached;
@@ -23,13 +23,13 @@ public class StructDefinition extends DualNode {
 	static String field3307;
 	@ObfuscatedName("gk")
 	@ObfuscatedSignature(
-		signature = "[Llt;"
+			signature = "[Llt;"
 	)
 	@Export("mapMarkerSprites")
 	static Sprite[] mapMarkerSprites;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Llp;"
+			signature = "Llp;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -43,8 +43,8 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-2114792019"
+			signature = "(I)V",
+			garbageValue = "-2114792019"
 	)
 	@Export("postDecode")
 	void postDecode() {
@@ -52,8 +52,8 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lkp;I)V",
-		garbageValue = "-215711258"
+			signature = "(Lkp;I)V",
+			garbageValue = "-215711258"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -69,8 +69,8 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Lkp;IS)V",
-		garbageValue = "-16433"
+			signature = "(Lkp;IS)V",
+			garbageValue = "-16433"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -82,8 +82,8 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "-1540042604"
+			signature = "(III)I",
+			garbageValue = "-1540042604"
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
@@ -92,8 +92,8 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "-32852937"
+			signature = "(ILjava/lang/String;I)Ljava/lang/String;",
+			garbageValue = "-32852937"
 	)
 	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
@@ -102,8 +102,8 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "2113754677"
+			signature = "(ILce;ZI)I",
+			garbageValue = "2113754677"
 	)
 	static int method4627(int var0, Script var1, boolean var2) {
 		int var3;
@@ -200,42 +200,42 @@ public class StructDefinition extends DualNode {
 					GrandExchangeEvent var11;
 					if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERWORLD) {
 						var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-						var11 = (GrandExchangeEvent)PendingSpawn.grandExchangeEvents.events.get(var3);
+						var11 = (GrandExchangeEvent) PendingSpawn.grandExchangeEvents.events.get(var3);
 						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = var11.world;
 						return 1;
 					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERNAME) {
 						var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-						var11 = (GrandExchangeEvent)PendingSpawn.grandExchangeEvents.events.get(var3);
+						var11 = (GrandExchangeEvent) PendingSpawn.grandExchangeEvents.events.get(var3);
 						Interpreter.Interpreter_stringStack[++Message.Interpreter_stringStackSize - 1] = var11.getOfferName();
 						return 1;
 					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERPREVIOUSNAME) {
 						var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-						var11 = (GrandExchangeEvent)PendingSpawn.grandExchangeEvents.events.get(var3);
+						var11 = (GrandExchangeEvent) PendingSpawn.grandExchangeEvents.events.get(var3);
 						Interpreter.Interpreter_stringStack[++Message.Interpreter_stringStackSize - 1] = var11.getPreviousOfferName();
 						return 1;
 					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERAGE) {
 						var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-						var11 = (GrandExchangeEvent)PendingSpawn.grandExchangeEvents.events.get(var3);
+						var11 = (GrandExchangeEvent) PendingSpawn.grandExchangeEvents.events.get(var3);
 						long var5 = WorldMapIcon_0.currentTimeMillis() - class30.field274 - var11.age;
-						int var7 = (int)(var5 / 3600000L);
-						int var8 = (int)((var5 - (long)(var7 * 3600000)) / 60000L);
-						int var9 = (int)((var5 - (long)(var7 * 3600000) - (long)(var8 * 60000)) / 1000L);
+						int var7 = (int) (var5 / 3600000L);
+						int var8 = (int) ((var5 - (long) (var7 * 3600000)) / 60000L);
+						int var9 = (int) ((var5 - (long) (var7 * 3600000) - (long) (var8 * 60000)) / 1000L);
 						String var10 = var7 + ":" + var8 / 10 + var8 % 10 + ":" + var9 / 10 + var9 % 10;
 						Interpreter.Interpreter_stringStack[++Message.Interpreter_stringStackSize - 1] = var10;
 						return 1;
 					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERCOUNT) {
 						var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-						var11 = (GrandExchangeEvent)PendingSpawn.grandExchangeEvents.events.get(var3);
+						var11 = (GrandExchangeEvent) PendingSpawn.grandExchangeEvents.events.get(var3);
 						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = var11.grandExchangeOffer.totalQuantity;
 						return 1;
 					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERPRICE) {
 						var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-						var11 = (GrandExchangeEvent)PendingSpawn.grandExchangeEvents.events.get(var3);
+						var11 = (GrandExchangeEvent) PendingSpawn.grandExchangeEvents.events.get(var3);
 						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = var11.grandExchangeOffer.unitPrice;
 						return 1;
 					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERITEM) {
 						var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-						var11 = (GrandExchangeEvent)PendingSpawn.grandExchangeEvents.events.get(var3);
+						var11 = (GrandExchangeEvent) PendingSpawn.grandExchangeEvents.events.get(var3);
 						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = var11.grandExchangeOffer.id;
 						return 1;
 					} else {

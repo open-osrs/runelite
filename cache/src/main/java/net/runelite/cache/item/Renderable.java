@@ -24,12 +24,10 @@
  */
 package net.runelite.cache.item;
 
-abstract class Renderable
-{
+abstract class Renderable {
 	public int modelHeight;
 
-	protected Renderable()
-	{
+	protected Renderable() {
 		this.modelHeight = 1000;
 	}
 }

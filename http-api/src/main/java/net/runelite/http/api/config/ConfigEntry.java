@@ -24,28 +24,23 @@
  */
 package net.runelite.http.api.config;
 
-public class ConfigEntry
-{
+public class ConfigEntry {
 	private String key;
 	private String value;
 
-	public String getKey()
-	{
+	public String getKey() {
 		return key;
 	}
 
-	public void setKey(String key)
-	{
+	public void setKey(String key) {
 		this.key = key;
 	}
 
-	public String getValue()
-	{
+	public String getValue() {
 		return value;
 	}
 
-	public void setValue(String value)
-	{
+	public void setValue(String value) {
 		this.value = value;
 	}
 }

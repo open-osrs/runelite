@@ -26,31 +26,26 @@ package net.runelite.client.plugins.devtools;
 
 import java.awt.Color;
 import javax.swing.JButton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 
-class DevToolsButton extends JButton
-{
+class DevToolsButton extends JButton {
 	@Getter(AccessLevel.PACKAGE)
 	private boolean active;
 
-	DevToolsButton(String title)
-	{
+	DevToolsButton(String title) {
 		super(title);
 		addActionListener((ev) -> setActive(!active));
 		this.setToolTipText(title);
 	}
 
-	void setActive(boolean active)
-	{
+	void setActive(boolean active) {
 		this.active = active;
 
-		if (active)
-		{
+		if (active) {
 			setBackground(Color.GREEN);
-		}
-		else
-		{
+		} else {
 			setBackground(null);
 		}
 	}

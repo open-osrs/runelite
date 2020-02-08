@@ -15,7 +15,7 @@ public class MouseRecorder implements Runnable {
 	Object lock;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 114290231
+			intValue = 114290231
 	)
 	@Export("index")
 	int index;
@@ -40,7 +40,7 @@ public class MouseRecorder implements Runnable {
 
 	public void run() {
 		for (; this.isRunning; FriendLoginUpdate.method5325(50L)) {
-			synchronized(this.lock) {
+			synchronized (this.lock) {
 				if (this.index < 500) {
 					this.xs[this.index] = MouseHandler.MouseHandler_x;
 					this.ys[this.index] = MouseHandler.MouseHandler_y;
@@ -54,8 +54,8 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lkp;Llp;B)Llp;",
-		garbageValue = "-44"
+			signature = "(Lkp;Llp;B)Llp;",
+			garbageValue = "-44"
 	)
 	@Export("readStringIntParameters")
 	static final IterableNodeHashTable readStringIntParameters(Buffer var0, IterableNodeHashTable var1) {
@@ -76,7 +76,7 @@ public class MouseRecorder implements Runnable {
 				var6 = new IntegerNode(var0.readInt());
 			}
 
-			var1.put((Node)var6, (long)var5);
+			var1.put((Node) var6, (long) var5);
 		}
 
 		return var1;
@@ -84,8 +84,8 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lii;Lii;Lii;Lgw;I)Z",
-		garbageValue = "1360847882"
+			signature = "(Lii;Lii;Lii;Lgw;I)Z",
+			garbageValue = "1360847882"
 	)
 	public static boolean method1208(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2, MidiPcmStream var3) {
 		class197.musicPatchesArchive = var0;
@@ -97,8 +97,8 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-64"
+			signature = "(B)V",
+			garbageValue = "-64"
 	)
 	static final void method1209() {
 		if (!ViewportMouse.ViewportMouse_false0) {
@@ -137,8 +137,8 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("gd")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1367330545"
+			signature = "(I)Z",
+			garbageValue = "1367330545"
 	)
 	static boolean method1210() {
 		return (Client.drawPlayerNames & 4) != 0;
@@ -146,8 +146,8 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("hc")
 	@ObfuscatedSignature(
-		signature = "(IIIB)V",
-		garbageValue = "5"
+			signature = "(IIIB)V",
+			garbageValue = "5"
 	)
 	@Export("worldToScreen")
 	static final void worldToScreen(int var0, int var1, int var2) {
@@ -181,8 +181,8 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("lr")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "1867958927"
+			signature = "(Ljava/lang/String;I)Ljava/lang/String;",
+			garbageValue = "1867958927"
 	)
 	static String method1207(String var0) {
 		PlayerType[] var1 = SecureRandomFuture.PlayerType_values();

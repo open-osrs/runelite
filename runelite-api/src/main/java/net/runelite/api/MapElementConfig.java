@@ -27,8 +27,7 @@ package net.runelite.api;
 /**
  * Represents an area in the world.
  */
-public interface MapElementConfig
-{
+public interface MapElementConfig {
 	/**
 	 * Gets the sprite icon to display on the world map.
 	 *

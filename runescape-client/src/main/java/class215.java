@@ -23,8 +23,8 @@ public class class215 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "-1561173160"
+			signature = "(II)Z",
+			garbageValue = "-1561173160"
 	)
 	public static boolean method4098(int var0) {
 		return var0 >= WorldMapDecorationType.field2745.id && var0 <= WorldMapDecorationType.field2743.id || var0 == WorldMapDecorationType.field2731.id;
@@ -32,8 +32,8 @@ public class class215 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZZI)V",
-		garbageValue = "694265638"
+			signature = "(Ljava/lang/String;ZZI)V",
+			garbageValue = "694265638"
 	)
 	@Export("openURL")
 	public static void openURL(String var0, boolean var1, boolean var2) {
@@ -42,8 +42,8 @@ public class class215 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-329192495"
+			signature = "(I)V",
+			garbageValue = "-329192495"
 	)
 	public static void method4095() {
 		ParamDefinition.ParamDefinition_cached.clear();
@@ -51,11 +51,11 @@ public class class215 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-2141747621"
+			signature = "(II)V",
+			garbageValue = "-2141747621"
 	)
 	static void method4101(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		ItemContainer var1 = (ItemContainer) ItemContainer.itemContainers.get((long) var0);
 		if (var1 != null) {
 			var1.remove();
 		}
@@ -63,8 +63,8 @@ public class class215 {
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "1319059426"
+			signature = "(ILce;ZI)I",
+			garbageValue = "1319059426"
 	)
 	static int method4100(int var0, Script var1, boolean var2) {
 		int var3;

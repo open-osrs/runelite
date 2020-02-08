@@ -25,11 +25,14 @@
 package net.runelite.client.plugins.woodcutting;
 
 import com.google.common.collect.ImmutableMap;
+
 import java.time.Duration;
 import java.util.Map;
 import javax.annotation.Nullable;
+
 import lombok.Getter;
 import net.runelite.api.ObjectID;
+
 import static net.runelite.api.ObjectID.MAGIC_TREE_10834;
 import static net.runelite.api.NullObjectID.NULL_10835;
 import static net.runelite.api.ObjectID.MAHOGANY;
@@ -55,19 +58,16 @@ import static net.runelite.api.NullObjectID.NULL_10823;
 import static net.runelite.api.ObjectID.YEW_36683;
 
 @Getter
-enum Tree
-{
+enum Tree {
 	REGULAR_TREE(null, TREE, TREE_1277, TREE_1278, TREE_1279, TREE_1280),
 	OAK_TREE(Duration.ofMillis(8500), ObjectID.OAK_TREE, OAK_TREE_4540, OAK_10820),
 	WILLOW_TREE(Duration.ofMillis(8500), WILLOW, WILLOW_10829, WILLOW_10831, WILLOW_10833),
-	MAPLE_TREE(Duration.ofSeconds(35), ObjectID.MAPLE_TREE, MAPLE_TREE_10832, MAPLE_TREE_36681)
-		{
-			@Override
-			Duration getRespawnTime(int region)
-			{
-				return region == MISCELLANIA_REGION ? Duration.ofMillis(8500) : super.respawnTime;
-			}
-		},
+	MAPLE_TREE(Duration.ofSeconds(35), ObjectID.MAPLE_TREE, MAPLE_TREE_10832, MAPLE_TREE_36681) {
+		@Override
+		Duration getRespawnTime(int region) {
+			return region == MISCELLANIA_REGION ? Duration.ofMillis(8500) : super.respawnTime;
+		}
+	},
 	TEAK_TREE(Duration.ofMillis(8500), TEAK, TEAK_36686),
 	MAHOGANY_TREE(Duration.ofMillis(8500), MAHOGANY, MAHOGANY_36688),
 	YEW_TREE(Duration.ofMinutes(1), YEW, NULL_10823, YEW_36683),
@@ -78,8 +78,7 @@ enum Tree
 	private final Duration respawnTime;
 	private final int[] treeIds;
 
-	Tree(Duration respawnTime, int... treeIds)
-	{
+	Tree(Duration respawnTime, int... treeIds) {
 		this.respawnTime = respawnTime;
 		this.treeIds = treeIds;
 	}
@@ -87,14 +86,11 @@ enum Tree
 	private static final int MISCELLANIA_REGION = 10044;
 	private static final Map<Integer, Tree> TREES;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, Tree> builder = new ImmutableMap.Builder<>();
 
-		for (Tree tree : values())
-		{
-			for (int treeId : tree.treeIds)
-			{
+		for (Tree tree : values()) {
+			for (int treeId : tree.treeIds) {
 				builder.put(treeId, tree);
 			}
 		}
@@ -102,13 +98,11 @@ enum Tree
 		TREES = builder.build();
 	}
 
-	Duration getRespawnTime(int region)
-	{
+	Duration getRespawnTime(int region) {
 		return respawnTime;
 	}
 
-	static Tree findTree(int objectId)
-	{
+	static Tree findTree(int objectId) {
 		return TREES.get(objectId);
 	}
 }

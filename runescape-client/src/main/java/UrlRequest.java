@@ -1,4 +1,5 @@
 import java.net.URL;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -26,8 +27,8 @@ public class UrlRequest {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "41"
+			signature = "(B)Z",
+			garbageValue = "41"
 	)
 	@Export("isDone")
 	public boolean isDone() {
@@ -36,8 +37,8 @@ public class UrlRequest {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(B)[B",
-		garbageValue = "0"
+			signature = "(B)[B",
+			garbageValue = "0"
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {
@@ -46,11 +47,11 @@ public class UrlRequest {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "72"
+			signature = "(B)V",
+			garbageValue = "72"
 	)
 	static void method3375() {
-		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) {
+		for (ObjectSound var0 = (ObjectSound) ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound) ObjectSound.objectSounds.previous()) {
 			if (var0.stream1 != null) {
 				class2.pcmStreamMixer.removeSubStream(var0.stream1);
 				var0.stream1 = null;
@@ -67,8 +68,8 @@ public class UrlRequest {
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "416833363"
+			signature = "(ILce;ZI)I",
+			garbageValue = "416833363"
 	)
 	static int method3382(int var0, Script var1, boolean var2) {
 		int var3;
@@ -424,8 +425,8 @@ public class UrlRequest {
 
 	@ObfuscatedName("hx")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
-		garbageValue = "124"
+			signature = "(IB)Z",
+			garbageValue = "124"
 	)
 	static final boolean method3383(int var0) {
 		if (var0 < 0) {

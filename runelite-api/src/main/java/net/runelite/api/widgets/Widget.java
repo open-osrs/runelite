@@ -26,6 +26,7 @@ package net.runelite.api.widgets;
 
 import java.awt.Rectangle;
 import java.util.Collection;
+
 import net.runelite.api.FontTypeFace;
 import net.runelite.api.Point;
 import net.runelite.api.Sprite;
@@ -45,8 +46,7 @@ import net.runelite.api.Sprite;
  * <p>
  * For a more complete idea of what is classified as a widget, see {@link WidgetID}.
  */
-public interface Widget
-{
+public interface Widget {
 	/**
 	 * Gets the widgets ID.
 	 *
@@ -80,8 +80,8 @@ public interface Widget
 
 	/**
 	 * Gets the current click configuration of the widget.
-	 * @see WidgetConfig
 	 *
+	 * @see WidgetConfig
 	 * @see WidgetConfig
 	 */
 	int getClickMask();
@@ -154,7 +154,7 @@ public interface Widget
 
 	/**
 	 * Sets the relative x-axis coordinate to the widgets parent.
-	 *
+	 * <p>
 	 * You do not want to use this. Use {@link #setOriginalX(int)}, {@link #setXPositionMode(int)}
 	 * and {@link #revalidate()}. Almost any interaction with this widget from a clientscript will
 	 * recalculate this value.
@@ -171,7 +171,7 @@ public interface Widget
 
 	/**
 	 * Sets the relative y-axis coordinate to the widgets parent.
-	 *
+	 * <p>
 	 * You do not want to use this. Use {@link #setOriginalY(int)}, {@link #setYPositionMode(int)}
 	 * and {@link #revalidate()}. Almost any interaction with this widget from a clientscript will
 	 * recalculate this value.
@@ -254,13 +254,13 @@ public interface Widget
 	 * Sets the sprite ID displayed in the widget.
 	 *
 	 * @param spriteId the sprite ID
-	 * SpriteID
+	 *                 SpriteID
 	 */
 	void setSpriteId(int spriteId);
 
 	/**
 	 * Checks whether this widget or any of its parents are hidden.
-	 *
+	 * <p>
 	 * This must be ran on the client thread
 	 *
 	 * @return true if this widget or any parent is hidden, false otherwise
@@ -352,7 +352,7 @@ public interface Widget
 
 	/**
 	 * Sets the amount zoomed in on the model displayed in the widget
-	 * 
+	 *
 	 * @param modelZoom the new zoom amount
 	 */
 	void setModelZoom(int modelZoom);
@@ -379,7 +379,7 @@ public interface Widget
 
 	/**
 	 * Sets the width of the widget.
-	 *
+	 * <p>
 	 * You do not want to use this. Use {@link #setOriginalWidth(int)}, {@link #setWidthMode(int)}
 	 * and {@link #revalidate()}. Almost any interaction with this widget from a clientscript will
 	 * recalculate this value.
@@ -396,7 +396,7 @@ public interface Widget
 
 	/**
 	 * Sets the height of the widget.
-	 *
+	 * <p>
 	 * You do not want to use this. Use {@link #setOriginalHeight(int)}, {@link #setHeightMode(int)}
 	 * and {@link #revalidate()}. Almost any interaction with this widget from a clientscript will
 	 * recalculate this value.
@@ -923,14 +923,14 @@ public interface Widget
 	/**
 	 * {@link net.runelite.api.VarPlayer}s that triggers this widgets varTransmitListener
 	 */
-	void setVarTransmitTrigger(int ...trigger);
+	void setVarTransmitTrigger(int... trigger);
 
 	/**
 	 * Sets a script to be ran the first client tick the mouse is held ontop of this widget
 	 *
 	 * @param args A ScriptID, then the args for the script
 	 */
-	void setOnClickListener(Object ...args);
+	void setOnClickListener(Object... args);
 
 	/**
 	 * Sets a script to be ran the every client tick the mouse is held ontop of this widget,
@@ -938,14 +938,14 @@ public interface Widget
 	 *
 	 * @param args A ScriptID, then the args for the script
 	 */
-	void setOnHoldListener(Object ...args);
+	void setOnHoldListener(Object... args);
 
 	/**
 	 * Sets a script to be ran the first client tick the mouse is not held ontop of this widget
 	 *
 	 * @param args A ScriptID, then the args for the script
 	 */
-	void setOnReleaseListener(Object ...args);
+	void setOnReleaseListener(Object... args);
 
 	boolean isWidgetItemDragged(int index);
 

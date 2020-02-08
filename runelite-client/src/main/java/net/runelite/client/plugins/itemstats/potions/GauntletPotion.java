@@ -27,7 +27,9 @@ package net.runelite.client.plugins.itemstats.potions;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
+
 import static net.runelite.client.plugins.itemstats.Builders.heal;
+
 import net.runelite.client.plugins.itemstats.Effect;
 import net.runelite.client.plugins.itemstats.StatChange;
 import net.runelite.client.plugins.itemstats.StatsChanges;
@@ -37,14 +39,12 @@ import net.runelite.client.plugins.itemstats.stats.Stats;
  * Acts like a prayer potion and stamina dose combined but restores 40 energy instead of 20
  */
 @RequiredArgsConstructor
-public class GauntletPotion implements Effect
-{
+public class GauntletPotion implements Effect {
 	private static final int PRAYER_RESTORE_DELTA = 7;
 	private static final double PRAYER_RESTORE_PERCENT = .25;
 
 	@Override
-	public StatsChanges calculate(Client client)
-	{
+	public StatsChanges calculate(Client client) {
 		// Restores prayer similar to PrayerPotion but there aren't any possible boost so simplify the calculation
 		final int restorePerc = (int) (client.getRealSkillLevel(Skill.PRAYER) * PRAYER_RESTORE_PERCENT);
 		final StatChange prayer = heal(Stats.PRAYER, restorePerc + PRAYER_RESTORE_DELTA).effect(client);

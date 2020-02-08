@@ -32,33 +32,29 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
+
 import org.apache.commons.compress.utils.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GZip
-{
+public class GZip {
 	private static final Logger logger = LoggerFactory.getLogger(GZip.class);
 
-	public static byte[] compress(byte[] bytes) throws IOException
-	{
+	public static byte[] compress(byte[] bytes) throws IOException {
 		InputStream is = new ByteArrayInputStream(bytes);
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 
-		try (OutputStream os = new GZIPOutputStream(bout))
-		{
+		try (OutputStream os = new GZIPOutputStream(bout)) {
 			IOUtils.copy(is, os);
 		}
-		
+
 		return bout.toByteArray();
 	}
 
-	public static byte[] decompress(byte[] bytes, int len) throws IOException
-	{
+	public static byte[] decompress(byte[] bytes, int len) throws IOException {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		
-		try (InputStream is = new GZIPInputStream(new ByteArrayInputStream(bytes, 0, len)))
-		{
+
+		try (InputStream is = new GZIPInputStream(new ByteArrayInputStream(bytes, 0, len))) {
 			IOUtils.copy(is, os);
 		}
 

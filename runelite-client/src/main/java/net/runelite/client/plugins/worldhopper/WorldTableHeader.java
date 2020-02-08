@@ -40,13 +40,13 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.ImageUtil;
 
 @Singleton
-class WorldTableHeader extends JPanel
-{
+class WorldTableHeader extends JPanel {
 	private static final ImageIcon ARROW_UP;
 	private static final ImageIcon HIGHLIGHT_ARROW_DOWN;
 	private static final ImageIcon HIGHLIGHT_ARROW_UP;
@@ -54,8 +54,7 @@ class WorldTableHeader extends JPanel
 	private static final Color ARROW_COLOR = ColorScheme.LIGHT_GRAY_COLOR;
 	private static final Color HIGHLIGHT_COLOR = ColorScheme.BRAND_BLUE;
 
-	static
-	{
+	static {
 		final BufferedImage arrowDown = ImageUtil.getResourceStreamFromClass(WorldHopperPlugin.class, "arrow_down.png");
 		final BufferedImage arrowUp = ImageUtil.rotateImage(arrowDown, Math.PI);
 		final BufferedImage arrowUpFaded = ImageUtil.luminanceOffset(arrowUp, -80);
@@ -72,31 +71,25 @@ class WorldTableHeader extends JPanel
 	// Determines if this header column is being used to order the list
 	private boolean ordering = false;
 
-	WorldTableHeader(String title, boolean ordered, boolean ascending, @Nonnull Runnable onRefresh)
-	{
+	WorldTableHeader(String title, boolean ordered, boolean ascending, @Nonnull Runnable onRefresh) {
 		setLayout(new BorderLayout(5, 0));
 		setBorder(new CompoundBorder(
-			BorderFactory.createMatteBorder(0, 0, 0, 1, ColorScheme.MEDIUM_GRAY_COLOR),
-			new EmptyBorder(0, 5, 0, 2)));
+				BorderFactory.createMatteBorder(0, 0, 0, 1, ColorScheme.MEDIUM_GRAY_COLOR),
+				new EmptyBorder(0, 5, 0, 2)));
 		setBackground(ColorScheme.SCROLL_TRACK_COLOR);
 
-		addMouseListener(new MouseAdapter()
-		{
+		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				textLabel.setForeground(HIGHLIGHT_COLOR);
-				if (!ordering)
-				{
+				if (!ordering) {
 					arrowLabel.setIcon(HIGHLIGHT_ARROW_UP);
 				}
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
-				if (!ordering)
-				{
+			public void mouseExited(MouseEvent mouseEvent) {
+				if (!ordering) {
 					textLabel.setForeground(ARROW_COLOR);
 					arrowLabel.setIcon(ARROW_UP);
 				}
@@ -108,7 +101,7 @@ class WorldTableHeader extends JPanel
 
 		final JMenuItem refresh = new JMenuItem("Refresh worlds");
 		refresh.addActionListener(e ->
-			onRefresh.run());
+				onRefresh.run());
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -127,8 +120,7 @@ class WorldTableHeader extends JPanel
 	 * The labels inherit the parent's mouse listeners.
 	 */
 	@Override
-	public void addMouseListener(MouseListener mouseListener)
-	{
+	public void addMouseListener(MouseListener mouseListener) {
 		super.addMouseListener(mouseListener);
 		textLabel.addMouseListener(mouseListener);
 		arrowLabel.addMouseListener(mouseListener);
@@ -138,8 +130,7 @@ class WorldTableHeader extends JPanel
 	 * If this column header is being used to order, then it should be
 	 * highlighted, changing it's font color and icon.
 	 */
-	public void highlight(boolean on, boolean ascending)
-	{
+	public void highlight(boolean on, boolean ascending) {
 		ordering = on;
 		arrowLabel.setIcon(on ? (ascending ? HIGHLIGHT_ARROW_DOWN : HIGHLIGHT_ARROW_UP) : ARROW_UP);
 		textLabel.setForeground(on ? HIGHLIGHT_COLOR : ARROW_COLOR);

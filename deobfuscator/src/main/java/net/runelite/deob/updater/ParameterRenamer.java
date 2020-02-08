@@ -25,6 +25,7 @@
 package net.runelite.deob.updater;
 
 import java.util.List;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
@@ -32,34 +33,26 @@ import net.runelite.asm.attributes.code.LocalVariable;
 import net.runelite.asm.attributes.code.Parameter;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public class ParameterRenamer
-{
+public class ParameterRenamer {
 	private final ClassGroup source;
 	private final ClassGroup dest;
 	private final ParallelExecutorMapping mapping;
 
-	public ParameterRenamer(ClassGroup source, ClassGroup dest, ParallelExecutorMapping mapping)
-	{
+	public ParameterRenamer(ClassGroup source, ClassGroup dest, ParallelExecutorMapping mapping) {
 		this.source = source;
 		this.dest = dest;
 		this.mapping = mapping;
 	}
 
-	public void run()
-	{
-		for (ClassFile sourceCF : source.getClasses())
-		{
-			for (Method sourceM : sourceCF.getMethods())
-			{
+	public void run() {
+		for (ClassFile sourceCF : source.getClasses()) {
+			for (Method sourceM : sourceCF.getMethods()) {
 				Method destM = (Method) mapping.get(sourceM);
-				if (destM != null && destM.getParameters().size() > 0 && sourceM.getParameters() != null && !sourceM.getParameters().isEmpty() && sourceM.getParameters().size() >= 1)
-				{
+				if (destM != null && destM.getParameters().size() > 0 && sourceM.getParameters() != null && !sourceM.getParameters().isEmpty() && sourceM.getParameters().size() >= 1) {
 					List<Parameter> oldParams = destM.getParameters();
-					for (int i = 0; i < sourceM.getParameters().size(); i++)
-					{
+					for (int i = 0; i < sourceM.getParameters().size(); i++) {
 						String name = sourceM.getParameters().get(i).getName();
-						if (name.matches("var[0-9]") || name.length() <= 2 && (name.charAt(0) != 'x' || name.charAt(0) != 'y' || name.charAt(0) != 'z'))
-						{
+						if (name.matches("var[0-9]") || name.length() <= 2 && (name.charAt(0) != 'x' || name.charAt(0) != 'y' || name.charAt(0) != 'z')) {
 							continue;
 						}
 
@@ -69,18 +62,17 @@ public class ParameterRenamer
 						Parameter newParam = new Parameter(name, oldParam.getAccess());
 						oldParams.set(i, newParam);
 
-						if (oldVar == null)
-						{
+						if (oldVar == null) {
 							continue;
 						}
 
 						LocalVariable newVar = new LocalVariable(
-							name,
-							oldVar.getDesc(),
-							oldVar.getSignature(),
-							oldVar.getStart(),
-							oldVar.getEnd(),
-							oldVar.getIndex()
+								name,
+								oldVar.getDesc(),
+								oldVar.getSignature(),
+								oldVar.getStart(),
+								oldVar.getEnd(),
+								oldVar.getIndex()
 						);
 
 						newParam.setLocalVariable(newVar);

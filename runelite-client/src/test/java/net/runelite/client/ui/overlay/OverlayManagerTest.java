@@ -28,48 +28,41 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+
 import org.junit.Test;
 
-public class OverlayManagerTest
-{
-	static class TestOverlay extends Overlay
-	{
-		TestOverlay(OverlayPosition position, OverlayPriority priority)
-		{
+public class OverlayManagerTest {
+	static class TestOverlay extends Overlay {
+		TestOverlay(OverlayPosition position, OverlayPriority priority) {
 			setPosition(position);
 			setPriority(priority);
 		}
 
 		@Override
-		public Dimension render(Graphics2D graphics)
-		{
+		public Dimension render(Graphics2D graphics) {
 			throw new UnsupportedOperationException("Not supported yet.");
 		}
 	}
 
-	private static class OverlayA extends Overlay
-	{
+	private static class OverlayA extends Overlay {
 		@Override
-		public Dimension render(Graphics2D graphics)
-		{
+		public Dimension render(Graphics2D graphics) {
 			return null;
 		}
 	}
 
-	private static class OverlayB extends Overlay
-	{
+	private static class OverlayB extends Overlay {
 		@Override
-		public Dimension render(Graphics2D graphics)
-		{
+		public Dimension render(Graphics2D graphics) {
 			return null;
 		}
 	}
 
 	@Test
-	public void testEquality()
-	{
+	public void testEquality() {
 		Overlay a1 = new OverlayA();
 		Overlay a2 = new OverlayA();
 		Overlay b = new OverlayB();
@@ -82,8 +75,7 @@ public class OverlayManagerTest
 	}
 
 	@Test
-	public void testSort()
-	{
+	public void testSort() {
 		// High priorities overlays render first
 		Overlay tlh = new TestOverlay(OverlayPosition.TOP_LEFT, OverlayPriority.HIGH);
 		Overlay tll = new TestOverlay(OverlayPosition.TOP_LEFT, OverlayPriority.LOW);
@@ -94,8 +86,7 @@ public class OverlayManagerTest
 	}
 
 	@Test
-	public void testSortDynamic()
-	{
+	public void testSortDynamic() {
 		// Dynamic overlays render before static overlays
 		Overlay tlh = new TestOverlay(OverlayPosition.TOP_LEFT, OverlayPriority.HIGH);
 		Overlay dyn = new TestOverlay(OverlayPosition.DYNAMIC, OverlayPriority.HIGH);
@@ -106,8 +97,7 @@ public class OverlayManagerTest
 	}
 
 	@Test
-	public void testTooltips()
-	{
+	public void testTooltips() {
 		// Tooltip overlay renders after everything
 		Overlay t = new TestOverlay(OverlayPosition.TOOLTIP, OverlayPriority.HIGH);
 		Overlay dyn = new TestOverlay(OverlayPosition.DYNAMIC, OverlayPriority.HIGH);

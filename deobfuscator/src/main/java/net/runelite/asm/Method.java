@@ -26,6 +26,7 @@ package net.runelite.asm;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.asm.attributes.Annotations;
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.attributes.Exceptions;
@@ -38,6 +39,7 @@ import net.runelite.asm.signature.Signature;
 import net.runelite.deob.DeobAnnotations;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+
 import static org.objectweb.asm.Opcodes.ACC_FINAL;
 import static org.objectweb.asm.Opcodes.ACC_NATIVE;
 import static org.objectweb.asm.Opcodes.ACC_PRIVATE;
@@ -46,8 +48,7 @@ import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_STATIC;
 import static org.objectweb.asm.Opcodes.ACC_SYNCHRONIZED;
 
-public class Method implements Annotated, Named
-{
+public class Method implements Annotated, Named {
 	public static final int ACCESS_MODIFIERS = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED;
 
 	private final ClassFile classFile;
@@ -60,8 +61,7 @@ public class Method implements Annotated, Named
 	private List<Parameter> parameters;
 	private Code code;
 
-	public Method(ClassFile classFile, String name, Signature signature)
-	{
+	public Method(ClassFile classFile, String name, Signature signature) {
 		this.classFile = classFile;
 		this.name = name;
 		this.arguments = signature;
@@ -70,39 +70,32 @@ public class Method implements Annotated, Named
 		parameters = new ArrayList<>();
 	}
 
-	public ClassFile getClassFile()
-	{
+	public ClassFile getClassFile() {
 		return classFile;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return (this.isStatic() ? "static " : "") + classFile.getName() + "." + this.name + this.arguments;
 	}
 
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		//This is required to name unused parameters
-		for (Parameter p : parameters)
-		{
+		for (Parameter p : parameters) {
 			visitor.visitParameter(p.getName(), p.getAccess());
 		}
 
-		for (Annotation annotation : annotations.getAnnotations())
-		{
+		for (Annotation annotation : annotations.getAnnotations()) {
 			annotation.accept(visitor.visitAnnotation(annotation.getType().toString(), true));
 		}
 
-		if (code != null)
-		{
+		if (code != null) {
 			code.getInstructions().rebuildLabels();
 
 			visitor.visitCode();
 
 			net.runelite.asm.attributes.code.Exceptions exceptions = code.getExceptions();
-			for (net.runelite.asm.attributes.code.Exception exception : exceptions.getExceptions())
-			{
+			for (net.runelite.asm.attributes.code.Exception exception : exceptions.getExceptions()) {
 				assert exception.getStart().getLabel() != null;
 				assert exception.getEnd().getLabel() != null;
 				assert exception.getHandler().getLabel() != null;
@@ -117,40 +110,33 @@ public class Method implements Annotated, Named
 				assert idxEnd > idxStart;
 
 				visitor.visitTryCatchBlock(
-					exception.getStart().getLabel(),
-					exception.getEnd().getLabel(),
-					exception.getHandler().getLabel(),
-					exception.getCatchType() != null ? exception.getCatchType().getName() : null
+						exception.getStart().getLabel(),
+						exception.getEnd().getLabel(),
+						exception.getHandler().getLabel(),
+						exception.getCatchType() != null ? exception.getCatchType().getName() : null
 				);
 			}
 
-			for (Instruction i : code.getInstructions().getInstructions())
-			{
+			for (Instruction i : code.getInstructions().getInstructions()) {
 				i.accept(visitor);
 			}
 
 			//Find first and last label for this method
-			if (parameters.size() > 0)
-			{
+			if (parameters.size() > 0) {
 				Label startLabel = null;
 				Label endLabel = null;
-				for (Instruction i : code.getInstructions().getInstructions())
-				{
-					if (i instanceof net.runelite.asm.attributes.code.Label)
-					{
-						if (startLabel == null)
-						{
+				for (Instruction i : code.getInstructions().getInstructions()) {
+					if (i instanceof net.runelite.asm.attributes.code.Label) {
+						if (startLabel == null) {
 							startLabel = ((net.runelite.asm.attributes.code.Label) i).getLabel();
 						}
 						endLabel = ((net.runelite.asm.attributes.code.Label) i).getLabel();
 					}
 				}
 
-				for (Parameter p : parameters)
-				{
+				for (Parameter p : parameters) {
 					LocalVariable lv = p.getLocalVariable();
-					if (lv != null)
-					{
+					if (lv != null) {
 						visitor.visitLocalVariable(lv.getName(), lv.getDesc(), lv.getSignature(), startLabel, endLabel, lv.getIndex());
 					}
 				}
@@ -162,144 +148,112 @@ public class Method implements Annotated, Named
 		visitor.visitEnd();
 	}
 
-	public int getAccessFlags()
-	{
+	public int getAccessFlags() {
 		return accessFlags;
 	}
 
-	public void setAccessFlags(int accessFlags)
-	{
+	public void setAccessFlags(int accessFlags) {
 		this.accessFlags = accessFlags;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Signature getDescriptor()
-	{
+	public Signature getDescriptor() {
 		return arguments;
 	}
 
-	public void setDescriptor(Signature signature)
-	{
+	public void setDescriptor(Signature signature) {
 		this.arguments = signature;
 	}
 
-	public Signature getObfuscatedSignature()
-	{
+	public Signature getObfuscatedSignature() {
 		Signature sig = DeobAnnotations.getObfuscatedSignature(this);
-		if (sig == null)
-		{
+		if (sig == null) {
 			sig = arguments;
 		}
 
 		return sig;
 	}
 
-	public boolean isNative()
-	{
+	public boolean isNative() {
 		return (accessFlags & ACC_NATIVE) != 0;
 	}
 
-	public boolean isStatic()
-	{
+	public boolean isStatic() {
 		return (accessFlags & ACC_STATIC) != 0;
 	}
 
-	public void setStatic(boolean s)
-	{
-		if (s)
-		{
+	public void setStatic(boolean s) {
+		if (s) {
 			accessFlags |= ACC_STATIC;
-		}
-		else
-		{
+		} else {
 			accessFlags &= ~ACC_STATIC;
 		}
 	}
 
-	public boolean isSynchronized()
-	{
+	public boolean isSynchronized() {
 		return (accessFlags & ACC_SYNCHRONIZED) != 0;
 	}
 
-	public boolean isFinal()
-	{
+	public boolean isFinal() {
 		return (accessFlags & ACC_FINAL) != 0;
 	}
 
-	public void setFinal(boolean f)
-	{
-		if (f)
-		{
+	public void setFinal(boolean f) {
+		if (f) {
 			accessFlags |= ACC_FINAL;
-		}
-		else
-		{
+		} else {
 			accessFlags &= ~ACC_FINAL;
 		}
 	}
 
-	public boolean isPrivate()
-	{
+	public boolean isPrivate() {
 		return (accessFlags & ACC_PRIVATE) != 0;
 	}
 
-	public void setPrivate()
-	{
+	public void setPrivate() {
 		accessFlags = (short) ((accessFlags & ~ACCESS_MODIFIERS) | ACC_PRIVATE);
 	}
 
-	public void setPublic()
-	{
+	public void setPublic() {
 		accessFlags = (short) ((accessFlags & ~ACCESS_MODIFIERS) | ACC_PUBLIC);
 	}
 
-	public Exceptions getExceptions()
-	{
+	public Exceptions getExceptions() {
 		return exceptions;
 	}
 
-	public Code getCode()
-	{
+	public Code getCode() {
 		return code;
 	}
 
-	public void setCode(Code code)
-	{
+	public void setCode(Code code) {
 		this.code = code;
 	}
 
-	public Annotations getAnnotations()
-	{
+	public Annotations getAnnotations() {
 		return annotations;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends Instruction & LVTInstruction> List<T> findLVTInstructionsForVariable(int index)
-	{
+	public <T extends Instruction & LVTInstruction> List<T> findLVTInstructionsForVariable(int index) {
 		List<T> list = new ArrayList<>();
 
-		if (getCode() == null)
-		{
+		if (getCode() == null) {
 			return null;
 		}
 
-		for (Instruction ins : getCode().getInstructions().getInstructions())
-		{
-			if (ins instanceof LVTInstruction)
-			{
+		for (Instruction ins : getCode().getInstructions().getInstructions()) {
+			if (ins instanceof LVTInstruction) {
 				LVTInstruction lv = (LVTInstruction) ins;
 
-				if (lv.getVariableIndex() != index)
-				{
+				if (lv.getVariableIndex() != index) {
 					continue;
 				}
 
@@ -310,22 +264,19 @@ public class Method implements Annotated, Named
 		return list;
 	}
 
-	public net.runelite.asm.pool.Method getPoolMethod()
-	{
+	public net.runelite.asm.pool.Method getPoolMethod() {
 		return new net.runelite.asm.pool.Method(
-			new net.runelite.asm.pool.Class(classFile.getName()),
-			name,
-			arguments
+				new net.runelite.asm.pool.Class(classFile.getName()),
+				name,
+				arguments
 		);
 	}
 
-	public List<Parameter> getParameters()
-	{
+	public List<Parameter> getParameters() {
 		return parameters;
 	}
 
-	public void setParameters(List<Parameter> parameters)
-	{
+	public void setParameters(List<Parameter> parameters) {
 		this.parameters = parameters;
 	}
 }

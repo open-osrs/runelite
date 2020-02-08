@@ -26,11 +26,10 @@ package net.runelite.client.plugins.hiscore;
 
 import org.junit.Test;
 
-public class HiscorePanelTest
-{
+public class HiscorePanelTest {
 	@Test
-	public void testConstructor()
-	{
-		new HiscorePanel(new HiscorePlugin() {});
+	public void testConstructor() {
+		new HiscorePanel(new HiscorePlugin() {
+		});
 	}
 }

@@ -3,6 +3,7 @@ import java.security.SecureRandom;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -29,8 +30,8 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-884286176"
+			signature = "(I)V",
+			garbageValue = "-884286176"
 	)
 	@Export("shutdown")
 	void shutdown() {
@@ -40,8 +41,8 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1065937119"
+			signature = "(I)Z",
+			garbageValue = "-1065937119"
 	)
 	@Export("isDone")
 	boolean isDone() {
@@ -50,13 +51,13 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/security/SecureRandom;",
-		garbageValue = "519596197"
+			signature = "(I)Ljava/security/SecureRandom;",
+			garbageValue = "519596197"
 	)
 	@Export("get")
 	SecureRandom get() {
 		try {
-			return (SecureRandom)this.future.get();
+			return (SecureRandom) this.future.get();
 		} catch (Exception var2) {
 			return class51.method896();
 		}
@@ -64,8 +65,8 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)[Lhu;",
-		garbageValue = "44"
+			signature = "(B)[Lhu;",
+			garbageValue = "44"
 	)
 	@Export("PlayerType_values")
 	public static PlayerType[] PlayerType_values() {
@@ -74,8 +75,8 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(ZZI)Lli;",
-		garbageValue = "-1201437930"
+			signature = "(ZZI)Lli;",
+			garbageValue = "-1201437930"
 	)
 	static IndexedSprite method2171(boolean var0, boolean var1) {
 		return var0 ? (var1 ? VertexNormal.field1753 : DirectByteArrayCopier.options_buttons_2Sprite) : (var1 ? ItemContainer.field547 : WorldMapSprite.options_buttons_0Sprite);
@@ -83,8 +84,8 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "1704416266"
+			signature = "(ILce;ZI)I",
+			garbageValue = "1704416266"
 	)
 	static int method2169(int var0, Script var1, boolean var2) {
 		if (var0 == ScriptOpcodes.CLIENTCLOCK) {

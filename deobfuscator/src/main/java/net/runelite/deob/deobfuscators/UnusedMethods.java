@@ -27,6 +27,7 @@ package net.runelite.deob.deobfuscators;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
@@ -38,43 +39,34 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnusedMethods implements Deobfuscator
-{
+public class UnusedMethods implements Deobfuscator {
 	private static final Logger logger = LoggerFactory.getLogger(UnusedMethods.class);
 
 	private final Set<Method> methods = new HashSet<>();
 
 	@Override
-	public void run(ClassGroup group)
-	{
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method method : cf.getMethods())
-			{
+	public void run(ClassGroup group) {
+		for (ClassFile cf : group.getClasses()) {
+			for (Method method : cf.getMethods()) {
 				run(method);
 			}
 		}
 
 		int count = 0;
-		for (ClassFile cf : group.getClasses())
-		{
+		for (ClassFile cf : group.getClasses()) {
 			boolean extendsApplet = extendsApplet(cf);
 
-			for (Method method : new ArrayList<>(cf.getMethods()))
-			{
+			for (Method method : new ArrayList<>(cf.getMethods())) {
 				// constructors can't be renamed, but are obfuscated
-				if (!Deob.isObfuscated(method.getName()) && !method.getName().equals("<init>"))
-				{
+				if (!Deob.isObfuscated(method.getName()) && !method.getName().equals("<init>")) {
 					continue;
 				}
 
-				if (extendsApplet && method.getName().equals("<init>"))
-				{
+				if (extendsApplet && method.getName().equals("<init>")) {
 					continue;
 				}
 
-				if (!methods.contains(method))
-				{
+				if (!methods.contains(method)) {
 					logger.debug("Removing unused method {}", method);
 
 					cf.removeMethod(method);
@@ -86,19 +78,15 @@ public class UnusedMethods implements Deobfuscator
 		logger.info("Removed {} methods", count);
 	}
 
-	private void run(Method method)
-	{
+	private void run(Method method) {
 		Code code = method.getCode();
 
-		if (code == null)
-		{
+		if (code == null) {
 			return;
 		}
 
-		for (Instruction i : code.getInstructions().getInstructions())
-		{
-			if (!(i instanceof InvokeInstruction))
-			{
+		for (Instruction i : code.getInstructions().getInstructions()) {
+			if (!(i instanceof InvokeInstruction)) {
 				continue;
 			}
 
@@ -108,10 +96,8 @@ public class UnusedMethods implements Deobfuscator
 		}
 	}
 
-	private static boolean extendsApplet(ClassFile cf)
-	{
-		if (cf.getParent() != null)
-		{
+	private static boolean extendsApplet(ClassFile cf) {
+		if (cf.getParent() != null) {
 			return extendsApplet(cf.getParent());
 		}
 		return cf.getSuperName().equals("java/applet/Applet");

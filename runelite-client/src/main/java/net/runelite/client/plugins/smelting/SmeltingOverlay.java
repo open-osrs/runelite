@@ -31,15 +31,21 @@ import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import static net.runelite.api.AnimationID.SMITHING_CANNONBALL;
 import static net.runelite.api.AnimationID.SMITHING_SMELTING;
+
 import net.runelite.api.Client;
+
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY;
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+
 import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import net.runelite.client.ui.overlay.Overlay;
+
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -48,8 +54,7 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 @Singleton
-class SmeltingOverlay extends Overlay
-{
+class SmeltingOverlay extends Overlay {
 	private static final int SMELT_TIMEOUT = 7;
 	static final String SMELTING_RESET = "Reset";
 
@@ -60,8 +65,7 @@ class SmeltingOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	SmeltingOverlay(final Client client, final SmeltingPlugin plugin, final XpTrackerService xpTrackerService)
-	{
+	SmeltingOverlay(final Client client, final SmeltingPlugin plugin, final XpTrackerService xpTrackerService) {
 		super(plugin);
 		this.client = client;
 		this.plugin = plugin;
@@ -72,47 +76,38 @@ class SmeltingOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		SmeltingSession session = plugin.getSession();
-		if (session == null)
-		{
+		if (session == null) {
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 
-		if (isSmelting() || Duration.between(session.getLastItemSmelted(), Instant.now()).getSeconds() < SMELT_TIMEOUT)
-		{
+		if (isSmelting() || Duration.between(session.getLastItemSmelted(), Instant.now()).getSeconds() < SMELT_TIMEOUT) {
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("Smelting")
-				.color(Color.GREEN)
-				.build());
-		}
-		else
-		{
+					.text("Smelting")
+					.color(Color.GREEN)
+					.build());
+		} else {
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("NOT smelting")
-				.color(Color.RED)
-				.build());
+					.text("NOT smelting")
+					.color(Color.RED)
+					.build());
 		}
 
 		int actions = xpTrackerService.getActions(Skill.SMITHING);
-		if (actions > 0)
-		{
+		if (actions > 0) {
 			TableComponent tableComponent = new TableComponent();
 			tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-			if (plugin.getSession().getBarsSmelted() > 0)
-			{
+			if (plugin.getSession().getBarsSmelted() > 0) {
 				tableComponent.addRow("Bars:", Integer.toString(session.getBarsSmelted()));
 			}
-			if (plugin.getSession().getCannonBallsSmelted() > 0)
-			{
+			if (plugin.getSession().getCannonBallsSmelted() > 0) {
 				tableComponent.addRow("Cannonballs:", Integer.toString(session.getCannonBallsSmelted()));
 			}
-			if (actions > 2)
-			{
+			if (actions > 2) {
 				tableComponent.addRow("Actions/hr:", Integer.toString(xpTrackerService.getActionsHr(Skill.SMITHING)));
 			}
 
@@ -123,10 +118,8 @@ class SmeltingOverlay extends Overlay
 
 	}
 
-	private boolean isSmelting()
-	{
-		switch (client.getLocalPlayer().getAnimation())
-		{
+	private boolean isSmelting() {
+		switch (client.getLocalPlayer().getAnimation()) {
 			case SMITHING_SMELTING:
 			case SMITHING_CANNONBALL:
 				return true;

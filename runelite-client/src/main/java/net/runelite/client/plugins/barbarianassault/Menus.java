@@ -31,11 +31,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.MenuOpcode;
 import net.runelite.client.menus.BaseComparableEntry;
+
 import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 
 @AllArgsConstructor
-public enum Menus
-{
+public enum Menus {
 	ATTACK_PENANCE_FIGHTER(Role.ATTACKER, newBaseComparableEntry("attack", "penance fighter", -1, -1, true, false)),
 	ATTACK_PENANCE_RANGER(Role.ATTACKER, newBaseComparableEntry("attack", "penance ranger", -1, -1, true, false)),
 	GET_SPIKES_PETRIFIED_MUSHROOM(Role.ATTACKER, newBaseComparableEntry("get-spikes", "petrified mushroom", -1, -1, true, true)),
@@ -95,38 +95,31 @@ public enum Menus
 
 	private static final ImmutableSet<Menus> ALL = ImmutableSet.copyOf(Menus.values());
 
-	public String getOption()
-	{
+	public String getOption() {
 		return entry.getOption();
 	}
 
-	public String getTarget()
-	{
+	public String getTarget() {
 		return entry.getTarget();
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return entry.getId();
 	}
 
-	public int getType()
-	{
+	public int getType() {
 		return entry.getType();
 	}
 
-	public boolean isStrictOption()
-	{
+	public boolean isStrictOption() {
 		return entry.isStrictOption();
 	}
 
-	public boolean isStrictTarget()
-	{
+	public boolean isStrictTarget() {
 		return entry.isStrictTarget();
 	}
 
-	public static ImmutableSet<Menus> getMenus()
-	{
+	public static ImmutableSet<Menus> getMenus() {
 		return ALL;
 	}
 }

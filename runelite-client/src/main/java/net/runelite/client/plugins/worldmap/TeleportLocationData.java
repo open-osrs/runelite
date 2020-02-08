@@ -26,14 +26,14 @@
 package net.runelite.client.plugins.worldmap;
 
 import java.awt.image.BufferedImage;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.util.ImageUtil;
 
 @Getter(AccessLevel.PACKAGE)
-enum TeleportLocationData
-{
+enum TeleportLocationData {
 	VARROCK(TeleportType.NORMAL_MAGIC, "Varrock", 25, new WorldPoint(3213, 3424, 0), "varrock_teleport_icon.png"),
 	VARROCK_GE(TeleportType.NORMAL_MAGIC, "Varrock GE", 25, new WorldPoint(3164, 3478, 0), "varrock_teleport_icon.png"),
 	LUMBRIDGE(TeleportType.NORMAL_MAGIC, "Lumbridge", 31, new WorldPoint(3222, 3218, 0), "lumbridge_teleport_icon.png"),
@@ -195,16 +195,11 @@ enum TeleportLocationData
 	private final String iconPath;
 	private BufferedImage image;
 
-	BufferedImage getImage()
-	{
-		if (image == null)
-		{
-			try
-			{
+	BufferedImage getImage() {
+		if (image == null) {
+			try {
 				image = ImageUtil.getResourceStreamFromClass(WorldMapPlugin.class, this.getIconPath());
-			}
-			catch (RuntimeException e)
-			{
+			} catch (RuntimeException e) {
 				return WorldMapPlugin.BLANK_ICON;
 			}
 		}
@@ -212,24 +207,21 @@ enum TeleportLocationData
 		return image;
 	}
 
-	TeleportLocationData(TeleportType type, String destination, int magicLevel, WorldPoint location, String iconPath)
-	{
+	TeleportLocationData(TeleportType type, String destination, int magicLevel, WorldPoint location, String iconPath) {
 		this.type = type;
 		this.tooltip = type.getPrefix() + " " + destination + " - lvl " + magicLevel;
 		this.location = location;
 		this.iconPath = iconPath;
 	}
 
-	TeleportLocationData(TeleportType type, String item, String destination, WorldPoint location, String iconPath)
-	{
+	TeleportLocationData(TeleportType type, String item, String destination, WorldPoint location, String iconPath) {
 		this.type = type;
 		this.tooltip = item + " - " + destination;
 		this.location = location;
 		this.iconPath = iconPath;
 	}
 
-	TeleportLocationData(TeleportType type, String item, WorldPoint location, String iconPath)
-	{
+	TeleportLocationData(TeleportType type, String item, WorldPoint location, String iconPath) {
 		this.type = type;
 		this.tooltip = item;
 		this.location = location;

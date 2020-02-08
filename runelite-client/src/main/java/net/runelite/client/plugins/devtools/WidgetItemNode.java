@@ -25,26 +25,23 @@
 package net.runelite.client.plugins.devtools;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import net.runelite.api.widgets.WidgetItem;
 
-class WidgetItemNode extends DefaultMutableTreeNode
-{
+class WidgetItemNode extends DefaultMutableTreeNode {
 	private final WidgetItem widgetItem;
 
-	public WidgetItemNode(WidgetItem widgetItem)
-	{
+	public WidgetItemNode(WidgetItem widgetItem) {
 		super(widgetItem);
 		this.widgetItem = widgetItem;
 	}
 
-	public WidgetItem getWidgetItem()
-	{
+	public WidgetItem getWidgetItem() {
 		return widgetItem;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "I " + widgetItem.getIndex();
 	}
 

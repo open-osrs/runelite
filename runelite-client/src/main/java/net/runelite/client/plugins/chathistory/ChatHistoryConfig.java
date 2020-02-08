@@ -29,27 +29,24 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("chathistory")
-public interface ChatHistoryConfig extends Config
-{
+public interface ChatHistoryConfig extends Config {
 	@ConfigItem(
-		keyName = "retainChatHistory",
-		name = "Retain Chat History",
-		description = "Retains chat history when logging in/out or world hopping",
-		position = 0
+			keyName = "retainChatHistory",
+			name = "Retain Chat History",
+			description = "Retains chat history when logging in/out or world hopping",
+			position = 0
 	)
-	default boolean retainChatHistory()
-	{
+	default boolean retainChatHistory() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "pmTargetCycling",
-		name = "PM Target Cycling",
-		description = "Pressing Tab while sending a PM will cycle the target username based on PM history",
-		position = 1
+			keyName = "pmTargetCycling",
+			name = "PM Target Cycling",
+			description = "Pressing Tab while sending a PM will cycle the target username based on PM history",
+			position = 1
 	)
-	default boolean pmTargetCycling()
-	{
+	default boolean pmTargetCycling() {
 		return true;
 	}
 }

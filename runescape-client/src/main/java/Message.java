@@ -1,4 +1,5 @@
 import java.util.Iterator;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -10,31 +11,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Message extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1052025849
+			intValue = -1052025849
 	)
 	@Export("Interpreter_stringStackSize")
 	static int Interpreter_stringStackSize;
 	@ObfuscatedName("kn")
 	@ObfuscatedGetter(
-		intValue = -757596803
+			intValue = -757596803
 	)
 	@Export("menuHeight")
 	static int menuHeight;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 586338987
+			intValue = 586338987
 	)
 	@Export("count")
 	int count;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1201129701
+			intValue = -1201129701
 	)
 	@Export("cycle")
 	int cycle;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 213775829
+			intValue = 213775829
 	)
 	@Export("type")
 	int type;
@@ -43,19 +44,19 @@ public class Message extends DualNode {
 	String sender;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Ljz;"
+			signature = "Ljz;"
 	)
 	@Export("senderUsername")
 	Username senderUsername;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lju;"
+			signature = "Lju;"
 	)
 	@Export("isFromFriend0")
 	TriBool isFromFriend0;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lju;"
+			signature = "Lju;"
 	)
 	@Export("isFromIgnored0")
 	TriBool isFromIgnored0;
@@ -74,8 +75,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "-1939777476"
+			signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+			garbageValue = "-1939777476"
 	)
 	@Export("set")
 	void set(int var1, String var2, String var3, String var4) {
@@ -92,8 +93,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "503642535"
+			signature = "(I)V",
+			garbageValue = "503642535"
 	)
 	@Export("clearIsFromFriend")
 	void clearIsFromFriend() {
@@ -102,8 +103,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "0"
+			signature = "(B)Z",
+			garbageValue = "0"
 	)
 	@Export("isFromFriend")
 	final boolean isFromFriend() {
@@ -116,8 +117,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "1"
+			signature = "(B)V",
+			garbageValue = "1"
 	)
 	@Export("fillIsFromFriend")
 	void fillIsFromFriend() {
@@ -126,8 +127,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-2064859672"
+			signature = "(I)V",
+			garbageValue = "-2064859672"
 	)
 	@Export("clearIsFromIgnored")
 	void clearIsFromIgnored() {
@@ -136,8 +137,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-435736879"
+			signature = "(I)Z",
+			garbageValue = "-435736879"
 	)
 	@Export("isFromIgnored")
 	final boolean isFromIgnored() {
@@ -150,8 +151,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1506874350"
+			signature = "(I)V",
+			garbageValue = "-1506874350"
 	)
 	@Export("fillIsFromIgnored")
 	void fillIsFromIgnored() {
@@ -160,8 +161,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1639936728"
+			signature = "(I)V",
+			garbageValue = "-1639936728"
 	)
 	@Export("fillSenderUsername")
 	final void fillSenderUsername() {
@@ -175,8 +176,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)[Lic;",
-		garbageValue = "16777215"
+			signature = "(I)[Lic;",
+			garbageValue = "16777215"
 	)
 	static VerticalAlignment[] method1229() {
 		return new VerticalAlignment[]{VerticalAlignment.VerticalAlignment_centered, VerticalAlignment.field3198, VerticalAlignment.field3196};
@@ -184,14 +185,14 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-71"
+			signature = "(B)V",
+			garbageValue = "-71"
 	)
 	static void method1228() {
 		Iterator var0 = Messages.Messages_hashTable.iterator();
 
 		while (var0.hasNext()) {
-			Message var1 = (Message)var0.next();
+			Message var1 = (Message) var0.next();
 			var1.clearIsFromFriend();
 		}
 
@@ -199,8 +200,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "1913324083"
+			signature = "(III)V",
+			garbageValue = "1913324083"
 	)
 	public static final void method1246(int var0, int var1) {
 		ViewportMouse.ViewportMouse_x = var0;
@@ -212,8 +213,8 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("jb")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "-53"
+			signature = "(B)Z",
+			garbageValue = "-53"
 	)
 	@Export("getTapToDrop")
 	static boolean getTapToDrop() {

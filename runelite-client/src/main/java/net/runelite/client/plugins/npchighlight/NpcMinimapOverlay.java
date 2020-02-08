@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -38,39 +39,32 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class NpcMinimapOverlay extends Overlay
-{
+public class NpcMinimapOverlay extends Overlay {
 	private final NpcIndicatorsPlugin plugin;
 
 	@Inject
-	NpcMinimapOverlay(final NpcIndicatorsPlugin plugin)
-	{
+	NpcMinimapOverlay(final NpcIndicatorsPlugin plugin) {
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		for (NPC npc : plugin.getHighlightedNpcs())
-		{
+	public Dimension render(Graphics2D graphics) {
+		for (NPC npc : plugin.getHighlightedNpcs()) {
 			renderNpcOverlay(graphics, npc, npc.getName(), plugin.getGetHighlightColor());
 		}
 
 		return null;
 	}
 
-	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color)
-	{
+	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color) {
 		final Point minimapLocation = actor.getMinimapLocation();
 
-		if (minimapLocation != null)
-		{
+		if (minimapLocation != null) {
 			OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color.darker());
 
-			if (plugin.isDrawMinimapNames())
-			{
+			if (plugin.isDrawMinimapNames()) {
 				OverlayUtil.renderTextLocation(graphics, minimapLocation, name, color);
 			}
 		}

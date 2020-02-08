@@ -30,6 +30,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.RenderOverview;
@@ -42,15 +43,13 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.worldmap.WorldMapOverlay;
 
-public class WorldMapLocationOverlay extends Overlay
-{
+public class WorldMapLocationOverlay extends Overlay {
 	private final Client client;
 	private final WorldMapOverlay worldMapOverlay;
 	private final DevToolsPlugin plugin;
 
 	@Inject
-	private WorldMapLocationOverlay(Client client, WorldMapOverlay worldMapOverlay, DevToolsPlugin plugin)
-	{
+	private WorldMapLocationOverlay(Client client, WorldMapOverlay worldMapOverlay, DevToolsPlugin plugin) {
 		this.client = client;
 		this.worldMapOverlay = worldMapOverlay;
 		this.plugin = plugin;
@@ -60,18 +59,15 @@ public class WorldMapLocationOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.getWorldMapLocation().isActive())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.getWorldMapLocation().isActive()) {
 			return null;
 		}
 
 		RenderOverview ro = client.getRenderOverview();
 		Widget worldMapWidget = client.getWidget(WidgetInfo.WORLD_MAP_VIEW);
 
-		if (ro == null || worldMapWidget == null)
-		{
+		if (ro == null || worldMapWidget == null) {
 			return null;
 		}
 
@@ -83,8 +79,7 @@ public class WorldMapLocationOverlay extends Overlay
 		WorldPoint mapCenterPoint = new WorldPoint(ro.getWorldMapPosition().getX(), ro.getWorldMapPosition().getY(), 0);
 		Point middle = worldMapOverlay.mapWorldPointToGraphicsPoint(mapCenterPoint);
 
-		if (middle == null)
-		{
+		if (middle == null) {
 			return null;
 		}
 

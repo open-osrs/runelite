@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class SoundSystem implements Runnable {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "[Ldw;"
+			signature = "[Ldw;"
 	)
 	@Export("players")
 	volatile PcmPlayer[] players;
@@ -26,15 +26,15 @@ public class SoundSystem implements Runnable {
 				}
 			}
 		} catch (Exception var4) {
-			class225.RunException_sendStackTrace((String)null, var4);
+			class225.RunException_sendStackTrace((String) null, var4);
 		}
 
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lii;Lii;Lii;Lii;I)V",
-		garbageValue = "-1591363880"
+			signature = "(Lii;Lii;Lii;Lii;I)V",
+			garbageValue = "-1591363880"
 	)
 	public static void method2562(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2, AbstractArchive var3) {
 		class197.Widget_archive = var0;
@@ -47,12 +47,12 @@ public class SoundSystem implements Runnable {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-660130030"
+			signature = "(I)Z",
+			garbageValue = "-660130030"
 	)
 	@Export("isKeyDown")
 	public static final boolean isKeyDown() {
-		synchronized(KeyHandler.KeyHandler_instance) {
+		synchronized (KeyHandler.KeyHandler_instance) {
 			if (KeyHandler.field408 == KeyHandler.field406) {
 				return false;
 			} else {
@@ -66,8 +66,8 @@ public class SoundSystem implements Runnable {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1995069725"
+			signature = "(I)V",
+			garbageValue = "1995069725"
 	)
 	static void method2563() {
 		Messages.Messages_channels.clear();
@@ -78,8 +78,8 @@ public class SoundSystem implements Runnable {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(Lir;I)Z",
-		garbageValue = "-676934548"
+			signature = "(Lir;I)Z",
+			garbageValue = "-676934548"
 	)
 	static boolean method2565(ObjectDefinition var0) {
 		if (var0.transforms != null) {

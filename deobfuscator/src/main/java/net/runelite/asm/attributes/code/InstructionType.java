@@ -163,8 +163,7 @@ import net.runelite.asm.attributes.code.instructions.Swap;
 import net.runelite.asm.attributes.code.instructions.TableSwitch;
 import net.runelite.asm.attributes.code.instructions.VReturn;
 
-public enum InstructionType
-{
+public enum InstructionType {
 	NOP(0x00, "nop", NOP.class),
 	ACONST_NULL(0x01, "aconst_null", AConstNull.class),
 	BIPUSH(0x10, "bipush", BiPush.class),
@@ -312,34 +311,27 @@ public enum InstructionType
 	private final String name;
 	private final Class<? extends Instruction> clazz;
 
-	InstructionType(int op, String name, Class<? extends Instruction> clazz)
-	{
+	InstructionType(int op, String name, Class<? extends Instruction> clazz) {
 		this.code = op;
 		this.name = name;
 		this.clazz = clazz;
 	}
 
-	public int getCode()
-	{
+	public int getCode() {
 		return code;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public Class<? extends Instruction> getInstructionClass()
-	{
+	public Class<? extends Instruction> getInstructionClass() {
 		return clazz;
 	}
 
-	public static InstructionType findInstructionFromCode(int code)
-	{
-		for (InstructionType t : InstructionType.values())
-		{
-			if (t.getCode() == code)
-			{
+	public static InstructionType findInstructionFromCode(int code) {
+		for (InstructionType t : InstructionType.values()) {
+			if (t.getCode() == code) {
 				return t;
 			}
 		}

@@ -27,12 +27,10 @@ package net.runelite.api.events;
 import lombok.Data;
 
 @Data
-public class BeforeMenuRender implements Event
-{
+public class BeforeMenuRender implements Event {
 	private boolean consumed;
 
-	public void consume()
-	{
+	public void consume() {
 		this.consumed = true;
 	}
 }

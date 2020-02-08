@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class MusicTrack extends Node {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+			signature = "Lln;"
 	)
 	@Export("table")
 	NodeHashTable table;
@@ -17,7 +17,7 @@ public class MusicTrack extends Node {
 	byte[] midi;
 
 	@ObfuscatedSignature(
-		signature = "(Lkp;)V"
+			signature = "(Lkp;)V"
 	)
 	MusicTrack(Buffer var1) {
 		var1.offset = var1.array.length - 3;
@@ -397,10 +397,10 @@ public class MusicTrack extends Node {
 							var12 = var8 >> 16 & 127;
 							if (var12 > 0) {
 								int var13 = var2[var10];
-								ByteArrayNode var14 = (ByteArrayNode)this.table.get((long)var13);
+								ByteArrayNode var14 = (ByteArrayNode) this.table.get((long) var13);
 								if (var14 == null) {
 									var14 = new ByteArrayNode(new byte[128]);
-									this.table.put(var14, (long)var13);
+									this.table.put(var14, (long) var13);
 								}
 
 								var14.byteArray[var11] = 1;
@@ -411,7 +411,7 @@ public class MusicTrack extends Node {
 						var4.markTrackPosition(var6);
 					}
 				}
-			} while(!var4.isDone());
+			} while (!var4.isDone());
 
 		}
 	}
@@ -424,7 +424,7 @@ public class MusicTrack extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lii;II)Lgk;"
+			signature = "(Lii;II)Lgk;"
 	)
 	@Export("readTrack")
 	static MusicTrack readTrack(AbstractArchive var0, int var1, int var2) {

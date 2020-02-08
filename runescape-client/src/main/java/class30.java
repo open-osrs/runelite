@@ -2,6 +2,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,17 +12,17 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class30 {
 	@ObfuscatedName("sj")
 	@ObfuscatedGetter(
-		longValue = -3315031402315742045L
+			longValue = -3315031402315742045L
 	)
 	static long field274;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Laj;"
+			signature = "Laj;"
 	)
 	static final class30 field270;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Laj;"
+			signature = "Laj;"
 	)
 	static final class30 field271;
 	@ObfuscatedName("h")
@@ -32,7 +33,7 @@ public class class30 {
 	static int[] regionMapArchiveIds;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 404466751
+			intValue = 404466751
 	)
 	@Export("value")
 	final int value;
@@ -48,8 +49,8 @@ public class class30 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)J",
-		garbageValue = "25"
+			signature = "(B)J",
+			garbageValue = "25"
 	)
 	static long method567() {
 		try {
@@ -74,7 +75,7 @@ public class class30 {
 				}
 
 				var4.offset += var5;
-			} while(var4.offset < 1000);
+			} while (var4.offset < 1000);
 
 			return 0L;
 		} catch (Exception var9) {
@@ -84,8 +85,8 @@ public class class30 {
 
 	@ObfuscatedName("fm")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1945263247"
+			signature = "(I)V",
+			garbageValue = "-1945263247"
 	)
 	@Export("logOut")
 	static final void logOut() {
@@ -117,7 +118,7 @@ public class class30 {
 		WallDecoration.method3359();
 		PlayerAppearance.PlayerAppearance_cachedModels.clear();
 		MilliClock.method3535();
-		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear();
+		((TextureProvider) Rasterizer3D.Rasterizer3D_textureLoader).clear();
 		Script.Script_cached.clear();
 		GrandExchangeEvent.archive0.clearFiles();
 		class65.archive1.clearFiles();

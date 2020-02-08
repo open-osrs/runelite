@@ -27,32 +27,26 @@ package net.runelite.client.plugins.cluescrolls.clues.item;
 import net.runelite.api.Client;
 import net.runelite.api.Item;
 
-public class RangeItemRequirement implements ItemRequirement
-{
+public class RangeItemRequirement implements ItemRequirement {
 	private final String name;
 	private final int startItemId;
 	private final int endItemId;
 
-	public RangeItemRequirement(String name, int startItemId, int endItemId)
-	{
+	public RangeItemRequirement(String name, int startItemId, int endItemId) {
 		this.name = name;
 		this.startItemId = startItemId;
 		this.endItemId = endItemId;
 	}
 
 	@Override
-	public boolean fulfilledBy(int itemId)
-	{
+	public boolean fulfilledBy(int itemId) {
 		return itemId >= startItemId && itemId <= endItemId;
 	}
 
 	@Override
-	public boolean fulfilledBy(Item[] items)
-	{
-		for (Item item : items)
-		{
-			if (item.getId() >= startItemId && item.getId() <= endItemId)
-			{
+	public boolean fulfilledBy(Item[] items) {
+		for (Item item : items) {
+			if (item.getId() >= startItemId && item.getId() <= endItemId) {
 				return true;
 			}
 		}
@@ -61,8 +55,7 @@ public class RangeItemRequirement implements ItemRequirement
 	}
 
 	@Override
-	public String getCollectiveName(Client client)
-	{
+	public String getCollectiveName(Client client) {
 		return name;
 	}
 }

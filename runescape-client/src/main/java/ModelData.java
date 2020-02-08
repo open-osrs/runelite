@@ -92,19 +92,19 @@ public class ModelData extends Entity {
 	int[][] faceLabelsAlpha;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "[Let;"
+			signature = "[Let;"
 	)
 	@Export("faceNormals")
 	FaceNormal[] faceNormals;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "[Ldp;"
+			signature = "[Ldp;"
 	)
 	@Export("vertexNormals")
 	VertexNormal[] vertexNormals;
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "[Ldp;"
+			signature = "[Ldp;"
 	)
 	VertexNormal[] field1561;
 	@ObfuscatedName("af")
@@ -143,7 +143,7 @@ public class ModelData extends Entity {
 	}
 
 	@ObfuscatedSignature(
-		signature = "([Ldg;I)V"
+			signature = "([Ldg;I)V"
 	)
 	public ModelData(ModelData[] var1, int var2) {
 		this.verticesCount = 0;
@@ -267,7 +267,7 @@ public class ModelData extends Entity {
 
 					if (var8) {
 						if (var10.textureCoords != null && var10.textureCoords[var11] != -1) {
-							this.textureCoords[this.faceCount] = (byte)(this.textureTriangleCount + var10.textureCoords[var11]);
+							this.textureCoords[this.faceCount] = (byte) (this.textureTriangleCount + var10.textureCoords[var11]);
 						} else {
 							this.textureCoords[this.faceCount] = -1;
 						}
@@ -283,9 +283,9 @@ public class ModelData extends Entity {
 				for (var11 = 0; var11 < var10.textureTriangleCount; ++var11) {
 					byte var12 = this.textureRenderTypes[this.textureTriangleCount] = var10.textureRenderTypes[var11];
 					if (var12 == 0) {
-						this.texTriangleX[this.textureTriangleCount] = (short)this.method2847(var10, var10.texTriangleX[var11]);
-						this.texTriangleY[this.textureTriangleCount] = (short)this.method2847(var10, var10.texTriangleY[var11]);
-						this.texTriangleZ[this.textureTriangleCount] = (short)this.method2847(var10, var10.texTriangleZ[var11]);
+						this.texTriangleX[this.textureTriangleCount] = (short) this.method2847(var10, var10.texTriangleX[var11]);
+						this.texTriangleY[this.textureTriangleCount] = (short) this.method2847(var10, var10.texTriangleY[var11]);
+						this.texTriangleZ[this.textureTriangleCount] = (short) this.method2847(var10, var10.texTriangleZ[var11]);
 					}
 
 					++this.textureTriangleCount;
@@ -309,8 +309,8 @@ public class ModelData extends Entity {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Ldg;ZZZZ)V",
-		garbageValue = "1"
+			signature = "(Ldg;ZZZZ)V",
+			garbageValue = "1"
 	)
 	public ModelData(ModelData var1, boolean var2, boolean var3, boolean var4, boolean var5) {
 		this.verticesCount = 0;
@@ -505,7 +505,7 @@ public class ModelData extends Entity {
 		if (var13 == 255) {
 			this.faceRenderPriorities = new byte[var10];
 		} else {
-			this.priority = (byte)var13;
+			this.priority = (byte) var13;
 		}
 
 		if (var14 == 1) {
@@ -582,7 +582,7 @@ public class ModelData extends Entity {
 		var8.offset = var36;
 
 		for (var51 = 0; var51 < var10; ++var51) {
-			this.faceColors[var51] = (short)var2.readUnsignedShort();
+			this.faceColors[var51] = (short) var2.readUnsignedShort();
 			if (var12 == 1) {
 				this.faceRenderTypes[var51] = var3.readByte();
 			}
@@ -600,11 +600,11 @@ public class ModelData extends Entity {
 			}
 
 			if (var16 == 1) {
-				this.faceTextures[var51] = (short)(var7.readUnsignedShort() - 1);
+				this.faceTextures[var51] = (short) (var7.readUnsignedShort() - 1);
 			}
 
 			if (this.textureCoords != null && this.faceTextures[var51] != -1) {
-				this.textureCoords[var51] = (byte)(var8.readUnsignedByte() - 1);
+				this.textureCoords[var51] = (byte) (var8.readUnsignedByte() - 1);
 			}
 		}
 
@@ -668,9 +668,9 @@ public class ModelData extends Entity {
 		for (var55 = 0; var55 < var11; ++var55) {
 			var56 = this.textureRenderTypes[var55] & 255;
 			if (var56 == 0) {
-				this.texTriangleX[var55] = (short)var2.readUnsignedShort();
-				this.texTriangleY[var55] = (short)var2.readUnsignedShort();
-				this.texTriangleZ[var55] = (short)var2.readUnsignedShort();
+				this.texTriangleX[var55] = (short) var2.readUnsignedShort();
+				this.texTriangleY[var55] = (short) var2.readUnsignedShort();
+				this.texTriangleZ[var55] = (short) var2.readUnsignedShort();
 			}
 		}
 
@@ -777,7 +777,7 @@ public class ModelData extends Entity {
 		if (var13 == 255) {
 			this.faceRenderPriorities = new byte[var10];
 		} else {
-			this.priority = (byte)var13;
+			this.priority = (byte) var13;
 		}
 
 		if (var14 == 1) {
@@ -838,7 +838,7 @@ public class ModelData extends Entity {
 		var8.offset = var25;
 
 		for (var38 = 0; var38 < var10; ++var38) {
-			this.faceColors[var38] = (short)var4.readUnsignedShort();
+			this.faceColors[var38] = (short) var4.readUnsignedShort();
 			if (var12 == 1) {
 				var39 = var5.readUnsignedByte();
 				if ((var39 & 1) == 1) {
@@ -849,7 +849,7 @@ public class ModelData extends Entity {
 				}
 
 				if ((var39 & 2) == 2) {
-					this.textureCoords[var38] = (byte)(var39 >> 2);
+					this.textureCoords[var38] = (byte) (var39 >> 2);
 					this.faceTextures[var38] = this.faceColors[var38];
 					this.faceColors[var38] = 127;
 					if (this.faceTextures[var38] != -1) {
@@ -929,9 +929,9 @@ public class ModelData extends Entity {
 
 		for (var42 = 0; var42 < var11; ++var42) {
 			this.textureRenderTypes[var42] = 0;
-			this.texTriangleX[var42] = (short)var4.readUnsignedShort();
-			this.texTriangleY[var42] = (short)var4.readUnsignedShort();
-			this.texTriangleZ[var42] = (short)var4.readUnsignedShort();
+			this.texTriangleX[var42] = (short) var4.readUnsignedShort();
+			this.texTriangleY[var42] = (short) var4.readUnsignedShort();
+			this.texTriangleZ[var42] = (short) var4.readUnsignedShort();
 		}
 
 		if (this.textureCoords != null) {
@@ -965,7 +965,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Ldg;I)I"
+			signature = "(Ldg;I)I"
 	)
 	final int method2847(ModelData var1, int var2) {
 		int var3 = -1;
@@ -996,7 +996,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "()Ldg;"
+			signature = "()Ldg;"
 	)
 	public ModelData method2845() {
 		ModelData var1 = new ModelData();
@@ -1040,7 +1040,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "([[IIIIZI)Ldg;"
+			signature = "([[IIIIZI)Ldg;"
 	)
 	public ModelData method2838(int[][] var1, int var2, int var3, int var4, boolean var5, int var6) {
 		this.calculateBounds();
@@ -1336,7 +1336,7 @@ public class ModelData extends Entity {
 					var12 >>= 1;
 				}
 
-				int var14 = (int)Math.sqrt((double)(var11 * var11 + var12 * var12 + var13 * var13));
+				int var14 = (int) Math.sqrt((double) (var11 * var11 + var12 * var12 + var13 * var13));
 				if (var14 <= 0) {
 					var14 = 1;
 				}
@@ -1437,12 +1437,12 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(IIIII)Ldx;"
+			signature = "(IIIII)Ldx;"
 	)
 	@Export("toModel")
 	public final Model toModel(int var1, int var2, int var3, int var4, int var5) {
 		this.calculateVertexNormals();
-		int var6 = (int)Math.sqrt((double)(var5 * var5 + var3 * var3 + var4 * var4));
+		int var6 = (int) Math.sqrt((double) (var5 * var5 + var3 * var3 + var4 * var4));
 		int var7 = var6 * var2 >> 8;
 		Model var8 = new Model();
 		var8.faceColors1 = new int[this.faceCount];
@@ -1487,7 +1487,7 @@ public class ModelData extends Entity {
 
 			for (var11 = 0; var11 < this.faceCount; ++var11) {
 				if (this.textureCoords[var11] != -1) {
-					var8.field1686[var11] = (byte)var9[this.textureCoords[var11] & 255];
+					var8.field1686[var11] = (byte) var9[this.textureCoords[var11] & 255];
 				} else {
 					var8.field1686[var11] = -1;
 				}
@@ -1624,7 +1624,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lii;II)Ldg;"
+			signature = "(Lii;II)Ldg;"
 	)
 	@Export("ModelData_get")
 	public static ModelData ModelData_get(AbstractArchive var0, int var1, int var2) {
@@ -1634,7 +1634,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Ldg;Ldg;IIIZ)V"
+			signature = "(Ldg;Ldg;IIIZ)V"
 	)
 	static void method2849(ModelData var0, ModelData var1, int var2, int var3, int var4, boolean var5) {
 		var0.calculateBounds();

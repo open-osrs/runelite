@@ -28,14 +28,14 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
 import lombok.Getter;
 
 /**
  * An enumeration of game states the client is in.
  */
 @Getter
-public enum GameState
-{
+public enum GameState {
 	/**
 	 * Unknown game state.
 	 */
@@ -74,16 +74,15 @@ public enum GameState
 	HOPPING(45);
 
 	private static final Map<Integer, GameState> stateValueMap =
-		Arrays.stream(GameState.values())
-			.collect(Collectors.toMap(gs -> gs.state, Function.identity()));
+			Arrays.stream(GameState.values())
+					.collect(Collectors.toMap(gs -> gs.state, Function.identity()));
 
 	/**
 	 * The raw state value.
 	 */
 	private final int state;
 
-	GameState(int state)
-	{
+	GameState(int state) {
 		this.state = state;
 	}
 
@@ -94,8 +93,7 @@ public enum GameState
 	 * @param state the raw state value
 	 * @return the gamestate
 	 */
-	public static GameState of(int state)
-	{
+	public static GameState of(int state) {
 		return stateValueMap.getOrDefault(state, UNKNOWN);
 	}
 }

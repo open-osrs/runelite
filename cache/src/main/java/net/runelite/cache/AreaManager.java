@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.cache.definitions.AreaDefinition;
 import net.runelite.cache.definitions.loaders.AreaLoader;
 import net.runelite.cache.fs.Archive;
@@ -38,18 +39,15 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 
-public class AreaManager
-{
+public class AreaManager {
 	private final Store store;
 	private final Map<Integer, AreaDefinition> areas = new HashMap<>();
 
-	public AreaManager(Store store)
-	{
+	public AreaManager(Store store) {
 		this.store = store;
 	}
 
-	public void load() throws IOException
-	{
+	public void load() throws IOException {
 		Storage storage = store.getStorage();
 		Index index = store.getIndex(IndexType.CONFIGS);
 		Archive archive = index.getArchive(ConfigType.AREA.getId());
@@ -57,21 +55,18 @@ public class AreaManager
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile file : files.getFiles())
-		{
+		for (FSFile file : files.getFiles()) {
 			AreaLoader loader = new AreaLoader();
 			AreaDefinition area = loader.load(file.getContents(), file.getFileId());
 			areas.put(area.id, area);
 		}
 	}
 
-	public Collection<AreaDefinition> getAreas()
-	{
+	public Collection<AreaDefinition> getAreas() {
 		return Collections.unmodifiableCollection(areas.values());
 	}
 
-	public AreaDefinition getArea(int areaId)
-	{
+	public AreaDefinition getArea(int areaId) {
 		return areas.get(areaId);
 	}
 }

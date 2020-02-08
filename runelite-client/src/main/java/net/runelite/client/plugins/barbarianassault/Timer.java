@@ -28,41 +28,32 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 
-class Timer
-{
+class Timer {
 	@Getter(AccessLevel.PACKAGE)
 	private final Instant startTime;
 
-	Timer()
-	{
+	Timer() {
 		this.startTime = Instant.now();
 	}
 
-	long getElapsedTime()
-	{
+	long getElapsedTime() {
 		return Duration.between(startTime, Instant.now()).getSeconds();
 	}
 
-	String getElapsedTimeFormatted()
-	{
+	String getElapsedTimeFormatted() {
 		return formatTime(LocalTime.ofSecondOfDay(getElapsedTime()));
 	}
 
-	private static String formatTime(LocalTime time)
-	{
-		if (time.getHour() > 0)
-		{
+	private static String formatTime(LocalTime time) {
+		if (time.getHour() > 0) {
 			return time.format(DateTimeFormatter.ofPattern("HH:mm"));
-		}
-		else if (time.getMinute() > 9)
-		{
+		} else if (time.getMinute() > 9) {
 			return time.format(DateTimeFormatter.ofPattern("mm:ss"));
-		}
-		else
-		{
+		} else {
 			return time.format(DateTimeFormatter.ofPattern("m:ss"));
 		}
 	}

@@ -25,12 +25,14 @@
 package net.runelite.client.plugins.nightmarezone;
 
 import com.google.inject.Provides;
+
 import java.awt.Color;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -51,14 +53,13 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Nightmare Zone",
-	description = "Show NMZ points/absorption and/or notify about expiring potions",
-	tags = {"combat", "nmz", "minigame", "notifications"},
-	type = PluginType.MINIGAME
+		name = "Nightmare Zone",
+		description = "Show NMZ points/absorption and/or notify about expiring potions",
+		tags = {"combat", "nmz", "minigame", "notifications"},
+		type = PluginType.MINIGAME
 )
 @Singleton
-public class NightmareZonePlugin extends Plugin
-{
+public class NightmareZonePlugin extends Plugin {
 	private static final int[] NMZ_MAP_REGION = {9033};
 	private static final Duration HOUR = Duration.ofHours(1);
 
@@ -104,8 +105,7 @@ public class NightmareZonePlugin extends Plugin
 	private Color absorptionColorBelowThreshold;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		overlayManager.add(overlay);
@@ -113,15 +113,13 @@ public class NightmareZonePlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlay.removeAbsorptionCounter();
 
 		Widget nmzWidget = client.getWidget(WidgetInfo.NIGHTMARE_ZONE);
 
-		if (nmzWidget != null)
-		{
+		if (nmzWidget != null) {
 			nmzWidget.setHidden(false);
 		}
 
@@ -129,10 +127,8 @@ public class NightmareZonePlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("nightmareZone"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("nightmareZone")) {
 			return;
 		}
 
@@ -141,144 +137,108 @@ public class NightmareZonePlugin extends Plugin
 	}
 
 	@Provides
-	NightmareZoneConfig getConfig(ConfigManager configManager)
-	{
+	NightmareZoneConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(NightmareZoneConfig.class);
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
-		if (isNotInNightmareZone())
-		{
-			if (!absorptionNotificationSend)
-			{
+	private void onGameTick(GameTick event) {
+		if (isNotInNightmareZone()) {
+			if (!absorptionNotificationSend) {
 				absorptionNotificationSend = true;
 			}
 
-			if (nmzSessionStartTime != null)
-			{
+			if (nmzSessionStartTime != null) {
 				resetPointsPerHour();
 			}
 
 			return;
 		}
 
-		if (this.absorptionNotification)
-		{
+		if (this.absorptionNotification) {
 			checkAbsorption();
 		}
 
-		if (config.moveOverlay())
-		{
+		if (config.moveOverlay()) {
 			pointsPerHour = calculatePointsPerHour();
 		}
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage event)
-	{
+	private void onChatMessage(ChatMessage event) {
 		if (event.getType() != ChatMessageType.GAMEMESSAGE
-			|| isNotInNightmareZone())
-		{
+				|| isNotInNightmareZone()) {
 			return;
 		}
 
 		String msg = Text.removeTags(event.getMessage()); //remove color
-		if (msg.contains("The effects of overload have worn off, and you feel normal again."))
-		{
-			if (this.overloadNotification)
-			{
+		if (msg.contains("The effects of overload have worn off, and you feel normal again.")) {
+			if (this.overloadNotification) {
 				notifier.notify("Your overload has worn off");
 			}
-		}
-		else if (msg.contains("A power-up has spawned:"))
-		{
-			if (msg.contains("Power surge"))
-			{
-				if (this.powerSurgeNotification)
-				{
+		} else if (msg.contains("A power-up has spawned:")) {
+			if (msg.contains("Power surge")) {
+				if (this.powerSurgeNotification) {
 					notifier.notify(msg);
 				}
-			}
-			else if (msg.contains("Recurrent damage"))
-			{
-				if (this.recurrentDamageNotification)
-				{
+			} else if (msg.contains("Recurrent damage")) {
+				if (this.recurrentDamageNotification) {
 					notifier.notify(msg);
 				}
-			}
-			else if (msg.contains("Zapper"))
-			{
-				if (this.zapperNotification)
-				{
+			} else if (msg.contains("Zapper")) {
+				if (this.zapperNotification) {
 					notifier.notify(msg);
 				}
-			}
-			else if (msg.contains("Ultimate force"))
-			{
-				if (this.ultimateForceNotification)
-				{
+			} else if (msg.contains("Ultimate force")) {
+				if (this.ultimateForceNotification) {
 					notifier.notify(msg);
 				}
 			}
 		}
 	}
 
-	private void checkAbsorption()
-	{
+	private void checkAbsorption() {
 		int absorptionPoints = client.getVar(Varbits.NMZ_ABSORPTION);
 
-		if (!absorptionNotificationSend)
-		{
-			if (absorptionPoints < this.absorptionThreshold)
-			{
+		if (!absorptionNotificationSend) {
+			if (absorptionPoints < this.absorptionThreshold) {
 				notifier.notify("Absorption points below: " + this.absorptionThreshold);
 				absorptionNotificationSend = true;
 			}
-		}
-		else
-		{
-			if (absorptionPoints > this.absorptionThreshold)
-			{
+		} else {
+			if (absorptionPoints > this.absorptionThreshold) {
 				absorptionNotificationSend = false;
 			}
 		}
 	}
 
-	boolean isNotInNightmareZone()
-	{
+	boolean isNotInNightmareZone() {
 		return !Arrays.equals(client.getMapRegions(), NMZ_MAP_REGION);
 	}
 
-	private int calculatePointsPerHour()
-	{
+	private int calculatePointsPerHour() {
 		Instant now = Instant.now();
 		final int currentPoints = client.getVar(Varbits.NMZ_POINTS);
 
-		if (nmzSessionStartTime == null)
-		{
+		if (nmzSessionStartTime == null) {
 			nmzSessionStartTime = now;
 		}
 
 		Duration timeSinceStart = Duration.between(nmzSessionStartTime, now);
 
-		if (!timeSinceStart.isZero())
-		{
+		if (!timeSinceStart.isZero()) {
 			return (int) ((double) currentPoints * (double) HOUR.toMillis() / (double) timeSinceStart.toMillis());
 		}
 
 		return 0;
 	}
 
-	private void resetPointsPerHour()
-	{
+	private void resetPointsPerHour() {
 		nmzSessionStartTime = null;
 		pointsPerHour = 0;
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.moveOverlay = config.moveOverlay();
 		this.showtotalpoints = config.showtotalpoints();
 		this.powerSurgeNotification = config.powerSurgeNotification();

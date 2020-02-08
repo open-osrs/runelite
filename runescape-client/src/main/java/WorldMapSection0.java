@@ -9,85 +9,85 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapSection0 implements WorldMapSection {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -2146402029
+			intValue = -2146402029
 	)
 	@Export("oldZ")
 	int oldZ;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -2085039341
+			intValue = -2085039341
 	)
 	@Export("newZ")
 	int newZ;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 555505141
+			intValue = 555505141
 	)
 	@Export("oldX")
 	int oldX;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1856751623
+			intValue = -1856751623
 	)
 	@Export("oldY")
 	int oldY;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -2086851217
+			intValue = -2086851217
 	)
 	@Export("newX")
 	int newX;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1346820565
+			intValue = 1346820565
 	)
 	@Export("newY")
 	int newY;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1459523587
+			intValue = -1459523587
 	)
 	@Export("oldChunkXLow")
 	int oldChunkXLow;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -954702965
+			intValue = -954702965
 	)
 	@Export("oldChunkYLow")
 	int oldChunkYLow;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1622063887
+			intValue = -1622063887
 	)
 	@Export("oldChunkXHigh")
 	int oldChunkXHigh;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -2070491231
+			intValue = -2070491231
 	)
 	@Export("oldChunkYHigh")
 	int oldChunkYHigh;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1112408651
+			intValue = 1112408651
 	)
 	@Export("newChunkXLow")
 	int newChunkXLow;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -749966597
+			intValue = -749966597
 	)
 	@Export("newChunkYLow")
 	int newChunkYLow;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1079927535
+			intValue = -1079927535
 	)
 	@Export("newChunkXHigh")
 	int newChunkXHigh;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 524547303
+			intValue = 524547303
 	)
 	@Export("newChunkYHigh")
 	int newChunkYHigh;
@@ -97,8 +97,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lae;I)V",
-		garbageValue = "-1034100543"
+			signature = "(Lae;I)V",
+			garbageValue = "-1034100543"
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
@@ -122,8 +122,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IIIB)Z",
-		garbageValue = "-110"
+			signature = "(IIIB)Z",
+			garbageValue = "-110"
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
@@ -136,8 +136,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIB)Z",
-		garbageValue = "37"
+			signature = "(IIB)Z",
+			garbageValue = "37"
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
@@ -146,8 +146,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(IIII)[I",
-		garbageValue = "-96920779"
+			signature = "(IIII)[I",
+			garbageValue = "-96920779"
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
@@ -161,8 +161,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(III)Lhj;",
-		garbageValue = "911083222"
+			signature = "(III)Lhj;",
+			garbageValue = "911083222"
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
@@ -177,8 +177,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkp;B)V",
-		garbageValue = "76"
+			signature = "(Lkp;B)V",
+			garbageValue = "76"
 	)
 	@Export("read")
 	public void read(Buffer var1) {
@@ -201,8 +201,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-127"
+			signature = "(B)V",
+			garbageValue = "-127"
 	)
 	@Export("postRead")
 	void postRead() {
@@ -210,8 +210,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "([Lgq;IB)Lgq;",
-		garbageValue = "-32"
+			signature = "([Lgq;IB)Lgq;",
+			garbageValue = "-32"
 	)
 	@Export("findEnumerated")
 	public static Enumerated findEnumerated(Enumerated[] var0, int var1) {
@@ -229,8 +229,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("ha")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIS)V",
-		garbageValue = "6328"
+			signature = "(IIIIIIIS)V",
+			garbageValue = "6328"
 	)
 	@Export("addPendingSpawnToScene")
 	static final void addPendingSpawnToScene(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
@@ -313,8 +313,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("ie")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "683461450"
+			signature = "(IIIII)V",
+			garbageValue = "683461450"
 	)
 	@Export("addSceneMenuOptions")
 	static final void addSceneMenuOptions(int var0, int var1, int var2, int var3) {
@@ -341,7 +341,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 			long var11 = VertexNormal.method3063(var8);
 			if (var11 != var6) {
-				label324: {
+				label324:
+				{
 					var6 = var11;
 					int var13 = GrandExchangeOffer.method128(var8);
 					int var14 = class43.method816(var8);
@@ -467,7 +468,7 @@ public class WorldMapSection0 implements WorldMapSection {
 					if (var15 == 3) {
 						NodeDeque var33 = Client.groundItems[Clock.Client_plane][var13][var14];
 						if (var33 != null) {
-							for (TileItem var32 = (TileItem)var33.first(); var32 != null; var32 = (TileItem)var33.next()) {
+							for (TileItem var32 = (TileItem) var33.first(); var32 != null; var32 = (TileItem) var33.next()) {
 								ItemDefinition var36 = HealthBarDefinition.ItemDefinition_get(var32.id);
 								if (Client.isItemSelected == 1) {
 									GraphicsObject.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + PacketWriter.colorStartTag(16748608) + var36.name, 16, var32.id, var13, var14);
@@ -521,8 +522,8 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("jn")
 	@ObfuscatedSignature(
-		signature = "([Lhn;IB)V",
-		garbageValue = "2"
+			signature = "([Lhn;IB)V",
+			garbageValue = "2"
 	)
 	@Export("runComponentCloseListeners")
 	static final void runComponentCloseListeners(Widget[] var0, int var1) {
@@ -534,7 +535,7 @@ public class WorldMapSection0 implements WorldMapSection {
 						runComponentCloseListeners(var3.children, var1);
 					}
 
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
+					InterfaceParent var4 = (InterfaceParent) Client.interfaceParents.get((long) var3.id);
 					if (var4 != null) {
 						class226.runIntfCloseListeners(var4.group, var1);
 					}

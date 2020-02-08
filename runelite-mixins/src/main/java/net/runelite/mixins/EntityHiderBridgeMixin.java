@@ -30,13 +30,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSClient;
 
 @Mixin(RSClient.class)
-public abstract class EntityHiderBridgeMixin implements RSClient
-{
+public abstract class EntityHiderBridgeMixin implements RSClient {
 	@Inject
 	public static boolean isHidingEntities;
 
@@ -90,75 +90,64 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
-	public void setIsHidingEntities(boolean state)
-	{
+	public void setIsHidingEntities(boolean state) {
 		isHidingEntities = state;
 	}
 
 	@Inject
 	@Override
-	public void setPlayersHidden(boolean state)
-	{
+	public void setPlayersHidden(boolean state) {
 		hidePlayers = state;
 	}
 
 	@Inject
 	@Override
-	public void setPlayersHidden2D(boolean state)
-	{
+	public void setPlayersHidden2D(boolean state) {
 		hidePlayers2D = state;
 	}
 
 	@Inject
 	@Override
-	public void setFriendsHidden(boolean state)
-	{
+	public void setFriendsHidden(boolean state) {
 		hideFriends = state;
 	}
 
 	@Inject
 	@Override
-	public void setClanMatesHidden(boolean state)
-	{
+	public void setClanMatesHidden(boolean state) {
 		hideClanMates = state;
 	}
 
 	@Inject
 	@Override
-	public void setLocalPlayerHidden(boolean state)
-	{
+	public void setLocalPlayerHidden(boolean state) {
 		hideLocalPlayer = state;
 	}
 
 	@Inject
 	@Override
-	public void setLocalPlayerHidden2D(boolean state)
-	{
+	public void setLocalPlayerHidden2D(boolean state) {
 		hideLocalPlayer2D = state;
 	}
 
 	@Inject
 	@Override
-	public void setNPCsHidden(boolean state)
-	{
+	public void setNPCsHidden(boolean state) {
 		hideNPCs = state;
 	}
 
 	@Inject
 	@Override
-	public void setNPCsHidden2D(boolean state)
-	{
+	public void setNPCsHidden2D(boolean state) {
 		hideNPCs2D = state;
 	}
 
 	@Inject
 	@Override
-	public void addHiddenNpcName(String npc)
-	{
+	public void addHiddenNpcName(String npc) {
 		npc = npc.toLowerCase();
 		int i = hiddenNpcsName.getOrDefault(npc, 0);
-		if (i == Integer.MAX_VALUE)
-		{
+		if (i == Integer.MAX_VALUE) {
 			throw new RuntimeException("NPC name " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
 		}
 
@@ -167,12 +156,10 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
-	public void removeHiddenNpcName(String npc)
-	{
+	public void removeHiddenNpcName(String npc) {
 		npc = npc.toLowerCase();
 		int i = hiddenNpcsName.getOrDefault(npc, 0);
-		if (i == 0)
-		{
+		if (i == 0) {
 			return;
 		}
 
@@ -181,20 +168,17 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
-	public void forciblyUnhideNpcName(String npc)
-	{
+	public void forciblyUnhideNpcName(String npc) {
 		npc = npc.toLowerCase();
 		hiddenNpcsName.put(npc, 0);
 	}
 
 	@Inject
 	@Override
-	public void addHiddenNpcDeath(String npc)
-	{
+	public void addHiddenNpcDeath(String npc) {
 		npc = npc.toLowerCase();
 		int i = hiddenNpcsDeath.getOrDefault(npc, 0);
-		if (i == Integer.MAX_VALUE)
-		{
+		if (i == Integer.MAX_VALUE) {
 			throw new RuntimeException("NPC death " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
 		}
 
@@ -203,12 +187,10 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
-	public void removeHiddenNpcDeath(String npc)
-	{
+	public void removeHiddenNpcDeath(String npc) {
 		npc = npc.toLowerCase();
 		int i = hiddenNpcsDeath.getOrDefault(npc, 0);
-		if (i == 0)
-		{
+		if (i == 0) {
 			return;
 		}
 
@@ -217,51 +199,44 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
-	public void forciblyUnhideNpcDeath(String npc)
-	{
+	public void forciblyUnhideNpcDeath(String npc) {
 		npc = npc.toLowerCase();
 		hiddenNpcsDeath.put(npc, 0);
 	}
 
 	@Inject
 	@Override
-	public void setHideSpecificPlayers(List<String> players)
-	{
+	public void setHideSpecificPlayers(List<String> players) {
 		hideSpecificPlayers = players;
 	}
 
 	@Inject
 	@Override
-	public void setBlacklistDeadNpcs(Set<Integer> blacklist)
-	{
+	public void setBlacklistDeadNpcs(Set<Integer> blacklist) {
 		blacklistDeadNpcs = blacklist;
 	}
 
 	@Inject
 	@Override
-	public void setPetsHidden(boolean state)
-	{
+	public void setPetsHidden(boolean state) {
 		hidePets = state;
 	}
 
 	@Inject
 	@Override
-	public void setAttackersHidden(boolean state)
-	{
+	public void setAttackersHidden(boolean state) {
 		hideAttackers = state;
 	}
 
 	@Inject
 	@Override
-	public void setProjectilesHidden(boolean state)
-	{
+	public void setProjectilesHidden(boolean state) {
 		hideProjectiles = state;
 	}
 
 	@Inject
 	@Override
-	public void setDeadNPCsHidden(boolean state)
-	{
+	public void setDeadNPCsHidden(boolean state) {
 		hideDeadNPCs = state;
 	}
 }

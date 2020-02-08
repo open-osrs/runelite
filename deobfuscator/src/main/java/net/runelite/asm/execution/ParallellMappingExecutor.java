@@ -26,39 +26,36 @@ package net.runelite.asm.execution;
 
 import net.runelite.asm.attributes.code.instruction.types.ReturnInstruction;
 import net.runelite.asm.attributes.code.instructions.Return;
+
 import static net.runelite.asm.execution.StaticStep.popStack;
 import static net.runelite.asm.execution.StaticStep.stepInto;
+
 import net.runelite.deob.deobfuscators.mapping.MappingExecutorUtil;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public class ParallellMappingExecutor
-{
+public class ParallellMappingExecutor {
 	private Execution e, e2;
 	private InstructionContext p1, p2;
 	public ParallelExecutorMapping mappings;
 
-	public ParallellMappingExecutor(Execution one, Execution two)
-	{
+	public ParallellMappingExecutor(Execution one, Execution two) {
 		this.e = one;
 		this.e2 = two;
 	}
 
 	boolean step1 = true, step2 = true;
 
-	public boolean step()
-	{
+	public boolean step() {
 		p1 = p2 = null;
 
-		if (e.frames.isEmpty())
-		{
+		if (e.frames.isEmpty()) {
 			return false;
 		}
 
 		Frame f1 = e.frames.get(0),
-			f2 = f1.other;
+				f2 = f1.other;
 
-		if (f2 == null)
-		{
+		if (f2 == null) {
 			// this is from anything which creates frames without mapping the .other
 			// and/or is not mappable
 			e.frames.remove(0);
@@ -70,8 +67,7 @@ public class ParallellMappingExecutor
 		// this will happen because conditional branches will create their frame
 		// before realizing its already executed it before, so it will set the frame
 		// as not executing
-		if (!f1.isExecuting() || !f2.isExecuting())
-		{
+		if (!f1.isExecuting() || !f2.isExecuting()) {
 			e.frames.remove(f1);
 			e2.frames.remove(f2);
 
@@ -81,26 +77,19 @@ public class ParallellMappingExecutor
 		}
 
 		// step frame
-		if (step1)
-		{
+		if (step1) {
 			f1.execute();
-		}
-		else
-		{
+		} else {
 			step1 = true;
 		}
 
-		if (step2)
-		{
+		if (step2) {
 			f2.execute();
-		}
-		else
-		{
+		} else {
 			step2 = true;
 		}
 
-		if (!f1.isExecuting() && !f2.isExecuting() && e.paused && e2.paused)
-		{
+		if (!f1.isExecuting() && !f2.isExecuting() && e.paused && e2.paused) {
 			// this can happen from a return (which is mappable), or from a mapped instruction
 			// which jumps on the executing frame (currently just tableswitch?)
 
@@ -109,8 +98,7 @@ public class ParallellMappingExecutor
 
 			assert p1.getInstruction() instanceof ReturnInstruction == p2.getInstruction() instanceof ReturnInstruction;
 
-			if (p1.getInstruction() instanceof ReturnInstruction)
-			{
+			if (p1.getInstruction() instanceof ReturnInstruction) {
 				// the only mappable returns are of objects
 				assert p1.getInstruction() instanceof Return;
 				assert p2.getInstruction() instanceof Return;
@@ -139,23 +127,18 @@ public class ParallellMappingExecutor
 		f1 = popStack(f1);
 		f2 = popStack(f2);
 
-		if (oldf1 != f1 && oldf2 != f2)
-		{
-			if (oldf1.otherStatic == oldf2 && oldf2.otherStatic == oldf1)
-			{
+		if (oldf1 != f1 && oldf2 != f2) {
+			if (oldf1.otherStatic == oldf2 && oldf2.otherStatic == oldf1) {
 				mappings.map(null, oldf1.getMethod(), oldf2.getMethod());
 				//System.out.println("STEP OUT " + oldf1.getMethod() + " <-> " + oldf2.getMethod());
 			}
 		}
 
-		if (oldf1 != f1 || oldf2 != f2)
-		{
-			if (f1 == oldf1)
-			{
+		if (oldf1 != f1 || oldf2 != f2) {
+			if (f1 == oldf1) {
 				step1 = false;
 			}
-			if (f2 == oldf2)
-			{
+			if (f2 == oldf2) {
 				step2 = false;
 			}
 			return step();
@@ -168,15 +151,12 @@ public class ParallellMappingExecutor
 		// frames can stop executing at different times if one sees a jump
 		// that has been done before, so stop both and remove the pending branch
 		// of the jump
-		if (!f1.isExecuting() || !f2.isExecuting())
-		{
+		if (!f1.isExecuting() || !f2.isExecuting()) {
 			return step();
 		}
 
-		if (MappingExecutorUtil.isInlineable(p1.getInstruction()) && !MappingExecutorUtil.isInlineable(p2.getInstruction()))
-		{
-			if (stepInto(f1, p1) == null)
-			{
+		if (MappingExecutorUtil.isInlineable(p1.getInstruction()) && !MappingExecutorUtil.isInlineable(p2.getInstruction())) {
+			if (stepInto(f1, p1) == null) {
 				// ensure this is stopped or else on the
 				// next step the frame is reused
 				// and the other side is stepped
@@ -191,11 +171,8 @@ public class ParallellMappingExecutor
 			// the inlined method - so only step p1
 			step2 = false;
 			return step();
-		}
-		else if (MappingExecutorUtil.isInlineable(p2.getInstruction()) && !MappingExecutorUtil.isInlineable(p1.getInstruction()))
-		{
-			if (stepInto(f2, p2) == null)
-			{
+		} else if (MappingExecutorUtil.isInlineable(p2.getInstruction()) && !MappingExecutorUtil.isInlineable(p1.getInstruction())) {
+			if (stepInto(f2, p2) == null) {
 				// I think this must be a crash - but note
 				// stopping of frames with a return frame
 				f2.stop();
@@ -204,29 +181,23 @@ public class ParallellMappingExecutor
 
 			step1 = false;
 			return step();
-		}
-		else if (MappingExecutorUtil.isInlineable(p1.getInstruction()) && MappingExecutorUtil.isInlineable(p2.getInstruction()))
-		{
+		} else if (MappingExecutorUtil.isInlineable(p1.getInstruction()) && MappingExecutorUtil.isInlineable(p2.getInstruction())) {
 			Frame stepf1 = stepInto(f1, p1);
 			Frame stepf2 = stepInto(f2, p2);
 
-			if (stepf1 == null && stepf2 == null)
-			{
+			if (stepf1 == null && stepf2 == null) {
 				// may have to return to a new frame, don't stop
 				// yet
 				return step();
 			}
 
-			if (stepf1 == null || stepf2 == null)
-			{
+			if (stepf1 == null || stepf2 == null) {
 				// I think this must be a crash - but note
 				// stopping of frames with a return frame
-				if (stepf1 == null)
-				{
+				if (stepf1 == null) {
 					f1.stop();
 				}
-				if (stepf2 == null)
-				{
+				if (stepf2 == null) {
 					f2.stop();
 				}
 				return step();
@@ -242,13 +213,11 @@ public class ParallellMappingExecutor
 		return true;
 	}
 
-	public InstructionContext getP1()
-	{
+	public InstructionContext getP1() {
 		return p1;
 	}
 
-	public InstructionContext getP2()
-	{
+	public InstructionContext getP2() {
 		return p2;
 	}
 }

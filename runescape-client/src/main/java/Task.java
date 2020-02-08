@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Task {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lfw;"
+			signature = "Lfw;"
 	)
 	@Export("next")
 	Task next;
@@ -18,7 +18,7 @@ public class Task {
 	public volatile int status;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1842661257
+			intValue = 1842661257
 	)
 	@Export("type")
 	int type;

@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ParamDefinition extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("ParamDefinition_archive")
 	public static AbstractArchive ParamDefinition_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Leh;"
+			signature = "Leh;"
 	)
 	@Export("ParamDefinition_cached")
 	static EvictingDualNodeHashTable ParamDefinition_cached;
@@ -24,7 +24,7 @@ public class ParamDefinition extends DualNode {
 	char type;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -2044093609
+			intValue = -2044093609
 	)
 	@Export("defaultInt")
 	public int defaultInt;
@@ -45,8 +45,8 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "2127914016"
+			signature = "(I)V",
+			garbageValue = "2127914016"
 	)
 	@Export("postDecode")
 	void postDecode() {
@@ -54,8 +54,8 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkp;B)V",
-		garbageValue = "-2"
+			signature = "(Lkp;B)V",
+			garbageValue = "-2"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -71,8 +71,8 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lkp;II)V",
-		garbageValue = "-372343900"
+			signature = "(Lkp;II)V",
+			garbageValue = "-372343900"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -90,8 +90,8 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1143023141"
+			signature = "(I)Z",
+			garbageValue = "1143023141"
 	)
 	@Export("isString")
 	public boolean isString() {

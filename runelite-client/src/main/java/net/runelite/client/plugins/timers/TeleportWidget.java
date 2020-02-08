@@ -25,35 +25,32 @@
 package net.runelite.client.plugins.timers;
 
 import com.google.common.collect.ImmutableList;
+
 import java.util.Collection;
 import javax.annotation.Nullable;
+
 import net.runelite.api.widgets.WidgetInfo;
 
-enum TeleportWidget
-{
+enum TeleportWidget {
 	HOME_TELEPORT,
 	MINIGAME_TELEPORT;
 
 	private static final Collection HOME_TELEPORT_IDS = ImmutableList.of(
-		WidgetInfo.SPELL_LUMBRIDGE_HOME_TELEPORT.getId(),
-		WidgetInfo.SPELL_EDGEVILLE_HOME_TELEPORT.getId(),
-		WidgetInfo.SPELL_LUNAR_HOME_TELEPORT.getId(),
-		WidgetInfo.SPELL_ARCEUUS_HOME_TELEPORT.getId(),
-		WidgetInfo.SPELL_KOUREND_HOME_TELEPORT.getId()
+			WidgetInfo.SPELL_LUMBRIDGE_HOME_TELEPORT.getId(),
+			WidgetInfo.SPELL_EDGEVILLE_HOME_TELEPORT.getId(),
+			WidgetInfo.SPELL_LUNAR_HOME_TELEPORT.getId(),
+			WidgetInfo.SPELL_ARCEUUS_HOME_TELEPORT.getId(),
+			WidgetInfo.SPELL_KOUREND_HOME_TELEPORT.getId()
 	);
 	private static final Collection MINIGAME_TELEPORT_IDS = ImmutableList.of(
-		WidgetInfo.MINIGAME_TELEPORT_BUTTON.getId()
+			WidgetInfo.MINIGAME_TELEPORT_BUTTON.getId()
 	);
 
 	@Nullable
-	static TeleportWidget of(int widgetId)
-	{
-		if (HOME_TELEPORT_IDS.contains(widgetId))
-		{
+	static TeleportWidget of(int widgetId) {
+		if (HOME_TELEPORT_IDS.contains(widgetId)) {
 			return HOME_TELEPORT;
-		}
-		else if (MINIGAME_TELEPORT_IDS.contains(widgetId))
-		{
+		} else if (MINIGAME_TELEPORT_IDS.contains(widgetId)) {
 			return MINIGAME_TELEPORT;
 		}
 		return null;

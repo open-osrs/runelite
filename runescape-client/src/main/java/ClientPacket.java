@@ -9,518 +9,518 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ClientPacket implements class181 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2232;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2204;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2205;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2206;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2229;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2208;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2209;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2210;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2211;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2296;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2213;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2214;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2234;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2298;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2273;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2297;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	static final ClientPacket field2295;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2276;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2203;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2222;
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2223;
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2224;
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2225;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2226;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2227;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2228;
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2283;
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2230;
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2288;
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2215;
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2233;
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2262;
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2235;
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2236;
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2237;
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2238;
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2239;
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2240;
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2217;
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2242;
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2243;
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2244;
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2207;
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	static final ClientPacket field2245;
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2247;
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2241;
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2249;
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2250;
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2221;
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2216;
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2253;
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2254;
 	@ObfuscatedName("bq")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2255;
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2266;
 	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2257;
 	@ObfuscatedName("bk")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2258;
 	@ObfuscatedName("bb")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2231;
 	@ObfuscatedName("bi")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2260;
 	@ObfuscatedName("bp")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2261;
 	@ObfuscatedName("bl")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2259;
 	@ObfuscatedName("by")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2263;
 	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2264;
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2265;
 	@ObfuscatedName("bt")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2220;
 	@ObfuscatedName("bn")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2267;
 	@ObfuscatedName("bm")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2268;
 	@ObfuscatedName("ba")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2269;
 	@ObfuscatedName("bd")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2270;
 	@ObfuscatedName("bs")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2271;
 	@ObfuscatedName("bx")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2272;
 	@ObfuscatedName("bh")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2290;
 	@ObfuscatedName("bg")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2274;
 	@ObfuscatedName("bz")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2275;
 	@ObfuscatedName("bj")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2218;
 	@ObfuscatedName("bu")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2277;
 	@ObfuscatedName("bv")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2278;
 	@ObfuscatedName("bo")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2251;
 	@ObfuscatedName("br")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2280;
 	@ObfuscatedName("cp")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2281;
 	@ObfuscatedName("cg")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2282;
 	@ObfuscatedName("cr")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2291;
 	@ObfuscatedName("co")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2284;
 	@ObfuscatedName("ck")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	static final ClientPacket field2285;
 	@ObfuscatedName("cn")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2286;
 	@ObfuscatedName("cd")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2287;
 	@ObfuscatedName("ct")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2279;
 	@ObfuscatedName("cb")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2289;
 	@ObfuscatedName("cf")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2248;
 	@ObfuscatedName("cm")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2219;
 	@ObfuscatedName("cz")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2292;
 	@ObfuscatedName("cu")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2293;
 	@ObfuscatedName("cy")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2294;
 	@ObfuscatedName("ce")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2301;
 	@ObfuscatedName("cw")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2212;
 	@ObfuscatedName("cq")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2256;
 	@ObfuscatedName("ci")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2252;
 	@ObfuscatedName("ca")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2299;
 	@ObfuscatedName("cc")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2300;
 	@ObfuscatedName("ch")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2246;
 	@ObfuscatedName("cx")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2302;
 	@ObfuscatedName("cl")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+			signature = "Lgi;"
 	)
 	public static final ClientPacket field2303;
 	@ObfuscatedName("cs")
 	@ObfuscatedGetter(
-		intValue = -1068668193
+			intValue = -1068668193
 	)
 	@Export("id")
 	final int id;
 	@ObfuscatedName("cj")
 	@ObfuscatedGetter(
-		intValue = -249887029
+			intValue = -249887029
 	)
 	@Export("length")
 	final int length;
@@ -636,8 +636,8 @@ public class ClientPacket implements class181 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lii;Lii;ZII)V",
-		garbageValue = "-1455542031"
+			signature = "(Lii;Lii;ZII)V",
+			garbageValue = "-1455542031"
 	)
 	static void method3683(AbstractArchive var0, AbstractArchive var1, boolean var2, int var3) {
 		if (Login.field1163) {
@@ -704,8 +704,8 @@ public class ClientPacket implements class181 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;II)Z",
-		garbageValue = "799979614"
+			signature = "(Ljava/lang/String;II)Z",
+			garbageValue = "799979614"
 	)
 	static boolean method3682(String var0, int var1) {
 		return class14.method174(var0, var1, "openjs");

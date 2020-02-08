@@ -24,28 +24,23 @@
  */
 package net.runelite.cache.script;
 
-public class Instruction
-{
+public class Instruction {
 	private final int opcode;
 	private String name;
 
-	public Instruction(int opcode)
-	{
+	public Instruction(int opcode) {
 		this.opcode = opcode;
 	}
 
-	public int getOpcode()
-	{
+	public int getOpcode() {
 		return opcode;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 }

@@ -1,4 +1,5 @@
 import java.security.SecureRandom;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -19,43 +20,43 @@ public class ScriptEvent extends Node {
 	boolean isMouseInputEvent;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("widget")
 	Widget widget;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1331050905
+			intValue = -1331050905
 	)
 	@Export("mouseX")
 	int mouseX;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1279210295
+			intValue = 1279210295
 	)
 	@Export("mouseY")
 	int mouseY;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1465065173
+			intValue = -1465065173
 	)
 	@Export("opIndex")
 	int opIndex;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -268491807
+			intValue = -268491807
 	)
 	@Export("keyTyped")
 	int keyTyped;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1412457419
+			intValue = 1412457419
 	)
 	@Export("keyPressed")
 	int keyPressed;
@@ -64,12 +65,12 @@ public class ScriptEvent extends Node {
 	String targetName;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1385894557
+			intValue = 1385894557
 	)
 	int field582;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -891059655
+			intValue = -891059655
 	)
 	@Export("type")
 	int type;
@@ -80,8 +81,8 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/Object;I)V",
-		garbageValue = "-2105798075"
+			signature = "([Ljava/lang/Object;I)V",
+			garbageValue = "-2105798075"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
@@ -90,8 +91,8 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "350345560"
+			signature = "(II)V",
+			garbageValue = "350345560"
 	)
 	@Export("setType")
 	public void setType(int var1) {
@@ -100,8 +101,8 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;II)I",
-		garbageValue = "2038755818"
+			signature = "(Ljava/lang/CharSequence;II)I",
+			garbageValue = "2038755818"
 	)
 	public static int method1202(CharSequence var0, int var1) {
 		return KitDefinition.parseIntCustomRadix(var0, var1, true);
@@ -109,8 +110,8 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("he")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)V",
-		garbageValue = "43843350"
+			signature = "(ILjava/lang/String;I)V",
+			garbageValue = "43843350"
 	)
 	static void method1203(int var0, String var1) {
 		int var2 = Players.Players_count;

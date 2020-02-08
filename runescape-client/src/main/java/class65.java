@@ -7,7 +7,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class65 extends RouteStrategy {
 	@ObfuscatedName("de")
 	@ObfuscatedSignature(
-		signature = "Lia;"
+			signature = "Lia;"
 	)
 	@Export("archive1")
 	static Archive archive1;
@@ -16,7 +16,7 @@ public class class65 extends RouteStrategy {
 	static int[] regionLandArchiveIds;
 	@ObfuscatedName("lg")
 	@ObfuscatedGetter(
-		intValue = 1699328089
+			intValue = 1699328089
 	)
 	@Export("selectedItemSlot")
 	static int selectedItemSlot;
@@ -26,8 +26,8 @@ public class class65 extends RouteStrategy {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IIILfv;B)Z",
-		garbageValue = "50"
+			signature = "(IIILfv;B)Z",
+			garbageValue = "50"
 	)
 	@Export("hasArrived")
 	protected boolean hasArrived(int var1, int var2, int var3, CollisionMap var4) {
@@ -36,12 +36,12 @@ public class class65 extends RouteStrategy {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)Liu;",
-		garbageValue = "890351754"
+			signature = "(II)Liu;",
+			garbageValue = "890351754"
 	)
 	@Export("SpotAnimationDefinition_get")
 	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
-		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0);
+		SpotAnimationDefinition var1 = (SpotAnimationDefinition) SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long) var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -52,15 +52,15 @@ public class class65 extends RouteStrategy {
 				var1.decode(new Buffer(var2));
 			}
 
-			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0);
+			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long) var0);
 			return var1;
 		}
 	}
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(Ldn;B)V",
-		garbageValue = "71"
+			signature = "(Ldn;B)V",
+			garbageValue = "71"
 	)
 	@Export("PcmStream_disable")
 	static final void PcmStream_disable(PcmStream var0) {

@@ -1,6 +1,7 @@
 package net.runelite.client.plugins.customclientresizing;
 
 import java.awt.Dimension;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomClientResizingProfile
-{
+public class CustomClientResizingProfile {
 	private long id;
 	private String name;
 	private Dimension position;

@@ -32,36 +32,30 @@ import net.runelite.asm.signature.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConstructorMapper
-{
+public class ConstructorMapper {
 	private static final Logger logger = LoggerFactory.getLogger(ConstructorMapper.class);
 
 	private final ClassGroup source, target;
 	private final ParallelExecutorMapping mapping;
 
-	public ConstructorMapper(ClassGroup source, ClassGroup target, ParallelExecutorMapping mapping)
-	{
+	public ConstructorMapper(ClassGroup source, ClassGroup target, ParallelExecutorMapping mapping) {
 		this.source = source;
 		this.target = target;
 		this.mapping = mapping;
 	}
 
-	private Type toOtherType(Type type)
-	{
-		if (type.isPrimitive())
-		{
+	private Type toOtherType(Type type) {
+		if (type.isPrimitive()) {
 			return type;
 		}
 
 		ClassFile cf = source.findClass(type.getInternalName());
-		if (cf == null)
-		{
+		if (cf == null) {
 			return type;
 		}
 
 		ClassFile other = (ClassFile) mapping.get(cf);
-		if (other == null)
-		{
+		if (other == null) {
 			logger.debug("Unable to map other type due to no class mapping for {}", cf);
 			return null;
 		}
@@ -69,15 +63,12 @@ public class ConstructorMapper
 		return new Type("L" + other.getName() + ";");
 	}
 
-	private Signature toOtherSignature(Signature s)
-	{
+	private Signature toOtherSignature(Signature s) {
 		Signature.Builder builder = new Signature.Builder()
-			.setReturnType(toOtherType(s.getReturnValue()));
-		for (Type t : s.getArguments())
-		{
+				.setReturnType(toOtherType(s.getReturnValue()));
+		for (Type t : s.getArguments()) {
 			Type other = toOtherType(t);
-			if (other == null)
-			{
+			if (other == null) {
 				return null;
 			}
 			builder.addArgument(other);
@@ -88,35 +79,28 @@ public class ConstructorMapper
 	/**
 	 * Map constructors based on the class mappings of the given mapping
 	 */
-	public void mapConstructors()
-	{
-		for (ClassFile cf : source.getClasses())
-		{
+	public void mapConstructors() {
+		for (ClassFile cf : source.getClasses()) {
 			ClassFile other = (ClassFile) mapping.get(cf);
 
-			if (other == null)
-			{
+			if (other == null) {
 				continue;
 			}
 
-			for (Method m : cf.getMethods())
-			{
-				if (!m.getName().equals("<init>"))
-				{
+			for (Method m : cf.getMethods()) {
+				if (!m.getName().equals("<init>")) {
 					continue;
 				}
 
 				Signature otherSig = toOtherSignature(m.getDescriptor());
-				if (otherSig == null)
-				{
+				if (otherSig == null) {
 					continue;
 				}
 
 				logger.debug("Converted signature {} -> {}", m.getDescriptor(), otherSig);
 
 				Method m2 = other.findMethod(m.getName(), otherSig);
-				if (m2 == null)
-				{
+				if (m2 == null) {
 					logger.warn("Unable to find other constructor for {}, looking for signature {} on class {}", m, otherSig, other);
 					continue;
 				}

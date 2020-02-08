@@ -9,49 +9,49 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Timer {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		longValue = -5854066689636812733L
+			longValue = -5854066689636812733L
 	)
 	long field3575;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		longValue = -7523897199781097135L
+			longValue = -7523897199781097135L
 	)
 	long field3568;
 	@ObfuscatedName("o")
 	public boolean field3569;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		longValue = 1307131764923953489L
+			longValue = 1307131764923953489L
 	)
 	long field3570;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		longValue = -1356096473288243273L
+			longValue = -1356096473288243273L
 	)
 	long field3571;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		longValue = 7486360679644359965L
+			longValue = 7486360679644359965L
 	)
 	long field3567;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1117727777
+			intValue = 1117727777
 	)
 	int field3572;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1378192309
+			intValue = -1378192309
 	)
 	int field3574;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -966098649
+			intValue = -966098649
 	)
 	int field3573;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 895210041
+			intValue = 895210041
 	)
 	int field3576;
 
@@ -70,8 +70,8 @@ public class Timer {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "40"
+			signature = "(B)V",
+			garbageValue = "40"
 	)
 	public void method5044() {
 		this.field3575 = WorldMapIcon_0.currentTimeMillis();
@@ -79,8 +79,8 @@ public class Timer {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1041013158"
+			signature = "(I)V",
+			garbageValue = "-1041013158"
 	)
 	public void method5045() {
 		if (this.field3575 != -1L) {
@@ -92,8 +92,8 @@ public class Timer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "1882461656"
+			signature = "(II)V",
+			garbageValue = "1882461656"
 	)
 	public void method5062(int var1) {
 		this.field3568 = WorldMapIcon_0.currentTimeMillis();
@@ -102,8 +102,8 @@ public class Timer {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "2083921672"
+			signature = "(I)V",
+			garbageValue = "2083921672"
 	)
 	public void method5047() {
 		if (this.field3568 != -1L) {
@@ -117,8 +117,8 @@ public class Timer {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-510534855"
+			signature = "(I)V",
+			garbageValue = "-510534855"
 	)
 	public void method5057() {
 		this.field3569 = false;
@@ -127,8 +127,8 @@ public class Timer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1911888392"
+			signature = "(I)V",
+			garbageValue = "-1911888392"
 	)
 	public void method5046() {
 		this.method5047();
@@ -136,8 +136,8 @@ public class Timer {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(Lkp;I)V",
-		garbageValue = "-822547863"
+			signature = "(Lkp;I)V",
+			garbageValue = "-822547863"
 	)
 	@Export("write")
 	public void write(Buffer var1) {
@@ -152,8 +152,8 @@ public class Timer {
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "([BIS)I",
-		garbageValue = "11848"
+			signature = "([BIS)I",
+			garbageValue = "11848"
 	)
 	public static int method5068(byte[] var0, int var1) {
 		int var3 = -1;

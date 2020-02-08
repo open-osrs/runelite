@@ -25,6 +25,7 @@
 package net.runelite.cache.definitions.savers;
 
 import java.io.File;
+
 import net.runelite.cache.IndexType;
 import net.runelite.cache.StoreLocation;
 import net.runelite.cache.definitions.InterfaceDefinition;
@@ -35,17 +36,16 @@ import net.runelite.cache.fs.FSFile;
 import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
+
 import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
 
-public class InterfaceSaverTest
-{
+public class InterfaceSaverTest {
 	@Test
-	public void testSave() throws Exception
-	{
+	public void testSave() throws Exception {
 		File base = StoreLocation.LOCATION;
-		try (Store store = new Store(base))
-		{
+		try (Store store = new Store(base)) {
 			store.load();
 
 			Storage storage = store.getStorage();

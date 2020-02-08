@@ -33,6 +33,7 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.worlds.World;
@@ -40,44 +41,37 @@ import net.runelite.http.api.worlds.WorldClient;
 import net.runelite.http.api.worlds.WorldType;
 
 @Slf4j
-class WorldSupplier implements Supplier<World>
-{
+class WorldSupplier implements Supplier<World> {
 	private final Random random = new Random(System.nanoTime());
 	private Queue<World> worlds = new ArrayDeque<>();
 
 	@Override
-	public World get()
-	{
-		if (!worlds.isEmpty())
-		{
+	public World get() {
+		if (!worlds.isEmpty()) {
 			return worlds.poll();
 		}
 
-		try
-		{
+		try {
 			List<World> newWorlds = new WorldClient(RuneLiteAPI.CLIENT)
-				.lookupWorlds()
-				.getWorlds()
-				.stream()
-				.filter(w -> w.getTypes().isEmpty() || EnumSet.of(WorldType.MEMBERS).equals(w.getTypes()))
-				.collect(Collectors.toList());
+					.lookupWorlds()
+					.getWorlds()
+					.stream()
+					.filter(w -> w.getTypes().isEmpty() || EnumSet.of(WorldType.MEMBERS).equals(w.getTypes()))
+					.collect(Collectors.toList());
 
 			Collections.shuffle(newWorlds, random);
 
 			worlds.addAll(newWorlds.subList(0, 16));
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			log.warn("Unable to retrieve world list", e);
 		}
 
-		while (worlds.size() < 2)
-		{
+		while (worlds.size() < 2) {
 			int id = random.nextInt(50) + 1;
 			World world = World.builder()
-				.id(300 + id) // worlds start at 300
-				.address("oldschool" + id + ".runescape.COM")
-				.build();
+					.id(300 + id) // worlds start at 300
+					.address("oldschool" + id + ".runescape.COM")
+					.build();
 			worlds.add(world);
 		}
 

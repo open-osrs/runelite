@@ -9,18 +9,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum HorizontalAlignment implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lih;"
+			signature = "Lih;"
 	)
 	field3454(0, 0),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lih;"
+			signature = "Lih;"
 	)
 	@Export("HorizontalAlignment_centered")
 	HorizontalAlignment_centered(1, 1),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lih;"
+			signature = "Lih;"
 	)
 	field3451(2, 2);
 
@@ -29,13 +29,13 @@ public enum HorizontalAlignment implements Enumerated {
 	static int[] Tiles_saturation;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1955816399
+			intValue = 1955816399
 	)
 	@Export("value")
 	public final int value;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -458653859
+			intValue = -458653859
 	)
 	@Export("id")
 	final int id;
@@ -47,8 +47,8 @@ public enum HorizontalAlignment implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "1"
+			signature = "(B)I",
+			garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
@@ -57,8 +57,8 @@ public enum HorizontalAlignment implements Enumerated {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)[Llt;",
-		garbageValue = "831261948"
+			signature = "(I)[Llt;",
+			garbageValue = "831261948"
 	)
 	public static Sprite[] method4783() {
 		Sprite[] var0 = new Sprite[class326.SpriteBuffer_spriteCount];
@@ -86,8 +86,8 @@ public enum HorizontalAlignment implements Enumerated {
 
 	@ObfuscatedName("iu")
 	@ObfuscatedSignature(
-		signature = "(Liz;IIII)V",
-		garbageValue = "1310795801"
+			signature = "(Liz;IIII)V",
+			garbageValue = "1310795801"
 	)
 	@Export("addNpcToMenu")
 	static final void addNpcToMenu(NPCDefinition var0, int var1, int var2, int var3) {

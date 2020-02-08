@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PcmPlayer {
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 565160271
+			intValue = 565160271
 	)
 	public static int field1398;
 	@ObfuscatedName("g")
@@ -17,7 +17,7 @@ public class PcmPlayer {
 	protected static boolean PcmPlayer_stereo;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "Lcx;"
+			signature = "Lcx;"
 	)
 	@Export("pcmPlayerProvider")
 	static class99 pcmPlayerProvider;
@@ -26,77 +26,77 @@ public class PcmPlayer {
 	protected int[] samples;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Ldn;"
+			signature = "Ldn;"
 	)
 	@Export("stream")
 	PcmStream stream;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1255248085
+			intValue = -1255248085
 	)
 	int field1397;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		longValue = -2367758414961315653L
+			longValue = -2367758414961315653L
 	)
 	@Export("timeMs")
 	long timeMs;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1798201523
+			intValue = 1798201523
 	)
 	@Export("capacity")
 	int capacity;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1072458633
+			intValue = 1072458633
 	)
 	int field1401;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -247116181
+			intValue = -247116181
 	)
 	int field1403;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		longValue = -3370414855018982157L
+			longValue = -3370414855018982157L
 	)
 	long field1396;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 3489373
+			intValue = 3489373
 	)
 	int field1404;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -92983435
+			intValue = -92983435
 	)
 	int field1405;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -658746403
+			intValue = -658746403
 	)
 	int field1406;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		longValue = -227900645038569121L
+			longValue = -227900645038569121L
 	)
 	long field1407;
 	@ObfuscatedName("u")
 	boolean field1408;
 	@ObfuscatedName("au")
 	@ObfuscatedGetter(
-		intValue = 858322217
+			intValue = 858322217
 	)
 	int field1409;
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "[Ldn;"
+			signature = "[Ldn;"
 	)
 	PcmStream[] field1410;
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "[Ldn;"
+			signature = "[Ldn;"
 	)
 	PcmStream[] field1411;
 
@@ -116,8 +116,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-111"
+			signature = "(B)V",
+			garbageValue = "-111"
 	)
 	@Export("init")
 	protected void init() throws Exception {
@@ -125,8 +125,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-871749312"
+			signature = "(II)V",
+			garbageValue = "-871749312"
 	)
 	@Export("open")
 	protected void open(int var1) throws Exception {
@@ -134,8 +134,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-164846701"
+			signature = "(I)I",
+			garbageValue = "-164846701"
 	)
 	@Export("position")
 	protected int position() throws Exception {
@@ -149,8 +149,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1942741652"
+			signature = "(I)V",
+			garbageValue = "1942741652"
 	)
 	@Export("close")
 	protected void close() {
@@ -158,8 +158,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "2088617942"
+			signature = "(I)V",
+			garbageValue = "2088617942"
 	)
 	@Export("discard")
 	protected void discard() throws Exception {
@@ -167,8 +167,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(Ldn;I)V",
-		garbageValue = "1817340933"
+			signature = "(Ldn;I)V",
+			garbageValue = "1817340933"
 	)
 	@Export("setStream")
 	public final synchronized void setStream(PcmStream var1) {
@@ -177,8 +177,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1301441901"
+			signature = "(I)V",
+			garbageValue = "1301441901"
 	)
 	@Export("run")
 	public final synchronized void run() {
@@ -259,7 +259,7 @@ public class PcmPlayer {
 
 				while (var1 > 5000L + this.timeMs) {
 					this.skip(256);
-					this.timeMs += (long)(256000 / field1398);
+					this.timeMs += (long) (256000 / field1398);
 				}
 			} catch (Exception var6) {
 				this.timeMs = var1;
@@ -270,8 +270,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-569274041"
+			signature = "(I)V",
+			garbageValue = "-569274041"
 	)
 	public final void method2489() {
 		this.field1408 = true;
@@ -279,8 +279,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "2064649037"
+			signature = "(I)V",
+			garbageValue = "2064649037"
 	)
 	@Export("tryDiscard")
 	public final synchronized void tryDiscard() {
@@ -297,8 +297,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1437480002"
+			signature = "(I)V",
+			garbageValue = "-1437480002"
 	)
 	@Export("shutdown")
 	public final synchronized void shutdown() {
@@ -328,8 +328,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
-		garbageValue = "6"
+			signature = "(IB)V",
+			garbageValue = "6"
 	)
 	@Export("skip")
 	final void skip(int var1) {
@@ -460,8 +460,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(Ldn;II)V",
-		garbageValue = "-1216223626"
+			signature = "(Ldn;II)V",
+			garbageValue = "-1216223626"
 	)
 	final void method2494(PcmStream var1, int var2) {
 		int var3 = var2 >> 5;
@@ -478,8 +478,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-526155431"
+			signature = "(III)V",
+			garbageValue = "-526155431"
 	)
 	@Export("changeWorldSelectSorting")
 	static void changeWorldSelectSorting(int var0, int var1) {
@@ -504,8 +504,8 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ki")
 	@ObfuscatedSignature(
-		signature = "(Lhn;I)Ljava/lang/String;",
-		garbageValue = "-1826088891"
+			signature = "(Lhn;I)Ljava/lang/String;",
+			garbageValue = "-1826088891"
 	)
 	static String method2542(Widget var0) {
 		if (class83.method2108(WorldMapIcon_0.getWidgetClickMask(var0)) == 0) {

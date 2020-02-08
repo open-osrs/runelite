@@ -26,19 +26,18 @@ package net.runelite.deob.clientver;
 
 import java.io.File;
 import java.io.IOException;
+
 import net.runelite.deob.DeobTestProperties;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class ClientVersionTest
-{
+public class ClientVersionTest {
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
 
 	@Test
-	public void test() throws IOException
-	{
+	public void test() throws IOException {
 		ClientVersion ver = new ClientVersion(new File(properties.getVanillaClient()));
 		Assert.assertEquals(properties.getRsVersion(), ver.getVersion());
 	}

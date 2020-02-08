@@ -1,4 +1,5 @@
 import java.util.Comparator;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,23 +17,23 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/Comparator;B)V",
-		garbageValue = "71"
+			signature = "(Ljava/util/Comparator;B)V",
+			garbageValue = "71"
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
 		if (this.nextComparator == null) {
 			this.nextComparator = var1;
 		} else if (this.nextComparator instanceof AbstractUserComparator) {
-			((AbstractUserComparator)this.nextComparator).addComparator(var1);
+			((AbstractUserComparator) this.nextComparator).addComparator(var1);
 		}
 
 	}
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Ljk;Ljk;I)I",
-		garbageValue = "-1613196050"
+			signature = "(Ljk;Ljk;I)I",
+			garbageValue = "-1613196050"
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
@@ -45,8 +46,8 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "-1320582539"
+			signature = "(III)I",
+			garbageValue = "-1320582539"
 	)
 	static int method5119(int var0, int var1) {
 		FloorOverlayDefinition var2 = ArchiveLoader.FloorUnderlayDefinition_get(var0);

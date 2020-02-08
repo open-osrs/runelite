@@ -29,13 +29,18 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
+
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY;
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
+
 import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import net.runelite.client.ui.overlay.Overlay;
+
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -44,8 +49,7 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 @Singleton
-class WoodcuttingOverlay extends Overlay
-{
+class WoodcuttingOverlay extends Overlay {
 	static final String WOODCUTTING_RESET = "Reset";
 
 	private final Client client;
@@ -55,8 +59,7 @@ class WoodcuttingOverlay extends Overlay
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private WoodcuttingOverlay(Client client, WoodcuttingPlugin plugin, WoodcuttingConfig config, XpTrackerService xpTrackerService)
-	{
+	private WoodcuttingOverlay(Client client, WoodcuttingPlugin plugin, WoodcuttingConfig config, XpTrackerService xpTrackerService) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -68,52 +71,43 @@ class WoodcuttingOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!config.showWoodcuttingStats())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!config.showWoodcuttingStats()) {
 			return null;
 		}
 
 		WoodcuttingSession session = plugin.getSession();
-		if (session == null)
-		{
+		if (session == null) {
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 
 		Axe axe = plugin.getAxe();
-		if (axe != null && axe.getAnimId() == client.getLocalPlayer().getAnimation())
-		{
+		if (axe != null && axe.getAnimId() == client.getLocalPlayer().getAnimation()) {
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("Woodcutting")
-				.color(Color.GREEN)
-				.build());
-		}
-		else
-		{
+					.text("Woodcutting")
+					.color(Color.GREEN)
+					.build());
+		} else {
 			panelComponent.getChildren().add(TitleComponent.builder()
-				.text("NOT woodcutting")
-				.color(Color.RED)
-				.build());
+					.text("NOT woodcutting")
+					.color(Color.RED)
+					.build());
 		}
 
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
 		int actions = xpTrackerService.getActions(Skill.WOODCUTTING);
-		if (actions > 0)
-		{
+		if (actions > 0) {
 			tableComponent.addRow("Logs cut:", Integer.toString(actions));
 
-			if (config.showGPEarned())
-			{
+			if (config.showGPEarned()) {
 				tableComponent.addRow("GP earned:", Integer.toString((plugin.getGpEarned())));
 			}
 
-			if (actions > 2)
-			{
+			if (actions > 2) {
 				tableComponent.addRow("Logs/hr:", Integer.toString(xpTrackerService.getActionsHr(Skill.WOODCUTTING)));
 			}
 		}

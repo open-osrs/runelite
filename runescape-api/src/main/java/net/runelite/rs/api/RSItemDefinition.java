@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.ItemDefinition;
 import net.runelite.mapping.Import;
 
-public interface RSItemDefinition extends ItemDefinition
-{
+public interface RSItemDefinition extends ItemDefinition {
 	@Import("name")
 	@Override
 	String getName();
@@ -53,6 +52,7 @@ public interface RSItemDefinition extends ItemDefinition
 	 * You probably want {@link #isStackable}
 	 * <p>
 	 * This is the <b>{@code int}</b> that client code uses internally to represent this true/false value. It appears to only ever be set to 1 or 0
+	 *
 	 * @return 0 when this type of item isn't stackable, 1 otherwise
 	 */
 	@Import("isStackable")

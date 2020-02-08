@@ -27,8 +27,10 @@ package net.runelite.client.plugins.motherlode;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
+
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
@@ -47,15 +49,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MotherlodePluginTest
-{
+public class MotherlodePluginTest {
 	@Inject
 	private MotherlodePlugin motherlodePlugin;
 
@@ -108,8 +111,7 @@ public class MotherlodePluginTest
 	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 
 		when(client.getGameState()).thenReturn(GameState.LOGGED_IN);
@@ -117,8 +119,7 @@ public class MotherlodePluginTest
 	}
 
 	@Test
-	public void testOreCounter()
-	{
+	public void testOreCounter() {
 		// set inMlm
 		GameStateChanged gameStateChanged = new GameStateChanged();
 		gameStateChanged.setGameState(GameState.LOADING);
@@ -131,16 +132,16 @@ public class MotherlodePluginTest
 		// Create before inventory
 		ItemContainer inventory = mock(ItemContainer.class);
 		Item[] items = new Item[]{
-			item(ItemID.RUNITE_ORE, 1),
-			item(ItemID.GOLDEN_NUGGET, 4),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
+				item(ItemID.RUNITE_ORE, 1),
+				item(ItemID.GOLDEN_NUGGET, 4),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
 
 		};
 		when(inventory.getItems())
-			.thenReturn(items);
+				.thenReturn(items);
 		when(client.getItemContainer(InventoryID.INVENTORY)).thenReturn(inventory);
 
 		// Withdraw 20
@@ -150,19 +151,19 @@ public class MotherlodePluginTest
 		inventory = mock(ItemContainer.class);
 		// +1 rune, +4 nugget, +2 coal, +1 addy
 		items = new Item[]{
-			item(ItemID.RUNITE_ORE, 1),
-			item(ItemID.RUNITE_ORE, 1),
-			item(ItemID.GOLDEN_NUGGET, 8),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
-			item(ItemID.COAL, 1),
-			item(ItemID.ADAMANTITE_ORE, 1),
+				item(ItemID.RUNITE_ORE, 1),
+				item(ItemID.RUNITE_ORE, 1),
+				item(ItemID.GOLDEN_NUGGET, 8),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
+				item(ItemID.COAL, 1),
+				item(ItemID.ADAMANTITE_ORE, 1),
 		};
 		when(inventory.getItems())
-			.thenReturn(items);
+				.thenReturn(items);
 		when(client.getItemContainer(InventoryID.INVENTORY)).thenReturn(inventory);
 
 		// Trigger comparison
@@ -175,8 +176,7 @@ public class MotherlodePluginTest
 		verifyNoMoreInteractions(motherlodeSession);
 	}
 
-	private static Item item(int itemId, int quantity)
-	{
+	private static Item item(int itemId, int quantity) {
 		return new Item(itemId, quantity);
 	}
 }

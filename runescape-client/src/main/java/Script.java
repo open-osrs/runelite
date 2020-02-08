@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Script extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Leh;"
+			signature = "Leh;"
 	)
 	@Export("Script_cached")
 	static EvictingDualNodeHashTable Script_cached;
@@ -24,31 +24,31 @@ public class Script extends DualNode {
 	String[] stringOperands;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1871581323
+			intValue = 1871581323
 	)
 	@Export("localIntCount")
 	int localIntCount;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 822375411
+			intValue = 822375411
 	)
 	@Export("localStringCount")
 	int localStringCount;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1252836573
+			intValue = -1252836573
 	)
 	@Export("intArgumentCount")
 	int intArgumentCount;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1735199639
+			intValue = -1735199639
 	)
 	@Export("stringArgumentCount")
 	int stringArgumentCount;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "[Llp;"
+			signature = "[Llp;"
 	)
 	@Export("switches")
 	IterableNodeHashTable[] switches;
@@ -62,8 +62,8 @@ public class Script extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(IB)[Llp;",
-		garbageValue = "1"
+			signature = "(IB)[Llp;",
+			garbageValue = "1"
 	)
 	@Export("newIterableNodeHashTable")
 	IterableNodeHashTable[] newIterableNodeHashTable(int var1) {
@@ -72,8 +72,8 @@ public class Script extends DualNode {
 
 	@ObfuscatedName("kh")
 	@ObfuscatedSignature(
-		signature = "(IIIILlt;Lhf;I)V",
-		garbageValue = "631816704"
+			signature = "(IIIILlt;Lhf;I)V",
+			garbageValue = "631816704"
 	)
 	@Export("drawSpriteOnMinimap")
 	static final void drawSpriteOnMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {

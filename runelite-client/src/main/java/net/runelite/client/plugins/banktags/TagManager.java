@@ -26,18 +26,22 @@
 package net.runelite.client.plugins.banktags;
 
 import com.google.common.base.Strings;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.ItemID;
 import net.runelite.api.util.Text;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemVariationMapping;
+
 import static net.runelite.client.plugins.banktags.BankTagsPlugin.CONFIG_GROUP;
+
 import net.runelite.client.plugins.cluescrolls.ClueScrollService;
 import net.runelite.client.plugins.cluescrolls.clues.ClueScroll;
 import net.runelite.client.plugins.cluescrolls.clues.CoordinateClue;
@@ -48,8 +52,7 @@ import net.runelite.client.plugins.cluescrolls.clues.MapClue;
 import net.runelite.client.plugins.cluescrolls.clues.item.ItemRequirement;
 
 @Singleton
-public class TagManager
-{
+public class TagManager {
 	static final String ITEM_KEY_PREFIX = "item_";
 	private final ConfigManager configManager;
 	private final ItemManager itemManager;
@@ -57,74 +60,59 @@ public class TagManager
 
 	@Inject
 	private TagManager(
-		final ItemManager itemManager,
-		final ConfigManager configManager,
-		final ClueScrollService clueScrollService)
-	{
+			final ItemManager itemManager,
+			final ConfigManager configManager,
+			final ClueScrollService clueScrollService) {
 		this.itemManager = itemManager;
 		this.configManager = configManager;
 		this.clueScrollService = clueScrollService;
 	}
 
-	private String getTagString(int itemId, boolean variation)
-	{
+	private String getTagString(int itemId, boolean variation) {
 		itemId = getItemId(itemId, variation);
 
 		String config = configManager.getConfiguration(CONFIG_GROUP, ITEM_KEY_PREFIX + itemId);
-		if (config == null)
-		{
+		if (config == null) {
 			return "";
 		}
 
 		return config;
 	}
 
-	Collection<String> getTags(int itemId, boolean variation)
-	{
+	Collection<String> getTags(int itemId, boolean variation) {
 		return new LinkedHashSet<>(Text.fromCSV(getTagString(itemId, variation).toLowerCase()));
 	}
 
-	void setTagString(int itemId, String tags, boolean variation)
-	{
+	void setTagString(int itemId, String tags, boolean variation) {
 		itemId = getItemId(itemId, variation);
 
-		if (Strings.isNullOrEmpty(tags))
-		{
+		if (Strings.isNullOrEmpty(tags)) {
 			configManager.unsetConfiguration(CONFIG_GROUP, ITEM_KEY_PREFIX + itemId);
-		}
-		else
-		{
+		} else {
 			configManager.setConfiguration(CONFIG_GROUP, ITEM_KEY_PREFIX + itemId, tags);
 		}
 	}
 
-	public void addTags(int itemId, final Collection<String> t, boolean variation)
-	{
+	public void addTags(int itemId, final Collection<String> t, boolean variation) {
 		final Collection<String> tags = getTags(itemId, variation);
-		if (tags.addAll(t))
-		{
+		if (tags.addAll(t)) {
 			setTags(itemId, tags, variation);
 		}
 	}
 
-	public void addTag(int itemId, String tag, boolean variation)
-	{
+	public void addTag(int itemId, String tag, boolean variation) {
 		final Collection<String> tags = getTags(itemId, variation);
-		if (tags.add(Text.standardize(tag)))
-		{
+		if (tags.add(Text.standardize(tag))) {
 			setTags(itemId, tags, variation);
 		}
 	}
 
-	private void setTags(int itemId, Collection<String> tags, boolean variation)
-	{
+	private void setTags(int itemId, Collection<String> tags, boolean variation) {
 		setTagString(itemId, Text.toCSV(tags), variation);
 	}
 
-	boolean findTag(int itemId, String search)
-	{
-		if (search.equals("clue") && testClue(itemId))
-		{
+	boolean findTag(int itemId, String search) {
+		if (search.equals("clue") && testClue(itemId)) {
 			return true;
 		}
 
@@ -133,17 +121,15 @@ public class TagManager
 		return tags.stream().anyMatch(tag -> tag.startsWith(Text.standardize(search)));
 	}
 
-	public List<Integer> getItemsForTag(String tag)
-	{
+	public List<Integer> getItemsForTag(String tag) {
 		final String prefix = CONFIG_GROUP + "." + ITEM_KEY_PREFIX;
 		return configManager.getConfigurationKeys(prefix).stream()
-			.map(item -> Integer.parseInt(item.replace(prefix, "")))
-			.filter(item -> getTags(item, false).contains(tag) || getTags(item, true).contains(tag))
-			.collect(Collectors.toList());
+				.map(item -> Integer.parseInt(item.replace(prefix, "")))
+				.filter(item -> getTags(item, false).contains(tag) || getTags(item, true).contains(tag))
+				.collect(Collectors.toList());
 	}
 
-	public void removeTag(String tag)
-	{
+	public void removeTag(String tag) {
 		final String prefix = CONFIG_GROUP + "." + ITEM_KEY_PREFIX;
 		configManager.getConfigurationKeys(prefix).forEach(item ->
 		{
@@ -152,23 +138,19 @@ public class TagManager
 		});
 	}
 
-	public void removeTag(int itemId, String tag)
-	{
+	public void removeTag(int itemId, String tag) {
 		Collection<String> tags = getTags(itemId, false);
-		if (tags.remove(Text.standardize(tag)))
-		{
+		if (tags.remove(Text.standardize(tag))) {
 			setTags(itemId, tags, false);
 		}
 
 		tags = getTags(itemId, true);
-		if (tags.remove(Text.standardize(tag)))
-		{
+		if (tags.remove(Text.standardize(tag))) {
 			setTags(itemId, tags, true);
 		}
 	}
 
-	public void renameTag(String oldTag, String newTag)
-	{
+	public void renameTag(String oldTag, String newTag) {
 		List<Integer> items = getItemsForTag(Text.standardize(oldTag));
 		items.forEach(id ->
 		{
@@ -181,46 +163,35 @@ public class TagManager
 		});
 	}
 
-	private int getItemId(int itemId, boolean variation)
-	{
+	private int getItemId(int itemId, boolean variation) {
 		itemId = Math.abs(itemId);
 		itemId = itemManager.canonicalize(itemId);
 
-		if (variation)
-		{
+		if (variation) {
 			itemId = ItemVariationMapping.map(itemId) * -1;
 		}
 
 		return itemId;
 	}
 
-	private boolean testClue(int itemId)
-	{
+	private boolean testClue(int itemId) {
 		ClueScroll c = clueScrollService.getClue();
 
-		if (c == null)
-		{
+		if (c == null) {
 			return false;
 		}
 
-		if (c instanceof EmoteClue)
-		{
+		if (c instanceof EmoteClue) {
 			EmoteClue emote = (EmoteClue) c;
 
-			for (ItemRequirement ir : emote.getItemRequirements())
-			{
-				if (ir.fulfilledBy(itemId))
-				{
+			for (ItemRequirement ir : emote.getItemRequirements()) {
+				if (ir.fulfilledBy(itemId)) {
 					return true;
 				}
 			}
-		}
-		else if (c instanceof CoordinateClue || c instanceof HotColdClue || c instanceof FairyRingClue)
-		{
+		} else if (c instanceof CoordinateClue || c instanceof HotColdClue || c instanceof FairyRingClue) {
 			return itemId == ItemID.SPADE;
-		}
-		else if (c instanceof MapClue)
-		{
+		} else if (c instanceof MapClue) {
 			MapClue mapClue = (MapClue) c;
 
 			return mapClue.getObjectId() == -1 && itemId == ItemID.SPADE;

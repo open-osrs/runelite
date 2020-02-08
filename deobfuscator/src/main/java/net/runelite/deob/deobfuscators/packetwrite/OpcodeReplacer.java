@@ -25,6 +25,7 @@
 package net.runelite.deob.deobfuscators.packetwrite;
 
 import java.util.Collection;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -36,44 +37,41 @@ import net.runelite.asm.attributes.code.instruction.types.PushConstantInstructio
 import net.runelite.asm.attributes.code.instructions.GetStatic;
 import net.runelite.asm.attributes.code.instructions.LDC;
 import net.runelite.asm.attributes.code.instructions.PutStatic;
+
 import static net.runelite.deob.deobfuscators.transformers.OpcodesTransformer.RUNELITE_OPCODES;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_STATIC;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class OpcodeReplacer
-{
+class OpcodeReplacer {
 	private static final Logger logger = LoggerFactory.getLogger(OpcodeReplacer.class);
 
-	public void run(ClassGroup group, Collection<PacketWrite> writes)
-	{
+	public void run(ClassGroup group, Collection<PacketWrite> writes) {
 		int count = 0;
 
 		ClassFile runeliteOpcodes = group.findClass(RUNELITE_OPCODES);
 		assert runeliteOpcodes != null : "Opcodes class must exist";
 
-		for (PacketWrite wp : writes)
-		{
+		for (PacketWrite wp : writes) {
 			Instructions ins = wp.getInstructions();
 
 			Instruction param = wp.getOpcodeIns();
-			if (!(param instanceof PushConstantInstruction))
-			{
+			if (!(param instanceof PushConstantInstruction)) {
 				continue;
 			}
 
 			final String fieldName = "PACKET_CLIENT_" + wp.getOpcode();
 
 			net.runelite.asm.pool.Field field = new net.runelite.asm.pool.Field(
-				new net.runelite.asm.pool.Class(RUNELITE_OPCODES),
-				fieldName,
-				Type.INT
+					new net.runelite.asm.pool.Class(RUNELITE_OPCODES),
+					fieldName,
+					Type.INT
 			);
 			ins.replace(param, new GetStatic(ins, field));
 
-			if (runeliteOpcodes.findField(fieldName) == null)
-			{
+			if (runeliteOpcodes.findField(fieldName) == null) {
 				Field opField = new Field(runeliteOpcodes, fieldName, Type.INT);
 				// ACC_FINAL causes javac to inline the fields, which prevents
 				// the mapper from doing field mapping

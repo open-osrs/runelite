@@ -3,6 +3,7 @@ package net.runelite.client.plugins.suppliestracker.ui;
 
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
+
 import javax.inject.Singleton;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -11,13 +12,11 @@ import javax.swing.border.EmptyBorder;
 import java.io.IOException;
 
 @Singleton
-class UpdatePanel extends PluginPanel
-{
+class UpdatePanel extends PluginPanel {
 
 	private SuppliesTrackerPanel panel;
 
-	UpdatePanel(SuppliesTrackerPanel suppliesTrackerPanel)
-	{
+	UpdatePanel(SuppliesTrackerPanel suppliesTrackerPanel) {
 		this.panel = suppliesTrackerPanel;
 		setBorder(new EmptyBorder(6, 6, 6, 6));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -25,16 +24,12 @@ class UpdatePanel extends PluginPanel
 		JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		java.net.URL helpURL = UpdatePanel.class.getResource(
-			"Info.html");
+				"Info.html");
 
-		if (helpURL != null)
-		{
-			try
-			{
+		if (helpURL != null) {
+			try {
 				editorPane.setPage(helpURL);
-			}
-			catch (IOException e)
-			{
+			} catch (IOException e) {
 				throw new IllegalStateException("File not found");
 			}
 		}

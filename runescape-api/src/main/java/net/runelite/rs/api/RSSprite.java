@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.Sprite;
 import net.runelite.mapping.Import;
 
-public interface RSSprite extends Sprite
-{
+public interface RSSprite extends Sprite {
 	@Import("drawTransBgAt")
 	@Override
 	void drawAt(int x, int y);
@@ -42,7 +41,9 @@ public interface RSSprite extends Sprite
 
 	@Import("xOffset")
 	@Override
-	int getOffsetX(); ;
+	int getOffsetX();
+
+	;
 
 	@Import("xOffset")
 	@Override
@@ -50,7 +51,9 @@ public interface RSSprite extends Sprite
 
 	@Import("yOffset")
 	@Override
-	int getOffsetY(); ;
+	int getOffsetY();
+
+	;
 
 	@Import("yOffset")
 	@Override

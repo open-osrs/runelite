@@ -1,6 +1,7 @@
 package net.runelite.mixins;
 
 import java.awt.event.MouseEvent;
+
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -10,8 +11,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSMouseHandler;
 
 @Mixin(RSMouseHandler.class)
-public abstract class RSMouseHandlerMixin implements RSMouseHandler
-{
+public abstract class RSMouseHandlerMixin implements RSMouseHandler {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -41,21 +41,15 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 
 	@Override
 	@Replace("mousePressed")
-	public synchronized void mousePressed(MouseEvent mouseEvent)
-	{
-		if (isInEvent == 0)
-		{
+	public synchronized void mousePressed(MouseEvent mouseEvent) {
+		if (isInEvent == 0) {
 			mouseEvent = client.getCallbacks().mousePressed(mouseEvent);
 		}
-		if (!mouseEvent.isConsumed())
-		{
+		if (!mouseEvent.isConsumed()) {
 			isInEvent++;
-			try
-			{
+			try {
 				rs$mousePressed(mouseEvent);
-			}
-			finally
-			{
+			} finally {
 				isInEvent--;
 			}
 		}
@@ -63,21 +57,15 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 
 	@Override
 	@Replace("mouseReleased")
-	public synchronized void mouseReleased(MouseEvent mouseEvent)
-	{
-		if (isInEvent == 0)
-		{
+	public synchronized void mouseReleased(MouseEvent mouseEvent) {
+		if (isInEvent == 0) {
 			mouseEvent = client.getCallbacks().mouseReleased(mouseEvent);
 		}
-		if (!mouseEvent.isConsumed())
-		{
+		if (!mouseEvent.isConsumed()) {
 			isInEvent++;
-			try
-			{
+			try {
 				rs$mouseReleased(mouseEvent);
-			}
-			finally
-			{
+			} finally {
 				isInEvent--;
 			}
 		}
@@ -85,32 +73,24 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 
 	@Override
 	@Replace("mouseClicked")
-	public void mouseClicked(MouseEvent event)
-	{
+	public void mouseClicked(MouseEvent event) {
 		event = client.getCallbacks().mouseClicked(event);
-		if (!event.isConsumed())
-		{
+		if (!event.isConsumed()) {
 			rs$mouseClicked(event);
 		}
 	}
 
 	@Override
 	@Replace("mouseEntered")
-	public synchronized void mouseEntered(MouseEvent mouseEvent)
-	{
-		if (isInEvent == 0)
-		{
+	public synchronized void mouseEntered(MouseEvent mouseEvent) {
+		if (isInEvent == 0) {
 			mouseEvent = client.getCallbacks().mouseEntered(mouseEvent);
 		}
-		if (!mouseEvent.isConsumed())
-		{
+		if (!mouseEvent.isConsumed()) {
 			isInEvent++;
-			try
-			{
+			try {
 				rs$mouseEntered(mouseEvent);
-			}
-			finally
-			{
+			} finally {
 				isInEvent--;
 			}
 		}
@@ -119,21 +99,15 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 
 	@Override
 	@Replace("mouseExited")
-	public synchronized void mouseExited(MouseEvent mouseEvent)
-	{
-		if (isInEvent == 0)
-		{
+	public synchronized void mouseExited(MouseEvent mouseEvent) {
+		if (isInEvent == 0) {
 			mouseEvent = client.getCallbacks().mouseExited(mouseEvent);
 		}
-		if (!mouseEvent.isConsumed())
-		{
+		if (!mouseEvent.isConsumed()) {
 			isInEvent++;
-			try
-			{
+			try {
 				rs$mouseExited(mouseEvent);
-			}
-			finally
-			{
+			} finally {
 				isInEvent--;
 			}
 		}
@@ -141,21 +115,15 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 
 	@Override
 	@Replace("mouseDragged")
-	public synchronized void mouseDragged(MouseEvent mouseEvent)
-	{
-		if (isInEvent == 0)
-		{
+	public synchronized void mouseDragged(MouseEvent mouseEvent) {
+		if (isInEvent == 0) {
 			mouseEvent = client.getCallbacks().mouseDragged(mouseEvent);
 		}
-		if (!mouseEvent.isConsumed())
-		{
+		if (!mouseEvent.isConsumed()) {
 			isInEvent++;
-			try
-			{
+			try {
 				rs$mouseDragged(mouseEvent);
-			}
-			finally
-			{
+			} finally {
 				isInEvent--;
 			}
 		}
@@ -163,21 +131,15 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 
 	@Override
 	@Replace("mouseMoved")
-	public synchronized void mouseMoved(MouseEvent mouseEvent)
-	{
-		if (isInEvent == 0)
-		{
+	public synchronized void mouseMoved(MouseEvent mouseEvent) {
+		if (isInEvent == 0) {
 			mouseEvent = client.getCallbacks().mouseMoved(mouseEvent);
 		}
-		if (!mouseEvent.isConsumed())
-		{
+		if (!mouseEvent.isConsumed()) {
 			isInEvent++;
-			try
-			{
+			try {
 				rs$mouseMoved(mouseEvent);
-			}
-			finally
-			{
+			} finally {
 				isInEvent--;
 			}
 		}

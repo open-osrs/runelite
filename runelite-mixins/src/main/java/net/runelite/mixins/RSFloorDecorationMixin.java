@@ -1,6 +1,7 @@
 package net.runelite.mixins;
 
 import java.awt.Shape;
+
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -13,8 +14,7 @@ import net.runelite.rs.api.RSFloorDecoration;
 import net.runelite.rs.api.RSModel;
 
 @Mixin(RSFloorDecoration.class)
-public abstract class RSFloorDecorationMixin implements RSFloorDecoration
-{
+public abstract class RSFloorDecorationMixin implements RSFloorDecoration {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -23,48 +23,38 @@ public abstract class RSFloorDecorationMixin implements RSFloorDecoration
 
 	@Inject
 	@Override
-	public int getPlane()
-	{
+	public int getPlane() {
 		return groundObjectPlane;
 	}
 
 	@Inject
 	@Override
-	public void setPlane(int plane)
-	{
+	public void setPlane(int plane) {
 		this.groundObjectPlane = plane;
 	}
 
 	@Inject
 	@Override
-	public RSModel getModel()
-	{
+	public RSModel getModel() {
 		RSEntity entity = getEntity();
-		if (entity == null)
-		{
+		if (entity == null) {
 			return null;
 		}
 
-		if (entity instanceof Model)
-		{
+		if (entity instanceof Model) {
 			return (RSModel) entity;
-		}
-		else
-		{
+		} else {
 			return entity.getModel();
 		}
 	}
 
 
-
 	@Inject
 	@Override
-	public Shape getConvexHull()
-	{
+	public Shape getConvexHull() {
 		RSModel model = getModel();
 
-		if (model == null)
-		{
+		if (model == null) {
 			return null;
 		}
 
@@ -75,8 +65,7 @@ public abstract class RSFloorDecorationMixin implements RSFloorDecoration
 
 	@Inject
 	@Override
-	public Shape getClickbox()
-	{
+	public Shape getClickbox() {
 		return Perspective.getClickbox(client, getModel(), 0, getLocalLocation());
 	}
 }

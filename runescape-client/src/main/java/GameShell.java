@@ -18,6 +18,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.ImageObserver;
 import java.net.URL;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -29,25 +30,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class GameShell extends Applet implements Runnable, FocusListener, WindowListener {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lff;"
+			signature = "Lff;"
 	)
 	@Export("taskHandler")
 	protected static TaskHandler taskHandler;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lbf;"
+			signature = "Lbf;"
 	)
 	@Export("gameShell")
 	static GameShell gameShell;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 196022413
+			intValue = 196022413
 	)
 	@Export("GameShell_redundantStartThreadCount")
 	static int GameShell_redundantStartThreadCount;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		longValue = 528235064491181747L
+			longValue = 528235064491181747L
 	)
 	@Export("stopTimeMs")
 	static long stopTimeMs;
@@ -56,25 +57,25 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	static boolean isKilled;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1437299021
+			intValue = -1437299021
 	)
 	@Export("cycleDurationMillis")
 	static int cycleDurationMillis;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1661201835
+			intValue = 1661201835
 	)
 	@Export("fiveOrOne")
 	static int fiveOrOne;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 71022173
+			intValue = 71022173
 	)
 	@Export("fps")
 	protected static int fps;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lfu;"
+			signature = "Lfu;"
 	)
 	@Export("clock")
 	static Clock clock;
@@ -83,7 +84,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	static long[] graphicsTickTimes;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1251279017
+			intValue = 1251279017
 	)
 	@Export("graphicsTickTimeIdx")
 	static int graphicsTickTimeIdx;
@@ -95,7 +96,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	static java.awt.Font fontHelvetica13;
 	@ObfuscatedName("as")
 	@ObfuscatedGetter(
-		intValue = -2072327309
+			intValue = -2072327309
 	)
 	static int field467;
 	@ObfuscatedName("ao")
@@ -103,13 +104,13 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	static volatile boolean volatileFocus;
 	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		longValue = 8963656007047949345L
+			longValue = 8963656007047949345L
 	)
 	@Export("garbageCollectorLastCollectionTime")
 	static long garbageCollectorLastCollectionTime;
 	@ObfuscatedName("ai")
 	@ObfuscatedGetter(
-		longValue = 9016661795378889985L
+			longValue = 9016661795378889985L
 	)
 	@Export("garbageCollectorLastCheckTimeMs")
 	static long garbageCollectorLastCheckTimeMs;
@@ -120,47 +121,47 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	boolean hasErrored;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1999078243
+			intValue = -1999078243
 	)
 	@Export("contentWidth")
 	protected int contentWidth;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1778726039
+			intValue = 1778726039
 	)
 	@Export("contentHeight")
 	protected int contentHeight;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1382967399
+			intValue = -1382967399
 	)
 	@Export("canvasX")
 	int canvasX;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 2050862529
+			intValue = 2050862529
 	)
 	@Export("canvasY")
 	int canvasY;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 2042423139
+			intValue = 2042423139
 	)
 	int field459;
 	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 96857059
+			intValue = 96857059
 	)
 	int field464;
 	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -460678809
+			intValue = -460678809
 	)
 	@Export("maxCanvasWidth")
 	int maxCanvasWidth;
 	@ObfuscatedName("az")
 	@ObfuscatedGetter(
-		intValue = 875531909
+			intValue = 875531909
 	)
 	@Export("maxCanvasHeight")
 	int maxCanvasHeight;
@@ -180,12 +181,12 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	volatile boolean isCanvasInvalid;
 	@ObfuscatedName("aw")
 	@ObfuscatedGetter(
-		longValue = -8817424516804380497L
+			longValue = -8817424516804380497L
 	)
 	volatile long field470;
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		signature = "Lao;"
+			signature = "Lao;"
 	)
 	@Export("mouseWheelHandler")
 	MouseWheelHandler mouseWheelHandler;
@@ -233,8 +234,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-184957247"
+			signature = "(III)V",
+			garbageValue = "-184957247"
 	)
 	@Export("setMaxCanvasSize")
 	protected final void setMaxCanvasSize(int var1, int var2) {
@@ -248,8 +249,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;I)V",
-		garbageValue = "-1941582772"
+			signature = "(Ljava/lang/Object;I)V",
+			garbageValue = "-1941582772"
 	)
 	@Export("post")
 	final void post(Object var1) {
@@ -267,8 +268,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)Lfi;",
-		garbageValue = "-1591236478"
+			signature = "(I)Lfi;",
+			garbageValue = "-1591236478"
 	)
 	@Export("mouseWheel")
 	protected MouseWheel mouseWheel() {
@@ -282,8 +283,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "75"
+			signature = "(B)V",
+			garbageValue = "75"
 	)
 	@Export("setUpClipboard")
 	protected void setUpClipboard() {
@@ -292,18 +293,18 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "794890574"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "794890574"
 	)
 	@Export("clipboardSetString")
 	protected void clipboardSetString(String var1) {
-		this.clipboard.setContents(new StringSelection(var1), (ClipboardOwner)null);
+		this.clipboard.setContents(new StringSelection(var1), (ClipboardOwner) null);
 	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1563804954"
+			signature = "(I)V",
+			garbageValue = "-1563804954"
 	)
 	@Export("setUpKeyboard")
 	protected final void setUpKeyboard() {
@@ -316,8 +317,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1024883115"
+			signature = "(I)V",
+			garbageValue = "-1024883115"
 	)
 	@Export("setUpMouse")
 	protected final void setUpMouse() {
@@ -329,8 +330,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1230297818"
+			signature = "(I)V",
+			garbageValue = "-1230297818"
 	)
 	@Export("resizeCanvas")
 	final void resizeCanvas() {
@@ -367,16 +368,16 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1781530375"
+			signature = "(I)V",
+			garbageValue = "1781530375"
 	)
 	@Export("resizeGame")
 	protected abstract void resizeGame();
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1864888047"
+			signature = "(I)V",
+			garbageValue = "-1864888047"
 	)
 	@Export("clearBackground")
 	void clearBackground() {
@@ -420,8 +421,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-557275570"
+			signature = "(I)V",
+			garbageValue = "-557275570"
 	)
 	@Export("replaceCanvas")
 	final void replaceCanvas() {
@@ -453,8 +454,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(IIIB)V",
-		garbageValue = "0"
+			signature = "(IIIB)V",
+			garbageValue = "0"
 	)
 	@Export("startThread")
 	protected final void startThread(int var1, int var2, int var3) {
@@ -481,7 +482,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 			taskHandler.newThreadTask(this, 1);
 		} catch (Exception var5) {
-			class225.RunException_sendStackTrace((String)null, var5);
+			class225.RunException_sendStackTrace((String) null, var5);
 			this.error("crash");
 		}
 
@@ -489,8 +490,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "6"
+			signature = "(B)V",
+			garbageValue = "6"
 	)
 	@Export("addCanvas")
 	final synchronized void addCanvas() {
@@ -511,7 +512,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 		this.canvas = new Canvas(this);
 		var1.setBackground(Color.BLACK);
-		var1.setLayout((LayoutManager)null);
+		var1.setLayout((LayoutManager) null);
 		var1.add(this.canvas);
 		this.canvas.setSize(Username.canvasWidth, WorldMapData_1.canvasHeight);
 		this.canvas.setVisible(true);
@@ -527,7 +528,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		this.canvas.requestFocus();
 		this.field466 = true;
 		if (DevicePcmPlayerProvider.rasterProvider != null && Username.canvasWidth == DevicePcmPlayerProvider.rasterProvider.width && WorldMapData_1.canvasHeight == DevicePcmPlayerProvider.rasterProvider.height) {
-			((RasterProvider)DevicePcmPlayerProvider.rasterProvider).setComponent(this.canvas);
+			((RasterProvider) DevicePcmPlayerProvider.rasterProvider).setComponent(this.canvas);
 			DevicePcmPlayerProvider.rasterProvider.drawFull(0, 0);
 		} else {
 			DevicePcmPlayerProvider.rasterProvider = new RasterProvider(Username.canvasWidth, WorldMapData_1.canvasHeight, this.canvas);
@@ -539,8 +540,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1249538229"
+			signature = "(I)Z",
+			garbageValue = "1249538229"
 	)
 	@Export("checkHost")
 	protected final boolean checkHost() {
@@ -571,8 +572,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "34"
+			signature = "(B)V",
+			garbageValue = "34"
 	)
 	@Export("clientTick")
 	void clientTick() {
@@ -583,7 +584,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		if (var3 != 0L && var1 > var3) {
 		}
 
-		synchronized(this) {
+		synchronized (this) {
 			GrandExchangeOfferTotalQuantityComparator.hasFocus = volatileFocus;
 		}
 
@@ -592,8 +593,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "44654688"
+			signature = "(I)V",
+			garbageValue = "44654688"
 	)
 	@Export("graphicsTick")
 	void graphicsTick() {
@@ -603,7 +604,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		graphicsTickTimes[graphicsTickTimeIdx] = var2;
 		graphicsTickTimeIdx = graphicsTickTimeIdx + 1 & 31;
 		if (var4 != 0L && var2 > var4) {
-			int var6 = (int)(var2 - var4);
+			int var6 = (int) (var2 - var4);
 			fps = ((var6 >> 1) + 32000) / var6;
 		}
 
@@ -635,8 +636,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "847743243"
+			signature = "(I)V",
+			garbageValue = "847743243"
 	)
 	final void method938() {
 		Bounds var1 = this.getFrameContentBounds();
@@ -649,8 +650,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-92"
+			signature = "(B)V",
+			garbageValue = "-92"
 	)
 	final void method947() {
 		this.resizeCanvasNextFrame = true;
@@ -658,8 +659,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-46"
+			signature = "(B)V",
+			garbageValue = "-46"
 	)
 	@Export("kill")
 	final synchronized void kill() {
@@ -696,40 +697,40 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "159835862"
+			signature = "(I)V",
+			garbageValue = "159835862"
 	)
 	@Export("setUp")
 	protected abstract void setUp();
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1684911639"
+			signature = "(I)V",
+			garbageValue = "1684911639"
 	)
 	@Export("doCycle")
 	protected abstract void doCycle();
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
-		garbageValue = "-1486807503"
+			signature = "(ZI)V",
+			garbageValue = "-1486807503"
 	)
 	@Export("draw")
 	protected abstract void draw(boolean var1);
 
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-2144356516"
+			signature = "(I)V",
+			garbageValue = "-2144356516"
 	)
 	@Export("kill0")
 	protected abstract void kill0();
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;ZI)V",
-		garbageValue = "-1421329320"
+			signature = "(ILjava/lang/String;ZI)V",
+			garbageValue = "-1421329320"
 	)
 	@Export("drawInitial")
 	protected final void drawInitial(int var1, String var2, boolean var3) {
@@ -762,7 +763,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 				var6.setFont(fontHelvetica13);
 				var6.setColor(Color.white);
 				var6.drawString(var2, (304 - class42.loginScreenFontMetrics.stringWidth(var2)) / 2, 22);
-				var4.drawImage(WorldMapRegion.field254, Username.canvasWidth / 2 - 152, WorldMapData_1.canvasHeight / 2 - 18, (ImageObserver)null);
+				var4.drawImage(WorldMapRegion.field254, Username.canvasWidth / 2 - 152, WorldMapData_1.canvasHeight / 2 - 18, (ImageObserver) null);
 			} catch (Exception var9) {
 				int var7 = Username.canvasWidth / 2 - 152;
 				int var8 = WorldMapData_1.canvasHeight / 2 - 18;
@@ -784,8 +785,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-36"
+			signature = "(B)V",
+			garbageValue = "-36"
 	)
 	protected final void method952() {
 		WorldMapRegion.field254 = null;
@@ -795,8 +796,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
-		garbageValue = "-33"
+			signature = "(Ljava/lang/String;B)V",
+			garbageValue = "-33"
 	)
 	@Export("error")
 	protected void error(String var1) {
@@ -814,18 +815,18 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/awt/Container;",
-		garbageValue = "103754322"
+			signature = "(I)Ljava/awt/Container;",
+			garbageValue = "103754322"
 	)
 	@Export("container")
 	Container container() {
-		return (Container)(this.frame != null ? this.frame : this);
+		return (Container) (this.frame != null ? this.frame : this);
 	}
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(I)Lll;",
-		garbageValue = "1892805538"
+			signature = "(I)Lll;",
+			garbageValue = "1892805538"
 	)
 	@Export("getFrameContentBounds")
 	Bounds getFrameContentBounds() {
@@ -843,8 +844,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "101"
+			signature = "(B)Z",
+			garbageValue = "101"
 	)
 	@Export("hasFrame")
 	protected final boolean hasFrame() {
@@ -853,8 +854,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-2"
+			signature = "(B)V",
+			garbageValue = "-2"
 	)
 	protected abstract void vmethod1478();
 
@@ -960,7 +961,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 				this.post(this.canvas);
 			}
 		} catch (Exception var6) {
-			class225.RunException_sendStackTrace((String)null, var6);
+			class225.RunException_sendStackTrace((String) null, var6);
 			this.error("crash");
 		}
 
@@ -980,8 +981,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lii;II)Lgr;",
-		garbageValue = "-1004911552"
+			signature = "(Lii;II)Lgr;",
+			garbageValue = "-1004911552"
 	)
 	static MusicPatch method1067(AbstractArchive var0, int var1) {
 		byte[] var2 = var0.takeFileFlat(var1);
@@ -990,8 +991,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)I",
-		garbageValue = "-32048125"
+			signature = "(Ljava/lang/CharSequence;I)I",
+			garbageValue = "-32048125"
 	)
 	@Export("hashString")
 	public static int hashString(CharSequence var0) {
@@ -1007,12 +1008,12 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IIIZII)J",
-		garbageValue = "1623349797"
+			signature = "(IIIZII)J",
+			garbageValue = "1623349797"
 	)
 	@Export("calculateTag")
 	public static long calculateTag(int var0, int var1, int var2, boolean var3, int var4) {
-		long var5 = (long)((var0 & 127) << 0 | (var1 & 127) << 7 | (var2 & 3) << 14) | ((long)var4 & 4294967295L) << 17;
+		long var5 = (long) ((var0 & 127) << 0 | (var1 & 127) << 7 | (var2 & 3) << 14) | ((long) var4 & 4294967295L) << 17;
 		if (var3) {
 			var5 |= 65536L;
 		}
@@ -1022,8 +1023,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ff")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "856923102"
+			signature = "(II)V",
+			garbageValue = "856923102"
 	)
 	@Export("getLoginError")
 	static void getLoginError(int var0) {

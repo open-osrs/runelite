@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.GroundObject;
 import net.runelite.mapping.Import;
 
-public interface RSFloorDecoration extends GroundObject
-{
+public interface RSFloorDecoration extends GroundObject {
 	@Import("tag")
 	@Override
 	long getHash();

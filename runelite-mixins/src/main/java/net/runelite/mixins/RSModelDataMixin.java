@@ -35,8 +35,7 @@ import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSModelData;
 
 @Mixin(RSModelData.class)
-public abstract class RSModelDataMixin implements RSModelData
-{
+public abstract class RSModelDataMixin implements RSModelData {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -50,18 +49,15 @@ public abstract class RSModelDataMixin implements RSModelData
 	public abstract Model rs$light(int ambient, int contrast, int var3, int var4, int var5);
 
 	@Replace("toModel")
-	public Model rl$light(int ambient, int contrast, int var3, int var4, int var5)
-	{
+	public Model rl$light(int ambient, int contrast, int var3, int var4, int var5) {
 		client.getLogger().trace("Lighting model {}", this);
 
 		Model model = rs$light(ambient, contrast, var3, var4, var5);
-		if (model == null)
-		{
+		if (model == null) {
 			return null;
 		}
 
-		if (faceTextureUCoordinates == null)
-		{
+		if (faceTextureUCoordinates == null) {
 			computeTextureUVCoordinates();
 		}
 
@@ -72,11 +68,9 @@ public abstract class RSModelDataMixin implements RSModelData
 	}
 
 	@Inject
-	public void computeTextureUVCoordinates()
-	{
+	public void computeTextureUVCoordinates() {
 		final short[] faceTextures = getFaceTextures();
-		if (faceTextures == null)
-		{
+		if (faceTextures == null) {
 			return;
 		}
 
@@ -99,28 +93,22 @@ public abstract class RSModelDataMixin implements RSModelData
 		this.faceTextureUCoordinates = new float[faceCount][];
 		this.faceTextureVCoordinates = new float[faceCount][];
 
-		for (int i = 0; i < faceCount; i++)
-		{
+		for (int i = 0; i < faceCount; i++) {
 			int textureCoordinate;
-			if (textureCoords == null)
-			{
+			if (textureCoords == null) {
 				textureCoordinate = -1;
-			}
-			else
-			{
+			} else {
 				textureCoordinate = textureCoords[i];
 			}
 
 			short textureIdx;
 			textureIdx = faceTextures[i];
 
-			if (textureIdx != -1)
-			{
+			if (textureIdx != -1) {
 				float[] u = new float[3];
 				float[] v = new float[3];
 
-				if (textureCoordinate == -1)
-				{
+				if (textureCoordinate == -1) {
 					u[0] = 0.0F;
 					v[0] = 1.0F;
 
@@ -129,19 +117,15 @@ public abstract class RSModelDataMixin implements RSModelData
 
 					u[2] = 0.0F;
 					v[2] = 0.0F;
-				}
-				else
-				{
+				} else {
 					textureCoordinate &= 0xFF;
 
 					byte textureRenderType = 0;
-					if (textureRenderTypes != null)
-					{
+					if (textureRenderTypes != null) {
 						textureRenderType = textureRenderTypes[textureCoordinate];
 					}
 
-					if (textureRenderType == 0)
-					{
+					if (textureRenderType == 0) {
 						int faceVertexIdx1 = trianglePointsX[i];
 						int faceVertexIdx2 = trianglePointsY[i];
 						int faceVertexIdx3 = trianglePointsZ[i];

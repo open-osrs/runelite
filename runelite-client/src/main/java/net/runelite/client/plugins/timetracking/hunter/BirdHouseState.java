@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.timetracking.hunter;
 
 import java.awt.Color;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,8 +33,7 @@ import net.runelite.client.ui.ColorScheme;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum BirdHouseState
-{
+enum BirdHouseState {
 	SEEDED(ColorScheme.PROGRESS_COMPLETE_COLOR),
 	BUILT(ColorScheme.PROGRESS_INPROGRESS_COLOR),
 	EMPTY(ColorScheme.MEDIUM_GRAY_COLOR),
@@ -44,22 +44,14 @@ enum BirdHouseState
 	/**
 	 * Gets the {@code BirdHouseState} corresponding to the given {@code VarPlayer} value.
 	 */
-	static BirdHouseState fromVarpValue(int varp)
-	{
-		if (varp < 0 || varp > BirdHouse.values().length * 3)
-		{
+	static BirdHouseState fromVarpValue(int varp) {
+		if (varp < 0 || varp > BirdHouse.values().length * 3) {
 			return UNKNOWN;
-		}
-		else if (varp == 0)
-		{
+		} else if (varp == 0) {
 			return EMPTY;
-		}
-		else if (varp % 3 == 0)
-		{
+		} else if (varp % 3 == 0) {
 			return SEEDED;
-		}
-		else
-		{
+		} else {
 			return BUILT;
 		}
 	}

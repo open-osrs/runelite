@@ -25,8 +25,7 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum SlayerRingMode
-{
+public enum SlayerRingMode {
 	CHECK("Check"),
 	TELEPORT("Teleport"),
 	MASTER("Master"),
@@ -35,14 +34,12 @@ public enum SlayerRingMode
 
 	private final String name;
 
-	SlayerRingMode(String name)
-	{
+	SlayerRingMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

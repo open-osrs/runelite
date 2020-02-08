@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ByteArrayPool {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1009050051
+			intValue = 1009050051
 	)
 	@Export("ByteArrayPool_smallCount")
 	static int ByteArrayPool_smallCount;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 2126667647
+			intValue = 2126667647
 	)
 	@Export("ByteArrayPool_mediumCount")
 	static int ByteArrayPool_mediumCount;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -82871939
+			intValue = -82871939
 	)
 	@Export("ByteArrayPool_largeCount")
 	static int ByteArrayPool_largeCount;
@@ -52,8 +52,8 @@ public class ByteArrayPool {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IZI)[B",
-		garbageValue = "103093333"
+			signature = "(IZI)[B",
+			garbageValue = "103093333"
 	)
 	@Export("ByteArrayPool_getArrayBool")
 	static synchronized byte[] ByteArrayPool_getArrayBool(int var0, boolean var1) {

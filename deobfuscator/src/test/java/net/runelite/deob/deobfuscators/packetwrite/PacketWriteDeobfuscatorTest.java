@@ -26,6 +26,7 @@ package net.runelite.deob.deobfuscators.packetwrite;
 
 import java.io.File;
 import java.io.IOException;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.DeobTestProperties;
 import net.runelite.deob.TemporyFolderLocation;
@@ -37,8 +38,7 @@ import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 
-public class PacketWriteDeobfuscatorTest
-{
+public class PacketWriteDeobfuscatorTest {
 
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
@@ -49,22 +49,19 @@ public class PacketWriteDeobfuscatorTest
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException
-	{
+	public void before() throws IOException {
 		group = JarUtil.loadJar(new File(properties.getRsClient()));
 		group.removeClass(group.findClass("net/runelite/rs/Reflection"));
 	}
 
 	@After
-	public void after() throws IOException
-	{
+	public void after() throws IOException {
 		JarUtil.saveJar(group, folder.newFile());
 	}
 
 	@Test
 	@Ignore
-	public void testRun() throws IOException
-	{
+	public void testRun() throws IOException {
 		PacketWriteDeobfuscator pw = new PacketWriteDeobfuscator();
 		pw.run(group);
 	}

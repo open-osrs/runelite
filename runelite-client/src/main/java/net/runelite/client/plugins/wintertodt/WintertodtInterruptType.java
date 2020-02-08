@@ -31,8 +31,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum WintertodtInterruptType
-{
+enum WintertodtInterruptType {
 	COLD("Damaged by Wintertodt Cold"),
 	SNOWFALL("Damaged by Wintertodt Snowfall"),
 	BRAZIER("Brazier Shattered"),

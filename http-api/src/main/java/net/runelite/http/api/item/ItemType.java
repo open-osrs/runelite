@@ -27,20 +27,15 @@ package net.runelite.http.api.item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum ItemType
-{
+public enum ItemType {
 	DEFAULT;
 
 	private static final Logger logger = LoggerFactory.getLogger(ItemType.class);
 
-	public static ItemType of(String type)
-	{
-		try
-		{
+	public static ItemType of(String type) {
+		try {
 			return ItemType.valueOf(type.toUpperCase());
-		}
-		catch (IllegalArgumentException ex)
-		{
+		} catch (IllegalArgumentException ex) {
 			logger.warn("unable to convert type", ex);
 			return DEFAULT;
 		}

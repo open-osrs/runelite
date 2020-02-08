@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -15,41 +16,32 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.WildcardMatcher;
 
 @Singleton
-public class SpawnTimerOverlay extends Overlay
-{
+public class SpawnTimerOverlay extends Overlay {
 	private final SpawnTimerPlugin plugin;
 
 	@Inject
-	SpawnTimerOverlay(final SpawnTimerPlugin plugin)
-	{
+	SpawnTimerOverlay(final SpawnTimerPlugin plugin) {
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		List<String> highlights = plugin.getHighlights();
-		for (thing npc : plugin.getTicks())
-		{
-			if (npc == null)
-			{
+		for (thing npc : plugin.getTicks()) {
+			if (npc == null) {
 				continue;
 			}
-			if (npc.getNpc() == null)
-			{
+			if (npc.getNpc() == null) {
 				continue;
 			}
-			if (npc.getNpc().getName() == null)
-			{
+			if (npc.getNpc().getName() == null) {
 				continue;
 			}
-			for (String highlight : highlights)
-			{
+			for (String highlight : highlights) {
 
-				if (WildcardMatcher.matches(highlight, npc.getNpc().getName()))
-				{
+				if (WildcardMatcher.matches(highlight, npc.getNpc().getName())) {
 					int tick = plugin.getCurrentTick() - npc.getTick();
 					String tickString = "" + tick;
 					renderNpcOverlay(graphics, npc.getNpc(), tickString, plugin.getGetHighlightColor());
@@ -59,12 +51,10 @@ public class SpawnTimerOverlay extends Overlay
 		return null;
 	}
 
-	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color)
-	{
+	private void renderNpcOverlay(Graphics2D graphics, NPC actor, String name, Color color) {
 		Point textLocation = actor.getCanvasTextLocation(graphics, name, actor.getLogicalHeight() - 40);
 
-		if (textLocation != null)
-		{
+		if (textLocation != null) {
 			OverlayUtil.renderTextLocation(graphics, textLocation, name, color);
 		}
 	}

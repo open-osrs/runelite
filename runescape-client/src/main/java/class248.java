@@ -6,8 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class248 {
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)Z",
-		garbageValue = "-1891456461"
+			signature = "(Ljava/lang/CharSequence;I)Z",
+			garbageValue = "-1891456461"
 	)
 	@Export("isNumber")
 	public static boolean isNumber(CharSequence var0) {

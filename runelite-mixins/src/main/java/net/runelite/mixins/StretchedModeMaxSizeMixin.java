@@ -1,6 +1,7 @@
 package net.runelite.mixins;
 
 import java.awt.Dimension;
+
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
@@ -9,8 +10,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSGameShell;
 
 @Mixin(RSGameShell.class)
-public abstract class StretchedModeMaxSizeMixin implements RSGameShell
-{
+public abstract class StretchedModeMaxSizeMixin implements RSGameShell {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -18,14 +18,11 @@ public abstract class StretchedModeMaxSizeMixin implements RSGameShell
 	abstract void rs$resizeCanvas();
 
 	@Replace("resizeCanvas")
-	public void rl$resizeCanvas()
-	{
-		if (client.isStretchedEnabled())
-		{
+	public void rl$resizeCanvas() {
+		if (client.isStretchedEnabled()) {
 			client.invalidateStretching(false);
 
-			if (client.isResized())
-			{
+			if (client.isResized()) {
 				Dimension realDimensions = client.getRealDimensions();
 
 				setMaxCanvasWidth(realDimensions.width);
@@ -40,10 +37,8 @@ public abstract class StretchedModeMaxSizeMixin implements RSGameShell
 	abstract void rs$setMaxCanvasSize(int width, int height);
 
 	@Replace("setMaxCanvasSize")
-	public void rl$setMaxCanvasSize(int width, int height)
-	{
-		if (client.isStretchedEnabled() && client.isResized())
-		{
+	public void rl$setMaxCanvasSize(int width, int height) {
+		if (client.isStretchedEnabled() && client.isResized()) {
 			return;
 		}
 

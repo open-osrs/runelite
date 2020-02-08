@@ -8,8 +8,8 @@ import net.runelite.rs.ScriptOpcodes;
 public class class223 {
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)Ljava/lang/Class;",
-		garbageValue = "118076110"
+			signature = "(Ljava/lang/String;I)Ljava/lang/Class;",
+			garbageValue = "118076110"
 	)
 	@Export("loadClassFromDescriptor")
 	static Class loadClassFromDescriptor(String var0) throws ClassNotFoundException {
@@ -36,8 +36,8 @@ public class class223 {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "-1273474206"
+			signature = "(ILce;ZI)I",
+			garbageValue = "-1273474206"
 	)
 	static int method4193(int var0, Script var1, boolean var2) {
 		int var3;

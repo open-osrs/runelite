@@ -27,8 +27,7 @@ package net.runelite.client.util;
 /**
  * An enum and util function to determine the OS.
  */
-public enum OSType
-{
+public enum OSType {
 	Windows,
 	MacOS,
 	Linux,
@@ -36,32 +35,23 @@ public enum OSType
 
 	private final static OSType OS_TYPE;
 
-	static
-	{
+	static {
 		final String OS = System
-			.getProperty("os.name", "generic")
-			.toLowerCase();
+				.getProperty("os.name", "generic")
+				.toLowerCase();
 
-		if ((OS.contains("mac")) || (OS.contains("darwin")))
-		{
+		if ((OS.contains("mac")) || (OS.contains("darwin"))) {
 			OS_TYPE = OSType.MacOS;
-		}
-		else if (OS.contains("win"))
-		{
+		} else if (OS.contains("win")) {
 			OS_TYPE = OSType.Windows;
-		}
-		else if (OS.contains("nux"))
-		{
+		} else if (OS.contains("nux")) {
 			OS_TYPE = OSType.Linux;
-		}
-		else
-		{
+		} else {
 			OS_TYPE = OSType.Other;
 		}
 	}
 
-	public static OSType getOSType()
-	{
+	public static OSType getOSType() {
 		return OS_TYPE;
 	}
 }

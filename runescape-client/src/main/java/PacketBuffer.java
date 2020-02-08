@@ -11,13 +11,13 @@ public class PacketBuffer extends Buffer {
 	static final int[] field3700;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Llw;"
+			signature = "Llw;"
 	)
 	@Export("isaacCipher")
 	IsaacCipher isaacCipher;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 929089357
+			intValue = 929089357
 	)
 	@Export("bitIndex")
 	int bitIndex;
@@ -32,8 +32,8 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "([II)V",
-		garbageValue = "17531083"
+			signature = "([II)V",
+			garbageValue = "17531083"
 	)
 	@Export("newIsaacCipher")
 	public void newIsaacCipher(int[] var1) {
@@ -42,8 +42,8 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Llw;I)V",
-		garbageValue = "-1301005678"
+			signature = "(Llw;I)V",
+			garbageValue = "-1301005678"
 	)
 	@Export("setIsaacCipher")
 	public void setIsaacCipher(IsaacCipher var1) {
@@ -52,18 +52,18 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-2035139507"
+			signature = "(II)V",
+			garbageValue = "-2035139507"
 	)
 	@Export("writeByteIsaac")
 	public void writeByteIsaac(int var1) {
-		super.array[++super.offset - 1] = (byte)(var1 + this.isaacCipher.nextInt());
+		super.array[++super.offset - 1] = (byte) (var1 + this.isaacCipher.nextInt());
 	}
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "2077105215"
+			signature = "(I)I",
+			garbageValue = "2077105215"
 	)
 	@Export("readByteIsaac")
 	public int readByteIsaac() {
@@ -72,8 +72,8 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "106"
+			signature = "(B)Z",
+			garbageValue = "106"
 	)
 	public boolean method5539() {
 		int var1 = super.array[super.offset] - this.isaacCipher.method6307() & 255;
@@ -82,8 +82,8 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "1485152943"
+			signature = "(I)I",
+			garbageValue = "1485152943"
 	)
 	@Export("readSmartByteShortIsaac")
 	public int readSmartByteShortIsaac() {
@@ -93,20 +93,20 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
-		garbageValue = "-1172597525"
+			signature = "([BIII)V",
+			garbageValue = "-1172597525"
 	)
 	public void method5525(byte[] var1, int var2, int var3) {
 		for (int var4 = 0; var4 < var3; ++var4) {
-			var1[var4 + var2] = (byte)(super.array[++super.offset - 1] - this.isaacCipher.nextInt());
+			var1[var4 + var2] = (byte) (super.array[++super.offset - 1] - this.isaacCipher.nextInt());
 		}
 
 	}
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "109"
+			signature = "(B)V",
+			garbageValue = "109"
 	)
 	@Export("importIndex")
 	public void importIndex() {
@@ -115,8 +115,8 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IS)I",
-		garbageValue = "7617"
+			signature = "(IS)I",
+			garbageValue = "7617"
 	)
 	@Export("readBits")
 	public int readBits(int var1) {
@@ -140,8 +140,8 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "74"
+			signature = "(B)V",
+			garbageValue = "74"
 	)
 	@Export("exportIndex")
 	public void exportIndex() {
@@ -150,8 +150,8 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "2094986039"
+			signature = "(II)I",
+			garbageValue = "2094986039"
 	)
 	@Export("bitsRemaining")
 	public int bitsRemaining(int var1) {

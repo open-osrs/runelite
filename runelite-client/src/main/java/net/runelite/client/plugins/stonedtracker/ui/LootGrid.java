@@ -30,35 +30,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.loottracker.localstorage.LTItemEntry;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.QuantityFormatter;
 
-class LootGrid extends JPanel
-{
+class LootGrid extends JPanel {
 	private static final int ITEMS_PER_ROW = 5;
 	private static final Dimension ITEM_SIZE = new Dimension(40, 40);
 
-	LootGrid(final LTItemEntry[] itemsToDisplay, final ItemManager itemManager)
-	{
+	LootGrid(final LTItemEntry[] itemsToDisplay, final ItemManager itemManager) {
 		setBorder(new EmptyBorder(5, 0, 5, 0));
 		// Calculates how many rows need to be display to fit all items
 		final int rowSize = ((itemsToDisplay.length % ITEMS_PER_ROW == 0) ? 0 : 1) + itemsToDisplay.length / ITEMS_PER_ROW;
 		setLayout(new GridLayout(rowSize, ITEMS_PER_ROW, 1, 1));
 
 		// Create stacked items from the item list, calculates total price and then displays all the items in the UI.
-		for (int i = 0; i < rowSize * ITEMS_PER_ROW; i++)
-		{
+		for (int i = 0; i < rowSize * ITEMS_PER_ROW; i++) {
 			final JPanel slot = new JPanel();
 			slot.setLayout(new GridLayout(1, 1, 0, 0));
 			slot.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			slot.setPreferredSize(ITEM_SIZE);
-			if (i < itemsToDisplay.length)
-			{
+			if (i < itemsToDisplay.length) {
 				final LTItemEntry item = itemsToDisplay[i];
-				if (item == null)
-				{
+				if (item == null) {
 					continue;
 				}
 				final JLabel itemLabel = new JLabel();
@@ -75,14 +71,13 @@ class LootGrid extends JPanel
 		repaint();
 	}
 
-	private static String buildToolTip(final LTItemEntry item)
-	{
+	private static String buildToolTip(final LTItemEntry item) {
 		final String name = item.getName();
 		final int quantity = item.getQuantity();
 		final long price = item.getPrice();
 
 		return "<html>" + name + " x " + QuantityFormatter.formatNumber(quantity)
-			+ "<br/>Price: " + QuantityFormatter.quantityToStackSize(price)
-			+ "<br/>Total: " + QuantityFormatter.quantityToStackSize(quantity * price) + "</html>";
+				+ "<br/>Price: " + QuantityFormatter.quantityToStackSize(price)
+				+ "<br/>Total: " + QuantityFormatter.quantityToStackSize(quantity * price) + "</html>";
 	}
 }

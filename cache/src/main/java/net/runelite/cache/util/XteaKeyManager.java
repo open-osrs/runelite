@@ -26,22 +26,20 @@ package net.runelite.cache.util;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XteaKeyManager
-{
+public class XteaKeyManager {
 	private static final Logger logger = LoggerFactory.getLogger(XteaKeyManager.class);
 
 	private final Map<Integer, int[]> keys = new HashMap<>();
 
-	public void loadKeys()
-	{
+	public void loadKeys() {
 
 	}
 
-	public int[] getKeys(int region)
-	{
+	public int[] getKeys(int region) {
 		return keys.get(region);
 	}
 }

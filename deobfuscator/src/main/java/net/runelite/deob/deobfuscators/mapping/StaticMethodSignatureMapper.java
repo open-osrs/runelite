@@ -26,38 +26,34 @@ package net.runelite.deob.deobfuscators.mapping;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
 import net.runelite.asm.signature.Signature;
 
-public class StaticMethodSignatureMapper
-{
+public class StaticMethodSignatureMapper {
 	private Multimap<Method, Method> map = LinkedHashMultimap.create();
 
-	private List<Method> getStaticMethods(ClassGroup group)
-	{
+	private List<Method> getStaticMethods(ClassGroup group) {
 		List<Method> methods = new ArrayList<>();
-		for (ClassFile cf : group.getClasses())
-		{
-			if (cf.getName().startsWith("net/runelite"))
-			{
+		for (ClassFile cf : group.getClasses()) {
+			if (cf.getName().startsWith("net/runelite")) {
 				// XXX net/runelite/rs/Reflection uses invokedynamic
 				continue;
 			}
 
-			for (Method m : cf.getMethods())
-			{
+			for (Method m : cf.getMethods()) {
 				// this used to check the method wasnt <clinit>,
 				// but fernflower was modified to not remove code
 				// in clinit and place into ConstantValue attriutes
 				// on fields, so the execution order of clinit no longer
 				// depends on field order
-				if (m.isStatic())
-				{
+				if (m.isStatic()) {
 					methods.add(m);
 				}
 			}
@@ -65,23 +61,19 @@ public class StaticMethodSignatureMapper
 		return methods;
 	}
 
-	private List<Method> getStaticMethodsOfSignature(ClassGroup group, Signature sig)
-	{
+	private List<Method> getStaticMethodsOfSignature(ClassGroup group, Signature sig) {
 		return getStaticMethods(group).stream().filter(
-			m -> MappingExecutorUtil.isMaybeEqual(m.getDescriptor(), sig)
+				m -> MappingExecutorUtil.isMaybeEqual(m.getDescriptor(), sig)
 		).collect(Collectors.toList());
 	}
 
-	public void map(ClassGroup group1, ClassGroup group2)
-	{
-		for (Method m : getStaticMethods(group1))
-		{
+	public void map(ClassGroup group1, ClassGroup group2) {
+		for (Method m : getStaticMethods(group1)) {
 			map.putAll(m, getStaticMethodsOfSignature(group2, m.getDescriptor()));
 		}
 	}
 
-	public Multimap<Method, Method> getMap()
-	{
+	public Multimap<Method, Method> getMap() {
 		return map;
 	}
 }

@@ -27,28 +27,23 @@ package net.runelite.http.api.hiscore;
 import java.util.ArrayList;
 import java.util.List;
 
-class HiscoreResultBuilder
-{
+class HiscoreResultBuilder {
 	private String player;
 	private final List<Skill> skills = new ArrayList<>();
 
-	public void setPlayer(String player)
-	{
+	public void setPlayer(String player) {
 		this.player = player;
 	}
 
-	void setNextSkill(Skill skill)
-	{
+	void setNextSkill(Skill skill) {
 		skills.add(skill);
 	}
 
-	public Skill getSkill(int index)
-	{
+	public Skill getSkill(int index) {
 		return skills.get(index);
 	}
 
-	public HiscoreResult build()
-	{
+	public HiscoreResult build() {
 		HiscoreResult hiscoreResult = new HiscoreResult();
 		hiscoreResult.setPlayer(player);
 		int index = 0;
@@ -88,8 +83,7 @@ class HiscoreResultBuilder
 		hiscoreResult.setClueScrollMaster(skills.get(index++));
 		hiscoreResult.setLastManStanding(skills.get(index++));
 		// seasonal doesn't have boss hiscores
-		if (index < skills.size())
-		{
+		if (index < skills.size()) {
 			hiscoreResult.setAbyssalSire(skills.get(index++));
 			hiscoreResult.setAlchemicalHydra(skills.get(index++));
 			hiscoreResult.setBarrowsChests(skills.get(index++));

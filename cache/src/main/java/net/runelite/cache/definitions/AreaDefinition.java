@@ -27,8 +27,7 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class AreaDefinition
-{
+public class AreaDefinition {
 	public int id;
 	public int[] field3292;
 	public int spriteId = -1;

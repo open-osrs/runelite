@@ -1,6 +1,7 @@
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -25,8 +26,8 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("cg")
 	@ObfuscatedSignature(
-		signature = "(Lkp;Lkp;IZS)V",
-		garbageValue = "-14333"
+			signature = "(Lkp;Lkp;IZS)V",
+			garbageValue = "-14333"
 	)
 	@Export("init")
 	void init(Buffer var1, Buffer var2, int var3, boolean var4) {
@@ -67,8 +68,8 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("cr")
 	@ObfuscatedSignature(
-		signature = "(Lkp;ZI)V",
-		garbageValue = "-1209977249"
+			signature = "(Lkp;ZI)V",
+			garbageValue = "-1209977249"
 	)
 	@Export("initIconsList")
 	void initIconsList(Buffer var1, boolean var2) {
@@ -80,7 +81,7 @@ public class WorldMapAreaData extends WorldMapArea {
 			Coord var6 = new Coord(var1.readInt());
 			boolean var7 = var1.readUnsignedByte() == 1;
 			if (var2 || !var7) {
-				this.iconList.add(new WorldMapIcon_0((Coord)null, var6, var5, (WorldMapLabel)null));
+				this.iconList.add(new WorldMapIcon_0((Coord) null, var6, var5, (WorldMapLabel) null));
 			}
 		}
 
@@ -88,8 +89,8 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "599780957"
+			signature = "(ILce;ZI)I",
+			garbageValue = "599780957"
 	)
 	static int method706(int var0, Script var1, boolean var2) {
 		int var3;
@@ -190,8 +191,8 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("ia")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-1052520169"
+			signature = "(III)V",
+			garbageValue = "-1052520169"
 	)
 	@Export("resumePauseWidget")
 	static void resumePauseWidget(int var0, int var1) {

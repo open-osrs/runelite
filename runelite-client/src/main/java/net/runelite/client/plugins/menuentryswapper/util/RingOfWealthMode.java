@@ -25,8 +25,7 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum RingOfWealthMode
-{
+public enum RingOfWealthMode {
 	MISCELLANIA("Miscellania"),
 	GRAND_EXCHANGE("Grand Exchange"),
 	FALADOR("Falador"),
@@ -34,14 +33,12 @@ public enum RingOfWealthMode
 
 	private final String name;
 
-	RingOfWealthMode(String name)
-	{
+	RingOfWealthMode(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

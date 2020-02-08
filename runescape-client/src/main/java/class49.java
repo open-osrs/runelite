@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -7,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class49 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+			signature = "Lii;"
 	)
 	@Export("HitSplatDefinition_archive")
 	public static AbstractArchive HitSplatDefinition_archive;
@@ -18,8 +19,8 @@ public class class49 {
 
 	@ObfuscatedName("fd")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-624446357"
+			signature = "(III)V",
+			garbageValue = "-624446357"
 	)
 	@Export("playSoundJingle")
 	static void playSoundJingle(int var0, int var1) {
@@ -40,8 +41,8 @@ public class class49 {
 
 	@ObfuscatedName("hk")
 	@ObfuscatedSignature(
-		signature = "(Lks;I)V",
-		garbageValue = "-815942128"
+			signature = "(Lks;I)V",
+			garbageValue = "-815942128"
 	)
 	static final void method866(PacketBuffer var0) {
 		for (int var1 = 0; var1 < Client.field690; ++var1) {
@@ -188,7 +189,7 @@ public class class49 {
 				var7 = var3.x - (var5 - Messages.baseX * 64 - Messages.baseX * 64) * 64;
 				var8 = var3.y - (var6 - Language.baseY * 64 - Language.baseY * 64) * 64;
 				if (var7 != 0 || var8 != 0) {
-					var3.field967 = (int)(Math.atan2((double)var7, (double)var8) * 325.949D) & 2047;
+					var3.field967 = (int) (Math.atan2((double) var7, (double) var8) * 325.949D) & 2047;
 				}
 			}
 		}

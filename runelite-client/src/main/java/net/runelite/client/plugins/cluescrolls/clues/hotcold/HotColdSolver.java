@@ -26,10 +26,12 @@
 package net.runelite.client.plugins.cluescrolls.clues.hotcold;
 
 import com.google.common.annotations.VisibleForTesting;
+
 import java.awt.Rectangle;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
@@ -44,14 +46,12 @@ import net.runelite.api.coords.WorldPoint;
  * signals of temperatures and temperature changes are provided.
  */
 @Getter(AccessLevel.PUBLIC)
-public class HotColdSolver
-{
+public class HotColdSolver {
 	private final Set<HotColdLocation> possibleLocations;
 	@Nullable
 	private WorldPoint lastWorldPoint;
 
-	public HotColdSolver(Set<HotColdLocation> possibleLocations)
-	{
+	public HotColdSolver(Set<HotColdLocation> possibleLocations) {
 		this.possibleLocations = possibleLocations;
 	}
 
@@ -66,8 +66,7 @@ public class HotColdSolver
 	 * @return A set of {@link HotColdLocation}s which are still possible after the filtering occurs. This return value
 	 * is the same as would be returned by {@code getPossibleLocations()}.
 	 */
-	public Set<HotColdLocation> signal(@Nonnull final WorldPoint worldPoint, @Nonnull final HotColdTemperature temperature, @Nullable final HotColdTemperatureChange temperatureChange)
-	{
+	public Set<HotColdLocation> signal(@Nonnull final WorldPoint worldPoint, @Nonnull final HotColdTemperature temperature, @Nullable final HotColdTemperatureChange temperatureChange) {
 		// when the strange device reads a temperature, that means that the center of the final dig location
 		// is a range of squares away from the player's current location (Chebyshev AKA Chess-board distance)
 		int maxSquaresAway = temperature.getMaxDistance();
@@ -75,25 +74,23 @@ public class HotColdSolver
 
 		// maxDistanceArea encompasses all of the points that are within the max possible distance from the player
 		final Rectangle maxDistanceArea = new Rectangle(
-			worldPoint.getX() - maxSquaresAway,
-			worldPoint.getY() - maxSquaresAway,
-			2 * maxSquaresAway + 1,
-			2 * maxSquaresAway + 1);
+				worldPoint.getX() - maxSquaresAway,
+				worldPoint.getY() - maxSquaresAway,
+				2 * maxSquaresAway + 1,
+				2 * maxSquaresAway + 1);
 		// minDistanceArea encompasses all of the points that are within the min possible distance from the player
 		final Rectangle minDistanceArea = new Rectangle(
-			worldPoint.getX() - minSquaresAway,
-			worldPoint.getY() - minSquaresAway,
-			2 * minSquaresAway + 1,
-			2 * minSquaresAway + 1);
+				worldPoint.getX() - minSquaresAway,
+				worldPoint.getY() - minSquaresAway,
+				2 * minSquaresAway + 1,
+				2 * minSquaresAway + 1);
 
 		// eliminate from consideration dig spots that lie entirely within the min range or entirely outside of the max range
 		possibleLocations.removeIf(entry -> minDistanceArea.contains(entry.getRect()) || !maxDistanceArea.intersects(entry.getRect()));
 
 		// if a previous world point has been recorded, we can consider the warmer/colder result from the strange device
-		if (lastWorldPoint != null && temperatureChange != null)
-		{
-			switch (temperatureChange)
-			{
+		if (lastWorldPoint != null && temperatureChange != null) {
+			switch (temperatureChange) {
 				case COLDER:
 					// eliminate spots that are absolutely warmer
 					possibleLocations.removeIf(entry -> isFirstPointCloserRect(worldPoint, lastWorldPoint, entry.getRect()));
@@ -123,26 +120,22 @@ public class HotColdSolver
 	 * @see WorldPoint#distanceTo2D
 	 */
 	@VisibleForTesting
-	private static boolean isFirstPointCloserRect(final WorldPoint firstPoint, final WorldPoint secondPoint, final Rectangle rect)
-	{
+	private static boolean isFirstPointCloserRect(final WorldPoint firstPoint, final WorldPoint secondPoint, final Rectangle rect) {
 		final WorldPoint nePoint = new WorldPoint((rect.x + rect.width), (rect.y + rect.height), 0);
 
-		if (!isFirstPointCloser(firstPoint, secondPoint, nePoint))
-		{
+		if (!isFirstPointCloser(firstPoint, secondPoint, nePoint)) {
 			return false;
 		}
 
 		final WorldPoint sePoint = new WorldPoint((rect.x + rect.width), rect.y, 0);
 
-		if (!isFirstPointCloser(firstPoint, secondPoint, sePoint))
-		{
+		if (!isFirstPointCloser(firstPoint, secondPoint, sePoint)) {
 			return false;
 		}
 
 		final WorldPoint nwPoint = new WorldPoint(rect.x, (rect.y + rect.height), 0);
 
-		if (!isFirstPointCloser(firstPoint, secondPoint, nwPoint))
-		{
+		if (!isFirstPointCloser(firstPoint, secondPoint, nwPoint)) {
 			return false;
 		}
 
@@ -161,8 +154,7 @@ public class HotColdSolver
 	 * @see WorldPoint#distanceTo2D
 	 */
 	@VisibleForTesting
-	private static boolean isFirstPointCloser(final WorldPoint firstPoint, final WorldPoint secondPoint, final WorldPoint worldPoint)
-	{
+	private static boolean isFirstPointCloser(final WorldPoint firstPoint, final WorldPoint secondPoint, final WorldPoint worldPoint) {
 		return firstPoint.distanceTo2D(worldPoint) < secondPoint.distanceTo2D(worldPoint);
 	}
 }

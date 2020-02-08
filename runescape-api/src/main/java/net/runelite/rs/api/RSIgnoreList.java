@@ -1,3 +1,4 @@
 package net.runelite.rs.api;
 
-public interface RSIgnoreList extends RSUserList<RSIgnored> {}
+public interface RSIgnoreList extends RSUserList<RSIgnored> {
+}

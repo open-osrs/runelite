@@ -26,8 +26,7 @@ package net.runelite.client.input;
 
 import java.awt.event.MouseEvent;
 
-public interface MouseListener
-{
+public interface MouseListener {
 	MouseEvent mouseClicked(MouseEvent mouseEvent);
 
 	MouseEvent mousePressed(MouseEvent mouseEvent);

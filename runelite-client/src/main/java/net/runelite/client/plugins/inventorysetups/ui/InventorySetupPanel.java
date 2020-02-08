@@ -32,6 +32,7 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.FlatTextField;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ImageUtil;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -51,12 +52,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
-public class InventorySetupPanel extends JPanel
-{
+public class InventorySetupPanel extends JPanel {
 
 	private static final Border NAME_BOTTOM_BORDER = new CompoundBorder(
-		BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
-		BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
+			BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
+			BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR));
 
 	private static final int H_GAP_BTN = 4;
 
@@ -99,8 +99,7 @@ public class InventorySetupPanel extends JPanel
 	private static final ImageIcon EXPORT_ICON;
 	private static final ImageIcon EXPORT_HOVER_ICON;
 
-	static
-	{
+	static {
 		final BufferedImage bankFilterImg = ImageUtil.getResourceStreamFromClass(InventorySetupPlugin.class, "filter_icon.png");
 		final BufferedImage bankFilterHover = ImageUtil.luminanceOffset(bankFilterImg, -150);
 		BANK_FILTER_ICON = new ImageIcon(bankFilterImg);
@@ -181,8 +180,7 @@ public class InventorySetupPanel extends JPanel
 	private final JLabel cancel = new JLabel("Cancel");
 	private final JLabel rename = new JLabel("Rename");
 
-	InventorySetupPanel(InventorySetupPlugin plugin, InventorySetupPluginPanel panel, InventorySetup invSetup)
-	{
+	InventorySetupPanel(InventorySetupPlugin plugin, InventorySetupPluginPanel panel, InventorySetup invSetup) {
 		this.plugin = plugin;
 		this.panel = panel;
 		this.inventorySetup = invSetup;
@@ -201,11 +199,9 @@ public class InventorySetupPanel extends JPanel
 		save.setVisible(false);
 		save.setFont(FontManager.getRunescapeSmallFont());
 		save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR);
-		save.addMouseListener(new MouseAdapter()
-		{
+		save.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				inventorySetup.setName(nameInput.getText());
 				plugin.updateJsonConfig();
 
@@ -216,14 +212,12 @@ public class InventorySetupPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR.darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				save.setForeground(ColorScheme.PROGRESS_COMPLETE_COLOR);
 			}
 		});
@@ -231,11 +225,9 @@ public class InventorySetupPanel extends JPanel
 		cancel.setVisible(false);
 		cancel.setFont(FontManager.getRunescapeSmallFont());
 		cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR);
-		cancel.addMouseListener(new MouseAdapter()
-		{
+		cancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				nameInput.setEditable(false);
 				nameInput.setText(inventorySetup.getName());
 				updateNameActions(false);
@@ -243,38 +235,32 @@ public class InventorySetupPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR.darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				cancel.setForeground(ColorScheme.PROGRESS_ERROR_COLOR);
 			}
 		});
 
 		rename.setFont(FontManager.getRunescapeSmallFont());
 		rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker());
-		rename.addMouseListener(new MouseAdapter()
-		{
+		rename.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				nameInput.setEditable(true);
 				updateNameActions(true);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker().darker());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				rename.setForeground(ColorScheme.LIGHT_GRAY_COLOR.darker());
 			}
 		});
@@ -300,11 +286,9 @@ public class InventorySetupPanel extends JPanel
 
 		bankFilterIndicator.setToolTipText("Enable bank filtering");
 		bankFilterIndicator.setIcon(inventorySetup.isFilterBank() ? BANK_FILTER_ICON : NO_BANK_FILTER_ICON);
-		bankFilterIndicator.addMouseListener(new MouseAdapter()
-		{
+		bankFilterIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e)
-			{
+			public void mousePressed(MouseEvent e) {
 				inventorySetup.setFilterBank(!inventorySetup.isFilterBank());
 				bankFilterIndicator.setToolTipText(inventorySetup.isFilterBank() ? "Disable bank filtering" : "Enable bank filtering");
 				updateBankFilterLabel();
@@ -312,25 +296,21 @@ public class InventorySetupPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e)
-			{
+			public void mouseEntered(MouseEvent e) {
 				bankFilterIndicator.setIcon(inventorySetup.isFilterBank() ? BANK_FILTER_HOVER_ICON : NO_BANK_FILTER_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e)
-			{
+			public void mouseExited(MouseEvent e) {
 				bankFilterIndicator.setIcon(inventorySetup.isFilterBank() ? BANK_FILTER_ICON : NO_BANK_FILTER_ICON);
 			}
 		});
 
 		stackDifferenceIndicator.setToolTipText("Enable highlighting for stack differences");
 		stackDifferenceIndicator.setIcon(inventorySetup.isStackDifference() ? STACK_DIFFERENCE_ICON : NO_STACK_DIFFERENCE_ICON);
-		stackDifferenceIndicator.addMouseListener(new MouseAdapter()
-		{
+		stackDifferenceIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				inventorySetup.setStackDifference(!inventorySetup.isStackDifference());
 				stackDifferenceIndicator.setToolTipText(inventorySetup.isStackDifference() ? "Disable highlighting for stack differences" : "Enable highlighting for stack differences");
 				updateStackDifferenceLabel();
@@ -338,25 +318,21 @@ public class InventorySetupPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				stackDifferenceIndicator.setIcon(inventorySetup.isStackDifference() ? STACK_DIFFERENCE_HOVER_ICON : NO_STACK_DIFFERENCE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				stackDifferenceIndicator.setIcon(inventorySetup.isStackDifference() ? STACK_DIFFERENCE_ICON : NO_STACK_DIFFERENCE_ICON);
 			}
 		});
 
 		variationDifferenceIndicator.setToolTipText("Enable highlighting for variation differences");
 		variationDifferenceIndicator.setIcon(inventorySetup.isVariationDifference() ? VARIATION_DIFFERENCE_ICON : NO_VARIATION_DIFFERENCE_ICON);
-		variationDifferenceIndicator.addMouseListener(new MouseAdapter()
-		{
+		variationDifferenceIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				inventorySetup.setVariationDifference(!inventorySetup.isVariationDifference());
 				variationDifferenceIndicator.setToolTipText(inventorySetup.isVariationDifference() ? "Disable highlighting for variation differences" : "Enable highlighting for variation differences");
 				updateVariationDifferenceLabel();
@@ -364,25 +340,21 @@ public class InventorySetupPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				variationDifferenceIndicator.setIcon(inventorySetup.isVariationDifference() ? VARIATION_DIFFERENCE_HOVER_ICON : NO_VARIATION_DIFFERENCE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				variationDifferenceIndicator.setIcon(inventorySetup.isVariationDifference() ? VARIATION_DIFFERENCE_ICON : NO_VARIATION_DIFFERENCE_ICON);
 			}
 		});
 
 		unorderedHighlightIndicator.setToolTipText("Only highlight items that are missing from the inventory and ignore order");
 		unorderedHighlightIndicator.setIcon(inventorySetup.isUnorderedHighlight() ? UNORDERED_HIGHLIGHT_ICON : NO_UNORDERED_HIGHLIGHT_ICON);
-		unorderedHighlightIndicator.addMouseListener(new MouseAdapter()
-		{
+		unorderedHighlightIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e)
-			{
+			public void mousePressed(MouseEvent e) {
 				inventorySetup.setUnorderedHighlight(!inventorySetup.isUnorderedHighlight());
 				unorderedHighlightIndicator.setToolTipText(inventorySetup.isUnorderedHighlight() ? "Enable default ordered highlighting" : "Only highlight items that are missing from the inventory and ignore order");
 				updateUnorderedHighlightIndicator();
@@ -390,25 +362,21 @@ public class InventorySetupPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e)
-			{
+			public void mouseEntered(MouseEvent e) {
 				unorderedHighlightIndicator.setIcon(inventorySetup.isUnorderedHighlight() ? UNORDERED_HIGHLIGHT_HOVER_ICON : NO_UNORDERED_HIGHLIGHT_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e)
-			{
+			public void mouseExited(MouseEvent e) {
 				unorderedHighlightIndicator.setIcon(inventorySetup.isUnorderedHighlight() ? UNORDERED_HIGHLIGHT_ICON : NO_UNORDERED_HIGHLIGHT_ICON);
 			}
 		});
 
 		highlightIndicator.setToolTipText("Enable highlighting");
 		highlightIndicator.setIcon(inventorySetup.isHighlightDifference() ? TOGGLE_HIGHLIGHT_ICON : NO_TOGGLE_HIGHLIGHT_ICON);
-		highlightIndicator.addMouseListener(new MouseAdapter()
-		{
+		highlightIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				inventorySetup.setHighlightDifference(!inventorySetup.isHighlightDifference());
 				highlightIndicator.setToolTipText(inventorySetup.isHighlightDifference() ? "Disable highlighting" : "Enable highlighting");
 				updateToggleHighlightLabel();
@@ -417,37 +385,31 @@ public class InventorySetupPanel extends JPanel
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				highlightIndicator.setIcon(inventorySetup.isHighlightDifference() ? TOGGLE_HIGHLIGHT_HOVER_ICON : NO_TOGGLE_HIGHLIGHT_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				highlightIndicator.setIcon(inventorySetup.isHighlightDifference() ? TOGGLE_HIGHLIGHT_ICON : NO_TOGGLE_HIGHLIGHT_ICON);
 			}
 		});
 
 		highlightColorIndicator.setToolTipText("Edit highlight color");
 		highlightColorIndicator.setIcon(inventorySetup.isHighlightDifference() ? HIGHLIGHT_COLOR_ICON : NO_HIGHLIGHT_COLOR_ICON);
-		highlightColorIndicator.addMouseListener(new MouseAdapter()
-		{
+		highlightColorIndicator.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				openHighlightColorPicker();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				highlightColorIndicator.setIcon(inventorySetup.isHighlightDifference() ? HIGHLIGHT_COLOR_HOVER_ICON : NO_HIGHLIGHT_COLOR_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				highlightColorIndicator.setIcon(inventorySetup.isHighlightDifference() ? HIGHLIGHT_COLOR_ICON : NO_HIGHLIGHT_COLOR_ICON);
 			}
 		});
@@ -464,69 +426,57 @@ public class InventorySetupPanel extends JPanel
 
 		viewSetupLabel.setToolTipText("View setup");
 		viewSetupLabel.setIcon(VIEW_SETUP_ICON);
-		viewSetupLabel.addMouseListener(new MouseAdapter()
-		{
+		viewSetupLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				panel.setCurrentInventorySetup(inventorySetup, true);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				viewSetupLabel.setIcon(VIEW_SETUP_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				viewSetupLabel.setIcon(VIEW_SETUP_ICON);
 			}
 		});
 
 		exportLabel.setToolTipText("Export setup");
 		exportLabel.setIcon(EXPORT_ICON);
-		exportLabel.addMouseListener(new MouseAdapter()
-		{
+		exportLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				plugin.exportSetup(inventorySetup);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				exportLabel.setIcon(EXPORT_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				exportLabel.setIcon(EXPORT_ICON);
 			}
 		});
 
 		deleteLabel.setToolTipText("Delete setup");
 		deleteLabel.setIcon(DELETE_ICON);
-		deleteLabel.addMouseListener(new MouseAdapter()
-		{
+		deleteLabel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
+			public void mousePressed(MouseEvent mouseEvent) {
 				plugin.removeInventorySetup(inventorySetup);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent)
-			{
+			public void mouseEntered(MouseEvent mouseEvent) {
 				deleteLabel.setIcon(DELETE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent)
-			{
+			public void mouseExited(MouseEvent mouseEvent) {
 				deleteLabel.setIcon(DELETE_ICON);
 			}
 		});
@@ -551,59 +501,50 @@ public class InventorySetupPanel extends JPanel
 
 	}
 
-	private void updateNameActions(boolean saveAndCancel)
-	{
+	private void updateNameActions(boolean saveAndCancel) {
 		save.setVisible(saveAndCancel);
 		cancel.setVisible(saveAndCancel);
 		rename.setVisible(!saveAndCancel);
 
-		if (saveAndCancel)
-		{
+		if (saveAndCancel) {
 			nameInput.getTextField().requestFocusInWindow();
 			nameInput.getTextField().selectAll();
 		}
 	}
 
-	private void updateHighlightColorLabel()
-	{
+	private void updateHighlightColorLabel() {
 		Color color = inventorySetup.getHighlightColor();
 		highlightColorIndicator.setBorder(new MatteBorder(0, 0, 3, 0, color));
 		highlightColorIndicator.setIcon(inventorySetup.isHighlightDifference() ? HIGHLIGHT_COLOR_ICON : NO_HIGHLIGHT_COLOR_ICON);
 	}
 
-	private void updateBankFilterLabel()
-	{
+	private void updateBankFilterLabel() {
 		bankFilterIndicator.setIcon(inventorySetup.isFilterBank() ? BANK_FILTER_ICON : NO_BANK_FILTER_ICON);
 	}
 
-	private void updateStackDifferenceLabel()
-	{
+	private void updateStackDifferenceLabel() {
 		stackDifferenceIndicator.setIcon(inventorySetup.isStackDifference() ? STACK_DIFFERENCE_ICON : NO_STACK_DIFFERENCE_ICON);
 	}
 
-	private void updateVariationDifferenceLabel()
-	{
+	private void updateVariationDifferenceLabel() {
 		variationDifferenceIndicator.setIcon(inventorySetup.isVariationDifference() ? VARIATION_DIFFERENCE_ICON : NO_VARIATION_DIFFERENCE_ICON);
 	}
 
-	private void updateUnorderedHighlightIndicator()
-	{
+	private void updateUnorderedHighlightIndicator() {
 		unorderedHighlightIndicator.setIcon(inventorySetup.isUnorderedHighlight() ? UNORDERED_HIGHLIGHT_ICON : NO_UNORDERED_HIGHLIGHT_ICON);
 	}
 
-	private void updateToggleHighlightLabel()
-	{
+	private void updateToggleHighlightLabel() {
 		highlightIndicator.setIcon(inventorySetup.isHighlightDifference() ? TOGGLE_HIGHLIGHT_ICON : NO_TOGGLE_HIGHLIGHT_ICON);
 	}
 
-	private void openHighlightColorPicker()
-	{
+	private void openHighlightColorPicker() {
 
 		RuneliteColorPicker colorPicker = plugin.getColorPickerManager().create(
-			SwingUtilities.windowForComponent(this),
-			inventorySetup.getHighlightColor(),
-			inventorySetup.getName(),
-			false);
+				SwingUtilities.windowForComponent(this),
+				inventorySetup.getHighlightColor(),
+				inventorySetup.getName(),
+				false);
 
 		colorPicker.setLocation(getLocationOnScreen());
 		colorPicker.setOnColorChange(c ->
@@ -612,11 +553,9 @@ public class InventorySetupPanel extends JPanel
 			updateHighlightColorLabel();
 		});
 
-		colorPicker.addWindowListener(new WindowAdapter()
-		{
+		colorPicker.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowClosing(WindowEvent e)
-			{
+			public void windowClosing(WindowEvent e) {
 				plugin.updateJsonConfig();
 			}
 		});

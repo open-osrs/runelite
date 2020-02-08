@@ -26,10 +26,10 @@ package net.runelite.client.plugins.party;
 
 import java.util.UUID;
 import javax.annotation.Nullable;
+
 import net.runelite.client.plugins.party.data.PartyData;
 
-interface PartyPluginService
-{
+interface PartyPluginService {
 	/**
 	 * Get the party data for a party member
 	 *

@@ -25,12 +25,16 @@
 package net.runelite.client.plugins.instancemap;
 
 import com.google.inject.Binder;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.WidgetMenuOptionClicked;
 import net.runelite.api.widgets.WidgetInfo;
+
 import static net.runelite.api.widgets.WidgetInfo.WORLD_MAP_OPTION;
+
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseManager;
@@ -42,13 +46,12 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Instance Map",
-	description = "Add an instanced map, accessible by right-clicking the map button",
-	type = PluginType.UTILITY
+		name = "Instance Map",
+		description = "Add an instanced map, accessible by right-clicking the map button",
+		type = PluginType.UTILITY
 )
 @Singleton
-public class InstanceMapPlugin extends Plugin
-{
+public class InstanceMapPlugin extends Plugin {
 	private final WidgetMenuOption openMapOption = new WidgetMenuOption("Show", "Instance Map", WidgetInfo.WORLD_MAP_OPTION);
 
 	@Inject
@@ -70,24 +73,20 @@ public class InstanceMapPlugin extends Plugin
 	private MouseManager mouseManager;
 
 	@Override
-	public void configure(Binder binder)
-	{
+	public void configure(Binder binder) {
 		binder.bind(InstanceMapInputListener.class);
 	}
 
-	private void addCustomOptions()
-	{
+	private void addCustomOptions() {
 		menuManager.addManagedCustomMenu(openMapOption);
 	}
 
-	private void removeCustomOptions()
-	{
+	private void removeCustomOptions() {
 		menuManager.removeManagedCustomMenu(openMapOption);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		overlayManager.add(overlay);
 		addCustomOptions();
@@ -97,8 +96,7 @@ public class InstanceMapPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlay.setShowMap(false);
 		overlayManager.remove(overlay);
 		removeCustomOptions();
@@ -108,56 +106,44 @@ public class InstanceMapPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
+	private void onGameStateChanged(GameStateChanged event) {
 		overlay.onGameStateChange(event);
 	}
 
-	private boolean clickedOptionEquals(WidgetMenuOptionClicked event, WidgetMenuOption widgetMenuOption)
-	{
+	private boolean clickedOptionEquals(WidgetMenuOptionClicked event, WidgetMenuOption widgetMenuOption) {
 		return event.getMenuOption().equals(widgetMenuOption.getMenuOption()) && event.getMenuTarget().equals(widgetMenuOption.getMenuTarget());
 	}
 
 	@Subscribe
-	private void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event)
-	{
-		if (event.getWidget() != WORLD_MAP_OPTION)
-		{
+	private void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event) {
+		if (event.getWidget() != WORLD_MAP_OPTION) {
 			return;
 		}
 
-		if (clickedOptionEquals(event, openMapOption))
-		{
-			if (overlay.isMapShown())
-			{
+		if (clickedOptionEquals(event, openMapOption)) {
+			if (overlay.isMapShown()) {
 				closeMap();
-			}
-			else
-			{
+			} else {
 				showMap();
 			}
 		}
 	}
 
-	private void showMap()
-	{
+	private void showMap() {
 		overlay.setShowMap(true);
 		openMapOption.setMenuOption("Hide");
 	}
 
-	void closeMap()
-	{
+	void closeMap() {
 		overlay.setShowMap(false);
 		openMapOption.setMenuOption("Show");
 	}
 
-	void ascendMap()
-	{
+	void ascendMap() {
 		overlay.onAscend();
 	}
 
-	void descendMap()
-	{
+	void descendMap() {
 		overlay.onDescend();
 	}
 }

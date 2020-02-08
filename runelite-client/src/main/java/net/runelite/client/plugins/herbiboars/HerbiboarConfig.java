@@ -26,133 +26,122 @@
 package net.runelite.client.plugins.herbiboars;
 
 import java.awt.Color;
+
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("herbiboar")
-public interface HerbiboarConfig extends Config
-{
+public interface HerbiboarConfig extends Config {
 	@ConfigItem(
-		position = 0,
-		keyName = "showStart",
-		name = "Show Start Objects",
-		description = "Show highlights for starting rocks and logs"
+			position = 0,
+			keyName = "showStart",
+			name = "Show Start Objects",
+			description = "Show highlights for starting rocks and logs"
 	)
-	default boolean isStartShown()
-	{
+	default boolean isStartShown() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 1,
-		keyName = "showOutline",
-		name = "Show Outlines",
-		description = "Show outlines on trail objects and tunnels instead of tiles"
+			position = 1,
+			keyName = "showOutline",
+			name = "Show Outlines",
+			description = "Show outlines on trail objects and tunnels instead of tiles"
 	)
-	default boolean showOutlines()
-	{
+	default boolean showOutlines() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 2,
-		keyName = "highlightStyle",
-		name = "Outline Style",
-		description = "Outline setting",
-		hidden = true,
-		unhide = "showOutline"
+			position = 2,
+			keyName = "highlightStyle",
+			name = "Outline Style",
+			description = "Outline setting",
+			hidden = true,
+			unhide = "showOutline"
 	)
-	default RenderStyle outlineStyle()
-	{
+	default RenderStyle outlineStyle() {
 		return RenderStyle.THIN_OUTLINE;
 	}
 
 	@ConfigItem(
-		position = 3,
-		keyName = "colorStart",
-		name = "Start Color",
-		description = "Color for rocks that start the trails"
+			position = 3,
+			keyName = "colorStart",
+			name = "Start Color",
+			description = "Color for rocks that start the trails"
 	)
-	default Color getStartColor()
-	{
+	default Color getStartColor() {
 		return Color.CYAN;
 	}
 
 	@ConfigItem(
-		position = 4,
-		keyName = "showTunnel",
-		name = "Show End Tunnels",
-		description = "Show highlights for tunnels with herbiboars"
+			position = 4,
+			keyName = "showTunnel",
+			name = "Show End Tunnels",
+			description = "Show highlights for tunnels with herbiboars"
 	)
-	default boolean isTunnelShown()
-	{
+	default boolean isTunnelShown() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 5,
-		keyName = "colorTunnel",
-		name = "Tunnel Color",
-		description = "Color for tunnels with herbiboars"
+			position = 5,
+			keyName = "colorTunnel",
+			name = "Tunnel Color",
+			description = "Color for tunnels with herbiboars"
 	)
-	default Color getTunnelColor()
-	{
+	default Color getTunnelColor() {
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-		position = 6,
-		keyName = "showObject",
-		name = "Show Trail Objects",
-		description = "Show highlights for mushrooms, mud, seaweed, etc"
+			position = 6,
+			keyName = "showObject",
+			name = "Show Trail Objects",
+			description = "Show highlights for mushrooms, mud, seaweed, etc"
 	)
-	default boolean isObjectShown()
-	{
+	default boolean isObjectShown() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 7,
-		keyName = "colorGameObject",
-		name = "Trail Object Color",
-		description = "Color for mushrooms, mud, seaweed, etc"
+			position = 7,
+			keyName = "colorGameObject",
+			name = "Trail Object Color",
+			description = "Color for mushrooms, mud, seaweed, etc"
 	)
-	default Color getObjectColor()
-	{
+	default Color getObjectColor() {
 		return Color.CYAN;
 	}
 
 	@ConfigItem(
-		position = 8,
-		keyName = "showTrail",
-		name = "Show Trail",
-		description = "Show highlights for trail prints"
+			position = 8,
+			keyName = "showTrail",
+			name = "Show Trail",
+			description = "Show highlights for trail prints"
 	)
-	default boolean isTrailShown()
-	{
+	default boolean isTrailShown() {
 		return true;
 	}
 
 	@ConfigItem(
-		position = 9,
-		keyName = "showOnlyCurrentTrail",
-		name = "Show Current Trail Only",
-		description = "Only show the trail that you currently have to follow to get to the next object you have to inspect. Requires that the \"Show Trail\" option is enabled"
+			position = 9,
+			keyName = "showOnlyCurrentTrail",
+			name = "Show Current Trail Only",
+			description = "Only show the trail that you currently have to follow to get to the next object you have to inspect. Requires that the \"Show Trail\" option is enabled"
 	)
-	default boolean isOnlyCurrentTrailShown()
-	{
+	default boolean isOnlyCurrentTrailShown() {
 		return false;
 	}
 
 	@ConfigItem(
-		position = 10,
-		keyName = "colorTrail",
-		name = "Trail Color",
-		description = "Color for mushrooms, mud, seaweed, etc"
+			position = 10,
+			keyName = "colorTrail",
+			name = "Trail Color",
+			description = "Color for mushrooms, mud, seaweed, etc"
 	)
-	default Color getTrailColor()
-	{
+	default Color getTrailColor() {
 		return Color.WHITE;
 	}
 }

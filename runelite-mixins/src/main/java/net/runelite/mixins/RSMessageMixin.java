@@ -10,8 +10,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSMessage;
 
 @Mixin(RSMessage.class)
-public abstract class RSMessageMixin implements RSMessage
-{
+public abstract class RSMessageMixin implements RSMessage {
 	@Shadow("client")
 	private static RSClient client;
 
@@ -22,50 +21,43 @@ public abstract class RSMessageMixin implements RSMessage
 	private int rl$timestamp;
 
 	@Inject
-	RSMessageMixin()
-	{
+	RSMessageMixin() {
 		rl$timestamp = (int) (System.currentTimeMillis() / 1000L);
 	}
 
 	@Inject
 	@Override
-	public ChatMessageType getType()
-	{
+	public ChatMessageType getType() {
 		return ChatMessageType.of(getRSType());
 	}
 
 	@Inject
 	@Override
-	public String getRuneLiteFormatMessage()
-	{
+	public String getRuneLiteFormatMessage() {
 		return runeLiteFormatMessage;
 	}
 
 	@Inject
 	@Override
-	public void setRuneLiteFormatMessage(String runeLiteFormatMessage)
-	{
+	public void setRuneLiteFormatMessage(String runeLiteFormatMessage) {
 		this.runeLiteFormatMessage = runeLiteFormatMessage;
 	}
 
 	@Inject
 	@Override
-	public int getTimestamp()
-	{
+	public int getTimestamp() {
 		return rl$timestamp;
 	}
 
 	@Inject
 	@Override
-	public void setTimestamp(int timestamp)
-	{
+	public void setTimestamp(int timestamp) {
 		this.rl$timestamp = timestamp;
 	}
 
 	@Inject
 	@MethodHook(value = "set", end = true)
-	public void setMessage(int type, String name, String sender, String value)
-	{
+	public void setMessage(int type, String name, String sender, String value) {
 		// Message nodes get reused after a time by calling setMessage.
 		// Clear the runelite formatted message then.
 		runeLiteFormatMessage = null;
@@ -74,8 +66,7 @@ public abstract class RSMessageMixin implements RSMessage
 
 	@Inject
 	@Override
-	public boolean isFromClanMate()
-	{
+	public boolean isFromClanMate() {
 		RSClanChat cc = client.getClanMemberManager();
 
 		return cc != null && cc.isMember(this.getSenderUsername());

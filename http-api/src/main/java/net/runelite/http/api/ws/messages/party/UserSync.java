@@ -30,4 +30,5 @@ import net.runelite.api.events.Event;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class UserSync extends PartyMemberMessage implements Event {}
+public class UserSync extends PartyMemberMessage implements Event {
+}

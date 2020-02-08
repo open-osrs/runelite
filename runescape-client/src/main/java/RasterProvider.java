@@ -9,6 +9,7 @@ import java.awt.image.DirectColorModel;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.util.Hashtable;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -30,7 +31,7 @@ public final class RasterProvider extends AbstractRasterProvider {
 		super.pixels = new int[var2 * var1 + 1];
 		DataBufferInt var4 = new DataBufferInt(super.pixels, super.pixels.length);
 		DirectColorModel var5 = new DirectColorModel(32, 16711680, 65280, 255);
-		WritableRaster var6 = Raster.createWritableRaster(var5.createCompatibleSampleModel(super.width, super.height), var4, (Point)null);
+		WritableRaster var6 = Raster.createWritableRaster(var5.createCompatibleSampleModel(super.width, super.height), var4, (Point) null);
 		this.image = new BufferedImage(var5, var6, false, new Hashtable());
 		this.setComponent(var3);
 		this.apply();
@@ -38,8 +39,8 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Component;I)V",
-		garbageValue = "864264783"
+			signature = "(Ljava/awt/Component;I)V",
+			garbageValue = "864264783"
 	)
 	@Export("setComponent")
 	final void setComponent(Component var1) {
@@ -48,8 +49,8 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-529782293"
+			signature = "(III)V",
+			garbageValue = "-529782293"
 	)
 	@Export("drawFull")
 	public final void drawFull(int var1, int var2) {
@@ -58,8 +59,8 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "934582222"
+			signature = "(IIIII)V",
+			garbageValue = "934582222"
 	)
 	@Export("draw")
 	public final void draw(int var1, int var2, int var3, int var4) {
@@ -68,8 +69,8 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Graphics;III)V",
-		garbageValue = "1734419092"
+			signature = "(Ljava/awt/Graphics;III)V",
+			garbageValue = "1734419092"
 	)
 	@Export("drawFull0")
 	final void drawFull0(Graphics var1, int var2, int var3) {
@@ -83,8 +84,8 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Graphics;IIIII)V",
-		garbageValue = "-288564327"
+			signature = "(Ljava/awt/Graphics;IIIII)V",
+			garbageValue = "-288564327"
 	)
 	@Export("draw0")
 	final void draw0(Graphics var1, int var2, int var3, int var4, int var5) {

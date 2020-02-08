@@ -27,6 +27,7 @@ package net.runelite.cache;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.cache.definitions.TextureDefinition;
 import net.runelite.cache.definitions.loaders.TextureLoader;
 import net.runelite.cache.definitions.providers.TextureProvider;
@@ -37,18 +38,15 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 
-public class TextureManager implements TextureProvider
-{
+public class TextureManager implements TextureProvider {
 	private final Store store;
 	private final List<TextureDefinition> textures = new ArrayList<>();
 
-	public TextureManager(Store store)
-	{
+	public TextureManager(Store store) {
 		this.store = store;
 	}
 
-	public void load() throws IOException
-	{
+	public void load() throws IOException {
 		Storage storage = store.getStorage();
 		Index index = store.getIndex(IndexType.TEXTURES);
 		Archive archive = index.getArchive(0);
@@ -58,24 +56,19 @@ public class TextureManager implements TextureProvider
 
 		TextureLoader loader = new TextureLoader();
 
-		for (FSFile file : files.getFiles())
-		{
+		for (FSFile file : files.getFiles()) {
 			TextureDefinition texture = loader.load(file.getFileId(), file.getContents());
 			textures.add(texture);
 		}
 	}
 
-	public List<TextureDefinition> getTextures()
-	{
+	public List<TextureDefinition> getTextures() {
 		return textures;
 	}
 
-	public TextureDefinition findTexture(int id)
-	{
-		for (TextureDefinition td : textures)
-		{
-			if (td.getId() == id)
-			{
+	public TextureDefinition findTexture(int id) {
+		for (TextureDefinition td : textures) {
+			if (td.getId() == id) {
 				return td;
 			}
 		}
@@ -83,8 +76,7 @@ public class TextureManager implements TextureProvider
 	}
 
 	@Override
-	public TextureDefinition[] provide()
-	{
+	public TextureDefinition[] provide() {
 		return textures.toArray(new TextureDefinition[textures.size()]);
 	}
 }

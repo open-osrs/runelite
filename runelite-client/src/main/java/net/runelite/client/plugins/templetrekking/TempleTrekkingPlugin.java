@@ -25,9 +25,11 @@
 package net.runelite.client.plugins.templetrekking;
 
 import com.google.inject.Provides;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.GroundObject;
@@ -43,13 +45,12 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "Temple Trekking",
-	description = "Helpers for the Temple Trek minigame",
-	tags = {"minigame", "overlay", "temple trek"},
-	type = PluginType.MINIGAME
+		name = "Temple Trekking",
+		description = "Helpers for the Temple Trek minigame",
+		tags = {"minigame", "overlay", "temple trek"},
+		type = PluginType.MINIGAME
 )
-public class TempleTrekkingPlugin extends Plugin
-{
+public class TempleTrekkingPlugin extends Plugin {
 	@Getter
 	private final Set<GroundObject> bogList = new HashSet<>();
 
@@ -69,61 +70,49 @@ public class TempleTrekkingPlugin extends Plugin
 	private boolean inTrek = false;
 
 	@Provides
-	TempleTrekkingConfig getConfig(ConfigManager configManager)
-	{
+	TempleTrekkingConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(TempleTrekkingConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		overlayManager.add(overlay);
 		overlayManager.add(bogOverlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(bogOverlay);
 		bogList.clear();
 	}
 
 	@Subscribe
-	public void onGroundObjectSpawned(GroundObjectSpawned event)
-	{
+	public void onGroundObjectSpawned(GroundObjectSpawned event) {
 		GroundObject obj = event.getGroundObject();
-		if (obj.getId() == ObjectID.BOG)
-		{
+		if (obj.getId() == ObjectID.BOG) {
 			bogList.add(obj);
 		}
 	}
 
 	//onGroundObjectDespawned is having issues handling this, so bogmap removal is here instead.
 	@Subscribe
-	public void onVarbitChanged(VarbitChanged event)
-	{
-		if (!bogList.isEmpty() && client.getVar(Varbits.TREK_EVENT) == 0)
-		{
+	public void onVarbitChanged(VarbitChanged event) {
+		if (!bogList.isEmpty() && client.getVar(Varbits.TREK_EVENT) == 0) {
 			bogList.clear();
 		}
-		if (!inTrek && client.getVar(Varbits.TREK_STARTED) == 1)
-		{
+		if (!inTrek && client.getVar(Varbits.TREK_STARTED) == 1) {
 			inTrek = true;
-		}
-		else if (inTrek && client.getVar(Varbits.TREK_STATUS) == 0 && client.getVar(Varbits.TREK_POINTS) == 0)
-		{
+		} else if (inTrek && client.getVar(Varbits.TREK_STATUS) == 0 && client.getVar(Varbits.TREK_POINTS) == 0) {
 			inTrek = false;
 		}
 	}
 
-	protected int getRewardPoints()
-	{
+	protected int getRewardPoints() {
 		return client.getVar(Varbits.TREK_POINTS);
 	}
 
-	protected double getRewardPercentage()
-	{
+	protected double getRewardPercentage() {
 		double percentage = 0.000126945 * getRewardPoints() - 0.0357188951;
 		return Math.max(percentage, 0);
 	}

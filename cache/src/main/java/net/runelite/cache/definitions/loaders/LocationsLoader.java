@@ -29,10 +29,8 @@ import net.runelite.cache.io.InputStream;
 import net.runelite.cache.region.Location;
 import net.runelite.cache.region.Position;
 
-public class LocationsLoader
-{
-	public LocationsDefinition load(int regionX, int regionY, byte[] b)
-	{
+public class LocationsLoader {
+	public LocationsDefinition load(int regionX, int regionY, byte[] b) {
 		LocationsDefinition loc = new LocationsDefinition();
 		loc.setRegionX(regionX);
 		loc.setRegionY(regionY);
@@ -40,22 +38,19 @@ public class LocationsLoader
 		return loc;
 	}
 
-	private void loadLocations(LocationsDefinition loc, byte[] b)
-	{
+	private void loadLocations(LocationsDefinition loc, byte[] b) {
 		InputStream buf = new InputStream(b);
 
 		int id = -1;
 		int idOffset;
 
-		while ((idOffset = buf.readUnsignedIntSmartShortCompat()) != 0)
-		{
+		while ((idOffset = buf.readUnsignedIntSmartShortCompat()) != 0) {
 			id += idOffset;
 
 			int position = 0;
 			int positionOffset;
 
-			while ((positionOffset = buf.readUnsignedShortSmart()) != 0)
-			{
+			while ((positionOffset = buf.readUnsignedShortSmart()) != 0) {
 				position += positionOffset - 1;
 
 				int localY = position & 0x3F;

@@ -26,10 +26,12 @@ package net.runelite.deob.s2c;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -49,44 +51,36 @@ import net.runelite.asm.execution.InstructionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HandlerFinder
-{
+public class HandlerFinder {
 	private static final Logger logger = LoggerFactory.getLogger(HandlerFinder.class);
 
 	private final ClassGroup group;
 	private final Field packetType;
 	private final Execution execution;
 
-	public HandlerFinder(ClassGroup group, Field packetType)
-	{
+	public HandlerFinder(ClassGroup group, Field packetType) {
 		this.group = group;
 		this.packetType = packetType;
 		this.execution = new Execution(group);
 	}
 
-	public ClassGroup getGroup()
-	{
+	public ClassGroup getGroup() {
 		return group;
 	}
 
-	public Execution getExecution()
-	{
+	public Execution getExecution() {
 		return execution;
 	}
 
-	public PacketHandlers findHandlers()
-	{
+	public PacketHandlers findHandlers() {
 		// Some of the packet handlers are if (type == 1 || type == 2) func()
 		// and func() checks the type... so search all functions for packet handlers
 
 		List<PacketHandler> handlers = new ArrayList<>();
 
-		for (ClassFile cf : group.getClasses())
-		{
-			for (Method method : cf.getMethods())
-			{
-				if (method.getCode() == null)
-				{
+		for (ClassFile cf : group.getClasses()) {
+			for (Method method : cf.getMethods()) {
+				if (method.getCode() == null) {
 					continue;
 				}
 
@@ -101,62 +95,51 @@ public class HandlerFinder
 		return packetHandlers;
 	}
 
-	private List<PacketHandler> findHandlers(Method process, Field packetOpcode)
-	{
+	private List<PacketHandler> findHandlers(Method process, Field packetOpcode) {
 		List<PacketHandler> handlers = new ArrayList<>();
 
 		Instructions ins = process.getCode().getInstructions();
 
-		for (int j = 0; j < ins.getInstructions().size(); ++j)
-		{
+		for (int j = 0; j < ins.getInstructions().size(); ++j) {
 			Instruction i = ins.getInstructions().get(j);
 
-			if (i.getType() != InstructionType.GETSTATIC)
-			{
+			if (i.getType() != InstructionType.GETSTATIC) {
 				continue;
 			}
 
 			GetStatic gs = (GetStatic) i;
-			if (gs.getMyField() != packetOpcode)
-			{
+			if (gs.getMyField() != packetOpcode) {
 				continue;
 			}
 
 			Instruction push = ins.getInstructions().get(j + 1);
-			if (!(push instanceof PushConstantInstruction))
-			{
+			if (!(push instanceof PushConstantInstruction)) {
 				continue;
 			}
 
 			PushConstantInstruction pci = (PushConstantInstruction) push;
-			if (!(pci.getConstant() instanceof Number))
-			{
+			if (!(pci.getConstant() instanceof Number)) {
 				continue;
 			}
 
 			int opcode = ((Number) pci.getConstant()).intValue();
 
-			if (opcode == -1)
-			{
+			if (opcode == -1) {
 				continue;
 			}
 
 			Instruction jump = ins.getInstructions().get(j + 2);
-			if (jump.getType() != InstructionType.IF_ICMPEQ && jump.getType() != InstructionType.IF_ICMPNE)
-			{
+			if (jump.getType() != InstructionType.IF_ICMPEQ && jump.getType() != InstructionType.IF_ICMPNE) {
 				continue;
 			}
 
 			Instruction start, end;
-			if (jump.getType() == InstructionType.IF_ICMPEQ)
-			{
+			if (jump.getType() == InstructionType.IF_ICMPEQ) {
 				// this seems to not ever happen
 				start = ((If) jump).getJumps().get(0);
 				//end = ins.getInstructions().get(j + 3);
 				end = null;
-			}
-			else
-			{
+			} else {
 				start = ins.getInstructions().get(j + 3);
 				end = ((If) jump).getJumps().get(0);
 			}
@@ -164,8 +147,7 @@ public class HandlerFinder
 			PacketHandler handler = new PacketHandler(process, jump, start, push, opcode);
 			handlers.add(handler);
 
-			if (end != null)
-			{
+			if (end != null) {
 				// Anything else which jumps to here instead needs to return.
 				insertReturn(ins, jump, end);
 			}
@@ -176,53 +158,45 @@ public class HandlerFinder
 		return handlers;
 	}
 
-	private void removeDuplicates(PacketHandlers handlers)
-	{
+	private void removeDuplicates(PacketHandlers handlers) {
 		// remove handlers which have multiple opcodes
 		Multimap<Instruction, PacketHandler> i2h = HashMultimap.create();
 
-		for (PacketHandler handler : handlers.getHandlers())
-		{
+		for (PacketHandler handler : handlers.getHandlers()) {
 			i2h.put(handler.getStart(), handler);
 		}
 
-		for (Instruction i : i2h.keySet())
-		{
+		for (Instruction i : i2h.keySet()) {
 			int sz = i2h.get(i).size();
 
-			if (sz == 1)
-			{
+			if (sz == 1) {
 				continue;
 			}
 
 			// this is part of if (opcode == 1 || opcode == 2 || ...) func();
-			for (PacketHandler ph : i2h.get(i))
-			{
+			for (PacketHandler ph : i2h.get(i)) {
 				handlers.getHandlers().remove(ph);
 				logger.debug("Removed duplicate handler {}", ph);
 			}
 		}
 	}
 
-	private void prepareFrame(Execution e, PacketHandlers handlers)
-	{
+	private void prepareFrame(Execution e, PacketHandlers handlers) {
 		List<Method> methods = handlers.getHandlers().stream()
-			.map(handler -> handler.getMethod())
-			.distinct()
-			.collect(Collectors.toList());
-
-		for (Method method : methods)
-		{
-			List<PacketHandler> phandlers = handlers.getHandlers().stream()
-				.filter(handler -> handler.getMethod() == method)
+				.map(handler -> handler.getMethod())
+				.distinct()
 				.collect(Collectors.toList());
+
+		for (Method method : methods) {
+			List<PacketHandler> phandlers = handlers.getHandlers().stream()
+					.filter(handler -> handler.getMethod() == method)
+					.collect(Collectors.toList());
 
 			prepareFrame(e, method, phandlers);
 		}
 	}
 
-	private void prepareFrame(Execution e, Method method, List<PacketHandler> handlers)
-	{
+	private void prepareFrame(Execution e, Method method, List<PacketHandler> handlers) {
 		e.step = true;
 
 		Frame f = new Frame(e, method);
@@ -230,12 +204,10 @@ public class HandlerFinder
 
 		e.addFrame(f);
 
-		while (e.frames.isEmpty() == false)
-		{
+		while (e.frames.isEmpty() == false) {
 			f = e.frames.get(0);
 
-			if (!f.isExecuting())
-			{
+			if (!f.isExecuting()) {
 				e.frames.remove(0);
 				continue;
 			}
@@ -247,17 +219,14 @@ public class HandlerFinder
 
 			InstructionContext ctx = f.getInstructions().get(f.getInstructions().size() - 1);
 
-			for (PacketHandler handler : handlers)
-			{
-				if (handler.getAfterRead() == ctx.getInstruction())
-				{
+			for (PacketHandler handler : handlers) {
+				if (handler.getAfterRead() == ctx.getInstruction()) {
 					// frame is stopped at jump prior to handler
 					handler.frame = f.dup();
 					e.frames.remove(handler.frame);
 					logger.info("Found frame for {}: {}", handler, handler.frame);
 				}
-				if (handler.getJump() == ctx.getInstruction())
-				{
+				if (handler.getJump() == ctx.getInstruction()) {
 					handler.jumpFrame = f.dup();
 					e.frames.remove(handler.jumpFrame);
 					assert handler.jumpFrame.isExecuting();
@@ -267,8 +236,7 @@ public class HandlerFinder
 		}
 	}
 
-	private void insertReturn(Instructions ins, Instruction start, Instruction end)
-	{
+	private void insertReturn(Instructions ins, Instruction start, Instruction end) {
 		assert end instanceof Label;
 		int idx = ins.getInstructions().indexOf(end);
 		assert idx != -1;
@@ -288,19 +256,15 @@ public class HandlerFinder
 		Label label = ins.createLabelFor(ret);
 
 		// Change jumps which go to the next handler to instead go to return
-		for (Instruction i : ins.getInstructions())
-		{
-			if (i instanceof JumpingInstruction)
-			{
+		for (Instruction i : ins.getInstructions()) {
+			if (i instanceof JumpingInstruction) {
 				JumpingInstruction j = (JumpingInstruction) i;
 
-				if (i == start)
-				{
+				if (i == start) {
 					continue;
 				}
 
-				if (j.getJumps().size() == 1 && j.getJumps().get(0) == end)
-				{
+				if (j.getJumps().size() == 1 && j.getJumps().get(0) == end) {
 					j.setJumps(Collections.singletonList(label));
 				}
 			}

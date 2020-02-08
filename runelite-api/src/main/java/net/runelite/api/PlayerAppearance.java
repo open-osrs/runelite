@@ -29,8 +29,7 @@ import net.runelite.api.kit.KitType;
 /**
  * Represents the template of a player.
  */
-public interface PlayerAppearance
-{
+public interface PlayerAppearance {
 	/**
 	 * Gets an array of IDs related to equipment slots.
 	 * <p>

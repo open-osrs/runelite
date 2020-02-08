@@ -26,12 +26,14 @@ package net.runelite.deob.deobfuscators.constparam;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.Annotations;
@@ -58,20 +60,16 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConstantParameter implements Deobfuscator
-{
+public class ConstantParameter implements Deobfuscator {
 	private static final Logger logger = LoggerFactory.getLogger(ConstantParameter.class);
 
 	private Map<ConstantMethodParameter, ConstantMethodParameter> parameters = new HashMap<>();
 	private Multimap<Method, ConstantMethodParameter> mparams = HashMultimap.create();
 
-	private void checkMethodsAreConsistent(List<Method> methods)
-	{
+	private void checkMethodsAreConsistent(List<Method> methods) {
 		Method prev = null;
-		for (Method m : methods)
-		{
-			if (prev != null)
-			{
+		for (Method m : methods) {
+			if (prev != null) {
 				assert prev.getDescriptor().equals(m.getDescriptor());
 				assert prev.isStatic() == m.isStatic();
 			}
@@ -79,16 +77,14 @@ public class ConstantParameter implements Deobfuscator
 		}
 	}
 
-	private ConstantMethodParameter getCMPFor(List<Method> methods, int paramIndex, int lvtIndex)
-	{
+	private ConstantMethodParameter getCMPFor(List<Method> methods, int paramIndex, int lvtIndex) {
 		ConstantMethodParameter cmp = new ConstantMethodParameter();
 		cmp.methods = methods;
 		cmp.paramIndex = paramIndex;
 		cmp.lvtIndex = lvtIndex;
 
 		ConstantMethodParameter exists = parameters.get(cmp);
-		if (exists != null)
-		{
+		if (exists != null) {
 			// existing mparams for each method of methods can have different 'methods'
 			// due to invokespecial on virtual methods.
 			return exists;
@@ -96,8 +92,7 @@ public class ConstantParameter implements Deobfuscator
 
 		parameters.put(cmp, cmp);
 
-		for (Method m : methods)
-		{
+		for (Method m : methods) {
 			mparams.put(m, cmp);
 		}
 
@@ -105,8 +100,7 @@ public class ConstantParameter implements Deobfuscator
 	}
 
 	// find constant values passed as parameters
-	private void findConstantParameter(List<Method> methods, InstructionContext invokeCtx)
-	{
+	private void findConstantParameter(List<Method> methods, InstructionContext invokeCtx) {
 		checkMethodsAreConsistent(methods);
 
 		Method method = methods.get(0); // all methods must have the same signature etc
@@ -116,55 +110,45 @@ public class ConstantParameter implements Deobfuscator
 
 		// object is popped first, then param 1, 2, 3, etc. double and long take two slots.
 		for (int lvtOffset = offset, parameterIndex = 0;
-			parameterIndex < method.getDescriptor().size();
-			lvtOffset += method.getDescriptor().getTypeOfArg(parameterIndex++).getSize())
-		{
+			 parameterIndex < method.getDescriptor().size();
+			 lvtOffset += method.getDescriptor().getTypeOfArg(parameterIndex++).getSize()) {
 			// get(0) == first thing popped which is the last parameter,
 			// get(descriptor.size() - 1) == first parameter
 			StackContext ctx = pops.get(method.getDescriptor().size() - 1 - parameterIndex);
 
 			ConstantMethodParameter cmp = getCMPFor(methods, parameterIndex, lvtOffset);
 
-			if (cmp.invalid)
-			{
+			if (cmp.invalid) {
 				continue;
 			}
 
-			if (ctx.getPushed().getInstruction() instanceof PushConstantInstruction)
-			{
+			if (ctx.getPushed().getInstruction() instanceof PushConstantInstruction) {
 				PushConstantInstruction pc = (PushConstantInstruction) ctx.getPushed().getInstruction();
 
-				if (!(pc.getConstant() instanceof Number))
-				{
+				if (!(pc.getConstant() instanceof Number)) {
 					cmp.invalid = true;
 					continue;
 				}
 
 				Number number = (Number) pc.getConstant();
 
-				if (!cmp.values.contains(number))
-				{
+				if (!cmp.values.contains(number)) {
 					cmp.values.add((Number) pc.getConstant());
 				}
-			}
-			else
-			{
+			} else {
 				cmp.invalid = true;
 			}
 		}
 	}
 
 	// find constant valuess passed to parameters
-	private void findParameters(InstructionContext ins)
-	{
-		if (!(ins.getInstruction() instanceof InvokeInstruction))
-		{
+	private void findParameters(InstructionContext ins) {
+		if (!(ins.getInstruction() instanceof InvokeInstruction)) {
 			return;
 		}
 
 		List<Method> methods = ((InvokeInstruction) ins.getInstruction()).getMethods();
-		if (methods.isEmpty())
-		{
+		if (methods.isEmpty()) {
 			return;
 		}
 
@@ -172,11 +156,9 @@ public class ConstantParameter implements Deobfuscator
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<ConstantMethodParameter> findParametersForMethod(Method m)
-	{
+	private List<ConstantMethodParameter> findParametersForMethod(Method m) {
 		Collection<ConstantMethodParameter> c = mparams.get(m);
-		if (c == null)
-		{
+		if (c == null) {
 			return Collections.EMPTY_LIST;
 		}
 		return new ArrayList<>(c);
@@ -184,35 +166,28 @@ public class ConstantParameter implements Deobfuscator
 
 	// compare known values against a jump. also invalidates constant param
 	// if lvt is reassigned or a comparison is made against a non constant
-	private void findDeadParameters(MethodContext mctx)
-	{
+	private void findDeadParameters(MethodContext mctx) {
 		mctx.getInstructionContexts().forEach(this::findDeadParameters);
 	}
 
-	private void findDeadParameters(InstructionContext ins)
-	{
+	private void findDeadParameters(InstructionContext ins) {
 		List<ConstantMethodParameter> parameters = this.findParametersForMethod(ins.getFrame().getMethod());
 
-		for (ConstantMethodParameter parameter : parameters)
-		{
+		for (ConstantMethodParameter parameter : parameters) {
 			int lvtIndex = parameter.lvtIndex;
 
-			if (parameter.invalid)
-			{
+			if (parameter.invalid) {
 				continue;
 			}
 
-			if (ins.getInstruction() instanceof LVTInstruction)
-			{
+			if (ins.getInstruction() instanceof LVTInstruction) {
 				LVTInstruction lvt = (LVTInstruction) ins.getInstruction();
 
-				if (lvt.getVariableIndex() != lvtIndex)
-				{
+				if (lvt.getVariableIndex() != lvtIndex) {
 					continue;
 				}
 
-				if (lvt.store() || ins.getInstruction().getType() == InstructionType.IINC)
-				{
+				if (lvt.store() || ins.getInstruction().getType() == InstructionType.IINC) {
 					parameter.invalid = true;
 					continue; // value changes at some point, parameter is used
 				}
@@ -222,15 +197,13 @@ public class ConstantParameter implements Deobfuscator
 				StackContext sctx = ins.getPushes().get(0);
 
 				if (sctx.getPopped().size() != 1
-					|| !(sctx.getPopped().get(0).getInstruction() instanceof ComparisonInstruction))
-				{
+						|| !(sctx.getPopped().get(0).getInstruction() instanceof ComparisonInstruction)) {
 					parameter.invalid = true;
 					continue;
 				}
 			}
 
-			if (!(ins.getInstruction() instanceof ComparisonInstruction))
-			{
+			if (!(ins.getInstruction() instanceof ComparisonInstruction)) {
 				continue;
 			}
 
@@ -239,17 +212,12 @@ public class ConstantParameter implements Deobfuscator
 
 			StackContext one, two = null;
 
-			if (comp instanceof If0)
-			{
+			if (comp instanceof If0) {
 				one = ins.getPops().get(0);
-			}
-			else if (comp instanceof If)
-			{
+			} else if (comp instanceof If) {
 				one = ins.getPops().get(0);
 				two = ins.getPops().get(1);
-			}
-			else
-			{
+			} else {
 				throw new RuntimeException("Unknown comp ins");
 			}
 
@@ -257,21 +225,17 @@ public class ConstantParameter implements Deobfuscator
 			LVTInstruction lvt = null;
 			StackContext other = null;
 
-			if (one.getPushed().getInstruction() instanceof LVTInstruction)
-			{
+			if (one.getPushed().getInstruction() instanceof LVTInstruction) {
 				lvt = (LVTInstruction) one.getPushed().getInstruction();
 				other = two;
-			}
-			else if (two != null && two.getPushed().getInstruction() instanceof LVTInstruction)
-			{
+			} else if (two != null && two.getPushed().getInstruction() instanceof LVTInstruction) {
 				lvt = (LVTInstruction) two.getPushed().getInstruction();
 				other = one;
 			}
 
 			assert lvt == null || !lvt.store();
 
-			if (lvt == null || lvt.getVariableIndex() != lvtIndex)
-			{
+			if (lvt == null || lvt.getVariableIndex() != lvtIndex) {
 				continue;
 			}
 
@@ -279,8 +243,7 @@ public class ConstantParameter implements Deobfuscator
 
 			if (two != null) // two is null for if0
 			{
-				if (!(other.getPushed().getInstruction() instanceof PushConstantInstruction))
-				{
+				if (!(other.getPushed().getInstruction() instanceof PushConstantInstruction)) {
 					parameter.invalid = true;
 					continue;
 				}
@@ -289,19 +252,15 @@ public class ConstantParameter implements Deobfuscator
 				otherValue = (Number) pc.getConstant();
 			}
 
-			for (Number value : parameter.values)
-			{
+			for (Number value : parameter.values) {
 				// the result of the comparison doesn't matter, only that it always goes the same direction for every invocation
 				boolean result = doLogicalComparison(value, comp, otherValue);
 
 				// XXX this should check that the particular if always takes the same path,
 				// not that all ifs for a specific parameter always take the same path
-				if (parameter.result != null && parameter.result != result)
-				{
+				if (parameter.result != null && parameter.result != result) {
 					parameter.invalid = true;
-				}
-				else
-				{
+				} else {
 					parameter.operations.add(ins.getInstruction());
 					parameter.result = result;
 				}
@@ -309,14 +268,12 @@ public class ConstantParameter implements Deobfuscator
 		}
 	}
 
-	private boolean doLogicalComparison(Number value, ComparisonInstruction comparison, Number otherValue)
-	{
+	private boolean doLogicalComparison(Number value, ComparisonInstruction comparison, Number otherValue) {
 		Instruction ins = (Instruction) comparison;
 
 		assert (comparison instanceof If0) == (otherValue == null);
 
-		switch (ins.getType())
-		{
+		switch (ins.getType()) {
 			case IFEQ:
 				return value.equals(0);
 			case IFNE:
@@ -347,66 +304,54 @@ public class ConstantParameter implements Deobfuscator
 	}
 
 	// remove logically dead comparisons
-	private int removeDeadOperations(MethodContext mctx)
-	{
+	private int removeDeadOperations(MethodContext mctx) {
 		int count = 0;
-		for (ConstantMethodParameter cmp : parameters.values())
-		{
-			if (cmp.invalid)
-			{
+		for (ConstantMethodParameter cmp : parameters.values()) {
+			if (cmp.invalid) {
 				continue;
 			}
 
-			if (!cmp.methods.contains(mctx.getMethod()))
-			{
+			if (!cmp.methods.contains(mctx.getMethod())) {
 				continue;
 			}
 
 			// only annotate garbage value of last param
-			if (cmp.paramIndex + 1 == mctx.getMethod().getDescriptor().size())
-			{
+			if (cmp.paramIndex + 1 == mctx.getMethod().getDescriptor().size()) {
 				annotateObfuscatedSignature(cmp);
 			}
 
 			for (Instruction ins : cmp.operations) // comparisons
 			{
-				if (ins.getInstructions() == null || ins.getInstructions().getCode().getMethod() != mctx.getMethod())
-				{
+				if (ins.getInstructions() == null || ins.getInstructions().getCode().getMethod() != mctx.getMethod()) {
 					continue;
 				}
 
 				InstructionContext ctx = mctx.getInstructonContexts(ins).toArray(new InstructionContext[0])[0];
 				boolean branch = cmp.result; // branch that is always taken
 
-				if (ins.getInstructions() == null)
-				{
+				if (ins.getInstructions() == null) {
 					continue; // ins already removed?
 				}
 				Instructions instructions = ins.getInstructions();
 
 				// remove the if
-				if (ctx.getInstruction() instanceof If)
-				{
+				if (ctx.getInstruction() instanceof If) {
 					ctx.removeStack(1);
 				}
 				ctx.removeStack(0);
 
 				int idx = instructions.getInstructions().indexOf(ins);
-				if (idx == -1)
-				{
+				if (idx == -1) {
 					continue; // already removed?
 				}
 				++count;
 
 				Instruction to;
-				if (branch)
-				{
+				if (branch) {
 					JumpingInstruction jumpIns = (JumpingInstruction) ins;
 					assert jumpIns.getJumps().size() == 1;
 					to = jumpIns.getJumps().get(0);
-				}
-				else
-				{
+				} else {
 					// just go to next instruction
 					to = instructions.getInstructions().get(idx + 1);
 				}
@@ -418,8 +363,7 @@ public class ConstantParameter implements Deobfuscator
 
 				assert instructions.getInstructions().contains(to);
 
-				if (branch)
-				{
+				if (branch) {
 					Goto gotoins = new Goto(instructions, instructions.createLabelFor(to));
 
 					// insert goto
@@ -430,23 +374,19 @@ public class ConstantParameter implements Deobfuscator
 		return count;
 	}
 
-	private void annotateObfuscatedSignature(ConstantMethodParameter parameter)
-	{
-		for (Method m : parameter.methods)
-		{
+	private void annotateObfuscatedSignature(ConstantMethodParameter parameter) {
+		for (Method m : parameter.methods) {
 			Object value = parameter.values.get(0);
 
 			Annotations annotations = m.getAnnotations();
 
 			Annotation obfuscatedSignature = annotations.find(DeobAnnotations.OBFUSCATED_SIGNATURE);
-			if (obfuscatedSignature != null && obfuscatedSignature.getElements().size() == 2)
-			{
+			if (obfuscatedSignature != null && obfuscatedSignature.getElements().size() == 2) {
 				// already annotated
 				continue;
 			}
 
-			if (obfuscatedSignature == null)
-			{
+			if (obfuscatedSignature == null) {
 				obfuscatedSignature = annotations.addAnnotation(DeobAnnotations.OBFUSCATED_SIGNATURE, "signature", m.getDescriptor().toString());
 			}
 
@@ -459,8 +399,7 @@ public class ConstantParameter implements Deobfuscator
 	private int count;
 
 	@Override
-	public void run(ClassGroup group)
-	{
+	public void run(ClassGroup group) {
 		Execution execution = new Execution(group);
 		execution.addExecutionVisitor(this::findParameters);
 		execution.populateInitialMethods();

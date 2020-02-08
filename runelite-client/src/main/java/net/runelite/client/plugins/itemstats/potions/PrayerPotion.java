@@ -32,33 +32,31 @@ import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.ItemID;
 import net.runelite.client.plugins.itemstats.StatBoost;
+
 import static net.runelite.client.plugins.itemstats.stats.Stats.PRAYER;
+
 import net.runelite.client.util.ItemUtil;
 
-public class PrayerPotion extends StatBoost
-{
+public class PrayerPotion extends StatBoost {
 	private final int delta;
 
-	public PrayerPotion(int delta)
-	{
+	public PrayerPotion(int delta) {
 		super(PRAYER, false);
 		this.delta = delta;
 	}
 
 	private static final ImmutableSet<Integer> HOLY_WRENCH_IDS = ImmutableSet.of(
-		ItemID.HOLY_WRENCH, ItemID.PRAYER_CAPE, ItemID.PRAYER_CAPET, ItemID.MAX_CAPE, ItemID.MAX_CAPE_13342,
-		// No idea what these are
-		ItemID.PRAYER_CAPE_10643, ItemID.MAX_CAPE_13282
+			ItemID.HOLY_WRENCH, ItemID.PRAYER_CAPE, ItemID.PRAYER_CAPET, ItemID.MAX_CAPE, ItemID.MAX_CAPE_13342,
+			// No idea what these are
+			ItemID.PRAYER_CAPE_10643, ItemID.MAX_CAPE_13282
 	);
 
 	@Override
-	public int heals(Client client)
-	{
+	public int heals(Client client) {
 		boolean hasHolyWrench = false;
 
 		ItemContainer equipContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-		if (equipContainer != null)
-		{
+		if (equipContainer != null) {
 			Item[] equip = equipContainer.getItems();
 			final int ring = ItemUtil.safeGetItemIdAtIndex(equip, EquipmentInventorySlot.RING.getSlotIdx());
 			final int cape = ItemUtil.safeGetItemIdAtIndex(equip, EquipmentInventorySlot.CAPE.getSlotIdx());
@@ -66,11 +64,9 @@ public class PrayerPotion extends StatBoost
 			hasHolyWrench = ring == ItemID.RING_OF_THE_GODS_I;
 			hasHolyWrench |= HOLY_WRENCH_IDS.contains(cape);
 		}
-		if (!hasHolyWrench)
-		{
+		if (!hasHolyWrench) {
 			ItemContainer invContainer = client.getItemContainer(InventoryID.INVENTORY);
-			if (invContainer != null)
-			{
+			if (invContainer != null) {
 				hasHolyWrench = ItemUtil.containsAnyItemId(invContainer.getItems(), HOLY_WRENCH_IDS);
 			}
 		}

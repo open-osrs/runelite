@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
@@ -52,8 +53,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class TargetClickboxOverlay extends Overlay
-{
+public class TargetClickboxOverlay extends Overlay {
 	private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
 	private final Client client;
@@ -61,8 +61,7 @@ public class TargetClickboxOverlay extends Overlay
 	private final ModelOutlineRenderer modelOutliner;
 
 	@Inject
-	TargetClickboxOverlay(final Client client, final SlayerPlugin plugin, final ModelOutlineRenderer modelOutlineRenderer)
-	{
+	TargetClickboxOverlay(final Client client, final SlayerPlugin plugin, final ModelOutlineRenderer modelOutlineRenderer) {
 		this.client = client;
 		this.plugin = plugin;
 		this.modelOutliner = modelOutlineRenderer;
@@ -71,22 +70,17 @@ public class TargetClickboxOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (plugin.isHighlightTargets())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (plugin.isHighlightTargets()) {
 			Set<NPC> targets = plugin.getHighlightedTargets();
-			for (NPC target : targets)
-			{
-				if (target == null || target.getName() == null)
-				{
+			for (NPC target : targets) {
+				if (target == null || target.getName() == null) {
 					continue;
 				}
 
 				Color coloration = plugin.getGetTargetColor();
 
-				if (plugin.isSuperior(target.getName()))
-				{
+				if (plugin.isSuperior(target.getName())) {
 					coloration = plugin.getGetSuperiorColor();
 				}
 
@@ -97,15 +91,12 @@ public class TargetClickboxOverlay extends Overlay
 		return null;
 	}
 
-	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color)
-	{
-		switch (plugin.getRenderStyle())
-		{
+	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color) {
+		switch (plugin.getRenderStyle()) {
 			case SOUTH_WEST_TILE:
 				LocalPoint lp1 = LocalPoint.fromWorld(client, actor.getWorldLocation());
 
-				if (lp1 == null)
-				{
+				if (lp1 == null) {
 					return;
 				}
 
@@ -118,8 +109,7 @@ public class TargetClickboxOverlay extends Overlay
 				int size = 1;
 				NPCDefinition composition = actor.getTransformedDefinition();
 
-				if (composition != null)
-				{
+				if (composition != null) {
 					size = composition.getSize();
 				}
 
@@ -132,8 +122,7 @@ public class TargetClickboxOverlay extends Overlay
 			case HULL:
 				Shape objectClickbox = actor.getConvexHull();
 
-				if (objectClickbox == null)
-				{
+				if (objectClickbox == null) {
 					return;
 				}
 
@@ -158,54 +147,46 @@ public class TargetClickboxOverlay extends Overlay
 				size = 1;
 				composition = actor.getTransformedDefinition();
 
-				if (composition != null)
-				{
+				if (composition != null) {
 					size = composition.getSize();
 				}
 
 				WorldPoint wp = actor.getWorldLocation();
 				getSquare(wp, size).forEach(square ->
-					drawTile(graphics, square, color, 1, 255, 50));
+						drawTile(graphics, square, color, 1, 255, 50));
 				break;
 		}
 
-		if (plugin.isDrawNames())
-		{
+		if (plugin.isDrawNames()) {
 			String npcName = Text.removeTags(actor.getName());
 			Point textLocation = actor.getCanvasTextLocation(graphics, npcName, actor.getLogicalHeight() + 40);
 
-			if (textLocation != null)
-			{
+			if (textLocation != null) {
 				OverlayUtil.renderTextLocation(graphics, textLocation, npcName, color);
 			}
 		}
 	}
 
-	private List<WorldPoint> getSquare(WorldPoint npcLoc, int npcSize)
-	{
+	private List<WorldPoint> getSquare(WorldPoint npcLoc, int npcSize) {
 		return new WorldArea(npcLoc.getX(), npcLoc.getY(), npcSize, npcSize, npcLoc.getPlane()).toWorldPointList();
 	}
 
-	private void drawTile(Graphics2D graphics, WorldPoint point, Color color, int strokeWidth, int outlineAlpha, int fillAlpha)
-	{
+	private void drawTile(Graphics2D graphics, WorldPoint point, Color color, int strokeWidth, int outlineAlpha, int fillAlpha) {
 		WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
 
-		if (point.distanceTo(playerLocation) >= 32)
-		{
+		if (point.distanceTo(playerLocation) >= 32) {
 			return;
 		}
 
 		LocalPoint lp = LocalPoint.fromWorld(client, point);
 
-		if (lp == null)
-		{
+		if (lp == null) {
 			return;
 		}
 
 		Polygon poly = Perspective.getCanvasTilePoly(client, lp);
 
-		if (poly == null)
-		{
+		if (poly == null) {
 			return;
 		}
 

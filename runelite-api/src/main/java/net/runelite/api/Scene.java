@@ -29,8 +29,7 @@ import net.runelite.api.coords.WorldPoint;
 /**
  * Represents the entire 3D scene
  */
-public interface Scene
-{
+public interface Scene {
 	/**
 	 * Gets the tiles in the scene
 	 *
@@ -49,5 +48,6 @@ public interface Scene
 	void removeItem(int id, int quantity, WorldPoint point);
 
 	int getDrawDistance();
+
 	void setDrawDistance(int drawDistance);
 }

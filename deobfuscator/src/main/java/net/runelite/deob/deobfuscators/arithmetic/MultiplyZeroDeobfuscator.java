@@ -26,6 +26,7 @@
 package net.runelite.deob.deobfuscators.arithmetic;
 
 import java.util.List;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
@@ -41,25 +42,20 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MultiplyZeroDeobfuscator implements Deobfuscator
-{
+public class MultiplyZeroDeobfuscator implements Deobfuscator {
 	private static final Logger logger = LoggerFactory.getLogger(MultiplyZeroDeobfuscator.class);
 
 	private int count;
 
-	private void visit(MethodContext mctx)
-	{
-		for (InstructionContext ictx : mctx.getInstructionContexts())
-		{
+	private void visit(MethodContext mctx) {
+		for (InstructionContext ictx : mctx.getInstructionContexts()) {
 			Instruction instruction = ictx.getInstruction();
 			Instructions ins = instruction.getInstructions();
-			if (ins == null)
-			{
+			if (ins == null) {
 				continue;
 			}
 
-			if (!(instruction instanceof IMul) && !(instruction instanceof LMul))
-			{
+			if (!(instruction instanceof IMul) && !(instruction instanceof LMul)) {
 				continue;
 			}
 
@@ -69,41 +65,34 @@ public class MultiplyZeroDeobfuscator implements Deobfuscator
 			StackContext two = ictx.getPops().get(1);
 
 			Instruction ione = one.getPushed().getInstruction(),
-				itwo = two.getPushed().getInstruction();
+					itwo = two.getPushed().getInstruction();
 
 			boolean remove = false;
-			if (ione instanceof PushConstantInstruction)
-			{
+			if (ione instanceof PushConstantInstruction) {
 				PushConstantInstruction pci = (PushConstantInstruction) ione;
 				Number value = (Number) pci.getConstant();
 
-				if (DMath.equals(value, 0))
-				{
+				if (DMath.equals(value, 0)) {
 					remove = true;
 				}
 			}
-			if (itwo instanceof PushConstantInstruction)
-			{
+			if (itwo instanceof PushConstantInstruction) {
 				PushConstantInstruction pci = (PushConstantInstruction) itwo;
 				Number value = (Number) pci.getConstant();
 
-				if (DMath.equals(value, 0))
-				{
+				if (DMath.equals(value, 0)) {
 					remove = true;
 				}
 			}
 
-			if (remove == false)
-			{
+			if (remove == false) {
 				continue;
 			}
 
-			if (!ilist.contains(instruction))
-			{
+			if (!ilist.contains(instruction)) {
 				continue; // already done
 			}
-			if (!MultiplicationDeobfuscator.isOnlyPath(ictx, null))
-			{
+			if (!MultiplicationDeobfuscator.isOnlyPath(ictx, null)) {
 				continue;
 			}
 
@@ -111,16 +100,11 @@ public class MultiplyZeroDeobfuscator implements Deobfuscator
 			ictx.removeStack(1);
 			ictx.removeStack(0);
 
-			if (instruction instanceof IMul)
-			{
+			if (instruction instanceof IMul) {
 				ins.replace(instruction, new LDC(ins, 0));
-			}
-			else if (instruction instanceof LMul)
-			{
+			} else if (instruction instanceof LMul) {
 				ins.replace(instruction, new LDC(ins, 0L));
-			}
-			else
-			{
+			} else {
 				throw new IllegalStateException();
 			}
 
@@ -128,15 +112,14 @@ public class MultiplyZeroDeobfuscator implements Deobfuscator
 
 		}
 	}
-	
+
 	@Override
-	public void run(ClassGroup group)
-	{
+	public void run(ClassGroup group) {
 		Execution e = new Execution(group);
 		e.addMethodContextVisitor(i -> visit(i));
 		e.populateInitialMethods();
 		e.run();
-		
+
 		logger.info("Removed " + count + " 0 multiplications");
 	}
 }

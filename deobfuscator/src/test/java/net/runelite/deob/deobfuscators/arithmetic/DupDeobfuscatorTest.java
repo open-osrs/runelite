@@ -48,11 +48,9 @@ import net.runelite.deob.Deobfuscator;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DupDeobfuscatorTest
-{
+public class DupDeobfuscatorTest {
 	@Test
-	public void test()
-	{
+	public void test() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -60,44 +58,42 @@ public class DupDeobfuscatorTest
 		code.setMaxStack(5);
 
 		Instruction[] prepareVariables =
-		{
-			new LDC(ins, 1),
-			new IStore(ins, 0)
-		};
+				{
+						new LDC(ins, 1),
+						new IStore(ins, 0)
+				};
 
-		for (Instruction i : prepareVariables)
-		{
+		for (Instruction i : prepareVariables) {
 			ins.addInstruction(i);
 		}
 
 		LDC constant1 = new LDC(ins, 1129258489),
-			constant2 = new LDC(ins, -1692330935),
-			constant3 = new LDC(ins, 1641298955),
-			constant4 = new LDC(ins, 1043501435);
+				constant2 = new LDC(ins, -1692330935),
+				constant3 = new LDC(ins, 1641298955),
+				constant4 = new LDC(ins, 1043501435);
 
 		Instruction body[] =
-		{
-			new AConstNull(ins), // this
-			new AConstNull(ins), // this
-			new ILoad(ins, 0),
-			constant1,
-			new IMul(ins),
-			new Dup_X1(ins),
-			constant2,
-			new IMul(ins),
-			new Pop2(ins), // putfield
+				{
+						new AConstNull(ins), // this
+						new AConstNull(ins), // this
+						new ILoad(ins, 0),
+						constant1,
+						new IMul(ins),
+						new Dup_X1(ins),
+						constant2,
+						new IMul(ins),
+						new Pop2(ins), // putfield
 
-			constant3,
-			new IMul(ins),
-			constant4,
-			new IMul(ins),
-			new Pop2(ins), // putfield
+						constant3,
+						new IMul(ins),
+						constant4,
+						new IMul(ins),
+						new Pop2(ins), // putfield
 
-			new VReturn(ins)
-		};
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -113,8 +109,8 @@ public class DupDeobfuscatorTest
 
 		// assert the dup_x1 was removed
 		long dupCount = ins.getInstructions().stream()
-			.filter(i -> i instanceof Dup_X1)
-			.count();
+				.filter(i -> i instanceof Dup_X1)
+				.count();
 		Assert.assertEquals(0, dupCount);
 	}
 
@@ -127,8 +123,7 @@ public class DupDeobfuscatorTest
 	//041   iadd                                      // this I
 	//042   dup_x1                                    // I this I
 	@Test
-	public void test2()
-	{
+	public void test2() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
@@ -136,22 +131,21 @@ public class DupDeobfuscatorTest
 		code.setMaxStack(3);
 
 		Instruction body[] =
-		{
-			new AConstNull(ins), // this
-			new Dup(ins), // this this
-			new GetField(ins, new Field(new Class("test"), "field", Type.INT)),
-			new LDC(ins, 830083863), // this this I I
-			new IMul(ins), // this this I
-			new LDC(ins, 830083863),
-			new IAdd(ins),
-			new Dup_X1(ins),
-			new LDC(ins, 636900519),
-			new IMul(ins), // pops dup
-			new VReturn(ins)
-		};
+				{
+						new AConstNull(ins), // this
+						new Dup(ins), // this this
+						new GetField(ins, new Field(new Class("test"), "field", Type.INT)),
+						new LDC(ins, 830083863), // this this I I
+						new IMul(ins), // this this I
+						new LDC(ins, 830083863),
+						new IAdd(ins),
+						new Dup_X1(ins),
+						new LDC(ins, 636900519),
+						new IMul(ins), // pops dup
+						new VReturn(ins)
+				};
 
-		for (Instruction i : body)
-		{
+		for (Instruction i : body) {
 			ins.addInstruction(i);
 		}
 
@@ -164,14 +158,14 @@ public class DupDeobfuscatorTest
 
 		// assert the dup wasn't duplicated
 		long dupCount = ins.getInstructions().stream()
-			.filter(i -> i instanceof Dup)
-			.count();
+				.filter(i -> i instanceof Dup)
+				.count();
 		Assert.assertEquals(1, dupCount);
 
 		// assert the dup_x1 was removed
 		dupCount = ins.getInstructions().stream()
-			.filter(i -> i instanceof Dup_X1)
-			.count();
+				.filter(i -> i instanceof Dup_X1)
+				.count();
 		Assert.assertEquals(0, dupCount);
 	}
 }

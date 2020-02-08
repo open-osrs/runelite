@@ -25,13 +25,13 @@
 package net.runelite.http.api.worlds;
 
 import java.util.EnumSet;
+
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder
-public class World
-{
+public class World {
 	private int id;
 	private EnumSet<WorldType> types;
 	private String address;

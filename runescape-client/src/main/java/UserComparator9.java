@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class UserComparator9 extends AbstractUserComparator {
 	@ObfuscatedName("nx")
 	@ObfuscatedGetter(
-		intValue = 76612023
+			intValue = 76612023
 	)
 	static int field1965;
 	@ObfuscatedName("c")
@@ -22,8 +22,8 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lje;Lje;I)I",
-		garbageValue = "-393804908"
+			signature = "(Lje;Lje;I)I",
+			garbageValue = "-393804908"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -35,17 +35,17 @@ public class UserComparator9 extends AbstractUserComparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2);
+		return this.compareBuddy((Buddy) var1, (Buddy) var2);
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)Lce;",
-		garbageValue = "-1024902697"
+			signature = "(II)Lce;",
+			garbageValue = "-1024902697"
 	)
 	@Export("getScript")
 	static Script getScript(int var0) {
-		Script var1 = (Script)Script.Script_cached.get((long)var0);
+		Script var1 = (Script) Script.Script_cached.get((long) var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -54,7 +54,7 @@ public class UserComparator9 extends AbstractUserComparator {
 				return null;
 			} else {
 				var1 = Clock.newScript(var2);
-				Script.Script_cached.put(var1, (long)var0);
+				Script.Script_cached.put(var1, (long) var0);
 				return var1;
 			}
 		}
@@ -62,8 +62,8 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(II)Lkx;",
-		garbageValue = "-1930566086"
+			signature = "(II)Lkx;",
+			garbageValue = "-1930566086"
 	)
 	public static PrivateChatMode method3461(int var0) {
 		PrivateChatMode[] var1 = class289.method5359();
@@ -85,8 +85,8 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(Lcx;I)V",
-		garbageValue = "1045276574"
+			signature = "(Lcx;I)V",
+			garbageValue = "1045276574"
 	)
 	public static final void method3462(class99 var0) {
 		PcmPlayer.pcmPlayerProvider = var0;

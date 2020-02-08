@@ -32,8 +32,7 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Barrows
-{
+public enum Barrows {
 	DISABLED("Disabled"),
 	BARROWS_CHEAP("Eagle/Mystic"),
 	BARROWS_EXPENSIVE("Augury/Rigour");
@@ -41,8 +40,7 @@ public enum Barrows
 	private String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return getName();
 	}
 }

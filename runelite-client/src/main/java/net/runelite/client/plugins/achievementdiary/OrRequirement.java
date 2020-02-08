@@ -26,23 +26,22 @@ package net.runelite.client.plugins.achievementdiary;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+
 import java.util.List;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 
-public class OrRequirement implements Requirement
-{
+public class OrRequirement implements Requirement {
 	@Getter(AccessLevel.PACKAGE)
 	private final List<Requirement> requirements;
 
-	public OrRequirement(Requirement... reqs)
-	{
+	public OrRequirement(Requirement... reqs) {
 		this.requirements = ImmutableList.copyOf(reqs);
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return Joiner.on(" or ").join(requirements);
 	}
 }

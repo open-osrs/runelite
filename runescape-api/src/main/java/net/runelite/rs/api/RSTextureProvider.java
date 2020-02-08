@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.TextureProvider;
 import net.runelite.mapping.Import;
 
-public interface RSTextureProvider extends TextureProvider
-{
+public interface RSTextureProvider extends TextureProvider {
 	@Import("brightness")
 	@Override
 	double getBrightness();

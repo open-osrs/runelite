@@ -33,6 +33,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.RenderOverview;
@@ -48,8 +49,7 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
 @Singleton
-public class WorldMapOverlay extends Overlay
-{
+public class WorldMapOverlay extends Overlay {
 	private static final int TOOLTIP_OFFSET_HEIGHT = 25;
 	private static final int TOOLTIP_OFFSET_WIDTH = 5;
 	private static final int TOOLTIP_PADDING_HEIGHT = 1;
@@ -60,11 +60,10 @@ public class WorldMapOverlay extends Overlay
 
 	@Inject
 	private WorldMapOverlay(
-		Client client,
-		WorldMapPointManager worldMapPointManager,
-		MouseManager mouseManager,
-		WorldMapOverlayMouseListener worldMapOverlayMouseListener)
-	{
+			Client client,
+			WorldMapPointManager worldMapPointManager,
+			MouseManager mouseManager,
+			WorldMapOverlayMouseListener worldMapOverlayMouseListener) {
 		this.client = client;
 		this.worldMapPointManager = worldMapPointManager;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -74,18 +73,15 @@ public class WorldMapOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
+	public Dimension render(Graphics2D graphics) {
 		final List<WorldMapPoint> points = worldMapPointManager.getWorldMapPoints();
 
-		if (points.isEmpty())
-		{
+		if (points.isEmpty()) {
 			return null;
 		}
 
 		Widget widget = client.getWidget(WidgetInfo.WORLD_MAP_VIEW);
-		if (widget == null)
-		{
+		if (widget == null) {
 			return null;
 		}
 
@@ -97,47 +93,35 @@ public class WorldMapOverlay extends Overlay
 
 		WorldMapPoint tooltipPoint = null;
 
-		for (WorldMapPoint worldPoint : points)
-		{
+		for (WorldMapPoint worldPoint : points) {
 			BufferedImage image = worldPoint.getImage();
 			WorldPoint point = worldPoint.getWorldPoint();
 
-			if (image != null && point != null)
-			{
+			if (image != null && point != null) {
 				Point drawPoint = mapWorldPointToGraphicsPoint(point);
 
-				if (drawPoint == null)
-				{
+				if (drawPoint == null) {
 					worldPoint.setClickbox(null);
 					continue;
 				}
 
-				if (worldPoint.isSnapToEdge() && canvasViewArea != currentClip)
-				{
+				if (worldPoint.isSnapToEdge() && canvasViewArea != currentClip) {
 					graphics.setClip(canvasViewArea);
 					currentClip = canvasViewArea;
-				}
-				else if (!worldPoint.isSnapToEdge() && mapViewArea != currentClip)
-				{
+				} else if (!worldPoint.isSnapToEdge() && mapViewArea != currentClip) {
 					graphics.setClip(mapViewArea);
 					currentClip = mapViewArea;
 				}
 
-				if (worldPoint.isSnapToEdge())
-				{
-					if (worldMapRectangle.contains(drawPoint.getX(), drawPoint.getY()))
-					{
-						if (worldPoint.isCurrentlyEdgeSnapped())
-						{
+				if (worldPoint.isSnapToEdge()) {
+					if (worldMapRectangle.contains(drawPoint.getX(), drawPoint.getY())) {
+						if (worldPoint.isCurrentlyEdgeSnapped()) {
 							worldPoint.setCurrentlyEdgeSnapped(false);
 							worldPoint.onEdgeUnsnap();
 						}
-					}
-					else
-					{
+					} else {
 						drawPoint = clipToRectangle(drawPoint, worldMapRectangle);
-						if (!worldPoint.isCurrentlyEdgeSnapped())
-						{
+						if (!worldPoint.isCurrentlyEdgeSnapped()) {
 							worldPoint.setCurrentlyEdgeSnapped(true);
 							worldPoint.onEdgeSnap();
 						}
@@ -147,13 +131,10 @@ public class WorldMapOverlay extends Overlay
 				int drawX = drawPoint.getX();
 				int drawY = drawPoint.getY();
 
-				if (worldPoint.getImagePoint() == null)
-				{
+				if (worldPoint.getImagePoint() == null) {
 					drawX -= image.getWidth() / 2;
 					drawY -= image.getHeight() / 2;
-				}
-				else
-				{
+				} else {
 					drawX -= worldPoint.getImagePoint().getX();
 					drawY -= worldPoint.getImagePoint().getY();
 				}
@@ -162,15 +143,13 @@ public class WorldMapOverlay extends Overlay
 				Rectangle clickbox = new Rectangle(drawX, drawY, image.getWidth(), image.getHeight());
 				worldPoint.setClickbox(clickbox);
 
-				if (worldPoint.isTooltipVisible())
-				{
+				if (worldPoint.isTooltipVisible()) {
 					tooltipPoint = worldPoint;
 				}
 			}
 		}
 
-		if (tooltipPoint != null)
-		{
+		if (tooltipPoint != null) {
 			drawTooltip(graphics, tooltipPoint);
 		}
 
@@ -183,20 +162,17 @@ public class WorldMapOverlay extends Overlay
 	 * @param worldPoint WorldPoint to get screen coordinates of
 	 * @return Point of screen coordinates of the center of the world point
 	 */
-	public Point mapWorldPointToGraphicsPoint(WorldPoint worldPoint)
-	{
+	public Point mapWorldPointToGraphicsPoint(WorldPoint worldPoint) {
 		RenderOverview ro = client.getRenderOverview();
 
-		if (!ro.getWorldMapData().surfaceContainsPosition(worldPoint.getX(), worldPoint.getY()))
-		{
+		if (!ro.getWorldMapData().surfaceContainsPosition(worldPoint.getX(), worldPoint.getY())) {
 			return null;
 		}
 
 		float pixelsPerTile = ro.getWorldMapZoom();
 
 		Widget map = client.getWidget(WidgetInfo.WORLD_MAP_VIEW);
-		if (map != null)
-		{
+		if (map != null) {
 			Rectangle worldMapRect = map.getBounds();
 
 			int widthInTiles = (int) Math.ceil(worldMapRect.getWidth() / pixelsPerTile);
@@ -232,32 +208,27 @@ public class WorldMapOverlay extends Overlay
 	 * @return An {@link Area} representing <code>baseRectangle</code>, with the area
 	 * of visible widgets overlaying the world map clipped from it.
 	 */
-	private Area getWorldMapClipArea(Rectangle baseRectangle)
-	{
+	private Area getWorldMapClipArea(Rectangle baseRectangle) {
 		final Widget overview = client.getWidget(WidgetInfo.WORLD_MAP_OVERVIEW_MAP);
 		final Widget surfaceSelector = client.getWidget(WidgetInfo.WORLD_MAP_SURFACE_SELECTOR);
 
 		Area clipArea = new Area(baseRectangle);
 
-		if (overview != null && !overview.isHidden())
-		{
+		if (overview != null && !overview.isHidden()) {
 			clipArea.subtract(new Area(overview.getBounds()));
 		}
 
-		if (surfaceSelector != null && !surfaceSelector.isHidden())
-		{
+		if (surfaceSelector != null && !surfaceSelector.isHidden()) {
 			clipArea.subtract(new Area(surfaceSelector.getBounds()));
 		}
 
 		return clipArea;
 	}
 
-	private void drawTooltip(Graphics2D graphics, WorldMapPoint worldPoint)
-	{
+	private void drawTooltip(Graphics2D graphics, WorldMapPoint worldPoint) {
 		String tooltip = worldPoint.getTooltip();
 		Point drawPoint = mapWorldPointToGraphicsPoint(worldPoint.getWorldPoint());
-		if (tooltip == null || tooltip.length() <= 0 || drawPoint == null)
-		{
+		if (tooltip == null || tooltip.length() <= 0 || drawPoint == null) {
 			return;
 		}
 
@@ -281,29 +252,24 @@ public class WorldMapOverlay extends Overlay
 		graphics.drawString(tooltip, drawPoint.getX(), drawPoint.getY() + height);
 	}
 
-	private Point clipToRectangle(Point drawPoint, Rectangle mapDisplayRectangle)
-	{
+	private Point clipToRectangle(Point drawPoint, Rectangle mapDisplayRectangle) {
 		int clippedX = drawPoint.getX();
 
-		if (drawPoint.getX() < mapDisplayRectangle.getX())
-		{
+		if (drawPoint.getX() < mapDisplayRectangle.getX()) {
 			clippedX = (int) mapDisplayRectangle.getX();
 		}
 
-		if (drawPoint.getX() > mapDisplayRectangle.getX() + mapDisplayRectangle.getWidth())
-		{
+		if (drawPoint.getX() > mapDisplayRectangle.getX() + mapDisplayRectangle.getWidth()) {
 			clippedX = (int) (mapDisplayRectangle.getX() + mapDisplayRectangle.getWidth());
 		}
 
 		int clippedY = drawPoint.getY();
 
-		if (drawPoint.getY() < mapDisplayRectangle.getY())
-		{
+		if (drawPoint.getY() < mapDisplayRectangle.getY()) {
 			clippedY = (int) mapDisplayRectangle.getY();
 		}
 
-		if (drawPoint.getY() > mapDisplayRectangle.getY() + mapDisplayRectangle.getHeight())
-		{
+		if (drawPoint.getY() > mapDisplayRectangle.getY() + mapDisplayRectangle.getHeight()) {
 			clippedY = (int) (mapDisplayRectangle.getY() + mapDisplayRectangle.getHeight());
 		}
 

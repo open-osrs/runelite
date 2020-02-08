@@ -27,10 +27,12 @@
 package net.runelite.client.plugins.cluescrolls.clues.hotcold;
 
 import java.awt.Rectangle;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
+
 import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.*;
 
 // The locations contains all hot/cold points and their descriptions according to the wiki
@@ -40,8 +42,7 @@ import static net.runelite.client.plugins.cluescrolls.clues.hotcold.HotColdArea.
 // because the calculations consider the 9x9 grid, slightly off-center points should still be found by the calculations
 @AllArgsConstructor
 @Getter(AccessLevel.PUBLIC)
-public enum HotColdLocation
-{
+public enum HotColdLocation {
 	ASGARNIA_WARRIORS(new WorldPoint(2860, 3562, 0), ASGARNIA, "North of the Warriors' Guild in Burthorpe."),
 	ASGARNIA_JATIX(new WorldPoint(2914, 3429, 0), ASGARNIA, "East of Jatix's Herblore Shop in Taverley."),
 	ASGARNIA_BARB(new WorldPoint(3036, 3439, 0), ASGARNIA, "West of Barbarian Village."),
@@ -177,15 +178,13 @@ public enum HotColdLocation
 	private final HotColdArea hotColdArea;
 	private final String area;
 
-	HotColdLocation(WorldPoint worldPoint, HotColdArea hotColdArea, String areaDescription)
-	{
+	HotColdLocation(WorldPoint worldPoint, HotColdArea hotColdArea, String areaDescription) {
 		this(false, worldPoint, hotColdArea, areaDescription);
 	}
 
-	public Rectangle getRect()
-	{
+	public Rectangle getRect() {
 		final int digRadius = beginnerClue ? HotColdTemperature.BEGINNER_VISIBLY_SHAKING.getMaxDistance() :
-			HotColdTemperature.MASTER_VISIBLY_SHAKING.getMaxDistance();
+				HotColdTemperature.MASTER_VISIBLY_SHAKING.getMaxDistance();
 		return new Rectangle(worldPoint.getX() - digRadius, worldPoint.getY() - digRadius, digRadius * 2 + 1, digRadius * 2 + 1);
 	}
 }

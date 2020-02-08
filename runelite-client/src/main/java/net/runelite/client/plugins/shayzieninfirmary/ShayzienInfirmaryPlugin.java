@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -42,15 +43,14 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Shayzien Infirmary",
-	description = "Shows the status of wounded soldiers",
-	tags = {"shayzien", "infirmary", "soldiers"},
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Shayzien Infirmary",
+		description = "Shows the status of wounded soldiers",
+		tags = {"shayzien", "infirmary", "soldiers"},
+		type = PluginType.UTILITY,
+		enabledByDefault = false
 )
 @Singleton
-public class ShayzienInfirmaryPlugin extends Plugin
-{
+public class ShayzienInfirmaryPlugin extends Plugin {
 	@Getter(AccessLevel.PACKAGE)
 	private List<NPC> unhealedSoldiers = new ArrayList<>();
 
@@ -64,59 +64,48 @@ public class ShayzienInfirmaryPlugin extends Plugin
 	private ShayzienInfirmaryOverlay overlay;
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 
 		loadPlugin();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		unloadPlugin();
 	}
 
-	private void loadPlugin()
-	{
+	private void loadPlugin() {
 		overlayManager.add(overlay);
 	}
 
-	private void unloadPlugin()
-	{
+	private void unloadPlugin() {
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event)
-	{
-		if (isNotAtInfirmary())
-		{
+	private void onGameTick(GameTick event) {
+		if (isNotAtInfirmary()) {
 			return;
 		}
 
 		unhealedSoldiers.clear();
 
-		for (NPC npc : client.getNpcs())
-		{
-			if (isUnhealedSoldierId(npc.getId()))
-			{
+		for (NPC npc : client.getNpcs()) {
+			if (isUnhealedSoldierId(npc.getId())) {
 				unhealedSoldiers.add(npc);
 			}
 		}
 	}
 
-	private boolean isSoldierId(int npcId)
-	{
+	private boolean isSoldierId(int npcId) {
 		return (npcId >= 6826 && npcId <= 6857);
 	}
 
-	private boolean isUnhealedSoldierId(int npcId)
-	{
+	private boolean isUnhealedSoldierId(int npcId) {
 		return (isSoldierId(npcId) && npcId % 2 == 0);
 	}
 
-	boolean isNotAtInfirmary()
-	{
+	boolean isNotAtInfirmary() {
 		return client.getLocalPlayer().getWorldLocation().getRegionID() != 6200;
 	}
 }

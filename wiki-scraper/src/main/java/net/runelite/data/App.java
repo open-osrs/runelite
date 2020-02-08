@@ -25,35 +25,33 @@ package net.runelite.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import net.runelite.cache.fs.Store;
 import net.runelite.data.dump.MediaWiki;
 import net.runelite.data.dump.wiki.ItemLimitsDumper;
 import net.runelite.data.dump.wiki.ItemStatsDumper;
 import net.runelite.data.dump.wiki.NpcStatsDumper;
 
-public class App
-{
+public class App {
 	public static final Gson GSON = new GsonBuilder()
-		// .setPrettyPrinting()
-		.disableHtmlEscaping()
-		.create();
+			// .setPrettyPrinting()
+			.disableHtmlEscaping()
+			.create();
 
 	private final static MediaWiki wiki = new MediaWiki("https://oldschool.runescape.wiki");
 
-	public static void main(String[] args) throws IOException
-	{
-		if (args.length < 2)
-		{
+	public static void main(String[] args) throws IOException {
+		if (args.length < 2) {
 			System.exit(-1);
 		}
 
-		switch (args[0])
-		{
+		switch (args[0]) {
 			case "npcStats":
 				npcStats(new File(args[1]));
 				break;
@@ -66,13 +64,11 @@ public class App
 		}
 	}
 
-	private static Store cacheStore() throws IOException
-	{
+	private static Store cacheStore() throws IOException {
 		Path path = Paths.get(System.getProperty("user.home"), "jagexcache" + File.separator + "oldschool" + File.separator + "LIVE");
 		final File jagexcache = new File(String.valueOf(path));
 
-		if (!Files.exists(path))
-		{
+		if (!Files.exists(path)) {
 			return null;
 		}
 
@@ -86,18 +82,15 @@ public class App
 		return cacheStore;
 	}
 
-	private static void npcStats(File path) throws IOException
-	{
+	private static void npcStats(File path) throws IOException {
 		NpcStatsDumper.dump(cacheStore(), wiki, path);
 	}
 
-	private static void itemStats(File path) throws IOException
-	{
+	private static void itemStats(File path) throws IOException {
 		ItemStatsDumper.dump(cacheStore(), wiki, path);
 	}
 
-	private static void itemLimits(File path) throws IOException
-	{
+	private static void itemLimits(File path) throws IOException {
 		ItemLimitsDumper.dump(cacheStore(), wiki, path);
 	}
 }

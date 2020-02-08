@@ -5,8 +5,7 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSTileModel;
 
 @Mixin(RSTileModel.class)
-public abstract class RSTileModelMixin implements RSTileModel
-{
+public abstract class RSTileModelMixin implements RSTileModel {
 	@Inject
 	private int rl$modelBufferOffset;
 
@@ -42,155 +41,133 @@ public abstract class RSTileModelMixin implements RSTileModel
 
 	@Inject
 	@Override
-	public int getBufferOffset()
-	{
+	public int getBufferOffset() {
 		return rl$modelBufferOffset;
 	}
 
 	@Inject
 	@Override
-	public void setBufferOffset(int bufferOffset)
-	{
+	public void setBufferOffset(int bufferOffset) {
 		rl$modelBufferOffset = bufferOffset;
 	}
 
 	@Inject
 	@Override
-	public int getUvBufferOffset()
-	{
+	public int getUvBufferOffset() {
 		return rl$modelUvBufferOffset;
 	}
 
 	@Inject
 	@Override
-	public void setUvBufferOffset(int bufferOffset)
-	{
+	public void setUvBufferOffset(int bufferOffset) {
 		rl$modelUvBufferOffset = bufferOffset;
 	}
 
 	@Inject
 	@Override
-	public int getBufferLen()
-	{
+	public int getBufferLen() {
 		return rl$modelBufferLen;
 	}
 
 	@Inject
 	@Override
-	public void setBufferLen(int bufferLen)
-	{
+	public void setBufferLen(int bufferLen) {
 		rl$modelBufferLen = bufferLen;
 	}
 
 	@Inject
 	@Override
-	public int getUnderlaySwColor()
-	{
+	public int getUnderlaySwColor() {
 		return underlaySwColor;
 	}
 
 	@Inject
 	@Override
-	public void setUnderlaySwColor(int color)
-	{
+	public void setUnderlaySwColor(int color) {
 		underlaySwColor = color;
 	}
 
 	@Inject
 	@Override
-	public int getUnderlaySeColor()
-	{
+	public int getUnderlaySeColor() {
 		return underlaySeColor;
 	}
 
 	@Inject
 	@Override
-	public void setUnderlaySeColor(int color)
-	{
+	public void setUnderlaySeColor(int color) {
 		underlaySeColor = color;
 	}
 
 	@Inject
 	@Override
-	public int getUnderlayNeColor()
-	{
+	public int getUnderlayNeColor() {
 		return underlayNeColor;
 	}
 
 	@Inject
 	@Override
-	public void setUnderlayNeColor(int color)
-	{
+	public void setUnderlayNeColor(int color) {
 		underlayNeColor = color;
 	}
 
 	@Inject
 	@Override
-	public int getUnderlayNwColor()
-	{
+	public int getUnderlayNwColor() {
 		return underlayNwColor;
 	}
 
 	@Inject
 	@Override
-	public void setUnderlayNwColor(int color)
-	{
+	public void setUnderlayNwColor(int color) {
 		underlayNwColor = color;
 	}
 
 	@Inject
 	@Override
-	public int getOverlaySwColor()
-	{
+	public int getOverlaySwColor() {
 		return overlaySwColor;
 	}
 
 	@Inject
 	@Override
-	public void setOverlaySwColor(int color)
-	{
+	public void setOverlaySwColor(int color) {
 		overlaySwColor = color;
 	}
 
 	@Inject
 	@Override
-	public int getOverlaySeColor()
-	{
+	public int getOverlaySeColor() {
 		return overlaySeColor;
 	}
 
 	@Inject
 	@Override
-	public void setOverlaySeColor(int color)
-	{
+	public void setOverlaySeColor(int color) {
 		overlaySeColor = color;
 	}
 
 	@Inject
 	@Override
-	public int getOverlayNeColor()
-	{
+	public int getOverlayNeColor() {
 		return overlayNeColor;
 	}
 
 	@Inject
 	@Override
-	public void setOverlayNeColor(int color)
-	{
+	public void setOverlayNeColor(int color) {
 		overlayNeColor = color;
 	}
 
 	@Inject
 	@Override
-	public int getOverlayNwColor()
-	{
+	public int getOverlayNwColor() {
 		return overlayNwColor;
 	}
 
 	@Inject
 	@Override
-	public void setOverlayNwColor(int color)
-	{
+	public void setOverlayNwColor(int color) {
 		overlayNwColor = color;
 	}
 }

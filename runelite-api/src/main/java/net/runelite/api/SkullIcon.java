@@ -28,8 +28,7 @@ package net.runelite.api;
 /**
  * An enumeration of PK skulls.
  */
-public enum SkullIcon
-{
+public enum SkullIcon {
 	/**
 	 * White skull from PVP world or wilderness
 	 */

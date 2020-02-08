@@ -28,6 +28,7 @@ package net.runelite.client.plugins.banktags.tabs;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Runnables;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -49,6 +50,7 @@ import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
@@ -84,17 +86,20 @@ import net.runelite.client.game.chatbox.ChatboxItemSearch;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.plugins.banktags.BankTagsConfig;
 import net.runelite.client.plugins.banktags.BankTagsPlugin;
+
 import static net.runelite.client.plugins.banktags.BankTagsPlugin.TAG_SEARCH;
 import static net.runelite.client.plugins.banktags.BankTagsPlugin.VAR_TAG_SUFFIX;
+
 import net.runelite.client.plugins.banktags.TagManager;
+
 import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.NewTab;
 import static net.runelite.client.plugins.banktags.tabs.MenuIndexes.Tab;
+
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-public class TabInterface
-{
+public class TabInterface {
 	public static final IntPredicate FILTERED_CHARS = c -> "</>".indexOf(c) == -1;
 
 	private static final Color HILIGHT_COLOR = JagexColors.MENU_TARGET;
@@ -153,17 +158,16 @@ public class TabInterface
 
 	@Inject
 	private TabInterface(
-		final Client client,
-		final ClientThread clientThread,
-		final ItemManager itemManager,
-		final TagManager tagManager,
-		final TabManager tabManager,
-		final ChatboxPanelManager chatboxPanelManager,
-		final BankTagsConfig config,
-		final Notifier notifier,
-		final BankSearch bankSearch,
-		final ChatboxItemSearch searchProvider)
-	{
+			final Client client,
+			final ClientThread clientThread,
+			final ItemManager itemManager,
+			final TagManager tagManager,
+			final TabManager tabManager,
+			final ChatboxPanelManager chatboxPanelManager,
+			final BankTagsConfig config,
+			final Notifier notifier,
+			final BankSearch bankSearch,
+			final ChatboxItemSearch searchProvider) {
 		this.client = client;
 		this.clientThread = clientThread;
 		this.itemManager = itemManager;
@@ -176,15 +180,12 @@ public class TabInterface
 		this.searchProvider = searchProvider;
 	}
 
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return activeTab != null;
 	}
 
-	public void init()
-	{
-		if (isHidden())
-		{
+	public void init() {
+		if (isHidden()) {
 			return;
 		}
 
@@ -217,35 +218,29 @@ public class TabInterface
 		activateTab(null);
 		scrollTab(0);
 
-		if (config.rememberTab() && !Strings.isNullOrEmpty(config.tab()))
-		{
+		if (config.rememberTab() && !Strings.isNullOrEmpty(config.tab())) {
 			// the server will resync the last opened vanilla tab when the bank is opened
 			client.setVarbit(Varbits.CURRENT_BANK_TAB, 0);
 			openTag(config.tab());
 		}
 	}
 
-	private void handleDeposit(MenuOptionClicked event, Boolean inventory)
-	{
+	private void handleDeposit(MenuOptionClicked event, Boolean inventory) {
 		ItemContainer container = client.getItemContainer(inventory ? InventoryID.INVENTORY : InventoryID.EQUIPMENT);
 
-		if (container == null)
-		{
+		if (container == null) {
 			return;
 		}
 
 		List<Integer> items = Arrays.stream(container.getItems())
-			.filter(Objects::nonNull)
-			.map(Item::getId)
-			.filter(id -> id != -1)
-			.collect(Collectors.toList());
+				.filter(Objects::nonNull)
+				.map(Item::getId)
+				.filter(id -> id != -1)
+				.collect(Collectors.toList());
 
-		if (!Strings.isNullOrEmpty(event.getTarget()))
-		{
-			if (activeTab != null && Text.removeTags(event.getTarget()).equals(activeTab.getTag()))
-			{
-				for (Integer item : items)
-				{
+		if (!Strings.isNullOrEmpty(event.getTarget())) {
+			if (activeTab != null && Text.removeTags(event.getTarget()).equals(activeTab.getTag())) {
+				for (Integer item : items) {
 					tagManager.addTag(item, activeTab.getTag(), false);
 				}
 
@@ -256,63 +251,55 @@ public class TabInterface
 		}
 
 		chatboxPanelManager.openTextInput((inventory ? "Inventory " : "Equipment ") + " tags:")
-			.addCharValidator(FILTERED_CHARS)
-			.onDone((newTags) ->
-				clientThread.invoke(() ->
-				{
-					final List<String> tags = Text.fromCSV(newTags.toLowerCase());
+				.addCharValidator(FILTERED_CHARS)
+				.onDone((newTags) ->
+						clientThread.invoke(() ->
+						{
+							final List<String> tags = Text.fromCSV(newTags.toLowerCase());
 
-					for (Integer item : items)
-					{
-						tagManager.addTags(item, tags, false);
-					}
+							for (Integer item : items) {
+								tagManager.addTags(item, tags, false);
+							}
 
-					updateTabIfActive(tags);
-				}))
-			.build();
+							updateTabIfActive(tags);
+						}))
+				.build();
 	}
 
-	private void handleNewTab(ScriptEvent event)
-	{
-		switch (event.getOp())
-		{
+	private void handleNewTab(ScriptEvent event) {
+		switch (event.getOp()) {
 			case NewTab.NEW_TAB:
 				chatboxPanelManager.openTextInput("Tag name")
-					.addCharValidator(FILTERED_CHARS)
-					.onDone((tagName) -> clientThread.invoke(() ->
-					{
-						if (!Strings.isNullOrEmpty(tagName))
+						.addCharValidator(FILTERED_CHARS)
+						.onDone((tagName) -> clientThread.invoke(() ->
 						{
-							loadTab(tagName);
-							tabManager.save();
-							scrollTab(0);
-						}
-					}))
-					.build();
+							if (!Strings.isNullOrEmpty(tagName)) {
+								loadTab(tagName);
+								tabManager.save();
+								scrollTab(0);
+							}
+						}))
+						.build();
 				break;
 			case NewTab.IMPORT_TAB:
-				try
-				{
+				try {
 					final String dataString = Toolkit
-						.getDefaultToolkit()
-						.getSystemClipboard()
-						.getData(DataFlavor.stringFlavor)
-						.toString()
-						.trim();
+							.getDefaultToolkit()
+							.getSystemClipboard()
+							.getData(DataFlavor.stringFlavor)
+							.toString()
+							.trim();
 
 					final Iterator<String> dataIter = Text.fromCSV(dataString).iterator();
 					String name = dataIter.next();
 					StringBuilder sb = new StringBuilder();
-					for (char c : name.toCharArray())
-					{
-						if (FILTERED_CHARS.test(c))
-						{
+					for (char c : name.toCharArray()) {
+						if (FILTERED_CHARS.test(c)) {
 							sb.append(c);
 						}
 					}
 
-					if (sb.length() == 0)
-					{
+					if (sb.length() == 0) {
 						notifier.notify("Failed to import tag tab from clipboard, invalid format.");
 						return;
 					}
@@ -322,8 +309,7 @@ public class TabInterface
 					final String icon = dataIter.next();
 					tabManager.setIcon(name, icon);
 
-					while (dataIter.hasNext())
-					{
+					while (dataIter.hasNext()) {
 						final int itemId = Integer.parseInt(dataIter.next());
 						tagManager.addTag(itemId, name, itemId < 0);
 					}
@@ -332,38 +318,30 @@ public class TabInterface
 					tabManager.save();
 					scrollTab(0);
 
-					if (activeTab != null && name.equals(activeTab.getTag()))
-					{
+					if (activeTab != null && name.equals(activeTab.getTag())) {
 						openTag(activeTab.getTag());
 					}
 
 					notifier.notify("Tag tab " + name + " has been imported from your clipboard!");
-				}
-				catch (UnsupportedFlavorException | NoSuchElementException | IOException | NumberFormatException ex)
-				{
+				} catch (UnsupportedFlavorException | NoSuchElementException | IOException | NumberFormatException ex) {
 					notifier.notify("Failed to import tag tab from clipboard, invalid format.");
 				}
 		}
 	}
 
-	private void handleTagTab(ScriptEvent event)
-	{
-		switch (event.getOp())
-		{
+	private void handleTagTab(ScriptEvent event) {
+		switch (event.getOp()) {
 			case Tab.OPEN_TAG:
 				client.setVarbit(Varbits.CURRENT_BANK_TAB, 0);
 				Widget clicked = event.getSource();
 
 				TagTab tab = tabManager.find(Text.removeTags(clicked.getName()));
 
-				if (tab.equals(activeTab))
-				{
+				if (tab.equals(activeTab)) {
 					bankSearch.reset(true);
 
 					clientThread.invokeLater(() -> client.runScript(ScriptID.MESSAGE_LAYER_CLOSE, 0, 0));
-				}
-				else
-				{
+				} else {
 					openTag(Text.removeTags(clicked.getName()));
 				}
 
@@ -372,32 +350,31 @@ public class TabInterface
 			case Tab.CHANGE_ICON:
 				final String tag = Text.removeTags(event.getOpbase());
 				searchProvider
-					.tooltipText(CHANGE_ICON + " (" + tag + ")")
-					.onItemSelected((itemId) ->
-					{
-						TagTab iconToSet = tabManager.find(tag);
-						if (iconToSet != null)
+						.tooltipText(CHANGE_ICON + " (" + tag + ")")
+						.onItemSelected((itemId) ->
 						{
-							iconToSet.setIconItemId(itemId);
-							iconToSet.getIcon().setItemId(itemId);
-							tabManager.setIcon(iconToSet.getTag(), itemId + "");
-						}
-					})
-					.build();
+							TagTab iconToSet = tabManager.find(tag);
+							if (iconToSet != null) {
+								iconToSet.setIconItemId(itemId);
+								iconToSet.getIcon().setItemId(itemId);
+								tabManager.setIcon(iconToSet.getTag(), itemId + "");
+							}
+						})
+						.build();
 				break;
 			case Tab.DELETE_TAB:
 				String target = Text.standardize(event.getOpbase());
 				chatboxPanelManager.openTextMenuInput("Delete " + target)
-					.option("1. Tab and tag from all items", () ->
-						clientThread.invoke(() ->
-						{
-							tagManager.removeTag(target);
-							deleteTab(target);
-						})
-					)
-					.option("2. Only tab", () -> clientThread.invoke(() -> deleteTab(target)))
-					.option("3. Cancel", Runnables::doNothing)
-					.build();
+						.option("1. Tab and tag from all items", () ->
+								clientThread.invoke(() ->
+								{
+									tagManager.removeTag(target);
+									deleteTab(target);
+								})
+						)
+						.option("2. Only tab", () -> clientThread.invoke(() -> deleteTab(target)))
+						.option("3. Cancel", Runnables::doNothing)
+						.build();
 				break;
 			case Tab.EXPORT_TAB:
 				final List<String> data = new ArrayList<>();
@@ -405,8 +382,7 @@ public class TabInterface
 				data.add(tagTab.getTag());
 				data.add(String.valueOf(tagTab.getIconItemId()));
 
-				for (Integer item : tagManager.getItemsForTag(tagTab.getTag()))
-				{
+				for (Integer item : tagManager.getItemsForTag(tagTab.getTag())) {
 					data.add(String.valueOf(item));
 				}
 
@@ -421,8 +397,7 @@ public class TabInterface
 		}
 	}
 
-	public void destroy()
-	{
+	public void destroy() {
 		activeTab = null;
 		currentTabIndex = 0;
 		maxTabs = 0;
@@ -430,8 +405,7 @@ public class TabInterface
 		waitSearchTick = false;
 		rememberedSearch = "";
 
-		if (upButton != null)
-		{
+		if (upButton != null) {
 			upButton.setHidden(true);
 			downButton.setHidden(true);
 			newTab.setHidden(true);
@@ -440,42 +414,32 @@ public class TabInterface
 		tabManager.clear();
 	}
 
-	public void update()
-	{
-		if (isHidden())
-		{
+	public void update() {
+		if (isHidden()) {
 			parent = null;
 			waitSearchTick = false;
 			rememberedSearch = "";
 
 			// If bank window was just hidden, update last active tab position
-			if (currentTabIndex != config.position())
-			{
+			if (currentTabIndex != config.position()) {
 				config.position(currentTabIndex);
 			}
 
 			// Do the same for last active tab
-			if (config.rememberTab())
-			{
-				if (activeTab == null && !Strings.isNullOrEmpty(config.tab()))
-				{
+			if (config.rememberTab()) {
+				if (activeTab == null && !Strings.isNullOrEmpty(config.tab())) {
 					config.tab("");
-				}
-				else if (activeTab != null && !activeTab.getTag().equals(config.tab()))
-				{
+				} else if (activeTab != null && !activeTab.getTag().equals(config.tab())) {
 					config.tab(activeTab.getTag());
 				}
-			}
-			else if (!Strings.isNullOrEmpty(config.tab()))
-			{
+			} else if (!Strings.isNullOrEmpty(config.tab())) {
 				config.tab("");
 			}
 
 			return;
 		}
 
-		if (activeTab != null && client.getVar(VarClientInt.INPUT_TYPE) == InputType.RUNELITE.getType())
-		{
+		if (activeTab != null && client.getVar(VarClientInt.INPUT_TYPE) == InputType.RUNELITE.getType()) {
 			// don't reset active tab if we are editing tags
 			updateBounds();
 			scrollTab(0);
@@ -484,44 +448,35 @@ public class TabInterface
 
 		String str = client.getVar(VarClientStr.INPUT_TEXT);
 
-		if (Strings.isNullOrEmpty(str))
-		{
+		if (Strings.isNullOrEmpty(str)) {
 			str = "";
 		}
 
 		Widget bankTitle = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
-		if (bankTitle != null && !bankTitle.isHidden() && !str.startsWith(TAG_SEARCH))
-		{
+		if (bankTitle != null && !bankTitle.isHidden() && !str.startsWith(TAG_SEARCH)) {
 			str = bankTitle.getText().replaceFirst("Showing items: ", "");
 
-			if (str.startsWith("Tab "))
-			{
+			if (str.startsWith("Tab ")) {
 				str = "";
 			}
 		}
 
 		str = Text.standardize(str);
 
-		if (str.startsWith(BankTagsPlugin.TAG_SEARCH))
-		{
+		if (str.startsWith(BankTagsPlugin.TAG_SEARCH)) {
 			activateTab(tabManager.find(str.substring(TAG_SEARCH.length())));
-		}
-		else
-		{
+		} else {
 			activateTab(null);
 		}
 
 		if (!waitSearchTick
-			&& activeTab == null
-			&& !Strings.isNullOrEmpty(rememberedSearch)
-			&& client.getVar(VarClientInt.INPUT_TYPE) == InputType.NONE.getType())
-		{
+				&& activeTab == null
+				&& !Strings.isNullOrEmpty(rememberedSearch)
+				&& client.getVar(VarClientInt.INPUT_TYPE) == InputType.NONE.getType()) {
 			bankSearch.reset(true);
 			bankSearch.search(InputType.NONE, rememberedSearch, true);
 			rememberedSearch = "";
-		}
-		else if (waitSearchTick)
-		{
+		} else if (waitSearchTick) {
 			waitSearchTick = false;
 		}
 
@@ -529,10 +484,8 @@ public class TabInterface
 		scrollTab(0);
 	}
 
-	public void handleWheel(final MouseWheelEvent event)
-	{
-		if (parent == null || !canvasBounds.contains(event.getPoint()))
-		{
+	public void handleWheel(final MouseWheelEvent event) {
+		if (parent == null || !canvasBounds.contains(event.getPoint())) {
 			return;
 		}
 
@@ -540,8 +493,7 @@ public class TabInterface
 
 		clientThread.invoke(() ->
 		{
-			if (isHidden())
-			{
+			if (isHidden()) {
 				return;
 			}
 
@@ -549,74 +501,58 @@ public class TabInterface
 		});
 	}
 
-	public void handleAdd(MenuEntryAdded event)
-	{
-		if (isHidden())
-		{
+	public void handleAdd(MenuEntryAdded event) {
+		if (isHidden()) {
 			return;
 		}
 
 		if (activeTab != null
-			&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
-			&& event.getOption().equals("Examine"))
-		{
+				&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+				&& event.getOption().equals("Examine")) {
 			insertMenuEntry(event, REMOVE_TAG + " (" + activeTab.getTag() + ")", event.getTarget());
-		}
-		else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId()
-			&& event.getOption().equals("Deposit inventory"))
-		{
+		} else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId()
+				&& event.getOption().equals("Deposit inventory")) {
 			insertMenuEntry(event, TAG_INVENTORY, event.getTarget());
 
-			if (activeTab != null)
-			{
+			if (activeTab != null) {
 				insertMenuEntry(event, TAG_INVENTORY, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR));
 			}
-		}
-		else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId()
-			&& event.getOption().equals("Deposit worn items"))
-		{
+		} else if (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId()
+				&& event.getOption().equals("Deposit worn items")) {
 			insertMenuEntry(event, TAG_GEAR, event.getTarget());
 
-			if (activeTab != null)
-			{
+			if (activeTab != null) {
 				insertMenuEntry(event, TAG_GEAR, ColorUtil.wrapWithColorTag(activeTab.getTag(), HILIGHT_COLOR));
 			}
 		}
 	}
 
-	public void handleClick(MenuOptionClicked event)
-	{
-		if (isHidden())
-		{
+	public void handleClick(MenuOptionClicked event) {
+		if (isHidden()) {
 			return;
 		}
 
 		if (chatboxPanelManager.getCurrentInput() != null
-			&& event.getMenuOpcode() != MenuOpcode.CANCEL
-			&& !event.getOption().equals(SCROLL_UP)
-			&& !event.getOption().equals(SCROLL_DOWN))
-		{
+				&& event.getMenuOpcode() != MenuOpcode.CANCEL
+				&& !event.getOption().equals(SCROLL_UP)
+				&& !event.getOption().equals(SCROLL_DOWN)) {
 			chatboxPanelManager.close();
 		}
 
 		if ((event.getIdentifier() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
-			|| event.getIdentifier() == WidgetInfo.BANK_INVENTORY_ITEMS_CONTAINER.getId())
-			&& event.getMenuOpcode() == MenuOpcode.CC_OP_LOW_PRIORITY
-			&& (event.getOption().equalsIgnoreCase("withdraw-x")
-			|| event.getOption().equalsIgnoreCase("deposit-x")))
-		{
+				|| event.getIdentifier() == WidgetInfo.BANK_INVENTORY_ITEMS_CONTAINER.getId())
+				&& event.getMenuOpcode() == MenuOpcode.CC_OP_LOW_PRIORITY
+				&& (event.getOption().equalsIgnoreCase("withdraw-x")
+				|| event.getOption().equalsIgnoreCase("deposit-x"))) {
 			waitSearchTick = true;
 			rememberedSearch = client.getVar(VarClientStr.INPUT_TEXT);
 			bankSearch.search(InputType.NONE, rememberedSearch, true);
 		}
 
-		if (iconToSet != null)
-		{
-			if (event.getOption().startsWith(CHANGE_ICON + " ("))
-			{
+		if (iconToSet != null) {
+			if (event.getOption().startsWith(CHANGE_ICON + " (")) {
 				ItemDefinition item = getItem(event.getParam0());
-				if (item != null)
-				{
+				if (item != null) {
 					int itemId = itemManager.canonicalize(item.getId());
 					iconToSet.setIconItemId(itemId);
 					iconToSet.getIcon().setItemId(itemId);
@@ -630,56 +566,44 @@ public class TabInterface
 		}
 
 		if (activeTab != null
-			&& event.getOption().equals("Search")
-			&& client.getWidget(WidgetInfo.BANK_SEARCH_BUTTON_BACKGROUND).getSpriteId() != SpriteID.EQUIPMENT_SLOT_SELECTED)
-		{
+				&& event.getOption().equals("Search")
+				&& client.getWidget(WidgetInfo.BANK_SEARCH_BUTTON_BACKGROUND).getSpriteId() != SpriteID.EQUIPMENT_SLOT_SELECTED) {
 			activateTab(null);
 			// This ensures that when clicking Search when tab is selected, the search input is opened rather
 			// than client trying to close it first
 			client.setVar(VarClientStr.INPUT_TEXT, "");
 			client.setVar(VarClientInt.INPUT_TYPE, 0);
-		}
-		else if (activeTab != null
-			&& event.getOption().startsWith("View tab"))
-		{
+		} else if (activeTab != null
+				&& event.getOption().startsWith("View tab")) {
 			activateTab(null);
-		}
-		else if (activeTab != null
-			&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
-			&& event.getMenuOpcode() == MenuOpcode.RUNELITE
-			&& event.getOption().startsWith(REMOVE_TAG))
-		{
+		} else if (activeTab != null
+				&& event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+				&& event.getMenuOpcode() == MenuOpcode.RUNELITE
+				&& event.getOption().startsWith(REMOVE_TAG)) {
 			// Add "remove" menu entry to all items in bank while tab is selected
 			event.consume();
 			final ItemDefinition item = getItem(event.getParam0());
 			final int itemId;
-			if (item != null)
-			{
+			if (item != null) {
 				itemId = item.getId();
 				tagManager.removeTag(itemId, activeTab.getTag());
 				bankSearch.search(InputType.SEARCH, TAG_SEARCH + activeTab.getTag(), true);
 			}
-		}
-		else if (event.getMenuOpcode() == MenuOpcode.RUNELITE
-			&& ((event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId() && event.getOption().equals(TAG_INVENTORY))
-			|| (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId() && event.getOption().equals(TAG_GEAR))))
-		{
+		} else if (event.getMenuOpcode() == MenuOpcode.RUNELITE
+				&& ((event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId() && event.getOption().equals(TAG_INVENTORY))
+				|| (event.getParam1() == WidgetInfo.BANK_DEPOSIT_EQUIPMENT.getId() && event.getOption().equals(TAG_GEAR)))) {
 			handleDeposit(event, event.getParam1() == WidgetInfo.BANK_DEPOSIT_INVENTORY.getId());
 		}
 	}
 
-	public void updateTabIfActive(final Collection<String> tags)
-	{
-		if (activeTab != null && tags.contains(activeTab.getTag()))
-		{
+	public void updateTabIfActive(final Collection<String> tags) {
+		if (activeTab != null && tags.contains(activeTab.getTag())) {
 			openTag(activeTab.getTag());
 		}
 	}
 
-	public void handleDrag(boolean isDragging, boolean shiftDown)
-	{
-		if (isHidden())
-		{
+	public void handleDrag(boolean isDragging, boolean shiftDown) {
+		if (isHidden()) {
 			return;
 		}
 
@@ -690,74 +614,57 @@ public class TabInterface
 		// returning early from drag release and nulling out the drag release listener have no effect,
 		// probably a better way to do this though
 		if (draggedWidget.getId() == WidgetInfo.BANK_ITEM_CONTAINER.getId() && isActive()
-			&& config.removeSeparators())
-		{
+				&& config.removeSeparators()) {
 			client.setDraggedOnWidget(null);
 		}
 
-		if (!isDragging || draggedOn == null)
-		{
+		if (!isDragging || draggedOn == null) {
 			return;
 		}
 
 		// is dragging widget and mouse button released
-		if (client.getMouseCurrentButton() == 0)
-		{
-			if (draggedWidget.getItemId() > 0 && draggedWidget.getId() != parent.getId())
-			{
+		if (client.getMouseCurrentButton() == 0) {
+			if (draggedWidget.getItemId() > 0 && draggedWidget.getId() != parent.getId()) {
 				// Tag an item dragged on a tag tab
-				if (draggedOn.getId() == parent.getId())
-				{
+				if (draggedOn.getId() == parent.getId()) {
 					tagManager.addTag(draggedWidget.getItemId(), draggedOn.getName(), shiftDown);
 					updateTabIfActive(Lists.newArrayList(Text.standardize(draggedOn.getName())));
 				}
-			}
-			else if (parent.getId() == draggedOn.getId() && parent.getId() == draggedWidget.getId() && !Strings.isNullOrEmpty(draggedOn.getName()))
-			{
+			} else if (parent.getId() == draggedOn.getId() && parent.getId() == draggedWidget.getId() && !Strings.isNullOrEmpty(draggedOn.getName())) {
 				tabManager.move(draggedWidget.getName(), draggedOn.getName());
 				tabManager.save();
 				updateTabs();
 			}
-		}
-		else if (draggedWidget.getItemId() > 0)
-		{
+		} else if (draggedWidget.getItemId() > 0) {
 			MenuEntry[] entries = client.getMenuEntries();
 
-			if (entries.length > 0)
-			{
+			if (entries.length > 0) {
 				MenuEntry entry = entries[entries.length - 1];
 
-				if (draggedWidget.getItemId() > 0 && entry.getOption().equals(VIEW_TAB) && draggedOn.getId() != draggedWidget.getId())
-				{
+				if (draggedWidget.getItemId() > 0 && entry.getOption().equals(VIEW_TAB) && draggedOn.getId() != draggedWidget.getId()) {
 					entry.setOption(TAG_SEARCH + Text.removeTags(entry.getTarget()) + (shiftDown ? VAR_TAG_SUFFIX : ""));
 					entry.setTarget(draggedWidget.getName());
 					client.setMenuEntries(entries);
 				}
 
-				if (entry.getOption().equals(SCROLL_UP))
-				{
+				if (entry.getOption().equals(SCROLL_UP)) {
 					scrollTick(-1);
-				}
-				else if (entry.getOption().equals(SCROLL_DOWN))
-				{
+				} else if (entry.getOption().equals(SCROLL_DOWN)) {
 					scrollTick(1);
 				}
 			}
 		}
 	}
 
-	private boolean isHidden()
-	{
+	private boolean isHidden() {
 		Widget widget = client.getWidget(WidgetInfo.BANK_CONTAINER);
 		return !config.tabs() || widget == null || widget.isHidden();
 	}
 
-	private void loadTab(String tag)
-	{
+	private void loadTab(String tag) {
 		TagTab tagTab = tabManager.load(tag);
 
-		if (tagTab.getBackground() == null)
-		{
+		if (tagTab.getBackground() == null) {
 			Widget btn = createGraphic(ColorUtil.wrapWithColorTag(tagTab.getTag(), HILIGHT_COLOR), TabSprites.TAB_BACKGROUND.getSpriteId(), -1, TAB_WIDTH, TAB_HEIGHT, bounds.x, 1, true);
 			btn.setAction(1, VIEW_TAB);
 			btn.setAction(2, CHANGE_ICON);
@@ -768,15 +675,14 @@ public class TabInterface
 			tagTab.setBackground(btn);
 		}
 
-		if (tagTab.getIcon() == null)
-		{
+		if (tagTab.getIcon() == null) {
 			Widget icon = createGraphic(
-				ColorUtil.wrapWithColorTag(tagTab.getTag(), HILIGHT_COLOR),
-				-1,
-				tagTab.getIconItemId(),
-				Constants.ITEM_SPRITE_WIDTH, Constants.ITEM_SPRITE_HEIGHT,
-				bounds.x + 3, 1,
-				false);
+					ColorUtil.wrapWithColorTag(tagTab.getTag(), HILIGHT_COLOR),
+					-1,
+					tagTab.getIconItemId(),
+					Constants.ITEM_SPRITE_WIDTH, Constants.ITEM_SPRITE_HEIGHT,
+					bounds.x + 3, 1,
+					false);
 			int clickmask = icon.getClickMask();
 			clickmask |= WidgetConfig.DRAG;
 			clickmask |= WidgetConfig.DRAG_ON;
@@ -791,10 +697,8 @@ public class TabInterface
 		tabManager.add(tagTab);
 	}
 
-	private void deleteTab(String tag)
-	{
-		if (activeTab != null && activeTab.getTag().equals(tag))
-		{
+	private void deleteTab(String tag) {
+		if (activeTab != null && activeTab.getTag().equals(tag)) {
 			bankSearch.reset(true);
 		}
 
@@ -805,94 +709,78 @@ public class TabInterface
 		scrollTab(0);
 	}
 
-	private void renameTab(String oldTag)
-	{
+	private void renameTab(String oldTag) {
 		chatboxPanelManager.openTextInput("Enter new tag name for tag \"" + oldTag + "\":")
-			.addCharValidator(FILTERED_CHARS)
-			.onDone((newTag) -> clientThread.invoke(() ->
-			{
-				if (!Strings.isNullOrEmpty(newTag) && !newTag.equalsIgnoreCase(oldTag))
+				.addCharValidator(FILTERED_CHARS)
+				.onDone((newTag) -> clientThread.invoke(() ->
 				{
-					if (tabManager.find(newTag) == null)
-					{
-						TagTab tagTab = tabManager.find(oldTag);
-						tagTab.setTag(newTag);
+					if (!Strings.isNullOrEmpty(newTag) && !newTag.equalsIgnoreCase(oldTag)) {
+						if (tabManager.find(newTag) == null) {
+							TagTab tagTab = tabManager.find(oldTag);
+							tagTab.setTag(newTag);
 
-						final String coloredName = ColorUtil.wrapWithColorTag(newTag, HILIGHT_COLOR);
-						tagTab.getIcon().setName(coloredName);
-						tagTab.getBackground().setName(coloredName);
+							final String coloredName = ColorUtil.wrapWithColorTag(newTag, HILIGHT_COLOR);
+							tagTab.getIcon().setName(coloredName);
+							tagTab.getBackground().setName(coloredName);
 
-						tabManager.removeIcon(oldTag);
-						tabManager.setIcon(newTag, tagTab.getIconItemId() + "");
+							tabManager.removeIcon(oldTag);
+							tabManager.setIcon(newTag, tagTab.getIconItemId() + "");
 
-						tabManager.save();
-						tagManager.renameTag(oldTag, newTag);
+							tabManager.save();
+							tagManager.renameTag(oldTag, newTag);
 
-						if (activeTab != null && activeTab.equals(tagTab))
-						{
-							openTag(newTag);
+							if (activeTab != null && activeTab.equals(tagTab)) {
+								openTag(newTag);
+							}
+						} else {
+							chatboxPanelManager.openTextMenuInput("The specified bank tag already exists.")
+									.option("1. Merge into existing tag \"" + newTag + "\".", () ->
+											clientThread.invoke(() ->
+											{
+												tagManager.renameTag(oldTag, newTag);
+												final String activeTag = activeTab != null ? activeTab.getTag() : "";
+												deleteTab(oldTag);
+
+												if (activeTag.equals(oldTag)) {
+													openTag(newTag);
+												}
+											})
+									)
+									.option("2. Choose a different name.", () ->
+											clientThread.invoke(() ->
+													renameTab(oldTag))
+									)
+									.build();
 						}
 					}
-					else
-					{
-						chatboxPanelManager.openTextMenuInput("The specified bank tag already exists.")
-							.option("1. Merge into existing tag \"" + newTag + "\".", () ->
-								clientThread.invoke(() ->
-								{
-									tagManager.renameTag(oldTag, newTag);
-									final String activeTag = activeTab != null ? activeTab.getTag() : "";
-									deleteTab(oldTag);
-
-									if (activeTag.equals(oldTag))
-									{
-										openTag(newTag);
-									}
-								})
-							)
-							.option("2. Choose a different name.", () ->
-								clientThread.invoke(() ->
-									renameTab(oldTag))
-							)
-							.build();
-					}
-				}
-			}))
-			.build();
+				}))
+				.build();
 	}
 
-	private void scrollTick(int direction)
-	{
+	private void scrollTick(int direction) {
 		// This ensures that dragging on scroll buttons do not scrolls too fast
-		if (startScroll.until(Instant.now(), ChronoUnit.MILLIS) >= SCROLL_TICK)
-		{
+		if (startScroll.until(Instant.now(), ChronoUnit.MILLIS) >= SCROLL_TICK) {
 			startScroll = Instant.now();
 			scrollTab(direction);
 		}
 	}
 
-	private void scrollTab(int direction)
-	{
+	private void scrollTab(int direction) {
 		maxTabs = (bounds.height - BUTTON_HEIGHT * 2 - MARGIN * 2) / TAB_HEIGHT;
 
 		// prevent running into the incinerator
-		while (bounds.y + maxTabs * TAB_HEIGHT + MARGIN * maxTabs + BUTTON_HEIGHT * 2 + MARGIN > bounds.y + bounds.height)
-		{
+		while (bounds.y + maxTabs * TAB_HEIGHT + MARGIN * maxTabs + BUTTON_HEIGHT * 2 + MARGIN > bounds.y + bounds.height) {
 			--maxTabs;
 		}
 
 		int proposedIndex = currentTabIndex + direction;
 		int numTabs = tabManager.size() + 1;
 
-		if (proposedIndex >= numTabs || proposedIndex < 0)
-		{
+		if (proposedIndex >= numTabs || proposedIndex < 0) {
 			currentTabIndex = 0;
-		}
-		else if (numTabs - proposedIndex >= maxTabs)
-		{
+		} else if (numTabs - proposedIndex >= maxTabs) {
 			currentTabIndex = proposedIndex;
-		}
-		else if (maxTabs < numTabs && numTabs - proposedIndex < maxTabs)
-		{
+		} else if (maxTabs < numTabs && numTabs - proposedIndex < maxTabs) {
 			// Edge case when only 1 tab displays instead of up to maxTabs when one is deleted at the end of the list
 			currentTabIndex = proposedIndex;
 			scrollTab(-1);
@@ -901,23 +789,19 @@ public class TabInterface
 		updateTabs();
 	}
 
-	private void activateTab(TagTab tagTab)
-	{
-		if (activeTab != null && activeTab.equals(tagTab))
-		{
+	private void activateTab(TagTab tagTab) {
+		if (activeTab != null && activeTab.equals(tagTab)) {
 			return;
 		}
 
-		if (activeTab != null)
-		{
+		if (activeTab != null) {
 			Widget tab = activeTab.getBackground();
 			tab.setSpriteId(TabSprites.TAB_BACKGROUND.getSpriteId());
 			tab.revalidate();
 			activeTab = null;
 		}
 
-		if (tagTab != null)
-		{
+		if (tagTab != null) {
 			Widget tab = tagTab.getBackground();
 			tab.setSpriteId(TabSprites.TAB_BACKGROUND_ACTIVE.getSpriteId());
 			tab.revalidate();
@@ -925,19 +809,16 @@ public class TabInterface
 		}
 	}
 
-	private void updateBounds()
-	{
+	private void updateBounds() {
 		Widget itemContainer = client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER);
-		if (itemContainer == null)
-		{
+		if (itemContainer == null) {
 			return;
 		}
 
 		int height = itemContainer.getHeight();
 
 		// If player isn't using normal bank tabs
-		if (itemContainer.getRelativeY() == 0)
-		{
+		if (itemContainer.getRelativeY() == 0) {
 			height -= (TAB_HEIGHT + MARGIN);
 		}
 
@@ -946,8 +827,7 @@ public class TabInterface
 
 		Widget incinerator = client.getWidget(WidgetInfo.BANK_INCINERATOR);
 
-		if (incinerator != null && !incinerator.isHidden())
-		{
+		if (incinerator != null && !incinerator.isHidden()) {
 			incinerator.setOriginalHeight(INCINERATOR_HEIGHT);
 			incinerator.setOriginalWidth(INCINERATOR_WIDTH);
 			incinerator.setOriginalY(INCINERATOR_HEIGHT);
@@ -964,28 +844,22 @@ public class TabInterface
 			bounds.setSize(TAB_WIDTH + MARGIN * 2, height - incinerator.getHeight());
 		}
 
-		if (upButton != null)
-		{
+		if (upButton != null) {
 			Point p = upButton.getCanvasLocation();
 			canvasBounds.setBounds(p.getX(), p.getY() + BUTTON_HEIGHT, bounds.width, maxTabs * TAB_HEIGHT + maxTabs * MARGIN);
 		}
 	}
 
-	private void updateTabs()
-	{
+	private void updateTabs() {
 		int y = bounds.y + MARGIN + BUTTON_HEIGHT;
 
-		if (maxTabs > tabManager.size())
-		{
+		if (maxTabs > tabManager.size()) {
 			currentTabIndex = 0;
-		}
-		else
-		{
+		} else {
 			y -= (currentTabIndex * TAB_HEIGHT + currentTabIndex * MARGIN);
 		}
 
-		for (TagTab tab : tabManager.getTabs())
-		{
+		for (TagTab tab : tabManager.getTabs()) {
 			updateWidget(tab.getBackground(), y);
 			updateWidget(tab.getIcon(), y + 4);
 
@@ -993,8 +867,7 @@ public class TabInterface
 			tab.getIcon().setHidden(tab.getBackground().isHidden());
 
 			// Keep item widget shown while drag scrolling
-			if (client.getDraggedWidget() == tab.getIcon())
-			{
+			if (client.getDraggedWidget() == tab.getIcon()) {
 				tab.getIcon().setHidden(false);
 			}
 
@@ -1014,8 +887,7 @@ public class TabInterface
 		downButton.revalidate();
 	}
 
-	private Widget createGraphic(String name, int spriteId, int itemId, int width, int height, int x, int y, boolean hasListener)
-	{
+	private Widget createGraphic(String name, int spriteId, int itemId, int width, int height, int x, int y, boolean hasListener) {
 		Widget widget = parent.createChild(-1, WidgetType.GRAPHIC);
 		widget.setOriginalWidth(width);
 		widget.setOriginalHeight(height);
@@ -1024,15 +896,13 @@ public class TabInterface
 
 		widget.setSpriteId(spriteId);
 
-		if (itemId > -1)
-		{
+		if (itemId > -1) {
 			widget.setItemId(itemId);
 			widget.setItemQuantity(-1);
 			widget.setBorderType(1);
 		}
 
-		if (hasListener)
-		{
+		if (hasListener) {
 			widget.setOnOpListener(ScriptID.NULL);
 			widget.setHasListener(true);
 		}
@@ -1043,32 +913,27 @@ public class TabInterface
 		return widget;
 	}
 
-	private void updateWidget(Widget t, int y)
-	{
+	private void updateWidget(Widget t, int y) {
 		t.setOriginalY(y);
 		t.setHidden(y < (bounds.y + BUTTON_HEIGHT + MARGIN) || y > (bounds.y + bounds.height - TAB_HEIGHT - MARGIN - BUTTON_HEIGHT));
 		t.revalidate();
 	}
 
 
-	private ItemDefinition getItem(int idx)
-	{
+	private ItemDefinition getItem(int idx) {
 		ItemContainer bankContainer = client.getItemContainer(InventoryID.BANK);
 		Item item = null;
-		if (bankContainer != null)
-		{
+		if (bankContainer != null) {
 			item = bankContainer.getItems()[idx];
 		}
-		if (item != null)
-		{
+		if (item != null) {
 			return itemManager.getItemDefinition(item.getId());
 		}
 
 		return null;
 	}
 
-	private void openTag(final String tag)
-	{
+	private void openTag(final String tag) {
 		activateTab(tabManager.find(tag));
 		bankSearch.search(InputType.SEARCH, TAG_SEARCH + tag, true);
 
@@ -1078,16 +943,15 @@ public class TabInterface
 		searchBackground.setSpriteId(SpriteID.EQUIPMENT_SLOT_TILE);
 	}
 
-	private void insertMenuEntry(MenuEntryAdded event, String option, String target)
-	{
+	private void insertMenuEntry(MenuEntryAdded event, String option, String target) {
 		client.insertMenuItem(
-			option,
-			target,
-			MenuOpcode.RUNELITE.getId(),
-			event.getIdentifier(),
-			event.getParam0(),
-			event.getParam1(),
-			false
+				option,
+				target,
+				MenuOpcode.RUNELITE.getId(),
+				event.getIdentifier(),
+				event.getParam0(),
+				event.getParam1(),
+				false
 		);
 	}
 }

@@ -26,11 +26,9 @@ package net.runelite.cache.script;
 
 import org.junit.Test;
 
-public class InstructionsTest
-{
+public class InstructionsTest {
 	@Test
-	public void testInit()
-	{
+	public void testInit() {
 		new Instructions().init();
 	}
 

@@ -33,14 +33,13 @@ import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class Shapes<T extends Shape> implements Shape
-{
-	public Shapes(T ...shape)
-	{
+public class Shapes<T extends Shape> implements Shape {
+	public Shapes(T... shape) {
 		this(Arrays.asList(shape));
 	}
 
@@ -48,16 +47,14 @@ public class Shapes<T extends Shape> implements Shape
 	private final List<T> shapes;
 
 	@Override
-	public Rectangle getBounds()
-	{
+	public Rectangle getBounds() {
 		int
-			minX = Integer.MAX_VALUE,
-			minY = Integer.MAX_VALUE,
-			maxX = Integer.MIN_VALUE,
-			maxY = Integer.MIN_VALUE;
+				minX = Integer.MAX_VALUE,
+				minY = Integer.MAX_VALUE,
+				maxX = Integer.MIN_VALUE,
+				maxY = Integer.MIN_VALUE;
 
-		for (Shape shape : shapes)
-		{
+		for (Shape shape : shapes) {
 			Rectangle bounds = shape.getBounds();
 			minX = Math.min(bounds.x, minX);
 			minY = Math.min(bounds.y, minY);
@@ -69,16 +66,14 @@ public class Shapes<T extends Shape> implements Shape
 	}
 
 	@Override
-	public Rectangle2D getBounds2D()
-	{
+	public Rectangle2D getBounds2D() {
 		double
-			minX = Double.MAX_VALUE,
-			minY = Double.MAX_VALUE,
-			maxX = Double.MIN_VALUE,
-			maxY = Double.MIN_VALUE;
+				minX = Double.MAX_VALUE,
+				minY = Double.MAX_VALUE,
+				maxX = Double.MIN_VALUE,
+				maxY = Double.MIN_VALUE;
 
-		for (Shape shape : shapes)
-		{
+		for (Shape shape : shapes) {
 			Rectangle2D bounds = shape.getBounds2D();
 			minX = Math.min(bounds.getX(), minX);
 			minY = Math.min(bounds.getY(), minY);
@@ -90,122 +85,99 @@ public class Shapes<T extends Shape> implements Shape
 	}
 
 	@Override
-	public boolean contains(double x, double y)
-	{
+	public boolean contains(double x, double y) {
 		return shapes.stream().anyMatch(s -> s.contains(x, y));
 	}
 
 	@Override
-	public boolean contains(Point2D p)
-	{
+	public boolean contains(Point2D p) {
 		return shapes.stream().anyMatch(s -> s.contains(p));
 	}
 
 	@Override
-	public boolean intersects(double x, double y, double w, double h)
-	{
+	public boolean intersects(double x, double y, double w, double h) {
 		return shapes.stream().anyMatch(s -> s.intersects(x, y, w, h));
 	}
 
 	@Override
-	public boolean intersects(Rectangle2D r)
-	{
+	public boolean intersects(Rectangle2D r) {
 		return shapes.stream().anyMatch(s -> s.intersects(r));
 	}
 
 	@Override
-	public boolean contains(double x, double y, double w, double h)
-	{
+	public boolean contains(double x, double y, double w, double h) {
 		return shapes.stream().anyMatch(s -> s.contains(x, y, w, h));
 	}
 
 	@Override
-	public boolean contains(Rectangle2D r)
-	{
+	public boolean contains(Rectangle2D r) {
 		return shapes.stream().anyMatch(s -> s.contains(r));
 	}
 
 	@Override
-	public PathIterator getPathIterator(AffineTransform at)
-	{
+	public PathIterator getPathIterator(AffineTransform at) {
 		return new ShapeIterator(shapes.stream()
-			.map(s -> s.getPathIterator(at))
-			.iterator());
+				.map(s -> s.getPathIterator(at))
+				.iterator());
 	}
 
 	@Override
-	public PathIterator getPathIterator(AffineTransform at, double flatness)
-	{
+	public PathIterator getPathIterator(AffineTransform at, double flatness) {
 		return new ShapeIterator(shapes.stream()
-			.map(s -> s.getPathIterator(at, flatness))
-			.iterator());
+				.map(s -> s.getPathIterator(at, flatness))
+				.iterator());
 	}
 
-	private static class ShapeIterator implements PathIterator
-	{
+	private static class ShapeIterator implements PathIterator {
 		private final Iterator<PathIterator> iter;
 		private PathIterator current = null;
 		private final int windingRule;
 
-		ShapeIterator(Iterator<PathIterator> iter)
-		{
+		ShapeIterator(Iterator<PathIterator> iter) {
 			this.iter = iter;
-			if (iter.hasNext())
-			{
+			if (iter.hasNext()) {
 				current = iter.next();
 				windingRule = current.getWindingRule();
 				checkDone();
-			}
-			else
-			{
+			} else {
 				windingRule = 0;
 			}
 		}
 
 		@Override
-		public int getWindingRule()
-		{
+		public int getWindingRule() {
 			return windingRule;
 		}
 
 		@Override
-		public boolean isDone()
-		{
+		public boolean isDone() {
 			return current == null;
 		}
 
 		@Override
-		public void next()
-		{
+		public void next() {
 			current.next();
 			checkDone();
 		}
 
-		private void checkDone()
-		{
-			for (; current != null && current.isDone(); )
-			{
-				if (iter.hasNext())
-				{
+		private void checkDone() {
+			for (; current != null && current.isDone(); ) {
+				if (iter.hasNext()) {
 					current = iter.next();
 					assert windingRule == current.getWindingRule();
-				}
-				else
-				{
+				} else {
 					current = null;
 				}
 			}
 		}
 
 		@Override
-		public int currentSegment(float[] coords)
-		{
+		public int currentSegment(float[] coords) {
 			return current.currentSegment(coords);
 		}
 
 		@Override
-		public int currentSegment(double[] coords)
-		{
+		public int currentSegment(double[] coords) {
 			return current.currentSegment(coords);
 		}
 	}

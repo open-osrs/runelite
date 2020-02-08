@@ -26,8 +26,7 @@ package net.runelite.client.plugins.twitch.irc;
 
 import java.util.Map;
 
-public interface TwitchListener
-{
+public interface TwitchListener {
 	void privmsg(Map<String, String> tags, String message);
 
 	void roomstate(Map<String, String> tags);

@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.zalcano;
 
-enum Step
-{
+enum Step {
 	IDLE,
 	MINE,
 	SMELT,

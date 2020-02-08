@@ -33,12 +33,10 @@ import org.objectweb.asm.Attribute;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class ClassFieldVisitor extends FieldVisitor
-{
+public class ClassFieldVisitor extends FieldVisitor {
 	private final Field field;
 
-	ClassFieldVisitor(ClassFile cf, int access, String name, Type desc, Object value)
-	{
+	ClassFieldVisitor(ClassFile cf, int access, String name, Type desc, Object value) {
 		super(Opcodes.ASM5);
 
 		this.field = new Field(cf, name, desc);
@@ -49,16 +47,14 @@ public class ClassFieldVisitor extends FieldVisitor
 	}
 
 	@Override
-	public AnnotationVisitor visitAnnotation(String desc, boolean visible)
-	{
+	public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
 		Annotation element = new Annotation(new Type(desc));
 		this.field.getAnnotations().addAnnotation(element);
 		return new AnnotationElementVisitor(element);
 	}
 
 	@Override
-	public void visitAttribute(Attribute attr)
-	{
+	public void visitAttribute(Attribute attr) {
 		System.out.println(attr);
 	}
 }

@@ -25,11 +25,11 @@
 package net.runelite.client.ui;
 
 import java.awt.Color;
+
 import lombok.Getter;
 import net.runelite.api.Skill;
 
-public enum SkillColor
-{
+public enum SkillColor {
 	ATTACK(155, 32, 7),
 	DEFENCE(98, 119, 190),
 	STRENGTH(4, 149, 90),
@@ -57,16 +57,14 @@ public enum SkillColor
 	@Getter
 	private final Color color;
 
-	SkillColor(int red, int green, int blue)
-	{
+	SkillColor(int red, int green, int blue) {
 		this.color = new Color(red, green, blue);
 	}
 
 	/**
 	 * Finds the corresponding SkillColor for a given Skill.
 	 */
-	public static SkillColor find(Skill skill)
-	{
+	public static SkillColor find(Skill skill) {
 		return values()[skill.ordinal()];
 	}
 }

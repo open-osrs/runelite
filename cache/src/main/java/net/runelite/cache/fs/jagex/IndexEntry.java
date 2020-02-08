@@ -27,42 +27,35 @@ package net.runelite.cache.fs.jagex;
 
 import java.util.Objects;
 
-public class IndexEntry
-{
+public class IndexEntry {
 	private final IndexFile indexFile;
 	private final int id, sector, length;
 
-	public IndexEntry(IndexFile indexFile, int id, int sector, int length)
-	{
+	public IndexEntry(IndexFile indexFile, int id, int sector, int length) {
 		this.indexFile = indexFile;
 		this.id = id;
 		this.sector = sector;
 		this.length = length;
 	}
 
-	public IndexFile getIndexFile()
-	{
+	public IndexFile getIndexFile() {
 		return indexFile;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public int getSector()
-	{
+	public int getSector() {
 		return sector;
 	}
 
-	public int getLength()
-	{
+	public int getLength() {
 		return length;
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode() {
 		int hash = 7;
 		hash = 19 * hash + Objects.hashCode(this.indexFile);
 		hash = 19 * hash + this.id;
@@ -72,31 +65,24 @@ public class IndexEntry
 	}
 
 	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-		{
+	public boolean equals(Object obj) {
+		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		final IndexEntry other = (IndexEntry) obj;
-		if (!Objects.equals(this.indexFile, other.indexFile))
-		{
+		if (!Objects.equals(this.indexFile, other.indexFile)) {
 			return false;
 		}
-		if (this.id != other.id)
-		{
+		if (this.id != other.id) {
 			return false;
 		}
-		if (this.sector != other.sector)
-		{
+		if (this.sector != other.sector) {
 			return false;
 		}
-		if (this.length != other.length)
-		{
+		if (this.length != other.length) {
 			return false;
 		}
 		return true;

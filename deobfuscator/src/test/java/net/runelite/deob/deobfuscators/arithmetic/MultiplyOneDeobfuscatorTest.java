@@ -46,118 +46,115 @@ import net.runelite.deob.Deobfuscator;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MultiplyOneDeobfuscatorTest
-{
+public class MultiplyOneDeobfuscatorTest {
 	@Test
-	public void testDir()
-	{
+	public void testDir() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
-		
+
 		code.setMaxStack(2);
-		
+
 		// vars[0] = 3
 		Instruction[] prepareVariables = {
-			new LDC(ins, 3),
-			new IStore(ins, 0)
+				new LDC(ins, 3),
+				new IStore(ins, 0)
 		};
-		
+
 		for (Instruction i : prepareVariables)
 			ins.addInstruction(i);
-		
+
 		Label label = new Label(ins),
-			label2 = new Label(ins);
-		
+				label2 = new Label(ins);
+
 		LDC one = new LDC(ins, 1);
-		
+
 		Instruction body[] =
-		{
-			new SiPush(ins, (short) 256),
-			
-			new ILoad(ins, 0),
-			new IfEq(ins, label),
-			
-			new LDC(ins, 2),
-			new Goto(ins, label2),
-			
-			label,
-			one,
-			
-			label2,
-			new IMul(ins),
-			
-			new VReturn(ins)
-		};
-		
+				{
+						new SiPush(ins, (short) 256),
+
+						new ILoad(ins, 0),
+						new IfEq(ins, label),
+
+						new LDC(ins, 2),
+						new Goto(ins, label2),
+
+						label,
+						one,
+
+						label2,
+						new IMul(ins),
+
+						new VReturn(ins)
+				};
+
 		for (Instruction i : body)
 			ins.addInstruction(i);
-		
+
 		// check execution runs ok
 		Execution e = new Execution(group);
 		e.populateInitialMethods();
 		e.run();
-		
+
 		Deobfuscator d = new MultiplyOneDeobfuscator(false);
 		d.run(group);
-		
+
 		Assert.assertTrue(one.getInstructions() != null);
 	}
-	
+
 	@Test
-	public void test()
-	{
+	public void test() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
-		
+
 		code.setMaxStack(2);
-		
+
 		// vars[0] = 3
 		Instruction[] prepareVariables = {
-			new LDC(ins, 3),
-			new IStore(ins, 0)
+				new LDC(ins, 3),
+				new IStore(ins, 0)
 		};
-		
+
 		for (Instruction i : prepareVariables)
 			ins.addInstruction(i);
-		
+
 		Label label = new Label(ins),
-			label2 = new Label(ins);
-		
+				label2 = new Label(ins);
+
 		LDC one = new LDC(ins, 1);
 		IMul mul = new IMul(ins);
-		
+
 		Instruction body[] = {
-			new SiPush(ins, (short) 256),
-			
-			new ILoad(ins, 0),
-			new IfEq(ins, label),
-			
-			label,
-			one,
-			
-			label2,
-			mul,
-			
-			new VReturn(ins)
+				new SiPush(ins, (short) 256),
+
+				new ILoad(ins, 0),
+				new IfEq(ins, label),
+
+				label,
+				one,
+
+				label2,
+				mul,
+
+				new VReturn(ins)
 		};
-		
+
 		for (Instruction i : body)
 			ins.addInstruction(i);
-		
+
 		// check execution runs ok
 		Execution e = new Execution(group);
 		e.populateInitialMethods();
 		e.run();
-		
+
 		Deobfuscator d = new MultiplyOneDeobfuscator(false);
 		d.run(group);
-		
+
 		Assert.assertTrue(one.getInstructions() == null);
 		Assert.assertTrue(mul.getInstructions() == null);
 	}
-	
+
 	//   iconst_1
 	//   iconst_m1
 	//   iload                 5
@@ -185,69 +182,68 @@ public class MultiplyOneDeobfuscatorTest
 	//
 	// client.field377 = 1 * (-1 != var5 && var5 != 1?(class139.field2130 + client.field377) / 2:class139.field2130);
 	@Test
-	public void test2()
-	{
+	public void test2() {
 		ClassGroup group = ClassGroupFactory.generateGroup();
 		Code code = group.findClass("test").findMethod("func").getCode();
 		Instructions ins = code.getInstructions();
-		
+
 		code.setMaxStack(2);
-		
+
 		// vars[0] = 3
 		Instruction[] prepareVariables = {
-			new LDC(ins, 3),
-			new IStore(ins, 0),
-			new LDC(ins, 2),
-			new IStore(ins, 1)
+				new LDC(ins, 3),
+				new IStore(ins, 0),
+				new LDC(ins, 2),
+				new IStore(ins, 1)
 		};
-		
+
 		for (Instruction i : prepareVariables)
 			ins.addInstruction(i);
-		
+
 		Label label = new Label(ins),
-			label2 = new Label(ins),
-			label3 = new Label(ins);
-		
+				label2 = new Label(ins),
+				label3 = new Label(ins);
+
 		LDC one = new LDC(ins, 1);
 		IMul mul = new IMul(ins);
-		
-		Instruction body[] = {
-			one,
-			
-			new LDC(ins, -1),
-			new ILoad(ins, 0),
-			new IfICmpEq(ins, label),
 
-			new Goto(ins, label2),
-			
-			label,
-			new ILoad(ins, 1),
-			new LDC(ins, -1440517609),
-			new IDiv(ins),
-			new Goto(ins, label3),
-			
-			label2,
-			new ILoad(ins, 1),
-			new LDC(ins, -1440517609),
-			new IDiv(ins),
-			
-			label3,
-			mul,
-			
-			new VReturn(ins)
+		Instruction body[] = {
+				one,
+
+				new LDC(ins, -1),
+				new ILoad(ins, 0),
+				new IfICmpEq(ins, label),
+
+				new Goto(ins, label2),
+
+				label,
+				new ILoad(ins, 1),
+				new LDC(ins, -1440517609),
+				new IDiv(ins),
+				new Goto(ins, label3),
+
+				label2,
+				new ILoad(ins, 1),
+				new LDC(ins, -1440517609),
+				new IDiv(ins),
+
+				label3,
+				mul,
+
+				new VReturn(ins)
 		};
-		
+
 		for (Instruction i : body)
 			ins.addInstruction(i);
-		
+
 		// check execution runs ok
 		Execution e = new Execution(group);
 		e.populateInitialMethods();
 		e.run();
-		
+
 		Deobfuscator d = new MultiplyOneDeobfuscator(false);
 		d.run(group);
-		
+
 		Assert.assertTrue(one.getInstructions() == null);
 		Assert.assertTrue(mul.getInstructions() == null);
 	}

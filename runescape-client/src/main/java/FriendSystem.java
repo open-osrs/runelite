@@ -10,42 +10,42 @@ import net.runelite.rs.ScriptOpcodes;
 public class FriendSystem {
 	@ObfuscatedName("ha")
 	@ObfuscatedGetter(
-		intValue = -1970559655
+			intValue = -1970559655
 	)
 	@Export("cameraYaw")
 	static int cameraYaw;
 	@ObfuscatedName("ix")
 	@ObfuscatedGetter(
-		intValue = -1654190039
+			intValue = -1654190039
 	)
 	@Export("selectedItemWidget")
 	static int selectedItemWidget;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lmv;"
+			signature = "Lmv;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Ljd;"
+			signature = "Ljd;"
 	)
 	@Export("friendsList")
 	public final FriendsList friendsList;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Ljf;"
+			signature = "Ljf;"
 	)
 	@Export("ignoreList")
 	public final IgnoreList ignoreList;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -154816357
+			intValue = -154816357
 	)
 	int field1063;
 
 	@ObfuscatedSignature(
-		signature = "(Lmv;)V"
+			signature = "(Lmv;)V"
 	)
 	FriendSystem(LoginType var1) {
 		this.field1063 = 0;
@@ -56,8 +56,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1947292888"
+			signature = "(I)Z",
+			garbageValue = "-1947292888"
 	)
 	boolean method1857() {
 		return this.field1063 == 2;
@@ -65,8 +65,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1940001821"
+			signature = "(I)V",
+			garbageValue = "1940001821"
 	)
 	final void method1858() {
 		this.field1063 = 1;
@@ -74,8 +74,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkp;II)V",
-		garbageValue = "224283434"
+			signature = "(Lkp;II)V",
+			garbageValue = "224283434"
 	)
 	@Export("readUpdate")
 	final void readUpdate(Buffer var1, int var2) {
@@ -86,13 +86,13 @@ public class FriendSystem {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "291777380"
+			signature = "(I)V",
+			garbageValue = "291777380"
 	)
 	@Export("processFriendUpdates")
 	final void processFriendUpdates() {
-		for (FriendLoginUpdate var1 = (FriendLoginUpdate)this.friendsList.friendLoginUpdates.last(); var1 != null; var1 = (FriendLoginUpdate)this.friendsList.friendLoginUpdates.previous()) {
-			if ((long)var1.field3632 < WorldMapIcon_0.currentTimeMillis() / 1000L - 5L) {
+		for (FriendLoginUpdate var1 = (FriendLoginUpdate) this.friendsList.friendLoginUpdates.last(); var1 != null; var1 = (FriendLoginUpdate) this.friendsList.friendLoginUpdates.previous()) {
+			if ((long) var1.field3632 < WorldMapIcon_0.currentTimeMillis() / 1000L - 5L) {
 				if (var1.world > 0) {
 					ClientPreferences.addGameMessage(5, "", var1.username + " has logged in.");
 				}
@@ -109,8 +109,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1660346454"
+			signature = "(I)V",
+			garbageValue = "-1660346454"
 	)
 	@Export("clear")
 	final void clear() {
@@ -121,8 +121,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Ljz;ZI)Z",
-		garbageValue = "1100778689"
+			signature = "(Ljz;ZI)Z",
+			garbageValue = "1100778689"
 	)
 	@Export("isFriended")
 	final boolean isFriended(Username var1, boolean var2) {
@@ -137,8 +137,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(Ljz;I)Z",
-		garbageValue = "819479662"
+			signature = "(Ljz;I)Z",
+			garbageValue = "819479662"
 	)
 	@Export("isIgnored")
 	final boolean isIgnored(Username var1) {
@@ -151,8 +151,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "-340804777"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "-340804777"
 	)
 	@Export("addFriend")
 	final void addFriend(String var1) {
@@ -179,8 +179,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1302160469"
+			signature = "(I)Z",
+			garbageValue = "-1302160469"
 	)
 	@Export("friendsListIsFull")
 	final boolean friendsListIsFull() {
@@ -189,8 +189,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "-1143439097"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "-1143439097"
 	)
 	@Export("addIgnore")
 	final void addIgnore(String var1) {
@@ -214,8 +214,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1820924219"
+			signature = "(I)Z",
+			garbageValue = "-1820924219"
 	)
 	@Export("canAddIgnore")
 	final boolean canAddIgnore() {
@@ -224,8 +224,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "561828243"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "561828243"
 	)
 	@Export("removeFriend")
 	final void removeFriend(String var1) {
@@ -247,8 +247,8 @@ public class FriendSystem {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "-892672688"
+			signature = "(Ljava/lang/String;I)V",
+			garbageValue = "-892672688"
 	)
 	@Export("removeIgnore")
 	final void removeIgnore(String var1) {
@@ -270,19 +270,19 @@ public class FriendSystem {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		signature = "(Ljz;I)Z",
-		garbageValue = "431116625"
+			signature = "(Ljz;I)Z",
+			garbageValue = "431116625"
 	)
 	@Export("isFriendAndHasWorld")
 	final boolean isFriendAndHasWorld(Username var1) {
-		Friend var2 = (Friend)this.friendsList.getByUsername(var1);
+		Friend var2 = (Friend) this.friendsList.getByUsername(var1);
 		return var2 != null && var2.hasWorld();
 	}
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZB)I",
-		garbageValue = "0"
+			signature = "(ILce;ZB)I",
+			garbageValue = "0"
 	)
 	static int method1920(int var0, Script var1, boolean var2) {
 		int var3;

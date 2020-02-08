@@ -39,8 +39,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class VideoEmbed
-{
+public class VideoEmbed {
 	String url;
 	int height;
 	int width;

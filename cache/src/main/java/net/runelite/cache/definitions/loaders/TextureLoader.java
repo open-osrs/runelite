@@ -29,12 +29,10 @@ import net.runelite.cache.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TextureLoader
-{
+public class TextureLoader {
 	private static final Logger logger = LoggerFactory.getLogger(TextureLoader.class);
 
-	public TextureDefinition load(int id, byte[] b)
-	{
+	public TextureDefinition load(int id, byte[] b) {
 		TextureDefinition def = new TextureDefinition();
 		InputStream is = new InputStream(b);
 
@@ -50,30 +48,25 @@ public class TextureLoader
 
 		def.setFileIds(files);
 
-		if (count > 1)
-		{
+		if (count > 1) {
 			def.field1780 = new int[count - 1];
 
-			for (int var3 = 0; var3 < count - 1; ++var3)
-			{
+			for (int var3 = 0; var3 < count - 1; ++var3) {
 				def.field1780[var3] = is.readUnsignedByte();
 			}
 		}
 
-		if (count > 1)
-		{
+		if (count > 1) {
 			def.field1781 = new int[count - 1];
 
-			for (int var3 = 0; var3 < count - 1; ++var3)
-			{
+			for (int var3 = 0; var3 < count - 1; ++var3) {
 				def.field1781[var3] = is.readUnsignedByte();
 			}
 		}
 
 		def.field1786 = new int[count];
 
-		for (int var3 = 0; var3 < count; ++var3)
-		{
+		for (int var3 = 0; var3 < count; ++var3) {
 			def.field1786[var3] = is.readInt();
 		}
 

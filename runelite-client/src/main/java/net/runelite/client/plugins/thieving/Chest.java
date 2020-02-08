@@ -25,14 +25,15 @@
 package net.runelite.client.plugins.thieving;
 
 import com.google.common.collect.ImmutableMap;
+
 import java.time.Duration;
 import java.util.Map;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ObjectID;
 
-enum Chest
-{
+enum Chest {
 	TEN_COIN(Duration.ofMillis(6000), ObjectID.CHEST_11735),
 	FIFTY_COIN(Duration.ofMillis(46000), ObjectID.CHEST_11737),
 	NATURE_RUNE(Duration.ofMillis(10000), ObjectID.CHEST_11736),
@@ -45,13 +46,10 @@ enum Chest
 
 	private static final Map<Integer, Chest> CHESTS;
 
-	static
-	{
+	static {
 		ImmutableMap.Builder<Integer, Chest> builder = new ImmutableMap.Builder<>();
-		for (Chest chest : values())
-		{
-			for (int id : chest.ids)
-			{
+		for (Chest chest : values()) {
+			for (int id : chest.ids) {
 				builder.put(id, chest);
 			}
 		}
@@ -62,14 +60,12 @@ enum Chest
 	private final Duration respawnTime;
 	private final int[] ids;
 
-	Chest(Duration respawnTime, int... ids)
-	{
+	Chest(Duration respawnTime, int... ids) {
 		this.respawnTime = respawnTime;
 		this.ids = ids;
 	}
 
-	static Chest of(int id)
-	{
+	static Chest of(int id) {
 		return CHESTS.get(id);
 	}
 }

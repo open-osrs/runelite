@@ -26,6 +26,7 @@ package net.runelite.deob.updater;
 
 import java.io.File;
 import java.io.IOException;
+
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.deobfuscators.mapping.AnnotationIntegrityChecker;
 import net.runelite.deob.deobfuscators.mapping.AnnotationMapper;
@@ -36,20 +37,17 @@ import net.runelite.deob.util.JarUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UpdateMappings
-{
+public class UpdateMappings {
 	private static final Logger logger = LoggerFactory.getLogger(UpdateMappings.class);
 
 	private final ClassGroup group1, group2;
 
-	public UpdateMappings(ClassGroup group1, ClassGroup group2)
-	{
+	public UpdateMappings(ClassGroup group1, ClassGroup group2) {
 		this.group1 = group1;
 		this.group2 = group2;
 	}
 
-	public void update()
-	{
+	public void update() {
 		Mapper mapper = new Mapper(group1, group2);
 		mapper.run();
 		ParallelExecutorMapping mapping = mapper.getMapping();
@@ -62,8 +60,7 @@ public class UpdateMappings
 
 		int errors = aic.getErrors();
 
-		if (errors > 0)
-		{
+		if (errors > 0) {
 			logger.warn("Errors in annotation checker, exiting");
 			System.exit(-1);
 		}
@@ -80,21 +77,18 @@ public class UpdateMappings
 		new ScriptOpcodesTransformer().transform(group2);
 	}
 
-	public void save(File out) throws IOException
-	{
+	public void save(File out) throws IOException {
 		JarUtil.saveJar(group2, out);
 	}
 
-	public static void main(String[] args) throws IOException
-	{
-		if (args.length < 3)
-		{
+	public static void main(String[] args) throws IOException {
+		if (args.length < 3) {
 			System.exit(-1);
 		}
 
 		UpdateMappings u = new UpdateMappings(
-			JarUtil.loadJar(new File(args[0])),
-			JarUtil.loadJar(new File(args[1]))
+				JarUtil.loadJar(new File(args[0])),
+				JarUtil.loadJar(new File(args[1]))
 		);
 		u.update();
 		u.save(new File(args[2]));

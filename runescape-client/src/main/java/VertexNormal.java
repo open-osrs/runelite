@@ -9,47 +9,47 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class VertexNormal {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		longValue = 1130865268298434617L
+			longValue = 1130865268298434617L
 	)
 	static long field1752;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lli;"
+			signature = "Lli;"
 	)
 	static IndexedSprite field1753;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lkp;"
+			signature = "Lkp;"
 	)
 	@Export("NetCache_responseArchiveBuffer")
 	public static Buffer NetCache_responseArchiveBuffer;
 	@ObfuscatedName("gu")
 	@ObfuscatedSignature(
-		signature = "[Lli;"
+			signature = "[Lli;"
 	)
 	@Export("mapSceneSprites")
 	static IndexedSprite[] mapSceneSprites;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 707257177
+			intValue = 707257177
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1141720523
+			intValue = 1141720523
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1695799799
+			intValue = 1695799799
 	)
 	@Export("z")
 	int z;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1198697941
+			intValue = 1198697941
 	)
 	@Export("magnitude")
 	int magnitude;
@@ -58,7 +58,7 @@ public class VertexNormal {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Ldp;)V"
+			signature = "(Ldp;)V"
 	)
 	VertexNormal(VertexNormal var1) {
 		this.x = var1.x;
@@ -69,8 +69,8 @@ public class VertexNormal {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)J",
-		garbageValue = "2082657015"
+			signature = "(II)J",
+			garbageValue = "2082657015"
 	)
 	public static long method3063(int var0) {
 		return ViewportMouse.ViewportMouse_entityTags[var0];
@@ -78,8 +78,8 @@ public class VertexNormal {
 
 	@ObfuscatedName("gn")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "1221286239"
+			signature = "(II)V",
+			garbageValue = "1221286239"
 	)
 	@Export("setWindowedMode")
 	static void setWindowedMode(int var0) {

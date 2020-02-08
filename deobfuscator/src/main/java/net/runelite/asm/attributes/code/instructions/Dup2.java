@@ -27,6 +27,7 @@ package net.runelite.asm.attributes.code.instructions;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
@@ -36,81 +37,72 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
-public class Dup2 extends Instruction implements DupInstruction
-{
-	public Dup2(Instructions instructions, InstructionType type)
-	{
+public class Dup2 extends Instruction implements DupInstruction {
+	public Dup2(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext one = stack.pop();
 		StackContext two = null;
 		if (one.getType().getSize() == 1)
 			two = stack.pop();
-		
+
 		ins.pop(one);
 		if (two != null)
 			ins.pop(two);
-		
-		if (two != null)
-		{
+
+		if (two != null) {
 			StackContext ctx = new StackContext(ins, two.getType(), two.getValue());
 			stack.push(ctx);
-			
+
 			ins.push(ctx);
 		}
-		
+
 		StackContext ctx = new StackContext(ins, one.getType(), one.getValue());
 		stack.push(one);
-		
+
 		ins.push(ctx);
 
-		if (two != null)
-		{
+		if (two != null) {
 			ctx = new StackContext(ins, two.getType(), two.getValue());
 			stack.push(ctx);
-			
+
 			ins.push(ctx);
 		}
-		
+
 		ctx = new StackContext(ins, one.getType(), one.getValue());
 		stack.push(one);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
-	
+
 	@Override
-	public boolean removeStack()
-	{
+	public boolean removeStack() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public StackContext getOriginal(StackContext sctx)
-	{
+	public StackContext getOriginal(StackContext sctx) {
 		// 2 1 -> 2 1 2 1 OR 1 -> 1 1
 		InstructionContext ctx = sctx.getPushed();
 		assert ctx.getPops().size() == 2 || ctx.getPops().size() == 1;
-		
+
 		assert ctx.getInstruction() == this;
 		assert ctx.getPushes().contains(sctx);
 		int idx = ctx.getPushes().indexOf(sctx);
-		
-		if (ctx.getPops().size() == 1)
-		{
+
+		if (ctx.getPops().size() == 1) {
 			return ctx.getPops().get(0);
 		}
-		
-		switch (idx)
-		{
+
+		switch (idx) {
 			case 0:
 			case 2:
 				return ctx.getPops().get(1);
@@ -123,20 +115,17 @@ public class Dup2 extends Instruction implements DupInstruction
 	}
 
 	@Override
-	public StackContext getOtherBranch(StackContext sctx)
-	{
+	public StackContext getOtherBranch(StackContext sctx) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 	@Override
-	public List<StackContext> getDuplicated(InstructionContext ictx)
-	{
+	public List<StackContext> getDuplicated(InstructionContext ictx) {
 		return new ArrayList<>(ictx.getPops());
 	}
 
 	@Override
-	public List<StackContext> getCopies(InstructionContext ictx)
-	{
+	public List<StackContext> getCopies(InstructionContext ictx) {
 		return new ArrayList<>(ictx.getPushes());
 	}
 }

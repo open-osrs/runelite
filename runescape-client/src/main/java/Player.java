@@ -10,25 +10,25 @@ import net.runelite.rs.ScriptOpcodes;
 public final class Player extends Actor {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Ljz;"
+			signature = "Ljz;"
 	)
 	@Export("username")
 	Username username;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+			signature = "Lhp;"
 	)
 	@Export("appearance")
 	PlayerAppearance appearance;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -791182983
+			intValue = -791182983
 	)
 	@Export("headIconPk")
 	int headIconPk;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -2135485127
+			intValue = -2135485127
 	)
 	@Export("headIconPrayer")
 	int headIconPrayer;
@@ -37,74 +37,74 @@ public final class Player extends Actor {
 	String[] actions;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1334071439
+			intValue = 1334071439
 	)
 	@Export("combatLevel")
 	int combatLevel;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 31608153
+			intValue = 31608153
 	)
 	@Export("skillLevel")
 	int skillLevel;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -595586759
+			intValue = -595586759
 	)
 	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 492199091
+			intValue = 492199091
 	)
 	@Export("animationCycleStart")
 	int animationCycleStart;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1158770925
+			intValue = 1158770925
 	)
 	@Export("animationCycleEnd")
 	int animationCycleEnd;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1060371069
+			intValue = -1060371069
 	)
 	int field622;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1973913223
+			intValue = 1973913223
 	)
 	@Export("tileHeight2")
 	int tileHeight2;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -89254999
+			intValue = -89254999
 	)
 	int field620;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Ldx;"
+			signature = "Ldx;"
 	)
 	@Export("model0")
 	Model model0;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 94473955
+			intValue = 94473955
 	)
 	int field626;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1646253599
+			intValue = 1646253599
 	)
 	int field627;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 18993525
+			intValue = 18993525
 	)
 	int field628;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1302670611
+			intValue = 1302670611
 	)
 	int field629;
 	@ObfuscatedName("y")
@@ -112,7 +112,7 @@ public final class Player extends Actor {
 	boolean isUnanimated;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1851536029
+			intValue = -1851536029
 	)
 	@Export("team")
 	int team;
@@ -121,25 +121,25 @@ public final class Player extends Actor {
 	boolean isHidden;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 418590373
+			intValue = 418590373
 	)
 	@Export("plane")
 	int plane;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -895014683
+			intValue = -895014683
 	)
 	@Export("index")
 	int index;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lju;"
+			signature = "Lju;"
 	)
 	@Export("isFriendTriBool")
 	TriBool isFriendTriBool;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lju;"
+			signature = "Lju;"
 	)
 	@Export("isInClanChat")
 	TriBool isInClanChat;
@@ -147,13 +147,13 @@ public final class Player extends Actor {
 	boolean field621;
 	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = 1551600703
+			intValue = 1551600703
 	)
 	@Export("tileX")
 	int tileX;
 	@ObfuscatedName("az")
 	@ObfuscatedGetter(
-		intValue = 212383731
+			intValue = 212383731
 	)
 	@Export("tileY")
 	int tileY;
@@ -181,8 +181,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lkp;B)V",
-		garbageValue = "20"
+			signature = "(Lkp;B)V",
+			garbageValue = "20"
 	)
 	@Export("read")
 	final void read(Buffer var1) {
@@ -287,8 +287,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1723343174"
+			signature = "(I)Z",
+			garbageValue = "-1723343174"
 	)
 	@Export("isFriend")
 	boolean isFriend() {
@@ -301,8 +301,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-55"
+			signature = "(B)V",
+			garbageValue = "-55"
 	)
 	@Export("clearIsFriend")
 	void clearIsFriend() {
@@ -311,8 +311,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-379994373"
+			signature = "(I)V",
+			garbageValue = "-379994373"
 	)
 	@Export("checkIsFriend")
 	void checkIsFriend() {
@@ -321,8 +321,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1808500524"
+			signature = "(I)Z",
+			garbageValue = "-1808500524"
 	)
 	@Export("isClanMember")
 	boolean isClanMember() {
@@ -335,8 +335,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "752660623"
+			signature = "(I)V",
+			garbageValue = "752660623"
 	)
 	@Export("clearIsInClanChat")
 	void clearIsInClanChat() {
@@ -345,8 +345,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "2107067145"
+			signature = "(I)V",
+			garbageValue = "2107067145"
 	)
 	@Export("updateIsInClanChat")
 	void updateIsInClanChat() {
@@ -355,8 +355,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "2147227009"
+			signature = "(I)I",
+			garbageValue = "2147227009"
 	)
 	@Export("transformedSize")
 	int transformedSize() {
@@ -365,8 +365,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)Ldx;",
-		garbageValue = "-2133076860"
+			signature = "(I)Ldx;",
+			garbageValue = "-2133076860"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
@@ -436,8 +436,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIBB)V",
-		garbageValue = "74"
+			signature = "(IIBB)V",
+			garbageValue = "74"
 	)
 	final void method1266(int var1, int var2, byte var3) {
 		if (super.sequence != -1 && GraphicsDefaults.SequenceDefinition_get(super.sequence).field3524 == 1) {
@@ -478,7 +478,8 @@ public final class Player extends Actor {
 								}
 
 								int var8;
-								label265: {
+								label265:
+								{
 									var16 = var5 - 64;
 									int var17 = var6 - 64;
 									int var18 = ChatChannel.field1289;
@@ -586,7 +587,7 @@ public final class Player extends Actor {
 										break label244;
 									}
 
-									var4.method1268(Client.field920[var16], Client.field921[var16], (byte)2);
+									var4.method1268(Client.field920[var16], Client.field921[var16], (byte) 2);
 									++var16;
 								}
 							}
@@ -613,8 +614,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-1389622886"
+			signature = "(III)V",
+			garbageValue = "-1389622886"
 	)
 	@Export("resetPath")
 	void resetPath(int var1, int var2) {
@@ -630,8 +631,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IIBI)V",
-		garbageValue = "1525296434"
+			signature = "(IIBI)V",
+			garbageValue = "1525296434"
 	)
 	final void method1268(int var1, int var2, byte var3) {
 		if (super.pathLength < 9) {
@@ -651,8 +652,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-515224238"
+			signature = "(I)Z",
+			garbageValue = "-515224238"
 	)
 	@Export("isVisible")
 	final boolean isVisible() {
@@ -661,8 +662,8 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "348475587"
+			signature = "(ILce;ZI)I",
+			garbageValue = "348475587"
 	)
 	static int method1300(int var0, Script var1, boolean var2) {
 		Widget var3;

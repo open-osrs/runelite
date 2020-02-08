@@ -11,7 +11,7 @@ import netscape.javascript.JSObject;
 public class InterfaceParent extends Node {
 	@ObfuscatedName("ps")
 	@ObfuscatedSignature(
-		signature = "Ljl;"
+			signature = "Ljl;"
 	)
 	@Export("clanChat")
 	static ClanChat clanChat;
@@ -19,25 +19,25 @@ public class InterfaceParent extends Node {
 	static byte[][][] field565;
 	@ObfuscatedName("gz")
 	@ObfuscatedSignature(
-		signature = "[Lli;"
+			signature = "[Lli;"
 	)
 	@Export("modIconSprites")
 	static IndexedSprite[] modIconSprites;
 	@ObfuscatedName("kx")
 	@ObfuscatedGetter(
-		intValue = 311386537
+			intValue = 311386537
 	)
 	@Export("menuWidth")
 	static int menuWidth;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 741333459
+			intValue = 741333459
 	)
 	@Export("group")
 	int group;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1361979275
+			intValue = 1361979275
 	)
 	@Export("type")
 	int type;
@@ -50,8 +50,8 @@ public class InterfaceParent extends Node {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(IIIZIZI)V",
-		garbageValue = "-753308840"
+			signature = "(IIIZIZI)V",
+			garbageValue = "-753308840"
 	)
 	@Export("doWorldSorting")
 	static void doWorldSorting(int var0, int var1, int var2, boolean var3, int var4, boolean var5) {
@@ -80,8 +80,8 @@ public class InterfaceParent extends Node {
 
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "-332647401"
+			signature = "(ILce;ZI)I",
+			garbageValue = "-332647401"
 	)
 	static int method1191(int var0, Script var1, boolean var2) {
 		Widget var3;
@@ -100,7 +100,7 @@ public class InterfaceParent extends Node {
 			return 1;
 		} else if (var0 == ScriptOpcodes.IF_HASSUB) {
 			int var5 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var5);
+			InterfaceParent var4 = (InterfaceParent) Client.interfaceParents.get((long) var5);
 			if (var4 != null) {
 				Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = 1;
 			} else {
@@ -118,8 +118,8 @@ public class InterfaceParent extends Node {
 
 	@ObfuscatedName("gs")
 	@ObfuscatedSignature(
-		signature = "(Lba;III)V",
-		garbageValue = "1714214597"
+			signature = "(Lba;III)V",
+			garbageValue = "1714214597"
 	)
 	@Export("performPlayerAnimation")
 	static void performPlayerAnimation(Player var0, int var1, int var2) {
@@ -148,8 +148,8 @@ public class InterfaceParent extends Node {
 
 	@ObfuscatedName("iz")
 	@ObfuscatedSignature(
-		signature = "(Lhn;III)V",
-		garbageValue = "-749720569"
+			signature = "(Lhn;III)V",
+			garbageValue = "-749720569"
 	)
 	@Export("alignWidgetPosition")
 	static void alignWidgetPosition(Widget var0, int var1, int var2) {
@@ -185,8 +185,8 @@ public class InterfaceParent extends Node {
 
 	@ObfuscatedName("kr")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
-		garbageValue = "-53"
+			signature = "(Ljava/lang/String;B)V",
+			garbageValue = "-53"
 	)
 	static void method1192(String var0) {
 		GameShell.field477 = var0;

@@ -25,360 +25,331 @@
 package net.runelite.client.config;
 
 import java.awt.Dimension;
+
 import net.runelite.api.Constants;
 import net.runelite.client.Notifier;
 import net.runelite.client.ui.ContainableFrame;
 
 @ConfigGroup(RuneLiteConfig.GROUP_NAME)
-public interface RuneLiteConfig extends Config
-{
+public interface RuneLiteConfig extends Config {
 	String GROUP_NAME = "runelite";
 
 	@ConfigTitleSection(
-		keyName = "uiTitle",
-		name = "User interface",
-		description = "",
-		position = 1
+			keyName = "uiTitle",
+			name = "User interface",
+			description = "",
+			position = 1
 	)
-	default Title uiTitle()
-	{
+	default Title uiTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "gameSize",
-		name = "Game size",
-		description = "The game will resize to this resolution upon starting the client",
-		position = 2,
-		titleSection = "uiTitle"
+			keyName = "gameSize",
+			name = "Game size",
+			description = "The game will resize to this resolution upon starting the client",
+			position = 2,
+			titleSection = "uiTitle"
 	)
 	@Units(Units.PIXELS)
-	default Dimension gameSize()
-	{
+	default Dimension gameSize() {
 		return Constants.GAME_FIXED_SIZE;
 	}
 
 	@ConfigItem(
-		keyName = "automaticResizeType",
-		name = "Resize type",
-		description = "Choose how the window should resize when opening and closing panels",
-		position = 3,
-		titleSection = "uiTitle"
+			keyName = "automaticResizeType",
+			name = "Resize type",
+			description = "Choose how the window should resize when opening and closing panels",
+			position = 3,
+			titleSection = "uiTitle"
 	)
-	default ExpandResizeType automaticResizeType()
-	{
+	default ExpandResizeType automaticResizeType() {
 		return ExpandResizeType.KEEP_GAME_SIZE;
 	}
 
 	@ConfigItem(
-		keyName = "lockWindowSize",
-		name = "Lock window size",
-		description = "Determines if the window resizing is allowed or not",
-		position = 4,
-		titleSection = "uiTitle"
+			keyName = "lockWindowSize",
+			name = "Lock window size",
+			description = "Determines if the window resizing is allowed or not",
+			position = 4,
+			titleSection = "uiTitle"
 	)
-	default boolean lockWindowSize()
-	{
+	default boolean lockWindowSize() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "containInScreen2",
-		name = "Contain in screen",
-		description = "Makes the client stay contained in the screen when attempted to move out of it.<br>Note: 'Always' only works if custom chrome is enabled.",
-		position = 5,
-		titleSection = "uiTitle"
+			keyName = "containInScreen2",
+			name = "Contain in screen",
+			description = "Makes the client stay contained in the screen when attempted to move out of it.<br>Note: 'Always' only works if custom chrome is enabled.",
+			position = 5,
+			titleSection = "uiTitle"
 	)
-	default ContainableFrame.Mode containInScreen()
-	{
+	default ContainableFrame.Mode containInScreen() {
 		return ContainableFrame.Mode.RESIZING;
 	}
 
 
 	@ConfigItem(
-		keyName = "uiEnableCustomChrome",
-		name = "Enable custom window chrome",
-		description = "Use Runelite's custom window title and borders.",
-		warning = "Please restart your client after changing this setting",
-		position = 6,
-		titleSection = "uiTitle"
+			keyName = "uiEnableCustomChrome",
+			name = "Enable custom window chrome",
+			description = "Use Runelite's custom window title and borders.",
+			warning = "Please restart your client after changing this setting",
+			position = 6,
+			titleSection = "uiTitle"
 	)
-	default boolean enableCustomChrome()
-	{
+	default boolean enableCustomChrome() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "usernameInTitle",
-		name = "Show display name in title",
-		description = "Toggles displaying of local player's display name in client title",
-		position = 7,
-		titleSection = "uiTitle"
+			keyName = "usernameInTitle",
+			name = "Show display name in title",
+			description = "Toggles displaying of local player's display name in client title",
+			position = 7,
+			titleSection = "uiTitle"
 	)
-	default boolean usernameInTitle()
-	{
+	default boolean usernameInTitle() {
 		return true;
 	}
 
 	@ConfigTitleSection(
-		keyName = "miscTitle",
-		name = "Miscellaneous",
-		description = "",
-		position = 8
+			keyName = "miscTitle",
+			name = "Miscellaneous",
+			description = "",
+			position = 8
 	)
-	default Title miscTitle()
-	{
+	default Title miscTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "rememberScreenBounds",
-		name = "Remember client position",
-		description = "Save the position and size of the client after exiting",
-		position = 9,
-		titleSection = "miscTitle"
+			keyName = "rememberScreenBounds",
+			name = "Remember client position",
+			description = "Save the position and size of the client after exiting",
+			position = 9,
+			titleSection = "miscTitle"
 	)
-	default boolean rememberScreenBounds()
-	{
+	default boolean rememberScreenBounds() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "gameAlwaysOnTop",
-		name = "Enable client always on top",
-		description = "The game will always be on the top of the screen",
-		position = 10,
-		titleSection = "miscTitle"
+			keyName = "gameAlwaysOnTop",
+			name = "Enable client always on top",
+			description = "The game will always be on the top of the screen",
+			position = 10,
+			titleSection = "miscTitle"
 	)
-	default boolean gameAlwaysOnTop()
-	{
+	default boolean gameAlwaysOnTop() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "warningOnExit",
-		name = "Display warning on exit",
-		description = "Toggles a warning popup when trying to exit the client",
-		position = 11,
-		titleSection = "miscTitle"
+			keyName = "warningOnExit",
+			name = "Display warning on exit",
+			description = "Toggles a warning popup when trying to exit the client",
+			position = 11,
+			titleSection = "miscTitle"
 	)
-	default WarningOnExit warningOnExit()
-	{
+	default WarningOnExit warningOnExit() {
 		return WarningOnExit.LOGGED_IN;
 	}
 
 	@Range(max = 100, min = 0)
 	@ConfigItem(
-		keyName = "volume",
-		name = "Runelite Volume",
-		description = "Sets the volume of custom Runelite sounds (not the client sounds)",
-		position = 12,
-		titleSection = "miscTitle"
+			keyName = "volume",
+			name = "Runelite Volume",
+			description = "Sets the volume of custom Runelite sounds (not the client sounds)",
+			position = 12,
+			titleSection = "miscTitle"
 	)
 	@Units(Units.PERCENT)
-	default int volume()
-	{
+	default int volume() {
 		return 100;
 	}
 
 	@ConfigTitleSection(
-		keyName = "notificationsTitle",
-		name = "Notifications",
-		description = "",
-		position = 13
+			keyName = "notificationsTitle",
+			name = "Notifications",
+			description = "",
+			position = 13
 	)
-	default Title notificationsTitle()
-	{
+	default Title notificationsTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "notificationTray",
-		name = "Enable tray notifications",
-		description = "Enables tray notifications",
-		position = 14,
-		titleSection = "notificationsTitle"
+			keyName = "notificationTray",
+			name = "Enable tray notifications",
+			description = "Enables tray notifications",
+			position = 14,
+			titleSection = "notificationsTitle"
 	)
-	default boolean enableTrayNotifications()
-	{
+	default boolean enableTrayNotifications() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "notificationRequestFocus",
-		name = "Request focus on notification",
-		description = "Toggles window focus request",
-		position = 15,
-		titleSection = "notificationsTitle"
+			keyName = "notificationRequestFocus",
+			name = "Request focus on notification",
+			description = "Toggles window focus request",
+			position = 15,
+			titleSection = "notificationsTitle"
 	)
-	default boolean requestFocusOnNotification()
-	{
+	default boolean requestFocusOnNotification() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "notificationSound",
-		name = "Notification sound",
-		description = "Enables the playing of a beep sound when notifications are displayed",
-		position = 16,
-		titleSection = "notificationsTitle"
+			keyName = "notificationSound",
+			name = "Notification sound",
+			description = "Enables the playing of a beep sound when notifications are displayed",
+			position = 16,
+			titleSection = "notificationsTitle"
 	)
-	default Notifier.NativeCustomOff notificationSound()
-	{
+	default Notifier.NativeCustomOff notificationSound() {
 		return Notifier.NativeCustomOff.NATIVE;
 	}
 
 	@ConfigItem(
-		keyName = "notificationGameMessage",
-		name = "Enable game message notifications",
-		description = "Puts a notification message in the chatbox",
-		position = 17,
-		titleSection = "notificationsTitle"
+			keyName = "notificationGameMessage",
+			name = "Enable game message notifications",
+			description = "Puts a notification message in the chatbox",
+			position = 17,
+			titleSection = "notificationsTitle"
 	)
-	default boolean enableGameMessageNotification()
-	{
+	default boolean enableGameMessageNotification() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "notificationFlash",
-		name = "Enable flash notification",
-		description = "Flashes the game frame as a notification",
-		position = 18,
-		titleSection = "notificationsTitle"
+			keyName = "notificationFlash",
+			name = "Enable flash notification",
+			description = "Flashes the game frame as a notification",
+			position = 18,
+			titleSection = "notificationsTitle"
 	)
-	default FlashNotification flashNotification()
-	{
+	default FlashNotification flashNotification() {
 		return FlashNotification.DISABLED;
 	}
 
 	@ConfigItem(
-		keyName = "notificationFocused",
-		name = "Send notifications when focused",
-		description = "Toggles all notifications for when the client is focused",
-		position = 19,
-		titleSection = "notificationsTitle"
+			keyName = "notificationFocused",
+			name = "Send notifications when focused",
+			description = "Toggles all notifications for when the client is focused",
+			position = 19,
+			titleSection = "notificationsTitle"
 	)
-	default boolean sendNotificationsWhenFocused()
-	{
+	default boolean sendNotificationsWhenFocused() {
 		return false;
 	}
 
 	@ConfigTitleSection(
-		keyName = "fontTitle",
-		name = "Font",
-		description = "",
-		position = 20
+			keyName = "fontTitle",
+			name = "Font",
+			description = "",
+			position = 20
 	)
-	default Title fontTitle()
-	{
+	default Title fontTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "fontType",
-		name = "Dynamic Overlay Font",
-		description = "Configures what font type is used for in-game overlays such as player name, ground items, etc.",
-		position = 21,
-		titleSection = "fontTitle"
+			keyName = "fontType",
+			name = "Dynamic Overlay Font",
+			description = "Configures what font type is used for in-game overlays such as player name, ground items, etc.",
+			position = 21,
+			titleSection = "fontTitle"
 	)
-	default FontType fontType()
-	{
+	default FontType fontType() {
 		return FontType.SMALL;
 	}
 
 	@ConfigItem(
-		keyName = "tooltipFontType",
-		name = "Tooltip Font",
-		description = "Configures what font type is used for in-game tooltips such as food stats, NPC names, etc.",
-		position = 22,
-		titleSection = "fontTitle"
+			keyName = "tooltipFontType",
+			name = "Tooltip Font",
+			description = "Configures what font type is used for in-game tooltips such as food stats, NPC names, etc.",
+			position = 22,
+			titleSection = "fontTitle"
 	)
-	default FontType tooltipFontType()
-	{
+	default FontType tooltipFontType() {
 		return FontType.SMALL;
 	}
 
 	@ConfigItem(
-		keyName = "interfaceFontType",
-		name = "Interface Overlay Font",
-		description = "Configures what font type is used for in-game interface overlays such as panels, opponent info, clue scrolls etc.",
-		position = 23,
-		titleSection = "fontTitle"
+			keyName = "interfaceFontType",
+			name = "Interface Overlay Font",
+			description = "Configures what font type is used for in-game interface overlays such as panels, opponent info, clue scrolls etc.",
+			position = 23,
+			titleSection = "fontTitle"
 	)
-	default FontType interfaceFontType()
-	{
+	default FontType interfaceFontType() {
 		return FontType.REGULAR;
 	}
 
 	@ConfigTitleSection(
-		keyName = "overlayTitle",
-		name = "Overlays",
-		description = "",
-		position = 24
+			keyName = "overlayTitle",
+			name = "Overlays",
+			description = "",
+			position = 24
 	)
-	default Title overlayTitle()
-	{
+	default Title overlayTitle() {
 		return new Title();
 	}
 
 	@ConfigItem(
-		keyName = "menuEntryShift",
-		name = "Require Shift for overlay menu",
-		description = "Overlay right-click menu will require shift to be added",
-		position = 25,
-		titleSection = "overlayTitle"
+			keyName = "menuEntryShift",
+			name = "Require Shift for overlay menu",
+			description = "Overlay right-click menu will require shift to be added",
+			position = 25,
+			titleSection = "overlayTitle"
 	)
-	default boolean menuEntryShift()
-	{
+	default boolean menuEntryShift() {
 		return true;
 	}
 
 	@ConfigItem(
-		keyName = "tooltipPosition",
-		name = "Tooltip Position",
-		description = "Configures whether to show the tooltip above or under the cursor",
-		position = 35
+			keyName = "tooltipPosition",
+			name = "Tooltip Position",
+			description = "Configures whether to show the tooltip above or under the cursor",
+			position = 35
 	)
-	default TooltipPositionType tooltipPosition()
-	{
+	default TooltipPositionType tooltipPosition() {
 		return TooltipPositionType.UNDER_CURSOR;
 	}
 
 	@ConfigItem(
-		keyName = "infoBoxVertical",
-		name = "Display infoboxes vertically",
-		description = "Toggles the infoboxes to display vertically",
-		position = 26,
-		titleSection = "infoboxTitle"
+			keyName = "infoBoxVertical",
+			name = "Display infoboxes vertically",
+			description = "Toggles the infoboxes to display vertically",
+			position = 26,
+			titleSection = "infoboxTitle"
 	)
-	default boolean infoBoxVertical()
-	{
+	default boolean infoBoxVertical() {
 		return false;
 	}
 
 	@ConfigItem(
-		keyName = "infoBoxWrap",
-		name = "Infobox wrap count",
-		description = "Configures the amount of infoboxes shown before wrapping",
-		position = 27,
-		titleSection = "infoboxTitle"
+			keyName = "infoBoxWrap",
+			name = "Infobox wrap count",
+			description = "Configures the amount of infoboxes shown before wrapping",
+			position = 27,
+			titleSection = "infoboxTitle"
 	)
-	default int infoBoxWrap()
-	{
+	default int infoBoxWrap() {
 		return 4;
 	}
 
 	@ConfigItem(
-		keyName = "infoBoxSize",
-		name = "Infobox size",
-		description = "Configures the size of each infobox in pixels",
-		position = 28,
-		titleSection = "infoboxTitle"
+			keyName = "infoBoxSize",
+			name = "Infobox size",
+			description = "Configures the size of each infobox in pixels",
+			position = 28,
+			titleSection = "infoboxTitle"
 	)
 	@Units(Units.PIXELS)
-	default int infoBoxSize()
-	{
+	default int infoBoxSize() {
 		return 35;
 	}
 

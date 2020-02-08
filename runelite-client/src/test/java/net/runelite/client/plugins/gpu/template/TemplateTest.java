@@ -25,33 +25,32 @@
 package net.runelite.client.plugins.gpu.template;
 
 import java.util.function.Function;
+
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class TemplateTest
-{
+public class TemplateTest {
 	private static final String FILE1 = "" +
-		"test1\n" +
-		"#include file2\n" +
-		"test3\n";
+			"test1\n" +
+			"#include file2\n" +
+			"test3\n";
 
 	private static final String FILE2 = "" +
-		"test4\n" +
-		"test5\n";
+			"test4\n" +
+			"test5\n";
 
 	private static final String RESULT = "" +
-		"test1\n" +
-		"test4\n" +
-		"test5\n" +
-		"test3\n";
+			"test1\n" +
+			"test4\n" +
+			"test5\n" +
+			"test3\n";
 
 	@Test
-	public void testProcess()
-	{
+	public void testProcess() {
 		Function<String, String> func = (String resource) ->
 		{
-			if ("file2".equals(resource))
-			{
+			if ("file2".equals(resource)) {
 				return FILE2;
 			}
 			throw new RuntimeException("unknown resource");

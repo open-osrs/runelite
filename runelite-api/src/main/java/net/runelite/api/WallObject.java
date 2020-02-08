@@ -29,8 +29,7 @@ import java.awt.Shape;
 /**
  * Represents the wall of a tile, which is an un-passable boundary.
  */
-public interface WallObject extends TileObject
-{
+public interface WallObject extends TileObject {
 	/**
 	 * Gets the first orientation of the wall.
 	 *
@@ -53,9 +52,11 @@ public interface WallObject extends TileObject
 	int getConfig();
 
 	Entity getEntity1();
+
 	Entity getEntity2();
 
 	Model getModelA();
+
 	Model getModelB();
 
 	/**
@@ -65,5 +66,6 @@ public interface WallObject extends TileObject
 	 * @see net.runelite.api.model.Jarvis
 	 */
 	Shape getConvexHull();
+
 	Shape getConvexHull2();
 }

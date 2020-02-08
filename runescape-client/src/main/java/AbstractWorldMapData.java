@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -10,60 +11,60 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class AbstractWorldMapData {
 	@ObfuscatedName("ai")
 	@ObfuscatedGetter(
-		intValue = 1805663379
+			intValue = 1805663379
 	)
 	static int field190;
 	@ObfuscatedName("gv")
 	@ObfuscatedSignature(
-		signature = "[Llt;"
+			signature = "[Llt;"
 	)
 	@Export("mapDotSprites")
 	static Sprite[] mapDotSprites;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -894906368
+			intValue = -894906368
 	)
 	@Export("regionXLow")
 	int regionXLow;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1390111808
+			intValue = -1390111808
 	)
 	@Export("regionYLow")
 	int regionYLow;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1468899765
+			intValue = -1468899765
 	)
 	@Export("regionX")
 	int regionX;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1986069101
+			intValue = 1986069101
 	)
 	@Export("regionY")
 	int regionY;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1726472533
+			intValue = -1726472533
 	)
 	@Export("minPlane")
 	int minPlane;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1228656521
+			intValue = -1228656521
 	)
 	@Export("planes")
 	int planes;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -672684543
+			intValue = -672684543
 	)
 	@Export("groupId")
 	int groupId;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -199023581
+			intValue = -199023581
 	)
 	@Export("fileId")
 	int fileId;
@@ -79,7 +80,7 @@ public abstract class AbstractWorldMapData {
 	byte[][][] field175;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "[[[[Lu;"
+			signature = "[[[[Lu;"
 	)
 	@Export("decorations")
 	WorldMapDecoration[][][][] decorations;
@@ -98,16 +99,16 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lkp;S)V",
-		garbageValue = "-30591"
+			signature = "(Lkp;S)V",
+			garbageValue = "-30591"
 	)
 	@Export("readGeography")
 	abstract void readGeography(Buffer var1);
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1888663118"
+			signature = "(I)Z",
+			garbageValue = "1888663118"
 	)
 	@Export("isFullyLoaded")
 	boolean isFullyLoaded() {
@@ -116,8 +117,8 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lii;I)V",
-		garbageValue = "-60010713"
+			signature = "(Lii;I)V",
+			garbageValue = "-60010713"
 	)
 	@Export("loadGeography")
 	void loadGeography(AbstractArchive var1) {
@@ -134,8 +135,8 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "559104793"
+			signature = "(I)V",
+			garbageValue = "559104793"
 	)
 	@Export("reset")
 	void reset() {
@@ -150,8 +151,8 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IILkp;I)V",
-		garbageValue = "-1538793396"
+			signature = "(IILkp;I)V",
+			garbageValue = "-1538793396"
 	)
 	@Export("readTile")
 	void readTile(int var1, int var2, Buffer var3) {
@@ -168,28 +169,28 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "(IILkp;II)V",
-		garbageValue = "1470319349"
+			signature = "(IILkp;II)V",
+			garbageValue = "1470319349"
 	)
 	void method257(int var1, int var2, Buffer var3, int var4) {
 		boolean var5 = (var4 & 2) != 0;
 		if (var5) {
-			this.floorOverlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
+			this.floorOverlayIds[0][var1][var2] = (short) var3.readUnsignedByte();
 		}
 
-		this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
+		this.floorUnderlayIds[0][var1][var2] = (short) var3.readUnsignedByte();
 	}
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IILkp;II)V",
-		garbageValue = "-2109689105"
+			signature = "(IILkp;II)V",
+			garbageValue = "-2109689105"
 	)
 	void method258(int var1, int var2, Buffer var3, int var4) {
 		int var5 = ((var4 & 24) >> 3) + 1;
 		boolean var6 = (var4 & 2) != 0;
 		boolean var7 = (var4 & 4) != 0;
-		this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
+		this.floorUnderlayIds[0][var1][var2] = (short) var3.readUnsignedByte();
 		int var8;
 		int var9;
 		int var11;
@@ -199,10 +200,10 @@ public abstract class AbstractWorldMapData {
 			for (var9 = 0; var9 < var8; ++var9) {
 				int var10 = var3.readUnsignedByte();
 				if (var10 != 0) {
-					this.floorOverlayIds[var9][var1][var2] = (short)var10;
+					this.floorOverlayIds[var9][var1][var2] = (short) var10;
 					var11 = var3.readUnsignedByte();
-					this.field188[var9][var1][var2] = (byte)(var11 >> 2);
-					this.field175[var9][var1][var2] = (byte)(var11 & 3);
+					this.field188[var9][var1][var2] = (byte) (var11 >> 2);
+					this.field175[var9][var1][var2] = (byte) (var11 & 3);
 				}
 			}
 		}
@@ -226,8 +227,8 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1419701819"
+			signature = "(I)I",
+			garbageValue = "-1419701819"
 	)
 	@Export("getRegionX")
 	int getRegionX() {
@@ -236,8 +237,8 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "879615206"
+			signature = "(I)I",
+			garbageValue = "879615206"
 	)
 	@Export("getRegionY")
 	int getRegionY() {

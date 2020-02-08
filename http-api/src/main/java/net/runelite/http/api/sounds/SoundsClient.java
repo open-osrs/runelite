@@ -26,10 +26,12 @@ package net.runelite.http.api.sounds;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,70 +41,56 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SoundsClient
-{
+public class SoundsClient {
 	private static final Logger logger = LoggerFactory.getLogger(SoundsClient.class);
 
-	public void submit(int npcid, int soundid)
-	{
+	public void submit(int npcid, int soundid) {
 
 		HttpUrl url = RuneLiteAPI.getSoundsBase().newBuilder()
-			.addPathSegment("submit")
-			.addQueryParameter("npcid", String.valueOf(npcid))
-			.addQueryParameter("soundid", String.valueOf(soundid))
-			.build();
+				.addPathSegment("submit")
+				.addQueryParameter("npcid", String.valueOf(npcid))
+				.addQueryParameter("soundid", String.valueOf(soundid))
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
-		{
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
 			@Override
-			public void onFailure(Call call, IOException e)
-			{
+			public void onFailure(Call call, IOException e) {
 				System.out.println("unable to submit sound");
 			}
 
 			@Override
-			public void onResponse(Call call, Response response)
-			{
-				try
-				{
-					if (!response.isSuccessful())
-					{
+			public void onResponse(Call call, Response response) {
+				try {
+					if (!response.isSuccessful()) {
 						System.out.println("unsuccessful sound response");
 					}
-				}
-				finally
-				{
+				} finally {
 					response.close();
 				}
 			}
 		});
 	}
 
-	public HashMap<Integer, int[]> get() throws IOException
-	{
+	public HashMap<Integer, int[]> get() throws IOException {
 		HttpUrl url = RuneLiteAPI.getSoundsBase().newBuilder()
-			.addPathSegment("get")
-			.build();
+				.addPathSegment("get")
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
-		{
+		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
 			InputStream in = response.body().byteStream();
 			// CHECKSTYLE:OFF
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<HashMap<Integer, int[]>>()
-			{
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<HashMap<Integer, int[]>>() {
 			}.getType());
 			// CHECKSTYLE:ON
-		}
-		catch (JsonParseException ex)
-		{
+		} catch (JsonParseException ex) {
 			throw new IOException(ex);
 		}
 	}

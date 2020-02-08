@@ -6,24 +6,20 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Downloader
-{
+public class Downloader {
 	private static final String REPLACE = "%archive%";
 	private static final String GAMEPACK_URL = "http://oldschool1.runescape.com/" + REPLACE;
 
-	private static String getGamepackUrl()
-	{
+	private static String getGamepackUrl() {
 		String archive = Checker.getGamePack();
 		return archive == null ? "" : GAMEPACK_URL.replace(REPLACE, archive);
 	}
 
-	public static String gamepack()
-	{
+	public static String gamepack() {
 		Path path = Paths.get(System.getProperty("user.home"), "gamepack");
 		final File folder = new File(String.valueOf(path));
 
-		if (!folder.exists())
-		{
+		if (!folder.exists()) {
 			folder.mkdir();
 		}
 
@@ -32,34 +28,26 @@ public class Downloader
 		return path + File.separator + "gamepack.jar";
 	}
 
-	private static void downloadLatest(File folder)
-	{
+	private static void downloadLatest(File folder) {
 		File output = new File(folder, "gamepack.jar");
 
-		try
-		{
+		try {
 			URL url = new URL(getGamepackUrl());
 
 			final URLDownloader downloader = new URLDownloader(url, output);
 			downloader.download();
 
-			try
-			{
+			try {
 				Thread.sleep(100);
-			}
-			catch (InterruptedException e)
-			{
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		gamepack();
 	}
 }

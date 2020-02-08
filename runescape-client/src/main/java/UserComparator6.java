@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class UserComparator6 extends AbstractUserComparator {
 	@ObfuscatedName("bl")
 	@ObfuscatedSignature(
-		signature = "[Llt;"
+			signature = "[Llt;"
 	)
 	@Export("worldSelectBackSprites")
 	static Sprite[] worldSelectBackSprites;
@@ -22,8 +22,8 @@ public class UserComparator6 extends AbstractUserComparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lje;Lje;B)I",
-		garbageValue = "-119"
+			signature = "(Lje;Lje;B)I",
+			garbageValue = "-119"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -35,6 +35,6 @@ public class UserComparator6 extends AbstractUserComparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2);
+		return this.compareBuddy((Buddy) var1, (Buddy) var2);
 	}
 }

@@ -1,4 +1,5 @@
 import java.util.Comparator;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -12,15 +13,15 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 	protected static String null_string;
 	@ObfuscatedName("la")
 	@ObfuscatedSignature(
-		signature = "Lhn;"
+			signature = "Lhn;"
 	)
 	@Export("mousedOverWidgetIf1")
 	static Widget mousedOverWidgetIf1;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ll;Ll;B)I",
-		garbageValue = "0"
+			signature = "(Ll;Ll;B)I",
+			garbageValue = "0"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -28,7 +29,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
+		return this.compare_bridged((GrandExchangeEvent) var1, (GrandExchangeEvent) var2);
 	}
 
 	public boolean equals(Object var1) {
@@ -37,12 +38,12 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-2056490791"
+			signature = "(II)I",
+			garbageValue = "-2056490791"
 	)
 	@Export("getVarbit")
 	public static int getVarbit(int var0) {
-		VarbitDefinition var2 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0);
+		VarbitDefinition var2 = (VarbitDefinition) VarbitDefinition.VarbitDefinition_cached.get((long) var0);
 		VarbitDefinition var1;
 		if (var2 != null) {
 			var1 = var2;
@@ -53,7 +54,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 				var2.decode(new Buffer(var7));
 			}
 
-			VarbitDefinition.VarbitDefinition_cached.put(var2, (long)var0);
+			VarbitDefinition.VarbitDefinition_cached.put(var2, (long) var0);
 			var1 = var2;
 		}
 
@@ -66,8 +67,8 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("ez")
 	@ObfuscatedSignature(
-		signature = "(I)Lly;",
-		garbageValue = "-710096744"
+			signature = "(I)Lly;",
+			garbageValue = "-710096744"
 	)
 	@Export("getWorldMap")
 	static WorldMap getWorldMap() {
@@ -76,8 +77,8 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("gt")
 	@ObfuscatedSignature(
-		signature = "(IIIIZI)V",
-		garbageValue = "2147483647"
+			signature = "(IIIIZI)V",
+			garbageValue = "2147483647"
 	)
 	@Export("setViewportShape")
 	static final void setViewportShape(int var0, int var1, int var2, int var3, boolean var4) {
@@ -150,8 +151,8 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("gf")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1156773916"
+			signature = "(I)V",
+			garbageValue = "-1156773916"
 	)
 	static void method141() {
 		if (class192.localPlayer.x >> 7 == Client.destinationX && class192.localPlayer.y >> 7 == Client.destinationY) {
@@ -162,8 +163,8 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("ir")
 	@ObfuscatedSignature(
-		signature = "(IIIZI)V",
-		garbageValue = "-1682009725"
+			signature = "(IIIZI)V",
+			garbageValue = "-1682009725"
 	)
 	static final void method135(int var0, int var1, int var2, boolean var3) {
 		if (ScriptFrame.loadInterface(var0)) {

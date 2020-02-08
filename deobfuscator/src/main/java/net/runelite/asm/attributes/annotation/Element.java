@@ -26,65 +26,52 @@
 package net.runelite.asm.attributes.annotation;
 
 import java.util.List;
+
 import org.objectweb.asm.AnnotationVisitor;
 
-public abstract class Element<T>
-{
+public abstract class Element<T> {
 	String name = "value";
 
 	T value;
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public T getValue()
-	{
+	public T getValue() {
 		return value;
 	}
 
-	public void setValue(T value)
-	{
+	public void setValue(T value) {
 		this.value = value;
 	}
 
-	public String getString()
-	{
+	public String getString() {
 		return value.toString();
 	}
 
-	public static void accept(AnnotationVisitor visitor, final String name, final Object value)
-	{
-		if (visitor == null)
-		{
+	public static void accept(AnnotationVisitor visitor, final String name, final Object value) {
+		if (visitor == null) {
 			return;
 		}
 
-		if (value instanceof Annotation)
-		{
+		if (value instanceof Annotation) {
 			Annotation annotation = (Annotation) value;
 			annotation.accept(visitor.visitAnnotation(name, annotation.getType().toString()));
-		}
-		else if (value instanceof List)
-		{
+		} else if (value instanceof List) {
 			AnnotationVisitor arr = visitor.visitArray(name);
 			List<?> arrayValue = (List<?>) value;
 
-			for (Object o : arrayValue)
-			{
+			for (Object o : arrayValue) {
 				accept(arr, null, o);
 			}
 
 			arr.visitEnd();
-		}
-		else
-		{
+		} else {
 			visitor.visit(name, value);
 		}
 	}

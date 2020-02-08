@@ -24,8 +24,7 @@
  */
 package net.runelite.client.plugins.fps;
 
-public enum FpsLimitMode
-{
+public enum FpsLimitMode {
 	NEVER,
 	UNFOCUSED,
 	ALWAYS

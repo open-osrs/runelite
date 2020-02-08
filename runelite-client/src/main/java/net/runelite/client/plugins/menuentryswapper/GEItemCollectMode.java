@@ -29,8 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum GEItemCollectMode
-{
+public enum GEItemCollectMode {
 	DEFAULT("Default"),
 	ITEMS("Collect-items"),
 	NOTES("Collect-notes"),
@@ -39,8 +38,7 @@ public enum GEItemCollectMode
 	private final String name;
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return name;
 	}
 }

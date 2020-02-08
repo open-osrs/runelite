@@ -28,62 +28,52 @@ package net.runelite.asm.attributes.annotation;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import net.runelite.asm.Type;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.AnnotationVisitor;
 
-public class Annotation extends Element<List<Element>> implements Iterable<Element>
-{
+public class Annotation extends Element<List<Element>> implements Iterable<Element> {
 	private final Type type;
 
-	public Annotation(Type type)
-	{
+	public Annotation(Type type) {
 		this.value = new ArrayList<>();
 		this.type = type;
 	}
 
-	public Annotation(String name, Type type)
-	{
+	public Annotation(String name, Type type) {
 		this.value = new ArrayList<>();
 		this.name = name;
 		this.type = type;
 	}
 
-	public Type getType()
-	{
+	public Type getType() {
 		return type;
 	}
 
-	public List<Element> getElements()
-	{
+	public List<Element> getElements() {
 		return value;
 	}
 
-	public Element getElement()
-	{
+	public Element getElement() {
 		return value.get(0);
 	}
 
-	public void addElement(Element element)
-	{
+	public void addElement(Element element) {
 		value.add(element);
 	}
 
 	@Override
-	public final void setValue(List<Element> value)
-	{
+	public final void setValue(List<Element> value) {
 		throw new UnsupportedOperationException();
 	}
 
-	public void accept(AnnotationVisitor visitor)
-	{
-		if (visitor == null)
-		{
+	public void accept(AnnotationVisitor visitor) {
+		if (visitor == null) {
 			return;
 		}
 
-		for (Element element : this)
-		{
+		for (Element element : this) {
 			accept(visitor, element.name, element.value);
 		}
 
@@ -92,8 +82,7 @@ public class Annotation extends Element<List<Element>> implements Iterable<Eleme
 
 	@NotNull
 	@Override
-	public Iterator<Element> iterator()
-	{
+	public Iterator<Element> iterator() {
 		return this.value.iterator();
 	}
 }

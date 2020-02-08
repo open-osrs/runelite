@@ -27,7 +27,9 @@ package net.runelite.client.plugins.cooking;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import javax.inject.Inject;
+
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GraphicID;
@@ -38,29 +40,34 @@ import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import static org.mockito.ArgumentMatchers.any;
+
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CookingPluginTest
-{
+public class CookingPluginTest {
 	private static final String[] COOKING_MESSAGES = {
-		"You successfully cook a shark.",
-		"You successfully cook an anglerfish.",
-		"You manage to cook a tuna.",
-		"You cook the karambwan. It looks delicious.",
-		"You roast a lobster.",
-		"You cook a bass.",
-		"You successfully bake a tasty garden pie."
+			"You successfully cook a shark.",
+			"You successfully cook an anglerfish.",
+			"You manage to cook a tuna.",
+			"You cook the karambwan. It looks delicious.",
+			"You roast a lobster.",
+			"You cook a bass.",
+			"You successfully bake a tasty garden pie."
 	};
 
 	@Inject
@@ -95,16 +102,13 @@ public class CookingPluginTest
 	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
-	public void before()
-	{
+	public void before() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testOnChatMessage()
-	{
-		for (String message : COOKING_MESSAGES)
-		{
+	public void testOnChatMessage() {
+		for (String message : COOKING_MESSAGES) {
 			ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", message, "", 0);
 			cookingPlugin.onChatMessage(chatMessage);
 		}
@@ -115,8 +119,7 @@ public class CookingPluginTest
 	}
 
 	@Test
-	public void testOnSpotAnimationChanged()
-	{
+	public void testOnSpotAnimationChanged() {
 		Player player = mock(Player.class);
 		when(player.getSpotAnimation()).thenReturn(GraphicID.WINE_MAKE);
 

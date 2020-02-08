@@ -8,16 +8,13 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 
 @Mixin(RSClient.class)
-public abstract class RSRasterizer2DMixin implements RSClient
-{
+public abstract class RSRasterizer2DMixin implements RSClient {
 	@Shadow("client")
 	private static RSClient client;
 
 	@Inject
-	private static void drawAlpha(int[] pixels, int index, int value, int alpha)
-	{
-		if (!client.isGpu() || pixels != client.getBufferProvider().getPixels())
-		{
+	private static void drawAlpha(int[] pixels, int index, int value, int alpha) {
+		if (!client.isGpu() || pixels != client.getBufferProvider().getPixels()) {
 			pixels[index] = value;
 			return;
 		}
@@ -28,14 +25,12 @@ public abstract class RSRasterizer2DMixin implements RSClient
 	}
 
 	@Copy("Rasterizer2D_fillRectangleGradientAlpha")
-	private static void rs$drawGradientAlpha(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7)
-	{
+	private static void rs$drawGradientAlpha(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		throw new RuntimeException();
 	}
 
 	@Replace("Rasterizer2D_fillRectangleGradientAlpha")
-	private static void rl$drawGradientAlpha(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7)
-	{
+	private static void rl$drawGradientAlpha(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		final int width = client.getGraphicsPixelsWidth();
 		final int startX = client.getStartX();
 		final int startY = client.getStartY();
@@ -43,60 +38,49 @@ public abstract class RSRasterizer2DMixin implements RSClient
 		final int endY = client.getEndY();
 		final int[] pixels = client.getGraphicsPixels();
 
-		if (!client.isGpu())
-		{
+		if (!client.isGpu()) {
 			rs$drawGradientAlpha(var0, var1, var2, var3, var4, var5, var6, var7);
 			return;
 		}
 
-		if (var2 > 0 && var3 > 0)
-		{
+		if (var2 > 0 && var3 > 0) {
 			int var8 = 0;
 			int var9 = 65536 / var3;
-			if (var0 < startX)
-			{
+			if (var0 < startX) {
 				var2 -= startX - var0;
 				var0 = startX;
 			}
 
-			if (var1 < startY)
-			{
+			if (var1 < startY) {
 				var8 += (startY - var1) * var9;
 				var3 -= startY - var1;
 				var1 = startY;
 			}
 
-			if (var0 + var2 > endX)
-			{
+			if (var0 + var2 > endX) {
 				var2 = endX - var0;
 			}
 
-			if (var3 + var1 > endY)
-			{
+			if (var3 + var1 > endY) {
 				var3 = endY - var1;
 			}
 
 			int var10 = width - var2;
 			int var11 = var0 + width * var1;
 
-			for (int var12 = -var3; var12 < 0; ++var12)
-			{
+			for (int var12 = -var3; var12 < 0; ++var12) {
 				int var13 = 65536 - var8 >> 8;
 				int var14 = var8 >> 8;
 				int var15 = (var13 * var6 + var14 * var7 & 65280) >>> 8;
-				if (var15 == 0)
-				{
+				if (var15 == 0) {
 					var11 += width;
 					var8 += var9;
-				}
-				else
-				{
+				} else {
 					int var16 = (var14 * (var5 & 16711935) + var13 * (var4 & 16711935) & -16711936) + (var14 * (var5 & 65280) + var13 * (var4 & 65280) & 16711680) >>> 8;
 					int var17 = 255 - var15;
 					int var18 = ((var16 & 16711935) * var15 >> 8 & 16711935) + (var15 * (var16 & 65280) >> 8 & 65280);
 
-					for (int var19 = -var2; var19 < 0; ++var19)
-					{
+					for (int var19 = -var2; var19 < 0; ++var19) {
 						int var20 = pixels[var11];
 						var20 = ((var20 & 16711935) * var17 >> 8 & 16711935) + (var17 * (var20 & 65280) >> 8 & 65280);
 						drawAlpha(pixels, var11++, var18 + var20, var15);
@@ -110,49 +94,40 @@ public abstract class RSRasterizer2DMixin implements RSClient
 	}
 
 	@Copy("Rasterizer2D_drawGradientPixels")
-	public static void rs$raster2d7(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7)
-	{
+	public static void rs$raster2d7(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7) {
 		throw new RuntimeException();
 	}
 
 	@Replace("Rasterizer2D_drawGradientPixels")
-	public static void rl$raster2d7(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7)
-	{
+	public static void rl$raster2d7(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7) {
 		final int width = client.getGraphicsPixelsWidth();
 		final int height = client.getGraphicsPixelsHeight();
 		final int[] pixels = client.getGraphicsPixels();
 
-		if (!client.isGpu())
-		{
+		if (!client.isGpu()) {
 			rs$raster2d7(var0, var1, var2, var3, var4, var5, var6, var7);
 			return;
 		}
 
-		if (var0 + var2 >= 0 && var3 + var1 >= 0)
-		{
-			if (var0 < width && var1 < height)
-			{
+		if (var0 + var2 >= 0 && var3 + var1 >= 0) {
+			if (var0 < width && var1 < height) {
 				int var8 = 0;
 				int var9 = 0;
-				if (var0 < 0)
-				{
+				if (var0 < 0) {
 					var8 -= var0;
 					var2 += var0;
 				}
 
-				if (var1 < 0)
-				{
+				if (var1 < 0) {
 					var9 -= var1;
 					var3 += var1;
 				}
 
-				if (var0 + var2 > width)
-				{
+				if (var0 + var2 > width) {
 					var2 = width - var0;
 				}
 
-				if (var3 + var1 > height)
-				{
+				if (var3 + var1 > height) {
 					var3 = height - var1;
 				}
 
@@ -165,42 +140,31 @@ public abstract class RSRasterizer2DMixin implements RSClient
 				int var16;
 				int var17;
 				int var18;
-				if (var12 == 255 && var13 == 255)
-				{
+				if (var12 == 255 && var13 == 255) {
 					var14 = var0 + var8 + (var9 + var1) * width;
 
-					for (var15 = var9 + var1; var15 < var3 + var9 + var1; ++var15)
-					{
-						for (var16 = var0 + var8; var16 < var0 + var8 + var2; ++var16)
-						{
+					for (var15 = var9 + var1; var15 < var3 + var9 + var1; ++var15) {
+						for (var16 = var0 + var8; var16 < var0 + var8 + var2; ++var16) {
 							var17 = (var15 - var1) % var10;
 							var18 = (var16 - var0) % var7;
-							if (var6[var18 + var17 * var7] != 0)
-							{
+							if (var6[var18 + var17 * var7] != 0) {
 								pixels[var14++] = var5;
-							}
-							else
-							{
+							} else {
 								pixels[var14++] = var4;
 							}
 						}
 
 						var14 += var11;
 					}
-				}
-				else
-				{
+				} else {
 					var14 = var0 + var8 + (var9 + var1) * width;
 
-					for (var15 = var9 + var1; var15 < var3 + var9 + var1; ++var15)
-					{
-						for (var16 = var0 + var8; var16 < var0 + var8 + var2; ++var16)
-						{
+					for (var15 = var9 + var1; var15 < var3 + var9 + var1; ++var15) {
+						for (var16 = var0 + var8; var16 < var0 + var8 + var2; ++var16) {
 							var17 = (var15 - var1) % var10;
 							var18 = (var16 - var0) % var7;
 							int var19 = var4;
-							if (var6[var18 + var17 * var7] != 0)
-							{
+							if (var6[var18 + var17 * var7] != 0) {
 								var19 = var5;
 							}
 

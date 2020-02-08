@@ -1,10 +1,10 @@
 package net.runelite.rs.api;
 
 import java.io.RandomAccessFile;
+
 import net.runelite.mapping.Import;
 
-public interface RSFileOnDisk
-{
+public interface RSFileOnDisk {
 	@Import("file")
 	RandomAccessFile getFile();
 

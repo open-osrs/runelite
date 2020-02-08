@@ -28,10 +28,8 @@ package net.runelite.client.plugins.worldmap;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 import net.runelite.client.util.ImageUtil;
 
-class RunecraftingAltarPoint extends WorldMapPoint
-{
-	RunecraftingAltarPoint(RunecraftingAltarLocation point)
-	{
+class RunecraftingAltarPoint extends WorldMapPoint {
+	RunecraftingAltarPoint(RunecraftingAltarLocation point) {
 		super(point.getLocation(), WorldMapPlugin.BLANK_ICON);
 		setImage(ImageUtil.getResourceStreamFromClass(WorldMapPlugin.class, point.getIconPath()));
 		setTooltip(point.getTooltip());

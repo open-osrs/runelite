@@ -31,7 +31,6 @@ import net.runelite.api.Player;
  * An event when a player dies.
  */
 @Value
-public class PlayerDeath implements Event
-{
+public class PlayerDeath implements Event {
 	private final Player player;
 }

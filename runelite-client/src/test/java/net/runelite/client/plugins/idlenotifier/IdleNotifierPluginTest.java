@@ -28,7 +28,9 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+
 import java.util.EnumSet;
+
 import net.runelite.api.Actor;
 import net.runelite.api.AnimationID;
 import net.runelite.api.Client;
@@ -51,21 +53,24 @@ import net.runelite.client.game.SoundManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+
 import org.mockito.Mock;
+
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IdleNotifierPluginTest
-{
+public class IdleNotifierPluginTest {
 	private static final String PLAYER_NAME = "Deathbeam";
 
 	@Mock
@@ -104,8 +109,7 @@ public class IdleNotifierPluginTest
 	private Player player;
 
 	@Before
-	public void setUp()
-	{
+	public void setUp() {
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 
 		// Mock monster
@@ -121,7 +125,7 @@ public class IdleNotifierPluginTest
 		when(randomEvent.getDefinition()).thenReturn(randomEventComp);
 
 		// Mock Fishing Spot
-		final String[] fishingSpotActions = new String[] { "Use-rod", "Examine" };
+		final String[] fishingSpotActions = new String[]{"Use-rod", "Examine"};
 		final NPCDefinition fishingSpotComp = mock(NPCDefinition.class);
 		when(fishingSpotComp.getActions()).thenReturn(fishingSpotActions);
 		when(fishingSpot.getDefinition()).thenReturn(fishingSpotComp);
@@ -148,8 +152,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void checkAnimationIdle()
-	{
+	public void checkAnimationIdle() {
 		when(player.getAnimation()).thenReturn(AnimationID.WOODCUTTING_BRONZE);
 		AnimationChanged animationChanged = new AnimationChanged();
 		animationChanged.setActor(player);
@@ -162,8 +165,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void checkAnimationReset()
-	{
+	public void checkAnimationReset() {
 		when(player.getAnimation()).thenReturn(AnimationID.WOODCUTTING_BRONZE);
 		AnimationChanged animationChanged = new AnimationChanged();
 		animationChanged.setActor(player);
@@ -179,8 +181,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void checkAnimationLogout()
-	{
+	public void checkAnimationLogout() {
 		when(player.getAnimation()).thenReturn(AnimationID.WOODCUTTING_BRONZE);
 		AnimationChanged animationChanged = new AnimationChanged();
 		animationChanged.setActor(player);
@@ -206,8 +207,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void checkCombatIdle()
-	{
+	public void checkCombatIdle() {
 		when(player.getInteracting()).thenReturn(monster);
 		plugin.onInteractingChanged(new InteractingChanged(player, monster));
 		plugin.onGameTick(GameTick.INSTANCE);
@@ -218,8 +218,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void checkCombatReset()
-	{
+	public void checkCombatReset() {
 		when(player.getInteracting()).thenReturn(mock(Actor.class));
 		plugin.onInteractingChanged(new InteractingChanged(player, monster));
 		plugin.onGameTick(GameTick.INSTANCE);
@@ -231,8 +230,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void checkCombatLogout()
-	{
+	public void checkCombatLogout() {
 		plugin.onInteractingChanged(new InteractingChanged(player, monster));
 		when(player.getInteracting()).thenReturn(mock(Actor.class));
 		plugin.onGameTick(GameTick.INSTANCE);
@@ -255,8 +253,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void checkCombatLogoutIdle()
-	{
+	public void checkCombatLogoutIdle() {
 		// Player is idle
 		when(client.getMouseIdleTicks()).thenReturn(80_000);
 
@@ -270,8 +267,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void doubleNotifyOnMouseReset()
-	{
+	public void doubleNotifyOnMouseReset() {
 		// Player is idle, but in combat so the idle packet is getting set repeatedly
 		// make sure we are not notifying
 
@@ -284,8 +280,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void testSendOneNotificationForAnimationAndInteract()
-	{
+	public void testSendOneNotificationForAnimationAndInteract() {
 		when(player.getInteracting()).thenReturn(fishingSpot);
 		when(player.getAnimation()).thenReturn(AnimationID.FISHING_POLE_CAST);
 
@@ -309,8 +304,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void testSpecRegen()
-	{
+	public void testSpecRegen() {
 		plugin.setGetSpecEnergyThreshold(50);
 
 		when(client.getVar(eq(VarPlayer.SPECIAL_ATTACK_PERCENT))).thenReturn(400); // 40%
@@ -323,8 +317,7 @@ public class IdleNotifierPluginTest
 	}
 
 	@Test
-	public void testMovementIdle()
-	{
+	public void testMovementIdle() {
 		plugin.setMovementIdle(true);
 
 		when(player.getWorldLocation()).thenReturn(new WorldPoint(0, 0, 0));

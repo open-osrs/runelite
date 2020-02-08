@@ -25,8 +25,10 @@
 package net.runelite.client.plugins.chatboxperformance;
 
 import com.google.inject.Provides;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ScriptID;
@@ -45,12 +47,11 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
 @PluginDescriptor(
-	name = "Chatbox performance",
-	type = PluginType.MISCELLANEOUS
+		name = "Chatbox performance",
+		type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class ChatboxPerformancePlugin extends Plugin
-{
+public class ChatboxPerformancePlugin extends Plugin {
 	@Inject
 	private Client client;
 
@@ -61,43 +62,34 @@ public class ChatboxPerformancePlugin extends Plugin
 	private ChatboxPerformanceConfig config;
 
 	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("chatboxperformance"))
-		{
+	public void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("chatboxperformance")) {
 			fixDarkBackground();
 		}
 	}
 
 	@Provides
-	ChatboxPerformanceConfig getConfig(ConfigManager configManager)
-	{
+	ChatboxPerformanceConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(ChatboxPerformanceConfig.class);
 	}
 
 	@Override
-	public void startUp()
-	{
-		if (client.getGameState() == GameState.LOGGED_IN)
-		{
+	public void startUp() {
+		if (client.getGameState() == GameState.LOGGED_IN) {
 			clientThread.invokeLater(() -> client.runScript(ScriptID.MESSAGE_LAYER_CLOSE, 0, 0));
 		}
 	}
 
 	@Override
-	public void shutDown()
-	{
-		if (client.getGameState() == GameState.LOGGED_IN)
-		{
+	public void shutDown() {
+		if (client.getGameState() == GameState.LOGGED_IN) {
 			clientThread.invokeLater(() -> client.runScript(ScriptID.MESSAGE_LAYER_CLOSE, 0, 0));
 		}
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent ev)
-	{
-		if (!"chatboxBackgroundBuilt".equals(ev.getEventName()))
-		{
+	private void onScriptCallbackEvent(ScriptCallbackEvent ev) {
+		if (!"chatboxBackgroundBuilt".equals(ev.getEventName())) {
 			return;
 		}
 
@@ -106,21 +98,17 @@ public class ChatboxPerformancePlugin extends Plugin
 		fixWhiteLines(false);
 	}
 
-	private void fixDarkBackground()
-	{
+	private void fixDarkBackground() {
 		int currOpacity = 255;
 		int prevY = 0;
 		Widget[] children = client.getWidget(WidgetInfo.CHATBOX_TRANSPARENT_BACKGROUND).getDynamicChildren();
 		Widget prev = null;
-		for (Widget w : children)
-		{
-			if (w.getType() != WidgetType.RECTANGLE)
-			{
+		for (Widget w : children) {
+			if (w.getType() != WidgetType.RECTANGLE) {
 				continue;
 			}
 
-			if (prev != null)
-			{
+			if (prev != null) {
 				int relY = w.getRelativeY();
 				prev.setHeightMode(WidgetSizeMode.ABSOLUTE);
 				prev.setYPositionMode(WidgetPositionMode.ABSOLUTE_TOP);
@@ -132,39 +120,32 @@ public class ChatboxPerformancePlugin extends Plugin
 			}
 
 			prevY = w.getRelativeY();
-			if (config.transparentChatBox())
-			{
+			if (config.transparentChatBox()) {
 				currOpacity -= 3;
 			}
 			prev = w;
 		}
-		if (prev != null)
-		{
+		if (prev != null) {
 			prev.setOpacity(currOpacity);
 		}
 	}
 
-	private void fixWhiteLines(boolean upperLine)
-	{
+	private void fixWhiteLines(boolean upperLine) {
 		int currOpacity = 255;
 		int prevWidth = 0;
 		Widget[] children = client.getWidget(WidgetInfo.CHATBOX_TRANSPARENT_LINES).getDynamicChildren();
 		Widget prev = null;
-		for (Widget w : children)
-		{
-			if (w.getType() != WidgetType.RECTANGLE)
-			{
+		for (Widget w : children) {
+			if (w.getType() != WidgetType.RECTANGLE) {
 				continue;
 			}
 
 			if ((w.getRelativeY() == 0 && !upperLine) ||
-				(w.getRelativeY() != 0 && upperLine))
-			{
+					(w.getRelativeY() != 0 && upperLine)) {
 				continue;
 			}
 
-			if (prev != null)
-			{
+			if (prev != null) {
 				int width = w.getWidth();
 				prev.setWidthMode(WidgetSizeMode.ABSOLUTE);
 				prev.setRelativeX(width);
@@ -179,8 +160,7 @@ public class ChatboxPerformancePlugin extends Plugin
 			currOpacity -= upperLine ? 3 : 4; // Rough numbers, can't get exactly the same as Jagex because of rounding
 			prev = w;
 		}
-		if (prev != null)
-		{
+		if (prev != null) {
 			prev.setOpacity(currOpacity);
 		}
 	}

@@ -29,11 +29,13 @@ package net.runelite.client.plugins.hideprayers;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.HashTable;
@@ -63,44 +65,43 @@ import net.runelite.client.plugins.hideprayers.util.Zamorak;
 import net.runelite.client.plugins.hideprayers.util.Zulrah;
 
 @PluginDescriptor(
-	name = "Show/Hide Prayers",
-	description = "Hides specific Prayers.",
-	type = PluginType.UTILITY,
-	enabledByDefault = false
+		name = "Show/Hide Prayers",
+		description = "Hides specific Prayers.",
+		type = PluginType.UTILITY,
+		enabledByDefault = false
 )
 @Singleton
-public class HidePrayersPlugin extends Plugin
-{
+public class HidePrayersPlugin extends Plugin {
 	private static final List<WidgetInfo> PRAYER_WIDGET_INFO_LIST = ImmutableList.of(
-		WidgetInfo.PRAYER_THICK_SKIN, //0
-		WidgetInfo.PRAYER_BURST_OF_STRENGTH, //1
-		WidgetInfo.PRAYER_CLARITY_OF_THOUGHT, //2
-		WidgetInfo.PRAYER_SHARP_EYE, //3
-		WidgetInfo.PRAYER_MYSTIC_WILL, //4
-		WidgetInfo.PRAYER_ROCK_SKIN, //5
-		WidgetInfo.PRAYER_SUPERHUMAN_STRENGTH, //6
-		WidgetInfo.PRAYER_IMPROVED_REFLEXES, //7
-		WidgetInfo.PRAYER_RAPID_RESTORE, //8
-		WidgetInfo.PRAYER_RAPID_HEAL, //9
-		WidgetInfo.PRAYER_PROTECT_ITEM, //10
-		WidgetInfo.PRAYER_HAWK_EYE, //11
-		WidgetInfo.PRAYER_MYSTIC_LORE, //12
-		WidgetInfo.PRAYER_STEEL_SKIN, //13
-		WidgetInfo.PRAYER_ULTIMATE_STRENGTH, //14
-		WidgetInfo.PRAYER_INCREDIBLE_REFLEXES, //15
-		WidgetInfo.PRAYER_PROTECT_FROM_MAGIC, //16
-		WidgetInfo.PRAYER_PROTECT_FROM_MISSILES, //17
-		WidgetInfo.PRAYER_PROTECT_FROM_MELEE, //18
-		WidgetInfo.PRAYER_EAGLE_EYE, //19
-		WidgetInfo.PRAYER_MYSTIC_MIGHT, //20
-		WidgetInfo.PRAYER_RETRIBUTION, //21
-		WidgetInfo.PRAYER_REDEMPTION, //22
-		WidgetInfo.PRAYER_SMITE, //23
-		WidgetInfo.PRAYER_PRESERVE, //24
-		WidgetInfo.PRAYER_CHIVALRY, //25
-		WidgetInfo.PRAYER_PIETY,  //26
-		WidgetInfo.PRAYER_RIGOUR, //27
-		WidgetInfo.PRAYER_AUGURY //28
+			WidgetInfo.PRAYER_THICK_SKIN, //0
+			WidgetInfo.PRAYER_BURST_OF_STRENGTH, //1
+			WidgetInfo.PRAYER_CLARITY_OF_THOUGHT, //2
+			WidgetInfo.PRAYER_SHARP_EYE, //3
+			WidgetInfo.PRAYER_MYSTIC_WILL, //4
+			WidgetInfo.PRAYER_ROCK_SKIN, //5
+			WidgetInfo.PRAYER_SUPERHUMAN_STRENGTH, //6
+			WidgetInfo.PRAYER_IMPROVED_REFLEXES, //7
+			WidgetInfo.PRAYER_RAPID_RESTORE, //8
+			WidgetInfo.PRAYER_RAPID_HEAL, //9
+			WidgetInfo.PRAYER_PROTECT_ITEM, //10
+			WidgetInfo.PRAYER_HAWK_EYE, //11
+			WidgetInfo.PRAYER_MYSTIC_LORE, //12
+			WidgetInfo.PRAYER_STEEL_SKIN, //13
+			WidgetInfo.PRAYER_ULTIMATE_STRENGTH, //14
+			WidgetInfo.PRAYER_INCREDIBLE_REFLEXES, //15
+			WidgetInfo.PRAYER_PROTECT_FROM_MAGIC, //16
+			WidgetInfo.PRAYER_PROTECT_FROM_MISSILES, //17
+			WidgetInfo.PRAYER_PROTECT_FROM_MELEE, //18
+			WidgetInfo.PRAYER_EAGLE_EYE, //19
+			WidgetInfo.PRAYER_MYSTIC_MIGHT, //20
+			WidgetInfo.PRAYER_RETRIBUTION, //21
+			WidgetInfo.PRAYER_REDEMPTION, //22
+			WidgetInfo.PRAYER_SMITE, //23
+			WidgetInfo.PRAYER_PRESERVE, //24
+			WidgetInfo.PRAYER_CHIVALRY, //25
+			WidgetInfo.PRAYER_PIETY,  //26
+			WidgetInfo.PRAYER_RIGOUR, //27
+			WidgetInfo.PRAYER_AUGURY //28
 	);
 
 	@Inject
@@ -160,161 +161,131 @@ public class HidePrayersPlugin extends Plugin
 	private boolean HideRapidHealRestore;
 
 	@Provides
-	HidePrayersConfig provideConfig(ConfigManager configManager)
-	{
+	HidePrayersConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(HidePrayersConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		hidePrayers();
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		restorePrayers();
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.LOGGED_IN)
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		if (event.getGameState() == GameState.LOGGED_IN) {
 			reallyHidePrayers();
 			hidePrayers();
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("hideprayers"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("hideprayers")) {
 			updateConfig();
 			hidePrayers();
 		}
 	}
 
 	@Subscribe
-	private void onWidgetLoaded(WidgetLoaded event)
-	{
-		if (event.getGroupId() == WidgetID.PRAYER_GROUP_ID || event.getGroupId() == WidgetID.QUICK_PRAYERS_GROUP_ID)
-		{
+	private void onWidgetLoaded(WidgetLoaded event) {
+		if (event.getGroupId() == WidgetID.PRAYER_GROUP_ID || event.getGroupId() == WidgetID.QUICK_PRAYERS_GROUP_ID) {
 			hidePrayers();
 		}
 	}
 
-	private PrayerTabStates getPrayerTabState()
-	{
+	private PrayerTabStates getPrayerTabState() {
 		HashTable<WidgetNode> componentTable = client.getComponentTable();
-		for (WidgetNode widgetNode : componentTable.getNodes())
-		{
-			if (widgetNode.getId() == WidgetID.PRAYER_GROUP_ID)
-			{
+		for (WidgetNode widgetNode : componentTable.getNodes()) {
+			if (widgetNode.getId() == WidgetID.PRAYER_GROUP_ID) {
 				return PrayerTabStates.PRAYERS;
-			}
-			else if (widgetNode.getId() == WidgetID.QUICK_PRAYERS_GROUP_ID)
-			{
+			} else if (widgetNode.getId() == WidgetID.QUICK_PRAYERS_GROUP_ID) {
 				return PrayerTabStates.QUICK_PRAYERS;
 			}
 		}
 		return PrayerTabStates.NONE;
 	}
 
-	private void restorePrayers()
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	private void restorePrayers() {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		PrayerTabStates prayerTabState = getPrayerTabState();
 
-		if (prayerTabState == PrayerTabStates.PRAYERS)
-		{
+		if (prayerTabState == PrayerTabStates.PRAYERS) {
 			List<Widget> prayerWidgets = PRAYER_WIDGET_INFO_LIST.stream().map(client::getWidget)
-				.filter(Objects::nonNull).collect(Collectors.toList());
+					.filter(Objects::nonNull).collect(Collectors.toList());
 
-			if (prayerWidgets.size() != PRAYER_WIDGET_INFO_LIST.size())
-			{
+			if (prayerWidgets.size() != PRAYER_WIDGET_INFO_LIST.size()) {
 				return;
 			}
 
-			for (Widget w : prayerWidgets)
-			{
+			for (Widget w : prayerWidgets) {
 				w.setHidden(false);
 			}
 		}
 	}
 
-	private void reallyHidePrayers()
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	private void reallyHidePrayers() {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		PrayerTabStates prayerTabState = getPrayerTabState();
 
-		if (prayerTabState == PrayerTabStates.PRAYERS)
-		{
+		if (prayerTabState == PrayerTabStates.PRAYERS) {
 			List<Widget> prayerWidgets = PRAYER_WIDGET_INFO_LIST.stream().map(client::getWidget)
-				.filter(Objects::nonNull).collect(Collectors.toList());
+					.filter(Objects::nonNull).collect(Collectors.toList());
 
-			if (prayerWidgets.size() != PRAYER_WIDGET_INFO_LIST.size())
-			{
+			if (prayerWidgets.size() != PRAYER_WIDGET_INFO_LIST.size()) {
 				return;
 			}
 
-			for (Widget w : prayerWidgets)
-			{
+			for (Widget w : prayerWidgets) {
 				w.setHidden(true);
 			}
 		}
 	}
 
-	private void hidePrayers()
-	{
-		if (client.getGameState() != GameState.LOGGED_IN)
-		{
+	private void hidePrayers() {
+		if (client.getGameState() != GameState.LOGGED_IN) {
 			return;
 		}
 
 		PrayerTabStates prayerTabState = getPrayerTabState();
 
-		if (prayerTabState == PrayerTabStates.PRAYERS)
-		{
+		if (prayerTabState == PrayerTabStates.PRAYERS) {
 			List<Widget> prayerWidgets = PRAYER_WIDGET_INFO_LIST.stream().map(client::getWidget)
-				.filter(Objects::nonNull).collect(Collectors.toList());
+					.filter(Objects::nonNull).collect(Collectors.toList());
 
-			if (prayerWidgets.size() != PRAYER_WIDGET_INFO_LIST.size())
-			{
+			if (prayerWidgets.size() != PRAYER_WIDGET_INFO_LIST.size()) {
 				return;
 			}
 
 			if (!this.showindividualprayers
-				&& !this.getarmadylprayers
-				&& !this.getbarrowsprayers
-				&& !this.getbandosprayers
-				&& !this.getcerberusprayers
-				&& !this.getsaradominprayers
-				&& !this.getvorkathprayers
-				&& !this.getzamorakprayers
-				&& !this.getzulrahprayers
-				&& !this.getpvpprayers)
-			{
+					&& !this.getarmadylprayers
+					&& !this.getbarrowsprayers
+					&& !this.getbandosprayers
+					&& !this.getcerberusprayers
+					&& !this.getsaradominprayers
+					&& !this.getvorkathprayers
+					&& !this.getzamorakprayers
+					&& !this.getzulrahprayers
+					&& !this.getpvpprayers) {
 				restorePrayers();
 				return;
 			}
 
 			reallyHidePrayers();
 
-			if (this.showindividualprayers)
-			{
+			if (this.showindividualprayers) {
 				prayerWidgets.get(0).setHidden(!this.ShowTHICK_SKIN);   // Thick Skin
 				prayerWidgets.get(1).setHidden(!this.ShowBURST_OF_STRENGTH);   // Burst of Strength
 				prayerWidgets.get(2).setHidden(!this.ShowCLARITY_OF_THOUGHT);   // Clarity of Thought
@@ -344,12 +315,8 @@ public class HidePrayersPlugin extends Plugin
 				prayerWidgets.get(26).setHidden(!this.ShowPiety);   // Piety
 				prayerWidgets.get(27).setHidden(!this.ShowRigour);   // Rigour
 				prayerWidgets.get(28).setHidden(!this.ShowAugury);   // Augury
-			}
-
-			else if (this.getarmadylprayers)
-			{
-				switch (this.armadyl)
-				{
+			} else if (this.getarmadylprayers) {
+				switch (this.armadyl) {
 					case DISABLED:
 						break;
 					case ARMADYL_CHEAP:
@@ -367,12 +334,8 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(27).setHidden(false);    // Rigour
 						break;
 				}
-			}
-
-			else if (this.getbandosprayers)
-			{
-				switch (this.bandos)
-				{
+			} else if (this.getbandosprayers) {
+				switch (this.bandos) {
 					case DISABLED:
 						break;
 					case BANDOS_CHEAP:
@@ -390,12 +353,8 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(26).setHidden(false);    // Piety
 						break;
 				}
-			}
-
-			else if (this.getbarrowsprayers)
-			{
-				switch (this.barrows)
-				{
+			} else if (this.getbarrowsprayers) {
+				switch (this.barrows) {
 					case DISABLED:
 						break;
 					case BARROWS_CHEAP:
@@ -417,12 +376,8 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(28).setHidden(false);    // Augury
 						break;
 				}
-			}
-
-			else if (this.getcerberusprayers)
-			{
-				switch (this.cerberus)
-				{
+			} else if (this.getcerberusprayers) {
+				switch (this.cerberus) {
 					case DISABLED:
 						break;
 					case CERBERUS_CHEAP:
@@ -460,12 +415,8 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(27).setHidden(false);    // Rigour
 						break;
 				}
-			}
-
-			else if (this.getsaradominprayers)
-			{
-				switch (this.saradomin)
-				{
+			} else if (this.getsaradominprayers) {
+				switch (this.saradomin) {
 					case DISABLED:
 						break;
 					case SARDOMIN_CHEAP:
@@ -485,11 +436,8 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(27).setHidden(false);    // Rigour
 						break;
 				}
-			}
-			else if (this.getvorkathprayers)
-			{
-				switch (this.vorkath)
-				{
+			} else if (this.getvorkathprayers) {
+				switch (this.vorkath) {
 					case DISABLED:
 						break;
 					case VORKATH_CHEAP:
@@ -507,12 +455,8 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(27).setHidden(false);    // Rigour
 						break;
 				}
-			}
-
-			else if (this.getzamorakprayers)
-			{
-				switch (this.zamorak)
-				{
+			} else if (this.getzamorakprayers) {
+				switch (this.zamorak) {
 					case DISABLED:
 						break;
 					case ZAMORAK_CHEAP:
@@ -532,12 +476,8 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(26).setHidden(false);    // Piety
 						break;
 				}
-			}
-
-			else if (this.getzulrahprayers)
-			{
-				switch (this.zulrah)
-				{
+			} else if (this.getzulrahprayers) {
+				switch (this.zulrah) {
 					case DISABLED:
 						break;
 					case ZULRAH_CHEAP:
@@ -557,32 +497,22 @@ public class HidePrayersPlugin extends Plugin
 						prayerWidgets.get(28).setHidden(false);    // Augury
 						break;
 				}
-			}
-
-			else if (this.getpvpprayers)
-			{
-				if (this.HideRapidHealRestore)
-				{
+			} else if (this.getpvpprayers) {
+				if (this.HideRapidHealRestore) {
 					prayerWidgets.get(8).setHidden(true);    // Rapid Restore
 					prayerWidgets.get(9).setHidden(true);    // Rapid Heal
-				}
-				else
-				{
+				} else {
 					prayerWidgets.get(8).setHidden(false);    // Rapid Restore
 					prayerWidgets.get(9).setHidden(false);    // Rapid Heal
 				}
 
-				if (WorldType.isAllHighRiskWorld(client.getWorldType()) || client.getRealSkillLevel(Skill.PRAYER) <= 24)
-				{
+				if (WorldType.isAllHighRiskWorld(client.getWorldType()) || client.getRealSkillLevel(Skill.PRAYER) <= 24) {
 					prayerWidgets.get(10).setHidden(true);    // Protect Item
-				}
-				else
-				{
+				} else {
 					prayerWidgets.get(10).setHidden(false);    // Protect Item
 				}
 
-				switch (this.pvpprayers)
-				{
+				switch (this.pvpprayers) {
 					case DISABLED:
 						reallyHidePrayers();
 						break;
@@ -715,8 +645,7 @@ public class HidePrayersPlugin extends Plugin
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.showindividualprayers = config.showindividualprayers();
 		this.ShowTHICK_SKIN = config.ShowTHICK_SKIN();
 		this.ShowBURST_OF_STRENGTH = config.ShowBURST_OF_STRENGTH();

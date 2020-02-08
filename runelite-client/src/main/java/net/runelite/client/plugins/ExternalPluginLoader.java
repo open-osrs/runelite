@@ -26,6 +26,7 @@ package net.runelite.client.plugins;
 
 import com.google.inject.Injector;
 import com.google.inject.Key;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
@@ -42,8 +44,7 @@ import net.runelite.client.config.OpenOSRSConfig;
 
 @Singleton
 @Slf4j
-public class ExternalPluginLoader
-{
+public class ExternalPluginLoader {
 	private static final File BASE = RuneLite.PLUGIN_DIR;
 
 	private final OpenOSRSConfig OpenOSRSConfig;
@@ -53,25 +54,20 @@ public class ExternalPluginLoader
 	private ConfigManager configManager;
 
 	@Inject
-	public ExternalPluginLoader(OpenOSRSConfig OpenOSRSConfig, PluginManager pluginManager)
-	{
+	public ExternalPluginLoader(OpenOSRSConfig OpenOSRSConfig, PluginManager pluginManager) {
 		this.OpenOSRSConfig = OpenOSRSConfig;
 		this.pluginManager = pluginManager;
 
 		BASE.mkdirs();
 	}
 
-	void scanAndLoad()
-	{
-		if (!OpenOSRSConfig.enablePlugins())
-		{
+	void scanAndLoad() {
+		if (!OpenOSRSConfig.enablePlugins()) {
 			return;
 		}
 
-		for (File file : Objects.requireNonNull(BASE.listFiles()))
-		{
-			if (!file.getName().endsWith(".jar"))
-			{
+		for (File file : Objects.requireNonNull(BASE.listFiles())) {
+			if (!file.getName().endsWith(".jar")) {
 				continue;
 			}
 			log.info("Loading plugin from {}", file);
@@ -79,40 +75,31 @@ public class ExternalPluginLoader
 		}
 	}
 
-	private void load(File pluginFile)
-	{
+	private void load(File pluginFile) {
 		PluginClassLoader loader;
-		try
-		{
+		try {
 			loader = new PluginClassLoader(pluginFile, getClass().getClassLoader());
-		}
-		catch (MalformedURLException ex)
-		{
+		} catch (MalformedURLException ex) {
 			log.warn("Error loading plugin", ex);
 			return;
 		}
 
 		List<Plugin> loadedPlugins;
-		try
-		{
+		try {
 			loadedPlugins = pluginManager.scanAndInstantiate(loader, null, true);
-		}
-		catch (IOException ex)
-		{
+		} catch (IOException ex) {
 			close(loader);
 			log.warn("Error loading plugin", ex);
 			return;
 		}
 
-		if (loadedPlugins.isEmpty())
-		{
+		if (loadedPlugins.isEmpty()) {
 			close(loader);
 			log.warn("No plugin found in plugin {}", pluginFile);
 			return;
 		}
 
-		if (loadedPlugins.size() > 1)
-		{
+		if (loadedPlugins.size() > 1) {
 			close(loader);
 			log.warn("You can not have more than one plugin per jar");
 			return;
@@ -122,22 +109,17 @@ public class ExternalPluginLoader
 
 		// Initialize default configuration
 		Injector injector = plugin.getInjector();
-		for (Key<?> key : injector.getAllBindings().keySet())
-		{
+		for (Key<?> key : injector.getAllBindings().keySet()) {
 			Class<?> type = key.getTypeLiteral().getRawType();
-			if (Config.class.isAssignableFrom(type))
-			{
+			if (Config.class.isAssignableFrom(type)) {
 				Config config = (Config) injector.getInstance(key);
 				configManager.setDefaultConfiguration(config, false);
 			}
 		}
 
-		try
-		{
+		try {
 			pluginManager.startPlugin(plugin);
-		}
-		catch (PluginInstantiationException ex)
-		{
+		} catch (PluginInstantiationException ex) {
 			close(loader);
 			log.warn("unable to start plugin", ex);
 			return;
@@ -147,14 +129,10 @@ public class ExternalPluginLoader
 		pluginManager.add(plugin);
 	}
 
-	private void close(URLClassLoader classLoader)
-	{
-		try
-		{
+	private void close(URLClassLoader classLoader) {
+		try {
 			classLoader.close();
-		}
-		catch (IOException ex1)
-		{
+		} catch (IOException ex1) {
 			log.warn(null, ex1);
 		}
 	}

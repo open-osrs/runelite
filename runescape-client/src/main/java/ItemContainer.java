@@ -8,18 +8,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ItemContainer extends Node {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+			signature = "Lln;"
 	)
 	@Export("itemContainers")
 	static NodeHashTable itemContainers;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lli;"
+			signature = "Lli;"
 	)
 	static IndexedSprite field547;
 	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		signature = "[Lli;"
+			signature = "[Lli;"
 	)
 	@Export("worldSelectArrows")
 	static IndexedSprite[] worldSelectArrows;
@@ -41,8 +41,8 @@ public class ItemContainer extends Node {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(IZB)Ljava/lang/String;",
-		garbageValue = "-71"
+			signature = "(IZB)Ljava/lang/String;",
+			garbageValue = "-71"
 	)
 	@Export("intToString")
 	public static String intToString(int var0, boolean var1) {
@@ -51,8 +51,8 @@ public class ItemContainer extends Node {
 
 	@ObfuscatedName("gu")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
-		garbageValue = "-1888961685"
+			signature = "(ZI)V",
+			garbageValue = "-1888961685"
 	)
 	@Export("addNpcsToScene")
 	static final void addNpcsToScene(boolean var0) {
@@ -81,8 +81,8 @@ public class ItemContainer extends Node {
 
 	@ObfuscatedName("kp")
 	@ObfuscatedSignature(
-		signature = "(Lhn;I)Lhn;",
-		garbageValue = "701959243"
+			signature = "(Lhn;I)Lhn;",
+			garbageValue = "701959243"
 	)
 	static Widget method1184(Widget var0) {
 		int var2 = WorldMapIcon_0.getWidgetClickMask(var0);

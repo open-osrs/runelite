@@ -24,16 +24,14 @@
  */
 
 import java.io.IOException;
+
 import org.junit.Test;
 
-public class MainTest
-{
+public class MainTest {
 	//@Test
-	public void test() throws IOException, InterruptedException
-	{
+	public void test() throws IOException, InterruptedException {
 		Main main = new Main();
-		for (;;)
-		{
+		for (; ; ) {
 			Thread.sleep(500L);
 		}
 	}

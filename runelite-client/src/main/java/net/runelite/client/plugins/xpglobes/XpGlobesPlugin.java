@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.xpglobes;
 
 import com.google.inject.Provides;
+
 import java.awt.Color;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -33,6 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Experience;
@@ -51,16 +53,15 @@ import net.runelite.client.task.Schedule;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-	name = "XP Globes",
-	description = "Show XP globes for the respective skill when gaining XP",
-	tags = {"experience", "levels", "overlay"},
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "XP Globes",
+		description = "Show XP globes for the respective skill when gaining XP",
+		tags = {"experience", "levels", "overlay"},
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
 @PluginDependency(XpTrackerPlugin.class)
-public class XpGlobesPlugin extends Plugin
-{
+public class XpGlobesPlugin extends Plugin {
 	private static final int MAXIMUM_SHOWN_GLOBES = 5;
 
 	private XpGlobe[] globeCache = new XpGlobe[Skill.values().length - 1]; //overall does not trigger xp change event
@@ -103,28 +104,24 @@ public class XpGlobesPlugin extends Plugin
 	private int xpOrbDuration;
 
 	@Provides
-	XpGlobesConfig getConfig(ConfigManager configManager)
-	{
+	XpGlobesConfig getConfig(ConfigManager configManager) {
 		return configManager.getConfig(XpGlobesConfig.class);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onStatChanged(StatChanged statChanged)
-	{
+	private void onStatChanged(StatChanged statChanged) {
 		Skill skill = statChanged.getSkill();
 		int currentXp = statChanged.getXp();
 		int currentLevel = statChanged.getLevel();
@@ -132,62 +129,50 @@ public class XpGlobesPlugin extends Plugin
 		XpGlobe cachedGlobe = globeCache[skillIdx];
 
 		// ExperienceChanged event occurs when stats drain/boost check we have an change to actual xp
-		if (cachedGlobe != null && (cachedGlobe.getCurrentXp() >= currentXp))
-		{
+		if (cachedGlobe != null && (cachedGlobe.getCurrentXp() >= currentXp)) {
 			return;
 		}
 
-		if (this.hideMaxed && currentLevel >= Experience.MAX_REAL_LEVEL)
-		{
+		if (this.hideMaxed && currentLevel >= Experience.MAX_REAL_LEVEL) {
 			return;
 		}
 
-		if (cachedGlobe != null)
-		{
+		if (cachedGlobe != null) {
 			cachedGlobe.setSkill(skill);
 			cachedGlobe.setCurrentXp(currentXp);
 			cachedGlobe.setCurrentLevel(currentLevel);
 			cachedGlobe.setTime(Instant.now());
 			this.addXpGlobe(globeCache[skillIdx], MAXIMUM_SHOWN_GLOBES);
-		}
-		else
-		{
+		} else {
 			// dont draw non cached globes, this is triggered on login to setup all of the initial values
 			globeCache[skillIdx] = new XpGlobe(skill, currentXp, currentLevel, Instant.now());
 		}
 	}
 
-	private void addXpGlobe(XpGlobe xpGlobe, int maxLength)
-	{
+	private void addXpGlobe(XpGlobe xpGlobe, int maxLength) {
 		//remove the old globe, allowing it to be readded as the most recent (right) side when drawn
 		xpGlobes.remove(xpGlobe);
-		if (getXpGlobesSize() >= maxLength)
-		{
+		if (getXpGlobesSize() >= maxLength) {
 			xpGlobes.remove(0);
 		}
 		xpGlobes.add(xpGlobe);
 	}
 
-	int getXpGlobesSize()
-	{
+	int getXpGlobesSize() {
 		return xpGlobes.size();
 	}
 
 	@Schedule(
-		period = 1,
-		unit = ChronoUnit.SECONDS
+			period = 1,
+			unit = ChronoUnit.SECONDS
 	)
-	public void removeExpiredXpGlobes()
-	{
-		if (!xpGlobes.isEmpty())
-		{
+	public void removeExpiredXpGlobes() {
+		if (!xpGlobes.isEmpty()) {
 			Instant currentTime = Instant.now();
-			for (Iterator<XpGlobe> it = xpGlobes.iterator(); it.hasNext(); )
-			{
+			for (Iterator<XpGlobe> it = xpGlobes.iterator(); it.hasNext(); ) {
 				XpGlobe globe = it.next();
 				Instant globeCreationTime = globe.getTime();
-				if (currentTime.isBefore(globeCreationTime.plusSeconds(this.xpOrbDuration)))
-				{
+				if (currentTime.isBefore(globeCreationTime.plusSeconds(this.xpOrbDuration))) {
 					//if a globe is not expired, stop checking newer globes
 					return;
 				}
@@ -196,17 +181,14 @@ public class XpGlobesPlugin extends Plugin
 		}
 	}
 
-	private void resetGlobeState()
-	{
+	private void resetGlobeState() {
 		xpGlobes.clear();
 		globeCache = new XpGlobe[Skill.values().length - 1];
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event)
-	{
-		switch (event.getGameState())
-		{
+	private void onGameStateChanged(GameStateChanged event) {
+		switch (event.getGameState()) {
 			case HOPPING:
 			case LOGGING_IN:
 				resetGlobeState();
@@ -215,18 +197,15 @@ public class XpGlobesPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("xpglobes"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (!event.getGroup().equals("xpglobes")) {
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.enableTooltips = config.enableTooltips();
 		this.hideMaxed = config.hideMaxed();
 		this.enableTimeToLevel = config.enableTimeToLevel();

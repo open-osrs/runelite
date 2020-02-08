@@ -35,28 +35,25 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
 
-public class ArrayLength extends Instruction
-{
-	public ArrayLength(Instructions instructions, InstructionType type)
-	{
+public class ArrayLength extends Instruction {
+	public ArrayLength(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-		
+
 		StackContext array = stack.pop();
-		
+
 		ins.pop(array);
-		
+
 		StackContext ctx = new StackContext(ins, Type.INT, array.getValue().arrayLength());
 		stack.push(ctx);
-		
+
 		ins.push(ctx);
-		
+
 		return ins;
 	}
 }

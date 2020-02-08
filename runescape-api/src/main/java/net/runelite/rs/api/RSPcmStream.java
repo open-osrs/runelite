@@ -24,4 +24,5 @@
  */
 package net.runelite.rs.api;
 
-public interface RSPcmStream {}
+public interface RSPcmStream {
+}

@@ -25,31 +25,26 @@
 package net.runelite.client.util;
 
 import java.util.concurrent.Callable;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public class CallableExceptionLogger<V> implements Callable<V>
-{
+public class CallableExceptionLogger<V> implements Callable<V> {
 	private final Callable<V> callable;
 
 	@Override
-	public V call() throws Exception
-	{
-		try
-		{
+	public V call() throws Exception {
+		try {
 			return callable.call();
-		}
-		catch (Throwable ex)
-		{
+		} catch (Throwable ex) {
 			log.warn("Uncaught exception in callable {}", callable, ex);
 			throw ex;
 		}
 	}
 
-	public static <V> CallableExceptionLogger<V> wrap(Callable<V> callable)
-	{
+	public static <V> CallableExceptionLogger<V> wrap(Callable<V> callable) {
 		return new CallableExceptionLogger<>(callable);
 	}
 }

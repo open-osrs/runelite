@@ -26,28 +26,23 @@ package net.runelite.http.api.account;
 
 import java.util.UUID;
 
-public class OAuthResponse
-{
+public class OAuthResponse {
 	private String oauthUrl;
 	private UUID uid;
 
-	public String getOauthUrl()
-	{
+	public String getOauthUrl() {
 		return oauthUrl;
 	}
 
-	public void setOauthUrl(String oauthUrl)
-	{
+	public void setOauthUrl(String oauthUrl) {
 		this.oauthUrl = oauthUrl;
 	}
 
-	public UUID getUid()
-	{
+	public UUID getUid() {
 		return uid;
 	}
 
-	public void setUid(UUID uid)
-	{
+	public void setUid(UUID uid) {
 		this.uid = uid;
 	}
 }

@@ -26,29 +26,26 @@ package net.runelite.client.plugins.loottracker.localstorage;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class LTRecord
-{
+public class LTRecord {
 	private final int id;
 	private final String name;
 	private final int level;
 	private final int killCount;
 	final Collection<LTItemEntry> drops;
 
-	public void addDropEntry(LTItemEntry itemEntry)
-	{
+	public void addDropEntry(LTItemEntry itemEntry) {
 		drops.add(itemEntry);
 	}
 
-	public static Collection<LTItemEntry> consolidateLTItemEntries(final Collection<LTRecord> records)
-	{
+	public static Collection<LTItemEntry> consolidateLTItemEntries(final Collection<LTRecord> records) {
 		final Collection<LTItemEntry> recordEntries = new ArrayList<>();
-		for (final LTRecord r : records)
-		{
+		for (final LTRecord r : records) {
 			recordEntries.addAll(r.getDrops());
 		}
 		return recordEntries;

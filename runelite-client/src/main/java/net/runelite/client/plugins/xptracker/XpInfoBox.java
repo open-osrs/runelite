@@ -46,6 +46,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -61,22 +62,20 @@ import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.QuantityFormatter;
 
-class XpInfoBox extends JPanel
-{
+class XpInfoBox extends JPanel {
 	private static final DecimalFormat TWO_DECIMAL_FORMAT = new DecimalFormat("0.00");
 
-	static
-	{
+	static {
 		TWO_DECIMAL_FORMAT.setRoundingMode(RoundingMode.DOWN);
 	}
 
 	// Templates
 	private static final String HTML_TOOL_TIP_TEMPLATE =
-		"<html>%s %s done<br/>"
-			+ "%s %s/hr<br/>"
-			+ "%s till goal lvl</html>";
+			"<html>%s %s done<br/>"
+					+ "%s %s/hr<br/>"
+					+ "%s till goal lvl</html>";
 	private static final String HTML_LABEL_TEMPLATE =
-		"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
+			"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
 
 	private static final String REMOVE_STATE = "Remove from canvas";
 	private static final String ADD_STATE = "Add to canvas";
@@ -111,14 +110,12 @@ class XpInfoBox extends JPanel
 
 	private Style style = Style.FULL;
 
-	private enum Style
-	{
+	private enum Style {
 		FULL,
 		SIMPLE
 	}
 
-	XpInfoBox(XpTrackerPlugin xpTrackerPlugin, Client client, JPanel panel, Skill skill, SkillIconManager iconManager)
-	{
+	XpInfoBox(XpTrackerPlugin xpTrackerPlugin, Client client, JPanel panel, Skill skill, SkillIconManager iconManager) {
 		this.plugin = xpTrackerPlugin;
 		this.panel = panel;
 		this.skill = skill;
@@ -152,22 +149,18 @@ class XpInfoBox extends JPanel
 		popupMenu.add(resetOthers);
 		popupMenu.add(pauseSkill);
 		popupMenu.add(canvasItem);
-		popupMenu.addPopupMenuListener(new PopupMenuListener()
-		{
+		popupMenu.addPopupMenuListener(new PopupMenuListener() {
 			@Override
-			public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent)
-			{
+			public void popupMenuWillBecomeVisible(PopupMenuEvent popupMenuEvent) {
 				canvasItem.setText(xpTrackerPlugin.hasOverlay(skill) ? REMOVE_STATE : ADD_STATE);
 			}
 
 			@Override
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent)
-			{
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent popupMenuEvent) {
 			}
 
 			@Override
-			public void popupMenuCanceled(PopupMenuEvent popupMenuEvent)
-			{
+			public void popupMenuCanceled(PopupMenuEvent popupMenuEvent) {
 			}
 		});
 
@@ -177,12 +170,9 @@ class XpInfoBox extends JPanel
 
 		canvasItem.addActionListener(e ->
 		{
-			if (canvasItem.getText().equals(REMOVE_STATE))
-			{
+			if (canvasItem.getText().equals(REMOVE_STATE)) {
 				xpTrackerPlugin.removeOverlay(skill);
-			}
-			else
-			{
+			} else {
 				xpTrackerPlugin.addOverlay(skill);
 			}
 		});
@@ -221,13 +211,10 @@ class XpInfoBox extends JPanel
 		container.setComponentPopupMenu(popupMenu);
 		progressBar.setComponentPopupMenu(popupMenu);
 
-		MouseListener mouseListener = new MouseAdapter()
-		{
+		MouseListener mouseListener = new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				if (SwingUtilities.isLeftMouseButton(e))
-				{
+			public void mouseClicked(MouseEvent e) {
+				if (SwingUtilities.isLeftMouseButton(e)) {
 					toggleStyle();
 				}
 			}
@@ -238,18 +225,14 @@ class XpInfoBox extends JPanel
 		add(container, BorderLayout.NORTH);
 	}
 
-	private void setStyle(Style style)
-	{
+	private void setStyle(Style style) {
 		container.removeAll();
 
-		if (style == Style.SIMPLE)
-		{
+		if (style == Style.SIMPLE) {
 			progressWrapper.setBorder(new EmptyBorder(7, 7, 7, 7));
 			container.add(skillWrapper, BorderLayout.WEST);
 			container.add(progressWrapper, BorderLayout.CENTER);
-		}
-		else
-		{
+		} else {
 			progressWrapper.setBorder(new EmptyBorder(4, 7, 7, 7));
 			container.add(skillWrapper, BorderLayout.WEST);
 			container.add(statsPanel, BorderLayout.CENTER);
@@ -260,25 +243,20 @@ class XpInfoBox extends JPanel
 		this.style = style;
 	}
 
-	void reset()
-	{
+	void reset() {
 		canvasItem.setText(ADD_STATE);
 		container.remove(statsPanel);
 		panel.remove(this);
 		panel.revalidate();
 	}
 
-	void update(boolean updated, boolean paused, XpSnapshotSingle xpSnapshotSingle)
-	{
+	void update(boolean updated, boolean paused, XpSnapshotSingle xpSnapshotSingle) {
 		SwingUtilities.invokeLater(() -> rebuildAsync(updated, paused, xpSnapshotSingle));
 	}
 
-	private void rebuildAsync(boolean updated, boolean skillPaused, XpSnapshotSingle xpSnapshotSingle)
-	{
-		if (updated)
-		{
-			if (getParent() != panel)
-			{
+	private void rebuildAsync(boolean updated, boolean skillPaused, XpSnapshotSingle xpSnapshotSingle) {
+		if (updated) {
+			if (getParent() != panel) {
 				panel.add(this);
 				setStyle(style);
 			}
@@ -295,50 +273,42 @@ class XpInfoBox extends JPanel
 			progressBar.setCenterLabel(TWO_DECIMAL_FORMAT.format(xpSnapshotSingle.getSkillProgressToGoal()) + "%");
 			progressBar.setLeftLabel("Lvl. " + xpSnapshotSingle.getStartLevel());
 			progressBar.setRightLabel(xpSnapshotSingle.getEndGoalXp() == Experience.MAX_SKILL_XP
-				? "200M"
-				: "Lvl. " + xpSnapshotSingle.getEndLevel());
+					? "200M"
+					: "Lvl. " + xpSnapshotSingle.getEndLevel());
 
 			// Add intermediate level positions to progressBar
-			if (plugin.isShowIntermediateLevels() && xpSnapshotSingle.getEndLevel() - xpSnapshotSingle.getStartLevel() > 1)
-			{
+			if (plugin.isShowIntermediateLevels() && xpSnapshotSingle.getEndLevel() - xpSnapshotSingle.getStartLevel() > 1) {
 				final List<Integer> positions = new ArrayList<>();
 
-				for (int level = xpSnapshotSingle.getStartLevel() + 1; level < xpSnapshotSingle.getEndLevel(); level++)
-				{
+				for (int level = xpSnapshotSingle.getStartLevel() + 1; level < xpSnapshotSingle.getEndLevel(); level++) {
 					double relativeStartExperience = Experience.getXpForLevel(level) - xpSnapshotSingle.getStartGoalXp();
 					double relativeEndExperience = xpSnapshotSingle.getEndGoalXp() - xpSnapshotSingle.getStartGoalXp();
 					positions.add((int) (relativeStartExperience / relativeEndExperience * 100));
 				}
 
 				progressBar.setPositions(positions);
-			}
-			else
-			{
+			} else {
 				progressBar.setPositions(Collections.emptyList());
 			}
 
 			progressBar.setToolTipText(String.format(
-				HTML_TOOL_TIP_TEMPLATE,
-				xpSnapshotSingle.getActionsInSession(),
-				xpSnapshotSingle.getActionType().getLabel(),
-				xpSnapshotSingle.getActionsPerHour(),
-				xpSnapshotSingle.getActionType().getLabel(),
-				xpSnapshotSingle.getTimeTillGoal()));
+					HTML_TOOL_TIP_TEMPLATE,
+					xpSnapshotSingle.getActionsInSession(),
+					xpSnapshotSingle.getActionType().getLabel(),
+					xpSnapshotSingle.getActionsPerHour(),
+					xpSnapshotSingle.getActionType().getLabel(),
+					xpSnapshotSingle.getTimeTillGoal()));
 
 			progressBar.setDimmed(skillPaused);
 
 			progressBar.repaint();
-		}
-		else if (!paused && skillPaused)
-		{
+		} else if (!paused && skillPaused) {
 			// React to the skill state now being paused
 			progressBar.setDimmed(true);
 			progressBar.repaint();
 			paused = true;
 			pauseSkill.setText("Unpause");
-		}
-		else if (paused && !skillPaused)
-		{
+		} else if (paused && !skillPaused) {
 			// React to the skill being unpaused (without update)
 			progressBar.setDimmed(false);
 			progressBar.repaint();
@@ -350,20 +320,15 @@ class XpInfoBox extends JPanel
 		expHour.setText(htmlLabel("XP/Hour: ", xpSnapshotSingle.getXpPerHour()));
 	}
 
-	private void toggleStyle()
-	{
-		if (style == Style.FULL)
-		{
+	private void toggleStyle() {
+		if (style == Style.FULL) {
 			setStyle(Style.SIMPLE);
-		}
-		else
-		{
+		} else {
 			setStyle(Style.FULL);
 		}
 	}
 
-	static String htmlLabel(String key, int value)
-	{
+	static String htmlLabel(String key, int value) {
 		String valueStr = QuantityFormatter.quantityToRSDecimalStack(value, true);
 		return String.format(HTML_LABEL_TEMPLATE, ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR), key, valueStr);
 	}

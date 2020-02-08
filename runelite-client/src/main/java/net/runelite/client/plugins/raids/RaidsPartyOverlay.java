@@ -30,13 +30,16 @@ import java.awt.Graphics2D;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.ClanMember;
 import net.runelite.api.Client;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.client.ui.overlay.Overlay;
+
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
+
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -46,8 +49,7 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-public class RaidsPartyOverlay extends Overlay
-{
+public class RaidsPartyOverlay extends Overlay {
 	static final String PARTY_OVERLAY_RESET = "Reset missing";
 	static final String PARTY_OVERLAY_REFRESH = "Refresh party";
 	private final PanelComponent panelComponent = new PanelComponent();
@@ -58,8 +60,7 @@ public class RaidsPartyOverlay extends Overlay
 	private RaidsPlugin plugin;
 
 	@Inject
-	private RaidsPartyOverlay(final RaidsPlugin plugin)
-	{
+	private RaidsPartyOverlay(final RaidsPlugin plugin) {
 		super(plugin);
 		setPosition(OverlayPosition.TOP_RIGHT);
 		setPriority(OverlayPriority.HIGH);
@@ -69,15 +70,12 @@ public class RaidsPartyOverlay extends Overlay
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics)
-	{
-		if (!plugin.isInRaidChambers())
-		{
+	public Dimension render(Graphics2D graphics) {
+		if (!plugin.isInRaidChambers()) {
 			return null;
 		}
 
-		if (client.getClanChatCount() == 0)
-		{
+		if (client.getClanChatCount() == 0) {
 			// Player left clan chat
 			return null;
 		}
@@ -95,25 +93,18 @@ public class RaidsPartyOverlay extends Overlay
 		String partyCountString;
 
 		Color countColor = Color.WHITE;
-		if (inLobby)
-		{
+		if (inLobby) {
 			partyCountString = String.format("%d/%d", playerCount, partySize);
 			// While we are in the lobby compare to players visible on the screen
-			if (partySize <= playerCount)
-			{
+			if (partySize <= playerCount) {
 				countColor = Color.GREEN;
-			}
-			else
-			{
+			} else {
 				countColor = Color.RED;
 			}
-		}
-		else
-		{
+		} else {
 			// If raid has started then we compare the current party size to what it was when we started
 			partyCountString = String.format("%d/%d", partySize, plugin.getStartPlayerCount());
-			if (plugin.getMissingPartyMembers().size() > 0)
-			{
+			if (plugin.getMissingPartyMembers().size() > 0) {
 				countColor = Color.RED; // Somebody is missing
 			}
 		}
@@ -122,21 +113,15 @@ public class RaidsPartyOverlay extends Overlay
 
 		tableComponent.addRow("Party size:", ColorUtil.prependColorTag(partyCountString, countColor));
 
-		if (inLobby)
-		{
+		if (inLobby) {
 			int world = client.getWorld();
 			int wrongWorldClanMembers = 0;
 			int clanMemberCount = 0;
-			for (ClanMember clanMember : client.getClanMembers())
-			{
-				if (clanMember != null)
-				{
-					if (clanMember.getWorld() != world)
-					{
+			for (ClanMember clanMember : client.getClanMembers()) {
+				if (clanMember != null) {
+					if (clanMember.getWorld() != world) {
 						wrongWorldClanMembers++;
-					}
-					else
-					{
+					} else {
 						clanMemberCount++;
 					}
 				}
@@ -146,8 +131,7 @@ public class RaidsPartyOverlay extends Overlay
 			Color notInPartyColor = Color.GREEN;
 			int notInParty = clanMemberCount - partySize;
 
-			if (notInParty > 0)
-			{
+			if (notInParty > 0) {
 				notInPartyColor = Color.WHITE;
 			}
 
@@ -156,29 +140,22 @@ public class RaidsPartyOverlay extends Overlay
 
 			// Show amount of clan members that are not in the right world.
 			Color wrongWorldColor;
-			if (wrongWorldClanMembers == 0)
-			{
+			if (wrongWorldClanMembers == 0) {
 				wrongWorldColor = Color.GREEN;
-			}
-			else
-			{
+			} else {
 				wrongWorldColor = Color.WHITE;
 			}
 
 			tableComponent.addRow("Wrong world:", ColorUtil.prependColorTag(String.valueOf(wrongWorldClanMembers), wrongWorldColor));
 
-		}
-		else
-		{
+		} else {
 			Set<String> missingPartyMembers = plugin.getMissingPartyMembers();
-			if (missingPartyMembers.size() > 0)
-			{
+			if (missingPartyMembers.size() > 0) {
 
 
 				tableComponent.addRow("Missing players:", "");
 
-				for (String member : missingPartyMembers)
-				{
+				for (String member : missingPartyMembers) {
 					tableComponent.addRow(ColorUtil.prependColorTag(member, Color.RED), "");
 				}
 			}

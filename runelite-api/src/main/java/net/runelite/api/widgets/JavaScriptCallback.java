@@ -31,7 +31,6 @@ import net.runelite.api.ScriptEvent;
  * to handle ScriptEvents with Java code, rather than cs2.
  */
 @FunctionalInterface
-public interface JavaScriptCallback
-{
+public interface JavaScriptCallback {
 	void run(ScriptEvent event);
 }

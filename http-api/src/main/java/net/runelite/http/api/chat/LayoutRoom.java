@@ -24,8 +24,7 @@
  */
 package net.runelite.http.api.chat;
 
-public enum LayoutRoom
-{
+public enum LayoutRoom {
 	START,
 	END,
 	SCAVENGERS,

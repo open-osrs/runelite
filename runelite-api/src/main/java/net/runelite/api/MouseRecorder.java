@@ -25,16 +25,15 @@
 
 package net.runelite.api;
 
-public interface MouseRecorder
-{
-	
+public interface MouseRecorder {
+
 	int[] getXs();
-	
+
 	int[] getYs();
-	
+
 	long[] getMillis();
-	
+
 	int getIndex();
-	
+
 }
 

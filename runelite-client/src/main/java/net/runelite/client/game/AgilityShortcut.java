@@ -26,48 +26,49 @@
 package net.runelite.client.game;
 
 import lombok.Getter;
+
 import static net.runelite.api.NullObjectID.*;
 import static net.runelite.api.ObjectID.*;
+
 import net.runelite.api.coords.WorldPoint;
 
 @Getter
-public enum AgilityShortcut
-{
+public enum AgilityShortcut {
 	GENERIC_SHORTCUT(1, "Shortcut", null,
-		// Trollheim
-		ROCKS_3790, ROCKS_3791,
-		// Fremennik Slayer Cave
-		STEPS_29993,
-		// Fossil Island
-		LADDER_30938, LADDER_30939, LADDER_30940, LADDER_30941, RUBBER_CAP_MUSHROOM,
-		// Brimhaven dungeon
-		CREVICE_30198,
-		// Lumbridge
-		STILE_12982,
-		// Gu'Tanoth Bridge
-		GAP, GAP_2831,
-		// Lumbridge Swamp Caves
-		STEPPING_STONE_5948, STEPPING_STONE_5949, ROCKS_6673,
-		// Morytania Pirate Ship
-		ROCK_16115,
-		// Lumber Yard
-		BROKEN_FENCE_2618,
-		// McGrubor's Wood
-		LOOSE_RAILING,
-		// Underwater Area Fossil Island
-		TUNNEL_30959, HOLE_30966, OBSTACLE, OBSTACLE_30767, OBSTACLE_30964, OBSTACLE_30962, PLANT_DOOR_30961,
-		// Tree Gnome Village
-		LOOSE_RAILING_2186,
-		// Burgh de Rott
-		LOW_FENCE,
-		// Taverley
-		STILE,
-		// Asgarnian Ice Dungeon
-		STEPS,
-		// Fossil Island Wyvern Cave
-		STAIRS_31485,
-		// Trollweiss Mountain Cave
-		ROCKY_HANDHOLDS, ROCKY_HANDHOLDS_19847),
+			// Trollheim
+			ROCKS_3790, ROCKS_3791,
+			// Fremennik Slayer Cave
+			STEPS_29993,
+			// Fossil Island
+			LADDER_30938, LADDER_30939, LADDER_30940, LADDER_30941, RUBBER_CAP_MUSHROOM,
+			// Brimhaven dungeon
+			CREVICE_30198,
+			// Lumbridge
+			STILE_12982,
+			// Gu'Tanoth Bridge
+			GAP, GAP_2831,
+			// Lumbridge Swamp Caves
+			STEPPING_STONE_5948, STEPPING_STONE_5949, ROCKS_6673,
+			// Morytania Pirate Ship
+			ROCK_16115,
+			// Lumber Yard
+			BROKEN_FENCE_2618,
+			// McGrubor's Wood
+			LOOSE_RAILING,
+			// Underwater Area Fossil Island
+			TUNNEL_30959, HOLE_30966, OBSTACLE, OBSTACLE_30767, OBSTACLE_30964, OBSTACLE_30962, PLANT_DOOR_30961,
+			// Tree Gnome Village
+			LOOSE_RAILING_2186,
+			// Burgh de Rott
+			LOW_FENCE,
+			// Taverley
+			STILE,
+			// Asgarnian Ice Dungeon
+			STEPS,
+			// Fossil Island Wyvern Cave
+			STAIRS_31485,
+			// Trollweiss Mountain Cave
+			ROCKY_HANDHOLDS, ROCKY_HANDHOLDS_19847),
 	BRIMHAVEN_DUNGEON_MEDIUM_PIPE_RETURN(1, "Pipe Squeeze", null, new WorldPoint(2698, 9491, 0), PIPE_21727),
 	BRIMHAVEN_DUNGEON_PIPE_RETURN(1, "Pipe Squeeze", null, new WorldPoint(2655, 9573, 0), PIPE_21728),
 	BRIMHAVEN_DUNGEON_STEPPING_STONES_RETURN(1, "Pipe Squeeze", null, STEPPING_STONE_21739),
@@ -243,8 +244,7 @@ public enum AgilityShortcut
 	@Getter
 	private final int[] obstacleIds;
 
-	AgilityShortcut(int level, String description, WorldPoint mapLocation, WorldPoint worldLocation, int... obstacleIds)
-	{
+	AgilityShortcut(int level, String description, WorldPoint mapLocation, WorldPoint worldLocation, int... obstacleIds) {
 		this.level = level;
 		this.description = description;
 		this.worldMapLocation = mapLocation;
@@ -252,13 +252,11 @@ public enum AgilityShortcut
 		this.obstacleIds = obstacleIds;
 	}
 
-	AgilityShortcut(int level, String description, WorldPoint location, int... obstacleIds)
-	{
+	AgilityShortcut(int level, String description, WorldPoint location, int... obstacleIds) {
 		this(level, description, location, location, obstacleIds);
 	}
 
-	public String getTooltip()
-	{
+	public String getTooltip() {
 		return description + " - Level " + level;
 	}
 }

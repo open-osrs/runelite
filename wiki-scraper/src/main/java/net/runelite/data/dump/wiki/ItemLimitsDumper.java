@@ -24,6 +24,7 @@
 package net.runelite.data.dump.wiki;
 
 import com.google.common.base.Strings;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,6 +36,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.cache.ItemManager;
 import net.runelite.cache.definitions.ItemDefinition;
@@ -45,10 +47,8 @@ import net.runelite.data.dump.MediaWiki;
 import net.runelite.data.dump.MediaWikiTemplate;
 
 @Slf4j
-public class ItemLimitsDumper
-{
-	public static void dump(final Store store, final MediaWiki wiki, final File path) throws IOException
-	{
+public class ItemLimitsDumper {
+	public static void dump(final Store store, final MediaWiki wiki, final File path) throws IOException {
 		log.info("Dumping item limits to {}", path);
 
 		final ItemManager itemManager = new ItemManager(store);
@@ -62,36 +62,31 @@ public class ItemLimitsDumper
 
 		itemDefinitionStream.forEach(item ->
 		{
-			if (!item.isTradeable)
-			{
+			if (!item.isTradeable) {
 				return;
 			}
 
-			if (item.getNotedTemplate() != -1)
-			{
+			if (item.getNotedTemplate() != -1) {
 				return;
 			}
 
-			if (item.name.equalsIgnoreCase("NULL"))
-			{
+			if (item.name.equalsIgnoreCase("NULL")) {
 				return;
 			}
 
 			String name = Namer
-				.removeTags(item.name)
-				.replace('\u00A0', ' ')
-				.replaceAll("\\+", "%2b")
-				.trim();
+					.removeTags(item.name)
+					.replace('\u00A0', ' ')
+					.replaceAll("\\+", "%2b")
+					.trim();
 
-			if (name.isEmpty())
-			{
+			if (name.isEmpty()) {
 				return;
 			}
 
 			String data = wiki.getPageData("Module:Exchange/" + name, -1);
 
-			if (Strings.isNullOrEmpty(data))
-			{
+			if (Strings.isNullOrEmpty(data)) {
 				log.debug("Data is null or empty: {}", name);
 				missing.add(name);
 				return;
@@ -99,35 +94,28 @@ public class ItemLimitsDumper
 
 			final MediaWikiTemplate geStats = MediaWikiTemplate.parseLua(data);
 
-			if (geStats == null)
-			{
+			if (geStats == null) {
 				return;
 			}
 
 			final Integer limit = geStats.getInt("limit");
 
-			if (limit == null || limit <= 0)
-			{
+			if (limit == null || limit <= 0) {
 				Matcher matcher = pattern.matcher(data);
 				String temp = "";
-				while (matcher.find())
-				{
+				while (matcher.find()) {
 					temp = matcher.group(1);
 					if (Strings.isNullOrEmpty(temp) ||
-						temp.equalsIgnoreCase("no") ||
-						temp.equalsIgnoreCase("n/a") ||
-						temp.equals("nil") ||
-						temp.equalsIgnoreCase("varies"))
-					{
+							temp.equalsIgnoreCase("no") ||
+							temp.equalsIgnoreCase("n/a") ||
+							temp.equals("nil") ||
+							temp.equalsIgnoreCase("varies")) {
 						temp = null;
 					}
 				}
-				if (!Strings.isNullOrEmpty(temp))
-				{
+				if (!Strings.isNullOrEmpty(temp)) {
 					limits.put(item.id, Integer.valueOf(temp));
-				}
-				else
-				{
+				} else {
 					log.debug("Item was still null: {}", name);
 					missing.add(name);
 				}
@@ -138,8 +126,7 @@ public class ItemLimitsDumper
 			log.debug("Dumped item limit for {} {}", item.id, name);
 		});
 
-		try (FileWriter fw = new FileWriter(new File(path, "ge_limits.json")))
-		{
+		try (FileWriter fw = new FileWriter(new File(path, "ge_limits.json"))) {
 			fw.write(App.GSON.toJson(limits));
 		}
 

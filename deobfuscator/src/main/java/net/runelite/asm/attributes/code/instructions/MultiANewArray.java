@@ -37,32 +37,27 @@ import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 import org.objectweb.asm.MethodVisitor;
 
-public class MultiANewArray extends Instruction
-{
+public class MultiANewArray extends Instruction {
 	private Type type;
 	private int dimensions;
 	private ClassFile myClass;
 
-	public MultiANewArray(Instructions instructions, InstructionType type)
-	{
+	public MultiANewArray(Instructions instructions, InstructionType type) {
 		super(instructions, type);
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor)
-	{
+	public void accept(MethodVisitor visitor) {
 		visitor.visitMultiANewArrayInsn(type.toString(), dimensions);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame)
-	{
+	public InstructionContext execute(Frame frame) {
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
 		Value[] lenghts = new Value[dimensions];
-		for (int i = 0; i < dimensions; ++i)
-		{
+		for (int i = 0; i < dimensions; ++i) {
 			StackContext ctx = stack.pop();
 			ins.pop(ctx);
 
@@ -78,38 +73,31 @@ public class MultiANewArray extends Instruction
 	}
 
 	@Override
-	public void lookup()
-	{
+	public void lookup() {
 		ClassGroup group = this.getInstructions().getCode().getMethod().getClassFile().getGroup();
 		myClass = group.findClass(type.getInternalName());
 	}
 
 	@Override
-	public void regeneratePool()
-	{
-		if (myClass != null)
-		{
+	public void regeneratePool() {
+		if (myClass != null) {
 			type = Type.getType("L" + myClass.getName() + ";", type.getDimensions());
 		}
 	}
 
-	public Type getArrayType()
-	{
+	public Type getArrayType() {
 		return type;
 	}
 
-	public void setArrayType(Type type)
-	{
+	public void setArrayType(Type type) {
 		this.type = type;
 	}
 
-	public int getDimensions()
-	{
+	public int getDimensions() {
 		return this.dimensions;
 	}
 
-	public void setDimensions(int dimensions)
-	{
+	public void setDimensions(int dimensions) {
 		this.dimensions = dimensions;
 	}
 }

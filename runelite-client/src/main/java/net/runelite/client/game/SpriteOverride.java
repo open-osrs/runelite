@@ -24,8 +24,7 @@
  */
 package net.runelite.client.game;
 
-public interface SpriteOverride
-{
+public interface SpriteOverride {
 	/**
 	 * An ID for a sprite. Negative numbers are used by RuneLite specific sprites
 	 */

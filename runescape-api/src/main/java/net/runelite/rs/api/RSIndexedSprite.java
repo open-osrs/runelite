@@ -3,8 +3,7 @@ package net.runelite.rs.api;
 import net.runelite.api.IndexedSprite;
 import net.runelite.mapping.Import;
 
-public interface RSIndexedSprite extends IndexedSprite
-{
+public interface RSIndexedSprite extends IndexedSprite {
 	@Import("pixels")
 	@Override
 	byte[] getPixels();

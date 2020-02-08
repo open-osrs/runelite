@@ -27,23 +27,20 @@ package net.runelite.client.plugins.screenmarkers;
 import java.awt.event.MouseEvent;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
+
 import net.runelite.client.input.MouseAdapter;
 
 @Singleton
-class ScreenMarkerMouseListener extends MouseAdapter
-{
+class ScreenMarkerMouseListener extends MouseAdapter {
 	private final ScreenMarkerPlugin plugin;
 
-	ScreenMarkerMouseListener(final ScreenMarkerPlugin plugin)
-	{
+	ScreenMarkerMouseListener(final ScreenMarkerPlugin plugin) {
 		this.plugin = plugin;
 	}
 
 	@Override
-	public MouseEvent mouseClicked(MouseEvent event)
-	{
-		if (SwingUtilities.isMiddleMouseButton(event))
-		{
+	public MouseEvent mouseClicked(MouseEvent event) {
+		if (SwingUtilities.isMiddleMouseButton(event)) {
 			return event;
 		}
 
@@ -52,19 +49,14 @@ class ScreenMarkerMouseListener extends MouseAdapter
 	}
 
 	@Override
-	public MouseEvent mousePressed(MouseEvent event)
-	{
-		if (SwingUtilities.isMiddleMouseButton(event))
-		{
+	public MouseEvent mousePressed(MouseEvent event) {
+		if (SwingUtilities.isMiddleMouseButton(event)) {
 			return event;
 		}
 
-		if (SwingUtilities.isLeftMouseButton(event))
-		{
+		if (SwingUtilities.isLeftMouseButton(event)) {
 			plugin.startCreation(event.getPoint());
-		}
-		else if (plugin.isCreatingScreenMarker())
-		{
+		} else if (plugin.isCreatingScreenMarker()) {
 			plugin.finishCreation(true);
 		}
 
@@ -73,15 +65,12 @@ class ScreenMarkerMouseListener extends MouseAdapter
 	}
 
 	@Override
-	public MouseEvent mouseReleased(MouseEvent event)
-	{
-		if (SwingUtilities.isMiddleMouseButton(event))
-		{
+	public MouseEvent mouseReleased(MouseEvent event) {
+		if (SwingUtilities.isMiddleMouseButton(event)) {
 			return event;
 		}
 
-		if (SwingUtilities.isLeftMouseButton(event) && plugin.isCreatingScreenMarker())
-		{
+		if (SwingUtilities.isLeftMouseButton(event) && plugin.isCreatingScreenMarker()) {
 			/* Set the creation panel as "ready" (because the marker area as been drawn) */
 			plugin.completeSelection();
 		}
@@ -91,15 +80,12 @@ class ScreenMarkerMouseListener extends MouseAdapter
 	}
 
 	@Override
-	public MouseEvent mouseDragged(MouseEvent event)
-	{
-		if (!plugin.isCreatingScreenMarker())
-		{
+	public MouseEvent mouseDragged(MouseEvent event) {
+		if (!plugin.isCreatingScreenMarker()) {
 			return event;
 		}
 
-		if (SwingUtilities.isLeftMouseButton(event))
-		{
+		if (SwingUtilities.isLeftMouseButton(event)) {
 			plugin.resizeMarker(event.getPoint());
 		}
 

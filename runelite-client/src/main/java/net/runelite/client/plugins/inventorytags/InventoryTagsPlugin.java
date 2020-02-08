@@ -27,10 +27,12 @@ package net.runelite.client.plugins.inventorytags;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
+
 import java.awt.Color;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.events.MenuOpened;
@@ -50,15 +52,14 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 
 @PluginDescriptor(
-	name = "Inventory Tags",
-	description = "Add the ability to tag items in your inventory",
-	tags = {"highlight", "items", "overlay", "tagging"},
-	enabledByDefault = false,
-	type = PluginType.UTILITY
+		name = "Inventory Tags",
+		description = "Add the ability to tag items in your inventory",
+		tags = {"highlight", "items", "overlay", "tagging"},
+		enabledByDefault = false,
+		type = PluginType.UTILITY
 )
 @Singleton
-public class InventoryTagsPlugin extends Plugin
-{
+public class InventoryTagsPlugin extends Plugin {
 	private static final String ITEM_KEY_PREFIX = "item_";
 
 	private static final String SETNAME_GROUP_1 = "Group 1";
@@ -82,20 +83,20 @@ public class InventoryTagsPlugin extends Plugin
 	private static final String MENU_REMOVE = "Remove";
 
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
 	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
 	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
 
 	private static final List<String> GROUPS = ImmutableList.of(SETNAME_GROUP_12, SETNAME_GROUP_11, SETNAME_GROUP_10, SETNAME_GROUP_9,
-	SETNAME_GROUP_8, SETNAME_GROUP_7, SETNAME_GROUP_6, SETNAME_GROUP_5, SETNAME_GROUP_4, SETNAME_GROUP_3, SETNAME_GROUP_2, SETNAME_GROUP_1);
+			SETNAME_GROUP_8, SETNAME_GROUP_7, SETNAME_GROUP_6, SETNAME_GROUP_5, SETNAME_GROUP_4, SETNAME_GROUP_3, SETNAME_GROUP_2, SETNAME_GROUP_1);
 
 	@Inject
 	private ConfigManager configManager;
@@ -129,35 +130,29 @@ public class InventoryTagsPlugin extends Plugin
 	private Color group12Color;
 
 	@Provides
-	InventoryTagsConfig provideConfig(ConfigManager configManager)
-	{
+	InventoryTagsConfig provideConfig(ConfigManager configManager) {
 		return configManager.getConfig(InventoryTagsConfig.class);
 	}
 
-	String getTag(int itemId)
-	{
+	String getTag(int itemId) {
 		String tag = configManager.getConfiguration(InventoryTagsConfig.GROUP, ITEM_KEY_PREFIX + itemId);
-		if (tag == null || tag.isEmpty())
-		{
+		if (tag == null || tag.isEmpty()) {
 			return null;
 		}
 
 		return tag;
 	}
 
-	private void setTag(int itemId, String tag)
-	{
+	private void setTag(int itemId, String tag) {
 		configManager.setConfiguration(InventoryTagsConfig.GROUP, ITEM_KEY_PREFIX + itemId, tag);
 	}
 
-	private void unsetTag(int itemId)
-	{
+	private void unsetTag(int itemId) {
 		configManager.unsetConfiguration(InventoryTagsConfig.GROUP, ITEM_KEY_PREFIX + itemId);
 	}
 
 	@Override
-	protected void startUp()
-	{
+	protected void startUp() {
 		updateConfig();
 
 		refreshInventoryMenuOptions();
@@ -165,64 +160,52 @@ public class InventoryTagsPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown()
-	{
+	protected void shutDown() {
 		removeInventoryMenuOptions();
 		overlayManager.remove(overlay);
 		editorMode = false;
 	}
 
 	@Subscribe
-	private void onWidgetMenuOptionClicked(final WidgetMenuOptionClicked event)
-	{
+	private void onWidgetMenuOptionClicked(final WidgetMenuOptionClicked event) {
 		if (event.getWidget() == WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB
-			|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB
-			|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB)
-		{
+				|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB
+				|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB) {
 			editorMode = event.getMenuOption().equals(CONFIGURE) && Text.removeTags(event.getMenuTarget()).equals(MENU_TARGET);
 			refreshInventoryMenuOptions();
 		}
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(final MenuOptionClicked event)
-	{
-		if (event.getMenuOpcode() != MenuOpcode.RUNELITE)
-		{
+	private void onMenuOptionClicked(final MenuOptionClicked event) {
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE) {
 			return;
 		}
 
 		final String selectedMenu = Text.removeTags(event.getTarget());
 
-		if (event.getOption().equals(MENU_SET))
-		{
+		if (event.getOption().equals(MENU_SET)) {
 			setTag(event.getIdentifier(), selectedMenu);
-		}
-		else if (event.getOption().equals(MENU_REMOVE))
-		{
+		} else if (event.getOption().equals(MENU_REMOVE)) {
 			unsetTag(event.getIdentifier());
 		}
 	}
 
 	@Subscribe
-	private void onMenuOpened(final MenuOpened event)
-	{
+	private void onMenuOpened(final MenuOpened event) {
 		final MenuEntry firstEntry = event.getFirstEntry();
 
-		if (firstEntry == null)
-		{
+		if (firstEntry == null) {
 			return;
 		}
 
 		final int widgetId = firstEntry.getParam1();
 
 		// Inventory item menu
-		if (widgetId == WidgetInfo.INVENTORY.getId() && editorMode)
-		{
+		if (widgetId == WidgetInfo.INVENTORY.getId() && editorMode) {
 			int itemId = firstEntry.getIdentifier();
 
-			if (itemId == -1)
-			{
+			if (itemId == -1) {
 				return;
 			}
 
@@ -234,8 +217,7 @@ public class InventoryTagsPlugin extends Plugin
 
 			List<String> groups = GROUPS.subList(Math.max(GROUPS.size() - amount.toInt(), 0), GROUPS.size());
 
-			for (final String groupName : groups)
-			{
+			for (final String groupName : groups) {
 				final String group = getTag(itemId);
 				final MenuEntry newMenu = new MenuEntry();
 				final Color color = getGroupNameColor(groupName);
@@ -253,10 +235,8 @@ public class InventoryTagsPlugin extends Plugin
 		}
 	}
 
-	Color getGroupNameColor(final String name)
-	{
-		switch (name)
-		{
+	Color getGroupNameColor(final String name) {
+		switch (name) {
 			case SETNAME_GROUP_1:
 				return this.group1Color;
 			case SETNAME_GROUP_2:
@@ -285,8 +265,7 @@ public class InventoryTagsPlugin extends Plugin
 		return null;
 	}
 
-	private void removeInventoryMenuOptions()
-	{
+	private void removeInventoryMenuOptions() {
 		menuManager.removeManagedCustomMenu(FIXED_INVENTORY_TAB_CONFIGURE);
 		menuManager.removeManagedCustomMenu(FIXED_INVENTORY_TAB_SAVE);
 		menuManager.removeManagedCustomMenu(RESIZABLE_INVENTORY_TAB_CONFIGURE);
@@ -295,17 +274,13 @@ public class InventoryTagsPlugin extends Plugin
 		menuManager.removeManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE);
 	}
 
-	private void refreshInventoryMenuOptions()
-	{
+	private void refreshInventoryMenuOptions() {
 		removeInventoryMenuOptions();
-		if (editorMode)
-		{
+		if (editorMode) {
 			menuManager.addManagedCustomMenu(FIXED_INVENTORY_TAB_SAVE);
 			menuManager.addManagedCustomMenu(RESIZABLE_INVENTORY_TAB_SAVE);
 			menuManager.addManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE);
-		}
-		else
-		{
+		} else {
 			menuManager.addManagedCustomMenu(FIXED_INVENTORY_TAB_CONFIGURE);
 			menuManager.addManagedCustomMenu(RESIZABLE_INVENTORY_TAB_CONFIGURE);
 			menuManager.addManagedCustomMenu(RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE);
@@ -313,16 +288,13 @@ public class InventoryTagsPlugin extends Plugin
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (event.getGroup().equals("inventorytags"))
-		{
+	private void onConfigChanged(ConfigChanged event) {
+		if (event.getGroup().equals("inventorytags")) {
 			updateConfig();
 		}
 	}
 
-	private void updateConfig()
-	{
+	private void updateConfig() {
 		this.amount = config.getAmount();
 		this.group1Color = config.getGroup1Color();
 		this.group2Color = config.getGroup2Color();

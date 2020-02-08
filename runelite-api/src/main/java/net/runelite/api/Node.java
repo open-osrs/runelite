@@ -27,8 +27,7 @@ package net.runelite.api;
 /**
  * Represents a doubly linked node.
  */
-public interface Node
-{
+public interface Node {
 	/**
 	 * Gets the next node.
 	 *

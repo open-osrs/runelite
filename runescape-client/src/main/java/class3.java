@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,34 +11,34 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class3 implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Le;"
+			signature = "Le;"
 	)
 	public static final class3 field22;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Le;"
+			signature = "Le;"
 	)
 	public static final class3 field15;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Le;"
+			signature = "Le;"
 	)
 	public static final class3 field16;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -794176661
+			intValue = -794176661
 	)
 	final int field17;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 500011769
+			intValue = 500011769
 	)
 	public final int field18;
 	@ObfuscatedName("g")
 	final Class field19;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lc;"
+			signature = "Lc;"
 	)
 	final class0 field20;
 
@@ -48,7 +49,7 @@ public class class3 implements Enumerated {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(IILjava/lang/Class;Lc;)V"
+			signature = "(IILjava/lang/Class;Lc;)V"
 	)
 	class3(int var1, int var2, Class var3, class0 var4) {
 		this.field17 = var1;
@@ -59,8 +60,8 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "1"
+			signature = "(B)I",
+			garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
@@ -69,8 +70,8 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Lkp;I)Ljava/lang/Object;",
-		garbageValue = "1079792403"
+			signature = "(Lkp;I)Ljava/lang/Object;",
+			garbageValue = "1079792403"
 	)
 	public Object method38(Buffer var1) {
 		return this.field20.vmethod53(var1);
@@ -78,8 +79,8 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Class;I)Le;",
-		garbageValue = "1607211171"
+			signature = "(Ljava/lang/Class;I)Le;",
+			garbageValue = "1607211171"
 	)
 	public static class3 method51(Class var0) {
 		class3[] var1 = new class3[]{field15, field22, field16};
@@ -97,8 +98,8 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;Lkp;B)V",
-		garbageValue = "-3"
+			signature = "(Ljava/lang/Object;Lkp;B)V",
+			garbageValue = "-3"
 	)
 	public static void method35(Object var0, Buffer var1) {
 		class0 var2 = method36(var0.getClass());
@@ -107,8 +108,8 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Class;I)Lc;",
-		garbageValue = "-201332195"
+			signature = "(Ljava/lang/Class;I)Lc;",
+			garbageValue = "-201332195"
 	)
 	static class0 method36(Class var0) {
 		class3 var1 = method51(var0);
@@ -121,8 +122,8 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-95"
+			signature = "(B)V",
+			garbageValue = "-95"
 	)
 	public static void method52() {
 		try {
@@ -159,8 +160,8 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
-		garbageValue = "310348252"
+			signature = "(IIII)I",
+			garbageValue = "310348252"
 	)
 	static final int method49(int var0, int var1, int var2) {
 		int var3 = var0 / var2;
