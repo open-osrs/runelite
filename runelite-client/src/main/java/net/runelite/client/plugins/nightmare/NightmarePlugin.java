@@ -1,12 +1,19 @@
 package net.runelite.client.plugins.nightmare;
 
+import com.google.inject.Provides;
+import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
+import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import net.runelite.client.config.ConfigManager;
+import net.runelite.client.plugins.theatre.TheatreRoom;
 import net.runelite.client.ui.overlay.OverlayManager;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -17,12 +24,13 @@ import lombok.AccessLevel;
 
 
 @PluginDescriptor(
-		name = "Nightmare of Ashihama",
-		description = "Show what prayer to use and which tiles to avoid",
-		tags = {"bosses", "combat", "nm", "overlay", "nightmare", "pve", "pvm", "ashihama"},
-		type = PluginType.PVM,
-		enabledByDefault = false
+	name = "Nightmare of Ashihama",
+	description = "Show what prayer to use and which tiles to avoid",
+	tags = {"bosses", "combat", "nm", "overlay", "nightmare", "pve", "pvm", "ashihama"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
+
 @Singleton
 public class NightmarePlugin extends Plugin {
 	// Nightmare's attack animations
@@ -40,8 +48,15 @@ public class NightmarePlugin extends Plugin {
 	private static final int NIGHTMARE_SPAWN = 8611;
 	private static final int NIGHTMARE_DEATH = 8612;
 
+	private static final int NIGHTMARE_MELEE_ATTACK = 8594;
+	private static final int NIGHTMARE_RANGE_ATTACK = 8596;
+	private static final int NIGHTMARE_MAGIC_ATTACK = 8595;
+
 	@Inject
 	private Client client;
+
+	@Inject
+	private NightmareConfig config;
 
 	@Inject
 	private OverlayManager overlayManager;
@@ -64,8 +79,23 @@ public class NightmarePlugin extends Plugin {
 	private int attackCount;
 	private int curseStartID;
 
+	@Getter(AccessLevel.PACKAGE)
+	private boolean prayerHelper;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean tickCounter;
+
+	@Getter(AccessLevel.PACKAGE)
+	private int ticksUntilNextAttack = 0;
+
 	public NightmarePlugin() {
 		inFight = false;
+	}
+
+	@Provides
+	NightmareConfig provideConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(NightmareConfig.class);
 	}
 
 	@Inject
@@ -73,6 +103,7 @@ public class NightmarePlugin extends Plugin {
 
 	@Override
 	protected void startUp() {
+		updateConfig();
 		overlayManager.add(overlay);
 		overlayManager.add(prayerOverlay);
 		nm = null;
@@ -80,6 +111,7 @@ public class NightmarePlugin extends Plugin {
 		cursed = false;
 		attackCount = 0;
 		curseStartID = -1;		//not best solution im sure
+		ticksUntilNextAttack = 0;
 	}
 
 	@Override
@@ -91,6 +123,38 @@ public class NightmarePlugin extends Plugin {
 		cursed = false;
 		attackCount = 0;
 		curseStartID = -1;
+	}
+
+	@Subscribe
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("betterNightmare"))
+		{
+			return;
+		}
+		this.updateConfig();
+	}
+
+	@Subscribe
+	public void onAnimationChanged(AnimationChanged event)
+	{
+		if (!inFight || nm == null) {
+			return;
+		}
+
+		Actor actor = event.getActor();
+		if (!(actor instanceof NPC)) {
+			return;
+		}
+
+		NPC npc = (NPC) actor;
+		int id = npc.getId();
+		int animationId = npc.getAnimation();
+
+		if (animationId == NIGHTMARE_MAGIC_ATTACK || animationId == NIGHTMARE_MELEE_ATTACK || animationId == NIGHTMARE_RANGE_ATTACK)
+		{
+			ticksUntilNextAttack = 7;
+		}
 	}
 
 	@Subscribe
@@ -137,5 +201,13 @@ public class NightmarePlugin extends Plugin {
 			}
 
         }
+		ticksUntilNextAttack--;
+	}
+
+	private void updateConfig()
+	{
+		this.prayerHelper = config.prayerHelper();
+
+		this.tickCounter = config.ticksCounter();
 	}
 }
