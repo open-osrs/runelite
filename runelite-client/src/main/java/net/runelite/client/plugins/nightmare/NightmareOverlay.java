@@ -5,7 +5,11 @@ import net.runelite.api.Client;
 import net.runelite.api.GraphicsObject;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.client.ui.overlay.*;
+import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.OverlayUtil;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.awt.Color;
@@ -76,14 +80,20 @@ class NightmareOverlay extends Overlay {
 			}
 		}
 
-		if (plugin.isTickCounter() && plugin.getTicksUntilNextAttack() > 0 && plugin.getNm() != null)
+		int ticksUntilNext = plugin.getTicksUntilNextAttack();
+		if (plugin.isTickCounter() && ticksUntilNext > 0 && plugin.getNm() != null)
 		{
-			String str = Integer.toString(plugin.getTicksUntilNextAttack());
+			String str = Integer.toString(ticksUntilNext);
 
 			LocalPoint lp = plugin.getNm().getLocalLocation();
 			Point point = Perspective.getCanvasTextLocation(client, graphics, lp, str, 0);
 
-			renderTextLocation(graphics, str, 20, Font.BOLD, Color.CYAN, point);
+			Color tickColor = Color.WHITE;
+			if(ticksUntilNext == 4){
+				tickColor = plugin.getTickColor();
+			}
+
+			renderTextLocation(graphics, str, 20, Font.BOLD, tickColor, point);
 		}
 
 		return null;

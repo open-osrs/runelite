@@ -12,16 +12,15 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.plugins.theatre.TheatreRoom;
 import net.runelite.client.ui.overlay.OverlayManager;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.AccessLevel;
-//import static net.runelite.api.NpcID.nightmarewhenitsupdated;                     //TODO: this here is the thing to change
 
+import java.awt.*;
+//import static net.runelite.api.NpcID.nightmarewhenitsupdated;                     //TODO: this here is the thing to change
 
 @PluginDescriptor(
 	name = "Nightmare of Ashihama",
@@ -78,6 +77,9 @@ public class NightmarePlugin extends Plugin {
 	private boolean cursed;
 	private int attackCount;
 	private int curseStartID;
+
+	@Getter(AccessLevel.PACKAGE)
+	private Color tickColor;
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean prayerHelper;
@@ -151,6 +153,16 @@ public class NightmarePlugin extends Plugin {
 		int id = npc.getId();
 		int animationId = npc.getAnimation();
 
+		if(animationId == NIGHTMARE_MAGIC_ATTACK){
+			ticksUntilNextAttack = 7;
+			tickColor = Color.CYAN;
+		}else if(animationId == NIGHTMARE_MELEE_ATTACK){
+			ticksUntilNextAttack = 7;
+			tickColor = Color.RED;
+		}else if(animationId == NIGHTMARE_RANGE_ATTACK){
+			ticksUntilNextAttack = 7;
+			tickColor = Color.GREEN;
+		}
 		if (animationId == NIGHTMARE_MAGIC_ATTACK || animationId == NIGHTMARE_MELEE_ATTACK || animationId == NIGHTMARE_RANGE_ATTACK)
 		{
 			ticksUntilNextAttack = 7;
@@ -166,7 +178,6 @@ public class NightmarePlugin extends Plugin {
 				nm = npc;
 			}
 		}
-
 
 		if (inFight && nm != null) {
 //                if (nm.getId() >= 9425 && nm.getId() <= 9433)        //TODO: change to THE_NIGHTMARE_#### once in client
