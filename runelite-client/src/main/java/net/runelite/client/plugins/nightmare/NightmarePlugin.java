@@ -3,11 +3,13 @@ package net.runelite.client.plugins.nightmare;
 import com.google.inject.Provides;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -29,6 +31,7 @@ import java.awt.Color;
 	enabledByDefault = false
 )
 
+@Slf4j
 @Singleton
 public class NightmarePlugin extends Plugin {
 	// Nightmare's attack animations
@@ -107,23 +110,25 @@ public class NightmarePlugin extends Plugin {
 		updateConfig();
 		overlayManager.add(overlay);
 		overlayManager.add(prayerOverlay);
-		nm = null;
-		prayAgainst = null;
-		cursed = false;
-		attackCount = 0;
-		curseStartID = -1;		//not best solution im sure
-		ticksUntilNextAttack = 0;
+		reset();
 	}
 
 	@Override
 	protected void shutDown() {
 		overlayManager.remove(overlay);
 		overlayManager.remove(prayerOverlay);
+		reset();
+	}
+
+	private void reset()
+	{
+		inFight = false;
 		nm = null;
 		prayAgainst = null;
 		cursed = false;
 		attackCount = 0;
 		curseStartID = -1;
+		ticksUntilNextAttack = 0;
 	}
 
 	@Subscribe
@@ -162,55 +167,76 @@ public class NightmarePlugin extends Plugin {
 			ticksUntilNextAttack = 7;
 			tickColor = Color.GREEN;
 		}
+		/*
 		if (animationId == NIGHTMARE_MAGIC_ATTACK || animationId == NIGHTMARE_MELEE_ATTACK || animationId == NIGHTMARE_RANGE_ATTACK)
 		{
 			ticksUntilNextAttack = 7;
+		}
+		 */
+	}
+
+	@Subscribe
+	public void onNpcDefinitionChanged(NpcDefinitionChanged event)
+	{
+		final NPC npc = event.getNpc();
+
+		if(npc == null)
+		{
+			return;
+		}
+
+		//this will trigger when the fight begins
+		if (npc.getId() == 9432)
+		{
+			nm = npc;
+			inFight = true;
 		}
 	}
 
 	@Subscribe
 	private void onGameTick(final GameTick event) {
-		nm = null;
-		inFight = true;
-		for (final NPC npc : client.getNpcs()) {
-			if(npc.getId() >= 9425 && npc.getId() <= 9433){
-				nm = npc;
-			}
+		if (!inFight || nm == null)
+		{
+			return;
 		}
 
-		if (inFight && nm != null) {
-//                if (nm.getId() >= 9425 && nm.getId() <= 9433)        //TODO: change to THE_NIGHTMARE_#### once in client
-//                {
-			if(nm.getAnimation() == NIGHTMARE_CURSE){
-				cursed = true;
-				attackCount = 0;
-				curseStartID = nm.getId();
-			}
-			if(cursed && (curseStartID != nm.getId() || attackCount == 5)){	//curse is removed when she phases, or does 5 attacks
-				cursed = false;
-				curseStartID = -1;	//can probably remove these two since will be reset from above if, if she curses again
-				attackCount = 0;
-			}
-			if(cursed){
-				if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
-					prayAgainst = NightmareAttack.CURSE_MELEE;
-				} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
-					prayAgainst = NightmareAttack.CURSE_RANGE;
-				} else if (nm.getAnimation() == NightmareAttack.MAGIC.getAnimation()) {
-					prayAgainst = NightmareAttack.CURSE_MAGIC;
-				}
-				attackCount++;
-			}else {
-				if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
-					prayAgainst = NightmareAttack.MELEE;
-				} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
-					prayAgainst = NightmareAttack.RANGE;
-				} else if (nm.getAnimation() == NightmareAttack.MAGIC.getAnimation()) {
-					prayAgainst = NightmareAttack.MAGIC;
-				}
-			}
+		//if nightmare's is 9433, the fight has ended and everything should be reset
+		if(nm.getId() == 9433)
+		{
+			reset();
+		}
 
-        }
+		if (nm.getAnimation() == NIGHTMARE_CURSE)
+		{
+			cursed = true;
+			attackCount = 0;
+			curseStartID = nm.getId();
+		}
+
+		if (cursed && (curseStartID != nm.getId() || attackCount == 5))
+		{	//curse is removed when she phases, or does 5 attacks
+			cursed = false;
+			curseStartID = -1;	//can probably remove these two since will be reset from above if, if she curses again
+			attackCount = 0;
+		}
+		if(cursed){
+			if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
+				prayAgainst = NightmareAttack.CURSE_MELEE;
+			} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
+				prayAgainst = NightmareAttack.CURSE_RANGE;
+			} else if (nm.getAnimation() == NightmareAttack.MAGIC.getAnimation()) {
+				prayAgainst = NightmareAttack.CURSE_MAGIC;
+			}
+			attackCount++;
+		}else {
+			if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
+				prayAgainst = NightmareAttack.MELEE;
+			} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
+				prayAgainst = NightmareAttack.RANGE;
+			} else if (nm.getAnimation() == NightmareAttack.MAGIC.getAnimation()) {
+				prayAgainst = NightmareAttack.MAGIC;
+			}
+		}
 		ticksUntilNextAttack--;
 	}
 
