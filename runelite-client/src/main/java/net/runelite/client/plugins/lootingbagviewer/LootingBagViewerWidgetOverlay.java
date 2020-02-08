@@ -24,30 +24,35 @@
 
 package net.runelite.client.plugins.lootingbagviewer;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ItemID;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-public class LootingBagViewerWidgetOverlay extends WidgetItemOverlay {
+public class LootingBagViewerWidgetOverlay extends WidgetItemOverlay
+{
 	private final LootingBagViewerPlugin plugin;
 
 	@Inject
-	LootingBagViewerWidgetOverlay(final LootingBagViewerPlugin plugin) {
+	LootingBagViewerWidgetOverlay(final LootingBagViewerPlugin plugin)
+	{
 		this.plugin = plugin;
 		showOnInventory();
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget) {
-		if (plugin.getValueToShow() != -1) {
-			switch (itemId) {
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
+	{
+		if (plugin.getValueToShow() != -1)
+		{
+			switch (itemId)
+			{
 				case ItemID.LOOTING_BAG:
 				case ItemID.LOOTING_BAG_22586:
 					Point point = new Point(itemWidget.getCanvasLocation().getX() + lineX(plugin.getValueToShow()), itemWidget.getCanvasLocation().getY() + 25);
@@ -62,8 +67,10 @@ public class LootingBagViewerWidgetOverlay extends WidgetItemOverlay {
 	 *
 	 * @return
 	 */
-	private static int lineX(int lootingBagValue) {
-		switch ((int) (Math.log10(lootingBagValue) + 1)) {
+	private static int lineX(int lootingBagValue)
+	{
+		switch ((int) (Math.log10(lootingBagValue) + 1))
+		{
 			case 3:
 			case 4:
 				return 6;

@@ -24,16 +24,48 @@
 package net.runelite.client.plugins.tmorph.ui;
 
 import com.google.common.collect.ImmutableSet;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import javax.inject.Inject;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import static javax.swing.BoxLayout.Y_AXIS;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.Player;
 import net.runelite.api.kit.KitType;
+import static net.runelite.api.kit.KitType.AMULET;
+import static net.runelite.api.kit.KitType.BOOTS;
+import static net.runelite.api.kit.KitType.CAPE;
+import static net.runelite.api.kit.KitType.HANDS;
+import static net.runelite.api.kit.KitType.HELMET;
+import static net.runelite.api.kit.KitType.LEGS;
+import static net.runelite.api.kit.KitType.SHIELD;
+import static net.runelite.api.kit.KitType.TORSO;
+import static net.runelite.api.kit.KitType.WEAPON;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.Notifier;
 import net.runelite.client.database.DatabaseManager;
+import static net.runelite.client.database.data.Tables.TMORPH_SETS;
 import net.runelite.client.database.data.tables.records.TmorphSetsRecord;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.tmorph.TMorph;
@@ -46,24 +78,9 @@ import org.jooq.Result;
 import org.jooq.TableField;
 import org.jooq.impl.SQLDataType;
 
-import javax.inject.Inject;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import static javax.swing.BoxLayout.Y_AXIS;
-import static net.runelite.api.kit.KitType.*;
-import static net.runelite.client.database.data.Tables.TMORPH_SETS;
-
 @Slf4j
-public class TPanel extends PluginPanel {
+public class TPanel extends PluginPanel
+{
 	private static final Set<KitType> BLACKLIST = ImmutableSet.of(KitType.AMMUNITION, KitType.RING, KitType.HEAD, KitType.JAW);
 
 	private final Client client;
@@ -81,12 +98,13 @@ public class TPanel extends PluginPanel {
 
 	@Inject
 	public TPanel(
-			final Client client,
-			final DatabaseManager databaseManager,
-			final ItemManager itemManager,
-			final TMorph plugin,
-			final Notifier notifier
-	) {
+		final Client client,
+		final DatabaseManager databaseManager,
+		final ItemManager itemManager,
+		final TMorph plugin,
+		final Notifier notifier
+	)
+	{
 		super(false);
 		this.client = client;
 		this.databaseManager = databaseManager;
@@ -101,19 +119,22 @@ public class TPanel extends PluginPanel {
 		init();
 	}
 
-	private void init() {
+	private void init()
+	{
 		selector.addItem("Populating fields...");
 		selector.setSelectedIndex(0);
 		selector.addActionListener((e) ->
 		{
 			String name = (String) selector.getSelectedItem();
 			Result<TmorphSetsRecord> recs = databaseManager.getDsl()
-					.selectFrom(TMORPH_SETS)
-					.where(TMORPH_SETS.SET_NAME.eq(name))
-					.fetch();
+				.selectFrom(TMORPH_SETS)
+				.where(TMORPH_SETS.SET_NAME.eq(name))
+				.fetch();
 
-			for (TmorphSetsRecord rec : recs) {
-				for (Map.Entry<KitType, EquipSlot> entry : equipSlots.entrySet()) {
+			for (TmorphSetsRecord rec : recs)
+			{
+				for (Map.Entry<KitType, EquipSlot> entry : equipSlots.entrySet())
+				{
 					int id = rec.getValue(kitToField(entry.getKey()));
 					EquipSlot es = entry.getValue();
 					es.setSelectedItem(es.getBoxMap().getOrDefault(id, es.getOriginal()));
@@ -178,20 +199,22 @@ public class TPanel extends PluginPanel {
 		executor.submit(this::populateSelector);
 	}
 
-	private void populateSelector() {
-		if (!databaseManager.checkTableExists("TMORPH_SETS")) {
+	private void populateSelector()
+	{
+		if (!databaseManager.checkTableExists("TMORPH_SETS"))
+		{
 			databaseManager.getDsl().createTable(TMORPH_SETS)
-					.column(TMORPH_SETS.SET_NAME, SQLDataType.VARCHAR(255).nullable(false))
-					.column(TMORPH_SETS.HELMET, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.CAPE, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.AMULET, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.WEAPON, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.TORSO, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.SHIELD, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.LEGS, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.HANDS, SQLDataType.INTEGER.nullable(false))
-					.column(TMORPH_SETS.BOOTS, SQLDataType.INTEGER.nullable(false))
-					.execute();
+				.column(TMORPH_SETS.SET_NAME, SQLDataType.VARCHAR(255).nullable(false))
+				.column(TMORPH_SETS.HELMET, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.CAPE, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.AMULET, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.WEAPON, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.TORSO, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.SHIELD, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.LEGS, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.HANDS, SQLDataType.INTEGER.nullable(false))
+				.column(TMORPH_SETS.BOOTS, SQLDataType.INTEGER.nullable(false))
+				.execute();
 		}
 
 		Result<TmorphSetsRecord> recs = databaseManager.getDsl().selectFrom(TMORPH_SETS).fetch();
@@ -200,7 +223,8 @@ public class TPanel extends PluginPanel {
 		selector.addItem("Select your set...");
 		selector.setSelectedIndex(0);
 
-		for (Record record : recs) {
+		for (Record record : recs)
+		{
 			TmorphSet tmo = new TmorphSet();
 			String name = record.getValue(TMORPH_SETS.SET_NAME);
 			tmo.setName(name);
@@ -218,11 +242,14 @@ public class TPanel extends PluginPanel {
 		}
 	}
 
-	private void addSlots() {
+	private void addSlots()
+	{
 		int i = 0;
 
-		for (KitType kitType : KitType.values()) {
-			if (BLACKLIST.contains(kitType)) {
+		for (KitType kitType : KitType.values())
+		{
+			if (BLACKLIST.contains(kitType))
+			{
 				continue;
 			}
 
@@ -230,34 +257,43 @@ public class TPanel extends PluginPanel {
 
 			equip.addItemListener((e) ->
 			{
-				if (e.getStateChange() == ItemEvent.SELECTED) {
+				if (e.getStateChange() == ItemEvent.SELECTED)
+				{
 					ComboBoxIconEntry combo = (ComboBoxIconEntry) e.getItem();
 
-					if (combo.getData() == null) {
+					if (combo.getData() == null)
+					{
 						return;
 					}
 
 					ItemDefinition def = (ItemDefinition) combo.getData();
 					KitType type = null;
 
-					for (Map.Entry<KitType, EquipSlot> entry : equipSlots.entrySet()) {
-						if (entry.getValue() == e.getSource()) {
+					for (Map.Entry<KitType, EquipSlot> entry : equipSlots.entrySet())
+					{
+						if (entry.getValue() == e.getSource())
+						{
 							type = entry.getKey();
 							break;
 						}
 					}
 
-					if (type == null) {
+					if (type == null)
+					{
 						return;
 					}
 
-					if (kitToId.containsKey(type)) {
+					if (kitToId.containsKey(type))
+					{
 						kitToId.replace(type, def.getId());
-					} else {
+					}
+					else
+					{
 						kitToId.put(type, def.getId());
 					}
 
-					if (client.getGameState() == GameState.LOGGED_IN) {
+					if (client.getGameState() == GameState.LOGGED_IN)
+					{
 						generate(false);
 					}
 				}
@@ -277,81 +313,93 @@ public class TPanel extends PluginPanel {
 		{
 			final String s = JOptionPane.showInputDialog(saveButton, "What would you like to name the set?");
 
-			if (s == null || s.isEmpty()) {
+			if (s == null || s.isEmpty())
+			{
 				return;
 			}
 
 			Result<TmorphSetsRecord> records = databaseManager.getDsl()
-					.selectFrom(TMORPH_SETS)
-					.where(TMORPH_SETS.SET_NAME.eq(s))
-					.fetch();
+				.selectFrom(TMORPH_SETS)
+				.where(TMORPH_SETS.SET_NAME.eq(s))
+				.fetch();
 
 			boolean exists = records.isNotEmpty();
 
-			if (!exists) {
+			if (!exists)
+			{
 				databaseManager.getDsl().insertInto(TMORPH_SETS)
-						.set(TMORPH_SETS.SET_NAME, s)
-						.set(TMORPH_SETS.HELMET, kitToId.getOrDefault(HELMET, -1))
-						.set(TMORPH_SETS.CAPE, kitToId.getOrDefault(CAPE, -1))
-						.set(TMORPH_SETS.AMULET, kitToId.getOrDefault(AMULET, -1))
-						.set(TMORPH_SETS.WEAPON, kitToId.getOrDefault(WEAPON, -1))
-						.set(TMORPH_SETS.TORSO, kitToId.getOrDefault(TORSO, -1))
-						.set(TMORPH_SETS.SHIELD, kitToId.getOrDefault(SHIELD, -1))
-						.set(TMORPH_SETS.LEGS, kitToId.getOrDefault(LEGS, -1))
-						.set(TMORPH_SETS.HANDS, kitToId.getOrDefault(HANDS, -1))
-						.set(TMORPH_SETS.BOOTS, kitToId.getOrDefault(BOOTS, -1))
-						.execute();
+					.set(TMORPH_SETS.SET_NAME, s)
+					.set(TMORPH_SETS.HELMET, kitToId.getOrDefault(HELMET, -1))
+					.set(TMORPH_SETS.CAPE, kitToId.getOrDefault(CAPE, -1))
+					.set(TMORPH_SETS.AMULET, kitToId.getOrDefault(AMULET, -1))
+					.set(TMORPH_SETS.WEAPON, kitToId.getOrDefault(WEAPON, -1))
+					.set(TMORPH_SETS.TORSO, kitToId.getOrDefault(TORSO, -1))
+					.set(TMORPH_SETS.SHIELD, kitToId.getOrDefault(SHIELD, -1))
+					.set(TMORPH_SETS.LEGS, kitToId.getOrDefault(LEGS, -1))
+					.set(TMORPH_SETS.HANDS, kitToId.getOrDefault(HANDS, -1))
+					.set(TMORPH_SETS.BOOTS, kitToId.getOrDefault(BOOTS, -1))
+					.execute();
 				executor.submit(this::populateSelector);
-			} else {
+			}
+			else
+			{
 				databaseManager.getDsl().update(TMORPH_SETS)
-						.set(TMORPH_SETS.HELMET, kitToId.getOrDefault(HELMET, -1))
-						.set(TMORPH_SETS.CAPE, kitToId.getOrDefault(CAPE, -1))
-						.set(TMORPH_SETS.AMULET, kitToId.getOrDefault(AMULET, -1))
-						.set(TMORPH_SETS.WEAPON, kitToId.getOrDefault(WEAPON, -1))
-						.set(TMORPH_SETS.TORSO, kitToId.getOrDefault(TORSO, -1))
-						.set(TMORPH_SETS.SHIELD, kitToId.getOrDefault(SHIELD, -1))
-						.set(TMORPH_SETS.LEGS, kitToId.getOrDefault(LEGS, -1))
-						.set(TMORPH_SETS.HANDS, kitToId.getOrDefault(HANDS, -1))
-						.set(TMORPH_SETS.BOOTS, kitToId.getOrDefault(BOOTS, -1))
-						.where(TMORPH_SETS.SET_NAME.eq(s))
-						.execute();
+					.set(TMORPH_SETS.HELMET, kitToId.getOrDefault(HELMET, -1))
+					.set(TMORPH_SETS.CAPE, kitToId.getOrDefault(CAPE, -1))
+					.set(TMORPH_SETS.AMULET, kitToId.getOrDefault(AMULET, -1))
+					.set(TMORPH_SETS.WEAPON, kitToId.getOrDefault(WEAPON, -1))
+					.set(TMORPH_SETS.TORSO, kitToId.getOrDefault(TORSO, -1))
+					.set(TMORPH_SETS.SHIELD, kitToId.getOrDefault(SHIELD, -1))
+					.set(TMORPH_SETS.LEGS, kitToId.getOrDefault(LEGS, -1))
+					.set(TMORPH_SETS.HANDS, kitToId.getOrDefault(HANDS, -1))
+					.set(TMORPH_SETS.BOOTS, kitToId.getOrDefault(BOOTS, -1))
+					.where(TMORPH_SETS.SET_NAME.eq(s))
+					.execute();
 			}
 		});
 		equipPanel.add(saveButton);
 	}
 
-	public void populateSlots() {
-		for (EquipSlot slot : equipSlots.values()) {
+	public void populateSlots()
+	{
+		for (EquipSlot slot : equipSlots.values())
+		{
 			slot.populate(client, itemManager);
 		}
 	}
 
-	public Map<String, String> generate(boolean copy) {
+	public Map<String, String> generate(boolean copy)
+	{
 		final StringBuilder sb = new StringBuilder();
 		final Player player = client.getLocalPlayer();
 
 		if (player == null
-				|| player.getPlayerAppearance() == null
-				|| client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN) != null
-				|| client.getViewportWidget() == null) {
+			|| player.getPlayerAppearance() == null
+			|| client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN) != null
+			|| client.getViewportWidget() == null)
+		{
 			return new HashMap<>();
 		}
 
-		for (KitType kitType : KitType.values()) {
-			if (BLACKLIST.contains(kitType)) {
+		for (KitType kitType : KitType.values())
+		{
+			if (BLACKLIST.contains(kitType))
+			{
 				continue;
 			}
 
 			final Widget widget = client.getWidget(kitType.getWidgetInfo());
 
-			if (widget == null || widget.getDynamicChildren() == null || widget.getDynamicChildren().length < 1) {
+			if (widget == null || widget.getDynamicChildren() == null || widget.getDynamicChildren().length < 1)
+			{
 				continue;
 			}
 
 			final int id = itemManager.canonicalize(widget.getDynamicChildren()[1].getItemId());
 			final int kitId = kitToId.getOrDefault(kitType, -1);
 
-			if (kitId == -1) {
+			if (kitId == -1)
+			{
 				continue;
 			}
 
@@ -365,18 +413,21 @@ public class TPanel extends PluginPanel {
 
 		final String s = sb.toString();
 
-		if (copy) {
+		if (copy)
+		{
 			Clipboard.store(s);
 			notifier.notify("Saved to clipboard.");
 		}
 
-		return TMorph.getNEWLINE_SPLITTER()
-				.withKeyValueSeparator(":")
-				.split(s);
+		return plugin.getNEWLINE_SPLITTER()
+			.withKeyValueSeparator(":")
+			.split(s);
 	}
 
-	private TableField<TmorphSetsRecord, Integer> kitToField(KitType kitType) {
-		switch (kitType) {
+	private TableField<TmorphSetsRecord, Integer> kitToField(KitType kitType)
+	{
+		switch (kitType)
+		{
 			case HELMET:
 				return TMORPH_SETS.HELMET;
 			case CAPE:

@@ -29,184 +29,205 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("timers")
-public interface TimersConfig extends Config {
+public interface TimersConfig extends Config
+{
 	@ConfigItem(
-			keyName = "showHomeMinigameTeleports",
-			name = "Teleport cooldown timers",
-			description = "Configures whether timers for home and minigame teleport cooldowns are displayed"
+		keyName = "showHomeMinigameTeleports",
+		name = "Teleport cooldown timers",
+		description = "Configures whether timers for home and minigame teleport cooldowns are displayed"
 	)
-	default boolean showHomeMinigameTeleports() {
+	default boolean showHomeMinigameTeleports()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showAntipoison",
-			name = "Antipoison/Venom timers",
-			description = "Configures whether timers for Antipoison, Antidote and Antivenom are displayed"
+		keyName = "showAntipoison",
+		name = "Antipoison/Venom timers",
+		description = "Configures whether timers for Antipoison, Antidote and Antivenom are displayed"
 	)
-	default boolean showAntiPoison() {
+	default boolean showAntiPoison()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showAntiFire",
-			name = "Antifire timer",
-			description = "Configures whether antifire timer is displayed"
+		keyName = "showAntiFire",
+		name = "Antifire timer",
+		description = "Configures whether antifire timer is displayed"
 	)
-	default boolean showAntiFire() {
+	default boolean showAntiFire()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showStamina",
-			name = "Stamina timer",
-			description = "Configures whether stamina timer is displayed"
+		keyName = "showStamina",
+		name = "Stamina timer",
+		description = "Configures whether stamina timer is displayed"
 	)
-	default boolean showStamina() {
+	default boolean showStamina()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showOverload",
-			name = "Overload timer",
-			description = "Configures whether overload timer is displayed"
+		keyName = "showOverload",
+		name = "Overload timer",
+		description = "Configures whether overload timer is displayed"
 	)
-	default boolean showOverload() {
+	default boolean showOverload()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showPrayerEnhance",
-			name = "Prayer enhance timer",
-			description = "Configures whether prayer enhance timer is displayed"
+		keyName = "showPrayerEnhance",
+		name = "Prayer enhance timer",
+		description = "Configures whether prayer enhance timer is displayed"
 	)
-	default boolean showPrayerEnhance() {
+	default boolean showPrayerEnhance()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showDivine",
-			name = "Divine potion timer",
-			description = "Configures whether divine potion timer is displayed"
+		keyName = "showDivine",
+		name = "Divine potion timer",
+		description = "Configures whether divine potion timer is displayed"
 	)
-	default boolean showDivine() {
+	default boolean showDivine()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showCannon",
-			name = "Cannon timer",
-			description = "Configures whether cannon timer is displayed"
+		keyName = "showCannon",
+		name = "Cannon timer",
+		description = "Configures whether cannon timer is displayed"
 	)
-	default boolean showCannon() {
+	default boolean showCannon()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showMagicImbue",
-			name = "Magic imbue timer",
-			description = "Configures whether magic imbue timer is displayed"
+		keyName = "showMagicImbue",
+		name = "Magic imbue timer",
+		description = "Configures whether magic imbue timer is displayed"
 	)
-	default boolean showMagicImbue() {
+	default boolean showMagicImbue()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showCharge",
-			name = "Charge timer",
-			description = "Configures whether to show a timer for the Charge spell"
+		keyName = "showCharge",
+		name = "Charge timer",
+		description = "Configures whether to show a timer for the Charge spell"
 	)
-	default boolean showCharge() {
+	default boolean showCharge()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showImbuedHeart",
-			name = "Imbued heart timer",
-			description = "Configures whether imbued heart timer is displayed"
+		keyName = "showImbuedHeart",
+		name = "Imbued heart timer",
+		description = "Configures whether imbued heart timer is displayed"
 	)
-	default boolean showImbuedHeart() {
+	default boolean showImbuedHeart()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showVengeance",
-			name = "Vengeance timer",
-			description = "Configures whether vengeance and vengeance other timer is displayed"
+		keyName = "showVengeance",
+		name = "Vengeance timer",
+		description = "Configures whether vengeance and vengeance other timer is displayed"
 	)
-	default boolean showVengeance() {
+	default boolean showVengeance()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showVengeanceActive",
-			name = "Vengeance active",
-			description = "Configures whether an indicator for vengeance being active is displayed"
+		keyName = "showVengeanceActive",
+		name = "Vengeance active",
+		description = "Configures whether an indicator for vengeance being active is displayed"
 	)
-	default boolean showVengeanceActive() {
+	default boolean showVengeanceActive()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showTeleblock",
-			name = "Teleblock timer",
-			description = "Configures whether teleblock timer is displayed"
+		keyName = "showTeleblock",
+		name = "Teleblock timer",
+		description = "Configures whether teleblock timer is displayed"
 	)
-	default boolean showTeleblock() {
+	default boolean showTeleblock()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showFreezes",
-			name = "Freeze timer",
-			description = "Configures whether freeze timer is displayed"
+		keyName = "showFreezes",
+		name = "Freeze timer",
+		description = "Configures whether freeze timer is displayed"
 	)
-	default boolean showFreezes() {
+	default boolean showFreezes()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showGodWarsAltar",
-			name = "God wars altar timer",
-			description = "Configures whether god wars altar timer is displayed"
+		keyName = "showGodWarsAltar",
+		name = "God wars altar timer",
+		description = "Configures whether god wars altar timer is displayed"
 	)
-	default boolean showGodWarsAltar() {
+	default boolean showGodWarsAltar()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showSkull",
-			name = "Skull timer",
-			description = "Configures whether skull timer is displayed"
+		keyName = "showSkull",
+		name = "Skull timer",
+		description = "Configures whether skull timer is displayed"
 	)
-	default boolean showSkull() {
+	default boolean showSkull()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showStaffOfTheDead",
-			name = "Staff of the Dead timer",
-			description = "Configures whether staff of the dead timer is displayed"
+		keyName = "showStaffOfTheDead",
+		name = "Staff of the Dead timer",
+		description = "Configures whether staff of the dead timer is displayed"
 	)
-	default boolean showStaffOfTheDead() {
+	default boolean showStaffOfTheDead()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showAbyssalSireStun",
-			name = "Abyssal Sire stun timer",
-			description = "Configures whether Abyssal Sire stun timer is displayed"
+		keyName = "showAbyssalSireStun",
+		name = "Abyssal Sire stun timer",
+		description = "Configures whether Abyssal Sire stun timer is displayed"
 	)
-	default boolean showAbyssalSireStun() {
+	default boolean showAbyssalSireStun()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showDfsSpecial",
-			name = "Dragonfire Shield special timer",
-			description = "Configures whether the special attack cooldown timer for the Dragonfire Shield is displayed"
+		keyName = "showDfsSpecial",
+		name = "Dragonfire Shield special timer",
+		description = "Configures whether the special attack cooldown timer for the Dragonfire Shield is displayed"
 	)
-	default boolean showDFSSpecial() {
+	default boolean showDFSSpecial()
+	{
 		return true;
 	}
 }

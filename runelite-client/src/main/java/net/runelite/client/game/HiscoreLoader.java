@@ -28,51 +28,58 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import java.io.IOException;
+import java.util.concurrent.ScheduledExecutorService;
 import lombok.extern.slf4j.Slf4j;
+import static net.runelite.client.game.HiscoreManager.EMPTY;
+import static net.runelite.client.game.HiscoreManager.NONE;
 import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.util.concurrent.ScheduledExecutorService;
-
-import static net.runelite.client.game.HiscoreManager.EMPTY;
-import static net.runelite.client.game.HiscoreManager.NONE;
-
 @Slf4j
-class HiscoreLoader extends CacheLoader<HiscoreManager.HiscoreKey, HiscoreResult> {
+class HiscoreLoader extends CacheLoader<HiscoreManager.HiscoreKey, HiscoreResult>
+{
 	private final ListeningExecutorService executorService;
 	private final HiscoreClient hiscoreClient;
 
-	HiscoreLoader(ScheduledExecutorService executor, HiscoreClient client) {
+	HiscoreLoader(ScheduledExecutorService executor, HiscoreClient client)
+	{
 		this.executorService = MoreExecutors.listeningDecorator(executor);
 		this.hiscoreClient = client;
 	}
 
 	@Override
-	public HiscoreResult load(@NotNull HiscoreManager.HiscoreKey hiscoreKey) {
+	public HiscoreResult load(@NotNull HiscoreManager.HiscoreKey hiscoreKey)
+	{
 		return EMPTY;
 	}
 
 	@Override
-	public ListenableFuture<HiscoreResult> reload(HiscoreManager.HiscoreKey hiscoreKey, HiscoreResult oldValue) {
+	public ListenableFuture<HiscoreResult> reload(HiscoreManager.HiscoreKey hiscoreKey, HiscoreResult oldValue)
+	{
 		log.debug("Submitting hiscore lookup for {} type {}", hiscoreKey.getUsername(), hiscoreKey.getType());
 
 		return executorService.submit(() -> fetch(hiscoreKey));
 	}
 
-	private HiscoreResult fetch(HiscoreManager.HiscoreKey hiscoreKey) {
+	private HiscoreResult fetch(HiscoreManager.HiscoreKey hiscoreKey)
+	{
 		String username = hiscoreKey.getUsername();
 		HiscoreEndpoint endpoint = hiscoreKey.getType();
 
-		try {
+		try
+		{
 			HiscoreResult result = hiscoreClient.lookup(username, endpoint);
-			if (result == null) {
+			if (result == null)
+			{
 				return NONE;
 			}
 			return result;
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.warn("Unable to look up hiscore!", ex);
 			return NONE;
 		}

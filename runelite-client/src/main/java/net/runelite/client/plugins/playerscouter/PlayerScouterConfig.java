@@ -23,129 +23,145 @@
  */
 package net.runelite.client.plugins.playerscouter;
 
-import net.runelite.client.config.*;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Units;
 
 @ConfigGroup("playerscouter")
-public interface PlayerScouterConfig extends Config {
+public interface PlayerScouterConfig extends Config
+{
 	@ConfigItem(
-			keyName = "webhook",
-			name = "Webhook Url",
-			description = "Input the url for your webhook.",
-			position = 0,
-			secret = true
+		keyName = "webhook",
+		name = "Webhook Url",
+		description = "Input the url for your webhook.",
+		position = 0,
+		secret = true
 	)
-	default String webhook() {
+	default String webhook()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "mini",
-			name = "Minify Output",
-			description = "",
-			position = 0,
-			secret = true
+		keyName = "mini",
+		name = "Minify Output",
+		description = "",
+		position = 0,
+		secret = true
 	)
-	default boolean mini() {
+	default boolean mini()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "onlyWildy",
-			name = "Only Scout in Wildy",
-			description = "This will only scout players in the wilderness.",
-			position = 1
+		keyName = "onlyWildy",
+		name = "Only Scout in Wildy",
+		description = "This will only scout players in the wilderness.",
+		position = 1
 	)
-	default boolean onlyWildy() {
+	default boolean onlyWildy()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "scoutClan",
-			name = "Scout Clan Members",
-			description = "Enable this to scout clan members.",
-			position = 2
+		keyName = "scoutClan",
+		name = "Scout Clan Members",
+		description = "Enable this to scout clan members.",
+		position = 2
 	)
-	default boolean scoutClan() {
+	default boolean scoutClan()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "scoutFriends",
-			name = "Scout Friends",
-			description = "Enable this to scout friends.",
-			position = 3
+		keyName = "scoutFriends",
+		name = "Scout Friends",
+		description = "Enable this to scout friends.",
+		position = 3
 	)
-	default boolean scoutFriends() {
+	default boolean scoutFriends()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "outputItems",
-			name = "Output Items",
-			description = "This will output all of their risked gear to the webhook.",
-			position = 4
+		keyName = "outputItems",
+		name = "Output Items",
+		description = "This will output all of their risked gear to the webhook.",
+		position = 4
 	)
-	default boolean outputItems() {
+	default boolean outputItems()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "minimumRisk",
-			name = "Minimum Risk",
-			description = "Minimum risk for the player to be scouted.",
-			position = 5
+		keyName = "minimumRisk",
+		name = "Minimum Risk",
+		description = "Minimum risk for the player to be scouted.",
+		position = 5
 	)
-	default int minimumRisk() {
+	default int minimumRisk()
+	{
 		return 1;
 	}
 
 	@ConfigItem(
-			keyName = "minimumValue",
-			name = "Minimum Value",
-			description = "Minimum value for the item to be posted on discord.",
-			position = 6
+		keyName = "minimumValue",
+		name = "Minimum Value",
+		description = "Minimum value for the item to be posted on discord.",
+		position = 6
 	)
 	@Units(Units.GP)
-	default int minimumValue() {
+	default int minimumValue()
+	{
 		return 1000;
 	}
 
 	@Range(
-			min = 3,
-			max = 125
+		min = 3,
+		max = 125
 	)
 	@ConfigItem(
-			keyName = "minimumCombat",
-			name = "Minimum Combat Level",
-			description = "The Minimum Combat Level you wish to scout.",
-			position = 7
+		keyName = "minimumCombat",
+		name = "Minimum Combat Level",
+		description = "The Minimum Combat Level you wish to scout.",
+		position = 7
 	)
-	default int minimumCombat() {
+	default int minimumCombat()
+	{
 		return 3;
 	}
 
 	@Range(
-			min = 4,
-			max = 126
+		min = 4,
+		max = 126
 	)
 	@ConfigItem(
-			keyName = "maximumCombat",
-			name = "Maximum Combat Level",
-			description = "The Maximum Combat Level you wish to scout.",
-			position = 8
+		keyName = "maximumCombat",
+		name = "Maximum Combat Level",
+		description = "The Maximum Combat Level you wish to scout.",
+		position = 8
 	)
-	default int maximumCombat() {
+	default int maximumCombat()
+	{
 		return 126;
 	}
 
 	@ConfigItem(
-			keyName = "timeout",
-			name = "Timeout",
-			description = "Minimum amount of ticks before the player can be scouted again. (1 tick = 600ms)",
-			position = 9
+		keyName = "timeout",
+		name = "Timeout",
+		description = "Minimum amount of ticks before the player can be scouted again. (1 tick = 600ms)",
+		position = 9
 	)
 	@Units(Units.TICKS)
-	default int timeout() {
+	default int timeout()
+	{
 		return 500;
 	}
 }

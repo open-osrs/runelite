@@ -24,15 +24,15 @@
  */
 package net.runelite.client.plugins.cluescrolls.clues;
 
+import java.awt.Graphics2D;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.plugins.cluescrolls.ClueScrollPlugin;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
-import java.awt.*;
-
-public abstract class ClueScroll {
+public abstract class ClueScroll
+{
 	@Setter(AccessLevel.PROTECTED)
 	@Getter(AccessLevel.PUBLIC)
 	private boolean requiresSpade;

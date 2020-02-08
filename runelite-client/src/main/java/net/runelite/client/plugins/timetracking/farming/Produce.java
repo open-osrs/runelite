@@ -33,7 +33,8 @@ import net.runelite.api.NullItemID;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public enum Produce {
+public enum Produce
+{
 	WEEDS("Weeds", ItemID.WEEDS, 5, 4),
 	SCARECROW("Scarecrow", ItemID.SCARECROW, 5, 4),
 
@@ -158,7 +159,8 @@ public enum Produce {
 	 */
 	private final int harvestStages;
 
-	Produce(String name, int itemID, int tickrate, int stages) {
+	Produce(String name, int itemID, int tickrate, int stages)
+	{
 		this(name, itemID, tickrate, stages, 0, 1);
 	}
 }

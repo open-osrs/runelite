@@ -29,13 +29,15 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("cluescroll")
-public interface ClueScrollConfig extends Config {
+public interface ClueScrollConfig extends Config
+{
 	@ConfigItem(
-			keyName = "displayHintArrows",
-			name = "Display hint arrows",
-			description = "Configures whether or not to display hint arrows for clues"
+		keyName = "displayHintArrows",
+		name = "Display hint arrows",
+		description = "Configures whether or not to display hint arrows for clues"
 	)
-	default boolean displayHintArrows() {
+	default boolean displayHintArrows()
+	{
 		return true;
 	}
 }

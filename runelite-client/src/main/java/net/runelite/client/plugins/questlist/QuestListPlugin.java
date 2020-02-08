@@ -25,18 +25,36 @@
 package net.runelite.client.plugins.questlist;
 
 import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.ScriptID;
+import net.runelite.api.SoundEffectID;
+import net.runelite.api.SpriteID;
+import net.runelite.api.VarClientInt;
+import net.runelite.api.Varbits;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarClientIntChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.util.Text;
 import net.runelite.api.vars.InterfaceTab;
-import net.runelite.api.widgets.*;
+import net.runelite.api.widgets.JavaScriptCallback;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.api.widgets.WidgetPositionMode;
+import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
@@ -45,18 +63,14 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.*;
-import java.util.stream.Collectors;
-
 @PluginDescriptor(
-		name = "Quest List",
-		description = "Adds searching and filtering to the quest list",
-		type = PluginType.UTILITY
+	name = "Quest List",
+	description = "Adds searching and filtering to the quest list",
+	type = PluginType.UTILITY
 )
 @Singleton
-public class QuestListPlugin extends Plugin {
+public class QuestListPlugin extends Plugin
+{
 	private static final int ENTRY_PADDING = 8;
 	private static final List<String> QUEST_HEADERS = ImmutableList.of("Free Quests", "Members' Quests", "Miniquests");
 
@@ -86,37 +100,46 @@ public class QuestListPlugin extends Plugin {
 	private QuestState currentFilterState;
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		clientThread.invoke(this::addQuestButtons);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		Widget header = client.getWidget(WidgetInfo.QUESTLIST_BOX);
-		if (header != null) {
+		if (header != null)
+		{
 			header.deleteAllChildren();
 		}
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged e) {
-		if (e.getGameState() == GameState.LOGGING_IN) {
+	private void onGameStateChanged(GameStateChanged e)
+	{
+		if (e.getGameState() == GameState.LOGGING_IN)
+		{
 			currentFilterState = QuestState.ALL;
 		}
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent event) {
-		if (!event.getEventName().equals("questProgressUpdated")) {
+	private void onScriptCallbackEvent(ScriptCallbackEvent event)
+	{
+		if (!event.getEventName().equals("questProgressUpdated"))
+		{
 			return;
 		}
 
 		addQuestButtons();
 	}
 
-	private void addQuestButtons() {
+	private void addQuestButtons()
+	{
 		Widget header = client.getWidget(WidgetInfo.QUESTLIST_BOX);
-		if (header != null) {
+		if (header != null)
+		{
 			header.deleteAllChildren();
 
 			questSearchButton = header.createChild(-1, WidgetType.GRAPHIC);
@@ -152,20 +175,25 @@ public class QuestListPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged varbitChanged) {
-		if (isChatboxOpen() && isNotOnQuestTab()) {
+	private void onVarbitChanged(VarbitChanged varbitChanged)
+	{
+		if (isChatboxOpen() && isNotOnQuestTab())
+		{
 			chatboxPanelManager.close();
 		}
 	}
 
 	@Subscribe
-	private void onVarClientIntChanged(VarClientIntChanged varClientIntChanged) {
-		if (varClientIntChanged.getIndex() == VarClientInt.INTERFACE_TAB.getIndex() && isChatboxOpen() && isNotOnQuestTab()) {
+	private void onVarClientIntChanged(VarClientIntChanged varClientIntChanged)
+	{
+		if (varClientIntChanged.getIndex() == VarClientInt.INTERFACE_TAB.getIndex() && isChatboxOpen() && isNotOnQuestTab())
+		{
 			chatboxPanelManager.close();
 		}
 	}
 
-	private void toggleHidden() {
+	private void toggleHidden()
+	{
 		QuestState[] questStates = QuestState.values();
 		int nextState = (currentFilterState.ordinal() + 1) % questStates.length;
 		currentFilterState = questStates[nextState];
@@ -176,51 +204,59 @@ public class QuestListPlugin extends Plugin {
 		client.playSoundEffect(SoundEffectID.UI_BOOP);
 	}
 
-	private void redrawHideButton() {
+	private void redrawHideButton()
+	{
 		questHideButton.setSpriteId(currentFilterState.getSpriteId());
 		questHideButton.setName(MENU_SHOW + " " + currentFilterState.getName());
 	}
 
-	private boolean isNotOnQuestTab() {
+	private boolean isNotOnQuestTab()
+	{
 		return client.getVar(Varbits.QUEST_TAB) != 0 || client.getVar(VarClientInt.INTERFACE_TAB) != InterfaceTab.QUEST.getId();
 	}
 
-	private boolean isChatboxOpen() {
+	private boolean isChatboxOpen()
+	{
 		return searchInput != null && chatboxPanelManager.getCurrentInput() == searchInput;
 	}
 
-	private void closeSearch() {
+	private void closeSearch()
+	{
 		updateFilter("");
 		chatboxPanelManager.close();
 		client.playSoundEffect(SoundEffectID.UI_BOOP);
 	}
 
-	private void openSearch() {
+	private void openSearch()
+	{
 		updateFilter("");
 		client.playSoundEffect(SoundEffectID.UI_BOOP);
 		questSearchButton.setAction(1, MENU_CLOSE);
 		questSearchButton.setOnOpListener((JavaScriptCallback) e -> closeSearch());
 		searchInput = chatboxPanelManager.openTextInput("Search quest list")
-				.onChanged(s -> clientThread.invokeLater(() -> updateFilter(s)))
-				.onClose(() ->
-				{
-					clientThread.invokeLater(() -> updateFilter(""));
-					questSearchButton.setOnOpListener((JavaScriptCallback) e -> openSearch());
-					questSearchButton.setAction(1, MENU_OPEN);
-				})
-				.build();
+			.onChanged(s -> clientThread.invokeLater(() -> updateFilter(s)))
+			.onClose(() ->
+			{
+				clientThread.invokeLater(() -> updateFilter(""));
+				questSearchButton.setOnOpListener((JavaScriptCallback) e -> openSearch());
+				questSearchButton.setAction(1, MENU_OPEN);
+			})
+			.build();
 	}
 
-	private void updateFilter() {
+	private void updateFilter()
+	{
 		String filter = "";
-		if (isChatboxOpen()) {
+		if (isChatboxOpen())
+		{
 			filter = searchInput.getValue();
 		}
 
 		updateFilter(filter);
 	}
 
-	private void updateFilter(String filter) {
+	private void updateFilter(String filter)
+	{
 		filter = filter.toLowerCase();
 		final Widget container = client.getWidget(WidgetInfo.QUESTLIST_CONTAINER);
 
@@ -228,7 +264,8 @@ public class QuestListPlugin extends Plugin {
 		final Widget memberList = client.getWidget(QuestContainer.MEMBER_QUESTS.widgetInfo);
 		final Widget miniList = client.getWidget(QuestContainer.MINI_QUESTS.widgetInfo);
 
-		if (container == null || freeList == null || memberList == null || miniList == null) {
+		if (container == null || freeList == null || memberList == null || miniList == null)
+		{
 			return;
 		}
 
@@ -247,9 +284,12 @@ public class QuestListPlugin extends Plugin {
 		int y = miniList.getRelativeY() + miniList.getHeight() + 10;
 
 		int newHeight;
-		if (container.getScrollHeight() > 0) {
+		if (container.getScrollHeight() > 0)
+		{
 			newHeight = (container.getScrollY() * y) / container.getScrollHeight();
-		} else {
+		}
+		else
+		{
 			newHeight = 0;
 		}
 
@@ -257,61 +297,73 @@ public class QuestListPlugin extends Plugin {
 		container.revalidateScroll();
 
 		clientThread.invokeLater(() ->
-				client.runScript(
-						ScriptID.UPDATE_SCROLLBAR,
-						WidgetInfo.QUESTLIST_SCROLLBAR.getId(),
-						WidgetInfo.QUESTLIST_CONTAINER.getId(),
-						newHeight
-				));
+			client.runScript(
+				ScriptID.UPDATE_SCROLLBAR,
+				WidgetInfo.QUESTLIST_SCROLLBAR.getId(),
+				WidgetInfo.QUESTLIST_CONTAINER.getId(),
+				newHeight
+			));
 	}
 
-	private void updateList(QuestContainer questContainer, String filter) {
+	private void updateList(QuestContainer questContainer, String filter)
+	{
 		Widget list = client.getWidget(questContainer.widgetInfo);
-		if (list == null) {
+		if (list == null)
+		{
 			return;
 		}
 
 		Collection<QuestWidget> quests = questSet.get(questContainer);
 
 		if (quests != null &&
-				// Check to make sure the list hasn't been rebuild since we were last her
-				// Do this by making sure the list's dynamic children are the same as when we last saw them
-				quests.stream().noneMatch(w ->
+			// Check to make sure the list hasn't been rebuild since we were last her
+			// Do this by making sure the list's dynamic children are the same as when we last saw them
+			quests.stream().noneMatch(w ->
+			{
+				Widget codeWidget = w.getQuest();
+				if (codeWidget == null)
 				{
-					Widget codeWidget = w.getQuest();
-					if (codeWidget == null) {
-						return false;
-					}
-					return list.getChild(codeWidget.getIndex()) == codeWidget;
-				})) {
+					return false;
+				}
+				return list.getChild(codeWidget.getIndex()) == codeWidget;
+			}))
+		{
 			quests = null;
 		}
 
-		if (quests == null) {
+		if (quests == null)
+		{
 			// Find all of the widgets that we care about, sorting by their Y value
 			quests = Arrays.stream(list.getDynamicChildren())
-					.sorted(Comparator.comparing(Widget::getRelativeY))
-					.filter(w -> !QUEST_HEADERS.contains(w.getText()))
-					.map(w -> new QuestWidget(w, Text.removeTags(w.getText()).toLowerCase()))
-					.collect(Collectors.toList());
+				.sorted(Comparator.comparing(Widget::getRelativeY))
+				.filter(w -> !QUEST_HEADERS.contains(w.getText()))
+				.map(w -> new QuestWidget(w, Text.removeTags(w.getText()).toLowerCase()))
+				.collect(Collectors.toList());
 			questSet.put(questContainer, quests);
 		}
 
 		// offset because of header
 		int y = 20;
-		for (QuestWidget questInfo : quests) {
+		for (QuestWidget questInfo : quests)
+		{
 			Widget quest = questInfo.getQuest();
 			QuestState questState = QuestState.getByColor(quest.getTextColor());
 
 			boolean hidden;
-			if (!filter.isEmpty()) {
+			if (!filter.isEmpty())
+			{
 				// If searching, show result regardless of filtered state
 				hidden = !questInfo.getTitle().contains(filter);
-			} else {
+			}
+			else
+			{
 				// Otherwise hide if it doesn't match the filter state
-				if (currentFilterState == QuestState.NOT_COMPLETED) {
+				if (currentFilterState == QuestState.NOT_COMPLETED)
+				{
 					hidden = questState == QuestState.COMPLETE;
-				} else {
+				}
+				else
+				{
 					hidden = currentFilterState != QuestState.ALL && questState != currentFilterState;
 				}
 			}
@@ -320,7 +372,8 @@ public class QuestListPlugin extends Plugin {
 			quest.setOriginalY(y);
 			quest.revalidate();
 
-			if (!hidden) {
+			if (!hidden)
+			{
 				y += quest.getHeight();
 			}
 		}
@@ -330,7 +383,8 @@ public class QuestListPlugin extends Plugin {
 
 	@AllArgsConstructor
 	@Getter(AccessLevel.PRIVATE)
-	private enum QuestContainer {
+	private enum QuestContainer
+	{
 		FREE_QUESTS(WidgetInfo.QUESTLIST_FREE_CONTAINER),
 		MEMBER_QUESTS(WidgetInfo.QUESTLIST_MEMBERS_CONTAINER),
 		MINI_QUESTS(WidgetInfo.QUESTLIST_MINIQUEST_CONTAINER);
@@ -340,7 +394,8 @@ public class QuestListPlugin extends Plugin {
 
 	@AllArgsConstructor
 	@Getter(AccessLevel.PRIVATE)
-	private enum QuestState {
+	private enum QuestState
+	{
 		NOT_STARTED(0xff0000, "Not started", SpriteID.MINIMAP_ORB_HITPOINTS),
 		IN_PROGRESS(0xffff00, "In progress", SpriteID.MINIMAP_ORB_HITPOINTS_DISEASE),
 		COMPLETE(0xdc10d, "Completed", SpriteID.MINIMAP_ORB_HITPOINTS_POISON),
@@ -351,9 +406,12 @@ public class QuestListPlugin extends Plugin {
 		private final String name;
 		private final int spriteId;
 
-		static QuestState getByColor(int color) {
-			for (QuestState value : values()) {
-				if (value.getColor() == color) {
+		static QuestState getByColor(int color)
+		{
+			for (QuestState value : values())
+			{
+				if (value.getColor() == color)
+				{
 					return value;
 				}
 			}
@@ -364,7 +422,8 @@ public class QuestListPlugin extends Plugin {
 
 	@Data
 	@AllArgsConstructor
-	private static class QuestWidget {
+	private static class QuestWidget
+	{
 		private Widget quest;
 		private String title;
 	}

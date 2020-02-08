@@ -16,7 +16,17 @@
 
 package net.runelite.client.plugins.prayeralert;
 
-import net.runelite.api.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import net.runelite.api.Client;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.itemstats.stats.Stat;
 import net.runelite.client.plugins.itemstats.stats.Stats;
@@ -28,12 +38,9 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-class PrayerAlertOverlay extends Overlay {
+class PrayerAlertOverlay extends Overlay
+{
 	private final Client client;
 	private final PrayerAlertPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
@@ -42,7 +49,8 @@ class PrayerAlertOverlay extends Overlay {
 	private final Stat prayer = Stats.PRAYER;
 
 	@Inject
-	private PrayerAlertOverlay(final Client client, final PrayerAlertPlugin plugin, final ItemManager itemManager) {
+	private PrayerAlertOverlay(final Client client, final PrayerAlertPlugin plugin, final ItemManager itemManager)
+	{
 		setPosition(OverlayPosition.TOP_RIGHT);
 		setPriority(OverlayPriority.LOW);
 		this.client = client;
@@ -51,33 +59,47 @@ class PrayerAlertOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		panelComponent.getChildren().clear();
 		int prayerLevel = getPrayerLevel();
 		int prayerPoints = getPrayerPoints();
-		if (plugin.isOldRenderMode()) {
-			if (plugin.isAlwaysShowAlert()) {
+		if (plugin.isOldRenderMode())
+		{
+			if (plugin.isAlwaysShowAlert())
+			{
 				boolean drink = drinkPrayerPotion(prayerLevel, prayerPoints);
-				if (drink) {
-					oldPrayerRestorePanel(graphics);
-				}
-			} else {
-				boolean drink = drinkPrayerPotion(prayerLevel, prayerPoints);
-				boolean hasPrayerPotion = checkInventoryForPotion();
-				if (drink && hasPrayerPotion) {
+				if (drink)
+				{
 					oldPrayerRestorePanel(graphics);
 				}
 			}
-		} else {
-			if (plugin.isAlwaysShowAlert()) {
-				boolean drink = drinkPrayerPotion(prayerLevel, prayerPoints);
-				if (drink) {
-					prayerRestorePanel(panelComponent, graphics);
-				}
-			} else {
+			else
+			{
 				boolean drink = drinkPrayerPotion(prayerLevel, prayerPoints);
 				boolean hasPrayerPotion = checkInventoryForPotion();
-				if (drink && hasPrayerPotion) {
+				if (drink && hasPrayerPotion)
+				{
+					oldPrayerRestorePanel(graphics);
+				}
+			}
+		}
+		else
+		{
+			if (plugin.isAlwaysShowAlert())
+			{
+				boolean drink = drinkPrayerPotion(prayerLevel, prayerPoints);
+				if (drink)
+				{
+					prayerRestorePanel(panelComponent, graphics);
+				}
+			}
+			else
+			{
+				boolean drink = drinkPrayerPotion(prayerLevel, prayerPoints);
+				boolean hasPrayerPotion = checkInventoryForPotion();
+				if (drink && hasPrayerPotion)
+				{
 					prayerRestorePanel(panelComponent, graphics);
 				}
 			}
@@ -85,42 +107,51 @@ class PrayerAlertOverlay extends Overlay {
 		return panelComponent.render(graphics);
 	}
 
-	private int getPrayerLevel() {
+	private int getPrayerLevel()
+	{
 		return prayer.getMaximum(client);
 	}
 
-	private int getPrayerPoints() {
+	private int getPrayerPoints()
+	{
 		return prayer.getValue(client);
 	}
 
-	private boolean drinkPrayerPotion(int prayerLevel, int prayerPoints) {
+	private boolean drinkPrayerPotion(int prayerLevel, int prayerPoints)
+	{
 		boolean drink = false;
 		int prayerPotionRestoreValue = 7;
 		double quarterOfPrayerLevel = (0.25) * (double) prayerLevel;
 
 		prayerPotionRestoreValue = prayerPotionRestoreValue + (int) quarterOfPrayerLevel;
 
-		if (prayerPoints < (prayerLevel - prayerPotionRestoreValue)) {
+		if (prayerPoints < (prayerLevel - prayerPotionRestoreValue))
+		{
 			drink = true;
 		}
 
 		return drink;
 	}
 
-	private boolean checkInventoryForPotion() {
+	private boolean checkInventoryForPotion()
+	{
 		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
 		Item[] inventoryItems;
 		boolean hasPrayerPotion = false;
 
 		int[] potionID = {ItemID.PRAYER_POTION1, ItemID.PRAYER_POTION2, ItemID.PRAYER_POTION3, ItemID.PRAYER_POTION4, ItemID.PRAYER_POTION1_20396, ItemID.PRAYER_POTION2_20395,
-				ItemID.PRAYER_POTION3_20394, ItemID.PRAYER_POTION4_20393, ItemID.PRAYER_MIX1, ItemID.PRAYER_MIX2, ItemID.SUPER_RESTORE1, ItemID.SUPER_RESTORE2,
-				ItemID.SUPER_RESTORE3, ItemID.SUPER_RESTORE4, ItemID.SUPER_RESTORE_MIX1, ItemID.SUPER_RESTORE_MIX2};
+			ItemID.PRAYER_POTION3_20394, ItemID.PRAYER_POTION4_20393, ItemID.PRAYER_MIX1, ItemID.PRAYER_MIX2, ItemID.SUPER_RESTORE1, ItemID.SUPER_RESTORE2,
+			ItemID.SUPER_RESTORE3, ItemID.SUPER_RESTORE4, ItemID.SUPER_RESTORE_MIX1, ItemID.SUPER_RESTORE_MIX2};
 
-		if (inventory != null) {
+		if (inventory != null)
+		{
 			inventoryItems = inventory.getItems();
-			for (Item item : inventoryItems) {
-				for (int prayerPotionId : potionID) {
-					if (item.getId() == prayerPotionId) {
+			for (Item item : inventoryItems)
+			{
+				for (int prayerPotionId : potionID)
+				{
+					if (item.getId() == prayerPotionId)
+					{
 						hasPrayerPotion = true;
 						break;
 					}
@@ -131,19 +162,21 @@ class PrayerAlertOverlay extends Overlay {
 		return hasPrayerPotion;
 	}
 
-	private void prayerRestorePanel(PanelComponent panelComponent, Graphics2D graphics) {
+	private void prayerRestorePanel(PanelComponent panelComponent, Graphics2D graphics)
+	{
 		ImageComponent component = new ImageComponent(itemManager.getImage(ItemID.PRAYER_POTION4));
 		component.translate(2, 0);
 		panelComponent.getChildren().add(component);
 		panelComponent.getChildren().add(TitleComponent.builder()
-				.text("Drink")
-				.color(Color.RED)
-				.build());
+			.text("Drink")
+			.color(Color.RED)
+			.build());
 		panelComponent.setPreferredSize(new Dimension(
-				graphics.getFontMetrics().stringWidth("Drink") + 14, 0));
+			graphics.getFontMetrics().stringWidth("Drink") + 14, 0));
 	}
 
-	private void oldPrayerRestorePanel(Graphics2D graphics) {
+	private void oldPrayerRestorePanel(Graphics2D graphics)
+	{
 		graphics.translate(-100, 15);
 		graphics.setColor(new Color(0.2f, 0.2f, 0.2f, 0.5f));
 		graphics.fillRect(0, 0, 100, 45);

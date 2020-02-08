@@ -30,7 +30,8 @@ import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetType;
 
-class WidgetButton {
+class WidgetButton
+{
 	private static final int ICON_HEIGHT = 26;
 	private static final int ICON_WIDTH = 26;
 	private static final int BACKGROUND_HEIGHT = 32;
@@ -42,7 +43,8 @@ class WidgetButton {
 	private static final int SELECTED_BACKGROUND_SPRITE_ID = SpriteID.EQUIPMENT_SLOT_SELECTED;
 
 	@FunctionalInterface
-	public interface WidgetButtonCallback {
+	public interface WidgetButtonCallback
+	{
 		void run(boolean newState);
 	}
 
@@ -56,11 +58,12 @@ class WidgetButton {
 	private Widget background;
 
 	WidgetButton(
-			final Widget parent,
-			final String name,
-			final int spriteID,
-			final boolean selectedStartState,
-			final WidgetButtonCallback callback) {
+		final Widget parent,
+		final String name,
+		final int spriteID,
+		final boolean selectedStartState,
+		final WidgetButtonCallback callback)
+	{
 		this.parent = parent;
 		this.name = name;
 		this.spriteID = spriteID;
@@ -70,14 +73,16 @@ class WidgetButton {
 		createIconWidget();
 	}
 
-	private void createBackgroundWidget() {
+	private void createBackgroundWidget()
+	{
 		background = createWidget();
 		background.setOriginalWidth(BACKGROUND_WIDTH);
 		background.setOriginalHeight(BACKGROUND_HEIGHT);
 		syncBackgroundSprite();
 	}
 
-	private void createIconWidget() {
+	private void createIconWidget()
+	{
 		icon = createWidget();
 		icon.setAction(1, "Toggle:");
 		icon.setOnOpListener((JavaScriptCallback) this::onButtonClicked);
@@ -87,7 +92,8 @@ class WidgetButton {
 		icon.setSpriteId(spriteID);
 	}
 
-	private Widget createWidget() {
+	private Widget createWidget()
+	{
 		final Widget w = parent.createChild(-1, WidgetType.GRAPHIC);
 		w.setOriginalWidth(ICON_WIDTH);
 		w.setOriginalHeight(ICON_HEIGHT);
@@ -95,12 +101,14 @@ class WidgetButton {
 		return w;
 	}
 
-	public void setSelected(boolean selected) {
+	public void setSelected(boolean selected)
+	{
 		this.selected = selected;
 		syncBackgroundSprite();
 	}
 
-	private void syncBackgroundSprite() {
+	private void syncBackgroundSprite()
+	{
 		background.setSpriteId(selected ? SELECTED_BACKGROUND_SPRITE_ID : BACKGROUND_SPRITE_ID);
 	}
 
@@ -110,7 +118,8 @@ class WidgetButton {
 	 * @param container Widget to add buttons too
 	 * @param buttons   buttons to add
 	 */
-	static void layoutButtonsToContainer(final Widget container, final WidgetButton... buttons) {
+	static void layoutButtonsToContainer(final Widget container, final WidgetButton... buttons)
+	{
 		// Each button has two widgets, Icon and Background
 		final int xIncrement = BACKGROUND_WIDTH + PADDING;
 		final int yIncrement = BACKGROUND_HEIGHT + PADDING;
@@ -119,8 +128,10 @@ class WidgetButton {
 		maxRowItems = Math.max(maxRowItems, 1);
 
 		int index = 0;
-		for (final WidgetButton w : buttons) {
-			if (w == null) {
+		for (final WidgetButton w : buttons)
+		{
+			if (w == null)
+			{
 				continue;
 			}
 
@@ -144,7 +155,8 @@ class WidgetButton {
 		container.revalidate();
 	}
 
-	private void onButtonClicked(ScriptEvent scriptEvent) {
+	private void onButtonClicked(ScriptEvent scriptEvent)
+	{
 		setSelected(!selected);
 		callback.run(selected);
 	}

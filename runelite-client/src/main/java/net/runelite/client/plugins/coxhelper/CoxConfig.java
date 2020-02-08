@@ -25,18 +25,26 @@
 
 package net.runelite.client.plugins.coxhelper;
 
+import java.awt.Color;
+import java.awt.Font;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.runelite.client.config.*;
-
-import java.awt.*;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitleSection;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Title;
+import net.runelite.client.config.Units;
 
 @ConfigGroup("Cox")
 
-public interface CoxConfig extends Config {
+public interface CoxConfig extends Config
+{
 	@Getter
 	@AllArgsConstructor
-	enum FontStyle {
+	enum FontStyle
+	{
 		BOLD("Bold", Font.BOLD),
 		ITALIC("Italic", Font.ITALIC),
 		PLAIN("Plain", Font.PLAIN);
@@ -45,331 +53,360 @@ public interface CoxConfig extends Config {
 		private int font;
 
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return getName();
 		}
 	}
 
 	@ConfigTitleSection(
-			keyName = "muttadileTitle",
-			position = 1,
-			name = "Muttadile",
-			description = ""
+		keyName = "muttadileTitle",
+		position = 1,
+		name = "Muttadile",
+		description = ""
 	)
-	default Title muttadileTitle() {
+	default Title muttadileTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "muttadile",
-			name = "Muttadile Marker",
-			description = "Places an overlay around muttadiles showing their melee range.",
-			titleSection = "muttadileTitle"
+		position = 2,
+		keyName = "muttadile",
+		name = "Muttadile Marker",
+		description = "Places an overlay around muttadiles showing their melee range.",
+		titleSection = "muttadileTitle"
 	)
-	default boolean muttadile() {
+	default boolean muttadile()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "tektonTitle",
-			position = 3,
-			name = "Tekton",
-			description = ""
+		keyName = "tektonTitle",
+		position = 3,
+		name = "Tekton",
+		description = ""
 	)
-	default Title tektonTitle() {
+	default Title tektonTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "tekton",
-			name = "Tekton Marker",
-			description = "Places an overlay around Tekton showing his melee range.",
-			titleSection = "tektonTitle"
+		position = 4,
+		keyName = "tekton",
+		name = "Tekton Marker",
+		description = "Places an overlay around Tekton showing his melee range.",
+		titleSection = "tektonTitle"
 	)
-	default boolean tekton() {
+	default boolean tekton()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "tektonTickCounter",
-			name = "Tekton Tick Counters",
-			description = "Counts down current phase timer, and attack ticks.",
-			titleSection = "tektonTitle"
+		position = 4,
+		keyName = "tektonTickCounter",
+		name = "Tekton Tick Counters",
+		description = "Counts down current phase timer, and attack ticks.",
+		titleSection = "tektonTitle"
 	)
-	default boolean tektonTickCounter() {
+	default boolean tektonTickCounter()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "guardiansTitle",
-			position = 5,
-			name = "Guardians",
-			description = ""
+		keyName = "guardiansTitle",
+		position = 5,
+		name = "Guardians",
+		description = ""
 	)
-	default Title guardiansTitle() {
+	default Title guardiansTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "guardians",
-			name = "Guardians Overlay",
-			description = "Places an overlay near Guardians showing safespot.",
-			titleSection = "guardiansTitle"
+		position = 6,
+		keyName = "guardians",
+		name = "Guardians Overlay",
+		description = "Places an overlay near Guardians showing safespot.",
+		titleSection = "guardiansTitle"
 	)
-	default boolean guardians() {
+	default boolean guardians()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "guardinTickCounter",
-			name = "Guardians Tick Timing",
-			description = "Places an overlay on Guardians showing attack tick timers.",
-			titleSection = "guardiansTitle"
+		position = 6,
+		keyName = "guardinTickCounter",
+		name = "Guardians Tick Timing",
+		description = "Places an overlay on Guardians showing attack tick timers.",
+		titleSection = "guardiansTitle"
 	)
-	default boolean guardinTickCounter() {
+	default boolean guardinTickCounter()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "vanguardsTitle",
-			position = 7,
-			name = "Vanguards",
-			description = ""
+		keyName = "vanguardsTitle",
+		position = 7,
+		name = "Vanguards",
+		description = ""
 	)
-	default Title vanguardsTitle() {
+	default Title vanguardsTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 8,
-			keyName = "vangHighlight",
-			name = "Highlight Vanguards",
-			description = "Color is based on their attack style.",
-			titleSection = "vanguardsTitle"
+		position = 8,
+		keyName = "vangHighlight",
+		name = "Highlight Vanguards",
+		description = "Color is based on their attack style.",
+		titleSection = "vanguardsTitle"
 	)
-	default boolean vangHighlight() {
+	default boolean vangHighlight()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 9,
-			keyName = "vangHealth",
-			name = "Show Vanguards Current HP",
-			description = "This will create an infobox with vanguards current hp.",
-			titleSection = "vanguardsTitle"
+		position = 9,
+		keyName = "vangHealth",
+		name = "Show Vanguards Current HP",
+		description = "This will create an infobox with vanguards current hp.",
+		titleSection = "vanguardsTitle"
 	)
-	default boolean vangHealth() {
+	default boolean vangHealth()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "olmTitle",
-			position = 10,
-			name = "Olm",
-			description = ""
+		keyName = "olmTitle",
+		position = 10,
+		name = "Olm",
+		description = ""
 	)
-	default Title olmTitle() {
+	default Title olmTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 11,
-			keyName = "prayAgainstOlm",
-			name = "Olm Show Prayer",
-			description = "Shows what prayer to use during olm.",
-			titleSection = "olmTitle"
+		position = 11,
+		keyName = "prayAgainstOlm",
+		name = "Olm Show Prayer",
+		description = "Shows what prayer to use during olm.",
+		titleSection = "olmTitle"
 	)
-	default boolean prayAgainstOlm() {
+	default boolean prayAgainstOlm()
+	{
 		return true;
 	}
 
 	@Range(
-			min = 40,
-			max = 100
+		min = 40,
+		max = 100
 	)
 	@ConfigItem(
-			position = 11,
-			keyName = "prayAgainstOlmSize",
-			name = "Olm Prayer Size",
-			description = "Change the Size of the Olm Infobox.",
-			titleSection = "olmTitle"
+		position = 11,
+		keyName = "prayAgainstOlmSize",
+		name = "Olm Prayer Size",
+		description = "Change the Size of the Olm Infobox.",
+		titleSection = "olmTitle"
 	)
 	@Units(Units.PIXELS)
-	default int prayAgainstOlmSize() {
+	default int prayAgainstOlmSize()
+	{
 		return 40;
 	}
 
 	@ConfigItem(
-			position = 12,
-			keyName = "timers",
-			name = "Olm Show Burn/Acid Timers",
-			description = "Shows tick timers for burns/acids.",
-			titleSection = "olmTitle"
+		position = 12,
+		keyName = "timers",
+		name = "Olm Show Burn/Acid Timers",
+		description = "Shows tick timers for burns/acids.",
+		titleSection = "olmTitle"
 	)
-	default boolean timers() {
+	default boolean timers()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 13,
-			keyName = "tpOverlay",
-			name = "Olm Show Teleport Overlays",
-			description = "Shows Overlays for targeted teleports.",
-			titleSection = "olmTitle"
+		position = 13,
+		keyName = "tpOverlay",
+		name = "Olm Show Teleport Overlays",
+		description = "Shows Overlays for targeted teleports.",
+		titleSection = "olmTitle"
 	)
-	default boolean tpOverlay() {
+	default boolean tpOverlay()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 14,
-			keyName = "olmTick",
-			name = "Olm Tick Counter",
-			description = "Show Tick Counter on Olm",
-			titleSection = "olmTitle"
+		position = 14,
+		keyName = "olmTick",
+		name = "Olm Tick Counter",
+		description = "Show Tick Counter on Olm",
+		titleSection = "olmTitle"
 	)
-	default boolean olmTick() {
+	default boolean olmTick()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "colors",
-			position = 15,
-			name = "Colors",
-			description = ""
+		keyName = "colors",
+		position = 15,
+		name = "Colors",
+		description = ""
 	)
-	default Title colors() {
+	default Title colors()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 16,
-			keyName = "muttaColor",
-			name = "Muttadile Tile Color",
-			description = "Change hit area tile color for muttadiles",
-			titleSection = "colors",
-			hidden = true,
-			unhide = "Muttadile"
+		position = 16,
+		keyName = "muttaColor",
+		name = "Muttadile Tile Color",
+		description = "Change hit area tile color for muttadiles",
+		titleSection = "colors",
+		hidden = true,
+		unhide = "Muttadile"
 	)
-	default Color muttaColor() {
+	default Color muttaColor()
+	{
 		return new Color(0, 255, 99);
 	}
 
 	@ConfigItem(
-			position = 17,
-			keyName = "guardColor",
-			name = "Guardians Tile Color",
-			description = "Change safespot area tile color for Guardians",
-			titleSection = "colors",
-			hidden = true,
-			unhide = "Guardians"
+		position = 17,
+		keyName = "guardColor",
+		name = "Guardians Tile Color",
+		description = "Change safespot area tile color for Guardians",
+		titleSection = "colors",
+		hidden = true,
+		unhide = "Guardians"
 	)
-	default Color guardColor() {
+	default Color guardColor()
+	{
 		return new Color(0, 255, 99);
 	}
 
 	@ConfigItem(
-			position = 18,
-			keyName = "tektonColor",
-			name = "Tekton Tile Color",
-			description = "Change hit area tile color for Tekton",
-			titleSection = "colors",
-			hidden = true,
-			unhide = "Tekton"
+		position = 18,
+		keyName = "tektonColor",
+		name = "Tekton Tile Color",
+		description = "Change hit area tile color for Tekton",
+		titleSection = "colors",
+		hidden = true,
+		unhide = "Tekton"
 	)
-	default Color tektonColor() {
+	default Color tektonColor()
+	{
 		return new Color(193, 255, 245);
 	}
 
 	@ConfigItem(
-			position = 19,
-			keyName = "burnColor",
-			name = "Burn Victim Color",
-			description = "Changes tile color for burn victim.",
-			titleSection = "colors",
-			hidden = true,
-			unhide = "timers"
+		position = 19,
+		keyName = "burnColor",
+		name = "Burn Victim Color",
+		description = "Changes tile color for burn victim.",
+		titleSection = "colors",
+		hidden = true,
+		unhide = "timers"
 	)
-	default Color burnColor() {
+	default Color burnColor()
+	{
 		return new Color(255, 100, 0);
 	}
 
 	@ConfigItem(
-			position = 20,
-			keyName = "acidColor",
-			name = "Acid Victim Color",
-			description = "Changes tile color for acid victim.",
-			titleSection = "colors",
-			hidden = true,
-			unhide = "timers"
+		position = 20,
+		keyName = "acidColor",
+		name = "Acid Victim Color",
+		description = "Changes tile color for acid victim.",
+		titleSection = "colors",
+		hidden = true,
+		unhide = "timers"
 	)
-	default Color acidColor() {
+	default Color acidColor()
+	{
 		return new Color(69, 241, 44);
 	}
 
 	@ConfigItem(
-			position = 21,
-			keyName = "tpColor",
-			name = "Teleport Target Color",
-			description = "Changes tile color for teleport target.",
-			titleSection = "colors",
-			hidden = true,
-			unhide = "tpOverlay"
+		position = 21,
+		keyName = "tpColor",
+		name = "Teleport Target Color",
+		description = "Changes tile color for teleport target.",
+		titleSection = "colors",
+		hidden = true,
+		unhide = "tpOverlay"
 	)
-	default Color tpColor() {
+	default Color tpColor()
+	{
 		return new Color(193, 255, 245);
 	}
 
 	@ConfigTitleSection(
-			keyName = "text",
-			position = 22,
-			name = "Text",
-			description = ""
+		keyName = "text",
+		position = 22,
+		name = "Text",
+		description = ""
 	)
-	default Title text() {
+	default Title text()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 23,
-			keyName = "fontStyle",
-			name = "Font Style",
-			description = "Bold/Italics/Plain",
-			titleSection = "text"
+		position = 23,
+		keyName = "fontStyle",
+		name = "Font Style",
+		description = "Bold/Italics/Plain",
+		titleSection = "text"
 	)
-	default FontStyle fontStyle() {
+	default FontStyle fontStyle()
+	{
 		return FontStyle.BOLD;
 	}
 
 	@Range(
-			min = 9,
-			max = 20
+		min = 9,
+		max = 20
 	)
 	@ConfigItem(
-			position = 24,
-			keyName = "textSize",
-			name = "Text Size",
-			description = "Text Size for Timers.",
-			titleSection = "text"
+		position = 24,
+		keyName = "textSize",
+		name = "Text Size",
+		description = "Text Size for Timers.",
+		titleSection = "text"
 	)
 	@Units(Units.POINTS)
-	default int textSize() {
+	default int textSize()
+	{
 		return 14;
 	}
 
 	@ConfigItem(
-			position = 25,
-			keyName = "shadows",
-			name = "Shadows",
-			description = "Adds Shadows to text.",
-			titleSection = "text"
+		position = 25,
+		keyName = "shadows",
+		name = "Shadows",
+		description = "Adds Shadows to text.",
+		titleSection = "text"
 	)
-	default boolean shadows() {
+	default boolean shadows()
+	{
 		return true;
 	}
 }

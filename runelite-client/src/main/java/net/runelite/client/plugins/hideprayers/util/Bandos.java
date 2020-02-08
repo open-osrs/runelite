@@ -32,7 +32,8 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Bandos {
+public enum Bandos
+{
 	DISABLED("Disabled"),
 	BANDOS_CHEAP("Low LVL Melee"),
 	BANDOS_EXPENSIVE("Piety");
@@ -40,7 +41,8 @@ public enum Bandos {
 	private String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return getName();
 	}
 }

@@ -25,21 +25,26 @@
  */
 package net.runelite.client.ui.components.colorpicker;
 
-import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.util.ColorUtil;
-
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.function.Consumer;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.util.function.Consumer;
+import net.runelite.client.ui.ColorScheme;
+import net.runelite.client.util.ColorUtil;
 
-class ColorValuePanel extends JPanel {
+class ColorValuePanel extends JPanel
+{
 	private static final int DEFAULT_VALUE = ColorUtil.MAX_RGB_VALUE;
 
 	private final ColorValueSlider slider = new ColorValueSlider();
@@ -47,41 +52,51 @@ class ColorValuePanel extends JPanel {
 
 	private Consumer<Integer> onValueChanged;
 
-	void setOnValueChanged(Consumer<Integer> c) {
+	void setOnValueChanged(Consumer<Integer> c)
+	{
 		onValueChanged = c;
 		slider.setOnValueChanged(c);
 	}
 
-	ColorValuePanel(String labelText) {
+	ColorValuePanel(String labelText)
+	{
 		setLayout(new BorderLayout(10, 0));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 
 		input.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		input.setPreferredSize(new Dimension(35, 30));
 		input.setBorder(new EmptyBorder(5, 5, 5, 5));
-		((AbstractDocument) input.getDocument()).setDocumentFilter(new DocumentFilter() {
+		((AbstractDocument) input.getDocument()).setDocumentFilter(new DocumentFilter()
+		{
 			@Override
 			public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attrs)
-					throws BadLocationException {
-				try {
+				throws BadLocationException
+			{
+				try
+				{
 					String text = RuneliteColorPicker.getReplacedText(fb, offset, length, str);
 
 					int value = Integer.parseInt(text);
-					if (value < ColorUtil.MIN_RGB_VALUE || value > ColorUtil.MAX_RGB_VALUE) {
+					if (value < ColorUtil.MIN_RGB_VALUE || value > ColorUtil.MAX_RGB_VALUE)
+					{
 						Toolkit.getDefaultToolkit().beep();
 						return;
 					}
 
 					super.replace(fb, offset, length, str, attrs);
-				} catch (NumberFormatException e) {
+				}
+				catch (NumberFormatException e)
+				{
 					Toolkit.getDefaultToolkit().beep();
 				}
 			}
 		});
 
-		input.addFocusListener(new FocusAdapter() {
+		input.addFocusListener(new FocusAdapter()
+		{
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusLost(FocusEvent e)
+			{
 				updateText();
 			}
 		});
@@ -102,23 +117,27 @@ class ColorValuePanel extends JPanel {
 		add(input, BorderLayout.EAST);
 	}
 
-	private void updateText() {
+	private void updateText()
+	{
 		int value = Integer.parseInt(input.getText());
 
 		update(value);
-		if (onValueChanged != null) {
+		if (onValueChanged != null)
+		{
 			onValueChanged.accept(getValue());
 		}
 	}
 
-	public void update(int value) {
+	public void update(int value)
+	{
 		value = ColorUtil.constrainValue(value);
 
 		slider.setValue(value);
 		input.setText(value + "");
 	}
 
-	public int getValue() {
+	public int getValue()
+	{
 		return slider.getValue();
 	}
 }

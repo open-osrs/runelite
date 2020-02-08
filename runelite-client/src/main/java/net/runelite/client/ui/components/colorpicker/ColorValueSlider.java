@@ -25,18 +25,19 @@
  */
 package net.runelite.client.ui.components.colorpicker;
 
-import lombok.Setter;
-import net.runelite.client.util.ColorUtil;
-import net.runelite.client.util.MiscUtils;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.function.Consumer;
+import javax.swing.JPanel;
+import lombok.Setter;
+import net.runelite.client.util.ColorUtil;
+import net.runelite.client.util.MiscUtils;
 
-public class ColorValueSlider extends JPanel {
+public class ColorValueSlider extends JPanel
+{
 	static final int KNOB_WIDTH = 4;
 
 	private static final int KNOB_HEIGHT = 14;
@@ -48,42 +49,52 @@ public class ColorValueSlider extends JPanel {
 	@Setter
 	private Consumer<Integer> onValueChanged;
 
-	ColorValueSlider() {
-		addMouseMotionListener(new MouseMotionAdapter() {
+	ColorValueSlider()
+	{
+		addMouseMotionListener(new MouseMotionAdapter()
+		{
 			@Override
-			public void mouseDragged(MouseEvent me) {
+			public void mouseDragged(MouseEvent me)
+			{
 				moveTarget(me.getX(), true);
 			}
 		});
 
-		addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseReleased(MouseEvent me) {
+			public void mouseReleased(MouseEvent me)
+			{
 				moveTarget(me.getX(), true);
 			}
 
 			@Override
-			public void mousePressed(MouseEvent me) {
+			public void mousePressed(MouseEvent me)
+			{
 				moveTarget(me.getX(), true);
 			}
 		});
 	}
 
-	public void setValue(int x) {
+	public void setValue(int x)
+	{
 		moveTarget(x + KNOB_WIDTH, false);
 	}
 
-	private void moveTarget(int x, boolean shouldUpdate) {
+	private void moveTarget(int x, boolean shouldUpdate)
+	{
 		value = MiscUtils.clamp(x, ColorUtil.MIN_RGB_VALUE + KNOB_WIDTH, ColorUtil.MAX_RGB_VALUE + KNOB_WIDTH);
 		paintImmediately(0, 0, this.getWidth(), this.getHeight());
 
-		if (shouldUpdate && onValueChanged != null) {
+		if (shouldUpdate && onValueChanged != null)
+		{
 			onValueChanged.accept(getValue());
 		}
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g)
+	{
 		super.paint(g);
 
 		g.setColor(TRACK_COLOR);
@@ -93,7 +104,8 @@ public class ColorValueSlider extends JPanel {
 		g.fillRect(value - KNOB_WIDTH / 2, this.getHeight() / 2 - KNOB_HEIGHT / 2, KNOB_WIDTH, KNOB_HEIGHT);
 	}
 
-	int getValue() {
+	int getValue()
+	{
 		return value - KNOB_WIDTH;
 	}
 }

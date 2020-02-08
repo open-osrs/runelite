@@ -25,12 +25,12 @@
 package net.runelite.client.plugins.emojis;
 
 import com.google.common.collect.ImmutableMap;
-import net.runelite.client.util.ImageUtil;
-
 import java.awt.image.BufferedImage;
 import java.util.Map;
+import net.runelite.client.util.ImageUtil;
 
-enum Emoji {
+enum Emoji
+{
 	SLIGHT_SMILE(":)"),
 	JOY("=')"),
 	COWBOY("3:)"),
@@ -92,25 +92,30 @@ enum Emoji {
 
 	private final String trigger;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<String, Emoji> builder = new ImmutableMap.Builder<>();
 
-		for (final Emoji emoji : values()) {
+		for (final Emoji emoji : values())
+		{
 			builder.put(emoji.trigger, emoji);
 		}
 
 		emojiMap = builder.build();
 	}
 
-	Emoji(String trigger) {
+	Emoji(String trigger)
+	{
 		this.trigger = trigger;
 	}
 
-	BufferedImage loadImage() {
+	BufferedImage loadImage()
+	{
 		return ImageUtil.getResourceStreamFromClass(getClass(), this.name().toLowerCase() + ".png");
 	}
 
-	static Emoji getEmoji(String trigger) {
+	static Emoji getEmoji(String trigger)
+	{
 		return emojiMap.get(trigger);
 	}
 }

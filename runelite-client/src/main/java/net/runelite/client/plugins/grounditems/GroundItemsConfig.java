@@ -25,625 +25,689 @@
 
 package net.runelite.client.plugins.grounditems;
 
-import net.runelite.client.config.*;
-import net.runelite.client.plugins.grounditems.config.*;
-
-import java.awt.*;
+import java.awt.Color;
+import net.runelite.client.config.Alpha;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitleSection;
+import net.runelite.client.config.Title;
+import net.runelite.client.config.Units;
+import net.runelite.client.plugins.grounditems.config.ItemHighlightMode;
+import net.runelite.client.plugins.grounditems.config.MenuHighlightMode;
+import net.runelite.client.plugins.grounditems.config.PriceDisplayMode;
+import net.runelite.client.plugins.grounditems.config.TimerDisplayMode;
+import net.runelite.client.plugins.grounditems.config.ValueCalculationMode;
 
 @ConfigGroup("grounditems")
-public interface GroundItemsConfig extends Config {
+public interface GroundItemsConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "colorsTitle",
-			name = "Colors",
-			description = "",
-			position = 1
+		keyName = "colorsTitle",
+		name = "Colors",
+		description = "",
+		position = 1
 	)
-	default Title colorsTitle() {
+	default Title colorsTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "defaultColor",
-			name = "Default items",
-			description = "Configures the color for default, non-highlighted items",
-			position = 2,
-			titleSection = "colorsTitle"
+		keyName = "defaultColor",
+		name = "Default items",
+		description = "Configures the color for default, non-highlighted items",
+		position = 2,
+		titleSection = "colorsTitle"
 	)
 	@Alpha
-	default Color defaultColor() {
+	default Color defaultColor()
+	{
 		return Color.WHITE;
 	}
 
 	@ConfigItem(
-			keyName = "highlightedColor",
-			name = "Highlighted items",
-			description = "Configures the color for highlighted items",
-			position = 3,
-			titleSection = "colorsTitle"
+		keyName = "highlightedColor",
+		name = "Highlighted items",
+		description = "Configures the color for highlighted items",
+		position = 3,
+		titleSection = "colorsTitle"
 	)
 	@Alpha
-	default Color highlightedColor() {
+	default Color highlightedColor()
+	{
 		return Color.decode("#C46AFF");
 	}
 
 	@ConfigItem(
-			keyName = "hiddenColor",
-			name = "Hidden items",
-			description = "Configures the color for hidden items in right-click menu and when holding ALT",
-			position = 4,
-			titleSection = "colorsTitle"
+		keyName = "hiddenColor",
+		name = "Hidden items",
+		description = "Configures the color for hidden items in right-click menu and when holding ALT",
+		position = 4,
+		titleSection = "colorsTitle"
 	)
 	@Alpha
-	default Color hiddenColor() {
+	default Color hiddenColor()
+	{
 		return Color.GRAY;
 	}
 
 	@ConfigTitleSection(
-			keyName = "highlightedTitle",
-			name = "Highlighted",
-			description = "",
-			position = 5
+		keyName = "highlightedTitle",
+		name = "Highlighted",
+		description = "",
+		position = 5
 	)
-	default Title highlightedTitle() {
+	default Title highlightedTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "highlightedItems",
-			name = "Highlighted Items",
-			description = "Configures specifically highlighted ground items. Format: (item), (item)",
-			position = 6,
-			titleSection = "highlightedTitle"
+		keyName = "highlightedItems",
+		name = "Highlighted Items",
+		description = "Configures specifically highlighted ground items. Format: (item), (item)",
+		position = 6,
+		titleSection = "highlightedTitle"
 	)
-	default String getHighlightItems() {
+	default String getHighlightItems()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "highlightedItems",
-			name = "",
-			description = ""
+		keyName = "highlightedItems",
+		name = "",
+		description = ""
 	)
 	void setHighlightedItem(String key);
 
 	@ConfigItem(
-			keyName = "showHighlightedOnly",
-			name = "Show Highlighted items only",
-			description = "Configures whether or not to draw items only on your highlighted list",
-			position = 7,
-			titleSection = "highlightedTitle"
+		keyName = "showHighlightedOnly",
+		name = "Show Highlighted items only",
+		description = "Configures whether or not to draw items only on your highlighted list",
+		position = 7,
+		titleSection = "highlightedTitle"
 	)
-	default boolean showHighlightedOnly() {
+	default boolean showHighlightedOnly()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "highlightValueCalculation",
-			name = "Highlighted Value Calculation",
-			description = "Configures which coin value is used to determine highlight color",
-			position = 8,
-			titleSection = "highlightedTitle"
+		keyName = "highlightValueCalculation",
+		name = "Highlighted Value Calculation",
+		description = "Configures which coin value is used to determine highlight color",
+		position = 8,
+		titleSection = "highlightedTitle"
 	)
-	default ValueCalculationMode valueCalculationMode() {
+	default ValueCalculationMode valueCalculationMode()
+	{
 		return ValueCalculationMode.HIGHEST;
 	}
 
 	@ConfigItem(
-			keyName = "highlightOverValue2",
-			name = "Highlight > Value",
-			description = "Configures highlighted ground items over either GE or HA value",
-			position = 9,
-			titleSection = "highlightedTitle"
+		keyName = "highlightOverValue2",
+		name = "Highlight > Value",
+		description = "Configures highlighted ground items over either GE or HA value",
+		position = 9,
+		titleSection = "highlightedTitle"
 	)
 	@Units(Units.GP)
-	default int getHighlightOverValue() {
+	default int getHighlightOverValue()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "notifyHighlightedDrops",
-			name = "Notify for Highlighted drops",
-			description = "Configures whether or not to notify for drops on your highlighted list",
-			position = 10,
-			titleSection = "highlightTitle"
+		keyName = "notifyHighlightedDrops",
+		name = "Notify for Highlighted drops",
+		description = "Configures whether or not to notify for drops on your highlighted list",
+		position = 10,
+		titleSection = "highlightTitle"
 	)
-	default boolean notifyHighlightedDrops() {
+	default boolean notifyHighlightedDrops()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "hiddenTitle",
-			name = "Hidden",
-			description = "",
-			position = 11
+		keyName = "hiddenTitle",
+		name = "Hidden",
+		description = "",
+		position = 11
 	)
-	default Title hiddenTitle() {
+	default Title hiddenTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "dontHideUntradeables",
-			name = "Do not hide untradeables",
-			description = "Configures whether or not untradeable items ignore hiding under settings",
-			position = 12,
-			titleSection = "hiddenTitle"
+		keyName = "dontHideUntradeables",
+		name = "Do not hide untradeables",
+		description = "Configures whether or not untradeable items ignore hiding under settings",
+		position = 12,
+		titleSection = "hiddenTitle"
 	)
-	default boolean dontHideUntradeables() {
+	default boolean dontHideUntradeables()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "hiddenItems",
-			name = "Hidden Items",
-			description = "Configures hidden ground items. Format: (item), (item)",
-			position = 13,
-			titleSection = "hiddenTitle"
+		keyName = "hiddenItems",
+		name = "Hidden Items",
+		description = "Configures hidden ground items. Format: (item), (item)",
+		position = 13,
+		titleSection = "hiddenTitle"
 	)
-	default String getHiddenItems() {
+	default String getHiddenItems()
+	{
 		return "Vial, Ashes, Coins, Bones, Bucket, Jug, Seaweed";
 	}
 
 	@ConfigItem(
-			keyName = "hiddenItems",
-			name = "",
-			description = "",
-			titleSection = "hiddenTitle"
+		keyName = "hiddenItems",
+		name = "",
+		description = "",
+		titleSection = "hiddenTitle"
 	)
 	void setHiddenItems(String key);
 
 	@ConfigItem(
-			keyName = "recolorMenuHiddenItems",
-			name = "Recolor Menu Hidden Items",
-			description = "Configures whether or not hidden items in right click menu will be recolored",
-			position = 14,
-			titleSection = "hiddenTitle"
+		keyName = "recolorMenuHiddenItems",
+		name = "Recolor Menu Hidden Items",
+		description = "Configures whether or not hidden items in right click menu will be recolored",
+		position = 14,
+		titleSection = "hiddenTitle"
 	)
-	default boolean recolorMenuHiddenItems() {
+	default boolean recolorMenuHiddenItems()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "hideUnderValue",
-			name = "Hide < Value",
-			description = "Configures hidden ground items under both GE and HA value",
-			position = 15,
-			titleSection = "hiddenTitle"
+		keyName = "hideUnderValue",
+		name = "Hide < Value",
+		description = "Configures hidden ground items under both GE and HA value",
+		position = 15,
+		titleSection = "hiddenTitle"
 	)
 	@Units(Units.GP)
-	default int getHideUnderValue() {
+	default int getHideUnderValue()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "removeIgnored",
-			name = "Hide Hidden",
-			description = "Remove take option for items that are on the hidden items list.",
-			position = 16,
-			titleSection = "hiddenTitle"
+		keyName = "removeIgnored",
+		name = "Hide Hidden",
+		description = "Remove take option for items that are on the hidden items list.",
+		position = 16,
+		titleSection = "hiddenTitle"
 	)
-	default boolean removeIgnored() {
+	default boolean removeIgnored()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickHidden",
-			name = "Right click hidden items",
-			description = "Places hidden items below the 'Walk here' option, making it so that you need to right click to pick them up",
-			position = 17,
-			titleSection = "hiddenTitle"
+		keyName = "rightClickHidden",
+		name = "Right click hidden items",
+		description = "Places hidden items below the 'Walk here' option, making it so that you need to right click to pick them up",
+		position = 17,
+		titleSection = "hiddenTitle"
 	)
-	default boolean rightClickHidden() {
+	default boolean rightClickHidden()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "highlightTitle",
-			name = "Highlight",
-			description = "",
-			position = 18
+		keyName = "highlightTitle",
+		name = "Highlight",
+		description = "",
+		position = 18
 	)
-	default Title highlightTitle() {
+	default Title highlightTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "highlightTiles",
-			name = "Highlight Tiles",
-			description = "Configures whether or not to highlight tiles containing ground items",
-			position = 19,
-			titleSection = "highlightTitle"
+		keyName = "highlightTiles",
+		name = "Highlight Tiles",
+		description = "Configures whether or not to highlight tiles containing ground items",
+		position = 19,
+		titleSection = "highlightTitle"
 	)
-	default boolean highlightTiles() {
+	default boolean highlightTiles()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "itemHighlightMode",
-			name = "Item Highlight Mode",
-			description = "Configures how ground items will be highlighted",
-			position = 20,
-			titleSection = "highlightTitle"
+		keyName = "itemHighlightMode",
+		name = "Item Highlight Mode",
+		description = "Configures how ground items will be highlighted",
+		position = 20,
+		titleSection = "highlightTitle"
 	)
-	default ItemHighlightMode itemHighlightMode() {
+	default ItemHighlightMode itemHighlightMode()
+	{
 		return ItemHighlightMode.BOTH;
 	}
 
 	@ConfigItem(
-			keyName = "menuHighlightMode",
-			name = "Menu Highlight Mode",
-			description = "Configures what to highlight in right-click menu",
-			position = 21,
-			titleSection = "highlightTitle"
+		keyName = "menuHighlightMode",
+		name = "Menu Highlight Mode",
+		description = "Configures what to highlight in right-click menu",
+		position = 21,
+		titleSection = "highlightTitle"
 	)
-	default MenuHighlightMode menuHighlightMode() {
+	default MenuHighlightMode menuHighlightMode()
+	{
 		return MenuHighlightMode.NAME;
 	}
 
 	@ConfigTitleSection(
-			keyName = "lowValueTitle",
-			name = "Low value",
-			description = "",
-			position = 22
+		keyName = "lowValueTitle",
+		name = "Low value",
+		description = "",
+		position = 22
 	)
-	default Title lowValueTitle() {
+	default Title lowValueTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "lowValueColor",
-			name = "Low value color",
-			description = "Configures the color for low value items",
-			position = 23,
-			titleSection = "lowValueTitle"
+		keyName = "lowValueColor",
+		name = "Low value color",
+		description = "Configures the color for low value items",
+		position = 23,
+		titleSection = "lowValueTitle"
 	)
 	@Alpha
-	default Color lowValueColor() {
+	default Color lowValueColor()
+	{
 		return Color.decode("#66B2FF");
 	}
 
 	@ConfigItem(
-			keyName = "lowValuePrice",
-			name = "Low value price",
-			description = "Configures the start price for low value items",
-			position = 24,
-			titleSection = "lowValueTitle"
+		keyName = "lowValuePrice",
+		name = "Low value price",
+		description = "Configures the start price for low value items",
+		position = 24,
+		titleSection = "lowValueTitle"
 	)
 	@Units(Units.GP)
-	default int lowValuePrice() {
+	default int lowValuePrice()
+	{
 		return 20000;
 	}
 
 	@ConfigItem(
-			keyName = "notifyLowValueDrops",
-			name = "Notify for low value drops",
-			description = "Configures whether or not to notify for drops of low value",
-			position = 25,
-			titleSection = "lowValueTitle"
+		keyName = "notifyLowValueDrops",
+		name = "Notify for low value drops",
+		description = "Configures whether or not to notify for drops of low value",
+		position = 25,
+		titleSection = "lowValueTitle"
 	)
-	default boolean notifyLowValueDrops() {
+	default boolean notifyLowValueDrops()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "mediumValueTitle",
-			name = "Medium value",
-			description = "",
-			position = 26
+		keyName = "mediumValueTitle",
+		name = "Medium value",
+		description = "",
+		position = 26
 	)
-	default Title mediumValueTitle() {
+	default Title mediumValueTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "mediumValueColor",
-			name = "Medium value color",
-			description = "Configures the color for medium value items",
-			position = 27,
-			titleSection = "mediumValueTitle"
+		keyName = "mediumValueColor",
+		name = "Medium value color",
+		description = "Configures the color for medium value items",
+		position = 27,
+		titleSection = "mediumValueTitle"
 	)
 	@Alpha
-	default Color mediumValueColor() {
+	default Color mediumValueColor()
+	{
 		return Color.decode("#99FF99");
 	}
 
 	@ConfigItem(
-			keyName = "mediumValuePrice",
-			name = "Medium value price",
-			description = "Configures the start price for medium value items",
-			position = 28,
-			titleSection = "mediumValueTitle"
+		keyName = "mediumValuePrice",
+		name = "Medium value price",
+		description = "Configures the start price for medium value items",
+		position = 28,
+		titleSection = "mediumValueTitle"
 	)
 	@Units(Units.GP)
-	default int mediumValuePrice() {
+	default int mediumValuePrice()
+	{
 		return 100000;
 	}
 
 	@ConfigItem(
-			keyName = "notifyMediumValueDrops",
-			name = "Notify for medium value drops",
-			description = "Configures whether or not to notify for drops of medium value",
-			position = 29,
-			titleSection = "mediumValueTitle"
+		keyName = "notifyMediumValueDrops",
+		name = "Notify for medium value drops",
+		description = "Configures whether or not to notify for drops of medium value",
+		position = 29,
+		titleSection = "mediumValueTitle"
 	)
-	default boolean notifyMediumValueDrops() {
+	default boolean notifyMediumValueDrops()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "highValueTitle",
-			name = "High value",
-			description = "",
-			position = 30
+		keyName = "highValueTitle",
+		name = "High value",
+		description = "",
+		position = 30
 	)
-	default Title highValueTitle() {
+	default Title highValueTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "highValueColor",
-			name = "High value color",
-			description = "Configures the color for high value items",
-			position = 31,
-			titleSection = "highValueTitle"
+		keyName = "highValueColor",
+		name = "High value color",
+		description = "Configures the color for high value items",
+		position = 31,
+		titleSection = "highValueTitle"
 	)
 	@Alpha
-	default Color highValueColor() {
+	default Color highValueColor()
+	{
 		return Color.decode("#FF9600");
 	}
 
 	@ConfigItem(
-			keyName = "highValuePrice",
-			name = "High value price",
-			description = "Configures the start price for high value items",
-			position = 32,
-			titleSection = "highValueTitle"
+		keyName = "highValuePrice",
+		name = "High value price",
+		description = "Configures the start price for high value items",
+		position = 32,
+		titleSection = "highValueTitle"
 	)
 	@Units(Units.GP)
-	default int highValuePrice() {
+	default int highValuePrice()
+	{
 		return 1000000;
 	}
 
 	@ConfigItem(
-			keyName = "notifyHighValueDrops",
-			name = "Notify for high value drops",
-			description = "Configures whether or not to notify for drops of high value",
-			position = 33,
-			titleSection = "highValueTitle"
+		keyName = "notifyHighValueDrops",
+		name = "Notify for high value drops",
+		description = "Configures whether or not to notify for drops of high value",
+		position = 33,
+		titleSection = "highValueTitle"
 	)
-	default boolean notifyHighValueDrops() {
+	default boolean notifyHighValueDrops()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "insaneValueTitle",
-			name = "Insane value",
-			description = "",
-			position = 34
+		keyName = "insaneValueTitle",
+		name = "Insane value",
+		description = "",
+		position = 34
 	)
-	default Title insaneValueTitle() {
+	default Title insaneValueTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "insaneValueColor",
-			name = "Insane value items color",
-			description = "Configures the color for insane value items",
-			position = 35,
-			titleSection = "insaneValueTitle"
+		keyName = "insaneValueColor",
+		name = "Insane value items color",
+		description = "Configures the color for insane value items",
+		position = 35,
+		titleSection = "insaneValueTitle"
 	)
 	@Alpha
-	default Color insaneValueColor() {
+	default Color insaneValueColor()
+	{
 		return Color.decode("#FF66B2");
 	}
 
 	@ConfigItem(
-			keyName = "insaneValuePrice",
-			name = "Insane value price",
-			description = "Configures the start price for insane value items",
-			position = 36,
-			titleSection = "insaneValueTitle"
+		keyName = "insaneValuePrice",
+		name = "Insane value price",
+		description = "Configures the start price for insane value items",
+		position = 36,
+		titleSection = "insaneValueTitle"
 	)
 	@Units(Units.GP)
-	default int insaneValuePrice() {
+	default int insaneValuePrice()
+	{
 		return 10000000;
 	}
 
 	@ConfigItem(
-			keyName = "notifyInsaneValueDrops",
-			name = "Notify for insane value drops",
-			description = "Configures whether or not to notify for drops of insane value",
-			position = 37,
-			titleSection = "insaneValueTitle"
+		keyName = "notifyInsaneValueDrops",
+		name = "Notify for insane value drops",
+		description = "Configures whether or not to notify for drops of insane value",
+		position = 37,
+		titleSection = "insaneValueTitle"
 	)
-	default boolean notifyInsaneValueDrops() {
+	default boolean notifyInsaneValueDrops()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "priceTitle",
-			name = "Price",
-			description = "",
-			position = 38
+		keyName = "priceTitle",
+		name = "Price",
+		description = "",
+		position = 38
 	)
-	default Title priceTitle() {
+	default Title priceTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "priceDisplayMode",
-			name = "Price Display Mode",
-			description = "Configures what price types are shown alongside of ground item name",
-			position = 39,
-			titleSection = "priceTitle"
+		keyName = "priceDisplayMode",
+		name = "Price Display Mode",
+		description = "Configures what price types are shown alongside of ground item name",
+		position = 39,
+		titleSection = "priceTitle"
 	)
-	default PriceDisplayMode priceDisplayMode() {
+	default PriceDisplayMode priceDisplayMode()
+	{
 		return PriceDisplayMode.BOTH;
 	}
 
 	@ConfigItem(
-			keyName = "sortByGEPrice",
-			name = "Sort by GE price",
-			description = "Sorts ground items by GE price, instead of alch value",
-			position = 40,
-			titleSection = "priceTitle"
+		keyName = "sortByGEPrice",
+		name = "Sort by GE price",
+		description = "Sorts ground items by GE price, instead of alch value",
+		position = 40,
+		titleSection = "priceTitle"
 	)
-	default boolean sortByGEPrice() {
+	default boolean sortByGEPrice()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "miscTitle",
-			name = "Miscellaneous",
-			description = "",
-			position = 41
+		keyName = "miscTitle",
+		name = "Miscellaneous",
+		description = "",
+		position = 41
 	)
-	default Title miscTitle() {
+	default Title miscTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "showMenuItemQuantities",
-			name = "Show Menu Item Quantities",
-			description = "Configures whether or not to show the item quantities in the menu",
-			position = 42,
-			titleSection = "miscTitle"
+		keyName = "showMenuItemQuantities",
+		name = "Show Menu Item Quantities",
+		description = "Configures whether or not to show the item quantities in the menu",
+		position = 42,
+		titleSection = "miscTitle"
 	)
-	default boolean showMenuItemQuantities() {
+	default boolean showMenuItemQuantities()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "collapseEntries",
-			name = "Collapse ground item menu entries",
-			description = "Collapses ground item menu entries together and appends count",
-			position = 43,
-			titleSection = "miscTitle"
+		keyName = "collapseEntries",
+		name = "Collapse ground item menu entries",
+		description = "Collapses ground item menu entries together and appends count",
+		position = 43,
+		titleSection = "miscTitle"
 	)
-	default boolean collapseEntries() {
+	default boolean collapseEntries()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "onlyShowLoot",
-			name = "Only show loot",
-			description = "Only shows drops from NPCs and players",
-			position = 44,
-			titleSection = "miscTitle"
+		keyName = "onlyShowLoot",
+		name = "Only show loot",
+		description = "Only shows drops from NPCs and players",
+		position = 44,
+		titleSection = "miscTitle"
 	)
-	default boolean onlyShowLoot() {
+	default boolean onlyShowLoot()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "showGroundItemDuration",
-			name = "Show time remaining",
-			description = "Turn on a countdown timer to show how long an item will remain on the ground",
-			position = 45,
-			titleSection = "miscTitle"
+		keyName = "showGroundItemDuration",
+		name = "Show time remaining",
+		description = "Turn on a countdown timer to show how long an item will remain on the ground",
+		position = 45,
+		titleSection = "miscTitle"
 	)
-	default TimerDisplayMode showGroundItemDuration() {
+	default TimerDisplayMode showGroundItemDuration()
+	{
 		return TimerDisplayMode.HOTKEY_PRESSED;
 	}
 
 	@ConfigItem(
-			keyName = "doubleTapDelay",
-			name = "Delay for double-tap ALT to hide",
-			description = "Decrease this number if you accidentally hide ground items often. (0 = Disabled)",
-			position = 46,
-			titleSection = "miscTitle"
+		keyName = "doubleTapDelay",
+		name = "Delay for double-tap ALT to hide",
+		description = "Decrease this number if you accidentally hide ground items often. (0 = Disabled)",
+		position = 46,
+		titleSection = "miscTitle"
 	)
 	@Units(Units.MILLISECONDS)
-	default int doubleTapDelay() {
+	default int doubleTapDelay()
+	{
 		return 250;
 	}
 
 	@ConfigItem(
-			keyName = "toggleOutline",
-			name = "Text Outline",
-			description = "Use an outline around text instead of a text shadow",
-			position = 47,
-			titleSection = "miscTitle"
+		keyName = "toggleOutline",
+		name = "Text Outline",
+		description = "Use an outline around text instead of a text shadow",
+		position = 47,
+		titleSection = "miscTitle"
 	)
-	default boolean toggleOutline() {
+	default boolean toggleOutline()
+	{
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "bordercolor",
-			name = "Border color",
-			description = "Change the border color",
-			position = 48,
-			titleSection = "miscTitle"
+		keyName = "bordercolor",
+		name = "Border color",
+		description = "Change the border color",
+		position = 48,
+		titleSection = "miscTitle"
 	)
-	default Color bordercolor() {
+	default Color bordercolor()
+	{
 		return new Color(0, 0, 0, 150);
 	}
 
 	@ConfigItem(
-			keyName = "showTimer",
-			name = "Show ground item tick countdown timer",
-			description = "Shows how many ticks left until disappearing.",
-			position = 49,
-			titleSection = "miscTitle"
+		keyName = "showTimer",
+		name = "Show ground item tick countdown timer",
+		description = "Shows how many ticks left until disappearing.",
+		position = 49,
+		titleSection = "miscTitle"
 	)
-	default boolean showTimer() {
+	default boolean showTimer()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "xpTitle",
-			name = "XP",
-			description = "Highlights various items that give xp",
-			position = 50
+		keyName = "xpTitle",
+		name = "XP",
+		description = "Highlights various items that give xp",
+		position = 50
 	)
-	default Title xpTitle() {
+	default Title xpTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "highlightHerblore",
-			name = "Highlight Herblore xp",
-			description = "Highlight Herblore xp related items.",
-			position = 51,
-			titleSection = "xpTitle"
+		keyName = "highlightHerblore",
+		name = "Highlight Herblore xp",
+		description = "Highlight Herblore xp related items.",
+		position = 51,
+		titleSection = "xpTitle"
 	)
-	default boolean highlightHerblore() {
+	default boolean highlightHerblore()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "herbloreColor",
-			name = "Herblore Color",
-			description = "Color of Herblore xp items.",
-			position = 52,
-			titleSection = "xpTitle"
+		keyName = "herbloreColor",
+		name = "Herblore Color",
+		description = "Color of Herblore xp items.",
+		position = 52,
+		titleSection = "xpTitle"
 	)
 	@Alpha
-	default Color herbloreColor() {
+	default Color herbloreColor()
+	{
 		return Color.GREEN.darker();
 	}
 
 	@ConfigItem(
-			keyName = "highlightPrayer",
-			name = "Highlight Prayer xp",
-			description = "Highlight Prayer xp related items.",
-			position = 53,
-			titleSection = "xpTitle"
+		keyName = "highlightPrayer",
+		name = "Highlight Prayer xp",
+		description = "Highlight Prayer xp related items.",
+		position = 53,
+		titleSection = "xpTitle"
 	)
-	default boolean highlightPrayer() {
+	default boolean highlightPrayer()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "prayerColor",
-			name = "Prayer Color",
-			description = "Color of Prayer xp items.",
-			position = 54,
-			titleSection = "xpTitle"
+		keyName = "prayerColor",
+		name = "Prayer Color",
+		description = "Color of Prayer xp items.",
+		position = 54,
+		titleSection = "xpTitle"
 	)
 	@Alpha
-	default Color prayerColor() {
+	default Color prayerColor()
+	{
 		return Color.YELLOW;
 	}
 }

@@ -25,24 +25,25 @@
 package net.runelite.client.ui.overlay.infobox;
 
 import com.google.common.base.Preconditions;
-import lombok.Getter;
-import lombok.ToString;
-import net.runelite.client.plugins.Plugin;
-
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import lombok.Getter;
+import lombok.ToString;
+import net.runelite.client.plugins.Plugin;
 
 @Getter
 @ToString
-public class Timer extends InfoBox {
+public class Timer extends InfoBox
+{
 	private final Instant startTime;
 	private final Instant endTime;
 	private final Duration duration;
 
-	public Timer(long period, ChronoUnit unit, BufferedImage image, Plugin plugin) {
+	public Timer(long period, ChronoUnit unit, BufferedImage image, Plugin plugin)
+	{
 		super(image, plugin);
 
 		Preconditions.checkArgument(period > 0, "negative period!");
@@ -53,7 +54,8 @@ public class Timer extends InfoBox {
 	}
 
 	@Override
-	public String getText() {
+	public String getText()
+	{
 		Duration timeLeft = Duration.between(Instant.now(), endTime);
 
 		int seconds = (int) (timeLeft.toMillis() / 1000L);
@@ -65,11 +67,13 @@ public class Timer extends InfoBox {
 	}
 
 	@Override
-	public Color getTextColor() {
+	public Color getTextColor()
+	{
 		Duration timeLeft = Duration.between(Instant.now(), endTime);
 
 		//check if timer has 10% of time left
-		if (timeLeft.getSeconds() < (duration.getSeconds() * .10)) {
+		if (timeLeft.getSeconds() < (duration.getSeconds() * .10))
+		{
 			return Color.RED.brighter();
 		}
 
@@ -77,13 +81,15 @@ public class Timer extends InfoBox {
 	}
 
 	@Override
-	public boolean render() {
+	public boolean render()
+	{
 		Duration timeLeft = Duration.between(Instant.now(), endTime);
 		return !timeLeft.isNegative();
 	}
 
 	@Override
-	public boolean cull() {
+	public boolean cull()
+	{
 		Duration timeLeft = Duration.between(Instant.now(), endTime);
 		return timeLeft.isZero() || timeLeft.isNegative();
 	}

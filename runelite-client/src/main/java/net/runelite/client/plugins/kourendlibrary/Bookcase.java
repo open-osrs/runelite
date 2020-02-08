@@ -24,18 +24,19 @@
  */
 package net.runelite.client.plugins.kourendlibrary;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import net.runelite.api.coords.WorldPoint;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.Getter;
+import net.runelite.api.coords.WorldPoint;
 
-class Bookcase {
-	Bookcase(final WorldPoint location) {
+class Bookcase
+{
+	Bookcase(final WorldPoint location)
+	{
 		this.location = location;
 		this.index = new ArrayList<>();
 	}
@@ -62,17 +63,20 @@ class Bookcase {
 	@Getter(AccessLevel.PACKAGE)
 	private Set<Book> possibleBooks = new HashSet<>();
 
-	void clearBook() {
+	void clearBook()
+	{
 		book = null;
 		isBookSet = false;
 	}
 
-	void setBook(Book book) {
+	void setBook(Book book)
+	{
 		this.book = book;
 		this.isBookSet = true;
 	}
 
-	String getLocationString() {
+	String getLocationString()
+	{
 		StringBuilder b = new StringBuilder();
 
 		// Floors 2 and 3
@@ -80,24 +84,33 @@ class Bookcase {
 		boolean west = location.getX() < 1625;
 
 		// Floor 1 has slightly different dimensions
-		if (location.getPlane() == 0) {
+		if (location.getPlane() == 0)
+		{
 			north = location.getY() > 3813;
 			west = location.getX() < 1627;
 		}
 
-		if (north && west) {
+		if (north && west)
+		{
 			b.append("Northwest");
-		} else if (north) {
+		}
+		else if (north)
+		{
 			b.append("Northeast");
-		} else if (west) {
+		}
+		else if (west)
+		{
 			b.append("Southwest");
-		} else {
+		}
+		else
+		{
 			b.append("Center");
 		}
 
 		b.append(" ");
 
-		switch (location.getPlane()) {
+		switch (location.getPlane())
+		{
 			case 0:
 				b.append("ground floor");
 				break;
@@ -109,7 +122,8 @@ class Bookcase {
 				break;
 		}
 
-		if (KourendLibraryPlugin.debug) {
+		if (KourendLibraryPlugin.debug)
+		{
 			b.append(" ").append(index.stream().map(Object::toString).collect(Collectors.joining(", ")));
 		}
 		return b.toString();

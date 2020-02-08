@@ -24,14 +24,17 @@
  */
 package net.runelite.client.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-
-public abstract class PluginPanel extends JPanel {
+public abstract class PluginPanel extends JPanel
+{
 	public static final int PANEL_WIDTH = 225;
 	public static final int SCROLLBAR_WIDTH = 17;
 	public static final int BORDER_OFFSET = 6;
@@ -44,13 +47,16 @@ public abstract class PluginPanel extends JPanel {
 	@Getter(AccessLevel.PUBLIC)
 	private final JPanel wrappedPanel;
 
-	protected PluginPanel() {
+	protected PluginPanel()
+	{
 		this(true);
 	}
 
-	protected PluginPanel(boolean wrap) {
+	protected PluginPanel(boolean wrap)
+	{
 		super();
-		if (wrap) {
+		if (wrap)
+		{
 			setBorder(BORDER_PADDING);
 			setLayout(new DynamicGridLayout(0, 1, 0, 3));
 			setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -70,21 +76,26 @@ public abstract class PluginPanel extends JPanel {
 			wrappedPanel.setPreferredSize(OUTER_PREFERRED_SIZE);
 			wrappedPanel.setLayout(new BorderLayout());
 			wrappedPanel.add(scrollPane, BorderLayout.CENTER);
-		} else {
+		}
+		else
+		{
 			scrollPane = null;
 			wrappedPanel = this;
 		}
 	}
 
 	@Override
-	public Dimension getPreferredSize() {
+	public Dimension getPreferredSize()
+	{
 		int width = this == wrappedPanel ? PANEL_WIDTH + SCROLLBAR_WIDTH : PANEL_WIDTH;
 		return new Dimension(width, super.getPreferredSize().height);
 	}
 
-	public void onActivate() {
+	public void onActivate()
+	{
 	}
 
-	public void onDeactivate() {
+	public void onDeactivate()
+	{
 	}
 }

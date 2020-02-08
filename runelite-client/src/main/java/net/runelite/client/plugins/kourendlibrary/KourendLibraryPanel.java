@@ -26,23 +26,28 @@
 package net.runelite.client.plugins.kourendlibrary;
 
 import com.google.inject.Inject;
-import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.ui.PluginPanel;
-import net.runelite.client.util.ImageUtil;
-
-import javax.inject.Singleton;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Stream;
+import javax.inject.Singleton;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+import net.runelite.client.ui.ColorScheme;
+import net.runelite.client.ui.PluginPanel;
+import net.runelite.client.util.ImageUtil;
 
 @Singleton
-class KourendLibraryPanel extends PluginPanel {
+class KourendLibraryPanel extends PluginPanel
+{
 	private static final ImageIcon RESET_ICON;
 	private static final ImageIcon RESET_HOVER_ICON;
 
@@ -51,21 +56,24 @@ class KourendLibraryPanel extends PluginPanel {
 
 	private final HashMap<Book, BookPanel> bookPanels = new HashMap<>();
 
-	static {
+	static
+	{
 		final BufferedImage resetIcon = ImageUtil.getResourceStreamFromClass(KourendLibraryPanel.class, "/util/reset.png");
 		RESET_ICON = new ImageIcon(resetIcon);
 		RESET_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(resetIcon, -100));
 	}
 
 	@Inject
-	KourendLibraryPanel(KourendLibraryConfig config, Library library) {
+	KourendLibraryPanel(KourendLibraryConfig config, Library library)
+	{
 		super();
 
 		this.config = config;
 		this.library = library;
 	}
 
-	void init() {
+	void init()
+	{
 		setLayout(new BorderLayout(0, 5));
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -77,16 +85,16 @@ class KourendLibraryPanel extends PluginPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		Stream.of(Book.values())
-				.filter(b -> !b.isDarkManuscript())
-				.filter(b -> !config.hideVarlamoreEnvoy() || b != Book.VARLAMORE_ENVOY)
-				.sorted(Comparator.comparing(Book::getShortName))
-				.forEach(b ->
-				{
-					BookPanel p = new BookPanel(b);
-					bookPanels.put(b, p);
-					books.add(p, c);
-					c.gridy++;
-				});
+			.filter(b -> !b.isDarkManuscript())
+			.filter(b -> !config.hideVarlamoreEnvoy() || b != Book.VARLAMORE_ENVOY)
+			.sorted(Comparator.comparing(Book::getShortName))
+			.forEach(b ->
+			{
+				BookPanel p = new BookPanel(b);
+				bookPanels.put(b, p);
+				books.add(p, c);
+				c.gridy++;
+			});
 
 		JButton reset = new JButton("Reset", RESET_ICON);
 		reset.setRolloverIcon(RESET_HOVER_ICON);
@@ -101,40 +109,53 @@ class KourendLibraryPanel extends PluginPanel {
 		update();
 	}
 
-	void update() {
+	void update()
+	{
 		SwingUtilities.invokeLater(() ->
 		{
 			Book customerBook = library.getCustomerBook();
-			for (Map.Entry<Book, BookPanel> b : bookPanels.entrySet()) {
+			for (Map.Entry<Book, BookPanel> b : bookPanels.entrySet())
+			{
 				b.getValue().setIsTarget(customerBook == b.getKey());
 			}
 
 			HashMap<Book, HashSet<String>> bookLocations = new HashMap<>();
 
-			for (Bookcase bookcase : library.getBookcases()) {
-				if (bookcase.getBook() != null) {
+			for (Bookcase bookcase : library.getBookcases())
+			{
+				if (bookcase.getBook() != null)
+				{
 					bookLocations.computeIfAbsent(bookcase.getBook(), a -> new HashSet<>()).add(bookcase.getLocationString());
-				} else {
-					for (Book book : bookcase.getPossibleBooks()) {
-						if (book != null) {
+				}
+				else
+				{
+					for (Book book : bookcase.getPossibleBooks())
+					{
+						if (book != null)
+						{
 							bookLocations.computeIfAbsent(book, a -> new HashSet<>()).add(bookcase.getLocationString());
 						}
 					}
 				}
 			}
 
-			for (Map.Entry<Book, BookPanel> e : bookPanels.entrySet()) {
+			for (Map.Entry<Book, BookPanel> e : bookPanels.entrySet())
+			{
 				HashSet<String> locs = bookLocations.get(e.getKey());
-				if (locs == null || locs.size() > 3) {
+				if (locs == null || locs.size() > 3)
+				{
 					e.getValue().setLocation("Unknown");
-				} else {
+				}
+				else
+				{
 					e.getValue().setLocation("<html>" + String.join("<br>", locs) + "</html>");
 				}
 			}
 		});
 	}
 
-	void reload() {
+	void reload()
+	{
 		bookPanels.clear();
 		removeAll();
 		init();

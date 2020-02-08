@@ -25,11 +25,22 @@
 package net.runelite.client.plugins.implings;
 
 import com.google.inject.Provides;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.GameState;
 import net.runelite.api.NPC;
-import net.runelite.api.events.*;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.NpcDefinitionChanged;
+import net.runelite.api.events.NpcDespawned;
+import net.runelite.api.events.NpcSpawned;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -39,22 +50,15 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @PluginDescriptor(
-		name = "Implings",
-		description = "Highlight nearby implings on the minimap and on-screen",
-		tags = {"hunter", "minimap", "overlay", "imp"},
-		type = PluginType.SKILLING
+	name = "Implings",
+	description = "Highlight nearby implings on the minimap and on-screen",
+	tags = {"hunter", "minimap", "overlay", "imp"},
+	type = PluginType.SKILLING
 )
 @Singleton
-public class ImplingsPlugin extends Plugin {
+public class ImplingsPlugin extends Plugin
+{
 	private static final int DYNAMIC_SPAWN_NATURE_DRAGON = 1618;
 	private static final int DYNAMIC_SPAWN_ECLECTIC = 1633;
 	private static final int DYNAMIC_SPAWN_BABY_ESSENCE = 1634;
@@ -120,12 +124,14 @@ public class ImplingsPlugin extends Plugin {
 	private Color getDynamicSpawnColor;
 
 	@Provides
-	ImplingsConfig getConfig(ConfigManager configManager) {
+	ImplingsConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(ImplingsConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		dynamicSpawns.put(DYNAMIC_SPAWN_NATURE_DRAGON, "T3 Nature-Lucky Dynamic");
@@ -138,7 +144,8 @@ public class ImplingsPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		implings.clear();
 		overlayManager.remove(overlay);
 		overlayManager.remove(minimapOverlay);
@@ -146,31 +153,40 @@ public class ImplingsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
+	private void onGameTick(GameTick event)
+	{
 		implingCounterMap.clear();
-		for (NPC npc : implings) {
+		for (NPC npc : implings)
+		{
 			Impling impling = Impling.findImpling(npc.getId());
 
-			if (impling == null || impling.getImplingType() == null) {
+			if (impling == null || impling.getImplingType() == null)
+			{
 				continue;
 			}
 
 			ImplingType type = impling.getImplingType();
-			if (implingCounterMap.containsKey(type)) {
+			if (implingCounterMap.containsKey(type))
+			{
 				implingCounterMap.put(type, implingCounterMap.get(type) + 1);
-			} else {
+			}
+			else
+			{
 				implingCounterMap.put(type, 1);
 			}
 		}
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned npcSpawned) {
+	private void onNpcSpawned(NpcSpawned npcSpawned)
+	{
 		NPC npc = npcSpawned.getNpc();
 		Impling impling = Impling.findImpling(npc.getId());
 
-		if (impling != null) {
-			if (showImplingType(impling.getImplingType()) == ImplingsConfig.ImplingMode.NOTIFY) {
+		if (impling != null)
+		{
+			if (showImplingType(impling.getImplingType()) == ImplingsConfig.ImplingMode.NOTIFY)
+			{
 				notifier.notify(impling.getImplingType().getName() + " impling is in the area");
 			}
 
@@ -179,12 +195,15 @@ public class ImplingsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onNpcDefinitionChanged(NpcDefinitionChanged npcCompositionChanged) {
+	private void onNpcDefinitionChanged(NpcDefinitionChanged npcCompositionChanged)
+	{
 		NPC npc = npcCompositionChanged.getNpc();
 		Impling impling = Impling.findImpling(npc.getId());
 
-		if (impling != null && !implings.contains(npc)) {
-			if (showImplingType(impling.getImplingType()) == ImplingsConfig.ImplingMode.NOTIFY) {
+		if (impling != null && !implings.contains(npc))
+		{
+			if (showImplingType(impling.getImplingType()) == ImplingsConfig.ImplingMode.NOTIFY)
+			{
 				notifier.notify(impling.getImplingType().getName() + " impling is in the area");
 			}
 
@@ -193,16 +212,20 @@ public class ImplingsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOGIN_SCREEN || event.getGameState() == GameState.HOPPING) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGIN_SCREEN || event.getGameState() == GameState.HOPPING)
+		{
 			implings.clear();
 			implingCounterMap.clear();
 		}
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned npcDespawned) {
-		if (implings.isEmpty()) {
+	private void onNpcDespawned(NpcDespawned npcDespawned)
+	{
+		if (implings.isEmpty())
+		{
 			return;
 		}
 
@@ -211,9 +234,11 @@ public class ImplingsPlugin extends Plugin {
 
 	}
 
-	boolean showNpc(NPC npc) {
+	boolean showNpc(NPC npc)
+	{
 		Impling impling = Impling.findImpling(npc.getId());
-		if (impling == null) {
+		if (impling == null)
+		{
 			return true;
 		}
 
@@ -221,8 +246,10 @@ public class ImplingsPlugin extends Plugin {
 		return impMode == ImplingsConfig.ImplingMode.HIGHLIGHT || impMode == ImplingsConfig.ImplingMode.NOTIFY;
 	}
 
-	ImplingsConfig.ImplingMode showImplingType(ImplingType implingType) {
-		switch (implingType) {
+	ImplingsConfig.ImplingMode showImplingType(ImplingType implingType)
+	{
+		switch (implingType)
+		{
 			case BABY:
 				return this.showBaby;
 			case YOUNG:
@@ -252,17 +279,21 @@ public class ImplingsPlugin extends Plugin {
 		}
 	}
 
-	Color npcToColor(NPC npc) {
+	Color npcToColor(NPC npc)
+	{
 		Impling impling = Impling.findImpling(npc.getId());
-		if (impling == null) {
+		if (impling == null)
+		{
 			return null;
 		}
 
 		return typeToColor(impling.getImplingType());
 	}
 
-	private Color typeToColor(ImplingType type) {
-		switch (type) {
+	private Color typeToColor(ImplingType type)
+	{
+		switch (type)
+		{
 
 			case BABY:
 				return this.getBabyColor;
@@ -295,15 +326,18 @@ public class ImplingsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("implings")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("implings"))
+		{
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showBaby = config.showBaby();
 		this.getBabyColor = config.getBabyColor();
 		this.showYoung = config.showYoung();

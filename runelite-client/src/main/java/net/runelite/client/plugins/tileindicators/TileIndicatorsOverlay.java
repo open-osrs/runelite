@@ -24,23 +24,31 @@
  */
 package net.runelite.client.plugins.tileindicators;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.client.ui.overlay.*;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
+import net.runelite.client.ui.overlay.Overlay;
+import net.runelite.client.ui.overlay.OverlayLayer;
+import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class TileIndicatorsOverlay extends Overlay {
+public class TileIndicatorsOverlay extends Overlay
+{
 	private final Client client;
 	private final TileIndicatorsPlugin plugin;
 
 	@Inject
-	private TileIndicatorsOverlay(final Client client, final TileIndicatorsPlugin plugin) {
+	private TileIndicatorsOverlay(final Client client, final TileIndicatorsPlugin plugin)
+	{
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -49,39 +57,54 @@ public class TileIndicatorsOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		if (plugin.isHighlightHoveredTile() &&
-				// If we have tile "selected" render it
-				client.getSelectedSceneTile() != null) {
-			if (plugin.isThinHoveredTile()) {
+			// If we have tile "selected" render it
+			client.getSelectedSceneTile() != null)
+		{
+			if (plugin.isThinHoveredTile())
+			{
 				renderTileThin(graphics, client.getSelectedSceneTile().getLocalLocation(), plugin.getHighlightHoveredColor());
-			} else {
+			}
+			else
+			{
 				renderTile(graphics, client.getSelectedSceneTile().getLocalLocation(), plugin.getHighlightHoveredColor());
 			}
 		}
 
-		if (plugin.isHighlightDestinationTile()) {
-			if (plugin.isThinDestinationTile()) {
+		if (plugin.isHighlightDestinationTile())
+		{
+			if (plugin.isThinDestinationTile())
+			{
 				renderTileThin(graphics, client.getLocalDestinationLocation(), plugin.getHighlightDestinationColor());
-			} else {
+			}
+			else
+			{
 				renderTile(graphics, client.getLocalDestinationLocation(), plugin.getHighlightDestinationColor());
 			}
 		}
 
-		if (plugin.isHighlightCurrentTile()) {
+		if (plugin.isHighlightCurrentTile())
+		{
 			final WorldPoint playerPos = client.getLocalPlayer().getWorldLocation();
-			if (playerPos == null) {
+			if (playerPos == null)
+			{
 				return null;
 			}
 
 			final LocalPoint playerPosLocal = LocalPoint.fromWorld(client, client.getLocalPlayer().getWorldLocation());
-			if (playerPosLocal == null) {
+			if (playerPosLocal == null)
+			{
 				return null;
 			}
 
-			if (plugin.isThinCurrentTile()) {
+			if (plugin.isThinCurrentTile())
+			{
 				renderTileThin(graphics, playerPosLocal, plugin.getHighlightCurrentColor());
-			} else {
+			}
+			else
+			{
 				renderTile(graphics, playerPosLocal, plugin.getHighlightCurrentColor());
 			}
 		}
@@ -89,28 +112,34 @@ public class TileIndicatorsOverlay extends Overlay {
 		return null;
 	}
 
-	private void renderTile(final Graphics2D graphics, final LocalPoint dest, final Color color) {
-		if (dest == null) {
+	private void renderTile(final Graphics2D graphics, final LocalPoint dest, final Color color)
+	{
+		if (dest == null)
+		{
 			return;
 		}
 
 		final Polygon poly = Perspective.getCanvasTilePoly(client, dest);
 
-		if (poly == null) {
+		if (poly == null)
+		{
 			return;
 		}
 
 		OverlayUtil.renderPolygon(graphics, poly, color);
 	}
 
-	private void renderTileThin(final Graphics2D graphics, final LocalPoint dest, final Color color) {
-		if (dest == null) {
+	private void renderTileThin(final Graphics2D graphics, final LocalPoint dest, final Color color)
+	{
+		if (dest == null)
+		{
 			return;
 		}
 
 		final Polygon poly = Perspective.getCanvasTilePoly(client, dest);
 
-		if (poly == null) {
+		if (poly == null)
+		{
 			return;
 		}
 

@@ -24,116 +24,132 @@
  */
 package net.runelite.client.plugins.pyramidplunder;
 
-import net.runelite.client.config.*;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitleSection;
+import net.runelite.client.config.Title;
+import net.runelite.client.config.Units;
 
 @ConfigGroup("pyramidplunder")
-public interface PyramidPlunderConfig extends Config {
+public interface PyramidPlunderConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "overlaysTitle",
-			name = "Overlays",
-			description = "",
-			position = 1
+		keyName = "overlaysTitle",
+		name = "Overlays",
+		description = "",
+		position = 1
 	)
-	default Title overlaysTitle() {
+	default Title overlaysTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "showPlunderStatus",
-			name = "Show session stats",
-			description = "Configures whether to display pyramid plunder session stats",
-			titleSection = "overlaysTitle"
+		position = 2,
+		keyName = "showPlunderStatus",
+		name = "Show session stats",
+		description = "Configures whether to display pyramid plunder session stats",
+		titleSection = "overlaysTitle"
 	)
-	default boolean showPlunderStatus() {
+	default boolean showPlunderStatus()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "hideWidget",
-			name = "Hide default widget",
-			description = "Hide the default widget",
-			titleSection = "overlaysTitle"
+		position = 3,
+		keyName = "hideWidget",
+		name = "Hide default widget",
+		description = "Hide the default widget",
+		titleSection = "overlaysTitle"
 	)
-	default boolean hideWidget() {
+	default boolean hideWidget()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "showTimer",
-			name = "Display numerical timer",
-			description = "Displays a numerical timer instead of the default timer",
-			titleSection = "overlaysTitle"
+		position = 4,
+		keyName = "showTimer",
+		name = "Display numerical timer",
+		description = "Displays a numerical timer instead of the default timer",
+		titleSection = "overlaysTitle"
 	)
-	default boolean showTimer() {
+	default boolean showTimer()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "highlightsTitle",
-			name = "Highlights",
-			description = "",
-			position = 5
+		keyName = "highlightsTitle",
+		name = "Highlights",
+		description = "",
+		position = 5
 	)
-	default Title highlightsTitle() {
+	default Title highlightsTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "highlightDoors",
-			name = "Highlights doors",
-			description = "Highlights the four doors in each room",
-			titleSection = "highlightsTitle"
+		position = 6,
+		keyName = "highlightDoors",
+		name = "Highlights doors",
+		description = "Highlights the four doors in each room",
+		titleSection = "highlightsTitle"
 	)
-	default boolean highlightDoors() {
+	default boolean highlightDoors()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 7,
-			keyName = "highlightSpearTrap",
-			name = "Highlights spear traps",
-			description = "Highlights the spear traps in each room",
-			titleSection = "highlightsTitle"
+		position = 7,
+		keyName = "highlightSpearTrap",
+		name = "Highlights spear traps",
+		description = "Highlights the spear traps in each room",
+		titleSection = "highlightsTitle"
 	)
-	default boolean highlightSpearTrap() {
+	default boolean highlightSpearTrap()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "warningsTitle",
-			name = "Warnings",
-			description = "",
-			position = 8
+		keyName = "warningsTitle",
+		name = "Warnings",
+		description = "",
+		position = 8
 	)
-	default Title warningsTitle() {
+	default Title warningsTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 9,
-			keyName = "firstWarningTime",
-			name = "First warning time",
-			description = "Recolor time left(s)",
-			titleSection = "warningsTitle"
+		position = 9,
+		keyName = "firstWarningTime",
+		name = "First warning time",
+		description = "Recolor time left(s)",
+		titleSection = "warningsTitle"
 	)
 	@Units(Units.SECONDS)
-	default int firstWarningTime() {
+	default int firstWarningTime()
+	{
 		return 90;
 	}
 
 	@ConfigItem(
-			position = 10,
-			keyName = "secondWarningTime",
-			name = "Second warning time",
-			description = "Recolor time left(s)",
-			titleSection = "warningsTitle"
+		position = 10,
+		keyName = "secondWarningTime",
+		name = "Second warning time",
+		description = "Recolor time left(s)",
+		titleSection = "warningsTitle"
 	)
 	@Units(Units.SECONDS)
-	default int secondWarningTime() {
+	default int secondWarningTime()
+	{
 		return 30;
 	}
 }

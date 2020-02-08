@@ -24,14 +24,14 @@
  */
 package net.runelite.client.plugins.experiencedrop;
 
+import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.awt.*;
-
 @AllArgsConstructor
-enum DefaultColors {
+enum DefaultColors
+{
 	WHITE(new Color(0xFF, 0xFF, 0xFF)),
 	LILAC(new Color(0xC8, 0xC8, 0xFF)),
 	CYAN(new Color(0x00, 0xFF, 0xFF)),

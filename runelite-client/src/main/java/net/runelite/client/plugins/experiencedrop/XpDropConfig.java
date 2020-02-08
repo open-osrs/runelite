@@ -24,89 +24,97 @@
  */
 package net.runelite.client.plugins.experiencedrop;
 
+import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
-import java.awt.*;
-
 @ConfigGroup("xpdrop")
-public interface XpDropConfig extends Config {
-	enum DamageMode {
+public interface XpDropConfig extends Config
+{
+	enum DamageMode
+	{
 		NONE,
 		ABOVE_OPPONENT,
 		IN_XP_DROP
 	}
 
 	@ConfigItem(
-			keyName = "hideSkillIcons",
-			name = "Hide skill icons",
-			description = "Configure if XP drops will show their respective skill icons",
-			position = 0
+		keyName = "hideSkillIcons",
+		name = "Hide skill icons",
+		description = "Configure if XP drops will show their respective skill icons",
+		position = 0
 	)
-	default boolean hideSkillIcons() {
+	default boolean hideSkillIcons()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "meleePrayerColor",
-			name = "Melee Prayer Color",
-			description = "XP drop color when a melee prayer is active",
-			position = 1
+		keyName = "meleePrayerColor",
+		name = "Melee Prayer Color",
+		description = "XP drop color when a melee prayer is active",
+		position = 1
 	)
-	default Color getMeleePrayerColor() {
+	default Color getMeleePrayerColor()
+	{
 		return new Color(0x15, 0x80, 0xAD);
 	}
 
 	@ConfigItem(
-			keyName = "rangePrayerColor",
-			name = "Range Prayer Color",
-			description = "XP drop color when a range prayer is active",
-			position = 2
+		keyName = "rangePrayerColor",
+		name = "Range Prayer Color",
+		description = "XP drop color when a range prayer is active",
+		position = 2
 	)
-	default Color getRangePrayerColor() {
+	default Color getRangePrayerColor()
+	{
 		return new Color(0x15, 0x80, 0xAD);
 	}
 
 	@ConfigItem(
-			keyName = "magePrayerColor",
-			name = "Mage Prayer Color",
-			description = "XP drop color when a mage prayer is active",
-			position = 3
+		keyName = "magePrayerColor",
+		name = "Mage Prayer Color",
+		description = "XP drop color when a mage prayer is active",
+		position = 3
 	)
-	default Color getMagePrayerColor() {
+	default Color getMagePrayerColor()
+	{
 		return new Color(0x15, 0x80, 0xAD);
 	}
 
 	@ConfigItem(
-			keyName = "fakeXpDropDelay",
-			name = "Fake Xp Drop delay",
-			description = "Configures how many ticks should pass between fake XP drops, 0 to disable",
-			position = 4
+		keyName = "fakeXpDropDelay",
+		name = "Fake Xp Drop delay",
+		description = "Configures how many ticks should pass between fake XP drops, 0 to disable",
+		position = 4
 	)
 	@Units(Units.TICKS)
-	default int fakeXpDropDelay() {
+	default int fakeXpDropDelay()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "showdamagedrops",
-			name = "Show Damage on XP Drop",
-			description = "Show what you hit next to the XP drop",
-			position = 5
+		keyName = "showdamagedrops",
+		name = "Show Damage on XP Drop",
+		description = "Show what you hit next to the XP drop",
+		position = 5
 	)
-	default DamageMode showdamagedrops() {
+	default DamageMode showdamagedrops()
+	{
 		return DamageMode.NONE;
 	}
 
 	@ConfigItem(
-			keyName = "damageColor",
-			name = "Damage Color",
-			description = "The color you want the text to be for damage",
-			position = 6
+		keyName = "damageColor",
+		name = "Damage Color",
+		description = "The color you want the text to be for damage",
+		position = 6
 	)
-	default Color getDamageColor() {
+	default Color getDamageColor()
+	{
 		return Color.RED;
 	}
 

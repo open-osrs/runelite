@@ -25,18 +25,23 @@
  */
 package net.runelite.client.ui.components.colorpicker;
 
-import lombok.Setter;
-import net.runelite.client.util.MiscUtils;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.util.function.Consumer;
+import javax.swing.JPanel;
+import lombok.Setter;
+import net.runelite.client.util.MiscUtils;
 
-public class ColorPanel extends JPanel {
+public class ColorPanel extends JPanel
+{
 	private static final int SELECTOR_RADIUS = 7;
 
 	private final int size;
@@ -49,27 +54,33 @@ public class ColorPanel extends JPanel {
 	@Setter
 	private Consumer<Color> onColorChange;
 
-	ColorPanel(int size) {
+	ColorPanel(int size)
+	{
 		this.size = size;
 		this.image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
 		this.targetPosition = new Point(size, 0);
 		setPreferredSize(new Dimension(size, size));
 
-		addMouseMotionListener(new MouseMotionAdapter() {
+		addMouseMotionListener(new MouseMotionAdapter()
+		{
 			@Override
-			public void mouseDragged(MouseEvent me) {
+			public void mouseDragged(MouseEvent me)
+			{
 				moveTarget(me.getX(), me.getY(), true);
 			}
 		});
 
-		addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseReleased(MouseEvent me) {
+			public void mouseReleased(MouseEvent me)
+			{
 				moveTarget(me.getX(), me.getY(), true);
 			}
 
 			@Override
-			public void mousePressed(MouseEvent me) {
+			public void mousePressed(MouseEvent me)
+			{
 				moveTarget(me.getX(), me.getY(), true);
 			}
 		});
@@ -78,15 +89,18 @@ public class ColorPanel extends JPanel {
 	/*
 	 * Sets the gradient's base hue index.
 	 */
-	void setBaseColor(int selectedY) {
-		if (this.selectedY == selectedY) {
+	void setBaseColor(int selectedY)
+	{
+		if (this.selectedY == selectedY)
+		{
 			return;
 		}
 
 		this.selectedY = selectedY;
 		redrawGradient();
 
-		if (onColorChange != null) {
+		if (onColorChange != null)
+		{
 			onColorChange.accept(colorAt(targetPosition.x, targetPosition.y));
 		}
 
@@ -96,9 +110,11 @@ public class ColorPanel extends JPanel {
 	/*
 	 * Move the indicator to the closest color without firing change event.
 	 */
-	void moveToClosestColor(int y, Color color) {
+	void moveToClosestColor(int y, Color color)
+	{
 		Point closest = closestPointToColor(color);
-		if (this.selectedY == y && closest.x == targetPosition.x && closest.y == targetPosition.y) {
+		if (this.selectedY == y && closest.x == targetPosition.x && closest.y == targetPosition.y)
+		{
 			return;
 		}
 
@@ -110,7 +126,8 @@ public class ColorPanel extends JPanel {
 	/*
 	 * Calculates the closest point to a given color.
 	 */
-	private Point closestPointToColor(Color target) {
+	private Point closestPointToColor(Color target)
+	{
 		float[] hsb = Color.RGBtoHSB(target.getRed(), target.getGreen(), target.getBlue(), null);
 		int offSize = size - 1;
 
@@ -120,8 +137,10 @@ public class ColorPanel extends JPanel {
 	/**
 	 * Moves the target (selector) to a specified x,y coordinates.
 	 */
-	private void moveTarget(int x, int y, boolean shouldUpdate) {
-		if (targetPosition.x == x && targetPosition.y == y && !forceRedraw) {
+	private void moveTarget(int x, int y, boolean shouldUpdate)
+	{
+		if (targetPosition.x == x && targetPosition.y == y && !forceRedraw)
+		{
 			return;
 		}
 
@@ -131,14 +150,16 @@ public class ColorPanel extends JPanel {
 		targetPosition = new Point(x, y);
 		paintImmediately(0, 0, size, size);
 
-		if (onColorChange != null && shouldUpdate) {
+		if (onColorChange != null && shouldUpdate)
+		{
 			onColorChange.accept(colorAt(x, y));
 		}
 		forceRedraw = false;
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g)
+	{
 		// Paint the gradient
 		g.drawImage(this.image, 0, 0, null);
 
@@ -155,15 +176,16 @@ public class ColorPanel extends JPanel {
 	/*
 	 * Draws a 3-color gradient based on white, black, and current hue index.
 	 */
-	private void redrawGradient() {
+	private void redrawGradient()
+	{
 		Color primaryRight = Color.getHSBColor(1f - this.selectedY / (float) (size - 1), 1, 1);
 		Graphics2D g = image.createGraphics();
 		GradientPaint primary = new GradientPaint(
-				0f, 0f, Color.WHITE,
-				size - 1, 0f, primaryRight);
+			0f, 0f, Color.WHITE,
+			size - 1, 0f, primaryRight);
 		GradientPaint shade = new GradientPaint(
-				0f, 0f, new Color(0, 0, 0, 0),
-				0f, size - 1, Color.BLACK);
+			0f, 0f, new Color(0, 0, 0, 0),
+			0f, size - 1, Color.BLACK);
 		g.setPaint(primary);
 		g.fillRect(0, 0, size, size);
 		g.setPaint(shade);
@@ -176,7 +198,8 @@ public class ColorPanel extends JPanel {
 	/*
 	 * Determines which color is displayed on the gradient at x,y.
 	 */
-	private Color colorAt(int x, int y) {
+	private Color colorAt(int x, int y)
+	{
 		x = MiscUtils.clamp(x, 0, size - 1);
 		y = MiscUtils.clamp(y, 0, size - 1);
 		return new Color(image.getRGB(x, y));

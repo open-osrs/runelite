@@ -24,6 +24,10 @@
  */
 package net.runelite.client.plugins.experiencedrop;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Actor;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -31,31 +35,33 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-class XpDropOverlay extends Overlay {
+class XpDropOverlay extends Overlay
+{
 	private final XpDropPlugin plugin;
 
 	@Inject
-	private XpDropOverlay(final XpDropPlugin plugin) {
+	private XpDropOverlay(final XpDropPlugin plugin)
+	{
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (plugin.getTickShow() > 0) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (plugin.getTickShow() > 0)
+		{
 			final Actor opponent = plugin.getLastOpponent();
-			if (opponent != null) {
+			if (opponent != null)
+			{
 				int offset = opponent.getLogicalHeight() + 50;
 				String damageStr = String.valueOf(plugin.getDamage());
 				Point textLocation = opponent.getCanvasTextLocation(graphics, damageStr, offset);
 
-				if (textLocation != null && plugin.getDamage() != 0) {
+				if (textLocation != null && plugin.getDamage() != 0)
+				{
 					OverlayUtil.renderTextLocation(graphics, textLocation, damageStr, plugin.getDamageColor());
 				}
 			}

@@ -26,14 +26,14 @@ package net.runelite.client.plugins.virtuallevels;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+import java.util.List;
 import lombok.Getter;
 import net.runelite.api.ModelID;
 import net.runelite.api.Skill;
 
-import java.util.List;
-
 @Getter
-public enum SkillModel {
+public enum SkillModel
+{
 	CONSTRUCTION1(Skill.CONSTRUCTION, ModelID.HAMMER, 10, 14, 669, 15, 0, 329),
 	CONSTRUCTION2(Skill.CONSTRUCTION, ModelID.SAW, 11, 14, 615, 111, 0, 451),
 	COOKING(Skill.COOKING, ModelID.COOKING_SKILL_MODEL, 31, 59, 169, 1593, 0, 963),
@@ -63,7 +63,7 @@ public enum SkillModel {
 	ATTACK2(Skill.ATTACK, ModelID.STEEL_LONGSWORD, 27, 29, 198, 1419, 0, 330),
 	HUNTER(Skill.HUNTER, ModelID.FOOTPRINT, 45, 48, 512, 0, 0, 1000);
 
-	private static final ListMultimap<Skill, SkillModel> skillModels = ArrayListMultimap.create();
+	private static final ListMultimap<Skill, SkillModel> skillModels =  ArrayListMultimap.create();
 
 	private final Skill skill;
 	private final int modelID;
@@ -74,7 +74,8 @@ public enum SkillModel {
 	private final int rotationZ;
 	private final int modelZoom;
 
-	SkillModel(Skill skill, int modelID, int originalX, int originalY, int rotationX, int rotationY, int rotationZ, int modelZoom) {
+	SkillModel(Skill skill, int modelID, int originalX, int originalY, int rotationX, int rotationY, int rotationZ, int modelZoom)
+	{
 		this.skill = skill;
 		this.modelID = modelID;
 		this.originalX = originalX;
@@ -85,13 +86,16 @@ public enum SkillModel {
 		this.modelZoom = modelZoom;
 	}
 
-	static {
-		for (SkillModel skillModel : values()) {
+	static
+	{
+		for (SkillModel skillModel : values())
+		{
 			skillModels.put(skillModel.skill, skillModel);
 		}
 	}
 
-	public static List<SkillModel> getSkillModels(Skill skill) {
+	public static List<SkillModel> getSkillModels(Skill skill)
+	{
 		return skillModels.get(skill);
 	}
 }

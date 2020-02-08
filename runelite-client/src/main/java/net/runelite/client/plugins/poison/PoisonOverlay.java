@@ -24,6 +24,11 @@
  */
 package net.runelite.client.plugins.poison;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.Widget;
@@ -34,18 +39,16 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-class PoisonOverlay extends Overlay {
+class PoisonOverlay extends Overlay
+{
 	private final PoisonPlugin plugin;
 	private final Client client;
 	private final TooltipManager tooltipManager;
 
 	@Inject
-	private PoisonOverlay(final PoisonPlugin plugin, final Client client, final TooltipManager tooltipManager) {
+	private PoisonOverlay(final PoisonPlugin plugin, final Client client, final TooltipManager tooltipManager)
+	{
 		this.plugin = plugin;
 		this.client = client;
 		this.tooltipManager = tooltipManager;
@@ -54,26 +57,31 @@ class PoisonOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (plugin.getLastDamage() <= 0) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (plugin.getLastDamage() <= 0)
+		{
 			return null;
 		}
 
 		final Widget healthOrb = client.getWidget(WidgetInfo.MINIMAP_HEALTH_ORB);
 
-		if (healthOrb == null || healthOrb.isHidden()) {
+		if (healthOrb == null || healthOrb.isHidden())
+		{
 			return null;
 		}
 
 		final Rectangle bounds = healthOrb.getBounds();
 
-		if (bounds.getX() <= 0) {
+		if (bounds.getX() <= 0)
+		{
 			return null;
 		}
 
 		final Point mousePosition = client.getMouseCanvasPosition();
 
-		if (bounds.contains(mousePosition.getX(), mousePosition.getY())) {
+		if (bounds.contains(mousePosition.getX(), mousePosition.getY()))
+		{
 			tooltipManager.add(new Tooltip(plugin.createTooltip()));
 		}
 

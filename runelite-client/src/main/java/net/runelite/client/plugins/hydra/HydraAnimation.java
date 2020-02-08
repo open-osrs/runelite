@@ -24,15 +24,15 @@
  */
 package net.runelite.client.plugins.hydra;
 
+import java.awt.Color;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.awt.*;
-import java.util.Objects;
-
 @RequiredArgsConstructor
-public enum HydraAnimation {
+public enum HydraAnimation
+{
 	RANGE(8261, "RANGE", new Color(0, 255, 0)),
 	MAGIC(8262, "MAGIC", new Color(52, 152, 219)),
 	POISON(8263, "POISON", new Color(255, 0, 0)); // Not used currently
@@ -46,9 +46,12 @@ public enum HydraAnimation {
 	@Getter(AccessLevel.PACKAGE)
 	private final Color color;
 
-	public static HydraAnimation fromId(final int id) {
-		for (final HydraAnimation hydraAnimation : HydraAnimation.values()) {
-			if (Objects.equals(hydraAnimation.id, id)) {
+	public static HydraAnimation fromId(final int id)
+	{
+		for (final HydraAnimation hydraAnimation : HydraAnimation.values())
+		{
+			if (Objects.equals(hydraAnimation.id, id))
+			{
 				return hydraAnimation;
 			}
 		}

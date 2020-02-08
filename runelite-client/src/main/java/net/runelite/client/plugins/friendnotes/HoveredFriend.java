@@ -29,7 +29,8 @@ package net.runelite.client.plugins.friendnotes;
 import lombok.Value;
 
 @Value
-class HoveredFriend {
+class HoveredFriend
+{
 	private String friendName;
 	private String note;
 }

@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.leftclickonly;
 
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.MenuOpened;
@@ -33,16 +34,15 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
-import javax.inject.Inject;
-
 @PluginDescriptor(
-		name = "Left Click Only",
-		description = "Only allow leftclicks",
-		tags = {"left", "click", "only", "gamemode", "leftclick"},
-		type = PluginType.GAMEMODE,
-		enabledByDefault = false
+	name = "Left Click Only",
+	description = "Only allow leftclicks",
+	tags = {"left", "click", "only", "gamemode", "leftclick"},
+	type = PluginType.GAMEMODE,
+	enabledByDefault = false
 )
-public class LeftClickOnlyPlugin extends Plugin {
+public class LeftClickOnlyPlugin extends Plugin
+{
 	@Inject
 	private Client client;
 
@@ -53,17 +53,20 @@ public class LeftClickOnlyPlugin extends Plugin {
 	private MouseManager mouseManager;
 
 	@Override
-	protected void startUp() throws Exception {
+	protected void startUp() throws Exception
+	{
 		mouseManager.registerMouseListener(rightClickConsumer);
 	}
 
 	@Override
-	protected void shutDown() throws Exception {
+	protected void shutDown() throws Exception
+	{
 		mouseManager.unregisterMouseListener(rightClickConsumer);
 	}
 
 	@Subscribe
-	public void onMenuOpened(MenuOpened event) {
+	public void onMenuOpened(MenuOpened event)
+	{
 		MenuEntry first = event.getFirstEntry();
 		client.setMenuEntries(new MenuEntry[]{first});
 	}

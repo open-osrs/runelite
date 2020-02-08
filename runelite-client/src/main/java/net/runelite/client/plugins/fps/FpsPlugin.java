@@ -48,14 +48,15 @@ import net.runelite.client.ui.overlay.OverlayManager;
  * game and system load, it usually finds the sweet spot in about two seconds.
  */
 @PluginDescriptor(
-		name = "Performance",
-		description = "Show current FPS or set an FPS limit",
-		tags = {"frames", "framerate", "limit", "overlay"},
-		enabledByDefault = false,
-		type = PluginType.MISCELLANEOUS
+	name = "Performance",
+	description = "Show current FPS or set an FPS limit",
+	tags = {"frames", "framerate", "limit", "overlay"},
+	enabledByDefault = false,
+	type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class FpsPlugin extends Plugin {
+public class FpsPlugin extends Plugin
+{
 	static final String CONFIG_GROUP_KEY = "fpscontrol";
 
 	@Inject
@@ -71,32 +72,38 @@ public class FpsPlugin extends Plugin {
 	private DrawManager drawManager;
 
 	@Provides
-	FpsConfig provideConfig(ConfigManager configManager) {
+	FpsConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(FpsConfig.class);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals(CONFIG_GROUP_KEY)) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals(CONFIG_GROUP_KEY))
+		{
 			drawListener.reloadConfig();
 		}
 	}
 
 	@Subscribe
-	private void onFocusChanged(FocusChanged event) {
+	private void onFocusChanged(FocusChanged event)
+	{
 		drawListener.onFocusChanged(event);
 		overlay.onFocusChanged(event);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		overlayManager.add(overlay);
 		drawManager.registerEveryFrameListener(drawListener);
 		drawListener.reloadConfig();
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		drawManager.unregisterEveryFrameListener(drawListener);
 	}

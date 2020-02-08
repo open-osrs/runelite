@@ -26,6 +26,10 @@ package net.runelite.client.plugins.notes;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import joptsimple.internal.Strings;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,14 +39,10 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.notes.events.PageAdded;
 import net.runelite.client.plugins.notes.events.PageDeleted;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.List;
-
 @Singleton
 @Slf4j
-class NotesManager {
+class NotesManager
+{
 	@Inject
 	private ConfigManager configManager;
 
@@ -55,58 +55,68 @@ class NotesManager {
 	@Getter(AccessLevel.PACKAGE)
 	private List<String> notes = new ArrayList<>();
 
-	void loadNotes() {
+	void loadNotes()
+	{
 		final String configJson = configManager.getConfiguration(NotesConfig.CONFIG_GROUP, NotesConfig.NOTES);
 
 		notes = null;
-		if (!Strings.isNullOrEmpty(configJson)) {
+		if (!Strings.isNullOrEmpty(configJson))
+		{
 			final Gson gson = new Gson();
-			notes = gson.fromJson(configJson, new TypeToken<ArrayList<String>>() {
-			}.getType());
+			notes = gson.fromJson(configJson, new TypeToken<ArrayList<String>>() {}.getType());
 		}
 
-		if (notes == null) {
+		if (notes == null)
+		{
 			notes = new ArrayList<>();
 			notes.add("");
 		}
 
 		// migrate from legacy single tab notes
-		if (!config.notesData().isEmpty()) {
+		if (!config.notesData().isEmpty())
+		{
 			log.info("Adding tab for legacy note data");
 			notes.add(0, config.notesData());
 
-			if (notes.size() == 2 && notes.get(1).equals("")) {
+			if (notes.size() == 2 && notes.get(1).equals(""))
+			{
 				// remove the default empty note page
 				notes.remove(1);
 			}
 		}
 	}
 
-	void updateNote(int index, String data) {
+	void updateNote(int index, String data)
+	{
 		notes.set(index, data);
 		save();
 	}
 
-	private void save() {
+	private void save()
+	{
 		final Gson gson = new Gson();
 		final String json = gson.toJson(notes);
 		configManager.setConfiguration(NotesConfig.CONFIG_GROUP, NotesConfig.NOTES, json);
 
 		// Remove legacy notes
-		if (!config.notesData().isEmpty()) {
+		if (!config.notesData().isEmpty())
+		{
 			log.info("Removing legacy note data");
 			config.notesData("");
 		}
 	}
 
-	void addPage() {
+	void addPage()
+	{
 		notes.add("");
 		eventBus.post(PageAdded.class, new PageAdded(notes.size() - 1));
 		save();
 	}
 
-	void deletePage(int index) {
-		if (notes.size() <= 1) {
+	void deletePage(int index)
+	{
+		if (notes.size() <= 1)
+		{
 			throw new DeleteOnlyPageException();
 		}
 

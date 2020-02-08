@@ -26,9 +26,18 @@
 package net.runelite.client.plugins.prayer;
 
 import com.google.inject.Provides;
+import java.time.Duration;
+import java.time.Instant;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.Constants;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
+import net.runelite.api.Prayer;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.config.ConfigManager;
@@ -43,19 +52,15 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.http.api.item.ItemStats;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.time.Duration;
-import java.time.Instant;
-
 @PluginDescriptor(
-		name = "Prayer",
-		description = "Show various information related to prayer",
-		tags = {"combat", "flicking", "overlay"},
-		type = PluginType.UTILITY
+	name = "Prayer",
+	description = "Show various information related to prayer",
+	tags = {"combat", "flicking", "overlay"},
+	type = PluginType.UTILITY
 )
 @Singleton
-public class PrayerPlugin extends Plugin {
+public class PrayerPlugin extends Plugin
+{
 	private final PrayerCounter[] prayerCounter = new PrayerCounter[PrayerType.values().length];
 
 	private Instant startOfLastTick = Instant.now();
@@ -108,12 +113,14 @@ public class PrayerPlugin extends Plugin {
 	private boolean hideIfOutOfCombat;
 
 	@Provides
-	PrayerConfig provideConfig(ConfigManager configManager) {
+	PrayerConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PrayerConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(flickOverlay);
@@ -122,7 +129,8 @@ public class PrayerPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(flickOverlay);
 		overlayManager.remove(doseOverlay);
 		overlayManager.remove(barOverlay);
@@ -130,33 +138,42 @@ public class PrayerPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("prayer")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("prayer"))
+		{
 			updateConfig();
-			if (!this.prayerIndicator) {
+			if (!this.prayerIndicator)
+			{
 				removeIndicators();
-			} else if (!this.prayerIndicatorOverheads) {
+			}
+			else if (!this.prayerIndicatorOverheads)
+			{
 				removeOverheadsIndicators();
 			}
 		}
 	}
 
 	@Subscribe
-	private void onItemContainerChanged(final ItemContainerChanged event) {
+	private void onItemContainerChanged(final ItemContainerChanged event)
+	{
 		final ItemContainer container = event.getItemContainer();
 		final ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
 		final ItemContainer equipment = client.getItemContainer(InventoryID.EQUIPMENT);
 
-		if (container != null && (container.equals(inventory) || container.equals(equipment))) {
+		if (container != null && (container.equals(inventory) || container.equals(equipment)))
+		{
 			doseOverlay.setHasHolyWrench(false);
 			doseOverlay.setHasPrayerRestore(false);
 			doseOverlay.setBonusPrayer(0);
 
-			if (inventory != null) {
+			if (inventory != null)
+			{
 				checkContainerForPrayer(inventory.getItems());
 			}
 
-			if (equipment != null) {
+			if (equipment != null)
+			{
 				doseOverlay.setPrayerBonus(checkContainerForPrayer(equipment.getItems()));
 			}
 
@@ -164,49 +181,62 @@ public class PrayerPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick tick) {
+	private void onGameTick(GameTick tick)
+	{
 		prayersActive = isAnyPrayerActive();
 
-		if (!this.prayerFlickLocation.equals(PrayerFlickLocation.NONE)) {
+		if (!this.prayerFlickLocation.equals(PrayerFlickLocation.NONE))
+		{
 			startOfLastTick = Instant.now();
 		}
 
-		if (this.showPrayerDoseIndicator) {
+		if (this.showPrayerDoseIndicator)
+		{
 			doseOverlay.onTick();
 		}
 
-		if (this.showPrayerBar) {
+		if (this.showPrayerBar)
+		{
 			barOverlay.onTick();
 		}
 
-		if (!this.prayerIndicator) {
+		if (!this.prayerIndicator)
+		{
 			return;
 		}
 
-		for (PrayerType prayerType : PrayerType.values()) {
+		for (PrayerType prayerType : PrayerType.values())
+		{
 			Prayer prayer = prayerType.getPrayer();
 			int ord = prayerType.ordinal();
 
-			if (client.isPrayerActive(prayer)) {
-				if (prayerType.isOverhead() && !this.prayerIndicatorOverheads) {
+			if (client.isPrayerActive(prayer))
+			{
+				if (prayerType.isOverhead() && !this.prayerIndicatorOverheads)
+				{
 					continue;
 				}
 
-				if (prayerCounter[ord] == null) {
+				if (prayerCounter[ord] == null)
+				{
 					PrayerCounter counter = prayerCounter[ord] = new PrayerCounter(this, prayerType);
 					spriteManager.getSpriteAsync(prayerType.getSpriteID(), 0,
-							counter::setImage);
+						counter::setImage);
 					infoBoxManager.addInfoBox(counter);
 				}
-			} else if (prayerCounter[ord] != null) {
+			}
+			else if (prayerCounter[ord] != null)
+			{
 				infoBoxManager.removeInfoBox(prayerCounter[ord]);
 				prayerCounter[ord] = null;
 			}
 		}
 	}
 
-	private int checkContainerForPrayer(Item[] items) {
-		if (items == null) {
+	private int checkContainerForPrayer(Item[] items)
+	{
+		if (items == null)
+		{
 			return 0;
 		}
 
@@ -216,15 +246,19 @@ public class PrayerPlugin extends Plugin {
 		boolean hasSuperRestore = false;
 		boolean hasSanfew = false;
 
-		for (Item item : items) {
-			if (item == null) {
+		for (Item item : items)
+		{
+			if (item == null)
+			{
 				continue;
 			}
 
 			final PrayerRestoreType type = PrayerRestoreType.getType(item.getId());
 
-			if (type != null) {
-				switch (type) {
+			if (type != null)
+			{
+				switch (type)
+				{
 					case PRAYERPOT:
 						hasPrayerPotion = true;
 						break;
@@ -241,16 +275,21 @@ public class PrayerPlugin extends Plugin {
 			}
 
 			ItemStats is = itemManager.getItemStats(item.getId(), false);
-			if (is != null && is.getEquipment() != null) {
+			if (is != null && is.getEquipment() != null)
+			{
 				total += is.getEquipment().getPrayer();
 			}
 		}
 
-		if (hasSanfew || hasSuperRestore || hasPrayerPotion) {
+		if (hasSanfew || hasSuperRestore || hasPrayerPotion)
+		{
 			doseOverlay.setHasPrayerRestore(true);
-			if (hasSanfew) {
+			if (hasSanfew)
+			{
 				doseOverlay.setBonusPrayer(2);
-			} else if (hasSuperRestore) {
+			}
+			else if (hasSuperRestore)
+			{
 				doseOverlay.setBonusPrayer(1);
 			}
 		}
@@ -258,17 +297,20 @@ public class PrayerPlugin extends Plugin {
 		return total;
 	}
 
-	double getTickProgress() {
+	double getTickProgress()
+	{
 		long timeSinceLastTick = Duration.between(startOfLastTick, Instant.now()).toMillis();
 
 		float tickProgress = (timeSinceLastTick % Constants.GAME_TICK_LENGTH) / (float) Constants.GAME_TICK_LENGTH;
 		return tickProgress * Math.PI;
 	}
 
-	private boolean isAnyPrayerActive() {
+	private boolean isAnyPrayerActive()
+	{
 		for (Prayer pray : Prayer.values())//Check if any prayers are active
 		{
-			if (client.isPrayerActive(pray)) {
+			if (client.isPrayerActive(pray))
+			{
 				return true;
 			}
 		}
@@ -276,16 +318,19 @@ public class PrayerPlugin extends Plugin {
 		return false;
 	}
 
-	private void removeIndicators() {
+	private void removeIndicators()
+	{
 		infoBoxManager.removeIf(entry -> entry instanceof PrayerCounter);
 	}
 
-	private void removeOverheadsIndicators() {
+	private void removeOverheadsIndicators()
+	{
 		infoBoxManager.removeIf(entry -> entry instanceof PrayerCounter
-				&& ((PrayerCounter) entry).getPrayerType().isOverhead());
+			&& ((PrayerCounter) entry).getPrayerType().isOverhead());
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.prayerFlickLocation = config.prayerFlickLocation();
 		this.prayerFlickAlwaysOn = config.prayerFlickAlwaysOn();
 		this.prayerIndicator = config.prayerIndicator();

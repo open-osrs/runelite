@@ -24,6 +24,21 @@
  */
 package net.runelite.client.plugins.equipmentinspector;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.HashMap;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.kit.KitType;
@@ -32,18 +47,10 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.util.AsyncBufferedImage;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
 @Slf4j
 @Singleton
-class EquipmentInspectorPanel extends PluginPanel {
+class EquipmentInspectorPanel extends PluginPanel
+{
 	private final static String NO_PLAYER_SELECTED = "No player selected";
 
 	private final GridBagConstraints c;
@@ -54,7 +61,8 @@ class EquipmentInspectorPanel extends PluginPanel {
 	@Inject
 	private ItemManager itemManager;
 
-	public EquipmentInspectorPanel() {
+	public EquipmentInspectorPanel()
+	{
 		GroupLayout layout = new GroupLayout(this);
 		setLayout(layout);
 		setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -69,43 +77,47 @@ class EquipmentInspectorPanel extends PluginPanel {
 		header = new JPanel();
 		header.setLayout(new BorderLayout());
 		header.setBorder(new CompoundBorder(
-				BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 58, 58)),
-				BorderFactory.createEmptyBorder(0, 0, 10, 0)));
+			BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(58, 58, 58)),
+			BorderFactory.createEmptyBorder(0, 0, 10, 0)));
 
 		nameLabel = new JLabel(NO_PLAYER_SELECTED);
 		nameLabel.setForeground(Color.WHITE);
 		header.add(nameLabel, BorderLayout.CENTER);
 		layout.setHorizontalGroup(layout.createParallelGroup()
-				.addComponent(equipmentPanels)
-				.addComponent(header)
+			.addComponent(equipmentPanels)
+			.addComponent(header)
 		);
 		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addComponent(header)
-				.addGap(10)
-				.addComponent(equipmentPanels)
+			.addComponent(header)
+			.addGap(10)
+			.addComponent(equipmentPanels)
 		);
 		update(new HashMap<>(), "");
 	}
 
-	public void update(Map<KitType, ItemDefinition> playerEquipment, String playerName) {
-		if (playerName.isEmpty()) {
+	public void update(Map<KitType, ItemDefinition> playerEquipment, String playerName)
+	{
+		if (playerName.isEmpty())
+		{
 			nameLabel.setText(NO_PLAYER_SELECTED);
-		} else {
+		}
+		else
+		{
 			nameLabel.setText("Player: " + playerName);
 		}
 		SwingUtilities.invokeLater(() ->
+			{
+				equipmentPanels.removeAll();
+				playerEquipment.forEach((kitType, itemComposition) ->
 				{
-					equipmentPanels.removeAll();
-					playerEquipment.forEach((kitType, itemComposition) ->
-					{
-						AsyncBufferedImage itemImage = itemManager.getImage(itemComposition.getId());
-						equipmentPanels.add(new ItemPanel(itemComposition, kitType, itemImage), c);
-						c.gridy++;
+					AsyncBufferedImage itemImage = itemManager.getImage(itemComposition.getId());
+					equipmentPanels.add(new ItemPanel(itemComposition, kitType, itemImage), c);
+					c.gridy++;
 
-					});
-					header.revalidate();
-					header.repaint();
-				}
+				});
+				header.revalidate();
+				header.repaint();
+			}
 		);
 	}
 }

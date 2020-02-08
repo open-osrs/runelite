@@ -24,15 +24,15 @@
  */
 package net.runelite.client.plugins.hydra;
 
+import java.awt.Graphics2D;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.NPC;
 import net.runelite.api.Point;
 
-import java.awt.*;
-
-public class Hydra {
+public class Hydra
+{
 	static final int MAX_ATTACK_COUNT = 3;
 
 	private final NPC npc;
@@ -44,25 +44,30 @@ public class Hydra {
 	@Setter(AccessLevel.PACKAGE)
 	private HydraAnimation hydraAnimation;
 
-	public Hydra(final NPC npc) {
+	public Hydra(final NPC npc)
+	{
 		this.npc = npc;
 		this.attackCount = MAX_ATTACK_COUNT;
 		this.hydraAnimation = null;
 	}
 
-	void updateAttackCount() {
+	void updateAttackCount()
+	{
 		attackCount = attackCount == 1 ? MAX_ATTACK_COUNT : --attackCount;
 	}
 
-	void resetAttackCount() {
+	void resetAttackCount()
+	{
 		attackCount = MAX_ATTACK_COUNT;
 	}
 
-	Point getCanvasTextLocation(final Graphics2D graphics, final String text, final int zOffset) {
+	Point getCanvasTextLocation(final Graphics2D graphics, final String text, final int zOffset)
+	{
 		return npc.getCanvasTextLocation(graphics, text, zOffset);
 	}
 
-	int getLogicalHeight() {
+	int getLogicalHeight()
+	{
 		return npc.getLogicalHeight();
 	}
 }

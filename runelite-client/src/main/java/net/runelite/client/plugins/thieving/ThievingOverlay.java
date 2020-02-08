@@ -26,6 +26,15 @@
  */
 package net.runelite.client.plugins.thieving;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.text.DecimalFormat;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import static net.runelite.api.AnimationID.BLOCK_UNARMED;
+import static net.runelite.api.AnimationID.PICKPOCKET_SUCCESS;
+import static net.runelite.api.AnimationID.THIEVING_STALL;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
@@ -36,15 +45,9 @@ import net.runelite.client.ui.overlay.components.TitleComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.text.DecimalFormat;
-
-import static net.runelite.api.AnimationID.*;
-
 @Singleton
-public class ThievingOverlay extends Overlay {
+public class ThievingOverlay extends Overlay
+{
 	private static final DecimalFormat FORMAT = new DecimalFormat("#.#");
 
 	private final Client client;
@@ -53,7 +56,8 @@ public class ThievingOverlay extends Overlay {
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private ThievingOverlay(final Client client, final ThievingPlugin plugin, final XpTrackerService xpTrackerService) {
+	private ThievingOverlay(final Client client, final ThievingPlugin plugin, final XpTrackerService xpTrackerService)
+	{
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
 		this.plugin = plugin;
@@ -61,30 +65,37 @@ public class ThievingOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		ThievingSession session = plugin.getSession();
-		if (session == null) {
+		if (session == null)
+		{
 			return null;
 		}
 
 		panelComponent.setPreferredSize(new Dimension(145, 0));
 		panelComponent.getChildren().clear();
 
-		if (isThieving()) {
+		if (isThieving())
+		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-					.text("Thieving")
-					.color(Color.GREEN)
-					.build());
-		} else if (isStunned()) {
+				.text("Thieving")
+				.color(Color.GREEN)
+				.build());
+		}
+		else if (isStunned())
+		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-					.text("Stunned")
-					.color(Color.ORANGE)
-					.build());
-		} else {
+				.text("Stunned")
+				.color(Color.ORANGE)
+				.build());
+		}
+		else
+		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-					.text("NOT thieving")
-					.color(Color.RED)
-					.build());
+				.text("NOT thieving")
+				.color(Color.RED)
+				.build());
 		}
 
 		TableComponent tableComponent = new TableComponent();
@@ -98,12 +109,15 @@ public class ThievingOverlay extends Overlay {
 		return panelComponent.render(graphics);
 	}
 
-	private boolean isThieving() {
-		if (client.getLocalPlayer() == null) {
+	private boolean isThieving()
+	{
+		if (client.getLocalPlayer() == null)
+		{
 			return false;
 		}
 
-		switch (client.getLocalPlayer().getAnimation()) {
+		switch (client.getLocalPlayer().getAnimation())
+		{
 			case THIEVING_STALL:
 			case PICKPOCKET_SUCCESS:
 				return true;
@@ -112,8 +126,10 @@ public class ThievingOverlay extends Overlay {
 		}
 	}
 
-	private boolean isStunned() {
-		if (client.getLocalPlayer() == null) {
+	private boolean isStunned()
+	{
+		if (client.getLocalPlayer() == null)
+		{
 			return false;
 		}
 

@@ -29,7 +29,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
-public enum TeleportType {
+public enum TeleportType
+{
 	NORMAL_MAGIC(""),
 	ANCIENT_MAGICKS("Ancient - "),
 	LUNAR_MAGIC("Lunar - "),
@@ -40,7 +41,8 @@ public enum TeleportType {
 
 	private String prefix;
 
-	TeleportType(String prefix) {
+	TeleportType(String prefix)
+	{
 		this.prefix = prefix;
 	}
 }

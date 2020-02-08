@@ -28,10 +28,30 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.inject.Binder;
 import com.google.inject.Provides;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
+import net.runelite.api.Skill;
+import net.runelite.api.SoundEffectID;
+import net.runelite.api.Tile;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.CommandExecuted;
 import net.runelite.api.events.FocusChanged;
@@ -49,10 +69,10 @@ import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.events.PartyChanged;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
+import net.runelite.client.plugins.discord.DiscordUserInfo;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.plugins.discord.DiscordUserInfo;
 import net.runelite.client.plugins.party.data.PartyData;
 import net.runelite.client.plugins.party.data.PartyTilePingData;
 import net.runelite.client.plugins.party.messages.LocationUpdate;
@@ -67,26 +87,22 @@ import net.runelite.client.ws.PartyMember;
 import net.runelite.client.ws.PartyService;
 import net.runelite.client.ws.WSClient;
 import net.runelite.http.api.ws.WebsocketMessage;
-import net.runelite.http.api.ws.messages.party.*;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.*;
+import net.runelite.http.api.ws.messages.party.Join;
+import net.runelite.http.api.ws.messages.party.PartyChatMessage;
+import net.runelite.http.api.ws.messages.party.PartyMemberMessage;
+import net.runelite.http.api.ws.messages.party.UserJoin;
+import net.runelite.http.api.ws.messages.party.UserPart;
+import net.runelite.http.api.ws.messages.party.UserSync;
 
 @PluginDescriptor(
-		name = "Party",
-		description = "Shows useful information about current party",
-		type = PluginType.MISCELLANEOUS
+	name = "Party",
+	description = "Shows useful information about current party",
+	type = PluginType.MISCELLANEOUS
 )
 @Slf4j
 @Singleton
-public class PartyPlugin extends Plugin implements KeyListener {
+public class PartyPlugin extends Plugin implements KeyListener
+{
 	@Getter(AccessLevel.PACKAGE)
 	private final Map<UUID, PartyData> partyDataMap = Collections.synchronizedMap(new HashMap<>());
 	@Getter(AccessLevel.PACKAGE)
@@ -145,12 +161,14 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	private boolean recolorNames;
 
 	@Override
-	public void configure(Binder binder) {
+	public void configure(Binder binder)
+	{
 		binder.bind(PartyPluginService.class).to(PartyPluginServiceImpl.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(partyStatsOverlay);
@@ -163,7 +181,8 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		partyDataMap.clear();
 		pendingTilePings.clear();
 		worldMapManager.removeIf(PartyWorldMapPoint.class::isInstance);
@@ -179,58 +198,69 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Provides
-	public PartyConfig provideConfig(ConfigManager configManager) {
+	public PartyConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PartyConfig.class);
 	}
 
 	@Subscribe
-	private void onOverlayMenuClicked(OverlayMenuClicked event) {
+	private void onOverlayMenuClicked(OverlayMenuClicked event)
+	{
 		if (event.getEntry().getMenuOpcode() == MenuOpcode.RUNELITE_OVERLAY &&
-				event.getEntry().getTarget().equals("Party") &&
-				event.getEntry().getOption().equals("Leave")) {
+			event.getEntry().getTarget().equals("Party") &&
+			event.getEntry().getOption().equals("Leave"))
+		{
 			party.changeParty(null);
 
-			if (!this.messages) {
+			if (!this.messages)
+			{
 				return;
 			}
 
 			final String leaveMessage = new ChatMessageBuilder()
-					.append(ChatColorType.HIGHLIGHT)
-					.append("You have left the party.")
-					.build();
+				.append(ChatColorType.HIGHLIGHT)
+				.append("You have left the party.")
+				.build();
 
 			chatMessageManager.queue(QueuedMessage.builder()
-					.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-					.runeLiteFormattedMessage(leaveMessage)
-					.build());
+				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+				.runeLiteFormattedMessage(leaveMessage)
+				.build());
 		}
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked event) {
-		if (!hotkeyDown || client.isMenuOpen() || party.getMembers().isEmpty() || !this.pings) {
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		if (!hotkeyDown || client.isMenuOpen() || party.getMembers().isEmpty() || !this.pings)
+		{
 			return;
 		}
 
 		Tile selectedSceneTile = client.getSelectedSceneTile();
-		if (selectedSceneTile == null) {
+		if (selectedSceneTile == null)
+		{
 			return;
 		}
 
 		boolean isOnCanvas = false;
 
-		for (MenuEntry menuEntry : client.getMenuEntries()) {
-			if (menuEntry == null) {
+		for (MenuEntry menuEntry : client.getMenuEntries())
+		{
+			if (menuEntry == null)
+			{
 				continue;
 			}
 
-			if ("walk here".equalsIgnoreCase(menuEntry.getOption())) {
+			if ("walk here".equalsIgnoreCase(menuEntry.getOption()))
+			{
 				isOnCanvas = true;
 				break;
 			}
 		}
 
-		if (!isOnCanvas) {
+		if (!isOnCanvas)
+		{
 			return;
 		}
 
@@ -241,17 +271,21 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onTilePing(TilePing event) {
-		if (this.pings) {
+	private void onTilePing(TilePing event)
+	{
+		if (this.pings)
+		{
 			final PartyData partyData = getPartyData(event.getMemberId());
 			final Color color = partyData != null ? partyData.getColor() : Color.RED;
 			pendingTilePings.add(new PartyTilePingData(event.getPoint(), color));
 		}
 
-		if (this.sounds) {
+		if (this.sounds)
+		{
 			WorldPoint point = event.getPoint();
 
-			if (point.getPlane() != client.getPlane() || !WorldPoint.isInScene(client, point.getX(), point.getY())) {
+			if (point.getPlane() != client.getPlane() || !WorldPoint.isInScene(client, point.getX(), point.getY()))
+			{
 				return;
 			}
 
@@ -260,17 +294,20 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Schedule(
-			period = 10,
-			unit = ChronoUnit.SECONDS
+		period = 10,
+		unit = ChronoUnit.SECONDS
 	)
-	public void shareLocation() {
-		if (client.getGameState() != GameState.LOGGED_IN) {
+	public void shareLocation()
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
 		final PartyMember localMember = party.getLocalMember();
 
-		if (localMember == null) {
+		if (localMember == null)
+		{
 			return;
 		}
 
@@ -280,13 +317,16 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onGameTick(final GameTick event) {
-		if (sendAlert && client.getGameState() == GameState.LOGGED_IN) {
+	private void onGameTick(final GameTick event)
+	{
+		if (sendAlert && client.getGameState() == GameState.LOGGED_IN)
+		{
 			sendAlert = false;
 			sendInstructionMessage();
 		}
 
-		if (doSync && !party.getMembers().isEmpty()) {
+		if (doSync && !party.getMembers().isEmpty())
+		{
 			// Request sync
 			final UserSync userSync = new UserSync();
 			userSync.setMemberId(party.getLocalMember().getMemberId());
@@ -301,14 +341,17 @@ public class PartyPlugin extends Plugin implements KeyListener {
 		final int realPrayer = client.getRealSkillLevel(Skill.PRAYER);
 		final PartyMember localMember = party.getLocalMember();
 
-		if (localMember != null) {
-			if (currentHealth != lastHp) {
+		if (localMember != null)
+		{
+			if (currentHealth != lastHp)
+			{
 				final SkillUpdate update = new SkillUpdate(Skill.HITPOINTS, currentHealth, realHealth);
 				update.setMemberId(localMember.getMemberId());
 				ws.send(update);
 			}
 
-			if (currentPrayer != lastPray) {
+			if (currentPrayer != lastPray)
+			{
 				final SkillUpdate update = new SkillUpdate(Skill.PRAYER, currentPrayer, realPrayer);
 				update.setMemberId(localMember.getMemberId());
 				ws.send(update);
@@ -320,27 +363,34 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onSkillUpdate(final SkillUpdate event) {
+	private void onSkillUpdate(final SkillUpdate event)
+	{
 		final PartyData partyData = getPartyData(event.getMemberId());
 
-		if (partyData == null) {
+		if (partyData == null)
+		{
 			return;
 		}
 
-		if (event.getSkill() == Skill.HITPOINTS) {
+		if (event.getSkill() == Skill.HITPOINTS)
+		{
 			partyData.setHitpoints(event.getValue());
 			partyData.setMaxHitpoints(event.getMax());
-		} else if (event.getSkill() == Skill.PRAYER) {
+		}
+		else if (event.getSkill() == Skill.PRAYER)
+		{
 			partyData.setPrayer(event.getValue());
 			partyData.setMaxPrayer(event.getMax());
 		}
 	}
 
 	@Subscribe
-	private void onLocationUpdate(final LocationUpdate event) {
+	private void onLocationUpdate(final LocationUpdate event)
+	{
 		final PartyData partyData = getPartyData(event.getMemberId());
 
-		if (partyData == null) {
+		if (partyData == null)
+		{
 			return;
 		}
 
@@ -348,40 +398,45 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onUserJoin(final UserJoin event) {
+	private void onUserJoin(final UserJoin event)
+	{
 		final PartyData partyData = getPartyData(event.getMemberId());
 
-		if (partyData == null || !this.messages) {
+		if (partyData == null || !this.messages)
+		{
 			return;
 		}
 
 		final String joinMessage = new ChatMessageBuilder()
-				.append(ChatColorType.HIGHLIGHT)
-				.append(partyData.getName())
-				.append(" has joined the party!")
-				.build();
+			.append(ChatColorType.HIGHLIGHT)
+			.append(partyData.getName())
+			.append(" has joined the party!")
+			.build();
 
 		chatMessageManager.queue(QueuedMessage.builder()
-				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-				.runeLiteFormattedMessage(joinMessage)
-				.build());
+			.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+			.runeLiteFormattedMessage(joinMessage)
+			.build());
 
 		final PartyMember localMember = party.getLocalMember();
 
-		if (localMember != null && partyData.getMemberId().equals(localMember.getMemberId())) {
+		if (localMember != null && partyData.getMemberId().equals(localMember.getMemberId()))
+		{
 			sendAlert = true;
 		}
 	}
 
 	@Subscribe
-	private void onUserSync(final UserSync event) {
+	private void onUserSync(final UserSync event)
+	{
 		final int currentHealth = client.getBoostedSkillLevel(Skill.HITPOINTS);
 		final int currentPrayer = client.getBoostedSkillLevel(Skill.PRAYER);
 		final int realHealth = client.getRealSkillLevel(Skill.HITPOINTS);
 		final int realPrayer = client.getRealSkillLevel(Skill.PRAYER);
 		final PartyMember localMember = party.getLocalMember();
 
-		if (localMember != null) {
+		if (localMember != null)
+		{
 			final SkillUpdate hpUpdate = new SkillUpdate(Skill.HITPOINTS, currentHealth, realHealth);
 			hpUpdate.setMemberId(localMember.getMemberId());
 			ws.send(hpUpdate);
@@ -393,21 +448,24 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onUserPart(final UserPart event) {
+	private void onUserPart(final UserPart event)
+	{
 		final PartyData removed = partyDataMap.remove(event.getMemberId());
 
-		if (removed != null) {
-			if (this.messages) {
+		if (removed != null)
+		{
+			if (this.messages)
+			{
 				final String joinMessage = new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append(removed.getName())
-						.append(" has left the party!")
-						.build();
+					.append(ChatColorType.HIGHLIGHT)
+					.append(removed.getName())
+					.append(" has left the party!")
+					.build();
 
 				chatMessageManager.queue(QueuedMessage.builder()
-						.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-						.runeLiteFormattedMessage(joinMessage)
-						.build());
+					.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+					.runeLiteFormattedMessage(joinMessage)
+					.build());
 			}
 
 			worldMapManager.remove(removed.getWorldMapPoint());
@@ -415,7 +473,8 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onPartyChanged(final PartyChanged event) {
+	private void onPartyChanged(final PartyChanged event)
+	{
 		// Reset party
 		partyDataMap.clear();
 		pendingTilePings.clear();
@@ -423,23 +482,28 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onCommandExecuted(CommandExecuted commandExecuted) {
-		if (!developerMode || !commandExecuted.getCommand().equals("partyinfo")) {
+	private void onCommandExecuted(CommandExecuted commandExecuted)
+	{
+		if (!developerMode || !commandExecuted.getCommand().equals("partyinfo"))
+		{
 			return;
 		}
 
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).value("Party " + party.getPartyId()).build());
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).value("Local Party " + party.getLocalPartyId()).build());
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).value("Local ID " + party.getLocalMember().getMemberId()).build());
-		for (PartyMember partyMember : party.getMembers()) {
+		for (PartyMember partyMember : party.getMembers())
+		{
 			chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.GAMEMESSAGE).value(" " + partyMember.getName() + " " + partyMember.getMemberId()).build());
 		}
 	}
 
 	@Subscribe
-	private void onPartyMemberMessage(PartyMemberMessage event) {
+	private void onPartyMemberMessage(PartyMemberMessage event)
+	{
 		JsonObject jobj = new Gson().fromJson(event.text, JsonObject.class);
-		if (jobj.get("type").getAsString().equals("SkillUpdate")) {
+		if (jobj.get("type").getAsString().equals("SkillUpdate"))
+		{
 			Skill skillToUpdate = Skill.valueOf(jobj.get("skill").getAsString());
 			SkillUpdate skillUpdateEvent = new SkillUpdate(skillToUpdate, jobj.get("value").getAsInt(), jobj.get("max").getAsInt());
 			skillUpdateEvent.setMemberId(event.getMemberId());
@@ -447,7 +511,8 @@ public class PartyPlugin extends Plugin implements KeyListener {
 			return;
 		}
 
-		if (jobj.get("type").getAsString().equals("LocationUpdate")) {
+		if (jobj.get("type").getAsString().equals("LocationUpdate"))
+		{
 			WorldPoint worldPoint = new WorldPoint(jobj.get("worldPoint").getAsJsonObject().get("x").getAsInt(), jobj.get("worldPoint").getAsJsonObject().get("y").getAsInt(), jobj.get("worldPoint").getAsJsonObject().get("plane").getAsInt());
 			LocationUpdate locationUpdate = new LocationUpdate(worldPoint);
 			locationUpdate.setMemberId(event.getMemberId());
@@ -455,7 +520,8 @@ public class PartyPlugin extends Plugin implements KeyListener {
 			return;
 		}
 
-		if (jobj.get("type").getAsString().equals("DiscordUserInfo")) {
+		if (jobj.get("type").getAsString().equals("DiscordUserInfo"))
+		{
 			DiscordUserInfo info = new DiscordUserInfo(jobj.get("userId").getAsString(), jobj.get("avatarId").getAsString());
 			info.setMemberId(event.getMemberId());
 			eventBus.post(DiscordUserInfo.class, info);
@@ -463,34 +529,41 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onWebsocketMessage(WebsocketMessage event) {
+	private void onWebsocketMessage(WebsocketMessage event)
+	{
 		JsonObject jobj = new Gson().fromJson(event.text, JsonObject.class);
-		if (jobj.get("type").getAsString().equals("UserJoin")) {
+		if (jobj.get("type").getAsString().equals("UserJoin"))
+		{
 			UserJoin joinEvent = new UserJoin(UUID.fromString(jobj.get("memberId").getAsString()), UUID.fromString(jobj.get("partyId").getAsString()), jobj.get("name").getAsString());
 			eventBus.post(UserJoin.class, joinEvent);
 			return;
 		}
-		if (jobj.get("type").getAsString().equals("Join")) {
+		if (jobj.get("type").getAsString().equals("Join"))
+		{
 			Join joinEvent = new Join(UUID.fromString(jobj.get("partyId").getAsString()), jobj.get("name").getAsString());
 			eventBus.post(Join.class, joinEvent);
 			return;
 		}
-		if (jobj.get("type").getAsString().equals("PartyChatMessage")) {
+		if (jobj.get("type").getAsString().equals("PartyChatMessage"))
+		{
 			PartyChatMessage partyChatMessageEvent = new PartyChatMessage(jobj.get("value").getAsString());
 			eventBus.post(PartyChatMessage.class, partyChatMessageEvent);
 			return;
 		}
-		if (jobj.get("type").getAsString().equals("UserPart")) {
+		if (jobj.get("type").getAsString().equals("UserPart"))
+		{
 			UserPart userPartEvent = new UserPart(UUID.fromString(jobj.get("memberId").getAsString()));
 			eventBus.post(UserPart.class, userPartEvent);
 			return;
 		}
-		if (jobj.get("type").getAsString().equals("UserSync")) {
+		if (jobj.get("type").getAsString().equals("UserSync"))
+		{
 			UserSync userPartEvent = new UserSync();
 			eventBus.post(UserSync.class, userPartEvent);
 			return;
 		}
-		if (jobj.get("type").getAsString().equals("TilePing")) {
+		if (jobj.get("type").getAsString().equals("TilePing"))
+		{
 			WorldPoint worldPoint = new WorldPoint(jobj.get("worldPoint").getAsJsonObject().get("x").getAsInt(), jobj.get("worldPoint").getAsJsonObject().get("y").getAsInt(), jobj.get("worldPoint").getAsJsonObject().get("plane").getAsInt());
 			TilePing tilePing = new TilePing(worldPoint);
 			eventBus.post(TilePing.class, tilePing);
@@ -502,10 +575,12 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Nullable
-	PartyData getPartyData(final UUID uuid) {
+	PartyData getPartyData(final UUID uuid)
+	{
 		final PartyMember memberById = party.getMemberById(uuid);
 
-		if (memberById == null) {
+		if (memberById == null)
+		{
 			// This happens when you are not in party but you still receive message.
 			// Can happen if you just left party and you received message before message went through
 			// in ws service
@@ -520,7 +595,8 @@ public class PartyPlugin extends Plugin implements KeyListener {
 
 			// When first joining a party, other members can join before getting a join for self
 			PartyMember partyMember = party.getLocalMember();
-			if (partyMember == null || !u.equals(partyMember.getMemberId())) {
+			if (partyMember == null || !u.equals(partyMember.getMemberId()))
+			{
 				worldMapManager.add(worldMapPoint);
 			}
 
@@ -529,53 +605,64 @@ public class PartyPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onFocusChanged(FocusChanged event) {
-		if (!event.isFocused()) {
+	private void onFocusChanged(FocusChanged event)
+	{
+		if (!event.isFocused())
+		{
 			hotkeyDown = false;
 		}
 	}
 
 	@Override
-	public void keyTyped(KeyEvent keyEvent) {
+	public void keyTyped(KeyEvent keyEvent)
+	{
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent keyEvent) {
-		if (keyEvent.getKeyCode() == KeyEvent.VK_SHIFT) {
+	public void keyPressed(KeyEvent keyEvent)
+	{
+		if (keyEvent.getKeyCode() == KeyEvent.VK_SHIFT)
+		{
 			hotkeyDown = true;
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent keyEvent) {
-		if (keyEvent.getKeyCode() == KeyEvent.VK_SHIFT) {
+	public void keyReleased(KeyEvent keyEvent)
+	{
+		if (keyEvent.getKeyCode() == KeyEvent.VK_SHIFT)
+		{
 			hotkeyDown = false;
 		}
 	}
 
-	private void sendInstructionMessage() {
+	private void sendInstructionMessage()
+	{
 		final String helpMessage = new ChatMessageBuilder()
-				.append(ChatColorType.HIGHLIGHT)
-				.append("To leave party hold SHIFT and right click party stats overlay.")
-				.build();
+			.append(ChatColorType.HIGHLIGHT)
+			.append("To leave party hold SHIFT and right click party stats overlay.")
+			.build();
 
 		chatMessageManager.queue(QueuedMessage.builder()
-				.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
-				.runeLiteFormattedMessage(helpMessage)
-				.build());
+			.type(ChatMessageType.FRIENDSCHATNOTIFICATION)
+			.runeLiteFormattedMessage(helpMessage)
+			.build());
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("party")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("party"))
+		{
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.stats = config.stats();
 		this.pings = config.pings();
 		this.sounds = config.sounds();

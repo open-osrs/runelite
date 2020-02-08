@@ -24,29 +24,33 @@
  */
 package net.runelite.client.plugins.mining;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ItemID;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-public class MiningCoalBagOverlay extends WidgetItemOverlay {
+public class MiningCoalBagOverlay extends WidgetItemOverlay
+{
 	private final MiningPlugin plugin;
 
 	@Inject
-	MiningCoalBagOverlay(final MiningPlugin plugin) {
+	MiningCoalBagOverlay(final MiningPlugin plugin)
+	{
 		showOnInventory();
 		this.plugin = plugin;
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget) {
-		if (!plugin.isShowCoalBagOverlay() || (itemId != ItemID.COAL_BAG && itemId != ItemID.COAL_BAG_12019)) {
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
+	{
+		if (!plugin.isShowCoalBagOverlay() || (itemId != ItemID.COAL_BAG && itemId != ItemID.COAL_BAG_12019))
+		{
 			return;
 		}
 

@@ -25,19 +25,18 @@
 package net.runelite.client.plugins.itemcharges;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+import javax.annotation.Nullable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.annotation.Nullable;
-import java.util.Map;
-
 import static net.runelite.api.ItemID.*;
 import static net.runelite.client.plugins.itemcharges.ItemChargeType.*;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum ItemWithCharge {
+enum ItemWithCharge
+{
 	ABRACE1(ABYSSAL_BRACELET, ABYSSAL_BRACELET1, 1),
 	ABRACE2(ABYSSAL_BRACELET, ABYSSAL_BRACELET2, 2),
 	ABRACE3(ABYSSAL_BRACELET, ABYSSAL_BRACELET3, 3),
@@ -232,10 +231,12 @@ enum ItemWithCharge {
 
 	private static final Map<Integer, ItemWithCharge> ID_MAP;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, ItemWithCharge> builder = new ImmutableMap.Builder<>();
 
-		for (ItemWithCharge itemCharge : values()) {
+		for (ItemWithCharge itemCharge : values())
+		{
 			builder.put(itemCharge.getId(), itemCharge);
 		}
 
@@ -243,7 +244,8 @@ enum ItemWithCharge {
 	}
 
 	@Nullable
-	static ItemWithCharge findItem(int itemId) {
+	static ItemWithCharge findItem(int itemId)
+	{
 		return ID_MAP.get(itemId);
 	}
 

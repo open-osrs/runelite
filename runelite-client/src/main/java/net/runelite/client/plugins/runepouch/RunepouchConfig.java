@@ -24,42 +24,45 @@
  */
 package net.runelite.client.plugins.runepouch;
 
+import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.plugins.runepouch.config.RunePouchOverlayMode;
 
-import java.awt.*;
-
 @ConfigGroup("runepouch")
-public interface RunepouchConfig extends Config {
+public interface RunepouchConfig extends Config
+{
 	@ConfigItem(
-			keyName = "fontcolor",
-			name = "Font Color",
-			description = "Color of the font for the number of runes in pouch",
-			position = 1
+		keyName = "fontcolor",
+		name = "Font Color",
+		description = "Color of the font for the number of runes in pouch",
+		position = 1
 	)
-	default Color fontColor() {
+	default Color fontColor()
+	{
 		return Color.yellow;
 	}
 
 	@ConfigItem(
-			keyName = "runeicons",
-			name = "Show Rune Icons",
-			description = "Show the rune icons next to the number of runes in pouch",
-			position = 2
+		keyName = "runeicons",
+		name = "Show Rune Icons",
+		description = "Show the rune icons next to the number of runes in pouch",
+		position = 2
 	)
-	default boolean showIcons() {
+	default boolean showIcons()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "runePouchOverlayMode",
-			name = "Display mode",
-			description = "Configures where rune pouch overlay is displayed",
-			position = 3
+		keyName = "runePouchOverlayMode",
+		name = "Display mode",
+		description = "Configures where rune pouch overlay is displayed",
+		position = 3
 	)
-	default RunePouchOverlayMode runePouchOverlayMode() {
+	default RunePouchOverlayMode runePouchOverlayMode()
+	{
 		return RunePouchOverlayMode.BOTH;
 	}
 }

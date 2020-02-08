@@ -24,12 +24,12 @@
  */
 package net.runelite.client.plugins.examine;
 
+import java.time.Instant;
 import lombok.Data;
 
-import java.time.Instant;
-
 @Data
-class PendingExamine {
+class PendingExamine
+{
 	private ExamineType type;
 	private int id;
 	private int quantity;

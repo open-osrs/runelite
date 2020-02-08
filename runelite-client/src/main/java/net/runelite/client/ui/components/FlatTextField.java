@@ -25,22 +25,24 @@
  */
 package net.runelite.client.ui.components;
 
-import lombok.Getter;
-import net.runelite.client.ui.ColorScheme;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.Document;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.Document;
+import lombok.Getter;
+import net.runelite.client.ui.ColorScheme;
 
 /**
  * This component is a JTextField with a flat design look.
  */
-public class FlatTextField extends JPanel {
+public class FlatTextField extends JPanel
+{
 	@Getter
 	private final JTextField textField;
 
@@ -56,7 +58,8 @@ public class FlatTextField extends JPanel {
 	@Getter
 	private boolean blocked;
 
-	public FlatTextField() {
+	public FlatTextField()
+	{
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(0, 10, 0, 0));
 
@@ -68,82 +71,101 @@ public class FlatTextField extends JPanel {
 
 		add(textField, BorderLayout.CENTER);
 
-		textField.addMouseListener(new MouseAdapter() {
+		textField.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
-				if (blocked) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
+				if (blocked)
+				{
 					return;
 				}
 
-				if (hoverBackgroundColor != null) {
+				if (hoverBackgroundColor != null)
+				{
 					setBackground(hoverBackgroundColor, false);
 				}
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				setBackground(backgroundColor);
 			}
 		});
 	}
 
-	public void addActionListener(ActionListener actionListener) {
+	public void addActionListener(ActionListener actionListener)
+	{
 		textField.addActionListener(actionListener);
 	}
 
-	public String getText() {
+	public String getText()
+	{
 		return textField.getText();
 	}
 
-	public void setText(String text) {
+	public void setText(String text)
+	{
 		textField.setText(text);
 	}
 
 	@Override
-	public void addKeyListener(KeyListener keyListener) {
+	public void addKeyListener(KeyListener keyListener)
+	{
 		textField.addKeyListener(keyListener);
 	}
 
 	@Override
-	public void removeKeyListener(KeyListener keyListener) {
+	public void removeKeyListener(KeyListener keyListener)
+	{
 		textField.removeKeyListener(keyListener);
 	}
 
 	@Override
-	public void setBackground(Color color) {
+	public void setBackground(Color color)
+	{
 		setBackground(color, true);
 	}
 
-	public void setBackground(Color color, boolean saveColor) {
-		if (color == null) {
+	public void setBackground(Color color, boolean saveColor)
+	{
+		if (color == null)
+		{
 			return;
 		}
 
 		super.setBackground(color);
 
-		if (saveColor) {
+		if (saveColor)
+		{
 			this.backgroundColor = color;
 		}
 	}
 
-	public void setHoverBackgroundColor(Color color) {
-		if (color == null) {
+	public void setHoverBackgroundColor(Color color)
+	{
+		if (color == null)
+		{
 			return;
 		}
 
 		this.hoverBackgroundColor = color;
 	}
 
-	public void setEditable(boolean editable) {
+	public void setEditable(boolean editable)
+	{
 		this.blocked = !editable;
 		textField.setEditable(editable);
 		textField.setFocusable(editable);
-		if (!editable) {
+		if (!editable)
+		{
 			super.setBackground(backgroundColor);
 		}
 	}
 
-	public Document getDocument() {
+	public Document getDocument()
+	{
 		return textField.getDocument();
 	}
 

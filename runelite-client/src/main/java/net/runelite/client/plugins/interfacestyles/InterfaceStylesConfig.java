@@ -31,40 +31,45 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("interfaceStyles")
-public interface InterfaceStylesConfig extends Config {
+public interface InterfaceStylesConfig extends Config
+{
 	@ConfigItem(
-			keyName = "gameframe",
-			name = "Gameframe",
-			description = "The gameframe to use for the interface"
+		keyName = "gameframe",
+		name = "Gameframe",
+		description = "The gameframe to use for the interface"
 	)
-	default Skin skin() {
+	default Skin skin()
+	{
 		return Skin.AROUND_2010;
 	}
 
 	@ConfigItem(
-			keyName = "hdHealthBars",
-			name = "High Detail health bars",
-			description = "Replaces health bars with the RuneScape High Detail mode design"
+		keyName = "hdHealthBars",
+		name = "High Detail health bars",
+		description = "Replaces health bars with the RuneScape High Detail mode design"
 	)
-	default boolean hdHealthBars() {
+	default boolean hdHealthBars()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "hdMenu",
-			name = "High Detail menu",
-			description = "Replaces game menu with the RuneScape High Detail mode design"
+		keyName = "hdMenu",
+		name = "High Detail menu",
+		description = "Replaces game menu with the RuneScape High Detail mode design"
 	)
-	default boolean hdMenu() {
+	default boolean hdMenu()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rsCrossSprites",
-			name = "RuneScape cross sprites",
-			description = "Replaces left-click cross sprites with the ones in RuneScape"
+		keyName = "rsCrossSprites",
+		name = "RuneScape cross sprites",
+		description = "Replaces left-click cross sprites with the ones in RuneScape"
 	)
-	default boolean rsCrossSprites() {
+	default boolean rsCrossSprites()
+	{
 		return false;
 	}
 }

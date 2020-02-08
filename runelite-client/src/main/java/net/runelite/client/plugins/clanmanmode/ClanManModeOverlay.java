@@ -1,5 +1,10 @@
 package net.runelite.client.plugins.clanmanmode;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.client.ui.FontManager;
@@ -8,17 +13,15 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-public class ClanManModeOverlay extends Overlay {
+public class ClanManModeOverlay extends Overlay
+{
 	private final ClanManModeService ClanManModeService;
 	private final ClanManModePlugin plugin;
 
 	@Inject
-	private ClanManModeOverlay(final ClanManModePlugin plugin, final ClanManModeService ClanManModeService) {
+	private ClanManModeOverlay(final ClanManModePlugin plugin, final ClanManModeService ClanManModeService)
+	{
 		this.plugin = plugin;
 		this.ClanManModeService = ClanManModeService;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -26,13 +29,16 @@ public class ClanManModeOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		ClanManModeService.forEachPlayer((player, color) -> renderPlayerOverlay(graphics, player, color));
 		return null;
 	}
 
-	private void renderPlayerOverlay(Graphics2D graphics, Player actor, Color color) {
-		if (!plugin.isDrawOverheadPlayerNames()) {
+	private void renderPlayerOverlay(Graphics2D graphics, Player actor, Color color)
+	{
+		if (!plugin.isDrawOverheadPlayerNames())
+		{
 			return;
 		}
 
@@ -40,8 +46,10 @@ public class ClanManModeOverlay extends Overlay {
 		int offset = actor.getLogicalHeight() + 40;
 		Point textLocation = actor.getCanvasTextLocation(graphics, name, offset);
 
-		if (textLocation != null) {
-			if (plugin.getGetClanAttackableColor().equals(color) && plugin.isShowBold()) {
+		if (textLocation != null)
+		{
+			if (plugin.getGetClanAttackableColor().equals(color) && plugin.isShowBold())
+			{
 				graphics.setFont(FontManager.getRunescapeBoldFont());
 			}
 			OverlayUtil.renderTextLocation(graphics, textLocation, name, color);

@@ -25,25 +25,32 @@
 
 package net.runelite.client.util;
 
-import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 
-public class AsyncBufferedImage extends BufferedImage {
+public class AsyncBufferedImage extends BufferedImage
+{
 	private final List<Runnable> listeners = new ArrayList<>();
 	private boolean loaded;
 
-	public AsyncBufferedImage(int width, int height, int imageType) {
+	public AsyncBufferedImage(int width, int height, int imageType)
+	{
 		super(width, height, imageType);
 	}
 
 	/**
 	 * Call when the image has been loaded
 	 */
-	public synchronized void loaded() {
+	public synchronized void loaded()
+	{
 		loaded = true;
-		for (Runnable r : listeners) {
+		for (Runnable r : listeners)
+		{
 			r.run();
 		}
 		listeners.clear();
@@ -53,8 +60,10 @@ public class AsyncBufferedImage extends BufferedImage {
 	 * Register a function to be ran when the image has been loaded.
 	 * If the image is already loaded, the function will not be ran.
 	 */
-	public synchronized void onLoaded(Runnable r) {
-		if (loaded) {
+	public synchronized void onLoaded(Runnable r)
+	{
+		if (loaded)
+		{
 			// If the image has already been loaded, further listeners will not fire. Do not
 			// queue them to avoid leaking listeners.
 			return;
@@ -66,20 +75,25 @@ public class AsyncBufferedImage extends BufferedImage {
 	/**
 	 * Calls setIcon on c, ensuring it is repainted when this changes
 	 */
-	public void addTo(JButton c) {
+	public void addTo(JButton c)
+	{
 		c.setIcon(makeIcon(c));
 	}
 
 	/**
 	 * Calls setIcon on c, ensuring it is repainted when this changes
 	 */
-	public void addTo(JLabel c) {
+	public void addTo(JLabel c)
+	{
 		c.setIcon(makeIcon(c));
 	}
 
-	private ImageIcon makeIcon(JComponent c) {
-		synchronized (this) {
-			if (!loaded) {
+	private ImageIcon makeIcon(JComponent c)
+	{
+		synchronized (this)
+		{
+			if (!loaded)
+			{
 				listeners.add(c::repaint);
 			}
 		}

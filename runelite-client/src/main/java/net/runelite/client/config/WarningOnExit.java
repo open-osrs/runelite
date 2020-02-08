@@ -29,7 +29,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum WarningOnExit {
+public enum WarningOnExit
+{
 	ALWAYS("Always"),
 	LOGGED_IN("Logged in"),
 	NEVER("Never");
@@ -37,7 +38,8 @@ public enum WarningOnExit {
 	private final String type;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return type;
 	}
 }

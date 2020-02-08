@@ -24,18 +24,18 @@
  */
 package net.runelite.client.plugins.twitch.irc;
 
-import lombok.extern.slf4j.Slf4j;
-
-import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class TwitchIRCClient extends Thread implements AutoCloseable {
+public class TwitchIRCClient extends Thread implements AutoCloseable
+{
 	private static final String HOST = "irc.chat.twitch.tv";
 	private static final int PORT = 6697;
 	private static final int READ_TIMEOUT = 60000; // ms
@@ -52,7 +52,8 @@ public class TwitchIRCClient extends Thread implements AutoCloseable {
 	private long last;
 	private boolean pingSent;
 
-	public TwitchIRCClient(final TwitchListener twitchListener, final String username, final String password, final String channel) {
+	public TwitchIRCClient(final TwitchListener twitchListener, final String username, final String password, final String channel)
+	{
 		setName("Twitch");
 		this.twitchListener = twitchListener;
 		this.username = username;
@@ -61,10 +62,14 @@ public class TwitchIRCClient extends Thread implements AutoCloseable {
 	}
 
 	@Override
-	public void close() {
-		try {
+	public void close()
+	{
+		try
+		{
 			socket.close();
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.warn("error closing socket", ex);
 		}
 
@@ -73,15 +78,19 @@ public class TwitchIRCClient extends Thread implements AutoCloseable {
 	}
 
 	@Override
-	public void run() {
-		try {
+	public void run()
+	{
+		try
+		{
 			SocketFactory socketFactory = SSLSocketFactory.getDefault();
 			socket = socketFactory.createSocket(HOST, PORT);
 			socket.setSoTimeout(READ_TIMEOUT);
 
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintWriter(socket.getOutputStream());
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.warn("unable to setup irc client", ex);
 			return;
 		}
@@ -89,10 +98,12 @@ public class TwitchIRCClient extends Thread implements AutoCloseable {
 		register(username, password);
 		join(channel);
 
-		try {
+		try
+		{
 			String line;
 
-			while ((line = read()) != null) {
+			while ((line = read()) != null)
+			{
 				log.debug("<- {}", line);
 
 				last = System.currentTimeMillis();
@@ -100,77 +111,98 @@ public class TwitchIRCClient extends Thread implements AutoCloseable {
 
 				Message message = Message.parse(line);
 
-				switch (message.getCommand()) {
+				switch (message.getCommand())
+				{
 					case "PING":
 						send("PONG", message.getArguments()[0]);
 						break;
 					case "PRIVMSG":
 						twitchListener.privmsg(message.getTags(),
-								message.getArguments()[1]);
+							message.getArguments()[1]);
 						break;
 					case "ROOMSTATE":
 						twitchListener.roomstate(message.getTags());
 						break;
 					case "USERNOTICE":
 						twitchListener.usernotice(message.getTags(),
-								message.getArguments().length > 0 ? message.getArguments()[0] : null);
+							message.getArguments().length > 0 ? message.getArguments()[0] : null);
 						break;
 				}
 			}
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.debug("error in twitch irc client", ex);
-		} finally {
-			try {
+		}
+		finally
+		{
+			try
+			{
 				socket.close();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				log.warn(null, e);
 			}
 		}
 	}
 
-	public boolean isConnected() {
+	public boolean isConnected()
+	{
 		return socket != null && socket.isConnected() && !socket.isClosed();
 	}
 
-	public void pingCheck() {
-		if (out == null) {
+	public void pingCheck()
+	{
+		if (out == null)
+		{
 			// client is not connected yet
 			return;
 		}
 
-		if (!pingSent && System.currentTimeMillis() - last >= PING_TIMEOUT) {
+		if (!pingSent && System.currentTimeMillis() - last >= PING_TIMEOUT)
+		{
 			ping("twitch");
 			pingSent = true;
-		} else if (pingSent) {
+		}
+		else if (pingSent)
+		{
 			log.debug("Ping timeout, disconnecting.");
 			close();
 		}
 	}
 
-	private void register(String username, String oauth) {
+	private void register(String username, String oauth)
+	{
 		send("CAP", "REQ", "twitch.tv/commands twitch.tv/tags");
 		send("PASS", oauth);
 		send("NICK", username);
 	}
 
-	private void join(String channel) {
+	private void join(String channel)
+	{
 		send("JOIN", channel);
 	}
 
-	private void ping(String destination) {
+	private void ping(String destination)
+	{
 		send("PING", destination);
 	}
 
-	public void privmsg(String message) {
+	public void privmsg(String message)
+	{
 		send("PRIVMSG", channel, message);
 	}
 
-	private void send(String command, String... args) {
+	private void send(String command, String... args)
+	{
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append(command);
-		for (int i = 0; i < args.length; ++i) {
+		for (int i = 0; i < args.length; ++i)
+		{
 			stringBuilder.append(' ');
-			if (i + 1 == args.length) {
+			if (i + 1 == args.length)
+			{
 				stringBuilder.append(':');
 			}
 			stringBuilder.append(args[i]);
@@ -184,13 +216,16 @@ public class TwitchIRCClient extends Thread implements AutoCloseable {
 		out.flush();
 	}
 
-	private String read() throws IOException {
+	private String read() throws IOException
+	{
 		String line = in.readLine();
-		if (line == null) {
+		if (line == null)
+		{
 			return null;
 		}
 		int len = line.length();
-		while (len > 0 && (line.charAt(len - 1) == '\r' || line.charAt(len - 1) == '\n')) {
+		while (len > 0 && (line.charAt(len - 1) == '\r' || line.charAt(len - 1) == '\n'))
+		{
 			--len;
 		}
 

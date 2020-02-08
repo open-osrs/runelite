@@ -24,14 +24,15 @@
  */
 package net.runelite.client.plugins.pyramidplunder;
 
+import java.awt.image.BufferedImage;
+import java.time.temporal.ChronoUnit;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.Timer;
 
-import java.awt.image.BufferedImage;
-import java.time.temporal.ChronoUnit;
-
-class PyramidPlunderTimer extends Timer {
-	PyramidPlunderTimer(final Plugin plugin, final BufferedImage image, final int period, final ChronoUnit chronoUnit) {
+class PyramidPlunderTimer extends Timer
+{
+	PyramidPlunderTimer(final Plugin plugin, final BufferedImage image, final int period, final ChronoUnit chronoUnit)
+	{
 		super(period, chronoUnit, image, plugin);
 		setTooltip("Time left until minigame ends");
 	}

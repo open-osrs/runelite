@@ -31,17 +31,21 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class LightboxSolution {
+public class LightboxSolution
+{
 	private int solution;
 
-	public void flip(Combination c) {
+	public void flip(Combination c)
+	{
 		solution ^= (1 << c.ordinal());
 	}
 
-	public int numMoves() {
+	public int numMoves()
+	{
 		int count = 0;
 		int cur = solution;
-		for (int i = 0; i < Combination.values().length; ++i) {
+		for (int i = 0; i < Combination.values().length; ++i)
+		{
 			count += cur & 1;
 			cur >>= 1;
 		}
@@ -49,10 +53,13 @@ public class LightboxSolution {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		StringBuilder stringBuilder = new StringBuilder();
-		for (Combination combination : Combination.values()) {
-			if (((solution >>> combination.ordinal()) & 1) != 0) {
+		for (Combination combination : Combination.values())
+		{
+			if (((solution >>> combination.ordinal()) & 1) != 0)
+			{
 				stringBuilder.append(combination.name());
 			}
 		}

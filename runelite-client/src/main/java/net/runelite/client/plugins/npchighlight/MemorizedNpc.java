@@ -24,6 +24,10 @@
  */
 package net.runelite.client.plugins.npchighlight;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,13 +35,9 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.coords.WorldPoint;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Getter(AccessLevel.PACKAGE)
-class MemorizedNpc {
+class MemorizedNpc
+{
 	private int npcIndex;
 	private Set<String> npcNames;
 	private int npcSize;
@@ -54,7 +54,8 @@ class MemorizedNpc {
 	@Setter(AccessLevel.PACKAGE)
 	private List<WorldPoint> possibleRespawnLocations;
 
-	MemorizedNpc(final NPC npc) {
+	MemorizedNpc(final NPC npc)
+	{
 		this.npcNames = new HashSet<>();
 		this.npcNames.add(npc.getName());
 		this.npcIndex = npc.getIndex();
@@ -64,7 +65,8 @@ class MemorizedNpc {
 
 		final NPCDefinition composition = npc.getTransformedDefinition();
 
-		if (composition != null) {
+		if (composition != null)
+		{
 			this.npcSize = composition.getSize();
 		}
 	}

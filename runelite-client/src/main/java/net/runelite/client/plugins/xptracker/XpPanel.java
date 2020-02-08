@@ -25,6 +25,18 @@
  */
 package net.runelite.client.plugins.xptracker;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.Skill;
@@ -36,13 +48,8 @@ import net.runelite.client.ui.components.PluginErrorPanel;
 import net.runelite.client.util.LinkBrowser;
 import okhttp3.HttpUrl;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
-class XpPanel extends PluginPanel {
+class XpPanel extends PluginPanel
+{
 	private final Map<Skill, XpInfoBox> infoBoxes = new HashMap<>();
 
 	private final JLabel overallExpGained = new JLabel(XpInfoBox.htmlLabel("Gained: ", 0));
@@ -53,7 +60,8 @@ class XpPanel extends PluginPanel {
 	/* This displays the "No exp gained" text */
 	private final PluginErrorPanel errorPanel = new PluginErrorPanel();
 
-	XpPanel(XpTrackerPlugin xpTrackerPlugin, Client client, SkillIconManager iconManager) {
+	XpPanel(XpTrackerPlugin xpTrackerPlugin, Client client, SkillIconManager iconManager)
+	{
 		super();
 
 		setBorder(new EmptyBorder(6, 6, 6, 6));
@@ -118,8 +126,10 @@ class XpPanel extends PluginPanel {
 		layoutPanel.add(overallPanel);
 		layoutPanel.add(infoBoxPanel);
 
-		for (Skill skill : Skill.values()) {
-			if (skill == Skill.OVERALL) {
+		for (Skill skill : Skill.values())
+		{
+			if (skill == Skill.OVERALL)
+			{
 				break;
 			}
 			infoBoxes.put(skill, new XpInfoBox(xpTrackerPlugin, client, infoBoxPanel, skill, iconManager));
@@ -129,49 +139,60 @@ class XpPanel extends PluginPanel {
 		add(errorPanel);
 	}
 
-	static String buildXpTrackerUrl(final Actor player, final Skill skill) {
-		if (player == null) {
+	static String buildXpTrackerUrl(final Actor player, final Skill skill)
+	{
+		if (player == null)
+		{
 			return "";
 		}
 
 		return new HttpUrl.Builder()
-				.scheme("https")
-				.host("runelite.net")
-				.addPathSegment("xp")
-				.addPathSegment("show")
-				.addPathSegment(skill.getName().toLowerCase())
-				.addPathSegment(player.getName())
-				.addPathSegment("1week")
-				.addPathSegment("now")
-				.build()
-				.toString();
+			.scheme("https")
+			.host("runelite.net")
+			.addPathSegment("xp")
+			.addPathSegment("show")
+			.addPathSegment(skill.getName().toLowerCase())
+			.addPathSegment(player.getName())
+			.addPathSegment("1week")
+			.addPathSegment("now")
+			.build()
+			.toString();
 	}
 
-	void resetAllInfoBoxes() {
+	void resetAllInfoBoxes()
+	{
 		infoBoxes.forEach((skill, xpInfoBox) -> xpInfoBox.reset());
 	}
 
-	void resetSkill(Skill skill) {
+	void resetSkill(Skill skill)
+	{
 		XpInfoBox xpInfoBox = infoBoxes.get(skill);
-		if (xpInfoBox != null) {
+		if (xpInfoBox != null)
+		{
 			xpInfoBox.reset();
 		}
 	}
 
-	void updateSkillExperience(boolean updated, boolean paused, Skill skill, XpSnapshotSingle xpSnapshotSingle) {
+	void updateSkillExperience(boolean updated, boolean paused, Skill skill, XpSnapshotSingle xpSnapshotSingle)
+	{
 		final XpInfoBox xpInfoBox = infoBoxes.get(skill);
 
-		if (xpInfoBox != null) {
+		if (xpInfoBox != null)
+		{
 			xpInfoBox.update(updated, paused, xpSnapshotSingle);
 		}
 	}
 
-	void updateTotal(XpSnapshotSingle xpSnapshotTotal) {
+	void updateTotal(XpSnapshotSingle xpSnapshotTotal)
+	{
 		// if player has gained exp and hasn't switched displays yet, hide error panel and show overall info
-		if (xpSnapshotTotal.getXpGainedInSession() > 0 && !overallPanel.isVisible()) {
+		if (xpSnapshotTotal.getXpGainedInSession() > 0 && !overallPanel.isVisible())
+		{
 			overallPanel.setVisible(true);
 			remove(errorPanel);
-		} else if (xpSnapshotTotal.getXpGainedInSession() == 0 && overallPanel.isVisible()) {
+		}
+		else if (xpSnapshotTotal.getXpGainedInSession() == 0 && overallPanel.isVisible())
+		{
 			overallPanel.setVisible(false);
 			add(errorPanel);
 		}
@@ -179,7 +200,8 @@ class XpPanel extends PluginPanel {
 		SwingUtilities.invokeLater(() -> rebuildAsync(xpSnapshotTotal));
 	}
 
-	private void rebuildAsync(XpSnapshotSingle xpSnapshotTotal) {
+	private void rebuildAsync(XpSnapshotSingle xpSnapshotTotal)
+	{
 		overallExpGained.setText(XpInfoBox.htmlLabel("Gained: ", xpSnapshotTotal.getXpGainedInSession()));
 		overallExpHour.setText(XpInfoBox.htmlLabel("Per hour: ", xpSnapshotTotal.getXpPerHour()));
 	}

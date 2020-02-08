@@ -26,63 +26,69 @@ package net.runelite.client;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import java.io.IOException;
+import java.util.UUID;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import java.io.IOException;
-import java.util.UUID;
-
-class SessionClient {
-	Observable<UUID> openSession() {
+class SessionClient
+{
+	Observable<UUID> openSession()
+	{
 		final HttpUrl url = RuneLiteAPI.getSessionBase().newBuilder()
-				.addPathSegment("new")
-				.build();
+			.addPathSegment("new")
+			.build();
 
 		return Observable.fromCallable(() ->
 		{
 			Request request = new Request.Builder()
-					.url(url)
-					.build();
+				.url(url)
+				.build();
 
-			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
+			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+			{
 				return RuneLiteAPI.GSON.fromJson(response.body().string(), UUID.class);
 			}
 		});
 	}
 
-	Completable pingSession(UUID uuid) {
+	Completable pingSession(UUID uuid)
+	{
 		final HttpUrl url = RuneLiteAPI.getSessionBase().newBuilder()
-				.addPathSegment("ping")
-				.addQueryParameter("uuid", uuid.toString())
-				.build();
+			.addPathSegment("ping")
+			.addQueryParameter("uuid", uuid.toString())
+			.build();
 
 		return Completable.fromAction(() ->
 		{
 			Request request = new Request.Builder()
-					.url(url)
-					.build();
+				.url(url)
+				.build();
 
-			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
-				if (!response.isSuccessful()) {
+			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+			{
+				if (!response.isSuccessful())
+				{
 					throw new IOException("Unsuccesful ping");
 				}
 			}
 		});
 	}
 
-	Completable delete(UUID uuid) {
+	Completable delete(UUID uuid)
+	{
 		final HttpUrl url = RuneLiteAPI.getSessionBase().newBuilder()
-				.addQueryParameter("session", uuid.toString())
-				.build();
+			.addQueryParameter("session", uuid.toString())
+			.build();
 
 		return Completable.fromAction(() ->
 		{
 			Request request = new Request.Builder()
-					.delete()
-					.url(url)
-					.build();
+				.delete()
+				.url(url)
+				.build();
 
 			RuneLiteAPI.CLIENT.newCall(request).execute().close();
 		});

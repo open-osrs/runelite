@@ -25,12 +25,11 @@
  */
 package net.runelite.client.ui;
 
+import java.awt.image.BufferedImage;
+import java.util.Map;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * UI navigation button.
@@ -38,7 +37,8 @@ import java.util.Map;
 @Data
 @Builder
 @EqualsAndHashCode(of = {"tooltip"})
-public class NavigationButton {
+public class NavigationButton
+{
 	/**
 	 * Icon of button.
 	 */

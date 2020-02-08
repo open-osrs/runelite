@@ -25,19 +25,20 @@
 package net.runelite.client.plugins.timetracking;
 
 import com.google.common.collect.ImmutableMap;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.time.Instant;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Stream;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.timetracking.clocks.ClockManager;
 import net.runelite.client.plugins.timetracking.farming.FarmingTracker;
 import net.runelite.client.plugins.timetracking.hunter.BirdHouseTracker;
 import net.runelite.client.ui.ColorScheme;
 
-import java.awt.*;
-import java.time.Instant;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Stream;
-
-class OverviewTabPanel extends TabContentPanel {
+class OverviewTabPanel extends TabContentPanel
+{
 	private final TimeTrackingConfig config;
 	private final FarmingTracker farmingTracker;
 	private final BirdHouseTracker birdHouseTracker;
@@ -49,7 +50,8 @@ class OverviewTabPanel extends TabContentPanel {
 	private final OverviewItemPanel birdHouseOverview;
 
 	OverviewTabPanel(ItemManager itemManager, TimeTrackingConfig config, TimeTrackingPanel pluginPanel,
-					 FarmingTracker farmingTracker, BirdHouseTracker birdHouseTracker, ClockManager clockManager) {
+					FarmingTracker farmingTracker, BirdHouseTracker birdHouseTracker, ClockManager clockManager)
+	{
 		this.config = config;
 		this.farmingTracker = farmingTracker;
 		this.birdHouseTracker = birdHouseTracker;
@@ -68,55 +70,69 @@ class OverviewTabPanel extends TabContentPanel {
 		add(birdHouseOverview);
 
 		farmingOverviews = Stream.of(Tab.FARMING_TABS)
-				.filter(v -> v != Tab.OVERVIEW)
-				.collect(ImmutableMap.toImmutableMap(
-						Function.identity(),
-						t ->
-						{
-							OverviewItemPanel p = new OverviewItemPanel(itemManager, pluginPanel, t, t.getName());
-							add(p);
-							return p;
-						}
-				));
+			.filter(v -> v != Tab.OVERVIEW)
+			.collect(ImmutableMap.toImmutableMap(
+				Function.identity(),
+				t ->
+				{
+					OverviewItemPanel p = new OverviewItemPanel(itemManager, pluginPanel, t, t.getName());
+					add(p);
+					return p;
+				}
+			));
 	}
 
 	@Override
-	public int getUpdateInterval() {
+	public int getUpdateInterval()
+	{
 		return 50; // 10 seconds
 	}
 
 	@Override
-	public void update() {
+	public void update()
+	{
 		final long timers = clockManager.getActiveTimerCount();
 		final long stopwatches = clockManager.getActiveStopwatchCount();
 
-		if (timers == 0) {
+		if (timers == 0)
+		{
 			timerOverview.updateStatus("No active timers", Color.GRAY);
-		} else {
+		}
+		else
+		{
 			timerOverview.updateStatus(timers + " active timer" + (timers == 1 ? "" : "s"), ColorScheme.PROGRESS_COMPLETE_COLOR);
 		}
 
-		if (stopwatches == 0) {
+		if (stopwatches == 0)
+		{
 			stopwatchOverview.updateStatus("No active stopwatches", Color.GRAY);
-		} else {
+		}
+		else
+		{
 			stopwatchOverview.updateStatus(stopwatches + " active stopwatch" + (stopwatches == 1 ? "" : "es"), ColorScheme.PROGRESS_COMPLETE_COLOR);
 		}
 
 		farmingOverviews.forEach((patchType, panel) ->
-				updateItemPanel(panel, farmingTracker.getSummary(patchType), farmingTracker.getCompletionTime(patchType)));
+			updateItemPanel(panel, farmingTracker.getSummary(patchType), farmingTracker.getCompletionTime(patchType)));
 
 		updateItemPanel(birdHouseOverview, birdHouseTracker.getSummary(), birdHouseTracker.getCompletionTime());
 	}
 
-	private void updateItemPanel(OverviewItemPanel panel, SummaryState summary, long completionTime) {
-		switch (summary) {
+	private void updateItemPanel(OverviewItemPanel panel, SummaryState summary, long completionTime)
+	{
+		switch (summary)
+		{
 			case COMPLETED:
-			case IN_PROGRESS: {
+			case IN_PROGRESS:
+			{
 				long duration = completionTime - Instant.now().getEpochSecond();
 
-				if (duration <= 0) {
+				if (duration <= 0)
+				{
 					panel.updateStatus("Ready", ColorScheme.PROGRESS_COMPLETE_COLOR);
-				} else {
+				}
+				else
+				{
 					panel.updateStatus("Ready " + getFormattedEstimate(duration, config.estimateRelative()), Color.GRAY);
 				}
 

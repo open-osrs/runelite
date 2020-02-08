@@ -24,30 +24,38 @@
  */
 package net.runelite.client.plugins.timetracking;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import net.runelite.api.Constants;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.ImageUtil;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-class OverviewItemPanel extends JPanel {
+class OverviewItemPanel extends JPanel
+{
 	private static final ImageIcon ARROW_RIGHT_ICON;
 
 	private static final Color HOVER_COLOR = ColorScheme.DARKER_GRAY_HOVER_COLOR;
 
 	private final JLabel statusLabel;
 
-	static {
+	static
+	{
 		ARROW_RIGHT_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(TimeTrackingPlugin.class, "/net/runelite/client/plugins/timetracking/arrow_right.png"));
 	}
 
-	OverviewItemPanel(ItemManager itemManager, TimeTrackingPanel pluginPanel, Tab tab, String title) {
+	OverviewItemPanel(ItemManager itemManager, TimeTrackingPanel pluginPanel, Tab tab, String title)
+	{
 		setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(7, 7, 7, 7));
@@ -62,29 +70,34 @@ class OverviewItemPanel extends JPanel {
 		textContainer.setLayout(new GridLayout(2, 1));
 		textContainer.setBorder(new EmptyBorder(5, 7, 5, 7));
 
-		addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				pluginPanel.switchTab(tab);
 				setBackground(ColorScheme.DARKER_GRAY_COLOR);
 				textContainer.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e)
+			{
 				setBackground(HOVER_COLOR);
 				textContainer.setBackground(HOVER_COLOR);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				setBackground(HOVER_COLOR);
 				textContainer.setBackground(HOVER_COLOR);
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				setBackground(ColorScheme.DARKER_GRAY_COLOR);
 				textContainer.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -108,7 +121,8 @@ class OverviewItemPanel extends JPanel {
 		add(arrowLabel, BorderLayout.EAST);
 	}
 
-	void updateStatus(String text, Color color) {
+	void updateStatus(String text, Color color)
+	{
 		statusLabel.setText(text);
 		statusLabel.setForeground(color);
 	}

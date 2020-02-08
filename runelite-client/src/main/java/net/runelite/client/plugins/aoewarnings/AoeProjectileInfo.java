@@ -27,13 +27,13 @@
  */
 package net.runelite.client.plugins.aoewarnings;
 
-import net.runelite.api.ProjectileID;
-
 import java.util.HashMap;
 import java.util.Map;
+import net.runelite.api.ProjectileID;
 
 
-public enum AoeProjectileInfo {
+public enum AoeProjectileInfo
+{
 	LIZARDMAN_SHAMAN_AOE(ProjectileID.LIZARDMAN_SHAMAN_AOE, 5),
 	CRAZY_ARCHAEOLOGIST_AOE(ProjectileID.CRAZY_ARCHAEOLOGIST_AOE, 3),
 	ICE_DEMON_RANGED_AOE(ProjectileID.ICE_DEMON_RANGED_AOE, 3),
@@ -132,8 +132,10 @@ public enum AoeProjectileInfo {
 
 	private static final Map<Integer, AoeProjectileInfo> map = new HashMap<>();
 
-	static {
-		for (AoeProjectileInfo aoe : values()) {
+	static
+	{
+		for (AoeProjectileInfo aoe : values())
+		{
 			map.put(aoe.id, aoe);
 		}
 	}
@@ -149,20 +151,24 @@ public enum AoeProjectileInfo {
 	 */
 	private final int aoeSize;
 
-	AoeProjectileInfo(int id, int aoeSize) {
+	AoeProjectileInfo(int id, int aoeSize)
+	{
 		this.id = id;
 		this.aoeSize = aoeSize;
 	}
 
-	public static AoeProjectileInfo getById(int id) {
+	public static AoeProjectileInfo getById(int id)
+	{
 		return map.get(id);
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public int getAoeSize() {
+	public int getAoeSize()
+	{
 		return aoeSize;
 	}
 }

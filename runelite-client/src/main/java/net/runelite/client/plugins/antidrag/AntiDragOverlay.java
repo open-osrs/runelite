@@ -26,6 +26,11 @@ package net.runelite.client.plugins.antidrag;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -34,10 +39,9 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
-import java.awt.*;
-
 @Singleton
-public class AntiDragOverlay extends Overlay {
+public class AntiDragOverlay extends Overlay
+{
 	private static final int RADIUS = 20;
 
 	private final Client client;
@@ -46,7 +50,8 @@ public class AntiDragOverlay extends Overlay {
 	private Color color;
 
 	@Inject
-	private AntiDragOverlay(final Client client) {
+	private AntiDragOverlay(final Client client)
+	{
 		this.client = client;
 		setPosition(OverlayPosition.TOOLTIP);
 		setPriority(OverlayPriority.HIGHEST);
@@ -54,7 +59,8 @@ public class AntiDragOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D g) {
+	public Dimension render(Graphics2D g)
+	{
 		g.setColor(color);
 
 		final net.runelite.api.Point mouseCanvasPosition = client.getMouseCanvasPosition();

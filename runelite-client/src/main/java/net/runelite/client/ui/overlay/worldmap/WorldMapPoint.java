@@ -24,17 +24,17 @@
  */
 package net.runelite.client.ui.overlay.worldmap;
 
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import javax.annotation.Nullable;
 import lombok.Data;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
 @Data
-public class WorldMapPoint {
+public class WorldMapPoint
+{
 	private BufferedImage image;
 
 	private WorldPoint worldPoint;
@@ -66,18 +66,22 @@ public class WorldMapPoint {
 
 	private String tooltip;
 
-	protected WorldMapPoint(WorldPoint worldPoint, BufferedImage image) {
+	protected WorldMapPoint(WorldPoint worldPoint, BufferedImage image)
+	{
 		this.worldPoint = worldPoint;
 		this.image = image;
 	}
 
-	public MouseEvent onClick(MouseEvent e) {
+	public MouseEvent onClick(MouseEvent e)
+	{
 		return e;
 	}
 
-	public void onEdgeSnap() {
+	public void onEdgeSnap()
+	{
 	}
 
-	public void onEdgeUnsnap() {
+	public void onEdgeUnsnap()
+	{
 	}
 }

@@ -24,6 +24,12 @@
  */
 package net.runelite.client.plugins.prayer;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -31,18 +37,15 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-
 @Singleton
-class PrayerFlickOverlay extends Overlay {
+class PrayerFlickOverlay extends Overlay
+{
 	private final Client client;
 	private final PrayerPlugin plugin;
 
 	@Inject
-	private PrayerFlickOverlay(Client client, PrayerPlugin plugin) {
+	private PrayerFlickOverlay(Client client, PrayerPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
@@ -50,21 +53,25 @@ class PrayerFlickOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		// If there are no prayers active or flick location is set to the prayer bar we don't require the flick helper
 		if ((!plugin.isPrayersActive() && !plugin.isPrayerFlickAlwaysOn())
-				|| plugin.getPrayerFlickLocation().equals(PrayerFlickLocation.NONE)
-				|| plugin.getPrayerFlickLocation().equals(PrayerFlickLocation.PRAYER_BAR)) {
+			|| plugin.getPrayerFlickLocation().equals(PrayerFlickLocation.NONE)
+			|| plugin.getPrayerFlickLocation().equals(PrayerFlickLocation.PRAYER_BAR))
+		{
 			return null;
 		}
 
 		Widget xpOrb = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
-		if (xpOrb == null) {
+		if (xpOrb == null)
+		{
 			return null;
 		}
 
 		Rectangle2D bounds = xpOrb.getBounds().getBounds2D();
-		if (bounds.getX() <= 0) {
+		if (bounds.getX() <= 0)
+		{
 			return null;
 		}
 

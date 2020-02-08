@@ -26,17 +26,17 @@ package net.runelite.client.plugins.devtools;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
-import net.runelite.api.widgets.Widget;
-import net.runelite.client.callback.ClientThread;
-
-import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import javax.swing.SwingUtilities;
+import javax.swing.table.AbstractTableModel;
+import net.runelite.api.widgets.Widget;
+import net.runelite.client.callback.ClientThread;
 
-class WidgetInfoTableModel extends AbstractTableModel {
+class WidgetInfoTableModel extends AbstractTableModel
+{
 	@Inject
 	private ClientThread clientThread;
 
@@ -48,12 +48,13 @@ class WidgetInfoTableModel extends AbstractTableModel {
 	private Widget widget = null;
 	private Map<WidgetField, Object> values = null;
 
-	public void setWidget(Widget w) {
+	public void setWidget(Widget w)
+	{
 		clientThread.invoke(() ->
 		{
 			Map<WidgetField, Object> newValues = w == null ? null : fields.stream().collect(ImmutableMap.toImmutableMap(
-					Function.identity(),
-					i -> i.getValue(w)
+				Function.identity(),
+				i -> i.getValue(w)
 			));
 			SwingUtilities.invokeLater(() ->
 			{
@@ -65,8 +66,10 @@ class WidgetInfoTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public String getColumnName(int col) {
-		switch (col) {
+	public String getColumnName(int col)
+	{
+		switch (col)
+		{
 			case COL_FIELD:
 				return "Field";
 			case COL_VALUE:
@@ -77,22 +80,27 @@ class WidgetInfoTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public int getColumnCount() {
+	public int getColumnCount()
+	{
 		return 2;
 	}
 
 	@Override
-	public int getRowCount() {
-		if (values == null) {
+	public int getRowCount()
+	{
+		if (values == null)
+		{
 			return 0;
 		}
 		return values.size();
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
+	public Object getValueAt(int rowIndex, int columnIndex)
+	{
 		WidgetField<?> field = fields.get(rowIndex);
-		switch (columnIndex) {
+		switch (columnIndex)
+		{
 			case COL_FIELD:
 				return field.getName();
 			case COL_VALUE:
@@ -103,8 +111,10 @@ class WidgetInfoTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		if (columnIndex == COL_VALUE) {
+	public boolean isCellEditable(int rowIndex, int columnIndex)
+	{
+		if (columnIndex == COL_VALUE)
+		{
 			WidgetField<?> field = fields.get(rowIndex);
 			return field.isSettable();
 		}
@@ -112,7 +122,8 @@ class WidgetInfoTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public void setValueAt(Object value, int rowIndex, int columnIndex) {
+	public void setValueAt(Object value, int rowIndex, int columnIndex)
+	{
 		WidgetField<?> field = fields.get(rowIndex);
 		clientThread.invoke(() ->
 		{
@@ -121,7 +132,8 @@ class WidgetInfoTableModel extends AbstractTableModel {
 		});
 	}
 
-	private static List<WidgetField> populateWidgetFields() {
+	private static List<WidgetField> populateWidgetFields()
+	{
 		List<WidgetField> out = new ArrayList<>();
 
 		out.add(new WidgetField<>("Id", Widget::getId));
@@ -132,9 +144,9 @@ class WidgetInfoTableModel extends AbstractTableModel {
 		out.add(new WidgetField<>("Hidden", Widget::isHidden));
 		out.add(new WidgetField<>("Text", Widget::getText, Widget::setText, String.class));
 		out.add(new WidgetField<>("TextColor",
-				w -> Integer.toString(w.getTextColor(), 16),
-				(w, str) -> w.setTextColor(Integer.parseInt(str, 16)),
-				String.class
+			w -> Integer.toString(w.getTextColor(), 16),
+			(w, str) -> w.setTextColor(Integer.parseInt(str, 16)),
+			String.class
 		));
 		out.add(new WidgetField<>("Opacity", Widget::getOpacity, Widget::setOpacity, Integer.class));
 		out.add(new WidgetField<>("FontId", Widget::getFontId, Widget::setFontId, Integer.class));

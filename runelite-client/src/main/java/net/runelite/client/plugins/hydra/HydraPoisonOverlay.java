@@ -25,28 +25,30 @@
  */
 package net.runelite.client.plugins.hydra;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.geom.Area;
+import java.util.HashMap;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
+import static net.runelite.api.Perspective.getCanvasTileAreaPoly;
 import net.runelite.api.Projectile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.geom.Area;
-import java.util.HashMap;
-import java.util.Map;
-
-import static net.runelite.api.Perspective.getCanvasTileAreaPoly;
-
 @Singleton
-public class HydraPoisonOverlay extends Overlay {
-	private static final Color poisonBorder = new Color(255, 0, 0, 100);
-	private static final Color poisonFill = new Color(255, 0, 0, 50);
+public class HydraPoisonOverlay extends Overlay
+{
+	private static final Color poisonBorder = new Color(255, 0, 0, 100);;
+	private static final Color poisonFill = new Color(255, 0, 0, 50);;
 
 	private final Client client;
 
@@ -54,7 +56,8 @@ public class HydraPoisonOverlay extends Overlay {
 	private Map<LocalPoint, Projectile> poisonProjectiles;
 
 	@Inject
-	public HydraPoisonOverlay(final Client client) {
+	public HydraPoisonOverlay(final Client client)
+	{
 		this.client = client;
 		this.poisonProjectiles = new HashMap<>();
 		setPosition(OverlayPosition.DYNAMIC);
@@ -62,8 +65,10 @@ public class HydraPoisonOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(final Graphics2D graphics) {
-		if (!poisonProjectiles.isEmpty()) {
+	public Dimension render(final Graphics2D graphics)
+	{
+		if (!poisonProjectiles.isEmpty())
+		{
 			drawPoisonArea(graphics, poisonProjectiles);
 		}
 
@@ -77,18 +82,22 @@ public class HydraPoisonOverlay extends Overlay {
 	 * @param graphics          graphics object
 	 * @param poisonProjectiles poisonProjectiles object
 	 */
-	private void drawPoisonArea(final Graphics2D graphics, final Map<LocalPoint, Projectile> poisonProjectiles) {
+	private void drawPoisonArea(final Graphics2D graphics, final Map<LocalPoint, Projectile> poisonProjectiles)
+	{
 		final Area poisonTiles = new Area();
 
-		for (final Map.Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet()) {
-			if (entry.getValue().getEndCycle() < client.getGameCycle()) {
+		for (final Map.Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet())
+		{
+			if (entry.getValue().getEndCycle() < client.getGameCycle())
+			{
 				continue;
 			}
 
 			final LocalPoint point = entry.getKey();
 			final Polygon poly = getCanvasTileAreaPoly(client, point, 3);
 
-			if (poly != null) {
+			if (poly != null)
+			{
 				poisonTiles.add(new Area(poly));
 			}
 		}

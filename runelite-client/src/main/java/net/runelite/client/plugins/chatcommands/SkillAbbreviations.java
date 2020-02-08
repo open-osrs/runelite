@@ -25,14 +25,15 @@
 package net.runelite.client.plugins.chatcommands;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Map;
 import net.runelite.api.Skill;
 
-import java.util.Map;
-
-class SkillAbbreviations {
+class SkillAbbreviations
+{
 	private static final Map<String, String> MAP;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
 		builder.put("ATK", Skill.ATTACK.getName());
 		builder.put("ATT", Skill.ATTACK.getName());
@@ -84,7 +85,8 @@ class SkillAbbreviations {
 	 * @param abbrev Skill name that may be abbreviated.
 	 * @return Full skill name if recognized, else the original string.
 	 */
-	static String getFullName(String abbrev) {
+	static String getFullName(String abbrev)
+	{
 		return MAP.getOrDefault(abbrev.toUpperCase(), abbrev);
 	}
 }

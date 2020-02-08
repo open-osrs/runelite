@@ -24,47 +24,56 @@
  */
 package net.runelite.client.plugins.suppliestracker;
 
-import net.runelite.client.config.*;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitleSection;
+import net.runelite.client.config.Title;
 
 @ConfigGroup("suppliestracker")
-public interface SuppliesTrackerConfig extends Config {
+public interface SuppliesTrackerConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "blowpipeTitle",
-			name = "Blowpipe",
-			description = "",
-			position = 1
+		keyName = "blowpipeTitle",
+		name = "Blowpipe",
+		description = "",
+		position = 1
 	)
-	default Title blowpipeTitle() {
+	default Title blowpipeTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "blowpipeAmmo",
-			name = "Ammo",
-			description = "What type of dart are you using in your toxic blowpipe",
-			titleSection = "blowpipeTitle"
+		keyName = "blowpipeAmmo",
+		name = "Ammo",
+		description = "What type of dart are you using in your toxic blowpipe",
+		titleSection = "blowpipeTitle"
 	)
-	default BlowpipeDartType blowpipeAmmo() {
+	default BlowpipeDartType blowpipeAmmo()
+	{
 		return BlowpipeDartType.MITHRIL;
 	}
 
 	@ConfigTitleSection(
-			keyName = "chargesBoxTitle",
-			name = "Charges Box",
-			description = "",
-			position = 2
+		keyName = "chargesBoxTitle",
+		name = "Charges Box",
+		description = "",
+		position = 2
 	)
-	default Title chargesBoxTitle() {
+	default Title chargesBoxTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "chargesBox",
-			name = "Show weapons charges used box?",
-			description = "Separates items with charges to show how many of those charges you used.",
-			titleSection = "chargesBoxTitle"
+		keyName = "chargesBox",
+		name = "Show weapons charges used box?",
+		description = "Separates items with charges to show how many of those charges you used.",
+		titleSection = "chargesBoxTitle"
 	)
-	default boolean chargesBox() {
+	default boolean chargesBox()
+	{
 		return false;
 	}
 }

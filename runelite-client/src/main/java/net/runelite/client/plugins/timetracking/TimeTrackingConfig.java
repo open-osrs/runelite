@@ -30,7 +30,8 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("timetracking")
-public interface TimeTrackingConfig extends Config {
+public interface TimeTrackingConfig extends Config
+{
 	String CONFIG_GROUP = "timetracking";
 	String AUTOWEED = "autoweed";
 	String BIRD_HOUSE = "birdhouse";
@@ -38,61 +39,66 @@ public interface TimeTrackingConfig extends Config {
 	String STOPWATCHES = "stopwatches";
 
 	@ConfigItem(
-			keyName = "estimateRelative",
-			name = "Show relative time",
-			description = "Show amount of time remaining instead of completion time",
-			position = 1
+		keyName = "estimateRelative",
+		name = "Show relative time",
+		description = "Show amount of time remaining instead of completion time",
+		position = 1
 	)
-	default boolean estimateRelative() {
+	default boolean estimateRelative()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "timerNotification",
-			name = "Timer notification",
-			description = "Notify you whenever a timer has finished counting down",
-			position = 2
+		keyName = "timerNotification",
+		name = "Timer notification",
+		description = "Notify you whenever a timer has finished counting down",
+		position = 2
 	)
-	default boolean timerNotification() {
+	default boolean timerNotification()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "birdHouseNotification",
-			name = "Bird house notification",
-			description = "Notify you when all bird houses are full",
-			position = 3
+		keyName = "birdHouseNotification",
+		name = "Bird house notification",
+		description = "Notify you when all bird houses are full",
+		position = 3
 	)
-	default boolean birdHouseNotification() {
+	default boolean birdHouseNotification()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "defaultTimerMinutes",
-			name = "Default Time",
-			description = "The default time for the timer in minutes",
-			position = 4
+		keyName = "defaultTimerMinutes",
+		name = "Default Time",
+		description = "The default time for the timer in minutes",
+		position = 4
 	)
 	@Units(Units.MINUTES)
-	default int defaultTimerMinutes() {
+	default int defaultTimerMinutes()
+	{
 		return 5;
 	}
 
 	@ConfigItem(
-			keyName = "activeTab",
-			name = "Active Tab",
-			description = "The currently selected tab",
-			hidden = true
+		keyName = "activeTab",
+		name = "Active Tab",
+		description = "The currently selected tab",
+		hidden = true
 	)
-	default Tab activeTab() {
+	default Tab activeTab()
+	{
 		return Tab.CLOCK;
 	}
 
 	@ConfigItem(
-			keyName = "activeTab",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "activeTab",
+		name = "",
+		description = "",
+		hidden = true
 	)
 	void setActiveTab(Tab t);
 }

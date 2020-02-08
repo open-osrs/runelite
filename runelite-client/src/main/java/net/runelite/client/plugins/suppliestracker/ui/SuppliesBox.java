@@ -25,30 +25,35 @@
  */
 package net.runelite.client.plugins.suppliestracker.ui;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import net.runelite.api.util.Text;
-import net.runelite.client.game.ItemManager;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Singleton;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import net.runelite.client.plugins.suppliestracker.ItemType;
 import net.runelite.client.plugins.suppliestracker.SuppliesTrackerItem;
 import net.runelite.client.plugins.suppliestracker.SuppliesTrackerPlugin;
+import lombok.AccessLevel;
+import lombok.Getter;
+import static net.runelite.api.ItemID.*;
+import net.runelite.api.util.Text;
+import net.runelite.client.game.ItemManager;
+import static net.runelite.client.plugins.suppliestracker.SuppliesTrackerPlugin.POTION_PATTERN;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.AsyncBufferedImage;
 import net.runelite.client.util.QuantityFormatter;
 
-import javax.inject.Singleton;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import static net.runelite.api.ItemID.*;
-import static net.runelite.client.plugins.suppliestracker.SuppliesTrackerPlugin.POTION_PATTERN;
-
 @Singleton
-public abstract class SuppliesBox extends JPanel {
+public abstract class SuppliesBox extends JPanel
+{
 	private static final int ITEMS_PER_ROW = 5;
 
 	public final ItemManager itemManager;
@@ -66,11 +71,12 @@ public abstract class SuppliesBox extends JPanel {
 	private long totalPrice;
 
 	protected SuppliesBox(
-			ItemManager itemManager,
-			String id,
-			SuppliesTrackerPlugin plugin,
-			SuppliesTrackerPanel panel,
-			ItemType type) {
+		ItemManager itemManager,
+		String id,
+		SuppliesTrackerPlugin plugin,
+		SuppliesTrackerPanel panel,
+		ItemType type)
+	{
 		this.id = id;
 		this.itemManager = itemManager;
 		this.plugin = plugin;
@@ -81,12 +87,14 @@ public abstract class SuppliesBox extends JPanel {
 	}
 
 	public static SuppliesBox of(
-			ItemManager itemManager,
-			String id,
-			SuppliesTrackerPlugin plugin,
-			SuppliesTrackerPanel panel,
-			ItemType type) {
-		switch (type) {
+		ItemManager itemManager,
+		String id,
+		SuppliesTrackerPlugin plugin,
+		SuppliesTrackerPanel panel,
+		ItemType type)
+	{
+		switch (type)
+		{
 			case JEWELLERY:
 				return new JewellerySuppliesBox(itemManager, id, plugin, panel, type);
 			case CHARGES:
@@ -105,7 +113,8 @@ public abstract class SuppliesBox extends JPanel {
 	/**
 	 * Builds the box onto the panel
 	 */
-	private void render() {
+	private void render()
+	{
 		setLayout(new BorderLayout(0, 1));
 		setBorder(new EmptyBorder(5, 0, 0, 0));
 
@@ -139,7 +148,8 @@ public abstract class SuppliesBox extends JPanel {
 		final JMenuItem reset = new JMenuItem("Reset Category");
 		reset.addActionListener(e ->
 		{
-			for (SuppliesTrackerItem item : trackedItems) {
+			for (SuppliesTrackerItem item : trackedItems)
+			{
 				plugin.clearItem(item.getId());
 			}
 			clearAll();
@@ -157,9 +167,11 @@ public abstract class SuppliesBox extends JPanel {
 	 *
 	 * @param item item to be checked
 	 */
-	public void update(SuppliesTrackerItem item) {
+	public void update(SuppliesTrackerItem item)
+	{
 		trackedItems.removeIf(r -> r.getId() == item.getId());
-		if (item.getName() == null || item.getId() == 0 || item.getName().toLowerCase().equals("null")) {
+		if (item.getName() == null || item.getId() == 0 || item.getName().toLowerCase().equals("null"))
+		{
 			return;
 		}
 		trackedItems.add(item);
@@ -171,7 +183,8 @@ public abstract class SuppliesBox extends JPanel {
 	 *
 	 * @param item item to be checked
 	 */
-	private void remove(SuppliesTrackerItem item) {
+	private void remove(SuppliesTrackerItem item)
+	{
 		trackedItems.removeIf(r -> r.getId() == item.getId());
 		plugin.clearItem(item.getId());
 		setVisible(trackedItems.size() > 0);
@@ -180,7 +193,8 @@ public abstract class SuppliesBox extends JPanel {
 	/**
 	 * Clears trackedItems
 	 */
-	public void clearAll() {
+	public void clearAll()
+	{
 		trackedItems.clear();
 		setVisible(false);
 	}
@@ -190,31 +204,38 @@ public abstract class SuppliesBox extends JPanel {
 	 *
 	 * @return the total cost of all tracked items
 	 */
-	public long getTotalSupplies() {
+	public long getTotalSupplies()
+	{
 		long totalSupplies = 0;
-		for (SuppliesTrackerItem item : trackedItems) {
+		for (SuppliesTrackerItem item : trackedItems)
+		{
 			totalSupplies += item.getQuantity();
 		}
 		return totalSupplies;
 	}
 
-	public long getTotalPrice() {
+	public long getTotalPrice()
+	{
 		return totalPrice;
 	}
 
 	/**
 	 * Runs buildItems method and recalculates supplies cost and quantity.
 	 */
-	public void rebuild() {
+	public void rebuild()
+	{
 		buildItems();
 
 		priceLabel.setText(QuantityFormatter.quantityToStackSize(totalPrice) + " gp");
 		priceLabel.setToolTipText(QuantityFormatter.formatNumber(totalPrice) + " gp");
 
 		final long supplies = getTotalSupplies();
-		if (supplies > 0) {
+		if (supplies > 0)
+		{
 			subTitleLabel.setText("x " + supplies);
-		} else {
+		}
+		else
+		{
 			subTitleLabel.setText("");
 		}
 
@@ -235,11 +256,13 @@ public abstract class SuppliesBox extends JPanel {
 	 * Builds an arraylist of items based off trackedItems and populates
 	 * boxes with item information
 	 */
-	void buildItems() {
+	void buildItems()
+	{
 		final List<SuppliesTrackerItem> items = new ArrayList<>(trackedItems);
 		totalPrice = 0;
 
-		for (SuppliesTrackerItem item : items) {
+		for (SuppliesTrackerItem item : items)
+		{
 			totalPrice += item.getPrice();
 		}
 
@@ -251,11 +274,13 @@ public abstract class SuppliesBox extends JPanel {
 		itemContainer.removeAll();
 		itemContainer.setLayout(new GridLayout(rowSize, ITEMS_PER_ROW, 1, 1));
 
-		for (int i = 0; i < rowSize * ITEMS_PER_ROW; i++) {
+		for (int i = 0; i < rowSize * ITEMS_PER_ROW; i++)
+		{
 			final JPanel slotContainer = new JPanel();
 			slotContainer.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 
-			if (i < items.size()) {
+			if (i < items.size())
+			{
 				final SuppliesTrackerItem item = items.get(i);
 				final JLabel imageLabel = new JLabel();
 				imageLabel.setToolTipText(buildTooltip(getModifiedItemId(item.getName(), item.getId()), item.getQuantity(), item));
@@ -267,9 +292,10 @@ public abstract class SuppliesBox extends JPanel {
 				slotContainer.add(imageLabel);
 
 				if (item.getName() == null || item.getId() == 0
-						|| item.getName().toLowerCase().equals("null")
-						|| getModifiedItemId(item.getName(), item.getId()) == 0
-						|| itemManager.getImage(getModifiedItemId(item.getName(), item.getId()), item.getQuantity(), item.getQuantity() > 1) == null) {
+					|| item.getName().toLowerCase().equals("null")
+					|| getModifiedItemId(item.getName(), item.getId()) == 0
+					|| itemManager.getImage(getModifiedItemId(item.getName(), item.getId()), item.getQuantity(), item.getQuantity() > 1) == null)
+				{
 					continue;
 				}
 
@@ -293,197 +319,220 @@ public abstract class SuppliesBox extends JPanel {
 		itemContainer.repaint();
 	}
 
-	private static class JewellerySuppliesBox extends SuppliesBox {
-		protected JewellerySuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type) {
+	private static class JewellerySuppliesBox extends SuppliesBox
+	{
+		protected JewellerySuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type)
+		{
 			super(itemManager, id, plugin, panel, type);
 		}
 
 		@Override
-		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item) {
+		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
+		{
 			final String name = item.getName();
 			StringBuilder tooltip = new StringBuilder();
 
-			if (name.toLowerCase().contains("glory")) {
-				long price = (((itemManager.getItemPrice(AMULET_OF_GLORY6) - (itemManager.getItemPrice(AMULET_OF_GLORY))) * qty) / 6);
+			if (name.toLowerCase().contains("glory"))
+			{
+				long price = (((itemManager.getItemPrice(AMULET_OF_GLORY6) - (itemManager.getItemPrice(AMULET_OF_GLORY)))  * qty) / 6);
 				tooltip.append("Amulet of Glory(6) x ")
-						.append(qty)
-						.append("/6 (")
-						.append(QuantityFormatter.quantityToStackSize(price))
-						.append("gp)");
-			} else if (name.toLowerCase().contains("dueling")) {
+					.append(qty)
+					.append("/6 (")
+					.append(QuantityFormatter.quantityToStackSize(price))
+					.append("gp)");
+			}
+			else if (name.toLowerCase().contains("dueling"))
+			{
 				tooltip.append("Ring of Dueling(8) x ")
-						.append(qty)
-						.append("/8 (")
-						.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(RING_OF_DUELING8) * qty) / 8))
-						.append("gp)");
-			} else if (name.toLowerCase().contains("wealth")) {
-				long price = (((itemManager.getItemPrice(RING_OF_WEALTH_5) - (itemManager.getItemPrice(RING_OF_WEALTH))) * qty) / 5);
+					.append(qty)
+					.append("/8 (")
+					.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(RING_OF_DUELING8) * qty) / 8))
+					.append("gp)");
+			}
+			else if (name.toLowerCase().contains("wealth"))
+			{
+				long price = (((itemManager.getItemPrice(RING_OF_WEALTH_5) - (itemManager.getItemPrice(RING_OF_WEALTH)))  * qty) / 5);
 				tooltip.append("Ring of Wealth(5) x ")
-						.append(qty)
-						.append("/5 (")
-						.append(QuantityFormatter.quantityToStackSize(price))
-						.append("gp)");
-			} else if (name.toLowerCase().contains("combat")) {
-				long price = (((itemManager.getItemPrice(COMBAT_BRACELET6) - (itemManager.getItemPrice(COMBAT_BRACELET))) * qty) / 6);
+					.append(qty)
+					.append("/5 (")
+					.append(QuantityFormatter.quantityToStackSize(price))
+					.append("gp)");
+			}
+			else if (name.toLowerCase().contains("combat"))
+			{
+				long price = (((itemManager.getItemPrice(COMBAT_BRACELET6) - (itemManager.getItemPrice(COMBAT_BRACELET)))  * qty) / 6);
 				tooltip.append("Combat Bracelet(6) x ")
-						.append(qty)
-						.append("/6 (")
-						.append(QuantityFormatter.quantityToStackSize(price))
-						.append("gp)");
-			} else if (name.toLowerCase().contains("games")) {
+					.append(qty)
+					.append("/6 (")
+					.append(QuantityFormatter.quantityToStackSize(price))
+					.append("gp)");
+			}
+			else if (name.toLowerCase().contains("games"))
+			{
 				tooltip.append("Games Necklace(8) x ")
-						.append(qty)
-						.append("/8 (")
-						.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(GAMES_NECKLACE8) * qty) / 8))
-						.append("gp)");
-			} else if (name.toLowerCase().contains("skills")) {
-				long price = (((itemManager.getItemPrice(SKILLS_NECKLACE6) - (itemManager.getItemPrice(SKILLS_NECKLACE))) * qty) / 6);
+					.append(qty)
+					.append("/8 (")
+					.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(GAMES_NECKLACE8) * qty) / 8))
+					.append("gp)");
+			}
+			else if (name.toLowerCase().contains("skills"))
+			{
+				long price = (((itemManager.getItemPrice(SKILLS_NECKLACE6) - (itemManager.getItemPrice(SKILLS_NECKLACE)))  * qty) / 6);
 				tooltip.append("Skills Necklace(6) x ")
-						.append(qty)
-						.append("/6 (")
-						.append(QuantityFormatter.quantityToStackSize(price))
-						.append("gp)");
-			} else if (name.toLowerCase().contains("passage")) {
+					.append(qty)
+					.append("/6 (")
+					.append(QuantityFormatter.quantityToStackSize(price))
+					.append("gp)");
+			}
+			else if (name.toLowerCase().contains("passage"))
+			{
 				tooltip.append("Necklace of Passage(5) x ")
-						.append(qty)
-						.append("/5 (")
-						.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(NECKLACE_OF_PASSAGE5) * qty) / 5))
-						.append("gp)");
-			} else if (name.toLowerCase().contains("burning")) {
+					.append(qty)
+					.append("/5 (")
+					.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(NECKLACE_OF_PASSAGE5) * qty) / 5))
+					.append("gp)");
+			}
+			else if (name.toLowerCase().contains("burning"))
+			{
 				tooltip.append("Burning Amulet(5) x ")
-						.append(qty)
-						.append("/5 (")
-						.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(BURNING_AMULET5) * qty) / 5))
-						.append("gp)");
+					.append(qty)
+					.append("/5 (")
+					.append(QuantityFormatter.quantityToStackSize((itemManager.getItemPrice(BURNING_AMULET5) * qty) / 5))
+					.append("gp)");
 			}
 			return tooltip.toString();
 		}
 
 		@Override
-		int getModifiedItemId(String name, int itemId) {
+		int getModifiedItemId(String name, int itemId)
+		{
 			return itemId;
 		}
 	}
 
-	private static class ChargesSuppliesBox extends SuppliesBox {
-		protected ChargesSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type) {
+	private static class ChargesSuppliesBox extends SuppliesBox
+	{
+		protected ChargesSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type)
+		{
 			super(itemManager, id, plugin, panel, type);
 		}
 
 		@Override
-		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item) {
+		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
+		{
 			StringBuilder tooltip = new StringBuilder();
 
-			switch (itemId) {
+			switch (itemId)
+			{
 				case SCYTHE_OF_VITUR:
 					tooltip.append("<html>")
-							.append("Blood Rune x ")
-							.append(qty * 3)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									itemManager.getItemPrice(BLOOD_RUNE) * qty * 3)
-							)
-							.append("gp)")
-							.append("<br>")
-							.append("Vial of Blood x ")
-							.append(qty).append("/100 (")
-							.append(QuantityFormatter.quantityToStackSize(
-									(itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * qty) / 100)
-							)
-							.append("gp)")
-							.append("</br>")
-							.append("</html>");
+						.append("Blood Rune x ")
+						.append(qty * 3)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							itemManager.getItemPrice(BLOOD_RUNE) * qty * 3)
+						)
+						.append("gp)")
+						.append("<br>")
+						.append("Vial of Blood x ")
+						.append(qty).append("/100 (")
+						.append(QuantityFormatter.quantityToStackSize(
+							(itemManager.getItemPrice(VIAL_OF_BLOOD_22446) * qty) / 100)
+						)
+						.append("gp)")
+						.append("</br>")
+						.append("</html>");
 					return tooltip.toString();
 
 				case SANGUINESTI_STAFF:
 					tooltip.append("Blood Rune x ")
-							.append(qty * 3).append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									itemManager.getItemPrice(BLOOD_RUNE) * qty * 3)
-							)
-							.append("gp)");
+						.append(qty * 3).append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							itemManager.getItemPrice(BLOOD_RUNE) * qty * 3)
+						)
+						.append("gp)");
 					return tooltip.toString();
 
 				case BLADE_OF_SAELDOR:
 					tooltip.append("Crystal Shard x ")
-							.append(qty).append(" / 100");
+						.append(qty).append(" / 100");
 					return tooltip.toString();
 
 				case TRIDENT_OF_THE_SEAS:
 					tooltip.append("<html>")
-							.append("Chaos Rune x ")
-							.append(qty).append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									itemManager.getItemPrice(CHAOS_RUNE) * qty)
-							)
-							.append("gp)")
-							.append("<br>")
-							.append("Death Rune x ")
-							.append(qty)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									itemManager.getItemPrice(DEATH_RUNE) * qty)
-							)
-							.append("gp)")
-							.append("</br>")
-							.append("<br>")
-							.append("Fire Rune x ")
-							.append(qty * 5)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									(itemManager.getItemPrice(FIRE_RUNE) * qty) * 5)
-							)
-							.append("gp)")
-							.append("</br>")
-							.append("<br>")
-							.append("Coins x ")
-							.append(qty * 10)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									(itemManager.getItemPrice(COINS_995) * qty) * 10)
-							)
-							.append("gp)")
-							.append("</br>")
-							.append("</html>");
+						.append("Chaos Rune x ")
+						.append(qty).append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							itemManager.getItemPrice(CHAOS_RUNE) * qty)
+						)
+						.append("gp)")
+						.append("<br>")
+						.append("Death Rune x ")
+						.append(qty)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							itemManager.getItemPrice(DEATH_RUNE) * qty)
+						)
+						.append("gp)")
+						.append("</br>")
+						.append("<br>")
+						.append("Fire Rune x ")
+						.append(qty * 5)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							(itemManager.getItemPrice(FIRE_RUNE) * qty) * 5)
+						)
+						.append("gp)")
+						.append("</br>")
+						.append("<br>")
+						.append("Coins x ")
+						.append(qty * 10)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							(itemManager.getItemPrice(COINS_995) * qty) * 10)
+						)
+						.append("gp)")
+						.append("</br>")
+						.append("</html>");
 					return tooltip.toString();
 
 				case TRIDENT_OF_THE_SWAMP:
 					tooltip.append("<html>")
-							.append("Chaos Rune x ")
-							.append(qty)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									itemManager.getItemPrice(CHAOS_RUNE) * qty)
-							)
-							.append("gp)")
-							.append("<br>")
-							.append("Death Rune x ")
-							.append(qty)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									(itemManager.getItemPrice(DEATH_RUNE) * qty))
-							)
-							.append("gp)")
-							.append("</br>")
-							.append("<br>")
-							.append("Fire Rune x ")
-							.append(qty * 5)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									(itemManager.getItemPrice(FIRE_RUNE) * qty) * 5)
-							)
-							.append("gp)")
-							.append("</br>")
-							.append("<br>")
-							.append("Zulrah's Scales x ")
-							.append(qty)
-							.append(" (")
-							.append(QuantityFormatter.quantityToStackSize(
-									(itemManager.getItemPrice(ZULRAHS_SCALES) * qty))
-							)
-							.append("gp)")
-							.append("</br>")
-							.append("</html>");
+						.append("Chaos Rune x ")
+						.append(qty)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							itemManager.getItemPrice(CHAOS_RUNE) * qty)
+						)
+						.append("gp)")
+						.append("<br>")
+						.append("Death Rune x ")
+						.append(qty)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							(itemManager.getItemPrice(DEATH_RUNE) * qty))
+						)
+						.append("gp)")
+						.append("</br>")
+						.append("<br>")
+						.append("Fire Rune x ")
+						.append(qty * 5)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							(itemManager.getItemPrice(FIRE_RUNE) * qty) * 5)
+						)
+						.append("gp)")
+						.append("</br>")
+						.append("<br>")
+						.append("Zulrah's Scales x ")
+						.append(qty)
+						.append(" (")
+						.append(QuantityFormatter.quantityToStackSize(
+							(itemManager.getItemPrice(ZULRAHS_SCALES) * qty))
+						)
+						.append("gp)")
+						.append("</br>")
+						.append("</html>");
 					return tooltip.toString();
 			}
 
@@ -491,19 +540,24 @@ public abstract class SuppliesBox extends JPanel {
 		}
 
 		@Override
-		int getModifiedItemId(String name, int itemId) {
+		int getModifiedItemId(String name, int itemId)
+		{
 			return itemId;
 		}
 	}
 
-	private static class FoodSuppliesBox extends SuppliesBox {
-		protected FoodSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type) {
+	private static class FoodSuppliesBox extends SuppliesBox
+	{
+		protected FoodSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type)
+		{
 			super(itemManager, id, plugin, panel, type);
 		}
 
 		//Switches full cake ids to get the image for slice
-		private static int getSlice(int itemId) {
-			switch (itemId) {
+		private static int getSlice(int itemId)
+		{
+			switch (itemId)
+			{
 				case CAKE:
 					itemId = SLICE_OF_CAKE;
 					break;
@@ -515,8 +569,10 @@ public abstract class SuppliesBox extends JPanel {
 		}
 
 		//Switches full pizza and pie ids to get the image for half
-		private static int getHalf(int itemId) {
-			switch (itemId) {
+		private static int getHalf(int itemId)
+		{
+			switch (itemId)
+			{
 				case ANCHOVY_PIZZA:
 					itemId = _12_ANCHOVY_PIZZA;
 					break;
@@ -565,17 +621,21 @@ public abstract class SuppliesBox extends JPanel {
 		}
 
 		@Override
-		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item) {
+		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
+		{
 			final long price = itemManager.getItemPrice(itemId);
 			return item.getName() + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
 		}
 
 		@Override
-		int getModifiedItemId(String name, int itemId) {
-			if (SuppliesTrackerPlugin.isCake(name, itemId)) {
+		int getModifiedItemId(String name, int itemId)
+		{
+			if (SuppliesTrackerPlugin.isCake(name, itemId))
+			{
 				return getSlice(itemId);
 			}
-			if (SuppliesTrackerPlugin.isPizzaPie(name)) {
+			if (SuppliesTrackerPlugin.isPizzaPie(name))
+			{
 				return getHalf(itemId);
 			}
 
@@ -583,20 +643,25 @@ public abstract class SuppliesBox extends JPanel {
 		}
 	}
 
-	private static class PotionSuppliesBox extends SuppliesBox {
-		protected PotionSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type) {
+	private static class PotionSuppliesBox extends SuppliesBox
+	{
+		protected PotionSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type)
+		{
 			super(itemManager, id, plugin, panel, type);
 		}
 
 		@Override
-		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item) {
+		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
+		{
 			final long price = itemManager.getItemPrice(plugin.getPotionID(item.getName().replaceAll(POTION_PATTERN, "(4)"))) / 4;
 			return item.getName() + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
 		}
 
 		@Override
-		int getModifiedItemId(String name, int itemId) {
-			if (SuppliesTrackerPlugin.isPotion(name)) {
+		int getModifiedItemId(String name, int itemId)
+		{
+			if (SuppliesTrackerPlugin.isPotion(name))
+			{
 				return getSingleDose(name);
 			}
 
@@ -609,11 +674,13 @@ public abstract class SuppliesBox extends JPanel {
 		 * @param name potion name to be checked
 		 * @return itemid of single dose potion
 		 */
-		private int getSingleDose(String name) {
+		private int getSingleDose(String name)
+		{
 			String nameModified = name.replace("(4)", "(1)");
 			int itemId = 0;
 
-			if (itemManager.search(nameModified).size() > 0) {
+			if (itemManager.search(nameModified).size() > 0)
+			{
 				itemId = itemManager.search(nameModified).get(0).getId();
 			}
 
@@ -621,19 +688,23 @@ public abstract class SuppliesBox extends JPanel {
 		}
 	}
 
-	private static class DefaultSuppliesBox extends SuppliesBox {
-		protected DefaultSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type) {
+	private static class DefaultSuppliesBox extends SuppliesBox
+	{
+		protected DefaultSuppliesBox(ItemManager itemManager, String id, SuppliesTrackerPlugin plugin, SuppliesTrackerPanel panel, ItemType type)
+		{
 			super(itemManager, id, plugin, panel, type);
 		}
 
 		@Override
-		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item) {
+		final String buildTooltip(int itemId, int qty, SuppliesTrackerItem item)
+		{
 			final long price = itemManager.getItemPrice(itemId);
 			return item.getName() + " x " + qty + " (" + QuantityFormatter.quantityToStackSize(price * qty) + ") ";
 		}
 
 		@Override
-		int getModifiedItemId(String name, int itemId) {
+		int getModifiedItemId(String name, int itemId)
+		{
 			return itemId;
 		}
 	}

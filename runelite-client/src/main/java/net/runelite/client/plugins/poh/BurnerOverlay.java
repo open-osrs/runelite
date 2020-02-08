@@ -24,6 +24,13 @@
  */
 package net.runelite.client.plugins.poh;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.time.Duration;
+import java.time.Instant;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -32,19 +39,15 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.time.Duration;
-import java.time.Instant;
-
 @Singleton
-class BurnerOverlay extends Overlay {
+class BurnerOverlay extends Overlay
+{
 	private final Client client;
 	private final PohPlugin plugin;
 
 	@Inject
-	private BurnerOverlay(final Client client, final PohPlugin plugin) {
+	private BurnerOverlay(final Client client, final PohPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
@@ -52,18 +55,22 @@ class BurnerOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.isShowBurner()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isShowBurner())
+		{
 			return null;
 		}
 
 		plugin.getIncenseBurners().forEach((tile, burner) ->
 		{
-			if (tile.getPlane() != client.getPlane()) {
+			if (tile.getPlane() != client.getPlane())
+			{
 				return;
 			}
 
-			if (!PohPlugin.BURNER_LIT.contains(burner.getId())) {
+			if (!PohPlugin.BURNER_LIT.contains(burner.getId()))
+			{
 				return;
 			}
 
@@ -73,8 +80,10 @@ class BurnerOverlay extends Overlay {
 
 			long endCountdown = 0;
 
-			if (certainSec <= 0) {
-				if (burner.getEnd() == null) {
+			if (certainSec <= 0)
+			{
+				if (burner.getEnd() == null)
+				{
 					burner.setEnd(Instant.now());
 				}
 
@@ -85,18 +94,22 @@ class BurnerOverlay extends Overlay {
 			final ProgressPieComponent pieComponent = new ProgressPieComponent();
 			final Point loc = Perspective.localToCanvas(client, tile.getLocalLocation(), tile.getPlane());
 
-			if (loc == null) {
+			if (loc == null)
+			{
 				return;
 			}
 
 			pieComponent.setPosition(loc);
 
-			if (certainSec > 0) {
+			if (certainSec > 0)
+			{
 				pieComponent.setProgress(certainSec / burner.getCountdownTimer());
 				pieComponent.setFill(Color.GREEN);
 				pieComponent.setBorderColor(Color.GREEN);
 				pieComponent.render(graphics);
-			} else if (randomSec > 0) {
+			}
+			else if (randomSec > 0)
+			{
 				pieComponent.setProgress(randomSec / burner.getRandomTimer());
 				pieComponent.setFill(Color.ORANGE);
 				pieComponent.setBorderColor(Color.ORANGE);

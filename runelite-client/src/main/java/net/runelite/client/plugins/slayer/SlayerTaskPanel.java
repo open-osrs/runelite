@@ -1,5 +1,21 @@
 package net.runelite.client.plugins.slayer;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Singleton;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
@@ -8,27 +24,18 @@ import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.QuantityFormatter;
 
-import javax.inject.Singleton;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
 @Singleton
-class SlayerTaskPanel extends PluginPanel {
+class SlayerTaskPanel extends PluginPanel
+{
 	private static final long MILLIS_PER_SECOND = 1000;
 	private static final long SECONDS_PER_MINUTE = 60;
 	private static final long MINUTES_PER_HOUR = 60;
 
 	// Templates
 	private static final String HTML_LABEL_TEMPLATE =
-			"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
+		"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
 	private static final String HTML_TIME_LABEL_TEMPLATE =
-			"<html><body style='color:%s'>%s<span style='color:white'>%02d:%02d:%02d</span></body></html>";
+		"<html><body style='color:%s'>%s<span style='color:white'>%02d:%02d:%02d</span></body></html>";
 
 
 	private static final ImageIcon PAUSE, PAUSE_FADED, PAUSE_HOVER;
@@ -59,7 +66,8 @@ class SlayerTaskPanel extends PluginPanel {
 
 	private SlayerPlugin slayerPlugin;
 
-	static {
+	static
+	{
 		final BufferedImage pauseImg = ImageUtil.getResourceStreamFromClass(SlayerPlugin.class, "pause_icon.png");
 		final BufferedImage playImg = ImageUtil.getResourceStreamFromClass(SlayerPlugin.class, "play_icon.png");
 
@@ -72,7 +80,8 @@ class SlayerTaskPanel extends PluginPanel {
 		PLAY_HOVER = new ImageIcon(ImageUtil.alphaOffset(playImg, -220));
 	}
 
-	public SlayerTaskPanel(SlayerPlugin slayerPlugin) {
+	public SlayerTaskPanel(SlayerPlugin slayerPlugin)
+	{
 		this.slayerPlugin = slayerPlugin;
 
 		setBorder(new EmptyBorder(6, 6, 6, 6));
@@ -95,28 +104,34 @@ class SlayerTaskPanel extends PluginPanel {
 
 		playBtn.setIcon(PLAY);
 		playBtn.setToolTipText("Resume the current slayer task");
-		playBtn.addMouseListener(new MouseAdapter() {
+		playBtn.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				slayerPlugin.setPaused(false);
 				changePauseState(false);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				boolean paused = true;
 				TaskData currentTask = slayerPlugin.getCurrentTask();
-				if (currentTask != null) {
+				if (currentTask != null)
+				{
 					paused = currentTask.isPaused();
 				}
 				playBtn.setIcon(paused ? PLAY_FADED : PLAY);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				boolean paused = true;
 				TaskData currentTask = slayerPlugin.getCurrentTask();
-				if (currentTask != null) {
+				if (currentTask != null)
+				{
 					paused = currentTask.isPaused();
 				}
 				playBtn.setIcon(paused ? PLAY_HOVER : PLAY);
@@ -125,28 +140,34 @@ class SlayerTaskPanel extends PluginPanel {
 
 		pauseBtn.setIcon(PAUSE);
 		pauseBtn.setToolTipText("Pause the current slayer task");
-		pauseBtn.addMouseListener(new MouseAdapter() {
+		pauseBtn.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				slayerPlugin.setPaused(true);
 				changePauseState(true);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				boolean paused = true;
 				TaskData currentTask = slayerPlugin.getCurrentTask();
-				if (currentTask != null) {
+				if (currentTask != null)
+				{
 					paused = currentTask.isPaused();
 				}
 				pauseBtn.setIcon(paused ? PAUSE : PAUSE_FADED);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				boolean paused = true;
 				TaskData currentTask = slayerPlugin.getCurrentTask();
-				if (currentTask != null) {
+				if (currentTask != null)
+				{
 					paused = currentTask.isPaused();
 				}
 				pauseBtn.setIcon(paused ? PAUSE : PAUSE_HOVER);
@@ -158,7 +179,8 @@ class SlayerTaskPanel extends PluginPanel {
 
 		actionsContainer.add(controlsPanel, BorderLayout.EAST);
 		changePauseState(true);
-		if (slayerPlugin.getCurrentTask() != null) {
+		if (slayerPlugin.getCurrentTask() != null)
+		{
 			changePauseState(slayerPlugin.getCurrentTask().isPaused());
 		}
 
@@ -191,19 +213,23 @@ class SlayerTaskPanel extends PluginPanel {
 		add(errorPanel);
 	}
 
-	void loadHeaderIcon(BufferedImage img) {
+	void loadHeaderIcon(BufferedImage img)
+	{
 		overallIcon.setIcon(new ImageIcon(img));
 	}
 
-	private void changePauseState(boolean paused) {
+	private void changePauseState(boolean paused)
+	{
 		playBtn.setIcon(paused ? PLAY_FADED : PLAY);
 		pauseBtn.setIcon(paused ? PAUSE : PAUSE_FADED);
 	}
 
-	private void updateOverall() {
+	private void updateOverall()
+	{
 		int overallKills = 0;
 		long overallTime = 0;
-		for (TaskBox box : tasks) {
+		for (TaskBox box : tasks)
+		{
 			overallKills += box.getTaskData().getElapsedKills();
 			overallTime += box.getTaskData().getElapsedTime();
 		}
@@ -212,37 +238,48 @@ class SlayerTaskPanel extends PluginPanel {
 		overallTimeLabel.setText(htmlLabel("Total time: ", overallTime));
 	}
 
-	private static boolean isEmptyTask(TaskData taskData) {
+	private static boolean isEmptyTask(TaskData taskData)
+	{
 		return (taskData.getTaskName() == null || taskData.getTaskName().equals("")) && taskData.getAmount() == 0 && taskData.getInitialAmount() == 0;
 	}
 
-	private void showMainView() {
+	private void showMainView()
+	{
 		remove(errorPanel);
 		actionsContainer.setVisible(true);
 		overallPanel.setVisible(true);
 	}
 
-	private TaskBox buildBox(SlayerPlugin plugin, JPanel container, TaskData data) {
+	private TaskBox buildBox(SlayerPlugin plugin, JPanel container, TaskData data)
+	{
 		TaskBox newBox = new TaskBox(plugin, container, data.toBuilder().build());
 		tasks.add(0, newBox);
 		showMainView();
 		return newBox;
 	}
 
-	private boolean stringsEqualIncludeNull(String str0, String str1) {
-		if (str0 == null && str1 == null) {
+	private boolean stringsEqualIncludeNull(String str0, String str1)
+	{
+		if (str0 == null && str1 == null)
+		{
 			return true; // both are null
-		} else if (str0 == null || str1 == null) {
+		}
+		else if (str0 == null || str1 == null)
+		{
 			return false; // only 1 is null
-		} else {
+		}
+		else
+		{
 			// none are null so equals check is safe
 			return str0.equals(str1);
 		}
 	}
 
-	void updateCurrentTask(boolean updated, boolean paused, TaskData newData, boolean isNewAssignment) {
+	void updateCurrentTask(boolean updated, boolean paused, TaskData newData, boolean isNewAssignment)
+	{
 		// important case for if the current task is completed so the update will show the empty task
-		if (isEmptyTask(newData)) {
+		if (isEmptyTask(newData))
+		{
 			if (tasks.isEmpty()) // if there is no current task an empty task doesn't do anything
 			{
 				return;
@@ -263,7 +300,8 @@ class SlayerTaskPanel extends PluginPanel {
 			return;
 		}
 
-		if (tasks.isEmpty() || isNewAssignment) {
+		if (tasks.isEmpty() || isNewAssignment)
+		{
 			// new task so append it to the front of the list
 			SwingUtilities.invokeLater(() ->
 			{
@@ -271,13 +309,16 @@ class SlayerTaskPanel extends PluginPanel {
 				newBox.update(true, newData.isPaused(), newData);
 			});
 			return;
-		} else {
+		}
+		else
+		{
 			// if here there is a current task so check if the current task matches
 			// the update being sent
 			TaskBox current = tasks.get(0);
 			if (!stringsEqualIncludeNull(current.getTaskData().getTaskName(), newData.getTaskName()) ||
-					!stringsEqualIncludeNull(current.getTaskData().getTaskLocation(), newData.getTaskLocation()) ||
-					current.getTaskData().getInitialAmount() != newData.getInitialAmount()) {
+				!stringsEqualIncludeNull(current.getTaskData().getTaskLocation(), newData.getTaskLocation()) ||
+				current.getTaskData().getInitialAmount() != newData.getInitialAmount())
+			{
 				// current task does not match the update being sent so the current task
 				// must have been outdated - this is necessarily true because if a true
 				// new task was sent it would have set the isNewAssignment flag
@@ -304,26 +345,31 @@ class SlayerTaskPanel extends PluginPanel {
 		changePauseState(paused);
 	}
 
-	private static String htmlLabel(String key, long timeMillis) {
-		if (timeMillis == Long.MAX_VALUE) {
+	private static String htmlLabel(String key, long timeMillis)
+	{
+		if (timeMillis == Long.MAX_VALUE)
+		{
 			String valueStr = "N/A";
 			return String.format(HTML_LABEL_TEMPLATE, ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR),
-					key, valueStr);
-		} else {
+				key, valueStr);
+		}
+		else
+		{
 			long seconds = timeMillis / MILLIS_PER_SECOND;
 			long minutes = seconds / SECONDS_PER_MINUTE;
 			seconds %= 60;
 			long hours = minutes / MINUTES_PER_HOUR;
 			minutes %= 60;
 			return String.format(HTML_TIME_LABEL_TEMPLATE, ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR),
-					key, (int) hours, (int) minutes, (int) seconds);
+				key, (int) hours, (int) minutes, (int) seconds);
 		}
 	}
 
-	private static String htmlLabel(String key, int value) {
+	private static String htmlLabel(String key, int value)
+	{
 		String valueStr = QuantityFormatter.quantityToRSDecimalStack(value);
 		return String.format(HTML_LABEL_TEMPLATE, ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR),
-				key, valueStr);
+			key, valueStr);
 	}
 
 }

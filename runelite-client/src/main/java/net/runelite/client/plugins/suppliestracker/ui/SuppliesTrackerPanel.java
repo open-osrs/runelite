@@ -26,6 +26,20 @@
  */
 package net.runelite.client.plugins.suppliestracker.ui;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Singleton;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.game.ItemManager;
@@ -39,18 +53,11 @@ import net.runelite.client.ui.components.PluginErrorPanel;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.QuantityFormatter;
 
-import javax.inject.Singleton;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
 @Singleton
-public class SuppliesTrackerPanel extends PluginPanel {
+public class SuppliesTrackerPanel extends PluginPanel
+{
 	private static final String HTML_LABEL_TEMPLATE =
-			"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
+		"<html><body style='color:%s'>%s<span style='color:white'>%s</span></body></html>";
 
 	// Handle supplies logs
 	@Getter(AccessLevel.PACKAGE)
@@ -69,7 +76,8 @@ public class SuppliesTrackerPanel extends PluginPanel {
 	private int overallSuppliesUsed;
 	private int overallCost;
 
-	public SuppliesTrackerPanel(final ItemManager itemManager, SuppliesTrackerPlugin plugin) {
+	public SuppliesTrackerPanel(final ItemManager itemManager, SuppliesTrackerPlugin plugin)
+	{
 		setBorder(new EmptyBorder(6, 6, 6, 6));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		setLayout(new BorderLayout());
@@ -99,7 +107,8 @@ public class SuppliesTrackerPanel extends PluginPanel {
 		overallPanel.add(overallInfo, BorderLayout.CENTER);
 
 		//Sorts boxes into usage types
-		for (ItemType type : ItemType.values()) {
+		for (ItemType type : ItemType.values())
+		{
 			SuppliesBox newBox = SuppliesBox.of(itemManager, type.getLabel(), plugin, this, type);
 			logsContainer.add(newBox);
 			boxList.add(newBox);
@@ -112,7 +121,8 @@ public class SuppliesTrackerPanel extends PluginPanel {
 			overallSuppliesUsed = 0;
 			overallCost = 0;
 			plugin.clearSupplies();
-			for (SuppliesBox box : boxList) {
+			for (SuppliesBox box : boxList)
+			{
 				box.clearAll();
 			}
 			updateOverall();
@@ -159,7 +169,8 @@ public class SuppliesTrackerPanel extends PluginPanel {
 	 * @param value value
 	 * @return key: value in html
 	 */
-	private static String htmlLabel(String key, long value) {
+	private static String htmlLabel(String key, long value)
+	{
 		final String valueStr = QuantityFormatter.quantityToStackSize(value);
 		return String.format(HTML_LABEL_TEMPLATE, ColorUtil.toHexColor(ColorScheme.LIGHT_GRAY_COLOR), key, valueStr);
 	}
@@ -169,7 +180,8 @@ public class SuppliesTrackerPanel extends PluginPanel {
 	 *
 	 * @param img the img for the header icon
 	 */
-	public void loadHeaderIcon(BufferedImage img) {
+	public void loadHeaderIcon(BufferedImage img)
+	{
 		overallIcon.setIcon(new ImageIcon(img));
 	}
 
@@ -178,10 +190,13 @@ public class SuppliesTrackerPanel extends PluginPanel {
 	 *
 	 * @param item the item to add
 	 */
-	public void addItem(SuppliesTrackerItem item) {
+	public void addItem(SuppliesTrackerItem item)
+	{
 		ItemType category = ItemType.categorize(item);
-		for (SuppliesBox box : boxList) {
-			if (box.getType() == category) {
+		for (SuppliesBox box : boxList)
+		{
+			if (box.getType() == category)
+			{
 				box.update(item);
 				box.rebuild();
 				break;
@@ -194,28 +209,35 @@ public class SuppliesTrackerPanel extends PluginPanel {
 	 * Updates overall stats to calculate overall used and overall cost from
 	 * the info in each box
 	 */
-	public void updateOverall() {
+	public void updateOverall()
+	{
 		overallSuppliesUsed = 0;
-		for (SuppliesBox box : boxList) {
+		for (SuppliesBox box : boxList)
+		{
 			overallSuppliesUsed += box.getTotalSupplies();
 		}
 
 		overallCost = 0;
 
 		//Checks all supply boxes for total price
-		for (SuppliesBox box : boxList) {
+		for (SuppliesBox box : boxList)
+		{
 			overallCost += box.getTotalPrice();
 		}
 
 		overallSuppliesUsedLabel.setText(htmlLabel("Total Supplies: ", overallSuppliesUsed));
 		overallCostLabel.setText(htmlLabel("Total Cost: ", overallCost));
 
-		if (overallSuppliesUsed <= 0) {
+		if (overallSuppliesUsed <= 0)
+		{
 			add(errorPanel);
 			overallPanel.setVisible(false);
-		} else {
+		}
+		else
+		{
 			remove(errorPanel);
-			if (!updatePanel.isVisible()) {
+			if (!updatePanel.isVisible())
+			{
 				overallPanel.setVisible(true);
 			}
 		}

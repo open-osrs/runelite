@@ -24,24 +24,27 @@
  */
 package net.runelite.client.plugins.maxhit.equipment;
 
+import java.util.List;
 import net.runelite.api.EquipmentInventorySlot;
 
-import java.util.List;
-
-public class EquipmentSlotItem {
+public class EquipmentSlotItem
+{
 	private final EquipmentInventorySlot equipmentSlot;
 	private final List<Integer> itemIds;
 
-	public EquipmentSlotItem(EquipmentInventorySlot equipmentSlot, List<Integer> itemIds) {
+	public EquipmentSlotItem(EquipmentInventorySlot equipmentSlot, List<Integer> itemIds)
+	{
 		this.equipmentSlot = equipmentSlot;
 		this.itemIds = itemIds;
 	}
 
-	public List<Integer> getItems() {
+	public List<Integer> getItems()
+	{
 		return this.itemIds;
 	}
 
-	EquipmentInventorySlot getEquipmentSlot() {
+	EquipmentInventorySlot getEquipmentSlot()
+	{
 		return this.equipmentSlot;
 	}
 }

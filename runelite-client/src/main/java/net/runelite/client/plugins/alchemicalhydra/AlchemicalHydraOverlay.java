@@ -24,9 +24,20 @@
  */
 package net.runelite.client.plugins.alchemicalhydra;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.IndexDataBase;
+import net.runelite.api.Prayer;
+import net.runelite.api.Sprite;
+import net.runelite.api.SpriteID;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -35,13 +46,9 @@ import net.runelite.client.ui.overlay.components.InfoBoxComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.util.ImageUtil;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 @Singleton
-class AlchemicalHydraOverlay extends Overlay {
+class AlchemicalHydraOverlay extends Overlay
+{
 	static final int IMGSIZE = 36;
 
 	private final AlchemicalHydraPlugin plugin;
@@ -64,7 +71,8 @@ class AlchemicalHydraOverlay extends Overlay {
 	private int stunTicks;
 
 	@Inject
-	AlchemicalHydraOverlay(final AlchemicalHydraPlugin plugin, final Client client, final SpriteManager spriteManager) {
+	AlchemicalHydraOverlay(final AlchemicalHydraPlugin plugin, final Client client, final SpriteManager spriteManager)
+	{
 		this.plugin = plugin;
 		this.client = client;
 		this.spriteManager = spriteManager;
@@ -73,21 +81,25 @@ class AlchemicalHydraOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics2D) {
+	public Dimension render(Graphics2D graphics2D)
+	{
 		final AlchemicalHydra hydra = plugin.getHydra();
 		panelComponent.getChildren().clear();
 
-		if (hydra == null) {
+		if (hydra == null)
+		{
 			return null;
 		}
 
 		// First add stunned thing if needed
-		if (stunTicks > 0) {
+		if (stunTicks > 0)
+		{
 			addStunOverlay();
 		}
 
 
-		if (plugin.isCounting()) {
+		if (plugin.isCounting())
+		{
 			// Add spec box second, to keep it above pray
 			addSpecOverlay(hydra);
 
@@ -101,7 +113,8 @@ class AlchemicalHydraOverlay extends Overlay {
 		return panelComponent.render(graphics2D);
 	}
 
-	private void addStunOverlay() {
+	private void addStunOverlay()
+	{
 		final InfoBoxComponent stunComponent = new InfoBoxComponent();
 
 		stunComponent.setBackgroundColor(badCol);
@@ -112,18 +125,23 @@ class AlchemicalHydraOverlay extends Overlay {
 		panelComponent.getChildren().add(stunComponent);
 	}
 
-	private void addSpecOverlay(final AlchemicalHydra hydra) {
+	private void addSpecOverlay(final AlchemicalHydra hydra)
+	{
 		final AlchemicalHydraPhase phase = hydra.getPhase();
 		final int nextSpec = hydra.getNextSpecialRelative();
 
-		if (nextSpec > 3) {
+		if (nextSpec > 3)
+		{
 			return;
 		}
 		final InfoBoxComponent specComponent = new InfoBoxComponent();
 
-		if (nextSpec == 0) {
+		if (nextSpec == 0)
+		{
 			specComponent.setBackgroundColor(badCol);
-		} else if (nextSpec == 1) {
+		}
+		else if (nextSpec == 1)
+		{
 			specComponent.setBackgroundColor(medCol);
 		}
 
@@ -134,15 +152,19 @@ class AlchemicalHydraOverlay extends Overlay {
 		panelComponent.getChildren().add(specComponent);
 	}
 
-	private void addPrayOverlay(final AlchemicalHydra hydra) {
+	private void addPrayOverlay(final AlchemicalHydra hydra)
+	{
 		final Prayer nextPrayer = hydra.getNextAttack().getPrayer();
 		final int nextSwitch = hydra.getNextSwitch();
 
 		InfoBoxComponent prayComponent = new InfoBoxComponent();
 
-		if (nextSwitch == 1) {
+		if (nextSwitch == 1)
+		{
 			prayComponent.setBackgroundColor(client.isPrayerActive(nextPrayer) ? medCol : badCol);
-		} else {
+		}
+		else
+		{
 			prayComponent.setBackgroundColor(client.isPrayerActive(nextPrayer) ? safeCol : badCol);
 		}
 
@@ -154,23 +176,28 @@ class AlchemicalHydraOverlay extends Overlay {
 		panelComponent.getChildren().add(prayComponent);
 	}
 
-	boolean onGameTick() {
+	boolean onGameTick()
+	{
 		return --stunTicks <= 0;
 	}
 
-	private BufferedImage getStunImg() {
-		if (stunImg == null) {
+	private BufferedImage getStunImg()
+	{
+		if (stunImg == null)
+		{
 			stunImg = createStunImage(client);
 		}
 
 		return stunImg;
 	}
 
-	private static BufferedImage createStunImage(Client client) {
+	private static BufferedImage createStunImage(Client client)
+	{
 		final Sprite root = getSprite(client, SpriteID.BIG_ASS_GREY_ENTANGLE);
 		final Sprite mark = getSprite(client, SpriteID.TRADE_EXCLAMATION_MARK_ITEM_REMOVAL_WARNING);
 
-		if (mark == null || root == null) {
+		if (mark == null || root == null)
+		{
 			return null;
 		}
 
@@ -179,14 +206,17 @@ class AlchemicalHydraOverlay extends Overlay {
 		return sprite.toBufferedImage();
 	}
 
-	private static Sprite getSprite(Client client, int id) {
+	private static Sprite getSprite(Client client, int id)
+	{
 		final IndexDataBase spriteDb = client.getIndexSprites();
-		if (spriteDb == null) {
+		if (spriteDb == null)
+		{
 			return null;
 		}
 
 		final Sprite[] sprites = client.getSprites(spriteDb, id, 0);
-		if (sprites == null) {
+		if (sprites == null)
+		{
 			return null;
 		}
 

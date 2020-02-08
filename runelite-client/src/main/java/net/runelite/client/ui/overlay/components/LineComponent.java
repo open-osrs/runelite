@@ -26,15 +26,20 @@ package net.runelite.client.ui.overlay.components;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
-
 @Setter
 @Builder
-public class LineComponent implements LayoutableRenderableEntity {
+public class LineComponent implements LayoutableRenderableEntity
+{
 	private String left;
 	private String right;
 
@@ -55,7 +60,8 @@ public class LineComponent implements LayoutableRenderableEntity {
 	private final Rectangle bounds = new Rectangle();
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		// Prevent NPEs
 		final String left = MoreObjects.firstNonNull(this.left, "");
 		final String right = MoreObjects.firstNonNull(this.right, "");
@@ -68,11 +74,13 @@ public class LineComponent implements LayoutableRenderableEntity {
 		final int leftFullWidth = getLineWidth(left, metrics);
 		final int rightFullWidth = getLineWidth(right, metrics);
 
-		if (preferredSize.width < leftFullWidth + rightFullWidth) {
+		if (preferredSize.width < leftFullWidth + rightFullWidth)
+		{
 			int leftSmallWidth = preferredSize.width;
 			int rightSmallWidth = 0;
 
-			if (!Strings.isNullOrEmpty(right)) {
+			if (!Strings.isNullOrEmpty(right))
+			{
 				rightSmallWidth = (preferredSize.width / 3);
 				leftSmallWidth -= rightSmallWidth;
 			}
@@ -82,15 +90,18 @@ public class LineComponent implements LayoutableRenderableEntity {
 
 			int lineCount = Math.max(leftSplitLines.length, rightSplitLines.length);
 
-			for (int i = 0; i < lineCount; i++) {
+			for (int i = 0; i < lineCount; i++)
+			{
 				String leftText = "";
 				String rightText = "";
 
-				if (i < leftSplitLines.length) {
+				if (i < leftSplitLines.length)
+				{
 					leftText = leftSplitLines[i];
 				}
 
-				if (i < rightSplitLines.length) {
+				if (i < rightSplitLines.length)
+				{
 					rightText = rightSplitLines[i];
 				}
 
@@ -133,29 +144,36 @@ public class LineComponent implements LayoutableRenderableEntity {
 		return dimension;
 	}
 
-	private static int getLineWidth(final String line, final FontMetrics metrics) {
+	private static int getLineWidth(final String line, final FontMetrics metrics)
+	{
 		return metrics.stringWidth(TextComponent.textWithoutColTags(line));
 	}
 
-	private static String[] lineBreakText(String text, int maxWidth, FontMetrics metrics) {
+	private static String[] lineBreakText(String text, int maxWidth, FontMetrics metrics)
+	{
 		final String[] words = text.split(" ");
 
-		if (words.length == 0) {
+		if (words.length == 0)
+		{
 			return new String[0];
 		}
 
 		final StringBuilder wrapped = new StringBuilder(words[0]);
 		int spaceLeft = maxWidth - metrics.stringWidth(wrapped.toString());
 
-		for (int i = 1; i < words.length; i++) {
+		for (int i = 1; i < words.length; i++)
+		{
 			final String word = words[i];
 			final int wordLen = metrics.stringWidth(word);
 			final int spaceWidth = metrics.stringWidth(" ");
 
-			if (wordLen + spaceWidth > spaceLeft) {
+			if (wordLen + spaceWidth > spaceLeft)
+			{
 				wrapped.append("\n").append(word);
 				spaceLeft = maxWidth - wordLen;
-			} else {
+			}
+			else
+			{
 				wrapped.append(" ").append(word);
 				spaceLeft -= spaceWidth + wordLen;
 			}

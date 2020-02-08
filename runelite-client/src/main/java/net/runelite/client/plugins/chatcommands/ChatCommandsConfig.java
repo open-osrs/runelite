@@ -24,123 +24,134 @@
  */
 package net.runelite.client.plugins.chatcommands;
 
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Keybind;
 
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-
 @ConfigGroup("chatcommands")
-public interface ChatCommandsConfig extends Config {
+public interface ChatCommandsConfig extends Config
+{
 	@ConfigItem(
-			position = 0,
-			keyName = "price",
-			name = "Price Command",
-			description = "Configures whether the Price command is enabled<br> !price [item]"
+		position = 0,
+		keyName = "price",
+		name = "Price Command",
+		description = "Configures whether the Price command is enabled<br> !price [item]"
 	)
-	default boolean price() {
+	default boolean price()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "lvl",
-			name = "Level Command",
-			description = "Configures whether the Level command is enabled<br> !lvl [skill]"
+		position = 1,
+		keyName = "lvl",
+		name = "Level Command",
+		description = "Configures whether the Level command is enabled<br> !lvl [skill]"
 	)
-	default boolean lvl() {
+	default boolean lvl()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "clue",
-			name = "Clue Command",
-			description = "Configures whether the Clue command is enabled<br> !clues"
+		position = 2,
+		keyName = "clue",
+		name = "Clue Command",
+		description = "Configures whether the Clue command is enabled<br> !clues"
 	)
-	default boolean clue() {
+	default boolean clue()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "killcount",
-			name = "Killcount Command",
-			description = "Configures whether the Killcount command is enabled<br> !kc [boss]"
+		position = 3,
+		keyName = "killcount",
+		name = "Killcount Command",
+		description = "Configures whether the Killcount command is enabled<br> !kc [boss]"
 	)
-	default boolean killcount() {
+	default boolean killcount()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "qp",
-			name = "QP Command",
-			description = "Configures whether the quest point command is enabled<br> !qp"
+		position = 4,
+		keyName = "qp",
+		name = "QP Command",
+		description = "Configures whether the quest point command is enabled<br> !qp"
 	)
-	default boolean qp() {
+	default boolean qp()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 5,
-			keyName = "pb",
-			name = "PB Command",
-			description = "Configures whether the personal best command is enabled<br> !pb"
+		position = 5,
+		keyName = "pb",
+		name = "PB Command",
+		description = "Configures whether the personal best command is enabled<br> !pb"
 	)
-	default boolean pb() {
+	default boolean pb()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "gc",
-			name = "GC Command",
-			description = "Configures whether the Barbarian Assault High gamble count command is enabled<br> !gc"
+		position = 6,
+		keyName = "gc",
+		name = "GC Command",
+		description = "Configures whether the Barbarian Assault High gamble count command is enabled<br> !gc"
 	)
-	default boolean gc() {
+	default boolean gc()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 7,
-			keyName = "duels",
-			name = "Duels Command",
-			description = "Configures whether the duel arena command is enabled<br> !duels"
+		position = 7,
+		keyName = "duels",
+		name = "Duels Command",
+		description = "Configures whether the duel arena command is enabled<br> !duels"
 	)
-	default boolean duels() {
+	default boolean duels()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 8,
-			keyName = "clearSingleWord",
-			name = "Clear Single Word",
-			description = "Enable hot key to clear single word at a time"
+		position = 8,
+		keyName = "clearSingleWord",
+		name = "Clear Single Word",
+		description = "Enable hot key to clear single word at a time"
 	)
-	default Keybind clearSingleWord() {
+	default Keybind clearSingleWord()
+	{
 		return new Keybind(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK);
 	}
 
 	@ConfigItem(
-			position = 9,
-			keyName = "clearEntireChatBox",
-			name = "Clear Chat Box",
-			description = "Enable hotkey to clear entire chat box"
+		position = 9,
+		keyName = "clearEntireChatBox",
+		name = "Clear Chat Box",
+		description = "Enable hotkey to clear entire chat box"
 	)
-	default Keybind clearChatBox() {
+	default Keybind clearChatBox()
+	{
 		return new Keybind(KeyEvent.VK_BACK_SPACE, InputEvent.CTRL_DOWN_MASK);
 	}
 
 	@ConfigItem(
-			position = 10,
-			keyName = "clipboardShortcuts",
-			name = "Clipboard shortcuts",
-			description = "Enable clipboard shortcuts (ctrl+c and ctrl+v)"
+		position = 10,
+		keyName = "clipboardShortcuts",
+		name = "Clipboard shortcuts",
+		description = "Enable clipboard shortcuts (ctrl+c and ctrl+v)"
 	)
-	default boolean clipboardShortcuts() {
+	default boolean clipboardShortcuts()
+	{
 		return true;
 	}
 }

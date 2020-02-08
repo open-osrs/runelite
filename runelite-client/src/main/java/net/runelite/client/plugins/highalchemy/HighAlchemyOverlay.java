@@ -28,29 +28,31 @@
 
 package net.runelite.client.plugins.highalchemy;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
 import net.runelite.api.widgets.Widget;
+import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
-
 @Singleton
-public class HighAlchemyOverlay extends WidgetItemOverlay {
+public class HighAlchemyOverlay extends WidgetItemOverlay
+{
 	private final ItemManager itemManager;
 	private final HighAlchemyPlugin plugin;
 	private final int alchPrice;
 	private final int alchPriceNoStaff;
 
 	@Inject
-	public HighAlchemyOverlay(final ItemManager itemManager, final HighAlchemyPlugin plugin) {
+	public HighAlchemyOverlay(final ItemManager itemManager, final HighAlchemyPlugin plugin)
+	{
 		this.itemManager = itemManager;
 		this.plugin = plugin;
 
@@ -63,11 +65,13 @@ public class HighAlchemyOverlay extends WidgetItemOverlay {
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget) {
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
+	{
 		Widget widget = itemWidget.getWidget();
 		int interfaceGroup = TO_GROUP(widget.getId());
 
-		if (!plugin.getInterfaceGroups().contains(interfaceGroup)) {
+		if (!plugin.getInterfaceGroups().contains(interfaceGroup))
+		{
 			return;
 		}
 
@@ -78,10 +82,12 @@ public class HighAlchemyOverlay extends WidgetItemOverlay {
 		final int desiredProfit = plugin.getMinProfit();
 		final int haProfit = getHAProfit(haPrice, gePrice, materialCost);
 
-		if (gePrice > 0 && haPrice > 0 && haProfit >= desiredProfit) {
+		if (gePrice > 0 && haPrice > 0 && haProfit >= desiredProfit)
+		{
 			final Color color = plugin.getGetHighlightColor();
 
-			if (color != null) {
+			if (color != null)
+			{
 				Rectangle bounds = itemWidget.getCanvasBounds();
 				final BufferedImage outline = itemManager.getItemOutline(itemId, itemWidget.getQuantity(), color);
 				graphics.drawImage(outline, (int) bounds.getX() + 1, (int) bounds.getY() + 1, null);
@@ -89,27 +95,33 @@ public class HighAlchemyOverlay extends WidgetItemOverlay {
 		}
 	}
 
-	private int getGEPrice(int id) {
+	private int getGEPrice(int id)
+	{
 		return itemManager.getItemPrice(id);
 	}
 
-	private int getHAPrice(int id) {
-		if (id == ItemID.COINS_995) {
+	private int getHAPrice(int id)
+	{
+		if (id == ItemID.COINS_995)
+		{
 			return 0;
 		}
 
 		return itemManager.getAlchValue(id);
 	}
 
-	private int getHAProfit(int haPrice, int gePrice, int alchCost) {
+	private int getHAProfit(int haPrice, int gePrice, int alchCost)
+	{
 		return haPrice - gePrice - alchCost;
 	}
 
 	// Checks if item is noted, if not returns id
-	private int getNotedId(int id) {
+	private int getNotedId(int id)
+	{
 		int noteID = id;
 		ItemDefinition itemComposition = itemManager.getItemDefinition(noteID);
-		if (itemComposition.getNote() != -1) {
+		if (itemComposition.getNote() != -1)
+		{
 			noteID = itemComposition.getLinkedNoteId();
 		}
 		return noteID;

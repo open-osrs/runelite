@@ -24,7 +24,15 @@
  */
 package net.runelite.client.plugins.agility;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.time.Duration;
+import java.time.Instant;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.client.ui.overlay.Overlay;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -32,23 +40,16 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.time.Duration;
-import java.time.Instant;
-
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 @Singleton
-class LapCounterOverlay extends Overlay {
+class LapCounterOverlay extends Overlay
+{
 	private final AgilityPlugin plugin;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private LapCounterOverlay(final AgilityPlugin plugin) {
+	private LapCounterOverlay(final AgilityPlugin plugin)
+	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.LOW);
@@ -57,20 +58,23 @@ class LapCounterOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		AgilitySession session = plugin.getSession();
 
 		if (!plugin.isShowLapCount() ||
-				session == null ||
-				session.getLastLapCompleted() == null ||
-				session.getCourse() == null) {
+			session == null ||
+			session.getLastLapCompleted() == null ||
+			session.getCourse() == null)
+		{
 			return null;
 		}
 
 		Duration lapTimeout = Duration.ofMinutes(plugin.getLapTimeout());
 		Duration sinceLap = Duration.between(session.getLastLapCompleted(), Instant.now());
 
-		if (sinceLap.compareTo(lapTimeout) >= 0) {
+		if (sinceLap.compareTo(lapTimeout) >= 0)
+		{
 			// timeout session
 			session.setLastLapCompleted(null);
 			return null;
@@ -81,11 +85,13 @@ class LapCounterOverlay extends Overlay {
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 		tableComponent.addRow("Total Laps:", Integer.toString(session.getTotalLaps()));
 
-		if (plugin.isLapsToLevel() && session.getLapsTillLevel() > 0) {
+		if (plugin.isLapsToLevel() && session.getLapsTillLevel() > 0)
+		{
 			tableComponent.addRow("Laps until level:", Integer.toString(session.getLapsTillLevel()));
 		}
 
-		if (plugin.isLapsToGoal() && session.getLapsTillGoal() > 0) {
+		if (plugin.isLapsToGoal() && session.getLapsTillGoal() > 0)
+		{
 			tableComponent.addRow("Laps until goal:", Integer.toString(session.getLapsTillGoal()));
 		}
 

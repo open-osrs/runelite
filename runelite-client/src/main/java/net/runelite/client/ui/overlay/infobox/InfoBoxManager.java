@@ -26,6 +26,15 @@ package net.runelite.client.ui.overlay.infobox;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ComparisonChain;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.function.Predicate;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
@@ -33,36 +42,31 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.AsyncBufferedImage;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Predicate;
-
 @Singleton
 @Slf4j
-public class InfoBoxManager {
+public class InfoBoxManager
+{
 	private final List<InfoBox> infoBoxes = new ArrayList<>();
 	private final RuneLiteConfig runeLiteConfig;
 
 	@Inject
-	private InfoBoxManager(final RuneLiteConfig runeLiteConfig, final EventBus eventbus) {
+	private InfoBoxManager(final RuneLiteConfig runeLiteConfig, final EventBus eventbus)
+	{
 		this.runeLiteConfig = runeLiteConfig;
 
 		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 	}
 
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("runelite") && event.getKey().equals("infoBoxSize")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("runelite") && event.getKey().equals("infoBoxSize"))
+		{
 			infoBoxes.forEach(this::updateInfoBoxImage);
 		}
 	}
 
-	public void addInfoBox(InfoBox infoBox) {
+	public void addInfoBox(InfoBox infoBox)
+	{
 		Preconditions.checkNotNull(infoBox);
 		log.debug("Adding InfoBox {}", infoBox);
 
@@ -72,49 +76,61 @@ public class InfoBoxManager {
 
 		BufferedImage image = infoBox.getImage();
 
-		if (image instanceof AsyncBufferedImage) {
+		if (image instanceof AsyncBufferedImage)
+		{
 			AsyncBufferedImage abi = (AsyncBufferedImage) image;
 			abi.onLoaded(() -> updateInfoBoxImage(infoBox));
 		}
 	}
 
-	public void removeInfoBox(InfoBox infoBox) {
-		if (infoBoxes.remove(infoBox)) {
+	public void removeInfoBox(InfoBox infoBox)
+	{
+		if (infoBoxes.remove(infoBox))
+		{
 			log.debug("Removed InfoBox {}", infoBox);
 			refreshInfoBoxes();
 		}
 	}
 
-	public void removeIf(Predicate<InfoBox> filter) {
-		if (infoBoxes.removeIf(filter)) {
+	public void removeIf(Predicate<InfoBox> filter)
+	{
+		if (infoBoxes.removeIf(filter))
+		{
 			log.debug("Removed InfoBoxes for filter {}", filter);
 			refreshInfoBoxes();
 		}
 	}
 
-	public List<InfoBox> getInfoBoxes() {
+	public List<InfoBox> getInfoBoxes()
+	{
 		return Collections.unmodifiableList(infoBoxes);
 	}
 
-	public void cull() {
+	public void cull()
+	{
 		boolean culled = false;
-		for (Iterator<InfoBox> it = infoBoxes.iterator(); it.hasNext(); ) {
+		for (Iterator<InfoBox> it = infoBoxes.iterator(); it.hasNext(); )
+		{
 			InfoBox box = it.next();
 
-			if (box.cull()) {
+			if (box.cull())
+			{
 				log.debug("Culling InfoBox {}", box);
 				it.remove();
 				culled = true;
 			}
 		}
 
-		if (culled) {
+		if (culled)
+		{
 			refreshInfoBoxes();
 		}
 	}
 
-	public void updateInfoBoxImage(final InfoBox infoBox) {
-		if (infoBox.getImage() == null) {
+	public void updateInfoBoxImage(final InfoBox infoBox)
+	{
+		if (infoBox.getImage() == null)
+		{
 			return;
 		}
 
@@ -125,11 +141,13 @@ public class InfoBoxManager {
 		final double height = image.getHeight(null);
 		final double size = Math.max(2, runeLiteConfig.infoBoxSize()); // Limit size to 2 as that is minimum size not causing breakage
 
-		if (size < width || size < height) {
+		if (size < width || size < height)
+		{
 			final double scalex = size / width;
 			final double scaley = size / height;
 
-			if (scalex == 1 && scaley == 1) {
+			if (scalex == 1 && scaley == 1)
+			{
 				return;
 			}
 
@@ -146,11 +164,12 @@ public class InfoBoxManager {
 		infoBox.setScaledImage(resultImage);
 	}
 
-	private void refreshInfoBoxes() {
+	private void refreshInfoBoxes()
+	{
 		infoBoxes.sort((b1, b2) -> ComparisonChain
-				.start()
-				.compare(b1.getPriority(), b2.getPriority())
-				.compare(b1.getPlugin().getClass().getAnnotation(PluginDescriptor.class).name(), b2.getPlugin().getClass().getAnnotation(PluginDescriptor.class).name())
-				.result());
+			.start()
+			.compare(b1.getPriority(), b2.getPriority())
+			.compare(b1.getPlugin().getClass().getAnnotation(PluginDescriptor.class).name(), b2.getPlugin().getClass().getAnnotation(PluginDescriptor.class).name())
+			.result());
 	}
 }

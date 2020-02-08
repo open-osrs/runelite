@@ -24,7 +24,11 @@
  */
 package net.runelite.client.config;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Used with ConfigItem, defines what units are shown to the side of the box.
@@ -32,7 +36,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Documented
-public @interface Units {
+public @interface Units
+{
 	String MILLISECONDS = "ms";
 	String MINUTES = " mins";
 	String PERCENT = "%";

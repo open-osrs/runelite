@@ -25,15 +25,15 @@
  */
 package net.runelite.client.plugins.woodcutting;
 
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
 
-import java.time.Instant;
-
 @AllArgsConstructor
 @Getter
-class TreeRespawn {
+class TreeRespawn
+{
 	private final Tree tree;
 	private final int lenX;
 	private final int lenY;
@@ -41,7 +41,8 @@ class TreeRespawn {
 	private final Instant startTime;
 	private final int respawnTime;
 
-	boolean isExpired() {
+	boolean isExpired()
+	{
 		return Instant.now().isAfter(startTime.plusMillis(respawnTime));
 	}
 }

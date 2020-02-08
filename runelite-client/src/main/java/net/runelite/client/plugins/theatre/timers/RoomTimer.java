@@ -1,22 +1,23 @@
 package net.runelite.client.plugins.theatre.timers;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
 import net.runelite.api.Client;
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Player;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.ui.overlay.Overlay;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-import javax.inject.Inject;
-import java.awt.*;
-
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
-public class RoomTimer extends Overlay {
+public class RoomTimer extends Overlay
+{
 
 	private final Client client;
 
@@ -26,7 +27,8 @@ public class RoomTimer extends Overlay {
 
 
 	@Inject
-	public RoomTimer(final Client client, final TheatrePlugin plugin) {
+	public RoomTimer(final Client client, final TheatrePlugin plugin)
+	{
 		super(plugin);
 
 		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
@@ -40,15 +42,18 @@ public class RoomTimer extends Overlay {
 
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		panelComponent.getChildren().clear();
 
 		Player local = client.getLocalPlayer();
-		if (local == null || local.getName() == null) {
+		if (local == null || local.getName() == null)
+		{
 			return null;
 		}
 
-		switch (plugin.getRoom()) {
+		switch (plugin.getRoom())
+		{
 			case MAIDEN:
 				plugin.getMaidenHandler().render(graphics);
 				break;

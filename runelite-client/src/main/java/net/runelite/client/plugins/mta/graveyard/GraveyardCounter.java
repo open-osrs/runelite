@@ -24,25 +24,32 @@
  */
 package net.runelite.client.plugins.mta.graveyard;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.Counter;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-class GraveyardCounter extends Counter {
-	GraveyardCounter(final BufferedImage image, final Plugin plugin) {
+class GraveyardCounter extends Counter
+{
+	GraveyardCounter(final BufferedImage image, final Plugin plugin)
+	{
 		super(image, plugin, 0);
 	}
 
 	@Override
-	public Color getTextColor() {
+	public Color getTextColor()
+	{
 		int count = getCount();
-		if (count >= GraveyardRoom.MIN_SCORE) {
+		if (count >= GraveyardRoom.MIN_SCORE)
+		{
 			return Color.GREEN;
-		} else if (count == 0) {
+		}
+		else if (count == 0)
+		{
 			return Color.RED;
-		} else {
+		}
+		else
+		{
 			return Color.ORANGE;
 		}
 	}

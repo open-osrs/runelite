@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-public enum PriceDisplayMode {
+public enum PriceDisplayMode
+{
 	HA,
 	GE,
 	BOTH,

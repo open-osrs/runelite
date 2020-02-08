@@ -3,7 +3,8 @@ package net.runelite.client.plugins.poison;
 import lombok.Data;
 
 @Data
-class ActorPoisonInfo {
+class ActorPoisonInfo
+{
 	/**
 	 * Plain and simple, the last poison damage this actor received
 	 */

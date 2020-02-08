@@ -25,58 +25,69 @@
  */
 package net.runelite.client.rs;
 
-import lombok.RequiredArgsConstructor;
-import net.runelite.client.RuneLite;
-import net.runelite.client.util.StringFileUtils;
-
 import java.applet.AppletContext;
 import java.applet.AppletStub;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import lombok.RequiredArgsConstructor;
+import net.runelite.client.RuneLite;
+import net.runelite.client.util.StringFileUtils;
 
 @RequiredArgsConstructor
-class RSAppletStub implements AppletStub {
+class RSAppletStub implements AppletStub
+{
 	private final RSConfig config;
 
 	@Override
-	public boolean isActive() {
+	public boolean isActive()
+	{
 		return true;
 	}
 
 	@Override
-	public URL getDocumentBase() {
+	public URL getDocumentBase()
+	{
 		return getCodeBase();
 	}
 
 	@Override
-	public URL getCodeBase() {
-		try {
-			if (RuneLite.allowPrivateServer) {
+	public URL getCodeBase()
+	{
+		try
+		{
+			if (RuneLite.allowPrivateServer)
+			{
 				File f = new File(RuneLite.RUNELITE_DIR + "/codebase");
-				if (!f.exists()) {
+				if (!f.exists())
+				{
 					StringFileUtils.writeStringToFile(f.getAbsolutePath(), "http://127.0.0.1");
 				}
 				return new URL(StringFileUtils.readStringFromFile(f.getAbsolutePath()));
 			}
 
 			return new URL(config.getCodeBase());
-		} catch (MalformedURLException ex) {
+		}
+		catch (MalformedURLException ex)
+		{
 			return null;
 		}
 	}
 
 	@Override
-	public String getParameter(String name) {
+	public String getParameter(String name)
+	{
 		return config.getAppletProperties().get(name);
 	}
 
 	@Override
-	public AppletContext getAppletContext() {
+	public AppletContext getAppletContext()
+	{
 		return null;
 	}
 
 	@Override
-	public void appletResize(int width, int height) {
+	public void appletResize(int width, int height)
+	{
 	}
 }

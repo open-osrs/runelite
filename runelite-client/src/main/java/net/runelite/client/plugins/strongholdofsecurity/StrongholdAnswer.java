@@ -27,13 +27,13 @@ package net.runelite.client.plugins.strongholdofsecurity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.widgets.Widget;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @RequiredArgsConstructor
-enum StrongholdAnswer {
+enum StrongholdAnswer
+{
 	PAIR_0("To pass you must answer me this: Hey adventurer!<br>You've been randomly selected for a prize of 1 year of<br>free membership! I'm just going to need some of your<br>account details so I can put it on your account!", "No way! I'm reporting you to Jagex!"),
 	PAIR_1("To pass you must answer me this: Can I leave my<br>account logged in while I'm out of the room?", "No."),
 	PAIR_2("To pass you must answer me this: How do I remove a<br>hijacker from my account?", "Use the Account Recovery System."),
@@ -71,8 +71,10 @@ enum StrongholdAnswer {
 
 	static final Map<String, String> MATCHES = new HashMap<>();
 
-	static {
-		for (StrongholdAnswer strongholdAnswer : StrongholdAnswer.values()) {
+	static
+	{
+		for (StrongholdAnswer strongholdAnswer : StrongholdAnswer.values())
+		{
 			MATCHES.put(strongholdAnswer.question, strongholdAnswer.answer);
 		}
 	}
@@ -80,11 +82,14 @@ enum StrongholdAnswer {
 	private final String question;
 	private final String answer;
 
-	static Widget findCorrect(final String question, final Widget[] widgets) {
+	static Widget findCorrect(final String question, final Widget[] widgets)
+	{
 		final String s = MATCHES.get(question);
 
-		for (Widget widget : widgets) {
-			if (widget != null && widget.getText().equals(s)) {
+		for (Widget widget : widgets)
+		{
+			if (widget != null && widget.getText().equals(s))
+			{
 				return widget;
 			}
 		}

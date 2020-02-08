@@ -24,13 +24,15 @@
  */
 package net.runelite.client.ui.components;
 
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import javax.swing.border.EmptyBorder;
 import lombok.Setter;
 import net.runelite.api.util.Text;
 import net.runelite.client.ui.ColorScheme;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 /**
  * A custom list renderer to avoid substance's weird coloring.
@@ -38,16 +40,21 @@ import java.awt.*;
  * was very hard to see in the dark gray background, this makes the selected
  * item white and adds some padding to the elements for more readable list.
  */
-public final class ComboBoxListRenderer extends JLabel implements ListCellRenderer {
+public final class ComboBoxListRenderer extends JLabel implements ListCellRenderer
+{
 	@Setter
 	private String defaultText = "Select an option...";
 
 	@Override
-	public Component getListCellRendererComponent(JList list, Object o, int index, boolean isSelected, boolean cellHasFocus) {
-		if (isSelected) {
+	public Component getListCellRendererComponent(JList list, Object o, int index, boolean isSelected, boolean cellHasFocus)
+	{
+		if (isSelected)
+		{
 			setBackground(ColorScheme.DARK_GRAY_COLOR);
 			setForeground(Color.WHITE);
-		} else {
+		}
+		else
+		{
 			setBackground(list.getBackground());
 			setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		}
@@ -57,15 +64,22 @@ public final class ComboBoxListRenderer extends JLabel implements ListCellRender
 
 		String text;
 		// If using setSelectedItem(null) or setSelectedIndex(-1) show default text until a selection is made
-		if (index == -1 && o == null) {
+		if (index == -1 && o == null)
+		{
 			text = defaultText;
-		} else if (o instanceof Enum) {
+		}
+		else if (o instanceof Enum)
+		{
 			text = Text.titleCase((Enum) o);
-		} else if (o instanceof ComboBoxIconEntry) {
+		}
+		else if (o instanceof ComboBoxIconEntry)
+		{
 			ComboBoxIconEntry e = (ComboBoxIconEntry) o;
 			text = e.getText();
 			setIcon(e.getIcon());
-		} else {
+		}
+		else
+		{
 			text = o.toString();
 		}
 

@@ -24,25 +24,29 @@
  */
 package net.runelite.client.plugins.inventorysetups.ui;
 
+import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
+import net.runelite.client.util.AsyncBufferedImage;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemVariationMapping;
 import net.runelite.client.plugins.inventorysetups.InventorySetup;
 import net.runelite.client.plugins.inventorysetups.InventorySetupItem;
-import net.runelite.client.plugins.inventorysetups.InventorySetupPlugin;
 import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.util.AsyncBufferedImage;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 
-public abstract class InventorySetupContainerPanel extends JPanel {
+public abstract class InventorySetupContainerPanel extends JPanel
+{
 
 	protected final InventorySetupPlugin plugin;
 	protected ItemManager itemManager;
 	protected boolean isHighlighted;
 
-	InventorySetupContainerPanel(final ItemManager itemManager, final InventorySetupPlugin plugin, String captionText) {
+	InventorySetupContainerPanel(final ItemManager itemManager, final InventorySetupPlugin plugin, String captionText)
+	{
 		this.itemManager = itemManager;
 		this.plugin = plugin;
 		this.isHighlighted = false;
@@ -69,12 +73,14 @@ public abstract class InventorySetupContainerPanel extends JPanel {
 		add(containerPanel);
 	}
 
-	protected void addMouseListenerToSlot(final InventorySetupSlot slot) {
+	protected void addMouseListenerToSlot(final InventorySetupSlot slot)
+	{
 
 		JPopupMenu popupMenu = new JPopupMenu();
 
 		String updateContainerFrom = "";
-		switch (slot.getSlotID()) {
+		switch (slot.getSlotID())
+		{
 			case INVENTORY:
 				updateContainerFrom = "Inventory";
 				break;
@@ -113,9 +119,11 @@ public abstract class InventorySetupContainerPanel extends JPanel {
 
 	}
 
-	protected void setContainerSlot(int index, final InventorySetupSlot containerSlot, final InventorySetup setup) {
+	protected void setContainerSlot(int index, final InventorySetupSlot containerSlot, final InventorySetup setup)
+	{
 		ArrayList<InventorySetupItem> items = null;
-		switch (containerSlot.getSlotID()) {
+		switch (containerSlot.getSlotID())
+		{
 			case INVENTORY:
 				items = setup.getInventory();
 				break;
@@ -134,7 +142,8 @@ public abstract class InventorySetupContainerPanel extends JPanel {
 
 		containerSlot.setParentSetup(setup);
 
-		if (items.get(index).getId() == -1) {
+		if (items.get(index).getId() == -1)
+		{
 			containerSlot.setImageLabel(null, null);
 			return;
 		}
@@ -144,18 +153,21 @@ public abstract class InventorySetupContainerPanel extends JPanel {
 		final String itemName = items.get(index).getName();
 		AsyncBufferedImage itemImg = itemManager.getImage(itemId, quantity, quantity > 1);
 		String toolTip = itemName;
-		if (quantity > 1) {
+		if (quantity > 1)
+		{
 			toolTip += " (" + quantity + ")";
 		}
 		containerSlot.setImageLabel(toolTip, itemImg);
 	}
 
-	protected void highlightDifferentSlotColor(final InventorySetup setup, InventorySetupItem savedItem, InventorySetupItem currItem, final InventorySetupSlot containerSlot) {
+	protected void highlightDifferentSlotColor(final InventorySetup setup, InventorySetupItem savedItem, InventorySetupItem currItem, final InventorySetupSlot containerSlot)
+	{
 		// important note: do not use item names for comparisons
 		// they are all empty to avoid clientThread usage when highlighting
 
 		// first check if stack differences are enabled and compare quantities
-		if (setup.isStackDifference() && currItem.getQuantity() != savedItem.getQuantity()) {
+		if (setup.isStackDifference() && currItem.getQuantity() != savedItem.getQuantity())
+		{
 			containerSlot.setBackground(setup.getHighlightColor());
 			return;
 		}
@@ -164,13 +176,15 @@ public abstract class InventorySetupContainerPanel extends JPanel {
 		int currId = currItem.getId();
 		int checkId = savedItem.getId();
 
-		if (!setup.isVariationDifference()) {
+		if (!setup.isVariationDifference())
+		{
 			currId = ItemVariationMapping.map(currId);
 			checkId = ItemVariationMapping.map(checkId);
 		}
 
 		// if the ids don't match, highlight the container slot
-		if (currId != checkId) {
+		if (currId != checkId)
+		{
 			containerSlot.setBackground(setup.getHighlightColor());
 			return;
 		}

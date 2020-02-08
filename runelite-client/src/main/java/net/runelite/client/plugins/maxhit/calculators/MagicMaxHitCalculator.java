@@ -33,24 +33,29 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.plugins.maxhit.config.EquipmentBonusConfig;
 import net.runelite.client.plugins.maxhit.config.SpellBaseDamageConfig;
 
-public class MagicMaxHitCalculator extends MaxHitCalculator {
+public class MagicMaxHitCalculator extends MaxHitCalculator
+{
 
-	public MagicMaxHitCalculator(Client client, Item[] equipedItems) {
+	public MagicMaxHitCalculator(Client client, Item[] equipedItems)
+	{
 		super(client, CombatMethod.MAGIC, equipedItems);
 	}
 
 	@Override
-	protected String getSkillStrengthText(String equipmentText) {
+	protected String getSkillStrengthText(String equipmentText)
+	{
 		return equipmentText.replace("Magic damage: ", "").replace(".", "").replace("%", "");
 	}
 
 	@Override
-	Widget equipmentSkillPower() {
+	Widget equipmentSkillPower()
+	{
 		return this.client.getWidget(WidgetInfo.EQUIPMENT_MAGIC_DAMAGE);
 	}
 
 	@Override
-	public double getCurrentSkillPower() {
+	public double getCurrentSkillPower()
+	{
 		return this.client.getBoostedSkillLevel(Skill.MAGIC);
 	}
 
@@ -60,17 +65,21 @@ public class MagicMaxHitCalculator extends MaxHitCalculator {
 	 * Section 4.
 	 * */
 	@Override
-	public double calculate() {
+	public double calculate()
+	{
 		int spellBaseDamage = this.baseDamage;
 
-		if (spellBaseDamage == 0) {
+		if (spellBaseDamage == 0)
+		{
 			int autoCastSpellId = client.getVar(Varbits.AUTO_CAST_SPELL);
-			if (autoCastSpellId == 0) {
+			if (autoCastSpellId == 0)
+			{
 				return 0.0;
 			}
 
 			SpellBaseDamageConfig autoCastSpell = SpellBaseDamageConfig.findSpellById(autoCastSpellId);
-			if (autoCastSpell == null) {
+			if (autoCastSpell == null)
+			{
 				return 0.0;
 			}
 			spellBaseDamage = autoCastSpell.getBaseDamage();

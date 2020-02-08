@@ -32,7 +32,8 @@ import java.time.temporal.ChronoUnit;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Schedule {
+public @interface Schedule
+{
 	long period();
 
 	ChronoUnit unit();

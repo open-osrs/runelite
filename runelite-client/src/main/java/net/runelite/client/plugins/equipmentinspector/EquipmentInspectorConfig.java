@@ -30,38 +30,42 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Range;
 
 @ConfigGroup("equipmentinspector")
-public interface EquipmentInspectorConfig extends Config {
+public interface EquipmentInspectorConfig extends Config
+{
 	@ConfigItem(
-			keyName = "ShowValue",
-			name = "Show the total value of the items",
-			description = "shows the total value of the items",
-			position = 1
+		keyName = "ShowValue",
+		name = "Show the total value of the items",
+		description = "shows the total value of the items",
+		position = 1
 	)
-	default boolean showValue() {
+	default boolean showValue()
+	{
 		return true;
 	}
 
 	@Range(
-			min = 1,
-			max = 4
+		min = 1,
+		max = 4
 	)
 	@ConfigItem(
-			keyName = "protecteditems",
-			name = "Protected Items",
-			description = "Limited to 4",
-			position = 2
+		keyName = "protecteditems",
+		name = "Protected Items",
+		description = "Limited to 4",
+		position = 2
 	)
-	default int protectedItems() {
+	default int protectedItems()
+	{
 		return 1;
 	}
 
 	@ConfigItem(
-			keyName = "ExactValue",
-			name = "Show exact value",
-			description = "shows the excact gp value",
-			position = 3
+		keyName = "ExactValue",
+		name = "Show exact value",
+		description = "shows the excact gp value",
+		position = 3
 	)
-	default boolean exactValue() {
+	default boolean exactValue()
+	{
 		return false;
 	}
 }

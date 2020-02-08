@@ -25,6 +25,8 @@
 package net.runelite.client.plugins.cerberus;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +34,10 @@ import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import net.runelite.api.Skill;
 
-import java.util.Map;
-import java.util.Optional;
-
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-public enum CerberusGhost {
+public enum CerberusGhost
+{
 	RANGE(NpcID.SUMMONED_SOUL, Skill.RANGED),
 	MAGE(NpcID.SUMMONED_SOUL_5868, Skill.MAGIC),
 	MELEE(NpcID.SUMMONED_SOUL_5869, Skill.ATTACK);
@@ -47,10 +47,12 @@ public enum CerberusGhost {
 
 	private static final Map<Integer, CerberusGhost> MAP;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, CerberusGhost> builder = new ImmutableMap.Builder<>();
 
-		for (final CerberusGhost ghost : values()) {
+		for (final CerberusGhost ghost : values())
+		{
 			builder.put(ghost.getNpcId(), ghost);
 		}
 
@@ -63,7 +65,8 @@ public enum CerberusGhost {
 	 * @param npc npc
 	 * @return optional ghost
 	 */
-	public static Optional<CerberusGhost> fromNPC(final NPC npc) {
+	public static Optional<CerberusGhost> fromNPC(final NPC npc)
+	{
 		return npc == null ? Optional.empty() : Optional.ofNullable(MAP.get(npc.getId()));
 	}
 }

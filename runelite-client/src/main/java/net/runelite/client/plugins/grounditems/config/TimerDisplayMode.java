@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-public enum TimerDisplayMode {
+public enum TimerDisplayMode
+{
 	ALWAYS("Always"),
 	HOTKEY_PRESSED("Hotkey"),
 	NEVER("Never");
@@ -38,7 +39,8 @@ public enum TimerDisplayMode {
 	private final String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

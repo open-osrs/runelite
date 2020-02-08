@@ -32,7 +32,8 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum PVPPrayers {
+public enum PVPPrayers
+{
 	DISABLED("Disabled"),
 	PRAY1("1 prayer build"),
 	PRAY13("13 prayer build"),
@@ -52,7 +53,8 @@ public enum PVPPrayers {
 	private String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return getName();
 	}
 }

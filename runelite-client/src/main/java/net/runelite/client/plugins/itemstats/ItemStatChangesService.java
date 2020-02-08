@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.itemstats;
 
-public interface ItemStatChangesService {
+public interface ItemStatChangesService
+{
 	/**
 	 * Get the item stat value
 	 *

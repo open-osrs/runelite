@@ -24,9 +24,16 @@
  */
 package net.runelite.client.plugins.combatcounter;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Player;
 import net.runelite.client.ui.overlay.Overlay;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -35,16 +42,9 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.util.Map;
-
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 @Singleton
-class DamageOverlay extends Overlay {
+class DamageOverlay extends Overlay
+{
 
 	private final Client client;
 
@@ -53,7 +53,8 @@ class DamageOverlay extends Overlay {
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public DamageOverlay(final Client client, final CombatCounter plugin) {
+	public DamageOverlay(final Client client, final CombatCounter plugin)
+	{
 		super(plugin);
 
 		setPosition(OverlayPosition.DYNAMIC);
@@ -67,12 +68,15 @@ class DamageOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (plugin.isShowDamageCounter()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (plugin.isShowDamageCounter())
+		{
 			panelComponent.getChildren().clear();
 
 			Player local = client.getLocalPlayer();
-			if (local == null || local.getName() == null) {
+			if (local == null || local.getName() == null)
+			{
 				return null;
 			}
 			panelComponent.setBackgroundColor(plugin.getBgColor());
@@ -81,34 +85,46 @@ class DamageOverlay extends Overlay {
 			TableComponent tableComponent = new TableComponent();
 			tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-			if (plugin.getCounter().isEmpty()) {
+			if (plugin.getCounter().isEmpty())
+			{
 				tableComponent.addRow(local.getName(), "0");
-			} else {
+			}
+			else
+			{
 				Map<String, Double> map = this.plugin.playerDamage;
-				if (map == null) {
+				if (map == null)
+				{
 					return null;
 				}
 
-				for (Map.Entry<String, Double> damage : map.entrySet()) {
+				for (Map.Entry<String, Double> damage : map.entrySet())
+				{
 					String val = String.format("%.1f", damage.getValue());
-					if (client.getLocalPlayer().getName().contains(damage.getKey())) {
+					if (client.getLocalPlayer().getName().contains(damage.getKey()))
+					{
 						tableComponent.addRow(ColorUtil.prependColorTag(damage.getKey(), plugin.getSelfColor()), ColorUtil.prependColorTag(val, plugin.getSelfColor()));
-					} else {
+					}
+					else
+					{
 						tableComponent.addRow(ColorUtil.prependColorTag(damage.getKey(), plugin.getOtherColor()), ColorUtil.prependColorTag(val, plugin.getOtherColor()));
 					}
 				}
 
-				if (!map.containsKey(local.getName())) {
+				if (!map.containsKey(local.getName()))
+				{
 					tableComponent.addRow(ColorUtil.prependColorTag(local.getName(), plugin.getSelfColor()), ColorUtil.prependColorTag("0", plugin.getSelfColor()));
 				}
 			}
 
-			if (!tableComponent.isEmpty()) {
+			if (!tableComponent.isEmpty())
+			{
 				panelComponent.getChildren().add(tableComponent);
 			}
 
 			return panelComponent.render(graphics);
-		} else {
+		}
+		else
+		{
 			return null;
 		}
 	}

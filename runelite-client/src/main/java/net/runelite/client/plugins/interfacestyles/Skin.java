@@ -32,7 +32,8 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Skin {
+public enum Skin
+{
 	DEFAULT("Default"),
 	AROUND_2005("2005"),
 	AROUND_2010("2010");
@@ -40,7 +41,8 @@ public enum Skin {
 	private String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return getName();
 	}
 }

@@ -25,7 +25,8 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum SkillsNecklaceMode {
+public enum SkillsNecklaceMode
+{
 	FISHING_GUILD("Fishing Guild"),
 	MINING_GUILD("Mining Guild"),
 	CRAFTING_GUILD("Crafting Guild"),
@@ -35,12 +36,14 @@ public enum SkillsNecklaceMode {
 
 	private final String name;
 
-	SkillsNecklaceMode(String name) {
+	SkillsNecklaceMode(String name)
+	{
 		this.name = name;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

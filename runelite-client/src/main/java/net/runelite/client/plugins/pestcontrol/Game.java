@@ -25,6 +25,11 @@
  */
 package net.runelite.client.plugins.pestcontrol;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -33,14 +38,9 @@ import net.runelite.api.NPC;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.GameTick;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 @Slf4j
-public class Game {
+public class Game
+{
 	private final Client client;
 
 	private final PestControlPlugin plugin;
@@ -68,37 +68,46 @@ public class Game {
 
 	private final Instant startTime = Instant.now();
 
-	public Game(Client client, PestControlPlugin plugin) {
+	public Game(Client client, PestControlPlugin plugin)
+	{
 		this.client = client;
 		this.plugin = plugin;
 	}
 
-	public void onGameTick(GameTick gameTickEvent) {
-		if (!portalLocationsSet) {
+	public void onGameTick(GameTick gameTickEvent)
+	{
+		if (!portalLocationsSet)
+		{
 			loadPortalLocations();
 		}
 
 		WidgetOverlay widgetOverlay = plugin.getWidgetOverlay();
 
-		if (!purplePortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.PURPLE) == 0) {
+		if (!purplePortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.PURPLE) == 0)
+		{
 			killPortal(purplePortal);
 		}
 
-		if (!yellowPortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.YELLOW) == 0) {
+		if (!yellowPortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.YELLOW) == 0)
+		{
 			killPortal(yellowPortal);
 		}
 
-		if (!redPortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.RED) == 0) {
+		if (!redPortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.RED) == 0)
+		{
 			killPortal(redPortal);
 		}
 
-		if (!bluePortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.BLUE) == 0) {
+		if (!bluePortal.isDead() && widgetOverlay.getPortalHitpoints(PortalColor.BLUE) == 0)
+		{
 			killPortal(bluePortal);
 		}
 	}
 
-	void lowerPortalShield(String portalColor) {
-		switch (portalColor.toLowerCase()) {
+	void lowerPortalShield(String portalColor)
+	{
+		switch (portalColor.toLowerCase())
+		{
 			case "purple":
 				lowerPortalShield(purplePortal);
 				break;
@@ -114,8 +123,10 @@ public class Game {
 		}
 	}
 
-	private void lowerPortalShield(Portal portal) {
-		if (portal.isNotShielded()) {
+	private void lowerPortalShield(Portal portal)
+	{
+		if (portal.isNotShielded())
+		{
 			return;
 		}
 
@@ -128,8 +139,10 @@ public class Game {
 		// Remove impossible rotations
 		List<PortalRotation> rotations = new ArrayList<>();
 
-		for (PortalRotation rotation : possibleRotations) {
-			if (rotation.getPortal(this, shieldDrop) == portal) {
+		for (PortalRotation rotation : possibleRotations)
+		{
+			if (rotation.getPortal(this, shieldDrop) == portal)
+			{
 				rotations.add(rotation);
 			}
 		}
@@ -137,8 +150,10 @@ public class Game {
 		possibleRotations = rotations.toArray(new PortalRotation[0]);
 	}
 
-	private void killPortal(Portal portal) {
-		if (portal.isDead()) {
+	private void killPortal(Portal portal)
+	{
+		if (portal.isDead())
+		{
 			return;
 		}
 
@@ -147,17 +162,21 @@ public class Game {
 		portal.setPortalState(PortalState.DEAD);
 	}
 
-	private void loadPortalLocations() {
+	private void loadPortalLocations()
+	{
 		NPC squire = null;
 
-		for (NPC npc : client.getNpcs()) {
-			if (PestControlNpc.isIngameSquireId(npc.getId())) {
+		for (NPC npc : client.getNpcs())
+		{
+			if (PestControlNpc.isIngameSquireId(npc.getId()))
+			{
 				squire = npc;
 				break;
 			}
 		}
 
-		if (squire != null) {
+		if (squire != null)
+		{
 			log.debug("In-game Squire found: {}", squire);
 			setPortalLocations(squire.getWorldLocation());
 
@@ -165,7 +184,8 @@ public class Game {
 
 	}
 
-	private void setPortalLocations(WorldPoint squireLocation) {
+	private void setPortalLocations(WorldPoint squireLocation)
+	{
 		int x = squireLocation.getX();
 		int y = squireLocation.getY();
 
@@ -177,7 +197,8 @@ public class Game {
 		portalLocationsSet = true;
 	}
 
-	List<Portal> getPortals() {
+	List<Portal> getPortals()
+	{
 		List<Portal> portalList = new ArrayList<>();
 
 		portalList.add(getPurplePortal());
@@ -188,30 +209,38 @@ public class Game {
 		return portalList;
 	}
 
-	Portal getPortal(PortalColor portalColor) {
-		if (bluePortal.getColor() == portalColor) {
+	Portal getPortal(PortalColor portalColor)
+	{
+		if (bluePortal.getColor() == portalColor)
+		{
 			return bluePortal;
 		}
-		if (redPortal.getColor() == portalColor) {
+		if (redPortal.getColor() == portalColor)
+		{
 			return redPortal;
 		}
-		if (purplePortal.getColor() == portalColor) {
+		if (purplePortal.getColor() == portalColor)
+		{
 			return purplePortal;
 		}
-		if (yellowPortal.getColor() == portalColor) {
+		if (yellowPortal.getColor() == portalColor)
+		{
 			return yellowPortal;
 		}
 
 		return null;
 	}
 
-	Collection<Portal> getNextPortals() {
+	Collection<Portal> getNextPortals()
+	{
 		List<Portal> portals = new ArrayList<>();
 
-		for (PortalRotation rotation : possibleRotations) {
+		for (PortalRotation rotation : possibleRotations)
+		{
 			Portal portal = rotation.getPortal(this, shieldsDropped);
 
-			if (portal != null && !portals.contains(portal)) {
+			if (portal != null && !portals.contains(portal))
+			{
 				portals.add(portal);
 			}
 		}
@@ -219,11 +248,14 @@ public class Game {
 		return portals;
 	}
 
-	Collection<Portal> getActivePortals() {
+	Collection<Portal> getActivePortals()
+	{
 		List<Portal> portals = new ArrayList<>();
 
-		for (Portal portal : getPortals()) {
-			if (portal.isActive()) {
+		for (Portal portal : getPortals())
+		{
+			if (portal.isActive())
+			{
 				portals.add(portal);
 			}
 		}
@@ -231,16 +263,21 @@ public class Game {
 		return portals;
 	}
 
-	Duration getTimeTillNextPortal() {
+	Duration getTimeTillNextPortal()
+	{
 		Instant nextShieldDrop;
 
-		if (shieldsDropped == 4) {
+		if (shieldsDropped == 4)
+		{
 			return null;
 		}
 
-		if (shieldsDropped == 0) {
+		if (shieldsDropped == 0)
+		{
 			nextShieldDrop = Instant.ofEpochSecond(startTime.getEpochSecond() + 17);
-		} else {
+		}
+		else
+		{
 			nextShieldDrop = Instant.ofEpochSecond(startTime.getEpochSecond() + 17 + (30 * shieldsDropped));
 		}
 

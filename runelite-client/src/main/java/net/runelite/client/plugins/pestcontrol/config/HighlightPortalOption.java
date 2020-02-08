@@ -29,7 +29,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum HighlightPortalOption {
+public enum HighlightPortalOption
+{
 	OFF("Off"),
 	ACTIVE("Active"),
 	SHIELDED("Shielded"),
@@ -38,7 +39,8 @@ public enum HighlightPortalOption {
 	private final String option;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return option;
 	}
 }

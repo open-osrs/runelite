@@ -25,6 +25,9 @@
 package net.runelite.client.plugins.notes;
 
 import com.google.inject.Provides;
+import java.awt.image.BufferedImage;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.SessionOpen;
@@ -35,19 +38,16 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.image.BufferedImage;
-
 @PluginDescriptor(
-		name = "Notes",
-		description = "Enable the Notes panel",
-		tags = {"panel"},
-		loadWhenOutdated = true,
-		type = PluginType.MISCELLANEOUS
+	name = "Notes",
+	description = "Enable the Notes panel",
+	tags = {"panel"},
+	loadWhenOutdated = true,
+	type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class NotesPlugin extends Plugin {
+public class NotesPlugin extends Plugin
+{
 	@Inject
 	private ClientToolbar clientToolbar;
 
@@ -61,12 +61,14 @@ public class NotesPlugin extends Plugin {
 	private NavigationButton navButton;
 
 	@Provides
-	NotesConfig getConfig(ConfigManager configManager) {
+	NotesConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(NotesConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 
 		panel = injector.getInstance(NotesPanel.class);
 		panel.init(config);
@@ -74,11 +76,11 @@ public class NotesPlugin extends Plugin {
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "notes_icon.png");
 
 		navButton = NavigationButton.builder()
-				.tooltip("Notes")
-				.icon(icon)
-				.priority(7)
-				.panel(panel)
-				.build();
+			.tooltip("Notes")
+			.icon(icon)
+			.priority(7)
+			.panel(panel)
+			.build();
 
 		clientToolbar.addNavigation(navButton);
 
@@ -87,12 +89,14 @@ public class NotesPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		clientToolbar.removeNavigation(navButton);
 	}
 
 	@Subscribe
-	private void onSessionOpen(SessionOpen event) {
+	private void onSessionOpen(SessionOpen event)
+	{
 		notesManager.loadNotes();
 		panel.rebuild();
 	}

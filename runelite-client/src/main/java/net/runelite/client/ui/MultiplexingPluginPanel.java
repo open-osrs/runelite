@@ -24,14 +24,16 @@
  */
 package net.runelite.client.ui;
 
-import java.awt.*;
+import java.awt.CardLayout;
 
-public class MultiplexingPluginPanel extends PluginPanel {
+public class MultiplexingPluginPanel extends PluginPanel
+{
 	private final CardLayout layout;
 	private boolean active = false;
 	private PluginPanel current;
 
-	public MultiplexingPluginPanel(PluginPanel root) {
+	public MultiplexingPluginPanel(PluginPanel root)
+	{
 		super(false);
 
 		layout = new CardLayout();
@@ -39,22 +41,28 @@ public class MultiplexingPluginPanel extends PluginPanel {
 		pushState(root);
 	}
 
-	public void destroy() {
-		for (int i = getComponentCount() - 1; i > 0; i--) {
+	public void destroy()
+	{
+		for (int i = getComponentCount() - 1; i > 0; i--)
+		{
 			remove(i);
 		}
 	}
 
-	public void pushState(PluginPanel subpanel) {
+	public void pushState(PluginPanel subpanel)
+	{
 		int index = -1;
-		for (int i = getComponentCount() - 1; i >= 0; i--) {
-			if (getComponent(i) == subpanel) {
+		for (int i = getComponentCount() - 1; i >= 0; i--)
+		{
+			if (getComponent(i) == subpanel)
+			{
 				index = i;
 				break;
 			}
 		}
 
-		if (active) {
+		if (active)
+		{
 			current.onDeactivate();
 			subpanel.onActivate();
 		}
@@ -62,11 +70,15 @@ public class MultiplexingPluginPanel extends PluginPanel {
 
 		String name = System.identityHashCode(subpanel) + "";
 
-		if (index != -1) {
-			for (int i = getComponentCount() - 1; i > index; i--) {
+		if (index != -1)
+		{
+			for (int i = getComponentCount() - 1; i > index; i--)
+			{
 				popState();
 			}
-		} else {
+		}
+		else
+		{
 			add(subpanel, name);
 		}
 
@@ -74,15 +86,18 @@ public class MultiplexingPluginPanel extends PluginPanel {
 		revalidate();
 	}
 
-	public void popState() {
+	public void popState()
+	{
 		int count = getComponentCount();
-		if (count <= 1) {
+		if (count <= 1)
+		{
 			assert false : "Cannot pop last component";
 			return;
 		}
 
 		PluginPanel subpanel = (PluginPanel) getComponent(count - 2);
-		if (active) {
+		if (active)
+		{
 			current.onDeactivate();
 			subpanel.onActivate();
 			current = subpanel;
@@ -93,13 +108,15 @@ public class MultiplexingPluginPanel extends PluginPanel {
 	}
 
 	@Override
-	public void onActivate() {
+	public void onActivate()
+	{
 		active = true;
 		current.onActivate();
 	}
 
 	@Override
-	public void onDeactivate() {
+	public void onDeactivate()
+	{
 		active = false;
 		current.onDeactivate();
 	}

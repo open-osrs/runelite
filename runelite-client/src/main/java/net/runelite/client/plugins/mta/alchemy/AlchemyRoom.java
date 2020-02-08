@@ -25,9 +25,22 @@
  */
 package net.runelite.client.plugins.mta.alchemy;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.Objects;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.Client;
+import net.runelite.api.GameObject;
+import net.runelite.api.GameState;
+import static net.runelite.api.ObjectID.*;
+import net.runelite.api.Perspective;
+import net.runelite.api.Player;
 import net.runelite.api.Point;
-import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameObjectSpawned;
@@ -45,16 +58,9 @@ import net.runelite.client.plugins.mta.MTAPlugin;
 import net.runelite.client.plugins.mta.MTARoom;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
-import javax.inject.Inject;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.Objects;
-
-import static net.runelite.api.ObjectID.*;
-
 @Slf4j
-public class AlchemyRoom extends MTARoom {
+public class AlchemyRoom extends MTARoom
+{
 	private static final int MTA_ALCH_REGION = 13462;
 
 	private static final int IMAGE_Z_OFFSET = 150;
@@ -81,7 +87,8 @@ public class AlchemyRoom extends MTARoom {
 	private boolean alchemy;
 
 	@Inject
-	private AlchemyRoom(final Client client, final MTAConfig config, final MTAPlugin plugin, final ItemManager itemManager, final InfoBoxManager infoBoxManager, final EventBus eventBus) {
+	private AlchemyRoom(final Client client, final MTAConfig config, final MTAPlugin plugin, final ItemManager itemManager, final InfoBoxManager infoBoxManager, final EventBus eventBus)
+	{
 		super(config);
 		this.client = client;
 		this.plugin = plugin;
@@ -94,7 +101,8 @@ public class AlchemyRoom extends MTARoom {
 		addSubscriptions();
 	}
 
-	private void addSubscriptions() {
+	private void addSubscriptions()
+	{
 		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 		eventBus.subscribe(GameObjectSpawned.class, this, this::onGameObjectSpawned);
@@ -102,14 +110,18 @@ public class AlchemyRoom extends MTARoom {
 		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
 	}
 
-	private void onGameTick(GameTick event) {
-		if (!inside() || !this.alchemy) {
+	private void onGameTick(GameTick event)
+	{
+		if (!inside() || !this.alchemy)
+		{
 			return;
 		}
 
 		AlchemyItem bestItem = getBest();
-		if (best == null || !best.equals(bestItem)) {
-			if (best != null) {
+		if (best == null || !best.equals(bestItem))
+		{
+			if (best != null)
+			{
 				infoBoxManager.removeIf(e -> e instanceof AlchemyRoomTimer);
 				infoBoxManager.addInfoBox(new AlchemyRoomTimer(plugin));
 			}
@@ -119,25 +131,29 @@ public class AlchemyRoom extends MTARoom {
 			best = bestItem;
 			// Reset items to unknown
 			Arrays.stream(cupboards)
-					.filter(Objects::nonNull)
-					.forEach(e -> e.alchemyItem = AlchemyItem.UNKNOWN);
+				.filter(Objects::nonNull)
+				.forEach(e -> e.alchemyItem = AlchemyItem.UNKNOWN);
 		}
 
 		Cupboard newSuggestion = getSuggestion();
-		if (suggestion == null || newSuggestion == null || suggestion.alchemyItem != newSuggestion.alchemyItem) {
+		if (suggestion == null || newSuggestion == null || suggestion.alchemyItem != newSuggestion.alchemyItem)
+		{
 			suggestion = newSuggestion;
 		}
 	}
 
-	private void onGameObjectSpawned(GameObjectSpawned event) {
-		if (!inside()) {
+	private void onGameObjectSpawned(GameObjectSpawned event)
+	{
+		if (!inside())
+		{
 			return;
 		}
 
 		GameObject spawn = event.getGameObject();
 		int cupboardId;
 
-		switch (spawn.getId()) {
+		switch (spawn.getId())
+		{
 			// Closed and opened versions of each
 			case CUPBOARD_23678:
 			case CUPBOARD_23679:
@@ -184,9 +200,12 @@ public class AlchemyRoom extends MTARoom {
 
 		}
 		Cupboard cupboard = cupboards[cupboardId];
-		if (cupboard != null) {
+		if (cupboard != null)
+		{
 			cupboard.gameObject = spawn;
-		} else {
+		}
+		else
+		{
 			cupboard = new Cupboard();
 			cupboard.gameObject = spawn;
 			cupboard.alchemyItem = AlchemyItem.UNKNOWN;
@@ -194,40 +213,52 @@ public class AlchemyRoom extends MTARoom {
 		}
 	}
 
-	private void onGameStateChanged(GameStateChanged gameStateChanged) {
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN) {
-			if (!inside()) {
+	private void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
+		{
+			if (!inside())
+			{
 				reset();
 			}
 		}
 	}
 
-	private void onChatMessage(ChatMessage wrapper) {
-		if (!inside() || !config.alchemy()) {
+	private void onChatMessage(ChatMessage wrapper)
+	{
+		if (!inside() || !config.alchemy())
+		{
 			return;
 		}
 
 		String message = wrapper.getMessage();
 
-		if (wrapper.getType() == ChatMessageType.GAMEMESSAGE && message.contains(YOU_FOUND)) {
+		if (wrapper.getType() == ChatMessageType.GAMEMESSAGE && message.contains(YOU_FOUND))
+		{
 			String item = message.replace(YOU_FOUND, "").trim();
 			AlchemyItem alchemyItem = AlchemyItem.find(item);
 			Cupboard clicked = getClicked();
-			if (clicked.alchemyItem != alchemyItem && alchemyItem != null) {
+			if (clicked.alchemyItem != alchemyItem && alchemyItem != null)
+			{
 				fill(clicked, alchemyItem);
 			}
-		} else if (message.equals(EMPTY)) {
+		}
+		else if (message.equals(EMPTY))
+		{
 			Cupboard clicked = getClicked();
 
 			int idx = Arrays.asList(cupboards).indexOf(clicked);
-			for (int i = -2; i <= 2; ++i) {
+			for (int i = -2; i <= 2; ++i)
+			{
 				int j = (idx + i) % 8;
-				if (j < 0) {
+				if (j < 0)
+				{
 					j = 8 + j;
 				}
 
 				Cupboard cupboard = cupboards[j];
-				if (cupboard != null && cupboard.alchemyItem == AlchemyItem.UNKNOWN) {
+				if (cupboard != null && cupboard.alchemyItem == AlchemyItem.UNKNOWN)
+				{
 					cupboard.alchemyItem = AlchemyItem.POSSIBLY_EMPTY;
 				}
 			}
@@ -236,8 +267,10 @@ public class AlchemyRoom extends MTARoom {
 		}
 	}
 
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("mta") || !event.getKey().equals("alchemy")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("mta") || !event.getKey().equals("alchemy"))
+		{
 			return;
 		}
 
@@ -245,38 +278,46 @@ public class AlchemyRoom extends MTARoom {
 	}
 
 
-	private void reset() {
+	private void reset()
+	{
 		Arrays.fill(cupboards, null);
 	}
 
 	@Override
-	public boolean inside() {
+	public boolean inside()
+	{
 		Player player = client.getLocalPlayer();
 		return player != null && player.getWorldLocation().getRegionID() == MTA_ALCH_REGION
-				&& player.getWorldLocation().getPlane() == 2;
+			&& player.getWorldLocation().getPlane() == 2;
 	}
 
 	@Override
-	public void under(Graphics2D graphics) {
-		if (!getConfig().alchemy() || best == null || !inside()) {
+	public void under(Graphics2D graphics)
+	{
+		if (!getConfig().alchemy() || best == null || !inside())
+		{
 			return;
 		}
 
 		boolean found = false;
 
-		for (Cupboard cupboard : cupboards) {
-			if (cupboard == null) {
+		for (Cupboard cupboard : cupboards)
+		{
+			if (cupboard == null)
+			{
 				continue;
 			}
 
 			GameObject object = cupboard.gameObject;
 			AlchemyItem alchemyItem = cupboard.alchemyItem;
 
-			if (alchemyItem == AlchemyItem.EMPTY) {
+			if (alchemyItem == AlchemyItem.EMPTY)
+			{
 				continue;
 			}
 
-			if (alchemyItem.equals(best)) {
+			if (alchemyItem.equals(best))
+			{
 				client.setHintArrow(object.getWorldLocation());
 				found = true;
 			}
@@ -284,30 +325,37 @@ public class AlchemyRoom extends MTARoom {
 			BufferedImage image = itemManager.getImage(alchemyItem.getId());
 			Point canvasLoc = Perspective.getCanvasImageLocation(client, object.getLocalLocation(), image, IMAGE_Z_OFFSET);
 
-			if (canvasLoc != null) {
+			if (canvasLoc != null)
+			{
 				graphics.drawImage(image, canvasLoc.getX(), canvasLoc.getY(), null);
 			}
 		}
 
-		if (!found && suggestion != null) {
+		if (!found && suggestion != null)
+		{
 			client.setHintArrow(suggestion.gameObject.getWorldLocation());
 		}
 
 	}
 
 	@Override
-	public void over(Graphics2D graphics) {
-		if (!inside() || !config.alchemy() || best == null) {
+	public void over(Graphics2D graphics)
+	{
+		if (!inside() || !config.alchemy() || best == null)
+		{
 			return;
 		}
 
 		Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
-		if (inventory.isHidden()) {
+		if (inventory.isHidden())
+		{
 			return;
 		}
 
-		for (WidgetItem item : inventory.getWidgetItems()) {
-			if (item.getId() != best.getId()) {
+		for (WidgetItem item : inventory.getWidgetItems())
+		{
+			if (item.getId() != best.getId())
+			{
 				continue;
 			}
 
@@ -315,10 +363,13 @@ public class AlchemyRoom extends MTARoom {
 		}
 	}
 
-	private AlchemyItem getBest() {
-		for (int i = 0; i < INFO_LENGTH; i++) {
+	private AlchemyItem getBest()
+	{
+		for (int i = 0; i < INFO_LENGTH; i++)
+		{
 			Widget textWidget = client.getWidget(WidgetID.MTA_ALCHEMY_GROUP_ID, INFO_ITEM_START + i);
-			if (textWidget == null) {
+			if (textWidget == null)
+			{
 				return null;
 			}
 
@@ -326,7 +377,8 @@ public class AlchemyRoom extends MTARoom {
 			Widget pointsWidget = client.getWidget(WidgetID.MTA_ALCHEMY_GROUP_ID, INFO_POINT_START + i);
 			int points = Integer.parseInt(pointsWidget.getText());
 
-			if (points == BEST_POINTS) {
+			if (points == BEST_POINTS)
+			{
 				return AlchemyItem.find(item);
 			}
 		}
@@ -334,20 +386,24 @@ public class AlchemyRoom extends MTARoom {
 		return null;
 	}
 
-	private Cupboard getClicked() {
+	private Cupboard getClicked()
+	{
 		Cupboard nearest = null;
 		double distance = Double.MAX_VALUE;
 
 		WorldPoint mine = client.getLocalPlayer().getWorldLocation();
 
-		for (Cupboard cupboard : cupboards) {
-			if (cupboard == null) {
+		for (Cupboard cupboard : cupboards)
+		{
+			if (cupboard == null)
+			{
 				continue;
 			}
 
 			double objectDistance = cupboard.gameObject.getWorldLocation().distanceTo(mine);
 
-			if (nearest == null || objectDistance < distance) {
+			if (nearest == null || objectDistance < distance)
+			{
 				nearest = cupboard;
 				distance = objectDistance;
 			}
@@ -356,7 +412,8 @@ public class AlchemyRoom extends MTARoom {
 		return nearest;
 	}
 
-	private void fill(Cupboard cupboard, AlchemyItem alchemyItem) {
+	private void fill(Cupboard cupboard, AlchemyItem alchemyItem)
+	{
 		int idx = Arrays.asList(cupboards).indexOf(cupboard);
 		assert idx != -1;
 
@@ -364,18 +421,23 @@ public class AlchemyRoom extends MTARoom {
 
 		log.debug("Filling cupboard {} with {}", idx, alchemyItem);
 
-		for (int i = 0; i < NUM_CUPBOARDS; ++i) {
+		for (int i = 0; i < NUM_CUPBOARDS; ++i)
+		{
 			int cupIdx = (idx + i) % NUM_CUPBOARDS;
 			int itemIndex = (itemIdx + i) % NUM_CUPBOARDS;
 			cupboards[cupIdx].alchemyItem = itemIndex <= 4 ? AlchemyItem.values()[itemIndex] : AlchemyItem.EMPTY;
 		}
 	}
 
-	private Cupboard getSuggestion() {
+	private Cupboard getSuggestion()
+	{
 		// check if a cupboard has the best item in it
-		if (best != null) {
-			for (Cupboard cupboard : cupboards) {
-				if (cupboard != null && cupboard.alchemyItem == best) {
+		if (best != null)
+		{
+			for (Cupboard cupboard : cupboards)
+			{
+				if (cupboard != null && cupboard.alchemyItem == best)
+				{
 					return cupboard;
 				}
 			}
@@ -387,14 +449,17 @@ public class AlchemyRoom extends MTARoom {
 
 		WorldPoint mine = client.getLocalPlayer().getWorldLocation();
 
-		for (Cupboard cupboard : cupboards) {
-			if (cupboard == null || cupboard.alchemyItem == AlchemyItem.EMPTY || cupboard.alchemyItem == AlchemyItem.POSSIBLY_EMPTY) {
+		for (Cupboard cupboard : cupboards)
+		{
+			if (cupboard == null || cupboard.alchemyItem == AlchemyItem.EMPTY || cupboard.alchemyItem == AlchemyItem.POSSIBLY_EMPTY)
+			{
 				continue;
 			}
 
 			int objectDistance = cupboard.gameObject.getWorldLocation().distanceTo(mine);
 
-			if (nearest == null || objectDistance < distance) {
+			if (nearest == null || objectDistance < distance)
+			{
 				nearest = cupboard;
 				distance = objectDistance;
 			}
@@ -403,7 +468,8 @@ public class AlchemyRoom extends MTARoom {
 		return nearest;
 	}
 
-	private void drawItem(Graphics2D graphics, WidgetItem item) {
+	private void drawItem(Graphics2D graphics, WidgetItem item)
+	{
 		Rectangle bounds = item.getCanvasBounds();
 		graphics.setColor(Color.GREEN);
 		graphics.draw(bounds);

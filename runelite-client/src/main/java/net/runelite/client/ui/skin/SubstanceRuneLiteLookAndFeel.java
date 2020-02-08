@@ -27,8 +27,10 @@ package net.runelite.client.ui.skin;
 
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
-public class SubstanceRuneLiteLookAndFeel extends SubstanceLookAndFeel {
-	public SubstanceRuneLiteLookAndFeel() {
+public class SubstanceRuneLiteLookAndFeel extends SubstanceLookAndFeel
+{
+	public SubstanceRuneLiteLookAndFeel()
+	{
 		super(new ObsidianSkin());
 	}
 }

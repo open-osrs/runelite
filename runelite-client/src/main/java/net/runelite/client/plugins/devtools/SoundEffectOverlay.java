@@ -24,6 +24,10 @@
  */
 package net.runelite.client.plugins.devtools;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
 import net.runelite.api.coords.LocalPoint;
@@ -34,10 +38,8 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
-import javax.inject.Inject;
-import java.awt.*;
-
-class SoundEffectOverlay extends Overlay {
+class SoundEffectOverlay extends Overlay
+{
 	private final static int MAX_LINES = 16;
 	private final static Color COLOR_SOUND_EFFECT = Color.WHITE;
 	private final static Color COLOR_AREA_SOUND_EFFECT = Color.YELLOW;
@@ -48,73 +50,83 @@ class SoundEffectOverlay extends Overlay {
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	SoundEffectOverlay(Client client, DevToolsPlugin plugin) {
+	SoundEffectOverlay(Client client, DevToolsPlugin plugin)
+	{
 		this.client = client;
 		this.plugin = plugin;
 		panelComponent.setPreferredSize(new Dimension(200, 0));
 		panelComponent.getChildren().add(LineComponent.builder()
-				.left("Sound Effects")
-				.leftColor(Color.CYAN)
-				.build());
+			.left("Sound Effects")
+			.leftColor(Color.CYAN)
+			.build());
 		setPosition(OverlayPosition.TOP_LEFT);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.getSoundEffects().isActive()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.getSoundEffects().isActive())
+		{
 			return null;
 		}
 
 		return panelComponent.render(graphics);
 	}
 
-	void onSoundEffectPlayed(SoundEffectPlayed event) {
+	void onSoundEffectPlayed(SoundEffectPlayed event)
+	{
 		String text =
-				"Id: " + event.getSoundId() +
-						" - D: " + event.getDelay();
+			"Id: " + event.getSoundId() +
+				" - D: " + event.getDelay();
 
 		panelComponent.getChildren().add(LineComponent.builder()
-				.left(text)
-				.leftColor(COLOR_SOUND_EFFECT)
-				.build());
+			.left(text)
+			.leftColor(COLOR_SOUND_EFFECT)
+			.build());
 
 		checkMaxLines();
 	}
 
-	void onAreaSoundEffectPlayed(AreaSoundEffectPlayed event) {
+	void onAreaSoundEffectPlayed(AreaSoundEffectPlayed event)
+	{
 		Color textColor = COLOR_AREA_SOUND_EFFECT;
 
 		// Check if the player is within range to hear the sound
 		Player localPlayer = client.getLocalPlayer();
-		if (localPlayer != null) {
+		if (localPlayer != null)
+		{
 			LocalPoint lp = localPlayer.getLocalLocation();
-			if (lp != null) {
+			if (lp != null)
+			{
 				int sceneX = lp.getSceneX();
 				int sceneY = lp.getSceneY();
 				int distance = Math.abs(sceneX - event.getSceneX()) + Math.abs(sceneY - event.getSceneY());
-				if (distance > event.getRange()) {
+				if (distance > event.getRange())
+				{
 					textColor = COLOR_SILENT_SOUND_EFFECT;
 				}
 			}
 		}
 
 		String text =
-				"Id: " + event.getSoundId() +
-						" - S: " + (event.getSource() != null ? event.getSource().getName() : "<none>") +
-						" - L: " + event.getSceneX() + "," + event.getSceneY() +
-						" - R: " + event.getRange() +
-						" - D: " + event.getDelay();
+			"Id: " + event.getSoundId() +
+				" - S: " + (event.getSource() != null ? event.getSource().getName() : "<none>") +
+				" - L: " + event.getSceneX() + "," + event.getSceneY() +
+				" - R: " + event.getRange() +
+				" - D: " + event.getDelay();
 
 		panelComponent.getChildren().add(LineComponent.builder()
-				.left(text)
-				.leftColor(textColor)
-				.build());
+			.left(text)
+			.leftColor(textColor)
+			.build());
 
 		checkMaxLines();
 	}
 
-	private void checkMaxLines() {
-		while (panelComponent.getChildren().size() > MAX_LINES) {
+	private void checkMaxLines()
+	{
+		while (panelComponent.getChildren().size() > MAX_LINES)
+		{
 			panelComponent.getChildren().remove(1);
 		}
 	}

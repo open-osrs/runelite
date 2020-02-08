@@ -25,9 +25,13 @@
  */
 package net.runelite.client.plugins.pestcontrol;
 
-import static net.runelite.client.plugins.pestcontrol.PortalColor.*;
+import static net.runelite.client.plugins.pestcontrol.PortalColor.BLUE;
+import static net.runelite.client.plugins.pestcontrol.PortalColor.PURPLE;
+import static net.runelite.client.plugins.pestcontrol.PortalColor.RED;
+import static net.runelite.client.plugins.pestcontrol.PortalColor.YELLOW;
 
-enum PortalRotation {
+enum PortalRotation
+{
 	PBYR(PURPLE, BLUE, YELLOW, RED),
 	PYBR(PURPLE, YELLOW, BLUE, RED),
 	BRYP(BLUE, RED, YELLOW, PURPLE),
@@ -37,15 +41,18 @@ enum PortalRotation {
 
 	private final PortalColor[] portals;
 
-	PortalRotation(final PortalColor first, final PortalColor second, final PortalColor third, final PortalColor fourth) {
+	PortalRotation(final PortalColor first, final PortalColor second, final PortalColor third, final PortalColor fourth)
+	{
 		portals = new PortalColor[]
-				{
-						first, second, third, fourth
-				};
+			{
+				first, second, third, fourth
+			};
 	}
 
-	public Portal getPortal(Game game, int index) {
-		if (index < 0 || index >= portals.length) {
+	public Portal getPortal(Game game, int index)
+	{
+		if (index < 0 || index >= portals.length)
+		{
 			return null;
 		}
 

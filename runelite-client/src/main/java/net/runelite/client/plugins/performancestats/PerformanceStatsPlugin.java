@@ -25,11 +25,27 @@
 package net.runelite.client.plugins.performancestats;
 
 import com.google.inject.Provides;
+import java.text.DecimalFormat;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
-import net.runelite.api.events.*;
+import net.runelite.api.Actor;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.Client;
+import net.runelite.api.NPC;
+import net.runelite.api.Skill;
+import net.runelite.api.WorldType;
+import net.runelite.api.events.FakeXpDrop;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.HitsplatApplied;
+import net.runelite.api.events.StatChanged;
 import net.runelite.api.util.Text;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
@@ -51,24 +67,17 @@ import net.runelite.client.ws.WSClient;
 import net.runelite.http.api.ws.messages.party.UserPart;
 import net.runelite.http.api.ws.messages.party.UserSync;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 @PluginDescriptor(
-		name = "Performance Stats",
-		description = "Displays your current performance stats",
-		tags = {"performance", "stats", "dps", "damage", "combat"},
-		type = PluginType.UTILITY,
-		enabledByDefault = false
+	name = "Performance Stats",
+	description = "Displays your current performance stats",
+	tags = {"performance", "stats", "dps", "damage", "combat"},
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Slf4j
 @Singleton
-public class PerformanceStatsPlugin extends Plugin {
+public class PerformanceStatsPlugin extends Plugin
+{
 	// For every damage point dealt 1.33 experience is given to the player's hitpoints (base rate)
 	private static final double HITPOINT_RATIO = 1.33;
 	private static final double DMM_MULTIPLIER_RATIO = 10;
@@ -121,12 +130,14 @@ public class PerformanceStatsPlugin extends Plugin {
 	private final Map<UUID, Performance> partyDataMap = Collections.synchronizedMap(new HashMap<>());
 
 	@Provides
-	PerformanceStatsConfig getConfig(ConfigManager configManager) {
+	PerformanceStatsConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PerformanceStatsConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 
 		this.submitTimeout = config.submitTimeout();
 
@@ -135,7 +146,8 @@ public class PerformanceStatsPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(performanceTrackerOverlay);
 		wsClient.unregisterMessage(Performance.class);
 		disable();
@@ -143,8 +155,10 @@ public class PerformanceStatsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		switch (event.getGameState()) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		switch (event.getGameState())
+		{
 			case LOGIN_SCREEN:
 				disable();
 				break;
@@ -155,14 +169,18 @@ public class PerformanceStatsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onHitsplatApplied(HitsplatApplied e) {
-		if (isPaused()) {
+	private void onHitsplatApplied(HitsplatApplied e)
+	{
+		if (isPaused())
+		{
 			return;
 		}
 
-		if (e.getActor().equals(client.getLocalPlayer())) {
+		if (e.getActor().equals(client.getLocalPlayer()))
+		{
 			// Auto enables when hitsplat is applied to player
-			if (!isEnabled()) {
+			if (!isEnabled())
+			{
 				enable();
 			}
 
@@ -171,27 +189,33 @@ public class PerformanceStatsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onStatChanged(StatChanged c) {
-		if (isPaused() || hopping) {
+	private void onStatChanged(StatChanged c)
+	{
+		if (isPaused() || hopping)
+		{
 			return;
 		}
 
-		if (c.getSkill().equals(Skill.HITPOINTS)) {
+		if (c.getSkill().equals(Skill.HITPOINTS))
+		{
 			final double oldExp = hpExp;
 			hpExp = client.getSkillExperience(Skill.HITPOINTS);
 
 			// Ignore initial login
-			if (client.getTickCount() < 2) {
+			if (client.getTickCount() < 2)
+			{
 				return;
 			}
 
 			final double diff = hpExp - oldExp;
-			if (diff < 1) {
+			if (diff < 1)
+			{
 				return;
 			}
 
 			// Auto enables when player receives hp exp
-			if (!isEnabled()) {
+			if (!isEnabled())
+			{
 				enable();
 			}
 
@@ -201,10 +225,13 @@ public class PerformanceStatsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onFakeXpDrop(FakeXpDrop fakeXpDrop) {
-		if (fakeXpDrop.getSkill().equals(Skill.HITPOINTS)) {
+	private void onFakeXpDrop(FakeXpDrop fakeXpDrop)
+	{
+		if (fakeXpDrop.getSkill().equals(Skill.HITPOINTS))
+		{
 			// Auto enables when player would have received hp exp
-			if (!isEnabled()) {
+			if (!isEnabled())
+			{
 				enable();
 			}
 
@@ -214,14 +241,17 @@ public class PerformanceStatsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick t) {
+	private void onGameTick(GameTick t)
+	{
 		oldTarget = client.getLocalPlayer().getInteracting();
 
-		if (!isEnabled()) {
+		if (!isEnabled())
+		{
 			return;
 		}
 
-		if (isPaused()) {
+		if (isPaused())
+		{
 			pausedTicks++;
 			return;
 		}
@@ -230,10 +260,12 @@ public class PerformanceStatsPlugin extends Plugin {
 		hopping = false;
 
 		final int timeout = this.submitTimeout;
-		if (timeout > 0) {
+		if (timeout > 0)
+		{
 			final double tickTimeout = timeout / GAME_TICK_SECONDS;
 			final int activityDiff = (client.getTickCount() - pausedTicks) - performance.getLastActivityTick();
-			if (activityDiff > tickTimeout) {
+			if (activityDiff > tickTimeout)
+			{
 				// offset the tracker time to account for idle timeout
 				// Leave an additional tick to pad elapsed time
 				final double offset = tickTimeout - GAME_TICK_SECONDS;
@@ -249,12 +281,15 @@ public class PerformanceStatsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onOverlayMenuClicked(OverlayMenuClicked c) {
-		if (!c.getOverlay().equals(performanceTrackerOverlay)) {
+	private void onOverlayMenuClicked(OverlayMenuClicked c)
+	{
+		if (!c.getOverlay().equals(performanceTrackerOverlay))
+		{
 			return;
 		}
 
-		switch (c.getEntry().getOption()) {
+		switch (c.getEntry().getOption())
+		{
 			case "Pause":
 				togglePaused();
 				break;
@@ -267,20 +302,24 @@ public class PerformanceStatsPlugin extends Plugin {
 		}
 	}
 
-	private void enable() {
+	private void enable()
+	{
 		this.enabled = true;
 		hpExp = client.getSkillExperience(Skill.HITPOINTS);
 	}
 
-	private void disable() {
+	private void disable()
+	{
 		this.enabled = false;
 	}
 
-	private void togglePaused() {
+	private void togglePaused()
+	{
 		this.paused = !this.paused;
 	}
 
-	private void reset() {
+	private void reset()
+	{
 		this.enabled = false;
 		this.paused = false;
 
@@ -288,13 +327,14 @@ public class PerformanceStatsPlugin extends Plugin {
 		pausedTicks = 0;
 	}
 
-	private void submit() {
+	private void submit()
+	{
 		final String message = createPerformanceMessage(performance);
 
 		chatMessageManager.queue(QueuedMessage.builder()
-				.type(ChatMessageType.GAMEMESSAGE)
-				.runeLiteFormattedMessage(message)
-				.build());
+			.type(ChatMessageType.GAMEMESSAGE)
+			.runeLiteFormattedMessage(message)
+			.build());
 
 		reset();
 	}
@@ -305,18 +345,22 @@ public class PerformanceStatsPlugin extends Plugin {
 	 * @param diff HP xp gained
 	 * @return damage dealt
 	 */
-	private double calculateDamageDealt(double diff) {
+	private double calculateDamageDealt(double diff)
+	{
 		double damageDealt = diff / HITPOINT_RATIO;
 		// DeadMan mode has an XP modifier
-		if (client.getWorldType().contains(WorldType.DEADMAN)) {
+		if (client.getWorldType().contains(WorldType.DEADMAN))
+		{
 			damageDealt = damageDealt / DMM_MULTIPLIER_RATIO;
 		}
 
 		// Some NPCs have an XP modifier, account for it here.
 		Actor a = client.getLocalPlayer().getInteracting();
-		if (!(a instanceof NPC)) {
+		if (!(a instanceof NPC))
+		{
 			// If we are interacting with nothing we may have clicked away at the perfect time fall back to last tick
-			if (!(oldTarget instanceof NPC)) {
+			if (!(oldTarget instanceof NPC))
+			{
 				log.warn("Couldn't find current or past target for experienced gain...");
 				return damageDealt;
 			}
@@ -328,72 +372,82 @@ public class PerformanceStatsPlugin extends Plugin {
 		return damageDealt / npcManager.getXpModifier(npcId);
 	}
 
-	private String createPerformanceMessage(final Performance p) {
+	private String createPerformanceMessage(final Performance p)
+	{
 		// Expected result: Damage Dealt: ## (Max: ##), Damage Taken: ## (Max: ##), Time Spent: ##:## (DPS: ##.##)
 		return new ChatMessageBuilder()
-				.append(ChatColorType.NORMAL)
-				.append("Damage dealt: ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(numberFormat.format(p.getDamageDealt()))
-				.append(ChatColorType.NORMAL)
-				.append(" (Max: ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(numberFormat.format(p.getHighestHitDealt()))
-				.append(ChatColorType.NORMAL)
-				.append("), Damage Taken: ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(numberFormat.format(p.getDamageTaken()))
-				.append(ChatColorType.NORMAL)
-				.append(" (Max: ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(numberFormat.format(p.getHighestHitTaken()))
-				.append(ChatColorType.NORMAL)
-				.append("), Time Spent: ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(p.getHumanReadableSecondsSpent())
-				.append(ChatColorType.NORMAL)
-				.append(" (DPS: ")
-				.append(ChatColorType.HIGHLIGHT)
-				.append(String.valueOf(p.getDPS()))
-				.append(ChatColorType.NORMAL)
-				.append(")")
-				.build();
+			.append(ChatColorType.NORMAL)
+			.append("Damage dealt: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(numberFormat.format(p.getDamageDealt()))
+			.append(ChatColorType.NORMAL)
+			.append(" (Max: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(numberFormat.format(p.getHighestHitDealt()))
+			.append(ChatColorType.NORMAL)
+			.append("), Damage Taken: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(numberFormat.format(p.getDamageTaken()))
+			.append(ChatColorType.NORMAL)
+			.append(" (Max: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(numberFormat.format(p.getHighestHitTaken()))
+			.append(ChatColorType.NORMAL)
+			.append("), Time Spent: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(p.getHumanReadableSecondsSpent())
+			.append(ChatColorType.NORMAL)
+			.append(" (DPS: ")
+			.append(ChatColorType.HIGHLIGHT)
+			.append(String.valueOf(p.getDPS()))
+			.append(ChatColorType.NORMAL)
+			.append(")")
+			.build();
 	}
 
-	private void sendPerformance() {
+	private void sendPerformance()
+	{
 		final PartyMember me = partyService.getLocalMember();
-		if (me != null && me.getMemberId() != null) {
+		if (me != null && me.getMemberId() != null)
+		{
 			performance.setMemberId(me.getMemberId());
 			wsClient.send(performance);
 		}
 	}
 
 	@Subscribe
-	private void onPerformance(final Performance performance) {
+	private void onPerformance(final Performance performance)
+	{
 		partyDataMap.put(performance.getMemberId(), performance);
 	}
 
 	@Subscribe
-	private void onUserSync(final UserSync event) {
-		if (isEnabled()) {
+	private void onUserSync(final UserSync event)
+	{
+		if (isEnabled())
+		{
 			sendPerformance();
 		}
 	}
 
 	@Subscribe
-	private void onUserPart(final UserPart event) {
+	private void onUserPart(final UserPart event)
+	{
 		partyDataMap.remove(event.getMemberId());
 	}
 
 	@Subscribe
-	private void onPartyChanged(final PartyChanged event) {
+	private void onPartyChanged(final PartyChanged event)
+	{
 		// Reset party
 		partyDataMap.clear();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("performancestats")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("performancestats"))
+		{
 			return;
 		}
 

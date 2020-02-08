@@ -23,6 +23,8 @@
  */
 package net.runelite.client.plugins.dynamicmaxhit;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,17 +32,14 @@ import lombok.ToString;
 import net.runelite.api.Player;
 import net.runelite.api.Prayer;
 import net.runelite.api.util.Text;
-import net.runelite.http.api.hiscore.HiscoreResult;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static net.runelite.client.plugins.dynamicmaxhit.Utils.iconToPrayer;
+import net.runelite.http.api.hiscore.HiscoreResult;
 
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
 @ToString(exclude = "player")
-class Victim {
+class Victim
+{
 	private AttackStyle attackStyle;
 	private AttackStyle weakness;
 	private MeleeStyle meleeStyle;
@@ -85,7 +84,8 @@ class Victim {
 	private int wildyLevel;
 	private int potionBoost;
 
-	Victim(Player player) {
+	Victim(Player player)
+	{
 		this.attackStyle = AttackStyle.UNKNOWN;
 		this.attacking = false;
 		this.charged = false;
@@ -126,7 +126,8 @@ class Victim {
 		this.potionBoost = 0;
 	}
 
-	void reset() {
+	void reset()
+	{
 		setSpeed(0);
 		setMeleeAtkCrush(0);
 		setMeleeAtkStab(0);
@@ -150,7 +151,8 @@ class Victim {
 	}
 
 	@Getter(AccessLevel.PACKAGE)
-	enum MeleeStyle {
+	enum MeleeStyle
+	{
 		CRUSH,
 		SLASH,
 		STAB,

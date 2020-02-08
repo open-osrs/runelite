@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.stonedtracker.data;
 
 import com.google.common.collect.ImmutableMultimap;
+import java.util.Collection;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +34,10 @@ import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
 
-import java.util.Collection;
-
 @RequiredArgsConstructor
 @Getter(AccessLevel.PUBLIC)
-public enum UniqueItem {
+public enum UniqueItem
+{
 	// "Uniques" which are actually dropped by multiple bosses
 	// God Wars
 	GODSWORD_SHARD_1(ItemID.GODSWORD_SHARD_1, BossTab.KREEARRA, BossTab.GENERAL_GRAARDOR, BossTab.COMMANDER_ZILYANA, BossTab.KRIL_TSUTSAROTH),
@@ -877,10 +877,13 @@ public enum UniqueItem {
 
 	private static final ImmutableMultimap<String, UniqueItem> BOSS_MAP;
 
-	static {
+	static
+	{
 		final ImmutableMultimap.Builder<String, UniqueItem> map = ImmutableMultimap.builder();
-		for (UniqueItem item : values()) {
-			for (BossTab b : item.getBosses()) {
+		for (UniqueItem item : values())
+		{
+			for (BossTab b : item.getBosses())
+			{
 				map.put(b.getName(), item);
 			}
 		}
@@ -899,22 +902,27 @@ public enum UniqueItem {
 	private int qty;
 
 	// Non-Shared Unique Items
-	UniqueItem(int id, BossTab boss, int position) {
+	UniqueItem(int id, BossTab boss, int position)
+	{
 		this.itemID = id;
 		this.bosses = new BossTab[]{boss};
 		this.position = position;
 	}
 
 	// Shared Unique Items
-	UniqueItem(int id, BossTab... bosses) {
+	UniqueItem(int id, BossTab... bosses)
+	{
 		this.itemID = id;
 		this.bosses = bosses;
 		this.position = -1;
 	}
 
-	public static void prepareUniqueItems(final ItemManager itemManager) {
-		for (final UniqueItem item : values()) {
-			if (item.getName() != null) {
+	public static void prepareUniqueItems(final ItemManager itemManager)
+	{
+		for (final UniqueItem item : values())
+		{
+			if (item.getName() != null)
+			{
 				return;
 			}
 
@@ -925,7 +933,8 @@ public enum UniqueItem {
 		}
 	}
 
-	public static Collection<UniqueItem> getUniquesForBoss(final String bossName) {
+	public static Collection<UniqueItem> getUniquesForBoss(final String bossName)
+	{
 		return BOSS_MAP.get(bossName);
 	}
 }

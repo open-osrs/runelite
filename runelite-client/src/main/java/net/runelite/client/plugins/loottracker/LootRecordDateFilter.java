@@ -11,14 +11,14 @@
 
 package net.runelite.client.plugins.loottracker;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.time.Duration;
+import lombok.AccessLevel;
+import lombok.Getter;
 
-public enum LootRecordDateFilter {
+public enum LootRecordDateFilter
+{
 
 	SESSION("Session", Duration.ofMillis(LootTrackerPlugin.SESSION_START_TIME.toEpochMilli())),
 	HOUR("Hour", Duration.ofHours(1)),
@@ -41,13 +41,15 @@ public enum LootRecordDateFilter {
 	 * @param duration - The duration the current time - the time of the loot record must be greater than to display if
 	 *                 a date filter other than all or Session is enabled
 	 */
-	LootRecordDateFilter(String name, Duration duration) {
+	LootRecordDateFilter(String name, Duration duration)
+	{
 		this.name = name;
 		this.duration = duration;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return this.name;
 	}
 }

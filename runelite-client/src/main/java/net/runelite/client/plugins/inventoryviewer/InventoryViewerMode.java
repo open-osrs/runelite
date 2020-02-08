@@ -30,14 +30,16 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-public enum InventoryViewerMode {
+public enum InventoryViewerMode
+{
 	FULL("Full"),
 	GROUPED("Grouped");
 
 	private final String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

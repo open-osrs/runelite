@@ -26,15 +26,34 @@ package net.runelite.client.plugins.suppliestracker;
 
 
 import com.google.common.collect.ImmutableMap;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.awt.image.BufferedImage;
 import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+import static net.runelite.api.ItemID.AIR_RUNE;
+import static net.runelite.api.ItemID.ASTRAL_RUNE;
+import static net.runelite.api.ItemID.BLOOD_RUNE;
+import static net.runelite.api.ItemID.BODY_RUNE;
+import static net.runelite.api.ItemID.CHAOS_RUNE;
+import static net.runelite.api.ItemID.COSMIC_RUNE;
+import static net.runelite.api.ItemID.DEATH_RUNE;
+import static net.runelite.api.ItemID.DUST_RUNE;
+import static net.runelite.api.ItemID.EARTH_RUNE;
+import static net.runelite.api.ItemID.FIRE_RUNE;
+import static net.runelite.api.ItemID.LAVA_RUNE;
+import static net.runelite.api.ItemID.LAW_RUNE;
+import static net.runelite.api.ItemID.MIND_RUNE;
+import static net.runelite.api.ItemID.MIST_RUNE;
+import static net.runelite.api.ItemID.MUD_RUNE;
+import static net.runelite.api.ItemID.NATURE_RUNE;
+import static net.runelite.api.ItemID.SMOKE_RUNE;
+import static net.runelite.api.ItemID.SOUL_RUNE;
+import static net.runelite.api.ItemID.STEAM_RUNE;
+import static net.runelite.api.ItemID.WATER_RUNE;
+import static net.runelite.api.ItemID.WRATH_RUNE;
 
-import static net.runelite.api.ItemID.*;
-
-public enum Runes {
+public enum Runes
+{
 	AIR(1, AIR_RUNE),
 	WATER(2, WATER_RUNE),
 	EARTH(3, EARTH_RUNE),
@@ -59,9 +78,11 @@ public enum Runes {
 
 	private static final Map<Integer, Runes> runes;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, Runes> builder = new ImmutableMap.Builder<>();
-		for (Runes rune : values()) {
+		for (Runes rune : values())
+		{
 			builder.put(rune.getId(), rune);
 		}
 		runes = builder.build();
@@ -75,16 +96,19 @@ public enum Runes {
 	@Setter
 	private BufferedImage image;
 
-	Runes(int id, int itemId) {
+	Runes(int id, int itemId)
+	{
 		this.id = id;
 		this.itemId = itemId;
 	}
 
-	public static Runes getRune(int varbit) {
+	public static Runes getRune(int varbit)
+	{
 		return runes.get(varbit);
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		String name = this.name();
 		name = name.substring(0, 1) + name.substring(1).toLowerCase();
 		return name;

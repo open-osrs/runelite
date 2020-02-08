@@ -24,18 +24,24 @@
  */
 package net.runelite.client.plugins.puzzlesolver.lightbox;
 
-public class LightboxSolver {
+public class LightboxSolver
+{
 	private LightboxState initial;
 	private final LightboxState[] switches = new LightboxState[LightBox.COMBINATIONS_POWER];
 
-	private static boolean isBitSet(int num, int bit) {
+	private static boolean isBitSet(int num, int bit)
+	{
 		return ((num >>> bit) & 1) != 0;
 	}
 
-	private static boolean isSolved(LightboxState s) {
-		for (int i = 0; i < LightBox.WIDTH; ++i) {
-			for (int j = 0; j < LightBox.HEIGHT; ++j) {
-				if (!s.getState(i, j)) {
+	private static boolean isSolved(LightboxState s)
+	{
+		for (int i = 0; i < LightBox.WIDTH; ++i)
+		{
+			for (int j = 0; j < LightBox.HEIGHT; ++j)
+			{
+				if (!s.getState(i, j))
+				{
 					return false;
 				}
 			}
@@ -43,16 +49,21 @@ public class LightboxSolver {
 		return true;
 	}
 
-	public LightboxSolution solve() {
+	public LightboxSolution solve()
+	{
 		LightboxSolution solution = null;
 		outer:
-		for (int i = 0; i < Math.pow(2, LightBox.COMBINATIONS_POWER); ++i) {
+		for (int i = 0; i < Math.pow(2, LightBox.COMBINATIONS_POWER); ++i)
+		{
 			LightboxState s = initial;
 
-			for (int bit = 0; bit < LightBox.COMBINATIONS_POWER; ++bit) {
-				if (isBitSet(i, bit)) {
+			for (int bit = 0; bit < LightBox.COMBINATIONS_POWER; ++bit)
+			{
+				if (isBitSet(i, bit))
+				{
 					// this switch is unknown, so this can't be a valid answer
-					if (switches[bit] == null) {
+					if (switches[bit] == null)
+					{
 						continue outer;
 					}
 
@@ -60,9 +71,11 @@ public class LightboxSolver {
 				}
 			}
 
-			if (isSolved(s)) {
+			if (isSolved(s))
+			{
 				LightboxSolution sol = new LightboxSolution(i);
-				if (solution == null || sol.numMoves() < solution.numMoves()) {
+				if (solution == null || sol.numMoves() < solution.numMoves())
+				{
 					solution = sol;
 				}
 			}
@@ -71,11 +84,13 @@ public class LightboxSolver {
 		return solution;
 	}
 
-	public void setInitial(LightboxState initial) {
+	public void setInitial(LightboxState initial)
+	{
 		this.initial = initial;
 	}
 
-	public void setSwitchChange(Combination combination, LightboxState newState) {
+	public void setSwitchChange(Combination combination, LightboxState newState)
+	{
 		switches[combination.ordinal()] = newState;
 	}
 }

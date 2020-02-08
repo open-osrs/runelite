@@ -29,6 +29,7 @@ import net.runelite.api.events.Event;
 import net.runelite.client.plugins.loottracker.localstorage.LTRecord;
 
 @Data
-public class LTRecordStored implements Event {
+public class LTRecordStored implements Event
+{
 	private final LTRecord record;
 }

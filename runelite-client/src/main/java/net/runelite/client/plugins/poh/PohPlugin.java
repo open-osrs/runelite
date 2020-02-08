@@ -26,12 +26,35 @@ package net.runelite.client.plugins.poh;
 
 import com.google.common.collect.Sets;
 import com.google.inject.Provides;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ScheduledExecutorService;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.Actor;
+import net.runelite.api.AnimationID;
+import net.runelite.api.Client;
+import net.runelite.api.Constants;
+import net.runelite.api.DecorativeObject;
+import net.runelite.api.GameObject;
+import net.runelite.api.GameState;
+import net.runelite.api.ObjectID;
+import net.runelite.api.Player;
+import net.runelite.api.Tile;
+import net.runelite.api.TileObject;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.events.*;
+import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.DecorativeObjectDespawned;
+import net.runelite.api.events.DecorativeObjectSpawned;
+import net.runelite.api.events.GameObjectDespawned;
+import net.runelite.api.events.GameObjectSpawned;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -44,24 +67,16 @@ import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
 import net.runelite.http.api.hiscore.Skill;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.IOException;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ScheduledExecutorService;
-
 @PluginDescriptor(
-		name = "Player-owned House",
-		description = "Show minimap icons and mark unlit/lit burners",
-		tags = {"construction", "poh", "minimap", "overlay"},
-		type = PluginType.UTILITY
+	name = "Player-owned House",
+	description = "Show minimap icons and mark unlit/lit burners",
+	tags = {"construction", "poh", "minimap", "overlay"},
+	type = PluginType.UTILITY
 )
 @Slf4j
 @Singleton
-public class PohPlugin extends Plugin {
+public class PohPlugin extends Plugin
+{
 	static final Set<Integer> BURNER_UNLIT = Sets.newHashSet(ObjectID.INCENSE_BURNER, ObjectID.INCENSE_BURNER_13210, ObjectID.INCENSE_BURNER_13212);
 	static final Set<Integer> BURNER_LIT = Sets.newHashSet(ObjectID.INCENSE_BURNER_13209, ObjectID.INCENSE_BURNER_13211, ObjectID.INCENSE_BURNER_13213);
 
@@ -120,12 +135,14 @@ public class PohPlugin extends Plugin {
 	private boolean showXericsTalisman;
 
 	@Provides
-	PohConfig getConfig(ConfigManager configManager) {
+	PohConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PohConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(overlay);
@@ -134,7 +151,8 @@ public class PohPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		overlayManager.remove(burnerOverlay);
 		pohObjects.clear();
@@ -142,8 +160,10 @@ public class PohPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("poh")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("poh"))
+		{
 			return;
 		}
 
@@ -153,11 +173,14 @@ public class PohPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(GameObjectSpawned event) {
+	private void onGameObjectSpawned(GameObjectSpawned event)
+	{
 		final GameObject gameObject = event.getGameObject();
 
-		if (!BURNER_LIT.contains(gameObject.getId()) && !BURNER_UNLIT.contains(gameObject.getId())) {
-			if (PohIcons.getIcon(gameObject.getId()) != null) {
+		if (!BURNER_LIT.contains(gameObject.getId()) && !BURNER_UNLIT.contains(gameObject.getId()))
+		{
+			if (PohIcons.getIcon(gameObject.getId()) != null)
+			{
 				pohObjects.put(gameObject, event.getTile());
 			}
 
@@ -170,39 +193,47 @@ public class PohPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event) {
+	private void onGameObjectDespawned(GameObjectDespawned event)
+	{
 		GameObject gameObject = event.getGameObject();
 		pohObjects.remove(gameObject);
 	}
 
 	@Subscribe
-	private void onDecorativeObjectSpawned(DecorativeObjectSpawned event) {
+	private void onDecorativeObjectSpawned(DecorativeObjectSpawned event)
+	{
 		DecorativeObject decorativeObject = event.getDecorativeObject();
-		if (PohIcons.getIcon(decorativeObject.getId()) != null) {
+		if (PohIcons.getIcon(decorativeObject.getId()) != null)
+		{
 			pohObjects.put(decorativeObject, event.getTile());
 		}
 	}
 
 	@Subscribe
-	private void onDecorativeObjectDespawned(DecorativeObjectDespawned event) {
+	private void onDecorativeObjectDespawned(DecorativeObjectDespawned event)
+	{
 		DecorativeObject decorativeObject = event.getDecorativeObject();
 		pohObjects.remove(decorativeObject);
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOADING) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOADING)
+		{
 			pohObjects.clear();
 			incenseBurners.clear();
 		}
 	}
 
 	@Subscribe
-	private void onAnimationChanged(AnimationChanged event) {
+	private void onAnimationChanged(AnimationChanged event)
+	{
 		final Actor actor = event.getActor();
 		final String actorName = actor.getName();
 
-		if (!(actor instanceof Player) || actor.getAnimation() != AnimationID.INCENSE_BURNER) {
+		if (!(actor instanceof Player) || actor.getAnimation() != AnimationID.INCENSE_BURNER)
+		{
 			return;
 		}
 
@@ -210,48 +241,58 @@ public class PohPlugin extends Plugin {
 
 		// Find burner closest to player
 		incenseBurners.keySet()
-				.stream()
-				.min(Comparator.comparingInt(a -> loc.distanceTo(a.getLocalLocation())))
-				.ifPresent(tile ->
-				{
-					final IncenseBurner incenseBurner = incenseBurners.get(tile);
+			.stream()
+			.min(Comparator.comparingInt(a -> loc.distanceTo(a.getLocalLocation())))
+			.ifPresent(tile ->
+			{
+				final IncenseBurner incenseBurner = incenseBurners.get(tile);
 
-					if (actor == client.getLocalPlayer()) {
-						int level = client.getRealSkillLevel(net.runelite.api.Skill.FIREMAKING);
-						updateBurner(incenseBurner, level);
-					} else if (actorName != null) {
-						lookupPlayer(actorName, incenseBurner);
-					}
-				});
+				if (actor == client.getLocalPlayer())
+				{
+					int level = client.getRealSkillLevel(net.runelite.api.Skill.FIREMAKING);
+					updateBurner(incenseBurner, level);
+				}
+				else if (actorName != null)
+				{
+					lookupPlayer(actorName, incenseBurner);
+				}
+			});
 
 	}
 
-	private void lookupPlayer(String playerName, IncenseBurner incenseBurner) {
+	private void lookupPlayer(String playerName, IncenseBurner incenseBurner)
+	{
 		executor.execute(() ->
 		{
-			try {
+			try
+			{
 				final HiscoreResult playerStats = hiscoreManager.lookup(playerName, HiscoreEndpoint.NORMAL);
 
-				if (playerStats == null) {
+				if (playerStats == null)
+				{
 					return;
 				}
 
 				final Skill fm = playerStats.getFiremaking();
 				final int level = fm.getLevel();
 				updateBurner(incenseBurner, Math.max(level, 1));
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				log.warn("Error fetching Hiscore data " + e.getMessage());
 			}
 		});
 	}
 
-	private static void updateBurner(IncenseBurner incenseBurner, int fmLevel) {
+	private static void updateBurner(IncenseBurner incenseBurner, int fmLevel)
+	{
 		final double tickLengthSeconds = Constants.GAME_TICK_LENGTH / 1000.0;
 		incenseBurner.setCountdownTimer((200 + fmLevel) * tickLengthSeconds);
 		incenseBurner.setRandomTimer(fmLevel * tickLengthSeconds);
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showPortals = config.showPortals();
 		this.showAltar = config.showAltar();
 		this.showGlory = config.showGlory();

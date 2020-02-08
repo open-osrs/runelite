@@ -30,15 +30,17 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("smelting")
-public interface SmeltingConfig extends Config {
+public interface SmeltingConfig extends Config
+{
 	@ConfigItem(
-			position = 1,
-			keyName = "statTimeout",
-			name = "Reset stats",
-			description = "The time it takes for the current smelting session to be reset"
+		position = 1,
+		keyName = "statTimeout",
+		name = "Reset stats",
+		description = "The time it takes for the current smelting session to be reset"
 	)
 	@Units(Units.MINUTES)
-	default int statTimeout() {
+	default int statTimeout()
+	{
 		return 5;
 	}
 }

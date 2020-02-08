@@ -28,11 +28,42 @@ package net.runelite.client.plugins.gauntlet;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+import java.awt.Color;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.api.*;
-import net.runelite.api.events.*;
+import net.runelite.api.Actor;
+import net.runelite.api.Client;
+import net.runelite.api.GameObject;
+import net.runelite.api.GameState;
+import net.runelite.api.HeadIcon;
+import net.runelite.api.ItemID;
+import net.runelite.api.NPC;
+import net.runelite.api.NPCDefinition;
+import net.runelite.api.NpcID;
+import net.runelite.api.ObjectID;
+import net.runelite.api.Player;
+import net.runelite.api.Projectile;
+import net.runelite.api.ProjectileID;
+import net.runelite.api.SoundEffectID;
+import net.runelite.api.Varbits;
+import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.GameObjectDespawned;
+import net.runelite.api.events.GameObjectSpawned;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.NpcDespawned;
+import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.ProjectileSpawned;
+import net.runelite.api.events.StatChanged;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
@@ -44,29 +75,24 @@ import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.LIGHTNING;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.MAGIC;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.PRAYER;
+import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.RANGE;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.infobox.Counter;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import java.awt.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import static net.runelite.client.plugins.gauntlet.Hunllef.BossAttack.*;
-
 @PluginDescriptor(
-		name = "Gauntlet",
-		description = "All-in-one plugin for the Gauntlet.",
-		tags = {"Gauntlet"},
-		enabledByDefault = false,
-		type = PluginType.PVM
+	name = "Gauntlet",
+	description = "All-in-one plugin for the Gauntlet.",
+	tags = {"Gauntlet"},
+	enabledByDefault = false,
+	type = PluginType.PVM
 )
 @Getter(AccessLevel.PACKAGE)
-public class GauntletPlugin extends Plugin {
+public class GauntletPlugin extends Plugin
+{
 	private static final int BOW_ATTACK = 426;
 	private static final int STAFF_ATTACK = 1167;
 	private static final int LIGHTNING_ANIMATION = 8418;
@@ -77,14 +103,14 @@ public class GauntletPlugin extends Plugin {
 	private static final Set<Integer> HUNLLEF_RANGE_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_RANGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_RANGE_ATTACK);
 	private static final Set<Integer> HUNLLEF_PRAYER_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_PRAYER_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_PRAYER_ATTACK);
 	private static final Set<Integer> HUNLLEF_PROJECTILES = ImmutableSet.of(ProjectileID.HUNLLEF_PRAYER_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_PRAYER_ATTACK,
-			ProjectileID.HUNLLEF_RANGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_RANGE_ATTACK, ProjectileID.HUNLLEF_MAGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_MAGE_ATTACK
+		ProjectileID.HUNLLEF_RANGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_RANGE_ATTACK, ProjectileID.HUNLLEF_MAGE_ATTACK, ProjectileID.HUNLLEF_CORRUPTED_MAGE_ATTACK
 	);
 	private static final Set<Integer> HUNLLEF_NPC_IDS = ImmutableSet.of(NpcID.CRYSTALLINE_HUNLLEF, NpcID.CRYSTALLINE_HUNLLEF_9022, NpcID.CRYSTALLINE_HUNLLEF_9023,
-			NpcID.CRYSTALLINE_HUNLLEF_9024, NpcID.CORRUPTED_HUNLLEF, NpcID.CORRUPTED_HUNLLEF_9036, NpcID.CORRUPTED_HUNLLEF_9037, NpcID.CORRUPTED_HUNLLEF_9038
+		NpcID.CRYSTALLINE_HUNLLEF_9024, NpcID.CORRUPTED_HUNLLEF, NpcID.CORRUPTED_HUNLLEF_9036, NpcID.CORRUPTED_HUNLLEF_9037, NpcID.CORRUPTED_HUNLLEF_9038
 	);
 	private static final Set<Integer> RESOURCES = ImmutableSet.of(ObjectID.CRYSTAL_DEPOSIT, ObjectID.CORRUPT_DEPOSIT, ObjectID.PHREN_ROOTS,
-			ObjectID.PHREN_ROOTS_36066, ObjectID.FISHING_SPOT_36068, ObjectID.FISHING_SPOT_35971, ObjectID.GRYM_ROOT, ObjectID.GRYM_ROOT_36070,
-			ObjectID.LINUM_TIRINUM, ObjectID.LINUM_TIRINUM_36072
+		ObjectID.PHREN_ROOTS_36066, ObjectID.FISHING_SPOT_36068, ObjectID.FISHING_SPOT_35971, ObjectID.GRYM_ROOT, ObjectID.GRYM_ROOT_36070,
+		ObjectID.LINUM_TIRINUM, ObjectID.LINUM_TIRINUM_36072
 	);
 	private static final int GATHERING_HERB = 0;
 	private static final int GATHERING_CLOTH = 1;
@@ -186,12 +212,14 @@ public class GauntletPlugin extends Plugin {
 	private boolean inGauntlet = false;
 
 	@Provides
-	GauntletConfig getConfig(ConfigManager configManager) {
+	GauntletConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(GauntletConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 		initializeCounters();
 		overlayManager.add(overlay);
@@ -199,23 +227,29 @@ public class GauntletPlugin extends Plugin {
 		overlayManager.add(GauntletCounter);
 		timerVisible = this.displayTimerWidget;
 		timer.resetStates();
-		if (timerVisible) {
+		if (timerVisible)
+		{
 			overlayManager.add(timer);
 		}
-		if (client.getGameState() != GameState.STARTING && client.getGameState() != GameState.UNKNOWN) {
+		if (client.getGameState() != GameState.STARTING && client.getGameState() != GameState.UNKNOWN)
+		{
 			completeStartup = false;
 			clientThread.invoke(() ->
 			{
 				timer.initStates();
 				completeStartup = true;
 			});
-		} else {
+		}
+		else
+		{
 			completeStartup = true;
 		}
 	}
 
-	private void addCounters() {
-		if (!countersVisible) {
+	private void addCounters()
+	{
+		if (!countersVisible)
+		{
 			infoBoxManager.addInfoBox(oreCounter);
 			infoBoxManager.addInfoBox(woodCounter);
 			infoBoxManager.addInfoBox(clothCounter);
@@ -225,7 +259,8 @@ public class GauntletPlugin extends Plugin {
 		}
 	}
 
-	private void initializeCounters() {
+	private void initializeCounters()
+	{
 		resetGatheringCounters();
 		oreCounter = new Counter(itemManager.getImage(ItemID.CORRUPTED_ORE), this, 0);
 		woodCounter = new Counter(itemManager.getImage(ItemID.PHREN_BARK_23878), this, 0);
@@ -234,7 +269,8 @@ public class GauntletPlugin extends Plugin {
 		herbCounter = new Counter(itemManager.getImage(ItemID.GRYM_LEAF_23875), this, 0);
 	}
 
-	private void resetGatheringCounters() {
+	private void resetGatheringCounters()
+	{
 		oresGathered = 0;
 		fishGathered = 0;
 		woodGathered = 0;
@@ -243,7 +279,8 @@ public class GauntletPlugin extends Plugin {
 		if (oreCounter != null) updateCounters();
 	}
 
-	private void updateCounters() {
+	private void updateCounters()
+	{
 		oreCounter.setCount(oresGathered);
 
 		woodCounter.setCount(woodGathered);
@@ -253,9 +290,11 @@ public class GauntletPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		timer.resetStates();
-		if (timerVisible) {
+		if (timerVisible)
+		{
 			overlayManager.remove(timer);
 			timerVisible = false;
 		}
@@ -270,7 +309,8 @@ public class GauntletPlugin extends Plugin {
 		setHunllef(null);
 	}
 
-	private void removeCounters() {
+	private void removeCounters()
+	{
 		infoBoxManager.removeInfoBox(oreCounter);
 		infoBoxManager.removeInfoBox(woodCounter);
 		infoBoxManager.removeInfoBox(clothCounter);
@@ -280,17 +320,21 @@ public class GauntletPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked) {
-		if (menuOptionClicked.getTarget().toUpperCase().contains("LINUM")) {
+	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked)
+	{
+		if (menuOptionClicked.getTarget().toUpperCase().contains("LINUM"))
+		{
 			currentFarmingAction = GATHERING_CLOTH;
 		}
-		if (menuOptionClicked.getTarget().toUpperCase().contains("GRYM")) {
+		if (menuOptionClicked.getTarget().toUpperCase().contains("GRYM"))
+		{
 			currentFarmingAction = GATHERING_HERB;
 		}
 	}
 
 	@Subscribe
-	private void onNpcLootReceived(NpcLootReceived npcLootReceived) {
+	private void onNpcLootReceived(NpcLootReceived npcLootReceived)
+	{
 		fishGathered += (int) npcLootReceived.getItems().stream().filter(item -> item.getId() == ItemID.RAW_PADDLEFISH).count();
 		herbGathered += (int) npcLootReceived.getItems().stream().filter(item -> item.getId() == ItemID.GRYM_LEAF || item.getId() == ItemID.GRYM_LEAF_23875).count();
 		updateCounters();
@@ -298,32 +342,41 @@ public class GauntletPlugin extends Plugin {
 
 
 	@Subscribe
-	private void onStatsChanged(StatChanged event) {
-		switch (event.getSkill()) {
+	private void onStatsChanged(StatChanged event)
+	{
+		switch (event.getSkill())
+		{
 			case MINING:
-				if (miningXp != event.getXp()) {
-					oresGathered++;
-					miningXp = event.getXp();
-				}
+				if (miningXp != event.getXp())
+			{
+				oresGathered++;
+				miningXp = event.getXp();
+			}
 				break;
 			case FISHING:
-				if (fishingXp != event.getXp()) {
+				if (fishingXp != event.getXp())
+				{
 					fishGathered++;
 					fishingXp = event.getXp();
 				}
 				break;
 			case WOODCUTTING:
-				if (woodcuttingXp != event.getXp()) {
+				if (woodcuttingXp != event.getXp())
+				{
 					woodGathered++;
 					woodcuttingXp = event.getXp();
 				}
 				break;
 			case FARMING:
-				if (farmingXp != event.getXp()) {
-					if (currentFarmingAction == GATHERING_HERB) {
+				if (farmingXp != event.getXp())
+				{
+					if (currentFarmingAction == GATHERING_HERB)
+					{
 						herbGathered++;
 						farmingXp = event.getXp();
-					} else if (currentFarmingAction == GATHERING_CLOTH) {
+					}
+					else if (currentFarmingAction == GATHERING_CLOTH)
+					{
 						clothGathered++;
 						farmingXp = event.getXp();
 					}
@@ -334,47 +387,56 @@ public class GauntletPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onAnimationChanged(AnimationChanged event) {
-		if (hunllef == null) {
+	private void onAnimationChanged(AnimationChanged event)
+	{
+		if (hunllef == null)
+		{
 			return;
 		}
 
 		final Actor actor = event.getActor();
 
 		// This section handles the player counter.
-		if (actor instanceof Player && fightingBoss()) {
+		if (actor instanceof Player && fightingBoss())
+		{
 			final Player player = (Player) actor;
 			final int anim = player.getAnimation();
 
-			if (player.getName() == null || client.getLocalPlayer() == null || !player.getName().equals(client.getLocalPlayer().getName()) || anim == -1 || !PLAYER_ANIMATIONS.contains(anim)) {
+			if (player.getName() == null || client.getLocalPlayer() == null || !player.getName().equals(client.getLocalPlayer().getName()) || anim == -1 || !PLAYER_ANIMATIONS.contains(anim))
+			{
 				return;
 			}
 
 			NPCDefinition comp = hunllef.getNpc().getDefinition();
 
-			if (comp == null || comp.getOverheadIcon() == null) {
+			if (comp == null || comp.getOverheadIcon() == null)
+			{
 				return;
 			}
 
 			final HeadIcon prayer = comp.getOverheadIcon();
 
-			switch (prayer) {
+			switch (prayer)
+			{
 				case MELEE:
-					if (MELEE_ANIMATIONS.contains(anim)) {
+					if (MELEE_ANIMATIONS.contains(anim))
+					{
 						setFlash(true);
 						return;
 					}
 					hunllef.updatePlayerAttack();
 					break;
 				case RANGED:
-					if (BOW_ATTACK == anim) {
+					if (BOW_ATTACK == anim)
+					{
 						setFlash(true);
 						return;
 					}
 					hunllef.updatePlayerAttack();
 					break;
 				case MAGIC:
-					if (STAFF_ATTACK == anim) {
+					if (STAFF_ATTACK == anim)
+					{
 						setFlash(true);
 						return;
 					}
@@ -384,151 +446,200 @@ public class GauntletPlugin extends Plugin {
 		}
 
 		// This section handles the boss attack counter if they perform a lightning attack.
-		if (actor instanceof NPC) {
+		if (actor instanceof NPC)
+		{
 			final NPC npc = (NPC) actor;
 
-			if (npc.getAnimation() == LIGHTNING_ANIMATION) {
+			if (npc.getAnimation() == LIGHTNING_ANIMATION)
+			{
 				hunllef.updateAttack(LIGHTNING);
 			}
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("Gauntlet")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("Gauntlet"))
+		{
 			return;
 		}
 
 		updateConfig();
 
-		if (event.getKey().equals("displayTimerWidget")) {
-			if (this.displayTimerWidget && !timerVisible) {
+		if (event.getKey().equals("displayTimerWidget"))
+		{
+			if (this.displayTimerWidget && !timerVisible)
+			{
 				overlayManager.add(timer);
 				timerVisible = true;
-			} else if (!this.displayTimerWidget && timerVisible) {
+			}
+			else if (!this.displayTimerWidget && timerVisible)
+			{
 				overlayManager.remove(timer);
 				timerVisible = false;
 			}
 		}
 
-		if (event.getKey().equals("displayResources")) {
-			if (this.displayResources && this.startedGauntlet()) {
+		if (event.getKey().equals("displayResources"))
+		{
+			if (this.displayResources && this.startedGauntlet())
+			{
 				addCounters();
-			} else {
+			}
+			else
+			{
 				removeCounters();
 			}
 		}
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event) {
+	private void onGameObjectDespawned(GameObjectDespawned event)
+	{
 		final GameObject obj = event.getGameObject();
-		if (RESOURCES.contains(obj.getId())) {
+		if (RESOURCES.contains(obj.getId()))
+		{
 			resources.removeIf(object -> object.getGameObject() == obj);
 		}
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(GameObjectSpawned event) {
+	private void onGameObjectSpawned(GameObjectSpawned event)
+	{
 		final GameObject obj = event.getGameObject();
-		if (RESOURCES.contains(obj.getId())) {
+		if (RESOURCES.contains(obj.getId()))
+		{
 			resources.add(new Resources(obj, event.getTile(), skillIconManager));
 		}
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOADING) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOADING)
+		{
 			resources.clear();
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
+	private void onGameTick(GameTick event)
+	{
 		// This handles the timer based on player health.
-		if (this.completeStartup) {
+		if (this.completeStartup)
+		{
 			timer.checkStates(false);
 		}
-		if (!tornadoes.isEmpty()) {
+		if (!tornadoes.isEmpty())
+		{
 			tornadoes.forEach(Tornado::updateTimeLeft);
 		}
-		if (hunllef != null) {
-			if (hunllef.getTicksUntilAttack() > 0) {
+		if (hunllef != null)
+		{
+			if (hunllef.getTicksUntilAttack() > 0)
+			{
 				hunllef.setTicksUntilAttack(hunllef.getTicksUntilAttack() - 1);
 			}
 		}
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned event) {
+	private void onNpcDespawned(NpcDespawned event)
+	{
 		final NPC npc = event.getNpc();
-		if (HUNLLEF_NPC_IDS.contains(npc.getId())) {
+		if (HUNLLEF_NPC_IDS.contains(npc.getId()))
+		{
 			setHunllef(null);
 			resetGatheringCounters();
-		} else if (TORNADO_NPC_IDS.contains(npc.getId())) {
+		}
+		else if (TORNADO_NPC_IDS.contains(npc.getId()))
+		{
 			tornadoes.removeIf(tornado -> tornado.getNpc() == npc);
 		}
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned event) {
+	private void onNpcSpawned(NpcSpawned event)
+	{
 		final NPC npc = event.getNpc();
-		if (HUNLLEF_NPC_IDS.contains(npc.getId())) {
+		if (HUNLLEF_NPC_IDS.contains(npc.getId()))
+		{
 			setHunllef(new Hunllef(npc, skillIconManager));
-		} else if (TORNADO_NPC_IDS.contains(npc.getId())) {
+		}
+		else if (TORNADO_NPC_IDS.contains(npc.getId()))
+		{
 			tornadoes.add(new Tornado(npc));
 		}
 	}
 
 	@Subscribe
-	private void onProjectileSpawned(ProjectileSpawned event) {
-		if (hunllef == null) {
+	private void onProjectileSpawned(ProjectileSpawned event)
+	{
+		if (hunllef == null)
+		{
 			return;
 		}
 
 		final Projectile proj = event.getProjectile();
 
-		if (HUNLLEF_PROJECTILES.contains(proj.getId())) {
+		if (HUNLLEF_PROJECTILES.contains(proj.getId()))
+		{
 			projectiles.add(new Missiles(proj, skillIconManager));
-			if (HUNLLEF_MAGE_PROJECTILES.contains(proj.getId())) {
+			if (HUNLLEF_MAGE_PROJECTILES.contains(proj.getId()))
+			{
 				hunllef.updateAttack(MAGIC);
-			} else if (HUNLLEF_PRAYER_PROJECTILES.contains(proj.getId())) {
+			}
+			else if (HUNLLEF_PRAYER_PROJECTILES.contains(proj.getId()))
+			{
 				hunllef.updateAttack(PRAYER);
-				if (this.uniquePrayerAudio) {
+				if (this.uniquePrayerAudio)
+				{
 					client.playSoundEffect(SoundEffectID.MAGIC_SPLASH_BOING);
 				}
-			} else if (HUNLLEF_RANGE_PROJECTILES.contains(proj.getId())) {
+			}
+			else if (HUNLLEF_RANGE_PROJECTILES.contains(proj.getId()))
+			{
 				hunllef.updateAttack(RANGE);
 			}
 		}
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged event) {
-		if (client.getVar(Varbits.GAUNTLET_ENTERED) == 1 && !inGauntlet) {
+	private void onVarbitChanged(VarbitChanged event)
+	{
+		if (client.getVar(Varbits.GAUNTLET_ENTERED) == 1 && !inGauntlet)
+		{
 			resetGatheringCounters();
 			inGauntlet = true;
 		}
-		if (this.completeStartup) {
+		if (this.completeStartup)
+		{
 			timer.checkStates(true);
 		}
-		if (startedGauntlet() && displayResources) {
+		if (startedGauntlet() && displayResources)
+		{
 			addCounters();
-		} else {
+		}
+		else
+		{
 			removeCounters();
 			inGauntlet = false;
 		}
 	}
 
-	boolean fightingBoss() {
+	boolean fightingBoss()
+	{
 		return client.getVar(Varbits.GAUNTLET_FINAL_ROOM_ENTERED) == 1;
 	}
 
-	boolean startedGauntlet() {
+	boolean startedGauntlet()
+	{
 		return client.getVar(Varbits.GAUNTLET_ENTERED) == 1;
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.highlightResources = config.highlightResources();
 		this.highlightResourcesColor = config.highlightResourcesColor();
 		this.highlightResourcesIcons = config.highlightResourcesIcons();

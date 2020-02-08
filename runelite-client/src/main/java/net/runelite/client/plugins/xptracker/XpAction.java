@@ -27,7 +27,8 @@ package net.runelite.client.plugins.xptracker;
 import lombok.Data;
 
 @Data
-class XpAction {
+class XpAction
+{
 	private int actions = 0;
 	private boolean actionsHistoryInitialized = false;
 	private int[] actionExps = new int[10];

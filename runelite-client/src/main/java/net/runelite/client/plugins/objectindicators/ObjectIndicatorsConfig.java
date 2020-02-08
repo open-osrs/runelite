@@ -26,81 +26,93 @@
 
 package net.runelite.client.plugins.objectindicators;
 
-import net.runelite.client.config.*;
-
-import java.awt.*;
+import java.awt.Color;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitleSection;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Title;
+import net.runelite.client.config.Units;
 
 @ConfigGroup("objectindicators")
-public interface ObjectIndicatorsConfig extends Config {
+public interface ObjectIndicatorsConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "overlayTitle",
-			name = "Overlay Style",
-			description = "",
-			position = 0
+		keyName = "overlayTitle",
+		name = "Overlay Style",
+		description = "",
+		position = 0
 	)
-	default Title overlayTitle() {
+	default Title overlayTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "objectMarkerRenderStyle",
-			name = "Highlight Style",
-			description = "Highlight setting",
-			titleSection = "overlayTitle"
+		position = 1,
+		keyName = "objectMarkerRenderStyle",
+		name = "Highlight Style",
+		description = "Highlight setting",
+		titleSection = "overlayTitle"
 	)
-	default RenderStyle objectMarkerRenderStyle() {
+	default RenderStyle objectMarkerRenderStyle()
+	{
 		return RenderStyle.OUTLINE;
 	}
 
 
 	@ConfigItem(
-			position = 2,
-			keyName = "objectMarkerOutlineRenderStyle",
-			name = "Outline Style",
-			description = "Highlight outline setting",
-			titleSection = "overlayTitle",
-			hidden = true,
-			unhide = "objectMarkerRenderStyle",
-			unhideValue = "OUTLINE"
+		position = 2,
+		keyName = "objectMarkerOutlineRenderStyle",
+		name = "Outline Style",
+		description = "Highlight outline setting",
+		titleSection = "overlayTitle",
+		hidden = true,
+		unhide = "objectMarkerRenderStyle",
+		unhideValue = "OUTLINE"
 	)
-	default OutlineRenderStyle objectMarkerOutlineRenderStyle() {
+	default OutlineRenderStyle objectMarkerOutlineRenderStyle()
+	{
 		return OutlineRenderStyle.NORMAL_OUTLINE;
 	}
 
 	@ConfigTitleSection(
-			keyName = "colorTitle",
-			name = "Colors",
-			description = "",
-			position = 3
+		keyName = "colorTitle",
+		name = "Colors",
+		description = "",
+		position = 3
 	)
-	default Title colorTitle() {
+	default Title colorTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "markerColor",
-			name = "Marker color",
-			description = "Configures the outer color of object marker",
-			titleSection = "colorTitle"
+		position = 4,
+		keyName = "markerColor",
+		name = "Marker color",
+		description = "Configures the outer color of object marker",
+		titleSection = "colorTitle"
 	)
-	default Color objectMarkerColor() {
+	default Color objectMarkerColor()
+	{
 		return Color.YELLOW;
 	}
 
 	@Range(
-			max = 100
+		max = 100
 	)
 	@ConfigItem(
-			position = 5,
-			keyName = "objectMarkerAlpha",
-			name = "Alpha",
-			description = "Configures the opacity/alpha of object marker",
-			titleSection = "colorTitle"
+		position = 5,
+		keyName = "objectMarkerAlpha",
+		name = "Alpha",
+		description = "Configures the opacity/alpha of object marker",
+		titleSection = "colorTitle"
 	)
 	@Units(Units.PERCENT)
-	default int objectMarkerAlpha() {
+	default int objectMarkerAlpha()
+	{
 		return 100;
 	}
 }

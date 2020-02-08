@@ -26,9 +26,18 @@
 package net.runelite.client.plugins.combatlevel;
 
 import com.google.inject.Provides;
+import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.Experience;
+import net.runelite.api.GameState;
+import net.runelite.api.Skill;
+import net.runelite.api.WorldType;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.widgets.Widget;
@@ -42,20 +51,15 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.text.DecimalFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 @PluginDescriptor(
-		name = "Combat Level",
-		description = "Show a more accurate combat level in Combat Options panel and other combat level functions",
-		tags = {"wilderness", "attack", "range"},
-		type = PluginType.UTILITY
+	name = "Combat Level",
+	description = "Show a more accurate combat level in Combat Options panel and other combat level functions",
+	tags = {"wilderness", "attack", "range"},
+	type = PluginType.UTILITY
 )
 @Singleton
-public class CombatLevelPlugin extends Plugin {
+public class CombatLevelPlugin extends Plugin
+{
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.###");
 	private static final String CONFIG_GROUP = "combatlevel";
 	private static final String ATTACK_RANGE_CONFIG_KEY = "wildernessAttackLevelRange";
@@ -87,30 +91,36 @@ public class CombatLevelPlugin extends Plugin {
 	private boolean wildernessAttackLevelRange;
 
 	@Provides
-	CombatLevelConfig provideConfig(ConfigManager configManager) {
+	CombatLevelConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(CombatLevelConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(overlay);
 
-		if (this.wildernessAttackLevelRange) {
+		if (this.wildernessAttackLevelRange)
+		{
 			appendAttackLevelRangeText();
 		}
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		Widget combatLevelWidget = client.getWidget(WidgetInfo.COMBAT_LEVEL);
 
-		if (combatLevelWidget != null) {
+		if (combatLevelWidget != null)
+		{
 			String widgetText = combatLevelWidget.getText();
 
-			if (widgetText.contains(".")) {
+			if (widgetText.contains("."))
+			{
 				combatLevelWidget.setText(widgetText.substring(0, widgetText.indexOf('.')));
 			}
 		}
@@ -119,70 +129,85 @@ public class CombatLevelPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
-		if (client.getGameState() != GameState.LOGGED_IN) {
+	private void onGameTick(GameTick event)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
 		Widget combatLevelWidget = client.getWidget(WidgetInfo.COMBAT_LEVEL);
-		if (combatLevelWidget == null) {
+		if (combatLevelWidget == null)
+		{
 			return;
 		}
 
 		double combatLevelPrecise = Experience.getCombatLevelPrecise(
-				client.getRealSkillLevel(Skill.ATTACK),
-				client.getRealSkillLevel(Skill.STRENGTH),
-				client.getRealSkillLevel(Skill.DEFENCE),
-				client.getRealSkillLevel(Skill.HITPOINTS),
-				client.getRealSkillLevel(Skill.MAGIC),
-				client.getRealSkillLevel(Skill.RANGED),
-				client.getRealSkillLevel(Skill.PRAYER)
+			client.getRealSkillLevel(Skill.ATTACK),
+			client.getRealSkillLevel(Skill.STRENGTH),
+			client.getRealSkillLevel(Skill.DEFENCE),
+			client.getRealSkillLevel(Skill.HITPOINTS),
+			client.getRealSkillLevel(Skill.MAGIC),
+			client.getRealSkillLevel(Skill.RANGED),
+			client.getRealSkillLevel(Skill.PRAYER)
 		);
 
 		combatLevelWidget.setText("Combat Lvl: " + DECIMAL_FORMAT.format(combatLevelPrecise));
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!CONFIG_GROUP.equals(event.getGroup()) || !ATTACK_RANGE_CONFIG_KEY.equals(event.getKey())) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!CONFIG_GROUP.equals(event.getGroup()) || !ATTACK_RANGE_CONFIG_KEY.equals(event.getKey()))
+		{
 			return;
 		}
 
 		updateConfig();
 
-		if (this.wildernessAttackLevelRange) {
+		if (this.wildernessAttackLevelRange)
+		{
 			appendAttackLevelRangeText();
-		} else {
+		}
+		else
+		{
 			shutDownAttackLevelRange();
 		}
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent event) {
+	private void onScriptCallbackEvent(ScriptCallbackEvent event)
+	{
 		if (this.wildernessAttackLevelRange
-				&& "wildernessWidgetTextSet".equals(event.getEventName())) {
+			&& "wildernessWidgetTextSet".equals(event.getEventName()))
+		{
 			appendAttackLevelRangeText();
 		}
 	}
 
-	private void appendAttackLevelRangeText() {
+	private void appendAttackLevelRangeText()
+	{
 		final Widget wildernessLevelWidget = client.getWidget(WidgetInfo.PVP_WILDERNESS_LEVEL);
-		if (wildernessLevelWidget == null) {
+		if (wildernessLevelWidget == null)
+		{
 			return;
 		}
 
 		final String wildernessLevelText = wildernessLevelWidget.getText();
 		final Matcher m = WILDERNESS_LEVEL_PATTERN.matcher(wildernessLevelText);
 		if (!m.matches()
-				|| WorldType.isPvpWorld(client.getWorldType())) {
+			|| WorldType.isPvpWorld(client.getWorldType()))
+		{
 			return;
 		}
 
 		final Widget skullContainer = client.getWidget(WidgetInfo.PVP_SKULL_CONTAINER);
-		if (originalWildernessLevelTextPosition == -1) {
+		if (originalWildernessLevelTextPosition == -1)
+		{
 			originalWildernessLevelTextPosition = wildernessLevelWidget.getOriginalY();
 		}
-		if (originalSkullContainerPosition == -1) {
+		if (originalSkullContainerPosition == -1)
+		{
 			originalSkullContainerPosition = skullContainer.getRelativeY();
 		}
 
@@ -197,15 +222,19 @@ public class CombatLevelPlugin extends Plugin {
 		clientThread.invoke(skullContainer::revalidate);
 	}
 
-	private void shutDownAttackLevelRange() {
-		if (WorldType.isPvpWorld(client.getWorldType())) {
+	private void shutDownAttackLevelRange()
+	{
+		if (WorldType.isPvpWorld(client.getWorldType()))
+		{
 			return;
 		}
 
 		final Widget wildernessLevelWidget = client.getWidget(WidgetInfo.PVP_WILDERNESS_LEVEL);
-		if (wildernessLevelWidget != null) {
+		if (wildernessLevelWidget != null)
+		{
 			String wildernessLevelText = wildernessLevelWidget.getText();
-			if (wildernessLevelText.contains("<br>")) {
+			if (wildernessLevelText.contains("<br>"))
+			{
 				wildernessLevelWidget.setText(wildernessLevelText.substring(0, wildernessLevelText.indexOf("<br>")));
 			}
 			wildernessLevelWidget.setOriginalY(originalWildernessLevelTextPosition);
@@ -214,18 +243,21 @@ public class CombatLevelPlugin extends Plugin {
 		originalWildernessLevelTextPosition = -1;
 
 		final Widget skullContainer = client.getWidget(WidgetInfo.PVP_SKULL_CONTAINER);
-		if (skullContainer != null) {
+		if (skullContainer != null)
+		{
 			skullContainer.setOriginalY(originalSkullContainerPosition);
 			clientThread.invoke(skullContainer::revalidate);
 		}
 		originalSkullContainerPosition = -1;
 	}
 
-	private static String combatAttackRange(final int combatLevel, final int wildernessLevel) {
+	private static String combatAttackRange(final int combatLevel, final int wildernessLevel)
+	{
 		return Math.max(MIN_COMBAT_LEVEL, combatLevel - wildernessLevel) + "-" + Math.min(Experience.MAX_COMBAT_LEVEL, combatLevel + wildernessLevel);
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showLevelsUntil = config.showLevelsUntil();
 		this.wildernessAttackLevelRange = config.showLevelsUntil();
 	}

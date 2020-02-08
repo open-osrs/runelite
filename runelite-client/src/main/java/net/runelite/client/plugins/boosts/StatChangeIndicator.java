@@ -24,18 +24,19 @@
  */
 package net.runelite.client.plugins.boosts;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.ui.overlay.infobox.InfoBoxPriority;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-class StatChangeIndicator extends InfoBox {
+class StatChangeIndicator extends InfoBox
+{
 	private final boolean up;
 	private final BoostsPlugin plugin;
 	private final BoostsConfig config;
 
-	StatChangeIndicator(boolean up, BufferedImage image, BoostsPlugin plugin, BoostsConfig config) {
+	StatChangeIndicator(boolean up, BufferedImage image, BoostsPlugin plugin, BoostsConfig config)
+	{
 		super(image, plugin);
 		this.up = up;
 		this.plugin = plugin;
@@ -45,17 +46,20 @@ class StatChangeIndicator extends InfoBox {
 	}
 
 	@Override
-	public String getText() {
+	public String getText()
+	{
 		return String.format("%02d", plugin.getChangeTime(up ? plugin.getChangeUpTicks() : plugin.getChangeDownTicks()));
 	}
 
 	@Override
-	public Color getTextColor() {
+	public Color getTextColor()
+	{
 		return (up ? plugin.getChangeUpTicks() : plugin.getChangeDownTicks()) < 10 ? Color.RED.brighter() : Color.WHITE;
 	}
 
 	@Override
-	public boolean render() {
+	public boolean render()
+	{
 		final int time = up ? plugin.getChangeUpTicks() : plugin.getChangeDownTicks();
 		return config.displayInfoboxes() && time != -1;
 	}

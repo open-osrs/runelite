@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PUBLIC)
-public enum PuzzleSwapPattern {
+public enum PuzzleSwapPattern
+{
 	ROTATE_LEFT_UP(new int[]{1, -1, 0, -1, -1, -1, -1, 0}, 1, 1), //Reference point
 	ROTATE_LEFT_DOWN(1, -1),
 	ROTATE_RIGHT_UP(-1, 1),
@@ -59,7 +60,8 @@ public enum PuzzleSwapPattern {
 	 */
 	private final int modY;
 
-	PuzzleSwapPattern(int modX, int modY) {
+	PuzzleSwapPattern(int modX, int modY)
+	{
 		this(null, modX, modY);
 	}
 }

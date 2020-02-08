@@ -27,19 +27,24 @@ package net.runelite.client.plugins.cluescrolls.clues.item;
 import net.runelite.api.Client;
 import net.runelite.api.Item;
 
-public class AnyRequirementCollection implements ItemRequirement {
+public class AnyRequirementCollection implements ItemRequirement
+{
 	private final String name;
 	private final ItemRequirement[] requirements;
 
-	public AnyRequirementCollection(String name, ItemRequirement... requirements) {
+	public AnyRequirementCollection(String name, ItemRequirement... requirements)
+	{
 		this.name = name;
 		this.requirements = requirements;
 	}
 
 	@Override
-	public boolean fulfilledBy(int itemId) {
-		for (ItemRequirement requirement : requirements) {
-			if (requirement.fulfilledBy(itemId)) {
+	public boolean fulfilledBy(int itemId)
+	{
+		for (ItemRequirement requirement : requirements)
+		{
+			if (requirement.fulfilledBy(itemId))
+			{
 				return true;
 			}
 		}
@@ -48,9 +53,12 @@ public class AnyRequirementCollection implements ItemRequirement {
 	}
 
 	@Override
-	public boolean fulfilledBy(Item[] items) {
-		for (ItemRequirement requirement : requirements) {
-			if (requirement.fulfilledBy(items)) {
+	public boolean fulfilledBy(Item[] items)
+	{
+		for (ItemRequirement requirement : requirements)
+		{
+			if (requirement.fulfilledBy(items))
+			{
 				return true;
 			}
 		}
@@ -59,7 +67,8 @@ public class AnyRequirementCollection implements ItemRequirement {
 	}
 
 	@Override
-	public String getCollectiveName(Client client) {
+	public String getCollectiveName(Client client)
+	{
 		return name;
 	}
 }

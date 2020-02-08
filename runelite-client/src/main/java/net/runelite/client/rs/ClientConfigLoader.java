@@ -25,48 +25,55 @@
  */
 package net.runelite.client.rs;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
-
-class ClientConfigLoader {
-	private ClientConfigLoader() {
+class ClientConfigLoader
+{
+	private ClientConfigLoader()
+	{
 	}
 
-	static RSConfig fetch(HttpUrl url) throws IOException {
+	static RSConfig fetch(HttpUrl url) throws IOException
+	{
 		final Request request = new Request.Builder()
-				.url(url)
-				.build();
+			.url(url)
+			.build();
 
 		final RSConfig config = new RSConfig();
 
 		OkHttpClient okHttpClient = new OkHttpClient.Builder()
-				.connectTimeout(2000, TimeUnit.MILLISECONDS)
-				.build();
+			.connectTimeout(2000, TimeUnit.MILLISECONDS)
+			.build();
 
-		try (final Response response = okHttpClient.newCall(request).execute()) {
-			if (!response.isSuccessful()) {
+		try (final Response response = okHttpClient.newCall(request).execute())
+		{
+			if (!response.isSuccessful())
+			{
 				throw new IOException("Unsuccessful response: " + response.message());
 			}
 
 			String str;
 			final BufferedReader in = new BufferedReader(new InputStreamReader(response.body().byteStream()));
-			while ((str = in.readLine()) != null) {
+			while ((str = in.readLine()) != null)
+			{
 				int idx = str.indexOf('=');
 
-				if (idx == -1) {
+				if (idx == -1)
+				{
 					continue;
 				}
 
 				String s = str.substring(0, idx);
 
-				switch (s) {
+				switch (s)
+				{
 					case "param":
 						str = str.substring(idx + 1);
 						idx = str.indexOf('=');

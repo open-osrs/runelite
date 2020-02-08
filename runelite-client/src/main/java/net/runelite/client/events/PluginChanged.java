@@ -29,7 +29,8 @@ import net.runelite.api.events.Event;
 import net.runelite.client.plugins.Plugin;
 
 @Data
-public class PluginChanged implements Event {
+public class PluginChanged implements Event
+{
 	private final Plugin plugin;
 	private final boolean loaded;
 }

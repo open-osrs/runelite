@@ -33,13 +33,15 @@ import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("zulrah")
 
-public interface ZulrahConfig extends Config {
+public interface ZulrahConfig extends Config
+{
 	@ConfigItem(
-			keyName = "sounds",
-			name = "Sounds Enabled",
-			description = "Configures whether client sounds are enabled for zulrah"
+		keyName = "sounds",
+		name = "Sounds Enabled",
+		description = "Configures whether client sounds are enabled for zulrah"
 	)
-	default boolean sounds() {
+	default boolean sounds()
+	{
 		return true;
 	}
 }

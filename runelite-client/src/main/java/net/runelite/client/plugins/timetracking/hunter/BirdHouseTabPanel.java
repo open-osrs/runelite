@@ -26,6 +26,10 @@
  */
 package net.runelite.client.plugins.timetracking.hunter;
 
+import java.awt.Color;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.timetracking.TabContentPanel;
@@ -34,12 +38,8 @@ import net.runelite.client.plugins.timetracking.TimeablePanel;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
 
-import java.awt.*;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
-public class BirdHouseTabPanel extends TabContentPanel {
+public class BirdHouseTabPanel extends TabContentPanel
+{
 	private static final Color COMPLETED_COLOR = ColorScheme.PROGRESS_COMPLETE_COLOR.darker();
 
 	private final ItemManager itemManager;
@@ -47,7 +47,8 @@ public class BirdHouseTabPanel extends TabContentPanel {
 	private final TimeTrackingConfig config;
 	private final List<TimeablePanel<BirdHouseSpace>> spacePanels;
 
-	BirdHouseTabPanel(ItemManager itemManager, BirdHouseTracker birdHouseTracker, TimeTrackingConfig config) {
+	BirdHouseTabPanel(ItemManager itemManager, BirdHouseTracker birdHouseTracker, TimeTrackingConfig config)
+	{
 		this.itemManager = itemManager;
 		this.birdHouseTracker = birdHouseTracker;
 		this.config = config;
@@ -57,14 +58,16 @@ public class BirdHouseTabPanel extends TabContentPanel {
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 
 		boolean first = true;
-		for (BirdHouseSpace space : BirdHouseSpace.values()) {
+		for (BirdHouseSpace space : BirdHouseSpace.values())
+		{
 			TimeablePanel<BirdHouseSpace> panel = new TimeablePanel<>(space, space.getName(), BirdHouseTracker.BIRD_HOUSE_DURATION);
 
 			spacePanels.add(panel);
 			add(panel);
 
 			// remove the top border on the first panel
-			if (first) {
+			if (first)
+			{
 				first = false;
 				panel.setBorder(null);
 			}
@@ -72,21 +75,25 @@ public class BirdHouseTabPanel extends TabContentPanel {
 	}
 
 	@Override
-	public int getUpdateInterval() {
+	public int getUpdateInterval()
+	{
 		return 50; // 10 seconds
 	}
 
 	@Override
-	public void update() {
+	public void update()
+	{
 		long unixNow = Instant.now().getEpochSecond();
 
-		for (TimeablePanel<BirdHouseSpace> panel : spacePanels) {
+		for (TimeablePanel<BirdHouseSpace> panel : spacePanels)
+		{
 			BirdHouseSpace space = panel.getTimeable();
 			BirdHouseData data = birdHouseTracker.getBirdHouseData().get(space);
 			int value = -1;
 			long startTime = 0;
 
-			if (data != null) {
+			if (data != null)
+			{
 				value = data.getVarp();
 				startTime = data.getTimestamp();
 			}
@@ -94,10 +101,13 @@ public class BirdHouseTabPanel extends TabContentPanel {
 			BirdHouse birdHouse = BirdHouse.fromVarpValue(value);
 			BirdHouseState state = BirdHouseState.fromVarpValue(value);
 
-			if (birdHouse == null) {
+			if (birdHouse == null)
+			{
 				itemManager.getImage(ItemID.FEATHER).addTo(panel.getIcon());
 				panel.getProgress().setVisible(false);
-			} else {
+			}
+			else
+			{
 				itemManager.getImage(birdHouse.getItemID()).addTo(panel.getIcon());
 				panel.getIcon().setToolTipText(birdHouse.getName());
 				panel.getProgress().setVisible(true);
@@ -105,7 +115,8 @@ public class BirdHouseTabPanel extends TabContentPanel {
 
 			panel.getProgress().setForeground(state.getColor().darker());
 
-			switch (state) {
+			switch (state)
+			{
 				case EMPTY:
 					panel.getIcon().setToolTipText("Empty");
 					panel.getEstimate().setText("Empty");
@@ -116,11 +127,14 @@ public class BirdHouseTabPanel extends TabContentPanel {
 					break;
 				case SEEDED:
 					long remainingTime = startTime + BirdHouseTracker.BIRD_HOUSE_DURATION - unixNow;
-					if (remainingTime <= 0) {
+					if (remainingTime <= 0)
+					{
 						panel.getProgress().setValue(BirdHouseTracker.BIRD_HOUSE_DURATION);
 						panel.getProgress().setForeground(COMPLETED_COLOR);
 						panel.getEstimate().setText("Done");
-					} else {
+					}
+					else
+					{
 						panel.getProgress().setValue((int) (BirdHouseTracker.BIRD_HOUSE_DURATION - remainingTime));
 						panel.getEstimate().setText("Done " + getFormattedEstimate(remainingTime, config.estimateRelative()));
 					}

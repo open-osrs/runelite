@@ -31,7 +31,8 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum ControlFunction {
+public enum ControlFunction
+{
 	NONE("None"),
 	CONTROL_TO_ZOOM("Hold to zoom"),
 	CONTROL_TO_RESET("Reset zoom");
@@ -39,7 +40,8 @@ public enum ControlFunction {
 	private final String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return getName();
 	}
 }

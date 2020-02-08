@@ -28,7 +28,6 @@ package net.runelite.client.plugins.suppliestracker;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import static net.runelite.api.ItemID.*;
 
 /**
@@ -36,7 +35,8 @@ import static net.runelite.api.ItemID.*;
  * that assigns the supplies to these categories
  */
 @AllArgsConstructor
-public enum ItemType {
+public enum ItemType
+{
 	FOOD("Food"),
 	POTION("Potions"),
 	RUNE("Runes"),
@@ -59,33 +59,51 @@ public enum ItemType {
 	 * note that if the guess is wrong (per say) it won't break anything because it will be
 	 * consistently wrong but it could have an item that is clearly not food in the food section
 	 */
-	public static ItemType categorize(SuppliesTrackerItem item) {
-		if (item.getName().contains("(4)")) {
+	public static ItemType categorize(SuppliesTrackerItem item)
+	{
+		if (item.getName().contains("(4)"))
+		{
 			return ItemType.POTION;
-		} else if ((item.getName().toLowerCase().contains("bones") && !item.getName().toLowerCase().contains(" to ")) ||
-				item.getName().toLowerCase().contains("ensouled")) {
+		}
+		else if ((item.getName().toLowerCase().contains("bones") && !item.getName().toLowerCase().contains(" to ")) ||
+				item.getName().toLowerCase().contains("ensouled"))
+		{
 			return ItemType.PRAYER;
-		} else if (item.getName().toLowerCase().contains("bolt") || item.getName().toLowerCase().contains("dart")
+		}
+		else if (item.getName().toLowerCase().contains("bolt") || item.getName().toLowerCase().contains("dart")
 				|| item.getName().toLowerCase().contains(" arrow") || item.getName().toLowerCase().contains("javelin")
 				|| item.getName().toLowerCase().contains("knive") || item.getName().toLowerCase().contains("throwing")
 				|| item.getName().toLowerCase().contains("zulrah's scale") || item.getName().toLowerCase().contains("cannonball")
-				|| item.getName().toLowerCase().contains("knife")) {
+				|| item.getName().toLowerCase().contains("knife"))
+		{
 			return ItemType.AMMO;
-		} else if (item.getName().toLowerCase().contains("rune")) {
+		}
+		else if (item.getName().toLowerCase().contains("rune"))
+		{
 			return ItemType.RUNE;
-		} else if (item.getName().toLowerCase().contains("teleport")) {
+		}
+		else if (item.getName().toLowerCase().contains("teleport"))
+		{
 			return ItemType.TELEPORT;
-		} else if (item.getId() == COINS_995) {
+		}
+		else if (item.getId() == COINS_995)
+		{
 			return ItemType.COINS;
-		} else if (item.getName().toLowerCase().contains("ring of") || item.getName().toLowerCase().contains("amulet") ||
-				item.getName().toLowerCase().contains("bracelet") || item.getName().toLowerCase().contains("necklace")) {
+		}
+		else if (item.getName().toLowerCase().contains("ring of") || item.getName().toLowerCase().contains("amulet") ||
+				item.getName().toLowerCase().contains("bracelet") || item.getName().toLowerCase().contains("necklace"))
+		{
 			return ItemType.JEWELLERY;
-		} else if (item.getName().toLowerCase().contains(" sapling") || item.getName().toLowerCase().contains(" seed") ||
-				item.getName().toLowerCase().contains("compost") || item.getName().toLowerCase().contains("plant cure")) {
+		}
+		else if (item.getName().toLowerCase().contains(" sapling") || item.getName().toLowerCase().contains(" seed") ||
+				item.getName().toLowerCase().contains("compost") || item.getName().toLowerCase().contains("plant cure"))
+		{
 			return ItemType.FARMING;
-		} else if (item.getId() == SCYTHE_OF_VITUR || item.getId() == SANGUINESTI_STAFF ||
+		}
+		else if (item.getId() == SCYTHE_OF_VITUR || item.getId() == SANGUINESTI_STAFF ||
 				item.getId() == TRIDENT_OF_THE_SEAS || item.getId() == TRIDENT_OF_THE_SWAMP ||
-				item.getId() == BLADE_OF_SAELDOR) {
+				item.getId() == BLADE_OF_SAELDOR)
+		{
 			return ItemType.CHARGES;
 		}
 		return ItemType.FOOD;

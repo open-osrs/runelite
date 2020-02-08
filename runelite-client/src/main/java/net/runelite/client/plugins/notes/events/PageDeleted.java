@@ -7,7 +7,8 @@ import lombok.Setter;
 import net.runelite.api.events.Event;
 
 @AllArgsConstructor
-public class PageDeleted implements Event {
+public class PageDeleted implements Event
+{
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
 	private int index;

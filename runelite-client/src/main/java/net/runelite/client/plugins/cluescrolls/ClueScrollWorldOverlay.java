@@ -24,17 +24,19 @@
  */
 package net.runelite.client.plugins.cluescrolls;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.client.plugins.cluescrolls.clues.ClueScroll;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-public class ClueScrollWorldOverlay extends Overlay {
+public class ClueScrollWorldOverlay extends Overlay
+{
 	public static final int IMAGE_Z_OFFSET = 30;
 
 	public static final Color CLICKBOX_BORDER_COLOR = Color.ORANGE;
@@ -44,17 +46,20 @@ public class ClueScrollWorldOverlay extends Overlay {
 	private final ClueScrollPlugin plugin;
 
 	@Inject
-	private ClueScrollWorldOverlay(final ClueScrollPlugin plugin) {
+	private ClueScrollWorldOverlay(final ClueScrollPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		ClueScroll clue = plugin.getClue();
 
-		if (clue != null) {
+		if (clue != null)
+		{
 			clue.makeWorldOverlayHint(graphics, plugin);
 		}
 

@@ -31,7 +31,8 @@ import net.runelite.api.ItemID;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public enum Tab {
+public enum Tab
+{
 	OVERVIEW("Overview", ItemID.OLD_NOTES),
 	CLOCK("Timers & Stopwatches", ItemID.WATCH),
 	BIRD_HOUSE("Bird Houses", ItemID.OAK_BIRD_HOUSE),

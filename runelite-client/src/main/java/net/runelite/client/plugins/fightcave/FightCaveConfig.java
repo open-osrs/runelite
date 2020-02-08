@@ -24,97 +24,111 @@
  */
 package net.runelite.client.plugins.fightcave;
 
+import java.awt.Font;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.runelite.client.config.*;
-
-import java.awt.*;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitleSection;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Title;
+import net.runelite.client.config.Units;
 
 @ConfigGroup("fightcave")
-public interface FightCaveConfig extends Config {
+public interface FightCaveConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "mainConfig",
-			position = 0,
-			name = "Main Config",
-			description = ""
+		keyName = "mainConfig",
+		position = 0,
+		name = "Main Config",
+		description = ""
 	)
-	default Title mainConfig() {
+	default Title mainConfig()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "waveDisplay",
-			name = "Wave display",
-			description = "Shows monsters that will spawn on the selected wave(s).",
-			titleSection = "mainConfig"
+		position = 1,
+		keyName = "waveDisplay",
+		name = "Wave display",
+		description = "Shows monsters that will spawn on the selected wave(s).",
+		titleSection = "mainConfig"
 	)
-	default WaveDisplayMode waveDisplay() {
+	default WaveDisplayMode waveDisplay()
+	{
 		return WaveDisplayMode.BOTH;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "tickTimersWidget",
-			name = "Tick Timers in Prayer",
-			description = "Adds an overlay to the Prayer Interface with the ticks until next attack for that prayer.",
-			titleSection = "mainConfig"
+		position = 2,
+		keyName = "tickTimersWidget",
+		name = "Tick Timers in Prayer",
+		description = "Adds an overlay to the Prayer Interface with the ticks until next attack for that prayer.",
+		titleSection = "mainConfig"
 	)
-	default boolean tickTimersWidget() {
+	default boolean tickTimersWidget()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "text",
-			position = 3,
-			name = "Text",
-			description = ""
+		keyName = "text",
+		position = 3,
+		name = "Text",
+		description = ""
 	)
-	default Title text() {
+	default Title text()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "fontStyle",
-			name = "Font Style",
-			description = "Plain | Bold | Italics",
-			titleSection = "text"
+		position = 4,
+		keyName = "fontStyle",
+		name = "Font Style",
+		description = "Plain | Bold | Italics",
+		titleSection = "text"
 	)
-	default FontStyle fontStyle() {
+	default FontStyle fontStyle()
+	{
 		return FontStyle.BOLD;
 	}
 
 	@Range(
-			min = 14,
-			max = 40
+		min = 14,
+		max = 40
 	)
 	@ConfigItem(
-			position = 5,
-			keyName = "textSize",
-			name = "Text Size",
-			description = "Text Size for Timers.",
-			titleSection = "text"
+		position = 5,
+		keyName = "textSize",
+		name = "Text Size",
+		description = "Text Size for Timers.",
+		titleSection = "text"
 	)
 	@Units(Units.POINTS)
-	default int textSize() {
+	default int textSize()
+	{
 		return 32;
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "shadows",
-			name = "Shadows",
-			description = "Adds Shadows to text.",
-			titleSection = "text"
+		position = 6,
+		keyName = "shadows",
+		name = "Shadows",
+		description = "Adds Shadows to text.",
+		titleSection = "text"
 	)
-	default boolean shadows() {
+	default boolean shadows()
+	{
 		return false;
 	}
 
 	@Getter
 	@AllArgsConstructor
-	enum FontStyle {
+	enum FontStyle
+	{
 		BOLD("Bold", Font.BOLD),
 		ITALIC("Italic", Font.ITALIC),
 		PLAIN("Plain", Font.PLAIN);
@@ -123,7 +137,8 @@ public interface FightCaveConfig extends Config {
 		private int font;
 
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return getName();
 		}
 	}

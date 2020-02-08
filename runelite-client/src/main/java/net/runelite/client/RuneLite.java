@@ -34,6 +34,16 @@ import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
 import io.sentry.Sentry;
 import io.sentry.SentryClient;
+import java.io.File;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+import java.util.Locale;
+import java.util.Optional;
+import javax.annotation.Nullable;
+import javax.inject.Provider;
+import javax.inject.Singleton;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -50,7 +60,12 @@ import net.runelite.client.chat.CommandManager;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.discord.DiscordService;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.game.*;
+import net.runelite.client.game.ClanManager;
+import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.LootManager;
+import net.runelite.client.game.PlayerManager;
+import net.runelite.client.game.WorldService;
+import net.runelite.client.game.XpDropManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.menus.MenuManager;
@@ -74,20 +89,10 @@ import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldResult;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
-import javax.inject.Provider;
-import javax.inject.Singleton;
-import java.io.File;
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
-import java.util.Locale;
-import java.util.Optional;
-
 @Singleton
 @Slf4j
-public class RuneLite {
+public class RuneLite
+{
 	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".runelite");
 	public static final File CACHE_DIR = new File(RUNELITE_DIR, "cache");
 	public static final File PROFILES_DIR = new File(RUNELITE_DIR, "profiles");
@@ -183,7 +188,8 @@ public class RuneLite {
 	@Inject
 	private Scheduler scheduler;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception
+	{
 		Locale.setDefault(Locale.ENGLISH);
 
 		final OptionParser parser = new OptionParser();
@@ -191,62 +197,72 @@ public class RuneLite {
 		parser.accepts("debug", "Show extra debugging output");
 		parser.accepts("no-splash", "Do not show the splash screen");
 		final ArgumentAcceptingOptionSpec<String> proxyInfo = parser
-				.accepts("proxy")
-				.withRequiredArg().ofType(String.class);
+			.accepts("proxy")
+			.withRequiredArg().ofType(String.class);
 		final ArgumentAcceptingOptionSpec<Integer> worldInfo = parser
-				.accepts("world")
-				.withRequiredArg().ofType(Integer.class);
+			.accepts("world")
+			.withRequiredArg().ofType(Integer.class);
 		final ArgumentAcceptingOptionSpec<ClientUpdateCheckMode> updateMode = parser
-				.accepts("rs", "Select client type")
-				.withRequiredArg()
-				.ofType(ClientUpdateCheckMode.class)
-				.defaultsTo(ClientUpdateCheckMode.AUTO)
-				.withValuesConvertedBy(new EnumConverter<ClientUpdateCheckMode>(ClientUpdateCheckMode.class) {
-					@Override
-					public ClientUpdateCheckMode convert(String v) {
-						return super.convert(v.toUpperCase());
-					}
-				});
+			.accepts("rs", "Select client type")
+			.withRequiredArg()
+			.ofType(ClientUpdateCheckMode.class)
+			.defaultsTo(ClientUpdateCheckMode.AUTO)
+			.withValuesConvertedBy(new EnumConverter<ClientUpdateCheckMode>(ClientUpdateCheckMode.class)
+			{
+				@Override
+				public ClientUpdateCheckMode convert(String v)
+				{
+					return super.convert(v.toUpperCase());
+				}
+			});
 
 		parser.accepts("help", "Show this text").forHelp();
 		OptionSet options = parser.parse(args);
 
-		if (options.has("help")) {
+		if (options.has("help"))
+		{
 			parser.printHelpOn(System.out);
 			System.exit(0);
 		}
 
-		if (options.has("debug")) {
+		if (options.has("debug"))
+		{
 			final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 			logger.setLevel(Level.DEBUG);
 		}
 
-		if (options.has("proxy")) {
+		if (options.has("proxy"))
+		{
 			String[] proxy = options.valueOf(proxyInfo).split(":");
 
-			if (proxy.length >= 2) {
+			if (proxy.length >= 2)
+			{
 				System.setProperty("socksProxyHost", proxy[0]);
 				System.setProperty("socksProxyPort", proxy[1]);
 			}
 
-			if (proxy.length >= 4) {
+			if (proxy.length >= 4)
+			{
 				System.setProperty("java.net.socks.username", proxy[2]);
 				System.setProperty("java.net.socks.password", proxy[3]);
 
 				final String user = proxy[2];
 				final char[] pass = proxy[3].toCharArray();
 
-				Authenticator.setDefault(new Authenticator() {
+				Authenticator.setDefault(new Authenticator()
+				{
 					private final PasswordAuthentication auth = new PasswordAuthentication(user, pass);
 
-					protected PasswordAuthentication getPasswordAuthentication() {
+					protected PasswordAuthentication getPasswordAuthentication()
+					{
 						return auth;
 					}
 				});
 			}
 		}
 
-		if (options.has("world")) {
+		if (options.has("world"))
+		{
 			int world = options.valueOf(worldInfo);
 			System.setProperty("cli.world", String.valueOf(world));
 		}
@@ -256,23 +272,26 @@ public class RuneLite {
 
 		final ClientLoader clientLoader = new ClientLoader(options.valueOf(updateMode));
 		Completable.fromAction(clientLoader::get)
-				.subscribeOn(Schedulers.computation())
-				.subscribe();
+			.subscribeOn(Schedulers.computation())
+			.subscribe();
 
 		Completable.fromAction(ClassPreloader::preload)
-				.subscribeOn(Schedulers.computation())
-				.subscribe();
+			.subscribeOn(Schedulers.computation())
+			.subscribe();
 
-		if (!options.has("no-splash")) {
+		if (!options.has("no-splash"))
+		{
 			RuneLiteSplashScreen.init();
 		}
 
 		final boolean developerMode = options.has("developer-mode");
 
-		if (developerMode) {
+		if (developerMode)
+		{
 			boolean assertions = false;
 			assert assertions = true;
-			if (!assertions) {
+			if (!assertions)
+			{
 				log.warn("Developers should enable assertions; Add `-ea` to your JVM arguments`");
 			}
 		}
@@ -280,7 +299,8 @@ public class RuneLite {
 		Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
 		{
 			log.error("Uncaught exception:", throwable);
-			if (throwable instanceof AbstractMethodError) {
+			if (throwable instanceof AbstractMethodError)
+			{
 				RuneLiteSplashScreen.setError("Out of date!", "Classes are out of date; Build with Gradle again.");
 				return;
 			}
@@ -293,8 +313,8 @@ public class RuneLite {
 		final long start = System.currentTimeMillis();
 
 		injector = Guice.createInjector(new RuneLiteModule(
-				clientLoader,
-				true));
+			clientLoader,
+			true));
 
 		injector.getInstance(RuneLite.class).start();
 		final long end = System.currentTimeMillis();
@@ -304,15 +324,18 @@ public class RuneLite {
 	}
 
 	@VisibleForTesting
-	public static void setInjector(Injector injector) {
+	public static void setInjector(Injector injector)
+	{
 		RuneLite.injector = injector;
 	}
 
-	private void start() throws Exception {
+	private void start() throws Exception
+	{
 		// Load RuneLite or Vanilla client
 		final boolean isOutdated = client == null;
 
-		if (!isOutdated) {
+		if (!isOutdated)
+		{
 			// Inject members into client
 			injector.injectMembers(client);
 		}
@@ -355,7 +378,8 @@ public class RuneLite {
 		// Initialize Discord service
 		discordService.init();
 
-		if (!isOutdated) {
+		if (!isOutdated)
+		{
 			// Initialize chat colors
 			chatMessageManager.get().loadColors();
 
@@ -387,7 +411,8 @@ public class RuneLite {
 		pluginManager.startCorePlugins();
 
 		// Register additional schedulers
-		if (this.client != null) {
+		if (this.client != null)
+		{
 			scheduler.registerObject(modelOutlineRenderer.get());
 			scheduler.registerObject(clientSessionManager);
 		}
@@ -398,23 +423,27 @@ public class RuneLite {
 		clientUI.show();
 	}
 
-	private void setWorld(int cliWorld) {
+	private void setWorld(int cliWorld)
+	{
 		int correctedWorld = cliWorld < 300 ? cliWorld + 300 : cliWorld;
 
-		if (correctedWorld <= 300 || client.getWorld() == correctedWorld) {
+		if (correctedWorld <= 300 || client.getWorld() == correctedWorld)
+		{
 			return;
 		}
 
 		final WorldResult worldResult = worldService.getWorlds();
 
-		if (worldResult == null) {
+		if (worldResult == null)
+		{
 			log.warn("Failed to lookup worlds.");
 			return;
 		}
 
 		final World world = worldResult.findWorld(correctedWorld);
 
-		if (world != null) {
+		if (world != null)
+		{
 			final net.runelite.api.World rsWorld = client.createWorld();
 			rsWorld.setActivity(world.getActivity());
 			rsWorld.setAddress(world.getAddress());
@@ -425,12 +454,15 @@ public class RuneLite {
 
 			client.changeWorld(rsWorld);
 			log.debug("Applied new world {}", correctedWorld);
-		} else {
+		}
+		else
+		{
 			log.warn("World {} not found.", correctedWorld);
 		}
 	}
 
-	public void shutdown() {
+	public void shutdown()
+	{
 		configManager.sendConfig();
 		clientSessionManager.shutdown();
 		discordService.close();

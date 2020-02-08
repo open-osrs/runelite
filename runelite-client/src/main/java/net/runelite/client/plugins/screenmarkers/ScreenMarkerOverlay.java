@@ -25,6 +25,10 @@
  */
 package net.runelite.client.plugins.screenmarkers;
 
+import java.awt.BasicStroke;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -33,16 +37,15 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-public class ScreenMarkerOverlay extends Overlay {
+public class ScreenMarkerOverlay extends Overlay
+{
 	@Getter(AccessLevel.PUBLIC)
 	private final ScreenMarker marker;
 	private final ScreenMarkerRenderable screenMarkerRenderable;
 
-	ScreenMarkerOverlay(@NonNull ScreenMarker marker) {
+	ScreenMarkerOverlay(@NonNull ScreenMarker marker)
+	{
 		this.marker = marker;
 		this.screenMarkerRenderable = new ScreenMarkerRenderable();
 		setPosition(OverlayPosition.DETACHED);
@@ -51,18 +54,22 @@ public class ScreenMarkerOverlay extends Overlay {
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "marker" + marker.getId();
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!marker.isVisible()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!marker.isVisible())
+		{
 			return null;
 		}
 
 		Dimension preferredSize = getPreferredSize();
-		if (preferredSize == null) {
+		if (preferredSize == null)
+		{
 			// overlay has no preferred size in the renderer configuration!
 			return null;
 		}

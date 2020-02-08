@@ -27,13 +27,17 @@
 
 package net.runelite.client.plugins.zulrah;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.client.ui.overlay.RenderableEntity;
 
-import java.awt.*;
-
-public class TextComponent implements RenderableEntity {
+public class TextComponent implements RenderableEntity
+{
 	@Setter(AccessLevel.PACKAGE)
 	private String text;
 
@@ -44,7 +48,8 @@ public class TextComponent implements RenderableEntity {
 	private Color color = Color.WHITE;
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		// Draw shadow
 		graphics.setColor(Color.BLACK);
 		graphics.drawString(text, position.x + 1, position.y + 1);

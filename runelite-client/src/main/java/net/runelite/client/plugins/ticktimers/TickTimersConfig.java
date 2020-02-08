@@ -23,141 +23,158 @@
  */
 package net.runelite.client.plugins.ticktimers;
 
+import java.awt.Font;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.runelite.client.config.*;
-
-import java.awt.*;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigTitleSection;
+import net.runelite.client.config.Range;
+import net.runelite.client.config.Title;
 
 @ConfigGroup("TickTimers")
-public interface TickTimersConfig extends Config {
+public interface TickTimersConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "mainConfig",
-			position = 0,
-			name = "Main Config",
-			description = ""
+		keyName = "mainConfig",
+		position = 0,
+		name = "Main Config",
+		description = ""
 	)
-	default Title mainConfig() {
+	default Title mainConfig()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "prayerWidgetHelper",
-			name = "Prayer Widget Helper",
-			description = "Shows you which prayer to click and the time until click.",
-			titleSection = "mainConfig"
+		position = 1,
+		keyName = "prayerWidgetHelper",
+		name = "Prayer Widget Helper",
+		description = "Shows you which prayer to click and the time until click.",
+		titleSection = "mainConfig"
 	)
-	default boolean showPrayerWidgetHelper() {
+	default boolean showPrayerWidgetHelper()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "showHitSquares",
-			name = "Show Hit Squares",
-			description = "Shows you where the melee bosses can hit you from.",
-			titleSection = "mainConfig"
+		position = 2,
+		keyName = "showHitSquares",
+		name = "Show Hit Squares",
+		description = "Shows you where the melee bosses can hit you from.",
+		titleSection = "mainConfig"
 	)
-	default boolean showHitSquares() {
+	default boolean showHitSquares()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "changeTickColor",
-			name = "Change Tick Color",
-			description = "If this is enabled, it will change the tick color to white" +
-					"<br> at 1 tick remaining, signaling you to swap.",
-			titleSection = "mainConfig"
+		position = 3,
+		keyName = "changeTickColor",
+		name = "Change Tick Color",
+		description = "If this is enabled, it will change the tick color to white" +
+			"<br> at 1 tick remaining, signaling you to swap.",
+		titleSection = "mainConfig"
 	)
-	default boolean changeTickColor() {
+	default boolean changeTickColor()
+	{
 		return false;
 	}
 
 	@ConfigTitleSection(
-			keyName = "bosses",
-			position = 4,
-			name = "Bosses",
-			description = ""
+		keyName = "bosses",
+		position = 4,
+		name = "Bosses",
+		description = ""
 	)
-	default Title bosses() {
+	default Title bosses()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 5,
-			keyName = "gwd",
-			name = "God Wars Dungeon",
-			description = "Show tick timers for GWD Bosses. This must be enabled before you zone in.",
-			titleSection = "bosses"
+		position = 5,
+		keyName = "gwd",
+		name = "God Wars Dungeon",
+		description = "Show tick timers for GWD Bosses. This must be enabled before you zone in.",
+		titleSection = "bosses"
 	)
-	default boolean gwd() {
+	default boolean gwd()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "dks",
-			name = "Dagannoth Kings",
-			description = "Show tick timers for Dagannoth Kings. This must be enabled before you zone in.",
-			titleSection = "bosses"
+		position = 6,
+		keyName = "dks",
+		name = "Dagannoth Kings",
+		description = "Show tick timers for Dagannoth Kings. This must be enabled before you zone in.",
+		titleSection = "bosses"
 	)
-	default boolean dks() {
+	default boolean dks()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "text",
-			position = 7,
-			name = "Text",
-			description = ""
+		keyName = "text",
+		position = 7,
+		name = "Text",
+		description = ""
 	)
-	default Title text() {
+	default Title text()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			position = 8,
-			keyName = "fontStyle",
-			name = "Font Style",
-			description = "Plain | Bold | Italics",
-			titleSection = "text"
+		position = 8,
+		keyName = "fontStyle",
+		name = "Font Style",
+		description = "Plain | Bold | Italics",
+		titleSection = "text"
 	)
-	default FontStyle fontStyle() {
+	default FontStyle fontStyle()
+	{
 		return FontStyle.BOLD;
 	}
 
 	@Range(
-			min = 14,
-			max = 40
+		min = 14,
+		max = 40
 	)
 	@ConfigItem(
-			position = 9,
-			keyName = "textSize",
-			name = "Text Size",
-			description = "Text Size for Timers.",
-			titleSection = "text"
+		position = 9,
+		keyName = "textSize",
+		name = "Text Size",
+		description = "Text Size for Timers.",
+		titleSection = "text"
 	)
-	default int textSize() {
+	default int textSize()
+	{
 		return 32;
 	}
 
 	@ConfigItem(
-			position = 10,
-			keyName = "shadows",
-			name = "Shadows",
-			description = "Adds Shadows to text.",
-			titleSection = "text"
+		position = 10,
+		keyName = "shadows",
+		name = "Shadows",
+		description = "Adds Shadows to text.",
+		titleSection = "text"
 	)
-	default boolean shadows() {
+	default boolean shadows()
+	{
 		return false;
 	}
 
 	@Getter(AccessLevel.PACKAGE)
 	@AllArgsConstructor
-	enum FontStyle {
+	enum FontStyle
+	{
 		BOLD("Bold", Font.BOLD),
 		ITALIC("Italic", Font.ITALIC),
 		PLAIN("Plain", Font.PLAIN);
@@ -166,7 +183,8 @@ public interface TickTimersConfig extends Config {
 		private int font;
 
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return getName();
 		}
 	}

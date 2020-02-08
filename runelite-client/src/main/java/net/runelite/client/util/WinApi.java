@@ -5,10 +5,10 @@ import com.sun.jna.WString;
 import com.sun.jna.platform.win32.WinBase;
 import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.win32.StdCallLibrary;
-
 import java.time.LocalDateTime;
 
-interface Kernel32 extends StdCallLibrary {
+interface Kernel32 extends StdCallLibrary
+{
 	int TIME_NOSECONDS = 0x00000002;
 
 	int GetTimeFormatEx(
@@ -17,10 +17,12 @@ interface Kernel32 extends StdCallLibrary {
 
 }
 
-public class WinApi {
+public class WinApi
+{
 	static Kernel32 kernel32 = Native.loadLibrary("kernel32", Kernel32.class);
 
-	public static String getTimeFormatString(LocalDateTime localDateTime) {
+	public static String getTimeFormatString(LocalDateTime localDateTime)
+	{
 		char[] lpTimeStr = new char[80];
 		WinDef.DWORD dwFlags = new WinDef.DWORD(Kernel32.TIME_NOSECONDS);
 

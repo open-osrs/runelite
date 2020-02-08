@@ -23,6 +23,7 @@
  */
 package net.runelite.client.game;
 
+import java.util.LinkedHashMap;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,12 +31,11 @@ import lombok.ToString;
 import net.runelite.api.Player;
 import net.runelite.http.api.hiscore.HiscoreResult;
 
-import java.util.LinkedHashMap;
-
 @Getter
 @Setter
 @ToString(exclude = "player")
-public class PlayerContainer {
+public class PlayerContainer
+{
 	private AttackStyle attackStyle;
 	private AttackStyle weakness;
 	private HiscoreResult skills;
@@ -62,7 +62,8 @@ public class PlayerContainer {
 	private int weapon;
 	private int wildyLevel;
 
-	PlayerContainer(Player player) {
+	PlayerContainer(Player player)
+	{
 		this.attackStyle = AttackStyle.UNKNOWN;
 		this.gear = new LinkedHashMap<>();
 		this.hpLevel = 0;
@@ -78,18 +79,22 @@ public class PlayerContainer {
 		this.weakness = AttackStyle.UNKNOWN;
 	}
 
-	void reset() {
+	void reset()
+	{
 		setMeleeStyle(MeleeStyle.NONE);
-		if (getTimer() > 0) {
+		if (getTimer() > 0)
+		{
 			setTimer(getTimer() - 1);
-			if (getTimer() == 0) {
+			if (getTimer() == 0)
+			{
 				setAttacking(false);
 			}
 		}
 	}
 
 	@Getter(AccessLevel.PACKAGE)
-	enum MeleeStyle {
+	enum MeleeStyle
+	{
 		CRUSH,
 		SLASH,
 		STAB,

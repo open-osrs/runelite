@@ -30,13 +30,31 @@ import com.google.common.collect.ImmutableSet;
 import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.Constants;
+import net.runelite.api.FontID;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
+import net.runelite.api.ItemID;
+import net.runelite.api.SpriteID;
+import net.runelite.api.VarPlayer;
+import net.runelite.api.Varbits;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarbitChanged;
-import net.runelite.api.widgets.*;
+import net.runelite.api.widgets.JavaScriptCallback;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.api.widgets.WidgetTextAlignment;
+import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -52,18 +70,14 @@ import net.runelite.client.util.QuantityFormatter;
 import net.runelite.http.api.item.ItemEquipmentStats;
 import net.runelite.http.api.item.ItemStats;
 
-import java.awt.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 @PluginDescriptor(
-		name = "Item Stats",
-		description = "Show information about food and potion effects",
-		tags = {"food", "inventory", "overlay", "potion"},
-		type = PluginType.UTILITY
+	name = "Item Stats",
+	description = "Show information about food and potion effects",
+	tags = {"food", "inventory", "overlay", "potion"},
+	type = PluginType.UTILITY
 )
-public class ItemStatPlugin extends Plugin {
+public class ItemStatPlugin extends Plugin
+{
 	private static final int ORANGE_TEXT = JagexColors.DARK_ORANGE_INTERFACE_TEXT.getRGB();
 	private static final int YELLOW_TEXT = JagexColors.YELLOW_INTERFACE_TEXT.getRGB();
 	private static final int TEXT_HEIGHT = 11;
@@ -113,84 +127,102 @@ public class ItemStatPlugin extends Plugin {
 	private Color colorWorse;
 
 	@Provides
-	ItemStatConfig getConfig(ConfigManager configManager) {
+	ItemStatConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(ItemStatConfig.class);
 	}
 
 	@Override
-	public void configure(Binder binder) {
+	public void configure(Binder binder)
+	{
 		binder.bind(ItemStatChangesService.class).to(ItemStatChangesServiceImpl.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		clientThread.invokeLater(this::resetGEInventory);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getKey().equals("geStats")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getKey().equals("geStats"))
+		{
 			updateConfig();
 			clientThread.invokeLater(this::resetGEInventory);
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
+	private void onGameTick(GameTick event)
+	{
 		if (itemInformationTitle != null && this.geStats
-				&& (client.getWidget(WidgetInfo.GRAND_EXCHANGE_WINDOW_CONTAINER) == null
-				|| client.getWidget(WidgetInfo.GRAND_EXCHANGE_WINDOW_CONTAINER).isHidden())) {
+			&& (client.getWidget(WidgetInfo.GRAND_EXCHANGE_WINDOW_CONTAINER) == null
+			|| client.getWidget(WidgetInfo.GRAND_EXCHANGE_WINDOW_CONTAINER).isHidden()))
+		{
 			resetGEInventory();
 		}
 	}
 
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged event) {
-		if (client.getVar(VarPlayer.CURRENT_GE_ITEM) == -1 && this.geStats) {
+	private void onVarbitChanged(VarbitChanged event)
+	{
+		if (client.getVar(VarPlayer.CURRENT_GE_ITEM) == -1 && this.geStats)
+		{
 			resetGEInventory();
 		}
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent event) {
-		if (event.getEventName().equals("geBuilt") && this.geStats) {
+	private void onScriptCallbackEvent(ScriptCallbackEvent event)
+	{
+		if (event.getEventName().equals("geBuilt") && this.geStats)
+		{
 			int currentGeItem = client.getVar(VarPlayer.CURRENT_GE_ITEM);
-			if (currentGeItem != -1 && client.getVar(Varbits.GE_OFFER_CREATION_TYPE) == 0) {
+			if (currentGeItem != -1 && client.getVar(Varbits.GE_OFFER_CREATION_TYPE) == 0)
+			{
 				createItemInformation(currentGeItem);
 			}
 		}
 	}
 
-	private void createItemInformation(int id) {
+	private void createItemInformation(int id)
+	{
 		final ItemStats itemStats = itemManager.getItemStats(id, false);
 
-		if (itemStats == null || !itemStats.isEquipable()) {
+		if (itemStats == null || !itemStats.isEquipable())
+		{
 			return;
 		}
 
 		final ItemEquipmentStats equipmentStats = itemStats.getEquipment();
 
-		if (equipmentStats == null) {
+		if (equipmentStats == null)
+		{
 			return;
 		}
 
 		final Widget geInv = client.getWidget(WidgetInfo.GRAND_EXCHANGE_INVENTORY_ITEMS_CONTAINER);
 
-		if (geInv == null) {
+		if (geInv == null)
+		{
 			return;
 		}
 
 		final Widget invContainer = getInventoryContainer();
 
-		if (invContainer == null) {
+		if (invContainer == null)
+		{
 			return;
 		}
 
@@ -204,7 +236,7 @@ public class ItemStatPlugin extends Plugin {
 		// HEADER
 
 		itemInformationTitle = createText(invContainer, "Item Information", FontID.BOLD_12, ORANGE_TEXT,
-				8, 8, invContainer.getWidth(), 16);
+			8, 8, invContainer.getWidth(), 16);
 		itemInformationTitle.setYTextAlignment(WidgetTextAlignment.CENTER);
 
 		Widget closeButton = invContainer.createChild(-1, WidgetType.GRAPHIC);
@@ -215,9 +247,9 @@ public class ItemStatPlugin extends Plugin {
 		closeButton.setSpriteId(SpriteID.BOTTOM_LINE_MODE_WINDOW_CLOSE_BUTTON_SMALL);
 		closeButton.setAction(0, "Close");
 		closeButton.setOnMouseOverListener((JavaScriptCallback) (ev) ->
-				closeButton.setSpriteId(SpriteID.BOTTOM_LINE_MODE_WINDOW_CLOSE_BUTTON_SMALL_HOVERED));
+			closeButton.setSpriteId(SpriteID.BOTTOM_LINE_MODE_WINDOW_CLOSE_BUTTON_SMALL_HOVERED));
 		closeButton.setOnMouseLeaveListener((JavaScriptCallback) (ev) ->
-				closeButton.setSpriteId(SpriteID.BOTTOM_LINE_MODE_WINDOW_CLOSE_BUTTON_SMALL));
+			closeButton.setSpriteId(SpriteID.BOTTOM_LINE_MODE_WINDOW_CLOSE_BUTTON_SMALL));
 		closeButton.setOnOpListener((JavaScriptCallback) (ev) -> resetGEInventory());
 		closeButton.setHasListener(true);
 		closeButton.revalidate();
@@ -241,7 +273,7 @@ public class ItemStatPlugin extends Plugin {
 		icon.revalidate();
 
 		Widget itemName = createText(invContainer, itemManager.getItemDefinition(id).getName(), FontID.PLAIN_12, ORANGE_TEXT,
-				50, yPos, invContainer.getWidth() - 40, 30);
+			50, yPos, invContainer.getWidth() - 40, 30);
 		itemName.setYTextAlignment(WidgetTextAlignment.CENTER);
 
 		yPos += 20;
@@ -260,47 +292,48 @@ public class ItemStatPlugin extends Plugin {
 		// STYLE BONUSES
 
 		final Set<String> stats = ImmutableSet.of(
-				"Stab",
-				"Slash",
-				"Crush",
-				"Magic",
-				"Ranged"
+			"Stab",
+			"Slash",
+			"Crush",
+			"Magic",
+			"Ranged"
 		);
 
 		final List<Integer> attackStats = ImmutableList.of(
-				equipmentStats.getAstab(),
-				equipmentStats.getAslash(),
-				equipmentStats.getAcrush(),
-				equipmentStats.getAmagic(),
-				equipmentStats.getArange()
+			equipmentStats.getAstab(),
+			equipmentStats.getAslash(),
+			equipmentStats.getAcrush(),
+			equipmentStats.getAmagic(),
+			equipmentStats.getArange()
 		);
 
 		final List<Integer> defenceStats = ImmutableList.of(
-				equipmentStats.getDstab(),
-				equipmentStats.getDslash(),
-				equipmentStats.getDcrush(),
-				equipmentStats.getDmagic(),
-				equipmentStats.getDrange()
+			equipmentStats.getDstab(),
+			equipmentStats.getDslash(),
+			equipmentStats.getDcrush(),
+			equipmentStats.getDmagic(),
+			equipmentStats.getDrange()
 		);
 
 		int index = 0;
 
-		for (final String stat : stats) {
+		for (final String stat : stats)
+		{
 			yPos += TEXT_HEIGHT + 2;
 
 			// Style label
 			final Widget styleText = createText(invContainer, stat, FontID.PLAIN_11, ORANGE_TEXT,
-					0, yPos, invContainer.getWidth(), -1);
+				0, yPos, invContainer.getWidth(), -1);
 			styleText.setXTextAlignment(WidgetTextAlignment.CENTER);
 
 			// Attack bonus
 			createText(invContainer, attackStats.get(index).toString(), FontID.PLAIN_11, YELLOW_TEXT,
-					5, yPos, 50, -1);
+				5, yPos, 50, -1);
 
 			// Defence bonus
 			final int defenceX = invContainer.getWidth() - (smallFM.stringWidth(defenceStats.get(index).toString()) + 5);
 			createText(invContainer, defenceStats.get(index).toString(), FontID.PLAIN_11, YELLOW_TEXT,
-					defenceX, yPos, 50, -1);
+				defenceX, yPos, 50, -1);
 
 			index++;
 		}
@@ -310,13 +343,14 @@ public class ItemStatPlugin extends Plugin {
 		yPos += TEXT_HEIGHT + 8;
 
 		final Map<String, Integer> miscStats = ImmutableMap.of(
-				"Strength", equipmentStats.getStr(),
-				"Ranged Strength", equipmentStats.getRstr(),
-				"Magic Damage", equipmentStats.getMdmg(),
-				"Prayer Bonus", equipmentStats.getPrayer()
+			"Strength", equipmentStats.getStr(),
+			"Ranged Strength", equipmentStats.getRstr(),
+			"Magic Damage", equipmentStats.getMdmg(),
+			"Prayer Bonus", equipmentStats.getPrayer()
 		);
 
-		for (final Map.Entry<String, Integer> miscStat : miscStats.entrySet()) {
+		for (final Map.Entry<String, Integer> miscStat : miscStats.entrySet())
+		{
 			final String name = miscStat.getKey();
 			final String value = miscStat.getValue().toString();
 
@@ -335,16 +369,17 @@ public class ItemStatPlugin extends Plugin {
 		createSeparator(invContainer, invContainer.getHeight() - 40);
 
 		final String coinText = "You have " + QuantityFormatter.quantityToStackSize(getCurrentGP())
-				+ (getCurrentGP() == 1 ? " coin." : " coins.");
+			+ (getCurrentGP() == 1 ? " coin." : " coins.");
 
 		final Widget coinWidget = createText(invContainer, coinText, FontID.PLAIN_12, ORANGE_TEXT,
-				0, invContainer.getHeight() - 18, invContainer.getWidth(), -1);
+			0, invContainer.getHeight() - 18, invContainer.getWidth(), -1);
 
 		coinWidget.setXTextAlignment(WidgetTextAlignment.CENTER);
 	}
 
 	private static Widget createText(Widget parent, String text, int fontId, int textColor,
-									 int x, int y, int width, int height) {
+									int x, int y, int width, int height)
+	{
 		final Widget widget = parent.createChild(-1, WidgetType.TEXT);
 		widget.setText(text);
 		widget.setFontId(fontId);
@@ -358,7 +393,8 @@ public class ItemStatPlugin extends Plugin {
 		return widget;
 	}
 
-	private static void createSeparator(Widget parent, int y) {
+	private static void createSeparator(Widget parent, int y)
+	{
 		Widget separator = parent.createChild(-1, WidgetType.GRAPHIC);
 		separator.setOriginalWidth(parent.getWidth());
 		separator.setOriginalY(y);
@@ -367,33 +403,41 @@ public class ItemStatPlugin extends Plugin {
 		separator.revalidate();
 	}
 
-	private void resetGEInventory() {
+	private void resetGEInventory()
+	{
 		final Widget invContainer = getInventoryContainer();
 
-		if (invContainer == null) {
+		if (invContainer == null)
+		{
 			return;
 		}
 
-		if (itemInformationTitle != null && invContainer.getChild(0) == itemInformationTitle) {
+		if (itemInformationTitle != null && invContainer.getChild(0) == itemInformationTitle)
+		{
 			invContainer.deleteAllChildren();
 			itemInformationTitle = null;
 		}
 
 		final Widget geInv = client.getWidget(WidgetInfo.GRAND_EXCHANGE_INVENTORY_ITEMS_CONTAINER);
-		if (geInv != null) {
+		if (geInv != null)
+		{
 			geInv.setHidden(false);
 		}
 	}
 
-	private int getCurrentGP() {
+	private int getCurrentGP()
+	{
 		final ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
 
-		if (inventory == null) {
+		if (inventory == null)
+		{
 			return 0;
 		}
 
-		for (final Item item : inventory.getItems()) {
-			if (item.getId() == ItemID.COINS_995) {
+		for (final Item item : inventory.getItems())
+		{
+			if (item.getId() == ItemID.COINS_995)
+			{
 				return item.getQuantity();
 			}
 		}
@@ -401,19 +445,27 @@ public class ItemStatPlugin extends Plugin {
 		return 0;
 	}
 
-	private Widget getInventoryContainer() {
-		if (client.isResized()) {
-			if (client.getVar(Varbits.SIDE_PANELS) == 1) {
+	private Widget getInventoryContainer()
+	{
+		if (client.isResized())
+		{
+			if (client.getVar(Varbits.SIDE_PANELS) == 1)
+			{
 				return client.getWidget(WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_CONTAINER);
-			} else {
+			}
+			else
+			{
 				return client.getWidget(WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_CONTAINER);
 			}
-		} else {
+		}
+		else
+		{
 			return client.getWidget(WidgetInfo.FIXED_VIEWPORT_INVENTORY_CONTAINER);
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.consumableStats = config.consumableStats();
 		this.equipmentStats = config.equipmentStats();
 		this.geStats = config.geStats();

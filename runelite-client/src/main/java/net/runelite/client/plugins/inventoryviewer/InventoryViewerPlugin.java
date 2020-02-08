@@ -25,6 +25,8 @@
 package net.runelite.client.plugins.inventoryviewer;
 
 import com.google.inject.Provides;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -35,18 +37,16 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 @PluginDescriptor(
-		name = "Inventory Viewer",
-		description = "Add an overlay showing the contents of your inventory",
-		tags = {"alternate", "items", "overlay", "second"},
-		enabledByDefault = false,
-		type = PluginType.UTILITY
+	name = "Inventory Viewer",
+	description = "Add an overlay showing the contents of your inventory",
+	tags = {"alternate", "items", "overlay", "second"},
+	enabledByDefault = false,
+	type = PluginType.UTILITY
 )
 @Singleton
-public class InventoryViewerPlugin extends Plugin {
+public class InventoryViewerPlugin extends Plugin
+{
 	static final String CONFIG_GROUP_KEY = "inventoryviewer";
 
 	@Inject
@@ -66,29 +66,35 @@ public class InventoryViewerPlugin extends Plugin {
 	private boolean hideWhenInvOpen;
 
 	@Provides
-	InventoryViewerConfig provideConfig(ConfigManager configManager) {
+	InventoryViewerConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(InventoryViewerConfig.class);
 	}
 
 	@Override
-	public void startUp() {
+	public void startUp()
+	{
 		updateConfig();
 		overlayManager.add(overlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals(CONFIG_GROUP_KEY)) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals(CONFIG_GROUP_KEY))
+		{
 			updateConfig();
 		}
 	}
 
 	@Override
-	public void shutDown() {
+	public void shutDown()
+	{
 		overlayManager.remove(overlay);
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.viewerMode = config.viewerMode();
 		this.showFreeSlots = config.showFreeSlots();
 		this.hideWhenInvOpen = config.hideWhenInvOpen();

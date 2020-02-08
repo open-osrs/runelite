@@ -32,7 +32,8 @@ import net.runelite.api.coords.WorldPoint;
 
 // Some quests are in the same spot, but they are done in order. If multiple
 // quests start in the same location, an array of quests is expected.
-enum QuestStartLocation {
+enum QuestStartLocation
+{
 	//Free Quests
 	COOKS_ASSISTANT_RFD(Quest.COOKS_ASSISTANT, new WorldPoint(3211, 3216, 0)),
 	THE_CORSAIR_CURSE(Quest.THE_CORSAIR_CURSE, new WorldPoint(3029, 3273, 0)),
@@ -173,12 +174,14 @@ enum QuestStartLocation {
 	@Getter(AccessLevel.PACKAGE)
 	private final Quest[] quests;
 
-	QuestStartLocation(Quest[] quests, WorldPoint location) {
+	QuestStartLocation(Quest[] quests, WorldPoint location)
+	{
 		this.location = location;
 		this.quests = quests;
 	}
 
-	QuestStartLocation(Quest quest, WorldPoint location) {
+	QuestStartLocation(Quest quest, WorldPoint location)
+	{
 		this.location = location;
 		this.quests = new Quest[]{quest};
 	}

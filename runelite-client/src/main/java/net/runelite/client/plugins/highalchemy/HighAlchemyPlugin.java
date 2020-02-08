@@ -28,8 +28,22 @@
 package net.runelite.client.plugins.highalchemy;
 
 import com.google.inject.Provides;
+import java.awt.Color;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
+import static net.runelite.api.widgets.WidgetID.BANK_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.BANK_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.DEPOSIT_BOX_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.EQUIPMENT_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.GRAND_EXCHANGE_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.GUIDE_PRICES_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.SHOP_INVENTORY_GROUP_ID;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -38,24 +52,16 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import static net.runelite.api.widgets.WidgetID.*;
-
 @PluginDescriptor(
-		name = "High Alchemy",
-		description = "Highlights items that yield a profit from casting the High Alchemy spell.",
-		tags = {"bank", "inventory", "overlay", "high", "alchemy", "grand", "exchange", "tooltips"},
-		type = PluginType.UTILITY,
-		enabledByDefault = false
+	name = "High Alchemy",
+	description = "Highlights items that yield a profit from casting the High Alchemy spell.",
+	tags = {"bank", "inventory", "overlay", "high", "alchemy", "grand", "exchange", "tooltips"},
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Singleton
-public class HighAlchemyPlugin extends Plugin {
+public class HighAlchemyPlugin extends Plugin
+{
 	private static final String CONFIG_GROUP = "highalchemy";
 
 	@Getter(AccessLevel.PACKAGE)
@@ -71,7 +77,8 @@ public class HighAlchemyPlugin extends Plugin {
 	private HighAlchemyOverlay overlay;
 
 	@Provides
-	HighAlchemyConfig getConfig(ConfigManager configManager) {
+	HighAlchemyConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(HighAlchemyConfig.class);
 	}
 
@@ -85,48 +92,56 @@ public class HighAlchemyPlugin extends Plugin {
 	private boolean usingFireRunes;
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 		buildGroupList();
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals(CONFIG_GROUP)) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals(CONFIG_GROUP))
+		{
 			updateConfig();
 			buildGroupList();
 		}
 	}
 
-	private void buildGroupList() {
+	private void buildGroupList()
+	{
 		interfaceGroups.clear();
 
-		if (this.showBank) {
+		if (this.showBank)
+		{
 			interfaceGroups.add(BANK_GROUP_ID);
 		}
 
-		if (this.showInventory) {
+		if (this.showInventory)
+		{
 			Arrays.stream(
-					new int[]{
-							DEPOSIT_BOX_GROUP_ID,
-							BANK_INVENTORY_GROUP_ID,
-							SHOP_INVENTORY_GROUP_ID,
-							GRAND_EXCHANGE_INVENTORY_GROUP_ID,
-							GUIDE_PRICES_INVENTORY_GROUP_ID,
-							EQUIPMENT_INVENTORY_GROUP_ID,
-							INVENTORY_GROUP_ID
-					}
+				new int[]{
+					DEPOSIT_BOX_GROUP_ID,
+					BANK_INVENTORY_GROUP_ID,
+					SHOP_INVENTORY_GROUP_ID,
+					GRAND_EXCHANGE_INVENTORY_GROUP_ID,
+					GUIDE_PRICES_INVENTORY_GROUP_ID,
+					EQUIPMENT_INVENTORY_GROUP_ID,
+					INVENTORY_GROUP_ID
+				}
 			).forEach(interfaceGroups::add);
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showBank = config.showBank();
 		this.showInventory = config.showInventory();
 		this.getHighlightColor = config.getHighlightColor();

@@ -24,22 +24,26 @@
  */
 package net.runelite.client.plugins.templetrekking;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import javax.inject.Inject;
 import net.runelite.api.GroundObject;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-import javax.inject.Inject;
-import java.awt.*;
-
-public class TempleTrekkingBogOverlay extends Overlay {
+public class TempleTrekkingBogOverlay extends Overlay
+{
 	private static final Color GREEN = new Color(0, 200, 83);
 	private final TempleTrekkingConfig config;
 	private final TempleTrekkingPlugin plugin;
 
 	@Inject
-	private TempleTrekkingBogOverlay(TempleTrekkingConfig config, TempleTrekkingPlugin plugin) {
+	private TempleTrekkingBogOverlay(TempleTrekkingConfig config, TempleTrekkingPlugin plugin)
+	{
 		super(plugin);
 		this.config = config;
 		this.plugin = plugin;
@@ -48,9 +52,12 @@ public class TempleTrekkingBogOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (config.bogMapActive()) {
-			for (GroundObject bog : plugin.getBogList()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (config.bogMapActive())
+		{
+			for (GroundObject bog : plugin.getBogList())
+			{
 				Polygon bogPoly = bog.getCanvasTilePoly();
 				OverlayUtil.renderPolygon(graphics, bogPoly, GREEN);
 			}

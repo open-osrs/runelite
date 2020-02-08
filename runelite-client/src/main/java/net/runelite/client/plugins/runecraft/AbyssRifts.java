@@ -24,16 +24,15 @@
  */
 package net.runelite.client.plugins.runecraft;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import net.runelite.api.ObjectID;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import lombok.AccessLevel;
+import lombok.Getter;
 import static net.runelite.api.ItemID.*;
+import net.runelite.api.ObjectID;
 
-public enum AbyssRifts {
+public enum AbyssRifts
+{
 	AIR_RIFT(ObjectID.AIR_RIFT, AIR_RUNE),
 	BLOOD_RIFT(ObjectID.BLOOD_RIFT, BLOOD_RUNE),
 	BODY_RIFT(ObjectID.BODY_RIFT, BODY_RUNE),
@@ -56,18 +55,22 @@ public enum AbyssRifts {
 
 	private static final Map<Integer, AbyssRifts> rifts = new HashMap<>();
 
-	static {
-		for (AbyssRifts s : values()) {
+	static
+	{
+		for (AbyssRifts s : values())
+		{
 			rifts.put(s.getObjectId(), s);
 		}
 	}
 
-	AbyssRifts(final int objectId, final int itemId) {
+	AbyssRifts(final int objectId, final int itemId)
+	{
 		this.objectId = objectId;
 		this.itemId = itemId;
 	}
 
-	public static AbyssRifts getRift(int id) {
+	public static AbyssRifts getRift(int id)
+	{
 		return rifts.get(id);
 	}
 }

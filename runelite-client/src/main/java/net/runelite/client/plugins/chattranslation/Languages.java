@@ -4,7 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 // TODO: Doesn't Locale pretty much do this as well?
-public enum Languages {
+public enum Languages
+{
 	ENGLISH("English", "en"),
 	WELSH("Welsh", "cy"),
 	DUTCH("Dutch", "nl"),
@@ -16,17 +17,20 @@ public enum Languages {
 	private final String name;
 	private final String shortName;
 
-	Languages(String name, String shortName) {
+	Languages(String name, String shortName)
+	{
 		this.name = name;
 		this.shortName = shortName;
 	}
 
-	public String toShortString() {
+	public String toShortString()
+	{
 		return shortName;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 

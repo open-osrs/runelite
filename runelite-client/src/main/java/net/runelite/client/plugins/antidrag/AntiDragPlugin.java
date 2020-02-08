@@ -26,6 +26,8 @@
 package net.runelite.client.plugins.antidrag;
 
 import com.google.inject.Provides;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.FocusChanged;
@@ -42,18 +44,16 @@ import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.HotkeyListener;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 @PluginDescriptor(
-		name = "Anti Drag",
-		description = "Prevent dragging an item for a specified delay",
-		tags = {"antidrag", "delay", "inventory", "items"},
-		type = PluginType.UTILITY,
-		enabledByDefault = false
+	name = "Anti Drag",
+	description = "Prevent dragging an item for a specified delay",
+	tags = {"antidrag", "delay", "inventory", "items"},
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Singleton
-public class AntiDragPlugin extends Plugin {
+public class AntiDragPlugin extends Plugin
+{
 	private static final int DEFAULT_DELAY = 5;
 
 	@Inject
@@ -80,20 +80,27 @@ public class AntiDragPlugin extends Plugin {
 	private CustomCursor selectedCursor;
 	private Keybind key;
 
-	private final HotkeyListener toggleListener = new HotkeyListener(() -> this.key) {
+	private final HotkeyListener toggleListener = new HotkeyListener(() -> this.key)
+	{
 		@Override
-		public void hotkeyPressed() {
+		public void hotkeyPressed()
+		{
 			toggleDrag = !toggleDrag;
-			if (toggleDrag) {
-				if (configOverlay) {
+			if (toggleDrag)
+			{
+				if (configOverlay)
+				{
 					overlayManager.add(overlay);
 				}
-				if (changeCursor) {
+				if (changeCursor)
+				{
 					clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
 				}
 
 				client.setInventoryDragDelay(config.dragDelay());
-			} else {
+			}
+			else
+			{
 				overlayManager.remove(overlay);
 				client.setInventoryDragDelay(DEFAULT_DELAY);
 				clientUI.resetCursor();
@@ -101,13 +108,17 @@ public class AntiDragPlugin extends Plugin {
 		}
 	};
 
-	private final HotkeyListener holdListener = new HotkeyListener(() -> this.key) {
+	private final HotkeyListener holdListener = new HotkeyListener(() -> this.key)
+	{
 		@Override
-		public void hotkeyPressed() {
-			if (configOverlay) {
+		public void hotkeyPressed()
+		{
+			if (configOverlay)
+			{
 				overlayManager.add(overlay);
 			}
-			if (changeCursor) {
+			if (changeCursor)
+			{
 				clientUI.setCursor(selectedCursor.getCursorImage(), selectedCursor.toString());
 			}
 
@@ -115,7 +126,8 @@ public class AntiDragPlugin extends Plugin {
 		}
 
 		@Override
-		public void hotkeyReleased() {
+		public void hotkeyReleased()
+		{
 			overlayManager.remove(overlay);
 			client.setInventoryDragDelay(DEFAULT_DELAY);
 			clientUI.resetCursor();
@@ -123,23 +135,27 @@ public class AntiDragPlugin extends Plugin {
 	};
 
 	@Provides
-	AntiDragConfig getConfig(ConfigManager configManager) {
+	AntiDragConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(AntiDragConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		overlay.setColor(config.color());
 		updateConfig();
 		updateKeyListeners();
 
-		if (config.alwaysOn()) {
+		if (config.alwaysOn())
+		{
 			client.setInventoryDragDelay(config.dragDelay());
 		}
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		client.setInventoryDragDelay(DEFAULT_DELAY);
 		keyManager.unregisterKeyListener(holdListener);
 		keyManager.unregisterKeyListener(toggleListener);
@@ -149,11 +165,14 @@ public class AntiDragPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("antiDrag")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("antiDrag"))
+		{
 			updateConfig();
 
-			switch (event.getKey()) {
+			switch (event.getKey())
+			{
 				case "toggleKeyBind":
 				case "holdKeyBind":
 					updateKeyListeners();
@@ -162,7 +181,8 @@ public class AntiDragPlugin extends Plugin {
 					client.setInventoryDragDelay(config.alwaysOn() ? config.dragDelay() : DEFAULT_DELAY);
 					break;
 				case "dragDelay":
-					if (config.alwaysOn()) {
+					if (config.alwaysOn())
+					{
 						client.setInventoryDragDelay(config.dragDelay());
 					}
 					break;
@@ -177,16 +197,21 @@ public class AntiDragPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOGIN_SCREEN) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGIN_SCREEN)
+		{
 			keyManager.unregisterKeyListener(toggleListener);
 			keyManager.unregisterKeyListener(holdListener);
-		} else if (event.getGameState() == GameState.LOGGING_IN) {
+		}
+		else if (event.getGameState() == GameState.LOGGING_IN)
+		{
 			updateKeyListeners();
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.key = config.key();
 		this.configOverlay = config.overlay();
 		this.changeCursor = config.changeCursor();
@@ -194,23 +219,32 @@ public class AntiDragPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onFocusChanged(FocusChanged focusChanged) {
-		if (!focusChanged.isFocused() && config.reqFocus() && !config.alwaysOn()) {
+	private void onFocusChanged(FocusChanged focusChanged)
+	{
+		if (!focusChanged.isFocused() && config.reqFocus() && !config.alwaysOn())
+		{
 			client.setInventoryDragDelay(DEFAULT_DELAY);
 			overlayManager.remove(overlay);
 		}
 	}
 
-	private void updateKeyListeners() {
-		if (config.holdKeyBind()) {
+	private void updateKeyListeners()
+	{
+		if (config.holdKeyBind())
+		{
 			keyManager.registerKeyListener(holdListener);
-		} else {
+		}
+		else
+		{
 			keyManager.unregisterKeyListener(holdListener);
 		}
 
-		if (config.toggleKeyBind()) {
+		if (config.toggleKeyBind())
+		{
 			keyManager.registerKeyListener(toggleListener);
-		} else {
+		}
+		else
+		{
 			keyManager.unregisterKeyListener(toggleListener);
 		}
 	}

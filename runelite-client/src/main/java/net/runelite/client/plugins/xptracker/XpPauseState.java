@@ -24,65 +24,81 @@
  */
 package net.runelite.client.plugins.xptracker;
 
-import net.runelite.api.Skill;
-
 import java.util.EnumMap;
 import java.util.Map;
+import net.runelite.api.Skill;
 
-class XpPauseState {
+class XpPauseState
+{
 	// Internal state
 	private final Map<Skill, XpPauseStateSingle> skillPauses = new EnumMap<>(Skill.class);
 	private boolean cachedIsLoggedIn = false;
 
-	boolean pauseSkill(Skill skill) {
+	boolean pauseSkill(Skill skill)
+	{
 		return findPauseState(skill).manualPause();
 	}
 
-	boolean unpauseSkill(Skill skill) {
+	boolean unpauseSkill(Skill skill)
+	{
 		return findPauseState(skill).unpause();
 	}
 
-	boolean isPaused(Skill skill) {
+	boolean isPaused(Skill skill)
+	{
 		return findPauseState(skill).isPaused();
 	}
 
-	void tickXp(Skill skill, long currentXp, int pauseAfterMinutes) {
+	void tickXp(Skill skill, long currentXp, int pauseAfterMinutes)
+	{
 		final XpPauseStateSingle state = findPauseState(skill);
 
-		if (state.getXp() != currentXp) {
+		if (state.getXp() != currentXp)
+		{
 			state.xpChanged(currentXp);
-		} else if (pauseAfterMinutes > 0) {
+		}
+		else if (pauseAfterMinutes > 0)
+		{
 			final long now = System.currentTimeMillis();
 			final int pauseAfterMillis = pauseAfterMinutes * 60 * 1000;
 			final long lastChangeMillis = state.getLastChangeMillis();
 			// When config.pauseSkillAfter is 0, it is effectively disabled
-			if (lastChangeMillis != 0 && (now - lastChangeMillis) >= pauseAfterMillis) {
+			if (lastChangeMillis != 0 && (now - lastChangeMillis) >= pauseAfterMillis)
+			{
 				state.timeout();
 			}
 		}
 	}
 
-	void tickLogout(boolean pauseOnLogout, boolean loggedIn) {
+	void tickLogout(boolean pauseOnLogout, boolean loggedIn)
+	{
 		// Deduplicated login and logout calls
-		if (!cachedIsLoggedIn && loggedIn) {
+		if (!cachedIsLoggedIn && loggedIn)
+		{
 			cachedIsLoggedIn = true;
 
-			for (Skill skill : Skill.values()) {
+			for (Skill skill : Skill.values())
+			{
 				findPauseState(skill).login();
 			}
-		} else if (cachedIsLoggedIn && !loggedIn) {
+		}
+		else if (cachedIsLoggedIn && !loggedIn)
+		{
 			cachedIsLoggedIn = false;
 
 			// If configured, then let the pause state know to pause with reason: logout
-			if (pauseOnLogout) {
-				for (Skill skill : Skill.values()) {
+			if (pauseOnLogout)
+			{
+				for (Skill skill : Skill.values())
+				{
 					findPauseState(skill).logout();
 				}
 			}
 		}
 	}
 
-	private XpPauseStateSingle findPauseState(Skill skill) {
+	private XpPauseStateSingle findPauseState(Skill skill)
+	{
 		return skillPauses.computeIfAbsent(skill, XpPauseStateSingle::new);
 	}
 }

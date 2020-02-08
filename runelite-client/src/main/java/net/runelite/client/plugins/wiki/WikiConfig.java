@@ -29,14 +29,16 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup(WikiPlugin.CONFIG_GROUP_KEY)
-public interface WikiConfig extends Config {
+public interface WikiConfig extends Config
+{
 	@ConfigItem(
-			keyName = "leftClickSearch",
-			name = "Left Click Search",
-			description = "Swap left-click on the Wiki button to Search",
-			position = 1
+		keyName = "leftClickSearch",
+		name = "Left Click Search",
+		description = "Swap left-click on the Wiki button to Search",
+		position = 1
 	)
-	default boolean leftClickSearch() {
+	default boolean leftClickSearch()
+	{
 		return false;
 	}
 }

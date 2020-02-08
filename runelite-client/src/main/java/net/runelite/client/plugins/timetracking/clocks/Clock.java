@@ -24,15 +24,19 @@
  */
 package net.runelite.client.plugins.timetracking.clocks;
 
-import lombok.*;
-
 import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
 @NoArgsConstructor
 @AllArgsConstructor
-abstract class Clock {
+abstract class Clock
+{
 	protected String name;
 
 	// last updated time (recorded as seconds since epoch)
@@ -41,7 +45,8 @@ abstract class Clock {
 	// whether the clock is currently running
 	protected boolean active;
 
-	Clock(String name) {
+	Clock(String name)
+	{
 		this.name = name;
 		this.lastUpdate = Instant.now().getEpochSecond();
 		this.active = false;

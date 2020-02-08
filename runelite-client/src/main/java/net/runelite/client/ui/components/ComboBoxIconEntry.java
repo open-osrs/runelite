@@ -24,11 +24,10 @@
  */
 package net.runelite.client.ui.components;
 
+import javax.annotation.Nullable;
+import javax.swing.Icon;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.annotation.Nullable;
-import javax.swing.*;
 
 /**
  * Used with ComboBoxListRenderer to render an icon next to the text of the list entry.
@@ -36,7 +35,8 @@ import javax.swing.*;
  */
 @AllArgsConstructor
 @Getter
-public class ComboBoxIconEntry {
+public class ComboBoxIconEntry
+{
 	private Icon icon;
 	private String text;
 	@Nullable

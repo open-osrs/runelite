@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-public enum ItemHighlightMode {
+public enum ItemHighlightMode
+{
 	OVERLAY("Overlay"),
 	MENU("Right-click"),
 	BOTH("Both");
@@ -38,7 +39,8 @@ public enum ItemHighlightMode {
 	private final String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

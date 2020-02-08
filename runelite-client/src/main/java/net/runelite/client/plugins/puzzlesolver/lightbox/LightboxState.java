@@ -27,22 +27,28 @@ package net.runelite.client.plugins.puzzlesolver.lightbox;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-public class LightboxState {
+public class LightboxState
+{
 	private final boolean[][] state = new boolean[LightBox.WIDTH][LightBox.HEIGHT];
 
-	public void setState(int x, int y, boolean s) {
+	public void setState(int x, int y, boolean s)
+	{
 		state[x][y] = s;
 	}
 
-	public boolean getState(int x, int y) {
+	public boolean getState(int x, int y)
+	{
 		return state[x][y];
 	}
 
-	public LightboxState diff(LightboxState other) {
+	public LightboxState diff(LightboxState other)
+	{
 		LightboxState newState = new LightboxState();
 
-		for (int i = 0; i < LightBox.WIDTH; ++i) {
-			for (int j = 0; j < LightBox.HEIGHT; ++j) {
+		for (int i = 0; i < LightBox.WIDTH; ++i)
+		{
+			for (int j = 0; j < LightBox.HEIGHT; ++j)
+			{
 				newState.state[i][j] = state[i][j] ^ other.state[i][j];
 			}
 		}

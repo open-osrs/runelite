@@ -25,7 +25,15 @@
 package net.runelite.client.plugins.itemstats;
 
 import com.google.inject.Inject;
-import net.runelite.api.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import net.runelite.api.Client;
+import net.runelite.api.EquipmentInventorySlot;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
+import net.runelite.api.MenuEntry;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.ItemManager;
@@ -37,14 +45,13 @@ import net.runelite.client.util.ColorUtil;
 import net.runelite.http.api.item.ItemEquipmentStats;
 import net.runelite.http.api.item.ItemStats;
 
-import java.awt.*;
-
-public class ItemStatOverlay extends Overlay {
+public class ItemStatOverlay extends Overlay
+{
 	// Unarmed attack speed is 6
 	private static final ItemStats UNARMED = new ItemStats(false, true, 0,
-			ItemEquipmentStats.builder()
-					.aspeed(6)
-					.build());
+		ItemEquipmentStats.builder()
+			.aspeed(6)
+			.build());
 
 	private final Client client;
 	private final ItemManager itemManager;
@@ -53,7 +60,8 @@ public class ItemStatOverlay extends Overlay {
 	private final ItemStatPlugin plugin;
 
 	@Inject
-	ItemStatOverlay(Client client, ItemStatPlugin plugin, ItemManager itemManager, TooltipManager tooltipManager, ItemStatChanges itemStatChanges) {
+	ItemStatOverlay(Client client, ItemStatPlugin plugin, ItemManager itemManager, TooltipManager tooltipManager, ItemStatChanges itemStatChanges)
+	{
 		this.client = client;
 		this.itemManager = itemManager;
 		this.tooltipManager = tooltipManager;
@@ -62,15 +70,18 @@ public class ItemStatOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (client.isMenuOpen() || (!plugin.isRelative() && !plugin.isAbsolute() && !plugin.isTheoretical())) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (client.isMenuOpen() || (!plugin.isRelative() && !plugin.isAbsolute() && !plugin.isTheoretical()))
+		{
 			return null;
 		}
 
 		final MenuEntry[] menu = client.getMenuEntries();
 		final int menuSize = menu.length;
 
-		if (menuSize <= 0) {
+		if (menuSize <= 0)
+		{
 			return null;
 		}
 
@@ -80,50 +91,63 @@ public class ItemStatOverlay extends Overlay {
 		final Widget widget = client.getWidget(group, child);
 
 		if (widget == null || (group != WidgetInfo.INVENTORY.getGroupId() &&
-				group != WidgetInfo.EQUIPMENT.getGroupId() &&
-				group != WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER.getGroupId())) {
+			group != WidgetInfo.EQUIPMENT.getGroupId() &&
+			group != WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER.getGroupId()))
+		{
 			return null;
 		}
 
 		int itemId = entry.getIdentifier();
 
-		if (group == WidgetInfo.EQUIPMENT.getGroupId()) {
+		if (group == WidgetInfo.EQUIPMENT.getGroupId())
+		{
 			final Widget widgetItem = widget.getChild(1);
-			if (widgetItem != null) {
+			if (widgetItem != null)
+			{
 				itemId = widgetItem.getItemId();
 			}
-		} else if (group == WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER.getGroupId()) {
+		}
+		else if (group == WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER.getGroupId())
+		{
 			final Widget widgetItem = widget.getChild(entry.getParam0());
-			if (widgetItem != null) {
+			if (widgetItem != null)
+			{
 				itemId = widgetItem.getItemId();
 			}
 		}
 
-		if (plugin.isConsumableStats()) {
+		if (plugin.isConsumableStats())
+		{
 			final Effect change = statChanges.get(itemId);
-			if (change != null) {
+			if (change != null)
+			{
 				final StringBuilder b = new StringBuilder();
 				final StatsChanges statsChanges = change.calculate(client);
 
-				for (final StatChange c : statsChanges.getStatChanges()) {
+				for (final StatChange c : statsChanges.getStatChanges())
+				{
 					b.append(buildStatChangeString(c));
 				}
 
 				final String tooltip = b.toString();
 
-				if (!tooltip.isEmpty()) {
+				if (!tooltip.isEmpty())
+				{
 					tooltipManager.add(new Tooltip(tooltip));
 				}
 			}
 		}
 
-		if (plugin.isEquipmentStats()) {
+		if (plugin.isEquipmentStats())
+		{
 			final ItemStats stats = itemManager.getItemStats(itemId, false);
 
-			if (stats != null) {
+			if (stats != null)
+			{
 				final String tooltip = buildStatBonusString(stats);
 
-				if (!tooltip.isEmpty()) {
+				if (!tooltip.isEmpty())
+				{
 					tooltipManager.add(new Tooltip(tooltip));
 				}
 			}
@@ -133,22 +157,27 @@ public class ItemStatOverlay extends Overlay {
 	}
 
 	private String getChangeString(
-			final String label,
-			final double value,
-			final boolean inverse,
-			final boolean showPercent) {
+		final String label,
+		final double value,
+		final boolean inverse,
+		final boolean showPercent)
+	{
 		final Color plus = Positivity.getColor(plugin, Positivity.BETTER_UNCAPPED);
 		final Color minus = Positivity.getColor(plugin, Positivity.WORSE);
 
-		if (value == 0) {
+		if (value == 0)
+		{
 			return "";
 		}
 
 		final Color color;
 
-		if (inverse) {
+		if (inverse)
+		{
 			color = value > 0 ? minus : plus;
-		} else {
+		}
+		else
+		{
 			color = value > 0 ? plus : minus;
 		}
 
@@ -158,9 +187,11 @@ public class ItemStatOverlay extends Overlay {
 		return label + ": " + ColorUtil.wrapWithColorTag(prefix + valueString + suffix, color) + "</br>";
 	}
 
-	private String buildStatBonusString(ItemStats s) {
+	private String buildStatBonusString(ItemStats s)
+	{
 		final StringBuilder b = new StringBuilder();
-		if (plugin.isShowWeight()) {
+		if (plugin.isShowWeight())
+		{
 			b.append(getChangeString("Weight", s.getWeight(), true, false));
 		}
 
@@ -168,18 +199,22 @@ public class ItemStatOverlay extends Overlay {
 		final ItemEquipmentStats currentEquipment = s.getEquipment();
 
 		ItemContainer c = client.getItemContainer(InventoryID.EQUIPMENT);
-		if (s.isEquipable() && currentEquipment != null && c != null) {
+		if (s.isEquipable() && currentEquipment != null && c != null)
+		{
 			final Item[] items = c.getItems();
 			final int slot = currentEquipment.getSlot();
 
-			if (slot != -1 && slot < items.length) {
+			if (slot != -1 && slot < items.length)
+			{
 				final Item item = items[slot];
-				if (item != null) {
+				if (item != null)
+				{
 					other = itemManager.getItemStats(item.getId(), false);
 				}
 			}
 
-			if (other == null && slot == EquipmentInventorySlot.WEAPON.getSlotIdx()) {
+			if (other == null && slot == EquipmentInventorySlot.WEAPON.getSlotIdx())
+			{
 				// Unarmed
 				other = UNARMED;
 			}
@@ -188,14 +223,16 @@ public class ItemStatOverlay extends Overlay {
 		final ItemStats subtracted = s.subtract(other);
 		final ItemEquipmentStats e = subtracted.getEquipment();
 
-		if (subtracted.isEquipable() && e != null) {
+		if (subtracted.isEquipable() && e != null)
+		{
 			b.append(getChangeString("Prayer", e.getPrayer(), false, false));
 			b.append(getChangeString("Speed", e.getAspeed(), true, false));
 			b.append(getChangeString("Melee Str", e.getStr(), false, false));
 			b.append(getChangeString("Range Str", e.getRstr(), false, false));
 			b.append(getChangeString("Magic Dmg", e.getMdmg(), false, true));
 
-			if (e.getAstab() != 0 || e.getAslash() != 0 || e.getAcrush() != 0 || e.getAmagic() != 0 || e.getArange() != 0) {
+			if (e.getAstab() != 0 || e.getAslash() != 0 || e.getAcrush() != 0 || e.getAmagic() != 0 || e.getArange() != 0)
+			{
 				b.append(ColorUtil.wrapWithColorTag("Attack Bonus</br>", JagexColors.MENU_TARGET));
 				b.append(getChangeString("Stab", e.getAstab(), false, false));
 				b.append(getChangeString("Slash", e.getAslash(), false, false));
@@ -204,7 +241,8 @@ public class ItemStatOverlay extends Overlay {
 				b.append(getChangeString("Range", e.getArange(), false, false));
 			}
 
-			if (e.getDstab() != 0 || e.getDslash() != 0 || e.getDcrush() != 0 || e.getDmagic() != 0 || e.getDrange() != 0) {
+			if (e.getDstab() != 0 || e.getDslash() != 0 || e.getDcrush() != 0 || e.getDmagic() != 0 || e.getDrange() != 0)
+			{
 				b.append(ColorUtil.wrapWithColorTag("Defence Bonus</br>", JagexColors.MENU_TARGET));
 				b.append(getChangeString("Stab", e.getDstab(), false, false));
 				b.append(getChangeString("Slash", e.getDslash(), false, false));
@@ -217,29 +255,36 @@ public class ItemStatOverlay extends Overlay {
 		return b.toString();
 	}
 
-	private String buildStatChangeString(StatChange c) {
+	private String buildStatChangeString(StatChange c)
+	{
 		StringBuilder b = new StringBuilder();
 		b.append(ColorUtil.colorTag(Positivity.getColor(plugin, c.getPositivity())));
 
-		if (plugin.isRelative()) {
+		if (plugin.isRelative())
+		{
 			b.append(c.getFormattedRelative());
 		}
 
-		if (plugin.isTheoretical()) {
-			if (plugin.isRelative()) {
+		if (plugin.isTheoretical())
+		{
+			if (plugin.isRelative())
+			{
 				b.append("/");
 			}
 			b.append(c.getFormattedTheoretical());
 		}
 
-		if (plugin.isAbsolute() && (plugin.isRelative() || plugin.isTheoretical())) {
+		if (plugin.isAbsolute() && (plugin.isRelative() || plugin.isTheoretical()))
+		{
 			b.append(" (");
 		}
-		if (plugin.isAbsolute()) {
+		if (plugin.isAbsolute())
+		{
 			b.append(c.getAbsolute());
 		}
 
-		if (plugin.isAbsolute() && (plugin.isRelative() || plugin.isTheoretical())) {
+		if (plugin.isAbsolute() && (plugin.isRelative() || plugin.isTheoretical()))
+		{
 			b.append(")");
 		}
 		b.append(" ").append(c.getStat().getName());

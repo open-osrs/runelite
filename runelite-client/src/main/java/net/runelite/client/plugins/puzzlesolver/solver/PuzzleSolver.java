@@ -26,12 +26,12 @@
 package net.runelite.client.plugins.puzzlesolver.solver;
 
 import com.google.common.base.Stopwatch;
-import net.runelite.client.plugins.puzzlesolver.solver.pathfinding.Pathfinder;
-
 import java.time.Duration;
 import java.util.List;
+import net.runelite.client.plugins.puzzlesolver.solver.pathfinding.Pathfinder;
 
-public class PuzzleSolver implements Runnable {
+public class PuzzleSolver implements Runnable
+{
 	public static final int DIMENSION = 5;
 	public static final int BLANK_TILE_VALUE = -1;
 
@@ -45,41 +45,50 @@ public class PuzzleSolver implements Runnable {
 	private Stopwatch stopwatch;
 	private boolean failed = false;
 
-	public PuzzleSolver(Pathfinder pathfinder, PuzzleState startState) {
+	public PuzzleSolver(Pathfinder pathfinder, PuzzleState startState)
+	{
 		this.pathfinder = pathfinder;
 		this.startState = startState;
 	}
 
-	public PuzzleState getStep(int stepIdx) {
+	public PuzzleState getStep(int stepIdx)
+	{
 		return solution.get(stepIdx);
 	}
 
-	public int getStepCount() {
+	public int getStepCount()
+	{
 		return solution.size();
 	}
 
-	public boolean hasSolution() {
+	public boolean hasSolution()
+	{
 		return solution != null;
 	}
 
-	public int getPosition() {
+	public int getPosition()
+	{
 		return position;
 	}
 
-	public void setPosition(int position) {
+	public void setPosition(int position)
+	{
 		this.position = position;
 	}
 
-	public boolean hasExceededWaitDuration() {
+	public boolean hasExceededWaitDuration()
+	{
 		return stopwatch != null && stopwatch.elapsed().compareTo(MAX_WAIT_DURATION) > 0;
 	}
 
-	public boolean hasFailed() {
+	public boolean hasFailed()
+	{
 		return failed;
 	}
 
 	@Override
-	public void run() {
+	public void run()
+	{
 		stopwatch = Stopwatch.createStarted();
 		solution = pathfinder.computePath(startState);
 		failed = solution == null;

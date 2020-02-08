@@ -24,14 +24,15 @@
  */
 package net.runelite.client.plugins.agility;
 
+import java.awt.image.BufferedImage;
+import java.time.temporal.ChronoUnit;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.Timer;
 
-import java.awt.image.BufferedImage;
-import java.time.temporal.ChronoUnit;
-
-class AgilityArenaTimer extends Timer {
-	AgilityArenaTimer(Plugin plugin, BufferedImage image) {
+class AgilityArenaTimer extends Timer
+{
+	AgilityArenaTimer(Plugin plugin, BufferedImage image)
+	{
 		super(1, ChronoUnit.MINUTES, image, plugin);
 		setTooltip("Time left until location changes");
 	}

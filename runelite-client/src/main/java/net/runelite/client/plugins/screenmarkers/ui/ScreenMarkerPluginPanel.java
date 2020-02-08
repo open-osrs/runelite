@@ -25,6 +25,19 @@
  */
 package net.runelite.client.plugins.screenmarkers.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.plugins.screenmarkers.ScreenMarkerOverlay;
@@ -34,14 +47,8 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.PluginErrorPanel;
 import net.runelite.client.util.ImageUtil;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
-public class ScreenMarkerPluginPanel extends PluginPanel {
+public class ScreenMarkerPluginPanel extends PluginPanel
+{
 	private static final ImageIcon ADD_ICON;
 	private static final ImageIcon ADD_HOVER_ICON;
 
@@ -69,13 +76,15 @@ public class ScreenMarkerPluginPanel extends PluginPanel {
 	@Getter(AccessLevel.PUBLIC)
 	private ScreenMarkerCreationPanel creationPanel;
 
-	static {
+	static
+	{
 		final BufferedImage addIcon = ImageUtil.getResourceStreamFromClass(ScreenMarkerPlugin.class, "add_icon.png");
 		ADD_ICON = new ImageIcon(addIcon);
 		ADD_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(addIcon, 0.53f));
 	}
 
-	public ScreenMarkerPluginPanel(ScreenMarkerPlugin screenMarkerPlugin) {
+	public ScreenMarkerPluginPanel(ScreenMarkerPlugin screenMarkerPlugin)
+	{
 		this.plugin = screenMarkerPlugin;
 
 		setLayout(new BorderLayout());
@@ -114,19 +123,23 @@ public class ScreenMarkerPluginPanel extends PluginPanel {
 		constraints.gridy++;
 
 		addMarker.setToolTipText("Add new screen marker");
-		addMarker.addMouseListener(new MouseAdapter() {
+		addMarker.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				setCreation(true);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				addMarker.setIcon(ADD_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				addMarker.setIcon(ADD_ICON);
 			}
 		});
@@ -137,7 +150,8 @@ public class ScreenMarkerPluginPanel extends PluginPanel {
 		add(centerPanel, BorderLayout.CENTER);
 	}
 
-	public void rebuild() {
+	public void rebuild()
+	{
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.weightx = 1;
@@ -146,7 +160,8 @@ public class ScreenMarkerPluginPanel extends PluginPanel {
 
 		markerView.removeAll();
 
-		for (final ScreenMarkerOverlay marker : plugin.getScreenMarkers()) {
+		for (final ScreenMarkerOverlay marker : plugin.getScreenMarkers())
+		{
 			markerView.add(new ScreenMarkerPanel(plugin, marker), constraints);
 			constraints.gridy++;
 
@@ -169,11 +184,15 @@ public class ScreenMarkerPluginPanel extends PluginPanel {
 	}
 
 	/* Enables/Disables new marker creation mode */
-	public void setCreation(boolean on) {
-		if (on) {
+	public void setCreation(boolean on)
+	{
+		if (on)
+		{
 			noMarkersPanel.setVisible(false);
 			title.setVisible(true);
-		} else {
+		}
+		else
+		{
 			boolean empty = plugin.getScreenMarkers().isEmpty();
 			noMarkersPanel.setVisible(empty);
 			title.setVisible(!empty);
@@ -182,7 +201,8 @@ public class ScreenMarkerPluginPanel extends PluginPanel {
 		creationPanel.setVisible(on);
 		addMarker.setVisible(!on);
 
-		if (on) {
+		if (on)
+		{
 			creationPanel.lockConfirm();
 			plugin.setMouseListenerEnabled(true);
 		}

@@ -28,7 +28,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter(AccessLevel.PUBLIC)
-public class SkillDataEntry {
+public class SkillDataEntry
+{
 	private String name;
 	private int level;
 	private double xp;

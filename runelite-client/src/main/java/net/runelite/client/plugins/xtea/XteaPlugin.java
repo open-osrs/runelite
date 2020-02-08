@@ -24,6 +24,9 @@
  */
 package net.runelite.client.plugins.xtea;
 
+import java.io.IOException;
+import java.util.HashMap;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -33,24 +36,23 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.http.api.xtea.XteaClient;
 
-import javax.inject.Inject;
-import java.io.IOException;
-import java.util.HashMap;
-
 @PluginDescriptor(
-		name = "Xtea",
-		hidden = true
+	name = "Xtea",
+	hidden = true
 )
 @Slf4j
-public class XteaPlugin extends Plugin {
+public class XteaPlugin extends Plugin
+{
 	private final XteaClient xteaClient = new XteaClient();
 
 	private HashMap<Integer, int[]> xteas;
-
 	{
-		try {
+		try
+		{
 			xteas = xteaClient.get();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -59,19 +61,23 @@ public class XteaPlugin extends Plugin {
 	private Client client;
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged) {
-		if (gameStateChanged.getGameState() != GameState.LOGGED_IN) {
+	private void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
 		int[] regions = client.getMapRegions();
 		int[][] xteaKeys = client.getXteaKeys();
 
-		for (int idx = 0; idx < regions.length; ++idx) {
+		for (int idx = 0; idx < regions.length; ++idx)
+		{
 			int region = regions[idx];
 			int[] keys = xteaKeys[idx];
 
-			if (xteas.get(region) != null) {
+			if (xteas.get(region) != null)
+			{
 				continue;
 			}
 
@@ -80,7 +86,8 @@ public class XteaPlugin extends Plugin {
 			log.debug("Region {} keys {}, {}, {}, {}", region, keys[0], keys[1], keys[2], keys[3]);
 
 			//Don't post non encrypted regions
-			if (keys[0] == 0 && keys[1] == 0 && keys[2] == 0 && keys[3] == 0) {
+			if (keys[0] == 0 && keys[1] == 0 && keys[2] == 0 && keys[3] == 0)
+			{
 				continue;
 			}
 

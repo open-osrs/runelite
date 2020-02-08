@@ -33,11 +33,39 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.inject.Provides;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Setter;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
+import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
+import static net.runelite.api.MenuOpcode.WALK;
+import net.runelite.api.NPC;
+import net.runelite.api.Player;
+import net.runelite.api.Varbits;
+import static net.runelite.api.Varbits.BUILDING_MODE;
+import static net.runelite.api.Varbits.WITHDRAW_X_AMOUNT;
+import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.*;
+import net.runelite.api.events.ClientTick;
+import net.runelite.api.events.FocusChanged;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOpened;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.util.Text;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -47,118 +75,153 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.menus.AbstractComparableEntry;
+import static net.runelite.client.menus.ComparableEntries.newBankComparableEntry;
+import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 import net.runelite.client.menus.MenuManager;
-import net.runelite.client.plugins.*;
-import net.runelite.client.plugins.menuentryswapper.comparables.*;
-import net.runelite.client.plugins.menuentryswapper.util.*;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.plugins.PluginDependency;
+import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.PluginManager;
+import net.runelite.client.plugins.PluginType;
+import net.runelite.client.plugins.menuentryswapper.comparables.BankComparableEntry;
+import net.runelite.client.plugins.menuentryswapper.comparables.EquipmentComparableEntry;
+import net.runelite.client.plugins.menuentryswapper.comparables.GrimyHerbComparableEntry;
+import net.runelite.client.plugins.menuentryswapper.comparables.InventoryComparableEntry;
+import net.runelite.client.plugins.menuentryswapper.comparables.ShopComparableEntry;
+import net.runelite.client.plugins.menuentryswapper.comparables.WithdrawComparableEntry;
+import net.runelite.client.plugins.menuentryswapper.util.ArdougneCloakMode;
+import net.runelite.client.plugins.menuentryswapper.util.BurningAmuletMode;
+import net.runelite.client.plugins.menuentryswapper.util.CombatBraceletMode;
+import net.runelite.client.plugins.menuentryswapper.util.ConstructionCapeMode;
+import net.runelite.client.plugins.menuentryswapper.util.ConstructionMode;
+import net.runelite.client.plugins.menuentryswapper.util.DigsitePendantMode;
+import net.runelite.client.plugins.menuentryswapper.util.DuelingRingMode;
+import net.runelite.client.plugins.menuentryswapper.util.FairyRingMode;
+import net.runelite.client.plugins.menuentryswapper.util.FairyTreeMode;
+import net.runelite.client.plugins.menuentryswapper.util.GamesNecklaceMode;
+import net.runelite.client.plugins.menuentryswapper.util.GloryMode;
+import net.runelite.client.plugins.menuentryswapper.util.HouseAdvertisementMode;
+import net.runelite.client.plugins.menuentryswapper.util.HouseMode;
+import net.runelite.client.plugins.menuentryswapper.util.MaxCapeMode;
+import net.runelite.client.plugins.menuentryswapper.util.NecklaceOfPassageMode;
+import net.runelite.client.plugins.menuentryswapper.util.ObeliskMode;
+import net.runelite.client.plugins.menuentryswapper.util.OccultAltarMode;
+import net.runelite.client.plugins.menuentryswapper.util.QuestCapeMode;
+import net.runelite.client.plugins.menuentryswapper.util.RingOfWealthMode;
+import net.runelite.client.plugins.menuentryswapper.util.SkillsNecklaceMode;
+import net.runelite.client.plugins.menuentryswapper.util.SlayerRingMode;
+import net.runelite.client.plugins.menuentryswapper.util.SwapGrimyHerbMode;
+import net.runelite.client.plugins.menuentryswapper.util.XericsTalismanMode;
 import net.runelite.client.plugins.pvptools.PvpToolsConfig;
 import net.runelite.client.plugins.pvptools.PvpToolsPlugin;
 import net.runelite.client.util.HotkeyListener;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.*;
-
-import static net.runelite.api.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
-import static net.runelite.api.Varbits.BUILDING_MODE;
-import static net.runelite.api.Varbits.WITHDRAW_X_AMOUNT;
-import static net.runelite.client.menus.ComparableEntries.newBankComparableEntry;
-import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 import static net.runelite.client.util.MenuUtil.swap;
 
 @PluginDescriptor(
-		name = "Menu Entry Swapper",
-		description = "Change the default option that is displayed when hovering over objects",
-		tags = {"npcs", "inventory", "items", "objects"},
-		type = PluginType.UTILITY,
-		enabledByDefault = false
+	name = "Menu Entry Swapper",
+	description = "Change the default option that is displayed when hovering over objects",
+	tags = {"npcs", "inventory", "items", "objects"},
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Singleton
 @PluginDependency(PvpToolsPlugin.class)
-public class MenuEntrySwapperPlugin extends Plugin {
+public class MenuEntrySwapperPlugin extends Plugin
+{
 	private static final Object HOTKEY = new Object();
 	private static final Object CONTROL = new Object();
 	private static final Object HOTKEY_CHECK = new Object();
 	private static final Object CONTROL_CHECK = new Object();
 	private static final int PURO_PURO_REGION_ID = 10307;
 	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
-			MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
-			MenuOpcode.NPC_FOURTH_OPTION, MenuOpcode.NPC_FIFTH_OPTION, MenuOpcode.EXAMINE_NPC
+		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
+		MenuOpcode.NPC_FOURTH_OPTION, MenuOpcode.NPC_FIFTH_OPTION, MenuOpcode.EXAMINE_NPC
 	);
 	private static final List<String> jewelleryBox = Arrays.asList(
-			"duel arena", "castle wars", "clan wars", "burthorpe", "barbarian outpost", "corporeal beast",
-			"tears of guthix", "wintertodt camp", "warriors' guild", "champions' guild", "monastery", "ranging guild",
-			"fishing guild", "mining guild", "crafting guild", "cooking guild", "woodcutting guild", "farming guild",
-			"miscellania", "grand exchange", "falador park", "dondakan's rock", "edgeville", "karamja",
-			"draynor village", "al kharid"
+		"duel arena", "castle wars", "clan wars", "burthorpe", "barbarian outpost", "corporeal beast",
+		"tears of guthix", "wintertodt camp", "warriors' guild", "champions' guild", "monastery", "ranging guild",
+		"fishing guild", "mining guild", "crafting guild", "cooking guild", "woodcutting guild", "farming guild",
+		"miscellania", "grand exchange", "falador park", "dondakan's rock", "edgeville", "karamja",
+		"draynor village", "al kharid"
 	);
 	private static final List<String> npcContact = Arrays.asList(
-			"honest jimmy", "bert the sandman", "advisor ghrim", "dark mage", "lanthus", "turael",
-			"mazchna", "vannaka", "chaeldar", "nieve", "steve", "duradel", "krystilia", "konar",
-			"murphy", "cyrisus", "smoggy", "ginea", "watson", "barbarian guard", "random"
+		"honest jimmy", "bert the sandman", "advisor ghrim", "dark mage", "lanthus", "turael",
+		"mazchna", "vannaka", "chaeldar", "nieve", "steve", "duradel", "krystilia", "konar",
+		"murphy", "cyrisus", "smoggy", "ginea", "watson", "barbarian guard", "random"
 	);
-
-	private static final AbstractComparableEntry WALK = new AbstractComparableEntry() {
+	
+		private static final AbstractComparableEntry WALK = new AbstractComparableEntry()
+	{
 		private final int hash = "WALK".hashCode() * 79 + getPriority();
 
 		@Override
-		public int hashCode() {
+		public int hashCode()
+		{
 			return hash;
 		}
 
 		@Override
-		public boolean equals(Object entry) {
+		public boolean equals(Object entry)
+		{
 			return entry.getClass() == this.getClass() && entry.hashCode() == this.hashCode();
 		}
 
 		@Override
-		public int getPriority() {
+		public int getPriority()
+		{
 			return 99;
 		}
 
 		@Override
-		public boolean matches(MenuEntry entry) {
+		public boolean matches(MenuEntry entry)
+		{
 			return
-					entry.getOpcode() == MenuOpcode.WALK.getId() ||
-							entry.getOpcode() == MenuOpcode.WALK.getId() + MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
+				entry.getOpcode() == MenuOpcode.WALK.getId() ||
+					entry.getOpcode() == MenuOpcode.WALK.getId() + MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
 		}
 	};
 
-	private static final AbstractComparableEntry TAKE = new AbstractComparableEntry() {
+	private static final AbstractComparableEntry TAKE = new AbstractComparableEntry()
+	{
 		private final int hash = "TAKE".hashCode() * 79 + getPriority();
 
 		@Override
-		public int hashCode() {
+		public int hashCode()
+		{
 			return hash;
 		}
 
 		@Override
-		public boolean equals(Object entry) {
+		public boolean equals(Object entry)
+		{
 			return entry.getClass() == this.getClass() && entry.hashCode() == this.hashCode();
 		}
 
 		@Override
-		public int getPriority() {
+		public int getPriority()
+		{
 			return 100;
 		}
 
 		@Override
-		public boolean matches(MenuEntry entry) {
+		public boolean matches(MenuEntry entry)
+		{
 			int opcode = entry.getOpcode();
-			if (opcode > MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET) {
+			if (opcode > MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET)
+			{
 				opcode -= MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
 			}
 
 			return
-					opcode >= MenuOpcode.GROUND_ITEM_FIRST_OPTION.getId() &&
-							opcode <= MenuOpcode.GROUND_ITEM_FIFTH_OPTION.getId();
+				opcode >= MenuOpcode.GROUND_ITEM_FIRST_OPTION.getId() &&
+					opcode <= MenuOpcode.GROUND_ITEM_FIFTH_OPTION.getId();
 		}
 	};
 
 	private static final Splitter NEWLINE_SPLITTER = Splitter
-			.on("\n")
-			.omitEmptyStrings()
-			.trimResults();
+		.on("\n")
+		.omitEmptyStrings()
+		.trimResults();
 	private final Map<AbstractComparableEntry, Integer> customSwaps = new HashMap<>();
 	private final Map<AbstractComparableEntry, Integer> customShiftSwaps = new HashMap<>();
 	private final Map<AbstractComparableEntry, AbstractComparableEntry> dePrioSwaps = new HashMap<>();
@@ -307,28 +370,34 @@ public class MenuEntrySwapperPlugin extends Plugin {
 	private boolean getSwapOffer;
 	private boolean hotKeyLoot;
 	private boolean hotKeyWalk;
-	private final HotkeyListener hotkey = new HotkeyListener(() -> this.hotkeyMod) {
+	private final HotkeyListener hotkey = new HotkeyListener(() -> this.hotkeyMod)
+	{
 		@Override
-		public void hotkeyPressed() {
+		public void hotkeyPressed()
+		{
 			startHotkey();
 			setHotkeyActive(true);
 		}
 
 		@Override
-		public void hotkeyReleased() {
+		public void hotkeyReleased()
+		{
 			stopHotkey();
 			setHotkeyActive(false);
 		}
 	};
-	private final HotkeyListener ctrlHotkey = new HotkeyListener(() -> Keybind.CTRL) {
+	private final HotkeyListener ctrlHotkey = new HotkeyListener(() -> Keybind.CTRL)
+	{
 		@Override
-		public void hotkeyPressed() {
+		public void hotkeyPressed()
+		{
 			startControl();
 			setControlActive(true);
 		}
 
 		@Override
-		public void hotkeyReleased() {
+		public void hotkeyReleased()
+		{
 			stopControl();
 			setControlActive(false);
 		}
@@ -336,12 +405,14 @@ public class MenuEntrySwapperPlugin extends Plugin {
 
 
 	@Provides
-	MenuEntrySwapperConfig provideConfig(ConfigManager configManager) {
+	MenuEntrySwapperConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(MenuEntrySwapperConfig.class);
 	}
 
 	@Override
-	public void startUp() {
+	public void startUp()
+	{
 
 		updateConfig();
 
@@ -357,7 +428,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 
 		updateRemovedObjects();
 
-		if (client.getGameState() == GameState.LOGGED_IN) {
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
 			keyManager.registerKeyListener(ctrlHotkey);
 			keyManager.registerKeyListener(hotkey);
 			setCastOptions(true);
@@ -365,7 +437,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 	}
 
 	@Override
-	public void shutDown() {
+	public void shutDown()
+	{
 		loadCustomSwaps("", customSwaps); // Removes all custom swaps
 		removeSwaps();
 		removeBuySellEntries();
@@ -375,22 +448,27 @@ public class MenuEntrySwapperPlugin extends Plugin {
 
 		keyManager.unregisterKeyListener(ctrlHotkey);
 		keyManager.unregisterKeyListener(hotkey);
-		if (client.getGameState() == GameState.LOGGED_IN) {
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
 			resetCastOptions();
 		}
 	}
 
 	@Subscribe
-	private void onFocusChanged(FocusChanged event) {
-		if (!event.isFocused()) {
+	private void onFocusChanged(FocusChanged event)
+	{
+		if (!event.isFocused())
+		{
 			stopControl();
 			stopHotkey();
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!"menuentryswapper".equals(event.getGroup())) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!"menuentryswapper".equals(event.getGroup()))
+		{
 			return;
 		}
 
@@ -399,23 +477,30 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		addSwaps();
 		loadConstructionItems();
 
-		switch (event.getKey()) {
+		switch (event.getKey())
+		{
 			case "customSwaps":
 				loadCustomSwaps(this.configCustomSwaps, customSwaps);
 				return;
 			case "hideCastToB":
 			case "hideCastIgnoredToB":
-				if (this.hideCastToB) {
+				if (this.hideCastToB)
+				{
 					setCastOptions(true);
-				} else {
+				}
+				else
+				{
 					resetCastOptions();
 				}
 				return;
 			case "hideCastCoX":
 			case "hideCastIgnoredCoX":
-				if (this.hideCastCoX) {
+				if (this.hideCastCoX)
+				{
 					setCastOptions(true);
-				} else {
+				}
+				else
+				{
 					resetCastOptions();
 				}
 				return;
@@ -426,11 +511,14 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		}
 
 		if (event.getKey().startsWith("swapSell") || event.getKey().startsWith("swapBuy") ||
-				(event.getKey().startsWith("sell") || event.getKey().startsWith("buy")) && event.getKey().endsWith("Items")) {
+			(event.getKey().startsWith("sell") || event.getKey().startsWith("buy")) && event.getKey().endsWith("Items"))
+		{
 			removeBuySellEntries();
 			updateBuySellEntries();
 			addBuySellEntries();
-		} else if (event.getKey().startsWith("withdraw") || event.getKey().startsWith("deposit")) {
+		}
+		else if (event.getKey().startsWith("withdraw") || event.getKey().startsWith("deposit"))
+		{
 			removeWithdrawEntries();
 			updateWithdrawEntries();
 			addWithdrawEntries();
@@ -438,8 +526,10 @@ public class MenuEntrySwapperPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() != GameState.LOGGED_IN) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() != GameState.LOGGED_IN)
+		{
 			keyManager.unregisterKeyListener(ctrlHotkey);
 			keyManager.unregisterKeyListener(hotkey);
 			return;
@@ -451,7 +541,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged event) {
+	private void onVarbitChanged(VarbitChanged event)
+	{
 		buildingMode = client.getVar(BUILDING_MODE) == 1;
 		WithdrawComparableEntry.setX(client.getVar(WITHDRAW_X_AMOUNT));
 
@@ -459,69 +550,87 @@ public class MenuEntrySwapperPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onMenuOpened(MenuOpened event) {
+	private void onMenuOpened(MenuOpened event)
+	{
 		Player localPlayer = client.getLocalPlayer();
 
-		if (localPlayer == null) {
+		if (localPlayer == null)
+		{
 			return;
 		}
 
 		List<MenuEntry> menu_entries = new ArrayList<>();
 
-		for (MenuEntry entry : event.getMenuEntries()) {
+		for (MenuEntry entry : event.getMenuEntries())
+		{
 			String option = Text.removeTags(entry.getOption()).toLowerCase();
 
-			if (option.contains("trade with") && this.hideTradeWith) {
+			if (option.contains("trade with") && this.hideTradeWith)
+			{
 				continue;
 			}
 
-			if (option.contains("lookup") && this.hideLookup) {
+			if (option.contains("lookup") && this.hideLookup)
+			{
 				continue;
 			}
 
-			if (option.contains("report") && this.hideReport) {
+			if (option.contains("report") && this.hideReport)
+			{
 				continue;
 			}
 
-			if (option.contains("examine") && this.hideExamine) {
+			if (option.contains("examine") && this.hideExamine)
+			{
 				continue;
 			}
 
-			if (option.contains("net") && this.hideNet) {
+			if (option.contains("net") && this.hideNet)
+			{
 				continue;
 			}
 
-			if (option.contains("bait") && this.hideBait) {
+			if (option.contains("bait") && this.hideBait)
+			{
 				continue;
 			}
 
-			if (option.contains("destroy")) {
-				if (this.hideDestroyRunepouch && entry.getTarget().contains("Rune pouch")) {
+			if (option.contains("destroy"))
+			{
+				if (this.hideDestroyRunepouch && entry.getTarget().contains("Rune pouch"))
+				{
 					continue;
 				}
-				if (this.hideDestroyCoalbag && entry.getTarget().contains("Coal bag")) {
+				if (this.hideDestroyCoalbag && entry.getTarget().contains("Coal bag"))
+				{
 					continue;
 				}
-				if (this.hideDestroyHerbsack && entry.getTarget().contains("Herb sack")) {
+				if (this.hideDestroyHerbsack && entry.getTarget().contains("Herb sack"))
+				{
 					continue;
 				}
-				if (this.hideDestroyBoltpouch && entry.getTarget().contains("Bolt pouch")) {
+				if (this.hideDestroyBoltpouch && entry.getTarget().contains("Bolt pouch"))
+				{
 					continue;
 				}
-				if (this.hideDestroyLootingBag && entry.getTarget().contains("Looting bag")) {
+				if (this.hideDestroyLootingBag && entry.getTarget().contains("Looting bag"))
+				{
 					continue;
 				}
-				if (this.hideDestroyGembag && entry.getTarget().contains("Gem bag")) {
+				if (this.hideDestroyGembag && entry.getTarget().contains("Gem bag"))
+				{
 					continue;
 				}
 			}
 
-			if (option.contains("drop")) {
+			if (option.contains("drop"))
+			{
 				if (this.hideDropRunecraftingPouch && (
-						entry.getTarget().contains("Small pouch")
-								|| entry.getTarget().contains("Medium pouch")
-								|| entry.getTarget().contains("Large pouch")
-								|| entry.getTarget().contains("Giant pouch"))) {
+					entry.getTarget().contains("Small pouch")
+						|| entry.getTarget().contains("Medium pouch")
+						|| entry.getTarget().contains("Large pouch")
+						|| entry.getTarget().contains("Giant pouch")))
+				{
 					continue;
 				}
 			}
@@ -534,8 +643,10 @@ public class MenuEntrySwapperPlugin extends Plugin {
 	}
 
 	@Subscribe
-	public void onMenuEntryAdded(MenuEntryAdded event) {
-		if (client.getGameState() != GameState.LOGGED_IN) {
+	public void onMenuEntryAdded(MenuEntryAdded event)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
@@ -544,80 +655,109 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		final String target = Text.standardize(event.getTarget(), true);
 		final NPC hintArrowNpc = client.getHintArrowNpc();
 
-		if (removedObjects != null) {
+		if (removedObjects != null)
+		{
 			final boolean hasArrow = target.contains("->");
 			final int targetLength = target.length();
 
-			for (final String object : removedObjects) {
+			for (final String object : removedObjects)
+			{
 				if (target.equals(object)
-						|| hasArrow && target.endsWith(object)) {
+					|| hasArrow && target.endsWith(object))
+				{
 					client.setMenuOptionCount(client.getMenuOptionCount() - 1);
 					return;
 				}
 			}
 		}
 
-		if (this.getSwapPuro && isPuroPuro()) {
-			if (event.getOpcode() == WALK.getId()) {
+		if (this.getSwapPuro && isPuroPuro())
+		{
+			if (event.getOpcode() == WALK.getId())
+			{
 				MenuEntry[] menuEntries = client.getMenuEntries();
 				MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
 				menuEntry.setOpcode(MenuOpcode.WALK.getId() + MENU_ACTION_DEPRIORITIZE_OFFSET);
 				client.setMenuEntries(menuEntries);
-			} else if (option.equalsIgnoreCase("examine")) {
+			}
+			else if (option.equalsIgnoreCase("examine"))
+			{
 				swap(client, "push-through", option, target);
-			} else if (option.equalsIgnoreCase("use")) {
+			}
+			else if (option.equalsIgnoreCase("use"))
+			{
 				swap(client, "escape", option, target);
 			}
 		}
 
 		if (hintArrowNpc != null
-				&& hintArrowNpc.getIndex() == eventId
-				&& NPC_MENU_TYPES.contains(MenuOpcode.of(event.getOpcode()))) {
+			&& hintArrowNpc.getIndex() == eventId
+			&& NPC_MENU_TYPES.contains(MenuOpcode.of(event.getOpcode())))
+		{
 			return;
 		}
 
-		if (this.swapImps && target.contains("impling")) {
+		if (this.swapImps && target.contains("impling"))
+		{
 
-			if (client.getItemContainer(InventoryID.BANK) != null) {
+			if (client.getItemContainer(InventoryID.BANK) != null)
+			{
 				bankItemNames = new ArrayList<>();
-				for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.BANK)).getItems()) {
+				for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.BANK)).getItems())
+				{
 					bankItemNames.add(client.getItemDefinition((i.getId())).getName());
 				}
 			}
 			List<String> invItemNames = new ArrayList<>();
-			switch (target) {
+			switch (target)
+			{
 				case "gourmet impling jar":
-					if (client.getItemContainer(InventoryID.INVENTORY) != null) {
-						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems()) {
+					if (client.getItemContainer(InventoryID.INVENTORY) != null)
+					{
+						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
+						{
 							invItemNames.add(client.getItemDefinition((i.getId())).getName());
 						}
-						if ((invItemNames.contains("Clue scroll (easy)") || bankItemNames.contains("Clue scroll (easy)"))) {
+						if ((invItemNames.contains("Clue scroll (easy)") || bankItemNames.contains("Clue scroll (easy)")))
+						{
 							menuManager.addSwap("loot", target, "use");
-						} else {
+						}
+						else
+						{
 							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
 				case "young impling jar":
-					if (client.getItemContainer(InventoryID.INVENTORY) != null) {
-						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems()) {
+					if (client.getItemContainer(InventoryID.INVENTORY) != null)
+					{
+						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
+						{
 							invItemNames.add(client.getItemDefinition((i.getId())).getName());
 						}
-						if (invItemNames.contains("Clue scroll (easy)") || bankItemNames.contains("Clue scroll (easy)") || invItemNames.contains("Clue scroll (beginner)") || bankItemNames.contains("Clue scroll (beginner)")) {
+						if (invItemNames.contains("Clue scroll (easy)") || bankItemNames.contains("Clue scroll (easy)") || invItemNames.contains("Clue scroll (beginner)") || bankItemNames.contains("Clue scroll (beginner)"))
+						{
 							menuManager.addSwap("loot", target, "use");
-						} else {
+						}
+						else
+						{
 							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
 				case "eclectic impling jar":
-					if (client.getItemContainer(InventoryID.INVENTORY) != null) {
-						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems()) {
+					if (client.getItemContainer(InventoryID.INVENTORY) != null)
+					{
+						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
+						{
 							invItemNames.add(client.getItemDefinition((i.getId())).getName());
 						}
-						if ((invItemNames.contains("Clue scroll (medium)") || bankItemNames.contains("Clue scroll (medium)"))) {
+						if ((invItemNames.contains("Clue scroll (medium)") || bankItemNames.contains("Clue scroll (medium)")))
+						{
 							menuManager.addSwap("loot", target, "use");
-						} else {
+						}
+						else
+						{
 							menuManager.removeSwap("loot", target, "use");
 						}
 					}
@@ -625,26 +765,36 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				case "magpie impling jar":
 				case "nature impling jar":
 				case "ninja impling jar":
-					if (client.getItemContainer(InventoryID.INVENTORY) != null) {
-						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems()) {
+					if (client.getItemContainer(InventoryID.INVENTORY) != null)
+					{
+						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
+						{
 							invItemNames.add(client.getItemDefinition((i.getId())).getName());
 						}
-						if ((invItemNames.contains("Clue scroll (hard)") || bankItemNames.contains("Clue scroll (hard)"))) {
+						if ((invItemNames.contains("Clue scroll (hard)") || bankItemNames.contains("Clue scroll (hard)")))
+						{
 							menuManager.addSwap("loot", target, "use");
-						} else {
+						}
+						else
+						{
 							menuManager.removeSwap("loot", target, "use");
 						}
 					}
 					break;
 				case "crystal impling jar":
 				case "dragon impling jar":
-					if (client.getItemContainer(InventoryID.INVENTORY) != null) {
-						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems()) {
+					if (client.getItemContainer(InventoryID.INVENTORY) != null)
+					{
+						for (Item i : Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems())
+						{
 							invItemNames.add(client.getItemDefinition((i.getId())).getName());
 						}
-						if ((invItemNames.contains("Clue scroll (elite)") || bankItemNames.contains("Clue scroll (elite)"))) {
+						if ((invItemNames.contains("Clue scroll (elite)") || bankItemNames.contains("Clue scroll (elite)")))
+						{
 							menuManager.addSwap("loot", target, "use");
-						} else {
+						}
+						else
+						{
 							menuManager.removeSwap("loot", target, "use");
 						}
 					}
@@ -653,34 +803,45 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		}
 	}
 
-	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map) {
+	private void loadCustomSwaps(String config, Map<AbstractComparableEntry, Integer> map)
+	{
 		final Map<AbstractComparableEntry, Integer> tmp = new HashMap<>();
 
-		if (!Strings.isNullOrEmpty(config)) {
+		if (!Strings.isNullOrEmpty(config))
+		{
 			final StringBuilder sb = new StringBuilder();
 
-			for (String str : config.split("\n")) {
-				if (!str.startsWith("//")) {
+			for (String str : config.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
 					sb.append(str).append("\n");
 				}
 			}
 
 			final Map<String, String> split = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
 
-			for (Map.Entry<String, String> entry : split.entrySet()) {
+			for (Map.Entry<String, String> entry : split.entrySet())
+			{
 				final String prio = entry.getKey();
 				int priority;
-				try {
+				try
+				{
 					priority = Integer.parseInt(entry.getValue().trim());
-				} catch (NumberFormatException e) {
+				}
+				catch (NumberFormatException e)
+				{
 					priority = 0;
 				}
 				final String[] splitFrom = Text.standardize(prio).split(",");
 				final String optionFrom = splitFrom[0].trim();
 				final String targetFrom;
-				if (splitFrom.length == 1) {
+				if (splitFrom.length == 1)
+				{
 					targetFrom = "";
-				} else {
+				}
+				else
+				{
 					targetFrom = splitFrom[1].trim();
 				}
 
@@ -690,7 +851,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			}
 		}
 
-		for (Map.Entry<AbstractComparableEntry, Integer> e : map.entrySet()) {
+		for (Map.Entry<AbstractComparableEntry, Integer> e : map.entrySet())
+		{
 			final AbstractComparableEntry key = e.getKey();
 			menuManager.removePriorityEntry(key);
 		}
@@ -698,20 +860,24 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		map.clear();
 		map.putAll(tmp);
 
-		for (Map.Entry<AbstractComparableEntry, Integer> entry : map.entrySet()) {
+		for (Map.Entry<AbstractComparableEntry, Integer> entry : map.entrySet())
+		{
 			AbstractComparableEntry a1 = entry.getKey();
 			int a2 = entry.getValue();
 			menuManager.addPriorityEntry(a1).setPriority(a2);
 		}
 	}
 
-	private void addSwaps() {
+	private void addSwaps()
+	{
 		final List<String> tmp = NEWLINE_SPLITTER.splitToList(config.prioEntry());
 
-		for (String str : tmp) {
+		for (String str : tmp)
+		{
 			String[] strings = str.split(",");
 
-			if (strings.length <= 1) {
+			if (strings.length <= 1)
+			{
 				continue;
 			}
 
@@ -721,68 +887,82 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			menuManager.addSwap(a, b);
 		}
 
-		if (this.getSwapTanning) {
+		if (this.getSwapTanning)
+		{
 			menuManager.addPriorityEntry("Tan <col=ff7000>All");
 		}
 
-		if (this.getSwapOffer) {
+		if (this.getSwapOffer)
+		{
 			menuManager.addPriorityEntry("Offer-All<col=ff9040>");
 		}
 
-		if (this.getSwapSawmill) {
+		if (this.getSwapSawmill)
+		{
 			menuManager.addPriorityEntry("Buy-plank", "Sawmill operator");
 		}
 
-		if (this.getSwapSawmillPlanks) {
+		if (this.getSwapSawmillPlanks)
+		{
 			//Not much we can do for this one, Buy all is the only thing, there is no target.
 			menuManager.addPriorityEntry("Buy <col=ff7000>All").setPriority(10);
 		}
 
-		if (this.getSwapArdougneCloak) {
+		if (this.getSwapArdougneCloak)
+		{
 			menuManager.addPriorityEntry(this.ardougneCloakMode.toString()).setPriority(100);
 			menuManager.addPriorityEntry(this.ardougneCloakMode.toString2()).setPriority(100);
 		}
 
-		if (this.getSwapCraftingCape) {
+		if (this.getSwapCraftingCape)
+		{
 			menuManager.addPriorityEntry("Teleport", "Crafting cape");
 			menuManager.addPriorityEntry("Teleport", "Crafting cape(t)");
 		}
 
-		if (this.getSwapConstructionCape) {
+		if (this.getSwapConstructionCape)
+		{
 			menuManager.addPriorityEntry(this.constructionCapeMode.toString(), "Construct. cape").setPriority(100);
 			menuManager.addPriorityEntry(this.constructionCapeMode.toString(), "Construct. cape(t)").setPriority(100);
 		}
 
-		if (this.getSwapMagicCape) {
+		if (this.getSwapMagicCape)
+		{
 			menuManager.addPriorityEntry("Spellbook", "Magic cape");
 			menuManager.addPriorityEntry("Spellbook", "Magic cape(t)");
 		}
 
-		if (this.getSwapExplorersRing) {
+		if (this.getSwapExplorersRing)
+		{
 			menuManager.addPriorityEntry("Teleport", "Explorer's ring 2");
 			menuManager.addPriorityEntry("Teleport", "Explorer's ring 3");
 			menuManager.addPriorityEntry("Teleport", "Explorer's ring 4");
 		}
 
-		if (this.swapPickpocket) {
+		if (this.swapPickpocket)
+		{
 			menuManager.addPriorityEntry("Pickpocket").setPriority(1);
 		}
 
-		if (this.swapHardWoodGrove) {
+		if (this.swapHardWoodGrove)
+		{
 			menuManager.addPriorityEntry("Send-parcel", "Rionasta");
 		}
 
-		if (this.swapBankExchange) {
+		if (this.swapBankExchange)
+		{
 			menuManager.addPriorityEntry(new BankComparableEntry("collect", "", false));
 			menuManager.addPriorityEntry("Bank");
 			menuManager.addPriorityEntry("Exchange");
 		}
 
-		if (this.swapContract) {
+		if (this.swapContract)
+		{
 			menuManager.addPriorityEntry("Contract").setPriority(10);
 		}
 
-		if (this.swapInteract) {
+		if (this.swapInteract)
+		{
 			menuManager.addPriorityEntry("Repairs").setPriority(10);
 			menuManager.addPriorityEntry("Claim-slime").setPriority(10);
 			menuManager.addPriorityEntry("Decant").setPriority(10);
@@ -791,28 +971,33 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			menuManager.addPriorityEntry("Help").setPriority(10);
 		}
 
-		if (this.swapAssignment) {
+		if (this.swapAssignment)
+		{
 			menuManager.addPriorityEntry("Assignment").setPriority(100);
 		}
 
-		if (this.swapPlank) {
+		if (this.swapPlank)
+		{
 			menuManager.addPriorityEntry("Buy-plank").setPriority(10);
 		}
 
-		if (this.swapTrade) {
+		if (this.swapTrade)
+		{
 			menuManager.addPriorityEntry("Trade").setPriority(1);
 			menuManager.addPriorityEntry("Trade-with").setPriority(1);
 			menuManager.addPriorityEntry("Shop").setPriority(1);
 		}
 
-		if (this.swapMinigame) {
+		if (this.swapMinigame)
+		{
 			menuManager.addPriorityEntry("Story");
 			menuManager.addPriorityEntry("Escort");
 			menuManager.addPriorityEntry("Dream");
 			menuManager.addPriorityEntry("Start-minigame");
 		}
 
-		if (this.swapTravel) {
+		if (this.swapTravel)
+		{
 			menuManager.addPriorityEntry("Travel");
 			menuManager.addPriorityEntry("Pay-fare");
 			menuManager.addPriorityEntry("Charter");
@@ -825,56 +1010,68 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			menuManager.addPriorityEntry("Transport");
 		}
 
-		if (this.swapAbyssTeleport) {
+		if (this.swapAbyssTeleport)
+		{
 			menuManager.addPriorityEntry("Teleport", "Mage of zamorak").setPriority(10);
 		}
 
-		if (this.swapPay) {
+		if (this.swapPay)
+		{
 			menuManager.addPriorityEntry("Pay");
 			menuManager.addPriorityEntry("Pay (", false);
 		}
 
-		if (this.swapQuick) {
+		if (this.swapQuick)
+		{
 			menuManager.addPriorityEntry("Quick-travel");
 		}
 
-		if (this.swapEnchant) {
+		if (this.swapEnchant)
+		{
 			menuManager.addPriorityEntry("Enchant");
 		}
 
-		if (this.swapWildernessLever) {
+		if (this.swapWildernessLever)
+		{
 			menuManager.addPriorityEntry("Edgeville", "Lever");
 		}
 
-		if (this.swapMetamorphosis) {
+		if (this.swapMetamorphosis)
+		{
 			menuManager.addPriorityEntry("Metamorphosis", "Baby chinchompa");
 		}
 
-		if (this.swapStun) {
+		if (this.swapStun)
+		{
 			menuManager.addPriorityEntry("Stun", "Hoop snake");
 		}
 
-		if (this.swapTravel) {
+		if (this.swapTravel)
+		{
 			menuManager.addPriorityEntry("Pay-toll(2-ecto)", "Energy barrier");
 			menuManager.addPriorityEntry("Pay-toll(10gp)", "Gate");
 			menuManager.addPriorityEntry("Travel", "Trapdoor");
 		}
 
-		if (this.swapHarpoon) {
+		if (this.swapHarpoon)
+		{
 			menuManager.addPriorityEntry("Harpoon");
 		}
 
-		if (this.swapBoxTrap) {
+		if (this.swapBoxTrap)
+		{
 			menuManager.addPriorityEntry("Reset", "Shaking box");
 			menuManager.addPriorityEntry("Lay", "Box trap");
 			menuManager.addPriorityEntry("Activate", "Box trap");
 		}
 
-		if (this.swapChase) {
+		if (this.swapChase)
+		{
 			menuManager.addPriorityEntry("Chase");
 		}
 
-		if (this.swapBirdhouseEmpty) {
+		if (this.swapBirdhouseEmpty)
+		{
 			menuManager.addPriorityEntry("Empty", "Birdhouse");
 			menuManager.addPriorityEntry("Empty", "Oak Birdhouse");
 			menuManager.addPriorityEntry("Empty", "Willow Birdhouse");
@@ -886,7 +1083,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			menuManager.addPriorityEntry("Empty", "Redwood Birdhouse");
 		}
 
-		if (this.swapQuick) {
+		if (this.swapQuick)
+		{
 			menuManager.addPriorityEntry("Quick-enter");
 			menuManager.addPriorityEntry("Quick-start");
 			menuManager.addPriorityEntry("Quick-pass");
@@ -894,7 +1092,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			menuManager.addPriorityEntry("Quick-leave");
 		}
 
-		if (this.swapAdmire) {
+		if (this.swapAdmire)
+		{
 			menuManager.addPriorityEntry("Teleport", "Mounted Strength Cape").setPriority(10);
 			menuManager.addPriorityEntry("Teleport", "Mounted Strength Cape (t)").setPriority(10);
 			menuManager.addPriorityEntry("Teleport", "Mounted Construction Cape").setPriority(10);
@@ -910,45 +1109,55 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			menuManager.addPriorityEntry("Perks", "Mounted Max Cape");
 		}
 
-		if (this.swapPrivate) {
+		if (this.swapPrivate)
+		{
 			menuManager.addPriorityEntry("Private");
 		}
 
-		if (this.swapPick) {
+		if (this.swapPick)
+		{
 			menuManager.addPriorityEntry("Pick-lots");
 		}
 
-		if (this.swapSearch) {
+		if (this.swapSearch)
+		{
 			menuManager.addPriorityEntry("Search").setPriority(1);
 		}
 
-		if (this.swapRogueschests) {
+		if (this.swapRogueschests)
+		{
 			menuManager.addPriorityEntry("Search for traps");
 		}
 
-		if (this.rockCake) {
+		if (this.rockCake)
+		{
 			menuManager.addPriorityEntry("Guzzle", "Dwarven rock cake");
 		}
 
-		if (this.swapTeleportItem) {
+		if (this.swapTeleportItem)
+		{
 			menuManager.addPriorityEntry(new InventoryComparableEntry("Rub", "", false)).setPriority(1);
 			menuManager.addPriorityEntry(new InventoryComparableEntry("Teleport", "", false)).setPriority(1);
 		}
 
-		if (this.swapCoalBag) {
+		if (this.swapCoalBag)
+		{
 			menuManager.addPriorityEntry("Fill", "Coal bag");
 			menuManager.addPriorityEntry(newBankComparableEntry("Empty", "Coal bag"));
 		}
 
-		if (this.swapBones) {
+		if (this.swapBones)
+		{
 			menuManager.addSwap("Bury", "bone", "Use");
 		}
 
-		if (this.swapNexus) {
+		if (this.swapNexus)
+		{
 			menuManager.addPriorityEntry("Teleport menu", "Portal nexus");
 		}
 
-		switch (this.swapFairyRingMode) {
+		switch (this.swapFairyRingMode)
+		{
 			case OFF:
 			case ZANARIS:
 				menuManager.removeSwaps("Fairy ring");
@@ -962,7 +1171,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapFairyTreeMode) {
+		switch (this.swapFairyTreeMode)
+		{
 			case OFF:
 				break;
 			case TREE:
@@ -979,7 +1189,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapOccultMode) {
+		switch (this.swapOccultMode)
+		{
 			case LUNAR:
 				menuManager.addPriorityEntry("Lunar", "Altar of the Occult");
 				break;
@@ -991,7 +1202,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapObeliskMode) {
+		switch (this.swapObeliskMode)
+		{
 			case SET_DESTINATION:
 				menuManager.addPriorityEntry("Set destination", "Obelisk");
 				break;
@@ -1000,7 +1212,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapHomePortalMode) {
+		switch (this.swapHomePortalMode)
+		{
 			case HOME:
 				menuManager.addPriorityEntry("Home");
 				break;
@@ -1012,72 +1225,90 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		if (this.swapHardWoodGrove) {
+		if (this.swapHardWoodGrove)
+		{
 			menuManager.addPriorityEntry("Quick-pay(100)", "Hardwood grove doors");
 		}
 
-		if (this.getBurningAmulet) {
+		if (this.getBurningAmulet)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getBurningAmuletMode.toString(), "burning amulet"));
 		}
 
-		if (this.getCombatBracelet) {
+		if (this.getCombatBracelet)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getCombatBraceletMode.toString(), "combat bracelet"));
 		}
 
-		if (this.getGamesNecklace) {
+		if (this.getGamesNecklace)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getGamesNecklaceMode.toString(), "games necklace"));
 		}
 
-		if (this.getDuelingRing) {
+		if (this.getDuelingRing)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getDuelingRingMode.toString(), "ring of dueling"));
 		}
 
-		if (this.getGlory) {
+		if (this.getGlory)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getGloryMode.toString(), "glory"));
 		}
 
-		if (this.getSkillsNecklace) {
+		if (this.getSkillsNecklace)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getSkillsNecklaceMode.toString(), "skills necklace"));
 		}
 
-		if (this.getNecklaceofPassage) {
+		if (this.getNecklaceofPassage)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getNecklaceofPassageMode.toString(), "necklace of passage"));
 		}
 
-		if (this.getDigsitePendant) {
+		if (this.getDigsitePendant)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getDigsitePendantMode.toString(), "digsite pendant"));
 		}
 
-		if (this.getSlayerRing) {
+		if (this.getSlayerRing)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getSlayerRingMode.toString(), "slayer ring"));
 		}
 
-		if (this.getXericsTalisman) {
+		if (this.getXericsTalisman)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getXericsTalismanMode.toString(), "talisman"));
 		}
 
-		if (this.getRingofWealth) {
+		if (this.getRingofWealth)
+		{
 			menuManager.addPriorityEntry(new EquipmentComparableEntry(this.getRingofWealthMode.toString(), "ring of wealth"));
 		}
 
-		if (this.swapMax) {
+		if (this.swapMax)
+		{
 			menuManager.addPriorityEntry(this.maxMode.toString(), "max cape");
 		}
 
-		if (this.swapQuestCape) {
+		if (this.swapQuestCape)
+		{
 			menuManager.addPriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		}
 
-		if (this.swapHouseAd) {
+		if (this.swapHouseAd)
+		{
 			menuManager.addPriorityEntry(this.swapHouseAdMode.getEntry());
 		}
 
-		if (this.getSwapGrimyHerb) {
+		if (this.getSwapGrimyHerb)
+		{
 			menuManager.addPriorityEntry(new GrimyHerbComparableEntry(this.swapGrimyHerbMode, client));
 		}
 
-		if (this.swapJewelleryBox) {
-			for (String jewellerybox : jewelleryBox) {
+		if (this.swapJewelleryBox)
+		{
+			for (String jewellerybox : jewelleryBox)
+			{
 				menuManager.addPriorityEntry(jewellerybox, "basic jewellery box");
 				menuManager.addPriorityEntry(jewellerybox, "fancy jewellery box");
 				menuManager.addPriorityEntry(jewellerybox, "ornate jewellery box");
@@ -1085,7 +1316,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		}
 	}
 
-	private void removeSwaps() {
+	private void removeSwaps()
+	{
 		final Iterator<Map.Entry<AbstractComparableEntry, AbstractComparableEntry>> dePrioIter = dePrioSwaps.entrySet().iterator();
 		dePrioIter.forEachRemaining((e) ->
 		{
@@ -1212,13 +1444,15 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		menuManager.removePriorityEntry(this.questCapeMode.toString(), "quest point cape");
 		menuManager.removePriorityEntry(this.swapHouseAdMode.getEntry());
 		menuManager.removeSwap("Bury", "bone", "Use");
-		for (String jewellerybox : jewelleryBox) {
+		for (String jewellerybox : jewelleryBox)
+		{
 			menuManager.removePriorityEntry(jewellerybox, "basic jewellery box");
 			menuManager.removePriorityEntry(jewellerybox, "fancy jewellery box");
 			menuManager.removePriorityEntry(jewellerybox, "ornate jewellery box");
 		}
 
-		switch (this.swapFairyRingMode) {
+		switch (this.swapFairyRingMode)
+		{
 			case OFF:
 			case ZANARIS:
 				menuManager.removeSwaps("Fairy ring");
@@ -1232,7 +1466,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapFairyTreeMode) {
+		switch (this.swapFairyTreeMode)
+		{
 			case OFF:
 			case TREE:
 				menuManager.removePriorityEntry("Tree", "Spiritual Fairy Tree");
@@ -1248,7 +1483,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapOccultMode) {
+		switch (this.swapOccultMode)
+		{
 			case LUNAR:
 				menuManager.removePriorityEntry("Lunar", "Altar of the Occult");
 				break;
@@ -1260,7 +1496,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapObeliskMode) {
+		switch (this.swapObeliskMode)
+		{
 			case SET_DESTINATION:
 				menuManager.removePriorityEntry("Set destination", "Obelisk");
 				break;
@@ -1269,7 +1506,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				break;
 		}
 
-		switch (this.swapHomePortalMode) {
+		switch (this.swapHomePortalMode)
+		{
 			case HOME:
 				menuManager.removePriorityEntry("Home");
 				break;
@@ -1283,71 +1521,92 @@ public class MenuEntrySwapperPlugin extends Plugin {
 
 	}
 
-	private boolean isPuroPuro() {
+	private boolean isPuroPuro()
+	{
 		Player player = client.getLocalPlayer();
 
-		if (player == null) {
+		if (player == null)
+		{
 			return false;
-		} else {
+		}
+		else
+		{
 			WorldPoint location = player.getWorldLocation();
 			return location.getRegionID() == PURO_PURO_REGION_ID;
 		}
 	}
 
-	private void loadConstructionItems() {
-		if (client.getGameState() != GameState.LOGGED_IN) {
+	private void loadConstructionItems()
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
-		if (!buildingMode) {
+		if (!buildingMode)
+		{
 			menuManager.removePriorityEntry(this.getConstructionMode.getBuild());
 			menuManager.removePriorityEntry(this.getConstructionMode.getRemove());
 			return;
 		}
 
-		if (this.getEasyConstruction) {
+		if (this.getEasyConstruction)
+		{
 			menuManager.addPriorityEntry(this.getConstructionMode.getBuild()).setPriority(100);
 			menuManager.addPriorityEntry(this.getConstructionMode.getRemove()).setPriority(100);
 		}
 	}
 
-	private void startHotkey() {
+	private void startHotkey()
+	{
 		eventBus.subscribe(ClientTick.class, HOTKEY, this::addHotkey);
 		eventBus.subscribe(ClientTick.class, HOTKEY_CHECK, this::hotkeyCheck);
 	}
 
-	private void addHotkey(ClientTick event) {
+	private void addHotkey(ClientTick event)
+	{
 		loadCustomSwaps(this.configCustomShiftSwaps, customShiftSwaps);
 
-		if (this.bankWieldItem) {
+		if (this.bankWieldItem)
+		{
 			menuManager.addPriorityEntry(new BankComparableEntry("wield", "", false));
 		}
-		if (this.bankWearItem) {
+		if (this.bankWearItem)
+		{
 			menuManager.addPriorityEntry(new BankComparableEntry("wear", "", false));
 		}
-		if (this.bankEatItem) {
+		if (this.bankEatItem)
+		{
 			menuManager.addPriorityEntry(new BankComparableEntry("eat", "", false));
 		}
-		if (this.bankDrinkItem) {
+		if (this.bankDrinkItem)
+		{
 			menuManager.addPriorityEntry(new BankComparableEntry("drink", "", false));
 		}
-		if (this.bankEquipItem) {
+		if (this.bankEquipItem)
+		{
 			menuManager.addPriorityEntry(new BankComparableEntry("equip", "", false));
 		}
-		if (this.bankInvigorateItem) {
+		if (this.bankInvigorateItem)
+		{
 			menuManager.addPriorityEntry(new BankComparableEntry("invigorate", "", false));
 		}
-		if (this.swapClimbUpDown) {
+		if (this.swapClimbUpDown)
+		{
 			menuManager.addPriorityEntry("climb-up").setPriority(100);
 		}
-		if (this.hotKeyLoot) {
+		if (this.hotKeyLoot)
+		{
 			menuManager.addPriorityEntry(TAKE);
 		}
-		if (this.hotKeyWalk) {
+		if (this.hotKeyWalk)
+		{
 			menuManager.addPriorityEntry(WALK);
 		}
-		if (this.swapNpcContact) {
-			for (String npccontact : npcContact) {
+		if (this.swapNpcContact)
+		{
+			for (String npccontact : npcContact)
+			{
 				menuManager.addPriorityEntry(npccontact, "npc contact");
 			}
 		}
@@ -1355,11 +1614,13 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		eventBus.unregister(HOTKEY);
 	}
 
-	private void stopHotkey() {
+	private void stopHotkey()
+	{
 		eventBus.subscribe(ClientTick.class, HOTKEY, this::removeHotkey);
 	}
 
-	private void removeHotkey(ClientTick event) {
+	private void removeHotkey(ClientTick event)
+	{
 		menuManager.removePriorityEntry(new BankComparableEntry("wield", "", false));
 		menuManager.removePriorityEntry(new BankComparableEntry("wear", "", false));
 		menuManager.removePriorityEntry(new BankComparableEntry("eat", "", false));
@@ -1370,7 +1631,8 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		menuManager.removePriorityEntry(TAKE);
 		menuManager.removePriorityEntry(WALK);
 
-		for (String npccontact : npcContact) {
+		for (String npccontact : npcContact)
+		{
 			menuManager.removePriorityEntry(npccontact, "npc contact");
 		}
 
@@ -1378,15 +1640,20 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		eventBus.unregister(HOTKEY);
 	}
 
-	private void hotkeyCheck(ClientTick event) {
-		if (hotkeyActive) {
+	private void hotkeyCheck(ClientTick event)
+	{
+		if (hotkeyActive)
+		{
 			int i = 0;
-			for (boolean bol : client.getPressedKeys()) {
-				if (bol) {
+			for (boolean bol : client.getPressedKeys())
+			{
+				if (bol)
+				{
 					i++;
 				}
 			}
-			if (i == 0) {
+			if (i == 0)
+			{
 				stopHotkey();
 				setHotkeyActive(false);
 				eventBus.unregister(HOTKEY_CHECK);
@@ -1394,8 +1661,10 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		}
 	}
 
-	private void startControl() {
-		if (!this.swapClimbUpDown) {
+	private void startControl()
+	{
+		if (!this.swapClimbUpDown)
+		{
 			return;
 		}
 
@@ -1403,29 +1672,37 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		eventBus.subscribe(ClientTick.class, CONTROL_CHECK, this::controlCheck);
 	}
 
-	private void addControl(ClientTick event) {
+	private void addControl(ClientTick event)
+	{
 		menuManager.addPriorityEntry("climb-down").setPriority(100);
 		eventBus.unregister(CONTROL);
 	}
 
-	private void stopControl() {
+	private void stopControl()
+	{
 		eventBus.subscribe(ClientTick.class, CONTROL, this::removeControl);
 	}
 
-	private void removeControl(ClientTick event) {
+	private void removeControl(ClientTick event)
+	{
 		menuManager.removePriorityEntry("climb-down");
 		eventBus.unregister(CONTROL);
 	}
 
-	private void controlCheck(ClientTick event) {
-		if (controlActive) {
+	private void controlCheck(ClientTick event)
+	{
+		if (controlActive)
+		{
 			int i = 0;
-			for (boolean bol : client.getPressedKeys()) {
-				if (bol) {
+			for (boolean bol : client.getPressedKeys())
+			{
+				if (bol)
+				{
 					i++;
 				}
 			}
-			if (i == 0) {
+			if (i == 0)
+			{
 				stopControl();
 				setControlActive(false);
 				eventBus.unregister(CONTROL_CHECK);
@@ -1433,12 +1710,15 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		}
 	}
 
-	private void setCastOptions(boolean force) {
+	private void setCastOptions(boolean force)
+	{
 		clientThread.invoke(() ->
 		{
 			boolean tmpInCoxRaid = client.getVar(Varbits.IN_RAID) == 1;
-			if (tmpInCoxRaid != inCoxRaid || force) {
-				if (tmpInCoxRaid && this.hideCastCoX) {
+			if (tmpInCoxRaid != inCoxRaid || force)
+			{
+				if (tmpInCoxRaid && this.hideCastCoX)
+				{
 					client.setHideFriendCastOptions(true);
 					client.setHideClanmateCastOptions(true);
 					client.setUnhiddenCasts(this.hideCastIgnoredCoX);
@@ -1448,8 +1728,10 @@ public class MenuEntrySwapperPlugin extends Plugin {
 			}
 
 			boolean tmpInTobRaid = client.getVar(Varbits.THEATRE_OF_BLOOD) == 2;
-			if (tmpInTobRaid != inTobRaid || force) {
-				if (tmpInTobRaid && this.hideCastToB) {
+			if (tmpInTobRaid != inTobRaid || force)
+			{
+				if (tmpInTobRaid && this.hideCastToB)
+				{
 					client.setHideFriendCastOptions(true);
 					client.setHideClanmateCastOptions(true);
 					client.setUnhiddenCasts(this.hideCastIgnoredToB);
@@ -1458,25 +1740,31 @@ public class MenuEntrySwapperPlugin extends Plugin {
 				inTobRaid = tmpInTobRaid;
 			}
 
-			if (!inCoxRaid && !inTobRaid) {
+			if (!inCoxRaid && !inTobRaid)
+			{
 				resetCastOptions();
 			}
 		});
 	}
 
-	private void resetCastOptions() {
+	private void resetCastOptions()
+	{
 		clientThread.invoke(() ->
 		{
-			if (client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isAllPvpWorld(client.getWorldType()) && pluginManager.isPluginEnabled(pvpTools) && pvpToolsConfig.hideCast()) {
+			if (client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isAllPvpWorld(client.getWorldType()) && pluginManager.isPluginEnabled(pvpTools) && pvpToolsConfig.hideCast())
+			{
 				pvpTools.setCastOptions();
-			} else {
+			}
+			else
+			{
 				client.setHideFriendCastOptions(false);
 				client.setHideClanmateCastOptions(false);
 			}
 		});
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.configCustomShiftSwaps = config.shiftCustomSwaps();
 		this.configCustomSwaps = config.customSwaps();
 		this.ardougneCloakMode = config.ardougneCloakMode();
@@ -1591,30 +1879,42 @@ public class MenuEntrySwapperPlugin extends Plugin {
 		this.hotKeyLoot = config.hotKeyLoot();
 	}
 
-	private void addBuySellEntries() {
-		for (int i = 0; i < 4; i++) {
-			if (buyEntries[i] != null) {
-				for (AbstractComparableEntry entry : buyEntries[i]) {
+	private void addBuySellEntries()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (buyEntries[i] != null)
+			{
+				for (AbstractComparableEntry entry : buyEntries[i])
+				{
 					menuManager.addPriorityEntry(entry);
 				}
 			}
-			if (sellEntries[i] != null) {
-				for (AbstractComparableEntry entry : sellEntries[i]) {
+			if (sellEntries[i] != null)
+			{
+				for (AbstractComparableEntry entry : sellEntries[i])
+				{
 					menuManager.addPriorityEntry(entry);
 				}
 			}
 		}
 	}
 
-	private void removeBuySellEntries() {
-		for (int i = 0; i < 4; i++) {
-			if (buyEntries[i] != null) {
-				for (AbstractComparableEntry entry : buyEntries[i]) {
+	private void removeBuySellEntries()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (buyEntries[i] != null)
+			{
+				for (AbstractComparableEntry entry : buyEntries[i])
+				{
 					menuManager.removePriorityEntry(entry);
 				}
 			}
-			if (sellEntries[i] != null) {
-				for (AbstractComparableEntry entry : sellEntries[i]) {
+			if (sellEntries[i] != null)
+			{
+				for (AbstractComparableEntry entry : sellEntries[i])
+				{
 					menuManager.removePriorityEntry(entry);
 				}
 			}
@@ -1624,157 +1924,210 @@ public class MenuEntrySwapperPlugin extends Plugin {
 	/**
 	 * Fills the buy/sell entry arrays
 	 */
-	private void updateBuySellEntries() {
+	private void updateBuySellEntries()
+	{
 		List<String> tmp;
 
-		if (config.getSwapBuyOne()) {
+		if (config.getSwapBuyOne())
+		{
 			tmp = Text.fromCSV(config.getBuyOneItems());
 			buyEntries[0] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(buyEntries[0], tmp, true, 1);
-		} else {
+		}
+		else
+		{
 			buyEntries[0] = null;
 		}
 
-		if (config.getSwapBuyFive()) {
+		if (config.getSwapBuyFive())
+		{
 			tmp = Text.fromCSV(config.getBuyFiveItems());
 			buyEntries[1] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(buyEntries[1], tmp, true, 5);
-		} else {
+		}
+		else
+		{
 			buyEntries[1] = null;
 		}
 
-		if (config.getSwapBuyTen()) {
+		if (config.getSwapBuyTen())
+		{
 			tmp = Text.fromCSV(config.getBuyTenItems());
 			buyEntries[2] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(buyEntries[2], tmp, true, 10);
-		} else {
+		}
+		else
+		{
 			buyEntries[2] = null;
 		}
 
-		if (config.getSwapBuyFifty()) {
+		if (config.getSwapBuyFifty())
+		{
 			tmp = Text.fromCSV(config.getBuyFiftyItems());
 			buyEntries[3] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(buyEntries[3], tmp, true, 50);
-		} else {
+		}
+		else
+		{
 			buyEntries[3] = null;
 		}
 
-		if (config.getSwapSellOne()) {
+		if (config.getSwapSellOne())
+		{
 			tmp = Text.fromCSV(config.getSellOneItems());
 			sellEntries[0] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(sellEntries[0], tmp, false, 1);
-		} else {
+		}
+		else
+		{
 			sellEntries[0] = null;
 		}
 
-		if (config.getSwapSellFive()) {
+		if (config.getSwapSellFive())
+		{
 			tmp = Text.fromCSV(config.getSellFiveItems());
 			sellEntries[1] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(sellEntries[1], tmp, false, 5);
-		} else {
+		}
+		else
+		{
 			sellEntries[1] = null;
 		}
 
-		if (config.getSwapSellTen()) {
+		if (config.getSwapSellTen())
+		{
 			tmp = Text.fromCSV(config.getSellTenItems());
 			sellEntries[2] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(sellEntries[2], tmp, false, 10);
-		} else {
+		}
+		else
+		{
 			sellEntries[2] = null;
 		}
 
-		if (config.getSwapSellFifty()) {
+		if (config.getSwapSellFifty())
+		{
 			tmp = Text.fromCSV(config.getSellFiftyItems());
 			sellEntries[3] = new AbstractComparableEntry[tmp.size()];
 
 			ShopComparableEntry.populateArray(sellEntries[3], tmp, false, 50);
-		} else {
+		}
+		else
+		{
 			sellEntries[3] = null;
 		}
 	}
 
-	private void addWithdrawEntries() {
-		for (int i = 0; i < 5; i++) {
-			if (withdrawEntries[i] != null) {
-				for (AbstractComparableEntry entry : withdrawEntries[i]) {
+	private void addWithdrawEntries()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (withdrawEntries[i] != null)
+			{
+				for (AbstractComparableEntry entry : withdrawEntries[i])
+				{
 					menuManager.addPriorityEntry(entry);
 				}
 			}
 		}
 	}
 
-	private void removeWithdrawEntries() {
-		for (int i = 0; i < 5; i++) {
-			if (withdrawEntries[i] != null) {
-				for (AbstractComparableEntry entry : withdrawEntries[i]) {
+	private void removeWithdrawEntries()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (withdrawEntries[i] != null)
+			{
+				for (AbstractComparableEntry entry : withdrawEntries[i])
+				{
 					menuManager.removePriorityEntry(entry);
 				}
 			}
 		}
 	}
 
-	private void updateWithdrawEntries() {
+	private void updateWithdrawEntries()
+	{
 		List<String> tmp;
 
-		if (config.getWithdrawOne()) {
+		if (config.getWithdrawOne())
+		{
 			tmp = Text.fromCSV(config.getWithdrawOneItems());
 			withdrawEntries[0] = new AbstractComparableEntry[tmp.size()];
 
 			WithdrawComparableEntry.populateArray(withdrawEntries[0], tmp, WithdrawComparableEntry.Amount.ONE);
-		} else {
+		}
+		else
+		{
 			withdrawEntries[0] = null;
 		}
 
-		if (config.getWithdrawFive()) {
+		if (config.getWithdrawFive())
+		{
 			tmp = Text.fromCSV(config.getWithdrawFiveItems());
 			withdrawEntries[1] = new AbstractComparableEntry[tmp.size()];
 
 			WithdrawComparableEntry.populateArray(withdrawEntries[1], tmp, WithdrawComparableEntry.Amount.FIVE);
-		} else {
+		}
+		else
+		{
 			withdrawEntries[1] = null;
 		}
 
-		if (config.getWithdrawTen()) {
+		if (config.getWithdrawTen())
+		{
 			tmp = Text.fromCSV(config.getWithdrawTenItems());
 			withdrawEntries[2] = new AbstractComparableEntry[tmp.size()];
 
 			WithdrawComparableEntry.populateArray(withdrawEntries[2], tmp, WithdrawComparableEntry.Amount.TEN);
-		} else {
+		}
+		else
+		{
 			withdrawEntries[2] = null;
 		}
 
-		if (config.getWithdrawX()) {
+		if (config.getWithdrawX())
+		{
 			tmp = Text.fromCSV(config.getWithdrawXItems());
 			withdrawEntries[3] = new AbstractComparableEntry[tmp.size()];
 
 			WithdrawComparableEntry.populateArray(withdrawEntries[3], tmp, WithdrawComparableEntry.Amount.X);
-		} else {
+		}
+		else
+		{
 			withdrawEntries[3] = null;
 		}
 
-		if (config.getWithdrawAll()) {
+		if (config.getWithdrawAll())
+		{
 			tmp = Text.fromCSV(config.getWithdrawAllItems());
 			withdrawEntries[4] = new AbstractComparableEntry[tmp.size()];
 
 			WithdrawComparableEntry.populateArray(withdrawEntries[4], tmp, WithdrawComparableEntry.Amount.ALL);
-		} else {
+		}
+		else
+		{
 			withdrawEntries[4] = null;
 		}
 	}
 
-	private void updateRemovedObjects() {
-		if (config.getRemoveObjects()) {
+	private void updateRemovedObjects()
+	{
+		if (config.getRemoveObjects())
+		{
 			removedObjects = Text.fromCSV(
-					Text.removeTags(config.getRemovedObjects().toLowerCase())
+				Text.removeTags(config.getRemovedObjects().toLowerCase())
 			).toArray(new String[0]);
-		} else {
+		}
+		else
+		{
 			removedObjects = null;
 		}
 	}

@@ -24,22 +24,26 @@
  */
 package net.runelite.client.plugins.screenmarkers.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import javax.inject.Singleton;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import net.runelite.client.plugins.screenmarkers.ScreenMarkerPlugin;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 import net.runelite.client.util.ImageUtil;
 
-import javax.inject.Singleton;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
 @Singleton
-public class ScreenMarkerCreationPanel extends JPanel {
+public class ScreenMarkerCreationPanel extends JPanel
+{
 	private static final ImageIcon CONFIRM_ICON;
 	private static final ImageIcon CONFIRM_HOVER_ICON;
 	private static final ImageIcon CONFIRM_LOCKED_ICON;
@@ -50,7 +54,8 @@ public class ScreenMarkerCreationPanel extends JPanel {
 	private final JLabel confirmLabel = new JLabel();
 	private boolean lockedConfirm = true;
 
-	static {
+	static
+	{
 		CONFIRM_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(ScreenMarkerPlugin.class, "confirm_icon.png"));
 		CANCEL_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(ScreenMarkerPlugin.class, "cancel_icon.png"));
 
@@ -60,7 +65,8 @@ public class ScreenMarkerCreationPanel extends JPanel {
 		CANCEL_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(ImageUtil.bufferedImageFromImage(CANCEL_ICON.getImage()), 0.6f));
 	}
 
-	ScreenMarkerCreationPanel(final ScreenMarkerPlugin plugin) {
+	ScreenMarkerCreationPanel(final ScreenMarkerPlugin plugin)
+	{
 		setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		setBorder(new EmptyBorder(8, 8, 8, 8));
 		setLayout(new BorderLayout());
@@ -73,41 +79,50 @@ public class ScreenMarkerCreationPanel extends JPanel {
 
 		confirmLabel.setIcon(CONFIRM_LOCKED_ICON);
 		confirmLabel.setToolTipText("Confirm and save");
-		confirmLabel.addMouseListener(new MouseAdapter() {
+		confirmLabel.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				/* If the confirm button is not locked */
-				if (!lockedConfirm) {
+				if (!lockedConfirm)
+				{
 					plugin.finishCreation(false);
 				}
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				confirmLabel.setIcon(lockedConfirm ? CONFIRM_LOCKED_ICON : CONFIRM_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				confirmLabel.setIcon(lockedConfirm ? CONFIRM_LOCKED_ICON : CONFIRM_ICON);
 			}
 		});
 
 		JLabel cancelLabel = new JLabel(CANCEL_ICON);
 		cancelLabel.setToolTipText("Cancel");
-		cancelLabel.addMouseListener(new MouseAdapter() {
+		cancelLabel.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				plugin.finishCreation(true);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				cancelLabel.setIcon(CANCEL_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				cancelLabel.setIcon(CANCEL_ICON);
 			}
 		});
@@ -120,14 +135,16 @@ public class ScreenMarkerCreationPanel extends JPanel {
 	}
 
 	/* Unlocks the confirm button */
-	public void unlockConfirm() {
+	public void unlockConfirm()
+	{
 		this.confirmLabel.setIcon(CONFIRM_ICON);
 		this.lockedConfirm = false;
 		instructionsLabel.setText("Confirm or cancel to finish.");
 	}
 
 	/* Locks the confirm button */
-	public void lockConfirm() {
+	public void lockConfirm()
+	{
 		this.confirmLabel.setIcon(CONFIRM_LOCKED_ICON);
 		this.lockedConfirm = true;
 		instructionsLabel.setText("Drag in-game to draw");

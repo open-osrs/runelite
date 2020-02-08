@@ -24,11 +24,12 @@
  */
 package net.runelite.client.util;
 
-import javax.annotation.Nonnull;
-import java.awt.*;
+import java.awt.Color;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 
-public class ColorUtil {
+public class ColorUtil
+{
 	public static final int MAX_RGB_VALUE = 255;
 	public static final int MIN_RGB_VALUE = 0;
 	private static final String OPENING_COLOR_TAG_START = "<col=";
@@ -43,7 +44,8 @@ public class ColorUtil {
 	 * @param color The Color to create a tag from.
 	 * @return A string of the color tag for the given color.
 	 */
-	public static String colorTag(Color color) {
+	public static String colorTag(Color color)
+	{
 		return OPENING_COLOR_TAG_START + colorToHexCode(color) + OPENING_COLOR_TAG_END;
 	}
 
@@ -54,7 +56,8 @@ public class ColorUtil {
 	 * @param color The color to be used in the color tag.
 	 * @return The passed str with a prepended color tag.
 	 */
-	public static String prependColorTag(final String str, final Color color) {
+	public static String prependColorTag(final String str, final Color color)
+	{
 		return colorTag(color) + str;
 	}
 
@@ -65,7 +68,8 @@ public class ColorUtil {
 	 * @param color The color to be used in the color tag.
 	 * @return The passed str wrapped with opening and closing color tags.
 	 */
-	public static String wrapWithColorTag(final String str, final Color color) {
+	public static String wrapWithColorTag(final String str, final Color color)
+	{
 		return prependColorTag(str, color) + CLOSING_COLOR_TAG;
 	}
 
@@ -75,7 +79,8 @@ public class ColorUtil {
 	 * @param color Color to get hexadecimal string from.
 	 * @return Hexadecimal string representing the given color, in the form "#abcdef".
 	 */
-	public static String toHexColor(final Color color) {
+	public static String toHexColor(final Color color)
+	{
 		return "#" + colorToHexCode(color);
 	}
 
@@ -87,7 +92,8 @@ public class ColorUtil {
 	 * @param t factor
 	 * @return interpolated color
 	 */
-	public static Color colorLerp(final Color a, final Color b, final double t) {
+	public static Color colorLerp(final Color a, final Color b, final double t)
+	{
 		final double r1 = a.getRed();
 		final double r2 = b.getRed();
 		final double g1 = a.getGreen();
@@ -96,9 +102,9 @@ public class ColorUtil {
 		final double b2 = b.getBlue();
 
 		return new Color(
-				(int) Math.round(r1 + (t * (r2 - r1))),
-				(int) Math.round(g1 + (t * (g2 - g1))),
-				(int) Math.round(b1 + (t * (b2 - b1)))
+			(int) Math.round(r1 + (t * (r2 - r1))),
+			(int) Math.round(g1 + (t * (g2 - g1))),
+			(int) Math.round(b1 + (t * (b2 - b1)))
 		);
 	}
 
@@ -108,7 +114,8 @@ public class ColorUtil {
 	 * @param color The color to get a hex code from.
 	 * @return A lower-cased string of the RGB hex code of color.
 	 */
-	public static String colorToHexCode(final Color color) {
+	public static String colorToHexCode(final Color color)
+	{
 		return String.format("%06x", color.getRGB() & 0xFFFFFF);
 	}
 
@@ -118,15 +125,18 @@ public class ColorUtil {
 	 * @param color The color to get a hex code from.
 	 * @return A lower-cased string of the ARGB hex code of color.
 	 */
-	public static String colorToAlphaHexCode(final Color color) {
+	public static String colorToAlphaHexCode(final Color color)
+	{
 		return String.format("%08x", color.getRGB());
 	}
 
-	static boolean isFullyTransparent(final Color color) {
+	static boolean isFullyTransparent(final Color color)
+	{
 		return color.getAlpha() == 0;
 	}
 
-	static boolean isNotFullyTransparent(final Color color) {
+	static boolean isNotFullyTransparent(final Color color)
+	{
 		return !isFullyTransparent(color);
 	}
 
@@ -136,7 +146,8 @@ public class ColorUtil {
 	 * @param hex The hex to test.
 	 * @return boolean
 	 */
-	public static boolean isAlphaHex(String hex) {
+	public static boolean isAlphaHex(String hex)
+	{
 		return ALPHA_HEX_PATTERN.matcher(hex).matches();
 	}
 
@@ -146,7 +157,8 @@ public class ColorUtil {
 	 * @param hex The hex to test.
 	 * @return boolean
 	 */
-	public static boolean isHex(String hex) {
+	public static boolean isHex(String hex)
+	{
 		return HEX_PATTERN.matcher(hex).matches();
 	}
 
@@ -156,7 +168,8 @@ public class ColorUtil {
 	 * @param value The value for the r, g, b, or a.
 	 * @return An int between 0 - 255.
 	 */
-	public static int constrainValue(int value) {
+	public static int constrainValue(int value)
+	{
 		return MiscUtils.clamp(value, MIN_RGB_VALUE, MAX_RGB_VALUE);
 	}
 
@@ -166,11 +179,15 @@ public class ColorUtil {
 	 * @param string The int to get a Color object from.
 	 * @return A Color of the int of color.
 	 */
-	public static Color fromString(String string) {
-		try {
+	public static Color fromString(String string)
+	{
+		try
+		{
 			int i = Integer.decode(string);
 			return new Color(i, true);
-		} catch (NumberFormatException e) {
+		}
+		catch (NumberFormatException e)
+		{
 			return null;
 		}
 	}
@@ -181,22 +198,31 @@ public class ColorUtil {
 	 * @param hex The hex to get a Color object from.
 	 * @return A Color of the hex code of color.
 	 */
-	public static Color fromHex(String hex) {
-		if (!hex.startsWith("#") && !hex.startsWith("0x")) {
+	public static Color fromHex(String hex)
+	{
+		if (!hex.startsWith("#") && !hex.startsWith("0x"))
+		{
 			hex = "#" + hex;
 		}
 
-		if ((hex.length() <= 7 && hex.startsWith("#")) || (hex.length() <= 8 && hex.startsWith("0x"))) {
-			try {
+		if ((hex.length() <= 7 && hex.startsWith("#")) || (hex.length() <= 8 && hex.startsWith("0x")))
+		{
+			try
+			{
 				return Color.decode(hex);
-			} catch (NumberFormatException e) {
+			}
+			catch (NumberFormatException e)
+			{
 				return null;
 			}
 		}
 
-		try {
+		try
+		{
 			return new Color(Long.decode(hex).intValue(), true);
-		} catch (NumberFormatException e) {
+		}
+		catch (NumberFormatException e)
+		{
 			return null;
 		}
 	}
@@ -207,7 +233,8 @@ public class ColorUtil {
 	 * @param object object with hashCode
 	 * @return color
 	 */
-	public static Color fromObject(@Nonnull final Object object) {
+	public static Color fromObject(@Nonnull final Object object)
+	{
 		int i = object.hashCode();
 		float h = (i % 360) / 360f;
 		return Color.getHSBColor(h, 1, 1);
@@ -220,7 +247,8 @@ public class ColorUtil {
 	 * @param alpha The alpha value to set on the color
 	 * @return color
 	 */
-	public static int setAlphaComponent(Color color, int alpha) {
+	public static int setAlphaComponent(Color color, int alpha)
+	{
 		return setAlphaComponent(color.getRGB(), alpha);
 	}
 
@@ -231,8 +259,10 @@ public class ColorUtil {
 	 * @param alpha The alpha value to set on the color
 	 * @return color
 	 */
-	public static int setAlphaComponent(int color, int alpha) {
-		if (alpha < 0 || alpha > 255) {
+	public static int setAlphaComponent(int color, int alpha)
+	{
+		if (alpha < 0 || alpha > 255)
+		{
 			throw new IllegalArgumentException("alpha must be between 0 and 255.");
 		}
 		return (color & 0x00ffffff) | (alpha << 24);
@@ -246,26 +276,44 @@ public class ColorUtil {
 	 * @param theirLvl The level you're comparing against
 	 * @param yourLvl  Your level
 	 */
-	public static String getLevelColorString(final int theirLvl, final int yourLvl) {
+	public static String getLevelColorString(final int theirLvl, final int yourLvl)
+	{
 		final int diff = yourLvl - theirLvl;
 
-		if (diff < -9) {
+		if (diff < -9)
+		{
 			return colorStartTag(0xff0000);
-		} else if (diff < -6) {
+		}
+		else if (diff < -6)
+		{
 			return colorStartTag(0xff3000);
-		} else if (diff < -3) {
+		}
+		else if (diff < -3)
+		{
 			return colorStartTag(0xff7000);
-		} else if (diff < 0) {
+		}
+		else if (diff < 0)
+		{
 			return colorStartTag(0xffb000);
-		} else if (diff > 9) {
+		}
+		else if (diff > 9)
+		{
 			return colorStartTag(0x00ff00);
-		} else if (diff > 6) {
+		}
+		else if (diff > 6)
+		{
 			return colorStartTag(0x40ff00);
-		} else if (diff > 3) {
+		}
+		else if (diff > 3)
+		{
 			return colorStartTag(0x80ff00);
-		} else if (diff > 0) {
+		}
+		else if (diff > 0)
+		{
 			return colorStartTag(0xc0ff00);
-		} else {
+		}
+		else
+		{
 			return colorStartTag(0xffff00);
 		}
 	}
@@ -276,7 +324,8 @@ public class ColorUtil {
 	 * @param rgb the int value of a rgb color
 	 * @return a color tag which can be put in front of stuff
 	 */
-	public static String colorStartTag(final int rgb) {
+	public static String colorStartTag(final int rgb)
+	{
 		return "<col=" + Integer.toHexString(rgb) + ">";
 	}
 }

@@ -25,23 +25,25 @@
 package net.runelite.client.util;
 
 import com.google.common.collect.Lists;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.util.Text;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 @Deprecated
 @Slf4j
-public class MenuUtil {
-	private static void swap(Client client, MenuEntry entry1, MenuEntry entry2) {
+public class MenuUtil
+{
+	private static void swap(Client client, MenuEntry entry1, MenuEntry entry2)
+	{
 		List<MenuEntry> entries = Arrays.asList(client.getMenuEntries());
 
-		if (!entries.contains(entry1) || !entries.contains(entry2)) {
+		if (!entries.contains(entry1) || !entries.contains(entry2))
+		{
 			log.warn("Can't swap {} with {} as one or both menuentries aren't present", entry1, entry2);
 			return;
 		}
@@ -55,61 +57,77 @@ public class MenuUtil {
 		client.setMenuEntries(entries.toArray(new MenuEntry[0]));
 	}
 
-	public static void swap(Client client, String option1, String option2, String target1, String target2, boolean strict) {
-		if (strict) {
+	public static void swap(Client client, String option1, String option2, String target1, String target2, boolean strict)
+	{
+		if (strict)
+		{
 			swap(client, option1, option2, target1, target2);
-		} else {
+		}
+		else
+		{
 			swapNotStrict(client, option1, option2, target1, target2);
 		}
 	}
 
-	private static void swap(Client client, String option1, String option2, String target1, String target2) {
+	private static void swap(Client client, String option1, String option2, String target1, String target2)
+	{
 		MenuEntry entry1 = findOptionTarget(getMenuStream(client), Text.standardize(option1), Text.standardize(target1));
 		MenuEntry entry2 = findOptionTarget(getMenuStream(client), Text.standardize(option2), Text.standardize(target2));
 
-		if (entry1 != null && entry2 != null) {
+		if (entry1 != null && entry2 != null)
+		{
 			swap(client, entry1, entry2);
 		}
 	}
 
-	private static void swapNotStrict(Client client, String option1, String option2, String target1, String target2) {
+	private static void swapNotStrict(Client client, String option1, String option2, String target1, String target2)
+	{
 		MenuEntry entry1 = findOptionTargetLenient(getMenuStream(client), Text.standardize(option1), Text.standardize(target1));
 		MenuEntry entry2 = findOptionTargetLenient(getMenuStream(client), Text.standardize(option2), Text.standardize(target2));
 
-		if (entry1 != null && entry2 != null) {
+		if (entry1 != null && entry2 != null)
+		{
 			swap(client, entry1, entry2);
 		}
 	}
 
-	public static void swap(Client client, String option1, String option2, String targetforboth) {
+	public static void swap(Client client, String option1, String option2, String targetforboth)
+	{
 		swap(client, option1, option2, targetforboth, targetforboth);
 	}
 
-	public static void swap(Client client, String option1, String option2, String targetforboth, boolean strict) {
-		if (strict) {
+	public static void swap(Client client, String option1, String option2, String targetforboth, boolean strict)
+	{
+		if (strict)
+		{
 			swap(client, option1, option2, targetforboth, targetforboth);
-		} else {
+		}
+		else
+		{
 			swapNotStrict(client, option1, option2, targetforboth, targetforboth);
 		}
 	}
 
-	private static MenuEntry findOptionTarget(Stream<MenuEntry> stream, String option, String target) {
+	private static MenuEntry findOptionTarget(Stream<MenuEntry> stream, String option, String target)
+	{
 		Optional<MenuEntry> maybeEntry = stream.filter(e -> Text.standardize(e.getOption()).equals(option) &&
-				Text.standardize(e.getTarget()).equals(target))
-				/* autism */.findFirst();
+			Text.standardize(e.getTarget()).equals(target))
+			/* autism */.findFirst();
 
 		return maybeEntry.orElse(null);
 	}
 
-	private static MenuEntry findOptionTargetLenient(Stream<MenuEntry> stream, String option, String target) {
+	private static MenuEntry findOptionTargetLenient(Stream<MenuEntry> stream, String option, String target)
+	{
 		Optional<MenuEntry> maybeEntry = stream.filter(e -> Text.standardize(e.getOption()).contains(option) &&
-				Text.standardize(e.getTarget()).contains(target))
-				/* autism */.findFirst();
+			Text.standardize(e.getTarget()).contains(target))
+			/* autism */.findFirst();
 
 		return maybeEntry.orElse(null);
 	}
 
-	private static Stream<MenuEntry> getMenuStream(Client client) {
+	private static Stream<MenuEntry> getMenuStream(Client client)
+	{
 		List<MenuEntry> entries = Arrays.asList(client.getMenuEntries());
 		return Lists.reverse(entries).stream();
 	}

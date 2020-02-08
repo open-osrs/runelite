@@ -25,6 +25,31 @@
  */
 package net.runelite.client.plugins.feed;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.font.FontRenderContext;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Comparator;
+import java.util.function.Supplier;
+import javax.imageio.ImageIO;
+import javax.inject.Singleton;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
@@ -35,27 +60,17 @@ import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.feed.FeedItem;
 import net.runelite.http.api.feed.FeedItemType;
 import net.runelite.http.api.feed.FeedResult;
-import okhttp3.*;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import org.jetbrains.annotations.NotNull;
-
-import javax.imageio.ImageIO;
-import javax.inject.Singleton;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.font.FontRenderContext;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Comparator;
-import java.util.function.Supplier;
 
 @Slf4j
 @Singleton
-class FeedPanel extends PluginPanel {
+class FeedPanel extends PluginPanel
+{
 	private static final ImageIcon RUNELITE_ICON;
 	private static final ImageIcon OSRS_ICON;
 
@@ -69,10 +84,14 @@ class FeedPanel extends PluginPanel {
 
 	private static final Comparator<FeedItem> FEED_ITEM_COMPARATOR = (o1, o2) ->
 	{
-		if (o1.getType() != o2.getType()) {
-			if (o1.getType() == FeedItemType.BLOG_POST) {
+		if (o1.getType() != o2.getType())
+		{
+			if (o1.getType() == FeedItemType.BLOG_POST)
+			{
 				return -1;
-			} else if (o2.getType() == FeedItemType.BLOG_POST) {
+			}
+			else if (o2.getType() == FeedItemType.BLOG_POST)
+			{
 				return 1;
 			}
 		}
@@ -80,7 +99,8 @@ class FeedPanel extends PluginPanel {
 		return -Long.compare(o1.getTimestamp(), o2.getTimestamp());
 	};
 
-	static {
+	static
+	{
 		RUNELITE_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(FeedPanel.class, "runelite.png"));
 		OSRS_ICON = new ImageIcon(ImageUtil.getResourceStreamFromClass(FeedPanel.class, "osrs.png"));
 	}
@@ -88,7 +108,8 @@ class FeedPanel extends PluginPanel {
 	private final FeedConfig config;
 	private final Supplier<FeedResult> feedSupplier;
 
-	FeedPanel(FeedConfig config, Supplier<FeedResult> feedSupplier) {
+	FeedPanel(FeedConfig config, Supplier<FeedResult> feedSupplier)
+	{
 		super(true);
 		this.config = config;
 		this.feedSupplier = feedSupplier;
@@ -98,10 +119,12 @@ class FeedPanel extends PluginPanel {
 		setLayout(new GridLayout(0, 1, 0, 4));
 	}
 
-	void rebuildFeed() {
+	void rebuildFeed()
+	{
 		FeedResult feed = feedSupplier.get();
 
-		if (feed == null) {
+		if (feed == null)
+		{
 			return;
 		}
 
@@ -110,16 +133,17 @@ class FeedPanel extends PluginPanel {
 			removeAll();
 
 			feed.getItems()
-					.stream()
-					.filter(f -> f.getType() != FeedItemType.BLOG_POST || config.includeBlogPosts())
-					.filter(f -> f.getType() != FeedItemType.TWEET || config.includeTweets())
-					.filter(f -> f.getType() != FeedItemType.OSRS_NEWS || config.includeOsrsNews())
-					.sorted(FEED_ITEM_COMPARATOR)
-					.forEach(this::addItemToPanel);
+				.stream()
+				.filter(f -> f.getType() != FeedItemType.BLOG_POST || config.includeBlogPosts())
+				.filter(f -> f.getType() != FeedItemType.TWEET || config.includeTweets())
+				.filter(f -> f.getType() != FeedItemType.OSRS_NEWS || config.includeOsrsNews())
+				.sorted(FEED_ITEM_COMPARATOR)
+				.forEach(this::addItemToPanel);
 		});
 	}
 
-	private void addItemToPanel(FeedItem item) {
+	private void addItemToPanel(FeedItem item)
+	{
 		JPanel avatarAndRight = new JPanel(new BorderLayout());
 		avatarAndRight.setPreferredSize(new Dimension(0, 56));
 
@@ -128,48 +152,60 @@ class FeedPanel extends PluginPanel {
 		avatar.setPreferredSize(new Dimension(52, 48));
 		avatar.setBorder(new EmptyBorder(0, 4, 0, 0));
 
-		switch (item.getType()) {
+		switch (item.getType())
+		{
 			case TWEET:
-				try {
+				try
+				{
 					Request request = new Request.Builder()
-							.url(item.getAvatar())
-							.build();
+						.url(item.getAvatar())
+						.build();
 
-					RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
+					RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+					{
 						@Override
-						public void onFailure(@NotNull Call call, @NotNull IOException e) {
+						public void onFailure(@NotNull Call call, @NotNull IOException e)
+						{
 							log.warn(null, e);
 						}
 
 						@Override
-						public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-							try (ResponseBody responseBody = response.body()) {
-								if (!response.isSuccessful()) {
+						public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException
+						{
+							try (ResponseBody responseBody = response.body())
+							{
+								if (!response.isSuccessful())
+								{
 									log.warn("Failed to download image " + item.getAvatar());
 									return;
 								}
 
 								BufferedImage icon;
-								synchronized (ImageIO.class) {
+								synchronized (ImageIO.class)
+								{
 									icon = ImageIO.read(responseBody.byteStream());
 								}
 								avatar.setIcon(new ImageIcon(icon));
 							}
 						}
 					});
-				} catch (IllegalArgumentException | NullPointerException e) {
+				}
+				catch (IllegalArgumentException | NullPointerException e)
+				{
 					log.warn(null, e);
 				}
 				avatarAndRight.setBackground(TWEET_BACKGROUND);
 				break;
 			case OSRS_NEWS:
-				if (OSRS_ICON != null) {
+				if (OSRS_ICON != null)
+				{
 					avatar.setIcon(OSRS_ICON);
 				}
 				avatarAndRight.setBackground(OSRS_NEWS_BACKGROUND);
 				break;
 			default:
-				if (RUNELITE_ICON != null) {
+				if (RUNELITE_ICON != null)
+				{
 					avatar.setIcon(RUNELITE_ICON);
 				}
 				avatarAndRight.setBackground(BLOG_POST_BACKGROUND);
@@ -214,8 +250,8 @@ class FeedPanel extends PluginPanel {
 		upAndContent.add(titleAndTime);
 		upAndContent.add(content);
 		upAndContent.add(new Box.Filler(new Dimension(0, 0),
-				new Dimension(0, Short.MAX_VALUE),
-				new Dimension(0, Short.MAX_VALUE)));
+			new Dimension(0, Short.MAX_VALUE),
+			new Dimension(0, Short.MAX_VALUE)));
 
 		avatarAndRight.add(avatar, BorderLayout.WEST);
 		avatarAndRight.add(upAndContent, BorderLayout.CENTER);
@@ -224,26 +260,31 @@ class FeedPanel extends PluginPanel {
 		Color hoverColor = backgroundColor.brighter().brighter();
 		Color pressedColor = hoverColor.brighter();
 
-		avatarAndRight.addMouseListener(new MouseAdapter() {
+		avatarAndRight.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				avatarAndRight.setBackground(hoverColor);
 				avatarAndRight.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				avatarAndRight.setBackground(backgroundColor);
 				avatarAndRight.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				avatarAndRight.setBackground(pressedColor);
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e)
+			{
 				avatarAndRight.setBackground(hoverColor);
 				LinkBrowser.browse(item.getUrl());
 			}
@@ -252,36 +293,45 @@ class FeedPanel extends PluginPanel {
 		add(avatarAndRight);
 	}
 
-	private String durationToString(Duration duration) {
-		if (duration.getSeconds() >= 60 * 60 * 24) {
+	private String durationToString(Duration duration)
+	{
+		if (duration.getSeconds() >= 60 * 60 * 24)
+		{
 			return (int) (duration.getSeconds() / (60 * 60 * 24)) + "d";
-		} else if (duration.getSeconds() >= 60 * 60) {
+		}
+		else if (duration.getSeconds() >= 60 * 60)
+		{
 			return (int) (duration.getSeconds() / (60 * 60)) + "h";
 		}
 		return (int) (duration.getSeconds() / 60) + "m";
 	}
 
-	private String lineBreakText(String text, Font font) {
+	private String lineBreakText(String text, Font font)
+	{
 		StringBuilder newText = new StringBuilder("<html>");
 
 		FontRenderContext fontRenderContext = new FontRenderContext(font.getTransform(),
-				true, true);
+			true, true);
 
 		int lines = 0;
 		int pos = 0;
 		String[] words = text.split(" ");
 		String line = "";
 
-		while (lines < MAX_CONTENT_LINES && pos < words.length) {
+		while (lines < MAX_CONTENT_LINES && pos < words.length)
+		{
 			String newLine = pos > 0 ? line + " " + words[pos] : words[pos];
 			double width = font.getStringBounds(newLine, fontRenderContext).getWidth();
 
-			if (width >= CONTENT_WIDTH) {
+			if (width >= CONTENT_WIDTH)
+			{
 				newText.append(line);
 				newText.append("<br>");
 				line = "";
 				lines++;
-			} else {
+			}
+			else
+			{
 				line = newLine;
 				pos++;
 			}

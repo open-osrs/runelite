@@ -25,15 +25,21 @@
 package net.runelite.client.ui.overlay.components;
 
 import com.google.common.base.Strings;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.text.DecimalFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
-import java.text.DecimalFormat;
-
 @Setter
-public class ProgressBarComponent implements LayoutableRenderableEntity {
-	public enum LabelDisplayMode {
+public class ProgressBarComponent implements LayoutableRenderableEntity
+{
+	public enum LabelDisplayMode
+	{
 		PERCENTAGE,
 		FULL,
 		TEXT_ONLY,
@@ -62,7 +68,8 @@ public class ProgressBarComponent implements LayoutableRenderableEntity {
 	private final Rectangle bounds = new Rectangle();
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		final FontMetrics metrics = graphics.getFontMetrics();
 
 		final int barX = preferredLocation.x;
@@ -73,7 +80,8 @@ public class ProgressBarComponent implements LayoutableRenderableEntity {
 		final double pc = currentValue / span;
 		String textToWrite;
 
-		switch (labelDisplayMode) {
+		switch (labelDisplayMode)
+		{
 			case TEXT_ONLY:
 				textToWrite = "";
 				break;
@@ -88,8 +96,10 @@ public class ProgressBarComponent implements LayoutableRenderableEntity {
 				textToWrite = formatFullProgress(currentValue, maximum);
 		}
 
-		if (!Strings.isNullOrEmpty(centerLabel)) {
-			if (!textToWrite.isEmpty()) {
+		if (!Strings.isNullOrEmpty(centerLabel))
+		{
+			if (!textToWrite.isEmpty())
+			{
 				textToWrite += " ";
 			}
 
@@ -114,7 +124,8 @@ public class ProgressBarComponent implements LayoutableRenderableEntity {
 		textComponent.setText(textToWrite);
 		textComponent.render(graphics);
 
-		if (leftLabel != null) {
+		if (leftLabel != null)
+		{
 			final TextComponent leftTextComponent = new TextComponent();
 			leftTextComponent.setPosition(new Point(barX + SIDE_LABEL_OFFSET, progressTextY));
 			leftTextComponent.setColor(fontColor);
@@ -122,7 +133,8 @@ public class ProgressBarComponent implements LayoutableRenderableEntity {
 			leftTextComponent.render(graphics);
 		}
 
-		if (rightLabel != null) {
+		if (rightLabel != null)
+		{
 			final TextComponent leftTextComponent = new TextComponent();
 			leftTextComponent.setPosition(new Point(barX + width - metrics.stringWidth(rightLabel) - SIDE_LABEL_OFFSET, progressTextY));
 			leftTextComponent.setColor(fontColor);
@@ -136,11 +148,13 @@ public class ProgressBarComponent implements LayoutableRenderableEntity {
 		return dimension;
 	}
 
-	private static String formatFullProgress(double current, long maximum) {
+	private static String formatFullProgress(double current, long maximum)
+	{
 		return DECIMAL_FORMAT_ABS.format(Math.floor(current)) + "/" + maximum;
 	}
 
-	private static String formatPercentageProgress(double ratio) {
+	private static String formatPercentageProgress(double ratio)
+	{
 		return DECIMAL_FORMAT.format(ratio * 100d) + "%";
 	}
 }

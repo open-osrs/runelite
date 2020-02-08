@@ -30,7 +30,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum ImplingType {
+enum ImplingType
+{
 	BABY("Baby"),
 	YOUNG("Young"),
 	GOURMET("Gourmet"),

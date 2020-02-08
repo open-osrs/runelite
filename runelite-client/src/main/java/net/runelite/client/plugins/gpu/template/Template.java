@@ -26,21 +26,28 @@ package net.runelite.client.plugins.gpu.template;
 
 import java.util.function.Function;
 
-public class Template {
+public class Template
+{
 	private final Function<String, String> resourceLoader;
 
-	public Template(Function<String, String> resourceLoader) {
+	public Template(Function<String, String> resourceLoader)
+	{
 		this.resourceLoader = resourceLoader;
 	}
 
-	public String process(String str) {
+	public String process(String str)
+	{
 		StringBuilder sb = new StringBuilder();
-		for (String line : str.split("\r?\n")) {
-			if (line.startsWith("#include ")) {
+		for (String line : str.split("\r?\n"))
+		{
+			if (line.startsWith("#include "))
+			{
 				String resource = line.substring(9);
 				String resourceStr = resourceLoader.apply(resource);
 				sb.append(process(resourceStr));
-			} else {
+			}
+			else
+			{
 				sb.append(line).append('\n');
 			}
 		}

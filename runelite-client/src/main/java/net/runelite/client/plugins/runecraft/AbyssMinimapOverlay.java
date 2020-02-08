@@ -25,6 +25,11 @@
 package net.runelite.client.plugins.runecraft;
 
 import com.google.inject.Inject;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import net.runelite.api.Client;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.Perspective;
@@ -34,12 +39,8 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
-
-class AbyssMinimapOverlay extends Overlay {
+class AbyssMinimapOverlay extends Overlay
+{
 	private static final Dimension IMAGE_SIZE = new Dimension(15, 14);
 
 	private final Map<AbyssRifts, BufferedImage> abyssIcons = new HashMap<>();
@@ -48,7 +49,8 @@ class AbyssMinimapOverlay extends Overlay {
 	private final ItemManager itemManager;
 
 	@Inject
-	AbyssMinimapOverlay(Client client, RunecraftPlugin plugin, ItemManager itemManager) {
+	AbyssMinimapOverlay(Client client, RunecraftPlugin plugin, ItemManager itemManager)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
@@ -57,21 +59,26 @@ class AbyssMinimapOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.isShowRifts()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isShowRifts())
+		{
 			return null;
 		}
 
-		for (DecorativeObject object : plugin.getAbyssObjects()) {
+		for (DecorativeObject object : plugin.getAbyssObjects())
+		{
 			AbyssRifts rift = AbyssRifts.getRift(object.getId());
-			if (rift == null || !plugin.getRifts().contains(rift)) {
+			if (rift == null || !plugin.getRifts().contains(rift))
+			{
 				continue;
 			}
 
 			BufferedImage image = getImage(rift);
 			Point miniMapImage = Perspective.getMiniMapImageLocation(client, object.getLocalLocation(), image);
 
-			if (miniMapImage != null) {
+			if (miniMapImage != null)
+			{
 				graphics.drawImage(image, miniMapImage.getX(), miniMapImage.getY(), null);
 			}
 		}
@@ -79,9 +86,11 @@ class AbyssMinimapOverlay extends Overlay {
 		return null;
 	}
 
-	private BufferedImage getImage(AbyssRifts rift) {
+	private BufferedImage getImage(AbyssRifts rift)
+	{
 		BufferedImage image = abyssIcons.get(rift);
-		if (image != null) {
+		if (image != null)
+		{
 			return image;
 		}
 

@@ -1,6 +1,12 @@
 package net.runelite.client.plugins.clanmanmode;
 
 import com.google.inject.Provides;
+import java.awt.Color;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -18,22 +24,16 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 @PluginDescriptor(
-		name = "Clan Man Mode",
-		description = "Assists in clan PVP scenarios",
-		tags = {"highlight", "minimap", "overlay", "players"},
-		type = PluginType.PVP,
-		enabledByDefault = false
+	name = "Clan Man Mode",
+	description = "Assists in clan PVP scenarios",
+	tags = {"highlight", "minimap", "overlay", "players"},
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 @Singleton
-public class ClanManModePlugin extends Plugin {
+public class ClanManModePlugin extends Plugin
+{
 	final Map<String, Integer> clan = new HashMap<>();
 	int wildernessLevel;
 	int clanmin;
@@ -91,12 +91,14 @@ public class ClanManModePlugin extends Plugin {
 	private Color getClanMemberColor;
 
 	@Provides
-	ClanManModeConfig provideConfig(ConfigManager configManager) {
+	ClanManModeConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(ClanManModeConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(ClanManModeOverlay);
@@ -105,7 +107,8 @@ public class ClanManModePlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(ClanManModeOverlay);
 		overlayManager.remove(ClanManModeTileOverlay);
 		overlayManager.remove(ClanManModeMinimapOverlay);
@@ -118,8 +121,10 @@ public class ClanManModePlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!"clanmanmode".equals(event.getGroup())) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!"clanmanmode".equals(event.getGroup()))
+		{
 			return;
 		}
 
@@ -127,17 +132,21 @@ public class ClanManModePlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged) {
-		if (gameStateChanged.getGameState() == GameState.LOGIN_SCREEN || gameStateChanged.getGameState() == GameState.HOPPING) {
+	private void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() == GameState.LOGIN_SCREEN || gameStateChanged.getGameState() == GameState.HOPPING)
+		{
 			ticks = 0;
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
+	private void onGameTick(GameTick event)
+	{
 		ticks++;
 		final Player localPlayer = client.getLocalPlayer();
-		if (!clan.containsKey(localPlayer.getName())) {
+		if (!clan.containsKey(localPlayer.getName()))
+		{
 			clan.put(localPlayer.getName(), localPlayer.getCombatLevel());
 		}
 		WorldPoint a = localPlayer.getWorldLocation();
@@ -145,13 +154,15 @@ public class ClanManModePlugin extends Plugin {
 		int upperLevel = ((a.getY() - 3520) / 8) + 1;
 		wildernessLevel = a.getY() > 6400 ? underLevel : upperLevel;
 		inwildy = client.getVar(Varbits.IN_WILDERNESS);
-		if (clan.size() > 0) {
+		if (clan.size() > 0)
+		{
 			clanmin = Collections.min(clan.values());
 			clanmax = Collections.max(clan.values());
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.highlightAttackable = config.highlightAttackable();
 		this.getAttackableColor = config.getAttackableColor();
 		this.highlightAttacked = config.highlightAttacked();

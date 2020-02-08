@@ -24,17 +24,23 @@
  */
 package net.runelite.client.plugins.stonedtracker.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.QuantityFormatter;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
-
 @Getter(AccessLevel.PACKAGE)
-class TextPanel extends JPanel {
+class TextPanel extends JPanel
+{
 	private static final GridBagLayout LAYOUT = new GridBagLayout();
 
 	private static final Border PANEL_BORDER = BorderFactory.createMatteBorder(3, 0, 3, 0, ColorScheme.DARK_GRAY_COLOR);
@@ -43,7 +49,8 @@ class TextPanel extends JPanel {
 	private static final Border CONTAINER_BORDER = BorderFactory.createMatteBorder(0, 15, 0, 15, PANEL_BACKGROUND_COLOR);
 
 	// Long value should be for Total Value
-	TextPanel(final String text, final long totalValue) {
+	TextPanel(final String text, final long totalValue)
+	{
 		this.setLayout(LAYOUT);
 		this.setBorder(PANEL_BORDER);
 		this.setBackground(PANEL_BACKGROUND_COLOR);
@@ -73,7 +80,8 @@ class TextPanel extends JPanel {
 		this.add(panel, c);
 	}
 
-	TextPanel(final String text, final int value) {
+	TextPanel(final String text, final int value)
+	{
 		this.setLayout(LAYOUT);
 		this.setBorder(PANEL_BORDER);
 		this.setBackground(PANEL_BACKGROUND_COLOR);
@@ -98,7 +106,8 @@ class TextPanel extends JPanel {
 		this.add(panel, c);
 	}
 
-	private static JPanel createPanel() {
+	private static JPanel createPanel()
+	{
 		final JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		panel.setBorder(CONTAINER_BORDER);
@@ -107,7 +116,8 @@ class TextPanel extends JPanel {
 		return panel;
 	}
 
-	private static Color getRSValueColor(long val) {
+	private static Color getRSValueColor(long val)
+	{
 		return (val >= 10000000) ? Color.GREEN : (val >= 100000) ? Color.WHITE : Color.YELLOW;
 	}
 }

@@ -27,6 +27,8 @@ package net.runelite.client.plugins.discord;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import java.util.List;
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,12 +36,10 @@ import net.runelite.api.Client;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 
-import java.util.List;
-import java.util.Map;
-
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum DiscordGameEventType {
+enum DiscordGameEventType
+{
 
 	IN_GAME("In Game", -3),
 	IN_MENU("In Menu", -3),
@@ -260,20 +260,25 @@ enum DiscordGameEventType {
 	private static final Map<Integer, DiscordGameEventType> FROM_REGION;
 	private static final List<DiscordGameEventType> FROM_VARBITS;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, DiscordGameEventType> regionMapBuilder = new ImmutableMap.Builder<>();
 		ImmutableList.Builder<DiscordGameEventType> fromVarbitsBuilder = ImmutableList.builder();
-		for (DiscordGameEventType discordGameEventType : DiscordGameEventType.values()) {
-			if (discordGameEventType.getVarbits() != null) {
+		for (DiscordGameEventType discordGameEventType : DiscordGameEventType.values())
+		{
+			if (discordGameEventType.getVarbits() != null)
+			{
 				fromVarbitsBuilder.add(discordGameEventType);
 				continue;
 			}
 
-			if (discordGameEventType.getRegionIds() == null) {
+			if (discordGameEventType.getRegionIds() == null)
+			{
 				continue;
 			}
 
-			for (int region : discordGameEventType.getRegionIds()) {
+			for (int region : discordGameEventType.getRegionIds())
+			{
 				regionMapBuilder.put(region, discordGameEventType);
 			}
 		}
@@ -292,18 +297,21 @@ enum DiscordGameEventType {
 	private Varbits varbits;
 	private int[] regionIds;
 
-	DiscordGameEventType(Skill skill) {
+	DiscordGameEventType(Skill skill)
+	{
 		this(skill, 0);
 	}
 
-	DiscordGameEventType(Skill skill, int priority) {
+	DiscordGameEventType(Skill skill, int priority)
+	{
 		this.details = training(skill);
 		this.priority = priority;
 		this.imageKey = imageKeyOf(skill);
 		this.shouldTimeout = true;
 	}
 
-	DiscordGameEventType(String areaName, DiscordAreaType areaType, int... regionIds) {
+	DiscordGameEventType(String areaName, DiscordAreaType areaType, int... regionIds)
+	{
 		this.state = exploring(areaType, areaName);
 		this.priority = -2;
 		this.discordAreaType = areaType;
@@ -311,13 +319,15 @@ enum DiscordGameEventType {
 		this.shouldClear = true;
 	}
 
-	DiscordGameEventType(String state, int priority) {
+	DiscordGameEventType(String state, int priority)
+	{
 		this.state = state;
 		this.priority = priority;
 		this.shouldClear = true;
 	}
 
-	DiscordGameEventType(String areaName, DiscordAreaType areaType, Varbits varbits) {
+	DiscordGameEventType(String areaName, DiscordAreaType areaType, Varbits varbits)
+	{
 		this.state = exploring(areaType, areaName);
 		this.priority = -2;
 		this.discordAreaType = areaType;
@@ -325,28 +335,35 @@ enum DiscordGameEventType {
 		this.shouldClear = true;
 	}
 
-	private static String training(final Skill skill) {
+	private static String training(final Skill skill)
+	{
 		return training(skill.getName());
 	}
 
-	private static String training(final String what) {
+	private static String training(final String what)
+	{
 		return "Training: " + what;
 	}
 
-	private static String imageKeyOf(final Skill skill) {
+	private static String imageKeyOf(final Skill skill)
+	{
 		return imageKeyOf(skill.getName().toLowerCase());
 	}
 
-	private static String imageKeyOf(final String what) {
+	private static String imageKeyOf(final String what)
+	{
 		return "icon_" + what;
 	}
 
-	private static String exploring(DiscordAreaType areaType, String areaName) {
+	private static String exploring(DiscordAreaType areaType, String areaName)
+	{
 		return areaName;
 	}
 
-	public static DiscordGameEventType fromSkill(final Skill skill) {
-		switch (skill) {
+	public static DiscordGameEventType fromSkill(final Skill skill)
+	{
+		switch (skill)
+		{
 			case ATTACK:
 				return TRAINING_ATTACK;
 			case DEFENCE:
@@ -396,13 +413,17 @@ enum DiscordGameEventType {
 		}
 	}
 
-	public static DiscordGameEventType fromRegion(final int regionId) {
+	public static DiscordGameEventType fromRegion(final int regionId)
+	{
 		return FROM_REGION.get(regionId);
 	}
 
-	public static DiscordGameEventType fromVarbit(final Client client) {
-		for (DiscordGameEventType fromVarbit : FROM_VARBITS) {
-			if (client.getVar(fromVarbit.getVarbits()) != 0) {
+	public static DiscordGameEventType fromVarbit(final Client client)
+	{
+		for (DiscordGameEventType fromVarbit : FROM_VARBITS)
+		{
+			if (client.getVar(fromVarbit.getVarbits()) != 0)
+			{
 				return fromVarbit;
 			}
 		}

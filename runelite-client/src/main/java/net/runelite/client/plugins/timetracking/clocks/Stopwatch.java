@@ -24,32 +24,35 @@
  */
 package net.runelite.client.plugins.timetracking.clocks;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-class Stopwatch extends Clock {
+class Stopwatch extends Clock
+{
 	// the number of seconds elapsed, as of last updated time
 	private long elapsed = 0;
 
 	// a list of lap times (recorded as seconds since epoch)
 	private List<Long> laps = new ArrayList<>();
 
-	Stopwatch(String name) {
+	Stopwatch(String name)
+	{
 		super(name);
 	}
 
 	@Override
-	long getDisplayTime() {
-		if (!active) {
+	long getDisplayTime()
+	{
+		if (!active)
+		{
 			return elapsed;
 		}
 
@@ -57,13 +60,16 @@ class Stopwatch extends Clock {
 	}
 
 	@Override
-	void setDuration(long duration) {
+	void setDuration(long duration)
+	{
 		elapsed = duration;
 	}
 
 	@Override
-	boolean start() {
-		if (!active) {
+	boolean start()
+	{
+		if (!active)
+		{
 			lastUpdate = Instant.now().getEpochSecond();
 			active = true;
 			return true;
@@ -73,8 +79,10 @@ class Stopwatch extends Clock {
 	}
 
 	@Override
-	boolean pause() {
-		if (active) {
+	boolean pause()
+	{
+		if (active)
+		{
 			active = false;
 			elapsed = Math.max(0, elapsed + (Instant.now().getEpochSecond() - lastUpdate));
 			lastUpdate = Instant.now().getEpochSecond();
@@ -84,12 +92,14 @@ class Stopwatch extends Clock {
 		return false;
 	}
 
-	void lap() {
+	void lap()
+	{
 		laps.add(getDisplayTime());
 	}
 
 	@Override
-	void reset() {
+	void reset()
+	{
 		active = false;
 		elapsed = 0;
 		laps.clear();

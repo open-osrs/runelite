@@ -25,12 +25,30 @@
 package net.runelite.client.plugins.alchemicalhydra;
 
 import com.google.inject.Provides;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.Actor;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.NPC;
+import net.runelite.api.NpcID;
+import net.runelite.api.Projectile;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.events.*;
+import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.NpcSpawned;
+import net.runelite.api.events.ProjectileMoved;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
@@ -41,24 +59,20 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.alchemicalhydra.AlchemicalHydra.AttackStyle;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.*;
-import java.util.Map.Entry;
-
 @PluginDescriptor(
-		name = "Alchemical Hydra",
-		description = "Show what to pray against hydra",
-		tags = {"Hydra", "Lazy", "4 headed asshole"},
-		type = PluginType.PVM,
-		enabledByDefault = false
+	name = "Alchemical Hydra",
+	description = "Show what to pray against hydra",
+	tags = {"Hydra", "Lazy", "4 headed asshole"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Slf4j
 @Singleton
-public class AlchemicalHydraPlugin extends Plugin {
+public class AlchemicalHydraPlugin extends Plugin
+{
 	private static final int[] HYDRA_REGIONS = {
-			5279, 5280,
-			5535, 5536
+		5279, 5280,
+		5535, 5536
 	};
 	private static final int STUN_LENGTH = 7;
 
@@ -99,12 +113,14 @@ public class AlchemicalHydraPlugin extends Plugin {
 	private OverlayManager overlayManager;
 
 	@Provides
-	AlchemicalHydraConfig provideConfig(ConfigManager configManager) {
+	AlchemicalHydraConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(AlchemicalHydraConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		initConfig();
 
 		inHydraInstance = checkArea();
@@ -113,7 +129,8 @@ public class AlchemicalHydraPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		eventBus.unregister("fight");
 		eventBus.unregister("npcSpawned");
 
@@ -124,7 +141,8 @@ public class AlchemicalHydraPlugin extends Plugin {
 		lastAttackTick = -1;
 	}
 
-	private void initConfig() {
+	private void initConfig()
+	{
 		this.counting = config.counting();
 		this.fountain = config.fountain();
 		this.stun = config.stun();
@@ -137,19 +155,23 @@ public class AlchemicalHydraPlugin extends Plugin {
 		this.sceneOverlay.setGoodFountain(config.fountainColB());
 	}
 
-	private void addFightSubscriptions() {
+	private void addFightSubscriptions()
+	{
 		eventBus.subscribe(AnimationChanged.class, "fight", this::onAnimationChanged);
 		eventBus.subscribe(ProjectileMoved.class, "fight", this::onProjectileMoved);
 		eventBus.subscribe(ChatMessage.class, "fight", this::onChatMessage);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("betterHydra")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("betterHydra"))
+		{
 			return;
 		}
 
-		switch (event.getKey()) {
+		switch (event.getKey())
+		{
 			case "counting":
 				this.counting = config.counting();
 				break;
@@ -184,16 +206,20 @@ public class AlchemicalHydraPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged state) {
-		if (state.getGameState() != GameState.LOGGED_IN) {
+	private void onGameStateChanged(GameStateChanged state)
+	{
+		if (state.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
 		inHydraInstance = checkArea();
 
-		if (!inHydraInstance) {
+		if (!inHydraInstance)
+		{
 
-			if (hydra != null) {
+			if (hydra != null)
+			{
 				removeOverlays();
 				hydra = null;
 			}
@@ -205,8 +231,10 @@ public class AlchemicalHydraPlugin extends Plugin {
 
 		eventBus.subscribe(NpcSpawned.class, "npcSpawned", this::onNpcSpawned);
 
-		for (NPC npc : client.getNpcs()) {
-			if (npc.getId() == NpcID.ALCHEMICAL_HYDRA) {
+		for (NPC npc : client.getNpcs())
+		{
+			if (npc.getId() == NpcID.ALCHEMICAL_HYDRA)
+			{
 				hydra = new AlchemicalHydra(npc);
 				addFightSubscriptions();
 				break;
@@ -216,8 +244,10 @@ public class AlchemicalHydraPlugin extends Plugin {
 		addOverlays();
 	}
 
-	private void onNpcSpawned(NpcSpawned event) {
-		if (event.getNpc().getId() != NpcID.ALCHEMICAL_HYDRA) {
+	private void onNpcSpawned(NpcSpawned event)
+	{
+		if (event.getNpc().getId() != NpcID.ALCHEMICAL_HYDRA)
+		{
 			return;
 		}
 
@@ -227,21 +257,24 @@ public class AlchemicalHydraPlugin extends Plugin {
 		addOverlays();
 	}
 
-	private void onAnimationChanged(AnimationChanged animationChanged) {
+	private void onAnimationChanged(AnimationChanged animationChanged)
+	{
 		Actor actor = animationChanged.getActor();
 
-		if (!inHydraInstance || hydra == null || actor == client.getLocalPlayer()) {
+		if (!inHydraInstance || hydra == null || actor == client.getLocalPlayer())
+		{
 			return;
 		}
 
 		AlchemicalHydraPhase phase = hydra.getPhase();
 
 		if (actor.getAnimation() == phase.getDeathAnim2() &&
-				phase != AlchemicalHydraPhase.THREE  // Else log's gonna say "Tried some weird shit"
-				|| actor.getAnimation() == phase.getDeathAnim1() &&
-				phase == AlchemicalHydraPhase.THREE) // We want the pray to switch ye ok ty
+			phase != AlchemicalHydraPhase.THREE  // Else log's gonna say "Tried some weird shit"
+			|| actor.getAnimation() == phase.getDeathAnim1() &&
+			phase == AlchemicalHydraPhase.THREE) // We want the pray to switch ye ok ty
 		{
-			switch (phase) {
+			switch (phase)
+			{
 				case ONE:
 					hydra.changePhase(AlchemicalHydraPhase.TWO);
 					return;
@@ -262,81 +295,106 @@ public class AlchemicalHydraPlugin extends Plugin {
 					log.debug("Tried some weird shit");
 					break;
 			}
-		} else if (actor.getAnimation() == phase.getSpecAnimationId() && phase.getSpecAnimationId() != 0) {
+		}
+
+		else if (actor.getAnimation() == phase.getSpecAnimationId() && phase.getSpecAnimationId() != 0)
+		{
 			hydra.setNextSpecial(hydra.getNextSpecial() + 9);
 		}
 
-		if (poisonProjectiles.isEmpty()) {
+		if (poisonProjectiles.isEmpty())
+		{
 			return;
 		}
 
 		Set<LocalPoint> exPoisonProjectiles = new HashSet<>();
-		for (Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet()) {
-			if (entry.getValue().getEndCycle() < client.getGameCycle()) {
+		for (Entry<LocalPoint, Projectile> entry : poisonProjectiles.entrySet())
+		{
+			if (entry.getValue().getEndCycle() < client.getGameCycle())
+			{
 				exPoisonProjectiles.add(entry.getKey());
 			}
 		}
-		for (LocalPoint toRemove : exPoisonProjectiles) {
+		for (LocalPoint toRemove : exPoisonProjectiles)
+		{
 			poisonProjectiles.remove(toRemove);
 		}
 	}
 
-	private void onProjectileMoved(ProjectileMoved event) {
+	private void onProjectileMoved(ProjectileMoved event)
+	{
 		if (!inHydraInstance || hydra == null
-				|| client.getGameCycle() >= event.getProjectile().getStartMovementCycle()) {
+			|| client.getGameCycle() >= event.getProjectile().getStartMovementCycle())
+		{
 			return;
 		}
 
 		Projectile projectile = event.getProjectile();
 		int id = projectile.getId();
 
-		if (hydra.getPhase().getSpecProjectileId() != 0 && hydra.getPhase().getSpecProjectileId() == id) {
-			if (hydra.getAttackCount() == hydra.getNextSpecial()) {
+		if (hydra.getPhase().getSpecProjectileId() != 0 && hydra.getPhase().getSpecProjectileId() == id)
+		{
+			if (hydra.getAttackCount() == hydra.getNextSpecial())
+			{
 				// Only add 9 to next special on the first poison projectile (whoops)
 				hydra.setNextSpecial(hydra.getNextSpecial() + 9);
 			}
 
 			poisonProjectiles.put(event.getPosition(), projectile);
-		} else if (client.getTickCount() != lastAttackTick
-				&& (id == AttackStyle.MAGIC.getProjectileID() || id == AttackStyle.RANGED.getProjectileID())) {
+		}
+		else if (client.getTickCount() != lastAttackTick
+			&& (id == AttackStyle.MAGIC.getProjectileID() || id == AttackStyle.RANGED.getProjectileID()))
+		{
 			hydra.handleAttack(id);
 			lastAttackTick = client.getTickCount();
 		}
 	}
 
-	private void onChatMessage(ChatMessage event) {
-		if (event.getMessage().equals("The chemicals neutralise the Alchemical Hydra's defences!")) {
+	private void onChatMessage(ChatMessage event)
+	{
+		if (event.getMessage().equals("The chemicals neutralise the Alchemical Hydra's defences!"))
+		{
 			hydra.setWeakened(true);
-		} else if (event.getMessage().equals("The Alchemical Hydra temporarily stuns you.")) {
-			if (isStun()) {
+		}
+		else if (event.getMessage().equals("The Alchemical Hydra temporarily stuns you."))
+		{
+			if (isStun())
+			{
 				overlay.setStunTicks(STUN_LENGTH);
 				eventBus.subscribe(GameTick.class, "hydraStun", this::onGameTick);
 			}
 		}
 	}
 
-	private void onGameTick(GameTick tick) {
-		if (overlay.onGameTick()) {
+	private void onGameTick(GameTick tick)
+	{
+		if (overlay.onGameTick())
+		{
 			// unregister self when 7 ticks have passed
 			eventBus.unregister("hydraStun");
 		}
 	}
 
-	private boolean checkArea() {
+	private boolean checkArea()
+	{
 		return Arrays.equals(client.getMapRegions(), HYDRA_REGIONS) && client.isInInstancedRegion();
 	}
 
-	private void addOverlays() {
-		if (counting || stun) {
+	private void addOverlays()
+	{
+		if (counting || stun)
+		{
 			overlayManager.add(overlay);
 		}
 
-		if (counting || fountain) {
+		if (counting || fountain)
+		{
 			overlayManager.add(sceneOverlay);
 		}
 	}
 
-	private void removeOverlays() {
+	private void removeOverlays()
+	{
 		overlayManager.remove(overlay);
 		overlayManager.remove(sceneOverlay);
 	}

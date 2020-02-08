@@ -24,22 +24,25 @@
  */
 package net.runelite.client.plugins.inventorytags;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 @Singleton
-public class InventoryTagsOverlay extends WidgetItemOverlay {
+public class InventoryTagsOverlay extends WidgetItemOverlay
+{
 	private final ItemManager itemManager;
 	private final InventoryTagsPlugin plugin;
 
 	@Inject
-	private InventoryTagsOverlay(final ItemManager itemManager, final InventoryTagsPlugin plugin) {
+	private InventoryTagsOverlay(final ItemManager itemManager, final InventoryTagsPlugin plugin)
+	{
 		this.itemManager = itemManager;
 		this.plugin = plugin;
 		showOnEquipment();
@@ -47,11 +50,14 @@ public class InventoryTagsOverlay extends WidgetItemOverlay {
 	}
 
 	@Override
-	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget) {
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget)
+	{
 		final String group = plugin.getTag(itemId);
-		if (group != null) {
+		if (group != null)
+		{
 			final Color color = plugin.getGroupNameColor(group);
-			if (color != null) {
+			if (color != null)
+			{
 				Rectangle bounds = itemWidget.getCanvasBounds();
 				final BufferedImage outline = itemManager.getItemOutline(itemId, itemWidget.getQuantity(), color);
 				graphics.drawImage(outline, (int) bounds.getX(), (int) bounds.getY(), null);

@@ -25,6 +25,27 @@
 package net.runelite.client.plugins.stonedtracker.ui;
 
 import com.google.common.base.Strings;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.stonedtracker.data.BossTab;
 import net.runelite.client.ui.ColorScheme;
@@ -35,20 +56,8 @@ import net.runelite.client.ui.components.materialtabs.MaterialTabGroup;
 import net.runelite.client.util.AsyncBufferedImage;
 import org.apache.commons.text.similarity.JaroWinklerDistance;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
-class SelectionPanel extends JPanel {
+class SelectionPanel extends JPanel
+{
 	private final static Color BACKGROUND_COLOR = ColorScheme.DARK_GRAY_COLOR;
 	private final static Color BUTTON_COLOR = ColorScheme.DARKER_GRAY_COLOR;
 	private final static Color BUTTON_HOVER_COLOR = ColorScheme.DARKER_GRAY_HOVER_COLOR;
@@ -64,10 +73,11 @@ class SelectionPanel extends JPanel {
 	private final boolean configToggle;
 
 	SelectionPanel(
-			final boolean configToggle,
-			final Set<String> names,
-			final LootTrackerPanel parent,
-			final ItemManager itemManager) {
+		final boolean configToggle,
+		final Set<String> names,
+		final LootTrackerPanel parent,
+		final ItemManager itemManager)
+	{
 		this.names = names == null ? new TreeSet<>() : names;
 		this.parent = parent;
 		this.itemManager = itemManager;
@@ -80,19 +90,23 @@ class SelectionPanel extends JPanel {
 		searchBar.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH - 20, 30));
 		searchBar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		searchBar.setHoverBackgroundColor(ColorScheme.DARK_GRAY_HOVER_COLOR);
-		searchBar.getDocument().addDocumentListener(new DocumentListener() {
+		searchBar.getDocument().addDocumentListener(new DocumentListener()
+		{
 			@Override
-			public void insertUpdate(DocumentEvent e) {
+			public void insertUpdate(DocumentEvent e)
+			{
 				onSearchBarChanged();
 			}
 
 			@Override
-			public void removeUpdate(DocumentEvent e) {
+			public void removeUpdate(DocumentEvent e)
+			{
 				onSearchBarChanged();
 			}
 
 			@Override
-			public void changedUpdate(DocumentEvent e) {
+			public void changedUpdate(DocumentEvent e)
+			{
 				onSearchBarChanged();
 			}
 		});
@@ -102,10 +116,13 @@ class SelectionPanel extends JPanel {
 		createPanel();
 	}
 
-	private static boolean matchesSearchTerm(final String name, final String[] terms) {
-		for (final String term : terms) {
+	private static boolean matchesSearchTerm(final String name, final String[] terms)
+	{
+		for (final String term : terms)
+		{
 			if (Arrays.stream(name.toLowerCase().split(" ")).noneMatch((nameTerm ->
-					nameTerm.contains(term) || DISTANCE.apply(nameTerm, term) > 0.9))) {
+				nameTerm.contains(term) || DISTANCE.apply(nameTerm, term) > 0.9)))
+			{
 				return false;
 			}
 		}
@@ -113,7 +130,8 @@ class SelectionPanel extends JPanel {
 		return true;
 	}
 
-	private void createPanel() {
+	private void createPanel()
+	{
 		final GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
@@ -122,7 +140,8 @@ class SelectionPanel extends JPanel {
 		c.insets = new Insets(5, 0, 0, 0);
 
 		// Add the bosses tabs, by category, to tabGroup
-		if (configToggle) {
+		if (configToggle)
+		{
 			this.add(createBossTabPanel(), c);
 			c.gridy++;
 		}
@@ -134,7 +153,8 @@ class SelectionPanel extends JPanel {
 		this.add(namePanel, c);
 	}
 
-	private JPanel createBossTabPanel() {
+	private JPanel createBossTabPanel()
+	{
 		final GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
@@ -145,7 +165,8 @@ class SelectionPanel extends JPanel {
 		final JPanel container = new JPanel(new GridBagLayout());
 		container.setBorder(new EmptyBorder(0, 0, 10, 0));
 
-		for (final String categoryName : BossTab.getCategories()) {
+		for (final String categoryName : BossTab.getCategories())
+		{
 			container.add(createTabCategory(categoryName), c);
 			c.gridy++;
 		}
@@ -153,7 +174,8 @@ class SelectionPanel extends JPanel {
 		return container;
 	}
 
-	private void addNamesToPanel(final Collection<String> names) {
+	private void addNamesToPanel(final Collection<String> names)
+	{
 		namePanel.removeAll();
 
 		final GridBagConstraints c = new GridBagConstraints();
@@ -163,9 +185,11 @@ class SelectionPanel extends JPanel {
 		c.gridy = 0;
 		c.insets = new Insets(5, 0, 0, 0);
 
-		for (final String name : names) {
+		for (final String name : names)
+		{
 			// Ignore boss tabs based on config
-			if (!configToggle || BossTab.getByName(name) == null) {
+			if (!configToggle || BossTab.getByName(name) == null)
+			{
 				namePanel.add(createNamePanel(name), c);
 				c.gridy++;
 			}
@@ -174,23 +198,28 @@ class SelectionPanel extends JPanel {
 		namePanel.revalidate();
 	}
 
-	private JPanel createNamePanel(final String name) {
+	private JPanel createNamePanel(final String name)
+	{
 		final JPanel p = new JPanel();
 		p.add(new JLabel(name));
 		p.setBackground(BUTTON_COLOR);
-		p.addMouseListener(new MouseAdapter() {
+		p.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				p.setBackground(BUTTON_HOVER_COLOR);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				p.setBackground(BUTTON_COLOR);
 			}
 
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e)
+			{
 				parent.showLootView(name);
 			}
 		});
@@ -199,7 +228,8 @@ class SelectionPanel extends JPanel {
 	}
 
 	// Creates all tabs for a specific category
-	private JPanel createTabCategory(final String categoryName) {
+	private JPanel createTabCategory(final String categoryName)
+	{
 		final JPanel container = new JPanel();
 		container.setLayout(new GridBagLayout());
 		container.setBorder(new EmptyBorder(0, 5, 0, 5));
@@ -220,20 +250,24 @@ class SelectionPanel extends JPanel {
 		name.setVerticalAlignment(SwingConstants.CENTER);
 
 		final Collection<BossTab> categoryTabs = BossTab.getByCategoryName(categoryName);
-		for (final BossTab tab : categoryTabs) {
+		for (final BossTab tab : categoryTabs)
+		{
 			// Create tab (with hover effects/text)
 			final MaterialTab materialTab = new MaterialTab("", thisTabGroup, null);
 			materialTab.setName(tab.getName());
 			materialTab.setToolTipText(tab.getName());
 			//materialTab.setSelectedBorder(new EmptyBorder(0, 0, 0, 0));
-			materialTab.addMouseListener(new MouseAdapter() {
+			materialTab.addMouseListener(new MouseAdapter()
+			{
 				@Override
-				public void mouseEntered(MouseEvent e) {
+				public void mouseEntered(MouseEvent e)
+				{
 					materialTab.setBackground(BUTTON_HOVER_COLOR);
 				}
 
 				@Override
-				public void mouseExited(MouseEvent e) {
+				public void mouseExited(MouseEvent e)
+				{
 					materialTab.setBackground(BUTTON_COLOR);
 				}
 			});
@@ -268,16 +302,21 @@ class SelectionPanel extends JPanel {
 		return container;
 	}
 
-	private void onSearchBarChanged() {
+	private void onSearchBarChanged()
+	{
 		final String text = searchBar.getText();
-		if (Strings.isNullOrEmpty(text)) {
+		if (Strings.isNullOrEmpty(text))
+		{
 			addNamesToPanel(this.names);
-		} else {
+		}
+		else
+		{
 			addNamesToPanel(filterNames(this.names, text));
 		}
 	}
 
-	private Collection<String> filterNames(final Collection<String> names, final String searchText) {
+	private Collection<String> filterNames(final Collection<String> names, final String searchText)
+	{
 		final String[] searchTerms = searchText.toLowerCase().split(" ");
 		return names.stream().filter(name -> matchesSearchTerm(name, searchTerms)).collect(Collectors.toList());
 	}

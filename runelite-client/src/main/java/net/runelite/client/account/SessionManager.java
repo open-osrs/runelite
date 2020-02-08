@@ -26,6 +26,15 @@ package net.runelite.client.account;
 
 import com.google.gson.Gson;
 import io.reactivex.schedulers.Schedulers;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.Instant;
+import java.util.UUID;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
@@ -38,15 +47,10 @@ import net.runelite.http.api.account.AccountClient;
 import net.runelite.http.api.account.OAuthResponse;
 import net.runelite.http.api.ws.messages.LoginResponse;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.*;
-import java.time.Instant;
-import java.util.UUID;
-
 @Singleton
 @Slf4j
-public class SessionManager {
+public class SessionManager
+{
 	private static final File SESSION_FILE = new File(RuneLite.RUNELITE_DIR, "session");
 
 	@Getter
@@ -56,26 +60,32 @@ public class SessionManager {
 	private final WSClient wsClient;
 
 	@Inject
-	private SessionManager(EventBus eventBus, WSClient wsClient) {
+	private SessionManager(EventBus eventBus, WSClient wsClient)
+	{
 		this.eventBus = eventBus;
 		this.wsClient = wsClient;
 
 		this.eventBus.subscribe(LoginResponse.class, this, this::onLoginResponse);
 	}
 
-	public void loadSession() {
-		if (!SESSION_FILE.exists()) {
+	public void loadSession()
+	{
+		if (!SESSION_FILE.exists())
+		{
 			log.info("No session file exists");
 			return;
 		}
 
 		AccountSession session;
 
-		try (FileInputStream in = new FileInputStream(SESSION_FILE)) {
+		try (FileInputStream in = new FileInputStream(SESSION_FILE))
+		{
 			session = new Gson().fromJson(new InputStreamReader(in), AccountSession.class);
 
 			log.debug("Loaded session for {}", session.getUsername());
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			log.warn("Unable to load session file", ex);
 			return;
 		}
@@ -83,38 +93,48 @@ public class SessionManager {
 		// Check if session is still valid
 		AccountClient accountClient = new AccountClient(session.getUuid());
 		accountClient.sessionCheck()
-				.subscribeOn(Schedulers.io())
-				.subscribe(b ->
+			.subscribeOn(Schedulers.io())
+			.subscribe(b ->
+			{
+				if (!b)
 				{
-					if (!b) {
-						log.debug("Loaded session {} is invalid", session.getUuid());
-					} else {
-						openSession(session, false);
-					}
-				}, ex ->
+					log.debug("Loaded session {} is invalid", session.getUuid());
+				}
+				else
 				{
-					if (ex instanceof IOException) {
-						log.debug("Unable to verify session", ex);
-						openSession(session, false);
-					}
-				});
+					openSession(session, false);
+				}
+			}, ex ->
+			{
+				if (ex instanceof IOException)
+				{
+					log.debug("Unable to verify session", ex);
+					openSession(session, false);
+				}
+			});
 	}
 
-	private void saveSession() {
-		if (accountSession == null) {
+	private void saveSession()
+	{
+		if (accountSession == null)
+		{
 			return;
 		}
 
-		try (FileWriter fw = new FileWriter(SESSION_FILE)) {
+		try (FileWriter fw = new FileWriter(SESSION_FILE))
+		{
 			new Gson().toJson(accountSession, fw);
 
 			log.debug("Saved session to {}", SESSION_FILE);
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.warn("Unable to save session file", ex);
 		}
 	}
 
-	private void deleteSession() {
+	private void deleteSession()
+	{
 		SESSION_FILE.delete();
 	}
 
@@ -124,9 +144,11 @@ public class SessionManager {
 	 *
 	 * @param session session
 	 */
-	private void openSession(AccountSession session, boolean openSocket) {
+	private void openSession(AccountSession session, boolean openSocket)
+	{
 		// Change session on the websocket
-		if (openSocket) {
+		if (openSocket)
+		{
 			wsClient.changeSession(session.getUuid());
 		}
 
@@ -135,19 +157,24 @@ public class SessionManager {
 		eventBus.post(SessionOpen.class, new SessionOpen());
 	}
 
-	private void closeSession() {
+	private void closeSession()
+	{
 		wsClient.changeSession(null);
 
-		if (accountSession == null) {
+		if (accountSession == null)
+		{
 			return;
 		}
 
 		log.debug("Logging out of account {}", accountSession.getUsername());
 
 		AccountClient client = new AccountClient(accountSession.getUuid());
-		try {
+		try
+		{
 			client.logout();
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.warn("Unable to logout of session", ex);
 		}
 
@@ -156,16 +183,20 @@ public class SessionManager {
 		eventBus.post(SessionClose.class, new SessionClose());
 	}
 
-	public void login() {
+	public void login()
+	{
 		// If a session is already open, use that id. Otherwise generate a new id.
 		UUID uuid = wsClient.getSessionId() != null ? wsClient.getSessionId() : UUID.randomUUID();
 		AccountClient loginClient = new AccountClient(uuid);
 
 		final OAuthResponse login;
 
-		try {
+		try
+		{
 			login = loginClient.login();
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.warn("Unable to get oauth url", ex);
 			return;
 		}
@@ -177,7 +208,8 @@ public class SessionManager {
 		LinkBrowser.browse(login.getOauthUrl());
 	}
 
-	private void onLoginResponse(LoginResponse loginResponse) {
+	private void onLoginResponse(LoginResponse loginResponse)
+	{
 		log.debug("Now logged in as {}", loginResponse.getUsername());
 
 		AccountSession session = getAccountSession();
@@ -192,7 +224,8 @@ public class SessionManager {
 		saveSession();
 	}
 
-	public void logout() {
+	public void logout()
+	{
 		closeSession();
 		deleteSession();
 	}

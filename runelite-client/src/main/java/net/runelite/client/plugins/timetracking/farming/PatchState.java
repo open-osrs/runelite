@@ -27,17 +27,21 @@ package net.runelite.client.plugins.timetracking.farming;
 import lombok.Value;
 
 @Value
-class PatchState {
+class PatchState
+{
 	private final Produce produce;
 	private final CropState cropState;
 	private final int stage;
 
-	int getStages() {
+	int getStages()
+	{
 		return cropState == CropState.HARVESTABLE ? produce.getHarvestStages() : produce.getStages();
 	}
 
-	int getTickRate() {
-		switch (cropState) {
+	int getTickRate()
+	{
+		switch (cropState)
+		{
 			case HARVESTABLE:
 				return produce.getRegrowTickrate();
 			case GROWING:

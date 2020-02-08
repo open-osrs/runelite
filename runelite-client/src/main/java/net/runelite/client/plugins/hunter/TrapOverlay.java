@@ -24,6 +24,12 @@
  */
 package net.runelite.client.plugins.hunter;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -33,17 +39,13 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.util.Map;
-
 /**
  * Represents the overlay that shows timers on traps that are placed by the
  * player.
  */
 @Singleton
-public class TrapOverlay extends Overlay {
+public class TrapOverlay extends Overlay
+{
 	/**
 	 * The timer is low when only 25% is left.
 	 */
@@ -58,7 +60,8 @@ public class TrapOverlay extends Overlay {
 	private Color colorTrans, colorTransBorder;
 
 	@Inject
-	TrapOverlay(final Client client, final HunterPlugin plugin) {
+	TrapOverlay(final Client client, final HunterPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
@@ -66,7 +69,8 @@ public class TrapOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		drawTraps(graphics);
 		return null;
 	}
@@ -74,7 +78,8 @@ public class TrapOverlay extends Overlay {
 	/**
 	 * Updates the timer colors.
 	 */
-	public void updateConfig() {
+	public void updateConfig()
+	{
 		colorEmptyBorder = plugin.getGetEmptyTrapColor();
 		colorEmpty = new Color(colorEmptyBorder.getRed(), colorEmptyBorder.getGreen(), colorEmptyBorder.getBlue(), 100);
 		colorFullBorder = plugin.getGetFullTrapColor();
@@ -91,11 +96,14 @@ public class TrapOverlay extends Overlay {
 	 *
 	 * @param graphics
 	 */
-	private void drawTraps(Graphics2D graphics) {
-		for (Map.Entry<WorldPoint, HunterTrap> entry : plugin.getTraps().entrySet()) {
+	private void drawTraps(Graphics2D graphics)
+	{
+		for (Map.Entry<WorldPoint, HunterTrap> entry : plugin.getTraps().entrySet())
+		{
 			HunterTrap trap = entry.getValue();
 
-			switch (trap.getState()) {
+			switch (trap.getState())
+			{
 				case OPEN:
 					drawTimerOnTrap(graphics, trap, colorOpen, colorOpenBorder, colorEmpty, colorOpenBorder);
 					break;
@@ -122,17 +130,21 @@ public class TrapOverlay extends Overlay {
 	 * @param fillTimeLow   The fill color of the timer when it is low
 	 * @param borderTimeLow The border color of the timer when it is low
 	 */
-	private void drawTimerOnTrap(Graphics2D graphics, HunterTrap trap, Color fill, Color border, Color fillTimeLow, Color borderTimeLow) {
-		if (trap.getWorldLocation().getPlane() != client.getPlane()) {
+	private void drawTimerOnTrap(Graphics2D graphics, HunterTrap trap, Color fill, Color border, Color fillTimeLow, Color borderTimeLow)
+	{
+		if (trap.getWorldLocation().getPlane() != client.getPlane())
+		{
 			return;
 		}
 		LocalPoint localLoc = LocalPoint.fromWorld(client, trap.getWorldLocation());
-		if (localLoc == null) {
+		if (localLoc == null)
+		{
 			return;
 		}
 		net.runelite.api.Point loc = Perspective.localToCanvas(client, localLoc, client.getPlane());
 
-		if (loc == null) {
+		if (loc == null)
+		{
 			return;
 		}
 
@@ -154,12 +166,15 @@ public class TrapOverlay extends Overlay {
 	 * @param fill     The fill color of the timer
 	 * @param border   The border color of the timer
 	 */
-	private void drawCircleOnTrap(Graphics2D graphics, HunterTrap trap, Color fill, Color border) {
-		if (trap.getWorldLocation().getPlane() != client.getPlane()) {
+	private void drawCircleOnTrap(Graphics2D graphics, HunterTrap trap, Color fill, Color border)
+	{
+		if (trap.getWorldLocation().getPlane() != client.getPlane())
+		{
 			return;
 		}
 		LocalPoint localLoc = LocalPoint.fromWorld(client, trap.getWorldLocation());
-		if (localLoc == null) {
+		if (localLoc == null)
+		{
 			return;
 		}
 		net.runelite.api.Point loc = Perspective.localToCanvas(client, localLoc, client.getPlane());

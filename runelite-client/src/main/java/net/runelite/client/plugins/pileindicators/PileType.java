@@ -24,7 +24,8 @@
 
 package net.runelite.client.plugins.pileindicators;
 
-public enum PileType {
+public enum PileType
+{
 	PLAYER_PILE,
 	NPC_PILE,
 	MIXED_PILE

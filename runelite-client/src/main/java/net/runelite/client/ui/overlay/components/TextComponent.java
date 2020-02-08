@@ -24,15 +24,22 @@
  */
 package net.runelite.client.ui.overlay.components;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Composite;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Shape;
+import java.awt.font.GlyphVector;
+import java.util.regex.Pattern;
 import lombok.Setter;
 import net.runelite.client.ui.overlay.RenderableEntity;
 
-import java.awt.*;
-import java.awt.font.GlyphVector;
-import java.util.regex.Pattern;
-
 @Setter
-public class TextComponent implements RenderableEntity {
+public class TextComponent implements RenderableEntity
+{
 	private static final String COL_TAG_REGEX = "(<col=([0-9a-fA-F]){2,6}>)";
 	private static final Pattern COL_TAG_PATTERN_W_LOOKAHEAD = Pattern.compile("(?=" + COL_TAG_REGEX + ")");
 	private static final Pattern COL_TAG_PATTERN = Pattern.compile(COL_TAG_REGEX);
@@ -42,19 +49,23 @@ public class TextComponent implements RenderableEntity {
 	private Color color = Color.WHITE;
 	private Color borderColor = Color.BLACK;
 
-	public static String textWithoutColTags(String text) {
+	public static String textWithoutColTags(String text)
+	{
 		return COL_TAG_PATTERN.matcher(text).replaceAll("");
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		final FontMetrics fontMetrics = graphics.getFontMetrics();
 
-		if (COL_TAG_PATTERN.matcher(text).find()) {
+		if (COL_TAG_PATTERN.matcher(text).find())
+		{
 			final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
 			int x = position.x;
 
-			for (String textSplitOnCol : parts) {
+			for (String textSplitOnCol : parts)
+			{
 				final String textWithoutCol = textWithoutColTags(textSplitOnCol);
 				final String colColor = textSplitOnCol.substring(textSplitOnCol.indexOf('=') + 1, textSplitOnCol.indexOf('>'));
 
@@ -62,13 +73,16 @@ public class TextComponent implements RenderableEntity {
 
 				x += fontMetrics.stringWidth(textWithoutCol);
 			}
-		} else {
+		}
+		else
+		{
 			renderText(graphics, position.x, position.y, text, color, borderColor);
 		}
 		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
 	}
 
-	private void renderText(Graphics2D graphics, int x, int y, String text, Color color, Color border) {
+	private void renderText(Graphics2D graphics, int x, int y, String text, Color color, Color border)
+	{
 		// remember previous composite
 		Composite originalComposite = graphics.getComposite();
 

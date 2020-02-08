@@ -28,10 +28,17 @@
 package net.runelite.client.plugins.zulrah;
 
 import com.google.inject.Provides;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.Actor;
+import net.runelite.api.AnimationID;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.NPC;
+import net.runelite.api.Prayer;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDespawned;
@@ -47,30 +54,32 @@ import net.runelite.client.plugins.zulrah.overlays.ZulrahCurrentPhaseOverlay;
 import net.runelite.client.plugins.zulrah.overlays.ZulrahNextPhaseOverlay;
 import net.runelite.client.plugins.zulrah.overlays.ZulrahOverlay;
 import net.runelite.client.plugins.zulrah.overlays.ZulrahPrayerOverlay;
-import net.runelite.client.plugins.zulrah.patterns.*;
+import net.runelite.client.plugins.zulrah.patterns.ZulrahPattern;
+import net.runelite.client.plugins.zulrah.patterns.ZulrahPatternA;
+import net.runelite.client.plugins.zulrah.patterns.ZulrahPatternB;
+import net.runelite.client.plugins.zulrah.patterns.ZulrahPatternC;
+import net.runelite.client.plugins.zulrah.patterns.ZulrahPatternD;
 import net.runelite.client.plugins.zulrah.phase.ZulrahPhase;
 import net.runelite.client.ui.overlay.OverlayManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 @PluginDescriptor(
-		name = "Zulrah Helper",
-		description = "Shows tiles on where to stand during the phases and what prayer to use.",
-		tags = {"zulrah", "boss", "helper"},
-		type = PluginType.PVM,
-		enabledByDefault = false
+	name = "Zulrah Helper",
+	description = "Shows tiles on where to stand during the phases and what prayer to use.",
+	tags = {"zulrah", "boss", "helper"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Slf4j
 @Singleton
-public class ZulrahPlugin extends Plugin {
+public class ZulrahPlugin extends Plugin
+{
 	private static final ZulrahPattern[] patterns = new ZulrahPattern[]
-			{
-					new ZulrahPatternA(),
-					new ZulrahPatternB(),
-					new ZulrahPatternC(),
-					new ZulrahPatternD()
-			};
+		{
+			new ZulrahPatternA(),
+			new ZulrahPatternB(),
+			new ZulrahPatternC(),
+			new ZulrahPatternD()
+		};
 
 	@Getter(AccessLevel.PACKAGE)
 	private NPC zulrah;
@@ -102,12 +111,14 @@ public class ZulrahPlugin extends Plugin {
 	private ZulrahInstance instance;
 
 	@Provides
-	ZulrahConfig getConfig(ConfigManager configManager) {
+	ZulrahConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(ZulrahConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 
 		overlayManager.add(currentPhaseOverlay);
 		overlayManager.add(nextPhaseOverlay);
@@ -116,7 +127,8 @@ public class ZulrahPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(currentPhaseOverlay);
 		overlayManager.remove(nextPhaseOverlay);
 		overlayManager.remove(zulrahPrayerOverlay);
@@ -126,29 +138,37 @@ public class ZulrahPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
-		if (client.getGameState() != GameState.LOGGED_IN) {
+	private void onGameTick(GameTick event)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
-		if (zulrah == null) {
-			if (instance != null) {
+		if (zulrah == null)
+		{
+			if (instance != null)
+			{
 				log.debug("Zulrah encounter has ended.");
 				instance = null;
 			}
 			return;
 		}
 
-		if (instance == null) {
+		if (instance == null)
+		{
 			instance = new ZulrahInstance(zulrah);
 			log.debug("Zulrah encounter has started.");
 		}
 
 		ZulrahPhase currentPhase = ZulrahPhase.valueOf(zulrah, instance.getStartLocation());
 
-		if (instance.getPhase() == null) {
+		if (instance.getPhase() == null)
+		{
 			instance.setPhase(currentPhase);
-		} else if (!instance.getPhase().equals(currentPhase)) {
+		}
+		else if (!instance.getPhase().equals(currentPhase))
+		{
 			ZulrahPhase previousPhase = instance.getPhase();
 			instance.setPhase(currentPhase);
 			instance.nextStage();
@@ -158,23 +178,29 @@ public class ZulrahPlugin extends Plugin {
 
 		ZulrahPattern pattern = instance.getPattern();
 
-		if (pattern == null) {
+		if (pattern == null)
+		{
 			int potential = 0;
 			ZulrahPattern potentialPattern = null;
 
-			for (ZulrahPattern p : patterns) {
-				if (p.stageMatches(instance.getStage(), instance.getPhase())) {
+			for (ZulrahPattern p : patterns)
+			{
+				if (p.stageMatches(instance.getStage(), instance.getPhase()))
+				{
 					potential++;
 					potentialPattern = p;
 				}
 			}
 
-			if (potential == 1) {
+			if (potential == 1)
+			{
 				log.debug("Zulrah pattern identified: {}", potentialPattern);
 
 				instance.setPattern(potentialPattern);
 			}
-		} else if (pattern.canReset(instance.getStage()) && (instance.getPhase() == null || instance.getPhase().equals(pattern.get(0)))) {
+		}
+		else if (pattern.canReset(instance.getStage()) && (instance.getPhase() == null || instance.getPhase().equals(pattern.get(0))))
+		{
 			log.debug("Zulrah pattern has reset.");
 
 			instance.reset();
@@ -182,28 +208,34 @@ public class ZulrahPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onAnimationChanged(AnimationChanged event) {
-		if (instance == null) {
+	private void onAnimationChanged(AnimationChanged event)
+	{
+		if (instance == null)
+		{
 			return;
 		}
 
 		ZulrahPhase currentPhase = instance.getPhase();
 		ZulrahPhase nextPhase = instance.getNextPhase();
 
-		if (currentPhase == null || nextPhase == null) {
+		if (currentPhase == null || nextPhase == null)
+		{
 			return;
 		}
 
 		final Actor actor = event.getActor();
 
-		if (config.sounds() && zulrah != null && zulrah.equals(actor) && zulrah.getAnimation() == AnimationID.ZULRAH_PHASE) {
+		if (config.sounds() && zulrah != null && zulrah.equals(actor) && zulrah.getAnimation() == AnimationID.ZULRAH_PHASE)
+		{
 			Prayer prayer = nextPhase.getPrayer();
 
-			if (prayer == null) {
+			if (prayer == null)
+			{
 				return;
 			}
 
-			switch (prayer) {
+			switch (prayer)
+			{
 				case PROTECT_FROM_MAGIC:
 					soundManager.playSound(Sound.PRAY_MAGIC);
 					break;
@@ -215,24 +247,29 @@ public class ZulrahPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned event) {
+	private void onNpcSpawned(NpcSpawned event)
+	{
 		NPC npc = event.getNpc();
 		if (npc != null && npc.getName() != null &&
-				npc.getName().toLowerCase().contains("zulrah")) {
+			npc.getName().toLowerCase().contains("zulrah"))
+		{
 			zulrah = npc;
 		}
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned event) {
+	private void onNpcDespawned(NpcDespawned event)
+	{
 		NPC npc = event.getNpc();
 		if (npc != null && npc.getName() != null &&
-				npc.getName().toLowerCase().contains("zulrah")) {
+			npc.getName().toLowerCase().contains("zulrah"))
+		{
 			zulrah = null;
 		}
 	}
 
-	public ZulrahInstance getInstance() {
+	public ZulrahInstance getInstance()
+	{
 		return instance;
 	}
 }

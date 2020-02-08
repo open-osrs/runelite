@@ -31,7 +31,8 @@ import net.runelite.api.events.Event;
  * Called when an internal error is caught within the SDK
  */
 @Value
-public class DiscordErrored implements Event {
+public class DiscordErrored implements Event
+{
 	/**
 	 * Discord error code.
 	 */

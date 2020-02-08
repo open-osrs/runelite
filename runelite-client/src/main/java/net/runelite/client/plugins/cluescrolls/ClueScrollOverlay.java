@@ -26,26 +26,27 @@
  */
 package net.runelite.client.plugins.cluescrolls;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import static net.runelite.api.ItemID.SPADE;
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.client.plugins.cluescrolls.clues.ClueScroll;
 import net.runelite.client.plugins.cluescrolls.clues.item.ItemRequirement;
 import net.runelite.client.plugins.cluescrolls.clues.item.SingleItemRequirement;
 import net.runelite.client.ui.overlay.Overlay;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
-import static net.runelite.api.ItemID.SPADE;
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 @Singleton
-public class ClueScrollOverlay extends Overlay {
+public class ClueScrollOverlay extends Overlay
+{
 	private static final ItemRequirement HAS_SPADE = new SingleItemRequirement(SPADE);
 
 	public static final Color TITLED_CONTENT_COLOR = new Color(190, 190, 190);
@@ -54,7 +55,8 @@ public class ClueScrollOverlay extends Overlay {
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private ClueScrollOverlay(final ClueScrollPlugin plugin) {
+	private ClueScrollOverlay(final ClueScrollPlugin plugin)
+	{
 		super(plugin);
 		this.plugin = plugin;
 		setPriority(OverlayPriority.LOW);
@@ -62,10 +64,12 @@ public class ClueScrollOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		ClueScroll clue = plugin.getClue();
 
-		if (clue == null) {
+		if (clue == null)
+		{
 			return null;
 		}
 
@@ -74,7 +78,8 @@ public class ClueScrollOverlay extends Overlay {
 
 		clue.makeOverlayHint(panelComponent, plugin);
 
-		if (clue.isRequiresSpade() && plugin.getInventoryItems() != null && !HAS_SPADE.fulfilledBy(plugin.getInventoryItems())) {
+		if (clue.isRequiresSpade() && plugin.getInventoryItems() != null && !HAS_SPADE.fulfilledBy(plugin.getInventoryItems()))
+		{
 			panelComponent.getChildren().add(LineComponent.builder().left("").build());
 			panelComponent.getChildren().add(LineComponent.builder().left("Requires Spade!").leftColor(Color.RED).build());
 		}

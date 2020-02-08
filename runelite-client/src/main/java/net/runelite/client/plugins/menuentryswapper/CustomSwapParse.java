@@ -25,32 +25,39 @@
 package net.runelite.client.plugins.menuentryswapper;
 
 import com.google.common.base.Splitter;
-
 import java.util.Map;
 
-public class CustomSwapParse {
-	public static boolean parse(String value) {
-		try {
+public class CustomSwapParse
+{
+	public static boolean parse(String value)
+	{
+		try
+		{
 			final StringBuilder sb = new StringBuilder();
 
-			for (String str : value.split("\n")) {
-				if (!str.startsWith("//")) {
+			for (String str : value.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
 					sb.append(str).append("\n");
 				}
 			}
 
 			final Splitter NEWLINE_SPLITTER = Splitter
-					.on("\n")
-					.omitEmptyStrings()
-					.trimResults();
+				.on("\n")
+				.omitEmptyStrings()
+				.trimResults();
 
 			final Map<String, String> tmp = NEWLINE_SPLITTER.withKeyValueSeparator(':').split(sb);
 
-			for (String str : tmp.values()) {
+			for (String str : tmp.values())
+			{
 				Integer.parseInt(str.trim());
 			}
 			return true;
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			return false;
 		}
 	}

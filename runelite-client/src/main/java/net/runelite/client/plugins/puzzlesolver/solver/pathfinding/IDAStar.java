@@ -25,30 +25,33 @@
  */
 package net.runelite.client.plugins.puzzlesolver.solver.pathfinding;
 
-import net.runelite.client.plugins.puzzlesolver.solver.PuzzleState;
-import net.runelite.client.plugins.puzzlesolver.solver.heuristics.Heuristic;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.runelite.client.plugins.puzzlesolver.solver.PuzzleState;
+import net.runelite.client.plugins.puzzlesolver.solver.heuristics.Heuristic;
 
 /**
  * An implementation of the IDA* algorithm.
  * <p>
  * https://en.wikipedia.org/wiki/Iterative_deepening_A*
  */
-public class IDAStar extends Pathfinder {
-	public IDAStar(Heuristic heuristic) {
+public class IDAStar extends Pathfinder
+{
+	public IDAStar(Heuristic heuristic)
+	{
 		super(heuristic);
 	}
 
 	@Override
-	public List<PuzzleState> computePath(PuzzleState root) {
+	public List<PuzzleState> computePath(PuzzleState root)
+	{
 		PuzzleState goalNode = path(root);
 
 		List<PuzzleState> path = new ArrayList<>();
 
 		PuzzleState parent = goalNode;
-		while (parent != null) {
+		while (parent != null)
+		{
 			path.add(0, parent);
 			parent = parent.getParent();
 		}
@@ -56,13 +59,16 @@ public class IDAStar extends Pathfinder {
 		return path;
 	}
 
-	private PuzzleState path(PuzzleState root) {
+	private PuzzleState path(PuzzleState root)
+	{
 		int bound = root.getHeuristicValue(getHeuristic());
 
-		while (true) {
+		while (true)
+		{
 			PuzzleState t = search(root, 0, bound);
 
-			if (t != null) {
+			if (t != null)
+			{
 				return t;
 			}
 
@@ -70,22 +76,27 @@ public class IDAStar extends Pathfinder {
 		}
 	}
 
-	private PuzzleState search(PuzzleState node, int g, int bound) {
+	private PuzzleState search(PuzzleState node, int g, int bound)
+	{
 		int h = node.getHeuristicValue(getHeuristic());
 		int f = g + h;
 
-		if (f > bound) {
+		if (f > bound)
+		{
 			return null;
 		}
 
-		if (h == 0) {
+		if (h == 0)
+		{
 			return node;
 		}
 
-		for (PuzzleState successor : node.computeMoves()) {
+		for (PuzzleState successor : node.computeMoves())
+		{
 			PuzzleState t = search(successor, g + 1, bound);
 
-			if (t != null) {
+			if (t != null)
+			{
 				return t;
 			}
 		}

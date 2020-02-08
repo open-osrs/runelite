@@ -27,23 +27,32 @@ package net.runelite.client.plugins.raids.solver;
 import com.google.common.collect.ImmutableList;
 import net.runelite.client.plugins.raids.RaidRoom;
 import net.runelite.client.plugins.raids.RoomType;
-
 import java.util.ArrayList;
 import java.util.List;
+import static net.runelite.client.plugins.raids.RaidRoom.GUARDIANS;
+import static net.runelite.client.plugins.raids.RaidRoom.MUTTADILES;
+import static net.runelite.client.plugins.raids.RaidRoom.MYSTICS;
+import static net.runelite.client.plugins.raids.RaidRoom.SHAMANS;
+import static net.runelite.client.plugins.raids.RaidRoom.TEKTON;
+import static net.runelite.client.plugins.raids.RaidRoom.UNKNOWN_COMBAT;
+import static net.runelite.client.plugins.raids.RaidRoom.VANGUARDS;
+import static net.runelite.client.plugins.raids.RaidRoom.VASA;
+import static net.runelite.client.plugins.raids.RaidRoom.VESPULA;
 
-import static net.runelite.client.plugins.raids.RaidRoom.*;
-
-public class RotationSolver {
+public class RotationSolver
+{
 	private static final ImmutableList<ImmutableList<RaidRoom>> ROTATIONS = ImmutableList.of
-			(
-					ImmutableList.of(TEKTON, VASA, GUARDIANS, MYSTICS, SHAMANS, MUTTADILES, VANGUARDS, VESPULA),
-					ImmutableList.of(TEKTON, MUTTADILES, GUARDIANS, VESPULA, SHAMANS, VASA, VANGUARDS, MYSTICS),
-					ImmutableList.of(VESPULA, VANGUARDS, MUTTADILES, SHAMANS, MYSTICS, GUARDIANS, VASA, TEKTON),
-					ImmutableList.of(MYSTICS, VANGUARDS, VASA, SHAMANS, VESPULA, GUARDIANS, MUTTADILES, TEKTON)
-			);
+	(
+			ImmutableList.of(TEKTON, VASA, GUARDIANS, MYSTICS, SHAMANS, MUTTADILES, VANGUARDS, VESPULA),
+			ImmutableList.of(TEKTON, MUTTADILES, GUARDIANS, VESPULA, SHAMANS, VASA, VANGUARDS, MYSTICS),
+			ImmutableList.of(VESPULA, VANGUARDS, MUTTADILES, SHAMANS, MYSTICS, GUARDIANS, VASA, TEKTON),
+			ImmutableList.of(MYSTICS, VANGUARDS, VASA, SHAMANS, VESPULA, GUARDIANS, MUTTADILES, TEKTON)
+	);
 
-	public static boolean solve(RaidRoom[] rooms) {
-		if (rooms == null) {
+	public static boolean solve(RaidRoom[] rooms)
+	{
+		if (rooms == null)
+		{
 			return false;
 		}
 
@@ -52,52 +61,62 @@ public class RotationSolver {
 		Integer index = null;
 		int known = 0;
 
-		for (int i = 0; i < rooms.length; i++) {
-			if (rooms[i] == null || rooms[i].getType() != RoomType.COMBAT || rooms[i] == UNKNOWN_COMBAT) {
+		for (int i = 0; i < rooms.length; i++)
+		{
+			if (rooms[i] == null || rooms[i].getType() != RoomType.COMBAT || rooms[i] == UNKNOWN_COMBAT)
+			{
 				continue;
 			}
 
-			if (start == null) {
+			if (start == null)
+			{
 				start = i;
 			}
 
 			known++;
 		}
 
-		if (known < 2) {
+		if (known < 2)
+		{
 			return false;
 		}
 
-		if (known == rooms.length) {
+		if (known == rooms.length)
+		{
 			return true;
 		}
 
 		//Iterate over each rotation
-		for (ImmutableList<RaidRoom> rotation : ROTATIONS) {
+		for (ImmutableList<RaidRoom> rotation : ROTATIONS)
+		{
 			//Determine the index of the first known combat room in this rotation
 			int rotationStart = rotation.indexOf(rooms[start]);
 
 			//Iterate over each room (except the starting room) and determine whether or not the rotation still matches
 			int roomStep = 1;
 			boolean doesNotMatch = false;
-			while (roomStep < rooms.length && !doesNotMatch) {
+			while (roomStep < rooms.length && !doesNotMatch)
+			{
 				var roomIndex = (start + roomStep) % rooms.length;
 				var rotationRoomIndex = (rotationStart + roomStep) % rotation.size();
-				if (rooms[roomIndex] != UNKNOWN_COMBAT && rooms[roomIndex] != rotation.get(rotationRoomIndex)) {
+				if (rooms[roomIndex] != UNKNOWN_COMBAT && rooms[roomIndex] != rotation.get(rotationRoomIndex))
+				{
 					doesNotMatch = true;
 				}
 
 				++roomStep;
 			}
 
-			if (!doesNotMatch) {
+			if (!doesNotMatch)
+			{
 				//Found a matching rotation!
 				matches.add(rotation);
 				index = rotationStart - start;
 			}
 		}
 
-		if (matches.size() != 1) {
+		if (matches.size() != 1)
+		{
 			//Could not find a unique match!
 			return false;
 		}
@@ -105,8 +124,10 @@ public class RotationSolver {
 		List<RaidRoom> match = matches.get(0);
 
 
-		for (int i = 0; i < rooms.length; i++) {
-			if (rooms[i].getType() != RoomType.COMBAT || rooms[i] == UNKNOWN_COMBAT) {
+		for (int i = 0; i < rooms.length; i++)
+		{
+			if (rooms[i].getType() != RoomType.COMBAT || rooms[i] == UNKNOWN_COMBAT)
+			{
 				rooms[i] = match.get(Math.floorMod((index + i), match.size()));
 			}
 		}

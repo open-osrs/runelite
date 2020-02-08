@@ -24,23 +24,26 @@
  */
 package net.runelite.client.plugins.templetrekking;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
-import javax.inject.Inject;
-import java.awt.*;
-
-public class TempleTrekkingOverlay extends Overlay {
+public class TempleTrekkingOverlay extends Overlay
+{
 	private final TempleTrekkingConfig config;
 	private final TempleTrekkingPlugin plugin;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private TempleTrekkingOverlay(TempleTrekkingConfig config, TempleTrekkingPlugin plugin) {
+	private TempleTrekkingOverlay(TempleTrekkingConfig config, TempleTrekkingPlugin plugin)
+	{
 		super(plugin);
 		this.config = config;
 		this.plugin = plugin;
@@ -49,23 +52,25 @@ public class TempleTrekkingOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (config.pointTrackerActive() && plugin.isInTrek()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (config.pointTrackerActive() && plugin.isInTrek())
+		{
 			int points = plugin.getRewardPoints();
 			double percentage = plugin.getRewardPercentage() * 100;
 			panelComponent.getChildren().clear();
 			Color rightColor = percentage < 25 ? Color.RED : percentage >= 25 && percentage < 50 ? Color.YELLOW :
-					percentage >= 50 && percentage < 75 ? Color.BLUE : Color.GREEN;
+				percentage >= 50 && percentage < 75 ? Color.BLUE : Color.GREEN;
 			panelComponent.getChildren().add(LineComponent.builder()
-					.left("Trek Points: ")
-					.right(Integer.toString(points))
-					.rightColor(rightColor)
-					.build());
+				.left("Trek Points: ")
+				.right(Integer.toString(points))
+				.rightColor(rightColor)
+				.build());
 			panelComponent.getChildren().add(LineComponent.builder()
-					.left("Reward %: ")
-					.right(String.format("%.2f", percentage) + "%")
-					.rightColor(rightColor)
-					.build());
+				.left("Reward %: ")
+				.right(String.format("%.2f", percentage) + "%")
+				.rightColor(rightColor)
+				.build());
 			return panelComponent.render(graphics);
 		}
 		return null;

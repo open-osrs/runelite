@@ -1,7 +1,27 @@
 package net.runelite.client.game;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.Actor;
+import net.runelite.api.Client;
+import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemID;
+import net.runelite.api.NPC;
+import net.runelite.api.Player;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.events.PlayerDespawned;
@@ -15,20 +35,11 @@ import net.runelite.http.api.hiscore.HiscoreResult;
 import net.runelite.http.api.item.ItemEquipmentStats;
 import net.runelite.http.api.item.ItemStats;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
-
 @Singleton
 @Slf4j
 @SuppressWarnings("unused")
-public class PlayerManager {
+public class PlayerManager
+{
 	private static final HiscoreClient HISCORE_CLIENT = new HiscoreClient();
 	private final Client client;
 	private final ItemManager itemManager;
@@ -39,10 +50,11 @@ public class PlayerManager {
 
 	@Inject
 	PlayerManager(
-			final Client client,
-			final EventBus eventBus,
-			final ItemManager itemManager
-	) {
+		final Client client,
+		final EventBus eventBus,
+		final ItemManager itemManager
+	)
+	{
 		this.client = client;
 		this.itemManager = itemManager;
 		this.eventBus = eventBus;
@@ -55,10 +67,13 @@ public class PlayerManager {
 	/**
 	 * @return Collection of {@link PlayerContainer} that are attacking you, this can be empty.
 	 */
-	public Set<PlayerContainer> getAllAttackers() {
+	public Set<PlayerContainer> getAllAttackers()
+	{
 		final Set<PlayerContainer> set = new HashSet<>();
-		for (PlayerContainer p : playerMap.values()) {
-			if (p.isAttacking()) {
+		for (PlayerContainer p : playerMap.values())
+		{
+			if (p.isAttacking())
+			{
 				set.add(p);
 			}
 		}
@@ -68,7 +83,8 @@ public class PlayerManager {
 	/**
 	 * @return Collection of {@link PlayerContainer}, this can be empty.
 	 */
-	public Collection<PlayerContainer> getPlayerContainers() {
+	public Collection<PlayerContainer> getPlayerContainers()
+	{
 		return playerMap.values();
 	}
 
@@ -77,7 +93,8 @@ public class PlayerManager {
 	 * @return {@link PlayerContainer} if provided with proper name, else null.
 	 */
 	@Nullable
-	public PlayerContainer getPlayer(String name) {
+	public PlayerContainer getPlayer(String name)
+	{
 		return playerMap.get(name);
 	}
 
@@ -86,8 +103,10 @@ public class PlayerManager {
 	 * @return {@link PlayerContainer} if provided with proper name, else null.
 	 */
 	@Nullable
-	public PlayerContainer getPlayer(Player player) {
-		if (player == null) {
+	public PlayerContainer getPlayer(Player player)
+	{
+		if (player == null)
+		{
 			return null;
 		}
 
@@ -99,10 +118,12 @@ public class PlayerManager {
 	 *
 	 * @param name The player name you wish to update.
 	 */
-	public void updateStats(String name) {
+	public void updateStats(String name)
+	{
 		final PlayerContainer p = playerMap.get(name);
 
-		if (p == null) {
+		if (p == null)
+		{
 			return;
 		}
 
@@ -114,18 +135,22 @@ public class PlayerManager {
 	 *
 	 * @param requestedPlayer The player object you wish to update.
 	 */
-	public void updateStats(Player requestedPlayer) {
-		if (requestedPlayer == null) {
+	public void updateStats(Player requestedPlayer)
+	{
+		if (requestedPlayer == null)
+		{
 			return;
 		}
 
 		final PlayerContainer player = playerMap.get(requestedPlayer.getName());
 
-		if (player == null) {
+		if (player == null)
+		{
 			return;
 		}
 
-		if (resultCache.containsKey(player.getName())) {
+		if (resultCache.containsKey(player.getName()))
+		{
 			player.setSkills(resultCache.get(player.getName()));
 			player.setPrayerLevel(player.getSkills().getPrayer().getLevel());
 			player.setHpLevel(player.getSkills().getHitpoints().getLevel());
@@ -137,19 +162,27 @@ public class PlayerManager {
 			player.setHttpRetry(true);
 			int timeout = 0;
 			HiscoreResult result;
-			do {
-				try {
+			do
+			{
+				try
+				{
 					result = HISCORE_CLIENT.lookup(player.getName());
-				} catch (IOException ex) {
-					if (timeout == 10) {
+				}
+				catch (IOException ex)
+				{
+					if (timeout == 10)
+					{
 						log.error("HiScore Lookup timed out on: {}", player.getName());
 						return;
 					}
 					result = null;
 					timeout++;
-					try {
+					try
+					{
 						Thread.sleep(1000);
-					} catch (InterruptedException ignored) {
+					}
+					catch (InterruptedException ignored)
+					{
 					}
 				}
 			}
@@ -163,10 +196,12 @@ public class PlayerManager {
 		});
 	}
 
-	private void onAppearenceChanged(PlayerAppearanceChanged event) {
+	private void onAppearenceChanged(PlayerAppearanceChanged event)
+	{
 		final PlayerContainer player = playerMap.get(event.getPlayer().getName());
 
-		if (player == null) {
+		if (player == null)
+		{
 			return;
 		}
 
@@ -176,32 +211,39 @@ public class PlayerManager {
 		player.setClan(client.isClanMember(player.getName()));
 	}
 
-	private void onPlayerDespawned(PlayerDespawned event) {
+	private void onPlayerDespawned(PlayerDespawned event)
+	{
 		final Player player = event.getPlayer();
 		playerMap.remove(player.getName());
 	}
 
-	private void onPlayerSpawned(PlayerSpawned event) {
+	private void onPlayerSpawned(PlayerSpawned event)
+	{
 		final Player player = event.getPlayer();
 		playerMap.put(player.getName(), new PlayerContainer(player));
 	}
 
-	private void onAnimationChanged(AnimationChanged event) {
+	private void onAnimationChanged(AnimationChanged event)
+	{
 		final Actor actor = event.getActor();
 
-		if (actor.getInteracting() != client.getLocalPlayer() || !(actor instanceof Player) || actor.getAnimation() == -1) {
+		if (actor.getInteracting() != client.getLocalPlayer() || !(actor instanceof Player) || actor.getAnimation() == -1)
+		{
 			return;
 		}
 
 		final PlayerContainer player = playerMap.getOrDefault(actor.getName(), null);
 
-		if (player == null) {
+		if (player == null)
+		{
 			return;
 		}
 
 		if (player.getPlayer().getInteracting() != null &&
-				player.getPlayer().getInteracting() == client.getLocalPlayer()) {
-			if (player.getSkills() == null) {
+			player.getPlayer().getInteracting() == client.getLocalPlayer())
+		{
+			if (player.getSkills() == null)
+			{
 				updateStats(player.getPlayer());
 			}
 
@@ -210,7 +252,8 @@ public class PlayerManager {
 		}
 	}
 
-	private void update(PlayerContainer player) {
+	private void update(PlayerContainer player)
+	{
 		player.setRisk(0);
 		updatePlayerGear(player);
 		updateAttackStyle(player);
@@ -220,43 +263,50 @@ public class PlayerManager {
 		player.setTargetString(targetStringBuilder(player));
 	}
 
-	private void updatePlayerGear(PlayerContainer player) {
+	private void updatePlayerGear(PlayerContainer player)
+	{
 		final Map<Integer, Integer> prices = new HashMap<>();
 
-		if (player.getPlayer().getPlayerAppearance() == null) {
+		if (player.getPlayer().getPlayerAppearance() == null)
+		{
 			return;
 		}
 
 		int magicAttack = 0,
-				magicDefence = 0,
-				magicStr = 0,
-				meleeAtkCrush = 0,
-				meleeAtkStab = 0,
-				meleeAtkSlash = 0,
-				meleeDefCrush = 0,
-				meleeDefStab = 0,
-				meleeDefSlash = 0,
-				meleeStr = 0,
-				rangeAttack = 0,
-				rangeDefence = 0,
-				rangeStr = 0,
-				speed = 0;
+			magicDefence = 0,
+			magicStr = 0,
+			meleeAtkCrush = 0,
+			meleeAtkStab = 0,
+			meleeAtkSlash = 0,
+			meleeDefCrush = 0,
+			meleeDefStab = 0,
+			meleeDefSlash = 0,
+			meleeStr = 0,
+			rangeAttack = 0,
+			rangeDefence = 0,
+			rangeStr = 0,
+			speed = 0;
 
-		for (KitType kitType : KitType.values()) {
-			if (kitType.equals(KitType.RING) || kitType.equals(KitType.AMMUNITION)) {
+		for (KitType kitType : KitType.values())
+		{
+			if (kitType.equals(KitType.RING) || kitType.equals(KitType.AMMUNITION))
+			{
 				continue;
 			}
 
 			final int id = player.getPlayer().getPlayerAppearance().getEquipmentId(kitType);
 
-			if (id == -1) {
+			if (id == -1)
+			{
 				continue;
 			}
 
-			if (kitType.equals(KitType.WEAPON)) {
+			if (kitType.equals(KitType.WEAPON))
+			{
 				player.setWeapon(id);
 
-				switch (id) {
+				switch (id)
+				{
 					case ItemID.HEAVY_BALLISTA:
 					case ItemID.HEAVY_BALLISTA_23630:
 					case ItemID.LIGHT_BALLISTA:
@@ -294,7 +344,8 @@ public class PlayerManager {
 			final ItemStats item = itemManager.getItemStats(id, false);
 			final ItemDefinition itemDefinition = itemManager.getItemDefinition(id);
 
-			if (item == null) {
+			if (item == null)
+			{
 				log.debug("Item is null: {}", id);
 				continue;
 			}
@@ -316,57 +367,65 @@ public class PlayerManager {
 			meleeStr += stats.getStr();
 			magicStr += stats.getMdmg();
 
-			if (ItemReclaimCost.breaksOnDeath(id)) {
+			if (ItemReclaimCost.breaksOnDeath(id))
+			{
 				prices.put(id, itemManager.getRepairValue(id));
 				log.debug("Item has a broken value: Id {}, Value {}", id, itemManager.getRepairValue(id));
 				continue;
 			}
 
-			if (!itemDefinition.isTradeable() && !ItemMapping.isMapped(id)) {
+			if (!itemDefinition.isTradeable() && !ItemMapping.isMapped(id))
+			{
 				prices.put(id, itemDefinition.getPrice());
-			} else if (itemDefinition.isTradeable()) {
+			}
+			else if (itemDefinition.isTradeable())
+			{
 				prices.put(id, itemManager.getItemPrice(id, false));
 			}
 		}
 
 		player.setCombatStats(new CombatStats(
-				magicAttack,
-				magicDefence,
-				magicStr,
-				meleeAtkCrush,
-				meleeAtkSlash,
-				meleeAtkStab,
-				(meleeAtkCrush + meleeAtkSlash + meleeAtkStab) / 3,
-				meleeDefCrush,
-				(meleeDefCrush + meleeDefSlash + meleeDefStab) / 3,
-				meleeDefSlash,
-				meleeDefStab,
-				meleeStr,
-				rangeAttack,
-				rangeDefence,
-				rangeStr,
-				speed
+			magicAttack,
+			magicDefence,
+			magicStr,
+			meleeAtkCrush,
+			meleeAtkSlash,
+			meleeAtkStab,
+			(meleeAtkCrush + meleeAtkSlash + meleeAtkStab) / 3,
+			meleeDefCrush,
+			(meleeDefCrush + meleeDefSlash + meleeDefStab) / 3,
+			meleeDefSlash,
+			meleeDefStab,
+			meleeStr,
+			rangeAttack,
+			rangeDefence,
+			rangeStr,
+			speed
 		));
 		updateGear(player, prices);
 		updateMeleeStyle(player);
 	}
 
-	private void updateGear(PlayerContainer player, Map<Integer, Integer> prices) {
+	private void updateGear(PlayerContainer player, Map<Integer, Integer> prices)
+	{
 		player.setGear(prices.entrySet()
-				.stream()
-				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+			.stream()
+			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
 
 		player.setRiskedGear(prices.entrySet()
-				.stream()
-				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+			.stream()
+			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
 
-		if (player.getPlayer().getSkullIcon() == null) {
+		if (player.getPlayer().getSkullIcon() == null)
+		{
 			removeEntries(player.getRiskedGear(), player.getPrayerLevel() <= 25 ? 3 : 4);
-		} else {
+		}
+		else
+		{
 			removeEntries(player.getRiskedGear(), player.getPrayerLevel() <= 25 ? 0 : 1);
 		}
 
@@ -374,35 +433,46 @@ public class PlayerManager {
 		prices.clear();
 	}
 
-	private void updateMeleeStyle(PlayerContainer player) {
+	private void updateMeleeStyle(PlayerContainer player)
+	{
 		final CombatStats stats = player.getCombatStats();
 
-		if (stats.getMeleeAtkCrush() >= stats.getMeleeAtkSlash() && stats.getMeleeAtkCrush() >= stats.getMeleeAtkStab()) {
+		if (stats.getMeleeAtkCrush() >= stats.getMeleeAtkSlash() && stats.getMeleeAtkCrush() >= stats.getMeleeAtkStab())
+		{
 			player.setMeleeStyle(PlayerContainer.MeleeStyle.CRUSH);
-		} else if (stats.getMeleeAtkSlash() >= stats.getMeleeAtkCrush() && stats.getMeleeAtkSlash() >= stats.getMeleeAtkStab()) {
+		}
+		else if (stats.getMeleeAtkSlash() >= stats.getMeleeAtkCrush() && stats.getMeleeAtkSlash() >= stats.getMeleeAtkStab())
+		{
 			player.setMeleeStyle(PlayerContainer.MeleeStyle.SLASH);
-		} else {
+		}
+		else
+		{
 			player.setMeleeStyle(PlayerContainer.MeleeStyle.STAB);
 		}
 	}
 
-	private void updateAttackStyle(PlayerContainer player) {
+	private void updateAttackStyle(PlayerContainer player)
+	{
 		final AttackStyle oldStyle = player.getAttackStyle();
 		boolean staff = false;
 
-		for (int id : player.getGear().keySet()) {
+		for (int id : player.getGear().keySet())
+		{
 			ItemDefinition def = itemManager.getItemDefinition(id);
-			if (def.getName().toLowerCase().contains("staff")) {
+			if (def.getName().toLowerCase().contains("staff"))
+			{
 				player.setAttackStyle(AttackStyle.MAGE);
 				staff = true;
 				break;
 			}
 		}
 
-		if (staff) {
-			if (oldStyle != player.getAttackStyle()) {
+		if (staff)
+		{
+			if (oldStyle != player.getAttackStyle())
+			{
 				eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
-						player.getPlayer(), oldStyle, player.getAttackStyle())
+					player.getPlayer(), oldStyle, player.getAttackStyle())
 				);
 			}
 			return;
@@ -410,48 +480,68 @@ public class PlayerManager {
 
 		final CombatStats stats = player.getCombatStats();
 
-		if (stats.getMagicStr() >= stats.getRangeStr() && stats.getMagicStr() >= stats.getMeleeStr()) {
+		if (stats.getMagicStr() >= stats.getRangeStr() && stats.getMagicStr() >= stats.getMeleeStr())
+		{
 			player.setAttackStyle(AttackStyle.MAGE);
-		} else if (stats.getRangeStr() >= stats.getMagicStr() && stats.getRangeStr() >= stats.getMeleeStr()) {
+		}
+		else if (stats.getRangeStr() >= stats.getMagicStr() && stats.getRangeStr() >= stats.getMeleeStr())
+		{
 			player.setAttackStyle(AttackStyle.RANGE);
-		} else {
+		}
+		else
+		{
 			player.setAttackStyle(AttackStyle.MELEE);
 		}
 
-		if (oldStyle != player.getAttackStyle()) {
+		if (oldStyle != player.getAttackStyle())
+		{
 			eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
-					player.getPlayer(), oldStyle, player.getAttackStyle())
+				player.getPlayer(), oldStyle, player.getAttackStyle())
 			);
 		}
 	}
 
-	private void updateWeakness(PlayerContainer player) {
+	private void updateWeakness(PlayerContainer player)
+	{
 		final CombatStats stats = player.getCombatStats();
 
-		if (stats.getMagicDefence() <= stats.getRangeDefence() && stats.getMagicDefence() <= stats.getMeleeDefence()) {
+		if (stats.getMagicDefence() <= stats.getRangeDefence() && stats.getMagicDefence() <= stats.getMeleeDefence())
+		{
 			player.setWeakness(AttackStyle.MAGE);
-		} else if (stats.getRangeDefence() <= stats.getMagicDefence() && stats.getRangeDefence() <= stats.getMeleeDefence()) {
+		}
+		else if (stats.getRangeDefence() <= stats.getMagicDefence() && stats.getRangeDefence() <= stats.getMeleeDefence())
+		{
 			player.setWeakness(AttackStyle.RANGE);
-		} else {
+		}
+		else
+		{
 			player.setWeakness(AttackStyle.MELEE);
 		}
 	}
 
-	private static void removeEntries(LinkedHashMap<Integer, Integer> map, int quantity) {
-		for (int i = 0; i < quantity; i++) {
-			if (!map.entrySet().iterator().hasNext()) {
+	private static void removeEntries(LinkedHashMap<Integer, Integer> map, int quantity)
+	{
+		for (int i = 0; i < quantity; i++)
+		{
+			if (!map.entrySet().iterator().hasNext())
+			{
 				return;
 			}
 			map.entrySet().remove(map.entrySet().iterator().next());
 		}
 	}
 
-	private String targetStringBuilder(PlayerContainer player) {
-		if (player.getPlayer().getInteracting() != null) {
+	private String targetStringBuilder(PlayerContainer player)
+	{
+		if (player.getPlayer().getInteracting() != null)
+		{
 			Actor actor = player.getPlayer().getInteracting();
-			if (actor instanceof Player) {
+			if (actor instanceof Player)
+			{
 				return "(Player) " + actor.getName();
-			} else if (actor instanceof NPC) {
+			}
+			else if (actor instanceof NPC)
+			{
 				return "(NPC) " + actor.getName();
 			}
 		}

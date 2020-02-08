@@ -25,11 +25,10 @@
 package net.runelite.client.game;
 
 import com.google.common.collect.ImmutableMap;
+import javax.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.ItemID;
-
-import javax.annotation.Nullable;
 
 /**
  * Some non tradeable items are kept on death inside low level wilderness (1-20) but are turned into a broken variant.
@@ -38,7 +37,8 @@ import javax.annotation.Nullable;
  */
 @AllArgsConstructor
 @Getter
-public enum ItemReclaimCost {
+public enum ItemReclaimCost
+{
 	// Capes
 	FIRE_CAPE(ItemID.FIRE_CAPE, 50000),
 	FIRE_MAX_CAPE(ItemID.FIRE_MAX_CAPE, 99000),
@@ -104,10 +104,12 @@ public enum ItemReclaimCost {
 
 	private static final ImmutableMap<Integer, ItemReclaimCost> idMap;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, ItemReclaimCost> builder = ImmutableMap.builder();
 
-		for (ItemReclaimCost items : values()) {
+		for (ItemReclaimCost items : values())
+		{
 			builder.put(items.itemID, items);
 		}
 
@@ -118,11 +120,13 @@ public enum ItemReclaimCost {
 	private final int value;
 
 	@Nullable
-	public static ItemReclaimCost of(int itemId) {
+	public static ItemReclaimCost of(int itemId)
+	{
 		return idMap.get(itemId);
 	}
 
-	public static boolean breaksOnDeath(int itemId) {
+	public static boolean breaksOnDeath(int itemId)
+	{
 		return idMap.containsKey(itemId);
 	}
 }

@@ -25,6 +25,10 @@
 package net.runelite.client.plugins.smelting;
 
 import com.google.inject.Provides;
+import java.time.Duration;
+import java.time.Instant;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -43,20 +47,16 @@ import net.runelite.client.plugins.xptracker.XpTrackerPlugin;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.time.Duration;
-import java.time.Instant;
-
 @PluginDescriptor(
-		name = "Smelting",
-		description = "Show Smelting stats",
-		tags = {"overlay", "skilling"},
-		type = PluginType.SKILLING
+	name = "Smelting",
+	description = "Show Smelting stats",
+	tags = {"overlay", "skilling"},
+	type = PluginType.SKILLING
 )
 @Singleton
 @PluginDependency(XpTrackerPlugin.class)
-public class SmeltingPlugin extends Plugin {
+public class SmeltingPlugin extends Plugin
+{
 	@Inject
 	private SmeltingConfig config;
 
@@ -72,12 +72,14 @@ public class SmeltingPlugin extends Plugin {
 	private int statTimeout;
 
 	@Provides
-	SmeltingConfig getConfig(ConfigManager configManager) {
+	SmeltingConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(SmeltingConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 
 		this.statTimeout = config.statTimeout();
 		session = null;
@@ -85,34 +87,44 @@ public class SmeltingPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		session = null;
 	}
 
 	@Subscribe
-	public void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked) {
+	public void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked)
+	{
 		OverlayMenuEntry overlayMenuEntry = overlayMenuClicked.getEntry();
 		if (overlayMenuEntry.getMenuOpcode() == MenuOpcode.RUNELITE_OVERLAY
-				&& overlayMenuClicked.getEntry().getOption().equals(SmeltingOverlay.SMELTING_RESET)
-				&& overlayMenuClicked.getOverlay() == overlay) {
+			&& overlayMenuClicked.getEntry().getOption().equals(SmeltingOverlay.SMELTING_RESET)
+			&& overlayMenuClicked.getOverlay() == overlay)
+		{
 			session = null;
 		}
 	}
 
 	@Subscribe
-	void onChatMessage(ChatMessage event) {
-		if (event.getType() != ChatMessageType.SPAM) {
+	void onChatMessage(ChatMessage event)
+	{
+		if (event.getType() != ChatMessageType.SPAM)
+		{
 			return;
 		}
 
-		if (event.getMessage().startsWith("You retrieve a bar of")) {
-			if (session == null) {
+		if (event.getMessage().startsWith("You retrieve a bar of"))
+		{
+			if (session == null)
+			{
 				session = new SmeltingSession();
 			}
 			session.increaseBarsSmelted();
-		} else if (event.getMessage().startsWith("You remove the cannonballs from the mould")) {
-			if (session == null) {
+		}
+		else if (event.getMessage().startsWith("You remove the cannonballs from the mould"))
+		{
+			if (session == null)
+			{
 				session = new SmeltingSession();
 			}
 			session.increaseCannonBallsSmelted();
@@ -120,20 +132,25 @@ public class SmeltingPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
-		if (session != null) {
+	private void onGameTick(GameTick event)
+	{
+		if (session != null)
+		{
 			final Duration statTimeout = Duration.ofMinutes(this.statTimeout);
 			final Duration sinceCaught = Duration.between(session.getLastItemSmelted(), Instant.now());
 
-			if (sinceCaught.compareTo(statTimeout) >= 0) {
+			if (sinceCaught.compareTo(statTimeout) >= 0)
+			{
 				session = null;
 			}
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("smelting")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("smelting"))
+		{
 			return;
 		}
 

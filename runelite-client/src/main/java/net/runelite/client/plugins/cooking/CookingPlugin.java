@@ -26,10 +26,20 @@
 package net.runelite.client.plugins.cooking;
 
 import com.google.inject.Provides;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Optional;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.api.*;
+import net.runelite.api.ChatMessageType;
+import net.runelite.api.Client;
+import net.runelite.api.GraphicID;
+import net.runelite.api.ItemID;
+import net.runelite.api.MenuOpcode;
+import net.runelite.api.Player;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.SpotAnimationChanged;
@@ -47,21 +57,16 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Optional;
-
 @PluginDescriptor(
-		name = "Cooking",
-		description = "Show cooking statistics",
-		tags = {"overlay", "skilling", "cook"},
-		type = PluginType.SKILLING
+	name = "Cooking",
+	description = "Show cooking statistics",
+	tags = {"overlay", "skilling", "cook"},
+	type = PluginType.SKILLING
 )
 @Singleton
 @PluginDependency(XpTrackerPlugin.class)
-public class CookingPlugin extends Plugin {
+public class CookingPlugin extends Plugin
+{
 	@Inject
 	private Client client;
 
@@ -88,12 +93,14 @@ public class CookingPlugin extends Plugin {
 	private boolean fermentTimer;
 
 	@Provides
-	CookingConfig getConfig(ConfigManager configManager) {
+	CookingConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(CookingConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		session = null;
@@ -101,54 +108,66 @@ public class CookingPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		infoBoxManager.removeIf(FermentTimer.class::isInstance);
 		overlayManager.remove(overlay);
 		session = null;
 	}
 
 	@Subscribe
-	private void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked) {
+	private void onOverlayMenuClicked(OverlayMenuClicked overlayMenuClicked)
+	{
 		OverlayMenuEntry overlayMenuEntry = overlayMenuClicked.getEntry();
 		if (overlayMenuEntry.getMenuOpcode() == MenuOpcode.RUNELITE_OVERLAY
-				&& overlayMenuClicked.getEntry().getOption().equals(CookingOverlay.COOKING_RESET)
-				&& overlayMenuClicked.getOverlay() == overlay) {
+			&& overlayMenuClicked.getEntry().getOption().equals(CookingOverlay.COOKING_RESET)
+			&& overlayMenuClicked.getOverlay() == overlay)
+		{
 			session = null;
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick gameTick) {
-		if (session == null || this.statTimeout == 0) {
+	private void onGameTick(GameTick gameTick)
+	{
+		if (session == null || this.statTimeout == 0)
+		{
 			return;
 		}
 
 		Duration statTimeout = Duration.ofMinutes(this.statTimeout);
 		Duration sinceCut = Duration.between(session.getLastCookingAction(), Instant.now());
 
-		if (sinceCut.compareTo(statTimeout) >= 0) {
+		if (sinceCut.compareTo(statTimeout) >= 0)
+		{
 			session = null;
 		}
 	}
 
 	@Subscribe
-	void onSpotAnimationChanged(SpotAnimationChanged graphicChanged) {
+	void onSpotAnimationChanged(SpotAnimationChanged graphicChanged)
+	{
 		Player player = client.getLocalPlayer();
 
-		if (graphicChanged.getActor() != player) {
+		if (graphicChanged.getActor() != player)
+		{
 			return;
 		}
 
-		if (player.getSpotAnimation() == GraphicID.WINE_MAKE && this.fermentTimer) {
+		if (player.getSpotAnimation() == GraphicID.WINE_MAKE && this.fermentTimer)
+		{
 			Optional<FermentTimer> fermentTimerOpt = infoBoxManager.getInfoBoxes().stream()
-					.filter(FermentTimer.class::isInstance)
-					.map(FermentTimer.class::cast)
-					.findAny();
+				.filter(FermentTimer.class::isInstance)
+				.map(FermentTimer.class::cast)
+				.findAny();
 
-			if (fermentTimerOpt.isPresent()) {
+			if (fermentTimerOpt.isPresent())
+			{
 				FermentTimer fermentTimer = fermentTimerOpt.get();
 				fermentTimer.reset();
-			} else {
+			}
+			else
+			{
 				FermentTimer fermentTimer = new FermentTimer(itemManager.getImage(ItemID.JUG_OF_WINE), this);
 				infoBoxManager.addInfoBox(fermentTimer);
 			}
@@ -156,28 +175,35 @@ public class CookingPlugin extends Plugin {
 	}
 
 	@Subscribe
-	void onChatMessage(ChatMessage event) {
-		if (event.getType() != ChatMessageType.SPAM) {
+	void onChatMessage(ChatMessage event)
+	{
+		if (event.getType() != ChatMessageType.SPAM)
+		{
 			return;
 		}
 
 		final String message = event.getMessage();
 
 		if (message.startsWith("You successfully cook")
-				|| message.startsWith("You successfully bake")
-				|| message.startsWith("You manage to cook")
-				|| message.startsWith("You roast a")
-				|| message.startsWith("You cook")) {
-			if (session == null) {
+			|| message.startsWith("You successfully bake")
+			|| message.startsWith("You manage to cook")
+			|| message.startsWith("You roast a")
+			|| message.startsWith("You cook"))
+		{
+			if (session == null)
+			{
 				session = new CookingSession();
 			}
 
 			session.updateLastCookingAction();
 			session.increaseCookAmount();
 
-		} else if (message.startsWith("You accidentally burn")
-				|| message.startsWith("You accidentally spoil")) {
-			if (session == null) {
+		}
+		else if (message.startsWith("You accidentally burn")
+			|| message.startsWith("You accidentally spoil"))
+		{
+			if (session == null)
+			{
 				session = new CookingSession();
 			}
 
@@ -187,13 +213,16 @@ public class CookingPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged configChanged) {
-		if (configChanged.getGroup().equals("cooking")) {
+	private void onConfigChanged(ConfigChanged configChanged)
+	{
+		if (configChanged.getGroup().equals("cooking"))
+		{
 			updateConfig();
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.statTimeout = config.statTimeout();
 		this.fermentTimer = config.fermentTimer();
 	}

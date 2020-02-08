@@ -25,18 +25,20 @@
  */
 package net.runelite.client.ui.components.colorpicker;
 
-import lombok.Getter;
-import lombok.Setter;
-import net.runelite.client.util.MiscUtils;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.function.Consumer;
+import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
+import net.runelite.client.util.MiscUtils;
 
-public class HuePanel extends JPanel {
+public class HuePanel extends JPanel
+{
 	private static final int PANEL_WIDTH = 15;
 	private static final int KNOB_HEIGHT = 4;
 
@@ -48,25 +50,31 @@ public class HuePanel extends JPanel {
 	@Setter
 	private Consumer<Integer> onColorChange;
 
-	HuePanel(int height) {
+	HuePanel(int height)
+	{
 		this.height = height;
 		setPreferredSize(new Dimension(PANEL_WIDTH, height));
 
-		addMouseMotionListener(new MouseMotionAdapter() {
+		addMouseMotionListener(new MouseMotionAdapter()
+		{
 			@Override
-			public void mouseDragged(MouseEvent me) {
+			public void mouseDragged(MouseEvent me)
+			{
 				moveSelector(me.getY());
 			}
 		});
 
-		addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseReleased(MouseEvent me) {
+			public void mouseReleased(MouseEvent me)
+			{
 				moveSelector(me.getY());
 			}
 
 			@Override
-			public void mousePressed(MouseEvent me) {
+			public void mousePressed(MouseEvent me)
+			{
 				moveSelector(me.getY());
 			}
 		});
@@ -75,7 +83,8 @@ public class HuePanel extends JPanel {
 	/**
 	 * Repaint slider with closest guess for y value on slider.
 	 */
-	public void select(Color color) {
+	public void select(Color color)
+	{
 		this.selectedY = closestYToColor(color);
 		paintImmediately(0, 0, PANEL_WIDTH, height);
 	}
@@ -83,15 +92,18 @@ public class HuePanel extends JPanel {
 	/**
 	 * Moves the selector to a specified y coordinate.
 	 */
-	private void moveSelector(int y) {
+	private void moveSelector(int y)
+	{
 		y = MiscUtils.clamp(y, 0, height - 1);
-		if (y == this.selectedY) {
+		if (y == this.selectedY)
+		{
 			return;
 		}
 
 		this.selectedY = y;
 		paintImmediately(0, 0, PANEL_WIDTH, height);
-		if (this.onColorChange != null) {
+		if (this.onColorChange != null)
+		{
 			this.onColorChange.accept(y);
 		}
 	}
@@ -99,7 +111,8 @@ public class HuePanel extends JPanel {
 	/**
 	 * Calculates a close y value for the given target color.
 	 */
-	private int closestYToColor(Color target) {
+	private int closestYToColor(Color target)
+	{
 		float[] hsb = Color.RGBtoHSB(target.getRed(), target.getGreen(), target.getBlue(), null);
 		float hue = hsb[0];
 
@@ -109,9 +122,11 @@ public class HuePanel extends JPanel {
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g)
+	{
 		// Paint the gradient
-		for (int y = 0; y < height; y++) {
+		for (int y = 0; y < height; y++)
+		{
 			g.setColor(colorAt(y));
 			g.fillRect(0, y, PANEL_WIDTH, 1);
 		}
@@ -129,7 +144,8 @@ public class HuePanel extends JPanel {
 	/**
 	 * Calculate hue color for current hue index.
 	 */
-	private Color colorAt(int y) {
+	private Color colorAt(int y)
+	{
 		return Color.getHSBColor(1 - (float) y / (height - 1), 1, 1);
 	}
 }

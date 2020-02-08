@@ -24,21 +24,25 @@
  */
 package net.runelite.client.plugins.screenmarkers;
 
+import java.awt.BasicStroke;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-
 @Singleton
-public class ScreenMarkerCreationOverlay extends Overlay {
+public class ScreenMarkerCreationOverlay extends Overlay
+{
 	private final ScreenMarkerPlugin plugin;
 
 	@Inject
-	private ScreenMarkerCreationOverlay(final ScreenMarkerPlugin plugin) {
+	private ScreenMarkerCreationOverlay(final ScreenMarkerPlugin plugin)
+	{
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DETACHED);
 		setLayer(OverlayLayer.ALWAYS_ON_TOP);
@@ -46,10 +50,12 @@ public class ScreenMarkerCreationOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		ScreenMarker marker = plugin.getCurrentMarker();
 
-		if (marker == null) {
+		if (marker == null)
+		{
 			return null;
 		}
 
@@ -65,7 +71,8 @@ public class ScreenMarkerCreationOverlay extends Overlay {
 		return getBounds().getSize();
 	}
 
-	private Stroke createStripedStroke(int thickness) {
+	private Stroke createStripedStroke(int thickness)
+	{
 		return new BasicStroke(thickness, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
 	}
 }

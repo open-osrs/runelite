@@ -26,12 +26,11 @@ package net.runelite.client.config;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-
-import javax.annotation.Nullable;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import javax.annotation.Nullable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * A combination of zero or more modifier keys (Ctrl, alt, shift, meta)
@@ -39,17 +38,18 @@ import java.awt.event.KeyEvent;
  */
 @Getter
 @EqualsAndHashCode
-public class Keybind {
+public class Keybind
+{
 	private static final BiMap<Integer, Integer> MODIFIER_TO_KEY_CODE = new ImmutableBiMap.Builder<Integer, Integer>()
-			.put(InputEvent.CTRL_DOWN_MASK, KeyEvent.VK_CONTROL)
-			.put(InputEvent.ALT_DOWN_MASK, KeyEvent.VK_ALT)
-			.put(InputEvent.SHIFT_DOWN_MASK, KeyEvent.VK_SHIFT)
-			.put(InputEvent.META_DOWN_MASK, KeyEvent.VK_META)
-			.build();
+		.put(InputEvent.CTRL_DOWN_MASK, KeyEvent.VK_CONTROL)
+		.put(InputEvent.ALT_DOWN_MASK, KeyEvent.VK_ALT)
+		.put(InputEvent.SHIFT_DOWN_MASK, KeyEvent.VK_SHIFT)
+		.put(InputEvent.META_DOWN_MASK, KeyEvent.VK_META)
+		.build();
 
 	// Bitmask of all supported modifiers
 	private static final int KEYBOARD_MODIFIER_MASK = MODIFIER_TO_KEY_CODE.keySet().stream()
-			.reduce((a, b) -> a | b).get();
+		.reduce((a, b) -> a | b).get();
 
 	public static final Keybind NOT_SET = new Keybind(KeyEvent.VK_UNDEFINED, 0);
 
@@ -60,18 +60,21 @@ public class Keybind {
 	private final int keyCode;
 	private final int modifiers;
 
-	Keybind(int keyCode, int modifiers, boolean ignoreModifiers) {
+	Keybind(int keyCode, int modifiers, boolean ignoreModifiers)
+	{
 		modifiers &= KEYBOARD_MODIFIER_MASK;
 
 		// If the keybind is just modifiers we don't want the keyCode to contain the modifier too,
 		// because this breaks if you do the keycode backwards
 		Integer mf = getModifierForKeyCode(keyCode);
-		if (mf != null) {
+		if (mf != null)
+		{
 			assert (modifiers & mf) != 0;
 			keyCode = KeyEvent.VK_UNDEFINED;
 		}
 
-		if (ignoreModifiers && keyCode != KeyEvent.VK_UNDEFINED) {
+		if (ignoreModifiers && keyCode != KeyEvent.VK_UNDEFINED)
+		{
 			modifiers = 0;
 		}
 
@@ -79,14 +82,16 @@ public class Keybind {
 		this.modifiers = modifiers;
 	}
 
-	public Keybind(int keyCode, int modifiers) {
+	public Keybind(int keyCode, int modifiers)
+	{
 		this(keyCode, modifiers, false);
 	}
 
 	/**
 	 * Constructs a keybind with that matches the passed KeyEvent
 	 */
-	public Keybind(KeyEvent e) {
+	public Keybind(KeyEvent e)
+	{
 		this(e.getExtendedKeyCode(), e.getModifiersEx());
 
 		assert matches(e);
@@ -98,12 +103,15 @@ public class Keybind {
 	 * KeyReleased event this returns if the event is this hotkey being
 	 * released
 	 */
-	public boolean matches(KeyEvent e) {
+	public boolean matches(KeyEvent e)
+	{
 		return matches(e, false);
 	}
 
-	boolean matches(KeyEvent e, boolean ignoreModifiers) {
-		if (NOT_SET.equals(this)) {
+	boolean matches(KeyEvent e, boolean ignoreModifiers)
+	{
+		if (NOT_SET.equals(this))
+		{
 			return false;
 		}
 
@@ -111,16 +119,19 @@ public class Keybind {
 		int modifiers = e.getModifiersEx() & KEYBOARD_MODIFIER_MASK;
 
 		Integer mf = getModifierForKeyCode(keyCode);
-		if (mf != null) {
+		if (mf != null)
+		{
 			modifiers |= mf;
 			keyCode = KeyEvent.VK_UNDEFINED;
 		}
 
-		if (e.getID() == KeyEvent.KEY_RELEASED && keyCode != KeyEvent.VK_UNDEFINED) {
+		if (e.getID() == KeyEvent.KEY_RELEASED && keyCode != KeyEvent.VK_UNDEFINED)
+		{
 			return this.keyCode == keyCode;
 		}
 
-		if (ignoreModifiers && keyCode != KeyEvent.VK_UNDEFINED) {
+		if (ignoreModifiers && keyCode != KeyEvent.VK_UNDEFINED)
+		{
 			return this.keyCode == keyCode;
 		}
 
@@ -128,58 +139,74 @@ public class Keybind {
 	}
 
 	@Override
-	public String toString() {
-		if (keyCode == KeyEvent.VK_UNDEFINED && modifiers == 0) {
+	public String toString()
+	{
+		if (keyCode == KeyEvent.VK_UNDEFINED && modifiers == 0)
+		{
 			return "Not set";
 		}
 
 		String key;
-		if (keyCode == KeyEvent.VK_UNDEFINED) {
+		if (keyCode == KeyEvent.VK_UNDEFINED)
+		{
 			key = "";
-		} else {
+		}
+		else
+		{
 			key = KeyEvent.getKeyText(keyCode);
 		}
 
 		String mod = "";
-		if (modifiers != 0) {
+		if (modifiers != 0)
+		{
 			mod = getModifiersExText(modifiers);
 		}
 
-		if (mod.isEmpty() && key.isEmpty()) {
+		if (mod.isEmpty() && key.isEmpty())
+		{
 			return "Not set";
 		}
-		if (!mod.isEmpty() && !key.isEmpty()) {
+		if (!mod.isEmpty() && !key.isEmpty())
+		{
 			return mod + "+" + key;
 		}
-		if (mod.isEmpty()) {
+		if (mod.isEmpty())
+		{
 			return key;
 		}
 		return mod;
 	}
 
-	private static String getModifiersExText(int modifiers) {
+	private static String getModifiersExText(int modifiers)
+	{
 		StringBuilder buf = new StringBuilder();
-		if ((modifiers & InputEvent.META_DOWN_MASK) != 0) {
+		if ((modifiers & InputEvent.META_DOWN_MASK) != 0)
+		{
 			buf.append("Meta+");
 		}
-		if ((modifiers & InputEvent.CTRL_DOWN_MASK) != 0) {
+		if ((modifiers & InputEvent.CTRL_DOWN_MASK) != 0)
+		{
 			buf.append("Ctrl+");
 		}
-		if ((modifiers & InputEvent.ALT_DOWN_MASK) != 0) {
+		if ((modifiers & InputEvent.ALT_DOWN_MASK) != 0)
+		{
 			buf.append("Alt+");
 		}
-		if ((modifiers & InputEvent.SHIFT_DOWN_MASK) != 0) {
+		if ((modifiers & InputEvent.SHIFT_DOWN_MASK) != 0)
+		{
 			buf.append("Shift+");
 		}
 
-		if (buf.length() > 0) {
+		if (buf.length() > 0)
+		{
 			buf.setLength(buf.length() - 1); // remove trailing '+'
 		}
 		return buf.toString();
 	}
 
 	@Nullable
-	public static Integer getModifierForKeyCode(int keyCode) {
+	public static Integer getModifierForKeyCode(int keyCode)
+	{
 		return MODIFIER_TO_KEY_CODE.inverse().get(keyCode);
 	}
 }

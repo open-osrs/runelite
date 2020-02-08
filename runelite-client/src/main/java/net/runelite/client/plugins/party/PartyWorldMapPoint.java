@@ -24,34 +24,37 @@
  */
 package net.runelite.client.plugins.party;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.ws.PartyMember;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-class PartyWorldMapPoint extends WorldMapPoint {
+class PartyWorldMapPoint extends WorldMapPoint
+{
 	private static final BufferedImage ARROW = ImageUtil.getResourceStreamFromClass(PartyWorldMapPoint.class, "/util/clue_arrow.png");
 
 	private BufferedImage partyImage;
 	private final PartyMember member;
 
-	PartyWorldMapPoint(final WorldPoint worldPoint, final PartyMember member) {
+	PartyWorldMapPoint(final WorldPoint worldPoint, final PartyMember member)
+	{
 		super(worldPoint, null);
 		this.member = member;
 		this.setSnapToEdge(true);
 		this.setJumpOnClick(true);
 		this.setImagePoint(new Point(
-				ARROW.getWidth() / 2,
-				ARROW.getHeight()));
+			ARROW.getWidth() / 2,
+			ARROW.getHeight()));
 	}
 
 	@Override
-	public BufferedImage getImage() {
-		if (partyImage == null && member != null && member.getAvatar() != null) {
+	public BufferedImage getImage()
+	{
+		if (partyImage == null && member != null && member.getAvatar() != null)
+		{
 			partyImage = new BufferedImage(ARROW.getWidth(), ARROW.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			Graphics g = partyImage.getGraphics();
 			g.drawImage(ARROW, 0, 0, null);

@@ -25,8 +25,17 @@
  */
 package net.runelite.client.plugins.leaguechaticons;
 
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.ChatPlayer;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.IconID;
+import net.runelite.api.IndexedSprite;
+import net.runelite.api.MessageNode;
+import net.runelite.api.Player;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
@@ -45,18 +54,15 @@ import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldResult;
 import net.runelite.http.api.worlds.WorldType;
 
-import javax.inject.Inject;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-
 @PluginDescriptor(
-		name = "League Chat Icons",
-		description = "Changes the chat icon for players on league worlds",
-		enabledByDefault = false,
-		type = PluginType.MISCELLANEOUS
+	name = "League Chat Icons",
+	description = "Changes the chat icon for players on league worlds",
+	enabledByDefault = false,
+	type = PluginType.MISCELLANEOUS
 )
 @Slf4j
-public class LeagueChatIconsPlugin extends Plugin {
+public class LeagueChatIconsPlugin extends Plugin
+{
 	private static final String SCRIPT_EVENT_SET_CHATBOX_INPUT = "setChatboxInput";
 	private static final String IRONMAN_PREFIX = "<img=" + IconID.IRONMAN.getIndex() + ">";
 
@@ -76,15 +82,18 @@ public class LeagueChatIconsPlugin extends Plugin {
 	private boolean onLeagueWorld;
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		onLeagueWorld = false;
 
 		clientThread.invoke(() ->
 		{
-			if (client.getGameState() == GameState.LOGGED_IN) {
+			if (client.getGameState() == GameState.LOGGED_IN)
+			{
 				loadLeagueIcon();
 				onLeagueWorld = isLeagueWorld(client.getWorld());
-				if (onLeagueWorld) {
+				if (onLeagueWorld)
+				{
 					setChatboxName(getNameChatbox());
 				}
 			}
@@ -92,49 +101,60 @@ public class LeagueChatIconsPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		clientThread.invoke(() ->
 		{
-			if (client.getGameState() == GameState.LOGGED_IN && onLeagueWorld) {
+			if (client.getGameState() == GameState.LOGGED_IN && onLeagueWorld)
+			{
 				setChatboxName(getNameDefault());
 			}
 		});
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged) {
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN) {
+	private void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
+		{
 			loadLeagueIcon();
 			onLeagueWorld = isLeagueWorld(client.getWorld());
 		}
 	}
 
 	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent) {
-		if (scriptCallbackEvent.getEventName().equals(SCRIPT_EVENT_SET_CHATBOX_INPUT) && onLeagueWorld) {
+	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
+	{
+		if (scriptCallbackEvent.getEventName().equals(SCRIPT_EVENT_SET_CHATBOX_INPUT) && onLeagueWorld)
+		{
 			setChatboxName(getNameChatbox());
 		}
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage chatMessage) {
-		if (client.getGameState() != GameState.LOADING && client.getGameState() != GameState.LOGGED_IN) {
+	private void onChatMessage(ChatMessage chatMessage)
+	{
+		if (client.getGameState() != GameState.LOADING && client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
-		switch (chatMessage.getType()) {
+		switch (chatMessage.getType())
+		{
 			case PRIVATECHAT:
 			case MODPRIVATECHAT:
 				// Note this is unable to change icon on PMs if they are not a friend or in clan chat
 			case FRIENDSCHAT:
 				String name = Text.removeTags(chatMessage.getName());
-				if (isChatPlayerOnLeague(name)) {
+				if (isChatPlayerOnLeague(name))
+				{
 					addLeagueIconToMessage(chatMessage);
 				}
 				break;
 			case PUBLICCHAT:
 			case MODCHAT:
-				if (onLeagueWorld) {
+				if (onLeagueWorld)
+				{
 					addLeagueIconToMessage(chatMessage);
 				}
 				break;
@@ -146,9 +166,11 @@ public class LeagueChatIconsPlugin extends Plugin {
 	 *
 	 * @param chatMessage chat message to edit sender name on
 	 */
-	private void addLeagueIconToMessage(ChatMessage chatMessage) {
+	private void addLeagueIconToMessage(ChatMessage chatMessage)
+	{
 		String name = chatMessage.getName();
-		if (!name.startsWith(IRONMAN_PREFIX)) {
+		if (!name.startsWith(IRONMAN_PREFIX))
+		{
 			// don't replace non-ironman icons, like mods
 			return;
 		}
@@ -165,12 +187,15 @@ public class LeagueChatIconsPlugin extends Plugin {
 	/**
 	 * Update the player name in the chatbox input
 	 */
-	private void setChatboxName(String name) {
+	private void setChatboxName(String name)
+	{
 		Widget chatboxInput = client.getWidget(WidgetInfo.CHATBOX_INPUT);
-		if (chatboxInput != null) {
+		if (chatboxInput != null)
+		{
 			String text = chatboxInput.getText();
 			int idx = text.indexOf(':');
-			if (idx != -1) {
+			if (idx != -1)
+			{
 				String newText = name + text.substring(idx);
 				chatboxInput.setText(newText);
 			}
@@ -182,9 +207,11 @@ public class LeagueChatIconsPlugin extends Plugin {
 	 *
 	 * @return String of icon + name
 	 */
-	private String getNameChatbox() {
+	private String getNameChatbox()
+	{
 		Player player = client.getLocalPlayer();
-		if (player != null) {
+		if (player != null)
+		{
 			return getNameWithIcon(leagueIconOffset, player.getName());
 		}
 		return null;
@@ -195,14 +222,17 @@ public class LeagueChatIconsPlugin extends Plugin {
 	 *
 	 * @return String of icon + name
 	 */
-	private String getNameDefault() {
+	private String getNameDefault()
+	{
 		Player player = client.getLocalPlayer();
-		if (player == null) {
+		if (player == null)
+		{
 			return null;
 		}
 
 		int iconIndex;
-		switch (client.getAccountType()) {
+		switch (client.getAccountType())
+		{
 			case IRONMAN:
 				iconIndex = IconID.IRONMAN.getIndex();
 				break;
@@ -226,7 +256,8 @@ public class LeagueChatIconsPlugin extends Plugin {
 	 * @param name      name of the player
 	 * @return String of icon + name
 	 */
-	private static String getNameWithIcon(int iconIndex, String name) {
+	private static String getNameWithIcon(int iconIndex, String name)
+	{
 		String icon = "<img=" + iconIndex + ">";
 		return icon + name;
 	}
@@ -237,10 +268,12 @@ public class LeagueChatIconsPlugin extends Plugin {
 	 * @param name name of player to check.
 	 * @return boolean true/false.
 	 */
-	private boolean isChatPlayerOnLeague(String name) {
+	private boolean isChatPlayerOnLeague(String name)
+	{
 		ChatPlayer player = getChatPlayerFromName(name);
 
-		if (player == null) {
+		if (player == null)
+		{
 			return false;
 		}
 
@@ -254,9 +287,11 @@ public class LeagueChatIconsPlugin extends Plugin {
 	 * @param worldNumber number of the world to check.
 	 * @return boolean true/false if it is a league world or not.
 	 */
-	private boolean isLeagueWorld(int worldNumber) {
+	private boolean isLeagueWorld(int worldNumber)
+	{
 		WorldResult worlds = worldService.getWorlds();
-		if (worlds == null) {
+		if (worlds == null)
+		{
 			return false;
 		}
 
@@ -267,10 +302,12 @@ public class LeagueChatIconsPlugin extends Plugin {
 	/**
 	 * Loads the league icon into the client.
 	 */
-	private void loadLeagueIcon() {
+	private void loadLeagueIcon()
+	{
 		final IndexedSprite[] modIcons = client.getModIcons();
 
-		if (leagueIconOffset != -1 || modIcons == null) {
+		if (leagueIconOffset != -1 || modIcons == null)
+		{
 			return;
 		}
 
@@ -291,19 +328,22 @@ public class LeagueChatIconsPlugin extends Plugin {
 	 * @param name name of player to find.
 	 * @return ChatPlayer if found, else null.
 	 */
-	private ChatPlayer getChatPlayerFromName(String name) {
-		if (client.isClanMember(name)) {
+	private ChatPlayer getChatPlayerFromName(String name)
+	{
+		if (client.isClanMember(name))
+		{
 			return Arrays.stream(client.getClanMembers())
-					.filter(clanMember -> Text.removeTags(clanMember.getUsername()).equals(name))
-					.findFirst()
-					.orElse(null);
+				.filter(clanMember -> Text.removeTags(clanMember.getUsername()).equals(name))
+				.findFirst()
+				.orElse(null);
 		}
 
-		if (client.isFriended(name, true)) {
+		if (client.isFriended(name, true))
+		{
 			return Arrays.stream(client.getFriends())
-					.filter(friend -> Text.removeTags(friend.getName()).equals(name))
-					.findFirst()
-					.orElse(null);
+				.filter(friend -> Text.removeTags(friend.getName()).equals(name))
+				.findFirst()
+				.orElse(null);
 		}
 
 		return null;

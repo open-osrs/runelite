@@ -24,71 +24,77 @@
  */
 package net.runelite.client.plugins.blastmine;
 
+import java.awt.Color;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-import java.awt.*;
-
 @ConfigGroup("blastmine")
-public interface BlastMinePluginConfig extends Config {
+public interface BlastMinePluginConfig extends Config
+{
 	@ConfigItem(
-			position = 0,
-			keyName = "showOreOverlay",
-			name = "Show ore overlay",
-			description = "Configures whether or not the ore count overlay is displayed"
+		position = 0,
+		keyName = "showOreOverlay",
+		name = "Show ore overlay",
+		description = "Configures whether or not the ore count overlay is displayed"
 	)
-	default boolean showOreOverlay() {
+	default boolean showOreOverlay()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "showRockIconOverlay",
-			name = "Show icons overlay",
-			description = "Configures whether or not the icon overlay is displayed"
+		position = 1,
+		keyName = "showRockIconOverlay",
+		name = "Show icons overlay",
+		description = "Configures whether or not the icon overlay is displayed"
 	)
-	default boolean showRockIconOverlay() {
+	default boolean showRockIconOverlay()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "showTimerOverlay",
-			name = "Show timer overlay",
-			description = "Configures whether or not the timer overlay is displayed"
+		position = 2,
+		keyName = "showTimerOverlay",
+		name = "Show timer overlay",
+		description = "Configures whether or not the timer overlay is displayed"
 	)
-	default boolean showTimerOverlay() {
+	default boolean showTimerOverlay()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "showWarningOverlay",
-			name = "Show explosion warning",
-			description = "Configures whether or not the explosion warning overlay is displayed"
+		position = 3,
+		keyName = "showWarningOverlay",
+		name = "Show explosion warning",
+		description = "Configures whether or not the explosion warning overlay is displayed"
 	)
-	default boolean showWarningOverlay() {
+	default boolean showWarningOverlay()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "hexTimerColor",
-			name = "Timer color",
-			description = "Color of timer overlay"
+		position = 4,
+		keyName = "hexTimerColor",
+		name = "Timer color",
+		description = "Color of timer overlay"
 	)
-	default Color getTimerColor() {
+	default Color getTimerColor()
+	{
 		return new Color(217, 54, 0);
 	}
 
 	@ConfigItem(
-			position = 5,
-			keyName = "hexWarningColor",
-			name = "Warning color",
-			description = "Color of warning overlay"
+		position = 5,
+		keyName = "hexWarningColor",
+		name = "Warning color",
+		description = "Color of warning overlay"
 	)
-	default Color getWarningColor() {
+	default Color getWarningColor()
+	{
 		return new Color(217, 54, 0);
 	}
 }

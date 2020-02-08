@@ -30,12 +30,52 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.collect.EvictingQueue;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Provides;
+import java.awt.Color;
+import java.awt.Rectangle;
+import static java.lang.Boolean.TRUE;
+import static java.lang.Math.floor;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.api.*;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemID;
+import static net.runelite.api.ItemID.*;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.MenuOpcode;
+import net.runelite.api.Node;
+import net.runelite.api.Player;
+import net.runelite.api.Scene;
+import net.runelite.api.Tile;
+import net.runelite.api.TileItem;
+import net.runelite.api.TileItemPile;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.*;
+import net.runelite.api.events.ClientTick;
+import net.runelite.api.events.FocusChanged;
+import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
+import net.runelite.api.events.ItemDespawned;
+import net.runelite.api.events.ItemQuantityChanged;
+import net.runelite.api.events.ItemSpawned;
+import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.util.Text;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
@@ -50,37 +90,28 @@ import net.runelite.client.input.MouseManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-import net.runelite.client.plugins.grounditems.config.*;
+import net.runelite.client.plugins.grounditems.config.ItemHighlightMode;
+import static net.runelite.client.plugins.grounditems.config.ItemHighlightMode.OVERLAY;
+import net.runelite.client.plugins.grounditems.config.MenuHighlightMode;
+import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.BOTH;
+import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.NAME;
+import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.OPTION;
+import net.runelite.client.plugins.grounditems.config.PriceDisplayMode;
+import net.runelite.client.plugins.grounditems.config.TimerDisplayMode;
+import net.runelite.client.plugins.grounditems.config.ValueCalculationMode;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.QuantityFormatter;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.time.Instant;
-import java.util.List;
-import java.util.Queue;
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.lang.Boolean.TRUE;
-import static java.lang.Math.floor;
-import static net.runelite.api.ItemID.*;
-import static net.runelite.client.plugins.grounditems.config.ItemHighlightMode.OVERLAY;
-import static net.runelite.client.plugins.grounditems.config.MenuHighlightMode.*;
-
 @PluginDescriptor(
-		name = "Ground Items",
-		description = "Highlight ground items and/or show price information",
-		tags = {"grand", "exchange", "high", "alchemy", "prices", "highlight", "overlay"},
-		type = PluginType.UTILITY
+	name = "Ground Items",
+	description = "Highlight ground items and/or show price information",
+	tags = {"grand", "exchange", "high", "alchemy", "prices", "highlight", "overlay"},
+	type = PluginType.UTILITY
 )
 @Singleton
-public class GroundItemsPlugin extends Plugin {
+public class GroundItemsPlugin extends Plugin
+{
 	@Getter(AccessLevel.PUBLIC)
 	public static final Map<GroundItem.GroundItemKey, GroundItem> collectedGroundItems = new LinkedHashMap<>();
 	// ItemID for coins
@@ -112,251 +143,251 @@ public class GroundItemsPlugin extends Plugin {
 	boolean highlightPrayer;
 	LoadingCache<String, Boolean> hiddenItems;
 	static final ImmutableSet<Integer> herbloreItems = ImmutableSet.of
-			(
-					//Grimy Herbs
-					GRIMY_GUAM_LEAF,
-					GRIMY_GUAM_LEAF + 1,
-					GRIMY_MARRENTILL,
-					GRIMY_MARRENTILL + 1,
-					GRIMY_TARROMIN,
-					GRIMY_TARROMIN + 1,
-					GRIMY_HARRALANDER,
-					GRIMY_HARRALANDER + 1,
-					GRIMY_RANARR_WEED,
-					GRIMY_RANARR_WEED + 1,
-					GRIMY_TOADFLAX,
-					GRIMY_TOADFLAX + 1,
-					GRIMY_IRIT_LEAF,
-					GRIMY_IRIT_LEAF + 1,
-					GRIMY_AVANTOE,
-					GRIMY_AVANTOE + 1,
-					GRIMY_KWUARM,
-					GRIMY_KWUARM + 1,
-					GRIMY_SNAPDRAGON,
-					GRIMY_SNAPDRAGON + 1,
-					GRIMY_CADANTINE,
-					GRIMY_CADANTINE + 1,
-					GRIMY_LANTADYME,
-					GRIMY_LANTADYME + 1,
-					GRIMY_DWARF_WEED,
-					GRIMY_DWARF_WEED + 1,
-					GRIMY_TORSTOL,
-					GRIMY_TORSTOL + 1,
+		(
+			//Grimy Herbs
+			GRIMY_GUAM_LEAF,
+			GRIMY_GUAM_LEAF + 1,
+			GRIMY_MARRENTILL,
+			GRIMY_MARRENTILL + 1,
+			GRIMY_TARROMIN,
+			GRIMY_TARROMIN + 1,
+			GRIMY_HARRALANDER,
+			GRIMY_HARRALANDER + 1,
+			GRIMY_RANARR_WEED,
+			GRIMY_RANARR_WEED + 1,
+			GRIMY_TOADFLAX,
+			GRIMY_TOADFLAX + 1,
+			GRIMY_IRIT_LEAF,
+			GRIMY_IRIT_LEAF + 1,
+			GRIMY_AVANTOE,
+			GRIMY_AVANTOE + 1,
+			GRIMY_KWUARM,
+			GRIMY_KWUARM + 1,
+			GRIMY_SNAPDRAGON,
+			GRIMY_SNAPDRAGON + 1,
+			GRIMY_CADANTINE,
+			GRIMY_CADANTINE + 1,
+			GRIMY_LANTADYME,
+			GRIMY_LANTADYME + 1,
+			GRIMY_DWARF_WEED,
+			GRIMY_DWARF_WEED + 1,
+			GRIMY_TORSTOL,
+			GRIMY_TORSTOL + 1,
 
-					//Clean Herbs
-					GUAM_LEAF,
-					GUAM_LEAF + 1,
-					MARRENTILL,
-					MARRENTILL + 1,
-					TARROMIN,
-					TARROMIN + 1,
-					HARRALANDER,
-					HARRALANDER + 1,
-					RANARR_WEED,
-					RANARR_WEED + 1,
-					TOADFLAX,
-					TOADFLAX + 1,
-					IRIT_LEAF,
-					IRIT_LEAF + 1,
-					AVANTOE,
-					AVANTOE + 1,
-					KWUARM,
-					KWUARM + 1,
-					SNAPDRAGON,
-					SNAPDRAGON + 1,
-					CADANTINE,
-					CADANTINE + 1,
-					LANTADYME,
-					LANTADYME + 1,
-					DWARF_WEED,
-					DWARF_WEED + 1,
-					TORSTOL,
-					TORSTOL + 1,
+			//Clean Herbs
+			GUAM_LEAF,
+			GUAM_LEAF + 1,
+			MARRENTILL,
+			MARRENTILL + 1,
+			TARROMIN,
+			TARROMIN + 1,
+			HARRALANDER,
+			HARRALANDER + 1,
+			RANARR_WEED,
+			RANARR_WEED + 1,
+			TOADFLAX,
+			TOADFLAX + 1,
+			IRIT_LEAF,
+			IRIT_LEAF + 1,
+			AVANTOE,
+			AVANTOE + 1,
+			KWUARM,
+			KWUARM + 1,
+			SNAPDRAGON,
+			SNAPDRAGON + 1,
+			CADANTINE,
+			CADANTINE + 1,
+			LANTADYME,
+			LANTADYME + 1,
+			DWARF_WEED,
+			DWARF_WEED + 1,
+			TORSTOL,
+			TORSTOL + 1,
 
-					//Secondary ingredients
-					EYE_OF_NEWT,
-					EYE_OF_NEWT + 1,
-					UNICORN_HORN,
-					UNICORN_HORN + 1,
-					UNICORN_HORN_DUST,
-					UNICORN_HORN_DUST + 1,
-					LIMPWURT_ROOT,
-					LIMPWURT_ROOT + 1,
-					RED_SPIDERS_EGGS,
-					RED_SPIDERS_EGGS + 1,
-					CHOCOLATE_BAR,
-					CHOCOLATE_BAR + 1,
-					CHOCOLATE_DUST,
-					CHOCOLATE_DUST + 1,
-					TOADS_LEGS,
-					TOADS_LEGS + 1,
-					GOAT_HORN_DUST,
-					GOAT_HORN_DUST + 1,
-					DESERT_GOAT_HORN,
-					DESERT_GOAT_HORN + 1,
-					SNAPE_GRASS,
-					SNAPE_GRASS + 1,
-					MORT_MYRE_FUNGUS,
-					MORT_MYRE_FUNGUS + 1,
-					WHITE_BERRIES,
-					WHITE_BERRIES + 1,
-					BLUE_DRAGON_SCALE,
-					BLUE_DRAGON_SCALE + 1,
-					DRAGON_SCALE_DUST,
-					DRAGON_SCALE_DUST + 1,
-					WINE_OF_ZAMORAK,
-					WINE_OF_ZAMORAK + 1,
-					POTATO_CACTUS,
-					POTATO_CACTUS + 1,
-					BIRD_NEST,
-					BIRD_NEST + 1,
-					BIRD_NEST_5071,
-					BIRD_NEST_5072,
-					BIRD_NEST_5073,
-					BIRD_NEST_5074,
-					BIRD_NEST_5075,
-					BIRD_NEST_7413,
-					BIRD_NEST_13653,
-					BIRD_NEST_22798,
-					BIRD_NEST_22800,
-					LAVA_SCALE,
-					LAVA_SCALE + 1,
-					LAVA_SCALE_SHARD,
-					LAVA_SCALE_SHARD + 1,
-					TORSTOL,
-					TORSTOL + 1,
-					SUPERIOR_DRAGON_BONES,
-					SUPERIOR_DRAGON_BONES + 1,
-					CRUSHED_SUPERIOR_DRAGON_BONES,
-					CRUSHED_SUPERIOR_DRAGON_BONES + 1,
-					AMYLASE_CRYSTAL,
-					GARLIC,
-					GARLIC + 1,
+			//Secondary ingredients
+			EYE_OF_NEWT,
+			EYE_OF_NEWT + 1,
+			UNICORN_HORN,
+			UNICORN_HORN + 1,
+			UNICORN_HORN_DUST,
+			UNICORN_HORN_DUST + 1,
+			LIMPWURT_ROOT,
+			LIMPWURT_ROOT + 1,
+			RED_SPIDERS_EGGS,
+			RED_SPIDERS_EGGS + 1,
+			CHOCOLATE_BAR,
+			CHOCOLATE_BAR + 1,
+			CHOCOLATE_DUST,
+			CHOCOLATE_DUST + 1,
+			TOADS_LEGS,
+			TOADS_LEGS + 1,
+			GOAT_HORN_DUST,
+			GOAT_HORN_DUST + 1,
+			DESERT_GOAT_HORN,
+			DESERT_GOAT_HORN + 1,
+			SNAPE_GRASS,
+			SNAPE_GRASS + 1,
+			MORT_MYRE_FUNGUS,
+			MORT_MYRE_FUNGUS + 1,
+			WHITE_BERRIES,
+			WHITE_BERRIES + 1,
+			BLUE_DRAGON_SCALE,
+			BLUE_DRAGON_SCALE + 1,
+			DRAGON_SCALE_DUST,
+			DRAGON_SCALE_DUST + 1,
+			WINE_OF_ZAMORAK,
+			WINE_OF_ZAMORAK + 1,
+			POTATO_CACTUS,
+			POTATO_CACTUS + 1,
+			BIRD_NEST,
+			BIRD_NEST + 1,
+			BIRD_NEST_5071,
+			BIRD_NEST_5072,
+			BIRD_NEST_5073,
+			BIRD_NEST_5074,
+			BIRD_NEST_5075,
+			BIRD_NEST_7413,
+			BIRD_NEST_13653,
+			BIRD_NEST_22798,
+			BIRD_NEST_22800,
+			LAVA_SCALE,
+			LAVA_SCALE + 1,
+			LAVA_SCALE_SHARD,
+			LAVA_SCALE_SHARD + 1,
+			TORSTOL,
+			TORSTOL + 1,
+			SUPERIOR_DRAGON_BONES,
+			SUPERIOR_DRAGON_BONES + 1,
+			CRUSHED_SUPERIOR_DRAGON_BONES,
+			CRUSHED_SUPERIOR_DRAGON_BONES + 1,
+			AMYLASE_CRYSTAL,
+			GARLIC,
+			GARLIC + 1,
 
-					//Jungle Potion herbs
-					GRIMY_ARDRIGAL,
-					GRIMY_ROGUES_PURSE,
-					GRIMY_SITO_FOIL,
-					GRIMY_SNAKE_WEED,
-					GRIMY_VOLENCIA_MOSS,
+			//Jungle Potion herbs
+			GRIMY_ARDRIGAL,
+			GRIMY_ROGUES_PURSE,
+			GRIMY_SITO_FOIL,
+			GRIMY_SNAKE_WEED,
+			GRIMY_VOLENCIA_MOSS,
 
-					//Herb seeds
-					GUAM_SEED,
-					MARRENTILL_SEED,
-					TARROMIN_SEED,
-					HARRALANDER_SEED,
-					GOUT_TUBER,
-					RANARR_SEED,
-					TOADFLAX_SEED,
-					IRIT_SEED,
-					AVANTOE_SEED,
-					KWUARM_SEED,
-					SNAPDRAGON_SEED,
-					CADANTINE_SEED,
-					LANTADYME_SEED,
-					DWARF_WEED_SEED,
-					TORSTOL_SEED,
+			//Herb seeds
+			GUAM_SEED,
+			MARRENTILL_SEED,
+			TARROMIN_SEED,
+			HARRALANDER_SEED,
+			GOUT_TUBER,
+			RANARR_SEED,
+			TOADFLAX_SEED,
+			IRIT_SEED,
+			AVANTOE_SEED,
+			KWUARM_SEED,
+			SNAPDRAGON_SEED,
+			CADANTINE_SEED,
+			LANTADYME_SEED,
+			DWARF_WEED_SEED,
+			TORSTOL_SEED,
 
-					//Secondary seeds
-					LIMPWURT_SEED,
-					SNAPE_GRASS_SEED,
-					POTATO_CACTUS_SEED,
-					JANGERBERRY_SEED,
-					POISON_IVY_SEED,
-					BELLADONNA_SEED
-			);
+			//Secondary seeds
+			LIMPWURT_SEED,
+			SNAPE_GRASS_SEED,
+			POTATO_CACTUS_SEED,
+			JANGERBERRY_SEED,
+			POISON_IVY_SEED,
+			BELLADONNA_SEED
+		);
 	static final ImmutableSet<Integer> prayerItems = ImmutableSet.of
-			(
-					//Bones
-					BONES,
-					BONES + 1,
-					WOLF_BONES,
-					WOLF_BONES + 1,
-					BURNT_BONES,
-					BURNT_BONES + 1,
-					MONKEY_BONES,
-					MONKEY_BONES + 1,
-					BAT_BONES,
-					BAT_BONES + 1,
-					BIG_BONES,
-					BIG_BONES + 1,
-					JOGRE_BONES,
-					JOGRE_BONES + 1,
-					ZOGRE_BONES,
-					ZOGRE_BONES + 1,
-					SHAIKAHAN_BONES,
-					SHAIKAHAN_BONES + 1,
-					BABYDRAGON_BONES,
-					BABYDRAGON_BONES + 1,
-					WYRM_BONES,
-					WYRM_BONES + 1,
-					WYVERN_BONES,
-					WYVERN_BONES + 1,
-					DRAGON_BONES,
-					DRAGON_BONES + 1,
-					DRAKE_BONES,
-					DRAKE_BONES + 1,
-					FAYRG_BONES,
-					FAYRG_BONES + 1,
-					LAVA_DRAGON_BONES,
-					LAVA_DRAGON_BONES + 1,
-					RAURG_BONES,
-					RAURG_BONES + 1,
-					HYDRA_BONES,
-					HYDRA_BONES + 1,
-					DAGANNOTH_BONES,
-					DAGANNOTH_BONES + 1,
-					OURG_BONES,
-					OURG_BONES + 1,
-					SUPERIOR_DRAGON_BONES,
-					SUPERIOR_DRAGON_BONES + 1,
+		(
+			//Bones
+			BONES,
+			BONES + 1,
+			WOLF_BONES,
+			WOLF_BONES + 1,
+			BURNT_BONES,
+			BURNT_BONES + 1,
+			MONKEY_BONES,
+			MONKEY_BONES + 1,
+			BAT_BONES,
+			BAT_BONES + 1,
+			BIG_BONES,
+			BIG_BONES + 1,
+			JOGRE_BONES,
+			JOGRE_BONES + 1,
+			ZOGRE_BONES,
+			ZOGRE_BONES + 1,
+			SHAIKAHAN_BONES,
+			SHAIKAHAN_BONES + 1,
+			BABYDRAGON_BONES,
+			BABYDRAGON_BONES + 1,
+			WYRM_BONES,
+			WYRM_BONES + 1,
+			WYVERN_BONES,
+			WYVERN_BONES + 1,
+			DRAGON_BONES,
+			DRAGON_BONES + 1,
+			DRAKE_BONES,
+			DRAKE_BONES + 1,
+			FAYRG_BONES,
+			FAYRG_BONES + 1,
+			LAVA_DRAGON_BONES,
+			LAVA_DRAGON_BONES + 1,
+			RAURG_BONES,
+			RAURG_BONES + 1,
+			HYDRA_BONES,
+			HYDRA_BONES + 1,
+			DAGANNOTH_BONES,
+			DAGANNOTH_BONES + 1,
+			OURG_BONES,
+			OURG_BONES + 1,
+			SUPERIOR_DRAGON_BONES,
+			SUPERIOR_DRAGON_BONES + 1,
 
-					//Ensouled heads
-					ENSOULED_ABYSSAL_HEAD_13508,
-					ENSOULED_ABYSSAL_HEAD_13508 + 1,
-					ENSOULED_AVIANSIE_HEAD_13505,
-					ENSOULED_AVIANSIE_HEAD_13505 + 1,
-					ENSOULED_BEAR_HEAD_13463,
-					ENSOULED_BEAR_HEAD_13463 + 1,
-					ENSOULED_BLOODVELD_HEAD_13496,
-					ENSOULED_BLOODVELD_HEAD_13496 + 1,
-					ENSOULED_CHAOS_DRUID_HEAD_13472,
-					ENSOULED_CHAOS_DRUID_HEAD_13472 + 1,
-					ENSOULED_DAGANNOTH_HEAD_13493,
-					ENSOULED_DAGANNOTH_HEAD_13493 + 1,
-					ENSOULED_DEMON_HEAD_13502,
-					ENSOULED_DEMON_HEAD_13502 + 1,
-					ENSOULED_DOG_HEAD_13469,
-					ENSOULED_DOG_HEAD_13469 + 1,
-					ENSOULED_DRAGON_HEAD_13511,
-					ENSOULED_DRAGON_HEAD_13511 + 1,
-					ENSOULED_ELF_HEAD_13481,
-					ENSOULED_ELF_HEAD_13481 + 1,
-					ENSOULED_GIANT_HEAD_13475,
-					ENSOULED_GIANT_HEAD_13475 + 1,
-					ENSOULED_GOBLIN_HEAD_13448,
-					ENSOULED_GOBLIN_HEAD_13448 + 1,
-					ENSOULED_HORROR_HEAD_13487,
-					ENSOULED_HORROR_HEAD_13487 + 1,
-					ENSOULED_IMP_HEAD_13454,
-					ENSOULED_IMP_HEAD_13454 + 1,
-					ENSOULED_KALPHITE_HEAD_13490,
-					ENSOULED_KALPHITE_HEAD_13490 + 1,
-					ENSOULED_MINOTAUR_HEAD_13457,
-					ENSOULED_MINOTAUR_HEAD_13457 + 1,
-					ENSOULED_MONKEY_HEAD_13451,
-					ENSOULED_MONKEY_HEAD_13451 + 1,
-					ENSOULED_OGRE_HEAD_13478,
-					ENSOULED_OGRE_HEAD_13478 + 1,
-					ENSOULED_SCORPION_HEAD_13460,
-					ENSOULED_SCORPION_HEAD_13460 + 1,
-					ENSOULED_TROLL_HEAD_13484,
-					ENSOULED_TROLL_HEAD_13484 + 1,
-					ENSOULED_TZHAAR_HEAD_13499,
-					ENSOULED_TZHAAR_HEAD_13499 + 1,
-					ENSOULED_UNICORN_HEAD_13466,
-					ENSOULED_UNICORN_HEAD_13466 + 1
-			);
+			//Ensouled heads
+			ENSOULED_ABYSSAL_HEAD_13508,
+			ENSOULED_ABYSSAL_HEAD_13508 + 1,
+			ENSOULED_AVIANSIE_HEAD_13505,
+			ENSOULED_AVIANSIE_HEAD_13505 + 1,
+			ENSOULED_BEAR_HEAD_13463,
+			ENSOULED_BEAR_HEAD_13463 + 1,
+			ENSOULED_BLOODVELD_HEAD_13496,
+			ENSOULED_BLOODVELD_HEAD_13496 + 1,
+			ENSOULED_CHAOS_DRUID_HEAD_13472,
+			ENSOULED_CHAOS_DRUID_HEAD_13472 + 1,
+			ENSOULED_DAGANNOTH_HEAD_13493,
+			ENSOULED_DAGANNOTH_HEAD_13493 + 1,
+			ENSOULED_DEMON_HEAD_13502,
+			ENSOULED_DEMON_HEAD_13502 + 1,
+			ENSOULED_DOG_HEAD_13469,
+			ENSOULED_DOG_HEAD_13469 + 1,
+			ENSOULED_DRAGON_HEAD_13511,
+			ENSOULED_DRAGON_HEAD_13511 + 1,
+			ENSOULED_ELF_HEAD_13481,
+			ENSOULED_ELF_HEAD_13481 + 1,
+			ENSOULED_GIANT_HEAD_13475,
+			ENSOULED_GIANT_HEAD_13475 + 1,
+			ENSOULED_GOBLIN_HEAD_13448,
+			ENSOULED_GOBLIN_HEAD_13448 + 1,
+			ENSOULED_HORROR_HEAD_13487,
+			ENSOULED_HORROR_HEAD_13487 + 1,
+			ENSOULED_IMP_HEAD_13454,
+			ENSOULED_IMP_HEAD_13454 + 1,
+			ENSOULED_KALPHITE_HEAD_13490,
+			ENSOULED_KALPHITE_HEAD_13490 + 1,
+			ENSOULED_MINOTAUR_HEAD_13457,
+			ENSOULED_MINOTAUR_HEAD_13457 + 1,
+			ENSOULED_MONKEY_HEAD_13451,
+			ENSOULED_MONKEY_HEAD_13451 + 1,
+			ENSOULED_OGRE_HEAD_13478,
+			ENSOULED_OGRE_HEAD_13478 + 1,
+			ENSOULED_SCORPION_HEAD_13460,
+			ENSOULED_SCORPION_HEAD_13460 + 1,
+			ENSOULED_TROLL_HEAD_13484,
+			ENSOULED_TROLL_HEAD_13484 + 1,
+			ENSOULED_TZHAAR_HEAD_13499,
+			ENSOULED_TZHAAR_HEAD_13499 + 1,
+			ENSOULED_UNICORN_HEAD_13466,
+			ENSOULED_UNICORN_HEAD_13466 + 1
+		);
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
 	private Map.Entry<Rectangle, GroundItem> textBoxBounds;
@@ -462,12 +493,14 @@ public class GroundItemsPlugin extends Plugin {
 	private Color prayerColor;
 
 	@Provides
-	GroundItemsConfig provideConfig(ConfigManager configManager) {
+	GroundItemsConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(GroundItemsConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(overlay);
@@ -477,7 +510,8 @@ public class GroundItemsPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		mouseManager.unregisterMouseListener(inputListener);
 		keyManager.unregisterKeyListener(inputListener);
@@ -491,9 +525,12 @@ public class GroundItemsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
-		for (GroundItem item : collectedGroundItems.values()) {
-			if (item.getTicks() == -1) {
+	private void onGameTick(GameTick event)
+	{
+		for (GroundItem item : collectedGroundItems.values())
+		{
+			if (item.getTicks() == -1)
+			{
 				continue;
 			}
 			item.setTicks(item.getTicks() - 1);
@@ -501,22 +538,27 @@ public class GroundItemsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("grounditems")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("grounditems"))
+		{
 			updateConfig();
 			reset();
 		}
 	}
 
 	@Subscribe
-	private void onGameStateChanged(final GameStateChanged event) {
-		if (event.getGameState() == GameState.LOADING) {
+	private void onGameStateChanged(final GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOADING)
+		{
 			collectedGroundItems.clear();
 		}
 	}
 
 	@Subscribe
-	private void onItemSpawned(ItemSpawned itemSpawned) {
+	private void onItemSpawned(ItemSpawned itemSpawned)
+	{
 		TileItem item = itemSpawned.getItem();
 		Tile tile = itemSpawned.getTile();
 
@@ -524,35 +566,42 @@ public class GroundItemsPlugin extends Plugin {
 
 		GroundItem.GroundItemKey groundItemKey = new GroundItem.GroundItemKey(item.getId(), tile.getWorldLocation());
 		GroundItem existing = collectedGroundItems.putIfAbsent(groundItemKey, groundItem);
-		if (existing != null) {
+		if (existing != null)
+		{
 			existing.setQuantity(existing.getQuantity() + groundItem.getQuantity());
 			// The spawn time remains set at the oldest spawn
 		}
 
 		boolean shouldNotify = !this.onlyShowLoot && this.highlightedColor.equals(getHighlighted(
-				groundItem.getName(),
-				groundItem.getGePrice(),
-				groundItem.getHaPrice()));
+			groundItem.getName(),
+			groundItem.getGePrice(),
+			groundItem.getHaPrice()));
 
-		if (this.notifyHighlightedDrops && shouldNotify) {
+		if (this.notifyHighlightedDrops && shouldNotify)
+		{
 			notifyHighlightedItem(groundItem);
 		}
 	}
 
 	@Subscribe
-	private void onItemDespawned(ItemDespawned itemDespawned) {
+	private void onItemDespawned(ItemDespawned itemDespawned)
+	{
 		TileItem item = itemDespawned.getItem();
 		Tile tile = itemDespawned.getTile();
 
 		GroundItem.GroundItemKey groundItemKey = new GroundItem.GroundItemKey(item.getId(), tile.getWorldLocation());
 		GroundItem groundItem = collectedGroundItems.get(groundItemKey);
-		if (groundItem == null) {
+		if (groundItem == null)
+		{
 			return;
 		}
 
-		if (groundItem.getQuantity() <= item.getQuantity()) {
+		if (groundItem.getQuantity() <= item.getQuantity())
+		{
 			collectedGroundItems.remove(groundItemKey);
-		} else {
+		}
+		else
+		{
 			groundItem.setQuantity(groundItem.getQuantity() - item.getQuantity());
 			// When picking up an item when multiple stacks appear on the ground,
 			// it is not known which item is picked up, so we invalidate the spawn
@@ -562,7 +611,8 @@ public class GroundItemsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onItemQuantityChanged(ItemQuantityChanged itemQuantityChanged) {
+	private void onItemQuantityChanged(ItemQuantityChanged itemQuantityChanged)
+	{
 		TileItem item = itemQuantityChanged.getItem();
 		Tile tile = itemQuantityChanged.getTile();
 		int oldQuantity = itemQuantityChanged.getOldQuantity();
@@ -571,20 +621,23 @@ public class GroundItemsPlugin extends Plugin {
 		int diff = newQuantity - oldQuantity;
 		GroundItem.GroundItemKey groundItemKey = new GroundItem.GroundItemKey(item.getId(), tile.getWorldLocation());
 		GroundItem groundItem = collectedGroundItems.get(groundItemKey);
-		if (groundItem != null) {
+		if (groundItem != null)
+		{
 			groundItem.setQuantity(groundItem.getQuantity() + diff);
 		}
 	}
 
 	@Subscribe
-	private void onNpcLootReceived(NpcLootReceived npcLootReceived) {
+	private void onNpcLootReceived(NpcLootReceived npcLootReceived)
+	{
 		npcLootReceived.getItems().forEach(item ->
+			{
+				GroundItem.GroundItemKey groundItemKey = new GroundItem.GroundItemKey(item.getId(), npcLootReceived.getNpc().getWorldLocation());
+				if (collectedGroundItems.containsKey(groundItemKey))
 				{
-					GroundItem.GroundItemKey groundItemKey = new GroundItem.GroundItemKey(item.getId(), npcLootReceived.getNpc().getWorldLocation());
-					if (collectedGroundItems.containsKey(groundItemKey)) {
-						collectedGroundItems.get(groundItemKey).setOwnedByPlayer(true);
-					}
+					collectedGroundItems.get(groundItemKey).setOwnedByPlayer(true);
 				}
+			}
 		);
 
 		Collection<ItemStack> items = npcLootReceived.getItems();
@@ -593,54 +646,74 @@ public class GroundItemsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onPlayerLootReceived(PlayerLootReceived playerLootReceived) {
+	private void onPlayerLootReceived(PlayerLootReceived playerLootReceived)
+	{
 		Collection<ItemStack> items = playerLootReceived.getItems();
 		lootReceived(items, LootType.PVP);
 		lootNotifier(items);
 	}
 
-	private void lootNotifier(Collection<ItemStack> items) {
+	private void lootNotifier(Collection<ItemStack> items)
+	{
 		ItemDefinition composition;
-		for (ItemStack is : items) {
+		for (ItemStack is : items)
+		{
 			composition = itemManager.getItemDefinition(is.getId());
 			Color itemColor = getHighlighted(composition.getName(), itemManager.getItemPrice(is.getId()) * is.getQuantity(), itemManager.getAlchValue(is.getId()) * is.getQuantity());
-			if (itemColor != null) {
-				if (this.notifyHighlightedDrops && itemColor.equals(this.highlightedColor)) {
+			if (itemColor != null)
+			{
+				if (this.notifyHighlightedDrops && itemColor.equals(this.highlightedColor))
+				{
 					sendLootNotification(composition.getName(), "highlighted");
-				} else if (this.notifyLowValueDrops && itemColor.equals(this.lowValueColor)) {
+				}
+				else if (this.notifyLowValueDrops && itemColor.equals(this.lowValueColor))
+				{
 					sendLootNotification(composition.getName(), "low value");
-				} else if (this.notifyMediumValueDrops && itemColor.equals(this.mediumValueColor)) {
+				}
+				else if (this.notifyMediumValueDrops && itemColor.equals(this.mediumValueColor))
+				{
 					sendLootNotification(composition.getName(), "medium value");
-				} else if (this.notifyHighValueDrops && itemColor.equals(this.highValueColor)) {
+				}
+				else if (this.notifyHighValueDrops && itemColor.equals(this.highValueColor))
+				{
 					sendLootNotification(composition.getName(), "high value");
-				} else if (this.notifyInsaneValueDrops && itemColor.equals(this.insaneValueColor)) {
+				}
+				else if (this.notifyInsaneValueDrops && itemColor.equals(this.insaneValueColor))
+				{
 					sendLootNotification(composition.getName(), "insane value");
 				}
 			}
 		}
 	}
 
-	private void sendLootNotification(String itemName, String message) {
+	private void sendLootNotification(String itemName, String message)
+	{
 		String notification = "[" + client.getLocalPlayer().getName() + "] " +
-				"Received a " + message + " item: " + itemName;
+			"Received a " + message + " item: " + itemName;
 		notifier.notify(notification);
 	}
 
 	@Subscribe
-	private void onClientTick(ClientTick event) {
+	private void onClientTick(ClientTick event)
+	{
 		final MenuEntry[] menuEntries = client.getMenuEntries();
 		final List<MenuEntryWithCount> newEntries = new ArrayList<>(menuEntries.length);
 
 		outer:
-		for (int i = menuEntries.length - 1; i >= 0; i--) {
+		for (int i = menuEntries.length - 1; i >= 0; i--)
+		{
 			MenuEntry menuEntry = menuEntries[i];
 
-			if (this.collapseEntries) {
+			if (this.collapseEntries)
+			{
 				int menuType = menuEntry.getOpcode();
 				if (menuType == FIRST_OPTION || menuType == SECOND_OPTION || menuType == THIRD_OPTION
-						|| menuType == FOURTH_OPTION || menuType == FIFTH_OPTION || menuType == EXAMINE_ITEM) {
-					for (MenuEntryWithCount entryWCount : newEntries) {
-						if (entryWCount.getEntry().equals(menuEntry)) {
+					|| menuType == FOURTH_OPTION || menuType == FIFTH_OPTION || menuType == EXAMINE_ITEM)
+				{
+					for (MenuEntryWithCount entryWCount : newEntries)
+					{
+						if (entryWCount.getEntry().equals(menuEntry))
+						{
 							entryWCount.increment();
 							continue outer;
 						}
@@ -657,12 +730,14 @@ public class GroundItemsPlugin extends Plugin {
 		{
 			final int aMenuType = a.getEntry().getOpcode();
 			if (aMenuType == FIRST_OPTION || aMenuType == SECOND_OPTION || aMenuType == THIRD_OPTION
-					|| aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM
-					|| aMenuType == WALK) { // only check for item related menu types, so we don't sort other stuff
+				|| aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM
+				|| aMenuType == WALK)
+			{ // only check for item related menu types, so we don't sort other stuff
 				final int bMenuType = b.getEntry().getOpcode();
 				if (bMenuType == FIRST_OPTION || bMenuType == SECOND_OPTION || bMenuType == THIRD_OPTION
-						|| bMenuType == FOURTH_OPTION || bMenuType == FIFTH_OPTION || bMenuType == EXAMINE_ITEM
-						|| bMenuType == WALK) {
+					|| bMenuType == FOURTH_OPTION || bMenuType == FIFTH_OPTION || bMenuType == EXAMINE_ITEM
+					|| bMenuType == WALK)
+				{
 					final MenuEntry aEntry = a.getEntry();
 					final int aId = aEntry.getIdentifier();
 					final int aQuantity = getCollapsedItemQuantity(aId, aEntry.getTarget());
@@ -674,26 +749,32 @@ public class GroundItemsPlugin extends Plugin {
 					final boolean bHidden = isItemIdHidden(bId, bQuantity);
 
 					// only put items below walk if the config is set for it
-					if (this.rightClickHidden) {
-						if (aHidden && bMenuType == WALK) {
+					if (this.rightClickHidden)
+					{
+						if (aHidden && bMenuType == WALK)
+						{
 							return -1;
 						}
-						if (bHidden && aMenuType == WALK) {
+						if (bHidden && aMenuType == WALK)
+						{
 							return 1;
 						}
 					}
 
 					// sort hidden items below non-hidden items
-					if (aHidden && !bHidden && bMenuType != WALK) {
+					if (aHidden && !bHidden && bMenuType != WALK)
+					{
 						return -1;
 					}
-					if (bHidden && !aHidden && aMenuType != WALK) {
+					if (bHidden && !aHidden && aMenuType != WALK)
+					{
 						return 1;
 					}
 
 
 					// RS sorts by alch price by private, so no need to sort if config not set
-					if (this.sortByGEPrice) {
+					if (this.sortByGEPrice)
+					{
 						return (getGePriceFromItemId(aId) * aQuantity) - (getGePriceFromItemId(bId) * bQuantity);
 					}
 				}
@@ -706,9 +787,11 @@ public class GroundItemsPlugin extends Plugin {
 		{
 			final MenuEntry entry = e.getEntry();
 
-			if (this.collapseEntries) {
+			if (this.collapseEntries)
+			{
 				final int count = e.getCount();
-				if (count > 1) {
+				if (count > 1)
+				{
 					entry.setTarget(entry.getTarget() + " x " + count);
 				}
 			}
@@ -717,29 +800,34 @@ public class GroundItemsPlugin extends Plugin {
 		}).toArray(MenuEntry[]::new));
 	}
 
-	private void lootReceived(Collection<ItemStack> items, LootType lootType) {
-		for (ItemStack itemStack : items) {
+	private void lootReceived(Collection<ItemStack> items, LootType lootType)
+	{
+		for (ItemStack itemStack : items)
+		{
 			WorldPoint location = WorldPoint.fromLocal(client, itemStack.getLocation());
 			GroundItem.GroundItemKey groundItemKey = new GroundItem.GroundItemKey(itemStack.getId(), location);
 			GroundItem groundItem = collectedGroundItems.get(groundItemKey);
-			if (groundItem != null) {
+			if (groundItem != null)
+			{
 				groundItem.setMine(true);
 				groundItem.setTicks(200);
 				groundItem.setLootType(lootType);
 
 				boolean shouldNotify = this.onlyShowLoot && this.highlightedColor.equals(getHighlighted(
-						groundItem.getName(),
-						groundItem.getGePrice(),
-						groundItem.getHaPrice()));
+					groundItem.getName(),
+					groundItem.getGePrice(),
+					groundItem.getHaPrice()));
 
-				if (this.notifyHighlightedDrops && shouldNotify) {
+				if (this.notifyHighlightedDrops && shouldNotify)
+				{
 					notifyHighlightedItem(groundItem);
 				}
 			}
 		}
 	}
 
-	private GroundItem buildGroundItem(final Tile tile, final TileItem item) {
+	private GroundItem buildGroundItem(final Tile tile, final TileItem item)
+	{
 		// Collect the data for the item
 		final int itemId = item.getId();
 		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
@@ -750,49 +838,58 @@ public class GroundItemsPlugin extends Plugin {
 
 		WorldPoint playerLocation = client.getLocalPlayer().getWorldLocation();
 
-		if (client.isInInstancedRegion()) {
+		if (client.isInInstancedRegion())
+		{
 			durationMillis = INSTANCE_DURATION_MILLIS;
 			durationTicks = INSTANCE_DURATION_TICKS;
-		} else if (!itemComposition.isTradeable() && realItemId != COINS) {
+		}
+		else if (!itemComposition.isTradeable() && realItemId != COINS)
+		{
 			durationMillis = UNTRADEABLE_DURATION_MILLIS;
 			durationTicks = UNTRADEABLE_DURATION_TICKS;
-		} else {
+		}
+		else
+		{
 			durationMillis = NORMAL_DURATION_MILLIS;
 			durationTicks = tile.getWorldLocation().equals(playerLocation) ? NORMAL_DURATION_TICKS * 2 : NORMAL_DURATION_TICKS;
 		}
 		final boolean dropped = tile.getWorldLocation().equals(client.getLocalPlayer().getWorldLocation()) && droppedItemQueue.remove(itemId);
 
 		final GroundItem groundItem = GroundItem.builder()
-				.id(itemId)
-				.location(tile.getWorldLocation())
-				.itemId(realItemId)
-				.quantity(item.getQuantity())
-				.name(itemComposition.getName())
-				.haPrice(alchPrice)
-				.height(-1)
-				.tradeable(itemComposition.isTradeable())
-				.droppedInstant(Instant.now())
-				.durationMillis(durationMillis)
-				.isAlwaysPrivate(client.isInInstancedRegion() || (!itemComposition.isTradeable() && realItemId != COINS))
-				.isOwnedByPlayer(tile.getWorldLocation().equals(playerLocation))
-				.ticks(durationTicks)
-				.lootType(dropped ? LootType.DROPPED : LootType.UNKNOWN)
-				.spawnTime(Instant.now())
-				.build();
+			.id(itemId)
+			.location(tile.getWorldLocation())
+			.itemId(realItemId)
+			.quantity(item.getQuantity())
+			.name(itemComposition.getName())
+			.haPrice(alchPrice)
+			.height(-1)
+			.tradeable(itemComposition.isTradeable())
+			.droppedInstant(Instant.now())
+			.durationMillis(durationMillis)
+			.isAlwaysPrivate(client.isInInstancedRegion() || (!itemComposition.isTradeable() && realItemId != COINS))
+			.isOwnedByPlayer(tile.getWorldLocation().equals(playerLocation))
+			.ticks(durationTicks)
+			.lootType(dropped ? LootType.DROPPED : LootType.UNKNOWN)
+			.spawnTime(Instant.now())
+			.build();
 
 
 		// Update item price in case it is coins
-		if (realItemId == COINS) {
+		if (realItemId == COINS)
+		{
 			groundItem.setHaPrice(1);
 			groundItem.setGePrice(1);
-		} else {
+		}
+		else
+		{
 			groundItem.setGePrice(itemManager.getItemPrice(realItemId));
 		}
 
 		return groundItem;
 	}
 
-	private void reset() {
+	private void reset()
+	{
 		// gets the hidden items from the text box in the config
 		hiddenItemList = Text.fromCSV(this.getHiddenItems);
 
@@ -800,44 +897,52 @@ public class GroundItemsPlugin extends Plugin {
 		highlightedItemsList = Text.fromCSV(this.getHighlightItems);
 
 		highlightedItems = CacheBuilder.newBuilder()
-				.maximumSize(512L)
-				.expireAfterAccess(10, TimeUnit.MINUTES)
-				.build(new WildcardMatchLoader(highlightedItemsList));
+			.maximumSize(512L)
+			.expireAfterAccess(10, TimeUnit.MINUTES)
+			.build(new WildcardMatchLoader(highlightedItemsList));
 
 		hiddenItems = CacheBuilder.newBuilder()
-				.maximumSize(512L)
-				.expireAfterAccess(10, TimeUnit.MINUTES)
-				.build(new WildcardMatchLoader(hiddenItemList));
+			.maximumSize(512L)
+			.expireAfterAccess(10, TimeUnit.MINUTES)
+			.build(new WildcardMatchLoader(hiddenItemList));
 
 		// Cache colors
 		priceChecks.clear();
 
-		if (this.insaneValuePrice > 0) {
+		if (this.insaneValuePrice > 0)
+		{
 			priceChecks.put(this.insaneValuePrice, this.insaneValueColor);
 		}
 
-		if (this.highValuePrice > 0) {
+		if (this.highValuePrice > 0)
+		{
 			priceChecks.put(this.highValuePrice, this.highValueColor);
 		}
 
-		if (this.mediumValuePrice > 0) {
+		if (this.mediumValuePrice > 0)
+		{
 			priceChecks.put(this.mediumValuePrice, this.mediumValueColor);
 		}
 
-		if (this.lowValuePrice > 0) {
+		if (this.lowValuePrice > 0)
+		{
 			priceChecks.put(this.lowValuePrice, this.lowValueColor);
 		}
 
-		if (this.getHighlightOverValue > 0) {
+		if (this.getHighlightOverValue > 0)
+		{
 			priceChecks.put(this.getHighlightOverValue, this.highlightedColor);
 		}
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded lastEntry) {
-		if (this.itemHighlightMode != OVERLAY) {
+	private void onMenuEntryAdded(MenuEntryAdded lastEntry)
+	{
+		if (this.itemHighlightMode != OVERLAY)
+		{
 			final boolean telegrabEntry = lastEntry.getOption().equals("Cast") && lastEntry.getTarget().startsWith(TELEGRAB_TEXT) && lastEntry.getOpcode() == CAST_ON_ITEM;
-			if (!(lastEntry.getOption().equals("Take") && lastEntry.getOpcode() == THIRD_OPTION) && !telegrabEntry) {
+			if (!(lastEntry.getOption().equals("Take") && lastEntry.getOpcode() == THIRD_OPTION) && !telegrabEntry)
+			{
 				return;
 			}
 
@@ -846,16 +951,19 @@ public class GroundItemsPlugin extends Plugin {
 			Tile tile = scene.getTiles()[client.getPlane()][lastEntry.getParam0()][lastEntry.getParam1()];
 			TileItemPile tileItemPile = tile.getItemLayer();
 
-			if (tileItemPile == null) {
+			if (tileItemPile == null)
+			{
 				return;
 			}
 
 			int quantity = 1;
 			Node current = tileItemPile.getBottom();
 
-			while (current instanceof TileItem) {
+			while (current instanceof TileItem)
+			{
 				TileItem item = (TileItem) current;
-				if (item.getId() == itemId) {
+				if (item.getId() == itemId)
+				{
 					quantity = item.getQuantity();
 				}
 				current = current.getNext();
@@ -873,25 +981,30 @@ public class GroundItemsPlugin extends Plugin {
 			final Color color = getItemColor(highlighted, hidden);
 			final boolean canBeRecolored = highlighted != null || (hidden != null && this.recolorMenuHiddenItems);
 
-			if (color != null && canBeRecolored && !color.equals(this.defaultColor)) {
+			if (color != null && canBeRecolored && !color.equals(this.defaultColor))
+			{
 				final MenuHighlightMode mode = this.menuHighlightMode;
 
-				if (mode == BOTH || mode == OPTION) {
+				if (mode == BOTH || mode == OPTION)
+				{
 					final String optionText = telegrabEntry ? "Cast" : "Take";
 					lastEntry.setOption(ColorUtil.prependColorTag(optionText, color));
 					lastEntry.setModified();
 				}
 
-				if (mode == BOTH || mode == NAME) {
+				if (mode == BOTH || mode == NAME)
+				{
 					String target = lastEntry.getTarget();
 
-					if (telegrabEntry) {
+					if (telegrabEntry)
+					{
 						target = target.substring(TELEGRAB_TEXT.length());
 					}
 
 					target = ColorUtil.prependColorTag(target.substring(target.indexOf('>') + 1), color);
 
-					if (telegrabEntry) {
+					if (telegrabEntry)
+					{
 						target = TELEGRAB_TEXT + target;
 					}
 
@@ -900,30 +1013,37 @@ public class GroundItemsPlugin extends Plugin {
 				}
 			}
 
-			if (this.showMenuItemQuantities && itemComposition.isStackable() && quantity > 1) {
+			if (this.showMenuItemQuantities && itemComposition.isStackable() && quantity > 1)
+			{
 				lastEntry.setTarget(lastEntry.getTarget() + " (" + quantity + ")");
 				lastEntry.setModified();
 			}
 
-			if (this.removeIgnored && lastEntry.getOption().equals("Take") && hiddenItemList.contains(Text.removeTags(lastEntry.getTarget()))) {
+			if (this.removeIgnored && lastEntry.getOption().equals("Take") && hiddenItemList.contains(Text.removeTags(lastEntry.getTarget())))
+			{
 				client.setMenuOptionCount(client.getMenuOptionCount() - 1);
 			}
 		}
 	}
 
-	void updateList(String item, boolean hiddenList) {
+	void updateList(String item, boolean hiddenList)
+	{
 		final Set<String> hiddenItemSet = new HashSet<>(hiddenItemList);
 		final Set<String> highlightedItemSet = new HashSet<>(highlightedItemsList);
 
-		if (hiddenList) {
+		if (hiddenList)
+		{
 			highlightedItemSet.removeIf(item::equalsIgnoreCase);
-		} else {
+		}
+		else
+		{
 			hiddenItemSet.removeIf(item::equalsIgnoreCase);
 		}
 
 		final Set<String> items = hiddenList ? hiddenItemSet : highlightedItemSet;
 
-		if (!items.removeIf(item::equalsIgnoreCase)) {
+		if (!items.removeIf(item::equalsIgnoreCase))
+		{
 			items.add(item);
 		}
 
@@ -933,43 +1053,54 @@ public class GroundItemsPlugin extends Plugin {
 		this.getHighlightItems = Text.toCSV(highlightedItemSet);
 	}
 
-	Color getHerbloreColor() {
+	Color getHerbloreColor()
+	{
 		return herbloreColor;
 	}
 
-	Color getPrayerColor() {
+	Color getPrayerColor()
+	{
 		return prayerColor;
 	}
 
-	Color getDefaultColor() {
+	Color getDefaultColor()
+	{
 		return config.defaultColor();
 	}
 
-	Color getHighlighted(String item, int gePrice, int haPrice) {
-		if (TRUE.equals(highlightedItems.getUnchecked(item))) {
+	Color getHighlighted(String item, int gePrice, int haPrice)
+	{
+		if (TRUE.equals(highlightedItems.getUnchecked(item)))
+		{
 			return this.highlightedColor;
 		}
 
 		// Explicit hide takes priority over implicit highlight
-		if (TRUE.equals(hiddenItems.getUnchecked(item))) {
+		if (TRUE.equals(hiddenItems.getUnchecked(item)))
+		{
 			return null;
 		}
 
 		ValueCalculationMode mode = this.valueCalculationMode;
-		for (Map.Entry<Integer, Color> entry : priceChecks.entrySet()) {
-			switch (mode) {
+		for (Map.Entry<Integer, Color> entry : priceChecks.entrySet())
+		{
+			switch (mode)
+			{
 				case GE:
-					if (gePrice > entry.getKey()) {
+					if (gePrice > entry.getKey())
+					{
 						return entry.getValue();
 					}
 					break;
 				case HA:
-					if (haPrice > entry.getKey()) {
+					if (haPrice > entry.getKey())
+					{
 						return entry.getValue();
 					}
 					break;
 				default: // case HIGHEST
-					if (gePrice > entry.getKey() || haPrice > entry.getKey()) {
+					if (gePrice > entry.getKey() || haPrice > entry.getKey())
+					{
 						return entry.getValue();
 					}
 					break;
@@ -979,7 +1110,8 @@ public class GroundItemsPlugin extends Plugin {
 		return null;
 	}
 
-	Color getHidden(String item, int gePrice, int haPrice, boolean isTradeable) {
+	Color getHidden(String item, int gePrice, int haPrice, boolean isTradeable)
+	{
 		final boolean isExplicitHidden = TRUE.equals(hiddenItems.getUnchecked(item));
 		final boolean isExplicitHighlight = TRUE.equals(highlightedItems.getUnchecked(item));
 		final boolean canBeHidden = gePrice > 0 || isTradeable || !this.dontHideUntradeables;
@@ -988,18 +1120,20 @@ public class GroundItemsPlugin extends Plugin {
 
 		// Explicit highlight takes priority over implicit hide
 		return isExplicitHidden || (!isExplicitHighlight && canBeHidden && underGe && underHa)
-				? this.hiddenColor
-				: null;
+			? this.hiddenColor
+			: null;
 	}
 
-	private int getGePriceFromItemId(int itemId) {
+	private int getGePriceFromItemId(int itemId)
+	{
 		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
 		final int realItemId = itemComposition.getNote() != -1 ? itemComposition.getLinkedNoteId() : itemId;
 
 		return itemManager.getItemPrice(realItemId);
 	}
 
-	private boolean isItemIdHidden(int itemId, int quantity) {
+	private boolean isItemIdHidden(int itemId, int quantity)
+	{
 		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
 		final int realItemId = itemComposition.getNote() != -1 ? itemComposition.getLinkedNoteId() : itemId;
 		final int alchPrice = itemManager.getAlchValue(realItemId) * quantity;
@@ -1008,16 +1142,19 @@ public class GroundItemsPlugin extends Plugin {
 		return getHidden(itemComposition.getName(), gePrice, alchPrice, itemComposition.isTradeable()) != null;
 	}
 
-	private int getCollapsedItemQuantity(int itemId, String item) {
+	private int getCollapsedItemQuantity(int itemId, String item)
+	{
 		final ItemDefinition itemComposition = itemManager.getItemDefinition(itemId);
 		final boolean itemNameIncludesQuantity = Pattern.compile("\\(\\d+\\)").matcher(itemComposition.getName()).find();
 
 		Matcher matcher = Pattern.compile("\\((\\d+)\\)").matcher(item);
 		int matches = 0;
 		String lastMatch = "1";
-		while (matcher.find()) {
+		while (matcher.find())
+		{
 			// so that "Prayer Potion (4)" returns 1 instead of 4 and "Coins (25)" returns 25 instead of 1
-			if (!itemNameIncludesQuantity || matches >= 1) {
+			if (!itemNameIncludesQuantity || matches >= 1)
+			{
 				lastMatch = matcher.group(1);
 			}
 
@@ -1027,12 +1164,15 @@ public class GroundItemsPlugin extends Plugin {
 		return Integer.parseInt(lastMatch);
 	}
 
-	Color getItemColor(Color highlighted, Color hidden) {
-		if (highlighted != null) {
+	Color getItemColor(Color highlighted, Color hidden)
+	{
+		if (highlighted != null)
+		{
 			return highlighted;
 		}
 
-		if (hidden != null) {
+		if (hidden != null)
+		{
 			return hidden;
 		}
 
@@ -1040,15 +1180,19 @@ public class GroundItemsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onFocusChanged(FocusChanged focusChanged) {
-		if (!focusChanged.isFocused()) {
+	private void onFocusChanged(FocusChanged focusChanged)
+	{
+		if (!focusChanged.isFocused())
+		{
 			setHotKeyPressed(false);
 		}
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked) {
-		if (menuOptionClicked.getMenuOpcode() == MenuOpcode.ITEM_DROP) {
+	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked)
+	{
+		if (menuOptionClicked.getMenuOpcode() == MenuOpcode.ITEM_DROP)
+		{
 			int itemId = menuOptionClicked.getIdentifier();
 			// Keep a queue of recently dropped items to better detect
 			// item spawns that are drops
@@ -1056,24 +1200,29 @@ public class GroundItemsPlugin extends Plugin {
 		}
 	}
 
-	private void notifyHighlightedItem(GroundItem item) {
+	private void notifyHighlightedItem(GroundItem item)
+	{
 		final Player local = client.getLocalPlayer();
 		final StringBuilder notificationStringBuilder = new StringBuilder()
-				.append("[")
-				.append(local.getName())
-				.append("] received a highlighted drop: ")
-				.append(item.getName());
+			.append("[")
+			.append(local.getName())
+			.append("] received a highlighted drop: ")
+			.append(item.getName());
 
-		if (item.getQuantity() > 1) {
+		if (item.getQuantity() > 1)
+		{
 			notificationStringBuilder.append(" x ").append(item.getQuantity());
 
 
-			if (item.getQuantity() > (int) Character.MAX_VALUE) {
+			if (item.getQuantity() > (int) Character.MAX_VALUE)
+			{
 				notificationStringBuilder.append(" (Lots!)");
-			} else {
+			}
+			else
+			{
 				notificationStringBuilder.append(" (")
-						.append(QuantityFormatter.quantityToStackSize(item.getQuantity()))
-						.append(")");
+					.append(QuantityFormatter.quantityToStackSize(item.getQuantity()))
+					.append(")");
 			}
 		}
 
@@ -1081,7 +1230,8 @@ public class GroundItemsPlugin extends Plugin {
 		notifier.notify(notificationStringBuilder.toString());
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.defaultColor = config.defaultColor();
 		this.highlightedColor = config.highlightedColor();
 		this.hiddenColor = config.hiddenColor();

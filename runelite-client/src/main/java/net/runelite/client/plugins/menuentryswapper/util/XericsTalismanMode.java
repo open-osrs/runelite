@@ -25,7 +25,8 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum XericsTalismanMode {
+public enum XericsTalismanMode
+{
 	XERICS_LOOKOUT("Xeric's Look-out"),
 	XERICS_GLADE("Xeric's Glade"),
 	XERICS_INFERNO("Xeric's Inferno"),
@@ -34,12 +35,14 @@ public enum XericsTalismanMode {
 
 	private final String name;
 
-	XericsTalismanMode(String name) {
+	XericsTalismanMode(String name)
+	{
 		this.name = name;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

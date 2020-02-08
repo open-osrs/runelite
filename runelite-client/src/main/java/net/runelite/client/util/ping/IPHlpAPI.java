@@ -28,7 +28,8 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
-interface IPHlpAPI extends Library {
+interface IPHlpAPI extends Library
+{
 	IPHlpAPI INSTANCE = Native.load("IPHlpAPI", IPHlpAPI.class);
 
 	Pointer IcmpCreateFile();

@@ -32,7 +32,8 @@ import net.runelite.api.SpriteID;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum PrayerType {
+enum PrayerType
+{
 	THICK_SKIN("Thick Skin", Prayer.THICK_SKIN, "+5% Defence", SpriteID.PRAYER_THICK_SKIN, false),
 	BURST_OF_STRENGTH("Burst of Strength", Prayer.BURST_OF_STRENGTH, "+5% Strenth", SpriteID.PRAYER_BURST_OF_STRENGTH, false),
 	CLARITY_OF_THOUGHT("Clarity of Thought", Prayer.CLARITY_OF_THOUGHT, "+5% Attack", SpriteID.PRAYER_CLARITY_OF_THOUGHT, false),

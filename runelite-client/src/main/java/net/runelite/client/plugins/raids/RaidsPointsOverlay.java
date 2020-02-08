@@ -24,9 +24,18 @@
  */
 package net.runelite.client.plugins.raids;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.text.NumberFormat;
+import java.util.Locale;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import net.runelite.api.Client;
+import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
 import net.runelite.api.Varbits;
+import static net.runelite.client.plugins.raids.RaidsPlugin.POINTS_FORMAT;
 import net.runelite.client.ui.overlay.Overlay;
+import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -34,21 +43,13 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.awt.*;
-import java.text.NumberFormat;
-import java.util.Locale;
-
-import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-import static net.runelite.client.plugins.raids.RaidsPlugin.POINTS_FORMAT;
-import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 @Singleton
-public class RaidsPointsOverlay extends Overlay {
+public class RaidsPointsOverlay extends Overlay
+{
 	private static final NumberFormat UNIQUE_FORMAT = NumberFormat.getPercentInstance(Locale.ENGLISH);
 
-	static {
+	static
+	{
 		UNIQUE_FORMAT.setMaximumFractionDigits(2);
 		UNIQUE_FORMAT.setMinimumFractionDigits(2);
 	}
@@ -60,7 +61,8 @@ public class RaidsPointsOverlay extends Overlay {
 	private RaidsPlugin plugin;
 
 	@Inject
-	private RaidsPointsOverlay(final RaidsPlugin plugin) {
+	private RaidsPointsOverlay(final RaidsPlugin plugin)
+	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_RIGHT);
 		setPriority(OverlayPriority.HIGH);
@@ -68,8 +70,10 @@ public class RaidsPointsOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.isInRaidChambers()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isInRaidChambers())
+		{
 			return null;
 		}
 
@@ -86,7 +90,8 @@ public class RaidsPointsOverlay extends Overlay {
 		tableComponent.addRow(client.getLocalPlayer().getName() + ":", POINTS_FORMAT.format(personalPoints));
 
 
-		if (partySize > 1) {
+		if (partySize > 1)
+		{
 			tableComponent.addRow("Party size:", String.valueOf(partySize));
 		}
 

@@ -24,15 +24,20 @@
  */
 package net.runelite.client.plugins.lizardmanshaman;
 
+import java.awt.Color;
 import lombok.RequiredArgsConstructor;
-import net.runelite.client.config.*;
-
-import java.awt.*;
+import net.runelite.client.config.Alpha;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.ConfigSection;
 
 @ConfigGroup("lizardmanshaman")
-public interface LizardmanShamanConfig extends Config {
+public interface LizardmanShamanConfig extends Config
+{
 	@RequiredArgsConstructor
-	enum SpawnOverlayConfig {
+	enum SpawnOverlayConfig
+	{
 		EXPLOSION_ONLY("Explosion Only"),
 		ALWAYS("Always"),
 		DISABLED("Disabled");
@@ -40,87 +45,95 @@ public interface LizardmanShamanConfig extends Config {
 		private final String name;
 
 		@Override
-		public String toString() {
+		public String toString()
+		{
 			return name;
 		}
 	}
 
 	@ConfigSection(
-			keyName = "features",
-			name = "Features",
-			description = "Enable or disable plugin features.",
-			position = 0
+		keyName = "features",
+		name = "Features",
+		description = "Enable or disable plugin features.",
+		position = 0
 	)
-	default boolean features() {
+	default boolean features()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "spawnOverlay",
-			name = "Spawn Overlay",
-			description = "Show an overlay for Spawn's explosion tiles.",
-			section = "features",
-			position = 1
+		keyName = "spawnOverlay",
+		name = "Spawn Overlay",
+		description = "Show an overlay for Spawn's explosion tiles.",
+		section = "features",
+		position = 1
 	)
-	default SpawnOverlayConfig showSpawnOverlay() {
+	default SpawnOverlayConfig showSpawnOverlay()
+	{
 		return SpawnOverlayConfig.ALWAYS;
 	}
 
 	@ConfigSection(
-			keyName = "colors",
-			name = "Colors",
-			description = "Customize overlay colors.",
-			position = 1
+		keyName = "colors",
+		name = "Colors",
+		description = "Customize overlay colors.",
+		position = 1
 	)
-	default boolean colors() {
+	default boolean colors()
+	{
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "explosionBorderColor",
-			name = "Explosion Border",
-			description = "Spawn explosion tiles overlay border.",
-			section = "colors",
-			position = 1
+		keyName = "explosionBorderColor",
+		name = "Explosion Border",
+		description = "Spawn explosion tiles overlay border.",
+		section = "colors",
+		position = 1
 	)
-	default Color explosionBorderColor() {
+	default Color explosionBorderColor()
+	{
 		return Color.RED;
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "explosionFillColor",
-			name = "Explosion Fill",
-			description = "Spawn explosion tiles overlay fill.",
-			section = "colors",
-			position = 2
+		keyName = "explosionFillColor",
+		name = "Explosion Fill",
+		description = "Spawn explosion tiles overlay fill.",
+		section = "colors",
+		position = 2
 	)
-	default Color explosionFillColor() {
+	default Color explosionFillColor()
+	{
 		return new Color(255, 0, 0, 20);
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "spawnWalkableBorderColor",
-			name = "Walkable Border",
-			description = "Spawn walkable tiles overlay border.",
-			section = "colors",
-			position = 3
+		keyName = "spawnWalkableBorderColor",
+		name = "Walkable Border",
+		description = "Spawn walkable tiles overlay border.",
+		section = "colors",
+		position = 3
 	)
-	default Color spawnWalkableBorderColor() {
+	default Color spawnWalkableBorderColor()
+	{
 		return Color.ORANGE;
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "spawnWalkableFillColor",
-			name = "Walkable Fill",
-			description = "Spawn walkable tiles overlay fill.",
-			section = "colors",
-			position = 4
+		keyName = "spawnWalkableFillColor",
+		name = "Walkable Fill",
+		description = "Spawn walkable tiles overlay fill.",
+		section = "colors",
+		position = 4
 	)
-	default Color spawnWalkableFillColor() {
+	default Color spawnWalkableFillColor()
+	{
 		return new Color(255, 165, 0, 20);
 	}
 }

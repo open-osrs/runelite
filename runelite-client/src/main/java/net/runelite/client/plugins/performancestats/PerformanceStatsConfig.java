@@ -30,15 +30,17 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("performancestats")
-public interface PerformanceStatsConfig extends Config {
+public interface PerformanceStatsConfig extends Config
+{
 	@ConfigItem(
-			position = 0,
-			keyName = "submitTimeout",
-			name = "Submit Timeout",
-			description = "Submits after this many seconds of inactivity"
+		position = 0,
+		keyName = "submitTimeout",
+		name = "Submit Timeout",
+		description = "Submits after this many seconds of inactivity"
 	)
 	@Units(Units.SECONDS)
-	default int submitTimeout() {
+	default int submitTimeout()
+	{
 		return 30;
 	}
 }

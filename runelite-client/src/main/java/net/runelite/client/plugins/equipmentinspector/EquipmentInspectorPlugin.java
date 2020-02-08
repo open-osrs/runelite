@@ -25,6 +25,16 @@
 package net.runelite.client.plugins.equipmentinspector;
 
 import com.google.inject.Provides;
+import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.ScheduledExecutorService;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -51,25 +61,15 @@ import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.QuantityFormatter;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.InvocationTargetException;
-import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-
 @PluginDescriptor(
-		name = "Equipment Inspector",
-		type = PluginType.PVP,
-		enabledByDefault = false
+	name = "Equipment Inspector",
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 @Singleton
 @Slf4j
-public class EquipmentInspectorPlugin extends Plugin {
+public class EquipmentInspectorPlugin extends Plugin
+{
 	private static final String INSPECT_EQUIPMENT = "Gear";
 
 	@Inject
@@ -96,54 +96,64 @@ public class EquipmentInspectorPlugin extends Plugin {
 	private boolean exactValue;
 
 	@Provides
-	EquipmentInspectorConfig provideConfig(ConfigManager configManager) {
+	EquipmentInspectorConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(EquipmentInspectorConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		equipmentInspectorPanel = injector.getInstance(EquipmentInspectorPanel.class);
-		if (client != null) {
+		if (client != null)
+		{
 			menuManager.addPlayerMenuItem(INSPECT_EQUIPMENT);
 		}
 
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(this.getClass(), "normal.png");
 
 		navButton = NavigationButton.builder()
-				.tooltip("Equipment Inspector")
-				.icon(icon)
-				.priority(5)
-				.panel(equipmentInspectorPanel)
-				.build();
+			.tooltip("Equipment Inspector")
+			.icon(icon)
+			.priority(5)
+			.panel(equipmentInspectorPanel)
+			.build();
 
 		pluginToolbar.addNavigation(navButton);
 
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		menuManager.removePlayerMenuItem(INSPECT_EQUIPMENT);
 		pluginToolbar.removeNavigation(navButton);
 	}
 
 	@Subscribe
-	private void onPlayerMenuOptionClicked(PlayerMenuOptionClicked event) {
-		if (!event.getMenuOption().equals(INSPECT_EQUIPMENT)) {
+	private void onPlayerMenuOptionClicked(PlayerMenuOptionClicked event)
+	{
+		if (!event.getMenuOption().equals(INSPECT_EQUIPMENT))
+		{
 			return;
 		}
 
 		executor.execute(() ->
 		{
-			try {
+			try
+			{
 				SwingUtilities.invokeAndWait(() ->
 				{
-					if (!navButton.isSelected()) {
+					if (!navButton.isSelected())
+					{
 						navButton.getOnSelect().run();
 					}
 				});
-			} catch (InterruptedException | InvocationTargetException e) {
+			}
+			catch (InterruptedException | InvocationTargetException e)
+			{
 				throw new RuntimeException(e);
 			}
 
@@ -151,72 +161,87 @@ public class EquipmentInspectorPlugin extends Plugin {
 			final PlayerContainer player = playerManager.getPlayer(playerName);
 			final Map<KitType, ItemDefinition> playerEquipment = new HashMap<>();
 
-			if (player == null) {
+			if (player == null)
+			{
 				return;
 			}
 
-			for (KitType kitType : KitType.values()) {
+			for (KitType kitType : KitType.values())
+			{
 				if (kitType == KitType.RING || kitType == KitType.AMMUNITION ||
-						player.getPlayer().getPlayerAppearance() == null) {
+					player.getPlayer().getPlayerAppearance() == null)
+				{
 					continue;
 				}
 
 				final int itemId = player.getPlayer().getPlayerAppearance().getEquipmentId(kitType);
 
-				if (itemId != -1) {
+				if (itemId != -1)
+				{
 					ItemDefinition itemComposition = client.getItemDefinition(itemId);
 					playerEquipment.put(kitType, itemComposition);
 				}
 			}
 
-			if (this.showValue) {
+			if (this.showValue)
+			{
 				final LinkedHashMap<Integer, Integer> gear = new LinkedHashMap<>(player.getGear());
 				removeEntries(gear, this.protectedItems);
 
 				int risk = 0;
-				for (int value : gear.values()) {
+				for (int value : gear.values())
+				{
 					risk += value;
 				}
 
 				String price;
 
-				if (!this.exactValue) {
+				if (!this.exactValue)
+				{
 					price = QuantityFormatter.quantityToRSDecimalStack(risk);
-				} else {
+				}
+				else
+				{
 					price = NumberFormat.getIntegerInstance().format(risk);
 				}
 
 				chatMessageManager.queue(QueuedMessage.builder()
-						.type(ChatMessageType.CONSOLE)
-						.runeLiteFormattedMessage(new ChatMessageBuilder()
-								.append(ChatColorType.HIGHLIGHT)
-								.append("Risked Value: ")
-								.append(ChatColorType.NORMAL)
-								.append(price)
-								.build())
-						.build());
+					.type(ChatMessageType.CONSOLE)
+					.runeLiteFormattedMessage(new ChatMessageBuilder()
+						.append(ChatColorType.HIGHLIGHT)
+						.append("Risked Value: ")
+						.append(ChatColorType.NORMAL)
+						.append(price)
+						.build())
+					.build());
 			}
 			equipmentInspectorPanel.update(playerEquipment, playerName);
 		});
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equalsIgnoreCase("equipmentinspector")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equalsIgnoreCase("equipmentinspector"))
+		{
 			updateConfig();
 		}
 	}
 
-	private static void removeEntries(LinkedHashMap<Integer, Integer> map, int quantity) {
-		for (int i = 0; i < quantity; i++) {
-			if (!map.entrySet().iterator().hasNext()) {
+	private static void removeEntries(LinkedHashMap<Integer, Integer> map, int quantity)
+	{
+		for (int i = 0; i < quantity; i++)
+		{
+			if (!map.entrySet().iterator().hasNext())
+			{
 				return;
 			}
 			map.entrySet().remove(map.entrySet().iterator().next());
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showValue = config.showValue();
 		this.protectedItems = config.protectedItems();
 		this.exactValue = config.exactValue();

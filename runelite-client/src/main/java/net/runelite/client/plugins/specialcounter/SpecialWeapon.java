@@ -31,7 +31,8 @@ import net.runelite.api.ItemID;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum SpecialWeapon {
+enum SpecialWeapon
+{
 	DRAGON_WARHAMMER("Dragon Warhammer", ItemID.DRAGON_WARHAMMER, false),
 	ARCLIGHT("Arclight", ItemID.ARCLIGHT, false),
 	DARKLIGHT("Darklight", ItemID.DARKLIGHT, false),

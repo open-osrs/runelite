@@ -24,6 +24,26 @@
  */
 package net.runelite.client.plugins.skillcalculator.banked.components;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Constants;
@@ -41,17 +61,8 @@ import net.runelite.client.ui.components.ComboBoxListRenderer;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 import net.runelite.client.util.AsyncBufferedImage;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class ModifyPanel extends JPanel {
+public class ModifyPanel extends JPanel
+{
 	private static final Dimension ICON_SIZE = new Dimension(Constants.ITEM_SPRITE_WIDTH, Constants.ITEM_SPRITE_HEIGHT);
 	private static final DecimalFormat FORMAT_COMMA = new DecimalFormat("#,###.#");
 
@@ -75,7 +86,8 @@ public class ModifyPanel extends JPanel {
 	@Getter(AccessLevel.PUBLIC)
 	private double total = 0;
 
-	public ModifyPanel(final BankedCalculator calc, final ItemManager itemManager) {
+	public ModifyPanel(final BankedCalculator calc, final ItemManager itemManager)
+	{
 		this.calc = calc;
 		this.itemManager = itemManager;
 
@@ -135,20 +147,26 @@ public class ModifyPanel extends JPanel {
 	}
 
 	// Updates the UI for the selected item
-	public void setBankedItem(final BankedItem bankedItem) {
-		if (bankedItem == null) {
+	public void setBankedItem(final BankedItem bankedItem)
+	{
+		if (bankedItem == null)
+		{
 			return;
 		}
 
 		this.bankedItem = bankedItem;
-		if (this.calc.getConfig().cascadeBankedXp()) {
+		if (this.calc.getConfig().cascadeBankedXp())
+		{
 			this.linkedMap = this.calc.createLinksMap(bankedItem);
 
 			this.amount = bankedItem.getQty();
-			for (int i : linkedMap.values()) {
+			for (int i : linkedMap.values())
+			{
 				this.amount += i;
 			}
-		} else {
+		}
+		else
+		{
 			this.linkedMap = new HashMap<>();
 			this.amount = this.calc.getItemQty(bankedItem);
 		}
@@ -158,11 +176,13 @@ public class ModifyPanel extends JPanel {
 		updateAdjustContainer();
 	}
 
-	private void updateImageTooltip() {
+	private void updateImageTooltip()
+	{
 		final StringBuilder b = new StringBuilder("<html>");
 		b.append(bankedItem.getQty()).append(" x ").append(bankedItem.getItem().getItemInfo().getName());
 
-		for (final Map.Entry<CriticalItem, Integer> e : this.linkedMap.entrySet()) {
+		for (final Map.Entry<CriticalItem, Integer> e : this.linkedMap.entrySet())
+		{
 			b.append("<br/>").append(e.getValue()).append(" x ").append(e.getKey().getItemInfo().getName());
 		}
 
@@ -170,7 +190,8 @@ public class ModifyPanel extends JPanel {
 		this.image.setToolTipText(b.toString());
 	}
 
-	private void updateLabelContainer() {
+	private void updateLabelContainer()
+	{
 		final CriticalItem item = bankedItem.getItem();
 
 		// Update image icon
@@ -190,15 +211,16 @@ public class ModifyPanel extends JPanel {
 		labelValue.setText(value);
 
 		labelContainer.setToolTipText("<html>" + itemName
-				+ "<br/>xp: " + xp
-				+ "<br/>Total: " + total + "</html");
+			+ "<br/>xp: " + xp
+			+ "<br/>Total: " + total + "</html");
 
 		labelContainer.revalidate();
 		labelContainer.repaint();
 	}
 
 	@SuppressWarnings("unchecked")
-	private void updateAdjustContainer() {
+	private void updateAdjustContainer()
+	{
 		adjustContainer.removeAll();
 
 		final JLabel label = new JLabel("Output:");
@@ -219,14 +241,17 @@ public class ModifyPanel extends JPanel {
 
 		final int level = calc.getConfig().limitToCurrentLevel() ? calc.getSkillLevel() : -1;
 		final List<Activity> activities = Activity.getByCriticalItem(bankedItem.getItem(), level);
-		if (activities == null || activities.size() == 0) {
+		if (activities == null || activities.size() == 0)
+		{
 			final JLabel unusable = new JLabel("Unusable at current level");
 			unusable.setVerticalAlignment(JLabel.CENTER);
 			unusable.setHorizontalAlignment(JLabel.CENTER);
 
 			adjustContainer.removeAll();
 			adjustContainer.add(unusable, c);
-		} else if (activities.size() == 1) {
+		}
+		else if (activities.size() == 1)
+		{
 			final Activity a = activities.get(0);
 
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon());
@@ -242,7 +267,9 @@ public class ModifyPanel extends JPanel {
 
 			adjustContainer.add(container, c);
 			c.gridy++;
-		} else {
+		}
+		else
+		{
 			final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
 			dropdown.setFocusable(false); // To prevent an annoying "focus paint" effect
 			dropdown.setForeground(Color.WHITE);
@@ -252,10 +279,12 @@ public class ModifyPanel extends JPanel {
 			renderer.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH, 40));
 			dropdown.setRenderer(renderer);
 
-			for (final Activity option : activities) {
+			for (final Activity option : activities)
+			{
 				final double xp = option.getXp() * xpFactor;
 				String name = option.getName();
-				if (xp > 0) {
+				if (xp > 0)
+				{
 					name += " (" + FORMAT_COMMA.format(xp) + "xp)";
 				}
 
@@ -272,7 +301,8 @@ public class ModifyPanel extends JPanel {
 				});
 
 				final Activity selected = bankedItem.getItem().getSelectedActivity();
-				if (option.equals(selected)) {
+				if (option.equals(selected))
+				{
 					dropdown.setSelectedItem(entry);
 				}
 			}
@@ -280,9 +310,11 @@ public class ModifyPanel extends JPanel {
 			// Add click event handler now to prevent above code from triggering it.
 			dropdown.addItemListener(e ->
 			{
-				if (e.getStateChange() == ItemEvent.SELECTED && e.getItem() instanceof ComboBoxIconEntry) {
+				if (e.getStateChange() == ItemEvent.SELECTED && e.getItem() instanceof ComboBoxIconEntry)
+				{
 					final ComboBoxIconEntry source = (ComboBoxIconEntry) e.getItem();
-					if (source.getData() instanceof Activity) {
+					if (source.getData() instanceof Activity)
+					{
 						final Activity selectedActivity = ((Activity) source.getData());
 						calc.activitySelected(bankedItem, selectedActivity);
 						updateLabelContainer();
@@ -294,11 +326,13 @@ public class ModifyPanel extends JPanel {
 			c.gridy++;
 		}
 		final Activity a = bankedItem.getItem().getSelectedActivity();
-		if (a == null) {
+		if (a == null)
+		{
 			return;
 		}
 		final ItemStack[] secondaries = a.getSecondaries();
-		if (secondaries.length > 0 && this.calc.getConfig().showSecondaries()) {
+		if (secondaries.length > 0 && this.calc.getConfig().showSecondaries())
+		{
 			final JLabel secondaryLabel = new JLabel("Secondaries:");
 			secondaryLabel.setVerticalAlignment(JLabel.CENTER);
 			secondaryLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -310,7 +344,8 @@ public class ModifyPanel extends JPanel {
 			container.setLayout(new GridLayout(1, 6, 1, 1));
 			container.setBackground(BACKGROUND_COLOR);
 
-			for (final ItemStack s : secondaries) {
+			for (final ItemStack s : secondaries)
+			{
 				final JLabel l = new JLabel();
 				final int required = s.getQty() * amount;
 
@@ -329,10 +364,10 @@ public class ModifyPanel extends JPanel {
 				final int result = (available - required);
 
 				final String toolTip = "<html>" +
-						"Banked: " + FORMAT_COMMA.format(available) +
-						"<br/>Needed: " + FORMAT_COMMA.format(required) +
-						"<br/>Result: " + (result > 0 ? "+" : "") + FORMAT_COMMA.format(result) +
-						"</html>";
+					"Banked: " + FORMAT_COMMA.format(available) +
+					"<br/>Needed: " + FORMAT_COMMA.format(required) +
+					"<br/>Result: " + (result > 0 ? "+" : "") + FORMAT_COMMA.format(result) +
+					"</html>";
 				l.setToolTipText(toolTip);
 				container.add(l);
 			}
@@ -341,7 +376,8 @@ public class ModifyPanel extends JPanel {
 		}
 	}
 
-	private JPanel createShadowedLabel(final ImageIcon icon, final String name, final String value) {
+	private JPanel createShadowedLabel(final ImageIcon icon, final String name, final String value)
+	{
 		// Wrapper panel for the shadowed labels
 		final JPanel wrapper = new JPanel(new GridLayout(2, 1));
 		wrapper.setBorder(new EmptyBorder(0, 5, 0, 0));

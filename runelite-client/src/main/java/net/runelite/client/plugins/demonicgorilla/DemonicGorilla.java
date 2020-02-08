@@ -24,6 +24,8 @@
  */
 package net.runelite.client.plugins.demonicgorilla;
 
+import java.util.Arrays;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,10 +35,8 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.coords.WorldArea;
 
-import java.util.Arrays;
-import java.util.List;
-
-class DemonicGorilla {
+class DemonicGorilla
+{
 	static final int MAX_ATTACK_RANGE = 10; // Needs <= 10 tiles to reach target
 	static final int ATTACK_RATE = 5; // 5 ticks between each attack
 	static final int ATTACKS_PER_SWITCH = 3; // 3 unsuccessful attacks per style switch
@@ -47,13 +47,14 @@ class DemonicGorilla {
 	static final int PROJECTILE_RANGED_DELAY = 9; // Requires an extra 9 tiles
 
 	static final AttackStyle[] ALL_REGULAR_ATTACK_STYLES =
-			{
-					AttackStyle.MELEE,
-					AttackStyle.RANGED,
-					AttackStyle.MAGIC
-			};
+		{
+			AttackStyle.MELEE,
+			AttackStyle.RANGED,
+			AttackStyle.MAGIC
+		};
 
-	enum AttackStyle {
+	enum AttackStyle
+	{
 		MAGIC,
 		RANGED,
 		MELEE,
@@ -119,7 +120,8 @@ class DemonicGorilla {
 	@Setter(AccessLevel.PACKAGE)
 	private int disabledMeleeMovementForTicks;
 
-	DemonicGorilla(NPC npc) {
+	DemonicGorilla(NPC npc)
+	{
 		this.npc = npc;
 		this.nextPosibleAttackStyles = Arrays.asList(ALL_REGULAR_ATTACK_STYLES);
 		this.nextAttackTick = -100;
@@ -127,9 +129,11 @@ class DemonicGorilla {
 		this.recentProjectileId = -1;
 	}
 
-	HeadIcon getOverheadIcon() {
+	HeadIcon getOverheadIcon()
+	{
 		NPCDefinition composition = this.npc.getDefinition();
-		if (composition != null) {
+		if (composition != null)
+		{
 			return composition.getOverheadIcon();
 		}
 		return null;

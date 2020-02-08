@@ -24,19 +24,24 @@
  */
 package net.runelite.client.plugins.itemstats.special;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.runelite.api.Client;
 import net.runelite.api.Varbits;
-import net.runelite.client.plugins.itemstats.*;
+import net.runelite.client.plugins.itemstats.Effect;
+import net.runelite.client.plugins.itemstats.Positivity;
+import net.runelite.client.plugins.itemstats.RangeStatChange;
+import net.runelite.client.plugins.itemstats.StatChange;
+import net.runelite.client.plugins.itemstats.StatsChanges;
 import net.runelite.client.plugins.itemstats.stats.Stat;
 import net.runelite.client.plugins.itemstats.stats.Stats;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SpicyStew implements Effect {
+public class SpicyStew implements Effect
+{
 
 	@Override
-	public StatsChanges calculate(Client client) {
+	public StatsChanges calculate(Client client)
+	{
 		/*
 		 * Spice boosts listed in the colour order of [Spicy stew -> Smell]
 		 */
@@ -50,7 +55,8 @@ public class SpicyStew implements Effect {
 		/*
 		 * Red spices: Attack, Strength, Defence, Ranged, Magic
 		 */
-		if (redBoost > 0) {
+		if (redBoost > 0)
+		{
 			changes.add(statChangeOf(Stats.ATTACK, redBoost, client));
 			changes.add(statChangeOf(Stats.STRENGTH, redBoost, client));
 			changes.add(statChangeOf(Stats.DEFENCE, redBoost, client));
@@ -61,7 +67,8 @@ public class SpicyStew implements Effect {
 		/*
 		 * Yellow spices: Prayer, Agility, Thieving, Slayer, Hunter
 		 */
-		if (yellowBoost > 0) {
+		if (yellowBoost > 0)
+		{
 			changes.add(statChangeOf(Stats.PRAYER, yellowBoost, client));
 			changes.add(statChangeOf(Stats.AGILITY, yellowBoost, client));
 			changes.add(statChangeOf(Stats.THIEVING, yellowBoost, client));
@@ -72,7 +79,8 @@ public class SpicyStew implements Effect {
 		/*
 		 * Orange spices: Smithing, Cooking, Crafting, Firemaking, Fletching, Runecraft, Construction
 		 */
-		if (orangeBoost > 0) {
+		if (orangeBoost > 0)
+		{
 			changes.add(statChangeOf(Stats.SMITHING, orangeBoost, client));
 			changes.add(statChangeOf(Stats.COOKING, orangeBoost, client));
 			changes.add(statChangeOf(Stats.CRAFTING, orangeBoost, client));
@@ -85,7 +93,8 @@ public class SpicyStew implements Effect {
 		/*
 		 * Brown spices: Mining, Herblore, Fishing, Woodcutting, Farming
 		 */
-		if (brownBoost > 0) {
+		if (brownBoost > 0)
+		{
 			changes.add(statChangeOf(Stats.MINING, brownBoost, client));
 			changes.add(statChangeOf(Stats.HERBLORE, brownBoost, client));
 			changes.add(statChangeOf(Stats.FISHING, brownBoost, client));
@@ -106,7 +115,8 @@ public class SpicyStew implements Effect {
 	 * @param spiceDoses Number of doses between 0 and 3.
 	 * @return Either 0, +1, +3, or +5.
 	 */
-	private static int spiceBoostOf(int spiceDoses) {
+	private static int spiceBoostOf(int spiceDoses)
+	{
 		return Math.max(0, (spiceDoses * 2) - 1);
 	}
 
@@ -118,7 +128,8 @@ public class SpicyStew implements Effect {
 	 * @param client     Client API, needed to check current stat values.
 	 * @return StatChange object with all required values.
 	 */
-	private static StatChange statChangeOf(Stat stat, int spiceBoost, Client client) {
+	private static StatChange statChangeOf(Stat stat, int spiceBoost, Client client)
+	{
 		int currentValue = stat.getValue(client);
 		int currentBase = stat.getMaximum(client);
 
@@ -135,11 +146,16 @@ public class SpicyStew implements Effect {
 		change.setAbsolute(stat.getValue(client) + spiceBoostCapped);
 
 		Positivity positivity;
-		if (spiceBoostCapped == 0) {
+		if (spiceBoostCapped == 0)
+		{
 			positivity = Positivity.NO_CHANGE;
-		} else if (spiceBoost > spiceBoostCapped) {
+		}
+		else if (spiceBoost > spiceBoostCapped)
+		{
 			positivity = Positivity.BETTER_CAPPED;
-		} else {
+		}
+		else
+		{
 			positivity = Positivity.BETTER_UNCAPPED;
 		}
 		change.setPositivity(positivity);

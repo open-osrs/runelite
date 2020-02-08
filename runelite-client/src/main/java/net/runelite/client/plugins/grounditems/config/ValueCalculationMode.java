@@ -31,7 +31,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-public enum ValueCalculationMode {
+public enum ValueCalculationMode
+{
 	HA, // calc highlight by HA value
 	GE, // calc by GE
 	HIGHEST

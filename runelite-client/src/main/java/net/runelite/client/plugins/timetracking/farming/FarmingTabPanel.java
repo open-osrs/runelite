@@ -26,6 +26,14 @@
 package net.runelite.client.plugins.timetracking.farming;
 
 import com.google.common.base.Strings;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.timetracking.TabContentPanel;
 import net.runelite.client.plugins.timetracking.TimeTrackingConfig;
@@ -33,26 +41,20 @@ import net.runelite.client.plugins.timetracking.TimeablePanel;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-public class FarmingTabPanel extends TabContentPanel {
+public class FarmingTabPanel extends TabContentPanel
+{
 	private final FarmingTracker farmingTracker;
 	private final ItemManager itemManager;
 	private final TimeTrackingConfig config;
 	private final List<TimeablePanel<FarmingPatch>> patchPanels;
 
 	FarmingTabPanel(
-			FarmingTracker farmingTracker,
-			ItemManager itemManager,
-			TimeTrackingConfig config,
-			Set<FarmingPatch> patches
-	) {
+		FarmingTracker farmingTracker,
+		ItemManager itemManager,
+		TimeTrackingConfig config,
+		Set<FarmingPatch> patches
+	)
+	{
 		this.farmingTracker = farmingTracker;
 		this.itemManager = itemManager;
 		this.config = config;
@@ -70,18 +72,23 @@ public class FarmingTabPanel extends TabContentPanel {
 		PatchImplementation lastImpl = null;
 
 		boolean first = true;
-		for (FarmingPatch patch : patches) {
+		for (FarmingPatch patch : patches)
+		{
 			String title = patch.getRegion().getName() + (Strings.isNullOrEmpty(patch.getName()) ? "" : " (" + patch.getName() + ")");
 			TimeablePanel<FarmingPatch> p = new TimeablePanel<>(patch, title, 1);
 
 			/* Show labels to subdivide tabs into sections */
-			if (patch.getImplementation() != lastImpl && !Strings.isNullOrEmpty(patch.getImplementation().getName())) {
+			if (patch.getImplementation() != lastImpl && !Strings.isNullOrEmpty(patch.getImplementation().getName()))
+			{
 				JLabel groupLabel = new JLabel(patch.getImplementation().getName());
 
-				if (first) {
+				if (first)
+				{
 					first = false;
 					groupLabel.setBorder(new EmptyBorder(4, 0, 0, 0));
-				} else {
+				}
+				else
+				{
 					groupLabel.setBorder(new EmptyBorder(15, 0, 0, 0));
 				}
 
@@ -97,7 +104,8 @@ public class FarmingTabPanel extends TabContentPanel {
 			c.gridy++;
 
 			/* This is a weird hack to remove the top border on the first tracker of every tab */
-			if (first) {
+			if (first)
+			{
 				first = false;
 				p.setBorder(null);
 			}
@@ -106,19 +114,23 @@ public class FarmingTabPanel extends TabContentPanel {
 	}
 
 	@Override
-	public int getUpdateInterval() {
+	public int getUpdateInterval()
+	{
 		return 50; // 10 seconds
 	}
 
 	@Override
-	public void update() {
+	public void update()
+	{
 		long unixNow = Instant.now().getEpochSecond();
 
-		for (TimeablePanel<FarmingPatch> panel : patchPanels) {
+		for (TimeablePanel<FarmingPatch> panel : patchPanels)
+		{
 			FarmingPatch patch = panel.getTimeable();
 			PatchPrediction prediction = farmingTracker.predictPatch(patch);
 
-			if (prediction == null) {
+			if (prediction == null)
+			{
 				itemManager.getImage(Produce.WEEDS.getItemID()).addTo(panel.getIcon());
 				panel.getIcon().setToolTipText("Unknown state");
 				panel.getProgress().setMaximumValue(0);
@@ -126,23 +138,32 @@ public class FarmingTabPanel extends TabContentPanel {
 				panel.getProgress().setVisible(false);
 				panel.getEstimate().setText("Unknown");
 				panel.getProgress().setBackground(null);
-			} else {
-				if (prediction.getProduce().getItemID() < 0) {
+			}
+			else
+			{
+				if (prediction.getProduce().getItemID() < 0)
+				{
 					panel.getIcon().setIcon(null);
 					panel.getIcon().setToolTipText("Unknown state");
-				} else {
+				}
+				else
+				{
 					itemManager.getImage(prediction.getProduce().getItemID()).addTo(panel.getIcon());
 					panel.getIcon().setToolTipText(prediction.getProduce().getName());
 				}
 
-				switch (prediction.getCropState()) {
+				switch (prediction.getCropState())
+				{
 					case HARVESTABLE:
 						panel.getEstimate().setText("Done");
 						break;
 					case GROWING:
-						if (prediction.getDoneEstimate() < unixNow) {
+						if (prediction.getDoneEstimate() < unixNow)
+						{
 							panel.getEstimate().setText("Done");
-						} else {
+						}
+						else
+						{
 							panel.getEstimate().setText("Done " + getFormattedEstimate(prediction.getDoneEstimate() - unixNow, config.estimateRelative()));
 						}
 						break;
@@ -155,12 +176,15 @@ public class FarmingTabPanel extends TabContentPanel {
 				}
 
 				/* Hide any fully grown weeds' progress bar. */
-				if (prediction.getProduce() != Produce.WEEDS || prediction.getStage() < prediction.getStages() - 1) {
+				if (prediction.getProduce() != Produce.WEEDS || prediction.getStage() < prediction.getStages() - 1)
+				{
 					panel.getProgress().setVisible(true);
 					panel.getProgress().setForeground(prediction.getCropState().getColor().darker());
 					panel.getProgress().setMaximumValue(prediction.getStages() - 1);
 					panel.getProgress().setValue(prediction.getStage());
-				} else {
+				}
+				else
+				{
 					panel.getProgress().setVisible(false);
 				}
 			}

@@ -25,43 +25,52 @@
 package net.runelite.client.plugins.menuentryswapper;
 
 import com.google.common.base.Splitter;
-
-import javax.inject.Singleton;
 import java.util.List;
+import javax.inject.Singleton;
 
 @Singleton
-public class PrioParse {
-	public static boolean parse(String value) {
-		if (value.equals("")) {
+public class PrioParse
+{
+	public static boolean parse(String value)
+	{
+		if (value.equals(""))
+		{
 			return true;
 		}
 
-		try {
+		try
+		{
 			final StringBuilder sb = new StringBuilder();
 
-			for (String str : value.split("\n")) {
-				if (!str.startsWith("//")) {
+			for (String str : value.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
 					sb.append(str).append("\n");
 				}
 			}
 
 			final Splitter NEWLINE_SPLITTER = Splitter
-					.on("\n")
-					.omitEmptyStrings()
-					.trimResults();
+				.on("\n")
+				.omitEmptyStrings()
+				.trimResults();
 
 			final List<String> tmp = NEWLINE_SPLITTER.splitToList(sb);
 
-			for (String s : tmp) {
+			for (String s : tmp)
+			{
 				final String[] strings = s.split(",");
 
-				if (strings.length <= 1) {
+				if (strings.length <= 1)
+				{
 					return false;
 				}
 			}
 
 			return tmp.size() > 0;
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			return false;
 		}
 	}
